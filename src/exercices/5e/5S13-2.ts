@@ -1,17 +1,19 @@
 import { diagrammeBarres } from '../../lib/2d/diagrammes'
+import { fixeBordures } from '../../lib/2d/fixeBordures'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
-import {
-  choice,
-  shuffle,
-} from '../../lib/outils/arrayOutils'
+import { choice, shuffle } from '../../lib/outils/arrayOutils'
 import { egalOuApprox } from '../../lib/outils/ecritures'
 import { arrondi } from '../../lib/outils/nombres'
 import { numAlpha, sp } from '../../lib/outils/outilString'
 import { texNombre } from '../../lib/outils/texNombre'
-import { fixeBordures, mathalea2d } from '../../modules/2dGeneralites'
 import { context } from '../../modules/context'
 import { fraction } from '../../modules/fractions'
-import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils'
+import { mathalea2d } from '../../modules/mathalea2d'
+import {
+  gestionnaireFormulaireTexte,
+  listeQuestionsToContenu,
+  randint,
+} from '../../modules/outils'
 import Exercice from '../Exercice'
 
 import { tableauColonneLigne } from '../../lib/2d/tableau'
@@ -568,7 +570,7 @@ export default class CalculerDesFrequences extends Exercice {
     this.sup = '3'
     this.besoinFormulaireTexte = [
       'Type de questions',
-     `Nombres séparés par des tirets\n${[
+      `Nombres séparés par des tirets\n${[
         "1 : Calculer des fréquences à partir d'un tableau d'effectifs",
         "2 : Calculer des fréquences à partir d'un diagramme bâton",
         '3 : Mélange',
@@ -595,7 +597,14 @@ export default class CalculerDesFrequences extends Exercice {
       corrections: [],
     }
     let transit
-    const typeDeQuestions = gestionnaireFormulaireTexte({ saisie: this.sup, min: 1, max: 2, defaut: 1, melange: 3, nbQuestions: this.nbQuestions }).map(Number)
+    const typeDeQuestions = gestionnaireFormulaireTexte({
+      saisie: this.sup,
+      min: 1,
+      max: 2,
+      defaut: 1,
+      melange: 3,
+      nbQuestions: this.nbQuestions,
+    }).map(Number)
     for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50; ) {
       switch (typeDeQuestions[i]) {
         case 1: // tableau

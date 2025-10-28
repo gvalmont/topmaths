@@ -8,6 +8,7 @@ import {
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import Exercice from '../Exercice'
 
+import { fixeBordures } from '../../lib/2d/fixeBordures'
 import { texteParPosition } from '../../lib/2d/textes'
 import {
   ajouteCanvas3d,
@@ -24,12 +25,9 @@ import {
   setCliqueFigure,
   type MathaleaSVG,
 } from '../../lib/interactif/gestionInteractif'
-import {
-  fixeBordures,
-  mathalea2d,
-  type NestedObjetMathalea2dArray,
-} from '../../modules/2dGeneralites'
 import { context } from '../../modules/context'
+import { mathalea2d } from '../../modules/mathalea2d'
+import type { NestedObjetMathalea2dArray } from '../../types/2d'
 export const amcReady = true
 export const amcType = 'qcmMono'
 export const interactifReady = true

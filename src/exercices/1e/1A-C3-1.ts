@@ -1,7 +1,5 @@
 import { choice } from '../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
-import { texNombre } from '../../lib/outils/texNombre'
-import { randint } from '../../modules/outils'
 import ExerciceQcmA from '../ExerciceQcmA'
 export const dateDePublication = '23/07/2025'
 export const uuid = '6682b'
@@ -14,54 +12,56 @@ export const interactifReady = true
 export const interactifType = 'qcm'
 export const amcReady = 'true'
 export const amcType = 'qcmMono'
-export const titre = 'Calculer avec des puissances (1)'
-export default class Puissances extends ExerciceQcmA {
-  versionOriginale: () => void = () => {
-    this.enonce = 'On considère le nombre $N=\\dfrac{10^7}{5^2}$. On a :'
+export const titre = 'Transformer un calcul comportant des puissances'
+export default class Auto1AC3a extends ExerciceQcmA {
+  private appliquerLesValeurs(
+    a: number[],
+    n: number,
+    k: number
+  ): void {
+    const produit = a[0] * a[1]
+    const exposantTotal = n + k
+    
+    this.enonce = `On considère le nombre $N=\\dfrac{${produit}^${exposantTotal}}{${a[0]}^${n}}$. On a :<br>`
+    
     this.correction = `$\\begin{aligned}
-    N&=\\dfrac{10^7}{5^2}\\\\
-    &=\\dfrac{2^7\\times 5^7}{5^2}\\\\
-    &=2^7\\times 5^{7-2}\\\\
-    &=2^7\\times 5^5\\\\
-    &=(2\\times 5)^5\\times 2^2\\\\
-    &=${miseEnEvidence('4\\times 10^5')}
+    N&=\\dfrac{${produit}^${exposantTotal}}{${a[0]}^${n}}\\\\
+    &=\\dfrac{${a[0]}^${exposantTotal}\\times ${a[1]}^${exposantTotal} }{${a[0]}^${n}}\\\\
+    &=${a[1]}^${exposantTotal}\\times ${a[0]}^{${k}}\\\\
+    &=${produit}^${k}\\times ${a[1]}^{${n}}\\\\
+    &=${miseEnEvidence(`${a[1] ** n}\\times ${produit}^{${k}}`)}
     \\end{aligned}$`
-
+    
     this.reponses = [
-      '$N=4\\times 10^5$',
-      '$N= 2^5$',
-      `$N=${texNombre(20000)}$`,
-      '$N=\\dfrac{1}{10^5}$',
+      ` $N=${a[1] ** n}\\times ${produit}^{${k}}$`,
+      `$N=${a[1]}^{${k}}$`,
+      `$N=${produit}^{${k}}$`,
+      `$N=${a[0] ** n}\\times ${produit}^{${k}}$`,
     ]
+  }
+
+  versionOriginale: () => void = () => {
+    this.appliquerLesValeurs([2, 5], 2, 5)
   }
 
   versionAleatoire = () => {
-    const a = choice([
-      [5, 2],
-      [2, 5],
-      [5, 3],
-      [5, 3],
-      [2, 3],
-      [3, 2],
-    ])
-    const n = randint(2, 4)
-    const k = randint(2, 3)
-    this.enonce = `
-        On considère le nombre $N=\\dfrac{${a[0] * a[1]}^${n + k}}{${a[0]}^${n}}$. On a :<br>`
-    this.correction = `$\\begin{aligned}
-    N&=\\dfrac{${a[0] * a[1]}^${n + k}}{${a[0]}^${n}}\\\\
-    &=\\dfrac{${a[0]}^${n + k}\\times ${a[1]}^${n + k} }{${a[0]}^${n}}\\\\
-    &=${a[1]}^${n + k}\\times ${a[0]}^{${k}}\\\\
-    &=${a[1] * a[0]}^${k}\\times ${a[1]}^{${n}}\\\\
-    &=${miseEnEvidence(`${a[1] ** n}\\times ${a[0] * a[1]}^{${k}}`)}
-    \\end{aligned}$`
-    this.reponses = [
-      ` $N=${a[1] ** n}\\times ${a[0] * a[1]}^{${k}}$`,
-      `$N=${a[1]}^{${k}}$`,
-      `$N=${a[0] * a[1]}^{${k}}$`,
-      `$N=${a[0] ** n}\\times ${a[0] * a[1]}^{${k}}$`,
-    ]
-  }
+  const choix = choice([
+    // Cas simples avec base 10
+    { a: [5, 2], n: 2, k: 2 },  // 10^4 / 5^2
+    { a: [5, 2], n: 3, k: 2 },  // 10^5 / 5^3
+    { a: [2, 5], n: 2, k: 2 },  // 10^4 / 2^2
+    { a: [2, 5], n: 3, k: 2 },  // 10^5 / 2^3
+    
+    // Cas avec base 6
+    { a: [2, 3], n: 2, k: 2 },  // 6^4 / 2^2
+    { a: [3, 2], n: 2, k: 2 },  // 6^4 / 3^2
+    
+    // Cas avec base 15 (un peu plus difficile)
+    { a: [5, 3], n: 3, k: 2 },  // 15^5 / 5^3
+    { a: [3, 5], n: 3, k: 2 },  // 15^5 / 3^3
+  ])
+  this.appliquerLesValeurs(choix.a, choix.n, choix.k)
+}
 
   constructor() {
     super()

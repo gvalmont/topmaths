@@ -9,8 +9,8 @@ import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { arrondi } from '../../lib/outils/nombres'
 import { lettreDepuisChiffre, sp } from '../../lib/outils/outilString'
 import { texNombre } from '../../lib/outils/texNombre'
-import { mathalea2d } from '../../modules/2dGeneralites'
 import { context } from '../../modules/context'
+import { mathalea2d } from '../../modules/mathalea2d'
 import {
   contraindreValeur,
   listeQuestionsToContenuSansNumero,

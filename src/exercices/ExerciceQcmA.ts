@@ -9,8 +9,9 @@ export default class ExerciceQcmA extends ExerciceQcm {
     this.besoinFormulaire4CaseACocher = ['Ajout de « Je ne sais pas »', false]
     this.sup = false
     this.sup4 = false
-
-    this.versionAleatoire()
+    this.enonce = ''
+    this.reponses = []
+    this.correction = ''
   }
 
   aleatoire: () => void = () => {}

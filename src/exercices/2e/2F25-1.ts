@@ -5,7 +5,7 @@ import { segment } from '../../lib/2d/segmentsVecteurs'
 import { latexParCoordonnees, texteParPosition } from '../../lib/2d/textes'
 import { combinaisonListes } from '../../lib/outils/arrayOutils'
 import { texFractionReduite } from '../../lib/outils/deprecatedFractions'
-import { mathalea2d } from '../../modules/2dGeneralites'
+import { mathalea2d } from '../../modules/mathalea2d'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import Exercice from '../Exercice'
 

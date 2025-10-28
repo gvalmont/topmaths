@@ -9,7 +9,7 @@ import { milieu, point } from '../../../lib/2d/points'
 import { segment } from '../../../lib/2d/segmentsVecteurs'
 import { latex2d } from '../../../lib/2d/textes'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
-import { mathalea2d } from '../../../modules/2dGeneralites'
+import { mathalea2d } from '../../../modules/mathalea2d'
 export const titre = "Déterminer le périmètre d'un triangle"
 export const interactifReady = true
 export const interactifType = 'mathLive'

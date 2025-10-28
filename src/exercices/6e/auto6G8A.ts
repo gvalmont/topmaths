@@ -1,7 +1,7 @@
+import { fixeBordures } from '../../lib/2d/fixeBordures'
 import { milieu, point, tracePoint } from '../../lib/2d/points'
 import { cone as cone2d, sphere2d } from '../../lib/2d/projections3d'
 import { Segment, segment } from '../../lib/2d/segmentsVecteurs'
-import type { Latex2d } from '../../lib/2d/textes'
 import { homothetie } from '../../lib/2d/transformations'
 import {
   arc3d,
@@ -24,17 +24,14 @@ import { propositionsQcm } from '../../lib/interactif/qcm'
 import { ajouteChampTexte } from '../../lib/interactif/questionMathLive'
 import { choice } from '../../lib/outils/arrayOutils'
 import { premiereLettreEnMajuscule } from '../../lib/outils/outilString'
-import {
-  fixeBordures,
-  mathalea2d,
-  ObjetMathalea2D,
-} from '../../modules/2dGeneralites'
 import { context } from '../../modules/context'
+import { mathalea2d } from '../../modules/mathalea2d'
 import {
   gestionnaireFormulaireTexte,
   listeQuestionsToContenu,
   randint,
 } from '../../modules/outils'
+import type { NestedObjetMathalea2dArray } from '../../types/2d'
 import Exercice from '../Exercice'
 
 export const titre = 'Reconnaitre des solides'
@@ -110,7 +107,7 @@ export default class ReconnaitreDesSolides extends Exercice {
     for (let j = 0, k = 0; j < this.nbQuestions && k < 50; k++) {
       const choix = typeDeQuestion[k]
       context.anglePerspective = 30
-      const objets: (ObjetMathalea2D | Latex2d)[] = []
+      const objets: NestedObjetMathalea2dArray = []
       let reponseQcm
 
       let axe =
@@ -210,7 +207,7 @@ export default class ReconnaitreDesSolides extends Exercice {
             } else {
               pyra = pyramide3d(base, p3)
               const objs = pyra.c2d
-              objets.push(...(objs as (ObjetMathalea2D | Latex2d)[]))
+              objets.push(...(objs as NestedObjetMathalea2dArray))
               texteCorrection = `Pyramide avec une base ayant $${pyra.base.listePoints.length}$ sommets.` // et selon l'axe=$${axe}$`
             }
           }
@@ -237,7 +234,7 @@ export default class ReconnaitreDesSolides extends Exercice {
             /* for (let kk = 15; kk < 25; kk++) {
               cone.c2d[kk].isVisible = (kk % 2)
             } */
-            objets.push(...(cone.c2d as (ObjetMathalea2D | Latex2d)[]))
+            objets.push(...(cone.c2d as NestedObjetMathalea2dArray))
           } else if (axe === 2) {
             cone = cone3d(
               point3d(0, 0, 0),
@@ -255,7 +252,7 @@ export default class ReconnaitreDesSolides extends Exercice {
             /* for (let kk = 3; kk < 3 + 17; kk++) {
               cone.c2d[kk].isVisible = (kk % 2)
             } */
-            objets.push(...(cone.c2d as (ObjetMathalea2D | Latex2d)[]))
+            objets.push(...(cone.c2d as NestedObjetMathalea2dArray))
           } else {
             cone = cone2d({
               centre: point(0, 0),

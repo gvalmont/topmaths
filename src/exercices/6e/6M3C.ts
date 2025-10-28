@@ -3,10 +3,10 @@ import {
   texteEnCouleur,
   texteEnCouleurEtGras,
 } from '../../lib/outils/embellissements'
-import Exercice from '../Exercice'
-import { mathalea2d, ObjetMathalea2D } from '../../modules/2dGeneralites'
 import { context } from '../../modules/context'
+import { mathalea2d } from '../../modules/mathalea2d'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
+import Exercice from '../Exercice'
 
 import {
   barre3d,
@@ -14,9 +14,10 @@ import {
   paveLPH3d,
   plaque3d,
 } from '../../lib/3d/3dProjectionMathalea2d/solides'
-import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
-import { setReponse } from '../../lib/interactif/gestionInteractif'
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
+import { setReponse } from '../../lib/interactif/gestionInteractif'
+import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
+import type { NestedObjetMathalea2dArray } from '../../types/2d'
 
 export const titre = 'Déterminer le volume de pavés droit par dénombrement'
 export const interactifReady = true
@@ -44,7 +45,7 @@ export default class VolumesPavesParDenombrement extends Exercice {
     context.anglePerspective = 30
     context.coeffPerspective = 0.5
     const dimensions = []
-    const objetsAtracer: ObjetMathalea2D[] = []
+    const objetsAtracer: NestedObjetMathalea2dArray = []
     for (
       let q = 0,
         cpt = 0,
@@ -60,7 +61,7 @@ export default class VolumesPavesParDenombrement extends Exercice {
       q < this.nbQuestions && cpt < 50;
 
     ) {
-      const pavesCorr: ObjetMathalea2D[][] = []
+      const pavesCorr: NestedObjetMathalea2dArray[] = []
       l = randint(5, 10)
       p = randint(2, 5)
       h = randint(3, 6)

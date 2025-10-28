@@ -111,7 +111,7 @@
   })
 
   onMount(async () => {
-    log('onMount')
+    log('onMount:' + exercise.id + ', v:' + $globalOptions.v)
     document.addEventListener('newDataForAll', newData)
     document.addEventListener('setAllInteractif', setAllInteractif)
     document.addEventListener('removeAllInteractif', removeAllInteractif)
@@ -125,13 +125,13 @@
   })
 
   beforeUpdate(async () => {
-    log('beforeUpdate:' + exercise.id)
+    log('beforeUpdate:' + exercise.id + ', v:' + $globalOptions.v)
     numberOfAnswerFields = countMathField(exercise)
     log('isCorrectVisible:' + isCorrectVisible)
   })
 
   afterUpdate(async () => {
-    log('afterUpdate')
+    log('afterUpdate:' + exercise.id + ', v:' + $globalOptions.v)
     // console.trace()
     // const starttime = window.performance.now()
     if (exercise) {
@@ -229,15 +229,15 @@
     }
   }
 
-  const debug = false
+  let debug = false
   function log(str: string) {
-    if (debug) {
+    if (debug || window.logDebug > 1) {
       console.info(str)
     }
   }
 
   async function updateDisplay() {
-    log('updateDisplay')
+    log('updateDisplay:' + exercise.id + ', v:' + $globalOptions.v)
     if (exercise.typeExercice === 'simple') {
       if (exercise.seed === undefined) exercise.seed = mathaleaGenerateSeed()
       seedrandom(exercise.seed, { global: true })
@@ -272,6 +272,7 @@
       typeof exercise.nouvelleVersionWrapper === 'function'
     ) {
       if (exercise.seed === undefined) exercise.seed = mathaleaGenerateSeed()
+      log('nouvelleVersionWrapper:' + exercise.id + ', v:' + $globalOptions.v)
       seedrandom(exercise.seed, { global: true })
       exercise.nouvelleVersionWrapper(exerciseIndex)
     }

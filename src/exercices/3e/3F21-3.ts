@@ -1,23 +1,24 @@
 import { cercle } from '../../lib/2d/cercle'
+import { colorToLatexOrHTML } from '../../lib/2d/colorToLatexOrHtml'
 import { droite } from '../../lib/2d/droites'
 import { milieu, point } from '../../lib/2d/points'
 import { repere } from '../../lib/2d/reperes'
 import { segment } from '../../lib/2d/segmentsVecteurs'
 import { texteParPoint } from '../../lib/2d/textes'
-import { choice } from '../../lib/outils/arrayOutils'
-import { ecritureAlgebrique, rienSi1 } from '../../lib/outils/ecritures'
-import { numAlpha, sp } from '../../lib/outils/outilString'
-import { texNombre } from '../../lib/outils/texNombre'
-import Exercice from '../Exercice'
-import { colorToLatexOrHTML, mathalea2d } from '../../modules/2dGeneralites'
-import { listeQuestionsToContenu, randint } from '../../modules/outils'
-import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
-import { context } from '../../modules/context'
+import { functionCompare } from '../../lib/interactif/comparisonFunctions'
 import {
   handleAnswers,
   setReponse,
 } from '../../lib/interactif/gestionInteractif'
-import { functionCompare } from '../../lib/interactif/comparisonFunctions'
+import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
+import { choice } from '../../lib/outils/arrayOutils'
+import { ecritureAlgebrique, rienSi1 } from '../../lib/outils/ecritures'
+import { numAlpha, sp } from '../../lib/outils/outilString'
+import { texNombre } from '../../lib/outils/texNombre'
+import { context } from '../../modules/context'
+import { mathalea2d } from '../../modules/mathalea2d'
+import { listeQuestionsToContenu, randint } from '../../modules/outils'
+import Exercice from '../Exercice'
 
 export const titre =
   "Lire graphiquement les caractéristiques de la courbe représentative d'une fonction affine ou linéaire"

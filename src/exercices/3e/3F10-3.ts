@@ -2,22 +2,22 @@ import { droiteParPointEtPente } from '../../lib/2d/droites'
 import { point, tracePoint } from '../../lib/2d/points'
 import { repere } from '../../lib/2d/reperes'
 import { labelPoint, texteParPosition } from '../../lib/2d/textes'
+import { propositionsQcm } from '../../lib/interactif/qcm'
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
 import {
   reduireAxPlusB,
   reduirePolynomeDegre3,
 } from '../../lib/outils/ecritures'
+import { range } from '../../lib/outils/nombres'
 import { sp } from '../../lib/outils/outilString'
-import Exercice from '../Exercice'
-import { mathalea2d } from '../../modules/2dGeneralites'
+import { context } from '../../modules/context'
+import { mathalea2d } from '../../modules/mathalea2d'
 import {
   gestionnaireFormulaireTexte,
   listeQuestionsToContenu,
   randint,
 } from '../../modules/outils'
-import { propositionsQcm } from '../../lib/interactif/qcm'
-import { context } from '../../modules/context'
-import { range } from '../../lib/outils/nombres'
+import Exercice from '../Exercice'
 
 export const interactifReady = true
 export const interactifType = 'qcm'

@@ -1,3 +1,4 @@
+import { fixeBordures } from '../../../lib/2d/fixeBordures'
 import {
   ajouteCanvas3d,
   type Elements3DDescription,
@@ -5,8 +6,8 @@ import {
 import { paveLPH3d } from '../../../lib/3d/3dProjectionMathalea2d/solides'
 import { createUuid } from '../../../lib/outils/aleatoires'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
-import { fixeBordures, mathalea2d } from '../../../modules/2dGeneralites'
 import { context } from '../../../modules/context'
+import { mathalea2d } from '../../../modules/mathalea2d'
 import { randint } from '../../../modules/outils'
 import ExerciceSimple from '../../ExerciceSimple'
 export const titre = 'Volume de pavé droit par dénombrement de cubes unités'

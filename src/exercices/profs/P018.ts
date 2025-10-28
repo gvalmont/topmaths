@@ -1,7 +1,8 @@
-import Exercice from '../Exercice'
-import { fixeBordures, mathalea2d } from '../../modules/2dGeneralites'
+import { fixeBordures } from '../../lib/2d/fixeBordures'
+import { mathalea2d } from '../../modules/mathalea2d'
 import { listeQuestionsToContenu } from '../../modules/outils'
 import Pyramide from '../../modules/pyramide'
+import Exercice from '../Exercice'
 export const titre = 'Générateur de pyramides'
 
 export const refs = {

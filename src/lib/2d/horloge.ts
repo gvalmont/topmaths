@@ -1,6 +1,6 @@
-import { ObjetMathalea2D } from '../../modules/2dGeneralites'
 import type Hms from '../../modules/Hms'
 import { cercle } from './cercle'
+import { ObjetMathalea2D } from './ObjetMathalea2D'
 import { point } from './points'
 import { polygone } from './polygones'
 import { segment, vecteur } from './segmentsVecteurs'

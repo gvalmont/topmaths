@@ -1,7 +1,3 @@
-import {
-  colorToLatexOrHTML,
-  ObjetMathalea2D,
-} from '../../modules/2dGeneralites'
 import type { Point3d } from '../3d/3dProjectionMathalea2d/elements'
 
 import { context } from '../../modules/context'
@@ -13,7 +9,9 @@ import {
 } from '../../modules/outils'
 import { degToRad } from '../mathFonctions/trigo'
 import { arrondi } from '../outils/nombres'
+import { ObjetMathalea2D } from './ObjetMathalea2D'
 import { Cercle, cercle } from './cercle'
+import { colorToLatexOrHTML } from './colorToLatexOrHtml'
 import {
   droite,
   Droite,

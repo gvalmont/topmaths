@@ -1,5 +1,5 @@
 import { courbe } from '../../lib/2d/courbes'
-import {  droiteParPointEtPente } from '../../lib/2d/droites'
+import { droiteParPointEtPente } from '../../lib/2d/droites'
 import { point } from '../../lib/2d/points'
 import { repere } from '../../lib/2d/reperes'
 import { segment } from '../../lib/2d/segmentsVecteurs'
@@ -9,13 +9,13 @@ import { choice } from '../../lib/outils/arrayOutils'
 import { texteEnCouleurEtGras } from '../../lib/outils/embellissements'
 import { texNombre } from '../../lib/outils/texNombre'
 
-import { mathalea2d } from '../../modules/2dGeneralites'
+import { mathalea2d } from '../../modules/mathalea2d'
 import { randint } from '../../modules/outils'
 import ExerciceQcmA from '../ExerciceQcmA'
 export const dateDePublication = '02/10/2025'
 export const dateDeModifImportante = '12/10/2025'
 export const uuid = 'cc015'
-// 
+//
 /**
  *
  * @author Gilles Mora + Claude ia pour la factorisation
@@ -29,22 +29,31 @@ export const interactifReady = true
 export const interactifType = 'qcm'
 export const amcReady = 'true'
 export const amcType = 'qcmMono'
-export const titre = 'Résoudre une inéquation du type $\\sqrt{x}<a$ ou $\\sqrt{x}>a$ (avec ou sans courbe)'
+export const titre =
+  'Résoudre une inéquation du type $\\sqrt{x}<a$ ou $\\sqrt{x}>a$ (avec ou sans courbe)'
 
 export default class Auto1AC10f extends ExerciceQcmA {
-   private appliquerLesValeurs(
+  private appliquerLesValeurs(
     val: number,
     estInegStrict: boolean,
-    typeInequation: 'inf' | 'sup'
+    typeInequation: 'inf' | 'sup',
   ): void {
     // Détermination du signe d'inégalité
     const signeInégalité =
       typeInequation === 'inf'
-        ? estInegStrict ? '<' : ' \\leqslant '
-        : estInegStrict ? '>' : ' \\geqslant '
+        ? estInegStrict
+          ? '<'
+          : ' \\leqslant '
+        : estInegStrict
+          ? '>'
+          : ' \\geqslant '
 
     // Création des éléments graphiques
-    const elements = this.creerElementsGraphiques(val, estInegStrict, typeInequation)
+    const elements = this.creerElementsGraphiques(
+      val,
+      estInegStrict,
+      typeInequation,
+    )
     const { graphique, graphiqueC } = this.creerGraphiques(val, elements)
     const reponses = this.formaterReponses(val, estInegStrict, typeInequation)
 
@@ -55,7 +64,7 @@ export default class Auto1AC10f extends ExerciceQcmA {
       : `${deuxColonnes(
           `On a représenté la courbe d'équation $y=\\sqrt{x}$. <br><br>
            On note $(I)$ l'inéquation, sur $[0\\,;\\,+\\infty[$, $\\sqrt{x}${signeInégalité} ${val}$.<br><br>`,
-          `${graphique}`
+          `${graphique}`,
         )}<br> L'ensemble des solutions $S$ de cette inéquation est :`
 
     // Correction
@@ -64,7 +73,7 @@ export default class Auto1AC10f extends ExerciceQcmA {
       estInegStrict,
       typeInequation,
       graphiqueC,
-      reponses[0]
+      reponses[0],
     )
 
     // Réponses
@@ -75,7 +84,7 @@ export default class Auto1AC10f extends ExerciceQcmA {
   private creerElementsGraphiques(
     val: number,
     estInegStrict: boolean,
-    typeInequation: 'inf' | 'sup'
+    typeInequation: 'inf' | 'sup',
   ) {
     const o = latex2d('\\text{O}', -0.2, -0.3, { letterSize: 'scriptsize' })
 
@@ -113,7 +122,7 @@ export default class Auto1AC10f extends ExerciceQcmA {
     const textes = [
       latex2d(`y=${val}`, 4, valGraphique - 0.3, {
         letterSize: 'scriptsize',
-        color: 'green'
+        color: 'green',
       }),
       latex2d('y=\\sqrt{x}', 3, 2.3, {
         letterSize: 'scriptsize',
@@ -173,7 +182,7 @@ export default class Auto1AC10f extends ExerciceQcmA {
       },
       r1,
       o,
-      courbe(f, { repere: r1, color: 'blue', epaisseur: 2 })
+      courbe(f, { repere: r1, color: 'blue', epaisseur: 2 }),
     )
 
     // Graphique complet pour la correction
@@ -192,7 +201,7 @@ export default class Auto1AC10f extends ExerciceQcmA {
       o,
       sAAx,
       ...segmentsSolution,
-      ...textes
+      ...textes,
     )
 
     return { graphique, graphiqueC }
@@ -202,7 +211,7 @@ export default class Auto1AC10f extends ExerciceQcmA {
   private formaterReponses(
     val: number,
     estInegStrict: boolean,
-    typeInequation: 'inf' | 'sup'
+    typeInequation: 'inf' | 'sup',
   ) {
     const borne = val ** 2
     const borneIncorrecte1 = val
@@ -257,13 +266,17 @@ export default class Auto1AC10f extends ExerciceQcmA {
     estInegStrict: boolean,
     typeInequation: 'inf' | 'sup',
     graphiqueC: any,
-    reponseCorrecte: string
+    reponseCorrecte: string,
   ) {
     const borne = val ** 2
     const positionText =
       typeInequation === 'inf'
-        ? estInegStrict ? 'strictement en dessous de' : 'sur ou sous'
-        : estInegStrict ? 'strictement au dessus de' : 'sur ou au dessus de'
+        ? estInegStrict
+          ? 'strictement en dessous de'
+          : 'sur ou sous'
+        : estInegStrict
+          ? 'strictement au dessus de'
+          : 'sur ou au dessus de'
 
     return `Pour résoudre graphiquement cette inéquation : <br>
             $\\bullet$ On trace la courbe d'équation $y=\\sqrt{x}$. <br>
@@ -276,9 +289,9 @@ export default class Auto1AC10f extends ExerciceQcmA {
   versionOriginale: () => void = () => {
     // Version originale : √x ≤ 3
     this.appliquerLesValeurs(
-      3,      // val
-      false,  // estInegStrict
-      'inf'   // typeInequation
+      3, // val
+      false, // estInegStrict
+      'inf', // typeInequation
     )
   }
 

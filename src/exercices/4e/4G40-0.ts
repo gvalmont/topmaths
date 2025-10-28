@@ -1,16 +1,8 @@
-import {
-  type CodageAngleDroit,
-  codageAngle,
-  codageAngleDroit,
-} from '../../lib/2d/angles'
-import type { CodageAngle } from '../../lib/2d/codages'
+import { codageAngle, codageAngleDroit } from '../../lib/2d/angles'
+import { fixeBordures } from '../../lib/2d/fixeBordures'
 import { point } from '../../lib/2d/points'
-import {
-  type NommePolygone,
-  Polygone,
-  nommePolygone,
-} from '../../lib/2d/polygones'
-import { type Segment, segment } from '../../lib/2d/segmentsVecteurs'
+import { Polygone, nommePolygone } from '../../lib/2d/polygones'
+import { segment } from '../../lib/2d/segmentsVecteurs'
 import { rotation } from '../../lib/2d/transformations'
 import { propositionsQcm } from '../../lib/interactif/qcm'
 import { choice } from '../../lib/outils/arrayOutils'
@@ -19,12 +11,9 @@ import {
   texteEnCouleurEtGras,
 } from '../../lib/outils/embellissements'
 import { creerNomDePolygone } from '../../lib/outils/outilString'
-import {
-  type ObjetMathalea2D,
-  fixeBordures,
-  mathalea2d,
-} from '../../modules/2dGeneralites'
+import { mathalea2d } from '../../modules/mathalea2d'
 import { gestionnaireFormulaireTexte, randint } from '../../modules/outils'
+import type { NestedObjetMathalea2dArray } from '../../types/2d'
 import Exercice from '../Exercice'
 
 export const titre = 'Vocabulaire du triangle rectangle'
@@ -88,13 +77,7 @@ export default class VocabulaireTriangleRectangle extends Exercice {
       const hypo = segment(C, B, 'blue')
       hypo.epaisseur = 2
       const codageDeAngle = codageAngle(A, B, C, 1)
-      const objetsEnonce: Array<
-        | ObjetMathalea2D
-        | NommePolygone
-        | CodageAngle
-        | CodageAngleDroit
-        | Segment
-      > = []
+      const objetsEnonce: NestedObjetMathalea2dArray = []
 
       objetsEnonce.push(p2, nomme, codageDeAngle, codage)
       let goodAnswer: string

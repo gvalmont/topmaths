@@ -1,18 +1,16 @@
+import { grille, seyes } from '../../lib/2d/Grille'
+import { vide2d } from '../../lib/2d/Vide2d'
+import { colorToLatexOrHTML } from '../../lib/2d/colorToLatexOrHtml'
 import { milieu, point, tracePoint } from '../../lib/2d/points'
-import { grille, seyes } from '../../lib/2d/reperes'
 import { segment } from '../../lib/2d/segmentsVecteurs'
 import { labelPoint } from '../../lib/2d/textes'
 import { similitude, translation2Points } from '../../lib/2d/transformations'
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
 import { creerNomDePolygone } from '../../lib/outils/outilString'
-import Exercice from '../Exercice'
-import {
-  mathalea2d,
-  colorToLatexOrHTML,
-  vide2d,
-} from '../../modules/2dGeneralites'
-import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import { context } from '../../modules/context'
+import { mathalea2d } from '../../modules/mathalea2d'
+import { listeQuestionsToContenu, randint } from '../../modules/outils'
+import Exercice from '../Exercice'
 
 export const amcReady = true
 export const amcType = 'AMCOpen'

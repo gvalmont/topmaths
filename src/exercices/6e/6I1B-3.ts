@@ -1,22 +1,25 @@
 // on importe les fonctions nécessaires.
+import { colorToLatexOrHTML } from '../../lib/2d/colorToLatexOrHtml'
 import { point, tracePoint } from '../../lib/2d/points'
-import { grille } from '../../lib/2d/reperes'
 import { segment } from '../../lib/2d/segmentsVecteurs'
 import { texteParPoint } from '../../lib/2d/textes'
+import { texteGras } from '../../lib/format/style'
 import {
   combinaisonListesSansChangerOrdre,
   shuffle,
 } from '../../lib/outils/arrayOutils'
-import { texteGras } from '../../lib/format/style'
-import Exercice from '../Exercice'
-import { colorToLatexOrHTML, mathalea2d } from '../../modules/2dGeneralites'
 import { context } from '../../modules/context'
+import { mathalea2d } from '../../modules/mathalea2d'
 import {
   contraindreValeur,
   listeQuestionsToContenuSansNumero,
   randint,
 } from '../../modules/outils'
+import Exercice from '../Exercice'
 // Ici ce sont les fonctions de la librairie maison 2d.js qui gèrent tout ce qui est graphique (SVG/tikz) et en particulier ce qui est lié à l'objet lutin
+import { grille } from '../../lib/2d/Grille'
+import { ajouteFeedback } from '../../lib/interactif/questionMathLive'
+import { texteEnCouleurEtGras } from '../../lib/outils/embellissements'
 import {
   allerA,
   angleScratchTo2d,
@@ -29,8 +32,6 @@ import {
   tournerG,
 } from '../../modules/2dLutin'
 import { scratchblock } from '../../modules/scratchblock'
-import { ajouteFeedback } from '../../lib/interactif/questionMathLive'
-import { texteEnCouleurEtGras } from '../../lib/outils/embellissements'
 
 interface Fig extends HTMLOrSVGElement {
   etat: boolean

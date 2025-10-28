@@ -1,18 +1,18 @@
 import { courbe } from '../../lib/2d/courbes'
 import { point, tracePoint } from '../../lib/2d/points'
 import { repere } from '../../lib/2d/reperes'
+import { setReponse } from '../../lib/interactif/gestionInteractif'
+import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { combinaisonListes } from '../../lib/outils/arrayOutils'
 import {
   ecritureAlgebrique,
   ecritureParentheseSiNegatif,
 } from '../../lib/outils/ecritures'
-import Exercice from '../Exercice'
-import { mathalea2d } from '../../modules/2dGeneralites'
-import { listeQuestionsToContenu, randint } from '../../modules/outils'
-import { fraction } from '../../modules/fractions'
-import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
-import { setReponse } from '../../lib/interactif/gestionInteractif'
 import FractionEtendue from '../../modules/FractionEtendue'
+import { fraction } from '../../modules/fractions'
+import { mathalea2d } from '../../modules/mathalea2d'
+import { listeQuestionsToContenu, randint } from '../../modules/outils'
+import Exercice from '../Exercice'
 
 export const titre =
   'Déterminer une fonction affine par la donnée des images de deux nombres'

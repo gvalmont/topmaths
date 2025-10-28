@@ -30,7 +30,18 @@
   let exerciseType: ExerciseType
   let ComponentExercice: typeof SvelteComponent<any>
 
+  let debug = false
+  function log(str: string) {
+    if (debug || window.logDebug > 1) {
+      console.info(str)
+    }
+  }
+
   onMount(async () => {
+    log(
+      `Exercice.svelte mounted with paramsExercice: ` +
+        JSON.stringify(paramsExercice),
+    )
     if (isStatic(paramsExercice.uuid)) {
       exerciseType = 'static'
     } else if (isSvelte(paramsExercice.uuid)) {
@@ -40,6 +51,10 @@
       exercise = await getExercise(paramsExercice)
       exerciseType = await getExerciseType(exercise)
     }
+    log(
+      `Exercice.svelte: Loaded exercise of type ${exerciseType}: ` +
+        JSON.stringify(exercise),
+    )
   })
 
   async function getExercise(

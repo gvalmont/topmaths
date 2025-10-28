@@ -57,7 +57,7 @@ class EqCartDroite extends Exercice {
           yn = -1
           constante = -m * xA + yA
           texte = `Dans un repère orthonormé du plan, on considère le point $A(${xA}\\,;\\,${yA})$.`
-          texte += `<br>Déterminer une équation cartésienne de la droite $(d)$ passant par le point $A$ et ayant ${lang === 'fr-CH' ? 'une pente égale à' : 'pour coefficent directeur'} $${m}$`
+          texte += `<br>Déterminer une équation cartésienne de la droite $(d)$ passant par le point $A$ et ayant ${lang === 'fr-CH' ? 'une pente égale à' : 'pour coefficient directeur'} $${m}$`
           texteCorr = ''
           if (lang === 'fr-CH') {
             texteCorr =

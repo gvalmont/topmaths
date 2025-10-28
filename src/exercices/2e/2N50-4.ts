@@ -4,18 +4,18 @@ import { milieu, point } from '../../lib/2d/points'
 import { segment, segmentAvecExtremites } from '../../lib/2d/segmentsVecteurs'
 import { labelPoint, texteParPosition } from '../../lib/2d/textes'
 import { combinaisonListes } from '../../lib/outils/arrayOutils'
-import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { texFractionReduite } from '../../lib/outils/deprecatedFractions'
 import { reduireAxPlusB, rienSi1 } from '../../lib/outils/ecritures'
+import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { sp } from '../../lib/outils/outilString'
 import { stringNombre, texNombre } from '../../lib/outils/texNombre'
-import Exercice from '../Exercice'
+import { context } from '../../modules/context'
 import {
   mathalea2d,
   type NestedObjetMathalea2dArray,
-} from '../../modules/2dGeneralites'
-import { randint, listeQuestionsToContenu } from '../../modules/outils'
-import { context } from '../../modules/context'
+} from '../../modules/mathalea2d'
+import { listeQuestionsToContenu, randint } from '../../modules/outils'
+import Exercice from '../Exercice'
 export const titre =
   "Modéliser une situation géométrique à l'aide d'une équation"
 export const dateDePublication = '16/12/2021'

@@ -9,12 +9,12 @@ import {
   ecritureParentheseSiNegatif,
   rienSi1,
 } from '../../lib/outils/ecritures'
-import Exercice from '../Exercice'
-import { mathalea2d } from '../../modules/2dGeneralites'
-import { context } from '../../modules/context'
-import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import { texteEnCouleurEtGras } from '../../lib/outils/embellissements'
 import { ajouterAide } from '../../lib/outils/enrichissements'
+import { context } from '../../modules/context'
+import { mathalea2d } from '../../modules/mathalea2d'
+import { listeQuestionsToContenu, randint } from '../../modules/outils'
+import Exercice from '../Exercice'
 
 export const titre = "Calcul du discriminant d'une équation du second degré"
 

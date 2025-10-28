@@ -1,5 +1,5 @@
-import { ObjetMathalea2D } from '../../../modules/2dGeneralites'
 import { Shape2D } from '../Figures2D'
+import { ObjetMathalea2D } from '../ObjetMathalea2D'
 import { emoji } from './Emojis'
 
 export function shapeDefToShapeSvg(shapeName: string): string {

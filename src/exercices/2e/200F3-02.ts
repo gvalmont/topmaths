@@ -1,9 +1,10 @@
 import { courbe, croche } from '../../lib/2d/courbes'
+import { fixeBordures } from '../../lib/2d/fixeBordures'
 import { plot } from '../../lib/2d/points'
 import RepereBuilder from '../../lib/2d/RepereBuilder'
 import { spline, type NoeudSpline } from '../../lib/mathFonctions/Spline'
 import { choice } from '../../lib/outils/arrayOutils'
-import { fixeBordures, mathalea2d } from '../../modules/2dGeneralites'
+import { mathalea2d } from '../../modules/mathalea2d'
 import { randint } from '../../modules/outils'
 import ExerciceSimple from '../ExerciceSimple'
 

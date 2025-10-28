@@ -1,9 +1,11 @@
 import { codageAngle, codageAngleDroit } from '../../../lib/2d/angles'
 import { codageSegments } from '../../../lib/2d/codages'
+import { colorToLatexOrHTML } from '../../../lib/2d/colorToLatexOrHtml'
 import { droite } from '../../../lib/2d/droites'
+import { fixeBordures } from '../../../lib/2d/fixeBordures'
 import { milieu, point, tracePoint } from '../../../lib/2d/points'
 import { polygone, polygoneAvecNom } from '../../../lib/2d/polygones'
-import { droiteGraduee, repere } from '../../../lib/2d/reperes'
+import { repere } from '../../../lib/2d/reperes'
 import {
   demiDroite,
   segment,
@@ -32,18 +34,15 @@ import {
   stringNombre,
   texNombre,
 } from '../../../lib/outils/texNombre'
-import {
-  colorToLatexOrHTML,
-  fixeBordures,
-  mathalea2d,
-} from '../../../modules/2dGeneralites'
 import FractionEtendue from '../../../modules/FractionEtendue'
+import { mathalea2d } from '../../../modules/mathalea2d'
 import Exercice from '../../Exercice'
 
 import { context } from '../../../modules/context'
 import { listeQuestionsToContenu, randint } from '../../../modules/outils'
 
 import Decimal from 'decimal.js'
+import { droiteGraduee } from '../../../lib/2d/DroiteGraduee'
 import {
   handleAnswers,
   setReponse,

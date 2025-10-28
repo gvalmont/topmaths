@@ -1,4 +1,3 @@
-import { droiteGraduee } from '../../lib/2d/reperes'
 import { latex2d } from '../../lib/2d/textes'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
@@ -10,11 +9,12 @@ import {
 } from '../../lib/outils/nombres'
 import { lettreIndiceeDepuisChiffre } from '../../lib/outils/outilString'
 import { texNombre } from '../../lib/outils/texNombre'
-import { mathalea2d } from '../../modules/2dGeneralites'
 import { context } from '../../modules/context'
+import { mathalea2d } from '../../modules/mathalea2d'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import Exercice from '../Exercice'
 
+import { droiteGraduee } from '../../lib/2d/DroiteGraduee'
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 
 export const titre = "Lire l'abscisse entière d'un point (grands nombres)"
@@ -42,9 +42,9 @@ export default class LireAbscisseEntiere2d extends Exercice {
 
     this.besoinFormulaireNumerique = [
       'Niveau de difficulté',
-      5, 
+      5,
       '1 : Centaines\n2 : Milliers\n3 : Dizaines de mille\n4 : Centaines de mille\n5 : Mélange',
-    ];
+    ]
 
     this.nbQuestions = 3
 
@@ -99,26 +99,25 @@ export default class LireAbscisseEntiere2d extends Exercice {
       l3 = lettreIndiceeDepuisChiffre(i * 3 + 3)
       switch (typesDeQuestions[i]) {
         case 1: // Version simplifiée : Centaines (ajout Mireille, septembre 2025)
-        abs0 = randint(1, 9) * 100; // Ex: 200, 500, 900...
-        pas1 = 0.01; // 1 unité sur la droite = 100 (car 1/pas1 = 100)
-        break;
+          abs0 = randint(1, 9) * 100 // Ex: 200, 500, 900...
+          pas1 = 0.01 // 1 unité sur la droite = 100 (car 1/pas1 = 100)
+          break
 
         case 2: // Placer des entiers sur un axe (milliers)
           abs0 = randint(1, 9) * 1000
           pas1 = 0.001
-          break;
+          break
 
         case 3: // Placer des entiers sur un axe (dizaines de mille)
           abs0 = randint(5, 15) * 10000
           pas1 = 0.0001
-          break;
+          break
 
         case 4: // Placer des entiers sur un axe (centaines de mille)
         default:
           abs0 = randint(35, 85) * 100000
           pas1 = 0.00001
-          break;
-
+          break
       }
       x1 = arrondi(randint(1, 27, [10, 20]) / 10)
       x2 = arrondi(randint(33, 47, 40) / 10)

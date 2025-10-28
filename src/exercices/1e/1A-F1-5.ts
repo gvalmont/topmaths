@@ -106,6 +106,7 @@ versionAleatoire = () => {
 
 }
 }
+
   constructor() {
     super()
     this.versionAleatoire()

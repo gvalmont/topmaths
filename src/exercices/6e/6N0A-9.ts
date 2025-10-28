@@ -206,7 +206,7 @@ export default class EncadrerUnEntierParDeuxEntiersConsecutifs extends Exercice 
         default:
           pDix = 1
       }
-      let nombre = myNombres(nbChiffres[i] + 3)
+      const nombre = myNombres(nbChiffres[i] + 3)
       // if (listeTypeDeQuestions[i] > 3) nombre = myNombres(nbChiffres[i] + 2) * 10 + randint(1, 9)
       // autant de case que d'elements dans le tableau des situations
       const [inf, sup] = encadrementCorr(nombre, pDix)

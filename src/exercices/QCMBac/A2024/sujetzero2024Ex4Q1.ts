@@ -1,3 +1,4 @@
+import { fixeBordures } from '../../../lib/2d/fixeBordures'
 import { tracePoint } from '../../../lib/2d/points'
 import { labelPoint } from '../../../lib/2d/textes'
 import {
@@ -6,7 +7,7 @@ import {
   vecteur3d,
 } from '../../../lib/3d/3dProjectionMathalea2d/elements'
 import { prisme3d } from '../../../lib/3d/3dProjectionMathalea2d/solides'
-import { fixeBordures, mathalea2d } from '../../../modules/2dGeneralites'
+import { mathalea2d } from '../../../modules/mathalea2d'
 import ExerciceQcm from '../../ExerciceQcm'
 
 export const uuid = '46593'

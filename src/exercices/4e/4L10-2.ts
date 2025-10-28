@@ -1,15 +1,16 @@
 import { codageAngleDroit } from '../../lib/2d/angles'
 import { codageSegments } from '../../lib/2d/codages'
+import { fixeBordures } from '../../lib/2d/fixeBordures'
 import { point, pointAdistance } from '../../lib/2d/points'
 import { polygone } from '../../lib/2d/polygones'
 import { segment, vecteur } from '../../lib/2d/segmentsVecteurs'
 import { texteParPosition } from '../../lib/2d/textes'
 import { rotation, similitude, translation } from '../../lib/2d/transformations'
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
-import Exercice from '../Exercice'
-import { fixeBordures, mathalea2d } from '../../modules/2dGeneralites'
-import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
+import { mathalea2d } from '../../modules/mathalea2d'
+import { listeQuestionsToContenu, randint } from '../../modules/outils'
+import Exercice from '../Exercice'
 export const titre =
   "Donner l'expression littérale d'un périmètre et d'une aire de quadrilatère"
 
@@ -126,7 +127,8 @@ export default class AirePerimetrePolygone extends Exercice {
           texteCorr += `<br>$\\mathcal{A} =${miseEnEvidence(`${inc1}^2`)}$`
           break
 
-        case 'r1': { // Rectangle ayant une lettre pour Longueur et une autre lettre pour largeur, ou bien une lettre pour Longueur et un nombre pour largeur
+        case 'r1': {
+          // Rectangle ayant une lettre pour Longueur et une autre lettre pour largeur, ou bien une lettre pour Longueur et un nombre pour largeur
           E = point(0, 0)
           F = pointAdistance(E, 6, 0)
           G = similitude(E, F, -90, 2 / 3)

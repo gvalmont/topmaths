@@ -1,6 +1,10 @@
 import { codageAngleDroit } from '../../lib/2d/angles'
 import { afficheMesureAngle, codageSegments } from '../../lib/2d/codages'
 import {
+  assombrirOuEclaircir,
+  colorToLatexOrHTML,
+} from '../../lib/2d/colorToLatexOrHtml'
+import {
   droiteHorizontaleParPoint,
   droiteParPointEtPente,
   droiteVerticaleParPoint,
@@ -13,6 +17,8 @@ import {
   texteParPositionEchelle,
 } from '../../lib/2d/textes'
 import { translation } from '../../lib/2d/transformations'
+import { handleAnswers } from '../../lib/interactif/gestionInteractif'
+import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import {
   choice,
   combinaisonListes,
@@ -20,29 +26,23 @@ import {
   enleveElementBis,
   enleveElementNo,
 } from '../../lib/outils/arrayOutils'
-import { miseEnCouleur, miseEnEvidence } from '../../lib/outils/embellissements'
 import { texFractionReduite } from '../../lib/outils/deprecatedFractions'
+import { miseEnCouleur, miseEnEvidence } from '../../lib/outils/embellissements'
 import { arrondi, rangeMinMax } from '../../lib/outils/nombres'
 import { lettreDepuisChiffre, numAlpha } from '../../lib/outils/outilString'
 import { texNombre } from '../../lib/outils/texNombre'
+import { context } from '../../modules/context'
 import {
   imagePointParTransformation,
   type TransformationsIndex,
 } from '../../modules/imagePointParTransformation'
-import {
-  assombrirOuEclaircir,
-  colorToLatexOrHTML,
-  mathalea2d,
-} from '../../modules/2dGeneralites'
-import { context } from '../../modules/context'
+import { mathalea2d } from '../../modules/mathalea2d'
 import {
   egal,
   gestionnaireFormulaireTexte,
   listeQuestionsToContenu,
   randint,
 } from '../../modules/outils'
-import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
-import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import Exercice from '../Exercice'
 
 export const dateDeModifImportante = '11/04/2025'

@@ -1,3 +1,4 @@
+import { valeurBase } from '../../lib/mathFonctions/baseConversions'
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { nombreAvecEspace, texNombre } from '../../lib/outils/texNombre'
@@ -21,49 +22,6 @@ export const uuid = 'a24a6'
 export const refs = {
   'fr-fr': ['PEA11-1'],
   'fr-ch': [],
-}
-
-/**
- * Renvoie la valeur du chiffre (8->8, A->10, B->11...)
- *
- * @author Rémi Angot
- */
-export function valeurBase(n: string) {
-  switch (n) {
-    case 'A':
-      return 10
-    case 'B':
-      return 11
-    case 'C':
-      return 12
-    case 'D':
-      return 13
-    case 'E':
-      return 14
-    case 'F':
-      return 15
-    default:
-      return parseInt(n)
-  }
-}
-
-export function baseValeur(n: number) {
-  switch (n) {
-    case 10:
-      return 'A'
-    case 11:
-      return 'B'
-    case 12:
-      return 'C'
-    case 13:
-      return 'D'
-    case 14:
-      return 'E'
-    case 15:
-      return 'F'
-    default:
-      return Number(n).toString()
-  }
 }
 
 export default class PasserDeLaBase12Ou16ALaBase10 extends Exercice {

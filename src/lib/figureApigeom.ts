@@ -1,9 +1,9 @@
-import type Exercice from '../exercices/Exercice'
 import type Figure from 'apigeom'
-import { context } from '../modules/context'
-import { globalOptions } from '../../src/lib/stores/generalStore'
-import { canOptions } from '../../src/lib/stores/canStore'
 import { get } from 'svelte/store'
+import { canOptions } from '../../src/lib/stores/canStore'
+import { globalOptions } from '../../src/lib/stores/generalStore'
+import type Exercice from '../exercices/Exercice'
+import { context } from '../modules/context'
 
 /**
  * - Insère une figure apigeom dans la sortie HTML de l'exercice
@@ -107,11 +107,19 @@ export default function figureApigeom({
       return
     }
     const container = document.querySelector(`#${idApigeom}`) as HTMLDivElement
-    // alert('container:' + figure.id + ':' + container)
+    // console.log('container:' + figure.id + ':' + container)
     if (container == null) {
-      // document.removeEventListener('exercicesAffiches', updateAffichage)
       return
     }
+    const eles = document.querySelectorAll(`#${idApigeom}`)
+    if (eles.length > 1) {
+      // MGU on devrait jamais être ici mais ça arrive parfois avec les composants Svelte
+      window.notify(
+        `Plusieurs éléments avec le même id ${idApigeom} dans la page.`,
+        { exercice, figure },
+      )
+    }
+
     container.innerHTML = ''
     figure.setContainer(container)
     if (animation) {

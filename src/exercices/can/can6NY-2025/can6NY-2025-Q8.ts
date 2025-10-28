@@ -1,13 +1,13 @@
-import ExerciceSimple from '../../ExerciceSimple'
+import Decimal from 'decimal.js'
+import { latex2d } from '../../../lib/2d/textes'
+import { choice } from '../../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { texNombre } from '../../../lib/outils/texNombre'
+import { mathalea2d } from '../../../modules/mathalea2d'
 import { randint } from '../../../modules/outils'
-import { mathalea2d } from '../../../modules/2dGeneralites'
-import Decimal from 'decimal.js'
-import { droiteGraduee } from '../../../lib/2d/reperes'
-import { choice } from '../../../lib/outils/arrayOutils'
-import { latex2d } from '../../../lib/2d/textes'
+import ExerciceSimple from '../../ExerciceSimple'
 
+import { droiteGraduee } from '../../../lib/2d/DroiteGraduee'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 export const titre = 'Déterminer une abscisse'
 export const interactifReady = true
@@ -55,7 +55,7 @@ export default class CompleterUneSuite extends ExerciceSimple {
         [1, `${texNombre(abs1)}`],
         [2, `${texNombre(abs2)}`],
       ],
-      pointListe: [[x1, '']],
+      pointListe: [[Number(x1), '']],
     })
     const nbIntervalles = 5
 

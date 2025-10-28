@@ -1,22 +1,22 @@
 import { codageSegments } from '../../lib/2d/codages'
 import { point, tracePoint } from '../../lib/2d/points'
 import { polygoneAvecNom } from '../../lib/2d/polygones'
-import { creerNomDePolygone } from '../../lib/outils/outilString'
-import FractionEtendue from '../../modules/FractionEtendue'
 import { repere } from '../../lib/2d/reperes'
 import { segment } from '../../lib/2d/segmentsVecteurs'
 import { labelPoint, texteParPosition } from '../../lib/2d/textes'
+import { texteGras } from '../../lib/format/style'
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
 import { ecritureParentheseSiNegatif } from '../../lib/outils/ecritures'
 import { abs } from '../../lib/outils/nombres'
-import { texteGras } from '../../lib/format/style'
+import { creerNomDePolygone } from '../../lib/outils/outilString'
 import { texNombre, texRacineCarree } from '../../lib/outils/texNombre'
-import Exercice from '../Exercice'
+import FractionEtendue from '../../modules/FractionEtendue'
 import {
   mathalea2d,
   type NestedObjetMathalea2dArray,
-} from '../../modules/2dGeneralites'
+} from '../../modules/mathalea2d'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
+import Exercice from '../Exercice'
 export const titre =
   "Démontrer qu'un quadrilatère est ou non un parallélogramme"
 export const dateDeModifImportante = '30/11/2023'

@@ -4,24 +4,24 @@ import { point, pointAdistance } from '../../lib/2d/points'
 import { polygoneAvecNom } from '../../lib/2d/polygones'
 import { vecteur } from '../../lib/2d/segmentsVecteurs'
 import { rotation, similitude, translation } from '../../lib/2d/transformations'
+import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
+import { setReponse } from '../../lib/interactif/gestionInteractif'
+import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
+import { enleveDoublonNum } from '../../lib/outils/arrayOutils'
 import { texteExposant } from '../../lib/outils/ecritures'
+import { miseEnEvidence } from '../../lib/outils/embellissements'
+import { arrondi } from '../../lib/outils/nombres'
 import { creerNomDePolygone } from '../../lib/outils/outilString'
 import { texNombre } from '../../lib/outils/texNombre'
-import Exercice from '../Exercice'
 import { context } from '../../modules/context'
+import Grandeur from '../../modules/Grandeur'
+import { mathalea2d } from '../../modules/mathalea2d'
 import {
   gestionnaireFormulaireTexte,
   listeQuestionsToContenu,
   randint,
 } from '../../modules/outils'
-import Grandeur from '../../modules/Grandeur'
-import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
-import { setReponse } from '../../lib/interactif/gestionInteractif'
-import { arrondi } from '../../lib/outils/nombres'
-import { enleveDoublonNum } from '../../lib/outils/arrayOutils'
-import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
-import { mathalea2d } from '../../modules/2dGeneralites'
-import { miseEnEvidence } from '../../lib/outils/embellissements'
+import Exercice from '../Exercice'
 
 export const titre = "Calculer l'aire de carré, rectangle ou triangle rectangle"
 export const dateDeModifImportante = '24/04/2025'

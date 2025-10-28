@@ -22,7 +22,7 @@ import {
 } from '../../lib/2d/transformations'
 import { shuffle } from '../../lib/outils/arrayOutils'
 import { creerNomDePolygone } from '../../lib/outils/outilString'
-import { mathalea2d } from '../../modules/2dGeneralites'
+import { mathalea2d } from '../../modules/mathalea2d'
 import {
   gestionnaireFormulaireTexte,
   listeQuestionsToContenu,

@@ -1,44 +1,44 @@
+import { cross, dot, matrix, multiply, norm } from 'mathjs'
+import { context } from '../../../modules/context'
 import {
-  ObjetMathalea2D,
   assombrirOuEclaircir,
   colorToLatexOrHTML,
-  vide2d,
-} from '../../../modules/2dGeneralites'
-import { rotation3d, translation3d, homothetie3d } from './tranformations'
-import { context } from '../../../modules/context'
-import { droite, distancePointDroite } from '../../2d/droites'
+} from '../../2d/colorToLatexOrHtml'
+import { distancePointDroite, droite } from '../../2d/droites'
+import { ObjetMathalea2D } from '../../2d/ObjetMathalea2D'
 import {
   Point,
   point,
-  pointIntersectionDD,
-  tracePoint,
-  pointSurSegment,
   pointDepuisPointAbstrait,
+  pointIntersectionDD,
+  pointSurSegment,
+  tracePoint,
 } from '../../2d/points'
 import {
   polygone,
+  polygoneAvecNom,
   polyline,
   renommePolygone,
-  polygoneAvecNom,
 } from '../../2d/polygones'
-import { segment, longueur, vecteur, norme } from '../../2d/segmentsVecteurs'
+import { longueur, norme, segment, vecteur } from '../../2d/segmentsVecteurs'
 import { labelPoint } from '../../2d/textes'
 import { translation } from '../../2d/transformations'
+import { vide2d } from '../../2d/Vide2d'
 import { choisitLettresDifferentes } from '../../outils/aleatoires'
 import { arrondi } from '../../outils/nombres'
 import {
   Point3d,
+  Polygone3d,
   Vecteur3d,
+  arete3d,
+  cercle3d,
+  demicercle3d,
   droite3d,
   point3d,
-  vecteur3d,
-  cercle3d,
   polygone3d,
-  demicercle3d,
-  Polygone3d,
-  arete3d,
+  vecteur3d,
 } from './elements'
-import { cross, dot, matrix, multiply, norm } from 'mathjs'
+import { homothetie3d, rotation3d, translation3d } from './tranformations'
 
 export const math = { matrix, multiply, norm, cross, dot }
 /*

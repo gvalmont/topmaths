@@ -1,21 +1,22 @@
+import { colorToLatexOrHTML } from '../../lib/2d/colorToLatexOrHtml'
 import { droite } from '../../lib/2d/droites'
 import { pointSurDroite } from '../../lib/2d/points'
 import { repere } from '../../lib/2d/reperes'
 import { texteParPosition } from '../../lib/2d/textes'
-import { choice, shuffle2tableaux } from '../../lib/outils/arrayOutils'
 import { troisColonnes } from '../../lib/format/miseEnPage'
+import { handleAnswers } from '../../lib/interactif/gestionInteractif'
+import { remplisLesBlancs } from '../../lib/interactif/questionMathLive'
+import { choice, shuffle2tableaux } from '../../lib/outils/arrayOutils'
 import {
   ecritureAlgebrique,
   ecritureAlgebriqueSauf1,
   rienSi1,
 } from '../../lib/outils/ecritures'
-import Exercice from '../Exercice'
-import { colorToLatexOrHTML, mathalea2d } from '../../modules/2dGeneralites'
-import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import { texNombre } from '../../lib/outils/texNombre'
 import FractionEtendue from '../../modules/FractionEtendue'
-import { remplisLesBlancs } from '../../lib/interactif/questionMathLive'
-import { handleAnswers } from '../../lib/interactif/gestionInteractif'
+import { mathalea2d } from '../../modules/mathalea2d'
+import { listeQuestionsToContenu, randint } from '../../modules/outils'
+import Exercice from '../Exercice'
 
 export const titre =
   "Associer des systèmes d'équations à leur représentation graphique"

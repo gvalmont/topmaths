@@ -69,9 +69,9 @@ export default class Auto1AC11c extends ExerciceQcmA {
   }
 
   versionAleatoire: () => void = () => {
-    const a = randint(1, 5)
+    const a = randint(1, 7)
     const b = a + 1
-    const c = randint(1, 7)
+    const c = randint(1, 6)
 
     switch (randint(1, 4)) {
       case 1:
@@ -84,17 +84,17 @@ export default class Auto1AC11c extends ExerciceQcmA {
 
         this.correction = `On isole $u$ dans le premier membre : <br>
               $\\begin{aligned} \\dfrac{${a}}{x}+\\dfrac{1}{${b}}&= \\dfrac{${c}}{u} \\\\ 
-              \\dfrac{${a * b}+x}{${rienSi1(b)}x}&= \\dfrac{${rienSi1(c)}}{u} \\\\ 
+              \\dfrac{${a * b}+x}{${rienSi1(b)}x}&= \\dfrac{${c}}{u} \\\\ 
               u&= \\dfrac{${c === 1 ? '' : `${c}\\times `}${b}x}{${a * b}+x}\\\\
               u&= ${miseEnEvidence(`\\dfrac{${c * b}x}{${a * b}+x}`)} 
               \\end{aligned}$
                  `
 
         this.reponses = [
-          `$u=\\dfrac{${rienSi1(c * b)}x}{${rienSi1(a * b)}+x}$`,
-          `$u=\\dfrac{${rienSi1(a * b)}+x}{${rienSi1(c * b)}x}$`,
-          `$u=\\dfrac{${rienSi1(c)}x}{${a * b}x${ecritureAlgebrique(a)}}$`,
-          `$u=\\dfrac{${rienSi1(c)}x}{${a * b}x${ecritureAlgebrique(b)}}$`,
+          `$u=\\dfrac{${rienSi1(c * b)}x}{${a * b}+x}$`,
+          `$u=\\dfrac{${a * b}+x}{${rienSi1(c * b)}x}$`,
+          `$u=\\dfrac{${rienSi1(c)}x}{${rienSi1(a * b)}x${ecritureAlgebrique(a)}}$`,
+          `$u=\\dfrac{${rienSi1(c)}x}{${rienSi1(a * b)}x${ecritureAlgebrique(b)}}$`,
         ]
         break
 
@@ -108,9 +108,10 @@ export default class Auto1AC11c extends ExerciceQcmA {
             On peut affirmer que :`
 
         this.correction = `On isole $u$ dans le premier membre : <br>
-              $\\begin{aligned} \\dfrac{${rienSi1(a)}x}{y}+${b}&= \\dfrac{${c}}{u} \\\\ 
+              $\\begin{aligned}
+               \\dfrac{${rienSi1(a)}x}{y}+${b}&= \\dfrac{${c}}{u} \\\\ 
               \\dfrac{${rienSi1(a)}x+${rienSi1(b)}y}{y}&= \\dfrac{${c}}{u} \\\\ 
-              u&=\\dfrac{${c === 1 ? `${c}\\times` : `${c}\\times `}y}{${rienSi1(a)}x+${b}y} \\\\
+              u&=\\dfrac{${c === 1 ? `` : `${c}\\times `}y}{${rienSi1(a)}x+${b}y} \\\\
               u&= ${miseEnEvidence(`\\dfrac{${rienSi1(c)}y}{${rienSi1(a)}x+${rienSi1(b)}y}`)} 
               \\end{aligned}$
                  `
@@ -119,7 +120,7 @@ export default class Auto1AC11c extends ExerciceQcmA {
           `$u=\\dfrac{${rienSi1(c)}y}{${rienSi1(a)}x+${rienSi1(b)}y}$`,
           `$u=\\dfrac{${rienSi1(a)}x+${rienSi1(b)}y}{${rienSi1(c)}y}$`,
           `$u=${rienSi1(c)}y$`,
-          `$u=\\dfrac{${rienSi1(c)}}{${a}x+${b}y}$`,
+          `$u=\\dfrac{${c}}{${rienSi1(a)}x+${rienSi1(b)}y}$`,
         ]
         break
     }

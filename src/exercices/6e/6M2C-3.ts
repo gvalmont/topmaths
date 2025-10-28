@@ -15,13 +15,14 @@ import {
 } from '../../lib/outils/embellissements'
 import { arrondi } from '../../lib/outils/nombres'
 import { stringNombre, texNombre } from '../../lib/outils/texNombre'
-import { mathalea2d, ObjetMathalea2D } from '../../modules/2dGeneralites'
 import { context } from '../../modules/context'
+import { mathalea2d } from '../../modules/mathalea2d'
 import {
   gestionnaireFormulaireTexte,
   listeQuestionsToContenu,
   randint,
 } from '../../modules/outils'
+import type { NestedObjetMathalea2dArray } from '../../types/2d'
 import Exercice from '../Exercice'
 
 export const dateDePublication = '09/04/2022'
@@ -190,7 +191,7 @@ function dessineGrille(
 }
 
 function dessineCheminAires(
-  objetsEnonce: ObjetMathalea2D[],
+  objetsEnonce: NestedObjetMathalea2dArray,
   rectangles: Rectangle[][],
   typeDeGrille: number[],
   longueursHorizontales: number[],
@@ -613,7 +614,7 @@ function etapesDeUnAEtapeInconnue(
 }
 
 function prepareProblemeAire(
-  objetsEnonce: ObjetMathalea2D[],
+  objetsEnonce: NestedObjetMathalea2dArray,
   rectangles: Rectangle[][],
   typeDeGrille: number[],
   longueursHorizontales: number[],

@@ -7,6 +7,9 @@ import { point, tracePoint } from '../../lib/2d/points'
 import { repere } from '../../lib/2d/reperes'
 import { segment } from '../../lib/2d/segmentsVecteurs'
 import { texteParPosition } from '../../lib/2d/textes'
+import { approximatelyCompare } from '../../lib/interactif/comparisonFunctions'
+import { handleAnswers } from '../../lib/interactif/gestionInteractif'
+import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import {
   combinaisonListes,
   enleveDoublonNum,
@@ -17,18 +20,15 @@ import {
 } from '../../lib/outils/embellissements'
 import { arrondi, numTrie } from '../../lib/outils/nombres'
 import { texNombre } from '../../lib/outils/texNombre'
-import Exercice from '../Exercice'
-import { mathalea2d } from '../../modules/2dGeneralites'
+import { context } from '../../modules/context'
+import { mathalea2d } from '../../modules/mathalea2d'
 import {
   inferieurouegal,
   listeQuestionsToContenu,
   randint,
   superieurouegal,
 } from '../../modules/outils'
-import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
-import { context } from '../../modules/context'
-import { handleAnswers } from '../../lib/interactif/gestionInteractif'
-import { approximatelyCompare } from '../../lib/interactif/comparisonFunctions'
+import Exercice from '../Exercice'
 
 export const titre = 'Déterminer graphiquement les extremums'
 export const interactifReady = true

@@ -1,8 +1,6 @@
-import {
-  colorToLatexOrHTML,
-  ObjetMathalea2D,
-} from '../../modules/2dGeneralites'
 import { context } from '../../modules/context'
+import { colorToLatexOrHTML } from './colorToLatexOrHtml'
+import { ObjetMathalea2D } from './ObjetMathalea2D'
 import { Point, point } from './points'
 import { segment } from './segmentsVecteurs'
 

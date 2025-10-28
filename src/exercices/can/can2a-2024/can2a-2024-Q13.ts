@@ -1,12 +1,12 @@
-import ExerciceSimple from '../../ExerciceSimple'
-import { miseEnEvidence } from '../../../lib/outils/embellissements'
-import { choice, shuffle } from '../../../lib/outils/arrayOutils'
+import { codageAngle } from '../../../lib/2d/angles'
+import { afficheLongueurSegment } from '../../../lib/2d/codages'
 import { point, pointAdistance } from '../../../lib/2d/points'
 import { polygoneAvecNom } from '../../../lib/2d/polygones'
-import { afficheLongueurSegment } from '../../../lib/2d/codages'
-import { codageAngle } from '../../../lib/2d/angles'
-import { mathalea2d } from '../../../modules/2dGeneralites'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
+import { choice, shuffle } from '../../../lib/outils/arrayOutils'
+import { miseEnEvidence } from '../../../lib/outils/embellissements'
+import { mathalea2d } from '../../../modules/mathalea2d'
+import ExerciceSimple from '../../ExerciceSimple'
 export const titre = "Calculer l'aire d'un triangle rectangle"
 export const interactifReady = true
 export const interactifType = 'mathLive'

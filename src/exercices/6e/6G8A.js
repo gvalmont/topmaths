@@ -13,8 +13,8 @@ import {
   shuffle,
 } from '../../lib/outils/arrayOutils'
 import { numAlpha } from '../../lib/outils/outilString'
-import { mathalea2d } from '../../modules/2dGeneralites'
 import { context } from '../../modules/context'
+import { mathalea2d } from '../../modules/mathalea2d'
 import {
   gestionnaireFormulaireTexte,
   listeQuestionsToContenu,

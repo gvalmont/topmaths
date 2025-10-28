@@ -1,7 +1,9 @@
-import { cercle, cercleCentrePoint, traceCompas } from '../../lib/2d/cercle'
+import { traceCompas } from '../../lib/2d/Arc'
+import { cercle, cercleCentrePoint } from '../../lib/2d/cercle'
 import { cibleCarree, dansLaCibleCarree } from '../../lib/2d/cibles'
 import { codageSegments } from '../../lib/2d/codages'
 import { droite } from '../../lib/2d/droites'
+import { fixeBordures } from '../../lib/2d/fixeBordures'
 import {
   point,
   pointAdistance,
@@ -16,9 +18,9 @@ import { choisitLettresDifferentes } from '../../lib/outils/aleatoires'
 import { choice } from '../../lib/outils/arrayOutils'
 import { arrondi } from '../../lib/outils/nombres'
 import { lettreDepuisChiffre, numAlpha } from '../../lib/outils/outilString'
-import { fixeBordures, mathalea2d } from '../../modules/2dGeneralites'
 import Alea2iep from '../../modules/Alea2iep'
 import { context } from '../../modules/context'
+import { mathalea2d } from '../../modules/mathalea2d'
 import {
   gestionnaireFormulaireTexte,
   listeQuestionsToContenu,

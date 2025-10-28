@@ -1,11 +1,11 @@
-import { droiteGraduee } from '../../lib/2d/reperes'
+import { droiteGraduee } from '../../lib/2d/DroiteGraduee'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { remplisLesBlancs } from '../../lib/interactif/questionMathLive'
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
 import { lettreIndiceeDepuisChiffre } from '../../lib/outils/outilString'
-import { mathalea2d } from '../../modules/2dGeneralites'
 import { context } from '../../modules/context'
 import { fraction } from '../../modules/fractions'
+import { mathalea2d } from '../../modules/mathalea2d'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import Exercice from '../Exercice'
 

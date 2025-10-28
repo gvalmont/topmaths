@@ -1,4 +1,5 @@
 import { cercle } from '../../lib/2d/cercle'
+import { colorToLatexOrHTML } from '../../lib/2d/colorToLatexOrHtml'
 import { droite } from '../../lib/2d/droites'
 import { point } from '../../lib/2d/points'
 import { polygone } from '../../lib/2d/polygones'
@@ -8,15 +9,12 @@ import { texteEnCouleurEtGras } from '../../lib/outils/embellissements'
 import { arrondi } from '../../lib/outils/nombres'
 import { sp } from '../../lib/outils/outilString'
 import { texNombre } from '../../lib/outils/texNombre'
-import Exercice from '../Exercice'
-import {
-  mathalea2d,
-  colorToLatexOrHTML,
-  type NestedObjetMathalea2dArray,
-} from '../../modules/2dGeneralites'
-import { listeQuestionsToContenu } from '../../modules/outils'
 import FractionEtendue from '../../modules/FractionEtendue'
 import { context } from '../../modules/context'
+import { mathalea2d } from '../../modules/mathalea2d'
+import { listeQuestionsToContenu } from '../../modules/outils'
+import type { NestedObjetMathalea2dArray } from '../../types/2d'
+import Exercice from '../Exercice'
 export const titre = "Encadrer l'aire d'un disque"
 
 export const refs = {

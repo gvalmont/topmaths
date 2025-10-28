@@ -1,4 +1,5 @@
 import { texteSurSegment } from '../../lib/2d/codages'
+import { fixeBordures } from '../../lib/2d/fixeBordures'
 import { point } from '../../lib/2d/points'
 import { rectangle1Point2Longueurs } from '../../lib/2d/polygones'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
@@ -6,7 +7,7 @@ import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { ecritureAlgebrique, rienSi1 } from '../../lib/outils/ecritures'
 import { miseEnEvidence, texteGras } from '../../lib/outils/embellissements'
 import { equation1erDegre1Inconnue } from '../../lib/outils/equations'
-import { fixeBordures, mathalea2d } from '../../modules/2dGeneralites'
+import { mathalea2d } from '../../modules/mathalea2d'
 import {
   gestionnaireFormulaireTexte,
   listeQuestionsToContenu,

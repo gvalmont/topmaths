@@ -8,20 +8,27 @@ import { texPrix } from '../../lib/format/style'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { choice } from '../../lib/outils/arrayOutils'
-import { ecritureAlgebrique } from '../../lib/outils/ecritures'
-import { arrondi, nombreDeChiffresDe } from '../../lib/outils/nombres'
+import {
+  ecritureAlgebrique,
+  ecritureParentheseSiNegatif,
+  rienSi1,
+} from '../../lib/outils/ecritures'
+import {
+  miseEnEvidence,
+  texteEnCouleurEtGras,
+} from '../../lib/outils/embellissements'
+import { nombreDeChiffresDe } from '../../lib/outils/nombres'
 import { sp } from '../../lib/outils/outilString'
 import { prenom } from '../../lib/outils/Personne'
-import { stringNombre, texNombre } from '../../lib/outils/texNombre'
-import { mathalea2d } from '../../modules/2dGeneralites'
+import { texNombre } from '../../lib/outils/texNombre'
 import { context } from '../../modules/context'
 import Grandeur from '../../modules/Grandeur'
+import { mathalea2d } from '../../modules/mathalea2d'
 import {
   gestionnaireFormulaireTexte,
   listeQuestionsToContenu,
   randint,
 } from '../../modules/outils'
-import { resoudre } from '../../modules/outilsMathjs'
 import Exercice from '../Exercice'
 
 export const titre = 'Mettre en équation un problème et le résoudre'
@@ -136,19 +143,29 @@ function basket(cd: boolean) {
   const a = randint(5, 12) // variables.a // nombres de paniers à deux points de plus que x
   const b = randint(15, 30) // variables.b // nombre de points marqués au lancer franc
   const d = b + (a + x) * 2 + x * 3 // variables.d // nombre de points de la partie
-  const equation = `x*3+(${a}+x)*2+${b}=${d}`
-  const resolution = resoudre(equation, {
-    reduceSteps: false,
-    substeps: true,
-    comment: cd,
-  })
-  let enonce = `Une équipe de basket a marqué ${d} points lors d'un match. Au cours de ce match, elle a marqué ${b} points sur lancers francs.<br>`
-  enonce += `L'équipe a marqué ${a} paniers à deux points de plus que de paniers à trois points.<br>Combien a-t-elle marqué de paniers à trois points ?`
-  let intro = `Posons $x$ le nombre de paniers à trois points.<br>Le nombre de paniers à deux points est donc $${a}+x$.<br>`
-  intro += "Le score de l'équipe fournit donc l'équation: <br>"
-  const conclusion = `<br>L'équipe a donc marqué ${x} paniers à trois points.`
+  const equation = `x\\times 3+(${a}+x)\\times 2+${b}=${d}`
+
+  const resolution = {
+    equation,
+    texteCorr: `${texteEnCouleurEtGras('Résolvons cette équation :', 'black')}<br>
+ Commençons par développer et réduire le membre de gauche :<br>
+  $\\begin{aligned}x\\times 3 + (${a}+x)\\times 2 + ${b} &= 3x + 2x +2\\times${a} + ${b}\\\\
+  &=5x + ${2 * a} + ${b}\\\\
+  &=5x + ${2 * a + b}
+  \\end{aligned}$.<br>
+ Ainsi, l'équation devient : $5x + ${2 * a + b} = ${d}$.<br>
+ Soustrayons $${2 * a + b}$ des deux membres : $5x = ${d} - ${2 * a + b} = ${d - (2 * a + b)}$.<br>
+ Divisons les deux membres par 5 : $x = \\dfrac{${d - (2 * a + b)}}{5} = ${x}$.<br>`,
+  }
+  let enonce = `Une équipe de basket a marqué $${d}$ points lors d'un match. Au cours de ce match, elle a marqué $${b}$ points sur lancers francs.<br>`
+  enonce += `L'équipe a marqué $${a}$ paniers à deux points de plus que de paniers à trois points.<br>Combien a-t-elle marqué de paniers à trois points ?`
+  let intro = `Posons $x$ le nombre de paniers à trois points.<br>Le nombre de paniers à deux points est donc : $${a}+x$.<br>`
+  intro += "Le score de l'équipe fournit donc l'équation :<br>"
+  const conclusion = `L'équipe a donc marqué $${miseEnEvidence(x)}$ paniers à trois points.<br>`
   const figure = ''
-  const verification = `<br>Vérification :<br>$${resolution.verifLeftSide!.printExpression}=${resolution.verifLeftSide!.printResult}$`
+  const verification = `${texteEnCouleurEtGras('Vérification :', 'black')}<br> $\\begin{aligned}3\\times ${x}+(${x}+${a})\\times 2 + ${b}&=${3 * x} + ${x + a}\\times 2+${b}\\\\
+  &= ${3 * x + b} + ${(x + a) * 2}\\\\
+  &= ${d}\\end{aligned}$<br>`
   const uniteOptions = ['', '', '']
 
   return {
@@ -168,21 +185,30 @@ function basket2(cd: boolean) {
   const a = randint(5, 12) // variables.a // nombres de paniers à trois points de moins que de paniers à 2 points
   const b = randint(15, 30) // variables.b // nombre de points marqués au lancer franc
   const d = b + (x - a) * 3 + x * 2 // variables.d // nombre de points de la partie
-  const equation = `x*2+(x-${a})*3+${b}=${d}`
-  const resolution = resoudre(equation, {
-    reduceSteps: false,
-    substeps: true,
-    comment: cd,
-    suppr1: false,
-  })
-  let enonce = `Une équipe de basket a marqué ${d} points lors d'un match. Au cours de ce match, elle a marqué ${b} points sur lancers francs.<br>`
-  enonce += `L'équipe a marqué ${a} paniers à trois points de moins que de paniers à deux points.<br>Combien a-t-elle marqué de paniers à deux points ?`
-  let intro = `Posons $x$ le nombre de paniers à deux points.<br>Le nombre de paniers à trois points est donc $x-${a}$.<br>`
+  const equation = `x\\times 2+(x-${a})\\times 3+${b}=${d}`
+  const resolution = {
+    equation,
+    texteCorr: `${texteEnCouleurEtGras('Résolvons cette équation :', 'black')}<br>
+    Commençons par développer et réduire le membre de gauche :<br>
+    $\\begin{aligned}x\\times 2 + (x - ${a})\\times 3 + ${b} &= 2x + 3x - 3\\times${a} + ${b}\\\\
+    &=5x - ${3 * a} + ${b}\\\\
+    &=5x + ${b - 3 * a}
+    \\end{aligned}$.<br>
+    Ainsi, l'équation devient : $5x + ${b - 3 * a} = ${d}$.<br>
+    Soustrayons $${b - 3 * a}$ des deux membres : $5x = ${d} - ${b - 3 * a} = ${d - (b - 3 * a)}$.<br>
+    Divisons les deux membres par 5 : $x = \\dfrac{${d - (b - 3 * a)}}{5} = ${x}$.<br>`,
+  }
+  let enonce = `Une équipe de basket a marqué $${d}$ points lors d'un match. Au cours de ce match, elle a marqué $${b}$ points sur lancers francs.<br>`
+  enonce += `L'équipe a marqué $${a}$ paniers à trois points de moins que de paniers à deux points.<br>Combien a-t-elle marqué de paniers à deux points ?`
+  let intro = `Posons $x$ le nombre de paniers à deux points.<br>Le nombre de paniers à trois points est donc : $x-${a}$.<br>`
   intro += "Le score de l'équipe fournit donc l'équation: <br>"
-  const conclusion = `<br>L'équipe a donc marqué ${x} paniers à deux points.`
+  const conclusion = `L'équipe a donc marqué $${miseEnEvidence(x)}$ paniers à deux points.<br>`
   const figure = ''
   const uniteOptions = ['', '', '']
-  const verification = `<br>Vérification :<br>$${resolution.verifLeftSide!.printExpression}=${resolution.verifLeftSide!.printResult}$`
+  const verification = `${texteEnCouleurEtGras('Vérification :', 'black')}<br> $\\begin{aligned}2\\times ${x} + ( ${x} - ${a})\\times 3 + ${b}&=${2 * x} + ${x - a} \\times 3 + ${b} \\\\
+  &= ${2 * x + b} + ${(x - a) * 3}\\\\
+  &= ${d}\\end{aligned}$<br>`
+
   return {
     enonce,
     intro,
@@ -222,14 +248,26 @@ function achats(valeurEntiere: boolean, cd: boolean) {
     b = a * x // variables.b // prix total du produit
   } while (b >= 100 || b <= 5 || b % 10 === 0)
   const d = b > 50 ? 100 : b > 20 ? 50 : b > 10 ? 20 : 10 // valeur du billet donné
-  const equation = `${a}*x+${arrondi(d - b, 2)}=${d}`
-  const resolution = resoudre(equation, { substeps: true, comment: cd })
+  const equation = `${texNombre(a, 2)}\\times x+${texNombre(d - b, 2)}=${d}`
+  const resolution = {
+    equation,
+    texteCorr: `${texteEnCouleurEtGras('Résolvons cette équation :', 'black')}<br>
+  Commençons par soustraire $${texNombre(d - b, 2)}$ des deux membres :<br>
+  $\\begin{aligned}${texNombre(a, 2)}\\times x + ${texNombre(d - b, 2)} - ${texNombre(d - b, 2)} &= ${d} - ${texNombre(d - b, 2)}\\\\
+  ${texNombre(a, 2)}\\times x &= ${texNombre(b, 2)}\\\\
+  \\end{aligned}$.<br>
+  Divisons les deux membres par $${texNombre(a, 2)}$ :<br>
+  $x = \\dfrac{${texNombre(b, 2)}}{${texNombre(a, 2)}} = ${texNombre(x)}$.<br>`,
+  }
   let enonce = `${quidam[0]} a acheté $${texNombre(a)}$ kg de ${produit} avec un billet de $${d}$ €. Le marchand lui a rendu $${texPrix(d - b)}$ €.<br>`
   enonce += `Quel est le prix d'un kilogramme de ${produit} ?`
   const intro = `Posons $x$ le prix d'un kilogramme de ${produit}.<br>L'énoncé se traduit par l'équation suivante :<br>`
-  const conclusion = `<br>Le prix d'un kilogramme de ${produit} est donc de $${texNombre(x)}$ €.`
+  const conclusion = `<br>Le prix d'un kilogramme de ${produit} est donc de $${miseEnEvidence(texNombre(x, 2, true))}$ €.`
   const figure = ''
-  const verification = `<br>Vérification :<br>$${resolution.verifLeftSide!.printExpression}=${resolution.verifLeftSide!.printResult}$`
+  const verification = `${texteEnCouleurEtGras('Vérification :', 'black')}<br> $\\begin{aligned}${texNombre(a, 2)}\\times ${texNombre(x)} + ${texNombre(d - b, 2)} &= ${texNombre(b, 2)} + ${texNombre(d - b, 2)}\\\\
+  &= ${d}\\\\
+  \\end{aligned}$<br>`
+
   const uniteOptions = ['', '', '€']
   return {
     enonce,
@@ -255,23 +293,31 @@ function polyg(valeurEntiere: boolean, cd: boolean) {
   const a = randint(2, 5) + (valeurEntiere ? 0 : randint(0, 45) / 5) // variables.a // longueur du côté différent
   const b = randint(2, 5) // variables.b // nombre de côtés égaux du polygone
   const d = b * x + a // variables.d // périmètre du polygone
-  const equation = `${b}*x+${a}=${stringNombre(d).replace(',', '.').replace(/\s+/g, '')}`
-  const resolution = resoudre(equation, {
-    reduceSteps: true,
-    substeps: false,
-    comment: cd,
-  })
-  let enonce = `Un ${polygones[b - 2]} possède un côté de longueur $${texNombre(a)}$ cm et tous ses autres côtés ont même longueur.<br>Son périmètre est $${texNombre(d)}$ cm.<br>`
+  const equation = `${b}x+${texNombre(a, 1)}=${texNombre(d, 1)}`
+  const resolution = {
+    equation,
+    texteCorr: `${texteEnCouleurEtGras('Résolvons cette équation :', 'black')}<br>
+  Commençons par soustraire $${texNombre(a, 1)}$ des deux membres :<br>
+  $\\begin{aligned}${b}x + ${texNombre(a, 1)} - ${texNombre(a, 1)} &= ${texNombre(d, 1)} - ${texNombre(a, 1)}\\\\
+  ${b}x &= ${texNombre(d - a, 1)}\\\\
+  \\end{aligned}$.<br>
+  Divisons les deux membres par $${b}$ :<br>
+  $x = \\dfrac{${texNombre(d - a, 1)}}{${b}} = ${texNombre(x)}$.<br>`,
+  }
+  let enonce = `Un ${polygones[b - 2]} possède un côté de longueur $${texNombre(a)}$ cm et $${b}$ autres côtés de longueur égale.<br>Son périmètre est $${texNombre(d)}$ cm.<br>`
   enonce +=
     'Quelle est la longueur' +
     (context.isAmc ? ', en cm,' : '') +
     ' des côtés de même longueur ?'
   let intro = 'Posons $x$ la longueur des côtés de même longueur.<br>'
-  intro += `Un ${polygones[b - 2]} possède ${b + 1} côtés, donc celui-ci possède ${b} côtés de même longueur.<br>`
+  intro += `Un ${polygones[b - 2]} possède $${b + 1}$ côtés, donc celui-ci possède $${b}$ côtés de longueur $x$.<br>`
   intro += "L'énoncé se traduit par l'équation suivante :<br>"
-  const conclusion = `<br>Les côtés de même longueur mesurent donc $${texNombre(x)}$ cm.`
+  const conclusion = `<br>Les côtés de même longueur mesurent donc $${miseEnEvidence(texNombre(x))}$ cm.`
   const figure = ''
-  const verification = `<br>Vérification :<br>$${resolution.verifLeftSide!.printExpression}=${resolution.verifLeftSide!.printResult}$`
+  const verification = `${texteEnCouleurEtGras('Vérification :', 'black')}<br> $\\begin{aligned}${b} \\times ${texNombre(x)} + ${texNombre(a, 1)} &= ${texNombre(b * x, 1)} + ${texNombre(a, 1)}\\\\
+  &= ${texNombre(d, 1)}\\\\
+  \\end{aligned}$<br>`
+
   const uniteOptions = [' unites[Longueurs]', new Grandeur(x, 'cm'), '']
   return {
     enonce,
@@ -320,28 +366,35 @@ function programme1(n: 1 | 2, cd: boolean) {
   }
   const x = Math.round((c * d - a * b) / (a - c))
   const quidam = prenom(2)
-  const equation = `(x+${b})*${a}=(x+${d})*${c}`
-  const resolution = resoudre(equation, {
-    reduceSteps: false,
-    substeps: false,
-    comment: cd,
-  })
-  let enonce = `${quidam[0]} et ${quidam[1]} choisissent un même nombre.<br> ${quidam[0]} lui ajoute ${b} puis multiplie le résultat par ${a} alors que `
-  enonce += `${quidam[1]} lui ajoute ${d} puis multiplie le résultat par ${c}.<br>`
+  const equation = `(x+${b})\\times ${a}=(x+${d})\\times ${c}`
+  const resolution = {
+    equation,
+    texteCorr: `${texteEnCouleurEtGras('Résolvons cette équation :', 'black')}<br>
+  Commençons par développer et réduire les deux membres :<br>
+  $\\begin{aligned}(x + ${b})\\times ${a} &= ${a}x + ${a * b}\\\\
+  (x + ${d})\\times ${c} &= ${c}x + ${c * d}\\\\
+  \\end{aligned}$<br>
+  Ainsi, l'équation devient : $${a}x + ${a * b} = ${c}x + ${c * d}$.<br>  
+  Soustrayons $${c}x$ des deux membres et soustrayons $${a * b}$ des deux membres :<br>
+  $\\begin{aligned}${a}x - ${c}x &= ${c * d} - ${a * b}\\\\
+  ${a - c}\\times x &= ${c * d - a * b}\\\\
+  \\end{aligned}$.<br>
+  Divisons les deux membres par $${a - c}$ :<br>
+  $x = \\dfrac{${c * d - a * b}}{${a - c}} = ${x}$.<br>`,
+  }
+  let enonce = `${quidam[0]} et ${quidam[1]} choisissent un même nombre.<br> ${quidam[0]} lui ajoute $${b}$ puis multiplie le résultat par $${a}$ alors que `
+  enonce += `${quidam[1]} lui ajoute $${d}$ puis multiplie le résultat par $${c}$.<br>`
   enonce += `${quidam[0]} et ${quidam[1]} obtiennent le même résultat.<br>`
   enonce += `Quel nombre commun ont choisi ${quidam[0]} et ${quidam[1]} ?`
   let intro = 'Posons $x$ le nombre choisi au départ.<br>'
   intro += `Le programme de calcul effectué par ${quidam[0]} se traduit par : $(x+${b})\\times ${a}$.<br>`
   intro += `Le programme de calcul effectué par ${quidam[1]} se traduit par : $(x+${d})\\times ${c}$.<br>`
   intro += "L'égalité des résultats se traduit par l'équation suivante :<br>"
-  const conclusion = `<br>${quidam[0]} et ${quidam[1]} ont donc choisi au départ le nombre ${x}.`
+  const conclusion = `<br>${quidam[0]} et ${quidam[1]} ont donc choisi au départ le nombre $${miseEnEvidence(x)}$.`
   const figure = ''
-  const verification = `<br>Vérification :
-<br>
-D'une part : $${resolution.verifLeftSide!.printExpression}=${resolution.verifLeftSide!.printResult}$
-<br>
-D'autre part : $${resolution.verifRightSide!.printExpression}=${resolution.verifRightSide!.printResult}$
-`
+  const verification = `${texteEnCouleurEtGras('Vérification :', 'black')}<br> $(${x} + ${b})\\times ${a} = ${x + b}\\times ${a} = ${a * x + a * b}$<br> 
+  $(${x} + ${d})\\times ${c} = ${x + d}\\times ${c} = ${c * x + c * d}$<br>`
+
   const uniteOptions = ['', '', '']
   return {
     enonce,
@@ -389,28 +442,37 @@ function programme2(n: 1 | 2, cd: boolean) {
   }
   const x = Math.round((d - a * b) / (a - c))
   const quidam = prenom(2)
-  const equation = `(x+${b})*${a}=${c}*x+${d}`
-  const resolution = resoudre(equation, {
-    reduceSteps: false,
-    substeps: false,
-    comment: cd,
-  })
-  let enonce = `${quidam[0]} et ${quidam[1]} choisissent un même nombre.<br> ${quidam[0]} lui ajoute ${b} puis multiplie le résultat par ${a} alors que `
-  enonce += `${quidam[1]} le multiplie par ${c} puis ajoute au résultat ${d}.<br>`
+  const equation = `(x+${b})\\times${a}=${c}x+${d}`
+  const resolution = {
+    equation,
+    texteCorr: `${texteEnCouleurEtGras('Résolvons cette équation :', 'black')}<br>
+  Commençons par développer et réduire le membre de gauche :<br>
+  $\\begin{aligned}(x + ${b})\\times ${a} &= ${a}x + ${a * b}\\\\
+  \\end{aligned}$.<br>
+  Ainsi, l'équation devient : $${a}x + ${a * b} = ${c}x + ${d}$.<br>  
+  Soustrayons $${c}x$ des deux membres et soustrayons $${a * b}$ des deux membres :<br>
+  $\\begin{aligned}${a}x - ${c}x &= ${d} - ${a * b}\\\\
+  ${rienSi1(a - c)}${Math.abs(a - c) === 1 ? '' : '\\times '}x &= ${d - a * b}\\\\
+  \\end{aligned}$.<br>
+  ${
+    a - c !== 1
+      ? `Divisons les deux membres par $${a - c}$ :<br>
+  $x = \\dfrac{${d - a * b}}{${a - c}} = ${x}$.<br>`
+      : ''
+  }`,
+  }
+  let enonce = `${quidam[0]} et ${quidam[1]} choisissent un même nombre.<br> ${quidam[0]} lui ajoute $${b}$ puis multiplie le résultat par $${a}$ alors que `
+  enonce += `${quidam[1]} le multiplie par $${c}$ puis ajoute au résultat $${d}$.<br>`
   enonce += `${quidam[0]} et ${quidam[1]} obtiennent le même résultat.<br>`
   enonce += `Quel nombre commun ont choisi ${quidam[0]} et ${quidam[1]} ?`
   let intro = 'Posons $x$ le nombre choisi au départ.<br>'
   intro += `Le programme de calcul effectué par ${quidam[0]} se traduit par : $(x+${b})\\times ${a}$.<br>`
   intro += `Le programme de calcul effectué par ${quidam[1]} se traduit par : $${c}x + ${d}$.<br>`
   intro += "L'égalité des résultats se traduit par l'équation suivante :<br>"
-  const conclusion = `<br>${quidam[0]} et ${quidam[1]} ont donc choisi au départ le nombre ${x}.`
+  const conclusion = `<br>${quidam[0]} et ${quidam[1]} ont donc choisi au départ le nombre $${miseEnEvidence(x)}$.`
   const figure = ''
-  const verification = `<br>Vérification :
-<br>
-D'une part : $${resolution.verifLeftSide!.printExpression}=${resolution.verifLeftSide!.printResult}$
-<br>
-D'autre part : $${resolution.verifRightSide!.printExpression}=${resolution.verifRightSide!.printResult}$
-`
+  const verification = `${texteEnCouleurEtGras('Vérification :', 'black')}<br> $(${x} + ${b})\\times ${a} = ${x + b}\\times ${a} = ${a * x + a * b}$<br> 
+  $${c} \\times ${ecritureParentheseSiNegatif(x)} + ${d} = ${c * x + d}$<br>`
   const uniteOptions = ['', '', '']
   return {
     enonce,
@@ -448,12 +510,31 @@ function tarifs(valeurEntiere: boolean, cd: boolean) {
     (c * 2) % ((b - d) * 2) !== 0
   )
   const x = Math.ceil(c / (b - d))
-  const equation = `x*${b}>=${c}+x*${stringNombre(d).replace(',', '.').replace(/\s+/g, '')}`
-  const resolution = resoudre(equation, {
-    reduceSteps: false,
-    substeps: false,
-    comment: cd,
-  })
+  const equation = `x\\times${b}>=${c}+x\\times${texNombre(d, 1)}`
+  const resolution = {
+    equation,
+    texteCorr: `${texteEnCouleurEtGras('Résolvons cette inéquation :', 'black')}<br>
+  Commençons par soustraire $${texNombre(d, 1)}x$ des deux membres :<br>
+  $\\begin{aligned}${texNombre(b, 1)}x - ${texNombre(d, 1)}x &= ${c}\\\\
+  ${
+    Math.abs(b - d) !== 1
+      ? `${texNombre(b - d, 1)} x &= ${c}\\\\`
+      : `${rienSi1(b - d)}x &= ${c}\\\\`
+  }
+  \\end{aligned}$.<br>
+  ${
+    rienSi1(b - d) !== ''
+      ? `Divisons les deux membres par $${texNombre(b - d, 1)}$ :<br>
+  $x \\geq \\dfrac{${c}}{${texNombre(b - d, 1)}} = ${texNombre(c / (b - d), 2)}$.<br>`
+      : ''
+  }
+      ${
+        (c / (b - d)) % 1 !== 0
+          ? `Comme $x$ représente un nombre de séances, il doit être un entier. Il faut donc arrondir $${texNombre(c / (b - d), 2)}$ à l'entier supérieur.<br>`
+          : ''
+      }
+  Ainsi, le tarif B devient plus avantageux à partir de $${miseEnEvidence(x)}$ séances.<br>`,
+  }
   let enonce = `Le ${clubs[a]} d'un village propose deux tarifs à ses pratiquants.<br>`
   enonce += `Le tarif A propose de payer $${texPrix(b)}$ € à chaque séance.<br>`
   enonce += `Le tarif B propose de payer un abonnement annuel de $${texPrix(c)}$ € puis de payer $${texPrix(d)}$ € par séance.<br>`
@@ -464,14 +545,23 @@ function tarifs(valeurEntiere: boolean, cd: boolean) {
   intro += `Le prix à payer avec le tarif B est : $${texPrix(c)}+x\\times ${texPrix(d)}$.<br>`
   intro +=
     "Pour que le tarif B soit plus avantageux, $x$ doit vérifier l'inéquation suivante:<br>"
-  const conclusion = `<br>C'est à partir de $${x}$ séances que le tarif B devient plus avantageux que le tarif A (pour $${x}$ séances, les deux tarifs sont équivalents).`
+  const conclusion = `<br>C'est à partir de $${miseEnEvidence(x)}$ séances que le tarif B devient plus avantageux que le tarif A (pour $${x}$ séances, les deux tarifs sont équivalents).`
   const figure = ''
-  const verification = `<br>Vérification :
-  <br>
-  D'une part : $${resolution.verifLeftSide!.printExpression}=${resolution.verifLeftSide!.printResult}$
-  <br>
-  D'autre part : $${resolution.verifRightSide!.printExpression}=${resolution.verifRightSide!.printResult}$
-  `
+  const verification =
+    texteEnCouleurEtGras('Vérification pour ', 'black') +
+    `$${miseEnEvidence(`x = ${x}`, 'black')}$` +
+    texteEnCouleurEtGras(' : ', 'black') +
+    '<br>' +
+    `Prix avec le tarif A : $${texPrix(b)} \\times ${x} = ${texPrix(b * x)}$<br>
+  Prix avec le tarif B : $${texPrix(c)} + ${texPrix(d)} \\times ${x} = ${texPrix(c + d * x)}$<br>` +
+    texteEnCouleurEtGras('Vérification pour ', 'black') +
+    `$${miseEnEvidence(`x=${x + 1}`, 'black')}$` +
+    texteEnCouleurEtGras(' : ', 'black') +
+    '.<br>' +
+    `Prix avec le tarif A : $${texPrix(b)} \\times ${x + 1} = ${texPrix(b * (x + 1))}$<br>
+  Prix avec le tarif B : $${texPrix(c)} + ${texPrix(d)} \\times ${x + 1} = ${texPrix(c + d * (x + 1))}$.<br>
+  Ainsi, pour $x=${x}$ séances, les deux tarifs sont équivalents et pour $x=${x + 1}$ séances, le tarif B est plus avantageux.<br>`
+
   const uniteOptions = ['', '', '']
   return {
     enonce,
@@ -505,21 +595,34 @@ function spectacle(valeurEntiere: boolean, cd: boolean) {
     x = randint(1000, a - 500)
     d = b * x + (a - x) * c
   } while (b <= c)
-  const equation = `x*${b}+(${a}-x)*${c}=${stringNombre(d).replace(',', '.').replace(/\s+/g, '')}`
-  const resolution = resoudre(equation, {
-    reduceSteps: false,
-    substeps: true,
-    comment: cd,
-  })
+  const equation = `x\\times${texNombre(b, 2, true)}+(${a}-x)\\times${texNombre(c, 2, true)}=${texNombre(d, 2, true)}`
+  const resolution = {
+    equation,
+    texteCorr: `${texteEnCouleurEtGras('Résolvons cette équation :', 'black')}<br>
+  Commençons par développer et réduire le membre de gauche :<br>
+  $\\begin{aligned}x\\times ${texNombre(b, 1)} + (${a} - x)\\times ${texNombre(c, 1)} &= ${texNombre(b, 1)}x + ${a} \\times ${texNombre(c, 1)} - ${texNombre(c, 1)}x\\\\
+  &= ${texNombre(b - c, 1)} x + ${texNombre(a * c, 1)}\\\\
+  \\end{aligned}$.<br>
+  Ainsi, l'équation devient : $${texNombre(b - c, 1)} x + ${texNombre(a * c, 1)} = ${texNombre(d, 1)}$.<br>
+  Soustrayons $${texNombre(a * c, 1)}$ des deux membres :<br>
+  $\\begin{aligned}${texNombre(b - c, 1)} x &= ${texNombre(d, 1)} - ${texNombre(a * c, 1)}\\\\
+  ${texNombre(b - c, 1)} x &=${texNombre(d - a * c, 1)}\\\\
+  \\end{aligned}$.<br>
+  Divisons les deux membres par $${texNombre(b - c, 1)}$ :<br>
+  $x = \\dfrac{${texNombre(d - a * c, 1)}}{${texNombre(b - c, 1)}} = ${miseEnEvidence(texNombre(x))}$.<br>`,
+  }
   let enonce = `Dans une salle de spectacle de $${texNombre(a)}$ places, le prix d'entrée pour un adulte est $${texPrix(b)}$ € et, pour un enfant, il est de $${texPrix(c)}$ €.<br>`
   enonce += `Le spectacle de ce soir s'est déroulé devant une salle pleine et la recette est de $${texPrix(d)}$ €.<br>`
   enonce += "Combien d'adultes y avait-il dans la salle ?"
   let intro = 'Posons $x$ le nombre de places adultes vendues.<br>'
   intro += `Comme les $${texNombre(a)}$ places ont été vendues, le nombre de places enfants est : $${a}-x$.<br>`
   intro += "Le calcul de la recette donne l'équation suivante.<br>"
-  const conclusion = `<br>Il y a donc eu $${texNombre(x)}$ adultes au spectacle.`
+  const conclusion = `<br>Il y a donc eu $${miseEnEvidence(texNombre(x))}$ adultes au spectacle.`
   const figure = ''
-  const verification = `<br>Vérification :<br>$${resolution.verifLeftSide!.printExpression}=${resolution.verifLeftSide!.printResult}$`
+  const verification = `${texteEnCouleurEtGras('Vérification :', 'black')}<br> $\\begin{aligned}${texNombre(x, 1)}\\times ${texNombre(b, 1)} + (${texNombre(a, 1)} - ${texNombre(x, 1)})\\times ${texNombre(c, 1)} &= ${texNombre(b * x, 2)} + ${texNombre(a - x, 2)}\\times ${texNombre(c, 2)}\\\\
+  &= ${texNombre(b * x, 2)}+ ${texNombre(c * (a - x), 2)}\\\\
+  &= ${texNombre(d, 1)}\\\\
+  \\end{aligned}$<br>`
   const uniteOptions = ['', '', '']
   return {
     enonce,
@@ -564,27 +667,44 @@ function isocele(cd: boolean) {
       " ? (La figure n'est pas en vraie grandeur.)"
     intro = `Posons $x$ la longueur de sa base. La longueur des côtés égaux est : $x${ecritureAlgebrique(-c)}$.<br>`
     intro += "Le calcul du périmètre donne l'équation suivante :<br>"
-    equation = `2*(x${ecritureAlgebrique(-c)})+x=${d}`
-    conclusion = `<br>La base de ce triangle isocèle mesure donc $${b}$ mm.`
+    equation = `2(x${ecritureAlgebrique(-c)})+x=${d}`
+    conclusion = `<br>La base de ce triangle isocèle mesure donc $${miseEnEvidence(b)}$ mm.`
     x = b
   } else {
     enonce +=
       "<br>Quelle est la mesure de ses côtés égaux ? (la figure n'est pas en vraie grandeur)"
     intro = `Posons $x$ la longueur d'un des côtés égaux. La longueur de la base est : $x${ecritureAlgebrique(c)}$.<br>`
     intro += "Le calcul du périmètre donne l'équation suivante :<br>"
-    equation = `2*x+x${ecritureAlgebrique(c)}=${d}`
-    conclusion = `<br>Les deux côtés égaux de ce triangle isocèle mesurent donc $${a}$ mm.`
+    equation = `2x+x${ecritureAlgebrique(c)}=${d}`
+    conclusion = `<br>Les deux côtés égaux de ce triangle isocèle mesurent donc $${miseEnEvidence(a)}$ mm.`
     x = a
   }
-  const resolution = resoudre(equation, {
-    reduceSteps: false,
-    substeps: true,
-    comment: cd,
-    suppr1: false,
-  })
+  const resolution = {
+    equation,
+    texteCorr: `${texteEnCouleurEtGras('Résolvons cette équation :', 'black')}<br>
+  Commençons par développer et réduire le membre de gauche :<br>
+  $\\begin{aligned}2x ${ecritureAlgebrique(-2 * c)} + x &= ${d}\\\\
+  ${3}x ${ecritureAlgebrique(-2 * c)} &= ${d}\\\\
+  \\end{aligned}$.<br>
+  ${
+    c < 0
+      ? `Soustrayons $${-2 * c}$ des deux membres :<br>
+  $\\begin{aligned}${3}x &= ${d} ${ecritureAlgebrique(2 * c)}\\\\
+  ${3}x &= ${d + 2 * c}\\\\
+  \\end{aligned}$.<br>`
+      : `Ajoutons $${2 * c}$ aux deux membres :<br>
+  $\\begin{aligned}${3}x &= ${d} + ${2 * c}\\\\
+  ${3}x &= ${d + 2 * c}\\\\
+  \\end{aligned}$<br>`
+  }
+  Divisons les deux membres par $${3}$ :<br>
+  $x = \\dfrac{${d + 2 * c}}{${3}} = ${miseEnEvidence(x)}$.<br>`,
+  }
   if (c > 0) figure = triangleIsocele2()
   else figure = triangleIsocele1()
-  const verification = `<br>Vérification :<br>$${resolution.verifLeftSide!.printExpression}=${resolution.verifLeftSide!.printResult}$`
+  const verification = `${texteEnCouleurEtGras('Vérification :', 'black')}<br> $\\begin{aligned}2 \\times ${texNombre(a, 1)} + ${texNombre(b, 1)} &= ${texNombre(2 * a, 1)} + ${texNombre(b, 1)}\\\\
+  &= ${texNombre(d, 1)}\\\\
+  \\end{aligned}$<br>`
   const uniteOptions = [' unites[Longueurs]', new Grandeur(x, 'mm'), '']
   return {
     enonce,
@@ -610,12 +730,21 @@ function thales(cd: boolean) {
     d = (a * b) / (c - a)
   } while (d <= 0 || (a * b) % Math.abs(c - a) !== 0)
   const x = Math.round(d)
-  const equation = `(x+${b})*${a}=x*${c}`
-  const resolution = resoudre(equation, {
-    reduceSteps: false,
-    substeps: false,
-    comment: cd,
-  })
+  const equation = `(x+${b})\\times${a}=${c}x`
+  const resolution = {
+    equation,
+    texteCorr: `${texteEnCouleurEtGras('Résolvons cette équation :', 'black')}<br>
+  Commençons par développer et réduire le membre de gauche :<br>
+  $\\begin{aligned}(x + ${b})\\times ${a} &= ${a}x + ${a * b}\\\\
+  \\end{aligned}$<br>
+  Ainsi, l'équation devient : $${a}x + ${a * b} = ${c}x$.<br>  
+  Soustrayons $${a}x$ des deux membres :<br>
+  $\\begin{aligned}${a * b} &= ${c}x - ${a}x\\\\
+  ${a * b} &= ${c - a}x\\\\
+  \\end{aligned}$.<br>
+  Divisons les deux membres par $${c - a}$ :<br>
+  $x = \\dfrac{${a * b}}{${c - a}} = ${miseEnEvidence(x)}$.<br>`,
+  }
   const figure = figureThales(a, b, c, '')
   let enonce =
     "Soit la figure ci-dessous qui n'est pas en vraie grandeur où $[CD]$ et $[AB]$ sont parallèles."
@@ -623,16 +752,15 @@ function thales(cd: boolean) {
   let intro =
     "Dans cette configuration de Thalès, on a l'égalité suivante : $\\dfrac{OC}{OA}=\\dfrac{CD}{AB}$.<br>"
   intro +=
-    "Cette égalité est équivalente à l'égalité des produits en croix : $OC\\times AB = CD\\times OA$.<br>"
+    "Cette égalité est équivalente à l'égalité des produits en croix : $CD\\times OA=OC\\times AB$.<br>"
   intro +=
     "En remplaçant les longueurs par les données de l'énoncé et en posant $x=OC$, on obtient l'équation suivante :<br>"
-  const conclusion = `<br>donc $OA=${x}\\text{mm}$.<br>`
-  const verification = `<br>Vérification :
-    <br>
-    D'une part : $${resolution.verifLeftSide!.printExpression}=${resolution.verifLeftSide!.printResult}$
-    <br>
-    D'autre part : $${resolution.verifRightSide!.printExpression}=${resolution.verifRightSide!.printResult}$
-    `
+  const conclusion = `donc $OA=${miseEnEvidence(x)}\\text{ mm}$.<br>`
+  const verification = `${texteEnCouleurEtGras('Vérification :', 'black')}<br>
+  D'une part : $CD\\times OA = ${texNombre(a, 1)} \\times ${texNombre(b + x, 1)} = ${texNombre(a * b + a * x, 1)}$<br>
+  D'autre part : $OC\\times AB = ${texNombre(x, 1)} \\times ${texNombre(c, 1)} = ${texNombre(c * x, 1)}$<br>
+  Les produits en croix sont bien égaux pour $x=${x}$<br>
+  `
   const uniteOptions = [' unites[Longueurs]', new Grandeur(x, 'mm'), '']
   return {
     enonce,
@@ -659,12 +787,21 @@ function thales2(cd: boolean) {
     d = (a * x) / (c - a)
   } while (d <= 0 || (a * x) % Math.abs(c - a) !== 0)
   const b = Math.round(d)
-  const equation = `(x+${b})*${a}=${b}*${c}`
-  const resolution = resoudre(equation, {
-    reduceSteps: false,
-    substeps: false,
-    comment: cd,
-  })
+  const equation = `(x+${b})\\times${a}=${b}\\times${c}`
+  const resolution = {
+    equation,
+    texteCorr: `${texteEnCouleurEtGras('Résolvons cette équation :', 'black')}<br>
+  Commençons par développer et réduire le membre de droite :<br>
+  $\\begin{aligned}(x + ${b})\\times ${a} &= ${a}x + ${a * b}\\\\
+  \\end{aligned}$.<br>
+  Ainsi, l'équation devient : $${a}x + ${a * b} = ${b} \\times ${c}$.<br>  
+  Soustrayons $${a * b}$ des deux membres :<br>
+  $\\begin{aligned}${a}x &= ${b} \\times ${c} - ${a * b}\\\\
+  ${a}x &= ${b * (c - a)}\\\\
+  \\end{aligned}$.<br>
+  Divisons les deux membres par $${a}$ :<br>
+  $x = \\dfrac{${b * (c - a)}}{${a}} = ${miseEnEvidence(x)}$.<br>`,
+  }
   const figure = figureThales(a, '', c, b)
   let enonce =
     "Soit la figure ci-dessous qui n'est pas en vraie grandeur où $[CD]$ et $[AB]$ sont parallèles."
@@ -675,8 +812,12 @@ function thales2(cd: boolean) {
     "Cette égalité est équivalente à l'égalité des produits en croix : $CD\\times OA = OC\\times AB$.<br>"
   intro +=
     "En remplaçant les longueurs par les données de l'énoncé et en posant $x=OC$, on obtient l'équation suivante :<br>"
-  const conclusion = `<br>donc $CA=${x}\\text{mm}$.<br>`
-  const verification = `<br>Vérification :<br>$${resolution.verifLeftSide!.printExpression}=${resolution.verifLeftSide!.printResult}$`
+  const conclusion = `donc $CA=${miseEnEvidence(x)}\\text{ mm}$.<br>`
+  const verification = `${texteEnCouleurEtGras('Vérification :', 'black')}<br>
+  D'une part : $CD\\times OA = ${texNombre(a, 1)} \\times ${texNombre(x + b, 1)} = ${texNombre(a * x + a * b, 1)}$.<br>
+  D'autre part : $OC\\times AB = ${texNombre(b, 1)} \\times ${texNombre(c, 1)} = ${texNombre(b * c, 1)}$.<br>
+  Les produits en croix sont bien égaux pour $x=${x}$.<br>
+  `
   const uniteOptions = [' unites[Longueurs]', new Grandeur(x, 'mm'), '']
   return {
     enonce,
@@ -709,6 +850,7 @@ export default class ProblemesEnEquation extends Exercice {
   constructor() {
     super()
     this.nbQuestions = 2
+    this.spacingCorr = 1.5
     this.besoinFormulaireTexte = [
       'Choix des problèmes',
       'Nombres séparés par des tirets :\n1 : basket\n2 : basket2\n3 : achats\n4 : polygone\n5 : programmes (produit vs produit,\n ... solution entière positive)\n6 : programmes (produit vs produit,\n ... solution entière négative)\n7 : tarifs\n8 : spectacle\n9 : isocèle\n10 : Thalès\n11 : Thalès2\n14 : Mélange',
@@ -754,8 +896,7 @@ export default class ProblemesEnEquation extends Exercice {
           texteApres: sp(2) + uniteOptions[2],
         })
       let texteCorr = intro
-      texteCorr += `$${resolution.equation}$`
-      texteCorr += "<br>Résolvons l'équation :<br>"
+      texteCorr += `$${resolution.equation}$<br>`
       texteCorr += resolution.texteCorr
       texteCorr += verification
       texteCorr += conclusion

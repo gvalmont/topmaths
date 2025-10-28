@@ -1,26 +1,27 @@
+import { fixeBordures } from '../../lib/2d/fixeBordures'
 import { point, tracePoint } from '../../lib/2d/points'
 import { repere } from '../../lib/2d/reperes'
 import { demiDroite } from '../../lib/2d/segmentsVecteurs'
 import { latex2d } from '../../lib/2d/textes'
-import { combinaisonListes } from '../../lib/outils/arrayOutils'
+import { createList } from '../../lib/format/lists'
+import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
+import { combinaisonListes } from '../../lib/outils/arrayOutils'
+import { extraireRacineCarree } from '../../lib/outils/calculs'
 import {
   ecritureParentheseSiNegatif,
   rienSi1,
 } from '../../lib/outils/ecritures'
-import Exercice from '../Exercice'
-import { fixeBordures, mathalea2d } from '../../modules/2dGeneralites'
+import { miseEnEvidence, texteGras } from '../../lib/outils/embellissements'
+import { arrondi } from '../../lib/outils/nombres'
+import { texNombre } from '../../lib/outils/texNombre'
+import { mathalea2d } from '../../modules/mathalea2d'
 import {
   gestionnaireFormulaireTexte,
   listeQuestionsToContenu,
   randint,
 } from '../../modules/outils'
-import { handleAnswers } from '../../lib/interactif/gestionInteractif'
-import { miseEnEvidence, texteGras } from '../../lib/outils/embellissements'
-import { texNombre } from '../../lib/outils/texNombre'
-import { createList } from '../../lib/format/lists'
-import { extraireRacineCarree } from '../../lib/outils/calculs'
-import { arrondi } from '../../lib/outils/nombres'
+import Exercice from '../Exercice'
 
 export const interactifReady = true
 export const interactifType = 'mathLive'

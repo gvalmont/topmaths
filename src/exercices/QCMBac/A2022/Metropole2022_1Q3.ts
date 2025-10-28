@@ -2,7 +2,7 @@ import { courbe } from '../../../lib/2d/courbes'
 import { repere } from '../../../lib/2d/reperes'
 import { texteParPosition } from '../../../lib/2d/textes'
 import { texteEnCouleurEtGras } from '../../../lib/outils/embellissements'
-import { mathalea2d } from '../../../modules/2dGeneralites'
+import { mathalea2d } from '../../../modules/mathalea2d'
 import ExerciceQcm from '../../ExerciceQcm'
 
 export const uuid = 'fa682'

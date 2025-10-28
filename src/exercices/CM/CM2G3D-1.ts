@@ -13,11 +13,12 @@ import {
 import { polygone, polygoneRegulier } from '../../lib/2d/polygones'
 import { segment } from '../../lib/2d/segmentsVecteurs'
 import { labelPoint } from '../../lib/2d/textes'
+import { vide2d } from '../../lib/2d/Vide2d'
 import { texteEnCouleur } from '../../lib/outils/embellissements'
 import { creerNomDePolygone } from '../../lib/outils/outilString'
 import { stringNombre, texNombre } from '../../lib/outils/texNombre'
-import { mathalea2d, vide2d } from '../../modules/2dGeneralites'
 import Alea2iep from '../../modules/Alea2iep'
+import { mathalea2d } from '../../modules/mathalea2d'
 import {
   gestionnaireFormulaireTexte,
   listeQuestionsToContenu,

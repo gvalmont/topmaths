@@ -1,25 +1,26 @@
-import Exercice from '../../Exercice'
-import { listeQuestionsToContenu } from '../../../modules/outils'
-import {
-  ajouteChampTexteMathLive,
-  remplisLesBlancs,
-} from '../../../lib/interactif/questionMathLive'
-import { miseEnEvidence } from '../../../lib/outils/embellissements'
-import { handleAnswers } from '../../../lib/interactif/gestionInteractif'
-import { functionCompare } from '../../../lib/interactif/comparisonFunctions'
-import { context } from '../../../modules/context'
-import { sp } from '../../../lib/outils/outilString'
-import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
+import { grille } from '../../../lib/2d/Grille'
 import { milieu, point } from '../../../lib/2d/points'
-import { grille, repere } from '../../../lib/2d/reperes'
+import { repere } from '../../../lib/2d/reperes'
 import {
   segment,
   segmentAvecExtremites,
 } from '../../../lib/2d/segmentsVecteurs'
 import { texteParPosition } from '../../../lib/2d/textes'
-import { mathalea2d } from '../../../modules/2dGeneralites'
+import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
+import { functionCompare } from '../../../lib/interactif/comparisonFunctions'
+import { handleAnswers } from '../../../lib/interactif/gestionInteractif'
 import { propositionsQcm } from '../../../lib/interactif/qcm'
+import {
+  ajouteChampTexteMathLive,
+  remplisLesBlancs,
+} from '../../../lib/interactif/questionMathLive'
 import { spline } from '../../../lib/mathFonctions/Spline'
+import { miseEnEvidence } from '../../../lib/outils/embellissements'
+import { sp } from '../../../lib/outils/outilString'
+import { context } from '../../../modules/context'
+import { mathalea2d } from '../../../modules/mathalea2d'
+import { listeQuestionsToContenu } from '../../../modules/outils'
+import Exercice from '../../Exercice'
 
 export const titre = 'Course aux nombres - 2nde - Mai 2024'
 export const dateDePublication = '7/5/2024'

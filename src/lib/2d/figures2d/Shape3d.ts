@@ -1,5 +1,5 @@
-import { ObjetMathalea2D } from '../../../modules/2dGeneralites'
 import { context } from '../../../modules/context'
+import { ObjetMathalea2D } from '../ObjetMathalea2D'
 import { VisualPattern } from '../patterns/VisualPattern'
 import type { VisualPattern3D } from '../patterns/VisualPattern3D'
 // Fonction dupliquée de ../Figures2D.ts pour éviter les dépendances circulaires

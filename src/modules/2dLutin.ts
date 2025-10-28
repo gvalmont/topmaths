@@ -5,9 +5,10 @@
 */
 
 import { angleModulo } from '../lib/2d/angles'
+import { colorToLatexOrHTML } from '../lib/2d/colorToLatexOrHtml'
+import { ObjetMathalea2D } from '../lib/2d/ObjetMathalea2D'
 import { point } from '../lib/2d/points'
 import { degToRad } from '../lib/mathFonctions/trigo'
-import { colorToLatexOrHTML, ObjetMathalea2D } from './2dGeneralites'
 import { context } from './context'
 
 /**
@@ -47,6 +48,7 @@ export class ObjetLutin extends ObjetMathalea2D {
     number,
     number,
   ][]
+
   animation: string
   stringColor: string
   codeScratch?: string

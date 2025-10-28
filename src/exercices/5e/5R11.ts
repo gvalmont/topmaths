@@ -1,5 +1,5 @@
+import { droiteGraduee } from '../../lib/2d/DroiteGraduee'
 import { point, tracePoint } from '../../lib/2d/points'
-import { droiteGraduee } from '../../lib/2d/reperes'
 import { labelPoint } from '../../lib/2d/textes'
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
@@ -12,8 +12,8 @@ import {
 } from '../../lib/outils/nombres'
 import { lettreDepuisChiffre } from '../../lib/outils/outilString'
 import { texNombre } from '../../lib/outils/texNombre'
-import { mathalea2d } from '../../modules/2dGeneralites'
 import { context } from '../../modules/context'
+import { mathalea2d } from '../../modules/mathalea2d'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import Exercice from '../Exercice'
 

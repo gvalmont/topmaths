@@ -1,8 +1,10 @@
+import { colorToLatexOrHTML } from '../../lib/2d/colorToLatexOrHtml'
 import type { Figure2D } from '../../lib/2d/Figures2D'
 import {
   listeFigures2d,
   type Forme,
 } from '../../lib/2d/figures2d/listeFigures2d'
+import { fixeBordures } from '../../lib/2d/fixeBordures'
 import { tracePoint } from '../../lib/2d/points'
 import { vecteur } from '../../lib/2d/segmentsVecteurs'
 import { texteParPosition } from '../../lib/2d/textes'
@@ -10,14 +12,10 @@ import { translation } from '../../lib/2d/transformations'
 import { propositionsQcm } from '../../lib/interactif/qcm'
 import { choice } from '../../lib/outils/arrayOutils'
 import { sp } from '../../lib/outils/outilString'
-import {
-  colorToLatexOrHTML,
-  fixeBordures,
-  mathalea2d,
-  type NestedObjetMathalea2dArray,
-} from '../../modules/2dGeneralites'
 import { context } from '../../modules/context'
+import { mathalea2d } from '../../modules/mathalea2d'
 import { gestionnaireFormulaireTexte, randint } from '../../modules/outils'
+import type { NestedObjetMathalea2dArray } from '../../types/2d'
 import Exercice from '../Exercice'
 
 export const titre = 'Reconnaitre une symétrie centrale'

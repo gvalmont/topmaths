@@ -1,21 +1,22 @@
-import Exercice from '../Exercice'
-import { randint } from '../../modules/outils'
-import { context } from '../../modules/context'
-import figureApigeom from '../../lib/figureApigeom'
-import { Spline, noeudsSplineAleatoire } from '../../lib/mathFonctions/Spline'
-import { texNombre } from '../../lib/outils/texNombre'
-import { fixeBordures, mathalea2d } from '../../modules/2dGeneralites'
+import { fixeBordures } from '../../lib/2d/fixeBordures'
 import RepereBuilder from '../../lib/2d/RepereBuilder'
+import { Tableau } from '../../lib/2d/tableau'
+import figureApigeom from '../../lib/figureApigeom'
+import { handleAnswers } from '../../lib/interactif/gestionInteractif'
+import { toutAUnPoint } from '../../lib/interactif/mathLive'
 import {
   AddTabPropMathlive,
   type Icell,
 } from '../../lib/interactif/tableaux/AjouteTableauMathlive'
-import { handleAnswers } from '../../lib/interactif/gestionInteractif'
-import { Tableau } from '../../lib/2d/tableau'
-import { toutAUnPoint } from '../../lib/interactif/mathLive'
+import { Spline, noeudsSplineAleatoire } from '../../lib/mathFonctions/Spline'
+import { texNombre } from '../../lib/outils/texNombre'
+import { context } from '../../modules/context'
+import { mathalea2d } from '../../modules/mathalea2d'
+import { randint } from '../../modules/outils'
+import Exercice from '../Exercice'
 
-import { lectureImage } from '../../lib/2d/courbes'
 import Figure from 'apigeom'
+import { lectureImage } from '../../lib/2d/courbes'
 
 export const titre = "Lire graphiquement l'image d'un nombre par une fonction"
 export const dateDePublication = '29/10/2023'

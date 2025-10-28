@@ -1,4 +1,6 @@
 import { orangeMathalea } from 'apigeom/src/elements/defaultValues'
+import { colorToLatexOrHTML } from '../../lib/2d/colorToLatexOrHtml'
+import { fixeBordures } from '../../lib/2d/fixeBordures'
 import { point, tracePoint } from '../../lib/2d/points'
 import { type Segment, segment } from '../../lib/2d/segmentsVecteurs'
 import { labelPoint, latex2d } from '../../lib/2d/textes'
@@ -10,11 +12,7 @@ import { choice } from '../../lib/outils/arrayOutils'
 import { miseEnEvidence, texteGras } from '../../lib/outils/embellissements'
 import { lettreDepuisChiffre } from '../../lib/outils/outilString'
 import { texNombre } from '../../lib/outils/texNombre'
-import {
-  colorToLatexOrHTML,
-  fixeBordures,
-  mathalea2d,
-} from '../../modules/2dGeneralites'
+import { mathalea2d } from '../../modules/mathalea2d'
 import {
   gestionnaireFormulaireTexte,
   listeQuestionsToContenu,

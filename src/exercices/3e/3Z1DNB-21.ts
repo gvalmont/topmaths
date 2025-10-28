@@ -1,3 +1,4 @@
+import { fixeBordures } from '../../lib/2d/fixeBordures'
 import { point } from '../../lib/2d/points'
 import { createList } from '../../lib/format/lists'
 import { choice } from '../../lib/outils/arrayOutils'
@@ -7,7 +8,7 @@ import {
 } from '../../lib/outils/embellissements'
 import { prenomPronom } from '../../lib/outils/Personne'
 import { premierMultipleInferieur } from '../../lib/outils/primalite'
-import { fixeBordures, mathalea2d } from '../../modules/2dGeneralites'
+import { mathalea2d } from '../../modules/mathalea2d'
 import ExerciceBrevetA from '../ExerciceBrevetA'
 // import { texteParPosition } from '../../lib/2d/textes'
 import { codageSegments, placeLatexSurSegment } from '../../lib/2d/codages'

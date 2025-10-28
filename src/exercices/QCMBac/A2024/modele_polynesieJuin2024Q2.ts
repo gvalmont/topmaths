@@ -1,14 +1,12 @@
+import { colorToLatexOrHTML } from '../../../lib/2d/colorToLatexOrHtml'
 import { integrale } from '../../../lib/2d/courbes'
+import { fixeBordures } from '../../../lib/2d/fixeBordures'
 import { point } from '../../../lib/2d/points'
 import { polygone } from '../../../lib/2d/polygones'
 import { repere } from '../../../lib/2d/reperes'
 import { Spline } from '../../../lib/mathFonctions/Spline'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
-import {
-  colorToLatexOrHTML,
-  fixeBordures,
-  mathalea2d,
-} from '../../../modules/2dGeneralites'
+import { mathalea2d } from '../../../modules/mathalea2d'
 import ExerciceQcm from '../../ExerciceQcm'
 
 export const uuid = '3ca11'

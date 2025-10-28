@@ -1,11 +1,13 @@
-import { miseEnEvidence } from '../../../lib/outils/embellissements'
-import ExerciceCan from '../../ExerciceCan'
-import { randint } from '../../../modules/outils'
-import { point, pointIntersectionCC } from '../../../lib/2d/points'
 import { cercle } from '../../../lib/2d/cercle'
-import { polygoneAvecNom } from '../../../lib/2d/polygones'
 import { placeLatexSurSegment } from '../../../lib/2d/codages'
-import { fixeBordures, mathalea2d } from '../../../modules/2dGeneralites'
+import { fixeBordures } from '../../../lib/2d/fixeBordures'
+import { point, pointIntersectionCC } from '../../../lib/2d/points'
+import type { PointAbstrait } from '../../../lib/2d/points-abstraits'
+import { polygoneAvecNom } from '../../../lib/2d/polygones'
+import { miseEnEvidence } from '../../../lib/outils/embellissements'
+import { mathalea2d } from '../../../modules/mathalea2d'
+import { randint } from '../../../modules/outils'
+import ExerciceCan from '../../ExerciceCan'
 
 export const titre = 'Calculer une longueur dans un triangle'
 export const interactifReady = true
@@ -31,7 +33,7 @@ export default class Can2025N4Q18 extends ExerciceCan {
     const B = point(c, 0, 'B', 'below right')
     const C1 = cercle(A, a)
     const C2 = cercle(B, b)
-    const C = pointIntersectionCC(C1, C2, 'C', 1)
+    const C = pointIntersectionCC(C1, C2, 'C', 1) as PointAbstrait
     C.label = 'C'
     C.positionLabel = 'above right'
     const l1 = placeLatexSurSegment(`${a}\\text{ cm}`, A, C)

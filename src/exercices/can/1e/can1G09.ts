@@ -1,14 +1,14 @@
 import { cercleCentrePoint } from '../../../lib/2d/cercle'
+import { grille } from '../../../lib/2d/Grille'
 import { point, pointSurCercle } from '../../../lib/2d/points'
 import { polygoneAvecNom } from '../../../lib/2d/polygones'
-import { grille } from '../../../lib/2d/reperes'
 import { segment } from '../../../lib/2d/segmentsVecteurs'
 import { texteParPosition } from '../../../lib/2d/textes'
 import { choice } from '../../../lib/outils/arrayOutils'
 import { rienSi1 } from '../../../lib/outils/ecritures'
 import { abs } from '../../../lib/outils/nombres'
+import { mathalea2d } from '../../../modules/mathalea2d'
 import ExerciceSimple from '../../ExerciceSimple'
-import { mathalea2d } from '../../../modules/2dGeneralites'
 export const titre =
   'Associer un point à un réel sur un cercle trigonométrique '
 export const interactifReady = true
@@ -40,7 +40,7 @@ export default class AngleSurCercleTrigo extends ExerciceSimple {
     let a, k
     const r = 5
     const O = point(0, 0, 'O', 'below left')
-    const o = texteParPosition('O', -0.4, -0.4, 'milieu', 'black', 1)
+    const o = texteParPosition('O', -0.4, -0.4, 0, 'black', 1)
     const I = point(r, 0, 'I')
     const J = point(0, r, 'J')
     const K = point(-r, 0, 'K')
@@ -294,11 +294,7 @@ export default class AngleSurCercleTrigo extends ExerciceSimple {
           this.reponse = 'D'
         }
         if (k === 4 || k === -2 || k === -8) {
-          if (k === 5) {
-            this.correction = `Le point $M$ est le point-image du réel $\\dfrac{${k}\\pi}{3}$.`
-          } else {
-            this.correction = `Comme $\\dfrac{${rienSi1(k)}\\pi}{3}=-\\dfrac{2\\pi}{3}$ modulo $2\\pi$, le point-image de $\\dfrac{${rienSi1(k)}\\pi}{3}$ est le point $M$.  `
-          }
+          this.correction = `Comme $\\dfrac{${rienSi1(k)}\\pi}{3}=-\\dfrac{2\\pi}{3}$ modulo $2\\pi$, le point-image de $\\dfrac{${rienSi1(k)}\\pi}{3}$ est le point $M$.  `
           this.reponse = 'M'
         }
         if (k === 5 || k === -1 || k === -7) {

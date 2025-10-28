@@ -1,3 +1,18 @@
+import { codageAngleDroit } from '../../../lib/2d/angles'
+import { codageSegments } from '../../../lib/2d/codages'
+import { fixeBordures } from '../../../lib/2d/fixeBordures'
+import { milieu, point } from '../../../lib/2d/points'
+import { segment } from '../../../lib/2d/segmentsVecteurs'
+import {
+  labelPoint,
+  latexParCoordonnees,
+  texteParPosition,
+} from '../../../lib/2d/textes'
+import {
+  handleAnswers,
+  setReponse,
+} from '../../../lib/interactif/gestionInteractif'
+import { ajouteChampTexteMathLive } from '../../../lib/interactif/questionMathLive'
 import {
   choice,
   combinaisonListes,
@@ -5,41 +20,27 @@ import {
 } from '../../../lib/outils/arrayOutils'
 import {
   ecritureAlgebrique,
-  rienSi1,
-  reduirePolynomeDegre3,
   ecritureParentheseSiNegatif,
   reduireAxPlusB,
+  reduirePolynomeDegre3,
+  rienSi1,
 } from '../../../lib/outils/ecritures'
-import { arrondi, abs, range } from '../../../lib/outils/nombres'
-import { codageSegments } from '../../../lib/2d/codages'
-import { codageAngleDroit } from '../../../lib/2d/angles'
-import { milieu, point } from '../../../lib/2d/points'
-import { segment } from '../../../lib/2d/segmentsVecteurs'
-import {
-  texteParPosition,
-  labelPoint,
-  latexParCoordonnees,
-} from '../../../lib/2d/textes'
-import { droiteGraduee } from '../../../lib/2d/reperes'
-import { creerNomDePolygone, sp } from '../../../lib/outils/outilString'
-import FractionEtendue from '../../../modules/FractionEtendue'
-import { texNombre, stringNombre } from '../../../lib/outils/texNombre'
-import Exercice from '../../Exercice'
 import {
   miseEnEvidence,
   texteEnCouleurEtGras,
 } from '../../../lib/outils/embellissements'
-import { listeQuestionsToContenu, randint } from '../../../modules/outils'
-import { ajouteChampTexteMathLive } from '../../../lib/interactif/questionMathLive'
-import { fixeBordures, mathalea2d } from '../../../modules/2dGeneralites'
-import {
-  handleAnswers,
-  setReponse,
-} from '../../../lib/interactif/gestionInteractif'
-import Hms from '../../../modules/Hms'
+import { abs, arrondi, range } from '../../../lib/outils/nombres'
+import { creerNomDePolygone, sp } from '../../../lib/outils/outilString'
 import { prenomF } from '../../../lib/outils/Personne'
+import { stringNombre, texNombre } from '../../../lib/outils/texNombre'
 import { context } from '../../../modules/context'
+import FractionEtendue from '../../../modules/FractionEtendue'
+import Hms from '../../../modules/Hms'
+import { mathalea2d } from '../../../modules/mathalea2d'
+import { listeQuestionsToContenu, randint } from '../../../modules/outils'
+import Exercice from '../../Exercice'
 
+import { droiteGraduee } from '../../../lib/2d/DroiteGraduee'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 export const titre = 'CAN Spéciale année 2024'
 export const interactifReady = true

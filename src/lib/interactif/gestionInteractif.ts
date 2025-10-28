@@ -196,6 +196,12 @@ export function isReponseComplexe(value: unknown): value is ReponseComplexe {
   return isAnswerValueType(value) || isValeur(value)
 }
 
+// Ajout d'un type dédié pour les choix de QCM
+export type ChoixQcm = {
+  texte: string
+  statut?: boolean
+}
+
 export type UneProposition = {
   texte?: string
   statut?: number | boolean | string
@@ -207,7 +213,7 @@ export type UneProposition = {
   feedback?: string
   pointilles?: boolean | number
   enonce?: string
-  propositions?: UneProposition[]
+  propositions?: ChoixQcm[]
   options?: {
     ordered?: boolean
     vertical?: boolean

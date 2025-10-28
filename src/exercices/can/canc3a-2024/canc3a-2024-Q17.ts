@@ -1,9 +1,9 @@
-import ExerciceSimple from '../../ExerciceSimple'
+import { choice } from '../../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
+import { prenom } from '../../../lib/outils/Personne'
 import { texNombre } from '../../../lib/outils/texNombre'
 import { randint } from '../../../modules/outils'
-import { choice } from '../../../lib/outils/arrayOutils'
-import { prenom } from '../../../lib/outils/Personne'
+import ExerciceSimple from '../../ExerciceSimple'
 export const titre = 'Calculer un nombre de billes'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -33,7 +33,7 @@ export default class BillesMultipliees extends ExerciceSimple {
       quidams[0] = 'Léo'
       quidams[1] = 'Lola'
     } else {
-      quidams = prenom(2)
+      quidams = prenom(2) as string[]
       coeff = choice([3, 4, 5, 6])
       nbBilles = randint(3, 7)
     }

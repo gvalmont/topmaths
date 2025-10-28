@@ -7,9 +7,9 @@ import {
   droiteParPointEtPente,
   droiteVerticaleParPoint,
 } from '../../lib/2d/droites'
+import { grille, seyes } from '../../lib/2d/Grille'
 import { point, pointSurDroite, tracePoint } from '../../lib/2d/points'
 import { nommePolygone, Polygone, polygone } from '../../lib/2d/polygones'
-import { grille, seyes } from '../../lib/2d/reperes'
 import {
   longueur,
   norme,
@@ -26,10 +26,11 @@ import {
   translation,
 } from '../../lib/2d/transformations'
 import { aireTriangle } from '../../lib/2d/triangle'
+import { vide2d } from '../../lib/2d/Vide2d'
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
 import { creerNomDePolygone, numAlpha } from '../../lib/outils/outilString'
-import { mathalea2d, vide2d } from '../../modules/2dGeneralites'
 import { context } from '../../modules/context'
+import { mathalea2d } from '../../modules/mathalea2d'
 import {
   contraindreValeur,
   listeQuestionsToContenu,
@@ -44,17 +45,15 @@ export const titre = 'Construire par symétrie...'
 function choisiPointDuBonCote(d: Droite, lieu = 'dessus') {
   if (d.b === 0) {
     // droite verticale
-    let x: number
-    let y: number
-    x = lieu === 'gauche' ? randint(-8, -1) : lieu === 'sur' ? 0 : randint(1, 8)
-    y = randint(-8, 8)
+    const x =
+      lieu === 'gauche' ? randint(-8, -1) : lieu === 'sur' ? 0 : randint(1, 8)
+    const y = randint(-8, 8)
     return point(x, y)
   } else if (d.a === 0) {
     // droite horizontale
-    let x: number
-    let y: number
-    y = lieu === 'dessus' ? randint(1, 8) : lieu === 'sur' ? 0 : randint(-8, -1)
-    x = randint(-8, 8)
+    const y =
+      lieu === 'dessus' ? randint(1, 8) : lieu === 'sur' ? 0 : randint(-8, -1)
+    const x = randint(-8, 8)
     return point(x, y)
   } else {
     // droite oblique
@@ -210,6 +209,7 @@ export default class ConstruireParSymetrie extends Exercice {
     this.comment =
       "Décentrer l'axe ou le centre, permt d'éviter les stratégies de comptage à partir du bord du quadrillage"
   }
+
   // La fonction qui suit va chercher 3 points au hasard placés par rapport à la droite d de la façon demandée
   // Elle va s'assurer que la distance entre les projetés n'est pas trop petite afin d'espacer les corrections
   // Si pour une raison ou une autre elle ne trouve pas de point convenable, un message dans la console le signale.

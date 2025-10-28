@@ -1,5 +1,6 @@
 import { courbe } from '../../lib/2d/courbes'
 import { droiteParPointEtPente } from '../../lib/2d/droites'
+import { fixeBordures } from '../../lib/2d/fixeBordures'
 import { point, tracePoint } from '../../lib/2d/points'
 import RepereBuilder from '../../lib/2d/RepereBuilder'
 import { tableauColonneLigne } from '../../lib/2d/tableau'
@@ -17,8 +18,8 @@ import {
 import { texteItalique } from '../../lib/outils/embellissements'
 import { rangeMinMax } from '../../lib/outils/nombres'
 import { texNombre } from '../../lib/outils/texNombre'
-import { fixeBordures, mathalea2d } from '../../modules/2dGeneralites'
 import FractionEtendue from '../../modules/FractionEtendue'
+import { mathalea2d } from '../../modules/mathalea2d'
 import { randint } from '../../modules/outils'
 import ExerciceBrevetA from '../ExerciceBrevetA'
 

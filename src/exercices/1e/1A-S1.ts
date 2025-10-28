@@ -22,11 +22,12 @@
  */
 
 import { diagrammeCirculaire } from '../../lib/2d/diagrammes'
+import { fixeBordures } from '../../lib/2d/fixeBordures'
 import { tableauColonneLigne } from '../../lib/2d/tableau'
 import { createList } from '../../lib/format/lists'
 import { choice, shuffle } from '../../lib/outils/arrayOutils'
-import { fixeBordures, mathalea2d } from '../../modules/2dGeneralites'
 import FractionEtendue from '../../modules/FractionEtendue'
+import { mathalea2d } from '../../modules/mathalea2d'
 import ExerciceQcmA from '../ExerciceQcmA'
 
 // ============================================================================

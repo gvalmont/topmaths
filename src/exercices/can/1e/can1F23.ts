@@ -1,13 +1,13 @@
+import Exercice from '../../../exercices/Exercice'
 import { repere } from '../../../lib/2d/reperes'
 import { texteParPosition } from '../../../lib/2d/textes'
+import { handleAnswers } from '../../../lib/interactif/gestionInteractif'
+import { choixDeroulant } from '../../../lib/interactif/questionListeDeroulante'
+import { tableauSignesFonction } from '../../../lib/mathFonctions/etudeFonction'
 import { spline, type NoeudSpline } from '../../../lib/mathFonctions/Spline'
 import { choice } from '../../../lib/outils/arrayOutils'
-import { mathalea2d } from '../../../modules/2dGeneralites'
+import { mathalea2d } from '../../../modules/mathalea2d'
 import { listeQuestionsToContenu, randint } from '../../../modules/outils'
-import { tableauSignesFonction } from '../../../lib/mathFonctions/etudeFonction'
-import { choixDeroulant } from '../../../lib/interactif/questionListeDeroulante'
-import Exercice from '../../../exercices/Exercice'
-import { handleAnswers } from '../../../lib/interactif/gestionInteractif'
 export const interactifReady = true
 export const interactifType = 'listeDeroulante'
 export const titre =

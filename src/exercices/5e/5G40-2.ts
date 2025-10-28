@@ -1,5 +1,6 @@
 import { codageAngle } from '../../lib/2d/angles'
 import { codageSegment } from '../../lib/2d/codages'
+import { fixeBordures } from '../../lib/2d/fixeBordures'
 import { milieu, point } from '../../lib/2d/points'
 import { nommePolygone, polygone } from '../../lib/2d/polygones'
 import { segment } from '../../lib/2d/segmentsVecteurs'
@@ -11,7 +12,7 @@ import {
   texteEnCouleurEtGras,
 } from '../../lib/outils/embellissements'
 import { creerNomDePolygone } from '../../lib/outils/outilString'
-import { fixeBordures, mathalea2d } from '../../modules/2dGeneralites'
+import { mathalea2d } from '../../modules/mathalea2d'
 import { listeQuestionsToContenu } from '../../modules/outils'
 import Exercice from '../Exercice'
 export const titre =

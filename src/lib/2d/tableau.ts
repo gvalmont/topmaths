@@ -1,14 +1,15 @@
-import { fixeBordures, ObjetMathalea2D } from '../../modules/2dGeneralites'
+import { MathfieldElement } from 'mathlive'
+import { context } from '../../modules/context'
+import { parseHexColor } from '../colors'
+import { AddTabDbleEntryMathlive } from '../interactif/tableaux/AjouteTableauMathlive'
+import { stringNombre, texNombre } from '../outils/texNombre'
+import { ObjetMathalea2D } from './ObjetMathalea2D'
+import { fixeBordures } from './fixeBordures'
 import { milieu, point, Point } from './points'
 import { polygone, Polyline, polyline } from './polygones'
 import { Segment, segment } from './segmentsVecteurs'
-import { latexParCoordonnees, TexteParPoint, texteParPosition } from './textes'
-import { context } from '../../modules/context'
-import { stringNombre, texNombre } from '../outils/texNombre'
-import { AddTabDbleEntryMathlive } from '../interactif/tableaux/AjouteTableauMathlive'
-import { MathfieldElement } from 'mathlive'
 import './tableau2x2.scss'
-import { parseHexColor } from '../colors'
+import { latexParCoordonnees, TexteParPoint, texteParPosition } from './textes'
 
 export type StyledText = {
   texte: string

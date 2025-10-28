@@ -3,6 +3,7 @@ import {
   listeFigures2d,
   type Forme,
 } from '../../lib/2d/figures2d/listeFigures2d'
+import { fixeBordures } from '../../lib/2d/fixeBordures'
 import { point } from '../../lib/2d/points'
 import { vecteur } from '../../lib/2d/segmentsVecteurs'
 import { latex2d } from '../../lib/2d/textes'
@@ -14,12 +15,9 @@ import {
 import { propositionsQcm } from '../../lib/interactif/qcm'
 import { choice } from '../../lib/outils/arrayOutils'
 import { texteEnCouleurEtGras } from '../../lib/outils/embellissements'
-import {
-  fixeBordures,
-  mathalea2d,
-  type NestedObjetMathalea2dArray,
-} from '../../modules/2dGeneralites'
+import { mathalea2d } from '../../modules/mathalea2d'
 import { gestionnaireFormulaireTexte, randint } from '../../modules/outils'
+import type { NestedObjetMathalea2dArray } from '../../types/2d'
 import Exercice from '../Exercice'
 
 export const titre =

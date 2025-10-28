@@ -1,5 +1,6 @@
 import { codageAngle, codageAngleDroit } from '../../lib/2d/angles'
 import { codageSegments } from '../../lib/2d/codages'
+import { fixeBordures } from '../../lib/2d/fixeBordures'
 import { point } from '../../lib/2d/points'
 import { nommePolygone } from '../../lib/2d/polygones'
 import { segment } from '../../lib/2d/segmentsVecteurs'
@@ -11,8 +12,8 @@ import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { arrondi } from '../../lib/outils/nombres'
 import { lettreDepuisChiffre } from '../../lib/outils/outilString'
 import { texNombre } from '../../lib/outils/texNombre'
-import { fixeBordures, mathalea2d } from '../../modules/2dGeneralites'
 import { context } from '../../modules/context'
+import { mathalea2d } from '../../modules/mathalea2d'
 import {
   gestionnaireFormulaireTexte,
   listeQuestionsToContenu,

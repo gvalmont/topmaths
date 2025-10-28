@@ -1,8 +1,9 @@
+import { colorToLatexOrHTML } from '../../lib/2d/colorToLatexOrHtml'
 import { courbeInterpolee } from '../../lib/2d/courbes'
 import { point, tracePoint } from '../../lib/2d/points'
 import { repere } from '../../lib/2d/reperes'
+import { mathalea2d } from '../../modules/mathalea2d'
 import Exercice from '../Exercice'
-import { colorToLatexOrHTML, mathalea2d } from '../../modules/2dGeneralites'
 export const titre = 'Interpolation cosinusoïdale'
 
 export const refs = {

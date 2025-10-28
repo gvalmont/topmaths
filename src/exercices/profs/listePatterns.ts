@@ -1,3 +1,4 @@
+import Decimal from 'decimal.js'
 import {
   cubeDef,
   faceLeft,
@@ -12,37 +13,34 @@ import {
   shapeNames,
   type ShapeName,
 } from '../../lib/2d/figures2d/shapes2d'
+import { fixeBordures } from '../../lib/2d/fixeBordures'
+import { VisualPattern } from '../../lib/2d/patterns/VisualPattern'
 import { VisualPattern3D } from '../../lib/2d/patterns/VisualPattern3D'
 import {
-  listePatternsPreDef,
-  type PatternRiche3D,
-  type PatternRiche,
-  listePatternsRepetition,
-  listePatternsFor6I13,
-  type PatternRicheRepetition,
-  listePatternsFor6I131,
   listePattern3d,
   listePatternRatio,
+  listePatternsFor6I13,
+  listePatternsFor6I131,
+  listePatternsPreDef,
+  listePatternsRepetition,
+  type PatternRiche,
+  type PatternRiche3D,
+  type PatternRicheRepetition,
 } from '../../lib/2d/patterns/patternsPreDef'
 import { point } from '../../lib/2d/points'
 import { polygone } from '../../lib/2d/polygones'
 import { texteParPosition } from '../../lib/2d/textes'
+import { choice } from '../../lib/outils/arrayOutils'
 import {
   miseEnEvidence,
   texteEnCouleurEtGras,
 } from '../../lib/outils/embellissements'
 import { sp } from '../../lib/outils/outilString'
-import {
-  fixeBordures,
-  mathalea2d,
-  type NestedObjetMathalea2dArray,
-} from '../../modules/2dGeneralites'
 import { context } from '../../modules/context'
+import { mathalea2d } from '../../modules/mathalea2d'
 import { randint } from '../../modules/outils'
+import type { NestedObjetMathalea2dArray } from '../../types/2d'
 import Exercice from '../Exercice'
-import { choice } from '../../lib/outils/arrayOutils'
-import Decimal from 'decimal.js'
-import { VisualPattern } from '../../lib/2d/patterns/VisualPattern'
 
 export const titre =
   'Liste des patterns stockés dans Mathaléa avec leurs numéros de référence'

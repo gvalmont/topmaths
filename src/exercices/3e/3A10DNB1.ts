@@ -1,3 +1,4 @@
+import { fixeBordures } from '../../lib/2d/fixeBordures'
 import { point } from '../../lib/2d/points'
 import { segment } from '../../lib/2d/segmentsVecteurs'
 import { latex2d } from '../../lib/2d/textes'
@@ -17,9 +18,9 @@ import {
   texFactorisation,
 } from '../../lib/outils/primalite'
 import { texNombre } from '../../lib/outils/texNombre'
-import { fixeBordures, mathalea2d } from '../../modules/2dGeneralites'
 import FractionEtendue from '../../modules/FractionEtendue'
 import { fraction } from '../../modules/fractions'
+import { mathalea2d } from '../../modules/mathalea2d'
 import { randint } from '../../modules/outils'
 import ExerciceBrevetA from '../ExerciceBrevetA'
 

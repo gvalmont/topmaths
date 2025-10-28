@@ -1,19 +1,19 @@
+import FractionEtendue from '../../modules/FractionEtendue'
 import {
   gestionnaireFormulaireTexte,
   listeQuestionsToContenu,
   randint,
 } from '../../modules/outils'
 import Exercice from '../Exercice'
-import FractionEtendue from '../../modules/FractionEtendue'
 
+import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { combinaisonListes } from '../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
-import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 
+import { bleuMathalea, vertMathalea } from '../../lib/colors'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
-import { vertMathalea, bleuMathalea } from '../../lib/colors'
-import PolynomePlusieursVariables from '../../lib/mathFonctions/PolynomePlusieursVariables'
 import MonomePlusieursVariables from '../../lib/mathFonctions/MonomePlusieursVariables'
+import PolynomePlusieursVariables from '../../lib/mathFonctions/PolynomePlusieursVariables'
 
 export const titre = 'Résoudre une équation irrationnelle'
 export const dateDePublication = '13/11/2024'
@@ -165,12 +165,22 @@ export default class ExerciceEquationSecondDegre extends Exercice {
       if (!texRacineMdd1.includes('\\dfrac')) {
         numDen1 = [Number(texRacineMdd1), Number('1')]
       } else {
-        numDen1 = texRacineMdd1.match(/\\dfrac{(\d+)}{(\d+)}/)?.slice(1)
+        const texRacines = texRacineMdd1
+          .match(/\\dfrac{(\d+)}{(\d+)}/)
+          ?.slice(1)
+        if (texRacines != null) {
+          numDen1 = texRacines.map(Number)
+        }
       }
       if (!texRacineMdd2.includes('\\dfrac')) {
         numDen2 = [Number(texRacineMdd2), Number('1')]
       } else {
-        numDen2 = texRacineMdd2.match(/\\dfrac{(\d+)}{(\d+)}/)?.slice(1)
+        const texRacines = texRacineMdd2
+          .match(/\\dfrac{(\d+)}{(\d+)}/)
+          ?.slice(1)
+        if (texRacines != null) {
+          numDen2 = texRacines.map(Number)
+        }
       }
       const vSubSol1Mdd = new FractionEtendue(
         Number(numDen1[0]),

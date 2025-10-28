@@ -22,13 +22,13 @@ import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { arrondi } from '../../../lib/outils/nombres'
 import { sp } from '../../../lib/outils/outilString'
 import { stringNombre, texNombre } from '../../../lib/outils/texNombre'
-import { mathalea2d } from '../../../modules/2dGeneralites'
 import { context } from '../../../modules/context'
 import FractionEtendue from '../../../modules/FractionEtendue'
 import {
   fraction,
   obtenirListeFractionsIrreductibles,
 } from '../../../modules/fractions'
+import { mathalea2d } from '../../../modules/mathalea2d'
 import { listeQuestionsToContenu, randint } from '../../../modules/outils'
 import Exercice from '../../Exercice'
 

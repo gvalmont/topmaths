@@ -14,8 +14,8 @@ import {
   shuffle,
 } from '../../lib/outils/arrayOutils'
 import { range, rangeMinMax } from '../../lib/outils/nombres'
-import { mathalea2d } from '../../modules/2dGeneralites'
 import { context } from '../../modules/context'
+import { mathalea2d } from '../../modules/mathalea2d'
 import {
   contraindreValeur,
   gestionnaireFormulaireTexte,

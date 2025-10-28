@@ -2,6 +2,7 @@ import { clone } from 'mathjs'
 import { cercle } from '../../lib/2d/cercle'
 import { codageSegments } from '../../lib/2d/codages'
 import { droite } from '../../lib/2d/droites'
+import { fixeBordures } from '../../lib/2d/fixeBordures'
 import {
   point,
   pointAdistance,
@@ -25,8 +26,8 @@ import {
   numAlpha,
   premiereLettreEnMajuscule,
 } from '../../lib/outils/outilString'
-import { fixeBordures, mathalea2d } from '../../modules/2dGeneralites'
 import { context } from '../../modules/context'
+import { mathalea2d } from '../../modules/mathalea2d'
 import { listeQuestionsToContenu } from '../../modules/outils'
 import Exercice from '../Exercice'
 export const interactifReady = true

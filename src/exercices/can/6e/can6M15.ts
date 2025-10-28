@@ -1,16 +1,14 @@
+import { fixeBordures } from '../../../lib/2d/fixeBordures'
+import { grille } from '../../../lib/2d/Grille'
 import { point } from '../../../lib/2d/points'
 import { Polyquad } from '../../../lib/2d/polygones'
-import { grille } from '../../../lib/2d/reperes'
 import { segment } from '../../../lib/2d/segmentsVecteurs'
 import { texteParPosition } from '../../../lib/2d/textes'
 import { choice } from '../../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
-import {
-  fixeBordures,
-  mathalea2d,
-  type NestedObjetMathalea2dArray,
-} from '../../../modules/2dGeneralites'
+import { mathalea2d } from '../../../modules/mathalea2d'
 import { randint } from '../../../modules/outils'
+import type { NestedObjetMathalea2dArray } from '../../../types/2d'
 import ExerciceSimple from '../../ExerciceSimple'
 export const titre = 'Mesurer un périmètre par comptage'
 export const dateDePublication = '25/04/2025'

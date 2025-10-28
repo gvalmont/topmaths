@@ -1,3 +1,4 @@
+import { colorToLatexOrHTML } from '../../lib/2d/colorToLatexOrHtml'
 import { droite, droiteAvecNomLatex } from '../../lib/2d/droites'
 import { Point, point } from '../../lib/2d/points'
 import { Polygone, polygone } from '../../lib/2d/polygones'
@@ -9,16 +10,16 @@ import {
   translation,
 } from '../../lib/2d/transformations'
 import { centreGraviteTriangle } from '../../lib/2d/triangle'
+import { propositionsQcm } from '../../lib/interactif/qcm'
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
 import { texteEnCouleur } from '../../lib/outils/embellissements'
 import { numAlpha } from '../../lib/outils/outilString'
 import { stringNombre } from '../../lib/outils/texNombre'
-import Exercice from '../Exercice'
-import { colorToLatexOrHTML, mathalea2d } from '../../modules/2dGeneralites'
-import { context } from '../../modules/context'
-import { listeQuestionsToContenu, randint } from '../../modules/outils'
-import { propositionsQcm } from '../../lib/interactif/qcm'
 import { symetrieAnimee } from '../../modules/2dAnimation'
+import { context } from '../../modules/context'
+import { mathalea2d } from '../../modules/mathalea2d'
+import { listeQuestionsToContenu, randint } from '../../modules/outils'
+import Exercice from '../Exercice'
 
 export const titre = 'Utiliser des symétries axiales en pavage triangulaire'
 export const interactifReady = true

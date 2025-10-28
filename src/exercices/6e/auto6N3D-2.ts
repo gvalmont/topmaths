@@ -1,16 +1,16 @@
+import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
+import { handleAnswers } from '../../lib/interactif/gestionInteractif'
+import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import {
   choice,
   combinaisonListes,
   combinaisonListesSansChangerOrdre,
 } from '../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
-import { labyrinthe } from '../../modules/Labyrinthe'
-import { mathalea2d } from '../../modules/2dGeneralites'
-import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import { context } from '../../modules/context'
-import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
-import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
-import { handleAnswers } from '../../lib/interactif/gestionInteractif'
+import { labyrinthe } from '../../modules/Labyrinthe'
+import { mathalea2d } from '../../modules/mathalea2d'
+import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import Exercice from '../Exercice'
 
 export const amcReady = true

@@ -1102,7 +1102,17 @@
       "TEM2": {}
     },
     "TermComplem": {},
-    "TermTechno": {}
+    "Terminale Technologique": {
+      "TTA": {},
+      "TTB": {},
+      "TTC": {},
+      "TTD": {},
+      "TTE": {},
+      "TTF": {},
+      "TTG": {},
+      "TTH": {},
+      "TTI": {}
+    }
   },
   "HP": {
     "HPC1": {}

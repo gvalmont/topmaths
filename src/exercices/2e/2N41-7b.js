@@ -148,19 +148,19 @@ export default class FactoriserIdentitesremarquables2 extends Exercice {
             texteCorr = `On reconnaît l'identité remarquable $a^2-b^2=(\\color{green}a\\color{black}-\\color{blue}b\\color{black})(\\color{green}a\\color{black}+\\color{blue}b\\color{black})$
 , avec $a=\\color{green}${e}(${a}x${ecritureAlgebrique(b)})$ et $b=\\color{blue}${f}(${c}x${ecritureAlgebrique(d)})$.<br><br>`
             texteCorr += `
-$\\begin{aligned}${e ** 2}(${a}x${ecritureAlgebrique(b)})^2-${f ** 2}(${c}x${ecritureAlgebrique(d)})^2
- &= \\left[(\\color{green}${e}\\times ${a}x${ecritureAlgebrique(b)}\\times ${e}\\color{black})-(\\color{blue}${f}\\times ${c}x${ecritureAlgebrique(d)}\\times ${f}\\color{black})\\right]
-\\left[ (\\color{green}${e}\\times ${a}x${ecritureAlgebrique(b)}\\times ${e}\\color{black})+(\\color{blue}${f}\\times ${c}x${ecritureAlgebrique(d)}\\times ${f}\\color{black})\\right]
- \\\\&= (${a * e}x${ecritureAlgebrique(b * e)}${ecritureAlgebrique(-c * f)}x${ecritureAlgebrique(-d * f)})(${a * e}x${ecritureAlgebrique(b * e)}${ecritureAlgebrique(c * f)}x${ecritureAlgebrique(d * f)})\\\\`
+$${e ** 2}(${a}x${ecritureAlgebrique(b)})^2-${f ** 2}(${c}x${ecritureAlgebrique(d)})^2=
+\\left[(\\color{green}${e}\\times ${a}x${ecritureAlgebrique(b)}\\times ${e}\\color{black})-(\\color{blue}${f}\\times ${c}x${ecritureAlgebrique(d)}\\times ${f}\\color{black})\\right]
+\\left[ (\\color{green}${e}\\times ${a}x${ecritureAlgebrique(b)}\\times ${e}\\color{black})+(\\color{blue}${f}\\times ${c}x${ecritureAlgebrique(d)}\\times ${f}\\color{black})\\right]$<br>
+ $\\phantom{${e ** 2}(${a}x${ecritureAlgebrique(b)})^2-${f ** 2}(${c}x${ecritureAlgebrique(d)})^2}= (${a * e}x${ecritureAlgebrique(b * e)}${ecritureAlgebrique(-c * f)}x${ecritureAlgebrique(-d * f)})(${a * e}x${ecritureAlgebrique(b * e)}${ecritureAlgebrique(c * f)}x${ecritureAlgebrique(d * f)})$<br>`
             const facteur1 = reduireAxPlusB(e * a - c * f, b * e - d * f)
             const facteur2 = reduireAxPlusB(a * e + c * f, b * e + d * f)
             const facteurConstant = [facteur1, facteur2].filter(
               (el) => !el.includes('x'),
             )
             if (facteurConstant.length === 0 || !facteur1.includes('x')) {
-              texteCorr += ` &= ${miseEnEvidence(`(${facteur1})(${facteur2})`)}\\end{aligned}$`
+              texteCorr += ` $\\phantom{${e ** 2}(${a}x${ecritureAlgebrique(b)})^2-${f ** 2}(${c}x${ecritureAlgebrique(d)})^2}= {(${facteur1})(${facteur2})}$`
             } else {
-              texteCorr += ` &= ${miseEnEvidence(`(${facteur2})(${facteur1})`)}\\end{aligned}$`
+              texteCorr += ` $\\phantom{${e ** 2}(${a}x${ecritureAlgebrique(b)})^2-${f ** 2}(${c}x${ecritureAlgebrique(d)})^2}= {(${facteur2})(${facteur1})}$`
             }
             handleAnswers(this, i, {
               reponse: {
@@ -172,7 +172,7 @@ $\\begin{aligned}${e ** 2}(${a}x${ecritureAlgebrique(b)})^2-${f ** 2}(${c}x${ecr
           }
           break
       }
-      if (listeTypeDeQuestions[i] < 4) {
+      if (listeTypeDeQuestions[i] < 5) {
         texte += ajouteChampTexteMathLive(
           this,
           i,

@@ -1,13 +1,13 @@
-import ExerciceSimple from '../../ExerciceSimple'
-import { miseEnEvidence } from '../../../lib/outils/embellissements'
-import { randint } from '../../../modules/outils'
 import { codageAngleDroit } from '../../../lib/2d/angles'
 import { milieu, point } from '../../../lib/2d/points'
-import { mathalea2d } from '../../../modules/2dGeneralites'
 import { polygone } from '../../../lib/2d/polygones'
 import { latexParCoordonnees } from '../../../lib/2d/textes'
-import { choice } from '../../../lib/outils/arrayOutils'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
+import { choice } from '../../../lib/outils/arrayOutils'
+import { miseEnEvidence } from '../../../lib/outils/embellissements'
+import { mathalea2d } from '../../../modules/mathalea2d'
+import { randint } from '../../../modules/outils'
+import ExerciceSimple from '../../ExerciceSimple'
 
 export const titre = 'Calculer une dimension dans un rectangle'
 export const interactifReady = true

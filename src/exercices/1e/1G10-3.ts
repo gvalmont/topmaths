@@ -1,24 +1,25 @@
-import { point, pointAdistance } from '../../lib/2d/points'
-import { labelPoint } from '../../lib/2d/textes'
-import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
-import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
-import Exercice from '../Exercice'
-import { fixeBordures, mathalea2d } from '../../modules/2dGeneralites'
-import {
-  gestionnaireFormulaireTexte,
-  listeQuestionsToContenu,
-  randint,
-} from '../../modules/outils'
-import { handleAnswers } from '../../lib/interactif/gestionInteractif'
-import { miseEnEvidence } from '../../lib/outils/embellissements'
-import { texNombre } from '../../lib/outils/texNombre'
-import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 import Decimal from 'decimal.js'
 import {
   afficheLongueurSegment,
   afficheMesureAngle,
 } from '../../lib/2d/codages'
+import { fixeBordures } from '../../lib/2d/fixeBordures'
+import { point, pointAdistance } from '../../lib/2d/points'
 import { polygone } from '../../lib/2d/polygones'
+import { labelPoint } from '../../lib/2d/textes'
+import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
+import { handleAnswers } from '../../lib/interactif/gestionInteractif'
+import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
+import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
+import { miseEnEvidence } from '../../lib/outils/embellissements'
+import { texNombre } from '../../lib/outils/texNombre'
+import { mathalea2d } from '../../modules/mathalea2d'
+import {
+  gestionnaireFormulaireTexte,
+  listeQuestionsToContenu,
+  randint,
+} from '../../modules/outils'
+import Exercice from '../Exercice'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const titre = 'Calculer un produit scalaire avec un angle'

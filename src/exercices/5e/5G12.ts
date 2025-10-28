@@ -1,25 +1,23 @@
 import { codageMilieu } from '../../lib/2d/codages'
+import { colorToLatexOrHTML } from '../../lib/2d/colorToLatexOrHtml'
 import { Point, TracePoint, tracePoint } from '../../lib/2d/points'
+import type { Polygone } from '../../lib/2d/polygones'
 import { segment, vecteur } from '../../lib/2d/segmentsVecteurs'
 import { labelPoint, texteParPosition } from '../../lib/2d/textes'
 import { rotation, translation } from '../../lib/2d/transformations'
-import { choice, shuffle } from '../../lib/outils/arrayOutils'
 import { texcolors } from '../../lib/format/style'
-import { nombreAvecEspace } from '../../lib/outils/texNombre'
-import Exercice from '../Exercice'
-import {
-  colorToLatexOrHTML,
-  mathalea2d,
-  ObjetMathalea2D,
-} from '../../modules/2dGeneralites'
-import { context } from '../../modules/context'
-import { egal, listeQuestionsToContenu, randint } from '../../modules/outils'
-import { rotationAnimee } from '../../modules/2dAnimation'
-import { Pavage, pavage } from '../../modules/Pavage'
-import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { setReponse } from '../../lib/interactif/gestionInteractif'
+import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
+import { choice, shuffle } from '../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
-import type { Polygone } from '../../lib/2d/polygones'
+import { nombreAvecEspace } from '../../lib/outils/texNombre'
+import { rotationAnimee } from '../../modules/2dAnimation'
+import { context } from '../../modules/context'
+import { mathalea2d } from '../../modules/mathalea2d'
+import { egal, listeQuestionsToContenu, randint } from '../../modules/outils'
+import { Pavage, pavage } from '../../modules/Pavage'
+import type { NestedObjetMathalea2dArray } from '../../types/2d'
+import Exercice from '../Exercice'
 
 export const titre =
   "Trouver l'image d'une figure par symétrie centrale dans un pavage"
@@ -153,7 +151,7 @@ export default class PavageEtDemiTour2D extends Exercice {
       return result
     }
 
-    const objets: ObjetMathalea2D[] = []
+    const objets: NestedObjetMathalea2dArray = []
     const objetsCorrection = []
     let P1
     let P2
@@ -174,7 +172,7 @@ export default class PavageEtDemiTour2D extends Exercice {
     let Ny
     let index1
     let A!: Point
-    let B!: ObjetMathalea2D[]
+    let B!: NestedObjetMathalea2dArray
     let d!: TracePoint
     let image
     let couples: [number, number][] = []

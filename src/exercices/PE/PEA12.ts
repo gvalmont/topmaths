@@ -1,9 +1,9 @@
+import { base10VersBaseN } from '../../lib/mathFonctions/baseConversions'
 import { combinaisonListes } from '../../lib/outils/arrayOutils'
-import Exercice from '../Exercice'
 import { context } from '../../modules/context'
-import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import Operation from '../../modules/operations'
-import { base10VersBaseN } from './PEA13'
+import { listeQuestionsToContenu, randint } from '../../modules/outils'
+import Exercice from '../Exercice'
 export const titre = "Additions et soustractions dans d'autres bases"
 export const dateDePublication = '31/10/2021'
 
@@ -90,16 +90,16 @@ export default class AdditionSoustractionBaseN extends Exercice {
         const retenue = []
         for (let rang = 0; rang < Math.max(mb.length, nb.length); rang++) {
           const somme: number =
-            parseInt(mb[mb.length - 1 - rang] || 0, base) +
-            parseInt(nb[nb.length - 1 - rang] || 0, base) +
-            parseInt(retenue[rang - 1] || 0, base)
-          texteCorr += `<br> Au rang des $${base}^${rang}$ :  $${mb[mb.length - 1 - rang] || 0} + ${nb[nb.length - 1 - rang] || 0} ${retenue[rang - 1] ? '+' + retenue[rang - 1] : ''}`
+            parseInt(mb[mb.length - 1 - rang] || '0', base) +
+            parseInt(nb[nb.length - 1 - rang] || '0', base) +
+            parseInt(retenue[rang - 1] || '0', base)
+          texteCorr += `<br> Au rang des $${base}^${rang}$ :  $${mb[mb.length - 1 - rang] || '0'} + ${nb[nb.length - 1 - rang] || '0'} ${retenue[rang - 1] ? '+' + retenue[rang - 1] : ''}`
           if (
-            parseInt(mb[mb.length - 1 - rang] || 0, base) > 9 ||
-            parseInt(nb[nb.length - 1 - rang] || 0, base) > 9
+            parseInt(mb[mb.length - 1 - rang] || '0', base) > 9 ||
+            parseInt(nb[nb.length - 1 - rang] || '0', base) > 9
           ) {
             // Si un chiffre est un lettre
-            texteCorr += ` = ${parseInt(mb[mb.length - 1 - rang] || 0, base)} + ${parseInt(nb[nb.length - 1 - rang] || 0, base)}`
+            texteCorr += ` = ${parseInt(mb[mb.length - 1 - rang] || '0', base)} + ${parseInt(nb[nb.length - 1 - rang] || '0', base)}`
           }
           texteCorr += `= ${somme}`
           if (somme >= base) {
@@ -123,35 +123,35 @@ export default class AdditionSoustractionBaseN extends Exercice {
         const retenue = []
         for (let rang = 0; rang < Math.max(mb.length, nb.length); rang++) {
           let difference =
-            parseInt(mb[mb.length - 1 - rang] || 0, base) -
-            (parseInt(nb[nb.length - 1 - rang] || 0, base) +
-              parseInt(String(retenue[rang - 1] || 0), base))
+            parseInt(mb[mb.length - 1 - rang] || '0', base) -
+            (parseInt(nb[nb.length - 1 - rang] || '0', base) +
+              parseInt(String(retenue[rang - 1] || '0'), base))
           if (difference < 0) difference += base
           if (retenue[rang - 1]) {
-            texteCorr += `<br> Au rang des $${base}^${rang}$ :  $${mb[mb.length - 1 - rang] || 0} - (${nb[nb.length - 1 - rang] || 0} + 1)`
+            texteCorr += `<br> Au rang des $${base}^${rang}$ :  $${mb[mb.length - 1 - rang] || '0'} - (${nb[nb.length - 1 - rang] || '0'} + 1)`
           } else {
-            texteCorr += `<br> Au rang des $${base}^${rang}$ :  $${mb[mb.length - 1 - rang] || 0} - ${nb[nb.length - 1 - rang] || 0}`
+            texteCorr += `<br> Au rang des $${base}^${rang}$ :  $${mb[mb.length - 1 - rang] || '0'} - ${nb[nb.length - 1 - rang] || '0'}`
           }
           if (
-            parseInt(mb[mb.length - 1 - rang] || 0, base) > 9 ||
-            parseInt(nb[nb.length - 1 - rang] || 0, base) > 9
+            parseInt(mb[mb.length - 1 - rang] || '0', base) > 9 ||
+            parseInt(nb[nb.length - 1 - rang] || '0', base) > 9
           ) {
             // Si un chiffre est un lettre
             if (retenue[rang - 1]) {
-              texteCorr += ` = ${parseInt(mb[mb.length - 1 - rang] || 0, base)} - (${parseInt(nb[nb.length - 1 - rang] || 0, base)} + 1)`
+              texteCorr += ` = ${parseInt(mb[mb.length - 1 - rang] || '0', base)} - (${parseInt(nb[nb.length - 1 - rang] || '0', base)} + 1)`
             } else {
-              texteCorr += ` = ${parseInt(mb[mb.length - 1 - rang] || 0, base)} - ${parseInt(nb[nb.length - 1 - rang] || 0, base)}`
+              texteCorr += ` = ${parseInt(mb[mb.length - 1 - rang] || '0', base)} - ${parseInt(nb[nb.length - 1 - rang] || '0', base)}`
             }
           }
           if (
-            parseInt(mb[mb.length - 1 - rang] || 0, base) <
-            parseInt(nb[nb.length - 1 - rang] || 0, base)
+            parseInt(mb[mb.length - 1 - rang] || '0', base) <
+            parseInt(nb[nb.length - 1 - rang] || '0', base)
           ) {
             texteCorr += `$ la soustraction est impossible donc on récupère un paquet de ${base} au rang supérieur.`
             if (retenue[rang - 1]) {
-              texteCorr += `<br> $${base} + ${parseInt(mb[mb.length - 1 - rang] || 0, base)} - (${parseInt(nb[nb.length - 1 - rang] || 0, base)} + 1)`
+              texteCorr += `<br> $${base} + ${parseInt(mb[mb.length - 1 - rang] || '0', base)} - (${parseInt(nb[nb.length - 1 - rang] || '0', base)} + 1)`
             } else {
-              texteCorr += `<br> $${base} + ${parseInt(mb[mb.length - 1 - rang] || 0, base)} - ${parseInt(nb[nb.length - 1 - rang] || 0, base)}`
+              texteCorr += `<br> $${base} + ${parseInt(mb[mb.length - 1 - rang] || '0', base)} - ${parseInt(nb[nb.length - 1 - rang] || '0', base)}`
             }
             retenue[rang] = 1
           }

@@ -1,5 +1,5 @@
-import { ObjetMathalea2D } from '../../modules/2dGeneralites'
 import { arrondi } from '../outils/nombres'
+import { ObjetMathalea2D } from './ObjetMathalea2D'
 
 export class PointAbstrait extends ObjetMathalea2D {
   nom: string
@@ -16,7 +16,7 @@ export class PointAbstrait extends ObjetMathalea2D {
     this.typeObjet = 'point'
     this.x = 0
     this.y = 0
-    this.nom = ' ' // Le nom d'un point est par défaut un espace. On pourra chercher tous les objets qui ont ce nom pour les nommer automatiquement
+    this.nom = ' '
     if (arguments.length === 1) {
       this.nom = String(arg1)
     } else if (arguments.length === 2) {

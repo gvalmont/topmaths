@@ -13,36 +13,57 @@ export const interactifReady = true
 export const interactifType = 'qcm'
 export const amcReady = 'true'
 export const amcType = 'qcmMono'
-export const titre = 'Calculer avec des puissances (4)'
-export default class Puissances extends ExerciceQcmA {
-  versionOriginale: () => void = () => {
-    this.enonce =
-      'Soient $a$ et $b$ deux nombres réels non nuls. À quelle expression est égale $a^2\\times b^3$ ?'
-    this.correction =
-      'a^2\\times b^3= a^2\\times b^2 \\times b = (ab)^2 \\times b$'
-    miseEnEvidence('$(ab)^2 \\times b$')
+export const titre = 'Appliquer la propriété des produits avec des puissances'
+export default class Auto1AC3d extends ExerciceQcmA {
+  private appliquerLesValeurs(n: number, k: number): void {
+    this.enonce = `Soient $a$ et $b$ deux nombres réels non nuls. <br>À quelle expression est égale $a^${n}\\times b^${k}$ ?`
 
-    this.reponses = [
-      '$(ab)^2 \\times b$',
-      '$(ab)^5$',
-      '$(ab)^6$',
-      'Aucune de ces propositions',
-    ]
+    if (n === k) {
+      const difference = k - n
+      // Cas où les exposants sont égaux
+      this.correction = `Les deux exposants sont égaux, ainsi : <br>$\\begin{aligned}
+        a^${n}\\times b^${k}&=${miseEnEvidence(`\\left(ab\\right)^${n}`)}\\end{aligned}$<br>`
+
+      this.reponses = [
+        `$\\left(ab\\right)^${n}$`,
+        `$\\left(ab\\right)^{${n + k}}$`,
+        `$\\left(ab\\right)^${n - 1}\\times b^{${rienSi1(difference + 1)}}$`,
+        'Aucune de ces propositions.',
+      ]
+    } else {
+      // Cas où k > n
+      const difference = k - n
+
+      this.correction = `$\\begin{aligned}
+        a^${n}\\times b^${k}&= a^${n}\\times b^${n}\\times b^{${difference}}\\\\
+      &=${difference === 1 ? miseEnEvidence(`\\left(ab\\right)^${n}\\times b`) : miseEnEvidence(`\\left(ab\\right)^${n}\\times b^{${difference}}`)}
+        \\end{aligned}$<br>`
+
+      this.reponses = [
+       difference===1 ?  `$\\left(ab\\right)^${n}\\times b$` :  `$\\left(ab\\right)^${n}\\times b^{${difference}}$`,
+        `$\\left(ab\\right)^{${n + k}}$`,
+        `$\\left(ab\\right)^{${n * k}} $`,
+        'Aucune de ces propositions.',
+      ]
+    }
+  }
+
+  versionOriginale: () => void = () => {
+    this.appliquerLesValeurs(2, 3)
   }
 
   versionAleatoire = () => {
-    const n = randint(2, 4)
-    const k = randint(n + 1, 6)
-    this.enonce = `Soient $a$ et $b$ deux nombres réels non nuls.  À quelle expression est égale $a^${n}\\times b^${k}$ ?`
-    this.correction = `$\\begin{aligned}
-        a^${n}\\times b^${k}&= a^${n}\\times b^${n}\\times b^${k - n}\\\\
-        &=${miseEnEvidence(`\\left(ab\\right)^${n}\\times b^${k - n}`)}\\end{aligned}$<br>`
-    this.reponses = [
-      `$\\left(ab\\right)^${n}\\times b^{${rienSi1(k - n)}}$`,
-      `$\\left(ab\\right)^{${n + k}}$`,
-      `$\\left(ab\\right)^{${n * k}} $`,
-      'Aucune de ces propositions.',
-    ]
+    const n = randint(3, 8)
+    const casChoisi = randint(1, 2)
+
+    if (casChoisi === 1) {
+      // Cas 1 : exposants égaux (a^n × b^n)
+      this.appliquerLesValeurs(n, n)
+    } else {
+      // Cas 2 : exposants différents (a^n × b^k avec k > n)
+      const k = randint(n + 1, 6)
+      this.appliquerLesValeurs(n, k)
+    }
   }
 
   constructor() {

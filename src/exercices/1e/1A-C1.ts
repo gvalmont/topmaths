@@ -66,6 +66,7 @@ export default class OrdonnerCroissant extends ExerciceQcmA {
       return `$${nom} = ${tex} = ${valeurDecimale}$<br><br>`
     }
   }
+
    versionOriginale: () => void = () => {
     this.enonce = `Voici trois nombres.<br>$A = \\dfrac{1}{5}$ ${sp(4)} $B = \\dfrac{19}{100}$ ${sp(4)} $C = 0,21$<br>
     Le classement par ordre croissant de ces trois nombres est :`

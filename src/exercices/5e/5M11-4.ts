@@ -1,5 +1,6 @@
-import { arc } from '../../lib/2d/cercle'
+import { arc } from '../../lib/2d/Arc'
 import { codageSegments, placeLatexSurSegment } from '../../lib/2d/codages'
+import { fixeBordures } from '../../lib/2d/fixeBordures'
 import { point, pointAdistance } from '../../lib/2d/points'
 import { rotation } from '../../lib/2d/transformations'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
@@ -7,8 +8,8 @@ import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { arrondi } from '../../lib/outils/nombres'
 import { texNombre } from '../../lib/outils/texNombre'
-import { fixeBordures, mathalea2d } from '../../modules/2dGeneralites'
 import { context } from '../../modules/context'
+import { mathalea2d } from '../../modules/mathalea2d'
 import {
   gestionnaireFormulaireTexte,
   listeQuestionsToContenu,

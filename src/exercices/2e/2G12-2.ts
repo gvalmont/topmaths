@@ -1,25 +1,23 @@
+import { fixeBordures } from '../../lib/2d/fixeBordures'
 import { point, tracePoint } from '../../lib/2d/points'
 import { repere } from '../../lib/2d/reperes'
 import { segment } from '../../lib/2d/segmentsVecteurs'
 import { labelPoint, texteParPosition } from '../../lib/2d/textes'
-import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
-import FractionEtendue from '../../modules/FractionEtendue'
-import { creerNomDePolygone } from '../../lib/outils/outilString'
-import {
-  ecritureParentheseSiNegatif,
-  ecritureAlgebrique,
-} from '../../lib/outils/ecritures'
-import { texNombre } from '../../lib/outils/texNombre'
 import { texteGras } from '../../lib/format/style'
-import Exercice from '../Exercice'
-import { remplisLesBlancs } from '../../lib/interactif/questionMathLive'
-import {
-  fixeBordures,
-  mathalea2d,
-  type NestedObjetMathalea2dArray,
-} from '../../modules/2dGeneralites'
-import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
+import { remplisLesBlancs } from '../../lib/interactif/questionMathLive'
+import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
+import {
+  ecritureAlgebrique,
+  ecritureParentheseSiNegatif,
+} from '../../lib/outils/ecritures'
+import { creerNomDePolygone } from '../../lib/outils/outilString'
+import { texNombre } from '../../lib/outils/texNombre'
+import FractionEtendue from '../../modules/FractionEtendue'
+import { mathalea2d } from '../../modules/mathalea2d'
+import { listeQuestionsToContenu, randint } from '../../modules/outils'
+import type { NestedObjetMathalea2dArray } from '../../types/2d'
+import Exercice from '../Exercice'
 
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 

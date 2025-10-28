@@ -8,15 +8,15 @@ import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
 import { arrondi } from '../../lib/outils/nombres'
 import Exercice from '../Exercice'
 
-import { mathalea2d } from '../../modules/2dGeneralites'
+import { mathalea2d } from '../../modules/mathalea2d'
 
-import { listeQuestionsToContenu, randint } from '../../modules/outils'
-import { context } from '../../modules/context'
-import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
-import { handleAnswers } from '../../lib/interactif/gestionInteractif'
-import { fonctionComparaison } from '../../lib/interactif/comparisonFunctions'
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
+import { fonctionComparaison } from '../../lib/interactif/comparisonFunctions'
+import { handleAnswers } from '../../lib/interactif/gestionInteractif'
+import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
+import { context } from '../../modules/context'
+import { listeQuestionsToContenu, randint } from '../../modules/outils'
 
 export const interactifReady = true
 export const interactifType = 'mathlive'

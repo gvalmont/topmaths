@@ -1,3 +1,4 @@
+import { fixeBordures } from '../../lib/2d/fixeBordures'
 import { point3d } from '../../lib/3d/3dProjectionMathalea2d/elements'
 import { pave3d } from '../../lib/3d/3dProjectionMathalea2d/solides'
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
@@ -9,8 +10,8 @@ import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
 import { texteEnCouleurEtGras } from '../../lib/outils/embellissements'
 import { rangeMinMax } from '../../lib/outils/nombres'
 import { numAlpha } from '../../lib/outils/outilString'
-import { fixeBordures, mathalea2d } from '../../modules/2dGeneralites'
 import { context } from '../../modules/context'
+import { mathalea2d } from '../../modules/mathalea2d'
 import {
   contraindreValeur,
   gestionnaireFormulaireTexte,

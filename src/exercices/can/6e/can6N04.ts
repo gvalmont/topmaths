@@ -3,7 +3,7 @@ import { ajouteChampTexteMathLive } from '../../../lib/interactif/questionMathLi
 import { listeQuestionsToContenu, randint } from '../../../modules/outils'
 import Exercice from '../../Exercice'
 
-import { droiteGraduee } from '../../../lib/2d/reperes'
+import { droiteGraduee } from '../../../lib/2d/DroiteGraduee'
 import { latex2d } from '../../../lib/2d/textes'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 import { texFractionReduite } from '../../../lib/outils/deprecatedFractions'
@@ -11,9 +11,9 @@ import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { arrondi } from '../../../lib/outils/nombres'
 import { pgcd } from '../../../lib/outils/primalite'
 import { texNombre } from '../../../lib/outils/texNombre'
-import { mathalea2d } from '../../../modules/2dGeneralites'
 import { context } from '../../../modules/context'
 import FractionEtendue from '../../../modules/FractionEtendue'
+import { mathalea2d } from '../../../modules/mathalea2d'
 
 export const titre = 'Lire une abscisse sur une droite graduée'
 export const interactifReady = true

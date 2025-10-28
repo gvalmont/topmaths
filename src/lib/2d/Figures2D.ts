@@ -1,6 +1,6 @@
-import { ObjetMathalea2D } from '../../modules/2dGeneralites'
 import { context } from '../../modules/context'
 import type { Droite } from './droites'
+import { ObjetMathalea2D } from './ObjetMathalea2D'
 import { point, type Point } from './points'
 import { type Segment } from './segmentsVecteurs'
 import { rotation, symetrieAxiale } from './transformations'

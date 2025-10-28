@@ -324,6 +324,7 @@ export async function mathaleaGetExercicesFromParams(
       param.uuid.substring(0, 4) === 'dnb_' ||
       param.uuid.startsWith('dnbpro_') ||
       param.uuid.substring(0, 4) === 'e3c_' ||
+      param.uuid.startsWith('eam_') ||
       param.uuid.substring(0, 4) === 'bac_' ||
       param.uuid.startsWith('sti2d_') ||
       param.uuid.substring(0, 7) === 'evacom_' ||
@@ -340,7 +341,9 @@ export async function mathaleaGetExercicesFromParams(
         sujet === 'dnb' ||
         sujet === 'dnbpro' ||
         sujet === 'bac' ||
-        sujet === 'sti2d'
+        sujet === 'eam' ||
+        sujet === 'sti2d' ||
+        sujet === 'stl'
       ) {
         let response = await window.fetch(
           `static/${sujet}/${infosExerciceStatique.annee}/tex/${param.uuid}.tex`,
@@ -399,6 +402,7 @@ export async function mathaleaGetExercicesFromParams(
       if (param.uuid.substring(0, 4) === 'e3c_') examen = 'E3C'
       if (param.uuid.substring(0, 4) === 'bac_') examen = 'BAC'
       if (param.uuid.startsWith('sti2d_')) examen = 'STI2D'
+      if (param.uuid.startsWith('stl_')) examen = 'STL'
       if (param.uuid.substring(0, 7) === 'evacom_') examen = 'EVACOM'
       exercices.push({
         typeExercice: 'statique',
@@ -973,7 +977,10 @@ export function mathaleaHandleExerciceSimple(
                 })),
               ],
             }
-            const qcm = propositionsQcm(exercice, i)
+            const qcm = propositionsQcm(exercice, i, {
+              style: 'margin:0 3px 0 3px;',
+              format: exercice.interactif ? 'case' : 'lettre',
+            })
             exercice.question += qcm.texte
           }
           exercice.listeQuestions.push(exercice.question || '')
@@ -984,8 +991,8 @@ export function mathaleaHandleExerciceSimple(
             `id="ex${n}Q${i}"`,
           )
           exercice.question = exercice.question?.replace(
-            `CheckEx${n}Q0"`,
-            `CheckEx${n}Q${i}"`,
+            `checkEx${n}Q0"`,
+            `checkEx${n}Q${i}"`,
           )
           exercice.listeQuestions.push(exercice.question ?? '')
         } else {
@@ -1186,14 +1193,14 @@ export function mathaleaFormatExercice(texte = ' ') {
 
 export function mathaleaGoToView(destinationView: '' | VueType) {
   const originView = get(globalOptions).v ?? ''
-  const oldPart = '&v=' + originView
-  const newPart = destinationView === '' ? '' : '&v=' + destinationView
-  const urlString = window.location.href.replace(oldPart, newPart)
   previousView.set(originView)
-  globalOptions.update((l) => {
-    l.v = destinationView
-    return l
-  })
+  if (destinationView !== get(globalOptions).v) {
+    // on met à jour que si ncécessaire
+    globalOptions.update((l) => {
+      l.v = destinationView
+      return l
+    })
+  }
 }
 
 /**
@@ -1296,6 +1303,33 @@ export function mathaleaWriteStudentPreviousAnswers(answers?: {
             if (ele) {
               ele.etat = true
               ele.style.border = '3px solid #f15929'
+              const time = window.performance.now()
+              log(`duration ${answer}: ${time - starttime}`)
+              resolve(true)
+            }
+          })
+          .catch((reason) => {
+            console.error(reason)
+            window.notify(`Erreur dans la réponse ${answer} : ${reason}`, {})
+            resolve(true)
+          })
+      })
+      promiseAnswers.push(p)
+    } else if (answer.includes('cliquePoint')) {
+      // "answers": {"cliquePointfigEx7Q0P60" : "svg[id$='Ex7Q0'] g:nth-of-type(61)"}
+      // On active le point 60 (61ème enfant) par exemple ici...
+      const p = new Promise<Boolean>((resolve) => {
+        waitForElement(answers[answer])
+          .then(() => {
+            // La réponse correspond à un cliquePoint
+            const ele = document.querySelector(answers[answer]) as MathaleaSVG
+            if (ele) {
+              const evt = new MouseEvent('click', {
+                bubbles: true,
+                cancelable: true,
+                view: window,
+              })
+              ele.dispatchEvent(evt)
               const time = window.performance.now()
               log(`duration ${answer}: ${time - starttime}`)
               resolve(true)

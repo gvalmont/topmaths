@@ -14,9 +14,9 @@ import {
   texteEnCouleurEtGras,
 } from '../../lib/outils/embellissements'
 import { sp } from '../../lib/outils/outilString'
-import { mathalea2d } from '../../modules/2dGeneralites'
 import { context } from '../../modules/context'
 import FractionEtendue from '../../modules/FractionEtendue'
+import { mathalea2d } from '../../modules/mathalea2d'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import Exercice from '../Exercice'
 

@@ -1,16 +1,14 @@
-import {
-  colorToLatexOrHTML,
-  fixeBordures,
-  ObjetMathalea2D,
-} from '../../modules/2dGeneralites'
 import { egal } from '../../modules/outils'
 import { degToRad } from '../mathFonctions/trigo'
-import { arc } from './cercle'
+import { arc } from './Arc'
+import { colorToLatexOrHTML } from './colorToLatexOrHtml'
 import { Droite, droite, Mediatrice } from './droites'
+import { fixeBordures } from './fixeBordures'
+import { ObjetMathalea2D } from './ObjetMathalea2D'
 import { Point, point } from './points'
+import { pointAbstrait, PointAbstrait } from './points-abstraits'
 import { Polygone, polygone } from './polygones'
 import { Segment, segment, Vecteur, vecteur } from './segmentsVecteurs'
-import { pointAbstrait, PointAbstrait } from './points-abstraits'
 
 /**
  * M = translation(O,v) //M est l'image de O dans la translation de vecteur v

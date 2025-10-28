@@ -1,14 +1,14 @@
-import Exercice from '../Exercice'
-import { choice, shuffle3tableaux } from '../../lib/outils/arrayOutils'
-import { listeQuestionsToContenu, randint } from '../../modules/outils'
+import { tableauColonneLigne } from '../../lib/2d/tableau'
+import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
-import { texNombre } from '../../lib/outils/texNombre'
+import { choice, shuffle3tableaux } from '../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
-import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
-import FractionEtendue from '../../modules/FractionEtendue'
-import { tableauColonneLigne } from '../../lib/2d/tableau'
+import { texNombre } from '../../lib/outils/texNombre'
 import { context } from '../../modules/context'
+import FractionEtendue from '../../modules/FractionEtendue'
+import { listeQuestionsToContenu, randint } from '../../modules/outils'
+import Exercice from '../Exercice'
 export const titre = 'Calculer  une probabilité avec un tableau'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -255,7 +255,7 @@ export default class CalculerProbaTableau extends Exercice {
             `P_{${ev[0]}}(\\overline{${ev[1]}})`,
           ]
           calculCorr = [
-            `P(\\overline{${ev[1]}})=\\dfrac{\\text{Effectif de } \\overline{${ev[1]}}}{\\text{Effectif total}}=${miseEnEvidence(pB.texFraction)}`,
+            `P(\\overline{${ev[1]}})=\\dfrac{\\text{Effectif de } \\overline{${ev[1]}}}{\\text{Effectif total}}=${miseEnEvidence(pBb.texFraction)}`,
             `P(${ev[0]}\\cap ${ev[1]})=\\dfrac{\\text{Effectif de }${ev[0]}\\cap ${ev[1]}}{\\text{Effectif total}}=${miseEnEvidence(pAinterB.texFraction)}`,
             `P_{${ev[0]}}(\\overline{${ev[1]}})=\\dfrac{\\text{Effectif de } ${ev[0]}\\cap \\overline{${ev[1]}}}{\\text{Effectif de }${ev[0]}}=${miseEnEvidence(pBbsachantA.texFraction)}`,
           ]

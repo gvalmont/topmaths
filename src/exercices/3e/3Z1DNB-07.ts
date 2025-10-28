@@ -1,5 +1,6 @@
 import { codageAngleDroit } from '../../lib/2d/angles'
 import { placeLatexSurSegment } from '../../lib/2d/codages'
+import { fixeBordures } from '../../lib/2d/fixeBordures'
 import { point } from '../../lib/2d/points'
 import { polygone } from '../../lib/2d/polygones'
 import { segment } from '../../lib/2d/segmentsVecteurs'
@@ -15,8 +16,8 @@ import {
 } from '../../lib/outils/embellissements'
 import { prenomM } from '../../lib/outils/Personne'
 import { texNombre } from '../../lib/outils/texNombre'
-import { fixeBordures, mathalea2d } from '../../modules/2dGeneralites'
 import { fraction } from '../../modules/fractions'
+import { mathalea2d } from '../../modules/mathalea2d'
 import { randint } from '../../modules/outils'
 import ExerciceBrevetA from '../ExerciceBrevetA'
 

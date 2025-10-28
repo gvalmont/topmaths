@@ -1,23 +1,19 @@
-import katex from 'katex'
-import {
-  colorToLatexOrHTML,
-  fixeBordures,
-  mathalea2d,
-} from '../../modules/2dGeneralites'
+import { Matrix, round } from 'mathjs'
+import { colorToLatexOrHTML } from '../../lib/2d/colorToLatexOrHtml'
+import { fixeBordures } from '../../lib/2d/fixeBordures'
 import { context } from '../../modules/context'
 import FractionEtendue from '../../modules/FractionEtendue'
 import { fraction } from '../../modules/fractions'
+import { mathalea2d } from '../../modules/mathalea2d'
 import { egal } from '../../modules/outils'
 import { point } from '../2d/points'
 import { polygone } from '../2d/polygones'
 import { segment, vecteur } from '../2d/segmentsVecteurs'
+import { latex2d } from '../2d/textes'
 import { translation } from '../2d/transformations'
-import { arrondi } from '../outils/nombres'
+import engine from '../interactif/comparisonFunctions'
 import { stringNombre, texNombre } from '../outils/texNombre'
 import { matrice } from './Matrice'
-import engine from '../interactif/comparisonFunctions'
-import { Matrix, round } from 'mathjs'
-import { latex2d } from '../2d/textes'
 
 /**
  * Classe TableauDeVariation Initiée par Sebastien Lozano, transformée par Jean-Claude Lhote

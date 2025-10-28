@@ -1,7 +1,7 @@
 import { codageSegment } from '../../../lib/2d/codages'
+import { colorToLatexOrHTML } from '../../../lib/2d/colorToLatexOrHtml'
 import { milieu, point } from '../../../lib/2d/points'
 import { polygone } from '../../../lib/2d/polygones'
-import { droiteGraduee, grille } from '../../../lib/2d/reperes'
 import { segment } from '../../../lib/2d/segmentsVecteurs'
 import { texteParPosition } from '../../../lib/2d/textes'
 import { choice, shuffle } from '../../../lib/outils/arrayOutils'
@@ -13,8 +13,8 @@ import {
   stringNombre,
   texNombre,
 } from '../../../lib/outils/texNombre'
-import { colorToLatexOrHTML, mathalea2d } from '../../../modules/2dGeneralites'
 import { fraction } from '../../../modules/fractions'
+import { mathalea2d } from '../../../modules/mathalea2d'
 import { listeQuestionsToContenu, randint } from '../../../modules/outils'
 import Exercice from '../../Exercice'
 
@@ -25,6 +25,8 @@ import {
 import { ajouteChampTexteMathLive } from '../../../lib/interactif/questionMathLive'
 import Hms from '../../../modules/Hms'
 
+import { droiteGraduee } from '../../../lib/2d/DroiteGraduee'
+import { grille } from '../../../lib/2d/Grille'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 
 export const titre = 'CAN 6e sujet 2021'

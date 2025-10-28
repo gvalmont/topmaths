@@ -8,17 +8,16 @@ import {
   translation,
 } from '../../lib/2d/transformations'
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
-import Exercice from '../Exercice'
-import {
-  mathalea2d,
-  colorToLatexOrHTML,
-  fixeBordures,
-  type NestedObjetMathalea2dArray,
-} from '../../modules/2dGeneralites'
-import { listeQuestionsToContenu, randint } from '../../modules/outils'
-import Alea2iep from '../../modules/Alea2iep'
 import { translationAnimee } from '../../modules/2dAnimation'
+import Alea2iep from '../../modules/Alea2iep'
 import { context } from '../../modules/context'
+
+import { colorToLatexOrHTML } from '../../lib/2d/colorToLatexOrHtml'
+import { fixeBordures } from '../../lib/2d/fixeBordures'
+import { mathalea2d } from '../../modules/mathalea2d'
+import { listeQuestionsToContenu, randint } from '../../modules/outils'
+import type { NestedObjetMathalea2dArray } from '../../types/2d'
+import Exercice from '../Exercice'
 export const titre = "Construire un point à partir d'une égalité vectorielle"
 export const dateDeModifImportante = '29/01/2023'
 

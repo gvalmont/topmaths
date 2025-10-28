@@ -1,27 +1,25 @@
+import { colorToLatexOrHTML } from '../../lib/2d/colorToLatexOrHtml'
+import { fixeBordures } from '../../lib/2d/fixeBordures'
 import { point } from '../../lib/2d/points'
 import { repere } from '../../lib/2d/reperes'
 import { vecteur } from '../../lib/2d/segmentsVecteurs'
 import { latex2d } from '../../lib/2d/textes'
-import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
+import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
+import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
+import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
 import {
   ecritureParentheseSiNegatif,
   rienSi1,
 } from '../../lib/outils/ecritures'
-import Exercice from '../Exercice'
-import {
-  colorToLatexOrHTML,
-  fixeBordures,
-  mathalea2d,
-} from '../../modules/2dGeneralites'
+import { miseEnEvidence } from '../../lib/outils/embellissements'
+import { mathalea2d } from '../../modules/mathalea2d'
 import {
   gestionnaireFormulaireTexte,
   listeQuestionsToContenu,
   randint,
 } from '../../modules/outils'
-import { handleAnswers } from '../../lib/interactif/gestionInteractif'
-import { miseEnEvidence } from '../../lib/outils/embellissements'
-import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
+import Exercice from '../Exercice'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const titre = 'Calculer un  produit scalaire avec des coordonnées'

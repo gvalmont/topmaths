@@ -3,15 +3,21 @@ import { point, tracePoint } from '../../lib/2d/points'
 import { polyline } from '../../lib/2d/polygones'
 import { repere } from '../../lib/2d/reperes'
 import { texteParPoint } from '../../lib/2d/textes'
+import {
+  handleAnswers,
+  setReponse,
+  type AutoCorrection,
+} from '../../lib/interactif/gestionInteractif'
+import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
 import { ecritureParentheseSiNegatif } from '../../lib/outils/ecritures'
+import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { abs, rangeMinMax } from '../../lib/outils/nombres'
 import { pgcd, premierAvec } from '../../lib/outils/primalite'
 import { texNombre } from '../../lib/outils/texNombre'
-import { mathalea2d } from '../../modules/2dGeneralites'
 import { context } from '../../modules/context'
 import FractionEtendue from '../../modules/FractionEtendue'
-import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
+import { mathalea2d } from '../../modules/mathalea2d'
 import {
   contraindreValeur,
   gestionnaireFormulaireTexte,
@@ -19,12 +25,6 @@ import {
   randint,
 } from '../../modules/outils'
 import Exercice from '../Exercice'
-import {
-  handleAnswers,
-  setReponse,
-  type AutoCorrection,
-} from '../../lib/interactif/gestionInteractif'
-import { miseEnEvidence } from '../../lib/outils/embellissements'
 
 export const titre = 'Fonctions linéaires'
 export const interactifType = 'mathLive'

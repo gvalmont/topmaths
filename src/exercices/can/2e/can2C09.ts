@@ -1,22 +1,22 @@
-import {
-  miseEnEvidence,
-  texteEnCouleur,
-} from '../../../lib/outils/embellissements'
+import { codageSegments } from '../../../lib/2d/codages'
+import { milieu, point } from '../../../lib/2d/points'
 import {
   segment,
   segmentAvecExtremites,
 } from '../../../lib/2d/segmentsVecteurs'
-import { stringNombre } from '../../../lib/outils/texNombre'
 import { texteParPosition } from '../../../lib/2d/textes'
-import { milieu, point } from '../../../lib/2d/points'
-import { randint } from '../../../modules/outils'
-import { fraction } from '../../../modules/fractions'
-import { choice } from '../../../lib/outils/arrayOutils'
-import ExerciceSimple from '../../ExerciceSimple'
-import { codageSegments } from '../../../lib/2d/codages'
-import { mathalea2d } from '../../../modules/2dGeneralites'
-import { pgcd } from '../../../lib/outils/primalite'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
+import { choice } from '../../../lib/outils/arrayOutils'
+import {
+  miseEnEvidence,
+  texteEnCouleur,
+} from '../../../lib/outils/embellissements'
+import { pgcd } from '../../../lib/outils/primalite'
+import { stringNombre } from '../../../lib/outils/texNombre'
+import { fraction } from '../../../modules/fractions'
+import { mathalea2d } from '../../../modules/mathalea2d'
+import { randint } from '../../../modules/outils'
+import ExerciceSimple from '../../ExerciceSimple'
 
 export const titre = 'Calculer le "milieu" entre 1 et une fraction'
 export const interactifReady = true

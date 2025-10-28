@@ -21,16 +21,17 @@ import {
   symetrieAxiale,
   translation,
 } from '../../lib/2d/transformations'
-import Exercice from '../Exercice'
-import { mathalea2d, vide2d } from '../../modules/2dGeneralites'
-import { context } from '../../modules/context'
-import { listeQuestionsToContenu, randint } from '../../modules/outils'
-import Alea2iep from '../../modules/Alea2iep'
+import { vide2d } from '../../lib/2d/Vide2d'
 import {
   rotationAnimee,
   symetrieAnimee,
   translationAnimee,
 } from '../../modules/2dAnimation'
+import Alea2iep from '../../modules/Alea2iep'
+import { context } from '../../modules/context'
+import { mathalea2d } from '../../modules/mathalea2d'
+import { listeQuestionsToContenu, randint } from '../../modules/outils'
+import Exercice from '../Exercice'
 
 export const titre = 'Tranformations de triangle'
 /**

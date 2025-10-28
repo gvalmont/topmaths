@@ -1,22 +1,21 @@
-import {
-  colorToLatexOrHTML,
-  fixeBordures,
-  mathalea2d,
-  ObjetMathalea2D,
-  vide2d,
-} from '../../modules/2dGeneralites'
 import { context } from '../../modules/context'
+import { mathalea2d } from '../../modules/mathalea2d'
 import { egal } from '../../modules/outils'
 import type { Angle } from '../mathFonctions/trigo'
 import { arrondi, unSiPositifMoinsUnSinon } from '../outils/nombres'
-import { arc, cercle, cercleCentrePoint } from './cercle'
+import { arc } from './Arc'
+import { cercle, cercleCentrePoint } from './cercle'
 import { CodageAngle } from './codages'
+import { colorToLatexOrHTML } from './colorToLatexOrHtml'
+import { fixeBordures } from './fixeBordures'
+import { ObjetMathalea2D } from './ObjetMathalea2D'
 import { point, pointSurCercle, pointSurSegment } from './points'
+import type { PointAbstrait } from './points-abstraits'
 import { polygone, polyline } from './polygones'
 import { longueur, segment, vecteur } from './segmentsVecteurs'
 import { latexParPoint, texteParPoint, texteParPosition } from './textes'
 import { homothetie, rotation } from './transformations'
-import type { PointAbstrait } from './points-abstraits'
+import { vide2d } from './Vide2d'
 
 export type MarkType =
   | 'simple'

@@ -10,7 +10,7 @@ import { point } from '../../../lib/2d/points'
 import { segment } from '../../../lib/2d/segmentsVecteurs'
 import { labelPoint, latex2d } from '../../../lib/2d/textes'
 import { creerNomDePolygone } from '../../../lib/outils/outilString'
-import { mathalea2d } from '../../../modules/2dGeneralites'
+import { mathalea2d } from '../../../modules/mathalea2d'
 export const titre = 'Calculer une longueur dans un triangle rectangle'
 export const interactifReady = true
 export const interactifType = 'mathLive'

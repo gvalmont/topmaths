@@ -1,6 +1,7 @@
 import { codageAngleDroit } from '../../lib/2d/angles'
 import { codageSegments } from '../../lib/2d/codages'
 import { droite, droiteAvecNomLatex } from '../../lib/2d/droites'
+import { fixeBordures } from '../../lib/2d/fixeBordures'
 import { milieu, Point, point, tracePoint } from '../../lib/2d/points'
 import { repere } from '../../lib/2d/reperes'
 import { segment, vecteur } from '../../lib/2d/segmentsVecteurs'
@@ -14,12 +15,12 @@ import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { numAlpha } from '../../lib/outils/outilString'
 import { texNombre } from '../../lib/outils/texNombre'
-import { fixeBordures, mathalea2d } from '../../modules/2dGeneralites'
 import { context } from '../../modules/context'
 import {
   imagePointParTransformation,
   type TransformationsIndex,
 } from '../../modules/imagePointParTransformation'
+import { mathalea2d } from '../../modules/mathalea2d'
 import {
   gestionnaireFormulaireTexte,
   listeQuestionsToContenu,

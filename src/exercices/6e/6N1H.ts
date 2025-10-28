@@ -1,14 +1,15 @@
-import { droiteGraduee } from '../../lib/2d/reperes'
+import { droiteGraduee } from '../../lib/2d/DroiteGraduee'
+import { fixeBordures } from '../../lib/2d/fixeBordures'
+import { setReponse } from '../../lib/interactif/gestionInteractif'
+import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { combinaisonListes } from '../../lib/outils/arrayOutils'
+import { arrondi } from '../../lib/outils/nombres'
 import { lettreDepuisChiffre, sp } from '../../lib/outils/outilString'
 import { stringNombre, texNombre } from '../../lib/outils/texNombre'
+import { context } from '../../modules/context'
+import { mathalea2d } from '../../modules/mathalea2d'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import Exercice from '../Exercice'
-import { fixeBordures, mathalea2d } from '../../modules/2dGeneralites'
-import { context } from '../../modules/context'
-import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
-import { arrondi } from '../../lib/outils/nombres'
-import { setReponse } from '../../lib/interactif/gestionInteractif'
 
 export const titre = "Lire l'abscisse décimale d'un point"
 export const interactifReady = true

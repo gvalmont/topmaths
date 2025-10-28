@@ -1,9 +1,9 @@
 import { texteParPosition } from '../../../lib/2d/textes'
-import Pyramide from '../../../modules/pyramide'
-import ExerciceSimple from '../../ExerciceSimple'
-import { mathalea2d } from '../../../modules/2dGeneralites'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 import type FractionEtendue from '../../../modules/FractionEtendue'
+import { mathalea2d } from '../../../modules/mathalea2d'
+import Pyramide from '../../../modules/pyramide'
+import ExerciceSimple from '../../ExerciceSimple'
 export const titre = 'Calculer dans une pyramide additive de fractions'
 export const interactifReady = true
 export const interactifType = 'mathLive'

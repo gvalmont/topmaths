@@ -131,7 +131,7 @@ versionAleatoire: () => void = () => {
   }
   
   // Génération des coefficients : maximum 2 avec le même nombre de chiffres avant la virgule
-  let coefficients: number[] = []
+  const coefficients: number[] = []
  const typesCoefficients = [
     () => randint(1, 9) + randint(1, 99) / 100,      // 1 chiffre avant virgule (1.xx à 9.xx)
     () => randint(10, 99) + randint(1, 99) / 100,    // 2 chiffres avant virgule (10.xx à 99.xx)
@@ -314,6 +314,7 @@ versionAleatoire: () => void = () => {
     ...noms.filter(nom => nom !== valeursTriees[0].nom) // Les autres éléments
   ]
 }
+
   constructor() {
     super()
     this.versionAleatoire()

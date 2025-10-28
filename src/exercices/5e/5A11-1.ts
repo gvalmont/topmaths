@@ -3,8 +3,8 @@ import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
-import { mathalea2d } from '../../modules/2dGeneralites'
 import { labyrinthe } from '../../modules/Labyrinthe'
+import { mathalea2d } from '../../modules/mathalea2d'
 import {
   gestionnaireFormulaireTexte,
   listeQuestionsToContenu,

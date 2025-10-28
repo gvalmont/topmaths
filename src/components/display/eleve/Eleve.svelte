@@ -167,19 +167,27 @@
 
   $: questionTitle = buildQuestionTitle(currentWindowWidth, questions.length)
 
+  let debug = false
   function log(str: string) {
-    const debug = false
     if (debug) {
       console.info(str)
     }
   }
 
+  exercicesParams.subscribe((value) => {
+    log('exercicesParams changed: ' + JSON.stringify(value))
+  })
+
+  globalOptions.subscribe((value) => {
+    log('globalOptions changed: ' + JSON.stringify(value))
+  })
+
   beforeUpdate(() => {
-    log('before eleve')
+    log('Eleve.svelte beforeUpdate')
   })
 
   afterUpdate(() => {
-    log('after eleve')
+    log('Eleve.svelte afterUpdate')
 
     // Evènement indispensable pour pointCliquable par exemple
     const exercicesAffiches = new window.Event('exercicesAffiches', {
@@ -195,7 +203,7 @@
 
   let resizeObserver: ResizeObserver
   onMount(async () => {
-    log('mount eleve')
+    log('Eleve.svelte mount')
     // Si presMode est undefined cela signifie que l'on charge cet url
     // sinon en venant du modal il existerait
     if ($globalOptions.presMode === undefined) {
@@ -258,14 +266,11 @@
       })
       if (eleveSection != null) resizeObserver.observe(eleveSection)
     }
-
-    if ($globalOptions.recorder === 'capytale') {
-      $globalOptions.isInteractiveFree = false
-    }
     log('fin mount eleve')
   })
 
   onDestroy(() => {
+    log('destroy eleve')
     if (resizeObserver) resizeObserver.disconnect()
   })
 

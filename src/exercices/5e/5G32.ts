@@ -1,27 +1,28 @@
 import { angleModulo, codageAngle, codageAngleDroit } from '../../lib/2d/angles'
 import { afficheMesureAngle } from '../../lib/2d/codages'
+import { fixeBordures } from '../../lib/2d/fixeBordures'
 import { point, pointSurSegment, tracePoint } from '../../lib/2d/points'
 import { segment } from '../../lib/2d/segmentsVecteurs'
 import { labelPoint } from '../../lib/2d/textes'
 import { rotation } from '../../lib/2d/transformations'
+import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
+import {
+  handleAnswers,
+  setReponse,
+} from '../../lib/interactif/gestionInteractif'
+import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { arrondi } from '../../lib/outils/nombres'
 import { lettreDepuisChiffre, sp } from '../../lib/outils/outilString'
-import Exercice from '../Exercice'
-import { fixeBordures, mathalea2d } from '../../modules/2dGeneralites'
+import { context } from '../../modules/context'
+import { mathalea2d } from '../../modules/mathalea2d'
 import {
   gestionnaireFormulaireTexte,
   listeQuestionsToContenu,
   randint,
 } from '../../modules/outils'
-import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
-import { context } from '../../modules/context'
-import {
-  handleAnswers,
-  setReponse,
-} from '../../lib/interactif/gestionInteractif'
-import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
+import Exercice from '../Exercice'
 
 export const titre = 'Calculer un angle, déduit de figures simples'
 export const amcReady = true
@@ -612,7 +613,8 @@ export default class CalculerUnAngle extends Exercice {
           digits: 3,
           decimals: 0,
           signe: false,
-        }) // abs indispensable à cause du cas 8
+        })
+      // abs indispensable à cause du cas 8
       else
         handleAnswers(this, i, {
           reponse: {

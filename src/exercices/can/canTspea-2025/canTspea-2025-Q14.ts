@@ -1,11 +1,11 @@
-import ExerciceSimple from '../../ExerciceSimple'
-import { Spline, spline } from '../../../lib/mathFonctions/Spline'
-import { miseEnEvidence } from '../../../lib/outils/embellissements'
-import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
-import { mathalea2d } from '../../../modules/2dGeneralites'
-import { choice } from '../../../lib/outils/arrayOutils'
-import { latex2d, texteParPosition } from '../../../lib/2d/textes'
 import { repere } from '../../../lib/2d/reperes'
+import { latex2d, texteParPosition } from '../../../lib/2d/textes'
+import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
+import { Spline, spline } from '../../../lib/mathFonctions/Spline'
+import { choice } from '../../../lib/outils/arrayOutils'
+import { miseEnEvidence } from '../../../lib/outils/embellissements'
+import { mathalea2d } from '../../../modules/mathalea2d'
+import ExerciceSimple from '../../ExerciceSimple'
 export const titre = "Déterminer le nombre de solutions d'une équation"
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -119,7 +119,6 @@ export default class Can2025TQ14 extends ExerciceSimple {
       grilleSecondaireXMax: bornes.xMax + 1,
     })
     const courbe1 = theSpline.courbe({
-      repere: repere1,
       epaisseur: 1.5,
       ajouteNoeuds: true,
       optionsNoeuds: { color: 'blue', taille: 2, style: 'x', epaisseur: 2 },

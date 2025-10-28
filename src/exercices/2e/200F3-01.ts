@@ -1,11 +1,12 @@
 import { droite } from '../../lib/2d/droites'
+import { fixeBordures } from '../../lib/2d/fixeBordures'
 import RepereBuilder from '../../lib/2d/RepereBuilder'
 import {
   tableauSignesFonction,
   trouveFonctionAffine,
 } from '../../lib/mathFonctions/etudeFonction'
-import { fixeBordures, mathalea2d } from '../../modules/2dGeneralites'
 import type FractionEtendue from '../../modules/FractionEtendue'
+import { mathalea2d } from '../../modules/mathalea2d'
 import {
   gestionnaireFormulaireTexte,
   listeQuestionsToContenu,

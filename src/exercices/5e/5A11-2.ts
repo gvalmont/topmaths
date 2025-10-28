@@ -1,3 +1,5 @@
+import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
+import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import {
   combinaisonListes,
   combinaisonListesSansChangerOrdre,
@@ -5,11 +7,9 @@ import {
 } from '../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { labyrinthe, type LabyrintheChemin } from '../../modules/Labyrinthe'
-import Exercice from '../Exercice'
-import { mathalea2d } from '../../modules/2dGeneralites'
+import { mathalea2d } from '../../modules/mathalea2d'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
-import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
-import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
+import Exercice from '../Exercice'
 
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 export const dateDePublication = '16/11/2021'

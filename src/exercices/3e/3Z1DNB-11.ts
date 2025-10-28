@@ -1,6 +1,8 @@
 import { codageAngleDroit } from '../../lib/2d/angles'
-import { arc } from '../../lib/2d/cercle'
+import { arc } from '../../lib/2d/Arc'
 import { placeLatexSurSegment } from '../../lib/2d/codages'
+import { colorToLatexOrHTML } from '../../lib/2d/colorToLatexOrHtml'
+import { fixeBordures } from '../../lib/2d/fixeBordures'
 import { point } from '../../lib/2d/points'
 import { polygone } from '../../lib/2d/polygones'
 import { cone, ellipse } from '../../lib/2d/projections3d'
@@ -22,14 +24,10 @@ import {
   premierMultipleSuperieur,
 } from '../../lib/outils/primalite'
 import { texNombre } from '../../lib/outils/texNombre'
-import {
-  colorToLatexOrHTML,
-  fixeBordures,
-  mathalea2d,
-} from '../../modules/2dGeneralites'
 import { context } from '../../modules/context'
 import type FractionEtendue from '../../modules/FractionEtendue'
 import { fraction } from '../../modules/fractions'
+import { mathalea2d } from '../../modules/mathalea2d'
 import { randint } from '../../modules/outils'
 import ExerciceBrevetA from '../ExerciceBrevetA'
 

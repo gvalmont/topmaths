@@ -1,13 +1,14 @@
-import Exercice from '../../Exercice'
-import { fixeBordures, mathalea2d } from '../../../modules/2dGeneralites'
-import { listeQuestionsToContenu, randint } from '../../../modules/outils'
 import { number } from 'mathjs'
+import { fixeBordures } from '../../../lib/2d/fixeBordures'
 import { Arbre, texProba } from '../../../modules/arbres'
+import { mathalea2d } from '../../../modules/mathalea2d'
+import { listeQuestionsToContenu, randint } from '../../../modules/outils'
+import Exercice from '../../Exercice'
 
 import { ajouteChampTexteMathLive } from '../../../lib/interactif/questionMathLive'
 
-import { context } from '../../../modules/context'
 import { setReponse } from '../../../lib/interactif/gestionInteractif'
+import { context } from '../../../modules/context'
 
 export const titre = 'Calculer des probabilités à partir d’un arbre'
 export const dateDePublication = '25/12/2021'

@@ -1,10 +1,11 @@
-import ExerciceSimple from '../../ExerciceSimple'
-import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
-import { latex2d } from '../../../lib/2d/textes'
 import { courbe } from '../../../lib/2d/courbes'
-import { fixeBordures, mathalea2d } from '../../../modules/2dGeneralites'
+import { fixeBordures } from '../../../lib/2d/fixeBordures'
 import RepereBuilder from '../../../lib/2d/RepereBuilder'
+import { latex2d } from '../../../lib/2d/textes'
+import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
+import { mathalea2d } from '../../../modules/mathalea2d'
+import ExerciceSimple from '../../ExerciceSimple'
 
 export const titre = 'Déterminer une image graphiquement '
 export const interactifReady = true

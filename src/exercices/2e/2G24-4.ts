@@ -1,23 +1,23 @@
+import { remplisLesBlancs } from '../../lib/interactif/questionMathLive'
 import { choice } from '../../lib/outils/arrayOutils'
-import { texFractionReduite } from '../../lib/outils/deprecatedFractions'
 import {
   ecritureAlgebrique,
   ecritureParentheseSiNegatif,
 } from '../../lib/outils/ecritures'
-import { remplisLesBlancs } from '../../lib/interactif/questionMathLive'
-import Exercice from '../Exercice'
 import { signe } from '../../lib/outils/nombres'
+import Exercice from '../Exercice'
 
+import { handleAnswers } from '../../lib/interactif/gestionInteractif'
+import FractionEtendue from '../../modules/FractionEtendue'
 import {
   gestionnaireFormulaireTexte,
   listeQuestionsToContenu,
   randint,
 } from '../../modules/outils'
-import FractionEtendue from '../../modules/FractionEtendue'
-import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
+import { fraction } from '../../modules/fractions'
 
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -135,30 +135,30 @@ export default class Calculercoordonneesproduitvecteurs extends Exercice {
             const frac2 = choice(listeFractions1)
             const vx = new FractionEtendue(frac2[0], frac2[1])
             // const vy = new FractionEtendue(randint(-9, 9, [0]), 1)
-            const vy = randint(-9, 9, [0])
+            const vy = fraction(randint(-9, 9, [0]), 1)
             wx = vx
               .produitFraction(k.multiplieEntier(a))
               .ajouteEntier(ux)
               .simplifie()
             // vy est un entier... pourquoi ne pas utiliser un number (JC Lhote le 21/01/2025 lors du passage à typescript)
             //   wy = vy.produitFraction(k.multiplieEntier(a)).ajouteEntier(uy).simplifie()
-            wy = k
-              .multiplieEntier(a * vy)
-              .ajouteEntier(ux)
+            wy = vy
+              .produitFraction(k.multiplieEntier(a))
+              .ajouteEntier(uy)
               .simplifie()
-            texte = `Dans un repère orthonormé $\\big(O ; \\vec \\imath,\\vec \\jmath\\big)$, on donne les vecteurs suivants : $\\vec{u}\\begin{pmatrix}${ux}\\\\[0.7em]${uy}\\end{pmatrix}$ et $\\vec{v}\\begin{pmatrix}${vx.texFraction}\\\\[0.7em]${vy}\\end{pmatrix}$.<br>`
+            texte = `Dans un repère orthonormé $\\big(O ; \\vec \\imath,\\vec \\jmath\\big)$, on donne les vecteurs suivants : $\\vec{u}\\begin{pmatrix}${ux}\\\\[0.7em]${uy}\\end{pmatrix}$ et $\\vec{v}\\begin{pmatrix}${vx.texFraction}\\\\[0.7em]${vy.texFraction}\\end{pmatrix}$.<br>`
             texte += `Déterminer les coordonnées du vecteur $\\overrightarrow{w}=\\overrightarrow{u}${signe(a)}${k.texFSD}\\overrightarrow{v}$.`
 
-            texteCorr = `$\\overrightarrow{w}\\begin{pmatrix}${ux}${signe(a)}${k.texFraction}\\times ${vx.texFraction}\\\\[0.7em]${uy}${signe(a)}${k.texFSD}\\times${ecritureParentheseSiNegatif(vy)}\\end{pmatrix}$, soit $\\overrightarrow{w}\\begin{pmatrix}${miseEnEvidence(wx.texFraction)}\\\\[0.7em]${miseEnEvidence(wy.texFraction)}\\end{pmatrix}$.`
+            texteCorr = `$\\overrightarrow{w}\\begin{pmatrix}${ux}${signe(a)}${k.texFraction}\\times ${vx.texFraction}\\\\[0.7em]${uy}${signe(a)}${k.texFSD}\\times${vy.ecritureParentheseSiNegatif}\\end{pmatrix}$, soit $\\overrightarrow{w}\\begin{pmatrix}${miseEnEvidence(wx.texFraction)}\\\\[0.7em]${miseEnEvidence(wy.texFraction)}\\end{pmatrix}$.`
             if (this.correctionDetaillee) {
               texteCorr =
                 "Soit $k$ un nombre réel et soit $\\vec{u}\\begin{pmatrix}x\\\\y\\end{pmatrix}$ et $\\vec{v}\\begin{pmatrix}x'\\\\y'\\end{pmatrix}$ deux vecteurs dans un repère $\\big(O ; \\vec \\imath,\\vec \\jmath\\big)$.<br><br>"
               texteCorr +=
                 "On sait d'après le cours que $k\\overrightarrow{v}\\begin{pmatrix}k \\times x'\\\\k \\times y'\\end{pmatrix}$ et que $\\overrightarrow{u}+\\overrightarrow{v}\\begin{pmatrix}x+x'\\\\y+y'\\end{pmatrix}$.<br><br>"
               texteCorr += "Appliqué aux données de l'énoncé :<br><br>"
-              texteCorr += `$${texFractionReduite(frac1[0] * a, frac1[1])}\\overrightarrow{v}\\begin{pmatrix}${texFractionReduite(frac1[0] * a, frac1[1])}\\times${vx.texFraction}\\\\[0.7em]${texFractionReduite(frac1[0] * a, frac1[1])}\\times${ecritureParentheseSiNegatif(vy)}\\end{pmatrix}$, soit $${texFractionReduite(frac1[0] * a, frac1[1])}\\overrightarrow{v}\\begin{pmatrix}${texFractionReduite(a * frac1[0] * frac2[0], frac1[1] * frac2[1])}\\\\[0.7em]${texFractionReduite(a * frac1[0] * vy, frac1[1])}\\end{pmatrix}$.<br><br>`
+              texteCorr += `$${fraction(frac1[0] * a, frac1[1]).texFractionSimplifiee}\\overrightarrow{v}\\begin{pmatrix}${fraction(frac1[0] * a, frac1[1]).texFractionSimplifiee}\\times${vx.texFraction}\\\\[0.7em]${fraction(frac1[0] * a, frac1[1]).texFractionSimplifiee}\\times${vy.ecritureParentheseSiNegatif}\\end{pmatrix}$, soit $${fraction(frac1[0] * a, frac1[1]).texFractionSimplifiee}\\overrightarrow{v}\\begin{pmatrix}${fraction(a * frac1[0] * frac2[0], frac1[1] * frac2[1]).texFractionSimplifiee}\\\\[0.7em]${vy.multiplieEntier(a * frac1[0]).entierDivise(frac1[1]).texFraction}\\end{pmatrix}$.<br><br>`
 
-              texteCorr += `$\\overrightarrow{u}${signe(a)}${k.texFraction}\\overrightarrow{v}\\begin{pmatrix}${ux}+\\left(${texFractionReduite(a * frac1[0] * frac2[0], frac1[1] * frac2[1])}\\right)\\\\[0.7em]${uy}+\\left(${texFractionReduite(a * frac1[0] * vy, frac1[1])}\\right)\\end{pmatrix}$.<br><br>`
+              texteCorr += `$\\overrightarrow{u}${signe(a)}${k.texFraction}\\overrightarrow{v}\\begin{pmatrix}${ux}+\\left(${fraction(a * frac1[0] * frac2[0], frac1[1] * frac2[1]).texFractionSimplifiee}\\right)\\\\[0.7em]${uy}+\\left(${vy.multiplieEntier(a * frac1[0]).entierDivise(frac1[1]).texFraction}\\right)\\end{pmatrix}$.<br><br>`
 
               texteCorr += `Ce qui donne au final : $\\overrightarrow{w}\\begin{pmatrix}${miseEnEvidence(wx.texFraction)}\\\\[0.7em]${miseEnEvidence(wy.texFraction)}\\end{pmatrix}$.<br>`
             }

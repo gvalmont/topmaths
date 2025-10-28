@@ -1,3 +1,4 @@
+import { colorToLatexOrHTML } from '../../lib/2d/colorToLatexOrHtml'
 import { point } from '../../lib/2d/points'
 import { polygoneRegulierParCentreEtRayon } from '../../lib/2d/polygones'
 import { longueur, Segment, segment } from '../../lib/2d/segmentsVecteurs'
@@ -7,12 +8,12 @@ import {
   texteParPoint,
 } from '../../lib/2d/textes'
 import { homothetie, rotation, similitude } from '../../lib/2d/transformations'
+import { vide2d } from '../../lib/2d/Vide2d'
 import { choice } from '../../lib/outils/arrayOutils'
 import { lettreMinusculeDepuisChiffre } from '../../lib/outils/outilString'
+import FractionEtendue from '../../modules/FractionEtendue'
 import { randint } from '../../modules/outils'
 import { calculer } from '../../modules/outilsMathjs'
-import { colorToLatexOrHTML, vide2d } from '../../modules/2dGeneralites'
-import FractionEtendue from '../../modules/FractionEtendue'
 
 type ValueType = number | FractionEtendue | string
 /**

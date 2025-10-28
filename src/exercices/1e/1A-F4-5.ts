@@ -4,7 +4,7 @@ import { miseEnEvidence } from '../../lib/outils/embellissements'
 
 import { courbe } from '../../lib/2d/courbes'
 import { deuxColonnes } from '../../lib/format/miseEnPage'
-import { mathalea2d } from '../../modules/2dGeneralites'
+import { mathalea2d } from '../../modules/mathalea2d'
 import { randint } from '../../modules/outils'
 import ExerciceQcmA from '../ExerciceQcmA'
 export const dateDePublication = '04/10/2025'
@@ -30,7 +30,7 @@ export default class auto1AF4e extends ExerciceQcmA {
     let b: number
     let f: (x: number) => number
     let g: (x: number) => number
-    let symbole: string = '>' // Ajouter une valeur par défaut
+    const symbole: string = '>' // Ajouter une valeur par défaut
     let texteSolution: string = '' // Ajouter une valeur par défaut
     let solutionCorrecte: string = '' // Ajouter une valeur par défaut
     let solutionFauxCrochets: string = ''
@@ -121,6 +121,7 @@ export default class auto1AF4e extends ExerciceQcmA {
     ]
     this.correction = `Les solutions de l'inéquation sont les abscisses des points de $C_f$ qui se situent ${texteSolution}.`
   }
+
   versionAleatoire = () => {
     let a: number
     let b: number

@@ -6,6 +6,8 @@
  */
 
 import type { Droite, Mediatrice } from '../lib/2d/droites'
+import { fixeBordures } from '../lib/2d/fixeBordures'
+import { ObjetMathalea2D } from '../lib/2d/ObjetMathalea2D'
 import type { Point } from '../lib/2d/points'
 import type { Polygone } from '../lib/2d/polygones'
 import type { DemiDroite, Segment, Vecteur } from '../lib/2d/segmentsVecteurs'
@@ -17,7 +19,6 @@ import {
   translation,
 } from '../lib/2d/transformations'
 import { arrondi } from '../lib/outils/nombres'
-import { fixeBordures, ObjetMathalea2D } from './2dGeneralites'
 
 // JSDOC Validee par EE Juin 2022
 export function montrerParDiv(id: string) {
@@ -266,6 +267,7 @@ export class TranslationAnimee extends ObjetMathalea2D {
     | Segment
     | DemiDroite
     | Polygone
+
   v: Vecteur
   animation: string
   constructor(

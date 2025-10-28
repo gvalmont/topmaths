@@ -1,16 +1,14 @@
+import { colorToLatexOrHTML } from '../../../lib/2d/colorToLatexOrHtml'
+import { fixeBordures } from '../../../lib/2d/fixeBordures'
+import { grille } from '../../../lib/2d/Grille'
 import { point } from '../../../lib/2d/points'
 import { carre, Polyquad } from '../../../lib/2d/polygones'
-import { grille } from '../../../lib/2d/reperes'
 import { texteParPosition } from '../../../lib/2d/textes'
 import { choice } from '../../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
-import {
-  colorToLatexOrHTML,
-  fixeBordures,
-  mathalea2d,
-  type NestedObjetMathalea2dArray,
-} from '../../../modules/2dGeneralites'
+import { mathalea2d } from '../../../modules/mathalea2d'
 import { contraindreValeur, randint } from '../../../modules/outils'
+import type { NestedObjetMathalea2dArray } from '../../../types/2d'
 import ExerciceSimple from '../../ExerciceSimple'
 export const titre = 'Mesurer une aire par comptage'
 export const dateDePublication = '25/04/2024'

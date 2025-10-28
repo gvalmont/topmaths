@@ -1,15 +1,15 @@
 import { tracePoint } from '../../lib/2d/points'
 import { labelPoint } from '../../lib/2d/textes'
+import { arete3d, point3d } from '../../lib/3d/3dProjectionMathalea2d/elements'
 import { degSin, degToRad } from '../../lib/mathFonctions/trigo'
 import { combinaisonListes } from '../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { lettreDepuisChiffre } from '../../lib/outils/outilString'
+import { context } from '../../modules/context'
 import {
   mathalea2d,
   type NestedObjetMathalea2dArray,
-} from '../../modules/2dGeneralites'
-import { arete3d, point3d } from '../../lib/3d/3dProjectionMathalea2d/elements'
-import { context } from '../../modules/context'
+} from '../../modules/mathalea2d'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import Exercice from '../Exercice'
 

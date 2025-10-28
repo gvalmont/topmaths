@@ -1,11 +1,12 @@
 // import { miseEnEvidence } from '../../../lib/outils/embellissements'
 
+import { colorToLatexOrHTML } from '../../../lib/2d/colorToLatexOrHtml'
 import { courbe } from '../../../lib/2d/courbes'
 import { droite } from '../../../lib/2d/droites'
 import { point, tracePoint } from '../../../lib/2d/points'
 import { repere } from '../../../lib/2d/reperes'
 import { labelPoint, texteParPosition } from '../../../lib/2d/textes'
-import { colorToLatexOrHTML, mathalea2d } from '../../../modules/2dGeneralites'
+import { mathalea2d } from '../../../modules/mathalea2d'
 import { nombreElementsDifferents } from '../../ExerciceQcm'
 import ExerciceQcmA from '../../ExerciceQcmA'
 

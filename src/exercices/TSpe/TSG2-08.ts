@@ -1,6 +1,4 @@
-import Exercice from '../Exercice'
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
-import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import {
   ecritureAlgebrique,
   ecritureAlgebriqueSauf1,
@@ -15,6 +13,8 @@ import {
   texteItalique,
 } from '../../lib/outils/embellissements'
 import FractionEtendue from '../../modules/FractionEtendue'
+import { listeQuestionsToContenu, randint } from '../../modules/outils'
+import Exercice from '../Exercice'
 
 export const titre = 'Position relative de deux droites'
 
@@ -27,10 +27,9 @@ export const refs = {
 }
 
 /**
- * Stéphane Guyon
- * @author
+ * @author Stéphane Guyon
+ */
 
-*/
 export default class NomExercice extends Exercice {
   constructor() {
     super()
@@ -38,7 +37,7 @@ export default class NomExercice extends Exercice {
       "Préciser si l'affirmation suivante est vraie ou fausse, puis justifier la réponse donnée.<br> Une réponse non argumentée ne sera pas prise en compte.",
     )
     this.consigne +=
-      "<br> Dans un repère orthonormé de l'espace, on considère les représentations paramétriques des droites $(d)$ et $(d~')$"
+      "<br><br> Dans un repère orthonormé de l'espace, on considère les représentations paramétriques des droites $(d)$ et $(d~')$."
     this.nbQuestions = 1 // Nombre de questions à générer
     this.correctionDetaillee = false
     this.correctionDetailleeDisponible = true
@@ -232,7 +231,6 @@ export default class NomExercice extends Exercice {
            s =${u5.differenceFraction(u4).simplifie().texFraction} \\times ${quotient1.simplifie().texFraction} \\\\\\\\
           s = ${u6.differenceFraction(u4).simplifie().texFraction} \\times ${quotient2.simplifie().texFraction} \\\\\\\\
             \\end{cases}$`
-
           texteCorr += `$\\quad\\quad\\begin{cases}
           s =${resultat1.simplifie().texFraction} \\\\\\\\
           s = ${resultat2.simplifie().texFraction}
@@ -378,7 +376,7 @@ export default class NomExercice extends Exercice {
           }
           break
       }
-      if (this.questionJamaisPosee(i)) {
+      if (this.questionJamaisPosee(i, vx, vy, vz)) {
         // <- laisser le i et ajouter toutes les variables qui rendent les exercices différents (par exemple a, b, c et d)
         this.listeQuestions[i] = texte
         this.listeCorrections[i] = texteCorr

@@ -1,16 +1,16 @@
+import Decimal from 'decimal.js'
 import { round } from 'mathjs'
+import type Exercice from '../exercices/Exercice'
+import { texMulticols } from '../lib/format/miseEnPage'
 import {
   combinaisonListes,
   combinaisonListesSansChangerOrdre,
   compteOccurences,
   enleveDoublonNum,
 } from '../lib/outils/arrayOutils'
-import { texMulticols } from '../lib/format/miseEnPage'
 import { arrondi, rangeMinMax } from '../lib/outils/nombres'
 import { context } from './context'
-import Decimal from 'decimal.js'
 import FractionEtendue from './FractionEtendue'
-import type Exercice from '../exercices/Exercice'
 
 export const tropDeChiffres = 'Trop de chiffres'
 export const epsilon = 0.000001
@@ -450,6 +450,21 @@ export function randint(
     }
   }
   return min + rand
+}
+
+// Fonction pour générer un nombre aléatoire dans [a, b] (flottant)
+/**
+ *
+ * @param a : le minimim
+ * @param b : le maximum
+ * @author Jean-Claude Lhote
+ * @returns un nombre aléatoire entre a et b
+ */
+export const randFloat = (a: number, b: number, precision = 3): number => {
+  const diff = b - a
+  return (
+    Math.round((a + Math.random() * diff) * 10 ** precision) / 10 ** precision
+  )
 }
 
 /**

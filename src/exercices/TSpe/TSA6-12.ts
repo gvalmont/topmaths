@@ -1,13 +1,13 @@
-import ExerciceSimple from '../ExerciceSimple'
-import { randint } from '../../modules/outils'
+import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 import {
   ecritureAlgebrique,
   ecritureParentheseSiNegatif,
   reduireAxPlusB,
 } from '../../lib/outils/ecritures'
-import FractionEtendue from '../../modules/FractionEtendue'
-import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
+import FractionEtendue from '../../modules/FractionEtendue'
+import { randint } from '../../modules/outils'
+import ExerciceSimple from '../ExerciceSimple'
 export const titre = 'Calculer une intégrale 2'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -29,7 +29,7 @@ export default class IntegraleAffine extends ExerciceSimple {
     super()
 
     this.typeExercice = 'simple'
-
+    this.formatChampTexte = KeyboardType.clavierFonctionsTerminales
     this.nbQuestions = 1
   }
 
@@ -49,13 +49,12 @@ export default class IntegraleAffine extends ExerciceSimple {
     }
     const resultat = new FractionEtendue(c * b + d, c * a + d)
 
-    this.formatChampTexte = KeyboardType.clavierFullOperations
     this.question = `Calculer $I=\\displaystyle\\int_{${a}}^{${b}} \\left(\\dfrac{${c}}{${reduireAxPlusB(c, d)}} \\right)\\mathrm{d}x$<br>`
 
     if (this.interactif) {
       this.question += '<br>$I=$ '
     }
-    this.correction = `Soit $x\\in [${a} ; ${b}]$. Posons $u(x)=${reduireAxPlusB(c, d)}$. On a alors $u'(x)=${c}$. <br>On observe que  $\\dfrac{u'(x)}{u(x)}=\\dfrac{${c}}{${reduireAxPlusB(c, d)}}$<br>`
+    this.correction = `Soit $x\\in [${a} ; ${b}]$. Posons $u(x)=${reduireAxPlusB(c, d)}$. On a alors $u'(x)=${c}$. <br>On observe que  $\\dfrac{u'(x)}{u(x)}=\\dfrac{${c}}{${reduireAxPlusB(c, d)}}$.<br>`
     this.correction += `Comme pour tout $x\\in [${a} ; ${b}]$, $u(x)>0$, on en déduit qu'une primitive de $\\dfrac{u'(x)}{u(x)}$ est $\\ln(u)$.<br>`
     this.correction += ` $\\begin{aligned}\\displaystyle\\int_{${a}}^{${b}} \\left(\\dfrac{${c}}{${reduireAxPlusB(c, d)}} \\right)\\mathrm{d}x
     &=\\displaystyle\\int_{${a}}^{${b}} \\left(\\dfrac{u'(x)}{u(x)}\\right) \\mathrm{d}x\\\\
@@ -68,8 +67,8 @@ export default class IntegraleAffine extends ExerciceSimple {
     if (resultat.estIrreductible === false) {
       this.correction += `En simplifiant, on obtient $I=\\ln\\left(${resultat.texFractionSimplifiee}\\right)$<br>`
     }
-    this.correction += `On a donc $I=${miseEnEvidence(`\\ln\\left(${resultat.texFractionSimplifiee} \\right)`)}$`
-    this.reponse = `$\\ln(${resultat.texFractionSimplifiee})$`
+    this.correction += `On a donc $I=${miseEnEvidence(`\\ln\\left(${resultat.texFractionSimplifiee} \\right)`)}.$`
+    this.reponse = `\\ln(${resultat.texFractionSimplifiee})`
     this.canEnonce = this.question
     this.canReponseACompleter = ''
   }

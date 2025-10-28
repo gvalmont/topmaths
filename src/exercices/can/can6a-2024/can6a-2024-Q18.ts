@@ -1,16 +1,15 @@
-import ExerciceSimple from '../../ExerciceSimple'
 import { randint } from '../../../modules/outils'
+import ExerciceSimple from '../../ExerciceSimple'
 
-import { Grille } from '../../../lib/2d/reperes'
+import { colorToLatexOrHTML } from '../../../lib/2d/colorToLatexOrHtml'
+import { fixeBordures } from '../../../lib/2d/fixeBordures'
+import { grille } from '../../../lib/2d/Grille'
 import { Point } from '../../../lib/2d/points'
-import { Polygone } from '../../../lib/2d/polygones'
-import {
-  colorToLatexOrHTML,
-  fixeBordures,
-  mathalea2d,
-} from '../../../modules/2dGeneralites'
+import { pointAbstrait } from '../../../lib/2d/points-abstraits'
+import { polygone } from '../../../lib/2d/polygones'
 import { texteParPoint } from '../../../lib/2d/textes'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
+import { mathalea2d } from '../../../modules/mathalea2d'
 
 export const titre = "Déterminer l'aire  d'un trapèze rectangle en ua"
 export const interactifReady = true
@@ -47,23 +46,19 @@ export default class AireTrapezeRectangle extends ExerciceSimple {
         Math.random() < 0.5 ? grandeBase - hauteur / 2 : grandeBase - hauteur
     }
 
-    const grille = new Grille(0, 0, grandeBase + 2, hauteur + 2, 'gray', 1, 1)
-    const A = new Point(1, 1)
-    const B = new Point(1 + grandeBase, 1)
-    const C = new Point(1 + petiteBase, 1 + hauteur)
-    const D = new Point(1, 1 + hauteur)
-    const trapeze = new Polygone([A, B, C, D])
-    const unite = new Polygone(
-      [
-        new Point(grandeBase + 2, hauteur + 2),
-        new Point(grandeBase + 2, hauteur + 1),
-        new Point(grandeBase + 1, hauteur + 1),
-        new Point(grandeBase + 1, hauteur + 2),
-      ],
-      'black',
-      'none',
-      'black',
-    )
+    const grillage = grille(0, 0, grandeBase + 2, hauteur + 2, 'gray', 1, 1)
+    const A = pointAbstrait(1, 1)
+    const B = pointAbstrait(1 + grandeBase, 1)
+    const C = pointAbstrait(1 + petiteBase, 1 + hauteur)
+    const D = pointAbstrait(1, 1 + hauteur)
+    const trapeze = polygone([A, B, C, D])
+    const unite = polygone([
+      pointAbstrait(grandeBase + 2, hauteur + 2),
+      pointAbstrait(grandeBase + 2, hauteur + 1),
+      pointAbstrait(grandeBase + 1, hauteur + 1),
+      pointAbstrait(grandeBase + 1, hauteur + 2),
+    ])
+    unite.couleurDesBordures = 'black'
     // unite.epaisseur = 2
     // unite.hachures = 'checkerboard'
     // trapeze.epaisseur = 2
@@ -84,7 +79,7 @@ export default class AireTrapezeRectangle extends ExerciceSimple {
       1,
       'milieu',
     )
-    const objets = [grille, trapeze, figureA, unite, ua]
+    const objets = [grillage, trapeze, figureA, unite, ua]
     this.question =
       "Quelle est l'aire de la figure A en unités d'aire (ua) ?<br>"
     this.question += mathalea2d(

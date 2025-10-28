@@ -1,15 +1,16 @@
-import Exercice from '../Exercice'
-import { listeQuestionsToContenu } from '../../modules/outils'
+import { bleuMathalea, vertMathalea } from '../../lib/colors'
+import { tableauVariationsFonction } from '../../lib/mathFonctions/etudeFonction'
+import { choice } from '../../lib/outils/arrayOutils'
 import {
   texteEnCouleur,
   texteEnCouleurEtGras,
 } from '../../lib/outils/embellissements'
-import { context } from '../../modules/context'
-import Trinome from '../../modules/Trinome'
-import FractionEtendue from '../../modules/FractionEtendue'
-import { choice } from '../../lib/outils/arrayOutils'
-import { tableauVariationsFonction } from '../../lib/mathFonctions/etudeFonction'
 import { sp } from '../../lib/outils/outilString'
+import { context } from '../../modules/context'
+import FractionEtendue from '../../modules/FractionEtendue'
+import { listeQuestionsToContenu } from '../../modules/outils'
+import Trinome from '../../modules/Trinome'
+import Exercice from '../Exercice'
 
 export const titre = "Étude d'une suite $u_{n+1}=f(u_n)$ par récurrence"
 export const dateDePublication = '25/10/2024'
@@ -25,7 +26,7 @@ export const refs = {
   'fr-ch': [],
 }
 
-const bleuMathalea = context.isHtml ? '#216D9A' : 'black'
+const bleu = context.isHtml ? bleuMathalea : 'black'
 
 export default class EtudeSuiteFonctionRecurrence extends Exercice {
   constructor() {
@@ -78,48 +79,49 @@ export default class EtudeSuiteFonctionRecurrence extends Exercice {
       })
 
     let correction2 = `Démontrons par récurrence que, pour tout entier naturel $n$, $${i1} \\leqslant u_n \\leqslant ${i2}$`
-    correction2 += `<br><br>${texteEnCouleurEtGras('Initialisation :', bleuMathalea)}`
+    correction2 += `<br><br>${texteEnCouleurEtGras('Initialisation :', bleu)}`
     correction2 += `<br><br>$u_0 = ${i2}$, on a bien $${i1} \\leqslant u_0 \\leqslant ${i2}$.`
     correction2 += '<br><br>La propriété est donc vraie au rang 0.'
 
-    correction2 += `<br><br>${texteEnCouleurEtGras('Hérédité :', bleuMathalea)}`
+    correction2 += `<br><br>${texteEnCouleurEtGras('Hérédité :', bleu)}`
     correction2 += `<br><br>Soit $n$ un entier naturel. Supposons que $${i1} \\leqslant u_n \\leqslant ${i2}$.`
     correction2 += `<br><br>Montrons alors que $${i1} \\leqslant u_{n+1} \\leqslant ${i2}$.`
     correction2 += '<br><br>On a : '
-    correction2 += `<br><br>$${i1} \\leqslant u_n \\leqslant ${i2}\\qquad$ ${texteEnCouleur('Hypothèse de récurrence', 'forestgreen')}`
-    correction2 += `<br><br>$f(${i1}) \\leqslant f(u_n) \\leqslant f(${i2})\\qquad$ ${texteEnCouleur(`Car $f$ est croissante sur $[${i1}\\;;\\;${i2}]$`, 'forestgreen')}`
+    correction2 += `<br><br>$${i1} \\leqslant u_n \\leqslant ${i2}\\qquad$ ${texteEnCouleur('Hypothèse de récurrence', vertMathalea)}`
+    correction2 += `<br><br>$f(${i1}) \\leqslant f(u_n) \\leqslant f(${i2})\\qquad$ ${texteEnCouleur(`Car $f$ est croissante sur $[${i1}\\;;\\;${i2}]$`, vertMathalea)}`
     correction2 += `<br><br>$${f.image(i1).texFractionSimplifiee} \\leqslant f(u_n) \\leqslant ${f.image(i2).texFractionSimplifiee}$`
     correction2 += `<br><br>Or $${f.image(i2).texFractionSimplifiee} \\leqslant ${i2}$.`
     correction2 += '<br><br>Donc la propriété est vraie au rang $n+1$.'
 
-    correction2 += `<br><br>${texteEnCouleurEtGras('Conclusion :', bleuMathalea)}`
+    correction2 += `<br><br>${texteEnCouleurEtGras('Conclusion :', bleu)}`
     correction2 +=
       '<br><br>La propriété est vraie pour $n=0$ et héréditaire à partir de ce rang, donc par récurrence, elle est vraie pour tout entier naturel.'
 
     let correction3 =
       'Démontrons par récurrence que pour tout $n$ entier naturel : $u_{n+1} \\leqslant u_n$.'
-    correction3 += `<br><br>${texteEnCouleurEtGras('Initialisation :', bleuMathalea)}`
+    correction3 += `<br><br>${texteEnCouleurEtGras('Initialisation :', bleu)}`
     correction3 += `<br><br>$u_1 = f(u_0) = f(${i2}) = ${f.image(i2).texFractionSimplifiee} \\leqslant u_0$`
     correction3 += '<br><br>La propriété est donc vraie au rang 0.'
 
-    correction3 += `<br><br>${texteEnCouleurEtGras('Hérédité :', bleuMathalea)}`
+    correction3 += `<br><br>${texteEnCouleurEtGras('Hérédité :', bleu)}`
     correction3 +=
       '<br><br>Soit $n$ un entier naturel. Supposons que $u_{n+1} \\leqslant u_n$.'
     correction3 += '<br><br>Montrons alors que $u_{n+2} \\leqslant u_{n+1}$.'
     correction3 += '<br><br>On a : '
-    correction3 += `<br><br>$u_{n+1} \\leqslant u_n \\qquad$ ${texteEnCouleur('Hypothèse de récurrence', 'forestgreen')}`
-    correction3 += `<br><br>$f(u_{n+1}) \\leqslant f(u_n)\\qquad$ ${texteEnCouleur(`Car $f$ est croissante sur $[${i1}\\;;\\;${i2}]$`, 'forestgreen')}`
+    correction3 += `<br><br>$u_{n+1} \\leqslant u_n \\qquad$ ${texteEnCouleur('Hypothèse de récurrence', vertMathalea)}`
+    correction3 += `<br><br>$f(u_{n+1}) \\leqslant f(u_n)\\qquad$ ${texteEnCouleur(`Car $f$ est croissante sur $[${i1}\\;;\\;${i2}]$`, vertMathalea)}`
     correction3 += '<br><br>$u_{n+2} \\leqslant u_{n+1}$'
 
-    correction3 += `<br><br>${texteEnCouleurEtGras('Conclusion :', bleuMathalea)}`
+    correction3 += `<br><br>${texteEnCouleurEtGras('Conclusion :', bleu)}`
     correction3 +=
       '<br><br>La propriété est vraie pour $n=0$ et héréditaire à partir de ce rang, donc par récurrence, elle est vraie pour tout entier naturel.'
 
     if (!context.isHtml) {
-      for (let text of [correction1, correction2, correction3]) {
-        text = text.replaceAll('forestgreen', 'black')
-      }
+      correction1 = correction1.replaceAll(vertMathalea, 'black')
+      correction2 = correction2.replaceAll(vertMathalea, 'black')
+      correction3 = correction3.replaceAll(vertMathalea, 'black')
     }
+
     this.listeQuestions.push(...questions)
     this.listeCorrections.push(correction1, correction2, correction3)
 

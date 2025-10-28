@@ -1,8 +1,9 @@
+import { fixeBordures } from '../../../lib/2d/fixeBordures'
 import { pave } from '../../../lib/2d/projections3d'
+import { miseEnEvidence } from '../../../lib/outils/embellissements'
+import { mathalea2d } from '../../../modules/mathalea2d'
 import { randint } from '../../../modules/outils'
 import ExerciceSimple from '../../ExerciceSimple'
-import { fixeBordures, mathalea2d } from '../../../modules/2dGeneralites'
-import { miseEnEvidence } from '../../../lib/outils/embellissements'
 export const titre = 'Volume de pavé droit'
 export const interactifReady = true
 export const interactifType = 'mathLive'

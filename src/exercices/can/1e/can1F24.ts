@@ -1,18 +1,14 @@
 import { courbe } from '../../../lib/2d/courbes'
-import { Repere, repere } from '../../../lib/2d/reperes'
-import {
-  latex2d,
-  Latex2d,
-  TexteParPoint,
-} from '../../../lib/2d/textes'
+import { Repere } from '../../../lib/2d/reperes'
+import { latex2d, Latex2d, TexteParPoint } from '../../../lib/2d/textes'
+import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 import { choice } from '../../../lib/outils/arrayOutils'
 import { ecritureAlgebrique, rienSi1 } from '../../../lib/outils/ecritures'
-import ExerciceSimple from '../../ExerciceSimple'
-import { mathalea2d } from '../../../modules/2dGeneralites'
-import { randint } from '../../../modules/outils'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { texNombre } from '../../../lib/outils/texNombre'
-import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
+import { mathalea2d } from '../../../modules/mathalea2d'
+import { randint } from '../../../modules/outils'
+import ExerciceSimple from '../../ExerciceSimple'
 export const titre = 'Lire graphiquement la valeur de $a$ dans $ax^2+b$'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -56,7 +52,7 @@ export default class LectureGraphiqueParaboleA extends ExerciceSimple {
           return a * x ** 2 + b
         }
         if (b > 0) {
-          r = repere({
+          r = new Repere({
             yUnite: 2,
             xUnite: 2,
             xMin: -3,
@@ -70,16 +66,16 @@ export default class LectureGraphiqueParaboleA extends ExerciceSimple {
             yLabelMax: 5,
             yLabelMin: -2,
             grilleSecondaire: true,
-             grilleSecondaireOpacite: 1,
-      grilleSecondaireYDistance: 1,
-      grilleSecondaireXDistance: 1,
-      grilleSecondaireCouleur: 'black',
-           axesEpaisseur:1.5,
+            grilleSecondaireOpacite: 1,
+            grilleSecondaireYDistance: 1,
+            grilleSecondaireXDistance: 1,
+            grilleSecondaireCouleur: 'black',
+            axesEpaisseur: 1.5,
             grilleSecondaireYMin: -2.1,
             grilleSecondaireYMax: 12.1,
             grilleSecondaireXMin: -3.1,
             grilleSecondaireXMax: 3.1,
-              xLabelEcart: 0.8,
+            xLabelEcart: 0.8,
             yLabelEcart: 0.8,
           })
           f = (x) => a * x ** 2 + b
@@ -102,7 +98,7 @@ export default class LectureGraphiqueParaboleA extends ExerciceSimple {
             ) + '<br>'
           this.question += `${this.versionQcm ? 'À partir de cette représentation graphique, on a : ' : 'À partir de cette représentation graphique, déterminer la valeur de $a$.<br>'}`
         } else {
-          r = repere({
+          r = new Repere({
             yUnite: 2,
             xUnite: 2,
             xMin: -3,
@@ -110,15 +106,15 @@ export default class LectureGraphiqueParaboleA extends ExerciceSimple {
             yMax: 3,
             xMax: 3,
             thickHauteur: 0.2,
-              xThickMin: -6,
-               yThickMin: -6,
+            xThickMin: -6,
+            yThickMin: -6,
             xLabelMin: -2,
             xLabelMax: 2,
             yLabelMax: 2,
             yLabelMin: -2,
-          grilleSecondaireOpacite: 1,
-           axesEpaisseur:1.5,
-           grilleOpacite: 1,
+            grilleSecondaireOpacite: 1,
+            axesEpaisseur: 1.5,
+            grilleOpacite: 1,
             grilleSecondaire: true,
             grilleSecondaireYDistance: 1,
             grilleSecondaireXDistance: 1,
@@ -126,9 +122,8 @@ export default class LectureGraphiqueParaboleA extends ExerciceSimple {
             grilleSecondaireYMax: 3.1,
             grilleSecondaireXMin: -3.1,
             grilleSecondaireXMax: 3.1,
-              xLabelEcart: 0.8,
+            xLabelEcart: 0.8,
             yLabelEcart: 0.8,
-            
           })
 
           f = (x) => a * x ** 2 + b
@@ -164,7 +159,7 @@ export default class LectureGraphiqueParaboleA extends ExerciceSimple {
           return a * x ** 2 + b
         }
         if (b > 0) {
-          r = repere({
+          r = new Repere({
             yUnite: 2,
             xUnite: 2,
             xMin: -3,
@@ -172,15 +167,15 @@ export default class LectureGraphiqueParaboleA extends ExerciceSimple {
             yMax: 4,
             xMax: 3,
             thickHauteur: 0.2,
-               xThickMin: -6,
-               yThickMin: -4,
+            xThickMin: -6,
+            yThickMin: -4,
             xLabelMin: -2,
             xLabelMax: 2,
             yLabelMax: 3,
             yLabelMin: -1,
-              grilleSecondaireOpacite: 1,
-           axesEpaisseur:1.5,
-           grilleOpacite: 1,
+            grilleSecondaireOpacite: 1,
+            axesEpaisseur: 1.5,
+            grilleOpacite: 1,
             grilleSecondaire: true,
             grilleSecondaireYDistance: 1,
             grilleSecondaireXDistance: 1,
@@ -188,7 +183,7 @@ export default class LectureGraphiqueParaboleA extends ExerciceSimple {
             grilleSecondaireYMax: 4.1,
             grilleSecondaireXMin: -3.1,
             grilleSecondaireXMax: 3.1,
-               xLabelEcart: 0.8,
+            xLabelEcart: 0.8,
             yLabelEcart: 0.8,
           })
 
@@ -213,7 +208,7 @@ export default class LectureGraphiqueParaboleA extends ExerciceSimple {
             '<br>'
           this.question += `${this.versionQcm ? 'À partir de cette représentation graphique, on a : ' : 'À partir de cette représentation graphique, déterminer la valeur de $a$.<br>'}`
         } else {
-          r = repere({
+          r = new Repere({
             yUnite: 2,
             xUnite: 2,
             xMin: -3,
@@ -221,15 +216,15 @@ export default class LectureGraphiqueParaboleA extends ExerciceSimple {
             yMax: 1,
             xMax: 3,
             thickHauteur: 0.2,
-               xThickMin: -6,
-               yThickMin: -10,
+            xThickMin: -6,
+            yThickMin: -10,
             xLabelMin: -2,
             xLabelMax: 2,
             yLabelMax: 0,
             yLabelMin: -4,
-             grilleSecondaireOpacite: 1,
-           axesEpaisseur:1.5,
-           grilleOpacite: 1,
+            grilleSecondaireOpacite: 1,
+            axesEpaisseur: 1.5,
+            grilleOpacite: 1,
             grilleSecondaire: true,
             grilleSecondaireYDistance: 1,
             grilleSecondaireXDistance: 1,

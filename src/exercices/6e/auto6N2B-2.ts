@@ -1,18 +1,19 @@
 import { choice } from '../../lib/outils/arrayOutils'
 import { texNombre } from '../../lib/outils/texNombre'
-import Exercice from '../Exercice'
-import { fixeBordures, mathalea2d } from '../../modules/2dGeneralites'
 import { context } from '../../modules/context'
+import { mathalea2d } from '../../modules/mathalea2d'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
+import Exercice from '../Exercice'
 
+import { fixeBordures } from '../../lib/2d/fixeBordures'
 import {
   barre3d,
   cube3d,
   paveLPH3d,
   plaque3d,
 } from '../../lib/3d/3dProjectionMathalea2d/solides'
-import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { setReponse } from '../../lib/interactif/gestionInteractif'
+import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { arrondi } from '../../lib/outils/nombres'
 
 export const titre =

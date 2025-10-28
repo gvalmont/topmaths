@@ -3,9 +3,9 @@ import {
   numAlpha,
   premiereLettreEnMajuscule,
 } from '../../lib/outils/outilString'
-import { mathalea2d } from '../../modules/2dGeneralites'
 import { Arbre } from '../../modules/arbres'
 import { fraction } from '../../modules/fractions'
+import { mathalea2d } from '../../modules/mathalea2d'
 import {
   gestionnaireFormulaireTexte,
   listeQuestionsToContenu,

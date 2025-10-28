@@ -11,10 +11,10 @@ import {
   medianeTriangle,
 } from '../../lib/2d/triangle'
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
+import { mathalea2d } from '../../modules/mathalea2d'
+import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import { Triangle } from '../../modules/Triangle'
 import Exercice from '../Exercice'
-import { mathalea2d } from '../../modules/2dGeneralites'
-import { listeQuestionsToContenu, randint } from '../../modules/outils'
 
 export const titre = "Déterminer la nature d'une droite remarquable"
 

@@ -1,5 +1,6 @@
 import Figure from 'apigeom'
 import type Point from 'apigeom/src/elements/points/Point'
+import { colorToLatexOrHTML } from '../../lib/2d/colorToLatexOrHtml'
 import { droite } from '../../lib/2d/droites'
 import { point, tracePoint } from '../../lib/2d/points'
 import { repere } from '../../lib/2d/reperes'
@@ -10,9 +11,9 @@ import figureApigeom from '../../lib/figureApigeom'
 import { choice } from '../../lib/outils/arrayOutils'
 import { abs } from '../../lib/outils/nombres'
 import { getLang } from '../../lib/stores/languagesStore'
-import { colorToLatexOrHTML, mathalea2d } from '../../modules/2dGeneralites'
 import { context } from '../../modules/context'
 import FractionEtendue from '../../modules/FractionEtendue'
+import { mathalea2d } from '../../modules/mathalea2d'
 import {
   gestionnaireFormulaireTexte,
   listeQuestionsToContenu,

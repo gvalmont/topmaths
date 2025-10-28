@@ -1,4 +1,4 @@
-import type { NestedObjetMathalea2dArray } from '../../../modules/2dGeneralites'
+import type { NestedObjetMathalea2dArray } from '../../../types/2d'
 import type { Shape2D } from '../Figures2D'
 import { listeEmojisInfos } from '../figures2d/listeEmojis'
 import {

@@ -335,7 +335,7 @@ export default class DivisionEuclidienneMultiplesDiviseursCriteres extends Exerc
               - mais, dans ce cas, $p$ serait supérieur à $q$ sinon $p \\times q$ serait inférieur à $${M}$ ce qui ne doit pas être le cas.<br>`
             } else {
               texteCorr += `\\begin{itemize}
-              \\item si $p \\times p > ${M}$, c'est que $q \\times q < ${M}$, sinon $p \\times q ne peut être égal à $${M}$.
+              \\item si $p \\times p > ${M}$, c'est que $q \\times q < ${M}$, sinon $p \\times q$ ne peut être égal à $${M}$.
               \\item mais, dans ce cas, $p$ serait supérieur à $q$ sinon $p \\times q$ serait inférieur à $${M}$ ce qui ne doit pas être le cas.
               \\end{itemize}`
             }

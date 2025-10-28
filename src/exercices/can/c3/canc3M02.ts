@@ -1,11 +1,11 @@
-import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 import { codageAngleDroit } from '../../../lib/2d/angles'
 import { codageSegments } from '../../../lib/2d/codages'
 import { milieu, point } from '../../../lib/2d/points'
 import { segment } from '../../../lib/2d/segmentsVecteurs'
 import { texteParPosition } from '../../../lib/2d/textes'
+import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 import { choice } from '../../../lib/outils/arrayOutils'
-import { mathalea2d } from '../../../modules/2dGeneralites'
+import { mathalea2d } from '../../../modules/mathalea2d'
 import { randint } from '../../../modules/outils'
 import ExerciceSimple from '../../ExerciceSimple'
 export const titre =

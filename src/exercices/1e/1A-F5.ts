@@ -9,8 +9,8 @@ import {
 // import { reduireAxPlusB } from '../../lib/outils/ecritures'
 
 import { texNombre } from '../../lib/outils/texNombre'
-import { mathalea2d } from '../../modules/2dGeneralites'
 import type FractionEtendue from '../../modules/FractionEtendue'
+import { mathalea2d } from '../../modules/mathalea2d'
 import { randint } from '../../modules/outils'
 import ExerciceQcmA from '../ExerciceQcmA'
 /**
@@ -185,16 +185,16 @@ export default class Auto1AF5 extends ExerciceQcmA {
       thickHauteur: 0.1,
       xThickMin: xmin - 1,
       yThickMin: ymin - 1,
-      yThickMax: ymax+1,
+      yThickMax: ymax + 1,
       xLabelMin: xmin,
       yLabelMin: ymin,
-       yLabelMax: ymax,
-         xLabelMax: xmax,
-         xThickMax: xmax +1,
+      yLabelMax: ymax,
+      xLabelMax: xmax,
+      xThickMax: xmax + 1,
       yLabelDistance: 1,
       yLabelEcart: 0.5,
-        axesEpaisseur:1.5,
-           grilleSecondaireOpacite: 1,
+      axesEpaisseur: 1.5,
+      grilleSecondaireOpacite: 1,
       grilleSecondaire: true,
       grilleSecondaireYDistance: 1,
       grilleSecondaireXDistance: 1,
@@ -490,16 +490,16 @@ export default class Auto1AF5 extends ExerciceQcmA {
       thickHauteur: 0.1,
       xThickMin: xmin - 1,
       yThickMin: ymin - 1,
-      yThickMax: ymax+1,
-      xLabelMin: xmin+1,
-      yLabelMin: ymin+1,
-       yLabelMax: ymax-1,
-         xLabelMax: xmax-1,
-         xThickMax: xmax ,
+      yThickMax: ymax + 1,
+      xLabelMin: xmin + 1,
+      yLabelMin: ymin + 1,
+      yLabelMax: ymax - 1,
+      xLabelMax: xmax - 1,
+      xThickMax: xmax,
       yLabelDistance: 1,
       yLabelEcart: 0.5,
-        axesEpaisseur:1.5,
-           grilleSecondaireOpacite: 1,
+      axesEpaisseur: 1.5,
+      grilleSecondaireOpacite: 1,
       grilleSecondaire: true,
       grilleSecondaireYDistance: 1,
       grilleSecondaireXDistance: 1,

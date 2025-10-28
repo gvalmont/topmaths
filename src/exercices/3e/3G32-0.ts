@@ -1,6 +1,7 @@
 import { angle, codageAngleDroit } from '../../lib/2d/angles'
 import { cercle } from '../../lib/2d/cercle'
 import { afficheMesureAngle, texteSurSegment } from '../../lib/2d/codages'
+import { colorToLatexOrHTML } from '../../lib/2d/colorToLatexOrHtml'
 import { droite, droiteVerticaleParPoint } from '../../lib/2d/droites'
 import {
   milieu,
@@ -52,9 +53,9 @@ import {
   sp,
 } from '../../lib/outils/outilString'
 import { stringNombre, texNombre } from '../../lib/outils/texNombre'
-import { colorToLatexOrHTML, mathalea2d } from '../../modules/2dGeneralites'
 import { context } from '../../modules/context'
 import Grandeur from '../../modules/Grandeur'
+import { mathalea2d } from '../../modules/mathalea2d'
 import {
   gestionnaireFormulaireTexte,
   listeQuestionsToContenu,

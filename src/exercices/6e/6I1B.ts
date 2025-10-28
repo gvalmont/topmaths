@@ -1,21 +1,19 @@
+import { colorToLatexOrHTML } from '../../lib/2d/colorToLatexOrHtml'
+import { grille } from '../../lib/2d/Grille'
 import { point } from '../../lib/2d/points'
 import { polygone } from '../../lib/2d/polygones'
-import { grille } from '../../lib/2d/reperes'
 import { texteParPosition } from '../../lib/2d/textes'
-import { choice } from '../../lib/outils/arrayOutils'
-import Exercice from '../Exercice'
-import {
-  mathalea2d,
-  colorToLatexOrHTML,
-  ObjetMathalea2D,
-} from '../../modules/2dGeneralites'
-import { context } from '../../modules/context'
-import { listeQuestionsToContenu } from '../../modules/outils'
-import { lettreDepuisChiffre, numAlphaNum } from '../../lib/outils/outilString'
-import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
-import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { texteSansCasseCompare } from '../../lib/interactif/comparisonFunctions'
+import { handleAnswers } from '../../lib/interactif/gestionInteractif'
+import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
+import { choice } from '../../lib/outils/arrayOutils'
 import { texteEnCouleurEtGras } from '../../lib/outils/embellissements'
+import { lettreDepuisChiffre, numAlphaNum } from '../../lib/outils/outilString'
+import { context } from '../../modules/context'
+import { mathalea2d } from '../../modules/mathalea2d'
+import { listeQuestionsToContenu } from '../../modules/outils'
+import type { NestedObjetMathalea2dArray } from '../../types/2d'
+import Exercice from '../Exercice'
 
 export const amcReady = true
 export const amcType = 'AMCOpen'
@@ -178,7 +176,7 @@ export default class ColorierDeplacement extends Exercice {
       0.8,
       1,
     )
-    const lstObjet: ObjetMathalea2D[] = [r2] // liste de tous les objets Mathalea2d
+    const lstObjet: NestedObjetMathalea2dArray = [r2] // liste de tous les objets Mathalea2d
 
     let p // carré gris représentant le lutin en position de départ
     p = polygone(

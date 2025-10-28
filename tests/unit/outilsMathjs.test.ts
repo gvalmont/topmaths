@@ -7,7 +7,7 @@ import {
   toTex,
 } from '../../src/modules/outilsMathjs'
 
-function logSteps(equationStatus) {
+function logSteps(equationStatus: any) {
   for (let i = 0; i < equationStatus.length; i++) {
     const step = equationStatus[i]
     // eslint-disable-next-line
@@ -75,7 +75,7 @@ describe('nodeMath', () => {
     expect(toTex('x<2')).toBe(' x<2')
     expect(toTex('x>2')).toBe(' x>2')
     expect(toTex('x*2/3')).toBe('\\dfrac{2 x}{3}')
-    expect(toTex('x*(y/2)')).toBe(' x \\left(\\dfrac{ y}{2}\\right)')
+    expect(toTex('x*(y/2)')).toBe(' x\\dfrac{ y}{2}')
   })
 
   it('toTex should substitute variables if provided', () => {

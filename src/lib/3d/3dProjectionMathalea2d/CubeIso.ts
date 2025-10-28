@@ -1,9 +1,7 @@
-import {
-  ObjetMathalea2D,
-  colorToLatexOrHTML,
-  fixeBordures,
-  mathalea2d,
-} from '../../../modules/2dGeneralites'
+import { mathalea2d } from '../../../modules/mathalea2d'
+import { colorToLatexOrHTML } from '../../2d/colorToLatexOrHtml'
+import { fixeBordures } from '../../2d/fixeBordures'
+import { ObjetMathalea2D } from '../../2d/ObjetMathalea2D'
 import { point } from '../../2d/points'
 import { polygone } from '../../2d/polygones'
 
@@ -185,10 +183,6 @@ export function projectionCubesIso2d(
       }).c2d,
     )
   }
-  const cosa = Math.cos((alpha * Math.PI) / 180)
-  const sina = Math.sin((alpha * Math.PI) / 180)
-  const cosb = Math.cos((beta * Math.PI) / 180)
-  const sinb = Math.sin((beta * Math.PI) / 180)
   const params = Object.assign(
     {
       pixelsParCm: 20,

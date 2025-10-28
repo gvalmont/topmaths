@@ -13,9 +13,9 @@ import {
   texteEnCouleurEtGras,
 } from '../../../lib/outils/embellissements'
 import { stringNombre, texNombre } from '../../../lib/outils/texNombre'
-import { mathalea2d } from '../../../modules/2dGeneralites'
 import FractionEtendue from '../../../modules/FractionEtendue'
 import { fraction } from '../../../modules/fractions'
+import { mathalea2d } from '../../../modules/mathalea2d'
 import { listeQuestionsToContenu, randint } from '../../../modules/outils'
 import Exercice from '../../Exercice'
 export const titre = 'Calculer une aire, un périmètre ou une longueur'

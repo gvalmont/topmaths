@@ -22,7 +22,7 @@ import Exercice from '../../Exercice'
 import { setReponse } from '../../../lib/interactif/gestionInteractif'
 import { ajouteChampTexteMathLive } from '../../../lib/interactif/questionMathLive'
 import { arrondi } from '../../../lib/outils/nombres'
-import { mathalea2d } from '../../../modules/2dGeneralites'
+import { mathalea2d } from '../../../modules/mathalea2d'
 
 export const titre = 'Course aux nombres CM1'
 export const interactifReady = true

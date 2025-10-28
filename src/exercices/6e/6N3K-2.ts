@@ -1,14 +1,14 @@
 import { combinaisonListes } from '../../lib/outils/arrayOutils'
 import { nombreDeChiffresDe } from '../../lib/outils/nombres'
-import Exercice from '../Exercice'
-import { mathalea2d } from '../../modules/2dGeneralites'
 import { context } from '../../modules/context'
+import { mathalea2d } from '../../modules/mathalea2d'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
+import Exercice from '../Exercice'
 
-import { fraction } from '../../modules/fractions'
-import FractionEtendue from '../../modules/FractionEtendue'
-import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { setReponse } from '../../lib/interactif/gestionInteractif'
+import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
+import FractionEtendue from '../../modules/FractionEtendue'
+import { fraction } from '../../modules/fractions'
 
 export const titre = 'Mettre bout à bout des segments'
 export const interactifReady = true

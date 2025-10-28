@@ -1,20 +1,21 @@
+import { afficheLongueurSegment } from '../../lib/2d/codages'
+import { fixeBordures } from '../../lib/2d/fixeBordures'
 import { point } from '../../lib/2d/points'
+import { polygoneAvecNom } from '../../lib/2d/polygones'
 import { segment } from '../../lib/2d/segmentsVecteurs'
 import { latex2d } from '../../lib/2d/textes'
+import { createList } from '../../lib/format/lists'
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
 import { ecritureParentheseSiNegatif } from '../../lib/outils/ecritures'
-import Exercice from '../Exercice'
-import { fixeBordures, mathalea2d } from '../../modules/2dGeneralites'
+import { context } from '../../modules/context'
+import FractionEtendue from '../../modules/FractionEtendue'
+import { mathalea2d } from '../../modules/mathalea2d'
 import {
   gestionnaireFormulaireTexte,
   listeQuestionsToContenu,
   randint,
 } from '../../modules/outils'
-import { createList } from '../../lib/format/lists'
-import { polygoneAvecNom } from '../../lib/2d/polygones'
-import FractionEtendue from '../../modules/FractionEtendue'
-import { afficheLongueurSegment } from '../../lib/2d/codages'
-import { context } from '../../modules/context'
+import Exercice from '../Exercice'
 export const titre = "Utiliser le produit scalaire pour montrer l'orthogonalité"
 export const dateDePublication = '29/04/2025'
 

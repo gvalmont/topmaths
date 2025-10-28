@@ -1,18 +1,11 @@
 /* eslint-disable camelcase */
 import { point } from '../../lib/2d/points'
 import { texteParPositionEchelle } from '../../lib/2d/textes'
+import { choixDeroulant } from '../../lib/interactif/questionListeDeroulante'
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
 import { texteEnCouleurEtGras } from '../../lib/outils/embellissements'
 import { ajouterLien } from '../../lib/outils/enrichissements'
 import { stringNombre } from '../../lib/outils/texNombre'
-import Exercice from '../Exercice'
-import {
-  colorToLatexOrHTML,
-  mathalea2d,
-  ObjetMathalea2D,
-  type NestedObjetMathalea2dArray,
-} from '../../modules/2dGeneralites'
-import { context } from '../../modules/context'
 import {
   allerA,
   angleScratchTo2d,
@@ -23,6 +16,8 @@ import {
   ObjetLutin,
   orienter,
 } from '../../modules/2dLutin'
+import { context } from '../../modules/context'
+import { mathalea2d } from '../../modules/mathalea2d'
 import {
   noteLaCouleur,
   plateau2dNLC,
@@ -35,9 +30,12 @@ import {
 } from '../../modules/noteLaCouleur'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import { scratchblock } from '../../modules/scratchblock'
-import { choixDeroulant } from '../../lib/interactif/questionListeDeroulante'
+import Exercice from '../Exercice'
 
+import { colorToLatexOrHTML } from '../../lib/2d/colorToLatexOrHtml'
+import type { ObjetMathalea2D } from '../../lib/2d/ObjetMathalea2D'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
+import type { NestedObjetMathalea2dArray } from '../../types/2d'
 
 export const interactifReady = true
 export const interactifType = 'listeDeroulante'

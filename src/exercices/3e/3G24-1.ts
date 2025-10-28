@@ -1,15 +1,16 @@
 import {
   angleOriente,
   codageAngle,
-  CodageAngleDroit,
   codageAngleDroit,
   markTypeArray,
   MarqueAngle,
 } from '../../lib/2d/angles'
-import { CodageAngle, placeLatexSurSegment } from '../../lib/2d/codages'
+import { placeLatexSurSegment } from '../../lib/2d/codages'
 import { droite } from '../../lib/2d/droites'
-import { point, pointAdistance } from '../../lib/2d/points'
-import { NommePolygone, nommePolygone, Polygone } from '../../lib/2d/polygones'
+import { fixeBordures } from '../../lib/2d/fixeBordures'
+import { pointAdistance } from '../../lib/2d/points'
+import { pointAbstrait } from '../../lib/2d/points-abstraits'
+import { nommePolygone } from '../../lib/2d/polygones'
 import {
   longueur,
   segment,
@@ -27,6 +28,7 @@ import {
   triangle2points2angles,
   triangle2points2longueurs,
 } from '../../lib/2d/triangle'
+import { vide2d } from '../../lib/2d/Vide2d'
 import { deuxColonnesResp } from '../../lib/format/miseEnPage'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif' // fonction qui va préparer l'analyse de la saisie
 import {
@@ -43,19 +45,15 @@ import {
 import { arrondi } from '../../lib/outils/nombres'
 import { creerNomDePolygone } from '../../lib/outils/outilString'
 import { texNombre } from '../../lib/outils/texNombre'
-import {
-  fixeBordures,
-  mathalea2d,
-  Vide2d,
-  vide2d,
-} from '../../modules/2dGeneralites'
 import { context } from '../../modules/context'
 import FractionEtendue from '../../modules/FractionEtendue'
+import { mathalea2d } from '../../modules/mathalea2d'
 import {
   gestionnaireFormulaireTexte,
   listeQuestionsToContenu,
   randint,
 } from '../../modules/outils'
+import type { NestedObjetMathalea2dArray } from '../../types/2d'
 import Exercice from '../Exercice'
 
 export const interactifReady = true // pour définir qu'exercice peut s'afficher en mode interactif.
@@ -122,7 +120,7 @@ export default class TrianglesSemblables extends Exercice {
       l2 *= k / 10
       l3 *= k / 10
       const sign = choice([-1, 1]) // pour cas 5 (triangles emboités)
-      let A = point(0, 0)
+      let A = pointAbstrait(0, 0)
       let B = pointAdistance(A, l1, randint(0, 360))
       let p1 =
         typeQuestionsDisponibles[i] === 2
@@ -1162,22 +1160,8 @@ export default class TrianglesSemblables extends Exercice {
 }
 
 function definiColonnes(
-  objetsAAfficher1: (
-    | Polygone
-    | NommePolygone
-    | MarqueAngle
-    | Vide2d
-    | CodageAngleDroit
-    | CodageAngle
-  )[],
-  objetsAAfficher2: (
-    | Polygone
-    | NommePolygone
-    | MarqueAngle
-    | Vide2d
-    | CodageAngleDroit
-    | CodageAngle
-  )[],
+  objetsAAfficher1: NestedObjetMathalea2dArray,
+  objetsAAfficher2: NestedObjetMathalea2dArray,
   scaleDessin: number,
 ): [string, string] {
   const bord1 = fixeBordures(objetsAAfficher1, {

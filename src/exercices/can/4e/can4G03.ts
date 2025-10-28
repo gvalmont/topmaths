@@ -12,7 +12,7 @@ import {
 } from '../../../lib/outils/embellissements'
 import { creerNomDePolygone } from '../../../lib/outils/outilString'
 import { texNombre, texRacineCarree } from '../../../lib/outils/texNombre'
-import { mathalea2d } from '../../../modules/2dGeneralites'
+import { mathalea2d } from '../../../modules/mathalea2d'
 import { randint } from '../../../modules/outils'
 import ExerciceSimple from '../../ExerciceSimple'
 export const titre = 'Calculer l’hypoténuse avec le théorème de Pythagore'

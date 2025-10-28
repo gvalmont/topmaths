@@ -1,17 +1,18 @@
-import { grille, seyes } from '../../lib/2d/reperes'
-import { combinaisonListes } from '../../lib/outils/arrayOutils'
-import { texNombre } from '../../lib/outils/texNombre'
-import { context } from '../../modules/context'
-import { listeQuestionsToContenu, randint } from '../../modules/outils'
-import Operation from '../../modules/operations'
-import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
-import { mathalea2d, vide2d } from '../../modules/2dGeneralites'
+import Decimal from 'decimal.js'
+import { grille, seyes } from '../../lib/2d/Grille'
+import { vide2d } from '../../lib/2d/Vide2d'
 import {
   handleAnswers,
   setReponse,
 } from '../../lib/interactif/gestionInteractif'
+import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
+import { combinaisonListes } from '../../lib/outils/arrayOutils'
+import { texNombre } from '../../lib/outils/texNombre'
+import { context } from '../../modules/context'
+import { mathalea2d } from '../../modules/mathalea2d'
+import Operation from '../../modules/operations'
+import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import Exercice from '../Exercice'
-import Decimal from 'decimal.js'
 
 export const dateDeModifImportante = '07/01/2025'
 export const amcReady = true

@@ -9,7 +9,7 @@ import {
   rienSi1,
 } from '../../../lib/outils/ecritures'
 
-export const titre = 'Déterminer un seuil avec un fonction affine'
+export const titre = 'Déterminer un seuil avec une fonction affine'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const dateDePublication = '03/05/2024'

@@ -1,13 +1,11 @@
-import ExerciceSimple from '../../ExerciceSimple'
-import { segment } from '../../../lib/2d/segmentsVecteurs'
+import { colorToLatexOrHTML } from '../../../lib/2d/colorToLatexOrHtml'
+import { fixeBordures } from '../../../lib/2d/fixeBordures'
 import { milieu, point } from '../../../lib/2d/points'
 import { ellipse } from '../../../lib/2d/projections3d'
-import {
-  colorToLatexOrHTML,
-  fixeBordures,
-  mathalea2d,
-} from '../../../modules/2dGeneralites'
+import { segment } from '../../../lib/2d/segmentsVecteurs'
 import { propositionsQcm } from '../../../lib/interactif/qcm'
+import { mathalea2d } from '../../../modules/mathalea2d'
+import ExerciceSimple from '../../ExerciceSimple'
 export const titre = 'Vocabulaire dans un solide (QCM)'
 export const interactifReady = true
 export const interactifType = 'qcm'

@@ -1,5 +1,6 @@
 import { codageAngleDroit } from '../../lib/2d/angles'
-import { cercle, traceCompas } from '../../lib/2d/cercle'
+import { traceCompas } from '../../lib/2d/Arc'
+import { cercle } from '../../lib/2d/cercle'
 import {
   afficheLongueurSegment,
   codageSegments,
@@ -23,9 +24,9 @@ import { texteEnCouleur } from '../../lib/outils/embellissements'
 import { arrondi } from '../../lib/outils/nombres'
 import { creerNomDePolygone } from '../../lib/outils/outilString'
 import { stringNombre } from '../../lib/outils/texNombre'
-import { mathalea2d } from '../../modules/2dGeneralites'
 import Alea2iep from '../../modules/Alea2iep'
 import { context } from '../../modules/context'
+import { mathalea2d } from '../../modules/mathalea2d'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import Exercice from '../Exercice'
 

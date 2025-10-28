@@ -14,18 +14,16 @@ import {
 } from '../../../lib/outils/ecritures'
 import { sp } from '../../../lib/outils/outilString'
 import { stringNombre, texNombre } from '../../../lib/outils/texNombre'
-import {
-  fixeBordures,
-  mathalea2d,
-  type NestedObjetMathalea2dArray,
-} from '../../../modules/2dGeneralites'
 import FractionEtendue from '../../../modules/FractionEtendue'
+import { mathalea2d } from '../../../modules/mathalea2d'
 import { listeQuestionsToContenu, randint } from '../../../modules/outils'
 import Exercice from '../../Exercice'
 
+import { fixeBordures } from '../../../lib/2d/fixeBordures'
 import { setReponse } from '../../../lib/interactif/gestionInteractif'
 import { ajouteChampTexteMathLive } from '../../../lib/interactif/questionMathLive'
 import { arrondi } from '../../../lib/outils/nombres'
+import type { NestedObjetMathalea2dArray } from '../../../types/2d'
 
 export const titre = 'CAN seconde sujet 2022'
 export const interactifReady = true

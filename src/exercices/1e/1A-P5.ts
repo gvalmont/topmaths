@@ -1,6 +1,7 @@
+import { fixeBordures } from '../../lib/2d/fixeBordures'
 import { texNombre } from '../../lib/outils/texNombre'
-import { fixeBordures, mathalea2d } from '../../modules/2dGeneralites'
 import { Arbre, texProba } from '../../modules/arbres'
+import { mathalea2d } from '../../modules/mathalea2d'
 import { randint } from '../../modules/outils'
 import ExerciceSimple from '../ExerciceSimple'
 export const titre =

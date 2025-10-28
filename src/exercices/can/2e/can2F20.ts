@@ -1,12 +1,12 @@
-import ExerciceSimple from '../../ExerciceSimple'
+import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { randint } from '../../../modules/outils'
-import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
+import ExerciceSimple from '../../ExerciceSimple'
 
 import { choice } from '../../../lib/outils/arrayOutils'
-import { texNombre } from '../../../lib/outils/texNombre'
-import { abs } from '../../../lib/outils/nombres'
 import { ecritureAlgebrique } from '../../../lib/outils/ecritures'
+import { abs } from '../../../lib/outils/nombres'
+import { texNombre } from '../../../lib/outils/texNombre'
 export const titre =
   'Déterminer une image par une fonction affine (non définie explicitement)'
 export const interactifReady = true
@@ -73,11 +73,9 @@ Les images données permettent d'établir graphiquement qu'une augmentation d'un
     } else {
       this.correction += `On calcule l'image de $${val}$ à partir de l'image de $${x1}$ par $${nomF}$.<br>
       Pour passer de $${x1}$ à $${val}$, on retranche $${abs(n)}$  ${n === -1 ? 'unité' : 'unités'},
-       donc on retranche $${abs(n)}\\times ${imx2 - imx1}$ ${coeff * n === -1 ? 'unité' : 'unités'} à l'image de $${x1}$${n === -1 ? '.' : `, soit $${n * (imx1 - imx2)}$ ${coeff * n === -1 ? 'unité' : 'unités'}.`}
-       
-       
-      <br>
-         Ainsi, l'image de $${val}$ par $${nomF}$ est $${nomF}(${val})=${imx1}${ecritureAlgebrique(coeff * n)}=${miseEnEvidence(texNombre(imx1n))}$.`
+       donc on retranche $${abs(n)}\\times ${imx2 - imx1}$ ${coeff * n === -1 ? 'unité' : 'unités'} à l'image de $${x1}$${n === -1 ? '.' : `, soit $${n * (imx1 - imx2)}$ ${coeff * n === -1 ? 'unité' : 'unités'}.`}<br> 
+      
+      Ainsi, l'image de $${val}$ par $${nomF}$ est $${nomF}(${val})=${imx1}${ecritureAlgebrique(coeff * n)}=${miseEnEvidence(texNombre(imx1n))}$.`
       this.reponse = this.versionQcm ? `$${texNombre(imx1n)}$` : imx1n
       this.distracteurs = [
         `$${imx1 - 1}$`,

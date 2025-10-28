@@ -1,13 +1,14 @@
-import { grille, seyes } from '../../lib/2d/reperes'
-import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
-import Exercice from '../Exercice'
-import { mathalea2d, vide2d } from '../../modules/2dGeneralites'
-import { context } from '../../modules/context'
-import { listeQuestionsToContenu, randint } from '../../modules/outils'
-import { fraction } from '../../modules/fractions'
 import Figure from 'apigeom'
-import figureApigeom from '../../lib/figureApigeom'
 import LineFractionDiagram from 'apigeom/src/elements/diagrams/LineFractionDiagram'
+import { grille, seyes } from '../../lib/2d/Grille'
+import { vide2d } from '../../lib/2d/Vide2d'
+import figureApigeom from '../../lib/figureApigeom'
+import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
+import { context } from '../../modules/context'
+import { fraction } from '../../modules/fractions'
+import { mathalea2d } from '../../modules/mathalea2d'
+import { listeQuestionsToContenu, randint } from '../../modules/outils'
+import Exercice from '../Exercice'
 export const titre = "Représenter une fraction de l'unité"
 export const amcReady = true
 export const amcType = 'AMCHybride'
@@ -189,7 +190,9 @@ export default class FractionsDunite extends Exercice {
       ) {
         // result = (ele.numerator === this.goodAnswers[i] && ele.numerator === ele.indiceLastInColor) // On n'impose plus que le segment soit colorié depuis le début
         const bonNombreDeCasesColoriees = ele.numerator === this.goodAnswers[i]
-        const indicesArray = Array.from(ele.indicesRectanglesInColor).sort((a, b) => a - b)
+        const indicesArray = Array.from(ele.indicesRectanglesInColor).sort(
+          (a, b) => a - b,
+        )
         const firstElement = indicesArray[0]
         const lastElement = indicesArray[indicesArray.length - 1]
         const difference = lastElement - firstElement

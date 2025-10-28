@@ -1,7 +1,7 @@
-import { texNombre } from '../../lib/outils/texNombre'
-import { fixeBordures, mathalea2d } from '../../modules/2dGeneralites'
+import { fixeBordures } from '../../lib/2d/fixeBordures'
 import { Arbre } from '../../modules/arbres'
 import FractionEtendue from '../../modules/FractionEtendue'
+import { mathalea2d } from '../../modules/mathalea2d'
 import { randint } from '../../modules/outils'
 import ExerciceQcmA from '../ExerciceQcmA'
 export const dateDePublication = '10/08/2025'
@@ -15,7 +15,8 @@ export const interactifReady = true
 export const interactifType = 'qcm'
 export const amcReady = 'true'
 export const amcType = 'qcmMono'
-export const titre = 'Utiliser un arbre pour calculer une probabilité (intersection) '
+export const titre =
+  'Utiliser un arbre pour calculer une probabilité (intersection) '
 export default class auto1AP3a extends ExerciceQcmA {
   versionOriginale: () => void = () => {
     let objets = []
@@ -79,8 +80,11 @@ export default class auto1AP3a extends ExerciceQcmA {
     let distracteur3: number
     // Génère distracteur2 différent de distracteur1 et de la bonne réponse
 
-    this.enonce = 'On donne l\'arbre de probabilités ci-dessous :<br>'
-    this.enonce += mathalea2d(Object.assign({ style: 'inline' }, fixeBordures(objets)), objets)
+    this.enonce = "On donne l'arbre de probabilités ci-dessous :<br>"
+    this.enonce += mathalea2d(
+      Object.assign({ style: 'inline' }, fixeBordures(objets)),
+      objets,
+    )
     this.enonce += '<br>$P(A \\cap C)=\\ldots$'
     this.correction = `On sait que <br>$\\begin{aligned}
         P(A \\cap C) &= P(A) \\times P_A(C)\\\\
@@ -168,8 +172,11 @@ export default class auto1AP3a extends ExerciceQcmA {
 
     // Génère distracteur2 différent de distracteur1 et de la bonne réponse
 
-    this.enonce = 'On donne l\'arbre de probabilités ci-dessous :<br>'
-    this.enonce += mathalea2d(Object.assign({ style: 'inline' }, fixeBordures(objets)), objets)
+    this.enonce = "On donne l'arbre de probabilités ci-dessous :<br>"
+    this.enonce += mathalea2d(
+      Object.assign({ style: 'inline' }, fixeBordures(objets)),
+      objets,
+    )
     this.enonce += '<br>$P(A \\cap C)=\\ldots$'
 
     this.correction = `On sait que <br>$\\begin{aligned}

@@ -3,13 +3,13 @@ import { setCliqueFigure } from '../../lib/interactif/gestionInteractif'
 import { combinaisonListes, shuffle } from '../../lib/outils/arrayOutils'
 import { texteEnCouleurEtGras } from '../../lib/outils/embellissements'
 import { range } from '../../lib/outils/nombres'
-import { mathalea2d } from '../../modules/2dGeneralites'
 import {
   avance,
   baisseCrayon,
   creerLutin,
   tournerD,
 } from '../../modules/2dLutin'
+import { mathalea2d } from '../../modules/mathalea2d'
 import { listeQuestionsToContenu } from '../../modules/outils'
 import { scratchblock } from '../../modules/scratchblock'
 import Exercice from '../Exercice'

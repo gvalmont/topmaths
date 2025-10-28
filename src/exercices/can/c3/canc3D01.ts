@@ -1,10 +1,11 @@
 import { cercle } from '../../../lib/2d/cercle'
+import { colorToLatexOrHTML } from '../../../lib/2d/colorToLatexOrHtml'
 import { point } from '../../../lib/2d/points'
 import { segment } from '../../../lib/2d/segmentsVecteurs'
 import { rotation } from '../../../lib/2d/transformations'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
-import { colorToLatexOrHTML, mathalea2d } from '../../../modules/2dGeneralites'
 import { context } from '../../../modules/context'
+import { mathalea2d } from '../../../modules/mathalea2d'
 import { randint } from '../../../modules/outils'
 import ExerciceSimple from '../../ExerciceSimple'
 

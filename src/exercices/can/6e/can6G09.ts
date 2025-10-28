@@ -1,18 +1,15 @@
-import Exercice from '../../Exercice'
-import { listeQuestionsToContenu } from '../../../modules/outils'
-import { fixeBordures, mathalea2d } from '../../../modules/2dGeneralites'
-import { briqueLego } from '../../../lib/2d/figures2d/legos'
 import {
   aileDelta,
-  pacman,
   cerfVolant,
   etoile5Branches,
   hexagoneNonRegulier,
+  ovale,
+  pacman,
   pentagoneRegulier,
   trapezeIsocele,
   triangleQuelconque1,
-  ovale,
 } from '../../../lib/2d/figures2d/geometrie'
+import { briqueLego } from '../../../lib/2d/figures2d/legos'
 import {
   panneauArretInterdit,
   panneauCederLePassage,
@@ -30,6 +27,10 @@ import {
   panneauStop,
   panneauVoieSansIssue,
 } from '../../../lib/2d/figures2d/panneaux'
+import { fixeBordures } from '../../../lib/2d/fixeBordures'
+import { mathalea2d } from '../../../modules/mathalea2d'
+import { listeQuestionsToContenu } from '../../../modules/outils'
+import Exercice from '../../Exercice'
 
 export const titre = 'Identifier des figures symétriques'
 export const dateDePublication = '10/05/2025'
@@ -59,17 +60,15 @@ export default class SymetriqueOuPas extends Exercice {
   nouvelleVersion() {
     for (let i = 0; i < this.nbQuestions; ) {
       const pac = pacman({ fillStyle: 'red' }).translate(15, 0)
-      const sensI = panneauSensInterdit()
-        .translate(6, 0)
-        .dilatationAnimee({
-          duration: '3s',
-          repeatCount: 'indefinite',
-          loop: true,
-          factorXStart: 1,
-          factorXEnd: 1,
-          factorYStart: 1,
-          factorYEnd: -1,
-        })
+      const sensI = panneauSensInterdit().translate(6, 0).dilatationAnimee({
+        duration: '3s',
+        repeatCount: 'indefinite',
+        loop: true,
+        factorXStart: 1,
+        factorXEnd: 1,
+        factorYStart: 1,
+        factorYEnd: -1,
+      })
       const arrInter = panneauArretInterdit()
       const rp = panneauRoutePrioritaire()
       const fdrp = panneauFinDeRoutePrioritaire()

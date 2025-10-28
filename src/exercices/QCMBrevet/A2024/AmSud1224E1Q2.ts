@@ -1,13 +1,11 @@
+import { fixeBordures } from '../../../lib/2d/fixeBordures'
 import { point } from '../../../lib/2d/points'
 import { segment } from '../../../lib/2d/segmentsVecteurs'
 import { cube } from '../../../lib/3d/3dProjectionMathalea2d/CubeIso'
 import { shuffle } from '../../../lib/outils/arrayOutils'
-import {
-  fixeBordures,
-  mathalea2d,
-  ObjetMathalea2D,
-} from '../../../modules/2dGeneralites'
+import { mathalea2d } from '../../../modules/mathalea2d'
 import { randint } from '../../../modules/outils'
+import type { NestedObjetMathalea2dArray } from '../../../types/2d'
 import ExerciceQcmA from '../../ExerciceQcmA'
 
 export const uuid = 'f6fd7'
@@ -82,7 +80,7 @@ export default class AmeriqueSud1224Ex1Q4 extends ExerciceQcmA {
       objets,
     )
 
-    const objets2: ObjetMathalea2D[] = []
+    const objets2: NestedObjetMathalea2dArray = []
     for (let i = 0; i < lstCoordonneesCubes.length; i++) {
       objets2.push(
         ...cube(
@@ -103,7 +101,7 @@ export default class AmeriqueSud1224Ex1Q4 extends ExerciceQcmA {
       objets2,
     )
 
-    const objets3: ObjetMathalea2D[] = []
+    const objets3: NestedObjetMathalea2dArray = []
     for (let i = 0; i < lstCoordonneesBis.length; i++) {
       objets3.push(
         ...cube(
@@ -124,7 +122,7 @@ export default class AmeriqueSud1224Ex1Q4 extends ExerciceQcmA {
       objets3,
     )
 
-    const objets4: ObjetMathalea2D[] = []
+    const objets4: NestedObjetMathalea2dArray = []
     for (let i = 0; i < lstCoordonneesCubes.length; i++) {
       objets4.push(
         ...cube(
@@ -145,7 +143,7 @@ export default class AmeriqueSud1224Ex1Q4 extends ExerciceQcmA {
       objets4,
     )
 
-    const objets5: ObjetMathalea2D[] = []
+    const objets5: NestedObjetMathalea2dArray = []
     for (let i = 0; i < lstCoordonneesBis.length; i++) {
       objets5.push(
         ...cube(
@@ -260,7 +258,7 @@ export default class AmeriqueSud1224Ex1Q4 extends ExerciceQcmA {
   constructor() {
     super()
 
-    this.options = { vertical: false }
+    this.options = { vertical: false, ordered: false }
     this.versionAleatoire()
   }
 }

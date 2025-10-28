@@ -1,25 +1,26 @@
+import { colorToLatexOrHTML } from '../../lib/2d/colorToLatexOrHtml'
 import { droite } from '../../lib/2d/droites'
 import { point, tracePoint } from '../../lib/2d/points'
 import { repere } from '../../lib/2d/reperes'
 import { Segment, segment, vecteur } from '../../lib/2d/segmentsVecteurs'
 import { Latex2d, latexParPoint, texteParPosition } from '../../lib/2d/textes'
 import { homothetie, translation } from '../../lib/2d/transformations'
+import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
+import { handleAnswers } from '../../lib/interactif/gestionInteractif'
+import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
+import { texFractionReduite } from '../../lib/outils/deprecatedFractions'
+import { ecritureAlgebrique, reduireAxPlusB } from '../../lib/outils/ecritures'
 import {
   miseEnEvidence,
   texteEnCouleurEtGras,
 } from '../../lib/outils/embellissements'
-import { texFractionReduite } from '../../lib/outils/deprecatedFractions'
-import { ecritureAlgebrique, reduireAxPlusB } from '../../lib/outils/ecritures'
 import { abs } from '../../lib/outils/nombres'
-import Exercice from '../Exercice'
-import { colorToLatexOrHTML, mathalea2d } from '../../modules/2dGeneralites'
-import { listeQuestionsToContenu, randint } from '../../modules/outils'
-import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { context } from '../../modules/context'
 import FractionEtendue from '../../modules/FractionEtendue'
-import { handleAnswers } from '../../lib/interactif/gestionInteractif'
-import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
+import { mathalea2d } from '../../modules/mathalea2d'
+import { listeQuestionsToContenu, randint } from '../../modules/outils'
+import Exercice from '../Exercice'
 
 export const titre =
   "Déterminer graphiquement l'expression d'une fonction affine"
@@ -132,8 +133,7 @@ export default class Lecturefonctionaffine extends Exercice {
             const c = droite(a / 2, -1, b)
             c.color = colorToLatexOrHTML('red')
             c.epaisseur = 2
-            texte =
-              `Déterminer l'expression algébrique de la fonction ${this.sup2 ? '': 'affine'} $f$ représentée ${this.sup2 ? 'par la droite': ''}  ci-dessous :<br>`
+            texte = `Déterminer l'expression algébrique de la fonction ${this.sup2 ? '' : 'affine'} $f$ représentée ${this.sup2 ? 'par la droite' : ''}  ci-dessous :<br>`
             texte += mathalea2d(
               {
                 xmin: -8,
@@ -206,8 +206,9 @@ export default class Lecturefonctionaffine extends Exercice {
               )
             } else texte += '$f(x)=\\ldots$'
 
-            texteCorr = this.sup2 ? 
-              'La fonction $f$ est représentée par une droite (non verticale), donc $f$ est une fonction affine de la forme $f(x)=ax+b$. <br>': 'Puisque $f$ est une fonction affine, on a : $f(x)=ax+b$.<br>'
+            texteCorr = this.sup2
+              ? 'La fonction $f$ est représentée par une droite (non verticale), donc $f$ est une fonction affine de la forme $f(x)=ax+b$. <br>'
+              : 'Puisque $f$ est une fonction affine, on a : $f(x)=ax+b$.<br>'
             if (a === 0) {
               texteCorr += `La droite est horizontale. Elle représente une fonction affine constante ($a=0$).<br>
           Ainsi, $f(x)=${b}$.`
@@ -338,8 +339,7 @@ export default class Lecturefonctionaffine extends Exercice {
             const c = droite(a / d, -1, b)
             c.color = colorToLatexOrHTML('red')
             c.epaisseur = 2
-             texte =
-              `Déterminer l'expression algébrique de la fonction ${this.sup2 ? '': 'affine'} $f$ représentée ${this.sup2 ? 'par la droite': ''} ci-dessous :<br>`
+            texte = `Déterminer l'expression algébrique de la fonction ${this.sup2 ? '' : 'affine'} $f$ représentée ${this.sup2 ? 'par la droite' : ''} ci-dessous :<br>`
             texte += mathalea2d(
               {
                 xmin: -8,
@@ -353,8 +353,9 @@ export default class Lecturefonctionaffine extends Exercice {
               c,
               o,
             ) // On trace le graphique
-           texteCorr = this.sup2 ? 
-              'La fonction $f$ est représentée par une droite (non verticale), donc $f$ est une fonction affine de la forme $f(x)=ax+b$. <br>': 'Puisque $f$ est une fonction affine, on a : $f(x)=ax+b$.<br>'
+            texteCorr = this.sup2
+              ? 'La fonction $f$ est représentée par une droite (non verticale), donc $f$ est une fonction affine de la forme $f(x)=ax+b$. <br>'
+              : 'Puisque $f$ est une fonction affine, on a : $f(x)=ax+b$.<br>'
             texteCorr += `$\\bullet$ $b$ est l'ordonnée à l'origine de la droite. On lit $b=${b}$.<br>`
             if (this.correctionDetaillee) {
               texteCorr += `L'ordonnée à l'origine est l'ordonnée du point d'intersection entre la droite et l'axe des ordonnées.<br>

@@ -1,4 +1,3 @@
-import { choice } from '../../lib/outils/arrayOutils'
 import Transformations from '../6e/_Transformations'
 
 export const titre = "Trouver l'image d'un point par une symétrie axiale"
@@ -16,6 +15,6 @@ export const refs = {
 export default class SymetrieAxiale5e extends Transformations {
   constructor() {
     super()
-    this.sup = choice(['1-2-3', '1-2-4', '2-3-4', '1-3-4'])
+    this.sup = '1-2-3-4'
   }
 }

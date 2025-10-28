@@ -1,14 +1,14 @@
 import { point } from '../../lib/2d/points'
 import { infoMessage } from '../../lib/format/message'
 import { texteGras } from '../../lib/format/style'
-import Exercice from '../Exercice'
-import { context } from '../../modules/context'
 import Alea2iep from '../../modules/Alea2iep'
+import { context } from '../../modules/context'
 import {
-  randint,
   enumerate,
   enumerateSansPuceSansNumero,
+  randint,
 } from '../../modules/outils'
+import Exercice from '../Exercice'
 
 // Les exports suivants sont optionnels mais au moins la date de publication semble essentielle
 export const dateDePublication = '14/03/2022' // La date de publication initiale au format 'jj/mm/aaaa' pour affichage temporaire d'un tag
@@ -147,7 +147,7 @@ export default class PuzzlesGeometriques extends Exercice {
         anim.pointCreer(G, { dy: 0.7 })
         anim.pointCreer(H, { dy: 0.7 })
       }
-      if (version === 'v2') {
+      if (version === 'v2' && E1 && F1 && G1 && H1) {
         anim.pointCreer(E1, { dx: -0.7, dy: 0.7 })
         anim.pointCreer(F1, { dx: -0.7, dy: 0.8 })
         anim.pointCreer(G1, { dx: 0.2, dy: 0.7 })
@@ -161,19 +161,19 @@ export default class PuzzlesGeometriques extends Exercice {
       anim.regleSegment(C, D, { couleur: 'red', epaisseur: 4 })
       anim.regleSegment(D, A, { couleur: 'red', epaisseur: 4 })
       anim.regleSegment(D, I, { couleur: 'red', epaisseur: 4 })
-      if (version === 'v2') {
+      if (version === 'v2' && E1 && F1 && G1 && H1) {
         anim.regleSegment(F1, G1, {
-          pointilles: 'tiret',
+          pointilles: true,
           couleur: 'gray',
           epaisseur: 1,
         })
         anim.regleSegment(E1, I, {
-          pointilles: 'tiret',
+          pointilles: true,
           couleur: 'gray',
           epaisseur: 1,
         })
         anim.regleSegment(B, H1, {
-          pointilles: 'tiret',
+          pointilles: true,
           couleur: 'gray',
           epaisseur: 1,
         })

@@ -5,6 +5,7 @@ import {
   updateCubeIso,
 } from '../../lib/2d/figures2d/Shape3d'
 import { listeShapes2DInfos } from '../../lib/2d/figures2d/shapes2d'
+import { fixeBordures } from '../../lib/2d/fixeBordures'
 import {
   listePatternsFor5I13,
   type PatternRiche,
@@ -26,17 +27,14 @@ import {
 import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { range1 } from '../../lib/outils/nombres'
 import { texNombre } from '../../lib/outils/texNombre'
-import {
-  fixeBordures,
-  mathalea2d,
-  type NestedObjetMathalea2dArray,
-} from '../../modules/2dGeneralites'
 import { context } from '../../modules/context'
+import { mathalea2d } from '../../modules/mathalea2d'
 import {
   contraindreValeur,
   gestionnaireFormulaireTexte,
   randint,
 } from '../../modules/outils'
+import type { NestedObjetMathalea2dArray } from '../../types/2d'
 import Exercice from '../Exercice'
 
 export const titre = "Identifier la structure d'un motif (itératif)"

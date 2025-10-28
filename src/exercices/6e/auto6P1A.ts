@@ -1,4 +1,5 @@
 import { traceBarre } from '../../lib/2d/diagrammes'
+import { fixeBordures } from '../../lib/2d/fixeBordures'
 import { repere } from '../../lib/2d/reperes'
 import { propositionsQcm } from '../../lib/interactif/qcm'
 import { choice } from '../../lib/outils/arrayOutils'
@@ -6,8 +7,8 @@ import {
   numAlpha,
   premiereLettreEnMajuscule,
 } from '../../lib/outils/outilString'
-import { fixeBordures, mathalea2d } from '../../modules/2dGeneralites'
 import { context } from '../../modules/context'
+import { mathalea2d } from '../../modules/mathalea2d'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import Exercice from '../Exercice'
 

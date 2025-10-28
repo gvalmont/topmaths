@@ -1,7 +1,9 @@
 import { codageAngleDroit } from '../../lib/2d/angles'
-import { arc, cercle } from '../../lib/2d/cercle'
+import { arc } from '../../lib/2d/Arc'
+import { cercle } from '../../lib/2d/cercle'
 import { codageSegment, texteSurSegment } from '../../lib/2d/codages'
 import { droite, droiteParPointEtPerpendiculaire } from '../../lib/2d/droites'
+import { fixeBordures } from '../../lib/2d/fixeBordures'
 import {
   Point,
   point,
@@ -22,18 +24,15 @@ import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { arrondi, troncature } from '../../lib/outils/nombres'
 import { sp } from '../../lib/outils/outilString'
 import { stringNombre, texNombre } from '../../lib/outils/texNombre'
-import {
-  fixeBordures,
-  mathalea2d,
-  ObjetMathalea2D,
-} from '../../modules/2dGeneralites'
 import { context } from '../../modules/context'
 import Grandeur from '../../modules/Grandeur'
+import { mathalea2d } from '../../modules/mathalea2d'
 import {
   gestionnaireFormulaireTexte,
   listeQuestionsToContenu,
   randint,
 } from '../../modules/outils'
+import type { NestedObjetMathalea2dArray } from '../../types/2d'
 import Exercice from '../Exercice'
 
 export const titre = 'Calculer périmètre et aire de figures composées'
@@ -175,9 +174,9 @@ export default class PerimetreOuAireDeFiguresComposees extends Exercice {
       }
       const contourFigure = []
       const decoupages = []
-      const codagesSansDecoupage: ObjetMathalea2D[] = []
+      const codagesSansDecoupage: NestedObjetMathalea2dArray = []
       const codagesDecoupage = []
-      const labelsSansDecoupage: ObjetMathalea2D[] = []
+      const labelsSansDecoupage: NestedObjetMathalea2dArray = []
       const labelsAvecDecoupage = []
       const objetsEnonce = []
       const objetsCorrection = []

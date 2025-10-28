@@ -1,9 +1,11 @@
+import { colorToLatexOrHTML } from '../../lib/2d/colorToLatexOrHtml'
+import { grille, seyes } from '../../lib/2d/Grille'
 import { point } from '../../lib/2d/points'
 import { polygone } from '../../lib/2d/polygones'
-import { grille, seyes } from '../../lib/2d/reperes'
 import { segment } from '../../lib/2d/segmentsVecteurs'
 import { labelPoint } from '../../lib/2d/textes'
 import { similitude, translation2Points } from '../../lib/2d/transformations'
+import { vide2d } from '../../lib/2d/Vide2d'
 import { propositionsQcm } from '../../lib/interactif/qcm'
 import {
   choice,
@@ -11,11 +13,7 @@ import {
   enleveDoublonNum,
 } from '../../lib/outils/arrayOutils'
 import { creerNomDePolygone } from '../../lib/outils/outilString'
-import {
-  colorToLatexOrHTML,
-  mathalea2d,
-  vide2d,
-} from '../../modules/2dGeneralites'
+import { mathalea2d } from '../../modules/mathalea2d'
 import {
   gestionnaireFormulaireTexte,
   listeQuestionsToContenu,

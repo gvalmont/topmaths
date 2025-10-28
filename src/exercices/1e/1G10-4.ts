@@ -1,28 +1,28 @@
+import { codageAngleDroit } from '../../lib/2d/angles'
+import { afficheLongueurSegment, codageSegment } from '../../lib/2d/codages'
+import { droite } from '../../lib/2d/droites'
 import {
   milieu,
   point,
   pointAdistance,
   tracePointSurDroite,
 } from '../../lib/2d/points'
+import { polygone } from '../../lib/2d/polygones'
+import { segment, segmentAvecExtremites } from '../../lib/2d/segmentsVecteurs'
 import { labelPoint } from '../../lib/2d/textes'
-import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
+import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
+import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
-import Exercice from '../Exercice'
-import { mathalea2d } from '../../modules/2dGeneralites'
+import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
+import { miseEnEvidence } from '../../lib/outils/embellissements'
+import { texNombre } from '../../lib/outils/texNombre'
+import { mathalea2d } from '../../modules/mathalea2d'
 import {
   gestionnaireFormulaireTexte,
   listeQuestionsToContenu,
   randint,
 } from '../../modules/outils'
-import { handleAnswers } from '../../lib/interactif/gestionInteractif'
-import { miseEnEvidence } from '../../lib/outils/embellissements'
-import { texNombre } from '../../lib/outils/texNombre'
-import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
-import { afficheLongueurSegment, codageSegment } from '../../lib/2d/codages'
-import { polygone } from '../../lib/2d/polygones'
-import { segment, segmentAvecExtremites } from '../../lib/2d/segmentsVecteurs'
-import { codageAngleDroit } from '../../lib/2d/angles'
-import { droite } from '../../lib/2d/droites'
+import Exercice from '../Exercice'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const titre = 'Calculer un produit scalaire avec une projection'
@@ -83,7 +83,8 @@ export default class CalculProduitScalaireProjection extends Exercice {
       switch (
         listeTypeDeQuestions[i] // listeTypeDeQuestions[i]
       ) {
-        case 1: { // carré
+        case 1: {
+          // carré
           const choixb = choice([true, false])
           const choixa = choice([true, false])
           const A = point(0, 0, 'A', 'below')
@@ -316,7 +317,8 @@ export default class CalculProduitScalaireProjection extends Exercice {
           }
           break
         }
-        case 2: { //
+        case 2: {
+          //
           const choixb = choice([true, false])
           const choixa = choice([true, false])
           const A = point(0, 0, 'A', 'below')

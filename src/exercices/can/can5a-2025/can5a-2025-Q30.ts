@@ -1,3 +1,4 @@
+import { fixeBordures } from '../../../lib/2d/fixeBordures'
 import { latex2d } from '../../../lib/2d/textes'
 import { point3d } from '../../../lib/3d/3dProjectionMathalea2d/elements'
 import { pave3d } from '../../../lib/3d/3dProjectionMathalea2d/solides'
@@ -5,8 +6,8 @@ import { fonctionComparaison } from '../../../lib/interactif/comparisonFunctions
 import { choice } from '../../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { texNombre } from '../../../lib/outils/texNombre'
-import { fixeBordures, mathalea2d } from '../../../modules/2dGeneralites'
 import { context } from '../../../modules/context'
+import { mathalea2d } from '../../../modules/mathalea2d'
 import { randint } from '../../../modules/outils'
 import ExerciceCan from '../../ExerciceCan'
 

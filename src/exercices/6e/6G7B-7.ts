@@ -1,4 +1,5 @@
 import { codageMediatrice } from '../../lib/2d/codages'
+import { colorToLatexOrHTML } from '../../lib/2d/colorToLatexOrHtml'
 import {
   Droite,
   droiteHorizontaleParPoint,
@@ -15,6 +16,7 @@ import {
 import { segment } from '../../lib/2d/segmentsVecteurs'
 import { latexParCoordonnees, texteParPosition } from '../../lib/2d/textes'
 import { symetrieAxiale } from '../../lib/2d/transformations'
+import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import {
   choice,
   combinaisonListes,
@@ -26,16 +28,15 @@ import {
 } from '../../lib/outils/embellissements'
 import { numAlpha } from '../../lib/outils/outilString'
 import { nombreAvecEspace } from '../../lib/outils/texNombre'
-import Exercice from '../Exercice'
-import { colorToLatexOrHTML, mathalea2d } from '../../modules/2dGeneralites'
-import { context } from '../../modules/context'
-import { egal, listeQuestionsToContenu, randint } from '../../modules/outils'
 import { symetrieAnimee } from '../../modules/2dAnimation'
+import { context } from '../../modules/context'
+import { mathalea2d } from '../../modules/mathalea2d'
+import { egal, listeQuestionsToContenu, randint } from '../../modules/outils'
 import { Pavage, pavage } from '../../modules/Pavage'
-import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
+import Exercice from '../Exercice'
 
-import { setReponse } from '../../lib/interactif/gestionInteractif'
 import type { Polygone } from '../../lib/2d/polygones'
+import { setReponse } from '../../lib/interactif/gestionInteractif'
 
 export const titre =
   "Trouver l'image d'une figure par une symétrie axiale dans un pavage"

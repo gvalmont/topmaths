@@ -1,3 +1,7 @@
+import {
+  afficheLongueurSegment,
+  afficheMesureAngle,
+} from '../../lib/2d/codages'
 import { droite } from '../../lib/2d/droites'
 import {
   point,
@@ -9,24 +13,20 @@ import {
   segment,
   segmentAvecExtremites,
 } from '../../lib/2d/segmentsVecteurs'
-import {
-  afficheLongueurSegment,
-  afficheMesureAngle,
-} from '../../lib/2d/codages'
+import { labelPoint } from '../../lib/2d/textes'
 import { rotation } from '../../lib/2d/transformations'
+import { arrondi } from '../../lib/outils/nombres'
 import { creerNomDePolygone } from '../../lib/outils/outilString'
 import { texNombre } from '../../lib/outils/texNombre'
-import Exercice from '../Exercice'
+import Alea2iep from '../../modules/Alea2iep'
+import { context } from '../../modules/context'
+import { mathalea2d } from '../../modules/mathalea2d'
 import {
+  gestionnaireFormulaireTexte,
   listeQuestionsToContenu,
   randint,
-  gestionnaireFormulaireTexte,
 } from '../../modules/outils'
-import { labelPoint } from '../../lib/2d/textes'
-import { arrondi } from '../../lib/outils/nombres'
-import Alea2iep from '../../modules/Alea2iep'
-import { mathalea2d } from '../../modules/2dGeneralites'
-import { context } from '../../modules/context'
+import Exercice from '../Exercice'
 
 // Les exports suivants sont optionnels mais au moins la date de publication semble essentielle
 export const dateDePublication = '04/03/2022' // La date de publication initiale au format 'jj/mm/aaaa' pour affichage temporaire d'un tag

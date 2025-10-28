@@ -188,9 +188,9 @@ function choisirNVillesAssezLointaines(n) {
     })
     // Ajout des propriétés communes à toutes les villes
     listeVilles.forEach((ville) => {
-      ville.pointColor = 'xffffff'
+      ville.pointColor = '#ffffff'
       ville.pointRadius = 0.04
-      ville.labelColor = '0xffffff'
+      ville.labelColor = '#ffffff'
       ville.labelSize = 0.2
       ville.labelOffset = 0.05
       ville.font = 'fonts/Arial Rounded Bold.ttf'
@@ -250,16 +250,16 @@ function buildSceneContent(villes, points, points2, points3) {
         greenwichColor: '#00ff00',
       },
       // Lumières
-      { type: 'ambientLight', color: 0xffffff, intensity: 1.2 },
+      { type: 'ambientLight', color: '#ffffff', intensity: 1.2 },
       {
         type: 'directionalLight',
-        color: 0xffffff,
+        color: '#ffffff',
         intensity: 1.5,
         position: [0, 10, 100],
       },
       {
         type: 'directionalLight',
-        color: 0xffffff,
+        color: '#ffffff',
         intensity: 1.5,
         position: [0, 10, -100],
       },

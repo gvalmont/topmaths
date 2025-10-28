@@ -1,10 +1,10 @@
 import { propositionsQcm } from '../../../lib/interactif/qcm'
 import { choice } from '../../../lib/outils/arrayOutils'
-import { sp } from '../../../lib/outils/outilString'
 import {
   texteEnCouleurEtGras,
   texteGras,
 } from '../../../lib/outils/embellissements'
+import { sp } from '../../../lib/outils/outilString'
 import {
   listeDesDiviseurs,
   premiersEntreBornes,
@@ -67,7 +67,7 @@ export default class NombresPremiers extends Exercice {
       // ###############################################################################################################
       const texte =
         `Indiquer si le nombre $${nbre}$ est premier ou pas.  ` + props.texte
-      let texteCorr /* string */
+      let texteCorr = '' /* string */
       if (nbre === nbrePremier) {
         texteCorr = `$${nbre}$ n'a que deux diviseurs $1$ et  $${nbre}$. Il est donc ${texteEnCouleurEtGras('premier')}.`
       } else {

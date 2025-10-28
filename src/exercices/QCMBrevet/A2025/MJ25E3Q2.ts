@@ -1,7 +1,8 @@
 import { droite } from '../../../lib/2d/droites'
+import { fixeBordures } from '../../../lib/2d/fixeBordures'
+import { grille } from '../../../lib/2d/Grille'
 import { point } from '../../../lib/2d/points'
 import { polygone } from '../../../lib/2d/polygones'
-import { grille } from '../../../lib/2d/reperes'
 import { vecteur } from '../../../lib/2d/segmentsVecteurs'
 import { texteParPosition } from '../../../lib/2d/textes'
 import {
@@ -9,7 +10,7 @@ import {
   symetrieAxiale,
   translation,
 } from '../../../lib/2d/transformations'
-import { fixeBordures, mathalea2d } from '../../../modules/2dGeneralites'
+import { mathalea2d } from '../../../modules/mathalea2d'
 import { randint } from '../../../modules/outils'
 import ExerciceQcmA from '../../ExerciceQcmA'
 

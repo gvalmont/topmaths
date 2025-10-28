@@ -1,3 +1,4 @@
+import { fixeBordures } from '../../lib/2d/fixeBordures'
 import { Point, point, tracePoint } from '../../lib/2d/points'
 import { polygone } from '../../lib/2d/polygones'
 import RepereBuilder from '../../lib/2d/RepereBuilder'
@@ -9,17 +10,14 @@ import { choisitLettresDifferentes } from '../../lib/outils/aleatoires'
 import { choice } from '../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { texNombre } from '../../lib/outils/texNombre'
-import {
-  fixeBordures,
-  mathalea2d,
-  type NestedObjetMathalea2dArray,
-} from '../../modules/2dGeneralites'
+import { mathalea2d } from '../../modules/mathalea2d'
 import {
   egal,
   gestionnaireFormulaireTexte,
   listeQuestionsToContenu,
   randint,
 } from '../../modules/outils'
+import type { NestedObjetMathalea2dArray } from '../../types/2d'
 import Exercice from '../Exercice'
 
 export const titre =

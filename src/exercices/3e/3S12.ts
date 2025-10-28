@@ -1,7 +1,10 @@
-import { repere } from '../../lib/2d/reperes'
 import { traceBarre } from '../../lib/2d/diagrammes'
+import { repere } from '../../lib/2d/reperes'
+import { setReponse } from '../../lib/interactif/gestionInteractif'
+import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { choice } from '../../lib/outils/arrayOutils'
 import { texFractionSigne } from '../../lib/outils/deprecatedFractions'
+import { texteEnCouleurEtGras } from '../../lib/outils/embellissements'
 import { arrondi } from '../../lib/outils/nombres'
 import {
   numAlpha,
@@ -9,13 +12,10 @@ import {
   sp,
 } from '../../lib/outils/outilString'
 import { stringNombre } from '../../lib/outils/texNombre'
-import Exercice from '../Exercice'
-import { mathalea2d } from '../../modules/2dGeneralites'
-import { listeQuestionsToContenu, randint } from '../../modules/outils'
-import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { context } from '../../modules/context'
-import { setReponse } from '../../lib/interactif/gestionInteractif'
-import { texteEnCouleurEtGras } from '../../lib/outils/embellissements'
+import { mathalea2d } from '../../modules/mathalea2d'
+import { listeQuestionsToContenu, randint } from '../../modules/outils'
+import Exercice from '../Exercice'
 
 export const titre = 'Calculer des effectifs et des fréquences'
 export const interactifReady = true

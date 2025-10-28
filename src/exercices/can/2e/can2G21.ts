@@ -4,9 +4,9 @@ import { texteParPosition } from '../../../lib/2d/textes'
 import { choice } from '../../../lib/outils/arrayOutils'
 import { arrondi } from '../../../lib/outils/nombres'
 import { texNombre } from '../../../lib/outils/texNombre'
-import ExerciceSimple from '../../ExerciceSimple'
-import { mathalea2d } from '../../../modules/2dGeneralites'
+import { mathalea2d } from '../../../modules/mathalea2d'
 import { randint } from '../../../modules/outils'
+import ExerciceSimple from '../../ExerciceSimple'
 export const titre = "Lire les coordonnées d'un point dans un repère"
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -62,7 +62,7 @@ export default class LectureCoordonnees extends ExerciceSimple {
     })
 
     const A = point(a, b)
-    const o = texteParPosition('O', -0.2, -0.2, 'milieu', 'black', 1)
+    const o = texteParPosition('O', -0.2, -0.2, 0, 'black', 1)
     const traceA = tracePoint(A, 'red') // Variable qui trace les points avec une croix
     traceA.taille = 3
     traceA.epaisseur = 2

@@ -1,5 +1,3 @@
-import { choice } from '../../../lib/outils/arrayOutils'
-import { randint } from '../../../modules/outils'
 import EcrirePetitsNombresEntiers from '../../6e/6N0A-6'
 export const titre = 'Lire et écrire des nombres'
 export const interactifReady = true
@@ -25,12 +23,12 @@ export default class EcrirePetitsNombresEntiersCan extends EcrirePetitsNombresEn
 
     this.nbQuestions = 1 // on en fait un exo qui n'aura qu'une question
     this.nbQuestionsModifiable = false // on fait disparaitre le paramètre nombre de questions
-    this.sup = choice([4, 5, 6]) // on calibre l'exo comme on veut.
+    this.sup = 4
+    this.sup2 = 0
     this.sup3 = 2
-    this.sup2 = randint(0, 3)
     this.besoinFormulaireTexte = false // pour ne pas qu'il y ait de paramètrage possible.
     this.besoinFormulaire2Texte = false // afin de conserver les paramètres fixés ci-dessus et choisis par le programmeur
     this.besoinFormulaire3Numerique = false
     this.besoinFormulaire4CaseACocher = false
-  }
+  }  
 }

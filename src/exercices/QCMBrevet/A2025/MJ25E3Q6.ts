@@ -1,17 +1,18 @@
 import { placeLatexSurSegment } from '../../../lib/2d/codages'
+import { fixeBordures } from '../../../lib/2d/fixeBordures'
 import { latex2d } from '../../../lib/2d/textes'
-import { choice } from '../../../lib/outils/arrayOutils'
-import { texNombre } from '../../../lib/outils/texNombre'
-import { fixeBordures, mathalea2d } from '../../../modules/2dGeneralites'
 import {
   arete3d,
   point3d,
   polygone3d,
 } from '../../../lib/3d/3dProjectionMathalea2d/elements'
+import { choice } from '../../../lib/outils/arrayOutils'
+import { texNombre } from '../../../lib/outils/texNombre'
+import { mathalea2d } from '../../../modules/mathalea2d'
 
-import ExerciceQcmA from '../../ExerciceQcmA'
 import { pyramide3d } from '../../../lib/3d/3dProjectionMathalea2d/solides'
 import { CodageAngleDroit3D } from '../../../lib/3d/3dProjectionMathalea2d/tranformations'
+import ExerciceQcmA from '../../ExerciceQcmA'
 
 export const uuid = '47v56'
 export const refs = {

@@ -6,7 +6,7 @@ import {
   segmentAvecExtremites,
 } from '../../../lib/2d/segmentsVecteurs'
 import { labelPoint } from '../../../lib/2d/textes'
-import { mathalea2d } from '../../../modules/2dGeneralites'
+import { mathalea2d } from '../../../modules/mathalea2d'
 import { randint } from '../../../modules/outils'
 import ExerciceSimple from '../../ExerciceSimple'
 export const titre = 'Résoudre un problème de longueurs (inverse)'

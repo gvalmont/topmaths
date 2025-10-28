@@ -4,7 +4,7 @@ import { miseEnEvidence } from '../../lib/outils/embellissements'
 
 import { courbe } from '../../lib/2d/courbes'
 import { deuxColonnes } from '../../lib/format/miseEnPage'
-import { mathalea2d } from '../../modules/2dGeneralites'
+import { mathalea2d } from '../../modules/mathalea2d'
 import { randint } from '../../modules/outils'
 import ExerciceQcmA from '../ExerciceQcmA'
 export const dateDePublication = '04/10/2025'

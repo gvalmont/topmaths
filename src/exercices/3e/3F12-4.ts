@@ -1,5 +1,6 @@
 import { courbe } from '../../lib/2d/courbes'
 import { repere } from '../../lib/2d/reperes'
+import { setReponse } from '../../lib/interactif/gestionInteractif'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { chercheMinMaxFonction } from '../../lib/mathFonctions/etudeFonction'
 import {
@@ -11,11 +12,10 @@ import {
   nombreDeChiffresDansLaPartieEntiere,
 } from '../../lib/outils/nombres'
 import { numAlpha } from '../../lib/outils/outilString'
-import { mathalea2d } from '../../modules/2dGeneralites'
 import { context } from '../../modules/context'
+import { mathalea2d } from '../../modules/mathalea2d'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import Exercice from '../Exercice'
-import { setReponse } from '../../lib/interactif/gestionInteractif'
 
 export const titre = "Lire l'image d'un nombre à partir d'un graphique"
 export const interactifReady = true

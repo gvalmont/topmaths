@@ -1,3 +1,4 @@
+import { fixeBordures } from '../../lib/2d/fixeBordures'
 import { BoiteBuilder } from '../../lib/2d/polygones'
 import { segment } from '../../lib/2d/segmentsVecteurs'
 import { createList } from '../../lib/format/lists'
@@ -9,14 +10,11 @@ import {
 } from '../../lib/outils/ecritures'
 import { texteItalique } from '../../lib/outils/embellissements'
 import { signe } from '../../lib/outils/nombres'
-import {
-  fixeBordures,
-  mathalea2d,
-  type NestedObjetMathalea2dArray,
-} from '../../modules/2dGeneralites'
 import { context } from '../../modules/context'
 import { fraction } from '../../modules/fractions'
+import { mathalea2d } from '../../modules/mathalea2d'
 import { randint } from '../../modules/outils'
+import type { NestedObjetMathalea2dArray } from '../../types/2d'
 import ExerciceBrevetA from '../ExerciceBrevetA'
 
 export const uuid = '972f7'

@@ -1,10 +1,10 @@
+import Decimal from 'decimal.js'
 import { choice } from '../../../lib/outils/arrayOutils'
 import { texNombre } from '../../../lib/outils/texNombre'
-import Exercice from '../../Exercice'
-import { mathalea2d } from '../../../modules/2dGeneralites'
-import { listeQuestionsToContenu, randint } from '../../../modules/outils'
-import Decimal from 'decimal.js'
 import { Arbre } from '../../../modules/arbres'
+import { mathalea2d } from '../../../modules/mathalea2d'
+import { listeQuestionsToContenu, randint } from '../../../modules/outils'
+import Exercice from '../../Exercice'
 
 import { ajouteChampTexteMathLive } from '../../../lib/interactif/questionMathLive'
 

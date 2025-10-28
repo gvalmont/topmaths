@@ -1,4 +1,3 @@
-import { droiteGraduee } from '../../../lib/2d/reperes'
 import { texPrix } from '../../../lib/format/style'
 import { ajouteChampTexteMathLive } from '../../../lib/interactif/questionMathLive'
 import {
@@ -8,10 +7,11 @@ import {
 } from '../../../lib/outils/arrayOutils'
 import { sp } from '../../../lib/outils/outilString'
 import { texNombre } from '../../../lib/outils/texNombre'
-import { mathalea2d } from '../../../modules/2dGeneralites'
+import { mathalea2d } from '../../../modules/mathalea2d'
 import { listeQuestionsToContenu, randint } from '../../../modules/outils'
 import Exercice from '../../Exercice'
 
+import { droiteGraduee } from '../../../lib/2d/DroiteGraduee'
 import { setReponse } from '../../../lib/interactif/gestionInteractif'
 import { arrondi } from '../../../lib/outils/nombres'
 import FractionEtendue from '../../../modules/FractionEtendue'

@@ -1,5 +1,8 @@
-import { arc, cercleCentrePoint } from '../../lib/2d/cercle'
+import { arc } from '../../lib/2d/Arc'
+import { cercleCentrePoint } from '../../lib/2d/cercle'
+import { colorToLatexOrHTML } from '../../lib/2d/colorToLatexOrHtml'
 import { traceBarre, traceGraphiqueCartesien } from '../../lib/2d/diagrammes'
+import { fixeBordures } from '../../lib/2d/fixeBordures'
 import { point, tracePoint } from '../../lib/2d/points'
 import { carre, motifs } from '../../lib/2d/polygones'
 import { repere } from '../../lib/2d/reperes'
@@ -10,12 +13,8 @@ import { texcolors } from '../../lib/format/style'
 import { propositionsQcm } from '../../lib/interactif/qcm'
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
 import { numAlpha } from '../../lib/outils/outilString'
-import {
-  colorToLatexOrHTML,
-  fixeBordures,
-  mathalea2d,
-} from '../../modules/2dGeneralites'
 import { context } from '../../modules/context'
+import { mathalea2d } from '../../modules/mathalea2d'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import Exercice from '../Exercice'
 

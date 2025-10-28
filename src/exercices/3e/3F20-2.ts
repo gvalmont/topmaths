@@ -67,14 +67,16 @@ export default class FonctionsAffinesOuLineaires extends Exercice {
     fonctionsAffines.sup = this.sup
     fonctionsAffines.sup2 = this.sup2
     fonctionsAffines.numeroExercice = this.numeroExercice // indispensable pour l'interactif
-    fonctionsAffines.nouvelleVersionWrapper()
+    // pas besoin d'utiliser un WRAPPER, l'objet est neuf, donc pas besoin de REINIT
+    fonctionsAffines.nouvelleVersion()
     fonctionsLineaires.interactif = this.interactif
     fonctionsLineaires.nbQuestions = this.nbQuestions
     fonctionsLineaires.lycee = this.lycee
     fonctionsLineaires.sup = this.sup
     fonctionsLineaires.sup2 = this.sup3
     fonctionsLineaires.numeroExercice = this.numeroExercice // indispensable pour l'interactif
-    fonctionsLineaires.nouvelleVersionWrapper()
+    // pas besoin d'utiliser un WRAPPER, l'objet est neuf, donc pas besoin de REINIT
+    fonctionsLineaires.nouvelleVersion()
 
     this.listeQuestions = []
     this.listeCorrections = []

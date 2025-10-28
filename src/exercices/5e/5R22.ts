@@ -65,7 +65,6 @@ export default class ExerciceAdditionsSoustractionRelatifsV2 extends Exercice {
     this.nbColsCorr = 2
     this.nbQuestions = 6 // Pour que les colonnes soient équilibrées !
     this.listeAvecNumerotation = false
-    // hyper dangereux ça ! Si l'utilisateur rentre 1 comme valeur max ? on a des randint (1,1) partout !
     this.besoinFormulaireNumerique = ['Valeur maximale', 99999]
     this.besoinFormulaire2Numerique = [
       'Type de questions',
@@ -103,14 +102,14 @@ export default class ExerciceAdditionsSoustractionRelatifsV2 extends Exercice {
           ? 10
           : 100
         : 1
-
-      const a0 = (randint(1, this.sup * CoefDecimales) / CoefDecimales) * signeA
-      const b0 = (randint(1, this.sup * CoefDecimales) / CoefDecimales) * signeB
-      const c0 = (randint(1, this.sup * CoefDecimales) / CoefDecimales) * signeC
+      const valeurMaximale = this.sup > 5 ? this.sup : 9
+      const a0 = (randint(1, valeurMaximale * CoefDecimales) / CoefDecimales) * signeA
+      const b0 = (randint(1, valeurMaximale * CoefDecimales) / CoefDecimales) * signeB
+      const c0 = (randint(1, valeurMaximale * CoefDecimales) / CoefDecimales) * signeC
       const d0 =
-        (randint(1, this.sup * CoefDecimales) / CoefDecimales) * choice([-1, 1])
+        (randint(1, valeurMaximale * CoefDecimales) / CoefDecimales) * choice([-1, 1])
       const e0 =
-        (randint(1, this.sup * CoefDecimales) / CoefDecimales) * choice([-1, 1])
+        (randint(1, valeurMaximale * CoefDecimales) / CoefDecimales) * choice([-1, 1])
 
       const [a, b, c, d, e] = choice([
         shuffle([a0, b0, c0, d0, e0]),

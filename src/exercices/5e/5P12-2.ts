@@ -1,4 +1,5 @@
 import { listeShapes2DInfos } from '../../lib/2d/figures2d/shapes2d'
+import { fixeBordures } from '../../lib/2d/fixeBordures'
 import {
   listePatternRatio,
   type PatternRiche,
@@ -8,11 +9,8 @@ import { polygone } from '../../lib/2d/polygones'
 import { texteParPosition } from '../../lib/2d/textes'
 import { ajouteQuestionMathlive } from '../../lib/interactif/questionMathLive'
 import { shuffle } from '../../lib/outils/arrayOutils'
-import {
-  fixeBordures,
-  mathalea2d,
-  type NestedObjetMathalea2dArray,
-} from '../../modules/2dGeneralites'
+import { mathalea2d } from '../../modules/mathalea2d'
+import type { NestedObjetMathalea2dArray } from '../../types/2d'
 import Exercice from '../Exercice'
 // import type { VisualPattern } from '../../lib/2d/patterns/VisualPattern'
 import { VisualPattern } from '../../lib/2d/patterns/VisualPattern'

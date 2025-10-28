@@ -1,7 +1,5 @@
-import { choice } from '../../../lib/outils/arrayOutils'
-import Exercice from '../../Exercice'
-import { propositionsQcm } from '../../../lib/interactif/qcm'
-import { listeQuestionsToContenu, randint } from '../../../modules/outils'
+import { texteSurSegment } from '../../../lib/2d/codages'
+import { fixeBordures } from '../../../lib/2d/fixeBordures'
 import { point } from '../../../lib/2d/points'
 import {
   barycentre,
@@ -9,10 +7,14 @@ import {
   polygoneAvecNom,
 } from '../../../lib/2d/polygones'
 import { rotation } from '../../../lib/2d/transformations'
-import { fixeBordures, mathalea2d } from '../../../modules/2dGeneralites'
-import { texteSurSegment } from '../../../lib/2d/codages'
-import { creerNomDePolygone, sp } from '../../../lib/outils/outilString'
+import { propositionsQcm } from '../../../lib/interactif/qcm'
+import { choice } from '../../../lib/outils/arrayOutils'
 import { texteEnCouleur } from '../../../lib/outils/embellissements'
+import { creerNomDePolygone, sp } from '../../../lib/outils/outilString'
+import { mathalea2d } from '../../../modules/mathalea2d'
+import { listeQuestionsToContenu, randint } from '../../../modules/outils'
+import type { NestedObjetMathalea2dArray } from '../../../types/2d'
+import Exercice from '../../Exercice'
 export const titre = 'Déterminer si un triangle est rectangle'
 export const interactifReady = true
 export const interactifType = 'qcm'
@@ -107,7 +109,7 @@ export default class TripletsPythagoriciensOuPas extends Exercice {
         0.5,
         true,
       )
-      const objets = [poly]
+      const objets: NestedObjetMathalea2dArray = [poly]
       objets.push(longueurCA, longueurAB, longueurBC)
       let texte = `Dans le triangle $${nom}$, `
       texte += `$${nom[0]}${nom[1]}=${triplet[0]}$${sp(1)}cm, $${nom[1]}${nom[2]}=${triplet[1]}$${sp(1)}cm et $${nom[0]}${nom[2]}=${triplet[2]}$.<br>Ce triangle est-il rectangle (La figure n'est pas forcément représentative) ?<br>`

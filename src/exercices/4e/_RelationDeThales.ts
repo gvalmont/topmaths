@@ -1,17 +1,18 @@
 import { angle, angleOriente } from '../../lib/2d/angles'
-import { point, pointAdistance, pointSurSegment } from '../../lib/2d/points'
+import { pointAdistance, pointSurSegment } from '../../lib/2d/points'
+import { pointAbstrait } from '../../lib/2d/points-abstraits'
 import { polygone } from '../../lib/2d/polygones'
 import { longueur } from '../../lib/2d/segmentsVecteurs'
 import { texteParPoint } from '../../lib/2d/textes'
 import { homothetie, similitude } from '../../lib/2d/transformations'
 import { triangle2points2longueurs } from '../../lib/2d/triangle'
-import { ajouterBoutonMathalea2d } from '../../lib/outils/enrichissements'
 import { texteGras } from '../../lib/format/style'
+import { ajouterBoutonMathalea2d } from '../../lib/outils/enrichissements'
 import { creerNomDePolygone } from '../../lib/outils/outilString'
-import Exercice from '../Exercice'
-import { mathalea2d } from '../../modules/2dGeneralites'
 import { context } from '../../modules/context'
+import { mathalea2d } from '../../modules/mathalea2d'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
+import Exercice from '../Exercice'
 
 export const titre = 'Écrire une relation de Thalès'
 
@@ -63,7 +64,7 @@ export default class RelationDeThales extends Exercice {
       const ab = randint(5, 10)
       const ac = randint(5, 10, ab)
       const bc = randint(Math.max(ab - ac, ac - ab) + 1, ab + ac - 1, [ab, ac]) // Pas de triangle isocèle ou équilatéral
-      const A = point(0, 0, nomA)
+      const A = pointAbstrait(0, 0, nomA)
       const B = pointAdistance(A, ab, nomB)
       const ABC = triangle2points2longueurs(A, B, ac, bc)
       ABC.id = `M2D_${numeroExercice}_${i}_1`

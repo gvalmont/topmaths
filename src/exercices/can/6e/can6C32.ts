@@ -3,8 +3,8 @@ import Pyramide from '../../../modules/pyramide'
 
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 
-import { mathalea2d } from '../../../modules/2dGeneralites'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
+import { mathalea2d } from '../../../modules/mathalea2d'
 import ExerciceSimple from '../../ExerciceSimple'
 export const titre = 'Calculer dans une pyramide additive'
 export const interactifReady = true

@@ -1,13 +1,14 @@
-import ExerciceSimple from '../../ExerciceSimple'
-import { Grille } from '../../../lib/2d/reperes'
+import { fixeBordures } from '../../../lib/2d/fixeBordures'
+import { grille } from '../../../lib/2d/Grille'
 import { Point } from '../../../lib/2d/points'
-import { fixeBordures, mathalea2d } from '../../../modules/2dGeneralites'
-import { latex2d } from '../../../lib/2d/textes'
-import { miseEnEvidence } from '../../../lib/outils/embellissements'
-import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 import { segment } from '../../../lib/2d/segmentsVecteurs'
+import { latex2d } from '../../../lib/2d/textes'
+import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
+import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { texNombre } from '../../../lib/outils/texNombre'
+import { mathalea2d } from '../../../modules/mathalea2d'
 import { randint } from '../../../modules/outils'
+import ExerciceSimple from '../../ExerciceSimple'
 
 export const titre = "Calculer la longueur d'un segment par comparaison"
 export const interactifReady = true
@@ -33,7 +34,7 @@ export default class Can2025CM1Q17 extends ExerciceSimple {
   }
 
   nouvelleVersion() {
-    const grille = new Grille(0, 0, 8, 3, 'gray', 1, 1)
+    const grillage = grille(0, 0, 8, 3, 'gray', 1, 1)
     const A = new Point(1, 1)
     const B = new Point(2, 1)
     const seg1 = segment(A, B)
@@ -50,7 +51,7 @@ export default class Can2025CM1Q17 extends ExerciceSimple {
     const longCherche = latex2d('\\ldots \\text{ cm}', 2, 0.5, {
       letterSize: 'normalsize',
     })
-    const objets = [grille, seg1, seg2, long, longCherche]
+    const objets = [grillage, seg1, seg2, long, longCherche]
     this.question = 'Complète.'
     this.question += mathalea2d(
       Object.assign({ scale: 0.5, pixelsParCm: 30 }, fixeBordures(objets)),

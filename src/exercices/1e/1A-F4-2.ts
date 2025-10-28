@@ -7,7 +7,7 @@ import {
 } from '../../lib/mathFonctions/Spline'
 import { choice, shuffle } from '../../lib/outils/arrayOutils'
 import { texNombre } from '../../lib/outils/texNombre'
-import { mathalea2d } from '../../modules/2dGeneralites'
+import { mathalea2d } from '../../modules/mathalea2d'
 import { randint } from '../../modules/outils'
 
 import ExerciceQcmA from '../ExerciceQcmA'
@@ -53,16 +53,16 @@ export default class AutoF4b extends ExerciceQcmA {
       yMax: bornes.yMax + 1,
       grilleX: true,
       grilleY: true,
-            xThickMin: bornes.xMin - 1,
+      xThickMin: bornes.xMin - 1,
       yThickMin: bornes.yMin - 1,
-      yThickMax: bornes.yMax+1,
+      yThickMax: bornes.yMax + 1,
       xLabelMin: bornes.xMin,
       yLabelMin: bornes.yMin,
-       yLabelMax: bornes.yMax,
-         xLabelMax: bornes.xMax,
-         xThickMax: bornes.xMax +1,
-           axesEpaisseur:1.5,
-           grilleOpacite: 1,
+      yLabelMax: bornes.yMax,
+      xLabelMax: bornes.xMax,
+      xThickMax: bornes.xMax + 1,
+      axesEpaisseur: 1.5,
+      grilleOpacite: 1,
       grilleYMin: bornes.yMin - 1.02,
       grilleYMax: bornes.yMax + 1.02,
       grilleXMin: bornes.xMin - 1.02,
@@ -73,7 +73,7 @@ export default class AutoF4b extends ExerciceQcmA {
       repere: repere1,
       epaisseur: 1.5,
       ajouteNoeuds: true,
-       optionsNoeuds: { color: 'black', taille: 1.5, style: 'x', epaisseur: 2 },
+      optionsNoeuds: { color: 'black', taille: 1.5, style: 'x', epaisseur: 2 },
       color: 'blue',
     })
 
@@ -167,7 +167,7 @@ Cette affirmation est fausse : Les solutions de l'inéquation $f(x) \\geqslant 0
       )
     }
 
-     const o = latex2d('\\text{O}', -0.3, -0.3, { letterSize: 'scriptsize' })
+    const o = latex2d('\\text{O}', -0.3, -0.3, { letterSize: 'scriptsize' })
     const nuage = aleatoiriseCourbe(noeudsCourbe)
     const theSpline = spline(nuage)
     this.spline = theSpline
@@ -177,20 +177,19 @@ Cette affirmation est fausse : Les solutions de l'inéquation $f(x) \\geqslant 0
       xMax: bornes.xMax + 1,
       yMin: bornes.yMin - 1,
       yMax: bornes.yMax + 1,
-       grilleX: true,
+      grilleX: true,
       grilleY: true,
-            xThickMin: bornes.xMin - 1,
+      xThickMin: bornes.xMin - 1,
       yThickMin: bornes.yMin - 1,
-      yThickMax: bornes.yMax+1,
+      yThickMax: bornes.yMax + 1,
       xLabelMin: bornes.xMin,
       yLabelMin: bornes.yMin,
-       yLabelMax: bornes.yMax,
-         xLabelMax: bornes.xMax,
-         xThickMax: bornes.xMax +1,
-           axesEpaisseur:1.5,
-           grilleOpacite: 1,
-          
-             
+      yLabelMax: bornes.yMax,
+      xLabelMax: bornes.xMax,
+      xThickMax: bornes.xMax + 1,
+      axesEpaisseur: 1.5,
+      grilleOpacite: 1,
+
       grilleYMin: bornes.yMin - 1.02,
       grilleYMax: bornes.yMax + 1.02,
       grilleXMin: bornes.xMin - 1.02,
@@ -200,7 +199,7 @@ Cette affirmation est fausse : Les solutions de l'inéquation $f(x) \\geqslant 0
       repere: repere1,
       epaisseur: 1.5,
       ajouteNoeuds: true,
-    optionsNoeuds: { color: 'black', taille: 1.5, style: 'x', epaisseur: 2 },
+      optionsNoeuds: { color: 'black', taille: 1.5, style: 'x', epaisseur: 2 },
       color: 'blue',
     })
     const objetsEnonce = [repere1, courbe1]

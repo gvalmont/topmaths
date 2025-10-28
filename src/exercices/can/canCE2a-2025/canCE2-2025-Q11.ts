@@ -1,13 +1,10 @@
+import { fixeBordures } from '../../../lib/2d/fixeBordures'
+import { cube } from '../../../lib/3d/3dProjectionMathalea2d/CubeIso'
 import { propositionsQcm } from '../../../lib/interactif/qcm'
 import { shuffle, shuffle2tableaux } from '../../../lib/outils/arrayOutils'
-import {
-  fixeBordures,
-  mathalea2d,
-  ObjetMathalea2D,
-  type NestedObjetMathalea2dArray,
-} from '../../../modules/2dGeneralites'
-import { cube } from '../../../lib/3d/3dProjectionMathalea2d/CubeIso'
+import { mathalea2d } from '../../../modules/mathalea2d'
 import { randint } from '../../../modules/outils'
+import type { NestedObjetMathalea2dArray } from '../../../types/2d'
 import ExerciceCan from '../../ExerciceCan'
 
 export const uuid = 'f6jd7'
@@ -199,7 +196,7 @@ export default class Visualisation3d extends ExerciceCan {
     )
 
     // On permute ligne de devant et ligne de derrière
-    const objets1: ObjetMathalea2D[] = []
+    const objets1: NestedObjetMathalea2dArray = []
     const empilement1 = permute1(empilement)
     const lstCoordonneesCubes1 = rangeCubes(empilement1)
     for (let i = 0; i < lstCoordonneesCubes1.length; i++) {
@@ -223,7 +220,7 @@ export default class Visualisation3d extends ExerciceCan {
     )
 
     // On tourne d'un quart de tour dans l'axe de l'empilement pour le coucher
-    const objets2: ObjetMathalea2D[] = []
+    const objets2: NestedObjetMathalea2dArray = []
     const empilement2 = tourne1(empilement)
     const lstCoordonneesCubes2 = rangeCubes(empilement2)
     for (let i = 0; i < lstCoordonneesCubes2.length; i++) {
@@ -247,7 +244,7 @@ export default class Visualisation3d extends ExerciceCan {
     )
 
     // On tourne d'un quart de tour dans l'axe vertical après avoir permuté la ligne de devant et la ligne de derrière
-    const objets4: ObjetMathalea2D[] = []
+    const objets4: NestedObjetMathalea2dArray = []
     const empilement3 = tourne2(permute1(empilement))
     const lstCoordonneesCubes3 = rangeCubes(empilement3)
     for (let i = 0; i < lstCoordonneesCubes3.length; i++) {
@@ -271,7 +268,7 @@ export default class Visualisation3d extends ExerciceCan {
     )
 
     // On tourne d'un quart de tour dans l'axe vertical
-    const objets5: ObjetMathalea2D[] = []
+    const objets5: NestedObjetMathalea2dArray = []
     const empilement4 = tourne2(empilement)
     const lstCoordonneesCubes4 = rangeCubes(empilement4)
     for (let i = 0; i < lstCoordonneesCubes4.length; i++) {
@@ -295,7 +292,7 @@ export default class Visualisation3d extends ExerciceCan {
     )
 
     //
-    const objets6: ObjetMathalea2D[] = []
+    const objets6: NestedObjetMathalea2dArray = []
     const empilement5 = tourne1(permute1(empilement))
     const lstCoordonneesCubes5 = rangeCubes(empilement5)
     for (let i = 0; i < lstCoordonneesCubes5.length; i++) {
@@ -318,7 +315,7 @@ export default class Visualisation3d extends ExerciceCan {
       objets6,
     )
     const lstCoordonneesBis = rangeCubes(empilementBis)
-    const objetsBis: ObjetMathalea2D[] = []
+    const objetsBis: NestedObjetMathalea2dArray = []
     for (let i = 0; i < lstCoordonneesBis.length; i++) {
       objetsBis.push(
         ...cube(

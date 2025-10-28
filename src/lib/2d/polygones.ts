@@ -1,16 +1,14 @@
 import earcut from 'earcut'
-import {
-  colorToLatexOrHTML,
-  ObjetMathalea2D,
-  type NestedObjetMathalea2dArray,
-} from '../../modules/2dGeneralites'
 import { context } from '../../modules/context'
 import { randint } from '../../modules/outils'
+import type { NestedObjetMathalea2dArray } from '../../types/2d'
 import { Point3d } from '../3d/3dProjectionMathalea2d/elements'
 import { arrondi, rangeMinMax } from '../outils/nombres'
 import { lettreDepuisChiffre } from '../outils/outilString'
+import { ObjetMathalea2D } from './ObjetMathalea2D'
 import { codageAngleDroit } from './angles'
 import { codageSegments } from './codages'
+import { colorToLatexOrHTML } from './colorToLatexOrHtml'
 import { Point, point, pointAdistance, pointSurSegment } from './points'
 import { isPointsAbstraits, PointAbstrait } from './points-abstraits'
 import { longueur, segment, Vecteur, vecteur } from './segmentsVecteurs'

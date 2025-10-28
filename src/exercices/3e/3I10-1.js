@@ -1,21 +1,12 @@
+import { colorToLatexOrHTML } from '../../lib/2d/colorToLatexOrHtml'
+import { fixeBordures } from '../../lib/2d/fixeBordures'
 import { point } from '../../lib/2d/points'
-import { choice } from '../../lib/outils/arrayOutils'
 import { lampeMessage } from '../../lib/format/message'
 import { deuxColonnes } from '../../lib/format/miseEnPage'
 import { texteGras } from '../../lib/format/style'
+import { propositionsQcm } from '../../lib/interactif/qcm'
+import { choice } from '../../lib/outils/arrayOutils'
 import { lettreMinusculeDepuisChiffre } from '../../lib/outils/outilString'
-import Exercice from '../Exercice'
-import { listeQuestionsToContenu, randint } from '../../modules/outils'
-import {
-  noteLaCouleur,
-  plateau2dNLC,
-  testInstruction,
-} from '../../modules/noteLaCouleur'
-import {
-  colorToLatexOrHTML,
-  fixeBordures,
-  mathalea2d,
-} from '../../modules/2dGeneralites'
 import {
   ajouterAx,
   ajouterAy,
@@ -28,8 +19,15 @@ import {
   orienter,
 } from '../../modules/2dLutin'
 import { context } from '../../modules/context'
-import { propositionsQcm } from '../../lib/interactif/qcm'
+import { mathalea2d } from '../../modules/mathalea2d'
+import {
+  noteLaCouleur,
+  plateau2dNLC,
+  testInstruction,
+} from '../../modules/noteLaCouleur'
+import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import { scratchblock } from '../../modules/scratchblock'
+import Exercice from '../Exercice'
 
 export const titre = 'Analyser des scripts Scratch'
 export const interactifReady = true

@@ -1,30 +1,30 @@
+import Decimal from 'decimal.js'
 import { codageSegments } from '../../lib/2d/codages'
 import { point, tracePoint } from '../../lib/2d/points'
 import { polygoneAvecNom } from '../../lib/2d/polygones'
-import { creerNomDePolygone } from '../../lib/outils/outilString'
-import FractionEtendue from '../../modules/FractionEtendue'
-import { context } from '../../modules/context'
-import Decimal from 'decimal.js'
 import { repere } from '../../lib/2d/reperes'
-import { prenom } from '../../lib/outils/Personne'
 import { segment } from '../../lib/2d/segmentsVecteurs'
 import { latexParCoordonnees } from '../../lib/2d/textes'
+import { texteGras } from '../../lib/format/style'
+import { handleAnswers } from '../../lib/interactif/gestionInteractif'
+import { remplisLesBlancs } from '../../lib/interactif/questionMathLive'
+import { prenom } from '../../lib/outils/Personne'
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
 import {
-  ecritureParentheseSiNegatif,
   ecritureAlgebrique,
+  ecritureParentheseSiNegatif,
 } from '../../lib/outils/ecritures'
 import { abs } from '../../lib/outils/nombres'
-import { texteGras } from '../../lib/format/style'
-import { texNombre, stringNombre } from '../../lib/outils/texNombre'
-import Exercice from '../Exercice'
+import { creerNomDePolygone } from '../../lib/outils/outilString'
+import { stringNombre, texNombre } from '../../lib/outils/texNombre'
+import FractionEtendue from '../../modules/FractionEtendue'
+import { context } from '../../modules/context'
 import {
   mathalea2d,
   type NestedObjetMathalea2dArray,
-} from '../../modules/2dGeneralites'
+} from '../../modules/mathalea2d'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
-import { remplisLesBlancs } from '../../lib/interactif/questionMathLive'
-import { handleAnswers } from '../../lib/interactif/gestionInteractif'
+import Exercice from '../Exercice'
 
 export const interactifReady = true
 export const interactifType = 'mathLive'

@@ -1,7 +1,7 @@
 import { choice } from '../../lib/outils/arrayOutils'
 import { nombreDeChiffresDe, rangeMinMax } from '../../lib/outils/nombres'
-import { mathalea2d } from '../../modules/2dGeneralites'
 import FractionEtendue from '../../modules/FractionEtendue'
+import { mathalea2d } from '../../modules/mathalea2d'
 import {
   gestionnaireFormulaireTexte,
   listeQuestionsToContenu,

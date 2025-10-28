@@ -1,11 +1,10 @@
 import { abs, random, round } from 'mathjs'
-import {
-  colorToLatexOrHTML,
-  fixeBordures,
-  ObjetMathalea2D,
-} from '../../modules/2dGeneralites'
-import { arc, cercle, Cercle } from './cercle'
+import { arc } from './Arc'
+import { cercle, Cercle } from './cercle'
 import { afficheCoteSegment } from './codages'
+import { colorToLatexOrHTML } from './colorToLatexOrHtml'
+import { fixeBordures } from './fixeBordures'
+import { ObjetMathalea2D } from './ObjetMathalea2D'
 import { Point, point, pointAdistance } from './points'
 import { pattern, polygone } from './polygones'
 import { longueur, segment, vecteur } from './segmentsVecteurs'
@@ -827,7 +826,7 @@ export class Sphere2d extends ObjetMathalea2D {
     let code = ''
     if (this.objets == null) return code
     for (const objet of this.objets) {
-      objet.color = this.color.slice()
+      objet.color = this.color.slice() as [string, string]
       code += objet.svg(coeff) + '\n'
     }
     return code

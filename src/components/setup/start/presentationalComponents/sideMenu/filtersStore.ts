@@ -1,4 +1,15 @@
 import { get, writable } from 'svelte/store'
+import {
+  AtLeastOneOfCriteria,
+  featuresCriteria,
+  levelCriterion,
+  MultiCriteria,
+  type Criterion,
+} from '../../../../../lib/components/filters'
+import {
+  buildReferentiel,
+  getAllEndings,
+} from '../../../../../lib/components/refUtils'
 import type {
   DisplayedFilter,
   FilterObject,
@@ -10,17 +21,6 @@ import type {
   Level,
   ResourceAndItsPath,
 } from '../../../../../lib/types/referentiels'
-import {
-  levelCriterion,
-  type Criterion,
-  AtLeastOneOfCriteria,
-  featuresCriteria,
-  MultiCriteria,
-} from '../../../../../lib/components/filters'
-import {
-  buildReferentiel,
-  getAllEndings,
-} from '../../../../../lib/components/refUtils'
 // pour sauvegarder les sélections de filtres
 export const allFilters = writable<
   Record<FilterType, DisplayedFilter<string | Level>>
@@ -74,6 +74,12 @@ export const allFilters = writable<
       isSelected: false,
       clicked: 0,
     },
+    'Terminale Technologique': {
+      title: 'Terminale Technologique',
+      values: ['Terminale Technologique'],
+      isSelected: false,
+      clicked: 0,
+    },
     'Terminale Expert': {
       title: 'Terminale Expert',
       values: ['Terminale Expert'],
@@ -98,6 +104,7 @@ export const allFilters = writable<
         '2e',
         '1e',
         'techno1',
+        'Terminale Technologique',
         'Terminale Spé',
         'Terminale Expert',
         'HP',

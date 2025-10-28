@@ -1,16 +1,14 @@
-import {
-  colorToLatexOrHTML,
-  fixeBordures,
-  ObjetMathalea2D,
-} from '../../modules/2dGeneralites'
 import { context } from '../../modules/context'
 import FractionEtendue from '../../modules/FractionEtendue'
 import { Point3d } from '../3d/3dProjectionMathalea2d/elements'
 import { arrondi } from '../outils/nombres'
 import { angleOriente } from './angles'
 import { Cercle } from './cercle'
+import { colorToLatexOrHTML } from './colorToLatexOrHtml'
 import { Droite, droite } from './droites'
+import { fixeBordures } from './fixeBordures'
 import MainLevee from './MainLevee'
+import { ObjetMathalea2D } from './ObjetMathalea2D'
 import {
   milieu,
   Point,
@@ -89,7 +87,7 @@ export class Vecteur {
     return -this.y * coeff
   }
 
-  representant(A: Point, color = 'black') {
+  representant(A: Point | PointAbstrait, color = 'black') {
     const B = point(A.x + this.x, A.y + this.y)
     const s = segment(A, B, color, '->')
     s.tailleExtremites = 5
@@ -407,9 +405,8 @@ export class Segment extends ObjetMathalea2D {
       }
       // Taille des pointes
       const width = Math.max(2, Math.round(this.tailleExtremites))
-      const length = Math.max(4, Math.round(this.tailleExtremites * 2))
-      let left = '',
-        right = ''
+      let left = ''
+      let right = ''
       if (this.styleExtremites.length === 3) {
         left = map[this.styleExtremites[0]] || ''
         right = map[this.styleExtremites[2]] || ''
@@ -679,6 +676,7 @@ export class Segment extends ObjetMathalea2D {
 }
 /**
  * @param {...any} args Points ou coordonnées + couleur facultative en dernier
+ * @return {Segment}
  * @example segment(A,B,'blue') // Segment [AB] de couleur bleu
  * @example segment(x1,y1,x2,y2,'#f15929') // Segment dont les extrémités sont respectivement (x1,y1) et (x2,y2), de couleur orange (#f15929)
  * @author Rémi Angot

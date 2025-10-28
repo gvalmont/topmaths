@@ -4,7 +4,7 @@ import { latex2d } from '../../lib/2d/textes'
 import { deuxColonnes } from '../../lib/format/miseEnPage'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { texNombre } from '../../lib/outils/texNombre'
-import { mathalea2d } from '../../modules/2dGeneralites'
+import { mathalea2d } from '../../modules/mathalea2d'
 import { randint } from '../../modules/outils'
 import ExerciceQcmA from '../ExerciceQcmA'
 export const dateDePublication = '28/07/2025'
@@ -38,9 +38,15 @@ export default class AutoF2e extends ExerciceQcmA {
     return { o, r }
   }
 
-  private creerEnonce(xMin: number, xMax: number, yMin: number, yMax: number, F: (x: number) => number) {
+  private creerEnonce(
+    xMin: number,
+    xMax: number,
+    yMin: number,
+    yMax: number,
+    F: (x: number) => number,
+  ) {
     const { o, r } = this.creerRepere(xMin, xMax, yMin, yMax)
-    
+
     return `${deuxColonnes(
       `On a représenté ci-contre une parabole $\\mathscr{P}$.<br><br>
        Une seule des quatre fonctions ci-dessous est susceptible d'être représentée par la parabole $\\mathscr{P}$. <br><br>
@@ -62,11 +68,16 @@ export default class AutoF2e extends ExerciceQcmA {
     )}<br>`
   }
 
-  private casFormeSimple(a: number, b: number, orientationHaut: boolean, ordonneePositive: boolean) {
+  private casFormeSimple(
+    a: number,
+    b: number,
+    orientationHaut: boolean,
+    ordonneePositive: boolean,
+  ) {
     const F = (x: number) => a * x ** 2 + (ordonneePositive ? b : -b)
-    
+
     this.enonce = this.creerEnonce(-5, 5, -4, 3, F)
-    
+
     this.correction = `Les paraboles proposées ont des équations de la forme $y=ax^2+b$.<br>
       La parabole $\\mathscr{P}$ a "les bras" tournés vers ${orientationHaut ? 'le haut' : 'le bas'}, on en déduit que $a ${orientationHaut ? '>' : '<'} 0$. <br>
       De plus, son sommet a une ordonnée ${ordonneePositive ? 'positive' : 'négative'}, donc $b ${ordonneePositive ? '>' : '<'} 0$.<br>
@@ -81,20 +92,20 @@ export default class AutoF2e extends ExerciceQcmA {
   }
 
   private casFormeCanonique(
-    a: number, 
-    alpha: number, 
-    b: number, 
-    orientationHaut: boolean, 
-    alphaPositif: boolean, 
+    a: number,
+    alpha: number,
+    b: number,
+    orientationHaut: boolean,
+    alphaPositif: boolean,
     betaPositif: boolean,
     xMin: number,
     xMax: number,
     yMin: number,
     yMax: number,
-    fonction: (x: number) => number
+    fonction: (x: number) => number,
   ) {
     this.enonce = this.creerEnonce(xMin, xMax, yMin, yMax, fonction)
-    
+
     this.correction = `Les paraboles proposées ont des équations de la forme $y=a(x-\\alpha)^2+\\beta$.<br>
       Le sommet de la parabole a pour coordonnées $(\\alpha\\, ;\\, \\beta)$.<br>
       La parabole $\\mathscr{P}$ a "les bras" tournés vers ${orientationHaut ? 'le haut' : 'le bas'}, on en déduit que $a ${orientationHaut ? '>' : '<'} 0$. <br>
@@ -111,9 +122,9 @@ export default class AutoF2e extends ExerciceQcmA {
 
   versionOriginale: () => void = () => {
     const F = (x: number) => -0.5 * x ** 2 + 3
-    
+
     this.enonce = this.creerEnonce(-5, 5, -1.5, 4, F)
-    
+
     this.correction = `Les paraboles proposées ont des équations de la forme $y=ax^2+b$.<br>
       La parabole $\\mathscr{P}$ a "les bras" tournés vers le bas, on en déduit que $a < 0$. <br>
       De plus, son sommet a une ordonnée positive ($10$).<br>
@@ -140,57 +151,113 @@ export default class AutoF2e extends ExerciceQcmA {
 
       case 2: // a>0, alpha>0, beta<0
         this.casFormeCanonique(
-          a, alpha, b, true, true, false,
-          -2, 5, -3, 3,
-          (x: number) => (x - 2) ** 2 - 2
+          a,
+          alpha,
+          b,
+          true,
+          true,
+          false,
+          -2,
+          5,
+          -3,
+          3,
+          (x: number) => (x - 2) ** 2 - 2,
         )
         break
 
       case 3: // a>0, alpha>0, beta>0
         this.casFormeCanonique(
-          a, alpha, b, true, true, true,
-          -2, 5, -1, 5,
-          (x: number) => (x - 2) ** 2 + 2
+          a,
+          alpha,
+          b,
+          true,
+          true,
+          true,
+          -2,
+          5,
+          -1,
+          5,
+          (x: number) => (x - 2) ** 2 + 2,
         )
         break
 
       case 4: // a>0, alpha<0, beta<0
         this.casFormeCanonique(
-          a, alpha, b, true, false, false,
-          -5, 2, -3, 3,
-          (x: number) => (x + 2) ** 2 - 2
+          a,
+          alpha,
+          b,
+          true,
+          false,
+          false,
+          -5,
+          2,
+          -3,
+          3,
+          (x: number) => (x + 2) ** 2 - 2,
         )
         break
 
       case 5: // a>0, alpha<0, beta>0
         this.casFormeCanonique(
-          a, alpha, b, true, false, true,
-          -5, 2, -1, 5,
-          (x: number) => (x + 2) ** 2 + 2
+          a,
+          alpha,
+          b,
+          true,
+          false,
+          true,
+          -5,
+          2,
+          -1,
+          5,
+          (x: number) => (x + 2) ** 2 + 2,
         )
         break
 
       case 6: // a<0, alpha>0, beta>0
         this.casFormeCanonique(
-          -a, alpha, b, false, true, true,
-          -2, 5, -3, 5,
-          (x: number) => -1 * (x - 2) ** 2 + 3
+          -a,
+          alpha,
+          b,
+          false,
+          true,
+          true,
+          -2,
+          5,
+          -3,
+          5,
+          (x: number) => -1 * (x - 2) ** 2 + 3,
         )
         break
 
       case 7: // a<0, alpha>0, beta<0
         this.casFormeCanonique(
-          -a, alpha, b, false, true, false,
-          -2, 5, -5, 1,
-          (x: number) => -1 * (x - 2) ** 2 - 1
+          -a,
+          alpha,
+          b,
+          false,
+          true,
+          false,
+          -2,
+          5,
+          -5,
+          1,
+          (x: number) => -1 * (x - 2) ** 2 - 1,
         )
         break
 
       case 8: // a<0, alpha<0, beta>0
         this.casFormeCanonique(
-          -a, alpha, b, false, false, true,
-          -5, 2, -3, 5,
-          (x: number) => -1 * (x + 2) ** 2 + 3
+          -a,
+          alpha,
+          b,
+          false,
+          false,
+          true,
+          -5,
+          2,
+          -3,
+          5,
+          (x: number) => -1 * (x + 2) ** 2 + 3,
         )
         break
     }

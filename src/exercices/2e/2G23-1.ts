@@ -1,19 +1,19 @@
+import { grille } from '../../lib/2d/Grille'
 import { point, tracePoint } from '../../lib/2d/points'
-import { grille } from '../../lib/2d/reperes'
 import { Segment, segment, vecteur } from '../../lib/2d/segmentsVecteurs'
 import { labelPoint } from '../../lib/2d/textes'
-import { choice } from '../../lib/outils/arrayOutils'
+import { translation } from '../../lib/2d/transformations'
+import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
+import { setReponse } from '../../lib/interactif/gestionInteractif'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
-import Exercice from '../Exercice'
+import { choice } from '../../lib/outils/arrayOutils'
+import { miseEnEvidence } from '../../lib/outils/embellissements'
+import { mathalea2d } from '../../modules/mathalea2d'
 import {
   gestionnaireFormulaireTexte,
   listeQuestionsToContenu,
 } from '../../modules/outils'
-import { mathalea2d } from '../../modules/2dGeneralites'
-import { setReponse } from '../../lib/interactif/gestionInteractif'
-import { translation } from '../../lib/2d/transformations'
-import { miseEnEvidence } from '../../lib/outils/embellissements'
-import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
+import Exercice from '../Exercice'
 
 export const interactifReady = true
 export const interactifType = 'mathLive'

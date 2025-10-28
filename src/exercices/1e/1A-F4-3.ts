@@ -5,7 +5,7 @@ import { texteEnCouleurEtGras } from '../../lib/outils/embellissements'
 
 import { courbe } from '../../lib/2d/courbes'
 import { deuxColonnes } from '../../lib/format/miseEnPage'
-import { mathalea2d } from '../../modules/2dGeneralites'
+import { mathalea2d } from '../../modules/mathalea2d'
 import { randint } from '../../modules/outils'
 import ExerciceQcmA from '../ExerciceQcmA'
 export const dateDePublication = '20/09/2025'
@@ -44,13 +44,13 @@ export default class auto1AF4c extends ExerciceQcmA {
       yMax: 3,
       grilleX: true,
       grilleY: true,
-         xThickMin: -4,
-      yThickMin:-4,
+      xThickMin: -4,
+      yThickMin: -4,
       yThickMax: 4,
-      thickHauteur:0.1,
+      thickHauteur: 0.1,
       xLabelListe: [-3, -2, -1, 1, 2],
       yLabelListe: [-3, -2, -1, 1, 2],
-       axesEpaisseur:1.5,
+      axesEpaisseur: 1.5,
     })
 
     const objetsEnonce = [repere1] //, courbe1
@@ -94,7 +94,7 @@ export default class auto1AF4c extends ExerciceQcmA {
   }
 
   versionAleatoire = () => {
-    const cas = choice([1,2,3, 4])
+    const cas = choice([1, 2, 3, 4])
     const variante = choice([1, 2]) // Pour avoir deux fonctions différentes par cas
 
     switch (cas) {
@@ -117,10 +117,10 @@ export default class auto1AF4c extends ExerciceQcmA {
             yMax: 5.05,
             grilleX: true,
             grilleY: true,
-               xThickMin: -4,
-      yThickMin:-4,
-      yThickMax: 5,
-      thickHauteur:0.1,
+            xThickMin: -4,
+            yThickMin: -4,
+            yThickMax: 5,
+            thickHauteur: 0.1,
             xLabelListe: [-3, -2, -1, 1, 2],
             yLabelListe: [-3, -2, -1, 1, 2, 3, 4],
           })
@@ -183,12 +183,12 @@ export default class auto1AF4c extends ExerciceQcmA {
             xMax: 3,
             yMin: -4.05,
             yMax: 5.05,
-             grilleX: true,
+            grilleX: true,
             grilleY: true,
-               xThickMin: -4,
-      yThickMin:-4,
-      yThickMax: 5,
-      thickHauteur:0.1,
+            xThickMin: -4,
+            yThickMin: -4,
+            yThickMax: 5,
+            thickHauteur: 0.1,
             xLabelListe: [-3, -2, -1, 1, 2],
             yLabelListe: [-3, -2, -1, 1, 2, 3, 4],
           })
@@ -252,12 +252,12 @@ export default class auto1AF4c extends ExerciceQcmA {
             xMax: 3,
             yMin: -5.05,
             yMax: 5,
-             grilleX: true,
+            grilleX: true,
             grilleY: true,
-               xThickMin: -4,
-      yThickMin:-4,
-      yThickMax: 5,
-      thickHauteur:0.1,
+            xThickMin: -4,
+            yThickMin: -4,
+            yThickMax: 5,
+            thickHauteur: 0.1,
             xLabelListe: [-3, -2, -1, 1, 2],
             yLabelListe: [-3, -2, -1, 1, 2, 3, 4],
           })
@@ -321,10 +321,10 @@ export default class auto1AF4c extends ExerciceQcmA {
             yMax: 5.05,
             grilleX: true,
             grilleY: true,
-               xThickMin: -4,
-      yThickMin:-4,
-      yThickMax: 5,
-      thickHauteur:0.1,
+            xThickMin: -4,
+            yThickMin: -4,
+            yThickMax: 5,
+            thickHauteur: 0.1,
             xLabelListe: [-3, -2, -1, 1, 2],
             yLabelListe: [-3, -2, -1, 1, 2, 3, 4],
           })

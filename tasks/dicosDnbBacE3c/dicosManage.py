@@ -91,6 +91,7 @@ def newEntry(file:str,dicoType:str)->list:
     extension = os.path.splitext(file)[1]
     # Pour les lignes à ajouter
     newLines = ''
+    print(filename)
     # On traite les fichiers tex qui ne sont pas les fichiers de correction 
     if filename[-4:] != '_cor' and  extension == ".tex" :
         if 'mathalea' in filename: # EE : Pas encore trouvé à quelle occasion cela l'était
@@ -116,6 +117,25 @@ def newEntry(file:str,dicoType:str)->list:
                 mois: '{mois}',                
                 numeroInitial: '{numeroInitial}',
                 typeExercice: '{dicoType}',                               
+                tags: ['']            
+            }},\n'''
+        
+        elif ('eam' in filename): # EE : Ici, on considère que c'est les EAM
+            print('toto',filename)
+            print(filename.split('_'))
+            numeroInitial = filename.split('_')[5]
+            lieu = locationName(filename.split('_')[4])
+            annee = filename.split('_')[2]
+            mois = filename.split('_')[3]
+            filiere = filename.split('_')[1]
+            dicoType = 'eam'
+            newLines = f'''  {filename}: {{                
+                annee: '{annee}',                
+                lieu: '{lieu}',                
+                mois: '{mois}',                
+                numeroInitial: '{numeroInitial}',
+                typeExercice: '{dicoType}',  
+                filiere: '{filiere.capitalize()}',           
                 tags: ['']            
             }},\n'''
         
@@ -293,6 +313,7 @@ def manageDico(dicoPath:str,dicoType:str):
         fichier.close()
     
     folderToScan = f'./{dicoType}/'
+    # print(folderToScan)
     # On crée le repertoire s'il n'existe pas
     if (not os.path.exists(folderToScan)):
         os.makedirs(folderToScan)    
@@ -324,17 +345,18 @@ def main():
 
     # On choisit le type de dico à synchroniser/générer
     choiceDico = ''
-    while choiceDico not in ['1','2','3','4','5','6','7','8']:
+    while choiceDico not in ['1','2','3','4','5','6','7','8','9']:
         choiceDico = input("""Quel dictionnaire faut-il synchroniser/générer ?
         ---> 1 : DNB
         ---> 2 : DNB PRO
         ---> 3 : BAC
         ---> 4 : E3C
-        ---> 5 : CRPE
-        ---> 6 : FlashBAC
-        ---> 7 : STI2D  
-        ---> 8 : STL  
-Taper 1, 2, 3, 4, 5, 6, 7 ou 8 pour lancer le script --> """)
+        ---> 5 : EAM (1ère)
+        ---> 6 : CRPE
+        ---> 7 : FlashBAC
+        ---> 8 : STI2D  
+        ---> 9 : STL  
+Taper 1, 2, 3, 4, 5, 6, 7, 8 ou 9 pour lancer le script --> """)
     # Une variable pour le chemin vers le dico à synchroniser/générer        
     dicoPath = ''
     # Une variable pour le type de dico à synchroniser/générer        
@@ -353,15 +375,18 @@ Taper 1, 2, 3, 4, 5, 6, 7 ou 8 pour lancer le script --> """)
         dicoPath = '../../src/json/dictionnaireE3C.js'
         dicoType = 'e3c'
     elif (choiceDico == '5'):
+        dicoPath = '../../src/json/dictionnaireEAM.js'
+        dicoType = 'eam'
+    elif (choiceDico == '6'):
         dicoPath = '../../src/json/dictionnaireCrpeCoop.js'
         dicoType = 'crpe'
-    elif (choiceDico == '6'):
+    elif (choiceDico == '7'):
         dicoPath = '../../src/json/dictionnaireFlashBac.js'
         dicoType = 'flashbac'
-    elif (choiceDico == '7'):
+    elif (choiceDico == '8'):
         dicoPath = '../../src/json/dictionnaireSTI2D.js'
         dicoType = 'sti2d'
-    elif (choiceDico == '8'):
+    elif (choiceDico == '9'):
         dicoPath = '../../src/json/dictionnaireSTL.js'
         dicoType = 'stl'
 

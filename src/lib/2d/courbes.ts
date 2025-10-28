@@ -1,16 +1,13 @@
-import {
-  colorToLatexOrHTML,
-  fixeBordures,
-  ObjetMathalea2D,
-  xSVG,
-  ySVG,
-} from '../../modules/2dGeneralites'
 import { context } from '../../modules/context'
 import { estentier, inferieurouegal } from '../../modules/outils'
-import type { Spline } from '../mathFonctions/Spline'
 import { tousDeMemeSigne } from '../outils/nombres'
-import { arc } from './cercle'
-import { Point, point, tracePoint } from './points'
+import { arc } from './Arc'
+import { colorToLatexOrHTML } from './colorToLatexOrHtml'
+import { fixeBordures } from './fixeBordures'
+import type { IRepere } from './Interfaces'
+import { ObjetMathalea2D } from './ObjetMathalea2D'
+import { point } from './points'
+import { PointAbstrait, pointAbstrait } from './points-abstraits'
 import {
   elimineBinomesXYIntermediairesAlignes,
   motifs,
@@ -18,10 +15,23 @@ import {
   polygone,
   polyline,
 } from './polygones'
-import { Repere } from './reperes'
 import { segment } from './segmentsVecteurs'
 import { texteParPosition } from './textes'
-
+/**
+ * Une fonction pour convertir des abscisses en unité Mathalé en abscisses svg
+ * @param x
+ * @param coeff
+ * @return {number}
+ */
+export const xSVG = (x: number, coeff: number) => Number((x * coeff).toFixed(1))
+/**
+ * Une fonction pour convertir des ordonnées en unité Mathalé en ordonnées svg
+ * @param y
+ * @param coeff
+ * @return {number}
+ */
+export const ySVG = (y: number, coeff: number) =>
+  Number((-y * coeff).toFixed(1))
 export class LectureImage extends ObjetMathalea2D {
   x: number
   y: number
@@ -457,7 +467,7 @@ export class Courbe extends ObjetMathalea2D {
       usePgfplots = false,
       fLatex,
     }: {
-      repere?: Repere
+      repere?: IRepere
       color?: string
       epaisseur?: number
       step?: boolean | number
@@ -478,11 +488,9 @@ export class Courbe extends ObjetMathalea2D {
     this.fLatex = fLatex
 
     if (repere == null) {
-      window.notify(
+      throw Error(
         'Erreur dans Courbe : Il faut préciser le repère dans lequel tracer la courbe',
-        { repere },
       )
-      repere = new Repere({ xMin: -10, xMax: 10, yMin: -10, yMax: 10 })
     }
     const xmin = xMin == null ? (xMin = repere.xMin ?? 0) : xMin
     const xmax = xMax == null ? (xMax = repere.xMax ?? 0) : xMax
@@ -576,7 +584,7 @@ export class Courbe extends ObjetMathalea2D {
         axisYMax !== undefined ? axisYMax * 20 : this.ymax * this.yunite * 20
       ).toFixed(3)
 
-      let code = `\\addplot[color=${colorLatex},line width=${this.epaisseur / 2}pt,domain=${domainMin}:${domainMax},restrict y to domain=${
+      const code = `\\addplot[color=${colorLatex},line width=${this.epaisseur / 2}pt,domain=${domainMin}:${domainMax},restrict y to domain=${
         yDomainMin
       }:${yDomainMax},samples=${this.samples}] {${this.fLatex}};\n`
 
@@ -655,7 +663,7 @@ export function courbe(
     usePgfplots = false,
     fLatex,
   }: {
-    repere?: Repere
+    repere?: IRepere
     color?: string
     epaisseur?: number
     step?: boolean | number
@@ -726,7 +734,7 @@ export class Integrale extends ObjetMathalea2D {
       opacite = 0.5,
       hachures = 0,
     }: {
-      repere?: Repere
+      repere?: IRepere
       color?: string
       epaisseur?: number
       couleurDeRemplissage?: string
@@ -863,7 +871,7 @@ export function integrale(
     opacite = 0.5,
     hachures = 0,
   }: {
-    repere?: Repere
+    repere?: IRepere
     color?: string
     epaisseur?: number
     couleurDeRemplissage?: string
@@ -989,7 +997,7 @@ export class IntegraleComptable extends ObjetMathalea2D {
     }
     // On joint les rectangles adjacents de même couleur
     let color: string[] = []
-    let sommetFinal: Point = point(0, 0)
+    let sommetFinal: PointAbstrait = pointAbstrait(0, 0)
     while (rectangles.length > 0) {
       const sommets = [
         rectangles[0].listePoints[0],
@@ -1056,277 +1064,15 @@ export class IntegraleComptable extends ObjetMathalea2D {
     ]
     this.aire = { negative: 0, positive: 0 }
     for (const objet of this.objets) {
-      if (objet.bordures[1] < 0 && objet.bordures[3] === 0) {
-        this.aire.negative += objet.aire
-      } else {
-        this.aire.positive += objet.aire
-      }
-    }
-  }
-}
-export class BezierPath extends ObjetMathalea2D {
-  xStart: number
-  yStart: number
-  listeOfTriplets: [number, number][][]
-  constructor({
-    xStart = 0,
-    yStart = 0,
-    listeOfTriplets = [
-      [
-        [1, 1],
-        [-1, -1],
-        [1, 1],
-      ],
-    ] as [number, number][][],
-    color = 'black',
-    epaisseur = 2,
-    opacite = 1,
-  }) {
-    super()
-    this.color = colorToLatexOrHTML(color)
-    this.opacite = opacite
-    this.epaisseur = epaisseur
-    this.xStart = xStart
-    this.yStart = yStart
-    this.listeOfTriplets = listeOfTriplets
-  }
-
-  svg(coeff: number) {
-    //
-    let path = `<path fill="none" stroke="${this.color[0]}" stroke-width=${this.epaisseur} d="M${xSVG(this.xStart, coeff)},${ySVG(this.yStart, coeff)} c`
-    for (const triplet of this.listeOfTriplets) {
-      path += `${xSVG(triplet[0][0], coeff)},${ySVG(triplet[0][1], coeff)} ${xSVG(triplet[1][0], coeff)},${ySVG(triplet[1][1], coeff)} ${xSVG(triplet[2][0], coeff)},${ySVG(triplet[2][1], coeff)} `
-    }
-    path += '" />\n'
-    return path
-  }
-
-  tikz() {
-    let path = `\n\t\\draw[color = ${this.color[1]},line width = ${this.epaisseur}, opacity = ${this.opacite}](${this.xStart},${this.yStart})`
-    // Pour tikz, les coordonnées du point initial et final doivent être en coordonnées absolues, seules les points de contrôles peuvent-être en relatif à leur noeud respectif
-    let x0 = this.xStart
-    let y0 = this.yStart
-    for (const triplet of this.listeOfTriplets) {
-      const x3 = x0 + triplet[2][0]
-      const y3 = y0 + triplet[2][1]
-      const dX2X3 = triplet[1][0] - triplet[2][0] // tikz prend comme origine le point final pour calculer les coordonnées relatives du point de contrôle 2 !
-      const dY2Y3 = triplet[1][1] - triplet[2][1]
-      path += ` .. controls +(${triplet[0][0].toFixed(2)},${triplet[0][1].toFixed(2)}) and +(${dX2X3.toFixed(2)},${dY2Y3.toFixed(2)})  .. (${x3.toFixed(2)},${y3.toFixed(2)})\n`
-      x0 = x3 // Le nouveau point de départ est le point d'arrivée du tronçon précédent !
-      y0 = y3
-    }
-    path += ';\n'
-    return path
-  }
-}
-
-/**
- * Trace la courbe d'une fonction, précédemment définie comme Spline, dans un repère
- * @param {Spline} f fonction à tracer défine, au préalable, avec splineCatmullRom()
- * @param {Object} parametres À saisir entre accolades
- * @param {Repere} [parametres.repere  = {}] Repère dans lequel le tracé de la fonction se fait
- * @param {string} [parametres.color = 'black']  Couleur du tracé de la courbe : du type 'blue' ou du type '#f15929'
- * @param {number} [parametres.epaisseur = 2]  Epaisseur du tracé de la courbe
- * @param {number} [parametres.xMin = repere.xMin]  Abscisse minimale du tracé de la courbe
- * @param {number} [parametres.xMax = repere.xMax]  Abscisse maximale du tracé de la courbe
- * @param {number} [parametres.yMin = repere.yMin]  Ordonnée minimale du tracé de la courbe
- * @param {number} [parametres.yMax = repere.yMax]  Ordonnée maximale du tracé de la courbe
- * @param {boolean|number} [parametres.step = false] Si false, le pas entre deux abscisses du tracé de la fonction est 0.2/xUnite. Sinon, ce pas vaut la valeur indiquée.
- * @param {number} [parametres.xUnite = 1]  Abscisse minimale du tracé de la courbe
- * @param {number} [parametres.yUnite = 1]  Abscisse maximale du tracé de la courbe
- * @param {boolean} [parametres.traceNoeuds = true]  Place (ou non) les points définis dans le paramètre f.
- * @property {string} svg Sortie au format vectoriel (SVG) que l’on peut afficher dans un navigateur
- * @property {string} tikz Sortie au format TikZ que l’on peut utiliser dans un fichier LaTeX
- * @property {string} color Couleur du tracé de la courbe. À associer obligatoirement à colorToLatexOrHTML().
- * @author Jean-Claude Lhote
- * @class
- */
-// JSDOC Validee par EE Juin 2022
-export class CourbeSpline extends ObjetMathalea2D {
-  constructor(
-    f: Spline,
-    {
-      repere,
-      color = 'black',
-      epaisseur = 2,
-      step = false,
-      xMin,
-      xMax,
-      yMin,
-      yMax,
-      xUnite = 1,
-      yUnite = 1,
-      traceNoeuds = true,
-    }: {
-      repere?: Repere
-      color?: string
-      epaisseur?: number
-      step?: boolean | number
-      xMin?: number
-      xMax?: number
-      yMin?: number
-      yMax?: number
-      xUnite?: number
-      yUnite?: number
-      traceNoeuds?: boolean
-    } = {},
-  ) {
-    super()
-    this.objets = []
-
-    const noeuds = []
-    let points = []
-    let xunite, yunite // Tout en minuscule pour les différencier des paramètres de la fonction
-    xunite = repere?.xUnite ?? 1
-    yunite = repere?.yUnite ?? 1
-    const xmin = xMin == null ? (xMin = repere?.xMin ?? 0) : xMin
-    const xmax = xMax == null ? (xMax = repere?.xMax ?? 0) : xMax
-    const ymin = yMin == null ? (yMin = repere?.yMin ?? 0) : yMin
-    const ymax = yMax == null ? (yMax = repere?.yMax ?? 0) : yMax
-
-    if (isNaN(xunite)) {
-      xunite = xUnite
-    }
-
-    if (isNaN(yunite)) {
-      yunite = yUnite
-    }
-    if (f.x == null || f.y == null) {
-      window.notify(
-        "On ne peut pas tracer la courbe de cette spline : elle n'a pas de noeuds",
-        { spline: JSON.stringify(f) },
-      )
-      return
-    }
-    if (traceNoeuds) {
-      for (let i = 0; i < f.x.length; i++) {
-        noeuds[i] = tracePoint(point(f.x[i], f.y[i]), 'black')
-        noeuds[i].taille = 3
-        noeuds[i].style = '+'
-        noeuds[i].epaisseur = 2
-        noeuds[i].opacite = 0.5
-        this.objets.push(noeuds[i])
-      }
-    }
-    let pas: number
-    let p, y
-    if (!step) {
-      pas = 0.2 / xUnite
-    } else {
-      pas = Number(step)
-    }
-    for (let x = xmin; inferieurouegal(x, xmax); x = x + pas) {
-      if (x > xmax) x = xmax // normalement x<xMax... mais inférieurouegal ne compare qu'à 0.0000001 près, on peut donc avoir xMax+epsilon qui sort de l'intervalle de déf
-      y = f.image(x)
-      if (!isNaN(y)) {
-        if (y < ymax + 1 && y > ymin - 1) {
-          points.push(point(x * xunite, y * yunite))
-        } else if (points.length > 0) {
-          p = polyline([...points], color)
-          p.epaisseur = epaisseur
-          p.opacite = 0.7
-          this.objets.push(p)
-          points = []
+      if (objet instanceof ObjetMathalea2D) {
+        if (objet.bordures[1] < 0 && objet.bordures[3] === 0) {
+          this.aire.negative += objet.aire
+        } else {
+          this.aire.positive += objet.aire
         }
-      } else {
-        x += 0.05
       }
     }
-    p = polyline([...points], color)
-    p.epaisseur = epaisseur
-    p.opacite = 0.7
-    this.objets.push(p)
-    this.bordures = repere?.bordures as unknown as [
-      number,
-      number,
-      number,
-      number,
-    ]
   }
-
-  svg(coeff: number) {
-    let code = ''
-    if (this.objets == null) return code
-    for (const objet of this.objets) {
-      code += '\n\t' + objet.svg(coeff)
-    }
-    return code
-  }
-
-  tikz() {
-    let code = ''
-    if (this.objets == null) return code
-    for (const objet of this.objets) {
-      code += '\n\t' + objet.tikz()
-    }
-    return code
-  }
-}
-
-/**
- * Trace la courbe d'une fonction, précédemment définie comme Spline, dans un repère
- * @param {function} f fonction à tracer défine, au préalable, avec splineCatmullRom()
- * @param {Object} parametres À saisir entre accolades
- * @param {Repere} [parametres.repere  = {}] Repère dans lequel le tracé de la fonction se fait
- * @param {string} [parametres.color = 'black']  Couleur du tracé de la courbe : du type 'blue' ou du type '#f15929'
- * @param {number} [parametres.epaisseur = 2]  Epaisseur du tracé de la courbe
- * @param {number} [parametres.xMin = repere.xMin]  Abscisse minimale du tracé de la courbe
- * @param {number} [parametres.xMax = repere.xMax]  Abscisse maximale du tracé de la courbe
- * @param {number} [parametres.yMin = repere.yMin]  Ordonnée minimale du tracé de la courbe
- * @param {number} [parametres.yMax = repere.yMax]  Ordonnée maximale du tracé de la courbe
- * @param {boolean|number} [parametres.step = false] Si false, le pas entre deux abscisses du tracé de la fonction est 0.2/xUnite. Sinon, ce pas vaut la valeur indiquée.
- * @param {number} [parametres.xUnite = 1]  Abscisse minimale du tracé de la courbe
- * @param {number} [parametres.yUnite = 1]  Abscisse maximale du tracé de la courbe
- * @param {boolean} [parametres.traceNoeuds = true]  Place (ou non) les points définis dans le paramètre f.
- * @example courbeSpline(g, {repere: r})
- * // Trace, en noir avec une épaisseur de 2, la courbe spline g dans le repère r, tous deux précédemment définis.
- * @example courbeSpline(g, {repere: r, epaisseur: 5, color: 'blue'})
- * // Trace la courbe spline g dans le repère r, tous deux précédemment définis, en bleu, avec une épaisseur de 5.
- * @author Jean-Claude Lhote
- * @return {CourbeSpline}
- */
-// JSDOC Validee par EE Juin 2022
-export function courbeSpline(
-  f: Spline,
-  {
-    repere,
-    color = 'black',
-    epaisseur = 2,
-    step = false,
-    xMin,
-    xMax,
-    yMin,
-    yMax,
-    xUnite = 1,
-    yUnite = 1,
-    traceNoeuds = true,
-  }: {
-    repere?: Repere
-    color?: string
-    epaisseur?: number
-    step?: boolean | number
-    xMin?: number
-    xMax?: number
-    yMin?: number
-    yMax?: number
-    xUnite?: number
-    yUnite?: number
-    traceNoeuds?: boolean
-  } = {},
-) {
-  return new CourbeSpline(f, {
-    repere,
-    color,
-    epaisseur,
-    step,
-    xMin,
-    xMax,
-    yMin,
-    yMax,
-    xUnite,
-    yUnite,
-    traceNoeuds,
-  })
 }
 
 /**
@@ -1371,7 +1117,7 @@ export class CourbeInterpolee extends ObjetMathalea2D {
     }: {
       color?: string
       epaisseur?: number
-      repere?: Repere
+      repere?: IRepere
       xMin?: number
       xMax?: number
       step?: number
@@ -1459,7 +1205,7 @@ export function courbeInterpolee(
   }: {
     color?: string
     epaisseur?: number
-    repere?: Repere
+    repere?: IRepere
     xMin?: number
     xMax?: number
     step?: number
@@ -1487,9 +1233,9 @@ export class GraphiqueInterpole extends ObjetMathalea2D {
     }: {
       color?: string
       epaisseur?: number
-      repere?: Repere
+      repere: IRepere
       step?: number
-    } = {},
+    },
   ) {
     super()
     this.courbes = []
@@ -1513,8 +1259,8 @@ export class GraphiqueInterpole extends ObjetMathalea2D {
         xMax: fin,
         color,
         epaisseur,
-        xUnite: repere?.xUnite ?? 1,
-        yUnite: repere?.yUnite ?? 1,
+        xUnite: repere.xUnite ?? 1,
+        yUnite: repere.yUnite ?? 1,
         yMin: ymin,
         yMax: ymax,
       })
@@ -1560,9 +1306,9 @@ export function graphiqueInterpole(
   }: {
     color?: string
     epaisseur?: number
-    repere?: Repere
+    repere: IRepere
     step?: number
-  } = {},
+  },
 ) {
   return new GraphiqueInterpole(tableau, { color, epaisseur, repere, step })
 }

@@ -67,6 +67,7 @@ export default class Auto1AC1b extends ExerciceQcmA {
 
     return `$${tex} = ${valeurDecimale}$ <br><br>`
   }
+
   versionOriginale: () => void = () => {
     this.enonce = `Parmi les quatre nombres suivants, lequel est le plus grand ?`
 

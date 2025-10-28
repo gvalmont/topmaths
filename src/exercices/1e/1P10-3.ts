@@ -1,19 +1,20 @@
-import Exercice from '../Exercice'
+import { fixeBordures } from '../../lib/2d/fixeBordures'
+import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
+import { handleAnswers } from '../../lib/interactif/gestionInteractif'
+import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
+import { miseEnEvidence } from '../../lib/outils/embellissements'
+import { arrondi } from '../../lib/outils/nombres'
+import { texNombre } from '../../lib/outils/texNombre'
+import FractionEtendue from '../../modules/FractionEtendue'
+import { Arbre, texProba } from '../../modules/arbres'
+import { mathalea2d } from '../../modules/mathalea2d'
 import {
   gestionnaireFormulaireTexte,
   listeQuestionsToContenu,
   randint,
 } from '../../modules/outils'
-import { handleAnswers } from '../../lib/interactif/gestionInteractif'
-import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
-import { texNombre } from '../../lib/outils/texNombre'
-import { miseEnEvidence } from '../../lib/outils/embellissements'
-import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
-import FractionEtendue from '../../modules/FractionEtendue'
-import { Arbre, texProba } from '../../modules/arbres'
-import { fixeBordures, mathalea2d } from '../../modules/2dGeneralites'
-import { arrondi } from '../../lib/outils/nombres'
+import Exercice from '../Exercice'
 export const titre = 'Calculer  une probabilité avec un arbre'
 export const interactifReady = true
 export const interactifType = 'mathLive'

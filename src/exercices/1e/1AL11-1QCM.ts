@@ -18,8 +18,8 @@ export const amcType = 'qcmMono'
 export const titre = 'Calculer avec les suites arithmétiques et géométriques'
 export default class Puissances extends ExerciceQcmA {
   versionOriginale: () => void = () => {
-   let a = -2
-   let b = 3
+   const a = -2
+   const b = 3
     this.enonce = `Soit $(u_n)$ la suite définie pour tout entier $n$ par $u_n=${reduireAxPlusB(a,b,'n', { ordreInverse: true })}$.`
      this.correction = `Soit $n\\in \\mathbb{N}$. On sait que la forme explicite d'une suite arithmétique $(u_n)$, de premier terme $u_0\\in \\mathbb{R}$ et de raison $r\\in \\mathbb{R}$
     <br> est sous la forme : $u_n=u_0+n\\times r$.<br>
@@ -35,8 +35,8 @@ $${miseEnEvidence(`(u_n)`)}$  ${texteEnCouleur(`est donc une suite arithmétique
 
   versionAleatoire = () => {
    const cas =randint(1,6)
-   if (cas===1){let a = randint(-5, 5,[0,1])
-    let b = randint(-5, 5,[-1,0,1,a])
+   if (cas===1){const a = randint(-5, 5,[0,1])
+    const b = randint(-5, 5,[-1,0,1,a])
     
     this.enonce = `Soit $(u_n)$ la suite définie pour tout entier $n$ par $u_n=${reduireAxPlusB(a,b,'n')}$.`
     this.correction = `Soit $n\\in \\mathbb{N}$. On sait que la forme explicite d'une suite arithmétique $(u_n)$, de premier terme $u_0\\in \\mathbb{R}$ et de raison $r\\in \\mathbb{R}$
@@ -68,8 +68,8 @@ $${miseEnEvidence(`(u_n)`)}$  ${texteEnCouleur(`est donc une suite géométrique
     ]}
  if (cas===3){const a = randint(-5, 5,[0,1])
     const b = randint(-5, 5,[-1,0,1,a,-a])
-    let fraction1 = new FractionEtendue(a+b, a+1)
-    let fraction2 = new FractionEtendue(a+b*b, a+b)
+    const fraction1 = new FractionEtendue(a+b, a+1)
+    const fraction2 = new FractionEtendue(a+b*b, a+b)
     this.enonce = `Soit $(u_n)$ la suite définie pour tout entier $n$ par $u_n=${a}+ ${ecritureParentheseSiNegatif(b)}^n$.`
     this.correction = `Soit $n\\in \\mathbb{N}$.<br>
     On calcule les premiers termes pour savoir si la suite peut être arithmétique ou géométrique : <br>
@@ -98,8 +98,8 @@ $${miseEnEvidence(`(u_n)`)}$  ${texteEnCouleur(`est donc une suite géométrique
      if (cas===4){const a = randint(-5, 5,[0,1])
     const b = randint(-5, 5,[-1,0,1,a])
     const c = randint(-5, 5,[-1,0,1,a])
-     let fraction1 = new FractionEtendue(a*b+c, a+c)
-    let fraction2 = new FractionEtendue(a*b*b+c, a*b+c)
+     const fraction1 = new FractionEtendue(a*b+c, a+c)
+    const fraction2 = new FractionEtendue(a*b*b+c, a*b+c)
     this.enonce = `Soit $(u_n)$ la suite définie pour tout entier $n$ par $u_n=${a}\\times ${ecritureParentheseSiNegatif(b)}^n${ecritureAlgebrique(c)}$.`
    this.correction = `Soit $n\\in \\mathbb{N}$.<br>
     On calcule les premiers termes pour savoir si la suite peut être arithmétique ou géométrique : <br>
@@ -145,8 +145,8 @@ $${miseEnEvidence(`(u_n)`)}$  ${texteEnCouleur(`est donc une suite arithmétique
      if (cas===6){const a = randint(-5, 5,[0,1])
     const b = randint(-5, 5,[-1,0,1,a,-2])
     const c = randint(-5, 5,[-1,0,1,a])
-      let fraction1 = new FractionEtendue(a+b, b)
-    let fraction2 = new FractionEtendue(4*a+b, a+b)
+      const fraction1 = new FractionEtendue(a+b, b)
+    const fraction2 = new FractionEtendue(4*a+b, a+b)
     this.enonce = `Soit $(u_n)$ la suite définie pour tout entier $n$ par $u_n=${a}n^2${ecritureAlgebrique(b)}$.`
      this.correction = `Soit $n\\in \\mathbb{N}$.<br>
     On calcule les premiers termes pour savoir si la suite peut être arithmétique ou géométrique : <br>

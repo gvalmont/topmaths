@@ -1,17 +1,18 @@
-import Exercice from '../Exercice'
+import { fixeBordures } from '../../lib/2d/fixeBordures'
+import { createList } from '../../lib/format/lists'
+import { prenomM } from '../../lib/outils/Personne'
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
+import { miseEnEvidence } from '../../lib/outils/embellissements'
+import { texNombre } from '../../lib/outils/texNombre'
+import { Arbre } from '../../modules/arbres'
+import { mathalea2d } from '../../modules/mathalea2d'
+import { nombreEnLettres } from '../../modules/nombreEnLettres'
 import {
   gestionnaireFormulaireTexte,
   listeQuestionsToContenu,
   randint,
 } from '../../modules/outils'
-import { texNombre } from '../../lib/outils/texNombre'
-import { Arbre } from '../../modules/arbres'
-import { fixeBordures, mathalea2d } from '../../modules/2dGeneralites'
-import { createList } from '../../lib/format/lists'
-import { nombreEnLettres } from '../../modules/nombreEnLettres'
-import { prenomM } from '../../lib/outils/Personne'
-import { miseEnEvidence } from '../../lib/outils/embellissements'
+import Exercice from '../Exercice'
 export const titre = 'Résoudre des problèmes avec des probabilités (E3C)'
 export const dateDePublication = '29/04/2025'
 

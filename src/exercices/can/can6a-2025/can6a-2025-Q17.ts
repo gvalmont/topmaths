@@ -1,14 +1,15 @@
-import ExerciceSimple from '../../ExerciceSimple'
-import { Grille } from '../../../lib/2d/reperes'
 import { Point } from '../../../lib/2d/points'
+import ExerciceSimple from '../../ExerciceSimple'
 
-import { fixeBordures, mathalea2d } from '../../../modules/2dGeneralites'
-import { miseEnEvidence } from '../../../lib/outils/embellissements'
-import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
-import { latex2d } from '../../../lib/2d/textes'
+import { fixeBordures } from '../../../lib/2d/fixeBordures'
+import { grille } from '../../../lib/2d/Grille'
 import { segment } from '../../../lib/2d/segmentsVecteurs'
-import { randint } from '../../../modules/outils'
+import { latex2d } from '../../../lib/2d/textes'
+import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
+import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { texNombre } from '../../../lib/outils/texNombre'
+import { mathalea2d } from '../../../modules/mathalea2d'
+import { randint } from '../../../modules/outils'
 
 export const titre = 'Calculer une longueur'
 export const interactifReady = true
@@ -34,7 +35,7 @@ export default class Can2025N6Q17 extends ExerciceSimple {
   }
 
   nouvelleVersion() {
-    const grille = new Grille(0, 0, 8, 3, 'gray', 1, 1)
+    const grillage = grille(0, 0, 8, 3, 'gray', 1, 1)
     const A = new Point(1, 1)
     const B = new Point(7, 1)
     const seg1 = segment(A, B)
@@ -51,7 +52,7 @@ export default class Can2025N6Q17 extends ExerciceSimple {
     const longCherche = latex2d('\\ldots \\text{ cm}', 4.5, 0.5, {
       letterSize: 'normalsize',
     })
-    const objets = [grille, seg1, seg2, long, longCherche]
+    const objets = [grillage, seg1, seg2, long, longCherche]
     this.question = 'Complète.'
     this.question += mathalea2d(
       Object.assign({ scale: 0.5 }, fixeBordures(objets)),

@@ -1,5 +1,6 @@
+import { fixeBordures } from '../../lib/2d/fixeBordures'
 import { point, tracePoint } from '../../lib/2d/points'
-import { Repere, repere } from '../../lib/2d/reperes'
+import { Repere } from '../../lib/2d/reperes'
 import {
   nomVecteurParPosition,
   Segment,
@@ -7,16 +8,16 @@ import {
   vecteur,
 } from '../../lib/2d/segmentsVecteurs'
 import { labelPoint, texteParPosition } from '../../lib/2d/textes'
+import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
+import { handleAnswers } from '../../lib/interactif/gestionInteractif'
+import { remplisLesBlancs } from '../../lib/interactif/questionMathLive'
 import { choice } from '../../lib/outils/arrayOutils'
 import { ecritureParentheseSiNegatif } from '../../lib/outils/ecritures'
-import { remplisLesBlancs } from '../../lib/interactif/questionMathLive'
 import { creerNomDePolygone } from '../../lib/outils/outilString'
-import Exercice from '../Exercice'
-import { fixeBordures, mathalea2d } from '../../modules/2dGeneralites'
-import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import FractionEtendue from '../../modules/FractionEtendue'
-import { handleAnswers } from '../../lib/interactif/gestionInteractif'
-import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
+import { mathalea2d } from '../../modules/mathalea2d'
+import { listeQuestionsToContenu, randint } from '../../modules/outils'
+import Exercice from '../Exercice'
 
 import { miseEnEvidence } from '../../lib/outils/embellissements'
 
@@ -82,7 +83,7 @@ export default class Calculercoordonneesvecteurs extends Exercice {
         )
         xB = xA + xABFraction.valeurDecimale
         yB = yA + yABFraction.valeurDecimale
-        r = repere({
+        r = new Repere({
           xUnite: 1,
           yUnite: 1,
           xMin: Math.min(-2, xA - 2, xB - 2, 2),
@@ -133,7 +134,7 @@ export default class Calculercoordonneesvecteurs extends Exercice {
         yABFraction = new FractionEtendue(frac2[0], frac2[1])
         yB = randint(-4, 4, [0])
         yA = new FractionEtendue(yB * frac2[1] - frac2[0], frac2[1])
-        r = repere({
+        r = new Repere({
           xUnite: 1,
           yUnite: 1,
           xMin: Math.min(

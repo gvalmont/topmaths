@@ -4,7 +4,7 @@ import { repere } from '../../../lib/2d/reperes'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 import { choice } from '../../../lib/outils/arrayOutils'
 import { texteEnCouleurEtGras } from '../../../lib/outils/embellissements'
-import { mathalea2d } from '../../../modules/2dGeneralites'
+import { mathalea2d } from '../../../modules/mathalea2d'
 import { randint } from '../../../modules/outils'
 import ExerciceSimple from '../../ExerciceSimple'
 

@@ -1,10 +1,13 @@
 import { combinaisonListes } from '../../lib/outils/arrayOutils'
-import Exercice from '../Exercice'
 import { context } from '../../modules/context'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
+import Exercice from '../Exercice'
 
+import {
+  handleAnswers,
+  setReponse,
+} from '../../lib/interactif/gestionInteractif'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
-import { setReponse } from '../../lib/interactif/gestionInteractif'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { sp } from '../../lib/outils/outilString'
 
@@ -33,9 +36,7 @@ export default class PuissancesDUnRelatif2 extends Exercice {
   constructor() {
     super()
 
-    context.isHtml
-      ? (this.consigne = 'Écrire sous la forme $\\mathbf{a^n}$.')
-      : (this.consigne = 'Écrire sous la forme $a^n$.')
+    this.consigne = 'Écrire sous la forme $a^n$.'
     this.spacing = 2
     this.spacingCorr = 2.5
     this.nbQuestions = 8
@@ -43,7 +44,6 @@ export default class PuissancesDUnRelatif2 extends Exercice {
 
   nouvelleVersion() {
     const typesDeQuestionsDisponibles = [1, 2, 3, 4, 5, 6, 7, 8]
-    // const typesDeQuestionsDisponibles = [1]
     const listeTypeDeQuestions = combinaisonListes(
       typesDeQuestionsDisponibles,
       this.nbQuestions,
@@ -253,8 +253,11 @@ export default class PuissancesDUnRelatif2 extends Exercice {
       }
 
       if (this.interactif && !context.isAmc) {
-        setReponse(this, i, reponseInteractive, {
-          formatInteractif: 'puissance',
+        handleAnswers(this, i, {
+          reponse: {
+            value: reponseInteractive,
+            options: { sansExposantUn: true },
+          },
         })
         texte += ajouteChampTexteMathLive(this, i, '', {
           texteAvant: sp(2) + '$=$',
@@ -278,7 +281,7 @@ export default class PuissancesDUnRelatif2 extends Exercice {
       for (let ee = 0; ee < textCorrSplit.length - 1; ee++) {
         texteCorr += textCorrSplit[ee] + '='
       }
-      texteCorr += `$ $${miseEnEvidence(aRemplacer)}$.`
+      texteCorr += `$ $${miseEnEvidence(aRemplacer)}$`
 
       // Fin de cette uniformisation
 

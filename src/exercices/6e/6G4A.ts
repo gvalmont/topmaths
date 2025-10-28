@@ -22,8 +22,8 @@ import {
 import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { rangeMinMax } from '../../lib/outils/nombres'
 import { lettreDepuisChiffre, numAlpha, sp } from '../../lib/outils/outilString'
-import { mathalea2d } from '../../modules/2dGeneralites'
 import { context } from '../../modules/context'
+import { mathalea2d } from '../../modules/mathalea2d'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import Exercice from '../Exercice'
 

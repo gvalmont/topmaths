@@ -7,15 +7,15 @@ import {
 } from '../../lib/2d/intervalles'
 import { Point, point } from '../../lib/2d/points'
 import { Segment, segment } from '../../lib/2d/segmentsVecteurs'
-import { combinaisonListes } from '../../lib/outils/arrayOutils'
-import Exercice from '../Exercice'
-import { mathalea2d } from '../../modules/2dGeneralites'
-import { listeQuestionsToContenu, randint } from '../../modules/outils'
-import { context } from '../../modules/context'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
+import { combinaisonListes } from '../../lib/outils/arrayOutils'
+import { context } from '../../modules/context'
+import { mathalea2d } from '../../modules/mathalea2d'
+import { listeQuestionsToContenu, randint } from '../../modules/outils'
+import Exercice from '../Exercice'
 
-import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
+import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 
 export const titre =
   'Associer un intervalle de  $\\mathbb{R}$ à une inéquation et son schéma sur une droite graduée'

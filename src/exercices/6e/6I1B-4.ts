@@ -1,3 +1,4 @@
+import { colorToLatexOrHTML } from '../../lib/2d/colorToLatexOrHtml'
 import { point } from '../../lib/2d/points'
 import { polygone } from '../../lib/2d/polygones'
 import { segment } from '../../lib/2d/segmentsVecteurs'
@@ -6,8 +7,8 @@ import { choice, shuffle } from '../../lib/outils/arrayOutils'
 import { listeDesDiviseurs } from '../../lib/outils/primalite'
 import { texNombre } from '../../lib/outils/texNombre'
 import { addSheet, MySpreadsheetElement } from '../../lib/tableur/MySpreadSheet'
-import { colorToLatexOrHTML, mathalea2d } from '../../modules/2dGeneralites'
 import { context } from '../../modules/context'
+import { mathalea2d } from '../../modules/mathalea2d'
 
 import {
   gestionnaireFormulaireTexte,

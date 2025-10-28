@@ -1,17 +1,19 @@
 // on importe les fonctions nécessaires.
+import { colorToLatexOrHTML } from '../../lib/2d/colorToLatexOrHtml'
 import { point, tracePoint } from '../../lib/2d/points'
 import { segment } from '../../lib/2d/segmentsVecteurs'
 import { texteParPoint } from '../../lib/2d/textes'
 import { choice, shuffle } from '../../lib/outils/arrayOutils'
 import { arrondi } from '../../lib/outils/nombres'
-import Exercice from '../Exercice'
-import { mathalea2d, colorToLatexOrHTML } from '../../modules/2dGeneralites'
 import { context } from '../../modules/context'
+import { mathalea2d } from '../../modules/mathalea2d'
 import {
   listeQuestionsToContenuSansNumero,
   randint,
 } from '../../modules/outils'
+import Exercice from '../Exercice'
 // Ici ce sont les fonctions de la librairie maison 2d.js qui gèrent tout ce qui est graphique (SVG/tikz) et en particulier ce qui est lié à l'objet lutin
+import { setCliqueFigure } from '../../lib/interactif/gestionInteractif'
 import {
   allerA,
   angleScratchTo2d,
@@ -24,7 +26,6 @@ import {
   tournerG,
 } from '../../modules/2dLutin'
 import { scratchblock } from '../../modules/scratchblock'
-import { setCliqueFigure } from '../../lib/interactif/gestionInteractif'
 
 export const interactifReady = true
 export const interactifType = 'cliqueFigure'

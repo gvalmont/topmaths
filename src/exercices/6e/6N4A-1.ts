@@ -1,3 +1,4 @@
+import { fixeBordures } from '../../lib/2d/fixeBordures'
 import { point } from '../../lib/2d/points'
 import { polygone } from '../../lib/2d/polygones'
 import { segment } from '../../lib/2d/segmentsVecteurs'
@@ -14,8 +15,8 @@ import {
 import { range, rangeMinMax } from '../../lib/outils/nombres'
 import { sp } from '../../lib/outils/outilString'
 import { prenomF, prenomM } from '../../lib/outils/Personne'
-import { fixeBordures, mathalea2d } from '../../modules/2dGeneralites'
 import { context } from '../../modules/context'
+import { mathalea2d } from '../../modules/mathalea2d'
 import { randint } from '../../modules/outils'
 import Exercice from '../Exercice'
 

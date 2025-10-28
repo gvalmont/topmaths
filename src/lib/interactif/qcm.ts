@@ -157,6 +157,7 @@ export function propositionsQcm(
       {
         autoCrorrection: exercice?.autoCorrection[i],
         propositions: exercice?.autoCorrection[i].propositions,
+        exercise: exercice,
       },
     )
     return { texte: '', texteCorr: '' }
@@ -164,6 +165,7 @@ export function propositionsQcm(
     window.notify('propositionsQcm a reçu une liste de propositions vide', {
       autoCrorrection: exercice.autoCorrection[i],
       propositions: exercice.autoCorrection[i].propositions,
+      exercise: exercice,
     })
     return { texte: '', texteCorr: '' }
   } else if (exercice.autoCorrection[i].propositions.length === 1) {
@@ -172,6 +174,7 @@ export function propositionsQcm(
       {
         autoCrorrection: exercice.autoCorrection[i],
         propositions: exercice.autoCorrection[i].propositions,
+        exercise: exercice,
       },
     )
     return { texte: '', texteCorr: '' }
@@ -281,21 +284,27 @@ export function propositionsQcm(
   if (context.isHtml) {
     const isRadio = exercice.autoCorrection[i].options?.radio ?? false
     const formateQ = (format: string, rep: number) => {
-      if (format == null || format === 'case') { return `<input type="${isRadio ? 'radio' : 'checkbox'}" name="checkEx${exercice.numeroExercice}Q${i}" ${exercice.interactif ? '' : 'disabled'} tabindex="0" style="height: 1rem; width: 1rem;" class="disabled:cursor-default" id="checkEx${exercice.numeroExercice}Q${i}R${rep}">` }
+      if (format == null || format === 'case') {
+        return `<input type="${isRadio ? 'radio' : 'checkbox'}" name="checkEx${exercice.numeroExercice}Q${i}" ${exercice.interactif ? '' : 'disabled'} tabindex="0" style="height: 1rem; width: 1rem;" class="disabled:cursor-default" id="checkEx${exercice.numeroExercice}Q${i}R${rep}">`
+      }
       if (format === 'lettre') {
         return `<label ${classCss} >${texteGras(lettreDepuisChiffre(rep + 1))}.</label>`
       }
       return `<input type="${isRadio ? 'radio' : 'checkbox'}" name="checkEx${exercice.numeroExercice}Q${i}" ${exercice.interactif ? '' : 'disabled'} tabindex="0" style="height: 1rem; width: 1rem;" class="disabled:cursor-default" id="checkEx${exercice.numeroExercice}Q${i}R${rep}"><label ${classCss} >${lettreDepuisChiffre(rep + 1)}.</label>`
     }
     const formateRV = (format: string, rep: number) => {
-      if (format == null || format === 'case') { return `<input type="${isRadio ? 'radio' : 'checkbox'}" name="checkEx${exercice.numeroExercice}Q${i}" tabindex="0" style="height: 1rem; width: 1rem;" class="disabled:cursor-default" checked>` }
+      if (format == null || format === 'case') {
+        return `<input type="${isRadio ? 'radio' : 'checkbox'}" name="checkEx${exercice.numeroExercice}Q${i}" tabindex="0" style="height: 1rem; width: 1rem;" class="disabled:cursor-default" checked>`
+      }
       if (format === 'lettre') {
         return `<label ${classCss} >${texteEnCouleurEtGras(lettreDepuisChiffre(rep + 1))}.</label>`
       }
       return `<input type="${isRadio ? 'radio' : 'checkbox'}" name="checkEx${exercice.numeroExercice}Q${i}" ${exercice.interactif ? '' : 'disabled'} tabindex="0" style="height: 1rem; width: 1rem;" class="disabled:cursor-default" checked><label ${classCss} >${texteEnCouleurEtGras(lettreDepuisChiffre(rep + 1))}.</label>`
     }
     const formateRF = (format: string, rep: number) => {
-      if (format == null || format === 'case') { return `<input type="${isRadio ? 'radio' : 'checkbox'}" name="checkEx${exercice.numeroExercice}Q${i}" tabindex="0" style="height: 1rem; width: 1rem;" class="disabled:cursor-default">` }
+      if (format == null || format === 'case') {
+        return `<input type="${isRadio ? 'radio' : 'checkbox'}" name="checkEx${exercice.numeroExercice}Q${i}" tabindex="0" style="height: 1rem; width: 1rem;" class="disabled:cursor-default">`
+      }
       if (format === 'lettre') {
         return `<label ${classCss} >${texteGras(`${barreTexte(lettreDepuisChiffre(rep + 1))}`)}.</label>`
       }

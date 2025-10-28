@@ -16,12 +16,9 @@ import {
 } from '../../../lib/outils/ecritures'
 import { sp } from '../../../lib/outils/outilString'
 import { stringNombre, texNombre } from '../../../lib/outils/texNombre'
-import {
-  mathalea2d,
-  type NestedObjetMathalea2dArray,
-} from '../../../modules/2dGeneralites'
 import { context } from '../../../modules/context'
 import { fraction } from '../../../modules/fractions'
+import { mathalea2d } from '../../../modules/mathalea2d'
 import { listeQuestionsToContenu, randint } from '../../../modules/outils'
 import Exercice from '../../Exercice'
 
@@ -32,6 +29,7 @@ import {
 import { ajouteChampTexteMathLive } from '../../../lib/interactif/questionMathLive'
 import { arrondi } from '../../../lib/outils/nombres'
 import FractionEtendue from '../../../modules/FractionEtendue'
+import type { NestedObjetMathalea2dArray } from '../../../types/2d'
 
 export const titre = 'CAN Seconde sujet 2021'
 export const interactifReady = true

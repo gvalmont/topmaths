@@ -1,11 +1,15 @@
+import { colorToLatexOrHTML } from '../../../lib/2d/colorToLatexOrHtml'
+import { droiteGraduee } from '../../../lib/2d/DroiteGraduee'
+import { fixeBordures } from '../../../lib/2d/fixeBordures'
+import { grille } from '../../../lib/2d/Grille'
 import { milieu, plot, point } from '../../../lib/2d/points'
 import { polygone, polygoneAvecNom } from '../../../lib/2d/polygones'
-import { droiteGraduee, grille } from '../../../lib/2d/reperes'
 import {
   segment,
   segmentAvecExtremites,
 } from '../../../lib/2d/segmentsVecteurs'
 import { texteParPosition } from '../../../lib/2d/textes'
+import { texPrix } from '../../../lib/format/style'
 import { choice, shuffle } from '../../../lib/outils/arrayOutils'
 import {
   miseEnEvidence,
@@ -13,19 +17,14 @@ import {
 } from '../../../lib/outils/embellissements'
 import { sp } from '../../../lib/outils/outilString'
 import { prenomF, prenomM } from '../../../lib/outils/Personne'
-import { texPrix } from '../../../lib/format/style'
 import {
   formatMinute,
   stringNombre,
   texNombre,
 } from '../../../lib/outils/texNombre'
-import {
-  mathalea2d,
-  fixeBordures,
-  colorToLatexOrHTML,
-} from '../../../modules/2dGeneralites'
-import FractionEtendue from '../../../modules/FractionEtendue'
 import { context } from '../../../modules/context'
+import FractionEtendue from '../../../modules/FractionEtendue'
+import { mathalea2d } from '../../../modules/mathalea2d'
 import { egal, randint } from '../../../modules/outils'
 
 export const titre = 'Classe CAN C3'

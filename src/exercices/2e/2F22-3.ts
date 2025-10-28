@@ -1,20 +1,20 @@
 import { repere } from '../../lib/2d/reperes'
 import { texteParPosition } from '../../lib/2d/textes'
+import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { tableauSignesFonction } from '../../lib/mathFonctions/etudeFonction'
 import { Spline, spline } from '../../lib/mathFonctions/Spline'
 import { choice } from '../../lib/outils/arrayOutils'
+import { texteEnCouleurEtGras } from '../../lib/outils/embellissements'
 import {
   mathalea2d,
   type NestedObjetMathalea2dArray,
-} from '../../modules/2dGeneralites'
+} from '../../modules/mathalea2d'
 import {
   gestionnaireFormulaireTexte,
   listeQuestionsToContenu,
   randint,
 } from '../../modules/outils'
-import { texteEnCouleurEtGras } from '../../lib/outils/embellissements'
 import Exercice from '../Exercice'
-import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 
 import { ajouteChampTexte } from '../../lib/interactif/questionMathLive'
 import type FractionEtendue from '../../modules/FractionEtendue'

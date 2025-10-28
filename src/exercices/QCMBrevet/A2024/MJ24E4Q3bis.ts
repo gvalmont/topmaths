@@ -1,15 +1,13 @@
+import { colorToLatexOrHTML } from '../../../lib/2d/colorToLatexOrHtml'
 import { droite, labelOnLine } from '../../../lib/2d/droites'
+import { fixeBordures } from '../../../lib/2d/fixeBordures'
 import { point } from '../../../lib/2d/points'
 import { Polygone, polygone } from '../../../lib/2d/polygones'
 import { rotation } from '../../../lib/2d/transformations'
 import { choice } from '../../../lib/outils/arrayOutils'
 import { symetrieAnimee } from '../../../modules/2dAnimation'
-import {
-  colorToLatexOrHTML,
-  fixeBordures,
-  mathalea2d,
-} from '../../../modules/2dGeneralites'
 import { context } from '../../../modules/context'
+import { mathalea2d } from '../../../modules/mathalea2d'
 import { nombreElementsDifferents } from '../../ExerciceQcm'
 import ExerciceQcmA from '../../ExerciceQcmA'
 import { rose } from './MJ24E4Q4bis'

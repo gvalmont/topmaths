@@ -1,7 +1,7 @@
 import { traceBarreHorizontale } from '../../../lib/2d/diagrammes'
 import { repere } from '../../../lib/2d/reperes'
 import { prenom } from '../../../lib/outils/Personne'
-import { mathalea2d } from '../../../modules/2dGeneralites'
+import { mathalea2d } from '../../../modules/mathalea2d'
 import { randint } from '../../../modules/outils'
 import ExerciceSimple from '../../ExerciceSimple'
 export const titre = 'Lire un diagramme en barres'

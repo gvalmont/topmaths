@@ -1,7 +1,10 @@
 import { angleOriente } from '../../lib/2d/angles'
-import { Arc, arc, cercle } from '../../lib/2d/cercle'
+import { Arc, arc } from '../../lib/2d/Arc'
+import { cercle } from '../../lib/2d/cercle'
 import { afficheCoteSegment, placeLatexSurSegment } from '../../lib/2d/codages'
+import { colorToLatexOrHTML } from '../../lib/2d/colorToLatexOrHtml'
 import { droite } from '../../lib/2d/droites'
+import { fixeBordures } from '../../lib/2d/fixeBordures'
 import {
   Point,
   point,
@@ -17,12 +20,8 @@ import { cordelette, longueur, segment } from '../../lib/2d/segmentsVecteurs'
 import { labelPoint, texteParPosition } from '../../lib/2d/textes'
 import { homothetie, rotation } from '../../lib/2d/transformations'
 import { numAlpha } from '../../lib/outils/outilString'
-import {
-  colorToLatexOrHTML,
-  fixeBordures,
-  mathalea2d,
-} from '../../modules/2dGeneralites'
 import { context } from '../../modules/context'
+import { mathalea2d } from '../../modules/mathalea2d'
 import { gestionnaireFormulaireTexte, randint } from '../../modules/outils'
 import Exercice from '../Exercice'
 

@@ -1,9 +1,11 @@
-import Decimal from 'decimal.js'
+import {
+  base10VersBaseN,
+  baseNVersBase10,
+} from '../../lib/mathFonctions/baseConversions'
 import { context } from '../../modules/context'
 import Operation from '../../modules/operations'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import Exercice from '../Exercice'
-import { valeurBase } from './PEA11-1'
 
 export const titre = "Multiplications dans d'autres bases"
 export const dateDePublication = '2/11/2021'
@@ -20,34 +22,6 @@ export const uuid = 'a7016'
 export const refs = {
   'fr-fr': ['PEA13'],
   'fr-ch': [],
-}
-
-export function base10VersBaseN(nombre: number | Decimal, b: number) {
-  if (nombre instanceof Decimal)
-    return nombre.toNumber().toString(b).toUpperCase()
-  else return nombre.toString(b).toUpperCase()
-}
-
-/**
- * Convertit une chaine correspondant à un nombre écrit en base b en un nombre entier en base 10.
- * @param {} nombre
- * @param {number} b la base de départ
- */
-export function baseNVersBase10(
-  stringNombre: number | Decimal | string,
-  b: number,
-) {
-  let result = 0
-  if (typeof stringNombre === 'number') {
-    stringNombre = stringNombre.toString()
-  } else if (stringNombre instanceof Decimal) {
-    stringNombre = stringNombre.toNumber().toString()
-  }
-  for (let i = 0; i < stringNombre.length; i++) {
-    result +=
-      b ** i * valeurBase(stringNombre.charAt(stringNombre.length - 1 - i))
-  }
-  return result
 }
 
 export default class MultiplicationsBaseN extends Exercice {

@@ -4,8 +4,8 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 */
 
-import { ObjetMathalea2D } from './2dGeneralites'
 import { context } from './context'
+import { ObjetMathalea2D } from './mathalea2d'
 
 /**
  * Affiche (en HTML) un crayon avec la mine sur le point A

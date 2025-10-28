@@ -8,10 +8,10 @@ import { labelPoint } from '../../lib/2d/textes'
 import { projectionOrtho } from '../../lib/2d/transformations'
 import { choisitLettresDifferentes } from '../../lib/outils/aleatoires'
 import { texNombre } from '../../lib/outils/texNombre'
-import Exercice from '../Exercice'
-import { mathalea2d } from '../../modules/2dGeneralites'
-import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import { context } from '../../modules/context'
+import { mathalea2d } from '../../modules/mathalea2d'
+import { listeQuestionsToContenu, randint } from '../../modules/outils'
+import Exercice from '../Exercice'
 export const titre = "Mesurer la distance d'un point à une droite"
 
 export const dateDePublication = '01/03/2023'

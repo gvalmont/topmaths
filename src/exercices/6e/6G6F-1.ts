@@ -1,11 +1,13 @@
 import { codageAngleDroit } from '../../lib/2d/angles'
-import { cercle, traceCompas } from '../../lib/2d/cercle'
+import { traceCompas } from '../../lib/2d/Arc'
+import { cercle } from '../../lib/2d/cercle'
 import {
   codageMediatrice,
   codageSegments,
   placeLatexSurSegment,
 } from '../../lib/2d/codages'
 import { mediatrice } from '../../lib/2d/droites'
+import { fixeBordures } from '../../lib/2d/fixeBordures'
 import {
   Point,
   point,
@@ -17,18 +19,15 @@ import { demiDroite, longueur } from '../../lib/2d/segmentsVecteurs'
 import { shuffle } from '../../lib/outils/arrayOutils'
 import { creerNomDePolygone } from '../../lib/outils/outilString'
 import { texNombre } from '../../lib/outils/texNombre'
-import {
-  fixeBordures,
-  mathalea2d,
-  type NestedObjetMathalea2dArray,
-} from '../../modules/2dGeneralites'
 import Alea2iep from '../../modules/Alea2iep'
 import { context } from '../../modules/context'
+import { mathalea2d } from '../../modules/mathalea2d'
 import {
   gestionnaireFormulaireTexte,
   listeQuestionsToContenu,
   randint,
 } from '../../modules/outils'
+import type { NestedObjetMathalea2dArray } from '../../types/2d'
 import Exercice from '../Exercice'
 
 export const titre =
@@ -88,7 +87,7 @@ export default class ConstruireUnTriangleParticulierEtSonCercleCirconscrit exten
       listeDeNomsDePolygones.push(nom)
       let sommets: string[] = []
       for (let i = 0; i < 3; i++) sommets.push(nom[i])
-      let codages: NestedObjetMathalea2dArray = []
+      const codages: NestedObjetMathalea2dArray = []
       const A = point(0, 0, 'A', 'left')
 
       let B: Point
@@ -157,16 +156,6 @@ export default class ConstruireUnTriangleParticulierEtSonCercleCirconscrit exten
               traceCompas(A, B, 20, 'green'),
               traceCompas(C, B, 20, 'green'),
             )
-            const paramsEnonce = {
-              xmin: Math.min(A.x - 1, B.x - 1),
-              ymin: Math.min(A.y - 1, B.y - 1),
-              xmax: Math.max(A.x + 1, B.x + 1),
-              ymax: Math.max(A.y + 1, B.y + 1),
-              pixelsParCm: 30,
-              scale: 0.6,
-              mainlevee: true,
-              amplitude: 0.2,
-            }
           }
           break
         case 2: // équilatéral
@@ -219,102 +208,79 @@ export default class ConstruireUnTriangleParticulierEtSonCercleCirconscrit exten
               traceCompas(A, B, 20, 'green'),
               traceCompas(C, B, 20, 'green'),
             )
-            const paramsEnonce = {
-              xmin: Math.min(A.x - 1, B.x - 1),
-              ymin: Math.min(A.y - 1, B.y - 1),
-              xmax: Math.max(A.x + 1, B.x + 1),
-              ymax: Math.max(A.y + 1, B.y + 1),
-              pixelsParCm: 30,
-              scale: 0.6,
-              mainlevee: true,
-              amplitude: 0.2,
-            }
           }
           break
         case 3: // rectangle
-
         default:
           {
-            {
-              const ab =
-                this.seed === 'myriade'
-                  ? 4
-                  : this.sup3
-                    ? randint(3, 6)
-                    : randint(30, 60) / 10
-              const bc =
-                this.seed === 'myriade'
-                  ? 6
-                  : this.sup3
-                    ? randint(ab + 1, 8)
-                    : randint((ab + 1) * 10, 80) / 10
-              const ac = Math.sqrt(bc ** 2 - ab ** 2)
-              sommets =
-                this.seed === 'myriade' ? ['I', 'J', 'K'] : shuffle(sommets)
-              B = point(-ab, 0, sommets[1], 'right')
-              const cA = cercle(A, ac)
-              const cB = cercle(B, bc)
-              C = pointIntersectionCC(cA, cB, sommets[1], 1) as Point
-              C.positionLabel = 'above'
-              ;[A, B, C].forEach(
-                (p: Point, index: number) => (p.nom = sommets[index]),
-              )
-              codages.push(
-                codageAngleDroit(C, A, B),
-                placeLatexSurSegment(`${texNombre(ab, 1)}\\text{ cm}`, A, B, {
-                  letterSize: 'scriptsize',
-                }),
-                placeLatexSurSegment(`${texNombre(bc, 1)}\\text{ cm}`, B, C, {
-                  letterSize: 'scriptsize',
-                }),
-              )
-              texte += `Le triangle $${sommets[0]}${sommets[1]}${sommets[2]}$ rectangle en ${sommets[0]} tel que $${sommets[0]}${sommets[1]}=${texNombre(ab, 1)}\\text{ cm}$ et $${sommets[1]}${sommets[2]}=${texNombre(bc, 1)}\\text{ cm}$.<br>`
-              lAB = ab
-              lAC = ac
-              lBC = bc
-              texteCorr +=
-                "Pour cette construction, nous avons utilisé la règle graduée, le compas et l'équerre."
-              const [aIEP, bIEP, cIEP] =
-                this.seed === 'myriade'
-                  ? (IEP.triangleRectangleCoteHypotenuse(
-                      'JIK',
-                      ab,
-                      bc,
-                    ) as Point[])
-                  : (IEP.triangleRectangleCoteHypotenuse(
-                      `${sommets[1]}${sommets[0]}${sommets[2]}`,
-                      ab,
-                      bc,
-                    ) as Point[])
-              IEP.cercleCirconscrit(aIEP, bIEP, cIEP)
-              verif = ''
-              const T = polygoneAvecNom(A, B, C)
-              const CC = point(
-                C.x + randint(-3, 3) / 10,
-                C.y + randint(-3, 3) / 10,
-                C.nom,
-                C.positionLabel,
-              )
-              const TT = polygoneAvecNom(A, B, CC)
-              objetsEnonce.push(TT[0], TT[1], codages)
-              objetsCorrection.push(
-                demiDroite(A, C),
-                T[0],
-                T[1],
-                codages,
-                traceCompas(B, C, 20, 'green'),
-              )
-              const paramsEnonce = {
-                xmin: Math.min(A.x - 1, B.x - 1),
-                ymin: Math.min(A.y - 1, B.y - 1),
-                xmax: Math.max(A.x + 1, B.x + 1),
-                ymax: Math.max(A.y + 1, B.y + 1),
-                pixelsParCm: 30,
-                scale: 0.6,
-                mainlevee: true,
-                amplitude: 0.2,
-              }
-            }
+            const ab =
+              this.seed === 'myriade'
+                ? 4
+                : this.sup3
+                  ? randint(3, 6)
+                  : randint(30, 60) / 10
+            const bc =
+              this.seed === 'myriade'
+                ? 6
+                : this.sup3
+                  ? randint(ab + 1, 8)
+                  : randint((ab + 1) * 10, 80) / 10
+            const ac = Math.sqrt(bc ** 2 - ab ** 2)
+            sommets =
+              this.seed === 'myriade' ? ['I', 'J', 'K'] : shuffle(sommets)
+            B = point(-ab, 0, sommets[1], 'right')
+            const cA = cercle(A, ac)
+            const cB = cercle(B, bc)
+            C = pointIntersectionCC(cA, cB, sommets[1], 1) as Point
+            C.positionLabel = 'above'
+            ;[A, B, C].forEach(
+              (p: Point, index: number) => (p.nom = sommets[index]),
+            )
+            codages.push(
+              codageAngleDroit(C, A, B),
+              placeLatexSurSegment(`${texNombre(ab, 1)}\\text{ cm}`, A, B, {
+                letterSize: 'scriptsize',
+              }),
+              placeLatexSurSegment(`${texNombre(bc, 1)}\\text{ cm}`, B, C, {
+                letterSize: 'scriptsize',
+              }),
+            )
+            texte += `Le triangle $${sommets[0]}${sommets[1]}${sommets[2]}$ rectangle en ${sommets[0]} tel que $${sommets[0]}${sommets[1]}=${texNombre(ab, 1)}\\text{ cm}$ et $${sommets[1]}${sommets[2]}=${texNombre(bc, 1)}\\text{ cm}$.<br>`
+            lAB = ab
+            lAC = ac
+            lBC = bc
+            texteCorr +=
+              "Pour cette construction, nous avons utilisé la règle graduée, le compas et l'équerre."
+            const [aIEP, bIEP, cIEP] =
+              this.seed === 'myriade'
+                ? (IEP.triangleRectangleCoteHypotenuse(
+                    'JIK',
+                    ab,
+                    bc,
+                  ) as Point[])
+                : (IEP.triangleRectangleCoteHypotenuse(
+                    `${sommets[1]}${sommets[0]}${sommets[2]}`,
+                    ab,
+                    bc,
+                  ) as Point[])
+            IEP.cercleCirconscrit(aIEP, bIEP, cIEP)
+            verif = ''
+            const T = polygoneAvecNom(A, B, C)
+            const CC = point(
+              C.x + randint(-3, 3) / 10,
+              C.y + randint(-3, 3) / 10,
+              C.nom,
+              C.positionLabel,
+            )
+            const TT = polygoneAvecNom(A, B, CC)
+            objetsEnonce.push(TT[0], TT[1], codages)
+            objetsCorrection.push(
+              demiDroite(A, C),
+              T[0],
+              T[1],
+              codages,
+              traceCompas(B, C, 20, 'green'),
+            )
           }
           break
       }
@@ -328,15 +294,6 @@ export default class ConstruireUnTriangleParticulierEtSonCercleCirconscrit exten
       const O = pointIntersectionDD(d1, d2) as Point
       const c0 = cercle(O, longueur(A, O), 'orange')
       objetsCorrection.push(med1, med2, med3, d1, d2, d3, c0)
-
-      const paramsCorrection = {
-        xmin: Math.min(A.x - 1, B.x - 1, C.x - 2),
-        ymin: Math.min(A.y - 1, B.y - 1, C.y - 2),
-        xmax: Math.max(A.x + 1, B.x + 1, C.x + 2),
-        ymax: Math.max(A.y + 1, B.y + 1, C.y + 2),
-        pixelsParCm: 30,
-        scale: 1,
-      }
       if (!this.sup2) {
         texte += 'Le triangle ci-dessous a été réalisé à main levée.<br>'
       }

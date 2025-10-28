@@ -2,10 +2,10 @@ import { point } from '../lib/2d/points'
 import { segment, vecteur } from '../lib/2d/segmentsVecteurs'
 import { latexParCoordonnees, latexParPoint } from '../lib/2d/textes'
 import { homothetie, translation } from '../lib/2d/transformations'
-import { fraction } from './fractions'
-import FractionEtendue from './FractionEtendue'
 import { texNombre } from '../lib/outils/texNombre'
-import type { NestedObjetMathalea2dArray } from './2dGeneralites'
+import type { NestedObjetMathalea2dArray } from '../types/2d'
+import FractionEtendue from './FractionEtendue'
+import { fraction } from './fractions'
 
 function isFraction(obj: any): obj is FractionEtendue {
   return typeof obj === 'object' && obj instanceof FractionEtendue

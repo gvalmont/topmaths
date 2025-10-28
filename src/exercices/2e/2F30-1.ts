@@ -7,8 +7,8 @@ import {
   tableauVariationsFonction,
 } from '../../lib/mathFonctions/etudeFonction'
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
-import { mathalea2d } from '../../modules/2dGeneralites'
 import type FractionEtendue from '../../modules/FractionEtendue'
+import { mathalea2d } from '../../modules/mathalea2d'
 
 import {
   gestionnaireFormulaireTexte,

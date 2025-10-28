@@ -1,28 +1,26 @@
+import { colorToLatexOrHTML } from '../../lib/2d/colorToLatexOrHtml'
+import { fixeBordures } from '../../lib/2d/fixeBordures'
 import { point } from '../../lib/2d/points'
 import { polygone } from '../../lib/2d/polygones'
 import { segment } from '../../lib/2d/segmentsVecteurs'
 import { texteParPosition } from '../../lib/2d/textes'
-import { choice } from '../../lib/outils/arrayOutils'
+import {
+  point3d,
+  polygone3d,
+} from '../../lib/3d/3dProjectionMathalea2d/elements'
+import { pave3d, pyramide3d } from '../../lib/3d/3dProjectionMathalea2d/solides'
 import { createList } from '../../lib/format/lists'
+import { choice } from '../../lib/outils/arrayOutils'
 import { egalOuApprox } from '../../lib/outils/ecritures'
 import {
   decompositionFacteursPremiers,
   premierAvec,
 } from '../../lib/outils/primalite'
-import { texNombre, stringNombre } from '../../lib/outils/texNombre'
-import Exercice from '../Exercice'
+import { stringNombre, texNombre } from '../../lib/outils/texNombre'
 import { context } from '../../modules/context'
+import { mathalea2d } from '../../modules/mathalea2d'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
-import {
-  mathalea2d,
-  fixeBordures,
-  colorToLatexOrHTML,
-} from '../../modules/2dGeneralites'
-import { pyramide3d, pave3d } from '../../lib/3d/3dProjectionMathalea2d/solides'
-import {
-  point3d,
-  polygone3d,
-} from '../../lib/3d/3dProjectionMathalea2d/elements'
+import Exercice from '../Exercice'
 
 export const titre = 'Arithmétique & volumes'
 

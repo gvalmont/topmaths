@@ -1,22 +1,23 @@
+import type { BoxedExpression } from '@cortex-js/compute-engine'
+import type { MathfieldElement } from 'mathlive'
+import { fixeBordures } from '../../lib/2d/fixeBordures'
+import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
+import engine from '../../lib/interactif/comparisonFunctions'
+import {
+  ajouteChampTexteMathLive,
+  remplisLesBlancs,
+} from '../../lib/interactif/questionMathLive'
 import { lettreMinusculeDepuisChiffre, sp } from '../../lib/outils/outilString'
+import { context } from '../../modules/context'
+import type FractionEtendue from '../../modules/FractionEtendue'
+import { mathalea2d } from '../../modules/mathalea2d'
 import {
   contraindreValeur,
   listeQuestionsToContenu,
   randint,
 } from '../../modules/outils'
-import { mathalea2d, fixeBordures } from '../../modules/2dGeneralites'
-import {
-  ajouteChampTexteMathLive,
-  remplisLesBlancs,
-} from '../../lib/interactif/questionMathLive'
-import { context } from '../../modules/context'
-import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 import Exercice from '../Exercice'
 import { Rose } from './_Rose'
-import engine from '../../lib/interactif/comparisonFunctions'
-import type { MathfieldElement } from 'mathlive'
-import type { BoxedExpression } from '@cortex-js/compute-engine'
-import type FractionEtendue from '../../modules/FractionEtendue'
 export const interactifReady = true
 export const interactifType = 'custom'
 export const amcReady = true

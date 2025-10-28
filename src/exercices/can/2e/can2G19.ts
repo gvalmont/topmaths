@@ -6,8 +6,8 @@ import { texteParPosition } from '../../../lib/2d/textes'
 import { choice } from '../../../lib/outils/arrayOutils'
 import { ecritureParentheseSiNegatif } from '../../../lib/outils/ecritures'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
-import { mathalea2d } from '../../../modules/2dGeneralites'
 import FractionEtendue from '../../../modules/FractionEtendue'
+import { mathalea2d } from '../../../modules/mathalea2d'
 import { randint } from '../../../modules/outils'
 import ExerciceSimple from '../../ExerciceSimple'
 export const titre =
@@ -70,7 +70,7 @@ export default class CoeffDirDroite extends ExerciceSimple {
         yA = randint(0, 4)
         xB = randint(2, 4)
         yB = randint(1, 4)
-        o = texteParPosition('O', -0.3, -0.3, 'milieu', 'black', 1)
+        o = texteParPosition('O', -0.3, -0.3, 0, 'black', 1)
         A = point(xA, yA)
         B = point(xB, yB)
         Bx = point(B.x, A.y)
@@ -81,14 +81,14 @@ export default class CoeffDirDroite extends ExerciceSimple {
         sBBx.pointilles = 5
         sABx.epaisseur = 2
         sABx.pointilles = 5
-        lA = texteParPosition('A', xA, yA + 0.5, 'milieu', 'black', 1)
+        lA = texteParPosition('A', xA, yA + 0.5, 0, 'black', 1)
         traceA = tracePoint(A, 'black') // Variable qui trace les points avec une croix
-        lB = texteParPosition('B', xB, yB + 0.5, 'milieu', 'black', 1)
+        lB = texteParPosition('B', xB, yB + 0.5, 0, 'black', 1)
         lABx = texteParPosition(
           `${xB - xA}`,
           milieu(A, Bx).x,
           A.y + 0.3,
-          'milieu',
+          0,
           'red',
           1,
         )
@@ -96,7 +96,7 @@ export default class CoeffDirDroite extends ExerciceSimple {
           `${yB - yA}`,
           B.x + 0.5,
           milieu(B, Bx).y,
-          'milieu',
+          0,
           'blue',
           1,
         )
@@ -193,7 +193,7 @@ export default class CoeffDirDroite extends ExerciceSimple {
         yA = randint(-5, 5) / 2
         xB = randint(1, 4)
         yB = randint(-5, 5, 0) / 2
-        o = texteParPosition('O', -0.3, -0.3, 'milieu', 'black', 1)
+        o = texteParPosition('O', -0.3, -0.3, 0, 'black', 1)
         A = point(xA, yA)
         B = point(xB, yB)
         Bx = point(B.x, A.y)
@@ -204,15 +204,15 @@ export default class CoeffDirDroite extends ExerciceSimple {
         sBBx.pointilles = 5
         sABx.epaisseur = 2
         sABx.pointilles = 5
-        lA = texteParPosition('A', xA, yA + 0.5, 'milieu', 'black', 1.5)
+        lA = texteParPosition('A', xA, yA + 0.5, 0, 'black', 1.5)
         traceA = tracePoint(A, 'black') // Variable qui trace les points avec une croix
-        lB = texteParPosition('B', xB, yB + 0.5, 'milieu', 'black', 1.5)
+        lB = texteParPosition('B', xB, yB + 0.5, 0, 'black', 1.5)
         if (yA > yB) {
           lABx = texteParPosition(
             `${xB - xA}`,
             milieu(A, Bx).x,
             A.y + 0.3,
-            'milieu',
+            0,
             'red',
             1,
           )
@@ -221,7 +221,7 @@ export default class CoeffDirDroite extends ExerciceSimple {
             `${xB - xA}`,
             milieu(A, Bx).x,
             A.y - 0.3,
-            'milieu',
+            0,
             'red',
             1,
           )
@@ -230,7 +230,7 @@ export default class CoeffDirDroite extends ExerciceSimple {
           `${2 * (yB - yA)}`,
           B.x + 0.5,
           milieu(B, Bx).y,
-          'milieu',
+          0,
           'blue',
           1,
         )

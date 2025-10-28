@@ -1,26 +1,23 @@
 import { floor } from 'mathjs'
-import {
-  colorToLatexOrHTML,
-  ObjetMathalea2D,
-} from '../../modules/2dGeneralites'
 import { randint } from '../../modules/outils'
+import { ObjetMathalea2D } from './ObjetMathalea2D'
 import { CodageAngleDroit, codageAngleDroit } from './angles'
 import { cercle } from './cercle'
 import { CodageMilieu } from './codages'
+import { colorToLatexOrHTML } from './colorToLatexOrHtml'
 import { Droite, droite, mediatrice } from './droites'
 import {
   milieu,
   Point,
-  point,
   pointIntersectionCC,
   pointIntersectionDD,
   pointIntersectionLC,
   pointSurSegment,
 } from './points'
+import type { PointAbstrait } from './points-abstraits'
 import { Polygone, polygone } from './polygones'
 import { longueur } from './segmentsVecteurs'
 import { projectionOrtho, rotation, similitude } from './transformations'
-import type { PointAbstrait } from './points-abstraits'
 
 /**
  * retourne un objet contenant le triangle ABC et le pied de la hauteur H
@@ -33,8 +30,8 @@ import type { PointAbstrait } from './points-abstraits'
  * @return {objet} {triangle, pied}
  */
 export function triangle2points1hauteur(
-  A: Point,
-  B: Point,
+  A: PointAbstrait,
+  B: PointAbstrait,
   h: number,
   d: number,
   n = 1,
@@ -60,8 +57,8 @@ export function triangle2points1hauteur(
  * @author Rémi Angot
  */
 export function triangle2points2longueurs(
-  A: Point,
-  B: Point,
+  A: PointAbstrait,
+  B: PointAbstrait,
   l1: number,
   l2: number,
   n = 1,
@@ -69,7 +66,7 @@ export function triangle2points2longueurs(
 ) {
   const c1 = cercle(A, l1)
   const c2 = cercle(B, l2)
-  let C: Point
+  let C: PointAbstrait
   if (n === 1) {
     C = pointIntersectionCC(c1, c2)
   } else {
@@ -85,8 +82,8 @@ export function triangle2points2longueurs(
  * @author Rémi Angot
  */
 export function triangle2points2angles(
-  A: Point,
-  B: Point,
+  A: Point | PointAbstrait,
+  B: Point | PointAbstrait,
   a1: number,
   a2: number,
   n = 1,
@@ -118,8 +115,8 @@ export function triangle2points2angles(
  * @author Jean-Claude Lhote
  */
 export function triangle2points1angle1longueur(
-  A: Point,
-  B: Point,
+  A: Point | PointAbstrait,
+  B: Point | PointAbstrait,
   a: number,
   l: number,
   n = 1,
@@ -148,8 +145,8 @@ export function triangle2points1angle1longueur(
  * @author Jean-Claude Lhote
  */
 export function triangle2points1angle1longueurOppose(
-  A: Point,
-  B: Point,
+  A: Point | PointAbstrait,
+  B: Point | PointAbstrait,
   a: number,
   l: number,
   n = 1,
@@ -196,7 +193,12 @@ export function aireTriangle(p: Polygone) {
  * @param {Point} C
  * @param {string} color
  */
-export function medianeTriangle(A: Point, B: Point, C: Point, color = 'black') {
+export function medianeTriangle(
+  A: Point | PointAbstrait,
+  B: Point | PointAbstrait,
+  C: Point | PointAbstrait,
+  color = 'black',
+) {
   const I = milieu(B, C)
   return droite(A, I, '', color)
 }
@@ -217,9 +219,9 @@ export function medianeTriangle(A: Point, B: Point, C: Point, color = 'black') {
  */
 // JSDOC Validee par EE Juin 2022
 export function centreGraviteTriangle(
-  A: Point,
-  B: Point,
-  C: Point,
+  A: Point | PointAbstrait,
+  B: Point | PointAbstrait,
+  C: Point | PointAbstrait,
   nom = '',
   positionLabel = 'above',
 ) {
@@ -242,7 +244,12 @@ export function centreGraviteTriangle(
  * @return {Droite}
  */
 // JSDOC Validee par EE Aout 2022
-export function hauteurTriangle(A: Point, B: Point, C: Point, color = 'black') {
+export function hauteurTriangle(
+  A: Point | PointAbstrait,
+  B: Point | PointAbstrait,
+  C: Point | PointAbstrait,
+  color = 'black',
+) {
   const d = droite(B, C)
   const p = projectionOrtho(A, d)
   return new Droite(p, A, '', color)
@@ -264,7 +271,12 @@ export class CodageHauteurTriangle extends ObjetMathalea2D {
   traceD: boolean
   c: CodageAngleDroit
   d: Droite
-  constructor(A: Point, B: Point, C: Point, color = 'black') {
+  constructor(
+    A: Point | PointAbstrait,
+    B: Point | PointAbstrait,
+    C: Point | PointAbstrait,
+    color = 'black',
+  ) {
     super()
     this.color = colorToLatexOrHTML(color)
     this.d = droite(B, C)
@@ -324,9 +336,9 @@ export class CodageHauteurTriangle extends ObjetMathalea2D {
  */
 // JSDOC Validee par EE Juin 2022
 export function codageHauteurTriangle(
-  A: Point,
-  B: Point,
-  C: Point,
+  A: Point | PointAbstrait,
+  B: Point | PointAbstrait,
+  C: Point | PointAbstrait,
   color = 'black',
 ) {
   return new CodageHauteurTriangle(A, B, C, color)
@@ -345,8 +357,8 @@ export function codageHauteurTriangle(
  */
 // JSDOC Validee par EE Juin 2022
 export function codageMedianeTriangle(
-  A: Point,
-  B: Point,
+  A: Point | PointAbstrait,
+  B: Point | PointAbstrait,
   color = 'black',
   mark = '×',
   mil = false,
@@ -363,9 +375,9 @@ export function codageMedianeTriangle(
  * @param {string} nom
  */
 export function orthoCentre(
-  A: Point,
-  B: Point,
-  C: Point,
+  A: Point | PointAbstrait,
+  B: Point | PointAbstrait,
+  C: Point | PointAbstrait,
   nom = '',
   positionLabel = 'above',
 ) {

@@ -1,10 +1,11 @@
-import ExerciceSimple from '../../ExerciceSimple'
-import { stringNombre, texNombre } from '../../../lib/outils/texNombre'
-import { miseEnEvidence } from '../../../lib/outils/embellissements'
+import { droiteGraduee } from '../../../lib/2d/DroiteGraduee'
+import { fixeBordures } from '../../../lib/2d/fixeBordures'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
-import { fixeBordures, mathalea2d } from '../../../modules/2dGeneralites'
-import { DroiteGraduee } from '../../../lib/2d/reperes'
+import { miseEnEvidence } from '../../../lib/outils/embellissements'
+import { stringNombre, texNombre } from '../../../lib/outils/texNombre'
+import { mathalea2d } from '../../../modules/mathalea2d'
 import { randint } from '../../../modules/outils'
+import ExerciceSimple from '../../ExerciceSimple'
 export const titre = 'Trouver un nombre sur une droite graduée'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -32,7 +33,7 @@ export default class Can2025CM2Q26 extends ExerciceSimple {
 
     const x = this.canOfficielle ? 6 : randint(1, 7, 4)
     this.reponse = { reponse: { value: `\\frac{${x}}{4}` } } // this.reponse = String(x)
-    const drGrad = new DroiteGraduee({
+    const drGrad = droiteGraduee({
       Unite: 4,
       Min: a1,
       Max: a2,

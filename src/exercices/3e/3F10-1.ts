@@ -1,13 +1,13 @@
 import { droiteParPointEtPente } from '../../lib/2d/droites'
 import { point, tracePoint } from '../../lib/2d/points'
 import { repere } from '../../lib/2d/reperes'
+import { propositionsQcm } from '../../lib/interactif/qcm'
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
 import { rangeMinMax } from '../../lib/outils/nombres'
-import Exercice from '../Exercice'
-import { mathalea2d } from '../../modules/2dGeneralites'
 import { context } from '../../modules/context'
+import { mathalea2d } from '../../modules/mathalea2d'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
-import { propositionsQcm } from '../../lib/interactif/qcm'
+import Exercice from '../Exercice'
 
 export const dateDeModifImportante = '01/11/2024'
 export const interactifReady = true

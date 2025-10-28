@@ -403,7 +403,7 @@ export function loadPackagesFromContent(contents: contentsType) {
     '\\newcommand\\dotfills[1][4cm]{\\makebox[#1]{\\dotfill}}',
     contents,
   )
-
+  testIfLoaded(['boxplot'], '\\usepgfplotslibrary{statistics}', contents)
   testIfLoaded(
     ['\\blocrep{', '\\blocrep['],
     `

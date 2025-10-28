@@ -218,13 +218,7 @@ async function checkLatex(
       'ProfMaquette',
       callback,
     )
-    await checkLatexVariation(
-      page,
-      description,
-      'LaTeX',
-      'ProfMaquetteQrcode',
-      callback,
-    )
+
     await checkLatexVariation(page, description, 'LaTeX', 'Can', callback)
   }
 }
@@ -629,10 +623,9 @@ async function getForms(page: Page) {
   for (let i = 0; i < 5; i++) {
     const formText = settingsLocator.locator(`#settings-formText${i + 1}-0`)
     if (await formText.isVisible()) {
-      const parent = formText.locator('..')
-      const label = parent.locator('xpath=preceding-sibling::label')
-      const dataTip = await parent.getAttribute('data-tip')
-      const allNumbers = getAllNumbersFromString(dataTip || '')
+      const label = formText.locator('xpath=preceding-sibling::label')
+      const labelText = await label.innerText()
+      const allNumbers = getAllNumbersFromString(labelText || '')
       const uniqueNumbers = Array.from(new Set(allNumbers))
       formTexts.push({
         description: sanitizeFilename(await label.innerHTML()),

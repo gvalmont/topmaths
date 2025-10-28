@@ -1,5 +1,5 @@
-import { droiteGraduee } from '../../lib/2d/reperes'
-import { mathalea2d } from '../../modules/2dGeneralites'
+import { droiteGraduee } from '../../lib/2d/DroiteGraduee'
+import { mathalea2d } from '../../modules/mathalea2d'
 import {
   gestionnaireFormulaireTexte,
   listeQuestionsToContenuSansNumero,

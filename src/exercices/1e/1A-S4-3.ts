@@ -69,6 +69,7 @@ export default class MoyenneQCM extends ExerciceQcmA {
   $x = ${texNombre(moyenne)} \\times ${effectif + 1} - ${somme}$
   <br>$x = ${miseEnEvidence(texNombre(x))}$`
 }
+
  versionAleatoire = () => {
     const n = 4 // nombre de réponses
     let x: number, distracteur2: number, distracteur3: number, distracteur4: number

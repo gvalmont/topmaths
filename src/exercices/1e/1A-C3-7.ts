@@ -2,7 +2,7 @@ import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { randint } from '../../modules/outils'
 import ExerciceQcmA from '../ExerciceQcmA'
 export const dateDePublication = '10/08/2025'
-export const uuid = '3f994'
+export const uuid = 'c0964'
 // Author Stéphane Guyon
 export const refs = {
   'fr-fr': ['1A-C3-7'],
@@ -12,44 +12,44 @@ export const interactifReady = true
 export const interactifType = 'qcm'
 export const amcReady = 'true'
 export const amcType = 'qcmMono'
-export const titre = 'Calculer avec des puissances (7)'
-export default class Puissances extends ExerciceQcmA {
+export const titre = 'Additionner deux puissances identiques'
+export default class Auto1AC3g extends ExerciceQcmA {
+  private appliquerLesValeurs(k: number): void {
+    this.enonce = `Soit $n$ un entier non nul. <br>À quelle expression est égale $${k}^{n}+${k}^n$ ?`
+    
+    this.correction = `$\\begin{aligned} ${k}^{n}+${k}^n&=2\\times ${k}^{n}`
+    
+    if (k === 2) {
+      this.correction += `\\\\&=${miseEnEvidence('2^{n+1}')}`
+    } else {
+      this.correction += `\\end{aligned}$<br>`
+    }
+    
+    if (k === 2) {
+      this.correction += `\\end{aligned}$<br>`
+      this.reponses = [
+        `$2^{n+1}$`,
+        `$4^n$`,
+        `$2^{2n}$`,
+        `$(2^n)^2$`,
+      ]
+    } else {
+      this.reponses = [
+        `$2\\times ${k}^n$`,
+        `$${2 * k}^n$`,
+        `$${k}^{n+1}$`,
+        `$${k}^{2n}$`,
+      ]
+    }
+  }
+
   versionOriginale: () => void = () => {
-    this.enonce =
-      'Soit $a$ un nombre réel non nul et $n$ un entier non nul. <br>À quelle expression est égale $a^{3n}(a^n)^2$ ?'
-    this.correction =
-      "On applique la propriété du quotient des puissances d'un réel : <br>"
-    this.correction +=
-      'Soit n et p deux entiers et a un réel :  $\\dfrac{a^n}{a^p}=a^{n-p}$<br>'
-    this.correction +=
-      "On applique la propriété du produit des puissances d'un réel : <br>"
-    this.correction +=
-      'Soient $n$ et $p$ deux entiers et $a$ un réel :  $a^n\\times a^p=a^{n+p}$<br>'
-    this.correction += 'et du produit de puissances. <br>'
-    this.correction +=
-      'Pour tous entiers $n$ et $p$ et $a$ réel, on a :  $\\left(a^{n}\\right)^p=a^{np}$<br>'
-    this.correction +=
-      '$\\begin{aligned} a^{3n}(a^n)^2&=a^{3n}\\times a^{2n}\\\\    &=a^{5n}    \\end{aligned}$<br>'
-    this.reponses = ['$a^{5n}$', '$a^{6n}$', '$a^{3n^2}$', '$a^{6n^2}$']
+    this.appliquerLesValeurs(2)
   }
 
   versionAleatoire = () => {
-    const k = randint(2, 5)
-    const p = randint(2, 5, k)
-    this.enonce = `Soit $a$ un nombre réel non nul et $n$ un entier non nul. <br>À quelle expression est égale $a^{${k}n}(a^n)^${p}$ ?`
-    this.correction = `On applique la propriété du produit des puissances d'un réel : <br>
-   Soient $n$ et $p$ deux entiers et $a$ un réel :  $a^n\\times a^p=a^{n+p}$<br>
-    et du produit de puissances. <br>
-     Pour tous entiers $n$ et $p$ et $a$ réel, on a :  $\\left(a^{n}\\right)^p=a^{np}$<br>
-    $\\begin{aligned} a^{${k}n}(a^n)^${p}&=a^{${k}n}\\times a^{${p}n}\\\\
-   &=${miseEnEvidence(`a^{${k + p}n}`)}
-    \\end{aligned}$<br>`
-    this.reponses = [
-      `$a^{${k + p}n}$`,
-      `$a^{${k * p}n}$`,
-      `$a^{${k + p}n^2}$`,
-      `$a^{${k * p}n^2}$`,
-    ]
+    const k = randint(3, 6)
+    this.appliquerLesValeurs(k)
   }
 
   constructor() {

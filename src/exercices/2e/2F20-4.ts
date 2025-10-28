@@ -12,15 +12,13 @@ import Exercice from '../Exercice'
 
 import Figure from 'apigeom'
 import RepereBuilder from '../../lib/2d/RepereBuilder'
+import { colorToLatexOrHTML } from '../../lib/2d/colorToLatexOrHtml'
 import { courbe } from '../../lib/2d/courbes'
+import { fixeBordures } from '../../lib/2d/fixeBordures'
 import { point } from '../../lib/2d/points'
 import { segment } from '../../lib/2d/segmentsVecteurs'
 import { latex2d } from '../../lib/2d/textes'
-import {
-  colorToLatexOrHTML,
-  fixeBordures,
-  mathalea2d,
-} from '../../modules/2dGeneralites'
+import { mathalea2d } from '../../modules/mathalea2d'
 
 export const titre = 'Résoudre graphiquement une équation ou une inéquation'
 export const dateDePublication = '29/10/2023'

@@ -5,27 +5,26 @@
   import type TypeExercice from '../../../exercices/Exercice'
   import { downloadTexWithImagesZip, downloadZip } from '../../../lib/files'
   import Latex, {
-      doesLatexNeedsPics,
-      getExosContentList,
-      getPicsNames,
-      makeImageFilesUrls,
-      type Exo,
-      type LatexFileInfos,
-      type latexFileType,
-      type picFile,
+    doesLatexNeedsPics,
+    getExosContentList,
+    getPicsNames,
+    makeImageFilesUrls,
+    type Exo,
+    type LatexFileInfos,
+    type latexFileType,
+    type picFile,
   } from '../../../lib/Latex'
   import {
-      mathaleaGetExercicesFromParams,
-      mathaleaGoToView,
-      mathaleaRenderDiv,
-      mathaleaUpdateUrlFromExercicesParams
+    mathaleaGetExercicesFromParams,
+    mathaleaGoToView,
+    mathaleaRenderDiv,
+    mathaleaUpdateUrlFromExercicesParams,
   } from '../../../lib/mathalea.js'
   import { darkMode, exercicesParams } from '../../../lib/stores/generalStore'
   import { referentielLocale } from '../../../lib/stores/languagesStore'
   import Footer from '../../Footer.svelte'
   import ButtonActionInfo from '../../shared/forms/ButtonActionInfo.svelte'
   import ButtonCompileLatexToPDF from '../../shared/forms/ButtonCompileLatexToPDF.svelte'
-  import ButtonCompileLatexToPdfLink from '../../shared/forms/ButtonCompileLatexToPDFLink.svelte'
   import ButtonOverleaf from '../../shared/forms/ButtonOverleaf.svelte'
   import ButtonTextAction from '../../shared/forms/ButtonTextAction.svelte'
   import NavBar from '../../shared/header/NavBar.svelte'
@@ -35,9 +34,11 @@
   import { decodeBase64, encodeBase64 } from './LatexConfig'
 
   const url = new URL(window.location.href)
-  const decoded = decodeBase64(url.searchParams.get("pdfParam") || "") as Partial<LatexFileInfos>
-  
-    /**
+  const decoded = decodeBase64(
+    url.searchParams.get('pdfParam') || '',
+  ) as Partial<LatexFileInfos>
+
+  /**
    * Toutes les variables configurables par l'interface WEB
    * qui adaptent la sortie PDF
    */
@@ -55,8 +56,8 @@
     durationCanOption: '9 min',
     titleOption: 'SansTitre',
     nbVersions: 1,
-    exos: {},      // tu peux garder vide par défaut
-    ...decoded     // ⚡ écrase les valeurs par défaut si présente
+    exos: {}, // tu peux garder vide par défaut
+    ...decoded, // ⚡ écrase les valeurs par défaut si présente
   }
 
   const imgStylePartialUrls = {
@@ -180,14 +181,14 @@
       latexFileInfos = {
         ...latexFileInfos,
         exos: {
-          ...latexFileInfos.exos
+          ...latexFileInfos.exos,
           // les blocrep sont déjà des sous-objets clonés quand tu les modifies
-        }
+        },
       }
 
       pdfParam = encodeBase64(latexFileInfos)
       url.searchParams.set('pdfParam', pdfParam)
-      history.replaceState(null, "", url)  // change l’URL sans recharger
+      history.replaceState(null, '', url) // change l’URL sans recharger
 
       promise = updateLatexWithAbortController().catch((err) => {
         if (err.name === 'AbortError') {
@@ -294,11 +295,7 @@
         class="flex flex-col w-full md:flex-row justify-between rounded-lg bg-coopmaths-canvas-dark shadow-[0_2px_15px_-3px_rgba(0,0,0,0.07),0_10px_20px_-2px_rgba(0,0,0,0.04)] dark:bg-coopmathsdark-canvas-dark"
       >
         <div class="flex flex-col py-4 pl-16 w-2/3">
-          <FormConfigSection
-            {latex}
-            bind:latexFileInfos
-            {promise}
-          />
+          <FormConfigSection {latex} bind:latexFileInfos {promise} />
         </div>
         <!-- Carousel de vignette pour les aperçus -->
         <div class="flex justify-center w-full md:w-1/3">
@@ -405,28 +402,7 @@
         <div
           class="grid grid-cols-1 grid-rows-1 md:grid-cols-2 xl:grid-cols-2 gap-8"
         >
-          <SimpleCard title="{'Obtenir un PDF'}">
-            <div>
-              Je souhaite obtenir un fichier PDF à partir du code $\LaTeX$. Je
-              vais être redirigé(e) vers le site OverLeaf (qui nécessite d'avoir
-              un compte) pour compiler le code en ligne.
-            </div>
-            <div slot="button1">
-              {#await promise}
-                <p>Chargement en cours...</p>
-              {:then}
-                <ButtonOverleaf
-                  class="flex w-full flex-col justify-center"
-                  {latexFile}
-                  {exercices}
-                  disabled="{false}"
-                />
-              {/await}
-            </div>
-          </SimpleCard>
-          <SimpleCard
-            title="{'Compiler le code pour avoir un fichier PDF (version encore beta)'}"
-          >
+          <SimpleCard title="{'Compiler le code pour avoir un fichier PDF'}">
             <div>
               Je souhaite obtenir un fichier PDF à partir du code $\LaTeX$.
               J'essaie le nouveau compilateur en ligne (serveur TexLive.net) qui
@@ -445,23 +421,21 @@
               {/await}
             </div>
           </SimpleCard>
-          <SimpleCard
-            title="{'Compiler le code pour avoir un fichier PDF (version encore gamma)'}"
-          >
+          <SimpleCard title="{'Obtenir un PDF'}">
             <div>
-              Je souhaite obtenir un fichier PDF à partir du code $\LaTeX$.
-              J'essaie le nouveau compilateur en ligne qui
-              ne nécessite pas d'avoir un compte.
+              Je souhaite obtenir un fichier PDF à partir du code $\LaTeX$. Je
+              vais être redirigé(e) vers le site OverLeaf (qui nécessite d'avoir
+              un compte) pour compiler le code en ligne.
             </div>
             <div slot="button1">
               {#await promise}
                 <p>Chargement en cours...</p>
               {:then}
-                <ButtonCompileLatexToPdfLink
+                <ButtonOverleaf
                   class="flex w-full flex-col justify-center"
-                  {latex}
-                  {latexFileInfos}
-                  id="3"
+                  {latexFile}
+                  {exercices}
+                  disabled="{false}"
                 />
               {/await}
             </div>
@@ -527,7 +501,10 @@
               {/await}
             </div>
           </SimpleCard>
-           <SimpleCard title="{'Basculer vers la vue PDF'}" icon="{'bx-download'}">
+          <SimpleCard
+            title="{'Basculer vers la vue PDF'}"
+            icon="{'bx-download'}"
+          >
             <div>Je souhaite basculer vers la vue PDF.</div>
             <div slot="button1">
               <ButtonTextAction
@@ -539,7 +516,7 @@
                 text="Basculer sur la vue PDF"
               />
             </div>
-            </SimpleCard>
+          </SimpleCard>
         </div>
         <BasicClassicModal
           bind:isDisplayed="{isDownloadPicsModalDisplayed}"

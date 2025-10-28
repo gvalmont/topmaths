@@ -1,13 +1,14 @@
-import ExerciceSimple from '../../ExerciceSimple'
-import { miseEnEvidence } from '../../../lib/outils/embellissements'
-import { fixeBordures, mathalea2d } from '../../../modules/2dGeneralites'
-import { rotation } from '../../../lib/2d/transformations'
 import { codageAngle, rapporteur } from '../../../lib/2d/angles'
+import { fixeBordures } from '../../../lib/2d/fixeBordures'
 import { point, pointSurSegment } from '../../../lib/2d/points'
 import { segment } from '../../../lib/2d/segmentsVecteurs'
-import { randint } from '../../../modules/outils'
-import { choice } from '../../../lib/outils/arrayOutils'
+import { rotation } from '../../../lib/2d/transformations'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
+import { choice } from '../../../lib/outils/arrayOutils'
+import { miseEnEvidence } from '../../../lib/outils/embellissements'
+import { mathalea2d } from '../../../modules/mathalea2d'
+import { randint } from '../../../modules/outils'
+import ExerciceSimple from '../../ExerciceSimple'
 
 export const titre = "Déterminer la mesure d'un angle sur un rapporteur"
 export const interactifReady = true

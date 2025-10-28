@@ -59,9 +59,9 @@ export default class auto1AF2g extends ExerciceQcmA {
   }
 
   versionAleatoire: () => void = () => {
-    let a = randint(-9, 9, 0)
-    let b = randint(-9, 9, 0)
-    let c = randint(-9, 9, [0, a])
+    const a = randint(-9, 9, 0)
+    const b = randint(-9, 9, 0)
+    const c = randint(-9, 9, [0, a])
     let d = randint(-9, 9, 0)
 
     // Continuer tant que les conditions problématiques sont remplies
@@ -75,6 +75,7 @@ export default class auto1AF2g extends ExerciceQcmA {
 
     this.appliquerLesValeurs(a, b, c, d)
   }
+
   constructor() {
     super()
     this.versionAleatoire()

@@ -11,7 +11,7 @@ import {
   miseEnEvidence,
   texteEnCouleurEtGras,
 } from '../../../lib/outils/embellissements'
-import { mathalea2d } from '../../../modules/2dGeneralites'
+import { mathalea2d } from '../../../modules/mathalea2d'
 import { randint } from '../../../modules/outils'
 import ExerciceSimple from '../../ExerciceSimple'
 
@@ -93,7 +93,7 @@ export default class EquationsGSplineNombre extends ExerciceSimple {
         }),
       )
     }
-   const o = latex2d('\\text{O}', -0.3, -0.3, { letterSize: 'scriptsize' })
+    const o = latex2d('\\text{O}', -0.3, -0.3, { letterSize: 'scriptsize' })
     const nuage = aleatoiriseCourbe(mesFonctions)
     const theSpline = spline(nuage)
     this.spline = theSpline
@@ -105,21 +105,21 @@ export default class EquationsGSplineNombre extends ExerciceSimple {
       yMax: bornes.yMax + 1,
       grilleX: false,
       grilleY: false,
-       xThickMin: bornes.xMin - 1,
+      xThickMin: bornes.xMin - 1,
       yThickMin: bornes.yMin - 1,
-      yThickMax: bornes.yMax+1,
+      yThickMax: bornes.yMax + 1,
       xLabelMin: bornes.xMin,
       yLabelMin: bornes.yMin,
-       yLabelMax: bornes.yMax,
-         xLabelMax: bornes.xMax,
-         xThickMax: bornes.xMax +1,
+      yLabelMax: bornes.yMax,
+      xLabelMax: bornes.xMax,
+      xThickMax: bornes.xMax + 1,
       grilleSecondaire: true,
       grilleSecondaireYDistance: 1,
       grilleSecondaireXDistance: 1,
-       grilleSecondaireOpacite: 1,
-           axesEpaisseur:1.5,
-           grilleOpacite: 1,
-             grilleSecondaireCouleur: 'black',
+      grilleSecondaireOpacite: 1,
+      axesEpaisseur: 1.5,
+      grilleOpacite: 1,
+      grilleSecondaireCouleur: 'black',
       grilleSecondaireYMin: bornes.yMin - 1.02,
       grilleSecondaireYMax: bornes.yMax + 1.02,
       grilleSecondaireXMin: bornes.xMin - 1.02,

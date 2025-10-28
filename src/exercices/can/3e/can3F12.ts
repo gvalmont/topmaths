@@ -1,15 +1,15 @@
 import { repere } from '../../../lib/2d/reperes'
 import { texteParPosition } from '../../../lib/2d/textes'
+import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 import { spline } from '../../../lib/mathFonctions/Spline'
 import { choice } from '../../../lib/outils/arrayOutils'
-import { mathalea2d } from '../../../modules/2dGeneralites'
-import { randint } from '../../../modules/outils'
 import {
   miseEnEvidence,
   texteEnCouleurEtGras,
 } from '../../../lib/outils/embellissements'
+import { mathalea2d } from '../../../modules/mathalea2d'
+import { randint } from '../../../modules/outils'
 import ExerciceSimple from '../../ExerciceSimple'
-import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 export const dateDePublication = '26/10/2023'
 export const interactifReady = true
 export const interactifType = 'mathLive'

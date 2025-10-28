@@ -1,11 +1,11 @@
-import ExerciceSimple from '../../ExerciceSimple'
-import { texNombre } from '../../../lib/outils/texNombre'
-import { miseEnEvidence } from '../../../lib/outils/embellissements'
-import { randint } from '../../../modules/outils'
-import { droiteGraduee } from '../../../lib/2d/reperes'
-import { mathalea2d } from '../../../modules/2dGeneralites'
-import { choice } from '../../../lib/outils/arrayOutils'
+import { droiteGraduee } from '../../../lib/2d/DroiteGraduee'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
+import { choice } from '../../../lib/outils/arrayOutils'
+import { miseEnEvidence } from '../../../lib/outils/embellissements'
+import { texNombre } from '../../../lib/outils/texNombre'
+import { mathalea2d } from '../../../modules/mathalea2d'
+import { randint } from '../../../modules/outils'
+import ExerciceSimple from '../../ExerciceSimple'
 
 export const titre = 'Déterminer une abscisse sur une droite graduée'
 export const interactifReady = true

@@ -1,12 +1,12 @@
-import ExerciceSimple from '../../ExerciceSimple'
-import { miseEnEvidence } from '../../../lib/outils/embellissements'
-import { randint } from '../../../modules/outils'
 import { codageAngleDroit } from '../../../lib/2d/angles'
-import { point } from '../../../lib/2d/points'
-import { mathalea2d } from '../../../modules/2dGeneralites'
-import { polygone } from '../../../lib/2d/polygones'
 import { codageSegment } from '../../../lib/2d/codages'
+import { point } from '../../../lib/2d/points'
+import { polygone } from '../../../lib/2d/polygones'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
+import { miseEnEvidence } from '../../../lib/outils/embellissements'
+import { mathalea2d } from '../../../modules/mathalea2d'
+import { randint } from '../../../modules/outils'
+import ExerciceSimple from '../../ExerciceSimple'
 
 export const titre = "Compter le nombre d'axe de symétrie d'une figure"
 export const interactifReady = true

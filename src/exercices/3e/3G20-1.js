@@ -1,3 +1,4 @@
+import Decimal from 'decimal.js'
 import { codageAngleDroit } from '../../lib/2d/angles'
 import { texteSurSegment } from '../../lib/2d/codages'
 import { milieu, point, pointSurSegment } from '../../lib/2d/points'
@@ -8,11 +9,10 @@ import { choice } from '../../lib/outils/arrayOutils'
 import { texFractionFromString } from '../../lib/outils/deprecatedFractions'
 import { creerNomDePolygone } from '../../lib/outils/outilString'
 import { stringNombre, texNombre } from '../../lib/outils/texNombre'
-import Exercice from '../Exercice'
-import { mathalea2d } from '../../modules/2dGeneralites'
-import Decimal from 'decimal.js'
 import { context } from '../../modules/context'
+import { mathalea2d } from '../../modules/mathalea2d'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
+import Exercice from '../Exercice'
 export const titre = 'Problèmes avec le théorème de Thalès'
 
 /**

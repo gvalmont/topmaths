@@ -3,16 +3,16 @@ import {
   numAlpha,
   premiereLettreEnMajuscule,
 } from '../../lib/outils/outilString'
-import Exercice from '../Exercice'
-import { mathalea2d } from '../../modules/2dGeneralites'
-import { listeQuestionsToContenu, randint } from '../../modules/outils'
-import { fraction } from '../../modules/fractions'
 import { Arbre, texProba } from '../../modules/arbres'
+import { fraction } from '../../modules/fractions'
+import { mathalea2d } from '../../modules/mathalea2d'
+import { listeQuestionsToContenu, randint } from '../../modules/outils'
+import Exercice from '../Exercice'
 
+import { tableauColonneLigne } from '../../lib/2d/tableau'
+import { setReponse } from '../../lib/interactif/gestionInteractif'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import FractionEtendue from '../../modules/FractionEtendue'
-import { setReponse } from '../../lib/interactif/gestionInteractif'
-import { tableauColonneLigne } from '../../lib/2d/tableau'
 
 export const titre =
   'Calculer des probabilités dans une expérience aléatoire à deux épreuves'

@@ -1,7 +1,9 @@
 import { pickRandom } from 'mathjs'
-import { arcPointPointAngle } from '../../lib/2d/cercle'
+import { arcPointPointAngle } from '../../lib/2d/Arc'
 import { texteSurArc } from '../../lib/2d/codages'
+import { colorToLatexOrHTML } from '../../lib/2d/colorToLatexOrHtml'
 import { droite } from '../../lib/2d/droites'
+import { fixeBordures } from '../../lib/2d/fixeBordures'
 import { point } from '../../lib/2d/points'
 import { vecteur } from '../../lib/2d/segmentsVecteurs'
 import { labelPoint } from '../../lib/2d/textes'
@@ -14,12 +16,8 @@ import {
   texteGras,
 } from '../../lib/outils/embellissements'
 import { abs } from '../../lib/outils/nombres'
-import {
-  colorToLatexOrHTML,
-  fixeBordures,
-  mathalea2d,
-} from '../../modules/2dGeneralites'
 import { context } from '../../modules/context'
+import { mathalea2d } from '../../modules/mathalea2d'
 import {
   gestionnaireFormulaireTexte,
   listeQuestionsToContenu,

@@ -1,16 +1,14 @@
-import ExerciceSimple from '../../ExerciceSimple'
-import { randint } from '../../../modules/outils'
-import {
-  colorToLatexOrHTML,
-  fixeBordures,
-  mathalea2d,
-} from '../../../modules/2dGeneralites'
-import { miseEnEvidence } from '../../../lib/outils/embellissements'
+import { colorToLatexOrHTML } from '../../../lib/2d/colorToLatexOrHtml'
+import { fixeBordures } from '../../../lib/2d/fixeBordures'
 import { point } from '../../../lib/2d/points'
 import { polygone, Polygone } from '../../../lib/2d/polygones'
 import { segment, Segment } from '../../../lib/2d/segmentsVecteurs'
 import { rotation, similitude } from '../../../lib/2d/transformations'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
+import { miseEnEvidence } from '../../../lib/outils/embellissements'
+import { mathalea2d } from '../../../modules/mathalea2d'
+import { randint } from '../../../modules/outils'
+import ExerciceSimple from '../../ExerciceSimple'
 
 export const titre = "Déterminer une fraction d'aire"
 export const interactifReady = true

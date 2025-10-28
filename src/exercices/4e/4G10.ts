@@ -1,4 +1,3 @@
-import { choice } from '../../lib/outils/arrayOutils'
 import Transformations from '../6e/_Transformations'
 export const titre =
   "Trouver l'image d'un point par une symétrie axiale ou centrale ou par une translation"
@@ -22,6 +21,6 @@ export const refs = {
 export default class Transformations4e extends Transformations {
   constructor() {
     super()
-    this.sup = choice(['1-7-8', '2-7-8', '3-7-8', '4-7-8'])
+    this.sup = '4-7-8'
   }
 }

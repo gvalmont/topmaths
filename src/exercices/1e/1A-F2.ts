@@ -7,7 +7,7 @@ import { courbe } from '../../lib/2d/courbes'
 import { point, tracePoint } from '../../lib/2d/points'
 import { deuxColonnes } from '../../lib/format/miseEnPage'
 import { spline } from '../../lib/mathFonctions/Spline'
-import { mathalea2d } from '../../modules/2dGeneralites'
+import { mathalea2d } from '../../modules/mathalea2d'
 import ExerciceQcmA from '../ExerciceQcmA'
 export const dateDePublication = '24/07/2025'
 export const uuid = '7f5f6'
@@ -42,7 +42,7 @@ export default class auto1AF2 extends ExerciceQcmA {
       -1,
       0.1 * (-1 - 4) * (-1 - 1) * (-1 + 3) + 0.5,
       {
-        //0.1*(-1- 4) * (-1 - 1) * (-1 +3)
+        // 0.1*(-1- 4) * (-1 - 1) * (-1 +3)
         color: 'black',
         letterSize: 'normalsize',
       },
@@ -94,7 +94,7 @@ export default class auto1AF2 extends ExerciceQcmA {
       yMax: 4,
       grilleX: false,
       grilleY: false,
-       axesEpaisseur:1.5,
+      axesEpaisseur: 1.5,
       grilleSecondaire: false,
       xThickListe: [0],
       yThickListe: [0],
@@ -256,7 +256,7 @@ export default class auto1AF2 extends ExerciceQcmA {
       yMax: bornes.yMax + 1,
       grilleX: false,
       grilleY: false,
-       axesEpaisseur:1.5,
+      axesEpaisseur: 1.5,
       grilleSecondaire: false,
       xThickListe: [0],
       yThickListe: [0],

@@ -15,7 +15,7 @@ export const titre =
 export const uuid = 'd1a2c'
 
 export const refs = {
-  'fr-fr': ['5L14-6'],
+  'fr-fr': [],
   'fr-ch': ['11FA5-1'],
 }
 export default class DeterminerDerniereOperationExpNum extends Exercice {

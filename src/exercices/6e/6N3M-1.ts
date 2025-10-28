@@ -7,15 +7,16 @@ import { texFractionFromString } from '../../lib/outils/deprecatedFractions'
 import { arrondi } from '../../lib/outils/nombres'
 import { pgcd } from '../../lib/outils/primalite'
 import { stringNombre, texNombre } from '../../lib/outils/texNombre'
-import Exercice from '../Exercice'
-import { fixeBordures, mathalea2d } from '../../modules/2dGeneralites'
 import { context } from '../../modules/context'
+import { mathalea2d } from '../../modules/mathalea2d'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
+import Exercice from '../Exercice'
 
-import { fraction } from '../../modules/fractions'
-import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
+import { fixeBordures } from '../../lib/2d/fixeBordures'
 import { setReponse } from '../../lib/interactif/gestionInteractif'
+import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
+import { fraction } from '../../modules/fractions'
 
 export const titre = "Calculer la fraction d'une quantité"
 export const interactifReady = true

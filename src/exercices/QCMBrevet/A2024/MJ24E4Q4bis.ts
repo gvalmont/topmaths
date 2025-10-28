@@ -1,18 +1,17 @@
 import { cercle } from '../../../lib/2d/cercle'
+
+import { colorToLatexOrHTML } from '../../../lib/2d/colorToLatexOrHtml'
+import { fixeBordures } from '../../../lib/2d/fixeBordures'
 import { point } from '../../../lib/2d/points'
 import { Polygone, polygone, polyline } from '../../../lib/2d/polygones'
 import { latex2d } from '../../../lib/2d/textes'
 import { rotation } from '../../../lib/2d/transformations'
 import { choice } from '../../../lib/outils/arrayOutils'
-import {
-  colorToLatexOrHTML,
-  fixeBordures,
-  mathalea2d,
-  type NestedObjetMathalea2dArray,
-} from '../../../modules/2dGeneralites'
+import { rotationAnimee } from '../../../modules/2dAnimation'
+import { mathalea2d } from '../../../modules/mathalea2d'
+import type { NestedObjetMathalea2dArray } from '../../../types/2d'
 import { nombreElementsDifferents } from '../../ExerciceQcm'
 import ExerciceQcmA from '../../ExerciceQcmA'
-import { rotationAnimee } from '../../../modules/2dAnimation'
 
 export const uuid = '2c2db'
 export const refs = {

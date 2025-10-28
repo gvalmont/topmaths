@@ -3,24 +3,25 @@ import {
   combinaisonListesSansChangerOrdre,
   shuffle,
 } from '../../lib/outils/arrayOutils'
+import { ecritureParentheseSiNegatif } from '../../lib/outils/ecritures'
 import {
   miseEnEvidence,
   texteEnCouleurEtGras,
 } from '../../lib/outils/embellissements'
-import { ecritureParentheseSiNegatif } from '../../lib/outils/ecritures'
 import { texNombre } from '../../lib/outils/texNombre'
 import { context } from '../../modules/context'
 import FractionEtendue from '../../modules/FractionEtendue'
 
+import { fixeBordures } from '../../lib/2d/fixeBordures'
 import { tableau } from '../../lib/2d/tableau'
-import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
-import { listeQuestionsToContenu, randint } from '../../modules/outils'
-import Exercice from '../Exercice'
 import {
   handleAnswers,
   setReponse,
 } from '../../lib/interactif/gestionInteractif'
-import { fixeBordures, mathalea2d } from '../../modules/2dGeneralites'
+import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
+import { mathalea2d } from '../../modules/mathalea2d'
+import { listeQuestionsToContenu, randint } from '../../modules/outils'
+import Exercice from '../Exercice'
 
 export const titre =
   'Résoudre une équation résolvante pour le théorème de Thalès'

@@ -1,6 +1,7 @@
+import { fixeBordures } from '../../lib/2d/fixeBordures'
 import { repere } from '../../lib/2d/reperes'
 import { spline, type NoeudSpline } from '../../lib/mathFonctions/Spline'
-import { fixeBordures, mathalea2d } from '../../modules/2dGeneralites'
+import { mathalea2d } from '../../modules/mathalea2d'
 import Exercice from '../Exercice'
 
 export const titre = 'Interpollation par splines avec tangentes'

@@ -12,47 +12,40 @@ export const interactifReady = true
 export const interactifType = 'qcm'
 export const amcReady = 'true'
 export const amcType = 'qcmMono'
-export const titre = 'Calculer avec des puissances (3)'
-export default class Puissances extends ExerciceQcmA {
-  versionOriginale: () => void = () => {
-    this.enonce =
-      'Soit $n$ un entier non nul. À quelle expression est égale $\\left(3^n\\right)^{2}$ ?'
-    this.correction = `On applique la propriété des puissances de puissances d'un réel : <br>
-    Soit $n\\in \\mathbb{N}$, et $p \\in \\mathbb{N}$, on a : 
-     $\\left(a^{n}\\right)^{p}=a^{np}$<br>
-    $\\begin{aligned}\\left(3^{n}\\right)^{2}&=3^{2n}\\\\
-    &=\\left(3^{2}\\right)^{n}\\\\
-    &=9^{n}
-    \\end{aligned}$`
-    miseEnEvidence('$3^{2n}$')
-
-    this.reponses = [
-      '$9^{n}$',
-      '$3^{n^{2}}$',
-      '$6^{n}$',
-      'Aucune de ces propositions',
-    ]
-  }
-
-  versionAleatoire = () => {
-    const k = randint(2, 3)
-    const a = randint(2, 4)
-
-    this.enonce = `Soit $n$ un entier.  À quelle expression est égale $\\left(${a}^{n}\\right)^{${k}}$ ?`
+export const titre = 'Appliquer la propriété des puissances de puissances'
+export default class Auto1AC3c extends ExerciceQcmA {
+ private appliquerLesValeurs(
+    a: number,
+    k: number
+  ): void {
+    this.enonce = `Soit $n$ un entier${a === 3 && k === 2 ? ' non nul' : ''}. <br>À quelle expression est égale $\\left(${a}^n\\right)^{${k}}$ ?`
+    
     this.correction = `On applique la propriété des puissances de puissances d'un réel : <br>
     Soit $n\\in \\mathbb{N}$, et $p \\in \\mathbb{N}$, on a : 
      $\\left(a^{n}\\right)^{p}=a^{np}$<br>
     $\\begin{aligned}\\left(${a}^{n}\\right)^{${k}}&=${a}^{${k}n}\\\\
     &=\\left(${a}^{${k}}\\right)^{n}\\\\
-    &=${a ** k}^{n}
+    &=${miseEnEvidence(`${a ** k}^{n}`)}
     \\end{aligned}$`
-    miseEnEvidence(`$${a}^{2n}$`)
+    
+   
+    
     this.reponses = [
       `$${a ** k}^{n}$`,
       `$${a}^{n^{${k}}}$`,
-      `$${a}^{${k}+n}$`,
-      `$${a * k}^{n}$`,
+      k === 2 ? 'Aucune de ces propositions' : `$${a}^{${k}+n}$`,
+      k === 2 ? `$${a * k}^{n}$` : `$${a * k}^{n}$`,
     ]
+  }
+
+  versionOriginale: () => void = () => {
+    this.appliquerLesValeurs(3, 2)
+  }
+
+  versionAleatoire = () => {
+    const k = randint(2, 3)
+    const a = randint(2, 4)
+    this.appliquerLesValeurs(a, k)
   }
 
   constructor() {

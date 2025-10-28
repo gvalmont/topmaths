@@ -5,7 +5,7 @@ import { degTan } from '../../../lib/mathFonctions/trigo'
 import { choice } from '../../../lib/outils/arrayOutils'
 import { creerNomDePolygone } from '../../../lib/outils/outilString'
 import { texNombre } from '../../../lib/outils/texNombre'
-import { mathalea2d } from '../../../modules/2dGeneralites'
+import { mathalea2d } from '../../../modules/mathalea2d'
 import { randint } from '../../../modules/outils'
 import ExerciceSimple from '../../ExerciceSimple'
 

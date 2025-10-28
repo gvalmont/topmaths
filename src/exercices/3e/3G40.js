@@ -1,19 +1,7 @@
+import { colorToLatexOrHTML } from '../../lib/2d/colorToLatexOrHtml'
+import { fixeBordures } from '../../lib/2d/fixeBordures'
 import { tracePoint } from '../../lib/2d/points'
 import { labelLatexPoint, labelPoint, texteParPoint } from '../../lib/2d/textes'
-import { combinaisonListes } from '../../lib/outils/arrayOutils'
-import { choisitLettresDifferentes } from '../../lib/outils/aleatoires'
-import { numAlpha } from '../../lib/outils/outilString'
-import {
-  colorToLatexOrHTML,
-  fixeBordures,
-  mathalea2d,
-} from '../../modules/2dGeneralites'
-import {
-  rotation3d,
-  rotationV3d,
-  sensDeRotation3d,
-} from '../../lib/3d/3dProjectionMathalea2d/tranformations'
-import { sphere3d } from '../../lib/3d/3dProjectionMathalea2d/solides'
 import {
   arete3d,
   demicercle3d,
@@ -21,7 +9,17 @@ import {
   point3d,
   vecteur3d,
 } from '../../lib/3d/3dProjectionMathalea2d/elements'
+import { sphere3d } from '../../lib/3d/3dProjectionMathalea2d/solides'
+import {
+  rotation3d,
+  rotationV3d,
+  sensDeRotation3d,
+} from '../../lib/3d/3dProjectionMathalea2d/tranformations'
+import { choisitLettresDifferentes } from '../../lib/outils/aleatoires'
+import { combinaisonListes } from '../../lib/outils/arrayOutils'
+import { numAlpha } from '../../lib/outils/outilString'
 import { context } from '../../modules/context'
+import { mathalea2d } from '../../modules/mathalea2d'
 import {
   listeQuestionsToContenuSansNumero,
   randint,

@@ -53,7 +53,7 @@ export default class PuissancesEncadrement extends Exercice {
         : "Encadrer les nombres suivants par deux puissances de 10 d'exposants consécutifs."
 
     // this.sup2 might be undefined
-    if (!!this.sup2) {
+    if (this.sup2) {
       this.consigne +=
         "<br>Dans le cas où le nombre est négatif, on utilisera les opposés de puissances de 10 d'exposants consécutifs."
     }

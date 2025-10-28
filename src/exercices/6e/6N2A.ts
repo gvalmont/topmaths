@@ -1,4 +1,7 @@
-import { grille, seyes } from '../../lib/2d/reperes'
+import { grille, seyes } from '../../lib/2d/Grille'
+import { vide2d } from '../../lib/2d/Vide2d'
+import { setReponse } from '../../lib/interactif/gestionInteractif'
+import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { combinaisonListes } from '../../lib/outils/arrayOutils'
 import {
   arrondi,
@@ -6,12 +9,10 @@ import {
   nombreDeChiffresDansLaPartieEntiere,
 } from '../../lib/outils/nombres'
 import { texNombre } from '../../lib/outils/texNombre'
-import Operation from '../../modules/operations'
 import { context } from '../../modules/context'
+import { mathalea2d } from '../../modules/mathalea2d'
+import Operation from '../../modules/operations'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
-import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
-import { mathalea2d, vide2d } from '../../modules/2dGeneralites'
-import { setReponse } from '../../lib/interactif/gestionInteractif'
 import Exercice from '../Exercice'
 
 export const amcReady = true

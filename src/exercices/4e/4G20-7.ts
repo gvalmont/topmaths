@@ -1,21 +1,22 @@
+import * as Blockly from 'blockly/core'
+import * as En from 'blockly/msg/en'
 import { codageAngleDroit } from '../../lib/2d/angles'
 import { afficheLongueurSegment } from '../../lib/2d/codages'
 import { point } from '../../lib/2d/points'
 import { nommePolygone, polygone } from '../../lib/2d/polygones'
 import { longueur } from '../../lib/2d/segmentsVecteurs'
 import { rotation, similitude } from '../../lib/2d/transformations'
-import { combinaisonListesSansChangerOrdre } from '../../lib/outils/arrayOutils'
-import Exercice from '../Exercice'
-import { mathalea2d, ObjetMathalea2D } from '../../modules/2dGeneralites'
-import { listeQuestionsToContenu, randint } from '../../modules/outils'
-import { ajouteFeedback } from '../../lib/interactif/questionMathLive'
-import { RedactionPythagore } from './_pythagore'
-import * as Blockly from 'blockly/core'
-import { init } from '../../lib/blockly/blocks'
-import * as En from 'blockly/msg/en'
 import blocklypyt from '../../lib/blockly/blocklypyt.json'
+import { init } from '../../lib/blockly/blocks'
+import { ajouteFeedback } from '../../lib/interactif/questionMathLive'
+import { combinaisonListesSansChangerOrdre } from '../../lib/outils/arrayOutils'
 import { stringNombre } from '../../lib/outils/texNombre'
 import { context } from '../../modules/context'
+import { mathalea2d } from '../../modules/mathalea2d'
+import { listeQuestionsToContenu, randint } from '../../modules/outils'
+import type { NestedObjetMathalea2dArray } from '../../types/2d'
+import Exercice from '../Exercice'
+import { RedactionPythagore } from './_pythagore'
 
 export const titre =
   'Calculer une longueur avec le théorème de Pythagore (blockly)'
@@ -46,6 +47,7 @@ export default class Pythagore2DBlockly extends Exercice {
     listeTypeDeQuestion: string
     key: string
   }[]
+
   constructor() {
     super()
 
@@ -90,7 +92,6 @@ export default class Pythagore2DBlockly extends Exercice {
       const B1 = point(randint(22, 50) / 10, 0)
       const C1 = similitude(B1, A1, 90, randint(22, 50) / 10 / longueur(A1, B1))
       const p1 = polygone(A1, B1, C1)
-      p1.isVisible = false
       const p2 = rotation(p1, A1, randint(0, 360))
       const A = p2.listePoints[0]
       const B = p2.listePoints[1]
@@ -108,7 +109,7 @@ export default class Pythagore2DBlockly extends Exercice {
       const longueurAB = longueur(A, B, 1)
       const longueurAC = longueur(A, C, 1)
       const longueurBC = longueur(B, C, 1)
-      const mesObjetsATracer: ObjetMathalea2D[] = [codage, p2, nomme]
+      const mesObjetsATracer: NestedObjetMathalea2dArray = [codage, p2, nomme]
 
       if (
         this.typeDeQuestion === 'Calculer :' &&

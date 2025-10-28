@@ -95,6 +95,8 @@ export default class PrioritesEtRelatifsEtPuissances extends Exercice {
       'Type de puissance',
       'Nombres séparés par des tirets : \n1 : Carrés \n2 : Cubes\n3 : Mélange',
     ]
+    this.besoinFormulaire3CaseACocher = ['Uniquement des nombres positifs']
+    this.sup3 = false
     this.consigne = 'Calculer.'
     this.nbQuestions = 5
 
@@ -131,13 +133,20 @@ export default class PrioritesEtRelatifsEtPuissances extends Exercice {
       i < this.nbQuestions && cpt < 50;
 
     ) {
-      a = typeDePuissances[i] === 'Carre' ? randint(2, 7) : randint(1, 5)
-      a *= choice([-1, 1])
-      b = randint(1, 7) * choice([-1, 1])
-      c = randint(1, 7) * choice([-1, 1])
-      d = randint(1, 7) * choice([-1, 1])
-      m = randint(1, 5) * choice([-1, 1])
-      n = randint(1, 3) * -1
+      a = typeDePuissances[i] === 'Carre' ? randint(2, 7) : randint(2, 5)
+      b = randint(1, 7)
+      c = randint(1, 7)
+      d = randint(1, 7)
+      m = randint(2, 5)
+      n = randint(2, 3)
+      if (!this.sup3) {
+        a *= choice([-1, 1])
+        b *= choice([-1, 1])
+        c *= choice([-1, 1])
+        d *= choice([-1, 1])
+        m *= choice([-1, 1])
+        n *= choice([-1, 1])
+      }
       p = randint(2, 3)
       this.autoCorrection[i] = {}
       switch (listeTypeDeQuestions[i]) {
@@ -188,7 +197,7 @@ export default class PrioritesEtRelatifsEtPuissances extends Exercice {
           reponse = calculPuissance(a, typeDePuissances[i]) + b + c * d
           break
 
-        case 4: // a²*(b+c)
+        case 4: // n²*(b+c)
           texte = `$${lettreDepuisChiffre(i + 1)} = ${ecritureParentheseSiNegatif(n)}${affichePuissance(typeDePuissances[i])} \\times ( ${b + ecritureAlgebrique(c)})$`
           texteCorr = `$${lettreDepuisChiffre(i + 1)}          =${miseEnEvidence(ecritureParentheseSiNegatif(n) + affichePuissance(typeDePuissances[i]), 'blue')}  \\times ( ${b + ecritureAlgebrique(c)})$`
           texteCorr +=

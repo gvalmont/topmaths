@@ -1,14 +1,11 @@
-import {
-  colorToLatexOrHTML,
-  ObjetMathalea2D,
-  vide2d,
-} from '../../modules/2dGeneralites'
 import { context } from '../../modules/context'
 import { egal } from '../../modules/outils'
 import { arrondi } from '../outils/nombres'
 import { angleOriente } from './angles'
-import { traceCompas } from './cercle'
+import { traceCompas } from './Arc'
 import { codageBissectrice, codageMediatrice, codageSegments } from './codages'
+import { colorToLatexOrHTML } from './colorToLatexOrHtml'
+import { ObjetMathalea2D } from './ObjetMathalea2D'
 import { milieu, Point, point, pointSurDroite, pointSurSegment } from './points'
 import { PointAbstrait } from './points-abstraits'
 import {
@@ -34,6 +31,7 @@ import {
   symetrieAxiale,
   translation,
 } from './transformations'
+import { vide2d } from './Vide2d'
 
 /**
  * Ajouter une étiquette sur une droite.

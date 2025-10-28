@@ -1,12 +1,13 @@
 import { round } from 'mathjs'
+import { colorToLatexOrHTML } from '../../lib/2d/colorToLatexOrHtml'
 import { Courbe } from '../../lib/2d/courbes'
 import { repere } from '../../lib/2d/reperes'
 import { texteParPosition } from '../../lib/2d/textes'
 import PolynomeFactorisable from '../../lib/mathFonctions/PolynomeFactorisableDegMax4'
 import PolynomePlusieursVariables from '../../lib/mathFonctions/PolynomePlusieursVariables'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
-import { colorToLatexOrHTML, mathalea2d } from '../../modules/2dGeneralites'
 import FractionEtendue from '../../modules/FractionEtendue'
+import { mathalea2d } from '../../modules/mathalea2d'
 import {
   gestionnaireFormulaireTexte,
   listeQuestionsToContenu,

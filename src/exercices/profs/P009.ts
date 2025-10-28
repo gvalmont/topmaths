@@ -1,11 +1,11 @@
-import { repere } from '../../lib/2d/reperes'
 import { traceBarre } from '../../lib/2d/diagrammes'
-import { nombreAvecEspace, texNombre } from '../../lib/outils/texNombre'
-import Exercice from '../Exercice'
-import { mathalea2d } from '../../modules/2dGeneralites'
-import { listeQuestionsToContenu, randint } from '../../modules/outils'
-import { fraction } from '../../modules/fractions'
+import { repere } from '../../lib/2d/reperes'
 import { arrondi } from '../../lib/outils/nombres'
+import { nombreAvecEspace, texNombre } from '../../lib/outils/texNombre'
+import { fraction } from '../../modules/fractions'
+import { mathalea2d } from '../../modules/mathalea2d'
+import { listeQuestionsToContenu, randint } from '../../modules/outils'
+import Exercice from '../Exercice'
 
 export const titre = "Simulation d'expériences aléatoires"
 

@@ -1,7 +1,7 @@
 import { BoiteBuilder } from '../lib/2d/polygones'
 import { choice } from '../lib/outils/arrayOutils'
 import { stringNombre } from '../lib/outils/texNombre'
-import type { NestedObjetMathalea2dArray } from './2dGeneralites'
+import type { NestedObjetMathalea2dArray } from '../types/2d'
 import type FractionEtendue from './FractionEtendue'
 import { fraction } from './fractions'
 import { randint } from './outils'

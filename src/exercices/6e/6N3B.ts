@@ -108,7 +108,7 @@ export default class DonnerSensDefinitionQuotient extends Exercice {
         labelDxInPixels: 0,
       })
       figureCorr.create('Point', {
-        label: miseEnEvidence(fractionUtile),
+        label: `{\\boldsymbol{${fractionUtile}}}`,
         x: arrondi(num / den, 4),
         y: -1.35,
         color: orangeMathalea,
@@ -142,7 +142,7 @@ export default class DonnerSensDefinitionQuotient extends Exercice {
         labelDxInPixels: 0,
       })
       figureCorr2.create('Point', {
-        label: miseEnEvidence(fractionUtile),
+        label: `{\\boldsymbol{${fractionUtile}}}`,
         x: arrondi(num / den, 4),
         y: -1.35,
         color: orangeMathalea,
@@ -190,11 +190,13 @@ export default class DonnerSensDefinitionQuotient extends Exercice {
           color: orangeMathalea,
         })
         figureCorr2.create('Point', {
-          label: miseEnEvidence((bond + 1).toString()),
+          label: `{\\boldsymbol{${bond + 1}}}`,
           x: C.x,
           y: C.y + longueurAC,
           labelDxInPixels: 0,
           shape: '',
+          color: orangeMathalea,
+          colorLabel: orangeMathalea,
         })
         if (bond !== 0)
           figureCorr2.create('Point', {

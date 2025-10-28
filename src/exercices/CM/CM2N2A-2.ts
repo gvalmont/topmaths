@@ -1,13 +1,13 @@
 import { combinaisonListes } from '../../lib/outils/arrayOutils'
-import Exercice from '../Exercice'
-import { mathalea2d } from '../../modules/2dGeneralites'
 import { context } from '../../modules/context'
+import { mathalea2d } from '../../modules/mathalea2d'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
+import Exercice from '../Exercice'
 
-import { fraction } from '../../modules/fractions'
 import Figure from 'apigeom'
-import figureApigeom from '../../lib/figureApigeom'
 import type CircleFractionDiagram from 'apigeom/src/elements/diagrams/CircleFractionDiagram'
+import figureApigeom from '../../lib/figureApigeom'
+import { fraction } from '../../modules/fractions'
 export const titre = 'Représenter des fractions'
 export const amcReady = true
 export const interactifReady = true

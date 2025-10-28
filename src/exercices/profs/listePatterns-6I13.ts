@@ -14,6 +14,7 @@ import {
   shapeNames,
   type ShapeName,
 } from '../../lib/2d/figures2d/shapes2d'
+import { fixeBordures } from '../../lib/2d/fixeBordures'
 import { VisualPattern } from '../../lib/2d/patterns/VisualPattern'
 import { VisualPattern3D } from '../../lib/2d/patterns/VisualPattern3D'
 import {
@@ -30,13 +31,10 @@ import {
   miseEnEvidence,
   texteEnCouleurEtGras,
 } from '../../lib/outils/embellissements'
-import {
-  fixeBordures,
-  mathalea2d,
-  type NestedObjetMathalea2dArray,
-} from '../../modules/2dGeneralites'
 import { context } from '../../modules/context'
+import { mathalea2d } from '../../modules/mathalea2d'
 import { randint } from '../../modules/outils'
+import type { NestedObjetMathalea2dArray } from '../../types/2d'
 import Exercice from '../Exercice'
 
 export const titre = "Liste des patterns disponibles pour l'exercice 6I13"

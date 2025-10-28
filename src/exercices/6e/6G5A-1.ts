@@ -229,7 +229,7 @@ export default class QuestionBissectrice extends Exercice {
         this.interactif,
         style,
       )
-      let objetReponse = Object.fromEntries(
+      const objetReponse = Object.fromEntries(
         rangeMinMax(1, 5).map((n) =>
           ligne1[n].texte === ''
             ? [
@@ -243,11 +243,11 @@ export default class QuestionBissectrice extends Exercice {
         ),
       )
       handleAnswers(this, i, objetReponse, { formatInteractif: 'mathlive' })
-      let texte =
+      const texte =
         'Compléter le tableau.<br>' +
         `$${I}$ est un point de la demi-droite $\\left[${B}${minuscule}\\right)$, bissectrice de l'angle $\\widehat{${A}${B}${C}}$.<br>` +
         (context.isHtml ? tableau.output : tableau.latexOutput)
-      let texteCorr = context.isHtml
+      const texteCorr = context.isHtml
         ? tableauCorr.output
         : tableauCorr.latexOutput
 

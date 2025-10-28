@@ -1,15 +1,15 @@
-import Exercice from '../Exercice'
-import { combinaisonListes, choice } from '../../lib/outils/arrayOutils'
+import { grille } from '../../lib/2d/Grille'
+import { point } from '../../lib/2d/points'
+import { segment, vecteur } from '../../lib/2d/segmentsVecteurs'
+import { propositionsQcm } from '../../lib/interactif/qcm'
+import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
+import { mathalea2d } from '../../modules/mathalea2d'
 import {
   gestionnaireFormulaireTexte,
   listeQuestionsToContenu,
   randint,
 } from '../../modules/outils'
-import { propositionsQcm } from '../../lib/interactif/qcm'
-import { point } from '../../lib/2d/points'
-import { grille } from '../../lib/2d/reperes'
-import { segment, vecteur } from '../../lib/2d/segmentsVecteurs'
-import { mathalea2d } from '../../modules/2dGeneralites'
+import Exercice from '../Exercice'
 
 export const titre = 'Reconnaitre des vecteurs égaux/opposés/colinéaires (QCM)'
 export const interactifReady = true

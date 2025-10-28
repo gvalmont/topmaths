@@ -13,12 +13,12 @@ import { texteEnCouleurEtGras } from '../../lib/outils/embellissements'
 import { arrondi } from '../../lib/outils/nombres'
 import { creerNomDePolygone, numAlpha } from '../../lib/outils/outilString'
 import { texNombre } from '../../lib/outils/texNombre'
+import { context } from '../../modules/context'
+import Grandeur from '../../modules/Grandeur'
 import {
   mathalea2d,
   type NestedObjetMathalea2dArray,
-} from '../../modules/2dGeneralites'
-import { context } from '../../modules/context'
-import Grandeur from '../../modules/Grandeur'
+} from '../../modules/mathalea2d'
 import {
   gestionnaireFormulaireTexte,
   listeQuestionsToContenu,

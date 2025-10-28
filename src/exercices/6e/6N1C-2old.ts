@@ -1,18 +1,16 @@
 import { orangeMathalea } from 'apigeom/src/elements/defaultValues'
+import { droiteGraduee } from '../../lib/2d/DroiteGraduee'
+import { fixeBordures } from '../../lib/2d/fixeBordures'
 import { point, tracePoint } from '../../lib/2d/points'
-import { droiteGraduee } from '../../lib/2d/reperes'
 import { labelPoint, latex2d } from '../../lib/2d/textes'
 import { combinaisonListes, shuffle } from '../../lib/outils/arrayOutils'
 import { lettreIndiceeDepuisChiffre } from '../../lib/outils/outilString'
 import { texNombre } from '../../lib/outils/texNombre'
-import {
-    fixeBordures,
-    mathalea2d,
-    type NestedObjetMathalea2dArray,
-} from '../../modules/2dGeneralites'
 import { PointCliquable, pointCliquable } from '../../modules/2dinteractif'
 import { context } from '../../modules/context'
+import { mathalea2d } from '../../modules/mathalea2d'
 import { egal, listeQuestionsToContenu, randint } from '../../modules/outils'
+import type { NestedObjetMathalea2dArray } from '../../types/2d'
 import Exercice from '../Exercice'
 
 export const dateDeModifImportante = '16/09/2024'
@@ -31,9 +29,9 @@ export const uuid = '4f2a3'
 
 // déréférencé car inutile
 export const refs = {
-    'fr-fr': [],
-    'fr-ch': [],
-  }
+  'fr-fr': [],
+  'fr-ch': [],
+}
 
 export default class PlacerUnPointAbscisseEntiere2d extends Exercice {
   pointsNonSolutions: PointCliquable[][]

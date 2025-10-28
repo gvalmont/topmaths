@@ -1,12 +1,17 @@
 import { codageAngleDroit } from '../../lib/2d/angles'
-import { arc } from '../../lib/2d/cercle'
+import { arc } from '../../lib/2d/Arc'
 import { codageSegments } from '../../lib/2d/codages'
+import {
+  assombrirOuEclaircir,
+  colorToLatexOrHTML,
+} from '../../lib/2d/colorToLatexOrHtml'
 import {
   Droite,
   droiteHorizontaleParPoint,
   droiteVerticaleParPoint,
   mediatrice,
 } from '../../lib/2d/droites'
+import { fixeBordures } from '../../lib/2d/fixeBordures'
 import {
   milieu,
   point,
@@ -35,19 +40,15 @@ import {
   symetrieAnimee,
   translationAnimee,
 } from '../../modules/2dAnimation'
-import {
-  assombrirOuEclaircir,
-  colorToLatexOrHTML,
-  fixeBordures,
-  mathalea2d,
-} from '../../modules/2dGeneralites'
 import { context } from '../../modules/context'
 import { imagePointParTransformation } from '../../modules/imagePointParTransformation'
+import { mathalea2d } from '../../modules/mathalea2d'
 import {
   egal,
   listeQuestionsToContenuSansNumero,
   randint,
 } from '../../modules/outils'
+import type { NestedObjetMathalea2dArray } from '../../types/2d'
 import Exercice from '../Exercice'
 
 export const interactifReady = true
@@ -83,7 +84,7 @@ export default class PavagesEtTransformations extends Exercice {
 
   nouvelleVersion(numeroExercice: number) {
     const objetsEnonce = []
-    const objetsCorrection = []
+    const objetsCorrection: NestedObjetMathalea2dArray = []
     if (this.level === 3) {
       this.besoinFormulaireNumerique = false
       this.besoinFormulaire2Texte = false
@@ -1959,7 +1960,7 @@ export default class PavagesEtTransformations extends Exercice {
         propositions: [
           {
             type: 'AMCNum',
-            // @ts-expect-error Trop difficile à typer
+
             propositions: [
               {
                 texte: texteCorr,
@@ -1979,7 +1980,6 @@ export default class PavagesEtTransformations extends Exercice {
           },
           {
             type: 'AMCNum',
-            // @ts-expect-error Trop difficile à typer
             propositions: [
               {
                 texte: '',
@@ -1999,7 +1999,6 @@ export default class PavagesEtTransformations extends Exercice {
           },
           {
             type: 'AMCNum',
-            // @ts-expect-error Trop difficile à typer
             propositions: [
               {
                 texte: '',

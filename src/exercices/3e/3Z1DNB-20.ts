@@ -1,24 +1,25 @@
+import { cercle } from '../../lib/2d/cercle'
+import { fixeBordures } from '../../lib/2d/fixeBordures'
 import { point } from '../../lib/2d/points'
+import { polygoneRegulierParCentreEtRayon } from '../../lib/2d/polygones'
+import { segment } from '../../lib/2d/segmentsVecteurs'
+import { texteParPosition } from '../../lib/2d/textes'
+import { rotation } from '../../lib/2d/transformations'
 import { createList } from '../../lib/format/lists'
+import { deuxColonnesResp } from '../../lib/format/miseEnPage'
 import { choice } from '../../lib/outils/arrayOutils'
 import { miseEnEvidence, texteItalique } from '../../lib/outils/embellissements'
-import { fixeBordures, mathalea2d } from '../../modules/2dGeneralites'
-import ExerciceBrevetA from '../ExerciceBrevetA'
+import { prenomF, prenomM } from '../../lib/outils/Personne'
 import {
   decompositionFacteursPremiers,
   ppcm,
   texFactorisation,
 } from '../../lib/outils/primalite'
-import { deuxColonnesResp } from '../../lib/format/miseEnPage'
-import { polygoneRegulierParCentreEtRayon } from '../../lib/2d/polygones'
-import { cercle } from '../../lib/2d/cercle'
-import { prenomF, prenomM } from '../../lib/outils/Personne'
-import { texteParPosition } from '../../lib/2d/textes'
-import { randint } from '../../modules/outils'
-import { segment } from '../../lib/2d/segmentsVecteurs'
-import { rotation } from '../../lib/2d/transformations'
-import Hms from '../../modules/Hms'
 import { texNombre } from '../../lib/outils/texNombre'
+import Hms from '../../modules/Hms'
+import { mathalea2d } from '../../modules/mathalea2d'
+import { randint } from '../../modules/outils'
+import ExerciceBrevetA from '../ExerciceBrevetA'
 
 export const uuid = 'ec6ad'
 export const refs = {

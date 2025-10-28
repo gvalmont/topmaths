@@ -1,9 +1,9 @@
 import Horloge from '../../../lib/2d/horloge'
 import handleInteractiveClock from '../../../lib/InteractiveClock'
 import { formatMinute } from '../../../lib/outils/texNombre'
-import { mathalea2d } from '../../../modules/2dGeneralites'
 import { context } from '../../../modules/context'
 import Hms from '../../../modules/Hms'
+import { mathalea2d } from '../../../modules/mathalea2d'
 import { listeQuestionsToContenu, randint } from '../../../modules/outils'
 import Exercice from '../../Exercice'
 export const titre = "Indiquer l'heure sur une horloge"

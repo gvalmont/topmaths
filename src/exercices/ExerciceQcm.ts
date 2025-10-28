@@ -32,20 +32,7 @@ export default class ExerciceQcm extends Exercice {
   options: { vertical?: boolean; ordered: boolean; lastChoice?: number }
   ajouteQcmCorr = false // Pour savoir si on ajoute le qcm corrigé à la fin de la correction.
   versionAleatoire?: () => void
-  versionOriginale?: () => void = undefined /* () => {
-    // Le texte récupéré avant le bloc des réponses (il ne faut pas oublier de doubler les \ du latex et de vérifier que les commandes latex sont supportées par Katex)
-    this.enonce = 'Enoncé de la question'
-    // Ici, on colle les différentes réponses prise dans le latex : attention !!! mettre la bonne en premier (elles seront brassées par propositionsQcm)
-    this.reponses = [
-      'réponse A', // La bonne réponse !
-      'réponse B',
-      'réponse C',
-      'réponse D'
-    ]
-    this.correction = 'La correction'
-  }
-    */
-
+  versionOriginale?: () => void = undefined
   constructor() {
     super()
     this.besoinFormulaire2CaseACocher = ['Consigne augmentée', false]
@@ -57,7 +44,9 @@ export default class ExerciceQcm extends Exercice {
     this.spacingCorr = 2 // idem pour la correction
     // Les options pour le qcm à modifier éventuellement (vertical à true pour les longues réponses par exemple)
     this.options = { vertical: false, ordered: false, lastChoice: 8 }
-    if (this.versionOriginale != null) this.versionOriginale()
+    this.enonce = ''
+    this.reponses = []
+    this.correction = ''
   }
 
   nouvelleVersion() {

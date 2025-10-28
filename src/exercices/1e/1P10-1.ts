@@ -169,7 +169,7 @@ On choisit une fiche au hasard et on note P la probabilité associée à cette e
           Pev1bsachantev2 = 1 - Pev1sachantev2
           liste = createList({
             items: [
-              ` $${texNombre(Pev1bsachantev2 * 100, 1)}\\,\\%$ des clients qui ont acheté un vêtement avaient un bon de réduction ;`,
+              ` $${texNombre(Pev1bsachantev2 * 100, 1)}\\,\\%$ des clients qui ont acheté un vêtement n'avaient pas un bon de réduction ;`,
               `  $${texNombre(Pev1 * 100, 1)}\\,\\%$ des clients avaient un bon de réduction ;`,
               `Parmi les clients qui ont un bon de réduction, $${texNombre(Pev2sachantev1 * 100, 1)}\\,\\%$ ont acheté un vêtement ;`,
               `$${texNombre(Pev1 * Pev2sachantev1 * 100, 1)}\\,\\%$  des clients sont des clients qui ont acheté un vêtement et qui avaient un bon de réduction ;`,
@@ -438,7 +438,7 @@ Enfin, ils estiment que $${texNombre(Pev2 * 100, 1)}\\,\\%$ des animaux contract
         }
       }
 
-      if (this.questionJamaisPosee(i)) {
+      if (this.questionJamaisPosee(i, val1, val2, val3)) {
         // Si la question n'a jamais été posée, on en créé une autre
         this.listeQuestions[i] = texte
         this.listeCorrections[i] = texteCorr

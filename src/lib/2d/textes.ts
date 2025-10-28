@@ -1,16 +1,14 @@
-import {
-  colorToLatexOrHTML,
-  ObjetMathalea2D,
-  Vide2d,
-  type ObjetDivLatex,
-} from '../../modules/2dGeneralites'
 import { context } from '../../modules/context'
+import type { NestedObjetMathalea2dArray, ObjetDivLatex } from '../../types/2d'
 import { Point3d } from '../3d/3dProjectionMathalea2d/elements'
 import { arrondi } from '../outils/nombres'
 import { stringNombre } from '../outils/texNombre'
+import { colorToLatexOrHTML } from './colorToLatexOrHtml'
+import { ObjetMathalea2D } from './ObjetMathalea2D'
 import { point, Point } from './points'
 import { PointAbstrait } from './points-abstraits'
 import { Polygone } from './polygones'
+import type { Vide2d } from './Vide2d'
 
 export type AncrageDeRotationType = 'gauche' | 'milieu' | 'droite'
 export const tikzAncrages = {
@@ -68,7 +66,7 @@ export function labelLatexPoint(
     hauteur: 10,
     couleurDeRemplissage: '',
   },
-): ObjetMathalea2D[] {
+): NestedObjetMathalea2dArray {
   // Jean-Claude Lhote 15/08/2023
   const offset = 0.25 * Math.log10(taille) // context.pixelsParCm ne correspond pas forcément à la valeur utilisée par mathalea2d... cela peut entrainer un trés léger écart
   let x
@@ -1228,6 +1226,7 @@ export class Latex2d extends ObjetMathalea2D {
       letterSize: this.letterSize,
       color: this.col.replace('#', ''),
       backgroundColor: this.backgroundCol.replace('#', ''),
+      bordures: this.bordures,
     }
   }
 

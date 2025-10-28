@@ -4,13 +4,13 @@ import {
   afficheMesureAngle,
   codageSegments,
 } from '../../lib/2d/codages'
+import type { PointAbstrait } from '../../lib/2d/points-abstraits'
 import { polygoneAvecNom } from '../../lib/2d/polygones'
+import Alea2iep from '../../modules/Alea2iep'
+import { mathalea2d } from '../../modules/mathalea2d'
+import { contraindreValeur } from '../../modules/outils'
 import { Triangle } from '../../modules/Triangle'
 import Exercice from '../Exercice'
-import { mathalea2d } from '../../modules/2dGeneralites'
-import Alea2iep from '../../modules/Alea2iep'
-import { contraindreValeur } from '../../modules/outils'
-import type { PointAbstrait } from '../../lib/2d/points-abstraits'
 
 export const titre = "Construction animée d'un triangle"
 

@@ -1,9 +1,10 @@
+import { fixeBordures } from '../../lib/2d/fixeBordures'
+import { grille } from '../../lib/2d/Grille'
 import { point } from '../../lib/2d/points'
 import { BoiteBuilder, nommePolygone, polygone } from '../../lib/2d/polygones'
-import { grille } from '../../lib/2d/reperes'
 import { texteParPosition } from '../../lib/2d/textes'
 import { shuffle } from '../../lib/outils/arrayOutils'
-import { fixeBordures, mathalea2d } from '../../modules/2dGeneralites'
+import { mathalea2d } from '../../modules/mathalea2d'
 import { randint } from '../../modules/outils'
 
 /**

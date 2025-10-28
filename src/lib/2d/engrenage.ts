@@ -1,9 +1,7 @@
-import {
-  colorToLatexOrHTML,
-  ObjetMathalea2D,
-} from '../../modules/2dGeneralites'
 import { degCos, degSin } from '../mathFonctions/trigo'
 import { arrondi } from '../outils/nombres'
+import { colorToLatexOrHTML } from './colorToLatexOrHtml'
+import { ObjetMathalea2D } from './ObjetMathalea2D'
 /**
  * @author Jean-Claude Lhote (Sébastien Lozano et Sylvain Chambon pour la partie tikz)
  * @param {object} parametres paramètres de l'objet voir ci-dessous

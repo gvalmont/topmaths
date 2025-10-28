@@ -30,7 +30,7 @@ export default class Auto1AC11c extends ExerciceQcmA {
 
   versionAleatoire = () => {
     switch (randint(1, 3)) {
-      case 1: //a>0, b<0 et c<0
+      case 1: // a>0, b<0 et c<0
         {
           const a = randint(71, 99, [80, 90])
           const b = randint(-49, -29)
@@ -48,7 +48,7 @@ export default class Auto1AC11c extends ExerciceQcmA {
           ]
         }
         break
-      case 2: //a<0, b<0 et c<0
+      case 2: // a<0, b<0 et c<0
         {
           const a = randint(-99, -34)
           const b = randint(-49, -29)
@@ -67,7 +67,7 @@ export default class Auto1AC11c extends ExerciceQcmA {
         }
         break
 
-      case 3: //a<0, b>0 et c<0
+      case 3: // a<0, b>0 et c<0
       default:
         {
           const a = randint(-99, -34)

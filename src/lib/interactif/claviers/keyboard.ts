@@ -152,9 +152,11 @@ export const convertKeyboardTypeToBlocks = (
       return ['numbers', 'degreCelsius']
 
     default:
-      throw new Error(
+      window.notify(
         "This error shouldn't occur. Clavier type: '" + type + "'",
+        {},
       )
+      return ['numbersOperations']
   }
 }
 

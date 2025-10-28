@@ -3,22 +3,20 @@ import { rotationCoord } from 'apigeom/src/elements/calculus/Coords'
 import type PointApigeom from 'apigeom/src/elements/points/Point'
 import { cercleCentrePoint } from '../../lib/2d/cercle'
 import { codageMilieu } from '../../lib/2d/codages'
+import { colorToLatexOrHTML } from '../../lib/2d/colorToLatexOrHtml'
+import { fixeBordures } from '../../lib/2d/fixeBordures'
+import { grille } from '../../lib/2d/Grille'
 import { point, Point, TracePoint } from '../../lib/2d/points'
-import { grille } from '../../lib/2d/reperes'
 import { demiDroite } from '../../lib/2d/segmentsVecteurs'
 import { labelPoint } from '../../lib/2d/textes'
 import { rotation } from '../../lib/2d/transformations'
 import figureApigeom from '../../lib/figureApigeom'
 import { choisitLettresDifferentes } from '../../lib/outils/aleatoires'
 import { shuffle } from '../../lib/outils/arrayOutils'
-import {
-  colorToLatexOrHTML,
-  fixeBordures,
-  mathalea2d,
-  type NestedObjetMathalea2dArray,
-} from '../../modules/2dGeneralites'
 import { context } from '../../modules/context'
+import { mathalea2d } from '../../modules/mathalea2d'
 import { contraindreValeur, egal, randint } from '../../modules/outils'
+import type { NestedObjetMathalea2dArray } from '../../types/2d'
 import Exercice from '../Exercice'
 
 export const titre =

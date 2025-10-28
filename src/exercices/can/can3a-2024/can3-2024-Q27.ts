@@ -1,12 +1,12 @@
-import ExerciceSimple from '../../ExerciceSimple'
-import { miseEnEvidence } from '../../../lib/outils/embellissements'
-import { choice } from '../../../lib/outils/arrayOutils'
+import { codageAngleDroit } from '../../../lib/2d/angles'
 import { milieu, point } from '../../../lib/2d/points'
 import { polygoneAvecNom } from '../../../lib/2d/polygones'
 import { labelPoint, latexParCoordonnees } from '../../../lib/2d/textes'
-import { codageAngleDroit } from '../../../lib/2d/angles'
-import { mathalea2d } from '../../../modules/2dGeneralites'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
+import { choice } from '../../../lib/outils/arrayOutils'
+import { miseEnEvidence } from '../../../lib/outils/embellissements'
+import { mathalea2d } from '../../../modules/mathalea2d'
+import ExerciceSimple from '../../ExerciceSimple'
 
 export const titre = 'Calculer une longueur dans un triangle rectangle'
 export const interactifReady = true

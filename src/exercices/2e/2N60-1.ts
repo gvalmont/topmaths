@@ -3,28 +3,29 @@ import { milieu, point } from '../../lib/2d/points'
 import { polygone } from '../../lib/2d/polygones'
 import { segment } from '../../lib/2d/segmentsVecteurs'
 import { labelPoint, texteParPosition } from '../../lib/2d/textes'
-import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
+import { texPrix, texteGras } from '../../lib/format/style'
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
-import { miseEnEvidence } from '../../lib/outils/embellissements'
+import { handleAnswers } from '../../lib/interactif/gestionInteractif'
+import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
+import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
 import {
   ecritureAlgebrique,
   ecritureParentheseSiNegatif,
   reduireAxPlusB,
   rienSi1,
 } from '../../lib/outils/ecritures'
+import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { abs } from '../../lib/outils/nombres'
 import { sp } from '../../lib/outils/outilString'
 import { prenomF } from '../../lib/outils/Personne'
 import { pgcd } from '../../lib/outils/primalite'
-import { texPrix, texteGras } from '../../lib/format/style'
 import { texNombre } from '../../lib/outils/texNombre'
 import Exercice from '../Exercice'
-import { handleAnswers } from '../../lib/interactif/gestionInteractif'
-import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 
+import { colorToLatexOrHTML } from '../../lib/2d/colorToLatexOrHtml'
 import FractionEtendue from '../../modules/FractionEtendue'
-import { mathalea2d, colorToLatexOrHTML } from '../../modules/2dGeneralites'
-import { listeQuestionsToContenu, itemize, randint } from '../../modules/outils'
+import { mathalea2d } from '../../modules/mathalea2d'
+import { itemize, listeQuestionsToContenu, randint } from '../../modules/outils'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 

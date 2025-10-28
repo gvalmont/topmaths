@@ -1,4 +1,15 @@
 import {
+  angleOriente,
+  codageAngle,
+  CodageAngleDroit,
+} from '../../lib/2d/angles'
+import {
+  Droite,
+  droite,
+  droiteParPointEtPente,
+  droiteParPointEtPerpendiculaire,
+} from '../../lib/2d/droites'
+import {
   Point,
   point,
   pointSurDroite,
@@ -7,34 +18,23 @@ import {
 } from '../../lib/2d/points'
 import { DemiDroite, demiDroite, longueur } from '../../lib/2d/segmentsVecteurs'
 import { rotation, translation2Points } from '../../lib/2d/transformations'
-import Exercice from '../Exercice'
-import { mathalea2d } from '../../modules/2dGeneralites'
+import { handleAnswers } from '../../lib/interactif/gestionInteractif'
+import { choixDeroulant } from '../../lib/interactif/questionListeDeroulante'
+import { mathalea2d } from '../../modules/mathalea2d'
 import {
   gestionnaireFormulaireTexte,
   listeQuestionsToContenu,
   randint,
 } from '../../modules/outils'
-import {
-  Droite,
-  droite,
-  droiteParPointEtPente,
-  droiteParPointEtPerpendiculaire,
-} from '../../lib/2d/droites'
-import {
-  angleOriente,
-  codageAngle,
-  CodageAngleDroit,
-} from '../../lib/2d/angles'
-import { choixDeroulant } from '../../lib/interactif/questionListeDeroulante'
-import { handleAnswers } from '../../lib/interactif/gestionInteractif'
+import Exercice from '../Exercice'
 
-import { arrondi, range } from '../../lib/outils/nombres'
-import { choice } from '../../lib/outils/arrayOutils'
-import { bleuMathalea, vertMathalea } from '../../lib/colors'
 import { number } from 'mathjs'
-import { texteEnCouleurEtGras } from '../../lib/outils/embellissements'
-import { context } from '../../modules/context'
 import type { CodageAngle } from '../../lib/2d/codages'
+import { bleuMathalea, vertMathalea } from '../../lib/colors'
+import { choice } from '../../lib/outils/arrayOutils'
+import { texteEnCouleurEtGras } from '../../lib/outils/embellissements'
+import { arrondi, range } from '../../lib/outils/nombres'
+import { context } from '../../modules/context'
 
 export const interactifReady = true
 export const interactifType = 'listeDeroulante'

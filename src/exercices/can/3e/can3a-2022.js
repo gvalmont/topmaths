@@ -1,5 +1,6 @@
 import Decimal from 'decimal.js'
 import { codageAngleDroit } from '../../../lib/2d/angles'
+import { colorToLatexOrHTML } from '../../../lib/2d/colorToLatexOrHtml'
 import { milieu, point } from '../../../lib/2d/points'
 import { polygone, polygoneAvecNom } from '../../../lib/2d/polygones'
 import { labelPoint, texteParPosition } from '../../../lib/2d/textes'
@@ -16,9 +17,9 @@ import {
   stringNombre,
   texNombre,
 } from '../../../lib/outils/texNombre'
-import { colorToLatexOrHTML, mathalea2d } from '../../../modules/2dGeneralites'
 import Hms from '../../../modules/Hms'
 import { fraction } from '../../../modules/fractions'
+import { mathalea2d } from '../../../modules/mathalea2d'
 import { listeQuestionsToContenu, randint } from '../../../modules/outils'
 import Exercice from '../../Exercice'
 

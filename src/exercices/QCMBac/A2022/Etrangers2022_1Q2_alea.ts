@@ -1,9 +1,10 @@
+import { fixeBordures } from '../../../lib/2d/fixeBordures'
+import RepereBuilder from '../../../lib/2d/RepereBuilder'
+import { spline } from '../../../lib/mathFonctions/Spline'
+import { mathalea2d } from '../../../modules/mathalea2d'
 import { randint } from '../../../modules/outils'
 import { nombreElementsDifferents } from '../../ExerciceQcm'
 import ExerciceQcmA from '../../ExerciceQcmA'
-import RepereBuilder from '../../../lib/2d/RepereBuilder'
-import { spline } from '../../../lib/mathFonctions/Spline'
-import { fixeBordures, mathalea2d } from '../../../modules/2dGeneralites'
 
 export const uuid = '90af7'
 export const refs = {

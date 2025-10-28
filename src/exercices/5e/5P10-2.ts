@@ -1,20 +1,21 @@
 import Decimal from 'decimal.js'
+import { fixeBordures } from '../../lib/2d/fixeBordures'
 import { Tableau } from '../../lib/2d/tableau'
+import { setReponse } from '../../lib/interactif/gestionInteractif'
+import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
+import { miseEnEvidence } from '../../lib/outils/embellissements'
 import {
   arrondi,
   nombreDeChiffresDansLaPartieEntiere,
 } from '../../lib/outils/nombres'
 import { numAlpha } from '../../lib/outils/outilString'
 import { stringNombre, texNombre } from '../../lib/outils/texNombre'
-import { fixeBordures, mathalea2d } from '../../modules/2dGeneralites'
 import { context } from '../../modules/context'
 import FractionEtendue from '../../modules/FractionEtendue'
-import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
+import { mathalea2d } from '../../modules/mathalea2d'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import Exercice from '../Exercice'
-import { setReponse } from '../../lib/interactif/gestionInteractif'
-import { miseEnEvidence } from '../../lib/outils/embellissements'
 
 export const titre = 'Calculer le coefficient de proportionnalité'
 export const interactifReady = true

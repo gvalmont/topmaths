@@ -1,12 +1,13 @@
-import { miseEnEvidence } from '../../../lib/outils/embellissements'
-import ExerciceCan from '../../ExerciceCan'
-import { randint } from '../../../modules/outils'
-import { fixeBordures, mathalea2d } from '../../../modules/2dGeneralites'
+import { codageAngleDroit } from '../../../lib/2d/angles'
+import { afficheMesureAngle } from '../../../lib/2d/codages'
+import { fixeBordures } from '../../../lib/2d/fixeBordures'
 import { point } from '../../../lib/2d/points'
 import { polygone } from '../../../lib/2d/polygones'
-import { afficheMesureAngle } from '../../../lib/2d/codages'
+import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { context } from '../../../modules/context'
-import { codageAngleDroit } from '../../../lib/2d/angles'
+import { mathalea2d } from '../../../modules/mathalea2d'
+import { randint } from '../../../modules/outils'
+import ExerciceCan from '../../ExerciceCan'
 
 export const titre = "Somme des angles d'un triangle"
 export const interactifReady = true

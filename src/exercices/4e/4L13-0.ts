@@ -9,16 +9,17 @@ import {
   polygoneRegulierParCentreEtRayon,
 } from '../../lib/2d/polygones'
 import { segment } from '../../lib/2d/segmentsVecteurs'
+import { vide2d } from '../../lib/2d/Vide2d'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
+import { creerNomDePolygone } from '../../lib/outils/outilString'
 import { prenom } from '../../lib/outils/Personne'
-import Exercice from '../Exercice'
-import { mathalea2d, vide2d } from '../../modules/2dGeneralites'
+import { mathalea2d } from '../../modules/mathalea2d'
 import {
   gestionnaireFormulaireTexte,
   listeQuestionsToContenu,
   randint,
 } from '../../modules/outils'
-import { creerNomDePolygone } from '../../lib/outils/outilString'
+import Exercice from '../Exercice'
 export const titre =
   'Mettre en équation un problème sans objectif de résolution'
 export const dateDeModifImportante = '28/03/2025'

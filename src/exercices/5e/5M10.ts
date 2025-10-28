@@ -1,23 +1,24 @@
 import { codageAngleDroit } from '../../lib/2d/angles'
 import { afficheLongueurSegment } from '../../lib/2d/codages'
 import { droite } from '../../lib/2d/droites'
+import { fixeBordures } from '../../lib/2d/fixeBordures'
 import { milieu, point, pointAdistance } from '../../lib/2d/points'
 import { parallelogramme2points1hauteur } from '../../lib/2d/polygones'
 import { segment } from '../../lib/2d/segmentsVecteurs'
 import { projectionOrtho } from '../../lib/2d/transformations'
+import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
+import { handleAnswers } from '../../lib/interactif/gestionInteractif'
+import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { combinaisonListes } from '../../lib/outils/arrayOutils'
 import {
   miseEnEvidence,
   texteEnCouleurEtGras,
 } from '../../lib/outils/embellissements'
 import { creerNomDePolygone, sp } from '../../lib/outils/outilString'
+import Grandeur from '../../modules/Grandeur'
+import { mathalea2d } from '../../modules/mathalea2d'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import Exercice from '../Exercice'
-import { fixeBordures, mathalea2d } from '../../modules/2dGeneralites'
-import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
-import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
-import { handleAnswers } from '../../lib/interactif/gestionInteractif'
-import Grandeur from '../../modules/Grandeur'
 
 export const titre = 'Aire du parallélogramme'
 

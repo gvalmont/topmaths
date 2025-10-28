@@ -6,9 +6,9 @@ import {
   premierMultipleInferieur,
   premierMultipleSuperieur,
 } from '../../lib/outils/primalite'
-import Exercice from '../Exercice'
-import { mathalea2d } from '../../modules/2dGeneralites'
+import { mathalea2d } from '../../modules/mathalea2d'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
+import Exercice from '../Exercice'
 
 export const titre = "Représentation graphique d'un polynôme du second degré"
 

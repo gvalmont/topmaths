@@ -1,8 +1,10 @@
 import { lectureAntecedent } from '../../lib/2d/courbes'
 import { droiteParPointEtPente } from '../../lib/2d/droites'
+import { fixeBordures } from '../../lib/2d/fixeBordures'
 import { point } from '../../lib/2d/points'
 import { repere } from '../../lib/2d/reperes'
 import { texteParPosition } from '../../lib/2d/textes'
+import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import {
   Spline,
@@ -13,10 +15,9 @@ import { choice } from '../../lib/outils/arrayOutils'
 import { arrondi } from '../../lib/outils/nombres'
 import { numAlpha } from '../../lib/outils/outilString'
 import { texNombre } from '../../lib/outils/texNombre'
-import { fixeBordures, mathalea2d } from '../../modules/2dGeneralites'
+import { mathalea2d } from '../../modules/mathalea2d'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import Exercice from '../Exercice'
-import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 

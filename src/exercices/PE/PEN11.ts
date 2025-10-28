@@ -26,6 +26,7 @@ export default class IsDecimal extends Exercice {
     'num/2^m5^nX',
     'numX/2^m5^nX',
   ]
+
   constructor() {
     super()
     this.typeQuestionsDisponibles = [

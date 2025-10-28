@@ -1,9 +1,12 @@
+import { choice } from '../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
+import { texNombre } from '../../lib/outils/texNombre'
+
 import { randint } from '../../modules/outils'
+// import ExerciceQcmA from '../../ExerciceQcmA'
 import ExerciceQcmA from '../ExerciceQcmA'
-export const dateDePublication = '10/08/2025'
-export const uuid = '6eba7'
-// Author Stéphane Guyon
+
+export const uuid = '6b959'
 export const refs = {
   'fr-fr': ['1A-C3-10'],
   'fr-ch': [],
@@ -12,62 +15,44 @@ export const interactifReady = true
 export const interactifType = 'qcm'
 export const amcReady = 'true'
 export const amcType = 'qcmMono'
-export const titre = 'Calculer avec des puissances (10)'
-export default class Puissances extends ExerciceQcmA {
-  versionOriginale: () => void = () => {
-    this.enonce =
-      'Soit $n$ un entier non nul.<br> À quelle expression est égale $\\dfrac{1}{\\left(-1\\right)^{n}}$ ?'
-    this.correction =
-      'Soit $n\\in \\mathbb{N}$.<br>$\\begin{aligned} \\left(-1\\right)^{n+2}&=\\left(-1\\right)^{2}\\times \\left(-1\\right)^{n} \\\\    &=1\\times \\left(-1\\right)^{n} \\\\    &= \\left(-1\\right)^{n}    \\end{aligned}$<br>'
-    this.correction +=
-      '$\\begin{aligned}\\text{or, }\\dfrac{1}{\\left(-1\\right)^{n}}&=\\dfrac{1^n}{\\left(-1\\right)^{n}}\\\\&=\\left(\\dfrac{1}{-1}\\right)^{n}\\\\&=\\left(-1\\right)^{n}\\\\\\end{aligned}.$<br>'
-    this.correction +=
-      'En conséquence, pour tout entier $n$, on a $\\left(-1\\right)^{n+2}=\\dfrac{1}{\\left(-1\\right)^{n}}$.'
+export const titre = "Passer de l'écriture scientifique à l'écriture décimale"
+export const dateDePublication = '11/10/2025'
+// Ceci est un exemple de QCM avec version originale et version aléatoire
+/**
+ *
+ * @author Gilles Mora
+ *
+ */
+export default class Auto1AC3j extends ExerciceQcmA {
+  private appliquerLesValeurs(a: number, n: number): void {
+    this.enonce = `Quelle est l'écriture décimale du nombre dont l'écriture scientifique est $${texNombre(a, 4)}\\times 10^{${n}}$ ?`
+
+    this.correction = `Multiplier par  $10^{${n}}$ revient à multiplier par $${texNombre(10 ** n, 6)}$,  donc l'écriture décimale de $${texNombre(a, 6)}\\times 10^{${n}}$ est : $${miseEnEvidence(texNombre(a * 10 ** n, 6))}$.
+         `
+
     this.reponses = [
-      '$\\left(-1\\right)^{n} $',
-      '$\\left(-1\\right)^{n+1}$ ',
-      '$-\\left(-1\\right)^{n} $',
-      '$\\left(-1\\right)^{n-1}$ ',
+      `$${texNombre(a * 10 ** n, 8)}$`,
+      `$${texNombre(a * 10 ** (n - 1), 8)}$`,
+      ` $${texNombre(a * 10 ** -n, 8)}$`,
+      n < 0
+        ? `$${texNombre(a * 10 ** (n + 1), 8)}$`
+        : `$${texNombre(Math.floor(a) * 10 ** n + a / 10, 8)}$`,
     ]
   }
 
-  versionAleatoire = () => {
-    const k = randint(3, 6)
+  versionOriginale: () => void = () => {
+    this.appliquerLesValeurs(3.56, -3)
+  }
 
-    this.enonce = `Soit $n$ un entier non nul.<br> À quelle expression est égale $\\dfrac{1}{\\left(-1\\right)^{n+${k}}}$  ?`
-    if (k === 2 || k === 4 || k === 6) {
-      this.correction = `Soit $n\\in \\mathbb{N}.$<br> $\\begin{aligned}\\left(-1\\right)^{n+${k}}&=\\left(-1\\right)^{n}\\times \\left(-1\\right)^${k}\\\\
-      &=\\left(-1\\right)^{n}
-    \\end{aligned}$<br>
-   $\\begin{aligned}\\text{or, }\\dfrac{1}{\\left(-1\\right)^{n}}&=\\dfrac{1^n}{\\left(-1\\right)^{n}}\\\\
-      &=\\left(\\dfrac{1}{-1}\\right)^{n}\\\\
-      &=\\left(-1\\right)^{n}.\\\\
-    \\end{aligned}$<br>
-    En conséquence, pour tout entier $n$, on a $\\left(-1\\right)^{n+${k}}=${miseEnEvidence('\\dfrac{1}{\\left(-1\\right)^{n}}')}$.
-    `
-      this.reponses = [
-        '$\\left(-1\\right)^{n} $',
-        '$\\left(-1\\right)^{n+1}$ ',
-        '$-\\left(-1\\right)^{n} $',
-        '$\\left(-1\\right)^{n-1}$ ',
-      ]
-    } else {
-      this.correction = `Soit $n\\in \\mathbb{N}.$<br>$\\begin{aligned}\\left(-1\\right)^{n+${k}}&=\\left(-1\\right)^${k}\\times \\left(-1\\right)^{n} \\\\
-      &=-\\left(-1\\right)^{n}
-    \\end{aligned}$<br>
-
-     En conséquence, pour tout entier $n$, on a $\\left(-1\\right)^{n+${k}}=-\\dfrac{1}{\\left(-1\\right)^{n}}=${miseEnEvidence('-\\left(-1\\right)^{n}')}.$`
-      this.reponses = [
-        '$-\\left(-1\\right)^{n}$ ',
-        '$\\left(-1\\right)^{n} $',
-        '$\\left(-1\\right)^{n+2} $',
-        '$-\\left(-1\\right)^{n+1} $',
-      ]
-    }
+  versionAleatoire: () => void = () => {
+    const a = choice([randint(101, 999) / 100, randint(1001, 9999) / 1000])
+    const n = choice([randint(-5, -2), randint(2, 5)])
+    this.appliquerLesValeurs(a, n)
   }
 
   constructor() {
     super()
+    // this.options = { vertical: true, ordered: false }
     this.versionAleatoire()
   }
 }

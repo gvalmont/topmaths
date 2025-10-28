@@ -1,16 +1,16 @@
 // import Decimal from 'decimal.js'
 import { courbe } from '../../lib/2d/courbes'
 import { repere } from '../../lib/2d/reperes'
+import { setReponse } from '../../lib/interactif/gestionInteractif'
+import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { resolutionSystemeLineaire2x2 } from '../../lib/mathFonctions/outilsMaths'
-import { mathalea2d } from '../../modules/2dGeneralites'
 import { context } from '../../modules/context'
+import { mathalea2d } from '../../modules/mathalea2d'
 import {
   listeQuestionsToContenuSansNumero,
   randint,
 } from '../../modules/outils'
 import Exercice from '../Exercice'
-import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
-import { setReponse } from '../../lib/interactif/gestionInteractif'
 
 export const titre = "Lire les antécédents d'un nombre à partir d'un graphique"
 export const interactifReady = true

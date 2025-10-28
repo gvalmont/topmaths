@@ -1,7 +1,7 @@
 import { angle, angleOriente } from '../../lib/2d/angles'
-import { arc } from '../../lib/2d/cercle'
 import { afficheLongueurSegment } from '../../lib/2d/codages'
 import { distancePointDroite, droite } from '../../lib/2d/droites'
+import { fixeBordures } from '../../lib/2d/fixeBordures'
 import { point, pointSurDroite, tracePoint } from '../../lib/2d/points'
 import { nommePolygone, polygone } from '../../lib/2d/polygones'
 import { longueur, segmentAvecExtremites } from '../../lib/2d/segmentsVecteurs'
@@ -19,7 +19,7 @@ import {
 } from '../../lib/outils/embellissements'
 import { sp } from '../../lib/outils/outilString'
 import { texNombre } from '../../lib/outils/texNombre'
-import { fixeBordures, mathalea2d } from '../../modules/2dGeneralites'
+import { mathalea2d } from '../../modules/mathalea2d'
 import {
   gestionnaireFormulaireTexte,
   listeQuestionsToContenu,
@@ -27,6 +27,7 @@ import {
 } from '../../modules/outils'
 import Exercice from '../Exercice'
 
+import { arc } from '../../lib/2d/Arc'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { arrondi } from '../../lib/outils/nombres'
 export const titre =

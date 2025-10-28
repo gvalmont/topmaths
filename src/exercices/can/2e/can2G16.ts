@@ -1,9 +1,9 @@
-import { droiteGraduee } from '../../../lib/2d/reperes'
+import { droiteGraduee } from '../../../lib/2d/DroiteGraduee'
 import { texteParPosition } from '../../../lib/2d/textes'
 import { choisitLettresDifferentes } from '../../../lib/outils/aleatoires'
 import { choice } from '../../../lib/outils/arrayOutils'
-import { mathalea2d } from '../../../modules/2dGeneralites'
 import FractionEtendue from '../../../modules/FractionEtendue'
+import { mathalea2d } from '../../../modules/mathalea2d'
 import { randint } from '../../../modules/outils'
 import ExerciceSimple from '../../ExerciceSimple'
 export const titre = 'Trouver un coefficient de colinéarité (graphique)'
@@ -72,9 +72,9 @@ export default class VecteursCol extends ExerciceSimple {
             pointCouleur: 'blue',
             labelsPrincipaux: false,
           }),
-          texteParPosition(`${noms[0]}`, 0, 0.9, 'milieu', 'blue', 2),
-          texteParPosition(`${noms[1]}`, b * 1.5, 0.9, 'milieu', 'blue', 2),
-          texteParPosition(`${noms[2]}`, a * 1.5, 0.9, 'milieu', 'blue', 2),
+          texteParPosition(`${noms[0]}`, 0, 0.9, 0, 'blue', 2),
+          texteParPosition(`${noms[1]}`, b * 1.5, 0.9, 0, 'blue', 2),
+          texteParPosition(`${noms[2]}`, a * 1.5, 0.9, 0, 'blue', 2),
         )
         this.optionsChampTexte = { texteAvant: '$k$ a pour valeur :' }
         this.correction = `Les vecteurs $\\overrightarrow{${noms[0]}${noms[1]}}$ et $\\overrightarrow{${noms[0]}${noms[2]}}$
@@ -147,9 +147,9 @@ export default class VecteursCol extends ExerciceSimple {
             pointCouleur: 'blue',
             labelsPrincipaux: false,
           }),
-          texteParPosition(`${noms[0]}`, 0, 0.9, 'milieu', 'blue', 2),
-          texteParPosition(`${noms[1]}`, b * 1.5, 0.9, 'milieu', 'blue', 2),
-          texteParPosition(`${noms[2]}`, a * 1.5, 0.9, 'milieu', 'blue', 2),
+          texteParPosition(`${noms[0]}`, 0, 0.9, 0, 'blue', 2),
+          texteParPosition(`${noms[1]}`, b * 1.5, 0.9, 0, 'blue', 2),
+          texteParPosition(`${noms[2]}`, a * 1.5, 0.9, 0, 'blue', 2),
         )
         this.optionsChampTexte = { texteAvant: '$k$ a pour valeur :' }
         this.correction = `Les vecteurs $\\overrightarrow{${noms[0]}${noms[1]}}$ et $\\overrightarrow{${noms[0]}${noms[2]}}$
@@ -223,9 +223,9 @@ export default class VecteursCol extends ExerciceSimple {
             pointCouleur: 'blue',
             labelsPrincipaux: false,
           }),
-          texteParPosition(`${noms[0]}`, 0, 0.9, 'milieu', 'blue', 2),
-          texteParPosition(`${noms[1]}`, b * 1.5, 0.9, 'milieu', 'blue', 2),
-          texteParPosition(`${noms[2]}`, a * 1.5, 0.9, 'milieu', 'blue', 2),
+          texteParPosition(`${noms[0]}`, 0, 0.9, 0, 'blue', 2),
+          texteParPosition(`${noms[1]}`, b * 1.5, 0.9, 0, 'blue', 2),
+          texteParPosition(`${noms[2]}`, a * 1.5, 0.9, 0, 'blue', 2),
         )
         this.optionsChampTexte = { texteAvant: '$k$ a pour valeur :' }
         this.correction = `Les vecteurs $\\overrightarrow{${noms[0]}${noms[1]}}$ et $\\overrightarrow{${noms[2]}${noms[0]}}$
@@ -299,9 +299,9 @@ export default class VecteursCol extends ExerciceSimple {
             pointCouleur: 'blue',
             labelsPrincipaux: false,
           }),
-          texteParPosition(`${noms[0]}`, 0, 0.9, 'milieu', 'blue', 2),
-          texteParPosition(`${noms[1]}`, b * 1.5, 0.9, 'milieu', 'blue', 2),
-          texteParPosition(`${noms[2]}`, a * 1.5, 0.9, 'milieu', 'blue', 2),
+          texteParPosition(`${noms[0]}`, 0, 0.9, 0, 'blue', 2),
+          texteParPosition(`${noms[1]}`, b * 1.5, 0.9, 0, 'blue', 2),
+          texteParPosition(`${noms[2]}`, a * 1.5, 0.9, 0, 'blue', 2),
         )
         this.optionsChampTexte = { texteAvant: '$k$ a pour valeur :' }
         this.correction = `Les vecteurs $\\overrightarrow{${noms[1]}${noms[0]}}$ et $\\overrightarrow{${noms[0]}${noms[2]}}$

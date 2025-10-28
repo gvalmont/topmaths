@@ -119,14 +119,17 @@ export default class ListeDesDiviseurs5e extends Exercice {
       if (nbDiviseursMax[i] > 10) {
         nbChiffresMax[i] = Math.min(nbChiffresMax[i], 3)
       }
+      let essais = 0
       do {
         M = randint(10 ** (nbChiffresMax[i] - 1), 10 ** nbChiffresMax[i] - 1)
         const listeDiviseursM = listeDesDiviseurs(M)
         nbDiviseursM = listeDiviseursM.length
+        essais++
       } while (
-        nbDiviseursM < Math.max(2, nbDiviseursMax[i] - 3) ||
-        nbDiviseursM > nbDiviseursMax[i] ||
-        listeDesMDejaTrouves.indexOf(M) !== -1
+        (nbDiviseursM < Math.max(2, nbDiviseursMax[i] - 3) ||
+          nbDiviseursM > nbDiviseursMax[i] ||
+          listeDesMDejaTrouves.indexOf(M) !== -1) &&
+        essais < 20
       )
       listeDesMDejaTrouves.push(M)
 

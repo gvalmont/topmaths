@@ -1,15 +1,15 @@
-import ExerciceSimple from '../../ExerciceSimple'
-import { miseEnEvidence } from '../../../lib/outils/embellissements'
-import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
-import { grille } from '../../../lib/2d/reperes'
+import { grille } from '../../../lib/2d/Grille'
 import { point, tracePoint } from '../../../lib/2d/points'
-import { labelPoint, latex2d } from '../../../lib/2d/textes'
-import { mathalea2d } from '../../../modules/2dGeneralites'
 import {
   segment,
   segmentAvecExtremites,
 } from '../../../lib/2d/segmentsVecteurs'
+import { labelPoint, latex2d } from '../../../lib/2d/textes'
+import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
+import { miseEnEvidence } from '../../../lib/outils/embellissements'
+import { mathalea2d } from '../../../modules/mathalea2d'
 import { randint } from '../../../modules/outils'
+import ExerciceSimple from '../../ExerciceSimple'
 export const titre = 'Calculer une longueur sur une grille'
 export const interactifReady = true
 export const interactifType = 'mathLive'

@@ -1,6 +1,6 @@
-import { choice } from '../../../lib/outils/arrayOutils'
-import ExerciceSimple from '../../ExerciceSimple'
-import { randint } from '../../../modules/outils'
+import { codageAngleDroit } from '../../../lib/2d/angles'
+import { texteSurSegment } from '../../../lib/2d/codages'
+import { fixeBordures } from '../../../lib/2d/fixeBordures'
 import { point } from '../../../lib/2d/points'
 import {
   barycentre,
@@ -8,10 +8,12 @@ import {
   polygoneAvecNom,
 } from '../../../lib/2d/polygones'
 import { rotation } from '../../../lib/2d/transformations'
-import { fixeBordures, mathalea2d } from '../../../modules/2dGeneralites'
-import { texteSurSegment } from '../../../lib/2d/codages'
-import { codageAngleDroit } from '../../../lib/2d/angles'
+import { choice } from '../../../lib/outils/arrayOutils'
 import { creerNomDePolygone, sp } from '../../../lib/outils/outilString'
+import { mathalea2d } from '../../../modules/mathalea2d'
+import { randint } from '../../../modules/outils'
+import type { NestedObjetMathalea2dArray } from '../../../types/2d'
+import ExerciceSimple from '../../ExerciceSimple'
 export const titre = "Trouver la longueur d'un côté de triangle rectangle"
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -94,7 +96,7 @@ export default class TripletsPythagoriciens extends ExerciceSimple {
       0.5,
       true,
     )
-    const objets = [poly, angleDroit]
+    const objets: NestedObjetMathalea2dArray = [poly, angleDroit]
     let index = this.sup === 1 ? 0 : this.sup === 2 ? 1 : choice([0, 1]) // on choisit le type de question ou on laisse le hasard (option mélange)
     this.question = `Dans le triangle $${nom.join('')}$ rectangle en $${nom[1]}$, `
     if (index === 0) {

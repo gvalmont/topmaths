@@ -9,13 +9,13 @@ import { choice } from '../../lib/outils/arrayOutils'
 import { texteEnCouleurEtGras } from '../../lib/outils/embellissements'
 import { texNombre } from '../../lib/outils/texNombre'
 
-import { mathalea2d } from '../../modules/2dGeneralites'
+import { mathalea2d } from '../../modules/mathalea2d'
 import { randint } from '../../modules/outils'
 import ExerciceQcmA from '../ExerciceQcmA'
 export const dateDePublication = '26/09/2025'
 export const dateDeModifImportante = '12/10/2025'
 export const uuid = '84c9f'
-// 
+//
 /**
  *
  * @author Gilles Mora + Claude ia pour la factorisation
@@ -32,19 +32,27 @@ export const amcType = 'qcmMono'
 export const titre =
   "Résoudre une inéquation du type $x^2<a$ ou $x^2>a$  avec ou sans courbe (solutions sous forme d'intervalles)"
 export default class Auto1AC10d extends ExerciceQcmA {
- private appliquerLesValeurs(
+  private appliquerLesValeurs(
     val: number,
     estInegStrict: boolean,
-    typeInequation: 'inf' | 'sup'
+    typeInequation: 'inf' | 'sup',
   ): void {
     // Détermination du signe d'inégalité
     const signeInegalité =
       typeInequation === 'inf'
-        ? estInegStrict ? '<' : ' \\leqslant '
-        : estInegStrict ? '>' : ' \\geqslant '
+        ? estInegStrict
+          ? '<'
+          : ' \\leqslant '
+        : estInegStrict
+          ? '>'
+          : ' \\geqslant '
 
     // Création des éléments graphiques
-    const elements = this.creerElementsGraphiques(val, estInegStrict, typeInequation)
+    const elements = this.creerElementsGraphiques(
+      val,
+      estInegStrict,
+      typeInequation,
+    )
     const { graphique, graphiqueC } = this.creerGraphiques(val, elements)
     const reponses = this.formaterReponses(val, estInegStrict, typeInequation)
 
@@ -55,7 +63,7 @@ export default class Auto1AC10d extends ExerciceQcmA {
       : `${deuxColonnes(
           `On a représenté la parabole d'équation $y=x^2$. <br><br>
            On note $(I)$ l'inéquation, sur $\\mathbb{R}$, $x^2${signeInegalité} ${val}$.<br><br>`,
-          `${graphique}`
+          `${graphique}`,
         )}
          
          L'ensemble des solutions $S$ de cette inéquation est :`
@@ -66,7 +74,7 @@ export default class Auto1AC10d extends ExerciceQcmA {
       estInegStrict,
       typeInequation,
       graphiqueC,
-      reponses[0]
+      reponses[0],
     )
 
     // Réponses
@@ -77,7 +85,7 @@ export default class Auto1AC10d extends ExerciceQcmA {
   private creerElementsGraphiques(
     val: number,
     estInegStrict: boolean,
-    typeInequation: 'inf' | 'sup'
+    typeInequation: 'inf' | 'sup',
   ) {
     const o = latex2d('\\text{O}', -0.2, -0.3, { letterSize: 'scriptsize' })
 
@@ -126,8 +134,12 @@ export default class Auto1AC10d extends ExerciceQcmA {
     const textes = [
       latex2d(`y=${val}`, 4, 2.7, { letterSize: 'scriptsize' }),
       latex2d('y=x^2', 3, 4.5, { letterSize: 'scriptsize' }),
-      latex2d(`-\\sqrt{${val}}`, -racineValGraphique, -0.6, { letterSize: 'scriptsize' }),
-      latex2d(`\\sqrt{${val}}`, racineValGraphique, -0.6, { letterSize: 'scriptsize' }),
+      latex2d(`-\\sqrt{${val}}`, -racineValGraphique, -0.6, {
+        letterSize: 'scriptsize',
+      }),
+      latex2d(`\\sqrt{${val}}`, racineValGraphique, -0.6, {
+        letterSize: 'scriptsize',
+      }),
       latex2d(`${val}`, -0.5, valGraphique + 0.1, { letterSize: 'scriptsize' }),
     ]
 
@@ -167,7 +179,12 @@ export default class Auto1AC10d extends ExerciceQcmA {
     })
 
     const f = (x: number) => Number(x) ** 2
-    const Cg = droite(point(-3, valGraphique), point(3, valGraphique), '', 'green')
+    const Cg = droite(
+      point(-3, valGraphique),
+      point(3, valGraphique),
+      '',
+      'green',
+    )
     Cg.epaisseur = 2
 
     // Graphique simple pour l'énoncé
@@ -183,7 +200,7 @@ export default class Auto1AC10d extends ExerciceQcmA {
       r1,
       o,
       textes[4],
-      courbe(f, { repere: r1, color: 'blue', epaisseur: 2 })
+      courbe(f, { repere: r1, color: 'blue', epaisseur: 2 }),
     )
 
     // Graphique complet pour la correction
@@ -203,7 +220,7 @@ export default class Auto1AC10d extends ExerciceQcmA {
       sAAx,
       sBBx,
       ...segmentsSolution,
-      ...textes
+      ...textes,
     )
 
     return { graphique, graphiqueC }
@@ -213,7 +230,7 @@ export default class Auto1AC10d extends ExerciceQcmA {
   private formaterReponses(
     val: number,
     estInegStrict: boolean,
-    typeInequation: 'inf' | 'sup'
+    typeInequation: 'inf' | 'sup',
   ) {
     if (typeInequation === 'inf') {
       const crochets = estInegStrict
@@ -252,12 +269,16 @@ export default class Auto1AC10d extends ExerciceQcmA {
     estInegStrict: boolean,
     typeInequation: 'inf' | 'sup',
     graphiqueC: any,
-    reponseCorrecte: string
+    reponseCorrecte: string,
   ) {
     const positionText =
       typeInequation === 'inf'
-        ? estInegStrict ? 'strictement en-dessous de' : ' sur ou sous '
-        : estInegStrict ? 'strictement au-dessus de' : ' sur ou au-dessus de '
+        ? estInegStrict
+          ? 'strictement en-dessous de'
+          : ' sur ou sous '
+        : estInegStrict
+          ? 'strictement au-dessus de'
+          : ' sur ou au-dessus de '
 
     return `Pour résoudre graphiquement cette inéquation : <br>
             $\\bullet$ On trace la parabole d'équation $y=x^2$. <br>
@@ -270,9 +291,9 @@ export default class Auto1AC10d extends ExerciceQcmA {
   versionOriginale: () => void = () => {
     // Version originale : x² ≥ 10
     this.appliquerLesValeurs(
-      10,     // val
-      false,  // estInegStrict
-      'sup'   // typeInequation
+      10, // val
+      false, // estInegStrict
+      'sup', // typeInequation
     )
   }
 
@@ -286,7 +307,7 @@ export default class Auto1AC10d extends ExerciceQcmA {
 
   constructor() {
     super()
-    //this.options = { vertical: true, ordered: false }
+    // this.options = { vertical: true, ordered: false }
     this.versionAleatoire()
     this.besoinFormulaire5CaseACocher = ['Sans la courbe']
   }

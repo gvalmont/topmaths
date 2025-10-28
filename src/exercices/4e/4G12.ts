@@ -1,16 +1,12 @@
+import { colorToLatexOrHTML } from '../../lib/2d/colorToLatexOrHtml'
 import { Droite, droite } from '../../lib/2d/droites'
-import {
-  milieu,
-  Point,
-  point,
-  TracePoint,
-  tracePoint,
-} from '../../lib/2d/points'
+import { grille } from '../../lib/2d/Grille'
+import { milieu, Point, point, tracePoint } from '../../lib/2d/points'
 import { Polygone, polygone } from '../../lib/2d/polygones'
-import { Grille, grille } from '../../lib/2d/reperes'
 import { segment, Vecteur, vecteur } from '../../lib/2d/segmentsVecteurs'
-import { TexteParPointEchelle, texteParPointEchelle } from '../../lib/2d/textes'
+import { texteParPointEchelle } from '../../lib/2d/textes'
 import { homothetie, translation } from '../../lib/2d/transformations'
+import { vide2d, type Vide2d } from '../../lib/2d/Vide2d'
 import { centrage, deuxColonnes } from '../../lib/format/miseEnPage'
 import { texcolors } from '../../lib/format/style'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
@@ -31,18 +27,13 @@ import type {
   SymetrieAnimee,
   TranslationAnimee,
 } from '../../modules/2dAnimation'
-import {
-  colorToLatexOrHTML,
-  mathalea2d,
-  Vide2d,
-  vide2d,
-  type NestedObjetMathalea2dArray,
-} from '../../modules/2dGeneralites'
 import { context } from '../../modules/context'
+import { mathalea2d } from '../../modules/mathalea2d'
 import {
   contraindreValeur,
   listeQuestionsToContenu,
 } from '../../modules/outils'
+import type { NestedObjetMathalea2dArray } from '../../types/2d'
 import Exercice from '../Exercice'
 import { transfoPoly } from './4G12-1'
 
@@ -411,7 +402,7 @@ const motifs = [
   ]),
 ]
 const noeuds: Point[] = []
-const maGrille: (TracePoint | Grille | TexteParPointEchelle)[] = []
+const maGrille: NestedObjetMathalea2dArray = []
 const labels = []
 maGrille.push(grille(0, 0, 16, 16, 'black', 0.2, 0.4))
 for (let i = 0; i < 6; i++) {

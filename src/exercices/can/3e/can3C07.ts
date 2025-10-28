@@ -2,11 +2,11 @@ import { codageSegments } from '../../../lib/2d/codages'
 import { point } from '../../../lib/2d/points'
 import { segmentAvecExtremites } from '../../../lib/2d/segmentsVecteurs'
 import { texteParPosition } from '../../../lib/2d/textes'
-import { stringNombre, texNombre } from '../../../lib/outils/texNombre'
-import ExerciceSimple from '../../ExerciceSimple'
-import { mathalea2d } from '../../../modules/2dGeneralites'
-import { randint } from '../../../modules/outils'
 import { arrondi } from '../../../lib/outils/nombres'
+import { stringNombre, texNombre } from '../../../lib/outils/texNombre'
+import { mathalea2d } from '../../../modules/mathalea2d'
+import { randint } from '../../../modules/outils'
+import ExerciceSimple from '../../ExerciceSimple'
 export const titre = 'Calculer l’abscisse d’un milieu'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -45,18 +45,11 @@ export default class MilieuEntre1EtFraction extends ExerciceSimple {
       codageSegments('||', 'blue', A, B, B, C),
     )
     objets.push(
-      texteParPosition(`${stringNombre(a)}`, 0, -0.7, 'milieu', 'black', 1.5),
+      texteParPosition(`${stringNombre(a)}`, 0, -0.7, 0, 'black', 1.5),
     )
-    objets.push(texteParPosition('M', 4, -0.7, 'milieu', 'black', 1.5))
+    objets.push(texteParPosition('M', 4, -0.7, 0, 'black', 1.5))
     objets.push(
-      texteParPosition(
-        `${stringNombre(b, 1)}`,
-        8,
-        -0.7,
-        'milieu',
-        'black',
-        1.5,
-      ),
+      texteParPosition(`${stringNombre(b, 1)}`, 8, -0.7, 0, 'black', 1.5),
     )
     this.question = `Donner l'abscisse du point $M$ sous forme décimale.<br>
     

@@ -1,13 +1,12 @@
+import { colorToLatexOrHTML } from '../../../lib/2d/colorToLatexOrHtml'
 import { engrenages } from '../../../lib/2d/engrenage'
+import { fixeBordures } from '../../../lib/2d/fixeBordures'
 import { latex2d } from '../../../lib/2d/textes'
 import { choice } from '../../../lib/outils/arrayOutils'
 import { ppcm } from '../../../lib/outils/primalite'
-import {
-  colorToLatexOrHTML,
-  fixeBordures,
-  mathalea2d,
-} from '../../../modules/2dGeneralites'
 import { context } from '../../../modules/context'
+import { mathalea2d } from '../../../modules/mathalea2d'
+
 import { nombreElementsDifferents } from '../../ExerciceQcm'
 import ExerciceQcmA from '../../ExerciceQcmA'
 

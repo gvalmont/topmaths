@@ -1,8 +1,10 @@
-import { combinaisonListes } from '../../lib/outils/arrayOutils'
+import { notify } from '../../bugsnag'
+import { fixeBordures } from '../../lib/2d/fixeBordures'
 import {
-  homothetie3d,
-  translation3d,
-} from '../../lib/3d/3dProjectionMathalea2d/tranformations'
+  point3d,
+  polygone3d,
+  vecteur3d,
+} from '../../lib/3d/3dProjectionMathalea2d/elements'
 import {
   cone3d,
   cylindre3d,
@@ -10,18 +12,17 @@ import {
   pyramide3d,
 } from '../../lib/3d/3dProjectionMathalea2d/solides'
 import {
-  point3d,
-  polygone3d,
-  vecteur3d,
-} from '../../lib/3d/3dProjectionMathalea2d/elements'
+  homothetie3d,
+  translation3d,
+} from '../../lib/3d/3dProjectionMathalea2d/tranformations'
+import { combinaisonListes } from '../../lib/outils/arrayOutils'
 import { context } from '../../modules/context'
+import { mathalea2d } from '../../modules/mathalea2d'
 import {
   listeQuestionsToContenuSansNumero,
   randint,
 } from '../../modules/outils'
-import { fixeBordures, mathalea2d } from '../../modules/2dGeneralites'
 import Exercice from '../Exercice'
-import { notify } from '../../bugsnag'
 
 export const titre = 'Décrire un assemblage de solides'
 export const dateDePublication = '9/3/2024'

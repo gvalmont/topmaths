@@ -1,17 +1,15 @@
-import ExerciceSimple from '../../ExerciceSimple'
 import { randint } from '../../../modules/outils'
+import ExerciceSimple from '../../ExerciceSimple'
 
-import { Grille } from '../../../lib/2d/reperes'
+import { colorToLatexOrHTML } from '../../../lib/2d/colorToLatexOrHtml'
+import { fixeBordures } from '../../../lib/2d/fixeBordures'
+import { grille } from '../../../lib/2d/Grille'
 import { Point } from '../../../lib/2d/points'
 import { Polygone } from '../../../lib/2d/polygones'
-import {
-  colorToLatexOrHTML,
-  fixeBordures,
-  mathalea2d,
-} from '../../../modules/2dGeneralites'
 import { latex2d } from '../../../lib/2d/textes'
-import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
+import { miseEnEvidence } from '../../../lib/outils/embellissements'
+import { mathalea2d } from '../../../modules/mathalea2d'
 export const titre = 'Tracer une figure avec une aire donnée'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -37,7 +35,7 @@ export default class Can2025CM1Q16 extends ExerciceSimple {
 
   nouvelleVersion() {
     const u = this.canOfficielle ? 2 : randint(2, 4)
-    const grille = new Grille(2, 0, 12, 5, 'gray', 1, 1)
+    const grillage = grille(2, 0, 12, 5, 'gray', 1, 1)
     const A = new Point(8, 4)
     const B = new Point(8 + u, 4)
     const C = new Point(8 + u, 5)
@@ -50,7 +48,7 @@ export default class Can2025CM1Q16 extends ExerciceSimple {
     const Unite = latex2d('1 \\text{ua}', (16 + u) / 2, 4.6, {
       letterSize: 'normalsize',
     })
-    const objets = [grille, poly1, Unite]
+    const objets = [grillage, poly1, Unite]
     this.question = `On souhaite tracer une figure d'aire $${a}$ unités d'aire (ua). <br>
        De combien de petits carreaux doit-elle être formée ? `
     this.question += mathalea2d(

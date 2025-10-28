@@ -1,14 +1,12 @@
+import { colorToLatexOrHTML } from '../../../lib/2d/colorToLatexOrHtml'
 import { droite } from '../../../lib/2d/droites'
+import { fixeBordures } from '../../../lib/2d/fixeBordures'
 import { point } from '../../../lib/2d/points'
 import RepereBuilder from '../../../lib/2d/RepereBuilder'
 import { latex2d } from '../../../lib/2d/textes'
 import { choice } from '../../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
-import {
-  colorToLatexOrHTML,
-  fixeBordures,
-  mathalea2d,
-} from '../../../modules/2dGeneralites'
+import { mathalea2d } from '../../../modules/mathalea2d'
 import { nombreElementsDifferents } from '../../ExerciceQcm'
 import ExerciceQcmA from '../../ExerciceQcmA'
 

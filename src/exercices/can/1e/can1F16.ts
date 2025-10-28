@@ -1,16 +1,17 @@
 import { courbe } from '../../../lib/2d/courbes'
+import { fixeBordures } from '../../../lib/2d/fixeBordures'
+import RepereBuilder from '../../../lib/2d/RepereBuilder'
 import { latexParCoordonnees, texteParPosition } from '../../../lib/2d/textes'
+import { deuxColonnesResp } from '../../../lib/format/miseEnPage'
 import { choice } from '../../../lib/outils/arrayOutils'
 import {
   ecritureAlgebrique,
   ecritureParentheseSiNegatif,
   rienSi1,
 } from '../../../lib/outils/ecritures'
-import ExerciceSimple from '../../ExerciceSimple'
-import { fixeBordures, mathalea2d } from '../../../modules/2dGeneralites'
+import { mathalea2d } from '../../../modules/mathalea2d'
 import { randint } from '../../../modules/outils'
-import { deuxColonnesResp } from '../../../lib/format/miseEnPage'
-import RepereBuilder from '../../../lib/2d/RepereBuilder'
+import ExerciceSimple from '../../ExerciceSimple'
 
 export const titre =
   'Déterminer une équation de tangente à partir des courbes de $f$ et $f’$'
@@ -193,7 +194,8 @@ export default class LectureGraphiqueTangente extends ExerciceSimple {
         }
         break
 
-      case 2: { // second degré -(x-alpha)^2+beta
+      case 2: {
+        // second degré -(x-alpha)^2+beta
         if (choice([true, false])) {
           nbre = randint(0, 2)
           alpha = randint(0, 2)

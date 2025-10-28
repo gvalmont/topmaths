@@ -1,32 +1,30 @@
-import { createList } from '../../lib/format/lists'
-import { choice } from '../../lib/outils/arrayOutils'
-import {
-  texteEnCouleurEtGras,
-  texteItalique,
-} from '../../lib/outils/embellissements'
-import ExerciceBrevetA from '../ExerciceBrevetA'
-import { texNombre } from '../../lib/outils/texNombre'
-import { randint } from '../../modules/outils'
+import { codageAngleDroit } from '../../lib/2d/angles'
+import { colorToLatexOrHTML } from '../../lib/2d/colorToLatexOrHtml'
+import { fixeBordures } from '../../lib/2d/fixeBordures'
 import { point } from '../../lib/2d/points'
-import { labelPoint, latex2d } from '../../lib/2d/textes'
-import {
-  colorToLatexOrHTML,
-  fixeBordures,
-  mathalea2d,
-} from '../../modules/2dGeneralites'
 import { polygone } from '../../lib/2d/polygones'
 import { vecteur } from '../../lib/2d/segmentsVecteurs'
+import { labelPoint, latex2d } from '../../lib/2d/textes'
 import { translation } from '../../lib/2d/transformations'
-import { codageAngleDroit } from '../../lib/2d/angles'
-import { centrage, deuxColonnesResp } from '../../lib/format/miseEnPage'
-import { prisme3d } from '../../lib/3d/3dProjectionMathalea2d/solides'
 import {
   point3d,
   polygone3d,
   vecteur3d,
 } from '../../lib/3d/3dProjectionMathalea2d/elements'
-import { context } from '../../modules/context'
+import { prisme3d } from '../../lib/3d/3dProjectionMathalea2d/solides'
+import { createList } from '../../lib/format/lists'
+import { centrage, deuxColonnesResp } from '../../lib/format/miseEnPage'
+import { choice } from '../../lib/outils/arrayOutils'
 import { egalOuApprox } from '../../lib/outils/ecritures'
+import {
+  texteEnCouleurEtGras,
+  texteItalique,
+} from '../../lib/outils/embellissements'
+import { texNombre } from '../../lib/outils/texNombre'
+import { context } from '../../modules/context'
+import { mathalea2d } from '../../modules/mathalea2d'
+import { randint } from '../../modules/outils'
+import ExerciceBrevetA from '../ExerciceBrevetA'
 
 export const uuid = '4beb9'
 export const refs = {

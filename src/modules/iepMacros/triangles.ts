@@ -1,15 +1,16 @@
 import { cercle } from '../../lib/2d/cercle'
 import { droite, droiteParPointEtPerpendiculaire } from '../../lib/2d/droites'
 import {
-  point,
-  Point,
   pointAdistance,
   pointIntersectionCC,
   pointIntersectionDD,
   pointIntersectionLC,
   pointSurSegment,
 } from '../../lib/2d/points'
-import type { PointAbstrait } from '../../lib/2d/points-abstraits'
+import {
+  pointAbstrait,
+  type PointAbstrait,
+} from '../../lib/2d/points-abstraits'
 import { longueur } from '../../lib/2d/segmentsVecteurs'
 import { homothetie, rotation } from '../../lib/2d/transformations'
 import { triangle2points2longueurs } from '../../lib/2d/triangle'
@@ -35,7 +36,7 @@ export const triangle3longueurs = function (
   BC: number,
   options: OptionsCompas = {},
 ) {
-  const A = point(6, 0)
+  const A = pointAbstrait(6, 0)
   const B = pointAdistance(A, AB, randint(-20, 20))
   const p = triangle2points2longueurs(A, B, AC, BC)
   const C = p.listePoints[2]
@@ -118,7 +119,7 @@ export const triangleRectangleCoteHypotenuse = function (
   options: OptionsCompas = {},
 ) {
   // Triangle rectangle en B
-  const A = point(6, 0)
+  const A = pointAbstrait(6, 0)
   const B = pointAdistance(A, AB, randint(-20, 20))
   const dAB = droite(A, B)
   dAB.isVisible = false
@@ -126,7 +127,7 @@ export const triangleRectangleCoteHypotenuse = function (
   dBC.isVisible = false
   const cAC = cercle(A, AC)
   cAC.isVisible = false
-  const C = pointIntersectionLC(dBC, cAC) as Point
+  const C = pointIntersectionLC(dBC, cAC) as PointAbstrait
   const c = homothetie(C, B, 1.2)
   let description = options.description ?? true
   if (ABC.length !== 3) {
@@ -205,7 +206,7 @@ export const triangleRectangle2Cotes = function (
   options: OptionsCompas = {},
 ) {
   // Triangle rectangle en B
-  const A = point(6, 0)
+  const A = pointAbstrait(6, 0)
   const B = pointAdistance(A, AB, randint(-20, 20))
   const dAB = droite(A, B)
   dAB.isVisible = false
@@ -213,7 +214,7 @@ export const triangleRectangle2Cotes = function (
   dBC.isVisible = false
   const cBC = cercle(B, BC)
   cBC.isVisible = false
-  const C = pointIntersectionLC(dBC, cBC) as Point
+  const C = pointIntersectionLC(dBC, cBC) as PointAbstrait
   const c = homothetie(C, B, 1.2)
   let description = options.description ?? true
   if (ABC.length !== 3) {
@@ -292,7 +293,7 @@ export const triangle1longueur2angles = function (
   const angle = randint(-20, 20)
   const a1 = BAC
   const a2 = CBA
-  const A = point(6, 0)
+  const A = pointAbstrait(6, 0)
   const B = pointAdistance(A, AB, angle)
   const D = pointAdistance(A, 5.2, a1 + angle)
   const D2 = pointSurSegment(A, D, 10)
@@ -306,7 +307,7 @@ export const triangle1longueur2angles = function (
   D.isVisible = false
   const d2 = rotation(droite(B, A), B, -a2)
   d2.isVisible = false
-  const C = pointIntersectionDD(d, d2) as Point
+  const C = pointIntersectionDD(d, d2) as PointAbstrait
   let description = options.description ?? true
   const mesure = options.mesure ?? false
   if (NOM.length !== 3) {
@@ -402,7 +403,7 @@ export const triangle2longueurs1angle = function (
   let description = options.description ?? true
   const angle = randint(-20, 20)
   const a1 = BAC
-  const A = point(6, 0)
+  const A = pointAbstrait(6, 0)
   const B = pointAdistance(A, AB, angle)
   const D = pointAdistance(A, 5.2, a1 + angle)
   const D2 = pointSurSegment(A, D, 10)
@@ -513,7 +514,7 @@ export const triangleEquilateral = function (
   NOM: string | string[],
   AB: number,
 ) {
-  const A = point(6, 0)
+  const A = pointAbstrait(6, 0)
   const B = pointAdistance(A, AB, randint(-20, 20))
   const C = rotation(B, A, 60)
   if (NOM.length === 3) {
@@ -546,9 +547,8 @@ export const triangleIsocele2Longueurs = function (
   AC: number, // base,
   options: OptionsCompas = {},
 ) {
-  const A = point(6, 0)
+  const A = pointAbstrait(6, 0)
   const C = pointAdistance(A, AC, randint(-10, 10))
-  const CC = pointAdistance(A, AB, 0)
   const c1 = cercle(A, AB)
   const c2 = cercle(C, AB)
   const B = pointIntersectionCC(c1, c2, 'C', 1) as PointAbstrait

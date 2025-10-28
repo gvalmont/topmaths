@@ -6637,7 +6637,7 @@ export const dictionnaireDNB = {
     mois: 'Juin',
     numeroInitial: '5',
     typeExercice: 'dnb',
-    tags: ['Algorithmique-programmation', 'Probabilités', 'statistiques'],
+    tags: ['Algorithmique-programmation', 'Probabilités', 'Statistiques'],
   },
 
   dnb_2025_06_asie_1: {

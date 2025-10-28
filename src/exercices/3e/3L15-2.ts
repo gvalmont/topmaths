@@ -6,7 +6,7 @@ import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import Exercice from '../Exercice'
 
 export const titre =
-  "Résoudre une équaton du second degré à l'aide la racine carrée"
+  "Résoudre une équation du second degré à l'aide la racine carrée"
 export const dateDePublication = '14/05/2024'
 export const interactifReady = false
 export const uuid = '0f844'

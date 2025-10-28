@@ -1,9 +1,9 @@
-import type { NestedObjetMathalea2dArray } from '../../../modules/2dGeneralites'
-import { Shape3D, shapeCubeIso } from '../figures2d/Shape3d'
+import type { NestedObjetMathalea2dArray } from '../../../types/2d'
 import {
   ajouteCanvas3d,
   type Elements3DDescription,
 } from '../../3d/3d_dynamique/Canvas3DElement'
+import { Shape3D, shapeCubeIso } from '../figures2d/Shape3d'
 
 type Coord3d = [number, number, number, string]
 /**

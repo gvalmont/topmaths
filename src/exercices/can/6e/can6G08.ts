@@ -1,3 +1,4 @@
+import { colorToLatexOrHTML } from '../../../lib/2d/colorToLatexOrHtml'
 import { droite } from '../../../lib/2d/droites'
 import { point, TracePoint, tracePoint } from '../../../lib/2d/points'
 import { latex2d, type Latex2d } from '../../../lib/2d/textes'
@@ -6,16 +7,13 @@ import { ajouteQuestionMathlive } from '../../../lib/interactif/questionMathLive
 import { choisitNombresEntreMetN } from '../../../lib/outils/aleatoires'
 import { shuffle } from '../../../lib/outils/arrayOutils'
 import { range } from '../../../lib/outils/nombres'
-import {
-  colorToLatexOrHTML,
-  mathalea2d,
-  type NestedObjetMathalea2dArray,
-} from '../../../modules/2dGeneralites'
 import { context } from '../../../modules/context'
+import { mathalea2d } from '../../../modules/mathalea2d'
 import {
   gestionnaireFormulaireTexte,
   listeQuestionsToContenu,
 } from '../../../modules/outils'
+import type { NestedObjetMathalea2dArray } from '../../../types/2d'
 import Exercice from '../../Exercice'
 
 export const titre = 'Trouver le symétrique'

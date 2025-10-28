@@ -1,18 +1,20 @@
-import { miseEnEvidence } from '../../../lib/outils/embellissements'
-import { nombreElementsDifferents } from '../../ExerciceQcm'
-import ExerciceQcmA from '../../ExerciceQcmA'
-import { prisme3d } from '../../../lib/3d/3dProjectionMathalea2d/solides'
+import { codageAngleDroit } from '../../../lib/2d/angles'
+import { afficheCoteSegment } from '../../../lib/2d/codages'
+
+import { fixeBordures } from '../../../lib/2d/fixeBordures'
+import { segment } from '../../../lib/2d/segmentsVecteurs'
 import {
   point3d,
   polygone3d,
   vecteur3d,
 } from '../../../lib/3d/3dProjectionMathalea2d/elements'
-import { randint } from '../../../modules/outils'
-import { fixeBordures, mathalea2d } from '../../../modules/2dGeneralites'
-import { codageAngleDroit } from '../../../lib/2d/angles'
-import { afficheCoteSegment } from '../../../lib/2d/codages'
-import { segment } from '../../../lib/2d/segmentsVecteurs'
+import { prisme3d } from '../../../lib/3d/3dProjectionMathalea2d/solides'
+import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { texNombre } from '../../../lib/outils/texNombre'
+import { mathalea2d } from '../../../modules/mathalea2d'
+import { randint } from '../../../modules/outils'
+import { nombreElementsDifferents } from '../../ExerciceQcm'
+import ExerciceQcmA from '../../ExerciceQcmA'
 export const uuid = '279da'
 export const refs = {
   'fr-fr': ['5M2QCM-1'],

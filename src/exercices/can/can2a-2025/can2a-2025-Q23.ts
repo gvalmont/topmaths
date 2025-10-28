@@ -1,10 +1,10 @@
-import ExerciceSimple from '../../ExerciceSimple'
-import { miseEnEvidence } from '../../../lib/outils/embellissements'
-import { mathalea2d } from '../../../modules/2dGeneralites'
+import { grille } from '../../../lib/2d/Grille'
 import { point, tracePoint } from '../../../lib/2d/points'
 import { labelPoint } from '../../../lib/2d/textes'
-import { grille } from '../../../lib/2d/reperes'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
+import { miseEnEvidence } from '../../../lib/outils/embellissements'
+import { mathalea2d } from '../../../modules/mathalea2d'
+import ExerciceSimple from '../../ExerciceSimple'
 
 export const titre = 'Déterminer un vecteur égal sur une grille'
 export const interactifReady = true

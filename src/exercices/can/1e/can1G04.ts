@@ -1,3 +1,4 @@
+import Decimal from 'decimal.js'
 import {
   afficheLongueurSegment,
   afficheMesureAngle,
@@ -5,14 +6,13 @@ import {
 import { point, pointAdistance } from '../../../lib/2d/points'
 import { segment } from '../../../lib/2d/segmentsVecteurs'
 import { labelPoint } from '../../../lib/2d/textes'
-import { choice } from '../../../lib/outils/arrayOutils'
 import { choisitLettresDifferentes } from '../../../lib/outils/aleatoires'
+import { choice } from '../../../lib/outils/arrayOutils'
 import { texNombre } from '../../../lib/outils/texNombre'
-import ExerciceSimple from '../../ExerciceSimple'
-import { mathalea2d } from '../../../modules/2dGeneralites'
-import { randint } from '../../../modules/outils'
-import Decimal from 'decimal.js'
 import FractionEtendue from '../../../modules/FractionEtendue'
+import { mathalea2d } from '../../../modules/mathalea2d'
+import { randint } from '../../../modules/outils'
+import ExerciceSimple from '../../ExerciceSimple'
 export const titre =
   'Calculer un produit scalaire à l’aide de normes et d’un angle '
 export const interactifReady = true

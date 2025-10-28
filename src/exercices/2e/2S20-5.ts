@@ -1,19 +1,20 @@
-import { choice } from '../../lib/outils/arrayOutils'
-import { listeQuestionsToContenu, randint } from '../../modules/outils'
-import Exercice from '../Exercice'
+import { texteSurSegment } from '../../lib/2d/codages'
+import { lectureAntecedent } from '../../lib/2d/courbes'
+import { droite, Droite, droiteHorizontaleParPoint } from '../../lib/2d/droites'
+import { fixeBordures } from '../../lib/2d/fixeBordures'
 import { point, Point, pointIntersectionDD } from '../../lib/2d/points'
 import { polyline } from '../../lib/2d/polygones'
 import RepereBuilder from '../../lib/2d/RepereBuilder'
-import { fixeBordures, mathalea2d } from '../../modules/2dGeneralites'
-import { droite, droiteHorizontaleParPoint, Droite } from '../../lib/2d/droites'
-import { numAlpha } from '../../lib/outils/outilString'
-import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
+import { segment } from '../../lib/2d/segmentsVecteurs'
 import { approximatelyCompare } from '../../lib/interactif/comparisonFunctions'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
+import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
+import { choice } from '../../lib/outils/arrayOutils'
+import { numAlpha } from '../../lib/outils/outilString'
 import { texNombre } from '../../lib/outils/texNombre'
-import { lectureAntecedent } from '../../lib/2d/courbes'
-import { texteSurSegment } from '../../lib/2d/codages'
-import { segment } from '../../lib/2d/segmentsVecteurs'
+import { mathalea2d } from '../../modules/mathalea2d'
+import { listeQuestionsToContenu, randint } from '../../modules/outils'
+import Exercice from '../Exercice'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const dateDePublication = '05/05/2024'
@@ -206,7 +207,6 @@ export default class Quartiles extends Exercice {
           index++
         }
         pts.push(point(valeurMax * echelleX, 100 * echelleY))
-
         ;[q1, q2, q3] = trouveQuartiles(y, pts).map((el) =>
           Math.round(el / echelleX),
         )

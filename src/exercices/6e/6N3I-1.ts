@@ -1,7 +1,8 @@
+import { fixeBordures } from '../../lib/2d/fixeBordures'
 import { choice } from '../../lib/outils/arrayOutils'
 import { rangeMinMax } from '../../lib/outils/nombres'
-import { fixeBordures, mathalea2d } from '../../modules/2dGeneralites'
 import { context } from '../../modules/context'
+import { mathalea2d } from '../../modules/mathalea2d'
 import {
   gestionnaireFormulaireTexte,
   listeQuestionsToContenu,

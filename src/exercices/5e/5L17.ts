@@ -1,11 +1,12 @@
-import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
-import Exercice from '../Exercice'
-import { listeQuestionsToContenu, randint } from '../../modules/outils'
-import { texNombre } from '../../lib/outils/texNombre'
+import { fixeBordures } from '../../lib/2d/fixeBordures'
 import { tableau, type StyledText } from '../../lib/2d/tableau'
-import { arrondi } from '../../lib/outils/nombres'
+import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
 import { lister } from '../../lib/outils/ecritures'
-import { fixeBordures, mathalea2d } from '../../modules/2dGeneralites'
+import { arrondi } from '../../lib/outils/nombres'
+import { texNombre } from '../../lib/outils/texNombre'
+import { mathalea2d } from '../../modules/mathalea2d'
+import { listeQuestionsToContenu, randint } from '../../modules/outils'
+import Exercice from '../Exercice'
 
 export const titre =
   'Traduire la relation de dépendance entre deux grandeurs par un tableau de valeur'

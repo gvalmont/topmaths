@@ -6,10 +6,10 @@ import {
   ecritureAlgebrique,
   ecritureParentheseSiNegatif,
 } from '../../lib/outils/ecritures'
-import Exercice from '../Exercice'
-import { mathalea2d } from '../../modules/2dGeneralites'
 import { context } from '../../modules/context'
+import { mathalea2d } from '../../modules/mathalea2d'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
+import Exercice from '../Exercice'
 
 /* auteur Stéphane Guyon */
 export const titre = 'Résoudre une équation avec des valeurs absolues'

@@ -1,5 +1,6 @@
 import { codageAngleDroit } from '../../lib/2d/angles'
 import { afficheMesureAngle, codageSegments } from '../../lib/2d/codages'
+import { colorToLatexOrHTML } from '../../lib/2d/colorToLatexOrHtml'
 import {
   Droite,
   droiteAvecNomLatex,
@@ -27,12 +28,12 @@ import { texFractionReduite } from '../../lib/outils/deprecatedFractions'
 import { miseEnCouleur, miseEnEvidence } from '../../lib/outils/embellissements'
 import { numAlpha } from '../../lib/outils/outilString'
 import { texNombre } from '../../lib/outils/texNombre'
-import { colorToLatexOrHTML, mathalea2d } from '../../modules/2dGeneralites'
 import { context } from '../../modules/context'
 import {
   imagePointParTransformation,
   type TransformationsIndex,
 } from '../../modules/imagePointParTransformation'
+import { mathalea2d } from '../../modules/mathalea2d'
 import {
   gestionnaireFormulaireTexte,
   listeQuestionsToContenu,

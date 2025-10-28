@@ -1,4 +1,6 @@
 /* eslint-disable camelcase */
+import { colorToLatexOrHTML } from '../../../lib/2d/colorToLatexOrHtml'
+import { fixeBordures } from '../../../lib/2d/fixeBordures'
 import { point, tracePoint } from '../../../lib/2d/points'
 import { texteParPositionEchelle } from '../../../lib/2d/textes'
 import { texteGras } from '../../../lib/format/style'
@@ -7,12 +9,6 @@ import { ajouteChampTexteMathLive } from '../../../lib/interactif/questionMathLi
 import { choice } from '../../../lib/outils/arrayOutils'
 import { ajouterLien } from '../../../lib/outils/enrichissements'
 import { stringNombre } from '../../../lib/outils/texNombre'
-import {
-  colorToLatexOrHTML,
-  fixeBordures,
-  mathalea2d,
-  type NestedObjetMathalea2dArray,
-} from '../../../modules/2dGeneralites'
 import {
   allerA,
   angleScratchTo2d,
@@ -24,6 +20,7 @@ import {
   orienter,
 } from '../../../modules/2dLutin'
 import { context } from '../../../modules/context'
+import { mathalea2d } from '../../../modules/mathalea2d'
 import {
   noteLaCouleur,
   Plateau2dNLC,
@@ -37,6 +34,7 @@ import {
   randint,
 } from '../../../modules/outils'
 import { roseDesVents, scratchblock } from '../../../modules/scratchblock'
+import type { NestedObjetMathalea2dArray } from '../../../types/2d'
 import Exercice from '../../Exercice'
 
 export const dateDePublication = '11/04/2021'

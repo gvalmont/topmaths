@@ -1,4 +1,4 @@
-import { ObjetMathalea2D } from './2dGeneralites'
+import { ObjetMathalea2D } from '../lib/2d/ObjetMathalea2D'
 import { context } from './context'
 
 /**

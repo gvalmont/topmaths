@@ -1,6 +1,7 @@
 import type { MathfieldElement } from 'mathlive'
 import { codageAngle } from '../../lib/2d/angles'
 import { droite } from '../../lib/2d/droites'
+import { fixeBordures } from '../../lib/2d/fixeBordures'
 import { point, tracePoint } from '../../lib/2d/points'
 import { polygone } from '../../lib/2d/polygones'
 import { demiDroite, segment } from '../../lib/2d/segmentsVecteurs'
@@ -15,8 +16,8 @@ import {
   numAlpha,
   reverseString,
 } from '../../lib/outils/outilString'
-import { fixeBordures, mathalea2d } from '../../modules/2dGeneralites'
 import { context } from '../../modules/context'
+import { mathalea2d } from '../../modules/mathalea2d'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import Exercice from '../Exercice'
 const cleaner = generateCleaner(['parentheses', 'espaces'])

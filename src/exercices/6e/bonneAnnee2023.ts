@@ -19,8 +19,8 @@ import {
 } from '../../lib/outils/embellissements'
 import { numAlphaNum, sp } from '../../lib/outils/outilString'
 import { texNombre } from '../../lib/outils/texNombre'
-import { mathalea2d } from '../../modules/2dGeneralites'
 import { context } from '../../modules/context'
+import { mathalea2d } from '../../modules/mathalea2d'
 import Operation from '../../modules/operations'
 import {
   gestionnaireFormulaireTexte,

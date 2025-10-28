@@ -176,24 +176,50 @@
     <h3 class="text-coopmaths-struct dark:text-coopmathsdark-struct font-bold">
       Paramètres
     </h3>
-    {#if exercice.nbQuestionsModifiable}
-      <div>
-        <span
+    <div class="w-full flex flex-row items-end gap-x-4">
+      {#if exercice.nbQuestionsModifiable}
+        <div>
+          <span
+            class="text-sm md:text-normal text-coopmaths-struct dark:text-coopmathsdark-struct font-light"
+          >
+            Nombre de questions :
+          </span>
+          <input
+            type="number"
+            id="settings-nb-questions-{exerciceIndex}"
+            min="1"
+            max="100"
+            bind:value="{nbQuestions}"
+            on:change="{dispatchNewSettings}"
+            autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"
+            class="w-full text-coopmaths-corpus-lightest dark:text-coopmathsdark-corpus-dark border-1 border-coopmaths-action dark:border-coopmathsdark-action focus:border-coopmaths-action dark:focus:border-coopmathsdark-action-lightest focus:outline-0 focus:ring-0 focus:border-1 bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark"
+          />
+        </div>
+      {/if}
+
+      <form
+        id="settings-form-formAlea-{exerciceIndex}"
+        name="settings-form-formAlea"
+        autocomplete="off"
+        on:submit|preventDefault="{dispatchNewSettings}"
+      >
+        <label
           class="text-sm md:text-normal text-coopmaths-struct dark:text-coopmathsdark-struct font-light"
+          for="settings-formAlea-{exerciceIndex}"
         >
-          Nombre de questions :
-        </span>
+          Série :
+        </label>
         <input
-          type="number"
-          id="settings-nb-questions-{exerciceIndex}"
-          min="1"
-          max="100"
-          bind:value="{nbQuestions}"
-          on:change="{dispatchNewSettings}"
           class="w-full text-coopmaths-corpus-lightest dark:text-coopmathsdark-corpus-dark border-1 border-coopmaths-action dark:border-coopmathsdark-action focus:border-coopmaths-action dark:focus:border-coopmathsdark-action-lightest focus:outline-0 focus:ring-0 focus:border-1 bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark"
+          name="settings-formAlea"
+          id="settings-formAlea-{exerciceIndex}"
+          type="text"
+          autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"
+          bind:value="{alea}"
+          on:input="{dispatchNewSettings}"
         />
-      </div>
-    {/if}
+      </form>
+    </div>
     {#if exercice.besoinFormulaireCaseACocher}
       <div class="container">
         <label
@@ -208,6 +234,7 @@
           name="settings-check1"
           type="checkbox"
           id="settings-check1-{exerciceIndex}"
+          autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"
           class="ml-2 bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas border-coopmaths-action text-coopmaths-action dark:border-coopmathsdark-action dark:text-coopmathsdark-action focus:ring-1 focus:ring-coopmaths-action dark:focus:ring-coopmathsdark-action h-4 w-4 rounded cursor-pointer"
           bind:checked="{sup}"
           on:change="{dispatchNewSettings}"
@@ -217,7 +244,7 @@
     {#if formNum1}
       {#if Array.isArray(formNum1.champs)}
         <div class="flex flex-col">
-          <form id="settings-form-formNum1-{exerciceIndex}" action="">
+          <form id="settings-form-formNum1-{exerciceIndex}" action="" autocomplete="off">
             <label
               class="text-sm md:text-normal text-coopmaths-struct dark:text-coopmathsdark-struct font-light"
               for="settings-formNum1-{exerciceIndex}">{formNum1.titre} :</label
@@ -251,6 +278,7 @@
             name="formNum1"
             id="settings-formNum1-{exerciceIndex}"
             type="number"
+            autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"
             class="w-full text-coopmaths-corpus-lightest dark:text-coopmathsdark-corpus-dark border-1 border-coopmaths-action dark:border-coopmathsdark-action focus:border-coopmaths-action dark:focus:border-coopmathsdark-action-lightest focus:outline-0 focus:ring-0 focus:border-1 bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark"
             min="1"
             max="{formNum1.champs}"
@@ -264,6 +292,7 @@
       <form
         id="settings-form-formText1-{exerciceIndex}"
         name="settings-form-formText1"
+        autocomplete="off"
         on:submit|preventDefault="{dispatchNewSettings}"
       >
         {#if typeof exercice.besoinFormulaireTexte !== 'boolean'}
@@ -271,21 +300,23 @@
             class="text-sm md:text-normal text-coopmaths-struct dark:text-coopmathsdark-struct font-light"
             for="settings-formText1-{exerciceIndex}"
           >
-            {exercice.besoinFormulaireTexte[0]} :
+            <div>{exercice.besoinFormulaireTexte[0]} :</div>
+            <div
+              class="w-full pl-4 pb-2 whitespace-pre-wrap text-[80%] text-coopmaths-struct-light leading-tight"
+            >
+              {exercice.besoinFormulaireTexte[1]}
+            </div>
           </label>
-          <div
-            class="tooltip tooltip-bottom w-full before:whitespace-pre-wrap before:content-[attr(data-tip)] before:text-left"
-            data-tip="{exercice.besoinFormulaireTexte[1]}"
-          >
-            <input
-              class="w-full text-coopmaths-corpus-lightest dark:text-coopmathsdark-corpus-dark border-1 border-coopmaths-action dark:border-coopmathsdark-action focus:border-coopmaths-action dark:focus:border-coopmathsdark-action-lightest focus:outline-0 focus:ring-0 focus:border-1 bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark"
-              name="settings-formText1"
-              id="settings-formText1-{exerciceIndex}"
-              type="text"
-              bind:value="{sup}"
-              on:input="{dispatchNewSettings}"
-            />
-          </div>
+
+          <input
+            class="w-full text-coopmaths-corpus-lightest dark:text-coopmathsdark-corpus-dark border-1 border-coopmaths-action dark:border-coopmathsdark-action focus:border-coopmaths-action dark:focus:border-coopmathsdark-action-lightest focus:outline-0 focus:ring-0 focus:border-1 bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark"
+            name="settings-formText1"
+            id="settings-formText1-{exerciceIndex}"
+            type="text"
+            autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"
+            bind:value="{sup}"
+            on:input="{dispatchNewSettings}"
+          />
         {/if}
       </form>
     {/if}
@@ -305,6 +336,7 @@
           name="settings-check2"
           id="settings-check2-{exerciceIndex}"
           type="checkbox"
+          autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"
           class="ml-2 bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas border-coopmaths-action text-coopmaths-action dark:border-coopmathsdark-action dark:text-coopmathsdark-action focus:ring-1 focus:ring-coopmaths-action dark:focus:ring-coopmathsdark-action h-4 w-4 rounded cursor-pointer"
           bind:checked="{sup2}"
           on:change="{dispatchNewSettings}"
@@ -314,7 +346,7 @@
     {#if formNum2}
       {#if Array.isArray(formNum2.champs)}
         <div class="flex flex-col">
-          <form id="settings-form-formNum2-{exerciceIndex}" action="">
+          <form id="settings-form-formNum2-{exerciceIndex}" action="" autocomplete="off">
             <label
               class="text-sm md:text-normal text-coopmaths-struct dark:text-coopmathsdark-struct font-light"
               for="settings-formNum2-{exerciceIndex}">{formNum2.titre} :</label
@@ -348,6 +380,7 @@
             name="settings-formNum2"
             type="number"
             id="settings-formNum2-{exerciceIndex}"
+            autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"
             class="w-full text-coopmaths-corpus-lightest dark:text-coopmathsdark-corpus-dark border-1 border-coopmaths-action dark:border-coopmathsdark-action focus:border-coopmaths-action dark:focus:border-coopmathsdark-action-lightest focus:outline-0 focus:ring-0 focus:border-1 bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark"
             min="1"
             max="{formNum2.champs}"
@@ -361,6 +394,7 @@
       <form
         id="settings-form-formText2-{exerciceIndex}"
         name="settings-form-formText2"
+        autocomplete="off"
         on:submit|preventDefault="{dispatchNewSettings}"
       >
         {#if typeof exercice.besoinFormulaire2Texte !== 'boolean'}
@@ -368,21 +402,23 @@
             class="text-sm md:text-normal text-coopmaths-struct dark:text-coopmathsdark-struct font-light"
             for="settings-formText2-{exerciceIndex}"
           >
-            {exercice.besoinFormulaire2Texte[0]} :
+            <div>{exercice.besoinFormulaire2Texte[0]} :</div>
+            <div
+              class="w-full pl-4 pb-2 whitespace-pre-wrap text-[80%] text-coopmaths-struct-light leading-tight"
+            >
+              {exercice.besoinFormulaire2Texte[1]}
+            </div>
           </label>
-          <div
-            class="tooltip tooltip-bottom w-full before:whitespace-pre-wrap before:content-[attr(data-tip)] before:text-left"
-            data-tip="{exercice.besoinFormulaire2Texte[1]}"
-          >
-            <input
-              class="w-full text-coopmaths-corpus-lightest dark:text-coopmathsdark-corpus-dark border-1 border-coopmaths-action dark:border-coopmathsdark-action focus:border-coopmaths-action dark:focus:border-coopmathsdark-action-lightest focus:outline-0 focus:ring-0 focus:border-1 bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark"
-              name="settings-formText2"
-              id="settings-formText2-{exerciceIndex}"
-              type="text"
-              bind:value="{sup2}"
-              on:input="{dispatchNewSettings}"
-            />
-          </div>
+
+          <input
+            class="w-full text-coopmaths-corpus-lightest dark:text-coopmathsdark-corpus-dark border-1 border-coopmaths-action dark:border-coopmathsdark-action focus:border-coopmaths-action dark:focus:border-coopmathsdark-action-lightest focus:outline-0 focus:ring-0 focus:border-1 bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark"
+            name="settings-formText2"
+            id="settings-formText2-{exerciceIndex}"
+            type="text"
+            autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"
+            bind:value="{sup2}"
+            on:input="{dispatchNewSettings}"
+          />
         {/if}
       </form>
     {/if}
@@ -402,6 +438,7 @@
           name="settings-check3"
           id="settings-check3-{exerciceIndex}"
           type="checkbox"
+          autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"
           class="ml-2 bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas border-coopmaths-action text-coopmaths-action dark:border-coopmathsdark-action dark:text-coopmathsdark-action focus:ring-1 focus:ring-coopmaths-action dark:focus:ring-coopmathsdark-action h-4 w-4 rounded cursor-pointer"
           bind:checked="{sup3}"
           on:change="{dispatchNewSettings}"
@@ -411,7 +448,7 @@
     {#if formNum3}
       {#if Array.isArray(formNum3.champs)}
         <div class="flex flex-col">
-          <form id="settings-form-formNum3-{exerciceIndex}" action="">
+          <form id="settings-form-formNum3-{exerciceIndex}" action="" autocomplete="off">
             <label
               class="text-sm md:text-normal text-coopmaths-struct dark:text-coopmathsdark-struct font-light"
               for="settings-formNum3-{exerciceIndex}">{formNum3.titre} :</label
@@ -445,6 +482,7 @@
             name="settings-formNum3"
             id="settings-formNum3-{exerciceIndex}"
             type="number"
+            autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"
             class="w-full text-coopmaths-corpus-lightest dark:text-coopmathsdark-corpus-dark border-1 border-coopmaths-action dark:border-coopmathsdark-action focus:border-coopmaths-action dark:focus:border-coopmathsdark-action-lightest focus:outline-0 focus:ring-0 focus:border-1 bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark"
             min="1"
             max="{formNum3.champs}"
@@ -458,6 +496,7 @@
       <form
         id="settings-form-formText3-{exerciceIndex}"
         name="settings-form-formText3"
+        autocomplete="off"
         on:submit|preventDefault="{dispatchNewSettings}"
       >
         {#if typeof exercice.besoinFormulaire3Texte !== 'boolean'}
@@ -465,21 +504,23 @@
             class="text-sm md:text-normal text-coopmaths-struct dark:text-coopmathsdark-struct font-light"
             for="settings-formText3-{exerciceIndex}"
           >
-            {exercice.besoinFormulaire3Texte[0]} :
+            <div>{exercice.besoinFormulaire3Texte[0]} :</div>
+            <div
+              class="w-full pl-4 pb-2 whitespace-pre-wrap text-[80%] text-coopmaths-struct-light leading-tight"
+            >
+              {exercice.besoinFormulaire3Texte[1]}
+            </div>
           </label>
-          <div
-            class="tooltip tooltip-bottom w-full before:whitespace-pre-wrap before:content-[attr(data-tip)] before:text-left"
-            data-tip="{exercice.besoinFormulaire3Texte[1]}"
-          >
-            <input
-              class="w-full text-coopmaths-corpus-lightest dark:text-coopmathsdark-corpus-dark border-1 border-coopmaths-action dark:border-coopmathsdark-action focus:border-coopmaths-action dark:focus:border-coopmathsdark-action-lightest focus:outline-0 focus:ring-0 focus:border-1 bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark"
-              name="settings-formText3"
-              id="settings-formText3-{exerciceIndex}"
-              type="text"
-              bind:value="{sup3}"
-              on:input="{dispatchNewSettings}"
-            />
-          </div>
+
+          <input
+            class="w-full text-coopmaths-corpus-lightest dark:text-coopmathsdark-corpus-dark border-1 border-coopmaths-action dark:border-coopmathsdark-action focus:border-coopmaths-action dark:focus:border-coopmathsdark-action-lightest focus:outline-0 focus:ring-0 focus:border-1 bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark"
+            name="settings-formText3"
+            id="settings-formText3-{exerciceIndex}"
+            type="text"
+            autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"
+            bind:value="{sup3}"
+            on:input="{dispatchNewSettings}"
+          />
         {/if}
       </form>
     {/if}
@@ -499,6 +540,7 @@
           name="settings-check4"
           id="settings-check4-{exerciceIndex}"
           type="checkbox"
+          autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"
           class="ml-2 bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas border-coopmaths-action text-coopmaths-action dark:border-coopmathsdark-action dark:text-coopmathsdark-action focus:ring-1 focus:ring-coopmaths-action dark:focus:ring-coopmathsdark-action h-4 w-4 rounded cursor-pointer"
           bind:checked="{sup4}"
           on:change="{dispatchNewSettings}"
@@ -508,7 +550,7 @@
     {#if formNum4}
       {#if Array.isArray(formNum4.champs)}
         <div class="flex flex-col">
-          <form id="settings-form-formNum4-{exerciceIndex}" action="">
+          <form id="settings-form-formNum4-{exerciceIndex}" action="" autocomplete="off">
             <label
               class="text-sm md:text-normal text-coopmaths-struct dark:text-coopmathsdark-struct font-light"
               for="settings-formNum4-{exerciceIndex}">{formNum4.titre} :</label
@@ -542,6 +584,7 @@
             name="settings-formNum4"
             id="settings-formNum4-{exerciceIndex}"
             type="number"
+            autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"
             class="w-full text-coopmaths-corpus-lightest dark:text-coopmathsdark-corpus-dark border-1 border-coopmaths-action dark:border-coopmathsdark-action focus:border-coopmaths-action dark:focus:border-coopmathsdark-action-lightest focus:outline-0 focus:ring-0 focus:border-1 bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark"
             min="1"
             max="{formNum4.champs}"
@@ -556,6 +599,7 @@
         id="settings-form-formText4-{exerciceIndex}"
         name="settings-form-formText4"
         class="flex flex-col justify-start"
+        autocomplete="off"
         on:submit|preventDefault="{dispatchNewSettings}"
       >
         {#if typeof exercice.besoinFormulaire4Texte !== 'boolean'}
@@ -563,21 +607,23 @@
             class="text-sm md:text-normal text-coopmaths-struct dark:text-coopmathsdark-struct font-light"
             for="settings-formText4-{exerciceIndex}"
           >
-            {exercice.besoinFormulaire4Texte[0]} :
+            <div>{exercice.besoinFormulaire4Texte[0]} :</div>
+            <div
+              class="w-full pl-4 pb-2 whitespace-pre-wrap text-[80%] text-coopmaths-struct-light leading-tight"
+            >
+              {exercice.besoinFormulaire4Texte[1]}
+            </div>
           </label>
-          <div
-            class="tooltip tooltip-bottom w-full before:whitespace-pre-wrap before:content-[attr(data-tip)] before:text-left"
-            data-tip="{exercice.besoinFormulaire4Texte[1]}"
-          >
-            <input
-              class="w-full text-coopmaths-corpus-lightest dark:text-coopmathsdark-corpus-dark border-1 border-coopmaths-action dark:border-coopmathsdark-action focus:border-coopmaths-action dark:focus:border-coopmathsdark-action-lightest focus:outline-0 focus:ring-0 focus:border-1 bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark"
-              name="settings-formText4"
-              id="settings-formText4-{exerciceIndex}"
-              type="text"
-              bind:value="{sup4}"
-              on:input="{dispatchNewSettings}"
-            />
-          </div>
+
+          <input
+            class="w-full text-coopmaths-corpus-lightest dark:text-coopmathsdark-corpus-dark border-1 border-coopmaths-action dark:border-coopmathsdark-action focus:border-coopmaths-action dark:focus:border-coopmathsdark-action-lightest focus:outline-0 focus:ring-0 focus:border-1 bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark"
+            name="settings-formText4"
+            id="settings-formText4-{exerciceIndex}"
+            type="text"
+            autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"
+            bind:value="{sup4}"
+            on:input="{dispatchNewSettings}"
+          />
         {/if}
       </form>
     {/if}
@@ -597,6 +643,7 @@
           name="settings-check5"
           id="settings-check5-{exerciceIndex}"
           type="checkbox"
+          autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"
           class="ml-2 bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas border-coopmaths-action text-coopmaths-action dark:border-coopmathsdark-action dark:text-coopmathsdark-action focus:ring-1 focus:ring-coopmaths-action dark:focus:ring-coopmathsdark-action h-4 w-4 rounded cursor-pointer"
           bind:checked="{sup5}"
           on:change="{dispatchNewSettings}"
@@ -606,7 +653,7 @@
     {#if formNum5}
       {#if Array.isArray(formNum5.champs)}
         <div class="flex flex-col">
-          <form id="settings-form-formNum5-{exerciceIndex}" action="">
+          <form id="settings-form-formNum5-{exerciceIndex}" action="" autocomplete="off">
             <label
               class="text-sm md:text-normal text-coopmaths-struct dark:text-coopmathsdark-struct font-light"
               for="settings-formNum5-{exerciceIndex}">{formNum5.titre} :</label
@@ -640,6 +687,7 @@
             name="settings-formNum5"
             id="settings-formNum5-{exerciceIndex}"
             type="number"
+            autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"
             class="w-full text-coopmaths-corpus-lightest dark:text-coopmathsdark-corpus-dark border-1 border-coopmaths-action dark:border-coopmathsdark-action focus:border-coopmaths-action dark:focus:border-coopmathsdark-action-lightest focus:outline-0 focus:ring-0 focus:border-1 bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark"
             min="1"
             max="{formNum5.champs}"
@@ -654,6 +702,7 @@
         id="settings-form-formText5-{exerciceIndex}"
         name="settings-form-formText5"
         class="flex flex-col justify-start"
+        autocomplete="off"
         on:submit|preventDefault="{dispatchNewSettings}"
       >
         {#if typeof exercice.besoinFormulaire5Texte !== 'boolean'}
@@ -661,10 +710,15 @@
             class="text-sm md:text-normal text-coopmaths-struct dark:text-coopmathsdark-struct font-light"
             for="settings-formText5-{exerciceIndex}"
           >
-            {exercice.besoinFormulaire5Texte[0]} :
+            <div>{exercice.besoinFormulaire5Texte[0]} :</div>
+            <div
+              class="w-full pl-4 pb-2 whitespace-pre-wrap text-[80%] text-coopmaths-struct-light leading-tight"
+            >
+              {exercice.besoinFormulaire5Texte[1]}
+            </div>
           </label>
           <div
-            class="tooltip tooltip-bottom w-full before:whitespace-pre-wrap before:content-[attr(data-tip)] before:text-left"
+            class="tooltip tooltip-top after:z-[500] w-full before:whitespace-pre-wrap before:content-[attr(data-tip)] before:text-left"
             data-tip="{exercice.besoinFormulaire5Texte[1]}"
           >
             <input
@@ -672,6 +726,7 @@
               name="settings-formText5"
               id="settings-formText5-{exerciceIndex}"
               type="text"
+              autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"
               bind:value="{sup5}"
               on:input="{dispatchNewSettings}"
             />
@@ -692,6 +747,7 @@
         <input
           type="checkbox"
           id="settings-correction-detaillee-{exerciceIndex}"
+          autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"
           class="ml-2 bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas border-coopmaths-action text-coopmaths-action dark:border-coopmathsdark-action dark:text-coopmathsdark-action focus:ring-1 focus:ring-coopmaths-action dark:focus:ring-coopmathsdark-action h-4 w-4 rounded cursor-pointer"
           bind:checked="{correctionDetaillee}"
           on:change="{dispatchNewSettings}"
@@ -711,32 +767,14 @@
         <input
           type="checkbox"
           id="settings-version-qcm-{exerciceIndex}"
+          autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"
           class="ml-2 bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas border-coopmaths-action text-coopmaths-action dark:border-coopmathsdark-action dark:text-coopmathsdark-action focus:ring-1 focus:ring-coopmaths-action dark:focus:ring-coopmathsdark-action h-4 w-4 rounded cursor-pointer"
           bind:checked="{versionQcm}"
           on:change="{dispatchNewSettings}"
         />
       </div>
     {/if}
-    <form
-      id="settings-form-formAlea-{exerciceIndex}"
-      name="settings-form-formAlea"
-      on:submit|preventDefault="{dispatchNewSettings}"
-    >
-      <label
-        class="text-sm md:text-normal text-coopmaths-struct dark:text-coopmathsdark-struct font-light"
-        for="settings-formAlea-{exerciceIndex}"
-      >
-        Série :
-      </label>
-      <input
-        class="w-full text-coopmaths-corpus-lightest dark:text-coopmathsdark-corpus-dark border-1 border-coopmaths-action dark:border-coopmathsdark-action focus:border-coopmaths-action dark:focus:border-coopmathsdark-action-lightest focus:outline-0 focus:ring-0 focus:border-1 bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark"
-        name="settings-formAlea"
-        id="settings-formAlea-{exerciceIndex}"
-        type="text"
-        bind:value="{alea}"
-        on:input="{dispatchNewSettings}"
-      />
-    </form>
+
     {#if exercice.comment !== undefined}
       <div class="flex flex-col justify-start items-start p-2">
         <button

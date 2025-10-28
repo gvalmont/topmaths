@@ -3,29 +3,30 @@
   import { tweened } from 'svelte/motion'
   import type Latex from '../../../lib/Latex'
   import {
-      buildImagesUrlsList,
-      doesLatexNeedsPics,
-      getExosContentList,
-      getPicsNames,
-      type LatexFileInfos,
+    buildImagesUrlsList,
+    doesLatexNeedsPics,
+    getExosContentList,
+    getPicsNames,
+    type LatexFileInfos,
   } from '../../../lib/Latex'
   import PdFviewer from '../../shared/forms/PDFviewer.svelte'
 
   export let latex: Latex
   export let latexFileInfos: LatexFileInfos
-
+  export let autoStart: boolean
 
   let pdfBlob: Blob | null = null
   let downloadFilename: string | null = null
   let clockAbled = false
+  let errorMessage: string | null = null // 🟠 <-- nouvelle variable d’état
 
   const original = 60 // secondes
   const timer = tweened(original)
 
   // fabrique un nom de fichier
-  function generateFilename(prefix = "document", ext = "pdf") {
+  function generateFilename(prefix = 'document', ext = 'pdf') {
     const now = new Date()
-    const pad = (n: number) => String(n).padStart(2, "0")
+    const pad = (n: number) => String(n).padStart(2, '0')
     const date = `${now.getFullYear()}-${pad(now.getMonth() + 1)}-${pad(now.getDate())}`
     const time = `${pad(now.getHours())}${pad(now.getMinutes())}${pad(now.getSeconds())}`
     return `${prefix}_${date}_${time}.${ext}`
@@ -38,6 +39,7 @@
 
   // 🟢 fonction de compilation
   export async function compileToPDF() {
+    errorMessage = null // 🧹 reset erreur à chaque tentative
     const contents = await latex.getContents(latexFileInfos)
     if (contents.content === '') {
       pdfBlob = null
@@ -73,7 +75,7 @@
     timer.set(original)
     clockAbled = true
     const timeValue = setInterval(() => {
-      timer.update(n => {
+      timer.update((n) => {
         if (n > 0) return n - 1
         clearInterval(timeValue)
         return 0
@@ -84,28 +86,46 @@
       const res = await fetch('https://latexcompiler.duckdns.org/generate', {
         method: 'POST',
         body: formData,
-        signal: AbortSignal.timeout(60 * 1000)
+        signal: AbortSignal.timeout(60 * 1000),
       })
-      if (res.status !== 200) throw new Error("Erreur compilation")
+      if (res.status !== 200) throw new Error('Erreur compilation')
       const blob = await res.blob()
-      await downloadAndExtractPDF(blob, generateFilename("document", "pdf"))
+      await downloadAndExtractPDF(blob, generateFilename('document', 'pdf'))
     } catch (err) {
-      console.error("Erreur de compilation:", err)
+      console.error('Erreur de compilation:', err)
+      errorMessage = err instanceof Error ? err.message : String(err)
     } finally {
       clockAbled = false
     }
   }
-  
+
   // auto-lancement
   onMount(() => {
-    compileToPDF()
+    if (autoStart) compileToPDF()
   })
 </script>
 
 <div class="flex flex-col h-full">
+  {#if !autoStart}
+    <!-- 🟣 Bouton manuel pour lancer la compilation -->
+    <div class="m-2 text-center">
+      <button
+        on:click="{compileToPDF}"
+        class="px-3 py-1 rounded bg-coopmaths-action text-white hover:bg-coopmaths-action-lightest disabled:opacity-50"
+        disabled="{clockAbled}"
+      >
+        {#if clockAbled}
+          Compilation en cours...
+        {:else}
+          Compiler en PDF
+        {/if}
+      </button>
+    </div>
+  {/if}
+
   {#if clockAbled}
     <div class="loader text-center m-2">
-      <progress value={$timer / original}></progress>
+      <progress value="{$timer / original}"></progress>
       {$timer.toFixed(0)}s
     </div>
   {/if}
@@ -114,8 +134,8 @@
     {#if downloadFilename}
       <div class="m-2">
         <a
-          href={URL.createObjectURL(pdfBlob)}
-          download={downloadFilename}
+          href="{URL.createObjectURL(pdfBlob)}"
+          download="{downloadFilename}"
           class="px-3 py-1 rounded bg-coopmaths-action text-white hover:bg-coopmaths-action-lightest"
         >
           Télécharger {downloadFilename}
@@ -124,13 +144,24 @@
     {/if}
 
     <div class="flex-1 overflow-auto m-2">
-      <PdFviewer blob={pdfBlob} />
+      <PdFviewer blob="{pdfBlob}" />
     </div>
   {/if}
 
-  {#if !pdfBlob && !clockAbled}
-    <div class="m-2 text-center text-coopmaths-corpus dark:text-coopmathsdark-corpus">
+  {#if !pdfBlob && !clockAbled && !errorMessage}
+    <div
+      class="m-2 text-center text-coopmaths-corpus dark:text-coopmathsdark-corpus"
+    >
       Aucun PDF généré
+    </div>
+  {/if}
+
+  <!-- 🔴 Message d’erreur -->
+  {#if errorMessage}
+    <div
+      class="m-2 p-2 text-center text-red-600 border border-red-400 bg-red-50 rounded"
+    >
+      ⚠️ Aucun PDF généré : {errorMessage}
     </div>
   {/if}
 </div>

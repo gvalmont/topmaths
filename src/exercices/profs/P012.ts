@@ -1,6 +1,6 @@
-import Exercice from '../Exercice'
-import { mathalea2d } from '../../modules/2dGeneralites'
 import { context } from '../../modules/context'
+import { mathalea2d } from '../../modules/mathalea2d'
+import Exercice from '../Exercice'
 
 import { fraction } from '../../modules/fractions'
 import { gestionnaireFormulaireTexte } from '../../modules/outils'

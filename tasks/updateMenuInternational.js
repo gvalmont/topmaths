@@ -74,7 +74,8 @@ async function readInfos(
               `console.log trouvé dans ${filePath}`,
             )
           }
-          const matchUuid = data.match(/export const uuid = '(.*)'/)
+          // const matchUuid = data.match(/export const uuid = '(.*)'/) // EE : Cet ancien code ne gérait pas si un commentaire avec apostrophe suivant uuid.
+          const matchUuid = data.match(/export const uuid\s*=\s*'([^']*)'/)
           infos.url = filePath.replace('src/exercices/', '')
           infos.tags = []
           if (matchUuid) {

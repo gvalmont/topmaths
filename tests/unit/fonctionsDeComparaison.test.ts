@@ -201,7 +201,7 @@ describe('fonctionComparaison', () => {
     })
     expect(result.isOk).toBe(false)
     expect(result.feedback).toBe(
-      'Résultat incorrect car un calcul est attendu.',
+      'Ce résultat pourrait être correct mais un calcul est attendu.',
     )
     const result2 = fonctionComparaison('2\\times3+1', '1+3\\times2', {
       expressionNumerique: true,
@@ -220,7 +220,7 @@ describe('fonctionComparaison', () => {
     })
     expect(result5.isOk).toBe(false)
     expect(result5.feedback).toBe(
-      "Résultat incorrect car ce n'est pas ce calcul qui est attendu.",
+      "Ce résultat pourrait être correct mais ce n'est pas ce calcul qui est attendu.",
     )
   })
 

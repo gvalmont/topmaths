@@ -6,7 +6,7 @@ import {
   type NoeudSpline,
 } from '../../lib/mathFonctions/Spline'
 import { choice, shuffle } from '../../lib/outils/arrayOutils'
-import { mathalea2d } from '../../modules/2dGeneralites'
+import { mathalea2d } from '../../modules/mathalea2d'
 import { randint } from '../../modules/outils'
 
 import { ecritureParentheseSiNegatif } from '../../lib/outils/ecritures'

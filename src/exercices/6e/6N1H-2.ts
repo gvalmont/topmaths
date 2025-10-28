@@ -1,4 +1,3 @@
-import { droiteGraduee } from '../../lib/2d/reperes'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { choisitLettresDifferentes } from '../../lib/outils/aleatoires'
@@ -10,12 +9,13 @@ import {
 } from '../../lib/outils/nombres'
 import { numAlpha, sp } from '../../lib/outils/outilString'
 import { stringNombre, texNombre } from '../../lib/outils/texNombre'
-import { mathalea2d } from '../../modules/2dGeneralites'
 import { context } from '../../modules/context'
 import FractionEtendue from '../../modules/FractionEtendue'
+import { mathalea2d } from '../../modules/mathalea2d'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import Exercice from '../Exercice'
 
+import { droiteGraduee } from '../../lib/2d/DroiteGraduee'
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
 

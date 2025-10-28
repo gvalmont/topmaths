@@ -1,10 +1,10 @@
-import { droiteGraduee } from '../../../lib/2d/reperes'
 import { latex2d } from '../../../lib/2d/textes'
 import { choice } from '../../../lib/outils/arrayOutils'
 import { texNombre } from '../../../lib/outils/texNombre'
 
+import { droiteGraduee } from '../../../lib/2d/DroiteGraduee'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
-import { mathalea2d } from '../../../modules/2dGeneralites'
+import { mathalea2d } from '../../../modules/mathalea2d'
 import ExerciceSimple from '../../ExerciceSimple'
 export const titre =
   "Lire l'abscisse décimale d'un point sur une droite graduée"

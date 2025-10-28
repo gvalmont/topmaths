@@ -1,22 +1,23 @@
-import { createList } from '../../lib/format/lists'
-import { choice } from '../../lib/outils/arrayOutils'
-import { texteItalique } from '../../lib/outils/embellissements'
-import FractionEtendue from '../../modules/FractionEtendue'
-import ExerciceBrevetA from '../ExerciceBrevetA'
-import { texNombre } from '../../lib/outils/texNombre'
-import { choisitLettresDifferentes } from '../../lib/outils/aleatoires'
-import { randint } from '../../modules/outils'
+import { cercle } from '../../lib/2d/cercle'
+import { Droite, droite, droiteParPointEtParallele } from '../../lib/2d/droites'
+import { fixeBordures } from '../../lib/2d/fixeBordures'
 import {
   point,
   pointIntersectionCC,
   pointIntersectionDD,
 } from '../../lib/2d/points'
-import { cercle } from '../../lib/2d/cercle'
-import { labelPoint, latex2d } from '../../lib/2d/textes'
-import { Droite, droite, droiteParPointEtParallele } from '../../lib/2d/droites'
-import { fixeBordures, mathalea2d } from '../../modules/2dGeneralites'
 import { polygone } from '../../lib/2d/polygones'
 import { segment } from '../../lib/2d/segmentsVecteurs'
+import { labelPoint, latex2d } from '../../lib/2d/textes'
+import { createList } from '../../lib/format/lists'
+import { choisitLettresDifferentes } from '../../lib/outils/aleatoires'
+import { choice } from '../../lib/outils/arrayOutils'
+import { texteItalique } from '../../lib/outils/embellissements'
+import { texNombre } from '../../lib/outils/texNombre'
+import FractionEtendue from '../../modules/FractionEtendue'
+import { mathalea2d } from '../../modules/mathalea2d'
+import { randint } from '../../modules/outils'
+import ExerciceBrevetA from '../ExerciceBrevetA'
 
 export const uuid = '4beb8'
 export const refs = {

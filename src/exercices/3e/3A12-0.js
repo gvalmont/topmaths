@@ -1,4 +1,5 @@
 import { engrenages } from '../../lib/2d/engrenage'
+import { fixeBordures } from '../../lib/2d/fixeBordures'
 import { bleuMathalea } from '../../lib/colors'
 import { setReponse } from '../../lib/interactif/gestionInteractif'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
@@ -6,8 +7,8 @@ import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { numAlpha } from '../../lib/outils/outilString'
 import { ppcm } from '../../lib/outils/primalite'
 import { texNombre } from '../../lib/outils/texNombre'
-import { fixeBordures, mathalea2d } from '../../modules/2dGeneralites'
 import { context } from '../../modules/context'
+import { mathalea2d } from '../../modules/mathalea2d'
 import {
   gestionnaireFormulaireTexte,
   listeQuestionsToContenu,

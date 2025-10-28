@@ -1,11 +1,12 @@
 import { randint } from '../../../modules/outils'
 import ExerciceSimple from '../../ExerciceSimple'
 
+import { fixeBordures } from '../../../lib/2d/fixeBordures'
 import { plaque3d } from '../../../lib/3d/3dProjectionMathalea2d/solides'
-import { fixeBordures, mathalea2d } from '../../../modules/2dGeneralites'
+import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { context } from '../../../modules/context'
-import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
+import { mathalea2d } from '../../../modules/mathalea2d'
 
 export const titre = 'Déterminer un nombre de cubes dans une pyramide'
 export const interactifReady = true

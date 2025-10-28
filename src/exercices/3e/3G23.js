@@ -1,6 +1,5 @@
 /* eslint-disable camelcase */
 import { angleOriente } from '../../lib/2d/angles'
-import { arc } from '../../lib/2d/cercle'
 import { codageSegments } from '../../lib/2d/codages'
 import { droite } from '../../lib/2d/droites'
 import {
@@ -11,26 +10,25 @@ import {
   tracePoint,
 } from '../../lib/2d/points'
 import { barycentre, nommePolygone, polygone } from '../../lib/2d/polygones'
-import { grille } from '../../lib/2d/reperes'
 import { segment, vecteur } from '../../lib/2d/segmentsVecteurs'
 import { labelPoint } from '../../lib/2d/textes'
 import { rotation } from '../../lib/2d/transformations'
 import { aireTriangle } from '../../lib/2d/triangle'
+import { texteGras } from '../../lib/format/style'
 import { choice, shuffle } from '../../lib/outils/arrayOutils'
 import { texteEnCouleur } from '../../lib/outils/embellissements'
-import { texteGras } from '../../lib/format/style'
 /* eslint-disable prefer-const */
 /* eslint-disable no-case-declarations */
-import Exercice from '../Exercice'
-import {
-  mathalea2d,
-  colorToLatexOrHTML,
-  vide2d,
-} from '../../modules/2dGeneralites'
-import { listeQuestionsToContenu, randint } from '../../modules/outils'
-import { rotationAnimee, translationAnimee } from '../../modules/2dAnimation'
+import { arc } from '../../lib/2d/Arc'
+import { grille } from '../../lib/2d/Grille'
+import { vide2d } from '../../lib/2d/Vide2d'
+import { colorToLatexOrHTML } from '../../lib/2d/colorToLatexOrHtml'
 import { propositionsQcm } from '../../lib/interactif/qcm'
+import { rotationAnimee, translationAnimee } from '../../modules/2dAnimation'
 import { context } from '../../modules/context'
+import { mathalea2d } from '../../modules/mathalea2d'
+import { listeQuestionsToContenu, randint } from '../../modules/outils'
+import Exercice from '../Exercice'
 export const interactifReady = true
 export const interactifType = 'qcm'
 

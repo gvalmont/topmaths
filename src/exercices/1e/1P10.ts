@@ -8,8 +8,8 @@ import { texFractionFromString } from '../../lib/outils/deprecatedFractions'
 import { egalOuApprox } from '../../lib/outils/ecritures'
 import { arrondi } from '../../lib/outils/nombres'
 import { sp } from '../../lib/outils/outilString'
-import { mathalea2d } from '../../modules/2dGeneralites'
 import { context } from '../../modules/context'
+import { mathalea2d } from '../../modules/mathalea2d'
 import {
   contraindreValeur,
   listeQuestionsToContenu,

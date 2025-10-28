@@ -1,4 +1,5 @@
 import Decimal from 'decimal.js'
+import { fixeBordures } from '../../lib/2d/fixeBordures'
 import { point, tracePoint } from '../../lib/2d/points'
 import RepereBuilder from '../../lib/2d/RepereBuilder'
 import { createList } from '../../lib/format/lists'
@@ -8,8 +9,8 @@ import { arrondi } from '../../lib/outils/nombres'
 import { sp } from '../../lib/outils/outilString'
 import { prenom } from '../../lib/outils/Personne'
 import { texNombre } from '../../lib/outils/texNombre'
-import { fixeBordures, mathalea2d } from '../../modules/2dGeneralites'
 import { context } from '../../modules/context'
+import { mathalea2d } from '../../modules/mathalea2d'
 import {
   gestionnaireFormulaireTexte,
   listeQuestionsToContenu,

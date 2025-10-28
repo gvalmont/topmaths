@@ -4,9 +4,9 @@ import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { remplisLesBlancs } from '../../lib/interactif/questionMathLive'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { rangeMinMax } from '../../lib/outils/nombres'
-import { mathalea2d } from '../../modules/2dGeneralites'
 import { fractionCliquable } from '../../modules/2dinteractif'
 import { context } from '../../modules/context'
+import { mathalea2d } from '../../modules/mathalea2d'
 import {
   gestionnaireFormulaireTexte,
   listeQuestionsToContenu,

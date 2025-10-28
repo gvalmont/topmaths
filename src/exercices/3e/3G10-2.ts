@@ -1,4 +1,3 @@
-import { choice } from '../../lib/outils/arrayOutils'
 import Transformations from '../6e/_Transformations'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -23,6 +22,6 @@ export const refs = {
 export default class Transformations3e extends Transformations {
   constructor() {
     super()
-    this.sup = choice(['5-6-9', '5-6-10', '5-9-10', '6-9-10'])
+    this.sup = '5-8-9'
   }
 }

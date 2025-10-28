@@ -2,6 +2,7 @@ import { codageAngleDroit } from '../../lib/2d/angles'
 import { cercle } from '../../lib/2d/cercle'
 import { afficheMesureAngle, placeLatexSurSegment } from '../../lib/2d/codages'
 import { Droite, droite, mediatrice } from '../../lib/2d/droites'
+import { fixeBordures } from '../../lib/2d/fixeBordures'
 import {
   Point,
   pointAdistance,
@@ -17,18 +18,15 @@ import { combinaisonListes } from '../../lib/outils/arrayOutils'
 import { texteEnCouleurEtGras } from '../../lib/outils/embellissements'
 import { range } from '../../lib/outils/nombres'
 import { texNombre } from '../../lib/outils/texNombre'
-import {
-  fixeBordures,
-  mathalea2d,
-  type NestedObjetMathalea2dArray,
-} from '../../modules/2dGeneralites'
 import { context } from '../../modules/context'
+import { mathalea2d } from '../../modules/mathalea2d'
 import {
   listeQuestionsToContenu,
   randint,
   texEnumerateSansNumero,
 } from '../../modules/outils'
 import { Triangle } from '../../modules/Triangle'
+import type { NestedObjetMathalea2dArray } from '../../types/2d'
 import Exercice from '../Exercice'
 export const dateDeModifImportante = '25/07/2023'
 export const titre = 'Utiliser le vocabulaire des triangles'

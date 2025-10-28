@@ -1,17 +1,17 @@
-import ExerciceSimple from '../../ExerciceSimple'
-import { miseEnEvidence } from '../../../lib/outils/embellissements'
-import { choice } from '../../../lib/outils/arrayOutils'
-import { context } from '../../../modules/context'
-import { mathalea2d } from '../../../modules/2dGeneralites'
+import { grille } from '../../../lib/2d/Grille'
 import { milieu, point } from '../../../lib/2d/points'
-import FractionEtendue from '../../../modules/FractionEtendue'
-import { texteParPosition } from '../../../lib/2d/textes'
-import { grille } from '../../../lib/2d/reperes'
 import {
   segment,
   segmentAvecExtremites,
 } from '../../../lib/2d/segmentsVecteurs'
+import { texteParPosition } from '../../../lib/2d/textes'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
+import { choice } from '../../../lib/outils/arrayOutils'
+import { miseEnEvidence } from '../../../lib/outils/embellissements'
+import { context } from '../../../modules/context'
+import FractionEtendue from '../../../modules/FractionEtendue'
+import { mathalea2d } from '../../../modules/mathalea2d'
+import ExerciceSimple from '../../ExerciceSimple'
 
 export const titre = "Déterminer la longueur d'une ligne brisée"
 export const interactifReady = true

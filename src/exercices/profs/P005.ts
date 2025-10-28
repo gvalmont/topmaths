@@ -1,14 +1,14 @@
-import { point } from '../../lib/2d/points'
-import { carre, polygone } from '../../lib/2d/polygones'
 import {
   grille,
   lignesHorizontales,
   lignesVerticales,
-} from '../../lib/2d/reperes'
+} from '../../lib/2d/Grille'
+import { point } from '../../lib/2d/points'
+import { carre, polygone } from '../../lib/2d/polygones'
 import { segment } from '../../lib/2d/segmentsVecteurs'
 import { texteParPosition } from '../../lib/2d/textes'
+import { mathalea2d } from '../../modules/mathalea2d'
 import Exercice from '../Exercice'
-import { mathalea2d } from '../../modules/2dGeneralites'
 
 export const titre = 'Grilles décimales'
 

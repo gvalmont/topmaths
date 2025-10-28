@@ -1,6 +1,5 @@
 import { milieu, point } from '../../../lib/2d/points'
 import { polygoneAvecNom } from '../../../lib/2d/polygones'
-import { droiteGraduee } from '../../../lib/2d/reperes'
 import {
   segment,
   segmentAvecExtremites,
@@ -13,11 +12,11 @@ import { arrondi } from '../../../lib/outils/nombres'
 import { sp } from '../../../lib/outils/outilString'
 import { prenomF } from '../../../lib/outils/Personne'
 import { stringNombre, texNombre } from '../../../lib/outils/texNombre'
-import { mathalea2d } from '../../../modules/2dGeneralites'
 import { context } from '../../../modules/context'
 import FractionEtendue from '../../../modules/FractionEtendue'
 import { fraction } from '../../../modules/fractions'
 import Hms from '../../../modules/Hms'
+import { mathalea2d } from '../../../modules/mathalea2d'
 import { listeQuestionsToContenu, randint } from '../../../modules/outils'
 import Exercice from '../../Exercice'
 
@@ -27,6 +26,7 @@ import {
 } from '../../../lib/interactif/gestionInteractif'
 import { ajouteChampTexteMathLive } from '../../../lib/interactif/questionMathLive'
 
+import { droiteGraduee } from '../../../lib/2d/DroiteGraduee'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 
 export const titre = 'CAN 6e sujet 2018'

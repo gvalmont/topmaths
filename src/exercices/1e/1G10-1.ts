@@ -1,22 +1,20 @@
-import { point, tracePoint } from '../../lib/2d/points.js'
-import { droite } from '../../lib/2d/droites.js'
-import { vecteur, longueur } from '../../lib/2d/segmentsVecteurs.js'
-import { grille } from '../../lib/2d/reperes.js'
-import { projectionOrtho } from '../../lib/2d/transformations.js'
-import { miseEnEvidence, texteGras } from '../../lib/outils/embellissements.js'
-import Exercice from '../Exercice.js'
-import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
-import {
-  fixeBordures,
-  mathalea2d,
-  colorToLatexOrHTML,
-} from '../../modules/2dGeneralites.js'
-import { labelPoint } from '../../lib/2d/textes.js'
 import { codageAngleDroit } from '../../lib/2d/angles.js'
-import { combinaisonListes } from '../../lib/outils/arrayOutils'
-import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
+import { colorToLatexOrHTML } from '../../lib/2d/colorToLatexOrHtml'
+import { droite } from '../../lib/2d/droites.js'
+import { fixeBordures } from '../../lib/2d/fixeBordures'
+import { grille } from '../../lib/2d/Grille'
+import { point, tracePoint } from '../../lib/2d/points.js'
+import { longueur, vecteur } from '../../lib/2d/segmentsVecteurs.js'
+import { labelPoint } from '../../lib/2d/textes.js'
+import { projectionOrtho } from '../../lib/2d/transformations.js'
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
+import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
+import { combinaisonListes } from '../../lib/outils/arrayOutils'
+import { miseEnEvidence, texteGras } from '../../lib/outils/embellissements.js'
+import { mathalea2d } from '../../modules/mathalea2d.js'
+import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
+import Exercice from '../Exercice.js'
 
 export const titre = 'Calculer des produits scalaires par projection'
 export const interactifReady = true

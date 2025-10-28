@@ -6,8 +6,8 @@ import { homothetie, rotation } from '../../lib/2d/transformations'
 import { propositionsQcm } from '../../lib/interactif/qcm'
 import { choice } from '../../lib/outils/arrayOutils'
 import { lettreDepuisChiffre, numAlpha } from '../../lib/outils/outilString'
-import { mathalea2d } from '../../modules/2dGeneralites'
 import { context } from '../../modules/context'
+import { mathalea2d } from '../../modules/mathalea2d'
 import {
   gestionnaireFormulaireTexte,
   listeQuestionsToContenu,

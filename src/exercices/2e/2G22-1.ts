@@ -1,3 +1,7 @@
+import Figure from 'apigeom'
+import { orangeMathalea } from 'apigeom/src/elements/defaultValues'
+import type VectorByPoints from 'apigeom/src/elements/vector/VectorByPoints'
+import { colorToLatexOrHTML } from '../../lib/2d/colorToLatexOrHtml'
 import { milieu, point } from '../../lib/2d/points'
 import { repere } from '../../lib/2d/reperes'
 import {
@@ -13,19 +17,16 @@ import {
   texteParPosition,
 } from '../../lib/2d/textes'
 import { homothetie } from '../../lib/2d/transformations'
-import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
-import Exercice from '../Exercice'
-import { mathalea2d, colorToLatexOrHTML } from '../../modules/2dGeneralites'
-import { listeQuestionsToContenu, randint } from '../../modules/outils'
-import Figure from 'apigeom'
 import figureApigeom from '../../lib/figureApigeom'
-import { orangeMathalea } from 'apigeom/src/elements/defaultValues'
-import { lettreDepuisChiffre } from '../../lib/outils/outilString'
+import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
 import {
   miseEnEvidence,
   texteEnCouleurEtGras,
 } from '../../lib/outils/embellissements'
-import type VectorByPoints from 'apigeom/src/elements/vector/VectorByPoints'
+import { lettreDepuisChiffre } from '../../lib/outils/outilString'
+import { mathalea2d } from '../../modules/mathalea2d'
+import { listeQuestionsToContenu, randint } from '../../modules/outils'
+import Exercice from '../Exercice'
 
 export const titre =
   'Représenter un vecteur dans un repère, à partir de ses coordonnées'

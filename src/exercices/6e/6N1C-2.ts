@@ -1,18 +1,16 @@
 import { orangeMathalea } from 'apigeom/src/elements/defaultValues'
+import { droiteGraduee } from '../../lib/2d/DroiteGraduee'
+import { fixeBordures } from '../../lib/2d/fixeBordures'
 import { point, tracePoint } from '../../lib/2d/points'
-import { droiteGraduee } from '../../lib/2d/reperes'
 import { labelPoint, latex2d } from '../../lib/2d/textes'
 import { combinaisonListes, shuffle } from '../../lib/outils/arrayOutils'
 import { lettreIndiceeDepuisChiffre } from '../../lib/outils/outilString'
 import { texNombre } from '../../lib/outils/texNombre'
-import {
-  fixeBordures,
-  mathalea2d,
-  type NestedObjetMathalea2dArray,
-} from '../../modules/2dGeneralites'
 import { PointCliquable, pointCliquable } from '../../modules/2dinteractif'
 import { context } from '../../modules/context'
+import { mathalea2d } from '../../modules/mathalea2d'
 import { egal, listeQuestionsToContenu, randint } from '../../modules/outils'
+import type { NestedObjetMathalea2dArray } from '../../types/2d'
 import Exercice from '../Exercice'
 
 export const dateDeModifImportante = '16/09/2024'
@@ -44,7 +42,7 @@ export default class PlacerUnPointAbscisseEntiere2d extends Exercice {
       'Niveau de difficulté',
       5,
       '1 : Ordre de grandeur : centaines\n2 : Ordre de grandeur : milliers\n3 : Ordre de grandeur : dizaines de mille\n4 : Ordre de grandeur : centaines de mille\n5 : Mélange',
-    ];
+    ]
 
     this.nbQuestions = 5
 
@@ -113,10 +111,10 @@ export default class PlacerUnPointAbscisseEntiere2d extends Exercice {
       }
       switch (typesDeQuestions[i]) {
         case 1: // Niveau 0 : Centaines (ajout Mireille, septembre 2025)
-        abs0 = randint(1, 9) * 100; // Ex: 200, 500, etc.
-        pas1 = 100; // 1 unité sur la droite = 100
-        break;
- 
+          abs0 = randint(1, 9) * 100 // Ex: 200, 500, etc.
+          pas1 = 100 // 1 unité sur la droite = 100
+          break
+
         case 2: // Placer des entiers sur un axe (milliers)
           abs0 = randint(1, 9) * 1000
           pas1 = 1000
@@ -197,6 +195,7 @@ export default class PlacerUnPointAbscisseEntiere2d extends Exercice {
           monPoint = pointCliquable((indicePoint / 10) * tailleUnite, 0, {
             size: 5,
             width: 3,
+            opacite: 0.7,
             color: 'blue',
             radius: tailleUnite / 25,
           })
@@ -218,6 +217,7 @@ export default class PlacerUnPointAbscisseEntiere2d extends Exercice {
             ymax: 1,
             pixelsParCm: 20,
             scale: 0.5,
+            id: `figEx${this.numeroExercice}Q${i}`,
           },
           ...mesObjets,
         )
@@ -299,6 +299,27 @@ export default class PlacerUnPointAbscisseEntiere2d extends Exercice {
 
   // Gestion de la correction
   correctionInteractive = (i: number) => {
+    if (this.answers === undefined) this.answers = {}
+    // Sauvegarde de la réponse pour Capytale
+    const figure = document.querySelector(`#figEx${this.numeroExercice}Q${i}`)
+    if (figure === null) return 'KO'
+    for (const monPoint of [
+      ...this.pointsNonSolutions[i],
+      ...this.pointsSolutions[i],
+    ]) {
+      if (monPoint.etat && monPoint.groupe) {
+        const groups = Array.from(
+          figure.querySelectorAll(':scope > g'),
+        ) as SVGGElement[]
+        if (monPoint.groupe instanceof SVGGElement) {
+          const pos = groups.indexOf(monPoint.groupe)
+          if (pos === -1) continue
+          this.answers[`cliquePointfigEx${this.numeroExercice}Q${i}P${pos}`] =
+            `svg[id$='Ex${this.numeroExercice}Q${i}'] g:nth-of-type(${pos + 1})`
+        }
+      }
+    }
+
     let resultat = ''
     let aucunMauvaisPointsCliques = true
     const spanResultat = document.querySelector(

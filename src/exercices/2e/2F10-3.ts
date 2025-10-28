@@ -1,5 +1,6 @@
 import Figure from 'apigeom'
 import { Coords } from 'apigeom/src/elements/calculus/Coords'
+import { colorToLatexOrHTML } from '../../lib/2d/colorToLatexOrHtml'
 import { Droite, droite } from '../../lib/2d/droites'
 import { TracePoint, point, tracePoint } from '../../lib/2d/points'
 import { repere } from '../../lib/2d/reperes'
@@ -13,9 +14,9 @@ import {
 } from '../../lib/outils/ecritures'
 import { abs } from '../../lib/outils/nombres'
 import { pgcd } from '../../lib/outils/primalite'
-import { colorToLatexOrHTML, mathalea2d } from '../../modules/2dGeneralites'
 import { context } from '../../modules/context'
 import { fraction } from '../../modules/fractions'
+import { mathalea2d } from '../../modules/mathalea2d'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import Exercice from '../Exercice'
 

@@ -31,9 +31,9 @@ export default class ExerciceTangenteCourbe extends Exercice {
     for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50; ) {
       let texte = ''
       let texteCorr = ''
-      let r = randint(1, 10)
-      let x1 = randint(-10, 10)
-      let y1 = randint(-10, 10)
+      const r = randint(1, 10)
+      const x1 = randint(-10, 10)
+      const y1 = randint(-10, 10)
       texte += `Déterminer une équation cartésienne du cercle de rayon ${r} est de centre $(${x1}\\,;\\,${y1})$.`
       texteCorr += `La formule de l'équation d'un cercle de centre $(x_0\\,;\\,y_0)$ et de rayon $r$ est :<br>
       \\[(x - x_0)^2 + (y - y_0)^2 = r^2\\]<br>

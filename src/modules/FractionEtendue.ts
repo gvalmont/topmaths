@@ -1,6 +1,8 @@
 import Decimal from 'decimal.js'
 import { abs, gcd, lcm, max, min, multiply, round } from 'mathjs'
-import { arc, cercle } from '../lib/2d/cercle'
+import { arc } from '../lib/2d/Arc'
+import { cercle } from '../lib/2d/cercle'
+import { colorToLatexOrHTML } from '../lib/2d/colorToLatexOrHtml'
 import { Point, point } from '../lib/2d/points'
 import { carre } from '../lib/2d/polygones'
 import { segment, vecteur } from '../lib/2d/segmentsVecteurs'
@@ -25,7 +27,6 @@ import {
   ppcm,
 } from '../lib/outils/primalite'
 import { stringNombre, texNombre } from '../lib/outils/texNombre'
-import { colorToLatexOrHTML } from './2dGeneralites'
 import { egal, quotientier } from './outils'
 
 type FractionRepresentationType = 'gateau' | 'barre' | 'segment'

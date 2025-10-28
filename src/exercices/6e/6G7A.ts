@@ -5,6 +5,7 @@ import type PointApigeom from 'apigeom/src/elements/points/Point'
 import { codageAngleDroit } from '../../lib/2d/angles'
 import { cercleCentrePoint } from '../../lib/2d/cercle'
 import { codageMilieu } from '../../lib/2d/codages'
+import { colorToLatexOrHTML } from '../../lib/2d/colorToLatexOrHtml'
 import {
   Droite,
   droiteHorizontaleParPoint,
@@ -12,14 +13,15 @@ import {
   droiteParPointEtPerpendiculaire,
   droiteVerticaleParPoint,
 } from '../../lib/2d/droites'
+import { grille } from '../../lib/2d/Grille'
 import { point, Point, pointSurDroite, TracePoint } from '../../lib/2d/points'
-import { grille } from '../../lib/2d/reperes'
 import {
   labelPoint,
   latexParCoordonnees,
   LatexParCoordonnees,
 } from '../../lib/2d/textes'
 import { projectionOrtho, symetrieAxiale } from '../../lib/2d/transformations'
+import type { Vide2d } from '../../lib/2d/Vide2d'
 import figureApigeom from '../../lib/figureApigeom'
 import {
   choice,
@@ -27,14 +29,10 @@ import {
   shuffle,
 } from '../../lib/outils/arrayOutils'
 import { creerNomDePolygone } from '../../lib/outils/outilString'
-import {
-  colorToLatexOrHTML,
-  mathalea2d,
-  Vide2d,
-  type NestedObjetMathalea2dArray,
-} from '../../modules/2dGeneralites'
 import { context } from '../../modules/context'
+import { mathalea2d } from '../../modules/mathalea2d'
 import { egal, randint } from '../../modules/outils'
+import type { NestedObjetMathalea2dArray } from '../../types/2d'
 import Exercice from '../Exercice'
 
 export const titre = 'Construire des symétriques de points'

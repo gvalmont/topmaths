@@ -27,9 +27,9 @@ export default class MultiplierEnDistribuant extends Exercice {
       'Type de question',
       [
         'Nombres séparés par des tirets  :',
-        '1 : avec des sommes',
-        '2 : avec des différences',
-        '3 : avec des sommes et des différences',
+        '1 : Avec des sommes',
+        '2 : Avec des différences',
+        '3 : Avec des sommes et des différences',
       ].join('\n'),
     ]
     this.sup = '3'
@@ -37,8 +37,8 @@ export default class MultiplierEnDistribuant extends Exercice {
       'Sens de la distributivité',
       [
         'Nombres séparés par des tirets  :',
-        '1 : développer',
-        '2 : factoriser',
+        '1 : Développer',
+        '2 : Factoriser',
         '3 : Mélange',
       ].join('\n'),
     ]
@@ -51,9 +51,7 @@ export default class MultiplierEnDistribuant extends Exercice {
     if (context.isDiaporama) this.consigne = 'Calculer mentalement'
     else {
       this.consigne =
-        this.nbQuestions > 1
-          ? "Calculer les produits suivants en utilisant la distributivité de la multiplication sur l'addition ou la soustraction."
-          : "Calculer le produit suivant en utilisant la distributivité de la multiplication sur l'addition ou la soustraction."
+        "Calculer en utilisant la distributivité de la multiplication sur l'addition ou la soustraction."
     }
     if (this.interactif)
       this.consigne +=

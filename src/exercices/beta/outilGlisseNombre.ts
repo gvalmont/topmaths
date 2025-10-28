@@ -23,7 +23,7 @@ export default class GlisseNombre extends Exercice {
   }
 
   nouvelleVersion() {
-    let question1 = glisseNombreInteractif({ number: 1})
+    const question1 = glisseNombreInteractif({ number: 1})
     const correction1 = ''
 
 

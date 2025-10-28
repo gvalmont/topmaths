@@ -6,36 +6,26 @@ import {
 } from '../../modules/outils'
 import Exercice from '../Exercice'
 
-import type { CodageAngleDroit, MarqueAngle } from '../../lib/2d/angles'
 import { cercle } from '../../lib/2d/cercle'
-import { CodageAngle, placeLatexSurSegment } from '../../lib/2d/codages'
-import {
-  Point,
-  point,
-  pointAdistance,
-  tracePoint,
-  TracePoint,
-} from '../../lib/2d/points'
-import {
-  NommePolygone,
-  Polygone,
-  polygone,
-  Polyline,
-} from '../../lib/2d/polygones'
-import { Cylindre, cylindre } from '../../lib/2d/projections3d'
+import { placeLatexSurSegment } from '../../lib/2d/codages'
+import { fixeBordures } from '../../lib/2d/fixeBordures'
+import { Point, point, pointAdistance, tracePoint } from '../../lib/2d/points'
+import { polygone } from '../../lib/2d/polygones'
+import { cylindre } from '../../lib/2d/projections3d'
 import {
   longueur,
   Segment,
   segment,
   vecteur,
 } from '../../lib/2d/segmentsVecteurs'
-import { labelPoint, Latex2d, TexteParPoint } from '../../lib/2d/textes'
+import { labelPoint, Latex2d } from '../../lib/2d/textes'
 import { similitude, translation } from '../../lib/2d/transformations'
 import { deuxColonnesResp } from '../../lib/format/miseEnPage'
 import { arrondi } from '../../lib/outils/nombres'
 import { sp } from '../../lib/outils/outilString'
 import { texNombre } from '../../lib/outils/texNombre'
-import { fixeBordures, mathalea2d, Vide2d } from '../../modules/2dGeneralites'
+import { mathalea2d } from '../../modules/mathalea2d'
+import type { NestedObjetMathalea2dArray } from '../../types/2d'
 
 export const titre = 'Calculer des longueurs avec un patron de cylindre'
 
@@ -614,36 +604,8 @@ function afficheCoteSegmentSansTexte(
   return cote
 }
 function definiColonnes(
-  objetsAAfficher1: (
-    | Polygone
-    | Segment
-    | TexteParPoint
-    | Latex2d
-    | (TexteParPoint | Latex2d)[]
-    | Polyline
-    | TracePoint
-    | NommePolygone
-    | MarqueAngle
-    | Vide2d
-    | CodageAngleDroit
-    | CodageAngle
-    | Cylindre
-  )[],
-  objetsAAfficher2: (
-    | Polygone
-    | Segment
-    | TexteParPoint
-    | Latex2d
-    | (TexteParPoint | Latex2d)[]
-    | Polyline
-    | TracePoint
-    | NommePolygone
-    | MarqueAngle
-    | Vide2d
-    | CodageAngleDroit
-    | CodageAngle
-    | Cylindre
-  )[],
+  objetsAAfficher1: NestedObjetMathalea2dArray,
+  objetsAAfficher2: NestedObjetMathalea2dArray,
   scaleDessin: number,
 ): [string, string] {
   const bord1 = fixeBordures(objetsAAfficher1, {

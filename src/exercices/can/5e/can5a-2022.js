@@ -4,8 +4,11 @@ import {
   codageAngleDroit,
   rapporteur,
 } from '../../../lib/2d/angles'
-import { arc } from '../../../lib/2d/cercle'
+import { arc } from '../../../lib/2d/Arc'
+import { droiteGraduee } from '../../../lib/2d/DroiteGraduee'
 import { droite } from '../../../lib/2d/droites'
+import { fixeBordures } from '../../../lib/2d/fixeBordures'
+import { grille } from '../../../lib/2d/Grille'
 import {
   milieu,
   point,
@@ -13,7 +16,6 @@ import {
   tracePoint,
 } from '../../../lib/2d/points'
 import { polygone } from '../../../lib/2d/polygones'
-import { droiteGraduee, grille } from '../../../lib/2d/reperes'
 import { segment } from '../../../lib/2d/segmentsVecteurs'
 import { tableauColonneLigne } from '../../../lib/2d/tableau'
 import { labelPoint, texteParPosition } from '../../../lib/2d/textes'
@@ -30,10 +32,10 @@ import { texFractionReduite } from '../../../lib/outils/deprecatedFractions'
 import { arrondi } from '../../../lib/outils/nombres'
 import { lettreDepuisChiffre, sp } from '../../../lib/outils/outilString'
 import { stringNombre, texNombre } from '../../../lib/outils/texNombre'
-import { fixeBordures, mathalea2d } from '../../../modules/2dGeneralites'
 import { fraction } from '../../../modules/fractions'
 import Grandeur from '../../../modules/Grandeur'
 import Hms from '../../../modules/Hms'
+import { mathalea2d } from '../../../modules/mathalea2d'
 import { listeQuestionsToContenu, randint } from '../../../modules/outils'
 import Exercice from '../../Exercice'
 
@@ -1183,7 +1185,6 @@ export default class SujetCAN2022cinquieme extends Exercice {
 
         case 27:
           a = grille(-2, -2, 9, 8, 'gray', 1, 1)
-
           b = randint(1, 8, 4)
           c = randint(1, 7)
           d = randint(0, 1)

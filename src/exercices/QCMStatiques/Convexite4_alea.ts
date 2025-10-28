@@ -1,6 +1,7 @@
+import { fixeBordures } from '../../lib/2d/fixeBordures'
 import RepereBuilder from '../../lib/2d/RepereBuilder'
 import { spline } from '../../lib/mathFonctions/Spline'
-import { fixeBordures, mathalea2d } from '../../modules/2dGeneralites'
+import { mathalea2d } from '../../modules/mathalea2d'
 import { randint } from '../../modules/outils'
 import ExerciceQcm from '../ExerciceQcm'
 

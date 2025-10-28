@@ -21,7 +21,7 @@ function nbAxesChiffre(chiffre: number): number {
     throw new Error('Le paramètre doit être un entier de 0 à 9')
   }
   // Retourne le nombre d'axes de symétrie pour le chiffre donné
-  return axesSymetrie[chiffre]
+  return axesSymetrie[chiffre as keyof typeof axesSymetrie]
 }
 function centreChiffre(chiffre: number): Point | null {
   // Tableau des chiffres et de leur centre de symétrie
@@ -42,7 +42,7 @@ function centreChiffre(chiffre: number): Point | null {
     throw new Error('Le paramètre doit être un entier de 0 à 9')
   }
   // Retourne si le chiffre donné a un centre de symétrie
-  return centreSymetrie[chiffre]
+  return centreSymetrie[chiffre as keyof typeof centreSymetrie]
 }
 /**
  * Retourne à la fois le SVG <g>…</g> et le code TikZ pour le chiffre demandé.

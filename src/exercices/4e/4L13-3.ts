@@ -1,4 +1,5 @@
 import { listeShapes2DInfos } from '../../lib/2d/figures2d/shapes2d'
+import { fixeBordures } from '../../lib/2d/fixeBordures'
 import {
   listePatternsFor4A13,
   type PatternRiche,
@@ -12,12 +13,9 @@ import { ajouteQuestionMathlive } from '../../lib/interactif/questionMathLive'
 import { shuffle } from '../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { texNombre } from '../../lib/outils/texNombre'
-import {
-  fixeBordures,
-  mathalea2d,
-  type NestedObjetMathalea2dArray,
-} from '../../modules/2dGeneralites'
+import { mathalea2d } from '../../modules/mathalea2d'
 import { gestionnaireFormulaireTexte, randint } from '../../modules/outils'
+import type { NestedObjetMathalea2dArray } from '../../types/2d'
 import Exercice from '../Exercice'
 // import type { VisualPattern } from '../../lib/2d/patterns/VisualPattern'
 import {

@@ -88,6 +88,7 @@ export default class BetaReperage2e extends Exercice {
           scale: 0.5,
         }),
       )
+      this.figuresApiGeom[i].snapGrid = true
       this.figuresApiGeom[i].options.latexHeight = 20
       this.figuresApiGeom[i].options.labelDxInPixels = 20
       this.figuresApiGeom[i].options.labelDyInPixels = 20

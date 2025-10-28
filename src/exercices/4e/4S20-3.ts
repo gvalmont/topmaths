@@ -1,15 +1,16 @@
-import Exercice from '../Exercice'
-import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
-import { listeQuestionsToContenu } from '../../modules/outils'
 import { propositionsQcm } from '../../lib/interactif/qcm'
+import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
 import { texteEnCouleurEtGras } from '../../lib/outils/embellissements'
 import { context } from '../../modules/context'
+import { listeQuestionsToContenu } from '../../modules/outils'
+import Exercice from '../Exercice'
 
 export const interactifReady = true
 export const interactifType = 'qcm'
 export const titre =
   'Différencier événements contraires, non contraires, compatibles, incompatibles (jeu de cartes)'
-export const dateDePublication = '30/7/2024' // La date de publication initiale au format 'jj/mm/aaaa' pour affichage temporaire d'un tag
+export const dateDePublication = '30/07/2024' // La date de publication initiale au format 'jj/mm/aaaa' pour affichage temporaire d'un tag
+export const dateDeModificationImportante = '27/10/2025'
 export const uuid = '00bb0'
 export const refs = {
   'fr-fr': ['4S20-3'],
@@ -251,7 +252,7 @@ export default class ExerciceProba extends Exercice {
           if (k === 2) {
             texte = `Les événements « Ne pas obtenir ${valeur} » et « Obtenir ${valeur} » sont...<br>`
             texteCorr =
-              `Les événements « Ne pas obtenir ${figure} » et « Obtenir ${figure} » sont ` +
+              `Les événements « Ne pas obtenir ${valeur} » et « Obtenir ${valeur} » sont ` +
               texteEnCouleurEtGras('contraires') +
               ' (et donc ' +
               texteEnCouleurEtGras('incompatibles') +

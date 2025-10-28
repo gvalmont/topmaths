@@ -1,12 +1,13 @@
-import ExerciceSimple from '../../ExerciceSimple'
-import { Grille } from '../../../lib/2d/reperes'
+import { fixeBordures } from '../../../lib/2d/fixeBordures'
+import { grille } from '../../../lib/2d/Grille'
 import { Point } from '../../../lib/2d/points'
 import { Polygone } from '../../../lib/2d/polygones'
-import { fixeBordures, mathalea2d } from '../../../modules/2dGeneralites'
-import { latex2d } from '../../../lib/2d/textes'
-import { miseEnEvidence } from '../../../lib/outils/embellissements'
-import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 import { segment } from '../../../lib/2d/segmentsVecteurs'
+import { latex2d } from '../../../lib/2d/textes'
+import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
+import { miseEnEvidence } from '../../../lib/outils/embellissements'
+import { mathalea2d } from '../../../modules/mathalea2d'
+import ExerciceSimple from '../../ExerciceSimple'
 export const titre = "Calculer la longueur d'un contour"
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -31,7 +32,7 @@ export default class Can2025CM1Q15 extends ExerciceSimple {
   }
 
   nouvelleVersion() {
-    const grille = new Grille(3, 0, 10, 5, 'gray', 1, 1)
+    const grillage = grille(3, 0, 10, 5, 'gray', 1, 1)
     const A = new Point(4, 4)
     const B = new Point(5, 4)
     const E = new Point(6, 1)
@@ -47,7 +48,7 @@ export default class Can2025CM1Q15 extends ExerciceSimple {
     poly1.epaisseur = 3
     segU.epaisseur = 4
     const Unite = latex2d('1 \\text{u}', 4.4, 4.7, { letterSize: 'normalsize' })
-    const objets = [grille, poly1, Unite, segU]
+    const objets = [grillage, poly1, Unite, segU]
     this.question = 'Donne la longueur du contour de cette figure.<br> '
     this.question += mathalea2d(
       Object.assign(

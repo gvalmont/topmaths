@@ -15,7 +15,7 @@ import { texteGras } from '../../lib/outils/embellissements'
 import { sp } from '../../lib/outils/outilString'
 import { prenom, prenomM } from '../../lib/outils/Personne'
 import { texNombre, texPrix } from '../../lib/outils/texNombre'
-import { mathalea2d } from '../../modules/2dGeneralites'
+import { mathalea2d } from '../../modules/mathalea2d'
 import {
   gestionnaireFormulaireTexte,
   listeQuestionsToContenu,

@@ -1,5 +1,7 @@
 import { codageSegment } from '../../lib/2d/codages'
+import { colorToLatexOrHTML } from '../../lib/2d/colorToLatexOrHtml'
 import { Point, tracePoint } from '../../lib/2d/points'
+import type { Polygone } from '../../lib/2d/polygones'
 import {
   Segment,
   segment,
@@ -8,20 +10,17 @@ import {
 } from '../../lib/2d/segmentsVecteurs'
 import { texteParPosition } from '../../lib/2d/textes'
 import { translation } from '../../lib/2d/transformations'
-import { shuffle } from '../../lib/outils/arrayOutils'
 import { texcolors } from '../../lib/format/style'
+import { shuffle } from '../../lib/outils/arrayOutils'
 import { nombreAvecEspace } from '../../lib/outils/texNombre'
-import Exercice from '../Exercice'
-import {
-  mathalea2d,
-  colorToLatexOrHTML,
-  type NestedObjetMathalea2dArray,
-} from '../../modules/2dGeneralites'
-import { context } from '../../modules/context'
-import { listeQuestionsToContenu, egal, randint } from '../../modules/outils'
 import { translationAnimee } from '../../modules/2dAnimation'
+import { context } from '../../modules/context'
+import { mathalea2d } from '../../modules/mathalea2d'
+import type { NestedObjetMathalea2dArray } from '../../types/2d'
+
+import { egal, listeQuestionsToContenu, randint } from '../../modules/outils'
 import { Pavage, pavage } from '../../modules/Pavage'
-import type { Polygone } from '../../lib/2d/polygones'
+import Exercice from '../Exercice'
 export const titre =
   "Trouver l'image d'une figure par une translation dans un pavage"
 

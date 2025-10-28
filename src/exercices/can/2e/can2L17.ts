@@ -1,10 +1,11 @@
-import ExerciceSimple from '../../ExerciceSimple'
-import { miseEnEvidence } from '../../../lib/outils/embellissements'
-import { randint } from '../../../modules/outils'
+import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 import { tableauSignesFonction } from '../../../lib/mathFonctions/etudeFonction'
 import { choice } from '../../../lib/outils/arrayOutils'
-import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
+import { miseEnEvidence } from '../../../lib/outils/embellissements'
+import { randint } from '../../../modules/outils'
+import ExerciceSimple from '../../ExerciceSimple'
 
+import type FractionEtendue from '../../../modules/FractionEtendue'
 import Trinome from '../../../modules/Trinome'
 export const titre = "Résoudre une inéquation à partir d'un tableau de signes"
 export const interactifReady = true
@@ -36,12 +37,13 @@ export default class InequationTableau extends ExerciceSimple {
     const a = randint(-10, 10, 0)
     const p = m * -rac
     const signe = choice(['<', '\\leqslant', '>', '\\geqslant'])
-    const fonctionAffine = (x: number) => m * x + p
+    const fonctionAffine = (x: number | FractionEtendue) => m * Number(x) + p
     const rac1 = randint(-5, 5, 0)
     const rac2 = rac1 + 2 * randint(1, 4)
     const q = new Trinome(a, a * (-rac1 - rac2), a * (rac1 * rac2))
     q.defFormeFactorisee(a, rac1, rac2)
-    const fonctionTrinome = (x: number) => a * (x - rac1) * (x - rac2) // Forme factorisée
+    const fonctionTrinome = (x: number | FractionEtendue) =>
+      a * (Number(x) - rac1) * (Number(x) - rac2) // Forme factorisée
     switch (
       choice([1, 2]) //
     ) {

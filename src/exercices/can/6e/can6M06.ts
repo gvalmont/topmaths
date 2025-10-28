@@ -7,13 +7,14 @@ import {
   pointIntersectionCC,
   tracePoint,
 } from '../../../lib/2d/points'
+import type { PointAbstrait } from '../../../lib/2d/points-abstraits'
 import { polygoneAvecNom } from '../../../lib/2d/polygones'
 import { longueur } from '../../../lib/2d/segmentsVecteurs'
 import { texteParPosition } from '../../../lib/2d/textes'
 import { texteEnCouleur } from '../../../lib/outils/embellissements'
 import { creerNomDePolygone } from '../../../lib/outils/outilString'
 import { stringNombre, texNombre } from '../../../lib/outils/texNombre'
-import { mathalea2d } from '../../../modules/2dGeneralites'
+import { mathalea2d } from '../../../modules/mathalea2d'
 import { randint } from '../../../modules/outils'
 import ExerciceSimple from '../../ExerciceSimple'
 export const titre = 'Calculer le périmètre d’une figure'
@@ -52,7 +53,7 @@ export default class Perimetre extends ExerciceSimple {
     const d = l - b - c + Math.floor(c)
     const c1 = cercle(C, d)
     const c2 = cercle(A, b)
-    const D = pointIntersectionCC(c1, c2, nom[3], 1)
+    const D = pointIntersectionCC(c1, c2, nom[3], 1) as PointAbstrait
     const objets = []
     const xmin = Math.min(A.x, B.x, C.x, D.x) - 1.5
     const ymin = Math.min(A.y, B.y, C.y, D.y) - 1.5

@@ -6,13 +6,13 @@ import {
   labelOnLine,
 } from '../../lib/2d/droites'
 import { point, pointSurDroite } from '../../lib/2d/points'
+import { Latex2d } from '../../lib/2d/textes'
 import { combinaisonListes, shuffle } from '../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
-import Exercice from '../Exercice'
-import { mathalea2d } from '../../modules/2dGeneralites'
-import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import { context } from '../../modules/context'
-import { Latex2d } from '../../lib/2d/textes'
+import { mathalea2d } from '../../modules/mathalea2d'
+import { listeQuestionsToContenu, randint } from '../../modules/outils'
+import Exercice from '../Exercice'
 export const titre =
   'Se servir des relations entre perpendicularité et parallélisme'
 

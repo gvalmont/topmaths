@@ -79,7 +79,7 @@ export default class ImageFonctionsRefs extends Exercice {
     for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50; ) {
       let texte = ''
       let texteCorr = ''
-      let nom = ['f','g','h','i'][listeTypeQuestionsDansLOrdre.indexOf(listeTypeQuestions[i])]
+      const nom = ['f','g','h','i'][listeTypeQuestionsDansLOrdre.indexOf(listeTypeQuestions[i])]
       let nombre: number
       let solution: FractionEtendue
       let calcul: number

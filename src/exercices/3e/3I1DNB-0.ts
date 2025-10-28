@@ -1,3 +1,4 @@
+import { fixeBordures } from '../../lib/2d/fixeBordures'
 import { point } from '../../lib/2d/points'
 import { polygone } from '../../lib/2d/polygones'
 import { segment, vecteur } from '../../lib/2d/segmentsVecteurs'
@@ -15,8 +16,8 @@ import {
   texteItalique,
 } from '../../lib/outils/embellissements'
 import { premiereLettreEnMajuscule } from '../../lib/outils/outilString'
-import { fixeBordures, mathalea2d } from '../../modules/2dGeneralites'
 import { context } from '../../modules/context'
+import { mathalea2d } from '../../modules/mathalea2d'
 import { randint } from '../../modules/outils'
 import { scratchblock } from '../../modules/scratchblock'
 import ExerciceBrevetA from '../ExerciceBrevetA'

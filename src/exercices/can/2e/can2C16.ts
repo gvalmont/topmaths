@@ -1,14 +1,14 @@
+import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 import { choice } from '../../../lib/outils/arrayOutils'
 import {
   ecritureAlgebrique,
   ecritureParentheseSiNegatif,
 } from '../../../lib/outils/ecritures'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
-import ExerciceSimple from '../../ExerciceSimple'
-import { randint } from '../../../modules/outils'
-import FractionEtendue from '../../../modules/FractionEtendue'
 import { texNombre } from '../../../lib/outils/texNombre'
-import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
+import FractionEtendue from '../../../modules/FractionEtendue'
+import { randint } from '../../../modules/outils'
+import ExerciceSimple from '../../ExerciceSimple'
 export const titre = 'Calculer avec un programme de calcul*'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -88,7 +88,7 @@ export default class ProgrammeCalcul2 extends ExerciceSimple {
 
       case 3: // 2(x+y)^2
         a = randint(-5, 5, 0)
-        b = randint(-5, 5, [0, a])
+        b = randint(-5, 5, [0, a, -a])
         reponse = 2 * (a + b) ** 2
 
         this.question = this.versionQcm

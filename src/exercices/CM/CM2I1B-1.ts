@@ -1,4 +1,5 @@
 /* eslint-disable camelcase */
+import { colorToLatexOrHTML } from '../../lib/2d/colorToLatexOrHtml'
 import { point, tracePoint } from '../../lib/2d/points'
 import { texteParPositionEchelle } from '../../lib/2d/textes'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
@@ -12,11 +13,6 @@ import { texteEnCouleurEtGras } from '../../lib/outils/embellissements'
 import { ajouterLien } from '../../lib/outils/enrichissements'
 import { stringNombre } from '../../lib/outils/texNombre'
 import {
-  colorToLatexOrHTML,
-  mathalea2d,
-  type NestedObjetMathalea2dArray,
-} from '../../modules/2dGeneralites'
-import {
   allerA,
   angleScratchTo2d,
   attendre,
@@ -26,6 +22,7 @@ import {
   orienter,
 } from '../../modules/2dLutin'
 import { context } from '../../modules/context'
+import { mathalea2d } from '../../modules/mathalea2d'
 import {
   noteLaCouleur,
   plateau2dNLC,
@@ -40,6 +37,7 @@ import {
   randint,
 } from '../../modules/outils'
 import { scratchblock } from '../../modules/scratchblock'
+import type { NestedObjetMathalea2dArray } from '../../types/2d'
 import Exercice from '../Exercice'
 
 export const titre = 'Note la couleur (Scratch)'

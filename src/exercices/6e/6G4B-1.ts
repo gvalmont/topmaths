@@ -1,4 +1,5 @@
 import { angleModulo, rapporteur } from '../../lib/2d/angles'
+import { fixeBordures } from '../../lib/2d/fixeBordures'
 import { point, pointSurSegment, tracePoint } from '../../lib/2d/points'
 import { segment } from '../../lib/2d/segmentsVecteurs'
 import { labelPoint } from '../../lib/2d/textes'
@@ -10,8 +11,8 @@ import { choice } from '../../lib/outils/arrayOutils'
 import { texteEnCouleurEtGras } from '../../lib/outils/embellissements'
 import { abs } from '../../lib/outils/nombres'
 import { lettreDepuisChiffre, numAlpha } from '../../lib/outils/outilString'
-import { fixeBordures, mathalea2d } from '../../modules/2dGeneralites'
 import { context } from '../../modules/context'
+import { mathalea2d } from '../../modules/mathalea2d'
 import {
   contraindreValeur,
   listeQuestionsToContenu,

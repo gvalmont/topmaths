@@ -1,11 +1,12 @@
-import { grille, seyes } from '../../lib/2d/reperes'
+import { grille, seyes } from '../../lib/2d/Grille'
+import { vide2d } from '../../lib/2d/Vide2d'
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 import { setReponse } from '../../lib/interactif/gestionInteractif'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { nombreDeChiffresDe } from '../../lib/outils/nombres'
 import { texNombre } from '../../lib/outils/texNombre'
-import { mathalea2d, vide2d } from '../../modules/2dGeneralites'
 import { context } from '../../modules/context'
+import { mathalea2d } from '../../modules/mathalea2d'
 import Operation from '../../modules/operations'
 import {
   gestionnaireFormulaireTexte,
@@ -128,7 +129,8 @@ export default class AdditionsSoustractionsMultiplicationsPosees extends Exercic
           if (this.interactif)
             texte +=
               '=$' +
-              ajouteChampTexteMathLive(this, i, KeyboardType.clavierNumbers) // fonction à utiliser pour la version en ligne afin d'ajouter le formulaire de réponse
+              ajouteChampTexteMathLive(this, i, KeyboardType.clavierNumbers)
+          // fonction à utiliser pour la version en ligne afin d'ajouter le formulaire de réponse
           else texte += '$'
           texte += grilletxt
           reponse = a + b
@@ -165,7 +167,8 @@ export default class AdditionsSoustractionsMultiplicationsPosees extends Exercic
           if (this.interactif)
             texte +=
               '=$' +
-              ajouteChampTexteMathLive(this, i, KeyboardType.clavierNumbers) // fonction à utiliser pour la version en ligne afin d'ajouter le formulaire de réponse
+              ajouteChampTexteMathLive(this, i, KeyboardType.clavierNumbers)
+          // fonction à utiliser pour la version en ligne afin d'ajouter le formulaire de réponse
           else texte += '$'
           texte += grilletxt
           reponse = x - y
@@ -202,7 +205,8 @@ export default class AdditionsSoustractionsMultiplicationsPosees extends Exercic
           if (this.interactif)
             texte +=
               '=$' +
-              ajouteChampTexteMathLive(this, i, KeyboardType.clavierNumbers) // fonction à utiliser pour la version en ligne afin d'ajouter le formulaire de réponse
+              ajouteChampTexteMathLive(this, i, KeyboardType.clavierNumbers)
+          // fonction à utiliser pour la version en ligne afin d'ajouter le formulaire de réponse
           else texte += '$'
           texte += grilletxt
           reponse = x - y
@@ -238,7 +242,8 @@ export default class AdditionsSoustractionsMultiplicationsPosees extends Exercic
           if (this.interactif)
             texte +=
               '=$' +
-              ajouteChampTexteMathLive(this, i, KeyboardType.clavierNumbers) // fonction à utiliser pour la version en ligne afin d'ajouter le formulaire de réponse
+              ajouteChampTexteMathLive(this, i, KeyboardType.clavierNumbers)
+          // fonction à utiliser pour la version en ligne afin d'ajouter le formulaire de réponse
           else texte += '$'
           texte += grilletxt
           reponse = x * y
@@ -275,7 +280,8 @@ export default class AdditionsSoustractionsMultiplicationsPosees extends Exercic
           if (this.interactif)
             texte +=
               '=$' +
-              ajouteChampTexteMathLive(this, i, KeyboardType.clavierNumbers) // fonction à utiliser pour la version en ligne afin d'ajouter le formulaire de réponse
+              ajouteChampTexteMathLive(this, i, KeyboardType.clavierNumbers)
+          // fonction à utiliser pour la version en ligne afin d'ajouter le formulaire de réponse
           else texte += '$'
           texte += grilletxt
           reponse = x * y

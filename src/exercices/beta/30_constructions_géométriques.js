@@ -1,11 +1,13 @@
-import { point, pointAdistance, tracePoint } from '../../lib/2d/points'
+import { fixeBordures } from '../../lib/2d/fixeBordures'
+import { pointAdistance, tracePoint } from '../../lib/2d/points'
+import { pointAbstrait } from '../../lib/2d/points-abstraits'
 import { carre } from '../../lib/2d/polygones'
 import { segmentAvecExtremites } from '../../lib/2d/segmentsVecteurs'
 import { labelPoint } from '../../lib/2d/textes'
 import { rotation } from '../../lib/2d/transformations'
 import { triangle2points2longueurs } from '../../lib/2d/triangle'
 import { combinaisonListes } from '../../lib/outils/arrayOutils'
-import { mathalea2d, fixeBordures } from '../../modules/2dGeneralites'
+import { mathalea2d } from '../../modules/mathalea2d'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import Exercice from '../Exercice'
 
@@ -59,7 +61,7 @@ export default class NomExercice extends Exercice {
         case 1:
           {
             // ces accolades permettent de définir des variables et des constantes locales
-            const A = point(0, 0, 'A', 'below') // 'below' indique l'étiquette avec son nom sera en-dessous du point.
+            const A = pointAbstrait(0, 0, 'A', 'below') // 'below' indique l'étiquette avec son nom sera en-dessous du point.
             // Laisse ta souris sur point pour savoir ce que fait cette fonction !
             // Garde en tête cette possibilité pour la suite et préviens sur le Slack si rien ne s'affiche pour une fonction alors que tu aurais bien aimé ;)
 

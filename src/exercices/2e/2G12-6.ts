@@ -1,4 +1,6 @@
 import type { Matrix } from 'mathjs'
+import { colorToLatexOrHTML } from '../../lib/2d/colorToLatexOrHtml'
+import { fixeBordures } from '../../lib/2d/fixeBordures'
 import { point, Point, tracePoint, TracePoint } from '../../lib/2d/points'
 import { Segment, segment } from '../../lib/2d/segmentsVecteurs'
 import { labelPoint } from '../../lib/2d/textes'
@@ -7,13 +9,9 @@ import { ajouteQuestionMathlive } from '../../lib/interactif/questionMathLive'
 import { Matrice } from '../../lib/mathFonctions/Matrice'
 import { choisitLettresDifferentes } from '../../lib/outils/aleatoires'
 import { choice } from '../../lib/outils/arrayOutils'
-import {
-  colorToLatexOrHTML,
-  fixeBordures,
-  mathalea2d,
-} from '../../modules/2dGeneralites'
 import type FractionEtendue from '../../modules/FractionEtendue'
 import { fraction } from '../../modules/fractions'
+import { mathalea2d } from '../../modules/mathalea2d'
 import { gestionnaireFormulaireTexte, randint } from '../../modules/outils'
 import Exercice from '../Exercice'
 

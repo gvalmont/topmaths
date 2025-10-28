@@ -36,6 +36,7 @@ export default class FabriqueAYohaku extends Exercice {
     | 'entiers relatifs'
     | 'fractions dénominateurs multiples'
     | 'fractions positives dénominateurs premiers'
+
   yohaku: Yohaku[]
   constructor() {
     super()

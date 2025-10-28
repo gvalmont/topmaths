@@ -1,5 +1,6 @@
 import { angle, codageAngle, codageAngleDroit } from '../../lib/2d/angles'
-import { cercle, traceCompas } from '../../lib/2d/cercle'
+import { traceCompas } from '../../lib/2d/Arc'
+import { cercle } from '../../lib/2d/cercle'
 import { cibleRonde, dansLaCibleRonde } from '../../lib/2d/cibles'
 import {
   afficheLongueurSegment,
@@ -7,6 +8,7 @@ import {
   codageSegments,
 } from '../../lib/2d/codages'
 import { droite, droiteParPointEtPerpendiculaire } from '../../lib/2d/droites'
+import { fixeBordures } from '../../lib/2d/fixeBordures'
 import {
   point,
   pointAdistance,
@@ -25,14 +27,14 @@ import {
   lettreDepuisChiffre,
 } from '../../lib/outils/outilString'
 import { nombreAvecEspace } from '../../lib/outils/texNombre'
-import { fixeBordures, mathalea2d } from '../../modules/2dGeneralites'
+import Alea2iep from '../../modules/Alea2iep'
+import { context } from '../../modules/context'
+import { mathalea2d } from '../../modules/mathalea2d'
 import {
   gestionnaireFormulaireTexte,
   listeQuestionsToContenu,
   randint,
 } from '../../modules/outils'
-import Alea2iep from '../../modules/Alea2iep'
-import { context } from '../../modules/context'
 import Exercice from '../Exercice'
 
 export const dateDeModifImportante = '18/01/2025'
@@ -94,29 +96,29 @@ export default class ConstruireUnTriangleAvecCible extends Exercice {
       return lettre + chiffre
     }
 
-    let cible,
-      cellule,
-      result,
-      A,
-      B,
-      C,
-      CC,
-      lAB,
-      lBC,
-      lAC,
-      cA,
-      cB,
-      T,
-      TT,
-      dBC,
-      dAC,
-      dAB,
-      objetsEnonceml,
-      objetsEnonce,
-      objetsCorrection,
-      nom,
-      sommets,
-      montriangle
+    let cible
+    let cellule
+    let result
+    let A
+    let B
+    let C
+    let CC
+    let lAB
+    let lBC
+    let lAC
+    let cA
+    let cB
+    let T
+    let TT
+    let dBC
+    let dAC
+    let dAB
+    let objetsEnonceml
+    let objetsEnonce = []
+    let objetsCorrection
+    let nom
+    let sommets
+    let montriangle
     const listeTypeDeQuestions = combinaisonListes(
       this.typesDeQuestionsDisponibles,
       this.nbQuestions,

@@ -1,4 +1,5 @@
 import Decimal from 'decimal.js'
+import { fixeBordures } from '../../lib/2d/fixeBordures'
 import { tableau } from '../../lib/2d/tableau'
 import {
   handleAnswers,
@@ -15,10 +16,10 @@ import { arrondi, rangeMinMax } from '../../lib/outils/nombres'
 import { sp } from '../../lib/outils/outilString'
 import { prenomF, prenomM } from '../../lib/outils/Personne'
 import { stringNombre, texNombre } from '../../lib/outils/texNombre'
-import { fixeBordures, mathalea2d } from '../../modules/2dGeneralites'
 import { context } from '../../modules/context'
 import FractionEtendue from '../../modules/FractionEtendue'
 import Grandeur from '../../modules/Grandeur'
+import { mathalea2d } from '../../modules/mathalea2d'
 import {
   gestionnaireFormulaireTexte,
   listeQuestionsToContenu,

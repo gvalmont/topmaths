@@ -772,7 +772,6 @@ engine.latexDictionary = [
  *   nbFacteursIdentiquesFactorisation: boolean,
  *   unSeulFacteurLitteral,
  *   developpementEgal,
- *   puissance: boolean,
  *   texteAvecCasse: boolean,
  *   texteSansCasse: boolean
  * }} [options]
@@ -1916,18 +1915,18 @@ export function expressionNumeriqueCompare(
       return {
         isOk: false,
         feedback:
-          'Ce résultat pourrait être correct mais un calcul est attendu',
+          'Ce résultat pourrait être correct mais un calcul est attendu.',
       }
     } else
       return {
         isOk: false,
         feedback:
-          "Ce résultat pourrait être correct mais ce n'est pas ce calcul qui est attendu",
+          "Ce résultat pourrait être correct mais ce n'est pas ce calcul qui est attendu.",
       }
   return {
     isOk: false,
     feedback:
-      "Ce résultat pourrait être correct mais ce n'est pas ce calcul qui est attendu",
+      "Ce résultat pourrait être correct mais ce n'est pas ce calcul qui est attendu.",
   }
 }
 
@@ -2022,9 +2021,11 @@ function comparaisonPuissances(
 
   // input n'est pas une puissance (mais cas possiblement correct si exposant de goodAnswer est 1 ou 0)
   if (nombreSaisi.length === 1) {
-    const exposantGoodAnswer = isNaN(Number(goodAnswerSplit[1]))
+    const exposantGoodAnswer = isNaN(
+      Number(goodAnswerSplit[1].replace(/[{}]/g, '')),
+    )
       ? 1
-      : goodAnswerSplit[1]
+      : goodAnswerSplit[1].replace(/[{}]/g, '')
     if (
       (Number(exposantGoodAnswer) === 1 || Number(exposantGoodAnswer) === 0) &&
       engine.parse(clean(input)).isEqual(engine.parse(clean(goodAnswer)))

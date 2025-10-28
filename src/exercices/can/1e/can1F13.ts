@@ -3,6 +3,7 @@ import { ecritureParentheseSiNegatif } from '../../../lib/outils/ecritures'
 import ExerciceSimple from '../../ExerciceSimple'
 import { randint } from '../../../modules/outils'
 import FractionEtendue from '../../../modules/FractionEtendue'
+import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 export const titre =
   'Déterminer le coefficient directeur d’une tangente (fonctions de référence)'
 export const interactifReady = true
@@ -26,7 +27,7 @@ export const refs = {
 export default class CalculCoeffDir extends ExerciceSimple {
   constructor() {
     super()
-
+    this.formatChampTexte = KeyboardType.clavierFullOperations
     this.typeExercice = 'simple'
     this.nbQuestions = 1
   }

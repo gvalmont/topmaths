@@ -8,21 +8,21 @@ import {
 import { longueur } from '../../lib/2d/segmentsVecteurs'
 import { labelPoint } from '../../lib/2d/textes'
 import { rotation, similitude } from '../../lib/2d/transformations'
+import { choisitLettresDifferentes } from '../../lib/outils/aleatoires'
+import { combinaisonListes } from '../../lib/outils/arrayOutils'
 import {
   miseEnEvidence,
   texteEnCouleurEtGras,
 } from '../../lib/outils/embellissements'
-import { choisitLettresDifferentes } from '../../lib/outils/aleatoires'
 import { arrondi } from '../../lib/outils/nombres'
 import { numAlpha } from '../../lib/outils/outilString'
-import Exercice from '../Exercice'
+import { context } from '../../modules/context'
 import {
   mathalea2d,
   type NestedObjetMathalea2dArray,
-} from '../../modules/2dGeneralites'
-import { context } from '../../modules/context'
+} from '../../modules/mathalea2d'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
-import { combinaisonListes } from '../../lib/outils/arrayOutils'
+import Exercice from '../Exercice'
 
 export const titre = "Déterminer des angles en utilisant les cas d'égalité"
 export const amcReady = true

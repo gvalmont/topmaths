@@ -1,25 +1,27 @@
-import { arc, cercleCentrePoint } from '../../lib/2d/cercle'
+import { arc } from '../../lib/2d/Arc'
+import { cercleCentrePoint } from '../../lib/2d/cercle'
+import { colorToLatexOrHTML } from '../../lib/2d/colorToLatexOrHtml'
+import { traceBarre, traceGraphiqueCartesien } from '../../lib/2d/diagrammes'
 import { point, tracePoint } from '../../lib/2d/points'
 import { carre, motifs } from '../../lib/2d/polygones'
 import { repere } from '../../lib/2d/reperes'
-import { traceBarre, traceGraphiqueCartesien } from '../../lib/2d/diagrammes'
 import { segment, vecteur } from '../../lib/2d/segmentsVecteurs'
+import { tableauColonneLigne } from '../../lib/2d/tableau'
 import { texteParPosition } from '../../lib/2d/textes'
 import { rotation, translation } from '../../lib/2d/transformations'
+import { texcolors } from '../../lib/format/style'
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
 import { texFractionFromString } from '../../lib/outils/deprecatedFractions'
 import { egalOuApprox } from '../../lib/outils/ecritures'
-import { texcolors } from '../../lib/format/style'
 import { rangeMinMax } from '../../lib/outils/nombres'
 import { premiereLettreEnMajuscule } from '../../lib/outils/outilString'
 import { texNombre } from '../../lib/outils/texNombre'
-import Exercice from '../Exercice'
-import { mathalea2d, colorToLatexOrHTML } from '../../modules/2dGeneralites'
+import { mathalea2d } from '../../modules/mathalea2d'
 import {
   listeQuestionsToContenuSansNumero,
   randint,
 } from '../../modules/outils'
-import { tableauColonneLigne } from '../../lib/2d/tableau'
+import Exercice from '../Exercice'
 
 export const dateDePublication = '20/03/2022' // La date de publication initiale au format 'jj/mm/aaaa' pour affichage temporaire d'un tag
 export const dateDeModifImportante = '17/04/2022'

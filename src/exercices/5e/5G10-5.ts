@@ -3,15 +3,15 @@ import { codageSegments } from '../../lib/2d/codages'
 import { point } from '../../lib/2d/points'
 import { polygone } from '../../lib/2d/polygones'
 import { segment } from '../../lib/2d/segmentsVecteurs'
-import Exercice from '../Exercice'
-import { mathalea2d } from '../../modules/2dGeneralites'
+import { propositionsQcm } from '../../lib/interactif/qcm'
 import { context } from '../../modules/context'
+import { mathalea2d } from '../../modules/mathalea2d'
 import {
   gestionnaireFormulaireTexte,
   listeQuestionsToContenu,
   randint,
 } from '../../modules/outils'
-import { propositionsQcm } from '../../lib/interactif/qcm'
+import Exercice from '../Exercice'
 export const amcReady = true
 export const amcType = 'qcmMono'
 export const interactifReady = true

@@ -1,7 +1,7 @@
 import { codageAngle } from '../../../lib/2d/angles'
 import { codageSegment } from '../../../lib/2d/codages'
+import { droiteGraduee } from '../../../lib/2d/DroiteGraduee'
 import { milieu, point } from '../../../lib/2d/points'
-import { droiteGraduee } from '../../../lib/2d/reperes'
 import { segment } from '../../../lib/2d/segmentsVecteurs'
 import { tableauColonneLigne } from '../../../lib/2d/tableau'
 import { labelPoint, texteParPosition } from '../../../lib/2d/textes'
@@ -25,12 +25,12 @@ import {
   stringNombre,
   texNombre,
 } from '../../../lib/outils/texNombre'
-import { mathalea2d } from '../../../modules/2dGeneralites'
 import {
   fraction,
   obtenirListeFractionsIrreductibles,
 } from '../../../modules/fractions'
 import Hms from '../../../modules/Hms'
+import { mathalea2d } from '../../../modules/mathalea2d'
 import { listeQuestionsToContenu, randint } from '../../../modules/outils'
 import Exercice from '../../Exercice'
 

@@ -2295,7 +2295,7 @@ const pattern80: PatternRiche = {
   iterate: function (this: VisualPattern, n) {
     if (n === undefined) n = 1
     const newCells = new Set<string>()
-    for (let i = 0; i <= n; i++) {
+    for (let i = 0; i < 2; i++) {
       for (let j = 0; j < n; j++) {
         newCells.add(VisualPattern.coordToKey([i, j, this.shapes[0]]))
       }

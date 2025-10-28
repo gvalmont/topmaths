@@ -1,13 +1,14 @@
-import { context } from '../../modules/context'
 import { apparitionAnimee, translationAnimee } from '../../modules/2dAnimation'
-import { ObjetMathalea2D } from '../../modules/2dGeneralites'
+import { context } from '../../modules/context'
+import { ObjetMathalea2D } from './ObjetMathalea2D'
 import { point } from './points'
 import { segment, vecteur } from './segmentsVecteurs'
-import { texteParPosition, TexteParPoint } from './textes'
+import { TexteParPoint, texteParPosition } from './textes'
 export class GlisseNombre extends ObjetMathalea2D {
   constructor(nombre = 0, decalage = 0) {
     super()
     this.objets = []
+    this.bordures = [3, -5, 28, 5]
     const chiffresADecaler = []
     const largeurColonne = 2
     const hauteurLigne = 1.5

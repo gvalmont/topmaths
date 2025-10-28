@@ -1,6 +1,8 @@
 import { angle, angleOriente, codageAngle } from '../../lib/2d/angles'
 import { afficheMesureAngle, texteSurSegment } from '../../lib/2d/codages'
-import { Point, point, pointAdistance } from '../../lib/2d/points'
+import { fixeBordures } from '../../lib/2d/fixeBordures'
+import { pointAdistance } from '../../lib/2d/points'
+import { PointAbstrait, pointAbstrait } from '../../lib/2d/points-abstraits'
 import { nommePolygone, Polygone } from '../../lib/2d/polygones'
 import { triangle2points2longueurs } from '../../lib/2d/triangle'
 import { createList } from '../../lib/format/lists'
@@ -13,7 +15,7 @@ import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { arrondi } from '../../lib/outils/nombres'
 import { creerNomDePolygone } from '../../lib/outils/outilString'
 import { texNombre } from '../../lib/outils/texNombre'
-import { fixeBordures, mathalea2d } from '../../modules/2dGeneralites'
+import { mathalea2d } from '../../modules/mathalea2d'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import Exercice from '../Exercice'
 export const interactifReady = true
@@ -57,9 +59,9 @@ export default class ProduitScalaireAlKashi extends Exercice {
       let longueurAB: number
       let longueurAC: number
       let longueurBC: number
-      let A: Point
-      let B: Point
-      let C: Point
+      let A: PointAbstrait
+      let B: PointAbstrait
+      let C: PointAbstrait
       let ABC: Polygone
       let cptDo = 0
       do {
@@ -72,7 +74,7 @@ export default class ProduitScalaireAlKashi extends Exercice {
             longueurAC,
           ]) +
           randint(1, 89) / 100
-        A = point(0, 0)
+        A = pointAbstrait(0, 0)
         const angle = randint(-170, 170)
         B = pointAdistance(A, longueurAB, angle)
         ABC = triangle2points2longueurs(A, B, longueurAC, longueurBC)

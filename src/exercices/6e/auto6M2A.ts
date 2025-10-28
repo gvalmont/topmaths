@@ -1,5 +1,6 @@
-import { arc } from '../../lib/2d/cercle'
+import { arc } from '../../lib/2d/Arc'
 import { codageSegment } from '../../lib/2d/codages'
+import { colorToLatexOrHTML } from '../../lib/2d/colorToLatexOrHtml'
 import { droite, droiteParPointEtPente } from '../../lib/2d/droites'
 import {
   milieu,
@@ -21,17 +22,14 @@ import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
 import { arrondi } from '../../lib/outils/nombres'
 import { numAlpha } from '../../lib/outils/outilString'
 import { translationPuisRotationAnimees } from '../../modules/2dAnimation'
-import {
-  colorToLatexOrHTML,
-  mathalea2d,
-  type NestedObjetMathalea2dArray,
-} from '../../modules/2dGeneralites'
 import { context } from '../../modules/context'
+import { mathalea2d } from '../../modules/mathalea2d'
 import {
   gestionnaireFormulaireTexte,
   listeQuestionsToContenu,
   randint,
 } from '../../modules/outils'
+import type { NestedObjetMathalea2dArray } from '../../types/2d'
 import Exercice from '../Exercice'
 
 export const dateDePublication = '08/06/2022'

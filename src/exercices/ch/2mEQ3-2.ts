@@ -35,12 +35,12 @@ export default class ExerciceTangenteCourbe extends Exercice {
     for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50; ) {
       let texte = ''
       let texteCorr = ''
-      let rPot = randint(-12, 12, [0])
-      let x1 = randint(-10, 10)
-      let y1 = randint(-10, 10)
-      let cConst = x1 ** 2 + y1 ** 2 - rPot ** 2 * (rPot > 0 ? 1 : -1)
-      let cX = -2 * x1
-      let cY = -2 * y1
+      const rPot = randint(-12, 12, [0])
+      const x1 = randint(-10, 10)
+      const y1 = randint(-10, 10)
+      const cConst = x1 ** 2 + y1 ** 2 - rPot ** 2 * (rPot > 0 ? 1 : -1)
+      const cX = -2 * x1
+      const cY = -2 * y1
       let eqCerclePot = ''
       if (cConst === 0) {
         eqCerclePot = `x^2 + y^2 ${ecritureAlgebriqueSauf1(cX)}x ${ecritureAlgebriqueSauf1(cY)}y = 0`

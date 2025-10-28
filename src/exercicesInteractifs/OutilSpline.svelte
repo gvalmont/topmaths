@@ -1,8 +1,9 @@
 <script>
   import HeaderExerciceVueProf from '../components/shared/exercice/shared/headerExerciceVueProf/HeaderExerciceVueProf.svelte'
+  import { fixeBordures } from '../lib/2d/fixeBordures'
   import { repere } from '../lib/2d/reperes'
   import { spline, trieNoeuds } from '../lib/mathFonctions/Spline'
-  import { fixeBordures, mathalea2d } from '../modules/2dGeneralites'
+  import { mathalea2d } from '../modules/mathalea2d'
 
   export const titre = 'Interpolation par splines (avec formulaire)'
 

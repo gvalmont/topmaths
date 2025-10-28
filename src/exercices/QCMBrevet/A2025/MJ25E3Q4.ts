@@ -1,11 +1,12 @@
 import { codageAngleDroit } from '../../../lib/2d/angles'
 import { placeLatexSurSegment } from '../../../lib/2d/codages'
+import { fixeBordures } from '../../../lib/2d/fixeBordures'
 import { point } from '../../../lib/2d/points'
 import { polygone } from '../../../lib/2d/polygones'
 import { labelPoint } from '../../../lib/2d/textes'
 import { choice } from '../../../lib/outils/arrayOutils'
 import { texNombre } from '../../../lib/outils/texNombre'
-import { fixeBordures, mathalea2d } from '../../../modules/2dGeneralites'
+import { mathalea2d } from '../../../modules/mathalea2d'
 import ExerciceQcmA from '../../ExerciceQcmA'
 
 export const uuid = '47u56'

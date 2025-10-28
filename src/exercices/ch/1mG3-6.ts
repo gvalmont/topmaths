@@ -1,26 +1,27 @@
-import Exercice from '../Exercice'
+import {
+  codageAngle,
+  codageAngleDroit,
+  CodageAngleDroit,
+} from '../../lib/2d/angles'
+import { droite } from '../../lib/2d/droites'
+import { fixeBordures } from '../../lib/2d/fixeBordures'
+import { point } from '../../lib/2d/points'
+import { polygone } from '../../lib/2d/polygones'
+import { segment } from '../../lib/2d/segmentsVecteurs'
+import { labelPoint } from '../../lib/2d/textes'
+import { projectionOrtho, rotation } from '../../lib/2d/transformations'
+import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
+import { extraireRacineCarree } from '../../lib/outils/calculs'
+import { miseEnCouleur, miseEnEvidence } from '../../lib/outils/embellissements'
+import { creerNomDePolygone } from '../../lib/outils/outilString'
+import FractionEtendue from '../../modules/FractionEtendue'
+import { mathalea2d } from '../../modules/mathalea2d'
 import {
   gestionnaireFormulaireTexte,
   listeQuestionsToContenu,
   randint,
 } from '../../modules/outils'
-import { fixeBordures, mathalea2d } from '../../modules/2dGeneralites'
-import { point } from '../../lib/2d/points'
-import { droite } from '../../lib/2d/droites'
-import {
-  codageAngleDroit,
-  codageAngle,
-  CodageAngleDroit,
-} from '../../lib/2d/angles'
-import { polygone } from '../../lib/2d/polygones'
-import { segment } from '../../lib/2d/segmentsVecteurs'
-import { labelPoint } from '../../lib/2d/textes'
-import { projectionOrtho, rotation } from '../../lib/2d/transformations'
-import { creerNomDePolygone } from '../../lib/outils/outilString'
-import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
-import { miseEnCouleur, miseEnEvidence } from '../../lib/outils/embellissements'
-import { extraireRacineCarree } from '../../lib/outils/calculs'
-import FractionEtendue from '../../modules/FractionEtendue'
+import Exercice from '../Exercice'
 
 export const titre = 'Relations métriques dans un triangle rectangle'
 export const dateDePublication = '10/04/2025'

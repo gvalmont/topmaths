@@ -1,14 +1,16 @@
-import { choice } from '../lib/outils/arrayOutils'
+import { lampeMessage } from '../lib/format/message'
+import { texteGras } from '../lib/format/style'
+import Stat from '../lib/mathFonctions/Stat'
+import { choice, shuffle } from '../lib/outils/arrayOutils'
 import { nomDuMois } from '../lib/outils/dateEtHoraires'
 import { texFractionFromString } from '../lib/outils/deprecatedFractions'
 import { ecritureParentheseSiNegatif } from '../lib/outils/ecritures'
-import { lampeMessage } from '../lib/format/message'
+import { miseEnEvidence } from '../lib/outils/embellissements'
 import { arrondi } from '../lib/outils/nombres'
 import { prenom } from '../lib/outils/Personne'
-import { texteGras } from '../lib/format/style'
 import { texNombre } from '../lib/outils/texNombre'
-import { miseEnEvidence } from '../lib/outils/embellissements'
 import FractionEtendue from './FractionEtendue'
+import { randFloat, randint } from './outils'
 
 function underbraceMediane(nbVal: number) {
   let sortie
@@ -741,6 +743,364 @@ function solidName(nbCot: 4 | 6 | 8 | 10) {
     default:
       return 'décaèdre'
   }
+}
+
+/**
+ * Construit une série numérique (triée) compatible avec les résumés fournis.
+ * Paramètres requis : q1, mediane, q3, etendue. La moyenne est optionnelle.
+ * La série ne contiendra pas de valeurs aberrantes (selon la règle 1.5*IQR).
+ * Retourne un tableau trié de longueur n (par défaut 20).
+ */
+export function creerSerieDeQuartiles({
+  q1,
+  mediane,
+  q3,
+  min,
+  max,
+  n = 20,
+  isInteger = false,
+}: {
+  q1: number
+  mediane: number
+  q3: number
+  min: number
+  max: number
+  n?: number
+  isInteger?: boolean
+}): number[] {
+  if (n < 5) {
+    throw new Error('La taille de la série doit être au moins de 5')
+  }
+
+  // Si entier demandé, arrondir quantiles et min/max, garantir ordre
+  if (isInteger) {
+    q1 = Math.round(q1)
+    mediane = Math.round(mediane)
+    q3 = Math.round(q3)
+    min = Math.round(min)
+    max = Math.round(max)
+    if (q1 > mediane) mediane = q1
+    if (mediane > q3) q3 = mediane
+    if (min > q1) min = q1
+    if (max < q3) max = q3
+  }
+
+  const serie: number[] = []
+  const quartileCount = Math.floor(n / 4)
+  const remaining = n - 3 * quartileCount
+
+  // Génération contrôlée par quartiles
+  for (let i = 0; i < quartileCount; i++) {
+    const value = q1 - (q1 - min) * (Math.random() * 0.5 + 0.1)
+    serie.push(isInteger ? Math.round(value) : value)
+  }
+  for (let i = 0; i < quartileCount; i++) {
+    const value = q1 + (mediane - q1) * (Math.random() * 0.8 + 0.1)
+    serie.push(isInteger ? Math.round(value) : value)
+  }
+  for (let i = 0; i < quartileCount; i++) {
+    const value = mediane + (q3 - mediane) * (Math.random() * 0.8 + 0.1)
+    serie.push(isInteger ? Math.round(value) : value)
+  }
+  for (let i = 0; i < remaining; i++) {
+    const value = q3 + (max - q3) * (Math.random() * 0.5 + 0.1)
+    serie.push(isInteger ? Math.round(value) : value)
+  }
+
+  // Trier puis forcer les positions de quartiles (une ou deux positions selon n)
+  serie.sort((a, b) => a - b)
+
+  const getQuartilePositions = (which: 'q1' | 'q2' | 'q3'): number[] => {
+    const mid = Math.floor(n / 2)
+    const lowerLen = mid
+    if (which === 'q1') {
+      if (lowerLen % 2 === 1) {
+        return [Math.floor(lowerLen / 2)]
+      } else {
+        return [lowerLen / 2 - 1, lowerLen / 2]
+      }
+    } else if (which === 'q2') {
+      if (n % 2 === 1) {
+        return [mid]
+      } else {
+        return [mid - 1, mid]
+      }
+    } else {
+      const start = n - lowerLen
+      if (lowerLen % 2 === 1) {
+        return [start + Math.floor(lowerLen / 2)]
+      } else {
+        return [start + lowerLen / 2 - 1, start + lowerLen / 2]
+      }
+    }
+  }
+
+  const applyQuartileValue = (positions: number[], value: number) => {
+    if (positions.length === 1) {
+      serie[positions[0]] = isInteger ? Math.round(value) : value
+    } else {
+      const v = isInteger ? Math.round(value) : value
+      serie[positions[0]] = v
+      serie[positions[1]] = v
+    }
+  }
+  applyQuartileValue(getQuartilePositions('q1'), q1)
+  applyQuartileValue(getQuartilePositions('q2'), mediane)
+  applyQuartileValue(getQuartilePositions('q3'), q3)
+
+  // S'assurer que min et max sont bien les extrêmes de la série
+  serie[0] = isInteger ? Math.round(min) : min
+  serie[n - 1] = isInteger ? Math.round(max) : max
+
+  // Clamp sur [min,max] (sécurité)
+  for (let i = 0; i < n; i++) {
+    if (serie[i] < min) serie[i] = min
+    if (serie[i] > max) serie[i] = max
+  }
+
+  // Réparer monotonicité : avant puis arrière
+  for (let i = 1; i < n; i++) {
+    if (serie[i] < serie[i - 1]) {
+      const apres = serie[i]
+      serie[i] = apres
+      serie[i - 1] = apres
+      i++
+    }
+  }
+
+  // Vérification stricte : recalculer les quartiles et comparer
+  const stat = new Stat(serie)
+  const qs = stat.quartiles()
+  const eq = (a: number, b: number) =>
+    isInteger ? a === b : Math.abs(a - b) < 1e-9
+  if (!eq(qs.q1, q1) || !eq(qs.q2, mediane) || !eq(qs.q3, q3)) {
+    throw new Error(
+      'Impossible de construire une série respectant exactement les quartiles demandés avec les contraintes fournies',
+    )
+  }
+
+  // Enfin s'assurer que min/max sont bien les extrêmes après réajustements
+  if (
+    serie[0] !== (isInteger ? Math.round(min) : min) ||
+    serie[n - 1] !== (isInteger ? Math.round(max) : max)
+  ) {
+    throw new Error(
+      'Impossible de conserver min/max comme extrêmes sans violer les quartiles demandés',
+    )
+  }
+
+  return serie
+}
+
+/**
+ * Génère une série de `n` valeurs, dont la moyenne est ≈ `mean` et l'étendue est ≈ `range`.
+ * Les valeurs sont comprises entre `mean - range/2` et `mean + range/2` (approximatif).
+ *
+ * @param mean - moyenne cible (par défaut 50)
+ * @param range - étendue cible (max - min) (par défaut 30)
+ * @param n - nombre de valeurs (par défaut 20)
+ * @param isInteger - si les valeurs doivent être entières (par défaut false)
+ * @returns série de nombres de longueur `n`, avec moyenne ≈ `mean` et étendue ≈ `range`
+ */
+export function creerSerieDeMoyenneEtEtendue({
+  mean = 50,
+  range = 30,
+  n = 20,
+  isInteger = false,
+  precision = 2,
+}: {
+  mean: number
+  range: number
+  n?: number
+  isInteger?: boolean
+  precision?: number
+}): number[] {
+  if (n <= 0) throw new Error('n doit être supérieur à 0')
+  if (range < 0) throw new Error('range doit être positif')
+  if (mean < 0) throw new Error('mean doit être positif')
+
+  // calcul min/max cibles
+  const deltaNeg = randint(Math.round(range * 0.3), Math.round(range * 0.7))
+  const deltaPos = range - deltaNeg
+
+  let min = mean - deltaNeg
+  let max = mean + deltaPos
+
+  if (isInteger) {
+    min = Math.round(min)
+    max = Math.round(max)
+    if (min > max) {
+      const tmp = min
+      min = max
+      max = tmp
+    }
+  }
+
+  // Générer des quartiles cohérents (Q1, Q2, Q3)
+  let [q1, mediane, q3] = [
+    isInteger ? randint(Math.floor(min), Math.floor(max)) : randFloat(min, max),
+    isInteger ? randint(Math.floor(min), Math.floor(max)) : randFloat(min, max),
+    isInteger ? randint(Math.floor(min), Math.floor(max)) : randFloat(min, max),
+  ].sort((a, b) => a - b)
+
+  // Répéter jusqu'à quartiles distincts
+  let safety = 0
+  while ((q1 === mediane || mediane === q3 || q1 === q3) && safety < 1000) {
+    ;[q1, mediane, q3] = [
+      isInteger
+        ? randint(Math.floor(min), Math.floor(max))
+        : randFloat(min, max, precision),
+      isInteger
+        ? randint(Math.floor(min), Math.floor(max))
+        : randFloat(min, max, precision),
+      isInteger
+        ? randint(Math.floor(min), Math.floor(max))
+        : randFloat(min, max, precision),
+    ].sort((a, b) => a - b)
+    safety++
+  }
+  if (safety >= 1000)
+    throw new Error('Impossible de générer des quartiles distincts')
+
+  // Construire exactement n valeurs (réparties par "tranches")
+  const serie: number[] = []
+  while (serie.length < n) {
+    if (serie.length < n) {
+      serie.push(
+        isInteger
+          ? randint(Math.floor(min), Math.floor(q1))
+          : randFloat(min, q1, precision),
+      )
+    }
+    if (serie.length < n) {
+      serie.push(
+        isInteger
+          ? randint(Math.floor(q1), Math.floor(mediane))
+          : randFloat(q1, mediane, precision),
+      )
+    }
+    if (serie.length < n) {
+      serie.push(
+        isInteger
+          ? randint(Math.floor(mediane), Math.floor(q3))
+          : randFloat(mediane, q3, precision),
+      )
+    }
+    if (serie.length < n) {
+      serie.push(
+        isInteger
+          ? randint(Math.floor(q3), Math.floor(max))
+          : randFloat(q3, max, precision),
+      )
+    }
+  }
+
+  // Tronquer si besoin (sécurité) et forcer extrêmes
+  const finalSerie = serie.slice(0, n)
+  finalSerie.sort((a, b) => a - b)
+  finalSerie[0] = isInteger ? Math.round(min) : min
+  finalSerie[n - 1] = isInteger ? Math.round(max) : max
+
+  // Ajuster la somme pour obtenir exactement la moyenne souhaitée
+  const requiredSum = mean * n
+  const currentSum = finalSerie.reduce((s, v) => s + v, 0)
+  let diff = requiredSum - currentSum
+
+  // diff doit être entier ; répartir ±1 sur les indices 1..n-2
+  diff = Math.round(diff)
+  const maxIterations = Math.abs(diff) * n + 1000
+  let iter = 0
+  // indices utilisables
+  const indices = []
+  for (let i = 1; i < n - 1; i++) indices.push(i)
+  while (diff !== 0 && iter < maxIterations) {
+    for (const idx of indices) {
+      if (diff === 0) break
+      if (diff > 0 && finalSerie[idx] < max) {
+        finalSerie[idx] = Math.min(max, finalSerie[idx] + 1)
+        diff--
+      } else if (diff < 0 && finalSerie[idx] > min) {
+        finalSerie[idx] = Math.max(min, finalSerie[idx] - 1)
+        diff++
+      }
+    }
+    iter++
+    // si on ne peut plus bouger (tous indices au max/min), sortir pour éviter boucle infinie
+    const canIncrease = indices.some((i) => finalSerie[i] < max)
+    const canDecrease = indices.some((i) => finalSerie[i] > min)
+    if ((diff > 0 && !canIncrease) || (diff < 0 && !canDecrease)) break
+  }
+  if (diff !== 0) {
+    // Si on n'a pas réussi à tout ajuster, avertir mais retourner la meilleure série
+    console.warn(
+      `Ajustement entier incomplet (restant=${diff}). Moyenne finale = ${finalSerie.reduce((a, b) => a + b, 0) / n}`,
+    )
+  }
+  let iterations = 0
+
+  if (!isInteger) {
+    const requiredSum = mean * n
+    const currentSum = finalSerie.reduce((s, v) => s + v, 0)
+    diff = requiredSum - currentSum
+    // flottants : pas à pas +/- step
+    const tolerance = 0.001
+    let remaining = diff
+    const step = 0.005
+    const maxIterations = 10000
+    let i = 1
+    let direction = 1
+    while (Math.abs(remaining) > tolerance && iterations < maxIterations) {
+      if (i === 0 || i === n - 1) {
+        direction = -direction
+        i += direction
+      }
+      if (remaining > 0) {
+        if (finalSerie[i] < max) {
+          finalSerie[i] += step
+          remaining -= step
+        }
+      } else {
+        if (finalSerie[i] > min) {
+          finalSerie[i] -= step
+          remaining += step
+        }
+      }
+      i += direction
+      if (i < 0 || i >= n) {
+        i = 1
+        direction = 1
+      }
+      iterations++
+    }
+    if (iterations >= maxIterations) {
+      console.warn(
+        `Ajustement flottant incomplet après ${maxIterations} itérations. Moyenne finale = ${finalSerie.reduce((a, b) => a + b, 0) / n}`,
+      )
+    }
+  }
+
+  // Tri, puis mélange pour retourner une série non triée
+  finalSerie.sort((a, b) => a - b)
+  return shuffle(finalSerie)
+}
+
+export function creerSerieDeValeurs(
+  values: number[],
+  n: number,
+): [number, number][] {
+  const objetSerie: Record<number, number> = {}
+  for (const val of values) {
+    objetSerie[val] = 0
+  }
+  for (let i = 0; i < n; i++) {
+    const val = values[randint(0, values.length - 1)]
+    objetSerie[val] += 1
+  }
+  const serie: [number, number][] = []
+  for (const key in objetSerie) {
+    serie.push([Number(key), objetSerie[key]])
+  }
+  return serie
 }
 
 export const OutilsStats = {

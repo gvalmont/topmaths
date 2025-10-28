@@ -514,10 +514,16 @@ class ConstructionsSymetrieCentraleFigures extends Exercice {
       `#feedbackEx${this.numeroExercice}Q${i}`,
     ) as HTMLDivElement
     const typefigure = this.typesDeQuestions[i]
-    const cords1 = rotationCoord(this.antecedents[i][0], this.centres[i], 180)
-    const cords2 = rotationCoord(this.antecedents[i][1], this.centres[i], 180)
-    const cords3 = rotationCoord(this.antecedents[i][2], this.centres[i], 180)
     const [label1, label2, label3] = [this.antecedents[i][0].label, this.antecedents[i][1].label, this.antecedents[i][2].label]
+    const [antecedent1, antecedent2, antecedent3] = [this.figuresApiGeom[i].getPointByLabel(label1), this.figuresApiGeom[i].getPointByLabel(label2), this.figuresApiGeom[i].getPointByLabel(label3)]
+    const centreLabel = this.centres[i].label
+    const centre = this.figuresApiGeom[i].getPointByLabel(centreLabel)
+    if (antecedent1 == null || antecedent2 == null || antecedent3 == null || centre == null) {
+      throw new Error('Antecedents not found')
+    }
+    const cords1 = rotationCoord(antecedent1, centre, 180)
+    const cords2 = rotationCoord(antecedent2, centre, 180)
+    const cords3 = rotationCoord(antecedent3, centre, 180)
     let resultat: boolean
     let resultat2: boolean
     let resultat3: boolean
@@ -608,7 +614,7 @@ class ConstructionsSymetrieCentraleFigures extends Exercice {
           // label: this.antecedents[i][1].label + "'",
           checkOnlyAbscissa: false,
         }).isValid
-        if (resultat2 && resultat3) results[2] = 'OK'
+        if (resultat2 && resultat3) results[1] = 'OK'
         if (!resultat2){
           feedbacks.push(`L'image du point $${label1}$ n'est pas correcte.`)
         }
@@ -702,10 +708,10 @@ class ConstructionsSymetrieCentraleFigures extends Exercice {
       this.figuresApiGeom[i].divUserMessage.style.display = 'none'
       return results
     } else {
-       if (divFeedback && results.includes('OK')) {
+       if (divFeedback && results.includes('OK') && this.nbQuestions > 1) {
          feedbacks.push('1/2')
        }
-       if (divFeedback && !results.includes('OK')) {
+       if (divFeedback && !results.includes('OK') && this.nbQuestions > 1) {
          feedbacks.push('0/2')
        }
        if (feedbacks.length) {

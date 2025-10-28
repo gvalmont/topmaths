@@ -1,4 +1,4 @@
-import { Point, point, pointAdistance } from '../../lib/2d/points'
+import { pointAdistance } from '../../lib/2d/points'
 import { barycentre, nommePolygone } from '../../lib/2d/polygones'
 import { triangle2points2longueurs } from '../../lib/2d/triangle'
 // import { angle, angleOriente, MarqueAngle, MarqueAngleDroit } from '../../lib/2d/angles'
@@ -7,6 +7,7 @@ import { angleOriente, markTypeArray, MarqueAngle } from '../../lib/2d/angles'
 import { placeLatexSurSegment } from '../../lib/2d/codages'
 
 import { droite } from '../../lib/2d/droites'
+import { fixeBordures } from '../../lib/2d/fixeBordures'
 import {
   homothetie,
   similitude,
@@ -14,8 +15,9 @@ import {
 } from '../../lib/2d/transformations'
 import { deuxColonnesResp } from '../../lib/format/miseEnPage'
 import { creerNomDePolygone } from '../../lib/outils/outilString'
-import { fixeBordures, mathalea2d } from '../../modules/2dGeneralites'
+import { mathalea2d } from '../../modules/mathalea2d'
 
+import { PointAbstrait, pointAbstrait } from '../../lib/2d/points-abstraits'
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif' // fonction qui va préparer l'analyse de la saisie
 import { remplisLesBlancs } from '../../lib/interactif/questionMathLive' // fonctions de mise en place des éléments interactifs
@@ -182,7 +184,7 @@ export default class nomExercice extends Exercice {
       const longueurDE = longueurAB * coeff
       const motAgrandissementReduction =
         coeff > 1 ? "d'agrandissement" : 'de réduction'
-      let A = point(0, 0)
+      let A = pointAbstrait(0, 0)
       let B = pointAdistance(A, longueurAB, randint(-170, 170))
       let p1 = triangle2points2longueurs(A, B, longueurAC, longueurBC)
       // deuxieme triangle par similitude on peut effectuer sur le premier car les figures sont séparées à l'affichage
@@ -431,12 +433,12 @@ function tailleFigures(
 }
 
 function rediger(
-  A: Point,
-  B: Point,
-  C: Point,
-  D: Point,
-  E: Point,
-  F: Point,
+  A: PointAbstrait,
+  B: PointAbstrait,
+  C: PointAbstrait,
+  D: PointAbstrait,
+  E: PointAbstrait,
+  F: PointAbstrait,
   prop: boolean = true,
 ): string {
   let redaction = `$\\widehat{${A.nom + B.nom + C.nom}}$ = $\\widehat{${D.nom + E.nom + F.nom}}$.<br>`

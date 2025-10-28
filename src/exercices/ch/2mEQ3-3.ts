@@ -95,13 +95,13 @@ export default class ExerciceTangenteCourbe extends Exercice {
           new FractionEtendue(0, 1),
           { format: 'initial', variable: 'a' },
         )
-        let solEq = eqSecA.solutionFrac()
+        const solEq = eqSecA.solutionFrac()
         texteCorr += `$${eqSecA.ensembleDeSolutionsTex}$.`
         if (eqSecA.delta.num === 0) {
           texteCorr += ` Il y a qu'une seule valeur de $a$ possible et donc une seule tangente.
           On déduit l'ordonnée à l'origine en substituant la valeur trouvée pour $a$ dans $b=${y1}${ecritureAlgebriqueSauf1(-x1)}a$.<br>`
-          let a2 = solEq[0] as FractionEtendue
-          let b2 = new FractionEtendue(y1, 1).sommeFraction(
+          const a2 = solEq[0] as FractionEtendue
+          const b2 = new FractionEtendue(y1, 1).sommeFraction(
             a2.multiplieEntier(-x1),
           )
           texteCorr += `\\[b=${b2.texFractionSimplifiee}\\]
@@ -111,12 +111,12 @@ export default class ExerciceTangenteCourbe extends Exercice {
         } else {
           ;`
         Ces deux solutions correspondent aux pentes des deux tangentes.<br> On déduit l'ordonnée à l'origine de chaque droite en substituant la valeur trouvée pour $a$ dans $b=${y1}${ecritureAlgebriqueSauf1(-x1)}a$.<br>`
-          let a2 = solEq[0] as FractionEtendue
-          let a1 = solEq[1] as FractionEtendue
-          let b1 = new FractionEtendue(y1, 1).sommeFraction(
+          const a2 = solEq[0] as FractionEtendue
+          const a1 = solEq[1] as FractionEtendue
+          const b1 = new FractionEtendue(y1, 1).sommeFraction(
             a1.multiplieEntier(-x1),
           )
-          let b2 = new FractionEtendue(y1, 1).sommeFraction(
+          const b2 = new FractionEtendue(y1, 1).sommeFraction(
             a2.multiplieEntier(-x1),
           )
           texteCorr += `\\[b=${b1.texFractionSimplifiee} \\text{ si } a=${a1.texFractionSimplifiee}\\quad \\text{ ou } b=${b2.texFractionSimplifiee} \\text{ si } a=${a2.texFractionSimplifiee}\\]
@@ -126,7 +126,7 @@ export default class ExerciceTangenteCourbe extends Exercice {
         }
         solutions = [eqSecA.solutionsListeTex[0]]
       } else {
-        let listeCarre = [
+        const listeCarre = [
           [
             [1, 8],
             [4, 7],
@@ -136,20 +136,20 @@ export default class ExerciceTangenteCourbe extends Exercice {
             [15, 5],
           ],
         ]
-        let choixListe = choice([0, 1])
-        let listeDesChoix = [
+        const choixListe = choice([0, 1])
+        const listeDesChoix = [
           [0, 0],
           [0, 1],
           [1, 0],
           [1, 1],
         ]
-        let choixRayon = choice([0, 1, 2, 3])
-        let choixX = choice([0, 1])
-        let r =
+        const choixRayon = choice([0, 1, 2, 3])
+        const choixX = choice([0, 1])
+        const r =
           listeCarre[choixListe][listeDesChoix[choixRayon][0]][
             listeDesChoix[choixRayon][1]
           ]
-        let c =
+        const c =
           listeCarre[choixListe][listeDesChoix[choixRayon][0]][
             (listeDesChoix[choixRayon][1] + 1) % 2
           ]
@@ -206,18 +206,18 @@ export default class ExerciceTangenteCourbe extends Exercice {
           { format: 'initial', variable: 'a' },
         )
         texteCorr += `$${eqSecA.ensembleDeSolutionsTex}$. Ces deux solutions correspondent aux pentes des deux tangentes.<br> On en déduit l'ordonnées à l'origine de chaque droite en substituant la valeur trouvée pour $a$ dans $b=${y1}${ecritureAlgebriqueSauf1(-x1)}a$.<br>`
-        let a2 = new FractionEtendue(
+        const a2 = new FractionEtendue(
           c * r + x1 * (y2 - y1) + x2 * y1 - x2 * y2,
           r ** 2 - (x1 - x2) ** 2,
         )
-        let a1 = new FractionEtendue(
+        const a1 = new FractionEtendue(
           -c * r + x1 * (y2 - y1) + x2 * y1 - x2 * y2,
           r ** 2 - (x1 - x2) ** 2,
         )
-        let b1 = new FractionEtendue(y1, 1).sommeFraction(
+        const b1 = new FractionEtendue(y1, 1).sommeFraction(
           a1.multiplieEntier(-x1),
         )
-        let b2 = new FractionEtendue(y1, 1).sommeFraction(
+        const b2 = new FractionEtendue(y1, 1).sommeFraction(
           a2.multiplieEntier(-x1),
         )
         texteCorr += `\\[b=${b1.texFractionSimplifiee} \\text{ si } a=${a1.texFractionSimplifiee}\\quad \\text{ ou } b=${b2.texFractionSimplifiee} \\text{ si } a=${a2.texFractionSimplifiee}\\]

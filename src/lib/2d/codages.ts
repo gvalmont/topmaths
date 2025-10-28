@@ -1,15 +1,12 @@
-import {
-  colorToLatexOrHTML,
-  fixeBordures,
-  ObjetMathalea2D,
-  Vide2d,
-} from '../../modules/2dGeneralites'
 import { context } from '../../modules/context'
 import { arrondi } from '../outils/nombres'
 import { stringNombre } from '../outils/texNombre'
 import { angleOriente, codageAngle, codageAngleDroit } from './angles'
-import { arc } from './cercle'
+import { arc } from './Arc'
+import { colorToLatexOrHTML } from './colorToLatexOrHtml'
 import { Droite, droite, mediatrice } from './droites'
+import { fixeBordures } from './fixeBordures'
+import { ObjetMathalea2D } from './ObjetMathalea2D'
 import {
   milieu,
   Point,
@@ -30,11 +27,12 @@ import {
   type LetterSizeType,
 } from './textes'
 import { rotation, similitude, translation } from './transformations'
+import { Vide2d } from './Vide2d'
 
 /**
  * Code le milieu d'un segment
- * @param {Point} A Première extrémité du segment
- * @param {Point} B Seconde extrémité du segment
+ * @param {Point|PointAbstrait} A Première extrémité du segment
+ * @param {Point|PointAbstrait} B Seconde extrémité du segment
  * @param {string} [color='black'] Couleur du codage : du type 'blue' ou du type '#f15929'.
  * @param {string} [mark='x'] Symbole posé sur les deux parties du segment
  * @param {boolean} [mil=true] Trace ou nom le point du milieu.
@@ -46,7 +44,13 @@ import { rotation, similitude, translation } from './transformations'
  */
 // JSDOC Validee par EE Juin 2022
 export class CodageMilieu extends ObjetMathalea2D {
-  constructor(A: Point, B: Point, color = 'black', mark = '×', mil = true) {
+  constructor(
+    A: Point | PointAbstrait,
+    B: Point | PointAbstrait,
+    color = 'black',
+    mark = '×',
+    mil = true,
+  ) {
     super()
     if (longueur(A, B) < 0.1)
       window.notify(
@@ -92,8 +96,8 @@ export class CodageMilieu extends ObjetMathalea2D {
  */
 // JSDOC Validee par EE Juin 2022
 export function codageMilieu(
-  A: Point,
-  B: Point,
+  A: Point | PointAbstrait,
+  B: Point | PointAbstrait,
   color = 'black',
   mark = '×',
   mil = true,

@@ -65,7 +65,7 @@ function buildConclusion(
     reponse = `\\left${estStrict ? ']' : '['}${borneFinie.texFractionSimplifiee}\\,;\\,+\\infty\\right[`
   }
   return {
-    reponse: reponse,
+    reponse,
     correction: `L'ensemble de solutions de l'inéquation est $S = ${miseEnEvidence(reponse)}$.`,
   }
 }
@@ -110,7 +110,7 @@ export default class ExerciceInequation1 extends Exercice {
       'ax+b≤cx+d',
       'a(bx+c)≤dx+e',
     ]
-    let listeTypeDeQuestions: Question[] = []
+    const listeTypeDeQuestions: Question[] = []
     const typeDeQuestions = gestionnaireFormulaireTexte({
       saisie: this.sup2,
       min: 1,

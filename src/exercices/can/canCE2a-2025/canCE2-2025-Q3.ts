@@ -1,9 +1,10 @@
+import { droiteGraduee } from '../../../lib/2d/DroiteGraduee'
+import { fixeBordures } from '../../../lib/2d/fixeBordures'
 import { BoiteBuilder } from '../../../lib/2d/polygones'
-import { droiteGraduee } from '../../../lib/2d/reperes'
 import { choice } from '../../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { texNombre } from '../../../lib/outils/texNombre'
-import { fixeBordures, mathalea2d } from '../../../modules/2dGeneralites'
+import { mathalea2d } from '../../../modules/mathalea2d'
 import { randint } from '../../../modules/outils'
 import ExerciceCan from '../../ExerciceCan'
 
