@@ -412,7 +412,7 @@
 </script>
 
 <svelte:window bind:innerWidth />
-{#if $globalOptions.v === '' || $globalOptions.v === undefined}
+{#if $globalOptions.v === '' || $globalOptions.v === undefined || $globalOptions.v === 'start'}
   <div
     class="{$darkMode.isActive
       ? 'dark'
@@ -482,7 +482,7 @@
             bg-coopmaths-canvas dark:bg-coopmathsdark-canvas"
           >
             <!-- MGu si la vue n'est pas START, le composant va être detruit et ici ca empeche de charger des exos inutilement-->
-            {#if $exercicesParams.length !== 0 && ($globalOptions.v === '' || $globalOptions.v === undefined)}
+            {#if $exercicesParams.length !== 0 && ($globalOptions.v === '' || $globalOptions.v === undefined || $globalOptions.v === 'start')}
               <Exercices exercicesParams="{$exercicesParams}" {toggleSidenav} />
             {:else}
               <Placeholder text="Sélectionner les exercices" />
