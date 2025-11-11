@@ -1,6 +1,5 @@
 <script lang="ts">
   import { onDestroy, onMount } from 'svelte'
-  import { ElementInstrumenpoche } from '../../modules/ElementInstrumenpoche'
   import Cart from '../modules/Cart'
   import Storage from '../modules/Storage'
   import { cacheData } from '../services/data'
@@ -34,10 +33,6 @@
   import TimeOverlay from './presentationalComponents/TimeOverlay.svelte'
   import Student from './Student/Student.svelte'
   import Unit from './Unit/Unit.svelte'
-
-  if (customElements.get('alea-instrumenpoche') === undefined) {
-    customElements.define('alea-instrumenpoche', ElementInstrumenpoche)
-  }
 
   let isCartEmpty: boolean = true
   let innerWidth: number
