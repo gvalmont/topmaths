@@ -1,7 +1,7 @@
-import { choice } from '../../../lib/outils/arrayOutils'
-import ExerciceSimple from '../../ExerciceSimple'
-import { randint } from '../../../modules/outils'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
+import { choice } from '../../../lib/outils/arrayOutils'
+import { randint } from '../../../modules/outils'
+import ExerciceSimple from '../../ExerciceSimple'
 
 export const titre = 'Factoriser une expression'
 export const interactifReady = true
@@ -23,7 +23,7 @@ export default class Factoriser extends ExerciceSimple {
   constructor() {
     super()
     this.formatChampTexte = KeyboardType.clavierDeBaseAvecVariable
-    this.optionsChampTexte = { texteAvant: '<br> ', texteApres: ' ' }
+    this.optionsChampTexte = { texteAvant: '<br> ' }
     this.typeExercice = 'simple'
     this.nbQuestions = 1
   }

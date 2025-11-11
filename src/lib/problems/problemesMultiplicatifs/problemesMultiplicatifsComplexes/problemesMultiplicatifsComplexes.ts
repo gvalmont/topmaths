@@ -5,11 +5,6 @@ import { range1 } from '../../../outils/nombres'
 import SchemaEnBoite from '../../../outils/SchemaEnBoite'
 import { texNombre } from '../../../outils/texNombre'
 import Probleme from '../../Probleme'
-import { couverture } from './couvertures'
-import { distribution } from './distribution'
-import { gelHA } from './gelHydroalcolique'
-import { gourdes } from './gourdesEmbalees'
-import { repas } from './repas'
 /**
  * @author Jean-Claude Lhote
  */
@@ -88,21 +83,21 @@ export default class ProblemeMultiplicatifsComplexes extends Probleme {
         {
           start: 2,
           end: 3,
-          text: `$${texNombre(data.nb1Fois * data.part1, 0)}$ cm`,
+          text: `$${texNombre(data.nb1Fois * data.part1, 0)}\\text{ cm}$`,
         },
         {
           start: 3,
           end: 4,
-          text: `$${texNombre(data.part2 * nb2Fois, 0)}$ cm`,
+          text: `$${texNombre(data.part2 * nb2Fois, 0)}\\text{ cm}$`,
         },
       ],
     })
 
-    this.enonce = `La documentaliste du collège doit couvrir $${data.nb1Fois}$ livres. Il faut $${data.part1}$ cm de papier kraft pour couvrir un livre.<br>
-    Un rouleau de papier kraft mesure $${data.part2}$ m.<br>
+    this.enonce = `La documentaliste du collège doit couvrir $${data.nb1Fois}$ livres. Il faut $${data.part1}\\text{ cm}$ de papier kraft pour couvrir un livre.<br>
+    Un rouleau de papier kraft mesure $${data.part2}\\text{ m}$.<br>
     Combien de rouleaux de papier kraft faut-il pour couvrir les ${data.nb1Fois} livres ?`
-    this.correction = `Pour couvrir ${data.nb1Fois} livres, il en faut $${data.nb1Fois}\\times ${data.part1}$, soit $${data.nb1Fois * data.part1}$ cm de papier kraft.<br>
-    Un rouleau de papier kraft mesure $${data.part2}$ m.<br>
+    this.correction = `Pour couvrir ${data.nb1Fois} livres, il en faut $${data.nb1Fois}\\times ${data.part1}$, soit $${data.nb1Fois * data.part1}\\text{ cm}$ de papier kraft.<br>
+    Un rouleau de papier kraft mesure $${data.part2}\\text{ m}$.<br>
     Donc, il faut $\\dfrac{${texNombre(data.nb1Fois * data.part1, 0)}}{${texNombre(data.part2, 0)}}${egalOuApprox((data.nb1Fois * data.part1) / data.part2, 2)}${texNombre((data.nb1Fois * data.part1) / data.part2, 2)}$ rouleaux de papier kraft.<br>`
     if (!egal(data.nb1Fois * data.part1, nb2Fois * data.part2)) {
       this.correction += `Comme on ne peut pas acheter une fraction de rouleau, il faut ${miseEnEvidence(Math.ceil((data.nb1Fois * data.part1) / data.part2))} rouleaux de papier kraft.`
@@ -113,11 +108,3 @@ export default class ProblemeMultiplicatifsComplexes extends Probleme {
     )
   }
 }
-
-export const listeDeProblemesMultiplicatifsComplexes = [
-  couverture,
-  distribution,
-  gelHA,
-  gourdes,
-  repas,
-]

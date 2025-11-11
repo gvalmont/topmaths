@@ -1,5 +1,5 @@
 // import { addElement, get, setStyles } from '../html/dom'
-import type Exercice from '../../exercices/Exercice'
+import type { IExercice } from '../../lib/types'
 import { context } from '../../modules/context'
 import type { AllChoicesType } from './listeDeroulante/ListeDeroulante'
 import './listeDeroulante/ListeDeroulanteElement'
@@ -10,7 +10,7 @@ import './listeDeroulante/ListeDeroulanteElement'
  * @param {number} i le numéro de la question
  * @returns {string} 'OK' si la réponse est correcte, 'KO' sinon
  */
-export function verifQuestionListeDeroulante(exercice: Exercice, i: number) {
+export function verifQuestionListeDeroulante(exercice: IExercice, i: number) {
   /* // Le get est non strict car on sait que l'élément n'existe pas à la première itération de l'exercice
   const eltFeedback = document.querySelector(`resultatCheckEx${exercice.numeroExercice}Q${i}`)
   // On ajoute le div pour le feedback
@@ -66,7 +66,7 @@ export function verifQuestionListeDeroulante(exercice: Exercice, i: number) {
  * @returns {string} le code HTML de la liste déroulante
  */
 export function choixDeroulant(
-  exercice: Exercice,
+  exercice: IExercice,
   i: number,
   choix: AllChoicesType,
   choix0?: boolean,
@@ -115,7 +115,7 @@ export function choixDeroulant(
  * passer toutes les options possibles pour AMC (lastChoice par exemple utile si pas ordonné pour dire où s'arrête le mélange voir le wiki concernant AMC).
  */
 export function listeDeroulanteToQcm(
-  exercice: Exercice,
+  exercice: IExercice,
   question: number,
   choix: AllChoicesType,
   reponse: string,
@@ -161,7 +161,16 @@ export function listeDeroulanteToQcm(
         statut: choix[j].value === reponse, // il n'y a qu'une bonne réponse, et elle doit correspondre à l'un des choix.
       })
     } else if (choix[j].svg != null) {
+      const body = document.querySelector('body')
+      if (body == null) {
+        window.notify(
+          "Impossible de créer le QCM à partir de la liste déroulante car le body n'existe pas",
+          {},
+        )
+        return
+      }
       const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg')
+      body.appendChild(svg)
       svg.setAttribute('viewBox', '-10 -10 20 20') // Valeur par défaut, peut être ajustée
       svg.classList.add('svgChoice')
       svg.style.display = 'inline-block'
@@ -174,7 +183,7 @@ export function listeDeroulanteToQcm(
         statut: choix[j].value === reponse,
       })
       setTimeout(() => {
-        document.removeChild(svg)
+        if (svg) body.removeChild(svg)
       }, 0)
     } else if (choix[j].image != null) {
       const image = document.createElement('img')

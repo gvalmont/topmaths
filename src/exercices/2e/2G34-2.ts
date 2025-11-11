@@ -1,3 +1,7 @@
+/**
+ * ⚠️ Cet exercice est utilisé dans le test : tests/e2e/tests/interactivity/liste-deroulante.test.ts ⚠️
+ */
+
 import Exercice from '../Exercice'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import {

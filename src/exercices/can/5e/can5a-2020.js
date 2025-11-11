@@ -1,14 +1,15 @@
 import Decimal from 'decimal.js'
-import { codageAngleDroit } from '../../../lib/2d/angles'
-import { codageSegment } from '../../../lib/2d/codages'
+import { codageAngleDroit } from '../../../lib/2d/CodageAngleDroit'
+import { codageSegment } from '../../../lib/2d/CodageSegment'
 import { colorToLatexOrHTML } from '../../../lib/2d/colorToLatexOrHtml'
 import { traceBarre } from '../../../lib/2d/diagrammes'
-import { milieu, point } from '../../../lib/2d/points'
+import { point } from '../../../lib/2d/PointAbstrait'
 import { polygone, polygoneAvecNom } from '../../../lib/2d/polygones'
 import { pave } from '../../../lib/2d/projections3d'
 import { repere } from '../../../lib/2d/reperes'
 import { segment } from '../../../lib/2d/segmentsVecteurs'
 import { labelPoint, texteParPosition } from '../../../lib/2d/textes'
+import { milieu } from '../../../lib/2d/utilitairesPoint'
 import { texPrix } from '../../../lib/format/style'
 import { choice, shuffle } from '../../../lib/outils/arrayOutils'
 import {
@@ -460,7 +461,7 @@ Par exemple, en choisissant 20 questions, la course aux nombres sera composée d
               'middle',
               true,
             ),
-            texteParPosition('B', 4, 1, 'milieu', 'black', 1, 'middle', true),
+            texteParPosition('B', 4, 1, 0, 'black', 1, 'middle', true),
           )
           reponse = new Decimal(a).mul(2)
           texte = 'La figure $B$ est un agrandissement de la figure $A$. <br>'
@@ -481,16 +482,16 @@ Par exemple, en choisissant 20 questions, la course aux nombres sera composée d
           )
           texte += '? $=$'
           texteCorr = `Les longueurs de la figure $B$ sont le double de celles de la figure $A$.<br>
-          Ainsi, ?$=2\\times ${texNombre(a, 1)}\\text{ cm}= ${miseEnEvidence(texNombre(reponse, 1))}$ cm.
+          Ainsi, ?$=2\\times ${texNombre(a, 1)}\\text{ cm}= ${miseEnEvidence(texNombre(reponse, 1))}\\text{ cm}$.
                   `
 
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) {
             texte += ajouteChampTexteMathLive(this, index, ' ', {
-              texteApres: 'cm',
+              texteApres: '$\\text{ cm}$',
             })
           } else {
-            texte += ' $\\ldots$ cm'
+            texte += ' $\\ldots\\text{ cm}$'
           }
           nbChamps = 1
           break
@@ -769,17 +770,19 @@ Par exemple, en choisissant 20 questions, la course aux nombres sera composée d
           reponse = new Decimal(a1 * 2).add(b * 2)
 
           texte = ` Quel est le périmètre d'un rectangle $ABCD$ tel que :
-                $AB=${a}$ mm et $BC=${texNombre(b, 1)}$ cm ?<br>`
-          texteCorr = `$${a}$ mm $= ${texNombre(a1, 1)}$ cm.<br>
-                Le périmètre de $ABCD$ est donc : $2\\times ${texNombre(a1, 1)} \\text{ cm}+ 2\\times ${texNombre(b, 1)} \\text{ cm}=${miseEnEvidence(texNombre(reponse, 1))}$ cm.`
+                $AB=${a}\\text{ mm}$ et $BC=${texNombre(b, 1)}\\text{ cm}$ ?<br>`
+          texteCorr = `$${a}\\text{ mm}$ $= ${texNombre(a1, 1)}\\text{ cm}$.<br>
+                Le périmètre de $ABCD$ est donc : $2\\times ${texNombre(a1, 1)} \\text{ cm}+ 2\\times ${texNombre(b, 1)} \\text{ cm}=${miseEnEvidence(texNombre(reponse, 1))}\\text{ cm}$.`
 
           if (this.interactif) {
             setReponse(this, index, reponse, { formatInteractif: 'calcul' })
             texte +=
               '<br>' +
-              ajouteChampTexteMathLive(this, index, '', { texteApres: ' cm' })
+              ajouteChampTexteMathLive(this, index, '', {
+                texteApres: ' $\\text{cm}$',
+              })
           } else {
-            texte += 'Périmètre $=\\ldots$ cm'
+            texte += 'Périmètre $=\\ldots\\text{ cm}$'
           }
           nbChamps = 1
           break
@@ -824,9 +827,9 @@ Par exemple, en choisissant 20 questions, la course aux nombres sera composée d
           texte = `Quel est le volume du pavé droit ci-dessous ?<br>
         ${mathalea2d({ xmin: -2, ymin: -2, xmax: 10, ymax: 0.5 * h + l }, pav)}`
           reponse = L * l * h
-          texteCorr = `Le volume de ce pavé droit est : $${L}\\text{ cm}\\times ${l} \\text{ cm}\\times ${h}\\text{ cm}=${miseEnEvidence(reponse)}$ cm$^3$.`
+          texteCorr = `Le volume de ce pavé droit est : $${L}\\text{ cm}\\times ${l} \\text{ cm}\\times ${h}\\text{ cm}=${miseEnEvidence(reponse)}\\text{ cm}^3$.`
           texte += ajouteChampTexteMathLive(this, index, ' ', {
-            texteApres: ' cm$^3$',
+            texteApres: '$\\text{ cm}^3$',
           })
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           nbChamps = 1
@@ -940,54 +943,54 @@ Par exemple, en choisissant 20 questions, la course aux nombres sera composée d
           choix = choice(['a', 'b', 'c', 'd']) //
           if (choix === 'a') {
             reponse = a * 1000
-            texte = `$${a}$ dm$^3=$`
-            texteCorr = `$1$ dm$^3= ${texNombre(1000)}$ cm$^3$, donc $${a}$ dm$^3=${a}\\times ${texNombre(1000)}$ cm$^3=${miseEnEvidence(texNombre(a * 1000))}$ cm$^3$.`
+            texte = `$${a}\\text{ dm}^3=$`
+            texteCorr = `$1\\text{ dm}^3= ${texNombre(1000)}\\text{ cm}^3$, donc $${a}\\text{ dm}^3=${a}\\times ${texNombre(1000)}\\text{ cm}^3=${miseEnEvidence(texNombre(a * 1000))}\\text{ cm}^3$.`
             setReponse(this, index, reponse, { formatInteractif: 'calcul' })
             if (this.interactif) {
               texte += ajouteChampTexteMathLive(this, index, ' ', {
-                texteApres: 'cm$^3$',
+                texteApres: '$\\text{ cm}^3$',
               })
             } else {
-              texte += ' $\\ldots$ cm$^3$'
+              texte += ' $\\ldots\\text{ cm}^3$'
             }
           }
           if (choix === 'b') {
             reponse = a / 1000
-            texte = `$${a}$ cm$^3=$`
-            texteCorr = `$1$ cm$^3= 0,001$ dm$^3$, donc $${a}$ cm$^3=${a}\\times 0,001$ dm$^3=${miseEnEvidence(texNombre(a / 1000))}$ dm$^3$.`
+            texte = `$${a}\\text{ cm}^3=$`
+            texteCorr = `$1\\text{ cm}^3= 0,001\\text{ dm}^3$, donc $${a}\\text{ cm}^3=${a}\\times 0,001\\text{ dm}^3=${miseEnEvidence(texNombre(a / 1000))}\\text{ dm}^3$.`
             setReponse(this, index, reponse, { formatInteractif: 'calcul' })
             if (this.interactif) {
               texte += ajouteChampTexteMathLive(this, index, ' ', {
                 texteApres: 'dm$^3$',
               })
             } else {
-              texte += ' $\\ldots$ dm$^3$'
+              texte += ' $\\ldots\\text{ dm}^3$'
             }
           }
           if (choix === 'c') {
             reponse = a * 1000
-            texte = `$${a}$ m$^3=$`
-            texteCorr = `$1$ m$^3= ${texNombre(1000)}$ dm$^3$, donc $${a}$ m$^3=${a}\\times ${texNombre(1000)}$ dm$^3=${miseEnEvidence(texNombre(a * 1000))}$ dm$^3$.`
+            texte = `$${a}\\text{ m}^3=$`
+            texteCorr = `$1\\text{ m}^3= ${texNombre(1000)}\\text{ dm}^3$, donc $${a}\\text{ m}^3=${a}\\times ${texNombre(1000)}\\text{ dm}^3=${miseEnEvidence(texNombre(a * 1000))}\\text{ dm}^3$.`
             setReponse(this, index, reponse, { formatInteractif: 'calcul' })
             if (this.interactif) {
               texte += ajouteChampTexteMathLive(this, index, ' ', {
                 texteApres: 'dm$^3$',
               })
             } else {
-              texte += ' $\\ldots$ dm$^3$'
+              texte += ' $\\ldots\\text{ dm}^3$'
             }
           }
           if (choix === 'd') {
             reponse = a / 1000
-            texte = `$${a}$ dm$^3=$`
-            texteCorr = `$1$ dm$^3= 0,001$ m$^3$, donc $${a}$ dm$^3=${a}\\times 0,001$ m$^3=${miseEnEvidence(texNombre(a / 1000))}$ m$^3$.`
+            texte = `$${a}\\text{ dm}^3=$`
+            texteCorr = `$1\\text{ dm}^3= 0,001\\text{ m}^3$, donc $${a}\\text{ dm}^3=${a}\\times 0,001\\text{ m}^3=${miseEnEvidence(texNombre(a / 1000))}\\text{ m}^3$.`
             setReponse(this, index, reponse, { formatInteractif: 'calcul' })
             if (this.interactif) {
               texte += ajouteChampTexteMathLive(this, index, ' ', {
-                texteApres: 'm$^3$',
+                texteApres: '$\\text{ m}^3$',
               })
             } else {
-              texte += ' $\\ldots$ m$^3$'
+              texte += ' $\\ldots\\text{ m}^3$'
             }
           }
 
@@ -1059,17 +1062,17 @@ Par exemple, en choisissant 20 questions, la course aux nombres sera composée d
             segmentED,
             segmentEA,
           )
-          texteCorr = `L'aire du rectangle $ABCD$ est : $${b}\\text{ cm}\\times ${c}\\text{ cm}=${b * c}$ cm$^2$.<br>
-          L'aire du triangle $AED$ est : $\\dfrac{${a}\\text{ cm}\\times ${b}\\text{ cm}}{2}=${texNombre(f, 1)}$ cm$^2$.<br>
-          On en déduit que l'aire du polygone grisé est : $${b * c}\\text{ cm}^2-${texNombre(f, 1)}\\text{ cm}^2=${miseEnEvidence(texNombre(reponse, 1))}$ cm$^2$.`
+          texteCorr = `L'aire du rectangle $ABCD$ est : $${b}\\text{ cm}\\times ${c}\\text{ cm}=${b * c}\\text{ cm}^2$.<br>
+          L'aire du triangle $AED$ est : $\\dfrac{${a}\\text{ cm}\\times ${b}\\text{ cm}}{2}=${texNombre(f, 1)}\\text{ cm}^2$.<br>
+          On en déduit que l'aire du polygone grisé est : $${b * c}\\text{ cm}^2-${texNombre(f, 1)}\\text{ cm}^2=${miseEnEvidence(texNombre(reponse, 1))}\\text{ cm}^2$.`
           texte += ' Aire $= $'
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) {
             texte += ajouteChampTexteMathLive(this, index, ' ', {
-              texteApres: ' cm$^2$',
+              texteApres: '$\\text{ cm}^2$',
             })
           } else {
-            texte += ' $\\ldots $ cm$^2$<br>'
+            texte += ' $\\ldots \\text{ cm}^2$<br>'
           }
           nbChamps = 1
           break

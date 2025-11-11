@@ -349,12 +349,12 @@ export default class CourseAuxNombres5e extends Exercice {
           a = randint(11, 24) * 10 + randint(0, 9)
           if (choice([true, false])) {
             resultat = arrondi(a / 100)
-            texte = `Convertir $${a}$ cm en m.`
-            texteCorr = `$${a}$ cm $= ${a} / 100$m $=${texNombre(resultat)}$ m`
+            texte = `Convertir $${a}\\text{ cm}$ en m.`
+            texteCorr = `$${a}\\text{ cm}$ $= ${a} / 100$m $=${texNombre(resultat)}\\text{ m}$`
           } else {
             resultat = arrondi(a / 1000)
-            texte = `Convertir $${a}$ mm en m.`
-            texteCorr = `$${a}$ mm $= ${a} / 1000$m $=${texNombre(resultat)}$ m`
+            texte = `Convertir $${a}\\text{ mm}$ en m.`
+            texteCorr = `$${a}\\text{ mm}$ $= ${a} / 1000$m $=${texNombre(resultat)}\\text{ m}$`
           }
           setReponse(this, i, resultat, { formatInteractif: 'calcul' })
           break
@@ -381,7 +381,11 @@ export default class CourseAuxNombres5e extends Exercice {
         case 'q25':
           a = randint(0, 4)
           b = randint(hauteurs[a][1], hauteurs[a][2])
-          propositions = shuffle([`$${b}$ m`, `$${b}$ dm`, `$${b}$ cm`])
+          propositions = shuffle([
+            `$${b}\\text{ m}$`,
+            `$${b}\\text{ dm}$`,
+            `$${b}\\text{ cm}$`,
+          ])
           texte = `Choisis parmi les propositions suivantes la hauteur d'une ${hauteurs[a][0]}<br>`
           texte += `${propositions[0]} ${sp(4)} ${propositions[1]} ${sp(4)} ${propositions[2]}`
           texteCorr = `La hauteur d'une ${hauteurs[a][0]} est ${b} ${hauteurs[a][3]}.`
@@ -401,7 +405,7 @@ export default class CourseAuxNombres5e extends Exercice {
           a = randint(3, 6) * 15
           b = randint(1, 3)
           resultat = arrondi(a * (b + 0.25))
-          texte = `Une voiture roule à une vitesse constante de ${a} km/h. Quelle distance en km parcourt-elle en ${b} h et 20 min`
+          texte = `Une voiture roule à une vitesse constante de ${a} km/h. Quelle distance en $\\text{km}$ parcourt-elle en ${b} h et 20 min`
           texteCorr = `$${a}\\times ${arrondi(b + 0.5)} = ${resultat}$`
           setReponse(this, i, new Grandeur(resultat, 'km'), {
             formatInteractif: 'unites',
@@ -412,10 +416,10 @@ export default class CourseAuxNombres5e extends Exercice {
           b = randint(0, 1)
           texte = `Est-il vrai qu'un carré de côté ${a} cm a le même périmètre qu'un rectangle de largeur ${a - b} cm et de longueur ${a + 1} cm ? (V ou F)`
           if (b === 0) {
-            texteCorr = `Faux car $4\\times ${a}$ cm $ \\neq 2\\times ${a}$ cm $ + 2\\times ${a + 1}$ cm.`
+            texteCorr = `Faux car $4\\times ${a}\\text{ cm}$ $ \\neq 2\\times ${a}\\text{ cm}$ $ + 2\\times ${a + 1}\\text{ cm}$.`
             setReponse(this, i, 'F')
           } else {
-            texteCorr = `Vrai car $4\\times ${a}$ cm $ = 2\\times ${a - 1}$ cm $ + 2\\times ${a + 1}$ cm $ = ${4 * a}$ cm.`
+            texteCorr = `Vrai car $4\\times ${a}\\text{ cm}$ $ = 2\\times ${a - 1}\\text{ cm}$ $ + 2\\times ${a + 1}\\text{ cm}$ $ = ${4 * a}\\text{ cm}$.`
             setReponse(this, i, 'V')
           }
           break
@@ -487,7 +491,9 @@ export default class CourseAuxNombres5e extends Exercice {
           break
       }
       if (listeTypeQuestions[i] === 'q22') {
-        texte += ajouteChampTexteMathLive(this, i, '', { texteApres: ' m' })
+        texte += ajouteChampTexteMathLive(this, i, '', {
+          texteApres: '$\\text{ m}$',
+        })
       } else if (listeTypeQuestions[i] === 'q25') {
         texte += ajouteChampTexteMathLive(this, i, '', {
           texteApres: ` ${hauteurs[a][3]}`,

@@ -1,6 +1,6 @@
 import { colorToLatexOrHTML } from '../../../lib/2d/colorToLatexOrHtml'
 import { fixeBordures } from '../../../lib/2d/fixeBordures'
-import { point } from '../../../lib/2d/points'
+import { point } from '../../../lib/2d/PointAbstrait'
 import { polygone, Polygone } from '../../../lib/2d/polygones'
 import { segment, Segment } from '../../../lib/2d/segmentsVecteurs'
 import { rotation, similitude } from '../../../lib/2d/transformations'

@@ -1,10 +1,12 @@
-import { codageAngleDroit } from '../../lib/2d/angles'
-import { afficheLongueurSegment, codageSegments } from '../../lib/2d/codages'
+import { afficheLongueurSegment } from '../../lib/2d/afficheLongueurSegment'
+import { codageAngleDroit } from '../../lib/2d/CodageAngleDroit'
+import { codageSegments } from '../../lib/2d/CodageSegment'
 import { fixeBordures } from '../../lib/2d/fixeBordures'
-import { point, pointAdistance } from '../../lib/2d/points'
+import { point } from '../../lib/2d/PointAbstrait'
 import { polygoneAvecNom } from '../../lib/2d/polygones'
-import { vecteur } from '../../lib/2d/segmentsVecteurs'
 import { rotation, similitude, translation } from '../../lib/2d/transformations'
+import { pointAdistance } from '../../lib/2d/utilitairesPoint'
+import { vecteur } from '../../lib/2d/Vecteur'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { arrondi, nombreDeChiffresDe } from '../../lib/outils/nombres'
@@ -169,7 +171,7 @@ export default class PerimetreOuAireDeCarresRectanglesTriangles extends Exercice
                 (context.isAmc ? ', en cm, ' : ' ')
               texteAMC += this.sup3
                 ? 'du carré ci-dessus.'
-                : `d'un carré de côté${sp()}$${texNombre(c)}$${sp()}cm.`
+                : `d'un carré de côté${sp()}$${texNombre(c)}\\text{ cm}$.`
               texte +=
                 texteAMC +
                 ajouteChampTexteMathLive(
@@ -224,10 +226,10 @@ export default class PerimetreOuAireDeCarresRectanglesTriangles extends Exercice
               texteAMC =
                 (this.sup2 === 3 ? numAlpha(nbPuces) : '') +
                 "Calculer l'aire" +
-                (context.isAmc ? ', en cm$^2$, ' : ' ')
+                (context.isAmc ? ', en $\\text{cm}^2$, ' : ' ')
               texteAMC += this.sup3
                 ? 'du carré ci-dessus.'
-                : `d'un carré de côté${sp()}$${texNombre(c)}$${sp()}cm.`
+                : `d'un carré de côté${sp()}$${texNombre(c)}\\text{ cm}$.`
               texte +=
                 texteAMC +
                 ajouteChampTexteMathLive(
@@ -285,7 +287,7 @@ export default class PerimetreOuAireDeCarresRectanglesTriangles extends Exercice
                 (context.isAmc ? ', en cm, ' : ' ')
               texteAMC += this.sup3
                 ? 'du rectangle ci-dessus.'
-                : `d'un rectangle de longueur${sp()}$${texNombre(L > l ? L : l)}$${sp()}cm et de largeur${sp()}$${texNombre(L > l ? l : L)}$${sp()}cm.`
+                : `d'un rectangle de longueur${sp()}$${texNombre(L > l ? L : l)}\\text{ cm}$ et de largeur${sp()}$${texNombre(L > l ? l : L)}\\text{ cm}$.`
               texte +=
                 texteAMC +
                 ajouteChampTexteMathLive(
@@ -340,10 +342,10 @@ export default class PerimetreOuAireDeCarresRectanglesTriangles extends Exercice
               texteAMC =
                 (this.sup2 === 3 ? numAlpha(nbPuces) : '') +
                 "Calculer l'aire" +
-                (context.isAmc ? ', en cm$^2$, ' : ' ')
+                (context.isAmc ? ', en $\\text{cm}^2$, ' : ' ')
               texteAMC += this.sup3
                 ? 'du rectangle ci-dessus.'
-                : `d'un rectangle de longueur${sp()}$${texNombre(L > l ? L : l)}$${sp()}cm et de largeur${sp()}$${texNombre(L > l ? l : L)}$${sp()}cm.`
+                : `d'un rectangle de longueur${sp()}$${texNombre(L > l ? L : l)}\\text{ cm}$ et de largeur${sp()}$${texNombre(L > l ? l : L)}\\text{ cm}$.`
               texte +=
                 texteAMC +
                 ajouteChampTexteMathLive(
@@ -403,7 +405,7 @@ export default class PerimetreOuAireDeCarresRectanglesTriangles extends Exercice
                 (context.isAmc ? ', en cm, ' : ' ')
               texteAMC += this.sup3
                 ? 'du triangle rectangle ci-dessus.'
-                : `d'un triangle rectangle dont l'hypoténuse mesure $${texNombre(c2, 1)}$${sp()}cm et les côtés de l'angle droit mesurent respectivement $${texNombre(a)}$${sp()}cm et $${texNombre(b)}$${sp()}cm.`
+                : `d'un triangle rectangle dont l'hypoténuse mesure $${texNombre(c2, 1)}\\text{ cm}$ et les côtés de l'angle droit mesurent respectivement $${texNombre(a)}\\text{ cm}$ et $${texNombre(b)}\\text{ cm}$.`
               texte +=
                 texteAMC +
                 ajouteChampTexteMathLive(
@@ -456,10 +458,10 @@ export default class PerimetreOuAireDeCarresRectanglesTriangles extends Exercice
               texteAMC =
                 (this.sup2 === 3 ? numAlpha(nbPuces) : '') +
                 "Calculer l'aire" +
-                (context.isAmc ? ', en cm$^2$, ' : ' ')
+                (context.isAmc ? ', en $\\text{cm}^2$, ' : ' ')
               texteAMC += this.sup3
                 ? 'du triangle rectangle ci-dessus.'
-                : `d'un triangle rectangle dont l'hypoténuse mesure $${texNombre(c2, 1)}$${sp()}cm et les côtés de l'angle droit mesurent respectivement $${texNombre(a)}$${sp()}cm et $${texNombre(b)}$${sp()}cm.`
+                : `d'un triangle rectangle dont l'hypoténuse mesure $${texNombre(c2, 1)}\\text{ cm}$ et les côtés de l'angle droit mesurent respectivement $${texNombre(a)}\\text{ cm}$ et $${texNombre(b)}\\text{ cm}$.`
               texte +=
                 texteAMC +
                 ajouteChampTexteMathLive(

@@ -1,17 +1,18 @@
 <script lang="ts">
-  import { exercicesParams, darkMode } from '../../../lib/stores/generalStore'
-  import Footer from '../../Footer.svelte'
-  import NavBar from '../../shared/header/NavBar.svelte'
-  import {
-    mathaleaGetExercicesFromParams,
-    mathaleaUpdateExercicesParamsFromUrl,
-  } from '../../../lib/mathalea'
+  import { onMount } from 'svelte'
+  import { Tab, initTE } from 'tw-elements'
   import type TypeExercice from '../../../exercices/Exercice'
+  import {
+      mathaleaGetExercicesFromParams,
+      mathaleaUpdateExercicesParamsFromUrl,
+  } from '../../../lib/mathalea'
+  import { darkMode, exercicesParams } from '../../../lib/stores/generalStore'
+  import { referentielLocale } from '../../../lib/stores/languagesStore'
+  import Footer from '../../Footer.svelte'
   import ButtonToggleAlt from '../../shared/forms/ButtonToggleAlt.svelte'
   import FormRadio from '../../shared/forms/FormRadio.svelte'
-  import { referentielLocale } from '../../../lib/stores/languagesStore'
-  import { onMount } from 'svelte'
-  import { Tab, initTE } from 'tw-elements' // pour les tabs
+  import NavBar from '../../shared/header/NavBar.svelte'
+// pour les tabs
   import { saveAs } from 'file-saver'
   import JSZip from 'jszip'
 
@@ -144,7 +145,9 @@
       let paramUrl = ''
       for (const key of Object.keys(param)) {
         if (key === 'sup') {
-          paramUrl += `s\\=${param[key]}&`
+          // 28-10-2025 Ajout de encodeURIComponent pour gérer DéfiTable correctement
+          // A vérifier que ça ne casse pas d'autres choses
+          paramUrl += `s\\=${encodeURIComponent(param[key] || "")}&`
         } else if (key === 'sup2') {
           paramUrl += `s2\\=${param[key]}&`
         } else if (key === 'sup3') {
@@ -155,6 +158,8 @@
           paramUrl += `s5\\=${param[key]}&`
         } else if (key === 'nbQuestions') {
           paramUrl += `n\\=${param[key]}&`
+        } else if (key === 'versionQcm') {
+          paramUrl += `qcm\\=${param[key]}&`
         } else if (key !== 'alea' && key !== 'id') {
           paramUrl += `${key}\\=${param[key]}&`
         }

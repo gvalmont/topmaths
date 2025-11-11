@@ -1,11 +1,12 @@
-import { codageAngleDroit } from '../../lib/2d/angles'
-import { afficheLongueurSegment } from '../../lib/2d/codages'
+import { afficheLongueurSegment } from '../../lib/2d/afficheLongueurSegment'
+import { codageAngleDroit } from '../../lib/2d/CodageAngleDroit'
 import { droite } from '../../lib/2d/droites'
 import { fixeBordures } from '../../lib/2d/fixeBordures'
-import { milieu, point, pointAdistance } from '../../lib/2d/points'
-import { parallelogramme2points1hauteur } from '../../lib/2d/polygones'
+import { pointAbstrait, PointAbstrait } from '../../lib/2d/PointAbstrait'
+import { parallelogramme2points1hauteur } from '../../lib/2d/polygonesParticuliers'
 import { segment } from '../../lib/2d/segmentsVecteurs'
 import { projectionOrtho } from '../../lib/2d/transformations'
+import { milieu, pointAdistance } from '../../lib/2d/utilitairesPoint'
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
@@ -40,6 +41,9 @@ export const refs = {
   'fr-fr': ['5M10', 'BP2AutoV1'],
   'fr-ch': ['9GM1-5'],
 }
+
+const longueur = (A: PointAbstrait, B: PointAbstrait) =>
+  Math.sqrt((A.x - B.x) ** 2 + (A.y - B.y) ** 2)
 export default class AireDuParallelogramme extends Exercice {
   constructor() {
     super()
@@ -72,7 +76,7 @@ export default class AireDuParallelogramme extends Exercice {
         case 'type1':
           c = randint(3, 7)
           h = randint(3, 5)
-          A = point(0, 0, nom[i * 4])
+          A = pointAbstrait(0, 0, nom[i * 4])
           B = pointAdistance(A, c, randint(-20, 20), nom[i * 4 + 1])
           P = parallelogramme2points1hauteur(
             nom.slice(i * 4, i * 4 + 4),
@@ -85,7 +89,7 @@ export default class AireDuParallelogramme extends Exercice {
         case 'type2':
           c = randint(3, 7)
           h = randint(3, 7)
-          A = point(0, 0)
+          A = pointAbstrait(0, 0)
           B = pointAdistance(A, c, randint(-20, 20), nom[i * 4 + 1])
           P = parallelogramme2points1hauteur(
             nom.slice(i * 4, i * 4 + 4),
@@ -99,7 +103,7 @@ export default class AireDuParallelogramme extends Exercice {
         default:
           c = randint(3, 10)
           h = randint(3, 5)
-          A = point(0, 0)
+          A = pointAbstrait(0, 0)
           B = pointAdistance(A, c, randint(-20, 20), nom[i * 4 + 1])
           P = parallelogramme2points1hauteur(
             nom.slice(i * 4, i * 4 + 4),
@@ -113,7 +117,7 @@ export default class AireDuParallelogramme extends Exercice {
       H = projectionOrtho(I, droite(P[0].listePoints[3], P[0].listePoints[2]))
       s = segment(I, H)
       s.pointilles = 2
-      texteCorr += `<br>$\\mathcal{A}_{${nom.slice(i * 4, i * 4 + 4)}}=${c}~\\text{cm}\\times  ${h}~\\text{cm}=${c * h}~\\text{cm}^2$`
+      texteCorr += `<br>$\\mathcal{A}_{${nom.slice(i * 4, i * 4 + 4)}}=${c}\\text{ cm}\\times  ${h}\\text{ cm}=${c * h}\\text{ cm}^2$`
 
       C = P[0].listePoints[2]
       const D = P[0].listePoints[3]
@@ -126,7 +130,9 @@ export default class AireDuParallelogramme extends Exercice {
         afficheLongueurSegment(I, H),
         s,
         codageAngleDroit(B, I, H),
-        codageAngleDroit(D, H, I),
+        longueur(D, H) < 0.5
+          ? codageAngleDroit(C, H, I)
+          : codageAngleDroit(D, H, I),
       ]
       texte = mathalea2d(Object.assign({}, fixeBordures(objets)), objets)
       texte += ajouteChampTexteMathLive(this, i, KeyboardType.aire, {

@@ -1,4 +1,5 @@
 <script lang="ts">
+  import katex from 'katex'
   import { onMount } from 'svelte'
   import { slide } from 'svelte/transition'
   import codeToLevelList from '../../../../../../json/codeToLevelList.json'
@@ -38,8 +39,9 @@
    * @author Sylvain Chambon & Rémi Angot
    */
   function themeTitle(themeCode: string) {
+    let title = ''
     if (themes.has(themeCode)) {
-      return [
+      title = [
         themeCodeisSubthemeCode(
           levelTitle,
           Array.from(levelTitle.replace('auto', ''))[0],
@@ -49,7 +51,7 @@
         themes.get(themeCode).get('titre'),
       ].join('')
     } else if (themesCH.has(themeCode)) {
-      return [
+      title = [
         themeCodeisSubthemeCode(
           levelTitle,
           Array.from(levelTitle.replace('auto', ''))[0],
@@ -59,8 +61,19 @@
         themesCH.get(themeCode).get('titre'),
       ].join('')
     } else {
-      return ''
+      title = ''
     }
+    if (title.includes('$')) {
+      const regexp = /(['$])(.*?)\1/g
+      const matchs = title.match(regexp)
+      matchs?.forEach((match) => {
+        title = title.replace(
+          match,
+          katex.renderToString(match.replaceAll('$', '')),
+        )
+      })
+    }
+    return title
   }
 
   /**
@@ -79,7 +92,12 @@
   ): boolean {
     const regexp = new RegExp(`^(auto)?${level}[A-Z]\\d+[A-Z0-9]$`, 'g')
     const regexp3Auto = new RegExp(`^(3Auto)?[A-Z]\\d+[A-Z0-9]$`, `g`)
-    return regexp.test(themeCode) || regexp3Auto.test(themeCode)
+    const regexp1Auto = new RegExp(`^1A-[A-Z]\\d{1,2}$`, `g`)
+    return (
+      regexp.test(themeCode) ||
+      regexp3Auto.test(themeCode) ||
+      regexp1Auto.test(themeCode)
+    )
   }
 
   /**
@@ -286,7 +304,7 @@
           Array.from(levelTitle.replace('auto', ''))[0],
         )
           ? 'font-normal text-sm leading-[80%]'
-          : 'font-normal '}">{themeTitle(levelTitle)}</span
+          : 'font-normal '}">{@html themeTitle(levelTitle)}</span
       >
     </div>
     <div>

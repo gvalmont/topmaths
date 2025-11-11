@@ -1,8 +1,9 @@
 import { colorToLatexOrHTML } from '../../../lib/2d/colorToLatexOrHtml'
 import { fixeBordures } from '../../../lib/2d/fixeBordures'
 import { grille } from '../../../lib/2d/Grille'
-import { point } from '../../../lib/2d/points'
-import { carre, Polygone, polygone } from '../../../lib/2d/polygones'
+import { point } from '../../../lib/2d/PointAbstrait'
+import { Polygone, polygone } from '../../../lib/2d/polygones'
+import { carre } from '../../../lib/2d/polygonesParticuliers'
 import { latex2d } from '../../../lib/2d/textes'
 import { choice } from '../../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
@@ -169,7 +170,7 @@ export default class AireUsuelleParComptageCan extends ExerciceSimple {
       ),
       [grille(xmin, ymin, xmax, ymax, 'gray', 0.6, 1), ...objets],
     )
-    this.question = `${figure}<br>Quelle est l'aire de la figure ci-dessus ?`
+    this.question = `${figure} Quelle est l'aire de la figure ci-dessus ?`
     this.optionsChampTexte = { texteApres: `$${unite}$` }
     this.reponse = value
     this.correction = `L'aire de cette figure est : $${miseEnEvidence(value[0])}\\text{ soit }${miseEnEvidence(String(aire))}${unite}$.`

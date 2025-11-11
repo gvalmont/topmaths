@@ -237,12 +237,12 @@ export default class ComprendreSensPourcentage extends Exercice {
           unites = 'L'
           pourcentage = randint(4, 18, [10])
 
-          texteAvant[0] = `Si une voiture consomme $${pourcentage}\\ \\%$ de son réservoir par $100$ km, alors pour $100$ km, elle utilise`
+          texteAvant[0] = `Si une voiture consomme $${pourcentage}\\ \\%$ de son réservoir par $100\\text{ km}$, alors pour $100\\text{ km}$, elle utilise`
           texteApres = `${unites} de carburant.<br>`
 
-          texteAvant[1] = `On peut en déduire que pour $${multiplePour100[i] * 100}$ km, la voiture consomme`
+          texteAvant[1] = `On peut en déduire que pour $${multiplePour100[i] * 100}\\text{ km}$, la voiture consomme`
 
-          texteAvant[2] = `On peut aussi en déduire que pour $${arrondi(100 / diviseurPour100[i])}$ km, la voiture consomme`
+          texteAvant[2] = `On peut aussi en déduire que pour $${arrondi(100 / diviseurPour100[i])}\\text{ km}$, la voiture consomme`
 
           break
         case 10:
@@ -309,12 +309,12 @@ export default class ComprendreSensPourcentage extends Exercice {
         case 14:
           unites = 'km'
           pourcentage = randint(31, 79, [40, 50, 60, 70])
-          texteAvant[0] = `Si un cycliste parcourt $${pourcentage}\\ \\%$ de son trajet total en montée, alors pour $100$ km parcourus,`
+          texteAvant[0] = `Si un cycliste parcourt $${pourcentage}\\ \\%$ de son trajet total en montée, alors pour $100\\text{ km}$ parcourus,`
           texteApres = `${unites} sont parcourus.<br>`
 
-          texteAvant[1] = `On peut en déduire que pour $${multiplePour100[i] * 100}$ km parcourus,`
+          texteAvant[1] = `On peut en déduire que pour $${multiplePour100[i] * 100}\\text{ km}$ parcourus,`
 
-          texteAvant[2] = `On peut aussi en déduire que pour $${arrondi(100 / diviseurPour100[i])}$ km parcourus,`
+          texteAvant[2] = `On peut aussi en déduire que pour $${arrondi(100 / diviseurPour100[i])}\\text{ km}$ parcourus,`
 
           break
       }

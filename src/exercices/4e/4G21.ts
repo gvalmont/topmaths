@@ -189,24 +189,24 @@ export default class ReciproquePythagore extends Exercice {
         case 1:
           texte = `Le triangle $${nomTriangle}$ est tel que $${
             A + B
-          }=${texNombre(c)}$ cm, $${A + C}=${texNombre(b)}$ cm et $${
+          }=${texNombre(c)}\\text{ cm}$, $${A + C}=${texNombre(b)}\\text{ cm}$ et $${
             B + C
-          }=${texNombre(a)}$ cm.`
+          }=${texNombre(a)}\\text{ cm}$.`
           break
         case 2:
           texte = `Le triangle $${nomTriangle}$ est tel que  $${
             B + C
-          }=${texNombre(a)}$ cm, $${A + C}=${texNombre(b)}$ cm et $${
+          }=${texNombre(a)}\\text{ cm}$, $${A + C}=${texNombre(b)}\\text{ cm}$ et $${
             A + B
-          }=${texNombre(c)}$ cm.`
+          }=${texNombre(c)}\\text{ cm}$.`
           break
         case 3:
         default:
           texte = `Le triangle $${nomTriangle}$ est tel que $${
             A + C
-          }=${texNombre(b)}$ cm, $${A + B}=${texNombre(c)}$ cm,  et $${
+          }=${texNombre(b)}\\text{ cm}$, $${A + B}=${texNombre(c)}\\text{ cm}$,  et $${
             B + C
-          }=${texNombre(a)}$ cm.`
+          }=${texNombre(a)}\\text{ cm}$.`
           break
       }
       texte += '<br>Ce triangle est-il rectangle ?'
@@ -214,7 +214,7 @@ export default class ReciproquePythagore extends Exercice {
         A + B
       }]$.`
       texteCorr += `<br>$${A + B}^2=${texNombre(c)}^2=${texNombre(c ** 2)}$`
-      texteCorr += `<br>$${A + C}^2+${B + C}^2=${texNombre(b)}^2+${texNombre(a,)}^2=${texNombre(b ** 2)}+${texNombre(a ** 2)}=${texNombre(b ** 2 + a ** 2)}$`
+      texteCorr += `<br>$${A + C}^2+${B + C}^2=${texNombre(b)}^2+${texNombre(a)}^2=${texNombre(b ** 2)}+${texNombre(a ** 2)}=${texNombre(b ** 2 + a ** 2)}$`
       if (listeTypeDeQuestions[i] === 'rectangle') {
         if (!context.isAmc)
           this.autoCorrection[i].propositions![0].statut = true

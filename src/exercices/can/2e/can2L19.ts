@@ -9,7 +9,7 @@ export const interactifType = 'qcm'
 
 // Les exports suivants sont optionnels mais au moins la date de publication semble essentielle
 export const dateDePublication = '06/07/2025' // La date de publication initiale au format 'jj/mm/aaaa' pour affichage temporaire d'un tag
- export const dateDeModifImportante = '23/10/2025' // Une date de modification importante au format 'jj/mm/aaaa' pour affichage temporaire d'un tag
+export const dateDeModifImportante = '23/10/2025' // Une date de modification importante au format 'jj/mm/aaaa' pour affichage temporaire d'un tag
 
 /**
  * Modèle d'exercice très simple pour la course aux nombres
@@ -29,7 +29,7 @@ export default class ExprimerEnFonction extends ExerciceSimple {
     this.nbQuestions = 1
     this.versionQcmDisponible = true
     this.formatChampTexte = KeyboardType.alphanumeric
-    this.optionsChampTexte = { texteAvant: '<br> ', texteApres: ' ' }
+    this.optionsChampTexte = { texteAvant: '<br> ' }
     this.optionsDeComparaison = { calculFormel: true }
   }
 
@@ -39,8 +39,8 @@ export default class ExprimerEnFonction extends ExerciceSimple {
     switch (choice([1, 2, 3, 4, 5, 6])) {
       case 1:
         this.question = `Lorsqu’un point mobile suit une trajectoire circulaire de rayon $R$, 
-  en mètre (m), son accélération centripète $a$ (en m/s$^2$) 
-  et sa vitesse $v$ (en m/s) sont liées par la relation : <br>
+  en mètre ($\\text{m}$), son accélération centripète $a$ (en $\\text{m/s}^2$) 
+  et sa vitesse $v$ (en $\\text{m/s}$) sont liées par la relation : <br>
   ${choixQ ? `${texteCentre('$a=\\dfrac{v^2}{R}$')}` : `${texteCentre('$v=\\sqrt{aR}$')}`}`
         if (this.versionQcm) {
           this.question += choixQ
@@ -170,7 +170,7 @@ Puis en isolant  $F$, on obtient : $${miseEnEvidence('F = \\dfrac{9}{5}C + 32')}
         break
 
       case 4:
-        this.question = `Dans le vide, la distance $h$ (en m) parcourue par un corps en chute libre durant un temps $t$ (en s) est donnée par la formule : <br>`
+        this.question = `Dans le vide, la distance $h$ (en $\\text{m}) parcourue par un corps en chute libre durant un temps $t$ (en s) est donnée par la formule : <br>`
         this.question += texteCentre('$h=\\dfrac{1}{2}gt^2$')
         if (this.versionQcm) {
           this.question += `L'expression permettant, à partir de cette formule, d'exprimer $t$ est : `
@@ -184,7 +184,7 @@ Puis en isolant  $F$, on obtient : $${miseEnEvidence('F = \\dfrac{9}{5}C + 32')}
           '$t=\\sqrt{\\dfrac{h}{2g}}$',
           '$t=\\dfrac{\\sqrt{2h}}{g}$',
         ]
-        this.optionsChampTexte = { texteAvant: '<br> $t=$', texteApres: ' ' }
+        this.optionsChampTexte = { texteAvant: '<br> $t=$' }
         this.correction = `On part de la formule : $h = \\dfrac{1}{2}gt^2$.<br>
 En multiplinat les deux membres par $2$, on obtient : $2h = gt^2$.<br>
 En isolant $t^2$, on obtient : $t^2 = \\dfrac{2h}{g}$.<br>

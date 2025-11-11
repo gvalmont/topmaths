@@ -1,8 +1,8 @@
-import { point, Point } from '../../../lib/2d/points'
+import { point, Point } from '../../../lib/2d/PointAbstrait'
 import ExerciceSimple from '../../ExerciceSimple'
 
-import { codageAngleDroit } from '../../../lib/2d/angles'
-import { codageSegments } from '../../../lib/2d/codages'
+import { codageAngleDroit } from '../../../lib/2d/CodageAngleDroit'
+import { codageSegments } from '../../../lib/2d/CodageSegment'
 import { fixeBordures } from '../../../lib/2d/fixeBordures'
 import { Polygone } from '../../../lib/2d/polygones'
 import { segment } from '../../../lib/2d/segmentsVecteurs'
@@ -32,7 +32,7 @@ export default class Can2025N6Q18 extends ExerciceSimple {
 
     this.typeExercice = 'simple' // Cette ligne est très importante pour faire un exercice simple !
     this.nbQuestions = 1
-    this.optionsChampTexte = { texteApres: 'cm. ' }
+    this.optionsChampTexte = { texteApres: '$\\text{ cm}$.' }
     this.formatChampTexte = KeyboardType.clavierDeBase
   }
 
@@ -72,12 +72,12 @@ export default class Can2025N6Q18 extends ExerciceSimple {
       ),
       objets,
     )
-    this.question += `Le périmètre de ce carré est égal à $${perimetre}$ cm.<br>
+    this.question += `Le périmètre de ce carré est égal à $${perimetre}\\text{ cm}$.<br>
     La longueur du côté est égale à `
     if (!this.interactif) {
-      this.question += '$\\ldots$ cm.'
+      this.question += '$\\ldots\\text{ cm}$.'
     }
-    this.canEnonce = `Le périmètre de ce carré est égal à $${perimetre}$ cm.<br>
+    this.canEnonce = `Le périmètre de ce carré est égal à $${perimetre}\\text{ cm}$.<br>
     Complète. `
     this.canReponseACompleter = mathalea2d(
       Object.assign(
@@ -87,6 +87,6 @@ export default class Can2025N6Q18 extends ExerciceSimple {
       objets,
     )
     this.reponse = texNombre(perimetre / 4, 1)
-    this.correction = `La longueur du côté du carré est  : $${perimetre}\\div 4= ${miseEnEvidence(this.reponse)}$ cm.`
+    this.correction = `La longueur du côté du carré est  : $${perimetre}\\div 4= ${miseEnEvidence(this.reponse)}\\text{ cm}$.`
   }
 }

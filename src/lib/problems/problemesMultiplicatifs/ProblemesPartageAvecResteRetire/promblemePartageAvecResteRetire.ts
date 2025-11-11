@@ -3,12 +3,6 @@ import { miseEnEvidence } from '../../../outils/embellissements'
 import SchemaEnBoite from '../../../outils/SchemaEnBoite'
 import { texNombre } from '../../../outils/texNombre'
 import Probleme from '../../Probleme'
-import { courses2 } from './courses'
-import { fete } from './feteEcole'
-import { mariage1 } from './mariage'
-import { relais } from './relais'
-import { sable } from './sable'
-import { savon } from './savon'
 /**
  * @author Jean-Claude Lhote
  */
@@ -73,12 +67,3 @@ export default class ProblemePartageAvecResteRetire extends Probleme {
     this.reponse = texNombre((total - reste) / nbFois, 2)
   }
 }
-
-export const listeDeProblemesPartageAvecResteRetire = [
-  mariage1,
-  courses2,
-  fete,
-  sable,
-  relais,
-  savon,
-]

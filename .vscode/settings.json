@@ -5,6 +5,10 @@
   "typescript.preferences.importModuleSpecifier": "relative",
   "typescript.preferences.importModuleSpecifierEnding": "minimal",
   "javascript.preferences.importModuleSpecifierEnding": "minimal",
+  "typescript.updateImportsOnFileMove.enabled": "always",
+  "javascript.updateImportsOnFileMove.enabled": "always",
+  "svelte.typescript.preferences.importModuleSpecifier": "relative",
+  "svelte.typescript.updateImportsOnFileMove.enabled": "always",
   "vitest.disableWorkspaceWarning": true,
   "editor.codeActionsOnSave": {
     "source.organizeImports": "always",

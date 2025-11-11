@@ -1,7 +1,7 @@
+import { propositionsQcm } from '../../../lib/interactif/qcm'
+import { choice } from '../../../lib/outils/arrayOutils'
 import { texNombre } from '../../../lib/outils/texNombre'
 import ExerciceCan from '../../ExerciceCan'
-import { choice } from '../../../lib/outils/arrayOutils'
-import { propositionsQcm } from '../../../lib/interactif/qcm'
 
 export const titre = 'Ordre de grandeur'
 export const interactifReady = true
@@ -38,15 +38,15 @@ export default class Can2025N6Q10 extends ExerciceCan {
       options: { vertical: false },
       propositions: [
         {
-          texte: `$${texNombre(a, 1)}$ m`,
+          texte: `$${texNombre(a, 1)}\\text{ m}$`,
           statut: b === 'm',
         },
         {
-          texte: `$${texNombre(a, 1)}$ cm`,
+          texte: `$${texNombre(a, 1)}\\text{ cm}$`,
           statut: b === 'cm',
         },
         {
-          texte: `$${texNombre(a, 1)}$ km`,
+          texte: `$${texNombre(a, 1)}\\text{ km}$`,
           statut: b === 'km',
         },
       ],
@@ -57,7 +57,7 @@ export default class Can2025N6Q10 extends ExerciceCan {
     this.canEnonce = this.question
     this.question += `${monQcm.texte}`
     this.correction = monQcm.texteCorr
-    this.canReponseACompleter = `\\faSquare[regular] $${texNombre(a, 1)}$ m \\faSquare[regular] $${texNombre(a, 1)}$ cm <br>\\faSquare[regular] $${texNombre(a, 1)}$ km`
+    this.canReponseACompleter = `\\faSquare[regular] $${texNombre(a, 1)}\\text{ m}$ \\faSquare[regular] $${texNombre(a, 1)}\\text{ cm}$ <br>\\faSquare[regular] $${texNombre(a, 1)}\\text{ km}$`
   }
 
   nouvelleVersion() {

@@ -26,7 +26,7 @@ export default class MultiplierAstuce extends ExerciceSimple {
     this.nbQuestions = 1
     this.formatChampTexte = KeyboardType.clavierDeBase
     this.canOfficielle = true
-    this.optionsChampTexte = { texteAvant: '$=$', texteApres: '' }
+    this.optionsChampTexte = { texteAvant: '$=$' }
   }
 
   nouvelleVersion() {

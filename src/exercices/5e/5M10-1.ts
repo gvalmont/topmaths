@@ -1,13 +1,12 @@
-import { codageAngleDroit } from '../../lib/2d/angles'
-import {
-  afficheCoteSegment,
-  afficheLongueurSegment,
-} from '../../lib/2d/codages'
-import { point } from '../../lib/2d/points'
+import { afficheCoteSegment } from '../../lib/2d/AfficheCoteSegment'
+import { afficheLongueurSegment } from '../../lib/2d/afficheLongueurSegment'
+import { codageAngleDroit } from '../../lib/2d/CodageAngleDroit'
+import { point } from '../../lib/2d/PointAbstrait'
 import { polygoneAvecNom } from '../../lib/2d/polygones'
-import { longueur, segment } from '../../lib/2d/segmentsVecteurs'
+import { segment } from '../../lib/2d/segmentsVecteurs'
 import { rotation } from '../../lib/2d/transformations'
-import { triangle2points1hauteur } from '../../lib/2d/triangle'
+import { triangle2points1hauteur } from '../../lib/2d/triangles'
+import { longueur } from '../../lib/2d/utilitairesGeometriques'
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
@@ -192,8 +191,8 @@ export default class AireDeTriangles extends Exercice {
           objetsCorrection,
         )
       } else texteCorr = ''
-      texteCorr += `$\\mathcal{A}_{${A.nom}${B.nom}${C.nom}}=\\dfrac{1}{2}\\times ${A.nom}${B.nom}\\times ${H.nom}${C.nom}=\\dfrac{1}{2}\\times${cotes[i]}~\\text{cm}\\times ${hauteurs[i]}~\\text{cm}=${miseEnEvidence(
-        texNombre((cotes[i] * hauteurs[i]) / 2) + '~\\text{cm}^2',
+      texteCorr += `$\\mathcal{A}_{${A.nom}${B.nom}${C.nom}}=\\dfrac{1}{2}\\times ${A.nom}${B.nom}\\times ${H.nom}${C.nom}=\\dfrac{1}{2}\\times${cotes[i]}\\text{ cm}\\times ${hauteurs[i]}\\text{ cm}=${miseEnEvidence(
+        texNombre((cotes[i] * hauteurs[i]) / 2) + '\\text{ cm}^2',
       )}$`
       handleAnswers(
         this,
@@ -215,7 +214,8 @@ export default class AireDeTriangles extends Exercice {
       })
       if (context.isAmc) {
         this.autoCorrection[i] = {
-          enonce: texte + `<br>Aire de ${A.nom}${B.nom}${C.nom} en cm$^2$ :`, // Si vide, l'énoncé est celui de l'exercice.
+          enonce:
+            texte + `<br>Aire de ${A.nom}${B.nom}${C.nom} en $\\text{cm}^2$ :`, // Si vide, l'énoncé est celui de l'exercice.
           propositions: [
             {
               texte: texteCorr,

@@ -1,10 +1,14 @@
-import { codageMilieu } from '../../lib/2d/codages'
+import { codageMilieu } from '../../lib/2d/CodageMilieu'
 import { colorToLatexOrHTML } from '../../lib/2d/colorToLatexOrHtml'
-import { Point, TracePoint, tracePoint } from '../../lib/2d/points'
+import type { PointAbstrait } from '../../lib/2d/PointAbstrait'
+import { Point } from '../../lib/2d/PointAbstrait'
 import type { Polygone } from '../../lib/2d/polygones'
-import { segment, vecteur } from '../../lib/2d/segmentsVecteurs'
+import { segment } from '../../lib/2d/segmentsVecteurs'
 import { labelPoint, texteParPosition } from '../../lib/2d/textes'
+import type { TracePoint } from '../../lib/2d/TracePoint'
+import { tracePoint } from '../../lib/2d/TracePoint'
 import { rotation, translation } from '../../lib/2d/transformations'
+import { vecteur } from '../../lib/2d/Vecteur'
 import { texcolors } from '../../lib/format/style'
 import { setReponse } from '../../lib/interactif/gestionInteractif'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
@@ -104,7 +108,10 @@ export default class PavageEtDemiTour2D extends Exercice {
       } else return false
     }
 
-    const compare2sommets = function (sommet1: Point, sommet2: Point) {
+    const compare2sommets = function (
+      sommet1: Point | PointAbstrait,
+      sommet2: Point | PointAbstrait,
+    ) {
       if (egal(sommet1.x, sommet2.x, 0.1) && egal(sommet1.y, sommet2.y, 0.1)) {
         return true
       } else return false
@@ -136,7 +143,11 @@ export default class PavageEtDemiTour2D extends Exercice {
       } else return false
     }
 
-    const demitour = function (pavage: Pavage, A: Point, numero: number) {
+    const demitour = function (
+      pavage: Pavage,
+      A: Point | PointAbstrait,
+      numero: number,
+    ) {
       // retourne le numero du polygone symétrique ou -1 si il n'existe pas
       const poly = pavage.polygones[numero - 1]
       let pol
@@ -171,7 +182,7 @@ export default class PavageEtDemiTour2D extends Exercice {
     let Nx
     let Ny
     let index1
-    let A!: Point
+    let A!: PointAbstrait
     let B!: NestedObjetMathalea2dArray
     let d!: TracePoint
     let image

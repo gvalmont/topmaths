@@ -1,3 +1,7 @@
+/**
+ * ⚠️ Cet exercice est utilisé dans le test : tests/e2e/tests/interactivity/mathLive.fillInTheBlanks.test.ts ⚠️
+ */
+
 import { randint } from '../../modules/outils'
 import Exercice from '../Exercice'
 import { combinaisonListes } from '../../lib/outils/arrayOutils'

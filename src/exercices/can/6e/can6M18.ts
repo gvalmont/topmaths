@@ -4,7 +4,6 @@ import {
   miseEnEvidence,
   texteEnCouleur,
 } from '../../../lib/outils/embellissements'
-import { sp } from '../../../lib/outils/outilString'
 import { texNombre } from '../../../lib/outils/texNombre'
 import { randint } from '../../../modules/outils'
 import ExerciceSimple from '../../ExerciceSimple'
@@ -39,38 +38,38 @@ export default class ConversionEnTousSensLongueur extends ExerciceSimple {
         if (choice([true, false])) {
           a = randint(1, 13) * 5
           resultat = a * 100
-          this.question = `$${texNombre(a)}$ m  =`
+          this.question = `$${texNombre(a)}\\text{ m}$  =`
           if (!this.interactif) {
-            this.question += ' ..... cm'
+            this.question += ' $\\ldots\\text{ cm}$'
           }
 
-          this.optionsChampTexte = { texteApres: ' cm' }
+          this.optionsChampTexte = { texteApres: ' $\\text{cm}$' }
           this.canEnonce = 'Compléter.'
-          this.canReponseACompleter = `$${texNombre(a)}$ m $=$ $\\dots$ cm`
-          this.correction = `$${texNombre(a)}$ m $=${miseEnEvidence(texNombre(a * 100))}$ cm`
+          this.canReponseACompleter = `$${texNombre(a)}\\text{ m}$ $=$ $\\dots\\text{ cm}$`
+          this.correction = `$${texNombre(a)}\\text{ m}$ $=${miseEnEvidence(texNombre(a * 100))}\\text{ cm}$`
           this.correction += texteEnCouleur(
             `<br> Mentalement : <br>
-          Comme $1$ m $=100$ cm,  pour convertir des «${sp()}m ${sp()}» au «${sp()}cm ${sp()}», on multiplie par $100$.<br>
-            Comme : $${texNombre(a)}\\times 100 =${texNombre(a * 100)}$, alors $${texNombre(a)}$ m$=${texNombre(a * 100)}$ cm.  `,
+          Comme $1\\text{ m}$ $=100\\text{ cm}$,  pour convertir des $\\text{m}$ au $\\text{cm}$, on multiplie par $100$.<br>
+            Comme : $${texNombre(a)}\\times 100 =${texNombre(a * 100)}$, alors $${texNombre(a)}\\text{ m}=${texNombre(a * 100)}\\text{ cm}$.  `,
             bleuMathalea,
           )
         } else {
           a = randint(1, 12) * 10
           resultat = a / 100
-          this.question = `$${texNombre(a)}$ cm  =`
+          this.question = `$${texNombre(a)}\\text{ cm}$  =`
           if (!this.interactif) {
-            this.question += '..... m'
+            this.question += ' $\\ldots\\text{ m}$'
           }
 
-          this.optionsChampTexte = { texteApres: ' m' }
+          this.optionsChampTexte = { texteApres: '$\\text{ m}$' }
           this.canEnonce = 'Compléter.'
-          this.canReponseACompleter = `$${texNombre(a)}$ cm $= \\dots$ m`
-          this.correction = `$${texNombre(a)}$ cm$=${miseEnEvidence(texNombre(a / 100))}$ m.`
+          this.canReponseACompleter = `$${texNombre(a)}\\text{ cm}$ $= \\dots\\text{ m}$`
+          this.correction = `$${texNombre(a)}\\text{ cm}=${miseEnEvidence(texNombre(a / 100))}\\text{ m}$`
           this.correction += texteEnCouleur(
             `<br> Mentalement : <br>
-          Comme $1$ m $=100$ cm, alors $1$ cm $=0,01$ m.<br>
-          Ainsi pour convertir des «${sp()}cm ${sp()}» au «${sp()}m ${sp()}», on divise par $100$.<br>
-            Comme  $${texNombre(a)}\\div 100 =${texNombre(a / 100)}$, alors $${texNombre(a)}$ cm$=${texNombre(a / 100)}$ m.  `,
+          Comme $1\\text{ m}$ $=100\\text{ cm}$, alors $1\\text{ cm}$ $=0,01\\text{ m}$.<br>
+          Ainsi pour convertir des $\\text{cm}$ au $\\text{m}$, on divise par $100$.<br>
+            Comme  $${texNombre(a)}\\div 100 =${texNombre(a / 100)}$, alors $${texNombre(a)}\\text{ cm}=${texNombre(a / 100)}\\text{ m}$.  `,
             bleuMathalea,
           )
         }
@@ -79,38 +78,38 @@ export default class ConversionEnTousSensLongueur extends ExerciceSimple {
         if (choice([true, false])) {
           a = randint(1, 20) * 10
           resultat = a / 1000
-          this.question = `$${texNombre(a)}$ m  $=$ `
+          this.question = `$${texNombre(a)}\\text{ m}$  $=$ `
           if (!this.interactif) {
-            this.question += ' .... km'
+            this.question += ' $\\ldots\\text{ km}$'
           }
 
-          this.optionsChampTexte = { texteApres: ' km' }
+          this.optionsChampTexte = { texteApres: '$\\text{ km}$' }
           this.canEnonce = 'Compléter.'
-          this.canReponseACompleter = `$${texNombre(a)}$ m $= \\dots$ km`
-          this.correction = `$${texNombre(a)}$ m $=${miseEnEvidence(texNombre(a / 1000))}$ km`
+          this.canReponseACompleter = `$${texNombre(a)}\\text{ m}$ $= \\dots\\text{ km}$`
+          this.correction = `$${texNombre(a)}\\text{ m}$ $=${miseEnEvidence(texNombre(a / 1000))}\\text{ km}$`
           this.correction += texteEnCouleur(
             `<br> Mentalement : <br>
-          Comme $1$ km $=${texNombre(1000)}$ m, alors $1$ m $=0,001$ km.<br>
-          Ainsi pour convertir des «${sp()}m ${sp()}» au «${sp()}km ${sp()}», on divise par $${texNombre(1000)}$.<br>
-            Comme  $${texNombre(a)}\\div ${texNombre(1000)} =${texNombre(a / 1000)}$, alors $${texNombre(a)}$ m$=${texNombre(a / 1000)}$ km.`,
+          Comme $1\\text{ km}$ $=${texNombre(1000)}\\text{ m}$, alors $1\\text{ m}$ $=0,001\\text{ km}$.<br>
+          Ainsi pour convertir des $\\text{m}$ au $\\text{km}$, on divise par $${texNombre(1000)}$.<br>
+            Comme  $${texNombre(a)}\\div ${texNombre(1000)} =${texNombre(a / 1000)}$, alors $${texNombre(a)}\\text{ m}=${texNombre(a / 1000)}\\text{ km}$.`,
             bleuMathalea,
           )
         } else {
           a = randint(1, 35) / 100
           resultat = a * 1000
-          this.question = `$${texNombre(a)}$ km $=$`
+          this.question = `$${texNombre(a)}\\text{ km}$ $=$`
           if (!this.interactif) {
-            this.question += ' .... m'
+            this.question += ' $\\ldots\\text{ m}$'
           }
 
-          this.optionsChampTexte = { texteApres: ' m' }
+          this.optionsChampTexte = { texteApres: '$\\text{ m}$' }
           this.canEnonce = 'Compléter.'
-          this.canReponseACompleter = `$${texNombre(a)}$ km $= \\dots$ m`
-          this.correction = `$${texNombre(a)}$ km$=${miseEnEvidence(texNombre(a * 1000))}$ m`
+          this.canReponseACompleter = `$${texNombre(a)}\\text{ km}$ $= \\dots\\text{ m}$`
+          this.correction = `$${texNombre(a)}\\text{ km}$$=${miseEnEvidence(texNombre(a * 1000))}\\text{ m}$`
           this.correction += texteEnCouleur(
             `<br> Mentalement : <br>
-          Comme $1$ km $=${texNombre(1000)}$ m,  pour convertir des «${sp()}km ${sp()}» au «${sp()}m ${sp()}», on multiplie par $${texNombre(1000)}$.<br>
-            Comme  $${texNombre(a)}\\times ${texNombre(1000)} =${texNombre(a * 1000)}$, alors $${texNombre(a)}$ km$=${texNombre(a * 1000)}$ m.`,
+          Comme $1\\text{ km}$ $=${texNombre(1000)}\\text{ m}$,  pour convertir des $\\text{km}$ au $\\text{m}$, on multiplie par $${texNombre(1000)}$.<br>
+            Comme  $${texNombre(a)}\\times ${texNombre(1000)} =${texNombre(a * 1000)}$, alors $${texNombre(a)}\\text{ km}$$=${texNombre(a * 1000)}\\text{ m}$.`,
             bleuMathalea,
           )
         }

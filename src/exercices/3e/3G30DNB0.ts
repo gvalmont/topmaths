@@ -1,17 +1,17 @@
-import { codageAngleDroit } from '../../lib/2d/angles'
+import { codageAngleDroit } from '../../lib/2d/CodageAngleDroit'
 import { colorToLatexOrHTML } from '../../lib/2d/colorToLatexOrHtml'
 import { fixeBordures } from '../../lib/2d/fixeBordures'
-import { point } from '../../lib/2d/points'
+import { point } from '../../lib/2d/PointAbstrait'
 import { polygone } from '../../lib/2d/polygones'
-import { vecteur } from '../../lib/2d/segmentsVecteurs'
 import { labelPoint, latex2d } from '../../lib/2d/textes'
 import { translation } from '../../lib/2d/transformations'
+import { vecteur } from '../../lib/2d/Vecteur'
 import {
   point3d,
   polygone3d,
   vecteur3d,
-} from '../../lib/3d/3dProjectionMathalea2d/elements'
-import { prisme3d } from '../../lib/3d/3dProjectionMathalea2d/solides'
+} from '../../lib/3d/3dProjectionMathalea2d/elementsEtTransformations3d'
+import { prisme3d } from '../../lib/3d/3dProjectionMathalea2d/Prisme3dPerspectiveCavaliere'
 import { createList } from '../../lib/format/lists'
 import { centrage, deuxColonnesResp } from '../../lib/format/miseEnPage'
 import { choice } from '../../lib/outils/arrayOutils'
@@ -174,8 +174,8 @@ On dispose des informations suivantes :<br><br>
     Le triangle $ABC$ est rectangle en $C$ et :<br>
     ${createList({
       items: [
-        `$AC = ${texNombre(hauteur, 2)}$ m;`,
-        `$AB = ${texNombre(hypo, 2)}$ m.`,
+        `$AC = ${texNombre(hauteur, 2)}\\text{ m}$;`,
+        `$AB = ${texNombre(hypo, 2)}\\text{ m}$.`,
       ],
       style: 'fleches',
     })}`,
@@ -189,13 +189,13 @@ On dispose des informations suivantes :<br><br>
   )}`
     enonce += createList({
       items: [
-        `Justifier que la longueur $CB$ est égale à $${texNombre(base, 2)}$ m.`,
+        `Justifier que la longueur $CB$ est égale à $${texNombre(base, 2)}\\text{ m}$.`,
         `Le coût des travaux pour enlever la terre dépend de la mesure de l'angle $\\widehat{ABC}$.<br>
 Si la mesure de l'angle $\\widehat{ABC}$ est supérieure à $8,5°$, cela entraînera un surcoût des travaux (c'est-à-dire que les traveaux pour enlever la terre coûteront plus cher).<br>
 Est-ce le cas pour ce terrain ?`,
         `On admet que le volume de terre enlevée correspond au prisme droit $CBAFED$ de hauteur $[CF]$ et de bases $ABC$ et $DEF$comme représenté ci-dessous.<br>
  On rappelle que les longueurs CF et AD sont égales.<br>${figure2}\n
- Déterminer le volume de terre à enlever en m$^3$.<br>
+ Déterminer le volume de terre à enlever en $\\text{ m}^3$.<br>
 On rappelle la volume de formule :
  ${centrage(`Volume d'un prisme droit = ${texteItalique("aire d'une base du prisme × hauteur du prisme")}.`)}`,
       ],
@@ -209,7 +209,7 @@ On rappelle la volume de formule :
         $${texNombre(hypo, 2)}^2 = ${texNombre(hauteur, 2)}^2 + BC^2$, soit : $${texNombre(hypo ** 2, 4)} = ${texNombre(hauteur ** 2, 4)} + BC^2$.<br>
         On en déduit : $BC^2 = ${texNombre(hypo ** 2, 4)} - ${texNombre(hauteur ** 2, 4)}=${texNombre(hypo ** 2 - hauteur ** 2, 4)}$<br>
         D'où $BC = \\sqrt{${texNombre(hypo ** 2 - hauteur ** 2, 4)}}= ${texNombre(base, 2)}$<br>
-        Donc $[CB]$ mesure bien $${texNombre(base, 2)}$ m.`,
+        Donc $[CB]$ mesure bien $${texNombre(base, 2)}\\text{ m}$.`,
         `On a dans le triangle $ABC$ rectangle en $C$ :<br>
         $\\sin(\\widehat{ABC}) = \\dfrac{AC}{AB}$.<br>
         $\\sin(\\widehat{ABC}) = \\dfrac{${texNombre(hauteur, 2)}}{${texNombre(hypo, 2)}}$<br>
@@ -224,7 +224,7 @@ On rappelle la volume de formule :
         $V = \\mathscr{A}_{ABC} \\times CF$<br>
         $V = \\dfrac{AC \\times BC}{2} \\times CF$<br>
         $V = \\dfrac{${texNombre(hauteur, 2)} \\times ${texNombre(base, 2)}}{2} \\times ${texNombre(profondeur, 1)}$<br>
-        $V = ${texNombre((hauteur * base * profondeur) / 2, 5)}$ m$^3$`,
+        $V = ${texNombre((hauteur * base * profondeur) / 2, 5)}\\text{ m}^3$`,
       ],
       style: 'nombres',
     })

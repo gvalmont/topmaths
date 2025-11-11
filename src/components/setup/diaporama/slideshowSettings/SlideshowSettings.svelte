@@ -1,20 +1,20 @@
 <script lang="ts">
   import type Exercice from '../../../../exercices/Exercice'
+  import { mathaleaRenderDiv } from '../../../../lib/mathalea'
+  import { listOfRandomIndexes } from '../../../../lib/outils/arrayOutils'
+  import { globalOptions } from '../../../../lib/stores/generalStore'
+  import { referentielLocale } from '../../../../lib/stores/languagesStore'
   import { type NumberRange } from '../../../../lib/types'
+  import { isIntegerInRange0to4 } from '../../../../lib/types/integerInRange'
+  import NavBar from '../../../shared/header/NavBar.svelte'
   import DisplaySettings from './presentationalComponents/DisplaySettings.svelte'
   import ExercisesSettings from './presentationalComponents/ExercisesSettings.svelte'
   import GlobalDurationSettings from './presentationalComponents/GlobalDurationSettings.svelte'
   import LinksSettings from './presentationalComponents/LinksSettings.svelte'
-  import ViewSettings from './presentationalComponents/ViewSettings.svelte'
   import OrderSettings from './presentationalComponents/OrderSettings.svelte'
   import SelectedExercisesSettings from './presentationalComponents/SelectedExercisesSettings.svelte'
   import TransitionSettings from './presentationalComponents/TransitionSettings.svelte'
-  import NavBar from '../../../shared/header/NavBar.svelte'
-  import { mathaleaRenderDiv } from '../../../../lib/mathalea'
-  import { globalOptions } from '../../../../lib/stores/generalStore'
-  import { referentielLocale } from '../../../../lib/stores/languagesStore'
-  import { isIntegerInRange0to4 } from '../../../../lib/types/integerInRange'
-  import { listOfRandomIndexes } from '../../../../lib/outils/arrayOutils'
+  import ViewSettings from './presentationalComponents/ViewSettings.svelte'
 
   export let exercises: Exercice[]
   export let updateExercises: (updateSlidesContent?: boolean) => void

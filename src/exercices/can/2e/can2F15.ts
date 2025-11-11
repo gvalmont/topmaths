@@ -1,3 +1,4 @@
+import { propositionsQcm } from '../../../lib/interactif/qcm'
 import { choice } from '../../../lib/outils/arrayOutils'
 import {
   simplificationDeFractionAvecEtapes,
@@ -9,9 +10,8 @@ import {
   rienSi1,
 } from '../../../lib/outils/ecritures'
 import { abs } from '../../../lib/outils/nombres'
-import Exercice from '../../Exercice'
 import { listeQuestionsToContenu, randint } from '../../../modules/outils'
-import { propositionsQcm } from '../../../lib/interactif/qcm'
+import Exercice from '../../Exercice'
 export const titre = 'Donner le sens de variation d’une fonction affine'
 export const interactifReady = true
 export const interactifType = 'qcm'
@@ -61,7 +61,7 @@ export default class VariationFA extends Exercice {
           if (a > 0) {
             this.autoCorrection[i] = {
               enonce: texte,
-              options: { horizontal: true },
+
               propositions: [
                 {
                   texte: `$${nomF}$ est croissante  sur $\\mathbb R$`,
@@ -80,7 +80,7 @@ export default class VariationFA extends Exercice {
           } else {
             this.autoCorrection[i] = {
               enonce: texte,
-              options: { horizontal: true },
+
               propositions: [
                 {
                   texte: `$${nomF}$ est décroissante  sur $\\mathbb R$`,
@@ -121,7 +121,7 @@ export default class VariationFA extends Exercice {
           if (a > 0) {
             this.autoCorrection[i] = {
               enonce: texte,
-              options: { horizontal: true },
+
               propositions: [
                 {
                   texte: `$${nomF}$ est croissante  sur $\\mathbb R$`,
@@ -140,7 +140,7 @@ export default class VariationFA extends Exercice {
           } else {
             this.autoCorrection[i] = {
               enonce: texte,
-              options: { horizontal: true },
+
               propositions: [
                 {
                   texte: `$${nomF}$ est décroissante  sur $\\mathbb R$`,
@@ -176,7 +176,7 @@ export default class VariationFA extends Exercice {
 
           this.autoCorrection[i] = {
             enonce: texte,
-            options: { horizontal: true },
+
             propositions: [
               {
                 texte: `$${nomF}$ est décroissante  sur $\\mathbb R$`,

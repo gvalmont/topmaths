@@ -1,15 +1,19 @@
-import { codageBissectrice, codageMediatrice } from '../../lib/2d/codages'
-import { bissectrice, mediatrice } from '../../lib/2d/droites'
-import { point } from '../../lib/2d/points'
+import { bissectrice } from '../../lib/2d/Bissectrice'
+import { codageBissectrice } from '../../lib/2d/CodageBissectrice'
+import { codageMediatrice } from '../../lib/2d/CodageMediatrice'
+import { mediatrice } from '../../lib/2d/Mediatrice'
+import { point } from '../../lib/2d/PointAbstrait'
 import { nommePolygone, polygone } from '../../lib/2d/polygones'
 import { rotation, similitude } from '../../lib/2d/transformations'
 import {
-  centreGraviteTriangle,
   codageHauteurTriangle,
   codageMedianeTriangle,
+} from '../../lib/2d/triangles'
+import {
+  centreGraviteTriangle,
   hauteurTriangle,
   medianeTriangle,
-} from '../../lib/2d/triangle'
+} from '../../lib/2d/utilitairesTriangle'
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
 import { mathalea2d } from '../../modules/mathalea2d'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'

@@ -1,23 +1,24 @@
-import ExprimerVariable from '../can/2e/can2L11'
-export const titre = "Exprimer une variable en fonction d'une autre"
-export const dateDePublication = '26/07/2025'
+import SolutionsEquationProduit from '../can/3e/can3L05'
+export const titre =
+  'Calculer le produit des solutions d’une équation produit nul'
+export const dateDePublication = '27/07/2025'
 export const amcReady = true
 export const amcType = 'AMCNum'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 
 /**
- * Clone de can2L11 pour les auto 1er
+ * Clone de can3L05 pour les auto 1er
  * @author Gilles Mora
  */
 
-export const uuid = 'a78e8'
+export const uuid = '0ed0f'
 
 export const refs = {
   'fr-fr': ['1A-C13-1'],
-  'fr-ch': [],
+  'fr-ch': ['1mQCM-6', '2mQCM-4'],
 }
-export default class Auto1AC13a extends ExprimerVariable {
+export default class Auto1AC15a extends SolutionsEquationProduit {
   constructor() {
     super()
     this.versionQcm = true

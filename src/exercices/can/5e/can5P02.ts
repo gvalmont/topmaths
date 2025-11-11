@@ -75,7 +75,7 @@ export default class PoucentageP2 extends ExerciceSimple {
           `$${texNombre((a * c * b) / 100000, 2)}$`,
           `$${texNombre(a - b - c, 2)}$`,
         ]
-        this.optionsChampTexte = { texteAvant: '<br>', texteApres: '' }
+        this.optionsChampTexte = { texteAvant: '<br>' }
         this.correction = `Les ${n}  représentent $${b}\\%$   des logements.<br>
         Il y en a donc : $${texNombre(b / 100)}\\times ${texNombre(a)}=${texNombre((b * a) / 100)}$.<br>
         Dans cette ville, il y a  $${texNombre((b * a) / 100, 2)}$ ${n}.<br>

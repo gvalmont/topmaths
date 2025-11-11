@@ -3,7 +3,6 @@ import { miseEnEvidence } from '../../../outils/embellissements'
 import SchemaEnBoite from '../../../outils/SchemaEnBoite'
 import { texNombre } from '../../../outils/texNombre'
 import Probleme from '../../Probleme'
-import { coureur5 } from './coureur'
 /**
  * @author Jean-Claude Lhote
  */
@@ -46,4 +45,3 @@ De combien le 2e produit est-t-il ${data.nb2 > data.nb1 ? 'plus' : 'moins'} cher
     this.reponse = texNombre(data.nb1 + data.nb2, 2)
   }
 }
-export const listeDeProblemesCompAddGdeQuantite = [coureur5]

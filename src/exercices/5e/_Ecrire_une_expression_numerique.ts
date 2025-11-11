@@ -30,7 +30,7 @@ export const dateDeModifImportante = '21/09/2023'
  */
 export default class EcrireUneExpressionNumerique extends Exercice {
   version: number
-  litteral?: boolean
+  litteral: boolean = false
   constructor() {
     super()
     this.nbQuestions = 4
@@ -138,10 +138,9 @@ export default class EcrireUneExpressionNumerique extends Exercice {
               ? ` ou $${miseEnEvidence(expn[1].substring(1, expn[1].length - 1))}$.`
               : '.'
           reponse =
-            /* expn.length > 1 ? expn[1].substring(1, expn[1].length - 1) : */ expn[0].substring(
-              1,
-              expn[0].length - 1,
-            )
+            expn.length > 1
+              ? expn[1].substring(1, expn[1].length - 1)
+              : expn[0].substring(1, expn[0].length - 1)
           break
         case 2:
           if (expn.indexOf('ou') > 0) {
@@ -152,7 +151,9 @@ export default class EcrireUneExpressionNumerique extends Exercice {
             : 'Traduire le calcul par une phrase en français.'
           texte = `${expn}`
           expf = 'l' + String(expf).substring(1)
-          texteCorr = `${expn} s'écrit : ${texteEnCouleurEtGras(expf)}.`
+          texteCorr = this.interactif
+            ? `${expn} est ${texteEnCouleurEtGras(expNom)} : ${expf}.`
+            : `${expn} s'écrit : ${texteEnCouleurEtGras(expf)}.`
           break
         case 3: {
           if (this.interactif) {
@@ -203,7 +204,6 @@ export default class EcrireUneExpressionNumerique extends Exercice {
           reponse = String(expc)
             .split('=')
             [String(expc).split('=').length - 1].replace('$', '')
-
           if (this.litteral) {
             // Uniformisation : Mise en place de la réponse attendue en interactif en orange et gras
             const textCorrSplit = texteCorr.split('=')
@@ -237,7 +237,6 @@ export default class EcrireUneExpressionNumerique extends Exercice {
             reponse = String(expc)
               .split('=')
               [String(expc).split('=').length - 1].replace('$', '')
-
             // Uniformisation : Mise en place de la réponse attendue en interactif en orange et gras
             const textCorrSplit = texteCorr.split('=')
             let aRemplacer = textCorrSplit[textCorrSplit.length - 1]
@@ -294,7 +293,7 @@ export default class EcrireUneExpressionNumerique extends Exercice {
                       statut: '',
                       reponse: {
                         texte: 'Résultat de cet enchaînement de calculs : ',
-                        valeur: [reponse],
+                        valeur: [Number(reponse)],
                         param: {
                           digits: 2,
                           decimals: 0,
@@ -313,7 +312,9 @@ export default class EcrireUneExpressionNumerique extends Exercice {
               ajouteChampTexteMathLive(
                 this,
                 i,
-                KeyboardType.clavierDeBaseAvecEgal,
+                this.litteral
+                  ? KeyboardType.clavierDeBaseAvecVariable
+                  : KeyboardType.clavierDeBaseAvecEgal,
                 {
                   texteAvant: ' Résultat : ',
                 },
@@ -342,16 +343,20 @@ export default class EcrireUneExpressionNumerique extends Exercice {
               choixDeroulant(this, i, [
                 { label: '?', value: '' },
                 ...shuffle([
-                  { label: 'somme', value: 'somme' },
-                  { label: 'différence', value: 'différence' },
-                  { label: 'produit', value: 'produit' },
-                  { label: 'quotient', value: 'quotient' },
+                  { label: 'une somme', value: 'somme' },
+                  { label: 'une différence', value: 'différence' },
+                  { label: 'un produit', value: 'produit' },
+                  { label: 'un quotient', value: 'quotient' },
                 ]),
               ])
+            const val =
+              typeof expNom === 'string'
+                ? expNom.replace('une ', '').replace('un ', '')
+                : expNom
             handleAnswers(
               this,
               i,
-              { reponse: { value: expNom } },
+              { reponse: { value: val } },
               { formatInteractif: 'listeDeroulante' },
             )
           }
@@ -377,7 +382,9 @@ export default class EcrireUneExpressionNumerique extends Exercice {
               ajouteChampTexteMathLive(
                 this,
                 i,
-                KeyboardType.clavierDeBaseAvecEgal,
+                this.litteral
+                  ? KeyboardType.clavierDeBaseAvecVariable
+                  : KeyboardType.clavierDeBaseAvecEgal,
                 {
                   texteAvant: ' Calcul : ',
                 },
@@ -386,7 +393,9 @@ export default class EcrireUneExpressionNumerique extends Exercice {
               reponse: {
                 value: reponse,
                 // options: { operationSeulementEtNonResultat: true },
-                options: { expressionNumerique: true },
+                options: {
+                  expressionNumerique: !this.litteral,
+                },
               },
             })
           }

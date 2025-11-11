@@ -1,6 +1,10 @@
+import type { IExerciceCan } from './Exercice.type'
 import ExerciceSimple from './ExerciceSimple'
 
-export default class ExerciceCan extends ExerciceSimple {
+export default class ExerciceCan
+  extends ExerciceSimple
+  implements IExerciceCan
+{
   canOfficielle?: boolean // propriétés qui ne devraient pas être déclarées sur Exercice
   // listeCanReponseACompleter?: string[]
   // listeCanEnonce?: string[]

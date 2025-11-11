@@ -80,17 +80,17 @@ export default class AiresCalculMental extends Exercice {
         case 'carré':
           {
             const c = randint(2, 10)
-            texte = `Carré de côté $${texNombre(c)}$ cm`
+            texte = `Carré de côté $${texNombre(c)}\\text{ cm}$`
             texteCorr = '$\\mathcal{A}_\\text{carré} = c \\times c$'
-            texteCorr += `<br>$\\mathcal{A}_\\text{carré} = ${texNombre(c)}~\\text{cm}  \\times ${texNombre(c)}~\\text{cm}$`
-            texteCorr += `<br>$\\mathcal{A}_\\text{carré} = ${miseEnEvidence(texNombre(c * c))}~\\text{cm}^2$`
+            texteCorr += `<br>$\\mathcal{A}_\\text{carré} = ${texNombre(c)}\\text{ cm}  \\times ${texNombre(c)}\\text{ cm}$`
+            texteCorr += `<br>$\\mathcal{A}_\\text{carré} = ${miseEnEvidence(texNombre(c * c))}\\text{ cm}^2$`
             texteInteractif += ajouteChampTexteMathLive(
               this,
               i,
               KeyboardType.college6eme,
               {
                 texteAvant: '$\\mathcal{A}_\\text{carré} =$',
-                texteApres: '$~\\text{cm}^2$',
+                texteApres: '$\\text{ cm}^2$',
               },
             )
             handleAnswers(this, i, { reponse: { value: texNombre(c * c) } })
@@ -100,17 +100,17 @@ export default class AiresCalculMental extends Exercice {
           {
             const l = randint(1, 3) + randint(2, 9) / 10
             const L = randint(5, 9)
-            texte = `Rectangle de longueur $${texNombre(L)}$ cm et de largeur $${texNombre(l)}$ cm`
+            texte = `Rectangle de longueur $${texNombre(L)}\\text{ cm}$ et de largeur $${texNombre(l)}\\text{ cm}$`
             texteCorr = '$\\mathcal{A}_\\text{rectangle} = L \\times l$'
-            texteCorr += `<br>$\\mathcal{A}_\\text{rectangle} = ${texNombre(L)}~\\text{cm} \\times ${texNombre(l)}~\\text{cm}$`
-            texteCorr += `<br>$\\mathcal{A}_\\text{rectangle} = ${miseEnEvidence(texNombre(L * l))}~\\text{cm}^2$`
+            texteCorr += `<br>$\\mathcal{A}_\\text{rectangle} = ${texNombre(L)}\\text{ cm} \\times ${texNombre(l)}\\text{ cm}$`
+            texteCorr += `<br>$\\mathcal{A}_\\text{rectangle} = ${miseEnEvidence(texNombre(L * l))}\\text{ cm}^2$`
             texteInteractif += ajouteChampTexteMathLive(
               this,
               i,
               KeyboardType.college6eme,
               {
                 texteAvant: '$\\mathcal{A}_\\text{rectangle} =$',
-                texteApres: '$~\\text{cm}^2$',
+                texteApres: '$\\text{ cm}^2$',
               },
             )
             handleAnswers(this, i, { reponse: { value: texNombre(L * l) } })
@@ -120,19 +120,19 @@ export default class AiresCalculMental extends Exercice {
           {
             const b = randint(2, 9)
             const h = randint(2, 9)
-            texte = `Triangle de base $${texNombre(b)}$ cm et de hauteur $${texNombre(h)}$ cm`
+            texte = `Triangle de base $${texNombre(b)}\\text{ cm}$ et de hauteur $${texNombre(h)}\\text{ cm}$`
             texteCorr =
               '$\\mathcal{A}_\\text{triangle} = (b \\times h) \\div 2$'
-            texteCorr += `<br>$\\mathcal{A}_\\text{triangle} = (${texNombre(b)}~\\text{cm} \\times ${texNombre(h)}~\\text{cm}) \\div 2$`
-            texteCorr += `<br>$\\mathcal{A}_\\text{triangle} = ${texNombre(b * h)}~\\text{cm}^2 \\div 2$`
-            texteCorr += `<br>$\\mathcal{A}_\\text{triangle} = ${miseEnEvidence(texNombre((b * h) / 2))}~\\text{cm}^2$`
+            texteCorr += `<br>$\\mathcal{A}_\\text{triangle} = (${texNombre(b)}\\text{ cm} \\times ${texNombre(h)}\\text{ cm}) \\div 2$`
+            texteCorr += `<br>$\\mathcal{A}_\\text{triangle} = ${texNombre(b * h)}\\text{ cm}^2 \\div 2$`
+            texteCorr += `<br>$\\mathcal{A}_\\text{triangle} = ${miseEnEvidence(texNombre((b * h) / 2))}\\text{ cm}^2$`
             texteInteractif += ajouteChampTexteMathLive(
               this,
               i,
               KeyboardType.college6eme,
               {
                 texteAvant: '$\\mathcal{A}_\\text{triangle} =$',
-                texteApres: '$~\\text{cm}^2$',
+                texteApres: '$\\text{ cm}^2$',
               },
             )
             handleAnswers(this, i, {
@@ -143,18 +143,18 @@ export default class AiresCalculMental extends Exercice {
         case 'disqueRayon':
           {
             const r = randint(2, 9)
-            texte = `Disque de rayon $${texNombre(r)}$ cm`
+            texte = `Disque de rayon $${texNombre(r)}\\text{ cm}$`
             texteCorr =
               '$\\mathcal{A}_\\text{disque} = r \\times r \\times \\pi$'
-            texteCorr += `<br>$\\mathcal{A}_\\text{disque} = ${texNombre(r)}~\\text{cm} \\times ${texNombre(r)}~\\text{cm} \\times \\pi$`
-            texteCorr += `<br>$\\mathcal{A}_\\text{disque} = ${miseEnEvidence(`${texNombre(r * r)}\\pi`)}~\\text{cm}^2$`
+            texteCorr += `<br>$\\mathcal{A}_\\text{disque} = ${texNombre(r)}\\text{ cm} \\times ${texNombre(r)}\\text{ cm} \\times \\pi$`
+            texteCorr += `<br>$\\mathcal{A}_\\text{disque} = ${miseEnEvidence(`${texNombre(r * r)}\\pi`)}\\text{ cm}^2$`
             texteInteractif += ajouteChampTexteMathLive(
               this,
               i,
               KeyboardType.college6eme,
               {
                 texteAvant: '$\\mathcal{A}_\\text{disque} =$',
-                texteApres: '$~\\text{cm}^2$',
+                texteApres: '$\\text{ cm}^2$',
               },
             )
             handleAnswers(this, i, {
@@ -167,17 +167,17 @@ export default class AiresCalculMental extends Exercice {
           break
         case 'disqueDiametre': {
           const r = randint(2, 9)
-          texte = `Disque de diamètre $${texNombre(2 * r)}$ cm`
+          texte = `Disque de diamètre $${texNombre(2 * r)}\\text{ cm}$`
           texteCorr = '$\\mathcal{A}_\\text{disque} = r \\times r \\times \\pi$'
-          texteCorr += `<br>$\\mathcal{A}_\\text{disque} = ${texNombre(r)}~\\text{cm} \\times ${texNombre(r)}~\\text{cm} $`
-          texteCorr += `<br>$\\mathcal{A}_\\text{disque} = ${miseEnEvidence(`${texNombre(r * r)}\\pi`)}~\\text{cm}^2$`
+          texteCorr += `<br>$\\mathcal{A}_\\text{disque} = ${texNombre(r)}\\text{ cm} \\times ${texNombre(r)}\\text{ cm} $`
+          texteCorr += `<br>$\\mathcal{A}_\\text{disque} = ${miseEnEvidence(`${texNombre(r * r)}\\pi`)}\\text{ cm}^2$`
           texteInteractif += ajouteChampTexteMathLive(
             this,
             i,
             KeyboardType.college6eme,
             {
               texteAvant: '$\\mathcal{A}_\\text{disque} =$',
-              texteApres: '$~\\text{cm}^2$',
+              texteApres: '$\\text{ cm}^2$',
             },
           )
           handleAnswers(this, i, {

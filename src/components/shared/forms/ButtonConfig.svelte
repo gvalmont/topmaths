@@ -1,5 +1,6 @@
 <script lang="ts">
-  import Latex, { type LatexFileInfos } from '../../../lib/Latex'
+  import Latex from '../../../lib/Latex'
+  import { type LatexFileInfos } from '../../../lib/LatexTypes'
   import FormConfigGlobal from './FormConfigGlobal.svelte'
   import FormConfigIndividual from './FormConfigIndividual.svelte'
 
@@ -19,10 +20,7 @@
       dialog.showModal()
     }
   }
-
 </script>
-
-
 
 <form
   class="{`${$$props.class || 'flex flex-col md:flex-row mx-4 pb-4 md:pb-8 md:space-x-4 space-y-3 justify-center md:justify-start items-center'}`}"
@@ -42,7 +40,7 @@
   class="fixed rounded-xl p-6 bg-coopmaths-canvas text-coopmaths-corpus left-[2%] top-[2%] w-[96%] h-[96%] dark:bg-coopmathsdark-canvas-dark dark:text-coopmathsdark-corpus-light shadow-lg"
   id="configLatex"
 >
-<div class="mt-3 text-center">
+  <div class="mt-3 text-center">
     <div class="text-3xl font-medium text-coopmaths-warn-dark">
       <span class="header">
         <div class="absolute top-2 right-3">
@@ -61,23 +59,21 @@
     </div>
 
     <!-- Config globale -->
-    <FormConfigGlobal
-      bind:latexFileInfos
-      {latex}
-    />
-
+    <FormConfigGlobal bind:latexFileInfos {latex} />
 
     <!-- Config individuelle -->
-    <FormConfigIndividual
-      bind:latexFileInfos
-      {latex}
-    />
-    
+    <FormConfigIndividual bind:latexFileInfos {latex} />
+
     <!-- Card JSON -->
     <div class="w-full mt-6 p-4 border rounded-2xl shadow bg-gray-50">
       <h2 class="text-lg font-bold mb-3">Aperçu JSON</h2>
-      <pre class="bg-gray-900 text-green-200 p-3 text-left rounded-lg text-sm overflow-x-auto max-h-80">{JSON.stringify(latexFileInfos.exos || {}, null, 2)}
+      <pre
+        class="bg-gray-900 text-green-200 p-3 text-left rounded-lg text-sm overflow-x-auto max-h-80">{JSON.stringify(
+          latexFileInfos.exos || {},
+          null,
+          2,
+        )}
       </pre>
     </div>
-  
+  </div>
 </dialog>

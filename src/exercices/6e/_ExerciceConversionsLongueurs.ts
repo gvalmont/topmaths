@@ -24,7 +24,7 @@ export const titre = 'Convertir des longueurs ou des masses'
 /**
  * Conversions de longueur (ou de masses) en utilisant le préfixe pour déterminer la multiplication ou division à faire.
  *
- * * 1 : De dam, hm, km vers m
+ * * 1 : De dam, hm, $\\text{km}$ vers m
  * * 2 : De dm, cm, mm vers m
  * * 3 : Conversions en mètres
  * * 4 : Toutes les conversions de longueurs
@@ -37,7 +37,7 @@ export default class ExerciceConversionsLongueurs extends Exercice {
     this.besoinFormulaireNumerique = [
       'Niveau de difficulté',
       4,
-      ' 1 : De dam, hm, km vers m\n 2 : De dm, cm, mm vers m\n 3 : Conversions en mètres\n4 : Au hasard',
+      ' 1 : De dam, hm, $\\text{km}$ vers m\n 2 : De dm, cm, mm vers m\n 3 : Conversions en mètres\n4 : Au hasard',
     ]
     this.besoinFormulaire2CaseACocher = ['Avec des nombres décimaux']
     this.besoinFormulaire3CaseACocher = ['Avec tableau']
@@ -291,7 +291,7 @@ export function getDigitFromNumber(nb: string | number, pos: number) {
  * @param {*} r Nombre converti
  * @param {*} uniteR
  * @param {*} ligne Nombre de ligne dans le tableau (par défaut :2)
- * @param {*} force Ajoute deux colonnes avant km et deuux après mm (par défaut : false)
+ * @param {*} force Ajoute deux colonnes avant $\\text{km}$ et deuux après mm (par défaut : false)
  * @returns Un tableau de conversion de longueur en latex.
  */
 function buildTab(
@@ -409,7 +409,7 @@ function buildTab(
     const headers = [
       '\\hspace*{0.6cm}',
       '\\hspace*{0.6cm}',
-      '\\; km \\;',
+      '\\; \\text{km} \\;',
       '\\; hm \\;',
       'dam',
       '\\;\\; m \\;\\;',

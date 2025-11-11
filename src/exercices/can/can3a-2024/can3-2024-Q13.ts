@@ -1,16 +1,16 @@
-import ExerciceSimple from '../../ExerciceSimple'
-import { miseEnEvidence } from '../../../lib/outils/embellissements'
-import { randint } from '../../../modules/outils'
+import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 import { choice } from '../../../lib/outils/arrayOutils'
-import { texNombre } from '../../../lib/outils/texNombre'
-import { signe } from '../../../lib/outils/nombres'
 import {
   ecritureAlgebrique,
   reduireAxPlusB,
   reduirePolynomeDegre3,
   rienSi1,
 } from '../../../lib/outils/ecritures'
-import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
+import { miseEnEvidence } from '../../../lib/outils/embellissements'
+import { signe } from '../../../lib/outils/nombres'
+import { texNombre } from '../../../lib/outils/texNombre'
+import { randint } from '../../../modules/outils'
+import ExerciceSimple from '../../ExerciceSimple'
 
 export const titre = 'Réduire une expression littérale'
 export const interactifReady = true
@@ -94,7 +94,7 @@ export default class NomExercice extends ExerciceSimple {
       }
     }
 
-    this.reponse = { reponse: { value: reponse } }
+    this.reponse = reponse
     this.canEnonce = this.question
     this.canReponseACompleter = ''
     if (!this.interactif) {

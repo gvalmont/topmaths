@@ -17,3 +17,6 @@ export type CanOptions = {
   questionGetAnswer: boolean[]
   state: CanState
 }
+export interface ButtonWithMathaleaListener extends HTMLButtonElement {
+  hasMathaleaListener: boolean
+}

@@ -1,7 +1,7 @@
 import { context } from '../../modules/context'
 import { colorToLatexOrHTML } from './colorToLatexOrHtml'
 import { ObjetMathalea2D } from './ObjetMathalea2D'
-import { Point, point } from './points'
+import { Point, point } from './PointAbstrait'
 import { segment } from './segmentsVecteurs'
 
 export class CrochetD extends ObjetMathalea2D {

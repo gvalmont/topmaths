@@ -1,6 +1,6 @@
 import { expect, test } from 'vitest'
-import { rangeMinMax } from '../../src/lib/outils/nombres'
 import { interpolationDeLagrange } from '../../src/lib/mathFonctions/outilsMaths'
+import { rangeMinMax } from '../../src/lib/outils/nombres'
 import { randint } from '../../src/modules/outils'
 
 test('Interpolation de Lagrange', () => {
@@ -16,6 +16,6 @@ test('Interpolation de Lagrange', () => {
   const p = interpolationDeLagrange(points)
   expect(p.deg === x.length - 1).toBe(true)
   for (let i = 0; i < x.length; i++) {
-    expect(Math.abs(p.image(x[i]).toFixed(7) - y[i]) < 1e-8).toBe(true)
+    expect(Math.abs(Number(p.image(x[i]).toFixed(7)) - y[i]) < 1e-8).toBe(true)
   }
 })

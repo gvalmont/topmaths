@@ -1,20 +1,17 @@
 import { notify } from '../../bugsnag'
 import { fixeBordures } from '../../lib/2d/fixeBordures'
-import {
-  point3d,
-  polygone3d,
-  vecteur3d,
-} from '../../lib/3d/3dProjectionMathalea2d/elements'
-import {
-  cone3d,
-  cylindre3d,
-  prisme3d,
-  pyramide3d,
-} from '../../lib/3d/3dProjectionMathalea2d/solides'
+import { cone3d } from '../../lib/3d/3dProjectionMathalea2d/Cone3dPerspectiveCavaliere'
+import { cylindre3d } from '../../lib/3d/3dProjectionMathalea2d/Cylindre3dPerspectiveCavaliere'
 import {
   homothetie3d,
+  Point3d,
+  point3d,
+  polygone3d,
   translation3d,
-} from '../../lib/3d/3dProjectionMathalea2d/tranformations'
+  vecteur3d,
+} from '../../lib/3d/3dProjectionMathalea2d/elementsEtTransformations3d'
+import { prisme3d } from '../../lib/3d/3dProjectionMathalea2d/Prisme3dPerspectiveCavaliere'
+import { pyramide3d } from '../../lib/3d/3dProjectionMathalea2d/Pyramide3dPerspectiveCavaliere'
 import { combinaisonListes } from '../../lib/outils/arrayOutils'
 import { context } from '../../modules/context'
 import { mathalea2d } from '../../modules/mathalea2d'
@@ -97,7 +94,7 @@ export default class DecrireAssemblageDeSolides extends Exercice {
       const chapeau = typesDeQuestions[j].chapeau
       context.anglePerspective = 20
       const objets = []
-      const points3D = []
+      const points3D: Point3d[] = []
       const n = randint(3, 8, 7)
       const rayon = randint(15, 30) / 10
       const O = point3d(0, 0, 0)
@@ -119,7 +116,7 @@ export default class DecrireAssemblageDeSolides extends Exercice {
           ),
         )
       }
-      const base2 = polygone3d(points3D)
+      const base2 = polygone3d(...points3D)
       const base1 = translation3d(base2, vecteur3d(O2, O1))
       const prisme = prisme3d(base2, vecteur3d(O1, O2))
       const chapeau1AvecPrisme = pyramide3d(base1, s1)

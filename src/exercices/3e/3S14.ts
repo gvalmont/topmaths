@@ -1,3 +1,7 @@
+/**
+ * ⚠️ Cet exercice est utilisé dans le test : tests/e2e/tests/interactivity/mathLive.intervalleStrict.test.ts ⚠️
+ */
+
 import { setReponse } from '../../lib/interactif/gestionInteractif'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import {

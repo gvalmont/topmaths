@@ -647,6 +647,7 @@ export default function ChoisirExpressionNumerique(
       }
       break
   }
-  const expNom = expf.split(' ')[1] // Type de l'expression
+  let expNom = expf.split(' ')[1] // Type de l'expression
+  expNom = (expNom === 'quotient' ? 'un ' : 'une ') + expNom
   return [expf, expn, expc, souscas, repNum, expNom]
 }

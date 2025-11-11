@@ -14,7 +14,7 @@ import {
 } from '../../lib/2d/patterns/patternsPreDef'
 import { VisualPattern } from '../../lib/2d/patterns/VisualPattern'
 import { VisualPattern3D } from '../../lib/2d/patterns/VisualPattern3D'
-import { point } from '../../lib/2d/points'
+import { point } from '../../lib/2d/PointAbstrait'
 import { polygone } from '../../lib/2d/polygones'
 import { tableauColonneLigne } from '../../lib/2d/tableau'
 import { texteParPosition } from '../../lib/2d/textes'
@@ -366,7 +366,11 @@ Si le nombre de questions est supérieur au nombre de patterns choisis, alors l'
       const delta = pat.fonctionNb(2) - pat.fonctionNb(1)
       const b = pat.fonctionNb(1) - delta
       const explain = `On constate que le nombre ${infosShape.articleCourt} ${infosShape.nomPluriel} augmente de $${delta}$ à chaque étape.<br>
-        Cependant, il n'y a pas ${delta} ${pattern.shapes[0]}s sur le motif 1, mais ${pat.fonctionNb(1)}. Par conséquent, il faut multiplier le numéro du motif par ${delta} et ${b < 0 ? `retirer ${-b}` : `ajouter ${b}`}.<br>`
+      ${
+        b === 0
+          ? `Au départ, il y a $${pat.fonctionNb(1)}$ ${pattern.shapes[0]}s sur le motif $1$ et $${delta * 2}$ ${pattern.shapes[0]}s sur le motif $2$. Donc le nombre de ${infosShape.nomPluriel} correspond à $${delta}$ fois le numéro du motif.<br>`
+          : `Cependant, il n'y a pas ${delta} ${pattern.shapes[0]}s sur le motif 1, mais ${pat.fonctionNb(1)}. Par conséquent, il faut multiplier le numéro du motif par ${delta} et ${b < 0 ? `retirer ${-b}` : `ajouter ${b}`}.<br>`
+      }`
 
       const colonne1TabCorrection = []
       const colonne2TabCorrection = []

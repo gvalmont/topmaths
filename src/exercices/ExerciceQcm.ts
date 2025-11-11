@@ -5,10 +5,11 @@ import { propositionsQcm } from '../lib/interactif/qcm'
 import { texteEnCouleurEtGras } from '../lib/outils/embellissements'
 import { context } from '../modules/context'
 import Exercice from './Exercice'
+import type { IExerciceQcm } from './Exercice.type'
 
 // export const uuid = 'UUID à modifier'
 // export const titre = 'Titre de l'exercice à modifier'
-// export const refs = [{'fr-fr',['ref française à renseigner']},{'fr-ch', ['ref suisse à renseigner]}]
+// export const refs = [{'fr-fr',['ref française à renseigner']},{'fr-ch', ['ref suisse à renseigner']}]
 
 export const interactifReady = true
 export const interactifType = 'qcm'
@@ -21,7 +22,7 @@ export const nombreElementsDifferents = (liste: string[]) => {
 }
 
 // class à utiliser pour fabriquer des Qcms sans aléatoirisation (en cas d'aléatoirisation, on utilisera ExerciceQcmA à la place)
-export default class ExerciceQcm extends Exercice {
+export default class ExerciceQcm extends Exercice implements IExerciceQcm {
   versionQcm?: boolean
   versionQcmDisponible = true
 

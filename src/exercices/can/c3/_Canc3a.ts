@@ -2,13 +2,15 @@ import { colorToLatexOrHTML } from '../../../lib/2d/colorToLatexOrHtml'
 import { droiteGraduee } from '../../../lib/2d/DroiteGraduee'
 import { fixeBordures } from '../../../lib/2d/fixeBordures'
 import { grille } from '../../../lib/2d/Grille'
-import { milieu, plot, point } from '../../../lib/2d/points'
+import { plot } from '../../../lib/2d/Plot'
+import { point } from '../../../lib/2d/PointAbstrait'
 import { polygone, polygoneAvecNom } from '../../../lib/2d/polygones'
 import {
   segment,
   segmentAvecExtremites,
 } from '../../../lib/2d/segmentsVecteurs'
 import { texteParPosition } from '../../../lib/2d/textes'
+import { milieu } from '../../../lib/2d/utilitairesPoint'
 import { texPrix } from '../../../lib/format/style'
 import { choice, shuffle } from '../../../lib/outils/arrayOutils'
 import {
@@ -435,27 +437,27 @@ export default class ClasseCan2023 {
       canReponseACompleter: '',
     }
     const taille1: [string, number, number, string][] = [
-      ['falaise', 15, 25, 'm'],
-      ['girafe', 40, 50, 'dm'],
-      ['échelle', 200, 300, 'cm'],
-      ['bouteille', 28, 35, 'cm'],
-      ['télévision', 50, 60, 'cm'],
+      ['falaise', 15, 25, '\\text{ m}'],
+      ['girafe', 40, 50, '\\text{ dm}'],
+      ['échelle', 200, 300, '\\text{ cm}'],
+      ['bouteille', 28, 35, '\\text{ cm}'],
+      ['télévision', 50, 60, '\\text{ cm}'],
     ]
 
     const a = randint(0, 4)
     const b = randint(taille1[a][1] as number, taille1[a][2] as number)
     const propositions = shuffle([
-      context.isHtml ? `$${b}$ m` : `\\Lg[m]{${b}}`,
-      context.isHtml ? `$${b}$ dm` : `\\Lg[dm]{${b}}`,
-      context.isHtml ? `$${b}$ cm` : `\\Lg[cm]{${b}}`,
-      context.isHtml ? `$${b}$ mm` : `\\Lg[mm]{${b}}`,
+      context.isHtml ? `$${b}\\text{ m}$` : `\\Lg[m]{${b}}`,
+      context.isHtml ? `$${b}\\text{ dm}$` : `\\Lg[dm]{${b}}`,
+      context.isHtml ? `$${b}\\text{ cm}$` : `\\Lg[cm]{${b}}`,
+      context.isHtml ? `$${b}\\text{ mm}$` : `\\Lg[mm]{${b}}`,
     ])
     sortie.reponse = String(b)
     sortie.reponseUnite = taille1[a][3] as string
 
     sortie.texte = `Choisis parmi les propositions suivantes la hauteur d'une ${taille1[a][0]}.<br>`
     sortie.texte += `${propositions[0]} ${sp(4)} ${propositions[1]} ${sp(4)} ${propositions[2]}${sp(4)} ${propositions[3]}`
-    sortie.texteCorr = `La taille d'une ${taille1[a][0]} est $${miseEnEvidence(sortie.reponse)}$ ${sortie.reponseUnite}.`
+    sortie.texteCorr = `La taille d'une ${taille1[a][0]} est $${miseEnEvidence(sortie.reponse)}${sortie.reponseUnite}$.`
     sortie.canEnonce = `Entoure parmi les propositions suivantes la hauteur d'une ${taille1[a][0]}`
     sortie.canReponseACompleter = `${propositions[0]} \\hfill ${propositions[1]} \\hfill ${propositions[2]} \\hfill ${propositions[3]}`
     return sortie
@@ -565,7 +567,6 @@ export default class ClasseCan2023 {
       canEnonce: '',
       canReponseACompleter: '',
       champTexteApres: {},
-      texteApres: '',
     }
     const prenom1 = prenomF()
     const prenom2 = prenomM()
@@ -854,12 +855,12 @@ export default class ClasseCan2023 {
         a = choice([4, 6, 8, 10, 12, 14])
         b = a + a / 2
         sortie.reponse = (2 * b).toFixed(0)
-        sortie.texte = `Si une pile de $${a}$ pièces de monnaie a une hauteur de $${2 * a}$ mm, alors une pile de $${texNombre(b, 0)}$ pièces a une hauteur de `
-        sortie.texteCorr = `Une pile de $${a}$ pièces de monnaie a une hauteur de $2\\times ${a}=${2 * a}$ mm.<br>
-        Donc une pile de  $${texNombre(b, 0)}$ pièces aura une hauteur de $2\\times ${b}=${miseEnEvidence(2 * b)}$ mm.`
+        sortie.texte = `Si une pile de $${a}$ pièces de monnaie a une hauteur de $${2 * a}\\text{ mm}$, alors une pile de $${texNombre(b, 0)}$ pièces a une hauteur de `
+        sortie.texteCorr = `Une pile de $${a}$ pièces de monnaie a une hauteur de $2\\times ${a}=${2 * a}\\text{ mm}$.<br>
+        Donc une pile de  $${texNombre(b, 0)}$ pièces aura une hauteur de $2\\times ${b}=${miseEnEvidence(2 * b)}\\text{ mm}$.`
         sortie.canEnonce = `Si une pile de $${a}$ pièces de monnaie a une hauteur de $\\Lg[mm]{${2 * a}}$, `
         sortie.canReponseACompleter = `alors une pile de $${texNombre(b, 0)}$ pièces a une hauteur de $\\ldots$ \\Lg[mm]{}.`
-        sortie.uniteInteractif = 'mm'
+        sortie.uniteInteractif = '$\\text{mm}$'
         break
       case 'cahiers':
         a = randint(2, 6)
@@ -1162,11 +1163,11 @@ export default class ClasseCan2023 {
           vitesseCommune.vitesse / vitesseCommune.diviseurDeLHeure,
           2,
         )
-        sortie.texte = `Une voiture roule à $${vitesseCommune.vitesse}$ km/h à vitesse constante. <br>Combien de kilomètres parcourt-elle en $${vitesseCommune.nombreDeMinutes}$ min à cette vitesse ?`
-        sortie.texteCorr = `En $1$ h, la voiture parcourt $${vitesseCommune.vitesse}$ km.<br>
-        En $${vitesseCommune.nombreDeMinutes}$ minutes, elle parcourt $${vitesseCommune.diviseurDeLHeure}$ fois moins de km qu'en $1$ heure, soit $\\dfrac{${vitesseCommune.vitesse}}{${vitesseCommune.diviseurDeLHeure}}=
-        ${miseEnEvidence(texNombre(vitesseCommune.vitesse / vitesseCommune.diviseurDeLHeure, 2))}$ km.`
-        sortie.canReponseACompleter = `Elle parcourt $\\ldots$ \\Lg[km]{} en $${vitesseCommune.nombreDeMinutes}$ min à cette vitesse.`
+        sortie.texte = `Une voiture roule à $${vitesseCommune.vitesse}\\text{ km/h}$ à vitesse constante. <br>Combien de kilomètres parcourt-elle en $${vitesseCommune.nombreDeMinutes}\\text{ min}$ à cette vitesse ?`
+        sortie.texteCorr = `En $1\\text{ h}$, la voiture parcourt $${vitesseCommune.vitesse}\\text{ km}$.<br>
+        En $${vitesseCommune.nombreDeMinutes}$ minutes, elle parcourt $${vitesseCommune.diviseurDeLHeure}$ fois moins de $\\text{km}$ qu'en $1\\text{ h}$, soit $\\dfrac{${vitesseCommune.vitesse}}{${vitesseCommune.diviseurDeLHeure}}=
+        ${miseEnEvidence(texNombre(vitesseCommune.vitesse / vitesseCommune.diviseurDeLHeure, 2))}\\text{ km}$.`
+        sortie.canReponseACompleter = `Elle parcourt $\\ldots$ \\Lg[km]{} en $${vitesseCommune.nombreDeMinutes}\\text{ min}$ à cette vitesse.`
         break
       case 'seconde':
         {
@@ -1175,15 +1176,15 @@ export default class ClasseCan2023 {
             d * vitesseCommune.vitesse +
               (vitesseCommune.nombreDeMinutes / 60) * vitesseCommune.vitesse,
           )
-          sortie.texte = `Une voiture roule à  $${vitesseCommune.vitesse}$ km/h à vitesse constante.<br> Combien de kilomètres parcourt-elle en $${d}$ h et $${vitesseCommune.nombreDeMinutes}$ min à cette vitesse ?`
-          sortie.texteCorr = `En $${d}$ h, elle parcourt $${d * vitesseCommune.vitesse}$ km.<br>
-        En $${vitesseCommune.nombreDeMinutes}$ min, elle parcourt $${texNombre((vitesseCommune.nombreDeMinutes / 60) * vitesseCommune.vitesse, 2)}$ km.<br>
-        Ainsi, en en $${d}$ h et $${vitesseCommune.nombreDeMinutes}$ min, elle parcourt donc $${miseEnEvidence(sortie.reponse)}$ km.`
-          sortie.canReponseACompleter = `Elle parcourt $\\ldots$ \\Lg[km]{} en $${d}$ h et $${vitesseCommune.nombreDeMinutes}$ min à cette vitesse.`
+          sortie.texte = `Une voiture roule à $${vitesseCommune.vitesse}\\text{ km/h}$ à vitesse constante.<br> Combien de kilomètres parcourt-elle en $${d}\\text{ h}$ et $${vitesseCommune.nombreDeMinutes}\\text{ min}$ à cette vitesse ?`
+          sortie.texteCorr = `En $${d}\\text{ h}$, elle parcourt $${d * vitesseCommune.vitesse}\\text{ km}$.<br>
+        En $${vitesseCommune.nombreDeMinutes}\\text{ min}$, elle parcourt $${texNombre((vitesseCommune.nombreDeMinutes / 60) * vitesseCommune.vitesse, 2)}\\text{ km}$.<br>
+        Ainsi, en en $${d}\\text{ h}$ et $${vitesseCommune.nombreDeMinutes}\\text{ min}$, elle parcourt donc $${miseEnEvidence(sortie.reponse)}\\text{ km}$.`
+          sortie.canReponseACompleter = `Elle parcourt $\\ldots$ \\Lg[km]{} en $${d}\\text{ h}$ et $${vitesseCommune.nombreDeMinutes}\\text{ min}$ à cette vitesse.`
         }
         break
     }
-    sortie.canEnonce = `Une voiture roule à la vitesse constante de $${vitesseCommune.vitesse}$ \\Vitesse{}.`
+    sortie.canEnonce = `Une voiture roule à la vitesse constante de $${vitesseCommune.vitesse}\\text{ km/h}$.`
     return sortie
   }
 
@@ -1573,7 +1574,7 @@ Combien coûtent $2$ cahiers ?`
           objets,
         )
         sortie.texteCorr = `La longueur du rectangle A est $${k}$ fois plus grande que sa largeur. On en déduit que la longueur du rectangle B est aussi $${k}$ fois plus grande que sa largeur.<br>
-Elle est donc égale à $${l2}\\times ${k}=${miseEnEvidence(sortie.reponse)}$ cm.`
+Elle est donc égale à $${l2}\\times ${k}=${miseEnEvidence(sortie.reponse)}\\text{ cm}$.`
         break
       case 'reduction':
         L = randint(3, 5) * 2 // Longueur grand rectngle
@@ -1657,7 +1658,7 @@ Elle est donc égale à $${l2}\\times ${k}=${miseEnEvidence(sortie.reponse)}$ cm
           objets,
         )
         sortie.texteCorr = `La longueur du rectangle A est $2$ fois plus grande que la longueur du rectangle B. On en déduit que la largeur  du rectangle B est aussi $2$ fois plus petite que la largeur du rectangle A.<br>
-Elle est donc égale à $${l}\\div 2=${miseEnEvidence(sortie.reponse)}$ cm.
+Elle est donc égale à $${l}\\div 2=${miseEnEvidence(sortie.reponse)}\\text{ cm}$.
                         `
         break
     }

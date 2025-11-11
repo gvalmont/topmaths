@@ -254,6 +254,7 @@ export default class DonnerSensDefinitionQuotient extends Exercice {
       }
 
       texte +=
+        '<br>' +
         numAlpha(0) +
         `Placer le point $${label1}$, sur cette droite graduée, repéré par le nombre $${fractionUtile}$.<br>`
       texte +=

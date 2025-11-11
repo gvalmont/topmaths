@@ -1,7 +1,7 @@
 import { colorToLatexOrHTML } from '../../../lib/2d/colorToLatexOrHtml'
 import { droite, labelOnLine } from '../../../lib/2d/droites'
 import { fixeBordures } from '../../../lib/2d/fixeBordures'
-import { point } from '../../../lib/2d/points'
+import { point } from '../../../lib/2d/PointAbstrait'
 import { Polygone, polygone } from '../../../lib/2d/polygones'
 import { rotation } from '../../../lib/2d/transformations'
 import { choice } from '../../../lib/outils/arrayOutils'

@@ -1,25 +1,26 @@
-import seuilFctAff from '../can/2e/can2F21'
-export const titre = 'Déterminer un seuil avec un fonction affine'
-export const dateDePublication = '27/08/2025'
+import CalculExpAvecValeurs from '../can/2e/can2C22'
+export const titre = 'Calculer une expression avec des valeurs'
+export const dateDePublication = '23/07/2025'
 export const amcReady = true
 export const amcType = 'AMCNum'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 
 /**
- * Clone de can2F21 pour les auto 1er
+ * Clone de can2C22 pour les auto 1er
  * @author Gilles Mora
  */
 
-export const uuid = '029b7'
+export const uuid = '42237'
 
 export const refs = {
   'fr-fr': ['1A-C12-1'],
-  'fr-ch': [],
+  'fr-ch': ['11QCM-2'],
 }
-export default class Auto1AC12a extends seuilFctAff {
+export default class Auto1AC14 extends CalculExpAvecValeurs {
   constructor() {
     super()
     this.versionQcm = true
+    this.formatInteractif = 'qcm'
   }
 }

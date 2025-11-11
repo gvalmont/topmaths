@@ -1,9 +1,9 @@
+import { propositionsQcm } from '../../../lib/interactif/qcm'
 import { choice } from '../../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { creerNomDePolygone, sp } from '../../../lib/outils/outilString'
-import Exercice from '../../Exercice'
 import { listeQuestionsToContenu } from '../../../modules/outils'
-import { propositionsQcm } from '../../../lib/interactif/qcm'
+import Exercice from '../../Exercice'
 export const titre = 'Utiliser la relation de Chasles/réductions vectorielles'
 export const interactifReady = true
 export const interactifType = 'qcm'
@@ -41,7 +41,7 @@ export default class RelationChasles1 extends Exercice {
           texte = `$\\overrightarrow{${nom[5]}${nom[0]}}+\\overrightarrow{${nom[2]}${nom[5]}}=$`
           this.autoCorrection[i] = {
             enonce: texte,
-            options: { horizontal: true },
+
             propositions: [
               {
                 texte: `$\\overrightarrow{${nom[2]}${nom[0]}}$ `,
@@ -79,7 +79,7 @@ export default class RelationChasles1 extends Exercice {
           texte = `$\\overrightarrow{${nom[0]}${nom[1]}}-\\overrightarrow{${nom[1]}${nom[0]}}=$`
           this.autoCorrection[i] = {
             enonce: texte,
-            options: { horizontal: true },
+
             propositions: [
               {
                 texte: `$2${sp(1)}\\overrightarrow{${nom[0]}${nom[1]}}$ `,
@@ -117,7 +117,7 @@ export default class RelationChasles1 extends Exercice {
           texte = `$-\\overrightarrow{${nom[0]}${nom[1]}}+\\overrightarrow{${nom[1]}${nom[0]}}=$`
           this.autoCorrection[i] = {
             enonce: texte,
-            options: { horizontal: true },
+
             propositions: [
               {
                 texte: `$2${sp(1)}\\overrightarrow{${nom[1]}${nom[0]}}$ `,
@@ -155,7 +155,7 @@ export default class RelationChasles1 extends Exercice {
           texte = `$-\\overrightarrow{${nom[0]}${nom[1]}}+\\overrightarrow{${nom[0]}${nom[1]}}=$`
           this.autoCorrection[i] = {
             enonce: texte,
-            options: { horizontal: true },
+
             propositions: [
               {
                 texte: '$\\overrightarrow{0}$ ',
@@ -194,7 +194,7 @@ export default class RelationChasles1 extends Exercice {
           texte = `$\\overrightarrow{${nom[4]}${nom[1]}}-\\overrightarrow{${nom[4]}${nom[2]}}=$`
           this.autoCorrection[i] = {
             enonce: texte,
-            options: { horizontal: true },
+
             propositions: [
               {
                 texte: `$\\overrightarrow{${nom[2]}${nom[1]}}$ `,
@@ -232,7 +232,7 @@ export default class RelationChasles1 extends Exercice {
           texte = `$\\overrightarrow{${nom[0]}${nom[1]}}+\\overrightarrow{${nom[1]}${nom[0]}}=$`
           this.autoCorrection[i] = {
             enonce: texte,
-            options: { horizontal: true },
+
             propositions: [
               {
                 texte: '$\\overrightarrow{0}$ ',

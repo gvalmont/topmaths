@@ -3,7 +3,6 @@ import { miseEnEvidence } from '../../../outils/embellissements'
 import SchemaEnBoite from '../../../outils/SchemaEnBoite'
 import { texNombre } from '../../../outils/texNombre'
 import Probleme from '../../Probleme'
-import { courses5 } from './courses'
 /**
  * @author Jean-Claude Lhote
  */
@@ -44,4 +43,3 @@ Quelle somme d'argent avait-on avant ?`
     this.reponse = texNombre(data.nb1, 2)
   }
 }
-export const listeDeProblemesTransfoAvant = [courses5]

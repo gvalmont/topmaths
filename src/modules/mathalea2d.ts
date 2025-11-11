@@ -1,5 +1,6 @@
 import katex from 'katex'
 import { ObjetMathalea2D } from '../lib/2d/ObjetMathalea2D'
+import { normaliseOrientation } from '../lib/2d/utilitairesGeometriques'
 import type { NestedObjetMathalea2dArray, ObjetDivLatex } from '../types/2d'
 import { context } from './context'
 /*
@@ -122,7 +123,7 @@ export function mathalea2d(
                 codeLatex.backgroundColor !== '' &&
                 codeLatex.backgroundColor !== 'none'
                   ? `<div class="divLatex" style="background-color: ${codeLatex.backgroundColor}; position: absolute; top: ${ySvg}px; left: ${xSvg}px; transform: translate(-50%,-50%) rotate(${-codeLatex.orientation}deg); opacity: ${codeLatex.opacity};" data-top=${ySvg} data-left=${xSvg}>${katex.renderToString('\\' + codeLatex.letterSize + ' {\\color{' + codeLatex.color + '}{' + codeLatex.latex + '}}')}</div>`
-                  : `<div class="divLatex" style="position: absolute; top: ${ySvg}px; left: ${xSvg}px; transform: translate(-50%,-50%) rotate(${-codeLatex.orientation}deg); opacity: ${codeLatex.opacity};" data-top=${ySvg} data-left=${xSvg}>${katex.renderToString('{\\color{' + codeLatex.color + '} \\' + codeLatex.letterSize + '{' + codeLatex.latex + '}}')}</div>`
+                  : `<div class="divLatex" style="position: absolute; top: ${ySvg}px; left: ${xSvg}px; transform: translate(-50%,-50%) rotate(${normaliseOrientation(-codeLatex.orientation)}deg); opacity: ${codeLatex.opacity};" data-top=${ySvg} data-left=${xSvg}>${katex.renderToString('{\\color{' + codeLatex.color + '} \\' + codeLatex.letterSize + '{' + codeLatex.latex + '}}')}</div>`
               divsLatex.push(divOuterHtml)
             }
           } else {

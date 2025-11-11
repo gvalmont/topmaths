@@ -1,6 +1,6 @@
-import { describe, test, expect, beforeEach, vi } from 'vitest'
+import { beforeEach, describe, expect, test, vi } from 'vitest'
 import ConstrctionsSymetrieCentralePoints from '../../src/exercices/5e/5G11-10'
-import { Point } from '../../src/lib/2d/points'
+import { isPoint } from '../../src/lib/2d/utilitairesPoint'
 
 // Mock avant l'import
 vi.mock('../../src/lib/renderScratch', () => ({
@@ -73,8 +73,8 @@ describe('ConstrctionsSymetrieCentralePoints', () => {
   test('nouvelleVersion should generate valid centers', () => {
     exercice.nouvelleVersion()
 
-    exercice.centres.forEach((center) => {
-      expect(center).toBeInstanceOf(Point)
+    exercice.centres2d.forEach((center) => {
+      expect(isPoint(center)).toBe(true)
       expect(center.x).toBe(0)
       expect(center.y).toBe(0)
     })

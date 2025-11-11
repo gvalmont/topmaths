@@ -3,10 +3,10 @@ import { arrondi } from '../outils/nombres'
 import { nombreAvecEspace } from '../outils/texNombre'
 import { fixeBordures } from './fixeBordures'
 import { ObjetMathalea2D } from './ObjetMathalea2D'
-import { tracePoint } from './points'
-import { pointAbstrait } from './points-abstraits'
+import { pointAbstrait } from './PointAbstrait'
 import { segment } from './segmentsVecteurs'
 import { latex2d, latexParCoordonnees, texteParPosition } from './textes'
+import { tracePoint } from './TracePoint'
 
 /**  Trace un axe gradué
  * @param {Object} parametres À saisir entre accolades

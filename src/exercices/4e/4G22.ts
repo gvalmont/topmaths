@@ -1,22 +1,22 @@
+import Figure from 'apigeom'
+import { handleAnswers } from '../../lib/interactif/gestionInteractif'
+import { propositionsQcm } from '../../lib/interactif/qcm'
+import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import {
   choice,
   combinaisonListes,
   enleveElement,
 } from '../../lib/outils/arrayOutils'
-import { creerNomDePolygone, sp } from '../../lib/outils/outilString'
-import { texNombre } from '../../lib/outils/texNombre'
-import Exercice from '../Exercice'
-import { context } from '../../modules/context'
-import { listeQuestionsToContenu, randint } from '../../modules/outils'
-import { RedactionPythagore } from './_pythagore'
-import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
-import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import {
   miseEnEvidence,
   texteEnCouleurEtGras,
 } from '../../lib/outils/embellissements'
-import { propositionsQcm } from '../../lib/interactif/qcm'
-import Figure from 'apigeom'
+import { creerNomDePolygone, sp } from '../../lib/outils/outilString'
+import { texNombre } from '../../lib/outils/texNombre'
+import { context } from '../../modules/context'
+import { listeQuestionsToContenu, randint } from '../../modules/outils'
+import Exercice from '../Exercice'
+import { RedactionPythagore } from './_pythagore'
 export const titre = 'Résoudre des problèmes utilisant le théorème de Pythagore'
 export const dateDeModifImportante = '26/01/2025'
 export const interactifReady = true
@@ -208,18 +208,20 @@ export default class ProblemesPythagore extends Exercice {
         case 'losange':
           texte = `$${nomQuadrilatere}$ est un losange de centre $O$ tel que $${
             A + B
-          }=${texNombre(c)}$ cm et $${A + C}=${texNombre(2 * a)}$ cm.<br>`
+          }=${texNombre(c)}\\text{  cm}$ et $${A + C}=${texNombre(2 * a)}\\text{  cm}$.<br>`
           texte += `Calculer $${D + B}$.`
           texte += this.interactif
             ? sp(20) +
               `$${D + B} = $` +
-              ajouteChampTexteMathLive(this, i, ' ', { texteApres: ' cm' })
+              ajouteChampTexteMathLive(this, i, ' ', {
+                texteApres: '$\\text{  cm}$',
+              })
             : ''
           handleAnswers(this, i, { reponse: { value: 2 * b } })
 
           texteCorr = `$${nomQuadrilatere}$ est un losange donc ses diagonales se coupent en leur milieu : $${
             A + O
-          }=${A + C}\\div2=${texNombre(2 * a)}\\div2=${texNombre(a)}$ cm.<br>`
+          }=${A + C}\\div2=${texNombre(2 * a)}\\div2=${texNombre(a)}\\text{  cm}$.<br>`
           texteCorr += `On sait que les diagonales d'un losange se coupent perpendiculairement donc $${
             A + O + B
           }$ est un triangle rectangle en $O$.<br>`
@@ -238,18 +240,20 @@ export default class ProblemesPythagore extends Exercice {
             D + B
           }]$ : $${D + B}=2\\times ${O + B}=2\\times${texNombre(
             b,
-          )}=${miseEnEvidence(texNombre(2 * b))}$ ${texteEnCouleurEtGras('cm')}.`
+          )}=${miseEnEvidence(texNombre(2 * b))}${miseEnEvidence(`\\text{ cm}`)}$.`
           break
 
         case 'rectangle_diagonale_connue':
           texte = `$${nomQuadrilatere}$ est un rectangle tel que $${
             A + B
-          }=${texNombre(a)}$ cm et $${A + C}=${texNombre(c)}$ cm.<br>`
+          }=${texNombre(a)}\\text{  cm}$ et $${A + C}=${texNombre(c)}\\text{  cm}$.<br>`
           texte += `Calculer $${B + C}$.`
           texte += this.interactif
             ? sp(20) +
               `$${B + C} = $` +
-              ajouteChampTexteMathLive(this, i, ' ', { texteApres: ' cm' })
+              ajouteChampTexteMathLive(this, i, ' ', {
+                texteApres: '$\\text{  cm}$',
+              })
             : ''
           handleAnswers(this, i, { reponse: { value: b } })
           texteCorr = `$${nomQuadrilatere}$ est un rectangle donc il possède 4 angles droits. `
@@ -259,12 +263,14 @@ export default class ProblemesPythagore extends Exercice {
         case 'rectangle_diagonale_a_trouver':
           texte = `$${nomQuadrilatere}$ est un rectangle tel que $${
             A + B
-          }=${texNombre(a)}$ cm et $${B + C}=${texNombre(b)}$ cm.<br>`
+          }=${texNombre(a)}\\text{  cm}$ et $${B + C}=${texNombre(b)}\\text{  cm}$.<br>`
           texte += `Calculer $${A + C}$.`
           texte += this.interactif
             ? sp(20) +
               `$${A + C} = $` +
-              ajouteChampTexteMathLive(this, i, ' ', { texteApres: ' cm' })
+              ajouteChampTexteMathLive(this, i, ' ', {
+                texteApres: '$\\text{  cm}$',
+              })
             : ''
           handleAnswers(this, i, { reponse: { value: c } })
           texteCorr = `$${nomQuadrilatere}$ est un rectangle donc il possède 4 angles droits. `
@@ -274,9 +280,9 @@ export default class ProblemesPythagore extends Exercice {
         case 'parallelogramme_est_losange':
           texte = `$${nomQuadrilatere}$ est un parallélogramme de centre $O$ tel que $${
             A + O
-          }=${texNombre(a)}$ cm, $${A + B}=${texNombre(c)}$ cm et $${
+          }=${texNombre(a)}\\text{  cm}$, $${A + B}=${texNombre(c)}\\text{  cm}$ et $${
             B + O
-          }=${texNombre(b)}$ cm.<br>`
+          }=${texNombre(b)}\\text{  cm}$.<br>`
           texte += `$${nomQuadrilatere}$ est-il un losange ?`
           this.autoCorrection[i] = {
             enonce: texte,
@@ -314,9 +320,9 @@ export default class ProblemesPythagore extends Exercice {
         case 'parallelogramme_n_est_pas_losange':
           texte = `$${nomQuadrilatere}$ est un parallélogramme de centre $O$ tel que $${
             A + O
-          }=${texNombre(a)}$ cm, $${A + B}=${texNombre(c)}$ cm et $${
+          }=${texNombre(a)}\\text{  cm}$, $${A + B}=${texNombre(c)}\\text{  cm}$ et $${
             B + O
-          }=${texNombre(b)}$ cm.<br>`
+          }=${texNombre(b)}\\text{  cm}$.<br>`
           texte += `$${nomQuadrilatere}$ est-il un losange ?`
           this.autoCorrection[i] = {
             enonce: texte,
@@ -359,9 +365,9 @@ export default class ProblemesPythagore extends Exercice {
         case 'parallelogramme_est_rectangle':
           texte = `$${nomQuadrilatere}$ est un parallélogramme de centre $O$ tel que $${
             A + B
-          }=${texNombre(a)}$ cm, $${A + C}=${texNombre(c)}$ cm et $${
+          }=${texNombre(a)}\\text{  cm}$, $${A + C}=${texNombre(c)}\\text{  cm}$ et $${
             B + C
-          }=${texNombre(b)}$ cm.<br>`
+          }=${texNombre(b)}\\text{  cm}$.<br>`
           texte += `$${nomQuadrilatere}$ est-il un rectangle ?`
           this.autoCorrection[i] = {
             enonce: texte,
@@ -400,9 +406,9 @@ export default class ProblemesPythagore extends Exercice {
         default:
           texte = `$${nomQuadrilatere}$ est un parallélogramme de centre $O$ tel que $${
             A + B
-          }=${texNombre(a)}$ cm, $${A + C}=${texNombre(c)}$ cm et $${
+          }=${texNombre(a)}\\text{  cm}$, $${A + C}=${texNombre(c)}\\text{  cm}$ et $${
             B + C
-          }=${texNombre(b)}$ cm.<br>`
+          }=${texNombre(b)}\\text{  cm}$.<br>`
           texte += `$${nomQuadrilatere}$ est-il un rectangle ?`
           this.autoCorrection[i] = {
             enonce: texte,

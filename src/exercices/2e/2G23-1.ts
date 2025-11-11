@@ -1,8 +1,14 @@
 import { grille } from '../../lib/2d/Grille'
-import { point, tracePoint } from '../../lib/2d/points'
-import { Segment, segment, vecteur } from '../../lib/2d/segmentsVecteurs'
+import { point } from '../../lib/2d/PointAbstrait'
+import {
+  representant,
+  representantNomme,
+} from '../../lib/2d/representantVecteur'
+import { Segment, segment } from '../../lib/2d/segmentsVecteurs'
 import { labelPoint } from '../../lib/2d/textes'
+import { tracePoint } from '../../lib/2d/TracePoint'
 import { translation } from '../../lib/2d/transformations'
+import { vecteur } from '../../lib/2d/Vecteur'
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 import { setReponse } from '../../lib/interactif/gestionInteractif'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
@@ -340,13 +346,15 @@ export default class ImagePtParTranslation extends Exercice {
               ExtrVec.x - OrigVec.x,
               ExtrVec.y - OrigVec.y,
             ) // Crée le vecteur déplacement
-            const VecDeplRep = VecDepl.representant(
+            const VecDeplRep = representant(
+              VecDepl,
               PtDepart,
               'green',
             ) as Segment // Trace le vecteur déplacement
             VecDeplRep.epaisseur = 2 // Variable qui grossit le tracé du vecteur
             VecDeplRep.styleExtremites = '->' // Donne l'extrémité du vecteur
-            const nomVecDepl = VecDepl.representantNomme(
+            const nomVecDepl = representantNomme(
+              VecDepl,
               PtDepart,
               nomOR + nomEXT,
               1,
@@ -397,7 +405,7 @@ export default class ImagePtParTranslation extends Exercice {
             objetsCorr.push(PositionPtCorr, LabelsPtCorr, Grille, VecDeplRep)
             if (this.classe === 2) objetsCorr.push(nomVecDepl)
             objetsCorr.push(labelPoint(OrigVec, ExtrVec, 'green'))
-            objetsCorr.push(VecDepl.representant(OrigVec, 'green'))
+            objetsCorr.push(representant(VecDepl, OrigVec, 'green'))
             objetsCorr.push(labelPoint(PtDepart, 'blue'), trPtDepart)
             const ptSol = translation(PtDepart, VecDepl, NomSOL)
             ptSol.positionLabel =
@@ -548,7 +556,7 @@ export default class ImagePtParTranslation extends Exercice {
               ExtrVec.x - OrigVec.x,
               ExtrVec.y - OrigVec.y,
             ) // Crée le vecteur déplacement
-            const VecDeplRep = VecDepl.representant(PtDepartSeg, 'green') // Trace le vecteur déplacement
+            const VecDeplRep = representant(VecDepl, PtDepartSeg, 'green') // Trace le vecteur déplacement
             VecDeplRep.epaisseur = 2 // Variable qui grossit le tracé du vecteur
             VecDeplRep.styleExtremites = '->' // Donne l'extrémité du vecteur
 
@@ -622,7 +630,8 @@ export default class ImagePtParTranslation extends Exercice {
               )
             }
 
-            const nomVecDepl = VecDepl.representantNomme(
+            const nomVecDepl = representantNomme(
+              VecDepl,
               PtDepartSeg,
               nomOR + nomEXT,
               1,
@@ -684,10 +693,9 @@ export default class ImagePtParTranslation extends Exercice {
             if (this.classe === 2) objetsCorr.push(nomVecDepl)
 
             // Cas où les vecteurs se confondent partiellement
-            if (!VecDeplRep.estSecant(VecDepl.representant(OrigVec))) {
-              // objetsCorr.push(VecDepl.representantNomme(OrigVec, nomOR + nomEXT, 1, 'green'))
+            if (!VecDeplRep.estSecant(representant(VecDepl, OrigVec))) {
               objetsCorr.push(labelPoint(OrigVec, ExtrVec, 'green'))
-              objetsCorr.push(VecDepl.representant(OrigVec, 'green'))
+              objetsCorr.push(representant(VecDepl, OrigVec, 'green'))
             }
 
             objetsCorr.push(
@@ -1045,18 +1053,19 @@ export default class ImagePtParTranslation extends Exercice {
 
             // Vecteur issu d'un sommet du triangle (qui ne soit pas confondu avec un côté des deux triangles)
             const sommetsTriangle = [Pt1Triangle, Pt2Triangle, Pt3Triangle]
-            let VecDeplRep = VecDepl.representant(Pt1Triangle, 'green') // Trace le vecteur déplacement
+            let VecDeplRep = representant(VecDepl, Pt1Triangle, 'green') // Trace le vecteur déplacement
             let ee = 0
             while (
               estEgalAUnAutreSegment(VecDeplRep, SegSOL1, SegSOL2, SegSOL3) ||
               estEgalAUnAutreSegment(VecDeplRep, Seg1, Seg2, Seg3)
             ) {
               ee++
-              VecDeplRep = VecDepl.representant(sommetsTriangle[ee], 'green')
+              VecDeplRep = representant(VecDepl, sommetsTriangle[ee], 'green')
             }
             VecDeplRep.epaisseur = 2 // Variable qui grossit le tracé du vecteur
             VecDeplRep.styleExtremites = '->' // Donne l'extrémité du vecteur
-            const nomVecDepl = VecDepl.representantNomme(
+            const nomVecDepl = representantNomme(
+              VecDepl,
               sommetsTriangle[ee],
               nomOR + nomEXT,
               1,
@@ -1126,10 +1135,9 @@ export default class ImagePtParTranslation extends Exercice {
             if (this.classe === 2) objetsCorr.push(nomVecDepl)
 
             // Cas où les vecteurs se confondent partiellement
-            if (!VecDeplRep.estSecant(VecDepl.representant(OrigVec))) {
-              // objetsCorr.push(VecDepl.representantNomme(OrigVec, nomOR + nomEXT, 1, 'green'))
+            if (!VecDeplRep.estSecant(representant(VecDepl, OrigVec))) {
               objetsCorr.push(labelPoint(OrigVec, ExtrVec, 'green'))
-              objetsCorr.push(VecDepl.representant(OrigVec, 'green'))
+              objetsCorr.push(representant(VecDepl, OrigVec, 'green'))
             }
 
             objetsCorr.push(

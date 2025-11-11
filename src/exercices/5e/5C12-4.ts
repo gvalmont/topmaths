@@ -2,12 +2,10 @@
 import { evaluate, type Fraction } from 'mathjs'
 import type { MathfieldElement } from 'mathlive'
 import engine from '../../lib/interactif/comparisonFunctions'
-import {
-  handleAnswers,
-  type AnswerType,
-} from '../../lib/interactif/gestionInteractif'
+import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { remplisLesBlancs } from '../../lib/interactif/questionMathLive'
 import { choice } from '../../lib/outils/arrayOutils'
+import type { AnswerType } from '../../lib/types'
 import { gestionnaireFormulaireTexte, randint } from '../../modules/outils'
 import { assignVariables, calculer } from '../../modules/outilsMathjs'
 import Exercice from '../Exercice'

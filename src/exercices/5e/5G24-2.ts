@@ -1,12 +1,12 @@
+import { codageSegment } from '../../lib/2d/CodageSegment'
+import { pointAbstrait } from '../../lib/2d/PointAbstrait'
+import { vecteur } from '../../lib/2d/Vecteur'
 import { codageAngle } from '../../lib/2d/angles'
-import { codageSegment } from '../../lib/2d/codages'
 import { fixeBordures } from '../../lib/2d/fixeBordures'
-import { pointAdistance } from '../../lib/2d/points'
-import { pointAbstrait } from '../../lib/2d/points-abstraits'
 import { barycentre, nommePolygone } from '../../lib/2d/polygones'
-import { vecteur } from '../../lib/2d/segmentsVecteurs'
 import { rotation, translation } from '../../lib/2d/transformations'
-import { triangle2points2longueurs } from '../../lib/2d/triangle'
+import { triangle2points2longueurs } from '../../lib/2d/triangles'
+import { pointAdistance } from '../../lib/2d/utilitairesPoint'
 import { propositionsQcm } from '../../lib/interactif/qcm'
 import { texteEnCouleur } from '../../lib/outils/embellissements'
 import { creerNomDePolygone } from '../../lib/outils/outilString'
@@ -83,8 +83,8 @@ export default class TrianglesEgaux extends Exercice {
       l1 /= 10
       l2 /= 10
       l3 /= 10
-      const A = pointAbstrait(0, 0)
-      const B = pointAdistance(A, l1)
+      let A = pointAbstrait(0, 0)
+      let B = pointAdistance(A, l1)
       const p1 = triangle2points2longueurs(A, B, l2, l3)
       const C = p1.listePoints[2]
       const O = barycentre(p1)
@@ -120,6 +120,8 @@ export default class TrianglesEgaux extends Exercice {
       const nom2 = creerNomDePolygone(3, listeDeNomsDePolygones)
       listeDeNomsDePolygones.push(nom2)
       const nommeP1 = nommePolygone(p1, nom1)
+      A = p1.listePoints[0]
+      B = p1.listePoints[1]
       const nommeP2 = nommePolygone(p2, nom2)
       const objetsAAfficher = []
       switch (

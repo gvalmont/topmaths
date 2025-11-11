@@ -1,11 +1,12 @@
-import { choice } from '../../lib/outils/arrayOutils'
+import { choice, shuffle } from '../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
-import { abs } from '../../lib/outils/nombres'
 import { randint } from '../../modules/outils'
 import ExerciceQcmA from '../ExerciceQcmA'
-export const dateDePublication = '07/09/2025'
-export const uuid = '3b917'
-
+/**
+ * @author Gilles Mora
+ *
+ */
+export const uuid = '8d642'
 export const refs = {
   'fr-fr': ['1A-C11-2'],
   'fr-ch': [],
@@ -14,122 +15,341 @@ export const interactifReady = true
 export const interactifType = 'qcm'
 export const amcReady = 'true'
 export const amcType = 'qcmMono'
-export const titre = 'Résoudre une équation simple'
-export default class Auto1AC11b extends ExerciceQcmA {
+export const titre = 'Exprimer une variable en fonction des autres'
+export const dateDePublication = '05/08/2025'
+
+export default class Auto1AC13b extends ExerciceQcmA {
   versionOriginale: () => void = () => {
-    this.enonce = "La solution de l'équation  $3x=0$ est : "
-    this.correction = ` On divise par $3$ chacun des deux membres  de l'équation pour obtenir $x=0$.<br>
-    C'est bien $3\\times 0$ qui est égal à 0.<br>
-        Ainsi, la solution de l'équation est $${miseEnEvidence('0')}$.`
+    this.enonce = `Soient $a$, $b$, $c$ et $d$ quatre nombres (avec $d$ non nul) vérifiant l'égalité :<br>
+    $a = b - cd$.<br>
+    Exprimer $c$ en fonction de $a$, $b$ et $d$.`
+
+    this.correction = `On isole $c$ dans un membre de l'égalité :<br>
+    $\\begin{aligned}
+    a &= b - cd\\\\
+    a - b &= -cd\\\\
+    -a + b &= cd\\\\
+    \\dfrac{-a + b}{d} &= c
+    \\end{aligned}$
+    <br>Une expression de $c$ en fonction de $a$, $b$ et $d$ est $${miseEnEvidence('c = \\dfrac{b - a}{d}')}$.`
 
     this.reponses = [
-      '$\\vphantom{\\dfrac{1}{3}}x=0$',
-      '$\\vphantom{\\dfrac{1}{3}}x=-3$',
-      '$x=\\dfrac{1}{3}$',
-      '$x=-\\dfrac{1}{3}$',
+      '$c = \\dfrac{b - a}{d}$',
+      '$c = \\dfrac{a - b}{d}$',
+      '$c = d(b - a)$',
+      '$c = \\dfrac{b + a}{d}$',
     ]
   }
 
-  versionAleatoire = () => {
-    switch (randint(1,6)) {
-      case 1:
-        {
-          const a = randint(-9, 9, [-1, 1, 0])
-          this.enonce = `La solution de l\'équation  $${a}x=0$ est : `
-          this.correction = ` On divise par $${a}$ chacun des deux membres  de l'équation pour obtenir $x=0$.<br>
-    C'est bien $${a}\\times 0$ qui est égal à 0.<br>
-        Ainsi, la solution de l'équation est $${miseEnEvidence('0')}$.`
+  versionAleatoire: () => void = () => {
+    const nomVariables = [
+      shuffle(['a', 'b', 'c', 'e']),
+      shuffle(['x', 'y', 'z', 'w']),
+      shuffle(['u', 'v', 'w', 't']),
+      shuffle(['A', 'B', 'C', 'E']),
+      shuffle(['R', 'S', 'T', 'U']),
+      shuffle(['I', 'J', 'K', 'L']),
+      shuffle(['c', 'g', 'e', 'f']),
+      shuffle(['c', 'm', 'f', 'e']),
+      shuffle(['K', 'L', 'M', 'N']),
+      shuffle(['r', 's', 't', 'u']),
+      shuffle(['U', 'V', 'W', 'X']),
+    ]
+    const nomV = choice(nomVariables)
+    const choix = randint(1, 12)
 
-          this.reponses = [
-            '$\\vphantom{\\dfrac{1}{3}}x=0$',
-            `$\\vphantom{\\dfrac{1}{3}}x=${-a}$`,
-            `$x=\\dfrac{1}{${abs(a)}}$`,
-            `$x=-\\dfrac{1}{${abs(a)}}$`,
-          ]
-        }
+    switch (choix) {
+      case 1: {
+        // a=b-cd on cherche c
+        const intro = `Soient $${nomV[0]}$, $${nomV[1]}$, $${nomV[2]}$ et $${nomV[3]}$ quatre nombres (avec $${nomV[3]}$ non nul) vérifiant l'égalité :`
+
+        this.enonce = `${intro} $${nomV[0]} = ${nomV[1]} - ${nomV[2]}${nomV[3]}$.<br>
+        Une expression de $${nomV[2]}$ en fonction de $${nomV[0]}$, $${nomV[1]}$ et $${nomV[3]}$ est :`
+
+        this.correction = `On isole $${nomV[2]}$ dans un membre de l'égalité :<br>
+        $\\begin{aligned}
+        ${nomV[0]} &= ${nomV[1]} - ${nomV[2]}${nomV[3]}\\\\
+        ${nomV[0]} - ${nomV[1]} &= -${nomV[2]}${nomV[3]}\\\\
+        -${nomV[0]} + ${nomV[1]} &= ${nomV[2]}${nomV[3]}\\\\
+        \\dfrac{-${nomV[0]} + ${nomV[1]}}{${nomV[3]}} &= ${nomV[2]}
+        \\end{aligned}$
+        <br>Une expression de $${nomV[2]}$ en fonction de $${nomV[0]}$, $${nomV[1]}$ et $${nomV[3]}$ est $${miseEnEvidence(nomV[2] + ' = \\dfrac{' + nomV[1] + ' - ' + nomV[0] + '}{' + nomV[3] + '}')}$.`
+
+        this.reponses = [
+          `$${nomV[2]} = \\dfrac{${nomV[1]} - ${nomV[0]}}{${nomV[3]}}$`,
+          `$${nomV[2]} = \\dfrac{${nomV[0]} - ${nomV[1]}}{${nomV[3]}}$`,
+          `$${nomV[2]} = ${nomV[3]}(${nomV[1]} - ${nomV[0]})$`,
+          `$${nomV[2]} = \\dfrac{${nomV[1]} + ${nomV[0]}}{${nomV[3]}}$`,
+        ]
         break
-      case 2:
-        {
-          const a = randint(2, 10)
-          this.enonce = `La solution de l\'équation  $\\dfrac{x}{${a}}=0$ est : `
+      }
 
-          this.correction = ` On multiplie par $${a}$ chacun des deux membres  de l'équation pour obtenir $x=0$.<br>
-    C'est bien $0\\div ${a}$ qui est égal à 0.<br>
-        Ainsi, la solution de l'équation est $${miseEnEvidence('0')}$.`
-          this.reponses = [
-            '$\\vphantom{\\dfrac{1}{3}}x=0$',
-            `$\\vphantom{\\dfrac{1}{3}}x=${-a}$`,
-            `$x=\\dfrac{1}{${abs(a)}}$`,
-            `$x=-\\dfrac{1}{${abs(a)}}$`,
-          ]
-        }
+      case 2: {
+        // a=b-cd on cherche d
+        const intro = `Soient $${nomV[0]}$, $${nomV[1]}$, $${nomV[2]}$ et $${nomV[3]}$ quatre nombres (avec $${nomV[2]}$ non nul) vérifiant l'égalité :`
+
+        this.enonce = `${intro} $${nomV[0]} = ${nomV[1]} - ${nomV[2]}${nomV[3]}$.<br>
+        Une expression de $${nomV[3]}$ en fonction de $${nomV[0]}$, $${nomV[1]}$ et $${nomV[2]}$ est :`
+
+        this.correction = `On isole $${nomV[3]}$ dans un membre de l'égalité :<br>
+        $\\begin{aligned}
+        ${nomV[0]} &= ${nomV[1]} - ${nomV[2]}${nomV[3]}\\\\
+        ${nomV[0]} - ${nomV[1]} &= -${nomV[2]}${nomV[3]}\\\\
+        -${nomV[0]} + ${nomV[1]} &= ${nomV[2]}${nomV[3]}\\\\
+        \\dfrac{-${nomV[0]} + ${nomV[1]}}{${nomV[2]}} &= ${nomV[3]}
+        \\end{aligned}$
+        <br>Une expression de $${nomV[3]}$ en fonction de $${nomV[0]}$, $${nomV[1]}$ et $${nomV[2]}$ est $${miseEnEvidence(nomV[3] + ' = \\dfrac{' + nomV[1] + ' - ' + nomV[0] + '}{' + nomV[2] + '}')}$.`
+
+        this.reponses = [
+          `$${nomV[3]} = \\dfrac{${nomV[1]} - ${nomV[0]}}{${nomV[2]}}$`,
+          `$${nomV[3]} = \\dfrac{${nomV[0]} - ${nomV[1]}}{${nomV[2]}}$`,
+          `$${nomV[3]} = ${nomV[2]}(${nomV[1]} - ${nomV[0]})$`,
+          `$${nomV[3]} = \\dfrac{${nomV[1]} + ${nomV[0]}}{${nomV[2]}}$`,
+        ]
         break
+      }
 
-      case 3:
-        {
-          const a = randint(-10, 10, [-1, 1, 0])
-          this.enonce = `La solution de l\'équation $\\dfrac{${a}}{x}=1$ est : `
+      case 3: {
+        // a=b-cd on cherche b
+        const intro = `Soient $${nomV[0]}$, $${nomV[1]}$, $${nomV[2]}$ et $${nomV[3]}$ quatre nombres vérifiant l'égalité :`
 
-          this.correction = ` Le quotient $\\dfrac{${a}}{x}$ est égal à $1$, lorsque son numérateur et son dénominateur sont égaux, c'est-à-dire lorsque $x=${a}$.<br>
-        Ainsi, la solution de l'équation est $${miseEnEvidence(a)}$.`
-          this.reponses = [
-            `$\\vphantom{\\dfrac{1}{3}}x=${a}$`,
-            `$\\vphantom{\\dfrac{1}{3}}x=${-a}$`,
-            `$x=\\dfrac{1}{${abs(a)}}$`,
-            `$x=-\\dfrac{1}{${abs(a)}}$`,
-          ]
-        }
+        this.enonce = `${intro} $${nomV[0]} = ${nomV[1]} - ${nomV[2]}${nomV[3]}$.<br>
+         Une expression de $${nomV[1]}$ en fonction de $${nomV[0]}$, $${nomV[2]}$ et $${nomV[3]}$ est :`
+
+        this.correction = `On isole $${nomV[1]}$ dans un membre de l'égalité :<br>
+        $\\begin{aligned}
+        ${nomV[0]} &= ${nomV[1]} - ${nomV[2]}${nomV[3]}\\\\
+        ${nomV[0]} + ${nomV[2]}${nomV[3]} &= ${nomV[1]}
+        \\end{aligned}$
+        <br>Une expression de $${nomV[1]}$ en fonction de $${nomV[0]}$, $${nomV[2]}$ et $${nomV[3]}$ est $${miseEnEvidence(nomV[1] + ' = ' + nomV[0] + ' + ' + nomV[2] + nomV[3])}$.`
+
+        this.reponses = [
+          `$${nomV[1]} = ${nomV[0]} + ${nomV[2]}${nomV[3]}$`,
+          `$${nomV[1]} = ${nomV[0]} - ${nomV[2]}${nomV[3]}$`,
+          `$${nomV[1]} = \\dfrac{${nomV[0]}}{${nomV[2]}${nomV[3]}}$`,
+          `$${nomV[1]} = ${nomV[0]} \\times ${nomV[2]}${nomV[3]}$`,
+        ]
         break
-      case 4:
-        {
-          const a = randint(-10, 10, [-1, 1, 0])
-          this.enonce = `La solution de l\'équation $\\dfrac{x}{${a}}=1$ est : `
+      }
 
-          this.correction = ` Le quotient $\\dfrac{x}{${a}}$ est égal à $1$, lorsque son numérateur et son dénominateur sont égaux, c'est-à-dire lorsque $x=${a}$.<br>
-        Ainsi, la solution de l'équation est $${miseEnEvidence(a)}$.`
-          this.reponses = [
-            `$\\vphantom{\\dfrac{1}{3}}x=${a}$`,
-            `$\\vphantom{\\dfrac{1}{3}}x=${-a}$`,
-            `$x=\\dfrac{1}{${abs(a)}}$`,
-            `$x=-\\dfrac{1}{${abs(a)}}$`,
-          ]
-        }
+      case 4: {
+        // a=bc+d on cherche b
+        const intro = `Soient $${nomV[0]}$, $${nomV[1]}$, $${nomV[2]}$ et $${nomV[3]}$ quatre nombres (avec $${nomV[2]}$ non nul) vérifiant l'égalité :`
+
+        this.enonce = `${intro} $${nomV[0]} = ${nomV[1]}${nomV[2]} + ${nomV[3]}$.<br>
+        Une expression de $${nomV[1]}$ en fonction de $${nomV[0]}$, $${nomV[2]}$ et $${nomV[3]}$ est :`
+
+        this.correction = `On isole $${nomV[1]}$ dans un membre de l'égalité :<br>
+        $\\begin{aligned}
+        ${nomV[0]} &= ${nomV[1]}${nomV[2]} + ${nomV[3]}\\\\
+        ${nomV[0]} - ${nomV[3]} &= ${nomV[1]}${nomV[2]}\\\\
+        \\dfrac{${nomV[0]} - ${nomV[3]}}{${nomV[2]}} &= ${nomV[1]}
+        \\end{aligned}$
+        <br>Une expression de $${nomV[1]}$ en fonction de $${nomV[0]}$, $${nomV[2]}$ et $${nomV[3]}$ est $${miseEnEvidence(nomV[1] + ' = \\dfrac{' + nomV[0] + ' - ' + nomV[3] + '}{' + nomV[2] + '}')}$.`
+
+        this.reponses = [
+          `$${nomV[1]} = \\dfrac{${nomV[0]} - ${nomV[3]}}{${nomV[2]}}$`,
+          `$${nomV[1]} = \\dfrac{${nomV[0]} + ${nomV[3]}}{${nomV[2]}}$`,
+          `$${nomV[1]} = ${nomV[2]}(${nomV[0]} - ${nomV[3]})$`,
+          `$${nomV[1]} = \\dfrac{${nomV[3]} - ${nomV[0]}}{${nomV[2]}}$`,
+        ]
         break
+      }
 
-  case 5:
-        {
-          const a = randint(-10, 10, [-1, 1, 0])
-          this.enonce = `La solution de l\'équation $\\dfrac{${a}}{x}=${a}$ est : `
+      case 5: {
+        // a=bc+d on cherche d
+        const intro = `Soient $${nomV[0]}$, $${nomV[1]}$, $${nomV[2]}$ et $${nomV[3]}$ quatre nombres vérifiant l'égalité suivante :`
 
-          this.correction = ` Le quotient $\\dfrac{${a}}{x}$ est égal à $${a}$, lorsque son  dénominateur est égal à $1$.<br>
-        Ainsi, la solution de l'équation est $${miseEnEvidence('1')}$.`
-          this.reponses = [
-            `$\\vphantom{\\dfrac{1}{3}}x=1$`,
-            `$\\vphantom{\\dfrac{1}{3}}x=${a}$`,
-            `$\\vphantom{\\dfrac{1}{3}}x=${-a}$`,
-            `$x=\\dfrac{1}{${abs(a)}}$`,
-          ]
-        }
+        this.enonce = `${intro} $${nomV[0]} = ${nomV[1]}${nomV[2]} + ${nomV[3]}$.<br>
+         Une expression de $${nomV[3]}$ en fonction de $${nomV[0]}$, $${nomV[1]}$ et $${nomV[2]}$ est :`
+
+        this.correction = `On isole $${nomV[3]}$ dans un membre de l'égalité :<br>
+        $\\begin{aligned}
+        ${nomV[0]} &= ${nomV[1]}${nomV[2]} + ${nomV[3]}\\\\
+        ${nomV[0]} - ${nomV[1]}${nomV[2]} &= ${nomV[3]}
+        \\end{aligned}$
+        <br>Une expression de $${nomV[3]}$ en fonction de $${nomV[0]}$, $${nomV[1]}$ et $${nomV[2]}$ est $${miseEnEvidence(nomV[3] + ' = ' + nomV[0] + ' - ' + nomV[1] + nomV[2])}$.`
+
+        this.reponses = [
+          `$${nomV[3]} = ${nomV[0]} - ${nomV[1]}${nomV[2]}$`,
+          `$${nomV[3]} = ${nomV[0]} + ${nomV[1]}${nomV[2]}$`,
+          `$${nomV[3]} = \\dfrac{${nomV[0]}}{${nomV[1]}${nomV[2]}}$`,
+          `$${nomV[3]} = ${nomV[0]} \\times ${nomV[1]}${nomV[2]}$`,
+        ]
         break
+      }
 
-  case 6:
-    default:
-        {
-          const a = randint(-9, 9, [-1, 1, 0])
-          this.enonce = `La solution de l\'équation  $${a}x=${a}$ est : `
-          this.correction = ` On divise par $${a}$ chacun des deux membres  de l'équation pour obtenir $x=1$.<br>
-    C'est bien $${a}\\times 1$ qui est égal à $${a}$.<br>
-        Ainsi, la solution de l'équation est $${miseEnEvidence('1')}$.`
+      case 6: {
+        // a=(b+c)/d on cherche b
+        const intro = `Soient $${nomV[0]}$, $${nomV[1]}$, $${nomV[2]}$ et $${nomV[3]}$ quatre nombres (avec $${nomV[3]}$ non nul) vérifiant l'égalité :`
 
-          this.reponses = [
-            '$\\vphantom{\\dfrac{1}{3}}x=1$',
-            `$\\vphantom{\\dfrac{1}{3}}x=${-a}$`,
-            `$x=\\dfrac{1}{${abs(a)}}$`,
-            `$x=-\\dfrac{1}{${abs(a)}}$`,
-          ]
-        }
+        this.enonce = `${intro} $${nomV[0]} = \\dfrac{${nomV[1]} + ${nomV[2]}}{${nomV[3]}}$.<br>
+        Une expression de $${nomV[1]}$ en fonction de $${nomV[0]}$, $${nomV[2]}$ et $${nomV[3]}$ est :`
+
+        this.correction = `On isole $${nomV[1]}$ dans un membre de l'égalité :<br>
+        $\\begin{aligned}
+        ${nomV[0]} &= \\dfrac{${nomV[1]} + ${nomV[2]}}{${nomV[3]}}\\\\
+        ${nomV[0]} \\times ${nomV[3]} &= ${nomV[1]} + ${nomV[2]}\\\\
+        ${nomV[0]} \\times ${nomV[3]} - ${nomV[2]} &= ${nomV[1]}
+        \\end{aligned}$
+        <br>Une expression de $${nomV[1]}$ en fonction de $${nomV[0]}$, $${nomV[2]}$ et $${nomV[3]}$ est $${miseEnEvidence(nomV[1] + ' = ' + nomV[3] + ' \\times ' + nomV[0] + ' - ' + nomV[2])}$.`
+
+        this.reponses = [
+          `$${nomV[1]} = ${nomV[3]} \\times ${nomV[0]} - ${nomV[2]}$`,
+          `$${nomV[1]} = ${nomV[3]} \\times ${nomV[0]} + ${nomV[2]}$`,
+          `$${nomV[1]} = \\dfrac{${nomV[0]} - ${nomV[2]}}{${nomV[3]}}$`,
+          `$${nomV[1]} = ${nomV[0]} - ${nomV[2]} \\times ${nomV[3]}$`,
+        ]
         break
+      }
 
+      case 7: {
+        // a=(b+c)/d on cherche c
+        const intro = `Soient $${nomV[0]}$, $${nomV[1]}$, $${nomV[2]}$ et $${nomV[3]}$ quatre nombres (avec $${nomV[3]}$ non nul) vérifiant l'égalité :`
+
+        this.enonce = `${intro} $${nomV[0]} = \\dfrac{${nomV[1]} + ${nomV[2]}}{${nomV[3]}}$.<br>
+         Une expression de $${nomV[2]}$ en fonction de $${nomV[0]}$, $${nomV[1]}$ et $${nomV[3]}$ est :`
+
+        this.correction = `On isole $${nomV[2]}$ dans un membre de l'égalité :<br>
+        $\\begin{aligned}
+        ${nomV[0]} &= \\dfrac{${nomV[1]} + ${nomV[2]}}{${nomV[3]}}\\\\
+        ${nomV[0]} \\times ${nomV[3]} &= ${nomV[1]} + ${nomV[2]}\\\\
+        ${nomV[0]} \\times ${nomV[3]} - ${nomV[1]} &= ${nomV[2]}
+        \\end{aligned}$
+        <br>Une expression de $${nomV[2]}$ en fonction de $${nomV[0]}$, $${nomV[1]}$ et $${nomV[3]}$ est $${miseEnEvidence(nomV[2] + ' = ' + nomV[3] + ' \\times ' + nomV[0] + ' - ' + nomV[1])}$.`
+
+        this.reponses = [
+          `$${nomV[2]} = ${nomV[3]} \\times ${nomV[0]} - ${nomV[1]}$`,
+          `$${nomV[2]} = ${nomV[3]} \\times ${nomV[0]} + ${nomV[1]}$`,
+          `$${nomV[2]} = \\dfrac{${nomV[0]} - ${nomV[1]}}{${nomV[3]}}$`,
+          `$${nomV[2]} = ${nomV[0]} - ${nomV[1]} \\times ${nomV[3]}$`,
+        ]
+        break
+      }
+
+      case 8: {
+        // a=(b+c)/d on cherche d
+        const intro = `Soient $${nomV[0]}$, $${nomV[1]}$, $${nomV[2]}$ et $${nomV[3]}$ quatre nombres (avec $${nomV[3]}$ et $${nomV[0]}$ non nuls) vérifiant l'égalité :`
+
+        this.enonce = `${intro} $${nomV[0]} = \\dfrac{${nomV[1]} + ${nomV[2]}}{${nomV[3]}}$.<br>
+         Une expression de $${nomV[3]}$ en fonction de $${nomV[0]}$, $${nomV[1]}$ et $${nomV[2]}$ est :`
+
+        this.correction = `On isole $${nomV[3]}$ dans un membre de l'égalité :<br>
+        $\\begin{aligned}
+        ${nomV[0]} &= \\dfrac{${nomV[1]} + ${nomV[2]}}{${nomV[3]}}\\\\
+        ${nomV[0]} \\times ${nomV[3]} &= ${nomV[1]} + ${nomV[2]}\\\\
+        ${nomV[3]} &= \\dfrac{${nomV[1]} + ${nomV[2]}}{${nomV[0]}}
+        \\end{aligned}$
+        <br>Une expression de $${nomV[3]}$ en fonction de $${nomV[0]}$, $${nomV[1]}$ et $${nomV[2]}$ est $${miseEnEvidence(nomV[3] + ' = \\dfrac{' + nomV[1] + ' + ' + nomV[2] + '}{' + nomV[0] + '}')}$.`
+
+        this.reponses = [
+          `$${nomV[3]} = \\dfrac{${nomV[1]} + ${nomV[2]}}{${nomV[0]}}$`,
+          `$${nomV[3]} = \\dfrac{${nomV[1]} - ${nomV[2]}}{${nomV[0]}}$`,
+          `$${nomV[3]} = ${nomV[0]}(${nomV[1]} + ${nomV[2]})$`,
+          `$${nomV[3]} = \\dfrac{${nomV[0]}}{${nomV[1]} + ${nomV[2]}}$`,
+        ]
+        break
+      }
+
+      case 9: {
+        // a=(b+c)*d on cherche b
+        const intro = `Soient $${nomV[0]}$, $${nomV[1]}$, $${nomV[2]}$ et $${nomV[3]}$ quatre nombres (avec $${nomV[3]}$ non nul) vérifiant l'égalité :`
+
+        this.enonce = `${intro} $${nomV[0]} = (${nomV[1]} + ${nomV[2]})${nomV[3]}$.<br>
+         Une expression de $${nomV[1]}$ en fonction de $${nomV[0]}$, $${nomV[3]}$ et $${nomV[2]}$ est :`
+
+        this.correction = `On isole $${nomV[1]}$ dans un membre de l'égalité :<br>
+        $\\begin{aligned}
+        ${nomV[0]} &= (${nomV[1]} + ${nomV[2]})${nomV[3]}\\\\
+        ${nomV[0]} &= ${nomV[1]}${nomV[3]} + ${nomV[2]}${nomV[3]}\\\\
+        ${nomV[0]} - ${nomV[2]}${nomV[3]} &= ${nomV[1]}${nomV[3]}\\\\
+        \\dfrac{${nomV[0]} - ${nomV[2]}${nomV[3]}}{${nomV[3]}} &= ${nomV[1]}
+        \\end{aligned}$
+        <br>Une expression de $${nomV[1]}$ en fonction de $${nomV[0]}$, $${nomV[3]}$ et $${nomV[2]}$ est $${miseEnEvidence(nomV[1] + ' = \\dfrac{' + nomV[0] + '}{' + nomV[3] + '} - ' + nomV[2])}$.`
+
+        this.reponses = [
+          `$${nomV[1]} = \\dfrac{${nomV[0]}}{${nomV[3]}} - ${nomV[2]}$`,
+          `$${nomV[1]} = \\dfrac{${nomV[0]}}{${nomV[3]}} + ${nomV[2]}$`,
+          `$${nomV[1]} = ${nomV[0]} - ${nomV[2]}${nomV[3]}$`,
+          `$${nomV[1]} = \\dfrac{${nomV[0]} + ${nomV[2]}${nomV[3]}}{${nomV[3]}}$`,
+        ]
+        break
+      }
+
+      case 10: {
+        // a=(b+c)*d on cherche d
+        const intro = `Soient $${nomV[0]}$, $${nomV[1]}$, $${nomV[2]}$ et $${nomV[3]}$ quatre nombres (avec $${nomV[1]} + ${nomV[2]}$ non nul) vérifiant l'égalité :`
+
+        this.enonce = `${intro} $${nomV[0]} = (${nomV[1]} + ${nomV[2]})${nomV[3]}$.<br>
+         Une expression de $${nomV[3]}$ en fonction de $${nomV[0]}$, $${nomV[1]}$ et $${nomV[2]}$ est :`
+
+        this.correction = `On isole $${nomV[3]}$ dans un membre de l'égalité :<br>
+        $\\begin{aligned}
+        ${nomV[0]} &= (${nomV[1]} + ${nomV[2]})${nomV[3]}\\\\
+        \\dfrac{${nomV[0]}}{${nomV[1]} + ${nomV[2]}} &= ${nomV[3]}
+        \\end{aligned}$
+        <br>Une expression de $${nomV[3]}$ en fonction de $${nomV[0]}$, $${nomV[1]}$ et $${nomV[2]}$ est $${miseEnEvidence(nomV[3] + ' = \\dfrac{' + nomV[0] + '}{' + nomV[1] + ' + ' + nomV[2] + '}')}$.`
+
+        this.reponses = [
+          `$${nomV[3]} = \\dfrac{${nomV[0]}}{${nomV[1]} + ${nomV[2]}}$`,
+          `$${nomV[3]} = \\dfrac{${nomV[0]}}{${nomV[1]} - ${nomV[2]}}$`,
+          `$${nomV[3]} = ${nomV[0]}(${nomV[1]} + ${nomV[2]})$`,
+          `$${nomV[3]} = \\dfrac{${nomV[1]} + ${nomV[2]}}{${nomV[0]}}$`,
+        ]
+        break
+      }
+
+      case 11: {
+        // a=(b-c)*d on cherche b
+        const intro = `Soient $${nomV[0]}$, $${nomV[1]}$, $${nomV[2]}$ et $${nomV[3]}$ quatre nombres (avec $${nomV[3]}$ non nul) vérifiant l'égalité :`
+
+        this.enonce = `${intro} $${nomV[0]} = (${nomV[1]} - ${nomV[2]})${nomV[3]}$.<br>
+        Une expression de $${nomV[1]}$ en fonction de $${nomV[0]}$, $${nomV[3]}$ et $${nomV[2]}$ est :`
+
+        this.correction = `On isole $${nomV[1]}$ dans un membre de l'égalité :<br>
+        $\\begin{aligned}
+        ${nomV[0]} &= (${nomV[1]} - ${nomV[2]})${nomV[3]}\\\\
+        ${nomV[0]} &= ${nomV[1]}${nomV[3]} - ${nomV[2]}${nomV[3]}\\\\
+        ${nomV[0]} + ${nomV[2]}${nomV[3]} &= ${nomV[1]}${nomV[3]}\\\\
+        \\dfrac{${nomV[0]} + ${nomV[2]}${nomV[3]}}{${nomV[3]}} &= ${nomV[1]}
+        \\end{aligned}$
+        <br>Une expression de $${nomV[1]}$ en fonction de $${nomV[0]}$, $${nomV[3]}$ et $${nomV[2]}$ est $${miseEnEvidence(nomV[1] + ' = \\dfrac{' + nomV[0] + '}{' + nomV[3] + '} + ' + nomV[2])}$.`
+
+        this.reponses = [
+          `$${nomV[1]} = \\dfrac{${nomV[0]}}{${nomV[3]}} + ${nomV[2]}$`,
+          `$${nomV[1]} = \\dfrac{${nomV[0]}}{${nomV[3]}} - ${nomV[2]}$`,
+          `$${nomV[1]} = ${nomV[0]} + ${nomV[2]}${nomV[3]}$`,
+          `$${nomV[1]} = \\dfrac{${nomV[0]} - ${nomV[2]}${nomV[3]}}{${nomV[3]}}$`,
+        ]
+        break
+      }
+
+      case 12:
+      default: {
+        // a=(b-c)*d on cherche c
+        const intro = `Soient $${nomV[0]}$, $${nomV[1]}$, $${nomV[2]}$ et $${nomV[3]}$ quatre nombres (avec $${nomV[3]}$ non nul) vérifiant l'égalité :`
+
+        this.enonce = `${intro} $${nomV[0]} = (${nomV[1]} - ${nomV[2]})${nomV[3]}$.<br>
+        Une expression de $${nomV[2]}$ en fonction de $${nomV[0]}$, $${nomV[1]}$ et $${nomV[3]}$ est :`
+
+        this.correction = `On isole $${nomV[2]}$ dans un membre de l'égalité :<br>
+        $\\begin{aligned}
+        ${nomV[0]} &= (${nomV[1]} - ${nomV[2]})${nomV[3]}\\\\
+        ${nomV[0]} &= ${nomV[1]}${nomV[3]} - ${nomV[2]}${nomV[3]}\\\\
+        ${nomV[0]} - ${nomV[1]}${nomV[3]} &= -${nomV[2]}${nomV[3]}\\\\
+        \\dfrac{${nomV[0]} - ${nomV[1]}${nomV[3]}}{-${nomV[3]}} &= ${nomV[2]}\\\\
+        \\dfrac{-${nomV[0]} + ${nomV[1]}${nomV[3]}}{${nomV[3]}} &= ${nomV[2]}
+        \\end{aligned}$
+        <br>Une expression de $${nomV[2]}$ en fonction de $${nomV[0]}$, $${nomV[1]}$ et $${nomV[3]}$ est $${miseEnEvidence(nomV[2] + ' = ' + nomV[1] + ' - \\dfrac{' + nomV[0] + '}{' + nomV[3] + '}')}$.`
+
+        this.reponses = [
+          `$${nomV[2]} = ${nomV[1]} - \\dfrac{${nomV[0]}}{${nomV[3]}}$`,
+          `$${nomV[2]} = ${nomV[1]} + \\dfrac{${nomV[0]}}{${nomV[3]}}$`,
+          `$${nomV[2]} = \\dfrac{${nomV[0]} - ${nomV[1]}${nomV[3]}}{${nomV[3]}}$`,
+          `$${nomV[2]} = ${nomV[0]} - ${nomV[1]}${nomV[3]}$`,
+        ]
+        break
+      }
     }
   }
 

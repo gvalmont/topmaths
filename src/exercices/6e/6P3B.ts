@@ -224,7 +224,7 @@ export default class VraiFauxProportionnalite extends Exercice {
           'La température n’est pas proportionnelle au temps car elle ne commence pas par zéro au départ.',
       },
       {
-        texte: `Si une plante pousse de $${randint(2, 3)}$ cm la première semaine, puis $${randint(5, 7, 6)}$ cm la deuxième, alors la hauteur de cette plante est proportionnelle au nombre de semaines.`,
+        texte: `Si une plante pousse de $${randint(2, 3)}\\text{ cm}$ la première semaine, puis $${randint(5, 7, 6)}\\text{ cm}$ la deuxième, alors la hauteur de cette plante est proportionnelle au nombre de semaines.`,
         statut: false,
         correction:
           "La hauteur de cette plante n’est pas proportionnelle au nombre de semaines car la croissance n'est pas la même chaque semaine.",

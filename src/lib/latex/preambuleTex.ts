@@ -1,4 +1,4 @@
-import type { LatexFileInfos, contentsType } from '../Latex'
+import type { LatexFileInfos, contentsType } from '../LatexTypes'
 
 export function loadFonts(latexFileInfos: LatexFileInfos) {
   return `\n\\usepackage{etoolbox}

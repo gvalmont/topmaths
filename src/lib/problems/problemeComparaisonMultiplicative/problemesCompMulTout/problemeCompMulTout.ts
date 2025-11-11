@@ -4,7 +4,7 @@ import { prenomPronom } from '../../../outils/Personne'
 import SchemaEnBoite from '../../../outils/SchemaEnBoite'
 import { texNombre } from '../../../outils/texNombre'
 import Probleme from '../../Probleme'
-import { chocolats6 } from './chocolats'
+
 /**
  * @author Jean-Claude Lhote
  */
@@ -72,4 +72,3 @@ ${personnage.prenom} décide d'acheter un sachet et une boite. Combien va-t-${pe
     this.reponse = texNombre(nb2 + data.nb1, 2)
   }
 }
-export const listeDeProblemesCompMulTout = [chocolats6]

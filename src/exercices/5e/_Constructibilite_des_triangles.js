@@ -124,8 +124,8 @@ export default class ConstructibiliteDesTriangles extends Exercice {
             triangle.l2 = l2
             triangle.l3 = l3
           }
-          texte = `${triangle.getNom()} tel que ${triangle.getLongueurs()[0]} $= ${triangle.l1}$ cm ; `
-          texte += `${triangle.getLongueurs()[1]} $= ${triangle.l2}$ cm et ${triangle.getLongueurs()[2]} $= ${triangle.l3}$ cm.`
+          texte = `${triangle.getNom()} tel que ${triangle.getLongueurs()[0]} $= ${triangle.l1}\\text{ cm}$ ; `
+          texte += `${triangle.getLongueurs()[1]} $= ${triangle.l2}\\text{ cm}$ et ${triangle.getLongueurs()[2]} $= ${triangle.l3}\\text{ cm}$.`
           // on crée l'objet longueurs + valeurs des côtés du triangle
           for (let i = 0; i < 3; i++) {
             currentTriangle.push({
@@ -138,8 +138,8 @@ export default class ConstructibiliteDesTriangles extends Exercice {
           currentTriangle.sort(function (a, b) {
             return a.valeur - b.valeur
           })
-          texteCorr = `${currentTriangle[2].cote}, qui mesure $${currentTriangle[2].valeur}$ cm, est le plus grand côté.`
-          texteCorr += `<br> De plus ${currentTriangle[0].longueur} + ${currentTriangle[1].longueur} = $${currentTriangle[0].valeur}$ cm + $${currentTriangle[1].valeur}$ cm = $${arrondi(currentTriangle[0].valeur + currentTriangle[1].valeur)}$ cm.`
+          texteCorr = `${currentTriangle[2].cote}, qui mesure $${currentTriangle[2].valeur}\\text{ cm}$, est le plus grand côté.`
+          texteCorr += `<br> De plus ${currentTriangle[0].longueur} + ${currentTriangle[1].longueur} = $${currentTriangle[0].valeur}\\text{ cm}$ + $${currentTriangle[1].valeur}\\text{ cm}$ = $${arrondi(currentTriangle[0].valeur + currentTriangle[1].valeur)}\\text{ cm}$.`
           texteCorr += `<br> On constate que  ${currentTriangle[2].longueur} < ${currentTriangle[0].longueur} + ${currentTriangle[1].longueur}.`
           texteCorr += `<br> L'inégalité triangulaire est vérifiée donc ${texteEnCouleurEtGras(`le triangle ${triangle.getNom()} est constructible`)}.`
           break
@@ -153,8 +153,8 @@ export default class ConstructibiliteDesTriangles extends Exercice {
             triangle.l3 = l3
           } while (!triangle.isPlatTriangleLongueurs())
 
-          texte = `${triangle.getNom()} tel que ${triangle.getLongueurs()[0]} $ = ${triangle.l1}$ cm ; `
-          texte += `${triangle.getLongueurs()[1]} $= ${triangle.l2}$ cm et ${triangle.getLongueurs()[2]} $= ${triangle.l3}$ cm.`
+          texte = `${triangle.getNom()} tel que ${triangle.getLongueurs()[0]} $ = ${triangle.l1}\\text{ cm}$ ; `
+          texte += `${triangle.getLongueurs()[1]} $= ${triangle.l2}\\text{ cm}$ et ${triangle.getLongueurs()[2]} $= ${triangle.l3}\\text{ cm}$.`
           // on crée l'objet longueurs + valeurs des côtés du triangle
           for (let i = 0; i < 3; i++) {
             currentTriangle.push({
@@ -167,8 +167,8 @@ export default class ConstructibiliteDesTriangles extends Exercice {
           currentTriangle.sort(function (a, b) {
             return a.valeur - b.valeur
           })
-          texteCorr = `${currentTriangle[2].cote}, qui mesure $${currentTriangle[2].valeur}$ cm, est le plus grand côté.`
-          texteCorr += `<br> De plus ${currentTriangle[0].longueur} + ${currentTriangle[1].longueur} = $${currentTriangle[0].valeur}$ cm + $${currentTriangle[1].valeur}$ cm = $${currentTriangle[2].valeur}$ cm aussi.`
+          texteCorr = `${currentTriangle[2].cote}, qui mesure $${currentTriangle[2].valeur}\\text{ cm}$, est le plus grand côté.`
+          texteCorr += `<br> De plus ${currentTriangle[0].longueur} + ${currentTriangle[1].longueur} = $${currentTriangle[0].valeur}\\text{ cm}$ + $${currentTriangle[1].valeur}\\text{ cm}$ = $${currentTriangle[2].valeur}\\text{ cm}$ aussi.`
           texteCorr +=
             `<br> Les points ${triangle.stringSommets} sont donc alignés. ${texteEnCouleurEtGras('On peut donc construire le triangle ')}` +
             `$${miseEnEvidence(triangle.getNom().substring(1, triangle.getNom().length - 1))}$` +
@@ -195,8 +195,8 @@ export default class ConstructibiliteDesTriangles extends Exercice {
             triangle.l2 = l2
             triangle.l3 = l3
           }
-          texte = `${triangle.getNom()} tel que ${triangle.getLongueurs()[0]} $= ${triangle.l1}$ cm ; `
-          texte += `${triangle.getLongueurs()[1]} $= ${triangle.l2}$ cm et ${triangle.getLongueurs()[2]} $= ${triangle.l3}$ cm.`
+          texte = `${triangle.getNom()} tel que ${triangle.getLongueurs()[0]} $= ${triangle.l1}\\text{ cm}$ ; `
+          texte += `${triangle.getLongueurs()[1]} $= ${triangle.l2}\\text{ cm}$ et ${triangle.getLongueurs()[2]} $= ${triangle.l3}\\text{ cm}$.`
           // on crée l'objet longueurs + valeurs des côtés du triangle
           for (let i = 0; i < 3; i++) {
             currentTriangle.push({
@@ -209,8 +209,8 @@ export default class ConstructibiliteDesTriangles extends Exercice {
           currentTriangle.sort(function (a, b) {
             return a.valeur - b.valeur
           })
-          texteCorr = `${currentTriangle[2].cote}, qui mesure $${currentTriangle[2].valeur}$ cm, est le plus grand côté.`
-          texteCorr += `<br> De plus ${currentTriangle[0].longueur} + ${currentTriangle[1].longueur} = $${currentTriangle[0].valeur}$ cm + $${currentTriangle[1].valeur}$ cm = $${arrondi(currentTriangle[0].valeur + currentTriangle[1].valeur)}$ cm.`
+          texteCorr = `${currentTriangle[2].cote}, qui mesure $${currentTriangle[2].valeur}\\text{ cm}$, est le plus grand côté.`
+          texteCorr += `<br> De plus ${currentTriangle[0].longueur} + ${currentTriangle[1].longueur} = $${currentTriangle[0].valeur}\\text{ cm}$ + $${currentTriangle[1].valeur}\\text{ cm}$ = $${arrondi(currentTriangle[0].valeur + currentTriangle[1].valeur)}\\text{ cm}$.`
           texteCorr += `<br> On constate que  ${currentTriangle[2].longueur} > ${currentTriangle[0].longueur} + ${currentTriangle[1].longueur}.`
           texteCorr += `<br> L'inégalité triangulaire n'est pas vérifiée donc ${texteEnCouleurEtGras(`le triangle ${triangle.getNom()} n'est pas constructible`)}.`
 
@@ -225,8 +225,8 @@ export default class ConstructibiliteDesTriangles extends Exercice {
             triangle.l2 = l2
             triangle.l3 = l3
           }
-          texte = `${triangle.getNom()} tel que ${triangle.getLongueurs()[0]} $= ${triangle.l1}$ cm ; `
-          texte += `${triangle.getLongueurs()[1]} $= ${triangle.l2}$ cm et dont le périmètre vaut $${triangle.getPerimetre()}$ cm.`
+          texte = `${triangle.getNom()} tel que ${triangle.getLongueurs()[0]} $= ${triangle.l1}\\text{ cm}$ ; `
+          texte += `${triangle.getLongueurs()[1]} $= ${triangle.l2}\\text{ cm}$ et dont le périmètre vaut $${triangle.getPerimetre()}\\text{ cm}$.`
           // on crée l'objet longueurs + valeurs des côtés du triangle
           for (let i = 0; i < 3; i++) {
             currentTriangle.push({
@@ -239,9 +239,9 @@ export default class ConstructibiliteDesTriangles extends Exercice {
           currentTriangle.sort(function (a, b) {
             return a.valeur - b.valeur
           })
-          texteCorr = `Puisque le périmètre vaut $${triangle.getPerimetre()}$ cm alors la troisième longueur vaut ${triangle.getLongueurs()[2]} = $${triangle.getPerimetre()}$ cm - $${triangle.l1}$ cm - $${triangle.l2}$ cm = $${triangle.l3}$ cm.`
-          texteCorr += `<br> Donc, ${currentTriangle[2].cote}, qui mesure $${currentTriangle[2].valeur}$ cm, est le plus grand côté.`
-          texteCorr += `<br> De plus ${currentTriangle[0].longueur} + ${currentTriangle[1].longueur} = $${currentTriangle[0].valeur}$ cm + $${currentTriangle[1].valeur}$ cm = $${arrondi(currentTriangle[0].valeur + currentTriangle[1].valeur)}$ cm.`
+          texteCorr = `Puisque le périmètre vaut $${triangle.getPerimetre()}\\text{ cm}$ alors la troisième longueur vaut ${triangle.getLongueurs()[2]} = $${triangle.getPerimetre()}\\text{ cm}$ - $${triangle.l1}\\text{ cm}$ - $${triangle.l2}\\text{ cm}$ = $${triangle.l3}\\text{ cm}$.`
+          texteCorr += `<br> Donc, ${currentTriangle[2].cote}, qui mesure $${currentTriangle[2].valeur}\\text{ cm}$, est le plus grand côté.`
+          texteCorr += `<br> De plus ${currentTriangle[0].longueur} + ${currentTriangle[1].longueur} = $${currentTriangle[0].valeur}\\text{ cm}$ + $${currentTriangle[1].valeur}\\text{ cm}$ = $${arrondi(currentTriangle[0].valeur + currentTriangle[1].valeur)}\\text{ cm}$.`
           texteCorr += `<br> On constate que ${currentTriangle[0].longueur} + ${currentTriangle[1].longueur} > ${currentTriangle[2].longueur}`
           texteCorr += `<br> L'inégalité triangulaire est vérifiée donc ${texteEnCouleurEtGras(`le triangle ${triangle.getNom()} est constructible`)}.`
           break

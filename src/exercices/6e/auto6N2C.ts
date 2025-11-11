@@ -290,33 +290,30 @@ export default class MultiplierDecimauxPar101001000V2 extends Exercice {
           a,
           Math.pow(10, b),
         )
-
-        const aSousFraction = new FractionEtendue(a, 1).texFraction
-        const numaSousFraction = new FractionEtendue(a, 1).num
-        const classeDeaSousFraction = donneNomClasse(
-          new FractionEtendue(a, 1).den,
-        )[1]
+        const f = new FractionEtendue(a, 1).fractionDecimale()
+        const aSousFraction = f.texFraction
+        const numaSousFraction = f.num
+        const classeDeaSousFraction = donneNomClasse(f.den)[1]
         const classeDeaSousFractionMultiplie =
           typesDeNombreCherche[i] < 4
-            ? -Math.log10(new FractionEtendue(a, 1).den) + b >= 0
-              ? donneNomClasse(
-                  Math.pow(10, -Math.log10(new FractionEtendue(a, 1).den) + b),
-                )[0]
-              : donneNomClasse(
-                  Math.pow(10, Math.log10(new FractionEtendue(a, 1).den) - b),
-                )[1]
+            ? -Math.log10(f.den) + b >= 0
+              ? donneNomClasse(Math.pow(10, -Math.log10(f.den) + b))[0]
+              : donneNomClasse(Math.pow(10, Math.log10(f.den) - b))[1]
             : ''
         const chiffreDesUnitesNumaSousFraction =
-          Math.abs(Math.floor(new FractionEtendue(a, 1).num)) % 10
+          Math.abs(Math.floor(f.num)) % 10
 
         const produitFinal = arrondi(a * Math.pow(10, b))
         const choixOrdreMultiplication = choice([true, false])
-        const fractionFinale = new FractionEtendue(produitFinal, 1).texFraction
+        const fractionFinale = new FractionEtendue(
+          produitFinal,
+          1,
+        ).fractionDecimale().texFraction
         const showComma1 = typesDeFacteurs[i] < 3 // Si facteur fractionnaire ou entier, pas de virgule sur ligne 1
         const showComma2 = typesDeResultats[i] !== 3 // Si produit fractionnaire, pas de virgule sur ligne 1
         const initialPower =
           typesDeFacteurs[i] >= 3 || typesDeResultats[i] === 3
-            ? -Math.log10(new FractionEtendue(a, 1).den)
+            ? -Math.log10(f.den)
             : 0
 
         switch (typesDeNombreCherche[i]) {
@@ -350,7 +347,7 @@ export default class MultiplierDecimauxPar101001000V2 extends Exercice {
               texteCorr = `Quand on multiplie par $${texNombre(Math.pow(10, b))}$, tous les chiffres prennent une position $${texNombre(Math.pow(10, b))}$ fois plus grande.<br>`
               texteCorr += `En particulier, quand on multiplie $${typesDeFacteurs[i] < 3 ? texNombre(a) : aSousFraction}$ par $${texNombre(Math.pow(10, b))}$, alors :<br>`
               const item1 =
-                `le chiffre des ${classeDeaSousFraction} de $${aSousFraction}$ (${analyserNombre(numaSousFraction).doublonUnites ? 'ce ' : ''}chiffre $${miseEnEvidence(chiffreDesUnitesNumaSousFraction, bleuMathalea)}$ dans $${new FractionEtendue(a, 1).den === 1 || typesDeFacteurs[i] < 3 ? coloreUnSeulChiffre(texNombre(a, 1), bleuMathalea) : texFractionFromString(coloreUnSeulChiffre(texNombre(new FractionEtendue(a, 1).num), bleuMathalea, 1), miseEnEvidence(texNombre(new FractionEtendue(a, 1).den), 'black'))}$` +
+                `le chiffre des ${classeDeaSousFraction} de $${aSousFraction}$ (${analyserNombre(numaSousFraction).doublonUnites ? 'ce ' : ''}chiffre $${miseEnEvidence(chiffreDesUnitesNumaSousFraction, bleuMathalea)}$ dans $${f.den === 1 || typesDeFacteurs[i] < 3 ? coloreUnSeulChiffre(texNombre(a, 1), bleuMathalea) : texFractionFromString(coloreUnSeulChiffre(texNombre(f.num), bleuMathalea, 1), miseEnEvidence(texNombre(f.den), 'black'))}$` +
                 `) devient le chiffre des ${classeDeaSousFractionMultiplie} ;`
               const item2 =
                 `le chiffre des unités de $${texNombre(a)}$ (${analyserNombre(a).doublonUnites ? 'ce ' : ''}chiffre $${miseEnEvidence(chiffreDesUnites, bleuMathalea)}$ dans $${coloreUnSeulChiffre(texNombre(a), bleuMathalea, 1)}$` +
@@ -446,9 +443,7 @@ export default class MultiplierDecimauxPar101001000V2 extends Exercice {
                 let partieDecimalePlusPetite = donneNomClasse(
                   new FractionEtendue(produitFinal, 1).den,
                 )[1]
-                let partieDecimalePlusGrande = donneNomClasse(
-                  new FractionEtendue(a, 1).den,
-                )[1]
+                let partieDecimalePlusGrande = donneNomClasse(f.den)[1]
                 let chiffreADeplacer = chiffreAPositionDecimale(
                   new FractionEtendue(produitFinal, 1).num,
                   1,
@@ -547,8 +542,8 @@ export default class MultiplierDecimauxPar101001000V2 extends Exercice {
                     : typesDeFacteurs[i] === 2
                       ? `Le chiffre des unités de $${texNombre(a)}$ (${analyserNombre(arrondi(a)).doublonUnites ? 'ce ' : ''}chiffre $${miseEnEvidence(chiffreDesUnites, bleuMathalea)}$ dans $${coloreUnSeulChiffre(texNombre(a), bleuMathalea, 1)}$` +
                         `) devient le chiffre des ${choixClasseEntiere} (dans $${coloreUnSeulChiffre(texNombre(produitFinal), bleuMathalea, Math.pow(10, b))}$).<br>`
-                      : `Le chiffre des ${classeDeaSousFraction} de $${aSousFraction}$ (${analyserNombre(numaSousFraction).doublonUnites ? 'ce ' : ''}chiffre $${miseEnEvidence(chiffreDesUnitesNumaSousFraction, bleuMathalea)}$ dans $${new FractionEtendue(a, 1).den === 1 ? coloreUnSeulChiffre(texNombre(a, 1), bleuMathalea) : texFractionFromString(coloreUnSeulChiffre(texNombre(new FractionEtendue(a, 1).num), bleuMathalea, 1), miseEnEvidence(texNombre(new FractionEtendue(a, 1).den), 'black'))}$` +
-                        `) devient le chiffre des ${classeDeaSousFractionMultiplie} (dans $${coloreUnSeulChiffre(texNombre(produitFinal), bleuMathalea, Math.pow(10, -Math.log10(new FractionEtendue(a, 1).den) + b))}$).<br>`
+                      : `Le chiffre des ${classeDeaSousFraction} de $${aSousFraction}$ (${analyserNombre(numaSousFraction).doublonUnites ? 'ce ' : ''}chiffre $${miseEnEvidence(chiffreDesUnitesNumaSousFraction, bleuMathalea)}$ dans $${f.den === 1 ? coloreUnSeulChiffre(texNombre(a, 1), bleuMathalea) : texFractionFromString(coloreUnSeulChiffre(texNombre(f.num), bleuMathalea, 1), miseEnEvidence(texNombre(f.den), 'black'))}$` +
+                        `) devient le chiffre des ${classeDeaSousFractionMultiplie} (dans $${coloreUnSeulChiffre(texNombre(produitFinal), bleuMathalea, Math.pow(10, -Math.log10(f.den) + b))}$).<br>`
               } else {
                 // fractionnaire
                 let positionChiffre = 0
@@ -556,13 +551,8 @@ export default class MultiplierDecimauxPar101001000V2 extends Exercice {
                 let partieDecimalePlusPetite = donneNomClasse(
                   new FractionEtendue(produitFinal, 1).den,
                 )[1]
-                let partieDecimalePlusGrande = donneNomClasse(
-                  new FractionEtendue(a, 1).den,
-                )[1]
-                const chiffreDeplace = chiffreAPositionDecimale(
-                  new FractionEtendue(a, 1).num,
-                  1,
-                )
+                let partieDecimalePlusGrande = donneNomClasse(f.den)[1]
+                const chiffreDeplace = chiffreAPositionDecimale(f.num, 1)
                 produitEntier = partieDecimalePlusPetite === 'unités'
                 if (produitEntier) {
                   // Traitement du chiffre significatif (donc autre que 0 dans la limite des 4 premiers chiffres) à droite
@@ -583,17 +573,17 @@ export default class MultiplierDecimauxPar101001000V2 extends Exercice {
                     ).den,
                   )[1]
                 }
-                texteCorr += `Le chiffre des ${partieDecimalePlusGrande} de $${typesDeFacteurs[i] < 3 ? texNombre(a) : aSousFraction}$ (${analyserNombre(arrondi(a)).doublonUnites ? 'ce ' : ''}chiffre $${miseEnEvidence(chiffreDeplace, bleuMathalea)}$ dans $${new FractionEtendue(a, 1).den === 1 || typesDeFacteurs[i] < 3 ? coloreUnSeulChiffre(texNombre(a, 1), bleuMathalea) : texFractionFromString(coloreUnSeulChiffre(texNombre(new FractionEtendue(a, 1).num), bleuMathalea, 1), miseEnEvidence(texNombre(new FractionEtendue(a, 1).den), 'black'))}$)
+                texteCorr += `Le chiffre des ${partieDecimalePlusGrande} de $${typesDeFacteurs[i] < 3 ? texNombre(a) : aSousFraction}$ (${analyserNombre(arrondi(a)).doublonUnites ? 'ce ' : ''}chiffre $${miseEnEvidence(chiffreDeplace, bleuMathalea)}$ dans $${f.den === 1 || typesDeFacteurs[i] < 3 ? coloreUnSeulChiffre(texNombre(a, 1), bleuMathalea) : texFractionFromString(coloreUnSeulChiffre(texNombre(f.num), bleuMathalea, 1), miseEnEvidence(texNombre(f.den), 'black'))}$)
                devient le chiffre des ${partieDecimalePlusPetite} ($${miseEnEvidence(chiffreDeplace, bleuMathalea)}$ dans $${produitEntier ? coloreUnSeulChiffre(texNombre(produitFinal), bleuMathalea, Math.pow(10, positionChiffre)) : texFractionFromString(coloreUnSeulChiffre(texNombre(new FractionEtendue(produitFinal, 1).num), bleuMathalea, 1), miseEnEvidence(texNombre(new FractionEtendue(produitFinal, 1).den), 'black'))}$).<br>`
               }
 
               texteCorr += `Tous les chiffres prennent donc une position $${texNombre(Math.pow(10, b))}$ fois plus grande.<br>`
             }
             if (choixOrdreMultiplication) {
-              texteCorr += `$${typesDeFacteurs[i] < 3 ? texNombre(a) : new FractionEtendue(a, 1).texFraction} \\times${miseEnEvidence(texNombre(reponse))} = `
+              texteCorr += `$${typesDeFacteurs[i] < 3 ? texNombre(a) : f.texFraction} \\times${miseEnEvidence(texNombre(reponse))} = `
               texteCorr += `${typesDeResultats[i] !== 3 ? texNombre(produitFinal) : fractionFinale}$`
             } else {
-              texteCorr += `$${miseEnEvidence(texNombre(reponse))} \\times ${typesDeFacteurs[i] < 3 ? texNombre(a) : new FractionEtendue(a, 1).texFraction} = `
+              texteCorr += `$${miseEnEvidence(texNombre(reponse))} \\times ${typesDeFacteurs[i] < 3 ? texNombre(a) : f.texFraction} = `
               texteCorr += `${typesDeFacteurs[i] < 3 ? texNombre(produitFinal) : fractionFinale}$`
             }
 

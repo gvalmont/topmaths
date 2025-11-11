@@ -87,7 +87,7 @@ export default class ExerciceProbleme003 extends Exercice {
       let listeEnonce: string[]
       let listeCorrection: string[]
 
-      let enonce = `Un ${sportif.nom} parcourt ${distanceBase} km en ${dureeBase} minutes.<br>`
+      let enonce = `Un ${sportif.nom} parcourt ${distanceBase} $\\text{km}$ en ${dureeBase} minutes.<br>`
       const nbFoisPlus = choice([2, 3, 4])
 
       const correction1 = `${this.correctionDetaillee ? `Comme il parcourt ${distanceBase} kilomètres en ${dureeBase} minutes, il parcourra $1$ kilomètre en ${distanceBase} fois moins de temps.<br>` : ''}
@@ -98,17 +98,17 @@ export default class ExerciceProbleme003 extends Exercice {
       const correction2 = `${this.correctionDetaillee ? `Comme il parcourt ${distanceBase} kilomètres en ${dureeBase} minutes, il parcourra ${nbFoisPlus} fois ${distanceBase} kilomètres en ${nbFoisPlus} fois ${dureeBase} minutes.<br>` : ''}
      ${this.sup3 ? Operation({ operande1: dureeKilometre * distanceBase, operande2: nbFoisPlus, type: 'multiplication' }) : ''}
       $${texNombre(dureeKilometre * distanceBase, 0)}\\times ${String(nbFoisPlus)}= ${texNombre(dureeBase * nbFoisPlus, 0)}$ minutes<br>
-     Pour parcourir $${distanceBase * nbFoisPlus}$ km en continuant ${sportif.verbe} à la même vitesse, il mettra ${dureeBase * nbFoisPlus} minutes.`
+     Pour parcourir $${distanceBase * nbFoisPlus}\\text{ km}$ en continuant ${sportif.verbe} à la même vitesse, il mettra ${dureeBase * nbFoisPlus} minutes.`
 
-      const correction3 = `${this.correctionDetaillee ? `Comme il parcourt ${distanceBase * nbFoisPlus} kilomètres en ${dureeBase * nbFoisPlus} minutes, il parcourra ${nbFoisPlus * distanceBase} km plus 1 km en ${nbFoisPlus * dureeBase} minutes plus ${dureeKilometre} minutes.<br>` : ''}
+      const correction3 = `${this.correctionDetaillee ? `Comme il parcourt ${distanceBase * nbFoisPlus} kilomètres en ${dureeBase * nbFoisPlus} minutes, il parcourra ${nbFoisPlus * distanceBase} $\\text{km}$ plus 1 $\\text{km}$ en ${nbFoisPlus * dureeBase} minutes plus ${dureeKilometre} minutes.<br>` : ''}
      ${this.sup3 ? Operation({ operande1: dureeBase * nbFoisPlus, operande2: dureeKilometre, type: 'addition' }) : ''}
       $${dureeBase * nbFoisPlus}+${dureeKilometre}=${dureeBase * nbFoisPlus + dureeKilometre}$ minutes<br>
-     Pour parcourir $${distanceBase * nbFoisPlus + 1}$ km en continuant à ${sportif.verbe} à la même vitesse, il mettra ${dureeBase * nbFoisPlus + dureeKilometre} minutes.`
+     Pour parcourir $${distanceBase * nbFoisPlus + 1}\\text{ km}$ en continuant à ${sportif.verbe} à la même vitesse, il mettra ${dureeBase * nbFoisPlus + dureeKilometre} minutes.`
 
-      const correction4 = `${this.correctionDetaillee ? `Comme il parcourt 1 kilomètre en ${dureeKilometre} minutes, il parcourra ${nbFoisPlus * distanceBase + 1} km en ${nbFoisPlus * distanceBase + 1} fois ${dureeKilometre} minutes.<br>` : ''}
+      const correction4 = `${this.correctionDetaillee ? `Comme il parcourt 1 kilomètre en ${dureeKilometre} minutes, il parcourra ${nbFoisPlus * distanceBase + 1} $\\text{km}$ en ${nbFoisPlus * distanceBase + 1} fois ${dureeKilometre} minutes.<br>` : ''}
 ${this.sup3 ? Operation({ operande1: distanceBase * nbFoisPlus + 1, operande2: dureeKilometre, type: 'multiplication' }) : ''}
 $${nbFoisPlus * distanceBase + 1}\\times ${dureeKilometre} = ${dureeBase * nbFoisPlus + dureeKilometre}$ minutes<br>
-Pour parcourir $${distanceBase * nbFoisPlus + 1}$ km en continuant à ${sportif.verbe} à la même vitesse, il mettra ${dureeBase * nbFoisPlus + dureeKilometre} minutes.`
+Pour parcourir $${distanceBase * nbFoisPlus + 1}\\text{ km}$ en continuant à ${sportif.verbe} à la même vitesse, il mettra ${dureeBase * nbFoisPlus + dureeKilometre} minutes.`
       const dureeAvances = new Hms({
         minute: dureeBase * nbFoisPlus + dureeKilometre,
       })
@@ -123,13 +123,13 @@ Pour parcourir $${distanceBase * nbFoisPlus + 1}$ km en continuant à ${sportif.
      ${this.sup3 ? Operation({ operande1: dureeBase, operande2: distanceBase, type: 'division' }) : ''}
     $${dureeBase}\\div ${distanceBase} = ${dureeKilometre}$ minutes par kilomètre.<br>
       Ensuite, la durée totale :<br>
-      ${this.correctionDetaillee ? `Comme il parcourt 1 kilomètre en ${dureeKilometre} minutes, il parcourra ${nbFoisPlus * distanceBase + 1} km en ${nbFoisPlus * distanceBase + 1} fois ${dureeKilometre} minutes.<br>` : ''}
+      ${this.correctionDetaillee ? `Comme il parcourt 1 kilomètre en ${dureeKilometre} minutes, il parcourra ${nbFoisPlus * distanceBase + 1} $\\text{km}$ en ${nbFoisPlus * distanceBase + 1} fois ${dureeKilometre} minutes.<br>` : ''}
 ${this.sup3 ? Operation({ operande1: distanceBase * nbFoisPlus + 1, operande2: dureeKilometre, type: 'multiplication' }) : ''}
       $${nbFoisPlus * distanceBase + 1}\\times ${dureeKilometre} = ${dureeBase * nbFoisPlus + dureeKilometre}$ minutes<br><br>
-Pour parcourir $${distanceBase * nbFoisPlus + 1}$ km en continuant à ${sportif.verbe} à la même vitesse, il mettra ${dureeBase * nbFoisPlus + dureeKilometre} minutes, soit ${dureeAvances.replace('h', `heure${plurielHeure}`).replace('min', `minute${plurielMinute}`)}.`
+Pour parcourir $${distanceBase * nbFoisPlus + 1}\\text{ km}$ en continuant à ${sportif.verbe} à la même vitesse, il mettra ${dureeBase * nbFoisPlus + dureeKilometre} minutes, soit ${dureeAvances.replace('h', `heure${plurielHeure}`).replace('min', `minute${plurielMinute}`)}.`
       if (this.sup === 1) {
         listeEnonce = [
-          'Combien de temps met-il pour parcourir 1 km à la même vitesse ?' +
+          'Combien de temps met-il pour parcourir 1 $\\text{km}$ à la même vitesse ?' +
             ajouteQuestionMathlive({
               exercice: this,
               question: 3 * i,
@@ -137,7 +137,7 @@ Pour parcourir $${distanceBase * nbFoisPlus + 1}$ km en continuant à ${sportif.
               typeInteractivite: 'mathlive',
               texteApres: ' min',
             }),
-          `Combien de temps ce ${sportif.nom} mettra-t-il pour parcourir ${distanceBase * nbFoisPlus} km en continuant à ${sportif.verbe} à la même vitesse ?` +
+          `Combien de temps ce ${sportif.nom} mettra-t-il pour parcourir ${distanceBase * nbFoisPlus} $\\text{km}$ en continuant à ${sportif.verbe} à la même vitesse ?` +
             ajouteQuestionMathlive({
               exercice: this,
               question: 3 * i + 1,
@@ -147,7 +147,7 @@ Pour parcourir $${distanceBase * nbFoisPlus + 1}$ km en continuant à ${sportif.
               typeInteractivite: 'mathlive',
               texteApres: ' min',
             }),
-          `Combien de temps ce ${sportif.nom} mettra-t-il pour parcourir ${distanceBase * nbFoisPlus + 1} km en continuant à ${sportif.verbe} à la même vitesse ?` +
+          `Combien de temps ce ${sportif.nom} mettra-t-il pour parcourir ${distanceBase * nbFoisPlus + 1} $\\text{km}$ en continuant à ${sportif.verbe} à la même vitesse ?` +
             ajouteQuestionMathlive({
               exercice: this,
               question: 3 * i + 2,
@@ -163,7 +163,7 @@ Pour parcourir $${distanceBase * nbFoisPlus + 1}$ km en continuant à ${sportif.
         listeCorrection = [correction1, correction2, correction3]
       } else if (this.sup === 2) {
         listeEnonce = [
-          `Combien de temps met-il pour faire 1 km en continuant à ${sportif.verbe} à la même vitesse ?` +
+          `Combien de temps met-il pour faire 1 $\\text{km}$ en continuant à ${sportif.verbe} à la même vitesse ?` +
             ajouteQuestionMathlive({
               exercice: this,
               question: 2 * i,
@@ -171,7 +171,7 @@ Pour parcourir $${distanceBase * nbFoisPlus + 1}$ km en continuant à ${sportif.
               typeInteractivite: 'mathlive',
               texteApres: ' min',
             }),
-          `Combien de temps ce ${sportif.nom} mettra-t-il pour parcourir ${distanceBase * nbFoisPlus + 1} km en continuant à ${sportif.verbe} à la même vitesse ?` +
+          `Combien de temps ce ${sportif.nom} mettra-t-il pour parcourir ${distanceBase * nbFoisPlus + 1} $\\text{km}$ en continuant à ${sportif.verbe} à la même vitesse ?` +
             ajouteQuestionMathlive({
               exercice: this,
               question: 2 * i + 1,
@@ -187,7 +187,7 @@ Pour parcourir $${distanceBase * nbFoisPlus + 1}$ km en continuant à ${sportif.
         listeCorrection = [correction1, correction4]
       } else {
         listeEnonce = [
-          `Combien de temps ce ${sportif.nom} mettra-t-il pour parcourir ${distanceBase * nbFoisPlus + 1} km en continuant à ${sportif.verbe} à la même vitesse ?` +
+          `Combien de temps ce ${sportif.nom} mettra-t-il pour parcourir ${distanceBase * nbFoisPlus + 1} $\\text{km}$ en continuant à ${sportif.verbe} à la même vitesse ?` +
             ajouteQuestionMathlive({
               exercice: this,
               question: i,

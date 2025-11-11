@@ -3,7 +3,6 @@ import {
   fractionSimplifiee,
   texFractionReduite,
 } from '../../lib/outils/deprecatedFractions'
-import { texteExposant } from '../../lib/outils/ecritures'
 import { ajouterAide } from '../../lib/outils/enrichissements'
 import { numAlpha, sp } from '../../lib/outils/outilString'
 import { pgcd } from '../../lib/outils/primalite'
@@ -12,7 +11,7 @@ import { context } from '../../modules/context'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import Exercice from '../Exercice'
 export const titre =
-  'Connaitre les effets des agrandissements/réductions sur les aires et les volumes'
+  'Connaître les effets des agrandissements/réductions sur les aires et les volumes'
 
 /**
  * Problèmes calculs d'aire et de volumes utilisant l'effet d'une réduction sur les aires et les volumes
@@ -88,19 +87,19 @@ export default class AgrandissementReduction extends Exercice {
         } else {
           texte = ''
         }
-        texte += `SABCD est une pyramide à base carrée de hauteur $SO${sp()}=${sp()}${texNombre(h1, 1)}${sp()}$cm et de côté de base $${texNombre(c, 1)}${sp()}$cm.<br>`
-        texte += ` Le point O' est situé sur la hauteur [SO] à ${texNombre(h2, 0)}${sp()}cm de S.`
+        texte += `$SABCD$ est une pyramide à base carrée de hauteur $SO${sp()}=${sp()}${texNombre(h1, 1)}${sp()}\\text{cm}$ et de côté de base $${texNombre(c, 1)}${sp()}\\text{cm}$.<br>`
+        texte += ` Le point $O'$ est situé sur la hauteur $[SO]$ à $${texNombre(h2, 0)}${sp()}\\text{cm}$ de $S$.`
         texte +=
-          "<br>Un plan parallèle à la face ABCD passant par O' coupe la pyramide en formant la section A'B'C'D'.<br>"
+          "<br>Un plan parallèle à la face $ABCD$ passant par $O'$ coupe la pyramide en formant la section $A'B'C'D'$.<br>"
         if (!context.isHtml) {
           texte += "La figure n'est pas en vraie grandeur.<br>"
         }
         texte +=
           numAlpha(0) +
           " Calculer l'" +
-          ajouterAide(`$Aire=\\text{c}$${texteExposant(2)}`, {
-            texteAvant: 'aire de base de la pyramide',
-            titreAide: "Formule : Aire d'un carré de côté c",
+          ajouterAide(`$Aire=\\text{c}^2$`, {
+            texteAvant: 'aire de la base de la pyramide',
+            titreAide: "Formule : Aire d'un carré de côté $c$",
           }) +
           '.<br>'
         texte +=
@@ -109,28 +108,28 @@ export default class AgrandissementReduction extends Exercice {
           ajouterAide('$Volume= \\dfrac{B \\times \\text{h}}{3}$', {
             texteAvant: 'volume de la pyramide',
             titreAide:
-              "Formule : volume d'une pyramide d'aire de base $B$ et de hauteur h",
+              "Formule : Volume d'une pyramide d'aire de base $B$ et de hauteur $h$",
           }) +
-          ' SABCD.<br>'
+          ' $SABCD$.<br>'
         texte +=
           numAlpha(2) +
           " En déduire l'aire de la " +
           ajouterAide(
-            `La section d'un solide par un plan est une figure plane.<br>Dans le cas d'une section d'une pyramide par un plan parallèle à sa base, cette section est un polygone qui est une réduction de la base.<br>Dans une réduction de coefficient k, les aires sont multipliées par k${texteExposant(2)} et les volumes sont multipliés par k${texteExposant(3)}.`,
+            `La section d'un solide par un plan est une figure plane.<br>Dans le cas d'une section d'une pyramide par un plan parallèle à sa base, cette section est un polygone qui est une réduction de la base.<br>Dans une réduction de coefficient $k$, les aires sont multipliées par $k^2$ et les volumes sont multipliés par $k^3$.`,
             {
               texteAvant: 'section',
-              titreAide: "Définition : section plane d'un solide",
+              titreAide: "Définition : Section plane d'un solide",
             },
           ) +
-          ` A'B'C'D' sachant que SO'${sp()}=${sp()}${texNombre(h2, 0)}${sp()}cm.<br>`
+          ` $A'B'C'D'$ sachant que $SO'${sp()}=${sp()}${texNombre(h2, 0)}${sp()}\\text{cm}$.<br>`
         texte +=
-          numAlpha(3) + " Calculer le volume de la pyramide SA'B'C'D'.<br>"
+          numAlpha(3) + " Calculer le volume de la pyramide $SA'B'C'D'$.<br>"
         texte +=
           numAlpha(4) +
           ' Calculer le volume du tronc de la pyramide (partie de la pyramide située entre la base et la section).'
         if (context.isHtml) {
           texte +=
-            "<br>Le point O peut être déplacé et on peut changer l'angle de vue &#x3C6; "
+            "<br>Le point $O$ peut être déplacé et on peut changer l'angle de vue &#x3C6;."
         } else {
           texte += `\n\t \\end{minipage} \n\t \\begin{minipage}{0.35 \\linewidth} \n\t \\begin{tikzpicture}[scale=0.8] \n\t
           \\definecolor{hhhhhh}{rgb}{0,0,0}
@@ -192,10 +191,10 @@ export default class AgrandissementReduction extends Exercice {
         }
         texteCorr =
           numAlpha(0) +
-          ` L'aire de base de la pyramide est : $${texNombre(c, 1)}^2$ cm${texteExposant(2)} $= ${texNombre(c * c)}$ cm${texteExposant(2)}.<br>`
+          ` L'aire de base de la pyramide est : $${texNombre(c, 1)}^2$ $\\text{cm}^2$ $= ${texNombre(c * c)}$ $\\text{cm}^2$.<br>`
         texteCorr +=
           numAlpha(1) +
-          ` Le volume de la pyramide est : $\\dfrac{A_\\text{base} \\times \\text{hauteur}}{3}$ cm${texteExposant(3)} $= \\dfrac{${texNombre(c * c)}\\times ${texNombre(h1, 1)}}{3}$ cm${texteExposant(3)} $\\approx ${texNombre(c.mul(c).mul(h1).div(3), 3)}$ cm${texteExposant(3)}.<br>`
+          ` Le volume de la pyramide est : $\\dfrac{A_\\text{base} \\times \\text{hauteur}}{3}$ $\\text{cm}^3$ $= \\dfrac{${texNombre(c * c)}\\times ${texNombre(h1, 1)}}{3}$ $\\text{cm}^3$ $\\approx ${texNombre(c.mul(c).mul(h1).div(3), 3)}$ $\\text{cm}^3$.<br>`
         texteCorr +=
           numAlpha(2) +
           ` La section est une réduction de la base de coefficient $\\dfrac{${texNombre(h2, 0)}}{${texNombre(h1, 1)}}`
@@ -204,21 +203,21 @@ export default class AgrandissementReduction extends Exercice {
         } else {
           texteCorr += '.$<br>'
         }
-        texteCorr += `Dans une réduction de coefficient k, les aires sont multipliés par k${texteExposant(2)}.<br>`
-        texteCorr += `Donc son aire est $\\left(${texFractionReduite(h2.mul(10), h1.mul(10))}\\right)^2 \\times ${texNombre(c * c)}$ cm${texteExposant(2)} $=${texFractionReduite(h2.mul(c).mul(10).pow(2), h1.mul(10).pow(2))}$ cm${texteExposant(2)} $\\approx ${texNombre(h2.mul(c).div(h1).pow(2), 2)}$ cm${texteExposant(2)}.<br>`
+        texteCorr += `Dans une réduction de coefficient $k$, les aires sont multipliés par $k^2$.<br>`
+        texteCorr += `Donc son aire est $\\left(${texFractionReduite(h2.mul(10), h1.mul(10))}\\right)^2 \\times ${texNombre(c * c)}$ $\\text{cm}^2$ $=${texFractionReduite(h2.mul(c).mul(10).pow(2), h1.mul(10).pow(2))}$ $\\text{cm}^2$ $\\approx ${texNombre(h2.mul(c).div(h1).pow(2), 2)}$ $\\text{cm}^2$.<br>`
         texteCorr +=
           numAlpha(3) +
-          ` Dans une réduction de coefficient k, les volumes sont multipliés par k ${texteExposant(3)}.<br>`
-        texteCorr += `Donc le volume de la pyramide SA'B'C'D' est : $\\left(${texFractionReduite(h2.mul(10), h1.mul(10))}\\right)^3 \\times \\dfrac{${texNombre(c * c * h1)}}{3}$ cm${texteExposant(3)} $\\approx ${texNombre(h2.pow(3).mul(c.pow(2)).div(h1.pow(2)).div(3), 3)}$ cm${texteExposant(3)}.<br>`
+          ` Dans une réduction de coefficient $k$, les volumes sont multipliés par $k^3$.<br>`
+        texteCorr += `Donc le volume de la pyramide $SA'B'C'D'$ est : $\\left(${texFractionReduite(h2.mul(10), h1.mul(10))}\\right)^3 \\times \\dfrac{${texNombre(c * c * h1)}}{3}$ $\\text{cm}^3$ $\\approx ${texNombre(h2.pow(3).mul(c.pow(2)).div(h1.pow(2)).div(3), 3)}$ $\\text{cm}^3$.<br>`
         texteCorr += numAlpha(4) + ' Le volume du tronc de la pyramide est : '
-        texteCorr += `$V_\\text{SABCD} - V_\\text{SA'B'C'D'}$<br>Soit : <br>$${texNombre(h1.mul(c).mul(c).div(3), 3)}$ cm${texteExposant(3)}$ - ${texNombre(h2.pow(3).mul(c).mul(c).div(h1.pow(2)).div(3), 3)}$ cm${texteExposant(3)}$ \\approx ${texNombre(
+        texteCorr += `$V_\\text{SABCD} - V_\\text{SA'B'C'D'}$.<br>Soit : $${texNombre(h1.mul(c).mul(c).div(3), 3)}$ $\\text{cm}^3$$ - ${texNombre(h2.pow(3).mul(c).mul(c).div(h1.pow(2)).div(3), 3)}$ $\\text{cm}^3$$ \\approx ${texNombre(
           h1
             .sub(h2.pow(3).div(h1.pow(2)))
             .mul(c.pow(2))
             .div(3),
           2,
-        )}$ cm${texteExposant(3)}.<br>`
-        texteCorr += `Ce qui représente $${texFractionReduite(h1.pow(3).sub(h2.pow(3)).mul(1000), h1.pow(3).mul(1000))}$ du volume de SABCD.`
+        )}$ $\\text{cm}^3$.<br>`
+        texteCorr += `Ce qui représente $${texFractionReduite(h1.pow(3).sub(h2.pow(3)).mul(1000), h1.pow(3).mul(1000))}$ du volume de $SABCD$.`
         break
       }
       case 2: // calcul de l'aire de base, du volume d'un cône. puis, calcul de la section, du volume du cône réduit et du volume du tronc
@@ -247,8 +246,9 @@ export default class AgrandissementReduction extends Exercice {
         } else {
           texte = ''
         }
-        texte += `Un cône a pour rayon $${texNombre(r, 1)}$${sp()}cm et pour hauteur $SO${sp()}=${sp()}${texNombre(h1, 1)}${sp()}$cm.<br>Le point O' est situé sur la hauteur [SO] à ${texNombre(h2, 0)}${sp()}cm de S.<br>`
-        texte += "Un plan parallèle à la base passant par O' coupe le cône.<br>"
+        texte += `Un cône a pour rayon $${texNombre(r, 1)}${sp()}\\text{cm}$ et pour hauteur $SO=${texNombre(h1, 1)}${sp()}\\text{cm}$.<br>Le point $O'$ est situé sur la hauteur $[SO]$ à $${texNombre(h2, 0)}${sp()}\\text{cm}$ de $S$.<br>`
+        texte +=
+          "Un plan parallèle à la base passant par $O'$ coupe le cône.<br>"
         texte +=
           'On obtient ainsi une section ' +
           ajouterAide(
@@ -266,7 +266,7 @@ export default class AgrandissementReduction extends Exercice {
           numAlpha(0) +
           " Calculer l'" +
           ajouterAide('$Aire=\\pi \\times \\text{R}^{2}$', {
-            texteAvant: 'aire de base du cône',
+            texteAvant: 'aire de la base du cône',
             titreAide: 'Formule : Aire du disque de rayon R',
           }) +
           '.<br>'
@@ -286,14 +286,15 @@ export default class AgrandissementReduction extends Exercice {
           numAlpha(2) +
           " En déduire l'aire de la " +
           ajouterAide(
-            `La section d'un solide par un plan est une figure plane.<br>Dans le cas d'une section d'un cône par un plan parallèle à sa base, cette section est un disque qui est une réduction de la base.<br>Dans une réduction de coefficient k, les aires sont multipliées par k${texteExposant(2)} et les volumes sont multipliés par k${texteExposant(3)}.`,
+            `La section d'un solide par un plan est une figure plane.<br>Dans le cas d'une section d'un cône par un plan parallèle à sa base, cette section est un disque qui est une réduction de la base.<br>Dans une réduction de coefficient $k$, les aires sont multipliées par $k^2$ et les volumes sont multipliés par $k^3$.`,
             {
               texteAvant: 'section',
               titreAide: "Définition : Section plane d'un solide",
             },
           ) +
-          ` sachant que SO'${sp()}=${sp()}${texNombre(h2, 0)}${sp()}cm.<br>`
-        texte += numAlpha(3) + " Calculer le volume du cône de hauteur SO'.<br>"
+          ` sachant que $SO'=${texNombre(h2, 0)}${sp()}\\text{cm}$.<br>`
+        texte +=
+          numAlpha(3) + " Calculer le volume du cône de hauteur $SO'$.<br>"
         texte +=
           numAlpha(4) +
           ' Calculer le volume du tronc de cône (partie du cône située entre la base et la section).'
@@ -390,10 +391,10 @@ export default class AgrandissementReduction extends Exercice {
 
         texteCorr =
           numAlpha(0) +
-          ` L'aire de base du cône est : $\\pi \\times R^2$ cm${texteExposant(2)} $= \\pi \\times ${texNombre(r, 1)}^2$ cm${texteExposant(2)} $= ${texNombre(r.pow(2), 2)}\\pi$ cm${texteExposant(2)} $\\approx ${texNombre(r.pow(2).mul(pi).toDP(2), 2)}$ cm${texteExposant(2)}.<br>`
+          ` L'aire de base du cône est : $\\pi \\times R^2$ $\\text{cm}^2$ $= \\pi \\times ${texNombre(r, 1)}^2$ $\\text{cm}^2$ $= ${texNombre(r.pow(2), 2)}\\pi$ $\\text{cm}^2$ $\\approx ${texNombre(r.pow(2).mul(pi).toDP(2), 2)}$ $\\text{cm}^2$.<br>`
         texteCorr +=
           numAlpha(1) +
-          ` Le volume du cône est $\\dfrac{A_\\text{base}}{3}\\times \\text{hauteur}$ cm${texteExposant(3)} $= \\dfrac{${texNombre(r.pow(2), 2)}\\pi}{3} \\times ${texNombre(h1, 1)}$ cm${texteExposant(3)} $= \\dfrac{${texNombre(r.pow(2).mul(h1), 3)}}{3}\\pi$ cm${texteExposant(3)} $\\approx ${texNombre(r.pow(2).mul(h1).mul(pi).div(3), 2)}$ cm${texteExposant(3)}.<br>`
+          ` Le volume du cône est $\\dfrac{A_\\text{base}}{3}\\times \\text{hauteur}$ $\\text{cm}^3$ $= \\dfrac{${texNombre(r.pow(2), 2)}\\pi}{3} \\times ${texNombre(h1, 1)}$ $\\text{cm}^3$ $= \\dfrac{${texNombre(r.pow(2).mul(h1), 3)}}{3}\\pi$ $\\text{cm}^3$ $\\approx ${texNombre(r.pow(2).mul(h1).mul(pi).div(3), 2)}$ $\\text{cm}^3$.<br>`
         texteCorr +=
           numAlpha(2) +
           ` La section est une réduction de la base de coefficient $\\dfrac{${texNombre(h2, 1)}}{${texNombre(h1, 1)}}`
@@ -402,17 +403,17 @@ export default class AgrandissementReduction extends Exercice {
         } else {
           texteCorr += '.$<br>'
         }
-        texteCorr += `Dans une réduction de coefficient k, les aires sont multipliés par k${texteExposant(2)}.<br>`
-        texteCorr += `Donc son aire est $\\left(${texFractionReduite(h2.mul(10), h1.mul(10))}\\right)^2 \\times ${texNombre(r.pow(2), 2)}\\pi$ cm${texteExposant(2)} $=${texFractionReduite(h2.mul(r).mul(10).pow(2), h1.mul(10).pow(2))}\\pi$ cm${texteExposant(2)} $\\approx${texNombre(h2.mul(r).div(h1).pow(2).mul(pi), 2)}$ cm${texteExposant(2)}.<br>`
+        texteCorr += `Dans une réduction de coefficient $k$, les aires sont multipliés par $k^2$.<br>`
+        texteCorr += `Donc son aire est $\\left(${texFractionReduite(h2.mul(10), h1.mul(10))}\\right)^2 \\times ${texNombre(r.pow(2), 2)}\\pi$ $\\text{cm}^2$ $=${texFractionReduite(h2.mul(r).mul(10).pow(2), h1.mul(10).pow(2))}\\pi$ $\\text{cm}^2$ $\\approx${texNombre(h2.mul(r).div(h1).pow(2).mul(pi), 2)}$ $\\text{cm}^2$.<br>`
         texteCorr +=
           numAlpha(3) +
-          ` Dans une réduction de coefficient k, les volumes sont multipliés par k${texteExposant(3)}.<br>`
-        texteCorr += `Donc le volume du cône de hauteur SO' est : $\\left(${texFractionReduite(h2.mul(10), h1.mul(10))}\\right)^3 \\times \\dfrac{${texNombre(r.mul(r).mul(h1), 3)}}{3}\\pi$ cm${texteExposant(3)} $\\approx ${texNombre(h2.pow(3).mul(r.pow(2)).mul(pi).div(h1.pow(2)).div(3), 2)}$ cm${texteExposant(3)} '.<br>`
+          ` Dans une réduction de coefficient $k$, les volumes sont multipliés par $k^3$.<br>`
+        texteCorr += `Donc le volume du cône de hauteur SO' est : $\\left(${texFractionReduite(h2.mul(10), h1.mul(10))}\\right)^3 \\times \\dfrac{${texNombre(r.mul(r).mul(h1), 3)}}{3}\\pi$ $\\text{cm}^3$ $\\approx ${texNombre(h2.pow(3).mul(r.pow(2)).mul(pi).div(h1.pow(2)).div(3), 2)}$ $\\text{cm}^3$ '.<br>`
         texteCorr += numAlpha(4) + ' Le volume du tronc de cône est : '
-        texteCorr += `$V_\\text{Cône} - V_\\text{CôneRéduit}$<br>Soit : <br>$\\dfrac{${texNombre(r.pow(2).mul(h1), 3)}}{3}\\pi$ cm${texteExposant(3)}$ - \\left(${texFractionReduite(h2.mul(10), h1.mul(10))}\\right)^3 \\times \\dfrac{${texNombre(r.pow(2).mul(h1), 3)}}{3}\\pi$ cm${texteExposant(3)} `
-        texteCorr += `$ = \\left(1-\\left(${texFractionReduite(h2.mul(10), h1.mul(10))}\\right)^3\\right)\\times \\dfrac{${texNombre(r.pow(2).mul(h1))}}{3}\\pi$ cm${texteExposant(3)} `
-        texteCorr += `$ = \\left(1-\\dfrac{${fractionSimplifiee(h2.mul(10), h1.mul(10))[0] ** 3}}{${fractionSimplifiee(h2.mul(10), h1.mul(10))[1] ** 3}}\\right)\\times \\dfrac{${texNombre(r.pow(2).mul(h1), 3)}}{3}\\pi$ cm${texteExposant(3)} `
-        texteCorr += `$ = \\dfrac{${fractionSimplifiee(h2.mul(10), h1.mul(10))[1] ** 3 - fractionSimplifiee(h2.mul(10), h1.mul(10))[0] ** 3}}{${fractionSimplifiee(h2.mul(10), h1.mul(10))[1] ** 3}}\\times \\dfrac{${texNombre(r.pow(2).mul(h1), 3)}}{3}\\pi$ cm${texteExposant(3)} `
+        texteCorr += `$V_\\text{Cône} - V_\\text{CôneRéduit}$<br>Soit : $\\dfrac{${texNombre(r.pow(2).mul(h1), 3)}}{3}\\pi$ $\\text{cm}^3$$ - \\left(${texFractionReduite(h2.mul(10), h1.mul(10))}\\right)^3 \\times \\dfrac{${texNombre(r.pow(2).mul(h1), 3)}}{3}\\pi$ $\\text{cm}^3$ `
+        texteCorr += `$ = \\left(1-\\left(${texFractionReduite(h2.mul(10), h1.mul(10))}\\right)^3\\right)\\times \\dfrac{${texNombre(r.pow(2).mul(h1))}}{3}\\pi$ $\\text{cm}^3$ `
+        texteCorr += `$ = \\left(1-\\dfrac{${fractionSimplifiee(h2.mul(10), h1.mul(10))[0] ** 3}}{${fractionSimplifiee(h2.mul(10), h1.mul(10))[1] ** 3}}\\right)\\times \\dfrac{${texNombre(r.pow(2).mul(h1), 3)}}{3}\\pi$ $\\text{cm}^3$ `
+        texteCorr += `$ = \\dfrac{${fractionSimplifiee(h2.mul(10), h1.mul(10))[1] ** 3 - fractionSimplifiee(h2.mul(10), h1.mul(10))[0] ** 3}}{${fractionSimplifiee(h2.mul(10), h1.mul(10))[1] ** 3}}\\times \\dfrac{${texNombre(r.pow(2).mul(h1), 3)}}{3}\\pi$ $\\text{cm}^3$ `
         texteCorr += `$ \\approx ${texNombre(
           (fractionSimplifiee(h2.mul(10), h1.mul(10))[1] ** 3 -
             fractionSimplifiee(h2.mul(10), h1.mul(10))[0] ** 3) *
@@ -422,7 +423,7 @@ export default class AgrandissementReduction extends Exercice {
               .mul(pi)
               .div(fractionSimplifiee(h2.mul(10), h1.mul(10))[1] ** 3 * 3),
           3,
-        )}$ cm${texteExposant(3)}<br>`
+        )}$ $\\text{cm}^3$<br>`
         break
       case 3: // calcul de l'aire de base, du volume d'une pyramide à base triangulaire. puis, calcul de la section, du volume de la petite pyramide et du volume du tronc
         c = new Decimal(randint(30, 60)).div(10)
@@ -453,10 +454,10 @@ export default class AgrandissementReduction extends Exercice {
         } else {
           texte = ''
         }
-        texte += `SOAB est une pyramide à base triangulaire de hauteur $SO${sp()}=${sp()}${texNombre(h1, 1)}${sp()}$cm.<br> Sa base est un triangle OAB rectangle en O tel que $OA${sp()}=${sp()}${texNombre(c, 1)}${sp()}$ cm et $OB${sp()}=${sp()}${texNombre(c2, 1)}${sp()}$ cm.<br>`
-        texte += ` Le point O' est situé sur la hauteur [SO] à ${texNombre(h2, 0)}${sp()}cm de S.`
+        texte += `$SOAB$ est une pyramide à base triangulaire de hauteur $SO${sp()}=${sp()}${texNombre(h1, 1)}${sp()}\\text{cm}$.<br> Sa base est un triangle $OAB$ rectangle en $O$ tel que $OA=${texNombre(c, 1)}${sp()}\\text{cm}$ et $OB=${texNombre(c2, 1)}${sp()}\\text{cm}$.<br>`
+        texte += ` Le point $O'$ est situé sur la hauteur $[SO]$ à $${texNombre(h2, 0)}${sp()}\\text{cm}$ de $S$.`
         texte +=
-          "<br>Un plan parallèle à la face OAB passant par O' coupe la pyramide en formant la section O'A'B'.<br>"
+          "<br>Un plan parallèle à la face $OAB$ passant par $O'$ coupe la pyramide en formant la section $O'A'B'$.<br>"
         if (!context.isHtml) {
           texte += "La figure n'est pas en vraie grandeur.<br>"
         }
@@ -464,38 +465,37 @@ export default class AgrandissementReduction extends Exercice {
           numAlpha(0) +
           " Calculer l'" +
           ajouterAide("$Aire=\\dfrac{\\text{c}\\times\\text{c'}}{2}$", {
-            texteAvant: 'aire de base de la pyramide',
-            titreAide: "Formule : Aire d'un triangle rectangle",
+            texteAvant: 'aire de la base de la pyramide',
+            titreAide:
+              "Formule : Aire d'un triangle rectangle de côtés de l'angle droit c et c'",
           }) +
           '.<br>'
         texte +=
           numAlpha(1) +
           ' Calculer le ' +
-          ajouterAide('$Volume= \\dfrac{B \\times \\text{h}}{3}$', {
+          ajouterAide('$Volume= \\dfrac{B \\times h}{3}$', {
             texteAvant: 'volume de la pyramide',
             titreAide:
-              "Formule : volume d'une pyramide d'aire de base $B$ et de hauteur h",
+              "Formule : Volume d'une pyramide d'aire de base $B$ et de hauteur $h$",
           }) +
           ' SOAB.<br>'
         texte +=
           numAlpha(2) +
           " En déduire l'aire de la " +
           ajouterAide(
-            `La section d'un solide par un plan est une figure plane.<br>Dans le cas d'une section d'une pyramide par un plan parallèle à sa base, cette section est un polygone qui est une réduction de la base.<br>Dans une réduction de coefficient k, les aires sont multipliées par k${texteExposant(2)} et les volumes sont multipliés par k${texteExposant(3)}.`,
+            `La section d'un solide par un plan est une figure plane.<br>Dans le cas d'une section d'une pyramide par un plan parallèle à sa base, cette section est un polygone qui est une réduction de la base.<br>Dans une réduction de coefficient $k$, les aires sont multipliées par $k^2$ et les volumes sont multipliés par $k^3$.`,
             {
               texteAvant: 'section',
               titreAide: "Définition : section plane d'un solide",
             },
           ) +
-          ` O'A'B' sachant que SO'${sp()}=${sp()}${texNombre(h2, 0)}${sp()}cm.<br>`
-        texte += numAlpha(3) + " Calculer le volume de la pyramide SO'A'B'.<br>"
+          ` $O'A'B'$ sachant que $SO'=${texNombre(h2, 0)}${sp()}\\text{cm}$.<br>`
+        texte +=
+          numAlpha(3) + " Calculer le volume de la pyramide $SO'A'B'$.<br>"
         texte +=
           numAlpha(4) +
           ' Calculer le volume du tronc de la pyramide (partie de la pyramide située entre la base et la section).'
-        if (context.isHtml) {
-          texte +=
-            "<br>Le point O peut être déplacé et on peut changer l'angle de vue &#x3C6; "
-        } else {
+        if (!context.isHtml) {
           texte += `\n\t \\end{minipage} \n\t \\begin{minipage}{0.3 \\linewidth} \n\t \\begin{tikzpicture}[scale=0.8]
           \\definecolor{hhhhhh}{rgb}{0,0,0}
           \\definecolor{phphph}{rgb}{0.5,0.5,0.5}
@@ -558,29 +558,29 @@ export default class AgrandissementReduction extends Exercice {
 
         texteCorr =
           numAlpha(0) +
-          ` L'aire de base de la pyramide est : $\\dfrac{${texNombre(c, 1)}\\times${texNombre(c2, 1)}}{2}$ cm${texteExposant(2)} $= ${texNombre(c.mul(c2).div(2), 3)}$ cm${texteExposant(2)}.<br>`
+          ` L'aire de base de la pyramide est : $\\dfrac{${texNombre(c, 1)}\\times${texNombre(c2, 1)}}{2}$ $\\text{cm}^2$ $= ${texNombre(c.mul(c2).div(2), 3)}$ $\\text{cm}^2$.<br>`
         texteCorr +=
           numAlpha(1) +
-          ` Le volume de la pyramide est : $\\dfrac{A_\\text{base} \\times \\text{hauteur}}{3}$ cm${texteExposant(3)} $= \\dfrac{${texNombre(c.mul(c2).div(2), 3)}\\times ${texNombre(h1, 1)}}{3}$ cm${texteExposant(3)} $\\approx ${texNombre(c.mul(c2).mul(h1).div(6), 3)}$ cm${texteExposant(3)}.<br>`
+          ` Le volume de la pyramide est : $\\dfrac{A_\\text{base} \\times \\text{hauteur}}{3}$ $\\text{cm}^3$ $= \\dfrac{${texNombre(c.mul(c2).div(2), 3)}\\times ${texNombre(h1, 1)}}{3}$ $\\text{cm}^3$ $\\approx ${texNombre(c.mul(c2).mul(h1).div(6), 3)}${sp()}\\text{cm}^3$.<br>`
         texteCorr +=
           numAlpha(2) +
           ` La section est une réduction de la base de coefficient $${texFractionReduite(h2.mul(10), h1.mul(10))}$.<br>`
-        texteCorr += `Dans une réduction de coefficient k, les aires sont multipliés par k${texteExposant(2)}.<br>`
-        texteCorr += `Donc son aire est $\\left(${texFractionReduite(h2.mul(10), h1.mul(10))}\\right)^2 \\times ${texNombre(c.mul(c2).div(2), 3)}$ cm${texteExposant(2)} $=${texFractionReduite(h2.mul(h2).mul(100).mul(c).mul(c2), h1.mul(h1).mul(200))}$ cm${texteExposant(2)} $\\approx ${texNombre(h2.div(h1).pow(2).mul(c).mul(c2).div(2), 2)}$ cm${texteExposant(2)}.<br>`
+        texteCorr += `Dans une réduction de coefficient $k$, les aires sont multipliés par $k^2$.<br>`
+        texteCorr += `Donc son aire est $\\left(${texFractionReduite(h2.mul(10), h1.mul(10))}\\right)^2 \\times ${texNombre(c.mul(c2).div(2), 3)}$ $\\text{cm}^2$ $=${texFractionReduite(h2.mul(h2).mul(100).mul(c).mul(c2), h1.mul(h1).mul(200))} \\text{cm}^2 \\approx ${texNombre(h2.div(h1).pow(2).mul(c).mul(c2).div(2), 2)}$ $\\text{cm}^2$.<br>`
         texteCorr +=
           numAlpha(3) +
-          ` Dans une réduction de coefficient k, les volumes sont multipliés par k${texteExposant(3)}.<br>`
-        texteCorr += `Donc le volume de la pyramide SO'A'B' est : $\\left(${texFractionReduite(h2.mul(10), h1.mul(10))}\\right)^3 \\times \\dfrac{${texNombre(c.mul(c2).mul(h1).div(2), 3)}}{3}$ cm${texteExposant(3)} $\\approx ${texNombre(h2.pow(3).mul(c).mul(c2).div(h1.pow(2)).div(6), 2)}$ cm${texteExposant(3)} '.<br>`
+          ` Dans une réduction de coefficient $k$, les volumes sont multipliés par $k^3$.<br>`
+        texteCorr += `Donc le volume de la pyramide $SO'A'B'$ est : $\\left(${texFractionReduite(h2.mul(10), h1.mul(10))}\\right)^3 \\times \\dfrac{${texNombre(c.mul(c2).mul(h1).div(2), 3)}}{3} \\text{cm}^3 \\approx ${texNombre(h2.pow(3).mul(c).mul(c2).div(h1.pow(2)).div(6), 2)} \\text{cm}^3$ '.<br>`
         texteCorr += numAlpha(4) + ' Le volume du tronc de la pyramide est : '
-        texteCorr += `$V_\\text{SABCD} - V_\\text{SA'B'C'D'}$<br>Soit : <br>$${texNombre(c.mul(c2).mul(h1).div(6), 3)}$ cm${texteExposant(3)}$ - ${texNombre(h2.pow(3).mul(c).mul(c2).div(h1.pow(2)).div(6), 3)}$ cm${texteExposant(3)}$ \\approx ${texNombre(
+        texteCorr += `$V_\\text{SABCD} - V_\\text{SA'B'C'D'}$<br>Soit : $${texNombre(c.mul(c2).mul(h1).div(6), 3)}$ $\\text{cm}^3$$ - ${texNombre(h2.pow(3).mul(c).mul(c2).div(h1.pow(2)).div(6), 3)} \\text{cm}^3 \\approx ${texNombre(
           c
             .mul(c2)
             .mul(h1)
             .div(6)
             .sub(h2.pow(3).mul(c).mul(c2).div(h1.pow(2)).div(6)),
           2,
-        )}$ cm${texteExposant(3)}.<br>`
-        texteCorr += `Ce qui représente $${texFractionReduite(h1.pow(3).sub(h2.pow(3)).mul(1000), h1.pow(3).mul(1000))}$ du volume de SABCD.`
+        )}$ $\\text{cm}^3$.<br>`
+        texteCorr += `Ce qui représente $${texFractionReduite(h1.pow(3).sub(h2.pow(3)).mul(1000), h1.pow(3).mul(1000))}$ du volume de $SABCD$.`
 
         break
       case 4: // Un tronc de cône étant donné (seau), calcul de la hauteur du cône dont il est issu, de son volume, puis du volume du seau. Lecture graphique du volume d'eau à mi hauteur et calcul de ce volume
@@ -685,11 +685,11 @@ export default class AgrandissementReduction extends Exercice {
           " et l'égalité des produits en croix nous donne : $\\text{HL}\\left(\\text{SH}-\\text{BH} \\right) =\\text{BA}\\times \\text{SH}$.<br>"
         texteCorr += ` Soit avec les données numériques : $${texNombre(r, 1)}\\left(\\text{SH}-${texNombre(h3, 1)}\\right)=${texNombre(r2, 1)}\\times \\text{SH}$.<br>`
         texteCorr += `On en déduit que SH$\\left(${texNombre(r, 1)}-${texNombre(r2, 1)}\\right)=${texNombre(r, 1)}\\times${texNombre(h3, 1)}$.<br>`
-        texteCorr += `D'où SH $=\\dfrac{${texNombre(r.mul(h3), 2)}}{${texNombre(r.sub(r2), 1)}}=${texNombre(h1, 1)}$ dm ( SB = $${texNombre(h2, 1)}$ dm).<br>`
+        texteCorr += `D'où SH $=\\dfrac{${texNombre(r.mul(h3), 2)}}{${texNombre(r.sub(r2), 1)}}=${texNombre(h1, 1)}\\text{ dm}$ ( SB = $${texNombre(h2, 1)}\\text{ dm}$).<br>`
 
         texteCorr +=
           numAlpha(1) +
-          ` Le volume du cône est $\\dfrac{A_\\text{base}}{3}\\times \\text{hauteur}$ dm${texteExposant(3)} $= \\dfrac{${texNombre(r.pow(2), 2)}\\pi}{3} \\times ${texNombre(h1, 1)}$ dm${texteExposant(3)} $= \\dfrac{${texNombre(r.mul(r).mul(h1), 3)}}{3}\\pi$ dm${texteExposant(3)} $\\approx ${texNombre(r.mul(r).mul(pi).mul(h1).div(3), 3)}$ dm${texteExposant(3)}.<br>`
+          ` Le volume du cône est $\\dfrac{A_\\text{base}}{3}\\times \\text{hauteur}$ $\\text{dm}^3$ $= \\dfrac{${texNombre(r.pow(2), 2)}\\pi}{3} \\times ${texNombre(h1, 1)}$ $\\text{dm}^3$ $= \\dfrac{${texNombre(r.mul(r).mul(h1), 3)}}{3}\\pi$ $\\text{dm}^3$ $\\approx ${texNombre(r.mul(r).mul(pi).mul(h1).div(3), 3)}$ $\\text{dm}^3$.<br>`
         texteCorr +=
           numAlpha(2) +
           ' Le seau est un tronc de cône. Pour calculer son volume, on va calculer le volume du cône réduit de hauteur SB et le soustraire du volume du cône de hauteur SH.<br>'
@@ -699,22 +699,22 @@ export default class AgrandissementReduction extends Exercice {
         } else {
           texteCorr += '.$<br>'
         }
-        texteCorr += `Dans une réduction de coefficient k, les volumes sont multipliés par k${texteExposant(3)}.<br>`
-        texteCorr += `Donc le volume du cône de hauteur SB est : $\\left(${texFractionReduite(r2.mul(10), r.mul(10))}\\right)^3 \\times \\dfrac{${texNombre(r.mul(r).mul(h1), 3)}}{3}\\pi$ dm${texteExposant(3)} $\\approx ${texNombre(pi.mul(h2.div(h1).pow(3)).mul(r.pow(2).mul(h1)).div(3), 3)}$ dm${texteExposant(3)} '.<br>`
+        texteCorr += `Dans une réduction de coefficient $k$, les volumes sont multipliés par $k^3$.<br>`
+        texteCorr += `Donc le volume du cône de hauteur SB est : $\\left(${texFractionReduite(r2.mul(10), r.mul(10))}\\right)^3 \\times \\dfrac{${texNombre(r.mul(r).mul(h1), 3)}}{3}\\pi$ $\\text{dm}^3$ $\\approx ${texNombre(pi.mul(h2.div(h1).pow(3)).mul(r.pow(2).mul(h1)).div(3), 3)}$ $\\text{dm}^3$ '.<br>`
         texteCorr += 'Le volume du tronc de cône est : '
-        texteCorr += `$V_\\text{Cône} - V_\\text{CôneRéduit}$<br>Soit : <br>$\\dfrac{${texNombre(r.mul(r).mul(h1), 3)}}{3}\\pi$ dm${texteExposant(3)}$ - \\left(${texFractionReduite(r2.mul(10), r.mul(10))}\\right)^3 \\times \\dfrac{${texNombre(r.mul(r).mul(h1), 3)}}{3}\\pi$ dm${texteExposant(3)} `
-        texteCorr += `$ = \\left(1-\\left(${texFractionReduite(r2.mul(10), r.mul(10))}\\right)^3\\right)\\times \\dfrac{${texNombre(r.mul(r).mul(h1), 3)}}{3}\\pi$ dm${texteExposant(3)} `
-        texteCorr += `$ = \\left(1-\\dfrac{${fractionSimplifiee(r2.mul(10), r.mul(10))[0] ** 3}}{${fractionSimplifiee(r2.mul(10), r.mul(10))[1] ** 3}}\\right)\\times \\dfrac{${texNombre(r.mul(r).mul(h1), 3)}}{3}\\pi$ dm${texteExposant(3)} `
-        texteCorr += `$ = \\dfrac{${fractionSimplifiee(r2.mul(10), r.mul(10))[1] ** 3 - fractionSimplifiee(r2.mul(10), r.mul(10))[0] ** 3}}{${fractionSimplifiee(r2.mul(10), r.mul(10))[1] ** 3}}\\times \\dfrac{${texNombre(r.mul(r).mul(h1), 3)}}{3}\\pi$ dm${texteExposant(3)} `
+        texteCorr += `$V_\\text{Cône} - V_\\text{CôneRéduit}$<br>Soit : $\\dfrac{${texNombre(r.mul(r).mul(h1), 3)}}{3}\\pi$ $\\text{dm}^3$$ - \\left(${texFractionReduite(r2.mul(10), r.mul(10))}\\right)^3 \\times \\dfrac{${texNombre(r.mul(r).mul(h1), 3)}}{3}\\pi$ $\\text{dm}^3$ `
+        texteCorr += `$ = \\left(1-\\left(${texFractionReduite(r2.mul(10), r.mul(10))}\\right)^3\\right)\\times \\dfrac{${texNombre(r.mul(r).mul(h1), 3)}}{3}\\pi$ $\\text{dm}^3$ `
+        texteCorr += `$ = \\left(1-\\dfrac{${fractionSimplifiee(r2.mul(10), r.mul(10))[0] ** 3}}{${fractionSimplifiee(r2.mul(10), r.mul(10))[1] ** 3}}\\right)\\times \\dfrac{${texNombre(r.mul(r).mul(h1), 3)}}{3}\\pi$ $\\text{dm}^3$ `
+        texteCorr += `$ = \\dfrac{${fractionSimplifiee(r2.mul(10), r.mul(10))[1] ** 3 - fractionSimplifiee(r2.mul(10), r.mul(10))[0] ** 3}}{${fractionSimplifiee(r2.mul(10), r.mul(10))[1] ** 3}}\\times \\dfrac{${texNombre(r.mul(r).mul(h1), 3)}}{3}\\pi$ $\\text{dm}^3$ `
         kprime = new Decimal(r2).div(r).pow(3)
-        texteCorr += `$ \\approx ${texNombre(r.pow(2).mul(h1).mul(pi).div(3).mul(kprime.sub(1).mul(-1)), 3)}$ dm${texteExposant(3)}<br>`
+        texteCorr += `$ \\approx ${texNombre(r.pow(2).mul(h1).mul(pi).div(3).mul(kprime.sub(1).mul(-1)), 3)}$ $\\text{dm}^3$<br>`
         c = h3.div(2)
         kprime = c.plus(h2).div(h2)
         if (context.isHtml) {
           texteCorr +=
             numAlpha(3) +
             ` Il faut fixer HL à ${texNombre(r * 10)} cm ; BA à ${texNombre(r2.mul(10), 0)} cm ; BH à ${texNombre(h3.mul(10), 0)} cm et la hauteur d'eau à ${texNombre(h1.sub(h2).mul(5), 1)} cm.<br>`
-          texteCorr += `La lecture de $ y = V(x)$ nous donne un volume d'eau d'environ $${texNombre(kprime.pow(3).sub(1).mul(r2.pow(2)).mul(h2).mul(pi).div(3), 1)}$ dm${texteExposant(3)} soit environ $${texNombre(kprime.pow(3).sub(1).mul(r2.pow(2)).mul(h2).mul(pi).div(3), 0)}$ litres d'eau.<br>`
+          texteCorr += `La lecture de $ y = V(x)$ nous donne un volume d'eau d'environ $${texNombre(kprime.pow(3).sub(1).mul(r2.pow(2)).mul(h2).mul(pi).div(3), 1)}$ $\\text{dm}^3$ soit environ $${texNombre(kprime.pow(3).sub(1).mul(r2.pow(2)).mul(h2).mul(pi).div(3), 0)}$ litres d'eau.<br>`
           texteCorr += numAlpha(4)
         } else {
           texteCorr += numAlpha(3)
@@ -722,19 +722,19 @@ export default class AgrandissementReduction extends Exercice {
         texteCorr +=
           " Nous allons déterminer le volume du cône de hauteur SE, puis nous soustrairons le volume du cône de hauteur SB pour obtenir le volume d'eau.<br>"
         texteCorr += ` Le cône de hauteur SE est une réduction du cône de hauteur SH. Le coefficient de cette réduction est : $${texFractionReduite(c.add(h2).mul(100), h1.mul(100))}$.<br>`
-        texteCorr += `Donc le volume $V$ du cône de hauteur SE est : $\\left(${texFractionReduite(h1.add(h2).mul(50), h1.mul(100))}\\right)^3 \\times \\dfrac{${texNombre(r.mul(r).mul(h1), 3)}}{3}\\pi$ dm${texteExposant(3)} $\\approx ${texNombre(r.pow(2).mul(pi).mul(h2.plus(c).div(h1).pow(3)).mul(h1).div(3), 3)}$ dm${texteExposant(3)}.<br>`
+        texteCorr += `Donc le volume $V$ du cône de hauteur SE est : $\\left(${texFractionReduite(h1.add(h2).mul(50), h1.mul(100))}\\right)^3 \\times \\dfrac{${texNombre(r.mul(r).mul(h1), 3)}}{3}\\pi$ $\\text{dm}^3$ $\\approx ${texNombre(r.pow(2).mul(pi).mul(h2.plus(c).div(h1).pow(3)).mul(h1).div(3), 3)}$ $\\text{dm}^3$.<br>`
         texteCorr +=
           "Notons $V'$ le volume du cône de hauteur SB calculé à la question " +
           numAlpha(2) +
           "<br> Le volume d'eau est donc : "
 
-        texteCorr += `$V-V' \\approx ${texNombre(pi.div(3).mul(r.pow(2)).mul(h1).mul(h2.plus(c).div(h1).pow(3)), 3)}$ dm${texteExposant(3)}$ - ${texNombre(
+        texteCorr += `$V-V' \\approx ${texNombre(pi.div(3).mul(r.pow(2)).mul(h1).mul(h2.plus(c).div(h1).pow(3)), 3)}$ $\\text{dm}^3$$ - ${texNombre(
           pi
             .div(3)
             .mul(h2.div(h1).pow(3).mul(r.pow(2)))
             .mul(h1),
           3,
-        )}$ dm${texteExposant(3)} $\\approx ${texNombre(kprime.pow(3).sub(1).mul(r2.pow(2)).mul(h2).mul(pi).div(3), 1)}$ dm${texteExposant(3)}.<br>`
+        )}$ $\\text{dm}^3$ $\\approx ${texNombre(kprime.pow(3).sub(1).mul(r2.pow(2)).mul(h2).mul(pi).div(3), 1)}$ $\\text{dm}^3$.<br>`
         break
       case 5: // Un problème avec un cône Vanille Chocolat.
         r = new Decimal(randint(20, 28)).div(10)
@@ -764,8 +764,8 @@ export default class AgrandissementReduction extends Exercice {
         } else {
           texte = ''
         }
-        texte += `Un cône de glace d'une marque célèbre a pour rayon $${texNombre(r, 1)}${sp()}$cm et pour hauteur $SO${sp()}=${sp()}${texNombre(h1, 1)}${sp()}$cm.<br>`
-        texte += `Le fabricant a coulé au fond de ce cône du chocolat sur une hauteur SO' de ${texNombre(h2, 0)}${sp()}cm.<br>`
+        texte += `Un cône de glace d'une marque célèbre a pour rayon $${texNombre(r, 1)}${sp()}\\text{cm}$ et pour hauteur $SO=${texNombre(h1, 1)}${sp()}\\text{cm}$.<br>`
+        texte += `Le fabricant a coulé au fond de ce cône du chocolat sur une hauteur $SO'$ de $${texNombre(h2, 0)}${sp()}\\text{cm}$.<br>`
         texte += numAlpha(0) + ' Calculer le volume total du cône.<br>'
         texte +=
           numAlpha(1) +
@@ -779,10 +779,7 @@ export default class AgrandissementReduction extends Exercice {
         texte +=
           numAlpha(4) +
           " Quelle serait alors l'épaisseur de chocolat au dessus de la glace ?<br>"
-        if (context.isHtml) {
-          texte +=
-            "Le point O peut être déplacé et on peut changer l'angle de vue &#x3C6; "
-        } else {
+        if (!context.isHtml) {
           texte += `\n\t \\end{minipage} \n\t \\begin{minipage}{0.3 \\linewidth} \n\t \\begin{tikzpicture}[scale=0.8]
           \\definecolor{hhhhhh}{rgb}{0,0,0}
           \\definecolor{phphph}{rgb}{0.5,0.5,0.5}
@@ -874,7 +871,7 @@ export default class AgrandissementReduction extends Exercice {
         }
         texteCorr =
           numAlpha(0) +
-          ` Le volume du cône est $\\dfrac{A_\\text{base}}{3}\\times \\text{hauteur}$ cm${texteExposant(3)} $= \\dfrac{${texNombre(r.pow(2), 2)}\\pi}{3} \\times ${texNombre(h1, 1)}$ cm${texteExposant(3)} $= \\dfrac{${texNombre(r.mul(r).mul(h1), 3)}}{3}\\pi$ cm${texteExposant(3)} $\\approx ${texNombre(r.mul(r).mul(h1).mul(pi).div(3), 3)}$ cm${texteExposant(3)}.<br>`
+          ` Le volume du cône est $\\dfrac{A_\\text{base}}{3}\\times \\text{hauteur}$ $\\text{cm}^3$ $= \\dfrac{${texNombre(r.pow(2), 2)}\\pi}{3} \\times ${texNombre(h1, 1)}$ $\\text{cm}^3$ $= \\dfrac{${texNombre(r.mul(r).mul(h1), 3)}}{3}\\pi$ $\\text{cm}^3$ $\\approx ${texNombre(r.mul(r).mul(h1).mul(pi).div(3), 3)}$ $\\text{cm}^3$.<br>`
         texteCorr +=
           numAlpha(1) +
           ` Le cône de chocolat est une réduction du cône complet. Le coefficient de réduction est $\\dfrac{${texNombre(h2, 1)}}{${texNombre(h1, 1)}}`
@@ -883,30 +880,30 @@ export default class AgrandissementReduction extends Exercice {
         } else {
           texteCorr += '.$<br>'
         }
-        texteCorr += ` Dans une réduction de coefficient k, les volumes sont multipliés par k${texteExposant(3)}.<br>`
-        texteCorr += `Donc le volume du cône de hauteur SO' est : $\\left(${texFractionReduite(h2.mul(10), h1.mul(10))}\\right)^3 \\times \\dfrac{${texNombre(r.mul(r).mul(h1), 3)}}{3}\\pi$ cm${texteExposant(3)} $ \\approx ${texNombre(pi.mul(h2.pow(3)).mul(r.pow(2)).div(h1.pow(2)).div(3), 3)}$ cm${texteExposant(3)}.<br>`
+        texteCorr += ` Dans une réduction de coefficient $k$, les volumes sont multipliés par $k^3$.<br>`
+        texteCorr += `Donc le volume du cône de hauteur $SO'$ est : $\\left(${texFractionReduite(h2.mul(10), h1.mul(10))}\\right)^3 \\times \\dfrac{${texNombre(r.mul(r).mul(h1), 3)}}{3}\\pi$ $\\text{cm}^3$ $ \\approx ${texNombre(pi.mul(h2.pow(3)).mul(r.pow(2)).div(h1.pow(2)).div(3), 3)}$ $\\text{cm}^3$.<br>`
         texteCorr +=
           numAlpha(2) +
           ' Le volume de glace est la différence entre les deux volumes précédents :<br>'
-        texteCorr += `$${texNombre(r.pow(2).mul(h1).mul(pi).div(3), 3)}$ cm${texteExposant(3)}$ - ${texNombre(pi.mul(h2.pow(3)).mul(r.div(h1).pow(2)).div(3), 3)}$ cm${texteExposant(3)} $ \\approx ${texNombre(
+        texteCorr += `$${texNombre(r.pow(2).mul(h1).mul(pi).div(3), 3)}$ $\\text{cm}^3$$ - ${texNombre(pi.mul(h2.pow(3)).mul(r.div(h1).pow(2)).div(3), 3)}$ $\\text{cm}^3$ $ \\approx ${texNombre(
           pi
             .div(3)
             .mul(r.pow(2))
             .mul(h1.sub(h2.pow(3).div(h1.pow(2)))),
           2,
-        )}$ cm${texteExposant(3)}.<br>`
+        )}$ $\\text{cm}^3$.<br>`
         texteCorr +=
           numAlpha(3) +
           ' Si on verse la glace au fond du cône, on obtient une nouvelle réduction du cône complet.<br>'
-        texteCorr += `Soit k' le coefficient de cette réduction, on a : k'${texteExposant(3)} $= 1- \\text{k}^3$`
-        texteCorr += ", d'où k' "
-        texteCorr += '$= \\sqrt[3]{1-{\\text{k}^3}}$.<br>'
+        texteCorr += `Soit $K$ le coefficient de cette réduction, on a : $K^3= 1- k^3$`
+        texteCorr += ", d'où "
+        texteCorr += '$K=\\sqrt[3]{1-k^3}$.<br>'
         kprime = new Decimal(1).sub(h2.div(h1).pow(3)).cbrt()
-        texteCorr += `Donc k' = $\\sqrt[3]{1 - \\left(${texFractionReduite(h2.mul(10), h1.mul(10))}\\right)^3} \\approx ${texNombre(kprime, 5)}$.<br>`
-        texteCorr += `On en déduit que la hauteur de glace est approximativement : $${texNombre(kprime, 5)} \\times ${texNombre(h1, 1)}$ cm $\\approx ${texNombre(kprime.mul(h1), 4)}$ cm.<br>`
+        texteCorr += `Donc $K = \\sqrt[3]{1 - \\left(${texFractionReduite(h2.mul(10), h1.mul(10))}\\right)^3} \\approx ${texNombre(kprime, 5)}$.<br>`
+        texteCorr += `On en déduit que la hauteur de glace est approximativement : $${texNombre(kprime, 5)} \\times ${texNombre(h1, 1)}\\text{ cm}$ $\\approx ${texNombre(kprime.mul(h1), 4)}\\text{ cm}$.<br>`
         texteCorr +=
           numAlpha(4) +
-          ` L'épaisseur de chocolat est alors de : $${texNombre(h1, 1)}\\text{ cm}-${texNombre(kprime.mul(h1), 4)} \\text{ cm}\\approx ${texNombre(h1.sub(kprime.mul(h1)).mul(10), 2)}$ mm !`
+          ` L'épaisseur de chocolat est alors de : $${texNombre(h1, 1)}\\text{ cm}-${texNombre(kprime.mul(h1), 4)} \\text{ cm}\\approx ${texNombre(h1.sub(kprime.mul(h1)).mul(10), 2)}\\text{ mm}$ !`
         break
     }
 

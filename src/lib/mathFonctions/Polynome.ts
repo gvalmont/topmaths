@@ -225,6 +225,7 @@ export class Polynome {
   deg: number
   useFraction: boolean
   useDecimal: boolean
+  letter: string
 
   constructor({
     rand = false,
@@ -232,13 +233,16 @@ export class Polynome {
     coeffs,
     useFraction = false,
     useDecimal = false,
+    letter = 'x'
   }: {
     rand?: boolean
     deg?: number
     coeffs?: CoeffType[]
     useFraction?: boolean
     useDecimal?: boolean
+    letter?: string
   }) {
+    this.letter = letter
     if (rand) {
       if (largerEq(deg, 0)) {
         // on construit coeffs indépendamment de la valeur fournie
@@ -399,13 +403,13 @@ export class Polynome {
           }
           switch (this.deg) {
             case 1:
-              maj = egal(Number(c), 0, 1e-15) ? '' : `${coeffD}x`
+              maj = egal(Number(c), 0, 1e-15) ? '' : `${coeffD}${this.letter}`
               break
             case 0:
               maj = egal(Number(c), 0, 1e-15) ? '' : `${coeffD}`
               break
             default:
-              maj = egal(Number(c), 0, 1e-15) ? '' : `${coeffD}x^${i}`
+              maj = egal(Number(c), 0, 1e-15) ? '' : `${coeffD}${this.letter}^${i}`
           }
           break
         }
@@ -426,8 +430,8 @@ export class Polynome {
                     : c.valeurDecimale === 1
                       ? '+'
                       : '+{' + String(c.n) + '/' + String(c.d)
-                }` + '}x'
-              : `${ecritureAlgebriqueSauf1(c)}x`
+                }` + `}${this.letter}`
+              : `${ecritureAlgebriqueSauf1(c)}${this.letter}`
           break
         default:
           maj = egal(Number(c), 0, 1e-15)
@@ -441,8 +445,8 @@ export class Polynome {
                     : c.valeurDecimale === 1
                       ? '+'
                       : '+{' + String(c.n) + '/' + String(c.d)
-                }` + `}x^${i}`
-              : `${ecritureAlgebriqueSauf1(c)}x^${i}`
+                }` + `}${this.letter}^${i}`
+              : `${ecritureAlgebriqueSauf1(c)}${this.letter}^${i}`
           break
       }
       maj = clean(maj)
@@ -471,13 +475,13 @@ export class Polynome {
             if (this.deg === 0) return c.texFSD
             switch (this.deg) {
               case 1:
-                maj = egal(Number(c), 0, 1e-15) ? '' : `${coeffD}x`
+                maj = egal(Number(c), 0, 1e-15) ? '' : `${coeffD}${this.letter}`
                 break
               case 0:
                 maj = egal(Number(c), 0, 1e-15) ? '' : `${coeffD}`
                 break
               default:
-                maj = egal(Number(c), 0, 1e-15) ? '' : `${coeffD}x^{${i}}`
+                maj = egal(Number(c), 0, 1e-15) ? '' : `${coeffD}${this.letter}^{${i}}`
             }
             break
           }
@@ -495,7 +499,7 @@ export class Polynome {
                     : c.valeurDecimale === 1
                       ? '+'
                       : c.ecritureAlgebrique
-                }x`
+                }${this.letter}`
             break
           default:
             maj = egal(Number(c), 0, 1e-15)
@@ -508,7 +512,7 @@ export class Polynome {
                     : c.valeurDecimale === 1
                       ? '+'
                       : c.ecritureAlgebrique
-                }x^{${i}}`
+                }${this.letter}^{${i}}`
             break
         }
         res = maj + res
@@ -523,13 +527,13 @@ export class Polynome {
             if (this.deg === 0) return texNombre(c, 2)
             switch (this.deg) {
               case 1:
-                maj = egal(Number(c), 0, 1e-15) ? '' : `${coeffD}x`
+                maj = egal(Number(c), 0, 1e-15) ? '' : `${coeffD}${this.letter}`
                 break
               case 0:
                 maj = egal(Number(c), 0, 1e-15) ? '' : `${coeffD}`
                 break
               default:
-                maj = egal(Number(c), 0, 1e-15) ? '' : `${coeffD}x^{${i}}`
+                maj = egal(Number(c), 0, 1e-15) ? '' : `${coeffD}${this.letter}^{${i}}`
             }
             break
           }
@@ -539,12 +543,12 @@ export class Polynome {
           case 1:
             maj = egal(Number(c), 0, 1e-15)
               ? ''
-              : `${ecritureAlgebriqueSauf1(c)}x`
+              : `${ecritureAlgebriqueSauf1(c)}${this.letter}`
             break
           default:
             maj = egal(Number(c), 0, 1e-15)
               ? ''
-              : `${ecritureAlgebriqueSauf1(c)}x^{${i}}`
+              : `${ecritureAlgebriqueSauf1(c)}${this.letter}^{${i}}`
             break
         }
         res = maj + res
@@ -668,6 +672,7 @@ export class Polynome {
       coeffs: coeffDerivee,
       useFraction: this.useFraction,
       useDecimal: this.useDecimal,
+      letter: this.letter,
     })
   }
 
@@ -678,8 +683,8 @@ export class Polynome {
       if (!egal(Number(el), 0)) {
         formeDerivee +=
           formeDerivee === ''
-            ? `${String(index)}\\times ${el instanceof FractionEtendue ? el.texParentheses : ecritureParentheseSiNegatif(el)}${index > 2 ? `x^{${index - 1}}` : index === 2 ? 'x' : ''}`
-            : `+${String(index)}\\times ${el instanceof FractionEtendue ? el.texParentheses : ecritureParentheseSiNegatif(el)}${index > 2 ? `x^{${index - 1}}` : index === 2 ? 'x' : ''}`
+            ? `${String(index)}\\times ${el instanceof FractionEtendue ? el.texParentheses : ecritureParentheseSiNegatif(el)}${index > 2 ? `${this.letter}^{${index - 1}}` : index === 2 ? this.letter : ''}`
+            : `+${String(index)}\\times ${el instanceof FractionEtendue ? el.texParentheses : ecritureParentheseSiNegatif(el)}${index > 2 ? `${this.letter}^{${index - 1}}` : index === 2 ? this.letter : ''}`
       }
     }
     return formeDerivee

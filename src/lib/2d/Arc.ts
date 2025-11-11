@@ -1,13 +1,41 @@
-import { degToRad } from '../mathFonctions/trigo'
-import { angleModulo, angleOriente } from './angles'
 import { colorToLatexOrHTML } from './colorToLatexOrHtml'
-import { Droite, droite, mediatrice } from './droites'
+import { droite } from './droites'
+import type { IPointAbstrait } from './Interfaces'
 import MainLevee from './MainLevee'
 import { ObjetMathalea2D } from './ObjetMathalea2D'
-import { PointAbstrait, pointAbstrait } from './points-abstraits'
-import { pattern } from './polygones'
-import { longueur } from './segmentsVecteurs'
-import { rotation } from './transformations'
+import { pattern } from './pattern'
+import { PointAbstrait, pointAbstrait } from './PointAbstrait'
+import { angleModulo, angleOriente, longueur } from './utilitairesGeometriques'
+
+/**
+ * Convertit un angle de degrés en radians
+ * @param angle Angle en degrés
+ * @returns Angle en radians
+ */
+const degToRad = (angle: number): number => (angle * Math.PI) / 180
+
+/**
+ * Calcule les coordonnées de l'image d'un point par rotation
+ * @param point Point à transformer
+ * @param centre Centre de rotation
+ * @param angle Angle de rotation en degrés
+ * @returns Point abstrait résultat
+ */
+const rotationPoint = (
+  point: IPointAbstrait,
+  centre: IPointAbstrait,
+  angle: number,
+): IPointAbstrait => {
+  const angleRad = degToRad(angle)
+  const cos = Math.cos(angleRad)
+  const sin = Math.sin(angleRad)
+  const dx = point.x - centre.x
+  const dy = point.y - centre.y
+  return pointAbstrait(
+    centre.x + dx * cos - dy * sin,
+    centre.y + dx * sin + dy * cos,
+  )
+}
 
 /** Trace un arc de cercle, connaissant une extrémité, son centre et la mesure de l'angle
  * @param {Point} M Extrémité de départ de l'arc
@@ -18,10 +46,10 @@ import { rotation } from './transformations'
  * @param {string} [color = 'black'] Couleur de l'arc ou 'none' : du type 'blue' ou du type '#f15929'
  * @param {number} [opaciteDeRemplissage = 0.2] Opacité de remplissage de 0 à 1.
  * @param {string} [couleurDesHachures = 'none'] Couleur des hachures ou 'none' : du type 'blue' ou du type '#f15929' Si 'none', pas de hachures.
- * @property {string} svg Sortie au format vectoriel (SVG) que l’on peut afficher dans un navigateur
- * @property {string} svgml Sortie, à main levée, au format vectoriel (SVG) que l’on peut afficher dans un navigateur
- * @property {string} tikz Sortie au format TikZ que l’on peut utiliser dans un fichier LaTeX
- * @property {string} tikzml Sortie, à main levée, au format TikZ que l’on peut utiliser dans un fichier LaTeX
+ * @property {string} svg Sortie au format vectoriel (SVG) que l'on peut afficher dans un navigateur
+ * @property {string} svgml Sortie, à main levée, au format vectoriel (SVG) que l'on peut afficher dans un navigateur
+ * @property {string} tikz Sortie au format TikZ que l'on peut utiliser dans un fichier LaTeX
+ * @property {string} tikzml Sortie, à main levée, au format TikZ que l'on peut utiliser dans un fichier LaTeX
  * @property {string} color Couleur de l'arc ou 'none'. À associer obligatoirement à colorToLatexOrHTML().
  * @property {string} couleurDeRemplissage Couleur ou 'none'. À associer obligatoirement à colorToLatexOrHTML().
  * @property {number} opaciteDeRemplissage Opacité de remplissage de 0 à 1.
@@ -48,13 +76,13 @@ export class Arc extends ObjetMathalea2D {
   rayon: number
   angleFin: number
   azimut: number
-  pointDepart: PointAbstrait
-  centre: PointAbstrait
-  pointFinal: PointAbstrait
+  pointDepart: IPointAbstrait
+  centre: IPointAbstrait
+  pointFinal: IPointAbstrait
   constructor(
-    M: PointAbstrait,
-    omega: PointAbstrait,
-    angle: PointAbstrait | number,
+    M: IPointAbstrait,
+    omega: IPointAbstrait,
+    angle: IPointAbstrait | number,
     rayons = false,
     couleurDeRemplissage = 'none',
     color = 'black',
@@ -79,12 +107,13 @@ export class Arc extends ObjetMathalea2D {
     this.epaisseur = 1
     this.couleurDesHachures = colorToLatexOrHTML(couleurDesHachures)
     this.angle =
-      angle instanceof PointAbstrait ? angleOriente(M, omega, angle) : angle
+      typeof angle === 'number' ? angle : angleOriente(M, omega, angle)
     const medX: number[] = []
     const medY: number[] = []
     for (let ee = 1; ee < 9; ee++) {
-      medX.push(rotation(M, omega, (ee * this.angle) / 10).x)
-      medY.push(rotation(M, omega, (ee * this.angle) / 10).y)
+      const p = rotationPoint(M, omega, (ee * this.angle) / 10)
+      medX.push(p.x)
+      medY.push(p.y)
     }
     this.rayon = longueur(omega, M, 2)
     const A = pointAbstrait(omega.x + 1, omega.y)
@@ -92,7 +121,7 @@ export class Arc extends ObjetMathalea2D {
     this.angleFin = this.azimut + this.angle
     const angleSVG = angleModulo(this.angle)
 
-    this.pointFinal = rotation(M, omega, angleSVG)
+    this.pointFinal = rotationPoint(M, omega, angleSVG)
     this.bordures = [
       Math.min(M.x, this.pointFinal.x, ...medX) - 0.1,
       Math.min(M.y, this.pointFinal.y, ...medY) - 0.1,
@@ -157,7 +186,7 @@ export class Arc extends ObjetMathalea2D {
             couleurDeRemplissage: this.couleurDeRemplissage[0],
             opaciteDeRemplissage: this.opaciteDeRemplissage,
           }) +
-          `<path d="M${this.pointDepart.xSVG(coeff)} ${this.pointDepart.ySVG(coeff)} A ${this.rayon * coeff} ${this.rayon * coeff} 0 ${large} ${sweep} ${this.pointFinal.xSVG(coeff)} ${this.pointFinal.ySVG(coeff)} L ${this.centre.xSVG(coeff)} ${this.centre.ySVG(coeff)} Z" stroke="${this.color[0]}" ${this.style} id="${this.id}" fill="url(#pattern${this.id})"/>`
+          `<path d="M${this.pointDepart.x * coeff} ${-this.pointDepart.y * coeff} A ${this.rayon * coeff} ${this.rayon * coeff} 0 ${large} ${sweep} ${this.pointFinal.x * coeff} ${-this.pointFinal.y * coeff} L ${this.centre.x * coeff} ${-this.centre.y * coeff} Z" stroke="${this.color[0]}" ${this.style} id="${this.id}" fill="url(#pattern${this.id})"/>`
         )
       } else {
         if (
@@ -170,7 +199,7 @@ export class Arc extends ObjetMathalea2D {
           this.style += ` fill="${this.couleurDeRemplissage[0]}" `
           this.style += ` fill-opacity="${this.opaciteDeRemplissage}" `
         }
-        return `<path d="M${this.pointDepart.xSVG(coeff)} ${this.pointDepart.ySVG(coeff)} A ${this.rayon * coeff} ${this.rayon * coeff} 0 ${large} ${sweep} ${this.pointFinal.xSVG(coeff)} ${this.pointFinal.ySVG(coeff)} L ${this.centre.xSVG(coeff)} ${this.centre.ySVG(coeff)} Z" stroke="${this.color[0]}" ${this.style}/>`
+        return `<path d="M${this.pointDepart.x * coeff} ${-this.pointDepart.y * coeff} A ${this.rayon * coeff} ${this.rayon * coeff} 0 ${large} ${sweep} ${this.pointFinal.x * coeff} ${-this.pointFinal.y * coeff} L ${this.centre.x * coeff} ${-this.centre.y * coeff} Z" stroke="${this.color[0]}" ${this.style}/>`
       }
     } else {
       this.style = ''
@@ -207,7 +236,7 @@ export class Arc extends ObjetMathalea2D {
         this.style += ` fill="${this.couleurDeRemplissage[0]}" `
         this.style += ` fill-opacity="${this.opaciteDeRemplissage}" `
       }
-      return `<path d="M${this.pointDepart.xSVG(coeff)} ${this.pointDepart.ySVG(coeff)} A ${this.rayon * coeff} ${this.rayon * coeff} 0 ${large} ${sweep} ${this.pointFinal.xSVG(coeff)} ${this.pointFinal.ySVG(coeff)}" stroke="${this.color[0]}" ${this.style} id="${this.id}" />`
+      return `<path d="M${this.pointDepart.x * coeff} ${-this.pointDepart.y * coeff} A ${this.rayon * coeff} ${this.rayon * coeff} 0 ${large} ${sweep} ${this.pointFinal.x * coeff} ${-this.pointFinal.y * coeff}" stroke="${this.color[0]}" ${this.style} id="${this.id}" />`
     }
   }
 
@@ -288,8 +317,8 @@ export class Arc extends ObjetMathalea2D {
     const mainLevee = MainLevee.create()
     if (mainLevee != null) {
       const code = mainLevee.arc(
-        this.centre.xSVG(coeff),
-        this.centre.ySVG(coeff),
+        this.centre.x * coeff,
+        -this.centre.y * coeff,
         width,
         height,
         start > end ? end : start,
@@ -342,9 +371,9 @@ export class Arc extends ObjetMathalea2D {
 // JSDOC Validee par EE Juin 2022
 
 export function arc(
-  M: PointAbstrait,
-  Omega: PointAbstrait,
-  angle: PointAbstrait | number,
+  M: IPointAbstrait,
+  Omega: IPointAbstrait,
+  angle: IPointAbstrait | number,
   rayon = false,
   couleurDeRemplissage = 'none',
   color = 'black',
@@ -393,9 +422,22 @@ export function arcPointPointAngle(
   let anglerot
   if (angle < 0) anglerot = (angle + 180) / 2
   else anglerot = (angle - 180) / 2
-  const d = mediatrice(M, N) as Droite
-  const e = droite(N, M)
-  const f = rotation(e, N, anglerot)
+  // Droite perpendiculaire à MN, passant par le milieu I de [MN]
+  const I = pointAbstrait((M.x + N.x) / 2, (M.y + N.y) / 2)
+  const vx = N.x - M.x
+  const vy = N.y - M.y
+  // Un point J sur la perpendiculaire en I (vecteur directeur perpendiculaire à MN : (-vy, vx))
+  // (pas besoin de normaliser, la construction par deux points suffit)
+  const J = pointAbstrait(I.x - vy, I.y + vx)
+  const d = droite(I, J)
+  // Rotation de la droite (N, M) autour de N avec angle anglerot
+  // = rotation des points N et M, puis construction de la droite
+  const NRotate = rotationPoint(N, N, anglerot) // N reste fixe (centre de rotation)
+  const MRotate = rotationPoint(M, N, anglerot)
+  const f = droite(
+    pointAbstrait(NRotate.x, NRotate.y),
+    pointAbstrait(MRotate.x, MRotate.y),
+  )
   const determinant = d.a * f.b - f.a * d.b
   const Omegax = (d.b * f.c - f.b * d.c) / determinant
   const Omegay = (f.a * d.c - d.a * f.c) / determinant
@@ -425,7 +467,7 @@ export function traceCompas(
   epaisseur = 1,
   pointilles = 0,
 ) {
-  const B = rotation(A, O, -angle / 2)
+  const B = rotationPoint(A, O, -angle / 2)
   const a = arc(B, O, angle, false)
   a.epaisseur = epaisseur
   a.opacite = opacite

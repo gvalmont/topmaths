@@ -1,8 +1,10 @@
-import { codageSegments } from '../../../lib/2d/codages'
+import { codageSegments } from '../../../lib/2d/CodageSegment'
 import { droite } from '../../../lib/2d/droites'
-import { milieu, point, tracePointSurDroite } from '../../../lib/2d/points'
+import { point } from '../../../lib/2d/PointAbstrait'
 import { segmentAvecExtremites } from '../../../lib/2d/segmentsVecteurs'
 import { labelPoint, latexParCoordonnees } from '../../../lib/2d/textes'
+import { tracePointSurDroite } from '../../../lib/2d/TracePointSurDroite'
+import { milieu } from '../../../lib/2d/utilitairesPoint'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 import { functionCompare } from '../../../lib/interactif/comparisonFunctions'
 import { choice } from '../../../lib/outils/arrayOutils'
@@ -30,7 +32,10 @@ export default class EnFonctionDe extends ExerciceSimple {
     this.typeExercice = 'simple'
     this.nbQuestions = 1
     this.formatChampTexte = KeyboardType.clavierDeBaseAvecVariable
-    this.optionsChampTexte = { texteAvant: '$AB=$', texteApres: 'cm' }
+    this.optionsChampTexte = {
+      texteAvant: '$AB=$',
+      texteApres: '$\\text{ cm}$',
+    }
 
     this.compare = functionCompare
   }
@@ -126,11 +131,11 @@ export default class EnFonctionDe extends ExerciceSimple {
             objets,
           )
           // this.question += mathalea2d(Object.assign({ scale: 0.45, style: 'margin: auto' }, fixeBordures(objets)), objets)
-          this.correction = `Comme il y a $${b}$ segments de la même longueur $x$, donc  $AB=${miseEnEvidence(`${Valeur[0]}-${Valeur[1]}x`)}$ cm.`
+          this.correction = `Comme il y a $${b}$ segments de la même longueur $x$, donc  $AB=${miseEnEvidence(`${Valeur[0]}-${Valeur[1]}x`)}\\text{ cm}$.`
           this.canEnonce = this.question
-          this.canReponseACompleter = '$AB=\\ldots$ cm'
+          this.canReponseACompleter = '$AB=\\ldots\\text{ cm}$'
           if (!this.interactif) {
-            this.question += '$AB=\\ldots\\ldots$ cm'
+            this.question += '$AB=\\ldots\\ldots\\text{ cm}$'
           }
         }
         break
@@ -217,11 +222,11 @@ export default class EnFonctionDe extends ExerciceSimple {
             objets,
           )
           // this.question += mathalea2d(Object.assign({ scale: 0.45, style: 'margin: auto' }, fixeBordures(objets)), objets)
-          this.correction = `Comme il y a $${b}$ segments de la même longueur $x$, donc  $AB=${miseEnEvidence(`${Valeur[0]}+${Valeur[1]}x`)}$ cm.`
+          this.correction = `Comme il y a $${b}$ segments de la même longueur $x$, donc  $AB=${miseEnEvidence(`${Valeur[0]}+${Valeur[1]}x`)}\\text{ cm}$.`
           this.canEnonce = this.question
-          this.canReponseACompleter = '$AB=\\ldots$ cm'
+          this.canReponseACompleter = '$AB=\\ldots\\text{ cm}$'
           if (!this.interactif) {
-            this.question += '$AB=\\ldots\\ldots$ cm'
+            this.question += '$AB=\\ldots\\ldots\\text{ cm}$'
           }
         }
         break

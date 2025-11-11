@@ -1,5 +1,5 @@
 import { Figure2D } from '../Figures2D'
-import { point } from '../points'
+import { point } from '../PointAbstrait'
 import { Segment, segment } from '../segmentsVecteurs'
 
 /**

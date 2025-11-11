@@ -41,17 +41,17 @@ export default class TrouverLongueur extends ExerciceSimple {
       ? choix[a][1]
       : randint(choix[a][1] as number, choix[a][2] as number)
     const propositions2 = shuffle([
-      [`$${b}$ ${choix[a][3]}`],
-      [`$${b}$ ${choix[a][4]}`],
-      [`$${b}$ ${choix[a][5]}`],
-      [`$${b}$ ${choix[a][6]}`],
+      [`$${b}\\text{ ${choix[a][3]}}$`],
+      [`$${b}\\text{ ${choix[a][4]}}$`],
+      [`$${b}\\text{ ${choix[a][5]}}$`],
+      [`$${b}\\text{ ${choix[a][6]}}$`],
     ])
     const propositions = choice([
       [
-        `$${b}$ ${choix[a][3]}`,
-        `$${b}$ ${choix[a][4]}`,
-        `$${b}$ ${choix[a][5]}`,
-        `$${b}$ ${choix[a][6]}`,
+        `$${b}\\text{ ${choix[a][3]}}$`,
+        `$${b}\\text{ ${choix[a][4]}}$`,
+        `$${b}\\text{ ${choix[a][5]}}$`,
+        `$${b}\\text{ ${choix[a][6]}}$`,
       ],
     ])
     // this.reponse = propositions[0] Pas de this.reponse dans un qcm
@@ -91,6 +91,6 @@ export default class TrouverLongueur extends ExerciceSimple {
     this.canEnonce = `Coche la réponse possible.<br>
     La hauteur d'${choix[a][0]} est : `
     this.canReponseACompleter = qcm.texte
-    this.correction = `La hauteur d'${choix[a][0]} est $${miseEnEvidence(b)}$ ${choix[a][3]}.`
+    this.correction = `La hauteur d'${choix[a][0]} est $${miseEnEvidence(b)}\\text{ ${choix[a][3]}}$.`
   }
 }

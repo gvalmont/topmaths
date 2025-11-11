@@ -3,7 +3,6 @@ import { miseEnEvidence } from '../../../outils/embellissements'
 import SchemaEnBoite from '../../../outils/SchemaEnBoite'
 import { texNombre } from '../../../outils/texNombre'
 import Probleme from '../../Probleme'
-import { chocolats2 } from './chocolats'
 /**
  * @author Jean-Claude Lhote
  */
@@ -60,5 +59,3 @@ export default class ProblemeMultiplicatifNbParts extends Probleme {
     this.reponse = texNombre(total / nbFois, 2)
   }
 }
-
-export const listeDeProblemesMultiplicatifsNbParts = [chocolats2]

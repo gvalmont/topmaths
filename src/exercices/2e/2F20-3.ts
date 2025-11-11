@@ -3,10 +3,12 @@ import {
   graphiqueInterpole,
   imageInterpolee,
 } from '../../lib/2d/courbes'
-import { point, tracePoint } from '../../lib/2d/points'
+import { point } from '../../lib/2d/PointAbstrait'
 import { repere } from '../../lib/2d/reperes'
 import { segment } from '../../lib/2d/segmentsVecteurs'
 import { texteParPosition } from '../../lib/2d/textes'
+import { tracePoint } from '../../lib/2d/TracePoint'
+import { vide2d } from '../../lib/2d/Vide2d'
 import { approximatelyCompare } from '../../lib/interactif/comparisonFunctions'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
@@ -186,21 +188,27 @@ export default class LecturesGraphiques extends Exercice {
           texte += ajouteChampTexteMathLive(this, i)
           texteCorr = `Le minimum de $f$ est $${texNombre(minimum[1], 1)}$ et il est atteint en $x=${minimum[0]}$.<br>`
           if (this.correctionDetaillee) {
-            s[0] = segment(
-              minimum[0] * 2,
-              0,
-              minimum[0] * 2,
-              minimum[1] * 2,
-              'blue',
-            )
+            s[0] =
+              minimum[1] !== 0
+                ? segment(
+                    minimum[0] * 2,
+                    0,
+                    minimum[0] * 2,
+                    minimum[1] * 2,
+                    'blue',
+                  )
+                : vide2d()
             s[0].pointilles = 5
-            s[1] = segment(
-              minimum[0] * 2,
-              minimum[1] * 2,
-              0,
-              minimum[1] * 2,
-              'red',
-            )
+            s[1] =
+              minimum[0] !== 0
+                ? segment(
+                    minimum[0] * 2,
+                    minimum[1] * 2,
+                    0,
+                    minimum[1] * 2,
+                    'red',
+                  )
+                : vide2d()
             s[1].pointilles = 5
             s[2] = tracePoint(point(minimum[0] * 2, minimum[1] * 2), 'red')
             texteCorr += mathalea2d(
@@ -234,21 +242,27 @@ export default class LecturesGraphiques extends Exercice {
           texte += ajouteChampTexteMathLive(this, i)
           texteCorr = `Le maximum de $f$ est $${texNombre(maximum[1], 1)}$ et il est atteint en $x=${maximum[0]}$.<br>`
           if (this.correctionDetaillee) {
-            s[0] = segment(
-              maximum[0] * 2,
-              0,
-              maximum[0] * 2,
-              maximum[1] * 2,
-              'blue',
-            )
+            s[0] =
+              maximum[1] !== 0
+                ? segment(
+                    maximum[0] * 2,
+                    0,
+                    maximum[0] * 2,
+                    maximum[1] * 2,
+                    'blue',
+                  )
+                : vide2d()
             s[0].pointilles = 5
-            s[1] = segment(
-              maximum[0] * 2,
-              maximum[1] * 2,
-              0,
-              maximum[1] * 2,
-              'red',
-            )
+            s[1] =
+              maximum[0] !== 0
+                ? segment(
+                    maximum[0] * 2,
+                    maximum[1] * 2,
+                    0,
+                    maximum[1] * 2,
+                    'red',
+                  )
+                : vide2d()
             s[1].pointilles = 5
             s[2] = tracePoint(point(maximum[0] * 2, maximum[1] * 2), 'red')
             texteCorr += mathalea2d(
@@ -298,9 +312,11 @@ export default class LecturesGraphiques extends Exercice {
           texte += ajouteChampTexteMathLive(this, i)
           texteCorr = `$f(${texNombre(x0, 1)})=${texNombre(y0, 1)}$.<br>`
           if (this.correctionDetaillee) {
-            s[0] = segment(0, y0 * 2, x0 * 2, y0 * 2, 'blue')
+            s[0] =
+              x0 !== 0 ? segment(0, y0 * 2, x0 * 2, y0 * 2, 'blue') : vide2d()
             s[0].pointilles = 5
-            s[1] = segment(x0 * 2, y0 * 2, x0 * 2, 0, 'red')
+            s[1] =
+              y0 !== 0 ? segment(x0 * 2, y0 * 2, x0 * 2, 0, 'red') : vide2d()
             s[1].pointilles = 5
             s[2] = tracePoint(point(x0 * 2, y0 * 2), 'red')
             texteCorr += mathalea2d(
@@ -358,7 +374,8 @@ export default class LecturesGraphiques extends Exercice {
             if (this.correctionDetaillee) {
               s[0] = segment(-15, y0 * 2, 15, y0 * 2, 'blue')
               s[0].pointilles = 5
-              s[1] = segment(x0 * 2, y0 * 2, x0 * 2, 0, 'red')
+              s[1] =
+                y0 !== 0 ? segment(x0 * 2, y0 * 2, x0 * 2, 0, 'red') : vide2d()
               s[1].pointilles = 5
               texteCorr += mathalea2d(
                 {
@@ -416,7 +433,8 @@ export default class LecturesGraphiques extends Exercice {
             if (this.correctionDetaillee) {
               s[0] = segment(-15, y0 * 2, 15, y0 * 2, 'blue')
               s[0].pointilles = 5
-              s[1] = segment(x0 * 2, y0 * 2, x0 * 2, 0, 'red')
+              s[1] =
+                y0 !== 0 ? segment(x0 * 2, y0 * 2, x0 * 2, 0, 'red') : vide2d()
               s[1].pointilles = 5
               texteCorr += mathalea2d(
                 {
@@ -493,13 +511,16 @@ export default class LecturesGraphiques extends Exercice {
                 'red',
               )
               s[l * 2 + 1].epaisseur = 2
-              s[l * 2 + 2] = segment(
-                antecedents[l] * 2,
-                0,
-                antecedents[l] * 2,
-                y0 * 2,
-                'red',
-              )
+              s[l * 2 + 2] =
+                y0 !== 0
+                  ? segment(
+                      antecedents[l] * 2,
+                      0,
+                      antecedents[l] * 2,
+                      y0 * 2,
+                      'red',
+                    )
+                  : vide2d()
               s[l * 2 + 2].pointilles = 5
             }
             texteCorr += mathalea2d(

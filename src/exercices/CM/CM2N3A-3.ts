@@ -86,7 +86,8 @@ class ExerciceTablesSoustractions extends Exercice {
             i,
             `${texNombre(total, 0)}-${texNombre(operande, 0)}=%{champ1}`,
           )
-          texteCorr = `$${texNombre(total, 0)}-${texNombre(operande, 0)}=${texNombre(total - operande, 0)}$ donc $${texNombre(total, 0)}-${miseEnEvidence(texNombre(operande, 0))}=${texNombre(total - operande, 0)}$`
+          texteCorr = `$${texNombre(total, 0)}-${texNombre(operande, 0)}=${texNombre(total - operande, 0)}$ 
+          donc $${texNombre(total, 0)}-${texNombre(operande, 0)}=${miseEnEvidence(texNombre(total - operande, 0))}$`
           value = `${texNombre(total - operande, 0)}`
           break
       }

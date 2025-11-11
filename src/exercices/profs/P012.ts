@@ -4,6 +4,7 @@ import Exercice from '../Exercice'
 
 import { fraction } from '../../modules/fractions'
 import { gestionnaireFormulaireTexte } from '../../modules/outils'
+import { representationFraction } from '../../modules/representationsFractions'
 
 export const titre = 'Faire des camemberts pour travailler les fractions'
 
@@ -72,7 +73,8 @@ export default class Camemberts extends Exercice {
       scale: 0.5,
     }
     for (let i = 0; i < this.nbQuestions; i++) {
-      f = fraction(secteurs[i] * unites[i], secteurs[i]).representation(
+      f = representationFraction(
+        fraction(secteurs[i] * unites[i], secteurs[i]),
         0,
         0,
         2,

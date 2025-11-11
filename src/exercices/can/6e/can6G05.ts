@@ -1,11 +1,12 @@
-import { codageSegments } from '../../../lib/2d/codages'
+import { codageSegments } from '../../../lib/2d/CodageSegment'
 import { droite } from '../../../lib/2d/droites'
-import { point, tracePointSurDroite } from '../../../lib/2d/points'
+import { point } from '../../../lib/2d/PointAbstrait'
 import {
   segment,
   segmentAvecExtremites,
 } from '../../../lib/2d/segmentsVecteurs'
 import { labelPoint } from '../../../lib/2d/textes'
+import { tracePointSurDroite } from '../../../lib/2d/TracePointSurDroite'
 import { mathalea2d } from '../../../modules/mathalea2d'
 import { randint } from '../../../modules/outils'
 import ExerciceSimple from '../../ExerciceSimple'
@@ -32,7 +33,7 @@ export default class ProblemesDeLongueursInverse extends ExerciceSimple {
     this.nbQuestions = 1
     this.typeExercice = 'simple'
 
-    this.optionsChampTexte = { texteApres: ' cm' }
+    this.optionsChampTexte = { texteApres: ' $\\text{cm}$' }
   }
 
   nouvelleVersion() {
@@ -79,7 +80,7 @@ export default class ProblemesDeLongueursInverse extends ExerciceSimple {
       s2,
     )
     this.question =
-      `Sachant que $AB=${a * b * c}$ cm et que $CB=DE$, déterminer $FE$.<br>
+      `Sachant que $AB=${a * b * c}\\text{ cm}$ et que $CB=DE$, déterminer $FE$.<br>
 
     ` +
       mathalea2d(
@@ -94,7 +95,7 @@ export default class ProblemesDeLongueursInverse extends ExerciceSimple {
         objets,
       )
     this.reponse = c
-    this.correction = `Comme $CB=\\dfrac{AB}{${b}}$, alors $CB=\\dfrac{${abc}\\text{ cm}}{${b}}=${ac}$ cm.<br><br>Comme $DE=CB=${ac}$ cm et $FE=\\dfrac{DE}{${a}}$, alors $FE=\\dfrac{${ac}\\text{ cm}}{${a}}=${c}$ cm.`
+    this.correction = `Comme $CB=\\dfrac{AB}{${b}}$, alors $CB=\\dfrac{${abc}\\text{ cm}}{${b}}=${ac}\\text{ cm}$.<br><br>Comme $DE=CB=${ac}\\text{ cm}$ et $FE=\\dfrac{DE}{${a}}$, alors $FE=\\dfrac{${ac}\\text{ cm}}{${a}}=${c}\\text{ cm}$.`
     this.canEnonce = this.question
     this.canReponseACompleter = ''
   }

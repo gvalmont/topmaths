@@ -39,12 +39,17 @@ class PlacerPointsAbscissesFractionnaires extends Exercice {
 
     this.nbQuestions = 5
     this.sup = 1
+    this.sup2 = false
+    this.sup3 = true
     this.exoCustomResultat = true
     this.besoinFormulaireNumerique = [
       'Niveau de difficulté',
       4,
-      '1 : Demis, tiers ou quarts avec zéro placé\n2 : Des cinquièmes aux neuvièmes avec zéro placé \n3 : Toutes les fractions précédentes mais zéro non visible\n4 : Mélange',
-    ]
+      '1 : Demis, tiers ou quarts avec zéro placé\n2 : Des cinquièmes aux neuvièmes avec zéro placé \n3 : Toutes les fractions précédentes mais zéro non visible\n4 : Mélange\n5 : Mélange avec des nombres relatifs',
+    ] // Niveau de difficulté : 5 cf 2N10-3
+    // cf 2N10-3
+    this.besoinFormulaire2CaseACocher = ['Utiliser la notation ( )', false]
+    this.besoinFormulaire3CaseACocher = ['Correction détaillée', true]
   }
 
   nouvelleVersion() {
@@ -61,36 +66,42 @@ class PlacerPointsAbscissesFractionnaires extends Exercice {
     for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50; ) {
       let texte = ''
       let texteCorr = ''
-      let origine, num, den: number
+      let origine, num1, den1: number
       const scale = 2
       switch (typeDeQuestions[i]) {
         case 1: // Placer des demis aux quarts sur un axe
           origine = this.sup > 4 ? randint(-4, 1) : 0
-          den = randint(2, 4, tableUtilisées[0])
-          num = origine * den + randint(1, den * 4)
-          tableUtilisées[0].push(den)
+          den1 = randint(2, 4, tableUtilisées[0])
+          num1 = origine * den1 + randint(1, den1 * 4)
+          if (num1 === 0) num1 += origine + 4 === 0 ? -1 : 1 // ne pas avoir 0 comme premier nombre, pour la correction détaillée
+          tableUtilisées[0].push(den1)
           if (tableUtilisées[0].length === 3) tableUtilisées[0] = []
           break
         case 2: // Placer des cinquièmes aux neuvièmes sur un axe
           origine = this.sup > 4 ? randint(-4, 1) : 0
-          den = randint(5, 9, tableUtilisées[1])
-          num = origine * den + randint(1, den * 4)
-          tableUtilisées[1].push(den)
+          den1 = randint(5, 9, tableUtilisées[1])
+          num1 = origine * den1 + randint(1, den1 * 4)
+          if (num1 === 0) num1 += origine + 4 === 0 ? -1 : 1 // ne pas avoir 0 comme premier nombre, pour la correction détaillée
+          tableUtilisées[1].push(den1)
           if (tableUtilisées[1].length === 5) tableUtilisées[1] = []
           break
         default: // Placer des demis aux neuvièmes à partir d'un entier >=1 sur un axe
           origine = this.sup > 4 ? randint(-4, 1) : randint(1, 7)
-          den = randint(2, 9, tableUtilisées[2])
-          num = randint(origine * den + 1, (origine + 4) * den, den)
-          tableUtilisées[2].push(den)
+          den1 = randint(2, 9, tableUtilisées[2])
+          num1 = randint(origine * den1 + 1, (origine + 4) * den1, den1)
+          if (num1 === 0) num1 += origine + 4 === 0 ? -1 : 1 // ne pas avoir 0 comme premier nombre, pour la correction détaillée
+          tableUtilisées[2].push(den1)
           if (tableUtilisées[2].length === 8) tableUtilisées[2] = []
       }
 
-      const num2 = randint(origine * den + 1, (origine + 4) * den, [num, den])
-      const num3 = randint(origine * den + 1, (origine + 4) * den, [
-        num,
+      const num2 = randint(origine * den1 + 1, (origine + 4) * den1, [
+        num1,
+        den1,
+      ])
+      const num3 = randint(origine * den1 + 1, (origine + 4) * den1, [
+        num1,
         num2,
-        den,
+        den1,
       ])
 
       const label1 = lettreIndiceeDepuisChiffre(i * 3 + 1)
@@ -98,17 +109,21 @@ class PlacerPointsAbscissesFractionnaires extends Exercice {
       const label3 = lettreIndiceeDepuisChiffre(i * 3 + 3)
 
       this.goodAnswers[i] = [
-        { label: label1, x: arrondi(num / den, 4) },
-        { label: label2, x: arrondi(num2 / den, 4) },
-        { label: label3, x: arrondi(num3 / den, 4) },
+        { label: label1, x: arrondi(num1 / den1, 4) },
+        { label: label2, x: arrondi(num2 / den1, 4) },
+        { label: label3, x: arrondi(num3 / den1, 4) },
       ]
-
-      texte = `Placer les points $${label1}\\left(${fraction(num, den).texFraction}\\right)$, $~${label2}\\left(${fraction(num2, den).texFraction}\\right)$ et $~${label3}\\left(${fraction(num3, den).texFraction}\\right)$.`
+      if (this.sup2) {
+        // const s = fraction(num1, den1).ecritureAlgebrique()
+        texte = `Placer les points $${label1}\\left(${fraction(num1, den1).toLatex()}\\right)$, $~${label2}\\left(${fraction(num2, den1).toLatex()}\\right)$ et $~${label3}\\left(${fraction(num3, den1).toLatex()}\\right)$.`
+      } else {
+        texte = `Placer le point $${label1}$ d'abscisse $${fraction(num1, den1).toLatex()}$, le point $${label2}$ d'abscisse $${fraction(num2, den1).toLatex()}$ et le point $${label3}$ d'abscisse $${fraction(num3, den1).toLatex()}$.`
+      }
       const { figure, latex } = apigeomGraduatedLine({
         xMin: origine,
         xMax: origine + 4,
         scale,
-        stepBis: 1 / den,
+        stepBis: 1 / den1,
       })
       figure.options.labelAutomaticBeginsWith = label1
       figure.options.pointDescriptionWithCoordinates = false
@@ -117,12 +132,12 @@ class PlacerPointsAbscissesFractionnaires extends Exercice {
         xMin: origine,
         xMax: origine + 4,
         scale,
-        stepBis: arrondi(1 / den, 6),
+        stepBis: arrondi(1 / den1, 6),
         points: this.goodAnswers[i],
       })
       figureCorr.create('Point', {
         label: label1,
-        x: arrondi(num / den, 4),
+        x: arrondi(num1 / den1, 4),
         color: orangeMathalea,
         colorLabel: orangeMathalea,
         shape: 'x',
@@ -130,14 +145,14 @@ class PlacerPointsAbscissesFractionnaires extends Exercice {
       })
       figureCorr.create('Point', {
         label: label2,
-        x: arrondi(num2 / den, 4),
+        x: arrondi(num2 / den1, 4),
         color: orangeMathalea,
         colorLabel: orangeMathalea,
         labelDxInPixels: 0,
       })
       figureCorr.create('Point', {
         label: label3,
-        x: arrondi(num3 / den, 4),
+        x: arrondi(num3 / den1, 4),
         color: orangeMathalea,
         colorLabel: orangeMathalea,
         labelDxInPixels: 0,
@@ -165,6 +180,21 @@ class PlacerPointsAbscissesFractionnaires extends Exercice {
           texteCorr += '\\;\n' + latexCorr
           break
       }
+      // correction détaillée
+      if (this.sup3) {
+        texteCorr += context.isHtml ? '<br>' : ''
+        texteCorr += `Dans une unité, il y a $${den1}$ intervalles, donc le pas est de $\\dfrac{1}{${den1}}$.<br>`
+        if (typeDeQuestions[i] === 3 && this.sup < 5) {
+          texteCorr += `Le point $${label1}$ est entre $${origine}$ et $${origine + 4}$. $${origine}$ correspond à $${fraction(origine * den1, den1).toLatex()}$ car il faut $${den1}$ intervalles pour faire une unité donc pour $${origine}$ unités, il en faut $${origine} \\times ${den1} = ${origine * den1}$ pas.<br>`
+          texteCorr += `A partir de la graduation $${origine}$, il faut encore $${num1 - origine * den1}$ pas pour placer le point $${label1}$ car $${origine * den1}$ + $${num1 - origine * den1}$ = $${num1}$ .`
+        } else {
+          texteCorr += `Le point $${label1}$ a pour abscisse $${fraction(num1, den1).toLatex()}$, il faut donc `
+          texteCorr +=
+            num1 > 0 ? `avancer de $${num1}$ ` : `reculer de $${-num1}$ `
+          texteCorr += `pas à partir de l'origine pour placer le point $${label1}$.`
+        }
+        texteCorr += `<br>On effectue la même démarche pour les points $${label2}$ et $${label3}$.`
+      }
 
       if (context.isAmc) {
         this.autoCorrection[i] = {
@@ -186,12 +216,12 @@ class PlacerPointsAbscissesFractionnaires extends Exercice {
           ],
         }
       }
-      if (!isArrayInArray(fractionsUtilisees, [num, den])) {
+      if (!isArrayInArray(fractionsUtilisees, [num1, den1])) {
         // Si la question n'a jamais été posée, on en crée une autre
         this.listeQuestions[i] = texte
         this.listeCorrections[i] = texteCorr
         i++
-        fractionsUtilisees[i] = [num, den]
+        fractionsUtilisees[i] = [num1, den1]
       }
       cpt++
     }

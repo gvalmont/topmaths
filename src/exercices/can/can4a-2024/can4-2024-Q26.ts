@@ -1,8 +1,10 @@
-import { codageSegments } from '../../../lib/2d/codages'
+import { codageSegments } from '../../../lib/2d/CodageSegment'
 import { droite } from '../../../lib/2d/droites'
-import { milieu, point, tracePointSurDroite } from '../../../lib/2d/points'
+import { point } from '../../../lib/2d/PointAbstrait'
 import { segmentAvecExtremites } from '../../../lib/2d/segmentsVecteurs'
 import { labelPoint, latexParCoordonnees } from '../../../lib/2d/textes'
+import { tracePointSurDroite } from '../../../lib/2d/TracePointSurDroite'
+import { milieu } from '../../../lib/2d/utilitairesPoint'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 import { functionCompare } from '../../../lib/interactif/comparisonFunctions'
 import { choice } from '../../../lib/outils/arrayOutils'
@@ -25,7 +27,10 @@ export default class NomExercice extends ExerciceSimple {
     this.typeExercice = 'simple'
     this.nbQuestions = 1
     this.formatChampTexte = KeyboardType.clavierDeBase
-    this.optionsChampTexte = { texteApres: 'cm', texteAvant: '$AB=$' }
+    this.optionsChampTexte = {
+      texteApres: '$\\text{ cm}$',
+      texteAvant: '$AB=$',
+    }
 
     this.compare = functionCompare
     this.canOfficielle = false
@@ -117,11 +122,11 @@ export default class NomExercice extends ExerciceSimple {
       objets,
     )
     // this.question += mathalea2d(Object.assign({ scale: 0.45, style: 'margin: auto' }, fixeBordures(objets)), objets)
-    this.correction = `Comme il y a $${b}$ segments de la même longueur $x$, donc  $AB=${miseEnEvidence(reponse)}$ cm.`
+    this.correction = `Comme il y a $${b}$ segments de la même longueur $x$, donc  $AB=${miseEnEvidence(reponse)}\\text{ cm}$.`
     this.canEnonce = this.question
-    this.canReponseACompleter = '$AB=\\ldots$ cm'
+    this.canReponseACompleter = '$AB=\\ldots\\text{ cm}$'
     if (!this.interactif) {
-      this.question += '$AB=\\ldots$ cm'
+      this.question += '$AB=\\ldots\\text{ cm}$'
     }
   }
 }

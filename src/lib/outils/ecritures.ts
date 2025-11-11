@@ -1,17 +1,23 @@
 import { orangeMathalea } from 'apigeom/src/elements/defaultValues'
 import Decimal from 'decimal.js'
 import { equal, round } from 'mathjs'
-import { context } from '../../modules/context'
-import FractionEtendue from '../../modules/FractionEtendue'
+import type { IFractionEtendue } from '../../modules/FractionEtendue.type'
 import { fraction } from '../../modules/fractions'
 import Grandeur from '../../modules/Grandeur'
 import Hms from '../../modules/Hms'
 import { egal } from '../../modules/outils'
-import type { ReponseComplexe } from '../interactif/gestionInteractif'
+import type { AnswerValueType } from '../types'
 import { miseEnEvidence } from './embellissements'
 import { arrondi } from './nombres'
 import { lettreDepuisChiffre } from './outilString'
 import { stringNombre, texNombre } from './texNombre'
+
+// Garde de type structurel pour détecter une FractionEtendue sans import runtime
+const isFractionEtendue = (x: unknown): x is IFractionEtendue =>
+  typeof x === 'object' &&
+  x !== null &&
+  // signature minimale et stable de FractionEtendue
+  typeof (x as any).sommeFraction === 'function'
 
 /**
  * écrit le nombre, mais pas un nombre s'il est égal à 1
@@ -20,7 +26,7 @@ import { stringNombre, texNombre } from './texNombre'
  * //rienSi1(-1)+'x' -> -x
  * @author Rémi Angot et Jean-Claude Lhote pour le support des fractions
  */
-export function rienSi1(a: number | FractionEtendue | Decimal) {
+export function rienSi1(a: number | IFractionEtendue | Decimal) {
   if (typeof a === 'number') {
     if (a === 1) return ''
     if (a === -1) return '-'
@@ -32,14 +38,14 @@ export function rienSi1(a: number | FractionEtendue | Decimal) {
     return texNombre(a)
   }
   if (
-    a instanceof FractionEtendue &&
+    isFractionEtendue(a) &&
     !(a.isEqual(fraction(1, 1)) || a.isEqual(fraction(-1, 1)))
   ) {
     return a.toLatex()
   }
-  if (a instanceof FractionEtendue && a.isEqual(fraction(1, 1))) return ''
-  if (a instanceof FractionEtendue && a.isEqual(fraction(-1, 1))) return '-'
-  if (!(a instanceof FractionEtendue)) {
+  if (isFractionEtendue(a) && a.isEqual(fraction(1, 1))) return ''
+  if (isFractionEtendue(a) && a.isEqual(fraction(-1, 1))) return '-'
+  if (!isFractionEtendue(a)) {
     if (egal(a, 1)) return ''
     if (egal(a, -1)) return '-'
   }
@@ -58,7 +64,7 @@ export function rienSi1(a: number | FractionEtendue | Decimal) {
  * // rienSi0(2) -> '2'
  * @author Guillaume Valmont
  */
-export function rienSi0(a: number | FractionEtendue | Decimal) {
+export function rienSi0(a: number | IFractionEtendue | Decimal) {
   if (typeof a === 'number') {
     if (a === 0) return ''
     return texNombre(a)
@@ -67,11 +73,11 @@ export function rienSi0(a: number | FractionEtendue | Decimal) {
     if (a.isZero()) return ''
     return texNombre(a)
   }
-  if (a instanceof FractionEtendue && !a.isEqual(fraction(0, 1))) {
+  if (isFractionEtendue(a) && !a.isEqual(fraction(0, 1))) {
     return a.toLatex()
   }
-  if (a instanceof FractionEtendue && a.isEqual(fraction(0, 1))) return ''
-  if (!(a instanceof FractionEtendue)) {
+  if (isFractionEtendue(a) && a.isEqual(fraction(0, 1))) return ''
+  if (!isFractionEtendue(a)) {
     if (egal(a, 0)) return ''
   }
   if (typeof a === 'string') {
@@ -83,20 +89,21 @@ export function rienSi0(a: number | FractionEtendue | Decimal) {
 }
 
 /**
+ * @deprecated
  * Gère l'écriture de l'exposant en mode text (ne doit pas s'utiliser entre $ $)
  * Pour le mode maths (entre $ $) on utilisera tout simplement ^3 pour mettre au cube ou ^{42} pour la puissance 42.
  * @Example
- * // 'dm'+texteExposant(3)
+ * // 'dm'+texteExposant(3) -> Privilégier maintenant '$\\text{dm}^3$'
  * @author Rémi Angot
  */
-export function texteExposant(texte: string | number) {
+/* export function texteExposant(texte: string | number) {
   if (typeof texte === 'number') texte = String(texte)
   if (context.isHtml) {
     return `<sup>${texte}</sup>`
   } else {
     return `\\up{${texte}}`
   }
-}
+} */
 
 /**
  * Ajoute les parenthèses et le signe
@@ -152,13 +159,13 @@ export function ecritureNombreRelatifc(
  * //+3 ou -3
  * @author Rémi Angot et Jean-claude Lhote pour le support des fractions
  */
-export function ecritureAlgebrique(a: number | FractionEtendue | Decimal) {
+export function ecritureAlgebrique(a: number | IFractionEtendue | Decimal) {
   if (typeof a === 'string') {
     window.notify("ecritureAlgebrique() n'accepte pas les string.", {
       argument: a,
     })
     return a
-  } else if (a instanceof FractionEtendue) {
+  } else if (isFractionEtendue(a)) {
     return a.texFractionSignee
   } else if (typeof a === 'number') {
     if (a >= 0) {
@@ -186,8 +193,10 @@ export function ecritureAlgebrique(a: number | FractionEtendue | Decimal) {
  * //+3 ou -3
  * @author Rémi Angot et Jean-Claude Lhote pour le support des fractions
  */
-export function ecritureAlgebriqueSauf1(a: FractionEtendue | number | Decimal) {
-  if (a instanceof FractionEtendue) {
+export function ecritureAlgebriqueSauf1(
+  a: IFractionEtendue | number | Decimal,
+) {
+  if (isFractionEtendue(a)) {
     if (a.num === 1 && a.den === 1) return '+'
     else if (a.num === -1 && a.den === 1) return '-'
     else return a.texFractionSignee
@@ -256,7 +265,7 @@ export function signeMoinsEnEvidence(r: number, precision = 0) {
  * @return {string}
  */
 export function ecritureParentheseSiNegatif(
-  a: Decimal | number | FractionEtendue,
+  a: Decimal | number | IFractionEtendue,
 ): string {
   let result = ''
   if (a instanceof Decimal) {
@@ -271,7 +280,7 @@ export function ecritureParentheseSiNegatif(
       result = `(${texNombre(a, 8)})`
     }
     return result
-  } else if (a instanceof FractionEtendue) {
+  } else if (isFractionEtendue(a)) {
     return a.ecritureParentheseSiNegatif
   } else {
     window.notify(
@@ -289,7 +298,7 @@ export function ecritureParentheseSiNegatif(
  * @author Rémi Angot
  */
 export function ecritureParentheseSiMoins(
-  expr: string | number | FractionEtendue,
+  expr: string | number | IFractionEtendue,
 ) {
   if (typeof expr === 'string' && expr[0] === '-') return `(${expr})`
   else if (typeof expr === 'string') {
@@ -298,7 +307,7 @@ export function ecritureParentheseSiMoins(
   } else if (typeof expr === 'number' && expr < 0) {
     return `(${stringNombre(expr, 7)})`
   } else if (typeof expr === 'number') return stringNombre(expr, 7)
-  else if (expr instanceof FractionEtendue && expr.s === -1) {
+  else if (isFractionEtendue(expr) && expr.s === -1) {
     return `(${expr.texFSD})`
   } else {
     // avant on passait ici quand c'était un string sans signe - devant... c'était une mauvaise idée !
@@ -333,10 +342,10 @@ export function calculAligne(numero: number, etapes: number[]) {
  * @author Jean-Claude Lhote
  */
 export function egalOuApprox(
-  a: number | FractionEtendue | Decimal,
+  a: number | IFractionEtendue | Decimal,
   precision: number,
 ) {
-  if (a instanceof FractionEtendue) {
+  if (isFractionEtendue(a)) {
     // @ ts-expect-errors
     return egal(a.num / a.den, arrondi(a.num / a.den, precision))
       ? '='
@@ -365,8 +374,8 @@ export function egalOuApprox(
  * @param {string} [inconnue = 'x'] 'x' par défaut, mais on peut préciser autre chose.
  */
 export function reduireAxPlusB(
-  a: number | Decimal | FractionEtendue,
-  b: number | Decimal | FractionEtendue,
+  a: number | Decimal | IFractionEtendue,
+  b: number | Decimal | IFractionEtendue,
   inconnue: string = 'x',
   options: OptionsReduireAxPlusByPlusC = {},
 ) {
@@ -412,20 +421,20 @@ type OptionsReduireAxPlusByPlusC = {
  * @return {string}
  */
 export function reduireAxPlusByPlusC(
-  a: number | Decimal | FractionEtendue,
-  b: number | Decimal | FractionEtendue,
-  c: number | Decimal | FractionEtendue,
+  a: number | Decimal | IFractionEtendue,
+  b: number | Decimal | IFractionEtendue,
+  c: number | Decimal | IFractionEtendue,
   inconnueX = 'x',
   inconnueY = 'y',
   options: OptionsReduireAxPlusByPlusC = {},
 ) {
-  if (!(a instanceof Decimal) && !(a instanceof FractionEtendue)) {
+  if (!(a instanceof Decimal) && !isFractionEtendue(a)) {
     a = new Decimal(a)
   }
-  if (!(b instanceof Decimal) && !(b instanceof FractionEtendue)) {
+  if (!(b instanceof Decimal) && !isFractionEtendue(b)) {
     b = new Decimal(b)
   }
-  if (!(c instanceof Decimal) && !(c instanceof FractionEtendue)) {
+  if (!(c instanceof Decimal) && !isFractionEtendue(c)) {
     c = new Decimal(c)
   }
   let valeurDecimaleFraction: number
@@ -518,12 +527,7 @@ export function reduireAxPlusByPlusC(
     : `${termeA}${termeB}${termeC}`
   return result
 }
-/*
-valeurDecimaleFraction = new FractionEtendue(n, d).valeurDecimale
-reponse = valeurDecimaleFraction === 0 ? '' : valeurDecimaleFraction === 1 ? 'x' : valeurDecimaleFraction === -1 ? '-x' : `${new FractionEtendue(n, d).texFractionSimplifiee}x`
-valeurDecimaleFraction = new FractionEtendue(d * yA - n * xA, d).valeurDecimale
-reponse += new FractionEtendue(n, d).valeurDecimale === 0 && valeurDecimaleFraction === 0 ? '0' : valeurDecimaleFraction === 0 ? '' : `${new FractionEtendue(d * yA - n * xA, d).simplifie().texFractionSignee}`
-*/
+
 /**
  * renvoie une chaine correspondant à l'écriture réduite d'ax^3+bx^2+cx+d selon les valeurs de a, b, c et d
  * @author Jean-Claude Lhote
@@ -832,14 +836,14 @@ export function simpleDeveloppementAvecDoubleX({
  * @param a La valeur à formater
  * @returns {string} La valeur formatée pour l'affichage
  */
-export function formaterReponse(a: ReponseComplexe | undefined) {
+export function formaterReponse(a: AnswerValueType): string {
   if (Array.isArray(a)) {
     return formaterReponse(a[0])
   }
   if (typeof a === 'number' || a instanceof Decimal) {
     return `$${texNombre(a, 7)}$`
   }
-  if (a instanceof FractionEtendue) {
+  if (isFractionEtendue(a)) {
     return `$${a.texFraction}$`
   }
   if (typeof a === 'string') {

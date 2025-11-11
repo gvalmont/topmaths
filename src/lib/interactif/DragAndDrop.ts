@@ -1,8 +1,8 @@
-import type Exercice from '../../exercices/Exercice'
+import type { IExercice } from '../../lib/types'
 import { context } from '../../modules/context'
-import { shuffle } from '../outils/arrayOutils'
-import { get } from '../html/dom'
 import { messageFeedback } from '../../modules/messages'
+import { get } from '../html/dom'
+import { shuffle } from '../outils/arrayOutils'
 import { toutPourUnPoint } from './mathLive'
 
 export type Etiquette = {
@@ -373,7 +373,7 @@ function addDeleteButton(
  * @returns
  */
 export function verifDragAndDrop(
-  exercice: Exercice,
+  exercice: IExercice,
   question: number,
 ): {
   isOk: boolean
@@ -691,7 +691,7 @@ export function verifDragAndDrop(
 }
 
 class DragAndDrop {
-  exercice: Exercice
+  exercice: IExercice
   question: number
   consigne: string
   etiquettes: Etiquette[][]
@@ -704,7 +704,7 @@ class DragAndDrop {
     etiquettes,
     enonceATrous,
   }: {
-    exercice: Exercice
+    exercice: IExercice
     question: number
     consigne: string
     etiquettes: Etiquette[][]

@@ -67,7 +67,7 @@ export default class LectureGraphiqueNombreDerivee extends ExerciceSimple {
         nbre = randint(-1, 1)
         alpha = randint(-1, 1)
         beta = randint(-2, 2)
-        o = texteParPosition('O', -0.3, -0.3, 'milieu', 'black', 1)
+        o = texteParPosition('O', -0.3, -0.3, 0, 'black', 1)
         f = function (x) {
           return 2 * a * x - 2 * a * alpha
         }
@@ -133,7 +133,7 @@ export default class LectureGraphiqueNombreDerivee extends ExerciceSimple {
         nbre = randint(-1, 1)
         alpha = randint(-1, 1)
         beta = randint(-2, 2)
-        o = texteParPosition('O', -0.3, -0.3, 'milieu', 'black', 1)
+        o = texteParPosition('O', -0.3, -0.3, 0, 'black', 1)
         f = function (x) {
           return 2 * a * x - 2 * a * alpha
         }
@@ -264,7 +264,7 @@ export default class LectureGraphiqueNombreDerivee extends ExerciceSimple {
         fraction = choice(listeFractions)
         frac = new FractionEtendue(fraction[0], fraction[1])
         nbre = 0
-        o = texteParPosition('O', -0.3, -0.3, 'milieu', 'black', 1)
+        o = texteParPosition('O', -0.3, -0.3, 0, 'black', 1)
         f = function (x) {
           return frac * Math.exp(frac * x)
         }
@@ -330,7 +330,7 @@ export default class LectureGraphiqueNombreDerivee extends ExerciceSimple {
       default:
         fraction = choice(listeFractions)
         frac = new FractionEtendue(fraction[0] * -1, fraction[1])
-        o = texteParPosition('O', -0.3, -0.3, 'milieu', 'black', 1)
+        o = texteParPosition('O', -0.3, -0.3, 0, 'black', 1)
         nbre = 0
         f = function (x) {
           return frac * Math.exp(frac * x)

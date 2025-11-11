@@ -366,8 +366,8 @@ export default class ExerciceInformationsProblemes extends Exercice {
           nb3 = randint(5, 11)
           nb4 = randint(110, 230)
           nb5 = randint(128, Math.round(nb1 / 2))
-          texte += `Le village de Sainte-${quidam2}-Les-Trois-Vallées compte $${nb1}$ habitants et se situe à une altitude de $${nb2}$ m.`
-          texte += ` À $${nb3}$ km de là, le village de Saint-${quidam}-Le-Bouquetin, situé $${nb4}$ m plus haut, compte $${nb5}$ habitants de moins.<br>`
+          texte += `Le village de Sainte-${quidam2}-Les-Trois-Vallées compte $${nb1}$ habitants et se situe à une altitude de $${nb2}\\text{ m}$.`
+          texte += ` À $${nb3}\\text{ km}$ de là, le village de Saint-${quidam}-Le-Bouquetin, situé $${nb4}\\text{ m}$ plus haut, compte $${nb5}$ habitants de moins.<br>`
           switch (choixVersion) {
             case 1:
               texte += `Combien d'habitants compte le village de Saint-${quidam}-Le-Bouquetin ?`
@@ -405,7 +405,7 @@ export default class ExerciceInformationsProblemes extends Exercice {
                 `$${sp()}=${miseEnEvidence(texNombre(reponse), 'blue')}$` +
                 texteEnCouleurEtGras(' m', 'blue') +
                 '<br>'
-              texteCorr += `Le village de Saint-${quidam}-Le-Bouquetin se situe à $${miseEnEvidence(texNombre(reponse))}$ m d'altitude.`
+              texteCorr += `Le village de Saint-${quidam}-Le-Bouquetin se situe à $${miseEnEvidence(texNombre(reponse))}\\text{ m}$ d'altitude.`
               if (this.interactif) {
                 texte += ajouteChampTexteMathLive(
                   this,
@@ -979,8 +979,8 @@ export default class ExerciceInformationsProblemes extends Exercice {
           nb5 = randint(21, 42)
           reponse2 = arrondi(nb4 + nb5 / 100)
           nb4 = texNombre(nb4)
-          texte += `${quidam}, un élève de ${nb2}, de $${nb3}$ ans, mesure $${nb4}$ m. `
-          texte += `${quidam2} a $${nb1 + 2}$ ans de plus que ${quidam} et mesure $${nb5}$ cm de plus.<br>`
+          texte += `${quidam}, un élève de ${nb2}, de $${nb3}$ ans, mesure $${nb4}\\text{ m}$. `
+          texte += `${quidam2} a $${nb1 + 2}$ ans de plus que ${quidam} et mesure $${nb5}\\text{ cm}$ de plus.<br>`
 
           switch (choixVersion) {
             case 1:
@@ -1063,7 +1063,7 @@ export default class ExerciceInformationsProblemes extends Exercice {
                 `$${sp()}=${sp()}${miseEnEvidence(texNombre(reponse2), 'blue')}$` +
                 texteEnCouleurEtGras(' m', 'blue') +
                 '<br>'
-              texteCorr += `${quidam2} mesure $${miseEnEvidence(texNombre(reponse2))}$ m.`
+              texteCorr += `${quidam2} mesure $${miseEnEvidence(texNombre(reponse2))}\\text{ m}$.`
               if (this.interactif) {
                 texte += ajouteChampTexteMathLive(
                   this,
@@ -1299,8 +1299,8 @@ export default class ExerciceInformationsProblemes extends Exercice {
           nb3 = randint(7, 15)
           nb4 = randint(10, 12) + ' h ' + 5 * randint(2, 11) + ' min'
           nb5 = randint(16, 29)
-          texte += `Un livreur part de son entrepôt avec $${nb1}$ colis. Au premier arrêt, le plus près, il dépose $${nb2}$ colis. $${nb3}$ km plus loin, il livre le reste de ses colis. `
-          texte += `Ensuite, à ${nb4}, le livreur reprend la même route et retourne à l'entrepôt, à $${nb5}$ km de là.<br>`
+          texte += `Un livreur part de son entrepôt avec $${nb1}$ colis. Au premier arrêt, le plus près, il dépose $${nb2}$ colis. $${nb3}\\text{ km}$ plus loin, il livre le reste de ses colis. `
+          texte += `Ensuite, à ${nb4}, le livreur reprend la même route et retourne à l'entrepôt, à $${nb5}\\text{ km}$ de là.<br>`
 
           switch (choixVersion) {
             case 1:
@@ -1314,7 +1314,7 @@ export default class ExerciceInformationsProblemes extends Exercice {
                 `$${sp()}=${miseEnEvidence(reponse, 'blue')}$` +
                 texteEnCouleurEtGras(' km', 'blue') +
                 '<br>'
-              texteCorr += `La distance séparant l'entrepôt du premier arrêt est de $${miseEnEvidence(reponse)}$ km.`
+              texteCorr += `La distance séparant l'entrepôt du premier arrêt est de $${miseEnEvidence(reponse)}\\text{ km}$.`
               if (this.interactif) {
                 texte += ajouteChampTexteMathLive(
                   this,
@@ -1421,7 +1421,7 @@ export default class ExerciceInformationsProblemes extends Exercice {
           reponse2 = nb
           nb5 = texNombre(nb5)
 
-          texte += `Un cargo mesurant $${nb1}$ m transporte $${nb2}$ gros conteneurs de $${nb3}$ tonnes chacun ${quidam} à ${quidam2}. `
+          texte += `Un cargo mesurant $${nb1}\\text{ m}$ transporte $${nb2}$ gros conteneurs de $${nb3}$ tonnes chacun ${quidam} à ${quidam2}. `
           texte += `Ce bateau transporte aussi $${nb4}$ petits conteneurs pour une masse totale de $${nb5}$ tonnes.<br>`
 
           switch (choixVersion) {

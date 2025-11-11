@@ -1,19 +1,19 @@
+import { setReponse } from '../../lib/interactif/gestionInteractif'
+import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
 import { minToHour } from '../../lib/outils/dateEtHoraires'
+import { texteEnCouleurEtGras } from '../../lib/outils/embellissements'
+import { sp } from '../../lib/outils/outilString'
 import { prenomF, prenomM } from '../../lib/outils/Personne'
 import {
   nombreAvecEspace,
   stringNombre,
   texNombre,
 } from '../../lib/outils/texNombre'
-import Exercice from '../Exercice'
 import { context } from '../../modules/context'
-import { listeQuestionsToContenu, randint } from '../../modules/outils'
-import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
-import { setReponse } from '../../lib/interactif/gestionInteractif'
 import FractionEtendue from '../../modules/FractionEtendue'
-import { texteEnCouleurEtGras } from '../../lib/outils/embellissements'
-import { sp } from '../../lib/outils/outilString'
+import { listeQuestionsToContenu, randint } from '../../modules/outils'
+import Exercice from '../Exercice'
 
 export const dateDeModifImportante = '29/02/2024'
 export const titre = 'Problème de vitesse'
@@ -125,9 +125,9 @@ export default class VitesseDistanceTemps extends Exercice {
             texteCorr += `$v=\\dfrac{${texNombre(d)}\\times 60}{${t}}=${v}$ \n`
           } else {
             if (tHour === 0) {
-              texteCorr = `$v = \\dfrac{d}{t} = \\dfrac{${texNombre(d)}~\\text{km}}{\\dfrac{${t}}{60}~\\text{h}}$`
+              texteCorr = `$v = \\dfrac{d}{t} = \\dfrac{${texNombre(d)}\\text{ km}}{\\dfrac{${t}}{60}~\\text{h}}$`
             } else {
-              texteCorr = `$v = \\dfrac{d}{t} = \\dfrac{${texNombre(d)}~\\text{km}}{${tHour} + \\dfrac{${tMin}}{60}~\\text{h}}$`
+              texteCorr = `$v = \\dfrac{d}{t} = \\dfrac{${texNombre(d)}\\text{ km}}{${tHour} + \\dfrac{${tMin}}{60}~\\text{h}}$`
             }
           }
           texteCorr += '<br><br>'
@@ -140,7 +140,7 @@ export default class VitesseDistanceTemps extends Exercice {
           texte += this.interactif ? ' (en minutes)' : ''
           texte += ' lui faudra-t-'
           texte += `${pronomgenre}`
-          texte += `  pour aller ${destination} qui est à une distance de ${nombreAvecEspace(d)} km ?`
+          texte += `  pour aller ${destination} qui est à une distance de ${nombreAvecEspace(d)} $\\text{km}$ ?`
           if (this.sup2 === 1) {
             if (context.isHtml) {
               texteCorr = '$\\def\\arraystretch{2.5}\\begin{array}{|l|c|c|}\n'
@@ -157,7 +157,7 @@ export default class VitesseDistanceTemps extends Exercice {
             texteCorr += `$t=\\dfrac{${texNombre(d)}\\times 60}{${v}}=${t}$ \n`
           } else {
             const tFrac = new FractionEtendue(d, v)
-            texteCorr = `$t = \\dfrac{d}{v} = \\dfrac{${texNombre(d)}~\\text{km}}{${v}~\\text{km/h}} = ${tFrac.texFractionSimplifiee}~\\text{h} = ${tFrac.texFractionSimplifiee} \\times 60~\\text{min} = ${t}~\\text{min}$`
+            texteCorr = `$t = \\dfrac{d}{v} = \\dfrac{${texNombre(d)}\\text{ km}}{${v}~\\text{km/h}} = ${tFrac.texFractionSimplifiee}~\\text{h} = ${tFrac.texFractionSimplifiee} \\times 60~\\text{min} = ${t}~\\text{min}$`
           }
           texteCorr += '<br><br>'
           texteCorr += `${prenom} mettra`
@@ -188,9 +188,9 @@ export default class VitesseDistanceTemps extends Exercice {
             texteCorr += `$d=\\dfrac{${texNombre(t)}\\times ${v}}{60}=${texNombre(d)}$ \n`
           } else {
             if (tHour === 0) {
-              texteCorr = `$d = v \\times t = ${v}~\\text{km/h} \\times \\dfrac{${t}}{60}~\\text{h} = ${texNombre(d)}~\\text{km}$`
+              texteCorr = `$d = v \\times t = ${v}~\\text{km/h} \\times \\dfrac{${t}}{60}~\\text{h} = ${texNombre(d)}\\text{ km}$`
             } else {
-              texteCorr = `$d = v \\times t = ${v}~\\text{km/h} \\times \\left(${tHour} + \\dfrac{${tMin}}{60}\\right)~\\text{h} = ${texNombre(d)}~\\text{km}$`
+              texteCorr = `$d = v \\times t = ${v}~\\text{km/h} \\times \\left(${tHour} + \\dfrac{${tMin}}{60}\\right)~\\text{h} = ${texNombre(d)}\\text{ km}$`
             }
           }
           texteCorr += '<br><br>'

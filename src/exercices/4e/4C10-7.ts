@@ -48,10 +48,10 @@ export default class ExerciceOperationsRelatifs extends Exercice {
       'Type de questions',
       [
         'Nombres séparés par des tirets  :',
-        '1 : multiplication',
-        '2 : division',
-        '3 : addition',
-        '4 : soustraction',
+        '1 : Multiplication',
+        '2 : Division',
+        '3 : Addition',
+        '4 : Soustraction',
         '5 : Mélange',
       ].join('\n'),
     ]

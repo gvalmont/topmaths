@@ -163,7 +163,7 @@ function panierDeFruits(
     'verte(f)',
     'mûre(f)',
     'fruit',
-    'On choisit au hasard un fruit dans un panier contenant des pommes et des bananes.<br>',
+    'On choisit au hasard un fruit dans un panier contenant des pommes et des poires.<br>',
     'le fruit choisi',
     [nbPart1A, nbPart2A, nbPart1B, nbPart2B],
   )

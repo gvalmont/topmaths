@@ -271,17 +271,17 @@ export default class DecimalFractionPourcentage extends Exercice {
           break
         }
         case 9: {
-          texte = `Une voiture parcourt $${texNombre(num)}$ km, dont $${den[0]}$ km sur autoroute. Quel est le pourcentage du trajet fait sur autoroute ?`
+          texte = `Une voiture parcourt $${texNombre(num)}\\text{ km}$, dont $${den[0]}\\text{ km}$ sur autoroute. Quel est le pourcentage du trajet fait sur autoroute ?`
           if (num === 100) {
             reponse = den[0]
-            texteCorr = `Puisque sur $100$ km, $${den[0]}$ sont faits sur autoroute, alors la proportion du trajet sur autoroute`
+            texteCorr = `Puisque sur $100\\text{ km}$, $${den[0]}$ sont faits sur autoroute, alors la proportion du trajet sur autoroute`
           } else {
             if (num < 100) {
               reponse = den[0] * den[1]
-              texteCorr = `Sur $${texNombre(num)}$ km, $${den[0]}$ sont faits sur autoroute, alors avec $${den[1]}$ fois plus de km, on obtient $100$ km dont $${reponse}$ sur autoroute car $${den[0]}\\times${den[1]}=${reponse}$.<br>`
+              texteCorr = `Sur $${texNombre(num)}\\text{ km}$, $${den[0]}$ sont faits sur autoroute, alors avec $${den[1]}$ fois plus de km, on obtient $100\\text{ km}$ dont $${reponse}$ sur autoroute car $${den[0]}\\times${den[1]}=${reponse}$.<br>`
             } else {
               reponse = arrondi(den[0] / den[1])
-              texteCorr = `Sur $${texNombre(num)}$ km, $${den[0]}$ sont faits sur autoroute, alors avec $${den[1]}$ fois moins de km, on obtient $100$ km dont $${reponse}$ sur autoroute car $${den[0]}\\div${den[1]}=${reponse}$.<br>`
+              texteCorr = `Sur $${texNombre(num)}\\text{ km}$, $${den[0]}$ sont faits sur autoroute, alors avec $${den[1]}$ fois moins de km, on obtient $100\\text{ km}$ dont $${reponse}$ sur autoroute car $${den[0]}\\div${den[1]}=${reponse}$.<br>`
             }
             texteCorr += 'La proportion du trajet sur autoroute'
           }

@@ -279,6 +279,15 @@ export default class DivisibleDiviseurMultiple extends Exercice {
     const select2 = document.querySelector(
       `#ex${this.numeroExercice}Q${2 * i + 1}`,
     ) as HTMLSelectElement
+    if (this.answers === undefined) {
+      this.answers = {}
+    }
+    if (select1) {
+      this.answers[select1.id] = select1.value
+    }
+    if (select2) {
+      this.answers[select2.id] = select2.value
+    }
     let isOk = false
     let feedback = ''
     if (select1?.value != null && select2.value != null) {

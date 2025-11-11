@@ -1,22 +1,12 @@
-import {
-  angleOriente,
-  codageAngle,
-  codageAngleDroit,
-  markTypeArray,
-  MarqueAngle,
-} from '../../lib/2d/angles'
-import { placeLatexSurSegment } from '../../lib/2d/codages'
+import { codageAngle } from '../../lib/2d/angles'
+import { codageAngleDroit } from '../../lib/2d/CodageAngleDroit'
 import { droite } from '../../lib/2d/droites'
 import { fixeBordures } from '../../lib/2d/fixeBordures'
-import { pointAdistance } from '../../lib/2d/points'
-import { pointAbstrait } from '../../lib/2d/points-abstraits'
+import { markTypeArray, MarqueAngle } from '../../lib/2d/MarkType'
+import { placeLatexSurSegment } from '../../lib/2d/placeLatexSurSegment'
+import { pointAbstrait } from '../../lib/2d/PointAbstrait'
 import { nommePolygone } from '../../lib/2d/polygones'
-import {
-  longueur,
-  segment,
-  Segment,
-  vecteur,
-} from '../../lib/2d/segmentsVecteurs'
+import { segment, Segment } from '../../lib/2d/segmentsVecteurs'
 import { labelPoint } from '../../lib/2d/textes'
 import {
   homothetie,
@@ -27,7 +17,10 @@ import {
 import {
   triangle2points2angles,
   triangle2points2longueurs,
-} from '../../lib/2d/triangle'
+} from '../../lib/2d/triangles'
+import { angleOriente, longueur } from '../../lib/2d/utilitairesGeometriques'
+import { pointAdistance } from '../../lib/2d/utilitairesPoint'
+import { vecteur } from '../../lib/2d/Vecteur'
 import { vide2d } from '../../lib/2d/Vide2d'
 import { deuxColonnesResp } from '../../lib/format/miseEnPage'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif' // fonction qui va préparer l'analyse de la saisie
@@ -63,7 +56,7 @@ export const amcType = 'qcmMono'
 
 export const titre = 'Triangles semblables'
 export const dateDePublication = '16/05/2024' // La date de publication initiale au format 'jj/mm/aaaa' pour affichage temporaire d'un tag
-export const dateDeModifImportante = '15/04/2025'
+export const dateDeModifImportante = '06/11/2025'
 
 /**
  * Deux triangles semblables sont codés, il faut reconnaitre les côtés homologues
@@ -762,7 +755,7 @@ export default class TrianglesSemblables extends Exercice {
             { label: 'sont semblables', value: 'oui' },
             { label: 'ne sont pas semblables', value: 'non' },
           ]
-          texte += `ont pour longueurs des côtés respectifs $${texNombre(longueurAB, 1)}$ cm, $${texNombre(longueurAC, 1)}$ cm et $${texNombre(longueurBC, 1)}$ cm pour le premier triangle et $${texNombre(longueurDE, 1)}$ cm, $${texNombre(longueurDF, 1)}$ cm et $${texNombre(longueurEF, 1)}$ cm pour le second triangle.`
+          texte += `ont pour longueurs des côtés respectifs $${texNombre(longueurAB, 1)}\\text{ cm}$, $${texNombre(longueurAC, 1)}\\text{ cm}$ et $${texNombre(longueurBC, 1)}\\text{ cm}$ pour le premier triangle et $${texNombre(longueurDE, 1)}\\text{ cm}$, $${texNombre(longueurDF, 1)}\\text{ cm}$ et $${texNombre(longueurEF, 1)}\\text{ cm}$ pour le second triangle.`
           if (this.interactif) {
             texte += choixDeroulant(this, indiceChampReponse, choices) + '.'
             handleAnswers(
@@ -858,7 +851,7 @@ export default class TrianglesSemblables extends Exercice {
             { label: 'sont semblables', value: 'oui' },
             { label: 'ne sont pas semblables', value: 'non' },
           ]
-          texte += `ont pour angles respectifs $\\widehat{${A.nom + B.nom + C.nom}}$ = $\\widehat{${D.nom + E.nom + F.nom}}$ = 90°, $\\widehat{${B.nom + C.nom + A.nom}}$ = $\\widehat{${F.nom + D.nom + E.nom}}$ et $\\widehat{${C.nom + A.nom + B.nom}}$ = $\\widehat{${E.nom + F.nom + D.nom}}$.`
+          texte += `ont pour angles respectifs $\\widehat{${A.nom + F.nom + E.nom}}$ = $\\widehat{${E.nom + D.nom + C.nom}}$ = 90°, $\\widehat{${B.nom + C.nom + A.nom}}$ = $\\widehat{${F.nom + D.nom + E.nom}}$ et $\\widehat{${C.nom + A.nom + B.nom}}$ = $\\widehat{${E.nom + F.nom + D.nom}}$.`
           if (this.interactif) {
             texte += choixDeroulant(this, indiceChampReponse, choices) + '.'
             handleAnswers(
@@ -1084,7 +1077,7 @@ export default class TrianglesSemblables extends Exercice {
             { label: 'sont semblables', value: 'oui' },
             { label: 'ne sont pas semblables', value: 'non' },
           ]
-          texte += `ont pour longueurs des côtés respectifs $${texNombre(longueurAB, 1)}$ cm, $${texNombre(longueurAC, 1)}$ cm et $${texNombre(longueurBC, 1)}$ cm pour le premier triangle et $${texNombre(longueurDE, 1)}$ cm, $${texNombre(longueurDF, 1)}$ cm et $${texNombre(longueurEF, 1)}$ cm pour le second triangle.`
+          texte += `ont pour longueurs des côtés respectifs $${texNombre(longueurAB, 1)}\\text{ cm}$, $${texNombre(longueurAC, 1)}\\text{ cm}$ et $${texNombre(longueurBC, 1)}\\text{ cm}$ pour le premier triangle et $${texNombre(longueurDE, 1)}\\text{ cm}$, $${texNombre(longueurDF, 1)}\\text{ cm}$ et $${texNombre(longueurEF, 1)}\\text{ cm}$ pour le second triangle.`
           if (this.interactif) {
             texte += choixDeroulant(this, indiceChampReponse, choices) + '.'
             handleAnswers(

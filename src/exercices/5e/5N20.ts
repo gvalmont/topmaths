@@ -11,7 +11,7 @@ import FractionEtendue from '../../modules/FractionEtendue'
 import { context } from '../../modules/context'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import Exercice from '../Exercice'
-export const dateDeModifImportante = '21/04/2025'
+export const dateDeModifImportante = '09/11/2025'
 export const amcReady = true
 export const amcType = 'qcmMono'
 export const interactifReady = true
@@ -195,12 +195,11 @@ export default class ExerciceAdditionnerSoustraireFractions5ebis extends Exercic
         if (ordreDesFractions === 1) {
           texteCorr = `$${f1.texFraction}+${f2.texFraction}=`
           texte = `$${f1.texFraction}+${f2.texFraction}$`
-          if (this.level !== 6 && this.sup !== 1)  {
+          if (this.level !== 6 && this.sup !== 1) {
             texteCorr += `\\dfrac{${a}${miseEnEvidence('\\times ' + k, 'blue')}}{${b}${miseEnEvidence('\\times ' + k, 'blue')}}+${f2.texFraction}=${new FractionEtendue(a * k, b * k).texFraction}+${f2.texFraction}=`
           }
           texteCorr += `\\dfrac{${a * k}+${ecritureParentheseSiNegatif(c)}}{${d}}=${new FractionEtendue(a * k + c, d).texFraction}`
-          }
-         else {
+        } else {
           texteCorr = `$${f2.texFraction}+${f1.texFraction}=`
           texte = `$${f2.texFraction}+${f1.texFraction}$`
           if (this.level !== 6 && this.sup !== 1) {
@@ -293,32 +292,46 @@ export default class ExerciceAdditionnerSoustraireFractions5ebis extends Exercic
           /*********************************************************************************/
         }
 
-        // S'il y a 0% de numérateur négatifs alors la 
-        if (this.sup5 === 0 && f2.superieurstrict(f1)) {
-          [f2, f1] = [f1, f2]
+        // S'il y a 0% de numérateur négatifs alors on
+        // interchange f1 et f2 pour s'assurer que le résultat sera positif
+        const f2PlusGdQuef1 = this.sup5 === 0 && f2.superieurstrict(f1)
+        if (f2PlusGdQuef1) {
+          ;[f2, f1] = [f1, f2]
+          ;[a, b, c, d] = [c, d, a, b]
         }
+
         texte = `$${f1.texFraction}-${f2.texFraction}$`
         const reponse = new FractionEtendue(a * k - c, d).toLatex()
 
         texteCorr = `$${f1.texFraction}-${f2.texFraction}=`
         if (this.level !== 6 && this.sup !== 1) {
-          texteCorr += `\\dfrac{${a}${miseEnEvidence('\\times ' + k, 'blue')}}{${b}${miseEnEvidence('\\times ' + k, 'blue')}}-${f2.texFraction}=${new FractionEtendue(a * k, b * k).texFraction}-${f2.texFraction}=`
+          texteCorr += f2PlusGdQuef1
+            ? `${f1.texFraction}-\\dfrac{${c}${miseEnEvidence('\\times ' + k, 'blue')}}{${d}${miseEnEvidence('\\times ' + k, 'blue')}}=${f1.texFraction}-${new FractionEtendue(c * k, d * k).texFraction}=`
+            : `\\dfrac{${a}${miseEnEvidence('\\times ' + k, 'blue')}}{${b}${miseEnEvidence('\\times ' + k, 'blue')}}-${f2.texFraction}=${new FractionEtendue(a * k, b * k).texFraction}-${f2.texFraction}=`
         }
-        texteCorr += `\\dfrac{${a * k}-${ecritureParentheseSiNegatif(c)}}{${d}}=${new FractionEtendue(a * k - c, d).texFraction}`
-        texteCorr +=
-          a * k - c < 0 ? `=${new FractionEtendue(a * k - c, d).texFSD}$` : '$'
+        texteCorr += f2PlusGdQuef1
+          ? `\\dfrac{${a}-${ecritureParentheseSiNegatif(c * k)}}{${d}}=${new FractionEtendue(a - c * k, d).texFraction}`
+          : `\\dfrac{${a * k}-${ecritureParentheseSiNegatif(c)}}{${d}}=${new FractionEtendue(a * k - c, d).texFraction}`
+        texteCorr += f2PlusGdQuef1
+          ? a - c * k < 0
+            ? `=${new FractionEtendue(a - c * k, d).texFSD}$`
+            : '$'
+          : a * k - c < 0
+            ? `=${new FractionEtendue(a * k - c, d).texFSD}$`
+            : '$'
 
         // Est-ce que le résultat est simplifiable ?
         if (this.sup3) {
-          s = pgcd(Math.abs(a * k - c), d)
-          if (Math.abs(a * k - c) % d === 0) {
+          const numerateur = f2PlusGdQuef1 ? a - c * k : a * k - c
+          s = pgcd(Math.abs(numerateur), d)
+          if (Math.abs(numerateur) % d === 0) {
             // Si la fraction peut être un nombre entier
-            texteCorr += `$=${texNombre((a * k - c) / d, 0)}$`
+            texteCorr += `$=${texNombre(numerateur / d, 0)}$`
           } else if (s !== 1) {
-            if (a * k - c < 0) {
-              texteCorr += `$=-\\dfrac{${Math.abs(a * k - c) / s}${miseEnEvidence('\\times ' + s, 'blue')}}{${d / s}${miseEnEvidence('\\times ' + s, 'blue')}}=${new FractionEtendue((a * k - c) / s, d / s).texFractionSimplifiee}$`
+            if (numerateur < 0) {
+              texteCorr += `$=-\\dfrac{${Math.abs(numerateur) / s}${miseEnEvidence('\\times ' + s, 'blue')}}{${d / s}${miseEnEvidence('\\times ' + s, 'blue')}}=${new FractionEtendue(numerateur / s, d / s).texFractionSimplifiee}$`
             } else {
-              texteCorr += `$=\\dfrac{${(a * k - c) / s}${miseEnEvidence('\\times ' + s, 'blue')}}{${d / s}${miseEnEvidence('\\times ' + s, 'blue')}}=${new FractionEtendue((a * k - c) / s, d / s).texFractionSimplifiee}$`
+              texteCorr += `$=\\dfrac{${numerateur / s}${miseEnEvidence('\\times ' + s, 'blue')}}{${d / s}${miseEnEvidence('\\times ' + s, 'blue')}}=${new FractionEtendue(numerateur / s, d / s).texFractionSimplifiee}$`
             }
           }
         }

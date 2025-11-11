@@ -1,14 +1,19 @@
+/**
+ * ⚠️ Cet exercice est utilisé dans le test : tests/unit/5G11-10.test.ts ⚠️
+ */
+
 import Figure from 'apigeom'
 import { rotationCoord } from 'apigeom/src/elements/calculus/Coords'
 import type PointApigeom from 'apigeom/src/elements/points/Point'
 import { cercleCentrePoint } from '../../lib/2d/cercle'
-import { codageMilieu } from '../../lib/2d/codages'
+import { codageMilieu } from '../../lib/2d/CodageMilieu'
 import { colorToLatexOrHTML } from '../../lib/2d/colorToLatexOrHtml'
+import { demiDroite } from '../../lib/2d/DemiDroite'
 import { fixeBordures } from '../../lib/2d/fixeBordures'
 import { grille } from '../../lib/2d/Grille'
-import { point, Point, TracePoint } from '../../lib/2d/points'
-import { demiDroite } from '../../lib/2d/segmentsVecteurs'
+import { point, Point } from '../../lib/2d/PointAbstrait'
 import { labelPoint } from '../../lib/2d/textes'
+import { TracePoint } from '../../lib/2d/TracePoint'
 import { rotation } from '../../lib/2d/transformations'
 import figureApigeom from '../../lib/figureApigeom'
 import { choisitLettresDifferentes } from '../../lib/outils/aleatoires'
@@ -63,9 +68,11 @@ function checkDistance(points: { x: number; y: number }[]) {
  * @author Jean-Claude Lhote
  */
 class ConstrctionsSymetrieCentralePoints extends Exercice {
-  antecedents!: object[][]
+  antecedents2d!: object[][]
+  antecedentsApiGeom!: PointApigeom[][]
   labels!: string[][]
-  centres!: Point[] | PointApigeom[]
+  centres2d!: Point[]
+  centresApiGeom!: PointApigeom[]
   exoCustomResultat: boolean
   nbPoints!: number
   figuresApiGeom!: Figure[]
@@ -96,13 +103,15 @@ class ConstrctionsSymetrieCentralePoints extends Exercice {
 
     this.figuresApiGeom = []
     this.nbPoints = contraindreValeur(1, 5, this.sup2, 3) // on veut entre 1 et 5 points à construire
-    this.antecedents = []
+    this.antecedents2d = []
     this.labels = []
-    this.centres = []
+    this.centres2d = []
+    this.centresApiGeom = []
+    this.antecedentsApiGeom = []
     for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 20; ) {
       let enonce = ''
       // Ici on fait une figure Mathalea2d, pas apiGeom. On est en mode non interactif pour l'instant
-      let antecedents: Array<Point> = []
+      let antecedents2d: Array<Point> = []
       const symetriques: Point[] = []
       const objets: NestedObjetMathalea2dArray = []
       let objetsCorrection: NestedObjetMathalea2dArray = []
@@ -110,7 +119,7 @@ class ConstrctionsSymetrieCentralePoints extends Exercice {
       objets.length = 0
       objetsCorrection.length = 0
       symetriques.length = 0
-      antecedents.length = 0
+      antecedents2d.length = 0
       let nuage: { x: number; y: number }[] = []
       // On construit les points
       do {
@@ -132,14 +141,14 @@ class ConstrctionsSymetrieCentralePoints extends Exercice {
       )[0]
 
       // Les antécédents sont des points nommés
-      antecedents = shuffle(nuage).map((el, k) =>
+      antecedents2d = shuffle(nuage).map((el, k) =>
         point(el.x, el.y, this.labels[i][k]),
       ) // on mélange et on ne prendra que les this.nbPoints premiers
-      this.centres[i] = point(0, 0, labelCentre, 'above')
+      this.centres2d[i] = point(0, 0, labelCentre, 'above')
 
       const guideDroites = []
       for (let k = 0; k < this.nbPoints; k++) {
-        const guide = demiDroite(antecedents[k], this.centres[i] as Point)
+        const guide = demiDroite(antecedents2d[k], this.centres2d[i])
         guide.pointilles = 2
         guide.color = colorToLatexOrHTML(colors[k])
         guide.opacite = 0.8
@@ -158,18 +167,14 @@ class ConstrctionsSymetrieCentralePoints extends Exercice {
           : '<br>')
       const guidesArc = []
       for (let k = 0; k < this.nbPoints; k++) {
-        symetriques[k] = rotation(
-          antecedents[k] as Point,
-          this.centres[i] as Point,
-          180,
-        )
+        symetriques[k] = rotation(antecedents2d[k], this.centres2d[i], 180)
         /*  const angleOffset = choice([-12, -10, -8, 8, 10, 12])
           const ext1 = rotation(symetriques[k], middle[k], 3 * angleOffset)
           const ext2 = rotation(symetriques[k], middle[k], -angleOffset)
          */
         const guide = cercleCentrePoint(
-          this.centres[i] as Point,
-          antecedents[k],
+          this.centres2d[i],
+          antecedents2d[k],
           colors[k],
         )
         guide.pointilles = 2
@@ -186,28 +191,28 @@ class ConstrctionsSymetrieCentralePoints extends Exercice {
         objets.push(...guidesArc)
       }
       objets.push(
-        new TracePoint(this.centres[i] as Point),
-        labelPoint(this.centres[i] as Point),
+        new TracePoint(this.centres2d[i]),
+        labelPoint(this.centres2d[i]),
       )
       objetsCorrection.push(
-        new TracePoint(this.centres[i] as Point),
-        labelPoint(this.centres[i] as Point),
+        new TracePoint(this.centres2d[i]),
+        labelPoint(this.centres2d[i]),
       )
       for (let k = 0; k < this.nbPoints; k++) {
-        objets.push(new TracePoint(antecedents[k]))
+        objets.push(new TracePoint(antecedents2d[k]))
         const sym = rotation(
-          antecedents[k] as Point,
-          this.centres[i] as Point,
+          antecedents2d[k],
+          this.centres2d[i],
           180,
-          (antecedents[k] as Point).nom + "'",
+          antecedents2d[k].nom + "'",
         )
-        sym.positionLabel = positionneLabel(sym, antecedents[k])
-        antecedents[k].positionLabel = positionneLabel(antecedents[k], sym)
-        const egalite = codageMilieu(antecedents[k], sym, colors[k], marks[k])
+        sym.positionLabel = positionneLabel(sym, antecedents2d[k])
+        antecedents2d[k].positionLabel = positionneLabel(antecedents2d[k], sym)
+        const egalite = codageMilieu(antecedents2d[k], sym, colors[k], marks[k])
         const trace: TracePoint = new TracePoint(sym)
         trace.color = colorToLatexOrHTML('red')
         const labelSym = labelPoint(sym)
-        const label = labelPoint(antecedents[k])
+        const label = labelPoint(antecedents2d[k])
         objets.push(label)
         objetsCorrection.push(trace, labelSym, egalite)
       }
@@ -254,24 +259,23 @@ class ConstrctionsSymetrieCentralePoints extends Exercice {
             ],
             position: 'top',
           })
-          this.centres[i] = this.figuresApiGeom[i].create('Point', {
+          this.centresApiGeom[i] = this.figuresApiGeom[i].create('Point', {
             x: 0,
             y: 0,
             isVisible: true,
             isSelectable: true,
             label: labelCentre,
           })
-          this.antecedents[i] = []
+          this.antecedentsApiGeom[i] = []
           for (let k = 0; k < this.nbPoints; k++) {
-            ;(this.antecedents[i][k] as PointApigeom) = this.figuresApiGeom[
-              i
-            ].create('Point', {
-              x: antecedents[k].x,
-              y: antecedents[k].y,
-              isFree: false,
-              isSelectable: true,
-              label: antecedents[k].nom,
-            })
+            ;(this.antecedentsApiGeom[i][k] as PointApigeom) =
+              this.figuresApiGeom[i].create('Point', {
+                x: antecedents2d[k].x,
+                y: antecedents2d[k].y,
+                isFree: false,
+                isSelectable: true,
+                label: antecedents2d[k].nom,
+              })
           }
           if (this.sup === 1) {
             this.figuresApiGeom[i].create('Grid', {
@@ -291,8 +295,8 @@ class ConstrctionsSymetrieCentralePoints extends Exercice {
           if (this.sup === 2) {
             for (let k = 0; k < this.nbPoints; k++) {
               this.figuresApiGeom[i].create('Ray', {
-                point1: this.antecedents[i][k] as PointApigeom,
-                point2: this.centres[i] as PointApigeom,
+                point1: this.antecedentsApiGeom[i][k] as PointApigeom,
+                point2: this.centresApiGeom[i] as PointApigeom,
                 isDashed: true,
                 color: 'gray',
               })
@@ -303,10 +307,10 @@ class ConstrctionsSymetrieCentralePoints extends Exercice {
               this.figuresApiGeom[i].create('CircleCenterPoint', {
                 center: this.figuresApiGeom[i].create('Point', {
                   isVisible: false,
-                  x: this.centres[i].x,
-                  y: this.centres[i].y,
+                  x: this.centresApiGeom[i].x,
+                  y: this.centresApiGeom[i].y,
                 }),
-                point: this.antecedents[i][k] as PointApigeom,
+                point: this.antecedentsApiGeom[i][k],
                 isDashed: true,
                 color: 'gray',
               })
@@ -358,8 +362,8 @@ class ConstrctionsSymetrieCentralePoints extends Exercice {
     // on crée les bons symétriques :
     for (let k = 0; k < this.nbPoints; k++) {
       const { x, y } = rotationCoord(
-        this.antecedents[i][k] as PointApigeom,
-        this.centres[i] as PointApigeom,
+        this.antecedentsApiGeom[i][k],
+        this.centresApiGeom[i],
         180,
       )
       const elts = Array.from(this.figuresApiGeom[i].elements.values())
@@ -373,12 +377,8 @@ class ConstrctionsSymetrieCentralePoints extends Exercice {
             e.type === 'PointIntersectionLC' ||
             e.type === 'PointIntersectionCC'),
       ) as PointApigeom[]
-      const matchPoint = points.find(
-        (p) => p.label === `${this.labels[i][k]}'`,
-      ) as PointApigeom
-      const sym = points.find(
-        (p) => egal(x, p.x, 0.001) && egal(y, p.y, 0.001),
-      ) as PointApigeom
+      const matchPoint = points.find((p) => p.label === `${this.labels[i][k]}'`)
+      const sym = points.find((p) => egal(x, p.x, 0.001) && egal(y, p.y, 0.001))
       if (matchPoint != null) {
         if (egal(x, matchPoint.x, 0.001) && egal(y, matchPoint.y, 0.001)) {
           matchPoint.color = 'green'
@@ -389,7 +389,7 @@ class ConstrctionsSymetrieCentralePoints extends Exercice {
           matchPoint.color = 'red'
           matchPoint.thickness = 2
           matchPoint.colorLabel = 'green'
-          feedback += `Il y a  bien un point nommé $${(this.antecedents[i][k] as PointApigeom).label}'$ mais ce n'est pas le symétrique de $${(this.antecedents[i][k] as PointApigeom).label}$ !<br>`
+          feedback += `Il y a  bien un point nommé $${(this.antecedentsApiGeom[i][k] as PointApigeom).label}'$ mais ce n'est pas le symétrique de $${this.antecedentsApiGeom[i][k].label}$ !<br>`
           resultat.push('KO')
         }
       } else {
@@ -397,9 +397,9 @@ class ConstrctionsSymetrieCentralePoints extends Exercice {
           sym.color = 'green'
           sym.thickness = 2
           sym.colorLabel = 'red'
-          feedback += `Le symétrique de $${(this.antecedents[i][k] as PointApigeom).label}$ est bien construit mais il n'est pas nommé $${(this.antecedents[i][k] as PointApigeom).label}'$ !<br>`
+          feedback += `Le symétrique de $${this.antecedentsApiGeom[i][k].label}$ est bien construit mais il n'est pas nommé $${this.antecedentsApiGeom[i][k].label}'$ !<br>`
         } else {
-          feedback += `Il n'y a pas de point symétrique de $${(this.antecedents[i][k] as PointApigeom).label}$ et il n'y a pas de point nommé $${(this.antecedents[i][k] as PointApigeom).label}'$ !<br>`
+          feedback += `Il n'y a pas de point symétrique de $${this.antecedentsApiGeom[i][k].label}$ et il n'y a pas de point nommé $${this.antecedentsApiGeom[i][k].label}'$ !<br>`
         }
         resultat.push('KO')
       }

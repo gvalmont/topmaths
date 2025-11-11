@@ -3,7 +3,6 @@ import { miseEnEvidence } from '../../../outils/embellissements'
 import SchemaEnBoite from '../../../outils/SchemaEnBoite'
 import { texNombre } from '../../../outils/texNombre'
 import Probleme from '../../Probleme'
-import { courses4 } from './courses'
 /**
  * @author Jean-Claude Lhote
  */
@@ -44,4 +43,3 @@ Quel est le montant du remboursement ?`
     this.reponse = texNombre(data.nb2, 2)
   }
 }
-export const listeDeProblemesTransfoTransfo = [courses4]

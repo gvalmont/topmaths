@@ -1,3 +1,7 @@
+/**
+ * ⚠️ Cet exercice est utilisé dans le test : tests/e2e/tests/view/view.capytale.review.1.test.ts ⚠️
+ */
+
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 import {
   handleAnswers,

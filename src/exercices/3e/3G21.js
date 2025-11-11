@@ -1,9 +1,10 @@
 import Decimal from 'decimal.js'
-import { angleOriente } from '../../lib/2d/angles'
-import { point, pointSurSegment } from '../../lib/2d/points'
+import { point } from '../../lib/2d/PointAbstrait'
 import { polygone } from '../../lib/2d/polygones'
 import { texteParPoint } from '../../lib/2d/textes'
 import { homothetie, rotation } from '../../lib/2d/transformations'
+import { angleOriente } from '../../lib/2d/utilitairesGeometriques'
+import { pointSurSegment } from '../../lib/2d/utilitairesPoint'
 import { setReponse } from '../../lib/interactif/gestionInteractif'
 import { ajouteChampTexte } from '../../lib/interactif/questionMathLive'
 import { choice } from '../../lib/outils/arrayOutils'
@@ -179,11 +180,11 @@ export default class ReciproqueThales extends Exercice {
       if (context.isHtml) {
         if (this.sup === 1) {
           // AM,AB,AN,AC sont donnés pas de calculs intermédiaires
-          texte = `Dans la figure ci-dessous, $${s1 + s2}=${s12}$ cm, $${s1 + s3}=${s13}$ cm, $${s1 + s5}=${s15}$ cm et $${s1 + s4}=${s14}$ cm.<br>`
+          texte = `Dans la figure ci-dessous, $${s1 + s2}=${s12}\\text{ cm}$, $${s1 + s3}=${s13}\\text{ cm}$, $${s1 + s5}=${s15}\\text{ cm}$ et $${s1 + s4}=${s14}\\text{ cm}$.<br>`
           texteCorr = ''
         } else if (this.sup === 2) {
           // AN n'est pas donné, il faut le calculer avant.
-          texte = `Dans la figure ci-dessous, $${s1 + s2}=${s12}$ cm, $${s1 + s3}=${s13}$ cm, $${s3 + s5}=${s35}$ cm et $${s2 + s4}=${s24}$ cm.<br>`
+          texte = `Dans la figure ci-dessous, $${s1 + s2}=${s12}\\text{ cm}$, $${s1 + s3}=${s13}\\text{ cm}$, $${s3 + s5}=${s35}\\text{ cm}$ et $${s2 + s4}=${s24}\\text{ cm}$.<br>`
           texteCorr = ''
           if (k.isPos()) {
             // triangles imbriqués
@@ -208,12 +209,12 @@ export default class ReciproqueThales extends Exercice {
           }
         } else if (randint(1, 2) === 1) {
           // triangles imbriqués sans figure
-          texte = `$${s1}$, $${s2}$ et $${s3}$ sont trois points distincts. $${s4} \\in [${s1 + s2}]$ et $${s5} \\in [${s1 + s3}]$. <br> $${s1 + s2}=${s12}$ cm, $${s1 + s3}=${s13}$ cm, $${s1 + s4}=${s14}$ cm et $${s1 + s5}=${s15}$ cm.<br>`
+          texte = `$${s1}$, $${s2}$ et $${s3}$ sont trois points distincts. $${s4} \\in [${s1 + s2}]$ et $${s5} \\in [${s1 + s3}]$. <br> $${s1 + s2}=${s12}\\text{ cm}$, $${s1 + s3}=${s13}\\text{ cm}$, $${s1 + s4}=${s14}\\text{ cm}$ et $${s1 + s5}=${s15}\\text{ cm}$.<br>`
           texteCorr = ''
         } else {
           // papillon sans figure
           texte = `Les points $${s2}$, $${s1}$, $${s4}$ et $${s3}$, $${s1}$, $${s5}$ sont alignés dans cet ordre.<br>`
-          texte += `$${s1 + s2}=${s12}$ cm, $${s1 + s3}=${s13}$ cm, $${s1 + s4}=${s14}$ cm et $${s1 + s5}=${s15}$ cm.<br>`
+          texte += `$${s1 + s2}=${s12}\\text{ cm}$, $${s1 + s3}=${s13}\\text{ cm}$, $${s1 + s4}=${s14}\\text{ cm}$ et $${s1 + s5}=${s15}\\text{ cm}$.<br>`
           texteCorr = ''
         }
         texte += `Les droites $(${s2 + s3})$ et $(${s4 + s5})$ sont-elles parallèles ?<br>`
@@ -308,7 +309,7 @@ export default class ReciproqueThales extends Exercice {
           // niveau 1 : Calcul direct
           texte =
             '\\begin{minipage}[t]{.6 \\linewidth} \\vspace{0cm} Sur la figure ci-contre, on a  : \\begin{itemize}'
-          texte += `\n\t \\item $${s1 + s2}=${s12}$ cm \n\t \\item $${s1 + s3}=${s13}$ cm\n\t \\item $${s1 + s5}=${s15}$ cm\n\t \\item $${s1 + s4}=${s14}$ cm`
+          texte += `\n\t \\item $${s1 + s2}=${s12}\\text{ cm}$ \n\t \\item $${s1 + s3}=${s13}\\text{ cm}$\n\t \\item $${s1 + s5}=${s15}\\text{ cm}$\n\t \\item $${s1 + s4}=${s14}\\text{ cm}$`
           texte +=
             '\\end{itemize}  ' +
             `Les droites $(${s2 + s3})$ et $(${s4 + s5})$ sont-elles parallèles ?<br>` +
@@ -317,7 +318,7 @@ export default class ReciproqueThales extends Exercice {
           // niveau 2 : Calcul intermédiaire nécessaire
           texte =
             '\\begin{minipage}[t]{.6 \\linewidth} \\vspace{0cm} Sur la figure ci-contre, on a  : \\begin{itemize}'
-          texte += `\n\t \\item $${s1 + s2} = ${s12}$ cm\n\t \\item $${s1 + s3} = ${s13}$ cm\n\t \\item $${s3 + s5} = ${s35}$ cm\n\t \\item $${s2 + s4} = ${s24}$ cm`
+          texte += `\n\t \\item $${s1 + s2} = ${s12}\\text{ cm}$\n\t \\item $${s1 + s3} = ${s13}\\text{ cm}$\n\t \\item $${s3 + s5} = ${s35}\\text{ cm}$\n\t \\item $${s2 + s4} = ${s24}\\text{ cm}$`
           texte +=
             '\\end{itemize}  ' +
             `Les droites $(${s2 + s3})$ et $(${s4 + s5})$ sont-elles parallèles ?<br>` +
@@ -345,12 +346,12 @@ export default class ReciproqueThales extends Exercice {
           } // énoncé sans figure
         } else if (randint(1, 2) === 1) {
           // triangles imbriqués
-          texte = `$${s1}$, $${s2}$ et $${s3}$ sont trois point distincts. $${s4} \\in [${s1 + s2}]$ et $${s5} \\in [${s1 + s3}]$ <br> $${s1 + s2}=${s12}$ cm, $${s1 + s3}=${s13}$ cm, $${s1 + s4}=${s14}$ cm et $${s1 + s5}=${s15}$ cm.<br>`
+          texte = `$${s1}$, $${s2}$ et $${s3}$ sont trois point distincts. $${s4} \\in [${s1 + s2}]$ et $${s5} \\in [${s1 + s3}]$ <br> $${s1 + s2}=${s12}\\text{ cm}$, $${s1 + s3}=${s13}\\text{ cm}$, $${s1 + s4}=${s14}\\text{ cm}$ et $${s1 + s5}=${s15}\\text{ cm}$.<br>`
           texte += `Les droites (${s2 + s3}) et (${s4 + s5}) sont-elles parallèles ?<br>`
         } else {
           // papillon
           texte = `Les points $${s2}$, $${s1}$, $${s4}$ et $${s3}$, $${s1}$, $${s5}$ sont alignés dans cet ordre.<br>`
-          texte += `$${s1 + s2}=${s12}$ cm, $${s1 + s3}=${s13}$ cm, $${s1 + s4}=${s14}$ cm et $${s1 + s5}=${s15}$ cm.<br>`
+          texte += `$${s1 + s2}=${s12}\\text{ cm}$, $${s1 + s3}=${s13}\\text{ cm}$, $${s1 + s4}=${s14}\\text{ cm}$ et $${s1 + s5}=${s15}\\text{ cm}$.<br>`
           texte += `Les droites (${s2 + s3}) et (${s4 + s5}) sont-elles parallèles ?<br>`
         }
 

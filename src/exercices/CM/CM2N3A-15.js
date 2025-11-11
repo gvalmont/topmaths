@@ -1,8 +1,9 @@
-import Exercice from '../Exercice'
-
-import { setReponse } from '../../lib/interactif/gestionInteractif'
+import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
+import { miseEnEvidence } from '../../lib/outils/embellissements'
+import { texNombre } from '../../lib/outils/texNombre'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
+import Exercice from '../Exercice'
 
 export const titre = 'Trouver le complément à une dizaine'
 export const amcReady = true
@@ -25,9 +26,12 @@ export const refs = {
 export default class ComplementAUneDizaine extends Exercice {
   constructor() {
     super()
-
-    this.consigne = 'Calculer.'
-
+    this.besoinFormulaireNumerique = [
+      "Type d'écriture",
+      2,
+      '1 : Soustraction\n2 : Addition à trou',
+    ]
+    this.sup = 1
     this.nbCols = 2
     this.nbColsCorr = 2
   }
@@ -40,13 +44,34 @@ export default class ComplementAUneDizaine extends Exercice {
     ) {
       a = randint(2, 9) * 10
       b = randint(2, a - 11)
-      texte = `$${a}-${b}=$`
-      texteCorr = `$${a}-${b}=${a - b}$`
-      setReponse(this, i, a - b)
-      if (this.interactif) texte += ajouteChampTexteMathLive(this, i, '')
+      this.sup === 1
+        ? (texte = `$${texNombre(a)} - ${texNombre(b)}=$`)
+        : (texte = `$${texNombre(b)} + $`)
+      if ((this.sup === 1) & this.interactif) {
+        texte += ajouteChampTexteMathLive(this, i, '')
+      } else if (this.sup === 1) {
+        texte += `$ \\ldots\\ldots $`
+      }
+      if ((this.sup === 2) & this.interactif) {
+        texte += ajouteChampTexteMathLive(this, i, '')
+        texte += `$ = ${a} $`
+      } else if (this.sup === 2) {
+        texte += `$ \\ldots\\ldots = ${a} $`
+      }
 
-      if (this.listeQuestions.indexOf(texte) === -1) {
-        // Si la question n'a jamais été posée, on en crée une autre
+      this.sup === 1
+        ? (texteCorr = `$${texNombre(a)} - ${texNombre(b)} = ${miseEnEvidence(texNombre(a - b))}$`)
+        : (texteCorr = `$${texNombre(b)} + ${miseEnEvidence(texNombre(a - b))} = ${texNombre(a)}$`)
+
+      if (this.interactif) {
+        handleAnswers(this, i, {
+          reponse: {
+            value: texNombre(a - b),
+          },
+        })
+      }
+
+      if (this.questionJamaisPosee(i, a, b)) {
         this.listeQuestions[i] = texte
         this.listeCorrections[i] = texteCorr
         i++
@@ -55,5 +80,4 @@ export default class ComplementAUneDizaine extends Exercice {
     }
     listeQuestionsToContenu(this)
   }
-  // this.besoinFormulaireNumerique = ['Niveau de difficulté',3];
 }

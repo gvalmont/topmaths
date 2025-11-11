@@ -23,7 +23,7 @@ export default class ResoudreUneEquation extends ExerciceSimple {
     this.nbQuestions = 1
     this.formatChampTexte = KeyboardType.clavierEnsemble
     this.optionsDeComparaison = { ensembleDeNombres: true }
-    this.optionsChampTexte = { texteAvant: '$S=$', texteApres: '' }
+    this.optionsChampTexte = { texteAvant: '$S=$' }
   }
 
   nouvelleVersion() {

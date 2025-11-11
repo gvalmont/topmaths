@@ -1,4 +1,4 @@
-import { codageAngleDroit } from '../../lib/2d/angles'
+import { codageAngleDroit } from '../../lib/2d/CodageAngleDroit'
 import {
   droite,
   droiteParPointEtParallele,
@@ -6,8 +6,9 @@ import {
   droiteParPointEtPerpendiculaire,
   labelOnLine,
 } from '../../lib/2d/droites'
-import { point, pointIntersectionDD } from '../../lib/2d/points'
+import { point } from '../../lib/2d/PointAbstrait'
 import { rotation } from '../../lib/2d/transformations'
+import { pointIntersectionDD } from '../../lib/2d/utilitairesPoint'
 import {
   choice,
   combinaisonListesSansChangerOrdre,

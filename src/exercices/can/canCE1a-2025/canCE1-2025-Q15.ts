@@ -1,4 +1,4 @@
-import { point } from '../../../lib/2d/points'
+import { point } from '../../../lib/2d/PointAbstrait'
 import { polygone } from '../../../lib/2d/polygones'
 import { latex2d } from '../../../lib/2d/textes'
 import { propositionsQcm } from '../../../lib/interactif/qcm'
@@ -18,6 +18,7 @@ export const refs = {
  * @author Gilles Mora
 
 */
+
 export default class Can2025CE1Q15 extends ExerciceCan {
   enonce(a?: number) {
     if (a == null) {
@@ -54,28 +55,7 @@ export default class Can2025CE1Q15 extends ExerciceCan {
     objets.push(latex2d('2', 4.5, 2.5, { letterSize: 'scriptsize' }))
     objets.push(latex2d('3', 5.5, -0.5, { letterSize: 'scriptsize' }))
     objets.push(latex2d('4', 2.8, -0.5, { letterSize: 'scriptsize' }))
-
-    this.formatInteractif = 'qcm'
-
-    this.question =
-      mathalea2d(
-        {
-          xmin,
-          ymin,
-          xmax,
-          ymax,
-          pixelsParCm: 30,
-          mainlevee: false,
-          amplitude: 0.5,
-          scale: 0.6,
-          style: 'margin: auto',
-        },
-        objets,
-      ) + '<br>'
-
-    this.question += `Quelle est la figure ${a === 0 ? "n'" : ''}ayant ${a === 1 ? 'un seul axe de symétrie' : a === 0 ? 'aucun axe de symétrie' : `que $${a}$ axes de symétrie`} ?`
     this.autoCorrection[0] = {
-      enonce: this.question,
       propositions: [
         {
           texte: 'Figure 1 ',
@@ -96,7 +76,26 @@ export default class Can2025CE1Q15 extends ExerciceCan {
       ],
       options: { vertical: true },
     }
-    const qcm = propositionsQcm(this, 0)
+    this.formatInteractif = 'qcm'
+    this.consigne =
+      `Quelle est la figure ${a === 0 ? "n'" : ''}
+    ayant ${a === 1 ? 'un seul axe de symétrie' : a === 0 ? 'aucun axe de symétrie' : `que $${a}$ axes de symétrie`} ?` +
+      mathalea2d(
+        {
+          xmin,
+          ymin,
+          xmax,
+          ymax,
+          pixelsParCm: 30,
+          mainlevee: false,
+          amplitude: 0.5,
+          scale: 0.6,
+          style: 'margin: auto',
+        },
+        objets,
+      ) +
+      '<br>'
+    const monQcm = propositionsQcm(this, 0)
     this.canEnonce =
       mathalea2d(
         {
@@ -113,15 +112,14 @@ export default class Can2025CE1Q15 extends ExerciceCan {
         objets,
       ) + '<br>'
     this.canEnonce += `Quelle est la figure ayant ${a === 1 ? 'un seul axe de symétrie' : a === 0 ? 'aucun axe de symétrie' : `$${a}$ axes de symétrie`} ?`
-    this.canReponseACompleter = qcm.texte
+    this.question = `${monQcm.texte}`
     this.correction =
-      qcm.texteCorr +
-      "Le carré (figure 1) a $4$ axes de symétrie, le rectangle (figure 2) en a $2$, la maison (figure 3) en a un et la figure 4 n'en a pas."
-    this.canReponseACompleter = qcm.texte
+      monQcm.texteCorr +
+      `Le carré (figure 1) a $4$ axes de symétrie, le rectangle (figure 2) en a $2$, la maison (figure 3) en a un et la figure 4 n'en a pas.`
+    this.canReponseACompleter = monQcm.texte
   }
 
   nouvelleVersion() {
-    this.formatInteractif = 'qcm'
     this.canOfficielle ? this.enonce(1) : this.enonce()
   }
 }

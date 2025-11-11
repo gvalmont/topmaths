@@ -5,7 +5,7 @@ import {
   crochetG,
   intervalle,
 } from '../../lib/2d/intervalles'
-import { Point, point } from '../../lib/2d/points'
+import { Point, point } from '../../lib/2d/PointAbstrait'
 import { Segment, segment } from '../../lib/2d/segmentsVecteurs'
 import { Vide2d, vide2d } from '../../lib/2d/Vide2d'
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'

@@ -1,7 +1,8 @@
+import { afficheLongueurSegment } from '../../../lib/2d/afficheLongueurSegment'
 import { codageAngle } from '../../../lib/2d/angles'
-import { afficheLongueurSegment } from '../../../lib/2d/codages'
-import { point, pointAdistance } from '../../../lib/2d/points'
+import { point } from '../../../lib/2d/PointAbstrait'
 import { polygoneAvecNom } from '../../../lib/2d/polygones'
+import { pointAdistance } from '../../../lib/2d/utilitairesPoint'
 import { choice } from '../../../lib/outils/arrayOutils'
 import { texteEnCouleur } from '../../../lib/outils/embellissements'
 import { creerNomDePolygone } from '../../../lib/outils/outilString'
@@ -32,7 +33,7 @@ export default class LongueurPythagore extends ExerciceSimple {
     this.typeExercice = 'simple'
     this.nbQuestions = 1
 
-    this.optionsChampTexte = { texteApres: ' cm' }
+    this.optionsChampTexte = { texteApres: ' $\\text{cm}$' }
   }
 
   nouvelleVersion() {
@@ -79,10 +80,10 @@ export default class LongueurPythagore extends ExerciceSimple {
             },
             objets,
           ) + '<br>'
-        this.correction = ` $${nom[0]}${nom[1]}=${b}$ cm.`
+        this.correction = ` $${nom[0]}${nom[1]}=${b}\\text{ cm}$.`
         this.reponse = b
         this.canEnonce = this.question // 'Compléter'
-        this.canReponseACompleter = ` $${nom[0]}${nom[1]}=\\ldots$ cm.`
+        this.canReponseACompleter = ` $${nom[0]}${nom[1]}=\\ldots\\text{ cm}$.`
         break
       case 1: // calcul du côté vertical de l'angle droit
         objets.push(pol[0], pol[1], lc, lb, codageAngle(A, B, C))
@@ -103,10 +104,10 @@ export default class LongueurPythagore extends ExerciceSimple {
             },
             objets,
           ) + '<br>'
-        this.correction = ` $${nom[1]}${nom[2]}=${a}$ cm.`
+        this.correction = ` $${nom[1]}${nom[2]}=${a}\\text{ cm}$.`
         this.reponse = a
         this.canEnonce = this.question // 'Compléter'
-        this.canReponseACompleter = ` $${nom[1]}${nom[2]}=\\ldots$ cm.`
+        this.canReponseACompleter = ` $${nom[1]}${nom[2]}=\\ldots\\text{ cm}$.`
         break
       case 2: // calcul de l'hypoténuse.
         objets.push(pol[0], pol[1], la, lc, codageAngle(A, B, C))
@@ -128,19 +129,19 @@ export default class LongueurPythagore extends ExerciceSimple {
             objets,
           ) + '<br>'
 
-        this.correction = ` $${nom[0]}${nom[2]}=${c}$ cm.`
+        this.correction = ` $${nom[0]}${nom[2]}=${c}\\text{ cm}$.`
         this.reponse = c
         this.canEnonce = this.question // 'Compléter'
-        this.canReponseACompleter = ` $${nom[0]}${nom[2]}=\\ldots$ cm.`
+        this.canReponseACompleter = ` $${nom[0]}${nom[2]}=\\ldots\\text{ cm}$.`
         break
     }
     this.correction += texteEnCouleur(`<br> Mentalement : <br>
     Les deux valeurs sur le graphique montrent que ce triangle est semblable au triangle rectangle $3$, $4$, $5$ (qui correspond à un triplet pythagoricien bien connu). <br>
     Pour obtenir ses longueurs, il suffit de multiplier les nombres $3$, $4$, $5$ par $${texNombre(triplet[0] / 3)}$.<br>
     On obtient ainsi les longueurs : <br>
-    $\\bullet$  $${texNombre(triplet[0] / 3)}\\times 3= ${texNombre(triplet[0])}$ cm ;<br>
-    $\\bullet$  $${texNombre(triplet[0] / 3)}\\times 4= ${texNombre(triplet[1])}$ cm ;<br>
-    $\\bullet$  $${texNombre(triplet[0] / 3)}\\times 5= ${texNombre(triplet[2])}$ cm ;<br>
+    $\\bullet$  $${texNombre(triplet[0] / 3)}\\times 3= ${texNombre(triplet[0])}\\text{ cm}$ ;<br>
+    $\\bullet$  $${texNombre(triplet[0] / 3)}\\times 4= ${texNombre(triplet[1])}\\text{ cm}$ ;<br>
+    $\\bullet$  $${texNombre(triplet[0] / 3)}\\times 5= ${texNombre(triplet[2])}\\text{ cm}$ ;<br>
     On obtient la longueur manquante par déduction.`)
   }
 }

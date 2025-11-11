@@ -7,7 +7,6 @@
     "module": "esnext",
     "resolveJsonModule": true,
     "esModuleInterop": true,
-    "baseUrl": ".",
     "noImplicitAny": true,
     /**
      * Typecheck JS in `.svelte` and `.js` files by default.

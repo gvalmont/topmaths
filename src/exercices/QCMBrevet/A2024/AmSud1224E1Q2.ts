@@ -1,5 +1,5 @@
 import { fixeBordures } from '../../../lib/2d/fixeBordures'
-import { point } from '../../../lib/2d/points'
+import { point } from '../../../lib/2d/PointAbstrait'
 import { segment } from '../../../lib/2d/segmentsVecteurs'
 import { cube } from '../../../lib/3d/3dProjectionMathalea2d/CubeIso'
 import { shuffle } from '../../../lib/outils/arrayOutils'

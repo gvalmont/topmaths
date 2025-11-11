@@ -8,6 +8,7 @@ import Figure from 'apigeom'
 import type CircleFractionDiagram from 'apigeom/src/elements/diagrams/CircleFractionDiagram'
 import figureApigeom from '../../lib/figureApigeom'
 import { fraction } from '../../modules/fractions'
+import { representationFraction } from '../../modules/representationsFractions'
 export const titre = 'Représenter des fractions'
 export const amcReady = true
 export const interactifReady = true
@@ -122,7 +123,7 @@ export default class RepresenterUneFraction extends Exercice {
         const f2 = fraction(den * 3, den)
         texte += mathalea2d(
           params,
-          f2.representation(0, 0, 2, 0, 'gateau', 'white'),
+          representationFraction(f2, 0, 0, 2, 0, 'gateau', 'white'),
         )
       }
       texteCorr = `Voici sur ces dessins, coloriés en bleu, la part correspondante à la fraction $${f.texFraction}$ :<br>`
@@ -144,7 +145,15 @@ export default class RepresenterUneFraction extends Exercice {
       } else {
         texteCorr += mathalea2d(
           params,
-          f.representation(0, 0, 2, randint(0, den - 1), 'gateau', 'blue'),
+          representationFraction(
+            f,
+            0,
+            0,
+            2,
+            randint(0, den - 1),
+            'gateau',
+            'blue',
+          ),
         )
       }
       if (context.isAmc) {

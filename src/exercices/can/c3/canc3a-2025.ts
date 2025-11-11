@@ -1,3 +1,7 @@
+/**
+ * ⚠️ Cet exercice est utilisé dans le test : tests/e2e/tests/view/view.eleve.can.2025.CM2.test.ts ⚠️
+ */
+
 import Question1 from '../can6a-2025/can6a-2025-Q1'
 import Question2 from '../can6a-2025/can6a-2025-Q2'
 import Question3 from '../can6a-2025/can6a-2025-Q3'

@@ -1,10 +1,12 @@
-import { afficheLongueurSegment } from '../../../lib/2d/codages'
-import { milieu, point, tracePoint } from '../../../lib/2d/points'
+import { afficheLongueurSegment } from '../../../lib/2d/afficheLongueurSegment'
+import { point } from '../../../lib/2d/PointAbstrait'
 import {
   segment,
   segmentAvecExtremites,
 } from '../../../lib/2d/segmentsVecteurs'
 import { labelPoint, texteParPosition } from '../../../lib/2d/textes'
+import { tracePoint } from '../../../lib/2d/TracePoint'
+import { milieu } from '../../../lib/2d/utilitairesPoint'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { texNombre } from '../../../lib/outils/texNombre'

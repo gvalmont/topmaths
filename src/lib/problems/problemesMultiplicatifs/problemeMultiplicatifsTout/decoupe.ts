@@ -17,17 +17,17 @@ export function decoupe1(decimal = false): Probleme {
     ? (randint(6, 14, 10) * 2 + 1) * 0.5
     : randint(6, 15, 10)
   const data = { nbFois, facteur: longueur }
-  const enonce = `${personnage.prenom} a découpé ${nbFois} morceaux de ${objet} de longueur $${texNombre(longueur, 1)}$ cm. Quelle est la longueur totale de ${objet} utilisé ?`
-  const correction = `${personnage.prenom} a découpé ${nbFois} morceaux de ${objet} de longueur $${texNombre(longueur, 1)}$ cm. Donc, la longueur totale de ${objet} utilisé est de $${miseEnEvidence(texNombre(nbFois * longueur, 1))}$ cm.`
+  const enonce = `${personnage.prenom} a découpé ${nbFois} morceaux de ${objet} de longueur $${texNombre(longueur, 1)}\\text{ cm}$. Quelle est la longueur totale de ${objet} utilisé ?`
+  const correction = `${personnage.prenom} a découpé ${nbFois} morceaux de ${objet} de longueur $${texNombre(longueur, 1)}\\text{ cm}$. Donc, la longueur totale de ${objet} utilisé est de $${miseEnEvidence(texNombre(nbFois * longueur, 1))}\\text{ cm}$.`
   const probleme = new ProblemeMultiplicatifs('decoupe1', data)
   probleme.enonce = enonce
   probleme.correction = correction
-  probleme.schema.lignes[0].barres[0].content = `$${texNombre(longueur, 1)}$ cm`
+  probleme.schema.lignes[0].barres[0].content = `$${texNombre(longueur, 1)}\\text{ cm}$`
   probleme.schema.lignes[1].barres[0].content = `$${texNombre(nbFois * longueur, 1)}\\text{ cm}$`
   if (nbFois < 8) {
     probleme.schema.lignes[0].barres.forEach((barre, index) => {
       if (index > 0) {
-        barre.content = `$${texNombre(longueur, 1)}$ cm`
+        barre.content = `$${texNombre(longueur, 1)}\\text{ cm}$`
       }
     })
   }

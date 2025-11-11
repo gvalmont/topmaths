@@ -1,8 +1,9 @@
-import { codageAngleDroit } from '../../../lib/2d/angles'
+import { codageAngleDroit } from '../../../lib/2d/CodageAngleDroit'
 import { droite } from '../../../lib/2d/droites'
-import { milieu, point } from '../../../lib/2d/points'
+import { point } from '../../../lib/2d/PointAbstrait'
 import { polygoneAvecNom } from '../../../lib/2d/polygones'
 import { labelPoint, texteParPosition } from '../../../lib/2d/textes'
+import { milieu } from '../../../lib/2d/utilitairesPoint'
 import { texPrix } from '../../../lib/format/style'
 import { choice, shuffle } from '../../../lib/outils/arrayOutils'
 import {
@@ -20,6 +21,7 @@ import { listeQuestionsToContenu, randint } from '../../../modules/outils'
 import Exercice from '../../Exercice'
 
 import { fixeBordures } from '../../../lib/2d/fixeBordures'
+import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 import { setReponse } from '../../../lib/interactif/gestionInteractif'
 import { ajouteChampTexteMathLive } from '../../../lib/interactif/questionMathLive'
 import { arrondi } from '../../../lib/outils/nombres'
@@ -623,18 +625,18 @@ export default class SujetCAN2022Seconde extends Exercice {
             a = randint(11, 39, [10, 20, 30]) + randint(1, 9) / 10
 
             reponse = a * 1000
-            texte = `$${texNombre(a, 1)}$ m$^3=$`
+            texte = `$${texNombre(a, 1)}\\text{ m}^3=$`
 
-            texteCorr = `$1$ m$^3 = 1000$ L, donc  $${texNombre(a, 1)}$ m$^3=${texNombre(a, 1)}\\times 1000$ L $ =$ $${texNombre(a * 1000, 1)}$ L`
+            texteCorr = `$1\\text{ m}^3 = 1000$ L, donc  $${texNombre(a, 1)}\\text{ m}^3=${texNombre(a, 1)}\\times 1000$ L $ =$ $${texNombre(a * 1000, 1)}$ L`
           } else {
             a =
               randint(11, 39, [10, 20, 30]) +
               randint(11, 99, [10, 20, 30, 40, 50, 60, 70, 80, 90]) / 100
 
             reponse = a * 1000
-            texte = `$${texNombre(a, 2)}$ m$^3=$`
+            texte = `$${texNombre(a, 2)}\\text{ m}^3=$`
 
-            texteCorr = `$1$ m$^3 = 1000$ L, donc  $${texNombre(a, 2)}$ m$^3=${texNombre(a, 2)}\\times 1000$ L $ =$ $${texNombre(a * 1000, 2)}$ L`
+            texteCorr = `$1\\text{ m}^3 = 1000$ L, donc  $${texNombre(a, 2)}\\text{ m}^3=${texNombre(a, 2)}\\times 1000$ L $ =$ $${texNombre(a * 1000, 2)}$ L`
           }
 
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
@@ -677,31 +679,36 @@ export default class SujetCAN2022Seconde extends Exercice {
             a = choice([40, 60, 80, 100, 120])
             const h = randint(1, 3)
             reponse = a * h + a / 4
-            texte = `Quelle est la distance parcourue en $${h}$ h $15$ min  à $${a}$ km/h ?
+            texte = `Quelle est la distance parcourue en $${h}$ h $15$ min  à $${a}\\text{ km/h}$ ?
         `
-            texteCorr = `Dans une heure, il y a $4\\times 15$ minutes. <br>Ainsi en $15$ minutes, la distance parcourue est  $${a}\\div 4=${a / 4}$ km.<br>
-            Donc en $${h}$ h $15$ min, la distance parcourue est $(${a * h}+${a / 4})$ km, soit $${a * h + a / 4}$ km.
+            texteCorr = `Dans une heure, il y a $4\\times 15$ minutes. <br>Ainsi en $15$ minutes, la distance parcourue est  $${a}\\div 4=${a / 4}\\text{ km}$.<br>
+            Donc en $${h}$ h $15$ min, la distance parcourue est $(${a * h}+${a / 4})\\text{ km}$, soit $${a * h + a / 4}\\text{ km}$.
             `
           } else if (choix === 'b') {
             a = choice([60, 90, 120])
             const h = randint(1, 3)
             reponse = a * h + a / 6
-            texte = `Quelle est la distance parcourue en $${h}$ h $10$ min  à $${a}$ km/h ?
+            texte = `Quelle est la distance parcourue en $${h}$ h $10$ min  à $${a}\\text{ km/h}$ ?
                       `
-            texteCorr = `Dans une heure, il y a $6\\times 10$ minutes. <br>Ainsi en $10$ minutes, la distance parcourue est $${a}\\div 6=${a / 6}$ km. <br>
-            Donc en $${h}$ h $10$ min, la distance parcourue est $(${a * h}+${a / 6})$ km, soit $${a * h + a / 6}$ km.      `
+            texteCorr = `Dans une heure, il y a $6\\times 10$ minutes. <br>Ainsi en $10$ minutes, la distance parcourue est $${a}\\div 6=${a / 6}\\text{ km}$. <br>
+            Donc en $${h}$ h $10$ min, la distance parcourue est $(${a * h}+${a / 6})\\text{ km}$, soit $${a * h + a / 6}\\text{ km}$.      `
           } else {
             a = choice([30, 60, 90, 120])
             const h = randint(1, 3)
             reponse = a * h + a / 3
-            texte = `Quelle est la distance parcourue en $${h}$ h $20$ min  à $${a}$ km/h ?
+            texte = `Quelle est la distance parcourue en $${h}$ h $20$ min  à $${a}\\text{ km/h}$ ?
             `
-            texteCorr = `Dans une heure, il y a $3\\times 20$ minutes. <br>Ainsi en $20$ minutes, la distance parcourue est $${a}\\div 3=${a / 3}$ km.<br>
-            Donc en $${h}$ h $20$ min, la distance parcourue est $(${a * h}+${a / 3})$ km, soit $${a * h + a / 3}$ km.       `
+            texteCorr = `Dans une heure, il y a $3\\times 20$ minutes. <br>Ainsi en $20$ minutes, la distance parcourue est $${a}\\div 3=${a / 3}\\text{ km}$.<br>
+            Donc en $${h}$ h $20$ min, la distance parcourue est $(${a * h}+${a / 3})\\text{ km}$, soit $${a * h + a / 3}\\text{ km}$.       `
           }
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) {
-            texte += ajouteChampTexteMathLive(this, index, '') + 'km'
+            texte += ajouteChampTexteMathLive(
+              this,
+              index,
+              KeyboardType.clavierNumbers,
+              { texteApres: '$\\text{ km}$' },
+            )
           }
           nbChamps = 1
           break
@@ -848,7 +855,7 @@ export default class SujetCAN2022Seconde extends Exercice {
             if (this.interactif) {
               texte += '<br>$BC=$'
               texte += ajouteChampTexteMathLive(this, index, '', {
-                texteApres: 'cm',
+                texteApres: '$\\text{ cm}$',
               })
             }
             nbChamps = 1
@@ -1133,8 +1140,8 @@ export default class SujetCAN2022Seconde extends Exercice {
             a = randint(2, 10)
             b = a * 4
             reponse = new FractionEtendue(1, 2)
-            texte = `Soit une figure d'aire $${b}$ cm$^2$.<br>
-            Après une réduction, on obtient une figure d'aire $${a}$ cm$^2$.<br>
+            texte = `Soit une figure d'aire $${b}\\text{ cm}^2$.<br>
+            Après une réduction, on obtient une figure d'aire $${a}\\text{ cm}^2$.<br>
             Quel est le rapport de réduction ?`
 
             texteCorr = `Dans un agrandissement/réduction, quand les longueurs sont multipliées par $k$, les aires sont multipliées par $k^2$.<br>
@@ -1144,8 +1151,8 @@ export default class SujetCAN2022Seconde extends Exercice {
             a = randint(2, 10)
             b = a * 9
             reponse = new FractionEtendue(1, 3)
-            texte = `Soit une figure d'aire $${b}$ cm$^2$.<br>
-            Après une réduction, on obtient une figure d'aire $${a}$ cm$^2$.<br>
+            texte = `Soit une figure d'aire $${b}\\text{ cm}^2$.<br>
+            Après une réduction, on obtient une figure d'aire $${a}\\text{ cm}^2$.<br>
             Quel est le rapport de réduction ?`
 
             texteCorr = `Dans un agrandissement/réduction, quand les longueurs sont multipliées par $k$, les aires sont multipliées par $k^2$.<br>
@@ -1155,8 +1162,8 @@ export default class SujetCAN2022Seconde extends Exercice {
             a = randint(1, 5)
             b = a * 16
             reponse = new FractionEtendue(1, 4)
-            texte = `Soit une figure d'aire $${b}$ cm$^2$.<br>
-            Après une réduction, on obtient une figure d'aire $${a}$ cm$^2$.<br>
+            texte = `Soit une figure d'aire $${b}\\text{ cm}^2$.<br>
+            Après une réduction, on obtient une figure d'aire $${a}\\text{ cm}^2$.<br>
             Quel est le rapport de réduction ?`
 
             texteCorr = `Dans un/une agrandissement/réduction, quand les longueurs sont multipliées par $k$, les aires sont multipliées par $k^2$.<br>

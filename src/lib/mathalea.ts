@@ -1,9 +1,9 @@
 import Decimal from 'decimal.js'
 import renderMathInElement from 'katex/contrib/auto-render'
 import 'katex/dist/katex.min.css'
+import type LabyrintheElement from 'labyrinthe/src/LabyrintheElement'
 import seedrandom from 'seedrandom'
 import { get } from 'svelte/store'
-import type TypeExercice from '../exercices/Exercice'
 import Exercice from '../exercices/Exercice'
 import ExerciceSimple from '../exercices/ExerciceSimple'
 import referentielStaticCH from '../json/referentielStaticCH.json'
@@ -13,8 +13,21 @@ import {
   ajouteChampTexteMathLive,
   remplisLesBlancs,
 } from '../lib/interactif/questionMathLive'
+import {
+  type AnswerValueType,
+  type IExercice,
+  type InterfaceGlobalOptions,
+  type InterfaceParams,
+  type MathaleaSVG,
+  type Valeur,
+  type VueType,
+  convertVueType,
+  isAnswerValueType,
+  isValeur,
+} from '../lib/types'
 import FractionEtendue from '../modules/FractionEtendue'
 import Grandeur from '../modules/Grandeur'
+import Hms from '../modules/Hms'
 import { contraindreValeur } from '../modules/outils'
 import {
   showDialogForLimitedTime,
@@ -27,15 +40,7 @@ import { decrypt, isCrypted } from './components/urls'
 import { checkForServerUpdate } from './components/version'
 import { sendToCapytaleMathaleaHasChanged } from './handleCapytale'
 import { fonctionComparaison } from './interactif/comparisonFunctions'
-import {
-  handleAnswers,
-  isAnswerValueType,
-  setReponse,
-  type AnswerValueType,
-  type MathaleaSVG,
-  type ReponseComplexe,
-  type Valeur,
-} from './interactif/gestionInteractif'
+import { handleAnswers, setReponse } from './interactif/gestionInteractif'
 import type ListeDeroulanteElement from './interactif/listeDeroulante/ListeDeroulanteElement'
 import { propositionsQcm } from './interactif/qcm'
 import { shuffle } from './outils/arrayOutils'
@@ -57,12 +62,6 @@ import {
   updateURLFromReferentielLocale,
 } from './stores/languagesStore'
 import type { MySpreadsheetElement } from './tableur/MySpreadSheet'
-import {
-  convertVueType,
-  type InterfaceGlobalOptions,
-  type InterfaceParams,
-  type VueType,
-} from './types'
 import {
   isIntegerInRange0to2,
   isIntegerInRange0to4,
@@ -123,83 +122,6 @@ export async function getSvelteComponent(paramsExercice: InterfaceParams) {
     `Chargement de l'exercice ${paramsExercice.uuid} impossible. Vérifier ${directory === undefined ? '' : `${directory}/`}${filename}`,
   )
 }
-
-/**
- * Charge un svelte exercice depuis son uuid
- * Exemple : mathaleaLoadSvelteExerciceFromUuid('clavier')
- * @param {string} uuid
- * @returns {Promise<Exercice>} exercice
- */
-export async function mathaleaLoadSvelteExerciceFromUuid(uuid: string) {
-  const url = uuidToUrl[uuid as keyof typeof uuidToUrl]
-  let filename, directory, isCan
-  if (url) {
-    ;[filename, directory, isCan] = url
-      .replaceAll('\\', '/')
-      .split('/')
-      .reverse()
-  }
-  let attempts = 0
-  const maxAttempts = 3
-  while (attempts < maxAttempts) {
-    try {
-      // L'import dynamique ne peut descendre que d'un niveau, les sous-répertoires de directory ne sont pas pris en compte
-      // cf https://github.com/rollup/plugins/tree/master/packages/dynamic-import-vars#globs-only-go-one-level-deep
-      // L'extension doit-être visible donc on l'enlève avant de la remettre...
-      let module: any
-      if (isCan === 'can') {
-        if (filename != null && filename.includes('.ts')) {
-          module = await import(
-            `../exercices/can/${directory}/${filename.replace('.ts', '')}.ts`
-          )
-        } else if (filename != null) {
-          module = await import(
-            `../exercices/can/${directory}/${filename.replace('.js', '')}.js`
-          )
-        }
-      } else {
-        if (filename != null && filename.includes('.ts')) {
-          module = await import(
-            `../exercices/${directory}/${filename.replace('.ts', '')}.ts`
-          )
-        } else if (filename != null) {
-          module = await import(
-            `../exercices/${directory}/${filename.replace('.js', '')}.js`
-          )
-        }
-      }
-      const ClasseExercice = module.default
-      const exercice = new ClasseExercice()
-      ;[
-        'titre',
-        'amcReady',
-        'amcType',
-        'interactifType',
-        'interactifReady',
-      ].forEach((p) => {
-        if (module[p] !== undefined) exercice[p] = module[p]
-      })
-      ;(await exercice).id = filename
-      return exercice
-    } catch (error) {
-      attempts++
-      window.notify(`Un exercice ne s'est pas affiché ${attempts} fois`, {})
-      if (attempts === maxAttempts) {
-        console.error(
-          `Chargement de l'exercice ${uuid} impossible. Vérifier ${directory}/${filename}`,
-        )
-        console.error(error)
-        const exercice = new Exercice()
-        exercice.titre = ERROR_MESSAGE
-        exercice.nouvelleVersion = () => {}
-        return exercice
-      } else {
-        await delay(1000)
-      }
-    }
-  }
-}
-
 /**
  * Charge un exercice depuis son uuid
  * Exemple : const exercice = loadExercice('3cvng')
@@ -219,26 +141,30 @@ export async function mathaleaLoadExerciceFromUuid(uuid: string) {
   const maxAttempts = 3
   while (attempts < maxAttempts) {
     try {
-      // L'import dynamique ne peut descendre que d'un niveau, les sous-répertoires de directory ne sont pas pris en compte
-      // cf https://github.com/rollup/plugins/tree/master/packages/dynamic-import-vars#globs-only-go-one-level-deep
-      // L'extension doit-être visible donc on l'enlève avant de la remettre...
-      let module
+      // Type explicite pour le module importé
+      type ExerciceModule = {
+        default: new () => IExercice
+        titre?: string
+        amcReady?: boolean
+        amcType?: string
+        interactifType?: string
+        interactifReady?: boolean
+      }
+
+      let module: ExerciceModule | undefined
+
       if (isCan === 'can') {
-        // D'après ChatGPT, avec vite, il faudrait comme ça pour charger les modules dynamiquement
-        // un import direct avec safari plante aléatoirement, et je ne sais pas pourquoi
         const modules = import.meta.glob('../exercices/can/**/*.{ts,js}')
         if (filename != null && filename.includes('.ts')) {
           const path = `../exercices/can/${directory}/${filename.replace('.ts', '')}.ts`
           const loader = modules[path]
           if (!loader) throw new Error(`Module "${path}" introuvable`)
-          module = await loader()
-          // module = await import(`../exercices/can/${directory}/${filename.replace('.ts', '')}.ts`)
+          module = (await loader()) as ExerciceModule
         } else if (filename != null) {
           const path = `../exercices/can/${directory}/${filename.replace('.js', '')}.js`
           const loader = modules[path]
           if (!loader) throw new Error(`Module "${path}" introuvable`)
-          module = await loader()
-          // module = await import(`../exercices/can/${directory}/${filename.replace('.js', '')}.js`)
+          module = (await loader()) as ExerciceModule
         }
       } else if (isCan === 'QCMBrevet') {
         if (filename != null && filename.includes('.ts')) {
@@ -262,17 +188,24 @@ export async function mathaleaLoadExerciceFromUuid(uuid: string) {
         }
       } else {
         if (filename != null && filename.includes('.ts')) {
-          module = await import(
+          module = (await import(
             `../exercices/${directory}/${filename.replace('.ts', '')}.ts`
-          )
+          )) as ExerciceModule
         } else if (filename != null) {
-          module = await import(
+          module = (await import(
             `../exercices/${directory}/${filename.replace('.js', '')}.js`
-          )
+          )) as ExerciceModule
         }
       }
+
+      if (module === undefined) {
+        throw new Error(`Module not loaded for uuid: ${uuid}`)
+      }
+
       const ClasseExercice = module.default
       const exercice = new ClasseExercice()
+
+      // Copie des propriétés optionnelles
       ;[
         'titre',
         'amcReady',
@@ -280,10 +213,13 @@ export async function mathaleaLoadExerciceFromUuid(uuid: string) {
         'interactifType',
         'interactifReady',
       ].forEach((p) => {
-        if (module[p] !== undefined) exercice[p] = module[p]
+        if (module[p as keyof ExerciceModule] !== undefined) {
+          exercice[p] = module[p as keyof ExerciceModule]
+        }
       })
-      ;(await exercice).id = filename
-      return exercice
+
+      exercice.id = filename
+      return exercice as IExercice
     } catch (error) {
       attempts++
       const serverUpdated = await checkForServerUpdate()
@@ -302,7 +238,7 @@ export async function mathaleaLoadExerciceFromUuid(uuid: string) {
         const exercice = new Exercice()
         exercice.titre = ERROR_MESSAGE
         exercice.nouvelleVersion = () => {}
-        return exercice
+        return exercice as IExercice
       } else {
         await delay(1000)
       }
@@ -316,7 +252,7 @@ export async function mathaleaLoadExerciceFromUuid(uuid: string) {
  */
 export async function mathaleaGetExercicesFromParams(
   params: InterfaceParams[],
-): Promise<TypeExercice[]> {
+): Promise<IExercice[]> {
   const exercices = []
   for (const param of params) {
     if (
@@ -429,7 +365,7 @@ export async function mathaleaGetExercicesFromParams(
  * Applique les paramètres sauvegardés dans un élément de exercicesParams à un exercice.
  */
 export function mathaleaHandleParamOfOneExercice(
-  exercice: TypeExercice,
+  exercice: IExercice,
   param: InterfaceParams,
 ) {
   exercice.uuid = param.uuid
@@ -464,13 +400,14 @@ export function mathaleaHandleSup(param: boolean | string | number): string {
     return param
   } else if (typeof param === 'number') {
     return param.toString()
-  } else if (typeof param === 'boolean') {
+  } else {
+    // if (typeof param === 'boolean')
     return param ? 'true' : 'false'
   }
 }
 
 /**
- * sup, sup2, sup3 et sup4 permettent de sauvegarder les formulaires modifiés par
+ * sup, sup2, sup3 et sup4 permettent de sauvegarder les formulaires modifiées par
  * les enseignants pour paramétrer les exercices.
  * Ces paramètres peuvent être des strings, des booléens ou des numbers mais que ce soit dans l'url
  * ou dans le store exercicesParams, ils sont sauvegardés sous forme de string d'où cette fonction de conversion
@@ -596,8 +533,8 @@ export function mathaleaUpdateExercicesParamsFromUrl(
   let title = ''
   let iframe = ''
   let answers = ''
-  let recorder: 'capytale' | 'moodle' | 'labomep' | 'anki'
-  let done: '1'
+  let recorder: 'capytale' | 'moodle' | 'labomep' | 'anki' | undefined
+  let done: '1' | undefined
   let es
   let presMode:
     | 'liste_exos'
@@ -845,7 +782,7 @@ export function mathaleaUpdateExercicesParamsFromUrl(
  * Avec cette fonction, on permet la création de plusieurs questions.
  */
 export function mathaleaHandleExerciceSimple(
-  exercice: TypeExercice,
+  exercice: IExercice,
   isInteractif: boolean,
   numeroExercice?: number,
 ) {
@@ -894,7 +831,10 @@ export function mathaleaHandleExerciceSimple(
                   options,
                 },
               }
-            } else if (exercice.reponse instanceof Grandeur) {
+            } else if (
+              exercice.reponse instanceof Grandeur ||
+              exercice.reponse instanceof Hms
+            ) {
               reponse = {
                 reponse: { value: exercice.reponse, compare, options },
               }
@@ -910,7 +850,7 @@ export function mathaleaHandleExerciceSimple(
               }
             } else {
               window.notify(
-                `MathaleaHandleExerciceSimple n'a pas réussi à déterminer le type de exercice.reponse, dans ${exercice?.numeroExercice + 1} - ${exercice.titre} ${JSON.stringify(exercice.reponse)}, on Stingifie, mais c'est sans doute une erreur à rectifier`,
+                `MathaleaHandleExerciceSimple n'a pas réussi à déterminer le type de exercice.reponse, dans ${(exercice?.numeroExercice ?? 0) + 1} - ${exercice.titre} ${JSON.stringify(exercice.reponse)}, on Stingifie, mais c'est sans doute une erreur à rectifier`,
                 { exercice: JSON.stringify(exercice) },
               )
               reponse = {
@@ -933,7 +873,7 @@ export function mathaleaHandleExerciceSimple(
             formatInteractif: exercice.formatInteractif ?? 'mathlive',
           }) /// // PROCHAIN LA : La partie ci-dessus sera à supprimer quand il n'y aura plus de this.compare
         } else if (
-          exercice.reponse instanceof Object &&
+          isValeur(exercice.reponse) &&
           exercice.reponse.reponse != null &&
           exercice.reponse.reponse.value != null &&
           typeof exercice.reponse.reponse.value === 'string'
@@ -963,19 +903,36 @@ export function mathaleaHandleExerciceSimple(
             exercice.distracteurs.length > 0
           ) {
             exercice.distracteurs = getDistracteurs(exercice)
-            exercice.autoCorrection[i] = {
-              options: { radio: true },
-              enonce: exercice.question,
-              propositions: [
-                {
-                  texte: formaterReponse(exercice.reponse),
-                  statut: true,
-                },
-                ...exercice.distracteurs.map((distracteur) => ({
-                  texte: formaterReponse(distracteur),
-                  statut: false,
-                })),
-              ],
+            if (
+              typeof exercice.reponse === 'string' ||
+              typeof exercice.reponse === 'number' ||
+              exercice.reponse instanceof FractionEtendue ||
+              exercice.reponse instanceof Grandeur ||
+              exercice.reponse instanceof Hms ||
+              (Array.isArray(exercice.reponse) &&
+                exercice.reponse.every(
+                  (r) =>
+                    typeof r === 'string' ||
+                    typeof r === 'number' ||
+                    r instanceof FractionEtendue ||
+                    r instanceof Grandeur ||
+                    r instanceof Hms,
+                ))
+            ) {
+              exercice.autoCorrection[i] = {
+                options: { radio: true },
+                enonce: exercice.question,
+                propositions: [
+                  {
+                    texte: formaterReponse(exercice.reponse ?? ''),
+                    statut: true,
+                  },
+                  ...exercice.distracteurs.map((distracteur) => ({
+                    texte: formaterReponse(distracteur),
+                    statut: false,
+                  })),
+                ],
+              }
             }
             const qcm = propositionsQcm(exercice, i, {
               style: 'margin:0 3px 0 3px;',
@@ -1032,12 +989,17 @@ export function mathaleaHandleExerciceSimple(
             formatInteractif: 'fillInTheBlank',
           })
         } else {
-          handleAnswers(
-            exercice,
-            i,
-            { champ1: { value: exercice.reponse ?? '' } },
-            { formatInteractif: 'fillInTheBlank' },
-          )
+          if (
+            typeof exercice.reponse === 'string' ||
+            typeof exercice.reponse === 'number'
+          ) {
+            handleAnswers(
+              exercice,
+              i,
+              { champ1: { value: exercice.reponse ?? '' } },
+              { formatInteractif: 'fillInTheBlank' },
+            )
+          }
         }
       }
       exercice.listeCorrections.push(exercice.correction ?? '')
@@ -1061,7 +1023,7 @@ export function getDistracteurs(
 ): (string | number)[] {
   const distracteursUniques = [...new Set(exerciceSimple.distracteurs)]
   const distracteursNonSolutions = distracteursUniques.filter((distracteur) => {
-    const reponse: ReponseComplexe | undefined = exerciceSimple.reponse
+    const reponse: AnswerValueType | Valeur | undefined = exerciceSimple.reponse
     if (reponse == null) {
       return true // Si pas de réponse, on garde tous les distracteurs
     }
@@ -1245,6 +1207,34 @@ function log(message: string) {
   // console.log(message)
 }
 
+/**
+ * Attend qu'un élément du DOM remplisse une condition, ou time out
+ * @param {() => boolean} conditionFn - fonction qui retourne true quand l'élément est prêt
+ * @param {number} timeout - durée max en ms
+ * @param {number} interval - fréquence de vérification en ms
+ */
+function waitFor(
+  conditionFn: () => boolean,
+  timeout = 2000,
+  interval = 50,
+  trace: string = '',
+) {
+  return new Promise((resolve, reject) => {
+    const start = Date.now()
+
+    function check() {
+      if (conditionFn()) {
+        resolve(true)
+      } else if (Date.now() - start > timeout) {
+        reject(new Error('Timeout waiting for condition:' + trace))
+      } else {
+        setTimeout(check, interval)
+      }
+    }
+
+    check()
+  })
+}
 export function mathaleaWriteStudentPreviousAnswers(answers?: {
   [key: string]: string
 }): Promise<Boolean>[] {
@@ -1285,8 +1275,19 @@ export function mathaleaWriteStudentPreviousAnswers(answers?: {
             document.dispatchEvent(event)
             const time = window.performance.now()
             log(`duration ${answer}: ${time - starttime}`)
-            resolve(true)
+            // ne pas resolve ici si tu veux attendre waitFor
+            return waitFor(
+              () => {
+                const el = document.querySelector('#' + answer)
+                if (!el) return false // l'élément n'existe pas encore
+                return el?.children.length >= 1
+              },
+              5000,
+              100,
+              '#' + answer,
+            )
           })
+          .then(() => resolve(true))
           .catch((reason) => {
             console.error(reason)
             window.notify(`Erreur dans la réponse ${answer} : ${reason}`, {})
@@ -1446,6 +1447,27 @@ export function mathaleaWriteStudentPreviousAnswers(answers?: {
           })
       })
       promiseAnswers.push(p)
+    } else if (answer.startsWith('labyrintheEx')) {
+      const p = new Promise<Boolean>((resolve) => {
+        waitForElement('#' + answer)
+          .then(() => {
+            const labyrinthe = document.querySelector(
+              `#${answer}`,
+            ) as LabyrintheElement
+            if (labyrinthe !== null) {
+              labyrinthe.state = answers[answer]
+              const time = window.performance.now()
+              log(`duration ${answer}: ${time - starttime}`)
+              resolve(true)
+            }
+          })
+          .catch((reason) => {
+            console.error(reason)
+            window.notify(`Erreur dans la réponse ${answer} : ${reason}`, {})
+            resolve(true)
+          })
+      })
+      promiseAnswers.push(p)
     } else {
       const p = new Promise<Boolean>((resolve) => {
         waitForElement(`[id$='${answer}']`)
@@ -1501,9 +1523,8 @@ export async function getExercisesFromExercicesParams() {
     if (isStatic(paramsExercice.uuid) || isSvelte(paramsExercice.uuid)) {
       continue
     }
-    const exercise: TypeExercice = await mathaleaLoadExerciceFromUuid(
-      paramsExercice.uuid,
-    )
+    const exercise = await mathaleaLoadExerciceFromUuid(paramsExercice.uuid)
+    if (!exercise) continue
     mathaleaHandleParamOfOneExercice(exercise, paramsExercice)
     exercise.duration = paramsExercice.duration ?? 10
     exercises.push(exercise)

@@ -1,18 +1,18 @@
+import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 import { choice } from '../../../lib/outils/arrayOutils'
 import {
   ecritureAlgebrique,
+  ecritureAlgebriqueSauf1,
   ecritureParentheseSiNegatif,
   reduireAxPlusB,
   reduirePolynomeDegre3,
   rienSi1,
-  ecritureAlgebriqueSauf1,
 } from '../../../lib/outils/ecritures'
+import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { signe } from '../../../lib/outils/nombres'
 import { texNombre } from '../../../lib/outils/texNombre'
-import ExerciceSimple from '../../ExerciceSimple'
 import { randint } from '../../../modules/outils'
-import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
-import { miseEnEvidence } from '../../../lib/outils/embellissements'
+import ExerciceSimple from '../../ExerciceSimple'
 
 export const titre = 'Réduire une expression littérale'
 export const interactifReady = true
@@ -38,7 +38,8 @@ export default class ReduireExp extends ExerciceSimple {
     super()
     this.typeExercice = 'simple'
     this.nbQuestions = 1
-    this.formatChampTexte = KeyboardType.clavierDeBaseAvecX
+    this.formatChampTexte =
+      KeyboardType.clavierDeBaseAvecFractionPuissanceCrochets
     this.optionsChampTexte = { texteAvant: '<br>' }
   }
 

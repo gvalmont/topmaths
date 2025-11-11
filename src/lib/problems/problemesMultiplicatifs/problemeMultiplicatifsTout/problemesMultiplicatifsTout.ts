@@ -1,16 +1,8 @@
 import { randint } from '../../../../modules/outils'
+import { miseEnEvidence } from '../../../outils/embellissements'
 import SchemaEnBoite from '../../../outils/SchemaEnBoite'
 import { texNombre } from '../../../outils/texNombre'
 import Probleme from '../../Probleme'
-import { coureur1 } from './coureur'
-import { coureur2 } from './coureur2'
-import { cinema } from './cinema'
-import { decoupe1 } from './decoupe'
-import { gateaux1 } from './gateaux'
-import { papier } from './papier'
-import { imprimante } from './imprimante'
-import { cantine } from './cantine'
-import { miseEnEvidence } from '../../../outils/embellissements'
 /**
  * @author Jean-Claude Lhote
  */
@@ -82,14 +74,3 @@ export default class ProblemeMultiplicatifs extends Probleme {
     this.reponse = texNombre(data.nbFois * data.facteur, 4)
   }
 }
-
-export const listeDeProblemesMultiplicatifs = [
-  gateaux1,
-  decoupe1,
-  coureur1,
-  coureur2,
-  cinema,
-  papier,
-  imprimante,
-  cantine,
-]

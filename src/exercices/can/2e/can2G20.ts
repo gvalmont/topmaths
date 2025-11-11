@@ -1,8 +1,11 @@
+import { point } from '../../../lib/2d/PointAbstrait'
+import { tracePoint } from '../../../lib/2d/TracePoint'
+import { vide2d } from '../../../lib/2d/Vide2d'
 import { droite } from '../../../lib/2d/droites'
-import { milieu, point, tracePoint } from '../../../lib/2d/points'
 import { repere } from '../../../lib/2d/reperes'
 import { segment } from '../../../lib/2d/segmentsVecteurs'
 import { latex2d } from '../../../lib/2d/textes'
+import { milieu } from '../../../lib/2d/utilitairesPoint'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 import { ecritureAlgebrique, rienSi1 } from '../../../lib/outils/ecritures'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
@@ -61,7 +64,10 @@ export default class EquationDroite extends ExerciceSimple {
 
     const pointHorizontal = point(pointCible.x, pointRef.y)
     const sHorizontal = segment(pointRef, pointHorizontal)
-    const sVertical = segment(pointCible, pointHorizontal)
+    const sVertical =
+      pointCible.y === pointHorizontal.y
+        ? vide2d()
+        : segment(pointCible, pointHorizontal)
 
     // On utilise toujours xB - xA et yB - yA pour la fraction (cohérent avec l'équation finale)
     const maFraction = new FractionEtendue(yB - yA, xB - xA)

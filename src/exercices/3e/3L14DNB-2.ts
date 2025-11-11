@@ -1,5 +1,5 @@
+import { BoiteBuilder } from '../../lib/2d/BoiteBuilder'
 import { fixeBordures } from '../../lib/2d/fixeBordures'
-import { BoiteBuilder } from '../../lib/2d/polygones'
 import { segment } from '../../lib/2d/segmentsVecteurs'
 import { createList } from '../../lib/format/lists'
 import { choice, shuffle2tableaux } from '../../lib/outils/arrayOutils'

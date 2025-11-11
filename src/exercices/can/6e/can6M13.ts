@@ -1,4 +1,5 @@
 import { choice } from '../../../lib/outils/arrayOutils'
+import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { texNombre } from '../../../lib/outils/texNombre'
 import ExerciceSimple from '../../ExerciceSimple'
 export const titre = 'Manipuler les conversions'
@@ -29,12 +30,12 @@ export default class CombienDeFois extends ExerciceSimple {
   nouvelleVersion() {
     const unite = choice(['g', 'm', 'L'])
     const choix = choice([true, false])
-    this.optionsChampTexte = { texteApres: 'fois' }
+    this.optionsChampTexte = { texteApres: 'fois.' }
     this.canReponseACompleter =
       'La réponse correcte à cette question est : <br>$\\ldots$'
     let Choixprefixes: [number, string][]
     let prefixes: [number, string] = [10, 'h']
-    switch (choice([1, 1, 2, 2, 3, 3, 4])) {
+    switch (choice([0, 1, 1, 2, 2, 3, 3, 4])) {
       case 0:
         Choixprefixes = [
           [10, 'h'],
@@ -45,12 +46,12 @@ export default class CombienDeFois extends ExerciceSimple {
         prefixes = choice(Choixprefixes)
 
         this.question = `Le professeur demande à un élève : <br>
-      ${choix ? `« $1$ k${unite} c'est combien de fois plus grand que $1$ ${prefixes[1]}${unite} ? »` : `« $1$ ${prefixes[1]}${unite} c'est combien de fois plus petit que $1$ k${unite} ? »`}<br>
-        La réponse correcte à cette question est : ${this.interactif ? '' : '$\\ldots$'}`
+        ${choix ? `« $1\\text{ k${unite}}$, c'est combien de fois plus grand que $1\\text{ ${prefixes[1]}${unite}}$ ? »` : `« $1\\text{ ${prefixes[1]}${unite}}$, c'est combien de fois plus petit que $1\\text{ k${unite}}$ ? »`}<br>
+          La réponse correcte à cette question est : ${this.interactif ? '' : '$\\ldots$'}`
 
-        this.correction = ` $1$ k${unite}  $= ${texNombre(prefixes[0])}$ ${prefixes[1]}${unite}`
+        this.correction = ` $1\\text{ k${unite}}$  $= ${miseEnEvidence(texNombre(prefixes[0]))}\\text{ ${prefixes[1]}${unite}}$`
         this.canEnonce = `Le professeur demande à un élève :<br> 
-        « $1$ k${unite} c'est combien de fois plus grand que $1$ ${prefixes[1]}${unite} ? » `
+          « $1\\text{ k${unite}}$, c'est combien de fois plus grand que $1\\text{ ${prefixes[1]}${unite}}$ ? » `
         break
 
       case 1:
@@ -63,12 +64,12 @@ export default class CombienDeFois extends ExerciceSimple {
         prefixes = choice(Choixprefixes)
 
         this.question = `Le professeur demande à un élève : <br>
-          ${choix ? `« $1$ h${unite} c'est combien de fois plus grand que $1$ ${prefixes[1]}${unite} ? »` : `« $1$ ${prefixes[1]}${unite} c'est combien de fois plus petit que $1$ h${unite} ? »`}<br>
-            La réponse correcte à cette question est : ${this.interactif ? '' : '$\\ldots$'}`
+            ${choix ? `« $1\\text{ h${unite}}$, c'est combien de fois plus grand que $1\\text{ ${prefixes[1]}${unite}}$ ? »` : `« $1\\text{ ${prefixes[1]}${unite}}$, c'est combien de fois plus petit que $1\\text{ h${unite}}$ ? »`}<br>
+              La réponse correcte à cette question est : ${this.interactif ? '' : '$\\ldots$'}`
 
-        this.correction = ` $1$ h${unite}  $= ${texNombre(prefixes[0])}$ ${prefixes[1]}${unite}`
+        this.correction = ` $1\\text{ h${unite}}$  $= ${miseEnEvidence(texNombre(prefixes[0]))}\\text{ ${prefixes[1]}${unite}}$`
         this.canEnonce = `Le professeur demande à un élève :<br> 
-            « $1$ h${unite} c'est combien de fois plus grand que $1$ ${prefixes[1]}${unite} ? » `
+              « $1\\text{ h${unite}}$, c'est combien de fois plus grand que $1\\text{ ${prefixes[1]}${unite}}$ ? » `
 
         break
       case 2:
@@ -81,12 +82,12 @@ export default class CombienDeFois extends ExerciceSimple {
         prefixes = choice(Choixprefixes)
 
         this.question = `Le professeur demande à un élève : <br>
-              ${choix ? `« $1$ da${unite} c'est combien de fois plus grand que $1$ ${prefixes[1]}${unite} ? »` : `« $1$ ${prefixes[1]}${unite} c'est combien de fois plus petit que $1$ da${unite} ? »`}<br>
-                La réponse correcte à cette question est : ${this.interactif ? '' : '$\\ldots$'}`
+                ${choix ? `« $1\\text{ da${unite}}$, c'est combien de fois plus grand que $1\\text{ ${prefixes[1]}${unite}}$ ? »` : `« $1\\text{ ${prefixes[1]}${unite}}$, c'est combien de fois plus petit que $1\\text{ da${unite}}$ ? »`}<br>
+                  La réponse correcte à cette question est : ${this.interactif ? '' : '$\\ldots$'}`
 
-        this.correction = ` $1$ da${unite}  $= ${texNombre(prefixes[0])}$ ${prefixes[1]}${unite}`
+        this.correction = ` $1\\text{ da${unite}}$  $= ${miseEnEvidence(texNombre(prefixes[0]))}\\text{ ${prefixes[1]}${unite}}$`
         this.canEnonce = `Le professeur demande à un élève : <br>
-                « $1$ da${unite} c'est combien de fois plus grand que $1$ ${prefixes[1]}${unite} ? » `
+                  « $1\\text{ da${unite}}$, c'est combien de fois plus grand que $1\\text{ ${prefixes[1]}${unite}}$ ? » `
 
         break
 
@@ -99,12 +100,12 @@ export default class CombienDeFois extends ExerciceSimple {
         prefixes = choice(Choixprefixes)
 
         this.question = `Le professeur demande à un élève : <br>
-                  ${choix ? `« $1$ ${unite} c'est combien de fois plus grand que $1$ ${prefixes[1]}${unite} ? »` : `« $1$ ${prefixes[1]}${unite} c'est combien de fois plus petit que $1$ ${unite} ? »`}<br>
-                    La réponse correcte à cette question est : ${this.interactif ? '' : '$\\ldots$'}`
+                    ${choix ? `« $1\\text{ ${unite}}$, c'est combien de fois plus grand que $1\\text{ ${prefixes[1]}${unite}}$ ? »` : `« $1\\text{ ${prefixes[1]}${unite}}$, c'est combien de fois plus petit que $1\\text{ ${unite}}$ ? »`}<br>
+                      La réponse correcte à cette question est : ${this.interactif ? '' : '$\\ldots$'}`
 
-        this.correction = ` $1$ ${unite}  $= ${texNombre(prefixes[0])}$ ${prefixes[1]}${unite}`
+        this.correction = ` $1\\text{ ${unite}}$  $= ${miseEnEvidence(texNombre(prefixes[0]))}\\text{ ${prefixes[1]}${unite}}$`
         this.canEnonce = `Le professeur demande à un élève : <br>
-                    « $1$ ${unite} c'est combien de fois plus grand que $1$ ${prefixes[1]}${unite} ? » `
+                      « $1\\text{ ${unite}}$, c'est combien de fois plus grand que $1\\text{ ${prefixes[1]}${unite}}$ ? » `
 
         break
 
@@ -116,12 +117,12 @@ export default class CombienDeFois extends ExerciceSimple {
         prefixes = choice(Choixprefixes)
 
         this.question = `Le professeur demande à un élève :<br> 
-                      ${choix ? `« $1$ d${unite} c'est combien de fois plus grand que $1$ ${prefixes[1]}${unite} ? »` : `« $1$ ${prefixes[1]}${unite} c'est combien de fois plus petit que $1$ d${unite} ? »`}<br>
-                        La réponse correcte à cette question est : ${this.interactif ? '' : '$\\ldots$'}`
+                        ${choix ? `« $1\\text{ d${unite}}$, c'est combien de fois plus grand que $1\\text{ ${prefixes[1]}${unite}}$ ? »` : `« $1\\text{ ${prefixes[1]}${unite}}$, c'est combien de fois plus petit que $1\\text{ d${unite}}$ ? »`}<br>
+                          La réponse correcte à cette question est : ${this.interactif ? '' : '$\\ldots$'}`
 
-        this.correction = ` $1$ d${unite}  $= ${texNombre(prefixes[0])}$ ${prefixes[1]}${unite}`
+        this.correction = ` $1\\text{ d${unite}}$  $= ${miseEnEvidence(texNombre(prefixes[0]))}\\text{ ${prefixes[1]}${unite}}$`
         this.canEnonce = `Le professeur demande à un élève : <br>
-                        « $1$ d${unite} c'est combien de fois plus grand que $1$ ${prefixes[1]}${unite} ? » `
+                          « $1\\text{ d${unite}}$, c'est combien de fois plus grand que $1\\text{ ${prefixes[1]}${unite}}$ ? » `
 
         break
     }

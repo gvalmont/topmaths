@@ -1,13 +1,14 @@
+import { setReponse } from '../../lib/interactif/gestionInteractif'
+import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
-import {
-  miseEnEvidence,
-  texteEnCouleurEtGras,
-} from '../../lib/outils/embellissements'
 import {
   texFractionFromString,
   texFractionReduite,
 } from '../../lib/outils/deprecatedFractions'
-import Exercice from '../Exercice'
+import {
+  miseEnEvidence,
+  texteEnCouleurEtGras,
+} from '../../lib/outils/embellissements'
 import { context } from '../../modules/context'
 import { fraction } from '../../modules/fractions'
 import {
@@ -15,9 +16,8 @@ import {
   listeQuestionsToContenu,
   randint,
 } from '../../modules/outils'
-import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
-import FractionEtendue from '../../modules/FractionEtendue'
-import { setReponse } from '../../lib/interactif/gestionInteractif'
+import { texArrayReponsesCoupleDeFractionsEgalesEtSimplifiees } from '../../modules/utilitairesFractionEtendues'
+import Exercice from '../Exercice'
 
 export const titre = 'Résoudre une équation produit nul'
 export const interactifReady = true
@@ -127,7 +127,8 @@ export default class ResoudreUneEquationProduitNul extends Exercice {
           solution1 = Math.min(-b, -d)
           solution2 = Math.max(-b, -d)
           break
-        case 2: { // (x-b)(x+d)=0  ou (x+d)(x-b)=0 avec b et d entiers
+        case 2: {
+          // (x-b)(x+d)=0  ou (x+d)(x-b)=0 avec b et d entiers
           b = randint(1, context.isAmc ? 9 : 20)
           d = randint(1, context.isAmc ? 9 : 20, [b])
           const choix = choice([0, 1])
@@ -150,7 +151,8 @@ export default class ResoudreUneEquationProduitNul extends Exercice {
           solution2 = Math.max(b, -d)
           break
         }
-        case 13: { // (x+b)(cx+d)=0  avec b/a et d/c entiers.
+        case 13: {
+          // (x+b)(cx+d)=0  avec b/a et d/c entiers.
           a = randint(2, 6)
           b = randint(1, 5) * a
           do {
@@ -198,7 +200,8 @@ export default class ResoudreUneEquationProduitNul extends Exercice {
           // }
           break
         }
-        case 42: { // (x-b)(cx+d)=0  ou (cx+d)(x-b)=0 avec d/c entiers.
+        case 42: {
+          // (x-b)(cx+d)=0  ou (cx+d)(x-b)=0 avec d/c entiers.
           b = randint(1, context.isAmc ? 9 : 20)
           c = randint(2, 8, [b])
           d = randint(1, 6) * c
@@ -276,7 +279,8 @@ export default class ResoudreUneEquationProduitNul extends Exercice {
           solution2 = Math.max(-b / a, -d / c)
           // }
           break
-        case 4: { // (ax+b)(cx-d)=0  avec b/a et d/c entiers.
+        case 4: {
+          // (ax+b)(cx-d)=0  avec b/a et d/c entiers.
           a = randint(2, 6)
           b = Math.round(randint(1, 5) * a)
           c = randint(2, 6, [a])
@@ -358,12 +362,7 @@ export default class ResoudreUneEquationProduitNul extends Exercice {
           setReponse(
             this,
             i,
-            FractionEtendue.texArrayReponsesCoupleDeFractionsEgalesEtSimplifiees(
-              -b,
-              a,
-              -d,
-              c,
-            ),
+            texArrayReponsesCoupleDeFractionsEgalesEtSimplifiees(-b, a, -d, c),
           )
           if (-b / a < -d / c) {
             solution1 = fraction(-b, a).simplifie()
@@ -431,12 +430,7 @@ export default class ResoudreUneEquationProduitNul extends Exercice {
           setReponse(
             this,
             i,
-            FractionEtendue.texArrayReponsesCoupleDeFractionsEgalesEtSimplifiees(
-              -b,
-              a,
-              d,
-              c,
-            ),
+            texArrayReponsesCoupleDeFractionsEgalesEtSimplifiees(-b, a, d, c),
           )
           solution1 = fraction(-b, a).simplifie() // la négative en premier
           solution2 = fraction(d, c).simplifie()

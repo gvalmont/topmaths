@@ -1,12 +1,19 @@
 import Decimal from 'decimal.js'
 import { evaluate, format, round } from 'mathjs'
 import { context } from '../../modules/context'
+import type { IFractionEtendue } from '../../modules/FractionEtendue.type'
 import { tropDeChiffres } from '../../modules/outils'
-import { miseEnEvidence } from './embellissements'
 import { extraireRacineCarree } from './calculs'
+import { miseEnEvidence } from './embellissements'
 import { nombreDeChiffresDansLaPartieDecimale } from './nombres'
 import { sp } from './outilString'
-import FractionEtendue from '../../modules/FractionEtendue'
+
+// Garde structurel pour détecter une FractionEtendue
+const isFractionEtendue = (x: unknown): x is IFractionEtendue =>
+  typeof x === 'object' &&
+  x !== null &&
+  typeof (x as any).sommeFraction === 'function'
+
 const math = { format, evaluate }
 /**
  *
@@ -81,7 +88,7 @@ export function numberFormat(nb: number) {
  * @returns string avec le nombre dans le format français à mettre entre des $ $
  */
 export function texNombre(
-  nb: number | Decimal | FractionEtendue,
+  nb: number | Decimal | IFractionEtendue,
   precision = 8,
   completerZeros = false,
   aussiCompleterEntiers = false,
@@ -100,7 +107,7 @@ export function texNombre(
     completerZeros,
     aussiCompleterEntiers,
   )
-  return result.replace(',', '{,}').replace(/\s+/g, '\\,')
+  return (result ?? '').replace(',', '{,}').replace(/\s+/g, '\\,')
 }
 
 /**
@@ -288,7 +295,7 @@ export function stringNombre(
  * @param {boolean} aussiCompleterEntiers true si on veut ajouter des zéros inutiles aux entiers
  */
 function afficherNombre(
-  nb: number | Decimal | FractionEtendue | string,
+  nb: number | Decimal | IFractionEtendue | string,
   precision: number,
   fonction: 'texNombre' | 'stringNombre',
   completerZeros = false,
@@ -446,7 +453,7 @@ function afficherNombre(
   // fin trouveLaPrecision()
   // eh oui, il y a eu des appels à texNombre() avec des FractionEtendue... alors que c'est pas fait pour ça.
   if (!(nb instanceof Decimal) && typeof nb !== 'number') {
-    if (nb instanceof FractionEtendue) {
+    if (isFractionEtendue(nb)) {
       nb = nb.toNumber()
     } else if (typeof nb === 'string') {
       const nbFormatAnglais = nb.replaceAll(',', '.') ?? ''

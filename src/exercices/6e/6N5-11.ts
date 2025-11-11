@@ -355,10 +355,10 @@ export default class ExerciceProblemesComplexes extends Exercice {
           const nombreP = randint(3, 8)
           questionParametre = [5, min, longueur, nombreP]
           texte += `Avant l'arrivée du numérique, au cinéma, la pellicule était utilisée pour projeter des films.<br>
-                   Le format souvent utilisé était le format $35$ mm ce qui signifie que la pellicule faisait $35$ mm de largeur.<br>
+                   Le format souvent utilisé était le format $35\\text{ mm}$ ce qui signifie que la pellicule faisait $35\\text{ mm}$ de largeur.<br>
                    Avec $24$ images par seconde, une pellicule de film de $30$ mètres de long représente $1$ minute de projection.<br>
                    Pour projeter un film, plusieurs pellicules étaient nécessaires et le projectionniste avait pour rôle de les changer.<br>
-                   ${numAlpha(0)} Si le film a $${nombreP}$ pellicules de $600$ m, quelle est la longueur totale en mètres du film ?`
+                   ${numAlpha(0)} Si le film a $${nombreP}$ pellicules de $600\\text{ m}$, quelle est la longueur totale en mètres du film ?`
           handleAnswers(this, indiceInteractif, {
             reponse: { value: (nombreP * 600).toFixed(2) },
           })
@@ -366,10 +366,10 @@ export default class ExerciceProblemesComplexes extends Exercice {
             this,
             indiceInteractif,
             KeyboardType.clavierDeBase,
-            { texteApres: ' m' },
+            { texteApres: '$\\text{ m}$' },
           )
 
-          texte += `<br> ${numAlpha(1)} Si le film a $${nombreP}$ pellicules de $600$ m, quelle est la durée totale du film ?`
+          texte += `<br> ${numAlpha(1)} Si le film a $${nombreP}$ pellicules de $600\\text{ m}$, quelle est la durée totale du film ?`
           handleAnswers(this, indiceInteractif + 1, {
             reponse: { value: (nombreP * 20).toFixed(2) },
           })
@@ -385,10 +385,10 @@ export default class ExerciceProblemesComplexes extends Exercice {
             reponse: { value: ((60 + min) * 30).toFixed(2) },
           })
           texte += ajouteChampTexteMathLive(this, indiceInteractif + 2, '', {
-            texteApres: ' m',
+            texteApres: '$\\text{ m}$',
           })
 
-          texte += `<br>${numAlpha(3)} Si le film dure $1${sp()}\\text{h}${sp()}${min}$, combien faut-il de pellicules entières de $600$ m ?`
+          texte += `<br>${numAlpha(3)} Si le film dure $1${sp()}\\text{h}${sp()}${min}$, combien faut-il de pellicules entières de $600\\text{ m}$ ?`
           handleAnswers(this, indiceInteractif + 3, {
             reponse: { value: Math.floor(((60 + min) * 30) / 600).toFixed(2) },
           })
@@ -396,10 +396,10 @@ export default class ExerciceProblemesComplexes extends Exercice {
             this,
             indiceInteractif + 3,
             KeyboardType.clavierDeBase,
-            { texteApres: ' pellicules entières de $600$ m' },
+            { texteApres: ' pellicules entières de $600\\text{ m}$' },
           )
 
-          texte += `<br>${numAlpha(4)} Si la pellicule mesure $${longueur}$ m, quelle est la durée de la pellicule ?`
+          texte += `<br>${numAlpha(4)} Si la pellicule mesure $${longueur}\\text{ m}$, quelle est la durée de la pellicule ?`
           handleAnswers(this, indiceInteractif + 4, {
             reponse: { value: Math.floor(longueur / 30).toFixed(2) },
           })
@@ -410,7 +410,7 @@ export default class ExerciceProblemesComplexes extends Exercice {
             { texteApres: ' minutes' },
           )
 
-          texte += `<br>${numAlpha(5)} Si la pellicule mesure $${longueur}$ m, combien d'images y a-t-il sur la pellicule ?`
+          texte += `<br>${numAlpha(5)} Si la pellicule mesure $${longueur}\\text{ m}$, combien d'images y a-t-il sur la pellicule ?`
           handleAnswers(this, indiceInteractif + 5, {
             reponse: {
               value: (Math.floor(longueur / 30) * 60 * 24).toFixed(2),
@@ -425,7 +425,7 @@ export default class ExerciceProblemesComplexes extends Exercice {
 
           texteCorr += `${numAlpha(0)} $${nombreP}${sp()}\\text{ pellicules} \\times 600${sp()}\\text{m} = ${texNombre(nombreP * 600)}${sp()}\\text{m}$<br>
                         La longueur totale du film est de $${miseEnEvidence(texNombre(nombreP * 600))}$ mètres.<br>
-                        ${numAlpha(1)} $30${sp()}\\text{m} \\times 20 = 600${sp()}\\text{m}$ donc une pellicule de $600$ m représente $1${sp()}\\text{min} \\times 20 = 20${sp()}\\text{min}$.<br>
+                        ${numAlpha(1)} $30${sp()}\\text{m} \\times 20 = 600${sp()}\\text{m}$ donc une pellicule de $600\\text{ m}$ représente $1${sp()}\\text{min} \\times 20 = 20${sp()}\\text{min}$.<br>
                         $${nombreP}${sp()}\\text{pellicules} \\times 20${sp()}\\text{min} = ${texNombre(nombreP * 20)}${sp()}\\text{min}$<br>
                         La durée totale du film est de $${miseEnEvidence(texNombre(nombreP * 20))}$ minutes.<br>
                         ${numAlpha(2)} $${60 + min}${sp()}\\text{min} \\times 30${sp()}\\text{m}= ${texNombre((60 + min) * 30)}${sp()}\\text{m}$<br>
@@ -441,7 +441,7 @@ export default class ExerciceProblemesComplexes extends Exercice {
             (60 + min) * 30 - Math.floor(((60 + min) * 30) / 600) * 600 !== 0
               ? ` (et $1$ bobine de  $${texNombre((60 + min) * 30 - Math.floor(((60 + min) * 30) / 600) * 600)}$ mètres).<br>`
               : '.<br>'
-          texteCorr += `${numAlpha(4)} $${texNombre(Math.floor(longueur / 30))} \\times 30${sp()}\\text{m} = ${texNombre(longueur)}$ m<br>
+          texteCorr += `${numAlpha(4)} $${texNombre(Math.floor(longueur / 30))} \\times 30${sp()}\\text{m} = ${texNombre(longueur)}\\text{ m}$<br>
                         Donc la durée de la pellicule est de $${miseEnEvidence(texNombre(Math.floor(longueur / 30)))}$ minutes.<br>
                         ${numAlpha(5)} $${texNombre(Math.floor(longueur / 30))} \\times 60 = ${texNombre(Math.floor(longueur / 30) * 60)}$ secondes<br>
                         $${texNombre(Math.floor(longueur / 30) * 60)}${sp()}\\text{secondes} \\times 24${sp()}\\text{images} = ${texNombre(Math.floor(longueur / 30) * 60 * 24)}${sp()}\\text{images}$<br>

@@ -1,9 +1,9 @@
-import ExerciceSimple from '../../ExerciceSimple'
+import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
+import { choice } from '../../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { texNombre } from '../../../lib/outils/texNombre'
-import { choice } from '../../../lib/outils/arrayOutils'
-import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 import { randint } from '../../../modules/outils'
+import ExerciceSimple from '../../ExerciceSimple'
 
 import FractionEtendue from '../../../modules/FractionEtendue'
 export const titre = 'Additionner deux fractions'
@@ -24,7 +24,7 @@ export default class additionFraction extends ExerciceSimple {
     this.typeExercice = 'simple' // Cette ligne est très importante pour faire un exercice simple !
     this.nbQuestions = 1
     this.optionsDeComparaison = { fractionEgale: true }
-    this.formatChampTexte = KeyboardType.clavierDeBaseAvecVariable
+    this.formatChampTexte = KeyboardType.clavierDeBaseAvecFraction
     this.optionsChampTexte = { texteAvant: ' $=$' }
   }
 

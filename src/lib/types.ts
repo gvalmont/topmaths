@@ -1,8 +1,17 @@
+import type Figure from 'apigeom/src/Figure'
+import type { PartialKbType } from '../lib/interactif/claviers/keyboard'
 import type { View } from '../topmaths/types/navigation'
 import type { ObjectiveReference } from '../topmaths/types/objective'
 import type { UnitReference } from '../topmaths/types/unit'
 import type { CanOptions, CanSolutionsMode } from './types/can'
 import type { Language } from './types/languages'
+
+// Types pour gestionInteractif
+import type { IFractionEtendue } from '../modules/FractionEtendue.type'
+// import Grandeur from '../modules/Grandeur'
+import type Decimal from 'decimal.js'
+import type FractionEtendue from '../modules/FractionEtendue'
+import Hms from '../modules/Hms'
 
 /**
  * Recursively make all properties of T optional (to work with unfinished objects)
@@ -95,7 +104,7 @@ export interface InterfaceGlobalOptions {
   isInteractiveFree?: boolean
   oneShot?: boolean
   recorder?: 'capytale' | 'labomep' | 'moodle' | 'anki'
-  done?: '1'
+  done?: '1' | '0' // pourquoi n'y a-t-il qu'une valeur possible ? à vérifier JC
   answers?: string
   iframe?: string
   twoColumns?: boolean
@@ -157,6 +166,7 @@ export interface InterfaceResultExercice {
   type?: 'mathalea' | 'static' | 'app'
   bestScore?: number
   duration?: number
+  checkSum?: string
   resultsByQuestion?: boolean[]
 }
 
@@ -290,6 +300,80 @@ export const FILTER_SECTIONS_TITLES: FilterSectionNameType = {
   types: 'Types',
 }
 
+export type ResultType = { isOk: boolean; feedback?: string }
+export type OptionsComparaisonType = {
+  noFeedback?: boolean
+  expressionsForcementReduites?: boolean
+  avecSigneMultiplier?: boolean
+  avecFractions?: boolean
+  sansTrigo?: boolean
+  fractionIrreductible?: boolean
+  fractionSimplifiee?: boolean
+  fractionReduite?: boolean
+  fractionDecimale?: boolean
+  fractionEgale?: boolean
+  fractionIdentique?: boolean
+  nombreDecimalSeulement?: boolean
+  expressionNumerique?: boolean
+  additionSeulementEtNonResultat?: boolean
+  soustractionSeulementEtNonResultat?: boolean
+  multiplicationSeulementEtNonResultat?: boolean
+  divisionSeulementEtNonResultat?: boolean
+  ensembleDeNombres?: boolean
+  fonction?: boolean
+  kUplet?: boolean
+  seulementCertainesPuissances?: boolean
+  sansExposantUn?: boolean
+  suiteDeNombres?: boolean
+  suiteRangeeDeNombres?: boolean
+  factorisation?: boolean
+  exclusifFactorisation?: boolean
+  nbFacteursIdentiquesFactorisation?: boolean
+  unSeulFacteurLitteral?: boolean
+  HMS?: boolean
+  intervalle?: boolean
+  estDansIntervalle?: boolean
+  ecritureScientifique?: boolean
+  unite?: boolean
+  precisionUnite?: number
+  puissance?: boolean
+  texteAvecCasse?: boolean
+  texteSansCasse?: boolean
+  nombreAvecEspace?: boolean
+  developpementEgal?: boolean
+  egaliteExpression?: boolean
+  calculFormel?: boolean
+  noUselessParen?: boolean
+  nonReponseAcceptee?: boolean
+  pluriels?: boolean
+  multi?: boolean // options pour le drag and drop
+  ordered?: boolean // options pour le drag and drop
+  tolerance?: number
+  variable?: string
+  entier?: boolean
+  domaine?: [number, number]
+}
+export type CompareFunction = (
+  input: string,
+  goodAnswer: string,
+  options: OptionsComparaisonType,
+) => ResultType
+
+export type CleaningOperation =
+  | 'fractions'
+  | 'fractionsMemesNegatives'
+  | 'virgules'
+  | 'espaces'
+  | 'parentheses'
+  | 'puissances'
+  | 'divisions'
+  | 'latex'
+  | 'foisUn'
+  | 'unites'
+  | 'doubleEspaces'
+  | 'espaceNormal'
+  | 'mathrm'
+
 export type InteractivityType =
   | 'qcm'
   | 'mathlive'
@@ -302,3 +386,572 @@ export type InteractivityType =
   | 'custom'
 
 export type TableauMathliveType = 'doubleEntree' | 'proportionnalite'
+
+/**
+ * Type pour les figures cliquables
+ */
+export type ClickFigures = Array<{ id: string; solution: boolean }>
+
+export type AnswerType = {
+  value: AnswerValueType
+  compare?: CompareFunction
+  options?: OptionsComparaisonType
+}
+
+export type AnswerNormalizedType = {
+  value: string | string[]
+  compare?: CompareFunction
+  options?: OptionsComparaisonType
+}
+
+/**
+ * Type pour une valeur de réponse avec ses options
+ */
+export interface Valeur {
+  bareme?: (listePoints: number[]) => [number, number]
+  feedback?: (saisies: Record<string, string>) => string
+  reponse?: AnswerType
+  champ1?: AnswerType
+  champ2?: AnswerType
+  champ3?: AnswerType
+  champ4?: AnswerType
+  champ5?: AnswerType
+  champ6?: AnswerType
+  rectangle1?: AnswerType
+  rectangle2?: AnswerType
+  rectangle3?: AnswerType
+  rectangle4?: AnswerType
+  rectangle5?: AnswerType
+  rectangle6?: AnswerType
+  rectangle7?: AnswerType
+  rectangle8?: AnswerType
+
+  // on va aller jusque 8 pour l'instant, si besoin on en ajoutera
+  L1C1?: AnswerType
+  L1C2?: AnswerType
+  L1C3?: AnswerType
+  L2C1?: AnswerType
+  L2C2?: AnswerType
+  L2C3?: AnswerType
+  L3C1?: AnswerType
+  L3C2?: AnswerType
+  L3C3?: AnswerType
+
+  // idem on en ajoutera si besoin
+  callback?: (
+    exercice: IExercice,
+    question: number,
+    variables: [string, AnswerType][],
+    bareme: (listePoints: number[]) => [number, number],
+  ) => {
+    isOk: boolean
+    feedback: string
+    score: { nbBonnesReponses: number; nbReponses: number }
+  }
+}
+
+export interface ValeurNormalized {
+  bareme?: (listePoints: number[]) => [number, number]
+  feedback?: (saisies: Record<string, string>) => string
+  reponse?: AnswerNormalizedType
+  champ1?: AnswerNormalizedType
+  champ2?: AnswerNormalizedType
+  champ3?: AnswerNormalizedType
+  champ4?: AnswerNormalizedType
+  champ5?: AnswerNormalizedType
+  champ6?: AnswerNormalizedType
+  rectangle1?: AnswerNormalizedType
+  rectangle2?: AnswerNormalizedType
+  rectangle3?: AnswerNormalizedType
+  rectangle4?: AnswerNormalizedType
+  rectangle5?: AnswerNormalizedType
+  rectangle6?: AnswerNormalizedType
+  rectangle7?: AnswerNormalizedType
+  rectangle8?: AnswerNormalizedType
+
+  L1C1?: AnswerNormalizedType
+  L1C2?: AnswerNormalizedType
+  L1C3?: AnswerNormalizedType
+  L2C1?: AnswerNormalizedType
+  L2C2?: AnswerNormalizedType
+  L2C3?: AnswerNormalizedType
+  L3C1?: AnswerNormalizedType
+  L3C2?: AnswerNormalizedType
+  L3C3?: AnswerNormalizedType
+  callback?: (
+    exercice: IExercice,
+    question: number,
+    variables: [string, AnswerNormalizedType][],
+    bareme: (listePoints: number[]) => [number, number],
+  ) => {
+    isOk: boolean
+    feedback: string
+    score: { nbBonnesReponses: number; nbReponses: number }
+  }
+}
+
+/**
+ * Type pour une valeur normalisée (après traitement)
+ */
+
+/**
+ * Type guard pour vérifier si une valeur est de type Valeur
+ */
+export function isValeur(value: unknown): value is Valeur {
+  return typeof value === 'object' && value !== null
+}
+
+/**
+ * Détecte structurellement une FractionEtendue sans dépendance runtime.
+ * On considère qu'un objet avec une méthode sommeFraction est une FractionEtendue.
+ */
+export function isFractionEtendue(x: unknown): x is IFractionEtendue {
+  return (
+    typeof x === 'object' &&
+    x !== null &&
+    typeof (x as any).sommeFraction === 'function'
+  )
+}
+
+/**
+ * Détecte structurellement une Grandeur sans dépendance runtime.
+ * On considère qu'un objet avec une propriété uniteDeReference est une Grandeur.
+ */
+export function isGrandeur(x: unknown): x is IGrandeur {
+  return (
+    typeof x === 'object' &&
+    x !== null &&
+    typeof (x as any).uniteDeReference === 'string'
+  )
+}
+
+/**
+ * Détecte structurellement un Decimal sans utiliser instanceof.
+ * On vérifie la présence de quelques méthodes caractéristiques des instances Decimal.
+ */
+export function isDecimal(x: unknown): x is Decimal {
+  return (
+    typeof x === 'object' &&
+    x !== null &&
+    typeof (x as any).toDP === 'function' &&
+    typeof (x as any).toFixed === 'function' &&
+    typeof (x as any).plus === 'function'
+  )
+}
+
+export interface IGrandeur {
+  readonly mesure: number
+  readonly mesureDecimal: Decimal
+  readonly unite: string
+  readonly puissanceUnite: number
+  readonly uniteDeReference: string
+  readonly prefixe: string
+  readonly puissancePrefixe: number
+  readonly latexUnit: string
+
+  convertirEn(uniteConversion: string): IGrandeur
+  estEgal(unite2: IGrandeur): boolean
+  estUneApproximation(unite2: IGrandeur, precision: number): boolean
+  toString(precision?: number): string
+  toTex(precision?: number): string
+  toHHMMSS(): string
+}
+
+export interface ReponseParams {
+  digits?: number
+  decimals?: number
+  signe?: boolean
+  exposantNbChiffres?: number
+  exposantSigne?: boolean
+  approx?: number | 'intervalleStrict'
+  aussiCorrect?: number | IFractionEtendue
+  digitsNum?: number
+  digitsDen?: number
+  basePuissance?: number
+  exposantPuissance?: number
+  baseNbChiffres?: number
+  milieuIntervalle?: number
+  formatInteractif?: InteractivityType | OldFormatInteractifType
+  precision?: number
+  scoreapprox?: number
+  vertical?: boolean
+  strict?: boolean
+  vhead?: boolean
+  tpoint?: string
+}
+
+export type AnswerValueType =
+  | string
+  | string[]
+  | number
+  | number[]
+  | IFractionEtendue
+  | Decimal
+  | IGrandeur
+  | Hms
+  | IGrandeur[]
+  | Hms[]
+  | Decimal[]
+  | IFractionEtendue[]
+
+export function isAnswerValueType(value: unknown): value is AnswerValueType {
+  return (
+    typeof value === 'string' ||
+    (Array.isArray(value) &&
+      value.every((value) => typeof value === 'string')) ||
+    typeof value === 'number' ||
+    (Array.isArray(value) &&
+      value.every((value) => typeof value === 'number')) ||
+    isFractionEtendue(value) ||
+    (Array.isArray(value) && value.every((v) => isFractionEtendue(v))) ||
+    isDecimal(value) ||
+    (Array.isArray(value) && value.every((v) => isDecimal(v))) ||
+    isGrandeur(value) ||
+    (Array.isArray(value) && value.every((v) => isGrandeur(v))) ||
+    value instanceof Hms ||
+    (Array.isArray(value) && value.every((value) => value instanceof Hms))
+  )
+}
+
+export type ReponseComplexe = Valeur
+
+export function isReponseComplexe(value: unknown): value is ReponseComplexe {
+  return isValeur(value)
+}
+
+// Ajout d'un type dédié pour les choix de QCM
+export type ChoixQcm = {
+  texte: string // obligatoire pour les QCM interactif mais facultatif pour les QCM AMC (le forcer à vide si besoin)
+  statut?: boolean | string | number // boolean pour les QCM interacif et string | number pour les QCM AMC
+  // Ci-dessous, utile que pour AMC
+  sanscadre?: boolean
+  enonce?: string
+  feedback?: string
+  multicolsBegin?: boolean
+  multicolsEnd?: boolean
+  numQuestionVisible?: boolean
+  pointilles?: boolean
+  reponse?: {
+    texte?: string
+    valeur?: number | number[] | FractionEtendue
+    alignement?: string
+    param?: {
+      digits?: number
+      decimals?: number
+      signe?: boolean
+      digitsNum?: number
+      digitsDen?: number
+      approx?: number
+      aussiCorrect?: number
+      exposantNbChiffres?: number
+      exposantSigne?: boolean
+    }
+  }
+}
+
+export type UneProposition = {
+  texte?: string
+  statut?: number | boolean | string
+  sanscadre?: boolean | number
+  multicolsBegin?: boolean
+  multicolsEnd?: boolean
+  numQuestionVisible?: boolean
+  type?: string
+  feedback?: string
+  pointilles?: boolean | number
+  enonce?: string
+  propositions?: ChoixQcm[]
+  options?: {
+    ordered?: boolean
+    vertical?: boolean
+    lastChoice?: number
+    barreseparation?: boolean
+    multicols?: boolean
+    nbCols?: number
+    digits?: number
+    decimals?: number
+    signe?: boolean
+    exposantNbChiffres?: number
+    exposantSigne?: boolean
+    approx?: number
+    multicolsAll?: boolean
+    numerotationEnonce?: boolean
+    avecSymboleMult?: boolean
+  }
+  reponse?: {
+    valeur?:
+      | ValeurNormalized
+      | ValeurNormalized[]
+      | number
+      | number[]
+      | IFractionEtendue
+      | Decimal
+      | IFractionEtendue[]
+      | Decimal[]
+      | string
+      | string[]
+    param?: ReponseParams
+    textePosition?: string
+    texte?: string
+    alignement?: string
+  }
+}
+
+export type LegacyReponse =
+  | string
+  | IFractionEtendue
+  | Decimal
+  | number
+  | IGrandeur
+export type LegacyReponses = LegacyReponse[] | LegacyReponse
+
+export interface AutoCorrection {
+  enonce?: string
+  enonceAvant?: boolean
+  melange?: boolean
+  enonceAGauche?: boolean | [number, number]
+  enonceAvantUneFois?: boolean
+  enonceCentre?: boolean
+  enonceApresNumQuestion?: boolean
+  propositions?: UneProposition[]
+  reponse?: {
+    valeur?: ValeurNormalized
+    param?: ReponseParams
+    textePosition?: string
+    texte?: string
+  }
+  options?: {
+    radio?: boolean
+    ordered?: boolean
+    vertical?: boolean
+    lastChoice?: number
+    barreseparation?: boolean
+    multicols?: boolean
+    nbCols?: number
+    digits?: number
+    decimals?: number
+    signe?: boolean
+    exposantNbChiffres?: number
+    exposantSigne?: boolean
+    approx?: number
+    multicolsAll?: boolean
+    numerotationEnonce?: boolean
+    avecSymboleMult?: boolean
+  }
+}
+
+export interface MathaleaSVG extends SVGSVGElement {
+  etat: boolean
+  hasMathaleaListener: boolean
+}
+
+export type ResultOfExerciceInteractif = {
+  numberOfPoints: number
+  numberOfQuestions: number
+}
+
+// Pour retro compatibilité avec setReponse
+export type OldFormatInteractifType =
+  | 'calcul'
+  | 'texte'
+  | 'tableauMathlive'
+  | 'Num'
+  | 'Den'
+  | 'fractionEgale'
+  | 'unites'
+  | 'intervalleStrict'
+  | 'intervalle'
+  | 'puissance'
+  | 'canonicalAdd'
+  | 'ignorerCasse'
+
+export interface IExercice {
+  titre: string
+  id?: string
+  uuid: string
+  sup: any
+  sup2: any
+  sup3: any
+  sup4: any
+  sup5: any
+  exoCustomResultat?: boolean
+  duree?: number
+  seed?: string
+  numeroExercice?: number
+  typeExercice?: string
+  duration?: number
+  consigne: string
+  consigneCorrection: string
+  introduction: string
+  listeQuestions: string[]
+  listeCorrections: string[]
+  listeCanReponsesACompleter: string[]
+  listeCanEnonces: string[]
+  listeCanLiees: number[][]
+  listeCanNumerosLies: number[]
+  question?: string
+  reponse?: AnswerValueType | Valeur
+  correction?: string
+  canOfficielle?: boolean
+  canEnonce?: string
+  canReponseACompleter: string
+  canNumeroLie: number
+  canLiee: number[]
+  formatChampTexte: string | PartialKbType | undefined
+  optionsChampTexte?: object
+  compare?:
+    | ((
+        input: string,
+        goodAnswer: string,
+      ) => { isOk: boolean; feedback?: string })
+    | ((
+        input: string,
+        goodAnswer: IGrandeur,
+      ) => { isOk: boolean; feedback?: string })
+  optionsDeComparaison?: Partial<OptionsComparaisonType>
+  formatInteractif?: InteractivityType | OldFormatInteractifType
+  contenu?: string
+  contenuCorrection?: string
+  autoCorrection: AutoCorrection[]
+  figures?: Figure[] | ClickFigures[]
+  amcReady?: boolean
+  amcType?: string
+  tableauSolutionsDuQcm?: object[]
+  spacing: number
+  spacingCorr: number
+  pasDeVersionLatex: boolean
+  listePackages?: string[]
+  consigneModifiable: boolean
+  nbQuestionsModifiable: boolean
+  nbCols: number
+  nbColsCorr: number
+  nbColsModifiable: boolean
+  nbColsCorrModifiable: boolean
+  spacingModifiable: boolean
+  spacingCorrModifiable: boolean
+  listeAvecNumerotation?: boolean
+  beamer: boolean
+  nbQuestions: number
+  pointsParQuestions: number
+  correctionDetailleeDisponible: boolean
+  correctionDetaillee: boolean
+  correctionIsCachee: boolean
+  video: string
+  interactif: boolean
+  interactifObligatoire: boolean
+  interactifReady: boolean
+  interactifType?: string
+  besoinFormulaireNumerique:
+    | boolean
+    | [titre: string, max: number, tooltip: string]
+    | [titre: string, max: number]
+  besoinFormulaireTexte: boolean | [string, string]
+  besoinFormulaireCaseACocher: boolean | [string] | [string, boolean]
+  besoinFormulaire2Numerique:
+    | boolean
+    | [titre: string, max: number, tooltip: string]
+    | [titre: string, max: number]
+  besoinFormulaire2Texte: boolean | [string, string]
+  besoinFormulaire2CaseACocher: boolean | [string] | [string, boolean]
+  besoinFormulaire3Numerique:
+    | boolean
+    | [titre: string, max: number, tooltip: string]
+    | [titre: string, max: number]
+  besoinFormulaire3Texte: boolean | [string, string]
+  besoinFormulaire3CaseACocher: boolean | [string] | [string, boolean]
+  besoinFormulaire4Numerique:
+    | boolean
+    | [titre: string, max: number, tooltip: string]
+    | [titre: string, max: number]
+  besoinFormulaire4Texte: boolean | [string, string]
+  besoinFormulaire4CaseACocher: boolean | [string] | [string, boolean]
+  besoinFormulaire5Numerique:
+    | boolean
+    | [titre: string, max: number, tooltip: string]
+    | [titre: string, max: number]
+  besoinFormulaire5Texte: boolean | [string, string]
+  besoinFormulaire5CaseACocher: boolean | [string] | [string, boolean]
+  listeArguments: string[]
+  lastCallback: string
+  checkSum?: string
+  examen?: string
+  mois?: string
+  annee?: string
+  lieu?: string
+  content?: string
+  contentCorr?: string
+  comment?: string
+  answers?: { [key: string]: string }
+  dragAndDrops?: IDragAndDrop[]
+  isDone?: boolean
+  html: HTMLElement
+  score?: number
+  vspace?: number
+
+  destroy(): void
+  nouvelleVersionWrapper: (...args: any[]) => void
+  correctionInteractive?(i: number): string | string[]
+  nouvelleVersion(numeroExercice?: number, numeroQuestion?: number): void
+  reinit: (...args: any[]) => void
+  applyNewSeed: (...args: any[]) => void
+  questionJamaisPosee: (...args: any[]) => boolean
+}
+
+export interface IExerciceSimple extends IExercice {
+  typeExercice: 'simple'
+  distracteurs: (string | number)[]
+  versionQcmDisponible?: boolean
+  versionQcm?: boolean
+}
+
+export interface IEtiquette {
+  id: string
+  contenu: string
+  duplicable?: boolean
+  callback?: (e: Event) => void
+}
+
+export interface IDragAndDrop {
+  exercice: IExercice
+  question: number
+  consigne: string
+  etiquettes: IEtiquette[][]
+  enonceATrous: string
+  listeners: [Element, string, EventListener][]
+
+  ajouteDragAndDrop(options: { melange: boolean; duplicable: boolean }): string
+}
+
+export interface IExerciceBrevet extends IExercice {
+  enonce: string
+  checksum: string
+  versionAleatoire?: (i: number) => void
+  versionOriginale: () => void
+}
+
+export interface IExerciceBrevetA extends IExerciceBrevet {
+  versionAleatoire: (i: number) => void
+}
+
+export interface IExerciceCan extends IExerciceSimple {
+  canOfficielle?: boolean
+}
+
+export interface IExerciceQcm extends IExercice {
+  versionQcm?: boolean
+  versionQcmDisponible: boolean
+  enonce: string
+  reponses: string[]
+  bonnesReponses?: boolean[]
+  corrections?: string[]
+  options: { vertical?: boolean; ordered: boolean; lastChoice?: number }
+  ajouteQcmCorr: boolean
+  versionAleatoire?: () => void
+  versionOriginale?: () => void
+  qcmCamExport(): { question: string; reponse: string }[]
+}
+
+export interface IExerciceQcmA extends IExerciceQcm {
+  versionAleatoire: () => void
+  aleatoire: () => void
+}

@@ -1,10 +1,11 @@
-import { afficheMesureAngle } from '../../lib/2d/codages'
-import { bissectrice, droite } from '../../lib/2d/droites'
+import { afficheMesureAngle } from '../../lib/2d/AfficheMesureAngle'
+import { bissectrice } from '../../lib/2d/Bissectrice'
+import { demiDroite } from '../../lib/2d/DemiDroite'
+import { droite } from '../../lib/2d/droites'
 import { fixeBordures } from '../../lib/2d/fixeBordures'
-import { tracePointSurDroite } from '../../lib/2d/points'
-import { pointAbstrait } from '../../lib/2d/points-abstraits'
-import { demiDroite } from '../../lib/2d/segmentsVecteurs'
+import { pointAbstrait } from '../../lib/2d/PointAbstrait'
 import { labelPoint, latex2d } from '../../lib/2d/textes'
+import { tracePointSurDroite } from '../../lib/2d/TracePointSurDroite'
 import {
   homothetie,
   projectionOrtho,

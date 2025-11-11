@@ -21,6 +21,8 @@ class MainLevee {
     return this.roughSvg.line(x1, y1, x2, y2, {
       roughness,
       disableMultiStroke: true,
+      preserveVertices: true,
+      seed: 10,
       strokeWidth: epaisseur,
       stroke: color,
     }).outerHTML
@@ -41,6 +43,8 @@ class MainLevee {
       bowing,
       disableMultiStroke: true,
       strokeWidth: epaisseur,
+      preserveVertices: true,
+      seed: 10,
       stroke: color,
     }).outerHTML
   }
@@ -55,6 +59,8 @@ class MainLevee {
       roughness,
       bowing,
       disableMultiStroke: true,
+      preserveVertices: true,
+      seed: 10,
       strokeWidth: epaisseur,
       stroke: color,
     }).outerHTML
@@ -68,6 +74,8 @@ class MainLevee {
       roughness,
       bowing,
       disableMultiStroke: true,
+      preserveVertices: true,
+      seed: 10,
       strokeWidth: epaisseur,
       stroke: color,
     }).outerHTML
@@ -81,6 +89,8 @@ class MainLevee {
       roughness,
       bowing,
       disableMultiStroke: true,
+      preserveVertices: true,
+      seed: 10,
       strokeWidth: epaisseur,
       stroke: color,
     }).outerHTML
@@ -100,6 +110,8 @@ class MainLevee {
       roughness,
       bowing,
       disableMultiStroke: true,
+      preserveVertices: true,
+      seed: 10,
       strokeWidth: epaisseur,
       stroke: color,
     }).outerHTML
@@ -119,6 +131,8 @@ class MainLevee {
       roughness,
       bowing,
       disableMultiStroke: true,
+      preserveVertices: true,
+      seed: 10,
       strokeWidth: epaisseur,
       stroke: color,
     }).outerHTML
@@ -132,6 +146,8 @@ class MainLevee {
       roughness,
       bowing,
       disableMultiStroke: true,
+      preserveVertices: true,
+      seed: 10,
       strokeWidth: epaisseur,
       stroke: color,
     }).outerHTML

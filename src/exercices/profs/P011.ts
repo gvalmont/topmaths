@@ -1,10 +1,8 @@
-import { codageAngleDroit } from '../../lib/2d/angles'
-import {
-  afficheLongueurSegment,
-  afficheMesureAngle,
-  codageSegments,
-} from '../../lib/2d/codages'
-import type { PointAbstrait } from '../../lib/2d/points-abstraits'
+import { afficheLongueurSegment } from '../../lib/2d/afficheLongueurSegment'
+import { afficheMesureAngle } from '../../lib/2d/AfficheMesureAngle'
+import { codageAngleDroit } from '../../lib/2d/CodageAngleDroit'
+import { codageSegments } from '../../lib/2d/CodageSegment'
+import type { PointAbstrait } from '../../lib/2d/PointAbstrait'
 import { polygoneAvecNom } from '../../lib/2d/polygones'
 import Alea2iep from '../../modules/Alea2iep'
 import { mathalea2d } from '../../modules/mathalea2d'

@@ -1,6 +1,6 @@
 import { fixeBordures } from '../../lib/2d/fixeBordures'
-import { point3d } from '../../lib/3d/3dProjectionMathalea2d/elements'
-import { pave3d } from '../../lib/3d/3dProjectionMathalea2d/solides'
+import { point3d } from '../../lib/3d/3dProjectionMathalea2d/elementsEtTransformations3d'
+import { pave3d } from '../../lib/3d/3dProjectionMathalea2d/PaveEtPaveLPH3dPerspectiveCavaliere'
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 import { setReponse } from '../../lib/interactif/gestionInteractif'
 import { propositionsQcm } from '../../lib/interactif/qcm'

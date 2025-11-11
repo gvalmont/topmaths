@@ -56,9 +56,9 @@ function checkDistance(points: { x: number; y: number }[]) {
  * @author Jean-Claude Lhote
  */
 class ConstructionsSymetrieCentraleFigures extends Exercice {
-  antecedents!: PointApigeom[][]
+  antecedentsApiGeom!: PointApigeom[][]
   labels!: string[][]
-  centres!: PointApigeom[]
+  centresApiGeom!: PointApigeom[]
   typesDeQuestions!: (
     | 'segment'
     | 'droite'
@@ -97,9 +97,9 @@ class ConstructionsSymetrieCentraleFigures extends Exercice {
     this.answers = {}
 
     this.figuresApiGeom = []
-    this.antecedents = []
+    this.antecedentsApiGeom = []
     this.labels = []
-    this.centres = []
+    this.centresApiGeom = []
     this.typesDeQuestions = []
     this.nbPoints = []
     this.typesDeQuestions = gestionnaireFormulaireTexte({
@@ -167,14 +167,14 @@ class ConstructionsSymetrieCentraleFigures extends Exercice {
         ],
         position: 'top',
       })
-      this.centres[i] = this.figuresApiGeom[i].create('Point', {
+      this.centresApiGeom[i] = this.figuresApiGeom[i].create('Point', {
         x: 0,
         y: 0,
         isVisible: true,
         isSelectable: true,
         label: labelCentre,
       })
-      this.antecedents[i] = nuage.map((el, k) =>
+      this.antecedentsApiGeom[i] = nuage.map((el, k) =>
         this.figuresApiGeom[i].create('Point', {
           x: el.x,
           y: el.y,
@@ -189,8 +189,8 @@ class ConstructionsSymetrieCentraleFigures extends Exercice {
           this.nbPoints[i] = 2
           enonce += `du segment $[${this.labels[i][0]}${this.labels[i][1]}]$.`
           this.figuresApiGeom[i].create('Segment', {
-            point1: this.antecedents[i][0],
-            point2: this.antecedents[i][1],
+            point1: this.antecedentsApiGeom[i][0],
+            point2: this.antecedentsApiGeom[i][1],
             isVisible: true,
           })
 
@@ -200,8 +200,8 @@ class ConstructionsSymetrieCentraleFigures extends Exercice {
           enonce += `de la droite $(${this.labels[i][0]}${this.labels[i][1]})$.`
 
           this.figuresApiGeom[i].create('Line', {
-            point1: this.antecedents[i][0],
-            point2: this.antecedents[i][1],
+            point1: this.antecedentsApiGeom[i][0],
+            point2: this.antecedentsApiGeom[i][1],
             isVisible: true,
           })
 
@@ -210,8 +210,8 @@ class ConstructionsSymetrieCentraleFigures extends Exercice {
           this.nbPoints[i] = 2
           enonce += `de la demi-droite $(${this.labels[i][0]}${this.labels[i][1]})$.`
           this.figuresApiGeom[i].create('Ray', {
-            point1: this.antecedents[i][0],
-            point2: this.antecedents[i][1],
+            point1: this.antecedentsApiGeom[i][0],
+            point2: this.antecedentsApiGeom[i][1],
             isVisible: true,
           })
 
@@ -220,8 +220,8 @@ class ConstructionsSymetrieCentraleFigures extends Exercice {
           this.nbPoints[i] = 2
           enonce += `du cercle de centre $${this.labels[i][0]}$ passant par $${this.labels[i][1]}$.`
           this.figuresApiGeom[i].create('CircleCenterPoint', {
-            center: this.antecedents[i][0],
-            point: this.antecedents[i][1],
+            center: this.antecedentsApiGeom[i][0],
+            point: this.antecedentsApiGeom[i][1],
             isVisible: true,
           })
 
@@ -231,9 +231,9 @@ class ConstructionsSymetrieCentraleFigures extends Exercice {
           enonce += `du triangle $${this.labels[i][0]}${this.labels[i][1]}${this.labels[i][2]}$.`
           this.figuresApiGeom[i].create('Polygon', {
             points: [
-              this.antecedents[i][0],
-              this.antecedents[i][1],
-              this.antecedents[i][2],
+              this.antecedentsApiGeom[i][0],
+              this.antecedentsApiGeom[i][1],
+              this.antecedentsApiGeom[i][2],
             ],
             isVisible: true,
           })
@@ -243,11 +243,11 @@ class ConstructionsSymetrieCentraleFigures extends Exercice {
           throw new Error('Type de question inconnu')
       }
       // On rend visible les points nécessaires à la figure.
-      this.antecedents[i][0].isVisible = true
-      this.antecedents[i][1].isVisible = true
+      this.antecedentsApiGeom[i][0].isVisible = true
+      this.antecedentsApiGeom[i][1].isVisible = true
       if (this.typesDeQuestions[i] !== 'triangle') {
         // Il n'y a que le triangle qui a 3 points.
-        this.antecedents[i][2].isVisible = false
+        this.antecedentsApiGeom[i][2].isVisible = false
       }
       if (this.sup === 1) {
         this.figuresApiGeom[i].create('Grid', {
@@ -267,8 +267,8 @@ class ConstructionsSymetrieCentraleFigures extends Exercice {
       if (this.sup === 2) {
         for (let k = 0; k < this.nbPoints[i]; k++) {
           this.figuresApiGeom[i].create('Ray', {
-            point1: this.antecedents[i][k] as PointApigeom,
-            point2: this.centres[i] as PointApigeom,
+            point1: this.antecedentsApiGeom[i][k] as PointApigeom,
+            point2: this.centresApiGeom[i] as PointApigeom,
             isDashed: true,
             color: 'gray',
           })
@@ -279,10 +279,10 @@ class ConstructionsSymetrieCentraleFigures extends Exercice {
           this.figuresApiGeom[i].create('CircleCenterPoint', {
             center: this.figuresApiGeom[i].create('Point', {
               isVisible: false,
-              x: this.centres[i].x,
-              y: this.centres[i].y,
+              x: this.centresApiGeom[i].x,
+              y: this.centresApiGeom[i].y,
             }),
-            point: this.antecedents[i][k] as PointApigeom,
+            point: this.antecedentsApiGeom[i][k] as PointApigeom,
             isDashed: true,
             color: 'gray',
           })
@@ -328,9 +328,9 @@ class ConstructionsSymetrieCentraleFigures extends Exercice {
         y: 0,
         isVisible: true,
         isSelectable: false,
-        label: this.centres[i].label,
+        label: this.centresApiGeom[i].label,
       })
-      const copyAntecedents = this.antecedents[i].map((el, k) =>
+      const copyAntecedents = this.antecedentsApiGeom[i].map((el, k) =>
         correctionFig.create('Point', {
           x: el.x,
           y: el.y,
@@ -348,7 +348,7 @@ class ConstructionsSymetrieCentraleFigures extends Exercice {
         k++
       ) {
         sym[k] = copyAntecedents[k].rotate(centreCorrection, 180, {
-          label: this.antecedents[i][k].label + "'",
+          label: this.antecedentsApiGeom[i][k].label + "'",
         })
         correctionFig.create('Segment', {
           point1: copyAntecedents[k],
@@ -389,8 +389,8 @@ class ConstructionsSymetrieCentraleFigures extends Exercice {
       if (this.sup === 2) {
         for (let k = 0; k < this.nbPoints[i]; k++) {
           correctionFig.create('Ray', {
-            point1: this.antecedents[i][k] as PointApigeom,
-            point2: this.centres[i] as PointApigeom,
+            point1: this.antecedentsApiGeom[i][k] as PointApigeom,
+            point2: this.centresApiGeom[i] as PointApigeom,
             isDashed: true,
             color: 'gray',
           })
@@ -401,10 +401,10 @@ class ConstructionsSymetrieCentraleFigures extends Exercice {
           correctionFig.create('CircleCenterPoint', {
             center: this.figuresApiGeom[i].create('Point', {
               isVisible: false,
-              x: this.centres[i].x,
-              y: this.centres[i].y,
+              x: this.centresApiGeom[i].x,
+              y: this.centresApiGeom[i].y,
             }),
-            point: this.antecedents[i][k] as PointApigeom,
+            point: this.antecedentsApiGeom[i][k] as PointApigeom,
             isDashed: true,
             color: 'gray',
           })
@@ -514,11 +514,24 @@ class ConstructionsSymetrieCentraleFigures extends Exercice {
       `#feedbackEx${this.numeroExercice}Q${i}`,
     ) as HTMLDivElement
     const typefigure = this.typesDeQuestions[i]
-    const [label1, label2, label3] = [this.antecedents[i][0].label, this.antecedents[i][1].label, this.antecedents[i][2].label]
-    const [antecedent1, antecedent2, antecedent3] = [this.figuresApiGeom[i].getPointByLabel(label1), this.figuresApiGeom[i].getPointByLabel(label2), this.figuresApiGeom[i].getPointByLabel(label3)]
-    const centreLabel = this.centres[i].label
+    const [label1, label2, label3] = [
+      this.antecedentsApiGeom[i][0].label,
+      this.antecedentsApiGeom[i][1].label,
+      this.antecedentsApiGeom[i][2].label,
+    ]
+    const [antecedent1, antecedent2, antecedent3] = [
+      this.figuresApiGeom[i].getPointByLabel(label1),
+      this.figuresApiGeom[i].getPointByLabel(label2),
+      this.figuresApiGeom[i].getPointByLabel(label3),
+    ]
+    const centreLabel = this.centresApiGeom[i].label
     const centre = this.figuresApiGeom[i].getPointByLabel(centreLabel)
-    if (antecedent1 == null || antecedent2 == null || antecedent3 == null || centre == null) {
+    if (
+      antecedent1 == null ||
+      antecedent2 == null ||
+      antecedent3 == null ||
+      centre == null
+    ) {
       throw new Error('Antecedents not found')
     }
     const cords1 = rotationCoord(antecedent1, centre, 180)
@@ -539,7 +552,7 @@ class ConstructionsSymetrieCentraleFigures extends Exercice {
         }).isValid
         if (resultat) {
           results[0] = 'OK'
-        } 
+        }
         resultat2 = checkCoords({
           figure: this.figuresApiGeom[i],
           x: cords1.x,
@@ -554,10 +567,10 @@ class ConstructionsSymetrieCentraleFigures extends Exercice {
           // label: this.antecedents[i][1].label + "'",
           checkOnlyAbscissa: false,
         }).isValid
-        if (!resultat2){
+        if (!resultat2) {
           feedbacks.push(`L'image du point $${label1}$ n'est pas correcte.`)
         }
-        if (!resultat3){
+        if (!resultat3) {
           feedbacks.push(`L'image du point $${label2}$ n'est pas correcte.`)
         }
         if (resultat2 && resultat3) results[1] = 'OK'
@@ -584,10 +597,10 @@ class ConstructionsSymetrieCentraleFigures extends Exercice {
           // label: this.antecedents[i][1].label + "'",
           checkOnlyAbscissa: false,
         }).isValid
-        if (!resultat2){
+        if (!resultat2) {
           feedbacks.push(`L'image du point $${label1}$ n'est pas correcte.`)
         }
-        if (!resultat3){
+        if (!resultat3) {
           feedbacks.push(`L'image du point $${label2}$ n'est pas correcte.`)
         }
         if (resultat2 && resultat3) results[1] = 'OK'
@@ -615,10 +628,10 @@ class ConstructionsSymetrieCentraleFigures extends Exercice {
           checkOnlyAbscissa: false,
         }).isValid
         if (resultat2 && resultat3) results[1] = 'OK'
-        if (!resultat2){
+        if (!resultat2) {
           feedbacks.push(`L'image du point $${label1}$ n'est pas correcte.`)
         }
-        if (!resultat3){
+        if (!resultat3) {
           feedbacks.push(`L'image du point $${label2}$ n'est pas correcte.`)
         }
         break
@@ -648,13 +661,13 @@ class ConstructionsSymetrieCentraleFigures extends Exercice {
           checkOnlyAbscissa: false,
         }).isValid
         if (resultat2 && resultat3) results[1] = 'OK'
-        if (!resultat2){
+        if (!resultat2) {
           feedbacks.push(`L'image du point $${label1}$ n'est pas correcte.`)
         }
-        if (!resultat3){
+        if (!resultat3) {
           feedbacks.push(`L'image du point $${label2}$ n'est pas correcte.`)
         }
-        
+
         break
 
       case 'triangle':
@@ -684,13 +697,13 @@ class ConstructionsSymetrieCentraleFigures extends Exercice {
           // label: this.antecedents[i][2].label + "'",
           checkOnlyAbscissa: false,
         }).isValid
-        if (!resultat2){
+        if (!resultat2) {
           feedbacks.push(`L'image du point $${label1}$ n'est pas correcte.`)
         }
-        if (!resultat3){
+        if (!resultat3) {
           feedbacks.push(`L'image du point $${label2}$ n'est pas correcte.`)
         }
-        if (!resultat4){
+        if (!resultat4) {
           feedbacks.push(`L'image du point $${label3}$ n'est pas correcte.`)
         }
         if (resultat2 && resultat3 && resultat4) results[1] = 'OK'
@@ -700,7 +713,7 @@ class ConstructionsSymetrieCentraleFigures extends Exercice {
         throw new Error('Type de question inconnu')
     }
     if (results[0] === 'OK' && results[1] === 'OK') {
-      if (divFeedback){
+      if (divFeedback) {
         divFeedback.innerHTML = 'Bravo !<br/>2/2'
       }
       this.figuresApiGeom[i].isDynamic = false
@@ -708,15 +721,15 @@ class ConstructionsSymetrieCentraleFigures extends Exercice {
       this.figuresApiGeom[i].divUserMessage.style.display = 'none'
       return results
     } else {
-       if (divFeedback && results.includes('OK') && this.nbQuestions > 1) {
-         feedbacks.push('1/2')
-       }
-       if (divFeedback && !results.includes('OK') && this.nbQuestions > 1) {
-         feedbacks.push('0/2')
-       }
-       if (feedbacks.length) {
-         divFeedback.innerHTML = feedbacks.join('<br/>')
-       }
+      if (divFeedback && results.includes('OK') && this.nbQuestions > 1) {
+        feedbacks.push('1/2')
+      }
+      if (divFeedback && !results.includes('OK') && this.nbQuestions > 1) {
+        feedbacks.push('0/2')
+      }
+      if (feedbacks.length) {
+        divFeedback.innerHTML = feedbacks.join('<br/>')
+      }
       this.figuresApiGeom[i].isDynamic = false
       this.figuresApiGeom[i].divButtons.style.display = 'none'
       this.figuresApiGeom[i].divUserMessage.style.display = 'none'

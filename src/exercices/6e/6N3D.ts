@@ -1,20 +1,20 @@
+import Figure from 'apigeom'
+import GraduatedLine from 'apigeom/src/elements/grid/GraduatedLine'
+import { bleuMathalea } from '../../lib/colors'
+import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
+import { handleAnswers } from '../../lib/interactif/gestionInteractif'
+import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
+import { miseEnEvidence } from '../../lib/outils/embellissements'
+import { arrondi } from '../../lib/outils/nombres'
 import { lettreIndiceeDepuisChiffre } from '../../lib/outils/outilString'
-import Exercice from '../Exercice'
+import { context } from '../../modules/context'
+import FractionEtendue from '../../modules/FractionEtendue'
 import {
   contraindreValeur,
   listeQuestionsToContenu,
   randint,
 } from '../../modules/outils'
-import { context } from '../../modules/context'
-import Figure from 'apigeom'
-import { arrondi } from '../../lib/outils/nombres'
-import GraduatedLine from 'apigeom/src/elements/grid/GraduatedLine'
-import FractionEtendue from '../../modules/FractionEtendue'
-import { miseEnEvidence } from '../../lib/outils/embellissements'
-import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
-import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
-import { handleAnswers } from '../../lib/interactif/gestionInteractif'
-import { bleuMathalea } from '../../lib/colors'
+import Exercice from '../Exercice'
 
 export const dateDePublication = '09/07/2025'
 export const titre =
@@ -89,6 +89,7 @@ export default class DonnerSensDefinitionQuotient extends Exercice {
         xMax,
         step: num,
         stepBis,
+        points: [{ x: stepBis, label }],
       })
       figureEnonce.figure.create('Point', {
         label: miseEnEvidence('?', 'black'),
@@ -104,6 +105,7 @@ export default class DonnerSensDefinitionQuotient extends Exercice {
         shape: '',
         labelDxInPixels: 0,
       })
+
       figureEnonce.figure.options.labelAutomaticBeginsWith = label
       figureEnonce.figure.options.pointDescriptionWithCoordinates = false
       figureEnonce.figure.options.labelIsVisible = false
@@ -125,9 +127,23 @@ export default class DonnerSensDefinitionQuotient extends Exercice {
         xMax,
         step: num,
         stepBis: num / den,
+        points: [{ x: stepBis, label }],
+        correction: [
+          {
+            x: stepBis,
+            label: `$${miseEnEvidence(new FractionEtendue(num, den).texFraction)}$`,
+          },
+        ],
       })
+      /*
+      label: context.isHtml
+          ? miseEnEvidence(new FractionEtendue(num, den).texFraction)
+          : `$${miseEnEvidence(new FractionEtendue(num, den).texFraction)}$`,
+          */
       figureCorrection.figure.create('Point', {
-        label: miseEnEvidence(new FractionEtendue(num, den).texFraction),
+        label: context.isHtml
+          ? miseEnEvidence(new FractionEtendue(num, den).texFraction)
+          : `$${miseEnEvidence(new FractionEtendue(num, den).texFraction)}$`,
         x: stepBis,
         y: -1.4,
         shape: '',
@@ -188,7 +204,7 @@ function apigeomGraduatedLineEE({
   points,
   step = 1,
   stepBis = 0.25,
-  snapGrid,
+  correction,
 }: {
   xMin: number
   xMax: number
@@ -196,6 +212,7 @@ function apigeomGraduatedLineEE({
   stepBis?: number
   snapGrid?: boolean
   points?: Array<{ x: number; label: string }>
+  correction?: Array<{ x: number; label: string }>
 }): { figure: Figure; latex: string } {
   const width = 750
   const height = 80
@@ -214,19 +231,23 @@ function apigeomGraduatedLineEE({
   d.draw()
   let latex = `\n\\bigskip
   \\begin{tikzpicture}[x=2.5mm]
-  \\draw[-{Latex[round]},thick] (0,0) -- (61,0);
-  \\foreach \\x in {0,${10 * stepBis},...,60} \\draw[thick] ([yshift=-0.8mm]\\x,0) -- ([yshift=0.8mm]\\x,0);
-  \\foreach \\x [count=\\i from 0] in {0,10,...,60} \\draw[ultra thick] ([yshift=-1.5mm]\\x,0) coordinate (a\\i) -- ([yshift=1.5mm]\\x,0);
-  \\foreach \\x [count=\\i from 0] in {${xMin},${xMin + 1},${xMin + 2},${xMin + 3},${xMin + 4},${xMin + 5},${xMin + 6}} {
+  \\draw[-{Latex[round]},thick] (0,0) -- (65,0);
+  \\foreach \\x [count=\\i from 0] in {0,${(60 * stepBis) / xMax},...,60} \\draw[thick] ([yshift=-0.8mm]\\x,0) -- ([yshift=0.8mm]\\x,0);
+  \\foreach \\x [count=\\i from 0] in {0,${(60 * step) / xMax},...,60} \\draw[ultra thick] ([yshift=-1.5mm]\\x,0) coordinate (a\\i) -- ([yshift=1.5mm]\\x,0);
+  \\foreach \\x [count=\\i from 0] in {${xMin},${step},...,${xMax}} {
     \\node[below=2mm of a\\i,inner sep=0pt,font=\\small] {$\\num{\\x}$};
-  }`
+}`
   if (points !== undefined) {
-    const xA = arrondi((points[0].x - xMin) * 10)
+    const xA = (60 * arrondi(points[0].x - xMin)) / xMax
     const labelA = points[0].label
-    latex += `\n\\tkzText[above=2mm](${xA},0){${labelA}}
-    \n\\tkzDrawPoint[shape=cross out, size=5pt, thick](${xA},0)`
+    latex += `\n\\tkzText[above=2mm](${xA},0){${labelA}}`
+    // latex += ` \n\\tkzDrawPoint[shape=cross out, size=5pt, thick](${xA},0)`
+  }
+  if (correction !== undefined) {
+    const xA = (60 * arrondi(correction[0].x - xMin)) / xMax
+    const labelA = correction[0].label
+    latex += `\n\\tkzText[above=2mm](${xA},-1.5){${labelA}}`
   }
   latex += '\n\\end{tikzpicture}'
-
   return { figure, latex }
 }

@@ -1,11 +1,10 @@
 import Decimal from 'decimal.js'
-import {
-  afficheLongueurSegment,
-  afficheMesureAngle,
-} from '../../../lib/2d/codages'
-import { point, pointAdistance } from '../../../lib/2d/points'
+import { afficheMesureAngle } from '../../../lib/2d/AfficheMesureAngle'
+import { point } from '../../../lib/2d/PointAbstrait'
+import { afficheLongueurSegment } from '../../../lib/2d/afficheLongueurSegment'
 import { segment } from '../../../lib/2d/segmentsVecteurs'
 import { labelPoint } from '../../../lib/2d/textes'
+import { pointAdistance } from '../../../lib/2d/utilitairesPoint'
 import { choisitLettresDifferentes } from '../../../lib/outils/aleatoires'
 import { choice } from '../../../lib/outils/arrayOutils'
 import { texNombre } from '../../../lib/outils/texNombre'

@@ -1,6 +1,6 @@
 import { courbe } from '../../lib/2d/courbes'
 import { droite, droiteParPointEtPente } from '../../lib/2d/droites'
-import { point } from '../../lib/2d/points'
+import { point } from '../../lib/2d/PointAbstrait'
 import { repere } from '../../lib/2d/reperes'
 import { segment } from '../../lib/2d/segmentsVecteurs'
 import { latexParCoordonnees } from '../../lib/2d/textes'

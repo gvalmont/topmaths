@@ -1,19 +1,19 @@
 import { traceCompas } from '../../lib/2d/Arc'
 import { cercle, cercleCentrePoint } from '../../lib/2d/cercle'
 import { cibleCarree, dansLaCibleCarree } from '../../lib/2d/cibles'
-import { codageSegments } from '../../lib/2d/codages'
+import { codageSegments } from '../../lib/2d/CodageSegment'
 import { droite } from '../../lib/2d/droites'
 import { fixeBordures } from '../../lib/2d/fixeBordures'
-import {
-  point,
-  pointAdistance,
-  pointIntersectionCC,
-  tracePoint,
-} from '../../lib/2d/points'
+import { point } from '../../lib/2d/PointAbstrait'
 import { polygone, polygoneAvecNom } from '../../lib/2d/polygones'
 import { segment } from '../../lib/2d/segmentsVecteurs'
 import { labelPoint, texteParPoint } from '../../lib/2d/textes'
+import { tracePoint } from '../../lib/2d/TracePoint'
 import { rotation, similitude } from '../../lib/2d/transformations'
+import {
+  pointAdistance,
+  pointIntersectionCC,
+} from '../../lib/2d/utilitairesPoint'
 import { choisitLettresDifferentes } from '../../lib/outils/aleatoires'
 import { choice } from '../../lib/outils/arrayOutils'
 import { arrondi } from '../../lib/outils/nombres'

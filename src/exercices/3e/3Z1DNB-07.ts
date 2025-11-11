@@ -1,7 +1,7 @@
-import { codageAngleDroit } from '../../lib/2d/angles'
-import { placeLatexSurSegment } from '../../lib/2d/codages'
+import { codageAngleDroit } from '../../lib/2d/CodageAngleDroit'
 import { fixeBordures } from '../../lib/2d/fixeBordures'
-import { point } from '../../lib/2d/points'
+import { placeLatexSurSegment } from '../../lib/2d/placeLatexSurSegment'
+import { point } from '../../lib/2d/PointAbstrait'
 import { polygone } from '../../lib/2d/polygones'
 import { segment } from '../../lib/2d/segmentsVecteurs'
 import { labelPoint } from '../../lib/2d/textes'
@@ -63,7 +63,7 @@ export default class ExercicePythThalTrigo extends ExerciceBrevetA {
     flecheDL.styleExtremites = '<->'
     flecheDL.pointilles = 2
     const lDL = placeLatexSurSegment(
-      `${dk + kl}~\\text{m}`,
+      `${dk + kl}\\text{ m}`,
       flecheDL.extremite1,
       flecheDL.extremite2,
       { distance: 0.5 },
@@ -75,9 +75,9 @@ export default class ExercicePythThalTrigo extends ExerciceBrevetA {
     const J = homothetie(A, D, 0.6, 'J', 'below right')
     const triangle = polygone(D, L, A)
     const ad = codageAngleDroit(D, L, A)
-    const lKJ = placeLatexSurSegment(`${kj}~\\text{m}`, K, J, { distance: 0.5 })
-    const lDJ = placeLatexSurSegment(`${dj}~\\text{m}`, J, D, { distance: 0.5 })
-    const lKL = placeLatexSurSegment(`${kl}~\\text{m}`, K, L, { distance: 0.5 })
+    const lKJ = placeLatexSurSegment(`${kj}\\text{ m}`, K, J, { distance: 0.5 })
+    const lDJ = placeLatexSurSegment(`${dj}\\text{ m}`, J, D, { distance: 0.5 })
+    const lKL = placeLatexSurSegment(`${kl}\\text{ m}`, K, L, { distance: 0.5 })
     const flecheDK = segment(D, K)
     flecheDK.styleExtremites = '->'
     flecheDK.epaisseur = 2
@@ -109,19 +109,19 @@ export default class ExercicePythThalTrigo extends ExerciceBrevetA {
 ${deuxColonnesResp(
   `On donne :
 $\\begin{array}{l}
-DL = ${texNombre(dk + kl, 1)}~\\text{m} ;\\\\
-KJ = ${texNombre(kj, 1)}~\\text{m} ;\\\\
-DJ = ${texNombre(dj, 1)}~\\text{m} ;\\\\
-KL = ${texNombre(kl, 1)}~\\text{m}.
+DL = ${texNombre(dk + kl, 1)}\\text{ m} ;\\\\
+KJ = ${texNombre(kj, 1)}\\text{ m} ;\\\\
+DJ = ${texNombre(dj, 1)}\\text{ m} ;\\\\
+KL = ${texNombre(kl, 1)}\\text{ m}.
 \\end{array}$`,
   figure,
   { largeur1: 30, eleId: '', widthmincol1: '200px', widthmincol2: '400px' },
 )}<br>`
-    const question1 = `Montrer que la longueur $DK$ est égale à $${texNombre(dk, 0)}~\\text{m}$.`
+    const question1 = `Montrer que la longueur $DK$ est égale à $${texNombre(dk, 0)}\\text{ m}$.`
     const question2 = 'Montrer que le triangle $DKJ$ est rectangle en $K$.'
     const question3 =
       'Justifier que les droites $(KJ)$ et $(LA)$ sont parallèles.'
-    const question4 = `Montrer que le segment $[DA]$ mesure $${texNombre(da, 0)}~\\text{m}$.`
+    const question4 = `Montrer que le segment $[DA]$ mesure $${texNombre(da, 0)}\\text{ m}$.`
     const question5 =
       'Calculer la longueur du trajet $DKJA$, fléché sur la figure.'
     const question6 = `Un photographe place une caméra au point $D$.<br>Afin de filmer l'ensemble de la course sans bouger la caméra, l'angle $\\widehat{\\text{LDA}}$ doit être inférieur à $${angle}^\\circ$.<br>Est-ce le cas ?`
@@ -130,7 +130,7 @@ KL = ${texNombre(kl, 1)}~\\text{m}.
       style: 'nombres',
     })
     this.enonce += listeQuestions
-    const correction1 = `On a $DK + KL = DL$ soit $DK + ${kl} = ${dk + kl}$, d'où $DK = ${dk + kl} - ${kl} = ${miseEnEvidence(`${dk}~\\text{m}`)}$.`
+    const correction1 = `On a $DK + KL = DL$ soit $DK + ${kl} = ${dk + kl}$, d'où $DK = ${dk + kl} - ${kl} = ${miseEnEvidence(`${dk}\\text{ m}`)}$.`
     const correction2 =
       `On a $DK^2 + KJ^2 = ${dk}^2 + ${kj}^2 = ${texNombre(dk ** 2, 0)} + ${texNombre(kj ** 2, 0)} = ${texNombre(dk ** 2 + kj ** 2, 0)}$ et $DJ^2 = ${texNombre(dj, 0)}^2 = ${texNombre(dj ** 2, 0)}$.<br>
 On a donc $DK^2 + KJ^2 = DJ^2$ : ` +
@@ -142,9 +142,9 @@ On a donc $DK^2 + KJ^2 = DJ^2$ : ` +
       texteEnCouleurEtGras('elles sont donc parallèles.')
     const correction4 = `Les droites $(LA)$ et $(KJ)$ sont  parallèles, les points $D$, $K$ et $L$ sont alignés et les points $D$, $J$ et $A$ le sont aussi.<br>
     On a donc une configuration de Thalès, et on peut donc écrire l'égalité :<br>
-$\\dfrac{DK}{DL} = \\dfrac{DJ}{DA}$, soit $\\dfrac{${dk}}{${dk + kl}} = \\dfrac{${dj}}{\\text{DA}}$, d'où $DA\\times ${dk} = ${dk + kl} \\times ${dj}$ puis $DA = \\dfrac{${dk + kl} \\times ${dj}}{${dk}} = ${miseEnEvidence(`${da}~\\text{m}`)}$.`
+$\\dfrac{DK}{DL} = \\dfrac{DJ}{DA}$, soit $\\dfrac{${dk}}{${dk + kl}} = \\dfrac{${dj}}{\\text{DA}}$, d'où $DA\\times ${dk} = ${dk + kl} \\times ${dj}$ puis $DA = \\dfrac{${dk + kl} \\times ${dj}}{${dk}} = ${miseEnEvidence(`${da}\\text{ m}`)}$.`
     const correction5 = `La longueur du trajet fléché est :
-$DK + KJ + JA = ${dk} + ${kj} + (${da} - ${dj}) = ${dk + kj}+${da - dj}=${miseEnEvidence(`${dk + kj + (da - dj)}~\\text{m}`)}$.`
+$DK + KJ + JA = ${dk} + ${kj} + (${da} - ${dj}) = ${dk + kj}+${da - dj}=${miseEnEvidence(`${dk + kj + (da - dj)}\\text{ m}`)}$.`
     const alpha = (Math.acos((dk + kl) / da) * 180) / Math.PI
     const correction6 = `Dans le triangle rectangle LDA on a : $\\cos \\widehat{LDA} = \\dfrac{\\text{long. côté adjacent}}{\\text{long. hypoténuse}} = \\dfrac{${dk + kl}}{${da}}=${fraction(dk + kl, da).texFractionSimplifiee}$.<br>
 La calculatrice donne $\\widehat{LDA} \\approx ${texNombre(alpha, 0)}$ (en degres).<br>

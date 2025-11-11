@@ -1,9 +1,13 @@
-import ExerciceSimple from '../../ExerciceSimple'
-import { miseEnEvidence } from '../../../lib/outils/embellissements'
-import { randint } from '../../../modules/outils'
-import { texNombre } from '../../../lib/outils/texNombre'
-import { choice } from '../../../lib/outils/arrayOutils'
+/**
+ * ⚠️ Cet exercice est utilisé dans le test : tests/e2e/tests/view/viewcan.2024.2e.test.ts ⚠️
+ */
+
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
+import { choice } from '../../../lib/outils/arrayOutils'
+import { miseEnEvidence } from '../../../lib/outils/embellissements'
+import { texNombre } from '../../../lib/outils/texNombre'
+import { randint } from '../../../modules/outils'
+import ExerciceSimple from '../../ExerciceSimple'
 export const titre =
   "Déterminer un coefficient multiplicateur ou un taux d'évolution"
 export const interactifReady = true
@@ -50,7 +54,7 @@ export default class NomExercice extends ExerciceSimple {
       } else {
         this.question = `Augmenter de $${texNombre(taux * 100, 0)}\\,\\%$ revient à multiplier par : `
         this.correction = `Augmenter de $${texNombre(taux * 100, 0)}\\,\\%$ revient à multiplier par $1 + \\dfrac{${texNombre(taux * 100, 0)}}{100} = 1 + ${texNombre(taux, 2)} = ${miseEnEvidence(texNombre(coeff, 2))}$.`
-        this.optionsChampTexte = { texteApres: '' }
+
         if (!this.interactif) {
           this.question += '$\\ldots$'
         }

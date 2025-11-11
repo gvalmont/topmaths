@@ -1,6 +1,6 @@
 import { cercle } from '../../../lib/2d/cercle'
 import { colorToLatexOrHTML } from '../../../lib/2d/colorToLatexOrHtml'
-import { point } from '../../../lib/2d/points'
+import { point } from '../../../lib/2d/PointAbstrait'
 import { segment } from '../../../lib/2d/segmentsVecteurs'
 import { rotation } from '../../../lib/2d/transformations'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'

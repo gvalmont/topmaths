@@ -1,10 +1,13 @@
-import { codageSegments, placeLatexSurSegment } from '../../../lib/2d/codages'
+import { codageSegments } from '../../../lib/2d/CodageSegment'
 import { droite } from '../../../lib/2d/droites'
 import { fixeBordures } from '../../../lib/2d/fixeBordures'
-import { Point, point, tracePointSurDroite } from '../../../lib/2d/points'
-import { segment, vecteur } from '../../../lib/2d/segmentsVecteurs'
+import { placeLatexSurSegment } from '../../../lib/2d/placeLatexSurSegment'
+import { Point, point } from '../../../lib/2d/PointAbstrait'
+import { segment } from '../../../lib/2d/segmentsVecteurs'
 import { labelPoint } from '../../../lib/2d/textes'
+import { tracePointSurDroite } from '../../../lib/2d/TracePointSurDroite'
 import { translation } from '../../../lib/2d/transformations'
+import { vecteur } from '../../../lib/2d/Vecteur'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { texNombre } from '../../../lib/outils/texNombre'
 import { context } from '../../../modules/context'
@@ -69,7 +72,7 @@ export default class Can2025N5Q18 extends ExerciceCan {
     const labels = labelPoint(A, B)
     this.reponse = texNombre((a * c) / b, 2)
     this.question = `${mathalea2d(Object.assign({ pixelsParCm: 30 }, fixeBordures([s, s2, codages, ps, labels, l], { rymin: 0 })), [s, s2, codages, ps, labels, l])}`
-    this.correction = `Le segment $[AB]$ mesure $\\dfrac{${a}}{${b}}$ de $${texNombre(c, 1)}$ cm.<br>`
+    this.correction = `Le segment $[AB]$ mesure $\\dfrac{${a}}{${b}}$ de $${texNombre(c, 1)}\\text{ cm}$.<br>`
     if (a === 1) {
       this.correction += `$\\begin{aligned}
    AB&= \\dfrac{${a}}{${b}}\\times ${texNombre(c, 1)}\\\\
@@ -86,12 +89,12 @@ export default class Can2025N5Q18 extends ExerciceCan {
       \\end{aligned}$`
     }
     this.canEnonce = this.question
-    this.canReponseACompleter = '$AB=\\ldots$ cm'
-    this.optionsChampTexte = { texteApres: ' cm' }
+    this.canReponseACompleter = '$AB=\\ldots\\text{ cm}$'
+    this.optionsChampTexte = { texteApres: ' $\\text{cm}$' }
     if (this.interactif) {
       this.question += '<br>$AB=$'
     } else if (context.isHtml) {
-      this.question += '<br>$AB=\\ldots$ cm'
+      this.question += '<br>$AB=\\ldots\\text{ cm}$'
     }
   }
 

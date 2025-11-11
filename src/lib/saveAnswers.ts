@@ -1,10 +1,10 @@
-import type Exercice from '../exercices/Exercice'
+import type { IExercice } from '../lib/types'
 
 /**
  * Sauvegarde les réponses d'un exercice de type tableau dont on connait le nombre de lignes et de colonnes
  */
 export function saveAnswersFromTable(
-  exercice: Exercice,
+  exercice: IExercice,
   indiceQuestion: number,
   numberOfLines: number,
   numberOfColumns: number,

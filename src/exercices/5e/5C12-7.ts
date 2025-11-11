@@ -309,8 +309,7 @@ export default class nomExercice extends Exercice {
             exercice: this,
             question: i,
             typeInteractivite: 'mathlive',
-            texteApres: '',
-            texteAvant: '',
+
             objetReponse: {
               reponse: {
                 value: laReponseEnTexte,

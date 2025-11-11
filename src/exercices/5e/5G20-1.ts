@@ -1,18 +1,19 @@
-import { codageAngleDroit } from '../../lib/2d/angles'
+import { afficheMesureAngle } from '../../lib/2d/AfficheMesureAngle'
 import { cercle } from '../../lib/2d/cercle'
-import { afficheMesureAngle, placeLatexSurSegment } from '../../lib/2d/codages'
-import { Droite, droite, mediatrice } from '../../lib/2d/droites'
+import { codageAngleDroit } from '../../lib/2d/CodageAngleDroit'
+import { Droite, droite } from '../../lib/2d/droites'
 import { fixeBordures } from '../../lib/2d/fixeBordures'
+import { mediatrice } from '../../lib/2d/Mediatrice'
+import { placeLatexSurSegment } from '../../lib/2d/placeLatexSurSegment'
+import { Point, pointAbstrait } from '../../lib/2d/PointAbstrait'
+import { polygoneAvecNom } from '../../lib/2d/polygones'
+import { rotation, similitude } from '../../lib/2d/transformations'
 import {
-  Point,
   pointAdistance,
   pointIntersectionCC,
   pointIntersectionDD,
   pointIntersectionLC,
-} from '../../lib/2d/points'
-import { pointAbstrait } from '../../lib/2d/points-abstraits'
-import { polygoneAvecNom } from '../../lib/2d/polygones'
-import { rotation, similitude } from '../../lib/2d/transformations'
+} from '../../lib/2d/utilitairesPoint'
 import { lampeMessage } from '../../lib/format/message'
 import { combinaisonListes } from '../../lib/outils/arrayOutils'
 import { texteEnCouleurEtGras } from '../../lib/outils/embellissements'
@@ -139,8 +140,8 @@ export default class VocabulaireDesTriangles extends Exercice {
             }),
           )
 
-          texte = `${nomTriangle} est un triangle tel que ${tQuel.getLongueurs()[0]} $= ${texNombre(tQuel.l1)}$ cm ; `
-          texte += `${tQuel.getLongueurs()[2]} $= ${texNombre(tQuel.l2)}$ cm et ${tQuel.getLongueurs()[1]} $= ${texNombre(tQuel.l3)}$ cm.`
+          texte = `${nomTriangle} est un triangle tel que ${tQuel.getLongueurs()[0]} $= ${texNombre(tQuel.l1)}\\text{ cm}$ ; `
+          texte += `${tQuel.getLongueurs()[2]} $= ${texNombre(tQuel.l2)}\\text{ cm}$ et ${tQuel.getLongueurs()[1]} $= ${texNombre(tQuel.l3)}\\text{ cm}$.`
           texteCorr = `Les 3 côtés du triangle ${nomTriangle} sont différents et nous n'avons aucune information sur les angles donc ${tQuel.getNom()} est un triangle ${texteEnCouleurEtGras('quelconque')}.`
         }
         break
@@ -169,7 +170,7 @@ export default class VocabulaireDesTriangles extends Exercice {
             B,
             (-tQuel.a2 * randint(90, 110)) / 100,
           )
-          C = pointIntersectionDD(d1, d2) as Point
+          C = pointIntersectionDD(d1, d2)
           C.nom = nomTriangle[3]
           figureMainLevee.push(
             ...polygoneAvecNom(A, B, C),
@@ -223,7 +224,7 @@ export default class VocabulaireDesTriangles extends Exercice {
           )
           const d = mediatrice(A, C) as Droite
           const c = cercle(A, l1)
-          B = pointIntersectionLC(d, c, '', 1) as Point
+          B = pointIntersectionLC(d, c, '', 1)
           B.nom = nomTriangle[2]
           figureMainLevee.push(
             ...polygoneAvecNom(A, B, C),
@@ -238,9 +239,9 @@ export default class VocabulaireDesTriangles extends Exercice {
             }),
           )
 
-          texte = `${tIso.getNom()} est un triangle tel que ${tIso.getLongueurs()[0]} $= ${texNombre(tIso.l1)}$ cm ; `
-          texte += `${tIso.getLongueurs()[1]} $= ${texNombre(tIso.l2)}$ cm et ${tIso.getLongueurs()[2]} $= ${texNombre(tIso.l3)}$ cm.`
-          texteCorr = `Les longueurs des côtés ${tIso.getCotes()[0]} et ${tIso.getCotes()[1]} du triangle ${tIso.getNom()} valent toutes les deux $${texNombre(tIso.l1)}$ cm donc ${tIso.getNom()} est un triangle ${texteEnCouleurEtGras('isocèle')} en ${tIso.getSommets()[1]}.`
+          texte = `${tIso.getNom()} est un triangle tel que ${tIso.getLongueurs()[0]} $= ${texNombre(tIso.l1)}\\text{ cm}$ ; `
+          texte += `${tIso.getLongueurs()[1]} $= ${texNombre(tIso.l2)}\\text{ cm}$ et ${tIso.getLongueurs()[2]} $= ${texNombre(tIso.l3)}\\text{ cm}$.`
+          texteCorr = `Les longueurs des côtés ${tIso.getCotes()[0]} et ${tIso.getCotes()[1]} du triangle ${tIso.getNom()} valent toutes les deux $${texNombre(tIso.l1)}\\text{ cm}$ donc ${tIso.getNom()} est un triangle ${texteEnCouleurEtGras('isocèle')} en ${tIso.getSommets()[1]}.`
         }
         break
 
@@ -262,7 +263,7 @@ export default class VocabulaireDesTriangles extends Exercice {
           )
           const dIso = mediatrice(A, C) as Droite
           const cIso = cercle(A, l1)
-          B = pointIntersectionLC(dIso, cIso, '', 1) as Point
+          B = pointIntersectionLC(dIso, cIso, '', 1)
           B.nom = nomTriangle[2]
           figureMainLevee.push(
             ...polygoneAvecNom(A, B, C),
@@ -281,9 +282,9 @@ export default class VocabulaireDesTriangles extends Exercice {
               letterSize: 'normalsize',
             }),
           )
-          texte = `${tIso.getNom()} est un triangle tel que ${tIso.getLongueurs()[0]} $= ${tIso.l1 * 10}$ mm ; `
-          texte += `${tIso.getLongueurs()[1]} $= ${texNombre(tIso.l2)}$ cm et ${tIso.getLongueurs()[2]} $= ${texNombre(tIso.l3)}$ cm.`
-          texteCorr = `${tIso.getLongueurs()[0]} $= ${texNombre(tIso.l1 * 10)}$ mm $= ${texNombre(tIso.l1)}$ cm = ${tIso.getLongueurs()[1]}, ${tIso.getNom()} a donc deux côtés égaux, c'est un triangle ${texteEnCouleurEtGras('isocèle')} en ${tIso.getSommets()[1]}.`
+          texte = `${tIso.getNom()} est un triangle tel que ${tIso.getLongueurs()[0]} $= ${tIso.l1 * 10}\\text{ mm}$ ; `
+          texte += `${tIso.getLongueurs()[1]} $= ${texNombre(tIso.l2)}\\text{ cm}$ et ${tIso.getLongueurs()[2]} $= ${texNombre(tIso.l3)}\\text{ cm}$.`
+          texteCorr = `${tIso.getLongueurs()[0]} $= ${texNombre(tIso.l1 * 10)}\\text{ mm}$ $= ${texNombre(tIso.l1)}\\text{ cm}$ = ${tIso.getLongueurs()[1]}, ${tIso.getNom()} a donc deux côtés égaux, c'est un triangle ${texteEnCouleurEtGras('isocèle')} en ${tIso.getSommets()[1]}.`
         }
         break
 
@@ -299,7 +300,7 @@ export default class VocabulaireDesTriangles extends Exercice {
           B = pointAdistance(A, tEqui.l1, randint(0, 360), nomTriangle[2])
           const dEqui = mediatrice(A, B) as Droite
           const cEqui = cercle(A, tEqui.l1)
-          C = pointIntersectionLC(dEqui, cEqui, '', 1) as Point
+          C = pointIntersectionLC(dEqui, cEqui, '', 1)
           C.nom = nomTriangle[3]
           figureMainLevee.push(
             ...polygoneAvecNom(A, B, C),
@@ -313,8 +314,8 @@ export default class VocabulaireDesTriangles extends Exercice {
               letterSize: 'normalsize',
             }),
           )
-          texte = `${tEqui.getNom()} est un triangle tel que ${tEqui.getLongueurs()[0]} $= ${texNombre(tEqui.l1)}$ cm ; `
-          texte += `${tEqui.getLongueurs()[1]} $= ${texNombre(tEqui.l2)}$ cm et ${tEqui.getLongueurs()[2]} $= ${texNombre(tEqui.l3)}$ cm.`
+          texte = `${tEqui.getNom()} est un triangle tel que ${tEqui.getLongueurs()[0]} $= ${texNombre(tEqui.l1)}\\text{ cm}$ ; `
+          texte += `${tEqui.getLongueurs()[1]} $= ${texNombre(tEqui.l2)}\\text{ cm}$ et ${tEqui.getLongueurs()[2]} $= ${texNombre(tEqui.l3)}\\text{ cm}$.`
           texteCorr = `Les longueurs des trois côtés du triangle ${tEqui.getNom()} sont égales donc c'est un triangle ${texteEnCouleurEtGras('équilatéral')}.`
         }
         break
@@ -331,7 +332,7 @@ export default class VocabulaireDesTriangles extends Exercice {
           B = pointAdistance(A, tEqui.l1, randint(0, 360), nomTriangle[2])
           const dEqui = mediatrice(A, B) as Droite
           const cEqui = cercle(A, tEqui.l1)
-          C = pointIntersectionLC(dEqui, cEqui, '', 1) as Point
+          C = pointIntersectionLC(dEqui, cEqui, '', 1)
           C.nom = nomTriangle[3]
           figureMainLevee.push(
             ...polygoneAvecNom(A, B, C),
@@ -357,11 +358,11 @@ export default class VocabulaireDesTriangles extends Exercice {
             ),
           )
 
-          texte = `${nomTriangle} est un triangle tel que ${tEqui.getLongueurs()[0]} $= ${texNombre(tEqui.l1)}$ cm ; `
-          texte += `${tEqui.getLongueurs()[1]} $= ${texNombre(tEqui.l2 * 10)}$ mm et ${tEqui.getLongueurs()[2]} $= ${texNombre(tEqui.l3 / 10)}$ dm.`
-          texteCorr = `${tEqui.getLongueurs()[1]} $= ${texNombre(tEqui.l2 * 10)}$ mm $= ${tEqui.l2}$ cm.`
-          texteCorr += `<br> ${tEqui.getLongueurs()[2]} $= ${texNombre(tEqui.l3 / 10)}$ dm $= ${texNombre(tEqui.l3)}$ cm.`
-          texteCorr += `<br> ${tEqui.getLongueurs()[0]} $= ${texNombre(tEqui.l1)}$ cm.`
+          texte = `${nomTriangle} est un triangle tel que ${tEqui.getLongueurs()[0]} $= ${texNombre(tEqui.l1)}\\text{ cm}$ ; `
+          texte += `${tEqui.getLongueurs()[1]} $= ${texNombre(tEqui.l2 * 10)}\\text{ mm}$ et ${tEqui.getLongueurs()[2]} $= ${texNombre(tEqui.l3 / 10)}\\text{ dm}$.`
+          texteCorr = `${tEqui.getLongueurs()[1]} $= ${texNombre(tEqui.l2 * 10)}\\text{ mm}$ $= ${tEqui.l2}\\text{ cm}$.`
+          texteCorr += `<br> ${tEqui.getLongueurs()[2]} $= ${texNombre(tEqui.l3 / 10)}\\text{ dm}= ${texNombre(tEqui.l3)}\\text{ cm}$.`
+          texteCorr += `<br> ${tEqui.getLongueurs()[0]} $= ${texNombre(tEqui.l1)}\\text{ cm}$.`
           texteCorr += `<br> Les longueurs des trois côtés du triangle ${nomTriangle} sont égales donc c'est un triangle ${texteEnCouleurEtGras('équilatéral')}.`
         }
         break
@@ -375,7 +376,7 @@ export default class VocabulaireDesTriangles extends Exercice {
         nomTriangle = tRect.getNom()
         A.nom = nomTriangle[1]
         B = pointAdistance(A, tRect.l1, randint(0, 10), nomTriangle[2])
-        C = similitude(A, B, 90, tRect.l2 / tRect.l1, nomTriangle[3]) as Point
+        C = similitude(A, B, 90, tRect.l2 / tRect.l1, nomTriangle[3])
         figureMainLevee.push(
           ...polygoneAvecNom(A, B, C),
           placeLatexSurSegment(`${texNombre(tRect.l1)}\\text{ cm}`, A, B, {
@@ -387,8 +388,8 @@ export default class VocabulaireDesTriangles extends Exercice {
           codageAngleDroit(A, B, C, 'black', 2),
         )
 
-        texte = `${nomTriangle} est un triangle tel que ${tRect.getLongueurs()[0]} $= ${texNombre(tRect.l1)}$ cm ; `
-        texte += `${tRect.getLongueurs()[1]} $= ${texNombre(tRect.l2)}$ cm `
+        texte = `${nomTriangle} est un triangle tel que ${tRect.getLongueurs()[0]} $= ${texNombre(tRect.l1)}\\text{ cm}$ ; `
+        texte += `${tRect.getLongueurs()[1]} $= ${texNombre(tRect.l2)}\\text{ cm}$ `
         texte += 'et '
         if (this.classe === 6) {
           texte += ` qui a un angle droit en ${tRect.getSommets()[1]}.`
@@ -408,7 +409,7 @@ export default class VocabulaireDesTriangles extends Exercice {
         nomTriangle = tIsoRect.getNom()
         A.nom = nomTriangle[1]
         B = pointAdistance(A, tIsoRect.l1, randint(0, 10), nomTriangle[2])
-        C = rotation(A, B, 90, nomTriangle[3]) as Point
+        C = rotation(A, B, 90, nomTriangle[3])
         figureMainLevee.push(
           ...polygoneAvecNom(A, B, C),
           placeLatexSurSegment(`${texNombre(tIsoRect.l1)}\\text{ cm}`, A, B, {
@@ -420,18 +421,18 @@ export default class VocabulaireDesTriangles extends Exercice {
           codageAngleDroit(A, B, C, 'black', 2),
         )
 
-        texte = `${nomTriangle} est un triangle tel que ${tIsoRect.getLongueurs()[0]}$= ${texNombre(tIsoRect.l1)}$ cm ; `
-        texte += `${tIsoRect.getLongueurs()[1]} $= ${texNombre(tIsoRect.l2)}$ cm `
+        texte = `${nomTriangle} est un triangle tel que ${tIsoRect.getLongueurs()[0]}$= ${texNombre(tIsoRect.l1)}\\text{ cm}$ ; `
+        texte += `${tIsoRect.getLongueurs()[1]} $= ${texNombre(tIsoRect.l2)}\\text{ cm}$ `
         texte += 'et '
         if (this.classe === 6) {
           texte += `qui a un angle droit en ${tIsoRect.getSommets()[1]}.`
           texteCorr = `Le triangle ${nomTriangle} a un angle droit en ${tIsoRect.getSommets()[1]} donc ${nomTriangle} est rectangle en ${tIsoRect.getSommets()[1]}.`
-          texteCorr += `<br> ${tIsoRect.getLongueurs()[0]} $=$ ${tIsoRect.getLongueurs()[1]} $= ${texNombre(tIsoRect.l1)}$ cm donc ${nomTriangle} est isocèle en ${tIsoRect.getSommets()[1]}.`
+          texteCorr += `<br> ${tIsoRect.getLongueurs()[0]} $=$ ${tIsoRect.getLongueurs()[1]} $= ${texNombre(tIsoRect.l1)}\\text{ cm}$ donc ${nomTriangle} est isocèle en ${tIsoRect.getSommets()[1]}.`
           texteCorr += `<br> Le triangle ${nomTriangle} est donc ${texteEnCouleurEtGras('isocèle')} et ${texteEnCouleurEtGras('rectangle')} en ${tIsoRect.getSommets()[1]}.`
         } else {
           texte += `${tIsoRect.getAngles()[0]} $= ${tIsoRect.a1}^\\circ$.`
           texteCorr = `L'angle ${tIsoRect.getAngles()[0]} du triangle ${nomTriangle} est un angle droit donc ${nomTriangle} est rectangle en ${tIsoRect.getSommets()[1]}.`
-          texteCorr += `<br> ${tIsoRect.getLongueurs()[0]} $=$ ${tIsoRect.getLongueurs()[1]} $= ${tIsoRect.l1}$ cm donc ${nomTriangle} est isocèle en ${tIsoRect.getSommets()[1]}.`
+          texteCorr += `<br> ${tIsoRect.getLongueurs()[0]} $=$ ${tIsoRect.getLongueurs()[1]} $= ${tIsoRect.l1}\\text{ cm}$ donc ${nomTriangle} est isocèle en ${tIsoRect.getSommets()[1]}.`
           texteCorr += `<br> Le triangle ${nomTriangle} est donc ${texteEnCouleurEtGras('isocèle')} et ${texteEnCouleurEtGras('rectangle')} en ${tIsoRect.getSommets()[1]}.`
         }
         break
@@ -444,7 +445,7 @@ export default class VocabulaireDesTriangles extends Exercice {
         nomTriangle = tIsoRect.getNom()
         A.nom = nomTriangle[1]
         B = pointAdistance(A, tIsoRect.l1, randint(0, 10), nomTriangle[2])
-        C = rotation(A, B, 90, nomTriangle[3]) as Point
+        C = rotation(A, B, 90, nomTriangle[3])
         figureMainLevee.push(
           ...polygoneAvecNom(A, B, C),
           placeLatexSurSegment(
@@ -460,18 +461,18 @@ export default class VocabulaireDesTriangles extends Exercice {
           }),
           codageAngleDroit(A, B, C, 'black', 2),
         )
-        texte = `${nomTriangle} est un triangle tel que ${tIsoRect.getLongueurs()[0]} $= ${texNombre(tIsoRect.l1 * 10)}$ mm ; `
-        texte += `${tIsoRect.getLongueurs()[1]} $= ${texNombre(tIsoRect.l2)}$ cm`
+        texte = `${nomTriangle} est un triangle tel que ${tIsoRect.getLongueurs()[0]} $= ${texNombre(tIsoRect.l1 * 10)}\\text{ mm}$ ; `
+        texte += `${tIsoRect.getLongueurs()[1]} $= ${texNombre(tIsoRect.l2)}\\text{ cm}$`
         texte += ' et '
         if (this.classe === 6) {
           texte += `qui a un angle droit en ${tIsoRect.getSommets()[1]}.`
           texteCorr = `Le triangle ${nomTriangle} a un angle droit en ${tIsoRect.getSommets()[1]} donc ${nomTriangle} est rectangle en ${tIsoRect.getSommets()[1]}.`
-          texteCorr += `<br> ${tIsoRect.getLongueurs()[0]} $= ${tIsoRect.l1 * 10}$ mm $= ${texNombre(tIsoRect.l1)}$ cm =${tIsoRect.getLongueurs()[1]} donc ${nomTriangle} est isocèle en ${tIsoRect.getSommets()[1]}.`
+          texteCorr += `<br> ${tIsoRect.getLongueurs()[0]} $= ${tIsoRect.l1 * 10}\\text{ mm}$ $= ${texNombre(tIsoRect.l1)}\\text{ cm}$ =${tIsoRect.getLongueurs()[1]} donc ${nomTriangle} est isocèle en ${tIsoRect.getSommets()[1]}.`
           texteCorr += `<br> Le triangle ${nomTriangle} est donc ${texteEnCouleurEtGras('isocèle')} et ${texteEnCouleurEtGras('rectangle')} en ${tIsoRect.getSommets()[1]}.`
         } else {
           texte += `${tIsoRect.getAngles()[0]} $= ${tIsoRect.a1}^\\circ$.`
           texteCorr = `L'angle ${tIsoRect.getAngles()[0]} du triangle ${nomTriangle} est un angle droit donc ${nomTriangle} est rectangle en ${tIsoRect.getSommets()[1]}.`
-          texteCorr += `<br> ${tIsoRect.getLongueurs()[0]} $= ${texNombre(tIsoRect.l1 * 10)}$ mm $= ${texNombre(tIsoRect.l1)}$ cm =${tIsoRect.getLongueurs()[1]} donc ${nomTriangle} est isocèle en ${tIsoRect.getSommets()[1]}.`
+          texteCorr += `<br> ${tIsoRect.getLongueurs()[0]} $= ${texNombre(tIsoRect.l1 * 10)}\\text{ mm}$ $= ${texNombre(tIsoRect.l1)}\\text{ cm}$ =${tIsoRect.getLongueurs()[1]} donc ${nomTriangle} est isocèle en ${tIsoRect.getSommets()[1]}.`
           texteCorr += `<br> Le triangle ${nomTriangle} est donc ${texteEnCouleurEtGras('isocèle')} et ${texteEnCouleurEtGras('rectangle')} en ${tIsoRect.getSommets()[1]}.`
         }
         break
@@ -491,7 +492,7 @@ export default class VocabulaireDesTriangles extends Exercice {
           B = pointAdistance(A, 10, randint(-30, 30), nomTriangle[2])
           const dIso = rotation(droite(A, B), A, tIso.a3)
           const dIso2 = rotation(droite(A, B), B, -tIso.a1)
-          C = pointIntersectionDD(dIso, dIso2) as Point
+          C = pointIntersectionDD(dIso, dIso2)
           C.nom = nomTriangle[3]
           figureMainLevee.push(
             ...polygoneAvecNom(A, B, C),
@@ -537,7 +538,7 @@ export default class VocabulaireDesTriangles extends Exercice {
           B = pointAdistance(A, 10, randint(0, 360), nomTriangle[2])
           const dEqui = rotation(droite(A, B), A, 60 + randint(-3, 3, 0))
           const dEqui2 = rotation(droite(A, B), B, -60 + randint(-3, 3, 0))
-          C = pointIntersectionDD(dEqui, dEqui2) as Point
+          C = pointIntersectionDD(dEqui, dEqui2)
           C.nom = nomTriangle[3]
           figureMainLevee.push(
             ...polygoneAvecNom(A, B, C),

@@ -1,6 +1,5 @@
 import Decimal from 'decimal.js'
 import { factorisation } from './primalite'
-import { texNombre } from './texNombre'
 
 /**
  * Retourne la somme des chiffres (ou d'un tableau de chiffres) d'un nombre en valeur et sous forme de String [valeur, String]
@@ -55,6 +54,13 @@ export function produitsEnCroix([[a, b], [c, d]]: [
  * Le résultat est un string qui doit être entouré de $ pour le mode mathématique
  * @author Jean-Claude Lhote
  */
+const texNombre = (n: number | Decimal, precision: number) => {
+  if (precision === 0) return n.toString()
+  else {
+    const dn = new Decimal(n)
+    return dn.toDP(precision).toString().replace('.', '{,}')
+  }
+}
 
 export function quatriemeProportionnelle(
   a: number | string,

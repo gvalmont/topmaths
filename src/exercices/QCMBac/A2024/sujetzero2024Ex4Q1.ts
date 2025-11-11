@@ -1,12 +1,12 @@
 import { fixeBordures } from '../../../lib/2d/fixeBordures'
-import { tracePoint } from '../../../lib/2d/points'
 import { labelPoint } from '../../../lib/2d/textes'
+import { tracePoint } from '../../../lib/2d/TracePoint'
 import {
   point3d,
   polygone3d,
   vecteur3d,
-} from '../../../lib/3d/3dProjectionMathalea2d/elements'
-import { prisme3d } from '../../../lib/3d/3dProjectionMathalea2d/solides'
+} from '../../../lib/3d/3dProjectionMathalea2d/elementsEtTransformations3d'
+import { prisme3d } from '../../../lib/3d/3dProjectionMathalea2d/Prisme3dPerspectiveCavaliere'
 import { mathalea2d } from '../../../modules/mathalea2d'
 import ExerciceQcm from '../../ExerciceQcm'
 

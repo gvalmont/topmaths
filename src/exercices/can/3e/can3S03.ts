@@ -1,6 +1,9 @@
+import { orangeMathalea } from '../../../lib/colors'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 import { choice, shuffle } from '../../../lib/outils/arrayOutils'
+import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { texNombre } from '../../../lib/outils/texNombre'
+import FractionEtendue from '../../../modules/FractionEtendue'
 import { fraction } from '../../../modules/fractions'
 import { randint } from '../../../modules/outils'
 import ExerciceSimple from '../../ExerciceSimple'
@@ -11,7 +14,6 @@ export const interactifType = 'mathLive'
 /**
  * Modèle d'exercice très simple pour la course aux nombres
  * @author Gilles Mora
- * Date de publication ???
  */
 export const uuid = 'd86be'
 export const dateDeModificationImportante = '12/10/2025' // ajout de versionQcmDisponible Jean-Claude Lhote
@@ -27,6 +29,8 @@ export default class CalculsProbabilite2 extends ExerciceSimple {
     this.typeExercice = 'simple'
     this.nbQuestions = 1
     this.versionQcmDisponible = true
+    this.spacing = 1.5
+    this.spacingCorr = 1.5
   }
 
   nouvelleVersion() {
@@ -62,23 +66,23 @@ export default class CalculsProbabilite2 extends ExerciceSimple {
     const couleurDemandee = choix ? couleur1 : couleur2
 
     // Construction de l'énoncé
-    this.question = `On tire une boule au hasard dans une urne contenant $${a}$ boules ${couleur1} et $${b}$ boules ${couleur2}.<br>
+    this.question = `On tire une boule au hasard dans une urne contenant $${a}$ boules ${couleur1}s et $${b}$ boules ${couleur2}s.<br>
 
              Quelle est la probabilité d'obtenir une boule ${couleurDemandee} ? <br>
 
-             ${formatDecimal ? 'On donnera le résultat sous forme décimale.' : "(résultat sous  forme d'une fraction irréductible)"}`
-    this.optionsChampTexte = { texteApres: '' }
+             ${formatDecimal ? 'On donnera le résultat sous forme décimale.' : "On donnera le résultat sous forme d'une fraction irréductible."}`
 
     // Correction commune + partie spécifique selon format
     const correctionCommun = `Dans une situation d'équiprobabilité,
         on calcule la probabilité d'un événement par le quotient :
         $\\dfrac{\\text{Nombre d'issues favorables}}{\\text{Nombre total d'issue}}$. <br>
-        La probabilité est donc donnée par : <br>`
+        La probabilité est donc donnée par : `
     if (!formatDecimal) {
       // fraction
+      const reponsepossible = `${choix ? fraction(a, denom).texFraction : fraction(b, denom).texFraction}`
       this.correction = `${correctionCommun}
         $\\dfrac{\\text{Nombre de boules ${couleurDemandee}s}}{\\text{Nombre total de boules}}
-             =${choix ? fraction(a, denom).texFraction : fraction(b, denom).texFraction}  ${choix ? fraction(a, denom).texSimplificationAvecEtapes() : fraction(b, denom).texSimplificationAvecEtapes()}$`
+             =${new FractionEtendue(a, denom).estIrreductible ? miseEnEvidence(reponsepossible) : reponsepossible}  ${choix ? fraction(a, denom).texSimplificationAvecEtapes(false, orangeMathalea) : fraction(b, denom).texSimplificationAvecEtapes(false, orangeMathalea)}$`
       this.reponse = choix
         ? `$${fraction(a, denom).texFractionSimplifiee}$`
         : `$${fraction(b, denom).texFractionSimplifiee}$`
@@ -86,7 +90,7 @@ export default class CalculsProbabilite2 extends ExerciceSimple {
       // décimal
       this.correction = `${correctionCommun}
         $\\dfrac{\\text{Nombre de boules ${couleurDemandee}s}}{\\text{Nombre total de boules}}
-             =${choix ? fraction(a, denom).texFraction : fraction(b, denom).texFraction} =${choix ? texNombre(a / denom) : texNombre(b / denom)}$`
+             =${choix ? fraction(a, denom).texFraction : fraction(b, denom).texFraction} =${miseEnEvidence(`${choix ? texNombre(a / denom) : texNombre(b / denom)}`)}$`
       this.reponse = choix ? a / denom : b / denom
     }
 

@@ -56,6 +56,10 @@ export default class SommeOuProduitFractions extends Exercice {
     this.nbColsCorr = 4 // Uniquement pour la sortie LaTeX
 
     this.sup = '1-3'
+    this.besoinFormulaire2CaseACocher = [
+      "Avec l'écriture simplifiée de la fraction résultat",
+    ]
+    this.sup2 = true
     this.correctionDetailleeDisponible = true // booléen qui indique si une correction détaillée est disponible.
     this.correctionDetaillee = false
     this.listeAvecNumerotation = false
@@ -363,7 +367,8 @@ export default class SommeOuProduitFractions extends Exercice {
 
         // Fin de cette uniformisation
       } else {
-        texteCorr += `<br>$${lettre}  ${simplificationDeFractionAvecEtapes(num, den, { couleur1: 'blue', couleur2: orangeMathalea })}$`
+        if (this.sup2){
+        texteCorr += `<br>$${lettre}  ${simplificationDeFractionAvecEtapes(num, den, { couleur1: 'blue', couleur2: orangeMathalea })}$`}
       }
       texteCorr += '<br>'
       texte += ajouteChampTexteMathLive(this, i, ' ', {

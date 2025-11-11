@@ -3,7 +3,6 @@ import { miseEnEvidence } from '../../../outils/embellissements'
 import SchemaEnBoite from '../../../outils/SchemaEnBoite'
 import { texNombre } from '../../../outils/texNombre'
 import Probleme from '../../Probleme'
-import { chocolats5 } from './chocolats'
 /**
  * @author Jean-Claude Lhote
  */
@@ -61,4 +60,3 @@ Combien de sachets peut-on avoir pour le prix d'une boite ?`
     this.reponse = texNombre(data.nbFois, 0)
   }
 }
-export const listeDeProblemesCompMulNbParts = [chocolats5]

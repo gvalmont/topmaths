@@ -1,3 +1,4 @@
+import { arrondi } from '../../lib/outils/nombres'
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
@@ -119,8 +120,7 @@ export default class ConvertirDuree extends Exercice {
     )
 
     //    this.consigne = `${this.sup === 4 || this.sup === 3 || this.sup2 ? ' ' : `Arrondir, si nécessaire, les résultats au ${this.sup3 ? 'dixième' : 'centième'}`}`
-    this.consigne = `${this.sup === 4 || this.sup === 3 || this.sup2 || this.sup3 ? ' ' : `Arrondir, si nécessaire, ${this.nbQuestions > 1 ? 'les résultats' : 'le résultat'} au centième.`}`
-
+    this.consigne = `${this.sup === 4 || this.sup2 || this.sup3 ? ' ' : `Arrondir, si nécessaire, ${this.nbQuestions > 1 ? 'les résultats' : 'le résultat'} au centième.`}`
     for (
       let i = 0, cpt = 0, champIndex = 0;
       i < this.nbQuestions && cpt < 50;
@@ -364,20 +364,20 @@ export default class ConvertirDuree extends Exercice {
               this,
               champIndex,
               KeyboardType.clavierNumbers,
-              { texteAvant: '', texteApres: ' h ' },
+              { texteApres: ' h ' },
             )
           texte += ajouteChampTexteMathLive(
             this,
             champIndex + 1,
             KeyboardType.clavierNumbers,
-            { texteAvant: '', texteApres: ' min ' },
+            { texteApres: ' min ' },
           )
           if (!this.sup2 && !this.sup3)
             texte += ajouteChampTexteMathLive(
               this,
               champIndex + 2,
               KeyboardType.clavierNumbers,
-              { texteAvant: '', texteApres: ' s' },
+              { texteApres: ' s' },
             )
         } else {
           texte +=
@@ -443,7 +443,7 @@ export default class ConvertirDuree extends Exercice {
 
           handleAnswers(this, champIndex, {
             reponse: {
-              value: heures,
+              value: arrondi(heures, 2),
               options: {
                 nombreDecimalSeulement: true,
               },
@@ -469,7 +469,7 @@ export default class ConvertirDuree extends Exercice {
         } else {
           handleAnswers(this, champIndex, {
             reponse: {
-              value: reponse as number,
+              value: arrondi(reponse as number, 2),
               options: {
                 nombreDecimalSeulement: true,
               },

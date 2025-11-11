@@ -80,7 +80,7 @@ export default class CalculFonctionDeriveeUnsurU extends ExerciceSimple {
         } else {
           this.question += "Déterminer  $f'(x)$."
         }
-        this.correction = `$f$est de la forme $\\dfrac{1}{u}$ avec $u(x)=${reduireAxPlusB(m, p)}$.<br>
+        this.correction = `$f$ est de la forme $\\dfrac{1}{u}$ avec $u(x)=${reduireAxPlusB(m, p)}$.<br>
                          Or  $\\left(\\dfrac{1}{u}\\right)'=\\dfrac{-u'}{u^2}$.<br>
                   On a  $u(x)=${reduireAxPlusB(m, p)}$ et $u'(x)=${m}$. <br>
                   On en déduit, `

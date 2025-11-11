@@ -1,8 +1,9 @@
-import { codageAngleDroit } from '../../../lib/2d/angles'
-import { milieu, point, pointAdistance } from '../../../lib/2d/points'
+import { codageAngleDroit } from '../../../lib/2d/CodageAngleDroit'
+import { point } from '../../../lib/2d/PointAbstrait'
 import { polygoneAvecNom } from '../../../lib/2d/polygones'
 import { latex2d } from '../../../lib/2d/textes'
 import { similitude } from '../../../lib/2d/transformations'
+import { milieu, pointAdistance } from '../../../lib/2d/utilitairesPoint'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { texNombre } from '../../../lib/outils/texNombre'
@@ -30,7 +31,7 @@ export default class hypoténusePythagore extends ExerciceSimple {
     this.nbQuestions = 1
     this.formatChampTexte = KeyboardType.clavierFullOperations
 
-    this.optionsChampTexte = { texteAvant: '', texteApres: 'cm.' }
+    this.optionsChampTexte = { texteApres: '$\\text{ cm}$' }
     this.canOfficielle = true
   }
 
@@ -81,7 +82,7 @@ export default class hypoténusePythagore extends ExerciceSimple {
     this.canEnonce = this.question
     this.question += '<br>La valeur exacte de $ST$ est '
     if (!this.interactif) {
-      this.question += '$\\ldots$ cm.'
+      this.question += '$\\ldots\\text{ cm}$.'
     }
     this.correction = ` On utilise le théorème de Pythagore dans le triangle $SRT$,  rectangle en $R$.<br>
                   $\\begin{aligned}
@@ -93,6 +94,7 @@ export default class hypoténusePythagore extends ExerciceSimple {
                     ST&=${miseEnEvidence(`\\sqrt{${c2}}`)}
                     \\end{aligned}$`
     this.reponse = `\\sqrt{${c2}}`
-    this.canReponseACompleter = 'La valeur exacte de $ST$ est $\\ldots$ cm.'
+    this.canReponseACompleter =
+      'La valeur exacte de $ST$ est $\\ldots\\text{ cm}$.'
   }
 }

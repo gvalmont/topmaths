@@ -1,16 +1,22 @@
-import { angle, angleOriente } from '../../lib/2d/angles'
-import { afficheLongueurSegment } from '../../lib/2d/codages'
+import { afficheLongueurSegment } from '../../lib/2d/afficheLongueurSegment'
 import { distancePointDroite, droite } from '../../lib/2d/droites'
 import { fixeBordures } from '../../lib/2d/fixeBordures'
-import { point, pointSurDroite, tracePoint } from '../../lib/2d/points'
+import { point } from '../../lib/2d/PointAbstrait'
 import { nommePolygone, polygone } from '../../lib/2d/polygones'
-import { longueur, segmentAvecExtremites } from '../../lib/2d/segmentsVecteurs'
+import { segmentAvecExtremites } from '../../lib/2d/segmentsVecteurs'
 import { labelPoint, latexParPoint } from '../../lib/2d/textes'
+import { tracePoint } from '../../lib/2d/TracePoint'
 import {
   homothetie,
   rotation,
   symetrieAxiale,
 } from '../../lib/2d/transformations'
+import {
+  angle,
+  angleOriente,
+  longueur,
+} from '../../lib/2d/utilitairesGeometriques'
+import { pointSurDroite } from '../../lib/2d/utilitairesPoint'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { choisitLettresDifferentes } from '../../lib/outils/aleatoires'
 import {

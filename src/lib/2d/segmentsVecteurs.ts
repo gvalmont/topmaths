@@ -1,223 +1,49 @@
 import { context } from '../../modules/context'
-import FractionEtendue from '../../modules/FractionEtendue'
-import { Point3d } from '../3d/3dProjectionMathalea2d/elements'
-import { arrondi } from '../outils/nombres'
-import { angleOriente } from './angles'
-import { Cercle } from './cercle'
 import { colorToLatexOrHTML } from './colorToLatexOrHtml'
-import { Droite, droite } from './droites'
-import { fixeBordures } from './fixeBordures'
 import MainLevee from './MainLevee'
 import { ObjetMathalea2D } from './ObjetMathalea2D'
+import { point, PointAbstrait } from './PointAbstrait'
 import {
-  milieu,
-  Point,
-  point,
-  pointIntersectionDD,
-  pointIntersectionLC,
-  pointSurSegment,
-} from './points'
-import { pointAbstrait, PointAbstrait } from './points-abstraits'
-import { latex2d, texteParPosition } from './textes'
-import { rotation, similitude, translation } from './transformations'
+  angleOriente,
+  estSecant as estSecantUtil,
+} from './utilitairesGeometriques'
+import { pointSurSegment } from './utilitairesPoint'
 
 /**
- * v = vecteur('V') // son nom
- * v = vecteur(x,y) // ses composantes
- * v = vecteur(A,B) // son origine et son extrémité (deux Points)
- * v = vecteur(x,y,'v') // son nom et ses composantes.
- * v.representant(E,'blue') // Dessine le vecteur v issu de E, en bleu.
- * Commenter toutes les méthodes possibles
- * @author Jean-Claude Lhote et Rémi Angot
+ * Rotation d'un point M autour d'un centre O d'un angle en degrés
  */
-export class Vecteur {
-  nom: string
-  x: number
-  y: number
-
-  constructor(
-    arg1: FractionEtendue | number | PointAbstrait | string,
-    arg2: FractionEtendue | number | PointAbstrait,
-    nom = '',
-  ) {
-    if (arguments.length === 1) {
-      this.nom = String(arg1)
-      this.x = 0
-      this.y = 0
-    } else {
-      if (typeof arg1 === 'number' || arg1 instanceof FractionEtendue) {
-        this.x =
-          arg1 instanceof FractionEtendue ? arg1.valeurDecimale : Number(arg1)
-        this.y =
-          arg2 instanceof FractionEtendue ? arg2.valeurDecimale : Number(arg2)
-      } else {
-        if (arg1 instanceof PointAbstrait && arg2 instanceof PointAbstrait) {
-          this.x = arg2.x - arg1.x
-          this.y = arg2.y - arg1.y
-        } else {
-          window.notify(
-            'Vecteur : (attendus : A et B) les arguments de sont pas des points valides',
-            {
-              arg1,
-              arg2,
-            },
-          )
-          this.x = 0
-          this.y = 0
-        }
-      }
-      this.nom = nom
-    }
-  }
-
-  norme() {
-    return Math.sqrt(this.x ** 2 + this.y ** 2)
-  }
-
-  oppose() {
-    this.x = -this.x
-    this.y = -this.y
-  }
-
-  xSVG(coeff: number) {
-    return this.x * coeff
-  }
-
-  ySVG(coeff: number) {
-    return -this.y * coeff
-  }
-
-  representant(A: Point | PointAbstrait, color = 'black') {
-    const B = point(A.x + this.x, A.y + this.y)
-    const s = segment(A, B, color, '->')
-    s.tailleExtremites = 5
-    return s
-  }
-
-  representantNomme(A: Point, nom: string, taille = 1, color = 'black') {
-    let s
-    let v
-    const B = point(A.x + this.x, A.y + this.y)
-    const M = milieu(A, B)
-    s = segment(A, B, color)
-    const angle = s.angleAvecHorizontale
-    v = similitude(this, A, 90, 0.5 / this.norme())
-    if (Math.abs(angle) > 90) {
-      s = segment(B, A, color)
-      // angle = s.angleAvecHorizontale
-      v = similitude(this, A, -90, 0.5 / this.norme())
-    }
-    const N = translation(M, v)
-    return nomVecteurParPosition(nom, N.x, N.y, taille, 0, color)
-  }
+function rotationPoint(
+  M: PointAbstrait,
+  O: PointAbstrait,
+  angleDeg: number,
+): PointAbstrait {
+  const angleRad = (angleDeg * Math.PI) / 180
+  const cos = Math.cos(angleRad)
+  const sin = Math.sin(angleRad)
+  const dx = M.x - O.x
+  const dy = M.y - O.y
+  return point(O.x + dx * cos - dy * sin, O.y + dx * sin + dy * cos)
 }
 
 /**
- * @example v = vecteur('V') // son nom
- * @example v = vecteur(x,y) // ses composantes
- * @example v = vecteur(A,B) // son origine et son extrémité (deux Points)
- * @example v = vecteur(x,y,'v') // son nom et ses composantes.
- * @author Jean-Claude Lhote et Rémi Angot
+ * Similitude : rotation + homothétie
+ * Point M' = O + k * rotation(M - O, angle)
  */
-export function vecteur(
-  arg1: FractionEtendue | number | PointAbstrait | string,
-  arg2: FractionEtendue | number | PointAbstrait,
-  nom = '',
-) {
-  return new Vecteur(arg1, arg2, nom)
-}
-
-/**
- * @author Jean-Claude Lhote le 31/01/2021
- * crée un nom de vecteur avec sa petite flèche
- * l'angle formé par avec l'horizontale est à donner comme argument, par défaut c'est 0
- * la taille impactera le nom et la flèche en proportion.
- * (x,y) sont les coordonnées du centre du nom.
- */
-export class NomVecteurParPosition extends ObjetMathalea2D {
-  nom: string
-  x: number
-  y: number
-  angle: number
-  taille: number
-  constructor(
-    nom: string,
-    x: number,
-    y: number,
-    taille = 1,
-    angle = 0,
-    color = 'black',
-  ) {
-    super()
-    this.nom = nom
-    this.x = x
-    this.y = y
-    this.color = colorToLatexOrHTML(color)
-    this.angle = angle
-    this.taille = taille
-    // @todo créer deux objets : vecteurI et vecteurJ pour ça.
-    // if (this.nom === 'i') return latex2d('\\vec \\imath', this.x, this.y, { color })
-    // if (this.nom === 'j') return latex2d('\\vec \\jmath', this.x, this.y, { color })
-
-    const t = texteParPosition(
-      this.nom,
-      this.x,
-      this.y,
-      -this.angle,
-      color,
-      this.taille,
-      'milieu',
-      true,
-    )
-    const M = point(this.x, this.y)
-    const P = point(M.x + 0.25 * this.nom.length, M.y)
-    const M0 = similitude(P, M, 90 + this.angle, 1.5)
-    const M1 = rotation(translation(M0, vecteur(P, M)), M0, this.angle)
-    const M2 = similitude(M1, M0, 180, 1.5)
-    const s = segment(M1, M2, color)
-    s.styleExtremites = '->'
-    s.tailleExtremites = 3
-    this.objets = [t, s]
-    const bordures = fixeBordures(this.objets, {
-      rxmin: 0,
-      rxmax: 0,
-      rymin: 0,
-      rymax: 0,
-    })
-    this.bordures = [bordures.xmin, bordures.ymin, bordures.xmax, bordures.ymax]
-  }
-
-  svg(coeff: number) {
-    let code = ''
-    if (this.objets == null) return code
-    for (const objet of this.objets) {
-      code += '\n\t' + objet.svg(coeff)
-    }
-    return code
-  }
-
-  tikz() {
-    let code = ''
-    if (this.objets == null) return code
-    for (const objet of this.objets) {
-      code += '\n\t' + objet.tikz()
-    }
-    return code
-  }
-}
-
-export function nomVecteurParPosition(
-  nom: string,
-  x: number,
-  y: number,
-  taille = 1,
-  angle = 0,
-  color = 'black',
-) {
-  // Katex ne reconnais pas \\vec qui est une commande définie ailleurs.
-  if (nom === 'i') return latex2d('\\vec{\\imath}', x, y, { color })
-  if (nom === 'j') return latex2d('\\vec{\\jmath}', x, y, { color })
-  return new NomVecteurParPosition(nom, x, y, taille, angle, color)
+function similitudePoint(
+  centre: PointAbstrait,
+  M: PointAbstrait,
+  angleDeg: number,
+  rapport: number,
+): PointAbstrait {
+  const angleRad = (angleDeg * Math.PI) / 180
+  const cos = Math.cos(angleRad)
+  const sin = Math.sin(angleRad)
+  const dx = M.x - centre.x
+  const dy = M.y - centre.y
+  return point(
+    centre.x + rapport * (dx * cos - dy * sin),
+    centre.y + rapport * (dx * sin + dy * cos),
+  )
 }
 
 /**
@@ -239,62 +65,97 @@ export class Segment extends ObjetMathalea2D {
   extremite1: PointAbstrait
   extremite2: PointAbstrait
   longueur: number
+
+  // Surcharges
   constructor(
-    ...args:
-      | [PointAbstrait | Point3d, PointAbstrait | Point3d, string?, string?]
-      | [number, number, number, number, string?, string?]
+    A: PointAbstrait,
+    B: PointAbstrait,
+    color?: string,
+    styleExtremites?: string,
+  )
+  constructor(
+    x1: number,
+    y1: number,
+    x2: number,
+    y2: number,
+    color?: string,
+    styleExtremites?: string,
+  )
+  constructor(
+    a: number | PointAbstrait,
+    b: number | PointAbstrait,
+    colorOrX2?: string | number,
+    styleOrY2?: string | number,
+    color?: string,
+    styleExtremites?: string,
   ) {
     super()
     this.bordures = [0, 0, 0, 0]
     this.typeObjet = 'segment'
-    if (typeof args[0] === 'number') {
-      this.styleExtremites = args[5] || ''
-    } else {
-      this.styleExtremites = String(args[3]) || ''
-    }
     this.tailleExtremites = 4
-    if (args[0] instanceof PointAbstrait || args[0] instanceof Point3d) {
-      if (args[1] instanceof PointAbstrait || args[1] instanceof Point3d) {
-        this.x1 = args[0].x
-        this.y1 = args[0].y
-        this.x2 = args[1].x
-        this.y2 = args[1].y
-      } else {
+
+    const isPoint = (v: unknown): v is PointAbstrait =>
+      v instanceof PointAbstrait
+
+    if (isPoint(a) && isPoint(b)) {
+      // Construction par deux points (A, B, color?, styleExtremites?)
+      this.x1 = a.x
+      this.y1 = a.y
+      this.x2 = b.x
+      this.y2 = b.y
+      this.color = colorToLatexOrHTML(
+        typeof colorOrX2 === 'string' ? colorOrX2 : 'black',
+      )
+      this.styleExtremites = typeof styleOrY2 === 'string' ? styleOrY2 : ''
+    } else if (
+      typeof a === 'number' &&
+      typeof b === 'number' &&
+      typeof colorOrX2 === 'number' &&
+      typeof styleOrY2 === 'number'
+    ) {
+      // Construction par coordonnées (x1, y1, x2, y2, color?, styleExtremites?)
+      if (
+        Number.isNaN(a) ||
+        Number.isNaN(b) ||
+        Number.isNaN(colorOrX2) ||
+        Number.isNaN(styleOrY2)
+      ) {
         window.notify(
-          `Segment : (attendus : A et B${arguments.length === 3 ? ' et "couleur"' : ''}) les arguments de sont pas des points valides`,
-          { ...args },
+          'Segment : (attendus : x1, y1, x2, y2 et "couleur") les arguments ne sont pas des nombres valides',
+          { a, b, colorOrX2, styleOrY2 },
         )
         this.x1 = 0
         this.y1 = 0
         this.x2 = 0
         this.y2 = 0
+        this.color = colorToLatexOrHTML('black')
+        this.styleExtremites = ''
+      } else {
+        this.x1 = a
+        this.y1 = b
+        this.x2 = colorOrX2
+        this.y2 = styleOrY2
+        this.color = colorToLatexOrHTML(color || 'black')
+        this.styleExtremites = styleExtremites || ''
       }
-      this.color = colorToLatexOrHTML(args[2]?.toString() || 'black')
-      this.styleExtremites = args[3]?.toString() || ''
     } else {
-      if (
-        Number.isNaN(args[0]) ||
-        Number.isNaN(args[1]) ||
-        Number.isNaN(args[2]) ||
-        Number.isNaN(args[3])
-      ) {
-        window.notify(
-          'Segment : (attendus : x1, y1, x2, y2 et "couleur") les arguments de sont pas des nombres valides',
-          { ...args },
-        )
-      }
-      this.x1 = Number(args[0])
-      this.y1 = Number(args[1])
-      this.x2 = Number(args[2])
-      this.y2 = Number(args[3])
-      this.color = colorToLatexOrHTML(args[4] || 'black')
-      this.styleExtremites = args[5] || ''
+      // Cas invalide
+      window.notify(
+        'Segment : utilisez (A, B, color?, style?) ou (x1, y1, x2, y2, color?, style?)',
+        { a, b, colorOrX2, styleOrY2 },
+      )
+      this.x1 = 0
+      this.y1 = 0
+      this.x2 = 0
+      this.y2 = 0
+      this.color = colorToLatexOrHTML('black')
+      this.styleExtremites = ''
     }
 
-    this.x1 = arrondi(this.x1, 2)
-    this.y1 = arrondi(this.y1, 2)
-    this.x2 = arrondi(this.x2, 2)
-    this.y2 = arrondi(this.y2, 2)
+    this.x1 = Number(this.x1.toFixed(2))
+    this.y1 = Number(this.y1.toFixed(2))
+    this.x2 = Number(this.x2.toFixed(2))
+    this.y2 = Number(this.y2.toFixed(2))
 
     this.epaisseur = 1
     this.opacite = 1
@@ -321,6 +182,12 @@ export class Segment extends ObjetMathalea2D {
             this.extremite2,
             5,
           )
+    if (this.longueur < 1e-8) {
+      window.notify(
+        "Création d'un segment de longueur nulle, les opérations géométriques peuvent être erronées",
+        { x1: this.x1, y1: this.y1, x2: this.x2, y2: this.y2 },
+      )
+    }
   }
 
   svg(coeff: number) {
@@ -501,14 +368,16 @@ export class Segment extends ObjetMathalea2D {
     let code = ''
     const A = point(this.x1, this.y1)
     const B = point(this.x2, this.y2)
+    // On ne peut pas coder des extrémités si le segment est de longueur nulle
+    if (this.longueur < 1e-8) return code // éviter les divisions par zéro
     const h = this.tailleExtremites
     if (this.styleExtremites.length > 1) {
       const fin = this.styleExtremites.slice(-1)
       if (fin === '|') {
         // si ça termine par | on le rajoute en B
         const M = pointSurSegment(B, A, h / context.pixelsParCm)
-        const B1 = rotation(M, B, 90)
-        const B2 = rotation(M, B, -90)
+        const B1 = rotationPoint(M, B, 90)
+        const B2 = rotationPoint(M, B, -90)
         code += `<line x1="${B1.xSVG(coeff)}" y1="${B1.ySVG(
           coeff,
         )}" x2="${B2.xSVG(coeff)}" y2="${B2.ySVG(coeff)}" stroke="${
@@ -518,8 +387,8 @@ export class Segment extends ObjetMathalea2D {
       if (fin === '>') {
         // si ça termine par > on rajoute une flèche en B
         const M = pointSurSegment(B, A, h / context.pixelsParCm)
-        const B1 = similitude(B, M, 90, 0.7)
-        const B2 = similitude(B, M, -90, 0.7)
+        const B1 = similitudePoint(B, M, 45, 0.7)
+        const B2 = similitudePoint(B, M, -45, 0.7)
         code += `<line x1="${B.xSVG(coeff)}" y1="${B.ySVG(
           coeff,
         )}" x2="${B1.xSVG(coeff)}" y2="${B1.ySVG(coeff)}" stroke="${
@@ -532,8 +401,8 @@ export class Segment extends ObjetMathalea2D {
       if (fin === '<') {
         // si ça termine par < on rajoute une flèche inversée en B
         const M = pointSurSegment(B, A, -h / context.pixelsParCm)
-        const B1 = similitude(B, M, 90, 0.7)
-        const B2 = similitude(B, M, -90, 0.7)
+        const B1 = similitudePoint(B, M, 45, 0.7)
+        const B2 = similitudePoint(B, M, -45, 0.7)
         code += `<line x1="${B.xSVG(coeff)}" y1="${B.ySVG(
           coeff,
         )}" x2="${B1.xSVG(coeff)}" y2="${B1.ySVG(coeff)}" stroke="${
@@ -546,45 +415,45 @@ export class Segment extends ObjetMathalea2D {
       if (fin === '[') {
         // si ça termine par | on le rajoute en B
         const M = pointSurSegment(B, A, h / context.pixelsParCm)
-        const B1 = similitude(M, B, 90, 1)
-        const B2 = similitude(M, B, -90, 1)
-        const C1 = similitude(B, B1, -90, 0.3)
-        const C2 = similitude(B, B2, 90, 0.3)
+        const B1 = similitudePoint(M, B, 90, 1)
+        const B2 = similitudePoint(M, B, -90, 1)
+        const C1 = similitudePoint(B, B1, -90, 0.3)
+        const C2 = similitudePoint(B, B2, 90, 0.3)
         code += `<polyline points="${C2.xSVG(coeff)},${C2.ySVG(coeff)} ${B2.xSVG(coeff)},${B2.ySVG(coeff)} ${B1.xSVG(coeff)},${B1.ySVG(coeff)} ${C1.xSVG(coeff)},${C1.ySVG(coeff)}" fill="none" stroke="${this.color[0]}" ${this.style} id="${this.id}" stroke-width="${this.epaisseur}" />`
       }
       if (fin === ']') {
         // si ça termine par | on le rajoute en B
         const M = pointSurSegment(B, A, h / context.pixelsParCm)
-        const B1 = similitude(M, B, 90, 1)
-        const B2 = similitude(M, B, -90, 1)
-        const C1 = similitude(B, B1, 90, 0.3)
-        const C2 = similitude(B, B2, -90, 0.3)
+        const B1 = similitudePoint(M, B, 90, 1)
+        const B2 = similitudePoint(M, B, -90, 1)
+        const C1 = similitudePoint(B, B1, 90, 0.3)
+        const C2 = similitudePoint(B, B2, -90, 0.3)
         code += `<polyline points="${C2.xSVG(coeff)},${C2.ySVG(coeff)} ${B2.xSVG(coeff)},${B2.ySVG(coeff)} ${B1.xSVG(coeff)},${B1.ySVG(coeff)} ${C1.xSVG(coeff)},${C1.ySVG(coeff)}" fill="none" stroke="${this.color[0]}" ${this.style} id="${this.id}" stroke-width="${this.epaisseur}" />`
       }
       const debut = this.styleExtremites[0]
       if (debut === '[') {
         // si ça termine par | on le rajoute en B
         const M = pointSurSegment(A, B, h / context.pixelsParCm)
-        const B1 = similitude(M, A, 90, 1)
-        const B2 = similitude(M, A, -90, 1)
-        const C1 = similitude(A, B1, 90, 0.3)
-        const C2 = similitude(A, B2, -90, 0.3)
+        const B1 = similitudePoint(M, A, 90, 1)
+        const B2 = similitudePoint(M, A, -90, 1)
+        const C1 = similitudePoint(A, B1, 90, 0.3)
+        const C2 = similitudePoint(A, B2, -90, 0.3)
         code += `<polyline points="${C2.xSVG(coeff)},${C2.ySVG(coeff)} ${B2.xSVG(coeff)},${B2.ySVG(coeff)} ${B1.xSVG(coeff)},${B1.ySVG(coeff)} ${C1.xSVG(coeff)},${C1.ySVG(coeff)}" fill="none" stroke="${this.color[0]}" ${this.style} id="${this.id}" stroke-width="${this.epaisseur}" />`
       }
       if (debut === ']') {
         // si ça termine par | on le rajoute en B
         const M = pointSurSegment(A, B, h / context.pixelsParCm)
-        const B1 = similitude(M, A, 90, 1)
-        const B2 = similitude(M, A, -90, 1)
-        const C1 = similitude(A, B1, -90, 0.3)
-        const C2 = similitude(A, B2, 90, 0.3)
+        const B1 = similitudePoint(M, A, 90, 1)
+        const B2 = similitudePoint(M, A, -90, 1)
+        const C1 = similitudePoint(A, B1, -90, 0.3)
+        const C2 = similitudePoint(A, B2, 90, 0.3)
         code += `<polyline points="${C2.xSVG(coeff)},${C2.ySVG(coeff)} ${B2.xSVG(coeff)},${B2.ySVG(coeff)} ${B1.xSVG(coeff)},${B1.ySVG(coeff)} ${C1.xSVG(coeff)},${C1.ySVG(coeff)}" fill="none" stroke="${this.color[0]}" ${this.style} id="${this.id}" stroke-width="${this.epaisseur}" />`
       }
       if (debut === '<') {
         // si ça commence par < on rajoute une flèche en A
         const M = pointSurSegment(A, B, h / context.pixelsParCm)
-        const A1 = similitude(A, M, 90, 0.7)
-        const A2 = similitude(A, M, -90, 0.7)
+        const A1 = similitudePoint(A, M, 45, 0.7)
+        const A2 = similitudePoint(A, M, -45, 0.7)
         code += `<line x1="${A.xSVG(coeff)}" y1="${A.ySVG(
           coeff,
         )}" x2="${A1.xSVG(coeff)}" y2="${A1.ySVG(coeff)}" stroke="${
@@ -599,8 +468,8 @@ export class Segment extends ObjetMathalea2D {
       if (debut === '>') {
         // si ça commence par > on rajoute une flèche inversée en A
         const M = pointSurSegment(A, B, -h / context.pixelsParCm)
-        const A1 = similitude(A, M, 90, 0.7)
-        const A2 = similitude(A, M, -90, 0.7)
+        const A1 = similitudePoint(A, M, 45, 0.7)
+        const A2 = similitudePoint(A, M, -45, 0.7)
         code += `<line x1="${A.xSVG(coeff)}" y1="${A.ySVG(
           coeff,
         )}" x2="${A1.xSVG(coeff)}" y2="${A1.ySVG(coeff)}" stroke="${
@@ -615,8 +484,8 @@ export class Segment extends ObjetMathalea2D {
       if (debut === '|') {
         // si ça commence par | on le rajoute en A
         const N = pointSurSegment(A, B, h / context.pixelsParCm)
-        const A1 = rotation(N, A, 90)
-        const A2 = rotation(N, A, -90)
+        const A1 = rotationPoint(N, A, 90)
+        const A2 = rotationPoint(N, A, -90)
         code += `<line x1="${A1.xSVG(coeff)}" y1="${A1.ySVG(
           coeff,
         )}" x2="${A2.xSVG(coeff)}" y2="${A2.ySVG(coeff)}" stroke="${
@@ -637,43 +506,10 @@ export class Segment extends ObjetMathalea2D {
    */
   // JSDOC Validee par EE Aout 2022
   estSecant(objet: any) {
-    // Si le segment est de longueur nulle, on ne peut définir sa direction et ça pose problème pour les calculs d'intersection
-    // On regarde si la première extémité (qui est aussi la deuxième est sur l'objet)
-    if (
-      Math.abs(this.x1 - this.x2) < 0.01 &&
-      Math.abs(this.y1 - this.y2) < 0.01
-    ) {
-      const P1 = point(this.x1, this.y1)
-      return P1.estSur(objet)
-    }
-
-    const ab = droite(this.extremite1, this.extremite2)
-    if (objet instanceof Cercle) {
-      const P1 = pointIntersectionLC(ab, objet, '', 1)
-      const P2 = pointIntersectionLC(ab, objet, '', 2)
-      return (
-        (P1 instanceof Point && P1.estSur(this)) ||
-        (P2 instanceof Point && P2.estSur(this))
-      )
-    }
-    let I: Point | boolean
-    if (objet instanceof Droite) {
-      I = pointIntersectionDD(ab, objet)
-    } else {
-      const cd = droite(objet.extremite1, objet.extremite2)
-      I = pointIntersectionDD(ab, cd)
-      if (typeof I === 'boolean') {
-        I =
-          objet.extremite1.estSur(this) ||
-          objet.extremite2.estSur(this) ||
-          this.extremite1.estSur(segment(objet.extremite1, objet.extremite2)) ||
-          this.extremite2.estSur(segment(objet.extremite1, objet.extremite2))
-      }
-    }
-    if (typeof I === 'boolean') return I
-    return I.estSur(objet) && I.estSur(this)
+    return estSecantUtil(this, objet)
   }
 }
+
 /**
  * @param {...any} args Points ou coordonnées + couleur facultative en dernier
  * @return {Segment}
@@ -681,13 +517,37 @@ export class Segment extends ObjetMathalea2D {
  * @example segment(x1,y1,x2,y2,'#f15929') // Segment dont les extrémités sont respectivement (x1,y1) et (x2,y2), de couleur orange (#f15929)
  * @author Rémi Angot
  */
-
+// Surcharges pour la fabrique
 export function segment(
-  ...args:
-    | [PointAbstrait | Point3d, PointAbstrait | Point3d, string?, string?]
-    | [number, number, number, number, string?, string?]
+  A: PointAbstrait,
+  B: PointAbstrait,
+  color?: string,
+  styleExtremites?: string,
+): Segment
+export function segment(
+  x1: number,
+  y1: number,
+  x2: number,
+  y2: number,
+  color?: string,
+  styleExtremites?: string,
+): Segment
+export function segment(
+  a: number | PointAbstrait,
+  b: number | PointAbstrait,
+  colorOrX2?: string | number,
+  styleOrY2?: string | number,
+  color?: string,
+  styleExtremites?: string,
 ) {
-  return new Segment(...args)
+  return new Segment(
+    a as any,
+    b as any,
+    colorOrX2 as any,
+    styleOrY2 as any,
+    color,
+    styleExtremites,
+  )
 }
 
 /**
@@ -699,286 +559,25 @@ export function segment(
  */
 export function segmentAvecExtremites(
   ...args:
-    | [PointAbstrait | Point3d, PointAbstrait | Point3d, string?, string?]
+    | [PointAbstrait, PointAbstrait, string?, string?]
     | [number, number, number, number, string?, string?]
 ) {
-  const s = segment(...args)
+  const s =
+    typeof args[0] === 'number' && typeof args[1] === 'number'
+      ? segment(
+          args[0],
+          args[1],
+          args[2] as number,
+          args[3] as number,
+          args[4] as string,
+          args[5] as string,
+        )
+      : segment(
+          args[0] as PointAbstrait,
+          args[1] as PointAbstrait,
+          args[2] as string,
+          args[3] as string,
+        )
   s.styleExtremites = '|-|'
   return s
-}
-
-/**  Trace la demi-droite d'origine A passant par B
- * @param {PointAbstrait} A Origine de la droite
- * @param {PointAbstrait} B Point de la demi-droite, autre que l'origine
- * @param {string} [color = 'black'] Couleur de la demi-droite : du type 'blue' ou du type '#f15929'
- * @param {boolean} [extremites = false] Trace (ou pas) l'origine de la demi-droite
- * @property {string} color Couleur de la demi-droite. À associer obligatoirement à colorToLatexOrHTML().
- * @property {number} opacite
- * @property {number} pointilles (0 pour pas de pointillés)
- * @author Rémi Angot
- * @class
- */
-// JSDOC Validee par EE Aout 2022
-export class DemiDroite extends Segment {
-  constructor(
-    A: PointAbstrait,
-    B: PointAbstrait,
-    color = 'black',
-    extremites = false,
-  ) {
-    super(A, B)
-    this.opacite = 1
-    this.pointilles = 0
-    this.epaisseur = 1
-    const B1 = pointSurSegment(B, A, -10)
-    this.x2 = B1.x
-    this.y2 = B1.y
-    this.color = colorToLatexOrHTML(color)
-    if (extremites) this.styleExtremites = '|-'
-  }
-}
-
-/**  Trace la demi-droite d'origine A passant par B
- * @param {PointAbstrait} A
- * @param {PointAbstrait} B
- * @param {string} [color='black'] Facultatif, 'black' par défaut
- * @param {boolean} [extremites = false] Trace (ou pas) l'origine de la demi-droite
- * @example demiDroite(M, N) // Trace la demi-droite d'origine M passant par N et de couleur noire
- * @example demiDroite(M, N, 'blue', true) // Trace la demi-droite d'origine M passant par N et de couleur bleue, en traçant le trait signifiant l'origine de la demi-droite
- * @author Rémi Angot
- * @return {DemiDroite}
- */
-// JSDOC Validee par EE Aout 2022
-export function demiDroite(
-  A: PointAbstrait,
-  B: PointAbstrait,
-  color = 'black',
-  extremites = false,
-) {
-  return new DemiDroite(A, B, color, extremites)
-}
-
-/**
- * Renvoie la distance de A à B
- * @param {PointAbstrait} A
- * @param {PointAbstrait} B
- * @param {number} [precision] Nombre de chiffres après la virgule.
- * (ne sert à rien car si le number correspondant à l'arrondi ne tombe pas sur un flottant convertible en bianire sans erreur, il y aura 18 chiffres significatifs dans le number retourné
- * C'est à la fonction d'affichage de limiter le nombre de chiffres
- * @author Rémi Angot
- */
-export function longueur(
-  A: PointAbstrait | Point3d,
-  B: PointAbstrait | Point3d,
-  precision = 2,
-) {
-  return arrondi(Math.sqrt((B.x - A.x) ** 2 + (B.y - A.y) ** 2), precision ?? 6)
-  // j chiffres après la virgule pour l'arrondi sachant que c'est à la fonction d'affichage de limiter le nombre de chiffres.
-}
-
-/**
- * norme(V) renvoie la norme du vecteur
- *
- * @author Rémi Angot
- */
-export function norme(v: Vecteur) {
-  return Math.sqrt(v.x ** 2 + v.y ** 2)
-}
-
-export class Cordelette extends ObjetMathalea2D {
-  amplitude: number
-  constructor(
-    A: PointAbstrait,
-    B: PointAbstrait,
-    amplitude = 1,
-    mollesse = 0.5,
-    color = 'black',
-  ) {
-    super()
-    this.typeObjet = 'cordelette'
-    this.A = A
-    this.B = B
-    this.tailleExtremites = 0
-    this.color = colorToLatexOrHTML(color)
-    this.amplitude = amplitude
-    this.bordures = [
-      Math.min(A.x, B.x),
-      Math.min(A.y, B.y),
-      Math.max(A.x, B.x),
-      Math.max(A.y, B.y),
-    ]
-  }
-
-  svg(coeff: number) {
-    const mainLevee = MainLevee.create()
-    if (mainLevee != null) {
-      const A = this.A
-      const B = this.B
-
-      // Calcul de la distance entre A et B
-      const distance = Math.sqrt((B.x - A.x) ** 2 + (B.y - A.y) ** 2)
-
-      // Nombre de points intermédiaires basé sur la distance
-      // Plus la distance est grande, plus on a de points (environ 1 point tous les 0.5 unités)
-      const nbPointsIntermediaires = Math.max(2, Math.floor(distance / 0.2))
-
-      // Génération des points de la cordelette
-      const points = this.genererPointsCordelette(A, B, nbPointsIntermediaires)
-
-      // Conversion en coordonnées SVG
-      const pointsSVG = points.map((point) => [
-        point.x * coeff,
-        -point.y * coeff,
-      ]) as [number, number][]
-
-      const code = mainLevee.curve(pointsSVG, {
-        color: this.color[0],
-        epaisseur: this.epaisseur,
-        roughness: this.amplitude * 0.5, // Réduire la roughness car on a déjà le décalage
-        bowing: 1, // Réduire le bowing aussi
-      })
-
-      mainLevee.destroy()
-      return code
-    } else return ''
-  }
-
-  /**
-   * Génère des points intermédiaires décalés pour simuler une cordelette
-   */
-  private genererPointsCordelette(
-    A: PointAbstrait,
-    B: PointAbstrait,
-    nbPoints: number,
-  ) {
-    const points = [A] // Commence par le point A
-
-    // Vecteur directeur AB
-    const vecteurAB = { x: B.x - A.x, y: B.y - A.y }
-    // Vecteur perpendiculaire (pour les décalages)
-    const vecteurPerp = { x: -vecteurAB.y, y: vecteurAB.x }
-    // Normalisation du vecteur perpendiculaire
-    const normePerp = Math.sqrt(vecteurPerp.x ** 2 + vecteurPerp.y ** 2)
-    if (normePerp > 0) {
-      vecteurPerp.x /= normePerp
-      vecteurPerp.y /= normePerp
-    }
-
-    // Distance entre A et B
-    const longueurAB = Math.sqrt(vecteurAB.x ** 2 + vecteurAB.y ** 2)
-
-    // Génération d'une fonction de décalage continue basée sur plusieurs sinusoïdes
-    // pour créer un aspect naturel mais lisse
-    const frequence1 = 1 // Oscillation principale
-    const frequence2 = 2.3 // Oscillation secondaire (nombre premier pour éviter la périodicité)
-    const frequence3 = 3.7 // Oscillation tertiaire
-
-    // Amplitudes relatives
-    const amp1 = 1
-    const amp2 = 0.6
-    const amp3 = 0.3
-
-    // Seed pour la reproductibilité (basé sur les coordonnées des points)
-    const seed = (A.x + A.y + B.x + B.y) * 1000
-
-    // Fonction de décalage continue
-    const calculerDecalage = (t: number): number => {
-      // Facteur d'atténuation aux extrémités (forme en cloche)
-      const facteurExtremites = Math.sin(t * Math.PI)
-
-      // Combinaison de plusieurs sinusoïdes avec phases différentes
-      const phase1 = seed * 0.001
-      const phase2 = seed * 0.0013
-      const phase3 = seed * 0.0017
-
-      const decalage =
-        amp1 * Math.sin(t * Math.PI * frequence1 + phase1) +
-        amp2 * Math.sin(t * Math.PI * frequence2 + phase2) +
-        amp3 * Math.sin(t * Math.PI * frequence3 + phase3)
-
-      return decalage * facteurExtremites
-    }
-
-    // Génération des points intermédiaires
-    for (let i = 1; i < nbPoints; i++) {
-      const t = i / nbPoints // Paramètre entre 0 et 1
-
-      // Point sur le segment AB
-      const pointSurSegment = {
-        x: A.x + t * vecteurAB.x,
-        y: A.y + t * vecteurAB.y,
-      }
-
-      // Amplitude du décalage basée sur la longueur et l'amplitude fournie
-      const amplitudeDecalage = this.amplitude * 0.05 * longueurAB
-
-      // Décalage continu et lisse
-      const decalage = calculerDecalage(t) * amplitudeDecalage
-
-      // Effet de gravité (la cordelette "tombe" naturellement)
-      const decalageGravite =
-        Math.sin(t * Math.PI) * this.amplitude * 0.02 * longueurAB
-
-      // Point final décalé
-      const pointDecale = pointAbstrait(
-        pointSurSegment.x + decalage * vecteurPerp.x,
-        pointSurSegment.y + decalage * vecteurPerp.y - decalageGravite,
-      )
-
-      points.push(pointDecale)
-    }
-
-    points.push(B) // Termine par le point B
-    return points
-  }
-
-  tikz() {
-    const A = this.A
-    const B = this.B
-
-    // Calcul de la distance entre A et B
-    const distance = Math.sqrt((B.x - A.x) ** 2 + (B.y - A.y) ** 2)
-
-    // Nombre de points intermédiaires basé sur la distance
-    const nbPointsIntermediaires = Math.max(2, Math.floor(distance / 0.2))
-
-    // Génération des points de la cordelette
-    const points = this.genererPointsCordelette(A, B, nbPointsIntermediaires)
-
-    // Construction des options TikZ
-    const tableauOptions = []
-
-    // Gestion de la couleur (utilise this.color[1] qui est le nom de couleur LaTeX)
-    if (this.color[1] !== 'black') {
-      tableauOptions.push(this.color[1])
-    }
-
-    if (this.epaisseur !== 1) {
-      tableauOptions.push(`line width=${this.epaisseur}`)
-    }
-
-    if (this.opacite !== 1) {
-      tableauOptions.push(`opacity=${this.opacite}`)
-    }
-
-    const optionsDraw =
-      tableauOptions.length > 0 ? `[${tableauOptions.join(', ')}]` : ''
-
-    // Construction du path avec courbes lisses (sans décorateur conflictuel)
-    const coordonnees = points
-      .map((point) => `(${point.x.toFixed(3)},${point.y.toFixed(3)})`)
-      .join(' ')
-
-    return `\\draw${optionsDraw} plot[smooth] coordinates {${coordonnees}};`
-  }
-}
-
-export function cordelette(
-  A: PointAbstrait,
-  B: PointAbstrait,
-  amplitude = 1,
-  mollesse = 0.5,
-  color = 'black',
-) {
-  return new Cordelette(A, B, amplitude, mollesse, color)
 }

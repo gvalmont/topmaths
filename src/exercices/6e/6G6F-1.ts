@@ -1,21 +1,19 @@
-import { codageAngleDroit } from '../../lib/2d/angles'
 import { traceCompas } from '../../lib/2d/Arc'
+import { codageAngleDroit } from '../../lib/2d/CodageAngleDroit'
+import { codageMediatrice } from '../../lib/2d/CodageMediatrice'
+import { codageSegments } from '../../lib/2d/CodageSegment'
+import { demiDroite } from '../../lib/2d/DemiDroite'
+import { mediatrice } from '../../lib/2d/Mediatrice'
+import { Point, point } from '../../lib/2d/PointAbstrait'
 import { cercle } from '../../lib/2d/cercle'
-import {
-  codageMediatrice,
-  codageSegments,
-  placeLatexSurSegment,
-} from '../../lib/2d/codages'
-import { mediatrice } from '../../lib/2d/droites'
 import { fixeBordures } from '../../lib/2d/fixeBordures'
+import { placeLatexSurSegment } from '../../lib/2d/placeLatexSurSegment'
+import { polygoneAvecNom } from '../../lib/2d/polygones'
+import { longueur } from '../../lib/2d/utilitairesGeometriques'
 import {
-  Point,
-  point,
   pointIntersectionCC,
   pointIntersectionDD,
-} from '../../lib/2d/points'
-import { polygoneAvecNom } from '../../lib/2d/polygones'
-import { demiDroite, longueur } from '../../lib/2d/segmentsVecteurs'
+} from '../../lib/2d/utilitairesPoint'
 import { shuffle } from '../../lib/outils/arrayOutils'
 import { creerNomDePolygone } from '../../lib/outils/outilString'
 import { texNombre } from '../../lib/outils/texNombre'
@@ -116,7 +114,7 @@ export default class ConstruireUnTriangleParticulierEtSonCercleCirconscrit exten
             C = point(ac, 0, sommets[2], 'right')
             const cA = cercle(A, ab)
             const cC = cercle(C, ab)
-            B = pointIntersectionCC(cA, cC, sommets[1], 1) as Point
+            B = pointIntersectionCC(cA, cC, sommets[1], 1)
             B.positionLabel = 'above'
             ;[A, B, C].forEach(
               (p: Point, index: number) => (p.nom = sommets[index]),
@@ -172,7 +170,7 @@ export default class ConstruireUnTriangleParticulierEtSonCercleCirconscrit exten
             C = point(ab, 0, sommets[2], 'right')
             const cA = cercle(A, ab)
             const cC = cercle(C, ab)
-            B = pointIntersectionCC(cA, cC, sommets[1], 1) as Point
+            B = pointIntersectionCC(cA, cC, sommets[1], 1)
             B.positionLabel = 'above'
             ;[A, B, C].forEach(
               (p: Point, index: number) => (p.nom = sommets[index]),
@@ -231,7 +229,7 @@ export default class ConstruireUnTriangleParticulierEtSonCercleCirconscrit exten
             B = point(-ab, 0, sommets[1], 'right')
             const cA = cercle(A, ac)
             const cB = cercle(B, bc)
-            C = pointIntersectionCC(cA, cB, sommets[1], 1) as Point
+            C = pointIntersectionCC(cA, cB, sommets[1], 1)
             C.positionLabel = 'above'
             ;[A, B, C].forEach(
               (p: Point, index: number) => (p.nom = sommets[index]),
@@ -253,16 +251,12 @@ export default class ConstruireUnTriangleParticulierEtSonCercleCirconscrit exten
               "Pour cette construction, nous avons utilisé la règle graduée, le compas et l'équerre."
             const [aIEP, bIEP, cIEP] =
               this.seed === 'myriade'
-                ? (IEP.triangleRectangleCoteHypotenuse(
-                    'JIK',
-                    ab,
-                    bc,
-                  ) as Point[])
-                : (IEP.triangleRectangleCoteHypotenuse(
+                ? IEP.triangleRectangleCoteHypotenuse('JIK', ab, bc)
+                : IEP.triangleRectangleCoteHypotenuse(
                     `${sommets[1]}${sommets[0]}${sommets[2]}`,
                     ab,
                     bc,
-                  ) as Point[])
+                  )
             IEP.cercleCirconscrit(aIEP, bIEP, cIEP)
             verif = ''
             const T = polygoneAvecNom(A, B, C)
@@ -291,7 +285,7 @@ export default class ConstruireUnTriangleParticulierEtSonCercleCirconscrit exten
       const d1 = mediatrice(A, B, '', 'red')
       const d2 = mediatrice(B, C, '', 'blue')
       const d3 = mediatrice(C, A, '', 'green')
-      const O = pointIntersectionDD(d1, d2) as Point
+      const O = pointIntersectionDD(d1, d2)
       const c0 = cercle(O, longueur(A, O), 'orange')
       objetsCorrection.push(med1, med2, med3, d1, d2, d3, c0)
       if (!this.sup2) {

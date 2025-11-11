@@ -1,7 +1,9 @@
-import { codageAngleDroit } from '../../../lib/2d/angles'
-import { milieu, point, tracePoint } from '../../../lib/2d/points'
+import { codageAngleDroit } from '../../../lib/2d/CodageAngleDroit'
+import { point } from '../../../lib/2d/PointAbstrait'
 import { segment } from '../../../lib/2d/segmentsVecteurs'
 import { labelPoint, texteParPosition } from '../../../lib/2d/textes'
+import { tracePoint } from '../../../lib/2d/TracePoint'
+import { milieu } from '../../../lib/2d/utilitairesPoint'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 import { functionCompare } from '../../../lib/interactif/comparisonFunctions'
 import { handleAnswers } from '../../../lib/interactif/gestionInteractif'
@@ -68,11 +70,11 @@ export default class QuestionsAiresEtPerimetres extends Exercice {
             reponse = 'Vrai ou Faux'
             a = randint(3, 9)
             b = randint(0, 1)
-            texte = `Un carré de côté $${a}$ cm a le même périmètre qu'un rectangle de largeur $${a - b}$ cm et de longueur $${a + 1}$ cm ?`
+            texte = `Un carré de côté $${a}\\text{ cm}$ a le même périmètre qu'un rectangle de largeur $${a - b}\\text{ cm}$ et de longueur $${a + 1}\\text{ cm}$ ?`
             if (b !== 1) {
-              texteCorr = `${texteEnCouleurEtGras('Faux')} car $4\\times ${a}$ cm$\\neq 2\\times ${a}$ cm$ + 2\\times ${a + 1}$ cm.`
+              texteCorr = `${texteEnCouleurEtGras('Faux')} car $4\\times ${a}\\text{ cm}\\neq 2\\times ${a}\\text{ cm} + 2\\times ${a + 1}\\text{ cm}$.`
             } else {
-              texteCorr = `${texteEnCouleurEtGras('Vrai')} car $4\\times ${a}$ cm $= 2\\times ${a - 1}$ cm $ + 2\\times ${a + 1}$ cm$= ${4 * a}$ cm.`
+              texteCorr = `${texteEnCouleurEtGras('Vrai')} car $4\\times ${a}\\text{ cm}$ $= 2\\times ${a - 1}\\text{ cm}$ $ + 2\\times ${a + 1}\\text{ cm}= ${4 * a}\\text{ cm}$.`
             }
 
             this.autoCorrection[i] = {
@@ -102,16 +104,18 @@ export default class QuestionsAiresEtPerimetres extends Exercice {
         case 2: // aire d'un carré connaissant son perimètre
           a = randint(2, 10)
           reponse = a * a
-          texte = `Quelle est l'aire d'un carré  dont le périmètre est $${4 * a}$ cm ? `
-          texteCorr = `Le côté du carré est $${4 * a}\\div 4=${a}$, donc son aire est : $${a}\\times ${a}=${miseEnEvidence(a ** 2)}$ cm$^2$.`
+          texte = `Quelle est l'aire d'un carré  dont le périmètre est $${4 * a}\\text{ cm}$ ? `
+          texteCorr = `Le côté du carré est $${4 * a}\\div 4=${a}$, donc son aire est : $${a}\\times ${a}=${miseEnEvidence(a ** 2)}\\text{ cm}^2$.`
           handleAnswers(this, i, {
             reponse: { value: reponse, compare: functionCompare },
           })
           texte +=
             '<br>' +
-            ajouteChampTexteMathLive(this, i, ' ', { texteApres: 'cm$^2$' })
+            ajouteChampTexteMathLive(this, i, ' ', {
+              texteApres: '$\\text{cm}^2$',
+            })
           this.canEnonce = texte // 'Compléter'
-          this.canReponseACompleter = '$\\ldots$ cm$^2$'
+          this.canReponseACompleter = '$\\ldots\\text{ cm}^2$'
           this.listeCanEnonces.push(this.canEnonce)
           this.listeCanReponsesACompleter.push(this.canReponseACompleter)
           break
@@ -120,9 +124,9 @@ export default class QuestionsAiresEtPerimetres extends Exercice {
           c = a * a
           reponse = 4 * a
 
-          texte = `Déterminer le périmètre  d'un carré d'aire $${c}$ cm$^2$. `
+          texte = `Déterminer le périmètre  d'un carré d'aire $${c}\\text{ cm}^2$. `
           texteCorr = `Le côté du carré est $\\sqrt{${c}}=${a}$.<br>
-         Son périmètre est donc $4\\times ${a}=${miseEnEvidence(4 * a)}$ cm.`
+         Son périmètre est donc $4\\times ${a}=${miseEnEvidence(4 * a)}\\text{ cm}$.`
           handleAnswers(this, i, {
             reponse: { value: reponse, compare: functionCompare },
           })
@@ -132,10 +136,10 @@ export default class QuestionsAiresEtPerimetres extends Exercice {
               this,
               i,
               KeyboardType.clavierDeBaseAvecFraction,
-              { texteApres: 'cm' },
+              { texteApres: '$\\text{ cm}$' },
             )
           this.canEnonce = texte // 'Compléter'
-          this.canReponseACompleter = '$\\ldots$ cm'
+          this.canReponseACompleter = '$\\ldots\\text{ cm}$'
           this.listeCanEnonces.push(this.canEnonce)
           this.listeCanReponsesACompleter.push(this.canReponseACompleter)
           break
@@ -145,8 +149,8 @@ export default class QuestionsAiresEtPerimetres extends Exercice {
           a = a1 * 4
           reponse = a1
 
-          texte = `Le périmètre d'un carré est $${a}$ cm. <br>Quelle est la longueur du côté du carré ? `
-          texteCorr = `Le côté du carré est $${a}\\div 4=${miseEnEvidence(a1)}$ cm.`
+          texte = `Le périmètre d'un carré est $${a}\\text{ cm}$. <br>Quelle est la longueur du côté du carré ? `
+          texteCorr = `Le côté du carré est $${a}\\div 4=${miseEnEvidence(a1)}\\text{ cm}$.`
           handleAnswers(this, i, {
             reponse: { value: reponse, compare: functionCompare },
           })
@@ -156,10 +160,10 @@ export default class QuestionsAiresEtPerimetres extends Exercice {
               this,
               i,
               KeyboardType.clavierDeBaseAvecFraction,
-              { texteApres: 'cm' },
+              { texteApres: '$\\text{ cm}$' },
             )
           this.canEnonce = texte // 'Compléter'
-          this.canReponseACompleter = '$\\ldots$ cm'
+          this.canReponseACompleter = '$\\ldots\\text{ cm}$'
           this.listeCanEnonces.push(this.canEnonce)
           this.listeCanReponsesACompleter.push(this.canReponseACompleter)
           break
@@ -183,7 +187,7 @@ export default class QuestionsAiresEtPerimetres extends Exercice {
           )
           objets.push(
             texteParPosition(
-              `${texNombre(b)} m`,
+              `${stringNombre(b)} m`,
               milieu(A, D).x - 0.8,
               milieu(A, D).y,
             ),
@@ -203,7 +207,7 @@ export default class QuestionsAiresEtPerimetres extends Exercice {
               milieu(C, D).y + 0.5,
             ),
           )
-          texte = 'Quel est le périmètre de cette figure (en m) ?<br>'
+          texte = 'Quel est le périmètre de cette figure (en $\\text{m}) ?<br>'
           texte += mathalea2d(
             {
               xmin: -1,
@@ -218,7 +222,7 @@ export default class QuestionsAiresEtPerimetres extends Exercice {
             },
             objets,
           )
-          texteCorr = ` Le périmètre est donné par : $${texNombre(a)}+${texNombre(b)}+${texNombre(c)}+${texNombre(d)}=${miseEnEvidence(a + b + c + d)}$ m.<br>`
+          texteCorr = ` Le périmètre est donné par : $${texNombre(a)}+${texNombre(b)}+${texNombre(c)}+${texNombre(d)}=${miseEnEvidence(a + b + c + d)}\\text{ m}$.<br>`
           reponse = a + b + c + d
           handleAnswers(this, i, {
             reponse: { value: reponse, compare: functionCompare },
@@ -229,10 +233,10 @@ export default class QuestionsAiresEtPerimetres extends Exercice {
               this,
               i,
               KeyboardType.clavierDeBaseAvecFraction,
-              { texteApres: 'm' },
+              { texteApres: '$\\text{ m}$' },
             )
           this.canEnonce = texte // 'Compléter'
-          this.canReponseACompleter = '$\\ldots$ m'
+          this.canReponseACompleter = '$\\ldots\\text{ m}$'
           this.listeCanEnonces.push(this.canEnonce)
           this.listeCanReponsesACompleter.push(this.canReponseACompleter)
           break
@@ -242,11 +246,11 @@ export default class QuestionsAiresEtPerimetres extends Exercice {
           if (N === 'a') {
             a = randint(2, 7) // aire
             c = randint(2, 4) // coefficient
-            texte = `Les longueurs d'un rectangle de $${a}$ cm$^2$  sont multipliées par $${c}$.<br>
+            texte = `Les longueurs d'un rectangle de $${a}\\text{ cm}^2$  sont multipliées par $${c}$.<br>
           Quelle est l'aire du rectangle ainsi obtenu ?`
 
             texteCorr = ` Si les longueurs sont multiplées par $k$, les aires sont multipliées par $k^2$, soit ici par $${c}^2=${c ** 2}$.<br>
-          Ainsi, l'aire du nouveau rectangle est : $${a}\\times ${c * c}=${miseEnEvidence(a * c * c)}$ cm$^2$.
+          Ainsi, l'aire du nouveau rectangle est : $${a}\\times ${c * c}=${miseEnEvidence(a * c * c)}\\text{ cm}^2$.
       <br>`
 
             reponse = a * c * c
@@ -259,10 +263,10 @@ export default class QuestionsAiresEtPerimetres extends Exercice {
                 this,
                 i,
                 KeyboardType.clavierDeBaseAvecFraction,
-                { texteApres: 'cm$^2$' },
+                { texteApres: '$\\text{cm}^2$' },
               )
             this.canEnonce = texte // 'Compléter'
-            this.canReponseACompleter = '$\\ldots$ cm$^2$'
+            this.canReponseACompleter = '$\\ldots\\text{ cm}^2$'
             this.listeCanEnonces.push(this.canEnonce)
             this.listeCanReponsesACompleter.push(this.canReponseACompleter)
           } else if (N === 'b') {
@@ -286,7 +290,6 @@ export default class QuestionsAiresEtPerimetres extends Exercice {
                 this,
                 i,
                 KeyboardType.clavierDeBaseAvecFraction,
-                { texteApres: '' },
               )
             this.canEnonce = texte // 'Compléter'
             this.canReponseACompleter = ''
@@ -315,7 +318,6 @@ export default class QuestionsAiresEtPerimetres extends Exercice {
                 this,
                 i,
                 KeyboardType.clavierDeBaseAvecFraction,
-                { texteApres: '' },
               )
             this.canEnonce = texte // 'Compléter'
             this.canReponseACompleter = ''
@@ -341,12 +343,12 @@ export default class QuestionsAiresEtPerimetres extends Exercice {
           )
           objets.push(
             texteParPosition(
-              `${texNombre(a)} m`,
+              `${stringNombre(a)} m`,
               milieu(B, C).x + 0.5,
               milieu(B, C).y + 0.5,
             ),
           )
-          texte = ` L'aire du triangle $ABC$ est $${b}$ m$^2$. <br>
+          texte = ` L'aire du triangle $ABC$ est $${b}\\text{ m}^2$. <br>
         Donner la longueur $AC$.<br>`
           texte += mathalea2d(
             {
@@ -364,7 +366,7 @@ export default class QuestionsAiresEtPerimetres extends Exercice {
           )
           texteCorr = ` L'aire de ce triangle rectangle est donnée par : $\\dfrac{BC\\times AC}{2}$.<br>
           On cherche $AC$ telle que $\\dfrac{${a}\\times AC}{2}=${b}$. <br>
-          $AC=\\dfrac{2\\times ${b}}{${a}}=${miseEnEvidence(new FractionEtendue(2 * b, a).simplifie().texFraction)}$ m.
+          $AC=\\dfrac{2\\times ${b}}{${a}}=${miseEnEvidence(new FractionEtendue(2 * b, a).simplifie().texFraction)}\\text{ m}$.
       <br>`
           reponse = (2 * b) / a
 
@@ -378,10 +380,10 @@ export default class QuestionsAiresEtPerimetres extends Exercice {
               this,
               i,
               KeyboardType.clavierDeBaseAvecFraction,
-              { texteApres: 'm' },
+              { texteApres: '$\\text{ m}$' },
             )
           this.canEnonce = texte // 'Compléter'
-          this.canReponseACompleter = '$\\ldots$ m'
+          this.canReponseACompleter = '$\\ldots\\text{ m}$'
           this.listeCanEnonces.push(this.canEnonce)
           this.listeCanReponsesACompleter.push(this.canReponseACompleter)
           break

@@ -1,16 +1,19 @@
-import { codageAngleDroit } from '../../lib/2d/angles'
-import { afficheMesureAngle, texteSurSegment } from '../../lib/2d/codages'
+import { afficheMesureAngle } from '../../lib/2d/AfficheMesureAngle'
+import { codageAngleDroit } from '../../lib/2d/CodageAngleDroit'
 import { droite } from '../../lib/2d/droites'
 import { fixeBordures } from '../../lib/2d/fixeBordures'
-import { point, pointSurSegment } from '../../lib/2d/points'
+import { point } from '../../lib/2d/PointAbstrait'
 import { nommePolygone, polygone } from '../../lib/2d/polygones'
-import { longueur, segment } from '../../lib/2d/segmentsVecteurs'
+import { segment } from '../../lib/2d/segmentsVecteurs'
 import { texteParPoint } from '../../lib/2d/textes'
+import { texteSurSegment } from '../../lib/2d/texteSurSegment'
 import {
   projectionOrtho,
   rotation,
   similitude,
 } from '../../lib/2d/transformations'
+import { longueur } from '../../lib/2d/utilitairesGeometriques'
+import { pointSurSegment } from '../../lib/2d/utilitairesPoint'
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { remplisLesBlancs } from '../../lib/interactif/questionMathLive'

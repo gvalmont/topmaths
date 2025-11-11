@@ -1,118 +1,30 @@
+import type Figure from 'apigeom/src/Figure'
 import Decimal from 'decimal.js'
+import type {
+  AnswerValueType,
+  AutoCorrection,
+  ClickFigures,
+  IExercice,
+  LegacyReponse,
+  LegacyReponses,
+  MathaleaSVG,
+  ReponseParams,
+  ResultOfExerciceInteractif,
+  Valeur,
+  ValeurNormalized,
+} from '../../lib/types'
+import { context } from '../../modules/context'
 import FractionEtendue from '../../modules/FractionEtendue'
 import Grandeur from '../../modules/Grandeur'
+import Hms from '../../modules/Hms'
 import { addElement, get, setStyles } from '../html/dom'
-import {
-  fonctionComparaison,
-  // fractionCompare,
-  // equalFractionCompare,
-  // simplerFractionCompare,
-  // hmsCompare,
-  // intervalCompare,
-  // numberCompare,
-  // powerCompare,
-  // scientificCompare,
-  // unitsCompare,
-  // texteAvecCasseCompare,
-  // texteSansCasseCompare,
-  // expressionDeveloppeeEtNonReduiteCompare,
-  // expressionDeveloppeeEtReduiteCompare,
-  type CompareFunction,
-  type OptionsComparaisonType,
-} from './comparisonFunctions'
+import { afficheScore } from './afficheScore'
+import { fonctionComparaison } from './comparisonFunctions'
+import { verifDragAndDrop } from './DragAndDrop'
 import { verifQuestionMathLive } from './mathLive'
 import { verifQuestionQcm } from './qcm'
 import { verifQuestionListeDeroulante } from './questionListeDeroulante'
-// import Hms from '../../modules/Hms'
-import type Figure from 'apigeom/src/Figure'
-import type Exercice from '../../exercices/Exercice'
-import type { OldFormatInteractifType } from '../../exercices/Exercice'
-import MetaExercice from '../../exercices/MetaExerciceCan'
-import { context } from '../../modules/context'
-import Hms from '../../modules/Hms'
-import type { InteractivityType } from '../types'
-import { afficheScore, type ResultOfExerciceInteractif } from './afficheScore'
-import { verifDragAndDrop } from './DragAndDrop'
-export interface ReponseParams {
-  digits?: number
-  decimals?: number
-  signe?: boolean
-  exposantNbChiffres?: number
-  exposantSigne?: boolean
-  approx?: number | 'intervalleStrict'
-  aussiCorrect?: number | FractionEtendue
-  digitsNum?: number
-  digitsDen?: number
-  basePuissance?: number
-  exposantPuissance?: number
-  baseNbChiffres?: number
-  milieuIntervalle?: number
-  formatInteractif?: InteractivityType | OldFormatInteractifType
-  precision?: number
-  scoreapprox?: number
-  vertical?: boolean
-  strict?: boolean
-  vhead?: boolean
-  tpoint?: string
-}
 
-/** les figures cliquables pour une question donnée */
-export type clickFigures = { id: string; solution: boolean }[]
-
-export type AnswerType = {
-  value: AnswerValueType
-  compare?: CompareFunction
-  options?: OptionsComparaisonType
-}
-
-export type AnswerNormalizedType = {
-  value: string | string[]
-  compare?: CompareFunction
-  options?: OptionsComparaisonType
-}
-
-export interface Valeur {
-  bareme?: (listePoints: number[]) => [number, number]
-  feedback?: (saisies: Record<string, string>) => string
-  reponse?: AnswerType
-  champ1?: AnswerType
-  champ2?: AnswerType
-  champ3?: AnswerType
-  champ4?: AnswerType
-  champ5?: AnswerType
-  champ6?: AnswerType
-  rectangle1?: AnswerType
-  rectangle2?: AnswerType
-  rectangle3?: AnswerType
-  rectangle4?: AnswerType
-  rectangle5?: AnswerType
-  rectangle6?: AnswerType
-  rectangle7?: AnswerType
-  rectangle8?: AnswerType
-
-  // on va aller jusque 8 pour l'instant, si besoin on en ajoutera
-  L1C1?: AnswerType
-  L1C2?: AnswerType
-  L1C3?: AnswerType
-  L2C1?: AnswerType
-  L2C2?: AnswerType
-  L2C3?: AnswerType
-  L3C1?: AnswerType
-  L3C2?: AnswerType
-  L3C3?: AnswerType
-
-  // idem on en ajoutera si besoin
-  callback?: (
-    exercice: Exercice,
-    question: number,
-    variables: [string, AnswerType][],
-    bareme: (listePoints: number[]) => [number, number],
-  ) => {
-    isOk: boolean
-    feedback: string
-    score: { nbBonnesReponses: number; nbReponses: number }
-  }
-}
 /**
  * Puisque tous les attributs de Valeur sont facultatifs, on vérifie juste si c'est un objet (et ce type est assez inutile du coup car quasiment identique à un unknown)
  */
@@ -120,55 +32,6 @@ export function isValeur(value: unknown): value is Valeur {
   return typeof value === 'object'
 }
 
-export interface ValeurNormalized {
-  bareme?: (listePoints: number[]) => [number, number]
-  feedback?: (saisies: object) => string
-  reponse?: AnswerNormalizedType
-  champ1?: AnswerNormalizedType
-  champ2?: AnswerNormalizedType
-  champ3?: AnswerNormalizedType
-  champ4?: AnswerNormalizedType
-  champ5?: AnswerNormalizedType
-  champ6?: AnswerNormalizedType
-  rectangle1?: AnswerNormalizedType
-  rectangle2?: AnswerNormalizedType
-  rectangle3?: AnswerNormalizedType
-  rectangle4?: AnswerNormalizedType
-  rectangle5?: AnswerNormalizedType
-  rectangle6?: AnswerNormalizedType
-  rectangle7?: AnswerNormalizedType
-  rectangle8?: AnswerNormalizedType
-
-  // on va aller jusque 6 pour l'instant, si besoin on en ajoutera
-  L1C1?: AnswerNormalizedType
-  L1C2?: AnswerNormalizedType
-  L2C1?: AnswerNormalizedType
-  L2C2?: AnswerNormalizedType // idem on en ajoutera si besoin
-  callback?: (
-    exercice: Exercice,
-    question: number,
-    variables: [string, AnswerNormalizedType][],
-    bareme: (listePoints: number[]) => [number, number],
-  ) => {
-    isOk: boolean
-    feedback: string
-    score: { nbBonnesReponses: number; nbReponses: number }
-  }
-}
-
-export type AnswerValueType =
-  | string
-  | string[]
-  | number
-  | number[]
-  | FractionEtendue
-  | Decimal
-  | Grandeur
-  | Hms
-  | Grandeur[]
-  | Hms[]
-  | Decimal[]
-  | FractionEtendue[]
 export function isAnswerValueType(value: unknown): value is AnswerValueType {
   return (
     typeof value === 'string' ||
@@ -196,105 +59,9 @@ export function isReponseComplexe(value: unknown): value is ReponseComplexe {
   return isAnswerValueType(value) || isValeur(value)
 }
 
-// Ajout d'un type dédié pour les choix de QCM
-export type ChoixQcm = {
-  texte: string
-  statut?: boolean
-}
-
-export type UneProposition = {
-  texte?: string
-  statut?: number | boolean | string
-  sanscadre?: boolean | number
-  multicolsBegin?: boolean
-  multicolsEnd?: boolean
-  numQuestionVisible?: boolean
-  type?: string
-  feedback?: string
-  pointilles?: boolean | number
-  enonce?: string
-  propositions?: ChoixQcm[]
-  options?: {
-    ordered?: boolean
-    vertical?: boolean
-    lastChoice?: number
-    barreseparation?: boolean
-    multicols?: boolean
-    nbCols?: number
-    digits?: number
-    decimals?: number
-    signe?: boolean
-    exposantNbChiffres?: number
-    exposantSigne?: boolean
-    approx?: number
-    multicolsAll?: boolean
-    numerotationEnonce?: boolean
-    avecSymboleMult?: boolean
-  }
-  reponse?: {
-    valeur?:
-      | ValeurNormalized
-      | ValeurNormalized[]
-      | number
-      | number[]
-      | FractionEtendue
-      | Decimal
-      | FractionEtendue[]
-      | Decimal[]
-      | string
-      | string[]
-    param?: ReponseParams
-    textePosition?: string
-    texte?: string
-    alignement?: string
-  }
-}
-
-export type LegacyReponse = string | FractionEtendue | Decimal | number
-export type LegacyReponses = LegacyReponse[] | LegacyReponse
-export interface AutoCorrection {
-  enonce?: string
-  enonceAvant?: boolean
-  melange?: boolean
-  enonceAGauche?: boolean
-  enonceAvantUneFois?: boolean
-  enonceCentre?: boolean
-  enonceApresNumQuestion?: boolean
-  propositions?: UneProposition[]
-  reponse?: {
-    valeur?: ValeurNormalized
-    param?: ReponseParams
-    textePosition?: string
-    texte?: string
-  }
-  options?: {
-    radio?: boolean
-    ordered?: boolean
-    vertical?: boolean
-    lastChoice?: number
-    barreseparation?: boolean
-    multicols?: boolean
-    nbCols?: number
-    digits?: number
-    decimals?: number
-    signe?: boolean
-    exposantNbChiffres?: number
-    exposantSigne?: boolean
-    approx?: number
-    multicolsAll?: boolean
-    numerotationEnonce?: boolean
-    avecSymboleMult?: boolean
-  }
-}
-
-export interface MathaleaSVG extends SVGSVGElement {
-  etat: boolean
-  hasMathaleaListener: boolean
-}
-
 export function isClickFiguresArray(
-  figures: Figure[] | clickFigures[],
-): figures is clickFigures[] {
+  figures: Figure[] | ClickFigures[],
+): figures is ClickFigures[] {
   return figures.length > 0 && Array.isArray(figures[0])
 }
 
@@ -334,7 +101,17 @@ export function setListeDeroulante(objetReponse: AutoCorrection) {
     param: { formatInteractif: 'listeDeroulante' },
   }
 }
-
+// Garde structurel pour éviter d'importer MetaExercice et créer un cycle
+const isMetaExercice = (
+  x: unknown,
+): x is {
+  Exercices: unknown[]
+  correctionInteractives: Array<(i: number) => string | string[]>
+} =>
+  typeof x === 'object' &&
+  x !== null &&
+  Array.isArray((x as any).Exercices) &&
+  Array.isArray((x as any).correctionInteractives)
 /**
  * Cette fonction vérifie les réponses de chaque question en appelant la fonction associée à son formatInteractif ('mathlive', 'listeDeroulante', 'cliqueFigure', 'qcm')
  * @param {Exercice} exercice
@@ -343,7 +120,7 @@ export function setListeDeroulante(objetReponse: AutoCorrection) {
  * @returns {{numberOfPoints: number, numberOfQuestions: number}}
  */
 export function exerciceInteractif(
-  exercice: Exercice,
+  exercice: IExercice,
   divScore: HTMLDivElement,
   buttonScore: HTMLButtonElement,
 ): ResultOfExerciceInteractif {
@@ -358,7 +135,7 @@ export function exerciceInteractif(
     let resultat: string
     switch (format) {
       case 'custom': {
-        if (exercice instanceof MetaExercice) {
+        if (isMetaExercice(exercice)) {
           const result = exercice.correctionInteractives[i](i)
           result === 'OK' ? nbQuestionsValidees++ : nbQuestionsNonValidees++
         }
@@ -399,7 +176,7 @@ export function exerciceInteractif(
           resultat = verifQuestionCliqueFigure(
             exercice,
             i,
-            exercice.callback as (exercice: Exercice, i: number) => void,
+            exercice.callback as (exercice: IExercice, i: number) => void,
           )
         } else {
           resultat = verifQuestionCliqueFigure(exercice, i)
@@ -455,7 +232,7 @@ export function exerciceInteractif(
  * @return {{numberOfPoints, numberOfQuestions: *}}
  */
 function verifExerciceCustom(
-  exercice: Exercice,
+  exercice: IExercice,
   divScore: HTMLDivElement,
   buttonScore: HTMLButtonElement,
 ) {
@@ -512,7 +289,7 @@ function verifExerciceCustom(
   )
 }
 
-export function prepareExerciceCliqueFigure(exercice: Exercice) {
+export function prepareExerciceCliqueFigure(exercice: IExercice) {
   // Dès que l'exercice est affiché, on rajoute des listenners sur chaque éléments de this.figures.
   for (let i = 0; i < exercice.nbQuestions; i++) {
     if (
@@ -549,9 +326,9 @@ export function prepareExerciceCliqueFigure(exercice: Exercice) {
 // callback est une fonction facultative qui sera appelée avant de vérifier la question
 // elle permet de faire des actions avant la vérification, comme par exemple mettre à jour la correction affichée (voir 6G45)
 function verifQuestionCliqueFigure(
-  exercice: Exercice,
+  exercice: IExercice,
   i: number,
-  callback?: (exercice: Exercice, i: number) => void,
+  callback?: (exercice: IExercice, i: number) => void,
 ): string {
   // si il y a une callback, on l'appelle
   if (callback != null) {
@@ -651,7 +428,7 @@ function mouseSvgClick(event: MouseEvent) {
  * @see https://forge.apps.education.fr/coopmaths/mathalea/-/wikis/Rendre-un-exercice-interactif
  */
 export function setReponse(
-  exercice: Exercice,
+  exercice: IExercice,
   i: number,
   valeurs: LegacyReponses,
   params: ReponseParams = {},
@@ -939,7 +716,7 @@ export function setReponse(
             params,
           )
         }
-        const value = []
+        const value: string[] = []
         for (let i = 0; i < reponses.length; i++) {
           laReponseDemandee = reponses[i]
           if (typeof laReponseDemandee === 'string') {
@@ -957,7 +734,7 @@ export function setReponse(
           } else if (laReponseDemandee instanceof Decimal) {
             laReponseDemandee = laReponseDemandee.toString()
           }
-          value.push(laReponseDemandee)
+          value.push(laReponseDemandee as string)
         }
 
         return handleAnswers(
@@ -1151,7 +928,7 @@ export function setReponse(
   const rep = exercice.autoCorrection[i].reponse
   if (rep != null) {
     rep.param = params
-    rep.valeur = reponses as ValeurNormalized
+    rep.valeur = reponses as unknown as ValeurNormalized
   }
 }
 
@@ -1232,7 +1009,7 @@ function handleDefaultValeur(reponse: Valeur): ValeurNormalized {
  * @param {ReponseParams} params
  */
 export function handleAnswers(
-  exercice: Exercice,
+  exercice: IExercice,
   question: number,
   reponses: Valeur,
   params: ReponseParams | undefined = {},

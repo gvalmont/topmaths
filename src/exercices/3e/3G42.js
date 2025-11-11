@@ -1,25 +1,22 @@
 import Decimal from 'decimal.js'
+import { cylindre3d } from '../../lib/3d/3dProjectionMathalea2d/Cylindre3dPerspectiveCavaliere'
 import {
   point3d,
   vecteur3d,
-} from '../../lib/3d/3dProjectionMathalea2d/elements'
-import {
-  cylindre3d,
-  sphere3d,
-} from '../../lib/3d/3dProjectionMathalea2d/solides'
+} from '../../lib/3d/3dProjectionMathalea2d/elementsEtTransformations3d'
+import { sphere3d } from '../../lib/3d/3dProjectionMathalea2d/Sphere3dPerspectiveCavaliere'
 import { setReponse } from '../../lib/interactif/gestionInteractif'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { choice } from '../../lib/outils/arrayOutils'
-import { texteExposant } from '../../lib/outils/ecritures'
-import { texteEnCouleurEtGras } from '../../lib/outils/embellissements'
+import { miseEnEvidence } from '../../lib/outils/embellissements'
 import {
   nombreDeChiffresDansLaPartieDecimale,
   nombreDeChiffresDe,
 } from '../../lib/outils/nombres'
 import { sp } from '../../lib/outils/outilString'
-import { stringNombre, texNombre } from '../../lib/outils/texNombre'
-import Grandeur from '../../modules/Grandeur'
+import { texNombre } from '../../lib/outils/texNombre'
 import { context } from '../../modules/context'
+import Grandeur from '../../modules/Grandeur'
 import { mathalea2d } from '../../modules/mathalea2d'
 import {
   gestionnaireFormulaireTexte,
@@ -109,19 +106,12 @@ export default class VolumeBoule extends Exercice {
             .toDP(1)
           texte +=
             'Calculer le volume' +
-            (context.isAmc
-              ? `, en ${choixUnites}` + texteExposant(3) + ','
-              : '') +
-            ` d'une boule de rayon ${r} ${choixUnites}. Arrondir au dixième. `
+            (context.isAmc ? `, en $\\text{${choixUnites}}^3` + ',' : '') +
+            ` d'une boule de rayon $${r}${sp()}\\text{${choixUnites}}$. Arrondir au dixième de $\\text{${choixUnites}}^3$.`
           texteCorr +=
             "Le volume d'une boule est donné par la formule : $V = \\dfrac{4}{3}\\pi r^3$. <br>"
           texteCorr += `On a donc : $V = \\dfrac{4}{3} \\times \\pi \\times (${r} \\text{ ${choixUnites}})^3$. <br>`
-          texteCorr +=
-            'Le volume de la boule est donc environ : ' +
-            texteEnCouleurEtGras(
-              stringNombre(reponse, 1) + ` ${choixUnites}` + texteExposant(3),
-            ) +
-            '. <br>'
+          texteCorr += 'Le volume de la boule est donc environ : '
           break
 
         case 2:
@@ -134,30 +124,21 @@ export default class VolumeBoule extends Exercice {
             .toDP(1)
           texte +=
             'Calculer le volume' +
-            (context.isAmc
-              ? `, en ${choixUnites}` + texteExposant(3) + ','
-              : '') +
-            ` d'une boule de diamètre ${2 * d} ${choixUnites}. Arrondir au dixième. `
+            (context.isAmc ? `, en $\\text{${choixUnites}}^3` + ',' : '') +
+            ` d'une boule de diamètre $${2 * d}${sp()}\\text{${choixUnites}}$. Arrondir au dixième de $\\text{${choixUnites}}^3$.`
           texteCorr +=
             "Le volume d'une boule est donné par la formule : $V = \\dfrac{4}{3}\\pi r^3$. <br>"
           texteCorr += `Le rayon de la boule est la moitié de son diamètre, soit : ${d} ${choixUnites}. <br>`
           texteCorr += `On a donc : $V = \\dfrac{4}{3} \\times \\pi \\times (${d} \\text{ ${choixUnites}})^3$. <br>`
-          texteCorr +=
-            'Le volume de la boule est donc environ : ' +
-            texteEnCouleurEtGras(
-              stringNombre(reponse, 1) + ` ${choixUnites}` + texteExposant(3),
-            ) +
-            '. <br>'
+          texteCorr += 'Le volume de la boule est donc environ : '
           break
 
         case 3:
           A = randint(2, 30)
           texte +=
             'Calculer le volume' +
-            (context.isAmc
-              ? `, en ${choixUnites}` + texteExposant(3) + ','
-              : '') +
-            ` d'une boule d'aire ${A} cm$^2$. Arrondir au dixième.`
+            (context.isAmc ? `, en $\\text{${choixUnites}}^3` + ',' : '') +
+            ` d'une boule d'aire $${A}${sp()}\\text{${choixUnites}}^2$. Arrondir au dixième de $\\text{${choixUnites}}^3$.`
           texteCorr +=
             "Le volume d'une boule est donné par la formule : $V = \\dfrac{4}{3}\\pi r^3$. <br>"
           texteCorr += 'Il faut donc trouver le rayon de la boule. <br>'
@@ -179,23 +160,16 @@ export default class VolumeBoule extends Exercice {
             'On a donc : $V \\approx \\dfrac{4}{3} \\times \\pi \\times (' +
             texNombre(rayon, 2) +
             ` \\text{ ${choixUnites}})^3$. <br>`
-          texteCorr +=
-            'Le volume de la boule est donc environ : ' +
-            texteEnCouleurEtGras(
-              stringNombre(reponse, 1) + ` ${choixUnites}` + texteExposant(3),
-            ) +
-            '. <br>'
+          texteCorr += 'Le volume de la boule est donc environ : '
           break
 
         case 4:
           rayon = randint(2, 30)
-          texte += `Une boîte cylindrique de ${2 * rayon} ${choixUnites} de diamètre et de ${2 * rayon} ${choixUnites} de hauteur contient une boule de diamètre ${2 * rayon} ${choixUnites}. <br>`
+          texte += `Une boîte cylindrique de $${2 * rayon}${sp()}\\text{${choixUnites}}$ de diamètre et de $${2 * rayon}${sp()}\\text{${choixUnites}}$ de hauteur contient une boule de diamètre $${2 * rayon}${sp()}\\text{${choixUnites}}$. <br>`
           texte +=
             'Calculer le volume' +
-            (context.isAmc
-              ? `, en ${choixUnites}` + texteExposant(3) + ','
-              : '') +
-            ' dans la boîte laissée libre par la boule. Arrondir au dixième.'
+            (context.isAmc ? `, en $\\text{${choixUnites}}^3` + ',' : '') +
+            ` dans la boîte laissée libre par la boule. Arrondir au dixième de $\\text{${choixUnites}}^3$.`
 
           texteCorr += 'Représentons la situation par un petit schéma : <br>'
           O = point3d(0, 0, 0)
@@ -232,14 +206,10 @@ export default class VolumeBoule extends Exercice {
           texteCorr += `Ici, le volume du cylindre est donc : $V_c = \\pi \\times (${rayon} \\text{ ${choixUnites}})^2 \\times (${2 * rayon}\\text{ ${choixUnites}})$. <br>`
           texteCorr += `Le volume de la boule est : $V_b = \\dfrac{4}{3} \\times \\pi \\times (${rayon} \\text{ ${choixUnites}})^3$. <br>`
           texteCorr += `Le volume cherché est donc donné par : $\\pi \\times (${rayon} \\text{ ${choixUnites}})^2 \\times (${2 * rayon}\\text{ ${choixUnites}}) - \\dfrac{4}{3} \\times \\pi \\times (${rayon} \\text{ ${choixUnites}})^3$. <br>`
-          texteCorr +=
-            'Le volume cherché est environ : ' +
-            texteEnCouleurEtGras(
-              stringNombre(reponse, 1) + ` ${choixUnites}` + texteExposant(3),
-            ) +
-            '. <br>'
+          texteCorr += 'Le volume cherché est environ : '
           break
       }
+      texteCorr += `$${miseEnEvidence(`${texNombre(reponse.toNumber())}${sp()}\\text{${choixUnites}}^3`)}$.`
       setReponse(
         this,
         i,

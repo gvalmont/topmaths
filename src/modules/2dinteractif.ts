@@ -1,7 +1,8 @@
 import { colorToLatexOrHTML } from '../lib/2d/colorToLatexOrHtml'
 import { ObjetMathalea2D } from '../lib/2d/ObjetMathalea2D'
-import { Point, point, tracePoint } from '../lib/2d/points'
+import { Point, point } from '../lib/2d/PointAbstrait'
 import { Polygone, polygone } from '../lib/2d/polygones'
+import { tracePoint } from '../lib/2d/TracePoint'
 import { context } from './context'
 
 /**

@@ -130,7 +130,7 @@ export default class ExerciceProbleme005 extends Exercice {
                 exercice: this,
                 question: i * 2,
                 typeInteractivite: 'mathlive',
-                texteApres: '',
+
                 texteAvant: 'O pour oui, N pour non.',
                 objetReponse: {
                   reponse: {

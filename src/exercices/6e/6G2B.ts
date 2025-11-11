@@ -1,3 +1,7 @@
+/**
+ * ⚠️ Cet exercice est utilisé dans le test : tests/e2e/tests/view/view.capytale.review.1.test.ts ⚠️
+ */
+
 import Figure from 'apigeom'
 import checkCircle from 'apigeom/src/check/checkCircleRadius'
 import type Point from 'apigeom/src/elements/points/Point'

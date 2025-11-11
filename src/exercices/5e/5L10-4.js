@@ -1,4 +1,4 @@
-import { point } from '../../lib/2d/points'
+import { point } from '../../lib/2d/PointAbstrait'
 import { polygone } from '../../lib/2d/polygones'
 import { tableauColonneLigne } from '../../lib/2d/tableau'
 import { choice } from '../../lib/outils/arrayOutils'

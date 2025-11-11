@@ -17,6 +17,10 @@ import { setReponse } from '../../lib/interactif/gestionInteractif'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { fraction } from '../../modules/fractions'
+import {
+  representationFraction,
+  representationFractionIrred,
+} from '../../modules/representationsFractions'
 
 export const titre = "Calculer la fraction d'une quantité"
 export const interactifReady = true
@@ -106,7 +110,15 @@ export default class FractionDuneQuantite extends Exercice {
           texte = `À combien de minutes correspondent $${frac.texFraction}$ d'heure ? ${ajouteChampTexteMathLive(this, index, ' college6eme', { texteApres: ' minutes' })}<br>`
           if (this.sup2) {
             texte += 'Cette fraction est représentée ci-dessous :<br>'
-            const figure = frac.representation(2.5, 2.5, 2, 0, 'gateau', 'blue')
+            const figure = representationFraction(
+              frac,
+              2.5,
+              2.5,
+              2,
+              0,
+              'gateau',
+              'blue',
+            )
             texte += mathalea2d(Object.assign({}, fixeBordures(figure)), figure)
           }
           texteCorr = `Comme l'heure est partagée en ${den} parts égales, chaque part représente $${texFractionFromString(1, den)}$ d'heure, soit $${60 / den}$ minutes.<br>`
@@ -122,7 +134,15 @@ export default class FractionDuneQuantite extends Exercice {
           texte = `À combien de minutes correspondent $${frac.texFraction}$ d'heure ? ${ajouteChampTexteMathLive(this, index, ' college6eme', { texteApres: ' minutes' })}<br>`
           if (this.sup2) {
             texte += 'Cette fraction est représentée ci-dessous :<br>'
-            const figure = frac.representation(2.5, 2.5, 2, 0, 'gateau', 'blue')
+            const figure = representationFraction(
+              frac,
+              2.5,
+              2.5,
+              2,
+              0,
+              'gateau',
+              'blue',
+            )
             texte += mathalea2d(Object.assign({}, fixeBordures(figure)), figure)
           }
           texteCorr = `Comme l'heure est partagée en ${den} parts égales, chaque part représente $${texFractionFromString(1, den)}$ d'heure, soit $${60 / den}$ minutes.<br>`
@@ -167,7 +187,8 @@ export default class FractionDuneQuantite extends Exercice {
           indiceNbQuestions3++
           if (this.sup2) {
             texte += 'La tablette de chocolat est représentée ci-dessous :<br>'
-            const figure = frac2.representationIrred(
+            const figure = representationFractionIrred(
+              frac2,
               0,
               0,
               4,
@@ -199,12 +220,12 @@ export default class FractionDuneQuantite extends Exercice {
           texte +=
             ajouteChampTexteMathLive(this, index, '  college6eme', {
               texteAvant: 'Morceau le plus long : ',
-              texteApres: ' m',
+              texteApres: '$\\text{ m}$',
             }) + '<br>'
           texte +=
             ajouteChampTexteMathLive(this, index + 1, '  college6eme', {
               texteAvant: 'Morceau le plus court : ',
-              texteApres: ' m',
+              texteApres: '$\\text{ m}$',
             }) + '<br>'
 
           setReponse(
@@ -231,7 +252,8 @@ export default class FractionDuneQuantite extends Exercice {
           )
           if (this.sup2) {
             texte += 'Ce bâton est représenté ci-dessous :<br>'
-            const figure = frac.representationIrred(
+            const figure = representationFractionIrred(
+              frac,
               0,
               1,
               8,
@@ -244,8 +266,8 @@ export default class FractionDuneQuantite extends Exercice {
             texte += mathalea2d(Object.assign({}, fixeBordures(figure)), figure)
           }
           texteCorr = `$${texFractionFromString(1, denIrred)}$ de $${texNombre(longueur / 100, 1)}$ représente $${texNombre(longueur / 100, 1)} \\div ${denIrred} = ${texNombre(longueur / 100 / denIrred, 3)}$.<br>`
-          texteCorr += `Le premier morceau du bâton correspondant à $${frac.texFractionSimplifiee}$ du bâton mesure : $${numIrred} \\times ${texNombre(longueur / 100 / denIrred, 3)}=${miseEnEvidence(texNombre((numIrred * longueur) / 100 / denIrred, 3))}$ m.<br>`
-          texteCorr += `Le deuxième morceau mesure donc : $${texNombre(longueur / 100, 1)}-${texNombre((numIrred * longueur) / 100 / denIrred, 3)}=${miseEnEvidence(texNombre(longueur / 100 - (numIrred * longueur) / 100 / denIrred, 3))}$ m.`
+          texteCorr += `Le premier morceau du bâton correspondant à $${frac.texFractionSimplifiee}$ du bâton mesure : $${numIrred} \\times ${texNombre(longueur / 100 / denIrred, 3)}=${miseEnEvidence(texNombre((numIrred * longueur) / 100 / denIrred, 3))}\\text{ m}$.<br>`
+          texteCorr += `Le deuxième morceau mesure donc : $${texNombre(longueur / 100, 1)}-${texNombre((numIrred * longueur) / 100 / denIrred, 3)}=${miseEnEvidence(texNombre(longueur / 100 - (numIrred * longueur) / 100 / denIrred, 3))}\\text{ m}$.`
 
           break
       }

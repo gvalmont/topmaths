@@ -1,8 +1,8 @@
-import ExerciceSimple from '../../ExerciceSimple'
+import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { texNombre } from '../../../lib/outils/texNombre'
-import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 import { randint } from '../../../modules/outils'
+import ExerciceSimple from '../../ExerciceSimple'
 
 import Decimal from 'decimal.js'
 export const titre = ''
@@ -17,12 +17,12 @@ export const refs = {
  * Modèle d'exercice très simple pour la course aux nombres
  * @author Eric Elter - Gilles Mora
  */
-export default class reduireExpression extends ExerciceSimple {
+export default class canQ23 extends ExerciceSimple {
   constructor() {
     super()
     this.typeExercice = 'simple' // Cette ligne est très importante pour faire un exercice simple !
     this.nbQuestions = 1
-    this.formatChampTexte = KeyboardType.clavierDeBaseAvecVariable
+    this.formatChampTexte = KeyboardType.clavierNumbers
   }
 
   nouvelleVersion() {

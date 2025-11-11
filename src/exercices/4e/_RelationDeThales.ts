@@ -1,12 +1,18 @@
-import { angle, angleOriente } from '../../lib/2d/angles'
-import { pointAdistance, pointSurSegment } from '../../lib/2d/points'
-import { pointAbstrait } from '../../lib/2d/points-abstraits'
+import { pointAbstrait } from '../../lib/2d/PointAbstrait'
 import { polygone } from '../../lib/2d/polygones'
-import { longueur } from '../../lib/2d/segmentsVecteurs'
 import { texteParPoint } from '../../lib/2d/textes'
 import { homothetie, similitude } from '../../lib/2d/transformations'
-import { triangle2points2longueurs } from '../../lib/2d/triangle'
+import { triangle2points2longueurs } from '../../lib/2d/triangles'
+import {
+  angle,
+  angleOriente,
+  longueur,
+} from '../../lib/2d/utilitairesGeometriques'
+import { pointAdistance, pointSurSegment } from '../../lib/2d/utilitairesPoint'
 import { texteGras } from '../../lib/format/style'
+import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
+import { handleAnswers } from '../../lib/interactif/gestionInteractif'
+import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { ajouterBoutonMathalea2d } from '../../lib/outils/enrichissements'
 import { creerNomDePolygone } from '../../lib/outils/outilString'
 import { context } from '../../modules/context'
@@ -15,11 +21,195 @@ import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import Exercice from '../Exercice'
 
 export const titre = 'Écrire une relation de Thalès'
-
+export const interactifType = 'mathLive'
+export const interactifReady = true
 /**
  * Relation de Thalès
  * @author Sébastien LOZANO
  */
+
+/**
+ * Génère toutes les permutations uniques d’un tableau de chaînes.
+ *
+ * @param arr - Tableau d'éléments (chaînes) à permuter.
+ * @returns Un tableau de permutations uniques, où chaque permutation est un tableau de chaînes.
+ * @author Eric Elter
+ */
+function permutationsUnique(arr: string[]): string[][] {
+  const results = new Set<string>()
+  function permute(a: string[], l = 0): void {
+    if (l === a.length - 1) {
+      results.add(a.join('||'))
+      return
+    }
+    for (let i = l; i < a.length; i++) {
+      const b = a.slice()
+      ;[b[l], b[i]] = [b[i], b[l]]
+      permute(b, l + 1)
+    }
+  }
+  permute(arr.slice())
+  return Array.from(results).map((s) => s.split('||'))
+}
+
+/**
+ * Extrait toutes les fractions \dfrac{...}{...} d’un texte LaTeX.
+ *
+ * @param texte - Chaîne contenant des fractions LaTeX du type \dfrac{...}{...}.
+ * @returns Un tableau d’objets représentant les fractions extraites avec leur forme brute, numérateur et dénominateur.
+ * @author Eric Elter
+ */
+function extraireFractions(
+  texte: string,
+): { raw: string; num: string; den: string }[] {
+  const re = /\\dfrac\{([^}]*)\}\{([^}]*)\}/g
+  const fractions: { raw: string; num: string; den: string }[] = []
+  let m: RegExpExecArray | null
+  while ((m = re.exec(texte)) !== null) {
+    fractions.push({ raw: m[0], num: m[1], den: m[2] })
+  }
+  return fractions
+}
+
+/**
+ * Génère toutes les variantes d'une expression (numérateur ou dénominateur)
+ * en tenant compte :
+ *  - des permutations à l'intérieur des ${...} ou des "a + b"
+ *  - des inversions de lettres majuscules ("GE" ↔ "EG")
+ *
+ * @param content - Contenu du numérateur ou du dénominateur.
+ * @returns Un tableau de variantes de l’expression.
+ *
+ * @example
+ * variantsFor("GE")
+ * // => ["GE", "EG"]
+ *
+ * variantsFor("${a + b}")
+ * // => ["${a + b}", "${b + a}"]
+ *
+ * @author Eric Elter
+ */
+function variantsFor(content: string): string[] {
+  const trimmed = content.trim()
+
+  // Cas 1 : interpolation JS ${...}
+  const dollarCurly = /^\$\{([\s\S]+)\}$/.exec(trimmed)
+  if (dollarCurly) {
+    const operands = dollarCurly[1].split(/\s*\+\s*/).map((s) => s.trim())
+    const perms = permutationsUnique(operands)
+    return perms.map((parts) => `\${${parts.join(' + ')}}`)
+  }
+
+  // Cas 2 : expression "a + b"
+  if (trimmed.includes('+')) {
+    const operands = trimmed.split(/\s*\+\s*/).map((s) => s.trim())
+    const perms = permutationsUnique(operands)
+    return perms.map((parts) => parts.join(' + '))
+  }
+
+  // Cas 3 : lettres majuscules collées (ex: GE → EG)
+  if (/^[A-Z]{2,}$/.test(trimmed)) {
+    const letters = trimmed.split('')
+    const perms = permutationsUnique(letters)
+    return perms.map((l) => l.join(''))
+  }
+
+  // Cas par défaut : aucune permutation possible
+  return [trimmed]
+}
+
+/**
+ * Génère toutes les variantes équivalentes (commutatives) pour chaque fraction trouvée dans un texte.
+ *
+ * @param texte - Chaîne contenant des fractions LaTeX du type \dfrac{...}{...}.
+ * @returns Un tableau de sous-tableaux : chaque sous-tableau contient les variantes d’une fraction donnée.
+ * @example
+ * genererVariantsParFraction("\\dfrac{GE}{GH}=\\dfrac{BF}{BK}")
+ * // => [["\\dfrac{GE}{GH}", "\\dfrac{EG}{GH}", "\\dfrac{GE}{HG}", "\\dfrac{EG}{HG}"], ...]
+ * @author Eric Elter
+ */
+function genererVariantsParFraction(texte: string): string[][] {
+  const fractions = extraireFractions(texte)
+  return fractions.map((f) => {
+    const numVars = variantsFor(f.num)
+    const denVars = variantsFor(f.den)
+    const variants = new Set<string>()
+    for (const nv of numVars) {
+      for (const dv of denVars) {
+        variants.add(`\\dfrac{${nv}}{${dv}}`)
+      }
+    }
+    return Array.from(variants)
+  })
+}
+
+/**
+ * Inverse une fraction LaTeX du type \dfrac{num}{den}.
+ *
+ * @param fraction - Fraction LaTeX à inverser.
+ * @returns La fraction inversée (\dfrac{den}{num}).
+ * @example
+ * inverserFraction("\\dfrac{GE}{GH}")
+ * // => "\\dfrac{GH}{GE}"
+ * @author Eric Elter
+ */
+function inverserFraction(fraction: string): string {
+  const match = /\\dfrac\{([^}]*)\}\{([^}]*)\}/.exec(fraction)
+  if (!match) return fraction
+  const [, num, den] = match
+  return `\\dfrac{${den}}{${num}}`
+}
+
+/**
+ * Génère toutes les égalités triples possibles entre les fractions d'un texte,
+ * y compris leurs inverses.
+ * Chaque égalité relie une variante de chaque fraction, et peut inclure toutes les permutations d’ordre.
+ *
+ * @param texte - Chaîne contenant des fractions LaTeX du type \dfrac{...}{...}.
+ * @param inclurePermutations - Si true, inclut aussi toutes les permutations d’ordre entre les fractions.
+ * @returns Un tableau de chaînes représentant des égalités complètes de type "f1 = f2 = f3" et leurs inverses.
+ * @example
+ * genererToutesEgalites("\\dfrac{GE}{GH}=\\dfrac{BF}{BK}=\\dfrac{AB}{CD}", true)
+ * // => ["\\dfrac{GE}{GH} = \\dfrac{BF}{BK} = \\dfrac{AB}{CD}", "\\dfrac{GH}{GE} = \\dfrac{BK}{BF} = \\dfrac{CD}{AB}", ...]
+ * @throws Erreur si le texte contient moins de trois fractions.
+ * @author Eric Elter
+ */
+function genererToutesEgalites(
+  texte: string,
+  inclurePermutations = false,
+): string[] {
+  const groupes = genererVariantsParFraction(texte)
+  if (groupes.length < 3)
+    throw new Error('Il faut au moins trois fractions dans le texte.')
+
+  const egalites = new Set<string>()
+
+  // Produit cartésien entre les 3 groupes
+  for (const f1 of groupes[0]) {
+    for (const f2 of groupes[1]) {
+      for (const f3 of groupes[2]) {
+        const base = [f1, f2, f3]
+        const baseStr = base.join('=')
+        egalites.add(baseStr)
+
+        // Ajoute la version inverse (toutes les fractions inversées)
+        const inverses = base.map(inverserFraction).join('=')
+        egalites.add(inverses)
+
+        if (inclurePermutations) {
+          for (const perm of permutationsUnique(base)) {
+            egalites.add(perm.join('='))
+            const invPerm = perm.map(inverserFraction)
+            egalites.add(invPerm.join('='))
+          }
+        }
+      }
+    }
+  }
+
+  return Array.from(egalites)
+}
+
 export default class RelationDeThales extends Exercice {
   level: number
   constructor() {
@@ -120,7 +310,11 @@ export default class RelationDeThales extends Exercice {
         texte += `<br> $\\leadsto$ les droites $(${nomA + nomM})$ et $(${nomB + nomN})$ sont sécantes en $${nomC}$,`
       }
 
-      texte += `<br> $\\leadsto$ les droites $(${nomA + nomB})$ et $(${nomM + nomN})$ sont parallèles.<br>Écrire une relation de Thalès.<br>`
+      texte += `<br> $\\leadsto$ les droites $(${nomA + nomB})$ et $(${nomM + nomN})$ sont parallèles.<br>Écrire la double égalité de Thalès`
+      if (this.interactif)
+        texte +=
+          ' : ' + ajouteChampTexteMathLive(this, i, KeyboardType.alphanumeric)
+      else texte += '.<br>'
 
       texte += mathalea2d(
         {
@@ -192,12 +386,18 @@ export default class RelationDeThales extends Exercice {
       } else {
         texteCorr += `$\\dfrac{${nomC + nomA}}{${nomC + nomM}}=\\dfrac{${nomC + nomB}}{${nomC + nomN}}=\\dfrac{${nomA + nomB}}{${nomM + nomN}}$`
       }
-
+      const reponse = genererToutesEgalites(
+        `\\dfrac{${nomC + nomA}}{${nomC + nomM}}=\\dfrac{${nomC + nomB}}{${nomC + nomN}}=\\dfrac{${nomA + nomB}}{${nomM + nomN}}`,
+        true,
+      )
+      handleAnswers(this, i, {
+        reponse: { value: reponse, options: { texteAvecCasse: true } },
+      })
       if (context.isHtml) {
         texte += `<br><div style="display: inline-block;margin-top:20px;">${boutonAideMathalea2d}</div>`
       }
 
-      if (this.listeQuestions.indexOf(texte) === -1) {
+      if (this.questionJamaisPosee(i, ...nomDesPoints)) {
         // Si la question n'a jamais été posée, on en créé une autre
         this.listeQuestions[i] = texte
         this.listeCorrections[i] = texteCorr

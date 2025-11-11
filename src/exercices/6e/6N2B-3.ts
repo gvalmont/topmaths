@@ -71,13 +71,11 @@ export default class MultiplierUnDecimalParPuissanceDeDix extends Exercice {
     ]
     let listeChoixAlea = range(6, [3])
     let reponse
-    this.nbQuestions = Math.min(this.nbQuestions, 6)
     if (parseInt(this.sup2) === 1) {
       listeChoixAlea = rangeMinMax(4, 6)
     }
     if (parseInt(this.sup2) === 2) {
       listeChoixAlea = range(2)
-      this.nbQuestions = Math.min(this.nbQuestions, 3)
     }
     this.consigne = ''
     if (!context.isDiaporama && this.sup4) {
@@ -98,8 +96,7 @@ export default class MultiplierUnDecimalParPuissanceDeDix extends Exercice {
       i < this.nbQuestions && cpt < 50;
 
     ) {
-      const choixAlea = listeChoixAlea[0]
-      listeChoixAlea.splice(0, 1)
+      const choixAlea = listeChoixAlea[i]
       const centaine = randint(0, 1) === 0 ? choice(rangeMinMax(0, 9)) : 0
       const dizaine = choice(rangeMinMax(0, 9), [centaine])
       const unite = choice(rangeMinMax(0, 9), [centaine, dizaine])
@@ -135,7 +132,7 @@ export default class MultiplierUnDecimalParPuissanceDeDix extends Exercice {
         }
       }
 
-      if (this.listeQuestions.indexOf(texte) === -1) {
+      if (this.questionJamaisPosee(i, texNombre(exemple, 2), texNombre(exemple * 10 ** (choixAlea - 3)))) {
         // Si la question n'a jamais été posée, on la stocke dans la liste des questions
         this.listeQuestions[i] = texte
         this.listeCorrections[i] = texteCorr

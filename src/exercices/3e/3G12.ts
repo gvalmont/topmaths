@@ -1,8 +1,8 @@
 import { codageAngle } from '../../lib/2d/angles'
 import { colorToLatexOrHTML } from '../../lib/2d/colorToLatexOrHtml'
-import { tracePoint } from '../../lib/2d/points'
 import { segment } from '../../lib/2d/segmentsVecteurs'
 import { labelPoint, texteParPosition } from '../../lib/2d/textes'
+import { tracePoint } from '../../lib/2d/TracePoint'
 import { rotation } from '../../lib/2d/transformations'
 import { arcenciel, texcolors } from '../../lib/format/style'
 import { setReponse } from '../../lib/interactif/gestionInteractif'
@@ -174,7 +174,7 @@ export default class PavageEtRotation2D extends Exercice {
     if (this.sup3 === 8) {
       typeDePavage = randint(1, 7)
     } else {
-      typeDePavage = this.sup3
+      typeDePavage = Math.max(this.sup3, 1)
     }
     while (couples.length < this.nbQuestions && nombrePavageTestes < 6) {
       nombreTentatives = 0

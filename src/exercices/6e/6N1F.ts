@@ -110,7 +110,7 @@ export default class SommeFractionsDecimales extends Exercice {
       casSolutionsAttendues = typesDeSolutionsDisponiblesEntiers[0]
       switch (casSolutionsAttendues) {
         case 1:
-          this.consigne += "d'un nombre décimal."
+          this.consigne += "d'une écriture décimale."
           break
         case 2:
           this.consigne += "d'une fraction décimale."

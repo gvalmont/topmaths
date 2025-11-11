@@ -2,7 +2,7 @@ import { mathalea2d } from '../../../modules/mathalea2d'
 import { colorToLatexOrHTML } from '../../2d/colorToLatexOrHtml'
 import { fixeBordures } from '../../2d/fixeBordures'
 import { ObjetMathalea2D } from '../../2d/ObjetMathalea2D'
-import { point } from '../../2d/points'
+import { point } from '../../2d/PointAbstrait'
 import { polygone } from '../../2d/polygones'
 
 /**

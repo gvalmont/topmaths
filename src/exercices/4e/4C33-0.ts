@@ -1,3 +1,7 @@
+/**
+ * ⚠️ Cet exercice est utilisé dans le test : tests/e2e/tests/interactivity/mathLive.fonctionComparaisonPuissance.test.ts ⚠️
+ */
+
 import { combinaisonListes } from '../../lib/outils/arrayOutils'
 import Exercice from '../Exercice'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'

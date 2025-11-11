@@ -67,11 +67,14 @@ export default class VocabulaireDivisionEuclidienne extends Exercice {
       3,
       '1 : Une seule division euclidienne associée\n2 : Deux divisions euclidiennes associées\n3 : Mélange',
     ]
+    this.besoinFormulaire5CaseACocher = ['Avec parenthèses']
+    this.besoinFormulaire5CaseACocher = false
     this.nbQuestions = 5
     this.sup = 1
     this.sup2 = 1
     this.sup3 = 1
     this.sup4 = 3
+    this.sup5 = true
   }
 
   nouvelleVersion() {
@@ -151,10 +154,10 @@ export default class VocabulaireDivisionEuclidienne extends Exercice {
       TabCorrection[2] = ''
       TabCorrection[3] = `$${Nbutilises[3]}$ est le reste`
       const TabEgaliteDivEuclidienne = []
-      TabEgaliteDivEuclidienne[0] = `$${texNombre(Nbutilises[0])} = ${Nbutilises[1]} \\times ${Nbutilises[2]} + ${Nbutilises[3]}$`
-      TabEgaliteDivEuclidienne[1] = `$${texNombre(Nbutilises[0])} = ${Nbutilises[3]} + ${Nbutilises[1]} \\times ${Nbutilises[2]}$`
-      TabEgaliteDivEuclidienne[2] = `$${Nbutilises[1]} \\times ${Nbutilises[2]} + ${Nbutilises[3]} = ${texNombre(Nbutilises[0])}$`
-      TabEgaliteDivEuclidienne[3] = `$${Nbutilises[3]} + ${Nbutilises[1]} \\times ${Nbutilises[2]} = ${texNombre(Nbutilises[0])}$`
+      TabEgaliteDivEuclidienne[0] = `$${texNombre(Nbutilises[0])} = ${this.sup5 ? '(' : ''}${Nbutilises[1]} \\times ${Nbutilises[2]}${this.sup5 ? ')' : ''} + ${Nbutilises[3]}$`
+      TabEgaliteDivEuclidienne[1] = `$${texNombre(Nbutilises[0])} = ${Nbutilises[3]} + ${this.sup5 ? '(' : ''}${Nbutilises[1]} \\times ${Nbutilises[2]}${this.sup5 ? ')' : ''}$`
+      TabEgaliteDivEuclidienne[2] = `$${this.sup5 ? '(' : ''}${Nbutilises[1]} \\times ${Nbutilises[2]}${this.sup5 ? ')' : ''} + ${Nbutilises[3]} = ${texNombre(Nbutilises[0])}$`
+      TabEgaliteDivEuclidienne[3] = `$${Nbutilises[3]} + ${this.sup5 ? '(' : ''}${Nbutilises[1]} \\times ${Nbutilises[2]}${this.sup5 ? ')' : ''} = ${texNombre(Nbutilises[0])}$`
       let EgaliteDivEuclidienne
       switch (this.sup3) {
         case 1:

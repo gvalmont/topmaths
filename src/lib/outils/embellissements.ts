@@ -1,7 +1,13 @@
 import { isArray, isInteger } from 'mathjs'
 import { context } from '../../modules/context'
+import type { IFractionEtendue } from '../../modules/FractionEtendue.type'
 import { choice } from './arrayOutils'
-import FractionEtendue from '../../modules/FractionEtendue'
+
+// Garde structurel pour détecter une FractionEtendue
+const isFractionEtendue = (x: unknown): x is IFractionEtendue =>
+  typeof x === 'object' &&
+  x !== null &&
+  typeof (x as any).sommeFraction === 'function'
 
 /**
  * Met en couleur et en gras
@@ -12,10 +18,10 @@ import FractionEtendue from '../../modules/FractionEtendue'
  * @author Rémi Angot
  */
 export function miseEnEvidence(
-  texte: string | FractionEtendue | number,
+  texte: string | IFractionEtendue | number,
   couleur: string = '#f15929',
 ) {
-  if (texte instanceof FractionEtendue) texte = texte.texFraction
+  if (isFractionEtendue(texte)) texte = texte.texFraction
   if (typeof texte === 'number') texte = String(texte)
   if (isArray(couleur)) couleur = couleur[0]
   if (context.isHtml) {
@@ -61,11 +67,11 @@ export function miseEnEvidence(
  */
 
 export function coloreUnSeulChiffre(
-  texte: string | FractionEtendue | number,
+  texte: string | IFractionEtendue | number,
   couleur: string = '#f15929',
   position: number = 1,
 ): string {
-  if (texte instanceof FractionEtendue) texte = texte.texFraction
+  if (isFractionEtendue(texte)) texte = texte.texFraction
   if (typeof texte === 'number') texte = String(texte)
   if (Array.isArray(couleur)) couleur = couleur[0]
 

@@ -1,9 +1,9 @@
-import ExerciceSimple from '../../ExerciceSimple'
-import { randint } from '../../../modules/outils'
-import { miseEnEvidence } from '../../../lib/outils/embellissements'
-import { texNombre } from '../../../lib/outils/texNombre'
-import { prenomM } from '../../../lib/outils/Personne'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
+import { miseEnEvidence } from '../../../lib/outils/embellissements'
+import { prenomM } from '../../../lib/outils/Personne'
+import { texNombre } from '../../../lib/outils/texNombre'
+import { randint } from '../../../modules/outils'
+import ExerciceSimple from '../../ExerciceSimple'
 
 export const titre = 'Résoudre un problème avec une soustraction'
 export const interactifReady = true
@@ -53,15 +53,15 @@ Combien de balles ne sont pas rouges ?`
           const a = 100 + randint(3, 4) * 10 + randint(1, 5)
           const b = randint(2, 3) * 10 + randint(6, 9)
           this.reponse = texNombre(a - b, 0)
-          this.question = `Un cycliste doit parcourir $${a}$ Km. <br>
-          Il a déjà parcouru $${b}$ km.<br>
-Combien lui reste-t-il de km à parcourir ?`
-          this.correction = `Le cycliste doit parcourir $${a}$ Km et il a déjà parcouru $${b}$ km.<br>
+          this.question = `Un cycliste doit parcourir $${a}\\text{ km}$. <br>
+          Il a déjà parcouru $${b}\\text{ km}$.<br>
+Combien lui reste-t-il de $\\text{ km}$ à parcourir ?`
+          this.correction = `Le cycliste doit parcourir $${a}\\text{ km}$ et il a déjà parcouru $${b}\\text{ km}$.<br>
            $${a} -${b}=${this.reponse}$ <br>
-          Le cycliste doit encore parcourir $${miseEnEvidence(this.reponse)}$ km.`
+          Le cycliste doit encore parcourir $${miseEnEvidence(this.reponse)}\\text{ km}$.`
           this.canEnonce = this.question
-          this.canReponseACompleter = '$\\ldots$ Km'
-          this.optionsChampTexte = { texteApres: 'Km' }
+          this.canReponseACompleter = '$\\ldots\\text{ km}$'
+          this.optionsChampTexte = { texteApres: '$\\text{ km}$' }
         }
         break
       case 3:

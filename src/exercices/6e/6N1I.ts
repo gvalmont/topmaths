@@ -1,10 +1,10 @@
+import { propositionsQcm } from '../../lib/interactif/qcm'
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
 import { sp } from '../../lib/outils/outilString'
 import { texNombre } from '../../lib/outils/texNombre'
-import Exercice from '../Exercice'
-import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import { context } from '../../modules/context'
-import { propositionsQcm } from '../../lib/interactif/qcm'
+import { listeQuestionsToContenu, randint } from '../../modules/outils'
+import Exercice from '../Exercice'
 export const titre = 'Comparer des nombres décimaux'
 export const amcReady = true
 export const amcType = 'AMCOpen'
@@ -41,13 +41,15 @@ export const refs = {
 export default class ComparerDecimaux extends Exercice {
   constructor() {
     super()
-    this.consigne = 'Compléter avec le signe < , > ou =.'
     this.nbQuestions = 8
     this.nbCols = 2
     this.nbColsCorr = 2
   }
 
   nouvelleVersion() {
+    this.consigne = this.interactif
+      ? 'Choisir la bonne égalité ou inégalité.'
+      : 'Compléter avec le signe < , > ou =.'
     const typesDeQuestionsDisponibles = [choice([1, 4, 5]), 2, 2, 3, 6, 7, 8, 9] // une seule question du type inversion de chiffres (1,4,5)
     const listeTypeDeQuestions = combinaisonListes(
       typesDeQuestionsDisponibles,

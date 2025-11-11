@@ -42,7 +42,7 @@ export default class MetropoleJuin24Exo4Q5 extends ExerciceQcmA {
       `$${texNombre(finalList[index], 2)}$`,
       `$${texNombre(listOrd[index - 1], 2)}$`,
     ]
-    this.enonce = `On a mesuré les tailles, en m, de ${nombreEnLettres(nbEleves)} élèves :<br>$${listeValeurs}$<br>Quelle est la médiane, en m, de ces tailles ?`
+    this.enonce = `On a mesuré les tailles, en $\\text{ m}$, de ${nombreEnLettres(nbEleves)} élèves :<br>$${listeValeurs}$<br>Quelle est la médiane, en $\\text{ m}$, de ces tailles ?`
     this.correction = `On a dans l'ordre croissant : $${listOrd.map((el) => texNombre(el, 2)).join('~\\leq~')}$.<br>
     Il y a autant de tailles inférieures à $${mediane}$m que de tailles supérieures à $${mediane}$m, donc $${miseEnEvidence(`${mediane}`)}$ est la médiane.`
   }
@@ -69,7 +69,7 @@ export default class MetropoleJuin24Exo4Q5 extends ExerciceQcmA {
     }
     let k = 0
     do {
-      this.appliquerLesValeurs(shuffle(newList.map((el) => el / 100))) // On applique la division par 100 à chaque élément pour avoir les tailles en m.
+      this.appliquerLesValeurs(shuffle(newList.map((el) => el / 100))) // On applique la division par 100 à chaque élément pour avoir les tailles en $\\text{ m}$.
       k++
     } while (nombreElementsDifferents(this.reponses) < n && k < 100)
   }

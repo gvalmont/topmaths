@@ -1,13 +1,14 @@
 import { colorToLatexOrHTML } from '../../lib/2d/colorToLatexOrHtml'
-import { point } from '../../lib/2d/points'
-import { polygoneRegulierParCentreEtRayon } from '../../lib/2d/polygones'
-import { longueur, Segment, segment } from '../../lib/2d/segmentsVecteurs'
+import { point } from '../../lib/2d/PointAbstrait'
+import { polygoneRegulierParCentreEtRayon } from '../../lib/2d/polygonesParticuliers'
+import { Segment, segment } from '../../lib/2d/segmentsVecteurs'
 import {
   latexParCoordonnees,
   latexParCoordonneesBox,
   texteParPoint,
 } from '../../lib/2d/textes'
 import { homothetie, rotation, similitude } from '../../lib/2d/transformations'
+import { longueur } from '../../lib/2d/utilitairesGeometriques'
 import { vide2d } from '../../lib/2d/Vide2d'
 import { choice } from '../../lib/outils/arrayOutils'
 import { lettreMinusculeDepuisChiffre } from '../../lib/outils/outilString'

@@ -1,8 +1,8 @@
+import { propositionsQcm } from '../../../lib/interactif/qcm'
 import { choice } from '../../../lib/outils/arrayOutils'
 import { ecritureAlgebrique } from '../../../lib/outils/ecritures'
-import Exercice from '../../Exercice'
 import { listeQuestionsToContenu, randint } from '../../../modules/outils'
-import { propositionsQcm } from '../../../lib/interactif/qcm'
+import Exercice from '../../Exercice'
 export const titre = 'Donner la nature d’une suite (formule de récurrence)'
 export const interactifReady = true
 export const interactifType = 'qcm'
@@ -46,7 +46,7 @@ export default class NatureSuiteRec extends Exercice {
           Alors, $(${s}_n)$ est une suite ...`
           this.autoCorrection[i] = {
             enonce: texte,
-            options: { horizontal: true },
+
             propositions: [
               {
                 texte: `arithmétique de raison $${a}$`,
@@ -85,7 +85,7 @@ export default class NatureSuiteRec extends Exercice {
           Alors, $(${s}_n)$ est une suite ...`
           this.autoCorrection[i] = {
             enonce: texte,
-            options: { horizontal: true },
+
             propositions: [
               {
                 texte: `géométrique de raison $${a}$`,
@@ -125,7 +125,7 @@ export default class NatureSuiteRec extends Exercice {
           Alors, $(${s}_n)$ est une suite ...`
             this.autoCorrection[i] = {
               enonce: texte,
-              options: { horizontal: true },
+
               propositions: [
                 {
                   texte: `géométrique de raison $-\\dfrac{1}{${a}}$`,
@@ -157,7 +157,7 @@ export default class NatureSuiteRec extends Exercice {
           Alors, $(${s}_n)$ est une suite ...`
             this.autoCorrection[i] = {
               enonce: texte,
-              options: { horizontal: true },
+
               propositions: [
                 {
                   texte: `géométrique de raison $\\dfrac{1}{${a}}$`,

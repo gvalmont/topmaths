@@ -1,5 +1,5 @@
 import { fixeBordures } from '../../lib/2d/fixeBordures'
-import { point } from '../../lib/2d/points'
+import { point } from '../../lib/2d/PointAbstrait'
 import { createList } from '../../lib/format/lists'
 import { choice } from '../../lib/outils/arrayOutils'
 import {
@@ -11,7 +11,8 @@ import { premierMultipleInferieur } from '../../lib/outils/primalite'
 import { mathalea2d } from '../../modules/mathalea2d'
 import ExerciceBrevetA from '../ExerciceBrevetA'
 // import { texteParPosition } from '../../lib/2d/textes'
-import { codageSegments, placeLatexSurSegment } from '../../lib/2d/codages'
+import { codageSegments } from '../../lib/2d/CodageSegment'
+import { placeLatexSurSegment } from '../../lib/2d/placeLatexSurSegment'
 import { segment } from '../../lib/2d/segmentsVecteurs'
 import { texNombre } from '../../lib/outils/texNombre'
 import { randint } from '../../modules/outils'
@@ -73,10 +74,10 @@ export default class ExercicePolynesie592015 extends ExerciceBrevetA {
     const differenceLongueur = grandeLongueur - petiteLongueur
 
     let correction1 = `On peut partager la surface de pâturage en deux rectangles, l'un de ${petiteLongueur} (m) sur $2 \\times ${petiteLongueur} = ${deuxPetiteLongueur}$ (m) et l'autre de ${petiteLongueur} (m) sur $${grandeLongueur} - ${petiteLongueur} = ${differenceLongueur}$ (m).<br>`
-    correction1 += `L'aire totale est égale à $${petiteLongueur} \\times ${deuxPetiteLongueur} + ${differenceLongueur} \\times ${petiteLongueur} = ${texNombre(aireTotale)}$ m$^2$, soit $${texNombre(aireTotale / 10000, 2)}$ ha ; donc on peut y faire paître au maximum :` // <br>`
+    correction1 += `L'aire totale est égale à $${petiteLongueur} \\times ${deuxPetiteLongueur} + ${differenceLongueur} \\times ${petiteLongueur} = ${texNombre(aireTotale)}\\text{ m}^2$, soit $${texNombre(aireTotale / 10000, 2)}$ ha ; donc on peut y faire paître au maximum :` // <br>`
     correction1 += `$${texNombre(aireTotale / 10000, 2)} \\times ${densiteChevre} = ${texNombre((aireTotale / 10000) * densiteChevre, 2)}$, soit un maximum de ${nombreChevre} chèvres.<br>`
     correction1 += `${texteItalique('Remarque')} : Autre méthode : on peut décomposer la surface du pâturage en un rectangle de longueur ${grandeLongueur} m et de largeur ${petiteLongueur} m et un carré de côté ${petiteLongueur} m.<br>`
-    correction1 += `Aire totale : $${grandeLongueur} \\times ${petiteLongueur} + ${petiteLongueur}^2 = ${texNombre(aireTotale)}$ m$^2$.`
+    correction1 += `Aire totale : $${grandeLongueur} \\times ${petiteLongueur} + ${petiteLongueur}^2 = ${texNombre(aireTotale)}\\text{ m}^2$.`
     const correction2 = `Les ${nombreChevre} chèvres donneront en moyenne par jour : $${nombreChevre} \\times ${texNombre(productionLait, 1)} = ${texNombre(productionLaitTotale, 1)}$ litres de lait.`
 
     const listeCorrections = createList({
@@ -150,7 +151,7 @@ export default class ExercicePolynesie592015 extends ExerciceBrevetA {
     this.enonce += `${texteGras('Plan simplifié des surfaces de pâturage.')} <br>`
     this.enonce += `${figure} `
     this.enonce += `${texteGras('Document 3')} <br>`
-    this.enonce += `1 hectare = $${texNombre(10000)}$ m$^2$` //
+    this.enonce += `1 hectare = $${texNombre(10000)}\\text{ m}^2$` //
     this.enonce += listeQuestions + '<br><br>'
     // this.enonce += '<br>'
     this.enonce += `${texteGras('PARTIE 2 : Le stockage du lait')} <br>`
@@ -164,7 +165,7 @@ export default class ExercicePolynesie592015 extends ExerciceBrevetA {
     this.correction = `${texteGras('PARTIE 1 : La production de lait')}`
     this.correction += listeCorrections
     this.correction += `${texteGras('PARTIE 2 : Le stockage du lait')} <br>`
-    this.correction += `${'Volume de la cuve B :'} $V_{\\text{B}} = \\pi \\times  ${texNombre(diametreB / 20, 1)}^2 \\times ${texNombre(hauteurB / 10, 1)} = ${texNombre((diametreB * diametreB * hauteurB) / 4000, 3)} \\pi \\approx ${texNombre(volumeB, 1)}$ dm$^3$, `
+    this.correction += `${'Volume de la cuve B :'} $V_{\\text{B}} = \\pi \\times  ${texNombre(diametreB / 20, 1)}^2 \\times ${texNombre(hauteurB / 10, 1)} = ${texNombre((diametreB * diametreB * hauteurB) / 4000, 3)} \\pi \\approx ${texNombre(volumeB, 1)}\\text{ dm}^3$, `
     this.correction += `et $${texNombre(volumeB, 1)}$ litres ${volumeB > contenanceA ? '>' : '<'} $${contenanceA}$  litres.<br>`
     this.correction += `${majIlElle} va donc acheter une cuve ${volumeB > contenanceA ? 'B' : 'A'}.<br>`
   }

@@ -1,7 +1,8 @@
 import { colorToLatexOrHTML } from '../../../lib/2d/colorToLatexOrHtml'
 import { droite } from '../../../lib/2d/droites'
-import { point, TracePoint, tracePoint } from '../../../lib/2d/points'
+import { pointAbstrait } from '../../../lib/2d/PointAbstrait'
 import { latex2d, type Latex2d } from '../../../lib/2d/textes'
+import { TracePoint } from '../../../lib/2d/TracePoint'
 import { symetrieAxiale } from '../../../lib/2d/transformations'
 import { ajouteQuestionMathlive } from '../../../lib/interactif/questionMathLive'
 import { choisitNombresEntreMetN } from '../../../lib/outils/aleatoires'
@@ -55,7 +56,7 @@ export default class TrouverLeSym extends Exercice {
     for (let i = 0; i < 49; i++) {
       const x = i % 7
       const y = Math.floor(i / 7)
-      const trace = tracePoint(point(x, y))
+      const trace = new TracePoint(pointAbstrait(x, y))
       trace.taille = context.isHtml ? 2 : 1
       this.croix.push(trace)
     }
@@ -107,12 +108,12 @@ export default class TrouverLeSym extends Exercice {
       const numerosChoisis = indexNumerosChoisis.map((n) => numeros[n])
       const d =
         typeAxe[i] === 1
-          ? droite(point(3, 0), point(3, 6))
+          ? droite(pointAbstrait(3, 0), pointAbstrait(3, 6))
           : typeAxe[i] === 2
-            ? droite(point(0, 3), point(6, 3))
+            ? droite(pointAbstrait(0, 3), pointAbstrait(6, 3))
             : typeAxe[i] === 3
-              ? droite(point(0, 0), point(6, 6))
-              : droite(point(0, 6), point(6, 0))
+              ? droite(pointAbstrait(0, 0), pointAbstrait(6, 6))
+              : droite(pointAbstrait(0, 6), pointAbstrait(6, 0))
       d.color = colorToLatexOrHTML('blue')
       d.epaisseur = 2
       const numerosSymChoisis: number[] = []
@@ -157,16 +158,16 @@ export default class TrouverLeSym extends Exercice {
         const n = indexNumerosChoisis[j]
         const x = n % 7
         const y = Math.floor(n / 7)
-        const p = point(x, y)
+        const p = pointAbstrait(x, y)
         const pSym = symetrieAxiale(p, d)
         pointsChoisis.push([x, y])
-        const pAffiche = tracePoint(p)
+        const pAffiche = new TracePoint(p)
         pAffiche.epaisseur = 3
         pAffiche.taille = context.isHtml ? 3 : 2
         pAffiche.color = colorToLatexOrHTML('black')
         objetsEnonce.push(pAffiche)
         objetsCorrection.push(pAffiche)
-        const pSymAffiche = tracePoint(pSym)
+        const pSymAffiche = new TracePoint(pSym)
         pSymAffiche.epaisseur = 3
         pSymAffiche.taille = context.isHtml ? 3 : 2
         pSymAffiche.color = colorToLatexOrHTML('orange')

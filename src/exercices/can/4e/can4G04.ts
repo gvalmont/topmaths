@@ -1,8 +1,9 @@
-import { codageAngleDroit } from '../../../lib/2d/angles'
+import { codageAngleDroit } from '../../../lib/2d/CodageAngleDroit'
 import { fixeBordures } from '../../../lib/2d/fixeBordures'
-import { milieu, point, pointAdistance } from '../../../lib/2d/points'
+import { point } from '../../../lib/2d/PointAbstrait'
 import { polygoneAvecNom } from '../../../lib/2d/polygones'
 import { latex2d } from '../../../lib/2d/textes'
+import { milieu, pointAdistance } from '../../../lib/2d/utilitairesPoint'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 import { extraireRacineCarree } from '../../../lib/outils/calculs'
 import {

@@ -1,16 +1,16 @@
-import { texteSurSegment } from '../../../lib/2d/codages'
 import { fixeBordures } from '../../../lib/2d/fixeBordures'
-import { point } from '../../../lib/2d/points'
+import { point } from '../../../lib/2d/PointAbstrait'
 import {
   barycentre,
   polygone,
   polygoneAvecNom,
 } from '../../../lib/2d/polygones'
+import { texteSurSegment } from '../../../lib/2d/texteSurSegment'
 import { rotation } from '../../../lib/2d/transformations'
 import { propositionsQcm } from '../../../lib/interactif/qcm'
 import { choice } from '../../../lib/outils/arrayOutils'
 import { texteEnCouleur } from '../../../lib/outils/embellissements'
-import { creerNomDePolygone, sp } from '../../../lib/outils/outilString'
+import { creerNomDePolygone } from '../../../lib/outils/outilString'
 import { mathalea2d } from '../../../modules/mathalea2d'
 import { listeQuestionsToContenu, randint } from '../../../modules/outils'
 import type { NestedObjetMathalea2dArray } from '../../../types/2d'
@@ -24,9 +24,8 @@ export const dateDePublication = '01/10/2023'
 
 /**
  * @author Jean-Claude  Lhote
-
- * Date de publication 1/10/2023
  */
+
 export const uuid = '5344c'
 
 export const refs = {
@@ -112,7 +111,7 @@ export default class TripletsPythagoriciensOuPas extends Exercice {
       const objets: NestedObjetMathalea2dArray = [poly]
       objets.push(longueurCA, longueurAB, longueurBC)
       let texte = `Dans le triangle $${nom}$, `
-      texte += `$${nom[0]}${nom[1]}=${triplet[0]}$${sp(1)}cm, $${nom[1]}${nom[2]}=${triplet[1]}$${sp(1)}cm et $${nom[0]}${nom[2]}=${triplet[2]}$.<br>Ce triangle est-il rectangle (La figure n'est pas forcément représentative) ?<br>`
+      texte += `$${nom[0]}${nom[1]}=${triplet[0]}\\text{ cm}$, $${nom[1]}${nom[2]}=${triplet[1]}\\text{ cm}$ et $${nom[0]}${nom[2]}=${triplet[2]}$.<br>Ce triangle est-il rectangle (La figure n'est pas forcément représentative) ?<br>`
       objets.push()
       const figure = mathalea2d(
         Object.assign(

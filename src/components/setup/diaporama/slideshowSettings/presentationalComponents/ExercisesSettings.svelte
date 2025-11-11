@@ -1,10 +1,10 @@
 <script lang="ts">
-  import type Exercice from '../../../../../exercices/Exercice'
-  import NumberInput from '../../../../shared/forms/InputNumber.svelte'
   import { formattedTimeStamp } from '../../../../../lib/components/time'
   import { exercicesParams } from '../../../../../lib/stores/generalStore'
+  import type { IExercice } from '../../../../../lib/types'
+  import NumberInput from '../../../../shared/forms/InputNumber.svelte'
 
-  export let exercises: Exercice[]
+  export let exercises: IExercice[]
   export let selectedExercisesIndexes: number[]
   export let isManualModeActive: boolean
   export let updateExercises: (updateSlidesContent?: boolean) => void

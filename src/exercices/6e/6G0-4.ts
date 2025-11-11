@@ -1,9 +1,11 @@
+/**
+ * ⚠️ Cet exercice est utilisé dans le test : tests/e2e/tests/view/view.capytale.review.1.test.ts ⚠️
+ */
+
+import { demiDroite } from '../../lib/2d/DemiDroite'
 import { droite } from '../../lib/2d/droites'
-import { point } from '../../lib/2d/points'
-import {
-  demiDroite,
-  segmentAvecExtremites,
-} from '../../lib/2d/segmentsVecteurs'
+import { point } from '../../lib/2d/PointAbstrait'
+import { segmentAvecExtremites } from '../../lib/2d/segmentsVecteurs'
 import { labelPoint } from '../../lib/2d/textes'
 import { vide2d } from '../../lib/2d/Vide2d'
 import { setCliqueFigure } from '../../lib/interactif/gestionInteractif'

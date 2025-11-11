@@ -1,17 +1,32 @@
+import { demiDroite } from '../../lib/2d/DemiDroite'
+import { point } from '../../lib/2d/PointAbstrait'
+import { tracePoint } from '../../lib/2d/TracePoint'
 import { codageAngle } from '../../lib/2d/angles'
-import { point, pointAdistance, tracePoint } from '../../lib/2d/points'
-import { demiDroite } from '../../lib/2d/segmentsVecteurs'
 import { texteParPoint } from '../../lib/2d/textes'
 import { rotation } from '../../lib/2d/transformations'
-import { triangle2points1angle1longueur } from '../../lib/2d/triangle'
+import { triangle2points1angle1longueur } from '../../lib/2d/triangles'
+import { pointAdistance } from '../../lib/2d/utilitairesPoint'
 import { propositionsQcm } from '../../lib/interactif/qcm'
-import { degCos, degSin } from '../../lib/mathFonctions/trigo'
 import { combinaisonListes } from '../../lib/outils/arrayOutils'
 import { lettreDepuisChiffre } from '../../lib/outils/outilString'
 import { context } from '../../modules/context'
 import { mathalea2d } from '../../modules/mathalea2d'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import Exercice from '../Exercice'
+
+/**
+ * Calcule le cosinus d'un angle en degrés
+ */
+function degCos(deg: number): number {
+  return Math.cos((deg * Math.PI) / 180)
+}
+
+/**
+ * Calcule le sinus d'un angle en degrés
+ */
+function degSin(deg: number): number {
+  return Math.sin((deg * Math.PI) / 180)
+}
 
 export const interactifReady = true
 export const interactifType = 'qcm'

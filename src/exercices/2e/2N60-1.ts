@@ -1,8 +1,9 @@
-import { codageAngleDroit } from '../../lib/2d/angles'
-import { milieu, point } from '../../lib/2d/points'
+import { codageAngleDroit } from '../../lib/2d/CodageAngleDroit'
+import { point } from '../../lib/2d/PointAbstrait'
 import { polygone } from '../../lib/2d/polygones'
 import { segment } from '../../lib/2d/segmentsVecteurs'
 import { labelPoint, texteParPosition } from '../../lib/2d/textes'
+import { milieu } from '../../lib/2d/utilitairesPoint'
 import { texPrix, texteGras } from '../../lib/format/style'
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
@@ -101,10 +102,10 @@ export default class ModeliseInequations extends Exercice {
             const d = randint(14, 19) / 100
 
             texte = `  Une société de location de véhicules particuliers propose deux tarifs :<br>
-              $\\bullet$ Tarif A : un forfait de $${a}$ € et $${texNombre(c, 2)}$ € par km parcouru ;<br>
-              $\\bullet$  Tarif B : un forfait de $${b}$ € et $${texNombre(d, 2)}$ € par km parcouru ;<br>
-                      À partir de combien de km (arrondi à l'unité), le tarif B est-il plus intéressant que le tarif A ?<br>`
-            texteCorr = `En notant $x$, le nombre de km parcourus, on a :<br>
+              $\\bullet$ Tarif A : un forfait de $${a}$ € et $${texNombre(c, 2)}$ € par $\\text{km}$ parcouru ;<br>
+              $\\bullet$  Tarif B : un forfait de $${b}$ € et $${texNombre(d, 2)}$ € par $\\text{km}$ parcouru ;<br>
+                      À partir de combien de $\\text{km}$ (arrondi à l'unité), le tarif B est-il plus intéressant que le tarif A ?<br>`
+            texteCorr = `En notant $x$, le nombre de $\\text{km}$ parcourus, on a :<br>
               $\\bullet$ Avec le tarif A, le prix à payer est : $${reduireAxPlusB(c, a)}$ ;<br>
               $\\bullet$  Avec le tarif B, le prix à payer est : $${reduireAxPlusB(d, b)}$ ;<br>
                        Le tarif B est plus avantageux que le tarif A lorsque $x$ vérifie : $${reduireAxPlusB(d, b)} < ${reduireAxPlusB(c, a)}$.<br>
@@ -119,11 +120,11 @@ export default class ModeliseInequations extends Exercice {
       x&>\\dfrac{${abs(a - b)}}{${texNombre(abs(d - c), 2)}}
       \\end{aligned}$<br>`
             if (Math.round((a - b) / (d - c)) === (a - b) / (d - c)) {
-              texteCorr += `Comme $\\dfrac{${abs(a - b)}}{${texNombre(abs(d - c), 2)}}= ${texNombre((a - b) / (d - c), 2)}$, c'est donc pour une distance minimale de  $${miseEnEvidence(texNombre(Math.ceil((a - b) / (d - c)) + 1, 0))}$ km que le tarif B est plus intéressant que le tarif A.
+              texteCorr += `Comme $\\dfrac{${abs(a - b)}}{${texNombre(abs(d - c), 2)}}= ${texNombre((a - b) / (d - c), 2)}$, c'est donc pour une distance minimale de  $${miseEnEvidence(texNombre(Math.ceil((a - b) / (d - c)) + 1, 0))}\\text{ km}$ que le tarif B est plus intéressant que le tarif A.
              `
               reponse = texNombre(Math.ceil((a - b) / (d - c)) + 1, 0)
             } else {
-              texteCorr += ` Comme $\\dfrac{${abs(a - b)}}{${texNombre(abs(d - c), 2)}}\\simeq ${texNombre((a - b) / (d - c), 2)}$, c'est donc pour une distance minimale de  $${miseEnEvidence(Math.ceil((a - b) / (d - c)))}$ km que le tarif B est plus intéressant que le tarif A.
+              texteCorr += ` Comme $\\dfrac{${abs(a - b)}}{${texNombre(abs(d - c), 2)}}\\simeq ${texNombre((a - b) / (d - c), 2)}$, c'est donc pour une distance minimale de  $${miseEnEvidence(Math.ceil((a - b) / (d - c)))}\\text{ km}$ que le tarif B est plus intéressant que le tarif A.
                             `
               reponse = texNombre(Math.ceil((a - b) / (d - c)), 0)
             }
@@ -134,7 +135,7 @@ export default class ModeliseInequations extends Exercice {
                 this,
                 i,
                 KeyboardType.clavierDeBaseAvecFraction,
-                { texteApres: ' km' },
+                { texteApres: '$\\text{ km}$' },
               )
             handleAnswers(this, i, { reponse: { value: reponse } })
           }
@@ -148,13 +149,13 @@ export default class ModeliseInequations extends Exercice {
             const budget = randint(20, 35) * 10 //
 
             texte = ` Pour la location mensuelle d'un véhicule, une entreprise propose le tarif suivant :<br>
-            Forfait de $${b}$ € quel que soit le nombre de km parcourus, puis un supplément par kilomètre parcouru de $${texNombre(a, 2)}$ €. <br>
+            Forfait de $${b}$ € quel que soit le nombre de $\\text{km}$ parcourus, puis un supplément par kilomètre parcouru de $${texNombre(a, 2)}$ €. <br>
             
             ${quidam} loue une voiture à cette société. Elle a un budget de $${budget}$ € et ne veut pas le dépasser.<br>
-                      Quel nombre maximum de km (arrondi à l'unité) pourra-t-elle parcourir sans dépasser son budget  ?
+                      Quel nombre maximum de $\\text{km}$ (arrondi à l'unité) pourra-t-elle parcourir sans dépasser son budget  ?
                                    `
-            texteCorr = `En notant $x$, le nombre de km parcourus, le coût pour la location mensuelle est donné par : $${reduireAxPlusB(a, b)}$.<br>
-            Le budget de ${quidam} étant de  $${budget}$ €, le nombre de km $x$ qu'elle pourra parcourir doit vérifier $${reduireAxPlusB(a, b)}<${budget}$.<br>
+            texteCorr = `En notant $x$, le nombre de $\\text{km}$ parcourus, le coût pour la location mensuelle est donné par : $${reduireAxPlusB(a, b)}$.<br>
+            Le budget de ${quidam} étant de  $${budget}$ €, le nombre de $\\text{km}$ $x$ qu'elle pourra parcourir doit vérifier $${reduireAxPlusB(a, b)}<${budget}$.<br>
             $\\begin{aligned}
             ${reduireAxPlusB(a, b)}&\\leqslant${budget}\\\\
             ${texNombre(a, 2)}x+${b}-${miseEnEvidence(b)}&\\leqslant ${budget}x-${miseEnEvidence(b)}\\\\
@@ -162,7 +163,7 @@ export default class ModeliseInequations extends Exercice {
             x&\\leqslant\\dfrac{${budget - b}}{${texNombre(a, 2)}}
     \\end{aligned}$<br>`
 
-            texteCorr += `Comme $\\dfrac{${budget - b}}{${texNombre(a, 2)}}${Math.round((budget - b) / a) === (budget - b) / a ? '=' : '\\simeq'} ${texNombre((budget - b) / a, 2)}$, ${quidam} pourra faire au maximum  $${Math.floor((budget - b) / a)}$ km pendant le mois avec son budget de $${budget}$ €.
+            texteCorr += `Comme $\\dfrac{${budget - b}}{${texNombre(a, 2)}}${Math.round((budget - b) / a) === (budget - b) / a ? '=' : '\\simeq'} ${texNombre((budget - b) / a, 2)}$, ${quidam} pourra faire au maximum  $${Math.floor((budget - b) / a)}\\text{ km}$ pendant le mois avec son budget de $${budget}$ €.
        `
             reponse = texNombre(Math.floor((budget - b) / a), 0)
 
@@ -172,7 +173,7 @@ export default class ModeliseInequations extends Exercice {
                 this,
                 i,
                 KeyboardType.clavierDeBaseAvecFraction,
-                { texteApres: ' km' },
+                { texteApres: '$\\text{ km}$' },
               )
             handleAnswers(this, i, { reponse: { value: reponse } })
           }
@@ -413,7 +414,7 @@ export default class ModeliseInequations extends Exercice {
             )
 
             texte = ` On considère la figure ci-dessous (l'unité est le centimètre). <br>
-            Quelles sont les valeurs possibles de $x$ pour que le périmètre de la figure soit supérieur à $${P}$ cm.<br>
+            Quelles sont les valeurs possibles de $x$ pour que le périmètre de la figure soit supérieur à $${P}\\text{ cm}$.<br>
               `
             texte += mathalea2d(
               {
@@ -440,7 +441,7 @@ export default class ModeliseInequations extends Exercice {
             x&>\\dfrac{${P - 2 * b - 2 * a}}{4}`
             texteCorr += '\\end{aligned}$<br>'
 
-            texteCorr += `Comme $\\dfrac{${P - 2 * b - 2 * a}}{4}=${texNombre((P - 2 * b - 2 * a) / 4, 2)}$, $x$ doit être supérieur à $${texNombre((P - 2 * b - 2 * a) / 4, 2)}$ cm pour que le périmètre de la figure soit supérieur à $${P}$ cm.
+            texteCorr += `Comme $\\dfrac{${P - 2 * b - 2 * a}}{4}=${texNombre((P - 2 * b - 2 * a) / 4, 2)}$, $x$ doit être supérieur à $${texNombre((P - 2 * b - 2 * a) / 4, 2)}\\text{ cm}$ pour que le périmètre de la figure soit supérieur à $${P}\\text{ cm}$.
 
              `
             reponse = new FractionEtendue(P - 2 * b - 2 * a, 4).texFraction
@@ -531,7 +532,7 @@ export default class ModeliseInequations extends Exercice {
             )
 
             texte = ` On considère la figure ci-dessous sur laquelle les longueurs sont en cm. <br>
-            Quelles sont les valeurs possibles de $x$ pour que l'aire de cette  figure dépasse  $${Aire}$ cm$^2$ ?<br>
+            Quelles sont les valeurs possibles de $x$ pour que l'aire de cette  figure dépasse  $${Aire}\\text{ cm}^2$ ?<br>
             Résoudre ce problème en le modélisant par une inéquation.<br>
               `
             texte += mathalea2d(
@@ -562,13 +563,13 @@ Le problème revient donc à trouver les valeurs de $x$ vérifiant : $${rienSi1(
             x&>\\dfrac{${Aire - a ** 2}}{${texNombre(a + b / 2, 0)}}`
             texteCorr += '\\end{aligned}$<br>'
             if (pgcd(Aire - a ** 2, a + b / 2) === 1) {
-              texteCorr += `$x$ doit être supérieur à $\\dfrac{${Aire - a ** 2}}{${texNombre(a + b / 2, 0)}}$ cm pour que l'aire  de la figure dépasse $${Aire}$ cm$^2$.
+              texteCorr += `$x$ doit être supérieur à $\\dfrac{${Aire - a ** 2}}{${texNombre(a + b / 2, 0)}}\\text{ cm}$ pour que l'aire  de la figure dépasse $${Aire}\\text{ cm}^2$.
             `
 
               reponse = new FractionEtendue(Aire - a ** 2, a + b / 2)
                 .texFraction
             } else {
-              texteCorr += `Comme $\\dfrac{${Aire - a ** 2}}{${texNombre(a + b / 2, 0)}}=${f.texFraction}$, $x$ doit être supérieur à $${f.texFraction}$ cm pour que l'aire  de la figure dépasse $${Aire}$ cm$^2$.
+              texteCorr += `Comme $\\dfrac{${Aire - a ** 2}}{${texNombre(a + b / 2, 0)}}=${f.texFraction}$, $x$ doit être supérieur à $${f.texFraction}\\text{ cm}$ pour que l'aire  de la figure dépasse $${Aire}\\text{ cm}^2$.
              `
               reponse = f.texFraction
             }

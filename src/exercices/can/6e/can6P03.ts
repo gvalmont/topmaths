@@ -29,26 +29,26 @@ export default class QuestionDeVitesse extends ExerciceSimple {
     this.typeExercice = 'simple'
     this.nbQuestions = 1
 
-    this.optionsChampTexte = { texteApres: ' km' }
+    this.optionsChampTexte = { texteApres: '$\\text{ km}$' }
   }
 
   nouvelleVersion() {
     const a = randint(2, 6) * 20
     const b = randint(1, 6)
     this.reponse = Math.round(a * (b + 0.5))
-    this.question = `Une voiture roule à une vitesse constante de $${a}$ km/h. <br>
+    this.question = `Une voiture roule à une vitesse constante de $${a}\\text{ km/h}$. <br>
     
     Combien de kilomètres parcourt-elle en $${b}$ h et $30$ min ?`
     this.correction = `$${a}\\times ${texNombre(b + 0.5)} = ${miseEnEvidence(this.reponse)}$`
     this.correction += texteEnCouleur(
       `<br> Mentalement : <br>
-    La voiture roule à une vitesse constante de $${a}$ km/h, cela signifie qu'elle parcourt $${a}$ km en $1$ heure.<br>
-    En $${b}$ heures, elle parcourt $${a}\\times ${b}=${a * b}$ km.<br>
-    En $30$ minutes, elle parcourt la moitié de $${a}$ km, soit $${a / 2}$ km.<br>
-    Au total, elle a parcouru $${a * b}+${a / 2} $, soit $${a * (b + 0.5)}$ km. `,
+    La voiture roule à une vitesse constante de $${a}\\text{ km/h}$, cela signifie qu'elle parcourt $${a}\\text{ km}$ en $1$ heure.<br>
+    En $${b}$ heures, elle parcourt $${a}\\times ${b}=${a * b}\\text{ km}$.<br>
+    En $30$ minutes, elle parcourt la moitié de $${a}\\text{ km}$, soit $${a / 2}\\text{ km}$.<br>
+    Au total, elle a parcouru $${a * b}+${a / 2} $, soit $${a * (b + 0.5)}\\text{ km}$. `,
       bleuMathalea,
     )
     this.canEnonce = this.question
-    this.canReponseACompleter = '$\\dots$ km'
+    this.canReponseACompleter = '$\\dots\\text{ km}$'
   }
 }

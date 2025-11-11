@@ -1,19 +1,19 @@
 <script lang="ts">
-  import NavBar from '../../shared/header/NavBar.svelte'
-  import { referentielLocale } from '../../../lib/stores/languagesStore'
-  import { darkMode } from '../../../lib/stores/generalStore'
-  import Footer from '../../Footer.svelte'
   import { writable } from 'svelte/store'
-  import { mathaleaGetExercicesFromParams } from '../../../lib/mathalea'
-  import type Exercice from '../../../exercices/Exercice'
   import { generateLatex, handleUrl } from '../../../lib/alacarte'
+  import { mathaleaGetExercicesFromParams } from '../../../lib/mathalea'
+  import { darkMode } from '../../../lib/stores/generalStore'
+  import { referentielLocale } from '../../../lib/stores/languagesStore'
+  import type { IExercice } from '../../../lib/types'
+  import Footer from '../../Footer.svelte'
   import ButtonActionInfo from '../../shared/forms/ButtonActionInfo.svelte'
   import ButtonTextAction from '../../shared/forms/ButtonTextAction.svelte'
+  import NavBar from '../../shared/header/NavBar.svelte'
 
   const userInput = writable('')
   const latexOutput = writable('')
 
-  const itemsWithExercises: { [key: string]: Exercice[] } = {}
+  const itemsWithExercises: { [key: string]: IExercice[] } = {}
 
   function formatUserInput() {
     try {

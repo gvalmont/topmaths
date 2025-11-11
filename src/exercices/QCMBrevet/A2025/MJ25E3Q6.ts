@@ -1,17 +1,17 @@
-import { placeLatexSurSegment } from '../../../lib/2d/codages'
 import { fixeBordures } from '../../../lib/2d/fixeBordures'
+import { placeLatexSurSegment } from '../../../lib/2d/placeLatexSurSegment'
 import { latex2d } from '../../../lib/2d/textes'
 import {
   arete3d,
+  CodageAngleDroit3D,
   point3d,
   polygone3d,
-} from '../../../lib/3d/3dProjectionMathalea2d/elements'
+} from '../../../lib/3d/3dProjectionMathalea2d/elementsEtTransformations3d'
 import { choice } from '../../../lib/outils/arrayOutils'
 import { texNombre } from '../../../lib/outils/texNombre'
 import { mathalea2d } from '../../../modules/mathalea2d'
 
-import { pyramide3d } from '../../../lib/3d/3dProjectionMathalea2d/solides'
-import { CodageAngleDroit3D } from '../../../lib/3d/3dProjectionMathalea2d/tranformations'
+import { pyramide3d } from '../../../lib/3d/3dProjectionMathalea2d/Pyramide3dPerspectiveCavaliere'
 import ExerciceQcmA from '../../ExerciceQcmA'
 
 export const uuid = '47v56'

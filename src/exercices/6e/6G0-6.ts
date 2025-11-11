@@ -1,6 +1,7 @@
 import { cercle } from '../../lib/2d/cercle'
-import { point, pointSurCercle } from '../../lib/2d/points'
+import { point } from '../../lib/2d/PointAbstrait'
 import { polygoneAvecNom } from '../../lib/2d/polygones'
+import { pointSurCercle } from '../../lib/2d/utilitairesPoint'
 import { propositionsQcm } from '../../lib/interactif/qcm'
 import { combinaisonListes } from '../../lib/outils/arrayOutils'
 import { lettreDepuisChiffre } from '../../lib/outils/outilString'

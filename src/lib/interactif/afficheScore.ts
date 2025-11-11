@@ -1,12 +1,7 @@
-import type Exercice from '../../exercices/Exercice'
-
-export type ResultOfExerciceInteractif = {
-  numberOfPoints: number
-  numberOfQuestions: number
-}
+import type { IExercice, ResultOfExerciceInteractif } from '../../lib/types'
 
 export function afficheScore(
-  exercice: Exercice,
+  exercice: IExercice,
   nbBonnesReponses: number,
   nbMauvaisesReponses: number,
   divScore?: HTMLDivElement,

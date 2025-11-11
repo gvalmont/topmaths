@@ -1,10 +1,10 @@
 // une config particulière pour vitest, pour lancer les test/**/*.longtest.js
 // cf https://vitest.dev/config/
 
+import { resolve } from 'node:path'
 import { mergeConfig } from 'vite'
 import { defineConfig } from 'vitest/config'
 import viteConfig from './vite.config'
-import { resolve } from 'node:path'
 
 export default mergeConfig(
   viteConfig,

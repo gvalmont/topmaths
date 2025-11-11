@@ -1,7 +1,8 @@
 import Decimal from 'decimal.js'
 import { fixeBordures } from '../../lib/2d/fixeBordures'
-import { point, tracePoint } from '../../lib/2d/points'
+import { point } from '../../lib/2d/PointAbstrait'
 import RepereBuilder from '../../lib/2d/RepereBuilder'
+import { tracePoint } from '../../lib/2d/TracePoint'
 import { createList } from '../../lib/format/lists'
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
 import { ecritureAlgebrique } from '../../lib/outils/ecritures'
@@ -466,9 +467,9 @@ En utilisant la calculatrice, on trouve $n=${n1}$.`,
           nbreS = randint(8, 20)
           choix = choice([true, false])
 
-          texte = `Aujourd'hui les chardons (une plante vivace) ont envahi $${u0}$ m$^2$ des champs d'une région.<br>
- Chaque semaine, la surface envahie augmente de $${texNombre(p, 0)}\\,\\%$ par le développement des racines, auquel s'ajoutent $${texNombre(k, 2)}$ m$^2$ suite à la dissémination des graines.<br>
-Pour tout entier naturel $n$, on note $${NomS}_n$ la surface envahie par les chardons, en m$^2$, après $n$ semaines ; on a donc $${NomS}_0 = ${u0}$ m$^2$.`
+          texte = `Aujourd'hui les chardons (une plante vivace) ont envahi $${u0}\\text{ m}^2$ des champs d'une région.<br>
+ Chaque semaine, la surface envahie augmente de $${texNombre(p, 0)}\\,\\%$ par le développement des racines, auquel s'ajoutent $${texNombre(k, 2)}\\text{ m}^2$ suite à la dissémination des graines.<br>
+Pour tout entier naturel $n$, on note $${NomS}_n$ la surface envahie par les chardons, en $\\text{ m}$$^2$, après $n$ semaines ; on a donc $${NomS}_0 = ${u0}\\text{ m}^2$.`
           texte += createList({
             items: [
               `Calculer $${NomS}_1$ et $${NomS}_2$.`,
@@ -523,7 +524,7 @@ Or $t_n = ${NomS}_n${ecritureAlgebrique(-b)}$ donc $${NomS}_n = ${texNombre(new 
 `,
                   `On a $${NomS}_{${nbreS}}=${texNombre(new Decimal(u0).sub(b), 1)}\\times ${texNombre(cm, 2)}^{${nbreS}}${ecritureAlgebrique(b)}
 \\simeq ${texNombre(new Decimal(b.sub(u0).mul(-1).mul(cm.pow(nbreS)).add(b)), 0)}$.<br>
-Au bout de $${nbreS}$ semaines, la surface envahie par les chardons est d'environ $${texNombre(new Decimal(b.sub(u0).mul(-1).mul(cm.pow(nbreS)).add(b)), 0)}$ m$^2$.<br>
+Au bout de $${nbreS}$ semaines, la surface envahie par les chardons est d'environ $${texNombre(new Decimal(b.sub(u0).mul(-1).mul(cm.pow(nbreS)).add(b)), 0)}\\text{ m}^2$.<br>
 Comme $${texNombre(new Decimal(b.sub(u0).mul(-1).mul(cm.pow(nbreS)).add(b)), 0)} ${b.sub(u0).mul(-1).mul(cm.pow(nbreS)).add(b).lessThan(u0.mul(2)) ? '<' : '>'} 2\\times ${texNombre(u0, 0)}$, la surface envahie par les chardons 
 ${b.sub(u0).mul(-1).mul(cm.pow(nbreS)).add(b).lessThan(u0.mul(2)) ? "n'aura pas" : 'aura'} doublé au bout de $${nbreS}$ semaines. `,
                 ],
@@ -552,16 +553,16 @@ ${b.sub(u0).mul(-1).mul(cm.pow(nbreS)).add(b).lessThan(u0.mul(2)) ? "n'aura pas"
             .add(1)
           den = new Decimal(1).sub(cm)
           somme = new Decimal(u0).mul(num).div(den).round()
-          texte = `Désirant participer à une course de $${b}$ km, un cycliste prévoit l'entraînement suivant :<br>
-$\\bullet$  parcourir $${u0}$ km en première semaine ;<br>
+          texte = `Désirant participer à une course de $${b}\\text{ km}$, un cycliste prévoit l'entraînement suivant :<br>
+$\\bullet$  parcourir $${u0}\\text{ km}$ en première semaine ;<br>
 $\\bullet$  chaque semaine qui suit, augmenter la distance parcourue de $${p}\\,\\%$ par rapport à celle parcourue la semaine précédente.<br>
-On modélise la distance parcourue chaque semaine à l'entraînement par la suite $(d_n)$ où $d_n$ représente la distance en km parcourue pendant la $n$-ième semaine d'entraînement.
+On modélise la distance parcourue chaque semaine à l'entraînement par la suite $(d_n)$ où $d_n$ représente la distance en $\\text{km}$ parcourue pendant la $n$-ième semaine d'entraînement.
 <br>
 On a ainsi $d_1 = ${u0}$.
 `
           texte += createList({
             items: [
-              'Calculer $d_3$. Arrondir le résultat au km près.',
+              'Calculer $d_3$. Arrondir le résultat au $\\text{km}$ près.',
               `Exprimer $d_{n+1}$ en fonction de $d_n$. <br>
                  En déduire la nature de la suite $(d_n)$. Justifier.`,
               'Exprimer, pour tout entier $n$ non nul, $d_n$ en fonction de $n$.',
@@ -592,7 +593,7 @@ $\\begin{array}{|l|}\n
               Ainsi, quel que soit $n \\geqslant 1$, $d_{n+1} = ${texNombre(cm, 2)} \\times d_n$.<br>
               On reconnaît la définition par récurrence d'une suite géométrique de raison $${texNombre(cm, 2)}$ et de premier terme $d_1=${u0}$.`,
               `Pour tout entier naturel $n \\geqslant 1$, $d_n=${u0}\\times ${texNombre(cm, 2)}^{n-1}$.`,
-              `La fonction $\\texttt{distance(${b})}$ renverra le nombre de semaines nécessaires pour atteindre une distance de $${b}$ km.<br>
+              `La fonction $\\texttt{distance(${b})}$ renverra le nombre de semaines nécessaires pour atteindre une distance de $${b}\\text{ km}$.<br>
 On obtient à l'aide de la calcultarice le tableau suivant : <br>
    $\\begin{array}{|c|c|c|}\n \\hline\n
             \n n&d_n   \\\\\n \\hline\n
@@ -600,7 +601,7 @@ On obtient à l'aide de la calcultarice le tableau suivant : <br>
             \n ${n1 + 1}&${texNombre(u1, 2)} > ${texNombre(b, 0)} \\\\\n \\hline\n
             \\end{array}\n$
             <br>On en déduit que l'algorithme retourne la valeur $${n1 + 1}$.<br>
-            C'est donc  la $${n1 + 1}$ ième semaine que la distance parcourue lors de l'entraînement dépasse  pour la première fois $${b}$ km.`,
+            C'est donc  la $${n1 + 1}$ ième semaine que la distance parcourue lors de l'entraînement dépasse  pour la première fois $${b}\\text{ km}$.`,
               `La distance totale parcourue par le cycliste pendant les $${n1 + 1}$ premières semaines d'entraînement est donnée par : $S_{${n1 + 1}}=d_1+d_2+\\ldots +d_{${n1 + 1}}$.<br>
             $S_{${n1 + 1}}$ est la somme des $${n1 + 1}$ premiers termes d'une suite géométrique de raison $${texNombre(cm, 2)}$ et de premier terme $d_1=${u0}$.<br>
              $\\begin{aligned}
@@ -609,7 +610,7 @@ S_{${n1 + 1}} &= d_1 + d_2 + \\dots + ${NomS}_{${n1 + 1}} \\\\
 &\\approx ${texNombre(somme, 0)}
 \\end{aligned}$<br>
 
-Au cours des $${n1 + 1}$ séances d'entraînement, le cycliste a parcouru au total $${texNombre(somme, 0)}$ km. `,
+Au cours des $${n1 + 1}$ séances d'entraînement, le cycliste a parcouru au total $${texNombre(somme, 0)}\\text{ km}$. `,
             ],
             style: 'nombres',
           })
@@ -670,7 +671,7 @@ On reconnaît la définition par récurrence d'une suite géométrique de raison
 Son premier terme est $h_0=${u0}$.`,
               `Pour tout entier naturel $n$, $h_n=${texNombre(u0, 0)}\\times ${texNombre(cm, 2)}^n$.`,
               `$h_{${n}}=${texNombre(u0, 0)}\\times (${texNombre(cm, 2)})^{${n}}\\simeq ${texNombre(cm.pow(n).mul(u0), 2)}$.<br>
-La balle rebondit à une hauteur de $${texNombre(cm.pow(n).mul(u0), 2)}$ m après $${n}$ rebonds.`,
+La balle rebondit à une hauteur de $${texNombre(cm.pow(n).mul(u0), 2)}\\text{ m}$ après $${n}$ rebonds.`,
               `On compléte les pointillés pour que cette fonction renvoie le nombre de rebonds à partir duquel la hauteur maximale de la balle sera inférieure ou égale à $${b}$ centimètres : <br>
    $\\begin{array}{|l|}\n
       \\hline\n

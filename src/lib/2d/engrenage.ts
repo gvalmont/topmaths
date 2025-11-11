@@ -1,7 +1,21 @@
-import { degCos, degSin } from '../mathFonctions/trigo'
 import { arrondi } from '../outils/nombres'
 import { colorToLatexOrHTML } from './colorToLatexOrHtml'
 import { ObjetMathalea2D } from './ObjetMathalea2D'
+
+/**
+ * Calcule le cosinus d'un angle en degrés
+ */
+function degCos(deg: number): number {
+  return Math.cos((deg * Math.PI) / 180)
+}
+
+/**
+ * Calcule le sinus d'un angle en degrés
+ */
+function degSin(deg: number): number {
+  return Math.sin((deg * Math.PI) / 180)
+}
+
 /**
  * @author Jean-Claude Lhote (Sébastien Lozano et Sylvain Chambon pour la partie tikz)
  * @param {object} parametres paramètres de l'objet voir ci-dessous

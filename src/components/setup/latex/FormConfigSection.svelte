@@ -1,6 +1,6 @@
 <script lang="ts">
   import type Latex from '../../../lib/Latex'
-  import type { LatexFileInfos } from '../../../lib/Latex'
+  import type { LatexFileInfos } from '../../../lib/LatexTypes'
   import ButtonConfig from '../../shared/forms/ButtonConfig.svelte'
   import FormRadio from '../../shared/forms/FormRadio.svelte'
 

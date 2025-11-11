@@ -20,7 +20,7 @@
     globalOptions,
     previousView,
   } from '../../../lib/stores/generalStore'
-  import type { InterfaceParams } from '../../../lib/types'
+  import type { IExercice, InterfaceParams } from '../../../lib/types'
   import type { CanState } from '../../../lib/types/can'
   import { isIntegerInRange0to3 } from '../../../lib/types/integerInRange'
   import { context } from '../../../modules/context.js'
@@ -136,7 +136,7 @@
     }
   }
 
-  function reroll(exercise: Exercice, idVue?: 0 | 1 | 2 | 3) {
+  function reroll(exercise: IExercice, idVue?: 0 | 1 | 2 | 3) {
     if (exercise.seed === undefined) exercise.seed = mathaleaGenerateSeed()
     const originalSeed = exercise.seed
     if (idVue !== undefined && idVue > 0)

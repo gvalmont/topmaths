@@ -3,7 +3,6 @@ import { miseEnEvidence } from '../../../outils/embellissements'
 import SchemaEnBoite from '../../../outils/SchemaEnBoite'
 import { texNombre } from '../../../outils/texNombre'
 import Probleme from '../../Probleme'
-import { coureur3 } from './coureur'
 /**
  * @author Jean-Claude Lhote
  */
@@ -53,4 +52,3 @@ Combien cela coûte-t-il au total ?`
     this.reponse = texNombre(data.nb1 + data.nb2, 2)
   }
 }
-export const listeDeProblemesAdditifsPart = [coureur3]

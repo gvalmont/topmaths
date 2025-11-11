@@ -4,12 +4,13 @@ import { texNombre } from '../../../lib/outils/texNombre'
 import ExerciceSimple from '../../ExerciceSimple'
 
 import Decimal from 'decimal.js'
-import { codageAngleDroit } from '../../../lib/2d/angles'
-import { codageSegments } from '../../../lib/2d/codages'
+import { codageAngleDroit } from '../../../lib/2d/CodageAngleDroit'
+import { codageSegments } from '../../../lib/2d/CodageSegment'
 import { fixeBordures } from '../../../lib/2d/fixeBordures'
-import { milieu, point } from '../../../lib/2d/points'
+import { point } from '../../../lib/2d/PointAbstrait'
 import { segment } from '../../../lib/2d/segmentsVecteurs'
 import { latex2d } from '../../../lib/2d/textes'
+import { milieu } from '../../../lib/2d/utilitairesPoint'
 import { choice } from '../../../lib/outils/arrayOutils'
 import { mathalea2d } from '../../../modules/mathalea2d'
 export const titre = 'Calculer un périmètre'
@@ -29,7 +30,7 @@ export default class perimetreCalcul extends ExerciceSimple {
     super()
     this.typeExercice = 'simple' // Cette ligne est très importante pour faire un exercice simple !
     this.nbQuestions = 1
-    this.optionsChampTexte = { texteApres: ' cm' }
+    this.optionsChampTexte = { texteApres: ' $\\text{cm}$' }
     this.formatChampTexte = KeyboardType.clavierDeBase
   }
 
@@ -80,12 +81,12 @@ export default class perimetreCalcul extends ExerciceSimple {
     this.reponse = texNombre(new Decimal(a).mul(4), 4)
     this.correction = `Il s'agit d'un carré. <br>
           Son périmètre est donc
-         $4$ fois la longueur de son côté, soit $4\\times ${texNombre(a)}=${miseEnEvidence(this.reponse)}$ cm.`
+         $4$ fois la longueur de son côté, soit $4\\times ${texNombre(a)}=${miseEnEvidence(this.reponse)}\\text{ cm}$.`
 
     if (this.interactif) {
       this.question += '<br>'
     }
     this.canEnonce = this.question
-    this.canReponseACompleter = '$\\ldots$ cm'
+    this.canReponseACompleter = '$\\ldots\\text{ cm}$'
   }
 }

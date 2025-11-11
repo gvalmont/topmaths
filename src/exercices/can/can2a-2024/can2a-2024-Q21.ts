@@ -1,15 +1,20 @@
+/**
+ * ⚠️ Cet exercice est utilisé dans le test : tests/e2e/tests/view/viewcan.2024.2e.test.ts ⚠️
+ */
+
 import { grille } from '../../../lib/2d/Grille'
-import { milieu, point } from '../../../lib/2d/points'
+import { point } from '../../../lib/2d/PointAbstrait'
 import {
   segment,
   segmentAvecExtremites,
 } from '../../../lib/2d/segmentsVecteurs'
 import { texteParPosition } from '../../../lib/2d/textes'
+import { milieu } from '../../../lib/2d/utilitairesPoint'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 import { choice } from '../../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { context } from '../../../modules/context'
-import FractionEtendue from '../../../modules/FractionEtendue'
+import { fraction } from '../../../modules/fractions'
 import { mathalea2d } from '../../../modules/mathalea2d'
 import ExerciceSimple from '../../ExerciceSimple'
 
@@ -113,7 +118,7 @@ export default class NomExercice extends ExerciceSimple {
         s7,
         s8,
       )
-      this.reponse = new FractionEtendue(10, 4).texFraction
+      this.reponse = fraction(10, 4).texFraction
       this.question +=
         mathalea2d(
           {
@@ -197,7 +202,7 @@ export default class NomExercice extends ExerciceSimple {
           s5,
           s6,
         )
-        this.reponse = new FractionEtendue(7, b).texFraction
+        this.reponse = fraction(7, b).texFraction
         this.question +=
           mathalea2d(
             {
@@ -257,7 +262,7 @@ export default class NomExercice extends ExerciceSimple {
           s4,
           s5,
         )
-        this.reponse = new FractionEtendue(7, b).texFraction
+        this.reponse = fraction(7, b).texFraction
         this.question +=
           mathalea2d(
             {
@@ -317,7 +322,7 @@ export default class NomExercice extends ExerciceSimple {
           s4,
           s5,
         )
-        this.reponse = new FractionEtendue(7, b).texFraction
+        this.reponse = fraction(7, b).texFraction
         this.question +=
           mathalea2d(
             {
@@ -377,7 +382,7 @@ export default class NomExercice extends ExerciceSimple {
           s4,
           s5,
         )
-        this.reponse = new FractionEtendue(5, b).texFraction
+        this.reponse = fraction(5, b).texFraction
         this.question +=
           mathalea2d(
             {
@@ -437,7 +442,7 @@ export default class NomExercice extends ExerciceSimple {
           s4,
           s5,
         )
-        this.reponse = new FractionEtendue(5, b).texFraction
+        this.reponse = fraction(5, b).texFraction
         this.question +=
           mathalea2d(
             {

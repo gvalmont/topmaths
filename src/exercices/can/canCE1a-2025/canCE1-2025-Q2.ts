@@ -1,7 +1,7 @@
-import ExerciceCan from '../../ExerciceCan'
+import { propositionsQcm } from '../../../lib/interactif/qcm'
 import { choice } from '../../../lib/outils/arrayOutils'
 import { texNombre } from '../../../lib/outils/texNombre'
-import { propositionsQcm } from '../../../lib/interactif/qcm'
+import ExerciceCan from '../../ExerciceCan'
 
 export const titre = 'Convertir'
 export const interactifReady = true
@@ -14,8 +14,7 @@ export const refs = {
 
 /**
  * @author Gilles Mora
-
-*/
+ */
 
 const choix: [
   number,
@@ -46,11 +45,11 @@ export default class Can2025CE2Q4 extends ExerciceCan {
       enonce: this.question,
       propositions: [
         {
-          texte: `$1$ ${c} $= ${texNombre(a)}$ ${b}`,
+          texte: `$1 \\text{ ${c}} = ${texNombre(a)} \\text{ ${b}}$`,
           statut: true,
         },
         {
-          texte: `$1$ ${c} $= ${texNombre(a)}$ ${d}`,
+          texte: `$1 \\text{ ${c}} = ${texNombre(a)} \\text{ ${d}}$`,
           statut: false,
         },
       ],
@@ -66,7 +65,7 @@ export default class Can2025CE2Q4 extends ExerciceCan {
 
     this.correction =
       monQcm.texteCorr +
-      ` Pour passer des ${b} au ${c}, on multiplie par $${texNombre(a, 0)}$.`
+      ` Pour passer des $\\text{${b}}$ au $\\text{${c}}$ , on multiplie par $${texNombre(a, 0)}$.`
     this.canReponseACompleter = monQcm.texte
   }
 

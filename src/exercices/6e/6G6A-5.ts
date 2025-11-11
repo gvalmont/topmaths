@@ -1,16 +1,17 @@
 import { droite } from '../../lib/2d/droites'
+import { point } from '../../lib/2d/PointAbstrait'
+import { segment } from '../../lib/2d/segmentsVecteurs'
+import { rotation } from '../../lib/2d/transformations'
+import { longueur } from '../../lib/2d/utilitairesGeometriques'
 import {
-  point,
   pointIntersectionDD,
   pointSurSegment,
-} from '../../lib/2d/points'
-import { longueur, segment } from '../../lib/2d/segmentsVecteurs'
-import { rotation } from '../../lib/2d/transformations'
+} from '../../lib/2d/utilitairesPoint'
 import { creerNomDePolygone } from '../../lib/outils/outilString'
 import { texNombre } from '../../lib/outils/texNombre'
-import Exercice from '../Exercice'
-import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import Alea2iep from '../../modules/Alea2iep'
+import { listeQuestionsToContenu, randint } from '../../modules/outils'
+import Exercice from '../Exercice'
 
 export const titre =
   'Tracer un triangle dont on connaît une longueur et 2 angles'
@@ -51,7 +52,7 @@ export default class TracerTriangle2Angles extends Exercice {
       listeDeNomsDePolygones.push(p)
       texte = `Tracer un triangle $${p}$ tel que $${p[0] + p[1]}=${texNombre(
         c,
-      )}$ cm, $\\widehat{${
+      )}\\text{ cm}$, $\\widehat{${
         p[1] + p[0] + p[2]
       }}=${angle1}^\\circ$ et $\\widehat{${
         p[0] + p[1] + p[2]
@@ -96,7 +97,7 @@ export default class TracerTriangle2Angles extends Exercice {
       if (this.sup) {
         texteCorr = ''
       } else {
-        texteCorr = `$${p[0] + p[2]}\\approx${texNombre(longueur(A2, C, 1))}$ cm et $${p[1] + p[2]}\\approx${texNombre(longueur(B2, C, 1))}$ cm.`
+        texteCorr = `$${p[0] + p[2]}\\approx${texNombre(longueur(A2, C, 1))}\\text{ cm}$ et $${p[1] + p[2]}\\approx${texNombre(longueur(B2, C, 1))}\\text{ cm}$.`
       }
       const anim = new Alea2iep()
       anim.triangle1longueur2angles(p, c, angle1, angle2, {

@@ -1,14 +1,12 @@
-import {
-  angleOriente,
-  codageAngle,
-  codageAngleDroit,
-} from '../../lib/2d/angles'
-import { droite } from '../../lib/2d/droites'
-import { milieu, Point, point, pointIntersectionDD } from '../../lib/2d/points'
+import { codageAngleDroit } from '../../lib/2d/CodageAngleDroit'
+import { point } from '../../lib/2d/PointAbstrait'
+import { codageAngle } from '../../lib/2d/angles'
 import { barycentre, nommePolygone, polygone } from '../../lib/2d/polygones'
-import { longueur, segment } from '../../lib/2d/segmentsVecteurs'
+import { segment } from '../../lib/2d/segmentsVecteurs'
 import { latexParPoint } from '../../lib/2d/textes'
 import { homothetie, rotation, similitude } from '../../lib/2d/transformations'
+import { angleOriente, longueur } from '../../lib/2d/utilitairesGeometriques'
+import { milieu } from '../../lib/2d/utilitairesPoint'
 import { setReponse } from '../../lib/interactif/gestionInteractif'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { choice, shuffle } from '../../lib/outils/arrayOutils'
@@ -18,11 +16,9 @@ import { arrondi } from '../../lib/outils/nombres'
 import { creerNomDePolygone } from '../../lib/outils/outilString'
 import { texNombre2 } from '../../lib/outils/texNombre'
 import { context } from '../../modules/context'
-import {
-  mathalea2d,
-  type NestedObjetMathalea2dArray,
-} from '../../modules/mathalea2d'
+import { mathalea2d } from '../../modules/mathalea2d'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
+import type { NestedObjetMathalea2dArray } from '../../types/2d'
 import Exercice from '../Exercice'
 
 export const interactifReady = true
@@ -47,142 +43,6 @@ export const refs = {
   'fr-ch': ['1mT-3'],
 }
 
-/**
- * Détermine si le rectangle est en intersection avec le segment
- * Décale de 5 pixels dans le sens
- * @param {*} A extremité du segment
- * @param {C} B extremité du segment
- * @param {*} centre centre du rectangle || variable mis à jour (décaléé droite ou à gauche)
- * @param {*} demirectWitdh demi longueur du rectangle
- * @param {*} demirectHeight demi largeur du rectangle
- * @param {*} pixelsParCm nombre de pixels par unité de mesure
- * @returns retourne les points d'intersection (les quatre premiers sont les points d'intersection, les quatre suivants sont des booleans si 'intersection ou pas)
- */
-function intersectionSegmentRectangle(
-  A: Point,
-  B: Point,
-  centre: Point,
-  demirectWitdh: number,
-  demirectHeight: number,
-  pixelsParCm: number,
-  iteration = 4,
-) {
-  const pgauche = pointIntersectionDD(
-    droite(A, B),
-    droite(
-      point(
-        centre.x - demirectWitdh / pixelsParCm,
-        centre.y + demirectHeight / pixelsParCm,
-      ),
-      point(
-        centre.x - demirectWitdh / pixelsParCm,
-        centre.y - demirectHeight / pixelsParCm,
-      ),
-    ),
-  )
-  const pdroite = pointIntersectionDD(
-    droite(A, B),
-    droite(
-      point(
-        centre.x + demirectWitdh / pixelsParCm,
-        centre.y - demirectHeight / pixelsParCm,
-      ),
-      point(
-        centre.x + demirectWitdh / pixelsParCm,
-        centre.y + demirectHeight / pixelsParCm,
-      ),
-    ),
-  )
-  const phaut = pointIntersectionDD(
-    droite(A, B),
-    droite(
-      point(
-        centre.x - demirectWitdh / pixelsParCm,
-        centre.y + demirectHeight / pixelsParCm,
-      ),
-      point(
-        centre.x + demirectWitdh / pixelsParCm,
-        centre.y + demirectHeight / pixelsParCm,
-      ),
-    ),
-  )
-  const pbas = pointIntersectionDD(
-    droite(A, B),
-    droite(
-      point(
-        centre.x - demirectWitdh / pixelsParCm,
-        centre.y - demirectHeight / pixelsParCm,
-      ),
-      point(
-        centre.x + demirectWitdh / pixelsParCm,
-        centre.y - demirectHeight / pixelsParCm,
-      ),
-    ),
-  )
-  const bgauche =
-    pgauche.y >= centre.y - demirectHeight / pixelsParCm &&
-    pgauche.y <= centre.y + demirectHeight / pixelsParCm
-  const bdroite =
-    pdroite.y >= centre.y - demirectHeight / pixelsParCm &&
-    pdroite.y <= centre.y + demirectHeight / pixelsParCm
-  const bhaut =
-    phaut.x >= centre.x - demirectWitdh / pixelsParCm &&
-    phaut.x <= centre.x + demirectWitdh / pixelsParCm
-  const bbas =
-    pbas.x >= centre.x - demirectWitdh / pixelsParCm &&
-    pbas.x <= centre.x + demirectWitdh / pixelsParCm
-
-  if (bgauche) {
-    centre.x = centre.x + 5 / pixelsParCm
-    if (iteration > 0)
-      intersectionSegmentRectangle(
-        A,
-        B,
-        centre,
-        demirectWitdh,
-        demirectHeight,
-        pixelsParCm,
-        iteration - 1,
-      )
-  } else if (bdroite) {
-    centre.x = centre.x - 5 / pixelsParCm
-    if (iteration > 0)
-      intersectionSegmentRectangle(
-        A,
-        B,
-        centre,
-        demirectWitdh,
-        demirectHeight,
-        pixelsParCm,
-        iteration - 1,
-      )
-  } else if ((bbas || bhaut) && centre.x > pbas.x) {
-    centre.x = centre.x + 5 / pixelsParCm
-    if (iteration > 0)
-      intersectionSegmentRectangle(
-        A,
-        B,
-        centre,
-        demirectWitdh,
-        demirectHeight,
-        pixelsParCm,
-        iteration - 1,
-      )
-  } else if ((bbas || bhaut) && centre.x < pbas.x) {
-    centre.x = centre.x - 5 / pixelsParCm
-    if (iteration > 0)
-      intersectionSegmentRectangle(
-        A,
-        B,
-        centre,
-        demirectWitdh,
-        demirectHeight,
-        pixelsParCm,
-        iteration - 1,
-      )
-  }
-  return { pgauche, pdroite, phaut, pbas, bgauche, bdroite, bhaut, bbas }
-}
 export default class CalculDAngle extends Exercice {
   level: number
 
@@ -221,14 +81,14 @@ export default class CalculDAngle extends Exercice {
           ab = arrondi(randint(40, (bc - 2) * 10) / 10, 1)
           angleABC = Math.round((Math.acos(ab / bc) * 180) / Math.PI)
           ac = bc * Math.sin(Math.acos(ab / bc))
-          texte += `Le triangle $${nom}$ est rectangle en $${nom[0]}$ tel que $${nom[1] + nom[2]}=${texNombre2(bc)}$ cm et $${nom[0] + nom[1]}=${texNombre2(ab)}$ cm.<br>`
+          texte += `Le triangle $${nom}$ est rectangle en $${nom[0]}$ tel que $${nom[1] + nom[2]}=${texNombre2(bc)}\\text{ cm}$ et $${nom[0] + nom[1]}=${texNombre2(ab)}\\text{ cm}$.<br>`
           break
         case 'Asin':
           bc = randint(100, 150) / 10
           ac = randint(40, (bc - 2) * 10) / 10
           angleABC = Math.round((Math.asin(ac / bc) * 180) / Math.PI)
           ab = bc * Math.cos(Math.asin(ac / bc))
-          texte += `Le triangle $${nom}$ est rectangle en $${nom[0]}$ tel que $${nom[1] + nom[2]}=${texNombre2(bc)}$ cm et $${nom[0] + nom[2]}=${texNombre2(ac)}$ cm.<br>`
+          texte += `Le triangle $${nom}$ est rectangle en $${nom[0]}$ tel que $${nom[1] + nom[2]}=${texNombre2(bc)}\\text{ cm}$ et $${nom[0] + nom[2]}=${texNombre2(ac)}\\text{ cm}$.<br>`
           break
         case 'Atan':
         default:
@@ -236,7 +96,7 @@ export default class CalculDAngle extends Exercice {
           ac = randint(40, 100) / 10
           angleABC = Math.round((Math.atan(ac / ab) * 180) / Math.PI)
           bc = ab / Math.cos(Math.atan(ac / ab))
-          texte += `Le triangle $${nom}$ est rectangle en $${nom[0]}$ tel que $${nom[0] + nom[1]}=${texNombre2(ab)}$ cm et  $${nom[0] + nom[2]}=${texNombre2(ac)}$ cm.<br>`
+          texte += `Le triangle $${nom}$ est rectangle en $${nom[0]}$ tel que $${nom[0] + nom[1]}=${texNombre2(ab)}\\text{ cm}$ et  $${nom[0] + nom[2]}=${texNombre2(ac)}\\text{ cm}$.<br>`
           break
       }
 
@@ -281,71 +141,20 @@ export default class CalculDAngle extends Exercice {
       const pLabelBC = homothetie(mBC, G, 1 + 1.5 / longueur(G, mBC))
       pLabelBC.positionLabel = 'center'
 
-      const pixelsParCm = 20
-      const demirectWitdh = 30
-      const demirectHeight = 6
-      intersectionSegmentRectangle(
-        B,
-        C,
-        pLabelBC,
-        demirectWitdh,
-        demirectHeight,
-        pixelsParCm,
-      )
-
       const pLabelAB = homothetie(mAB, mBC, 1 + 1.5 / longueur(mBC, mAB))
       pLabelAB.positionLabel = 'center'
-      intersectionSegmentRectangle(
-        A,
-        B,
-        pLabelAB,
-        demirectWitdh,
-        demirectHeight,
-        pixelsParCm,
-      )
+
       const pLabelAC = homothetie(mAC, mBC, 1 + 1.5 / longueur(mBC, mAC))
       pLabelAC.positionLabel = 'center'
-      intersectionSegmentRectangle(
-        A,
-        C,
-        pLabelAC,
-        demirectWitdh,
-        demirectHeight,
-        pixelsParCm,
-      )
 
       const m3b = homothetie(mBbCb, Gb, 1 + 1.5 / longueur(Gb, mBbCb))
       m3b.positionLabel = 'center'
-      intersectionSegmentRectangle(
-        Cb,
-        Bb,
-        m3b,
-        demirectWitdh,
-        demirectHeight,
-        pixelsParCm,
-      )
 
       const m1b = homothetie(mABb, mBbCb, 1 + 1.5 / longueur(mBbCb, mABb))
       m1b.positionLabel = 'center'
-      intersectionSegmentRectangle(
-        A,
-        Bb,
-        m1b,
-        demirectWitdh,
-        demirectHeight,
-        pixelsParCm,
-      )
 
       const m2b = homothetie(mACb, mBbCb, 1 + 1.5 / longueur(mBbCb, mACb))
       m2b.positionLabel = 'center'
-      intersectionSegmentRectangle(
-        A,
-        Cb,
-        m2b,
-        demirectWitdh,
-        demirectHeight,
-        pixelsParCm,
-      )
 
       let m4b, pLabelAngle
       let texteAngle, texteAB, texteBC, t1b, t2b, t3b
@@ -512,22 +321,6 @@ export default class CalculDAngle extends Exercice {
         texteBC,
         codageDeAngle,
       )
-      /*
-      // Ne pas supprimer : Utile en cas de débuggage
-      objetsEnonce.push(tracePoint(pLabelAB, pLabelAC, pLabelBC),
-          segment(point(pLabelBC.x - demirectWitdh / pixelsParCm, pLabelBC.y + demirectHeight / pixelsParCm), point(pLabelBC.x - demirectWitdh / pixelsParCm, pLabelBC.y - demirectHeight / pixelsParCm)),
-          segment(point(pLabelBC.x + demirectWitdh / pixelsParCm, pLabelBC.y - demirectHeight / pixelsParCm), point(pLabelBC.x + demirectWitdh / pixelsParCm, pLabelBC.y + demirectHeight / pixelsParCm)),
-          segment(point(pLabelBC.x - demirectWitdh / pixelsParCm, pLabelBC.y + demirectHeight / pixelsParCm), point(pLabelBC.x + demirectWitdh / pixelsParCm, pLabelBC.y + demirectHeight / pixelsParCm)),
-          segment(point(pLabelBC.x - demirectWitdh / pixelsParCm, pLabelBC.y - demirectHeight / pixelsParCm), point(pLabelBC.x + demirectWitdh / pixelsParCm, pLabelBC.y - demirectHeight / pixelsParCm)),
-          segment(point(pLabelAC.x - demirectWitdh / pixelsParCm, pLabelAC.y + demirectHeight / pixelsParCm), point(pLabelAC.x - demirectWitdh / pixelsParCm, pLabelAC.y - demirectHeight / pixelsParCm)),
-          segment(point(pLabelAC.x + demirectWitdh / pixelsParCm, pLabelAC.y - demirectHeight / pixelsParCm), point(pLabelAC.x + demirectWitdh / pixelsParCm, pLabelAC.y + demirectHeight / pixelsParCm)),
-          segment(point(pLabelAC.x - demirectWitdh / pixelsParCm, pLabelAC.y + demirectHeight / pixelsParCm), point(pLabelAC.x + demirectWitdh / pixelsParCm, pLabelAC.y + demirectHeight / pixelsParCm)),
-          segment(point(pLabelAC.x - demirectWitdh / pixelsParCm, pLabelAC.y - demirectHeight / pixelsParCm), point(pLabelAC.x + demirectWitdh / pixelsParCm, pLabelAC.y - demirectHeight / pixelsParCm)),
-          segment(point(pLabelAB.x - demirectWitdh / pixelsParCm, pLabelAB.y + demirectHeight / pixelsParCm), point(pLabelAB.x - demirectWitdh / pixelsParCm, pLabelAB.y - demirectHeight / pixelsParCm)),
-          segment(point(pLabelAB.x + demirectWitdh / pixelsParCm, pLabelAB.y - demirectHeight / pixelsParCm), point(pLabelAB.x + demirectWitdh / pixelsParCm, pLabelAB.y + demirectHeight / pixelsParCm)),
-          segment(point(pLabelAB.x - demirectWitdh / pixelsParCm, pLabelAB.y + demirectHeight / pixelsParCm), point(pLabelAB.x + demirectWitdh / pixelsParCm, pLabelAB.y + demirectHeight / pixelsParCm)),
-          segment(point(pLabelAB.x - demirectWitdh / pixelsParCm, pLabelAB.y - demirectHeight / pixelsParCm), point(pLabelAB.x + demirectWitdh / pixelsParCm, pLabelAB.y - demirectHeight / pixelsParCm)))
-      */
 
       objetsCorrection.push(
         p4,

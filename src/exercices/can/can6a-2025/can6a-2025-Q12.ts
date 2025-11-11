@@ -1,11 +1,11 @@
-import { miseEnEvidence } from '../../../lib/outils/embellissements'
-import ExerciceCan from '../../ExerciceCan'
-import { randint } from '../../../modules/outils'
-import { toutPourUnPoint } from '../../../lib/interactif/mathLive'
-import type Exercice from '../../Exercice'
 import type { MathfieldElement } from 'mathlive'
-import { texNombre } from '../../../lib/outils/texNombre'
 import { generateCleaner } from '../../../lib/interactif/comparisonFunctions'
+import { toutPourUnPoint } from '../../../lib/interactif/mathLive'
+import { miseEnEvidence } from '../../../lib/outils/embellissements'
+import { texNombre } from '../../../lib/outils/texNombre'
+import { randint } from '../../../modules/outils'
+import type { IExercice } from '../../Exercice.type'
+import ExerciceCan from '../../ExerciceCan'
 
 export const titre = 'Trouver un produit égal à 1000'
 export const interactifReady = true
@@ -27,7 +27,7 @@ export default class Can2025N6Q12 extends ExerciceCan {
     }
 
     this.formatInteractif = 'fillInTheBlank'
-    const callback = (exercice: Exercice, question: number) => {
+    const callback = (exercice: IExercice, question: number) => {
       const mfe = document.querySelector(
         `#champTexteEx${exercice.numeroExercice}Q${question}`,
       ) as MathfieldElement

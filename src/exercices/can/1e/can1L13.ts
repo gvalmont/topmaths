@@ -1,8 +1,8 @@
 import { propositionsQcm } from '../../../lib/interactif/qcm'
 import { choice } from '../../../lib/outils/arrayOutils'
 import { ecritureAlgebrique, rienSi1 } from '../../../lib/outils/ecritures'
-import { listeQuestionsToContenu, randint } from '../../../modules/outils'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
+import { listeQuestionsToContenu, randint } from '../../../modules/outils'
 import Exercice from '../../Exercice'
 
 export const titre =
@@ -63,7 +63,7 @@ export default class InequationCasParticuliers extends Exercice {
         $${rienSi1(a)}x^2+${b * b * a} ${inegalite} 0$ est :  `
           this.autoCorrection[i] = {
             enonce: texte,
-            options: { horizontal: true },
+
             propositions: [
               {
                 texte: solution1,
@@ -164,7 +164,7 @@ export default class InequationCasParticuliers extends Exercice {
             ${a > 0 ? `$${rienSi1(a)}x^2-${b * b * a} ${inegalite} 0$` : `$${rienSi1(a)}x^2+${-b * b * a} ${inegalite} 0$`} est :  `
           this.autoCorrection[i] = {
             enonce: texte,
-            options: { horizontal: true },
+
             propositions: [
               {
                 texte: solution1,
@@ -265,7 +265,7 @@ export default class InequationCasParticuliers extends Exercice {
       $${rienSi1(a)}(x${ecritureAlgebrique(-b)})^2 ${inegalite} 0$ est :  `
           this.autoCorrection[i] = {
             enonce: texte,
-            options: { horizontal: true },
+
             propositions: [
               {
                 texte: solution1,

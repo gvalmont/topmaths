@@ -12,7 +12,7 @@ import { pgcd } from '../../lib/outils/primalite'
 import { fraction } from '../../modules/fractions'
 import { remplisLesBlancs } from '../../lib/interactif/questionMathLive'
 
-export const titre = "Résolution d'équations du type $a^x = b$ avec log"
+export const titre = "Résolution d'équations du type $a^x = b$ avec un logaritme"
 export const dateDePublication = '28/07/2024'
 export const dateDeModifImportante = '28/07/2024'
 export const uuid = '00ec8'
@@ -41,8 +41,14 @@ export default class EquationsLog extends Exercice {
     this.sup = '4'
     this.besoinFormulaireTexte = [
       'Type de question ',
-      'Nombres séparés par des tirets  :\n : Borne rationnelle\n2 : Borne entière\n3 : Borne irrationnelle\n4 : Mélange',
+      'Nombres séparés par des tirets  :\n1 : Borne rationnelle\n2 : Borne entière\n3 : Borne irrationnelle\n4 : Mélange',
     ]
+    this.besoinFormulaire2Numerique = [
+      'Type de logarithme ',
+      2,
+      '1 : Logarithme décimal\n2 : Logarithme népérien',
+    ]
+    this.sup2 = 1
     this.comment =
       "Exercice de résolution d'équations avec le logarithme de base 10"
     this.correctionDetailleeDisponible = true
@@ -85,7 +91,7 @@ export default class EquationsLog extends Exercice {
   }
 
   nouvelleVersion() {
-    const logString = this.comment?.includes('10') ? '\\log' : '\\ln'
+    const logString = this.sup2 === 1 ? '\\log' : '\\ln'
     const listeCouples = [
       [0.03125, 2],
       [0.0625, 2],
@@ -277,7 +283,7 @@ export default class EquationsLog extends Exercice {
               : `<br>Or, $${logString}(${stringB})=${logString}(${texNombre(base, 5)}^{${quotient[0]}})=${quotient[0]}${logString}(${texNombre(base, 5)})$ et $${logString}(${stringA})=${logString}(${texNombre(base, 5)}^{${quotient[1]}})=${quotient[1]}${logString}(${texNombre(base, 5)})$ donc $\\dfrac{${logString}(${stringB})}{${logString}(${stringA})}=\\dfrac{${quotient[0]}${logString}(${texNombre(base, 5)})}{${quotient[1]}${logString}(${texNombre(base, 5)})}= ${resultat}$. `
           : `<br>Or, $\\dfrac{${logString}(${stringB})}{${logString}(${stringA})}= ${resultat}$.  `
       }
-      texteCorr += `<br>Ainsi, $S=\\{${miseEnEvidence(answer)}\\}$`
+      texteCorr += `<br>Ainsi, $S=${miseEnEvidence(`\\left\\{${answer}\\right\\}`)}$`
       if (this.interactif) {
         handleAnswers(this, i, {
           champ1: { value: answer },

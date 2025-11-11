@@ -1,3 +1,7 @@
+/**
+ * ⚠️ Cet exercice est utilisé dans le test : tests/e2e/tests/interactivity/mathLive.intervalleStrict.test.ts ⚠️
+ */
+
 import { infoMessage } from '../../lib/format/message'
 import { sp } from '../../lib/outils/outilString'
 import { texNombre } from '../../lib/outils/texNombre'

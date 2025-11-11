@@ -18,6 +18,7 @@ export type Prefs = {
   silent: boolean // Si true, ne log rien dans la console
   slowMo: number // Délai en ms entre chaque action de Playwright si on veut avoir le temps de voir ce qu'il se passe
   verbose: boolean // Si true, affiche tous les messages de moindre importance loggés avec logIfVerbose()
+  nbExosParLot: number // Nombre d'exercices à tester par lot pour limiter le temps de monopolisation des machines CI.
 }
 
 export type Katex = {

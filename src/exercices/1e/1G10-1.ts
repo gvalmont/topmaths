@@ -1,20 +1,24 @@
-import { codageAngleDroit } from '../../lib/2d/angles.js'
+import { codageAngleDroit } from '../../lib/2d/CodageAngleDroit'
 import { colorToLatexOrHTML } from '../../lib/2d/colorToLatexOrHtml'
-import { droite } from '../../lib/2d/droites.js'
+import { droite } from '../../lib/2d/droites'
 import { fixeBordures } from '../../lib/2d/fixeBordures'
 import { grille } from '../../lib/2d/Grille'
-import { point, tracePoint } from '../../lib/2d/points.js'
-import { longueur, vecteur } from '../../lib/2d/segmentsVecteurs.js'
-import { labelPoint } from '../../lib/2d/textes.js'
-import { projectionOrtho } from '../../lib/2d/transformations.js'
+import { point } from '../../lib/2d/PointAbstrait'
+import { representant } from '../../lib/2d/representantVecteur'
+import { labelPoint } from '../../lib/2d/textes'
+import { tracePoint } from '../../lib/2d/TracePoint'
+import { projectionOrtho } from '../../lib/2d/transformations'
+import { longueur } from '../../lib/2d/utilitairesGeometriques'
+import { vecteur } from '../../lib/2d/Vecteur'
+import { vide2d } from '../../lib/2d/Vide2d'
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { combinaisonListes } from '../../lib/outils/arrayOutils'
-import { miseEnEvidence, texteGras } from '../../lib/outils/embellissements.js'
-import { mathalea2d } from '../../modules/mathalea2d.js'
-import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
-import Exercice from '../Exercice.js'
+import { miseEnEvidence, texteGras } from '../../lib/outils/embellissements'
+import { mathalea2d } from '../../modules/mathalea2d'
+import { listeQuestionsToContenu, randint } from '../../modules/outils'
+import Exercice from '../Exercice'
 
 export const titre = 'Calculer des produits scalaires par projection'
 export const interactifReady = true
@@ -134,7 +138,11 @@ export default class SuperExoMathalea2d extends Exercice {
 
         H = projectionOrtho(B, d1, 'H')
         AH = longueur(A, H)
-        monCodage = codageAngleDroit(A, H, B)
+        if (AH !== 0) {
+          monCodage = codageAngleDroit(A, H, B)
+        } else {
+          monCodage = vide2d()
+        }
 
         d2 = droite(B, H)
         d2.pointilles = 1
@@ -153,7 +161,11 @@ export default class SuperExoMathalea2d extends Exercice {
         d1.color = colorToLatexOrHTML('blue')
 
         H = projectionOrtho(C, d1, 'H')
-        monCodage = codageAngleDroit(A, H, C)
+        if (longueur(A, H) === 0) {
+          monCodage = vide2d()
+        } else {
+          monCodage = codageAngleDroit(A, H, C)
+        }
         AH = longueur(A, H)
 
         d2 = droite(C, H)
@@ -169,11 +181,11 @@ export default class SuperExoMathalea2d extends Exercice {
       const v = vecteur(A, C)
       const w = vecteur(A, H)
 
-      const U = u.representant(A)
+      const U = u.norme() === 0 ? vide2d() : representant(u, A)
       U.color = colorToLatexOrHTML('blue')
-      const V = v.representant(A)
+      const V = v.norme() === 0 ? vide2d() : representant(v, A)
       V.color = colorToLatexOrHTML('green')
-      const W = w.representant(A)
+      const W = Math.abs(AH) < 0.1 ? vide2d() : representant(w, A)
       W.color = colorToLatexOrHTML('red')
       if (casProjection[i] === 'angle droit penché') {
         monCodage.color = colorToLatexOrHTML('red')

@@ -91,12 +91,12 @@ export default class ProblemesPuissancesDe10EtConversions extends Exercice {
             texte += 'jours ? Donner le résultat en kilomètres.'
             texteCorr =
               'Dans une journée, il y a $24$ heures et dans chaque heure $3~600$ secondes, la distance parcourue est donc : <br>'
-            texteCorr += `$${a}\\times24\\times3~600~\\text{s}\\times3\\times10^8~\\text{m/s}=${texNombre(a * 24 * 3600 * 3)}\\times10^8~\\text{m}=${texNombre((a * 24 * 3600 * 3) / 1000)}\\times10^8~\\text{km}$`
+            texteCorr += `$${a}\\times24\\times3~600~\\text{s}\\times3\\times10^8~\\text{m/s}=${texNombre(a * 24 * 3600 * 3)}\\times10^8\\text{ m}=${texNombre((a * 24 * 3600 * 3) / 1000)}\\times10^8\\text{ km}$`
           } else {
             texte += 'heures ? Donner le résultat en kilomètres.<br>'
             texteCorr =
               'Dans une heure, il y a $3~600$ secondes, la distance parcourue est donc : <br>'
-            texteCorr += `$${a}\\times3~600~\\text{s}\\times3\\times10^8~\\text{m/s}=${texNombre(a * 3600 * 3)}\\times10^8~\\text{m}=${texNombre((a * 3600 * 3) / 1000)}\\times10^8~\\text{km}$`
+            texteCorr += `$${a}\\times3~600~\\text{s}\\times3\\times10^8~\\text{m/s}=${texNombre(a * 3600 * 3)}\\times10^8\\text{ m}=${texNombre((a * 3600 * 3) / 1000)}\\times10^8\\text{ km}$`
           }
           break
       }

@@ -1,4 +1,4 @@
-import { egal, epsilon } from '../../modules/outils'
+const epsilon = 0.000001
 declare global {
   interface Window {
     notify: (message: string, object: unknown) => void
@@ -118,7 +118,7 @@ export function enleveElement<T>(array: Array<T>, item: T) {
   //
   for (let i = array.length - 1; i >= 0; i--) {
     if (typeof item === 'number') {
-      if (egal(array[i] as number, item)) {
+      if (Math.abs((array[i] as number) - item) < epsilon) {
         array.splice(i, 1)
       }
     } else if (Array.isArray(array[i]) && Array.isArray(item)) {
@@ -145,7 +145,7 @@ export function enleveElementDouble<T>(array1: T[], array2: T[], item: T) {
   //
   for (let i = array1.length - 1; i >= 0; i--) {
     if (typeof item === 'number') {
-      if (egal(array1[i] as number, item)) {
+      if (Math.abs((array1[i] as number) - item) < epsilon) {
         array1.splice(i, 1)
         array2.splice(i, 1)
       }
@@ -327,7 +327,7 @@ export function enleveDoublonNum(arr: number[], tolerance = epsilon) {
   while (k < arr.length - 1) {
     let kk = k + 1
     while (kk <= arr.length - 1) {
-      if (egal(arr[k], arr[kk], tolerance)) {
+      if (Math.abs(arr[k] - arr[kk]) < tolerance) {
         arr[k] = (arr[k] + arr[kk]) / 2 // On remplace la valeur dont on a trouvé un double par la moyenne des deux valeurs
         arr.splice(kk, 1) // on supprime le doublon.
       } else {

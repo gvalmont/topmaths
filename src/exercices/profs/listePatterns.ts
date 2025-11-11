@@ -14,8 +14,6 @@ import {
   type ShapeName,
 } from '../../lib/2d/figures2d/shapes2d'
 import { fixeBordures } from '../../lib/2d/fixeBordures'
-import { VisualPattern } from '../../lib/2d/patterns/VisualPattern'
-import { VisualPattern3D } from '../../lib/2d/patterns/VisualPattern3D'
 import {
   listePattern3d,
   listePatternRatio,
@@ -27,7 +25,9 @@ import {
   type PatternRiche3D,
   type PatternRicheRepetition,
 } from '../../lib/2d/patterns/patternsPreDef'
-import { point } from '../../lib/2d/points'
+import { VisualPattern } from '../../lib/2d/patterns/VisualPattern'
+import { VisualPattern3D } from '../../lib/2d/patterns/VisualPattern3D'
+import { point } from '../../lib/2d/PointAbstrait'
 import { polygone } from '../../lib/2d/polygones'
 import { texteParPosition } from '../../lib/2d/textes'
 import { choice } from '../../lib/outils/arrayOutils'

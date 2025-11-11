@@ -1,4 +1,4 @@
-import { point } from '../../lib/2d/points'
+import { point } from '../../lib/2d/PointAbstrait'
 import { segment } from '../../lib/2d/segmentsVecteurs'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
@@ -258,7 +258,7 @@ export default class LireUneAbscisseAvecZoom extends Exercice {
 
         const partent = Math.floor(x1)
         const pardec = x1 - partent
-        texteCorr = `L'abscisse de $${noms[1]} $est : $${miseEnEvidence(texNombre(x1))}=${miseEnEvidence(`${texNombre(partent)} + ${new FractionEtendue(pardec * 10, 10).toLatex()}`)}=${miseEnEvidence(new FractionEtendue(x1 * 10, 10).toLatex())}$.<br>`
+        texteCorr = `L'abscisse de $${noms[1]}$ est : $${miseEnEvidence(texNombre(x1))}=${miseEnEvidence(`${texNombre(partent)} + ${new FractionEtendue(pardec * 10, 10).toLatex()}`)}=${miseEnEvidence(new FractionEtendue((partent + pardec) * 10, 10).toLatex())}$.<br>`
 
         reponse1 = arrondi(x1, 3)
         reponse2A = partent
@@ -438,7 +438,7 @@ export default class LireUneAbscisseAvecZoom extends Exercice {
         const partent = Math.floor(x1)
         const pardec = x1 - partent
         // pardec = arrondi(pardec, 3)
-        texteCorr = `L'abscisse de $${noms[1]} $est : $${miseEnEvidence(texNombre(x1))}=${miseEnEvidence(`${texNombre(partent)} + ${new FractionEtendue(pardec * 100, 100).toLatex()}`)}=${miseEnEvidence(new FractionEtendue(x1 * 100, 100).toLatex())}$.<br>`
+        texteCorr = `L'abscisse de $${noms[1]}$ est : $${miseEnEvidence(texNombre(x1))}=${miseEnEvidence(`${texNombre(partent)} + ${new FractionEtendue(pardec * 100, 100).toLatex()}`)}=${miseEnEvidence(new FractionEtendue((partent + pardec) * 100, 100).toLatex())}$.<br>`
         reponse1 = arrondi(x1, 3)
         reponse2A = partent
         reponse2B = new FractionEtendue(pardec * 100, 100)
@@ -682,7 +682,7 @@ export default class LireUneAbscisseAvecZoom extends Exercice {
         objetsCorr.push(d1Corr, d2Corr, d3Corr, sA, sB, sC, sD)
         const partent = Math.floor(x1)
         const pardec = arrondi(x1 - partent, 3)
-        texteCorr = `L'abscisse de $${noms[1]} $est : $${miseEnEvidence(texNombre(x1))}=${miseEnEvidence(`${texNombre(partent)} + ${new FractionEtendue(pardec * 1000, 1000).toLatex()}`)}=${miseEnEvidence(new FractionEtendue(x1 * 1000, 1000).toLatex())}$.<br>`
+        texteCorr = `L'abscisse de $${noms[1]}$ est : $${miseEnEvidence(texNombre(x1))}=${miseEnEvidence(`${texNombre(partent)} + ${new FractionEtendue(pardec * 1000, 1000).toLatex()}`)}=${miseEnEvidence(new FractionEtendue((partent + pardec) * 1000, 1000).texFraction)}$.<br>`
         reponse1 = arrondi(x1, 3)
         reponse2A = partent
         reponse2B = new FractionEtendue(1000 * pardec, 1000)
@@ -754,6 +754,7 @@ export default class LireUneAbscisseAvecZoom extends Exercice {
               propositions: [
                 // une ou plusieurs (Qcms) 'propositions'
                 {
+                  texte: '',
                   reponse: {
                     // utilisé si type = 'AMCNum'
                     texte: `Abscisse de $${noms[1]}$ en écriture décimale : `, // facultatif
@@ -773,6 +774,7 @@ export default class LireUneAbscisseAvecZoom extends Exercice {
               propositions: [
                 // une ou plusieurs (Qcms) 'propositions'
                 {
+                  texte: '',
                   reponse: {
                     // utilisé si type = 'AMCNum'
                     texte: `Abscisse de $${noms[1]}$ sous forme d'une fraction décimale : `,

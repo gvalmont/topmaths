@@ -1,11 +1,12 @@
 import { grille } from '../../../lib/2d/Grille'
-import { milieu, point } from '../../../lib/2d/points'
+import { point } from '../../../lib/2d/PointAbstrait'
 import { repere } from '../../../lib/2d/reperes'
 import {
   segment,
   segmentAvecExtremites,
 } from '../../../lib/2d/segmentsVecteurs'
 import { texteParPosition } from '../../../lib/2d/textes'
+import { milieu } from '../../../lib/2d/utilitairesPoint'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 import { functionCompare } from '../../../lib/interactif/comparisonFunctions'
 import { handleAnswers } from '../../../lib/interactif/gestionInteractif'
@@ -148,10 +149,10 @@ export default class nomExercice extends Exercice {
 
     i = 10
     this.listeQuestions[i] =
-      'Si je parcours $1{,}5~\\text{km}$ en $10~\\text{min}$, quelle est ma vitesse moyenne en $\\text{km/h}$ ?<br>' +
+      'Si je parcours $1{,}5\\text{ km}$ en $10~\\text{min}$, quelle est ma vitesse moyenne en $\\text{km/h}$ ?<br>' +
       ajouteChampTexteMathLive(this, i, KeyboardType.clavierNumbers)
     this.listeCorrections[i] =
-      `$1{,}5~\\text{km}$ en $10~\\text{min}$ donc $1{,}5~\\text{km} \\times 6 = 9~\\text{km}$ en une heure.<br>Ma vitesse moyenne est donc de $${miseEnEvidence('9')}~\\text{km/h}$.`
+      `$1{,}5\\text{ km}$ en $10~\\text{min}$ donc $1{,}5\\text{ km} \\times 6 = 9\\text{ km}$ en une heure.<br>Ma vitesse moyenne est donc de $${miseEnEvidence('9')}~\\text{km/h}$.`
     handleAnswers(this, i, { reponse: { value: '9' } })
 
     i = 11
@@ -176,13 +177,17 @@ export default class nomExercice extends Exercice {
 
     i = 13
     this.listeQuestions[i] =
-      "Quel est le périmètre d'un carré de $49~\\text{cm}^2$ ?<br>"
+      "Quel est le périmètre d'un carré de $49\\text{ cm}^2$ ?<br>"
     if (this.interactif) {
-      this.listeQuestions[i] +=
-        ajouteChampTexteMathLive(this, i, KeyboardType.clavierNumbers) + ' cm'
+      this.listeQuestions[i] += ajouteChampTexteMathLive(
+        this,
+        i,
+        KeyboardType.clavierNumbers,
+        { texteApres: '\\text{ cm}$' },
+      )
     }
     this.listeCorrections[i] =
-      `L'aire est de $49~\\text{cm}^2$ donc c'est un carré de $7~\\text{cm}$ de côté.<br> Son périmètre est : $4 \\times 7~\\text{cm} =  ${miseEnEvidence('28')}~\\text{cm}$`
+      `L'aire est de $49\\text{ cm}^2$ donc c'est un carré de $7\\text{ cm}$ de côté.<br> Son périmètre est : $4 \\times 7\\text{ cm} =  ${miseEnEvidence('28')}\\text{ cm}$`
     handleAnswers(this, i, { reponse: { value: '28' } })
 
     i = 14

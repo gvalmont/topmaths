@@ -1,5 +1,4 @@
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
-import { type OptionsComparaisonType } from '../../lib/interactif/comparisonFunctions'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { remplisLesBlancs } from '../../lib/interactif/questionMathLive'
 import {
@@ -8,6 +7,7 @@ import {
   shuffle,
 } from '../../lib/outils/arrayOutils'
 import { texNombre } from '../../lib/outils/texNombre'
+import type { OptionsComparaisonType } from '../../lib/types'
 import { randint } from '../../modules/outils'
 import Exercice from '../Exercice'
 import { glossaire } from './CM2N1D-2'

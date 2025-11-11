@@ -2,9 +2,13 @@ import Figure from 'apigeom'
 import { Coords } from 'apigeom/src/elements/calculus/Coords'
 import { colorToLatexOrHTML } from '../../lib/2d/colorToLatexOrHtml'
 import { Droite, droite } from '../../lib/2d/droites'
-import { TracePoint, point, tracePoint } from '../../lib/2d/points'
+import { fixeBordures } from '../../lib/2d/fixeBordures'
+import { ObjetMathalea2D } from '../../lib/2d/ObjetMathalea2D'
+import { point } from '../../lib/2d/PointAbstrait'
 import { repere } from '../../lib/2d/reperes'
 import { labelPoint, texteParPosition } from '../../lib/2d/textes'
+import type { TracePoint } from '../../lib/2d/TracePoint'
+import { tracePoint } from '../../lib/2d/TracePoint'
 import figureApigeom from '../../lib/figureApigeom'
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
 import {
@@ -18,6 +22,7 @@ import { context } from '../../modules/context'
 import { fraction } from '../../modules/fractions'
 import { mathalea2d } from '../../modules/mathalea2d'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
+import type { NestedObjetMathalea2dArray } from '../../types/2d'
 import Exercice from '../Exercice'
 
 export const titre = "Représentation graphique d'une fonction affine"
@@ -91,11 +96,11 @@ export default class Representerfonctionaffine extends Exercice {
         yB: number,
         droiteAB: Droite,
         cadre: { xMin: number; yMin: number; xMax: number; yMax: number },
-        monRepere: unknown,
+        monRepere: ObjetMathalea2D,
         tA: TracePoint,
         tB: TracePoint,
-        lA: unknown,
-        lB: unknown,
+        lA: NestedObjetMathalea2dArray,
+        lB: NestedObjetMathalea2dArray,
         cadreFenetreSvg: unknown,
         f: (x: number) => number,
         texte,
@@ -175,9 +180,7 @@ export default class Representerfonctionaffine extends Exercice {
                 texteCorr += `Sa représentation graphique est donc une droite parallèle à l'axe des abscisses, d'équation $y=${yA}$.<br>`
               }
             }
-            // @ts-expect-error mathalea2d n'est pas typé
-            texteCorr += mathalea2d(
-              cadreFenetreSvg,
+            const objets: NestedObjetMathalea2dArray = [
               lA,
               lB,
               monRepere,
@@ -185,6 +188,10 @@ export default class Representerfonctionaffine extends Exercice {
               tA,
               tB,
               textO,
+            ]
+            texteCorr += mathalea2d(
+              Object.assign({}, fixeBordures(objets)),
+              objets,
             )
           }
           break

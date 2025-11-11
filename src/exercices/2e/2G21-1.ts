@@ -1,19 +1,26 @@
-import { point, pointAdistance, tracePoint } from '../../lib/2d/points'
+import { point } from '../../lib/2d/PointAbstrait'
+import { tracePoint } from '../../lib/2d/TracePoint'
 import { polygoneAvecNom } from '../../lib/2d/polygones'
-import { longueur, vecteur } from '../../lib/2d/segmentsVecteurs'
 import { latexParPoint } from '../../lib/2d/textes'
 import {
   homothetie,
   similitude,
   translation,
 } from '../../lib/2d/transformations'
+import { longueur } from '../../lib/2d/utilitairesGeometriques'
+import { pointAdistance } from '../../lib/2d/utilitairesPoint'
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
 import { translationAnimee } from '../../modules/2dAnimation'
 import Alea2iep from '../../modules/Alea2iep'
 import { context } from '../../modules/context'
 
+import { vecteur } from '../../lib/2d/Vecteur'
 import { colorToLatexOrHTML } from '../../lib/2d/colorToLatexOrHtml'
 import { fixeBordures } from '../../lib/2d/fixeBordures'
+import {
+  representant,
+  representantNomme,
+} from '../../lib/2d/representantVecteur'
 import { mathalea2d } from '../../modules/mathalea2d'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import type { NestedObjetMathalea2dArray } from '../../types/2d'
@@ -82,11 +89,11 @@ export default class SommeDeVecteurs extends Exercice {
         M = pointAdistance(A, randint(2, 3), randint(20, 45))
         N = similitude(M, A, randint(-90, -45), randint(2, 5) / 2)
       }
-      U = u.representantNomme(M, 'u', 1, 'blue')
-      UU = u.representant(M)
+      U = representantNomme(u, M, 'u', 1, 'blue')
+      UU = representant(u, M)
       UU.color = colorToLatexOrHTML('blue')
-      V = v.representantNomme(N, 'v', 1, 'green')
-      VV = v.representant(N)
+      V = representantNomme(v, N, 'v', 1, 'green')
+      VV = representant(v, N)
       VV.color = colorToLatexOrHTML('green')
       texte =
         'Construire le point $C$ tel que $\\overrightarrow{AC} = \\vec{u} + \\vec{v}$.<br>'
@@ -129,9 +136,9 @@ export default class SommeDeVecteurs extends Exercice {
         anim.compasDeplacer(translation(M, u))
         anim.compasTracerArcCentrePoint(translation(M, u), B)
         anim.crayonMontrer(B)
-        anim.tracer(translation(M, u), { couleur: 'blue', pointilles: 5 })
+        anim.tracer(translation(M, u), { couleur: 'blue', pointilles: true })
         anim.crayonDeplacer(M)
-        anim.tracer(A, { couleur: 'blue', pointilles: 5 })
+        anim.tracer(A, { couleur: 'blue', pointilles: true })
         anim.tracer(B, { vecteur: true, couleur: 'blue' })
         anim.crayonMasquer()
       }
@@ -144,9 +151,9 @@ export default class SommeDeVecteurs extends Exercice {
       anim.compasDeplacer(translation(N, v))
       anim.compasTracerArcCentrePoint(translation(N, v), C)
       anim.crayonMontrer(C)
-      anim.tracer(translation(N, v), { couleur: 'green', pointilles: 5 })
+      anim.tracer(translation(N, v), { couleur: 'green', pointilles: true })
       anim.crayonDeplacer(N)
-      anim.tracer(B, { couleur: 'green', pointilles: 5 })
+      anim.tracer(B, { couleur: 'green', pointilles: true })
       anim.tracer(C, { vecteur: true, couleur: 'green' })
       anim.crayonMasquer()
       anim.compasMasquer()
@@ -158,8 +165,8 @@ export default class SommeDeVecteurs extends Exercice {
         tracePoint(A, 'red'),
         UU,
         VV,
-        u.representant(A),
-        v.representant(B),
+        representant(u, A),
+        representant(v, B),
         latexParPoint('A', posLabelA, 'red', 12, 12, ''),
       ]
       if (context.isHtml)

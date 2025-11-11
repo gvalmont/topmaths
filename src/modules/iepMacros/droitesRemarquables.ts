@@ -1,16 +1,15 @@
-import { angleOriente } from '../../lib/2d/angles'
 import { droite } from '../../lib/2d/droites'
-import { milieu, pointSurSegment } from '../../lib/2d/points'
-import type { PointAbstrait } from '../../lib/2d/points-abstraits'
-import { longueur } from '../../lib/2d/segmentsVecteurs'
+import type { PointAbstrait } from '../../lib/2d/PointAbstrait'
 import { projectionOrtho, rotation } from '../../lib/2d/transformations'
-import { centreCercleCirconscrit } from '../../lib/2d/triangle'
-import type Alea2iep from '../Alea2iep'
+import { angleOriente, longueur } from '../../lib/2d/utilitairesGeometriques'
+import { milieu, pointSurSegment } from '../../lib/2d/utilitairesPoint'
+import { centreCercleCirconscrit } from '../../lib/2d/utilitairesTriangle'
 import type {
+  IAlea2iep,
   OptionsCompas,
   OptionsOutilMesure,
   OptionsRegle,
-} from '../Alea2iep'
+} from '../Alea2iep.types'
 
 type OptionsMediatriceAuCompas = OptionsCompas & {
   longueur1?: number // Longueur pour le codage d'angle
@@ -26,7 +25,7 @@ type OptionsMediatriceAuCompas = OptionsCompas & {
  * @return {array} [arc1, arc2, arc3, arc4, codage1?, codage2?, codageCarre?]
  */
 export const mediatriceAuCompas = function (
-  this: Alea2iep,
+  this: IAlea2iep,
   A: PointAbstrait,
   B: PointAbstrait,
   options: OptionsMediatriceAuCompas = {},
@@ -144,7 +143,7 @@ export const mediatriceAuCompas = function (
  * @param {booléen} codage
  */
 export const mediatriceRegleEquerre = function (
-  this: Alea2iep,
+  this: IAlea2iep,
   A: PointAbstrait,
   B: PointAbstrait,
   codage = 'X',
@@ -191,7 +190,7 @@ export const mediatriceRegleEquerre = function (
  * @param {booléen} codage angle droit ajouté si true
  */
 export const hauteur = function (
-  this: Alea2iep,
+  this: IAlea2iep,
   A: PointAbstrait,
   B: PointAbstrait,
   C: PointAbstrait,
@@ -254,7 +253,7 @@ export const hauteur = function (
  * @param {objet} options
  */
 export const mediane = function (
-  this: Alea2iep,
+  this: IAlea2iep,
   A: PointAbstrait,
   B: PointAbstrait,
   C: PointAbstrait,
@@ -297,7 +296,7 @@ type OptionsIepBissectrice = OptionsCompas & {
  * { codage = '/', l = 2, couleur = this.couleur, tempo = this.tempo, vitesse = this.vitesse, sens = Math.round(this.vitesse / 2), epaisseur = this.epaisseur, pointilles = this.pointilles, couleurCodage = this.couleurCodage, masquerTraitsDeConstructions = true } = {}
  */
 export const bissectriceAuCompas = function (
-  this: Alea2iep,
+  this: IAlea2iep,
   A: PointAbstrait,
   B: PointAbstrait,
   C: PointAbstrait,
@@ -346,7 +345,7 @@ type OptionsIepCercleCirconscrit = OptionsOutilMesure & {
  * @param {objet} options
  */
 export const cercleCirconscrit = function (
-  this: Alea2iep,
+  this: IAlea2iep,
   A: PointAbstrait,
   B: PointAbstrait,
   C: PointAbstrait,
@@ -357,19 +356,19 @@ export const cercleCirconscrit = function (
   options.couleurCercle =
     options.couleurCercle ?? options.couleur ?? this.couleur
   options.codage = options.codage ?? 'X'
-  const m1 = this.mediatriceAuCompas(A, B, options)
+  const m1 = mediatriceAuCompas.call(this, A, B, options)
   this.traitMasquer(m1[0]) // On cache les arcs de cercle une fois la médiatrice tracée
   this.traitMasquer(m1[1])
   this.traitMasquer(m1[2])
   this.traitMasquer(m1[3])
   options.codage = '||'
-  const m2 = this.mediatriceAuCompas(B, C, options)
+  const m2 = mediatriceAuCompas.call(this, B, C, options)
   this.traitMasquer(m2[0])
   this.traitMasquer(m2[1])
   this.traitMasquer(m2[2])
   this.traitMasquer(m2[3])
   options.codage = '///'
-  const m3 = this.mediatriceAuCompas(A, C, options)
+  const m3 = mediatriceAuCompas.call(this, A, C, options)
   this.traitMasquer(m3[0])
   this.traitMasquer(m3[1])
   this.traitMasquer(m3[2])

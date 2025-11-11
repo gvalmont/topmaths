@@ -4,11 +4,8 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 */
 
-import type {
-  NestedObjetMathalea2dArray,
-  ObjetDivLatex,
-  ObjetMathalea2D,
-} from '../../types/2d'
+import type { NestedObjetMathalea2dArray, ObjetDivLatex } from '../../types/2d'
+import type { ObjetMathalea2D } from './ObjetMathalea2D'
 
 /**
  * codeSvg(segment(A,B),polygone(D,E,F),labelPoints(A,B))

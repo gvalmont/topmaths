@@ -1,10 +1,12 @@
-import { codageAngleDroit } from '../../../lib/2d/angles'
-import { codageSegment } from '../../../lib/2d/codages'
-import { milieu, point } from '../../../lib/2d/points'
+import { codageAngleDroit } from '../../../lib/2d/CodageAngleDroit'
+import { codageSegment } from '../../../lib/2d/CodageSegment'
+import { demiDroite } from '../../../lib/2d/DemiDroite'
+import { point } from '../../../lib/2d/PointAbstrait'
 import { polygoneAvecNom } from '../../../lib/2d/polygones'
 import { ellipse } from '../../../lib/2d/projections3d'
-import { demiDroite, segment } from '../../../lib/2d/segmentsVecteurs'
+import { segment } from '../../../lib/2d/segmentsVecteurs'
 import { labelPoint, texteParPosition } from '../../../lib/2d/textes'
+import { milieu } from '../../../lib/2d/utilitairesPoint'
 import {
   handleAnswers,
   setReponse,
@@ -645,7 +647,7 @@ export default class SujetCAN20213ieme extends Exercice {
             objets,
           )
           texteCorr = `Le volume du cône est  : $\\dfrac{1}{3}\\times \\text{(Aire de la base)}\\times \\text{Hauteur}$.<br>
-          Soit : $\\dfrac{1}{3}\\times \\pi \\times 3^2\\times ${b}=${reponse}\\pi$ cm$^3$.  `
+          Soit : $\\dfrac{1}{3}\\times \\pi \\times 3^2\\times ${b}=${reponse}\\pi\\text{ cm}^3$.  `
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) {
             texte += ajouteChampTexteMathLive(this, index, ' ') + '$\\pi$cm$^3$'
@@ -833,7 +835,7 @@ export default class SujetCAN20213ieme extends Exercice {
           if (this.interactif) {
             texte += ajouteChampTexteMathLive(this, index, ' ') + 'dm'
           } else {
-            texte += ' $\\ldots$ dm '
+            texte += ' $\\ldots\\text{ dm}$ '
           }
           nbChamps = 1
           break
@@ -842,16 +844,21 @@ export default class SujetCAN20213ieme extends Exercice {
           a = choice([5, 10, 20, 30, 40])
           b = randint(1, 3)
           reponse = a * 60 * b + 30 * a
-          texte = `Un véhicule se déplace à une vitesse de $${a}$ m/s.<br>
+          texte = `Un véhicule se déplace à une vitesse de $${a}\\text{ m/s}$.<br>
           Quelle distance parcourt-il en  $${b}$ min $30$ s ? `
-          texteCorr = `En $1$ minute, il parcourt $60\\times ${a}=${60 * a}$ m et en $30$ s, $${60 * a}\\div 2=${30 * a}$.<br>
-          En $${b}$ min $30$ s, il aura parcouru : $${b}\\times ${60 * a}+${30 * a}=${texNombre(a * (60 * b + 30), 0)}$ m.`
+          texteCorr = `En $1$ minute, il parcourt $60\\times ${a}=${60 * a}\\text{ m}$ et en $30$ s, $${60 * a}\\div 2=${30 * a}$.<br>
+          En $${b}$ min $30$ s, il aura parcouru : $${b}\\times ${60 * a}+${30 * a}=${texNombre(a * (60 * b + 30), 0)}\\text{ m}$.`
 
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) {
-            texte += ajouteChampTexteMathLive(this, index, ' ') + 'm'
+            texte +=
+              ajouteChampTexteMathLive(
+                this,
+                index,
+                KeyboardType.clavierNumbers,
+              ) + '$\\text{ m}$'
           } else {
-            texte += '(en m)'
+            texte += '(en $\\text{m})'
           }
           nbChamps = 1
           break
@@ -863,9 +870,9 @@ export default class SujetCAN20213ieme extends Exercice {
           ])
           reponse = arrondi(a / 1000, 3)
           texte = `Complète.<br>
-         $${a}$ cm$^3 = $ `
-          texteCorr = `$1$ cm$^3 = 0,001 $dm$^3$ et $1$ dm$^3 = 1$ L.<br>
-          $${a}$ cm$^3 = ${a}\\times 0,001=${texNombre(reponse, 3)}$ L.`
+         $${a}\\text{ cm}^3 = $ `
+          texteCorr = `$1\\text{ cm}^3 = 0,001 \\text{ dm}^3$ et $1\\text{ dm}^3 = 1$ L.<br>
+          $${a}\\text{ cm}^3 = ${a}\\times 0,001=${texNombre(reponse, 3)}$ L.`
 
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) {

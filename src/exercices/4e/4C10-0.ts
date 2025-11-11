@@ -1,11 +1,13 @@
+import { propositionsQcm } from '../../lib/interactif/qcm'
+import { deparenthise } from '../../lib/mathFonctions/EnleverParenthesesInutiles'
 import { combinaisonListes } from '../../lib/outils/arrayOutils'
-import { texteEnCouleurEtGras } from '../../lib/outils/embellissements'
 import { ecritureNombreRelatif } from '../../lib/outils/ecritures'
+import { texteEnCouleurEtGras } from '../../lib/outils/embellissements'
+import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import { Relatif } from '../../modules/Relatif'
 import Exercice from '../Exercice'
-import { listeQuestionsToContenu, randint } from '../../modules/outils'
-import { propositionsQcm } from '../../lib/interactif/qcm'
 
+export const dateDeModifImportante = '02/11/2025'
 export const interactifReady = true
 export const interactifType = 'qcm'
 export const amcReady = true
@@ -32,6 +34,8 @@ export default class SigneProduitQuotientRelatifs extends Exercice {
     super()
     this.nbQuestions = 7
     this.exo = '4C10-0'
+    this.besoinFormulaire2CaseACocher = ['Avec des écritures simplifiées']
+    this.sup2 = false
   }
 
   nouvelleVersion() {
@@ -342,6 +346,8 @@ export default class SigneProduitQuotientRelatifs extends Exercice {
           },
         ],
       }
+      if (this.sup2) texte = '$' + deparenthise(texte) + '$'
+
       texte += '<br>' + propositionsQcm(this, i).texte
       if (
         this.questionJamaisPosee(

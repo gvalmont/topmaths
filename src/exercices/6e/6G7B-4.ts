@@ -1,9 +1,10 @@
 import { colorToLatexOrHTML } from '../../lib/2d/colorToLatexOrHtml'
 import { droite } from '../../lib/2d/droites'
-import { point, TracePoint, tracePoint } from '../../lib/2d/points'
+import { point } from '../../lib/2d/PointAbstrait'
 import { papierPointe } from '../../lib/2d/reperes'
-import { longueur } from '../../lib/2d/segmentsVecteurs'
+import { TracePoint } from '../../lib/2d/TracePoint'
 import { symetrieAxiale } from '../../lib/2d/transformations'
+import { longueur } from '../../lib/2d/utilitairesGeometriques'
 import { choice, shuffle } from '../../lib/outils/arrayOutils'
 import { PointCliquable, pointCliquable } from '../../modules/2dinteractif'
 import { context } from '../../modules/context'
@@ -234,10 +235,10 @@ export default class CompleterParSymetrie6e extends Exercice {
         }
       }
       for (let p = 0; p < pointsAffiches.length; p++) {
-        objetsEnonce[i].push(tracePoint(pointsAffiches[p]))
+        objetsEnonce[i].push(new TracePoint(pointsAffiches[p]))
       }
       for (let p = 0; p < pointsEnPlusCorr.length; p++) {
-        objetsCorrection[i].push(tracePoint(pointsEnPlusCorr[p], 'red'))
+        objetsCorrection[i].push(new TracePoint(pointsEnPlusCorr[p], 'red'))
       }
       for (let p = 0; p < this.pointsCliquables[i].length; p++) {
         trouve = false
@@ -336,13 +337,13 @@ export default class CompleterParSymetrie6e extends Exercice {
     for (const monPoint of this.pointsNonSolution[i]) {
       if (monPoint.etat) {
         aucunMauvaisPointsCliques = false
-        this.pointsCliques[i].push(tracePoint(monPoint.point, 'red')) // ça c'est pour éventuellement modifier la correction avec les points cliqués par l'utilisateur.
+        this.pointsCliques[i].push(new TracePoint(monPoint.point, 'red')) // ça c'est pour éventuellement modifier la correction avec les points cliqués par l'utilisateur.
       }
       monPoint.stopCliquable()
     }
     for (const monPoint of this.pointsSolution[i]) {
       if (!monPoint.etat) aucunMauvaisPointsCliques = false
-      else this.pointsCliques[i].push(tracePoint(monPoint.point, 'red')) // ça c'est pour éventuellement modifier la correction avec les points cliqués par l'utilisateur.
+      else this.pointsCliques[i].push(new TracePoint(monPoint.point, 'red')) // ça c'est pour éventuellement modifier la correction avec les points cliqués par l'utilisateur.
       monPoint.stopCliquable()
     }
     const spanResultat = document.querySelector(

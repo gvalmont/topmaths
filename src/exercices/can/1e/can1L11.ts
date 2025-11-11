@@ -2,6 +2,7 @@ import { propositionsQcm } from '../../../lib/interactif/qcm'
 import { tableauSignesFonction } from '../../../lib/mathFonctions/etudeFonction'
 import { choice } from '../../../lib/outils/arrayOutils'
 import { ecritureAlgebrique, rienSi1 } from '../../../lib/outils/ecritures'
+import type FractionEtendue from '../../../modules/FractionEtendue'
 import { listeQuestionsToContenu, randint } from '../../../modules/outils'
 
 import Exercice from '../../Exercice'
@@ -33,14 +34,15 @@ export default class TableauSignesSecondDegre extends Exercice {
   }
 
   nouvelleVersion() {
-    let texte, texteCorr, a, b, c, tableau1, tableau2, tableau3
+    let texte, texteCorr, tableau1, tableau2, tableau3
     for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50; ) {
-      a = randint(1, 9) * choice([-1, 1]) // coefficient a
-      b = randint(1, 6) * choice([-1, 1]) // racine1
-      c = randint(1, 9, [b, -b]) * choice([-1, 1]) // racine2
-      const fonction1 = (x) => a * (x - b) * (x - c)
-      const fonction2 = (x) => a * (x + b) * (x + c)
-      const fonction3 = (x) => -a * (x - b) * (x - c)
+      const a = randint(1, 9) * choice([-1, 1]) // coefficient a
+      const b = randint(1, 6) * choice([-1, 1]) // racine1
+      const c = randint(1, 9, [b, -b]) * choice([-1, 1]) // racine2
+      const fonction1 = (x: number | FractionEtendue) => {
+        const val = typeof x === 'number' ? x : x.valueOf() // ou autre conversion
+        return a * (val - b) * (val - c)
+      }
       tableau1 = tableauSignesFonction(fonction1, -10, 10, {
         step: 0.1,
         tolerance: 0.001,
@@ -49,6 +51,10 @@ export default class TableauSignesSecondDegre extends Exercice {
           { antVal: 10, antTex: '+\\infty' },
         ],
       })
+      const fonction2 = (x: number | FractionEtendue) => {
+        const val = typeof x === 'number' ? x : x.valueOf() // ou autre conversion
+        return a * (val + b) * (val + c)
+      }
       tableau2 = tableauSignesFonction(fonction2, -10, 10, {
         step: 0.1,
         tolerance: 0.001,
@@ -57,6 +63,10 @@ export default class TableauSignesSecondDegre extends Exercice {
           { antVal: 10, antTex: '+\\infty' },
         ],
       })
+      const fonction3 = (x: number | FractionEtendue) => {
+        const val = typeof x === 'number' ? x : x.valueOf() // ou autre conversion
+        return -a * (val - b) * (val - c)
+      }
       tableau3 = tableauSignesFonction(fonction3, -10, 10, {
         step: 0.1,
         tolerance: 0.001,

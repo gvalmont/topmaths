@@ -1,9 +1,9 @@
-import { miseEnEvidence } from '../../../lib/outils/embellissements'
-import ExerciceCan from '../../ExerciceCan'
-import { randint } from '../../../modules/outils'
-import { toutPourUnPoint } from '../../../lib/interactif/mathLive'
-import type Exercice from '../../Exercice'
 import type { MathfieldElement } from 'mathlive'
+import { toutPourUnPoint } from '../../../lib/interactif/mathLive'
+import { miseEnEvidence } from '../../../lib/outils/embellissements'
+import { randint } from '../../../modules/outils'
+import type { IExercice } from '../../Exercice.type'
+import ExerciceCan from '../../ExerciceCan'
 
 export const titre = 'Ratios'
 export const interactifReady = true
@@ -29,7 +29,7 @@ export default class Can2025N4Q28 extends ExerciceCan {
     const part = c / (a + b)
     const partA = part * a
     const partB = part * b
-    const callback = (exercice: Exercice, question: number) => {
+    const callback = (exercice: IExercice, question: number) => {
       const mfe = document.querySelector(
         `#champTexteEx${exercice.numeroExercice}Q${question}`,
       ) as MathfieldElement

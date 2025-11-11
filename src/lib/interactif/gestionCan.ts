@@ -1,14 +1,12 @@
-import type Exercice from '../../exercices/Exercice'
+import type { IExercice } from '../../lib/types'
 import { context } from '../../modules/context'
 import { addElement, get } from '../html/dom'
+import type { ButtonWithMathaleaListener } from '../types/can'
 import { verifQuestionCliqueFigure } from './cliqueFigure'
 import { verifQuestionMathLive } from './mathLive'
 import { verifQuestionQcm } from './qcm'
 
-export interface ButtonWithMathaleaListener extends HTMLButtonElement {
-  hasMathaleaListener: boolean
-}
-export function gestionCan(exercice: Exercice) {
+export function gestionCan(exercice: IExercice) {
   context.nbBonnesReponses = 0
   context.nbMauvaisesReponses = 0
   for (let i = 0; i < exercice.nbQuestions; i++) {
@@ -95,17 +93,22 @@ const exercicesCanDispoApres = () => {
 }
 
 export function afficheScoreCan(
-  exercice: Exercice,
+  exercice: IExercice,
   nbBonnesReponses: number,
   nbMauvaisesReponses: number,
 ) {
   // const exercice = { id: 'can', sup: document.location.href + 'serie=' + context.graine }
   const divMenuEval = document.querySelector('#menuEval') as HTMLDivElement
   if (divMenuEval) {
-    const divScore = addElement(divMenuEval, 'div', {
-      className: 'score',
-      id: 'scoreTotal',
-    })
+    const divScore = addElement(
+      divMenuEval,
+      'div',
+      {
+        className: 'score',
+        id: 'scoreTotal',
+      },
+      '',
+    )
     divScore.innerHTML = `Résultat : ${nbBonnesReponses} / ${nbBonnesReponses + nbMauvaisesReponses}`
     window.parent.postMessage(
       {
@@ -131,7 +134,9 @@ export function afficheScoreCan(
       ;(e as HTMLDivElement).style.display = 'block'
     })
     const divCorr = get('corrections')
-    divCorr.style.display = 'block'
+    if (divCorr) {
+      divCorr.style.display = 'block'
+    }
     ;(
       document.getElementById('btnMenuexercice0Q0') as HTMLButtonElement
     ).click()

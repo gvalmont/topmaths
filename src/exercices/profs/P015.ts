@@ -1,4 +1,4 @@
-import { point } from '../../lib/2d/points'
+import { point } from '../../lib/2d/PointAbstrait'
 import { infoMessage } from '../../lib/format/message'
 import { texteGras } from '../../lib/format/style'
 import Alea2iep from '../../modules/Alea2iep'
@@ -322,7 +322,7 @@ export default class PuzzlesGeometriques extends Exercice {
           texte += enumerate(
             [
               "Tracer deux droites perpendiculaires $(\\Delta)$ et $(\\Delta ')$, elles se coupent en $O$.",
-              'Tracer le cercle de centre $O$ et de rayon 7 cm.',
+              'Tracer le cercle de centre $O$ et de rayon $7\\text{ cm}$.',
               'Ce cercle coupe $(\\Delta)$ en $A$, à gauche de $O$, et $C$.',
               "Ce cercle coupe $(\\Delta ')$ en $B$, au dessus de $O$, et $D$.",
               'Tracer les demi-droites $[AB)$ et $[CB)$',
@@ -439,7 +439,7 @@ export default class PuzzlesGeometriques extends Exercice {
           anim.crayonMasquer()
           texte += enumerate(
             [
-              'Tracer un carré ABCD de 14 cm de côté.',
+              'Tracer un carré ABCD de $14\\text{ cm}$ de côté.',
               'Placer $E$, $F$ et $G$ sur $[DB]$ tels que $DE=EF=FG=GB$.',
               'Placer $H$ au milieu de $[CD]$.',
               'Placer $J$ au milieu de $[BC]$.',

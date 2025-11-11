@@ -1,3 +1,4 @@
+import { propositionsQcm } from '../../../lib/interactif/qcm'
 import { choice } from '../../../lib/outils/arrayOutils'
 import {
   ecritureAlgebrique,
@@ -6,10 +7,9 @@ import {
 } from '../../../lib/outils/ecritures'
 import { abs } from '../../../lib/outils/nombres'
 import { sp } from '../../../lib/outils/outilString'
-import Exercice from '../../Exercice'
-import { listeQuestionsToContenu, randint } from '../../../modules/outils'
-import { propositionsQcm } from '../../../lib/interactif/qcm'
 import FractionEtendue from '../../../modules/FractionEtendue'
+import { listeQuestionsToContenu, randint } from '../../../modules/outils'
+import Exercice from '../../Exercice'
 export const titre = 'Résoudre une équation du second degré sans $\\Delta$'
 export const interactifReady = true
 export const interactifType = 'qcm'
@@ -86,7 +86,7 @@ export default class ResoudreEquationsSecondDegreSansDelta extends Exercice {
           if (k > 0) {
             this.autoCorrection[i] = {
               enonce: texte,
-              options: { horizontal: true },
+
               propositions: [
                 {
                   texte: `$S=\\{-${Math.sqrt(k)}${sp(1)};${sp(1)}${Math.sqrt(k)}\\}$`,
@@ -105,7 +105,7 @@ export default class ResoudreEquationsSecondDegreSansDelta extends Exercice {
           } else {
             this.autoCorrection[i] = {
               enonce: texte,
-              options: { horizontal: true },
+
               propositions: [
                 {
                   texte: '$S=\\emptyset$',
@@ -168,7 +168,7 @@ export default class ResoudreEquationsSecondDegreSansDelta extends Exercice {
           if (k > 0) {
             this.autoCorrection[i] = {
               enonce: texte,
-              options: { horizontal: true },
+
               propositions: [
                 {
                   texte: `$S=\\{-\\sqrt{${k}}${sp(1)};${sp(1)}\\sqrt{${k}}\\}$`,
@@ -187,7 +187,7 @@ export default class ResoudreEquationsSecondDegreSansDelta extends Exercice {
           } else {
             this.autoCorrection[i] = {
               enonce: texte,
-              options: { horizontal: true },
+
               propositions: [
                 {
                   texte: '$S=\\emptyset$',
@@ -251,7 +251,7 @@ export default class ResoudreEquationsSecondDegreSansDelta extends Exercice {
           if (k > 0) {
             this.autoCorrection[i] = {
               enonce: texte,
-              options: { horizontal: true },
+
               propositions: [
                 {
                   texte: `$S=\\left\\{0${sp(1)};${sp(1)}${k.texFractionSimplifiee}\\right\\}$`,
@@ -270,7 +270,7 @@ export default class ResoudreEquationsSecondDegreSansDelta extends Exercice {
           } else {
             this.autoCorrection[i] = {
               enonce: texte,
-              options: { horizontal: true },
+
               propositions: [
                 {
                   texte: `$S=\\left\\{${k.texFractionSimplifiee}${sp(1)};${sp(1)}0\\right\\}$`,
@@ -338,7 +338,7 @@ export default class ResoudreEquationsSecondDegreSansDelta extends Exercice {
           if (k > 0) {
             this.autoCorrection[i] = {
               enonce: texte,
-              options: { horizontal: true },
+
               propositions: [
                 {
                   texte: `$S=\\left\\{${k.texFractionSimplifiee}\\right\\}$`,
@@ -357,7 +357,7 @@ export default class ResoudreEquationsSecondDegreSansDelta extends Exercice {
           } else {
             this.autoCorrection[i] = {
               enonce: texte,
-              options: { horizontal: true },
+
               propositions: [
                 {
                   texte: `$S=\\left\\{${k.texFractionSimplifiee}\\right\\}$`,

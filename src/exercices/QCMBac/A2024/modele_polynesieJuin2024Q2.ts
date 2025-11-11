@@ -1,7 +1,7 @@
 import { colorToLatexOrHTML } from '../../../lib/2d/colorToLatexOrHtml'
 import { integrale } from '../../../lib/2d/courbes'
 import { fixeBordures } from '../../../lib/2d/fixeBordures'
-import { point } from '../../../lib/2d/points'
+import { point } from '../../../lib/2d/PointAbstrait'
 import { polygone } from '../../../lib/2d/polygones'
 import { repere } from '../../../lib/2d/reperes'
 import { Spline } from '../../../lib/mathFonctions/Spline'

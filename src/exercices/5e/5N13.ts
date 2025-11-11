@@ -1,3 +1,7 @@
+/**
+ * ⚠️ Cet exercice est utilisé dans le test : tests/e2e/tests/interactivity/mathLive.fractionPlusSimple.test.ts ⚠️
+ */
+
 /* eslint-disable camelcase */
 import { choice, enleveElement, shuffle } from '../../lib/outils/arrayOutils'
 import { texFractionFromString } from '../../lib/outils/deprecatedFractions'

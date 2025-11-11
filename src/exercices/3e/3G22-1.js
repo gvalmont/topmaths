@@ -1,14 +1,14 @@
-import { texNombre } from '../../lib/outils/texNombre'
-import Exercice from '../Exercice'
 import Decimal from 'decimal.js'
+import { setReponse } from '../../lib/interactif/gestionInteractif'
+import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
+import { texNombre } from '../../lib/outils/texNombre'
+import Grandeur from '../../modules/Grandeur'
 import {
   gestionnaireFormulaireTexte,
   listeQuestionsToContenu,
   randint,
 } from '../../modules/outils'
-import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
-import Grandeur from '../../modules/Grandeur'
-import { setReponse } from '../../lib/interactif/gestionInteractif'
+import Exercice from '../Exercice'
 
 export const titre = 'Agrandissement et réduction'
 export const interactifReady = true
@@ -76,7 +76,7 @@ export default class Agrandissement extends Exercice {
         listeTypeQuestions[i] // Suivant le type de question, le contenu sera différent
       ) {
         case 1: // Calcul de A2 connaissant k et A1
-          texte = `Une figure a une aire de $${A1}$ cm$^2$. `
+          texte = `Une figure a une aire de $${A1}\\text{ cm}^2$. `
           texte += k.gt(1) ? " On l'agrandit " : ' On la réduit '
           texte += `à l'échelle $k=${texNombre(k, 1)}$.`
           texte += "<br> Calculer l'aire de la figure  "
@@ -86,7 +86,7 @@ export default class Agrandissement extends Exercice {
           texteCorr += "<br>Dans notre exercice, en appelant $A$ l'aire "
           texteCorr += k.gt(1) ? ' agrandie, ' : ' réduite, '
           texteCorr += `on a l'égalité :  $A=${texNombre(k, 1)}^2\\times${A1}.$`
-          texteCorr += `<br>D'où :  $A=${texNombre(A2, 2)}$ cm$^2$`
+          texteCorr += `<br>D'où :  $A=${texNombre(A2, 2)}\\text{ cm}^2$`
           texte += ajouteChampTexteMathLive(
             this,
             i,
@@ -98,7 +98,7 @@ export default class Agrandissement extends Exercice {
 
           break
         case 2: // calcul de V2 connaissant V1 et k
-          texte = `Un solide a un volume de $${V1}$ cm$^3$.`
+          texte = `Un solide a un volume de $${V1}\\text{ cm}^3$.`
           texte += k.gt(1) ? " On l'agrandit " : ' On le réduit '
           texte += ` à l'échelle $${texNombre(k, 1)}$. <br>Quel est le volume du nouveau solide ?` // Le LateX entre deux symboles $, les variables dans des ${ }
           texteCorr =
@@ -107,7 +107,7 @@ export default class Agrandissement extends Exercice {
           texteCorr += k.gt(1) ? ' agrandit ' : ' réduit '
           texteCorr += `un solide à l'échelle $${texNombre(k, 1)}$.`
           texteCorr += `<br>Le volume obtenu est donc multiplié par $${texNombre(k, 1)}^3$.`
-          texteCorr += `<br>Le volume obtenu est donc $V=${V1}\\times ${texNombre(k, 1)}^3=${texNombre(V2, 3)} ~cm^3$.`
+          texteCorr += `<br>Le volume obtenu est donc $V=${V1}\\times ${texNombre(k, 1)}^3=${texNombre(V2, 3)}\\text{ cm}^3$.`
           setReponse(this, i, new Grandeur(V2, 'cm^3'), {
             formatInteractif: 'unites',
           })
@@ -120,14 +120,14 @@ export default class Agrandissement extends Exercice {
         case 3: // Calcul de A1 connaissant k et A2
           texte = 'Une figure a été '
           texte += k.gt(1) ? 'agrandie ' : 'réduite '
-          texte += `à l'échelle $k=${texNombre(k, 1)}$. L'aire de la figure obtenue est $${texNombre(A2, 2)}$ cm$^2$.`
+          texte += `à l'échelle $k=${texNombre(k, 1)}$. L'aire de la figure obtenue est $${texNombre(A2, 2)}\\text{ cm}^2$.`
           texte += "<br> Calculer l'aire de la figure initiale. "
           texteCorr =
             'On sait que dans une réduction ou un agrandissement de rapport $k$, les aires sont multipliées par $k^2$.'
           texteCorr +=
             "<br>Dans notre exercice, en appelant $A$ l'aire de la figure initiale, "
           texteCorr += `on a l'égalité :  $${texNombre(A2, 2)}=${texNombre(k, 1)}^2\\times A.$`
-          texteCorr += `<br>D'où :  $A=\\dfrac{${texNombre(A2, 2)}}{${texNombre(k, 1)}^2}=${A1}$ cm$^2$`
+          texteCorr += `<br>D'où :  $A=\\dfrac{${texNombre(A2, 2)}}{${texNombre(k, 1)}^2}=${A1}\\text{ cm}^2$`
           texte += ajouteChampTexteMathLive(
             this,
             i,
@@ -148,7 +148,7 @@ export default class Agrandissement extends Exercice {
           texteCorr += k.gt(1) ? ' agrandit ' : ' réduit '
           texteCorr += `un solide à l'échelle $${texNombre(k, 1)}$.`
           texteCorr += `<br>Le volume obtenu est donc multiplié par $${texNombre(k, 1)}^3$.`
-          texteCorr += `<br>Le volume initial est donc $V=\\dfrac{${texNombre(V2, 3)}}{${texNombre(k, 1)}^3}=${V1} ~cm^3$.`
+          texteCorr += `<br>Le volume initial est donc $V=\\dfrac{${texNombre(V2, 3)}}{${texNombre(k, 1)}^3}=${V1}\\text{ cm}^3$.`
           setReponse(this, i, new Grandeur(V1, 'cm^3'), {
             formatInteractif: 'unites',
           })
@@ -159,9 +159,9 @@ export default class Agrandissement extends Exercice {
           )
           break
         case 5: // calcul de k connaissant l1 et l2
-          texte = `Sur une figure, on relève une longueur de $${l1}$ cm. <br>`
+          texte = `Sur une figure, on relève une longueur de $${l1}\\text{ cm}$. <br>`
           texte += k.gt(1) ? ' On agrandit ' : ' On réduit '
-          texte += `cette figure et la longueur obtenue mesure alors $${texNombre(l2, 1)}$ cm.`
+          texte += `cette figure et la longueur obtenue mesure alors $${texNombre(l2, 1)}\\text{ cm}$.`
           texte += "<br> Quelle est l'échelle "
           texte += k.gt(1) ? " d'agrandissement ? " : ' de réduction ? '
           texteCorr =
@@ -178,9 +178,9 @@ export default class Agrandissement extends Exercice {
           break
 
         case 6: // Calcul de k connaissant A1 et A2
-          texte = `Une figure a une aire de $${A1}$ cm$^2$. `
+          texte = `Une figure a une aire de $${A1}\\text{ cm}^2$. `
           texte += k.gt(1) ? " On l'agrandit " : ' On la réduit '
-          texte += `et l'aire obtenue est de $${texNombre(A2, 2)}$ cm$^2$.`
+          texte += `et l'aire obtenue est de $${texNombre(A2, 2)}\\text{ cm}^2$.`
           texte += '<br> Quel est le coefficient '
           texte += k.gt(1) ? " d'agrandissement ? " : ' de réduction ? '
           texteCorr =
@@ -198,9 +198,9 @@ export default class Agrandissement extends Exercice {
           setReponse(this, i, k)
           break
         case 7: // Calcul de k connaissant V1 et V2
-          texte = `Un solide a un volume de $${V1}$ cm$^3$.`
+          texte = `Un solide a un volume de $${V1}\\text{ cm}^3$.`
           texte += k.gt(1) ? " On l'agrandit " : ' On le réduit '
-          texte += `et le solide obtenu a un volume de $${texNombre(V2, 3)}$ cm$^3$.`
+          texte += `et le solide obtenu a un volume de $${texNombre(V2, 3)}\\text{ cm}^3$.`
           texte += '<br> Quel est le coefficient '
           texte += k.gt(1) ? " d'agrandissement ? " : ' de réduction ? '
           texteCorr =

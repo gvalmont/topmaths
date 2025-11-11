@@ -1,17 +1,17 @@
-import Exercice from '../Exercice'
-import { point } from '../../lib/2d/points'
-import { gestionnaireFormulaireTexte, randint } from '../../modules/outils'
-import { choice } from '../../lib/outils/arrayOutils'
-import { choisitLettresDifferentes } from '../../lib/outils/aleatoires'
-import { Matrice } from '../../lib/mathFonctions/Matrice'
 import Figure from 'apigeom'
 import type PointApigeom from 'apigeom/src/elements/points/Point'
-import figureApigeom from '../../lib/figureApigeom'
-import { wrapperApigeomToMathalea } from '../../lib/apigeom/apigeomZoom'
-import { context } from '../../modules/context'
+import { point } from '../../lib/2d/PointAbstrait'
 import { similitude } from '../../lib/2d/transformations'
-import { fraction } from '../../modules/fractions'
+import { wrapperApigeomToMathalea } from '../../lib/apigeom/apigeomZoom'
+import figureApigeom from '../../lib/figureApigeom'
+import { Matrice } from '../../lib/mathFonctions/Matrice'
+import { choisitLettresDifferentes } from '../../lib/outils/aleatoires'
+import { choice } from '../../lib/outils/arrayOutils'
+import { context } from '../../modules/context'
 import type FractionEtendue from '../../modules/FractionEtendue'
+import { fraction } from '../../modules/fractions'
+import { gestionnaireFormulaireTexte, randint } from '../../modules/outils'
+import Exercice from '../Exercice'
 
 export const interactifReady = true
 export const interactifType = 'custom'
@@ -88,7 +88,6 @@ export default class BetaReperage2e extends Exercice {
           scale: 0.5,
         }),
       )
-      this.figuresApiGeom[i].snapGrid = true
       this.figuresApiGeom[i].options.latexHeight = 20
       this.figuresApiGeom[i].options.labelDxInPixels = 20
       this.figuresApiGeom[i].options.labelDyInPixels = 20
@@ -391,6 +390,7 @@ export default class BetaReperage2e extends Exercice {
     const divFeedback = document.querySelector(
       `#feedback${`Ex${this.numeroExercice}Q${i}`}`,
     )
+    let allPointsAreGood = true
     for (let j = 0; j < this.labelsPoints[i].length; j++) {
       const label = this.labelsPoints[i][j]
       const { isValid, message, points } = figure.checkCoords({
@@ -406,6 +406,7 @@ export default class BetaReperage2e extends Exercice {
         point.colorLabel = 'green'
         point.thickness = 3
       } else {
+        allPointsAreGood = false
         result.push('KO')
         if (point !== undefined) {
           point.color = 'red'
@@ -414,19 +415,12 @@ export default class BetaReperage2e extends Exercice {
           point.thickness = 3
         }
       }
-      if (divFeedback != null && message.length > 0) {
-        const p = document.createElement('p')
-        p.innerText = message
-        divFeedback.appendChild(p)
-      }
     }
     if (divFeedback != null) {
-      if (divFeedback?.innerHTML === '') {
+      if (allPointsAreGood) {
         divFeedback.innerHTML = '😎'
       } else {
-        const p = document.createElement('p')
-        p.innerText = '☹️'
-        divFeedback.insertBefore(p, divFeedback.firstChild)
+        divFeedback.innerHTML = '☹️'
       }
     }
     return result

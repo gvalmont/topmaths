@@ -1,8 +1,8 @@
-import ExerciceSimple from '../../ExerciceSimple'
-import { miseEnEvidence } from '../../../lib/outils/embellissements'
-import { choice } from '../../../lib/outils/arrayOutils'
-import { prenom } from '../../../lib/outils/Personne'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
+import { choice } from '../../../lib/outils/arrayOutils'
+import { miseEnEvidence } from '../../../lib/outils/embellissements'
+import { prenom } from '../../../lib/outils/Personne'
+import ExerciceSimple from '../../ExerciceSimple'
 
 export const titre = "Calculer une distance à partir d'une vitesse"
 export const interactifReady = true
@@ -19,7 +19,7 @@ export default class NomExercice extends ExerciceSimple {
     this.typeExercice = 'simple'
     this.nbQuestions = 1
     this.formatChampTexte = KeyboardType.clavierDeBase
-    this.optionsChampTexte = { texteApres: 'km' }
+    this.optionsChampTexte = { texteApres: '$\\text{ km}$' }
 
     this.canOfficielle = false
   }
@@ -27,10 +27,10 @@ export default class NomExercice extends ExerciceSimple {
   nouvelleVersion() {
     if (this.canOfficielle) {
       this.reponse = 30
-      this.question = `Sam roule à une vitesse constante de $90$ km/h.<br>
+      this.question = `Sam roule à une vitesse constante de $90\\text{ km/h}$.<br>
       Quelle distance parcourt-il en $20$ minutes ?`
-      this.correction = `En $20$ minutes, il parcourt $3$ fois moins de km qu'en $1$ heure, soit $\\dfrac{90}{3}=
-       ${miseEnEvidence(30)}$ km.`
+      this.correction = `En $20$ minutes, il parcourt $3$ fois moins de $\\text{km}$ qu'en $1$ heure, soit $\\dfrac{90}{3}=
+       ${miseEnEvidence(30)}\\text{ km}$.`
     } else {
       const P = prenom()
       const listeHeureVitesse = [
@@ -47,12 +47,12 @@ export default class NomExercice extends ExerciceSimple {
       ] // vitesse, temps, fois moins, reponse
       const choix = choice(listeHeureVitesse)
       this.reponse = choix[3]
-      this.question = `${P} roule à une vitesse constante de $${choix[0]}$ km/h. <br>
+      this.question = `${P} roule à une vitesse constante de $${choix[0]}\\text{ km/h}$. <br>
       Quelle distance parcourt-il en  $${choix[1]}$  minutes ?`
-      this.correction = `En $${choix[1]}$ minutes, il parcourt $${choix[2]}$ fois moins de km qu'en $1$ heure, 
-      soit $\\dfrac{${choix[0]}}{${choix[2]}}=${miseEnEvidence(this.reponse)}$ km.`
+      this.correction = `En $${choix[1]}$ minutes, il parcourt $${choix[2]}$ fois moins de $\\text{km}$ qu'en $1$ heure, 
+      soit $\\dfrac{${choix[0]}}{${choix[2]}}=${miseEnEvidence(this.reponse)}\\text{ km}$.`
     }
     this.canEnonce = this.question
-    this.canReponseACompleter = ' $\\ldots$ km'
+    this.canReponseACompleter = ' $\\ldots\\text{ km}$'
   }
 }

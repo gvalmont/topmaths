@@ -44,16 +44,16 @@ export default class ConversionUnitesMetriquesConsecutives extends ExerciceSimpl
     const unite1 = pairesMetriques[choixPaires][choixPlusGdVerPlusPetit ? 0 : 1]
     const unite2 = pairesMetriques[choixPaires][choixPlusGdVerPlusPetit ? 1 : 0]
 
-    this.question = `$1$ ${unite1} = ${this.interactif ? '' : `$\\ldots$ ${unite2}`}`
+    this.question = `$1\\text{ ${unite1}}$ = ${this.interactif ? '' : `$\\ldots\\text{ ${unite2}}$`}`
 
     this.reponse = choixPlusGdVerPlusPetit
       ? 10
       : new FractionEtendue(1, 10).texFraction
-    this.correction = `$1$ ${unite1} $= ${miseEnEvidence(this.reponse)}$ ${unite2}`
+    this.correction = `$1\\text{ ${unite1}}$ $= ${miseEnEvidence(this.reponse)}\\text{ ${unite2}}$`
     if (!choixPlusGdVerPlusPetit)
-      this.correction += `$= ${miseEnEvidence(texNombre(0.1))}$ ${unite2}`
+      this.correction += `$= ${miseEnEvidence(texNombre(0.1))}\\text{ ${unite2}}$`
     this.canEnonce = 'Compléter.'
-    this.canReponseACompleter = `$1$ ${unite1} = $\\ldots$ ${unite2}`
+    this.canReponseACompleter = `$1\\text{ ${unite1}}$ = $\\ldots\\text{ ${unite2}}$`
 
     this.optionsChampTexte = { texteApres: unite2 }
     this.formatChampTexte = KeyboardType.clavierDeBaseAvecFraction

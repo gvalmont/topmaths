@@ -1,9 +1,9 @@
-import { codageAngleDroit } from '../../lib/2d/angles'
 import { arc } from '../../lib/2d/Arc'
-import { placeLatexSurSegment } from '../../lib/2d/codages'
+import { codageAngleDroit } from '../../lib/2d/CodageAngleDroit'
 import { colorToLatexOrHTML } from '../../lib/2d/colorToLatexOrHtml'
 import { fixeBordures } from '../../lib/2d/fixeBordures'
-import { point } from '../../lib/2d/points'
+import { placeLatexSurSegment } from '../../lib/2d/placeLatexSurSegment'
+import { point } from '../../lib/2d/PointAbstrait'
 import { polygone } from '../../lib/2d/polygones'
 import { cone, ellipse } from '../../lib/2d/projections3d'
 import { segment } from '../../lib/2d/segmentsVecteurs'
@@ -103,7 +103,7 @@ export default class ExercicePolynesie392024 extends ExerciceBrevetA {
       
       ${quidam} veut fabriquer un chapeau en forme de cône pour se déguiser en sorcier lors de la fête d'Halloween.<br>
         Voici la représentation de ce chapeau en perspective cavalière.<br>
-        Le rayon $OM$ de la base de ce cône mesure $${texNombre(r, 1)}$ cm et la hauteur $OS$ mesure $${texNombre(h, 1)}$ cm.`,
+        Le rayon $OM$ de la base de ce cône mesure $${texNombre(r, 1)}\\text{ cm}$ et la hauteur $OS$ mesure $${texNombre(h, 1)}\\text{ cm}$.`,
       figure1,
       { largeur1: 60, widthmincol1: '400px', widthmincol2: '200px' },
     )
@@ -129,15 +129,15 @@ export default class ExercicePolynesie392024 extends ExerciceBrevetA {
       Object.assign({ pixelsParCm: 30, scale: 1 }, fixeBordures(objets2)),
       objets2,
     )
-    const question1 = `Démontrer que la longueur $MS$, arrondie au dixième de centimètre, est $${texNombre(SM, 1)}$ cm.`
+    const question1 = `Démontrer que la longueur $MS$, arrondie au dixième de centimètre, est $${texNombre(SM, 1)}\\text{ cm}$.`
     const correction1 = `Le triangle $OMS$ est rectangle en $O$, donc d'après le théorème de Pythagore, on a :<br>
     On a $MS^2 = OM^2 + OS^2=${texNombre(r, 1)}^2+${texNombre(h, 1)}^2$ donc $MS^2 =${texNombre(r * r, 2)}+${texNombre(h * h, 2)} = ${texNombre(r * r + h * h, 2)}$.<br>
     Donc $MS = \\sqrt{${texNombre(r * r + h * h, 2)}}\\approx ${miseEnEvidence(texNombre(SM, 1))}$ ${texteEnCouleurEtGras('cm')}.<br>`
-    const question2 = `${quidam} souhaite vérifier que le chapeau sera adapté à son tour de tête qui mesure $${texNombre(tt, 1)}$ cm.<br>
+    const question2 = `${quidam} souhaite vérifier que le chapeau sera adapté à son tour de tête qui mesure $${texNombre(tt, 1)}\\text{ cm}$.<br>
     Les dimensions choisies pour concevoir le chapeau sont-elles adaptées au tour de tête de ${quidam} ?`
-    const correction2 = `La base du cône est un cercle de rayon $${texNombre(r, 1)}$ cm, donc de circonférence :<br>
-    $2 \\times \\pi \\times ${texNombre(r, 1)}$ cm $\\approx ${miseEnEvidence(texNombre(circo1, 1))}$ cm.<br>
-    Puisque son tour de tête mesure $${texNombre(tt, 1)}$ cm, les dimensions choisies sont adaptées : la circonférence du cône est à peine plus grande que le tour de tête de ${quidam}, donc le chapeau sera assez grand, mais pas trop grand.`
+    const correction2 = `La base du cône est un cercle de rayon $${texNombre(r, 1)}\\text{ cm}$, donc de circonférence :<br>
+    $2 \\times \\pi \\times ${texNombre(r, 1)}\\text{ cm}$ $\\approx ${miseEnEvidence(texNombre(circo1, 1))}\\text{ cm}$.<br>
+    Puisque son tour de tête mesure $${texNombre(tt, 1)}\\text{ cm}$, les dimensions choisies sont adaptées : la circonférence du cône est à peine plus grande que le tour de tête de ${quidam}, donc le chapeau sera assez grand, mais pas trop grand.`
 
     const introQuestion3b = `Pour dessiner en grandeur réelle son chapeau, il a besoin de calculer la mesure de l'angle $\\widehat{MSM'}$ qui est proportionnelle à la longueur de l'arc de cercle $\\overset{\\displaystyle\\frown}{M'M}$.<br>
     Il décide de représenter cette situation par le tableau de proportionnalité donné ci-dessous.<br>
@@ -239,15 +239,15 @@ export default class ExercicePolynesie392024 extends ExerciceBrevetA {
       Object.assign({ pixelsParCm: 30, scale: 1 }, fixeBordures(objets3)),
       objets3,
     )
-    const question3a = `Démontrer que la longueur du cercle de centre $S$ et de rayon $SM$, arrondie au dixième de centimètre, est égale à $${texNombre(circo2, 1)}$ cm.`
+    const question3a = `Démontrer que la longueur du cercle de centre $S$ et de rayon $SM$, arrondie au dixième de centimètre, est égale à $${texNombre(circo2, 1)}\\text{ cm}$.`
     const correction3a = `La longueur du cercle de centre $S$ et de rayon $SM$ est donnée par la formule :<br>
-    $2 \\times \\pi \\times SM$ cm $\\approx  2 \\times \\pi \\times ${texNombre(SM, 1)}$ soit environ $${miseEnEvidence(texNombre(circo2, 1))}$ ${texteEnCouleurEtGras('cm')}.`
-    const question3b = `Placer la valeur $${texNombre(circo2, 1)}$ cm obtenue à la question précédente dans le tableau donné ci-dessus à rendre avec la copie.`
+    $2 \\times \\pi \\times SM\\text{ cm}$ $\\approx  2 \\times \\pi \\times ${texNombre(SM, 1)}$ soit environ $${miseEnEvidence(texNombre(circo2, 1))}$ ${texteEnCouleurEtGras('cm')}.`
+    const question3b = `Placer la valeur $${texNombre(circo2, 1)}\\text{ cm}$ obtenue à la question précédente dans le tableau donné ci-dessus à rendre avec la copie.`
     const correction3b = `Voici le tableau complété :<br>
     ${tableauCorrection}`
     const correction3c = `Calculons la mesure de l'angle, en utilisant le tableau de proportionnalité :<br>
     $\\widehat{M'SM} = \\dfrac{360 \\times ${texNombre(circo1, 1)}}{${texNombre(circo2, 1)}} =\\dfrac{${texNombre(360 * circo1, 0)}}{${texNombre(circo2, 1)}} \\approx ${texNombre((360 * circo1) / circo2, 1)}^\\circ$.<br>
-    Au degré près, l'angle correspondant à une longueur d'arc de $${texNombre(circo1, 1)}$ cm permettant à ${quidam} de tracer le patron de son chapeau est de $${miseEnEvidence(`${texNombre(Math.round((360 * circo1) / circo2), 0)}^\\circ`)}$.`
+    Au degré près, l'angle correspondant à une longueur d'arc de $${texNombre(circo1, 1)}\\text{ cm}$ permettant à ${quidam} de tracer le patron de son chapeau est de $${miseEnEvidence(`${texNombre(Math.round((360 * circo1) / circo2), 0)}^\\circ`)}$.`
     const correction3 = createList({
       items: [correction3a, correction3b, correction3c],
       style: 'alpha',
@@ -256,17 +256,17 @@ export default class ExercicePolynesie392024 extends ExerciceBrevetA {
       items: [correction1, correction2, correction3],
       style: 'nombres',
     })
-    const question3c = `Calculer la mesure de l'angle $\\widehat{MSM'}$ correspondant à une longueur d'arc de $${texNombre(circo1, 1)}$ cm qui permettra à ${quidam} de tracer le patron de son chapeau. Donner le résultat arrondi au degré.`
+    const question3c = `Calculer la mesure de l'angle $\\widehat{MSM'}$ correspondant à une longueur d'arc de $${texNombre(circo1, 1)}\\text{ cm}$ qui permettra à ${quidam} de tracer le patron de son chapeau. Donner le résultat arrondi au degré.`
     const question4 = deuxColonnesResp(
       `
-      Montrer que le volume total du chapeau, arrondi au cm$^3$, est de $${texNombre((Math.PI * r * r * h) / 3, 0)}$ cm$^3$.<br>
+      Montrer que le volume total du chapeau, arrondi au cm$^3$, est de $${texNombre((Math.PI * r * r * h) / 3, 0)}\\text{ cm}^3$.<br>
     On rappelle que la formule du volume d'un cône de rayon $R$ et de hauteur $h$ est :<br>
     $V=\\dfrac{1}{3} \\times\\left(\\pi \\times R^{2}\\right) \\times h$`,
       figure3,
       { largeur1: 65, widthmincol1: '500px', widthmincol2: '200px' },
     )
     const correction4 = `Le volume total du chapeau est donné par :<br>
-    $V_{chapeau} = \\dfrac{1}{3} \\times \\pi\\times ${texNombre(r, 1)}^2 \\times ${texNombre(h, 1)}$ cm $\\approx ${texNombre((Math.PI * r * r * h) / 3, 1)}$ cm$^3$.<br>
+    $V_{chapeau} = \\dfrac{1}{3} \\times \\pi\\times ${texNombre(r, 1)}^2 \\times ${texNombre(h, 1)}\\text{ cm}$ $\\approx ${texNombre((Math.PI * r * r * h) / 3, 1)}\\text{ cm}^3$.<br>
     En arrondissant au cm$^3$, on a donc bien un volume total d'environ $${miseEnEvidence(`${texNombre((Math.PI * r * r * h) / 3, 0)}\\text{~cm}^3`)}$.`
 
     const question5 = `${quidam} décide d'utiliser son chapeau pour transporter les bonbons qu'il a récoltés pendant la fête d'Halloween.<br>
@@ -300,7 +300,7 @@ export default class ExercicePolynesie392024 extends ExerciceBrevetA {
     const question3 =
       `${quidam} a représenté ci-contre le patron de son chapeau.<br>
     ${deuxColonnesResp(
-      `Il a reporté dessus les mesures des longueurs qu'il connaît et nommé $\\overset{\\displaystyle\\frown}{M'M}$ l'arc de cercle de longueur $${texNombre(circo1, 1)}$ cm.<br>
+      `Il a reporté dessus les mesures des longueurs qu'il connaît et nommé $\\overset{\\displaystyle\\frown}{M'M}$ l'arc de cercle de longueur $${texNombre(circo1, 1)}\\text{ cm}$.<br>
     ${createList({
       items: [question3a],
       style: 'alpha',
@@ -323,7 +323,7 @@ export default class ExercicePolynesie392024 extends ExerciceBrevetA {
     this.enonce += listeQuestionsA
     this.enonce += texteGras('Partie B')
     this.enonce += '<br>'
-    this.enonce += `On rappelle que la hauteur du chapeau mesure $${texNombre(h, 1)}$ cm.`
+    this.enonce += `On rappelle que la hauteur du chapeau mesure $${texNombre(h, 1)}\\text{ cm}$.`
     this.enonce += '<br>'
     this.enonce += listeQuestionsB
     this.correction = `${texteGras('Partie A')}<br>${listeCorrectionsA}<br><br>${texteGras('Partie B')}<br>${listeCorrectionsB}`

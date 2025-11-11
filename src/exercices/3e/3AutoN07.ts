@@ -44,7 +44,7 @@ export default class DecimalToScientifique extends ExerciceSimple {
     const [mantisse, exposant] = decimalToScientifique(nombre)
 
     if (pileOuFace) {
-      this.question = `Donne l'écriture scientifique de $${texNombre(nombre)}$.`
+      this.question = `Donner l'écriture scientifique de $${texNombre(nombre)}$.`
       this.reponse = `$${texNombre(mantisse)} \\times 10^{${exposant}}$`
       const glisseNumber = glisseNombre(nombre, -exposant)
       this.correction = mathalea2d(
@@ -53,7 +53,7 @@ export default class DecimalToScientifique extends ExerciceSimple {
       )
       this.correction += `L'écriture scientifique de $${texNombre(nombre)}$ est $${miseEnEvidence(`${texNombre(mantisse)} \\times 10^{${exposant}}`)}$.`
     } else {
-      this.question = `Donne l'écriture décimale de $${texNombre(mantisse)} \\times 10^{${exposant}}$`
+      this.question = `Donner l'écriture décimale de $${texNombre(mantisse)} \\times 10^{${exposant}}$.`
       this.reponse = texNombre(nombre)
       const glisseNumber = glisseNombre(mantisse, exposant)
       this.correction = mathalea2d(

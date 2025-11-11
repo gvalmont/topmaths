@@ -1,35 +1,39 @@
 import Decimal from 'decimal.js'
-import { abs, gcd, lcm, max, min, multiply, round } from 'mathjs'
-import { arc } from '../lib/2d/Arc'
-import { cercle } from '../lib/2d/cercle'
-import { colorToLatexOrHTML } from '../lib/2d/colorToLatexOrHtml'
-import { Point, point } from '../lib/2d/points'
-import { carre } from '../lib/2d/polygones'
-import { segment, vecteur } from '../lib/2d/segmentsVecteurs'
-import { texteParPosition } from '../lib/2d/textes'
-import { rotation, translation } from '../lib/2d/transformations'
+import { abs, gcd, lcm, multiply, round } from 'mathjs'
 import { extraireRacineCarree } from '../lib/outils/calculs'
-import {
-  ecritureAlgebrique,
-  ecritureParentheseSiNegatif,
-  signeMoinsEnEvidence,
-} from '../lib/outils/ecritures'
 import { miseEnEvidence } from '../lib/outils/embellissements'
 import {
-  arrondi,
-  nombreDeChiffresDansLaPartieDecimale,
-} from '../lib/outils/nombres'
-import {
   decompositionFacteursPremiers,
-  listeDesDiviseurs,
   obtenirListeFacteursPremiers,
-  pgcd,
   ppcm,
 } from '../lib/outils/primalite'
-import { stringNombre, texNombre } from '../lib/outils/texNombre'
-import { egal, quotientier } from './outils'
+import { texNombre } from '../lib/outils/texNombre'
 
-type FractionRepresentationType = 'gateau' | 'barre' | 'segment'
+// Versions locales (scope module) pour éviter la dépendance circulaire avec ecritures.ts
+function ecritureAlgebrique(n: number): string {
+  return n >= 0 ? '+' + texNombre(n, 7) : texNombre(n, 7)
+}
+
+function ecritureParentheseSiNegatif(n: number): string {
+  return n >= 0 ? texNombre(n, 8) : `(${texNombre(n, 8)})`
+}
+
+function signeMoinsEnEvidence(r: number, precision = 0): string {
+  if (typeof r !== 'number') {
+    window.notify(
+      "signeMoinsEnEvidence() appelé avec autre chose qu'un nombre.",
+      { argument: r },
+    )
+  }
+  if (r < 0) {
+    return miseEnEvidence('-') + texNombre(Math.abs(r), precision)
+  }
+  return texNombre(Math.abs(r), precision)
+}
+
+const arrondi = (x: number, p: number) => {
+  return Number(x.toFixed(p))
+}
 
 // Fonction écrite par Daniel Caillibaud pour créer ajouter les propriétés à la première utilisation de celles-ci.
 const definePropRo = (
@@ -67,6 +71,9 @@ export function rationnalise(x: number | FractionEtendue | Decimal | null) {
   if (typeof x === 'number') {
     // MGU  : C'est dangereux ce truc mais bon...
     // Déjà ça gère au delà des centièmes...
+    if (Number.isInteger(x)) {
+      return new FractionEtendue(x, 1)
+    }
     const numDen = new Decimal(x.toFixed(5)).toFraction(10000)
     return new FractionEtendue(numDen[0].toNumber(), numDen[1].toNumber())
   }
@@ -86,133 +93,49 @@ export function rationnalise(x: number | FractionEtendue | Decimal | null) {
 function normalizeFraction(n: number | Decimal, d: number): [number, number] {
   let num: number
   let den: number
-  if (d == null) {
-    // un seul argument qui peut être un nombre (décimal ou pas)
-    if (n instanceof Decimal) {
-      // Decimal.toFraction() retourne '7, 4' pour 1.75... On récupère ainsi le numérateur et le dénominateur.
-      const dec = n as Decimal
-      ;[num, den] = dec.toFraction(10000).map((el) => el.toNumber())
-    } else {
-      const f = rationnalise(n)
-      num = f.num // ça c'est pas terrible... et ça peut conduire à des fractions monumentales alors on se limite à 4 décimales
-      den = f.den
-    }
-  } else {
-    num = Number(n)
-    den = Number(d)
-  }
-  if (!isNaN(num) && !isNaN(den)) {
-    // Si ce sont des nombres, on les rend entiers si besoin.
-    //  num = Number(num) // Je ne vois pas bien à quoi ça sert ça ! ce sont déjà des numbers !
-    //  den = Number(den) // Je le vire le 27/09/2023 (J-C)
 
-    // Méthode codée par Eric Elter pour tenter de rendre rationnel un nombre qui ne l'est pas forcément.
-    let maxDecimalesNumDen: number = Math.max(
-      nombreDeChiffresDansLaPartieDecimale(num),
-      nombreDeChiffresDansLaPartieDecimale(den),
-    )
-    if (maxDecimalesNumDen > 9) {
-      // On peut estimer que num et/ou den ne sont pas décimaux. Essayons de les diviser car peut-être que leur quotient est mieux.
-      const quotientNumDen = arrondi(num / den, 12)
-      if (nombreDeChiffresDansLaPartieDecimale(quotientNumDen) < 9) {
-        // On peut estimer que le quotient aboutit à un décimal. Ex. dans fraction(7/3,14/3)
-        num = quotientNumDen
-        den = 1
-        maxDecimalesNumDen = max(
-          nombreDeChiffresDansLaPartieDecimale(num),
-          nombreDeChiffresDansLaPartieDecimale(den),
-        )
-      } else {
-        // On peut estimer que le quotient n'aboutit pas à un décimal. Essayons par l'inverse du quotient.
-        const quotientDenNum = arrondi(den / num, 12)
-        if (nombreDeChiffresDansLaPartieDecimale(quotientDenNum) < 9) {
-          // On peut estimer que l'inverse du quotient aboutit à un décimal. Ex. dans fraction(7/3,7/9)
-          den = quotientDenNum
-          num = 1
-          maxDecimalesNumDen = max(
-            nombreDeChiffresDansLaPartieDecimale(num),
-            nombreDeChiffresDansLaPartieDecimale(den),
-          )
-        } else {
-          // num et/ou den non décimaux et leurs quotients n'aboutissent pas à un décimal. Essayons par l'inverse de chaque nombre.
-          const inverseNum = arrondi(1 / num, 12)
-          const inverseDen = arrondi(1 / den, 12)
-          maxDecimalesNumDen = max(
-            nombreDeChiffresDansLaPartieDecimale(inverseNum),
-            nombreDeChiffresDansLaPartieDecimale(inverseDen),
-          )
-          if (maxDecimalesNumDen < 13) {
-            // Ex. dans fraction(1/3,1/7)
-            den = inverseNum
-            num = inverseDen
-          } else {
-            // Méthode plus bourrin
-            const testMAX = 2000 // Voir explications ci-dessous
-            // Ici, JCL, cela veut dire qu'on traite toutes les fractions de fractions où chaque numérateur ou dénominateur est inférieur à 1000.
-            // Si tu veux davantage que 1000, il faut augmenter ce nombre et dimininuer alors le nb de décimales de test fixé ici à 9.
-            let iDen = 1
-            let denTest = den
-            let inverseDenTest = inverseDen
-            while (
-              min(
-                nombreDeChiffresDansLaPartieDecimale(denTest),
-                nombreDeChiffresDansLaPartieDecimale(inverseDenTest),
-              ) > 9 &&
-              iDen < testMAX
-            ) {
-              iDen += iDen % 5 === 3 ? 4 : 2
-              denTest = arrondi(den * iDen, 10)
-              inverseDenTest = arrondi(inverseDen * iDen, 10)
-            }
-            let iNum = 1
-            let numTest = num
-            let inverseNumTest = inverseNum
-            while (
-              min(
-                nombreDeChiffresDansLaPartieDecimale(numTest),
-                nombreDeChiffresDansLaPartieDecimale(inverseNumTest),
-              ) > 9 &&
-              iNum < testMAX
-            ) {
-              iNum += iNum % 5 === 3 ? 4 : 2
-              numTest = arrondi(num * iNum, 10)
-              inverseNumTest = arrondi(inverseNum * iNum, 10)
-            }
-            if (nombreDeChiffresDansLaPartieDecimale(numTest) < 10) {
-              if (nombreDeChiffresDansLaPartieDecimale(denTest) < 10) {
-                num = arrondi(numTest * iDen, 10)
-                den = arrondi(denTest * iNum, 10)
-              } else {
-                num = arrondi(numTest * inverseDenTest, 10)
-                den = iDen * iNum
-              }
-            } else {
-              if (nombreDeChiffresDansLaPartieDecimale(denTest) < 10) {
-                den = arrondi(denTest * inverseNumTest, 10)
-                num = iDen * iNum
-              } else {
-                den = arrondi(inverseNumTest * iDen, 10)
-                num = arrondi(inverseDenTest * iNum, 10)
-              }
-            }
-            maxDecimalesNumDen = max(
-              nombreDeChiffresDansLaPartieDecimale(num),
-              nombreDeChiffresDansLaPartieDecimale(den),
-            )
-          }
-        }
-      }
-    }
-    den = round(den * Math.pow(10, maxDecimalesNumDen))
-    num = round(num * Math.pow(10, maxDecimalesNumDen))
-    return [num, den]
+  if (d == null) {
+    // Un seul argument : convertir en fraction
+    const decimal = n instanceof Decimal ? n : new Decimal(n)
+    const [numDec, denDec] = decimal.toFraction(10000) // Limite le dénominateur
+    num = numDec.toNumber()
+    den = denDec.toNumber()
   } else {
+    // Deux arguments : calculer le quotient puis convertir en fraction
+    if (Number.isInteger(n) && Number.isInteger(d)) {
+      num = Number(n)
+      den = Number(d)
+    } else {
+      // attention aux flottants en javascript...
+      // La fraction retournée sera irreductible
+      // il vaut mieux utiliser n et d entiers !
+      const nDecimal = n instanceof Decimal ? n : new Decimal(n)
+      const dDecimal = new Decimal(d)
+      const nNbChiffresDecimaux = nDecimal.decimalPlaces()
+      const dNbChiffresDecimaux = dDecimal.decimalPlaces()
+      const pow = Math.min(
+        5,
+        Math.max(nNbChiffresDecimaux, dNbChiffresDecimaux),
+      )
+      if (pow > 0) {
+        const facteur = Math.pow(10, pow)
+        n = nDecimal.mul(facteur).round().toNumber()
+        d = dDecimal.mul(facteur).round().toNumber()
+      }
+      num = Number(n)
+      den = Number(d)
+    }
+  }
+
+  if (isNaN(num) || isNaN(den)) {
     window.notify(
-      "Fraction Etendue : le constructeur a reçu des valeurs impossibles à mettre sous la forme d'une fraction",
+      'FractionEtendue : valeurs impossibles à convertir en fraction',
       { n, d },
     )
     return [NaN, NaN]
   }
+
+  return [num, den]
 }
 
 /**
@@ -329,7 +252,7 @@ class FractionEtendue {
    * le code LaTeX de l'écriture avec parenthèse si négatif
    */
 
-  constructor(n: number, d: number) {
+  constructor(n: number | Decimal, d: number) {
     const [num, den] = normalizeFraction(n, d)
     if (isNaN(num) || isNaN(den))
       throw Error(
@@ -642,7 +565,7 @@ class FractionEtendue {
    *
    */
   toString() {
-    // Cette fonction n'a pas vocation à être utilisée ! si on veut du latex, il faut utiliser texFraction.
+    // Cette fonction n'a pas vocation à être utilisée ! si on veut du latex, il faut utiliser sa propriété texFraction.
     // Cette méthode vient se substituer à la méthode toString() de Object.prototype qui renvoie '[object object]' elle est utilisée si la FractionEtendue a été utilisée par erreur à la place de sa propriété texFraction
     window.notify(
       'Pour obtenir du Latex avec une FractionEtendue, il faut utiliser sa propriété texFraction !',
@@ -980,7 +903,7 @@ class FractionEtendue {
   }
 
   /**
-   * @param {FractionEtendue   | nombre} f2
+   * @param {FractionEtendue   | number} f2
    * @return {FractionEtendue} f * FractionEtendue  // retourne un non résultat simplifié
    */
   produitFraction(f2: FractionEtendue | number) {
@@ -1029,7 +952,7 @@ class FractionEtendue {
           : this.produitFraction(f2).texSimplificationAvecEtapes(simplification)
       }`
     } else {
-      return `${this.texFraction}\\times ${f2.texFraction}=\\dfrac{${this.num}\\times ${ecritureParentheseSiNegatif(f2.num)}}{${this.den} \\times' ${ecritureParentheseSiNegatif(f2.den)}}${
+      return `${this.texFraction}\\times ${f2.texFraction}=\\dfrac{${this.num}\\times ${ecritureParentheseSiNegatif(f2.num)}}{${this.den} \\times ${ecritureParentheseSiNegatif(f2.den)}}${
         simplification === 'none' || this.produitFraction(f2).estIrreductible
           ? '=\\dfrac{' + this.num * f2.num + '}{' + this.den * f2.den + '}'
           : `${
@@ -1128,7 +1051,7 @@ class FractionEtendue {
             this.diviseFraction(f2).texSimplificationAvecEtapes(simplification)
       }`
         } else {
-          return `${this.texFraction}\\div${f2.texFraction}=${this.texFraction}\\times ${f2.inverse().texFractionSimplifiee}=\\dfrac{${this.num + '\\times ' + f2.inverse().texFractionSimplifiee}}{${this.den}}${
+          return `${this.texFraction}\\div${f2.texFraction}=${this.texFraction}\\times ${f2.inverse().texFraction}=\\dfrac{${this.num + '\\times ' + f2.inverse().texFraction}}{${this.den}}${
             simplification === 'none' || this.diviseFraction(f2).estIrreductible
               ? `=\\dfrac{${this.num * f2.den}}{${this.den * f2.num}}`
               : `=\\dfrac{${decompositionFacteursPremiers(this.num)}\\times ${decompositionFacteursPremiers(f2.den)}}{${decompositionFacteursPremiers(this.den)}}${this.diviseFraction(f2).texSimplificationAvecEtapes(simplification)}`
@@ -1342,7 +1265,7 @@ class FractionEtendue {
           return redaction + redactionFinale
         } else {
           let redactionFinale
-          if (!egal(Math.abs(den / pgcd), 1))
+          if (Math.abs(den / pgcd) - 1 !== 0)
             redactionFinale = `=${signe}\\dfrac{${Math.abs(num / pgcd)}}{${Math.abs(den / pgcd)}}`
           else redactionFinale = `=${signe}${Math.abs(num / pgcd)}`
           if (couleurFinale !== '')
@@ -1508,699 +1431,6 @@ class FractionEtendue {
       return false
     } else {
       return k
-    }
-  }
-
-  /**
-   *
-   * @param {number} x position du dessin
-   * @param {number} y
-   * @param {number} rayon rayon du disque
-   * @param {number} depart numéro du secteur où commence le coloriage
-   * @param {string} type type parmis : 'gateau', 'segment' et 'barre'
-   * @param {string} couleur
-   * @param {number} unite0 Nombre marquant le départ du segment
-   * @param {number} unite1 Nombre marquant le point unité du segment
-   * @param {number} scale échelle
-   * @param {string} label ce qu'il faut écrire sous le segment ... x ?
-   * @return {object[]} objets mathalea2d
-   */
-  representationIrred(
-    x: number,
-    y: number,
-    rayon: number,
-    depart: number = 0,
-    type: FractionRepresentationType = 'gateau',
-    couleur: string = 'gray',
-    unite0: number | string = 0,
-    unite1: number | string = 1,
-    scale: number = 1,
-    label: string = '',
-  ) {
-    let num: number
-    let k: number
-    const objets = []
-    const n = quotientier(this.numIrred, this.denIrred)
-    num = this.numIrred
-    const unegraduation = function (
-      x: number,
-      y: number,
-      couleur: string = 'black',
-      epaisseur: number = 1,
-    ) {
-      const A = point(x, y + 0.2, '')
-      const B = point(x, y - 0.2, '')
-      const g = segment(A, B, couleur)
-      g.epaisseur = epaisseur
-      return g
-    }
-    if (type === 'gateau') {
-      for (k = 0; k < n; k++) {
-        const O = point(x + k * 2 * (rayon + 0.5), y)
-        const C = cercle(O, rayon)
-        objets.push(C)
-        for (let i = 0; i < this.denIrred; i++) {
-          const s = segment(
-            O,
-            rotation(
-              point(x + rayon + k * 2 * (rayon + 0.5), y),
-              O,
-              90 - (i * 360) / this.denIrred,
-            ),
-          )
-          objets.push(s)
-        }
-        let dep = rotation(
-          point(x + rayon + k * 2 * (rayon + 0.5), y),
-          O,
-          90 - (depart * 360) / this.denIrred,
-        )
-        for (let j = 0; j < Math.min(this.denIrred, num); j++) {
-          const a = arc(dep, O, -360 / this.denIrred, true, couleur)
-          a.opacite = 0.3
-          dep = rotation(dep, O, -360 / this.denIrred)
-          objets.push(a)
-        }
-        num -= this.denIrred
-      }
-      if (Math.abs(this.numIrred) % Math.abs(this.denIrred) !== 0) {
-        const O = point(x + k * 2 * (rayon + 0.5), y)
-        const C = cercle(O, rayon)
-        objets.push(C)
-        for (let i = 0; i < this.denIrred; i++) {
-          const s = segment(
-            O,
-            rotation(
-              point(x + rayon + k * 2 * (rayon + 0.5), y),
-              O,
-              90 - (i * 360) / this.denIrred,
-            ),
-          )
-          objets.push(s)
-        }
-        let dep = rotation(
-          point(x + rayon + k * 2 * (rayon + 0.5), y),
-          O,
-          90 - (depart * 360) / this.denIrred,
-        )
-        for (let j = 0; j < Math.min(this.denIrred, num); j++) {
-          const a = arc(dep, O, -360 / this.denIrred, true, couleur)
-          a.opacite = 0.3
-          dep = rotation(dep, O, -360 / this.denIrred)
-          objets.push(a)
-        }
-      }
-    } else if (type === 'segment') {
-      for (k = 0; k < n; k++) {
-        const O = point(x + k * rayon, y)
-        const C = translation(O, vecteur(rayon, 0))
-        const s = segment(O, C)
-        s.styleExtremites = '-|'
-        objets.push(s)
-        for (let i = 0; i < this.denIrred; i++) {
-          const s = segment(
-            translation(O, vecteur((i * rayon) / this.denIrred, 0)),
-            translation(O, vecteur(((i + 1) * rayon) / this.denIrred, 0)),
-          )
-          s.styleExtremites = '|-'
-          objets.push(s)
-        }
-        const a = segment(
-          O,
-          point(
-            O.x + (Math.min(num, this.denIrred) * rayon) / this.denIrred,
-            O.y,
-          ),
-          couleur,
-        )
-        a.opacite = 0.4
-        a.epaisseur = 6
-        objets.push(a)
-        num -= this.denIrred
-      }
-      const O = point(x + k * rayon, y)
-      const C = translation(O, vecteur(rayon, 0))
-      const s = segment(O, C)
-      s.styleExtremites = '-|'
-      objets.push(s)
-      for (let i = 0; i < this.denIrred; i++) {
-        const s = segment(
-          translation(O, vecteur((i * rayon) / this.denIrred, 0)),
-          translation(O, vecteur(((i + 1) * rayon) / this.denIrred, 0)),
-        )
-        s.styleExtremites = '|-'
-        objets.push(s)
-      }
-      if (num > 0) {
-        const a = segment(
-          O,
-          point(
-            O.x +
-              (Math.min(this.numIrred, this.denIrred) * rayon) / this.denIrred,
-            O.y,
-          ),
-          couleur,
-        )
-        a.opacite = 0.4
-        a.epaisseur = 6
-        objets.push(a)
-      }
-      objets.push(unegraduation(x, y))
-      if (typeof unite0 === 'number' && typeof unite1 === 'number') {
-        for (k = 0; k <= n + 1; k++) {
-          objets.push(
-            texteParPosition(
-              stringNombre(unite0 + k * (unite1 - unite0), 0),
-              x + rayon * k,
-              y - 0.6,
-              0,
-              'black',
-              scale,
-              'milieu',
-              true,
-              1,
-            ),
-          )
-        }
-      } else {
-        if (unite0 != null) {
-          objets.push(
-            texteParPosition(
-              String(unite0),
-              x,
-              y - 0.6,
-              0,
-              'black',
-              scale,
-              'milieu',
-              true,
-              1,
-            ),
-          )
-        }
-        if (unite1 != null) {
-          objets.push(
-            texteParPosition(
-              String(unite1),
-              x + rayon,
-              y - 0.6,
-              0,
-              'black',
-              scale,
-              'milieu',
-              true,
-              1,
-            ),
-          )
-        }
-        if (label != null) {
-          objets.push(
-            texteParPosition(
-              label,
-              x + (rayon * this.numIrred) / this.denIrred,
-              y - 0.6,
-              0,
-              'black',
-              scale,
-              'milieu',
-              true,
-              1,
-            ),
-          )
-        }
-      }
-    } else {
-      let diviseur
-      if (this.denIrred % 6 === 0) {
-        diviseur = 6
-      } else if (this.denIrred % 5 === 0) {
-        diviseur = 5
-      } else if (this.denIrred % 4 === 0) {
-        diviseur = 4
-      } else if (this.denIrred % 3 === 0) {
-        diviseur = 3
-      } else if (this.denIrred % 2 === 0) {
-        diviseur = 2
-      } else {
-        diviseur = 1
-      }
-      const tailleCarres = Math.max(rayon / diviseur, 1)
-      for (k = 0; k < n; k++) {
-        for (let j = 0; j < diviseur; j++) {
-          for (let h = 0; h < this.denIrred / diviseur; h++) {
-            const O = point(
-              x + k * (diviseur * tailleCarres + 1) + j * tailleCarres,
-              y + h * tailleCarres,
-            )
-            const C: Point = translation(O, vecteur(tailleCarres, 0))
-            const dep = carre(O, C, 'black')
-            dep.couleurDeRemplissage = colorToLatexOrHTML(couleur)
-            dep.opaciteDeRemplissage = 0.4
-            objets.push(dep)
-          }
-        }
-        num -= this.denIrred
-      }
-      if (num > 0) {
-        for (let j = 0; j < diviseur; j++) {
-          for (let h = 0; h < this.denIrred / diviseur; h++) {
-            const O = point(
-              x + n * (diviseur * tailleCarres + 1) + j * tailleCarres,
-              y + h * tailleCarres,
-            )
-            const C = translation(O, vecteur(tailleCarres, 0))
-            const dep = carre(O, C, 'black')
-            objets.push(dep)
-          }
-        }
-        for (let i = 0; i < num; i++) {
-          const O = point(
-            x +
-              n * (diviseur * tailleCarres + 1) +
-              (i % diviseur) * tailleCarres,
-            y + quotientier(i, diviseur) * tailleCarres,
-          )
-          const C = translation(O, vecteur(tailleCarres, 0))
-          const dep = carre(O, C, 'black')
-          dep.couleurDeRemplissage = colorToLatexOrHTML(couleur)
-          dep.opaciteDeRemplissage = 0.4
-          objets.push(dep)
-        }
-      }
-    }
-    return objets
-  }
-
-  /**
-   *
-   * @param {number} x position du dessin
-   * @param {number} y
-   * @param {number} rayon rayon du disque
-   * @param {number} depart numéro du secteur où commence le coloriage
-   * @param {string} type type parmis : 'gateau', 'segment' et 'barre'
-   * @param {string} couleur
-   * @param {number} unite0 Nombre marquant le départ du segment
-   * @param {number} unite1 Nombre marquant le point unité du segment
-   * @param {number} scale échelle
-   * @param {string} label ce qu'il faut écrire sous le segment ... x ?
-   * @return {object[]}objets mathalea2d
-   */
-  representation(
-    x: number,
-    y: number,
-    rayon: number,
-    depart: number = 0,
-    type: FractionRepresentationType = 'gateau',
-    couleur = 'gray',
-    unite0: String | number = 0,
-    unite1: string | number = 1,
-    scale = 1,
-    label = '',
-  ) {
-    const objets = []
-    let num: number
-    let k: number
-    const n = quotientier(Math.abs(this.num), Math.abs(this.den))
-    num = Math.abs(this.num)
-    const unegraduation = function (
-      x: number,
-      y: number,
-      couleur: string = 'black',
-      epaisseur: number = 1,
-    ) {
-      const A = point(x, y + 0.2)
-      const B = point(x, y - 0.2)
-      const g = segment(A, B, couleur)
-      g.epaisseur = epaisseur
-      return g
-    }
-    if (type === 'gateau') {
-      for (k = 0; k < n; k++) {
-        const O = point(x + k * 2 * (rayon + 0.5), y)
-        const C = cercle(O, rayon)
-        objets.push(C)
-        for (let i = 0; i < this.den; i++) {
-          const s = segment(
-            O,
-            rotation(
-              point(x + rayon + k * 2 * (rayon + 0.5), y),
-              O,
-              90 - (i * 360) / this.den,
-            ),
-          )
-          objets.push(s)
-        }
-        let dep = rotation(
-          point(x + rayon + k * 2 * (rayon + 0.5), y),
-          O,
-          90 - (depart * 360) / this.den,
-        )
-        for (let j = 0; j < Math.min(this.den, num); j++) {
-          const a = arc(dep, O, -360 / this.den, true, couleur)
-          a.opacite = 0.3
-          dep = rotation(dep, O, -360 / this.den)
-          objets.push(a)
-        }
-        num -= this.den
-      }
-      if (this.num % this.den !== 0) {
-        const O = point(x + k * 2 * (rayon + 0.5), y)
-        const C = cercle(O, rayon)
-        objets.push(C)
-        for (let i = 0; i < this.den; i++) {
-          const s = segment(
-            O,
-            rotation(
-              point(x + rayon + k * 2 * (rayon + 0.5), y),
-              O,
-              90 - (i * 360) / this.den,
-            ),
-          )
-          objets.push(s)
-        }
-
-        let dep = rotation(
-          point(x + rayon + k * 2 * (rayon + 0.5), y),
-          O,
-          90 - (depart * 360) / this.den,
-        )
-        if (this.num % this.den !== 0) {
-          for (let j = 0; j < Math.min(this.den, num); j++) {
-            const a = arc(dep, O, -360 / this.den, true, couleur)
-            a.opacite = 0.3
-            dep = rotation(dep, O, -360 / this.den)
-            objets.push(a)
-          }
-        }
-      }
-    } else if (type === 'segment') {
-      for (k = 0; k < n; k++) {
-        const O = point(x + k * rayon, y)
-        const C = translation(O, vecteur(rayon, 0))
-        const s = segment(O, C)
-        s.styleExtremites = '-|'
-        objets.push(s)
-        for (let i = 0; i < this.den; i++) {
-          const s = segment(
-            translation(O, vecteur((i * rayon) / this.den, 0)),
-            translation(O, vecteur(((i + 1) * rayon) / this.den, 0)),
-          )
-          s.styleExtremites = '|-'
-          objets.push(s)
-        }
-        const a = segment(
-          O,
-          point(O.x + (Math.min(num, this.den) * rayon) / this.den, O.y),
-          couleur,
-        )
-        a.opacite = 0.4
-        a.epaisseur = 6
-        objets.push(a)
-        num -= this.den
-      }
-      const O = point(x + k * rayon, y)
-      const C = translation(O, vecteur(rayon, 0))
-      const s = segment(O, C)
-      s.styleExtremites = '-|'
-      objets.push(s)
-      for (let i = 0; i < this.den; i++) {
-        const s = segment(
-          translation(O, vecteur((i * rayon) / this.den, 0)),
-          translation(O, vecteur(((i + 1) * rayon) / this.den, 0)),
-        )
-        s.styleExtremites = '|-'
-        objets.push(s)
-      }
-      if (num > 0) {
-        const a = segment(
-          O,
-          point(O.x + (Math.min(num, this.den) * rayon) / this.den, O.y),
-          couleur,
-        )
-        a.opacite = 0.4
-        a.epaisseur = 6
-        objets.push(a)
-      }
-      objets.push(unegraduation(x, y))
-      if (typeof unite0 === 'number' && typeof unite1 === 'number') {
-        for (k = 0; k <= n + 1; k++) {
-          objets.push(
-            texteParPosition(
-              String(unite0 + k * (unite1 - unite0)),
-              x + rayon * k,
-              y - 0.6,
-              0,
-              'black',
-              scale,
-              'milieu',
-              true,
-              1,
-            ),
-          )
-        }
-      } else {
-        if (String(unite0) !== '') {
-          objets.push(
-            texteParPosition(
-              String(unite0),
-              x,
-              y - 0.6,
-              0,
-              'black',
-              scale,
-              'milieu',
-              true,
-              1,
-            ),
-          )
-        }
-        if (String(unite1) !== '') {
-          objets.push(
-            texteParPosition(
-              String(unite1),
-              x + rayon,
-              y - 0.6,
-              0,
-              'black',
-              scale,
-              'milieu',
-              true,
-              1,
-            ),
-          )
-        }
-        if (label !== '') {
-          objets.push(
-            texteParPosition(
-              label,
-              x + (rayon * this.num) / this.den,
-              y - 0.6,
-              0,
-              'black',
-              scale,
-              'milieu',
-              true,
-              1,
-            ),
-          )
-        }
-      }
-    } else {
-      // Type barre
-      let diviseur
-      if (this.den % 6 === 0) {
-        diviseur = 6
-      } else if (this.den % 5 === 0) {
-        diviseur = 5
-      } else if (this.den % 4 === 0) {
-        diviseur = 4
-      } else if (this.den % 3 === 0) {
-        diviseur = 3
-      } else if (this.den % 2 === 0) {
-        diviseur = 2
-      } else {
-        diviseur = 1
-      }
-      const tailleCarres = Math.max(rayon / diviseur, 1)
-      for (k = 0; k < n; k++) {
-        // on fait autant de plaques que d'unités entières
-        for (let j = 0; j < diviseur; j++) {
-          // on fait this.den carrés répartis sur this.den/diviseur lignes de diviseur de long
-          for (let h = 0; h < this.den / diviseur; h++) {
-            const O = point(
-              x + k * (diviseur * tailleCarres + 1) + j * tailleCarres,
-              y + h * tailleCarres,
-            )
-            const C = translation(O, vecteur(tailleCarres, 0))
-            const dep = carre(O, C, 'black')
-            dep.couleurDeRemplissage = colorToLatexOrHTML(couleur)
-            dep.opaciteDeRemplissage = 0.4
-            objets.push(dep)
-          }
-        }
-        num -= this.den
-      }
-      if (num > 0) {
-        // il reste une portion d'unité à faire après n unités.
-        for (let j = 0; j < diviseur; j++) {
-          for (let h = 0; h < this.den / diviseur; h++) {
-            const O = point(
-              x + n * (diviseur * tailleCarres + 1) + j * tailleCarres,
-              y + h * tailleCarres,
-            )
-            const C = translation(O, vecteur(tailleCarres, 0))
-            const dep = carre(O, C, 'black')
-            objets.push(dep)
-          }
-        }
-        for (let i = 0; i < num; i++) {
-          const O = point(
-            x +
-              n * (diviseur * tailleCarres + 1) +
-              (i % diviseur) * tailleCarres,
-            y + quotientier(i, diviseur) * tailleCarres,
-          )
-          const C = translation(O, vecteur(tailleCarres, 0))
-          const dep = carre(O, C, 'black')
-          dep.couleurDeRemplissage = colorToLatexOrHTML(couleur)
-          dep.opaciteDeRemplissage = 0.4
-          objets.push(dep)
-        }
-      }
-    }
-    return objets
-  }
-
-  /**
-   * Renvoie un array avec l'ensemble de réponses possibles correspondant à un couple de fractions et de leurs différentes simplifications afin de pouvoir les placer dans un setReponse
-   * Exemple ['-\\frac{a}{b};\\frac{c}{d}', '\\frac{-a}{b};\\frac{c}{d}', '\\frac{a}{-b};\\frac{c}{d}', '\\frac{c}{d};-\\frac{a}{b}', '\\frac{c}{d};\\frac{-a}{b}', '\\frac{c}{d};\\frac{a}{-b}' ...
-   * @author Guillaume Valmont
-   * @param {number} n1 numérateur de la 1e fraction
-   * @param {number} d1 dénominateur de la 1e fraction
-   * @param {number} n2 numérateur de la 2e fraction
-   * @param {number} d2 dénominateur de la 2e fraction
-   * @return array avec la liste des couples de fractions égales et simplifiées sous la forme '\\frac{n1}{d1};\\frac{n2}{d2}'
-   */
-  static texArrayReponsesCoupleDeFractionsEgalesEtSimplifiees(
-    n1: number,
-    d1: number,
-    n2: number,
-    d2: number,
-  ) {
-    return this.texArrayReponsesCoupleDeFractions(n1, d1, n2, d2, true)
-  }
-
-  /**
-   * Fonction destinée à être utilisée conjointement avec setReponse
-   * Exemple [\\frac{18}{6}, \\frac{-18}{-6}, -\\frac{-18}{6}, -\\frac{18}{-6}, \\frac{9}{3}, \\frac{-9}{-3}, -\\frac{-9}{3}, -\\frac{9}{-3}, 3]
-   * @author Guillaume Valmont
-   * @param {number} n numérateur
-   * @param {number} d dénominateur
-   * @return array avec la liste des fractions égales et simplifiées sous la forme '\\frac{n}{d}'
-   */
-  static texArrayReponsesFractionsEgalesEtSimplifiees(n: number, d: number) {
-    const fractionsSimplifiees = this.listerFractionsSimplifiees(n, d)
-    const liste = []
-    for (const fractionSimplifiee of fractionsSimplifiees) {
-      const reponses = this.texArrayReponsesFraction(
-        fractionSimplifiee[0],
-        fractionSimplifiee[1],
-      )
-      for (const reponse of reponses) {
-        liste.push(reponse)
-      }
-    }
-    return liste
-  }
-
-  /**
-   * Renvoie un array avec l'ensemble de réponses possibles correspondant à un couple de fractions afin de pouvoir les placer dans un setReponse
-   * Exemple ['-\\frac{a}{b};\\frac{c}{d}', '\\frac{-a}{b};\\frac{c}{d}', '\\frac{a}{-b};\\frac{c}{d}', '\\frac{c}{d};-\\frac{a}{b}', '\\frac{c}{d};\\frac{-a}{b}', '\\frac{c}{d};\\frac{a}{-b}' ...
-   * @author Guillaume Valmont
-   * @param {number} n1 numérateur 1
-   * @param {number} d1 dénominateur 1
-   * @param {number} n2 numérateur 1
-   * @param {number} d2 dénominateur 1
-   * @param {boolean} egalesEtSimplifiees true si on veut inclure l'ensemble des fractions égales et simplifiées
-   * @return array avec la liste des couples de fractions sous la forme '\\frac{n1}{d1};\\frac{n2}{d2}'
-   */
-  static texArrayReponsesCoupleDeFractions(
-    n1: number,
-    d1: number,
-    n2: number,
-    d2: number,
-    egalesEtSimplifiees: boolean = false,
-  ) {
-    let listeFraction1, listeFraction2
-    if (egalesEtSimplifiees) {
-      listeFraction1 = this.texArrayReponsesFractionsEgalesEtSimplifiees(n1, d1)
-      listeFraction2 = this.texArrayReponsesFractionsEgalesEtSimplifiees(n2, d2)
-    } else {
-      listeFraction1 = this.texArrayReponsesFraction(n1, d1)
-      listeFraction2 = this.texArrayReponsesFraction(n2, d2)
-    }
-    const listeCouples = []
-    for (const ecriture1 of listeFraction1) {
-      for (const ecriture2 of listeFraction2) {
-        listeCouples.push(
-          ecriture1 + ';' + ecriture2,
-          ecriture2 + ';' + ecriture1,
-        )
-      }
-    }
-    return listeCouples
-  }
-
-  /**
-   * Fonction destinée à lister l'ensemble des possibilités d'écriture d'une même  FractionMathjs  pour être comparées dans un setReponse
-   * @author Guillaume Valmont
-   * @param {number} numerateur
-   * @param {number} denominateur
-   * @return array avec l'ensemble des possibilités d'écriture d'une même  FractionMathjs  au format LateX
-   */
-  static texArrayReponsesFraction(numerateur: number, denominateur: number) {
-    const n = Math.abs(numerateur)
-    const d = Math.abs(denominateur)
-    if (d === 1) {
-      return [(numerateur * denominateur).toString()]
-    } else {
-      if (numerateur * denominateur > 0) {
-        return [
-          `\\frac{${n}}{${d}}`,
-          `\\frac{${-n}}{${-d}}`,
-          `-\\frac{${-n}}{${d}}`,
-          `-\\frac{${n}}{${-d}}`,
-        ]
-      } else if (numerateur * denominateur < 0) {
-        return [
-          `-\\frac{${n}}{${d}}`,
-          `-\\frac{${-n}}{${-d}}`,
-          `\\frac{${-n}}{${d}}`,
-          `\\frac{${n}}{${-d}}`,
-        ]
-      } else {
-        return ['0']
-      }
-    }
-  }
-
-  /**
-   * Renvoie l'ensemble des fractions égales et simplifiées
-   * Ne change pas et ne déplace pas les signes (s'il y a un "-" au dénominateur, il restera au dénominateur)
-   * @author Guillaume Valmont
-   * @param {number} n
-   * @param {number} d
-   * @return array de couples [numerateur, denominateur] de l'ensemble des fractions égales et simplifiées
-   */
-  static listerFractionsSimplifiees(n: number, d: number) {
-    if (pgcd(n, d) === 1) {
-      return [[n, d]]
-    } else {
-      const liste = []
-      for (const diviseur of listeDesDiviseurs(pgcd(n, d))) {
-        liste.push([n / diviseur, d / diviseur])
-      }
-      return liste
     }
   }
 }

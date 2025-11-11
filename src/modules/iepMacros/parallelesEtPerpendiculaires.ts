@@ -1,4 +1,3 @@
-import { angleOriente } from '../../lib/2d/angles'
 import { cercle } from '../../lib/2d/cercle'
 import {
   Droite,
@@ -6,14 +5,8 @@ import {
   droiteParPointEtParallele,
   droiteParPointEtPerpendiculaire,
 } from '../../lib/2d/droites'
-import {
-  point,
-  pointIntersectionLC,
-  pointSurDroite,
-  pointSurSegment,
-} from '../../lib/2d/points'
-import type { PointAbstrait } from '../../lib/2d/points-abstraits'
-import { longueur, vecteur } from '../../lib/2d/segmentsVecteurs'
+import type { PointAbstrait } from '../../lib/2d/PointAbstrait'
+import { point } from '../../lib/2d/PointAbstrait'
 import {
   homothetie,
   projectionOrtho,
@@ -22,8 +15,22 @@ import {
   translation,
   translation2Points,
 } from '../../lib/2d/transformations'
-import type { OptionsCompas, OptionsEquerre } from '../Alea2iep'
-import type Alea2iep from '../Alea2iep'
+import {
+  angleOriente,
+  longueur,
+  pointEstSur,
+} from '../../lib/2d/utilitairesGeometriques'
+import {
+  pointIntersectionLC,
+  pointSurDroite,
+  pointSurSegment,
+} from '../../lib/2d/utilitairesPoint'
+import { vecteur } from '../../lib/2d/Vecteur'
+import type {
+  IAlea2iep,
+  OptionsCompas,
+  OptionsEquerre,
+} from '../Alea2iep.types'
 
 /**
  * Trace la parallèle à (AB) passant par C avec la règle et l'équerre. Peut prolonger le segment [AB] si le pied de la hauteur est trop éloigné des extrémités du segment
@@ -33,7 +40,7 @@ import type Alea2iep from '../Alea2iep'
  * @param {*} [options]
  */
 export const paralleleRegleEquerre2points3epoint = function (
-  this: Alea2iep,
+  this: IAlea2iep,
   A: PointAbstrait,
   B: PointAbstrait,
   C: PointAbstrait,
@@ -127,7 +134,7 @@ export const paralleleRegleEquerre2points3epoint = function (
  * @param {*} [options]
  */
 export const perpendiculaireRegleEquerre2points3epoint = function (
-  this: Alea2iep,
+  this: IAlea2iep,
   A: PointAbstrait,
   B: PointAbstrait,
   C: PointAbstrait,
@@ -140,7 +147,7 @@ export const perpendiculaireRegleEquerre2points3epoint = function (
   let dist
   if (A.nom === undefined) A.nom = 'A'
   if (B.nom === undefined) B.nom = 'B'
-  if (C.estSur(droite(A, B))) {
+  if (pointEstSur(C, droite(A, B))) {
     const H = rotation(C, C, 0)
     const dd = droiteParPointEtPerpendiculaire(C, d)
     C = pointIntersectionLC(dd, cercle(H, 5.5))
@@ -167,12 +174,12 @@ export const perpendiculaireRegleEquerre2points3epoint = function (
  * @param {boolean} [description]
  */
 export const perpendiculaireRegleEquerreDroitePoint = function (
-  this: Alea2iep,
+  this: IAlea2iep,
   d: Droite,
   P: PointAbstrait,
   options: OptionsCompas = {},
 ) {
-  if (!P.estSur(d)) {
+  if (!pointEstSur(P, d)) {
     const H = projectionOrtho(P, d)
     const A = rotation(P, H, 90)
     const B = rotation(A, H, 180)
@@ -273,7 +280,7 @@ export const perpendiculaireRegleEquerreDroitePoint = function (
  * @param {boolean} description
  */
 export const perpendiculaireRegleEquerrePointSurLaDroite = function (
-  this: Alea2iep,
+  this: IAlea2iep,
   d: Droite,
   x: number,
   options: OptionsCompas = {},
@@ -340,7 +347,7 @@ export const perpendiculaireRegleEquerrePointSurLaDroite = function (
  * @param {boolean} description
  */
 export const perpendiculaireCompasPointSurLaDroite = function (
-  this: Alea2iep,
+  this: IAlea2iep,
   d: Droite,
   x: number,
   options: OptionsCompas = {},
@@ -419,7 +426,7 @@ export const perpendiculaireCompasPointSurLaDroite = function (
  * @param {boolean} description
  */
 export const perpendiculaireCompasPoint = function (
-  this: Alea2iep,
+  this: IAlea2iep,
   d: Droite,
   A: PointAbstrait,
   options: OptionsCompas = {},
@@ -509,7 +516,7 @@ export const perpendiculaireCompasPoint = function (
  * @param {*} [options]
  */
 export const paralleleRegleEquerreDroitePointAvecDescription = function (
-  this: Alea2iep,
+  this: IAlea2iep,
   A: PointAbstrait,
   B: PointAbstrait,
   M: PointAbstrait,
@@ -629,7 +636,7 @@ export const paralleleRegleEquerreDroitePointAvecDescription = function (
  * @param {boolean} description
  */
 export const paralleleAuCompasAvecDescription = function (
-  this: Alea2iep,
+  this: IAlea2iep,
   A: PointAbstrait,
   B: PointAbstrait,
   C: PointAbstrait,
@@ -728,7 +735,7 @@ export const paralleleAuCompasAvecDescription = function (
  * @param {boolean} description
  */
 export const paralleleAuCompas = function (
-  this: Alea2iep,
+  this: IAlea2iep,
   A: PointAbstrait,
   B: PointAbstrait,
   C: PointAbstrait,

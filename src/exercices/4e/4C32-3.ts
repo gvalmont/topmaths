@@ -188,14 +188,14 @@ export default class ProblemesPuissancesDe10EtConversions extends Exercice {
               'Dans une heure, il y a $3~600$ secondes, la distance parcourue est donc : <br>'
             texteCorr += `$${a}\\times3~600~\\text{s}\\times3\\times10^8~\\text{m/s}`
           }
-          texteCorr += `=${texNombre(a * 24 * 3600 * 3)}\\times10^8~\\text{m}=${texNombre(mantisse)}\\times10^{${texNombre(exposant - 8 + 3)}}\\times10^8~\\text{m}=${texNombre(mantisse)}\\times10^{${texNombre(exposant + 3)}}\\times10^{-3}~\\text{km}=${miseEnEvidence(`${texNombre(mantisse)}\\times10^{${texNombre(exposant)}}`)}~\\text{km}$`
+          texteCorr += `=${texNombre(a * 24 * 3600 * 3)}\\times10^8\\text{ m}=${texNombre(mantisse)}\\times10^{${texNombre(exposant - 8 + 3)}}\\times10^8\\text{ m}=${texNombre(mantisse)}\\times10^{${texNombre(exposant + 3)}}\\times10^{-3}\\text{ km}=${miseEnEvidence(`${texNombre(mantisse)}\\times10^{${texNombre(exposant)}}`)}\\text{ km}$`
 
           texte += this.interactif
             ? ajouteChampTexteMathLive(
                 this,
                 i,
                 KeyboardType.clavierFullOperations,
-                { texteApres: '$~\\text{km}$' },
+                { texteApres: '$\\text{ km}$' },
               )
             : 'Donner le résultat en kilomètres.'
           break
@@ -203,20 +203,20 @@ export default class ProblemesPuissancesDe10EtConversions extends Exercice {
         case 5: // Médecine
           a = randint(5000, 15000) * 100 // distance en km
           b = randint(20, 30) / 10 // coefficient pour le nombre de globules rouges (2,0 à 3,0)
-          texte = `Un globule rouge a un diamètre moyen de $${randint(6, 8)}~\\mu\\text{m}$ et parcourt environ $${texNombre(a)}~\\text{m}$ par jour dans le système circulatoire. Si le corps humain contient environ $${texNombre(b)}\\times10^{13}$ globules rouges, quelle distance totale parcourent tous les globules rouges en une journée ? `
+          texte = `Un globule rouge a un diamètre moyen de $${randint(6, 8)}~\\mu\\text{m}$ et parcourt environ $${texNombre(a)}\\text{ m}$ par jour dans le système circulatoire. Si le corps humain contient environ $${texNombre(b)}\\times10^{13}$ globules rouges, quelle distance totale parcourent tous les globules rouges en une journée ? `
           texte += this.interactif
             ? ajouteChampTexteMathLive(
                 this,
                 i,
                 KeyboardType.clavierFullOperations,
-                { texteApres: '$~\\text{km}$' },
+                { texteApres: '$\\text{ km}$' },
               )
             : 'Donner le résultat en kilomètres.'
-          texteCorr = `Distance par globule rouge : $${texNombre(a)}~\\text{m} = ${texNombre(a)} \\times 10^{-3}~\\text{km}$<br>`
+          texteCorr = `Distance par globule rouge : $${texNombre(a)}\\text{ m} = ${texNombre(a)} \\times 10^{-3}\\text{ km}$<br>`
           reponseNumerique = a * b * 10 ** 10
           mantisse = decompositionScientifique(reponseNumerique).mantisse
           exposant = decompositionScientifique(reponseNumerique).exposant
-          texteCorr += `Distance totale : $${texNombre(b)}\\times10^{13} \\times ${texNombre(a)}\\times10^{-3}~\\text{km} = ${miseEnEvidence(`${texNombre(mantisse)}\\times 10^{${texNombre(exposant)}`)}}~\\text{m}$`
+          texteCorr += `Distance totale : $${texNombre(b)}\\times10^{13} \\times ${texNombre(a)}\\times10^{-3}\\text{ km} = ${miseEnEvidence(`${texNombre(mantisse)}\\times 10^{${texNombre(exposant)}`)}}\\text{ m}$`
           break
 
         case 6: {
@@ -238,9 +238,9 @@ export default class ProblemesPuissancesDe10EtConversions extends Exercice {
           const emissionElectrique = (a * c * 10000000) / 1000000 // conversion en kg
           const economie = arrondi(emissionEssence - emissionElectrique)
           reponseNumerique = economie
-          texteCorr = `Distance parcourue: en $m$ : $${texNombre(c * 10000)}~\\text{km}=${texNombre(c)}\\times10^4~\\text{km}=${texNombre(c)}\\times10^4\\times10^3~\\text{m}=${texNombre(c)}\\times10^7~\\text{m}$<br>`
-          texteCorr += `Émission de CO$_2$ pour la voiture essence : $${texNombre(c)}\\times10^7~\\text{m} \\times ${b}~\\text{mg/m} = ${texNombre(b * c)}\\times10^7~\\text{mg}$<br>`
-          texteCorr += `Émission de CO$_2$ pour la voiture électrique : $${texNombre(c)}\\times10^7~\\text{m} \\times ${a}~\\text{mg/m} = ${texNombre(a * c)}\\times10^7~\\text{mg}$<br>`
+          texteCorr = `Distance parcourue: en $\\text{m}$ : $${texNombre(c * 10000)}\\text{ km}=${texNombre(c)}\\times10^4\\text{ km}=${texNombre(c)}\\times10^4\\times10^3\\text{ m}=${texNombre(c)}\\times10^7\\text{ m}$<br>`
+          texteCorr += `Émission de CO$_2$ pour la voiture essence : $${texNombre(c)}\\times10^7\\text{ m} \\times ${b}~\\text{mg/m} = ${texNombre(b * c)}\\times10^7~\\text{mg}$<br>`
+          texteCorr += `Émission de CO$_2$ pour la voiture électrique : $${texNombre(c)}\\times10^7\\text{ m} \\times ${a}~\\text{mg/m} = ${texNombre(a * c)}\\times10^7~\\text{mg}$<br>`
           texteCorr += `Économie de CO$_2$: $${texNombre(b * c)}\\times10^7 - ${texNombre(a * c)}\\times10^7 = ${texNombre((b - a) * c)}\\times10^7~\\text{mg}$<br>`
           texteCorr += `Conversion de l'économie de CO$_2$ en kg : $${texNombre((b - a) * c)}\\times10^7~\\text{mg} = ${texNombre((b - a) * c)}\\times10^7 \\times 10^{-6}~\\text{kg}  = ${miseEnEvidence(texNombre(economie))}~\\text{kg}$`
           break
@@ -256,8 +256,8 @@ export default class ProblemesPuissancesDe10EtConversions extends Exercice {
           const masseTotal = arrondi((nombreTotal * masseIndividuelle) / 1000) // en kg
           reponseNumerique = masseTotal
           texte = `Un phytoplancton microscopique mesure en moyenne $${texNombre(a)}~\\mu\\text{m}$ de long et pèse $${texNombre(b)}~\\text{ng}$. `
-          texte += `Dans $1~\\text{m}^3$ d'eau dans un lac, on compte environ $${texNombre(c)}\\times10^8$ de ces organismes. `
-          texte += `Quelle est la masse totale de phytoplanctons dans un lac de $${texNombre(d)}\\times10^6~\\text{m}^3$ ? `
+          texte += `Dans $1\\text{ m}^3$ d'eau dans un lac, on compte environ $${texNombre(c)}\\times10^8$ de ces organismes. `
+          texte += `Quelle est la masse totale de phytoplanctons dans un lac de $${texNombre(d)}\\times10^6\\text{ m}^3$ ? `
           texte += this.interactif
             ? ajouteChampTexteMathLive(
                 this,

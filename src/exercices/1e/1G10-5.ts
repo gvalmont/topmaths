@@ -1,9 +1,13 @@
 import { colorToLatexOrHTML } from '../../lib/2d/colorToLatexOrHtml'
 import { fixeBordures } from '../../lib/2d/fixeBordures'
-import { point } from '../../lib/2d/points'
+import { point } from '../../lib/2d/PointAbstrait'
 import { repere } from '../../lib/2d/reperes'
-import { vecteur } from '../../lib/2d/segmentsVecteurs'
+import {
+  representant,
+  representantNomme,
+} from '../../lib/2d/representantVecteur'
 import { latex2d } from '../../lib/2d/textes'
+import { vecteur } from '../../lib/2d/Vecteur'
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
@@ -227,12 +231,12 @@ export default class ProduitScalaireCoordonnees extends Exercice {
             const xv = randint(-2, 2)
             const yv = randint(-5, 5, 0)
             const v = vecteur(xv, yv)
-            const nomvu = u.representantNomme(A, 'u', 1.5, 'blue')
-            const vecu = u.representant(A)
+            const nomvu = representantNomme(u, A, 'u', 1.5, 'blue')
+            const vecu = representant(u, A)
             vecu.color = colorToLatexOrHTML('blue')
             vecu.epaisseur = 2
-            const nomvv = v.representantNomme(B, 'v', 1.5, 'red')
-            const vecv = v.representant(B)
+            const nomvv = representantNomme(v, B, 'v', 1.5, 'red')
+            const vecv = representant(v, B)
             vecv.color = colorToLatexOrHTML('red')
             vecv.epaisseur = 2
             const r = repere({

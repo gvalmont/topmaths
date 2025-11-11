@@ -11,6 +11,7 @@ import { context } from '../../modules/context'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
 export const titre = 'Rendre irréductible une fraction'
 
+
 /**
  * Fractions irréductibles
  * @author Sébastien Lozano

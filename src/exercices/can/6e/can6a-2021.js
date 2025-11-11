@@ -1,9 +1,10 @@
-import { codageSegment } from '../../../lib/2d/codages'
+import { codageSegment } from '../../../lib/2d/CodageSegment'
 import { colorToLatexOrHTML } from '../../../lib/2d/colorToLatexOrHtml'
-import { milieu, point } from '../../../lib/2d/points'
+import { point } from '../../../lib/2d/PointAbstrait'
 import { polygone } from '../../../lib/2d/polygones'
 import { segment } from '../../../lib/2d/segmentsVecteurs'
 import { texteParPosition } from '../../../lib/2d/textes'
+import { milieu } from '../../../lib/2d/utilitairesPoint'
 import { choice, shuffle } from '../../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { arrondi } from '../../../lib/outils/nombres'
@@ -343,17 +344,17 @@ Par exemple, en choisissant 20 questions, la course aux nombres sera composée d
         case 9:
           a = randint(2, 9) * 2 + 1
           reponse = arrondi(a / 2, 1)
-          texte = `Un ruban mesure $${a}$ cm. On le coupe en $2$ morceaux de même longueur.<br>
+          texte = `Un ruban mesure $${a}\\text{ cm}$. On le coupe en $2$ morceaux de même longueur.<br>
             Un morceau mesure `
-          texteCorr = `Un morceau mesure : $${a}\\div 2=${miseEnEvidence(texNombre(reponse, 1))}$ cm.`
+          texteCorr = `Un morceau mesure : $${a}\\div 2=${miseEnEvidence(texNombre(reponse, 1))}\\text{ cm}$.`
 
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) {
             texte += ajouteChampTexteMathLive(this, index, ' ', {
-              texteApres: 'cm',
+              texteApres: '$\\text{ cm}$',
             })
           } else {
-            texte += '$\\ldots$ cm'
+            texte += '$\\ldots\\text{ cm}$'
           }
           nbChamps = 1
           break
@@ -641,22 +642,24 @@ Par exemple, en choisissant 20 questions, la course aux nombres sera composée d
         case 21:
           if (choice([true, false])) {
             a = randint(1, 9) * 40
-            texte = `Le quart de $${a}$ km.`
+            texte = `Le quart de $${a}\\text{ km}$.`
             reponse = Math.round(a / 4)
-            texteCorr = `Le quart de $${a}$ km est égal à $${a}\\div 4=${miseEnEvidence(reponse)}$ km.`
+            texteCorr = `Le quart de $${a}\\text{ km}$ est égal à $${a}\\div 4=${miseEnEvidence(reponse)}\\text{ km}$.`
           } else {
             a = randint(1, 9) * 30
-            texte = `Le tiers de $${a}$ km.`
+            texte = `Le tiers de $${a}\\text{ km}$.`
             reponse = Math.round(a / 3)
-            texteCorr = `Le tiers de $${a}$ km est égal à $${a}\\div 3=${miseEnEvidence(reponse)}$ km.`
+            texteCorr = `Le tiers de $${a}\\text{ km}$ est égal à $${a}\\div 3=${miseEnEvidence(reponse)}\\text{ km}$.`
           }
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) {
             texte +=
               '<br>' +
-              ajouteChampTexteMathLive(this, index, '', { texteApres: 'km' })
+              ajouteChampTexteMathLive(this, index, '', {
+                texteApres: '$\\text{ km}$',
+              })
           } else {
-            texte += '$\\ldots$ km'
+            texte += '$\\ldots\\text{ km}$'
           }
 
           nbChamps = 1
@@ -666,20 +669,22 @@ Par exemple, en choisissant 20 questions, la course aux nombres sera composée d
         case 22:
           if (choice([true, false])) {
             a = randint(1, 9) * 40
-            texte = `$25\\,\\%$ de $${a}$ km.`
+            texte = `$25\\,\\%$ de $${a}\\text{ km}$.`
             reponse = Math.round(a / 4)
-            texteCorr = `$25\\, \\%$ de $${a}$ km est égal à $${a}\\div 4=${miseEnEvidence(reponse)}$ km.`
+            texteCorr = `$25\\, \\%$ de $${a}\\text{ km}$ est égal à $${a}\\div 4=${miseEnEvidence(reponse)}\\text{ km}$.`
           } else {
             a = randint(1, 9) * 50
-            texte = `$20\\,\\%$ de $${a}$ km.`
+            texte = `$20\\,\\%$ de $${a}\\text{ km}$.`
             reponse = Math.round(a / 5)
-            texteCorr = `$20\\, \\%$ de $${a}$ km est égal à $${a}\\div 5=${miseEnEvidence(reponse)}$ km.`
+            texteCorr = `$20\\, \\%$ de $${a}\\text{ km}$ est égal à $${a}\\div 5=${miseEnEvidence(reponse)}\\text{ km}$.`
           }
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) {
             texte +=
               '<br>' +
-              ajouteChampTexteMathLive(this, index, '', { texteApres: 'km' })
+              ajouteChampTexteMathLive(this, index, '', {
+                texteApres: '$\\text{ km}$',
+              })
           }
 
           nbChamps = 1
@@ -740,33 +745,33 @@ Par exemple, en choisissant 20 questions, la course aux nombres sera composée d
           if (choice([true, false])) {
             a = randint(1, 10) * choice([1, 10])
             reponse = a * 100
-            texte = `$${texNombre(a, 0)}$ m  =`
+            texte = `$${texNombre(a, 0)}\\text{ m}$  =`
             setReponse(this, index, reponse, { formatInteractif: 'calcul' })
             if (this.interactif) {
               texte += ajouteChampTexteMathLive(this, index, ' ', {
-                texteApres: 'cm',
+                texteApres: '$\\text{ cm}$',
               })
             } else {
-              texte += '$\\ldots$ cm'
+              texte += '$\\ldots\\text{ cm}$'
             }
-            texteCorr = ` Comme $1$ m $=100$ cm,  pour passer des "m" au "cm", on multiplie par $100$.<br>
-                        Comme : $${texNombre(a, 0)}\\times 100 =${texNombre(a * 100, 0)}$, alors $${texNombre(a, 0)}$ m$=${texNombre(a * 100, 0)}$ cm.
+            texteCorr = ` Comme $1\\text{ m}$ $=100\\text{ cm}$,  pour passer des $\\text{m}$ au $\\text{cm}$, on multiplie par $100$.<br>
+                        Comme : $${texNombre(a, 0)}\\times 100 =${texNombre(a * 100, 0)}$, alors $${texNombre(a, 0)}\\text{ m}=${texNombre(a * 100, 0)}\\text{ cm}$.
                         `
           } else {
             a = randint(1, 12) * choice([1, 10, 100])
             reponse = arrondi(a / 100, 2)
-            texte = `$${texNombre(a)}$ cm  =`
+            texte = `$${texNombre(a)}\\text{ cm}$  =`
             setReponse(this, index, reponse, { formatInteractif: 'calcul' })
             if (this.interactif) {
               texte += ajouteChampTexteMathLive(this, index, ' ', {
                 texteApres: 'm',
               })
             } else {
-              texte += '$\\ldots$ m'
+              texte += '$\\ldots\\text{ m}$'
             }
-            texteCorr = `Comme $1$ m $=100$ cm, alors $1$ cm $=0,01$ m.<br>
-            Ainsi pour passer des "cm" au "m", on divise par $100$.<br>
-              Comme  $${texNombre(a, 0)}\\div 100 =${texNombre(a / 100, 2)}$, alors $${texNombre(a, 0)}$ cm$=${miseEnEvidence(texNombre(a / 100, 2))}$ m.  `
+            texteCorr = `Comme $1\\text{ m}$ $=100\\text{ cm}$, alors $1\\text{ cm}$ $=0,01\\text{ m}$.<br>
+            Ainsi pour passer des $\\text{cm}$ au $\\text{m}$, on divise par $100$.<br>
+              Comme  $${texNombre(a, 0)}\\div 100 =${texNombre(a / 100, 2)}$, alors $${texNombre(a, 0)}\\text{ cm}=${miseEnEvidence(texNombre(a / 100, 2))}\\text{ m}$.  `
           }
 
           nbChamps = 1
@@ -827,14 +832,16 @@ Par exemple, en choisissant 20 questions, la course aux nombres sera composée d
             },
             objets,
           )
-          texteCorr = `Le périmètre est donné par la somme des quatre longueurs : $${texNombre(a, 1)}\\times 2+${texNombre(b, 1)}+${texNombre(c, 1)}=${miseEnEvidence(texNombre(2 * a + b + c, 1))}$ cm.`
+          texteCorr = `Le périmètre est donné par la somme des quatre longueurs : $${texNombre(a, 1)}\\times 2+${texNombre(b, 1)}+${texNombre(c, 1)}=${miseEnEvidence(texNombre(2 * a + b + c, 1))}\\text{ cm}$.`
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) {
             texte +=
               '<br>' +
-              ajouteChampTexteMathLive(this, index, '', { texteApres: 'cm' })
+              ajouteChampTexteMathLive(this, index, '', {
+                texteApres: '$\\text{ cm}$',
+              })
           } else {
-            texte += '  $\\mathscr{P}=\\ldots$ cm'
+            texte += '  $\\mathscr{P}=\\ldots\\text{ cm}$'
           }
 
           nbChamps = 1

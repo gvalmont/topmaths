@@ -1,25 +1,25 @@
-import { angle, codageAngle, codageAngleDroit } from '../../lib/2d/angles'
+import { afficheLongueurSegment } from '../../lib/2d/afficheLongueurSegment'
+import { afficheMesureAngle } from '../../lib/2d/AfficheMesureAngle'
+import { codageAngle } from '../../lib/2d/angles'
 import { traceCompas } from '../../lib/2d/Arc'
 import { cercle } from '../../lib/2d/cercle'
 import { cibleRonde, dansLaCibleRonde } from '../../lib/2d/cibles'
-import {
-  afficheLongueurSegment,
-  afficheMesureAngle,
-  codageSegments,
-} from '../../lib/2d/codages'
+import { codageAngleDroit } from '../../lib/2d/CodageAngleDroit'
+import { codageSegments } from '../../lib/2d/CodageSegment'
 import { droite, droiteParPointEtPerpendiculaire } from '../../lib/2d/droites'
 import { fixeBordures } from '../../lib/2d/fixeBordures'
+import { point } from '../../lib/2d/PointAbstrait'
+import { polygoneAvecNom } from '../../lib/2d/polygones'
+import { segmentAvecExtremites } from '../../lib/2d/segmentsVecteurs'
+import { latexParPoint } from '../../lib/2d/textes'
+import { rotation, similitude } from '../../lib/2d/transformations'
+import { angle, longueur } from '../../lib/2d/utilitairesGeometriques'
 import {
-  point,
   pointAdistance,
   pointIntersectionCC,
   pointIntersectionDD,
   pointIntersectionLC,
-} from '../../lib/2d/points'
-import { polygoneAvecNom } from '../../lib/2d/polygones'
-import { longueur, segmentAvecExtremites } from '../../lib/2d/segmentsVecteurs'
-import { latexParPoint } from '../../lib/2d/textes'
-import { rotation, similitude } from '../../lib/2d/transformations'
+} from '../../lib/2d/utilitairesPoint'
 import { combinaisonListes } from '../../lib/outils/arrayOutils'
 import { arrondi, range1 } from '../../lib/outils/nombres'
 import {

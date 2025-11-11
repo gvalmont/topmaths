@@ -35,7 +35,17 @@ export default class LectureGraphiqueParabole extends Exercice {
   }
 
   nouvelleVersion() {
-    let texte, texteCorr, a, alpha, beta, r, F, o, texteIntro, texteNI, texteI
+    let texte,
+      texteCorr,
+      a: number,
+      alpha: number,
+      beta: number,
+      r,
+      F,
+      o,
+      texteIntro,
+      texteNI,
+      texteI
 
     for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50; ) {
       texteNI = 'Donner le signe de $a$ et de $\\Delta$.<br>'
@@ -50,7 +60,7 @@ export default class LectureGraphiqueParabole extends Exercice {
           a = randint(0, 1) + randint(5, 9) / 10
           alpha = randint(-2, 1) + randint(1, 9) / 10
           beta = randint(0, 2) + randint(4, 9) / 10
-          o = texteParPosition('O', -0.3, -0.3, 'milieu', 'black', 1)
+          o = texteParPosition('O', -0.3, -0.3, 0, 'black', 1)
           texte = `${texteIntro}`
           if (!this.interactif) {
             texte += `${texteNI}`
@@ -85,7 +95,7 @@ export default class LectureGraphiqueParabole extends Exercice {
             axeYStyle: '->',
           })
 
-          F = (x) => a * (x - alpha) ** 2 + beta
+          F = (x: number) => a * (x - alpha) ** 2 + beta
           texte += mathalea2d(
             {
               xmin: -5,
@@ -109,7 +119,7 @@ export default class LectureGraphiqueParabole extends Exercice {
           a = randint(0, 1) + randint(5, 9) / 10
           alpha = randint(-2, 1) + randint(1, 9) / 10
           beta = randint(-2, 0) - randint(4, 9) / 10
-          o = texteParPosition('O', -0.3, -0.3, 'milieu', 'black', 1)
+          o = texteParPosition('O', -0.3, -0.3, 0, 'black', 1)
           texte = `${texteIntro}`
           if (!this.interactif) {
             texte += `${texteNI}`
@@ -146,7 +156,7 @@ export default class LectureGraphiqueParabole extends Exercice {
             axeYStyle: '->',
           })
 
-          F = (x) => a * (x - alpha) ** 2 + beta
+          F = (x: number) => a * (x - alpha) ** 2 + beta
           texte += mathalea2d(
             {
               xmin: -5,
@@ -169,7 +179,7 @@ export default class LectureGraphiqueParabole extends Exercice {
           a = randint(0, 1) + randint(5, 9) / 10
           alpha = randint(-2, 1) + randint(1, 9) / 10
           beta = 0
-          o = texteParPosition('O', -0.3, -0.3, 'milieu', 'black', 1)
+          o = texteParPosition('O', -0.3, -0.3, 0, 'black', 1)
           texte = `${texteIntro}`
           if (!this.interactif) {
             texte += `${texteNI}`
@@ -205,7 +215,7 @@ export default class LectureGraphiqueParabole extends Exercice {
             axeYStyle: '->',
           })
 
-          F = (x) => a * (x - alpha) ** 2 + beta
+          F = (x: number) => a * (x - alpha) ** 2 + beta
           texte += mathalea2d(
             {
               xmin: -5,
@@ -229,7 +239,7 @@ export default class LectureGraphiqueParabole extends Exercice {
           a = randint(-1, 0) - randint(5, 9) / 10
           alpha = randint(-2, 1) + randint(1, 9) / 10
           beta = 0
-          o = texteParPosition('O', -0.3, -0.3, 'milieu', 'black', 1)
+          o = texteParPosition('O', -0.3, -0.3, 0, 'black', 1)
           texte = `${texteIntro}`
           if (!this.interactif) {
             texte += `${texteNI}`
@@ -266,7 +276,7 @@ export default class LectureGraphiqueParabole extends Exercice {
             axeYStyle: '->',
           })
 
-          F = (x) => a * (x - alpha) ** 2 + beta
+          F = (x: number) => a * (x - alpha) ** 2 + beta
           texte += mathalea2d(
             {
               xmin: -5,
@@ -290,7 +300,7 @@ export default class LectureGraphiqueParabole extends Exercice {
           a = randint(-1, 0) - randint(5, 9) / 10
           alpha = randint(-2, 1) + randint(1, 9) / 10
           beta = randint(1, 3) + randint(4, 9) / 10
-          o = texteParPosition('O', -0.3, -0.3, 'milieu', 'black', 1)
+          o = texteParPosition('O', -0.3, -0.3, 0, 'black', 1)
           texte = `${texteIntro}`
           if (!this.interactif) {
             texte += `${texteNI}`
@@ -327,7 +337,7 @@ export default class LectureGraphiqueParabole extends Exercice {
             axeYStyle: '->',
           })
 
-          F = (x) => a * (x - alpha) ** 2 + beta
+          F = (x: number) => a * (x - alpha) ** 2 + beta
           texte += mathalea2d(
             {
               xmin: -5,
@@ -348,10 +358,11 @@ export default class LectureGraphiqueParabole extends Exercice {
           break
 
         case 6: // cas parabole a<0 et delta<0
+        default:
           a = randint(-1, 0) - randint(3, 7) / 10
           alpha = randint(-2, 1) + randint(1, 9) / 10
           beta = randint(-1, 0) - randint(4, 9) / 10
-          o = texteParPosition('O', -0.3, -0.3, 'milieu', 'black', 1)
+          o = texteParPosition('O', -0.3, -0.3, 0, 'black', 1)
           texte = `${texteIntro}`
           if (!this.interactif) {
             texte += `${texteNI}`
@@ -388,7 +399,7 @@ export default class LectureGraphiqueParabole extends Exercice {
             axeYStyle: '->',
           })
 
-          F = (x) => a * (x - alpha) ** 2 + beta
+          F = (x: number) => a * (x - alpha) ** 2 + beta
           texte += mathalea2d(
             {
               xmin: -5,

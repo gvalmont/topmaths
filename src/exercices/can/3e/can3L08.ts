@@ -1,7 +1,8 @@
-import { milieu, point } from '../../../lib/2d/points'
+import { point } from '../../../lib/2d/PointAbstrait'
 import { polygone } from '../../../lib/2d/polygones'
 import { segment } from '../../../lib/2d/segmentsVecteurs'
 import { labelPoint, texteParPosition } from '../../../lib/2d/textes'
+import { milieu } from '../../../lib/2d/utilitairesPoint'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 import { functionCompare } from '../../../lib/interactif/comparisonFunctions'
 import { choice } from '../../../lib/outils/arrayOutils'
@@ -54,17 +55,17 @@ export default class EnFonctionDeAire extends ExerciceSimple {
           poly.hachures = true
           // poly.couleurDeRemplissage = colorToLatexOrHTML('lightgray')
           const d = texteParPosition(
-            `${c} cm`,
+            `$${c}\\text{ cm}$`,
             milieu(A, B).x,
             milieu(A, B).y - 0.5,
             0,
-            'black',
+            'red',
             1,
             'milieu',
             false,
           )
           const e = texteParPosition(
-            `${texNombre(b, 0)} cm`,
+            `$${texNombre(b, 0)}\\text{ cm}$`,
             milieu(B, C).x + 1,
             milieu(B, C).y,
             0,
@@ -111,7 +112,7 @@ export default class EnFonctionDeAire extends ExerciceSimple {
             }
             this.question +=
               "L'aire de la partie non hachurée en fonction de $x$ est : "
-            this.correction = `L'aire du triangle $ADM$ est $\\dfrac{DM\\times AD}{2}=\\dfrac{x\\times ${b}}{2}=${miseEnEvidence(reduireAxPlusB(b1, 0))}$ cm$^2$.`
+            this.correction = `L'aire du triangle $ADM$ est $\\dfrac{DM\\times AD}{2}=\\dfrac{x\\times ${b}}{2}=${miseEnEvidence(reduireAxPlusB(b1, 0))}\\text{ cm}^2$.`
           } else {
             this.reponse = {
               reponse: {
@@ -122,17 +123,17 @@ export default class EnFonctionDeAire extends ExerciceSimple {
             }
             this.question +=
               "L'aire de la partie  hachurée en fonction de $x$ est : "
-            this.correction = `$\\bullet$ L'aire du triangle $ADM$ est $\\dfrac{DM\\times AD}{2}=\\dfrac{x\\times ${b}}{2}=${reduireAxPlusB(b1, 0)}$ cm$^2$.<br>
-          $\\bullet$ L'aire du rectangle $ABCD$ est $AB\\times BC=${c}\\times ${b} =${c * b}$ cm$^2$.<br>
-          $\\bullet$ L'aire de la partie hachurée est donc la différence entre ces deux aires, soit  $${miseEnEvidence(`${c * b}-${rienSi1(b1)}x`)}$ cm$^2$.`
+            this.correction = `$\\bullet$ L'aire du triangle $ADM$ est $\\dfrac{DM\\times AD}{2}=\\dfrac{x\\times ${b}}{2}=${reduireAxPlusB(b1, 0)}\\text{ cm}^2$.<br>
+          $\\bullet$ L'aire du rectangle $ABCD$ est $AB\\times BC=${c}\\times ${b} =${c * b}\\text{ cm}^2$.<br>
+          $\\bullet$ L'aire de la partie hachurée est donc la différence entre ces deux aires, soit  $${miseEnEvidence(`${c * b}-${rienSi1(b1)}x`)}\\text{ cm}^2$.`
           }
 
           this.canEnonce = this.question
-          this.canReponseACompleter = '$\\ldots$ cm$^2$'
+          this.canReponseACompleter = '$\\ldots\\text{ cm}^2$'
           if (this.interactif) {
-            this.optionsChampTexte = { texteApres: 'cm$^2$.' }
+            this.optionsChampTexte = { texteApres: '$\\text{ cm}^2$.' }
           } else {
-            this.question += ' $\\ldots $ cm$^2$.'
+            this.question += ' $\\ldots\\text{ cm}^2$.'
           }
         }
         break
@@ -157,7 +158,7 @@ export default class EnFonctionDeAire extends ExerciceSimple {
           poly.hachures = true
           poly1.hachures = true
           const f = texteParPosition(
-            `${texNombre(a, 0)} cm`,
+            `$${texNombre(a, 0)}\\text{ cm}$`,
             -1.8,
             milieu(A, G).y,
             0,
@@ -167,7 +168,7 @@ export default class EnFonctionDeAire extends ExerciceSimple {
             false,
           )
           const e = texteParPosition(
-            `${texNombre(b, 0)} cm`,
+            `$${texNombre(b, 0)}\\text{ cm}$`,
             milieu(B, C).x + 1,
             milieu(B, C).y,
             0,
@@ -214,9 +215,9 @@ export default class EnFonctionDeAire extends ExerciceSimple {
             }
             this.question +=
               "L'aire de la partie non hachurée en fonction de $x$ est : "
-            this.correction = `$\\bullet$ L'aire du rectangle $EMND$ est $EM\\times MN=x \\times ${b} =${b}x$ cm$^2$.<br>
-            $\\bullet$ L'aire du carré $EBCD$ est $${b}^2 =${b ** 2}$ cm$^2$.<br>
-            $\\bullet$ L'aire de la partie non hachurée est donc la différence entre ces deux aires, soit  $${miseEnEvidence(`${b ** 2}-${rienSi1(b)}x`)}$ cm$^2$.`
+            this.correction = `$\\bullet$ L'aire du rectangle $EMND$ est $EM\\times MN=x \\times ${b} =${b}x\\text{ cm}^2$.<br>
+            $\\bullet$ L'aire du carré $EBCD$ est $${b}^2 =${b ** 2}\\text{ cm}^2$.<br>
+            $\\bullet$ L'aire de la partie non hachurée est donc la différence entre ces deux aires, soit  $${miseEnEvidence(`${b ** 2}-${rienSi1(b)}x`)}\\text{ cm}^2$.`
           } else {
             this.reponse = {
               reponse: {
@@ -227,16 +228,16 @@ export default class EnFonctionDeAire extends ExerciceSimple {
             }
             this.question +=
               "L'aire de la partie  hachurée en fonction de $x$ est : "
-            this.correction = `$\\bullet$ L'aire du carré $AEFG$ est $${a}^2=${a ** 2}$ cm$^2$.<br>
-          $\\bullet$ L'aire du rectangle $EMND$ est $EM\\times MN=x \\times ${b} =${b}x$ cm$^2$.<br>
-          $\\bullet$ L'aire de la partie hachurée est donc la somme de ces deux aires, soit $${miseEnEvidence(reduireAxPlusB(b, a ** 2))}$ cm$^2$.`
+            this.correction = `$\\bullet$ L'aire du carré $AEFG$ est $${a}^2=${a ** 2}\\text{ cm}^2$.<br>
+          $\\bullet$ L'aire du rectangle $EMND$ est $EM\\times MN=x \\times ${b} =${b}x\\text{ cm}^2$.<br>
+          $\\bullet$ L'aire de la partie hachurée est donc la somme de ces deux aires, soit $${miseEnEvidence(reduireAxPlusB(b, a ** 2))}\\text{ cm}^2$.`
           }
           this.canEnonce = this.question
-          this.canReponseACompleter = '$\\ldots$ cm$^2$'
+          this.canReponseACompleter = '$\\ldots\\text{ cm}^2$'
           if (this.interactif) {
-            this.optionsChampTexte = { texteApres: 'cm$^2$.' }
+            this.optionsChampTexte = { texteApres: '$\\text{ cm}^2$.' }
           } else {
-            this.question += ' $\\ldots $ cm$^2$.'
+            this.question += ' $\\ldots \\text{ cm}^2$.'
           }
         }
         break

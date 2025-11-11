@@ -1,15 +1,18 @@
 import { colorToLatexOrHTML } from '../../lib/2d/colorToLatexOrHtml'
 import { fixeBordures } from '../../lib/2d/fixeBordures'
-import { point, tracePoint } from '../../lib/2d/points'
+import { nomVecteurParPosition } from '../../lib/2d/NomVecteurParPosition'
+import { point } from '../../lib/2d/PointAbstrait'
 import { repere } from '../../lib/2d/reperes'
 import {
-  longueur,
-  nomVecteurParPosition,
-  segment,
-  vecteur,
-} from '../../lib/2d/segmentsVecteurs'
+  representant,
+  representantNomme,
+} from '../../lib/2d/representantVecteur'
+import { segment } from '../../lib/2d/segmentsVecteurs'
 import { latexParPoint, texteParPosition } from '../../lib/2d/textes'
+import { tracePoint } from '../../lib/2d/TracePoint'
 import { homothetie } from '../../lib/2d/transformations'
+import { longueur } from '../../lib/2d/utilitairesGeometriques'
+import { vecteur } from '../../lib/2d/Vecteur'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { remplisLesBlancs } from '../../lib/interactif/questionMathLive'
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
@@ -115,15 +118,15 @@ export default class TranslationEtCoordonnes extends Exercice {
       const J = point(0, 1) // On définit sans tracer le point J
       const vi = vecteur(O, I) // Variable qui définit vecteur OI
       const vj = vecteur(O, J) // Variable qui définit vecteur OJ
-      const k = vi.representant(O) // Variable qui trace [OI]
-      const j = vj.representant(O) // Variable qui trace [OJ]
+      const k = representant(vi, O) // Variable qui trace [OI]
+      const j = representant(vj, O) // Variable qui trace [OJ]
       s.epaisseur = 2 // Variable qui grossit le tracé du vecteur AB
       s.color = colorToLatexOrHTML('red')
       k.epaisseur = 2 // Variable qui grossit le tracé du vecteur OI
       j.epaisseur = 2 // Variable qui grossit le tracé du vecteur OJ
       const nomi = nomVecteurParPosition('i', 0.5, -0.7, 1.5, 0)
       const nomj = nomVecteurParPosition('j', -0.7, 0.5, 1.5, 0)
-      const nomAB = vecteur(A, B).representantNomme(A, "AA'", 1.5, 'red')
+      const nomAB = representantNomme(vecteur(A, B), A, "AA'", 1.5, 'red')
       objets.push(r, traceAetB, labelA, labelB, s, o, k, j, nomi, nomj, nomAB)
       let texte = ''
       let texteCorr = ''

@@ -536,7 +536,12 @@ export default class SujetCAN2023CM2 extends Exercice {
               formatInteractif: 'calcul',
             })
             if (this.interactif && !context.isAmc) {
-              texte += ajouteChampTexteMathLive(this, index, '') + 'km'
+              texte += ajouteChampTexteMathLive(
+                this,
+                index,
+                KeyboardType.clavierNumbers,
+                { texteApres: ' $\\text{km}$' },
+              )
             }
             nbChamps = 1
             this.listeCanEnonces.push(proportionnaliteEtVitesse.canEnonce)
@@ -558,7 +563,12 @@ export default class SujetCAN2023CM2 extends Exercice {
               formatInteractif: 'calcul',
             })
             if (this.interactif && !context.isAmc) {
-              texte += ajouteChampTexteMathLive(this, index, '') + 'km'
+              texte += ajouteChampTexteMathLive(
+                this,
+                index,
+                KeyboardType.clavierNumbers,
+                { texteApres: ' $\\text{km}$' },
+              )
             }
             nbChamps = 1
             this.listeCanEnonces.push(proportionnaliteEtVitesse.canEnonce)
@@ -703,7 +713,7 @@ export default class SujetCAN2023CM2 extends Exercice {
             )
             if (this.interactif && !context.isAmc) {
               texte += ajouteChampTexteMathLive(this, index, '', {
-                texteApres: ' cm',
+                texteApres: ' $\\text{cm}$',
               })
             }
             nbChamps = 1

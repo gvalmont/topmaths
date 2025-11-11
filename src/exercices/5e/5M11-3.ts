@@ -1,9 +1,11 @@
+import { afficheLongueurSegment } from '../../lib/2d/afficheLongueurSegment'
 import { cercle } from '../../lib/2d/cercle'
-import { afficheLongueurSegment } from '../../lib/2d/codages'
-import { point, pointAdistance, tracePoint } from '../../lib/2d/points'
+import { point } from '../../lib/2d/PointAbstrait'
 import { segment } from '../../lib/2d/segmentsVecteurs'
 import { latexParPoint } from '../../lib/2d/textes'
+import { tracePoint } from '../../lib/2d/TracePoint'
 import { rotation } from '../../lib/2d/transformations'
+import { pointAdistance } from '../../lib/2d/utilitairesPoint'
 import { setReponse } from '../../lib/interactif/gestionInteractif'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { choice } from '../../lib/outils/arrayOutils'
@@ -270,7 +272,7 @@ export default class PerimetreAireDisques extends Exercice {
                   this,
                   this.sup3 === 4 ? 2 * i : i,
                   ' ',
-                  { texteApres: ' cm' },
+                  { texteApres: ' $\\text{cm}$' },
                 )
             }
             if (choixValeurApprochee) {
@@ -287,7 +289,7 @@ export default class PerimetreAireDisques extends Exercice {
                   this,
                   this.sup3 === 4 ? 2 * i + 1 : i,
                   '   ',
-                  { texteApres: ' cm' },
+                  { texteApres: ' $\\text{cm}$' },
                 )
             }
           } else {
@@ -355,7 +357,7 @@ export default class PerimetreAireDisques extends Exercice {
                   this,
                   this.sup3 === 4 ? 2 * i : i,
                   ' ',
-                  { texteApres: ' cm$^2$' },
+                  { texteApres: '$\\text{ cm}^2$' },
                 )
             }
             if (choixValeurApprochee) {
@@ -372,7 +374,7 @@ export default class PerimetreAireDisques extends Exercice {
                   this,
                   this.sup3 === 4 ? 2 * i + 1 : i,
                   '   ',
-                  { texteApres: ' cm$^2$' },
+                  { texteApres: '$\\text{ cm}^2$' },
                 )
             }
           } else {
@@ -441,7 +443,7 @@ export default class PerimetreAireDisques extends Exercice {
                   this,
                   this.sup3 === 4 ? 4 * i : 2 * i,
                   ' ',
-                  { texteApres: ' cm' },
+                  { texteApres: ' $\\text{cm}$' },
                 )
             }
             if (choixValeurApprochee) {
@@ -458,7 +460,7 @@ export default class PerimetreAireDisques extends Exercice {
                   this,
                   this.sup3 === 4 ? 4 * i + 1 : 2 * i,
                   ' ',
-                  { texteApres: ' cm' },
+                  { texteApres: ' $\\text{cm}$' },
                 )
             }
             if (choixValeurExacte) {
@@ -478,7 +480,7 @@ export default class PerimetreAireDisques extends Exercice {
                   this,
                   this.sup3 === 4 ? 4 * i + 2 : 2 * i + 1,
                   ' ',
-                  { texteApres: ' cm$^2$' },
+                  { texteApres: '$\\text{ cm}^2$' },
                 )
             }
             if (choixValeurApprochee) {
@@ -494,7 +496,7 @@ export default class PerimetreAireDisques extends Exercice {
                   this,
                   this.sup3 === 4 ? 4 * i + 3 : 2 * i + 1,
                   ' ',
-                  { texteApres: ' cm$^2$' },
+                  { texteApres: '$\\text{ cm}^2$' },
                 )
             }
           } else {

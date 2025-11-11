@@ -1,5 +1,5 @@
-import { codageAngleDroit } from '../../../lib/2d/angles'
-import { afficheCoteSegment } from '../../../lib/2d/codages'
+import { afficheCoteSegment } from '../../../lib/2d/AfficheCoteSegment'
+import { codageAngleDroit } from '../../../lib/2d/CodageAngleDroit'
 
 import { fixeBordures } from '../../../lib/2d/fixeBordures'
 import { segment } from '../../../lib/2d/segmentsVecteurs'
@@ -7,8 +7,8 @@ import {
   point3d,
   polygone3d,
   vecteur3d,
-} from '../../../lib/3d/3dProjectionMathalea2d/elements'
-import { prisme3d } from '../../../lib/3d/3dProjectionMathalea2d/solides'
+} from '../../../lib/3d/3dProjectionMathalea2d/elementsEtTransformations3d'
+import { prisme3d } from '../../../lib/3d/3dProjectionMathalea2d/Prisme3dPerspectiveCavaliere'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { texNombre } from '../../../lib/outils/texNombre'
 import { mathalea2d } from '../../../modules/mathalea2d'
@@ -82,7 +82,7 @@ export default class AmeriqueNordJuin22Ex1Q5 extends ExerciceQcmA {
       objets,
     )
     this.enonce += '<br>Le volume de ce prisme droit est :'
-    this.correction = `La base de ce prisme est un triangle rectangle de $${l}$ cm et $${h}$ cm de côté.<br>
+    this.correction = `La base de ce prisme est un triangle rectangle de $${l}\\text{ cm}$ et $${h}\\text{ cm}$ de côté.<br>
     Son aire est : $\\dfrac{${l}\\times ${h}}{2}=\\dfrac{${l * h}}{2}=${texNombre((l * h) / 2, 1)}\\text{ cm}^2$.<br>
     Le volume du prisme est le produit de l'aire de la base par la hauteur, soit :<br>
     $${texNombre((l * h) / 2, 1)}\\times ${p}=${miseEnEvidence(`${volume}\\text{ cm}^3`)}$<br>

@@ -9,18 +9,23 @@ import { colorToLatexOrHTML } from './colorToLatexOrHtml'
 import { fixeBordures } from './fixeBordures'
 import type { IRepere } from './Interfaces'
 import { ObjetMathalea2D } from './ObjetMathalea2D'
-import { point, tracePoint } from './points'
-import type { PointAbstrait } from './points-abstraits'
-import { carre, motifs, Polygone, polygone, polyline } from './polygones'
+import { motifs } from './pattern'
+import type { PointAbstrait } from './PointAbstrait'
+import { point } from './PointAbstrait'
+import { Polygone, polygone } from './polygones'
+import { carre } from './polygonesParticuliers'
+import { polyline } from './Polyline'
 import { pointDansRepere } from './reperes'
-import { segment, vecteur } from './segmentsVecteurs'
+import { segment } from './segmentsVecteurs'
 import {
   latexParPoint,
   TexteParPoint,
   texteParPoint,
   texteParPosition,
 } from './textes'
+import { tracePoint } from './TracePoint'
 import { rotation, similitude, translation } from './transformations'
+import { vecteur } from './Vecteur'
 import { vide2d, type Vide2d } from './Vide2d'
 
 /**

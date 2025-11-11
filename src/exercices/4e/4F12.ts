@@ -1,6 +1,6 @@
 import { courbe, courbeInterpolee } from '../../lib/2d/courbes'
-import { point } from '../../lib/2d/points'
-import { polyline } from '../../lib/2d/polygones'
+import { point } from '../../lib/2d/PointAbstrait'
+import { polyline } from '../../lib/2d/Polyline'
 import { repere } from '../../lib/2d/reperes'
 import { texteParPosition } from '../../lib/2d/textes'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
@@ -94,7 +94,7 @@ export default class ExploiterRepresentationGraphique extends Exercice {
           f = (x: number) =>
             Math.max(-5 * x ** 2 + (V0 * Math.sqrt(2) * x) / 2, 0)
           repeRe = repere({
-            yLegende: 'Hauteur (en m)',
+            yLegende: 'Hauteur (en $\\text{m})',
             xLegende: 'Temps (en s)',
             xUnite: 1 * xscale,
             yUnite: 0.1 * xscale,
@@ -112,7 +112,7 @@ export default class ExploiterRepresentationGraphique extends Exercice {
           graphique = courbe(f, { repere: repeRe, xMax: t1 + 1, step: 0.2 })
           zero = texteParPosition('0', -0.5, 0, 0, 'black', 1, 'milieu', true)
           this.introduction =
-            "On a représenté ci-dessous l'évolution de la hauteur d'un projectile lancé depuis le sol (en m) en fonction du temps (en secondes)."
+            "On a représenté ci-dessous l'évolution de la hauteur d'un projectile lancé depuis le sol (en $\\text{m}) en fonction du temps (en secondes)."
 
           this.introduction +=
             '<br><br>' +
@@ -223,8 +223,8 @@ export default class ExploiterRepresentationGraphique extends Exercice {
           xscale = 52 / t1
           f = (x: number) => Math.max((-10 * x ** 2) / V0 ** 2 + x, 0)
           repeRe = repere({
-            yLegende: 'hauteur (en m)',
-            xLegende: 'distance (en m)',
+            yLegende: 'hauteur (en $\\text{m})',
+            xLegende: 'distance (en $\\text{m})',
             xUnite: 0.25 * xscale,
             yUnite: 0.5 * xscale,
             xMin: 0,
@@ -454,7 +454,7 @@ export default class ExploiterRepresentationGraphique extends Exercice {
             'Quelle distance a-t-elle parcourue au total ?',
           )
           this.listeCorrections.push(
-            `Le point le plus loin de sa maison est à ${v3} km et ensuite elle revient chez elle, donc la distance totale est de $${miseEnEvidence(texNombre(2 * v3) + sp() + '\\text{km}')}$.`,
+            `Le point le plus loin de sa maison est à ${v3} $\\text{km}$ et ensuite elle revient chez elle, donc la distance totale est de $${miseEnEvidence(texNombre(2 * v3) + sp() + '\\text{km}')}$.`,
           )
 
           this.listeQuestions.push(

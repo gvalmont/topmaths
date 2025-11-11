@@ -4,10 +4,11 @@ import { texNombre } from '../../../lib/outils/texNombre'
 import { randint } from '../../../modules/outils'
 import ExerciceSimple from '../../ExerciceSimple'
 
-import { codageSegments } from '../../../lib/2d/codages'
-import { milieu, point } from '../../../lib/2d/points'
+import { codageSegments } from '../../../lib/2d/CodageSegment'
+import { point } from '../../../lib/2d/PointAbstrait'
 import { segment } from '../../../lib/2d/segmentsVecteurs'
 import { latex2d } from '../../../lib/2d/textes'
+import { milieu } from '../../../lib/2d/utilitairesPoint'
 import { mathalea2d } from '../../../modules/mathalea2d'
 export const titre = 'Trouver une longuer'
 export const interactifReady = true
@@ -26,7 +27,7 @@ export default class longueurDansTriangle extends ExerciceSimple {
     super()
     this.typeExercice = 'simple' // Cette ligne est très importante pour faire un exercice simple !
     this.nbQuestions = 1
-    this.optionsChampTexte = { texteApres: ' cm' }
+    this.optionsChampTexte = { texteApres: ' $\\text{cm}$' }
     this.formatChampTexte = KeyboardType.clavierDeBase
   }
 
@@ -58,12 +59,12 @@ export default class longueurDansTriangle extends ExerciceSimple {
       s3,
     )
 
-    this.question = `Le périmètre de ce triangle est  $${texNombre(2 * a + b)}$ cm. <br>
+    this.question = `Le périmètre de ce triangle est  $${texNombre(2 * a + b)}\\text{ cm}$. <br>
         Que vaut la longueur indiquée par le point d'interrogation ?`
     this.reponse = a
     this.correction = `Le triangle est isocèle, il possède donc deux longueurs égales.<br>
-            Puisque le périmètre est  $${texNombre(2 * a + b)}$ cm, on obtient la somme des deux longueurs égales  du triangle en effectuant la différence $${texNombre(2 * a + b)}-${texNombre(b)}=${texNombre(2 * a)}$ cm.<br>
-            On obtient la longueur cherchée en divisant par $2$, soit $${texNombre(2 * a)}\\div 2=${miseEnEvidence(texNombre(a))}$ cm.`
+            Puisque le périmètre est  $${texNombre(2 * a + b)}\\text{ cm}$, on obtient la somme des deux longueurs égales  du triangle en effectuant la différence $${texNombre(2 * a + b)}-${texNombre(b)}=${texNombre(2 * a)}\\text{ cm}$.<br>
+            On obtient la longueur cherchée en divisant par $2$, soit $${texNombre(2 * a)}\\div 2=${miseEnEvidence(texNombre(a))}\\text{ cm}$.`
     this.question +=
       '<br>' +
       mathalea2d(
@@ -82,6 +83,6 @@ export default class longueurDansTriangle extends ExerciceSimple {
       this.question += '<br>'
     }
     this.canEnonce = this.question
-    this.canReponseACompleter = '$\\ldots$ cm'
+    this.canReponseACompleter = '$\\ldots\\text{ cm}$'
   }
 }

@@ -1,11 +1,14 @@
-import { codageAngle, codageAngleDroit } from '../../../lib/2d/angles'
+import { codageAngle } from '../../../lib/2d/angles'
+import { codageAngleDroit } from '../../../lib/2d/CodageAngleDroit'
 import { colorToLatexOrHTML } from '../../../lib/2d/colorToLatexOrHtml'
 import { fixeBordures } from '../../../lib/2d/fixeBordures'
-import { milieu, point, tracePoint } from '../../../lib/2d/points'
+import { point } from '../../../lib/2d/PointAbstrait'
 import { polygone } from '../../../lib/2d/polygones'
 import { segment } from '../../../lib/2d/segmentsVecteurs'
 import { labelPoint, texteParPosition } from '../../../lib/2d/textes'
+import { tracePoint } from '../../../lib/2d/TracePoint'
 import { rotation } from '../../../lib/2d/transformations'
+import { milieu } from '../../../lib/2d/utilitairesPoint'
 import { texPrix } from '../../../lib/format/style'
 import { choice, shuffle } from '../../../lib/outils/arrayOutils'
 import {
@@ -42,6 +45,7 @@ import Hms from '../../../modules/Hms'
 
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 import { ecritureAlgebrique, rienSi1 } from '../../../lib/outils/ecritures'
+import { representationFraction } from '../../../modules/representationsFractions'
 
 export const titre = 'CAN 4e sujet 2023'
 export const interactifReady = true
@@ -538,32 +542,32 @@ export default class SujetCAN2023Quatrieme extends Exercice {
           if (choice([true, false])) {
             a = new Decimal(randint(101, 199)).div(10)
             reponse = new Decimal(a).mul(100)
-            texte = `$${texNombre(a, 1)}$ m$^2$  $=$`
+            texte = `$${texNombre(a, 1)}\\text{ m}^2$  $=$`
 
             texteCorr = `
-        Comme $1$ m$^2$ $=100$ dm$^2$, alors $${texNombre(a, 1)}$ m$^2$  $=${texNombre(a, 1)}\\times 100$ dm$^2=${miseEnEvidence(texNombre(reponse, 0))}$ dm$^2$. `
+        Comme $1\\text{ m}^2$ $=100\\text{ dm}^2$, alors $${texNombre(a, 1)}\\text{ m}^2$  $=${texNombre(a, 1)}\\times 100\\text{ dm}^2=${miseEnEvidence(texNombre(reponse, 0))}\\text{ dm}^2$. `
             setReponse(this, index, reponse, { formatInteractif: 'calcul' })
             if (this.interactif) {
               texte += ajouteChampTexteMathLive(this, index, '') + 'dm$^2$'
             } else {
-              texte += context.isHtml ? '  $\\ldots$ dm$^2$' : ''
+              texte += context.isHtml ? '  $\\ldots\\text{ dm}^2$' : ''
             }
             this.listeCanReponsesACompleter[this.listeCanEnonces.length] =
-              '$\\ldots\\Aire[dm]{}$'
+              '$\\ldots\\text{dm}^2$'
           } else {
             a = new Decimal(randint(101, 199)).div(10)
             reponse = new Decimal(a).div(100)
-            texte = `$${texNombre(a, 1)}$ dm$^2$  $=$`
+            texte = `$${texNombre(a, 1)}\\text{ dm}^2$  $=$`
 
             texteCorr = `
-        Comme $1$ dm$^2$ $=0,01$ m$^2$, alors $${texNombre(a, 1)}$ dm$^2$  $=${texNombre(a, 1)}\\times 0,01$ m$^2=${miseEnEvidence(texNombre(reponse, 3))}$ m$^2$. `
+        Comme $1\\text{ dm}^2$ $=0,01\\text{ m}^2$, alors $${texNombre(a, 1)}\\text{ dm}^2$  $=${texNombre(a, 1)}\\times 0,01\\text{ m}^2=${miseEnEvidence(texNombre(reponse, 3))}\\text{ m}^2$. `
             setReponse(this, index, reponse, { formatInteractif: 'calcul' })
             if (this.interactif) {
               texte += ajouteChampTexteMathLive(this, index, '') + 'm$^2$'
             } else {
-              texte += context.isHtml ? '  $\\ldots$ m$^2$' : ''
+              texte += context.isHtml ? '  $\\ldots\\text{ m}^2$' : ''
               this.listeCanReponsesACompleter[this.listeCanEnonces.length] =
-                '$\\ldots\\Aire[m]{}$'
+                '$\\ldots\text{m}^2$'
             }
           }
           this.listeCanEnonces.push(texte)
@@ -619,7 +623,8 @@ export default class SujetCAN2023Quatrieme extends Exercice {
           texte += context.isHtml
             ? mathalea2d(
                 params,
-                f.representation(
+                representationFraction(
+                  f,
                   0,
                   0,
                   2,
@@ -759,8 +764,8 @@ export default class SujetCAN2023Quatrieme extends Exercice {
 
           if (choix === 'a') {
             reponse = a
-            texte = `$${texNombre(a, 1)}$ dm$^3=$`
-            texteCorr = `$1$ dm$^3= 1$ L, donc $${texNombre(a, 1)}$ dm$^3=${miseEnEvidence(texNombre(a, 1))}$ L.`
+            texte = `$${texNombre(a, 1)}\\text{ dm}^3=$`
+            texteCorr = `$1\\text{ dm}^3= 1$ L, donc $${texNombre(a, 1)}\\text{ dm}^3=${miseEnEvidence(texNombre(a, 1))}$ L.`
             setReponse(this, index, reponse, { formatInteractif: 'calcul' })
             if (this.interactif) {
               texte += ajouteChampTexteMathLive(this, index, '') + 'L'
@@ -773,8 +778,8 @@ export default class SujetCAN2023Quatrieme extends Exercice {
           }
           if (choix === 'b') {
             reponse = new Decimal(a).mul(1000)
-            texte = `$${texNombre(a, 1)}$ m$^3$ $=$`
-            texteCorr = `$1$ m$^3= ${texNombre(1000)}$ L, donc $${texNombre(a, 1)}$ m$^3= ${miseEnEvidence(texNombre(a * 1000))}$ L.`
+            texte = `$${texNombre(a, 1)}\\text{ m}^3$ $=$`
+            texteCorr = `$1\\text{ m}^3= ${texNombre(1000)}$ L, donc $${texNombre(a, 1)}\\text{ m}^3= ${miseEnEvidence(texNombre(a * 1000))}$ L.`
             setReponse(this, index, reponse, { formatInteractif: 'calcul' })
             if (this.interactif) {
               texte += ajouteChampTexteMathLive(this, index, '') + 'L'
@@ -992,15 +997,20 @@ export default class SujetCAN2023Quatrieme extends Exercice {
               e,
             )
             texteCorr = `L'aire du triangle est $\\dfrac{\\text{AB}\\times \\text{AC}}{2}=\\dfrac{${a}\\times \\text{AC}}{2}$.<br>
-          On obtient ainsi,  $\\dfrac{${a}\\times \\text{AC}}{2}=${c}$ soit $${a}\\times AC=2\\times ${c}$, soit $AC=\\dfrac{${c * 2}}{${a}}=${reponse}$ cm.`
+          On obtient ainsi,  $\\dfrac{${a}\\times \\text{AC}}{2}=${c}$ soit $${a}\\times AC=2\\times ${c}$, soit $AC=\\dfrac{${c * 2}}{${a}}=${reponse}\\text{ cm}$.`
             texte += context.isHtml ? `${sp(4)}$AC= $` : ''
             setReponse(this, index, reponse, { formatInteractif: 'calcul' })
             if (this.interactif) {
-              texte += ajouteChampTexteMathLive(this, index, '') + 'cm'
+              texte += ajouteChampTexteMathLive(
+                this,
+                index,
+                KeyboardType.clavierNumbers,
+                { texteApres: '$\\text{ cm}$' },
+              )
             } else {
-              texte += context.isHtml ? ' $\\ldots$ cm' : ''
+              texte += context.isHtml ? ' $\\ldots\\text{ cm}$' : ''
               this.listeCanReponsesACompleter[this.listeCanEnonces.length - 1] =
-                '$AC=\\ldots$ cm.'
+                '$AC=\\ldots\\text{ cm}$.'
             }
           } else {
             listeTriplet = [
@@ -1058,13 +1068,14 @@ export default class SujetCAN2023Quatrieme extends Exercice {
               e,
               f,
             )
-            texteCorr = `L'aire du triangle est $\\dfrac{\\text{AC}\\times \\text{CB}}{2}=\\dfrac{${a}\\times ${a}}{2}=${miseEnEvidence(reponse)}$ cm$^2$.`
+            texteCorr = `L'aire du triangle est $\\dfrac{\\text{AC}\\times \\text{CB}}{2}=\\dfrac{${a}\\times ${a}}{2}=${miseEnEvidence(reponse)}\\text{ cm}^2$.`
             setReponse(this, index, reponse, { formatInteractif: 'calcul' })
             if (this.interactif) {
-              texte += ajouteChampTexteMathLive(this, index, '') + 'cm$^2$'
+              texte +=
+                ajouteChampTexteMathLive(this, index, '') + '$\\text{cm}^2$'
             }
             this.listeCanReponsesACompleter[this.listeCanEnonces.length - 1] =
-              '$\\ldots\\Aire[cm]{}$'
+              '$\\ldots\text{cm}^2$'
           }
 
           nbChamps = 1
@@ -1384,7 +1395,7 @@ export default class SujetCAN2023Quatrieme extends Exercice {
             context.isHtml ? 1 : 0.7,
           )
           reponse = c
-          texte = `Ce pavé droit a un volume de $${v}$ cm$^3$.<br>
+          texte = `Ce pavé droit a un volume de $${v}\\text{ cm}^3$.<br>
             Quelle est sa hauteur ? <br>`
           texte += mathalea2d(
             {
@@ -1410,9 +1421,14 @@ export default class SujetCAN2023Quatrieme extends Exercice {
           texte += context.isHtml ? `${sp(4)}$AI= $` : ''
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) {
-            texte += ajouteChampTexteMathLive(this, index, '') + 'cm'
+            texte += ajouteChampTexteMathLive(
+              this,
+              index,
+              KeyboardType.clavierNumbers,
+              { texteApres: '$\\text{ cm}$' },
+            )
           } else {
-            texte += context.isHtml ? ' $\\ldots$ cm' : ''
+            texte += context.isHtml ? ' $\\ldots\\text{ cm}$' : ''
           }
 
           nbChamps = 1

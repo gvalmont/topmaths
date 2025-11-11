@@ -3,7 +3,7 @@ import { miseEnEvidence } from '../../../outils/embellissements'
 import SchemaEnBoite from '../../../outils/SchemaEnBoite'
 import { texNombre } from '../../../outils/texNombre'
 import Probleme from '../../Probleme'
-import { chocolats4 } from './chocolats'
+
 /**
  * @author Jean-Claude Lhote
  */
@@ -75,4 +75,3 @@ Quel est le prix d'un sachet ?`
     this.reponse = texNombre(nb1, 2)
   }
 }
-export const listeDeProblemesCompMulPteQuantite = [chocolats4]

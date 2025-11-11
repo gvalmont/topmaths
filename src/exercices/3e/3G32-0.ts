@@ -1,39 +1,38 @@
-import { angle, codageAngleDroit } from '../../lib/2d/angles'
+import { afficheMesureAngle } from '../../lib/2d/AfficheMesureAngle'
 import { cercle } from '../../lib/2d/cercle'
-import { afficheMesureAngle, texteSurSegment } from '../../lib/2d/codages'
+import { codageAngleDroit } from '../../lib/2d/CodageAngleDroit'
 import { colorToLatexOrHTML } from '../../lib/2d/colorToLatexOrHtml'
 import { droite, droiteVerticaleParPoint } from '../../lib/2d/droites'
-import {
-  milieu,
-  Point,
-  point,
-  pointAdistance,
-  pointIntersectionLC,
-  tracePoint,
-} from '../../lib/2d/points'
+import { Point, point } from '../../lib/2d/PointAbstrait'
 import {
   NommePolygone,
   Polygone,
   polygone,
   polygoneAvecNom,
 } from '../../lib/2d/polygones'
-import { longueur, segment } from '../../lib/2d/segmentsVecteurs'
+import { segment } from '../../lib/2d/segmentsVecteurs'
 import { labelPoint, texteParPosition } from '../../lib/2d/textes'
+import { texteSurSegment } from '../../lib/2d/texteSurSegment'
+import { tracePoint } from '../../lib/2d/TracePoint'
 import { projectionOrtho } from '../../lib/2d/transformations'
+import { angle, longueur } from '../../lib/2d/utilitairesGeometriques'
+import {
+  milieu,
+  pointAdistance,
+  pointIntersectionLC,
+} from '../../lib/2d/utilitairesPoint'
 import {
   Arete3d,
   arete3d,
+  CodageAngleDroit3D,
   demicercle3d,
   Point3d,
   point3d,
+  rotationV3d,
   Vecteur3d,
   vecteur3d,
-} from '../../lib/3d/3dProjectionMathalea2d/elements'
-import { sphere3d } from '../../lib/3d/3dProjectionMathalea2d/solides'
-import {
-  CodageAngleDroit3D,
-  rotationV3d,
-} from '../../lib/3d/3dProjectionMathalea2d/tranformations'
+} from '../../lib/3d/3dProjectionMathalea2d/elementsEtTransformations3d'
+import { sphere3d } from '../../lib/3d/3dProjectionMathalea2d/Sphere3dPerspectiveCavaliere'
 import {
   handleAnswers,
   setReponse,
@@ -116,7 +115,7 @@ export default class ProblemesTrigoLongueur extends Exercice {
   }
 
   nouvelleVersion() {
-    let listeDeNomsDePolygones
+    let listeDeNomsDePolygones: string[] = []
     const objet = [
       ['arbre', 'un', '', 'situé'],
       ['immeuble', 'un', '', 'situé'],
@@ -186,7 +185,6 @@ export default class ProblemesTrigoLongueur extends Exercice {
         absS,
         numH,
         AB,
-        BA,
         propositionsAMC,
         enonceAMC,
         enonceInit,
@@ -256,7 +254,6 @@ export default class ProblemesTrigoLongueur extends Exercice {
           numB = randint(1, 26, [4, 5, 15, 23, 24, 25, numA])
           B = point(0, 0, lB)
           AB = lA + lB
-          BA = lB + lA
           numC = randint(1, 26, [4, 5, 15, 23, 24, 25, numA, numB])
           absC = sensH * randint(5, 9)
           C = point(
@@ -314,7 +311,7 @@ export default class ProblemesTrigoLongueur extends Exercice {
           texte += `Pour cela, il remarque une souche notée $${lS}$ sur la rive opposée.<br>`
           texte += `Il a placé un cône sur sa rive en face de la souche, son emplacement est noté $${lC}$.<br>`
           texte += `Ensuite, il s'est éloigné de la berge en restant aligné avec la souche $${lS}$ et le cône $${lC}$ jusqu'à un endroit où il place un bâton noté $${lB}$.<br>`
-          texte += `Du bâton, il effectue un quart de tour et s'éloigne d'une distance de $${distance}$ m jusqu'à son appareil de mesure noté $${lA}$.<br>`
+          texte += `Du bâton, il effectue un quart de tour et s'éloigne d'une distance de $${distance}\\text{ m}$ jusqu'à son appareil de mesure noté $${lA}$.<br>`
           texte += `À l'aide de son appareil, il mesure l'angle $\\widehat{${lB}${lA}${lC}}$ noté $${alfa}$  et l'angle $\\widehat{${lB}${lA}${lS}}$ noté $${baita}$.`
           texte +=
             "<br>(Le schéma ci-dessous n'est pas en vraie grandeur et ne respecte pas les proportions.)"
@@ -685,8 +682,8 @@ export default class ProblemesTrigoLongueur extends Exercice {
             texteSurSegment(`${stringNombre(distance)} m`, C, R),
           )
           texte = `Un observateur regarde ${objet[index][1]} ${objet[index][0]} sous un angle de $${alpha}^\\circ$.<br>`
-          texte += `Cet${objet[index][2]} ${objet[index][0]} est ${objet[index][3]} à une distance de $${texNombre(distance)}$ m de l'observateur.<br>`
-          texte += `L'œil de l'observateur est situé à $${texNombre(hauteur)}$ m du sol.`
+          texte += `Cet${objet[index][2]} ${objet[index][0]} est ${objet[index][3]} à une distance de $${texNombre(distance)}\\text{ m}$ de l'observateur.<br>`
+          texte += `L'œil de l'observateur est situé à $${texNombre(hauteur)}\\text{ m}$ du sol.`
           enonceInit = texte
           j = 0
           if (this.sup) {
@@ -969,7 +966,7 @@ export default class ProblemesTrigoLongueur extends Exercice {
           texte += this.sup ? ' $h$.<br>' : '.<br>'
           texte += `Il jette l'ancre puis constate qu'il voit la falaise sous un angle de $${alpha}^\\circ$.<br>`
           texte += `Il se rapproche ensuite de la falaise jusqu'à la voir sous un angle de $${alpha + 5}^\\circ$.<br>`
-          texte += `Il constate qu'entre ses deux mesures, il s'est rapproché de la falaise de $${distance}$ m.<br>`
+          texte += `Il constate qu'entre ses deux mesures, il s'est rapproché de la falaise de $${distance}\\text{ m}$.<br>`
           enonceInit = texte
           if (this.sup) {
             enonceAMC =
@@ -994,7 +991,6 @@ export default class ProblemesTrigoLongueur extends Exercice {
                   texteAvant: `$${sp(20)}h=$`,
                 })
               AB = lS + lC
-              BA = lC + lS
               handleAnswers(this, i + ii, {
                 reponse: {
                   value: `${AB}\\times(\\tan(${baitaInteractif})`,
@@ -1008,7 +1004,6 @@ export default class ProblemesTrigoLongueur extends Exercice {
                   texteAvant: `$${sp(20)}h=$`,
                 })
               AB = lB + lC
-              BA = lC + lB
               handleAnswers(this, i + ii, {
                 reponse: {
                   value: `${AB}\\times\\tan(${alfaInteractif})`,
@@ -1040,7 +1035,6 @@ export default class ProblemesTrigoLongueur extends Exercice {
                   texteAvant: `$${sp(20)}${lS}${lC}=$`,
                 })
               AB = lS + lB
-              BA = lB + lS
               handleAnswers(this, i + ii, {
                 reponse: {
                   value: [
@@ -1332,10 +1326,10 @@ export default class ProblemesTrigoLongueur extends Exercice {
           texte =
             "Un voyageur approche d'une montagne. Il aimerait en calculer la hauteur.<br>"
           texte += `Pour cela, il utilise un théodolite en un point $${lB}$ qui lui permet de mesurer l'angle $${alfa}$ vertical formé par le sommet $${lA}$ de la montagne, le point $${lB}$ et la base de la montagne $${lS}$.<br>`
-          texte += `Il parcourt ensuite $${distance}$ m en direction de la montagne et effectue une nouvelle mesure de l'angle $${baita}$ en un point $${lC}$.<br>`
+          texte += `Il parcourt ensuite $${distance}\\text{ m}$ en direction de la montagne et effectue une nouvelle mesure de l'angle $${baita}$ en un point $${lC}$.<br>`
           texte +=
             "(Le schéma ci-dessous n'est pas en vraie grandeur et ne respecte pas les proportions.)<br>"
-          texte += `  On donne : $${alfa}=${alpha}^\\circ$, $${baita}=${beta}^\\circ$ et $${lB}${lC}=${distance}$ m.<br>`
+          texte += `  On donne : $${alfa}=${alpha}^\\circ$, $${baita}=${beta}^\\circ$ et $${lB}${lC}=${distance}\\text{ m}$.<br>`
           texte += mathalea2d(
             {
               xmin: Math.min(-sensH, absS + sensH),
@@ -1684,7 +1678,7 @@ export default class ProblemesTrigoLongueur extends Exercice {
               scale: 1,
               mainlevee: false,
             }
-            enonceAMC = `$${A.nom + E.nom} = ${AE}~\\text{cm}$, $${A.nom + D.nom} = ${AD}~\\text{cm}$ et $${A.nom + C.nom} = ${AC}~\\text{cm}$.`
+            enonceAMC = `$${A.nom + E.nom} = ${AE}\\text{ cm}$, $${A.nom + D.nom} = ${AD}\\text{ cm}$ et $${A.nom + C.nom} = ${AC}\\text{ cm}$.`
             enonceAMC += '<br>' + mathalea2d(paramsEnonce, objetsEnonce)
             enonceAMC += `Calculer la longueur $${A.nom + B.nom}$ et donner une valeur approchée `
             texte =
@@ -1746,7 +1740,7 @@ export default class ProblemesTrigoLongueur extends Exercice {
             texteCorr += `<br>$\\cos(\\widehat{${B.nom + A.nom + C.nom}})=\\dfrac{${A.nom + B.nom}}{${A.nom + C.nom}}\\quad$ soit $\\quad\\cos(${texNombre(arrondi(angle(D, A, E), 1))}^\\circ)\\approx\\dfrac{${A.nom + B.nom}}{${AC}}$,`
             texteCorr += `<br> d'où $${A.nom + B.nom} \\approx ${AC}${sp()}\\text{cm}\\times \\cos(${texNombre(arrondi(angle(D, A, E), 1))}^\\circ)\\approx${miseEnEvidence(`${texNombre(longueur(A, B), 1)}${sp()}\\text{m}`)}$.`
 
-            // texteCorr += `<br><br>On pouvait aussi écrire : $${A.nom + B.nom} = ${AC}\\times \\cos\\left(\\text{arccos}\\left(\\dfrac{${AD}}{${AE}}\\right)\\right)=${AC}\\times \\dfrac{${AD}}{${AE}}=${texFractionReduite(AC * AD, AE)}$ cm qui est la valeur exacte.`
+            // texteCorr += `<br><br>On pouvait aussi écrire : $${A.nom + B.nom} = ${AC}\\times \\cos\\left(\\text{arccos}\\left(\\dfrac{${AD}}{${AE}}\\right)\\right)=${AC}\\times \\dfrac{${AD}}{${AE}}=${texFractionReduite(AC * AD, AE)}\\text{ cm}$ qui est la valeur exacte.`
           }
           break
       }

@@ -1,6 +1,6 @@
 import { courbe } from '../../lib/2d/courbes'
 import { droiteParPointEtPente } from '../../lib/2d/droites'
-import { point } from '../../lib/2d/points'
+import { point } from '../../lib/2d/PointAbstrait'
 import { repere } from '../../lib/2d/reperes'
 import { segment } from '../../lib/2d/segmentsVecteurs'
 import { latex2d } from '../../lib/2d/textes'
@@ -215,7 +215,6 @@ export default class Auto1AC10f extends ExerciceQcmA {
   ) {
     const borne = val ** 2
     const borneIncorrecte1 = val
-    const borneIncorrecte2 = Math.floor(borne / 2)
 
     if (typeInequation === 'inf') {
       const crochets = estInegStrict

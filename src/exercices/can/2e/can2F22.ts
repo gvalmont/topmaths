@@ -76,7 +76,7 @@ export default class InequationsGSpline extends ExerciceSimple {
       )
     }
     let bornes = {}
-    const o = texteParPosition('O', -0.3, -0.3, 'milieu', 'black', 1)
+    const o = texteParPosition('O', -0.3, -0.3, 0, 'black', 1)
     const nuage = aleatoiriseCourbe(mesFonctions)
     const theSpline = spline(nuage)
     this.spline = theSpline
@@ -97,7 +97,6 @@ export default class InequationsGSpline extends ExerciceSimple {
       grilleSecondaireXMax: bornes.xMax + 1,
     })
     const courbe1 = theSpline.courbe({
-      repere: repere1,
       epaisseur: 1.5,
       ajouteNoeuds: true,
       optionsNoeuds: { color: 'blue', taille: 2, style: 'x', epaisseur: 2 },

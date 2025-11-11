@@ -1,14 +1,14 @@
-import { runSeveralTests } from '../../helpers/run'
-import type { Page } from 'playwright'
-import JSZip from 'jszip'
+import { expect } from '@playwright/test'
 import fs from 'fs/promises'
-import { logError as lgE, log as lg, getFileLogger } from '../../helpers/log'
-import prefs from '../../helpers/prefs.js'
+import JSZip from 'jszip'
 import { spawn } from 'node:child_process'
+import type { Page } from 'playwright'
+import { describe, test } from 'vitest'
 import { findStatic, findUuid } from '../../helpers/filter'
 import { createIssue } from '../../helpers/issue'
-import { describe, test } from 'vitest'
-import { expect } from '@playwright/test'
+import { getFileLogger, log as lg, logError as lgE } from '../../helpers/log'
+import prefs from '../../helpers/prefs.js'
+import { runSeveralTests } from '../../helpers/run'
 
 const logPDF = getFileLogger('exportPDF', { append: true })
 const logPackage = getFileLogger('exportPackage', { append: true })
@@ -128,20 +128,17 @@ async function getLatexFileStyle(
   log('style=' + style)
   let styleLocator = ''
   switch (style) {
-    case 'Coopmaths':
+    case 'Classique':
       styleLocator = 'input#Style0'
       break
-    case 'Classique':
+    case 'ProfMaquette':
       styleLocator = 'input#Style1'
       break
-    case 'ProfMaquette':
+    case 'Coopmaths':
       styleLocator = 'input#Style2'
       break
-    case 'ProfMaquetteAvecQrCode':
-      styleLocator = 'input#Style3'
-      break
     case 'Can':
-      styleLocator = 'input#Style4'
+      styleLocator = 'input#Style3'
       break
     default:
       styleLocator = 'input#Style2'
@@ -472,13 +469,13 @@ if (
 } else {
   // testRunAllLots('dnb')
   // testRunAllLots('c3')
-  // testRunAllLots('can')
-  // testRunAllLots('3e')
-  // testRunAllLots('4e')
-  // testRunAllLots('5e')
-  // testRunAllLots('6e')
-  // testRunAllLots('2e')
-  // testRunAllLots('1e')
+  testRunAllLots('can')
+  testRunAllLots('3e')
+  testRunAllLots('4e')
+  testRunAllLots('5e')
+  testRunAllLots('6e')
+  testRunAllLots('2e')
+  testRunAllLots('1e')
   // testRunAllLots('bac')
-  testRunAllLots('6e/6G10')
+  // testRunAllLots('6e/6G10')
 }

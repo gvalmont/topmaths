@@ -8,19 +8,18 @@
   import { tweened, type Tweened } from 'svelte/motion'
   import type Latex from '../../../lib/Latex'
   import {
-      buildImagesUrlsList,
-      doesLatexNeedsPics,
-      getExosContentList,
-      getPicsNames,
-      type LatexFileInfos,
+    buildImagesUrlsList,
+    doesLatexNeedsPics,
+    getExosContentList,
+    getPicsNames,
   } from '../../../lib/Latex'
+  import { type LatexFileInfos } from '../../../lib/LatexTypes'
   import ButtonTextAction from './ButtonTextAction.svelte'
 
   export let latex: Latex
   export let latexFileInfos: LatexFileInfos
   export let id: string
 
-  
   let clockAbled: boolean = false
 
   let idkey = id || '0'
@@ -160,7 +159,9 @@
    * Affiche ou ferme si déjà ouvert le code Latex dans une boite de dialogue
    */
   async function dialogToDisplayToggle() {
-    const dialog = document.getElementById(`editorLatex${idkey}`) as HTMLDialogElement
+    const dialog = document.getElementById(
+      `editorLatex${idkey}`,
+    ) as HTMLDialogElement
     if (dialog.open) {
       clockAbled = false
       dialog.close()
@@ -181,11 +182,11 @@
       editor.setTheme('ace/theme/monokai')
       // Ouvrir la searchbox avec Ctrl+F
       editor.commands.addCommand({
-        name: "showSearchBox",
-        bindKey: { win: "Ctrl-F", mac: "Command-F" },
-        exec: function(edite: any) {
-          edite.execCommand("find");
-        }
+        name: 'showSearchBox',
+        bindKey: { win: 'Ctrl-F', mac: 'Command-F' },
+        exec: function (edite: any) {
+          edite.execCommand('find')
+        },
       })
       editor.setShowPrintMargin(false)
       editor.setValue(latexWithPreamble)

@@ -1,10 +1,11 @@
 import { cercle } from '../../lib/2d/cercle'
 import { colorToLatexOrHTML } from '../../lib/2d/colorToLatexOrHtml'
 import { droite } from '../../lib/2d/droites'
-import { milieu, point } from '../../lib/2d/points'
+import { point } from '../../lib/2d/PointAbstrait'
 import { repere } from '../../lib/2d/reperes'
 import { segment } from '../../lib/2d/segmentsVecteurs'
 import { texteParPoint } from '../../lib/2d/textes'
+import { milieu } from '../../lib/2d/utilitairesPoint'
 import { functionCompare } from '../../lib/interactif/comparisonFunctions'
 import {
   handleAnswers,
@@ -17,7 +18,11 @@ import { numAlpha, sp } from '../../lib/outils/outilString'
 import { texNombre } from '../../lib/outils/texNombre'
 import { context } from '../../modules/context'
 import { mathalea2d } from '../../modules/mathalea2d'
-import { listeQuestionsToContenu, randint } from '../../modules/outils'
+import {
+  contraindreValeur,
+  listeQuestionsToContenu,
+  randint,
+} from '../../modules/outils'
 import Exercice from '../Exercice'
 
 export const titre =
@@ -84,6 +89,7 @@ export default class PenteEtOrdonneeOrigineDroite extends Exercice {
         this.sup2 === 3 ? choice([-1, 1]) : this.sup2 === 2 ? -1 : 1
       const num =
         (this.sup === 2 ? choice([1, 3, 5]) : randint(1, 5)) * signeNum
+      this.sup = contraindreValeur(1, 3, this.sup, 1)
       const den = this.sup === 3 ? randint(1, 2) : this.sup
       const a = num / den
       const b =

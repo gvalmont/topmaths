@@ -1,5 +1,6 @@
 import SigneProduitQuotientRelatifs from './4C10-0'
 
+export const dateDeModifImportante = '02/11/2025'
 export const titre = "Donner le signe d'un produit de nombres relatifs"
 export const interactifReady = true
 export const interactifType = 'qcm'

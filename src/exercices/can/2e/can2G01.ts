@@ -87,7 +87,7 @@ export default class AgrandissementReductionGFraction extends ExerciceSimple {
 
         Par quelle fraction ont été multipliées les longueurs de ses côtés ?
         `
-        this.optionsChampTexte = { texteApres: '' }
+
         this.reponse = new FractionEtendue(n, d)
         this.correction = `Si les aires sont multiplées par $k$, les longueurs sont multipliées par $\\sqrt{k}$.<br>
         Ainsi, les longueurs ont été multipliées par  : $\\sqrt{\\dfrac{${n * n}}{${d * d}}}=${miseEnEvidence(`\\dfrac{${n}}{${d}}`)}$.

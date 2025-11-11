@@ -1,8 +1,10 @@
-import { codageAngleDroit } from '../../lib/2d/angles'
-import { codageSegments, texteSurSegment } from '../../lib/2d/codages'
-import { milieu, point } from '../../lib/2d/points'
+import { codageAngleDroit } from '../../lib/2d/CodageAngleDroit'
+import { codageSegments } from '../../lib/2d/CodageSegment'
+import { point } from '../../lib/2d/PointAbstrait'
 import { segment, segmentAvecExtremites } from '../../lib/2d/segmentsVecteurs'
 import { labelPoint, texteParPosition } from '../../lib/2d/textes'
+import { texteSurSegment } from '../../lib/2d/texteSurSegment'
+import { milieu } from '../../lib/2d/utilitairesPoint'
 import { combinaisonListes } from '../../lib/outils/arrayOutils'
 import { texFractionReduite } from '../../lib/outils/deprecatedFractions'
 import { reduireAxPlusB, rienSi1 } from '../../lib/outils/ecritures'
@@ -105,8 +107,8 @@ export default class ModeliserEquationsGeometrie extends Exercice {
               ),
             )
 
-            texte = ` Un rectangle a pour largeur $${d}$ cm et pour longueur $x$ cm.<br>
-            En ajoutant $${a}$ cm à la longueur de ce rectangle, on obtient un nouveau rectangle dont le périmètre est $${b}$ cm.<br>
+            texte = ` Un rectangle a pour largeur $${d}\\text{ cm}$ et pour longueur $x\\text{ cm}$.<br>
+            En ajoutant $${a}\\text{ cm}$ à la longueur de ce rectangle, on obtient un nouveau rectangle dont le périmètre est $${b}\\text{ cm}$.<br>
              Quelle est la longueur $x$ du rectangle initial ?<br>
               `
             texteCorr =
@@ -126,7 +128,7 @@ export default class ModeliserEquationsGeometrie extends Exercice {
             )
             texteCorr += `<br>Le périmètre du rectangle obtenu est donnée par la formule : $2\\times (\\ell+L)$ avec $\\ell$ la largeur du rectangle et $L$ sa longueur. <br>
                   Comme $\\ell=${d}$ et $L=x+${a}$, le périmètre est donné en fonction de $x$ par :  $ 2(${d}+x+${a})=2(x+${a + d})=2x+${2 * a + 2 * d}$.<br>
-       Puisque le périmètre du rectangle est $${b}$ cm, on cherche $x$ tel que :   $2x+${2 * a + 2 * d}=${b}$.<br>
+       Puisque le périmètre du rectangle est $${b}\\text{ cm}$, on cherche $x$ tel que :   $2x+${2 * a + 2 * d}=${b}$.<br>
        $\\begin{aligned}
        2x+${2 * a + 2 * d}&=${b}\\\\
        2x+${2 * a + 2 * d}${miseEnEvidence(-2 * a - 2 * d)}&=${b}${miseEnEvidence(-2 * a - 2 * d)}\\\\
@@ -134,7 +136,7 @@ export default class ModeliserEquationsGeometrie extends Exercice {
        x&=\\dfrac{${b - 2 * a - 2 * d}}{2}\\\\
        x&=${texNombre(c / 2)}\\end{aligned}$<br>
 
-       La longueur $x$ du rectangle initial est  $${texNombre(c / 2)}$ cm.
+       La longueur $x$ du rectangle initial est  $${texNombre(c / 2)}\\text{ cm}$.
        `
             variables.push(a, b, c, d)
           }
@@ -179,8 +181,8 @@ export default class ModeliserEquationsGeometrie extends Exercice {
                 true,
               ),
             )
-            texte = ` Un rectangle a pour largeur $${d}$ cm et pour longueur $x$ cm.<br>
-             En ajoutant $${a}$ cm à la longueur de ce rectangle, on obtient un nouveau rectangle dont l'aire est $${b}$ cm$^2$.<br>
+            texte = ` Un rectangle a pour largeur $${d}\\text{ cm}$ et pour longueur $x\\text{ cm}$.<br>
+             En ajoutant $${a}\\text{ cm}$ à la longueur de ce rectangle, on obtient un nouveau rectangle dont l'aire est $${b}\\text{ cm}^2$.<br>
               Quelle est la longueur $x$ du rectangle initial ? <br>
               On donnera le résultat sous la forme d'une fraction irréductible ou d'un nombre entier le cas échéant.`
             texteCorr =
@@ -200,7 +202,7 @@ export default class ModeliserEquationsGeometrie extends Exercice {
             )
             texteCorr += `L'aire du rectangle obtenu est donnée par la formule : $\\ell\\times L$ avec $\\ell$ la largeur du rectangle et $L$ sa longueur. <br>
                    Comme $\\ell=${d}$ et $L=x+${a}$, l'aire est donnée en fonction de $x$ par :  $ ${rienSi1(d)}\\times (x+${a})=${d}x+${d * a}$.<br>
-        Puisque l'aire du rectangle est $${b}$ cm, on cherche $x$ tel que :   $${rienSi1(d)}x+${d * a}=${b}$.<br>
+        Puisque l'aire du rectangle est $${b}\\text{ cm}$, on cherche $x$ tel que :   $${rienSi1(d)}x+${d * a}=${b}$.<br>
        $\\begin{aligned}
         ${rienSi1(d)}x+${d * a}&=${b}\\\\
         ${rienSi1(d)}x+${d * a}${miseEnEvidence(-d * a)}&=${b}${miseEnEvidence(-d * a)}\\\\
@@ -213,7 +215,7 @@ export default class ModeliserEquationsGeometrie extends Exercice {
             } else {
               texteCorr += ''
             }
-            texteCorr += ` La longueur $x$ du rectangle initial est  $${texFractionReduite(b - d * a, d)}$ cm.
+            texteCorr += ` La longueur $x$ du rectangle initial est  $${texFractionReduite(b - d * a, d)}\\text{ cm}$.
         `
             variables.push(a, b, d)
           }
@@ -254,7 +256,7 @@ export default class ModeliserEquationsGeometrie extends Exercice {
                 true,
               ),
             )
-            texte = ` Un triangle $ABC$ est rectangle en $A$. On a $AB= ${a}$ cm  et $AC= x$ cm.<br>
+            texte = ` Un triangle $ABC$ est rectangle en $A$. On a $AB= ${a}\\text{ cm}$  et $AC= x\\text{ cm}$.<br>
          Sachant que le carré de son hypoténuse est $${b}$, déterminer la valeur exacte de $x$. `
             texteCorr =
               ' On réalise une petite figure à main levée pour visualiser la situation :<br>'
@@ -344,8 +346,8 @@ export default class ModeliserEquationsGeometrie extends Exercice {
               texteSurSegment(`$x+${texNombre(b)}$`, P, N, 'black', 0.5),
             )
             // texteParPosition(`$$x+$$${texNombre(b)}`, milieu(P, N).x + 1, milieu(P, N).y, 0, 'black', 2, 'milieu'', true))
-            texte = ` Un triangle $MNP$ est rectangle en $M$. On a $MP= ${a}$ cm  et $MN= x$ cm.<br>
-             L'hypoténuse du triangle $MNP$ mesure  $${b}$ cm de plus que le côté $[MN]$.<br>
+            texte = ` Un triangle $MNP$ est rectangle en $M$. On a $MP= ${a}\\text{ cm}$  et $MN= x\\text{ cm}$.<br>
+             L'hypoténuse du triangle $MNP$ mesure  $${b}\\text{ cm}$ de plus que le côté $[MN]$.<br>
              Déterminer la valeur de $x$ sous la forme d'une fraction irréductible ou d'un nombre entier le cas échéant. `
             texteCorr =
               ' On réalise une petite figure à main levée pour visualiser la situation :<br>'
@@ -385,7 +387,7 @@ export default class ModeliserEquationsGeometrie extends Exercice {
             const a = randint(1, 8)
             const b = randint(a * a + 1, 100)
 
-            texte = ` En augmentant le côté d'un carré de $${a}$ cm, son aire aumente de $${b}$ cm$^2$.<br>
+            texte = ` En augmentant le côté d'un carré de $${a}\\text{ cm}$, son aire aumente de $${b}\\text{ cm}^2$.<br>
       Quelle est la longueur du côté de ce carré ? <br>
       On donnera le résultat sous la forme d'une fraction irréductible ou d'un nombre entier le cas échéant.`
             texteCorr = `On note $x$ la longueur du côté du carré que l'on cherche.<br>
@@ -399,7 +401,7 @@ export default class ModeliserEquationsGeometrie extends Exercice {
          \\dfrac{${2 * a}x}{${miseEnEvidence(2 * a)}}&=\\dfrac{${b - a * a}}{${miseEnEvidence(2 * a)}}\\\\
          x&=${texFractionReduite(b - a * a, 2 * a)}\\end{aligned}$
            <br>
-           La longueur du côté du carré est  $${texFractionReduite(b - a * a, 2 * a)}$ cm.
+           La longueur du côté du carré est  $${texFractionReduite(b - a * a, 2 * a)}\\text{ cm}$.
  `
             variables.push(a, b)
           }
@@ -462,7 +464,7 @@ export default class ModeliserEquationsGeometrie extends Exercice {
                 objets,
               )
 
-            texte += `Sachant que l'aire de ce trapèze est $${c}$ cm$^2$ et en utilisant les données du graphique, déterminer la hauteur de ce trapèze.<br>
+            texte += `Sachant que l'aire de ce trapèze est $${c}\\text{ cm}^2$ et en utilisant les données du graphique, déterminer la hauteur de ce trapèze.<br>
                     <br>`
             texteCorr = mathalea2d(
               {
@@ -480,14 +482,14 @@ export default class ModeliserEquationsGeometrie extends Exercice {
                     $\\bullet~$ L' aire du rectangle $HBCD$ est : $${b}\\times x=${reduireAxPlusB(b, 0)}$.<br>
                     $\\bullet~$ L' aire de triangle rectangle $AHD$ est : $\\dfrac{(${a}-${b})\\times x}{2}=${reduireAxPlusB((a - b) / 2, 0)}$.
                     <br>
-                    Puisque l'aire du trapèze est $${c}$ cm$^2$, $x$ est donc la solution de l'équation : $${reduireAxPlusB(b, 0)} + ${reduireAxPlusB((a - b) / 2, 0)}=${c}$.<br>
+                    Puisque l'aire du trapèze est $${c}\\text{ cm}^2$, $x$ est donc la solution de l'équation : $${reduireAxPlusB(b, 0)} + ${reduireAxPlusB((a - b) / 2, 0)}=${c}$.<br>
                     $\\begin{aligned}
                     ${reduireAxPlusB(b, 0)} + ${reduireAxPlusB((a - b) / 2, 0)}&=${c}\\\\
                     ${texNombre(b + (a - b) / 2)}x&=${c}\\\\
                     \\dfrac{${texNombre(b + d)}x}{${miseEnEvidence(texNombre(b + d))}}&=\\dfrac{${c}}{${miseEnEvidence(texNombre(b + d))}}\\\\
                     x&=${texFractionReduite(c, b + d)}
                     \\end{aligned}$<br>
-                    La hauteur du trapèze est : $${texFractionReduite(c, b + d)}$ cm.`
+                    La hauteur du trapèze est : $${texFractionReduite(c, b + d)}\\text{ cm}$.`
             variables.push(a, b, c, d)
           }
           break
@@ -565,7 +567,7 @@ export default class ModeliserEquationsGeometrie extends Exercice {
                 objets,
               )
 
-            texte += `Sachant que l'aire de cette figure est $${texNombre(d)}$ m$^2$ et en utilisant les données du graphique, déterminer la  valeur exacte de $x$.<br>
+            texte += `Sachant que l'aire de cette figure est $${texNombre(d)}\\text{ m}^2$ et en utilisant les données du graphique, déterminer la  valeur exacte de $x$.<br>
          <br>`
             texteCorr = mathalea2d(
               {
@@ -582,7 +584,7 @@ export default class ModeliserEquationsGeometrie extends Exercice {
         Son aire est donc la somme des aires de ces deux figures. <br>
         $\\bullet~$ L' aire du rectangle $ABCD$ est : $${a}\\times (x+${c})=${reduireAxPlusB(a, a * c)}$ ;<br>
         $\\bullet~$ L' aire de triangle isocèle $DEC$ est : $\\dfrac{${b}\\times(x +${c})}{2}=${texFractionReduite(b, 2)}(x+${c})=${reduireAxPlusB(b / 2, (b * c) / 2)}$.<br>
-        L'aire de la figure étant $${texNombre(d)}$ m$^2$, on cherche $x$ tel que : <br>
+        L'aire de la figure étant $${texNombre(d)}\\text{ m}^2$, on cherche $x$ tel que : <br>
         $\\begin{aligned}
         (${reduireAxPlusB(a, a * c)})+(${reduireAxPlusB(b / 2, (b * c) / 2)})&=${texNombre(d)}\\\\
         ${reduireAxPlusB(a, a * c)}+${reduireAxPlusB(b / 2, (b * c) / 2)}&=${texNombre(d)}\\\\

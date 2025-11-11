@@ -1,6 +1,11 @@
-import { exercicesParams, globalOptions } from '../lib/stores/generalStore'
+import { get } from 'svelte/store'
+import {
+  capytaleMode,
+  exercicesParams,
+  globalOptions,
+} from '../lib/stores/generalStore'
 import type { InterfaceParams } from '../lib/types'
-import { logDebug, log, getIntrus } from './statsUtils'
+import { getIntrus, log, logDebug } from './statsUtils'
 
 declare global {
   interface Window {
@@ -11,7 +16,7 @@ declare global {
 
 // pour pour pouvoir le déactiver en mode debug...
 // eslint-disable-next-line prefer-const
-let activeStats = document.location.hostname === 'coopmaths.fr'
+let activeStats = document.location.hostname !== 'localhost'
 
 if (activeStats) {
   const _paq = (window._paq = window._paq || [])
@@ -77,6 +82,7 @@ globalOptions.subscribe((options) => {
 
   if (options) {
     if (options.v === undefined) return // chargement du site
+    if (options.recorder === 'capytale' && get(capytaleMode) === 'none') return // capytale pas encore chargé
     if (vue[0] === (options.v || 'prof')) {
       logDebug('Pas de changement de vue')
       return
@@ -146,7 +152,7 @@ exercicesParams.subscribe((params) => {
       // on met à jour la liste des paramètres avec la vue et le recorder:
       if (vue[0] !== '')
         vueUuids1.push(
-          vue[0] + '-' + param.uuid + (recorder[0] ? '-' + param.recorder : ''),
+          vue[0] + '-' + param.uuid + (recorder[0] ? '-' + recorder[0] : ''),
         )
       const par = paraConvert(param)
       if (paramExos.includes(JSON.stringify(par))) {

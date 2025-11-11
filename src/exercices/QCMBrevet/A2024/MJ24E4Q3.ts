@@ -1,6 +1,7 @@
 import { fixeBordures } from '../../../lib/2d/fixeBordures'
-import { point, tracePoint } from '../../../lib/2d/points'
+import { point } from '../../../lib/2d/PointAbstrait'
 import { labelPoint } from '../../../lib/2d/textes'
+import { tracePoint } from '../../../lib/2d/TracePoint'
 import { shuffle } from '../../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { mathalea2d } from '../../../modules/mathalea2d'

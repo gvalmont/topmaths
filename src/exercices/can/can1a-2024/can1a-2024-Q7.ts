@@ -1,10 +1,10 @@
-import ExerciceSimple from '../../ExerciceSimple'
-import { miseEnEvidence } from '../../../lib/outils/embellissements'
-import { randint } from '../../../modules/outils'
-import { texNombre } from '../../../lib/outils/texNombre'
 import Decimal from 'decimal.js'
-import { choice } from '../../../lib/outils/arrayOutils'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
+import { choice } from '../../../lib/outils/arrayOutils'
+import { miseEnEvidence } from '../../../lib/outils/embellissements'
+import { texNombre } from '../../../lib/outils/texNombre'
+import { randint } from '../../../modules/outils'
+import ExerciceSimple from '../../ExerciceSimple'
 export const titre =
   "Déterminer un coefficient multiplicateur ou un taux d'évolution"
 export const interactifReady = true
@@ -55,7 +55,7 @@ export default class TauxCoeff extends ExerciceSimple {
       } else {
         this.question = `Diminuer une quantité de $${texNombre(taux.mul(100), 0)}\\,\\%$ revient à la multiplier par : `
         this.correction = `Diminuer une quantité de $${texNombre(taux.mul(100), 0)}\\,\\%$ revient à la multiplier par $1 - \\dfrac{${texNombre(taux.mul(100), 0)}}{100} = 1 - ${texNombre(taux, 2)} = ${miseEnEvidence(texNombre(coeff, 2))}$.`
-        this.optionsChampTexte = { texteApres: '' }
+
         if (!this.interactif) {
           this.question += '$\\ldots$'
         }

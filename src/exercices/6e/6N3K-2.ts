@@ -9,6 +9,7 @@ import { setReponse } from '../../lib/interactif/gestionInteractif'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import FractionEtendue from '../../modules/FractionEtendue'
 import { fraction } from '../../modules/fractions'
+import { representationFraction } from '../../modules/representationsFractions'
 
 export const titre = 'Mettre bout à bout des segments'
 export const interactifReady = true
@@ -50,7 +51,7 @@ export default class AjouterDesFractionsDunite extends Exercice {
     let params
     let den
     const num = [0, 0, 0, 0]
-    const f = []
+    const f: FractionEtendue[] = []
 
     const liste = combinaisonListes([5, 6, 7, 8], this.nbQuestions)
 
@@ -91,7 +92,18 @@ export default class AjouterDesFractionsDunite extends Exercice {
         'Voici sur ces dessins, coloriés en rouge, les différents segments :<br>'
       for (let j = 0; j < 4; j++) {
         objets.push(
-          f[j].representation(0, 5 - j * 1.25, 5, 0, 'segment', 'red', 0, 1, 1),
+          representationFraction(
+            f[j],
+            0,
+            5 - j * 1.25,
+            5,
+            0,
+            'segment',
+            'red',
+            0,
+            1,
+            1,
+          ),
         )
       }
       params = {
@@ -114,7 +126,8 @@ export default class AjouterDesFractionsDunite extends Exercice {
       }
       texteCorr += mathalea2d(
         params,
-        fraction(num[0] + num[1] + num[2] + num[3], den).representation(
+        representationFraction(
+          fraction(num[0] + num[1] + num[2] + num[3], den),
           0,
           0,
           5,

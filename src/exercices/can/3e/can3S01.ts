@@ -1,5 +1,6 @@
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 import { choice, shuffle } from '../../../lib/outils/arrayOutils'
+import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { fraction } from '../../../modules/fractions'
 import { randint } from '../../../modules/outils'
 import ExerciceSimple from '../../ExerciceSimple'
@@ -215,7 +216,7 @@ export default class CalculProbaSimple extends ExerciceSimple {
      On choisit ${situ.itemSing} au hasard. <br>
 Quelle est la probabilité de choisir ${ciblePhrase} ?`
 
-    this.correction = `Il y a en tout : $${a} + ${k * a} = ${denomTotal}$ ${situ.itemPlur}.<br>La probabilité de choisir ${ciblePhrase} est de $\\dfrac{${numCorrect}}{${denomTotal}}=${correctTexSimpl}$.`
+    this.correction = `Il y a en tout : $${a} + ${k * a} = ${denomTotal}$ ${situ.itemPlur}.<br>La probabilité de choisir ${ciblePhrase} est de $\\dfrac{${numCorrect}}{${denomTotal}}=${miseEnEvidence(correctTexSimpl)}$.`
 
     // Version QCM : distracteurs plausibles
     if (this.versionQcm) {

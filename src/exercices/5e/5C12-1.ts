@@ -15,6 +15,7 @@ export default class TraduireUnePhraseParUneExpressionEtCalculer extends EcrireU
     super()
     this.version = 3
     this.sup3 = true
+    this.litteral = false
     this.sup4 = 6
     this.besoinFormulaire2CaseACocher = [
       'Utilisation de décimaux (pas de calcul mental)',

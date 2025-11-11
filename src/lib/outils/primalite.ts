@@ -1,7 +1,4 @@
 import { gcd, isPrime } from 'mathjs'
-import { egal } from '../../modules/outils.js'
-import { ecritureParentheseSiNegatif } from './ecritures'
-import { abs } from './nombres'
 
 /**
  * Renvoie le PGCD de deux nombres
@@ -141,7 +138,7 @@ export function premierMultipleSuperieur(k: number, n: number) {
     }
     return result
   } else {
-    if (egal(Math.floor(n / k), n / k)) return n
+    if (Math.floor(n / k) === n / k) return n
     else {
       reste = n / k - Math.floor(n / k)
       return n - reste * k + k
@@ -365,12 +362,12 @@ export function obtenirListeNombresPremiers(n = 300) {
  */
 export function decompositionFacteursPremiers(n: number) {
   let decomposition = ''
-  if (abs(n) === 1) return n // EE : Nécessaire pour 4C22... Vérifier si aucun dommage collatéral ailleurs (29/04/2024)
+  if (Math.abs(n) === 1) return n // EE : Nécessaire pour 4C22... Vérifier si aucun dommage collatéral ailleurs (29/04/2024)
   const liste = obtenirListeFacteursPremiers(n)
   for (const i in liste) {
-    decomposition += ecritureParentheseSiNegatif(liste[i]) + '\\times'
+    decomposition += `${liste[i] < 0 ? `(${liste[i]})` : `${liste[i]}`} \\times`
   }
-  decomposition = decomposition.substr(0, decomposition.length - 6)
+  decomposition = decomposition.substring(0, decomposition.length - 6)
   return decomposition
 }
 

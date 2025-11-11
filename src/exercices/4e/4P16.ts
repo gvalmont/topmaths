@@ -89,7 +89,7 @@ export default class NomExercice extends Exercice {
         coef: 1,
       },
       {
-        unite: 'cm$^2$',
+        unite: '$\\text{cm}^2$',
         coef: 10 ** 2,
       },
       {

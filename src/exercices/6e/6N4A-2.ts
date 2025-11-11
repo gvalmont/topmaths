@@ -249,7 +249,7 @@ export const etapeDeMontagne: FonctionProbleme = (
     randint(5, 25, [ascension1 / 100, ascension2 / 100].map(Math.round)) * 50 // en mètres
   const total = ascension1 + ascension2 + ascension3
   const enonce = `${prenom} effectue à vélo une étape de montagne du tour de France. ${premiereLettreEnMajuscule(pronom)} grimpe trois cols qui ont les dénivelés suivants : zone0 m pour le premier col, zone1 m pour le deuxième et zone2 m pour le dernier. Quelle dénivelé cumulé a-t-${pronom} grimpé ?<br><br>
-      Réponse : ${prenom} a grimpé au total en m : $${texNombre(ascension1, 0)}+${texNombre(ascension2, 0)}+${texNombre(ascension3)}=$ zone3.`
+      Réponse : ${prenom} a grimpé au total en $\\text{ m}$ : $${texNombre(ascension1, 0)}+${texNombre(ascension2, 0)}+${texNombre(ascension3)}=$ zone3.`
   const barre = SchemaEnBoite.additionPartiesTout('zone3', 2, [
     'zone0',
     'zone1',
@@ -335,8 +335,8 @@ const triathlon2: FonctionProbleme = (
   const totalInter = distanceNatation + distanceCourse
   const enonce = `${prenom} participe à un triathlon. Il nage zone0 m, fait ensuite du vélo et ensuite court sur zone2 m. ${premiereLettreEnMajuscule(pronom)} a parcouru en tout zone3 m. Quelle distance a-t-${pronom} parcourue à vélo ?<br><br>
       Réponse :<br>
-      - Calcul de la distance parcourue en nage et en course à pied en m : $${texNombre(distanceNatation, 0)}+${texNombre(distanceCourse, 0)}=${texNombre(totalInter, 0)}$<br>
-      - Distance parcourue à vélo en m : $${texNombre(total, 0)}-${texNombre(totalInter, 0)}=$ zone1.`
+      - Calcul de la distance parcourue en nage et en course à pied en $\\text{ m}$ : $${texNombre(distanceNatation, 0)}+${texNombre(distanceCourse, 0)}=${texNombre(totalInter, 0)}$<br>
+      - Distance parcourue à vélo en $\\text{ m}$ : $${texNombre(total, 0)}-${texNombre(totalInter, 0)}=$ zone1.`
 
   const barre = SchemaEnBoite.additionPartiesTout('zone3', 2, [
     'zone0',
@@ -392,8 +392,8 @@ export const randonnee2: FonctionProbleme = (
   const totalInter = distance1 + distance2
   const enonce = `${prenom} part en randonnée. ${premiereLettreEnMajuscule(pronom)} marche zone0 m avant sa première halte, ${pronom} marche encore un peu avant le repas de midi et repart ensuite pour éffectuer zone2 m. ${premiereLettreEnMajuscule(pronom)} a parcouru au total zone3 m. Quelle distance a-t-${pronom} parcourue entre sa halte matinale et le repas de midi ?<br><br>
          Réponse :<br>
-      - Calcul de la distance parcourue le matin en m : $${texNombre(distance1, 0)}+${texNombre(distance2, 0)}=${texNombre(totalInter, 0)}$<br>
-      - Distance parcourue l'après-midi en m : $${texNombre(total, 0)}-${texNombre(totalInter, 0)}=$ zone2.`
+      - Calcul de la distance parcourue le matin en $\\text{ m}$ : $${texNombre(distance1, 0)}+${texNombre(distance2, 0)}=${texNombre(totalInter, 0)}$<br>
+      - Distance parcourue l'après-midi en $\\text{ m}$ : $${texNombre(total, 0)}-${texNombre(totalInter, 0)}=$ zone2.`
 
   const barre = SchemaEnBoite.additionPartiesTout('zone3', 2, [
     'zone0',

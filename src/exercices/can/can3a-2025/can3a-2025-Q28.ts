@@ -1,8 +1,9 @@
 import { colorToLatexOrHTML } from '../../../lib/2d/colorToLatexOrHtml'
-import { milieu, point } from '../../../lib/2d/points'
+import { point } from '../../../lib/2d/PointAbstrait'
 import { ellipse } from '../../../lib/2d/projections3d'
 import { segment } from '../../../lib/2d/segmentsVecteurs'
 import { latex2d } from '../../../lib/2d/textes'
+import { milieu } from '../../../lib/2d/utilitairesPoint'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { mathalea2d } from '../../../modules/mathalea2d'
@@ -29,7 +30,7 @@ export default class VolumeCylindre extends ExerciceSimple {
     this.nbQuestions = 1
     this.formatChampTexte = KeyboardType.clavierDeBase
     this.canOfficielle = true
-    this.optionsChampTexte = { texteAvant: '', texteApres: 'cm$^3$.' }
+    this.optionsChampTexte = { texteApres: '$\\text{ cm}^3$.' }
   }
 
   nouvelleVersion() {
@@ -88,12 +89,12 @@ export default class VolumeCylindre extends ExerciceSimple {
       objets,
     )
     this.correction = `Le volume du cylindre est  : $\\text{(Aire de la base)}\\times \\text{Hauteur}$.<br>
-              Soit : $ ${aire}\\times ${h}=${miseEnEvidence(reponse)}$ cm$^3$.  `
+              Soit : $ ${aire}\\times ${h}=${miseEnEvidence(reponse)}\\text{ cm}^3$.  `
     this.question += '<br>Le volume de ce cylindre est '
     this.canEnonce = this.question
-    this.canReponseACompleter = '$\\ldots$ cm$^3$'
+    this.canReponseACompleter = '$\\ldots\\text{ cm}^3$'
     if (!this.interactif) {
-      this.question += ' $\\ldots$ cm$^3$.'
+      this.question += ' $\\ldots\\text{ cm}^3$.'
     }
   }
 }

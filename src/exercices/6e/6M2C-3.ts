@@ -1,4 +1,4 @@
-import { point } from '../../lib/2d/points'
+import { point } from '../../lib/2d/PointAbstrait'
 import { Polygone, polygone } from '../../lib/2d/polygones'
 import { segment } from '../../lib/2d/segmentsVecteurs'
 import {
@@ -8,7 +8,6 @@ import {
 import { setReponse } from '../../lib/interactif/gestionInteractif'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { choice } from '../../lib/outils/arrayOutils'
-import { texteExposant } from '../../lib/outils/ecritures'
 import {
   miseEnEvidence,
   texteEnCouleurEtGras,
@@ -531,8 +530,8 @@ function etapesDeLaFinAEtapeInconnue(
     if (!colonneOuLigne) {
       texteCorr += `Puisque la ${longueursHorizontales[listeCellules[i][0]] >= longueursVerticales[listeCellules[i][1]] ? 'longueur' : 'largeur'}
   du rectangle numéro ${texteEnCouleurEtGras(rectangles[listeCellules[i][0]][listeCellules[i][1]].numero, 'red')}
-  est $${texNombre(longueursHorizontales[listeCellules[i][0]], 1)}$ cm et
-  que son aire est $${texNombre(aires[listeCellules[i][0]][listeCellules[i][1]], 2)}$ cm${texteExposant(2)},
+  est $${texNombre(longueursHorizontales[listeCellules[i][0]], 1)}\\text{ cm}$ et
+  que son aire est $${texNombre(aires[listeCellules[i][0]][listeCellules[i][1]], 2)}\\text{ cm}^2$,
   sa ${longueursHorizontales[listeCellules[i][0]] < longueursVerticales[listeCellules[i][1]] ? 'longueur' : 'largeur'} est :
   $\\dfrac{${texNombre(aires[listeCellules[i][0]][listeCellules[i][1]], 2)}\\text{ cm}^2}{${texNombre(longueursHorizontales[listeCellules[i][0]], 1)}\\text{ cm}}=${texNombre(longueursVerticales[listeCellules[i][1]], 1)}\\text{ cm}$.`
       if (
@@ -546,8 +545,8 @@ function etapesDeLaFinAEtapeInconnue(
     } else {
       texteCorr += `Comme la ${longueursVerticales[listeCellules[i][1]] >= longueursHorizontales[listeCellules[i][0]] ? 'longueur' : 'largeur'}
   du rectangle numéro ${texteEnCouleurEtGras(rectangles[listeCellules[i][0]][listeCellules[i][1]].numero, 'red')}
-  est $${texNombre(longueursVerticales[listeCellules[i][1]], 1)}$ cm et
-  que son aire est $${texNombre(aires[listeCellules[i][0]][listeCellules[i][1]], 2)}$ cm${texteExposant(2)},
+  est $${texNombre(longueursVerticales[listeCellules[i][1]], 1)}\\text{ cm}$ et
+  que son aire est $${texNombre(aires[listeCellules[i][0]][listeCellules[i][1]], 2)}\\text{ cm}^2$,
   sa ${longueursVerticales[listeCellules[i][1]] < longueursHorizontales[listeCellules[i][0]] ? 'longueur' : 'largeur'} est :
   $\\dfrac{${texNombre(aires[listeCellules[i][0]][listeCellules[i][1]], 2)}\\text{ cm}^2}{${texNombre(longueursVerticales[listeCellules[i][1]], 1)}\\text{ cm}}=${texNombre(longueursHorizontales[listeCellules[i][0]], 1)}\\text{ cm}$.`
       if (
@@ -579,8 +578,8 @@ function etapesDeUnAEtapeInconnue(
     if (colonneOuLigne) {
       texteCorr += `Puisque la ${longueursHorizontales[listeCellules[i][0]] <= longueursVerticales[listeCellules[i][1]] ? 'largeur' : 'longueur'}
   du rectangle numéro ${texteEnCouleurEtGras(rectangles[listeCellules[i][0]][listeCellules[i][1]].numero, 'red')}
-  est $${texNombre(longueursHorizontales[listeCellules[i][0]], 1)}$ cm et
-  que son aire est $${texNombre(aires[listeCellules[i][0]][listeCellules[i][1]], 2)}$ cm${texteExposant(2)},
+  est $${texNombre(longueursHorizontales[listeCellules[i][0]], 1)}\\text{ cm}$ et
+  que son aire est $${texNombre(aires[listeCellules[i][0]][listeCellules[i][1]], 2)}\\text{ cm}^2$,
   sa ${longueursHorizontales[listeCellules[i][0]] > longueursVerticales[listeCellules[i][1]] ? 'largeur' : 'longueur'} est :
   $\\dfrac{${texNombre(aires[listeCellules[i][0]][listeCellules[i][1]], 2)}\\text{ cm}^2}{${texNombre(longueursHorizontales[listeCellules[i][0]], 1)}\\text{ cm}}=${texNombre(longueursVerticales[listeCellules[i][1]], 1)}\\text{ cm}$.`
       if (
@@ -594,8 +593,8 @@ function etapesDeUnAEtapeInconnue(
     } else {
       texteCorr += `Comme la ${longueursVerticales[listeCellules[i][1]] <= longueursHorizontales[listeCellules[i][0]] ? 'largeur' : 'longueur'}
   du rectangle numéro ${texteEnCouleurEtGras(rectangles[listeCellules[i][0]][listeCellules[i][1]].numero, 'red')}
-  est $${texNombre(longueursVerticales[listeCellules[i][1]], 1)}$ cm et
-  que son aire est $${texNombre(aires[listeCellules[i][0]][listeCellules[i][1]], 2)}$ cm${texteExposant(2)},
+  est $${texNombre(longueursVerticales[listeCellules[i][1]], 1)}\\text{ cm}$ et
+  que son aire est $${texNombre(aires[listeCellules[i][0]][listeCellules[i][1]], 2)}\\text{ cm}^2$,
   sa ${longueursVerticales[listeCellules[i][1]] > longueursHorizontales[listeCellules[i][0]] ? 'largeur' : 'longueur'} est :
   $\\dfrac{${texNombre(aires[listeCellules[i][0]][listeCellules[i][1]], 2)}\\text{ cm}^2}{${texNombre(longueursVerticales[listeCellules[i][1]], 1)}\\text{ cm}}=${texNombre(longueursHorizontales[listeCellules[i][0]], 1)}\\text{ cm}$.`
       if (

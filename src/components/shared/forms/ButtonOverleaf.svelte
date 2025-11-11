@@ -4,11 +4,11 @@
     doesLatexNeedsPics,
     getExosContentList,
     getPicsNames,
-    type latexFileType,
   } from '../../../lib/Latex'
+  import { type latexFileType } from '../../../lib/LatexTypes'
 
-  import ProfMaquette from '../../../lib/latex/ProfMaquette.sty?raw'
   import type TypeExercice from '../../../exercices/Exercice'
+  import ProfMaquette from '../../../lib/latex/ProfMaquette.sty?raw'
 
   export let disabled: boolean
   export let exercices: TypeExercice[]

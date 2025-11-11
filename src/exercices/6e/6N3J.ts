@@ -1,16 +1,17 @@
+import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
+import { handleAnswers } from '../../lib/interactif/gestionInteractif'
+import { remplisLesBlancs } from '../../lib/interactif/questionMathLive'
 import {
   choice,
   combinaisonListes,
   shuffle,
 } from '../../lib/outils/arrayOutils'
-import Exercice from '../Exercice'
-import FractionEtendue from '../../modules/FractionEtendue'
-import { remplisLesBlancs } from '../../lib/interactif/questionMathLive'
-import { listeQuestionsToContenu, randint } from '../../modules/outils'
-import { handleAnswers } from '../../lib/interactif/gestionInteractif'
-import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
+import { abs } from '../../lib/outils/nombres'
 import { sp } from '../../lib/outils/outilString'
+import FractionEtendue from '../../modules/FractionEtendue'
+import { listeQuestionsToContenu, randint } from '../../modules/outils'
+import Exercice from '../Exercice'
 
 export const titre =
   'Ordonner une liste de nombres écrits sous forme de fractions ou de nombres mixtes'
@@ -166,7 +167,8 @@ export default class ComparerFractionsNombresMixtes extends Exercice {
         handleAnswers(this, i, {
           bareme: (listePoints) => [
             Math.ceil(
-              (listePoints[0] * listePoints[1] +
+              (listePoints[0] +
+                listePoints[1] +
                 listePoints[2] +
                 listePoints[3] +
                 listePoints[4]) /
@@ -174,18 +176,32 @@ export default class ComparerFractionsNombresMixtes extends Exercice {
             ),
             3,
           ],
-          champ1: { value: fractionsTrieesFinales[0] },
-          champ2: { value: fractionsTrieesFinales[1] },
-          champ3: { value: fractionsTrieesFinales[2] },
-          champ4: { value: fractionsTrieesFinales[3] },
-          champ5: { value: fractionsTrieesFinales[4] },
+          champ1: {
+            value: fractionsTrieesFinales[4 * (listeTypeDeSignes[i] - 1)],
+          },
+          champ2: {
+            value:
+              fractionsTrieesFinales[abs(4 * (listeTypeDeSignes[i] - 1) - 1)],
+          },
+          champ3: {
+            value:
+              fractionsTrieesFinales[abs(4 * (listeTypeDeSignes[i] - 1) - 2)],
+          },
+          champ4: {
+            value:
+              fractionsTrieesFinales[abs(4 * (listeTypeDeSignes[i] - 1) - 3)],
+          },
+          champ5: {
+            value:
+              fractionsTrieesFinales[abs(4 * (listeTypeDeSignes[i] - 1) - 4)],
+          },
         })
 
         let texteCorr = ''
         const sens = listeTypeDeQuestions[i] === 1 ? 1 : -1
 
         if (this.correctionDetaillee) {
-          texteCorr = 'Commençons par comparer ces nombres à 1.<br>'
+          texteCorr = 'Commençons par comparer ces nombres à $1$.<br>'
           const symboleComparaison = listeTypeDeSignes[i] === 1 ? '>' : '<'
           const symboleComparaisonContraire =
             listeTypeDeSignes[i] === 2 ? '>' : '<'

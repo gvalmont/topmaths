@@ -8,6 +8,7 @@ const KEYBOARD_CATEGORIES = [
   'angles',
   'clavierHms',
   'clavierDeBase',
+  'clavierLimites',
   'clavierCompare',
   'clavierCompareAvecNombres',
   'clavierDeBaseAvecX',
@@ -73,6 +74,8 @@ export const convertKeyboardTypeToBlocks = (
   switch (type) {
     case KeyboardType.clavierDeBase:
       return ['numbersOperations']
+    case KeyboardType.clavierLimites:
+      return ['limites']
     case KeyboardType.vFON:
       return ['numbersOperations', 'vFON']
     case KeyboardType.clavierDeBaseAvecX:

@@ -1,6 +1,9 @@
+import { codageMediatrice } from '../../lib/2d/CodageMediatrice'
+import { point } from '../../lib/2d/PointAbstrait'
+import { tracePoint } from '../../lib/2d/TracePoint'
+import { vecteur } from '../../lib/2d/Vecteur'
 import { cercle } from '../../lib/2d/cercle'
 import { cibleCarree, dansLaCibleCarree } from '../../lib/2d/cibles'
-import { codageMediatrice } from '../../lib/2d/codages'
 import { colorToLatexOrHTML } from '../../lib/2d/colorToLatexOrHtml'
 import {
   droite,
@@ -8,17 +11,7 @@ import {
   positionLabelDroite,
 } from '../../lib/2d/droites'
 import { fixeBordures } from '../../lib/2d/fixeBordures'
-import {
-  point,
-  pointAdistance,
-  pointIntersectionLC,
-  tracePoint,
-} from '../../lib/2d/points'
-import {
-  norme,
-  segmentAvecExtremites,
-  vecteur,
-} from '../../lib/2d/segmentsVecteurs'
+import { segmentAvecExtremites } from '../../lib/2d/segmentsVecteurs'
 import { labelPoint, texteParPoint } from '../../lib/2d/textes'
 import {
   homothetie,
@@ -26,6 +19,11 @@ import {
   symetrieAxiale,
   translation,
 } from '../../lib/2d/transformations'
+import { norme } from '../../lib/2d/utilitairesGeometriques'
+import {
+  pointAdistance,
+  pointIntersectionLC,
+} from '../../lib/2d/utilitairesPoint'
 import { choisitLettresDifferentes } from '../../lib/outils/aleatoires'
 import { arrondi } from '../../lib/outils/nombres'
 import { lettreDepuisChiffre } from '../../lib/outils/outilString'
@@ -221,7 +219,6 @@ export default class ConstruireMediatrices6e extends Exercice {
             texte: texteCorr + mathalea2d(params, objetsCorrection),
             statut: 3, // (ici c'est le nombre de lignes du cadre pour la réponse de l'élève sur AMC)
             feedback: '',
-            // @ts-expect-error
             enonce: 'Texte écrit au dessus ou avant les cases à cocher', // EE : ce champ est facultatif et fonctionnel qu'en mode hybride (en mode normal, il n'y a pas d'intérêt)
             sanscadre: true, // EE : ce champ est facultatif et permet (si true) de cacher le cadre et les lignes acceptant la réponse de l'élève
           },

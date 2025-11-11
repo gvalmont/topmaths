@@ -112,9 +112,7 @@ export default class ExerciceSoustractionsRelatifs extends Exercice {
         if (this.interactif && !context.isAmc) {
           texte =
             `$ ${a} - ${ecritureParentheseSiNegatif(b)} = $` +
-            ajouteChampTexteMathLive(this, i, KeyboardType.clavierDeBase, {
-              texteAvant: '',
-            })
+            ajouteChampTexteMathLive(this, i, KeyboardType.clavierDeBase, {})
         }
         if (b > 0) {
           texteCorr = `$ ${a} - ${ecritureParentheseSiNegatif(b)} = ${miseEnEvidence(texNombre(a - b))} $`
@@ -139,9 +137,7 @@ export default class ExerciceSoustractionsRelatifs extends Exercice {
             ' - ' +
             ecritureNombreRelatif(b) +
             ' = $' +
-            ajouteChampTexteMathLive(this, i, KeyboardType.clavierDeBase, {
-              texteAvant: '',
-            })
+            ajouteChampTexteMathLive(this, i, KeyboardType.clavierDeBase, {})
         }
         if (this.correctionDetaillee) {
           texteCorr =

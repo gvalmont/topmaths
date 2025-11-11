@@ -1,12 +1,11 @@
 import Decimal from 'decimal.js'
-import {
-  afficheLongueurSegment,
-  afficheMesureAngle,
-} from '../../lib/2d/codages'
+import { afficheLongueurSegment } from '../../lib/2d/afficheLongueurSegment'
+import { afficheMesureAngle } from '../../lib/2d/AfficheMesureAngle'
 import { fixeBordures } from '../../lib/2d/fixeBordures'
-import { point, pointAdistance } from '../../lib/2d/points'
+import { point } from '../../lib/2d/PointAbstrait'
 import { polygone } from '../../lib/2d/polygones'
 import { labelPoint } from '../../lib/2d/textes'
+import { pointAdistance } from '../../lib/2d/utilitairesPoint'
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'

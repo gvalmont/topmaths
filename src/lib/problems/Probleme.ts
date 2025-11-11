@@ -1,8 +1,5 @@
-import type {
-  CompareFunction,
-  OptionsComparaisonType,
-} from '../interactif/comparisonFunctions'
 import SchemaEnBoite from '../outils/SchemaEnBoite'
+import type { CompareFunction, OptionsComparaisonType } from '../types'
 
 type Donnees = Record<string, string | number | boolean>
 /**

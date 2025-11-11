@@ -37,136 +37,136 @@ export default class ConversionEnTousSens extends ExerciceSimple {
         if (choice([true, false])) {
           a = randint(1, 13) * 50
           resultat = a / 1000
-          this.question = `$${texNombre(a)}$ g  =`
+          this.question = `$${texNombre(a)}\\text{ g}$  =`
           if (!this.interactif) {
-            this.question += ' .... kg'
+            this.question += ' $\\ldots\\text{ kg}$'
           }
 
-          this.optionsChampTexte = { texteApres: ' kg' }
+          this.optionsChampTexte = { texteApres: '$\\text{ kg}$' }
           this.canEnonce = 'Compléter.'
-          this.canReponseACompleter = `$${texNombre(a)}$ g  $=\\dots$ kg`
-          this.correction = `$${texNombre(a)}$ g$=${texNombre(a / 1000)}$ kg`
+          this.canReponseACompleter = `$${texNombre(a)}\\text{ g}$  $=\\dots\\text{ kg}$`
+          this.correction = `$${texNombre(a)}\\text{ g}$$=${texNombre(a / 1000)}\\text{ kg}$`
           this.correction += texteEnCouleur(`<br> Mentalement : <br>
-  Comme $1$ kg $=${texNombre(1000)}$ g, alors $1$ g $${sp()}=${sp()}${texNombre(0.001)}$ kg.<br>
-  Ainsi pour passer des «${sp()}g ${sp()}» au «${sp()}kg ${sp()}», on divise par $${texNombre(1000)}$.<br>
-    Comme $${texNombre(a)}\\div ${texNombre(1000)} =${texNombre(a / 1000)}$, alors $${texNombre(a)}$ g$${sp()}=${texNombre(a / 1000)}$ kg.  `)
+  Comme $1\\text{ kg}$ $=${texNombre(1000)}\\text{ g}$, alors $1\\text{ g}$ $${sp()}=${sp()}${texNombre(0.001)}\\text{ kg}$.<br>
+  Ainsi pour passer des $\\text{g}$ au $\\text{kg}$, on divise par $${texNombre(1000)}$.<br>
+    Comme $${texNombre(a)}\\div ${texNombre(1000)} =${texNombre(a / 1000)}$, alors $${texNombre(a)}\\text{ g}$$${sp()}=${texNombre(a / 1000)}\\text{ kg}$.  `)
         } else {
           a = randint(1, 5) / 10
           resultat = a * 1000
-          this.question = `$${texNombre(a)}$ kg  = `
+          this.question = `$${texNombre(a)}\\text{ kg}$  = `
           if (!this.interactif) {
-            this.question += ' ..... g'
+            this.question += ' $\\ldots\\text{ g}$'
           }
 
-          this.optionsChampTexte = { texteApres: ' g' }
+          this.optionsChampTexte = { texteApres: '*\\text{ g}$' }
           this.canEnonce = 'Compléter.'
-          this.canReponseACompleter = `$${texNombre(a)}$ kg $= \\dots$ g`
-          this.correction = `$${texNombre(a)}$ kg $=${texNombre(a * 1000)}$ g`
+          this.canReponseACompleter = `$${texNombre(a)}\\text{ kg}$ $= \\dots\\text{ g}$`
+          this.correction = `$${texNombre(a)}\\text{ kg}$ $=${texNombre(a * 1000)}\\text{ g}$`
           this.correction += texteEnCouleur(`<br> Mentalement : <br>
-          Comme $1$ kg $=${texNombre(1000)}$ g, alors pour passer des «${sp()}kg ${sp()}» au «${sp()}g ${sp()}», on multiplie par $${texNombre(1000)}$.<br>
-            Comme $${texNombre(a)}\\times ${texNombre(1000)} =${texNombre(a * 1000)}$, alors $${texNombre(a)}$ kg$${sp()}=${resultat}$ g.  `)
+          Comme $1\\text{ kg}$ $=${texNombre(1000)}\\text{ g}$, alors pour passer des $\\text{kg}$ au $\\text{g}$, on multiplie par $${texNombre(1000)}$.<br>
+            Comme $${texNombre(a)}\\times ${texNombre(1000)} =${texNombre(a * 1000)}$, alors $${texNombre(a)}\\text{ kg}$$${sp()}=${resultat}\\text{ g}$.  `)
         }
         break
       case 'b':
         if (choice([true, false])) {
           a = randint(1, 13) * 5
           resultat = a * 100
-          this.question = `$${texNombre(a)}$ m  =`
+          this.question = `$${texNombre(a)}\\text{ m}$  =`
           if (!this.interactif) {
-            this.question += ' ..... cm'
+            this.question += ' $\\ldots\\text{ cm}$'
           }
 
-          this.optionsChampTexte = { texteApres: ' cm' }
+          this.optionsChampTexte = { texteApres: ' $\\text{cm}$' }
           this.canEnonce = 'Compléter.'
-          this.canReponseACompleter = `$${texNombre(a)}$ m $=$ $\\dots$ cm`
-          this.correction = `$${texNombre(a)}$ m $=${texNombre(a * 100)}$ cm`
+          this.canReponseACompleter = `$${texNombre(a)}\\text{ m}$ $=$ $\\dots\\text{ cm}$`
+          this.correction = `$${texNombre(a)}\\text{ m}$ $=${texNombre(a * 100)}\\text{ cm}$`
           this.correction += texteEnCouleur(`<br> Mentalement : <br>
-          Comme $1$ m $=100$ cm,  pour passer des «${sp()}m ${sp()}» au «${sp()}cm ${sp()}», on multiplie par $100$.<br>
-            Comme : $${texNombre(a)}\\times 100 =${texNombre(a * 100)}$, alors $${texNombre(a)}$ m$=${texNombre(a * 100)}$ cm.  `)
+          Comme $1\\text{ m}$ $=100\\text{ cm}$,  pour passer des $\\text{m}$ au $\\text{cm}$, on multiplie par $100$.<br>
+            Comme : $${texNombre(a)}\\times 100 =${texNombre(a * 100)}$, alors $${texNombre(a)}\\text{ m}=${texNombre(a * 100)}\\text{ cm}$.  `)
         } else {
           a = randint(1, 12) * 10
           resultat = a / 100
-          this.question = `$${texNombre(a)}$ cm  =`
+          this.question = `$${texNombre(a)}\\text{ cm}$  =`
           if (!this.interactif) {
-            this.question += '..... m'
+            this.question += ' $\\ldots\\text{ m}$'
           }
 
-          this.optionsChampTexte = { texteApres: ' m' }
+          this.optionsChampTexte = { texteApres: '$\\text{ m}$' }
           this.canEnonce = 'Compléter.'
-          this.canReponseACompleter = `$${texNombre(a)}$ cm $= \\dots$ m`
-          this.correction = `$${texNombre(a)}$ cm$=${texNombre(a / 100)}$ m.`
+          this.canReponseACompleter = `$${texNombre(a)}\\text{ cm}$ $= \\dots\\text{ m}$`
+          this.correction = `$${texNombre(a)}\\text{ cm}=${texNombre(a / 100)}\\text{ m}$.`
           this.correction += texteEnCouleur(`<br> Mentalement : <br>
-          Comme $1$ m $=100$ cm, alors $1$ cm $=0,01$ m.<br>
-          Ainsi pour passer des «${sp()}cm ${sp()}» au «${sp()}m ${sp()}», on divise par $100$.<br>
-            Comme  $${texNombre(a)}\\div 100 =${texNombre(a / 100)}$, alors $${texNombre(a)}$ cm$=${texNombre(a / 100)}$ m.  `)
+          Comme $1\\text{ m}$ $=100\\text{ cm}$, alors $1\\text{ cm}$ $=0,01\\text{ m}$.<br>
+          Ainsi pour passer des $\\text{cm}$ au $\\text{m}$, on divise par $100$.<br>
+            Comme  $${texNombre(a)}\\div 100 =${texNombre(a / 100)}$, alors $${texNombre(a)}\\text{ cm}=${texNombre(a / 100)}\\text{ m}$.  `)
         }
         break
       case 'c':
         if (choice([true, false])) {
           a = randint(1, 13) / 10
           resultat = a * 10
-          this.question = `$${texNombre(a)}$ cL  =  `
+          this.question = `$${texNombre(a)}\\text{ cL}$  =  `
           if (!this.interactif) {
-            this.question += ' .... mL'
+            this.question += ' $\\ldots\\text{ mL}$'
           }
 
-          this.optionsChampTexte = { texteApres: ' mL' }
+          this.optionsChampTexte = { texteApres: '$\\text{ mL}$' }
           this.canEnonce = 'Compléter.'
-          this.canReponseACompleter = `$${texNombre(a)}$ cL $= \\dots$ mL`
-          this.correction = `$${texNombre(a)}$ cL $=${texNombre(a * 10)}$ mL`
+          this.canReponseACompleter = `$${texNombre(a)}\\text{ cL}$ $= \\dots\\text{ cL}$`
+          this.correction = `$${texNombre(a)}\\text{ cL}$ $=${texNombre(a * 10)}\\text{ cL}$`
           this.correction += texteEnCouleur(`<br> Mentalement : <br>
-          Comme $1$ cL$ =10$ mL,  pour passer des «${sp()}cL ${sp()}» au «${sp()}mL ${sp()}», on multiplie par $10$.<br>
-            Comme  $${texNombre(a)}\\times 10 =${texNombre(a * 10)}$, alors $${texNombre(a)}$ cL$=${texNombre(a * 10)}$ mL.  `)
+          Comme $1\\text{ cL}$$ =10\\text{ cL}$,  pour passer des $\\text{cL}$ au $\\text{mL}$, on multiplie par $10$.<br>
+            Comme  $${texNombre(a)}\\times 10 =${texNombre(a * 10)}$, alors $${texNombre(a)}\\text{ cL}$$=${texNombre(a * 10)}\\text{ cL}$.  `)
         } else {
           a = randint(1, 12)
           resultat = a / 10
-          this.question = `$${texNombre(a)}$ mL  = `
+          this.question = `$${texNombre(a)}\\text{ cL}$  = `
           if (!this.interactif) {
-            this.question += ' .... cL'
+            this.question += ' $\\ldots\\text{ cL}$'
           }
 
-          this.optionsChampTexte = { texteApres: '  cL' }
+          this.optionsChampTexte = { texteApres: '$\\text{ cL}$' }
           this.canEnonce = 'Compléter.'
-          this.canReponseACompleter = `$${texNombre(a)}$ mL $= \\dots$ cL`
-          this.correction = `$${texNombre(a)}$ mL$=${texNombre(a / 10)}$ cL`
+          this.canReponseACompleter = `$${texNombre(a)}\\text{ cL}$ $= \\dots\\text{ cL}$`
+          this.correction = `$${texNombre(a)}\\text{ cL}$$=${texNombre(a / 10)}\\text{ cL}$`
           this.correction += texteEnCouleur(`<br> Mentalement : <br>
-          Comme $1$ cL$ =10$ mL, alors $1$ mL $=0,1$ cL.<br>
-          Ainsi pour passer des «${sp()}mL ${sp()}» au «${sp()}cL ${sp()}», on divise par $10$.<br>
-            Comme  $${texNombre(a)}\\div 10 =${texNombre(a / 10)}$, alors $${texNombre(a)}$ mL$=${texNombre(a / 10)}$ cL.  `)
+          Comme $1\\text{ cL}$$ =10\\text{ cL}$, alors $1\\text{ cL}$ $=0,1\\text{ cL}$.<br>
+          Ainsi pour passer des $\\text{mL}$ au $\\text{cL}$, on divise par $10$.<br>
+            Comme  $${texNombre(a)}\\div 10 =${texNombre(a / 10)}$, alors $${texNombre(a)}\\text{ cL}$$=${texNombre(a / 10)}\\text{ cL}$.  `)
         }
         break
       case 'd':
         if (choice([true, false])) {
           a = randint(1, 20) * 10
           resultat = a / 1000
-          this.question = `$${texNombre(a)}$ m  $=$ `
+          this.question = `$${texNombre(a)}\\text{ m}$  $=$ `
           if (!this.interactif) {
-            this.question += ' .... km'
+            this.question += ' $\\ldots\\text{ km}$'
           }
 
-          this.optionsChampTexte = { texteApres: ' km' }
+          this.optionsChampTexte = { texteApres: '$\\text{ km}$' }
           this.canEnonce = 'Compléter.'
-          this.canReponseACompleter = `$${texNombre(a)}$ m $= \\dots$ km`
-          this.correction = `$${texNombre(a)}$ m $=${texNombre(a / 1000)}$ km`
+          this.canReponseACompleter = `$${texNombre(a)}\\text{ m}$ $= \\dots\\text{ km}$`
+          this.correction = `$${texNombre(a)}\\text{ m}$ $=${texNombre(a / 1000)}\\text{ km}$`
           this.correction += texteEnCouleur(`<br> Mentalement : <br>
-          Comme $1$ km $=${texNombre(1000)}$ m, alors $1$ m $=0,001$ km.<br>
-          Ainsi pour passer des «${sp()}m ${sp()}» au «${sp()}km ${sp()}», on divise par $${texNombre(1000)}$.<br>
-            Comme  $${texNombre(a)}\\div ${texNombre(1000)} =${texNombre(a / 1000)}$, alors $${texNombre(a)}$ m$=${texNombre(a / 1000)}$ km.  `)
+          Comme $1\\text{ km}$ $=${texNombre(1000)}\\text{ m}$, alors $1\\text{ m}$ $=0,001\\text{ km}$.<br>
+          Ainsi pour passer des $\\text{m}$ au $\\text{km}$, on divise par $${texNombre(1000)}$.<br>
+            Comme  $${texNombre(a)}\\div ${texNombre(1000)} =${texNombre(a / 1000)}$, alors $${texNombre(a)}\\text{ m}=${texNombre(a / 1000)}\\text{ km}$.  `)
         } else {
           a = randint(1, 35) / 100
           resultat = a * 1000
-          this.question = `$${texNombre(a)}$ km $=$`
+          this.question = `$${texNombre(a)}\\text{ km}$ $=$`
           if (!this.interactif) {
-            this.question += ' .... m'
+            this.question += ' $\\ldots\\text{ m}$'
           }
 
-          this.optionsChampTexte = { texteApres: ' m' }
+          this.optionsChampTexte = { texteApres: '$\\text{ m}$' }
           this.canEnonce = 'Compléter.'
-          this.canReponseACompleter = `$${texNombre(a)}$ km $= \\dots$ m`
-          this.correction = `$${texNombre(a)}$ km$=${texNombre(a * 1000)}$ m`
+          this.canReponseACompleter = `$${texNombre(a)}\\text{ km}$ $= \\dots\\text{ m}$`
+          this.correction = `$${texNombre(a)}\\text{ km}$$=${texNombre(a * 1000)}\\text{ m}$`
           this.correction += texteEnCouleur(`<br> Mentalement : <br>
-          Comme $1$ km $=${texNombre(1000)}$ m,  pour passer des «${sp()}km ${sp()}» au «${sp()}m ${sp()}», on multiplie par $${texNombre(1000)}$.<br>
-            Comme  $${texNombre(a)}\\times ${texNombre(1000)} =${texNombre(a * 1000)}$, alors $${texNombre(a)}$ km$=${texNombre(a * 1000)}$ m.  `)
+          Comme $1\\text{ km}$ $=${texNombre(1000)}\\text{ m}$,  pour passer des $\\text{km}$ au $\\text{m}$, on multiplie par $${texNombre(1000)}$.<br>
+            Comme  $${texNombre(a)}\\times ${texNombre(1000)} =${texNombre(a * 1000)}$, alors $${texNombre(a)}\\text{ km}$$=${texNombre(a * 1000)}\\text{ m}$.  `)
         }
         break
     }

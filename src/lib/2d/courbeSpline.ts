@@ -2,9 +2,9 @@ import { inferieurouegal } from '../../modules/outils'
 import type { Spline } from '../mathFonctions/Spline'
 import type { IRepere } from './Interfaces'
 import { ObjetMathalea2D } from './ObjetMathalea2D'
-import { tracePoint } from './points'
-import { pointAbstrait } from './points-abstraits'
-import { polyline } from './polygones'
+import { pointAbstrait } from './PointAbstrait'
+import { polyline } from './Polyline'
+import { tracePoint } from './TracePoint'
 
 /**
  * Trace la courbe d'une fonction, précédemment définie comme Spline, dans un repère

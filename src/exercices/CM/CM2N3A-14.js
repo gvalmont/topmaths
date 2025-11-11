@@ -35,7 +35,6 @@ export default class ComplementA100 extends Exercice {
     2 : n + ... = 100`,
     ]
     this.sup = 1
-    this.consigne = 'Calculer.'
 
     this.nbCols = 2
     this.nbColsCorr = 2
@@ -48,12 +47,18 @@ export default class ComplementA100 extends Exercice {
 
     ) {
       a = randint(11, 89)
-      this.sup === 1 ? (texte = `$100-${a}=$`) : (texte = `$${a}+...=100$`)
-      this.sup === 1
-        ? (texteCorr = `$100-${a}=${miseEnEvidence(texNombre(100 - a))}$`)
-        : (texteCorr = `$${a}+ ${miseEnEvidence(texNombre(100 - a))}=100$`)
-      setReponse(this, i, 100 - a)
-      if (this.interactif) texte += ajouteChampTexteMathLive(this, i, '')
+      this.sup === 1 ? (texte = `$100 - ${texNombre(a)} = $`) : (texte = `$ ${texNombre(a)} + $`)
+
+      if (this.interactif && this.sup === 1) {texte += ajouteChampTexteMathLive(this, i, '')} else if (this.sup === 1) {texte += `$ ...... $`}
+      if (this.interactif && this.sup === 2) {texte += ajouteChampTexteMathLive(this, i, '')
+        texte += `$ = 100$`
+       } 
+       else if (this.sup === 2)
+        {texte += `$ ...... = 100$`}
+       this.sup === 1
+       ? (texteCorr = `$ 100 - ${a}=${miseEnEvidence(texNombre(100 - a))}$`)
+       : (texteCorr = `$ ${texNombre(a)} + ${miseEnEvidence(texNombre(100 - a))} = 100$`)
+     setReponse(this, i, 100 - a)
 
       if (this.listeQuestions.indexOf(texte) === -1) {
         // Si la question n'a jamais été posée, on en crée une autre

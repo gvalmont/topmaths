@@ -69,6 +69,7 @@ export default class ExoRose extends Exercice {
   nouvelleVersion() {
     this.valeurMax = contraindreValeur(10, 30, this.sup, 10)
     this.nombreDeValeurs = contraindreValeur(3, 9, this.sup2, 5)
+    this.sup3 = contraindreValeur(1, 4, this.sup3, 1)
     switch (this.sup3) {
       case 1:
         this.type = 'résultats'

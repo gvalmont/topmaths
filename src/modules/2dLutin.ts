@@ -4,12 +4,18 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 */
 
-import { angleModulo } from '../lib/2d/angles'
 import { colorToLatexOrHTML } from '../lib/2d/colorToLatexOrHtml'
 import { ObjetMathalea2D } from '../lib/2d/ObjetMathalea2D'
-import { point } from '../lib/2d/points'
-import { degToRad } from '../lib/mathFonctions/trigo'
+import { point } from '../lib/2d/PointAbstrait'
+import { angleModulo } from '../lib/2d/utilitairesGeometriques'
 import { context } from './context'
+
+/**
+ * Convertit un angle en degrés vers des radians
+ */
+function degToRad(deg: number): number {
+  return (deg * Math.PI) / 180
+}
 
 /**
  * Renvoie la mesure d'angle (entre -180° et 180°) dans le cercle trigonométrique à partir d'une mesure d'angle donnée en degrés, qu'utilise Scratch.

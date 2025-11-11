@@ -1,9 +1,10 @@
-import { codageSegments } from '../../lib/2d/codages'
+import { codageSegments } from '../../lib/2d/CodageSegment'
 import { fixeBordures } from '../../lib/2d/fixeBordures'
-import { Point, point, tracePoint } from '../../lib/2d/points'
+import { Point, point } from '../../lib/2d/PointAbstrait'
 import { repere } from '../../lib/2d/reperes'
 import { segment } from '../../lib/2d/segmentsVecteurs'
 import { labelPoint } from '../../lib/2d/textes'
+import { tracePoint } from '../../lib/2d/TracePoint'
 import {
   handleAnswers,
   setReponse,

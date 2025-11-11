@@ -1,8 +1,8 @@
-import ExerciceSimple from '../../ExerciceSimple'
+import { choice } from '../../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { texNombre } from '../../../lib/outils/texNombre'
 import { randint } from '../../../modules/outils'
-import { choice } from '../../../lib/outils/arrayOutils'
+import ExerciceSimple from '../../ExerciceSimple'
 export const titre = 'Calculer avec un pourcentage'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -22,7 +22,7 @@ export default class PourcentageFacile extends ExerciceSimple {
     this.canOfficielle = false
   }
 
-  nouvelleVersion() {
+   nouvelleVersion() {
     let p: number
     let distance: number
     let unite: string
@@ -44,15 +44,19 @@ export default class PourcentageFacile extends ExerciceSimple {
     const num = ratios[p][0]
     const den = ratios[p][1]
     this.reponse = ((p * distance) / 100).toFixed(0)
-    this.question = `$${texNombre(p, 0)}\\,\\%$ de $${texNombre(distance, 0)}$ ${unite}`
+    this.question = `$${texNombre(p, 0)}\\,\\%$ de $${texNombre(distance, 0)}\\text{ ${unite}}$`
     this.canEnonce = this.question
-    this.canReponseACompleter = `$\\ldots$ ${unite}`
-    this.correction = `Prendre $${String(p)}\\,\\%$ d'une quantité revient à la diviser par $${ratios[p][1]}$. <br>
-    En effet $\\dfrac{${num}}{${den}}=${String(p)}\\,\\%$.<br>`
+    this.canReponseACompleter = `$\\ldots\\text{ ${unite}}$`
+    this.correction = `On a $\\dfrac{${num}}{${den}}=${String(p)}\\,\\%$.<br>
+   
+  `
     if (p === 25 || p === 50) {
-      this.correction += `Donc, on divise $${texNombre(distance, 0)}$ par $${den}$, soit  $${texNombre(distance, 0)}\\div ${den}=${miseEnEvidence(this.reponse)}$ ${unite}.`
+      this.correction += ` Ainsi, prendre $${String(p)}\\,\\%$ d'une quantité revient à la diviser par $${ratios[p][1]}$. <br>
+      Donc, on divise $${texNombre(distance, 0)}$ par $${den}$, soit  $${texNombre(distance, 0)}\\text{ ${unite}}\\div ${den}=${miseEnEvidence(this.reponse)}\\text{ ${unite}}$.`
     } else {
-      this.correction += `Donc, on divise $${texNombre(distance, 0)}$ par $${den}$ et on multuiplie par $${num}$, soit $${texNombre(distance, 0)}\\div ${den} \\times ${num}=${texNombre(distance / den, 0)}\\times ${num}=${miseEnEvidence(this.reponse)}$ ${unite}.`
+      this.correction += `
+      Ainsi, prendre $${String(p)}\\,\\%$ d'une quantité revient à diviser par $${ratios[p][1]}$ puis multiplier par $${num}$. <br>
+      Donc, on divise $${texNombre(distance, 0)}$ par $${den}$ et on multiplie par $${num}$, soit $${texNombre(distance, 0)}\\text{ ${unite}}\\div ${den} \\times ${num}=${texNombre(distance / den, 0)}\\text{ ${unite}}\\times ${num}=${miseEnEvidence(this.reponse)}\\text{ ${unite}}$.`
     }
   }
 }

@@ -1,18 +1,18 @@
+import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
+import { handleAnswers } from '../../lib/interactif/gestionInteractif'
+import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
 import {
   ecritureAlgebriqueSauf1,
   reduireAxPlusB,
   rienSi1,
 } from '../../lib/outils/ecritures'
-import { sp } from '../../lib/outils/outilString'
-import Exercice from '../Exercice'
-import { context } from '../../modules/context'
-import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
-import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
-import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
-import { handleAnswers } from '../../lib/interactif/gestionInteractif'
+import { sp } from '../../lib/outils/outilString'
+import { context } from '../../modules/context'
 import FractionEtendue from '../../modules/FractionEtendue'
+import { listeQuestionsToContenu, randint } from '../../modules/outils'
+import Exercice from '../Exercice'
 export const interactifReady = true
 export const interactifType = 'mathlive'
 export const dateDePublication = '02/05/2023'
@@ -118,14 +118,14 @@ export default class ResoudreEquationsQuotient extends Exercice {
             texteCorr += `Pour tout $x\\in \\mathbb{R}\\smallsetminus\\left\\{${valInterdite.texFractionSimplifiee}\\right\\}$, <br>
  $\\begin{aligned}
  \\dfrac{${reduireAxPlusB(a, b)}}{${reduireAxPlusB(c, d)}}&=0 \\\\
- ${reduireAxPlusB(a, b)}&=0 ${sp(7)} \\text{ car }\\dfrac{A(x)}{B(x)}=0 \\text { si et seulement si } A(x)=0 \\text { et } B(x)\\neq 0\\\\
+ ${reduireAxPlusB(a, b)}&=0 ${sp(7)} \\text{ car }\\dfrac{A(x)}{B(x)}=0 \\text{ si et seulement si } A(x)=0 \\text{ et } B(x)\\neq 0\\\\
 x&= ${valSolution.texFractionSimplifiee}
 \\end{aligned}$<br>`
           } else {
             texteCorr += `Pour tout $x\\in \\mathbb{R}\\smallsetminus\\left\\{${valInterdite.texFractionSimplifiee}\\right\\}$,<br>
  $\\begin{aligned}
  ${choix ? `\\dfrac{${reduireAxPlusB(a, b)}}{${reduireAxPlusB(c, d)}}&=0` : `\\dfrac{${b}${ecritureAlgebriqueSauf1(a)}x}{${reduireAxPlusB(c, d)}}&=0`}\\\\
- ${choix ? `${reduireAxPlusB(a, b)}&=0` : `${b}${ecritureAlgebriqueSauf1(a)}x&=0`}${sp(7)} \\text{ car }\\dfrac{A(x)}{B(x)}=0 \\text { si et seulement si } A(x)=0 \\text { et } B(x)\\neq 0\\\\
+ ${choix ? `${reduireAxPlusB(a, b)}&=0` : `${b}${ecritureAlgebriqueSauf1(a)}x&=0`}${sp(7)} \\text{ car }\\dfrac{A(x)}{B(x)}=0 \\text{ si et seulement si } A(x)=0 \\text{ et } B(x)\\neq 0\\\\
 x&= ${valSolution.texFractionSimplifiee}
 \\end{aligned}$<br>`
           }
@@ -160,7 +160,7 @@ x&= ${valSolution.texFractionSimplifiee}
           Pour tout $x\\in \\mathbb{R}\\smallsetminus${ensValeursInterdites}$, <br>
             $\\begin{aligned}
             ${choix ? `\\dfrac{${rienSi1(a)}x^2-${b}}{${reduireAxPlusB(c, d)}}&=0` : `\\dfrac{${b}-${rienSi1(a)}x^2}{${reduireAxPlusB(c, d)}}&=0`}\\\\
-            ${choix ? `${rienSi1(a)}x^2-${b}&=0` : `${b}-${rienSi1(a)}x^2&=0`}${sp(7)} \\text{ car }\\dfrac{A(x)}{B(x)}=0 \\text { si et seulement si } A(x)=0 \\text { et } B(x)\\neq 0\\\\
+            ${choix ? `${rienSi1(a)}x^2-${b}&=0` : `${b}-${rienSi1(a)}x^2&=0`}${sp(7)} \\text{ car }\\dfrac{A(x)}{B(x)}=0 \\text{ si et seulement si } A(x)=0 \\text{ et } B(x)\\neq 0\\\\
             ${rienSi1(a)}x^2&=${b}\\\\
             x^2&=${k1 * k1}\\\\
            x= ${k1}&\\text{ ou } x= -${k1}
@@ -198,7 +198,7 @@ Donc l'ensemble des valeurs interdites est  $${ensValeursInterdites}$.<br>
 Pour tout $x\\in \\mathbb{R}\\smallsetminus${ensValeursInterdites}$, <br>
   $\\begin{aligned}
   ${choix ? `\\dfrac{${rienSi1(a)}x^2+${b}}{${reduireAxPlusB(c, d)}}&=0` : `\\dfrac{${b}+${rienSi1(a)}x^2}{${reduireAxPlusB(c, d)}}&=0`}\\\\
-  ${choix ? `${rienSi1(a)}x^2+${b}&=0` : `${b}+${rienSi1(a)}x^2&=0`}${sp(7)} \\text{ car }\\dfrac{A(x)}{B(x)}=0 \\text { si et seulement si } A(x)=0 \\text { et } B(x)\\neq 0\\\\
+  ${choix ? `${rienSi1(a)}x^2+${b}&=0` : `${b}+${rienSi1(a)}x^2&=0`}${sp(7)} \\text{ car }\\dfrac{A(x)}{B(x)}=0 \\text{ si et seulement si } A(x)=0 \\text{ et } B(x)\\neq 0\\\\
   ${rienSi1(a)}x^2&=-${b}\\\\
   x^2&=-${k1 * k1}
  \\end{aligned}$<br>

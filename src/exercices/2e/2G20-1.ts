@@ -1,6 +1,8 @@
 import { grille } from '../../lib/2d/Grille'
-import { point } from '../../lib/2d/points'
-import { segment, vecteur } from '../../lib/2d/segmentsVecteurs'
+import { point } from '../../lib/2d/PointAbstrait'
+import { representantNomme } from '../../lib/2d/representantVecteur'
+import { segment } from '../../lib/2d/segmentsVecteurs'
+import { vecteur } from '../../lib/2d/Vecteur'
 import { propositionsQcm } from '../../lib/interactif/qcm'
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
 import { mathalea2d } from '../../modules/mathalea2d'
@@ -113,7 +115,7 @@ export default class ReconnaitreVecteurs extends Exercice {
       const AB = segment(A, B, 'blue', '->') // vecteur de base
       AB.epaisseur = 2
       const vAB = vecteur(A, B)
-      const nomvAB = vAB.representantNomme(A, 'u', 1.5, 'blue')
+      const nomvAB = representantNomme(vAB, A, 'u', 1.5, 'blue')
 
       const ptsExt = [D, E, F, H, G, K, G, K] // liste des pts d'extrémité
       let choixPtExt = choice(ptsExt) // choix du pt d'extrémité
@@ -127,7 +129,7 @@ export default class ReconnaitreVecteurs extends Exercice {
       const CptExt = segment(C, choixPtExt, 'red', '->') // second vecteur
       CptExt.epaisseur = 2
       const vCptExt = vecteur(C, choixPtExt)
-      const nomvCptExt = vCptExt.representantNomme(C, 'v', 1.5, 'red')
+      const nomvCptExt = representantNomme(vCptExt, C, 'v', 1.5, 'red')
 
       // grille dépassant les vecteurs d'une unité
       const xmin = Math.floor(Math.min(A.x, B.x, C.x, choixPtExt.x) - 1)

@@ -1,4 +1,4 @@
-import { BoiteBuilder } from '../../lib/2d/polygones'
+import { BoiteBuilder } from '../../lib/2d/BoiteBuilder'
 import {
   arrayClone,
   choice,

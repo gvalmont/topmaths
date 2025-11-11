@@ -1,24 +1,24 @@
 import { choice } from '../../lib/outils/arrayOutils'
-import { miseEnEvidence } from '../../lib/outils/embellissements'
 import {
   ecritureAlgebrique,
   ecritureParentheseSiNegatif,
   rienSi1,
 } from '../../lib/outils/ecritures'
-import { pgcd } from '../../lib/outils/primalite'
-import Exercice from '../Exercice'
-import { context } from '../../modules/context'
+import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { abs, signe } from '../../lib/outils/nombres'
+import { pgcd } from '../../lib/outils/primalite'
+import { context } from '../../modules/context'
+import Exercice from '../Exercice'
 
+import { handleAnswers } from '../../lib/interactif/gestionInteractif'
+import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
+import { sp } from '../../lib/outils/outilString'
+import FractionEtendue from '../../modules/FractionEtendue'
 import {
   gestionnaireFormulaireTexte,
   listeQuestionsToContenu,
   randint,
 } from '../../modules/outils'
-import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
-import { handleAnswers } from '../../lib/interactif/gestionInteractif'
-import FractionEtendue from '../../modules/FractionEtendue'
-import { sp } from '../../lib/outils/outilString'
 
 export const titre = 'Résoudre une équation du premier degré'
 export const interactifReady = true
@@ -33,7 +33,7 @@ export const dateDeModifImportante = '02/04/2024'
 export const uuid = '799c4'
 
 export const refs = {
-  'fr-fr': ['4L20', 'BP2RES8'],
+  'fr-fr': ['4L20', 'BP2RES8', '3AutoN14-1'],
   'fr-ch': ['10FA3-7'],
 }
 
@@ -383,7 +383,8 @@ export default class ExerciceEquation1 extends Exercice {
                         listeTypeDeQuestions[i] === `${inconnue}+b=c`
                           ? `Résoudre ${texte}.`
                           : `Résoudre ${texte} et donner la solution sous la forme d'une fraction irréductible.`,
-                      valeur: [reponse],
+                      // valeur: [reponse],
+                      valeur: reponse,
                       param: {
                         signe: this.sup,
                       },

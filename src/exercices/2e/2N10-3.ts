@@ -6,7 +6,7 @@ export const amcReady = true
 export const amcType = 'AMCHybride'
 export const dateDeModifImportante = '27/10/2021'
 /**
- * Clone de 6N21 pour les 2nde
+ * Clone de 6N21 pour les 2nde // OM : CM2N2E-2 maintenant
  *
  * @author Jean-Claude Lhote
  */
@@ -20,5 +20,7 @@ export default class PlacerPointsAbscissesFractionnaires2nde extends PlacerPoint
   constructor() {
     super()
     this.sup = 5
+    this.sup2 = true
+    this.sup3 = false
   }
 }

@@ -1,23 +1,22 @@
 import { droite } from '../../lib/2d/droites'
-import FractionEtendue from '../../modules/FractionEtendue'
+import { Point, point } from '../../lib/2d/PointAbstrait'
 import {
-  Point,
-  point,
   pointIntersectionDD,
   pointSurDroite,
-} from '../../lib/2d/points'
-import { choice } from '../../lib/outils/arrayOutils'
-import Exercice from '../Exercice'
-import { listeQuestionsToContenu, randint } from '../../modules/outils'
-import { texNombre } from '../../lib/outils/texNombre'
-import {
-  rienSi1,
-  ecritureAlgebrique,
-  ecritureAlgebriqueSauf1,
-} from '../../lib/outils/ecritures'
+} from '../../lib/2d/utilitairesPoint'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { remplisLesBlancs } from '../../lib/interactif/questionMathLive'
+import { choice } from '../../lib/outils/arrayOutils'
+import {
+  ecritureAlgebrique,
+  ecritureAlgebriqueSauf1,
+  rienSi1,
+} from '../../lib/outils/ecritures'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
+import { texNombre } from '../../lib/outils/texNombre'
+import FractionEtendue from '../../modules/FractionEtendue'
+import { listeQuestionsToContenu, randint } from '../../modules/outils'
+import Exercice from '../Exercice'
 export const titre =
   "Déterminer le point d'intersection de deux droites données par des points"
 export const interactifReady = true

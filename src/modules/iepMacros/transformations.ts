@@ -1,20 +1,21 @@
 import type { Droite } from '../../lib/2d/droites'
-import { milieu } from '../../lib/2d/points'
-import type { PointAbstrait } from '../../lib/2d/points-abstraits'
+import type { PointAbstrait } from '../../lib/2d/PointAbstrait'
 import type { Polygone } from '../../lib/2d/polygones'
-import { longueur, vecteur } from '../../lib/2d/segmentsVecteurs'
 import {
   homothetie,
   rotation,
   symetrieAxiale,
   translation,
 } from '../../lib/2d/transformations'
+import { longueur } from '../../lib/2d/utilitairesGeometriques'
+import { milieu } from '../../lib/2d/utilitairesPoint'
+import { vecteur } from '../../lib/2d/Vecteur'
 import { shuffle } from '../../lib/outils/arrayOutils'
 import { arrondi } from '../../lib/outils/nombres'
 import { stringNombre } from '../../lib/outils/texNombre'
-import type { OptionsCompas } from '../Alea2iep'
-import type Alea2iep from '../Alea2iep'
+import type { IAlea2iep, OptionsCompas } from '../Alea2iep.types'
 import { randint } from '../outils'
+import { perpendiculaireRegleEquerre2points3epoint } from './parallelesEtPerpendiculaires'
 
 const marques = ['/', '//', '///', 'O', '\\\\']
 
@@ -27,7 +28,7 @@ const marques = ['/', '//', '///', 'O', '\\\\']
  * @author Liouba Leroux et Jean-Claude Lhote
  */
 export const symetrieAxialePoint = function (
-  this: Alea2iep,
+  this: IAlea2iep,
   p: PointAbstrait,
   d: Droite,
   nom: string,
@@ -42,7 +43,8 @@ export const symetrieAxialePoint = function (
     const N = rotation(p, M, 90)
     const D = rotation(N, M, 180)
     this.regleMasquerGraduations(options)
-    this.perpendiculaireRegleEquerre2points3epoint(
+    perpendiculaireRegleEquerre2points3epoint.call(
+      this,
       N,
       D,
       p,
@@ -74,7 +76,7 @@ export const symetrieAxialePoint = function (
  * @author Jean-Claude Lhote
  */
 export const rotationPoint = function (
-  this: Alea2iep,
+  this: IAlea2iep,
   p: PointAbstrait,
   centre: PointAbstrait,
   angle: number,
@@ -174,7 +176,7 @@ export const rotationPoint = function (
  * @author Jean-Claude Lhote
  */
 export const translationPoint = function (
-  this: Alea2iep,
+  this: IAlea2iep,
   p: PointAbstrait,
   A: PointAbstrait,
   B: PointAbstrait,
@@ -228,13 +230,13 @@ export const translationPoint = function (
 /**
  *
  * @param {objet} p  le point dont on veut construire l'image
- * @param {objet} centre le centre de symétrie
+ * @param {objet} centre le centre de la rotation
  * @param {string} nom le nom de l'image (si pas précisé ce sera le nom de l'antécédent avec un ')
- * @param {objet} param3 options couleur, couleurCodage et codage
+ * @param {objet} param4 options couleur et couleurCodage
  * @author Jean-Claude Lhote
  */
 export const demiTourPoint = function (
-  this: Alea2iep,
+  this: IAlea2iep,
   p: PointAbstrait,
   centre: PointAbstrait,
   nom: string,
@@ -273,7 +275,7 @@ type OptionsHomothetiePoint = OptionsCompas & {
  * @param {objet} param4 options (couleur)
  */
 export const homothetiePoint = function (
-  this: Alea2iep,
+  this: IAlea2iep,
   p: PointAbstrait,
   centre: PointAbstrait,
   k: number,
@@ -341,7 +343,7 @@ export const homothetiePoint = function (
  * @param {objet} param4 options couleur et couleurCodage
  */
 export const rotationPolygone = function (
-  this: Alea2iep,
+  this: IAlea2iep,
   p: Polygone,
   centre: PointAbstrait,
   angle: number,
@@ -352,22 +354,16 @@ export const rotationPolygone = function (
   },
 ) {
   let nom
-  const p2 = rotation(p, centre, angle) // Pour tracer la figure image à la fin de l'animation avec polygoneRapide
+  const p2 = rotation(p, centre, angle)
   let codageAngle
-  const marquesAlea = shuffle(marques) // on mélange les marques pour le codage des angles
+  const marquesAlea = shuffle(marques)
   for (let i = 0; i < p.listePoints.length; i++) {
-    if (noms[i] !== undefined) {
-      nom = noms[i]
-    } else {
-      nom = p.listePoints[i].nom + "'"
-    }
-    if (i < 1) {
-      codageAngle = options.codage ?? 'plein'
-    } else {
-      codageAngle = ''
-    }
+    nom = noms[i] !== undefined ? noms[i] : p.listePoints[i].nom + "'"
+    codageAngle = i < 1 ? (options.codage ?? 'plein') : ''
     if (longueur(centre, p.listePoints[i]) !== 0) {
-      this.rotationPoint(
+      // this.rotationPoint(...)
+      rotationPoint.call(
+        this,
         p.listePoints[i],
         centre,
         angle,
@@ -389,7 +385,7 @@ export const rotationPolygone = function (
   this.polygoneRapide(
     ...p2.listePoints,
     Object.assign(options, { epaisseur: 2 }),
-  ) // on trace le polygone image en bleu épaisseur 2
+  )
 }
 
 /**
@@ -401,25 +397,21 @@ export const rotationPolygone = function (
  * @author Liouba Leroux et Jean-Claude Lhote
  */
 export const symetrieAxialePolygone = function (
-  this: Alea2iep,
+  this: IAlea2iep,
   p: Polygone,
   d: Droite,
   noms: string[] = [],
   options: OptionsCompas = {},
 ) {
   let nom: string
-  const p2 = symetrieAxiale(p, d) // Pour tracer la figure image à la fin de l'animation avec polygoneRapide
-  // const N = homothetie(milieu(p.listePoints[0], p2.listePoints[0]), milieu(p.listePoints[1], p2.listePoints[1]), 1.23456) // créer unh point de l'axe de symétrie pour les alignements et les mesure d'angles
+  const p2 = symetrieAxiale(p, d)
   let i = 0
   const marques = ['/', '//', '///', 'O', '\\\\']
   for (const sommet of p.listePoints) {
-    // On répète la construction pour chaque sommet du polygone
-    if (noms[i] !== undefined) {
-      nom = noms[i]
-    } else {
-      nom = sommet.nom + "'"
-    }
-    this.symetrieAxialePoint(
+    nom = noms[i] !== undefined ? noms[i] : sommet.nom + "'"
+    // this.symetrieAxialePoint(...)
+    symetrieAxialePoint.call(
+      this,
       sommet,
       d,
       nom,
@@ -432,7 +424,7 @@ export const symetrieAxialePolygone = function (
   this.polygoneRapide(
     ...p2.listePoints,
     Object.assign({}, options, { epaisseur: 2 }),
-  ) // on trace le polygone image en bleu épaisseur 2
+  )
 }
 
 /**
@@ -445,7 +437,7 @@ export const symetrieAxialePolygone = function (
  * @author Jean-Claude Lhote
  */
 export const translationPolygone = function (
-  this: Alea2iep,
+  this: IAlea2iep,
   p: Polygone,
   A: PointAbstrait,
   B: PointAbstrait,
@@ -454,20 +446,18 @@ export const translationPolygone = function (
 ) {
   let nom
   const v = vecteur(A, B)
-  const p2 = translation(p, v) // Pour tracer la figure image à la fin de l'animation avec polygoneRapide
+  const p2 = translation(p, v)
   for (let i = 0; i < p.listePoints.length; i++) {
-    if (noms[i] !== undefined) {
-      nom = noms[i]
-    } else {
-      nom = p.listePoints[i].nom + "'"
-    }
-    this.translationPoint(p.listePoints[i], A, B, nom, options)
+    nom = noms[i] !== undefined ? noms[i] : p.listePoints[i].nom + "'"
+    // this.translationPoint(...)
+    translationPoint.call(this, p.listePoints[i], A, B, nom, options)
   }
   this.polygoneRapide(
     ...p2.listePoints,
     Object.assign({}, options, { epaisseur: 2 }),
-  ) // on trace le polygone image en bleu épaisseur 2
+  )
 }
+
 /**
  *
  * @param {objet} p  le polygone dont on veut construire l'image qui doit être tracé
@@ -477,24 +467,21 @@ export const translationPolygone = function (
  * @author Jean-Claude Lhote
  */
 export const demiTourPolygone = function (
-  this: Alea2iep,
+  this: IAlea2iep,
   p: Polygone,
   centre: PointAbstrait,
   noms: string[] = [],
   options: OptionsCompas = {},
 ) {
-  const p2 = rotation(p, centre, 180) // Pour tracer la figure image à la fin de l'animation avec polygoneRapide
+  const p2 = rotation(p, centre, 180)
   let nom
   let i = 0
   const marques = ['/', '//', '///', 'O', '\\\\']
   for (const sommet of p.listePoints) {
-    // On répète la construction pour chaque sommet du polygone
-    if (noms[i] !== undefined) {
-      nom = noms[i]
-    } else {
-      nom = sommet.nom + "'"
-    }
-    this.demiTourPoint(
+    nom = noms[i] !== undefined ? noms[i] : sommet.nom + "'"
+    // this.demiTourPoint(...)
+    demiTourPoint.call(
+      this,
       sommet,
       centre,
       nom,
@@ -505,7 +492,7 @@ export const demiTourPolygone = function (
   this.polygoneRapide(
     ...p2.listePoints,
     Object.assign({}, options, { epaisseur: 2 }),
-  ) // on trace le polygone image en bleu épaisseur 2
+  )
 }
 
 /**
@@ -517,7 +504,7 @@ export const demiTourPolygone = function (
  * @param {objet} param4 options (couleur)
  */
 export const homothetiePolygone = function (
-  this: Alea2iep,
+  this: IAlea2iep,
   p: Polygone,
   centre: PointAbstrait,
   k: number,
@@ -525,7 +512,7 @@ export const homothetiePolygone = function (
   options: OptionsCompas = {},
 ) {
   let nom
-  const p2 = homothetie(p, centre, k) // Pour tracer la figure image à la fin de l'animation avec polygoneRapide
+  const p2 = homothetie(p, centre, k)
   const t = this.textePosition(
     'Comme k est ' +
       (k >= 0 ? 'positif' : 'négatif') +
@@ -539,13 +526,10 @@ export const homothetiePolygone = function (
   )
   let i = 0
   for (const sommet of p.listePoints) {
-    // On répète la construction pour chaque sommet du polygone
-    if (noms[i] !== undefined) {
-      nom = noms[i]
-    } else {
-      nom = sommet.nom + "'"
-    }
-    this.homothetiePoint(
+    nom = noms[i] !== undefined ? noms[i] : sommet.nom + "'"
+    // this.homothetiePoint(...)
+    homothetiePoint.call(
+      this,
       sommet,
       centre,
       k,
@@ -554,12 +538,12 @@ export const homothetiePolygone = function (
         epaisseur: 1,
         positionTexte: { x: 0, y: 0 },
       }),
-    ) // on construit l'image
+    )
     i++
   }
   this.polygoneRapide(
     ...p2.listePoints,
     Object.assign({}, options, { epaisseur: 2 }),
-  ) // on trace le polygone image en bleu épaisseur 2
+  )
   this.texteMasquer(t)
 }

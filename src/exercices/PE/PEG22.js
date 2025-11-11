@@ -1,10 +1,11 @@
-import { point, pointAdistance, pointSurSegment } from '../../lib/2d/points'
-import { longueur } from '../../lib/2d/segmentsVecteurs'
+import { point } from '../../lib/2d/PointAbstrait'
 import { similitude } from '../../lib/2d/transformations'
+import { longueur } from '../../lib/2d/utilitairesGeometriques'
+import { pointAdistance, pointSurSegment } from '../../lib/2d/utilitairesPoint'
 import { texteGras } from '../../lib/format/style'
-import Exercice from '../Exercice'
-import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import Alea2iep from '../../modules/Alea2iep'
+import { listeQuestionsToContenu, randint } from '../../modules/outils'
+import Exercice from '../Exercice'
 export const titre =
   "Tracer une racine au compas et à la règle non graduée à l'aide du théorème de Pythagore"
 

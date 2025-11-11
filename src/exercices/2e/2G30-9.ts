@@ -2,10 +2,13 @@ import Figure from 'apigeom'
 import type Point from 'apigeom/src/elements/points/Point'
 import { colorToLatexOrHTML } from '../../lib/2d/colorToLatexOrHtml'
 import { droite } from '../../lib/2d/droites'
-import { point, tracePoint } from '../../lib/2d/points'
+import { point } from '../../lib/2d/PointAbstrait'
 import { repere } from '../../lib/2d/reperes'
-import { segment, vecteur } from '../../lib/2d/segmentsVecteurs'
+import { representantNomme } from '../../lib/2d/representantVecteur'
+import { segment } from '../../lib/2d/segmentsVecteurs'
 import { labelPoint, latex2d } from '../../lib/2d/textes'
+import { tracePoint } from '../../lib/2d/TracePoint'
+import { vecteur } from '../../lib/2d/Vecteur'
 import { orangeMathalea } from '../../lib/colors'
 import figureApigeom from '../../lib/figureApigeom'
 import { choice } from '../../lib/outils/arrayOutils'
@@ -217,7 +220,7 @@ export default class RepresenterfDroite extends Exercice {
             const AB = segment(A, B, 'blue', '->')
             const vAB = vecteur(A, B)
             AB.epaisseur = 3
-            const nomvAB = vAB.representantNomme(A, 'u', 1, 'blue')
+            const nomvAB = representantNomme(vAB, A, 'u', 1, 'blue')
             const tA = tracePoint(A, 'blue') // Variable qui trace les points avec une croix
             const tB = tracePoint(B, 'blue') // Variable qui trace les points avec une croix
             const lA = labelPoint(A, 'blue') // Variable qui trace les nom s A et B

@@ -2,9 +2,9 @@ import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { randint } from '../../../modules/outils'
 import ExerciceSimple from '../../ExerciceSimple'
 
-import { codageAngleDroit } from '../../../lib/2d/angles'
+import { codageAngleDroit } from '../../../lib/2d/CodageAngleDroit'
 import { fixeBordures } from '../../../lib/2d/fixeBordures'
-import { point, Point } from '../../../lib/2d/points'
+import { point, Point } from '../../../lib/2d/PointAbstrait'
 import { Polygone } from '../../../lib/2d/polygones'
 import { segment } from '../../../lib/2d/segmentsVecteurs'
 import { latexParCoordonnees } from '../../../lib/2d/textes'
@@ -25,7 +25,7 @@ export default class PerimetreRectangleCM2 extends ExerciceSimple {
     this.typeExercice = 'simple' // Cette ligne est très importante pour faire un exercice simple !
     this.nbQuestions = 1
 
-    this.optionsChampTexte = { texteApres: ' cm' }
+    this.optionsChampTexte = { texteApres: ' $\\text{cm}$' }
     this.canOfficielle = false
   }
 
@@ -131,7 +131,7 @@ export default class PerimetreRectangleCM2 extends ExerciceSimple {
     )
     this.question +=
       'Le périmètre de ce rectangle est égal à ' +
-      (this.interactif ? '' : '$\\ldots$ cm.')
+      (this.interactif ? '' : '$\\ldots\\text{ cm}$.')
 
     this.canEnonce = mathalea2d(
       Object.assign(
@@ -144,7 +144,7 @@ export default class PerimetreRectangleCM2 extends ExerciceSimple {
       objets,
     )
     this.canReponseACompleter =
-      'Le périmètre de ce rectangle est égal à $\\ldots$ cm.'
+      'Le périmètre de ce rectangle est égal à $\\ldots\\text{ cm}$.'
     this.reponse = String((hauteur + grandeBase) * 2)
     this.correction = `Le périmètre du rectangle est égal à : <br>$(${String(grandeBase)}+${String(hauteur)})\\times 2=${String(grandeBase + hauteur)}\\times 2 = ${miseEnEvidence(this.reponse)}$.`
   }

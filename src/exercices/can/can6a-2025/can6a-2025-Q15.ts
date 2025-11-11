@@ -1,7 +1,7 @@
 import { colorToLatexOrHTML } from '../../../lib/2d/colorToLatexOrHtml'
 import { fixeBordures } from '../../../lib/2d/fixeBordures'
 import { grille } from '../../../lib/2d/Grille'
-import { Point } from '../../../lib/2d/points'
+import { Point } from '../../../lib/2d/PointAbstrait'
 import { Polygone } from '../../../lib/2d/polygones'
 import { latex2d } from '../../../lib/2d/textes'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'

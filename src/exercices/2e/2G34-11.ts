@@ -1,8 +1,9 @@
 import { colorToLatexOrHTML } from '../../lib/2d/colorToLatexOrHtml'
 import { Droite, droite, droiteAvecNomLatex } from '../../lib/2d/droites'
-import { Point, pointIntersectionDD } from '../../lib/2d/points'
+import { Point } from '../../lib/2d/PointAbstrait'
 import { repere } from '../../lib/2d/reperes'
 import { texteParPosition } from '../../lib/2d/textes'
+import { pointIntersectionDD } from '../../lib/2d/utilitairesPoint'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { remplisLesBlancs } from '../../lib/interactif/questionMathLive'
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
@@ -178,6 +179,12 @@ export default class IntersectionDroites extends Exercice {
             a3Frac = choice(listeFractions)
             a3 = a3Frac[0] * choice([-1, 1]) //
             d3 = a3Frac[1] //
+            if (
+              Math.abs(a2 / d2 - a / d) < 0.5 ||
+              Math.abs(a3 / d3 - a / d) < 0.5 ||
+              Math.abs(a2 / d2 - a3 / d3) < 0.5
+            )
+              continue
             c = droite(a / d, -1, b)
             c.color = colorToLatexOrHTML('red')
             c.epaisseur = 1
@@ -191,13 +198,13 @@ export default class IntersectionDroites extends Exercice {
             pAproxInt13 = pointIntersectionDD(c, c3)
             pAproxInt23 = pointIntersectionDD(c2, c3)
           } while (
-            a2 / d2 === a / d ||
-            a3 / d3 === a / d ||
-            a2 / d2 === a3 / d3 ||
             !(
-              inGraph(pAproxInt12) &&
-              inGraph(pAproxInt13) &&
-              inGraph(pAproxInt23)
+              Math.abs(a2 / d2 - a / d) < 0.5 ||
+              Math.abs(a3 / d3 - a / d) < 0.5 ||
+              Math.abs(a2 / d2 - a3 / d3) < 0.5 ||
+              (inGraph(pAproxInt12) &&
+                inGraph(pAproxInt13) &&
+                inGraph(pAproxInt23))
             ) ||
             coordEntieres(pAproxInt12) ||
             coordEntieres(pAproxInt13) ||
@@ -207,7 +214,7 @@ export default class IntersectionDroites extends Exercice {
         case 'deuxDroitesHG':
         case 'troisDroitesHG':
           do {
-            a = randint(-5, 5, [0]) // numérateut coefficient directeur non nul
+            a = randint(-5, 5, [0]) // numérateur coefficient directeur non nul
             b = randint(-5, 5) // ordonnée à l'origine
             aFrac = choice(listeFractions)
             a = aFrac[0] * choice([-1, 1]) //
@@ -222,6 +229,12 @@ export default class IntersectionDroites extends Exercice {
             a3Frac = choice(listeFractions)
             a3 = a3Frac[0] * choice([-1, 1]) //
             d3 = a3Frac[1] //
+            if (
+              Math.abs(a2 / d2 - a / d) < 0.5 ||
+              Math.abs(a3 / d3 - a / d) < 0.5 ||
+              Math.abs(a2 / d2 - a3 / d3) < 0.5
+            )
+              continue
             c = droite(a / d, -1, b)
             c.color = colorToLatexOrHTML('red')
             c.epaisseur = 1
@@ -235,9 +248,9 @@ export default class IntersectionDroites extends Exercice {
             pAproxInt13 = pointIntersectionDD(c, c3)
             pAproxInt23 = pointIntersectionDD(c2, c3)
           } while (
-            a2 / d2 === a / d ||
-            a3 / d3 === a / d ||
-            a2 / d2 === a3 / d3 ||
+            Math.abs(a2 / d2 - a / d) < 0.5 ||
+            Math.abs(a3 / d3 - a / d) < 0.5 ||
+            Math.abs(a2 / d2 - a3 / d3) < 0.5 ||
             inGraph(pAproxInt12) ||
             coordEntieres(pAproxInt12) ||
             coordEntieres(pAproxInt13) ||
@@ -245,6 +258,7 @@ export default class IntersectionDroites extends Exercice {
           )
           break
       }
+
       const droite1 = droiteAvecNomLatex(c, '(d_1)', 'red')
       const droite2 = droiteAvecNomLatex(c2, '(d_2)', 'green')
       const droite3 = droiteAvecNomLatex(c3, '(d_3)', 'blue')

@@ -1,6 +1,7 @@
-import { point, tracePoint } from '../../lib/2d/points'
+import { point } from '../../lib/2d/PointAbstrait'
 import { segment } from '../../lib/2d/segmentsVecteurs'
 import { latex2d, texteParPosition } from '../../lib/2d/textes'
+import { tracePoint } from '../../lib/2d/TracePoint'
 import { choice, shuffle } from '../../lib/outils/arrayOutils'
 import {
   miseEnEvidence,

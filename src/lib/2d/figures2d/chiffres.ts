@@ -1,5 +1,5 @@
 import { Figure2D } from '../Figures2D'
-import { Point, point } from '../points'
+import { Point, point } from '../PointAbstrait'
 import { segment } from '../segmentsVecteurs'
 
 function nbAxesChiffre(chiffre: number): number {

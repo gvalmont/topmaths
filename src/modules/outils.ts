@@ -1,6 +1,4 @@
 import Decimal from 'decimal.js'
-import { round } from 'mathjs'
-import type Exercice from '../exercices/Exercice'
 import { texMulticols } from '../lib/format/miseEnPage'
 import {
   combinaisonListes,
@@ -9,8 +7,15 @@ import {
   enleveDoublonNum,
 } from '../lib/outils/arrayOutils'
 import { arrondi, rangeMinMax } from '../lib/outils/nombres'
+import type { IExercice } from '../lib/types'
 import { context } from './context'
-import FractionEtendue from './FractionEtendue'
+import type { IFractionEtendue } from './FractionEtendue.type'
+
+// Garde structurel pour détecter une FractionEtendue
+const isFractionEtendue = (x: unknown): x is IFractionEtendue =>
+  typeof x === 'object' &&
+  x !== null &&
+  typeof (x as any).sommeFraction === 'function'
 
 export const tropDeChiffres = 'Trop de chiffres'
 export const epsilon = 0.000001
@@ -19,7 +24,7 @@ export const epsilon = 0.000001
  * Affecte les propriétés contenues et contenuCorrection (d'après les autres propriétés de l'exercice)
  * @param {Exercice} exercice
  */
-export function listeQuestionsToContenu(exercice: Exercice) {
+export function listeQuestionsToContenu(exercice: IExercice) {
   let vspace = ''
   if (exercice.vspace) {
     vspace = `\\vspace{${exercice.vspace} cm}\n`
@@ -57,7 +62,7 @@ export function listeQuestionsToContenu(exercice: Exercice) {
  * @author Rémi Angot
  */
 export function listeQuestionsToContenuSansNumero(
-  exercice: Exercice,
+  exercice: IExercice,
   retourCharriot = true,
 ) {
   const supprimerReferenceCheckbox = document.getElementById(
@@ -296,13 +301,13 @@ export function entreDeux(a: number, b: number) {
  * @return {boolean}
  */
 export function egal(
-  a: number | FractionEtendue,
-  b: number | FractionEtendue,
+  a: number | IFractionEtendue,
+  b: number | IFractionEtendue,
   tolerance = epsilon,
 ) {
   tolerance = tolerance === 0 ? 1e-10 : tolerance
-  if (a instanceof FractionEtendue) a = a.valeurDecimale
-  if (b instanceof FractionEtendue) b = b.valeurDecimale
+  if (isFractionEtendue(a)) a = a.valeurDecimale
+  if (isFractionEtendue(b)) b = b.valeurDecimale
   return Math.abs(a - b) <= tolerance
 }
 
@@ -347,7 +352,7 @@ export function inferieurouegal(a: number, b: number, tolerance = epsilon) {
  */
 export function estentier(a: number, tolerance = epsilon) {
   if (typeof a !== 'number') window.notify('Erreur dans estEntier()', { a })
-  return Math.abs(a - round(a)) < tolerance
+  return Math.abs(a - Math.round(a)) < tolerance
 }
 
 /**

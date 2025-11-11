@@ -7,10 +7,12 @@ import { cercle } from './cercle'
 import { colorToLatexOrHTML } from './colorToLatexOrHtml'
 import { grille } from './Grille'
 import { ObjetMathalea2D } from './ObjetMathalea2D'
-import { milieu, point, pointSurSegment } from './points'
-import { longueur, segment } from './segmentsVecteurs'
+import { point } from './PointAbstrait'
+import { segment } from './segmentsVecteurs'
 import { TexteParPoint, texteParPoint, texteParPosition } from './textes'
 import { rotation, similitude } from './transformations'
+import { longueur } from './utilitairesGeometriques'
+import { milieu, pointSurSegment } from './utilitairesPoint'
 
 /**  Retourne un couple de coordonnées correspondant au centre d'une cible, connaissant les coordonnées du point réponse et de la cellule dans laquelle on veut qu'il soit
  * @param {number} x Abscisse du point réponse

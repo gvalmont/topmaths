@@ -31,7 +31,7 @@ export default class QuestionDePerimetres extends Exercice {
       const a = randint(3, 25)
       const b = randint(0, 1)
       const VF = [false, true]
-      let texte = `Un carré de côté $${a}$ cm a le même périmètre qu'un rectangle de largeur $${a - b}$ cm et de longueur $${a + 1}$ cm. `
+      let texte = `Un carré de côté $${a}\\text{ cm}$ a le même périmètre qu'un rectangle de largeur $${a - b}\\text{ cm}$ et de longueur $${a + 1}\\text{ cm}$. `
       this.canEnonce = texte
       this.autoCorrection[i] = {
         enonce: texte,
@@ -53,11 +53,11 @@ export default class QuestionDePerimetres extends Exercice {
       }
       this.correction = VF[b]
         ? `Vrai <br>
-      $\\bullet$ Pour le carré : $4\\times ${a}=${4 * a}$ cm.<br>
-      $\\bullet$ Pour le rectangle  : $2\\times (${a - b}+ ${a + 1}) = ${4 * a}$ cm.`
+      $\\bullet$ Pour le carré : $4\\times ${a}=${4 * a}\\text{ cm}$.<br>
+      $\\bullet$ Pour le rectangle  : $2\\times (${a - b}+ ${a + 1}) = ${4 * a}\\text{ cm}$.`
         : `Faux <br>
-      $\\bullet$ Pour le carré : $4\\times ${a}=${4 * a}$ cm.<br>
-      $\\bullet$ Pour le rectangle  : $2\\times (${a}+${a + 1})= ${2 * 2 * a + 2}$ cm.`
+      $\\bullet$ Pour le carré : $4\\times ${a}=${4 * a}\\text{ cm}$.<br>
+      $\\bullet$ Pour le rectangle  : $2\\times (${a}+${a + 1})= ${2 * 2 * a + 2}\\text{ cm}$.`
       this.correction += VF[b]
         ? texteEnCouleur(`<br> Mentalement : <br>
            Pour le rectangle, la somme de la longueur $${a + 1}$ et de la largeur $${a - b}$ donne le demi-périmètre : $${2 * a - b + 1}$.<br>

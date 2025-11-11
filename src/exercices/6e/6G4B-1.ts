@@ -1,9 +1,12 @@
-import { angleModulo, rapporteur } from '../../lib/2d/angles'
 import { fixeBordures } from '../../lib/2d/fixeBordures'
-import { point, pointSurSegment, tracePoint } from '../../lib/2d/points'
+import { point } from '../../lib/2d/PointAbstrait'
+import { rapporteur } from '../../lib/2d/Rapporteur'
 import { segment } from '../../lib/2d/segmentsVecteurs'
 import { labelPoint } from '../../lib/2d/textes'
+import { tracePoint } from '../../lib/2d/TracePoint'
 import { rotation } from '../../lib/2d/transformations'
+import { angleModulo } from '../../lib/2d/utilitairesGeometriques'
+import { pointSurSegment } from '../../lib/2d/utilitairesPoint'
 import { texteGras } from '../../lib/format/style'
 import { setReponse } from '../../lib/interactif/gestionInteractif'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
@@ -495,7 +498,6 @@ export default class MesurerUnAngleAvecRapporteur extends Exercice {
           // barreseparation (par défaut à false) permet de mettre une barre de séparation entre les deux colonnes.
           // multicolsAll (par défaut à false) permet le multicolonnage sur 2 colonnes en incluant l'énoncé. multicolsAll annule multicols.
           // avecSymboleMult (par défaut à false) permet en cas de QCMMult d'avoir un numéro de question ET le symbole indiquant un choix multiple possible et non unique.
-          // @ts-expect-error
           propositions: propositionsAMC,
         }
       }

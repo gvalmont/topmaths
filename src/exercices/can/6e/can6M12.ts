@@ -1,9 +1,10 @@
 import Decimal from 'decimal.js'
-import { codageAngleDroit } from '../../../lib/2d/angles'
-import { codageSegments } from '../../../lib/2d/codages'
-import { milieu, point } from '../../../lib/2d/points'
+import { codageAngleDroit } from '../../../lib/2d/CodageAngleDroit'
+import { codageSegments } from '../../../lib/2d/CodageSegment'
+import { point } from '../../../lib/2d/PointAbstrait'
 import { segment } from '../../../lib/2d/segmentsVecteurs'
 import { texteParPosition } from '../../../lib/2d/textes'
+import { milieu } from '../../../lib/2d/utilitairesPoint'
 import { choice } from '../../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { stringNombre, texNombre } from '../../../lib/outils/texNombre'
@@ -33,7 +34,7 @@ export default class ProblemesDeLongueursEtPerimetre extends ExerciceSimple {
     this.nbQuestions = 1
     this.typeExercice = 'simple'
 
-    this.optionsChampTexte = { texteApres: ' cm' }
+    this.optionsChampTexte = { texteApres: ' $\\text{cm}$' }
   }
 
   nouvelleVersion() {
@@ -99,12 +100,12 @@ export default class ProblemesDeLongueursEtPerimetre extends ExerciceSimple {
             objets,
           )
 
-          this.optionsChampTexte = { texteApres: ' cm' }
+          this.optionsChampTexte = { texteApres: ' $\\text{cm}$' }
 
           this.reponse = new Decimal(a).mul(4)
           this.correction = `Il s'agit d'un carré. <br>
           Son périmètre est donc
-          $4$ fois la longueur de son côté, soit $4\\times ${texNombre(a, 1)}=${miseEnEvidence(texNombre(4 * a, 1))}$ cm.`
+          $4$ fois la longueur de son côté, soit $4\\times ${texNombre(a, 1)}=${miseEnEvidence(texNombre(4 * a, 1))}\\text{ cm}$.`
         } else {
           objets.push(
             codageSegments('||', 'blue', A, B),
@@ -121,7 +122,7 @@ export default class ProblemesDeLongueursEtPerimetre extends ExerciceSimple {
             s3,
             s4,
           )
-          this.question = `Le périmètre  de ce carré est $${texNombre(4 * a, 1)}$ cm.<br>
+          this.question = `Le périmètre  de ce carré est $${texNombre(4 * a, 1)}\\text{ cm}$.<br>
             Quelle est la longueur de son côté ? <br>`
           this.question += mathalea2d(
             {
@@ -134,11 +135,11 @@ export default class ProblemesDeLongueursEtPerimetre extends ExerciceSimple {
             },
             objets,
           )
-          this.optionsChampTexte = { texteApres: ' cm' }
+          this.optionsChampTexte = { texteApres: ' $\\text{cm}$' }
 
           this.reponse = a
           this.correction = `Il s'agit d'un carré. <br>
-            Son côté est donc le quart de son périmètre, soit $${texNombre(4 * a, 1)}\\div 4=${miseEnEvidence(texNombre(a, 1))}$ cm.`
+            Son côté est donc le quart de son périmètre, soit $${texNombre(4 * a, 1)}\\div 4=${miseEnEvidence(texNombre(a, 1))}\\text{ cm}$.`
         }
         break
 
@@ -197,13 +198,13 @@ export default class ProblemesDeLongueursEtPerimetre extends ExerciceSimple {
           objets,
         )
 
-        this.optionsChampTexte = { texteApres: ' cm' }
+        this.optionsChampTexte = { texteApres: ' $\\text{cm}$' }
 
         this.reponse = new Decimal(a2).add(b2)
         this.correction = `Il s'agit d'un rectangle. <br>
         Son périmètre est donc
        $2$ fois la longueur de son demi-périmètre, soit
-       $2\\times (${texNombre(a, 1)}+${texNombre(b, 1)})= 2\\times ${texNombre(new Decimal(a).add(b), 1)}=${miseEnEvidence(texNombre(2 * a + 2 * b, 1))}$ cm.`
+       $2\\times (${texNombre(a, 1)}+${texNombre(b, 1)})= 2\\times ${texNombre(new Decimal(a).add(b), 1)}=${miseEnEvidence(texNombre(2 * a + 2 * b, 1))}\\text{ cm}$.`
         break
 
       case 3: // périmètre/longueur triangle équi
@@ -242,11 +243,11 @@ export default class ProblemesDeLongueursEtPerimetre extends ExerciceSimple {
             },
             objets,
           )
-          this.optionsChampTexte = { texteApres: ' cm' }
+          this.optionsChampTexte = { texteApres: ' $\\text{cm}$' }
 
           this.reponse = new Decimal(a).mul(3)
           this.correction = `Le triangle est équilatéral.<br>
-        Son périmètre est $3$ fois la longueur de son côté, soit $3\\times ${texNombre(a, 1)}=${miseEnEvidence(texNombre(3 * a, 1))}$ cm.`
+        Son périmètre est $3$ fois la longueur de son côté, soit $3\\times ${texNombre(a, 1)}=${miseEnEvidence(texNombre(3 * a, 1))}\\text{ cm}$.`
         } else {
           objets.push(
             codageSegments('||', 'blue', A, B),
@@ -257,7 +258,7 @@ export default class ProblemesDeLongueursEtPerimetre extends ExerciceSimple {
             s2,
             s3,
           )
-          this.question = `Le périmètre de ce triangle est  $${texNombre(3 * a, 1)}$ cm, quelle est la longueur de son côté ?<br> `
+          this.question = `Le périmètre de ce triangle est  $${texNombre(3 * a, 1)}\\text{ cm}$, quelle est la longueur de son côté ?<br> `
           this.question += mathalea2d(
             {
               xmin: -0.5,
@@ -269,10 +270,10 @@ export default class ProblemesDeLongueursEtPerimetre extends ExerciceSimple {
             },
             objets,
           )
-          this.optionsChampTexte = { texteApres: ' cm' }
+          this.optionsChampTexte = { texteApres: ' $\\text{cm}$' }
 
           this.reponse = a
-          this.correction = `Puisque le triangle est équilatéral, la longueur de son côté est le tiers de son périmètre, soit $${texNombre(3 * a)}\\div ${3}=${miseEnEvidence(texNombre(a, 1))}$ cm. `
+          this.correction = `Puisque le triangle est équilatéral, la longueur de son côté est le tiers de son périmètre, soit $${texNombre(3 * a)}\\div ${3}=${miseEnEvidence(texNombre(a, 1))}\\text{ cm}$. `
         }
         break
 
@@ -319,11 +320,11 @@ export default class ProblemesDeLongueursEtPerimetre extends ExerciceSimple {
             },
             objets,
           )
-          this.optionsChampTexte = { texteApres: ' cm' }
+          this.optionsChampTexte = { texteApres: ' $\\text{cm}$' }
 
           this.reponse = new Decimal(a).mul(2).add(b)
           this.correction = `Le triangle est isocèle.<br>
-        Son périmètre est : $2\\times ${texNombre(a, 1)}+${b}=${miseEnEvidence(texNombre(2 * a + b, 1))}$ cm.`
+        Son périmètre est : $2\\times ${texNombre(a, 1)}+${b}=${miseEnEvidence(texNombre(2 * a + b, 1))}\\text{ cm}$.`
         }
         if (choix === 'b') {
           objets.push(
@@ -335,7 +336,7 @@ export default class ProblemesDeLongueursEtPerimetre extends ExerciceSimple {
             s2,
             s3,
           )
-          this.question = `Le périmètre de ce triangle est  $${2 * a + b}$ cm, quelle est la longueur manquante ?<br>
+          this.question = `Le périmètre de ce triangle est  $${2 * a + b}\\text{ cm}$, quelle est la longueur manquante ?<br>
             La figure n'est pas à l'échelle. <br>
             `
           this.question += mathalea2d(
@@ -350,12 +351,12 @@ export default class ProblemesDeLongueursEtPerimetre extends ExerciceSimple {
             objets,
           )
 
-          this.optionsChampTexte = { texteApres: ' cm' }
+          this.optionsChampTexte = { texteApres: ' $\\text{cm}$' }
 
           this.reponse = a
           this.correction = `Le triangle est isocèle, il possède donc deux longueurs égales.<br>
-            Puisque le périmètre est  $${2 * a + b}$ cm, on obtient la somme des deux longueurs égales  du triangle en effectuant la différence $${2 * a + b}-${b}=${2 * a}$ cm.<br>
-            On obtient  la longueur cherchée en divisant par $2$, soit $${texNombre(2 * a, 1)}\\div 2=${miseEnEvidence(texNombre(a, 1))}$ cm.`
+            Puisque le périmètre est  $${2 * a + b}\\text{ cm}$, on obtient la somme des deux longueurs égales  du triangle en effectuant la différence $${2 * a + b}-${b}=${2 * a}\\text{ cm}$.<br>
+            On obtient  la longueur cherchée en divisant par $2$, soit $${texNombre(2 * a, 1)}\\div 2=${miseEnEvidence(texNombre(a, 1))}\\text{ cm}$.`
         }
         if (choix === 'c') {
           objets.push(
@@ -371,7 +372,7 @@ export default class ProblemesDeLongueursEtPerimetre extends ExerciceSimple {
             s2,
             s3,
           )
-          this.question = `Le périmètre de ce triangle est  $${2 * a + b}$ cm, quelle est la longueur manquante ?<br>
+          this.question = `Le périmètre de ce triangle est  $${2 * a + b}\\text{ cm}$, quelle est la longueur manquante ?<br>
                 La figure n'est pas à l'échelle. <br> `
           this.question += mathalea2d(
             {
@@ -384,16 +385,16 @@ export default class ProblemesDeLongueursEtPerimetre extends ExerciceSimple {
             },
             objets,
           )
-          this.optionsChampTexte = { texteApres: ' cm' }
+          this.optionsChampTexte = { texteApres: ' $\\text{cm}$' }
 
           this.reponse = b
           this.correction = `Le triangle est isocèle, il possède donc deux longueurs égales.<br>
-                Puisque le périmètre est  $${texNombre(2 * a + b, 1)}$ cm, on obtient la longueur manquante par : 
-                $${texNombre(2 * a + b, 1)}-2\\times ${texNombre(a, 1)}=${miseEnEvidence(b)}$ cm.`
+                Puisque le périmètre est  $${texNombre(2 * a + b, 1)}\\text{ cm}$, on obtient la longueur manquante par : 
+                $${texNombre(2 * a + b, 1)}-2\\times ${texNombre(a, 1)}=${miseEnEvidence(b)}\\text{ cm}$.`
         }
         break
     }
     this.canEnonce = this.question
-    this.canReponseACompleter = '$\\dots$ cm'
+    this.canReponseACompleter = '$\\dots\\text{ cm}$'
   }
 }

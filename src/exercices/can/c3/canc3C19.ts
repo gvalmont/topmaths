@@ -1,9 +1,9 @@
-import ExerciceSimple from '../../ExerciceSimple'
-import { randint } from '../../../modules/outils'
-import { miseEnEvidence } from '../../../lib/outils/embellissements'
-import { texNombre } from '../../../lib/outils/texNombre'
-import { prenomM, prenomF } from '../../../lib/outils/Personne'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
+import { miseEnEvidence } from '../../../lib/outils/embellissements'
+import { prenomF, prenomM } from '../../../lib/outils/Personne'
+import { texNombre } from '../../../lib/outils/texNombre'
+import { randint } from '../../../modules/outils'
+import ExerciceSimple from '../../ExerciceSimple'
 
 import { choice } from '../../../lib/outils/arrayOutils'
 export const titre = 'Résoudre un problème avec une multiplication'
@@ -64,8 +64,8 @@ Combien de mètres a-t-elle parcouru ?`
           $${a} \\times ${b}=${this.reponse}$ <br>          
           Elle a parcouru $${miseEnEvidence(this.reponse)}$ mètres au total.`
           this.canEnonce = this.question
-          this.canReponseACompleter = '$\\ldots$ m'
-          this.optionsChampTexte = { texteApres: 'm' }
+          this.canReponseACompleter = '$\\ldots\\text{ m}$'
+          this.optionsChampTexte = { texteApres: '$\\text{ m}$' }
         }
         break
       case 3:

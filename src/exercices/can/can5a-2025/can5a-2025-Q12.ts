@@ -1,17 +1,16 @@
 import { cercle } from '../../../lib/2d/cercle'
-import { placeLatexSurSegment } from '../../../lib/2d/codages'
 import { droite, droiteParPointEtPente } from '../../../lib/2d/droites'
 import { fixeBordures } from '../../../lib/2d/fixeBordures'
-import {
-  point,
-  pointIntersectionCC,
-  pointIntersectionDD,
-} from '../../../lib/2d/points'
-import type { PointAbstrait } from '../../../lib/2d/points-abstraits'
+import { placeLatexSurSegment } from '../../../lib/2d/placeLatexSurSegment'
+import { point } from '../../../lib/2d/PointAbstrait'
 import { nommePolygone, polygone } from '../../../lib/2d/polygones'
 import { segment } from '../../../lib/2d/segmentsVecteurs'
 import { latex2d } from '../../../lib/2d/textes'
 import { rotation, symetrieAxiale } from '../../../lib/2d/transformations'
+import {
+  pointIntersectionCC,
+  pointIntersectionDD,
+} from '../../../lib/2d/utilitairesPoint'
 import { choice } from '../../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { texNombre } from '../../../lib/outils/texNombre'
@@ -49,16 +48,16 @@ export default class Can2025N5Q12 extends ExerciceCan {
     const d = droite(point(0, 0), point2)
     const dMin = droiteParPointEtPente(point(0, alpha < 90 ? -2 : -1), 0)
     const dMax = droiteParPointEtPente(point(0, alpha > 90 ? 7 : 6), 0)
-    const pointSd1 = pointIntersectionDD(d, dMin) as PointAbstrait
-    const pointSd2 = pointIntersectionDD(d, dMax) as PointAbstrait
+    const pointSd1 = pointIntersectionDD(d, dMin)
+    const pointSd2 = pointIntersectionDD(d, dMax)
     const sd = segment(pointSd1, pointSd2)
     const A = point(-2, 0)
     const Bprime = point(a - 2, 0)
     const B = rotation(Bprime, A, alpha)
     const c1 = cercle(B, b)
     const c2 = cercle(A, c)
-    const C = pointIntersectionCC(c1, c2, '', 0) as PointAbstrait
-    const Cprime = pointIntersectionCC(c1, c2, '', 1) as PointAbstrait
+    const C = pointIntersectionCC(c1, c2, '', 0)
+    const Cprime = pointIntersectionCC(c1, c2, '', 1)
     const CC = Cprime.x > C.x ? C : Cprime
     const triangle1 = polygone(A, B, CC)
     const triangle2 = symetrieAxiale(triangle1, d)

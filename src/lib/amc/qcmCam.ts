@@ -1,4 +1,4 @@
-import type Exercice from '../../exercices/Exercice'
+import type { IExercice, UneProposition } from '../../lib/types'
 import { lettreDepuisChiffre } from '../outils/outilString'
 
 export function shuffleJusquaWithIndexes(array: unknown[], lastChoice: number) {
@@ -18,7 +18,7 @@ export function shuffleJusquaWithIndexes(array: unknown[], lastChoice: number) {
 }
 
 export function qcmCamExport(
-  exercice: Exercice,
+  exercice: IExercice,
 ): { question: string; reponse: string }[] {
   const questions: { question: string; reponse: string }[] = []
   if (exercice.autoCorrection.length !== exercice.listeQuestions.length)
@@ -70,12 +70,14 @@ export function qcmCamExport(
            ${enonceBis.replaceAll(/&nbsp;/g, ' ')}`
     }
 
-    const props = propositions.map((prop) => prop.texte)
-    const statuts = propositions.map((prop) => prop.statut)
+    const props = propositions.map((prop: UneProposition) => prop.texte)
+    const statuts = propositions.map((prop: UneProposition) => prop.statut)
     let question = `<h3 data-translate="{&quot;html&quot;:&quot;questions.defaultquestion&quot;}">${enonce?.replaceAll(/\$([^$]*)\$/g, '<span class="math-tex">$1</span>')}</h3><ol>`
     let reponse = ''
     for (let i = 0; i < props.length; i++) {
-      const prop = props[i].replaceAll(
+      const proposition = props[i]
+      if (proposition == null) continue
+      const prop = proposition.replaceAll(
         /\$([^$]*)\$/g,
         '<span class="math-tex">$1</span>',
       )
@@ -89,7 +91,7 @@ export function qcmCamExport(
   return questions
 }
 
-export function qcmCamExportAll(exercices: Exercice[]): string {
+export function qcmCamExportAll(exercices: IExercice[]): string {
   const questionnaire = []
   const listExercices = exercices.slice() // exercices.filter(exo => exo.interactifType === 'qcm')
   let index = 0

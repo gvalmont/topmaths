@@ -614,7 +614,7 @@ On note les évènements suivants :<br>`
             items: [
               ` $${texNombre(pA * 100, 2)}\\,\\%$ des campeurs viennent en famille, les autres viennent entre amis ;`,
               ` parmi ceux venant en famille, $${texNombre(pBsachantA * 100, 2)}\\,\\%$ profitent des activités du camping ;`,
-              `parmi ceux venant entre amis, $${texNombre(pBsachantAb * 100, 2)}\\,\\%$ ne profitent pas des activités du camping.`,
+              `parmi ceux venant entre amis, $${texNombre(pBbsachantAb * 100, 2)}\\,\\%$ ne profitent pas des activités du camping.`,
             ],
             style: 'fleches',
           })

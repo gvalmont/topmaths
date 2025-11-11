@@ -47,7 +47,7 @@ export default class LectureGraphiqueParaboleB extends Exercice {
           } else {
             beta = 0
           }
-          o = texteParPosition('O', -0.3, -0.3, 'milieu', 'black', 1)
+          o = texteParPosition('O', -0.3, -0.3, 0, 'black', 1)
           texte =
             'La courbe représente une fonction $f$ définie par $f(x)=ax^2+bx+c$ .<br>'
           if (!this.interactif) {
@@ -114,7 +114,7 @@ export default class LectureGraphiqueParaboleB extends Exercice {
           } else {
             beta = 0
           }
-          o = texteParPosition('O', -0.3, -0.3, 'milieu', 'black', 1)
+          o = texteParPosition('O', -0.3, -0.3, 0, 'black', 1)
           texte =
             'La courbe représente une fonction $f$ définie par $f(x)=ax^2+bx+c$ .<br>'
           if (!this.interactif) {
@@ -181,7 +181,7 @@ export default class LectureGraphiqueParaboleB extends Exercice {
           } else {
             beta = 0
           }
-          o = texteParPosition('O', -0.3, -0.3, 'milieu', 'black', 1)
+          o = texteParPosition('O', -0.3, -0.3, 0, 'black', 1)
           texte =
             'La courbe représente une fonction $f$ définie par $f(x)=ax^2+bx+c$ .<br>'
           if (!this.interactif) {
@@ -248,7 +248,7 @@ export default class LectureGraphiqueParaboleB extends Exercice {
           } else {
             beta = 0
           }
-          o = texteParPosition('O', -0.3, -0.3, 'milieu', 'black', 1)
+          o = texteParPosition('O', -0.3, -0.3, 0, 'black', 1)
           texte =
             'La courbe représente une fonction $f$ définie par $f(x)=ax^2+bx+c$ .<br>'
           if (!this.interactif) {
@@ -311,7 +311,7 @@ export default class LectureGraphiqueParaboleB extends Exercice {
           a = randint(0, 1) + randint(5, 9) / 10
           alpha = 0
           beta = randint(-3, 2) - randint(1, 5) / 10
-          o = texteParPosition('O', -0.3, -0.3, 'milieu', 'black', 1)
+          o = texteParPosition('O', -0.3, -0.3, 0, 'black', 1)
           texte =
             'La courbe représente une fonction $f$ définie par $f(x)=ax^2+bx+c$ .<br>'
           if (!this.interactif) {
@@ -373,7 +373,7 @@ export default class LectureGraphiqueParaboleB extends Exercice {
           a = randint(-1, 0) - randint(5, 9) / 10
           alpha = 0
           beta = randint(1, 3) + randint(1, 5) / 10
-          o = texteParPosition('O', -0.3, -0.3, 'milieu', 'black', 1)
+          o = texteParPosition('O', -0.3, -0.3, 0, 'black', 1)
           texte =
             'La courbe représente une fonction $f$ définie par $f(x)=ax^2+bx+c$ .<br>'
           if (!this.interactif) {

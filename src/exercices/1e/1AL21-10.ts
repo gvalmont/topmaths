@@ -1,13 +1,13 @@
-import Exercice from '../Exercice'
-import { listeQuestionsToContenu, randint } from '../../modules/outils'
-import engine from '../../lib/interactif/comparisonFunctions'
-import { Point } from '../../lib/2d/points'
-import { numAlpha } from '../../lib/outils/outilString'
 import type {
-  SemiBoxedExpression,
   BoxedExpression,
+  SemiBoxedExpression,
 } from '@cortex-js/compute-engine'
+import { Point } from '../../lib/2d/PointAbstrait'
+import engine from '../../lib/interactif/comparisonFunctions'
 import { choice } from '../../lib/outils/arrayOutils'
+import { numAlpha } from '../../lib/outils/outilString'
+import { listeQuestionsToContenu, randint } from '../../modules/outils'
+import Exercice from '../Exercice'
 
 export const titre = 'Interpolation polynomiale'
 export const dateDePublication = '10/07/2024'

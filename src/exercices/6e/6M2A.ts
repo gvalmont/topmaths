@@ -83,19 +83,19 @@ export default class convertirAiresVersion2025 extends Exercice {
       let unite2 = ''
       switch (typesDeConversions[i]) {
         case 1:
-          unite1 = '~\\text{m}^2'
+          unite1 = '\\text{ m}^2'
           unite2 = '~\\text{dm}^2'
           break
         case 2:
           unite1 = '~\\text{dm}^2'
-          unite2 = '~\\text{m}^2'
+          unite2 = '\\text{ m}^2'
           break
         case 3:
           unite1 = '~\\text{dm}^2'
-          unite2 = '~\\text{cm}^2'
+          unite2 = '\\text{ cm}^2'
           break
         case 4:
-          unite1 = '~\\text{cm}^2'
+          unite1 = '\\text{ cm}^2'
           unite2 = '~\\text{dm}^2'
           break
       }
@@ -123,8 +123,16 @@ export default class convertirAiresVersion2025 extends Exercice {
       const versUnitePlusPetite = typesDeConversions[i] % 2 === 1
       if (this.interactif) {
         texte += `$${texNombre(val)} ${unite1} = $`
-        texte += ajouteChampTexteMathLive(this, i, KeyboardType.clavierDeBase, {texteApres: ` $${unite2}$`})
-        handleAnswers(this, i, {reponse: { value: versUnitePlusPetite ? arrondi(val * 100) : arrondi(val / 100) }})
+        texte += ajouteChampTexteMathLive(this, i, KeyboardType.clavierDeBase, {
+          texteApres: ` $${unite2}$`,
+        })
+        handleAnswers(this, i, {
+          reponse: {
+            value: versUnitePlusPetite
+              ? arrondi(val * 100)
+              : arrondi(val / 100),
+          },
+        })
       } else {
         texte += `$${texNombre(val)} ${unite1} = \\ldots\\ldots\\ldots\\ldots ${unite2}$`
       }

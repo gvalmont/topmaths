@@ -43,7 +43,7 @@ export default class LectureGraphiqueParaboleB extends Exercice {
         case 1: // cas parabole a>0
           a = randint(1, 4)
           b = randint(-3, 3, 0)
-          o = texteParPosition('O', -0.3, -0.3, 'milieu', 'black', 1)
+          o = texteParPosition('O', -0.3, -0.3, 0, 'black', 1)
 
           f = function (x) {
             return a * x ** 2 + b
@@ -147,7 +147,7 @@ export default class LectureGraphiqueParaboleB extends Exercice {
         case 2: // cas parabole a<0
           a = randint(-4, -1)
           b = randint(-3, 3, 0)
-          o = texteParPosition('O', -0.3, -0.3, 'milieu', 'black', 1)
+          o = texteParPosition('O', -0.3, -0.3, 0, 'black', 1)
 
           f = function (x) {
             return a * x ** 2 + b

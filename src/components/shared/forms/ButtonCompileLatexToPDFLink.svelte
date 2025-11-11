@@ -8,12 +8,12 @@
   import { tweened, type Tweened } from 'svelte/motion'
   import type Latex from '../../../lib/Latex'
   import {
-      buildImagesUrlsList,
-      doesLatexNeedsPics,
-      getExosContentList,
-      getPicsNames,
-      type LatexFileInfos,
+    buildImagesUrlsList,
+    doesLatexNeedsPics,
+    getExosContentList,
+    getPicsNames,
   } from '../../../lib/Latex'
+  import { type LatexFileInfos } from '../../../lib/LatexTypes'
   import ButtonTextAction from './ButtonTextAction.svelte'
   import PdFviewer from './PDFviewer.svelte'
 
@@ -21,11 +21,11 @@
   export let latexFileInfos: LatexFileInfos
   export let id: string
 
-  let pdfBlob: Blob | null = null;
+  let pdfBlob: Blob | null = null
 
   let clockAbled: boolean = false
 
-  let downloadFilename: string | null = null;
+  let downloadFilename: string | null = null
 
   let idkey = id || '0'
 
@@ -51,13 +51,13 @@
     // juste stocker blob + filename
     downloadFilename = filename
   }
-	
-  function generateFilename(prefix = "latex", ext = "pdf") {
-    const now = new Date();
-    const pad = (n: number) => String(n).padStart(2, "0");
-    const date = `${now.getFullYear()}-${pad(now.getMonth() + 1)}-${pad(now.getDate())}`;
-    const time = `${pad(now.getHours())}${pad(now.getMinutes())}${pad(now.getSeconds())}`;
-    return `${prefix}_${date}_${time}.${ext}`;
+
+  function generateFilename(prefix = 'latex', ext = 'pdf') {
+    const now = new Date()
+    const pad = (n: number) => String(n).padStart(2, '0')
+    const date = `${now.getFullYear()}-${pad(now.getMonth() + 1)}-${pad(now.getDate())}`
+    const time = `${pad(now.getHours())}${pad(now.getMinutes())}${pad(now.getSeconds())}`
+    return `${prefix}_${date}_${time}.${ext}`
   }
 
   async function compileToPDF() {
@@ -100,34 +100,39 @@
       }
     }, 1000)
 
-  let resultReq = ''
+    let resultReq = ''
 
-  await fetch('https://latexcompiler.duckdns.org/generate', {
-    method: 'POST',
-    body: formData,
-    signal: AbortSignal.timeout(60 * 1000)
-  }).then((res : Response) => {
-    if (res.status === 200) {
-      resultReq = 'OK'
-    } else {
-      resultReq = 'KO'
-    }
-    return res.blob()
-  }).then(blob => {
-    clockAbled = false
-    return downloadAndExtractPDF(blob, generateFilename("document", "pdf"))
-  }).catch((err) => {
-    clockAbled = false
-    console.error('Error occured' + err)
-    resultReq = 'KO'
-  })
+    await fetch('https://latexcompiler.duckdns.org/generate', {
+      method: 'POST',
+      body: formData,
+      signal: AbortSignal.timeout(60 * 1000),
+    })
+      .then((res: Response) => {
+        if (res.status === 200) {
+          resultReq = 'OK'
+        } else {
+          resultReq = 'KO'
+        }
+        return res.blob()
+      })
+      .then((blob) => {
+        clockAbled = false
+        return downloadAndExtractPDF(blob, generateFilename('document', 'pdf'))
+      })
+      .catch((err) => {
+        clockAbled = false
+        console.error('Error occured' + err)
+        resultReq = 'KO'
+      })
   }
 
   /**
    * Affiche ou ferme si déjà ouvert le code Latex dans une boite de dialogue
    */
   async function dialogToDisplayToggle() {
-    const dialog = document.getElementById(`editorLatex${idkey}`) as HTMLDialogElement
+    const dialog = document.getElementById(
+      `editorLatex${idkey}`,
+    ) as HTMLDialogElement
     if (dialog.open) {
       clockAbled = false
       pdfBlob = null // 🟢 reset PDF quand on ferme
@@ -144,17 +149,17 @@
       const { latexWithPreamble } = await latex.getFile(latexFileInfos)
 
       const editor = ace.edit(`editor${idkey}`)
-      editor.$blockScrolling = Infinity   // 👈 désactive le warning
+      editor.$blockScrolling = Infinity // 👈 désactive le warning
       editor.getSession().setMode('ace/mode/latex')
       editor.getSession().setNewLineMode('unix')
       editor.setTheme('ace/theme/monokai')
       // Ouvrir la searchbox avec Ctrl+F
       editor.commands.addCommand({
-        name: "showSearchBox",
-        bindKey: { win: "Ctrl-F", mac: "Command-F" },
-        exec: function(edite: any) {
-          edite.execCommand("find");
-        }
+        name: 'showSearchBox',
+        bindKey: { win: 'Ctrl-F', mac: 'Command-F' },
+        exec: function (edite: any) {
+          edite.execCommand('find')
+        },
       })
       editor.setShowPrintMargin(false)
       editor.setValue(latexWithPreamble)
@@ -242,8 +247,8 @@
               {#if downloadFilename}
                 <div class="m-2">
                   <a
-                    href={URL.createObjectURL(pdfBlob)}
-                    download={downloadFilename}
+                    href="{URL.createObjectURL(pdfBlob)}"
+                    download="{downloadFilename}"
                     class="px-3 py-1 rounded bg-coopmaths-action text-white hover:bg-coopmaths-action-lightest"
                   >
                     Télécharger {downloadFilename}
@@ -253,7 +258,7 @@
 
               <!-- PDF viewer -->
               <div class="flex-1 overflow-auto m-2">
-                <PdFviewer blob={pdfBlob} />
+                <PdFviewer blob="{pdfBlob}" />
               </div>
             {/if}
           </div>

@@ -1,18 +1,15 @@
-import { Point, point, TracePoint, tracePoint } from '../lib/2d/points'
-import {
-  barycentre,
-  Polygone,
-  polygone,
-  polygoneRegulier,
-} from '../lib/2d/polygones'
-import { vecteur } from '../lib/2d/segmentsVecteurs'
+import { Point, point } from '../lib/2d/PointAbstrait'
+import { barycentre, Polygone, polygone } from '../lib/2d/polygones'
+import { polygoneRegulier } from '../lib/2d/polygonesParticuliers'
 import { TexteParPoint, texteParPosition } from '../lib/2d/textes'
+import { tracePoint, type TracePoint } from '../lib/2d/TracePoint'
 import {
   homothetie,
   rotation,
   similitude,
   translation,
 } from '../lib/2d/transformations'
+import { vecteur } from '../lib/2d/Vecteur'
 import { nombreAvecEspace } from '../lib/outils/texNombre'
 import { egal } from './outils'
 

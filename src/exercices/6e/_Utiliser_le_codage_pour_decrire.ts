@@ -1,18 +1,12 @@
-import {
-  angleOriente,
-  codageAngle,
-  codageAngleDroit,
-} from '../../lib/2d/angles'
-import { codageSegments } from '../../lib/2d/codages'
-import { Droite, droite, mediatrice } from '../../lib/2d/droites'
-import {
-  point,
-  pointAdistance,
-  pointIntersectionDD,
-  pointSurSegment,
-} from '../../lib/2d/points'
+import { codageAngleDroit } from '../../lib/2d/CodageAngleDroit'
+import { codageSegments } from '../../lib/2d/CodageSegment'
+import { mediatrice } from '../../lib/2d/Mediatrice'
+import { point } from '../../lib/2d/PointAbstrait'
+import { codageAngle } from '../../lib/2d/angles'
+import { Droite, droite } from '../../lib/2d/droites'
+import { fixeBordures } from '../../lib/2d/fixeBordures'
 import { polygone } from '../../lib/2d/polygones'
-import { longueur, segment } from '../../lib/2d/segmentsVecteurs'
+import { segment } from '../../lib/2d/segmentsVecteurs'
 import { labelPoint } from '../../lib/2d/textes'
 import {
   affiniteOrtho,
@@ -20,6 +14,12 @@ import {
   similitude,
   translation2Points,
 } from '../../lib/2d/transformations'
+import { angleOriente, longueur } from '../../lib/2d/utilitairesGeometriques'
+import {
+  pointAdistance,
+  pointIntersectionDD,
+  pointSurSegment,
+} from '../../lib/2d/utilitairesPoint'
 import { shuffle } from '../../lib/outils/arrayOutils'
 import { creerNomDePolygone } from '../../lib/outils/outilString'
 import { mathalea2d } from '../../modules/mathalea2d'
@@ -148,42 +148,10 @@ export default class UtiliserLeCodagePourDecrire extends Exercice {
           s8 = segment(E, F)
           s4 = segment(B, C)
           paramsEnonce = {
-            xmin: Math.min(
-              A.x - 1,
-              B.x - 1,
-              C.x - 1,
-              D.x - 1,
-              E.x - 1,
-              F.x - 1,
-            ),
-            ymin: Math.min(
-              A.y - 1,
-              B.y - 1,
-              C.y - 1,
-              D.y - 1,
-              E.y - 1,
-              F.y - 1,
-            ),
-            xmax: Math.max(
-              A.x + 1,
-              B.x + 1,
-              C.x + 1,
-              D.x + 1,
-              E.x + 1,
-              F.x + 1,
-            ),
-            ymax: Math.max(
-              A.y + 1,
-              B.y + 1,
-              C.y + 1,
-              D.y + 1,
-              E.y + 1,
-              F.y + 1.5,
-            ),
-            pixelsParCm: 30,
-            scale: 1,
+            pixelsParCm: 20,
+            scale: 0.7,
             mainlevee: true,
-            amplitude: 1,
+            amplitude: 0.3,
           }
           objetsEnonce.push(
             s1,
@@ -195,9 +163,9 @@ export default class UtiliserLeCodagePourDecrire extends Exercice {
             s6,
             s5,
             codageAngleDroit(B, A, C),
-            codageSegments('//', 'black', A, F, F, C, 2),
-            codageSegments('|||', 'black', A, E, E, C, 2),
-            codageSegments('O', 'black', B, D, D, C, 2),
+            codageSegments('//', 'black', A, F, F, C, 0.8),
+            codageSegments('|||', 'black', A, E, E, C, 0.8),
+            codageSegments('O', 'black', B, D, D, C, 0.8),
             labelPoint(A, B, C, D, E, F),
             codageAngleDroit(A, E, F),
           )
@@ -230,42 +198,10 @@ export default class UtiliserLeCodagePourDecrire extends Exercice {
           s5 = segment(B, F)
           s6 = polygone(A, B, C, D)
           paramsCorrection = {
-            xmin: Math.min(
-              A.x - 1,
-              B.x - 1,
-              C.x - 1,
-              D.x - 1,
-              E.x - 1,
-              F.x - 1,
-            ),
-            ymin: Math.min(
-              A.y - 1,
-              B.y - 1,
-              C.y - 1,
-              D.y - 1,
-              E.y - 1,
-              F.y - 1,
-            ),
-            xmax: Math.max(
-              A.x + 1,
-              B.x + 1,
-              C.x + 1,
-              D.x + 1,
-              E.x + 1,
-              F.x + 1,
-            ),
-            ymax: Math.max(
-              A.y + 1,
-              B.y + 1,
-              C.y + 1,
-              D.y + 1,
-              E.y + 1,
-              F.y + 1,
-            ),
-            pixelsParCm: 30,
-            scale: 1,
+            pixelsParCm: 20,
+            scale: 0.7,
             mainlevee: true,
-            amplitude: 1,
+            amplitude: 0.3,
           }
           objetsCorrection.push(
             labelPoint(A, B, C, D, E, F),
@@ -282,9 +218,9 @@ export default class UtiliserLeCodagePourDecrire extends Exercice {
             codageAngleDroit(C, D, A),
           )
           objetsCorrection.push(
-            codageSegments('||', 'black', D, E, C, E, 2),
-            codageSegments('O', 'black', A, B, B, C, C, D, D, A, 2),
-            codageSegments('|||', 'black', F, C, B, F, 2),
+            codageSegments('||', 'black', D, E, C, E, 0.8),
+            codageSegments('O', 'black', A, B, B, C, C, D, D, A, 0.8),
+            codageSegments('|||', 'black', F, C, B, F, 0.8),
           )
           texte = `$${sommets[0] + sommets[1] + sommets[2] + sommets[3]}$ est un carré et $${sommets[3] + sommets[2] + sommets[4]}$ est un triangle équilatéral ($${sommets[4]}$ est à l'intérieur du carré $${sommets[0] + sommets[1] + sommets[2] + sommets[3]}$).<br>`
           texte += ` $${sommets[1] + sommets[2] + sommets[5]}$ est un triangle isocèle en $${sommets[5]}$ ($${sommets[5]}$ est à l'extérieur du carré $${sommets[0] + sommets[1] + sommets[2] + sommets[3]}$).<br>`
@@ -316,42 +252,10 @@ export default class UtiliserLeCodagePourDecrire extends Exercice {
           s4 = segment(B, F)
           s5 = segment(C, F)
           paramsCorrection = {
-            xmin: Math.min(
-              A.x - 1,
-              B.x - 1,
-              C.x - 1,
-              D.x - 1,
-              E.x - 1,
-              F.x - 1,
-            ),
-            ymin: Math.min(
-              A.y - 1,
-              B.y - 1,
-              C.y - 1,
-              D.y - 1,
-              E.y - 1,
-              F.y - 1,
-            ),
-            xmax: Math.max(
-              A.x + 1,
-              B.x + 1,
-              C.x + 1,
-              D.x + 1,
-              E.x + 1,
-              F.x + 1,
-            ),
-            ymax: Math.max(
-              A.y + 1,
-              B.y + 1,
-              C.y + 1,
-              D.y + 1,
-              E.y + 1,
-              F.y + 1,
-            ),
-            pixelsParCm: 30,
-            scale: 1,
+            pixelsParCm: 20,
+            scale: 0.7,
             mainlevee: true,
-            amplitude: 1,
+            amplitude: 0.3,
           }
           objetsCorrection.push(
             labelPoint(A, B, C, D, E, F),
@@ -383,10 +287,10 @@ export default class UtiliserLeCodagePourDecrire extends Exercice {
               C,
               B,
               F,
-              2,
+              0.8,
             ),
-            codageSegments('O', 'black', A, B, D, C, 2),
-            codageSegments('/', 'black', A, D, B, C, 2),
+            codageSegments('O', 'black', A, B, D, C, 0.8),
+            codageSegments('/', 'black', A, D, B, C, 0.8),
           )
           texte = `$${sommets[0] + sommets[1] + sommets[2] + sommets[3]}$ est un rectangle. Ses diagonales se coupent en $${sommets[4]}$.<br>`
           texte += `$${sommets[4] + sommets[1] + sommets[5] + sommets[2]}$ est un losange.<br>`
@@ -439,42 +343,10 @@ export default class UtiliserLeCodagePourDecrire extends Exercice {
           s1 = segment(B, D)
           s2 = segment(A, C)
           paramsEnonce = {
-            xmin: Math.min(
-              A.x - 1,
-              B.x - 1,
-              C.x - 1,
-              D.x - 1,
-              E.x - 1,
-              F.x - 1,
-            ),
-            ymin: Math.min(
-              A.y - 1,
-              B.y - 1,
-              C.y - 1,
-              D.y - 1,
-              E.y - 1,
-              F.y - 1,
-            ),
-            xmax: Math.max(
-              A.x + 1,
-              B.x + 1,
-              C.x + 1,
-              D.x + 1,
-              E.x + 1,
-              F.x + 1,
-            ),
-            ymax: Math.max(
-              A.y + 1,
-              B.y + 1,
-              C.y + 1,
-              D.y + 1,
-              E.y + 1,
-              F.y + 1,
-            ),
-            pixelsParCm: 30,
-            scale: 1,
+            pixelsParCm: 20,
+            scale: 0.7,
             mainlevee: true,
-            amplitude: 0.8,
+            amplitude: 0.3,
           }
           objetsEnonce.push(labelPoint(A, B, C, D, E, F), s1, s2, s3, s4, s5)
           objetsEnonce.push(
@@ -493,7 +365,7 @@ export default class UtiliserLeCodagePourDecrire extends Exercice {
               false,
               '',
               1,
-              { echelleMark: 2 },
+              { echelleMark: 1 },
             ),
           )
           objetsEnonce.push(
@@ -512,7 +384,7 @@ export default class UtiliserLeCodagePourDecrire extends Exercice {
               false,
               '',
               1,
-              { echelleMark: 2 },
+              { echelleMark: 1 },
             ),
           )
           objetsEnonce.push(
@@ -531,7 +403,7 @@ export default class UtiliserLeCodagePourDecrire extends Exercice {
               false,
               '',
               1,
-              { echelleMark: 2 },
+              { echelleMark: 1 },
             ),
           )
           objetsEnonce.push(
@@ -550,7 +422,7 @@ export default class UtiliserLeCodagePourDecrire extends Exercice {
               false,
               '',
               1,
-              { echelleMark: 2 },
+              { echelleMark: 1 },
             ),
           )
           objetsEnonce.push(
@@ -569,7 +441,7 @@ export default class UtiliserLeCodagePourDecrire extends Exercice {
               false,
               '',
               1,
-              { echelleMark: 2 },
+              { echelleMark: 1 },
             ),
           )
           objetsEnonce.push(
@@ -588,7 +460,7 @@ export default class UtiliserLeCodagePourDecrire extends Exercice {
               false,
               '',
               1,
-              { echelleMark: 2 },
+              { echelleMark: 1 },
             ),
           )
           objetsEnonce.push(
@@ -607,12 +479,12 @@ export default class UtiliserLeCodagePourDecrire extends Exercice {
               false,
               '',
               1,
-              { echelleMark: 2 },
+              { echelleMark: 1 },
             ),
           )
           objetsEnonce.push(
-            codageSegments('VV', 'black', B, E, E, D, 2),
-            codageSegments('O', 'black', A, E, E, C, 2),
+            codageSegments('VV', 'black', B, E, E, D, 0.8),
+            codageSegments('O', 'black', A, E, E, C, 0.8),
           )
           texte = "À l'aide du schéma ci-dessous, déterminer :<br>"
           texte += `- la nature du triangle $${sommets[0] + sommets[1] + sommets[5]}$ ;<br>`
@@ -627,10 +499,16 @@ export default class UtiliserLeCodagePourDecrire extends Exercice {
           break
       }
       if (objetsEnonce.length > 0) {
-        texte += mathalea2d(paramsEnonce, objetsEnonce)
+        texte += mathalea2d(
+          Object.assign(paramsEnonce, fixeBordures(objetsEnonce)),
+          objetsEnonce,
+        )
       }
       if (objetsCorrection.length > 0) {
-        texteCorr += mathalea2d(paramsCorrection, objetsCorrection)
+        texteCorr += mathalea2d(
+          Object.assign(paramsCorrection, fixeBordures(objetsCorrection)),
+          objetsCorrection,
+        )
       }
       if (this.questionJamaisPosee(i, ...[B.x, B.y, C.x, C.y].map(String))) {
         // Si la question n'a jamais été posée, on en crée une autre

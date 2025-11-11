@@ -40,6 +40,6 @@ export default class VolumePaveSimple extends ExerciceSimple {
     this.reponse = L * l * h
     this.correction = `Le volume de ce pavé droit est : $${L}$ $\\text{cm}\\times ${l}$ $\\text{cm}\\times ${h}$ $\\text{cm}=${miseEnEvidence(this.reponse)}$ $\\text{cm}^3$.`
     this.canEnonce = this.question
-    this.canReponseACompleter = '$\\dots$ cm$^3$'
+    this.canReponseACompleter = '$\\dots\\text{ cm}^3$'
   }
 }

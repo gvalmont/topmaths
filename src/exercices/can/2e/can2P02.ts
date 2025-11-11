@@ -36,7 +36,7 @@ export default class Denombrement extends ExerciceSimple {
         c = randint(2, 4)
         this.question = `À la cantine, il y a toujours $${a}$ entrées différentes, $${b}$ plats différents et $${c}$ desserts différents.<br>
         Combien de menus (composés d'une entrée, d'un plat et d'un dessert) différents peut-on avoir dans cette cantine ?`
-        this.optionsChampTexte = { texteApres: '' }
+
         this.correction = `On peut avoir : $${a}\\times ${b}\\times ${c} =${a * b * c}$ menus différents.`
         this.reponse = arrondi(a * b * c)
         break
@@ -46,7 +46,7 @@ export default class Denombrement extends ExerciceSimple {
         prenom1 = prenomM()
         this.question = `Pour composer son costume, ${prenom1} a le choix  entre $${a}$ chemises et $${b}$ cravates.<br>
         De combien de manières différentes peut-il composer son costume ?`
-        this.optionsChampTexte = { texteApres: '' }
+
         this.correction = `Il a : $${a}\\times ${b} =${a * b}$ manières de composer son costume.`
         this.reponse = arrondi(a * b)
         break

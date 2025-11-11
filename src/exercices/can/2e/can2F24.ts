@@ -126,7 +126,6 @@ export default class EquationsGSplineNombre extends ExerciceSimple {
       grilleSecondaireXMax: bornes.xMax + 1.02,
     })
     const courbe1 = theSpline.courbe({
-      repere: repere1,
       epaisseur: 1.5,
       ajouteNoeuds: true,
       optionsNoeuds: { color: 'black', taille: 1.5, style: 'x', epaisseur: 2 },

@@ -1,6 +1,6 @@
-import prefs from '../../helpers/prefs.js'
 import { expect } from '@playwright/test'
 import type { Page } from 'playwright'
+import prefs from '../../helpers/prefs.js'
 import { runTest } from '../../helpers/run'
 
 async function testV(page: Page) {
@@ -180,7 +180,7 @@ async function testV(page: Page) {
     .contentFrame()
     .locator('liste-deroulante#ex5Q0')
   await liste0.click()
-  await liste0.locator('li', { hasText: 'différence' }).click()
+  await liste0.locator('li', { hasText: 'une différence' }).click()
   await page
     .locator('#iframe')
     .contentFrame()
@@ -193,7 +193,7 @@ async function testV(page: Page) {
     .contentFrame()
     .locator('liste-deroulante#ex5Q1')
   await liste1.click()
-  await liste1.locator('li', { hasText: 'différence' }).click()
+  await liste1.locator('li', { hasText: 'une différence' }).click()
   await page
     .locator('#iframe')
     .contentFrame()
@@ -206,7 +206,7 @@ async function testV(page: Page) {
     .contentFrame()
     .locator('liste-deroulante#ex5Q2')
   await liste2.click()
-  await liste2.locator('li', { hasText: 'différence' }).click()
+  await liste2.locator('li', { hasText: 'une différence' }).click()
   await page
     .locator('#iframe')
     .contentFrame()
@@ -219,7 +219,7 @@ async function testV(page: Page) {
     .contentFrame()
     .locator('liste-deroulante#ex5Q3')
   await liste3.click()
-  await liste3.locator('li', { hasText: 'différence' }).click()
+  await liste3.locator('li', { hasText: 'une différence' }).click()
   await page
     .locator('#iframe')
     .contentFrame()

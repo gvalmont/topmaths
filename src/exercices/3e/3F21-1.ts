@@ -2,7 +2,7 @@ import {
   droiteParPointEtPente,
   positionLabelDroite,
 } from '../../lib/2d/droites'
-import { point } from '../../lib/2d/points'
+import { point } from '../../lib/2d/PointAbstrait'
 import { repere } from '../../lib/2d/reperes'
 import { latexParPoint } from '../../lib/2d/textes'
 import { Vide2d } from '../../lib/2d/Vide2d'

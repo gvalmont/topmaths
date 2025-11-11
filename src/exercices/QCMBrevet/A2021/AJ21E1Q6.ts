@@ -1,9 +1,9 @@
+import { choice } from '../../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
+import { texNombre } from '../../../lib/outils/texNombre'
 import { randint } from '../../../modules/outils'
 import { nombreElementsDifferents } from '../../ExerciceQcm'
 import ExerciceQcmA from '../../ExerciceQcmA'
-import { texNombre } from '../../../lib/outils/texNombre'
-import { choice } from '../../../lib/outils/arrayOutils'
 export const uuid = '5c0ab'
 export const refs = {
   'fr-fr': ['4C2QCM-05'],
@@ -27,15 +27,15 @@ export default class AsieJuin21Ex1Q6 extends ExerciceQcmA {
     const l1 = (h0 * h) / l
     const l2 = 2 * (h0 - (l - h))
     this.reponses = [
-      `$${texNombre(l0, 0)}$ cm`,
-      `$${texNombre(l1, 4)}$ cm`,
-      `$${texNombre(l2, 0)}$ cm`,
+      `$${texNombre(l0, 0)}\\text{ cm}$`,
+      `$${texNombre(l1, 4)}\\text{ cm}$`,
+      `$${texNombre(l2, 0)}\\text{ cm}$`,
     ]
 
     this.enonce = `La hauteur et la largeur d'une télévision suivent le ratio $${l}$ : $${h}$.<br> 
-    Sachant que la hauteur de cette télévision est de $${String(h0)}$ cm, combien mesure sa largeur ?`
-    this.correction = `Un ratio de $${l}$ : $${h}$ signifie que pour $${h}$ cm de hauteur, il y a $${l}$ cm de largeur.<br>
-    Or l'écran a une hauteur de $${h0}$ cm, soit, $${texNombre(h0 / h, 0)}$ fois plus grande, donc sa largeur est : $${texNombre(l, 0)}\\times ${texNombre(h0 / h, 0)}=${miseEnEvidence(texNombre(l0, 0) + '\\text{ cm}')}$.`
+    Sachant que la hauteur de cette télévision est de $${String(h0)}\\text{ cm}$, combien mesure sa largeur ?`
+    this.correction = `Un ratio de $${l}$ : $${h}$ signifie que pour $${h}\\text{ cm}$ de hauteur, il y a $${l}\\text{ cm}$ de largeur.<br>
+    Or l'écran a une hauteur de $${h0}\\text{ cm}$, soit, $${texNombre(h0 / h, 0)}$ fois plus grande, donc sa largeur est : $${texNombre(l, 0)}\\times ${texNombre(h0 / h, 0)}=${miseEnEvidence(texNombre(l0, 0) + '\\text{ cm}')}$.`
   }
 
   versionOriginale: () => void = () => {

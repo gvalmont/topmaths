@@ -1,9 +1,10 @@
 import { cercle } from '../../../lib/2d/cercle'
 import { fixeBordures } from '../../../lib/2d/fixeBordures'
-import { point, pointIntersectionCC } from '../../../lib/2d/points'
+import { point } from '../../../lib/2d/PointAbstrait'
 import { polygoneAvecNom } from '../../../lib/2d/polygones'
 import { segment } from '../../../lib/2d/segmentsVecteurs'
 import { homothetie } from '../../../lib/2d/transformations'
+import { pointIntersectionCC } from '../../../lib/2d/utilitairesPoint'
 import { choisitLettresDifferentes } from '../../../lib/outils/aleatoires'
 import { choice, shuffle } from '../../../lib/outils/arrayOutils'
 import { texNombre } from '../../../lib/outils/texNombre'
@@ -43,9 +44,9 @@ export default class AmeriqueSud1224Ex1Q3 extends ExerciceQcmA {
       ? [HD5, HD2]
       : shuffle([HD1, HD2, HD3, HD4].filter((x) => x > 0))
     this.reponses = [
-      `$${texNombre(HD, 2)}$ cm`,
-      `$${texNombre(choix[0], 1)}$ cm`,
-      `$${texNombre(choix[1], 1)}$ cm`,
+      `$${texNombre(HD, 2)}\\text{ cm}$`,
+      `$${texNombre(choix[0], 1)}\\text{ cm}$`,
+      `$${texNombre(choix[1], 1)}\\text{ cm}$`,
     ]
     const objets = []
     const B = point(0, 0, labels[2])
@@ -66,11 +67,11 @@ export default class AmeriqueSud1224Ex1Q3 extends ExerciceQcmA {
     this.enonce = `${figure}${context.isHtml ? '' : '\n\n'}
     $${labels[2]}$, $${labels[1]}$ et $${labels[0]}$ sont alignés.<br>
     $${labels[2]}$, $${labels[3]}$ et $${labels[4]}$ sont alignés.<br>
-    $${labels[2]}${labels[3]} = ${BD}$ cm ; $${labels[2]}${labels[4]} = ${BC}$ cm ; $${labels[0]}${labels[4]} = ${AC}$ cm.<br>
+    $${labels[2]}${labels[3]} = ${BD}\\text{ cm}$ ; $${labels[2]}${labels[4]} = ${BC}\\text{ cm}$ ; $${labels[0]}${labels[4]} = ${AC}\\text{ cm}$.<br>
     $(${labels[3]}${labels[1]})//(${labels[4]}${labels[0]})$.<br>
     Quelle est la longueur du segment $${labels[1]}${labels[3]}$ ?`
     this.correction = `Cette figure est une configuration de Thales. On a $\\dfrac{${labels[2]}${labels[4]}}{${labels[2]}${labels[3]}}=\\dfrac{${labels[0]}${labels[4]}}{${labels[1]}${labels[3]}}$.<br>
-    Donc $\\dfrac{${BC}}{${BD}}=\\dfrac{${AC}}{${labels[1]}${labels[3]}}$, soit  : $${labels[1]}${labels[3]}=\\dfrac{${BD}\\times${AC}}{${BC}}=${texNombre(HD, 2)}$ cm.`
+    Donc $\\dfrac{${BC}}{${BD}}=\\dfrac{${AC}}{${labels[1]}${labels[3]}}$, soit  : $${labels[1]}${labels[3]}=\\dfrac{${BD}\\times${AC}}{${BC}}=${texNombre(HD, 2)}\\text{ cm}$.`
   }
 
   versionOriginale: () => void = () => {

@@ -4,10 +4,11 @@ import ExerciceSimple from '../../ExerciceSimple'
 
 import { randint } from '../../../modules/outils'
 
-import { codageSegments } from '../../../lib/2d/codages'
-import { milieu, point } from '../../../lib/2d/points'
+import { codageSegments } from '../../../lib/2d/CodageSegment'
+import { point } from '../../../lib/2d/PointAbstrait'
 import { segment } from '../../../lib/2d/segmentsVecteurs'
 import { latex2d } from '../../../lib/2d/textes'
+import { milieu } from '../../../lib/2d/utilitairesPoint'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 import { mathalea2d } from '../../../modules/mathalea2d'
 export const titre = "Déterminer le périmètre d'un triangle"
@@ -28,7 +29,7 @@ export default class SommeDeProduitsCompleter extends ExerciceSimple {
     super()
     this.typeExercice = 'simple' // Cette ligne est très importante pour faire un exercice simple !
     this.nbQuestions = 1
-    this.optionsChampTexte = { texteApres: ' cm' }
+    this.optionsChampTexte = { texteApres: ' $\\text{cm}$' }
     this.formatChampTexte = KeyboardType.clavierDeBase
   }
 
@@ -64,7 +65,7 @@ export default class SommeDeProduitsCompleter extends ExerciceSimple {
     this.question = 'Quel est  le périmètre de ce triangle ?'
     this.reponse = 2 * a + b
     this.correction = `Le triangle est isocèle.<br>
-            Son périmètre est : $(2\\times ${texNombre(a)}$ cm) + $${texNombre(b)}$ cm $=${miseEnEvidence(texNombre(2 * a + b))}$ cm.`
+            Son périmètre est : $(2\\times ${texNombre(a)}\\text{ cm}$) + $${texNombre(b)}\\text{ cm}$ $=${miseEnEvidence(texNombre(2 * a + b))}\\text{ cm}$.`
 
     this.question +=
       '<br>' +
@@ -84,6 +85,6 @@ export default class SommeDeProduitsCompleter extends ExerciceSimple {
       this.question += '<br>'
     }
     this.canEnonce = this.question
-    this.canReponseACompleter = '$\\ldots$ cm'
+    this.canReponseACompleter = '$\\ldots\\text{ cm}$'
   }
 }

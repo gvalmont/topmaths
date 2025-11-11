@@ -1,13 +1,20 @@
-import { afficheMesureAngle, codageSegments } from '../../../lib/2d/codages'
-import { point } from '../../../lib/2d/points'
+import { afficheMesureAngle } from '../../../lib/2d/AfficheMesureAngle'
+import { codageSegments } from '../../../lib/2d/CodageSegment'
+import { point } from '../../../lib/2d/PointAbstrait'
 import { polygoneAvecNom } from '../../../lib/2d/polygones'
-import { degTan } from '../../../lib/mathFonctions/trigo'
 import { choice } from '../../../lib/outils/arrayOutils'
 import { creerNomDePolygone } from '../../../lib/outils/outilString'
 import { texNombre } from '../../../lib/outils/texNombre'
 import { mathalea2d } from '../../../modules/mathalea2d'
 import { randint } from '../../../modules/outils'
 import ExerciceSimple from '../../ExerciceSimple'
+
+/**
++ * Calcule la tangente d'un angle en degrés
++ */
+function degTan(deg: number): number {
+  return Math.tan((deg * Math.PI) / 180)
+}
 
 export const titre = 'Calculer un angle dans un triangle isocèle'
 export const interactifReady = true

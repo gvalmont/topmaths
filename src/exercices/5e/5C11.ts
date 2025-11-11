@@ -14,6 +14,7 @@ export default class TraduireUnePhraseParUneExpression extends EcrireUneExpressi
   constructor() {
     super()
     this.version = 1
+    this.litteral = false
     this.sup2 = false
     this.nbQuestions = 5
     this.sup4 = '1-2-3'

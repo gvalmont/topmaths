@@ -30,6 +30,7 @@ export type BlockForKeyboard =
   | 'numbers2'
   | 'numbersOperations'
   | 'numbersOperationsX'
+  | 'limites'
   | 'numbersSpace'
   | 'numeration'
   | 'probabilite'

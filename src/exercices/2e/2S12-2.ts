@@ -1,9 +1,9 @@
-import { combinaisonListes } from '../../lib/outils/arrayOutils'
 import { texteGras } from '../../lib/format/style'
-import { texNombre } from '../../lib/outils/texNombre'
-import Exercice from '../Exercice'
-import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
+import { combinaisonListes } from '../../lib/outils/arrayOutils'
+import { texNombre } from '../../lib/outils/texNombre'
+import { listeQuestionsToContenu, randint } from '../../modules/outils'
+import Exercice from '../Exercice'
 
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
@@ -332,7 +332,7 @@ export default class EvolutionsSuccesives extends Exercice {
             texteCorr += `$CM = 1 - \\dfrac{${texNombre(t, 2)}}{100} = ${texNombre(CM, 4)}$.`
           }
           texteCorr += `<br><br>En notant $CM_2$ le coefficient multiplicateur de la deuxième évolution, on a : $CM = CM_1 \\times CM_2$, soit
-             $${texNombre(CM1, 2)} \\times CM_2 =${texNombre(CM, 4)}$ et par suite $ CM_2 =\\dfrac{${texNombre(CM, 4)}}{${texNombre(CM1, 2)} }=${texNombre(CM2, 2)}$<br>
+             $${texNombre(CM1, 2)} \\times CM_2 =${texNombre(CM, 4)}$ et par suite \\text{ cm}$_2 =\\dfrac{${texNombre(CM, 4)}}{${texNombre(CM1, 2)} }=${texNombre(CM2, 2)}$<br>
              `
           if (CM2 > 1) {
             texteCorr += `<br>Or $T_2=CM_2 -1=${texNombre(CM2, 2)} -1=  ${texNombre(Math.abs(p2), 2)}$ ce qui correspond à une hausse de $${texNombre(t2, 2)}~\\%$.`
@@ -405,7 +405,7 @@ export default class EvolutionsSuccesives extends Exercice {
             texteCorr += `$CM = 1 - \\dfrac{${texNombre(t, 2)}}{100} = ${texNombre(CM, 4)}$.`
           }
           texteCorr += `<br><br>En notant $CM_2$ le coefficient multiplicateur de la deuxième évolution, on a : $CM = CM_1 \\times CM_2$, soit
-             $${texNombre(CM1, 2)} \\times CM_2 =${texNombre(CM, 4)}$ et par suite $ CM_2 =\\dfrac{${texNombre(CM, 4)}}{${texNombre(CM1, 2)} }=${texNombre(CM2, 2)}$<br>
+             $${texNombre(CM1, 2)} \\times CM_2 =${texNombre(CM, 4)}$ et par suite \\text{ cm}$_2 =\\dfrac{${texNombre(CM, 4)}}{${texNombre(CM1, 2)} }=${texNombre(CM2, 2)}$<br>
              `
           if (CM2 > 1) {
             texteCorr += `<br> $T_2=CM_2 -1=${texNombre(CM2, 2)} -1=  ${texNombre(Math.abs(p2), 2)}$ ce qui correspond à une hausse de $${texNombre(t2, 2)}~\\%$.`
@@ -482,7 +482,7 @@ export default class EvolutionsSuccesives extends Exercice {
             texteCorr += `$CM = 1 - \\dfrac{${texNombre(t, 2)}}{100} = ${texNombre(CM, 4)}$.`
           }
           texteCorr += `<br><br>En notant $CM_2$ le coefficient multiplicateur de la deuxième évolution, on a : $CM = CM_1 \\times CM_2$, soit
-             $${texNombre(CM1, 2)} \\times CM_2 =${texNombre(CM, 4)}$ et par suite $ CM_2 =\\dfrac{${texNombre(CM, 4)}}{${texNombre(CM1, 2)} }=${texNombre(CM2, 2)}$<br>
+             $${texNombre(CM1, 2)} \\times CM_2 =${texNombre(CM, 4)}$ et par suite \\text{ cm}$_2 =\\dfrac{${texNombre(CM, 4)}}{${texNombre(CM1, 2)} }=${texNombre(CM2, 2)}$<br>
              `
           if (CM2 > 1) {
             texteCorr += `<br> $T_2=CM_2 -1=${texNombre(CM2, 2)}-1 = ${texNombre(Math.abs(p2), 2)}$ ce qui correspond à une hausse de $${texNombre(t2, 2)}~\\%$.`

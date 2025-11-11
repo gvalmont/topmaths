@@ -1,5 +1,6 @@
-import { codageAngleDroit } from '../../lib/2d/angles'
-import { afficheMesureAngle, codageSegments } from '../../lib/2d/codages'
+import { afficheMesureAngle } from '../../lib/2d/AfficheMesureAngle'
+import { codageAngleDroit } from '../../lib/2d/CodageAngleDroit'
+import { codageSegments } from '../../lib/2d/CodageSegment'
 import {
   assombrirOuEclaircir,
   colorToLatexOrHTML,
@@ -9,14 +10,19 @@ import {
   droiteParPointEtPente,
   droiteVerticaleParPoint,
 } from '../../lib/2d/droites'
-import { milieu, point, pointSurDroite, tracePoint } from '../../lib/2d/points'
-import { segment, vecteur } from '../../lib/2d/segmentsVecteurs'
+import { point, PointAbstrait } from '../../lib/2d/PointAbstrait'
+import { representant } from '../../lib/2d/representantVecteur'
+import { segment } from '../../lib/2d/segmentsVecteurs'
 import {
   labelLatexPoint,
   latexParCoordonnees,
   texteParPositionEchelle,
 } from '../../lib/2d/textes'
+import { tracePoint } from '../../lib/2d/TracePoint'
 import { translation } from '../../lib/2d/transformations'
+import { milieu, pointSurDroite } from '../../lib/2d/utilitairesPoint'
+import { vecteur } from '../../lib/2d/Vecteur'
+import { vide2d } from '../../lib/2d/Vide2d'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import {
@@ -51,6 +57,8 @@ export const interactifType = 'mathLive'
 export const amcReady = true
 export const amcType = 'AMCHybride'
 
+const longueur = (A: PointAbstrait, B: PointAbstrait) =>
+  Math.sqrt((A.x - B.x) ** 2 + (A.y - B.y) ** 2)
 /**
  * Transformations : trouver un point numéroté par une des transformations du plan. Fonction générale utilisée sur tous les niveaux
  * @author Jean-Claude Lhote
@@ -130,6 +138,7 @@ export default class Transformations extends Exercice {
       const n = [-1, -1, -1, -1, -1, -1, -1, -1, -1, -1]
       const M = []
       const N = []
+      const estSurAxe: Boolean[] = []
       // Ci-dessous, on évite le point $O$ comme point et comme nom de point.
       const nomPointsTranslationDejaUtilises = [15]
       const pointsDejaUtilises = [44]
@@ -265,6 +274,7 @@ export default class Transformations extends Exercice {
           Math.floor(antecedents[j] / 10 - 4),
           'above left',
         )
+        estSurAxe[j] = longueur(N[j], M[j]) === 0
         pointsDejaUtilises.push(antecedents[j])
         pointsDejaUtilises.push(arrondi(punto[j][0] + 10 * punto[j][1], 0))
       }
@@ -341,23 +351,28 @@ export default class Transformations extends Exercice {
                 '',
                 12,
               ),
-              segment(M[i], N[i], couleurs[i]),
-              codageSegments(
-                'O',
-                couleurs[i],
-                M[i],
-                milieu(M[i], N[i]),
-                milieu(M[i], N[i]),
-                N[i],
-              ),
-              codageAngleDroit(
-                M[i],
-                milieu(M[i], N[i]),
-                pointSurDroite(d1, 1, ''),
-                couleurs[i],
-                0.4,
-                1,
-              ),
+
+              estSurAxe[i]
+                ? vide2d()
+                : [
+                    codageAngleDroit(
+                      M[i],
+                      milieu(M[i], N[i]),
+                      pointSurDroite(d1, 15, ''),
+                      couleurs[i],
+                      0.4,
+                      1,
+                    ),
+                    segment(M[i], N[i], couleurs[i]),
+                    codageSegments(
+                      'O',
+                      couleurs[i],
+                      M[i],
+                      milieu(M[i], N[i]),
+                      milieu(M[i], N[i]),
+                      N[i],
+                    ),
+                  ],
             )
             objetsCorrection.push(
               texteParPositionEchelle(
@@ -428,23 +443,28 @@ export default class Transformations extends Exercice {
                 '',
                 12,
               ),
-              segment(M[i], N[i], couleurs[i]),
-              codageSegments(
-                '||',
-                couleurs[i],
-                M[i],
-                milieu(M[i], N[i]),
-                milieu(M[i], N[i]),
-                N[i],
-              ),
-              codageAngleDroit(
-                M[i],
-                milieu(M[i], N[i]),
-                pointSurDroite(d2, 1, ''),
-                couleurs[i],
-                0.4,
-                1,
-              ),
+
+              estSurAxe[i]
+                ? vide2d()
+                : [
+                    codageAngleDroit(
+                      M[i],
+                      milieu(M[i], N[i]),
+                      pointSurDroite(d2, 15, ''),
+                      couleurs[i],
+                      0.4,
+                      1,
+                    ),
+                    segment(M[i], N[i], couleurs[i]),
+                    codageSegments(
+                      '||',
+                      couleurs[i],
+                      M[i],
+                      milieu(M[i], N[i]),
+                      milieu(M[i], N[i]),
+                      N[i],
+                    ),
+                  ],
             )
             objetsCorrection.push(
               texteParPositionEchelle(
@@ -515,23 +535,27 @@ export default class Transformations extends Exercice {
                 '',
                 12,
               ),
-              segment(M[i], N[i], couleurs[i]),
-              codageSegments(
-                '///',
-                couleurs[i],
-                M[i],
-                milieu(M[i], N[i]),
-                milieu(M[i], N[i]),
-                N[i],
-              ),
-              codageAngleDroit(
-                M[i],
-                milieu(M[i], N[i]),
-                pointSurDroite(d3, 1, ''),
-                couleurs[i],
-                0.4,
-                1,
-              ),
+              estSurAxe[i]
+                ? vide2d()
+                : [
+                    codageAngleDroit(
+                      M[i],
+                      milieu(M[i], N[i]),
+                      pointSurDroite(d3, 15, ''),
+                      couleurs[i],
+                      0.4,
+                      1,
+                    ),
+                    segment(M[i], N[i], couleurs[i]),
+                    codageSegments(
+                      '///',
+                      couleurs[i],
+                      M[i],
+                      milieu(M[i], N[i]),
+                      milieu(M[i], N[i]),
+                      N[i],
+                    ),
+                  ],
             )
             objetsCorrection.push(
               texteParPositionEchelle(
@@ -602,23 +626,28 @@ export default class Transformations extends Exercice {
                 '',
                 12,
               ),
-              segment(M[i], N[i], couleurs[i]),
-              codageSegments(
-                'OO',
-                couleurs[i],
-                M[i],
-                milieu(M[i], N[i]),
-                milieu(M[i], N[i]),
-                N[i],
-              ),
-              codageAngleDroit(
-                M[i],
-                milieu(M[i], N[i]),
-                pointSurDroite(d4, 1, ''),
-                '#f15929',
-                0.4,
-                1,
-              ),
+
+              estSurAxe[i]
+                ? vide2d()
+                : [
+                    codageAngleDroit(
+                      M[i],
+                      milieu(M[i], N[i]),
+                      pointSurDroite(d4, 15, ''),
+                      '#f15929',
+                      0.4,
+                      1,
+                    ),
+                    segment(M[i], N[i], couleurs[i]),
+                    codageSegments(
+                      'OO',
+                      couleurs[i],
+                      M[i],
+                      milieu(M[i], N[i]),
+                      milieu(M[i], N[i]),
+                      N[i],
+                    ),
+                  ],
             )
             objetsCorrection.push(
               texteParPositionEchelle(
@@ -664,11 +693,15 @@ export default class Transformations extends Exercice {
               traceIm,
               traceO,
               labO,
-              segment(M[i], O, couleurs[i]),
-              segment(N[i], O, couleurs[i]),
-              codageSegments('|||', couleurs[i], M[i], O, O, N[i]),
-              afficheMesureAngle(M[i], O, N[i]),
-              codageAngleDroit(M[i], O, N[i], couleurs[i], 0.4, 1),
+              estSurAxe[i]
+                ? vide2d()
+                : [
+                    segment(M[i], O, couleurs[i]),
+                    segment(N[i], O, couleurs[i]),
+                    codageSegments('|||', couleurs[i], M[i], O, O, N[i]),
+                    afficheMesureAngle(M[i], O, N[i]),
+                    codageAngleDroit(M[i], O, N[i], couleurs[i], 0.4, 1),
+                  ],
             )
             objetsCorrection.push(
               texteParPositionEchelle(
@@ -714,11 +747,16 @@ export default class Transformations extends Exercice {
               traceIm,
               traceO,
               labO,
-              segment(M[i], O, couleurs[i]),
-              segment(N[i], O, couleurs[i]),
-              codageSegments('////', 'red', M[i], O, O, N[i]),
-              afficheMesureAngle(M[i], O, N[i]),
-              codageAngleDroit(M[i], O, N[i], couleurs[i], 0.8, 1),
+
+              estSurAxe[i]
+                ? vide2d()
+                : [
+                    codageAngleDroit(M[i], O, N[i], couleurs[i], 0.8, 1),
+                    segment(M[i], O, couleurs[i]),
+                    segment(N[i], O, couleurs[i]),
+                    codageSegments('////', 'red', M[i], O, O, N[i]),
+                    afficheMesureAngle(M[i], O, N[i]),
+                  ],
             )
             objetsCorrection.push(
               texteParPositionEchelle(
@@ -764,9 +802,13 @@ export default class Transformations extends Exercice {
               traceIm,
               traceO,
               labO,
-              segment(M[i], O, couleurs[i]),
-              segment(N[i], O, couleurs[i]),
-              codageSegments('OOO', couleurs[i], M[i], O, O, N[i]),
+              estSurAxe[i]
+                ? vide2d()
+                : [
+                    segment(M[i], O, couleurs[i]),
+                    segment(N[i], O, couleurs[i]),
+                    codageSegments('OOO', couleurs[i], M[i], O, O, N[i]),
+                  ],
             )
             objetsCorrection.push(
               texteParPositionEchelle(
@@ -857,8 +899,8 @@ export default class Transformations extends Exercice {
             pointsDejaUtilises.push(44 + pointN.x + 10 * pointN.y)
             objetsEnonce.push(traceAnt, traceM, traceN, labM, labN)
             objetsCorrection.push(
-              vecteur(M[i], N[i]).representant(M[i], couleurs[i]),
-              vecteur(M[i], N[i]).representant(pointM, couleurs[i]),
+              representant(vecteur(M[i], N[i]), M[i], couleurs[i]),
+              representant(vecteur(M[i], N[i]), pointM, couleurs[i]),
               traceAnt,
               traceIm,
               traceM,

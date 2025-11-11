@@ -1,13 +1,12 @@
 import { colorToLatexOrHTML } from '../../lib/2d/colorToLatexOrHtml'
 import { grille } from '../../lib/2d/Grille'
-import { point } from '../../lib/2d/points'
+import { point } from '../../lib/2d/PointAbstrait'
 import { polygone } from '../../lib/2d/polygones'
 import { segment } from '../../lib/2d/segmentsVecteurs'
 import { texteParPosition } from '../../lib/2d/textes'
 import { texteSansCasseCompare } from '../../lib/interactif/comparisonFunctions'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
-import { degCos, degSin } from '../../lib/mathFonctions/trigo'
 import { choice } from '../../lib/outils/arrayOutils'
 import { texteEnCouleurEtGras } from '../../lib/outils/embellissements'
 import { lettreDepuisChiffre, numAlphaNum } from '../../lib/outils/outilString'
@@ -15,6 +14,19 @@ import { context } from '../../modules/context'
 import { mathalea2d } from '../../modules/mathalea2d'
 import { listeQuestionsToContenu } from '../../modules/outils'
 import Exercice from '../Exercice'
+/**
+ * Calcule le cosinus d'un angle en degrés
+ */
+function degCos(deg: number): number {
+  return Math.cos((deg * Math.PI) / 180)
+}
+
+/**
+ * Calcule le sinus d'un angle en degrés
+ */
+function degSin(deg: number): number {
+  return Math.sin((deg * Math.PI) / 180)
+}
 
 export const amcReady = true
 export const amcType = 'AMCOpen'

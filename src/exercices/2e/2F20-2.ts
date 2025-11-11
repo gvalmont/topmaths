@@ -1,3 +1,7 @@
+/**
+ * ⚠️ Cet exercice est utilisé dans le test : tests/e2e/tests/interactivity/mathLive.fractionEgale.test.ts ⚠️
+ */
+
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { simplificationDeFractionAvecEtapes } from '../../lib/outils/deprecatedFractions'

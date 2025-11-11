@@ -1,7 +1,8 @@
-import { codageAngleDroit } from '../../../lib/2d/angles'
-import { milieu, point } from '../../../lib/2d/points'
+import { codageAngleDroit } from '../../../lib/2d/CodageAngleDroit'
+import { point } from '../../../lib/2d/PointAbstrait'
 import { polygoneAvecNom } from '../../../lib/2d/polygones'
 import { labelPoint, latexParCoordonnees } from '../../../lib/2d/textes'
+import { milieu } from '../../../lib/2d/utilitairesPoint'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 import { choice } from '../../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
@@ -24,7 +25,7 @@ export default class NomExercice extends ExerciceSimple {
     this.typeExercice = 'simple'
     this.nbQuestions = 1
     this.formatChampTexte = KeyboardType.clavierFullOperations
-    this.optionsChampTexte = { texteApres: 'cm.' }
+    this.optionsChampTexte = { texteApres: '$\\text{ cm}$' }
 
     this.canOfficielle = false
   }
@@ -91,7 +92,7 @@ export default class NomExercice extends ExerciceSimple {
         \\end{aligned}$<br>
        Ainsi, $EG=${miseEnEvidence(`\\sqrt{${a[2]}}`)}$. `
       this.canEnonce = this.question
-      this.canReponseACompleter = '$EG=\\ldots$ cm'
+      this.canReponseACompleter = '$EG=\\ldots\\text{ cm}$'
     } else {
       if (choice([true, false])) {
         const triplet = [
@@ -149,7 +150,7 @@ export default class NomExercice extends ExerciceSimple {
           \\end{aligned}$<br>
          Ainsi, $EG=${miseEnEvidence(`\\sqrt{${a[2]}}`)}$. `
         this.canEnonce = this.question
-        this.canReponseACompleter = '$EG=\\ldots$ cm'
+        this.canReponseACompleter = '$EG=\\ldots\\text{ cm}$'
       } else {
         const triplet = [
           [6, 5, 11],
@@ -209,11 +210,11 @@ export default class NomExercice extends ExerciceSimple {
           \\end{aligned}$<br>
          Ainsi, $FG=${miseEnEvidence(`\\sqrt{${a[2]}}`)}$. `
         this.canEnonce = this.question
-        this.canReponseACompleter = '$EF=\\ldots$ cm'
+        this.canReponseACompleter = '$EF=\\ldots\\text{ cm}$'
       }
     }
     if (!this.interactif) {
-      this.question += '$\\ldots$ cm'
+      this.question += '$\\ldots\\text{ cm}$'
     }
   }
 }

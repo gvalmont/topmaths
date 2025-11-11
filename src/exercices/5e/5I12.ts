@@ -10,12 +10,14 @@ import {
 } from '../../modules/outils'
 import { scratchblock } from '../../modules/scratchblock'
 
+import { deparenthise } from '../../lib/mathFonctions/EnleverParenthesesInutiles'
 import { context } from '../../modules/context'
 
 export const titre = 'Calculer avec des priorités (Scratch)'
 export const interactifReady = true
 export const interactifType = 'mathLive'
-export const dateDeModifImportante = '25/11/2024'
+export const dateDePublication = '25/11/2024'
+export const dateDeModifImportante = '28/10/2025'
 
 export const uuid = '93d9f'
 
@@ -25,8 +27,9 @@ export const refs = {
 }
 
 /**
- * Mickael Guironnet
  * Calculs avec priorité et Scratch
+ * @author Mickael Guironnet
+ * Ajout par Eric Elter du paramètre pouvant avoir un résultat sans parenthèses inutiles.
  */
 export default class CalculsAvecPriorité extends Exercice {
   constructor() {
@@ -39,6 +42,11 @@ export default class CalculsAvecPriorité extends Exercice {
       '1 : (a ★ b) ★ c\n2 : a ★ (b ★ c)\n3 : ((a ★ b) ★ c) ★ d\n4 : (a ★( b ★ c)) ★ d\n5 : a ★(( b ★ c) ★ d)\n6 : a ★( b ★(c ★ d))\n7 : Mélange',
     ]
     this.sup2 = '7'
+    this.besoinFormulaire3CaseACocher = [
+      'Avec parenthèses inutiles dans la correction',
+      true,
+    ]
+    this.sup3 = true
   }
 
   nouvelleVersion() {
@@ -119,11 +127,13 @@ export default class CalculsAvecPriorité extends Exercice {
         { length: texteMath.length + resultat.length },
         (_, index) =>
           index % 2 === 0
-            ? texteMath[Math.floor(index / 2)]
+            ? this.sup3
+              ? texteMath[Math.floor(index / 2)]
+              : deparenthise(texteMath[Math.floor(index / 2)])
             : resultat[Math.floor(index / 2)],
       )
 
-      const texteCoor = tableauColonneLigne(
+      const texteCorr = tableauColonneLigne(
         [
           '\\text{Scratch}',
           '\\text{Calculs avec priorité}',
@@ -172,10 +182,9 @@ export default class CalculsAvecPriorité extends Exercice {
           },
         ],
       ])
-
       handleAnswers(this, i, reponses)
       this.listeQuestions.push(texte)
-      this.listeCorrections.push(texteCoor)
+      this.listeCorrections.push(texteCorr)
     }
     listeQuestionsToContenu(this)
   }
@@ -265,7 +274,7 @@ export default class CalculsAvecPriorité extends Exercice {
           return { texteScratch: '', texteMath: '', resultat: NaN }
         }
         const txtScratch = `\\ovaloperator{ \\ovaloperator{\\ovalnum{${numbers[0]}} ${operators[0]} \\ovalnum{${numbers[1]}}} ${operators[1]} \\ovalnum{${numbers[2]}}}\n`
-        const texte1Scratch = this.scaleScratch(scratchblock(txtScratch)) || ''
+        const texte1Scratch = this.scaleScratch(scratchblock(txtScratch) || '')
         const texte1Math = `(${numbers[0]} ${this.transformOpe(operators[0])} ${numbers[1]}) ${this.transformOpe(operators[1])} ${numbers[2]}`
         return {
           texteScratch: texte1Scratch,
@@ -316,7 +325,7 @@ export default class CalculsAvecPriorité extends Exercice {
           return { texteScratch: '', texteMath: '', resultat: NaN }
         }
         const txtScratch = `\\ovaloperator{ \\ovalnum{${numbers[0]}} ${operators[0]} \\ovaloperator{\\ovalnum{${numbers[1]}} ${operators[1]} \\ovalnum{${numbers[2]}}}}\n`
-        const texte2Scratch = this.scaleScratch(scratchblock(txtScratch)) || ''
+        const texte2Scratch = this.scaleScratch(scratchblock(txtScratch) || '')
         const texte2Math = `${numbers[0]} ${this.transformOpe(operators[0])} (${numbers[1]} ${this.transformOpe(operators[1])} ${numbers[2]})`
         return {
           texteScratch: texte2Scratch,
@@ -402,7 +411,7 @@ export default class CalculsAvecPriorité extends Exercice {
           return { texteScratch: '', texteMath: '', resultat: NaN }
         }
         const txtScratch = `\\ovaloperator{ \\ovaloperator{ \\ovaloperator{ \\ovalnum{${numbers[0]}} ${operators[0]} \\ovalnum{${numbers[1]}}} ${operators[1]} \\ovalnum{${numbers[2]}}} ${operators[2]} \\ovalnum{${numbers[3]}}}\n`
-        const texte3Scratch = this.scaleScratch(scratchblock(txtScratch)) || ''
+        const texte3Scratch = this.scaleScratch(scratchblock(txtScratch) || '')
         const texte3Math = `((${numbers[0]} ${this.transformOpe(operators[0])} ${numbers[1]}) ${this.transformOpe(operators[1])} ${numbers[2]}) ${this.transformOpe(operators[2])} ${numbers[3]}`
         return {
           texteScratch: texte3Scratch,
@@ -488,7 +497,7 @@ export default class CalculsAvecPriorité extends Exercice {
           return { texteScratch: '', texteMath: '', resultat: NaN }
         }
         const txtScratch = `\\ovaloperator{ \\ovaloperator{  \\ovalnum{${numbers[0]}}  ${operators[0]} \\ovaloperator{\\ovalnum{${numbers[1]}}  ${operators[1]} \\ovalnum{${numbers[2]}}}}  ${operators[2]} \\ovalnum{${numbers[3]}}}\n`
-        const texte3Scratch = this.scaleScratch(scratchblock(txtScratch)) || ''
+        const texte3Scratch = this.scaleScratch(scratchblock(txtScratch) || '')
         const texte3Math = `(${numbers[0]} ${this.transformOpe(operators[0])} (${numbers[1]} ${this.transformOpe(operators[1])} ${numbers[2]})) ${this.transformOpe(operators[2])} ${numbers[3]}`
         return {
           texteScratch: texte3Scratch,
@@ -574,7 +583,7 @@ export default class CalculsAvecPriorité extends Exercice {
           return { texteScratch: '', texteMath: '', resultat: NaN }
         }
         const txtScratch = `\\ovaloperator{ \\ovalnum{${numbers[0]}} ${operators[0]} \\ovaloperator{ \\ovaloperator{ \\ovalnum{${numbers[1]}} ${operators[1]} \\ovalnum{${numbers[2]}}} ${operators[2]} \\ovalnum{${numbers[3]}} }}\n`
-        const texte3Scratch = this.scaleScratch(scratchblock(txtScratch)) || ''
+        const texte3Scratch = this.scaleScratch(scratchblock(txtScratch) || '')
         const texte3Math = `${numbers[0]} ${this.transformOpe(operators[0])} (( ${numbers[1]} ${this.transformOpe(operators[1])} ${numbers[2]} ) ${this.transformOpe(operators[2])} ${numbers[3]})`
         return {
           texteScratch: texte3Scratch,
@@ -660,7 +669,7 @@ export default class CalculsAvecPriorité extends Exercice {
           return { texteScratch: '', texteMath: '', resultat: NaN }
         }
         const txtScratch = `\\ovaloperator{ \\ovalnum{${numbers[0]}} ${operators[0]} \\ovaloperator{ \\ovalnum{${numbers[1]}} ${operators[1]} \\ovaloperator{ \\ovalnum{${numbers[2]}} ${operators[2]} \\ovalnum{${numbers[3]}} }}}\n`
-        const texte3Scratch = this.scaleScratch(scratchblock(txtScratch)) || ''
+        const texte3Scratch = this.scaleScratch(scratchblock(txtScratch) || '')
         const texte3Math = `${numbers[0]} ${this.transformOpe(operators[0])} ( ${numbers[1]} ${this.transformOpe(operators[1])} (${numbers[2]} ${this.transformOpe(operators[2])} ${numbers[3]}))`
         return {
           texteScratch: texte3Scratch,

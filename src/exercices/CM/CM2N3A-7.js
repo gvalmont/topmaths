@@ -4,7 +4,11 @@ import { combinaisonListes } from '../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { nombreDeChiffresDansLaPartieEntiere } from '../../lib/outils/nombres'
 import { context } from '../../modules/context'
-import { listeQuestionsToContenu, randint } from '../../modules/outils'
+import {
+  contraindreValeur,
+  listeQuestionsToContenu,
+  randint,
+} from '../../modules/outils'
 import Exercice from '../Exercice'
 
 export const titre = 'Effectuer additions et soustractions'
@@ -43,7 +47,7 @@ export default class TablesAdditionsSoustractions extends Exercice {
   }
 
   nouvelleVersion() {
-    this.sup2 = parseInt(this.sup2)
+    this.sup = contraindreValeur(5, 9999, this.sup, 6)
     let listeTypeDeQuestions = []
     if (this.sup2 === 1) {
       listeTypeDeQuestions = combinaisonListes(['addition'], this.nbQuestions)

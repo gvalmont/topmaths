@@ -1,5 +1,5 @@
-import { codageSegments } from '../../lib/2d/codages'
-import { point } from '../../lib/2d/points'
+import { codageSegments } from '../../lib/2d/CodageSegment'
+import { point } from '../../lib/2d/PointAbstrait'
 import { polygone, polygoneAvecNom } from '../../lib/2d/polygones'
 import { segment } from '../../lib/2d/segmentsVecteurs'
 import { texteParPosition } from '../../lib/2d/textes'
@@ -304,7 +304,7 @@ function polyg(valeurEntiere: boolean, cd: boolean) {
   Divisons les deux membres par $${b}$ :<br>
   $x = \\dfrac{${texNombre(d - a, 1)}}{${b}} = ${texNombre(x)}$.<br>`,
   }
-  let enonce = `Un ${polygones[b - 2]} possède un côté de longueur $${texNombre(a)}$ cm et $${b}$ autres côtés de longueur égale.<br>Son périmètre est $${texNombre(d)}$ cm.<br>`
+  let enonce = `Un ${polygones[b - 2]} possède un côté de longueur $${texNombre(a)}\\text{ cm}$ et $${b}$ autres côtés de longueur égale.<br>Son périmètre est $${texNombre(d)}\\text{ cm}$.<br>`
   enonce +=
     'Quelle est la longueur' +
     (context.isAmc ? ', en cm,' : '') +
@@ -312,7 +312,7 @@ function polyg(valeurEntiere: boolean, cd: boolean) {
   let intro = 'Posons $x$ la longueur des côtés de même longueur.<br>'
   intro += `Un ${polygones[b - 2]} possède $${b + 1}$ côtés, donc celui-ci possède $${b}$ côtés de longueur $x$.<br>`
   intro += "L'énoncé se traduit par l'équation suivante :<br>"
-  const conclusion = `<br>Les côtés de même longueur mesurent donc $${miseEnEvidence(texNombre(x))}$ cm.`
+  const conclusion = `<br>Les côtés de même longueur mesurent donc $${miseEnEvidence(texNombre(x))}\\text{ cm}$.`
   const figure = ''
   const verification = `${texteEnCouleurEtGras('Vérification :', 'black')}<br> $\\begin{aligned}${b} \\times ${texNombre(x)} + ${texNombre(a, 1)} &= ${texNombre(b * x, 1)} + ${texNombre(a, 1)}\\\\
   &= ${texNombre(d, 1)}\\\\
@@ -647,7 +647,7 @@ function isocele(cd: boolean) {
     b = a + c
     d = 2 * a + b
   } while (b <= 0 || 2 * a <= b)
-  let enonce = `Un triangle isocèle a pour périmètre $${d}$ mm. `
+  let enonce = `Un triangle isocèle a pour périmètre $${d}\\text{ mm}$. `
   let intro = ''
   let conclusion = ''
   let equation = ''
@@ -655,10 +655,10 @@ function isocele(cd: boolean) {
   let figure: string
   if (c > 0) {
     // La base est le plus grand côté
-    enonce += `Sa base est plus longue de $${c}$ mm que chacun des côtés égaux.`
+    enonce += `Sa base est plus longue de $${c}\\text{ mm}$ que chacun des côtés égaux.`
   } else {
     // La base est plus petite que les autres côtés
-    enonce += `Sa base est plus courte de $${-c}$ mm que chacun des côtés égaux.`
+    enonce += `Sa base est plus courte de $${-c}\\text{ mm}$ que chacun des côtés égaux.`
   }
   if (choice([true, false])) {
     enonce +=
@@ -668,7 +668,7 @@ function isocele(cd: boolean) {
     intro = `Posons $x$ la longueur de sa base. La longueur des côtés égaux est : $x${ecritureAlgebrique(-c)}$.<br>`
     intro += "Le calcul du périmètre donne l'équation suivante :<br>"
     equation = `2(x${ecritureAlgebrique(-c)})+x=${d}`
-    conclusion = `<br>La base de ce triangle isocèle mesure donc $${miseEnEvidence(b)}$ mm.`
+    conclusion = `<br>La base de ce triangle isocèle mesure donc $${miseEnEvidence(b)}\\text{ mm}$.`
     x = b
   } else {
     enonce +=
@@ -676,7 +676,7 @@ function isocele(cd: boolean) {
     intro = `Posons $x$ la longueur d'un des côtés égaux. La longueur de la base est : $x${ecritureAlgebrique(c)}$.<br>`
     intro += "Le calcul du périmètre donne l'équation suivante :<br>"
     equation = `2x+x${ecritureAlgebrique(c)}=${d}`
-    conclusion = `<br>Les deux côtés égaux de ce triangle isocèle mesurent donc $${miseEnEvidence(a)}$ mm.`
+    conclusion = `<br>Les deux côtés égaux de ce triangle isocèle mesurent donc $${miseEnEvidence(a)}\\text{ mm}$.`
     x = a
   }
   const resolution = {

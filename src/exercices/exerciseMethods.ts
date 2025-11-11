@@ -2,12 +2,14 @@ import Figure from 'apigeom/src/Figure'
 import CryptoJS from 'crypto-js'
 import type Decimal from 'decimal.js'
 import seedrandom from 'seedrandom'
+import { CRC32 } from '../modules/crc32'
 import FractionEtendue from '../modules/FractionEtendue'
-import type Exercice from './Exercice'
+import type { IFractionEtendue } from '../modules/FractionEtendue.type'
+import type { IExercice, IExerciceSimple } from './Exercice.type'
 type EventListener = (evt: Event) => void
 
 export function exportedNouvelleVersionWrapper(
-  this: Exercice,
+  this: IExercice,
   numeroExercice?: number,
   numeroQuestion?: number,
 ): void {
@@ -35,9 +37,10 @@ export function exportedNouvelleVersionWrapper(
   this.reinit()
   seedrandom(this.seed, { global: true })
   this.nouvelleVersion(numeroExercice, numeroQuestion)
+  this.checkSum = CRC32.hexQuestions(this.listeQuestions)
 }
 
-export function exportedReinit(this: Exercice) {
+export function exportedReinit(this: IExerciceSimple) {
   this.listeQuestions = []
   this.listeCorrections = []
   this.listeCanEnonces = []
@@ -47,6 +50,7 @@ export function exportedReinit(this: Exercice) {
   this.listeArguments = []
   this.autoCorrection = []
   this.distracteurs = []
+  this.checkSum = undefined
   if (this.figures) {
     // figure APIGEOM
     this.figures.forEach((fig) => {
@@ -67,7 +71,7 @@ export function exportedReinit(this: Exercice) {
   }
 }
 
-export function exportedApplyNewSeed(this: Exercice) {
+export function exportedApplyNewSeed(this: IExercice) {
   const seed = generateSeed({
     includeUpperCase: true,
     includeNumbers: true,
@@ -92,9 +96,9 @@ function empreinteTexte(str: string): string {
  * @returns {boolean} true si la question n'a jamais été posée
  */
 export function exportedQuestionJamaisPosee(
-  this: Exercice,
+  this: IExercice,
   i: number,
-  ...args: (string | number | FractionEtendue | Decimal)[]
+  ...args: (string | number | IFractionEtendue | Decimal)[]
 ) {
   if (i === 0) this.listeArguments = []
   let argsConcatenes = ''

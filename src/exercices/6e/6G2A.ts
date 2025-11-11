@@ -1,22 +1,20 @@
 import { clone } from 'mathjs'
+import { codageSegments } from '../../lib/2d/CodageSegment'
+import { point } from '../../lib/2d/PointAbstrait'
+import { tracePoint } from '../../lib/2d/TracePoint'
 import { cercle } from '../../lib/2d/cercle'
-import { codageSegments } from '../../lib/2d/codages'
 import { droite } from '../../lib/2d/droites'
 import { fixeBordures } from '../../lib/2d/fixeBordures'
+import { polygoneAvecNom } from '../../lib/2d/polygones'
+import { segment } from '../../lib/2d/segmentsVecteurs'
+import { labelPoint } from '../../lib/2d/textes'
+import { longueur } from '../../lib/2d/utilitairesGeometriques'
 import {
-  point,
   pointAdistance,
   pointIntersectionLC,
-  tracePoint,
-} from '../../lib/2d/points'
-import { polygoneAvecNom } from '../../lib/2d/polygones'
-import { longueur, segment } from '../../lib/2d/segmentsVecteurs'
-import { labelPoint } from '../../lib/2d/textes'
+} from '../../lib/2d/utilitairesPoint'
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
-import {
-  handleAnswers,
-  type UneProposition,
-} from '../../lib/interactif/gestionInteractif'
+import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { propositionsQcm } from '../../lib/interactif/qcm'
 import { ajouteChampTexte } from '../../lib/interactif/questionMathLive'
 import { choisitLettresDifferentes } from '../../lib/outils/aleatoires'
@@ -26,6 +24,7 @@ import {
   numAlpha,
   premiereLettreEnMajuscule,
 } from '../../lib/outils/outilString'
+import type { UneProposition } from '../../lib/types'
 import { context } from '../../modules/context'
 import { mathalea2d } from '../../modules/mathalea2d'
 import { listeQuestionsToContenu } from '../../modules/outils'
@@ -159,7 +158,7 @@ export default class VocabulaireDuCercle extends Exercice {
 
     ) {
       const objetsEnonce = [] // on initialise le tableau des objets Mathalea2d de l'enoncé
-      const propositionsAMC = []
+      const propositionsAMC: UneProposition[] = []
 
       texte = ''
       texteCorr = ''
@@ -373,7 +372,7 @@ export default class VocabulaireDuCercle extends Exercice {
               ? (feedback = propositions[ee].feedback)
               : (feedback = propositions[ee].feedbackAlt)
             propositionsEE.push({
-              texte: propositions[ee].texte,
+              texte: propositions[ee].texte ?? '',
               statut,
               feedback,
             })

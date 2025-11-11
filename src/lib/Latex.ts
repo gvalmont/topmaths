@@ -1,6 +1,5 @@
 import seedrandom from 'seedrandom'
 import { get } from 'svelte/store'
-import TypeExercice from '../exercices/Exercice'
 import genericPreamble from '../lib/latex/preambule.tex?raw'
 import {
   loadFonts,
@@ -9,81 +8,18 @@ import {
   loadProfCollegeIfNeed,
   logPDF,
 } from '../lib/latex/preambuleTex'
+import type { IExercice } from '../lib/types'
 import { buildThemeFromReference } from '../topmaths/services/reference'
 import { reference } from '../topmaths/services/store'
+import type {
+  ExoContent,
+  LatexFileInfos,
+  contentsType,
+  latexFileType,
+  picFile,
+} from './LatexTypes'
 import { mathaleaHandleExerciceSimple } from './mathalea.js'
 import { getLang } from './stores/languagesStore'
-// printPrettier pose problème avec begin{aligned}[t] en ajoutant un saut de ligne problématique
-// import { printPrettier } from 'prettier-plugin-latex/standalone.js'
-
-export interface Exo {
-  content?: string
-  serie?: string
-  month?: string
-  year?: string
-  zone?: string
-  title?: string
-}
-
-export interface picFile {
-  name: string
-  format: string
-}
-
-export type LatexFileInfos = {
-  title: string
-  reference: string
-  subtitle: string
-  dysTailleFontOption: number
-  tailleFontOption: number
-  durationCanOption: string
-  titleOption: string
-  style:
-    | 'Coopmaths'
-    | 'Classique'
-    | 'ProfMaquette'
-    | 'ProfMaquetteQrcode'
-    | 'Can'
-  nbVersions: number
-  fontOption: 'StandardFont' | 'DysFont'
-  correctionOption: 'AvecCorrection' | 'SansCorrection'
-  qrcodeOption: 'AvecQrcode' | 'SansQrcode'
-  typeFiche: 'Fiche' | 'Eval'
-  exos?: {
-    [key: string]: {
-      labels?: string
-      itemsep?: number
-      cols?: number
-      cols_corr?: number
-      blocrep?: { nbligs: number; nbcols: number }
-    }
-  }
-  signal?: AbortSignal | undefined
-}
-
-export type contentsType = {
-  preamble: string
-  intro: string
-  content: string
-  contentCorr: string
-}
-
-export type latexFileType = {
-  contents: contentsType
-  latexWithoutPreamble: string
-  latexWithPreamble: string
-}
-
-interface ExoContent {
-  content?: string
-  contentCorr?: string
-  serie?: string
-  month?: string
-  year?: string
-  zone?: string
-  title?: string
-}
-
 function testIfLoaded(
   values: string[],
   valuetoSearch: string,
@@ -103,7 +39,7 @@ function testIfLoaded(
 }
 
 class Latex {
-  exercices: TypeExercice[]
+  exercices: IExercice[]
   constructor() {
     this.exercices = []
   }
@@ -120,7 +56,7 @@ class Latex {
     }))
   }
 
-  addExercices(exercices: TypeExercice[]) {
+  addExercices(exercices: IExercice[]) {
     this.exercices.push(...exercices)
   }
 
@@ -921,7 +857,7 @@ export function buildImagesUrlsList(
  * @author sylvain
  */
 
-export function getExosContentList(exercices: TypeExercice[]) {
+export function getExosContentList(exercices: IExercice[]) {
   const exosContentList: ExoContent[] = []
   for (const exo of exercices) {
     let data: ExoContent = {}
@@ -1011,7 +947,7 @@ export function doesLatexNeedsPics(contents: {
   return imas.some((e) => e.length > 0)
 }
 
-export function makeImageFilesUrls(exercices: TypeExercice[]) {
+export function makeImageFilesUrls(exercices: IExercice[]) {
   const exosContentList = getExosContentList(exercices)
   const picsNames = getPicsNames(exosContentList)
   return buildImagesUrlsList(exosContentList, picsNames)
@@ -1052,7 +988,7 @@ export function format(
   return formattedText
 }
 
-function getUrlFromExercice(ex: TypeExercice, version: number = 1): string {
+function getUrlFromExercice(ex: IExercice, version: number = 1): string {
   const url = new URL('https://coopmaths.fr/alea')
   url.searchParams.append('uuid', String(ex.uuid))
   if (ex.id !== undefined) url.searchParams.append('id', ex.id)

@@ -1,11 +1,11 @@
+import { codageAngle } from '../../lib/2d/angles'
 import {
-  codageAngle,
-  codageAngleDroit,
   CodageAngleDroit,
-} from '../../lib/2d/angles'
+  codageAngleDroit,
+} from '../../lib/2d/CodageAngleDroit'
 import { droite } from '../../lib/2d/droites'
 import { fixeBordures } from '../../lib/2d/fixeBordures'
-import { point } from '../../lib/2d/points'
+import { point } from '../../lib/2d/PointAbstrait'
 import { polygone } from '../../lib/2d/polygones'
 import { segment } from '../../lib/2d/segmentsVecteurs'
 import { labelPoint } from '../../lib/2d/textes'
@@ -323,7 +323,7 @@ export default class RelationsMetriquesTriangleRectangle extends Exercice {
           const abVal = randint(5, 10)
           const bdVal = randint(2, abVal, [abVal])
           texte += `$${A.nom}${E.nom}, ${E.nom}${D.nom}, ${E.nom}${B.nom}$ et $${A.nom}${D.nom}$, si `
-          texte += `$${A.nom + B.nom} = ${abVal}~\\text{cm}$ et $${B.nom + D.nom} = ${bdVal}~\\text{cm}$.`
+          texte += `$${A.nom + B.nom} = ${abVal}\\text{ cm}$ et $${B.nom + D.nom} = ${bdVal}\\text{ cm}$.`
           const racineExtraite1 = extraireRacineCarree(abVal * bdVal)
           const racineExtraite2 = extraireRacineCarree(
             abVal * bdVal + bdVal * bdVal,
@@ -333,14 +333,14 @@ export default class RelationsMetriquesTriangleRectangle extends Exercice {
           )
 
           texteCorr += `<br> 
-          On commence par déterminer $${A.nom + D.nom}$. On a $${A.nom + D.nom} = ${A.nom + B.nom} + ${B.nom + D.nom} = ${abVal} + ${bdVal} = ${miseEnEvidence(`${abVal + bdVal}~\\text{cm}`)}$.
-          <br> On détermine $${E.nom + B.nom}$.  ${this.correctionDetaillee ? 'Par la relation' : 'Par le théorème de Thalès, on a '} $\\dfrac{${A.nom}${B.nom}}{${E.nom}${B.nom}} = \\dfrac{${E.nom}${B.nom}}{${B.nom}${D.nom}}$, il s'ensuit que $${E.nom + B.nom}^2=${A.nom + B.nom}\\times ${B.nom + D.nom} = ${abVal} \\times ${bdVal} = ${abVal * bdVal}~\\text{cm}$, d'où $${E.nom + B.nom} =${racineExtraite1[1] === abVal * bdVal ? ` ${miseEnEvidence(`\\sqrt{${abVal * bdVal}}~\\text{cm}`)}` : `\\sqrt{${abVal * bdVal}}=${miseEnEvidence(`${racineExtraite1[0]}${racineExtraite1[1] === 1 ? '' : `\\sqrt{${racineExtraite1[1]}}`}~\\text{cm}`)}`}$.<br>
+          On commence par déterminer $${A.nom + D.nom}$. On a $${A.nom + D.nom} = ${A.nom + B.nom} + ${B.nom + D.nom} = ${abVal} + ${bdVal} = ${miseEnEvidence(`${abVal + bdVal}\\text{ cm}`)}$.
+          <br> On détermine $${E.nom + B.nom}$.  ${this.correctionDetaillee ? 'Par la relation' : 'Par le théorème de Thalès, on a '} $\\dfrac{${A.nom}${B.nom}}{${E.nom}${B.nom}} = \\dfrac{${E.nom}${B.nom}}{${B.nom}${D.nom}}$, il s'ensuit que $${E.nom + B.nom}^2=${A.nom + B.nom}\\times ${B.nom + D.nom} = ${abVal} \\times ${bdVal} = ${abVal * bdVal}\\text{ cm}$, d'où $${E.nom + B.nom} =${racineExtraite1[1] === abVal * bdVal ? ` ${miseEnEvidence(`\\sqrt{${abVal * bdVal}}\\text{ cm}`)}` : `\\sqrt{${abVal * bdVal}}=${miseEnEvidence(`${racineExtraite1[0]}${racineExtraite1[1] === 1 ? '' : `\\sqrt{${racineExtraite1[1]}}`}\\text{ cm}`)}`}$.<br>
           On détermine $${E.nom + D.nom}$ et $${A.nom + E.nom}$ en utilisant le théorème de Pythagore. On a 
           $${E.nom + D.nom} = \\sqrt{${E.nom + B.nom}^2+${B.nom + D.nom}^2}$, d'où 
-          $${E.nom + D.nom}=${racineExtraite2[1] === abVal * bdVal + bdVal * bdVal ? `${miseEnEvidence(`\\sqrt{${abVal * bdVal + bdVal * bdVal}}~\\text{cm}`)}` : `\\sqrt{${abVal * bdVal + bdVal * bdVal}}= ${miseEnEvidence(`${racineExtraite2[0]}${racineExtraite2[1] === 1 ? '' : `\\sqrt{${racineExtraite2[1]}}`}~\\text{cm}`)}`}$.
+          $${E.nom + D.nom}=${racineExtraite2[1] === abVal * bdVal + bdVal * bdVal ? `${miseEnEvidence(`\\sqrt{${abVal * bdVal + bdVal * bdVal}}\\text{ cm}`)}` : `\\sqrt{${abVal * bdVal + bdVal * bdVal}}= ${miseEnEvidence(`${racineExtraite2[0]}${racineExtraite2[1] === 1 ? '' : `\\sqrt{${racineExtraite2[1]}}`}\\text{ cm}`)}`}$.
           <br>On a
           $${A.nom + E.nom} = \\sqrt{${A.nom + B.nom}^2 + ${B.nom + E.nom}^2}$, d'où
-          $${A.nom + E.nom}=${racineExtraite3[1] === abVal * bdVal + abVal * abVal ? `${miseEnEvidence(`\\sqrt{${abVal * bdVal + abVal * abVal}}~\\text{cm}`)}` : `\\sqrt{${abVal * bdVal + abVal * abVal}}= ${miseEnEvidence(`${racineExtraite3[0]}${racineExtraite3[1] === 1 ? '' : `\\sqrt{${racineExtraite3[1]}}`}~\\text{cm}`)}`}$.
+          $${A.nom + E.nom}=${racineExtraite3[1] === abVal * bdVal + abVal * abVal ? `${miseEnEvidence(`\\sqrt{${abVal * bdVal + abVal * abVal}}\\text{ cm}`)}` : `\\sqrt{${abVal * bdVal + abVal * abVal}}= ${miseEnEvidence(`${racineExtraite3[0]}${racineExtraite3[1] === 1 ? '' : `\\sqrt{${racineExtraite3[1]}}`}\\text{ cm}`)}`}$.
           `
           break
         }
@@ -355,7 +355,7 @@ export default class RelationsMetriquesTriangleRectangle extends Exercice {
             abVal = lVal - bdVal
           } while (abVal === bdVal)
           texte += `$${A.nom}${E.nom}, ${A.nom}${B.nom}, ${E.nom}${B.nom}$ et $${E.nom}${D.nom}$, si `
-          texte += `$${B.nom + D.nom} = ${bdVal}~\\text{cm}$ et $${A.nom + D.nom} = ${lVal}~\\text{cm}$.`
+          texte += `$${B.nom + D.nom} = ${bdVal}\\text{ cm}$ et $${A.nom + D.nom} = ${lVal}\\text{ cm}$.`
 
           const racineExtraite1 = extraireRacineCarree(abVal * bdVal)
           const racineExtraite2 = extraireRacineCarree(
@@ -370,40 +370,40 @@ export default class RelationsMetriquesTriangleRectangle extends Exercice {
   $
     ${A.nom + B.nom} = ${A.nom + D.nom} - ${B.nom + D.nom}$,
   d'où 
-   $ ${A.nom + B.nom} = ${lVal} - ${bdVal} = ${miseEnEvidence(`${abVal}~\\text{cm}`)}$,
+   $ ${A.nom + B.nom} = ${lVal} - ${bdVal} = ${miseEnEvidence(`${abVal}\\text{ cm}`)}$,
   <br>
   On détermine ensuite $${E.nom + B.nom}$.  ${this.correctionDetaillee ? 'Par la relation' : 'Par le théorème de Thalès, on a '} 
   $
     \\dfrac{${A.nom}${B.nom}}{${E.nom}${B.nom}} = \\dfrac{${E.nom}${B.nom}}{${B.nom}${D.nom}}$,
   il s'ensuit que
   $
-    ${E.nom + B.nom}^2 = ${A.nom + B.nom} \\times ${B.nom + D.nom} = ${abVal} \\times ${bdVal} = ${abVal * bdVal}~\\text{cm}^2
+    ${E.nom + B.nom}^2 = ${A.nom + B.nom} \\times ${B.nom + D.nom} = ${abVal} \\times ${bdVal} = ${abVal * bdVal}\\text{ cm}^2
   $,
   d'où 
   $
     ${E.nom + B.nom} = ${
       racineExtraite1[1] === abVal * bdVal
-        ? miseEnEvidence(`\\sqrt{${abVal * bdVal}}~\\text{cm}`)
-        : `\\sqrt{${abVal * bdVal}} = ${miseEnEvidence(`${racineExtraite1[0]}${racineExtraite1[1] === 1 ? '' : `\\sqrt{${racineExtraite1[1]}}`}~\\text{cm}`)}`
+        ? miseEnEvidence(`\\sqrt{${abVal * bdVal}}\\text{ cm}`)
+        : `\\sqrt{${abVal * bdVal}} = ${miseEnEvidence(`${racineExtraite1[0]}${racineExtraite1[1] === 1 ? '' : `\\sqrt{${racineExtraite1[1]}}`}\\text{ cm}`)}`
     }$,
   <br>
   On détermine $${E.nom + D.nom}$ en appliquant le théorème de Pythagore. On a 
   $
-    ${E.nom + D.nom} = \\sqrt{{${E.nom + B.nom}}^2 + {${B.nom + D.nom}}^2} = \\sqrt{${abVal * bdVal} + ${bdVal * bdVal}} = \\sqrt{${abVal * bdVal + bdVal * bdVal}}~\\text{cm}$,
+    ${E.nom + D.nom} = \\sqrt{{${E.nom + B.nom}}^2 + {${B.nom + D.nom}}^2} = \\sqrt{${abVal * bdVal} + ${bdVal * bdVal}} = \\sqrt{${abVal * bdVal + bdVal * bdVal}}\\text{ cm}$,
   d'où $
     ${E.nom + D.nom} = ${
       racineExtraite2[1] === abVal * bdVal + bdVal * bdVal
-        ? miseEnEvidence(`\\sqrt{${abVal * bdVal + bdVal * bdVal}}~\\text{cm}`)
-        : `\\sqrt{${abVal * bdVal + bdVal * bdVal}} = ${miseEnEvidence(`${racineExtraite2[0]}${racineExtraite2[1] === 1 ? '' : `\\sqrt{${racineExtraite2[1]}}`}~\\text{cm}`)}`
+        ? miseEnEvidence(`\\sqrt{${abVal * bdVal + bdVal * bdVal}}\\text{ cm}`)
+        : `\\sqrt{${abVal * bdVal + bdVal * bdVal}} = ${miseEnEvidence(`${racineExtraite2[0]}${racineExtraite2[1] === 1 ? '' : `\\sqrt{${racineExtraite2[1]}}`}\\text{ cm}`)}`
     }$,
   <br>
   Enfin, on détermine $${A.nom + E.nom}$ en appliquant le théorème de Pythagore. On a 
-    $${A.nom + E.nom} = \\sqrt{{${A.nom + B.nom}}^2 + {${E.nom + B.nom}}^2} = \\sqrt{${abVal * abVal} + ${abVal * bdVal}} = \\sqrt{${abVal * abVal + abVal * bdVal}}~\\text{cm}$,
+    $${A.nom + E.nom} = \\sqrt{{${A.nom + B.nom}}^2 + {${E.nom + B.nom}}^2} = \\sqrt{${abVal * abVal} + ${abVal * bdVal}} = \\sqrt{${abVal * abVal + abVal * bdVal}}\\text{ cm}$,
   d'où 
   $${A.nom + E.nom} = ${
     racineExtraite3[1] === abVal * abVal + abVal * bdVal
-      ? miseEnEvidence(`\\sqrt{${abVal * abVal + abVal * bdVal}}~\\text{cm}`)
-      : `\\sqrt{${abVal * abVal + abVal * bdVal}} = ${miseEnEvidence(`${racineExtraite3[0]}${racineExtraite3[1] === 1 ? '' : `\\sqrt{${racineExtraite3[1]}}`}~\\text{cm}`)}$`
+      ? miseEnEvidence(`\\sqrt{${abVal * abVal + abVal * bdVal}}\\text{ cm}`)
+      : `\\sqrt{${abVal * abVal + abVal * bdVal}} = ${miseEnEvidence(`${racineExtraite3[0]}${racineExtraite3[1] === 1 ? '' : `\\sqrt{${racineExtraite3[1]}}`}\\text{ cm}`)}$`
   }.`
           break
         }
@@ -418,7 +418,7 @@ export default class RelationsMetriquesTriangleRectangle extends Exercice {
             abVal = lVal - bdVal
           } while (abVal === bdVal)
           texte += `$${A.nom}${E.nom}, ${E.nom}${D.nom}, ${E.nom}${B.nom}$ et $${B.nom}${D.nom}$, si `
-          texte += `$${A.nom + B.nom} = ${abVal}~\\text{cm}$ et $${A.nom + D.nom} = ${lVal}~\\text{cm}$.`
+          texte += `$${A.nom + B.nom} = ${abVal}\\text{ cm}$ et $${A.nom + D.nom} = ${lVal}\\text{ cm}$.`
 
           // Calcul des racines extraites pour simplifier les résultats :
           const racineExtraite1 = extraireRacineCarree(abVal * bdVal)
@@ -430,7 +430,7 @@ export default class RelationsMetriquesTriangleRectangle extends Exercice {
           )
 
           texteCorr += `<br>
-  On commence par déterminer $${B.nom + D.nom}$ : comme $${B.nom + D.nom} = ${A.nom + D.nom} - ${A.nom + B.nom}$, on a $${B.nom + D.nom} = ${lVal} - ${abVal} = ${miseEnEvidence(`${bdVal}~\\text{cm}`)}$. 
+  On commence par déterminer $${B.nom + D.nom}$ : comme $${B.nom + D.nom} = ${A.nom + D.nom} - ${A.nom + B.nom}$, on a $${B.nom + D.nom} = ${lVal} - ${abVal} = ${miseEnEvidence(`${bdVal}\\text{ cm}`)}$. 
 
   <br>
   On détermine ensuite $${E.nom + B.nom}$.  ${this.correctionDetaillee ? 'Par la relation' : 'Par le théorème de Thalès, on a '} 
@@ -438,33 +438,33 @@ export default class RelationsMetriquesTriangleRectangle extends Exercice {
     \\dfrac{${A.nom}${B.nom}}{${E.nom}${B.nom}} = \\dfrac{${E.nom}${B.nom}}{${B.nom}${D.nom}}$,
   on a 
   $
-    ${E.nom + B.nom}^2 = ${A.nom + B.nom} \\times ${B.nom + D.nom} = ${abVal} \\times ${bdVal} = ${abVal * bdVal}~\\text{cm}^2
+    ${E.nom + B.nom}^2 = ${A.nom + B.nom} \\times ${B.nom + D.nom} = ${abVal} \\times ${bdVal} = ${abVal * bdVal}\\text{ cm}^2
   $,
   d'où 
   $
     ${E.nom + B.nom} = ${
       racineExtraite1[1] === abVal * bdVal
-        ? miseEnEvidence(`\\sqrt{${abVal * bdVal}}~\\text{cm}`)
-        : `\\sqrt{${abVal * bdVal}} = ${miseEnEvidence(`${racineExtraite1[0]}${racineExtraite1[1] === 1 ? '' : `\\sqrt{${racineExtraite1[1]}}`}~\\text{cm}`)}`
+        ? miseEnEvidence(`\\sqrt{${abVal * bdVal}}\\text{ cm}`)
+        : `\\sqrt{${abVal * bdVal}} = ${miseEnEvidence(`${racineExtraite1[0]}${racineExtraite1[1] === 1 ? '' : `\\sqrt{${racineExtraite1[1]}}`}\\text{ cm}`)}`
     }$,
   <br>
   On détermine $${E.nom + D.nom}$ en appliquant le théorème de Pythagore. On a 
   $
-    ${E.nom + D.nom} = \\sqrt{{${E.nom + B.nom}}^2 + {${B.nom + D.nom}}^2} = \\sqrt{${abVal * bdVal} + ${bdVal * bdVal}} = \\sqrt{${abVal * bdVal + bdVal * bdVal}}~\\text{cm}$,
+    ${E.nom + D.nom} = \\sqrt{{${E.nom + B.nom}}^2 + {${B.nom + D.nom}}^2} = \\sqrt{${abVal * bdVal} + ${bdVal * bdVal}} = \\sqrt{${abVal * bdVal + bdVal * bdVal}}\\text{ cm}$,
   d'où $
     ${E.nom + D.nom} = ${
       racineExtraite2[1] === abVal * bdVal + bdVal * bdVal
-        ? miseEnEvidence(`\\sqrt{${abVal * bdVal + bdVal * bdVal}}~\\text{cm}`)
-        : `\\sqrt{${abVal * bdVal + bdVal * bdVal}} = ${miseEnEvidence(`${racineExtraite2[0]}${racineExtraite2[1] === 1 ? '' : `\\sqrt{${racineExtraite2[1]}}`}~\\text{cm}`)}`
+        ? miseEnEvidence(`\\sqrt{${abVal * bdVal + bdVal * bdVal}}\\text{ cm}`)
+        : `\\sqrt{${abVal * bdVal + bdVal * bdVal}} = ${miseEnEvidence(`${racineExtraite2[0]}${racineExtraite2[1] === 1 ? '' : `\\sqrt{${racineExtraite2[1]}}`}\\text{ cm}`)}`
     }$,
   <br>
   Enfin, on détermine $${A.nom + E.nom}$ en appliquant le théorème de Pythagore. On a 
-    $${A.nom + E.nom} = \\sqrt{{${A.nom + B.nom}}^2 + {${E.nom + B.nom}}^2} = \\sqrt{${abVal * abVal} + ${abVal * bdVal}} = \\sqrt{${abVal * abVal + abVal * bdVal}}~\\text{cm}$,
+    $${A.nom + E.nom} = \\sqrt{{${A.nom + B.nom}}^2 + {${E.nom + B.nom}}^2} = \\sqrt{${abVal * abVal} + ${abVal * bdVal}} = \\sqrt{${abVal * abVal + abVal * bdVal}}\\text{ cm}$,
   d'où 
   $${A.nom + E.nom} = ${
     racineExtraite3[1] === abVal * abVal + abVal * bdVal
-      ? miseEnEvidence(`\\sqrt{${abVal * abVal + abVal * bdVal}}~\\text{cm}`)
-      : `\\sqrt{${abVal * abVal + abVal * bdVal}} = ${miseEnEvidence(`${racineExtraite3[0]}${racineExtraite3[1] === 1 ? '' : `\\sqrt{${racineExtraite3[1]}}`}~\\text{cm}`)}$`
+      ? miseEnEvidence(`\\sqrt{${abVal * abVal + abVal * bdVal}}\\text{ cm}`)
+      : `\\sqrt{${abVal * abVal + abVal * bdVal}} = ${miseEnEvidence(`${racineExtraite3[0]}${racineExtraite3[1] === 1 ? '' : `\\sqrt{${racineExtraite3[1]}}`}\\text{ cm}`)}$`
   }.`
           break
         }
@@ -474,17 +474,17 @@ export default class RelationsMetriquesTriangleRectangle extends Exercice {
           const a = randint(6, 20)
           const abVal = randint(3, a - 1) // on demande a > AB
           texte += `$${E.nom}${D.nom}, ${B.nom}${D.nom}, ${E.nom}${B.nom}$ et $${A.nom}${D.nom}$, si `
-          texte += `$${A.nom + E.nom} = ${a}~\\text{cm}$ et $${A.nom + B.nom} = ${abVal}~\\text{cm}$.`
+          texte += `$${A.nom + E.nom} = ${a}\\text{ cm}$ et $${A.nom + B.nom} = ${abVal}\\text{ cm}$.`
           const racineExtraite1 = extraireRacineCarree(a * a - abVal * abVal)
           const bdVal = new FractionEtendue(a * a - abVal * abVal, abVal)
           const ebCarreVal = new FractionEtendue(a * a - abVal * abVal, 1)
           const edVal = bdVal.produitFraction(bdVal).sommeFraction(ebCarreVal)
 
           texteCorr += `<br>
-          On commence par déterminer $${E.nom + B.nom}$. Par le théorème de Pythagore, on a $${E.nom + B.nom} = \\sqrt{${A.nom + E.nom}^2 - ${A.nom + B.nom}^2}$, d'où $${E.nom + B.nom} = \\sqrt{${a}^2 - ${abVal}^2} = ${racineExtraite1[1] === a * a - abVal * abVal ? miseEnEvidence(`\\sqrt{${a * a - abVal * abVal}}~\\text{cm}`) : `\\sqrt{${a * a - abVal * abVal}} = ${miseEnEvidence(`${racineExtraite1[0]}${racineExtraite1[1] === 1 ? '' : `\\sqrt{${racineExtraite1[1]}}`}~\\text{cm}`)}`}$.
-          <br> ${this.correctionDetaillee ? 'Par la relation' : 'Par le théorème de Thalès, on a '} $\\dfrac{${A.nom + B.nom}}{${E.nom + B.nom}}=\\dfrac{${E.nom + B.nom}}{${B.nom + D.nom}}$, il s'ensuit que $${B.nom + D.nom}= \\dfrac{${E.nom + B.nom}^2}{${A.nom + B.nom}}=${miseEnEvidence(bdVal.texFractionSimplifiee + '~\\text{cm}')}$.
-          <br> On détermine $ED$ à l'aide du théorème de Pythagore. On a $${E.nom + D.nom}=\\sqrt{${E.nom + B.nom}^2+${B.nom + D.nom}^2}$, d'où $${E.nom + D.nom}=\\sqrt{(${racineExtraite1[1] === a * a - abVal * abVal ? `\\sqrt{${a * a - abVal * abVal}}` : `${racineExtraite1[0]}${racineExtraite1[1] === 1 ? '' : `\\sqrt{${racineExtraite1[1]}}`}`})^2+${bdVal.simplifie().texParentheses}^2}=${miseEnEvidence(edVal.simplifie().texRacineCarree() + '~\\text{cm}')}$
-          <br> Enfin, on détermine $${A.nom + D.nom}$. On a $${A.nom + D.nom} = ${A.nom + B.nom} + ${B.nom + D.nom}$, d'où $${A.nom + D.nom} = ${abVal} + ${bdVal.texFractionSimplifiee} = ${miseEnEvidence(bdVal.ajouteEntier(abVal).texFractionSimplifiee + '~\\text{cm}')}$.
+          On commence par déterminer $${E.nom + B.nom}$. Par le théorème de Pythagore, on a $${E.nom + B.nom} = \\sqrt{${A.nom + E.nom}^2 - ${A.nom + B.nom}^2}$, d'où $${E.nom + B.nom} = \\sqrt{${a}^2 - ${abVal}^2} = ${racineExtraite1[1] === a * a - abVal * abVal ? miseEnEvidence(`\\sqrt{${a * a - abVal * abVal}}\\text{ cm}`) : `\\sqrt{${a * a - abVal * abVal}} = ${miseEnEvidence(`${racineExtraite1[0]}${racineExtraite1[1] === 1 ? '' : `\\sqrt{${racineExtraite1[1]}}`}\\text{ cm}`)}`}$.
+          <br> ${this.correctionDetaillee ? 'Par la relation' : 'Par le théorème de Thalès, on a '} $\\dfrac{${A.nom + B.nom}}{${E.nom + B.nom}}=\\dfrac{${E.nom + B.nom}}{${B.nom + D.nom}}$, il s'ensuit que $${B.nom + D.nom}= \\dfrac{${E.nom + B.nom}^2}{${A.nom + B.nom}}=${miseEnEvidence(bdVal.texFractionSimplifiee + '\\text{ cm}')}$.
+          <br> On détermine $ED$ à l'aide du théorème de Pythagore. On a $${E.nom + D.nom}=\\sqrt{${E.nom + B.nom}^2+${B.nom + D.nom}^2}$, d'où $${E.nom + D.nom}=\\sqrt{(${racineExtraite1[1] === a * a - abVal * abVal ? `\\sqrt{${a * a - abVal * abVal}}` : `${racineExtraite1[0]}${racineExtraite1[1] === 1 ? '' : `\\sqrt{${racineExtraite1[1]}}`}`})^2+${bdVal.simplifie().texParentheses}^2}=${miseEnEvidence(edVal.simplifie().texRacineCarree() + '\\text{ cm}')}$
+          <br> Enfin, on détermine $${A.nom + D.nom}$. On a $${A.nom + D.nom} = ${A.nom + B.nom} + ${B.nom + D.nom}$, d'où $${A.nom + D.nom} = ${abVal} + ${bdVal.texFractionSimplifiee} = ${miseEnEvidence(bdVal.ajouteEntier(abVal).texFractionSimplifiee + '\\text{ cm}')}$.
   `
           break
         }
@@ -506,13 +506,13 @@ export default class RelationsMetriquesTriangleRectangle extends Exercice {
             adCarreVal,
           )
           texte += `$${A.nom}${B.nom}, ${B.nom}${D.nom}, ${E.nom}${B.nom}$ et $${A.nom}${D.nom}$, si `
-          texte += `$${A.nom + E.nom} = ${aeVal}~\\text{cm}$ et $${E.nom + D.nom} = ${edVal}~\\text{cm}$.`
+          texte += `$${A.nom + E.nom} = ${aeVal}\\text{ cm}$ et $${E.nom + D.nom} = ${edVal}\\text{ cm}$.`
           texteCorr += `
-          <br>On détermine $${A.nom + D.nom}$ à l'aide du théorème de Pythagore. On a $${A.nom + D.nom} = \\sqrt{${A.nom + E.nom}^2 + ${E.nom + D.nom}^2}$, d'où $${A.nom + D.nom} = \\sqrt{${aeVal}^2 + ${edVal}^2} = ${racineExtraite1[1] === aeVal * aeVal + edVal * edVal ? miseEnEvidence(`\\sqrt{${aeVal * aeVal + edVal * edVal}}~\\text{cm}`) : `\\sqrt{${aeVal * aeVal + edVal * edVal}} = ${miseEnEvidence(`${racineExtraite1[0]}${racineExtraite1[1] === 1 ? '' : `\\sqrt{${racineExtraite1[1]}}`}~\\text{cm}`)}`}$
-          <br>  ${this.correctionDetaillee ? 'Par la relation' : 'Par le théorème de Thalès, on a '} $\\dfrac{${A.nom + E.nom}}{${A.nom + D.nom}}=\\dfrac{${E.nom + B.nom}}{${E.nom + D.nom}}$, il s'ensuit que $${E.nom + B.nom}=\\dfrac{${A.nom + E.nom}\\times ${E.nom + D.nom}}{${A.nom + D.nom}}=${miseEnEvidence(ebCarreVal.simplifie().texRacineCarree() + '~\\text{cm}')}$.
+          <br>On détermine $${A.nom + D.nom}$ à l'aide du théorème de Pythagore. On a $${A.nom + D.nom} = \\sqrt{${A.nom + E.nom}^2 + ${E.nom + D.nom}^2}$, d'où $${A.nom + D.nom} = \\sqrt{${aeVal}^2 + ${edVal}^2} = ${racineExtraite1[1] === aeVal * aeVal + edVal * edVal ? miseEnEvidence(`\\sqrt{${aeVal * aeVal + edVal * edVal}}\\text{ cm}`) : `\\sqrt{${aeVal * aeVal + edVal * edVal}} = ${miseEnEvidence(`${racineExtraite1[0]}${racineExtraite1[1] === 1 ? '' : `\\sqrt{${racineExtraite1[1]}}`}\\text{ cm}`)}`}$
+          <br>  ${this.correctionDetaillee ? 'Par la relation' : 'Par le théorème de Thalès, on a '} $\\dfrac{${A.nom + E.nom}}{${A.nom + D.nom}}=\\dfrac{${E.nom + B.nom}}{${E.nom + D.nom}}$, il s'ensuit que $${E.nom + B.nom}=\\dfrac{${A.nom + E.nom}\\times ${E.nom + D.nom}}{${A.nom + D.nom}}=${miseEnEvidence(ebCarreVal.simplifie().texRacineCarree() + '\\text{ cm}')}$.
           <br> On peut à présent utiliser le théorème de Thalès ou le théorème de Pythagore pour déterminer $${A.nom + B.nom}$ ou $${B.nom + D.nom}$.<br>On utilise une des relations données par le théorème de Thalès pour déterminer $${A.nom + B.nom}$. 
           On a $\\dfrac{${A.nom + E.nom}}{${A.nom + D.nom}}=\\dfrac{${A.nom + B.nom}}{${A.nom + E.nom}}$ d'où $${A.nom + B.nom}=\\dfrac{${A.nom + E.nom}^2}{${A.nom + D.nom}}=${miseEnEvidence(abCarreVal.simplifie().texRacineCarree())}$.
-          <br> Enfin, on a que $${B.nom + D.nom} = ${A.nom + D.nom}-${A.nom + B.nom}=${racineExtraite1[1] === aeVal * aeVal + edVal * edVal ? `\\sqrt{${aeVal * aeVal + edVal * edVal}}` : `${`${racineExtraite1[0]}${racineExtraite1[1] === 1 ? '' : `\\sqrt{${racineExtraite1[1]}}`}`}`}-${abCarreVal.simplifie().texRacineCarree()}=${miseEnEvidence(ebCarreVal.produitFraction(ebCarreVal).diviseFraction(abCarreVal).simplifie().texRacineCarree() + '~\\text{cm}')}$.
+          <br> Enfin, on a que $${B.nom + D.nom} = ${A.nom + D.nom}-${A.nom + B.nom}=${racineExtraite1[1] === aeVal * aeVal + edVal * edVal ? `\\sqrt{${aeVal * aeVal + edVal * edVal}}` : `${`${racineExtraite1[0]}${racineExtraite1[1] === 1 ? '' : `\\sqrt{${racineExtraite1[1]}}`}`}`}-${abCarreVal.simplifie().texRacineCarree()}=${miseEnEvidence(ebCarreVal.produitFraction(ebCarreVal).diviseFraction(abCarreVal).simplifie().texRacineCarree() + '\\text{ cm}')}$.
           `
           break
         }
@@ -536,12 +536,12 @@ export default class RelationsMetriquesTriangleRectangle extends Exercice {
             1,
           ).differenceFraction(ebValCarre)
           texte += `$${A.nom}${B.nom}, ${E.nom}${D.nom}, ${E.nom}${B.nom}$ et $${B.nom}${D.nom}$, si `
-          texte += `$${A.nom + E.nom} = ${aeVal}~\\text{cm}$ et $${A.nom + D.nom} = ${adVal}~\\text{cm}$.`
-          texteCorr += `<br> Par le théorème de Pythagore, on a $${E.nom + D.nom} = \\sqrt{${A.nom + D.nom}^2 - ${A.nom + E.nom}^2}$, d'où $${E.nom + D.nom} = \\sqrt{${adVal}^2 - ${aeVal}^2} = ${racineExtraite1[1] === adVal * adVal - aeVal * aeVal ? miseEnEvidence(`\\sqrt{${adVal * adVal - aeVal * aeVal}}~\\text{cm}`) : `\\sqrt{${adVal * adVal - aeVal * aeVal}} = ${miseEnEvidence(`${racineExtraite1[0]}${racineExtraite1[1] === 1 ? '' : `\\sqrt{${racineExtraite1[1]}}`}~\\text{cm}`)}`}$.
-          <br>  ${this.correctionDetaillee ? 'Par la relation' : 'Par le théorème de Thalès, on a '} $\\dfrac{${A.nom + E.nom}}{${A.nom + D.nom}}=\\dfrac{${E.nom + B.nom}}{${E.nom + D.nom}}$, il s'ensuit que $${E.nom + B.nom}=\\dfrac{${A.nom + E.nom}\\times ${E.nom + D.nom}}{${A.nom + D.nom}}=${miseEnEvidence(ebValCarre.texRacineCarree() + '~\\text{cm}')}$.
+          texte += `$${A.nom + E.nom} = ${aeVal}\\text{ cm}$ et $${A.nom + D.nom} = ${adVal}\\text{ cm}$.`
+          texteCorr += `<br> Par le théorème de Pythagore, on a $${E.nom + D.nom} = \\sqrt{${A.nom + D.nom}^2 - ${A.nom + E.nom}^2}$, d'où $${E.nom + D.nom} = \\sqrt{${adVal}^2 - ${aeVal}^2} = ${racineExtraite1[1] === adVal * adVal - aeVal * aeVal ? miseEnEvidence(`\\sqrt{${adVal * adVal - aeVal * aeVal}}\\text{ cm}`) : `\\sqrt{${adVal * adVal - aeVal * aeVal}} = ${miseEnEvidence(`${racineExtraite1[0]}${racineExtraite1[1] === 1 ? '' : `\\sqrt{${racineExtraite1[1]}}`}\\text{ cm}`)}`}$.
+          <br>  ${this.correctionDetaillee ? 'Par la relation' : 'Par le théorème de Thalès, on a '} $\\dfrac{${A.nom + E.nom}}{${A.nom + D.nom}}=\\dfrac{${E.nom + B.nom}}{${E.nom + D.nom}}$, il s'ensuit que $${E.nom + B.nom}=\\dfrac{${A.nom + E.nom}\\times ${E.nom + D.nom}}{${A.nom + D.nom}}=${miseEnEvidence(ebValCarre.texRacineCarree() + '\\text{ cm}')}$.
           <br> On peut à présent utiliser le théorème de Thalès ou le théorème de Pythagore pour déterminer $${A.nom + B.nom}$ ou $${B.nom + D.nom}$.<br>On utilise le théorème de Pythagore. On a 
-          $${A.nom + B.nom}= \\sqrt{${A.nom + E.nom}^2 - ${E.nom + B.nom}^2}$, d'où $${A.nom + B.nom}=\\sqrt{${aeVal * aeVal} - ${ebValCarre.texFractionSimplifiee}}=${miseEnEvidence(abValCarre.texRacineCarree() + '~\\text{cm}')}$.
-          <br> Enfin, on détermine $${B.nom + D.nom}$. On a $${B.nom + D.nom} = ${A.nom + D.nom}-${A.nom + B.nom}=${adVal}-${abValCarre.texRacineCarree()}=${miseEnEvidence(bdValCarre.texRacineCarree() + '~\\text{cm}')}$.
+          $${A.nom + B.nom}= \\sqrt{${A.nom + E.nom}^2 - ${E.nom + B.nom}^2}$, d'où $${A.nom + B.nom}=\\sqrt{${aeVal * aeVal} - ${ebValCarre.texFractionSimplifiee}}=${miseEnEvidence(abValCarre.texRacineCarree() + '\\text{ cm}')}$.
+          <br> Enfin, on détermine $${B.nom + D.nom}$. On a $${B.nom + D.nom} = ${A.nom + D.nom}-${A.nom + B.nom}=${adVal}-${abValCarre.texRacineCarree()}=${miseEnEvidence(bdValCarre.texRacineCarree() + '\\text{ cm}')}$.
           `
           break
         }
@@ -565,7 +565,7 @@ export default class RelationsMetriquesTriangleRectangle extends Exercice {
             .simplifie()
           // 2) On prépare l'énoncé
           texte += `$${A.nom}${B.nom}, ${A.nom}${E.nom}, ${E.nom}${B.nom}$ et $${B.nom}${D.nom}$,`
-          texte += ` si $${E.nom + D.nom} = ${edVal}~\\text{cm}$ et $${A.nom + D.nom} = ${adVal}~\\text{cm}$.`
+          texte += ` si $${E.nom + D.nom} = ${edVal}\\text{ cm}$ et $${A.nom + D.nom} = ${adVal}\\text{ cm}$.`
 
           // 3) Correction : calculs et justifications
           // - Triangle AED rectangle en E => AE^2 + ED^2 = AD^2
@@ -577,17 +577,17 @@ export default class RelationsMetriquesTriangleRectangle extends Exercice {
     On a $${A.nom + E.nom}^2 = ${A.nom + D.nom}^2 - ${E.nom + D.nom}^2 = ${adVal}^2 - ${edVal}^2 = ${aeCarre}$, 
     d'où $${A.nom + E.nom} = ${
       aeSimpl[1] === aeCarre
-        ? miseEnEvidence(`\\sqrt{${aeCarre}}~\\text{cm}`)
-        : `\\sqrt{${aeCarre}} = ${miseEnEvidence(`${aeSimpl[0]}${aeSimpl[1] === 1 ? '' : `\\sqrt{${aeSimpl[1]}}`}~\\text{cm}`)}`
+        ? miseEnEvidence(`\\sqrt{${aeCarre}}\\text{ cm}`)
+        : `\\sqrt{${aeCarre}} = ${miseEnEvidence(`${aeSimpl[0]}${aeSimpl[1] === 1 ? '' : `\\sqrt{${aeSimpl[1]}}`}\\text{ cm}`)}`
     }.$
 
     <br>
     ${this.correctionDetaillee ? 'Par la relation' : 'Par le théorème de Thalès, on a '} $\\dfrac{${A.nom + E.nom}}{${A.nom + D.nom}} = \\dfrac{${E.nom + B.nom}}{${E.nom + D.nom}}$,
-    il s'ensuit que $${E.nom + B.nom} = \\dfrac{${A.nom + E.nom}\\times ${E.nom + D.nom}}{${A.nom + D.nom}} = ${miseEnEvidence(ebValCarre.simplifie().texRacineCarree() + '~\\text{cm}')}.$
+    il s'ensuit que $${E.nom + B.nom} = \\dfrac{${A.nom + E.nom}\\times ${E.nom + D.nom}}{${A.nom + D.nom}} = ${miseEnEvidence(ebValCarre.simplifie().texRacineCarree() + '\\text{ cm}')}.$
 
     <br>
    Par le théorème de Pythagore, on a 
-    $${A.nom + B.nom} = \\sqrt{${A.nom + E.nom}^2 - ${E.nom + B.nom}^2}$ d'où $${A.nom + B.nom} = \\sqrt{${aeCarre} - ${ebValCarre.simplifie().texFractionSimplifiee}} = ${miseEnEvidence(abValCarre.texRacineCarree() + '~\\text{cm}')}.$
+    $${A.nom + B.nom} = \\sqrt{${A.nom + E.nom}^2 - ${E.nom + B.nom}^2}$ d'où $${A.nom + B.nom} = \\sqrt{${aeCarre} - ${ebValCarre.simplifie().texFractionSimplifiee}} = ${miseEnEvidence(abValCarre.texRacineCarree() + '\\text{ cm}')}.$
 
     <br>
     Enfin, $${B.nom + D.nom} = ${A.nom + D.nom} - ${A.nom + B.nom}=${miseEnEvidence(
@@ -619,11 +619,11 @@ export default class RelationsMetriquesTriangleRectangle extends Exercice {
             .simplifie()
             .texRacineCarree()
           texte += `$${A.nom}${B.nom}, ${E.nom}${D.nom}, ${B.nom}${D.nom}$ et $${A.nom}${D.nom}$, si `
-          texte += `$${A.nom + E.nom} = ${aeVal}~\\text{cm}$ et $${E.nom + B.nom} = ${ebVal}~\\text{cm}$.`
-          texteCorr += `<br> On commence par déterminer $${A.nom + B.nom}$. Par le théorème de Pythagore, on a $${A.nom + B.nom} = \\sqrt{${A.nom + E.nom}^2 - ${E.nom + B.nom}^2}$, d'où $${A.nom + B.nom} = \\sqrt{${aeVal}^2 - ${ebVal}^2} = ${miseEnEvidence(new FractionEtendue(abValCarre, 1).texRacineCarree() + '~\\text{cm}')}$.<br>
-          On détermine ensuite $${B.nom + D.nom}$.  ${this.correctionDetaillee ? 'Par la relation' : 'Par le théorème de Thalès, on a '} $\\dfrac{${A.nom + B.nom}}{${E.nom + B.nom}}=\\dfrac{${E.nom + B.nom}}{${B.nom + D.nom}}$, il s'ensuit que $${B.nom + D.nom}=\\dfrac{${E.nom + B.nom}^2}{${A.nom + B.nom}}=${miseEnEvidence(bdValCarre.simplifie().texRacineCarree() + '~\\text{cm}')}$.
-          <br>On détermine $${E.nom + D.nom}$ en appliquant le théorème de Pythagore. On a $${E.nom + D.nom} = \\sqrt{{${E.nom + B.nom}}^2 + {${B.nom + D.nom}}^2} = \\sqrt{${ebVal * ebVal} + ${bdValCarre.simplifie().texFractionSimplifiee}} = ${miseEnEvidence(edValCarre.simplifie().texRacineCarree() + '~\\text{cm}')}$.
-          <br>Enfin, on détermine $${A.nom + D.nom}$. On a $${A.nom + D.nom} = ${A.nom + B.nom} + ${B.nom + D.nom}=${miseEnEvidence(adVal + '~\\text{cm}')}$.
+          texte += `$${A.nom + E.nom} = ${aeVal}\\text{ cm}$ et $${E.nom + B.nom} = ${ebVal}\\text{ cm}$.`
+          texteCorr += `<br> On commence par déterminer $${A.nom + B.nom}$. Par le théorème de Pythagore, on a $${A.nom + B.nom} = \\sqrt{${A.nom + E.nom}^2 - ${E.nom + B.nom}^2}$, d'où $${A.nom + B.nom} = \\sqrt{${aeVal}^2 - ${ebVal}^2} = ${miseEnEvidence(new FractionEtendue(abValCarre, 1).texRacineCarree() + '\\text{ cm}')}$.<br>
+          On détermine ensuite $${B.nom + D.nom}$.  ${this.correctionDetaillee ? 'Par la relation' : 'Par le théorème de Thalès, on a '} $\\dfrac{${A.nom + B.nom}}{${E.nom + B.nom}}=\\dfrac{${E.nom + B.nom}}{${B.nom + D.nom}}$, il s'ensuit que $${B.nom + D.nom}=\\dfrac{${E.nom + B.nom}^2}{${A.nom + B.nom}}=${miseEnEvidence(bdValCarre.simplifie().texRacineCarree() + '\\text{ cm}')}$.
+          <br>On détermine $${E.nom + D.nom}$ en appliquant le théorème de Pythagore. On a $${E.nom + D.nom} = \\sqrt{{${E.nom + B.nom}}^2 + {${B.nom + D.nom}}^2} = \\sqrt{${ebVal * ebVal} + ${bdValCarre.simplifie().texFractionSimplifiee}} = ${miseEnEvidence(edValCarre.simplifie().texRacineCarree() + '\\text{ cm}')}$.
+          <br>Enfin, on détermine $${A.nom + D.nom}$. On a $${A.nom + D.nom} = ${A.nom + B.nom} + ${B.nom + D.nom}=${miseEnEvidence(adVal + '\\text{ cm}')}$.
           `
           break
         }
@@ -646,13 +646,13 @@ export default class RelationsMetriquesTriangleRectangle extends Exercice {
             .simplifie()
             .texRacineCarree()
           texte += `$${A.nom}${E.nom}, ${A.nom}${B.nom}, ${B.nom}${D.nom}$ et $${A.nom}${D.nom}$, si `
-          texte += `$${E.nom + D.nom} = ${edVal}~\\text{cm}, ${E.nom + B.nom} = ${ebVal}~\\text{cm}$.`
+          texte += `$${E.nom + D.nom} = ${edVal}\\text{ cm}, ${E.nom + B.nom} = ${ebVal}\\text{ cm}$.`
           texteCorr += `
           <br>
-          On détermine $${B.nom + D.nom}$ à l'aide du théorème de Pythagore. On a $${B.nom + D.nom} = \\sqrt{${E.nom + D.nom}^2 - ${E.nom + B.nom}^2}$, d'où $${B.nom + D.nom} = \\sqrt{${edVal}^2 - ${ebVal}^2} = ${miseEnEvidence(new FractionEtendue(bdValCarre, 1).texRacineCarree() + '~\\text{cm}')}$.
-         <br>On détermine ensuite $${A.nom + B.nom}$.  ${this.correctionDetaillee ? 'Par la relation' : 'Par le théorème de Thalès, on a '} $\\dfrac{${A.nom + B.nom}}{${E.nom + B.nom}}=\\dfrac{${E.nom + B.nom}}{${B.nom + D.nom}}$, il s'ensuit que $${A.nom + B.nom}=\\dfrac{${E.nom + B.nom}^2}{${B.nom + D.nom}}=${miseEnEvidence(abValCarre.simplifie().texRacineCarree() + '~\\text{cm}')}$.
-         <br> On détermine $${A.nom + E.nom}$ en appliquant le théorème de Pythagore. On a $${A.nom + E.nom} = \\sqrt{{${A.nom + B.nom}}^2 + {${E.nom + B.nom}}^2} = \\sqrt{${abValCarre.simplifie().texFractionSimplifiee} + ${ebVal * ebVal}} = ${miseEnEvidence(aeValCarre.simplifie().texRacineCarree() + '~\\text{cm}')}$.
-         <br> Enfin, on détermine $${A.nom + D.nom}$. On a $${A.nom + D.nom} = ${A.nom + B.nom} + ${B.nom + D.nom}=${miseEnEvidence(adVal + '~\\text{cm}')}$.
+          On détermine $${B.nom + D.nom}$ à l'aide du théorème de Pythagore. On a $${B.nom + D.nom} = \\sqrt{${E.nom + D.nom}^2 - ${E.nom + B.nom}^2}$, d'où $${B.nom + D.nom} = \\sqrt{${edVal}^2 - ${ebVal}^2} = ${miseEnEvidence(new FractionEtendue(bdValCarre, 1).texRacineCarree() + '\\text{ cm}')}$.
+         <br>On détermine ensuite $${A.nom + B.nom}$.  ${this.correctionDetaillee ? 'Par la relation' : 'Par le théorème de Thalès, on a '} $\\dfrac{${A.nom + B.nom}}{${E.nom + B.nom}}=\\dfrac{${E.nom + B.nom}}{${B.nom + D.nom}}$, il s'ensuit que $${A.nom + B.nom}=\\dfrac{${E.nom + B.nom}^2}{${B.nom + D.nom}}=${miseEnEvidence(abValCarre.simplifie().texRacineCarree() + '\\text{ cm}')}$.
+         <br> On détermine $${A.nom + E.nom}$ en appliquant le théorème de Pythagore. On a $${A.nom + E.nom} = \\sqrt{{${A.nom + B.nom}}^2 + {${E.nom + B.nom}}^2} = \\sqrt{${abValCarre.simplifie().texFractionSimplifiee} + ${ebVal * ebVal}} = ${miseEnEvidence(aeValCarre.simplifie().texRacineCarree() + '\\text{ cm}')}$.
+         <br> Enfin, on détermine $${A.nom + D.nom}$. On a $${A.nom + D.nom} = ${A.nom + B.nom} + ${B.nom + D.nom}=${miseEnEvidence(adVal + '\\text{ cm}')}$.
           `
           break
         }
@@ -676,11 +676,11 @@ export default class RelationsMetriquesTriangleRectangle extends Exercice {
             .texRacineCarree()
 
           texte += `$${A.nom}${E.nom}, ${E.nom}${D.nom}, ${B.nom}${D.nom}$ et $${A.nom}${D.nom}$, si `
-          texte += `$${A.nom + B.nom} = ${abVal}~\\text{cm}, ${E.nom + B.nom} = ${ebVal}~\\text{cm}$.`
-          texteCorr += `<br>On commence par déterminer $${A.nom + E.nom}$. Par le théorème de Pythagore, on a $${A.nom + E.nom} = \\sqrt{${A.nom + B.nom}^2 + ${E.nom + B.nom}^2}$, d'où $${A.nom + E.nom} = \\sqrt{${abVal}^2 + ${ebVal}^2} = ${miseEnEvidence(new FractionEtendue(aeValCarre, 1).texRacineCarree() + '~\\text{cm}')}$.
-          <br> On détermine ensuite $${B.nom + D.nom}$.  ${this.correctionDetaillee ? 'Par la relation' : 'Par le théorème de Thalès, on'} $\\dfrac{${A.nom + B.nom}}{${E.nom + B.nom}}=\\dfrac{${E.nom + B.nom}}{${B.nom + D.nom}}$, il s'ensuit que $${B.nom + D.nom}=\\dfrac{${E.nom + B.nom}^2}{${A.nom + B.nom}}=${miseEnEvidence(bdValCarre.simplifie().texRacineCarree() + '~\\text{cm}')}$.
-          <br> On détermine $${E.nom + D.nom}$ en appliquant le théorème de Pythagore. On a $${E.nom + D.nom} = \\sqrt{{${E.nom + B.nom}}^2 + {${B.nom + D.nom}}^2} = \\sqrt{${ebVal * ebVal} + ${bdValCarre.simplifie().texFractionSimplifiee}} = ${miseEnEvidence(edValCarre.simplifie().texRacineCarree() + '~\\text{cm}')}$.
-          <br> Enfin, on détermine $${A.nom + D.nom}$. On a $${A.nom + D.nom} = ${A.nom + B.nom} + ${B.nom + D.nom}=${miseEnEvidence(adVal + '~\\text{cm}')}$.
+          texte += `$${A.nom + B.nom} = ${abVal}\\text{ cm}, ${E.nom + B.nom} = ${ebVal}\\text{ cm}$.`
+          texteCorr += `<br>On commence par déterminer $${A.nom + E.nom}$. Par le théorème de Pythagore, on a $${A.nom + E.nom} = \\sqrt{${A.nom + B.nom}^2 + ${E.nom + B.nom}^2}$, d'où $${A.nom + E.nom} = \\sqrt{${abVal}^2 + ${ebVal}^2} = ${miseEnEvidence(new FractionEtendue(aeValCarre, 1).texRacineCarree() + '\\text{ cm}')}$.
+          <br> On détermine ensuite $${B.nom + D.nom}$.  ${this.correctionDetaillee ? 'Par la relation' : 'Par le théorème de Thalès, on'} $\\dfrac{${A.nom + B.nom}}{${E.nom + B.nom}}=\\dfrac{${E.nom + B.nom}}{${B.nom + D.nom}}$, il s'ensuit que $${B.nom + D.nom}=\\dfrac{${E.nom + B.nom}^2}{${A.nom + B.nom}}=${miseEnEvidence(bdValCarre.simplifie().texRacineCarree() + '\\text{ cm}')}$.
+          <br> On détermine $${E.nom + D.nom}$ en appliquant le théorème de Pythagore. On a $${E.nom + D.nom} = \\sqrt{{${E.nom + B.nom}}^2 + {${B.nom + D.nom}}^2} = \\sqrt{${ebVal * ebVal} + ${bdValCarre.simplifie().texFractionSimplifiee}} = ${miseEnEvidence(edValCarre.simplifie().texRacineCarree() + '\\text{ cm}')}$.
+          <br> Enfin, on détermine $${A.nom + D.nom}$. On a $${A.nom + D.nom} = ${A.nom + B.nom} + ${B.nom + D.nom}=${miseEnEvidence(adVal + '\\text{ cm}')}$.
           `
           break
         }
@@ -701,8 +701,8 @@ export default class RelationsMetriquesTriangleRectangle extends Exercice {
             .simplifie()
             .texRacineCarree()
           texte += `$${A.nom}${E.nom}, ${A.nom}${B.nom}, ${E.nom}${D.nom}$ et $${A.nom}${D.nom}$, si `
-          texte += `$${B.nom + D.nom} = ${dbVal}~\\text{cm}, ${E.nom + B.nom} = ${new FractionEtendue(ebCarreVal, 1).simplifie().texRacineCarree()}~\\text{cm}$.`
-          texteCorr += `<br> Par le théorème de Pythagore, on a $${E.nom + D.nom}=\\sqrt{${B.nom + D.nom}^2 + ${E.nom + B.nom}^2}$, d'où $${E.nom + D.nom} = \\sqrt{${dbVal}^2 + ${new FractionEtendue(ebCarreVal, 1).simplifie().texRacineCarree()}^2} = ${miseEnEvidence(new FractionEtendue(edCarreVal, 1).texRacineCarree() + '~\\text{cm}')}$. <br>  ${this.correctionDetaillee ? 'Par la relation' : 'Par le théorème de Thalès, on a '} $\\dfrac{${A.nom + B.nom}}{${E.nom + B.nom}}=\\dfrac{${E.nom + B.nom}}{${B.nom + D.nom}}$, il s'ensuit que $${A.nom + B.nom}=\\dfrac{${E.nom + B.nom}^2}{${B.nom + D.nom}}=${miseEnEvidence(abCarreVal.simplifie().texRacineCarree() + '~\\text{cm}')}$.<br> Par le théorème de Pythagore, on a $${A.nom + E.nom} = \\sqrt{${A.nom + B.nom}^2 + ${E.nom + B.nom}^2}$, d'où $${A.nom + E.nom} = \\sqrt{${abCarreVal.simplifie().texFractionSimplifiee} + ${ebCarreVal}} = ${miseEnEvidence(aeCarreVal.simplifie().texRacineCarree() + '~\\text{cm}')}$.<br> Enfin, on détermine $${A.nom + D.nom}$. On a $${A.nom + D.nom} = ${A.nom + B.nom} + ${B.nom + D.nom}=${miseEnEvidence(adVal + '~\\text{cm}')}$.
+          texte += `$${B.nom + D.nom} = ${dbVal}\\text{ cm}, ${E.nom + B.nom} = ${new FractionEtendue(ebCarreVal, 1).simplifie().texRacineCarree()}\\text{ cm}$.`
+          texteCorr += `<br> Par le théorème de Pythagore, on a $${E.nom + D.nom}=\\sqrt{${B.nom + D.nom}^2 + ${E.nom + B.nom}^2}$, d'où $${E.nom + D.nom} = \\sqrt{${dbVal}^2 + ${new FractionEtendue(ebCarreVal, 1).simplifie().texRacineCarree()}^2} = ${miseEnEvidence(new FractionEtendue(edCarreVal, 1).texRacineCarree() + '\\text{ cm}')}$. <br>  ${this.correctionDetaillee ? 'Par la relation' : 'Par le théorème de Thalès, on a '} $\\dfrac{${A.nom + B.nom}}{${E.nom + B.nom}}=\\dfrac{${E.nom + B.nom}}{${B.nom + D.nom}}$, il s'ensuit que $${A.nom + B.nom}=\\dfrac{${E.nom + B.nom}^2}{${B.nom + D.nom}}=${miseEnEvidence(abCarreVal.simplifie().texRacineCarree() + '\\text{ cm}')}$.<br> Par le théorème de Pythagore, on a $${A.nom + E.nom} = \\sqrt{${A.nom + B.nom}^2 + ${E.nom + B.nom}^2}$, d'où $${A.nom + E.nom} = \\sqrt{${abCarreVal.simplifie().texFractionSimplifiee} + ${ebCarreVal}} = ${miseEnEvidence(aeCarreVal.simplifie().texRacineCarree() + '\\text{ cm}')}$.<br> Enfin, on détermine $${A.nom + D.nom}$. On a $${A.nom + D.nom} = ${A.nom + B.nom} + ${B.nom + D.nom}=${miseEnEvidence(adVal + '\\text{ cm}')}$.
           `
           break
         }
@@ -724,8 +724,8 @@ export default class RelationsMetriquesTriangleRectangle extends Exercice {
           ).produitFraction(new FractionEtendue(bdVal * bdVal, 1).inverse())
           const aeCarreVal = adCarreVal.ajouteEntier(-edVal * edVal)
           texte += `$${A.nom}${E.nom}, ${A.nom}${B.nom}, ${E.nom}${B.nom}$ et $${A.nom}${D.nom}$, si `
-          texte += `$${E.nom + D.nom} = ${edVal}~\\text{cm}$ et $${B.nom + D.nom} = ${bdVal}~\\text{cm}$.`
-          texteCorr += `<br> Par le théorème de Pythagore, on a $${E.nom + B.nom}^2=\\sqrt{${E.nom + D.nom}^2 - ${B.nom + D.nom}^2}$, d'où $${E.nom + B.nom} = \\sqrt{${edVal}^2 - ${bdVal}^2} = ${miseEnEvidence(ebCarreVal.simplifie().texRacineCarree() + '~\\text{cm}')}$. <br>  ${this.correctionDetaillee ? 'Par la relation' : 'Par le théorème de Thalès, on a '} $\\dfrac{${A.nom + B.nom}}{${E.nom + B.nom}}=\\dfrac{${E.nom + B.nom}}{${B.nom + D.nom}}$, il s'ensuit que $${A.nom + B.nom}=\\dfrac{${E.nom + B.nom}^2}{${B.nom + D.nom}}=${miseEnEvidence(abCarreVal.simplifie().texRacineCarree() + '~\\text{cm}')}$.<br> Par le théorème de Pythagore, on a $${A.nom + E.nom} = \\sqrt{${A.nom + B.nom}^2 + ${E.nom + B.nom}^2}$, d'où $${A.nom + E.nom} = \\sqrt{${abCarreVal.simplifie().texFractionSimplifiee} + ${ebCarreVal.texFractionSimplifiee}} = ${miseEnEvidence(aeCarreVal.simplifie().texRacineCarree() + '~\\text{cm}')}$.<br> Enfin, on détermine $${A.nom + D.nom}$. On a $${A.nom + D.nom} = ${A.nom + B.nom} + ${B.nom + D.nom}=${miseEnEvidence(adCarreVal.simplifie().texRacineCarree() + '~\\text{cm}')}$.
+          texte += `$${E.nom + D.nom} = ${edVal}\\text{ cm}$ et $${B.nom + D.nom} = ${bdVal}\\text{ cm}$.`
+          texteCorr += `<br> Par le théorème de Pythagore, on a $${E.nom + B.nom}^2=\\sqrt{${E.nom + D.nom}^2 - ${B.nom + D.nom}^2}$, d'où $${E.nom + B.nom} = \\sqrt{${edVal}^2 - ${bdVal}^2} = ${miseEnEvidence(ebCarreVal.simplifie().texRacineCarree() + '\\text{ cm}')}$. <br>  ${this.correctionDetaillee ? 'Par la relation' : 'Par le théorème de Thalès, on a '} $\\dfrac{${A.nom + B.nom}}{${E.nom + B.nom}}=\\dfrac{${E.nom + B.nom}}{${B.nom + D.nom}}$, il s'ensuit que $${A.nom + B.nom}=\\dfrac{${E.nom + B.nom}^2}{${B.nom + D.nom}}=${miseEnEvidence(abCarreVal.simplifie().texRacineCarree() + '\\text{ cm}')}$.<br> Par le théorème de Pythagore, on a $${A.nom + E.nom} = \\sqrt{${A.nom + B.nom}^2 + ${E.nom + B.nom}^2}$, d'où $${A.nom + E.nom} = \\sqrt{${abCarreVal.simplifie().texFractionSimplifiee} + ${ebCarreVal.texFractionSimplifiee}} = ${miseEnEvidence(aeCarreVal.simplifie().texRacineCarree() + '\\text{ cm}')}$.<br> Enfin, on détermine $${A.nom + D.nom}$. On a $${A.nom + D.nom} = ${A.nom + B.nom} + ${B.nom + D.nom}=${miseEnEvidence(adCarreVal.simplifie().texRacineCarree() + '\\text{ cm}')}$.
           `
           break
         }
@@ -738,7 +738,7 @@ export default class RelationsMetriquesTriangleRectangle extends Exercice {
 
           segments = [[A, E], [B, D]]
           texte += `$${A.nom}${B.nom}, ${E.nom}${D.nom}, ${E.nom}${B.nom}$ et $${A.nom}${D.nom}$, si `
-          texte += `$${A.nom + E.nom} = ${aeVal}~\\text{cm}, \\quad ${B.nom + D.nom} = ${bdVal}~\\text{cm}$.`
+          texte += `$${A.nom + E.nom} = ${aeVal}\\text{ cm}, \\quad ${B.nom + D.nom} = ${bdVal}\\text{ cm}$.`
           texteCorr += `<br> D'une part on a par le théorème de Pythagore que $${A.nom+E.nom}^2=${E.nom+B.nom}^2+${A.nom+B.nom}^2$. D'autre part, on par la relation $\\dfrac{${E.nom+B.nom}}{${B.nom+D.nom}}=\\dfrac{${A.nom+B.nom}}{${E.nom+B.nom}}$ on a $${E.nom+B.nom}^2=${A.nom+B.nom}\\times ${B.nom+D.nom}$. On substitue ${E.nom+B.nom}^2$ dans la relation obtenue par le théorème de Pythagore pour obtenir<br>
           \\begin{aligned}
           & ${A.nom + E.nom}^2 = ${A.nom + B.nom} \\times ${B.nom + D.nom} + ${A.nom + B.nom}^2 \\\\
@@ -756,7 +756,7 @@ export default class RelationsMetriquesTriangleRectangle extends Exercice {
           const bdVal = adVal - xVal
           segments = [[E, D], [A, B]]
           texte += `$${A.nom}${E.nom}, ${B.nom}${D.nom}, ${E.nom}${B.nom}$ et $${A.nom}${D.nom}$, si `
-          texte += `$${E.nom + D.nom} = ${dVal}~\\text{cm}, \\quad ${A.nom + B.nom} = ${xVal}~\\text{cm}$.`
+          texte += `$${E.nom + D.nom} = ${dVal}\\text{ cm}, \\quad ${A.nom + B.nom} = ${xVal}\\text{ cm}$.`
           texteCorr += `
           `
           break
@@ -773,7 +773,7 @@ export default class RelationsMetriquesTriangleRectangle extends Exercice {
           const bdVal = lVal - t
           segments = [[E, B], [A, D]]
           texte += `$${A.nom}${E.nom}, ${A.nom}${B.nom}, ${E.nom}${D.nom}$ et $${B.nom}${D.nom}$, si `
-          texte += `$${E.nom + B.nom} = ${h}~\\text{cm}$ et $${A.nom + D.nom} = ${lVal}~\\text{cm}$.`
+          texte += `$${E.nom + B.nom} = ${h}\\text{ cm}$ et $${A.nom + D.nom} = ${lVal}\\text{ cm}$.`
           texteCorr += `
           `
           break

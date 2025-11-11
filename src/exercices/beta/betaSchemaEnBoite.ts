@@ -305,7 +305,7 @@ Combien d’argent ${prenom} avait-elle sur son compte en banque avant son achat
             nb1 = choice([4, 5, 6, 8])
             nb2 = randint(15, 20) * 3
             texte = `${prenom} souhaite fabriquer ${nombreEnLettres(nb1)} invitations pour son anniversaire en découpant
-une bande de papier cartonné d’une longueur de $${nb2}$ cm.
+une bande de papier cartonné d’une longueur de $${nb2}\\text{ cm}$.
 Quelle est la plus grande longueur qu’elle peut choisir pour que toutes les invitations aient la même longueur ?<br>`
             seb = new SchemaEnBoite({
               topBraces: [

@@ -1,22 +1,29 @@
 import { arc } from '../../lib/2d/Arc'
-import { codageSegment } from '../../lib/2d/codages'
+import { codageSegment } from '../../lib/2d/CodageSegment'
 import { colorToLatexOrHTML } from '../../lib/2d/colorToLatexOrHtml'
 import { droite, droiteParPointEtPente } from '../../lib/2d/droites'
-import {
-  milieu,
-  Point,
-  point,
-  pointIntersectionDD,
-  pointSurSegment,
-} from '../../lib/2d/points'
+import type { ISegment } from '../../lib/2d/Interfaces'
+import type { PointAbstrait } from '../../lib/2d/PointAbstrait'
+import { point } from '../../lib/2d/PointAbstrait'
 import { polygone } from '../../lib/2d/polygones'
-import { longueur, segment, vecteur } from '../../lib/2d/segmentsVecteurs'
+import { segment } from '../../lib/2d/segmentsVecteurs'
 import {
   homothetie,
   projectionOrtho,
   rotation,
   translation,
 } from '../../lib/2d/transformations'
+import {
+  estDansQuadrilatere,
+  estDansTriangle,
+  longueur,
+} from '../../lib/2d/utilitairesGeometriques'
+import {
+  milieu,
+  pointIntersectionDD,
+  pointSurSegment,
+} from '../../lib/2d/utilitairesPoint'
+import { vecteur } from '../../lib/2d/Vecteur'
 import { propositionsQcm } from '../../lib/interactif/qcm'
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
 import { arrondi } from '../../lib/outils/nombres'
@@ -113,7 +120,9 @@ export default class CompareAireEtPerimetreAvecRectangle extends Exercice {
     let compteurInteractif = 0
     for (let q = 0, cpt = 0; q < this.nbQuestions && cpt < 50; ) {
       compteurInteractif = this.sup2 === 3 ? 2 * q : q
-      let choixFigAire2: [Point, Point][] | [Point, Point, number][] = []
+      let choixFigAire2:
+        | [PointAbstrait, PointAbstrait][]
+        | [PointAbstrait, PointAbstrait, number][] = []
       let objets: NestedObjetMathalea2dArray = []
       const A = point(0, 0)
       const B = point(randint(5, 10), 0)
@@ -336,8 +345,8 @@ export default class CompareAireEtPerimetreAvecRectangle extends Exercice {
               optionsTikz: ['baseline=(current bounding box.north)'],
             }
             const choixFig = randint(0, 3)
-            let pt1: Point
-            let pt2: Point
+            let pt1: PointAbstrait
+            let pt2: PointAbstrait
             switch (choixFig) {
               case 0:
                 pt1 = M
@@ -529,8 +538,8 @@ export default class CompareAireEtPerimetreAvecRectangle extends Exercice {
               optionsTikz: ['baseline=(current bounding box.north)'],
             }
             const choixFig = randint(0, 3)
-            let pt1: Point
-            let pt2: Point
+            let pt1: PointAbstrait
+            let pt2: PointAbstrait
             switch (choixFig) {
               case 0:
                 pt1 = M
@@ -710,8 +719,8 @@ export default class CompareAireEtPerimetreAvecRectangle extends Exercice {
               optionsTikz: ['baseline=(current bounding box.north)'],
             }
             const choixFig = randint(0, 3)
-            let pt1: Point
-            let pt2: Point
+            let pt1: PointAbstrait
+            let pt2: PointAbstrait
             switch (choixFig) {
               case 0:
                 pt1 = M
@@ -839,8 +848,8 @@ export default class CompareAireEtPerimetreAvecRectangle extends Exercice {
               optionsTikz: ['baseline=(current bounding box.north)'],
             }
             const choixFig = randint(0, 3)
-            let pt1: Point
-            let pt2: Point
+            let pt1: PointAbstrait
+            let pt2: PointAbstrait
             switch (choixFig) {
               case 0:
                 pt1 = M
@@ -990,10 +999,10 @@ export default class CompareAireEtPerimetreAvecRectangle extends Exercice {
               D,
               -(aleaPente - randint(50, 90) / 100),
             )
-            const E = pointIntersectionDD(d1, d2) as Point
-            const F = pointIntersectionDD(d2, d3) as Point
-            const G = pointIntersectionDD(d3, d4) as Point
-            const H = pointIntersectionDD(d4, d1) as Point
+            const E = pointIntersectionDD(d1, d2)
+            const F = pointIntersectionDD(d2, d3)
+            const G = pointIntersectionDD(d3, d4)
+            const H = pointIntersectionDD(d4, d1)
             const poly = polygone(E, F, G, H)
             poly.couleurDeRemplissage = colorToLatexOrHTML(color[q])
             poly.opaciteDeRemplissage = 0.5
@@ -1066,8 +1075,8 @@ export default class CompareAireEtPerimetreAvecRectangle extends Exercice {
             }
             const aleaLongueur = choice([-1, 1])
             const choixFig = randint(0, 3)
-            let pt1: Point
-            let pt2: Point
+            let pt1: PointAbstrait
+            let pt2: PointAbstrait
             switch (choixFig) {
               case 0:
                 pt1 = M
@@ -1271,8 +1280,8 @@ export default class CompareAireEtPerimetreAvecRectangle extends Exercice {
             }
             const aleaLongueur = choice([-1, 1])
             const choixFig = randint(0, 3)
-            let pt1: Point
-            let pt2: Point
+            let pt1: PointAbstrait
+            let pt2: PointAbstrait
             switch (choixFig) {
               case 0:
                 pt1 = M
@@ -1383,12 +1392,12 @@ export default class CompareAireEtPerimetreAvecRectangle extends Exercice {
             )
             objets.push(
               homothetie(
-                segment(choixFigAire2[choixFig2][0], T),
+                segment(choixFigAire2[choixFig2][0], T) as ISegment,
                 choixFigAire2[choixFig2][0],
                 aleaRapportHomothetie,
               ),
               homothetie(
-                segment(choixFigAire2[choixFig2][1], T),
+                segment(choixFigAire2[choixFig2][1], T) as ISegment,
                 choixFigAire2[choixFig2][0],
                 aleaRapportHomothetie,
               ),
@@ -1453,12 +1462,12 @@ export default class CompareAireEtPerimetreAvecRectangle extends Exercice {
               )
               objets.push(
                 homothetie(
-                  segment(choixFigAire2[choixFig2][0], T),
+                  segment(choixFigAire2[choixFig2][0], T) as ISegment,
                   choixFigAire2[choixFig2][0],
                   aleaRapportHomothetie,
                 ),
                 homothetie(
-                  segment(choixFigAire2[choixFig2][1], T),
+                  segment(choixFigAire2[choixFig2][1], T) as ISegment,
                   choixFigAire2[choixFig2][0],
                   aleaRapportHomothetie,
                 ),
@@ -1530,8 +1539,8 @@ export default class CompareAireEtPerimetreAvecRectangle extends Exercice {
             }
             const aleaLongueur = choice([-1, 1])
             const choixFig = randint(0, 3)
-            let pt1: Point
-            let pt2: Point
+            let pt1: PointAbstrait
+            let pt2: PointAbstrait
             switch (choixFig) {
               case 0:
                 pt1 = M
@@ -1696,8 +1705,8 @@ export default class CompareAireEtPerimetreAvecRectangle extends Exercice {
             }
             const aleaLongueur = -1
             const choixFig = randint(0, 3)
-            let pt1: Point
-            let pt2: Point
+            let pt1: PointAbstrait
+            let pt2: PointAbstrait
             switch (choixFig) {
               case 0:
                 pt1 = M
@@ -1720,7 +1729,7 @@ export default class CompareAireEtPerimetreAvecRectangle extends Exercice {
             let aleaAngle = choice([40, 50, 70, 80, 100, 110])
             const Q = pointSurSegment(pt2, pt1, rayonOuCote + aleaLongueur)
             let R = rotation(Q, pt2, aleaAngle)
-            if (!R.estDansQuadrilatere(A, B, C, D)) {
+            if (!estDansQuadrilatere(R, A, B, C, D)) {
               aleaAngle = 180 - aleaAngle
               R = rotation(Q, pt2, aleaAngle)
             }
@@ -1742,9 +1751,10 @@ export default class CompareAireEtPerimetreAvecRectangle extends Exercice {
             )
             let T = rotation(S, choixFigAire2[choixFig2][0], aleaAngle)
             if (
-              !T.estDansQuadrilatere(A, B, C, D) ||
-              T.estDansTriangle(pt2, pt1, R) ||
-              R.estDansTriangle(
+              !estDansQuadrilatere(T, A, B, C, D) ||
+              estDansTriangle(T, pt2, pt1, R) ||
+              estDansTriangle(
+                R,
                 choixFigAire2[choixFig2][0],
                 choixFigAire2[choixFig2][1],
                 T,

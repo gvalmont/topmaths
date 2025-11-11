@@ -37,16 +37,19 @@ export default class PetitsProblemeReste2 extends ExerciceSimple {
           const b = new Decimal(randint(5, 12) * 10 + 5).div(10)
           const c = new Decimal(b).mul(nbre)
           this.reponse = new Decimal(a).sub(c)
-          this.question = `  Un électricien dispose d’un rouleau de fil électrique de $${a}$ m. <br>Il découpe $${nbre}$
-      morceaux de fil de ce rouleau de $${texNombre(b, 2, true)}$ m chacun.<br>
+          this.question = `  Un électricien dispose d’un rouleau de fil électrique de $${a}\\text{ m}$. <br>Il découpe $${nbre}$
+      morceaux de fil de ce rouleau de $${texNombre(b, 2, true)}\\text{ m}$ chacun.<br>
       Quelle longueur de fil électrique reste-t-il dans le rouleau ?`
-          this.correction = `Les $${nbre}$  morceaux de fil ont une longueur de $${nbre}\\times ${texNombre(b, 2, true)}$, soit $${texNombre(c, 2)}$ m.<br>
-      Il reste alors : $${a}-${texNombre(c, 2)}=${miseEnEvidence(texNombre(Number(this.reponse), 2))}$ m.`
+          this.correction = `Les $${nbre}$  morceaux de fil ont une longueur de $${nbre}\\times ${texNombre(b, 2, true)}$, soit $${texNombre(c, 2)}\\text{ m}$.<br>
+      Il reste alors : $${a}-${texNombre(c, 2)}=${miseEnEvidence(texNombre(Number(this.reponse), 2))}\\text{ m}$.`
           if (this.interactif) {
-            this.optionsChampTexte = { texteAvant: '<br>', texteApres: ' m' }
+            this.optionsChampTexte = {
+              texteAvant: '<br>',
+              texteApres: '$\\text{ m}$',
+            }
           }
           this.canEnonce = this.question
-          this.canReponseACompleter = '$\\dots$ m'
+          this.canReponseACompleter = '$\\dots\\text{ m}$'
         }
         break
       case 2:
@@ -59,13 +62,16 @@ export default class PetitsProblemeReste2 extends ExerciceSimple {
           this.question = ` Un plombier possède un tuyau de $${a}$ mètres.<br>
 Il coupe $${nbre}$ sections de tuyau de $${texNombre(b, 2, true)}$ mètres chacune.<br>
 Quelle longueur de tuyau lui reste-t-il ?`
-          this.correction = `Les $${nbre}$  sections de tuyau ont une longueur de $${nbre}\\times ${texNombre(b, 2, true)}$, soit $${texNombre(c, 2)}$ m.<br>
-      Il reste alors : $${a}-${texNombre(c, 2)}=${miseEnEvidence(texNombre(Number(this.reponse), 2))}$ m.`
+          this.correction = `Les $${nbre}$  sections de tuyau ont une longueur de $${nbre}\\times ${texNombre(b, 2, true)}$, soit $${texNombre(c, 2)}\\text{ m}$.<br>
+      Il reste alors : $${a}-${texNombre(c, 2)}=${miseEnEvidence(texNombre(Number(this.reponse), 2))}\\text{ m}$.`
           if (this.interactif) {
-            this.optionsChampTexte = { texteAvant: '<br>', texteApres: ' m' }
+            this.optionsChampTexte = {
+              texteAvant: '<br>',
+              texteApres: '$\\text{ m}$',
+            }
           }
           this.canEnonce = this.question
-          this.canReponseACompleter = '$\\dots$ m'
+          this.canReponseACompleter = '$\\dots\\text{ m}$'
         }
         break
     }

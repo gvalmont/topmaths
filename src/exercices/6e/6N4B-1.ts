@@ -13,9 +13,9 @@ import { gestionnaireFormulaireTexte, randint } from '../../modules/outils'
 import type { NestedObjetMathalea2dArray } from '../../types/2d'
 import Exercice from '../Exercice'
 // import type { VisualPattern } from '../../lib/2d/patterns/VisualPattern'
+import { BoiteBuilder } from '../../lib/2d/BoiteBuilder'
 import { listeEmojisInfos } from '../../lib/2d/figures2d/listeEmojis'
 import { VisualPattern } from '../../lib/2d/patterns/VisualPattern'
-import { BoiteBuilder } from '../../lib/2d/polygones'
 import { propositionsQcm } from '../../lib/interactif/qcm'
 
 export const titre = 'Comprendre un algorithme répétitif'
@@ -163,7 +163,7 @@ export default class PaternRepetitif extends Exercice {
           .translate(j * 1.2, 0)
         objets.push(shape)
       }
-      let texte = `Voici les ${nbElements} premièrs pictogrammes d'un motif répétitif.<br>`
+      let texte = `Voici les ${nbElements} premiers pictogrammes d'un motif répétitif.<br>`
       const laSerieEnImage = mathalea2d(
         Object.assign(
           fixeBordures(objets, { rxmin: 0, rymin: -1, rxmax: 0, rymax: 1 }),

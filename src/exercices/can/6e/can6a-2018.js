@@ -1,10 +1,11 @@
-import { milieu, point } from '../../../lib/2d/points'
+import { point } from '../../../lib/2d/PointAbstrait'
 import { polygoneAvecNom } from '../../../lib/2d/polygones'
 import {
   segment,
   segmentAvecExtremites,
 } from '../../../lib/2d/segmentsVecteurs'
 import { texteParPosition } from '../../../lib/2d/textes'
+import { milieu } from '../../../lib/2d/utilitairesPoint'
 import { texPrix } from '../../../lib/format/style'
 import { choice, shuffle } from '../../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
@@ -331,7 +332,7 @@ Par exemple, en choisissant 20 questions, la course aux nombres sera composée d
                 scale: 0.8,
                 style: 'margin: auto',
               },
-              texteParPosition('?', (8 * b) / a, 0.7, 'milieu', 'blue', 2),
+              texteParPosition('?', (8 * b) / a, 0.7, 0, 'blue', 2),
               droiteGraduee({
                 Unite: 8,
                 Min: 0,
@@ -675,8 +676,8 @@ Par exemple, en choisissant 20 questions, la course aux nombres sera composée d
             objets,
           )
 
-          texteCorr = `Le rectangle est constitué de  $${j}$ carrés d'aire $1$ cm$^2$ et de $${j}$ rectangles d'aire $0,5$ cm$^2$.<br>
-            Son aire totale est donc :  $ ${j} \\times 1 \\text{ cm}^2+ ${j} \\times 0,5\\text{ cm}^2=${miseEnEvidence(texNombre(reponse, 2))}$ cm$^2$.
+          texteCorr = `Le rectangle est constitué de  $${j}$ carrés d'aire $1\\text{ cm}^2$ et de $${j}$ rectangles d'aire $0,5\\text{ cm}^2$.<br>
+            Son aire totale est donc :  $ ${j} \\times 1 \\text{ cm}^2+ ${j} \\times 0,5\\text{ cm}^2=${miseEnEvidence(texNombre(reponse, 2))}\\text{ cm}^2$.
             `
 
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
@@ -684,7 +685,8 @@ Par exemple, en choisissant 20 questions, la course aux nombres sera composée d
             texte += ajouteChampTexteMathLive(this, index, '') + ' cm$^2$'
           }
           this.canEnonce = texte
-          this.canReponseACompleter = '$\\mathscr{A}=\\ldots\\ldots$ cm$^2$'
+          this.canReponseACompleter =
+            '$\\mathscr{A}=\\ldots\\ldots\\text{ cm}^2$'
           this.listeCanEnonces.push(this.canEnonce)
           this.listeCanReponsesACompleter.push(this.canReponseACompleter)
           nbChamps = 1
@@ -942,15 +944,20 @@ Par exemple, en choisissant 20 questions, la course aux nombres sera composée d
           )
 
           texteCorr = `La longueur du rectangle A est $${k}$ fois plus grande que sa largeur. On en déduit que la longueur du rectangle B est aussi $${k}$ fois plus grande que sa largeur.<br>
-          Elle est donc égale à $${l2}\\times ${k}=${miseEnEvidence(k * l2)}$ cm.
+          Elle est donc égale à $${l2}\\times ${k}=${miseEnEvidence(k * l2)}\\text{ cm}$.
                   `
 
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) {
-            texte += ajouteChampTexteMathLive(this, index, '') + 'cm'
+            texte += ajouteChampTexteMathLive(
+              this,
+              index,
+              KeyboardType.clavierNumbers,
+              { texteApres: '$\\text{ cm}$' },
+            )
           }
           this.canEnonce = texte
-          this.canReponseACompleter = '$\\ldots$ cm'
+          this.canReponseACompleter = '$\\ldots\\text{ cm}$'
           this.listeCanEnonces.push(this.canEnonce)
           this.listeCanReponsesACompleter.push(this.canReponseACompleter)
           nbChamps = 1
@@ -999,8 +1006,8 @@ Par exemple, en choisissant 20 questions, la course aux nombres sera composée d
 
         case 28:
           a = randint(2, 9)
-          texte = `Complète : $${a}$ m$^3=$ `
-          texteCorr = `$1$ m$^3$ est égal à $${texNombre(1000)}$ litres. Ainsi, $${a}$ m$^3=${a}\\times ${texNombre(1000)} \\text{ L }=${miseEnEvidence(texNombre(1000 * a))}$ L.`
+          texte = `Complète : $${a}\\text{ m}^3=$ `
+          texteCorr = `$1\\text{ m}^3$ est égal à $${texNombre(1000)}$ litres. Ainsi, $${a}\\text{ m}^3=${a}\\times ${texNombre(1000)} \\text{ L }=${miseEnEvidence(texNombre(1000 * a))}$ L.`
           reponse = a * 1000
 
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
@@ -1010,7 +1017,7 @@ Par exemple, en choisissant 20 questions, la course aux nombres sera composée d
             texte += '$\\ldots$ L'
           }
           this.canEnonce = 'Complète. '
-          this.canReponseACompleter = `$${a}$ m$^3=\\ldots$ L`
+          this.canReponseACompleter = `$${a}\\text{ m}^3=\\ldots$ L`
           this.listeCanEnonces.push(this.canEnonce)
           this.listeCanReponsesACompleter.push(this.canReponseACompleter)
           nbChamps = 1

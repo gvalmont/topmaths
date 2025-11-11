@@ -1,5 +1,4 @@
-import type Exercice from '../exercices/Exercice'
-import type { InterfaceParams } from './types'
+import type { IExercice, InterfaceParams } from '../lib/types'
 
 interface Items {
   [key: string]: string
@@ -17,7 +16,7 @@ export interface UserSettings {
 }
 
 export interface itemsWithExercises {
-  [key: string]: Exercice[]
+  [key: string]: IExercice[]
 }
 
 export function handleUrl(url: URL) {

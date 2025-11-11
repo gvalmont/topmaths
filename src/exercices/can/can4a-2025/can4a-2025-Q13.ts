@@ -1,9 +1,9 @@
-import { texNombre } from '../../../lib/outils/texNombre'
-import { miseEnEvidence } from '../../../lib/outils/embellissements'
-import ExerciceCan from '../../ExerciceCan'
-import { randint } from '../../../modules/outils'
 import { choice } from '../../../lib/outils/arrayOutils'
+import { miseEnEvidence } from '../../../lib/outils/embellissements'
+import { texNombre } from '../../../lib/outils/texNombre'
 import { context } from '../../../modules/context'
+import { randint } from '../../../modules/outils'
+import ExerciceCan from '../../ExerciceCan'
 
 export const titre = 'Conversion de longueurs'
 export const interactifReady = true
@@ -27,7 +27,7 @@ export default class Can2025N4Q13 extends ExerciceCan {
     this.question = 'Compléter : '
     this.correction = `$1\\text{ m} = 100\\text{ cm}$, donc $${texNombre(a, 3)}\\text{ m} =${miseEnEvidence(`${texNombre(a * 100, 1)}`)} \\text{ cm}$.`
     this.canEnonce = 'Compléter.'
-    this.canReponseACompleter = `$${texNombre(a, 3)}\\text{ m}=\\ldots\\ldots$ cm`
+    this.canReponseACompleter = `$${texNombre(a, 3)}\\text{ m}=\\ldots\\ldots\\text{ cm}$`
     this.optionsChampTexte = {
       texteApres: ' $\\text{cm}$',
       texteAvant: ` $${texNombre(a, 3)}\\text{ m}=$`,

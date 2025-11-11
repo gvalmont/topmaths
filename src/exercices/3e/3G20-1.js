@@ -1,10 +1,12 @@
 import Decimal from 'decimal.js'
-import { codageAngleDroit } from '../../lib/2d/angles'
-import { texteSurSegment } from '../../lib/2d/codages'
-import { milieu, point, pointSurSegment } from '../../lib/2d/points'
+import { codageAngleDroit } from '../../lib/2d/CodageAngleDroit'
+import { point } from '../../lib/2d/PointAbstrait'
 import { polygone } from '../../lib/2d/polygones'
-import { longueur, segment } from '../../lib/2d/segmentsVecteurs'
+import { segment } from '../../lib/2d/segmentsVecteurs'
 import { labelPoint, texteParPoint } from '../../lib/2d/textes'
+import { texteSurSegment } from '../../lib/2d/texteSurSegment'
+import { longueur } from '../../lib/2d/utilitairesGeometriques'
+import { milieu, pointSurSegment } from '../../lib/2d/utilitairesPoint'
 import { choice } from '../../lib/outils/arrayOutils'
 import { texFractionFromString } from '../../lib/outils/deprecatedFractions'
 import { creerNomDePolygone } from '../../lib/outils/outilString'
@@ -78,7 +80,7 @@ export default class ProblemesThales extends Exercice {
         k = new Decimal(randint(12, 19)).div(10)
         y = new Decimal(randint(30, 50)).div(10)
         ;[A, B, C, D, E] = creerNomDePolygone(5, 'QD')
-        texte = `On sait que $${A}${E}=${x}$ cm ; $${A}${D}=${texNombre(k * x, 1)}$ cm et $${E}${B}=${texNombre(y, 1)}$ cm.<br>`
+        texte = `On sait que $${A}${E}=${x}\\text{ cm}$ ; $${A}${D}=${texNombre(k * x, 1)}\\text{ cm}$ et $${E}${B}=${texNombre(y, 1)}\\text{ cm}$.<br>`
         texte += `Calculer la valeur exacte de $${D}${C}$.`
         if (context.isHtml) {
           // Pour le svg toutes les longueurs sont multipliées par 20
@@ -202,8 +204,8 @@ export default class ProblemesThales extends Exercice {
         texteCorr = `Dans le triangle $${nomA + nomB + nomD}$, $M$ est un point de $[${nomA + nomB}]$, $N$ est un point de $[${nomA + nomD}]$ et $(MN)$ est parallèle à $(${nomB + nomD})$ donc d'après le théorème de Thalès on a : `
         texteCorr += `<br><br> $${texFractionFromString(nomA + 'M', nomA + nomB)}=${texFractionFromString(nomA + 'N', nomA + nomD)}=${texFractionFromString('MN', nomB + nomD)}$`
         texteCorr += `<br><br> $${texFractionFromString(nomA + 'M', nomA + nomB)}=${texFractionFromString(nomA + 'N', BC)}=${texFractionFromString(texNombre(MN, 1), BD)}$`
-        texteCorr += `<br><br> $${nomA}N = ${texFractionFromString(BC + '\\times' + stringNombre(MN), BD)}=${texNombre(MN.mul(BC).div(BD), 1)}$ cm`
-        texteCorr += `<br><br> Les points $${nomA}$, $N$ et $${nomD}$ sont alignés dans cet ordre donc $N${nomD}=${nomA + nomD}-${nomA}N= ${BC}-${texNombre(MN.mul(BC).div(BD), 1)}=${texNombre(MN.mul(-BC).div(BD).plus(BC), 1)}$ cm.`
+        texteCorr += `<br><br> $${nomA}N = ${texFractionFromString(BC + '\\times' + stringNombre(MN), BD)}=${texNombre(MN.mul(BC).div(BD), 1)}\\text{ cm}$`
+        texteCorr += `<br><br> Les points $${nomA}$, $N$ et $${nomD}$ sont alignés dans cet ordre donc $N${nomD}=${nomA + nomD}-${nomA}N= ${BC}-${texNombre(MN.mul(BC).div(BD), 1)}=${texNombre(MN.mul(-BC).div(BD).plus(BC), 1)}\\text{ cm}$.`
         break
     }
 

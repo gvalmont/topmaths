@@ -1,11 +1,10 @@
-import { angleOriente } from '../../lib/2d/angles'
-import { pointAdistance, pointSurSegment } from '../../lib/2d/points'
-import { pointAbstrait } from '../../lib/2d/points-abstraits'
+import { pointAbstrait } from '../../lib/2d/PointAbstrait'
 import { polygone } from '../../lib/2d/polygones'
-import { longueur } from '../../lib/2d/segmentsVecteurs'
 import { texteParPoint } from '../../lib/2d/textes'
 import { homothetie, similitude } from '../../lib/2d/transformations'
-import { triangle2points2longueurs } from '../../lib/2d/triangle'
+import { triangle2points2longueurs } from '../../lib/2d/triangles'
+import { angleOriente, longueur } from '../../lib/2d/utilitairesGeometriques'
+import { pointAdistance, pointSurSegment } from '../../lib/2d/utilitairesPoint'
 import { texteGras } from '../../lib/format/style'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
@@ -182,7 +181,7 @@ export default class Thales2D extends Exercice {
         true,
       )
 
-      texte = `Sur la figure suivante, $${nomA + nomC}=${ac}~\\text{cm}$, $${nomA + nomB}=${ab}~\\text{cm}$, $${nomC + nomM}=${texNombre(Math.abs(k) * ac)}~\\text{cm}$, $${nomC + nomN}=${texNombre(Math.abs(k) * bc)}~\\text{cm}$ et $(${nomA + nomB})//(${nomM + nomN})$.<br>`
+      texte = `Sur la figure suivante, $${nomA + nomC}=${ac}\\text{ cm}$, $${nomA + nomB}=${ab}\\text{ cm}$, $${nomC + nomM}=${texNombre(Math.abs(k) * ac)}\\text{ cm}$, $${nomC + nomN}=${texNombre(Math.abs(k) * bc)}\\text{ cm}$ et $(${nomA + nomB})//(${nomM + nomN})$.<br>`
       if (!this.interactif) {
         texte += `Calculer $${nomM + nomN}$ et $${nomC + nomB}$.<br><br>`
       }
@@ -267,7 +266,7 @@ export default class Thales2D extends Exercice {
         texteCorr += `On divise les deux membres par $${texNombre(ac)}$.`
         texteCorr += '<br><br>'
       }
-      texteCorr += `$${nomM + nomN}=\\dfrac{${texNombre(Math.abs(k) * ac)}\\times${texNombre(ab)}}{${texNombre(ac)}}=${texNombre(Math.abs(k) * ab)}$ cm`
+      texteCorr += `$${nomM + nomN}=\\dfrac{${texNombre(Math.abs(k) * ac)}\\times${texNombre(ab)}}{${texNombre(ac)}}=${texNombre(Math.abs(k) * ab)}\\text{ cm}$`
       reponse = Math.abs(k) * ab
       texteCorr += '<br><br>'
       if (this.correctionDetaillee) {
@@ -282,7 +281,7 @@ export default class Thales2D extends Exercice {
         texteCorr += `On divise les deux membres par $${texNombre(Math.abs(k) * ac)}$.`
         texteCorr += '<br><br>'
       }
-      texteCorr += `$${nomC + nomB}=\\dfrac{${texNombre(Math.abs(k) * bc)}\\times${texNombre(ac)}}{${texNombre(Math.abs(k) * ac)}}=${texNombre(bc)}$ cm`
+      texteCorr += `$${nomC + nomB}=\\dfrac{${texNombre(Math.abs(k) * bc)}\\times${texNombre(ac)}}{${texNombre(Math.abs(k) * ac)}}=${texNombre(bc)}\\text{ cm}$`
       reponse2 = bc
       if (context.isHtml) {
         texte += `<br><div style="display: inline-block;margin-top:20px;">${boutonAideMathalea2d}</div>`

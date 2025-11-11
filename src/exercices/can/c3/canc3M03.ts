@@ -110,10 +110,10 @@ export default class CalculAvecUnite extends ExerciceSimple {
           this.optionsChampTexte = {
             texteApres: `$\\text{ ${prefixes[k + 3]}${unite}}$`,
           }
-          this.correction = `$${a}\\text{ ${prefixes[k]}${unite} }=${a * 1000}\\text{ ${prefixes[k + 3]}${unite} }$<br>
+          this.correction = `$${a}\\text{ ${prefixes[k]}${unite} }=${texNombre(a * 1000)}\\text{ ${prefixes[k + 3]}${unite} }$<br>
                 Ainsi, $${a}\\text{ ${prefixes[k]}${unite}}+${b}\\text{ ${prefixes[k + 3]}${unite} }
-                = ${a * 1000}\\text{ ${prefixes[k + 3]}${unite}}+${b}\\text{ ${prefixes[k + 3]}${unite} }
-                = ${a * 1000 + b}\\text{ ${prefixes[k + 3]}${unite}}$.`
+                = ${texNombre(a * 1000)}\\text{ ${prefixes[k + 3]}${unite}}+${b}\\text{ ${prefixes[k + 3]}${unite} }
+                = ${texNombre(a * 1000 + b)}\\text{ ${prefixes[k + 3]}${unite}}$.`
           this.canEnonce = 'Compléter. '
           this.canReponseACompleter = `$${a}\\text{ ${prefixes[k]}${unite}}+${b}\\text{ ${prefixes[k + 3]}${unite} }= \\ldots \\text{ ${prefixes[k + 3]}${unite}}$`
         } else {

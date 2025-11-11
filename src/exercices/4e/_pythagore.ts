@@ -1,8 +1,5 @@
 import { orangeMathalea } from '../../lib/colors'
-import {
-  miseEnEvidence,
-  texteEnCouleurEtGras,
-} from '../../lib/outils/embellissements'
+import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { arrondi } from '../../lib/outils/nombres'
 import { texNombre } from '../../lib/outils/texNombre'
 
@@ -47,27 +44,27 @@ export function RedactionPythagore(
     texte += `<br> $${B + C}^2=${texNombre(AB, 2)}^2+${texNombre(AC, 2)}^2$`
     texte += `<br> $${B + C}^2=${texNombre(AB ** 2)}+${texNombre(AC ** 2)}$`
     texte += `<br> $${B + C}^2=${texNombre(AB ** 2 + AC ** 2, 2)}$`
-    texte += `<br> $${B + C}=\\sqrt{${texNombre(AB ** 2 + AC ** 2, 2)}}$ ${unite}`
+    texte += `<br> $${B + C}=\\sqrt{${texNombre(AB ** 2 + AC ** 2, 2)}}\\text{ ${unite}}$`
     if (
       arrondi(Math.sqrt(AB ** 2 + AC ** 2), 1) ===
       arrondi(Math.sqrt(AB ** 2 + AC ** 2), 5)
     )
       signeEgal = '='
     else signeEgal = '\\approx'
-    texte += `<br> Donc $${B + C} ${signeEgal} ${miseEnEvidence(texNombre(BC, 2), couleurReponse)}$ ${texteEnCouleurEtGras(unite, couleurReponse)}.`
+    texte += `<br> Donc $${B + C} ${signeEgal} ${miseEnEvidence(texNombre(BC, 2), couleurReponse)}${miseEnEvidence(`\\text{ ${unite}}`, couleurReponse)}$.`
   } else if (rechercheHypotenuse === 2) {
     texte += `<br> D'où  $${A + B}^2=${B + C}^2-${A + C}^2$.`
     texte += `<br> $${A + B}^2=${texNombre(BC, 2)}^2-${texNombre(AC, 2)}^2$`
     texte += `<br> $${A + B}^2=${texNombre(BC ** 2)} - ${texNombre(AC ** 2)}$`
     texte += `<br> $${A + B}^2=${texNombre(BC ** 2 - AC ** 2, 2)}$`
-    texte += `<br> $${A + B}=\\sqrt{${texNombre(BC ** 2 - AC ** 2, 2)}}$ ${unite}`
+    texte += `<br> $${A + B}=\\sqrt{${texNombre(BC ** 2 - AC ** 2, 2)}}\\text{ ${unite}}$`
     if (
       arrondi(Math.sqrt(BC ** 2 - AC ** 2), 1) ===
       arrondi(Math.sqrt(BC ** 2 - AC ** 2), 5)
     )
       signeEgal = '='
     else signeEgal = '\\approx'
-    texte += `<br> Donc $${A + B} ${signeEgal} ${miseEnEvidence(texNombre(AB, 2), couleurReponse)}$ ${texteEnCouleurEtGras(unite, couleurReponse)}.`
+    texte += `<br> Donc $${A + B} ${signeEgal} ${miseEnEvidence(texNombre(AB, 2), couleurReponse)}${miseEnEvidence(`\\text{ ${unite}}`, couleurReponse)}$.`
   }
   return [texte, signeEgal]
 }

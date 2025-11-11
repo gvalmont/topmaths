@@ -115,6 +115,52 @@ const numbersOperationsCaps: CompleteKeysList = {
     'ADD',
   ],
 }
+const limitesCaps: CompleteKeysList = {
+  inline: [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    0,
+    'COMMA',
+    'INFTY',
+    'FRAC',
+    'SQRT',
+    'e^',
+    'LN',
+    'DIV',
+    'MULT',
+    'SUB',
+    'ADD',
+  ],
+  block: [
+    'FRAC',
+    'ADD',
+    7,
+    8,
+    9,
+    'SQRT',
+    'SUB',
+    4,
+    5,
+    6,
+    'e^',
+    'MULT',
+    1,
+    2,
+    3,
+    'LN',
+    'DIV',
+    'INFTY',
+    0,
+    'COMMA',
+  ],
+}
 const numbersOperationsXCaps: CompleteKeysList = {
   inline: [
     1,
@@ -202,7 +248,7 @@ const variableCaps: CompleteKeysList = {
     'kMath',
     'nMath',
     'iMath',
-    'e',
+    'hMath',
     'V',
     'F',
   ],
@@ -216,7 +262,7 @@ const variableCaps: CompleteKeysList = {
     'cMath',
     'zMath',
     'iMath',
-    'e',
+    'hMath',
     'V',
     'F',
   ],
@@ -655,46 +701,57 @@ const eosnCaps: CompleteKeysList = {
   block: ['O', 'E', 'S', 'N', 'DEG', 'SEMICOLON'],
 }
 
-// @ts-expect-error Problème de typage
 const lengthUnitsKeys = Object.keys(keys)
   .filter((k) => k.includes('LENGTH'))
-  .reduce((prev, k) => Object.assign(prev, { [k]: keys[k] }), {})
+  .reduce(
+    (prev, k) => Object.assign(prev, { [k]: keys[k as keyof typeof keys] }),
+    {} as Partial<typeof keys>,
+  )
+
 const lengthsCaps: CompleteKeysList = {
   inline: Object.keys(lengthUnitsKeys) as KeysList,
   block: Object.keys(lengthUnitsKeys) as KeysList,
 }
 
-// @ts-expect-error Problème de typage
 const areasUnitsKeys = Object.keys(keys)
   .filter((k) => k.includes('AREA'))
-  .reduce((prev, k) => Object.assign(prev, { [k]: keys[k] }), {})
+  .reduce(
+    (prev, k) => Object.assign(prev, { [k]: keys[k as keyof typeof keys] }),
+    {},
+  )
 const areasCaps: CompleteKeysList = {
   inline: Object.keys(areasUnitsKeys) as KeysList,
   block: Object.keys(areasUnitsKeys) as KeysList,
 }
 
-// @ts-expect-error Problème de typage
 const volumesUnitsKeys = Object.keys(keys)
   .filter((k) => k.includes('VOLUME'))
-  .reduce((prev, k) => Object.assign(prev, { [k]: keys[k] }), {})
+  .reduce(
+    (prev, k) => Object.assign(prev, { [k]: keys[k as keyof typeof keys] }),
+    {},
+  )
 const volumesCaps: CompleteKeysList = {
   inline: Object.keys(volumesUnitsKeys) as KeysList,
   block: Object.keys(volumesUnitsKeys) as KeysList,
 }
 
-// @ts-expect-error Problème de typage
 const capacitiesUnitsKeys = Object.keys(keys)
   .filter((k) => k.includes('CAPACITY'))
-  .reduce((prev, k) => Object.assign(prev, { [k]: keys[k] }), {})
+  .reduce(
+    (prev, k) => Object.assign(prev, { [k]: keys[k as keyof typeof keys] }),
+    {},
+  )
 const capacitiesCaps: CompleteKeysList = {
   inline: Object.keys(capacitiesUnitsKeys) as KeysList,
   block: Object.keys(capacitiesUnitsKeys) as KeysList,
 }
 
-// @ts-expect-error Problème de typage
 const massesUnitsKeys = Object.keys(keys)
   .filter((k) => k.includes('MASS'))
-  .reduce((prev, k) => Object.assign(prev, { [k]: keys[k] }), {})
+  .reduce(
+    (prev, k) => Object.assign(prev, { [k]: keys[k as keyof typeof keys] }),
+    {},
+  )
 const massesCaps: CompleteKeysList = {
   inline: Object.keys(massesUnitsKeys) as KeysList,
   block: Object.keys(massesUnitsKeys) as KeysList,
@@ -743,6 +800,13 @@ export const numbersOperationsX: KeyboardBlock = {
   keycaps: numbersOperationsXCaps,
   cols: 4,
   title: 'Nombres+Opérations',
+  isUnits: false,
+}
+
+export const limites: KeyboardBlock = {
+  keycaps: limitesCaps,
+  cols: 5,
+  title: 'Clavier pour les Limites',
   isUnits: false,
 }
 
@@ -991,6 +1055,7 @@ export const keyboardBlocks: {
   numbers2,
   numbersOperations,
   numbersOperationsX,
+  limites,
   numeration,
   probabilite,
   trigo,

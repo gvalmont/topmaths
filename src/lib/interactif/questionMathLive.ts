@@ -1,14 +1,15 @@
-import type Exercice from '../../exercices/Exercice'
+import type {
+  IExercice,
+  InteractivityType,
+  ReponseParams,
+  TableauMathliveType,
+  Valeur,
+} from '../../lib/types'
 import { context } from '../../modules/context'
 import { sp } from '../outils/outilString'
-import type { InteractivityType, TableauMathliveType } from '../types'
 import './champTexte.scss'
 import { buildDataKeyboardFromStyle } from './claviers/keyboard'
-import {
-  handleAnswers,
-  type ReponseParams,
-  type Valeur,
-} from './gestionInteractif'
+import { handleAnswers } from './gestionInteractif'
 import {
   AddTabDbleEntryMathlive,
   AddTabPropMathlive,
@@ -62,7 +63,7 @@ export function ajouteQuestionMathlive({
   blocCenter = false,
   espace = false,
 }: {
-  exercice: Exercice
+  exercice: IExercice
   question: number
   objetReponse: Valeur
   reponseParams?: ReponseParams
@@ -163,7 +164,7 @@ export function ajouteQuestionMathlive({
  * @deprecated si vous l'utilisez après ajouteChampTexteMathlive, ajouteChampTexte ou remplisLesBlancs, vous n'avez pas besoin de l'utiliser, il est ajouté automatiquement.
  */
 export function ajouteFeedback(
-  exercice: Exercice,
+  exercice: IExercice,
   question: number,
   style = 'style="display: none"',
 ) {
@@ -187,7 +188,7 @@ type OptionsChamp = {
 }
 
 export function ajouteChampTexte(
-  exercice: Exercice,
+  exercice: IExercice,
   i: number,
   style = '',
   options: OptionsChamp = {},
@@ -196,7 +197,7 @@ export function ajouteChampTexte(
 }
 
 export function ajouteChampTexteMathLive(
-  exercice: Exercice,
+  exercice: IExercice,
   i: number,
   style = '',
   options: OptionsChamp = {},
@@ -206,7 +207,7 @@ export function ajouteChampTexteMathLive(
 
 type ParamsChamp = {
   type: 'texte' | 'mathlive'
-  exercice: Exercice
+  exercice: IExercice
   i: number
   style?: string
 }
@@ -242,7 +243,7 @@ function ajouteChamp(params: ParamsChamp, options: OptionsChamp = {}) {
 }
 
 export function remplisLesBlancs(
-  exercice: Exercice,
+  exercice: IExercice,
   question: number,
   content: string,
   classes = '',

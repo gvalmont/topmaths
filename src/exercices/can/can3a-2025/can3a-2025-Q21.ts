@@ -1,4 +1,4 @@
-import { point } from '../../../lib/2d/points'
+import { point } from '../../../lib/2d/PointAbstrait'
 import { segment } from '../../../lib/2d/segmentsVecteurs'
 import { labelPoint } from '../../../lib/2d/textes'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
@@ -28,7 +28,7 @@ export default class CalculLongueurThales extends ExerciceSimple {
     this.nbQuestions = 1
     this.formatChampTexte = KeyboardType.clavierDeBase
     this.canOfficielle = true
-    this.optionsChampTexte = { texteApres: 'cm' }
+    this.optionsChampTexte = { texteApres: '$\\text{ cm}$' }
   }
 
   nouvelleVersion() {
@@ -74,17 +74,17 @@ export default class CalculLongueurThales extends ExerciceSimple {
       objets,
     )
     this.question += `$(TQ)//(SR)$<br>
-              $IT=${a}$ cm<br>
-              $IS=${b}$ cm <br>
-              $IQ=${c}$ cm<br>
+              $IT=${a}\\text{ cm}$<br>
+              $IS=${b}\\text{ cm}$ <br>
+              $IQ=${c}\\text{ cm}$<br>
               `
     this.correction = `Le triangle $ISR$ est un agrandissement du triangle $ITQ$. Le coefficient d'agrandissement est donné par : $\\dfrac{IS}{IT}=\\dfrac{${b}}{${a}}=${texNombre(k, 0)}$.<br>
              On obtient donc la longueur $IR$ en multipliant par $${k}$ la longueur $IQ$.<br>
-             $IR=${c}\\times ${k}=${miseEnEvidence(d)}$ cm.<br>`
+             $IR=${c}\\times ${k}=${miseEnEvidence(d)}\\text{ cm}$.<br>`
     this.canEnonce = this.question
 
-    this.question += this.interactif ? '<br>$IR=$' : '$IR=\\ldots$ cm'
+    this.question += this.interactif ? '<br>$IR=$' : '$IR=\\ldots\\text{ cm}$'
 
-    this.canReponseACompleter = '$IR=\\ldots$ cm'
+    this.canReponseACompleter = '$IR=\\ldots\\text{ cm}$'
   }
 }

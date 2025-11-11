@@ -3,6 +3,7 @@ import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { choisitLettresDifferentes } from '../../lib/outils/aleatoires'
 import { shuffle } from '../../lib/outils/arrayOutils'
 import {
+  arrondi,
   nombreDeChiffresDansLaPartieDecimale,
   nombreDeChiffresDansLaPartieEntiere,
   nombreDeChiffresDe,
@@ -25,7 +26,7 @@ export const interactifType = 'mathLive'
 export const amcReady = true
 export const amcType = 'AMCHybride'
 
-export const dateDeModifImportante = '05/09/2024'
+export const dateDeModifImportante = '06/11/2025'
 /**
  * @author Jean-Claude Lhote (sauf erreur de ma part)
  * Amélioré par Eric Elter
@@ -264,13 +265,13 @@ export default class LireAbscisseDecimaleTroisFormes extends Exercice {
       texte3 = `${numAlpha(1)} ` + texte3
       const multiple = this.sup === 1 ? 10 : this.sup === 2 ? 100 : 1000
       texteCorr = `${numAlpha(0)} L'abscisse de $${noms[0]}$ est : $${miseEnEvidence(texNombre(x1, 3))}$.<br>`
-      texteCorr += `${numAlpha(1)} L'abscisse de $${noms[1]}$ est : $${miseEnEvidence(`${texNombre(Math.floor(x2))} + ${new FractionEtendue(multiple * (x2 - Math.floor(x2)), multiple).toLatex()}`)}$.<br>`
+      texteCorr += `${numAlpha(1)} L'abscisse de $${noms[1]}$ est : $${miseEnEvidence(`${texNombre(Math.floor(x2))} + ${new FractionEtendue(multiple * arrondi(x2 - Math.floor(x2)), multiple).toLatex()}`)}$.<br>`
       texteCorr += `${numAlpha(2)} L'abscisse de $${noms[2]}$ est : $${miseEnEvidence(new FractionEtendue(multiple * x3, multiple).toLatex())}$.`
       if (!context.isAmc) {
         handleAnswers(this, i * 3, { reponse: { value: x1 } })
         handleAnswers(this, i * 3 + 1, {
           reponse: {
-            value: `${Math.floor(x2)}+${new FractionEtendue(multiple * (x2 - Math.floor(x2)), multiple).toLatex()}`,
+            value: `${Math.floor(x2)}+${new FractionEtendue(multiple * arrondi(x2 - Math.floor(x2)), multiple).toLatex()}`,
             options: { expressionNumerique: true },
           },
         })

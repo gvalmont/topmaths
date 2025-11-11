@@ -8,10 +8,10 @@ import Exercice from '../Exercice'
 import { fixeBordures } from '../../lib/2d/fixeBordures'
 import {
   barre3d,
-  cube3d,
-  paveLPH3d,
   plaque3d,
-} from '../../lib/3d/3dProjectionMathalea2d/solides'
+} from '../../lib/3d/3dProjectionMathalea2d/BarreEtPlaque3dPerspectiveCavaliere'
+import { cube3d } from '../../lib/3d/3dProjectionMathalea2d/Cube3dPerspectiveCavaliere'
+import { paveLPH3d } from '../../lib/3d/3dProjectionMathalea2d/PaveEtPaveLPH3dPerspectiveCavaliere'
 import { setReponse } from '../../lib/interactif/gestionInteractif'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { arrondi } from '../../lib/outils/nombres'

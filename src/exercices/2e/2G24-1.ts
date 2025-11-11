@@ -1,13 +1,9 @@
 import { fixeBordures } from '../../lib/2d/fixeBordures'
-import { point, tracePoint } from '../../lib/2d/points'
+import { point } from '../../lib/2d/PointAbstrait'
 import { Repere } from '../../lib/2d/reperes'
-import {
-  nomVecteurParPosition,
-  Segment,
-  segment,
-  vecteur,
-} from '../../lib/2d/segmentsVecteurs'
+import { Segment, segment } from '../../lib/2d/segmentsVecteurs'
 import { labelPoint, texteParPosition } from '../../lib/2d/textes'
+import { tracePoint } from '../../lib/2d/TracePoint'
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { remplisLesBlancs } from '../../lib/interactif/questionMathLive'
@@ -19,6 +15,12 @@ import { mathalea2d } from '../../modules/mathalea2d'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import Exercice from '../Exercice'
 
+import { nomVecteurParPosition } from '../../lib/2d/NomVecteurParPosition'
+import {
+  representant,
+  representantNomme,
+} from '../../lib/2d/representantVecteur'
+import { vecteur } from '../../lib/2d/Vecteur'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
 
 export const interactifReady = true
@@ -217,7 +219,7 @@ export default class Calculercoordonneesvecteurs extends Exercice {
       traceAetB.taille = 1.5
       const labelAetB = labelPoint(A, B, 'red') // Variable qui trace les noms A et B
       const vecteurAB = vecteur(A, B, 'red') // On créé le vecteur AB
-      const vecteurABRep = vecteurAB.representant(A, 'red') as Segment // On trace le vecteur AB
+      const vecteurABRep = representant(vecteurAB, A, 'red') as Segment // On trace le vecteur AB
       const O = point(0, 0, 'O') // On définit et on trace le point O
       const nomO = texteParPosition('O', -0.3, -0.3, 0, 'black', 1)
       const I = point(1, 0) // On définit sans tracer le point I
@@ -233,13 +235,10 @@ export default class Calculercoordonneesvecteurs extends Exercice {
       vecteurOI.tailleExtremites = 2.5
       vecteurOJ.tailleExtremites = 2.5
       vecteurABRep.tailleExtremites = 2.5
-      // vi = vecteur(O, I) // Variable qui définit vecteur OI
-      // vj = vecteur(O, J) // Variable qui définit vecteur OJ
-      // nomi = vi.representantNomme(O, 'i', 2, 'red') // Variable qui trace le nom du représentant du vecteur OI en origine O
-      // nomj = vj.representantNomme(O, 'j', 2, 'red')// Variable qui trace le nom du représentant du vecteur OI en origine O
       const nomi = nomVecteurParPosition('i', 0.5, -0.7, 1.5, 0)
       const nomj = nomVecteurParPosition('j', -0.7, 0.5, 1.5, 0)
-      const nomAB = vecteurAB.representantNomme(
+      const nomAB = representantNomme(
+        vecteurAB,
         A,
         nomsPoints[0] + nomsPoints[1],
         1,

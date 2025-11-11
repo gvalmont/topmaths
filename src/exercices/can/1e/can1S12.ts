@@ -1,11 +1,11 @@
+import { propositionsQcm } from '../../../lib/interactif/qcm'
 import { choice } from '../../../lib/outils/arrayOutils'
 import { texFractionFromString } from '../../../lib/outils/deprecatedFractions'
 import { ecritureAlgebrique } from '../../../lib/outils/ecritures'
-import { texNombre } from '../../../lib/outils/texNombre'
-import Exercice from '../../Exercice'
-import { listeQuestionsToContenu, randint } from '../../../modules/outils'
-import { propositionsQcm } from '../../../lib/interactif/qcm'
 import { arrondi } from '../../../lib/outils/nombres'
+import { texNombre } from '../../../lib/outils/texNombre'
+import { listeQuestionsToContenu, randint } from '../../../modules/outils'
+import Exercice from '../../Exercice'
 export const titre = 'Donner la nature d’une suite (formule de récurrence)*'
 export const interactifReady = true
 export const interactifType = 'qcm'
@@ -49,7 +49,7 @@ export default class NatureSuiteRec extends Exercice {
           Alors, $(${s}_n)$ est une suite ...`
           this.autoCorrection[i] = {
             enonce: texte,
-            options: { horizontal: true },
+
             propositions: [
               {
                 texte: `arithmétique de raison $${a}$`,
@@ -87,7 +87,7 @@ export default class NatureSuiteRec extends Exercice {
           Alors, $(${s}_n)$ est une suite ...`
           this.autoCorrection[i] = {
             enonce: texte,
-            options: { horizontal: true },
+
             propositions: [
               {
                 texte: `arithmétique de raison $${-a}$`,
@@ -126,7 +126,7 @@ export default class NatureSuiteRec extends Exercice {
           Alors, $(${s}_n)$ est une suite ...`
           this.autoCorrection[i] = {
             enonce: texte,
-            options: { horizontal: true },
+
             propositions: [
               {
                 texte: `arithmétique de raison $${a}$`,
@@ -167,7 +167,7 @@ export default class NatureSuiteRec extends Exercice {
           Alors, $(${s}_n)$ est une suite ...`
           this.autoCorrection[i] = {
             enonce: texte,
-            options: { horizontal: true },
+
             propositions: [
               {
                 texte: `géométrique de raison $${texNombre(1 + a)}$`,
@@ -230,7 +230,7 @@ export default class NatureSuiteRec extends Exercice {
           Alors, $(${s}_n)$ est une suite ...`
             this.autoCorrection[i] = {
               enonce: texte,
-              options: { horizontal: true },
+
               propositions: [
                 {
                   texte: `géométrique de raison $${texFractionFromString(d1 - n1, d1)}$`,
@@ -263,7 +263,7 @@ export default class NatureSuiteRec extends Exercice {
           Alors, $(${s}_n)$ est une suite ...`
             this.autoCorrection[i] = {
               enonce: texte,
-              options: { horizontal: true },
+
               propositions: [
                 {
                   texte: `géométrique de raison $${texFractionFromString(d1 + n1, d1)}$`,

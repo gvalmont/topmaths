@@ -464,7 +464,7 @@ export default class ExerciceInformationsProblemes extends Exercice {
           nb4 = randint(110, 230)
           nb5 = randint(128, Math.round(nb1 / 2))
           texte += `Le village de Sainte-${quidam2}-Les-Trois-Vallées compte ${nb1} habitants et se situe à une altitude de ${nb2} m.`
-          texte += ` À ${nb3} km de là, le village de Saint-${quidam}-Le-Bouquetin, situé ${nb4} m plus haut, compte ${nb5} habitants de moins.<br>`
+          texte += ` À ${nb3} $\\text{km}$ de là, le village de Saint-${quidam}-Le-Bouquetin, situé ${nb4} m plus haut, compte ${nb5} habitants de moins.<br>`
 
           switch (choixVersion) {
             case 1:
@@ -1484,8 +1484,8 @@ export default class ExerciceInformationsProblemes extends Exercice {
           nb3 = randint(7, 15)
           nb4 = randint(10, 12) + ' h ' + 5 * randint(2, 11)
           nb5 = randint(16, 29)
-          texte += `Un livreur part de son entrepôt avec ${nb1} colis. Au premier arrêt, le plus près, il dépose ${nb2} colis. ${nb3} km plus loin, il livre le reste de ses colis. `
-          texte += `Ensuite, à ${nb4}, le livreur reprend la même route et retourne à l'entrepôt, à ${nb5} km de là.<br>`
+          texte += `Un livreur part de son entrepôt avec ${nb1} colis. Au premier arrêt, le plus près, il dépose ${nb2} colis. ${nb3} $\\text{km}$ plus loin, il livre le reste de ses colis. `
+          texte += `Ensuite, à ${nb4}, le livreur reprend la même route et retourne à l'entrepôt, à ${nb5} $\\text{km}$ de là.<br>`
 
           switch (choixVersion) {
             case 1:
@@ -1500,7 +1500,7 @@ export default class ExerciceInformationsProblemes extends Exercice {
                 texteCorr +=
                   texteEnCouleurEtGras(nb5 + ' km') +
                   `$${sp()}-${sp()}$` +
-                  texteEnCouleurEtGras(nb3 + ' km ') +
+                  texteEnCouleurEtGras(nb3 + ' $\\text{km}$ ') +
                   '.'
               } else {
                 texteCorr +=
@@ -1515,7 +1515,7 @@ export default class ExerciceInformationsProblemes extends Exercice {
                 texteCorr +=
                   texteEnCouleurEtGras(nb5 + ' km') +
                   `$${sp()}-${sp()}$` +
-                  texteEnCouleurEtGras(nb3 + ' km ') +
+                  texteEnCouleurEtGras(nb3 + ' $\\text{km}$ ') +
                   '.'
               }
 

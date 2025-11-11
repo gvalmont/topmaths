@@ -1,3 +1,4 @@
+import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 import { choice } from '../../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { randint } from '../../../modules/outils'
@@ -23,6 +24,7 @@ class APlusbBnSurN extends ExerciceSimple {
     super()
     this.nbQuestions = 1
     this.typeExercice = 'simple'
+    this.formatChampTexte = KeyboardType.clavierLimites
   }
 
   nouvelleVersion() {

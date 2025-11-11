@@ -81,7 +81,7 @@ export default class ExerciceConversions extends Exercice {
     this.sup2 = false // Avec des nombres décimaux ou pas
     this.titre =
       'Convertir des longueurs, masses, contenance, prix ou unités informatiques'
-    this.consigne = 'Compléter par un nombre décimal.'
+    this.consigne = 'Compléter.'
     this.spacing = 2
     this.correction_avec_des_fractions = false
     this.valUnitaire = false

@@ -1,4 +1,5 @@
 import { droiteGraduee } from '../../../lib/2d/DroiteGraduee'
+import { propositionsQcm } from '../../../lib/interactif/qcm'
 import { choice } from '../../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { texNombre } from '../../../lib/outils/texNombre'
@@ -172,6 +173,8 @@ export default class Can2025N6Q26 extends ExerciceSimple {
           },
         ],
       }
+      const monQcm = propositionsQcm(this, 0)
+      this.question += monQcm.texte
     }
   }
 }

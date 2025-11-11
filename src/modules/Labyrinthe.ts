@@ -1,4 +1,4 @@
-import { point } from '../lib/2d/points'
+import { point } from '../lib/2d/PointAbstrait'
 import { Segment, segment } from '../lib/2d/segmentsVecteurs'
 import {
   Latex2d,

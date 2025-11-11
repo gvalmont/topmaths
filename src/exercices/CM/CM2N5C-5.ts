@@ -219,7 +219,7 @@ La somme totale restant à payer par les familles est de $${this.sup !== 3 ? mis
         listePrincipale =
           `  Un spectacle ${showType} avec cinq ${artiste} est proposé au directeur d'une école, pour une classe d'enfants de $${age}$ ans.<br>
         Il faut payer les ${artiste} $${payeArtiste}$ euros chacun.<br>
-        Il faut aussi payer leur déplacement de $${distance}$ km, soit $${fraisDeplacement}$ euros au total. Il n'y a pas d'autres frais.<br>
+        Il faut aussi payer leur déplacement de $${distance}\\text{ km}$, soit $${fraisDeplacement}$ euros au total. Il n'y a pas d'autres frais.<br>
         L'association de parents d'élèves donne une aide de $${aideParents}$ euros et la mairie accorde une autre aide de $${aideMairie}$ euros.<br>
         Si les $${nbEleves}$ élèves de cette école assistent au spectacle, quelle participation financière doit être demandée à chaque élève pour payer la dépense restante ?<br>` +
           ajouteQuestionMathlive({

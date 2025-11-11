@@ -36,7 +36,7 @@ export default class AgrandissementReduction extends ExerciceSimple {
 
         Par quelle valeur est multipliée son aire ?
         `
-        this.optionsChampTexte = { texteApres: '' }
+
         this.reponse = a * a
         this.correction = ` Si les longueurs sont multiplées par $k$, les aires sont multipliées par $k^2$, soit ici par $${a}^2=${a ** 2}$.<br>
         `
@@ -48,7 +48,7 @@ export default class AgrandissementReduction extends ExerciceSimple {
 
         Par quelle valeur ont été multipliées les longueurs de ce quadrilatère ?
         `
-        this.optionsChampTexte = { texteApres: '' }
+
         this.reponse = a
         this.correction = ` Si les aires sont multiplées par $k$, les longueurs sont multipliées par $\\sqrt{k}$, soit ici par $\\sqrt{${b}}=${a}$.<br>
         `
@@ -57,13 +57,13 @@ export default class AgrandissementReduction extends ExerciceSimple {
         a = randint(2, 4) // aire
         c = randint(2, 4) // coefficient
 
-        this.question = `Les longueurs d'un rectangle de $${a}$ cm$^2$  sont multipliées par $${c}$.<br>
+        this.question = `Les longueurs d'un rectangle de $${a}\\text{ cm}^2$  sont multipliées par $${c}$.<br>
 
             Quelle est l'aire du rectangle ainsi obtenu ?        `
-        this.optionsChampTexte = { texteApres: ' cm$^2$' }
+        this.optionsChampTexte = { texteApres: '$\\text{ cm}^2$' }
         this.reponse = a * c * c
         this.correction = ` Si les longueurs sont multiplées par $k$, les aires sont multipliées par $k^2$, soit ici par $${c}^2=${c ** 2}$.<br>
-            Ainsi, l'aire du nouveau rectangle est : $${a}\\times ${c * c}=${a * c * c}$ cm$^2$.
+            Ainsi, l'aire du nouveau rectangle est : $${a}\\times ${c * c}=${a * c * c}\\text{ cm}^2$.
     `
         break
     }

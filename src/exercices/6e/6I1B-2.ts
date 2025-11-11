@@ -1,5 +1,5 @@
 /* eslint-disable camelcase */
-import { point } from '../../lib/2d/points'
+import { point } from '../../lib/2d/PointAbstrait'
 import { texteParPositionEchelle } from '../../lib/2d/textes'
 import { choixDeroulant } from '../../lib/interactif/questionListeDeroulante'
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'

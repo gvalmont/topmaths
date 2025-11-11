@@ -1,15 +1,13 @@
-import { codageAngleDroit } from '../../lib/2d/angles'
 import { cercle } from '../../lib/2d/cercle'
-import { codageSegments } from '../../lib/2d/codages'
-import { Droite, mediatrice } from '../../lib/2d/droites'
-import {
-  milieu,
-  point,
-  pointIntersectionLC,
-  tracePoint,
-} from '../../lib/2d/points'
+import { codageAngleDroit } from '../../lib/2d/CodageAngleDroit'
+import { codageSegments } from '../../lib/2d/CodageSegment'
+import { Droite } from '../../lib/2d/droites'
+import { mediatrice } from '../../lib/2d/Mediatrice'
+import { point } from '../../lib/2d/PointAbstrait'
 import { segment } from '../../lib/2d/segmentsVecteurs'
 import { texteParPosition } from '../../lib/2d/textes'
+import { tracePoint } from '../../lib/2d/TracePoint'
+import { milieu, pointIntersectionLC } from '../../lib/2d/utilitairesPoint'
 import { deuxColonnes } from '../../lib/format/miseEnPage'
 import { texteGras } from '../../lib/format/style'
 import { setReponse } from '../../lib/interactif/gestionInteractif'

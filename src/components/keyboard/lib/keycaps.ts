@@ -334,6 +334,7 @@ const basicKeys = {
   iMath: { display: '$i$', insert: 'i' },
   kMath: { display: '$k$', insert: 'k' },
   nMath: { display: '$n$', insert: 'n' },
+  hMath: { display: '$h$', insert: 'h' },
   // ================== greek letters
   PI: {
     display: '$\\pi$',

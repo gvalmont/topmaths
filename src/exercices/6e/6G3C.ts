@@ -1,17 +1,19 @@
-import { codageAngleDroit } from '../../lib/2d/angles'
+import { afficheLongueurSegment } from '../../lib/2d/afficheLongueurSegment'
 import { cercle } from '../../lib/2d/cercle'
-import { afficheLongueurSegment, codageMilieu } from '../../lib/2d/codages'
-import { Droite, droite, mediatrice } from '../../lib/2d/droites'
+import { codageAngleDroit } from '../../lib/2d/CodageAngleDroit'
+import { codageMilieu } from '../../lib/2d/CodageMilieu'
+import { Droite, droite } from '../../lib/2d/droites'
+import { mediatrice } from '../../lib/2d/Mediatrice'
+import { PointAbstrait, pointAbstrait } from '../../lib/2d/PointAbstrait'
+import { segment } from '../../lib/2d/segmentsVecteurs'
+import { labelPoint } from '../../lib/2d/textes'
+import { tracePoint } from '../../lib/2d/TracePoint'
+import { longueur } from '../../lib/2d/utilitairesGeometriques'
 import {
-  Point,
-  point,
   pointAdistance,
   pointIntersectionDD,
   pointIntersectionLC,
-  tracePoint,
-} from '../../lib/2d/points'
-import { longueur, segment } from '../../lib/2d/segmentsVecteurs'
-import { labelPoint } from '../../lib/2d/textes'
+} from '../../lib/2d/utilitairesPoint'
 import { combinaisonListes, shuffle } from '../../lib/outils/arrayOutils'
 import { arrondi } from '../../lib/outils/nombres'
 import { creerNomDePolygone } from '../../lib/outils/outilString'
@@ -71,11 +73,11 @@ export default class ProprietesMediatrice extends Exercice {
     } else {
       listeSurLaMediatrice = combinaisonListes([true], this.nbQuestions)
     }
-    let A,
-      B,
-      C,
-      D,
-      segmentAB,
+    let A = pointAbstrait(0, 0)
+    let B = pointAbstrait(0, 0)
+    let C = pointAbstrait(0, 0)
+    let D = pointAbstrait(0, 0)
+    let segmentAB,
       segmentAC,
       segmentBC,
       mediatriceAB,
@@ -94,7 +96,7 @@ export default class ProprietesMediatrice extends Exercice {
         Array.from(creerNomDePolygone(22, ['O', 'Q', 'W', 'X'])),
       )
       do {
-        A = point(0, 0, nomDesPoints[0], 'below')
+        A = pointAbstrait(0, 0, nomDesPoints[0], 'below')
         B = pointAdistance(
           A,
           randint(30, 60) / 10,
@@ -120,16 +122,16 @@ export default class ProprietesMediatrice extends Exercice {
           )
         }
         if (!listeSurLaMediatrice[i])
-          C = point(
+          C = pointAbstrait(
             C.x + randint(-5, 5, 0) / 10,
             C.y + randint(-5, 5, 0) / 10,
             nomDesPoints[2],
             'above',
           ) // s'il ne doit pas être sur la médiatrice, on l'en éloigne
       } while (
-        C.constructor !== Point ||
-        A.constructor !== Point ||
-        B.constructor !== Point
+        C.constructor !== PointAbstrait ||
+        A.constructor !== PointAbstrait ||
+        B.constructor !== PointAbstrait
       )
       segmentAB = segment(A, B)
       segmentAC = segment(A, C)

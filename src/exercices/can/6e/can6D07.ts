@@ -41,9 +41,9 @@ export default class AutoFractionHeures extends ExerciceSimple {
       ? `$${durees[choix][1]}$ h = `
       : `${durees[choix][0]} ${durees[choix][3]} à `
     this.canReponseACompleter =
-      this.question + '$\\ldots\\ldots\\ldots\\ldots$ ' + 'minutes'
+      this.question + '$\\ldots\\ldots\\ldots\\ldots$ ' + 'minutes.'
     this.correction =
-      this.question + `$${miseEnEvidence(this.reponse)}$ minutes`
+      this.question + `$${miseEnEvidence(this.reponse)}$ minutes.`
     if (!this.interactif) this.question = this.canReponseACompleter
     this.canEnonce = 'Compléter.'
     this.optionsChampTexte = { texteApres: 'minutes' }

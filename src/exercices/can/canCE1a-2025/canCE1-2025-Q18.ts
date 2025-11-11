@@ -92,6 +92,8 @@ export default class Can2025CE1Q18 extends Exercice {
       ),
       horloge,
     )
+    this.listeQuestions = [texte]
+    this.listeCorrections = [texteCorr]
   }
 
   correctionInteractive(i: number) {

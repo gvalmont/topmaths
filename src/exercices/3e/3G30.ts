@@ -1,9 +1,12 @@
-import { codageAngle, codageAngleDroit } from '../../lib/2d/angles'
-import { milieu, point } from '../../lib/2d/points'
+import { codageAngle } from '../../lib/2d/angles'
+import { codageAngleDroit } from '../../lib/2d/CodageAngleDroit'
+import { point } from '../../lib/2d/PointAbstrait'
 import { barycentre, nommePolygone, polygone } from '../../lib/2d/polygones'
-import { longueur, segment } from '../../lib/2d/segmentsVecteurs'
+import { segment } from '../../lib/2d/segmentsVecteurs'
 import { latexParPoint } from '../../lib/2d/textes'
 import { homothetie, rotation } from '../../lib/2d/transformations'
+import { longueur } from '../../lib/2d/utilitairesGeometriques'
+import { milieu } from '../../lib/2d/utilitairesPoint'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
@@ -15,15 +18,13 @@ import { creerNomDePolygone, numAlpha } from '../../lib/outils/outilString'
 import { texNombre } from '../../lib/outils/texNombre'
 import { context } from '../../modules/context'
 import Grandeur from '../../modules/Grandeur'
-import {
-  mathalea2d,
-  type NestedObjetMathalea2dArray,
-} from '../../modules/mathalea2d'
+import { mathalea2d } from '../../modules/mathalea2d'
 import {
   gestionnaireFormulaireTexte,
   listeQuestionsToContenu,
   randint,
 } from '../../modules/outils'
+import type { NestedObjetMathalea2dArray } from '../../types/2d'
 import Exercice from '../Exercice'
 
 export const interactifReady = true
@@ -82,7 +83,7 @@ export default class CalculDeLongueur extends Exercice {
   }
 
   nouvelleVersion() {
-    let reponse = ''
+    let reponse = 0
     let listeDeNomsDePolygones: string[] = []
     const typeQuestionsDisponibles =
       this.level === 4
@@ -231,7 +232,12 @@ export default class CalculDeLongueur extends Exercice {
       let m4
       let t1, t2, t3
       let nomLongueur // la longueur à déterminer
-      let calcul0, calcul1, calcul2, calcul3, calcul4, calcul5 // les propsitions de calcul pour AMC
+      let calcul0 = ''
+      let calcul1 = ''
+      let calcul2 = ''
+      let calcul3 = ''
+      let calcul4 = ''
+      let calcul5 = '' // les propsitions de calcul pour AMC
       let calculTrue
       switch (listeTypeQuestions[i]) {
         case 'cosinus': // AB=BCxcos(B)
@@ -369,7 +375,7 @@ export default class CalculDeLongueur extends Exercice {
             texteCorr += `$${nom[0] + nom[1]}=${bc} \\times \\cos\\left(${angleABC}^\\circ\\right)$`
           }
           texteCorr += `<br>soit $${nom[0] + nom[1]}\\approx${texNombre(ab, 1)}$ ${unite}.`
-          reponse = ab.toFixed(1)
+          reponse = arrondi(ab, 1)
           nomLongueur = `$${nom[0] + nom[1]}$`
           calcul0 = `$${nom[1] + nom[2]}\\times\\cos\\left(${angleABC}^\\circ\\right)$`
           calcul1 = `$${nom[1] + nom[2]}\\times\\sin\\left(${angleABC}^\\circ\\right)$`
@@ -392,7 +398,7 @@ export default class CalculDeLongueur extends Exercice {
             texteCorr += `$${nom[0] + nom[2]}=${bc} \\times \\sin\\left(${angleABC}^\\circ\\right)$`
           }
           texteCorr += `<br>soit $${nom[0] + nom[2]}\\approx${texNombre(ac, 1)}$ ${unite}.`
-          reponse = ac.toFixed(1)
+          reponse = arrondi(ac, 1)
           nomLongueur = `$${nom[0] + nom[2]}$`
           calcul0 = `$${nom[1] + nom[2]}\\times\\cos\\left(${angleABC}^\\circ\\right)$`
           calcul1 = `$${nom[1] + nom[2]}\\times\\sin\\left(${angleABC}^\\circ\\right)$`
@@ -415,7 +421,7 @@ export default class CalculDeLongueur extends Exercice {
             texteCorr += `$${nom[0] + nom[2]}=${ab} \\times \\tan\\left(${angleABC}^\\circ\\right)$`
           }
           texteCorr += `<br>soit $${nom[0] + nom[2]}\\approx${texNombre(ac, 1)}$ ${unite}.`
-          reponse = ac.toFixed(1)
+          reponse = arrondi(ac, 1)
           nomLongueur = `$${nom[0] + nom[2]}$`
           calcul0 = `$${nom[0] + nom[1]}\\times\\cos\\left(${angleABC}^\\circ\\right)$`
           calcul1 = `$${nom[0] + nom[1]}\\times\\sin\\left(${angleABC}^\\circ\\right)$`
@@ -438,7 +444,7 @@ export default class CalculDeLongueur extends Exercice {
             texteCorr += `$${nom[1] + nom[2]}= \\dfrac{${ab}}{\\cos\\left(${angleABC}^\\circ\\right)}$`
           }
           texteCorr += `<br>soit $${nom[1] + nom[2]}\\approx${texNombre(bc, 1)}$ ${unite}.`
-          reponse = bc.toFixed(1)
+          reponse = arrondi(bc, 1)
           nomLongueur = `$${nom[1] + nom[2]}$`
           calcul0 = `$${nom[0] + nom[1]}\\times\\cos\\left(${angleABC}^\\circ\\right)$`
           calcul1 = `$${nom[0] + nom[1]}\\times\\sin\\left(${angleABC}^\\circ\\right)$`
@@ -461,7 +467,7 @@ export default class CalculDeLongueur extends Exercice {
             texteCorr += `$${nom[1] + nom[2]}=\\dfrac{${ac}}{\\sin\\left(${angleABC}^\\circ\\right)}$`
           }
           texteCorr += `<br>soit $${nom[1] + nom[2]}\\approx${texNombre(bc, 1)}$ ${unite}.`
-          reponse = bc.toFixed(1)
+          reponse = arrondi(bc, 1)
           nomLongueur = `$${nom[1] + nom[2]}$`
           calcul0 = `$${nom[0] + nom[2]}\\times\\cos\\left(${angleABC}^\\circ\\right)$`
           calcul1 = `$${nom[0] + nom[2]}\\times\\sin\\left(${angleABC}^\\circ\\right)$`
@@ -484,7 +490,7 @@ export default class CalculDeLongueur extends Exercice {
             texteCorr += `$${nom[0] + nom[1]}=\\dfrac{${ac}}{\\tan\\left(${angleABC}^\\circ\\right)}$`
           }
           texteCorr += `<br>soit $${nom[0] + nom[1]}\\approx${texNombre(ab, 1)}$ ${unite}.`
-          reponse = ab.toFixed(1)
+          reponse = arrondi(ab, 1)
           nomLongueur = `$${nom[0] + nom[1]}$`
           calcul0 = `$${nom[0] + nom[2]}\\times\\cos\\left(${angleABC}^\\circ\\right)$`
           calcul1 = `$${nom[0] + nom[2]}\\times\\sin\\left(${angleABC}^\\circ\\right)$`
@@ -562,9 +568,10 @@ export default class CalculDeLongueur extends Exercice {
               type: 'AMCNum',
               propositions: [
                 {
+                  texte: '',
                   reponse: {
                     texte: numAlpha(1) + q2AMC, // `${nomLongueur} arrondie au dixième de ${unite}:\\\\\n`,
-                    valeur: [reponse],
+                    valeur: reponse,
                     param: {
                       digits: 3,
                       decimals: 1,

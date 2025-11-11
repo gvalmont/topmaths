@@ -8,6 +8,7 @@ import { context } from '../../modules/context'
 import { fraction } from '../../modules/fractions'
 import { mathalea2d } from '../../modules/mathalea2d'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
+import { representationFraction } from '../../modules/representationsFractions'
 import Exercice from '../Exercice'
 export const titre = "Représenter une fraction de l'unité"
 export const amcReady = true
@@ -136,7 +137,7 @@ export default class FractionsDunite extends Exercice {
 
       texteCorr = mathalea2d(
         { xmin: 0, ymin: 0, xmax: 26, ymax: 2, pixelsParCm: 20, scale: sc },
-        frac.representation(1, 1, unit, 0, 'segment', 'blue', 0, 1),
+        representationFraction(frac, 1, 1, unit, 0, 'segment', 'blue', 0, 1),
         g,
         carreaux,
       )

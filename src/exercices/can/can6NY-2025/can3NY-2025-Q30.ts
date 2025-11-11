@@ -1,7 +1,7 @@
-import ExerciceSimple from '../../ExerciceSimple'
-import { miseEnEvidence } from '../../../lib/outils/embellissements'
-import { choice } from '../../../lib/outils/arrayOutils'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
+import { choice } from '../../../lib/outils/arrayOutils'
+import { miseEnEvidence } from '../../../lib/outils/embellissements'
+import ExerciceSimple from '../../ExerciceSimple'
 
 import Decimal from 'decimal.js'
 import { texNombre } from '../../../lib/outils/texNombre'
@@ -23,7 +23,7 @@ export default class ComparerFractions extends ExerciceSimple {
     this.typeExercice = 'simple' // Cette ligne est très importante pour faire un exercice simple !
     this.nbQuestions = 1
     this.optionsChampTexte = { texteApres: ' bouteilles' }
-    this.formatChampTexte = KeyboardType.clavierDeBaseAvecVariable
+    this.formatChampTexte = KeyboardType.clavierNumbers
   }
 
   nouvelleVersion() {

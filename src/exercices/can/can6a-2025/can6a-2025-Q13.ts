@@ -1,9 +1,9 @@
-import ExerciceSimple from '../../ExerciceSimple'
-import { texNombre } from '../../../lib/outils/texNombre'
-import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
-import { randint } from '../../../modules/outils'
 import { choice } from '../../../lib/outils/arrayOutils'
+import { miseEnEvidence } from '../../../lib/outils/embellissements'
+import { texNombre } from '../../../lib/outils/texNombre'
+import { randint } from '../../../modules/outils'
+import ExerciceSimple from '../../ExerciceSimple'
 export const titre = 'Calculer et convertir'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -41,15 +41,15 @@ export default class Can2025N62Q13 extends ExerciceSimple {
     if (choix === 1) {
       this.reponse = 10
       this.correction += `Puisque  $1\\text{ ${prefixes[k]}} =0,1\\text{ ${prefixes[k - choix]}}$, on divise par $10$.<br>
-      Ainsi, $${a}\\text{ ${prefixes[k]}}+${b}\\text{ ${prefixes[k]}}=${miseEnEvidence(`${texNombre(this.reponse)}`)} \\text{ ${prefixes[k - choix]}}$`
+      Ainsi, $${a}\\text{ ${prefixes[k]}}+${b}\\text{ ${prefixes[k]}}=${miseEnEvidence(`${texNombre(this.reponse)}`)} \\text{ ${prefixes[k - choix]}}$.`
     } else if (choix === 2) {
       this.reponse = 1
       this.correction += `Puisque  $1\\text{ ${prefixes[k]}} =0,01\\text{ ${prefixes[k - choix]}}$, on divise par $100$.<br>
-      Ainsi, $${a}\\text{ ${prefixes[k]}}+${b}\\text{ ${prefixes[k]}}=${miseEnEvidence(`${texNombre(this.reponse)}`)} \\text{ ${prefixes[k - choix]}}$`
+      Ainsi, $${a}\\text{ ${prefixes[k]}}+${b}\\text{ ${prefixes[k]}}=${miseEnEvidence(`${texNombre(this.reponse)}`)} \\text{ ${prefixes[k - choix]}}$.`
     } else {
       this.reponse = 0.1
       this.correction += `Puisque  $1\\text{ ${prefixes[k]}} =${texNombre(0.001, 3)}\\text{ ${prefixes[k - choix]}}$, on divise par $${texNombre(1000, 0)}$.<br>
-      Ainsi, $${a}\\text{ ${prefixes[k]}}+${b}\\text{ ${prefixes[k]}}=${miseEnEvidence(`${texNombre(this.reponse)}`)} \\text{ ${prefixes[k - choix]}}$`
+      Ainsi, $${a}\\text{ ${prefixes[k]}}+${b}\\text{ ${prefixes[k]}}=${miseEnEvidence(`${texNombre(this.reponse)}`)} \\text{ ${prefixes[k - choix]}}$.`
     }
 
     this.optionsChampTexte = { texteApres: `$\\text{ ${prefixes[k - choix]}}$` }

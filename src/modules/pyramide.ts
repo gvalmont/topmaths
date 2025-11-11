@@ -1,4 +1,4 @@
-import { BoiteBuilder } from '../lib/2d/polygones'
+import { BoiteBuilder } from '../lib/2d/BoiteBuilder'
 import { choice } from '../lib/outils/arrayOutils'
 import { stringNombre } from '../lib/outils/texNombre'
 import type { NestedObjetMathalea2dArray } from '../types/2d'

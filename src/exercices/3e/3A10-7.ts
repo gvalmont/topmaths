@@ -113,7 +113,7 @@ export default class ExerciceLabyrinthePremiers3e extends Exercice {
         }
       }
       laby = labyrinthe({ nbLignes: nbL, nbColonnes: nbC })
-      laby.niveau = this.sup2
+      laby.niveau = Math.max(this.sup2, 1)
       monChemin = laby.choisitChemin(laby.niveau) // On choisit un chemin
       laby.murs2d = laby.construitMurs(monChemin) // On construit le labyrinthe
       laby.chemin2d = laby.traceChemin(monChemin, orangeMathalea) // On trace le chemin solution

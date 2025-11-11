@@ -1,5 +1,5 @@
 import type { MathfieldElement } from 'mathlive'
-import type Exercice from '../../exercices/Exercice'
+import type { IExercice } from '../../lib/types'
 import { sp } from '../outils/outilString'
 import { fonctionComparaison } from './comparisonFunctions'
 
@@ -23,7 +23,7 @@ export function toutAUnPoint(listePoints: number[]) {
  * @returns {{feedback: string, score: {nbBonnesReponses: (number|number), nbReponses: (number|number)}, isOk: string}|{feedback: string, score: {nbBonnesReponses: number, nbReponses: number}, resultat: string}|{feedback: string, score: {nbBonnesReponses: number, nbReponses: number}, isOk: string}|*|{feedback: string, score: {nbBonnesReponses: (number), nbReponses: number}, resultat: string}}
  */
 export function verifQuestionMathLive(
-  exercice: Exercice,
+  exercice: IExercice,
   i: number,
   writeResult = true,
 ) {

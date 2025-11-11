@@ -21,16 +21,24 @@ export function statsTracker(
   exercise: TypeExercice,
   recorder: string,
   vue: string,
+  isreview: 'review' | '',
 ) {
   logDebug('Tracking stats...')
-  if (window._paq) {
+  if (window._paq && isreview === '') {
     window._paq.push([
       'trackEvent',
       'CheckExo',
       vue + '-' + exercise.uuid + (recorder ? '-' + recorder : ''),
     ])
   }
-  log(vue + '-' + exercise.uuid, 'CheckExo', recorder ? '-' + recorder : '')
+  log(
+    'CheckExo',
+    vue +
+      '-' +
+      exercise.uuid +
+      (recorder ? '-' + recorder : '') +
+      (isreview ? '-review' : ''),
+  )
 }
 
 let oldUrl = ''

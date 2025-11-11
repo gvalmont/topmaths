@@ -1,0 +1,55 @@
+import { miseEnEvidence } from '../../lib/outils/embellissements'
+import { randint } from '../../modules/outils'
+import ExerciceQcmA from '../ExerciceQcmA'
+export const dateDePublication = '10/08/2025'
+export const uuid = '65cdf'
+// Author Stéphane Guyon
+export const refs = {
+  'fr-fr': ['1A-C03-3'],
+  'fr-ch': [],
+}
+export const interactifReady = true
+export const interactifType = 'qcm'
+export const amcReady = 'true'
+export const amcType = 'qcmMono'
+export const titre = 'Appliquer la propriété des puissances de puissances'
+export default class Auto1AC3c extends ExerciceQcmA {
+ private appliquerLesValeurs(
+    a: number,
+    k: number
+  ): void {
+    this.enonce = `Soit $n$ un entier${a === 3 && k === 2 ? ' non nul' : ''}. <br>À quelle expression est égale $\\left(${a}^n\\right)^{${k}}$ ?`
+    
+    this.correction = `On applique la propriété des puissances de puissances d'un réel : <br>
+    Soit $n\\in \\mathbb{N}$, et $p \\in \\mathbb{N}$, on a : 
+     $\\left(a^{n}\\right)^{p}=a^{np}$<br>
+    $\\begin{aligned}\\left(${a}^{n}\\right)^{${k}}&=${a}^{${k}n}\\\\
+    &=\\left(${a}^{${k}}\\right)^{n}\\\\
+    &=${miseEnEvidence(`${a ** k}^{n}`)}
+    \\end{aligned}$`
+    
+   
+    
+    this.reponses = [
+      `$${a ** k}^{n}$`,
+      `$${a}^{n^{${k}}}$`,
+      k === 2 ? 'Aucune de ces propositions' : `$${a}^{${k}+n}$`,
+      k === 2 ? `$${a * k}^{n}$` : `$${a * k}^{n}$`,
+    ]
+  }
+
+  versionOriginale: () => void = () => {
+    this.appliquerLesValeurs(3, 2)
+  }
+
+  versionAleatoire = () => {
+    const k = randint(2, 3)
+    const a = randint(2, 4)
+    this.appliquerLesValeurs(a, k)
+  }
+
+  constructor() {
+    super()
+    this.versionAleatoire()
+  }
+}

@@ -1,22 +1,23 @@
-import { codageAngle, codageAngleDroit } from '../../lib/2d/angles'
-import { codageSegments } from '../../lib/2d/codages'
+import { codageAngle } from '../../lib/2d/angles'
+import { codageAngleDroit } from '../../lib/2d/CodageAngleDroit'
+import { codageSegments } from '../../lib/2d/CodageSegment'
 import { grille, seyes } from '../../lib/2d/Grille'
-import { point } from '../../lib/2d/points'
+import { point } from '../../lib/2d/PointAbstrait'
 import {
   barycentre,
-  carre,
   NommePolygone,
   nommePolygone,
   Polygone,
   polygone,
 } from '../../lib/2d/polygones'
-import { Vecteur, vecteur } from '../../lib/2d/segmentsVecteurs'
+import { carre } from '../../lib/2d/polygonesParticuliers'
 import {
   homothetie,
   rotation,
   similitude,
   translation,
 } from '../../lib/2d/transformations'
+import { vecteur, type Vecteur } from '../../lib/2d/Vecteur'
 import { vide2d } from '../../lib/2d/Vide2d'
 import { creerNomDePolygone } from '../../lib/outils/outilString'
 import { context } from '../../modules/context'

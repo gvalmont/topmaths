@@ -1,7 +1,11 @@
+import type { IExerciceBrevetA } from './Exercice.type'
 import ExerciceBrevet from './ExerciceBrevet'
 
 // class à utiliser pour fabriquer des Qcm ayant une version aléatoire
-export default class ExerciceBrevetA extends ExerciceBrevet {
+export default class ExerciceBrevetA
+  extends ExerciceBrevet
+  implements IExerciceBrevetA
+{
   constructor() {
     super()
     this.besoinFormulaireCaseACocher = ['Sujet original', false]

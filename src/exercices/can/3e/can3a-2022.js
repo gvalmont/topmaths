@@ -1,9 +1,10 @@
 import Decimal from 'decimal.js'
-import { codageAngleDroit } from '../../../lib/2d/angles'
+import { codageAngleDroit } from '../../../lib/2d/CodageAngleDroit'
+import { point } from '../../../lib/2d/PointAbstrait'
 import { colorToLatexOrHTML } from '../../../lib/2d/colorToLatexOrHtml'
-import { milieu, point } from '../../../lib/2d/points'
 import { polygone, polygoneAvecNom } from '../../../lib/2d/polygones'
 import { labelPoint, texteParPosition } from '../../../lib/2d/textes'
+import { milieu } from '../../../lib/2d/utilitairesPoint'
 import {
   handleAnswers,
   setReponse,
@@ -271,29 +272,39 @@ export default class SujetCAN2022troisieme extends Exercice {
           if (choice([true, false])) {
             a = randint(1, 13) * 50
             reponse = new Decimal(a).div(100)
-            texte = `$${a}$ cm  $=$`
+            texte = `$${a}\\text{ cm}$  $=$`
 
             texteCorr = `
-        Comme $1$ m $=100$ cm, alors $1$ cm $=0,01$ m.<br>
-        Ainsi pour passer des "m" au "cm", on divise par $100$.<br>
-          Comme : $${a}\\div 100 =${texNombre(reponse, 2)}$<br> alors $${a}$ cm$=${texNombre(reponse, 2)}$ m.  `
+        Comme $1\\text{ m}$ $=100\\text{ cm}$, alors $1\\text{ cm}$ $=0,01\\text{ m}$.<br>
+        Ainsi pour passer des $\\text{m}$ au $\\text{cm}$, on divise par $100$.<br>
+          Comme : $${a}\\div 100 =${texNombre(reponse, 2)}$<br> alors $${a}\\text{ cm}=${texNombre(reponse, 2)}\\text{ m}$.  `
             setReponse(this, index, reponse, { formatInteractif: 'calcul' })
             if (this.interactif) {
-              texte += ajouteChampTexteMathLive(this, index, ' ') + 'm'
+              texte +=
+                ajouteChampTexteMathLive(
+                  this,
+                  index,
+                  KeyboardType.clavierNumbers,
+                ) + '$\\text{ m}$'
             } else {
-              texte += '  $\\ldots$ m'
+              texte += '  $\\ldots\\text{ m}$'
             }
           } else {
             a = new Decimal(randint(1, 9)).div(10).plus(randint(1, 9))
             reponse = a.mul(100)
-            texte = `$${texNombre(a, 1)}$ m  $=$ `
-            texteCorr = ` Comme $1$ m $=100$ cm,  pour passer des "m" au "cm", on multiplie par $100$.<br>
-                Comme : $${texNombre(a, 1)}\\times 100 =${texNombre(reponse, 0)}$, alors $${texNombre(a, 2)}$ m$=${texNombre(reponse, 0)}$ cm.`
+            texte = `$${texNombre(a, 1)}\\text{ m}$  $=$ `
+            texteCorr = ` Comme $1\\text{ m}$ $=100\\text{ cm}$,  pour passer des $\\text{m}$ au $\\text{cm}$, on multiplie par $100$.<br>
+                Comme : $${texNombre(a, 1)}\\times 100 =${texNombre(reponse, 0)}$, alors $${texNombre(a, 2)}\\text{ m}=${texNombre(reponse, 0)}\\text{ cm}$.`
             setReponse(this, index, reponse, { formatInteractif: 'calcul' })
             if (this.interactif) {
-              texte += ajouteChampTexteMathLive(this, index, ' ') + 'cm'
+              texte += ajouteChampTexteMathLive(
+                this,
+                index,
+                KeyboardType.clavierNumbers,
+                { texteApres: '$\\text{ cm}$' },
+              )
             } else {
-              texte += '  $\\ldots$ cm'
+              texte += '  $\\ldots\\text{ cm}$'
             }
           }
           nbChamps = 1
@@ -596,13 +607,18 @@ export default class SujetCAN2022troisieme extends Exercice {
             e,
           )
           texteCorr = `L'aire du triangle est $\\dfrac{\\text{AB}\\times \\text{AC}}{2}=\\dfrac{${a}\\times \\text{AC}}{2}$.<br>
-          On obtient ainsi,  $\\dfrac{${a}\\times \\text{AC}}{2}=${c}$ soit $${a}\\times AC=2\\times ${c}$, soit $AC=\\dfrac{${c * 2}}{${a}}=${reponse}$ cm.`
+          On obtient ainsi,  $\\dfrac{${a}\\times \\text{AC}}{2}=${c}$ soit $${a}\\times AC=2\\times ${c}$, soit $AC=\\dfrac{${c * 2}}{${a}}=${reponse}\\text{ cm}$.`
           texte += ' $AC= $'
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) {
-            texte += ajouteChampTexteMathLive(this, index, ' ') + 'cm'
+            texte += ajouteChampTexteMathLive(
+              this,
+              index,
+              KeyboardType.clavierNumbers,
+              { texteApres: '$\\text{ cm}$' },
+            )
           } else {
-            texte += ' $\\ldots$ cm'
+            texte += ' $\\ldots\\text{ cm}$'
           }
           nbChamps = 1
           break
@@ -738,14 +754,19 @@ export default class SujetCAN2022troisieme extends Exercice {
             e,
           )
           texteCorr = `Le périmètre en cm est donné par :
-          $2\\times ${texNombre(a, 1)}+2\\times ${texNombre(b, 1)} =2\\times(${texNombre(a, 1)}+${texNombre(b, 1)})=${texNombre(reponse, 0)}$ cm`
+          $2\\times ${texNombre(a, 1)}+2\\times ${texNombre(b, 1)} =2\\times(${texNombre(a, 1)}+${texNombre(b, 1)})=${texNombre(reponse, 0)}\\text{ cm}$`
 
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) {
             texte += ' <br>$\\mathscr{P}= $'
-            texte += ajouteChampTexteMathLive(this, index, ' ') + 'cm'
+            texte += ajouteChampTexteMathLive(
+              this,
+              index,
+              KeyboardType.clavierNumbers,
+              { texteApres: '$\\text{ cm}$' },
+            )
           } else {
-            texte += ' $\\mathscr{P}=\\ldots $ cm'
+            texte += ' $\\mathscr{P}=\\ldots \\text{ cm}$'
           }
           nbChamps = 1
           break
@@ -846,13 +867,18 @@ export default class SujetCAN2022troisieme extends Exercice {
           b = new Decimal(60).div(a) // nombre de minutes de l'énoncé
           c = new Decimal(choice([30, 60, 90, 120]))
           reponse = c.div(a)
-          texte = `Un véhicule se déplace à vitesse constante de $${c}$ km/h. Combien de km parcourt-il en $${b}$ minutes ?`
-          texteCorr = `Le véhicule parcourt $${texNombre(reponse, 0)}$ km.<br>
-         En $${texNombre(b, 0)}$ minutes, il parcourt $${texNombre(a, 0)}$ fois moins de km qu'en $1$ heure, soit $\\dfrac{${texNombre(c, 0)}}{${texNombre(a, 0)}}=
-          ${texNombre(reponse, 0)}$ km.`
+          texte = `Un véhicule se déplace à vitesse constante de $${c}\\text{ km/h}$. Combien de $\\text{km}$ parcourt-il en $${b}$ minutes ?`
+          texteCorr = `Le véhicule parcourt $${texNombre(reponse, 0)}\\text{ km}$.<br>
+         En $${texNombre(b, 0)}$ minutes, il parcourt $${texNombre(a, 0)}$ fois moins de $\\text{km}$ qu'en $1$ heure, soit $\\dfrac{${texNombre(c, 0)}}{${texNombre(a, 0)}}=
+          ${texNombre(reponse, 0)}\\text{ km}$.`
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) {
-            texte += ajouteChampTexteMathLive(this, index, ' ') + 'km'
+            texte += ajouteChampTexteMathLive(
+              this,
+              index,
+              KeyboardType.clavierNumbers,
+              { texteApres: '$\\text{ km}$' },
+            )
           }
           nbChamps = 1
           break

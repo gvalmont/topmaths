@@ -1,26 +1,26 @@
-import { codageAngleDroit } from '../../lib/2d/angles'
+import { afficheLongueurSegment } from '../../lib/2d/afficheLongueurSegment'
+import { afficheMesureAngle } from '../../lib/2d/AfficheMesureAngle'
 import { traceCompas } from '../../lib/2d/Arc'
 import { cercle, cercleCentrePoint } from '../../lib/2d/cercle'
 import { cibleCarree, dansLaCibleCarree } from '../../lib/2d/cibles'
-import {
-  afficheLongueurSegment,
-  afficheMesureAngle,
-  codageSegments,
-} from '../../lib/2d/codages'
+import { codageAngleDroit } from '../../lib/2d/CodageAngleDroit'
+import { codageSegments } from '../../lib/2d/CodageSegment'
+import { demiDroite } from '../../lib/2d/DemiDroite'
 import { droite } from '../../lib/2d/droites'
 import { fixeBordures } from '../../lib/2d/fixeBordures'
+import { point } from '../../lib/2d/PointAbstrait'
+import { polygone, polygoneAvecNom } from '../../lib/2d/polygones'
+import { segment } from '../../lib/2d/segmentsVecteurs'
+import { labelPoint, texteParPosition } from '../../lib/2d/textes'
+import { tracePoint } from '../../lib/2d/TracePoint'
+import { rotation, similitude } from '../../lib/2d/transformations'
+import { longueur } from '../../lib/2d/utilitairesGeometriques'
 import {
   milieu,
-  point,
   pointAdistance,
   pointIntersectionCC,
   pointIntersectionDD,
-  tracePoint,
-} from '../../lib/2d/points'
-import { polygone, polygoneAvecNom } from '../../lib/2d/polygones'
-import { demiDroite, longueur, segment } from '../../lib/2d/segmentsVecteurs'
-import { labelPoint, texteParPosition } from '../../lib/2d/textes'
-import { rotation, similitude } from '../../lib/2d/transformations'
+} from '../../lib/2d/utilitairesPoint'
 import { choisitLettresDifferentes } from '../../lib/outils/aleatoires'
 import { choice } from '../../lib/outils/arrayOutils'
 import {
@@ -131,7 +131,7 @@ export default class ConstructionsParallelogrammesParticuliers extends Exercice 
         O = milieu(B, D, noms[4])
         C = rotation(A, O, 180, noms[2])
         texte = `$${nom}$ est un parallélogramme tel que `
-        texte += `$${noms[0] + noms[1]}=${texNombre(c1)}$ cm, $${noms[0] + noms[3]}=${texNombre(c4)}$ cm, $${noms[1] + noms[3]}=${texNombre(d1)}$ cm.<br>`
+        texte += `$${noms[0] + noms[1]}=${texNombre(c1)}\\text{ cm}$, $${noms[0] + noms[3]}=${texNombre(c4)}\\text{ cm}$, $${noms[1] + noms[3]}=${texNombre(d1)}\\text{ cm}$.<br>`
         objetsEnonce.push(tracePoint(A, B), labelPoint(A, B))
         if (this.correctionDetaillee) {
           texteCorr += `Comme $${nom}$ est un parallélogramme, ses diagonales se coupent en leur milieu.<br>`
@@ -169,14 +169,14 @@ export default class ConstructionsParallelogrammesParticuliers extends Exercice 
         D = rotation(B, O, 180, noms[3])
         C = rotation(A, O, 180, noms[2])
         texte = `$${nom}$ est un parallélogramme de centre $${noms[4]}$ tel que `
-        texte += `$${noms[0] + noms[2]}=${texNombre(c1)}$ cm, $${noms[1] + noms[3]}=${texNombre(c4)}$ cm et $\\widehat{${noms[0] + noms[4] + noms[1]}}=${alpha}^\\circ$  dans le sens inverse des aiguilles d'une montre.<br>`
+        texte += `$${noms[0] + noms[2]}=${texNombre(c1)}\\text{ cm}$, $${noms[1] + noms[3]}=${texNombre(c4)}\\text{ cm}$ et $\\widehat{${noms[0] + noms[4] + noms[1]}}=${alpha}^\\circ$  dans le sens inverse des aiguilles d'une montre.<br>`
         objetsEnonce.push(tracePoint(A, O), labelPoint(A, O))
         if (this.correctionDetaillee) {
           texteCorr += `Comme $${nom}$ est un parallélogramme, ses diagonales se coupent en leur milieu $${noms[4]}$.<br>`
           texteCorr += `$${noms[2]}$ est le symétrique de $${noms[0]}$ par rapport à $${noms[4]}$. La distance $${noms[4] + noms[1]}$ est égale à la moitié de $${noms[1] + noms[3]}$.<br>`
           texteCorr += `Construisons tout d'abord le point $${noms[2]}$ symétrique de $${noms[0]}$ par rapport à $${noms[4]}$.<br>`
           texteCorr += `Construisons ensuite un angle $\\widehat{${noms[0] + noms[4] + 'x'}}$ de mesure $${alpha}^\\circ$ dans le sens inverse des aiguilles d'une montre.<br>`
-          texteCorr += `Construisons enfin le point $${noms[1]}$ sur $[${noms[4]}x)$ et son symétrique $${noms[3]}$ par rapport à $${noms[4]}$ situés tous les deux à $${texNombre(arrondi(c4 / 2))}$ cm de $${noms[4]}$.<br>`
+          texteCorr += `Construisons enfin le point $${noms[1]}$ sur $[${noms[4]}x)$ et son symétrique $${noms[3]}$ par rapport à $${noms[4]}$ situés tous les deux à $${texNombre(arrondi(c4 / 2))}\\text{ cm}$ de $${noms[4]}$.<br>`
         }
         texteCorr += `$${miseEnEvidence(nom)}$ ${texteEnCouleurEtGras("n'est pas un paraléllogramme particulier")}.<br>`
         xm = Math.min(A.x, B.x, C.x) - 0.8
@@ -195,7 +195,7 @@ export default class ConstructionsParallelogrammesParticuliers extends Exercice 
         O = milieu(B, D, noms[4])
         C = rotation(A, O, 180, noms[2])
         texte = `$${nom}$ est un parallélogramme tel que `
-        texte += `$${noms[0] + noms[1]}=${texNombre(c1)}$ cm, $${noms[0] + noms[3]}=${texNombre(c4)}$ cm, $${noms[1] + noms[3]}=${noms[0] + noms[2]}$.<br>`
+        texte += `$${noms[0] + noms[1]}=${texNombre(c1)}\\text{ cm}$, $${noms[0] + noms[3]}=${texNombre(c4)}\\text{ cm}$, $${noms[1] + noms[3]}=${noms[0] + noms[2]}$.<br>`
         objetsEnonce.push(tracePoint(A, B), labelPoint(A, B))
 
         if (this.correctionDetaillee) {
@@ -230,7 +230,7 @@ export default class ConstructionsParallelogrammesParticuliers extends Exercice 
         C = rotation(A, O, 180, noms[2])
 
         texte = `$${nom}$ est un parallélogramme tel que `
-        texte += `$${noms[0] + noms[1]}=${texNombre(c1)}$ cm, $${noms[1] + noms[3]}=${texNombre(c4)}$ cm, $[${noms[0] + noms[2]}]\\perp [${noms[1] + noms[3]}]$.<br>`
+        texte += `$${noms[0] + noms[1]}=${texNombre(c1)}\\text{ cm}$, $${noms[1] + noms[3]}=${texNombre(c4)}\\text{ cm}$, $[${noms[0] + noms[2]}]\\perp [${noms[1] + noms[3]}]$.<br>`
         objetsEnonce.push(tracePoint(A, B), labelPoint(A, B))
 
         if (this.correctionDetaillee) {
@@ -263,7 +263,7 @@ export default class ConstructionsParallelogrammesParticuliers extends Exercice 
         O = milieu(B, D, noms[4])
         C = rotation(A, O, 180, noms[2])
         texte = `$${nom}$ est un parallélogramme de centre $${noms[4]}$ tel que `
-        texte += `$${noms[0] + noms[1]}=${texNombre(c1)}$ cm, $${noms[0] + noms[3]}=${texNombre(c4)}$ cm et $\\widehat{${noms[1] + noms[2] + noms[3]}}=${alpha}^\\circ$  dans le sens inverse des aiguilles d'une montre.<br>`
+        texte += `$${noms[0] + noms[1]}=${texNombre(c1)}\\text{ cm}$, $${noms[0] + noms[3]}=${texNombre(c4)}\\text{ cm}$ et $\\widehat{${noms[1] + noms[2] + noms[3]}}=${alpha}^\\circ$  dans le sens inverse des aiguilles d'une montre.<br>`
         objetsEnonce.push(tracePoint(A, B), labelPoint(A, B))
         if (this.correctionDetaillee) {
           texteCorr += `Comme $${nom}$ est un parallélogramme, ses angles opposés ont la même mesure, donc $\\widehat{${noms[3] + noms[0] + noms[1]}}=${alpha}^\\circ$.<br>`
@@ -296,11 +296,11 @@ export default class ConstructionsParallelogrammesParticuliers extends Exercice 
         C = rotation(A, O, 180, noms[2])
         D = rotation(B, O, 180, noms[3])
         texte = `$${nom}$ est un parallélogramme de centre $${noms[4]}$ tel que `
-        texte += `$${noms[0] + noms[1]}=${texNombre(c1)}$ cm, $${noms[4] + noms[2]}=${texNombre(c2)}$ cm et $${noms[4] + noms[3]}=${texNombre(c3)}$ cm.<br>`
+        texte += `$${noms[0] + noms[1]}=${texNombre(c1)}\\text{ cm}$, $${noms[4] + noms[2]}=${texNombre(c2)}\\text{ cm}$ et $${noms[4] + noms[3]}=${texNombre(c3)}\\text{ cm}$.<br>`
         objetsEnonce.push(tracePoint(A, B), labelPoint(A, B))
         if (this.correctionDetaillee) {
           texteCorr += `Comme $${nom}$ est un parallélogramme, ses diagonales se coupent en leur milieu $${noms[4]}$.<br>`
-          texteCorr += `On en déduit que $${noms[0] + noms[4]}=${noms[4] + noms[2]}=${texNombre(c2)}$ cm et que $${noms[1] + noms[4]}=${noms[4] + noms[3]}=${texNombre(c3)}$ cm.<br>`
+          texteCorr += `On en déduit que $${noms[0] + noms[4]}=${noms[4] + noms[2]}=${texNombre(c2)}\\text{ cm}$ et que $${noms[1] + noms[4]}=${noms[4] + noms[3]}=${texNombre(c3)}\\text{ cm}$.<br>`
           texteCorr += `Construisons tout d'abord le triangle $${noms[0] + noms[1] + noms[4]}$ `
           texteCorr += `puis les points $${noms[2]}$ et $${noms[3]}$ symétriques respectifs de $${noms[0]}$ et $${noms[1]}$ par rapport à $${noms[4]}$.<br>`
         }
@@ -343,7 +343,7 @@ export default class ConstructionsParallelogrammesParticuliers extends Exercice 
         B = pointIntersectionDD(dd1, dd2, noms[1])
         D = rotation(B, O, 180, noms[3])
         texte = `$${nom}$ est un parallélogramme de centre $${noms[4]}$ tel que `
-        texte += `$${noms[0] + noms[2]}=${texNombre(c1)}$ cm.<br>$\\widehat{${noms[4] + noms[0] + noms[1]}}=${c2}^\\circ$  dans le sens inverse des aiguilles d'une montre.<br>$\\widehat{${noms[4] + noms[2] + noms[1]}}=${c3}^\\circ$  dans le sens des aiguilles d'une montre.<br>`
+        texte += `$${noms[0] + noms[2]}=${texNombre(c1)}\\text{ cm}$.<br>$\\widehat{${noms[4] + noms[0] + noms[1]}}=${c2}^\\circ$  dans le sens inverse des aiguilles d'une montre.<br>$\\widehat{${noms[4] + noms[2] + noms[1]}}=${c3}^\\circ$  dans le sens des aiguilles d'une montre.<br>`
         objetsEnonce.push(tracePoint(A, C), labelPoint(A, C))
         if (this.correctionDetaillee) {
           texteCorr += `Comme $${nom}$ est un parallélogramme, ses côtés opposés sont parallèles.<br>`

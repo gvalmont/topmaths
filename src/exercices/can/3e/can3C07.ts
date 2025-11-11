@@ -1,5 +1,5 @@
-import { codageSegments } from '../../../lib/2d/codages'
-import { point } from '../../../lib/2d/points'
+import { codageSegments } from '../../../lib/2d/CodageSegment'
+import { point } from '../../../lib/2d/PointAbstrait'
 import { segmentAvecExtremites } from '../../../lib/2d/segmentsVecteurs'
 import { texteParPosition } from '../../../lib/2d/textes'
 import { arrondi } from '../../../lib/outils/nombres'

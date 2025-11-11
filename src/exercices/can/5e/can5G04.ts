@@ -1,8 +1,9 @@
 import { colorToLatexOrHTML } from '../../../lib/2d/colorToLatexOrHtml'
-import { milieu, point } from '../../../lib/2d/points'
+import { point } from '../../../lib/2d/PointAbstrait'
 import { polygone } from '../../../lib/2d/polygones'
 import { segment } from '../../../lib/2d/segmentsVecteurs'
 import { latex2d } from '../../../lib/2d/textes'
+import { milieu } from '../../../lib/2d/utilitairesPoint'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 import { functionCompare } from '../../../lib/interactif/comparisonFunctions'
 import { choice } from '../../../lib/outils/arrayOutils'
@@ -63,7 +64,7 @@ export default class longueursRectPerimetre extends ExerciceSimple {
       backgroundColor: '',
     })
 
-    const t = latex2d(`${aire} ~\\text{cm}^2`, milieu(A, B).x, milieu(B, C).y, {
+    const t = latex2d(`${aire} \\text{ cm}^2`, milieu(A, B).x, milieu(B, C).y, {
       color: 'black',
       letterSize: 'normalsize',
       backgroundColor: '',
@@ -89,16 +90,19 @@ export default class longueursRectPerimetre extends ExerciceSimple {
     this.reponse = {
       reponse: { value: 2 * choix[0] + 2 * choix[1], compare: functionCompare },
     }
-    this.correction = `L'aire du rectangle est  $${aire}$ cm$^2$. Elle est égale au produit de la longueur par la largeur du rectangle.<br>
+    this.correction = `L'aire du rectangle est  $${aire}\\text{ cm}^2$. Elle est égale au produit de la longueur par la largeur du rectangle.<br>
            $${aire}\\div ${choix[0]}=${choix[1]}$<br>
-        La largeur du rectangle est donc : $${choix[1]}$ cm.<br>
-          $2\\times (${choix[0]}+${choix[1]})=${2 * choix[0] + 2 * choix[1]}$ cm.<br>
-          Le périmètre du rectangle est : $${miseEnEvidence(stringNombre(2 * choix[0] + 2 * choix[1], 0))}$ cm.<br>`
+        La largeur du rectangle est donc : $${choix[1]}\\text{ cm}$.<br>
+          $2\\times (${choix[0]}+${choix[1]})=${2 * choix[0] + 2 * choix[1]}\\text{ cm}$.<br>
+          Le périmètre du rectangle est : $${miseEnEvidence(stringNombre(2 * choix[0] + 2 * choix[1], 0))}\\text{ cm}$.<br>`
 
     this.canEnonce = this.question
-    this.canReponseACompleter = '$\\ldots$ cm'
+    this.canReponseACompleter = '$\\ldots\\text{ cm}$'
     if (this.interactif) {
-      this.optionsChampTexte = { texteApres: 'cm', texteAvant: '$P=$' }
+      this.optionsChampTexte = {
+        texteApres: '$\\text{ cm}$',
+        texteAvant: '$P=$',
+      }
     }
   }
 }

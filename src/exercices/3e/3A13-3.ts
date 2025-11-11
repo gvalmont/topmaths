@@ -10,7 +10,6 @@ export const dateDePublication = '14/09/2022'
 
 /**
  * Détermination du vocabulaire associé à l'égalité issue de la division euclidienne
- * Ref 3A13-3
  *
  * @author Eric Elter
  */
@@ -25,5 +24,8 @@ export default class VocabulaireDivisionEuclidienne3e extends VocabulaireDivisio
   constructor() {
     super()
     this.sup4 = 1
+    this.besoinFormulaire5CaseACocher = true
+    this.besoinFormulaire5CaseACocher = ['Avec parenthèses']
+    this.sup5 = false
   }
 }

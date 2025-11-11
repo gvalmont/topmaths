@@ -1,5 +1,6 @@
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 import { choice } from '../../../lib/outils/arrayOutils'
+import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { texNombre } from '../../../lib/outils/texNombre'
 import { context } from '../../../modules/context'
 import { randint } from '../../../modules/outils'
@@ -10,10 +11,9 @@ export const interactifReady = true
 export const interactifType = 'mathLive'
 export const amcReady = true
 export const amcType = 'AMCOpen'
+
 /**
  * @author Jean-Claude Lhote
- * Créé le 4/11/2021
-
  */
 export const uuid = 'd0314'
 
@@ -42,29 +42,21 @@ export default class TrouverLaBonneUnite extends ExerciceSimple {
       [1000, 'k'],
     ]
     const unite = choice(['g', 'm', 'L'])
-    const typeDeQuestion = randint(0, 5)
+    const typeDeQuestion = randint(0, 1)
     const a = randint(1, 9)
     switch (typeDeQuestion) {
       case 0:
-      case 1:
-      case 2:
-        this.question = `Compléter avec l'unité qui convient : <br>$${a}$ ${unite} $= ${texNombre(a * Number(prefixes[typeDeQuestion][0]))}$ ${this.interactif ? '' : '$\\ldots$'}`
-        this.reponse = `${prefixes[typeDeQuestion][1]}${unite}`
-        this.correction = `$${a}$ ${unite} $= ${texNombre(a * Number(prefixes[typeDeQuestion][0]))}$ ${prefixes[typeDeQuestion][1]}${unite}`
-        this.canEnonce = "Compléter avec l'unité qui convient. "
-        this.canReponseACompleter = `$${a}$ ${unite} $= ${texNombre(a * Number(prefixes[typeDeQuestion][0]))}$ $\\ldots$`
+        this.question = `Compléter avec l'unité qui convient : <br>$${a}\\text{ ${unite} }= ${texNombre(a * Number(prefixes[typeDeQuestion][0]))}$ ${this.interactif ? '' : '$\\ldots$'}`
         break
-      case 3:
-      case 4:
-      case 5:
-      default:
-        this.question = `Compléter avec l'unité qui convient : <br>$${a}$ ${unite} $= ${texNombre(a / Number(prefixes[typeDeQuestion][0]))}$ ${this.interactif ? '' : '$\\ldots$'}`
-        this.reponse = `${prefixes[typeDeQuestion][1]}${unite}`
-        this.correction = `$${a}$ ${unite} $= ${texNombre(a / Number(prefixes[typeDeQuestion][0]))}$ ${prefixes[typeDeQuestion][1]}${unite}`
-        this.canEnonce = "Compléter avec l'unité qui convient."
-        this.canReponseACompleter = `$${a}$${unite} $= ${texNombre(a * Number(prefixes[typeDeQuestion][0]))}$ $\\ldots$`
+      case 1:
+        this.question = `Compléter avec l'unité qui convient : <br>$${a}\\text{ ${unite} }= ${texNombre(a / Number(prefixes[typeDeQuestion][0]))}$ ${this.interactif ? '' : '$\\ldots$'}`
         break
     }
+    this.reponse = `${prefixes[typeDeQuestion][1]}${unite}`
+    this.correction = `$${a}\\text{ ${unite} }= ${texNombre(a * Number(prefixes[typeDeQuestion][0]))}${miseEnEvidence(`\\text{ ${this.reponse} }`)}$`
+    this.canEnonce = "Compléter avec l'unité qui convient. "
+    this.canReponseACompleter = `$${a}\\text{ ${unite} }= ${texNombre(a * Number(prefixes[typeDeQuestion][0]))}$ $\\ldots$`
+
     if (context.isAmc) {
       this.autoCorrection = [
         {

@@ -5,7 +5,7 @@ import {
   type PatternRiche,
   type PatternRiche3D,
 } from '../../lib/2d/patterns/patternsPreDef'
-import { point } from '../../lib/2d/points'
+import { point } from '../../lib/2d/PointAbstrait'
 import { polygone } from '../../lib/2d/polygones'
 import { texteParPosition } from '../../lib/2d/textes'
 import { createList } from '../../lib/format/lists'

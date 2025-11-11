@@ -6,6 +6,7 @@ import { texNombre } from '../../../lib/outils/texNombre'
 import { remplisLesBlancs } from '../../../lib/interactif/questionMathLive'
 import { handleAnswers } from '../../../lib/interactif/gestionInteractif'
 import Exercice from '../../Exercice'
+import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 
 export const titre = "Calculer les coordonnées du milieu d'un segment"
 export const dateDePublication = '05/10/2024'
@@ -26,7 +27,7 @@ export const refs = {
 export default class MilieuSegment extends Exercice {
   constructor() {
     super()
-
+    this.formatChampTexte = KeyboardType.clavierLimites
     this.nbQuestions = 1
   }
 

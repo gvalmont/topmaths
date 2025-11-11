@@ -1,19 +1,23 @@
-import { codageAngleDroit } from '../../lib/2d/angles'
+/**
+ * ⚠️ Cet exercice est utilisé dans le test : tests/e2e/tests/interactivity/mathLive.2inputs.test.ts ⚠️
+ */
+
 import { arc } from '../../lib/2d/Arc'
 import { cercle } from '../../lib/2d/cercle'
-import { codageSegment, texteSurSegment } from '../../lib/2d/codages'
+import { codageAngleDroit } from '../../lib/2d/CodageAngleDroit'
+import { codageSegment } from '../../lib/2d/CodageSegment'
 import { droite, droiteParPointEtPerpendiculaire } from '../../lib/2d/droites'
 import { fixeBordures } from '../../lib/2d/fixeBordures'
+import { Point, point } from '../../lib/2d/PointAbstrait'
+import { polygoneAvecNom } from '../../lib/2d/polygones'
+import { segment } from '../../lib/2d/segmentsVecteurs'
+import { texteSurSegment } from '../../lib/2d/texteSurSegment'
+import { tracePoint } from '../../lib/2d/TracePoint'
 import {
-  Point,
-  point,
   pointIntersectionCC,
   pointIntersectionDD,
   pointSurCercle,
-  tracePoint,
-} from '../../lib/2d/points'
-import { polygoneAvecNom } from '../../lib/2d/polygones'
-import { segment } from '../../lib/2d/segmentsVecteurs'
+} from '../../lib/2d/utilitairesPoint'
 import { texTexte } from '../../lib/format/texTexte'
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 import { fonctionComparaison } from '../../lib/interactif/comparisonFunctions'
@@ -28,6 +32,7 @@ import { context } from '../../modules/context'
 import Grandeur from '../../modules/Grandeur'
 import { mathalea2d } from '../../modules/mathalea2d'
 import {
+  contraindreValeur,
   gestionnaireFormulaireTexte,
   listeQuestionsToContenu,
   randint,
@@ -118,7 +123,7 @@ export default class PerimetreOuAireDeFiguresComposees extends Exercice {
       this.nbQuestions === 1 ? 'la figure suivante' : 'les figures suivantes'
     const singulierPluriel2 =
       this.nbQuestions === 1 ? 'de la figure suivante' : 'des figures suivantes'
-
+    this.sup3 = contraindreValeur(1, 2, this.sup3, 1)
     switch (this.sup4) {
       case 4:
         this.consigne = `Décomposer ${singulierPluriel} en plusieurs figures simples.`
@@ -1112,7 +1117,7 @@ export default class PerimetreOuAireDeFiguresComposees extends Exercice {
                 reponse: {
                   valeur: [Math.floor(aireReponses[0])],
                   texte:
-                    'Aire en cm$^2$ ' +
+                    'Aire en $\\text{cm}^2$ ' +
                     (typesDeQuestions[i] > 3
                       ? "(valeur approchée à l'unité)"
                       : '') +

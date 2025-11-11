@@ -4,6 +4,7 @@ import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { combinaisonListes } from '../../lib/outils/arrayOutils'
 import { texteEnCouleurEtGras } from '../../lib/outils/embellissements'
 import { nombreDeChiffresDe } from '../../lib/outils/nombres'
+import { premiereLettreEnMajuscule } from '../../lib/outils/outilString'
 import { personne } from '../../lib/outils/Personne'
 import { listeNombresPremiersStrictJusqua } from '../../lib/outils/primalite'
 import { nombreAvecEspace } from '../../lib/outils/texNombre'
@@ -264,8 +265,8 @@ export default class ProblemesEvenementsRecurrents extends Exercice {
           texte5 = 'se fera'
           break
         case 'restau-ciné':
-          texte = `Pour sa résolution de cette année, ${Robert.prenom} a décidé de ne pas abuser des bonnes choses :<br>
-          ${Robert.pronom} s'accorde le droit d'aller au restaurant tous les ${nombreAvecEspace(Commun * A)} jours et d'aller au cinéma tous les ${nombreAvecEspace(Commun * B)} jours.<br>
+          texte = `Pour sa résolution de cette année, ${Robert.prenom} a décidé de ne pas abuser des bonnes choses.<br>
+          ${premiereLettreEnMajuscule(Robert.pronom)} s'accorde le droit d'aller au restaurant tous les ${nombreAvecEspace(Commun * A)} jours et d'aller au cinéma tous les ${nombreAvecEspace(Commun * B)} jours.<br>
           Aujourd'hui, ${Robert.pronom} s'est fait un « restau - ciné ».<br>`
           if (this.interactif || context.isAmc) {
             switch (typeDeQuestion) {

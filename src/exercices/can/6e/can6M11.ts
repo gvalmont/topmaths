@@ -3,7 +3,7 @@ import {
   ajouteCanvas3d,
   type Elements3DDescription,
 } from '../../../lib/3d/3d_dynamique/Canvas3DElement'
-import { paveLPH3d } from '../../../lib/3d/3dProjectionMathalea2d/solides'
+import { paveLPH3d } from '../../../lib/3d/3dProjectionMathalea2d/PaveEtPaveLPH3dPerspectiveCavaliere'
 import { createUuid } from '../../../lib/outils/aleatoires'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { context } from '../../../modules/context'

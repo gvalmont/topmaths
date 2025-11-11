@@ -1,3 +1,4 @@
+import { createList } from '../../lib/format/lists'
 import { texteGras } from '../../lib/format/style'
 import engine from '../../lib/interactif/comparisonFunctions'
 
@@ -6,6 +7,7 @@ import {
   ecritureAlgebriqueSauf1,
   rienSi1,
 } from '../../lib/outils/ecritures'
+import { texteEnCouleurEtGras } from '../../lib/outils/embellissements'
 import { texNombre } from '../../lib/outils/texNombre'
 import { context } from '../../modules/context'
 import type FractionEtendue from '../../modules/FractionEtendue'
@@ -42,11 +44,22 @@ interface CoefficientsDiscriminant {
   coeffCC: number // terme constant dans Delta
 }
 
+// Ajout: paramètres numériques utiles pour traiter le cas a(m)=0
+interface ParametresEquation {
+  typeQuestion: number
+  valeurAjustementDeltaA: number
+  coefMB: number
+  constB: number
+  coefMC: number
+  constC: number
+}
+
 export default class EquationDuSecondDegreAvecUnParametre extends Exercice {
   constructor() {
     super()
     this.consigne = `Déterminer, suivant la valeur du paramètre $m$, le ${texteGras('nombre de solutions')} de l'équation du second degré.`
     this.nbQuestions = 2
+    this.spacingCorr = context.isHtml ? 3 : 2
     this.besoinFormulaireTexte = [
       'Choix des questions',
       'Nombres séparés par des tirets\n1 : Coefficient de x^2 constant\n2 : Coefficient de x^2 avec en a.m\n3 : Coefficient de x^2 en m+a\n4 : Mélange',
@@ -62,6 +75,7 @@ export default class EquationDuSecondDegreAvecUnParametre extends Exercice {
     equation: string
     coefficients: CoefficientsEquation
     coeffsDiscriminant: CoefficientsDiscriminant
+    params: ParametresEquation
   } {
     const valeurAjustementDeltaA = randint(-5, 5, 0)
     const coefficientDeMDansDeltaB = randint(-2, 2, 0)
@@ -105,7 +119,7 @@ export default class EquationDuSecondDegreAvecUnParametre extends Exercice {
             4 * valeurAjustementDeltaA * coefficientDeMDansDeltaC,
           coeffBB:
             2 * coefficientDeMDansDeltaB * coefficientConstantDansDeltaB -
-            4 * valeurAjustementDeltaA * coefficientDeMDansDeltaC,
+            4 * valeurAjustementDeltaA * coefficientConstantDansDeltaC,
           coeffCC:
             coefficientConstantDansDeltaB * coefficientConstantDansDeltaB,
         }
@@ -134,7 +148,16 @@ export default class EquationDuSecondDegreAvecUnParametre extends Exercice {
         break
     }
 
-    return { equation, coefficients, coeffsDiscriminant }
+    const params: ParametresEquation = {
+      typeQuestion,
+      valeurAjustementDeltaA,
+      coefMB: coefficientDeMDansDeltaB,
+      constB: coefficientConstantDansDeltaB,
+      coefMC: coefficientDeMDansDeltaC,
+      constC: coefficientConstantDansDeltaC,
+    }
+
+    return { equation, coefficients, coeffsDiscriminant, params }
   }
 
   /**
@@ -148,17 +171,17 @@ export default class EquationDuSecondDegreAvecUnParametre extends Exercice {
       s.includes('+') || s.includes('-') ? `(${s})` : s
     const { coeffAA, coeffBB, coeffCC } = coeffsDiscriminant
     const deltaPrime = coeffBB * coeffBB - 4 * coeffAA * coeffCC
-
-    let texteCorr = "Écrivons l'équation sous la forme $ax^2+bx+c=0$ :"
+    let texteCorr = ''
+    texteCorr += "Écrivons l'équation sous la forme $ax^2+bx+c=0$ :<br>"
     const expr1 = `${parenthesesSiSommeOuDifference(coefficients.a)}x^2+(${coefficients.b})x+(${coefficients.c})`
-    texteCorr += `<br>$${expr1}=0$`
-    texteCorr += `<br>On a donc $a=${coefficients.a}$, $b=${coefficients.b}$ et $c=${coefficients.c}$`
+    texteCorr += `$${expr1}=0$<br>`
+    texteCorr += `On a donc $a=${coefficients.a}$, $b=${coefficients.b}$ et $c=${coefficients.c}$<br>`
 
-    const deltaExpr = `(${coefficients.b})^2-4\\times${parenthesesSiSommeOuDifference(coefficients.a)}\\times${parenthesesSiSommeOuDifference(coefficients.c)}`
-    texteCorr += `<br>Le discriminant vaut $\\Delta=b^2-4\\times a\\times c = ${deltaExpr}$`
+    const deltaExpr = `(${coefficients.b})^2-4\\times ${parenthesesSiSommeOuDifference(coefficients.a)}\\times ${parenthesesSiSommeOuDifference(coefficients.c)}`
+    texteCorr += `Le discriminant vaut $\\Delta=b^2-4\\times a\\times c = ${deltaExpr}$<br>`
 
     const delta2 = engine.parse(deltaExpr).expand().simplify().latex
-    texteCorr += `<br>Ou encore, sous forme développée : $\\Delta = ${delta2}$`
+    texteCorr += `Ou encore, sous forme développée : $\\Delta = ${delta2}$<br>`
 
     // Cas où le discriminant est du premier degré
     if (coeffAA === 0) {
@@ -187,32 +210,42 @@ export default class EquationDuSecondDegreAvecUnParametre extends Exercice {
       // Delta est constant
       if (coeffCC === 0) {
         texteCorr +=
-          "<br>Quelque soit $m$ réel, on a $\\Delta$ qui est nul. L'équation du départ admet donc toujours une unique solution."
+          "Quelque soit $m$ réel, on a $\\Delta$ qui est nul. L'équation du départ admet donc toujours une unique solution.<br>"
       } else if (coeffCC > 0) {
         texteCorr +=
-          "<br>Quelque soit $m$ réel, on a $\\Delta$ qui est strictement positif. L'équation du départ admet donc toujours 2 solutions."
+          "Quelque soit $m$ réel, on a $\\Delta$ qui est strictement positif. L'équation du départ admet donc toujours 2 solutions.<br>"
       } else {
         texteCorr +=
-          "<br>Quelque soit $m$ réel, on a $\\Delta$ qui est strictement négatif. L'équation du départ n'admet jamais de solution réelle."
+          "Quelque soit $m$ réel, on a $\\Delta$ qui est strictement négatif. L'équation du départ n'admet jamais de solution réelle.<br>"
       }
     } else {
       const m1 = fraction(-coeffCC, coeffBB).texFractionSimplifiee
-      texteCorr += `<br>Cherchons la valeur de $m$ qui annule cette expression du premier degré : $m=${m1}$`
+      texteCorr += `Cherchons la valeur de $m$ qui annule cette expression du premier degré : $m=${m1}$<br>`
 
       if (coeffBB > 0) {
-        texteCorr += `<br>$\\Delta$ est une droite croissante de coefficient directeur $${coeffBB}$.`
-        texteCorr += `<br>Elle est donc négative avant $m_1=${m1}$ et positive après.`
-        texteCorr += '<br>$\\underline{\\text{Conclusion}}$ :'
-        texteCorr += `<br>- Si $m < ${m1}$, l'équation n'a pas de solution réelle;`
-        texteCorr += `<br>- Si $m = ${m1}$, l'équation a une unique solution réelle;`
-        texteCorr += `<br>- Si $m > ${m1}$, l'équation a 2 solutions réelles;`
+        texteCorr += `$\\Delta$ est une droite croissante de coefficient directeur $${coeffBB}$.<br>`
+        texteCorr += `Elle est donc négative avant $m_1=${m1}$ et positive après.<br>`
+        texteCorr += '$\\underline{\\text{Conclusion}}$ :<br>'
+        texteCorr += createList({
+          items: [
+            `Si $m < ${m1}$, l'équation n'a pas de solution réelle;`,
+            `Si $m = ${m1}$, l'équation a une unique solution réelle;`,
+            `Si $m > ${m1}$, l'équation a 2 solutions réelles;`,
+          ],
+          style: 'fleches',
+        })
       } else {
-        texteCorr += `<br>$\\Delta$ est une droite décroissante de coefficient directeur $${coeffBB}$.`
-        texteCorr += `<br>Elle est donc positive avant $m_1=${m1}$ et négative après.`
-        texteCorr += '<br>$\\underline{\\text{Conclusion}}$ :'
-        texteCorr += `<br>- Si $m < ${m1}$, l'équation a 2 solutions réelles;`
-        texteCorr += `<br>- Si $m = ${m1}$, l'équation a une unique solution réelle;`
-        texteCorr += `<br>- Si $m > ${m1}$, l'équation n'a pas de solution réelle;`
+        texteCorr += `$\\Delta$ est une droite décroissante de coefficient directeur $${coeffBB}$.<br>`
+        texteCorr += `Elle est donc positive avant $m_1=${m1}$ et négative après.<br>`
+        texteCorr += '$\\underline{\\text{Conclusion}}$ :<br>'
+        texteCorr += createList({
+          items: [
+            `Si $m < ${m1}$, l'équation a 2 solutions réelles;`,
+            `Si $m = ${m1}$, l'équation a une unique solution réelle;`,
+            `Si $m > ${m1}$, l'équation n'a pas de solution réelle;`,
+          ],
+          style: 'fleches',
+        })
       }
     }
     return texteCorr
@@ -229,14 +262,14 @@ export default class EquationDuSecondDegreAvecUnParametre extends Exercice {
     deltaPrime: number,
   ): string {
     texteCorr +=
-      '<br>Cherchons les valeurs de $m$ qui annulent cette expression du second degré :'
-    texteCorr += `<br>Le discriminant $\\Delta^\\prime$ vaut : $\\Delta^\\prime =${deltaPrime}$`
+      'Cherchons les valeurs de $m$ qui annulent cette expression du second degré :<br>'
+    texteCorr += `Le discriminant $\\Delta^\\prime$ vaut : $\\Delta^\\prime =${deltaPrime}$<br>`
 
     const trinom = new Trinome(coeffAA, coeffBB, coeffCC)
     const f = trinom.discriminant
     if (f.superieurLarge(0) && f.estParfaite) {
       const racine = f.racineCarree() as FractionEtendue
-      texteCorr += ` (Remarquons que $\\sqrt{\\Delta^\\prime} =${racine.texFractionSimplifiee}$)`
+      texteCorr += ` (Remarquons que $\\sqrt{\\Delta^\\prime} =${racine.texFractionSimplifiee}$)<br>`
     }
 
     if (deltaPrime < 0) {
@@ -250,17 +283,17 @@ export default class EquationDuSecondDegreAvecUnParametre extends Exercice {
 
   private gererDiscriminantNegatif(texteCorr: string, coeffAA: number): string {
     texteCorr +=
-      "<br>Celui-ci étant strictement négatif, l'équation n'a pas de solution et $\\Delta$ ne change pas de signe."
+      "Celui-ci étant strictement négatif, l'équation n'a pas de solution et $\\Delta$ ne change pas de signe.<br>"
     if (coeffAA > 0) {
       texteCorr +=
-        '<br>Comme le coefficient devant $m^2$ est positif, $\\Delta > 0$.'
+        'Comme le coefficient devant $m^2$ est positif, $\\Delta > 0$.<br>'
       texteCorr +=
-        "<br>$\\underline{\\text{Conclusion}}$ : L'équation du départ admet toujours 2 solutions."
+        "$\\underline{\\text{Conclusion}}$ : L'équation du départ admet toujours 2 solutions.<br>"
     } else {
       texteCorr +=
-        '<br>Comme le coefficient devant $m^2$ est négatif, $\\Delta < 0$.'
+        'Comme le coefficient devant $m^2$ est négatif, $\\Delta < 0$.<br>'
       texteCorr +=
-        "<br>$\\underline{\\text{Conclusion}}$ : L'équation du départ n'a pas de solution réelle."
+        "$\\underline{\\text{Conclusion}}$ : L'équation du départ n'a pas de solution réelle.<br>"
     }
     return texteCorr
   }
@@ -272,14 +305,14 @@ export default class EquationDuSecondDegreAvecUnParametre extends Exercice {
   ): string {
     const racine = trinom.x1 as FractionEtendue
     const m1 = racine.texFractionSimplifiee
-    texteCorr += `<br>Celui-ci étant nul, l'équation $\\Delta = 0$ a une unique solution $m=\\dfrac{-b}{2a}=${m1}$.`
+    texteCorr += `Celui-ci étant nul, l'équation $\\Delta = 0$ a une unique solution $m=\\dfrac{-b}{2a}=${m1}$.<br>`
 
     if (coeffAA > 0) {
-      texteCorr += `<br>De plus le coefficient $${coeffAA}$ devant $m^2$ étant positif, $\\Delta > 0$ si $m\\neq${m1}$.`
-      texteCorr += `<br>$\\underline{\\text{Conclusion}}$ : Si $m=${m1}$ l'équation admet une unique solution, sinon l'équation admet 2 solutions.`
+      texteCorr += `De plus le coefficient $${coeffAA}$ devant $m^2$ étant positif, $\\Delta > 0$ si $m\\neq${m1}$.<br>`
+      texteCorr += `$\\underline{\\text{Conclusion}}$ : Si $m=${m1}$ l'équation admet une unique solution, sinon l'équation admet 2 solutions.<br>`
     } else {
-      texteCorr += `<br>De plus le coefficient $${coeffAA}$ devant $m^2$ étant négatif, $\\Delta < 0$ si $m\\neq${m1}$.`
-      texteCorr += `<br>$\\underline{\\text{Conclusion}}$ : Si $m=${m1}$ l'équation admet une unique solution, sinon l'équation n'admet pas de solution.`
+      texteCorr += `De plus le coefficient $${coeffAA}$ devant $m^2$ étant négatif, $\\Delta < 0$ si $m\\neq${m1}$.<br>`
+      texteCorr += `$\\underline{\\text{Conclusion}}$ : Si $m=${m1}$ l'équation admet une unique solution, sinon l'équation n'admet pas de solution.<br>`
     }
     return texteCorr
   }
@@ -295,38 +328,94 @@ export default class EquationDuSecondDegreAvecUnParametre extends Exercice {
     const x2 = trinom.x2
 
     texteCorr +=
-      "<br>Celui-ci étant strictement positif, l'équation $\\Delta = 0$ a 2 solutions :"
+      "Celui-ci étant strictement positif, l'équation $\\Delta = 0$ a 2 solutions :<br>"
 
     if (m1.includes('sqrt')) {
-      texteCorr += `<br>$m_1=${m1}\\simeq${texNombre(Number(x1), 4)}$ et $m_2=${m2}\\simeq${texNombre(Number(x2), 4)}$`
+      texteCorr += `$m_1=${m1}\\simeq${texNombre(Number(x1), 4)}$ et $m_2=${m2}\\simeq${texNombre(Number(x2), 4)}$<br>`
     } else {
-      texteCorr += `<br>$m_1=${m1}$ et $m_2=${m2}$`
+      texteCorr += `$m_1=${m1}$ et $m_2=${m2}$<br>`
     }
 
     if (coeffAA > 0) {
       texteCorr +=
-        '<br>De plus le coefficient devant $m^2$ est positif, $\\Delta$ est donc une parabole avec ses branches dirigées vers le haut.'
+        'De plus le coefficient devant $m^2$ est positif, $\\Delta$ est donc une parabole avec ses branches dirigées vers le haut.<br>'
       texteCorr +=
-        "<br>$\\Delta$ est donc positif à l'extérieur des racines et négatif à l'intérieur."
-      texteCorr +=
-        "<br>$\\underline{\\text{Conclusion}}$ :<br> - Si $m=m_1$ ou $m_2$, l'équation admet une unique solution,"
-      texteCorr +=
-        "<br>- Si $m\\in ]m_1,m_2[$, l'équation n'a pas de solution réelle,"
-      texteCorr +=
-        "<br>- Si $m\\in ]-\\infty,m_1[\\cup]m_2,+\\infty[$, l'équation admet 2 solutions réelles"
+        "$\\Delta$ est donc positif à l'extérieur des racines et négatif à l'intérieur.<br>"
+      texteCorr += `$\\underline{\\text{Conclusion}}$ :<br>
+        ${createList({
+          items: [
+            `Si $m=${m1}$ ou $m=${m2}$, l'équation admet une unique solution;`,
+            `Si $m\\in {\\Large]}${m1},${m2}{\\Large[}$, l'équation n'a pas de solution réelle;`,
+            `Si $m\\in {\\Large]}-\\infty,${m1}{\\Large[\\cup]}${m2},+\\infty{\\Large[}$, l'équation admet 2 solutions réelles;`,
+          ],
+          style: 'fleches',
+        })}`
     } else {
       texteCorr +=
-        '<br>De plus le coefficient devant $m^2$ est négatif, $\\Delta$ est donc une parabole avec ses branches dirigées vers le bas.'
+        'De plus le coefficient devant $m^2$ est négatif, $\\Delta$ est donc une parabole avec ses branches dirigées vers le bas.<br>'
       texteCorr +=
-        "<br>$\\Delta$ est donc négatif à l'extérieur des racines et positif à l'intérieur."
-      texteCorr +=
-        "<br>$\\underline{\\text{Conclusion}}$ :<br> - Si $m=m_1$ ou $m_2$, l'équation admet une unique solution,"
-      texteCorr +=
-        "<br>- Si $m\\in ]m_1,m_2[$, l'équation admet 2 solutions réelles,"
-      texteCorr +=
-        "<br>- Si $m\\in ]-\\infty,m_1[\\cup]m_2,+\\infty[$, l'équation n'a pas de solution réelle"
+        "$\\Delta$ est donc négatif à l'extérieur des racines et positif à l'intérieur.<br>"
+      texteCorr += `$\\underline{\\text{Conclusion}}$ :<br>
+        ${createList({
+          items: [
+            `Si $m=${m1}$ ou $m=${m2}$, l'équation admet une unique solution;`,
+            `Si $m\\in {\\Large ]}${m1},${m2}{\\Large [}$, l'équation admet 2 solutions réelles;`,
+            `Si $m\\in {\\Large]}-\\infty,${m1}{\\Large[} {\\Large\\cup} {\\Large]}${m2},+\\infty{\\Large[}$, l'équation n'a pas de solution réelle;`,
+          ],
+          style: 'fleches',
+        })}`
     }
     return texteCorr
+  }
+
+  /**
+   * Cas particuliers: si a(m)=0 (types 2 et 3), traiter l'équation linéaire b(m0)x+c(m0)=0
+   * avant d'enchaîner avec le cas général.
+   */
+  private genererCorrectionCasParticulier(params: ParametresEquation): string {
+    const {
+      typeQuestion,
+      valeurAjustementDeltaA,
+      coefMB,
+      constB,
+      coefMC,
+      constC,
+    } = params
+
+    let m0: number | null = null
+    if (typeQuestion === 2) {
+      m0 = 0
+    } else if (typeQuestion === 3) {
+      m0 = -valeurAjustementDeltaA
+    } else {
+      return '' // pas de cas particulier pour le type 1
+    }
+
+    // Évalue b(m0) et c(m0)
+    const b0 = coefMB * (m0 as number) + constB
+    const c0 = coefMC * (m0 as number) + constC
+
+    // Formattage de l'équation linéaire
+    const eqLin =
+      b0 === 0 ? `${c0}` : `${rienSi1(b0)}x${ecritureAlgebrique(c0)}`
+
+    let texte = ''
+    texte += `${texteEnCouleurEtGras('Cas particulier :', 'black')} si $m=${m0}$, alors le coefficient de $x^2$ est nul et l'équation n'est plus du second degré.<br>`
+    texte += `Elle devient l'équation linéaire $${eqLin}=0$.<br>`
+
+    if (b0 === 0 && c0 === 0) {
+      texte +=
+        "Il s'agit d'une identité vraie ($0=0$) : l'équation admet une infinité de solutions réelles.<br>"
+    } else if (b0 === 0 && c0 !== 0) {
+      texte +=
+        "Il s'agit d'une contradiction : l'équation n'admet aucune solution réelle.<br>"
+    } else {
+      const x0 = fraction(-c0, b0).texFractionSimplifiee
+      texte += `On obtient une unique solution réelle : $x=${x0}$.<br>`
+    }
+
+    texte += `Pour $m\\ne ${m0}$, on retrouve une équation du second degré : on étudie alors le discriminant comme ci-dessous.<br>`
+    return texte
   }
 
   nouvelleVersion() {
@@ -340,16 +429,21 @@ export default class EquationDuSecondDegreAvecUnParametre extends Exercice {
     }).map(Number)
 
     for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50; ) {
-      const { equation, coefficients, coeffsDiscriminant } =
+      const { equation, coefficients, coeffsDiscriminant, params } =
         this.genererCoefficients(typesDeQuestions[i])
 
       const expr0 = engine.parse(equation).simplify().latex
       const texte = `$${expr0}=0$`
 
-      const texteCorr = this.analyserDiscriminant(
+      // Cas particuliers avant la correction générale
+      const introCasParticulier = this.genererCorrectionCasParticulier(params)
+
+      const texteCorrGeneral = this.analyserDiscriminant(
         coefficients,
         coeffsDiscriminant,
       )
+
+      const texteCorr = introCasParticulier + texteCorrGeneral
 
       if (this.questionJamaisPosee(i, equation)) {
         this.listeQuestions[i] = texte

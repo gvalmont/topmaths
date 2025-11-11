@@ -1,13 +1,11 @@
 import { context } from '../../modules/context'
 import type { NestedObjetMathalea2dArray, ObjetDivLatex } from '../../types/2d'
-import { Point3d } from '../3d/3dProjectionMathalea2d/elements'
 import { arrondi } from '../outils/nombres'
 import { stringNombre } from '../outils/texNombre'
 import { colorToLatexOrHTML } from './colorToLatexOrHtml'
+import type { IPoint3d, IPointAbstrait, IPolygone } from './Interfaces'
 import { ObjetMathalea2D } from './ObjetMathalea2D'
-import { point, Point } from './points'
-import { PointAbstrait } from './points-abstraits'
-import { Polygone } from './polygones'
+import { point, Point, PointAbstrait } from './PointAbstrait'
 import type { Vide2d } from './Vide2d'
 
 export type AncrageDeRotationType = 'gauche' | 'milieu' | 'droite'
@@ -71,28 +69,25 @@ export function labelLatexPoint(
   const offset = 0.25 * Math.log10(taille) // context.pixelsParCm ne correspond pas forcément à la valeur utilisée par mathalea2d... cela peut entrainer un trés léger écart
   let x
   let y
-  let A
   const objets = []
-  let listePoints: Array<Point | Point3d>
+  let listePoints: Array<PointAbstrait>
   if (Array.isArray(points[0])) {
     // Si le premier argument est un tableau
     listePoints = points[0]
   } else {
     listePoints = points
   }
+  listePoints = listePoints.map((pt: PointAbstrait | IPoint3d) =>
+    'c2d' in pt ? pt.c2d : pt,
+  )
   for (const unPoint of listePoints) {
-    if (unPoint instanceof Point3d) {
-      A = unPoint.c2d
-    } else {
-      A = unPoint
-    }
-    x = arrondi(A.x)
-    y = arrondi(A.y)
-    switch (A.positionLabel) {
+    x = arrondi(unPoint.x)
+    y = arrondi(unPoint.y)
+    switch (unPoint.positionLabel) {
       case 'left':
         objets.push(
           latexParCoordonnees(
-            A.nom,
+            unPoint.nom,
             x - offset,
             y,
             color,
@@ -106,7 +101,7 @@ export function labelLatexPoint(
       case 'right':
         objets.push(
           latexParCoordonnees(
-            A.nom,
+            unPoint.nom,
             x + offset,
             y,
             color,
@@ -120,7 +115,7 @@ export function labelLatexPoint(
       case 'below':
         objets.push(
           latexParCoordonnees(
-            A.nom,
+            unPoint.nom,
             x,
             y - offset,
             color,
@@ -134,7 +129,7 @@ export function labelLatexPoint(
       case 'above':
         objets.push(
           latexParCoordonnees(
-            A.nom,
+            unPoint.nom,
             x,
             y + offset,
             color,
@@ -148,7 +143,7 @@ export function labelLatexPoint(
       case 'above right':
         objets.push(
           latexParCoordonnees(
-            A.nom,
+            unPoint.nom,
             x + offset,
             y + offset,
             color,
@@ -162,7 +157,7 @@ export function labelLatexPoint(
       case 'below left':
         objets.push(
           latexParCoordonnees(
-            A.nom,
+            unPoint.nom,
             x - offset,
             y - offset,
             color,
@@ -176,7 +171,7 @@ export function labelLatexPoint(
       case 'below right':
         objets.push(
           latexParCoordonnees(
-            A.nom,
+            unPoint.nom,
             x + offset,
             y - offset,
             color,
@@ -190,7 +185,7 @@ export function labelLatexPoint(
       default:
         objets.push(
           latexParCoordonnees(
-            A.nom,
+            unPoint.nom,
             x - offset,
             y + offset,
             color,
@@ -216,7 +211,9 @@ export function labelLatexPoint(
  * @return object[]
  */
 // JSDOC Validee par EE Septembre 2022
-export function labelPoint(...args: (PointAbstrait | Point | string)[]) {
+export function labelPoint(
+  ...args: (IPointAbstrait | PointAbstrait | Point | string)[]
+) {
   const taille = 1
   const points = [...args]
   let color
@@ -228,23 +225,16 @@ export function labelPoint(...args: (PointAbstrait | Point | string)[]) {
   }
   const objets = []
   for (const unPoint of points) {
-    let A
-    if (unPoint instanceof Point3d) {
-      A = unPoint.c2d
-    } else {
-      A = unPoint
-    }
-
     let x, y
-    if (A instanceof Point || A instanceof PointAbstrait) {
-      x = A.x
-      y = A.y
+    if (unPoint instanceof Point || unPoint instanceof PointAbstrait) {
+      x = unPoint.x
+      y = unPoint.y
       // if (this.positionLabel === '' && unPoint.typeObjet === 'point3d') A.positionLabel = this.positionLabel
-      switch (A.positionLabel) {
+      switch (unPoint.positionLabel) {
         case 'left':
           objets.push(
             texteParPosition(
-              A.nom,
+              unPoint.nom,
               x - 10 / context.pixelsParCm,
               y,
               0,
@@ -259,7 +249,7 @@ export function labelPoint(...args: (PointAbstrait | Point | string)[]) {
         case 'right':
           objets.push(
             texteParPosition(
-              A.nom,
+              unPoint.nom,
               x + 10 / context.pixelsParCm,
               y,
               0,
@@ -274,7 +264,7 @@ export function labelPoint(...args: (PointAbstrait | Point | string)[]) {
         case 'below':
           objets.push(
             texteParPosition(
-              A.nom,
+              unPoint.nom,
               x,
               y - 10 / context.pixelsParCm,
               0,
@@ -289,7 +279,7 @@ export function labelPoint(...args: (PointAbstrait | Point | string)[]) {
         case 'above':
           objets.push(
             texteParPosition(
-              A.nom,
+              unPoint.nom,
               x,
               y + 10 / context.pixelsParCm,
               0,
@@ -304,7 +294,7 @@ export function labelPoint(...args: (PointAbstrait | Point | string)[]) {
         case 'above left':
           objets.push(
             texteParPosition(
-              A.nom,
+              unPoint.nom,
               x - 10 / context.pixelsParCm,
               y + 10 / context.pixelsParCm,
               0,
@@ -319,7 +309,7 @@ export function labelPoint(...args: (PointAbstrait | Point | string)[]) {
         case 'above right':
           objets.push(
             texteParPosition(
-              A.nom,
+              unPoint.nom,
               x + 10 / context.pixelsParCm,
               y + 10 / context.pixelsParCm,
               0,
@@ -334,7 +324,7 @@ export function labelPoint(...args: (PointAbstrait | Point | string)[]) {
         case 'below left':
           objets.push(
             texteParPosition(
-              A.nom,
+              unPoint.nom,
               x - 10 / context.pixelsParCm,
               y - 10 / context.pixelsParCm,
               0,
@@ -349,7 +339,7 @@ export function labelPoint(...args: (PointAbstrait | Point | string)[]) {
         case 'below right':
           objets.push(
             texteParPosition(
-              A.nom,
+              unPoint.nom,
               x + 10 / context.pixelsParCm,
               y - 10 / context.pixelsParCm,
               0,
@@ -364,7 +354,7 @@ export function labelPoint(...args: (PointAbstrait | Point | string)[]) {
         default:
           objets.push(
             texteParPosition(
-              A.nom,
+              unPoint.nom,
               x,
               y,
               0,
@@ -391,7 +381,7 @@ export function labelPoint(...args: (PointAbstrait | Point | string)[]) {
  * @author Rémi Angot
  */
 // JSDOC Validee par EE Aout 2022
-export function deplaceLabel(p: Polygone, nom: string, positionLabel: string) {
+export function deplaceLabel(p: IPolygone, nom: string, positionLabel: string) {
   for (let i = 0; i < p.listePoints.length; i++) {
     for (const lettre of nom) {
       if (p.listePoints[i].nom === lettre) {
@@ -1292,6 +1282,7 @@ export function latex2d(
       : backgroundColor
   letterSize = letterSize ?? 'normalsize'
   orientation = orientation ?? 0
+
   opacity = opacity ?? 1
   return new Latex2d(latex, x, y, {
     color,

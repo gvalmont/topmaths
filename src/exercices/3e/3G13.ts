@@ -1,8 +1,8 @@
-import { texteSurArc, texteSurSegment } from '../../lib/2d/codages'
 import { fixeBordures } from '../../lib/2d/fixeBordures'
-import { point } from '../../lib/2d/points'
+import { point, PointAbstrait } from '../../lib/2d/PointAbstrait'
 import { segmentAvecExtremites } from '../../lib/2d/segmentsVecteurs'
 import { labelPoint } from '../../lib/2d/textes'
+import { texteSurSegment } from '../../lib/2d/texteSurSegment'
 import { homothetie, rotation } from '../../lib/2d/transformations'
 import { choisitLettresDifferentes } from '../../lib/outils/aleatoires'
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
@@ -17,6 +17,7 @@ import {
 import Exercice from '../Exercice'
 
 import { arcPointPointAngle } from '../../lib/2d/Arc'
+import { texteSurArc } from '../../lib/2d/TexteSurArc'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { propositionsQcm } from '../../lib/interactif/qcm'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
@@ -43,9 +44,9 @@ export const refs = {
 }
 
 function texteSurSegmentDessus(
-  texte,
-  A,
-  B,
+  texte: string,
+  A: PointAbstrait,
+  B: PointAbstrait,
   color = 'black',
   d = 0.5,
   horizontal = false,
@@ -126,26 +127,20 @@ export default class CalculsHomothetie extends Exercice {
       defaut: 12,
       nbQuestions: this.nbQuestions,
       listeOfCase: typeQuestionsDisponibles,
-    })
+    }).map(String)
     // const listeTypeQuestions = typeQuestionsDisponibles
-    const kNonDecimal = this.sup3 > 1
-    const valeursSimples = this.sup3 === 3
+    const kNonDecimal = Number(this.sup3 > 1)
+    const valeursSimples = Number(this.sup3 === 3)
     for (
-      let i = 0, environ, melange, texte, texteCorr, cpt = 0;
+      let i = 0, environ, melange, texte, texteCorr = '', cpt = 0;
       i < this.nbQuestions && cpt < 50;
 
     ) {
       // Boucle principale où i+1 correspond au numéro de la question
-      const lettres = choisitLettresDifferentes(5, [
-        'P',
-        'Q',
-        'U',
-        'V',
-        'W',
-        'X',
-        'Y',
-        'Z',
-      ])
+      const lettres = choisitLettresDifferentes(
+        5,
+        ['P', 'Q', 'U', 'V', 'W', 'X', 'Y', 'Z'].join(''),
+      )
       const A = lettres[0]
       const hA = lettres[1]
       const O = lettres[2]
@@ -155,9 +150,10 @@ export default class CalculsHomothetie extends Exercice {
 
       const ks = new FractionEtendue(
         this.sup2 === 1 ? 1 : this.sup2 === 2 ? -1 : choice([1, -1]),
+        1,
       )
 
-      let k = new FractionEtendue(1)
+      let k = new FractionEtendue(1, 1)
       do {
         k = new FractionEtendue(
           kNonDecimal
@@ -175,21 +171,21 @@ export default class CalculsHomothetie extends Exercice {
       const kpositif = k.valeurDecimale > 0
 
       const longueurEntiere = valeursSimples
-        ? new FractionEtendue(randint(1, 19))
-        : new FractionEtendue(randint(11, 99))
+        ? new FractionEtendue(randint(1, 19), 1)
+        : new FractionEtendue(randint(11, 99), 1)
 
       let OA = agrandissement
         ? longueurEntiere.entierDivise(10)
         : longueurEntiere
       OA = OA.multiplieEntier(10 ** valeursSimples * absk.d ** kNonDecimal)
-      let OhA = k.produitFraction(OA)
+      const OhA = k.produitFraction(OA)
 
       let OB = new FractionEtendue(
-        randint(10, 99, [parseInt(longueurEntiere.valeurDecimale)]),
+        randint(10, 99, [Math.round(longueurEntiere.valeurDecimale)]),
         10,
       )
       OB = OB.multiplieEntier(10 ** valeursSimples * absk.d ** kNonDecimal)
-      let OhB = k.produitFraction(OB)
+      const OhB = k.produitFraction(OB)
 
       let AhA = OhA.differenceFraction(OA).simplifie()
       AhA = AhA.valeurAbsolue()
@@ -200,9 +196,10 @@ export default class CalculsHomothetie extends Exercice {
       )
       kAire = kAire.entierDivise(10)
       kAire = kAire.simplifie()
-      const Aire = valeursSimples
-        ? new FractionEtendue(randint(10, 99))
-        : new FractionEtendue(randint(100, 999), 10)
+      const Aire =
+        valeursSimples === 1
+          ? new FractionEtendue(randint(10, 99), 1)
+          : new FractionEtendue(randint(100, 999), 10)
       const hAire = kAire.produitFractions(kAire, Aire).valeurDecimale
       const hAireArrondie = arrondi(hAire, 2)
 
@@ -227,7 +224,7 @@ export default class CalculsHomothetie extends Exercice {
         ? ''
         : "Pour vous aider, illustrer cette situation par une figure (sans forcément respecter l'échelle).<br>"
 
-      const kinverse = new FractionEtendue(1).diviseFraction(absk)
+      const kinverse = new FractionEtendue(1, 1).diviseFraction(absk)
 
       const OhAdivkInversed = OhA.entierDivise(kinverse.d)
         .simplifie()
@@ -247,26 +244,26 @@ export default class CalculsHomothetie extends Exercice {
       largeurFigure = new FractionEtendue(10, 1).diviseFraction(largeurFigure)
       largeurFigure = largeurFigure.multiplieEntier(2)
 
-      let correctionOhA = OhA
+      let correctionOhA = OhA.multiplieEntier(1)
       let correctionOA = OA
       let testFigureCorrigee = true
 
       if (absk.valeurDecimale < 0.3) {
         correctionOhA = OA.produitFraction(
           new FractionEtendue(3, 10).multiplieEntier(
-            (-1) ** (k.valeurDecimale < 0),
+            (-1) ** Number(k.valeurDecimale < 0),
           ),
         )
       } else if (absk.valeurDecimale < 1 && absk.valeurDecimale > 0.7) {
         correctionOhA = OA.produitFraction(
           new FractionEtendue(7, 10).multiplieEntier(
-            (-1) ** (k.valeurDecimale < 0),
+            (-1) ** Number(k.valeurDecimale < 0),
           ),
         )
       } else if (absk.valeurDecimale > 1 && absk.valeurDecimale < 1.3) {
         correctionOhA = OA.produitFraction(
           new FractionEtendue(13, 10).multiplieEntier(
-            (-1) ** (k.valeurDecimale < 0),
+            (-1) ** Number(k.valeurDecimale < 0),
           ),
         )
       } else if (absk.valeurDecimale > 4) {
@@ -276,14 +273,22 @@ export default class CalculsHomothetie extends Exercice {
       }
       const figurealechelle =
         !(testFigureCorrigee && this.sup4) ||
-        [4, 5, 6, 7, 8].includes(listeTypeQuestions[i])
+        [
+          'image2etapes',
+          'antecendent2etapes',
+          'aireImage',
+          'aireAntécédent',
+          'aireRapport',
+        ].includes(listeTypeQuestions[i])
           ? ''
           : "La figure ci-dessous n'est pas à l'échelle.<br>"
       const figurealechelle2 = !this.sup4
         ? ''
         : "La figure ci-dessous n'est pas à l'échelle.<br>"
 
-      let figure = {
+      let figure: {
+        [key: string]: PointAbstrait
+      } = {
         O: point(0, 0, `${O}`, 'below'),
         A: point(
           correctionOA.produitFraction(largeurFigure).valeurDecimale,
@@ -316,22 +321,22 @@ export default class CalculsHomothetie extends Exercice {
         ),
       })
 
-      OhA = OhA.valeurAbsolue().valeurDecimale // Non LaTeX
+      const OhADecimale = OhA.valeurAbsolue().valeurDecimale // Non LaTeX
 
       const OhAtimeskinverse =
         valeursSimples && !absk.estEntiere
-          ? `=${OhA}\\times ${kinverse.texFSD}` +
+          ? `=${texNombre(OhADecimale)}\\times ${kinverse.texFSD}` +
             (kinverse.d !== 1
-              ? `=\\dfrac{${OhA}}{${kinverse.d}}\\times ${kinverse.n}=${OhAdivkInversed}\\times ${kinverse.n}`
+              ? `=\\dfrac{${texNombre(OhADecimale)}}{${kinverse.d}}\\times ${kinverse.n}=${OhAdivkInversed}\\times ${kinverse.n}`
               : '')
           : ''
 
-      OhB = OhB.valeurAbsolue().valeurDecimale // Non LaTeX
+      const OhBDecimale = OhB.valeurAbsolue().valeurDecimale // Non LaTeX
       const OhBtimeskinverse =
         valeursSimples && !absk.estEntiere
-          ? `=${OhB}\\times ${kinverse.texFSD}` +
+          ? `=${texNombre(OhBDecimale)}\\times ${kinverse.texFSD}` +
             (kinverse.d !== 1
-              ? `=\\dfrac{${OhB}}{${kinverse.d}}\\times ${kinverse.n}=${OhBdivkInversed}\\times ${kinverse.n}`
+              ? `=\\dfrac{${texNombre(OhBDecimale)}}{${kinverse.d}}\\times ${kinverse.n}=${OhBdivkInversed}\\times ${kinverse.n}`
               : '')
           : ''
 
@@ -376,31 +381,31 @@ export default class CalculsHomothetie extends Exercice {
         legendeOA:
           agrandissement || !kpositif
             ? texteSurSegmentDessus(
-                `$${texNombre(OA.valeurDecimale)}~\\text{cm}$`,
+                `$${texNombre(OA.valeurDecimale)}\\text{ cm}$`,
                 figure.A,
                 figure.O,
                 'black',
                 0.6,
               )
             : texteSurArc(
-                `$${texNombre(OA.valeurDecimale)}~\\text{cm}$`,
+                `$${texNombre(OA.valeurDecimale)}\\text{ cm}$`,
                 figure.O,
                 figure.A,
-                60,
+                90,
                 'black',
                 0.3,
               ),
         legendeOhA:
           !agrandissement || !kpositif
             ? texteSurSegmentDessus(
-                `$${texNombre(OhA)}~\\text{cm}$`,
+                `$${texNombre(OhADecimale)}\\text{ cm}$`,
                 figure.hA,
                 figure.O,
                 'black',
                 0.6,
               )
             : texteSurArc(
-                `$${texNombre(OhA)}~\\text{cm}$`,
+                `$${texNombre(OhADecimale)}\\text{ cm}$`,
                 figure.O,
                 figure.hA,
                 60,
@@ -410,14 +415,14 @@ export default class CalculsHomothetie extends Exercice {
         legendeOB:
           agrandissement || !kpositif
             ? texteSurSegmentDessus(
-                `$${texNombre(OB.valeurDecimale)}~\\text{cm}$`,
+                `$${texNombre(OB.valeurDecimale)}\\text{ cm}$`,
                 figure.B,
                 figure.O,
                 'black',
                 0.6,
               )
             : texteSurArc(
-                `$${texNombre(OB.valeurDecimale)}~\\text{cm}$`,
+                `$${texNombre(OB.valeurDecimale)}\\text{ cm}$`,
                 figure.B,
                 figure.O,
                 60,
@@ -427,14 +432,14 @@ export default class CalculsHomothetie extends Exercice {
         legendeOhB:
           !agrandissement || !kpositif
             ? texteSurSegmentDessus(
-                `$${texNombre(OhB)}~\\text{cm}$`,
+                `$${texNombre(OhB)}\\text{ cm}$`,
                 figure.hB,
                 figure.O,
                 'black',
                 0.6,
               )
             : texteSurArc(
-                `$${texNombre(OhB)}~\\text{cm}$`,
+                `$${texNombre(OhB)}\\text{ cm}$`,
                 figure.hB,
                 figure.O,
                 60,
@@ -443,14 +448,14 @@ export default class CalculsHomothetie extends Exercice {
               ),
         legendeAhA: kpositif
           ? texteSurSegmentDessus(
-              `$${texNombre(AhA.valeurDecimale)}~\\text{cm}$`,
+              `$${texNombre(AhA.valeurDecimale)}\\text{ cm}$`,
               figure.hA,
               figure.A,
               'black',
               0.6,
             )
           : texteSurArc(
-              `$${texNombre(AhA.valeurDecimale)}~\\text{cm}$`,
+              `$${texNombre(AhA.valeurDecimale)}\\text{ cm}$`,
               figure.hA,
               figure.A,
               60,
@@ -496,7 +501,7 @@ export default class CalculsHomothetie extends Exercice {
       ]
       if (figure.arcOA.typeObjet !== 'point') objetsEnonce.push(figure.arcOA)
       if (figure.arcOhA.typeObjet !== 'point') objetsEnonce.push(figure.arcOhA)
-      let frapport = mathalea2d(
+      const frapportFig = mathalea2d(
         Object.assign({}, fixeBordures([...objetsEnonce, ...flabelsPoints]), {
           style: 'inline',
           scale: fscale,
@@ -504,9 +509,9 @@ export default class CalculsHomothetie extends Exercice {
         objetsEnonce,
         flabelsPoints,
       )
-      frapport = {
-        enonce: this.sup4 ? frapport + '<br>' : '',
-        solution: !this.sup4 ? frapport + '<br>' : '',
+      const frapport = {
+        enonce: this.sup4 ? frapportFig + '<br>' : '',
+        solution: !this.sup4 ? frapportFig + '<br>' : '',
       }
 
       objetsEnonce = [
@@ -517,7 +522,7 @@ export default class CalculsHomothetie extends Exercice {
       ]
       if (figure.arcOA.typeObjet !== 'point') objetsEnonce.push(figure.arcOA)
       if (figure.arcOhA.typeObjet !== 'point') objetsEnonce.push(figure.arcOhA)
-      let fImage = mathalea2d(
+      const fImageFig = mathalea2d(
         Object.assign({}, fixeBordures([...objetsEnonce, ...flabelsPoints]), {
           style: 'inline',
           scale: fscale,
@@ -525,9 +530,9 @@ export default class CalculsHomothetie extends Exercice {
         objetsEnonce,
         flabelsPoints,
       )
-      fImage = {
-        enonce: this.sup4 ? fImage + '<br>' : '',
-        solution: !this.sup4 ? fImage + '<br>' : '',
+      const fImage = {
+        enonce: this.sup4 ? fImageFig + '<br>' : '',
+        solution: !this.sup4 ? fImageFig + '<br>' : '',
       }
 
       objetsEnonce = [
@@ -541,7 +546,7 @@ export default class CalculsHomothetie extends Exercice {
       if (figure.hA.typeObjet !== 'point') objetsEnonce.push(figure.hA)
       if (figure.arcOA.typeObjet !== 'point') objetsEnonce.push(figure.arcOA)
       if (figure.arcOhA.typeObjet !== 'point') objetsEnonce.push(figure.arcOhA)
-      let fAntecedent = mathalea2d(
+      const fAntecedentFig = mathalea2d(
         Object.assign({}, fixeBordures([...objetsEnonce, ...flabelsPoints]), {
           style: 'inline',
           scale: fscale,
@@ -549,9 +554,9 @@ export default class CalculsHomothetie extends Exercice {
         objetsEnonce,
         flabelsPoints,
       )
-      fAntecedent = {
-        enonce: this.sup4 ? fAntecedent + '<br>' : '',
-        solution: !this.sup4 ? fAntecedent + '<br>' : '',
+      const fAntecedent = {
+        enonce: this.sup4 ? fAntecedentFig + '<br>' : '',
+        solution: !this.sup4 ? fAntecedentFig + '<br>' : '',
       }
 
       const flabelsPointsAvecB = labelPoint(
@@ -580,7 +585,7 @@ export default class CalculsHomothetie extends Exercice {
       if (figure.arcOB.typeObjet !== 'point') objetsEnonce.push(figure.arcOB)
       if (figure.arcOhA.typeObjet !== 'point') objetsEnonce.push(figure.arcOhA)
       if (figure.arcOhB.typeObjet !== 'point') objetsEnonce.push(figure.arcOhB)
-      let fImage2etapes = mathalea2d(
+      const fImage2etapesFig = mathalea2d(
         Object.assign(
           {},
           fixeBordures([...objetsEnonce, ...flabelsPointsAvecB]),
@@ -589,9 +594,9 @@ export default class CalculsHomothetie extends Exercice {
         objetsEnonce,
         flabelsPointsAvecB,
       )
-      fImage2etapes = {
-        enonce: this.sup4 ? fImage2etapes + '<br>' : '',
-        solution: !this.sup4 ? fImage2etapes + '<br>' : '',
+      const fImage2etapes = {
+        enonce: this.sup4 ? fImage2etapesFig + '<br>' : '',
+        solution: !this.sup4 ? fImage2etapesFig + '<br>' : '',
       }
 
       objetsEnonce = [
@@ -608,7 +613,7 @@ export default class CalculsHomothetie extends Exercice {
       if (figure.arcOhA.typeObjet !== 'point') objetsEnonce.push(figure.arcOhA)
       if (figure.arcOB.typeObjet !== 'point') objetsEnonce.push(figure.arcOB)
       if (figure.arcOhB.typeObjet !== 'point') objetsEnonce.push(figure.arcOhB)
-      let fAntecedent2etapes = mathalea2d(
+      const fAntecedent2etapesFig = mathalea2d(
         Object.assign(
           {},
           fixeBordures([...objetsEnonce, ...flabelsPointsAvecB]),
@@ -617,9 +622,9 @@ export default class CalculsHomothetie extends Exercice {
         objetsEnonce,
         flabelsPointsAvecB,
       )
-      fAntecedent2etapes = {
-        enonce: this.sup4 ? fAntecedent2etapes + '<br>' : '',
-        solution: !this.sup4 ? fAntecedent2etapes + '<br>' : '',
+      const fAntecedent2etapes = {
+        enonce: this.sup4 ? fAntecedent2etapesFig + '<br>' : '',
+        solution: !this.sup4 ? fAntecedent2etapesFig + '<br>' : '',
       }
 
       objetsEnonce = [
@@ -632,7 +637,7 @@ export default class CalculsHomothetie extends Exercice {
       if (figure.arcOA.typeObjet !== 'point') objetsEnonce.push(figure.arcOA)
       if (figure.arcOhA.typeObjet !== 'point') objetsEnonce.push(figure.arcOhA)
       if (figure.arcAhA.typeObjet !== 'point') objetsEnonce.push(figure.arcAhA)
-      let frapport2 = mathalea2d(
+      const frapport2Fig = mathalea2d(
         Object.assign({}, fixeBordures([...objetsEnonce, ...flabelsPoints]), {
           style: 'inline',
           scale: fscale,
@@ -640,16 +645,16 @@ export default class CalculsHomothetie extends Exercice {
         objetsEnonce,
         flabelsPoints,
       )
-      frapport2 = {
-        enonce: this.sup4 ? '<br>' + frapport2 + '<br>' : '',
-        solution: !this.sup4 ? frapport2 + '<br>' : '',
+      const frapport2 = {
+        enonce: this.sup4 ? '<br>' + frapport2Fig + '<br>' : '',
+        solution: !this.sup4 ? frapport2Fig + '<br>' : '',
       }
       let donnees, donnee1, donnee2, donnee3
 
       switch (listeTypeQuestions[i]) {
         case 'rapport': // cas 1
           donnees = [
-            `${O}${hA}=${texNombre(OhA)}\\text{ cm}`,
+            `${O}${hA}=${texNombre(OhADecimale)}\\text{ cm}`,
             `${O}${A}=${texNombre(OA.valeurDecimale)}\\text{ cm}`,
           ]
           melange = combinaisonListes([0, 1])
@@ -685,7 +690,7 @@ export default class CalculsHomothetie extends Exercice {
             <br>
             Soit `
           } else texteCorr = frapport.solution
-          texteCorr += `$k=${signek}\\dfrac{${O}${hA}}{${O}${A}}=${signek}\\dfrac{${texNombre(OhA)}}{${texNombre(OA.valeurDecimale)}}=${miseEnEvidence(this.sup3 === 1 ? texNombre(k.valeurDecimale, 2) : k.texFSD)}$.`
+          texteCorr += `$k=${signek}\\dfrac{${O}${hA}}{${O}${A}}=${signek}\\dfrac{${texNombre(OhADecimale)}}{${texNombre(OA.valeurDecimale)}}=${miseEnEvidence(this.sup3 === 1 ? texNombre(k.valeurDecimale, 2) : k.texFSD)}$.`
           break
 
         case 'image': // cas 2
@@ -704,7 +709,7 @@ export default class CalculsHomothetie extends Exercice {
 
           texte += '.<br>' + fImage.enonce
 
-          handleAnswers(this, i, { reponse: { value: OhA } })
+          handleAnswers(this, i, { reponse: { value: OhADecimale } })
 
           if (this.correctionDetaillee) {
             texteCorr = `$[${O}${hA}]$ est l'image de $[${O}${A}]$ par cette homothétie et $${intervallek}$, donc $[${O}${hA}]$ est ${unAgrandissement} de $[${O}${A}]$.
@@ -717,13 +722,13 @@ export default class CalculsHomothetie extends Exercice {
             <br>
             Donc `
           } else texteCorr = fImage.solution
-          texteCorr += `$${O}${hA}= ${this.sup3 === 1 ? texNombre(absk.valeurDecimale) : absk.texFSD} \\times ${texNombre(OA.valeurDecimale)} =  ${miseEnEvidence(texNombre(OhA))}~\\text{cm}$.`
+          texteCorr += `$${O}${hA}= ${this.sup3 === 1 ? texNombre(absk.valeurDecimale) : absk.texFSD} \\times ${texNombre(OA.valeurDecimale)} =  ${miseEnEvidence(texNombre(OhADecimale))}\\text{ cm}$.`
           break
 
         case 'antécédent': // cas 3
           texte = `$${hA}$ est l'image de $${A}$ par une
           homothétie de centre $${O}$ et de rapport
-          $k=${this.sup3 === 1 ? texNombre(k.valeurDecimale) : k.texFSD}$ tel que $ {${O}${hA}=${texNombre(OhA)}\\text{ cm}}$.
+          $k=${this.sup3 === 1 ? texNombre(k.valeurDecimale) : k.texFSD}$ tel que $ {${O}${hA}=${texNombre(OhADecimale)}\\text{ cm}}$.
           <br>
           ${illustrerParUneFigureAMainLevee} ${figurealechelle} 
           Calculer $${O}${A}$`
@@ -750,13 +755,13 @@ export default class CalculsHomothetie extends Exercice {
             <br>
             Donc `
           } else texteCorr = fAntecedent.solution
-          texteCorr += `$${O}${A}=\\dfrac{${O}${hA}}{${signek}k}=\\dfrac{${texNombre(OhA)}}{${this.sup3 === 1 ? texNombre(absk.valeurDecimale) : absk.texFSD}} ${OhAtimeskinverse} = ${miseEnEvidence(texNombre(OA.valeurDecimale))}~\\text{cm}$.`
+          texteCorr += `$${O}${A}=\\dfrac{${O}${hA}}{${signek}k}=\\dfrac{${texNombre(OhADecimale)}}{${this.sup3 === 1 ? texNombre(absk.valeurDecimale) : absk.texFSD}} ${OhAtimeskinverse} = ${miseEnEvidence(texNombre(OA.valeurDecimale))}\\text{ cm}$.`
           break
 
         case 'image2etapes': // cas 4
           donnees = [
             `${O}${B}=${texNombre(OB.valeurDecimale)}\\text{ cm}`,
-            `${O}${hA}=${texNombre(OhA)}\\text{ cm}`,
+            `${O}${hA}=${texNombre(OhADecimale)}\\text{ cm}`,
             `${O}${A}=${texNombre(OA.valeurDecimale)}\\text{ cm}`,
           ]
           melange = combinaisonListes([0, 1, 2])
@@ -790,7 +795,7 @@ export default class CalculsHomothetie extends Exercice {
             ${lopposedu} quotient de la longueur d'un segment
             "à l'arrivée" par sa longueur "au départ".
             <br>
-            Soit $k=${signek}\\dfrac{${O}${hA}}{${O}${A}}=${signek}\\dfrac{${texNombre(OhA)}}{${texNombre(OA.valeurDecimale)}}=${this.sup3 === 1 ? texNombre(k.valeurDecimale) : k.texFSD}$.
+            Soit $k=${signek}\\dfrac{${O}${hA}}{${O}${A}}=${signek}\\dfrac{${texNombre(OhADecimale)}}{${texNombre(OA.valeurDecimale)}}=${this.sup3 === 1 ? texNombre(k.valeurDecimale) : k.texFSD}$.
             <br>
             $[${O}${hB}]$ est l'image de $[${O}${B}]$.
             <br>
@@ -803,16 +808,16 @@ export default class CalculsHomothetie extends Exercice {
             Donc `
           } else {
             texteCorr = fImage2etapes.solution
-            texteCorr += `Soit $k=${signek}\\dfrac{${O}${hA}}{${O}${A}}=${signek}\\dfrac{${texNombre(OhA)}}{${texNombre(OA.valeurDecimale)}}=${this.sup3 === 1 ? texNombre(k.valeurDecimale) : k.texFSD}$.
+            texteCorr += `Soit $k=${signek}\\dfrac{${O}${hA}}{${O}${A}}=${signek}\\dfrac{${texNombre(OhADecimale)}}{${texNombre(OA.valeurDecimale)}}=${this.sup3 === 1 ? texNombre(k.valeurDecimale) : k.texFSD}$.
             <br><br>`
           }
-          texteCorr += `$${O}${hB}= ${this.sup3 === 1 ? texNombre(absk.valeurDecimale) : absk.texFSD} \\times ${texNombre(OB.valeurDecimale)} = ${miseEnEvidence(texNombre(OhB))}~\\text{cm}$.`
+          texteCorr += `$${O}${hB}= ${this.sup3 === 1 ? texNombre(absk.valeurDecimale) : absk.texFSD} \\times ${texNombre(OB.valeurDecimale)} = ${miseEnEvidence(texNombre(OhB))}\\text{ cm}$.`
           break
 
         case 'antecendent2etapes': // cas 5
           donnees = [
             `${O}${hB}=${texNombre(OhB)}\\text{ cm}`,
-            `${O}${hA}=${texNombre(OhA)}\\text{ cm}`,
+            `${O}${hA}=${texNombre(OhADecimale)}\\text{ cm}`,
             `${O}${A}=${texNombre(OA.valeurDecimale)}\\text{ cm}`,
           ]
           melange = combinaisonListes([0, 1, 2])
@@ -846,7 +851,7 @@ export default class CalculsHomothetie extends Exercice {
             texteCorr += `Le rapport de cette homothétie est ${lopposedu} quotient
             de la longueur d'un segment "à l'arrivée" par sa longueur "au départ".
             <br>
-            Soit $k=${signek}\\dfrac{${O}${hA}}{${O}${A}}=${signek}\\dfrac{${texNombre(OhA)}}{${texNombre(OA.valeurDecimale)}}=${this.sup3 === 1 ? texNombre(k.valeurDecimale) : k.texFSD}$.
+            Soit $k=${signek}\\dfrac{${O}${hA}}{${O}${A}}=${signek}\\dfrac{${texNombre(OhADecimale)}}{${texNombre(OA.valeurDecimale)}}=${this.sup3 === 1 ? texNombre(k.valeurDecimale) : k.texFSD}$.
             <br>
             $[${O}${hB}]$ est l'image de $[${O}${B}]$.
             <br>
@@ -859,10 +864,10 @@ export default class CalculsHomothetie extends Exercice {
             Donc `
           } else {
             texteCorr = fImage2etapes.solution
-            texteCorr += `Soit $k=${signek}\\dfrac{${O}${hA}}{${O}${A}}=${signek}\\dfrac{${texNombre(OhA)}}{${texNombre(OA.valeurDecimale)}}=${this.sup3 === 1 ? texNombre(k.valeurDecimale) : k.texFSD}$.
+            texteCorr += `Soit $k=${signek}\\dfrac{${O}${hA}}{${O}${A}}=${signek}\\dfrac{${texNombre(OhADecimale)}}{${texNombre(OA.valeurDecimale)}}=${this.sup3 === 1 ? texNombre(k.valeurDecimale) : k.texFSD}$.
             <br><br>`
           }
-          texteCorr += `$${O}${B}=\\dfrac{${O}${hB}}{${signek}k}=\\dfrac{${texNombre(OhB)}}{${this.sup3 === 1 ? texNombre(absk.valeurDecimale) : absk.texFSD}} ${OhBtimeskinverse} = ${miseEnEvidence(texNombre(OB.valeurDecimale))}~\\text{cm}$.`
+          texteCorr += `$${O}${B}=\\dfrac{${O}${hB}}{${signek}k}=\\dfrac{${texNombre(OhB)}}{${this.sup3 === 1 ? texNombre(absk.valeurDecimale) : absk.texFSD}} ${OhBtimeskinverse} = ${miseEnEvidence(texNombre(OB.valeurDecimale))}\\text{ cm}$.`
 
           break
 
@@ -891,7 +896,7 @@ export default class CalculsHomothetie extends Exercice {
             environ === 'environ'
               ? ` = ${texNombre(hAire)} \\approx ${miseEnEvidence(texNombre(hAireArrondie))}`
               : ` = ${miseEnEvidence(texNombre(hAire))}`
-          texteCorr += '~\\text{cm}^2$'
+          texteCorr += '\\text{ cm}^2$'
           if (this.correctionDetaillee) {
             texteCorr = `Une homothétie est une transformation qui multiplie toutes les aires par le carré de son rapport.
             <br>
@@ -901,7 +906,7 @@ export default class CalculsHomothetie extends Exercice {
                 ? `\\approx ${texNombre(hAireArrondie)}`
                 : ''
             texteCorr += `$<br>
-            Donc l'aire de l'image de cette figure est ${environ} $ {${miseEnEvidence(texNombre(hAireArrondie))}~\\text{cm}^2}$.`
+            Donc l'aire de l'image de cette figure est ${environ} $ {${miseEnEvidence(texNombre(hAireArrondie))}\\text{ cm}^2}$.`
           }
           break
 
@@ -921,7 +926,7 @@ export default class CalculsHomothetie extends Exercice {
 
           handleAnswers(this, i, { reponse: { value: Aire.texFSD } })
 
-          texteCorr = `$ {\\dfrac{${texNombre(hAire)}}{${parentheseskAire}^2} = ${miseEnEvidence(texNombre(Aire.valeurDecimale))}~\\text{cm}^2}$`
+          texteCorr = `$ {\\dfrac{${texNombre(hAire)}}{${parentheseskAire}^2} = ${miseEnEvidence(texNombre(Aire.valeurDecimale))}\\text{ cm}^2}$`
           if (this.correctionDetaillee) {
             texteCorr = `Une homothétie est une transformation qui multiplie toutes les aires par le carré de son rapport.
             <br>
@@ -931,7 +936,7 @@ export default class CalculsHomothetie extends Exercice {
             <br>
             Puis $\\mathscr{A}=\\dfrac{${texNombre(hAire)}}{${parentheseskAire}^2}=${texNombre(Aire.valeurDecimale)}$.
             <br>
-            Donc l'aire de la figure de départ est $ {${miseEnEvidence(texNombre(Aire.valeurDecimale))}~\\text{cm}^2}$.`
+            Donc l'aire de la figure de départ est $ {${miseEnEvidence(texNombre(Aire.valeurDecimale))}\\text{ cm}^2}$.`
           }
           break
 
@@ -989,7 +994,7 @@ export default class CalculsHomothetie extends Exercice {
           handleAnswers(this, i, { reponse: { value: k.texFSD } })
 
           if (this.correctionDetaillee) {
-            texteCorr = `$${O}${hA} = ${calculsOhA} = ${texNombre(OhA)}\\text{ cm}$
+            texteCorr = `$${O}${hA} = ${calculsOhA} = ${texNombre(OhADecimale)}\\text{ cm}$
             <br>
             $[${O}${hA}]$ est l'image de $[${O}${A}]$
             et $${O} ${hA} ${plusgrandque} ${O} ${A}$
@@ -1001,12 +1006,12 @@ export default class CalculsHomothetie extends Exercice {
             <br>
             Soit `
           } else texteCorr = frapport.solution
-          texteCorr += `$k=${signek}\\dfrac{${O}${hA}}{${O}${A}}=${signek}\\dfrac{${texNombre(OhA)}}{${texNombre(OA.valeurDecimale)}}=${miseEnEvidence(this.sup3 === 1 ? texNombre(k.valeurDecimale) : k.texFSD)}$.`
+          texteCorr += `$k=${signek}\\dfrac{${O}${hA}}{${O}${A}}=${signek}\\dfrac{${texNombre(OhADecimale)}}{${texNombre(OA.valeurDecimale)}}=${miseEnEvidence(this.sup3 === 1 ? texNombre(k.valeurDecimale) : k.texFSD)}$.`
           break
 
         case 'encadrerk': // cas 10
           donnees = [
-            `${O}${hA}=${texNombre(OhA)}\\text{ cm}`,
+            `${O}${hA}=${texNombre(OhADecimale)}\\text{ cm}`,
             `${O}${A}=${texNombre(OA.valeurDecimale)}\\text{ cm}`,
           ]
           melange = combinaisonListes([0, 1])
@@ -1060,6 +1065,7 @@ export default class CalculsHomothetie extends Exercice {
           break
 
         case 'encadrerk2': // cas 11
+        default:
           donnees = [
             `${A}${hA}=${texNombre(AhA.valeurDecimale)}\\text{ cm}`,
             `${O}${A}=${texNombre(OA.valeurDecimale)}\\text{ cm}`,
@@ -1102,7 +1108,7 @@ export default class CalculsHomothetie extends Exercice {
           texte += '<br>' + propositionsQcm(this, i).texte
 
           if (this.correctionDetaillee) {
-            texteCorr = `$${O}${hA} = ${calculsOhA} = ${texNombre(OhA)}\\text{ cm}$
+            texteCorr = `$${O}${hA} = ${calculsOhA} = ${texNombre(OhADecimale)}\\text{ cm}$
             <br>
             $[${O}${hA}]$ est l'image de $[${O}${A}]$
             et $${O} ${hA} ${plusgrandque} ${O} ${A}$

@@ -1,11 +1,12 @@
 import type Hms from '../../modules/Hms'
 import { cercle } from './cercle'
 import { ObjetMathalea2D } from './ObjetMathalea2D'
-import { point } from './points'
+import { point } from './PointAbstrait'
 import { polygone } from './polygones'
-import { segment, vecteur } from './segmentsVecteurs'
+import { segment } from './segmentsVecteurs'
 import { latex2d } from './textes'
 import { rotation, similitude, translation } from './transformations'
+import { vecteur } from './Vecteur'
 
 /**
  * Un objet pour avoir une horloge

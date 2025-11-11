@@ -1,22 +1,22 @@
+import { bleuMathalea } from '../../lib/colors'
+import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
+import { handleAnswers } from '../../lib/interactif/gestionInteractif'
+import { remplisLesBlancs } from '../../lib/interactif/questionMathLive'
 import {
   choice,
   combinaisonListes,
   enleveElement,
   shuffle,
 } from '../../lib/outils/arrayOutils'
-import { miseEnEvidence } from '../../lib/outils/embellissements'
 import {
   compareFractions,
   texFractionFromString,
 } from '../../lib/outils/deprecatedFractions'
-import Exercice from '../Exercice'
+import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { context } from '../../modules/context'
-import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import FractionEtendue from '../../modules/FractionEtendue'
-import { handleAnswers } from '../../lib/interactif/gestionInteractif'
-import { remplisLesBlancs } from '../../lib/interactif/questionMathLive'
-import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
-import { bleuMathalea } from '../../lib/colors'
+import { listeQuestionsToContenu, randint } from '../../modules/outils'
+import Exercice from '../Exercice'
 
 export const titre =
   'Comparer quatre fractions (dénominateurs multiples) et un nombre entier'
@@ -157,7 +157,14 @@ export default class ExerciceComparerQuatreFractions extends Exercice {
         `$${k} = ${new FractionEtendue(d1 * k, d1).texFSD}$`,
         `$${new FractionEtendue(k * d1, d1).texFSD}$`,
       ])
-      tableauFractions.sort(compareFractions)
+
+      // tableauFractions.sort(compareFractions) // compareFractions ne peut pas fonctionner sans paramètres donc je (EE) supprime cette ligne inutile
+      tableauFractions.sort((a, b) =>
+        compareFractions(
+          a.slice(0, 2) as [number, number],
+          b.slice(0, 2) as [number, number],
+        ),
+      )
       const tableauFractionsEnonce = shuffle(tableauFractions)
       texte = ''
       for (let j = 0; j < tableauFractionsEnonce.length; j++) {
@@ -168,7 +175,14 @@ export default class ExerciceComparerQuatreFractions extends Exercice {
         }
       }
       texte = texte.substring(0, texte.length - 19) + '$' // Enlève les 21 derniers caractères (pour le ; de la fin)
-      tableauFractions.sort(compareFractions)
+
+      // tableauFractions.sort(compareFractions) // compareFractions ne peut pas fonctionner sans paramètres donc je (EE) supprime cette ligne inutile
+      tableauFractions.sort((a, b) =>
+        compareFractions(
+          a.slice(0, 2) as [number, number],
+          b.slice(0, 2) as [number, number],
+        ),
+      )
 
       if (this.interactif) {
         texte +=
@@ -227,7 +241,7 @@ export default class ExerciceComparerQuatreFractions extends Exercice {
         },
       })
 
-      texteCorr = `Pour comparer facilement ces fractions, mettons-les toutes sur le même dénominateur (ici, ce sera ${Math.max(d1, d2, d3, d4)} ).<br>`
+      texteCorr = `Pour comparer facilement ces fractions, mettons-les toutes sur le même dénominateur (ici, ce sera $${Math.max(d1, d2, d3, d4)}$).<br>`
       for (let j = 0; j < tableauFractionsEnonce.length; j++) {
         texteCorr += tableauFractionsEnonce[j][2]
         texteCorr += '<br>'

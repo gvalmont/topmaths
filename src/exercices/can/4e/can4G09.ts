@@ -1,15 +1,15 @@
-import { codageAngleDroit } from '../../../lib/2d/angles'
-import { texteSurSegment } from '../../../lib/2d/codages'
+import { codageAngleDroit } from '../../../lib/2d/CodageAngleDroit'
 import { fixeBordures } from '../../../lib/2d/fixeBordures'
-import { point } from '../../../lib/2d/points'
+import { point } from '../../../lib/2d/PointAbstrait'
 import {
   barycentre,
   polygone,
   polygoneAvecNom,
 } from '../../../lib/2d/polygones'
+import { texteSurSegment } from '../../../lib/2d/texteSurSegment'
 import { rotation } from '../../../lib/2d/transformations'
 import { choice } from '../../../lib/outils/arrayOutils'
-import { creerNomDePolygone, sp } from '../../../lib/outils/outilString'
+import { creerNomDePolygone } from '../../../lib/outils/outilString'
 import { mathalea2d } from '../../../modules/mathalea2d'
 import { randint } from '../../../modules/outils'
 import type { NestedObjetMathalea2dArray } from '../../../types/2d'
@@ -21,9 +21,8 @@ export const dateDePublication = '01/10/2023'
 
 /**
  * @author Jean-Claude  Lhote
-
- * Date de publication 1/10/2023
  */
+
 export const uuid = '96bcd'
 
 export const refs = {
@@ -103,27 +102,27 @@ export default class TripletsPythagoriciens extends ExerciceSimple {
       // calcul de l'hypoténuse
       index = choice([0, 1])
       objets.push(longueurAB, longueurBC)
-      this.question += `$${nom[index * 2]}${nom[1]}=${triplet[1 - index]}$${sp(1)}cm, $${nom[1]}${nom[(1 - index) * 2]}=${triplet[index]}$${sp(1)}cm.<br>Calculer $${nom[0]}${nom[2]}$.`
+      this.question += `$${nom[index * 2]}${nom[1]}=${triplet[1 - index]}\\text{ cm}$, $${nom[1]}${nom[(1 - index) * 2]}=${triplet[index]}\\text{ cm}$.<br>Calculer $${nom[0]}${nom[2]}$.`
       objets.push()
       this.correction = `D'après le théorème de Pythagore, $${nom[0]}${nom[2]}^2=${nom[0]}${nom[1]}^2+${nom[1]}${nom[2]}^2=${triplet[1]}^2+${triplet[0]}^2=${triplet[1] ** 2}+${triplet[0] ** 2}=${triplet[2] ** 2}$.<br>`
       this.correction += `D'où $${nom[0]}${nom[1]}=\\sqrt{${triplet[2] ** 2}}=${triplet[2]}$.`
       this.reponse = triplet[2]
       this.optionsChampTexte = {
         texte: `$${nom[0]}${nom[2]}$=`,
-        texteApres: `${sp(1)}cm`,
+        texteApres: `$\\text{ cm}$`,
       }
     } else {
       // calcul d'un côté de l'angle droit
       const index2 = choice([0, 2])
       objets.push(longueurCA, index2 === 0 ? longueurAB : longueurBC)
-      this.question += `$${nom[0]}${nom[2]}=${triplet[2]}$${sp(1)}cm, $${nom[index2]}${nom[1]}=${triplet[(2 - index2) / 2]}$${sp(1)}cm.<br>Calculer $${nom[2 - index2]}${nom[1]}$.`
+      this.question += `$${nom[0]}${nom[2]}=${triplet[2]}\\text{ cm}$, $${nom[index2]}${nom[1]}=${triplet[(2 - index2) / 2]}\\text{ cm}$.<br>Calculer $${nom[2 - index2]}${nom[1]}$.`
       this.correction = `D'après le théorème de Pythagore, $${nom[0]}${nom[2]}^2=${nom[0]}${nom[1]}^2+${nom[1]}${nom[2]}^2$ soit $${triplet[2]}^2=${nom[2 - index2]}${nom[1]}^2+${triplet[(2 - index2) / 2]}^2$.<br>`
       this.correction += `Donc $${nom[2 - index2]}${nom[1]}^2=${triplet[2]}^2-${triplet[(2 - index2) / 2]}^2=${triplet[2] ** 2}-${triplet[(2 - index2) / 2] ** 2}=${triplet[index2 / 2] ** 2}$.<br>`
       this.correction += `D'où $${nom[2 - index2]}${nom[1]}=\\sqrt{${triplet[index2 / 2] ** 2}}=${triplet[index2 / 2]}$.`
       this.reponse = triplet[index2 / 2]
       this.optionsChampTexte = {
         texte: `$${nom[2 - index2]}${nom[1]}=$`,
-        texteApres: `${sp(1)}cm`,
+        texteApres: `$\\text{ cm}$`,
       }
     }
 

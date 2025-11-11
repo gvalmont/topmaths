@@ -5,7 +5,7 @@ import {
   courbeInterpolee,
 } from '../../lib/2d/courbes'
 import { droiteParPointEtPente } from '../../lib/2d/droites'
-import { point } from '../../lib/2d/points'
+import { point } from '../../lib/2d/PointAbstrait'
 import { repere } from '../../lib/2d/reperes'
 import { segment } from '../../lib/2d/segmentsVecteurs'
 import { latex2d, texteParPosition } from '../../lib/2d/textes'
@@ -170,13 +170,13 @@ Avec la formule B, ${P} pourra faire au maximum $${new Decimal(T - c).div(d).flo
           {
             const a = randint(80, 120) // forfait
             const c = new Decimal(randint(41, 65, [50, 60])).div(100) // prix /km
-            const km = randint(7, 10) * 100 // km max
+            const km = randint(7, 10) * 100 // $\\text{km}$ max
             const d = randint(50, 400) // nbre km
             const prix = new Decimal(c).mul(d).add(a) // prix payé
 
             texte = `  Une société de location de véhicules particuliers propose le tarif suivant pour un week-end de location :<br>
-          ${texteGras('TARIF WEEK-END :')}  forfait de $${a}$ € puis $${texNombre(c, 2)}$ € par km parcouru (dans la limite de $${texNombre(km, 0)}$ km).<br>
-          On note $x$ le nombre de km parcourus par un client au cours d'un week-end et on considère la fonction $T$ qui à chaque valeur de $x$ associe le prix payé par le client.<br>`
+          ${texteGras('TARIF WEEK-END :')}  forfait de $${a}$ € puis $${texNombre(c, 2)}$ € par $\\text{km}$ parcouru (dans la limite de $${texNombre(km, 0)}\\text{ km}$).<br>
+          On note $x$ le nombre de $\\text{km}$ parcourus par un client au cours d'un week-end et on considère la fonction $T$ qui à chaque valeur de $x$ associe le prix payé par le client.<br>`
             texte += createList({
               items: [
                 "Donner l'ensemble de définition de la fonction $T$.",
@@ -189,11 +189,11 @@ Avec la formule B, ${P} pourra faire au maximum $${new Decimal(T - c).div(d).flo
 
             texteCorr = createList({
               items: [
-                `   On ne peut pas faire plus de $${texNombre(km)}$ km durant le week-end, ainsi l'ensemble de 
+                `   On ne peut pas faire plus de $${texNombre(km)}\\text{ km}$ durant le week-end, ainsi l'ensemble de 
                   définition de la fonction $T$ est $[0\\,;\\,${km}]$.`,
-                ` Le tarif  comprend un forfait fixe et un tarif par km parcouru. <br>
+                ` Le tarif  comprend un forfait fixe et un tarif par $\\text{km}$ parcouru. <br>
           Ainsi, le montant de la location est  : 
-          Forfait + Coût d'un km $\\times$ Nombre de km parcourus, soit $T(x)=${a}+${texNombre(c, 2)}x$.`,
+          Forfait + Coût d'un $\\text{km}$ $\\times$ Nombre de $\\text{km}$ parcourus, soit $T(x)=${a}+${texNombre(c, 2)}x$.`,
                 ` On résout l'équation  $T(x)=${texNombre(prix, 2)}$.<br>
           $\\begin{aligned}
           ${a}+${texNombre(c, 2)}x&=${texNombre(prix, 2)}\\\\
@@ -202,7 +202,7 @@ x&=\\dfrac{${texNombre(new Decimal(prix).sub(a), 2)}}{${texNombre(c, 2)}}${sp(8)
 x&=${texNombre(d, 0)}
 \\end{aligned}$<br>
 L'équation a pour solution $${texNombre(d, 2)}$.<br>
-On peut dire que lorsque le prix payé pour la location est $${texNombre(prix, 2)}$ €, le client a parcouru $${texNombre(d, 0)}$ km durant le week-end.`,
+On peut dire que lorsque le prix payé pour la location est $${texNombre(prix, 2)}$ €, le client a parcouru $${texNombre(d, 0)}\\text{ km}$ durant le week-end.`,
               ],
               style: 'nombres',
             })
@@ -216,14 +216,14 @@ On peut dire que lorsque le prix payé pour la location est $${texNombre(prix, 2
             const v = new Decimal(randint(70, 100)) //
 
             texte = `  Sur toute sèche, la distance de freinage en mètres, d'une voiture est modélisée de la façon suivante : <br>
-          En notant $v$ la vitesse du véhicule (en km/h), sa distance de freinage $d(v)$  (en m) est donnée par le carré de sa vitesse divisée par $${texNombre(a, 1)}$.`
+          En notant $v$ la vitesse du véhicule (en $\\text{km/h}$), sa distance de freinage $d(v)$  (en $\\text{m}) est donnée par le carré de sa vitesse divisée par $${texNombre(a, 1)}$.`
 
             texte += createList({
               items: [
                 " Donner l'expression de $d(v)$ en fonction de $v$. ",
-                ` Calculer au mètre près, la distance de freinage de la voiture si elle roule à $${v}$ km/h.`,
+                ` Calculer au mètre près, la distance de freinage de la voiture si elle roule à $${v}\\text{ km/h}$.`,
                 ' La distance de freinage est-elle proportionnelle à la vitesse ?',
-                `  La distance de freinage de cette voiture a été de $${b}$ m. Quelle était sa vitesse en km/h arrondie à l'unité ? `,
+                `  La distance de freinage de cette voiture a été de $${b}\\text{ m}$. Quelle était sa vitesse en $\\text{km/h}$ arrondie à l'unité ? `,
               ],
               style: 'nombres',
             })
@@ -241,7 +241,7 @@ v^2&= ${texNombre(new Decimal(b).mul(a), 2)}\\\\
 v&= -\\sqrt{${texNombre(new Decimal(b).mul(a), 2)}} ${sp(8)} \\text{ou} ${sp(8)} v= \\sqrt{${texNombre(new Decimal(b).mul(a), 2)}}${sp(8)}\\text{(deux nombres ont pour carré } ${texNombre(new Decimal(b).mul(a), 2)} \\text{)}
 \\end{aligned}$<br>
 Puisque $v$ est un nombre positif, on en déduit $v= \\sqrt{${texNombre(new Decimal(b).mul(a), 2)}}\\simeq ${new Decimal(b).mul(a).sqrt().round()}$.<br>
-Lorsque la distance de freinage de la voiture est $${b}$ m, sa vitesse est alors d'environ $${new Decimal(b).mul(a).sqrt().round()}$ km/h.<br>
+Lorsque la distance de freinage de la voiture est $${b}\\text{ m}$, sa vitesse est alors d'environ $${new Decimal(b).mul(a).sqrt().round()}\\text{ km/h}$.<br>
 `,
               ],
               style: 'nombres',
@@ -367,7 +367,7 @@ On considère la fonction $${nom}$ qui associe à chaque valeur de $x$, le prix 
             const TexteX = latex2d('\\text{Temps (en s)}', 9, -0.7, {
               letterSize: 'scriptsize',
             })
-            const TexteY = latex2d('\\text{Hauter (en m)}', 1, 7, {
+            const TexteY = latex2d('\\text{Hauteur (en m)}', 1, 7, {
               letterSize: 'scriptsize',
             })
             const r1 = repere({
@@ -804,14 +804,14 @@ On considère la fonction $${nom}$ qui associe à chaque valeur de $x$, le prix 
             const rest = randint(251, 299)
 
             texte = `  Un éleveur de poulets décide de remplir son silo à grains.<br>
-             En notant $t$ le nombre de jours écoulés après avoir rempli son silo à grains et $f(t)$ la masse (en kg) restante 
+             En notant $t$ le nombre de jours écoulés après avoir rempli son silo à grains et $f(t)$ la masse (en $\\text{kg}$) restante 
             au bout de $t$ jours, on a : $f(t)=${texNombre(p, 0)}-${texNombre(m, 1)}t$<br>`
 
             texte += createList({
               items: [
                 `Calculer l'image de $${j}$ par $f$. Interpréter le résultat dans le contexte de l'exercice.`,
                 `Calculer l'antécédent de $${texNombre(ant, 1)}$ par $f$.<br>`,
-                "Sachant que l'éleveur avait rempli son silo au maximum de sa capacité, quelle est la contenance (en kg) du silo ?<br> ",
+                "Sachant que l'éleveur avait rempli son silo au maximum de sa capacité, quelle est la contenance (en $\\text{kg}$) du silo ?<br> ",
                 "  Au bout de combien de jours, l'éleveur sera-t-il à court de grains ? Justifier.<br> ",
                 ' Quelle quantité de grains en kg consomment les poulets en une journée ?<br> ',
                 ` Un jour, des renards ont tué la moitié des poulets, divisant par deux la quantité de grains consommée par jour.<br>
@@ -942,13 +942,13 @@ Calculer sa vitesse de rotation au bout de $1$ minute.`,
 
             texte += createList({
               items: [
-                `Une famille a payé une facture de $${texNombre(fac, 2, true)}$ € pour une consommation de $${n}$ m$^3$.<br>
+                `Une famille a payé une facture de $${texNombre(fac, 2, true)}$ € pour une consommation de $${n}\\text{ m}^3$.<br>
                   Calculer le prix de l'abonnement.`,
-                "Soit $f$ la fonction qui, à tout réel $x$ de $[0\\,;\\,+\\infty[$ associe le prix payé annuellement pour une consommation d'eau de $x$ m$^3$." +
+                "Soit $f$ la fonction qui, à tout réel $x$ de $[0\\,;\\,+\\infty[$ associe le prix payé annuellement pour une consommation d'eau de $x\\text{ m}^3$." +
                   createList({
                     items: [
                       'Exprimer $f(x)$ en fonction de $x$.',
-                      `Déterminer le prix payé par un ménage consommant $${conso}$ m$^3$ d'eau par an.`,
+                      `Déterminer le prix payé par un ménage consommant $${conso}\\text{ m}^3$ d'eau par an.`,
                       `À partir de quelle quantité d'eau consommée, la facture s'élève à $${texNombre(fac2, 2, true)}$ € ? `,
                     ],
                     style: 'alpha',
@@ -959,7 +959,7 @@ Calculer sa vitesse de rotation au bout de $1$ minute.`,
 
             texteCorr = createList({
               items: [
-                `La facture s'élève à $${texNombre(fac, 3)}$ € pour une consommation de $${n}$ m$^3$.<br>
+                `La facture s'élève à $${texNombre(fac, 3)}$ € pour une consommation de $${n}\\text{ m}^3$.<br>
                  En notant $a$ le montant de l'abonnement, on obtient : <br>
                  $\\begin{aligned}
                  a+${texNombre(p, 2, true)}\\times ${n} &=${texNombre(fac, 3)}\\\\
@@ -974,7 +974,7 @@ Calculer sa vitesse de rotation au bout de $1$ minute.`,
                   items: [
                     `Le tarif est composé du montant de l'abonnement et $${texNombre(p, 2, true)}$ € par mètre cube consommé, on en déduit que : <br>
                       $f(x)=${texNombre(abo, 2, true)}+${texNombre(p, 2, true)}x$.`,
-                    `Le prix payé par un ménage consommant $${conso}$ m$^3$ d'eau par an est donné par $f(${conso})$.<br>
+                    `Le prix payé par un ménage consommant $${conso}\\text{ m}^3$ d'eau par an est donné par $f(${conso})$.<br>
                      $f(${conso})=${texNombre(abo, 2, true)}+${texNombre(p, 2, true)}\\times ${conso}=${texNombre(new Decimal(p).mul(conso).add(abo), 2)}$.<br>
                      Le ménage devra payer  $${texNombre(new Decimal(p).mul(conso).add(abo), 2, true)}$ €.`,
                     `On cherche $x$ tel que : <br>
@@ -985,7 +985,7 @@ Calculer sa vitesse de rotation au bout de $1$ minute.`,
                        x&\\geqslant \\dfrac{${texNombre(new Decimal(fac2).sub(abo), 3)}}{${texNombre(p, 2, true)}}
                        \\end{aligned}$
                        <br>
-                       Comme $\\dfrac{${texNombre(new Decimal(fac2).sub(abo), 3)}}{${texNombre(p, 2, true)}}= ${texNombre(new Decimal(fac2.sub(abo)).div(p), 3)}$, c'est à partir d'une consommation de $${texNombre(new Decimal(fac2.sub(abo)).div(p), 3)}$ m$^3$ d'eau que la facture sera supérieure ou égale à  $${texNombre(fac2, 2, true)}$ €.
+                       Comme $\\dfrac{${texNombre(new Decimal(fac2).sub(abo), 3)}}{${texNombre(p, 2, true)}}= ${texNombre(new Decimal(fac2.sub(abo)).div(p), 3)}$, c'est à partir d'une consommation de $${texNombre(new Decimal(fac2.sub(abo)).div(p), 3)}\\text{ m}^3$ d'eau que la facture sera supérieure ou égale à  $${texNombre(fac2, 2, true)}$ €.
 
                        
                        `,

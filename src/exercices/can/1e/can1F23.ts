@@ -26,6 +26,7 @@ export default class SignesTabGSpline extends Exercice {
     super()
     this.nbQuestions = 1
   }
+
   nouvelleVersion() {
     const noeuds1: NoeudSpline[] = [
       { x: -4, y: -1, deriveeGauche: 0.5, deriveeDroit: 0.5, isVisible: true },
@@ -134,7 +135,6 @@ export default class SignesTabGSpline extends Exercice {
         grilleSecondaireXMax: bornes.xMax + 1,
       })
       const courbe1 = maSpline.courbe({
-        repere: repere1,
         epaisseur: 1.5,
         ajouteNoeuds: true,
         optionsNoeuds: { color: 'blue', taille: 2, style: 'x', epaisseur: 2 },

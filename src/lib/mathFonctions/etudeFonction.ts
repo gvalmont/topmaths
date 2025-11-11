@@ -6,11 +6,13 @@ import FractionEtendue from '../../modules/FractionEtendue'
 import { fraction } from '../../modules/fractions'
 import { mathalea2d } from '../../modules/mathalea2d'
 import { egal } from '../../modules/outils'
-import { point } from '../2d/points'
+import { point } from '../2d/PointAbstrait'
 import { polygone } from '../2d/polygones'
-import { segment, vecteur } from '../2d/segmentsVecteurs'
+import { representant } from '../2d/representantVecteur'
+import { segment } from '../2d/segmentsVecteurs'
 import { latex2d } from '../2d/textes'
 import { translation } from '../2d/transformations'
+import { vecteur } from '../2d/Vecteur'
 import engine from '../interactif/comparisonFunctions'
 import { stringNombre, texNombre } from '../outils/texNombre'
 import { matrice } from './Matrice'
@@ -1625,10 +1627,13 @@ export function tableauDeVariation({
           }
           for (let n = 0; n < fleches.length - 1; n++) {
             if (!zonesEstInterdit[n]) {
-              v = vecteur(
-                translation(fleches[n], vecteur(0.5, 0)),
-                translation(fleches[n + 1], vecteur(-1.5, 0)),
-              ).representant(translation(fleches[n], vecteur(1, 0)))
+              v = representant(
+                vecteur(
+                  translation(fleches[n], vecteur(0.5, 0)),
+                  translation(fleches[n + 1], vecteur(-1.5, 0)),
+                ),
+                translation(fleches[n], vecteur(1, 0)),
+              )
               v.styleExtremites = '->'
               segments.push(v)
             }

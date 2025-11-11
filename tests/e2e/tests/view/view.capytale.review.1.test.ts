@@ -1,6 +1,6 @@
-import prefs from '../../helpers/prefs.js'
 import { expect } from '@playwright/test'
 import type { Page } from 'playwright'
+import prefs from '../../helpers/prefs.js'
 import { runTest } from '../../helpers/run'
 
 async function testV(page: Page) {
@@ -54,7 +54,9 @@ async function testV(page: Page) {
     .locator('#exercice0')
     .getByText('/ 1')
     .innerText()
-  expect(value1).toEqual('1 / 1')
+  expect(value1, "horloge error: Indiquer l'heure sur une horloge").toEqual(
+    '1 / 1',
+  )
   await page
     .locator('#iframe')
     .contentFrame()
@@ -66,7 +68,7 @@ async function testV(page: Page) {
     .locator('#exercice1')
     .getByText('/ 1')
     .innerText()
-  expect(value2).toEqual('1 / 1')
+  expect(value2, 'Convertir des aires en QCM').toEqual('1 / 1')
   await page
     .locator('#iframe')
     .contentFrame()
@@ -78,7 +80,7 @@ async function testV(page: Page) {
     .locator('#exercice2')
     .getByText('/ 1')
     .innerText()
-  expect(value3).toEqual('1 / 1')
+  expect(value3, 'Convertir des aires en Mathlive').toEqual('1 / 1')
   await page
     .locator('#iframe')
     .contentFrame()
@@ -90,7 +92,10 @@ async function testV(page: Page) {
     .locator('#exercice3')
     .getByText('/ 2')
     .innerText()
-  expect(value4).toEqual('2 / 2')
+  expect(
+    value4,
+    'Utiliser la définition du cercle et du disque en APIGEOM',
+  ).toEqual('2 / 2')
   await page
     .locator('#iframe')
     .contentFrame()
@@ -102,7 +107,7 @@ async function testV(page: Page) {
     .locator('#exercice4')
     .getByText('/ 2')
     .innerText()
-  expect(value5).toEqual('2 / 2')
+  expect(value5, 'Choisir la bonne figure en FigureCliquable').toEqual('2 / 2')
   await page
     .locator('#iframe')
     .contentFrame()
@@ -114,7 +119,10 @@ async function testV(page: Page) {
     .locator('#exercice5')
     .getByText('/ 4')
     .innerText()
-  expect(value6).toEqual('4 / 4')
+  expect(
+    value6,
+    'Traduire une expression par une phrase en LISTE DEROULANTE',
+  ).toEqual('4 / 4')
   await page
     .locator('#iframe')
     .contentFrame()
@@ -126,7 +134,10 @@ async function testV(page: Page) {
     .locator('#exercice6')
     .getByText('/ 1')
     .innerText()
-  expect(value7).toEqual('1 / 1')
+  expect(
+    value7,
+    'Écrire un nombre entier en chiffres ou en lettres en DRAP AND DROP',
+  ).toEqual('1 / 1')
   return true
 }
 

@@ -1,8 +1,9 @@
 /* eslint-disable camelcase */
 import { colorToLatexOrHTML } from '../../../lib/2d/colorToLatexOrHtml'
 import { fixeBordures } from '../../../lib/2d/fixeBordures'
-import { point, tracePoint } from '../../../lib/2d/points'
+import { point } from '../../../lib/2d/PointAbstrait'
 import { texteParPositionEchelle } from '../../../lib/2d/textes'
+import { tracePoint } from '../../../lib/2d/TracePoint'
 import { texteGras } from '../../../lib/format/style'
 import { setReponse } from '../../../lib/interactif/gestionInteractif'
 import { ajouteChampTexteMathLive } from '../../../lib/interactif/questionMathLive'

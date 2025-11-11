@@ -1,17 +1,15 @@
-import { angle, codageAngle, codageAngleDroit } from '../../lib/2d/angles'
-import {
-  afficheLongueurSegment,
-  afficheMesureAngle,
-  texteSurSegment,
-} from '../../lib/2d/codages'
-import { point } from '../../lib/2d/points'
+import { afficheLongueurSegment } from '../../lib/2d/afficheLongueurSegment'
+import { afficheMesureAngle } from '../../lib/2d/AfficheMesureAngle'
+import { codageAngle } from '../../lib/2d/angles'
+import { codageAngleDroit } from '../../lib/2d/CodageAngleDroit'
+import { point } from '../../lib/2d/PointAbstrait'
 import { polygone } from '../../lib/2d/polygones'
-import { longueur } from '../../lib/2d/segmentsVecteurs'
 import { labelPoint } from '../../lib/2d/textes'
+import { texteSurSegment } from '../../lib/2d/texteSurSegment'
 import { similitude } from '../../lib/2d/transformations'
+import { angle, longueur } from '../../lib/2d/utilitairesGeometriques'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
-import { degToRad, radToDeg } from '../../lib/mathFonctions/trigo'
 import { choice } from '../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { creerNomDePolygone, numAlpha } from '../../lib/outils/outilString'
@@ -20,6 +18,20 @@ import { context } from '../../modules/context'
 import { mathalea2d } from '../../modules/mathalea2d'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import Exercice from '../Exercice'
+
+/**
+ * Convertit un angle en degrés vers des radians
+ */
+function degToRad(deg) {
+  return (deg * Math.PI) / 180
+}
+
+/**
+ * Convertit un angle en radians vers des degrés
+ */
+function radToDeg(rad) {
+  return (rad * 180) / Math.PI
+}
 
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -108,7 +120,7 @@ export default class CalculDAngleFigureComplexe extends Exercice {
             objetsMathalea,
           )
           if (!this.sup) {
-            texte += `On a $${B.nom + A.nom} = ${texNombre(BA, 1)}$ cm, $${A.nom + D.nom} = ${texNombre(AD, 1)}$ cm et $\\widehat{${B.nom + A.nom + C.nom}}=${BAC}^\\circ$.`
+            texte += `On a $${B.nom + A.nom} = ${texNombre(BA, 1)}\\text{ cm}$, $${A.nom + D.nom} = ${texNombre(AD, 1)}\\text{ cm}$ et $\\widehat{${B.nom + A.nom + C.nom}}=${BAC}^\\circ$.`
           }
           texte += this.interactif
             ? "<br><br>Les valeurs d'angle seront arrondis au degré près."
@@ -138,7 +150,7 @@ export default class CalculDAngleFigureComplexe extends Exercice {
             )
           }
           texteCorr += `$${C.nom + B.nom + A.nom}$ est rectangle en $${B.nom}$. <br> Donc $\\cos\\left(\\widehat{${B.nom + A.nom + C.nom}}\\right)=\\dfrac{${B.nom + A.nom}}{${A.nom + C.nom}}$ <br>`
-          texteCorr += `Soit $\\cos(${BAC}^\\circ)=\\dfrac{${texNombre(BA, 1)}}{${A.nom + C.nom}}$ <br> $${A.nom + C.nom}=\\dfrac{${texNombre(BA, 1)}}{\\cos(${BAC}^\\circ)}\\approx${texNombre(AC, 1)}$ cm.`
+          texteCorr += `Soit $\\cos(${BAC}^\\circ)=\\dfrac{${texNombre(BA, 1)}}{${A.nom + C.nom}}$ <br> $${A.nom + C.nom}=\\dfrac{${texNombre(BA, 1)}}{\\cos(${BAC}^\\circ)}\\approx${texNombre(AC, 1)}\\text{ cm}$.`
           if (this.correctionDetaillee) {
             const texte3 = texteSurSegment('adjacent', C, A)
             const texte4 = texteSurSegment('opposé', A, D, 'black')
@@ -216,7 +228,7 @@ export default class CalculDAngleFigureComplexe extends Exercice {
             objetsMathalea,
           )
           if (!this.sup) {
-            texte += `On a $${B.nom + A.nom} = ${texNombre(BA, 1)}$ cm, $${A.nom + D.nom} = ${texNombre(AD, 1)}$ cm et $\\widehat{${A.nom + C.nom + B.nom}}=${ACB}^\\circ$.`
+            texte += `On a $${B.nom + A.nom} = ${texNombre(BA, 1)}\\text{ cm}$, $${A.nom + D.nom} = ${texNombre(AD, 1)}\\text{ cm}$ et $\\widehat{${A.nom + C.nom + B.nom}}=${ACB}^\\circ$.`
           }
           texte += this.interactif
             ? "<br><br>Les valeurs d'angle seront arrondis au degré près."
@@ -247,7 +259,7 @@ export default class CalculDAngleFigureComplexe extends Exercice {
             texteCorr += '<br>'
           }
           texteCorr += `$${C.nom + B.nom + A.nom}$ est rectangle en $${B.nom}$.<br> Donc $\\sin\\left(\\widehat{${A.nom + C.nom + B.nom}}\\right)=\\dfrac{${B.nom + A.nom}}{${A.nom + C.nom}}$ <br>`
-          texteCorr += `Soit $\\sin(${ACB}^\\circ)=\\dfrac{${texNombre(BA, 1)}}{${A.nom + C.nom}}$ <br> $${A.nom + C.nom}=\\dfrac{${texNombre(BA, 1)}}{\\sin(${ACB}^\\circ)}\\approx${texNombre(AC, 1)}$ cm.`
+          texteCorr += `Soit $\\sin(${ACB}^\\circ)=\\dfrac{${texNombre(BA, 1)}}{${A.nom + C.nom}}$ <br> $${A.nom + C.nom}=\\dfrac{${texNombre(BA, 1)}}{\\sin(${ACB}^\\circ)}\\approx${texNombre(AC, 1)}\\text{ cm}$.`
           if (this.correctionDetaillee) {
             const texte3 = texteSurSegment('adjacent', C, A)
             const texte4 = texteSurSegment('opposé', A, D, 'black')
@@ -321,7 +333,6 @@ export default class CalculDAngleFigureComplexe extends Exercice {
                 {
                   texte: '',
                   statut: '',
-                  // multicolsBegin: true,
                   reponse: {
                     texte:
                       numAlpha(0) +
@@ -369,7 +380,6 @@ export default class CalculDAngleFigureComplexe extends Exercice {
                 {
                   texte: '',
                   statut: '',
-                  // multicolsEnd: true,
                   reponse: {
                     texte:
                       numAlpha(2) +

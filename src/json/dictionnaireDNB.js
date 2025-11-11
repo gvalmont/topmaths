@@ -6858,7 +6858,7 @@ export const dictionnaireDNB = {
     mois: 'Septembre',
     numeroInitial: '1',
     typeExercice: 'dnb',
-    tags: [''],
+    tags: ['Calcul numérique', 'Durées', 'Probabilités'],
   },
   dnb_2025_09_metropole_2: {
     annee: '2025',
@@ -6866,7 +6866,7 @@ export const dictionnaireDNB = {
     mois: 'Septembre',
     numeroInitial: '2',
     typeExercice: 'dnb',
-    tags: [''],
+    tags: ['QCM', 'Statistiques', 'Volumes', 'Calcul numérique', 'Ratio','Pourcentages','Calcul littéral'],
   },
   dnb_2025_09_metropole_3: {
     annee: '2025',
@@ -6874,7 +6874,7 @@ export const dictionnaireDNB = {
     mois: 'Septembre',
     numeroInitial: '3',
     typeExercice: 'dnb',
-    tags: [''],
+    tags: ['Thalès', 'Pythagore', 'Trigonométrie', 'Triangles semblables'],
   },
   dnb_2025_09_metropole_4: {
     annee: '2025',
@@ -6882,7 +6882,7 @@ export const dictionnaireDNB = {
     mois: 'Septembre',
     numeroInitial: '4',
     typeExercice: 'dnb',
-    tags: [''],
+    tags: ['Programme de calculs', 'Calcul littéral', 'Équations', 'Fonctions', 'Lecture graphique', 'Prise d\'initiatives'],
   },
   dnb_2025_09_metropole_5: {
     annee: '2025',
@@ -6890,6 +6890,6 @@ export const dictionnaireDNB = {
     mois: 'Septembre',
     numeroInitial: '5',
     typeExercice: 'dnb',
-    tags: [''],
+    tags: ['Aires et périmètres', 'Pourcentages', 'Transformations','Algorithmique-programmation'],
   },
 }

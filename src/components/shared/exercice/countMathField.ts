@@ -1,6 +1,6 @@
-import type Exercice from '../../../exercices/Exercice'
+import type { IExercice } from '../../../lib/types'
 
-export function countMathField(exercise: Exercice): number {
+export function countMathField(exercise: IExercice): number {
   if (exercise == null) return 0
   let numbOfAnswerFields: number = 0
   if (exercise.interactif) {

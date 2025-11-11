@@ -1,3 +1,7 @@
+/**
+ * ⚠️ Cet exercice est utilisé dans le test : tests/e2e/tests/view/viewcan.2024.2e.test.ts ⚠️
+ */
+
 import { repere } from '../../../lib/2d/reperes'
 import { texteParPosition } from '../../../lib/2d/textes'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
@@ -114,7 +118,6 @@ export default class NomExercice extends ExerciceSimple {
         grilleSecondaireXMax: bornes.xMax + 1,
       })
       const courbe1 = theSpline.courbe({
-        repere: repere1,
         epaisseur: 1.5,
         ajouteNoeuds: true,
         optionsNoeuds: { color: 'blue', taille: 2, style: 'x', epaisseur: 2 },

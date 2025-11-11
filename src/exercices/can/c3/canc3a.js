@@ -1,11 +1,7 @@
-import {
-  afficheCoteSegment,
-  codageSegments,
-  texteSurSegment,
-} from '../../../lib/2d/codages'
-import { point } from '../../../lib/2d/points'
-import { polygoneRegulier } from '../../../lib/2d/polygones'
+import { codageSegments } from '../../../lib/2d/CodageSegment'
+import { point } from '../../../lib/2d/PointAbstrait'
 import { segment } from '../../../lib/2d/segmentsVecteurs'
+import { texteSurSegment } from '../../../lib/2d/texteSurSegment'
 import { homothetie } from '../../../lib/2d/transformations'
 import { texPrix } from '../../../lib/format/style'
 import { choice } from '../../../lib/outils/arrayOutils'
@@ -19,6 +15,8 @@ import {
 } from '../../../modules/outils'
 import Exercice from '../../Exercice'
 
+import { afficheCoteSegment } from '../../../lib/2d/AfficheCoteSegment'
+import { polygoneRegulier } from '../../../lib/2d/polygonesParticuliers'
 import { setReponse } from '../../../lib/interactif/gestionInteractif'
 import { ajouteChampTexteMathLive } from '../../../lib/interactif/questionMathLive'
 import { arrondi } from '../../../lib/outils/nombres'
@@ -235,8 +233,8 @@ export default class CourseAuxNombresCM extends Exercice {
           b = randint(1, 2) * 10 + randint(1, 5)
           c = randint(1, 2) * 10 + randint(1, 9)
           d = personne()
-          texte = `${d.prenom} participe à une course par étapes. La première étape fait $${a}$ km, la deuxième fait $${b}$ km et la dernière fait $${c}$ km.<br>Combien de kilomètres ${d.prenom} a-t-${d.pronom} parcourus ?`
-          texteCorr = `${d.prenom} a parcouru : $${a} + ${b} + ${c} = ${a + b + c}$ km.`
+          texte = `${d.prenom} participe à une course par étapes. La première étape fait $${a}\\text{ km}$, la deuxième fait $${b}\\text{ km}$ et la dernière fait $${c}\\text{ km}$.<br>Combien de kilomètres ${d.prenom} a-t-${d.pronom} parcourus ?`
+          texteCorr = `${d.prenom} a parcouru : $${a} + ${b} + ${c} = ${a + b + c}\\text{ km}$.`
           setReponse(this, i, arrondi(a + b + c), {
             formatInteractif: 'calcul',
           })
@@ -348,7 +346,7 @@ export default class CourseAuxNombresCM extends Exercice {
           c = arrondi(a + b)
           switch (randint(1, 3)) {
             case 1:
-              texte = `On a coupé $${texNombre(a)}$ cm d'une ficelle qui en faisait $${texNombre(c)}$.<br>Combien de centimètres en reste-t-il ?`
+              texte = `On a coupé $${texNombre(a)}\\text{ cm}$ d'une ficelle qui en faisait $${texNombre(c)}$.<br>Combien de centimètres en reste-t-il ?`
               texteCorr = `$${texNombre(c)}-${texNombre(a)}=${texNombre(b)}$`
               break
             case 2:
@@ -400,7 +398,7 @@ export default class CourseAuxNombresCM extends Exercice {
           c = arrondi(a + b)
           switch (randint(1, 3)) {
             case 1:
-              texte = `On a soudé ensemble une barre de $${texNombre(a)}$ m et une autre de $${texNombre(b)}$ m.<br>Combien de mètres fait l'assemblage ?`
+              texte = `On a soudé ensemble une barre de $${texNombre(a)}\\text{ m}$ et une autre de $${texNombre(b)}\\text{ m}$.<br>Combien de mètres fait l'assemblage ?`
               texteCorr = `$${texNombre(a)}+${texNombre(b)}=${texNombre(c)}$`
               break
             case 2:
@@ -498,7 +496,7 @@ export default class CourseAuxNombresCM extends Exercice {
                 },
                 objets,
               )
-              texteCorr = `Le périmètre mesure : $${b} \\times ${texNombre(a)}$ cm $=${texNombre(a * b)}$ cm.`
+              texteCorr = `Le périmètre mesure : $${b} \\times ${texNombre(a)}\\text{ cm}$ $=${texNombre(a * b)}\\text{ cm}$.`
               break
             case 2:
               a = arrondi(randint(4, 5) + choice([0.1, 0.25, 0.5]))
@@ -594,10 +592,20 @@ export default class CourseAuxNombresCM extends Exercice {
           objets = []
           objets[0] = segment(A, B)
           objets[0].styleExtremites = '|-|'
-          objets[1] = afficheCoteSegment(objets[0], c, 0.5, 'green')
+          objets[1] = afficheCoteSegment(
+            objets[0],
+            stringNombre(c, 0),
+            0.5,
+            'green',
+          )
           objets[2] = segment(A, C)
           objets[2].styleExtremites = '|-|'
-          objets[3] = afficheCoteSegment(objets[2], a, -1, 'blue')
+          objets[3] = afficheCoteSegment(
+            objets[2],
+            stringNombre(a, 0),
+            -1,
+            'blue',
+          )
           objets[4] = afficheCoteSegment(segment(C, B), '?', -1, 'red')
           texte = mathalea2d(
             {
@@ -657,8 +665,18 @@ export default class CourseAuxNombresCM extends Exercice {
           objets[1] = afficheCoteSegment(objets[0], '?', 0.5, 'red')
           objets[2] = segment(A, C)
           objets[2].styleExtremites = '|-|'
-          objets[3] = afficheCoteSegment(objets[2], a, -1, 'blue')
-          objets[4] = afficheCoteSegment(segment(C, B), b, -1, 'green')
+          objets[3] = afficheCoteSegment(
+            objets[2],
+            stringNombre(a, 0),
+            -1,
+            'blue',
+          )
+          objets[4] = afficheCoteSegment(
+            segment(C, B),
+            stringNombre(b, 0),
+            -1,
+            'green',
+          )
           texte = mathalea2d(
             {
               xmin: -0.1,

@@ -1,3 +1,7 @@
+/**
+ * ⚠️ Cet exercice est utilisé dans le test : tests/e2e/tests/interactivity/mathLive.unite.test.ts ⚠️
+ */
+
 import Decimal from 'decimal.js'
 import { fonctionComparaison } from '../../lib/interactif/comparisonFunctions'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
@@ -106,10 +110,10 @@ export default class CalculDeVolumes extends Exercice {
       this.nbQuestions,
     ) // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
     const listeUnites = [
-      [sp(1) + '\\text{m}', sp(1) + '\\text{m}^3', 'm^3'],
-      [sp(1) + '\\text{dm}', sp(1) + '\\text{dm}^3', 'dm^3'],
-      [sp(1) + '\\text{cm}', sp(1) + '\\text{cm}^3', 'cm^3'],
-      [sp(1) + '\\text{mm}', sp(1) + '\\text{mm}^3', 'mm^3'],
+      ['\\text{ m}', '\\text{ m}^3', 'm^3'],
+      ['\\text{ dm}', '\\text{ dm}^3', 'dm^3'],
+      ['\\text{ cm}', '\\text{ cm}^3', 'cm^3'],
+      ['\\text{ mm}', '\\text{ mm}^3', 'mm^3'],
     ]
     let partieDecimale1, partieDecimale2, partieDecimale3
     /*   if (this.sup2) {
@@ -422,7 +426,8 @@ export default class CalculDeVolumes extends Exercice {
         // Ajout d'un nouveau cas (8) pour les pyramides à base triangulaire
         // À insérer dans le switch case après le cas 7 (boule)
 
-        case 7: { // pyramide à base triangulaire rectangle
+        case 7: {
+          // pyramide à base triangulaire rectangle
           let a, b
           if (this.sup === 1) {
             // sans conversion
@@ -624,7 +629,7 @@ export default class CalculDeVolumes extends Exercice {
           }
         } else {
           this.autoCorrection[i] = {
-            enonce: texte + '\\\\Ecrire le calcul:',
+            enonce: texte + '\\\\Écrire le calcul:',
             enonceAvant: true,
             options: {
               multicols: true,

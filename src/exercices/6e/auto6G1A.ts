@@ -2,16 +2,17 @@ import Figure from 'apigeom'
 import { checkLineFromLabels } from 'apigeom/src/check/checkLine'
 import { checkRayFromLabels } from 'apigeom/src/check/checkRay'
 import { checkSegmentFromLabels } from 'apigeom/src/check/checkSegment'
+import { demiDroite } from '../../lib/2d/DemiDroite'
 import { droite } from '../../lib/2d/droites'
 import { grille, seyes } from '../../lib/2d/Grille'
+import { point } from '../../lib/2d/PointAbstrait'
+import { segment } from '../../lib/2d/segmentsVecteurs'
+import { labelPoint } from '../../lib/2d/textes'
+import { tracePoint } from '../../lib/2d/TracePoint'
 import {
-  point,
   pointIntersectionDD,
   pointSurSegment,
-  tracePoint,
-} from '../../lib/2d/points'
-import { demiDroite, segment } from '../../lib/2d/segmentsVecteurs'
-import { labelPoint } from '../../lib/2d/textes'
+} from '../../lib/2d/utilitairesPoint'
 import { vide2d } from '../../lib/2d/Vide2d'
 import figureApigeom from '../../lib/figureApigeom'
 import { lettreDepuisChiffre, numAlpha } from '../../lib/outils/outilString'

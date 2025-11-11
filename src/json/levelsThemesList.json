@@ -2590,20 +2590,143 @@
   "1A-C": {
     "titre": "Calcul numérique et algébrique"
   },
+  "1A-C01": {
+    "titre": "Comparer deux nombres directement ou par calcul"
+  },
+  "1A-C02": {
+    "titre": "Effectuer des opérations et des comparaisons entre des fractions simples"
+  },
+  "1A-C03": {
+    "titre": "Effectuer des opérations sur les puissances"
+  },
+  "1A-C04": {
+    "titre": "Passer d’une écriture d’un nombre à une autre (décimale, fractionnaire, pourcentage)"
+  },
+  "1A-C05": {
+    "titre": "Estimer un ordre de grandeur"
+  },
+  "1A-C06": {
+    "titre": "S’assurer de la vraisemblance, de la cohérence d’un résultat"
+  },
+  "1A-C07": {
+    "titre": "Effectuer des conversions d’unités"
+  },
+  "1A-C08": {
+    "titre": "Effectuer un calcul littéral élémentaire"
+  },
+  "1A-C09": {
+    "titre": "Développer, factoriser, réduire une expression algébrique simple"
+  },
+  "1A-C10": {
+    "titre": "Résoudre une équation du type : $x^2 = a$, $ax + b = cx + d$ ou $\\frac{a}{x} = b$ ou une inéquation du premier degré"
+  },
+  "1A-C11": {
+    "titre": "Isoler une variable dans une égalité qui en comporte plusieurs"
+  },
+  "1A-C12": {
+    "titre": "Effectuer une application numérique d’une formule"
+  },
+  "1A-C13": {
+    "titre": "Déterminer les solutions d’une équation produit nul"
+  },
+  "1A-C14": {
+    "titre": "Déterminer le signe d’une expression du premier degré, d’une expression factorisée du second degré"
+  },
+  "1A-C15": {
+    "titre": "Résoudre un problème simple"
+  },
   "1A-R": {
     "titre": "Proportions et pourcentages"
+  },
+  "1A-R01": {
+    "titre": "Calculer, appliquer, exprimer une proportion sous différentes formes (décimale, fractionnaire, pourcentage)"
+  },
+  "1A-R02": {
+    "titre": "Utiliser une proportion pour calculer une partie connaissant le tout, ou le tout connaissant une partie"
+  },
+  "1A-R03": {
+    "titre": "Calculer une proportion de proportion"
   },
   "1A-E": {
     "titre": "Évolutions et variations"
   },
+  "1A-E01": {
+    "titre": "Passer d’une formulation additive à une formulation multiplicative"
+  },
+  "1A-E02": {
+    "titre": "Appliquer un taux d’évolution pour calculer une valeur finale ou initiale"
+  },
+  "1A-E03": {
+    "titre": "Calculer un taux d’évolution, l’exprimer en pourcentage"
+  },
+  "1A-E04": {
+    "titre": "Calculer le taux d’évolution équivalent à plusieurs évolutions successives"
+  },
+  "1A-E05": {
+    "titre": "Calculer un taux d’évolution réciproque"
+  },
   "1A-F": {
     "titre": "Fonctions et représentations"
+  },
+  "1A-F01": {
+    "titre": "Déterminer graphiquement des images et des antécédents"
+  },
+  "1A-F02": {
+    "titre": "Exploiter une équation de courbe (appartenance d’un point, calcul de coordonnées)"
+  },
+  "1A-F03": {
+    "titre": "Reconnaître l’expression d’une fonction linéaire, d’une fonction affine, savoir que leur représentation graphique est une droite"
+  },
+  "1A-F04": {
+    "titre": "Résoudre graphiquement une équation, une inéquation du type : $f(x) = k$, $f(x) < k$, etc"
+  },
+  "1A-F05": {
+    "titre": "Déterminer graphiquement le signe d’une fonction ou son tableau de variations"
+  },
+  "1A-F06": {
+    "titre": "Tracer une droite donnée par son équation réduite ou par un point et son coefficient directeur"
+  },
+  "1A-F07": {
+    "titre": "Lire graphiquement l’équation réduite d’une droite"
+  },
+  "1A-F08": {
+    "titre": "Déterminer le coefficient directeur d’une droite à partir des coordonnées de deux de ses points"
   },
   "1A-S": {
     "titre": "Statistiques"
   },
+  "1A-S01": {
+    "titre": "Lire et commenter des graphiques usuels"
+  },
+  "1A-S02": {
+    "titre": "Calculer et interpréter des indicateurs statistiques pour une série statistique"
+  },
+  "1A-S03": {
+    "titre": "Comparer des distributions à l’aide de boîtes à moustaches"
+  },
+  "1A-S04": {
+    "titre": "Passer du graphique aux données et vice-versa"
+  },
   "1A-P": {
     "titre": "Probabilités"
+  },
+  "1A-P01": {
+    "titre": "Savoir qu’une probabilité est un nombre entre 0 et 1"
+  },
+  "1A-P02": {
+    "titre": "Savoir calculer la probabilité de l’événement contraire"
+  },
+  "1A-P03": {
+    "titre": "Calculer la probabilité d’un événement comme somme des probabilités des issues qui le composent"
+  },
+  "1A-P04": {
+    "titre": "Utiliser la relation $P(A) = \\frac{\\text{Card}(A)}{\\text{Card}(\\Omega)}$ dans le cas de l’équiprobabilité"
+  },
+  "1A-P05": {
+    "titre": "Calculer des probabilités conditionnelles lorsque les événements sont présentés sous forme de tableau croisé d’effectifs ou d’arbres pondérés"
+  },
+  "1A-P06": {
+    "titre": "Distinguer $P(A \\cap B)$, $P_A(B)$, $P_B(A)$"
   },
   "1AL1": {
     "titre": "Suites numériques"
@@ -2717,6 +2840,42 @@
   },
   "TEA3": {
     "titre": "Nombres premiers",
+    "sousThemes": {}
+  },
+  "TTA": {
+    "titre": "Vocabulaire ensembliste et logique",
+    "sousThemes": {}
+  },
+  "TTB": {
+    "titre": "Algorithmique et programmation",
+    "sousThemes": {}
+  },
+  "TTC": {
+    "titre": "Activités géométriques",
+    "sousThemes": {}
+  },
+  "TTD": {
+    "titre": "Automatismes",
+    "sousThemes": {}
+  },
+  "TTE": {
+    "titre": "Analyse",
+    "sousThemes": {}
+  },
+  "TTF": {
+    "titre": "Analyse (STI2D)",
+    "sousThemes": {}
+  },
+  "TTG": {
+    "titre": "Statistique et probabilités",
+    "sousThemes": {}
+  },
+  "TTH": {
+    "titre": "Thèmes d’étude",
+    "sousThemes": {}
+  },
+  "TTI": {
+    "titre": "Nombres Complexes",
     "sousThemes": {}
   },
   "TQCM": {

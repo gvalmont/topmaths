@@ -1,10 +1,11 @@
+import { codageSegment } from '../../lib/2d/CodageSegment'
+import { point } from '../../lib/2d/PointAbstrait'
 import { codageAngle } from '../../lib/2d/angles'
-import { codageSegment } from '../../lib/2d/codages'
 import { fixeBordures } from '../../lib/2d/fixeBordures'
-import { milieu, point } from '../../lib/2d/points'
 import { nommePolygone, polygone } from '../../lib/2d/polygones'
 import { segment } from '../../lib/2d/segmentsVecteurs'
 import { latexParPoint } from '../../lib/2d/textes'
+import { milieu } from '../../lib/2d/utilitairesPoint'
 import { propositionsQcm } from '../../lib/interactif/qcm'
 import { combinaisonListes } from '../../lib/outils/arrayOutils'
 import {

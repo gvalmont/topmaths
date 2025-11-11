@@ -1,7 +1,8 @@
-import { codageAngleDroit } from '../../../lib/2d/angles'
-import { milieu, point } from '../../../lib/2d/points'
+import { codageAngleDroit } from '../../../lib/2d/CodageAngleDroit'
+import { point } from '../../../lib/2d/PointAbstrait'
 import { segment } from '../../../lib/2d/segmentsVecteurs'
 import { labelPoint, texteParPosition } from '../../../lib/2d/textes'
+import { milieu } from '../../../lib/2d/utilitairesPoint'
 import { choice, shuffle } from '../../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { arrondi } from '../../../lib/outils/nombres'
@@ -567,7 +568,7 @@ $${miseEnEvidence(a + 1)}$ h et $${miseEnEvidence(reponse)}$ min.`
             code4,
           )
           reponse = b / 2
-          texte = `Le périmètre de cette figure est $${a + b}$ cm. <br>
+          texte = `Le périmètre de cette figure est $${a + b}\\text{ cm}$. <br>
             `
           texte += mathalea2d(
             {
@@ -583,15 +584,15 @@ $${miseEnEvidence(a + 1)}$ h et $${miseEnEvidence(reponse)}$ min.`
             },
             objets,
           )
-          texteCorr = `Puisque le périmètre du rectangle est $${a + b}$ cm, alors $\\text{?}=(${a + b}-2\\times ${texNombre(a / 2)})\\div 2=${miseEnEvidence(texNombre(b / 2))}$ cm.`
+          texteCorr = `Puisque le périmètre du rectangle est $${a + b}\\text{ cm}$, alors $\\text{?}=(${a + b}-2\\times ${texNombre(a / 2)})\\div 2=${miseEnEvidence(texNombre(b / 2))}\\text{ cm}$.`
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) {
             texte += '<br>$\\text{?}=$'
             texte += ajouteChampTexteMathLive(this, index, ' ', {
-              texteApres: 'cm',
+              texteApres: '$\\text{ cm}$',
             })
           } else {
-            texte += '  $\\text{?}=\\ldots$ cm'
+            texte += '  $\\text{?}=\\ldots\\text{ cm}$'
           }
 
           nbChamps = 1
@@ -984,10 +985,10 @@ $${miseEnEvidence(a + 1)}$ h et $${miseEnEvidence(reponse)}$ min.`
           a = randint(0, 1)
           b = randint(taille1[a][1], taille1[a][2])
           propositions = shuffle([
-            `$${b}$ m`,
-            `$${b}$ dm`,
-            `$${b}$ cm`,
-            `$${b}$ mm`,
+            `$${b}\\text{ m}$`,
+            `$${b}\\text{ dm}$`,
+            `$${b}\\text{ cm}$`,
+            `$${b}\\text{ mm}$`,
           ])
 
           texte = `Choisis parmi les propositions suivantes la taille d'une ${taille1[a][0]} (nombre et unité à recopier).<br>`
@@ -1046,18 +1047,18 @@ $${miseEnEvidence(a + 1)}$ h et $${miseEnEvidence(reponse)}$ min.`
           b = randint(3, 6) * a
 
           reponse = Math.round(1.5 * b)
-          texte = `$${a}$ cubes identiques empilés ont une hauteur de $${b}$ cm.<br>
+          texte = `$${a}$ cubes identiques empilés ont une hauteur de $${b}\\text{ cm}$.<br>
           $${texNombre(1.5 * a)}$ cubes empilés ont une hauteur de `
-          texteCorr = `$${a}$ cubes identiques empilés ont une hauteur de $${b}$ cm, donc $${texNombre(a / 2, 0)}$ cubes identiques empilés ont une hauteur de $${texNombre(b / 2, 0)}$ cm, donc les
-          $${texNombre(1.5 * a, 0)}$ cubes empilés ont une hauteur de $${texNombre(b)}+${texNombre(b / 2, 0)}=${miseEnEvidence(reponse)}$ cm `
+          texteCorr = `$${a}$ cubes identiques empilés ont une hauteur de $${b}\\text{ cm}$, donc $${texNombre(a / 2, 0)}$ cubes identiques empilés ont une hauteur de $${texNombre(b / 2, 0)}\\text{ cm}$, donc les
+          $${texNombre(1.5 * a, 0)}$ cubes empilés ont une hauteur de $${texNombre(b)}+${texNombre(b / 2, 0)}=${miseEnEvidence(reponse)}\\text{ cm}$ `
 
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) {
             texte += ajouteChampTexteMathLive(this, index, ' ', {
-              texteApres: 'cm',
+              texteApres: '$\\text{ cm}$',
             })
           } else {
-            texte += '$\\ldots$ cm'
+            texte += '$\\ldots\\text{ cm}$'
           }
           nbChamps = 1
           break
@@ -1113,8 +1114,8 @@ $${miseEnEvidence(a + 1)}$ h et $${miseEnEvidence(reponse)}$ min.`
             a = randint(2, 3)
             b = randint(9, 15) * 10
             c = randint(2, 4)
-            texte = `Un bus met $${a}$ heures pour faire $${b}$ km. <br>
-              Combien d'heures mettra-t-il pour faire $${b * c}$ km ?`
+            texte = `Un bus met $${a}$ heures pour faire $${b}\\text{ km}$. <br>
+              Combien d'heures mettra-t-il pour faire $${b * c}\\text{ km}$ ?`
             texteCorr = `Il mettra $${c}$ fois plus de temps, soit $${c}\\times ${a}=${miseEnEvidence(c * a)}$ heures. `
             reponse = c * a
             setReponse(this, index, reponse, { formatInteractif: 'calcul' })

@@ -1,8 +1,9 @@
 // on importe les fonctions nécessaires.
 import { colorToLatexOrHTML } from '../../lib/2d/colorToLatexOrHtml'
-import { point, tracePoint } from '../../lib/2d/points'
+import { point } from '../../lib/2d/PointAbstrait'
 import { segment } from '../../lib/2d/segmentsVecteurs'
 import { texteParPoint } from '../../lib/2d/textes'
+import { tracePoint } from '../../lib/2d/TracePoint'
 import { texteGras } from '../../lib/format/style'
 import {
   combinaisonListesSansChangerOrdre,
@@ -11,7 +12,7 @@ import {
 import { context } from '../../modules/context'
 import { mathalea2d } from '../../modules/mathalea2d'
 import {
-  contraindreValeur,
+  gestionnaireFormulaireTexte,
   listeQuestionsToContenuSansNumero,
   randint,
 } from '../../modules/outils'
@@ -57,19 +58,26 @@ export default class AlgoTortue extends Exercice {
   constructor() {
     super()
     this.exoCustomResultat = false
-    this.besoinFormulaireNumerique = [
-      "Nombre d'instructions (entre 2 et 20)",
-      20,
-    ] // gestion des paramètres supplémentaires
     this.nbQuestions = 1
     this.nbQuestionsModifiable = false
     this.typeExercice = 'Scratch'
-    this.sup = 9 // 7 instructions par défaut, paramètre réglable.
     this.sup2 = 1 // types d'instructionsde déplacement (ici seulement avancer et tourner)
     this.listeAvecNumerotation = false
+    this.besoinFormulaireTexte = [
+      "Nombres d'instructions successives (entre 5 et 15) 16 pour le hasard",
+      '',
+    ]
   }
 
   nouvelleVersion(numeroExercice: number) {
+    const nbInstructions = gestionnaireFormulaireTexte({
+      saisie: this.sup,
+      min: 5,
+      max: 15,
+      defaut: 7,
+      melange: 16,
+      nbQuestions: 1,
+    }).map(Number)
     const angleDepart = 90 // On choisit l'orientation de départ (On pourrait en faire un paramètre de l'exo)
     // const xDepart = 0 // Le départ est en (0,0) pour avoir la même marge dans toutes les directions
     // const yDepart = 0
@@ -224,15 +232,15 @@ export default class AlgoTortue extends Exercice {
       ],
     ]
     let erreursDeDeplacement = [0, 1, 0]
-    this.sup = contraindreValeur(2, 20, this.sup, 9)
+
     erreursDeDeplacement = combinaisonListesSansChangerOrdre(
       erreursDeDeplacement,
-      this.sup,
+      nbInstructions[0],
     )
     const choix = randint(0, 11) // On va choisir une des 12 sequences
     const commandes = combinaisonListesSansChangerOrdre(
       sequences[choix],
-      this.sup,
+      nbInstructions[0],
     ) // on crée la succession de commandes en répétant la séquence choisie si le nombre d'instructions demandées dépasse la longueur de la séquence
     const val = []
     const lutins = []
@@ -259,7 +267,7 @@ export default class AlgoTortue extends Exercice {
       baisseCrayon(lutins[i])
       orienter(angleScratchTo2d(angleDepart), lutins[i]) // l'angle 2d est l'angle trigonométrique... Scratch est décallé de 90°, il faut donc convertir pour utiliser Orienter()
     }
-    for (let i = 0; i < this.sup; i++) {
+    for (let i = 0; i < nbInstructions[0]; i++) {
       // On va parcourir la listes des commandes de déplacement mais certains lutins font des erreurs
       switch (commandes[i]) {
         case 'avancer':

@@ -1,10 +1,10 @@
+import { propositionsQcm } from '../../../lib/interactif/qcm'
 import { choice } from '../../../lib/outils/arrayOutils'
 import { extraireRacineCarree } from '../../../lib/outils/calculs'
 import { texFractionReduite } from '../../../lib/outils/deprecatedFractions'
 import { sp } from '../../../lib/outils/outilString'
-import Exercice from '../../Exercice'
 import { listeQuestionsToContenu, randint } from '../../../modules/outils'
-import { propositionsQcm } from '../../../lib/interactif/qcm'
+import Exercice from '../../Exercice'
 export const titre = 'Résoudre une équation avec une fonction de référence'
 export const interactifReady = true
 export const interactifType = 'qcm'
@@ -52,7 +52,7 @@ export default class ResoudreEquationsFonctionDeReference extends Exercice {
             if (k === 0) {
               this.autoCorrection[i] = {
                 enonce: texte,
-                options: { horizontal: true },
+
                 propositions: [
                   {
                     texte: '$S=\\{0\\}$',
@@ -71,7 +71,7 @@ export default class ResoudreEquationsFonctionDeReference extends Exercice {
             } else {
               this.autoCorrection[i] = {
                 enonce: texte,
-                options: { horizontal: true },
+
                 propositions: [
                   {
                     texte: `$S=\\{-${Math.sqrt(k)};${Math.sqrt(k)}\\}$`,
@@ -92,7 +92,7 @@ export default class ResoudreEquationsFonctionDeReference extends Exercice {
           if (k === b) {
             this.autoCorrection[i] = {
               enonce: texte,
-              options: { horizontal: true },
+
               propositions: [
                 {
                   texte: `$S=\\{-\\sqrt{${k}};\\sqrt{${k}}\\}$`,
@@ -112,7 +112,7 @@ export default class ResoudreEquationsFonctionDeReference extends Exercice {
           if (k === c) {
             this.autoCorrection[i] = {
               enonce: texte,
-              options: { horizontal: true },
+
               propositions: [
                 {
                   texte: '$S=\\emptyset$',
@@ -183,7 +183,7 @@ export default class ResoudreEquationsFonctionDeReference extends Exercice {
                 if (k === 2) {
                   this.autoCorrection[i] = {
                     enonce: texte,
-                    options: { horizontal: true },
+
                     propositions: [
                       {
                         texte: `$S=\\{${k ** 2}\\}$`,
@@ -202,7 +202,7 @@ export default class ResoudreEquationsFonctionDeReference extends Exercice {
                 } else {
                   this.autoCorrection[i] = {
                     enonce: texte,
-                    options: { horizontal: true },
+
                     propositions: [
                       {
                         texte: `$S=\\{${k ** 2}\\}$`,
@@ -223,7 +223,7 @@ export default class ResoudreEquationsFonctionDeReference extends Exercice {
             } else {
               this.autoCorrection[i] = {
                 enonce: texte,
-                options: { horizontal: true },
+
                 propositions: [
                   {
                     texte: `$S=\\{${k}\\}$`,
@@ -245,7 +245,7 @@ export default class ResoudreEquationsFonctionDeReference extends Exercice {
           if (k < 0) {
             this.autoCorrection[i] = {
               enonce: texte,
-              options: { horizontal: true },
+
               propositions: [
                 {
                   texte: '$S=\\emptyset$',
@@ -265,7 +265,7 @@ export default class ResoudreEquationsFonctionDeReference extends Exercice {
           if (k === 0) {
             this.autoCorrection[i] = {
               enonce: texte,
-              options: { horizontal: true },
+
               propositions: [
                 {
                   texte: '$S=\\{0\\}$',
@@ -318,7 +318,7 @@ export default class ResoudreEquationsFonctionDeReference extends Exercice {
             if (k === 1) {
               this.autoCorrection[i] = {
                 enonce: texte,
-                options: { horizontal: true },
+
                 propositions: [
                   {
                     texte: `$S=\\left\\{${texFractionReduite(1, k)}\\right\\}$`,
@@ -337,7 +337,7 @@ export default class ResoudreEquationsFonctionDeReference extends Exercice {
             } else {
               this.autoCorrection[i] = {
                 enonce: texte,
-                options: { horizontal: true },
+
                 propositions: [
                   {
                     texte: `$S=\\left\\{${texFractionReduite(1, k)}\\right\\}$`,
@@ -358,7 +358,7 @@ export default class ResoudreEquationsFonctionDeReference extends Exercice {
           if (k === 0) {
             this.autoCorrection[i] = {
               enonce: texte,
-              options: { horizontal: true },
+
               propositions: [
                 {
                   texte: '$S=\\emptyset$',

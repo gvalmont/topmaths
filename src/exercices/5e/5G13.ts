@@ -1,8 +1,5 @@
-import { angle } from '../../lib/2d/angles'
-import {
-  afficheLongueurSegment,
-  afficheMesureAngle,
-} from '../../lib/2d/codages'
+import { afficheLongueurSegment } from '../../lib/2d/afficheLongueurSegment'
+import { afficheMesureAngle } from '../../lib/2d/AfficheMesureAngle'
 import {
   distancePointDroite,
   droite,
@@ -11,18 +8,22 @@ import {
   positionLabelDroite,
 } from '../../lib/2d/droites'
 import { fixeBordures } from '../../lib/2d/fixeBordures'
-import { point, pointAdistance, tracePoint } from '../../lib/2d/points'
-import { pointAbstrait } from '../../lib/2d/points-abstraits'
+import { point, pointAbstrait } from '../../lib/2d/PointAbstrait'
 import { polygoneAvecNom } from '../../lib/2d/polygones'
-import { longueur, segment, vecteur } from '../../lib/2d/segmentsVecteurs'
+import { representant } from '../../lib/2d/representantVecteur'
+import { segment } from '../../lib/2d/segmentsVecteurs'
 import { labelPoint, texteParPoint } from '../../lib/2d/textes'
+import { tracePoint } from '../../lib/2d/TracePoint'
 import {
   rotation,
   symetrieAxiale,
   translation,
   translation2Points,
 } from '../../lib/2d/transformations'
-import { triangle2points2longueurs } from '../../lib/2d/triangle'
+import { triangle2points2longueurs } from '../../lib/2d/triangles'
+import { angle, longueur } from '../../lib/2d/utilitairesGeometriques'
+import { pointAdistance } from '../../lib/2d/utilitairesPoint'
+import { vecteur } from '../../lib/2d/Vecteur'
 import { choisitLettresDifferentes } from '../../lib/outils/aleatoires'
 import { combinaisonListes } from '../../lib/outils/arrayOutils'
 import { texNombre } from '../../lib/outils/texNombre'
@@ -233,7 +234,7 @@ export default class ConservationTransformation extends Exercice {
           imageB = translation2Points(B, D, E, `${B.nom}'`)
           imageC = translation2Points(C, D, E, `${C.nom}'`)
           objetsEnonceEtCorr.push(
-            vecteur(D, E).representant(D),
+            representant(vecteur(D, E), D),
             tracePoint(D, E),
             labelPoint(D, E),
           )
@@ -280,9 +281,9 @@ export default class ConservationTransformation extends Exercice {
           texteCorr = texte
           texteCorr += `Or, la ${transformation} conserve les angles.<br>`
           texteCorr += `Donc l'angle $\\widehat{${A.nom}'${B.nom}'${C.nom}'}$ mesure lui aussi $${texNombre(Math.round(angle(A, B, C)))}$ °.<br><br>`
-          texteCorr += `Le segment [$${B.nom + C.nom}$] mesure $${texNombre(longueur(B, C, 1))}$ cm.<br>`
+          texteCorr += `Le segment [$${B.nom + C.nom}$] mesure $${texNombre(longueur(B, C, 1))}\\text{ cm}$.<br>`
           texteCorr += `Or, la ${transformation} conserve les longueurs.<br>`
-          texteCorr += `Donc le segment [$${B.nom}'${C.nom}'$] mesure lui aussi $${texNombre(longueur(B, C, 1))}$ cm.<br>`
+          texteCorr += `Donc le segment [$${B.nom}'${C.nom}'$] mesure lui aussi $${texNombre(longueur(B, C, 1))}\\text{ cm}$.<br>`
           break
       }
       texte += `Compléter l'image ${figure} ${enonceTransformation} en utilisant les propriétés de conservation de la ${transformation} et en justifiant ses démarches.<br>`

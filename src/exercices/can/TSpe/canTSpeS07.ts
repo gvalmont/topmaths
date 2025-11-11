@@ -1,3 +1,4 @@
+import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { randint } from '../../../modules/outils'
 import ExerciceSimple from '../../ExerciceSimple'
@@ -22,6 +23,7 @@ export default class LimiteFormeIndeterminee extends ExerciceSimple {
     super()
     this.nbQuestions = 1
     this.typeExercice = 'simple'
+    this.formatChampTexte = KeyboardType.clavierLimites
   }
 
   nouvelleVersion() {

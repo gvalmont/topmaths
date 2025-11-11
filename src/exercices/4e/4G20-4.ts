@@ -1,13 +1,19 @@
 import Decimal from 'decimal.js'
+import { setReponse } from '../../lib/interactif/gestionInteractif'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
-import { degCos } from '../../lib/mathFonctions/trigo'
 import { choice } from '../../lib/outils/arrayOutils'
+import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { texNombre } from '../../lib/outils/texNombre'
 import { context } from '../../modules/context'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import Exercice from '../Exercice'
-import { setReponse } from '../../lib/interactif/gestionInteractif'
-import { miseEnEvidence } from '../../lib/outils/embellissements'
+
+/**
+ * Calcule le cosinus d'un angle en degrés
+ */
+function degCos(deg: number): number {
+  return Math.cos((deg * Math.PI) / 180)
+}
 
 export const interactifReady = true
 export const interactifType = 'mathLive'

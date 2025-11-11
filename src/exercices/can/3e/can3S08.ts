@@ -1,5 +1,7 @@
+import { orangeMathalea } from 'apigeom/src/elements/defaultValues'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 import { choice, shuffle } from '../../../lib/outils/arrayOutils'
+import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { texNombre } from '../../../lib/outils/texNombre'
 import { fraction } from '../../../modules/fractions'
 import { randint } from '../../../modules/outils'
@@ -26,6 +28,8 @@ export default class CalculsProbabilite3 extends ExerciceSimple {
     this.typeExercice = 'simple'
     this.nbQuestions = 1
     this.versionQcmDisponible = true
+    this.spacing = 1.5
+    this.spacingCorr = 1.5
   }
 
   nouvelleVersion() {
@@ -59,6 +63,7 @@ export default class CalculsProbabilite3 extends ExerciceSimple {
     const situations = [
       {
         start: 'On tire une boule au hasard dans une urne',
+        article: 'une',
         itemSing: 'boule',
         itemPlur: 'boules',
         lab1Sing: 'noire',
@@ -68,6 +73,7 @@ export default class CalculsProbabilite3 extends ExerciceSimple {
       },
       {
         start: 'On tire une carte au hasard dans un paquet',
+        article: 'une',
         itemSing: 'carte',
         itemPlur: 'cartes',
         lab1Sing: 'rouge',
@@ -77,6 +83,7 @@ export default class CalculsProbabilite3 extends ExerciceSimple {
       },
       {
         start: 'On prend au hasard un bonbon dans un bocal',
+        article: 'un',
         itemSing: 'bonbon',
         itemPlur: 'bonbons',
         lab1Sing: 'bleu',
@@ -87,6 +94,7 @@ export default class CalculsProbabilite3 extends ExerciceSimple {
       {
         start: 'On choisit au hasard un ticket parmi',
         itemSing: 'ticket',
+        article: 'un',
         itemPlur: 'tickets',
         lab1Sing: 'gagnant',
         lab1Plur: 'gagnants',
@@ -94,8 +102,9 @@ export default class CalculsProbabilite3 extends ExerciceSimple {
         lab2Plur: 'perdants',
       },
       {
-        start: 'On tire au sort une bille dans un sac',
+        start: 'On choisit au hasard une bille dans un sac',
         itemSing: 'bille',
+        article: 'une',
         itemPlur: 'billes',
         lab1Sing: 'claire',
         lab1Plur: 'claires',
@@ -110,6 +119,7 @@ export default class CalculsProbabilite3 extends ExerciceSimple {
     const label1Sing = situ.lab1Sing
     const label2Sing = situ.lab2Sing
     const itemSing = situ.itemSing
+    const article = situ.article
 
     const couleur1Plur = label1Plur
     const couleur2Plur = label2Plur
@@ -120,32 +130,30 @@ export default class CalculsProbabilite3 extends ExerciceSimple {
     // Construction de l'énoncé (utilise les formes plurielles pour la description des quantités)
     this.question = `${situ.start} contenant $${a}$ ${situ.itemPlur} ${couleur1Plur} et $${b}$ ${situ.itemPlur} ${couleur2Plur}.<br>
 
-             Quelle est la probabilité d'obtenir ${choix ? 'une' : 'une'} ${couleurDemandee} ${itemSing} ? <br>
+             Quelle est la probabilité d'obtenir ${article} ${itemSing} ${couleurDemandee} ? <br>
 
-             ${formatDecimal ? 'On donnera le résultat sous forme décimale.' : "(résultat sous  forme d'une fraction irréductible)"}`
-    this.optionsChampTexte = { texteApres: '' }
+             ${formatDecimal ? 'On donnera le résultat sous forme décimale.' : "On donnera le résultat sous forme d'une fraction irréductible."}`
 
     // Correction commune + partie spécifique selon format
-    const correctionCommun = `Dans une situation d'équiprobabilité,
-        on calcule la probabilité d'un événement par le quotient :
+    this.correction = `Dans une situation d'équiprobabilité,
+        on calcule la probabilité d'un événement par le quotient : 
         $\\dfrac{\\text{Nombre d'issues favorables}}{\\text{Nombre total d'issue}}$. <br>
-        La probabilité est donc donnée par : <br>`
+        La probabilité est donc donnée par :   $\\dfrac{\\text{Nombre de boules ${couleurDemandee}s}}{\\text{Nombre total de boules}}
+             =`
     if (!formatDecimal) {
       // fraction
-      this.correction = `${correctionCommun}
-        $\\dfrac{\\text{Nombre de boules ${couleurDemandee}s}}{\\text{Nombre total de boules}}
-             =${choix ? fraction(a, denom).texFraction : fraction(b, denom).texFraction}  ${choix ? fraction(a, denom).texSimplificationAvecEtapes() : fraction(b, denom).texSimplificationAvecEtapes()}$`
+      const reponsepossible = `${choix ? fraction(a, denom).texFraction : fraction(b, denom).texFraction}`
+      this.correction += `${fraction(a, denom).estIrreductible ? miseEnEvidence(reponsepossible) : reponsepossible}  ${choix ? fraction(a, denom).texSimplificationAvecEtapes(false, orangeMathalea) : fraction(b, denom).texSimplificationAvecEtapes(false, orangeMathalea)}$`
+
       this.reponse = choix
         ? `$${fraction(a, denom).texFractionSimplifiee}$`
         : `$${fraction(b, denom).texFractionSimplifiee}$`
     } else {
       // décimal
-      this.correction = `${correctionCommun}
-        $\\dfrac{\\text{Nombre de boules ${couleurDemandee}s}}{\\text{Nombre total de boules}}
-             =${choix ? fraction(a, denom).texFraction : fraction(b, denom).texFraction} =${choix ? texNombre(a / denom) : texNombre(b / denom)}$`
+      this.correction += `${choix ? fraction(a, denom).texFraction : fraction(b, denom).texFraction} =${miseEnEvidence(choix ? texNombre(a / denom) : texNombre(b / denom))}$`
       this.reponse = choix ? a / denom : b / denom
     }
-
+    this.correction += '.'
     // Version QCM : proposer des distracteurs plausibles
     if (this.versionQcm) {
       const numCorrect = choix ? a : b

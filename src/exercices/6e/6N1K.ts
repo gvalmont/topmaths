@@ -1,5 +1,4 @@
 import { propositionsQcm } from '../../lib/interactif/qcm'
-import { degCos } from '../../lib/mathFonctions/trigo'
 import {
   choice,
   combinaisonListes,
@@ -13,6 +12,13 @@ import { texNombre } from '../../lib/outils/texNombre'
 import { context } from '../../modules/context'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import Exercice from '../Exercice'
+
+/**
+ * Calcule le cosinus d'un angle en degrés
+ */
+function degCos(deg: number): number {
+  return Math.cos((deg * Math.PI) / 180)
+}
 
 export const amcReady = true
 export const amcType = 'qcmMult'

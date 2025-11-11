@@ -1,14 +1,14 @@
+import { saveAs } from 'file-saver'
 import JSZip from 'jszip'
 import JSZipUtils from 'jszip-utils'
-import { saveAs } from 'file-saver'
+import type TypeExercice from '../exercices/Exercice'
 import {
   buildImagesUrlsList,
   doesLatexNeedsPics,
   getExosContentList,
   getPicsNames,
-  type latexFileType,
 } from './Latex'
-import type TypeExercice from '../exercices/Exercice'
+import { type latexFileType } from './LatexTypes'
 
 export function downloadZip(filesUrls: string[], zipFileName: string) {
   const zip = new JSZip()

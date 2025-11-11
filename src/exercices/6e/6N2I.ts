@@ -1,16 +1,16 @@
+import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
+import { handleAnswers } from '../../lib/interactif/gestionInteractif'
+import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
+import { prenom, prenomF, prenomM } from '../../lib/outils/Personne'
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
+import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { arrondi, range1, rangeMinMax } from '../../lib/outils/nombres'
+import { sp } from '../../lib/outils/outilString'
 import { texNombre, texPrix } from '../../lib/outils/texNombre'
 import { context } from '../../modules/context'
 import Operation from '../../modules/operations'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
-import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
-import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import Exercice from '../Exercice'
-import { prenom, prenomF, prenomM } from '../../lib/outils/Personne'
-import { miseEnEvidence } from '../../lib/outils/embellissements'
-import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
-import { sp } from '../../lib/outils/outilString'
 
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -176,13 +176,13 @@ export default class DivisionDecimale extends Exercice {
             'de papier peint',
           ])
           const bidule = prenom(1)
-          texte = `${bidule} dispose de $${texNombre(a)}$ m ${matiere} et souhaite le découper en $${b}$ morceaux égaux.
+          texte = `${bidule} dispose de $${texNombre(a)}\\text{ m}$ ${matiere} et souhaite le découper en $${b}$ morceaux égaux.
                   Quelle sera la longueur de chaque morceau en centimètres ?`
           texte += ajouteChampTexteMathLive(
             this,
             i,
             KeyboardType.clavierNumbers,
-            { texteAvant: sp(10), texteApres: ' cm' },
+            { texteAvant: sp(10), texteApres: ' $\\text{cm}$' },
           )
           handleAnswers(this, i, {
             reponse: {
@@ -190,7 +190,7 @@ export default class DivisionDecimale extends Exercice {
               options: { nombreDecimalSeulement: true },
             },
           })
-          texteCorr = `On va partager $${texNombre(a)}$ m ${matiere} en $${b}$ en posant la division : $${texNombre(a)} \\div ${b}$.`
+          texteCorr = `On va partager $${texNombre(a)}\\text{ m}$ ${matiere} en $${b}$ en posant la division : $${texNombre(a)} \\div ${b}$.`
           texteCorr += Operation({
             operande1: a,
             operande2: b,
@@ -198,7 +198,7 @@ export default class DivisionDecimale extends Exercice {
             precision: 4,
           })
           texteCorr += `<br>$${texNombre(a)}\\div${b}=${texNombre(q)}$`
-          texteCorr += `<br>Chaque morceau mesurera $${texNombre(q)}$ m ${matiere}, soit $${miseEnEvidence(texNombre(arrondi(q * 100)))}$ cm.`
+          texteCorr += `<br>Chaque morceau mesurera $${texNombre(q)}\\text{ m}$ ${matiere}, soit $${miseEnEvidence(texNombre(arrondi(q * 100)))}\\text{ cm}$.`
           break
         }
         case 5: {
@@ -242,18 +242,18 @@ export default class DivisionDecimale extends Exercice {
           q = arrondi(randint(200, 450) / 100)
           a = arrondi(b * q)
           const bidule = prenomF()
-          texte = `${bidule} parcourt $${texNombre(a)}$ km en $${b}$ jours, en faisant la même distance chaque jour. 
+          texte = `${bidule} parcourt $${texNombre(a)}\\text{ km}$ en $${b}$ jours, en faisant la même distance chaque jour. 
                   Quelle distance parcourt-elle quotidiennement ?`
           texte += ajouteChampTexteMathLive(
             this,
             i,
             KeyboardType.clavierNumbers,
-            { texteAvant: sp(10), texteApres: ' km' },
+            { texteAvant: sp(10), texteApres: '$\\text{ km}$' },
           )
           handleAnswers(this, i, {
             reponse: { value: q, options: { nombreDecimalSeulement: true } },
           })
-          texteCorr = `On va partager $${texNombre(a)}$ km en $${b}$ en posant la division : $${texNombre(a)} \\div ${b}$.`
+          texteCorr = `On va partager $${texNombre(a)}\\text{ km}$ en $${b}$ en posant la division : $${texNombre(a)} \\div ${b}$.`
           texteCorr += Operation({
             operande1: a,
             operande2: b,
@@ -261,7 +261,7 @@ export default class DivisionDecimale extends Exercice {
             precision: 4,
           })
           texteCorr += `<br>$${texNombre(a)}\\div${b}=${texNombre(q)}$`
-          texteCorr += `<br>${bidule} parcourt $${miseEnEvidence(texNombre(q))}$ km chaque jour.`
+          texteCorr += `<br>${bidule} parcourt $${miseEnEvidence(texNombre(q))}\\text{ km}$ chaque jour.`
           break
         }
         case 7:

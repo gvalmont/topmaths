@@ -1,17 +1,17 @@
 import Bugsnag, { type NotifiableError } from '@bugsnag/js'
 import bigInt from 'big-integer'
 
-import { tropDeChiffres } from './modules/outils'
-import { showDialogForLimitedTime } from './lib/components/dialogs'
 import { get } from 'svelte/store'
+import { showDialogForLimitedTime } from './lib/components/dialogs'
+import { createURL } from './lib/mathalea'
+import { canOptions } from './lib/stores/canStore'
 import {
   capytaleMode,
   capytaleStudentAssignment,
   exercicesParams,
   globalOptions,
 } from './lib/stores/generalStore'
-import { canOptions } from './lib/stores/canStore'
-import { createURL } from './lib/mathalea'
+import { tropDeChiffres } from './modules/outils'
 
 type Metadatas = Record<string, unknown>
 
@@ -43,7 +43,7 @@ function handleBugsnag() {
   })
 }
 
-if (document.location.hostname === 'coopmaths.fr') {
+if (document.location.hostname !== 'localhost') {
   handleBugsnag()
 }
 

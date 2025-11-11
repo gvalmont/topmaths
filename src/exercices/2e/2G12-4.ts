@@ -1,4 +1,4 @@
-import { point, TracePoint, tracePoint } from '../../lib/2d/points'
+import { point } from '../../lib/2d/PointAbstrait'
 import {
   NommePolygone,
   Polygone,
@@ -7,17 +7,17 @@ import {
 import { repere } from '../../lib/2d/reperes'
 import { Segment, segment } from '../../lib/2d/segmentsVecteurs'
 import { texteParPosition } from '../../lib/2d/textes'
+import type { TracePoint } from '../../lib/2d/TracePoint'
+import { tracePoint } from '../../lib/2d/TracePoint'
 import { texteGras } from '../../lib/format/style'
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
 import { extraireRacineCarree } from '../../lib/outils/calculs'
 import { ecritureParentheseSiNegatif } from '../../lib/outils/ecritures'
 import { creerNomDePolygone } from '../../lib/outils/outilString'
 import { texNombre, texRacineCarree } from '../../lib/outils/texNombre'
-import {
-  mathalea2d,
-  type NestedObjetMathalea2dArray,
-} from '../../modules/mathalea2d'
+import { mathalea2d } from '../../modules/mathalea2d'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
+import type { NestedObjetMathalea2dArray } from '../../types/2d'
 import Exercice from '../Exercice'
 export const titre = "Déterminer la nature d'un polygone avec les coordonnées"
 export const dateDeModifImportante = '30/11/2023'

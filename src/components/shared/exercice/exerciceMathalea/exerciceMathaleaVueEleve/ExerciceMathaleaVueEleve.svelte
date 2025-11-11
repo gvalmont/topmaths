@@ -287,6 +287,7 @@
         exercise,
         $globalOptions.recorder ?? '',
         $globalOptions.v ?? '',
+        buttonScore.dataset.capytaleLoadAnswers === '1' ? 'review' : '',
       )
     exercise.isDone = true
     if ($globalOptions.isSolutionAccessible) isCorrectVisible = true
@@ -337,6 +338,7 @@
             numberOfPoints,
             numberOfQuestions,
             bestScore,
+            checkSum: exercise.checkSum,
           }
           return l
         })

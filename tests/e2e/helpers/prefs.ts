@@ -10,10 +10,11 @@ const prefs: Prefs = {
   contextOptions: {},
   pauseOnError: true,
   debug: true,
-  headless: false,
+  headless: true,
   silent: false,
   slowMo: 0,
   verbose: true,
+  nbExosParLot: 50,
 }
 
 export default prefs

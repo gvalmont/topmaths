@@ -1,5 +1,5 @@
 import { courbe } from '../../lib/2d/courbes'
-import { point } from '../../lib/2d/points'
+import { point } from '../../lib/2d/PointAbstrait'
 import { repere } from '../../lib/2d/reperes'
 import { segment } from '../../lib/2d/segmentsVecteurs'
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'

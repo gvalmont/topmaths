@@ -36,10 +36,10 @@ export default class PourcentageFacileCM2 extends ExerciceSimple {
     this.optionsChampTexte = { texteApres: unite, texteAvant: ' $=$' }
 
     this.reponse = distance.toFixed(0)
-    this.question = `Le quart de $${texNombre(distance * 4, 0)}$ ${unite}`
+    this.question = `Le quart de $${texNombre(distance * 4, 0)}\\text{ ${unite}}$`
     this.canEnonce = this.question
     this.canReponseACompleter = `$\\ldots$ ${unite}`
     this.correction = `Prendre le quart d'une quantité revient à la diviser par $4$. <br>
-    Ainsi, le quart de $${texNombre(distance * 4, 0)}$ ${unite} est éagl à $${texNombre(distance * 4, 0)}\\div 4=${miseEnEvidence(this.reponse)}$  ${unite}.`
+    Ainsi, le quart de $${texNombre(distance * 4, 0)}\\text{ ${unite}}$ est éagl à $${texNombre(distance * 4, 0)}\\div 4=${miseEnEvidence(this.reponse)}\\text{ ${unite}}$.`
   }
 }

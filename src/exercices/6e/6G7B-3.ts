@@ -1,15 +1,17 @@
 import { traceCompas } from '../../lib/2d/Arc'
 import { cibleCarree, dansLaCibleCarree } from '../../lib/2d/cibles'
-import { codageMediatrice } from '../../lib/2d/codages'
+import { codageMediatrice } from '../../lib/2d/CodageMediatrice'
 import { distancePointDroite, droite } from '../../lib/2d/droites'
-import { point, tracePoint } from '../../lib/2d/points'
-import { longueur, segment } from '../../lib/2d/segmentsVecteurs'
+import { point } from '../../lib/2d/PointAbstrait'
+import { segment } from '../../lib/2d/segmentsVecteurs'
 import { labelPoint } from '../../lib/2d/textes'
+import { tracePoint } from '../../lib/2d/TracePoint'
 import {
   homothetie,
   symetrieAxiale,
   translation,
 } from '../../lib/2d/transformations'
+import { longueur } from '../../lib/2d/utilitairesGeometriques'
 import { arcenciel } from '../../lib/format/style'
 import { choisitLettresDifferentes } from '../../lib/outils/aleatoires'
 import { arrondi } from '../../lib/outils/nombres'

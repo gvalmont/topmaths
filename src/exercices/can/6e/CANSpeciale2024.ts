@@ -1,13 +1,14 @@
-import { codageAngleDroit } from '../../../lib/2d/angles'
-import { codageSegments } from '../../../lib/2d/codages'
+import { codageAngleDroit } from '../../../lib/2d/CodageAngleDroit'
+import { codageSegments } from '../../../lib/2d/CodageSegment'
 import { fixeBordures } from '../../../lib/2d/fixeBordures'
-import { milieu, point } from '../../../lib/2d/points'
+import { point } from '../../../lib/2d/PointAbstrait'
 import { segment } from '../../../lib/2d/segmentsVecteurs'
 import {
   labelPoint,
   latexParCoordonnees,
   texteParPosition,
 } from '../../../lib/2d/textes'
+import { milieu } from '../../../lib/2d/utilitairesPoint'
 import {
   handleAnswers,
   setReponse,
@@ -478,34 +479,44 @@ export default class CourseAuxNombresSpeciale2024 extends Exercice {
             const choix = choice([true, false])
             if (choix) {
               reponse = 20.24
-              texte = `$${texNombre(2024)}$ cm  $=$`
+              texte = `$${texNombre(2024)}\\text{ cm}$  $=$`
 
               texteCorr = `
-          Comme $1$ m $=100$ cm, alors $1$ cm $=0,01$ m.<br>
-          Ainsi  $${texNombre(2024)}$ cm$=${miseEnEvidence(texNombre(2024 / 100, 2))}$ m.  `
+          Comme $1\\text{ m}$ $=100\\text{ cm}$, alors $1\\text{ cm}$ $=0,01\\text{ m}$.<br>
+          Ainsi  $${texNombre(2024)}\\text{ cm}=${miseEnEvidence(texNombre(2024 / 100, 2))}\\text{ m}$.  `
               setReponse(this, index, reponse)
               if (this.interactif) {
-                texte += ajouteChampTexteMathLive(this, index, ' ') + 'm'
+                texte +=
+                  ajouteChampTexteMathLive(
+                    this,
+                    index,
+                    KeyboardType.clavierNumbers,
+                  ) + '$\\text{ m}$'
               } else {
-                texte += '  $\\ldots$ m'
+                texte += '  $\\ldots\\text{ m}$'
               }
               this.listeCanEnonces.push('Compléter.')
               this.listeCanReponsesACompleter.push(
-                `$${texNombre(2024)}$ cm  $=$  $~~\\ldots~~$ m`,
+                `$${texNombre(2024)}\\text{ cm}$  $=$  $~~\\ldots~~\\text{ m}$`,
               )
             } else {
               reponse = 202400
-              texte = `$${texNombre(2024)}$ m  $=$ `
-              texteCorr = ` Comme $1$ m $=100$ cm,  alors $${texNombre(2024)}$ m$${sp()}=${sp()}${miseEnEvidence(texNombre(202400))}$ cm.`
+              texte = `$${texNombre(2024)}\\text{ m}$  $=$ `
+              texteCorr = ` Comme $1\\text{ m}$ $=100\\text{ cm}$,  alors $${texNombre(2024)}\\text{ m}=${miseEnEvidence(texNombre(202400))}\\text{ cm}$.`
               setReponse(this, index, reponse)
               if (this.interactif) {
-                texte += ajouteChampTexteMathLive(this, index, ' ') + 'cm'
+                texte += ajouteChampTexteMathLive(
+                  this,
+                  index,
+                  KeyboardType.clavierNumbers,
+                  { texteApres: '$\\text{ cm}$' },
+                )
               } else {
-                texte += '  $\\ldots$ cm'
+                texte += '  $\\ldots\\text{ cm}$'
               }
               this.listeCanEnonces.push('Compléter.')
               this.listeCanReponsesACompleter.push(
-                `$${texNombre(2024)}$ m  $=$  $~~\\ldots~~$ cm`,
+                `$${texNombre(2024)}\\text{ m}$  $=$  $~~\\ldots~~\\text{ cm}$`,
               )
             }
           }
@@ -1063,7 +1074,7 @@ export default class CourseAuxNombresSpeciale2024 extends Exercice {
               texte = 'Quel est  le périmètre de ce triangle ?'
               reponse = 2 * a + b
               texteCorr = `Le triangle est isocèle.<br>
-            Son périmètre est : $2\\times ${texNombre(a)}$ cm $+${texNombre(b)}$ cm $=${miseEnEvidence(texNombre(2 * a + b))}$ cm.`
+            Son périmètre est : $2\\times ${texNombre(a)}\\text{ cm}$ $+${texNombre(b)}\\text{ cm}$ $=${miseEnEvidence(texNombre(2 * a + b))}\\text{ cm}$.`
             } else {
               objets.push(
                 codageSegments('||', 'blue', B, C),
@@ -1078,15 +1089,15 @@ export default class CourseAuxNombresSpeciale2024 extends Exercice {
                 s2,
                 s3,
               )
-              texte = `Le périmètre de ce triangle est  $${texNombre(2 * a + b)}$ cm. <br>
+              texte = `Le périmètre de ce triangle est  $${texNombre(2 * a + b)}\\text{ cm}$. <br>
             Que vaut la longueur indiquée par le point d'interrogation ?`
               reponse = a
               texteCorr = `Le triangle est isocèle, il possède donc deux longueurs égales.<br>
-                Puisque le périmètre est  $${texNombre(2 * a + b)}$ cm, on obtient la somme des deux longueurs égales  du triangle en effectuant la différence $${texNombre(2 * a + b)}-${texNombre(b)}=${texNombre(2 * a)}$ cm.<br>
-                On obtient la longueur cherchée en divisant par $2$, soit $${texNombre(2 * a)}\\div 2=${miseEnEvidence(texNombre(a))}$ cm.`
+                Puisque le périmètre est  $${texNombre(2 * a + b)}\\text{ cm}$, on obtient la somme des deux longueurs égales  du triangle en effectuant la différence $${texNombre(2 * a + b)}-${texNombre(b)}=${texNombre(2 * a)}\\text{ cm}$.<br>
+                On obtient la longueur cherchée en divisant par $2$, soit $${texNombre(2 * a)}\\div 2=${miseEnEvidence(texNombre(a))}\\text{ cm}$.`
             }
             texte += ajouteChampTexteMathLive(this, index, '', {
-              texteApres: ' cm',
+              texteApres: ' $\\text{cm}$',
             })
             texte +=
               '<br>' +
@@ -2219,7 +2230,7 @@ export default class CourseAuxNombresSpeciale2024 extends Exercice {
             )
             texte = 'Quel est le périmètre de ce carré ? '
             texte += ajouteChampTexteMathLive(this, index, '', {
-              texteApres: ' cm',
+              texteApres: ' $\\text{cm}$',
             })
             texte +=
               '<br>' +
@@ -2233,11 +2244,11 @@ export default class CourseAuxNombresSpeciale2024 extends Exercice {
             reponse = a * 4
             texteCorr = `Il s'agit d'un carré. <br>
           Son périmètre est donc
-         $4$ fois la longueur de son côté, soit $4\\times ${texNombre(a)}=${miseEnEvidence(`${texNombre(reponse, 3)}`)}$ cm.`
+         $4$ fois la longueur de son côté, soit $4\\times ${texNombre(a)}=${miseEnEvidence(`${texNombre(reponse, 3)}`)}\\text{ cm}$.`
             setReponse(this, index, reponse.toFixed(3))
 
             this.listeCanEnonces.push(texte)
-            this.listeCanReponsesACompleter.push('$\\ldots$ cm')
+            this.listeCanReponsesACompleter.push('$\\ldots\\text{ cm}$')
           }
           break
 

@@ -317,6 +317,7 @@ export default class CompleterScriptDiviseurs extends Exercice {
       }
       cpt++
     }
+    this.nbQuestions = this.listeQuestions.length
     listeQuestionsToContenu(this)
   }
 }

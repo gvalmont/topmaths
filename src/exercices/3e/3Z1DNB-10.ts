@@ -96,8 +96,8 @@ Donner l'expression de $f(x)$, puis celle de $g(x)$.`
 
 ${tableau.replace('\\begin{array}', '\\hspace{-1.5cm}\n\\begin{array}')}
 ${listeQuestions4}`
-    const question5 = `La piscine a la forme d'un pavé droit de longueur $${L}$ m, de largeur $${l}$ m et de profondeur $${texNombre(p, 2)}$ m.<br>
-En admettant qu'elle soit entièrement remplie, déterminer en m$^3$, le volume d'eau qui sera évacué pour réaliser la vidange.`
+    const question5 = `La piscine a la forme d'un pavé droit de longueur $${L}\\text{ m}$, de largeur $${l}\\text{ m}$ et de profondeur $${texNombre(p, 2)}\\text{ m}$.<br>
+En admettant qu'elle soit entièrement remplie, déterminer en $\\text{ m}^3$, le volume d'eau qui sera évacué pour réaliser la vidange.`
     const listeQuestions = createList({
       items: [
         listeQuestions1,
@@ -137,7 +137,7 @@ $f(x) = ${texPrix(a)}x$ et $g(x) = ${texPrix(b)}x + ${texPrix(c)}$.`
       style: 'alpha',
     })
     const correction4 = listeCorrections4
-    const correction5 = `Le volume d'eau qui sera évacué pour réaliser la vidange est de :<br>$${L}\\times ${l}\\times ${texNombre(p, 1)}=${texNombre(L * l * p, 2)}$ m$^3$.`
+    const correction5 = `Le volume d'eau qui sera évacué pour réaliser la vidange est de :<br>$${L}\\times ${l}\\times ${texNombre(p, 1)}=${texNombre(L * l * p, 2)}\\text{ m}^3$.`
     const listeCorrections = createList({
       items: [
         listeCorrections1,

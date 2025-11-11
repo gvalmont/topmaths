@@ -9,11 +9,13 @@
     getExosContentList,
     getPicsNames,
     makeImageFilesUrls,
+  } from '../../../lib/Latex'
+  import {
     type Exo,
     type LatexFileInfos,
     type latexFileType,
     type picFile,
-  } from '../../../lib/Latex'
+  } from '../../../lib/LatexTypes'
   import {
     mathaleaGetExercicesFromParams,
     mathaleaGoToView,

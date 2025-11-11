@@ -84,7 +84,7 @@ const situations = [
   [
     {
       enonce:
-        'Une voiture parcourt $150$ km en $2$ heures et $300$ km en $4$ heures.',
+        'Une voiture parcourt $150\\text{ km}$ en $2$ heures et $300\\text{ km}$ en $4$ heures.',
       grandeurs: ['distance', 'temps'],
       unites: ['km', 'h'],
       estProportionnel: true,
@@ -92,12 +92,12 @@ const situations = [
     },
     {
       enonce:
-        'Une voiture parcourt $150$ km en $2$ heures et $250$ km en $4$ heures.',
+        'Une voiture parcourt $150\\text{ km}$ en $2$ heures et $250\\text{ km}$ en $4$ heures.',
       grandeurs: ['distance', 'temps'],
       unites: ['km', 'h'],
       estProportionnel: false,
       commentaireCorrection:
-        'Si la distance était proportionnelle au temps, elle serait de $300$ km en $4$ heures.',
+        'Si la distance était proportionnelle au temps, elle serait de $300\\text{ km}$ en $4$ heures.',
     },
   ],
   [
@@ -227,7 +227,7 @@ const situations = [
   [
     {
       enonce:
-        'Une trottinette électrique parcourt $20$ km en $1$ heure puis $40$ km en $2$ heures.',
+        'Une trottinette électrique parcourt $20\\text{ km}$ en $1$ heure puis $40\\text{ km}$ en $2$ heures.',
       grandeurs: ['distance', 'temps'],
       unites: ['km', 'h'],
       estProportionnel: true,
@@ -235,12 +235,12 @@ const situations = [
     },
     {
       enonce:
-        'Une trottinette électrique parcourt $20$ km en $1$ heure puis $50$ km en $2$ heures.',
+        'Une trottinette électrique parcourt $20\\text{ km}$ en $1$ heure puis $50\\text{ km}$ en $2$ heures.',
       grandeurs: ['distance', 'temps'],
       unites: ['km', 'h'],
       estProportionnel: false,
       commentaireCorrection:
-        'Si la distance était proportionnelle au temps, elle serait de $40$ km en $2$ heures.',
+        'Si la distance était proportionnelle au temps, elle serait de $40\\text{ km}$ en $2$ heures.',
     },
   ],
   [
@@ -414,7 +414,7 @@ const situations = [
   ],
   [
     {
-      enonce: 'Avec $4$ litres de peinture, on couvre $20$ m$^2$.',
+      enonce: 'Avec $4$ litres de peinture, on couvre $20\\text{ m}^2$.',
       grandeurs: ['volume', 'surface'],
       unites: ['L', 'm$^2$'],
       estProportionnel: true,
@@ -422,7 +422,7 @@ const situations = [
     },
     {
       enonce:
-        'Avec $4$ litres de peinture, on couvre $20$ m$^2$. Avec $5$ litres, on couvre $25$ m$^2$.',
+        'Avec $4$ litres de peinture, on couvre $20\\text{ m}^2$. Avec $5$ litres, on couvre $25\\text{ m}^2$.',
       grandeurs: ['volume', 'surface'],
       unites: ['L', 'm$^2$'],
       estProportionnel: true,
@@ -430,12 +430,12 @@ const situations = [
     },
     {
       enonce:
-        'Avec $4$ litres de peinture, on couvre $20$ m$^2$. Avec $5$ litres, on couvre $30$ m$^2$.',
+        'Avec $4$ litres de peinture, on couvre $20\\text{ m}^2$. Avec $5$ litres, on couvre $30\\text{ m}^2$.',
       grandeurs: ['volume', 'surface'],
       unites: ['L', 'm$^2$'],
       estProportionnel: false,
       commentaireCorrection:
-        'Si la surface était proportionnelle au volume, on couvrirait $25$ m$^2$ avec $5$ litres de peinture.',
+        'Si la surface était proportionnelle au volume, on couvrirait $25\\text{ m}^2$ avec $5$ litres de peinture.',
     },
   ],
   [

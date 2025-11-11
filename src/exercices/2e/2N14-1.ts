@@ -1,15 +1,16 @@
+import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
+import { handleAnswers } from '../../lib/interactif/gestionInteractif'
+import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
+import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { texNombre } from '../../lib/outils/texNombre'
-import Exercice from '../Exercice'
+import { context } from '../../modules/context'
 import {
   gestionnaireFormulaireTexte,
   listeQuestionsToContenu,
   randint,
 } from '../../modules/outils'
-import { context } from '../../modules/context'
-import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
-import { setReponse } from '../../lib/interactif/gestionInteractif'
-import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
+import Exercice from '../Exercice'
 
 export const amcReady = true
 export const amcType = 'AMCOpen'
@@ -88,15 +89,19 @@ export default class EnsembleDeNombres extends Exercice {
           a = randint(0, 150)
 
           texte = `$${a} \\in $`
-          texteCorr = `$${a}$ est un entier naturel. On a donc $${a}\\in \\mathbb{N}$.`
-          setReponse(this, i, '\\mathbb{N}', { formatInteractif: 'texte' })
+          texteCorr = `$${a}$ est un entier naturel. On a donc $${a}\\in ${miseEnEvidence('\\mathbb{N}')}$.`
+          handleAnswers(this, i, {
+            reponse: { value: '\\mathbb{N}', options: { intervalle: true } },
+          })
           break
         case 2:
           a = randint(0, 150) * -1
 
           texte = `$${a} \\in $`
-          texteCorr = `$${a}$ est un entier relatif. On a donc $${a}\\in \\mathbb{Z}$.`
-          setReponse(this, i, '\\mathbb{Z}')
+          texteCorr = `$${a}$ est un entier relatif. On a donc $${a}\\in ${miseEnEvidence('\\mathbb{Z}')}$.`
+          handleAnswers(this, i, {
+            reponse: { value: '\\mathbb{Z}', options: { intervalle: true } },
+          })
           break
         case 3:
           d = randint(1, 9)
@@ -106,28 +111,36 @@ export default class EnsembleDeNombres extends Exercice {
           a = a * choice([-1, 1])
 
           texte = `$${texNombre(b + c / 10 + d / 100)}\\in $`
-          texteCorr = `$${texNombre(b + c / 10 + d / 100)}$ est un nombre décimal. On a donc $${texNombre(b + c / 10 + d / 100)}\\in \\mathbb{D}$.`
-          setReponse(this, i, '\\mathbb{D}')
+          texteCorr = `$${texNombre(b + c / 10 + d / 100)}$ est un nombre décimal. On a donc $${texNombre(b + c / 10 + d / 100)}\\in ${miseEnEvidence('\\mathbb{D}')}$.`
+          handleAnswers(this, i, {
+            reponse: { value: '\\mathbb{D}', options: { intervalle: true } },
+          })
           break
         case 4:
           a = randint(2, 16)
 
           texte = `$\\sqrt{${texNombre(a * a)}}\\in $`
-          texteCorr = `$\\sqrt{${a * a}}=${a}$  est un entier naturel. On a donc $\\sqrt{${texNombre(a * a)}}\\in \\mathbb{N}$.`
-          setReponse(this, i, '\\mathbb{N}', { formatInteractif: 'texte' })
+          texteCorr = `$\\sqrt{${a * a}}=${a}$  est un entier naturel. On a donc $\\sqrt{${texNombre(a * a)}}\\in ${miseEnEvidence('\\mathbb{N}')}$.`
+          handleAnswers(this, i, {
+            reponse: { value: '\\mathbb{N}', options: { intervalle: true } },
+          })
           break
         case 5:
           a = randint(2, 16)
           b = randint(2, 6)
           if (choice([true, false])) {
             texte = `$\\dfrac{${texNombre(b * a)}}{${a}}\\in $`
-            texteCorr = `$\\dfrac{${texNombre(b * a)}}{${a}}=\\dfrac{${b}\\times ${a}}{${a}}=${b}$  est un entier naturel. On a donc $\\dfrac{${texNombre(b * a)}}{${a}}\\in \\mathbb{N}$.`
-            setReponse(this, i, '\\mathbb{N}', { formatInteractif: 'texte' })
+            texteCorr = `$\\dfrac{${texNombre(b * a)}}{${a}}=\\dfrac{${b}\\times ${a}}{${a}}=${b}$  est un entier naturel. On a donc $\\dfrac{${texNombre(b * a)}}{${a}}\\in ${miseEnEvidence('\\mathbb{N}')}$.`
+            handleAnswers(this, i, {
+              reponse: { value: '\\mathbb{N}', options: { intervalle: true } },
+            })
           } else {
             b = -b
             texte = `$\\dfrac{${texNombre(b * a)}}{${a}}\\in $`
-            texteCorr = `$\\dfrac{${texNombre(b * a)}}{${a}}=\\dfrac{${b}\\times ${a}}{${a}}=${b}$  est un entier relatif. On a donc $\\dfrac{${texNombre(b * a)}}{${a}}\\in \\mathbb{Z}$.`
-            setReponse(this, i, '\\mathbb{Z}')
+            texteCorr = `$\\dfrac{${texNombre(b * a)}}{${a}}=\\dfrac{${b}\\times ${a}}{${a}}=${b}$  est un entier relatif. On a donc $\\dfrac{${texNombre(b * a)}}{${a}}\\in ${miseEnEvidence('\\mathbb{Z}')}$.`
+            handleAnswers(this, i, {
+              reponse: { value: '\\mathbb{Z}', options: { intervalle: true } },
+            })
           }
           break
         case 6:
@@ -144,8 +157,10 @@ export default class EnsembleDeNombres extends Exercice {
           )
           a = choice([a, -a])
           texte = `$\\dfrac{${a}}{${b}}\\in $`
-          texteCorr = `$\\dfrac{${a}}{${b}}$ est une fraction d'entiers qui n'est pas égal à un nombre entier ou à un nombre décimal. On a donc $\\dfrac{${a}}{${b}}\\in \\mathbb{Q}$.`
-          setReponse(this, i, '\\mathbb{Q}')
+          texteCorr = `$\\dfrac{${a}}{${b}}$ est une fraction d'entiers qui n'est pas égal à un nombre entier ou à un nombre décimal. On a donc $\\dfrac{${a}}{${b}}\\in ${miseEnEvidence('\\mathbb{Q}')}$.`
+          handleAnswers(this, i, {
+            reponse: { value: '\\mathbb{Q}', options: { intervalle: true } },
+          })
           break
         case 7:
           b = choice([4, 5, 8, 10])
@@ -156,16 +171,20 @@ export default class EnsembleDeNombres extends Exercice {
           a = choice([a, -a])
 
           texte = `$\\dfrac{${a}}{${b}}\\in $`
-          texteCorr = `$\\dfrac{${a}}{${b}}=${texNombre(a / b)}$  est un nombre décimal. On a donc $\\dfrac{${a}}{${b}}\\in \\mathbb{D}$.`
-          setReponse(this, i, '\\mathbb{D}')
+          texteCorr = `$\\dfrac{${a}}{${b}}=${texNombre(a / b)}$  est un nombre décimal. On a donc $\\dfrac{${a}}{${b}}\\in ${miseEnEvidence('\\mathbb{D}')}$.`
+          handleAnswers(this, i, {
+            reponse: { value: '\\mathbb{D}', options: { intervalle: true } },
+          })
           break
         case 8:
           {
             a = randint(2, 99, [4, 9, 16, 25, 36, 49, 64, 81])
             const signeAjoute = choice(['', '-'])
             texte = `$${signeAjoute}\\sqrt{${a}} \\in $`
-            texteCorr = `$${signeAjoute}\\sqrt{${a}}$ est un nombre irrationnel car ${a} n'est pas le carré d'un nombre entier, décimal ou fractionnaire. On a donc $${signeAjoute}\\sqrt{${a}}\\in \\mathbb{R}$.`
-            setReponse(this, i, '\\mathbb{R}')
+            texteCorr = `$${signeAjoute}\\sqrt{${a}}$ est un nombre irrationnel car ${a} n'est pas le carré d'un nombre entier, décimal ou fractionnaire. On a donc $${signeAjoute}\\sqrt{${a}}\\in ${miseEnEvidence('\\mathbb{R}')}$.`
+            handleAnswers(this, i, {
+              reponse: { value: '\\mathbb{R}', options: { intervalle: true } },
+            })
           }
           break
         case 9:
@@ -173,8 +192,10 @@ export default class EnsembleDeNombres extends Exercice {
           a = randint(2, 20)
           a = choice([a, -a])
           texte = `$${a}\\pi \\in $`
-          texteCorr = `$${a}\\pi$ est un nombre irrationnel. On a donc $${a}\\pi \\in \\mathbb{R}$.`
-          setReponse(this, i, '\\mathbb{R}')
+          texteCorr = `$${a}\\pi$ est un nombre irrationnel. On a donc $${a}\\pi \\in ${miseEnEvidence('\\mathbb{R}')}$.`
+          handleAnswers(this, i, {
+            reponse: { value: '\\mathbb{R}', options: { intervalle: true } },
+          })
           break
       }
       if (context.isAmc) {

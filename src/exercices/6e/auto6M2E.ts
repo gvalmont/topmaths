@@ -1,28 +1,28 @@
-import Exercice from '../Exercice'
-import {
-  gestionnaireFormulaireTexte,
-  listeQuestionsToContenu,
-} from '../../modules/outils'
+import { bleuMathalea } from '../../lib/colors'
+import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
+import { choixDeroulant } from '../../lib/interactif/questionListeDeroulante'
+import {
+  ajouteChampTexteMathLive,
+  remplisLesBlancs,
+} from '../../lib/interactif/questionMathLive'
+import { combinaisonListes } from '../../lib/outils/arrayOutils'
 import {
   miseEnEvidence,
   texteEnCouleurEtGras,
 } from '../../lib/outils/embellissements'
 import { texNombre } from '../../lib/outils/texNombre'
-import {
-  ajouteChampTexteMathLive,
-  remplisLesBlancs,
-} from '../../lib/interactif/questionMathLive'
-import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 import FractionEtendue from '../../modules/FractionEtendue'
-import { choixDeroulant } from '../../lib/interactif/questionListeDeroulante'
-import { combinaisonListes } from '../../lib/outils/arrayOutils'
-import { bleuMathalea } from '../../lib/colors'
+import {
+  gestionnaireFormulaireTexte,
+  listeQuestionsToContenu,
+} from '../../modules/outils'
+import Exercice from '../Exercice'
 
 export const interactifReady = true
 export const interactifType = 'mathlive'
 export const titre =
-  'Convertir $1~m^2$ en $dm^2$ ou $1~dm^2$ en $cm^2$ et inversement'
+  'Convertir $1\\text{ m}^2$ en $\\text{dm}^2$ ou $1\\text{ dm}^2$ en $\\text{cm}^2$ et inversement'
 export const dateDePublication = '30/07/2025'
 
 /**
@@ -107,10 +107,10 @@ export default class ConvertirM2EnDm2 extends Exercice {
       { label: 'un millième', value: 'un millième' },
     ]
     const pairesMetriques: string[][] = [
-      ['m', 'dm'],
-      ['dm', 'm'],
-      ['dm', 'cm'],
-      ['cm', 'dm'],
+      ['\\text{m}', '\\text{dm}'],
+      ['\\text{dm}', '\\text{m}'],
+      ['\\text{dm}', '\\text{cm}'],
+      ['\\text{cm}', '\\text{dm}'],
     ]
     const rapport = [
       new FractionEtendue(1, 100).texFraction,
@@ -163,7 +163,7 @@ export default class ConvertirM2EnDm2 extends Exercice {
                 ? remplisLesBlancs(
                     this,
                     i,
-                    `\\dfrac{1}{%{champ1}} ${pairesMetriques[listeConversions[cpt] - 1][1]}^2`,
+                    `\\dfrac{1}{%{champ1}} ${pairesMetriques[listeConversions[cpt] - 1][1].replaceAll(/\\text\{([^}]*)\}/g, '$1')}^2`,
                     KeyboardType.clavierNumbers,
                     '\\ldots',
                   )

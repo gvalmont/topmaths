@@ -139,12 +139,12 @@ export default class ModeliserSuites extends Exercice {
           b = randint(-8, -4) * 100
           reponse1 = String(a)
           reponse2 = `${cm.toFixed(2)}\\times u_{n}${ecritureAlgebrique(b)}`
-          texte = `Une retenue d'eau artificielle contient $${texNombre(a, 0)}$ m$^3$ d'eau le 1er juillet 2024 au matin.<br>
+          texte = `Une retenue d'eau artificielle contient $${texNombre(a, 0)}\\text{ m}^3$ d'eau le 1er juillet 2024 au matin.<br>
 La chaleur provoque dans la retenue une évaporation de $${p}\\,\\%$  du volume total de l'eau par jour. <br>
-De plus, chaque soir, on doit libérer de la retenue $${abs(b)}$ m$^3$ pour l'irrigation des cultures aux alentours.<br>
+De plus, chaque soir, on doit libérer de la retenue $${abs(b)}\\text{ m}^3$ pour l'irrigation des cultures aux alentours.<br>
 `
           if (!this.sup2 || this.interactif) {
-            texte += `On modélise l'évolution du  volume d'eau dans la retenue par une suite $(u_n)$, le terme $u_n$ donnant une estimation du volume d'eau en m$^3$ au matin du $n$-ième jour
+            texte += `On modélise l'évolution du  volume d'eau dans la retenue par une suite $(u_n)$, le terme $u_n$ donnant une estimation du volume d'eau en $\\text{ m}^3$ au matin du $n$-ième jour
 qui suit le 1er juillet 2024.<br>
             Préciser la valeur de $u_0$, puis exprimer pour tout entier $n$, le terme $u_{n+1}$ en fonction de $u_n$.`
           } else {
@@ -175,10 +175,10 @@ qui suit le 1er juillet 2024.<br>
             },
             { formatInteractif: 'fillInTheBlank' },
           )
-          texteCorr = `$u_n$ est le  terme  donnant une estimation du volume d'eau en m$^3$ au matin du $n$-ième jour
+          texteCorr = `$u_n$ est le  terme  donnant une estimation du volume d'eau en $\\text{ m}^3$ au matin du $n$-ième jour
 qui suit le 1er juillet $2024$ l'année $2024 + n$.<br>
             D'une année sur l'autre, la retenue perd $${p}\\,\\%$  par évaporation donc il en reste $${100 - p}\\,\\%$. <br>
-          De plus, la retenue perd  $${abs(b)}$ m$^3$ chaque soir.<br>
+          De plus, la retenue perd  $${abs(b)}\\text{ m}^3$ chaque soir.<br>
           Ainsi, la suite $(u_n)$ est définie par : 
           $\\begin{cases}u_0=${miseEnEvidence(`${texNombre(a, 0)}`)}\\\\
           u_{n+1}=${miseEnEvidence(`${texNombre(cm, 2)}\\times u_n${ecritureAlgebrique(b)}`)} \\text{ pour tout entier naturel }n.
@@ -398,14 +398,14 @@ Le premier versement a lieu le $25$ février $2024$.<br>`
             `${reduireAxPlusB(-b, temp, 'n')}`,
             `${temp}-${b}\\times n`,
           ]
-          texte = `Un randonneur se trouve  à $${texNombre(alt, 0)}$ m d'altitude.<br>
+          texte = `Un randonneur se trouve  à $${texNombre(alt, 0)}\\text{ m}$ d'altitude.<br>
           Sur son parcours, la température diminue de $${texNombre(b, 2)}$ degré Celsius lorsque l'altitude augmente de $1$ mètre.<br>
 Au point de départ, la température est de $${temp}$ degrés Celsius.<br>`
           if (!this.sup2 || this.interactif) {
             texte += `L'évolution de la température est modélisée par une suite $(u_n)$, le terme $u_n$ est la température (en degrés Celsius) sur le parcours du randonneur à l'altitude $${texNombre(alt, 0)}+n$ mètres.<br>
             Exprimer pour tout entier $n$, le terme $v_{n}$ en fonction de $n$.`
           } else {
-            texte += `Modéliser l'évolution de la température sur le parcours du randonneur par une suite $(u_n)$ définie de manière explicite à partir de l'altitude de $${texNombre(alt, 0)}$ m.`
+            texte += `Modéliser l'évolution de la température sur le parcours du randonneur par une suite $(u_n)$ définie de manière explicite à partir de l'altitude de $${texNombre(alt, 0)}\\text{ m}$.`
           }
 
           if (this.interactif) {
@@ -469,9 +469,9 @@ Au point de départ, la température est de $${temp}$ degrés Celsius.<br>`
           b = new Decimal(randint(41, 65, [50, 60])).div(100) // prix /km
           reponse1 = [`${reduireAxPlusB(b, a, 'n')}`, `${b}\\times n+${a}`]
           texte = `Une société de location de véhicules particuliers propose le tarif suivant pour un week-end de location :<br>
-          ${texteGras('TARIF WEEK-END :')}  forfait de $${a}$ € puis $${texNombre(b, 2)}$ € par km parcouru.<br>`
+          ${texteGras('TARIF WEEK-END :')}  forfait de $${a}$ € puis $${texNombre(b, 2)}$ € par $\\text{km}$ parcouru.<br>`
           if (!this.sup2 || this.interactif) {
-            texte += `Le prix payé par un client est modélisé par une suite $(u_n)$, le terme $u_n$ est le prix payé par ce client  pour $n$ km parcourus pendant le week-end.<br>
+            texte += `Le prix payé par un client est modélisé par une suite $(u_n)$, le terme $u_n$ est le prix payé par ce client  pour $n\\text{ km}$ parcourus pendant le week-end.<br>
             Exprimer pour tout entier $n$, le terme $u_{n}$ en fonction de $n$.`
           } else {
             texte +=
@@ -494,8 +494,8 @@ Au point de départ, la température est de $${temp}$ degrés Celsius.<br>`
               { formatInteractif: 'fillInTheBlank' },
             )
           }
-          texteCorr = `$u_n$ est le prix payé par un client pour $n$ km parcourus pendant le week-end.<br>
-          Ce prix comprend un forfait de $${a}$ € puis un tarif de  $${texNombre(b, 2, true)}$ € par km parcourus.
+          texteCorr = `$u_n$ est le prix payé par un client pour $n\\text{ km}$ parcourus pendant le week-end.<br>
+          Ce prix comprend un forfait de $${a}$ € puis un tarif de  $${texNombre(b, 2, true)}$ € par $\\text{km}$ parcourus.
           Ainsi, la suite $(u_n)$ est définie pour tout entier naturel $n$ par : $u_n=${miseEnEvidence(`${texNombre(a, 0)}+${texNombre(b, 2)}n`)}$.`
           break
 

@@ -9,8 +9,8 @@
  * this.tesCoords(x,y) est une méthode qui dit si le point de coordonnées (x,y) est bien dans le plateau de jeu.
  */
 
+import { BoiteBuilder } from '../lib/2d/BoiteBuilder'
 import { ObjetMathalea2D } from '../lib/2d/ObjetMathalea2D'
-import { BoiteBuilder } from '../lib/2d/polygones'
 import { segment } from '../lib/2d/segmentsVecteurs'
 import { texteParPositionEchelle } from '../lib/2d/textes'
 import { avance, ObjetLutin, tournerD, tournerG } from './2dLutin'

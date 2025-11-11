@@ -4,14 +4,14 @@ import {
   type Forme,
 } from '../../lib/2d/figures2d/listeFigures2d'
 import { fixeBordures } from '../../lib/2d/fixeBordures'
-import { point } from '../../lib/2d/points'
-import { vecteur } from '../../lib/2d/segmentsVecteurs'
+import { point } from '../../lib/2d/PointAbstrait'
 import { latex2d } from '../../lib/2d/textes'
 import {
   homothetie,
   projectionOrtho,
   rotation,
 } from '../../lib/2d/transformations'
+import { vecteur } from '../../lib/2d/Vecteur'
 import { propositionsQcm } from '../../lib/interactif/qcm'
 import { choice } from '../../lib/outils/arrayOutils'
 import { texteEnCouleurEtGras } from '../../lib/outils/embellissements'

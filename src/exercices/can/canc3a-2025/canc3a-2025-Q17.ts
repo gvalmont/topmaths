@@ -1,6 +1,6 @@
 import { fixeBordures } from '../../../lib/2d/fixeBordures'
 import { grille } from '../../../lib/2d/Grille'
-import { Point } from '../../../lib/2d/points'
+import { Point } from '../../../lib/2d/PointAbstrait'
 import { segment } from '../../../lib/2d/segmentsVecteurs'
 import { latex2d } from '../../../lib/2d/textes'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
@@ -29,7 +29,7 @@ export default class Can2025CM2Q17 extends ExerciceSimple {
 
     this.typeExercice = 'simple' // Cette ligne est très importante pour faire un exercice simple !
     this.nbQuestions = 1
-    this.optionsChampTexte = { texteApres: 'cm ' }
+    this.optionsChampTexte = { texteApres: '$\\text{ cm}$' }
     this.formatChampTexte = KeyboardType.clavierDeBase
   }
 
@@ -63,6 +63,6 @@ export default class Can2025CM2Q17 extends ExerciceSimple {
       objets,
     )
     this.reponse = texNombre(l2, 0)
-    this.correction = `Chaque carreau a une longueur de $${l1}\\div 5 = ${texNombre(l1 / 5, 0)}$ cm, ainsi la longueur du segment est  $${miseEnEvidence(this.reponse)}$ cm.`
+    this.correction = `Chaque carreau a une longueur de $${l1}\\div 5 = ${texNombre(l1 / 5, 0)}\\text{ cm}$, ainsi la longueur du segment est  $${miseEnEvidence(this.reponse)}\\text{ cm}$.`
   }
 }

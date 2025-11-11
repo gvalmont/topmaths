@@ -1,8 +1,8 @@
-import { combinaisonListesSansChangerOrdre } from '../../lib/outils/arrayOutils'
 import { infoMessage, lampeMessage } from '../../lib/format/message'
+import { combinaisonListesSansChangerOrdre } from '../../lib/outils/arrayOutils'
 import { numAlpha } from '../../lib/outils/outilString'
 import { listeDesDiviseurs } from '../../lib/outils/primalite'
-import { nombreAvecEspace, texNombre } from '../../lib/outils/texNombre'
+import { texNombre } from '../../lib/outils/texNombre'
 import { context } from '../../modules/context'
 import {
   machineMathsVideo,
@@ -20,7 +20,7 @@ export const titre = 'Fonctions : Notion et vocabulaire'
 
 /**
  * 3F1-act - Notion de fonction - vocabulaire
- * Lobjectif de revenir sur l'introduction de la notion de fonction et son vocabulaire
+ * L'objectif de revenir sur l'introduction de la notion de fonction et son vocabulaire
  * On base l'exercice sur des calculs simples de type périmètres, aires, double, triple, nombre de diviseurs
  * ATTENTION BUG SVG DONC LES ANIMATIONS SONT FILMEES A PARTIR DE CELLES GENEREES PAR LA FONCTION SVG_machine_maths() SOUS FIREFOX
  * DE FACON A AVOIR UN RENDU UNIFORME QUEL QUE SOIT LE NAVIGATEUR ON REND LES ANIMATIONS PAR DES VIDEOS
@@ -209,7 +209,7 @@ Ces machines sont appelées $\\textit{fonctions}$, on a l'habitude de leur donne
           if (context.isHtml) {
             texte +=
               numAlpha(j) +
-              ` Que renvoie la machine si le côté vaut  ${x}  cm ? Formuler la réponse `
+              ` Que renvoie la machine si le côté vaut  $${x}\\text{ cm}$ ? Formuler la réponse `
             texte +=
               katexPopup(
                 'avec le mot image',
@@ -218,15 +218,15 @@ Ces machines sont appelées $\\textit{fonctions}$, on a l'habitude de leur donne
               ) + '<br>'
             texteCorr =
               numAlpha(j) +
-              ` Si le côté vaut ${x} cm alors la machine renvoie le périmètre d'un carré de côté ${x} cm, c'est-à-dire $${x}+${x}+${x}+${x} = 4\\times ${x} = ${4 * x}$ cm.<br>`
+              ` Si le côté vaut $${x}\\text{ cm}$ alors la machine renvoie le périmètre d'un carré de côté $${x}\\text{ cm}$, c'est-à-dire $${x}+${x}+${x}+${x} = 4\\times ${x} = ${4 * x}\\text{ cm}$.<br>`
             texteCorr += `On dit que ${4 * x} est l'image de ${x} par la fonction $f$.<br>`
             j++ // incrémente la sous question
           } else {
             // sortie LaTeX
             texte += '\\begin{enumerate}[itemsep=1em]'
-            texte += `\\item Que renvoie la machine si le côté vaut  ${x}  cm ? Formuler la réponse avec le mot \\textbf{image} \\footnote{\\textbf{Image :} La valeur du périmètre est l'image de la valeur du côté}`
+            texte += `\\item Que renvoie la machine si le côté vaut  $${x}\\text{ cm}$ ? Formuler la réponse avec le mot \\textbf{image} \\footnote{\\textbf{Image :} La valeur du périmètre est l'image de la valeur du côté}`
             texteCorr = '\\begin{enumerate}[itemsep=1em]'
-            texteCorr += `\\item Si le côté vaut ${x} cm alors la machine renvoie le périmètre d'un carré de côté ${x} cm, c'est-à-dire $${x}+${x}+${x}+${x} = 4\\times ${x} = ${4 * x}$ cm.<br>`
+            texteCorr += `\\item Si le côté vaut $${x}\\text{ cm}$ alors la machine renvoie le périmètre d'un carré de côté $${x}\\text{ cm}$, c'est-à-dire $${x}+${x}+${x}+${x} = 4\\times ${x} = ${4 * x}\\text{ cm}$.<br>`
             texteCorr += `On dit que ${4 * x} est l'image de ${x} par la fonction $f$.`
           }
 
@@ -235,7 +235,7 @@ Ces machines sont appelées $\\textit{fonctions}$, on a l'habitude de leur donne
           if (context.isHtml) {
             texte +=
               numAlpha(j) +
-              ` Combien vaut le côté si la machine renvoie  ${4 * y} cm ? Formuler la réponse `
+              ` Combien vaut le côté si la machine renvoie  $${4 * y}\\text{ cm}$ ? Formuler la réponse `
             texte +=
               katexPopup(
                 'avec le mot antécédent.',
@@ -244,13 +244,13 @@ Ces machines sont appelées $\\textit{fonctions}$, on a l'habitude de leur donne
               ) + '<br>'
             texteCorr +=
               numAlpha(j) +
-              ` Si la machine renvoie un périmètre de ${4 * y} cm alors le côté du carré vaut $${4 * y}\\div 4 = ${y}$ cm.<br>`
+              ` Si la machine renvoie un périmètre de $${4 * y}\\text{ cm}$ alors le côté du carré vaut $${4 * y}\\div 4 = ${y}\\text{ cm}$.<br>`
             texteCorr += `On dit que ${y} est <b>un</b> antécédent de ${4 * y} par la fonction $f$.<br>`
             j++ // incrémente la sous question
           } else {
             // sortie LaTeX
-            texte += `\\item Combien vaut le côté si la machine renvoie  ${4 * y} cm ? Formuler la réponse avec le mot \\textbf{antécédent} \\footnote{\\textbf{Antécédent :} Un antécédent de la valeur d'un périmètre est une valeur du côté qui a pour image ce périmètre}`
-            texteCorr += `\\item Si la machine renvoie un périmètre de ${4 * y} cm alors le côté du carré vaut $${4 * y}\\div 4 = ${y}$ cm.<br>`
+            texte += `\\item Combien vaut le côté si la machine renvoie  $${4 * y}\\text{ cm}$ ? Formuler la réponse avec le mot \\textbf{antécédent} \\footnote{\\textbf{Antécédent :} Un antécédent de la valeur d'un périmètre est une valeur du côté qui a pour image ce périmètre}`
+            texteCorr += `\\item Si la machine renvoie un périmètre de $${4 * y}\\text{ cm}$ alors le côté du carré vaut $${4 * y}\\div 4 = ${y}\\text{ cm}$.<br>`
             texteCorr += `On dit que ${y} est \\textbf{un} antécédent de ${4 * y} par la fonction $f$.`
           }
 
@@ -284,7 +284,8 @@ Ces machines sont appelées $\\textit{fonctions}$, on a l'habitude de leur donne
           // sous question d/
           if (context.isHtml) {
             texte +=
-              numAlpha(j) + ' Que renvoie la machine si le côté vaut $x$ cm ?'
+              numAlpha(j) +
+              ' Que renvoie la machine si le côté vaut $x\\text{ cm}$ ?'
             texte += ' &Eacute;crire la réponse sous la forme '
             texte +=
               katexPopup(
@@ -300,7 +301,8 @@ Ces machines sont appelées $\\textit{fonctions}$, on a l'habitude de leur donne
             j++ // incrémente la sous question
           } else {
             // sortie LaTeX
-            texte += '\\item   Que renvoie la machine si le côté vaut $x$ cm ?'
+            texte +=
+              '\\item   Que renvoie la machine si le côté vaut $x\\text{ cm}$ ?'
             texteCorr +=
               '\\item  Si le côté vaut $x$ la machine renvoie $x+x+x+x$ ce qui est équivalent à $4\\times x$ .'
             texte +=
@@ -411,7 +413,7 @@ Ces machines sont appelées $\\textit{fonctions}$, on a l'habitude de leur donne
               'carr\\acute{e}\\,de',
               `c\\hat{o}t\\acute{e}\\,${x}\\,cm`,
               'Aire',
-              '???\\,cm^2',
+              '???\\text{ cm}^2',
             )
           }
 
@@ -419,7 +421,7 @@ Ces machines sont appelées $\\textit{fonctions}$, on a l'habitude de leur donne
           if (context.isHtml) {
             texte +=
               numAlpha(j) +
-              ` Que renvoie la machine si le côté vaut  ${x}  cm ? Formuler la réponse `
+              ` Que renvoie la machine si le côté vaut  $${x}\\text{ cm}$ ? Formuler la réponse `
             texte +=
               katexPopup(
                 'avec le mot image.',
@@ -428,18 +430,18 @@ Ces machines sont appelées $\\textit{fonctions}$, on a l'habitude de leur donne
               ) + '<br>'
             texteCorr =
               numAlpha(j) +
-              ` Si le côté vaut ${x} cm alors la machine renvoie l'aire d'un carré de côté ${x} cm, c'est-à-dire $${x}\\times ${x}=${texNombre(x * x)}\\,cm^2$.<br>`
-            texteCorr += `On dit que ${nombreAvecEspace(x * x)} est l'image de ${x} par la fonction g.<br>`
+              ` Si le côté vaut $${x}\\text{ cm}$ alors la machine renvoie l'aire d'un carré de côté $${x}\\text{ cm}$, c'est-à-dire $${x}\\times ${x}=${texNombre(x * x)}\\text{ cm}^2$.<br>`
+            texteCorr += `On dit que $${texNombre(x * x)}$ est l'image de $${x}$ par la fonction $g$.<br>`
             j++ // incrémente la sous question
           } else {
             // sortie LaTeX
             texte += '\\begin{enumerate}[itemsep=1em]'
-            texte += `\\item  Que renvoie la machine si le côté vaut  ${x}  cm ? Formuler la réponse `
+            texte += `\\item  Que renvoie la machine si le côté vaut $${x}\\text{ cm}$ ? Formuler la réponse `
             texte +=
               "avec le mot \\textbf{image} \\footnote{\\textbf{Image :} La valeur de l'aire est l'image de la valeur du côté.}"
             texteCorr = '\\begin{enumerate}[itemsep=1em]'
-            texteCorr += `\\item Si le côté vaut ${x} cm alors la machine renvoie l'aire d'un carré de côté ${x} cm, c'est-à-dire $${x}\\times ${x}=${texNombre(x * x)}\\,cm^2$.<br>`
-            texteCorr += `On dit que ${nombreAvecEspace(x * x)} est l'image de ${x} par la fonction g.`
+            texteCorr += `\\item Si le côté vaut $${x}\\text{ cm}$ alors la machine renvoie l'aire d'un carré de côté $${x}\\text{ cm}$, c'est-à-dire $${x}\\times ${x}=${texNombre(x * x)}\\text{ cm}^2$.<br>`
+            texteCorr += `On dit que $${texNombre(x * x)}$ est l'image de ${x} par la fonction $g$.`
           }
 
           // sous question b/
@@ -447,7 +449,7 @@ Ces machines sont appelées $\\textit{fonctions}$, on a l'habitude de leur donne
           if (context.isHtml) {
             texte +=
               numAlpha(j) +
-              ` Combien vaut le côté si la machine renvoie  ${nombreAvecEspace(y * y)} cm<sup>2</sup> ? Formuler la réponse `
+              ` Combien vaut le côté si la machine renvoie  $${texNombre(y * y)}\\text{ cm}^2$ ? Formuler la réponse `
             texte +=
               katexPopup(
                 'avec le mot antécédent.',
@@ -456,16 +458,16 @@ Ces machines sont appelées $\\textit{fonctions}$, on a l'habitude de leur donne
               ) + '<br>'
             texteCorr +=
               numAlpha(j) +
-              ` Si la machine renvoie une aire de $${texNombre(y * y)}\\,cm^2$ alors le côté du carré vaut $\\sqrt{${texNombre(y * y)}}=${y}\\,cm$.<br>`
-            texteCorr += `On dit que ${y} est <b>un</b> antécédent de ${y * y} par la fonction g.<br>`
+              ` Si la machine renvoie une aire de $${texNombre(y * y)}\\text{ cm}^2$ alors le côté du carré vaut $\\sqrt{${texNombre(y * y)}}=${y}\\text{ cm}$.<br>`
+            texteCorr += `On dit que ${y} est <b>un</b> antécédent de ${y * y} par la fonction $g$.<br>`
             j++ // incrémente la sous question
           } else {
             // sortie LaTeX
-            texte += `\\item  Combien vaut la longueur du côté si la machine renvoie  ${nombreAvecEspace(y * y)} $cm^2$ ? Formuler la réponse `
+            texte += `\\item  Combien vaut la longueur du côté si la machine renvoie  $${texNombre(y * y)}\\text{ cm}^2$ ? Formuler la réponse `
             texte +=
               "avec le mot \\textbf{antécédent} \\footnote{\\textbf{Antécédent :} Un antécédent de la valeur d'une aire est une valeur du côté qui a pour image cette aire}"
-            texteCorr += `\\item Si la machine renvoie une aire de $${texNombre(y * y)}\\,cm^2$ alors le côté du carré vaut $\\sqrt{${texNombre(y * y)}}=${y}\\,cm$.<br>`
-            texteCorr += `On dit que ${y} est \\textbf{un} antécédent de ${nombreAvecEspace(y * y)} par la fonction g.`
+            texteCorr += `\\item Si la machine renvoie une aire de $${texNombre(y * y)}\\text{ cm}^2$ alors le côté du carré vaut $\\sqrt{${texNombre(y * y)}}=${y}\\text{ cm}$.<br>`
+            texteCorr += `On dit que ${y} est \\textbf{un} antécédent de $${texNombre(y * y)}$ par la fonction $g$.`
           }
 
           // sous question c/
@@ -482,47 +484,49 @@ Ces machines sont appelées $\\textit{fonctions}$, on a l'habitude de leur donne
               katexPopup(
                 '$\\mathbf{g(' + z + ')=\\ldots}$',
                 'Notation',
-                "4 a pour image 16 par la fonction g peut s'écrire <b>g(4)=16</b>",
+                "4 a pour image 16 par la fonction $g$ peut s'écrire <b>g(4)=16</b>",
               ) + '<br>'
             texteCorr +=
               numAlpha(j) +
-              ` L'image de ${z} par la fonction g vaut $g(${z})=${z}\\times ${z}=${texNombre(z * z)}$.<br>`
+              ` L'image de ${z} par la fonction $g$ vaut $g(${z})=${z}\\times ${z}=${texNombre(z * z)}$.<br>`
             j++ // incrémente la sous question
           } else {
             // sortie LaTeX
             texte += `\\item  Quelle est l'image de ${z} par la `
             texte +=
-              "\\textbf{fonction g} \\footnote{\\textbf{Vocabulaire :} \\textit{fonction} est le nom que l'on donne à ces machines mathématiques.}"
+              "\\textbf{fonction $g$} \\footnote{\\textbf{Vocabulaire :} \\textit{fonction} est le nom que l'on donne à ces machines mathématiques.}"
             texte += " ? \\'{E}crire la réponse sous la forme "
-            texte += `$\\mathbf{g(${z})=\\ldots}$ \\footnote{\\textbf{Notation :} 4 a pour image 16 par la fonction g peut s'écrire \\textbf{g(4)=16}}`
-            texteCorr += `\\item L'image de ${z} par la fonction g vaut $g(${z})=${z}\\times ${z}=${texNombre(z * z)}$.`
+            texte += `$\\mathbf{g(${z})=\\ldots}$ \\footnote{\\textbf{Notation :} 4 a pour image 16 par la fonction $g$ peut s'écrire \\textbf{g(4)=16}}`
+            texteCorr += `\\item L'image de ${z} par la fonction $g$ vaut $g(${z})=${z}\\times ${z}=${texNombre(z * z)}$.`
           }
 
           // sous question d/
           if (context.isHtml) {
             texte +=
-              numAlpha(j) + ' Que renvoie la machine si le côté vaut $x$ cm ?'
+              numAlpha(j) +
+              ' Que renvoie la machine si le côté vaut $x\\text{ cm}$ ?'
             texte += ' &Eacute;crire la réponse sous la forme '
             texte +=
               katexPopup(
                 '$\\mathbf{g(\\textbf{\\textit{x}})=\\ldots}$',
                 'Notation',
-                "4 a pour image 16 par la fonction g peut s'écrire <b>g(4)=16</b>",
+                "4 a pour image 16 par la fonction $g$ peut s'écrire <b>g(4)=16</b>",
               ) + '<br>'
             texteCorr +=
               numAlpha(j) +
               ' Si le côté vaut $x$ la machine renvoie $x\\times x$ ce qui est équivalent à $x^2$ .<br>'
             texteCorr +=
-              " L'image de $x$ par la fonction g vaut $x^2$ donc $g(x)=x^2$.<br>"
+              " L'image de $x$ par la fonction $g$ vaut $x^2$ donc $g(x)=x^2$.<br>"
             j++ // incrémente la sous question
           } else {
-            texte += '\\item  Que renvoie la machine si le côté vaut $x$ cm ?'
+            texte +=
+              '\\item  Que renvoie la machine si le côté vaut $x\\text{ cm}$ ?'
             texteCorr +=
               '\\item Si le côté vaut $x$ la machine renvoie $x\\times x$ ce qui est équivalent à $x^2$ .'
             texte +=
-              " \\'{E}crire la réponse sous la forme $\\mathbf{g(\\textbf{\\textit{x}})=\\ldots}$ \\footnote{\\textbf{Notation :} 4 a pour image 16 par la fonction g peut s'écrire $\\mathbf{g(4)=16}$}"
+              " \\'{E}crire la réponse sous la forme $\\mathbf{g(\\textbf{\\textit{x}})=\\ldots}$ \\footnote{\\textbf{Notation :} 4 a pour image 16 par la fonction $g$ peut s'écrire $\\mathbf{g(4)=16}$}"
             texteCorr +=
-              " L'image de $x$ par la fonction g vaut $x^2$ donc $g(x)=x^2$."
+              " L'image de $x$ par la fonction $g$ vaut $x^2$ donc $g(x)=x^2$."
           }
 
           // sous question e/
@@ -574,24 +578,24 @@ Ces machines sont appelées $\\textit{fonctions}$, on a l'habitude de leur donne
           if (context.isHtml) {
             texte +=
               numAlpha(j) +
-              ' Écrire maintenant la fonction g en utilisant la forme '
+              ' Écrire maintenant la fonction $g$ en utilisant la forme '
             texte += katexPopup(
               '$\\mathbf{g:\\textbf{\\textit{x}} \\longmapsto \\ldots}$',
               'Notation',
-              "4 a pour image 16 par la fonction g peut s'écrire $\\mathbf{g:4\\longmapsto 16}$",
+              "4 a pour image 16 par la fonction $g$ peut s'écrire $\\mathbf{g:4\\longmapsto 16}$",
             )
             texteCorr +=
               numAlpha(j) +
-              " L'image de $x$ par la fonction g vaut $x\\times x=x^2$ donc $g:x\\longmapsto x\\times x=x^2$.<br>"
+              " L'image de $x$ par la fonction $g$ vaut $x\\times x=x^2$ donc $g:x\\longmapsto x\\times x=x^2$.<br>"
             j++ // incrémente la sous question
           } else {
             // sortie LaTeX
             texte +=
-              '\\item  Écrire maintenant la fonction g en utilisant la forme '
+              '\\item  Écrire maintenant la fonction $g$ en utilisant la forme '
             texte +=
-              "$\\mathbf{g:\\textbf{\\textit{x}} \\longmapsto \\ldots}$ \\footnote{\\textbf{Notation :} 4 a pour image 16 par la fonction g peut s'écrire $\\mathbf{g:4\\longmapsto 16}$'}"
+              "$\\mathbf{g:\\textbf{\\textit{x}} \\longmapsto \\ldots}$ \\footnote{\\textbf{Notation :} 4 a pour image 16 par la fonction $g$ peut s'écrire $\\mathbf{g:4\\longmapsto 16}$'}"
             texteCorr +=
-              "\\item L'image de $x$ par la fonction g vaut $x\\times x=x^2$ donc $g:x\\longmapsto x\\times x=x^2$."
+              "\\item L'image de $x$ par la fonction $g$ vaut $x\\times x=x^2$ donc $g:x\\longmapsto x\\times x=x^2$."
             texte += '\\end{enumerate}'
             texteCorr += '\\end{enumerate}'
           }
@@ -634,7 +638,7 @@ Ces machines sont appelées $\\textit{fonctions}$, on a l'habitude de leur donne
             texteCorr =
               numAlpha(j) +
               ` Si le nombre de départ vaut ${x} alors la machine renvoie $3\\times${x} + 1 = ${3 * x + 1}$<br>`
-            texteCorr += `On dit que ${3 * x + 1} est l'image de ${x} par la fonction g.<br>`
+            texteCorr += `On dit que ${3 * x + 1} est l'image de ${x} par la fonction $g$.<br>`
             j++ // incrémente la sous question
           } else {
             // sortie LaTeX
@@ -644,7 +648,7 @@ Ces machines sont appelées $\\textit{fonctions}$, on a l'habitude de leur donne
               "avec le mot \\textbf{image} \\footnote{\\textbf{Image :} L'image de la valeur à la sortie de la machine.}"
             texteCorr = '\\begin{enumerate}[itemsep=1em]'
             texteCorr += `\\item Si le nombre de départ vaut ${x} alors la machine renvoie $3\\times${x} + 1 = ${3 * x + 1}$<br>`
-            texteCorr += `On dit que ${3 * x + 1} est l'image de ${x} par la fonction g.`
+            texteCorr += `On dit que ${3 * x + 1} est l'image de ${x} par la fonction $g$.`
           }
 
           // sous question b/
@@ -662,7 +666,7 @@ Ces machines sont appelées $\\textit{fonctions}$, on a l'habitude de leur donne
             texteCorr +=
               numAlpha(j) +
               ` Si la machine renvoie $${3 * y + 1}$ alors le nombre de départ vaut $(${3 * y + 1}-1)\\div 3=${y}$<br>`
-            texteCorr += `On dit que ${y} est <b>un</b> antécédent de ${3 * y + 1} par la fonction g.<br>`
+            texteCorr += `On dit que ${y} est <b>un</b> antécédent de ${3 * y + 1} par la fonction $g$.<br>`
             j++ // incrémente la sous question
           } else {
             // sortie LaTeX
@@ -670,7 +674,7 @@ Ces machines sont appelées $\\textit{fonctions}$, on a l'habitude de leur donne
             texte +=
               "avec le mot \\textbf{antécédent} \\footnote{\\textbf{Antécédent :} Un antécédent d'une valeur de sortie est une valeur du nombre de départ dont l'image est ce nombre de sortie.}"
             texteCorr += `\\item Si la machine renvoie $${3 * y + 1}$ alors le nombre de départ vaut $(${3 * y + 1}-1)\\div 3=${y}$<br>`
-            texteCorr += `On dit que ${y} est \\textbf{un} antécédent de ${3 * y + 1} par la fonction g.`
+            texteCorr += `On dit que ${y} est \\textbf{un} antécédent de ${3 * y + 1} par la fonction $g$.`
           }
 
           // sous question c/

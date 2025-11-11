@@ -15,7 +15,7 @@ export const amcType = 'AMCNum'
 export const uuid = '3eae0'
 
 export const refs = {
-  'fr-fr': ['BP2AutoQ2', '5N15-2', '3AutoG06-1'],
+  'fr-fr': ['5N15-2', 'BP2AutoQ2', '3AutoG06-1'],
   'fr-2016': ['6N13', 'BP2AutoQ2'],
   'fr-ch': ['10GM3-7'],
 }

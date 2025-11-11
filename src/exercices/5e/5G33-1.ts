@@ -1,12 +1,13 @@
-import { codageAngleDroit } from '../../lib/2d/angles'
+import { codageAngleDroit } from '../../lib/2d/CodageAngleDroit'
 import {
   droite,
   droiteParPointEtPente,
   droiteParPointEtPerpendiculaire,
   labelOnLine,
 } from '../../lib/2d/droites'
-import { point, pointSurDroite } from '../../lib/2d/points'
+import { point } from '../../lib/2d/PointAbstrait'
 import { Latex2d } from '../../lib/2d/textes'
+import { pointSurDroite } from '../../lib/2d/utilitairesPoint'
 import { combinaisonListes, shuffle } from '../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { context } from '../../modules/context'

@@ -1,5 +1,8 @@
 // Cette liste d'imports se construit seul
-import { arrondi } from '../../lib/outils/nombres'
+import { miseEnEvidence } from '../../lib/outils/embellissements'
+import { abs, arrondi } from '../../lib/outils/nombres'
+import { sp } from '../../lib/outils/outilString'
+import { texNombre } from '../../lib/outils/texNombre'
 import { randint } from '../../modules/outils'
 import ExerciceSimple from '../ExerciceSimple'
 
@@ -49,15 +52,18 @@ export default class NomExercice extends ExerciceSimple {
     const x = randint(10, 80) // pourcentage BP ?
     const coeffX = randint(-1, 1, [0]) // baisse ou augmentation
     const C = 1 + (coeffX * x) / 100 // coeff mult global
-    const typeEvol = coeffX < 0 ? 'baisse' : 'augmente' // pour l'enoncé
-    const texte1 =
-      `Au bout de $${n}$ heure(s) ` +
+    const typeEvolVerbe = coeffX < 0 ? 'baisse' : 'augmente' // pour l'enoncé
+    const typeEvolNom = coeffX < 0 ? 'baisse' : 'augmentation' // pour l'enoncé
+    let texte1 = `Au bout de $${n}$ `
+    texte1 += n > 1 ? 'heures, ' : 'heure, '
+    texte1 +=
       obj +
       ` ` +
-      typeEvol +
+      typeEvolVerbe +
       ` de $${x}\\,\\%$.<br> Quel est le taux moyen d'évolution par minute de ` +
       obj +
-      ` ?<br><br> Arrondir à $0,1 \\%$ près.<br>`
+      ` ?<br>`
+    if (!this.interactif) texte1 += '<br> Arrondir à $0,1 \\%$ près.'
     const Cm = C ** (1 / k) // coeff mult moyen
     const tm = Cm - 1 // taux moyen
     const xm = tm * 100 // pourcentage moyen
@@ -65,25 +71,28 @@ export default class NomExercice extends ExerciceSimple {
     const tmArrondi1 = arrondi(tm, 3)
     this.question = texte1
     this.reponse = xmArrondi1
-    this.optionsChampTexte = { texteApres: '%' }
+    this.optionsChampTexte = {
+      texteAvant: `Taux moyen d'évolution par minute de ${obj} arrondi à $0,1 \\%$ près : `,
+      texteApres: '%',
+    }
     const textcmGlobal =
       coeffX > 0
-        ? `$C = 1 + \\dfrac{${x}}{100} = ${C.toLocaleString('fr-FR')}$.`
-        : `$C = 1 - \\dfrac{${x}}{100} = ${C.toLocaleString('fr-FR')}$.`
+        ? `$C = 1 + \\dfrac{${x}}{100} = ${texNombre(C)}$.`
+        : `$C = 1 - \\dfrac{${x}}{100} = ${texNombre(C)}$.`
 
     let textCorr = `Soit $t_m$ le taux moyen d'évolution par minute.<br>`
-    textCorr += `Il s'agit d'une ${typeEvol}.`
+    textCorr += `Il s'agit d'une ${typeEvolNom}.`
     textCorr +=
       ` Donc, le coefficient multiplicateur global vaut ` + textcmGlobal
-    textCorr += `<br>Dans $${n}$ heure(s) il y a $${n} \\times 60 = ${k}$ minutes, donc on résout l'équation suivante d'inconnue $t_m$ : <br><br>`
+    textCorr += `<br>Dans $${n}$ ${n > 1 ? 'heures' : 'heure'}, il y a ${n === 1 ? '$60$' : `$${n} \\times 60$` + ' minutes ' + `$= ${k}$`} minutes, donc on résout l'équation suivante d'inconnue $t_m$ : <br><br>`
     textCorr += ` $\\qquad \\; \\; \\, (1+t_m)^{${k}}=C$<br>`
-    textCorr += ` $\\iff (1+t_m)^{${k}}=${C.toLocaleString('fr-FR')}$<br>`
-    textCorr += ` $\\iff 1+t_m= ${C.toLocaleString('fr-FR')}^{\\frac{1}{${k}}}$ car $1+t_m>0$<br> `
-    textCorr += ` $\\iff t_m= ${C.toLocaleString('fr-FR')}^{\\frac{1}{${k}}}-1$<br>`
-    textCorr += ` $\\iff t_m \\approx ${tmArrondi1.toLocaleString('fr-FR')}= \\dfrac{${xmArrondi1.toLocaleString('fr-FR')}}{100}$ <br>`
+    textCorr += ` $\\iff (1+t_m)^{${k}}=${texNombre(C)}$<br>`
+    textCorr += ` $\\iff 1+t_m= ${texNombre(C)}^{\\frac{1}{${k}}}$ car $1+t_m>0$<br> `
+    textCorr += ` $\\iff t_m= ${texNombre(C)}^{\\frac{1}{${k}}}-1$<br>`
+    textCorr += ` $\\iff t_m \\approx ${texNombre(tmArrondi1)}= ${xmArrondi1 < 0 ? '-' : ''}\\dfrac{${texNombre(abs(xmArrondi1))}}{100}$ <br>`
     textCorr += `Donc le taux moyen d'évolution par minute de `
     textCorr += obj
-    textCorr += ` est d'environ $${xmArrondi1.toLocaleString('fr-FR')} \\%$.`
+    textCorr += ` est d'environ $${miseEnEvidence(texNombre(xmArrondi1))}${sp()}\\%$.`
     this.correction = textCorr
 
     // Quel est le taux mensuel moyen d'évolution de`

@@ -1,13 +1,13 @@
-import { angle, codageAngle } from '../../lib/2d/angles'
+import { codageAngle } from '../../lib/2d/angles'
 import { droite, droiteParPointEtParallele } from '../../lib/2d/droites'
-import {
-  point,
-  pointIntersectionDD,
-  pointSurSegment,
-} from '../../lib/2d/points'
-import { longueur } from '../../lib/2d/segmentsVecteurs'
+import { point } from '../../lib/2d/PointAbstrait'
 import { labelPoint } from '../../lib/2d/textes'
 import { rotation, similitude } from '../../lib/2d/transformations'
+import { angle, longueur } from '../../lib/2d/utilitairesGeometriques'
+import {
+  pointIntersectionDD,
+  pointSurSegment,
+} from '../../lib/2d/utilitairesPoint'
 import { choisitLettresDifferentes } from '../../lib/outils/aleatoires'
 import { combinaisonListes } from '../../lib/outils/arrayOutils'
 import {
@@ -17,11 +17,9 @@ import {
 import { arrondi } from '../../lib/outils/nombres'
 import { numAlpha } from '../../lib/outils/outilString'
 import { context } from '../../modules/context'
-import {
-  mathalea2d,
-  type NestedObjetMathalea2dArray,
-} from '../../modules/mathalea2d'
+import { mathalea2d } from '../../modules/mathalea2d'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
+import type { NestedObjetMathalea2dArray } from '../../types/2d'
 import Exercice from '../Exercice'
 
 export const titre = "Déterminer des angles en utilisant les cas d'égalité"
@@ -280,7 +278,6 @@ export default class EgaliteDAngles extends Exercice {
               propositions: [
                 {
                   type: 'AMCOpen',
-                  // @ts-expect-error
                   propositions: [
                     {
                       texte: '',
@@ -295,7 +292,6 @@ export default class EgaliteDAngles extends Exercice {
                 },
                 {
                   type: 'AMCNum',
-                  // @ts-expect-error
                   propositions: [
                     {
                       texte: '',
@@ -314,7 +310,6 @@ export default class EgaliteDAngles extends Exercice {
                 },
                 {
                   type: 'AMCNum',
-                  // @ts-expect-error
                   propositions: [
                     {
                       texte: '',
@@ -332,7 +327,7 @@ export default class EgaliteDAngles extends Exercice {
                 },
                 {
                   type: 'AMCOpen',
-                  // @ts-expect-error
+
                   propositions: [
                     {
                       texte: '',
@@ -346,7 +341,7 @@ export default class EgaliteDAngles extends Exercice {
                 },
                 {
                   type: 'AMCNum',
-                  // @ts-expect-error
+
                   propositions: [
                     {
                       texte: '',
@@ -365,7 +360,7 @@ export default class EgaliteDAngles extends Exercice {
                 },
                 {
                   type: 'AMCNum',
-                  // @ts-expect-error
+
                   propositions: [
                     {
                       texte: '',
@@ -383,7 +378,7 @@ export default class EgaliteDAngles extends Exercice {
                 },
                 {
                   type: 'AMCOpen',
-                  // @ts-expect-error
+
                   propositions: [
                     {
                       texte: '',
@@ -397,7 +392,7 @@ export default class EgaliteDAngles extends Exercice {
                 },
                 {
                   type: 'AMCNum',
-                  // @ts-expect-error
+
                   propositions: [
                     {
                       texte: '',

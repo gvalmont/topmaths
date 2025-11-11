@@ -1,7 +1,9 @@
-import { point } from '../../../lib/2d/points'
+import { point } from '../../../lib/2d/PointAbstrait'
 import { repere } from '../../../lib/2d/reperes'
-import { segment, vecteur } from '../../../lib/2d/segmentsVecteurs'
+import { representantNomme } from '../../../lib/2d/representantVecteur'
+import { segment } from '../../../lib/2d/segmentsVecteurs'
 import { texteParPosition } from '../../../lib/2d/textes'
+import { vecteur } from '../../../lib/2d/Vecteur'
 import { handleAnswers } from '../../../lib/interactif/gestionInteractif'
 import { remplisLesBlancs } from '../../../lib/interactif/questionMathLive'
 import { choice } from '../../../lib/outils/arrayOutils'
@@ -70,8 +72,8 @@ export default class LectureGraphiqueVecteurRepere extends Exercice {
       AB = segment(A, B, 'blue', '->')
       AB.epaisseur = 2
       vAB = vecteur(A, B)
-      o = texteParPosition('O', -0.3, -0.3, 'milieu', 'black', 1)
-      nomvAB = vAB.representantNomme(A, `${vec}`, 1.5, 'blue')
+      o = texteParPosition('O', -0.3, -0.3, 0, 'black', 1)
+      nomvAB = representantNomme(vAB, A, `${vec}`, 1.5, 'blue')
       r1 = repere({
         xMin: xmin,
         xMax: xmax,

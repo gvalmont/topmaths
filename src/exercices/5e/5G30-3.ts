@@ -1,23 +1,15 @@
-import {
-  angleOriente,
-  codageAngle,
-  CodageAngleDroit,
-} from '../../lib/2d/angles'
+import { codageAngle } from '../../lib/2d/angles'
 import {
   Droite,
   droite,
   droiteParPointEtPente,
   droiteParPointEtPerpendiculaire,
 } from '../../lib/2d/droites'
-import {
-  Point,
-  point,
-  pointSurDroite,
-  TracePoint,
-  tracePoint,
-} from '../../lib/2d/points'
-import { DemiDroite, demiDroite, longueur } from '../../lib/2d/segmentsVecteurs'
+import { Point, point } from '../../lib/2d/PointAbstrait'
+import { tracePoint } from '../../lib/2d/TracePoint'
 import { rotation, translation2Points } from '../../lib/2d/transformations'
+import { angleOriente, longueur } from '../../lib/2d/utilitairesGeometriques'
+import { pointSurDroite } from '../../lib/2d/utilitairesPoint'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { choixDeroulant } from '../../lib/interactif/questionListeDeroulante'
 import { mathalea2d } from '../../modules/mathalea2d'
@@ -29,7 +21,10 @@ import {
 import Exercice from '../Exercice'
 
 import { number } from 'mathjs'
-import type { CodageAngle } from '../../lib/2d/codages'
+import type { CodageAngle } from '../../lib/2d/CodageAngle'
+import { CodageAngleDroit } from '../../lib/2d/CodageAngleDroit'
+import { demiDroite, type DemiDroite } from '../../lib/2d/DemiDroite'
+import type { TracePoint } from '../../lib/2d/TracePoint'
 import { bleuMathalea, vertMathalea } from '../../lib/colors'
 import { choice } from '../../lib/outils/arrayOutils'
 import { texteEnCouleurEtGras } from '../../lib/outils/embellissements'
@@ -170,7 +165,7 @@ export default class VocabulaireAngles extends Exercice {
 
       const tabAngles: [
         CodageAngle | CodageAngleDroit,
-        CodageAngle | CodageAngleDroit | Point | DemiDroite,
+        CodageAngle | CodageAngleDroit | Point | DemiDroite | TracePoint,
         CodageAngle | CodageAngleDroit,
       ][] = []
       const choixQuestion = number(typesDeQuestionsDisponibles[i]) - 1
@@ -1232,12 +1227,7 @@ export default class VocabulaireAngles extends Exercice {
       const choixPossibilitesAngles = range(tabAngles.length - 1)
       const choixAngle = choice(choixPossibilitesAngles)
       const ang1 = tabAngles[choixAngle][0]
-      let objet2 = tabAngles[choixAngle][1] as
-        | Point
-        | CodageAngle
-        | CodageAngleDroit
-        | DemiDroite
-        | TracePoint
+      let objet2 = tabAngles[choixAngle][1]
       if (
         choixQuestion === 5 &&
         !(objet2 instanceof Point) &&

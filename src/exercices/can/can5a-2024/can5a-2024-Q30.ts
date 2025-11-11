@@ -1,10 +1,11 @@
-import { codageAngleDroit } from '../../../lib/2d/angles'
-import { codageSegment } from '../../../lib/2d/codages'
+import { codageAngleDroit } from '../../../lib/2d/CodageAngleDroit'
+import { codageSegment } from '../../../lib/2d/CodageSegment'
 import { colorToLatexOrHTML } from '../../../lib/2d/colorToLatexOrHtml'
-import { milieu, point } from '../../../lib/2d/points'
+import { point } from '../../../lib/2d/PointAbstrait'
 import { polygone } from '../../../lib/2d/polygones'
 import { segment } from '../../../lib/2d/segmentsVecteurs'
 import { labelPoint, texteParPosition } from '../../../lib/2d/textes'
+import { milieu } from '../../../lib/2d/utilitairesPoint'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { sp } from '../../../lib/outils/outilString'
@@ -62,7 +63,7 @@ export default class NomExercice extends ExerciceSimple {
     const code3 = codageSegment(D, E, '||')
     poly.couleurDeRemplissage = colorToLatexOrHTML('lightgray')
     const d = texteParPosition(
-      `${c} cm`,
+      `$${c}\\text{ cm}$`,
       milieu(A, B).x,
       milieu(A, B).y - 0.5,
       0,
@@ -72,7 +73,7 @@ export default class NomExercice extends ExerciceSimple {
       false,
     )
     const e = texteParPosition(
-      `${b} cm`,
+      `$${b}\\text{ cm}$`,
       milieu(B, C).x + 1,
       milieu(B, C).y,
       0,
@@ -108,9 +109,9 @@ export default class NomExercice extends ExerciceSimple {
         polygone([A, B, C, E]),
       )
       this.question += "Quelle est l'aire de la figure grisée ? "
-      this.correction = `L'aire du rectangle  est : $8\\text{ cm}\\times 4\\text{ cm}=32$ cm$^2$.<br>
-      L'aire du triangle  est : $\\dfrac{4\\text{ cm}\\times 4\\text{ cm}}{2}=8$ cm$^2$.<br>
-      On en déduit que l'aire du polygone grisé est : $32\\text{ cm}^2-8\\text{ cm}^2=${miseEnEvidence(texNombre(reponse, 1))}$ cm$^2$.`
+      this.correction = `L'aire du rectangle  est : $8\\text{ cm}\\times 4\\text{ cm}=32\\text{ cm}^2$.<br>
+      L'aire du triangle  est : $\\dfrac{4\\text{ cm}\\times 4\\text{ cm}}{2}=8\\text{ cm}^2$.<br>
+      On en déduit que l'aire du polygone grisé est : $32\\text{ cm}^2-8\\text{ cm}^2=${miseEnEvidence(texNombre(reponse, 1))}\\text{ cm}^2$.`
     } else {
       reponse = b * c - f
       this.question = mathalea2d(
@@ -136,17 +137,17 @@ export default class NomExercice extends ExerciceSimple {
         segmentEA,
       )
       this.question += "L'aire de la figure grisée est : "
-      this.correction = `L'aire du rectangle $ABCD$ est : $${b}\\text{ cm}\\times ${c}\\text{ cm}=${b * c}$ cm$^2$.<br>
-      L'aire du triangle $AED$ est : $\\dfrac{${a}\\text{ cm}\\times ${b}\\text{ cm}}{2}=${texNombre(f, 1)}$ cm$^2$.<br>
-      On en déduit que l'aire du polygone grisé est : $${b * c}\\text{ cm}^2-${texNombre(f, 1)}\\text{ cm}^2=${miseEnEvidence(texNombre(reponse, 1))}$ cm$^2$.`
+      this.correction = `L'aire du rectangle $ABCD$ est : $${b}\\text{ cm}\\times ${c}\\text{ cm}=${b * c}\\text{ cm}^2$.<br>
+      L'aire du triangle $AED$ est : $\\dfrac{${a}\\text{ cm}\\times ${b}\\text{ cm}}{2}=${texNombre(f, 1)}\\text{ cm}^2$.<br>
+      On en déduit que l'aire du polygone grisé est : $${b * c}\\text{ cm}^2-${texNombre(f, 1)}\\text{ cm}^2=${miseEnEvidence(texNombre(reponse, 1))}\\text{ cm}^2$.`
     }
     this.reponse = reponse.toFixed(1)
     this.canEnonce = this.question
-    this.canReponseACompleter = '$\\ldots$ cm$^2$'
+    this.canReponseACompleter = '$\\ldots\\text{ cm}^2$'
     if (this.interactif) {
-      this.optionsChampTexte = { texteApres: 'cm$^2$' }
+      this.optionsChampTexte = { texteApres: '$\\text{cm}^2$' }
     } else {
-      this.question += sp(5) + ' $\\ldots $ cm$^2$'
+      this.question += sp(5) + ' $\\ldots \\text{ cm}^2$'
     }
   }
 }

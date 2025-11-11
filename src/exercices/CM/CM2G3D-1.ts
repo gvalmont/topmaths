@@ -1,18 +1,20 @@
-import { codageAngleDroit } from '../../lib/2d/angles'
+import { afficheLongueurSegment } from '../../lib/2d/afficheLongueurSegment'
 import { cercle } from '../../lib/2d/cercle'
-import { afficheLongueurSegment, texteSurSegment } from '../../lib/2d/codages'
+import { codageAngleDroit } from '../../lib/2d/CodageAngleDroit'
 import { droite, droiteParPointEtPerpendiculaire } from '../../lib/2d/droites'
+import { point } from '../../lib/2d/PointAbstrait'
+import { polygone } from '../../lib/2d/polygones'
+import { polygoneRegulier } from '../../lib/2d/polygonesParticuliers'
+import { segment } from '../../lib/2d/segmentsVecteurs'
+import { labelPoint } from '../../lib/2d/textes'
+import { texteSurSegment } from '../../lib/2d/texteSurSegment'
+import { tracePoint } from '../../lib/2d/TracePoint'
 import {
   milieu,
-  point,
   pointAdistance,
   pointIntersectionCC,
   pointIntersectionLC,
-  tracePoint,
-} from '../../lib/2d/points'
-import { polygone, polygoneRegulier } from '../../lib/2d/polygones'
-import { segment } from '../../lib/2d/segmentsVecteurs'
-import { labelPoint } from '../../lib/2d/textes'
+} from '../../lib/2d/utilitairesPoint'
 import { vide2d } from '../../lib/2d/Vide2d'
 import { texteEnCouleur } from '../../lib/outils/embellissements'
 import { creerNomDePolygone } from '../../lib/outils/outilString'
@@ -778,19 +780,19 @@ export default class TracerQuadrilatèresParticuliers extends Exercice {
 
       texte = `Construire le ${naturePoly} $${nomPoly}$`
       if (typeDeQuestion === 'Rectangle' || typeDeQuestion === 'Carré')
-        texte += ` avec $${A.nom + B.nom} = ${texNombre(segment(A, B).longueur, 1)}~\\text{cm}$`
+        texte += ` avec $${A.nom + B.nom} = ${texNombre(segment(A, B).longueur, 1)}\\text{ cm}$`
       if (typeDeQuestion === 'Rectangle')
-        texte += ` et $${B.nom + C.nom} = ${texNombre(segment(B, C).longueur, 1)}~\\text{cm}$`
+        texte += ` et $${B.nom + C.nom} = ${texNombre(segment(B, C).longueur, 1)}\\text{ cm}$`
       if (typeDeQuestion === 'Losange')
-        texte += ` avec $${A.nom + B.nom} = ${texNombre(segment(A, B).longueur, 1)}~\\text{cm}$ et $${A.nom + C.nom} = ${texNombre(segment(A, C).longueur, 1)}~\\text{cm}$`
+        texte += ` avec $${A.nom + B.nom} = ${texNombre(segment(A, B).longueur, 1)}\\text{ cm}$ et $${A.nom + C.nom} = ${texNombre(segment(A, C).longueur, 1)}\\text{ cm}$`
       if (typeDeQuestion === 'Losange2diag')
-        texte += ` avec $${A.nom + C.nom} = ${texNombre(segment(A, C).longueur, 1)}~\\text{cm}$ et $${B.nom + D.nom} = ${texNombre(segment(B, D).longueur, 1)}~\\text{cm}$`
+        texte += ` avec $${A.nom + C.nom} = ${texNombre(segment(A, C).longueur, 1)}\\text{ cm}$ et $${B.nom + D.nom} = ${texNombre(segment(B, D).longueur, 1)}\\text{ cm}$`
       if (typeDeQuestion === 'Carré1diag')
-        texte += ` avec $${A.nom + C.nom} = ${texNombre(segment(A, C).longueur, 1)}~\\text{cm}$`
+        texte += ` avec $${A.nom + C.nom} = ${texNombre(segment(A, C).longueur, 1)}\\text{ cm}$`
       if (typeDeQuestion === 'Rectangle1diag')
-        texte += ` avec $${A.nom + B.nom} = ${texNombre(segment(A, B).longueur, 1)}~\\text{cm}$ et $${A.nom + C.nom} = ${texNombre(segment(A, C).longueur, 1)}~\\text{cm}$`
+        texte += ` avec $${A.nom + B.nom} = ${texNombre(segment(A, B).longueur, 1)}\\text{ cm}$ et $${A.nom + C.nom} = ${texNombre(segment(A, C).longueur, 1)}\\text{ cm}$`
       if (typeDeQuestion === 'Parallélogramme')
-        texte += ` avec $${A.nom + C.nom} = ${texNombre(segment(A, C).longueur, 1)}~\\text{cm}$, $${A.nom + D.nom} = ${texNombre(segment(A, D).longueur, 1)}~\\text{cm}$ et $${D.nom + C.nom} = ${texNombre(segment(D, C).longueur, 1)}~\\text{cm}$`
+        texte += ` avec $${A.nom + C.nom} = ${texNombre(segment(A, C).longueur, 1)}\\text{ cm}$, $${A.nom + D.nom} = ${texNombre(segment(A, D).longueur, 1)}\\text{ cm}$ et $${D.nom + C.nom} = ${texNombre(segment(D, C).longueur, 1)}\\text{ cm}$`
       texte += '.'
       // Les lignes ci-dessous permettent d'avoir un affichage aux dimensions optimisées
       const xmin = Math.min(A.x, B.x, C.x, D.x) - 2
@@ -809,15 +811,15 @@ export default class TracerQuadrilatèresParticuliers extends Exercice {
       // On ajoute au texte de la correction, la figure de la correction
       texteCorr = mathalea2d(paramsCorrection, objetsCorrection)
       if (typeDeQuestion === 'Rectangle' || typeDeQuestion === 'Carré')
-        texteCorr += `<br><br>${texteEnCouleur(`Pour l'auto-correction, on peut vérifier que $[${A.nom + C.nom}]$ et $[${B.nom + D.nom}]$ mesurent bien tous les deux $${texNombre(segment(A, C).longueur, 1)}~\\text{cm}$`)}.<br>`
+        texteCorr += `<br><br>${texteEnCouleur(`Pour l'auto-correction, on peut vérifier que $[${A.nom + C.nom}]$ et $[${B.nom + D.nom}]$ mesurent bien tous les deux $${texNombre(segment(A, C).longueur, 1)}\\text{ cm}$`)}.<br>`
       if (typeDeQuestion === 'Losange')
-        texteCorr += `<br><br>${texteEnCouleur(`Pour l'auto-correction, on peut vérifier que $[${B.nom + D.nom}]$ mesure environ $${texNombre(segment(B, D).longueur, 1)}~\\text{cm}$`)}.<br>`
+        texteCorr += `<br><br>${texteEnCouleur(`Pour l'auto-correction, on peut vérifier que $[${B.nom + D.nom}]$ mesure environ $${texNombre(segment(B, D).longueur, 1)}\\text{ cm}$`)}.<br>`
       if (typeDeQuestion === 'Losange2diag' || typeDeQuestion === 'Carré1diag')
-        texteCorr += `<br><br>${texteEnCouleur(`Pour l'auto-correction, on peut vérifier que tous les côtés du ${naturePoly} mesure environ $${texNombre(segment(A, B).longueur, 1)}~\\text{cm}$`)}.<br>`
+        texteCorr += `<br><br>${texteEnCouleur(`Pour l'auto-correction, on peut vérifier que tous les côtés du ${naturePoly} mesure environ $${texNombre(segment(A, B).longueur, 1)}\\text{ cm}$`)}.<br>`
       if (typeDeQuestion === 'Rectangle1diag')
-        texteCorr += `<br><br>${texteEnCouleur(`Pour l'auto-correction, on peut vérifier que $[${B.nom + C.nom}]$ mesure environ $${texNombre(segment(B, C).longueur, 1)}~\\text{cm}$`)}.<br>`
+        texteCorr += `<br><br>${texteEnCouleur(`Pour l'auto-correction, on peut vérifier que $[${B.nom + C.nom}]$ mesure environ $${texNombre(segment(B, C).longueur, 1)}\\text{ cm}$`)}.<br>`
       if (typeDeQuestion === 'Parallélogramme')
-        texteCorr += `<br><br>${texteEnCouleur(`Pour l'auto-correction, on peut vérifier que $[${B.nom + D.nom}]$ mesure environ $${texNombre(segment(B, D).longueur, 1)}~\\text{cm}$`)}.<br>`
+        texteCorr += `<br><br>${texteEnCouleur(`Pour l'auto-correction, on peut vérifier que $[${B.nom + D.nom}]$ mesure environ $${texNombre(segment(B, D).longueur, 1)}\\text{ cm}$`)}.<br>`
       texteCorr += anim.htmlBouton(numeroExercice ?? 0, i)
 
       // Si la question n'a jamais été posée, on l'enregistre

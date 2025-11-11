@@ -5,15 +5,15 @@
  */
 
 import { droite } from '../../lib/2d/droites'
-import { pointAdistance, pointSurSegment } from '../../lib/2d/points'
-import type { PointAbstrait } from '../../lib/2d/points-abstraits'
-import { longueur } from '../../lib/2d/segmentsVecteurs'
+import type { PointAbstrait } from '../../lib/2d/PointAbstrait'
 import {
   homothetie,
   similitude,
   translation2Points,
 } from '../../lib/2d/transformations'
-import type Alea2iep from '../Alea2iep'
+import { longueur } from '../../lib/2d/utilitairesGeometriques'
+import { pointAdistance, pointSurSegment } from '../../lib/2d/utilitairesPoint'
+import type { IAlea2iep } from '../Alea2iep.types'
 
 /**
  * Trace un parallélogramme à partir de la donnée de 3 sommets consécutifs
@@ -24,7 +24,7 @@ import type Alea2iep from '../Alea2iep'
  * @param {boolean} description
  */
 export function parallelogramme3sommetsConsecutifs(
-  this: Alea2iep,
+  this: IAlea2iep,
   A: PointAbstrait,
   B: PointAbstrait,
   C: PointAbstrait,
@@ -92,7 +92,7 @@ export function parallelogramme3sommetsConsecutifs(
  * @param {boolean} description
  */
 export function parallelogramme2sommetsConsecutifsCentre(
-  this: Alea2iep,
+  this: IAlea2iep,
   A: PointAbstrait,
   B: PointAbstrait,
   O: PointAbstrait,
@@ -193,7 +193,7 @@ export function parallelogramme2sommetsConsecutifsCentre(
  * @param {point} O
  */
 export function parallelogrammeAngleCentre(
-  this: Alea2iep,
+  this: IAlea2iep,
   D: PointAbstrait,
   A: PointAbstrait,
   B: PointAbstrait,
@@ -255,7 +255,7 @@ export function parallelogrammeAngleCentre(
  * @returns M
  */
 export function partageSegment(
-  this: Alea2iep,
+  this: IAlea2iep,
   A: PointAbstrait,
   B: PointAbstrait,
   n: number,

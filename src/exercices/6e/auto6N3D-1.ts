@@ -1,3 +1,7 @@
+/**
+ * ⚠️ Cet exercice est utilisé dans le test : tests/e2e/tests/view/view.eleve.can.2025.6e.test.ts ⚠️
+ */
+
 import TablesDeMultiplications from './_Tables_de_multiplications'
 
 export const titre = 'Réviser les tables de multiplication'

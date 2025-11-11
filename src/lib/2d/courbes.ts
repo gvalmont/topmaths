@@ -6,17 +6,14 @@ import { colorToLatexOrHTML } from './colorToLatexOrHtml'
 import { fixeBordures } from './fixeBordures'
 import type { IRepere } from './Interfaces'
 import { ObjetMathalea2D } from './ObjetMathalea2D'
-import { point } from './points'
-import { PointAbstrait, pointAbstrait } from './points-abstraits'
-import {
-  elimineBinomesXYIntermediairesAlignes,
-  motifs,
-  Polygone,
-  polygone,
-  polyline,
-} from './polygones'
+import { motifs } from './pattern'
+import { point, PointAbstrait, pointAbstrait } from './PointAbstrait'
+import { Polygone, polygone } from './polygones'
+import { polyline } from './Polyline'
+import { elimineBinomesXYIntermediairesAlignes } from './Polyquad'
 import { segment } from './segmentsVecteurs'
 import { texteParPosition } from './textes'
+import { vide2d } from './Vide2d'
 /**
  * Une fonction pour convertir des abscisses en unité Mathalé en abscisses svg
  * @param x
@@ -67,8 +64,12 @@ export class LectureImage extends ObjetMathalea2D {
     const M = point(x0, y0)
     const X = point(x0, 0)
     const Y = point(0, y0)
-    const Sx = segment(X, M, this.stringColor)
-    const Sy = segment(M, Y, this.stringColor)
+    const Sx =
+      M.x === X.x && M.y === X.y ? vide2d() : segment(X, M, this.stringColor)
+    const Sy =
+      M.x === Y.x && M.y === Y.y ? vide2d() : segment(M, Y, this.stringColor)
+    // vide2D n'a pas de styleExtremites ni pointilles mais on s'en fiche car on ne l'affiche pas : son svg() est vide
+
     Sx.styleExtremites = '->'
     Sy.styleExtremites = '->'
     Sx.pointilles = 5
@@ -107,8 +108,12 @@ export class LectureImage extends ObjetMathalea2D {
     const M = point(x0, y0)
     const X = point(x0, 0)
     const Y = point(0, y0)
-    const Sx = segment(X, M, this.stringColor)
-    const Sy = segment(M, Y, this.stringColor)
+    const Sx =
+      M.x === X.x && M.y === X.y ? vide2d() : segment(X, M, this.stringColor)
+    const Sy =
+      M.x === Y.x && M.y === Y.y ? vide2d() : segment(M, Y, this.stringColor)
+    // vide2D n'a pas de styleExtremites ni pointilles mais on s'en fiche car on ne l'affiche pas : son svg() est vide
+
     Sx.styleExtremites = '->'
     Sy.styleExtremites = '->'
     Sx.pointilles = 5
@@ -143,8 +148,12 @@ export class LectureImage extends ObjetMathalea2D {
     const M = point(this.x, this.y)
     const X = point(x0, 0)
     const Y = point(0, y0)
-    const Sx = segment(X, M, this.stringColor)
-    const Sy = segment(M, Y, this.stringColor)
+    const Sx =
+      M.x === X.x && M.y === X.y ? vide2d() : segment(X, M, this.stringColor)
+    const Sy =
+      M.x === Y.x && M.y === Y.y ? vide2d() : segment(M, Y, this.stringColor)
+    // vide2D n'a pas de styleExtremites ni pointilles mais on s'en fiche car on ne l'affiche pas : son svg() est vide
+
     Sx.styleExtremites = '->'
     Sy.styleExtremites = '->'
     Sx.pointilles = 5
@@ -179,8 +188,12 @@ export class LectureImage extends ObjetMathalea2D {
     const M = point(this.x, this.y)
     const X = point(x0, 0)
     const Y = point(0, y0)
-    const Sx = segment(X, M, this.stringColor)
-    const Sy = segment(M, Y, this.stringColor)
+    const Sx =
+      M.x === X.x && M.y === X.y ? vide2d() : segment(X, M, this.stringColor)
+    const Sy =
+      M.x === Y.x && M.y === Y.y ? vide2d() : segment(M, Y, this.stringColor)
+    // vide2D n'a pas de styleExtremites ni pointilles mais on s'en fiche car on ne l'affiche pas : son svg() est vide
+
     Sx.styleExtremites = '->'
     Sy.styleExtremites = '->'
     Sx.pointilles = 5
@@ -260,8 +273,11 @@ export class LectureAntecedent extends ObjetMathalea2D {
     const M = point(x0, y0)
     const X = point(x0, 0)
     const Y = point(0, y0)
-    const Sx = segment(M, X, this.stringColor)
-    const Sy = segment(Y, M, this.stringColor)
+    const Sx =
+      M.x === X.x && M.y === X.y ? vide2d() : segment(M, X, this.stringColor)
+    const Sy =
+      M.x === Y.x && M.y === Y.y ? vide2d() : segment(Y, M, this.stringColor)
+    // vide2D n'a pas de styleExtremites ni pointilles mais on s'en fiche car on ne l'affiche pas : son svg() est vide
     Sx.styleExtremites = '->'
     Sy.styleExtremites = '->'
     Sx.pointilles = 5
@@ -300,8 +316,11 @@ export class LectureAntecedent extends ObjetMathalea2D {
     const M = point(x0, y0)
     const X = point(x0, 0)
     const Y = point(0, y0)
-    const Sx = segment(M, X, this.stringColor)
-    const Sy = segment(Y, M, this.stringColor)
+    const Sx =
+      M.x === X.x && M.y === X.y ? vide2d() : segment(M, X, this.stringColor)
+    const Sy =
+      M.x === Y.x && M.y === Y.y ? vide2d() : segment(Y, M, this.stringColor)
+    // vide2D n'a pas de styleExtremites ni pointilles mais on s'en fiche car on ne l'affiche pas : son svg() est vide
     Sx.styleExtremites = '->'
     Sy.styleExtremites = '->'
     Sx.pointilles = 5
@@ -336,8 +355,11 @@ export class LectureAntecedent extends ObjetMathalea2D {
     const M = point(x0, y0)
     const X = point(x0, 0)
     const Y = point(0, y0)
-    const Sx = segment(M, X, this.stringColor)
-    const Sy = segment(Y, M, this.stringColor)
+    const Sx =
+      M.x === X.x && M.y === X.y ? vide2d() : segment(M, X, this.stringColor)
+    const Sy =
+      M.x === Y.x && M.y === Y.y ? vide2d() : segment(Y, M, this.stringColor)
+    // vide2D n'a pas de styleExtremites ni pointilles mais on s'en fiche car on ne l'affiche pas : son svg() est vide
     Sx.styleExtremites = '->'
     Sy.styleExtremites = '->'
     Sx.pointilles = 5
@@ -372,8 +394,11 @@ export class LectureAntecedent extends ObjetMathalea2D {
     const M = point(x0, y0)
     const X = point(x0, 0)
     const Y = point(0, y0)
-    const Sx = segment(M, X, this.stringColor)
-    const Sy = segment(Y, M, this.stringColor)
+    const Sx =
+      M.x === X.x && M.y === X.y ? vide2d() : segment(M, X, this.stringColor)
+    const Sy =
+      M.x === Y.x && M.y === Y.y ? vide2d() : segment(Y, M, this.stringColor)
+    // vide2D n'a pas de styleExtremites ni pointilles mais on s'en fiche car on ne l'affiche pas : son svg() est vide
     Sx.styleExtremites = '->'
     Sy.styleExtremites = '->'
     Sx.pointilles = 5

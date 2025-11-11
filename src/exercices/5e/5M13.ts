@@ -1,3 +1,7 @@
+/**
+ * ⚠️ Cet exercice est utilisé dans le test : tests/e2e/tests/view/view.capytale.review.1.test.ts ⚠️
+ */
+
 import ExerciceConversionsAires from '../6e/_Exercice_conversions_aires'
 export const titre = 'Convertir des aires'
 export const amcReady = true

@@ -18,6 +18,7 @@ import { remplisLesBlancs } from '../../lib/interactif/questionMathLive'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { ajouterAide } from '../../lib/outils/enrichissements'
 import { fraction } from '../../modules/fractions'
+import { representationFraction } from '../../modules/representationsFractions'
 import { getDynamicFractionDiagram } from './6N3F-2'
 
 export const titre =
@@ -121,7 +122,8 @@ export default class EncadrerFractionEntre2Entiers extends Exercice {
         : ` $\\quad ${k}=\\dfrac{${k * d}}{${d}}\\quad$ et $\\quad${k + 1}=\\dfrac{${(k + 1) * d}}{${d}}$ `
       texteCorr += `<br>donc $\\quad ${miseEnEvidence(k)} < \\dfrac{${n}}{${d}} < ${miseEnEvidence(k + 1)}$.`
       if (this.correctionDetaillee && !this.lycee && context.isHtml) {
-        const representation = fraction(n, d).representation(
+        const representation = representationFraction(
+          fraction(n, d),
           0,
           0,
           3,

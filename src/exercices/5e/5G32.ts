@@ -1,10 +1,14 @@
-import { angleModulo, codageAngle, codageAngleDroit } from '../../lib/2d/angles'
-import { afficheMesureAngle } from '../../lib/2d/codages'
+import { afficheMesureAngle } from '../../lib/2d/AfficheMesureAngle'
+import { codageAngleDroit } from '../../lib/2d/CodageAngleDroit'
+import { point } from '../../lib/2d/PointAbstrait'
+import { tracePoint } from '../../lib/2d/TracePoint'
+import { codageAngle } from '../../lib/2d/angles'
 import { fixeBordures } from '../../lib/2d/fixeBordures'
-import { point, pointSurSegment, tracePoint } from '../../lib/2d/points'
 import { segment } from '../../lib/2d/segmentsVecteurs'
 import { labelPoint } from '../../lib/2d/textes'
 import { rotation } from '../../lib/2d/transformations'
+import { angleModulo } from '../../lib/2d/utilitairesGeometriques'
+import { pointSurSegment } from '../../lib/2d/utilitairesPoint'
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 import {
   handleAnswers,

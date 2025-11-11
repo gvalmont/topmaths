@@ -1,7 +1,7 @@
 import { listeShapes2DInfos } from '../../lib/2d/figures2d/shapes2d'
 import { fixeBordures } from '../../lib/2d/fixeBordures'
-import { pointAbstrait } from '../../lib/2d/points-abstraits'
-import { polyline } from '../../lib/2d/polygones'
+import { pointAbstrait } from '../../lib/2d/PointAbstrait'
+import { polyline } from '../../lib/2d/Polyline'
 import { latex2d } from '../../lib/2d/textes'
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
@@ -577,7 +577,7 @@ export default class ResoudreDesProblemes extends Exercice {
             texteCorr += `Par conséquent, la différence de masse entre les deux pesées se fait uniquement sur les ${shape1.nomPluriel} en plus.<br>`
             texteCorr += `La différence de masse est de : $${texNombre(Math.max(a, c) * p1 + b * p2, 3)}$ ${uniteVolume}$-${texNombre(Math.min(a, c) * p1 + b * p2, 3)}$ ${uniteVolume} soit $${texNombre(Math.abs(a - c) * p1, 3)}$ ${uniteVolume} pour $${Math.abs(a - c)}$ ${Math.abs(a - c) === 1 ? shape1.nomSingulier : shape1.nomPluriel}.<br>`
             texteCorr += `${premiereLettreEnMajuscule(shape1.articleSingulier)} ${shape1.nomSingulier} pèse donc $`
-            texteCorr += `\\dfrac{${texNombre(Math.abs(a - c) * p1, 3)}\\text { ${uniteVolume}}}{${Math.abs(a - c)}}=
+            texteCorr += `\\dfrac{${texNombre(Math.abs(a - c) * p1, 3)}\\text{ ${uniteVolume}}}{${Math.abs(a - c)}}=
             ${miseEnEvidence(`${texNombre(p1, 3)}\\text{ ${uniteVolume}}`)}$`
             const lesShapes2 = range1(b)
               .map((i) => ashape2)

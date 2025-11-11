@@ -58,7 +58,7 @@ export default class NormeVecteur extends ExerciceSimple {
         Déterminer la norme du vecteur $\\overrightarrow{${nom}}$.<br>
         
         Donner le résultat sous la forme $\\sqrt{a}$ ou d'un nombre entier le cas échéant.`
-          this.optionsChampTexte = { texteApres: '', texteAvant: '<br>' }
+          this.optionsChampTexte = { texteAvant: '<br>' }
           this.correction = `D'après le cours, si $\\overrightarrow{u}(x;y)$ alors $\\| \\overrightarrow{u} \\|=\\sqrt{x^2+y^2}$. On a donc : <br><br>
           $ \\| \\overrightarrow{${nom}} \\|=
           \\sqrt{${ecritureParentheseSiNegatif(a)}^2+${ecritureParentheseSiNegatif(b)}^2}=
@@ -74,7 +74,7 @@ export default class NormeVecteur extends ExerciceSimple {
           this.question = `Dans un repère orthonormé du plan, on donne $\\overrightarrow{${nom}}(${a};${b})$.<br>
           Déterminer la norme du vecteur $\\overrightarrow{${nom}}$.<br>
           (donner le résultat sous la forme $\\sqrt{a}$ ou d'un nombre entier le cas échéant)`
-          this.optionsChampTexte = { texteApres: '', texteAvant: '<br>' }
+          this.optionsChampTexte = { texteAvant: '<br>' }
           this.correction = `D'après le cours, si $\\overrightarrow{u}(x;y)$ alors $\\| \\overrightarrow{u} \\|=\\sqrt{x^2+y^2}$.<br><br>
           On a donc ici :<br><br>
           $\\| \\overrightarrow{${nom}} \\| =

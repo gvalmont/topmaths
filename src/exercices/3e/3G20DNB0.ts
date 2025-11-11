@@ -1,14 +1,14 @@
 import { cercle } from '../../lib/2d/cercle'
 import { Droite, droite, droiteParPointEtParallele } from '../../lib/2d/droites'
 import { fixeBordures } from '../../lib/2d/fixeBordures'
-import {
-  point,
-  pointIntersectionCC,
-  pointIntersectionDD,
-} from '../../lib/2d/points'
+import { point } from '../../lib/2d/PointAbstrait'
 import { polygone } from '../../lib/2d/polygones'
 import { segment } from '../../lib/2d/segmentsVecteurs'
 import { labelPoint, latex2d } from '../../lib/2d/textes'
+import {
+  pointIntersectionCC,
+  pointIntersectionDD,
+} from '../../lib/2d/utilitairesPoint'
 import { createList } from '../../lib/format/lists'
 import { choisitLettresDifferentes } from '../../lib/outils/aleatoires'
 import { choice } from '../../lib/outils/arrayOutils'
@@ -109,23 +109,23 @@ export default class Exercice3G2DNB0 extends ExerciceBrevetA {
     const enonce = `Sur la figure ci-dessous, on a :<br>
   ${createList({
     items: [
-      `$(\\mathscr{C})$ est un cercle de centre $${O}$ et de rayon $${texNombre(rayon, 2)}$ cm ;`,
+      `$(\\mathscr{C})$ est un cercle de centre $${O}$ et de rayon $${texNombre(rayon, 2)}\\text{ cm}$ ;`,
       `$[${A}${B}]$ est un diamètre de ce cercle et $${D}$ est un point du cercle ;`,
       `les points $${B}$, $${E}$, $${A}$ sont alignés, ainsi que les points $${D}$, $${F}$, $${A}$ ;`,
       `les droites $(${B}${D})$ et $(${E}${F})$ sont parallèles ;`,
-      `$${B}${D} = ${texNombre(BD, 2)}$ cm ; $${D}${A} = ${texNombre(DA, 2)}$ cm et $${A}${E} = ${texNombre(EF, 2)}$ cm.`,
+      `$${B}${D} = ${texNombre(BD, 2)}\\text{ cm}$ ; $${D}${A} = ${texNombre(DA, 2)}\\text{ cm}$ et $${A}${E} = ${texNombre(EF, 2)}\\text{ cm}$.`,
     ],
     style: 'fleches',
   })}`
 
     const listePrincipale = createList({
       items: [
-        `Justifier que le diamètre [${A}${B}] mesure $${texNombre(diametre, 2)}$ cm.`,
+        `Justifier que le diamètre [${A}${B}] mesure $${texNombre(diametre, 2)}\\text{ cm}$.`,
         `Démontrer que le triangle  $${A}${B}${D}$ est rectangle en $${D}$.`,
         `Calculer $${A}${F}$.`,
         createList({
           items: [
-            `Justifier que l'aire du triangle $${A}${B}${D}$ est égale à $${texNombre(aireTriangle, 4)}~\\text{cm}^2$.`,
+            `Justifier que l'aire du triangle $${A}${B}${D}$ est égale à $${texNombre(aireTriangle, 4)}\\text{ cm}^2$.`,
             `Calculer l'aire du disque, arrondie au centième.<br>${texteItalique('Rappel')} : l'aire du disque est égale à $\\pi \\times R^2$, où $R$ est le rayon du disque.`,
           ],
           style: 'alpha',
@@ -153,7 +153,7 @@ export default class Exercice3G2DNB0 extends ExerciceBrevetA {
         createList({
           items: [
             `Si $\\mathscr{A}$ est l'aire du triangle $${A}${B}${D}$ , on sait que $\\mathscr{A} = \\dfrac{${D}${B} \\times ${A}${D}}{2} = \\dfrac{${texNombre(BD, 2)} \\times ${texNombre(DA, 2)}}{2} = \\dfrac{${texNombre(DA * BD, 4)}}{2}= ${texNombre(aireTriangle, 4)}\\text{ cm}^2$.`,
-            `L'aire du disque est égale à $\\pi \\times R^2 = \\pi \\times ${texNombre(rayon, 1)}^2 = \\left(${rayonFrac.texFraction}\\right)^2 \\times \\pi  = ${rayonFracCarre.texFraction}\\pi \\approx ${texNombre(aireDisque, 3)}~\\text{cm}^2$, soit $${texNombre(aireDisque, 2)}$ au centième de $\\text{cm}^2$.`,
+            `L'aire du disque est égale à $\\pi \\times R^2 = \\pi \\times ${texNombre(rayon, 1)}^2 = \\left(${rayonFrac.texFraction}\\right)^2 \\times \\pi  = ${rayonFracCarre.texFraction}\\pi \\approx ${texNombre(aireDisque, 3)}\\text{ cm}^2$, soit $${texNombre(aireDisque, 2)}$ au centième de $\\text{cm}^2$.`,
           ],
           style: 'alpha',
         }),

@@ -1,8 +1,14 @@
+import { point } from '../../lib/2d/PointAbstrait'
+import { tracePoint } from '../../lib/2d/TracePoint'
 import { fixeBordures } from '../../lib/2d/fixeBordures'
-import { milieu, point, tracePoint } from '../../lib/2d/points'
 import { cone as cone2d, sphere2d } from '../../lib/2d/projections3d'
 import { Segment, segment } from '../../lib/2d/segmentsVecteurs'
 import { homothetie } from '../../lib/2d/transformations'
+import { milieu } from '../../lib/2d/utilitairesPoint'
+import { cone3d } from '../../lib/3d/3dProjectionMathalea2d/Cone3dPerspectiveCavaliere'
+import { cylindre3d } from '../../lib/3d/3dProjectionMathalea2d/Cylindre3dPerspectiveCavaliere'
+import { prisme3d } from '../../lib/3d/3dProjectionMathalea2d/Prisme3dPerspectiveCavaliere'
+import { pyramide3d } from '../../lib/3d/3dProjectionMathalea2d/Pyramide3dPerspectiveCavaliere'
 import {
   arc3d,
   arete3d,
@@ -10,15 +16,9 @@ import {
   Point3d,
   point3d,
   polygone3d,
+  rotation3d,
   vecteur3d,
-} from '../../lib/3d/3dProjectionMathalea2d/elements'
-import {
-  cone3d,
-  cylindre3d,
-  prisme3d,
-  pyramide3d,
-} from '../../lib/3d/3dProjectionMathalea2d/solides'
-import { rotation3d } from '../../lib/3d/3dProjectionMathalea2d/tranformations'
+} from '../../lib/3d/3dProjectionMathalea2d/elementsEtTransformations3d'
 import { setReponse } from '../../lib/interactif/gestionInteractif'
 import { propositionsQcm } from '../../lib/interactif/qcm'
 import { ajouteChampTexte } from '../../lib/interactif/questionMathLive'

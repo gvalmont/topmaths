@@ -1,5 +1,10 @@
+/**
+ * ⚠️ Cet exercice est utilisé dans le test : tests/e2e/tests/view/view.capytale.save.can.test.ts ⚠️
+ */
+
 import Horloge from '../../../lib/2d/horloge'
 import handleInteractiveClock from '../../../lib/InteractiveClock'
+import { combinaisonListes } from '../../../lib/outils/arrayOutils'
 import { formatMinute } from '../../../lib/outils/texNombre'
 import { context } from '../../../modules/context'
 import Hms from '../../../modules/Hms'
@@ -29,15 +34,23 @@ export default class ExerciceInteractiveClock extends Exercice {
     this.nbQuestions = 1
     this.interactifType = interactifType // MGu obligatoire car chargé en statique avec la CAN2025
     handleInteractiveClock() // Obligatoire pour la gestion de l'élément custom <interactive-clock>
+    this.besoinFormulaireCaseACocher = [
+      "Moitié des questions sur les heures de l'après-midi",
+    ]
+    this.sup = false
   }
 
   nouvelleVersion(numeroExercice: number, numeroQuestion?: number) {
+    let isAfter12 = Array(this.nbQuestions).fill(false)
+    if (this.sup) {
+      isAfter12 = combinaisonListes([true, false], this.nbQuestions)
+    }
     for (
       let i = numeroQuestion ?? 0, cpt = 0;
       i < (numeroQuestion ? numeroQuestion + 1 : this.nbQuestions) && cpt < 50;
 
     ) {
-      let hour = randint(1, 12)
+      let hour = randint(1, isAfter12[i] ? 24 : 12)
       let minute = randint(1, 11) * 5
       if (this.canOfficielle) {
         hour = 13
@@ -76,6 +89,9 @@ export default class ExerciceInteractiveClock extends Exercice {
           },
           horloge,
         )
+      }
+      if (hour > 12) {
+        correction += `Remarque : ${hour} h correspond à ${hour - 12} h ${hour < 18 ? "de l'après-midi" : 'du soir'}.`
       }
       if (this.questionJamaisPosee(i, hour, minute)) {
         this.listeQuestions[i] = enonce

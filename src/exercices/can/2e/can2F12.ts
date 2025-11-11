@@ -49,7 +49,7 @@ export default class ComparerAvecFctRef extends Exercice {
             if (a < b) {
               this.autoCorrection[i] = {
                 enonce: texte,
-                options: { horizontal: true },
+
                 propositions: [
                   {
                     texte: `$\\dfrac{1}{${texNombre(a)}}>\\dfrac{1}{${texNombre(b)}}$`,
@@ -64,7 +64,7 @@ export default class ComparerAvecFctRef extends Exercice {
             } else {
               this.autoCorrection[i] = {
                 enonce: texte,
-                options: { horizontal: true },
+
                 propositions: [
                   {
                     texte: `$\\dfrac{1}{${texNombre(a)}}<\\dfrac{1}{${texNombre(b)}}$`,
@@ -101,7 +101,7 @@ export default class ComparerAvecFctRef extends Exercice {
             if (a < b) {
               this.autoCorrection[i] = {
                 enonce: texte,
-                options: { horizontal: true },
+
                 propositions: [
                   {
                     texte: `$\\dfrac{1}{${texNombre(a)}}>\\dfrac{1}{${texNombre(b)}}$`,
@@ -116,7 +116,7 @@ export default class ComparerAvecFctRef extends Exercice {
             } else {
               this.autoCorrection[i] = {
                 enonce: texte,
-                options: { horizontal: true },
+
                 propositions: [
                   {
                     texte: `$\\dfrac{1}{${texNombre(a)}}<\\dfrac{1}{${texNombre(b)}}$`,
@@ -156,7 +156,7 @@ export default class ComparerAvecFctRef extends Exercice {
           if (a < b) {
             this.autoCorrection[i] = {
               enonce: texte,
-              options: { horizontal: true },
+
               propositions: [
                 {
                   texte: `$${ecritureParentheseSiNegatif(b)}^3>${ecritureParentheseSiNegatif(a)}^3$`,
@@ -171,7 +171,7 @@ export default class ComparerAvecFctRef extends Exercice {
           } else {
             this.autoCorrection[i] = {
               enonce: texte,
-              options: { horizontal: true },
+
               propositions: [
                 {
                   texte: `$${ecritureParentheseSiNegatif(b)}^3<${ecritureParentheseSiNegatif(a)}^3$`,
@@ -213,7 +213,7 @@ export default class ComparerAvecFctRef extends Exercice {
           if (a < b) {
             this.autoCorrection[i] = {
               enonce: texte,
-              options: { horizontal: true },
+
               propositions: [
                 {
                   texte: `$\\sqrt{${texNombre(b)}}>\\sqrt{${texNombre(a)}}$`,
@@ -228,7 +228,7 @@ export default class ComparerAvecFctRef extends Exercice {
           } else {
             this.autoCorrection[i] = {
               enonce: texte,
-              options: { horizontal: true },
+
               propositions: [
                 {
                   texte: `$\\sqrt{${texNombre(b)}}<\\sqrt{${texNombre(a)}}$`,
