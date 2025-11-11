@@ -42,8 +42,8 @@ export default class FractionsDunite extends Exercice {
     this.sup2 = 1
     this.besoinFormulaireNumerique = [
       'Type  de questions',
-      4,
-      '1 : Fraction inférieure à 1\n2 : Demis, tiers et quarts\n3 : Quarts, cinquièmes, sixièmes et dixièmes\n4 : Toutes les fractions supérieures à 1',
+      5,
+      '1 : Fraction inférieure à 1\n2 : Demis, tiers et quarts\n3 : Quarts, cinquièmes, sixièmes et dixièmes\n4 : Toutes les fractions supérieures à 1\n5 : Fractions unitaires',
     ]
     this.besoinFormulaire2Numerique = [
       'Type de cahier',
@@ -55,7 +55,7 @@ export default class FractionsDunite extends Exercice {
   nouvelleVersion() {
     let typesDeQuestionsDisponibles, g, carreaux, sc, unit
     let listeTypeDeQuestions = []
-    if (this.sup < 5) {
+    if (this.sup < 6) {
       typesDeQuestionsDisponibles = [parseInt(this.sup)]
     } else {
       typesDeQuestionsDisponibles = [1, 2, 3, 4]
@@ -88,6 +88,10 @@ export default class FractionsDunite extends Exercice {
           den = choice([2, 3, 4, 5, 6, 10])
           if (den === 2 || den === 4) num = randint(den + 1, 3 * den - 1, den)
           else num = randint(den + 1, 2 * den - 1, den)
+          break
+        case 5:
+          den = choice([3, 4, 5, 6, 8, 10])
+          num = 1
           break
       }
       if (den % 3 === 0) unit = 12
