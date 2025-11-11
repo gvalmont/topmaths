@@ -1,6 +1,5 @@
 import * as fs from 'fs'
 import * as path from 'path'
-import type { RecursivePartial } from '../src/lib/types.js'
 import calendarSchoolYearMasterJson from '../src/topmaths/json/calendar.json' assert { type: 'json' }
 import curriculumJson from '../src/topmaths/json/curriculum.json' assert { type: 'json' }
 import definitionsJson from '../src/topmaths/json/glossary/definitions.json' assert { type: 'json' }
@@ -73,6 +72,7 @@ import {
 } from '../src/topmaths/types/objective.js'
 import {
   deepCopy,
+  type RecursivePartial,
   type ReplaceReferencesByStrings,
   type TuplesToArraysRecursive,
 } from '../src/topmaths/types/shared.js'

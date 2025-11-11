@@ -1,11 +1,11 @@
+import { get } from 'svelte/store'
 import {
   isCalendarSchoolYear,
   type CalendarPeriod,
   type CalendarSchoolYear,
 } from '../types/calendar'
-import type { ReplaceDateWithString } from '../../lib/types'
+import type { ReplaceDateWithString } from '../types/shared'
 import { calendar } from './store'
-import { get } from 'svelte/store'
 
 export function parseSchoolYear(
   schoolYear: ReplaceDateWithString<CalendarSchoolYear>,

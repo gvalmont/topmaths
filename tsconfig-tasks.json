@@ -1,8 +1,8 @@
 {
   "extends": "./tsconfig.json",
-  "include": ["src/lib/types.js", "tasks/**/*.ts"],
+  "include": ["src/topmaths/types/shared.js", "tasks/**/*.ts"],
   "compilerOptions": {
     "resolveJsonModule": true,
-    "outDir": "./tmp",
+    "outDir": "./tmp"
   }
 }
