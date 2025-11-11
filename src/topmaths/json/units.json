@@ -62,22 +62,16 @@
         ]
       },
       {
-        "title": "Fractions 1",
+        "title": "Fractions 1 (représentations)",
         "objectives": [
           {
             "reference": "6N3R"
-          },
-          {
-            "reference": "6N3A"
           },
           {
             "reference": "6N3D"
           },
           {
             "reference": "6N3E"
-          },
-          {
-            "reference": "6N3F"
           },
           {
             "reference": "6M1I"
@@ -204,16 +198,13 @@
         ]
       },
       {
-        "title": "Fractions 2",
+        "title": "Fractions 2 (égalités)",
         "objectives": [
           {
-            "reference": "6N2L"
+            "reference": "6N3B"
           },
           {
-            "reference": "6N3S"
-          },
-          {
-            "reference": "6N3T"
+            "reference": "6N3C"
           },
           {
             "reference": "6N3H"
@@ -275,8 +266,20 @@
         ]
       },
       {
-        "title": "Fractions 3",
+        "title": "Fractions 3 (comparaisons)",
         "objectives": [
+          {
+            "reference": "6N3T"
+          },
+          {
+            "reference": "6N3A"
+          },
+          {
+            "reference": "6N3F"
+          },
+          {
+            "reference": "6N2L"
+          },
           {
             "reference": "6N3I"
           },
@@ -375,8 +378,11 @@
         ]
       },
       {
-        "title": "Fractions 4",
+        "title": "Fractions 4 (calculs)",
         "objectives": [
+          {
+            "reference": "6N3S"
+          },
           {
             "reference": "6N3K"
           },
@@ -385,12 +391,6 @@
           },
           {
             "reference": "6N3G"
-          },
-          {
-            "reference": "6N3M"
-          },
-          {
-            "reference": "6N3N"
           },
           {
             "reference": "6N3V"
@@ -437,13 +437,13 @@
         ]
       },
       {
-        "title": "Fractions 5",
+        "title": "Fractions 5 (problèmes)",
         "objectives": [
           {
-            "reference": "6N3B"
+            "reference": "6N3M"
           },
           {
-            "reference": "6N3C"
+            "reference": "6N3N"
           }
         ]
       },
