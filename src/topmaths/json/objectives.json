@@ -117,7 +117,7 @@
                     "segments": [
                       {
                         "steps": [
-                          "Enseignement explicitte des 3 premiers exercices de https://topmaths.fr/?v=objective&ref=6N1B"
+                          "Enseignement explicite des 3 premiers exercices de https://topmaths.fr/?v=objective&ref=6N1B"
                         ]
                       },
                       {
@@ -1013,13 +1013,49 @@
                 "exercises": []
               },
               {
-                "reference": "6N3D",
+                "reference": "6N3D1",
                 "titleAcademic": "Placer une fraction sur une demi-droite graduée dans des cas simples",
-                "title": "",
+                "title": "Placer une fraction sur une demi-droite graduée dans des cas simples",
                 "lessonSummaryHTML": "",
                 "lessonSummaryImage": "",
                 "videos": [],
-                "exercises": []
+                "exercises": [
+                  {
+                    "slug": "uuid=ca515&id=can6N04&n=2&d=10&cd=1",
+                    "description": ""
+                  }
+                ],
+                "lessonPlans": [
+                  {
+                    "studentMaterialsNeeded": [],
+                    "teacherMaterialsNeeded": [],
+                    "startSteps": [],
+                    "segments": [
+                      {
+                        "steps": [
+                          "Quelques questions sur https://topmaths.fr/?uuid=35b4c&n=1&d=10&s=5&s2=3&s3=6&alea=mfjo&cd=1&v=exercise pour se rappeler",
+                          "Entraînement sur https://topmaths.fr/?uuid=ca515&id=can6N04&alea=coWF&v=exercise"
+                        ]
+                      }
+                    ],
+                    "closureSteps": [],
+                    "comments": []
+                  }
+                ]
+              },
+              {
+                "reference": "6N3D2",
+                "titleAcademic": "Placer une fraction sur une demi-droite graduée dans des cas simples",
+                "title": "Placer une fraction sur une demi-droite graduée",
+                "lessonSummaryHTML": "",
+                "lessonSummaryImage": "",
+                "videos": [],
+                "exercises": [
+                  {
+                    "slug": "uuid=cff03&id=6N3D&n=2&d=10&s=1&cd=1",
+                    "description": ""
+                  }
+                ]
               },
               {
                 "reference": "6N3E",
@@ -1304,7 +1340,73 @@
                 "lessonSummaryHTML": "",
                 "lessonSummaryImage": "",
                 "videos": [],
-                "exercises": []
+                "exercises": [
+                  {
+                    "slug": "uuid=35b4c&id=auto6N3A&n=2&d=10&s=1-2-3-4-5&s2=1&s3=6&cd=1",
+                    "description": "Fractions unitaires"
+                  },
+                  {
+                    "slug": "uuid=35b4c&id=auto6N3A&n=2&d=10&s=1-2-3-4-5&s2=2&s3=6&cd=1",
+                    "description": "Fractions plus petites que l'unité"
+                  },
+                  {
+                    "slug": "uuid=35b4c&id=auto6N3A&n=2&d=10&s=1-2-3-4-5&s2=3&s3=6&cd=1",
+                    "description": "Fractions plus grandes que l'unité"
+                  }
+                ],
+                "lessonPlans": [
+                  {
+                    "studentMaterialsNeeded": [],
+                    "teacherMaterialsNeeded": [],
+                    "startSteps": [],
+                    "segments": [
+                      {
+                        "title": "Fractions unitaires / Comment nommer une fraction",
+                        "steps": [
+                          "Afficher https://topmaths.fr/?uuid=35b4c&id=auto6N3A&n=2&d=10&s=1-2-3-4-5&s2=1&s3=3&cd=1&v=exercise",
+                          "Pour l'année prochaine, modifier l'exercice pour n'avoir que des dénominateurs supérieurs ou égaux à 5",
+                          "Demander quelle est la fraction colorée ? (interroger un élève au hasard)",
+                          "On obtient une fraction unitaire en partageant l'unité en un certain nombre de parts égales et en ne prenant qu'une seule de ces parts",
+                          "Si on la partage en n, on obtient un n-ième de l'unité (avec n supérieur ou égal à 5)",
+                          "Ca s'écrit $1/n$ et n se nomme le dénominateur",
+                          "dénominateur = celui qui donne le nom, celui qui dénomme (écrire au tableau)",
+                          "Relancer plusieurs fois et à chaque fois interroger des élèves au hasard en demandant quelle est la fraction unitaire",
+                          "Afficher un exercice avec $1/2$, $1/3$ ou $1/4$ et demander quelle est la fraction colorée",
+                          "Rebondir dessus pour demander \"Pourquoi pas un quatrième ?\" ou \"Un quatrième ? Vous êtes d'accord ?\"",
+                          "Demander s'il y a d'autres fractions qui ont un nom particulier",
+                          "Noter dans le cours les définitions de fraction unitaire et du dénominateur ainsi que la façon de nommer une fraction"
+                        ]
+                      },
+                      {
+                        "title": "Fractions plus petites que l'unité",
+                        "steps": [
+                          "Afficher https://topmaths.fr/?uuid=35b4c&id=auto6N3A&n=2&d=10&s=1-2-3-4-5&s2=2&s3=3&cd=1&v=exercise",
+                          "Demander quelle est la fraction colorée ?",
+                          "Ils devraient y arriver, mais expliquer quand même pour bien cadrer les choses",
+                          "Noter au tableau la bonne réponse $m/n",
+                          "L'unité est partagée en n parts égales, donc cette part, la fraction unitaire, vaut $1/n$",
+                          "On se rappelle que le dénominateur donne le nom de la fraction, c'est un n-ième",
+                          "Mais des n-ièmes, il y en a combien ici de colorés ?",
+                          "Il y a m n-ième colorés. Noter $m times 1/n =$ au tableau pour compléter l'égalité $m times 1/n = m/n$",
+                          "n indique le nom de la fraction, mais qu'indique m ? m indique le nombre de n-ièmes qu'on prend",
+                          "Ecrire au tableau $m/n <- \"#vert()[numér]ateur\"/\"#rouge()[dénomin]ateur\" <- \"celui qui donne #vert()[le nombre]\"/\"celui qui donne #rouge()[le nom]\"$",
+                          "Pour avoir le nom de la fraction, c'est à dire en combien est partagé l'unité, on regarde le dénominateur",
+                          "Pour savoir par quel nombre on le multiplie, c'est à dire combien de parts, on regarde le numérateur",
+                          "Relancer plusieurs fois en variant les questions : \"Quelle est la fraction unitaire ?\", \"Quel est le dénominateur ?\", \"Combien de fractions unitaires sont colorées ?\", \"Quel est le numérateur ?\", \"Quelle est la fraction colorée ?\" etc.",
+                          "Noter dans le cours la définition de numérateur"
+                        ]
+                      },
+                      {
+                        "title": "Fractions plus grandes que l'unité",
+                        "steps": [
+                          "Relancer plusieurs fois https://topmaths.fr/?uuid=35b4c&id=auto6N3A&n=2&d=10&s=1-2-3-4-5&s2=3&s3=3&cd=1&v=exercise",
+                          "Les élèves répondent sur l'ardoise"
+                        ]
+                      }
+                    ],
+                    "closureSteps": []
+                  }
+                ]
               },
               {
                 "reference": "6N3S",
@@ -1654,7 +1756,40 @@
                 "lessonSummaryHTML": "",
                 "lessonSummaryImage": "",
                 "videos": [],
-                "exercises": []
+                "exercises": [
+                  {
+                    "slug": "uuid=ab11c&id=auto6M1D-1&n=2&d=10&s=2&cd=1",
+                    "description": "Fractions inférieures à l'unité"
+                  },
+                  {
+                    "slug": "uuid=ab11c&id=auto6M1D-1&n=2&d=10&s=1&cd=1",
+                    "description": "Fractions quelconques"
+                  }
+                ],
+                "lessonPlans": [
+                  {
+                    "studentMaterialsNeeded": [],
+                    "teacherMaterialsNeeded": [
+                      "6M1I_Poly-1_x1 pour la séance",
+                      "6M1I_Poly-2_x6 en cas d'évaluation sur les fractions < 1 la fois suivante",
+                      "6M1I_Poly-3_x5 en cas d'évaluation sur les fractions > 1 la fois suivante"
+                    ],
+                    "startSteps": [],
+                    "segments": [
+                      {
+                        "steps": [
+                          "Projeter le poly",
+                          "Demander comment on pourrait faire",
+                          "Rappeler les définitions du dénominateur et du numérateur si besoin",
+                          "Rappeler que le compas est l'outil idéal pour reporter des longueurs si besoin",
+                          "Faire ensemble la première question",
+                          "Laisser les élèves faire le reste, passer aider ceux qui en ont besoin"
+                        ]
+                      }
+                    ],
+                    "closureSteps": []
+                  }
+                ]
               },
               {
                 "reference": "6M1J",
