@@ -34,7 +34,10 @@ export default class LireHeure extends ExerciceSimple {
     super()
 
     this.nbQuestions = 1
-
+    this.besoinFormulaireCaseACocher = [
+      "Avec des horaires de l'après-midi"
+    ]
+    this.sup = false // Par défaut, non coché
     this.typeExercice = 'simple'
     this.formatChampTexte = KeyboardType.clavierHms
   }
@@ -52,9 +55,14 @@ export default class LireHeure extends ExerciceSimple {
     for (let i = 0; i < 4; i++) {
       horloge.push(rotation(t, O, 30 + i * 90), rotation(t, O, 60 + i * 90))
     }
-    const h = randint(0, 11)
-    const m = randint(0, 11) * 5
-    const alpha = 90 - h * 30 - m / 2
+
+    let h, m
+    const isAfternoon = this.sup ? (randint(0, 1) === 1) : false
+    h = isAfternoon ? randint(1, 11) + 12 : randint(0, 11)
+    m = randint(0, 11) * 5
+
+    
+    const alpha = 90 - h % 12 * 30 - m / 2
     const beta = 90 - m * 6
     const grandeAiguille = rotation(segment(O, point(1.5, 0)), O, beta)
     const petiteAiguille = rotation(segment(O, point(1, 0)), O, alpha)
@@ -67,8 +75,10 @@ export default class LireHeure extends ExerciceSimple {
       : colorToLatexOrHTML('black')
     petiteAiguille.epaisseur = 4
     horloge.push(petiteAiguille, grandeAiguille)
+
+    const periode = isAfternoon ? "de l'après-midi" : "du matin"
     this.question =
-      `Quelle est l'heure du matin indiquée par cette horloge ? <br>
+      `Quelle est l'heure ${periode} indiquée par cette horloge ? <br>
     
     ` +
       mathalea2d(

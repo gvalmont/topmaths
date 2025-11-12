@@ -16,15 +16,15 @@ import Exercice from '../Exercice'
 
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
+import { miseEnEvidence } from '../../lib/outils/embellissements'
 
 export const titre =
-  'Associer un intervalle de  $\\mathbb{R}$ à une inéquation et son schéma sur une droite graduée'
+  'Associer un intervalle de  $\\mathbb{R}$ à une inégalité et son schéma sur une droite graduée'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 
 /**
- * 2N11-1, ex 2N24
- * @Stéphane Guyon
+ * @author Stéphane Guyon
  */
 export const uuid = '31c01'
 
@@ -33,16 +33,29 @@ export const refs = {
   'fr-ch': ['2mIneq-8', '1mEI-6'],
 }
 export default class IntervallesDeR extends Exercice {
+  can: boolean
   constructor() {
     super()
-
-    this.nbQuestions = 4
+    this.can = false
+    this.nbQuestions = 1
+    this.besoinFormulaireNumerique = [
+      'Type de questions',
+      3,
+      "1 : Donner l'intervalle correspondant\n2 : Donner l'inégalité correspondante\n3: Mélange",
+    ]
   }
 
   nouvelleVersion() {
-    const typesDeQuestionsDisponibles = [
-      1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14,
-    ]
+    let typesDeQuestionsDisponibles: number[] = []
+    if (this.sup === 1) {
+      typesDeQuestionsDisponibles = [1] //, 2, 3, 4, 5, 6, 7, 8
+    } else if (this.sup === 2) {
+      typesDeQuestionsDisponibles = [9, 10, 11, 12, 13, 14]
+    } else {
+      typesDeQuestionsDisponibles = [
+        1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14,
+      ]
+    }
     const listeTypeDeQuestions = combinaisonListes(
       typesDeQuestionsDisponibles,
       this.nbQuestions,
@@ -65,6 +78,7 @@ export default class IntervallesDeR extends Exercice {
       let c2: CrochetD
       let int1: Segment
       let c = 0
+      let reponse
       switch (typeDeQuestion) {
         // Cas par cas, on définit le type de nombres que l'on souhaite
         // Combien de chiffres ? Quelles valeurs ?
@@ -77,7 +91,7 @@ export default class IntervallesDeR extends Exercice {
           c1.taille = context.isHtml ? 0.2 : 0.4
           int1 = intervalle(A, X2, 'red', 0)
           int1.epaisseur = 6
-          texte = `Déterminer l'intervalle $I$ de $\\mathbb{R}$ correspondant à l'inéquation $x>${a}$${this.interactif ? '.' : " et représenter l'intervalle sur une droite graduée."}`
+          texte = `Déterminer l'intervalle $I$ de $\\mathbb{R}$ correspondant à l'inégalité $x>${a}$${this.interactif || this.can ? '.' : " et représenter l'intervalle sur une droite graduée."}`
           texteCorr = mathalea2d(
             {
               xmin: -2,
@@ -91,7 +105,8 @@ export default class IntervallesDeR extends Exercice {
             int1,
             c1,
           )
-          texteCorr += `$I=]${a};+\\infty[$`
+          reponse = `]${a}\\,;\\,+\\infty[`
+          texteCorr += `$I=${miseEnEvidence(reponse)}$`
           break
 
         case 2:
@@ -103,7 +118,7 @@ export default class IntervallesDeR extends Exercice {
           c1.taille = context.isHtml ? 0.2 : 0.4
           int1 = intervalle(A, X2, 'red', 0)
           int1.epaisseur = 6
-          texte = `Déterminer l'intervalle $I$ de $\\mathbb{R}$ correspondant à l'inéquation $x\\geqslant ${a}$${this.interactif ? '.' : " et représenter l'intervalle sur une droite graduée."}`
+          texte = `Déterminer l'intervalle $I$ de $\\mathbb{R}$ correspondant à l'inégalité $x\\geqslant ${a}$${this.interactif || this.can ? '.' : " et représenter l'intervalle sur une droite graduée."}`
           texteCorr = mathalea2d(
             {
               xmin: -2,
@@ -117,7 +132,8 @@ export default class IntervallesDeR extends Exercice {
             int1,
             c1,
           )
-          texteCorr += `$I=[${a};+\\infty[$`
+          reponse = `[${a}\\,;\\,+\\infty[`
+          texteCorr += `$I=${miseEnEvidence(reponse)}$`
           break
 
         case 3:
@@ -129,7 +145,7 @@ export default class IntervallesDeR extends Exercice {
           c1.taille = context.isHtml ? 0.2 : 0.4
           int1 = intervalle(X1, A, 'red', 0)
           int1.epaisseur = 6
-          texte = `Déterminer l'intervalle $I$ de $\\mathbb{R}$ correspondant à l'inéquation $x<${a}$${this.interactif ? '.' : " et représenter l'intervalle sur une droite graduée."}`
+          texte = `Déterminer l'intervalle $I$ de $\\mathbb{R}$ correspondant à l'inégalité $x<${a}$${this.interactif || this.can ? '.' : " et représenter l'intervalle sur une droite graduée."}`
           texteCorr = mathalea2d(
             {
               xmin: -2,
@@ -143,7 +159,8 @@ export default class IntervallesDeR extends Exercice {
             int1,
             c1,
           )
-          texteCorr += `$I=]-\\infty;${a}[$`
+          reponse = `]-\\infty\\,;\\,${a}[`
+          texteCorr += `$I=${miseEnEvidence(reponse)}$`
           break
 
         case 4:
@@ -155,7 +172,7 @@ export default class IntervallesDeR extends Exercice {
           c1.taille = context.isHtml ? 0.2 : 0.4
           int1 = intervalle(X1, A, 'red', 0)
           int1.epaisseur = 6
-          texte = `Déterminer l'intervalle $I$ de $\\mathbb{R}$ correspondant à l'inéquation $x\\leqslant ${a}$${this.interactif ? '.' : " et représenter l'intervalle sur une droite graduée."}`
+          texte = `Déterminer l'intervalle $I$ de $\\mathbb{R}$ correspondant à l'inégalité $x\\leqslant ${a}$${this.interactif || this.can ? '.' : " et représenter l'intervalle sur une droite graduée."}`
           texteCorr = mathalea2d(
             {
               xmin: -2,
@@ -169,7 +186,8 @@ export default class IntervallesDeR extends Exercice {
             int1,
             c1,
           )
-          texteCorr += `$I=]-\\infty;${a}]$`
+          reponse = `]-\\infty\\,;\\,${a}]`
+          texteCorr += `$I=${miseEnEvidence(reponse)}$`
           break
 
         case 5:
@@ -184,7 +202,7 @@ export default class IntervallesDeR extends Exercice {
           c2.taille = context.isHtml ? 0.2 : 0.4
           int1 = intervalle(A, B, 'red', 0)
           int1.epaisseur = 6
-          texte = `Déterminer l'intervalle $I$ de $\\mathbb{R}$ correspondant à l'inéquation $${a} < x < ${b}$${this.interactif ? '.' : " et représenter l'intervalle sur une droite graduée."}`
+          texte = `Déterminer l'intervalle $I$ de $\\mathbb{R}$ correspondant à l'inégalité $${a} < x < ${b}$${this.interactif || this.can ? '.' : " et représenter l'intervalle sur une droite graduée."}`
           texteCorr = mathalea2d(
             {
               xmin: -2,
@@ -199,7 +217,8 @@ export default class IntervallesDeR extends Exercice {
             c1,
             c2,
           )
-          texteCorr += `$I=]${a};${b}[$`
+          reponse = `]${a}\\,;\\,${b}[`
+          texteCorr += `$I=${miseEnEvidence(reponse)}$`
           break
 
         case 6:
@@ -214,7 +233,7 @@ export default class IntervallesDeR extends Exercice {
           c2.taille = context.isHtml ? 0.2 : 0.4
           int1 = intervalle(A, B, 'red', 0)
           int1.epaisseur = 6
-          texte = `Déterminer l'intervalle $I$ de $\\mathbb{R}$ correspondant à l'inéquation $${a}\\leqslant x<${b}$${this.interactif ? '.' : " et représenter l'intervalle sur une droite graduée."}`
+          texte = `Déterminer l'intervalle $I$ de $\\mathbb{R}$ correspondant à l'inégalité $${a}\\leqslant x<${b}$${this.interactif || this.can ? '.' : " et représenter l'intervalle sur une droite graduée."}`
           texteCorr = mathalea2d(
             {
               xmin: -2,
@@ -229,7 +248,8 @@ export default class IntervallesDeR extends Exercice {
             c1,
             c2,
           )
-          texteCorr += `$I=[${a};${b}[$`
+          reponse = `[${a}\\,;\\,${b}[`
+          texteCorr += `$I=${miseEnEvidence(reponse)}$`
           break
 
         case 7:
@@ -244,7 +264,7 @@ export default class IntervallesDeR extends Exercice {
           c2.taille = context.isHtml ? 0.2 : 0.4
           int1 = intervalle(A, B, 'red', 0)
           int1.epaisseur = 6
-          texte = `Déterminer l'intervalle $I$ de $\\mathbb{R}$ correspondant à l'inéquation $${a}\\leqslant x\\leqslant ${b}$${this.interactif ? '.' : " et représenter l'intervalle sur une droite graduée."}`
+          texte = `Déterminer l'intervalle $I$ de $\\mathbb{R}$ correspondant à l'inégalité $${a}\\leqslant x\\leqslant ${b}$${this.interactif || this.can ? '.' : " et représenter l'intervalle sur une droite graduée."}`
           texteCorr = mathalea2d(
             {
               xmin: -2,
@@ -259,7 +279,8 @@ export default class IntervallesDeR extends Exercice {
             c1,
             c2,
           )
-          texteCorr += `$I=[${a};${b}]$`
+          reponse = `[${a}\\,;\\,${b}]`
+          texteCorr += `$I=${miseEnEvidence(reponse)}$`
           break
 
         case 8:
@@ -274,7 +295,7 @@ export default class IntervallesDeR extends Exercice {
           c2.taille = context.isHtml ? 0.2 : 0.4
           int1 = intervalle(A, B, 'red', 0)
           int1.epaisseur = 6
-          texte = `Déterminer l'intervalle $I$ de $\\mathbb{R}$ correspondant à l'inéquation $${a}< x\\leqslant ${b}$${this.interactif ? '.' : " et représenter l'intervalle sur une droite graduée."}`
+          texte = `Déterminer l'intervalle $I$ de $\\mathbb{R}$ correspondant à l'inégalité $${a}< x\\leqslant ${b}$${this.interactif || this.can ? '.' : " et représenter l'intervalle sur une droite graduée."}`
           texteCorr = mathalea2d(
             {
               xmin: -2,
@@ -289,7 +310,8 @@ export default class IntervallesDeR extends Exercice {
             c1,
             c2,
           )
-          texteCorr += `$I=]${a};${b}]$`
+          reponse = `]${a}\\,;\\,${b}]`
+          texteCorr += `$I=${miseEnEvidence(reponse)}$`
           break
 
         case 9:
@@ -304,7 +326,7 @@ export default class IntervallesDeR extends Exercice {
           c2.taille = context.isHtml ? 0.2 : 0.4
           int1 = intervalle(A, B, 'red', 0)
           int1.epaisseur = 6
-          texte = `Déterminer l'inéquation correspondant à $x \\in ]${a};${b}]$${this.interactif ? '.' : " et représenter l'intervalle sur une droite graduée."}`
+          texte = `Déterminer l'inégalité correspondant à $x \\in ]${a}\\,;\\,${b}]$${this.interactif || this.can ? '.' : " et représenter l'intervalle sur une droite graduée."}`
           texteCorr = mathalea2d(
             {
               xmin: -2,
@@ -319,7 +341,8 @@ export default class IntervallesDeR extends Exercice {
             c1,
             c2,
           )
-          texteCorr += `$${a}< x\\leqslant ${b}$`
+          reponse = [`${a}< x\\leqslant ${b}`, `${b}< x\\geqslant ${a}`]
+          texteCorr += `$${miseEnEvidence(reponse[0])}$`
           break
         case 10:
           a = randint(1, 15)
@@ -333,7 +356,7 @@ export default class IntervallesDeR extends Exercice {
           c2.taille = context.isHtml ? 0.2 : 0.4
           int1 = intervalle(A, B, 'red', 0)
           int1.epaisseur = 6
-          texte = `Déterminer l'inéquation correspondant à $x \\in [${a};${b}]$${this.interactif ? '.' : " et représenter l'intervalle sur une droite graduée."}`
+          texte = `Déterminer l'inégalité correspondant à $x \\in [${a}\\,;\\,${b}]$${this.interactif || this.can ? '.' : " et représenter l'intervalle sur une droite graduée."}`
           texteCorr = mathalea2d(
             {
               xmin: -2,
@@ -348,7 +371,11 @@ export default class IntervallesDeR extends Exercice {
             c1,
             c2,
           )
-          texteCorr += `$${a}\\leqslant x\\leqslant ${b}$`
+          reponse = [
+            `${a}\\leqslant x\\leqslant ${b}`,
+            `${b}\\geqslant x\\geqslant ${a}`,
+          ]
+          texteCorr += `$${miseEnEvidence(reponse[0])}$`
           break
         case 11:
           a = randint(1, 15)
@@ -362,7 +389,7 @@ export default class IntervallesDeR extends Exercice {
           c2.taille = context.isHtml ? 0.2 : 0.4
           int1 = intervalle(A, B, 'red', 0)
           int1.epaisseur = 6
-          texte = `Déterminer l'inéquation correspondant à $x \\in [${a};${b}[$${this.interactif ? '.' : " et représenter l'intervalle sur une droite graduée."}`
+          texte = `Déterminer l'inégalité correspondant à $x \\in [${a}\\,;\\,${b}[$${this.interactif || this.can ? '.' : " et représenter l'intervalle sur une droite graduée."}`
           texteCorr = mathalea2d(
             {
               xmin: -2,
@@ -377,7 +404,8 @@ export default class IntervallesDeR extends Exercice {
             c1,
             c2,
           )
-          texteCorr += `$${a}\\leqslant x< ${b}$`
+          reponse = [`${a}\\leqslant x< ${b}`, `${b}\\geqslant x< ${a}`]
+          texteCorr += `$${miseEnEvidence(reponse[0])}$`
           break
         case 12:
           a = randint(1, 15)
@@ -389,7 +417,7 @@ export default class IntervallesDeR extends Exercice {
           c1.taille = context.isHtml ? 0.2 : 0.4
 
           int1 = intervalle(A, B, 'red', 0)
-          texte = `Déterminer l'inéquation correspondant à $x \\in ]${a};+\\infty[$${this.interactif ? '.' : " et représenter l'intervalle sur une droite graduée."}`
+          texte = `Déterminer l'inégalité correspondant à $x \\in ]${a}\\,;\\,+\\infty[$${this.interactif || this.can ? '.' : " et représenter l'intervalle sur une droite graduée."}`
           int1.epaisseur = 6
           texteCorr = mathalea2d(
             {
@@ -404,7 +432,8 @@ export default class IntervallesDeR extends Exercice {
             int1,
             c1,
           )
-          texteCorr += `$x > ${a}$`
+          reponse = [`x > ${a}`, `${a} < x`]
+          texteCorr += `$${miseEnEvidence(reponse[0])}$`
           break
         case 13:
           a = randint(1, 15)
@@ -417,7 +446,7 @@ export default class IntervallesDeR extends Exercice {
 
           int1 = intervalle(X1, A, 'red', 0)
           int1.epaisseur = 6
-          texte = `Déterminer l'inéquation correspondant à $x \\in ]-\\infty;${a}[$${this.interactif ? '.' : " et représenter l'intervalle sur une droite graduée."}`
+          texte = `Déterminer l'inégalité correspondant à $x \\in ]-\\infty\\,;\\,${a}[$${this.interactif || this.can ? '.' : " et représenter l'intervalle sur une droite graduée."}`
           texteCorr = mathalea2d(
             {
               xmin: -2,
@@ -431,7 +460,8 @@ export default class IntervallesDeR extends Exercice {
             int1,
             c1,
           )
-          texteCorr += `$x < ${a}$`
+          reponse = [`x < ${a}`, `${a} > x`]
+          texteCorr += `$${miseEnEvidence(reponse[0])}$`
           break
         case 14:
         default:
@@ -445,7 +475,7 @@ export default class IntervallesDeR extends Exercice {
 
           int1 = intervalle(X1, A, 'red', 0)
           int1.epaisseur = 6
-          texte = `Déterminer l'inéquation correspondant à $x \\in ]-\\infty;${a}]$${this.interactif ? '.' : " et représenter l'intervalle sur une droite graduée."}`
+          texte = `Déterminer l'inégalité correspondant à $x \\in ]-\\infty\\,;\\,${a}]$${this.interactif || this.can ? '.' : " et représenter l'intervalle sur une droite graduée."}`
           texteCorr = mathalea2d(
             {
               xmin: -2,
@@ -459,30 +489,26 @@ export default class IntervallesDeR extends Exercice {
             int1,
             c1,
           )
-          texteCorr += `$x \\leqslant ${a}$`
+          reponse = [`x \\leqslant ${a}`, `${a} \\geqslant x`]
+          texteCorr += `$${miseEnEvidence(reponse[0])}$`
           break
       }
+
       if (this.questionJamaisPosee(i, a, b, typeDeQuestion)) {
         // Si la question n'a jamais été posée, on en créé une autre
         if (this.interactif) {
-          let reponse
           if (typeDeQuestion < 9) {
-            reponse = texteCorr.split('I=')[1] // On prend la réponse après 'I='
-            reponse = reponse.substring(0, reponse.length - 1) // et on vire le $ de la fin.
             handleAnswers(this, i, {
               reponse: { value: reponse, options: { intervalle: true } },
             })
           } else {
-            const rep = texteCorr.match(/\$(.*)\$/g) // On prend ce qui est entre les $ $.
-            if (rep !== null) {
-              reponse = rep[0] as string
-              handleAnswers(this, i, { reponse: { value: reponse } })
-            }
+            handleAnswers(this, i, { reponse: { value: reponse } })
           }
           texte += ajouteChampTexteMathLive(
             this,
             i,
             ` ${KeyboardType.clavierEnsemble} ${KeyboardType.clavierCompare}`,
+            { texteAvant: '<br>' },
           )
         }
         this.listeQuestions[i] = texte
