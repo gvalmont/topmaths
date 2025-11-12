@@ -14,11 +14,15 @@ beforeAll(() => {
 })
 
 vi.mock('../../../../src/lib/3d/3d_dynamique/Canvas3DElement', () => ({
-  ajouteCanvas3d: vi.fn((args) => args.join('-')),
+  ajouteCanvas3d: vi.fn((args) => {
+    return 'canvas3DElement-mock:' + args.length
+  }),
 }))
 
 vi.mock('../../../../src/lib/3d/3d_dynamique/solidesThreeJs', () => ({
-  sphericalToCartesian: vi.fn((args) => args.join('-')),
+  sphericalToCartesian: vi.fn((args) => {
+    return 'sphericalToCartesian-mock:' + args.length
+  }),
 }))
 
 vi.mock('../../../../src/lib/components/version', () => ({

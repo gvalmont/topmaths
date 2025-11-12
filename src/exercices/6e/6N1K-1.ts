@@ -1,14 +1,15 @@
+import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
+import { handleAnswers } from '../../lib/interactif/gestionInteractif'
+import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { texNombre } from '../../lib/outils/texNombre'
-import Exercice from '../Exercice'
 import { context } from '../../modules/context'
 import {
   gestionnaireFormulaireTexte,
   listeQuestionsToContenu,
   randint,
 } from '../../modules/outils'
-import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
-import { handleAnswers } from '../../lib/interactif/gestionInteractif'
+import Exercice from '../Exercice'
 
 export const dateDePublication = '28/09/22'
 export const titre = "Trouver une valeur approchée ou un arrondi d'un décimal"
@@ -85,7 +86,11 @@ export default class ArrondirUnDecimal extends Exercice {
           texte = `Donner un arrondi au centième de
                     $${texNombre(m * 1000 + c * 100 + d * 10 + u * 1 + (di * 0.1 + ci * 0.01 + mi * 0.001))}$ : `
           if (this.interactif) {
-            texte += ajouteChampTexteMathLive(this, indexQ, '')
+            texte += ajouteChampTexteMathLive(
+              this,
+              indexQ,
+              KeyboardType.clavierNumbers,
+            )
           } else {
             texte += '$\\ldots\\ldots\\ldots $'
           }
@@ -135,7 +140,11 @@ export default class ArrondirUnDecimal extends Exercice {
           texte = `Donner un arrondi au dixième de
                     $${texNombre(m * 1000 + c * 100 + d * 10 + u * 1 + (di * 0.1 + ci * 0.01 + mi * 0.001))}$ : `
           if (this.interactif) {
-            texte += ajouteChampTexteMathLive(this, indexQ, '')
+            texte += ajouteChampTexteMathLive(
+              this,
+              indexQ,
+              KeyboardType.clavierNumbers,
+            )
           } else {
             texte += '$\\ldots\\ldots\\ldots $'
           }
@@ -183,7 +192,11 @@ export default class ArrondirUnDecimal extends Exercice {
           texte = `Donner un arrondi à l'unité de
                     $${texNombre(m * 1000 + c * 100 + d * 10 + u * 1 + (di * 0.1 + ci * 0.01 + mi * 0.001))}$ : `
           if (this.interactif) {
-            texte += ajouteChampTexteMathLive(this, indexQ, '')
+            texte += ajouteChampTexteMathLive(
+              this,
+              indexQ,
+              KeyboardType.clavierNumbers,
+            )
           } else {
             texte += '$\\ldots\\ldots\\ldots $'
           }
@@ -221,7 +234,11 @@ export default class ArrondirUnDecimal extends Exercice {
           texte = `${valeurdegaucheoudroite === 1 ? 'Donner une valeur par défaut au centième de ' : 'Donner une valeur par excès au centième de '}
                     $${texNombre(m * 1000 + c * 100 + d * 10 + u * 1 + (di * 0.1 + ci * 0.01 + mi * 0.001))}$ : `
           if (this.interactif) {
-            texte += ajouteChampTexteMathLive(this, indexQ, '')
+            texte += ajouteChampTexteMathLive(
+              this,
+              indexQ,
+              KeyboardType.clavierNumbers,
+            )
           } else {
             texte += '$\\ldots\\ldots\\ldots $'
           }
@@ -269,7 +286,11 @@ export default class ArrondirUnDecimal extends Exercice {
           texte = `${valeurdegaucheoudroite === 1 ? 'Donner une valeur par défaut au dixième de ' : 'Donner une valeur par excès au dixième de '}
                     $${texNombre(m * 1000 + c * 100 + d * 10 + u * 1 + (di * 0.1 + ci * 0.01 + mi * 0.001))}$ : `
           if (this.interactif) {
-            texte += ajouteChampTexteMathLive(this, indexQ, '')
+            texte += ajouteChampTexteMathLive(
+              this,
+              indexQ,
+              KeyboardType.clavierNumbers,
+            )
           } else {
             texte += '$\\ldots\\ldots\\ldots $'
           }
@@ -318,7 +339,11 @@ export default class ArrondirUnDecimal extends Exercice {
           texte = `${valeurdegaucheoudroite === 1 ? "Donner une valeur par défaut à l'unité de " : "Donner une valeur par excès à l'unité de "}
                     $${texNombre(m * 1000 + c * 100 + d * 10 + u * 1 + (di * 0.1 + ci * 0.01 + mi * 0.001))}$ : `
           if (this.interactif) {
-            texte += ajouteChampTexteMathLive(this, indexQ, '')
+            texte += ajouteChampTexteMathLive(
+              this,
+              indexQ,
+              KeyboardType.clavierNumbers,
+            )
           } else {
             texte += '$\\ldots\\ldots\\ldots $'
           }

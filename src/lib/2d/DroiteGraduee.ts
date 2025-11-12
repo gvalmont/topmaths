@@ -43,6 +43,7 @@ import { tracePoint } from './TracePoint'
  * @param {number?} [parametres.labelDistance = (axeHauteur + 10) / context.pixelsParCm] Distance entre les labels et l'axe
  * @param {number?} [parametres.labelCustomDistance = (axeHauteur + 10) / context.pixelsParCm] Distance entre les labels et l'axe
  * @param {array?} [parametres.labelListe = []] Liste de labels à mettre sous l'axe comme, par exemple, [[2.8,'x'],[3.1,'y']]. Les noms se placent en-dessous de l'axe.
+ * @param {boolean?} [parametres.labelListeScriptsize = false] Si true, les labels de la liste labelListe sont en \scriptsize
  * @param {string?} [parametres.labelColor = 'black'] Couleur des labels de la liste labelListe : du type 'blue' ou du type '#f15929'
  * @param {number?} [parametres.labelScale = 1] Echelle des labels
  * @param {string?} [parametres.Legende = ''] Légende de l'axe
@@ -94,6 +95,7 @@ export class DroiteGraduee extends ObjetMathalea2D {
     labelCustomDistance = (axeHauteur + 10) / context.pixelsParCm,
     labelDistance = (axeHauteur + 10) / context.pixelsParCm,
     labelListe = [],
+    labelListeScriptsize = false,
     // labelColor = 'black',
     // labelScale = 1,
     Legende = '',
@@ -135,6 +137,7 @@ export class DroiteGraduee extends ObjetMathalea2D {
     labelColor?: string
     Legende?: string
     LegendePosition?: number
+    labelListeScriptsize?: boolean
   }) {
     super()
     // correctif Jean-Claude Lhote 15/08/2023
@@ -274,7 +277,10 @@ export class DroiteGraduee extends ObjetMathalea2D {
           y -
             labelCustomDistance * absord[0] +
             (p[0] - Min) * absord[1] * Unite,
-          { letterSize: 'normalsize', color: labelColor },
+          {
+            letterSize: labelListeScriptsize ? 'scriptsize' : 'normalsize',
+            color: labelColor,
+          },
         )
         this.objets.push(t)
       }
@@ -298,7 +304,7 @@ export class DroiteGraduee extends ObjetMathalea2D {
         )
         T = tracePoint(P, pointCouleur)
         T.taille = pointTaille
-        T.tailleTikz = Math.max(T.taille / 30, 0.3)
+        T.tailleTikz = Math.max(T.taille / 30, 0.1)
         T.opacite = pointOpacite
         T.style = pointStyle
         T.epaisseur = pointEpaisseur
@@ -372,6 +378,7 @@ export class DroiteGraduee extends ObjetMathalea2D {
         labelsPrincipaux: false,
         labelListe: [[0, 'O'], [1, 'I']],
         pointListe: [[-1, 'A'], [5, 'B'], [7.2, 'C']],
+        labelListeScriptsize: true,
         pointTaille: 6,
         pointCouleur: 'gray',
         pointStyle: '|',
@@ -420,6 +427,7 @@ export function droiteGraduee({
   labelListe = [],
   // labelColor = 'black',
   // labelScale = 1,
+  labelListeScriptsize = false,
   Legende = '',
   LegendePosition = (Max - Min) * Unite + 1.5,
 }: {
@@ -456,6 +464,7 @@ export function droiteGraduee({
   labelCustomDistance?: number
   labelDistance?: number
   labelListe?: [number, string][]
+  labelListeScriptsize?: boolean
   labelColor?: string
   Legende?: string
   LegendePosition?: number
@@ -494,6 +503,7 @@ export function droiteGraduee({
     labelDistance,
     labelCustomDistance,
     labelListe,
+    labelListeScriptsize,
     labelColor,
     Legende,
     LegendePosition,

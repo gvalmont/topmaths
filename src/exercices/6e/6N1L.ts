@@ -1,3 +1,6 @@
+import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
+import { handleAnswers } from '../../lib/interactif/gestionInteractif' // fonction qui va préparer l'analyse de la saisie
+import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive' // fonctions de mise en place des éléments interactifs
 import { choice, shuffle } from '../../lib/outils/arrayOutils'
 import { arrondi } from '../../lib/outils/nombres'
 import { numAlpha } from '../../lib/outils/outilString'
@@ -7,8 +10,6 @@ import {
   listeQuestionsToContenu,
 } from '../../modules/outils'
 import Exercice from '../Exercice'
-import { handleAnswers } from '../../lib/interactif/gestionInteractif' // fonction qui va préparer l'analyse de la saisie
-import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive' // fonctions de mise en place des éléments interactifs
 export const interactifReady = true
 export const interactifType = 'mathLive'
 
@@ -138,7 +139,7 @@ export default class ValeurApprocheeDivisionDecimale extends Exercice {
                 ? ajouteChampTexteMathLive(
                     this,
                     i * typesDeQuestions.length * precisions.length + numQuest,
-                    'inline',
+                    KeyboardType.clavierNumbers,
                   ) + '.'
                 : ':') +
               '<br>',

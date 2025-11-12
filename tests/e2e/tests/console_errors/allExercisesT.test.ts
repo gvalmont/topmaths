@@ -283,6 +283,7 @@ if (
   // utiliser pour les tests d'intégration
   const filter = (process.env.NIV as string).replaceAll(' ', '')
   prefs.headless = true
+  prefs.nbExosParLot = 300
   log(filter)
   testRunAllLots(filter)
 } else if (
@@ -293,6 +294,7 @@ if (
   const changedFiles = process.env.CHANGED_FILES?.split('\n') ?? []
   log(changedFiles)
   prefs.headless = true
+  prefs.nbExosParLot = 300
   const filtered = changedFiles
     .filter(
       (file) =>
@@ -334,13 +336,14 @@ if (
   // testRunAllLots('2e')
   // testRunAllLots('1e')
   // testRunAllLots('QCM')
+  // testRunAllLots('dnb')
   testRunAllLots('TEx')
   testRunAllLots('TSpe')
-  // testRunAllLots('techno1')
+  testRunAllLots('techno1')
   // testRunAllLots('QCMBac')
   // testRunAllLots('QCMBrevet')
   // testRunAllLots('QCMStatiques')
 
   // pour faire un test sur un exercice particulier:
-  // testRunAllLots('6e/6I16')
+  // testRunAllLots('6e/6G2C')
 }

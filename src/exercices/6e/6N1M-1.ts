@@ -3,6 +3,9 @@
  */
 
 import { infoMessage } from '../../lib/format/message'
+import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
+import { setReponse } from '../../lib/interactif/gestionInteractif'
+import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { sp } from '../../lib/outils/outilString'
 import { texNombre } from '../../lib/outils/texNombre'
 import { context } from '../../modules/context'
@@ -11,8 +14,6 @@ import {
   listeQuestionsToContenu,
   randint,
 } from '../../modules/outils'
-import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
-import { setReponse } from '../../lib/interactif/gestionInteractif'
 import Exercice from '../Exercice'
 
 export const titre = 'Intercaler un nombre décimal entre deux nombres décimaux'
@@ -170,7 +171,7 @@ export default class IntercalerDecimalEntre2Decimaux extends Exercice {
       if (this.interactif) {
         texte =
           `$${texNombre(a)}<$` +
-          ajouteChampTexteMathLive(this, i, '') +
+          ajouteChampTexteMathLive(this, i, KeyboardType.clavierNumbers) +
           `$\\quad<${texNombre(b)}$`
         setReponse(this, i, [a, b], { formatInteractif: 'intervalleStrict' })
       } else {

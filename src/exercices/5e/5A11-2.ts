@@ -26,7 +26,7 @@ export const titre =
 export const uuid = '5618d'
 
 export const refs = {
-  'fr-fr': ['5A11-2'],
+  'fr-fr': [''],
   'fr-ch': ['9NO4-12'],
 }
 export default class ExerciceLabyrintheDivisibilite2 extends Exercice {

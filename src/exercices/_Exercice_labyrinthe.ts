@@ -37,12 +37,13 @@ export default class ExerciceLabyrinthe extends Exercice {
       cols: this.cols,
       orientation: this.orientation,
     })
+    this.labyrinthe.regenerate()
 
     if (this.labyrintheElement) {
       this.labyrintheElement.remove()
     }
 
-    if (this.goodAnswers.length > 0) return
+    // if (this.goodAnswers.length > 0) return
     const goodCount = this.labyrinthe.numberOfGoodAnswers() ?? 0
     const badCount = this.labyrinthe.numberOfIncorrectAnswers() ?? 0
     let attempts = 0

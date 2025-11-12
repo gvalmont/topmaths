@@ -66,8 +66,10 @@ export default class ResoudreEquationDegre2Entiers extends Exercice {
         texteCorr = `$\\Delta = ${ecritureParentheseSiNegatif(b)}^2-4\\times${ecritureParentheseSiNegatif(a)}\\times${ecritureParentheseSiNegatif(c)}=${b * b - 4 * a * c}$`
         texteCorr +=
           "<br>$\\Delta>0$ donc l'équation admet deux solutions : $x_1 = \\dfrac{-b-\\sqrt{\\Delta}}{2a}$ et $x_2 = \\dfrac{-b+\\sqrt{\\Delta}}{2a}$"
-        texteCorr += `<br>$x_1 =\\dfrac{${-b}-\\sqrt{${b * b - 4 * a * c}}}{${2 * a}}=${x1}$`
-        texteCorr += `<br>$x_2 =\\dfrac{${-b}+\\sqrt{${b * b - 4 * a * c}}}{${2 * a}}=${x2}$`
+        const racine1 = a > 0 ? x1 : x2
+        const racine2 = a > 0 ? x2 : x1
+        texteCorr += `<br>$x_1 =\\dfrac{${-b}-\\sqrt{${b * b - 4 * a * c}}}{${2 * a}}=${racine1}$`
+        texteCorr += `<br>$x_2 =\\dfrac{${-b}+\\sqrt{${b * b - 4 * a * c}}}{${2 * a}}=${racine2}$`
         texteCorr += `<br>L'ensemble des solutions de cette équation est : $\\mathcal{S}=${miseEnEvidence(`\\left\\{${x1} ; ${x2}\\right\\}`)}$.`
         answer = `\\{${x1};${x2}\\}`
       } else if (listeTypeDeQuestions[i] === 'solutionUnique') {

@@ -11,6 +11,7 @@ import {
 } from '../../modules/outils'
 import Exercice from '../Exercice'
 
+import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 import { setReponse } from '../../lib/interactif/gestionInteractif'
 
 export const dateDePublication = '28/09/22'
@@ -111,7 +112,12 @@ export default class EncadrerUnDecimal extends Exercice {
           if (!context.isAmc) setReponse(this, indexQ, reponseMin)
           texte = `Encadrer $${texNombre(m * 1000 + c * 100 + d * 10 + u * 1 + arrondi(di * 0.1 + ci * 0.01 + mi * 0.001))}$ au centième.<br>`
           if (this.interactif) {
-            texte += ajouteChampTexteMathLive(this, indexQ, ' ') + '$'
+            texte +=
+              ajouteChampTexteMathLive(
+                this,
+                indexQ,
+                KeyboardType.clavierNumbers,
+              ) + '$'
           } else if (context.isAmc) {
             texte += 'Ainsi  :' + sp(15) + 'a '
           } else {
@@ -127,7 +133,13 @@ export default class EncadrerUnDecimal extends Exercice {
             arrondi(di * 0.1 + (ci + 1) * 0.01)
           if (!context.isAmc) setReponse(this, indexQ, reponseMax)
           if (this.interactif) {
-            texte += '$' + ajouteChampTexteMathLive(this, indexQ, ' ')
+            texte +=
+              '$' +
+              ajouteChampTexteMathLive(
+                this,
+                indexQ,
+                KeyboardType.clavierNumbers,
+              )
           } else if (context.isAmc) {
             texte += ' b'
           } else {
@@ -150,7 +162,12 @@ export default class EncadrerUnDecimal extends Exercice {
           if (!context.isAmc) setReponse(this, indexQ, reponseMin)
           texte = `Encadrer $${texNombre(m * 1000 + c * 100 + d * 10 + u * 1 + arrondi(di * 0.1 + ci * 0.01 + mi * 0.001))}$ au dixième.<br>`
           if (this.interactif) {
-            texte += ajouteChampTexteMathLive(this, indexQ, ' ') + '$'
+            texte +=
+              ajouteChampTexteMathLive(
+                this,
+                indexQ,
+                KeyboardType.clavierNumbers,
+              ) + '$'
           } else if (context.isAmc) {
             texte += 'Ainsi  :' + sp(15) + 'a '
           } else {
@@ -162,7 +179,13 @@ export default class EncadrerUnDecimal extends Exercice {
             m * 1000 + c * 100 + d * 10 + u * 1 + arrondi((di + 1) * 0.1)
           if (!context.isAmc) setReponse(this, indexQ, reponseMax)
           if (this.interactif) {
-            texte += '$' + ajouteChampTexteMathLive(this, indexQ, ' ')
+            texte +=
+              '$' +
+              ajouteChampTexteMathLive(
+                this,
+                indexQ,
+                KeyboardType.clavierNumbers,
+              )
           } else if (context.isAmc) {
             texte += ' b'
           } else {
@@ -186,7 +209,12 @@ export default class EncadrerUnDecimal extends Exercice {
           if (!context.isAmc) setReponse(this, indexQ, reponseMin)
           texte = `Encadrer $${texNombre(m * 1000 + c * 100 + d * 10 + u * 1 + arrondi(di * 0.1 + ci * 0.01 + mi * 0.001))}$ à l'unité.<br>`
           if (this.interactif) {
-            texte += ajouteChampTexteMathLive(this, indexQ, ' ') + '$'
+            texte +=
+              ajouteChampTexteMathLive(
+                this,
+                indexQ,
+                KeyboardType.clavierNumbers,
+              ) + '$'
           } else if (context.isAmc) {
             texte += 'Ainsi  :' + sp(15) + 'a '
           } else {
@@ -197,7 +225,13 @@ export default class EncadrerUnDecimal extends Exercice {
           reponseMax = m * 1000 + c * 100 + d * 10 + (u + 1) * 1
           if (!context.isAmc) setReponse(this, indexQ, reponseMax)
           if (this.interactif) {
-            texte += '$' + ajouteChampTexteMathLive(this, indexQ, ' ')
+            texte +=
+              '$' +
+              ajouteChampTexteMathLive(
+                this,
+                indexQ,
+                KeyboardType.clavierNumbers,
+              )
           } else if (context.isAmc) {
             texte += ' b'
           } else {

@@ -95,7 +95,12 @@ export default class AbscisseFractionnaire extends Exercice {
         })
       }
 
-      if (this.version !== '6e' || pgcd(a, b) === 1) {
+      if (a === 3 && b % a !== 0) {
+        this.correction = `L'unité est divisée en $${a}$ intervalles.<br>
+      Une graduation correspond donc à $\\dfrac{1}{${a}}$. <br>
+       Comme le point $A$ est situé à $${b}$ graduations de l'origine,
+        l'abscisse du point $A$ est donc $\\dfrac{1}{${a}}\\times ${b}$, soit  $${miseEnEvidence(`\\dfrac{${b}}{${a}}`)}$.`
+      } else if (this.version !== '6e' || pgcd(a, b) === 1) {
         this.correction = `L'unité est divisée en $${a}$ intervalles.<br>
     Une graduation correspond donc à $${this.version === '6e' ? `\\dfrac{1}{${a}}` : `${texNombre(arrondi(1 / a))}`}$. <br>
      Comme le point $A$ est situé à $${b}$ graduations de l'origine,

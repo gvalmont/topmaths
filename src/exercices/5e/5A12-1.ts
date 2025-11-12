@@ -1,15 +1,15 @@
+import { warnMessage } from '../../lib/format/message'
+import { propositionsQcm } from '../../lib/interactif/qcm'
 import {
   combinaisonListesSansChangerOrdre,
   shuffle,
 } from '../../lib/outils/arrayOutils'
 import { texteEnCouleurEtGras } from '../../lib/outils/embellissements'
-import { warnMessage } from '../../lib/format/message'
 import { cribleEratostheneN } from '../../lib/outils/primalite'
 import { nombreAvecEspace } from '../../lib/outils/texNombre'
-import Exercice from '../Exercice'
 import { context } from '../../modules/context'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
-import { propositionsQcm } from '../../lib/interactif/qcm'
+import Exercice from '../Exercice'
 
 export const titre = 'Justifier la primalité ou pas'
 export const interactifReady = true
@@ -47,6 +47,13 @@ export default class PremierOuPas5e extends Exercice {
   }
 
   nouvelleVersion() {
+    this.consigne = this.interactif
+      ? this.nbQuestions > 1
+        ? 'Les nombres suivants sont-ils premiers ?'
+        : 'Le nombre suivant est-il premier ?'
+      : this.nbQuestions > 1
+        ? 'Justifier que les nombres suivants sont premiers ou pas.'
+        : 'Justifier que le nombre suivant est premier ou pas.'
     let typesDeQuestions
 
     let typesDeQuestionsDisponibles = [1, 2, 3, 4, 5, 6, 7]

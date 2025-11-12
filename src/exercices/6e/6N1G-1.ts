@@ -23,7 +23,7 @@ import Exercice from '../Exercice'
 export const titre = 'Repérer des nombres décimaux sur une droite graduée'
 export const uuid = '50614'
 export const refs = {
-  'fr-fr': ['BP2AutoN2', '6N1G-1'],
+  'fr-fr': ['6N1G-1', 'BP2AutoN2'],
   'fr-2016': ['6N30-0', 'BP2AutoN2'],
   'fr-ch': ['9NO7-11'],
 }
@@ -58,8 +58,10 @@ class ReperageEntiersOuDecimaux extends Exercice {
   }
 
   nouvelleVersion() {
-    if (this.interactif) {
-      this.consigne = texteGras(' Penser à mettre les espaces nécessaires.')
+    if (this.interactif && this.version !== 'décimaux') {
+      this.consigne = texteGras(
+        ' Penser, si besoin, à mettre les espaces nécessaires.',
+      )
     }
     // Listes de pas [pasPrincipal, Subdivision] selon degré de difficulté
     const nbDecimales = this.version === 'entiers' ? 0 : 3

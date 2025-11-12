@@ -278,7 +278,7 @@ export default class RangerOrdreCroissantDecroissant extends Exercice {
         this,
         i,
         `%{champ1}${symbole}%{champ2}${symbole}%{champ3}${symbole}%{champ4}${symbole}%{champ5}${symbole}%{champ6}`,
-        ` ${KeyboardType.numbersSpace}`,
+        ` ${KeyboardType.clavierNumbers}`,
         '\\ldots\\ldots',
       )
 

@@ -1,4 +1,5 @@
 import { droiteGraduee } from '../../lib/2d/DroiteGraduee'
+import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 import { setReponse } from '../../lib/interactif/gestionInteractif'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { arrondi } from '../../lib/outils/nombres'
@@ -217,9 +218,21 @@ export default class LireAbscisseDecimaleBis2d extends Exercice {
         setReponse(this, 3 * i, arrondi(xA / pas1 + abs0))
         setReponse(this, 3 * i + 1, arrondi(xB / pas1 + abs0))
         setReponse(this, 3 * i + 2, arrondi(xC / pas1 + abs0))
-        texte += l1 + ajouteChampTexteMathLive(this, 3 * i)
-        texte += l2 + ajouteChampTexteMathLive(this, 3 * i + 1)
-        texte += l3 + ajouteChampTexteMathLive(this, 3 * i + 2)
+        texte +=
+          '$' +
+          l1 +
+          '$' +
+          ajouteChampTexteMathLive(this, 3 * i, KeyboardType.clavierNumbers)
+        texte +=
+          '$' +
+          l2 +
+          '$' +
+          ajouteChampTexteMathLive(this, 3 * i + 1, KeyboardType.clavierNumbers)
+        texte +=
+          '$' +
+          l3 +
+          '$' +
+          ajouteChampTexteMathLive(this, 3 * i + 2, KeyboardType.clavierNumbers)
       } else {
         if (context.isAmc) {
           this.autoCorrection[i] = {

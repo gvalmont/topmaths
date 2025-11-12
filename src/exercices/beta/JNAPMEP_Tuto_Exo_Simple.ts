@@ -89,9 +89,9 @@ Chaque uuid doit être différent d'un exercice à l'autre. Lors du pnpm start, 
 Le refs correspond au nom de l'exercice dans le référentiel français et dans le référentiel suisse.
 Selon que c'est une CAN ou un exercice plus classique, les référentiels ne sont pas les mêmes.
 */
-export const uuid = 'ÀhangerOBLIGATOIREMENT'
+export const uuid = 'aaaaa' /// 'À changer OBLIGATOIREMENT'
 export const refs = {
-  'fr-fr': ['ReferenceTresUtile'], // A changer obligatoirement, ne rien mettre si on ne veut pas que cet exercice soit référencé, donc trouvable dans le menu de gauche de MathALÉA
+  'fr-fr': [], // A compléter obligatoirement, ne rien mettre si on ne veut pas que cet exercice soit référencé, donc trouvable dans le menu de gauche de MathALÉA
   'fr-ch': [],
 }
 
@@ -156,6 +156,7 @@ $    Le this indique que ces paramétrages sont liés à l'objet Exercice.
     */
     this.question = `${a}+${b}`
     this.correction = `${a}+${b}=${a + b}` // this.correction contient le texte visible en HTML et en PDF (LaTeX) dans la correction.
+    this.reponse = a + b
 
     /*
     Si ce n'est pas déjà fait, créez une branche, changez le nom de l'exercice, changez le nom de ce fichier.

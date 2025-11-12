@@ -104,7 +104,7 @@ window.addEventListener('message', (event) => {
       // todo : gérer les can où il y a plusieurs exos
       scorm.set('cmi.suspend_data', seed + '|' + JSON.stringify(event.data.resultsByExercice[0].answers))
       let copieEleveUrl = document.getElementsByTagName('iframe')[0].src
-      copieEleveUrl = copieEleveUrl.replace(/&alea=[^&]+(?:&|$)/, '&alea=' + seed) // On remplace la seed au cas où qu'elle ait changé
+      copieEleveUrl = copieEleveUrl.replace(/&alea=[^&]+/, '&alea=' + seed) // On remplace la seed au cas où qu'elle ait changé
       copieEleveUrl += '&done=1&answers=' + encodeURIComponent(JSON.stringify(event.data.resultsByExercice[0].answers))
       scorm.set('cmi.interactions_0.student_response', copieEleveUrl)
       // scorm.set("cmi.success_status", "passed");

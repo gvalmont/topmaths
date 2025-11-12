@@ -1,5 +1,6 @@
 import { droiteGraduee } from '../../lib/2d/DroiteGraduee'
 import { fixeBordures } from '../../lib/2d/fixeBordures'
+import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 import { setReponse } from '../../lib/interactif/gestionInteractif'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { combinaisonListes } from '../../lib/outils/arrayOutils'
@@ -211,11 +212,19 @@ export default class LireAbscisseDecimale extends Exercice {
           arrondi(xC / pas1 + abs0, 1 + Math.log10(pas1)),
         )
         texte +=
-          `<br><br>$${l1}$` + sp(1) + ajouteChampTexteMathLive(this, 3 * i)
+          `<br><br>$${l1}$` +
+          sp(1) +
+          ajouteChampTexteMathLive(this, 3 * i, KeyboardType.clavierNumbers)
         texte +=
-          sp(6) + `$${l2}$` + sp(1) + ajouteChampTexteMathLive(this, 3 * i + 1)
+          sp(6) +
+          `$${l2}$` +
+          sp(1) +
+          ajouteChampTexteMathLive(this, 3 * i + 1, KeyboardType.clavierNumbers)
         texte +=
-          sp(6) + `$${l3}$` + sp(1) + ajouteChampTexteMathLive(this, 3 * i + 2)
+          sp(6) +
+          `$${l3}$` +
+          sp(1) +
+          ajouteChampTexteMathLive(this, 3 * i + 2, KeyboardType.clavierNumbers)
       } else {
         if (context.isAmc) {
           this.autoCorrection[i].enonce = texte

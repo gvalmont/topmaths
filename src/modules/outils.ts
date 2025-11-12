@@ -203,7 +203,7 @@ export function gestionnaireFormulaireTexte(
   if (
     defaut == null ||
     isNaN(defaut) ||
-    defaut < min ||
+    (defaut < min && defaut !== melange) ||
     (defaut > max && defaut !== melange)
   )
     throw Error(

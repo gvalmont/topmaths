@@ -1,5 +1,8 @@
 import { combinaisonListes } from '../../lib/outils/arrayOutils'
-import { listeQuestionsToContenu } from '../../modules/outils'
+import {
+  contraindreValeur,
+  listeQuestionsToContenu,
+} from '../../modules/outils'
 import Exercice from '../Exercice'
 
 import {
@@ -46,7 +49,7 @@ export default class DenombrerCubes extends Exercice {
     this.besoinFormulaire4Numerique = [
       'Volume',
       2,
-      '1 : Volume en cubes\n2 : Volume en cm³\n',
+      '1 : Volume en cubes\n2 : Volume en cm³',
     ]
     this.besoinFormulaire2Numerique = [
       "Taille de l'empilement",
@@ -56,13 +59,15 @@ export default class DenombrerCubes extends Exercice {
     this.besoinFormulaire3CaseACocher = ['3D dynamique', false]
     this.sup3 = false
     this.nbQuestions = 3 // Ici le nombre de questions
-
+    this.sup4 = 1
     this.sup = 1 // A décommenter : valeur par défaut d'un premier paramètre
     this.sup2 = 1 // A décommenter : valeur par défaut d'un deuxième paramètre
     // c'est ici que commence le code de l'exercice cette fonction crée une copie de l'exercice
   }
 
   nouvelleVersion() {
+    this.sup = contraindreValeur(1, 3, this.sup, 1) // taille de l'empilement
+    this.sup2 = contraindreValeur(1, 5, this.sup2, 1) // type de questions
     let typesDeQuestionsDisponibles: number[] = [] // tableau à compléter par valeurs possibles des types de questions
     switch (this.sup) {
       case 1:

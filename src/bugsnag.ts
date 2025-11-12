@@ -118,7 +118,10 @@ export function notify(error: string | NotifiableError, metadatas: Metadatas) {
     )
     console.error(message, error)
     if (metadatas) console.info('avec les metadatas', metadatas)
+    if (metadatas) console.info(JSON.stringify(metadatas))
     console.info('Paramètres des exercices', get(exercicesParams))
+    if (metadatas) console.info(JSON.stringify(get(exercicesParams)))
+    console.info('URL:' + createURL(get(exercicesParams)).toString())
   }
 }
 
