@@ -1,11 +1,10 @@
 #import "../../preambule_presentation.typ": *
 #import "../../preambule_sequence.typ": *
-#show: doc => presentation(doc, titre: "5N53 : Utiliser le calcul littéral pour démontrer une propriété générale")
+#show: doc => presentation(doc)
 #show: doc => normal(doc)
 
-#set text(size: 22pt)
+#set text(size: 21pt)
 #slide()[
-  #titrePrincipal()[Séquence 21 : Calcul littéral 2]
   #proprietes()[
     n désigne un nombre entier.\
     Les nombres pairs sont les nombres de la forme $2n$.\

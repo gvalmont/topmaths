@@ -1,6 +1,6 @@
 #import "../../preambule_presentation.typ": *
 #import "../../preambule_sequence.typ": *
-#show: doc => presentation(doc, titre: "6S11 : Recueillir et organiser des données")
+#show: doc => presentation(doc)
 
 #slide()[
   On a demandé à 10 personnes leur parfum de glace préféré, voici leurs réponses : fraise • mangue • vanille • vanille • chocolat • fraise • vanille • passion • fraise • chocolat.

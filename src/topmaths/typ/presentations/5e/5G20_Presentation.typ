@@ -1,5 +1,5 @@
 #import "../../preambule_presentation.typ": *
-#show: doc => presentation(doc, titre: "Inégalité triangulaire")
+#show: doc => presentation(doc)
 
 #slide()[
   #only((until: 4))[

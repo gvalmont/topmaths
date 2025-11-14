@@ -1,11 +1,10 @@
 #import "../../preambule_presentation.typ": *
 #import "../../preambule_sequence.typ": *
-#show: doc => presentation(doc, titre: "5M10 : Calculer le périmètre et l'aire d'une figure usuelle")
+#show: doc => presentation(doc)
 #show: doc => normal(doc)
 
 #slide()[
   #set text(size: 20pt)
-  #titrePrincipal()[Séquence 19 : Périmètres et aires]
 
   #definitions()[
     Une #motDefini()[#rouge()[hauteur]] d’un parallélogramme est la distance entre deux côtés opposés du parallélogramme.\

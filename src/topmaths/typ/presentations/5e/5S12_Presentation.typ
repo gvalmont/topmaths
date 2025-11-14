@@ -1,10 +1,9 @@
 #import "../../preambule_presentation.typ": *
 #import "../../preambule_sequence.typ": *
-#show: doc => presentation(doc, titre: "5S12 : Calculer et interpréter la moyenne arithmétique d'une série de données")
+#show: doc => presentation(doc)
 #show: doc => normal(doc)
 
 #slide()[
-  #titrePrincipal()[Séquence 22 : Moyennes]
   #definitions()[
     En statistiques, un ensemble de nombres s’appelle une #motDefini()[série] et ces nombres sont appelés #motDefini()[valeurs].\
     L’#motDefini()[effectif total] est le nombre total de valeurs de la série.\

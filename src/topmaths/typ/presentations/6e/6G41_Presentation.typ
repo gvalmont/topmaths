@@ -1,5 +1,5 @@
 #import "../../preambule_presentation.typ": *
-#show: doc => presentation(doc, titre: "6G4A : Estimer si un angle est droit, aigu ou obtus")
+#show: doc => presentation(doc)
 
 #for i in (3, 2, 5, 1, 4) {
   slide()[

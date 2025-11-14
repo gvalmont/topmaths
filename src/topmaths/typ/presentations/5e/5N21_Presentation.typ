@@ -1,11 +1,9 @@
 #import "../../preambule_presentation.typ": *
 #import "../../preambule_sequence.typ": *
-#show: doc => presentation(doc, titre: "5N21 : Comparer et ranger des fractions dont les dénominateurs sont multiples l'un de l'autre")
+#show: doc => presentation(doc)
 #set text(couleurPrincipale)
 
 #slide()[
-  #titrePrincipal()[Séquence 16 : Fractions 2]
-
   #methode()[
     Pour comparer des fractions (dire laquelle est plus grande) :
     + on les met sur le même dénominateur

@@ -1,6 +1,6 @@
 #import "../../preambule_presentation.typ": *
 #import "../../preambule_sequence.typ": *
-#show: doc => presentation(doc, titre: "5N51 : Réduire une expression littérale")
+#show: doc => presentation(doc)
 #show: doc => normal(doc)
 
 #slide()[

@@ -5,9 +5,6 @@
 
 #slide()[
   #set text(size: 18pt)
-  #titrePrincipal()[Séquence 6 : Proportionnalité en géométrie 1 (Triangles égaux)]
-
-  #v(3em)
   #grid(
     align: center,
     columns: 3,

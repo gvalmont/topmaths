@@ -1,6 +1,6 @@
 #import "../../preambule_presentation.typ": *
 #import "../../preambule_sequence.typ": *
-#show: doc => presentation(doc, titre: "6M21 : Convertir des aires")
+#show: doc => presentation(doc)
 #show: doc => normal(doc)
 
 #slide()[

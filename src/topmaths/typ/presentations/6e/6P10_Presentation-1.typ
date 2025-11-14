@@ -4,7 +4,6 @@
 #show: doc => normal(doc)
 
 #slide()[
-  #titrePrincipal()[Séquence 6 : Proportionnalité]
   #definition()[
     Une #motDefini()[grandeur] est quelque chose qu'on peut #vert()[compter] ou qu'on peut #vert()[mesurer] #noir()[(par exemple une durée, une masse, un volume, une distance, un nombre de stylos, ...)].\
     #uncover((beginning: 2))[Une #motDefini()[grandeur] est liée à une #vert()[unité] #noir()[(par exemple min, kg, litres, km, stylos, ...)].]

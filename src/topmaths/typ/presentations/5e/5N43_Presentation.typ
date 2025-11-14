@@ -1,6 +1,6 @@
 #import "../../preambule_presentation.typ": *
 #import "../../preambule_sequence.typ": *
-#show: doc => presentation(doc, titre: "5N43 : Décomposer un nombre entier en produit de facteurs premiers inférieurs à 30")
+#show: doc => presentation(doc)
 #show: doc => normal(doc)
 #slide()[
 #exemple()[

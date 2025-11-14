@@ -1,13 +1,9 @@
 #import "../../preambule_presentation.typ": *
 #import "../../preambule_sequence.typ": *
-#show: doc => presentation(doc, titre: "6G3A : Connaître et utiliser la définition de la médiatrice")
+#show: doc => presentation(doc)
 #show: doc => normal(doc)
 
 #slide()[
-  #set text(size: 24pt)
-  #only(1)[#titrePrincipal()[Séquence 20 : Médiatrice d'un segment]]
-  #only(2)[#titrePrincipal()[Séquence 5 : Symétrie et médiatrice]]
-
   #definition()[
     La #motDefini()[médiatrice] d'un segment est la droite qui coupe ce segment #vert()[perpendiculairement] et #noir()[en son milieu].
   ]

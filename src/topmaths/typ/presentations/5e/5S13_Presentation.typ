@@ -1,6 +1,6 @@
 #import "../../preambule_presentation.typ": *
 #import "../../preambule_sequence.typ": *
-#show: doc => presentation(doc, titre: "5S13 : Calculer et interpréter la moyenne pondérée d'une série de données")
+#show: doc => presentation(doc)
 #show: doc => normal(doc)
 
 #slide()[

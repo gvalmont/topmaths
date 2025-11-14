@@ -1,6 +1,6 @@
 #import "../../preambule_presentation.typ": *
 #import "../../preambule_sequence.typ": *
-#show: doc => presentation(doc, titre: "Soustraction de nombres relatifs")
+#show: doc => presentation(doc)
 
 #slide()[
   #text(size: 2em)[
@@ -23,7 +23,6 @@
 
 #slide()[
   #text(fill: couleurPrincipale, size: 0.95em)[
-    #titrePrincipal("Séquence 7 : Nombres relatifs 2")
     #propriete()[
       Soustraire un nombre relatif revient au même qu'additionner son opposé.
     ]

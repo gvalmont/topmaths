@@ -4,8 +4,6 @@
 #show: doc => normal(doc)
 
 #slide()[
-  #titrePrincipal()[Séquence 1 : Enchaînements d’opérations]
-
   #definitions()[
     #show "somme": motDefini
     #show "différence": motDefini

@@ -1,6 +1,6 @@
 #import "../../preambule_presentation.typ": *
 #import "../../preambule_sequence.typ": *
-#show: doc => presentation(doc, titre: "6N32 : Écrire un quotient sous forme de fraction")
+#show: doc => presentation(doc)
 #show: doc => normal(doc)
 
 #slide()[

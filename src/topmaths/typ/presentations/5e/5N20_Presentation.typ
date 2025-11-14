@@ -1,11 +1,10 @@
 #import "../../preambule_presentation.typ": *
 #import "../../preambule_sequence.typ": *
-#show: doc => presentation(doc, titre: "5N20 : Reconnaître et produire des fractions égales")
+#show: doc => presentation(doc)
 #show: doc => normal(doc)
 
 #slide()[
   #set text(size: 20pt)
-  #titrePrincipal()[Séquence 11 : Fractions 1]
   #proprietes()[
     #box()[
       $ a/b = (a #rouge()[$times k$])/(b #rouge()[$times k$]) $
@@ -30,7 +29,6 @@
 
 #slide()[
   #set text(size: 20pt)
-  #titrePrincipal()[Séquence 11 : Fractions 1]
   #proprietes()[
     #box()[
       $ a/b = (a #rouge()[$times k$])/(b #rouge()[$times k$]) $

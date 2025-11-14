@@ -1,6 +1,6 @@
 #import "../../preambule_presentation.typ": *
 #import "../../preambule_sequence.typ": *
-#show: doc => presentation(doc, titre: "5P11 : Utiliser l'échelle d'une carte")
+#show: doc => presentation(doc)
 
 #slide()[
   #align(center)[

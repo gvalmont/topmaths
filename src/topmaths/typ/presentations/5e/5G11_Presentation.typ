@@ -1,6 +1,6 @@
 #import "../../preambule_presentation.typ": *
 #import "../../preambule_sequence.typ": *
-#show: doc => presentation(doc, titre: "5G11 : Utiliser le fait que la symétrie centrale conserve le parallélisme, les longueurs et les angles")
+#show: doc => presentation(doc)
 #show: doc => normal(doc)
 
 #slide()[

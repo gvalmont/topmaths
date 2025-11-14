@@ -1,10 +1,9 @@
 #import "../../preambule_presentation.typ": *
 #import "../../preambule_sequence.typ": *
-#show: doc => presentation(doc, titre: "5G32 : Connaître et utiliser la somme des angles d'un triangle")
+#show: doc => presentation(doc)
 #show: doc => normal(doc)
 
 #slide()[
-  #titrePrincipal()[Séquence 14 : Somme des angles d'un triangle]
   #propriete()[
     La somme des trois angles d’un triangle fait (toujours) 180 °.
   ]

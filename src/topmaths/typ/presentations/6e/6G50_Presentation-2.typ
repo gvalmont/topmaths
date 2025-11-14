@@ -1,6 +1,6 @@
 #import "../../preambule_presentation.typ": *
 #import "../../preambule_sequence.typ": *
-#show: doc => presentation(doc, titre: "6G3A : Connaître et utiliser la définition de la médiatrice")
+#show: doc => presentation(doc)
 #show: doc => normal(doc)
 
 #slide()[

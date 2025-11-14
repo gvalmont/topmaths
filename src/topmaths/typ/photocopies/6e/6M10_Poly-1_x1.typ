@@ -1,5 +1,5 @@
 #import "../../preambule_sequence.typ": * 
-#show: doc => sequence(doc, title: "Séquence 8 : Périmètres et aires 1")
+#show: doc => sequence(doc)
 
 = Calculer le périmètre et l'aire d'un carré, d'un rectangle et d'un triangle rectangle
 == Définitions

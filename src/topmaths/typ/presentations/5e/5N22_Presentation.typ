@@ -1,6 +1,6 @@
 #import "../../preambule_presentation.typ": *
 #import "../../preambule_sequence.typ": *
-#show: doc => presentation(doc, titre: "5N22 : Simplifier des fractions simples")
+#show: doc => presentation(doc)
 #set text(couleurPrincipale)
 
 #slide()[

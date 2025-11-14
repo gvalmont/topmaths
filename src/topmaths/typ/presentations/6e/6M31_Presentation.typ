@@ -1,6 +1,6 @@
 #import "../../preambule_presentation.typ": *
 #import "../../preambule_sequence.typ": *
-#show: doc => presentation(doc, titre: "6M31 : Calculer des durées et des horaires")
+#show: doc => presentation(doc)
 #show: doc => normal(doc)
 
 #for i in range(12) {

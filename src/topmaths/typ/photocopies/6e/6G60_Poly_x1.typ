@@ -2,8 +2,6 @@
 #import "../../preambule_photocopies.typ": *
 #show: doc => photocopies(doc)
 #set text(couleurPrincipale)
-#titrePrincipal("Séquence 23 : Solides")
-#v(2em)
 #definitions()[
   #align(horizon, grid(
     columns: 2,

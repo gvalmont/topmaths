@@ -1,6 +1,6 @@
 #import "../../preambule_presentation.typ": *
 #import "../../preambule_sequence.typ": *
-#show: doc => presentation(doc, titre: "6P13 : Appliquer un pourcentage")
+#show: doc => presentation(doc)
 
 #set text(couleurPrincipale)
 

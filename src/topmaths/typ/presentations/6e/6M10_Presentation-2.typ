@@ -1,6 +1,6 @@
 #import "../../preambule_presentation.typ": *
 #import "../../preambule_sequence.typ": *
-#show: doc => presentation(doc, titre: "6M2C : Calculer le périmètre et l'aire d'un carré, d'un rectangle et d'un triangle rectangle")
+#show: doc => presentation(doc)
 
 #let diapos(figureSansDecoupage, figureAvecDecoupage, calcul, resultat) = {
   slide()[

@@ -4,8 +4,6 @@
 #show: doc => normal(doc)
 
 #slide()[
-  #titrePrincipal()[Séquence 23 : Calcul littéral 3]
-
   #uncover(2)[
     #vocabulaire()[
       Lorsqu’on écrit que quelque chose est #motDefini()[égal] à quelque chose, on écrit ce qu’on appelle une #motDefini()[égalité].\

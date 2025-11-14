@@ -1,12 +1,9 @@
 #import "../../preambule_presentation.typ": *
 #import "../../preambule_sequence.typ": *
-#show: doc => presentation(doc, titre: "5N40 : Déterminer si un nombre entier est ou n’est pas multiple ou diviseur d’un autre nombre
-entier")
+#show: doc => presentation(doc)
 #show: doc => normal(doc)
 
 #slide()[
-  #titrePrincipal()[Séquence 9 : Arithmétique 1]
-  #v(2em)
   #vocabulaire()[
     On a : 38 = 2 $times$ 19 + 0.\
     Le reste de la division euclidienne de 38 par 2 est égal à zéro.\

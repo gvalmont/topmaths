@@ -1,6 +1,6 @@
 #import "../../preambule_presentation.typ": *
 #import "../../preambule_sequence.typ": *
-#show: doc => presentation(doc, titre: "6M2C : Calculer le périmètre et l'aire d'un carré, d'un rectangle et d'un triangle rectangle")
+#show: doc => presentation(doc)
 #set text(couleurPrincipale, size: 20pt)
 #slide()[
   #align(center + horizon, image("../../photocopies/6e/6M10-1.png", width: 50%))

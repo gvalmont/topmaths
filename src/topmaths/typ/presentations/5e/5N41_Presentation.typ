@@ -1,6 +1,6 @@
 #import "../../preambule_presentation.typ": *
 #import "../../preambule_sequence.typ": *
-#show: doc => presentation(doc, titre: "5N41 : Utiliser les critères de divisibilité par 2, 3, 5, 9, 10")
+#show: doc => presentation(doc)
 #show: doc => normal(doc)
 
 #slide()[

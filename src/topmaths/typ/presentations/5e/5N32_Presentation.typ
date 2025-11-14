@@ -1,6 +1,6 @@
 #import "../../preambule_presentation.typ": *
 #import "../../preambule_sequence.typ": *
-#show: doc => presentation(doc, titre: "Additionner des nombres relatifs")
+#show: doc => presentation(doc)
 #show: doc => normal(doc)
 #slide()[
       #text(

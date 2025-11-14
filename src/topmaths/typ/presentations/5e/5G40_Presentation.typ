@@ -1,10 +1,9 @@
 #import "../../preambule_presentation.typ": *
 #import "../../preambule_sequence.typ": *
-#show: doc => presentation(doc, titre: "5G40 : Connaître et construire un parallélogramme")
+#show: doc => presentation(doc)
 #show: doc => normal(doc)
 
 #slide()[
-  #titrePrincipal()[Séquence 17 : Parallélogrammes 1]
   #definition()[
     Un parallélogramme est un quadrilatère qui a ses côtés opposés parallèles.
     #place(dx: 6.5cm)[

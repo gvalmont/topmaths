@@ -1,11 +1,9 @@
 #import "../../preambule_presentation.typ": *
 #import "../../preambule_sequence.typ": *
-#show: doc => presentation(doc, titre: "5N50 : Simplifier l'écriture d'une expression littérale")
+#show: doc => presentation(doc)
 #show: doc => normal(doc)
 
 #slide()[
-  #set text(size: 22pt)
-  #titrePrincipal("Séquence 15 : Calcul littéral 1")
   #uncover((2, 3, 4))[
     #definition()[
       Une #motDefini()[expression littérale] est une expression (un calcul) dans laquelle un ou plusieurs nombres sont désignés par des lettres.

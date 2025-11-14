@@ -1,6 +1,6 @@
 #import "../../preambule_presentation.typ": *
 #import "../../preambule_sequence.typ": *
-#show: doc => presentation(doc, titre: "6C13 : Multiplier ou diviser par 0,1 ; 0,01 ; 0,001")
+#show: doc => presentation(doc)
 #show: doc => normal(doc)
 
 #slide()[

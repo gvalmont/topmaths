@@ -1,6 +1,6 @@
 #import "../../preambule_presentation.typ": *
 #import "../../preambule_sequence.typ": *
-#show: doc => presentation(doc, titre: "6G13 : Reconnaître l’appartenance à une droite")
+#show: doc => presentation(doc)
 #show: doc => normal(doc)
 
 #slide()[

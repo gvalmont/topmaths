@@ -4,9 +4,6 @@
 #show: doc => normal(doc)
 
 #slide()[
-  #titrePrincipal()[Séquence 25 : Probabilités]
-
-  #v(2em)
   #definition(titre: "Définitions-Exemples")[
     Une #motDefini()[expérience aléatoire] est une expérience qui dépend du hasard : on ne peut pas prévoir à l’avance le résultat. #uncover((beginning: 2))[#noir()[Exemple : Lancer un dé et regarder sur quel numéro il va s'arrêter]]\
     #uncover((beginning: 3))[Les #motDefini()[issues] d’une expérience aléatoire sont les différents résultats possibles de cette expérience. #uncover((beginning: 4))[#noir[Exemple : un dé peut s'arrêter sur le numéro 1, le numéro 2, etc.]]]

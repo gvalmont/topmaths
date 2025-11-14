@@ -1,6 +1,6 @@
 #import "../../preambule_presentation.typ": *
 #import "../../preambule_sequence.typ": *
-#show: doc => presentation(doc, titre: "Repérer un point dans le plan muni d’un repère orthogonal")
+#show: doc => presentation(doc)
 
 #slide()[
   #align(center, image("5N35-1.png"))

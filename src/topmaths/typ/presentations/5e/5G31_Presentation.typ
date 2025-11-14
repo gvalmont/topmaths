@@ -1,6 +1,6 @@
 #import "../../preambule_presentation.typ": *
 #import "../../preambule_sequence.typ": *
-#show: doc => presentation(doc, titre: "5G31 : Utiliser les propriétés des angles opposés par le sommet, supplémentaires, correspondants, alternes-internes")
+#show: doc => presentation(doc)
 #show: doc => normal(doc)
 
 #set text(size: 18pt)

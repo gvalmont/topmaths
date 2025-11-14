@@ -1,12 +1,10 @@
 #import "../../preambule_presentation.typ": *
 #import "../../preambule_sequence.typ": *
-#show: doc => presentation(doc, titre: "Séquence 8 : Symétrie centrale")
+#show: doc => presentation(doc)
 #show: doc => normal(doc)
 
 #slide()[
-  #set text(size: 20pt)
-  #titrePrincipal()[Séquence 8 : Symétrie centrale]
-
+  #set text(size: 22pt)
   #definition()[
     Deux figures sont #motDefini()[symétriques par rapport à un point] lorsque les deux figures se superposent en effectuant un demi-tour autour de ce point. Ce point est le #motDefini()[centre de symétrie].
   ]
@@ -19,6 +17,7 @@
 ]
 
 #slide()[
+  #set text(size: 20pt)
   #exemple()[
     Transformer le point A par la symétrie de centre O.
     #normal()[

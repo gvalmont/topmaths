@@ -5,8 +5,6 @@
 
 #slide()[
   #set text(size: 20pt)
-  #titrePrincipal()[Séquence 4 : Notion de fonction 1]
-  #v(2em)
   #definitions()[
     #place(image("../../cours/objectifs/3e/3S30-1.png", height: 4em), right, dy: 1em)
     Une #motDefini()[fonction] $f$ est un processus qui, à chaque valeur d’un nombre $x$, appelé #motDefini()[variable], associe un unique nombre $f(x)$.\
