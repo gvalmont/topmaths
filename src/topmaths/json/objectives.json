@@ -1389,7 +1389,7 @@
                           "Mais des n-ièmes, il y en a combien ici de colorés ?",
                           "Il y a m n-ième colorés. Noter $m times 1/n =$ au tableau pour compléter l'égalité $m times 1/n = m/n$",
                           "n indique le nom de la fraction, mais qu'indique m ? m indique le nombre de n-ièmes qu'on prend",
-                          "Ecrire au tableau $m/n <- (#vert()[numér]\"ateur\")/(#rouge()[dénomin]\"ateur\") <- (\"celui qui donne\" #vert()[le nombre])/(\"celui qui donne\" #rouge()[le nom])$",
+                          "Ecrire au tableau $m/n <- (#vert()[numér]\"ateur\")/(#rouge()[dénomin]\"ateur\") <- (\"celui qui\" #vert()[compte])/(\"celui qui\" #rouge()[dénomme])$",
                           "Pour avoir le nom de la fraction, c'est à dire en combien est partagé l'unité, on regarde le dénominateur",
                           "Pour savoir par quel nombre on le multiplie, c'est à dire combien de parts, on regarde le numérateur",
                           "Relancer plusieurs fois en variant les questions : \"Quelle est la fraction unitaire ?\", \"Quel est le dénominateur ?\", \"Combien de fractions unitaires sont colorées ?\", \"Quel est le numérateur ?\", \"Quelle est la fraction colorée ?\" etc.",
