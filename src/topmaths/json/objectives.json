@@ -3627,7 +3627,7 @@
                 ],
                 "exercises": [
                   {
-                    "slug": "uuid=65bd7&id=5G10-3&n=2&d=10&s=5&s2=false&cd=1"
+                    "slug": "uuid=65bd7&id=5G10-3&n=2&d=10&s=5&s2=true&s3=3&cd=1"
                   }
                 ],
                 "lessonPlans": [
