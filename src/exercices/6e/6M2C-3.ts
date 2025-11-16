@@ -5,6 +5,7 @@ import {
   latexParCoordonnees,
   texteParPositionEchelle,
 } from '../../lib/2d/textes'
+import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 import { setReponse } from '../../lib/interactif/gestionInteractif'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { choice } from '../../lib/outils/arrayOutils'
@@ -466,7 +467,6 @@ function redigeCorrection(
       aires[listeCellules[etapeAireInconnue - 1][0]][
         listeCellules[etapeAireInconnue - 1][1]
       ],
-      'cm^2',
     ]
   } else {
     ;[texteCorr, colonneOuLigne] = etapesDeUnAEtapeInconnue(
@@ -493,7 +493,6 @@ function redigeCorrection(
       }
       reponse = [
         longueursHorizontales[listeCellules[listeCellules.length - 1][0]],
-        'cm',
       ]
     } else {
       if (
@@ -509,7 +508,6 @@ $${miseEnEvidence(texNombre(longueursVerticales[listeCellules[listeCellules.leng
       }
       reponse = [
         longueursVerticales[listeCellules[listeCellules.length - 1][1]],
-        'cm',
       ]
     }
   }
@@ -759,7 +757,7 @@ export default class ProblemesAiresRectangles extends Exercice {
       texteCorr = tablo[1]
       reponse = tablo[2]
       setReponse(this, q, reponse)
-      texte += ajouteChampTexteMathLive(this, q, ' unites[longueurs,aires]', {
+      texte += ajouteChampTexteMathLive(this, q, KeyboardType.clavierNumbers, {
         texteAvant: 'Réponse : ',
         texteApres: this.sup4 === 1 ? '$ \\text{ cm}$' : '$ \\text{ cm}^2$',
       })

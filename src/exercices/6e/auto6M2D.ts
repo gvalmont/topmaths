@@ -91,7 +91,12 @@ export default class EgalitesUnitesAires extends Exercice {
       ...shuffle(choixListeDeroulante[1]),
     ]
 
-    const unitesPossibles = ['mm', 'cm', 'dm', 'm']
+    const unitesPossibles = [
+      '$\\text{mm}$',
+      '$\\text{cm}$',
+      '$\\text{dm}$',
+      '$\\text{m}$',
+    ]
     for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50; ) {
       const unite = unitesPossibles[unitesChoisies[cpt]] // cpt choisi ici et dans tous les tableaux comme indice par pas assez de questions sinon.
       const sousUnite = unitesPossibles[unitesChoisies[cpt] - 1]

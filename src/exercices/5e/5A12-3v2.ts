@@ -17,7 +17,9 @@ export const refs = {
  */
 
 export default class ExerciceLabyrintheMultiplesDe3 extends ExerciceLabyrinthe {
-  consigne = 'Trouver le chemin qui passe par des nombres premiers.'
+  consigne =
+    'Trouver le chemin qui passe par des nombres premiers.<br>Dans ce labyrinthe, on peut se déplacer horizontalement, verticalement et en diagonale.'
+
   cols = 6
   rows = 6
   primesBelow100 = [

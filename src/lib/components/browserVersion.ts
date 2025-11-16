@@ -9,6 +9,8 @@ const minVersion = {
   Opera: 67,
   GSA: 387, // Google Search App (iOS)
   WebKit: 605, // Apple WebView (iOS)
+  'MIUI Browser': 14, // Xiaomi MIUI, basé sur Chromium
+  'Chrome WebView': 140, // WebView embarquée dans une app
   'Samsung Internet': 14,
   'Mobile Safari': 12,
   'Mobile Chrome': 63,

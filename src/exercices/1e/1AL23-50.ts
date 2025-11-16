@@ -1,7 +1,18 @@
 import { courbe } from '../../lib/2d/courbes'
 import { repere } from '../../lib/2d/reperes'
+import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
+import { handleAnswers } from '../../lib/interactif/gestionInteractif'
+import { propositionsQcm } from '../../lib/interactif/qcm'
+import {
+  ajouteChampTexteMathLive,
+  remplisLesBlancs,
+} from '../../lib/interactif/questionMathLive'
 import { combinaisonListes } from '../../lib/outils/arrayOutils'
-import { lettreMinusculeDepuisChiffre } from '../../lib/outils/outilString'
+import {
+  miseEnEvidence,
+  texteEnCouleurEtGras,
+} from '../../lib/outils/embellissements'
+import { lettreMinusculeDepuisChiffre, sp } from '../../lib/outils/outilString'
 import {
   premierMultipleInferieur,
   premierMultipleSuperieur,
@@ -10,10 +21,15 @@ import { mathalea2d } from '../../modules/mathalea2d'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import Exercice from '../Exercice'
 
-export const titre = "Représentation graphique d'un polynôme du second degré"
+export const titre =
+  "Utiliser la représentation graphique d'un polynôme du second degré"
+export const dateDeModifImportante = '13/11/2025'
+export const interactifType = ['mathLive', 'qcm']
+export const interactifReady = true
 
 /**
- * @author Jean-Léon Henry (modifié par EE pour corriger exo et remplacer Repere et Courbe par Repere2 et Courbe2 (juillet 2022))
+ * @author Jean-Léon Henry (modifié par Éric Elter pour corriger exo et remplacer Repere et Courbe par Repere2 et Courbe2 (juillet 2022))
+ * Éric Elter le rend interactif le 13/11/2025
  * Faire lire sur un graphique :
  * - le signe du coefficient dominant
  * - les racines
@@ -66,9 +82,9 @@ export default class LireElementsCarac extends Exercice {
       let b: number, c: number
       let x1: number = 0
       let x2: number = 0
-      let alpha: number = 0
-      let beta: number = 0
-
+      let racines: number[] = []
+      let absReponse = 0
+      let ordReponse = 0
       // Générons les coefficients du trinôme, la consigne, la correction
       switch (listeTypeDeQuestions[i]) {
         case 1: // Signe du coefficient dominant
@@ -82,7 +98,7 @@ export default class LireElementsCarac extends Exercice {
           b = -a * (x1 + x2)
           c = x1 * x2 * a
 
-          texteCorr = `La parabole est orientée vers le ${a < 0 ? 'bas' : 'haut'}, on en déduit que le coefficient dominant de $\\mathscr{${fName[i]}}$ est ${a < 0 ? 'négatif' : 'positif'}.`
+          texteCorr = `La parabole est orientée vers le ${a < 0 ? 'bas' : 'haut'}, on en déduit que le coefficient dominant de $\\mathscr{${fName[i]}}$ est ${texteEnCouleurEtGras(a < 0 ? 'négatif' : 'positif')}.`
           break
         case 2: // Racines
           texte = 'Quelles sont les racines'
@@ -94,20 +110,20 @@ export default class LireElementsCarac extends Exercice {
           // On fabrique les coeffs à partir des racines
           b = -a * (x1 + x2)
           c = x1 * x2 * a
-
-          texteCorr = `La courbe de $\\mathscr{${fName[i]}}$ coupe l'axe horizontal aux points $(${Math.min(x1, x2)};0)$ et $(${Math.max(x1, x2)};0)$. Les deux racines sont donc $${Math.min(x1, x2)}$ et $${Math.max(x1, x2)}$.`
+          racines = [x1, x2]
+          texteCorr = `La courbe de $\\mathscr{${fName[i]}}$ coupe l'axe horizontal aux points $(${Math.min(x1, x2)};0)$ et $(${Math.max(x1, x2)};0)$. Les deux racines sont donc $${miseEnEvidence(Math.min(x1, x2))}$ et $${miseEnEvidence(Math.max(x1, x2))}$.`
           break
         case 3: // Coordonnées du sommet
         default:
           texte = 'Quelles sont les coordonnées du sommet'
           // On choisit le sommet au hasard
-          alpha = randint(-5, 5)
-          beta = randint(-5, 5)
+          absReponse = randint(-5, 5)
+          ordReponse = randint(-5, 5)
           // On fabrique les coefficients
-          b = -2 * a * alpha
-          c = a * alpha ** 2 + beta
+          b = -2 * a * absReponse
+          c = a * absReponse ** 2 + ordReponse
 
-          texteCorr = `Le sommet, c'est-à-dire le point le plus ${a > 0 ? 'bas' : 'haut'} de la parabole, a pour coordonnées $(${alpha};${beta})$.`
+          texteCorr = `Le sommet, c'est-à-dire le point le plus ${a > 0 ? 'bas' : 'haut'} de la parabole, a pour coordonnées $(${miseEnEvidence(absReponse)}~;~${miseEnEvidence(ordReponse)})$.`
           break
       }
       // Les coeffs sont générés, on peut donc créer la fonction
@@ -115,6 +131,63 @@ export default class LireElementsCarac extends Exercice {
         return a * x ** 2 + b * x + c
       }
       texte += ` de la fonction polynomiale $\\mathscr{${fName[i]}}$ du second degré représentée ci-dessous ?<br>`
+      if (this.interactif)
+        switch (listeTypeDeQuestions[i]) {
+          case 1:
+            this.autoCorrection[i] = {
+              enonce: texte,
+              propositions: [
+                {
+                  texte: 'positif',
+                  statut: a > 0,
+                  feedback: '',
+                },
+                {
+                  texte: 'négatif',
+                  statut: a < 0,
+                  feedback: '',
+                },
+              ],
+            }
+            texte += propositionsQcm(this, i).texte
+            break
+          case 2:
+            texte += ajouteChampTexteMathLive(
+              this,
+              i,
+              KeyboardType.clavierDeBase,
+              {
+                texteAvant: 'Les racines sont : ',
+                texteApres:
+                  sp(4) + '(Séparer les racines par un point-virgule.)',
+              },
+            )
+            handleAnswers(this, i, {
+              reponse: {
+                value: racines.join(';'),
+                options: { suiteDeNombres: true },
+              },
+            })
+            break
+          case 3:
+            texte +=
+              'Les coordonnées du point recherché sont : ' +
+              remplisLesBlancs(
+                this,
+                i,
+                `$(%{champ1}~;~ %{champ2})`,
+                KeyboardType.clavierNumbers,
+              ) +
+              '.'
+            handleAnswers(this, i, {
+              bareme: (listePoints) => [
+                Math.min(listePoints[0], listePoints[1]),
+                1,
+              ],
+              champ1: { value: absReponse },
+              champ2: { value: ordReponse },
+            })
+        }
       /** Génération du graphique
        * a = randint(-2,2,0)
        * Q1,Q2 :
@@ -124,10 +197,10 @@ export default class LireElementsCarac extends Exercice {
        */
 
       if (listeTypeDeQuestions[i] === 3) {
-        Xmin = alpha - 5
-        Xmax = alpha + 5
-        Ymin = beta - 5
-        Ymax = beta + 5
+        Xmin = absReponse - 5
+        Xmax = absReponse + 5
+        Ymin = ordReponse - 5
+        Ymax = ordReponse + 5
       } else {
         Xmin = Math.min(x1, x2) - 2
         Xmax = Math.max(x1, x2) + 2

@@ -1,9 +1,10 @@
-import Exercice from '../Exercice'
-import { listeQuestionsToContenu, randint } from '../../modules/outils'
-import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
-import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
+import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
+import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
+import { listeQuestionsToContenu, randint } from '../../modules/outils'
+import Exercice from '../Exercice'
 
+import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 import {
   texteEnCouleurEtGras,
   texteGras,
@@ -69,7 +70,11 @@ export default class ListeDiviseurs extends Exercice {
       const texteCorr = `${texte} ${texteEnCouleurEtGras(divisors.join(' ; '))}.`
       if (this.questionJamaisPosee(i, texte)) {
         if (this.interactif) {
-          texte += ajouteChampTexteMathLive(this, i)
+          texte += ajouteChampTexteMathLive(
+            this,
+            i,
+            KeyboardType.clavierDeBaseAvecFractionPuissanceCrochets,
+          )
           this.consigne = `Donner la liste de tous les diviseurs des nombres suivants ${texteGras('séparés par un point-virgule')}.`
           handleAnswers(this, i, {
             reponse: {

@@ -58,16 +58,16 @@ export default class sensDesPrefixes extends Exercice {
     for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50; ) {
       const maxUnit = 3
       const fractionSup1 = listeTypeDeQuestions[i] === 3
-      const den = randint(3, 10)
+      const den = randint(3, 6)
       const num = fractionSup1
         ? randint(den + 1, den * maxUnit - 1, [den * 2])
-        : randint(1, den - 1)
+        : randint(2, den - 1)
       const fraction = new FractionEtendue(num, den)
       const fractionUnitaire = new FractionEtendue(1, den)
       const paramsDroite: ParamsDroite = {
         Min: 0,
         Max: fractionInf1Uniquement ? 1 : maxUnit,
-        Unite: 5,
+        Unite: fractionInf1Uniquement ? 12 : 5,
         axeEpaisseur: 0.5,
         labelsPrincipaux: true,
         labelListe: [

@@ -71,6 +71,10 @@ export default class ResoudreEquationDegre2 extends Exercice {
         a = k
         b = -k * x1 - k * x2
         c = k * x1 * x2
+        // Calcul des racines selon les formules quadratiques
+        const delta = b * b - 4 * a * c
+        const racine1 = (-b - Math.sqrt(delta)) / (2 * a)
+        const racine2 = (-b + Math.sqrt(delta)) / (2 * a)
         texte = `$${rienSi1(a)}x^2${ecritureAlgebriqueSauf1(b)}x${ecritureAlgebrique(c)}>0$`
         texteCorr = `Soit $P$ le polynôme défini pour tout $x$ de $\\mathbb R$ par $P(x)=${rienSi1(a)}x^2${ecritureAlgebriqueSauf1(b)}x${ecritureAlgebrique(c)}$.`
         texteCorr += '<br>On cherche à résoudre $P(x)>0$.'
@@ -78,8 +82,8 @@ export default class ResoudreEquationDegre2 extends Exercice {
         texteCorr += `<br>$\\Delta = ${ecritureParentheseSiNegatif(b)}^2-4\\times${ecritureParentheseSiNegatif(a)}\\times${ecritureParentheseSiNegatif(c)}=${b * b - 4 * a * c}$`
         texteCorr +=
           '<br>$\\Delta>0$ donc le polynôme admet deux racines : $x_1 = \\dfrac{-b-\\sqrt{\\Delta}}{2a}$ et $x_2 = \\dfrac{-b+\\sqrt{\\Delta}}{2a}$.'
-        texteCorr += `<br>$x_1 =\\dfrac{${-b}-\\sqrt{${b * b - 4 * a * c}}}{${2 * a}}=${x1}$`
-        texteCorr += `<br>$x_2 =\\dfrac{${-b}+\\sqrt{${b * b - 4 * a * c}}}{${2 * a}}=${x2}$`
+        texteCorr += `<br>$x_1 =\\dfrac{${-b}-\\sqrt{${b * b - 4 * a * c}}}{${2 * a}}=${racine1}$`
+        texteCorr += `<br>$x_2 =\\dfrac{${-b}+\\sqrt{${b * b - 4 * a * c}}}{${2 * a}}=${racine2}$`
         texteCorr +=
           "<br>On sait qu'un polynôme du second degré est du signe de $a$ à l'extérieur de ses racines."
         texteCorr += `<br>Comme $a=${a}`
@@ -166,6 +170,10 @@ export default class ResoudreEquationDegre2 extends Exercice {
         a = k
         b = -k * x1 - k * x2
         c = k * x1 * x2
+        // Calcul des racines selon les formules quadratiques
+        const delta = b * b - 4 * a * c
+        const racine1 = (-b - Math.sqrt(delta)) / (2 * a)
+        const racine2 = (-b + Math.sqrt(delta)) / (2 * a)
         texte = `$${rienSi1(a)}x^2${ecritureAlgebriqueSauf1(b)}x${ecritureAlgebrique(c)}\\geq 0$`
         texteCorr = `Soit $P$ le polynôme défini pour tout $x$ de $\\mathbb R$ par $P(x)=${rienSi1(a)}x^2${ecritureAlgebriqueSauf1(b)}x${ecritureAlgebrique(c)}$.`
         texteCorr += '<br>On cherche à résoudre $P(x)\\geq 0$.'
@@ -173,8 +181,8 @@ export default class ResoudreEquationDegre2 extends Exercice {
         texteCorr += `<br>$\\Delta = ${ecritureParentheseSiNegatif(b)}^2-4\\times${ecritureParentheseSiNegatif(a)}\\times${ecritureParentheseSiNegatif(c)}=${b * b - 4 * a * c}$`
         texteCorr +=
           '<br>$\\Delta>0$ donc  le polynôme admet deux racines : $x_1 = \\dfrac{-b-\\sqrt{\\Delta}}{2a}$ et $x_2 = \\dfrac{-b+\\sqrt{\\Delta}}{2a}$.'
-        texteCorr += `<br>$x_1 =\\dfrac{${-b}-\\sqrt{${b * b - 4 * a * c}}}{${2 * a}}=${x1}$`
-        texteCorr += `<br>$x_2 =\\dfrac{${-b}+\\sqrt{${b * b - 4 * a * c}}}{${2 * a}}=${x2}$`
+        texteCorr += `<br>$x_1 =\\dfrac{${-b}-\\sqrt{${b * b - 4 * a * c}}}{${2 * a}}=${racine1}$`
+        texteCorr += `<br>$x_2 =\\dfrac{${-b}+\\sqrt{${b * b - 4 * a * c}}}{${2 * a}}=${racine2}$`
         texteCorr +=
           "<br>On sait qu'un polynôme du second degré est du signe de $a$ à l'extérieur de ses racines."
         texteCorr += `<br>Comme $a=${a}`

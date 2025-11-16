@@ -1,4 +1,4 @@
-import { Labyrinthe, mountLabyrintheElement } from 'labyrinthe'
+import { Labyrinthe } from 'labyrinthe'
 import type LabyrintheElement from 'labyrinthe/src/LabyrintheElement'
 import { context } from '../modules/context'
 import { listeQuestionsToContenu } from '../modules/outils'
@@ -27,58 +27,12 @@ export default class ExerciceLabyrinthe extends Exercice {
   init() {}
 
   nouvelleVersion() {
-    this.init()
     this.goodAnswers = []
     this.badAnswers = []
-
-    this.labyrinthe = new Labyrinthe({
-      seed: this.seed,
-      rows: this.rows,
-      cols: this.cols,
-      orientation: this.orientation,
-    })
-    this.labyrinthe.regenerate()
 
     if (this.labyrintheElement) {
       this.labyrintheElement.remove()
     }
-
-    // if (this.goodAnswers.length > 0) return
-    const goodCount = this.labyrinthe.numberOfGoodAnswers() ?? 0
-    const badCount = this.labyrinthe.numberOfIncorrectAnswers() ?? 0
-    let attempts = 0
-    for (let i = 0; i < goodCount; ) {
-      const candidate = String(this.generateGoodAnswers())
-      if (this.goodAnswers.indexOf(candidate) === -1) {
-        this.goodAnswers[i] = candidate
-        attempts = 0
-        i++
-      } else {
-        attempts++
-        if (attempts >= 50) {
-          this.goodAnswers[i] = candidate
-          attempts = 0
-          i++
-        }
-      }
-    }
-    attempts = 0
-    for (let i = 0; i < badCount; ) {
-      const candidate = String(this.generateBadAnswers())
-      if (this.badAnswers.indexOf(candidate) === -1) {
-        this.badAnswers[i] = candidate
-        attempts = 0
-        i++
-      } else {
-        attempts++
-        if (attempts >= 50) {
-          this.badAnswers[i] = candidate
-          attempts = 0
-          i++
-        }
-      }
-    }
-    this.labyrinthe.setValues(this.goodAnswers, this.badAnswers)
 
     let texte = ''
     let texteCorr = ''
@@ -104,10 +58,67 @@ export default class ExerciceLabyrinthe extends Exercice {
         if (container) {
           if (!this.labyrintheElement?.isConnected) {
             container.innerHTML = ''
-            this.labyrintheElement = await mountLabyrintheElement(
-              this.labyrinthe,
-              container,
-            )
+            // Modèle temporaire
+            this.labyrinthe = new Labyrinthe({
+              seed: this.seed,
+              rows: this.rows,
+              cols: this.cols,
+              orientation: this.orientation,
+            })
+            this.init()
+            if (!customElements.get('labyrinthe-grid')) {
+              const { default: LabyrintheElement } = await import(
+                'labyrinthe/src/LabyrintheElement'
+              )
+              customElements.define('labyrinthe-grid', LabyrintheElement as any)
+            }
+            const el = document.createElement(
+              'labyrinthe-grid',
+            ) as LabyrintheElement
+            el.seed = this.seed ?? ''
+            el.rows = this.rows
+            el.cols = this.cols
+            if (this.orientation) {
+              el.orientation = this.orientation
+            }
+            // Cela lance connectedCallback qui regénère le chemin
+            container.appendChild(el)
+            await new Promise<void>((resolve) => {
+              const checkReady = () => {
+                if (el.ready) {
+                  resolve()
+                } else {
+                  setTimeout(checkReady, 30)
+                }
+              }
+              checkReady()
+            })
+
+            this.labyrintheElement = el
+            const actualGoodCount =
+              this.labyrintheElement.numberOfGoodAnswers ?? 0
+            const actualBadCount =
+              this.labyrintheElement.numberOfIncorrectAnswers ?? 0
+
+            // Nouveau labyrinthe avec le même seed
+            this.labyrinthe = new Labyrinthe({
+              seed: this.seed,
+              rows: this.rows,
+              cols: this.cols,
+              orientation: this.orientation,
+            })
+            this.labyrinthe.regenerate()
+
+            // Generate values using our labyrinthe's RNG
+            this.goodAnswers = []
+            this.badAnswers = []
+            for (let i = 0; i < actualGoodCount; i++) {
+              this.goodAnswers.push(String(this.generateGoodAnswers()))
+            }
+            for (let i = 0; i < actualBadCount; i++) {
+              this.badAnswers.push(String(this.generateBadAnswers()))
+            }
+            this.labyrintheElement.setValues(this.goodAnswers, this.badAnswers)
           }
           this.labyrintheElement.id = `labyrintheEx${this.numeroExercice}`
           if (!this.interactif) {
@@ -125,11 +136,31 @@ export default class ExerciceLabyrinthe extends Exercice {
         }
         if (containerCorrection) {
           containerCorrection.innerHTML = ''
-          const elementCorrection = await mountLabyrintheElement(
-            this.labyrinthe,
-            containerCorrection,
-          )
-          elementCorrection.showCorrection()
+          const elCorrection = document.createElement(
+            'labyrinthe-grid',
+          ) as LabyrintheElement
+          elCorrection.seed = this.seed ?? ''
+          elCorrection.rows = this.rows
+          elCorrection.cols = this.cols
+          if (this.orientation) {
+            elCorrection.orientation = this.orientation
+          }
+
+          containerCorrection.appendChild(elCorrection)
+
+          await new Promise<void>((resolve) => {
+            const checkReady = () => {
+              if (elCorrection.ready) {
+                resolve()
+              } else {
+                setTimeout(checkReady, 30)
+              }
+            }
+            checkReady()
+          })
+
+          elCorrection.setValues(this.goodAnswers, this.badAnswers)
+          elCorrection.showCorrection()
         }
       })
 
@@ -143,6 +174,41 @@ export default class ExerciceLabyrinthe extends Exercice {
         }
       }, 500)
     } else {
+      this.labyrinthe = new Labyrinthe({
+        seed: this.seed,
+        rows: this.rows,
+        cols: this.cols,
+        orientation: this.orientation,
+      })
+      this.init()
+      this.labyrinthe.regenerate()
+      let actualGoodCount = 0
+      let actualBadCount = 0
+      const grid = (this.labyrinthe as any).grid
+      if (grid && Array.isArray(grid)) {
+        for (let r = 0; r < this.rows; r++) {
+          for (let c = 0; c < this.cols; c++) {
+            const cell = grid[r]?.[c]
+            if (cell?.isGood === true) {
+              actualGoodCount++
+            } else if (cell?.isGood === false) {
+              actualBadCount++
+            }
+          }
+        }
+      }
+
+      this.goodAnswers = []
+      this.badAnswers = []
+      for (let i = 0; i < actualGoodCount; i++) {
+        this.goodAnswers.push(String(this.generateGoodAnswers()))
+      }
+      for (let i = 0; i < actualBadCount; i++) {
+        this.badAnswers.push(String(this.generateBadAnswers()))
+      }
+
+      this.labyrinthe.setValues(this.goodAnswers, this.badAnswers)
+
       texte = `\n\n\\bigskip\n${this.labyrinthe.generateLatex()}`
       texteCorr = this.labyrinthe.generateLatexCorrection()
     }

@@ -1308,11 +1308,11 @@ export default class ExerciceInformationsProblemes extends Exercice {
               reponse = nb5 - nb3
               texteCorr +=
                 `$${miseEnEvidence(nb5, 'blue')}$` +
-                texteEnCouleurEtGras(' km', 'blue') +
+                `$${miseEnEvidence('\\text{ km}', 'blue')}$` +
                 `$${sp()}-${sp()} ${miseEnEvidence(nb3, 'blue')}$` +
-                texteEnCouleurEtGras(' km', 'blue') +
+                `$${miseEnEvidence('\\text{ km}', 'blue')}$` +
                 `$${sp()}=${miseEnEvidence(reponse, 'blue')}$` +
-                texteEnCouleurEtGras(' km', 'blue') +
+                `$${miseEnEvidence('\\text{ km}', 'blue')}$` +
                 '<br>'
               texteCorr += `La distance séparant l'entrepôt du premier arrêt est de $${miseEnEvidence(reponse)}\\text{ km}$.`
               if (this.interactif) {

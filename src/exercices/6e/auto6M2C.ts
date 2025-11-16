@@ -72,18 +72,18 @@ export default class AireParComptage extends Exercice {
       defaut: 1,
     })
     for (let i = 0; i < this.nbQuestions; i++) {
-      const uniteLongueurDefaut = 'u.l'
-      const uniteAireDefaut = 'u.a'
+      const uniteLongueurDefaut = '$\\text{u.l}$'
+      const uniteAireDefaut = '$\\text{u.a}$'
       let uniteLongueur = uniteLongueurDefaut
       let uniteAire = uniteAireDefaut
       switch (unites[i]) {
         case 2:
-          uniteLongueur = 'cm'
-          uniteAire = 'cm²'
+          uniteLongueur = '$\\text{cm}$'
+          uniteAire = '$\\text{cm}^2$'
           break
         case 3:
-          uniteLongueur = 'm'
-          uniteAire = 'm²'
+          uniteLongueur = '$\\text{m}$'
+          uniteAire = '$\\text{m}^2$'
           break
       }
       const decalageVisuelAire = uniteLongueur === uniteLongueurDefaut ? 2 : 0
@@ -129,7 +129,7 @@ export default class AireParComptage extends Exercice {
       visuelUniteLongueur.styleExtremites = '|-|'
       visuelUniteLongueur.tailleExtremites = 2
       const texteUniteLongueur = latex2d(
-        '1 ' + uniteLongueur,
+        '1 ' + uniteLongueur.slice(1, -1),
         xmax - (1.5 + decalageVisuelAire),
         ymin + 0.5,
         {},
@@ -141,7 +141,7 @@ export default class AireParComptage extends Exercice {
       )
       visuelUniteAire.couleurDeRemplissage = colorToLatexOrHTML('gray')
       const texteUniteAire = latex2d(
-        '1 ' + uniteAire,
+        '1 ' + uniteAire.slice(1, -1),
         xmax - 1.5,
         ymin + 0.5,
         {},

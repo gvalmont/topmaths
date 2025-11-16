@@ -67,7 +67,7 @@
     "test:e2e:all": "vitest --config tests/e2e/vitest.config.all.js --run",
     "test:e2e:interactivity": "vitest --config tests/e2e/vitest.config.interactivity.js --run",
     "test:e2e:pdfexports": "vitest --config tests/e2e/vitest.config.pdfexports.js --run",
-    "test:e2e:console_errors": "vitest --config tests/e2e/vitest.config.console_errors.js --run tests/e2e/tests/console_errors/allExercisesT.test.ts",
+    "test:e2e:console_errors": "vitest --config tests/e2e/vitest.config.console_errors.js --run",
     "test:e2e:views": "vitest --config tests/e2e/vitest.config.view.js --run",
     "test:e2e:consistency": "vitest --config tests/e2e/vitest.config.consistency.js --run",
     "screenshot": "vitest --config tests/e2e/vitest.config.screenshot.js --run",
@@ -96,6 +96,7 @@
     "earcut": "^3.0.2",
     "file-saver": "^2.0.5",
     "git-precommit-checks": "^3.1.0",
+    "fraction-visualizer": "git+https://forge.apps.education.fr/coopmaths/apps/fraction-visualizer.git",
     "glisse-nombre": "git+https://forge.apps.education.fr/coopmaths/apps/glisse-nombre.git",
     "instrumenpoche": "git+https://git.sesamath.net/sesamath/instrumenpoche.git",
     "jspreadsheet-ce": "https://github.com/lhotejc/spreadsheet-ce",
@@ -214,5 +215,6 @@
       "react": "^18.3.1",
       "react-dom": "^18.3.1"
     }
-  }
+  },
+  "packageManager": "pnpm@10.21.0+sha512.da3337267e400fdd3d479a6c68079ac6db01d8ca4f67572083e722775a796788a7a9956613749e000fac20d424b594f7a791a5f4e2e13581c5ef947f26968a40"
 }

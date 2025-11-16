@@ -214,7 +214,7 @@ export default class ProblemesEvenementsRecurrents extends Exercice {
                 texte += `D'ici la prochaine fois qu'${Robert.pronom} fera les deux dans la même journée, combien de fois nettoiera-t-${Robert.pronom} l'intérieur de sa voiture ?`
                 break
               case 3:
-                texte += `D'ici la prochaine fois qu'${Robert.pronom} fera les deux dans la même journée, combien de fois nettoiera-t-${Robert.pronom} l'intérieur de sa voiture ?`
+                texte += `D'ici la prochaine fois qu'${Robert.pronom} fera les deux dans la même journée, combien de fois nettoiera-t-${Robert.pronom} l'extérieur de sa voiture ?`
                 break
             }
           } else {

@@ -1,4 +1,5 @@
 import { gcd, isPrime } from 'mathjs'
+import { randint } from '../../modules/outils'
 
 /**
  * Renvoie le PGCD de deux nombres
@@ -47,6 +48,33 @@ export function obtenirListeFacteursPremiers(n: number) {
   }
   facteurs[0] = signe * facteurs[0]
   return facteurs
+}
+
+/**
+ * Retourne un nombre semi-premier aléatoire inférieur ou égal à max
+ * @param {number} max
+ * @return {number} un nombre semi-premier <= max
+ * @author Guillaume Valmont
+ */
+export function obtenirSemiPremier(max: number): number {
+  const listePremiers = listeNombresPremiersStrictJusqua(max + 1)
+  const semiPremiers: number[] = []
+
+  // Génère tous les produits de deux premiers distincts <= max
+  for (let i = 0; i < listePremiers.length; i++) {
+    for (let j = i + 1; j < listePremiers.length; j++) {
+      const semiPremier = listePremiers[i] * listePremiers[j]
+      if (semiPremier <= max) semiPremiers.push(semiPremier)
+    }
+  }
+
+  if (semiPremiers.length === 0) {
+    window.notify('Pas de semi-premier < max trouvé.', { max })
+    return 6
+  }
+
+  // Renvoie un semi-premier au hasard
+  return semiPremiers[randint(0, semiPremiers.length - 1)]
 }
 
 /**

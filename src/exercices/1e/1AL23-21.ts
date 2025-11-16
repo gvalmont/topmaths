@@ -1,3 +1,4 @@
+import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
 import {
   ecritureAlgebrique,
@@ -6,12 +7,11 @@ import {
   rienSi1,
 } from '../../lib/outils/ecritures'
 import Exercice from '../Exercice'
-import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 
-import { listeQuestionsToContenu, randint } from '../../modules/outils'
-import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
+import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
+import { listeQuestionsToContenu, randint } from '../../modules/outils'
 
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -61,6 +61,10 @@ export default class ResoudreEquationDegre2Entiers extends Exercice {
         a = k
         b = -k * x1 - k * x2
         c = k * x1 * x2
+        // Calcul des racines selon les formules quadratiques
+        // const delta = b * b - 4 * a * c
+        // const racine1 = (-b - Math.sqrt(delta)) / (2 * a)
+        // const racine2 = (-b + Math.sqrt(delta)) / (2 * a)
         texte = `$${rienSi1(a)}x^2${ecritureAlgebriqueSauf1(b)}x${ecritureAlgebrique(c)}=0$`
 
         texteCorr = `$\\Delta = ${ecritureParentheseSiNegatif(b)}^2-4\\times${ecritureParentheseSiNegatif(a)}\\times${ecritureParentheseSiNegatif(c)}=${b * b - 4 * a * c}$`

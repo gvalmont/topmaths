@@ -5,6 +5,7 @@
 import Horloge from '../../../lib/2d/horloge'
 import handleInteractiveClock from '../../../lib/InteractiveClock'
 import { combinaisonListes } from '../../../lib/outils/arrayOutils'
+import { sp } from '../../../lib/outils/outilString'
 import { formatMinute } from '../../../lib/outils/texNombre'
 import { context } from '../../../modules/context'
 import Hms from '../../../modules/Hms'
@@ -56,7 +57,7 @@ export default class ExerciceInteractiveClock extends Exercice {
         hour = 13
         minute = 30
       }
-      let enonce = `Placer correctement les aiguilles pour indiquer ${hour} h ${formatMinute(minute)}.`
+      let enonce = `Placer correctement les aiguilles pour indiquer ${hour}${sp(1)}h${sp(1)}${formatMinute(minute)}.<br>`
       if (context.isHtml) {
         enonce += `<br><br><interactive-clock id="clockEx${this.numeroExercice}Q${i}" isDynamic="${this.interactif}" showHands="${this.interactif}"/>`
       } else {

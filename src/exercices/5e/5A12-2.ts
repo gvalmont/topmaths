@@ -1,18 +1,18 @@
+import { propositionsQcm } from '../../lib/interactif/qcm'
 import { combinaisonListes, shuffle } from '../../lib/outils/arrayOutils'
-import Exercice from '../Exercice'
-import {
-  contraindreValeur,
-  listeQuestionsToContenu,
-  randint,
-} from '../../modules/outils'
+import { egalOuApprox, lister } from '../../lib/outils/ecritures'
 import {
   listeNombresPremiersStrictJusqua,
   obtenirListeNombresPremiers,
+  obtenirSemiPremier,
   premiersEntreBornes,
 } from '../../lib/outils/primalite'
-import { egalOuApprox, lister } from '../../lib/outils/ecritures'
 import { texNombre } from '../../lib/outils/texNombre'
-import { propositionsQcm } from '../../lib/interactif/qcm'
+import {
+  contraindreValeur,
+  listeQuestionsToContenu,
+} from '../../modules/outils'
+import Exercice from '../Exercice'
 export const interactifReady = true
 export const interactifType = 'qcm'
 export const amcReady = true
@@ -20,7 +20,7 @@ export const amcType = 'qcmMono'
 
 export const titre = 'Reconnaitre un nombre premier'
 export const dateDePublication = '11/07/2022'
-export const dateDeModifImportante = '06/12/2024'
+export const dateDeModifImportante = '13/11/2025'
 
 /**
  * Verifier qu'un nombre est premier par divisions succesives des premiers nombres premiers
@@ -54,7 +54,7 @@ export default class ReconnaitreNombrePremier extends Exercice {
     // Il faut qu'il y ait nbQuestions / 2 nombres premiers strictement inférieurs au max
     const premiers = obtenirListeNombresPremiers() // (this.nbQuestions) inutile la function revoit de toute facon la liste jusqu'à 297
     const max = contraindreValeur(
-      premiers[Math.floor((this.nbQuestions + 1) / 2)],
+      Math.max(premiers[Math.floor((this.nbQuestions + 1) / 2)], 10),
       10000,
       this.sup,
       500,
@@ -87,7 +87,7 @@ export default class ReconnaitreNombrePremier extends Exercice {
           ]
           break
         case 'non premier':
-          a = randint(1, max - 1, listePremiers)
+          a = obtenirSemiPremier(max)
           this.autoCorrection[i] = {}
           this.autoCorrection[i].enonce =
             `Le nombre $${texNombre(a)}$ est-il un nombre premier ?`

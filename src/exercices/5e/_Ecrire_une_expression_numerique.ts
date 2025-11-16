@@ -90,11 +90,14 @@ export default class EcrireUneExpressionNumerique extends Exercice {
       combinaisonListes(range(2), this.nbQuestions),
       combinaisonListes(range(4), this.nbQuestions),
     ]
+    for (
+      let i = 0, val1, val2, cpt = 0;
+      // i < Math.min(this.nbQuestions, 4 * new Set(listeTypeDeQuestions).size) &&
+      i < this.nbQuestions && cpt < 50;
 
-    for (let i = 0, val1, val2, cpt = 0; i < this.nbQuestions && cpt < 50; ) {
+    ) {
       let texte: string
       let texteCorr: string
-      this.autoCorrection[i] = {}
       reponse = ''
       nbOperations = listeTypeDeQuestions[i]
       val1 = randint(2, 5)
@@ -126,131 +129,6 @@ export default class EcrireUneExpressionNumerique extends Exercice {
       expc = resultats[2]
       nbval = resultats[3]
       const expNom = this.litteral ? String(resultats[6]) : resultats[5] // Le split, c'est pour virer le déterminant.
-      switch (this.version) {
-        case 1:
-          this.consigne =
-            "Traduire la phrase par un calcul (il n'est pas demandé d'effectuer ce calcul)."
-          texte = `${expf}.`
-          expn = expn.split(' ou ') // Pour traiter le cas du 'ou'.
-          texteCorr = `${expf} s'écrit : $${miseEnEvidence(expn[0].substring(1, expn[0].length - 1))}$`
-          texteCorr +=
-            expn.length > 1
-              ? ` ou $${miseEnEvidence(expn[1].substring(1, expn[1].length - 1))}$.`
-              : '.'
-          reponse =
-            expn.length > 1
-              ? expn[1].substring(1, expn[1].length - 1)
-              : expn[0].substring(1, expn[0].length - 1)
-          break
-        case 2:
-          if (expn.indexOf('ou') > 0) {
-            expn = expn.substring(0, expn.indexOf('ou') - 1)
-          } // on supprime la deuxième expression fractionnaire
-          this.consigne = this.interactif
-            ? 'De quel type est chaque calcul ?'
-            : 'Traduire le calcul par une phrase en français.'
-          texte = `${expn}`
-          expf = 'l' + String(expf).substring(1)
-          texteCorr = this.interactif
-            ? `${expn} est ${texteEnCouleurEtGras(expNom)} : ${expf}.`
-            : `${expn} s'écrit : ${texteEnCouleurEtGras(expf)}.`
-          break
-        case 3: {
-          if (this.interactif) {
-            this.consigne =
-              'Traduire la phrase par un calcul et effectuer le calcul demandé au brouillon.<br> Saisir uniquement le résultat.'
-          } else {
-            this.consigne =
-              'Traduire la phrase par un calcul et effectuer le calcul demandé.'
-          }
-          if (!this.litteral) texte = `${expf}.`
-          else if (nbval === 2) {
-            texte = `${expf} puis calculer pour $x=${val1}$ et $y=${val2}$.`
-          } // nbval contient le nombre de valeurs en cas de calcul littéral
-          else texte = `${expf} puis calculer pour $x=${val1}$.`
-          texteCorr = `${expf} s'écrit : ${resultats[1]}.<br>`
-
-          if (!this.litteral) {
-            texteCorr = ''
-            if (!this.sup4) {
-              // EE : Ce test ne semble plus servir.
-              const expc2 = String(expc)
-                .substring(1, String(expc).length - 1)
-                .split('=')
-              texteCorr += `$${miseEnEvidence(expc2[0])} =$` + sp()
-              for (let ee = 1; ee < expc2.length - 1; ee++) {
-                texteCorr += `$${expc2[ee]}  = $` + sp()
-              }
-              texteCorr += `$${miseEnEvidence(expc2[expc2.length - 1])}$`
-            } else {
-              // On découpe
-              const etapes = String(expc).split('=')
-              let nbEtapes = 0
-              etapes.forEach(function (etape) {
-                nbEtapes++
-                etape = etape.replace('$', '')
-                if (context.isHtml) {
-                  texteCorr += '<br>'
-                }
-                texteCorr +=
-                  nbEtapes === etapes.length || nbEtapes === 1
-                    ? `${texteEnCouleurEtGras(lettreDepuisChiffre(i + 1) + ' = ')} $${miseEnEvidence(etape)}$ <br>`
-                    : `${lettreDepuisChiffre(i + 1)} = $${etape}$ <br>`
-              })
-            }
-          } else if (nbval === 2) {
-            texteCorr += `Pour $x=${val1}$ et $y=${val2}$ :<br> ${expc}`
-          } else texteCorr += `Pour $x=${val1}$ :<br>${expc}`
-          reponse = String(expc)
-            .split('=')
-            [String(expc).split('=').length - 1].replace('$', '')
-          if (this.litteral) {
-            // Uniformisation : Mise en place de la réponse attendue en interactif en orange et gras
-            const textCorrSplit = texteCorr.split('=')
-            let aRemplacer = textCorrSplit[textCorrSplit.length - 1]
-            aRemplacer = aRemplacer.replace('$', '').replace('<br>', '')
-
-            texteCorr = ''
-            for (let ee = 0; ee < textCorrSplit.length - 1; ee++) {
-              texteCorr += textCorrSplit[ee] + '='
-            }
-            texteCorr += `$ $${miseEnEvidence(aRemplacer)}$`
-            // Fin de cette uniformisation
-          }
-          break
-        }
-        case 4:
-        default:
-          {
-            if (expn.indexOf('ou') > 0) {
-              expn = expn.substring(0, expn.indexOf('ou') - 1)
-            } // on supprime la deuxième expression fractionnaire
-            this.consigne = ''
-            if (!this.litteral) texte = `${expn}`
-            else if (nbval === 2) {
-              texte = `Pour $x=${val1}$ et $y=${val2}$, calculer ${expn}.`
-            } else texte = `Pour $x=${val1}$, calculer ${expn}.`
-            if (!this.litteral) texteCorr = `${expc}`
-            else if (nbval === 2) {
-              texteCorr = `Pour $x=${val1}$ et $y=${val2}$ :<br>${expc}`
-            } else texteCorr = `Pour $x=${val1}$ :<br>${expc}`
-            reponse = String(expc)
-              .split('=')
-              [String(expc).split('=').length - 1].replace('$', '')
-            // Uniformisation : Mise en place de la réponse attendue en interactif en orange et gras
-            const textCorrSplit = texteCorr.split('=')
-            let aRemplacer = textCorrSplit[textCorrSplit.length - 1]
-            aRemplacer = aRemplacer.replace('$', '').replace('<br>', '')
-
-            texteCorr = ''
-            for (let ee = 0; ee < textCorrSplit.length - 1; ee++) {
-              texteCorr += textCorrSplit[ee] + '='
-            }
-            texteCorr += `$ $${miseEnEvidence(aRemplacer)}$`
-            // Fin de cette uniformisation
-          }
-          break
-      }
       if (
         (this.questionJamaisPosee(i, nbOperations, nbval, this.version, expf) &&
           !this.litteral) ||
@@ -263,6 +141,133 @@ export default class EcrireUneExpressionNumerique extends Exercice {
             resultats[4],
           ))
       ) {
+        this.autoCorrection[i] = {}
+        switch (this.version) {
+          case 1:
+            this.consigne =
+              "Traduire la phrase par un calcul (il n'est pas demandé d'effectuer ce calcul)."
+            texte = `${expf}.`
+            expn = expn.split(' ou ') // Pour traiter le cas du 'ou'.
+            texteCorr = `${expf} s'écrit : $${miseEnEvidence(expn[0].substring(1, expn[0].length - 1))}$`
+            texteCorr +=
+              expn.length > 1
+                ? ` ou $${miseEnEvidence(expn[1].substring(1, expn[1].length - 1))}$.`
+                : '.'
+            reponse =
+              expn.length > 1
+                ? expn[1].substring(1, expn[1].length - 1)
+                : expn[0].substring(1, expn[0].length - 1)
+            break
+          case 2:
+            if (expn.indexOf('ou') > 0) {
+              expn = expn.substring(0, expn.indexOf('ou') - 1)
+            } // on supprime la deuxième expression fractionnaire
+            this.consigne = this.interactif
+              ? 'De quel type est chaque calcul ?'
+              : 'Traduire le calcul par une phrase en français.'
+            texte = `${expn}`
+            expf = 'l' + String(expf).substring(1)
+            texteCorr = this.interactif
+              ? `${expn} est ${texteEnCouleurEtGras(expNom)} : ${expf}.`
+              : `${expn} s'écrit : ${texteEnCouleurEtGras(expf)}.`
+            break
+          case 3: {
+            if (this.interactif) {
+              this.consigne =
+                'Traduire la phrase par un calcul et effectuer le calcul demandé au brouillon.<br> Saisir uniquement le résultat.'
+            } else {
+              this.consigne =
+                'Traduire la phrase par un calcul et effectuer le calcul demandé.'
+            }
+            if (!this.litteral) texte = `${expf}.`
+            else if (nbval === 2) {
+              texte = `${expf} puis calculer pour $x=${val1}$ et $y=${val2}$.`
+            } // nbval contient le nombre de valeurs en cas de calcul littéral
+            else texte = `${expf} puis calculer pour $x=${val1}$.`
+            texteCorr = `${expf} s'écrit : ${resultats[1]}.<br>`
+
+            if (!this.litteral) {
+              texteCorr = ''
+              if (!this.sup4) {
+                // EE : Ce test ne semble plus servir.
+                const expc2 = String(expc)
+                  .substring(1, String(expc).length - 1)
+                  .split('=')
+                texteCorr += `$${miseEnEvidence(expc2[0])} =$` + sp()
+                for (let ee = 1; ee < expc2.length - 1; ee++) {
+                  texteCorr += `$${expc2[ee]}  = $` + sp()
+                }
+                texteCorr += `$${miseEnEvidence(expc2[expc2.length - 1])}$`
+              } else {
+                // On découpe
+                const etapes = String(expc).split('=')
+                let nbEtapes = 0
+                etapes.forEach(function (etape) {
+                  nbEtapes++
+                  etape = etape.replace('$', '')
+                  if (context.isHtml) {
+                    texteCorr += '<br>'
+                  }
+                  texteCorr +=
+                    nbEtapes === etapes.length || nbEtapes === 1
+                      ? `${texteEnCouleurEtGras(lettreDepuisChiffre(i + 1) + ' = ')} $${miseEnEvidence(etape)}$ <br>`
+                      : `${lettreDepuisChiffre(i + 1)} = $${etape}$ <br>`
+                })
+              }
+            } else if (nbval === 2) {
+              texteCorr += `Pour $x=${val1}$ et $y=${val2}$ :<br> ${expc}`
+            } else texteCorr += `Pour $x=${val1}$ :<br>${expc}`
+            reponse = String(expc)
+              .split('=')
+              [String(expc).split('=').length - 1].replace('$', '')
+            if (this.litteral) {
+              // Uniformisation : Mise en place de la réponse attendue en interactif en orange et gras
+              const textCorrSplit = texteCorr.split('=')
+              let aRemplacer = textCorrSplit[textCorrSplit.length - 1]
+              aRemplacer = aRemplacer.replace('$', '').replace('<br>', '')
+
+              texteCorr = ''
+              for (let ee = 0; ee < textCorrSplit.length - 1; ee++) {
+                texteCorr += textCorrSplit[ee] + '='
+              }
+              texteCorr += `$ $${miseEnEvidence(aRemplacer)}$`
+              // Fin de cette uniformisation
+            }
+            break
+          }
+          case 4:
+          default:
+            {
+              if (expn.indexOf('ou') > 0) {
+                expn = expn.substring(0, expn.indexOf('ou') - 1)
+              } // on supprime la deuxième expression fractionnaire
+              this.consigne = ''
+              if (!this.litteral) texte = `${expn}`
+              else if (nbval === 2) {
+                texte = `Pour $x=${val1}$ et $y=${val2}$, calculer ${expn}.`
+              } else texte = `Pour $x=${val1}$, calculer ${expn}.`
+              if (!this.litteral) texteCorr = `${expc}`
+              else if (nbval === 2) {
+                texteCorr = `Pour $x=${val1}$ et $y=${val2}$ :<br>${expc}`
+              } else texteCorr = `Pour $x=${val1}$ :<br>${expc}`
+              reponse = String(expc)
+                .split('=')
+                [String(expc).split('=').length - 1].replace('$', '')
+              // Uniformisation : Mise en place de la réponse attendue en interactif en orange et gras
+              const textCorrSplit = texteCorr.split('=')
+              let aRemplacer = textCorrSplit[textCorrSplit.length - 1]
+              aRemplacer = aRemplacer.replace('$', '').replace('<br>', '')
+
+              texteCorr = ''
+              for (let ee = 0; ee < textCorrSplit.length - 1; ee++) {
+                texteCorr += textCorrSplit[ee] + '='
+              }
+              texteCorr += `$ $${miseEnEvidence(aRemplacer)}$`
+              // Fin de cette uniformisation
+            }
+            break
+        }
+
         // Si la question n'a jamais été posée, on en créé une autre
         // On doit effectuer un calcul numérique et donner une réponse numérique
         if (this.version > 2) {
@@ -353,6 +358,7 @@ export default class EcrireUneExpressionNumerique extends Exercice {
               typeof expNom === 'string'
                 ? expNom.replace('une ', '').replace('un ', '')
                 : expNom
+
             handleAnswers(
               this,
               i,
@@ -389,6 +395,7 @@ export default class EcrireUneExpressionNumerique extends Exercice {
                   texteAvant: ' Calcul : ',
                 },
               )
+
             handleAnswers(this, i, {
               reponse: {
                 value: reponse,

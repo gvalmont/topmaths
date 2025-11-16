@@ -2,11 +2,13 @@ import { texteGras } from '../../lib/format/style'
 import { propositionsQcm } from '../../lib/interactif/qcm'
 import { choice } from '../../lib/outils/arrayOutils'
 import { jourAuHasard, nomDuMois } from '../../lib/outils/dateEtHoraires'
-import { texteEnCouleurEtGras } from '../../lib/outils/embellissements'
+import {
+  miseEnEvidence,
+  texteEnCouleurEtGras,
+} from '../../lib/outils/embellissements'
 import { arrondi } from '../../lib/outils/nombres'
-import { sp } from '../../lib/outils/outilString'
 import { prenomF, prenomM } from '../../lib/outils/Personne'
-import { stringNombre } from '../../lib/outils/texNombre'
+import { texNombre, texPrix } from '../../lib/outils/texNombre'
 import { context } from '../../modules/context'
 import {
   gestionnaireFormulaireTexte,
@@ -120,60 +122,53 @@ export default class ExerciceInformationsProblemes extends Exercice {
           nb2 = randint(7, 15)
           nb4 = randint(3, 10)
           nb5 = 10 * randint(20, 60)
-          texte += `Dans une classe de ${nb1} élèves âgés de ${nb2}  à ${nb2 + 2}  ans,`
-          texte += ` un professeur distribue à chaque enfant ${nb4} livres pesant ${nb5} g chacun.<br>`
+          texte += `Dans une classe de $${nb1}$ élèves âgés de $${nb2}$  à $${nb2 + 2}$  ans,`
+          texte += ` un professeur distribue à chaque enfant $${nb4}$ livres pesant $${nb5}$ g chacun.<br>`
 
           switch (choixVersion) {
             case 1:
               texte += 'Quel est le nombre total de livres distribués ?'
               if (this.sup === 1) {
-                texteCorr += texteEnCouleurEtGras(nb1 + ' élèves')
+                texteCorr +=
+                  `$${miseEnEvidence(nb1)}$` + texteEnCouleurEtGras(' élèves')
                 texteCorr +=
                   ' et ' +
-                  texteEnCouleurEtGras(nb4 + ' livres') +
-                  ' sont utiles pour la résolution du problème.<br>'
-                texteCorr += 'La solution du problème est donnée par : '
-                texteCorr +=
-                  texteEnCouleurEtGras(nb1) +
-                  `$${sp()}\\times${sp()}$` +
-                  texteEnCouleurEtGras(nb4 + ' livres') +
-                  '.'
+                  `$${miseEnEvidence(nb4)}$` +
+                  texteEnCouleurEtGras(' livres') +
+                  ' sont utiles pour la résolution du problème.'
               } else {
                 texteCorr +=
-                  texteEnCouleurEtGras(nb2 + ' ans') +
+                  `$${miseEnEvidence(nb2)}$` +
+                  texteEnCouleurEtGras(' ans') +
                   ', ' +
-                  texteEnCouleurEtGras(nb2 + 2 + ' ans')
+                  `$${miseEnEvidence(nb2 + 2)}$` +
+                  texteEnCouleurEtGras(' ans')
                 texteCorr +=
                   ' et ' +
-                  texteEnCouleurEtGras(nb5 + ' g') +
-                  ' ne sont pas utiles pour la résolution du problème.<br>'
-                texteCorr += 'La solution du problème est donnée par : '
-                texteCorr +=
-                  texteGras(nb1) +
-                  `$${sp()}\\times${sp()}$` +
-                  texteGras(nb4 + ' livres') +
-                  '.'
+                  `$${miseEnEvidence(nb5)}$` +
+                  texteEnCouleurEtGras(' g') +
+                  ' ne sont pas utiles pour la résolution du problème.'
               }
 
               this.autoCorrection[i].propositions = [
                 {
-                  texte: `${nb1} élèves`,
+                  texte: `$${nb1}$ élèves`,
                   statut: this.sup === 1,
                 },
                 {
-                  texte: `${nb2} ans`,
+                  texte: `$${nb2}$ ans`,
                   statut: this.sup !== 1,
                 },
                 {
-                  texte: `${nb2 + 2} ans`,
+                  texte: `$${nb2 + 2}$ ans`,
                   statut: this.sup !== 1,
                 },
                 {
-                  texte: `${nb4} livres`,
+                  texte: `$${nb4}$ livres`,
                   statut: this.sup === 1,
                 },
                 {
-                  texte: `${nb5} g`,
+                  texte: `$${nb5}$ g`,
                   statut: this.sup !== 1,
                 },
               ]
@@ -182,100 +177,98 @@ export default class ExerciceInformationsProblemes extends Exercice {
               texte +=
                 'Quelle est la masse totale des livres distribués à chaque enfant ?'
               if (this.sup === 1) {
-                texteCorr += texteEnCouleurEtGras(nb5 + ' g')
+                texteCorr +=
+                  `$${miseEnEvidence(nb5)}$` + texteEnCouleurEtGras(' g')
                 texteCorr +=
                   ' et ' +
-                  texteEnCouleurEtGras(nb4 + ' livres') +
-                  ' sont utiles pour la résolution du problème.<br>'
-                texteCorr += 'La solution du problème est donnée par : '
-                texteCorr +=
-                  texteEnCouleurEtGras(nb5 + ' g') +
-                  `$${sp()}\\times${sp()}$` +
-                  texteEnCouleurEtGras(nb4) +
-                  '.'
+                  `$${miseEnEvidence(nb4)}$` +
+                  texteEnCouleurEtGras(' livres') +
+                  ' sont utiles pour la résolution du problème'
               } else {
                 texteCorr +=
-                  texteEnCouleurEtGras(nb2 + ' ans') +
+                  `$${miseEnEvidence(nb2)}$` +
+                  texteEnCouleurEtGras(' ans') +
                   ', ' +
-                  texteEnCouleurEtGras(nb2 + 2 + ' ans')
+                  `$${miseEnEvidence(nb2 + 2)}$` +
+                  texteEnCouleurEtGras(' ans')
                 texteCorr +=
                   ' et ' +
-                  texteEnCouleurEtGras(nb1 + ' élèves') +
-                  ' ne sont pas utiles pour la résolution du problème.<br>'
-                texteCorr += 'La solution du problème est donnée par : '
-                texteCorr +=
-                  texteGras(nb5 + ' g') +
-                  `$${sp()}\\times${sp()}$` +
-                  texteGras(nb4) +
-                  '.'
+                  `$${miseEnEvidence(nb1)}$` +
+                  texteEnCouleurEtGras(' élèves') +
+                  ' ne sont pas utiles pour la résolution du problème.'
               }
 
               this.autoCorrection[i].propositions = [
                 {
-                  texte: `${nb1} élèves`,
+                  texte: `$${nb1}$ élèves`,
                   statut: this.sup !== 1,
                 },
                 {
-                  texte: `${nb2} ans`,
+                  texte: `$${nb2}$ ans`,
                   statut: this.sup !== 1,
                 },
                 {
-                  texte: `${nb2 + 2} ans`,
+                  texte: `$${nb2 + 2}$ ans`,
                   statut: this.sup !== 1,
                 },
                 {
-                  texte: `${nb4} livres`,
+                  texte: `$${nb4}$ livres`,
                   statut: this.sup === 1,
                 },
                 {
-                  texte: `${nb5} g`,
+                  texte: `$${nb5}$ g`,
                   statut: this.sup === 1,
                 },
               ]
 
               break
             default:
-              texte += `Quel est, dans cette classe, le nombre exact d'enfants de ${nb2 + 1} ans ?`
+              texte += `Quel est, dans cette classe, le nombre exact d'enfants de $${nb2 + 1}$ ans ?`
               if (this.sup === 1) {
                 texteCorr +=
-                  "Aucune donnée n'est utile pour la résolution du problème.<br>"
+                  "Aucune donnée n'est utile pour la résolution du problème."
               } else {
                 texteCorr +=
-                  texteEnCouleurEtGras(nb1 + ' élèves') +
+                  `$${miseEnEvidence(nb1)}$` +
+                  texteEnCouleurEtGras(' élèves') +
                   ', ' +
-                  texteEnCouleurEtGras(nb2 + ' ans') +
+                  `$${miseEnEvidence(nb2)}$` +
+                  texteEnCouleurEtGras(' ans') +
                   ', '
                 texteCorr +=
-                  texteEnCouleurEtGras(nb2 + 2 + ' ans') +
+                  `$${miseEnEvidence(nb2 + 2)}$` +
+                  texteEnCouleurEtGras(' ans') +
                   ', ' +
-                  texteEnCouleurEtGras(nb4 + ' livres')
+                  `$${miseEnEvidence(nb4)}$` +
+                  texteEnCouleurEtGras(' livres')
                 texteCorr +=
                   ' et ' +
-                  texteEnCouleurEtGras(nb5 + ' g') +
-                  ' ne sont pas utiles pour la résolution du problème.<br>'
+                  `$${miseEnEvidence(nb5)}$` +
+                  texteEnCouleurEtGras(' g') +
+                  ' ne sont pas utiles pour la résolution du problème.'
               }
               texteCorr +=
                 'On ne peut pas répondre à ce problème. Il manque des informations.'
 
               this.autoCorrection[i].propositions = [
                 {
-                  texte: `${nb1} élèves`,
+                  texte: `$${nb1}$ élèves`,
                   statut: this.sup !== 1,
                 },
                 {
-                  texte: `${nb2} ans`,
+                  texte: `$${nb2}$ ans`,
                   statut: this.sup !== 1,
                 },
                 {
-                  texte: `${nb2 + 2} ans`,
+                  texte: `$${nb2 + 2}$ ans`,
                   statut: this.sup !== 1,
                 },
                 {
-                  texte: `${nb4} livres`,
+                  texte: `$${nb4}$ livres`,
                   statut: this.sup !== 1,
                 },
                 {
-                  texte: `${nb5} g`,
+                  texte: `$${nb5}$ g`,
                   statut: this.sup !== 1,
                 },
               ]
@@ -287,67 +280,56 @@ export default class ExerciceInformationsProblemes extends Exercice {
           quidam = prenomM()
           nb1 = randint(2, 5)
           nb2 = choice([250, 500, 600, 750])
-          nb3 = stringNombre(
-            arrondi(randint(10, 50) / 10 + randint(1, 9) / 100),
-          )
+          nb3 = texPrix(arrondi(randint(10, 50) / 10 + randint(1, 9) / 100))
           nb4 = randint(2, 5, [nb1])
-          nb5 = stringNombre(
-            arrondi(randint(20, 40) / 10 + randint(1, 9) / 100),
-          )
-          texte += `Au marché, ${quidam} achète ${nb1} barquettes de haricots verts de ${nb2}${sp(1)}g chacune à ${nb3}${sp(1)}€ pièce `
-          texte += ` et ${nb4}${sp(1)}ananas coûtant ${nb5}${sp(1)}€ l'unité.<br>`
+          nb5 = texPrix(arrondi(randint(20, 40) / 10 + randint(1, 9) / 100))
+          texte += `Au marché, ${quidam} achète $${nb1}$ barquettes de haricots verts de $${nb2}$ g chacune à $${nb3}$ € pièce `
+          texte += ` et $${nb4}$ ananas coûtant $${nb5}$ € l'unité.<br>`
 
           switch (choixVersion) {
             case 1:
               texte += 'Quel est le prix total des fruits achetés ?'
               if (this.sup === 1) {
-                texteCorr += texteEnCouleurEtGras(nb4 + ' ananas')
+                texteCorr +=
+                  `$${miseEnEvidence(nb4)}$` + texteEnCouleurEtGras(' ananas')
                 texteCorr +=
                   ' et ' +
-                  texteEnCouleurEtGras(nb5 + ' €') +
-                  ' sont utiles pour la résolution du problème.<br>'
-                texteCorr += 'La solution du problème est donnée par : '
-                texteCorr +=
-                  texteEnCouleurEtGras(nb4) +
-                  `$${sp()}\\times${sp()}$` +
-                  texteEnCouleurEtGras(nb5 + ' €') +
-                  '.'
+                  `$${miseEnEvidence(nb5)}$` +
+                  texteEnCouleurEtGras(' €') +
+                  ' sont utiles pour la résolution du problème.'
               } else {
                 texteCorr +=
-                  texteEnCouleurEtGras(nb1 + ' barquettes') +
+                  `$${miseEnEvidence(nb1)}$` +
+                  texteEnCouleurEtGras(' barquettes') +
                   ', ' +
-                  texteEnCouleurEtGras(nb2 + ' g')
+                  `$${miseEnEvidence(nb2)}$` +
+                  texteEnCouleurEtGras(' g')
                 texteCorr +=
                   ' et ' +
-                  texteEnCouleurEtGras(nb3 + ' €') +
-                  ' ne sont pas utiles pour la résolution du problème.<br>'
-                texteCorr += 'La solution du problème est donnée par : '
-                texteCorr +=
-                  texteGras(nb4) +
-                  `$${sp()}\\times${sp()}$` +
-                  texteGras(nb5 + ' €') +
-                  '.'
+                  `$${miseEnEvidence(nb3)}$` +
+                  texteEnCouleurEtGras(' €') +
+                  ' ne sont pas utiles pour la résolution du problème.'
               }
 
               this.autoCorrection[i].propositions = [
                 {
-                  texte: `${nb1} barquettes`,
+                  texte: `$${nb1}$ barquettes`,
                   statut: this.sup !== 1,
                 },
                 {
-                  texte: `${nb2} g`,
+                  texte: `$${nb2}$ g`,
                   statut: this.sup !== 1,
                 },
                 {
-                  texte: `${nb3} €`,
+                  texte: `$${nb3}$ €`,
                   statut: this.sup !== 1,
                 },
                 {
-                  texte: `${nb4} ananas`,
+                  texte: `$${nb4}$ ananas`,
                   statut: this.sup === 1,
                 },
                 {
-                  texte: `${nb5} €`,
+                  texte: `$${nb5}$ €`,
                   statut: this.sup === 1,
                 },
               ]
@@ -355,53 +337,47 @@ export default class ExerciceInformationsProblemes extends Exercice {
             case 2:
               texte += 'Quel est le prix total des légumes achetés ?'
               if (this.sup === 1) {
-                texteCorr += texteEnCouleurEtGras(nb1 + ' barquettes')
+                texteCorr +=
+                  `$${miseEnEvidence(nb1)}$` +
+                  texteEnCouleurEtGras(' barquettes')
                 texteCorr +=
                   ' et ' +
-                  texteEnCouleurEtGras(nb3 + ' €') +
-                  ' sont utiles pour la résolution du problème.<br>'
-                texteCorr += 'La solution du problème est donnée par : '
-                texteCorr +=
-                  texteEnCouleurEtGras(nb1) +
-                  `$${sp()}\\times${sp()}$` +
-                  texteEnCouleurEtGras(nb3 + ' €') +
-                  '.'
+                  `$${miseEnEvidence(nb3)}$` +
+                  texteEnCouleurEtGras(' €') +
+                  ' sont utiles pour la résolution du problème.'
               } else {
                 texteCorr +=
-                  texteEnCouleurEtGras(nb4 + ' ananas') +
+                  `$${miseEnEvidence(nb4)}$` +
+                  texteEnCouleurEtGras(' ananas') +
                   ', ' +
-                  texteEnCouleurEtGras(nb2 + ' g')
+                  `$${miseEnEvidence(nb2)}$` +
+                  texteEnCouleurEtGras(' g')
                 texteCorr +=
                   ' et ' +
-                  texteEnCouleurEtGras(nb5 + ' €') +
-                  ' ne sont pas utiles pour la résolution du problème.<br>'
-                texteCorr += 'La solution du problème est donnée par : '
-                texteCorr +=
-                  texteGras(nb1) +
-                  `$${sp()}\\times${sp()}$` +
-                  texteGras(nb3 + ' €') +
-                  '.'
+                  `$${miseEnEvidence(nb5)}$` +
+                  texteEnCouleurEtGras(' €') +
+                  ' ne sont pas utiles pour la résolution du problème.'
               }
 
               this.autoCorrection[i].propositions = [
                 {
-                  texte: `${nb1} barquettes`,
+                  texte: `$${nb1}$ barquettes`,
                   statut: this.sup === 1,
                 },
                 {
-                  texte: `${nb2} g`,
+                  texte: `$${nb2}$ g`,
                   statut: this.sup !== 1,
                 },
                 {
-                  texte: `${nb3} €`,
+                  texte: `$${nb3}$ €`,
                   statut: this.sup === 1,
                 },
                 {
-                  texte: `${nb4} ananas`,
+                  texte: `$${nb4}$ ananas`,
                   statut: this.sup !== 1,
                 },
                 {
-                  texte: `${nb5} €`,
+                  texte: `$${nb5}$ €`,
                   statut: this.sup !== 1,
                 },
               ]
@@ -410,44 +386,49 @@ export default class ExerciceInformationsProblemes extends Exercice {
               texte += 'Quel est le prix total des boissons achetées ?'
               if (this.sup === 1) {
                 texteCorr +=
-                  "Aucune donnée n'est utile pour la résolution du problème.<br>"
+                  "Aucune donnée n'est utile pour la résolution du problème."
               } else {
                 texteCorr +=
-                  texteEnCouleurEtGras(nb1 + ' barquettes') +
+                  `$${miseEnEvidence(nb1)}$` +
+                  texteEnCouleurEtGras(' barquettes') +
                   ', ' +
-                  texteEnCouleurEtGras(nb2 + ' g') +
+                  `$${miseEnEvidence(nb2)}$` +
+                  texteEnCouleurEtGras(' g') +
                   ', '
                 texteCorr +=
-                  texteEnCouleurEtGras(nb3 + ' €') +
+                  `$${miseEnEvidence(nb3)}$` +
+                  texteEnCouleurEtGras(' €') +
                   ', ' +
-                  texteEnCouleurEtGras(nb4 + ' ananas')
+                  `$${miseEnEvidence(nb4)}$` +
+                  texteEnCouleurEtGras(' ananas')
                 texteCorr +=
                   ' et ' +
-                  texteEnCouleurEtGras(nb5 + ' €') +
-                  ' ne sont pas utiles pour la résolution du problème.<br>'
+                  `$${miseEnEvidence(nb5)}$` +
+                  texteEnCouleurEtGras(' €') +
+                  ' ne sont pas utiles pour la résolution du problème.'
               }
               texteCorr +=
                 'On ne peut pas répondre à ce problème. Il manque des informations.'
 
               this.autoCorrection[i].propositions = [
                 {
-                  texte: `${nb1} barquettes`,
+                  texte: `$${nb1}$ barquettes`,
                   statut: this.sup !== 1,
                 },
                 {
-                  texte: `${nb2} g`,
+                  texte: `$${nb2}$ g`,
                   statut: this.sup !== 1,
                 },
                 {
-                  texte: `${nb3} €`,
+                  texte: `$${nb3}$ €`,
                   statut: this.sup !== 1,
                 },
                 {
-                  texte: `${nb4} ananas`,
+                  texte: `$${nb4}$ ananas`,
                   statut: this.sup !== 1,
                 },
                 {
-                  texte: `${nb5} €`,
+                  texte: `$${nb5}$ €`,
                   statut: this.sup !== 1,
                 },
               ]
@@ -463,60 +444,51 @@ export default class ExerciceInformationsProblemes extends Exercice {
           nb3 = randint(5, 11)
           nb4 = randint(110, 230)
           nb5 = randint(128, Math.round(nb1 / 2))
-          texte += `Le village de Sainte-${quidam2}-Les-Trois-Vallées compte ${nb1} habitants et se situe à une altitude de ${nb2} m.`
-          texte += ` À ${nb3} $\\text{km}$ de là, le village de Saint-${quidam}-Le-Bouquetin, situé ${nb4} m plus haut, compte ${nb5} habitants de moins.<br>`
+          texte += `Le village de Sainte-${quidam2}-Les-Trois-Vallées compte $${nb1}$ habitants et se situe à une altitude de $${nb2}\\text{ m}$.`
+          texte += ` À $${nb3}\\text{ km}$ de là, le village de Saint-${quidam}-Le-Bouquetin, situé $${nb4}\\text{ m}$ plus haut, compte $${nb5}$ habitants de moins.<br>`
 
           switch (choixVersion) {
             case 1:
               texte += `Combien d'habitants compte le village de Saint-${quidam}-Le-Bouquetin ?`
               if (this.sup === 1) {
-                texteCorr += texteEnCouleurEtGras(nb1 + ' habitants')
+                texteCorr +=
+                  `$${miseEnEvidence(nb1)}$` +
+                  texteEnCouleurEtGras(' habitants')
                 texteCorr +=
                   ' et ' +
-                  texteEnCouleurEtGras(nb5 + ' habitants') +
-                  ' sont utiles pour la résolution du problème.<br>'
-                texteCorr += 'La solution du problème est donnée par : '
-                texteCorr +=
-                  texteEnCouleurEtGras(nb1 + ' habitants') +
-                  `$${sp()}-${sp()}$` +
-                  texteEnCouleurEtGras(nb5 + ' habitants') +
-                  '.'
+                  `$${miseEnEvidence(nb5)}$` +
+                  texteEnCouleurEtGras(' habitants') +
+                  ' sont utiles pour la résolution du problème.'
               } else {
                 texteCorr +=
-                  texteEnCouleurEtGras(nb2 + ' m') +
+                  miseEnEvidence(nb2 + '$\\text{ m}$') +
                   ', ' +
-                  texteEnCouleurEtGras(nb3 + ' km')
+                  miseEnEvidence(nb3 + '$\\text{ km}$')
                 texteCorr +=
                   ' et ' +
-                  texteEnCouleurEtGras(nb4 + ' m') +
-                  ' ne sont pas utiles pour la résolution du problème.<br>'
-                texteCorr += 'La solution du problème est donnée par : '
-                texteCorr +=
-                  texteGras(nb1 + ' habitants') +
-                  `$${sp()}-${sp()}$` +
-                  texteGras(nb5 + ' habitants') +
-                  '.'
+                  miseEnEvidence(nb4 + '$\\text{ m}$') +
+                  ' ne sont pas utiles pour la résolution du problème.'
               }
 
               this.autoCorrection[i].propositions = [
                 {
-                  texte: `${nb1} habitants`,
+                  texte: `$${nb1}$ habitants`,
                   statut: this.sup === 1,
                 },
                 {
-                  texte: `${nb2} m`,
+                  texte: `$${nb2}\\text{ m}$`,
                   statut: this.sup !== 1,
                 },
                 {
-                  texte: `${nb3} km`,
+                  texte: `$${nb3}\\text{ km}$`,
                   statut: this.sup !== 1,
                 },
                 {
-                  texte: `${nb4} m`,
+                  texte: `$${nb4}\\text{ m}$`,
                   statut: this.sup !== 1,
                 },
                 {
-                  texte: `${nb5} habitants`,
+                  texte: `$${nb5}$ habitants`,
                   statut: this.sup === 1,
                 },
               ]
@@ -524,53 +496,43 @@ export default class ExerciceInformationsProblemes extends Exercice {
             case 2:
               texte += `À quelle altitude se situe le village de Saint-${quidam}-Le-Bouquetin ?`
               if (this.sup === 1) {
-                texteCorr += texteEnCouleurEtGras(nb2 + ' m')
+                texteCorr += `$${miseEnEvidence(nb2 + '\\text{ m}')}$`
                 texteCorr +=
                   ' et ' +
-                  texteEnCouleurEtGras(nb4 + ' m') +
-                  ' sont utiles pour la résolution du problème.<br>'
-                texteCorr += 'La solution du problème est donnée par : '
-                texteCorr +=
-                  texteEnCouleurEtGras(nb2 + ' m') +
-                  `$${sp()}+${sp()}$` +
-                  texteEnCouleurEtGras(nb4 + ' m') +
-                  '.'
+                  `$${miseEnEvidence(nb4 + '\\text{ m}')}$` +
+                  ' sont utiles pour la résolution du problème.'
               } else {
                 texteCorr +=
-                  texteEnCouleurEtGras(nb1 + ' habitants') +
+                  `$${miseEnEvidence(nb1)}$` +
+                  texteEnCouleurEtGras(' habitants') +
                   ', ' +
-                  texteEnCouleurEtGras(nb3 + ' km')
+                  `$${miseEnEvidence(nb3 + '\\text{ km}')}$`
                 texteCorr +=
                   ' et ' +
-                  texteEnCouleurEtGras(nb5 + ' habitants') +
-                  ' ne sont pas utiles pour la résolution du problème.<br>'
-                texteCorr += 'La solution du problème est donnée par : '
-                texteCorr +=
-                  texteGras(nb2 + ' m') +
-                  `$${sp()}+${sp()}$` +
-                  texteGras(nb4 + ' m') +
-                  '.'
+                  `$${miseEnEvidence(nb5)}$` +
+                  texteEnCouleurEtGras(' habitants') +
+                  ' ne sont pas utiles pour la résolution du problème'
               }
 
               this.autoCorrection[i].propositions = [
                 {
-                  texte: `${nb1} habitants`,
+                  texte: `$${nb1}$ habitants`,
                   statut: this.sup !== 1,
                 },
                 {
-                  texte: `${nb2} m`,
+                  texte: `$${nb2}\\text{ m}$`,
                   statut: this.sup === 1,
                 },
                 {
-                  texte: `${nb3} km`,
+                  texte: `$${nb3}\\text{ km}$`,
                   statut: this.sup !== 1,
                 },
                 {
-                  texte: `${nb4} m`,
+                  texte: `$${nb4}\\text{ m}$`,
                   statut: this.sup === 1,
                 },
                 {
-                  texte: `${nb5} habitants`,
+                  texte: `$${nb5}$ habitants`,
                   statut: this.sup !== 1,
                 },
               ]
@@ -579,44 +541,46 @@ export default class ExerciceInformationsProblemes extends Exercice {
               texte += `Combien de garçons compte le village de Sainte-${quidam2}-Les-Trois-Vallées ?`
               if (this.sup === 1) {
                 texteCorr +=
-                  "Aucune donnée n'est utile pour la résolution du problème.<br>"
+                  "Aucune donnée n'est utile pour la résolution du problème."
               } else {
                 texteCorr +=
-                  texteEnCouleurEtGras(nb1 + ' habitants') +
+                  `$${miseEnEvidence(nb1)}$` +
+                  texteEnCouleurEtGras(' habitants') +
                   ', ' +
-                  texteEnCouleurEtGras(nb2 + ' m') +
+                  `$${miseEnEvidence(nb2 + '\\text{ m}')}$` +
                   ', '
                 texteCorr +=
-                  texteEnCouleurEtGras(nb3 + ' km') +
+                  `$${miseEnEvidence(nb3 + '\\text{ km}')}$` +
                   ', ' +
-                  texteEnCouleurEtGras(nb4 + ' m')
+                  `$${miseEnEvidence(nb4 + '\\text{ m}')}$`
                 texteCorr +=
                   ' et ' +
-                  texteEnCouleurEtGras(nb5 + ' habitants') +
-                  ' ne sont pas utiles pour la résolution du problème.<br>'
+                  `$${miseEnEvidence(nb5)}$` +
+                  texteEnCouleurEtGras(' habitants') +
+                  ' ne sont pas utiles pour la résolution du problème.'
               }
               texteCorr +=
                 'On ne peut pas répondre à ce problème. Il manque des informations.'
 
               this.autoCorrection[i].propositions = [
                 {
-                  texte: `${nb1} habitants`,
+                  texte: `$${nb1}$ habitants`,
                   statut: this.sup !== 1,
                 },
                 {
-                  texte: `${nb2} m`,
+                  texte: `$${nb2}\\text{ m}$`,
                   statut: this.sup !== 1,
                 },
                 {
-                  texte: `${nb3} km`,
+                  texte: `$${nb3}\\text{ km}$`,
                   statut: this.sup !== 1,
                 },
                 {
-                  texte: `${nb4} m`,
+                  texte: `$${nb4}\\text{ m}$`,
                   statut: this.sup !== 1,
                 },
                 {
-                  texte: `${nb5} habitants`,
+                  texte: `$${nb5}$ habitants`,
                   statut: this.sup !== 1,
                 },
               ]
@@ -626,47 +590,37 @@ export default class ExerciceInformationsProblemes extends Exercice {
         case 4:
           personnage1 = choice(FamilleH)
           quidam2 = prenomF()
-          nb1 = '1 h ' + 5 * randint(1, 10)
-          nb2 = stringNombre(
-            arrondi(randint(50, 90) / 10 + randint(1, 9) / 100),
-          )
+          nb1 = '$1$ h ' + `$${5 * randint(1, 10)}$`
+          nb2 = texPrix(arrondi(randint(50, 90) / 10 + randint(1, 9) / 100))
           nb3 = randint(5, 9)
           nb4 = choice([10, 20, 50])
           nb5 = 4 * randint(12, 24)
-          texte += `${quidam2} vient de lire en ${nb1} un manga qu'elle avait payé ${nb2} €. `
-          texte += `Elle a remarqué que sur chaque page, il y avait exactement ${nb3} cases. `
-          texte += `C'est grâce au billet de ${nb4} € que lui a donné son ${personnage1}, que ${quidam2} a pu s'acheter ce livre de ${nb5} pages.<br>`
+          texte += `${quidam2} vient de lire en ${nb1} un manga qu'elle avait payé $${nb2}$ €. `
+          texte += `Elle a remarqué que sur chaque page, il y avait exactement $${nb3}$ cases. `
+          texte += `C'est grâce au billet de $${nb4}$ € que lui a donné son ${personnage1}, que ${quidam2} a pu s'acheter ce livre de $${nb5}$ pages.<br>`
 
           switch (choixVersion) {
             case 1:
               texte += `Combien y a-t-il de cases dans le manga de ${quidam2} ?`
               if (this.sup === 1) {
-                texteCorr += texteEnCouleurEtGras(nb3 + ' cases')
+                texteCorr +=
+                  `$${miseEnEvidence(nb3)}$` + texteEnCouleurEtGras(' cases')
                 texteCorr +=
                   ' et ' +
-                  texteEnCouleurEtGras(nb5 + ' pages') +
-                  ' sont utiles pour la résolution du problème.<br>'
-                texteCorr += 'La solution du problème est donnée par : '
-                texteCorr +=
-                  texteEnCouleurEtGras(nb3 + ' cases') +
-                  `$${sp()}\\times${sp()}$` +
-                  texteEnCouleurEtGras(nb5) +
-                  '.'
+                  `$${miseEnEvidence(nb5)}$` +
+                  texteEnCouleurEtGras(' pages') +
+                  ' sont utiles pour la résolution du problème.'
               } else {
                 texteCorr +=
-                  texteEnCouleurEtGras(nb1) +
+                  `${texteEnCouleurEtGras(nb1)}` +
                   ', ' +
-                  texteEnCouleurEtGras(nb2 + ' €')
+                  `$${miseEnEvidence(nb2)}$` +
+                  texteEnCouleurEtGras(' €')
                 texteCorr +=
                   ' et ' +
-                  texteEnCouleurEtGras(nb4 + ' €') +
-                  ' ne sont pas utiles pour la résolution du problème.<br>'
-                texteCorr += 'La solution du problème est donnée par : '
-                texteCorr +=
-                  texteGras(nb3 + ' cases') +
-                  `$${sp()}\\times${sp()}$` +
-                  texteGras(nb5) +
-                  '.'
+                  `$${miseEnEvidence(nb4)}$` +
+                  texteEnCouleurEtGras(' €') +
+                  ' ne sont pas utiles pour la résolution du problème.'
               }
 
               this.autoCorrection[i].propositions = [
@@ -675,19 +629,19 @@ export default class ExerciceInformationsProblemes extends Exercice {
                   statut: this.sup !== 1,
                 },
                 {
-                  texte: `${nb2} €`,
+                  texte: `$${nb2}$ €`,
                   statut: this.sup !== 1,
                 },
                 {
-                  texte: `${nb3} cases`,
+                  texte: `$${nb3}$ cases`,
                   statut: this.sup === 1,
                 },
                 {
-                  texte: `${nb4} €`,
+                  texte: `$${nb4}$ €`,
                   statut: this.sup !== 1,
                 },
                 {
-                  texte: `${nb5} pages`,
+                  texte: `$${nb5}$ pages`,
                   statut: this.sup === 1,
                 },
               ]
@@ -695,32 +649,24 @@ export default class ExerciceInformationsProblemes extends Exercice {
             case 2:
               texte += `Lorsqu'elle a acheté son manga, quelle somme d'argent a-t-on rendu à ${quidam2} ?`
               if (this.sup === 1) {
-                texteCorr += texteEnCouleurEtGras(nb2 + ' €')
+                texteCorr +=
+                  `$${miseEnEvidence(nb2)}$` + texteEnCouleurEtGras(' €')
                 texteCorr +=
                   ' et ' +
-                  texteEnCouleurEtGras(nb4 + ' €') +
-                  ' sont utiles pour la résolution du problème.<br>'
-                texteCorr += 'La solution du problème est donnée par : '
-                texteCorr +=
-                  texteEnCouleurEtGras(nb4 + ' €') +
-                  `$${sp()}-${sp()}$` +
-                  texteEnCouleurEtGras(nb2 + ' €') +
-                  '.'
+                  `$${miseEnEvidence(nb4)}$` +
+                  texteEnCouleurEtGras(' €') +
+                  ' sont utiles pour la résolution du problème.'
               } else {
                 texteCorr +=
-                  texteEnCouleurEtGras(nb1) +
+                  `${texteEnCouleurEtGras(nb1)}` +
                   ', ' +
-                  texteEnCouleurEtGras(nb3 + ' cases')
+                  `$${miseEnEvidence(nb3)}$` +
+                  texteEnCouleurEtGras(' cases')
                 texteCorr +=
                   ' et ' +
-                  texteEnCouleurEtGras(nb5 + ' pages') +
-                  ' ne sont pas utiles pour la résolution du problème.<br>'
-                texteCorr += 'La solution du problème est donnée par : '
-                texteCorr +=
-                  texteGras(nb4 + ' €') +
-                  `$${sp()}-${sp()}$` +
-                  texteGras(nb2 + ' €') +
-                  '.'
+                  `$${miseEnEvidence(nb5)}$` +
+                  texteEnCouleurEtGras(' pages') +
+                  ' ne sont pas utiles pour la résolution du problème.'
               }
 
               this.autoCorrection[i].propositions = [
@@ -729,19 +675,19 @@ export default class ExerciceInformationsProblemes extends Exercice {
                   statut: this.sup !== 1,
                 },
                 {
-                  texte: `${nb2} €`,
+                  texte: `$${nb2}$ €`,
                   statut: this.sup === 1,
                 },
                 {
-                  texte: `${nb3} cases`,
+                  texte: `$${nb3}$ cases`,
                   statut: this.sup !== 1,
                 },
                 {
-                  texte: `${nb4} €`,
+                  texte: `$${nb4}$ €`,
                   statut: this.sup === 1,
                 },
                 {
-                  texte: `${nb5} pages`,
+                  texte: `$${nb5}$ pages`,
                   statut: this.sup !== 1,
                 },
               ]
@@ -750,21 +696,25 @@ export default class ExerciceInformationsProblemes extends Exercice {
               texte += `À quelle heure ${quidam2} a-t-elle commencé à lire son manga ?`
               if (this.sup === 1) {
                 texteCorr +=
-                  "Aucune donnée n'est utile pour la résolution du problème.<br>"
+                  "Aucune donnée n'est utile pour la résolution du problème."
               } else {
                 texteCorr +=
-                  texteEnCouleurEtGras(nb1) +
+                  `${texteEnCouleurEtGras(nb1)}` +
                   ', ' +
-                  texteEnCouleurEtGras(nb2 + ' €') +
+                  `$${miseEnEvidence(nb2)}$` +
+                  texteEnCouleurEtGras(' €') +
                   ', '
                 texteCorr +=
-                  texteEnCouleurEtGras(nb3 + ' cases') +
+                  `$${miseEnEvidence(nb3)}$` +
+                  texteEnCouleurEtGras(' cases') +
                   ', ' +
-                  texteEnCouleurEtGras(nb4 + ' €')
+                  `$${miseEnEvidence(nb4)}$` +
+                  texteEnCouleurEtGras(' €')
                 texteCorr +=
                   ' et ' +
-                  texteEnCouleurEtGras(nb5 + ' pages') +
-                  ' ne sont pas utiles pour la résolution du problème.<br>'
+                  `$${miseEnEvidence(nb5)}$` +
+                  texteEnCouleurEtGras(' pages') +
+                  ' ne sont pas utiles pour la résolution du problème.'
               }
               texteCorr +=
                 'On ne peut pas répondre à ce problème. Il manque des informations.'
@@ -775,19 +725,19 @@ export default class ExerciceInformationsProblemes extends Exercice {
                   statut: this.sup !== 1,
                 },
                 {
-                  texte: `${nb2} €`,
+                  texte: `$${nb2}$ €`,
                   statut: this.sup !== 1,
                 },
                 {
-                  texte: `${nb3} cases`,
+                  texte: `$${nb3}$ cases`,
                   statut: this.sup !== 1,
                 },
                 {
-                  texte: `${nb4} €`,
+                  texte: `$${nb4}$ €`,
                   statut: this.sup !== 1,
                 },
                 {
-                  texte: `${nb5} pages`,
+                  texte: `$${nb5}$ pages`,
                   statut: this.sup !== 1,
                 },
               ]
@@ -810,41 +760,34 @@ export default class ExerciceInformationsProblemes extends Exercice {
           nb1 =
             jourAuHasard() +
             ' ' +
-            randint(2, 29) +
+            `$${randint(2, 29)}$` +
             ' ' +
             nomDuMois(randint(1, 12))
-          nb2 = nb + ' h ' + 5 * randint(2, 11)
-          nb3 = nb + 2 + ' h ' + 5 * randint(2, 11)
-          nb4 = nb + 1 + ' h ' + 5 * randint(2, 11)
-          nb5 = randint(37, 58)
+          nb2 = `$${nb}$` + ' h ' + `$${5 * randint(2, 11)}$`
+          nb3 = `$${nb + 2}$` + ' h ' + `$${5 * randint(2, 11)}$`
+          nb4 = `$${nb + 1}$` + ' h ' + `$${5 * randint(2, 11)}$`
+          nb5 = `$${5 * randint(37, 58)}$ minutes`
           texte += `${quidam} décide de programmer la box de ${personnage1} pour enregistrer un film prévu le ${nb1} et une émission prévue le lendemain. `
-          texte += `Le film doit commencer à ${nb2} et se terminer à ${nb3}. L'émission commence à ${nb4} et dure ${nb5} minutes.<br>`
+          texte += `Le film doit commencer à ${nb2} et se terminer à ${nb3}. L'émission commence à ${nb4} et dure ${nb5}.<br>`
 
           switch (choixVersion) {
             case 1:
               texte += 'Quelle est la durée prévue du film ?'
               if (this.sup === 1) {
-                texteCorr += texteEnCouleurEtGras(nb2)
+                texteCorr += `${texteEnCouleurEtGras(nb2)}`
                 texteCorr +=
                   ' et ' +
-                  texteEnCouleurEtGras(nb3) +
-                  ' sont utiles pour la résolution du problème.<br>'
-                texteCorr += 'La solution du problème est donnée par : '
-                texteCorr +=
-                  texteEnCouleurEtGras(nb3) +
-                  `$${sp()}-${sp()}$` +
-                  texteEnCouleurEtGras(nb2) +
-                  '.'
+                  `${texteEnCouleurEtGras(nb3)}` +
+                  ' sont utiles pour la résolution du problème.'
               } else {
                 texteCorr +=
-                  texteEnCouleurEtGras(nb4) + ', ' + texteEnCouleurEtGras(nb1)
+                  `${texteEnCouleurEtGras(nb4)}` +
+                  ', ' +
+                  `${texteEnCouleurEtGras(nb1)}`
                 texteCorr +=
                   ' et ' +
-                  texteEnCouleurEtGras(nb5 + ' minutes') +
-                  ' ne sont pas utiles pour la résolution du problème.<br>'
-                texteCorr += 'La solution du problème est donnée par : '
-                texteCorr +=
-                  texteGras(nb3) + `$${sp()}-${sp()}$` + texteGras(nb2) + '.'
+                  `${texteEnCouleurEtGras(nb5)}` +
+                  ' ne sont pas utiles pour la résolution du problème.'
               }
 
               this.autoCorrection[i].propositions = [
@@ -865,7 +808,7 @@ export default class ExerciceInformationsProblemes extends Exercice {
                   statut: this.sup !== 1,
                 },
                 {
-                  texte: `${nb5 + ' minutes'}`,
+                  texte: `${nb5}`,
                   statut: this.sup !== 1,
                 },
               ]
@@ -873,30 +816,20 @@ export default class ExerciceInformationsProblemes extends Exercice {
             case 2:
               texte += "À quelle heure se termine l'émission ?"
               if (this.sup === 1) {
-                texteCorr += texteEnCouleurEtGras(nb4)
+                texteCorr += `${texteEnCouleurEtGras(nb4)}`
                 texteCorr +=
                   ' et ' +
-                  texteEnCouleurEtGras(nb5 + ' minutes') +
-                  ' sont utiles pour la résolution du problème.<br>'
-                texteCorr += 'La solution du problème est donnée par : '
-                texteCorr +=
-                  texteEnCouleurEtGras(nb4) +
-                  `$${sp()}+${sp()}$` +
-                  texteEnCouleurEtGras(nb5 + ' minutes') +
-                  '.'
+                  `${texteEnCouleurEtGras(nb5)}` +
+                  ' sont utiles pour la résolution du problème.'
               } else {
                 texteCorr +=
-                  texteEnCouleurEtGras(nb2) + ', ' + texteEnCouleurEtGras(nb3)
+                  `${texteEnCouleurEtGras(nb2)}` +
+                  ', ' +
+                  `${texteEnCouleurEtGras(nb3)}`
                 texteCorr +=
                   ' et ' +
-                  texteEnCouleurEtGras(nb1) +
-                  ' ne sont pas utiles pour la résolution du problème.<br>'
-                texteCorr += 'La solution du problème est donnée par : '
-                texteCorr +=
-                  texteGras(nb4) +
-                  `$${sp()}+${sp()}$` +
-                  texteGras(nb5 + ' minutes') +
-                  '.'
+                  `${texteEnCouleurEtGras(nb1)}` +
+                  ' ne sont pas utiles pour la résolution du problème.'
               }
 
               this.autoCorrection[i].propositions = [
@@ -917,7 +850,7 @@ export default class ExerciceInformationsProblemes extends Exercice {
                   statut: this.sup === 1,
                 },
                 {
-                  texte: `${nb5 + ' minutes'}`,
+                  texte: `${nb5}`,
                   statut: this.sup === 1,
                 },
               ]
@@ -926,21 +859,21 @@ export default class ExerciceInformationsProblemes extends Exercice {
               texte += `À quelle heure de sa journée, ${quidam} décide-t-${quidam2} de programmer la box de ${personnage1} ?`
               if (this.sup === 1) {
                 texteCorr +=
-                  "Aucune donnée n'est utile pour la résolution du problème.<br>"
+                  "Aucune donnée n'est utile pour la résolution du problème."
               } else {
                 texteCorr +=
-                  texteEnCouleurEtGras(nb2) +
+                  `${texteEnCouleurEtGras(nb2)}` +
                   ', ' +
-                  texteEnCouleurEtGras(nb3) +
+                  `${texteEnCouleurEtGras(nb3)}` +
                   ', '
                 texteCorr +=
-                  texteEnCouleurEtGras(nb4) +
+                  `${texteEnCouleurEtGras(nb4)}` +
                   ', ' +
-                  texteEnCouleurEtGras(nb5 + ' minutes')
+                  `${texteEnCouleurEtGras(nb5)}`
                 texteCorr +=
                   ' et ' +
-                  texteEnCouleurEtGras(nb1) +
-                  ' ne sont pas utiles pour la résolution du problème.<br>'
+                  `${texteEnCouleurEtGras(nb1)}` +
+                  ' ne sont pas utiles pour la résolution du problème.'
               }
               texteCorr +=
                 'On ne peut pas répondre à ce problème. Il manque des informations.'
@@ -963,7 +896,7 @@ export default class ExerciceInformationsProblemes extends Exercice {
                   statut: this.sup !== 1,
                 },
                 {
-                  texte: `${nb5 + ' minutes'}`,
+                  texte: `${nb5}`,
                   statut: this.sup !== 1,
                 },
               ]
@@ -977,63 +910,56 @@ export default class ExerciceInformationsProblemes extends Exercice {
           nb1 = choice([15, 18, 21])
           nb2 = randint(214, 625)
           nb3 = randint(15, 18)
-          nb4 = stringNombre(arrondi(randint(2054, 3298) / 100))
+          nb4 = texPrix(arrondi(randint(2054, 3298) / 100))
           nb5 = choice([2, 3, 4, 6, 12])
-          texte += `La ${personnage1} de ${quidam2} lui a acheté un superbe vélo de ${nb1} vitesses, coûtant ${nb2} €, avec des roues de ${nb3} pouces. `
-          texte += `Pour la protéger, son ${quidam} lui a offert un casque et du matériel d'éclairage valant ${nb4} €. `
-          texte += `La ${personnage1} de ${quidam2} a décidé de payer le vélo en ${nb5} fois.<br>`
+          texte += `La ${personnage1} de ${quidam2} lui a acheté un superbe vélo de $${nb1}$ vitesses, coûtant $${nb2}$ €, avec des roues de $${nb3}$ pouces. `
+          texte += `Pour la protéger, son ${quidam} lui a offert un casque et du matériel d'éclairage valant $${nb4}$ €. `
+          texte += `La ${personnage1} de ${quidam2} a décidé de payer le vélo en $${nb5}$ fois.<br>`
 
           switch (choixVersion) {
             case 1:
               texte += `Quel est le montant de chaque versement que payera la ${personnage1} de ${quidam2} ?`
               if (this.sup === 1) {
-                texteCorr += texteEnCouleurEtGras(nb2 + ' €')
+                texteCorr +=
+                  `$${miseEnEvidence(nb2)}$` + texteEnCouleurEtGras(' €')
                 texteCorr +=
                   ' et ' +
-                  texteEnCouleurEtGras(nb5 + ' fois') +
-                  ' sont utiles pour la résolution du problème.<br>'
-                texteCorr += 'La solution du problème est donnée par : '
-                texteCorr +=
-                  texteEnCouleurEtGras(nb2 + ' €') +
-                  `$${sp()}\\div${sp()}$` +
-                  texteEnCouleurEtGras(nb5) +
-                  '.'
+                  `$${miseEnEvidence(nb5)}$` +
+                  texteEnCouleurEtGras(' fois') +
+                  ' sont utiles pour la résolution du problème.'
               } else {
                 texteCorr +=
-                  texteEnCouleurEtGras(nb1 + ' vitesses') +
+                  `$${miseEnEvidence(nb1)}$` +
+                  texteEnCouleurEtGras(' vitesses') +
                   ', ' +
-                  texteEnCouleurEtGras(nb3 + ' pouces')
+                  `$${miseEnEvidence(nb3)}$` +
+                  texteEnCouleurEtGras(' pouces')
                 texteCorr +=
                   ' et ' +
-                  texteEnCouleurEtGras(nb4 + ' €') +
-                  ' ne sont pas utiles pour la résolution du problème.<br>'
-                texteCorr += 'La solution du problème est donnée par : '
-                texteCorr +=
-                  texteGras(nb2 + ' €') +
-                  `$${sp()}\\div${sp()}$` +
-                  texteGras(nb5) +
-                  '.'
+                  `$${miseEnEvidence(nb4)}$` +
+                  texteEnCouleurEtGras(' €') +
+                  ' ne sont pas utiles pour la résolution du problème.'
               }
 
               this.autoCorrection[i].propositions = [
                 {
-                  texte: `${nb1} vitesses`,
+                  texte: `$${nb1}$ vitesses`,
                   statut: this.sup !== 1,
                 },
                 {
-                  texte: `${nb2} €`,
+                  texte: `$${nb2}$ €`,
                   statut: this.sup === 1,
                 },
                 {
-                  texte: `${nb3} pouces`,
+                  texte: `$${nb3}$ pouces`,
                   statut: this.sup !== 1,
                 },
                 {
-                  texte: `${nb4} €`,
+                  texte: `$${nb4}$ €`,
                   statut: this.sup !== 1,
                 },
                 {
-                  texte: `${nb5} fois`,
+                  texte: `$${nb5}$ fois`,
                   statut: this.sup === 1,
                 },
               ]
@@ -1041,53 +967,46 @@ export default class ExerciceInformationsProblemes extends Exercice {
             case 2:
               texte += `Quel est le montant total des cadeaux offerts à ${quidam2} ?`
               if (this.sup === 1) {
-                texteCorr += texteEnCouleurEtGras(nb2 + ' €')
+                texteCorr +=
+                  `$${miseEnEvidence(nb2)}$` + texteEnCouleurEtGras(' €')
                 texteCorr +=
                   ' et ' +
-                  texteEnCouleurEtGras(nb4 + ' €') +
-                  ' sont utiles pour la résolution du problème.<br>'
-                texteCorr += 'La solution du problème est donnée par : '
-                texteCorr +=
-                  texteEnCouleurEtGras(nb4 + ' €') +
-                  `$${sp()}+${sp()}$` +
-                  texteEnCouleurEtGras(nb2 + ' €') +
-                  '.'
+                  `$${miseEnEvidence(nb4)}$` +
+                  texteEnCouleurEtGras(' €') +
+                  ' sont utiles pour la résolution du problème.'
               } else {
                 texteCorr +=
-                  texteEnCouleurEtGras(nb1 + ' vitesses') +
+                  `$${miseEnEvidence(nb1)}$` +
+                  texteEnCouleurEtGras(' vitesses') +
                   ', ' +
-                  texteEnCouleurEtGras(nb3 + ' pouces')
+                  `$${miseEnEvidence(nb3)}$` +
+                  texteEnCouleurEtGras(' pouces')
                 texteCorr +=
                   ' et ' +
-                  texteEnCouleurEtGras(nb5 + ' fois') +
-                  ' ne sont pas utiles pour la résolution du problème.<br>'
-                texteCorr += 'La solution du problème est donnée par : '
-                texteCorr +=
-                  texteGras(nb4 + ' €') +
-                  `$${sp()}+${sp()}$` +
-                  texteGras(nb2 + ' €') +
-                  '.'
+                  `$${miseEnEvidence(nb5)}$` +
+                  texteEnCouleurEtGras(' fois') +
+                  ' ne sont pas utiles pour la résolution du problème.'
               }
 
               this.autoCorrection[i].propositions = [
                 {
-                  texte: `${nb1} vitesses`,
+                  texte: `$${nb1}$ vitesses`,
                   statut: this.sup !== 1,
                 },
                 {
-                  texte: `${nb2} €`,
+                  texte: `$${nb2}$ €`,
                   statut: this.sup === 1,
                 },
                 {
-                  texte: `${nb3} pouces`,
+                  texte: `$${nb3}$ pouces`,
                   statut: this.sup !== 1,
                 },
                 {
-                  texte: `${nb4} €`,
+                  texte: `$${nb4}$ €`,
                   statut: this.sup === 1,
                 },
                 {
-                  texte: `${nb5} fois`,
+                  texte: `$${nb5}$ fois`,
                   statut: this.sup !== 1,
                 },
               ]
@@ -1096,44 +1015,49 @@ export default class ExerciceInformationsProblemes extends Exercice {
               texte += `Pour quel âge, ${quidam2} a-t-elle reçu son vélo comme cadeau d'anniversaire ?`
               if (this.sup === 1) {
                 texteCorr +=
-                  "Aucune donnée n'est utile pour la résolution du problème.<br>"
+                  "Aucune donnée n'est utile pour la résolution du problème."
               } else {
                 texteCorr +=
-                  texteEnCouleurEtGras(nb1 + ' vitesses') +
+                  `$${miseEnEvidence(nb1)}$` +
+                  texteEnCouleurEtGras(' vitesses') +
                   ', ' +
-                  texteEnCouleurEtGras(nb2 + ' €') +
+                  `$${miseEnEvidence(nb2)}$` +
+                  texteEnCouleurEtGras(' €') +
                   ', '
                 texteCorr +=
-                  texteEnCouleurEtGras(nb3 + ' pouces') +
+                  `$${miseEnEvidence(nb3)}$` +
+                  texteEnCouleurEtGras(' pouces') +
                   ', ' +
-                  texteEnCouleurEtGras(nb4 + ' €')
+                  `$${miseEnEvidence(nb4)}$` +
+                  texteEnCouleurEtGras(' €')
                 texteCorr +=
                   ' et ' +
-                  texteEnCouleurEtGras(nb5 + ' fois') +
-                  ' ne sont pas utiles pour la résolution du problème.<br>'
+                  `$${miseEnEvidence(nb5)}$` +
+                  texteEnCouleurEtGras(' fois') +
+                  ' ne sont pas utiles pour la résolution du problème.'
               }
               texteCorr +=
                 'On ne peut pas répondre à ce problème. Il manque des informations.'
 
               this.autoCorrection[i].propositions = [
                 {
-                  texte: `${nb1} vitesses`,
+                  texte: `$${nb1}$ vitesses`,
                   statut: this.sup !== 1,
                 },
                 {
-                  texte: `${nb2} €`,
+                  texte: `$${nb2}$ €`,
                   statut: this.sup !== 1,
                 },
                 {
-                  texte: `${nb3} pouces`,
+                  texte: `$${nb3}$ pouces`,
                   statut: this.sup !== 1,
                 },
                 {
-                  texte: `${nb4} €`,
+                  texte: `$${nb4}$ €`,
                   statut: this.sup !== 1,
                 },
                 {
-                  texte: `${nb5} fois`,
+                  texte: `$${nb5}$ fois`,
                   statut: this.sup !== 1,
                 },
               ]
@@ -1145,48 +1069,38 @@ export default class ExerciceInformationsProblemes extends Exercice {
           quidam = prenomM()
           quidam2 = prenomF()
           nb1 = randint(0, 3)
-          nb2 = ['3ème', '4ème', '5ème', '6ème'][nb1]
+          nb2 = ['$3$ème', '$4$ème', '$5$ème', '$6$ème'][nb1]
           nb3 = [14, 13, 12, 11][nb1]
-          nb4 = stringNombre(arrondi(randint(132, 151) / 100))
+          nb4 = texNombre(arrondi(randint(132, 151) / 100))
           nb5 = randint(21, 42)
-          texte += `${quidam}, un élève de ${nb2}, de ${nb3} ans, mesure ${nb4} m. `
-          texte += `${quidam2} a ${nb1 + 2} ans de plus que ${quidam} et mesure ${nb5} cm de plus.<br>`
+          texte += `${quidam}, un élève de ${nb2}, de $${nb3}$ ans, mesure $${nb4}\\text{ m}$. `
+          texte += `${quidam2} a $${nb1 + 2}$ ans de plus que ${quidam} et mesure $${nb5}\\text{ cm}$ de plus.<br>`
 
           switch (choixVersion) {
             case 1:
               texte += `Quel est l'âge de ${quidam2} ?`
               if (this.sup === 1) {
-                texteCorr += texteEnCouleurEtGras(nb3 + ' ans')
+                texteCorr +=
+                  `$${miseEnEvidence(nb3)}$` + texteEnCouleurEtGras(' ans')
                 texteCorr +=
                   ' et ' +
-                  texteEnCouleurEtGras(nb1 + 2 + ' ans') +
-                  ' sont utiles pour la résolution du problème.<br>'
-                texteCorr += 'La solution du problème est donnée par : '
-                texteCorr +=
-                  texteEnCouleurEtGras(nb3 + ' ans') +
-                  `$${sp()}+${sp()}$` +
-                  texteEnCouleurEtGras(nb1 + 2 + ' ans ') +
-                  '.'
+                  `$${miseEnEvidence(nb1 + 2)}$` +
+                  texteEnCouleurEtGras(' ans') +
+                  ' sont utiles pour la résolution du problème.'
               } else {
                 texteCorr +=
-                  texteEnCouleurEtGras(nb2) +
+                  `${texteEnCouleurEtGras(nb2)}` +
                   ', ' +
-                  texteEnCouleurEtGras(nb4 + ' m')
+                  `$${miseEnEvidence(nb4 + '\\text{ m}')}$`
                 texteCorr +=
                   ' et ' +
-                  texteEnCouleurEtGras(nb5 + ' cm') +
-                  ' ne sont pas utiles pour la résolution du problème.<br>'
-                texteCorr += 'La solution du problème est donnée par : '
-                texteCorr +=
-                  texteGras(nb3 + ' ans') +
-                  `$${sp()}+${sp()}$` +
-                  texteGras(nb1 + 2 + ' ans ') +
-                  '.'
+                  `$${miseEnEvidence(nb5 + '\\text{ cm}')}$` +
+                  ' ne sont pas utiles pour la résolution du problème.'
               }
 
               this.autoCorrection[i].propositions = [
                 {
-                  texte: `${nb1 + 2} ans`,
+                  texte: `$${nb1 + 2}$ ans`,
                   statut: this.sup === 1,
                 },
                 {
@@ -1194,15 +1108,15 @@ export default class ExerciceInformationsProblemes extends Exercice {
                   statut: this.sup !== 1,
                 },
                 {
-                  texte: `${nb3} ans`,
+                  texte: `$${nb3}$ ans`,
                   statut: this.sup === 1,
                 },
                 {
-                  texte: `${nb4} m`,
+                  texte: `$${nb4}\\text{ m}$`,
                   statut: this.sup !== 1,
                 },
                 {
-                  texte: `${nb5} cm`,
+                  texte: `$${nb5}\\text{ cm}$`,
                   statut: this.sup !== 1,
                 },
               ]
@@ -1210,36 +1124,26 @@ export default class ExerciceInformationsProblemes extends Exercice {
             case 2:
               texte += `Combien mesure ${quidam2} ?`
               if (this.sup === 1) {
-                texteCorr += texteEnCouleurEtGras(nb4 + ' m')
+                texteCorr += `$${miseEnEvidence(nb4 + '\\text{ m}')}$`
                 texteCorr +=
                   ' et ' +
-                  texteEnCouleurEtGras(nb5 + ' cm') +
-                  ' sont utiles pour la résolution du problème.<br>'
-                texteCorr += 'La solution du problème est donnée par : '
-                texteCorr +=
-                  texteEnCouleurEtGras(nb4 + ' m') +
-                  `$${sp()}+${sp()}$` +
-                  texteEnCouleurEtGras(nb5 + ' cm') +
-                  '.'
+                  `$${miseEnEvidence(nb5 + '\\text{ cm}')}$` +
+                  ' sont utiles pour la résolution du problème.'
               } else {
                 texteCorr +=
-                  texteEnCouleurEtGras(nb1 + 2 + ' ans, ') +
-                  texteEnCouleurEtGras(nb3 + ' ans')
+                  `$${miseEnEvidence(nb1 + 2)}$` +
+                  texteEnCouleurEtGras(' ans, ') +
+                  `$${miseEnEvidence(nb3)}$` +
+                  texteEnCouleurEtGras(' ans')
                 texteCorr +=
                   ' et ' +
-                  texteEnCouleurEtGras(nb2) +
-                  ' ne sont pas utiles pour la résolution du problème.<br>'
-                texteCorr += 'La solution du problème est donnée par : '
-                texteCorr +=
-                  texteGras(nb4 + ' m') +
-                  `$${sp()}+${sp()}$` +
-                  texteGras(nb5 + ' cm') +
-                  '.'
+                  `${texteEnCouleurEtGras(nb2)}` +
+                  ' ne sont pas utiles pour la résolution du problème.'
               }
 
               this.autoCorrection[i].propositions = [
                 {
-                  texte: `${nb1 + 2} ans`,
+                  texte: `$${nb1 + 2}$ ans`,
                   statut: this.sup !== 1,
                 },
                 {
@@ -1247,15 +1151,15 @@ export default class ExerciceInformationsProblemes extends Exercice {
                   statut: this.sup !== 1,
                 },
                 {
-                  texte: `${nb3} ans`,
+                  texte: `$${nb3}$ ans`,
                   statut: this.sup !== 1,
                 },
                 {
-                  texte: `${nb4} m`,
+                  texte: `$${nb4}\\text{ m}$`,
                   statut: this.sup === 1,
                 },
                 {
-                  texte: `${nb5} cm`,
+                  texte: `$${nb5}\\text{ cm}$`,
                   statut: this.sup === 1,
                 },
               ]
@@ -1264,28 +1168,30 @@ export default class ExerciceInformationsProblemes extends Exercice {
               texte += `En quelle classe est ${quidam2} ?`
               if (this.sup === 1) {
                 texteCorr +=
-                  "Aucune donnée n'est utile pour la résolution du problème.<br>"
+                  "Aucune donnée n'est utile pour la résolution du problème."
               } else {
                 texteCorr +=
-                  texteEnCouleurEtGras(nb1 + 2 + ' ans') +
+                  `$${miseEnEvidence(nb1 + 2)}$` +
+                  texteEnCouleurEtGras(' ans') +
                   ', ' +
-                  texteEnCouleurEtGras(nb2) +
+                  `${texteEnCouleurEtGras(nb2)}` +
                   ', '
                 texteCorr +=
-                  texteEnCouleurEtGras(nb3 + ' ans') +
+                  `$${miseEnEvidence(nb3)}$` +
+                  texteEnCouleurEtGras(' ans') +
                   ', ' +
-                  texteEnCouleurEtGras(nb4 + ' m')
+                  `$${miseEnEvidence(nb4 + '\\text{ m}')}$`
                 texteCorr +=
                   ' et ' +
-                  texteEnCouleurEtGras(nb5 + ' cm') +
-                  ' ne sont pas utiles pour la résolution du problème.<br>'
+                  `$${miseEnEvidence(nb5 + '\\text{ cm}')}$` +
+                  ' ne sont pas utiles pour la résolution du problème.'
               }
               texteCorr +=
                 'On ne peut pas répondre à ce problème. Il manque des informations.'
 
               this.autoCorrection[i].propositions = [
                 {
-                  texte: `${nb1 + 2} ans`,
+                  texte: `$${nb1 + 2}$ ans`,
                   statut: this.sup !== 1,
                 },
                 {
@@ -1293,15 +1199,15 @@ export default class ExerciceInformationsProblemes extends Exercice {
                   statut: this.sup !== 1,
                 },
                 {
-                  texte: `${nb3} ans`,
+                  texte: `$${nb3}$ ans`,
                   statut: this.sup !== 1,
                 },
                 {
-                  texte: `${nb4} m`,
+                  texte: `$${nb4}\\text{ m}$`,
                   statut: this.sup !== 1,
                 },
                 {
-                  texte: `${nb5} cm`,
+                  texte: `$${nb5}\\text{ cm}$`,
                   statut: this.sup !== 1,
                 },
               ]
@@ -1313,51 +1219,43 @@ export default class ExerciceInformationsProblemes extends Exercice {
           quidam = prenomM()
           nb1 = randint(45, 58)
           nb2 = randint(3, 5)
-          nb3 = randint(7, 9) + ' h ' + 5 * randint(2, 11)
-          nb4 = stringNombre(arrondi(randint(9, 15, 10) / 10), 1) + '0'
+          nb3 = `$${randint(7, 9)}$` + ' h ' + `$${5 * randint(2, 11)}$`
+          nb4 = texPrix(arrondi(randint(9, 15, 10) / 10, 1))
           nb5 = 5 * randint(4, 11)
-          texte += `Le ${personnage1} de ${quidam}, âgé de ${nb1} ans, se rend ${nb2} fois par semaine à ${choice(['Paris', 'Toulouse', 'Bordeaux', 'Rouen'])} en train. `
-          texte += `Une fois arrivé, il prend le métro à ${nb3}, après avoir acheté systématiquement le même journal, dans un kiosque de la gare, qui coûte ${nb4} €. Son trajet en métro dure ${nb5} minutes pour se rendre au travail.<br>`
+          texte += `Le ${personnage1} de ${quidam}, âgé de $${nb1}$ ans, se rend $${nb2}$ fois par semaine à ${choice(['Paris', 'Toulouse', 'Bordeaux', 'Rouen'])} en train. `
+          texte += `Une fois arrivé, il prend le métro à ${nb3}, après avoir acheté systématiquement le même journal, dans un kiosque de la gare, qui coûte $${nb4}$ €. Son trajet en métro dure $${nb5}$ minutes pour se rendre au travail.<br>`
 
           switch (choixVersion) {
             case 1:
               texte += `Combien le ${personnage1} de ${quidam} dépense-t-il chaque semaine pour son journal ?`
               if (this.sup === 1) {
-                texteCorr += texteEnCouleurEtGras(nb2 + ' fois')
+                texteCorr +=
+                  `$${miseEnEvidence(nb2)}$` + texteEnCouleurEtGras(' fois')
                 texteCorr +=
                   ' et ' +
-                  texteEnCouleurEtGras(nb4 + ' €') +
-                  ' sont utiles pour la résolution du problème.<br>'
-                texteCorr += 'La solution du problème est donnée par : '
-                texteCorr +=
-                  texteEnCouleurEtGras(nb2) +
-                  `$${sp()}\\times${sp()}$` +
-                  texteEnCouleurEtGras(nb4 + ' € ') +
-                  '.'
+                  `$${miseEnEvidence(nb4)}$` +
+                  texteEnCouleurEtGras(' €') +
+                  ' sont utiles pour la résolution du problème.'
               } else {
                 texteCorr +=
-                  texteEnCouleurEtGras(nb1 + ' ans') +
+                  `$${miseEnEvidence(nb1)}$` +
+                  texteEnCouleurEtGras(' ans') +
                   ', ' +
-                  texteEnCouleurEtGras(nb3)
+                  `${texteEnCouleurEtGras(nb3)}`
                 texteCorr +=
                   ' et ' +
-                  texteEnCouleurEtGras(nb5 + ' min') +
-                  ' ne sont pas utiles pour la résolution du problème.<br>'
-                texteCorr += 'La solution du problème est donnée par : '
-                texteCorr +=
-                  texteGras(nb2) +
-                  `$${sp()}\\times${sp()}$` +
-                  texteGras(nb4 + ' € ') +
-                  '.'
+                  `$${miseEnEvidence(nb5)}$` +
+                  texteEnCouleurEtGras(' min') +
+                  ' ne sont pas utiles pour la résolution du problème.'
               }
 
               this.autoCorrection[i].propositions = [
                 {
-                  texte: `${nb1} ans`,
+                  texte: `$${nb1}$ ans`,
                   statut: this.sup !== 1,
                 },
                 {
-                  texte: `${nb2} fois`,
+                  texte: `$${nb2}$ fois`,
                   statut: this.sup === 1,
                 },
                 {
@@ -1365,11 +1263,11 @@ export default class ExerciceInformationsProblemes extends Exercice {
                   statut: this.sup !== 1,
                 },
                 {
-                  texte: `${nb4} €`,
+                  texte: `$${nb4}$ €`,
                   statut: this.sup === 1,
                 },
                 {
-                  texte: `${nb5} min`,
+                  texte: `$${nb5}$ min`,
                   statut: this.sup !== 1,
                 },
               ]
@@ -1377,40 +1275,32 @@ export default class ExerciceInformationsProblemes extends Exercice {
             case 2:
               texte += `À quelle heure le ${personnage1} de ${quidam} arrive-t-il à son travail ?`
               if (this.sup === 1) {
-                texteCorr += texteEnCouleurEtGras(nb3)
+                texteCorr += `${texteEnCouleurEtGras(nb3)}`
                 texteCorr +=
                   ' et ' +
-                  texteEnCouleurEtGras(nb5 + ' min') +
-                  ' sont utiles pour la résolution du problème.<br>'
-                texteCorr += 'La solution du problème est donnée par : '
-                texteCorr +=
-                  texteEnCouleurEtGras(nb3) +
-                  `$${sp()}+${sp()}$` +
-                  texteEnCouleurEtGras(nb5 + ' min') +
-                  '.'
+                  `$${miseEnEvidence(nb5)}$` +
+                  texteEnCouleurEtGras(' min') +
+                  ' sont utiles pour la résolution du problème.'
               } else {
                 texteCorr +=
-                  texteEnCouleurEtGras(nb1 + ' ans, ') +
-                  texteEnCouleurEtGras(nb2 + ' fois')
+                  `$${miseEnEvidence(nb1)}$` +
+                  texteEnCouleurEtGras(' ans, ') +
+                  `$${miseEnEvidence(nb2)}$` +
+                  texteEnCouleurEtGras(' fois')
                 texteCorr +=
                   ' et ' +
-                  texteEnCouleurEtGras(nb4 + ' €') +
-                  ' ne sont pas utiles pour la résolution du problème.<br>'
-                texteCorr += 'La solution du problème est donnée par : '
-                texteCorr +=
-                  texteGras(nb3) +
-                  `$${sp()}+${sp()}$` +
-                  texteGras(nb5 + ' min') +
-                  '.'
+                  `$${miseEnEvidence(nb4)}$` +
+                  texteEnCouleurEtGras(' €') +
+                  ' ne sont pas utiles pour la résolution du problème.'
               }
 
               this.autoCorrection[i].propositions = [
                 {
-                  texte: `${nb1} ans`,
+                  texte: `$${nb1}$ ans`,
                   statut: this.sup !== 1,
                 },
                 {
-                  texte: `${nb2} fois`,
+                  texte: `$${nb2}$ fois`,
                   statut: this.sup !== 1,
                 },
                 {
@@ -1418,11 +1308,11 @@ export default class ExerciceInformationsProblemes extends Exercice {
                   statut: this.sup === 1,
                 },
                 {
-                  texte: `${nb4} €`,
+                  texte: `$${nb4}$ €`,
                   statut: this.sup !== 1,
                 },
                 {
-                  texte: `${nb5} min`,
+                  texte: `$${nb5}$ min`,
                   statut: this.sup === 1,
                 },
               ]
@@ -1431,32 +1321,36 @@ export default class ExerciceInformationsProblemes extends Exercice {
               texte += `À quelle heure le ${personnage1} de ${quidam} est-il parti de chez lui ?`
               if (this.sup === 1) {
                 texteCorr +=
-                  "Aucune donnée n'est utile pour la résolution du problème.<br>"
+                  "Aucune donnée n'est utile pour la résolution du problème."
               } else {
                 texteCorr +=
-                  texteEnCouleurEtGras(nb1 + ' ans') +
+                  `$${miseEnEvidence(nb1)}$` +
+                  texteEnCouleurEtGras(' ans') +
                   ', ' +
-                  texteEnCouleurEtGras(nb3) +
+                  `${texteEnCouleurEtGras(nb3)}` +
                   ', '
                 texteCorr +=
-                  texteEnCouleurEtGras(nb2 + ' fois') +
+                  `$${miseEnEvidence(nb2)}$` +
+                  texteEnCouleurEtGras(' fois') +
                   ', ' +
-                  texteEnCouleurEtGras(nb4 + ' €')
+                  `$${miseEnEvidence(nb4)}$` +
+                  texteEnCouleurEtGras(' €')
                 texteCorr +=
                   ' et ' +
-                  texteEnCouleurEtGras(nb5 + ' min') +
-                  ' ne sont pas utiles pour la résolution du problème.<br>'
+                  `$${miseEnEvidence(nb5)}$` +
+                  texteEnCouleurEtGras(' min') +
+                  ' ne sont pas utiles pour la résolution du problème.'
               }
               texteCorr +=
                 'On ne peut pas répondre à ce problème. Il manque des informations.'
 
               this.autoCorrection[i].propositions = [
                 {
-                  texte: `${nb1} ans`,
+                  texte: `$${nb1}$ ans`,
                   statut: this.sup !== 1,
                 },
                 {
-                  texte: `${nb2} fois`,
+                  texte: `$${nb2}$ fois`,
                   statut: this.sup !== 1,
                 },
                 {
@@ -1464,11 +1358,11 @@ export default class ExerciceInformationsProblemes extends Exercice {
                   statut: this.sup !== 1,
                 },
                 {
-                  texte: `${nb4} €`,
+                  texte: `$${nb4}$ €`,
                   statut: this.sup !== 1,
                 },
                 {
-                  texte: `${nb5} min`,
+                  texte: `$${nb5}$ min`,
                   statut: this.sup !== 1,
                 },
               ]
@@ -1482,54 +1376,44 @@ export default class ExerciceInformationsProblemes extends Exercice {
           nb1 = randint(21, 39)
           nb2 = randint(7, 18)
           nb3 = randint(7, 15)
-          nb4 = randint(10, 12) + ' h ' + 5 * randint(2, 11)
+          nb4 = `$${randint(10, 12)}$ h $${5 * randint(2, 11)}$`
           nb5 = randint(16, 29)
-          texte += `Un livreur part de son entrepôt avec ${nb1} colis. Au premier arrêt, le plus près, il dépose ${nb2} colis. ${nb3} $\\text{km}$ plus loin, il livre le reste de ses colis. `
-          texte += `Ensuite, à ${nb4}, le livreur reprend la même route et retourne à l'entrepôt, à ${nb5} $\\text{km}$ de là.<br>`
+          texte += `Un livreur part de son entrepôt avec $${nb1}$ colis. Au premier arrêt, le plus près, il dépose $${nb2}$ colis. $${nb3}\\text{ km}$ plus loin, il livre le reste de ses colis. `
+          texte += `Ensuite, à ${nb4}, le livreur reprend la même route et retourne à l'entrepôt, à $${nb5}\\text{ km}$ de là.<br>`
 
           switch (choixVersion) {
             case 1:
               texte += "Quelle distance sépare l'entrepôt du premier arrêt ?"
               if (this.sup === 1) {
-                texteCorr += texteEnCouleurEtGras(nb3 + ' km')
+                texteCorr += `$${miseEnEvidence(nb3 + '\\text{ km}')}$`
                 texteCorr +=
                   ' et ' +
-                  texteEnCouleurEtGras(nb5 + ' km') +
-                  ' sont utiles pour la résolution du problème.<br>'
-                texteCorr += 'La solution du problème est donnée par : '
-                texteCorr +=
-                  texteEnCouleurEtGras(nb5 + ' km') +
-                  `$${sp()}-${sp()}$` +
-                  texteEnCouleurEtGras(nb3 + ' $\\text{km}$ ') +
-                  '.'
+                  `$${miseEnEvidence(nb5 + '\\text{ km}')}$` +
+                  ' sont utiles pour la résolution du problème.'
               } else {
                 texteCorr +=
-                  texteEnCouleurEtGras(nb1 + ' colis') +
+                  `$${miseEnEvidence(nb1)}$` +
+                  texteEnCouleurEtGras(' colis') +
                   ', ' +
-                  texteEnCouleurEtGras(nb2 + ' colis')
+                  `$${miseEnEvidence(nb2)}$` +
+                  texteEnCouleurEtGras(' colis')
                 texteCorr +=
                   ' et ' +
-                  texteEnCouleurEtGras(nb4) +
-                  ' ne sont pas utiles pour la résolution du problème.<br>'
-                texteCorr += 'La solution du problème est donnée par : '
-                texteCorr +=
-                  texteEnCouleurEtGras(nb5 + ' km') +
-                  `$${sp()}-${sp()}$` +
-                  texteEnCouleurEtGras(nb3 + ' $\\text{km}$ ') +
-                  '.'
+                  `${texteEnCouleurEtGras(nb4)}` +
+                  ' ne sont pas utiles pour la résolution du problème.'
               }
 
               this.autoCorrection[i].propositions = [
                 {
-                  texte: `${nb1} colis`,
+                  texte: `$${nb1}$ colis`,
                   statut: this.sup !== 1,
                 },
                 {
-                  texte: `${nb2} colis`,
+                  texte: `$${nb2}$ colis`,
                   statut: this.sup !== 1,
                 },
                 {
-                  texte: `${nb3} km`,
+                  texte: `$${nb3}\\text{ km}$`,
                   statut: this.sup === 1,
                 },
                 {
@@ -1537,7 +1421,7 @@ export default class ExerciceInformationsProblemes extends Exercice {
                   statut: this.sup !== 1,
                 },
                 {
-                  texte: `${nb5} km`,
+                  texte: `$${nb5}\\text{ km}$`,
                   statut: this.sup === 1,
                 },
               ]
@@ -1546,44 +1430,34 @@ export default class ExerciceInformationsProblemes extends Exercice {
               texte +=
                 'Combien de colis le livreur a-t-il déposé à son deuxième arrêt ?'
               if (this.sup === 1) {
-                texteCorr += texteEnCouleurEtGras(nb1 + ' colis')
+                texteCorr +=
+                  `$${miseEnEvidence(nb1)}$` + texteEnCouleurEtGras(' colis')
                 texteCorr +=
                   ' et ' +
-                  texteEnCouleurEtGras(nb2 + ' colis') +
-                  ' sont utiles pour la résolution du problème.<br>'
-                texteCorr += 'La solution du problème est donnée par : '
-                texteCorr +=
-                  texteEnCouleurEtGras(nb1 + ' colis') +
-                  `$${sp()}-${sp()}$` +
-                  texteEnCouleurEtGras(nb2 + ' colis') +
-                  '.'
+                  `$${miseEnEvidence(nb2)}$` +
+                  texteEnCouleurEtGras(' colis') +
+                  ' sont utiles pour la résolution du problème.'
               } else {
                 texteCorr +=
-                  texteEnCouleurEtGras(nb3 + ' km, ') +
-                  texteEnCouleurEtGras(nb4)
+                  `$${miseEnEvidence(nb3 + '\\text{ km}')}$` +
+                  `${texteEnCouleurEtGras(nb4)}`
                 texteCorr +=
                   ' et ' +
-                  texteEnCouleurEtGras(nb5 + ' km') +
-                  ' ne sont pas utiles pour la résolution du problème.<br>'
-                texteCorr += 'La solution du problème est donnée par : '
-                texteCorr +=
-                  texteGras(nb1 + ' colis') +
-                  `$${sp()}-${sp()}$` +
-                  texteGras(nb2 + ' colis') +
-                  '.'
+                  `$${miseEnEvidence(nb5 + '\\text{ km}')}$` +
+                  ' ne sont pas utiles pour la résolution du problème.'
               }
 
               this.autoCorrection[i].propositions = [
                 {
-                  texte: `${nb1} colis`,
+                  texte: `$${nb1}$ colis`,
                   statut: this.sup === 1,
                 },
                 {
-                  texte: `${nb2} colis`,
+                  texte: `$${nb2}$ colis`,
                   statut: this.sup === 1,
                 },
                 {
-                  texte: `${nb3} km`,
+                  texte: `$${nb3}\\text{ km}$`,
                   statut: this.sup !== 1,
                 },
                 {
@@ -1591,7 +1465,7 @@ export default class ExerciceInformationsProblemes extends Exercice {
                   statut: this.sup !== 1,
                 },
                 {
-                  texte: `${nb5} km`,
+                  texte: `$${nb5}\\text{ km}$`,
                   statut: this.sup !== 1,
                 },
               ]
@@ -1600,36 +1474,38 @@ export default class ExerciceInformationsProblemes extends Exercice {
               texte += "À quelle heure ce livreur est-il rentré à l'entrepôt ?"
               if (this.sup === 1) {
                 texteCorr +=
-                  "Aucune donnée n'est utile pour la résolution du problème.<br>"
+                  "Aucune donnée n'est utile pour la résolution du problème."
               } else {
                 texteCorr +=
-                  texteEnCouleurEtGras(nb1 + ' colis') +
+                  `$${miseEnEvidence(nb1)}$` +
+                  texteEnCouleurEtGras(' colis') +
                   ', ' +
-                  texteEnCouleurEtGras(nb4) +
+                  `${texteEnCouleurEtGras(nb4)}` +
                   ', '
                 texteCorr +=
-                  texteEnCouleurEtGras(nb2 + ' colis') +
+                  `$${miseEnEvidence(nb2)}$` +
+                  texteEnCouleurEtGras(' colis') +
                   ', ' +
-                  texteEnCouleurEtGras(nb3 + ' km')
+                  `$${miseEnEvidence(nb3 + '\\text{ km}')}$`
                 texteCorr +=
                   ' et ' +
-                  texteEnCouleurEtGras(nb5 + ' km') +
-                  ' ne sont pas utiles pour la résolution du problème.<br>'
+                  `$${miseEnEvidence(nb5 + '\\text{ km}')}$` +
+                  ' ne sont pas utiles pour la résolution du problème.'
               }
               texteCorr +=
                 'On ne peut pas répondre à ce problème. Il manque des informations.'
 
               this.autoCorrection[i].propositions = [
                 {
-                  texte: `${nb1} colis`,
+                  texte: `$${nb1}$ colis`,
                   statut: this.sup !== 1,
                 },
                 {
-                  texte: `${nb2} colis`,
+                  texte: `$${nb2}$ colis`,
                   statut: this.sup !== 1,
                 },
                 {
-                  texte: `${nb3} km`,
+                  texte: `$${nb3}\\text{ km}$`,
                   statut: this.sup !== 1,
                 },
                 {
@@ -1637,7 +1513,7 @@ export default class ExerciceInformationsProblemes extends Exercice {
                   statut: this.sup !== 1,
                 },
                 {
-                  texte: `${nb5} km`,
+                  texte: `$${nb5}\\text{ km}$`,
                   statut: this.sup !== 1,
                 },
               ]
@@ -1666,61 +1542,54 @@ export default class ExerciceInformationsProblemes extends Exercice {
           nb = randint(14, 21) // Masse d'un petit conteneur
           nb5 = nb * nb4
 
-          texte += `Un cargo mesurant ${nb1} m transporte ${nb2} gros conteneurs de ${nb3} tonnes chacun ${quidam} à ${quidam2}. `
-          texte += `Ce bateau transporte aussi ${nb4} petits conteneurs pour une masse totale de ${nb5} tonnes.<br>`
+          texte += `Un cargo mesurant $${nb1}\\text{ m}$ transporte $${nb2}$ gros conteneurs de $${nb3}$ tonnes chacun ${quidam} à ${quidam2}. `
+          texte += `Ce bateau transporte aussi $${nb4}$ petits conteneurs pour une masse totale de $${nb5}$ tonnes.<br>`
 
           switch (choixVersion) {
             case 1:
               texte +=
                 "Quelle est la masse de chacun des petits conteneurs, sachant qu'ils ont tous la même masse ?"
               if (this.sup === 1) {
-                texteCorr += texteEnCouleurEtGras(nb4 + ' conteneurs')
+                texteCorr +=
+                  `$${miseEnEvidence(nb4)}$` +
+                  texteEnCouleurEtGras(' conteneurs')
                 texteCorr +=
                   ' et ' +
-                  texteEnCouleurEtGras(nb5 + ' tonnes') +
-                  ' sont utiles pour la résolution du problème.<br>'
-                texteCorr += 'La solution du problème est donnée par : '
-                texteCorr +=
-                  texteEnCouleurEtGras(nb5 + ' tonnes') +
-                  `$${sp()}\\div${sp()}$` +
-                  texteEnCouleurEtGras(nb4) +
-                  '.'
+                  `$${miseEnEvidence(nb5)}$` +
+                  texteEnCouleurEtGras(' tonnes') +
+                  ' sont utiles pour la résolution du problème.'
               } else {
                 texteCorr +=
-                  texteEnCouleurEtGras(nb1 + ' m') +
+                  `$${miseEnEvidence(nb1 + '\\text{ m}')}$` +
                   ', ' +
-                  texteEnCouleurEtGras(nb2 + ' conteneurs')
+                  `$${miseEnEvidence(nb2)}$` +
+                  texteEnCouleurEtGras(' conteneurs')
                 texteCorr +=
                   ' et ' +
-                  texteEnCouleurEtGras(nb3 + ' tonnes') +
-                  ' ne sont pas utiles pour la résolution du problème.<br>'
-                texteCorr += 'La solution du problème est donnée par : '
-                texteCorr +=
-                  texteGras(nb5 + ' tonnes') +
-                  `$${sp()}\\div${sp()}$` +
-                  texteGras(nb4) +
-                  '.'
+                  `$${miseEnEvidence(nb3)}$` +
+                  texteEnCouleurEtGras(' tonnes') +
+                  ' ne sont pas utiles pour la résolution du problème.'
               }
 
               this.autoCorrection[i].propositions = [
                 {
-                  texte: `${nb1} m`,
+                  texte: `$${nb1}\\text{ m}$`,
                   statut: this.sup !== 1,
                 },
                 {
-                  texte: `${nb2} conteneurs`,
+                  texte: `$${nb2}$ conteneurs`,
                   statut: this.sup !== 1,
                 },
                 {
-                  texte: `${nb3} tonnes`,
+                  texte: `$${nb3}$ tonnes`,
                   statut: this.sup !== 1,
                 },
                 {
-                  texte: `${nb4} conteneurs`,
+                  texte: `$${nb4}$ conteneurs`,
                   statut: this.sup === 1,
                 },
                 {
-                  texte: `${nb5} tonnes`,
+                  texte: `$${nb5}$ tonnes`,
                   statut: this.sup === 1,
                 },
               ]
@@ -1728,52 +1597,45 @@ export default class ExerciceInformationsProblemes extends Exercice {
             case 2:
               texte += 'Quelle est la masse totale des gros conteneurs ?'
               if (this.sup === 1) {
-                texteCorr += texteEnCouleurEtGras(nb2 + ' conteneurs')
+                texteCorr +=
+                  `$${miseEnEvidence(nb2)}$` +
+                  texteEnCouleurEtGras(' conteneurs')
                 texteCorr +=
                   ' et ' +
-                  texteEnCouleurEtGras(nb3 + ' tonnes') +
-                  ' sont utiles pour la résolution du problème.<br>'
-                texteCorr += 'La solution du problème est donnée par : '
-                texteCorr +=
-                  texteEnCouleurEtGras(nb2) +
-                  `$${sp()}\\times${sp()}$` +
-                  texteEnCouleurEtGras(nb3 + ' tonnes') +
-                  '.'
+                  `$${miseEnEvidence(nb3)}$` +
+                  texteEnCouleurEtGras(' tonnes') +
+                  ' sont utiles pour la résolution du problème.'
               } else {
                 texteCorr +=
-                  texteEnCouleurEtGras(nb1 + ' m, ') +
-                  texteEnCouleurEtGras(nb4 + ' conteneurs')
+                  `$${miseEnEvidence(nb1 + '\\text{ m}')}$` +
+                  `$${miseEnEvidence(nb4)}$` +
+                  texteEnCouleurEtGras(' conteneurs')
                 texteCorr +=
                   ' et ' +
-                  texteEnCouleurEtGras(nb5 + ' tonnes') +
-                  ' ne sont pas utiles pour la résolution du problème.<br>'
-                texteCorr += 'La solution du problème est donnée par : '
-                texteCorr +=
-                  texteGras(nb2) +
-                  `$${sp()}\\times${sp()}$` +
-                  texteGras(nb3 + ' tonnes') +
-                  '.'
+                  `$${miseEnEvidence(nb5)}$` +
+                  texteEnCouleurEtGras(' tonnes') +
+                  ' ne sont pas utiles pour la résolution du problème.'
               }
 
               this.autoCorrection[i].propositions = [
                 {
-                  texte: `${nb1} m`,
+                  texte: `$${nb1}\\text{ m}$`,
                   statut: this.sup !== 1,
                 },
                 {
-                  texte: `${nb2} conteneurs`,
+                  texte: `$${nb2}$ conteneurs`,
                   statut: this.sup === 1,
                 },
                 {
-                  texte: `${nb3} tonnes`,
+                  texte: `$${nb3}$ tonnes`,
                   statut: this.sup === 1,
                 },
                 {
-                  texte: `${nb4} conteneurs`,
+                  texte: `$${nb4}$ conteneurs`,
                   statut: this.sup !== 1,
                 },
                 {
-                  texte: `${nb5} tonnes`,
+                  texte: `$${nb5}$ tonnes`,
                   statut: this.sup !== 1,
                 },
               ]
@@ -1782,44 +1644,48 @@ export default class ExerciceInformationsProblemes extends Exercice {
               texte += "Quelle est la longueur d'un gros conteneur ?"
               if (this.sup === 1) {
                 texteCorr +=
-                  "Aucune donnée n'est utile pour la résolution du problème.<br>"
+                  "Aucune donnée n'est utile pour la résolution du problème."
               } else {
                 texteCorr +=
-                  texteEnCouleurEtGras(nb1 + ' m') +
+                  `$${miseEnEvidence(nb1 + '\\text{ m}')}$` +
                   ', ' +
-                  texteEnCouleurEtGras(nb4 + ' conteneurs') +
+                  `$${miseEnEvidence(nb4)}$` +
+                  texteEnCouleurEtGras(' conteneurs') +
                   ', '
                 texteCorr +=
-                  texteEnCouleurEtGras(nb2 + ' conteneurs') +
+                  `$${miseEnEvidence(nb2)}$` +
+                  texteEnCouleurEtGras(' conteneurs') +
                   ', ' +
-                  texteEnCouleurEtGras(nb3 + ' tonnes')
+                  `$${miseEnEvidence(nb3)}$` +
+                  texteEnCouleurEtGras(' tonnes')
                 texteCorr +=
                   ' et ' +
-                  texteEnCouleurEtGras(nb5 + ' tonnes') +
-                  ' ne sont pas utiles pour la résolution du problème.<br>'
+                  `$${miseEnEvidence(nb5)}$` +
+                  texteEnCouleurEtGras(' tonnes') +
+                  ' ne sont pas utiles pour la résolution du problème.'
               }
               texteCorr +=
                 'On ne peut pas répondre à ce problème. Il manque des informations.'
 
               this.autoCorrection[i].propositions = [
                 {
-                  texte: `${nb1} m`,
+                  texte: `$${nb1}\\text{ m}$`,
                   statut: this.sup !== 1,
                 },
                 {
-                  texte: `${nb2} conteneurs`,
+                  texte: `$${nb2}$ conteneurs`,
                   statut: this.sup !== 1,
                 },
                 {
-                  texte: `${nb3} tonnes`,
+                  texte: `$${nb3}$ tonnes`,
                   statut: this.sup !== 1,
                 },
                 {
-                  texte: `${nb4} conteneurs`,
+                  texte: `$${nb4}$ conteneurs`,
                   statut: this.sup !== 1,
                 },
                 {
-                  texte: `${nb5} tonnes`,
+                  texte: `$${nb5}$ tonnes`,
                   statut: this.sup !== 1,
                 },
               ]

@@ -5,10 +5,7 @@ import { tableauSignesFonction } from '../../lib/mathFonctions/etudeFonction'
 import { Spline, spline } from '../../lib/mathFonctions/Spline'
 import { choice } from '../../lib/outils/arrayOutils'
 import { texteEnCouleurEtGras } from '../../lib/outils/embellissements'
-import {
-  mathalea2d,
-  type NestedObjetMathalea2dArray,
-} from '../../modules/mathalea2d'
+import { mathalea2d } from '../../modules/mathalea2d'
 import {
   gestionnaireFormulaireTexte,
   listeQuestionsToContenu,
@@ -18,6 +15,7 @@ import Exercice from '../Exercice'
 
 import { ajouteChampTexte } from '../../lib/interactif/questionMathLive'
 import type FractionEtendue from '../../modules/FractionEtendue'
+import type { NestedObjetMathalea2dArray } from '../../types/2d'
 export const titre =
   "Déterminer le tableau de signes d'une fonction graphiquement"
 export const interactifReady = true

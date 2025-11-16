@@ -1,0 +1,43 @@
+import ExerciceSimple from '../../ExerciceSimple'
+import { miseEnEvidence } from '../../../lib/outils/embellissements'
+import { texNombre } from '../../../lib/outils/texNombre'
+import { choice } from '../../../lib/outils/arrayOutils'
+import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
+import Decimal from 'decimal.js'
+import { randint } from '../../../modules/outils'
+
+export const titre = 'Calculer avec des décimaux'
+export const interactifReady = true
+export const interactifType = 'mathLive'
+export const uuid = '63l8n'
+export const refs = {
+  'fr-fr': [],
+  'fr-ch': [],
+}
+/**
+ * Modèle d'exercice très simple pour la course aux nombres
+ * @author Eric Elter - Gilles Mora
+
+*/
+export default class calcAvecDecimaux2026 extends ExerciceSimple {
+  constructor() {
+    super()
+
+    this.typeExercice = 'simple' // Cette ligne est très importante pour faire un exercice simple !
+    this.nbQuestions = 1
+
+    this.optionsChampTexte = { texteAvant: ' $=$' }
+
+    this.formatChampTexte = KeyboardType.clavierDeBase
+  }
+
+  nouvelleVersion() {
+    const annee= 2026
+    const a = this.canOfficielle ? new Decimal(0.4) : new Decimal(randint(1, 29, [10, 20])).div(choice([10, 100]))
+    this.reponse = texNombre(new Decimal(annee).sub(a), 2)
+    this.question = `$${texNombre(annee)}-${texNombre(a, 2)}$`
+    this.correction = `$${texNombre(annee)}-${texNombre(a, 2)}=${miseEnEvidence(this.reponse)}$`
+    this.canEnonce = this.question
+    this.canReponseACompleter = ''
+  }
+}

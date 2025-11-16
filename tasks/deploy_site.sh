@@ -7,6 +7,7 @@ fi
 
 # Set paths from environment variables or use defaults
 LOCAL_DIST_PATH="${LOCAL_DIST_PATH:-/absolute/path/to/local/dist}"
+LOCAL_DOCS_PATH="${LOCAL_DOCS_PATH:-/absolute/path/to/local/docs}"
 REMOTE_SERVER="${REMOTE_SERVER:-user@server}"
 REMOTE_BUILDS_PATH="${REMOTE_BUILDS_PATH:-~/remote/builds/path}"
 REMOTE_DIST_PATH="${REMOTE_DIST_PATH:-~/remote/dist/path}"

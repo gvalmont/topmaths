@@ -1,10 +1,11 @@
-import Exercice from '../Exercice'
-import { listeQuestionsToContenu, randint } from '../../modules/outils'
-import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
-import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
+import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
+import { miseEnEvidence } from '../../lib/outils/embellissements'
+import { arrondi } from '../../lib/outils/nombres'
 import { texNombre } from '../../lib/outils/texNombre'
+import { listeQuestionsToContenu, randint } from '../../modules/outils'
+import Exercice from '../Exercice'
 export const titre = 'Dénombrement'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -81,17 +82,17 @@ export default class nomExercice extends Exercice {
     const reponse1 = 1
     let correction1 = `On doit choisir ${ca} adhérents parmi ${n}. <br>`
     correction1 += `L'ordre des candidats ne compte pas dans ce choix. Il s'agit donc de déterminer le nombre de combinaisons de  $${ca}$ membres parmi $${n}$.<br>`
-    correction1 += `On calcule donc <br>$\\begin{aligned}\\dbinom{${n}}{${ca}} &= \\dfrac{${n}~!}{${ca}~!\\times ${n - ca}~!}\\\\&=${texNombre(resultat1)}\\end{aligned}$<br>`
-    correction1 += `Il y a donc $${miseEnEvidence(texNombre(resultat1))}$ CA possibles.<br>`
+    correction1 += `On calcule donc <br>$\\begin{aligned}\\dbinom{${n}}{${ca}} &= \\dfrac{${n}~!}{${ca}~!\\times ${n - ca}~!}\\\\&=${texNombre(arrondi(resultat1, 0))}\\end{aligned}$<br>`
+    correction1 += `Il y a donc $${miseEnEvidence(texNombre(arrondi(resultat1, 0)))}$ CA possibles.<br>`
     let question2 = `${prenomGarcons[numerogarcon1]} intervient fièrement pour annoncer le résultat de son calcul. Mais ${prenomFilles[numerofille1]} prend la parole pour lui rappeler que les statuts de l'association imposent la présence d'au moins une femme dans le CA et que son calcul est donc faux.<br>`
     question2 += ` Sachant qu'il y a $${garcons}$ garçons et $${filles}$ filles parmi les adhérents, en déduire le nombre exact de CA possibles.`
-    let correction2 = `Dans les $${texNombre(resultat1)}$ CA possibles, il faut retirer ceux qui ne contiennent que des garçons.`
+    let correction2 = `Dans les $${texNombre(arrondi(resultat1, 0))}$ CA possibles, il faut retirer ceux qui ne contiennent que des garçons.`
     correction2 +=
       '<br>On calcule donc le nombre de CA possibles avec uniquement des garçons :<br>'
     correction2 += `$\\begin{aligned}\\dbinom{${garcons}}{${ca}} &= \\dfrac{${garcons}~!}{${ca}~!\\times ${garcons - ca}~!}\\\\&=${texNombre(factorielle(garcons) / (factorielle(ca) * factorielle(garcons - ca)))}\\end{aligned}$<br>`
     correction2 +=
       'Il faut donc soustraire ce résultat du nombre total de CA possibles.<br>'
-    correction2 += `On a donc $${texNombre(resultat1)} - ${texNombre(NombreCAGarcons)} = ${miseEnEvidence(texNombre(resultat1 - NombreCAGarcons))}$ CA possibles avec au moins une fille.`
+    correction2 += `On a donc $${texNombre(arrondi(resultat1, 0))} - ${texNombre(NombreCAGarcons)} = ${miseEnEvidence(texNombre(arrondi(resultat1 - NombreCAGarcons)))}$ CA possibles avec au moins une fille.`
     const reponse2 = 2
     let question3 =
       "Le CA étant élu, il se réunit pour élire en son sein le bureau, composé d'un président ou d'une présidente, d'un secrétaire ou d'une secrétaire et d'un trésorier ou d'une trésorière.<br>"

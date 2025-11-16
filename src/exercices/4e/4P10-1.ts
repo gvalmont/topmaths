@@ -10,11 +10,9 @@ import { numAlpha } from '../../lib/outils/outilString'
 import { prenom } from '../../lib/outils/Personne'
 import { premierMultipleSuperieur } from '../../lib/outils/primalite'
 import { context } from '../../modules/context'
-import {
-  mathalea2d,
-  type NestedObjetMathalea2dArray,
-} from '../../modules/mathalea2d'
+import { mathalea2d } from '../../modules/mathalea2d'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
+import type { NestedObjetMathalea2dArray } from '../../types/2d'
 import Exercice from '../Exercice'
 export const titre =
   "Résoudre un problème de proportionnalité à l'aide d'un graphique"

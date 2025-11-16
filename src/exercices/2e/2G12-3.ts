@@ -12,11 +12,9 @@ import { abs } from '../../lib/outils/nombres'
 import { creerNomDePolygone } from '../../lib/outils/outilString'
 import { texNombre, texRacineCarree } from '../../lib/outils/texNombre'
 import FractionEtendue from '../../modules/FractionEtendue'
-import {
-  mathalea2d,
-  type NestedObjetMathalea2dArray,
-} from '../../modules/mathalea2d'
+import { mathalea2d } from '../../modules/mathalea2d'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
+import type { NestedObjetMathalea2dArray } from '../../types/2d'
 import Exercice from '../Exercice'
 export const titre =
   "Démontrer qu'un quadrilatère est ou non un parallélogramme"

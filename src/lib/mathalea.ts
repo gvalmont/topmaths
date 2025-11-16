@@ -122,6 +122,17 @@ export async function getSvelteComponent(paramsExercice: InterfaceParams) {
     `Chargement de l'exercice ${paramsExercice.uuid} impossible. Vérifier ${directory === undefined ? '' : `${directory}/`}${filename}`,
   )
 }
+
+// Vérification serveur réelle
+async function checkHEAD(url: string): Promise<boolean> {
+  try {
+    const res = await fetch(url, { method: 'HEAD', cache: 'no-cache' })
+    return res.ok
+  } catch (_) {
+    return false
+  }
+}
+
 /**
  * Charge un exercice depuis son uuid
  * Exemple : const exercice = loadExercice('3cvng')
@@ -140,6 +151,7 @@ export async function mathaleaLoadExerciceFromUuid(uuid: string) {
   let attempts = 0
   const maxAttempts = 3
   while (attempts < maxAttempts) {
+    let pathToCheck: string = ''
     try {
       // Type explicite pour le module importé
       type ExerciceModule = {
@@ -152,16 +164,17 @@ export async function mathaleaLoadExerciceFromUuid(uuid: string) {
       }
 
       let module: ExerciceModule | undefined
-
       if (isCan === 'can') {
         const modules = import.meta.glob('../exercices/can/**/*.{ts,js}')
         if (filename != null && filename.includes('.ts')) {
           const path = `../exercices/can/${directory}/${filename.replace('.ts', '')}.ts`
+          pathToCheck = path
           const loader = modules[path]
           if (!loader) throw new Error(`Module "${path}" introuvable`)
           module = (await loader()) as ExerciceModule
         } else if (filename != null) {
           const path = `../exercices/can/${directory}/${filename.replace('.js', '')}.js`
+          pathToCheck = path
           const loader = modules[path]
           if (!loader) throw new Error(`Module "${path}" introuvable`)
           module = (await loader()) as ExerciceModule
@@ -188,10 +201,12 @@ export async function mathaleaLoadExerciceFromUuid(uuid: string) {
         }
       } else {
         if (filename != null && filename.includes('.ts')) {
+          pathToCheck = `../exercices/${directory}/${filename.replace('.ts', '')}.ts`
           module = (await import(
             `../exercices/${directory}/${filename.replace('.ts', '')}.ts`
           )) as ExerciceModule
         } else if (filename != null) {
+          pathToCheck = `../exercices/${directory}/${filename.replace('.js', '')}.js`
           module = (await import(
             `../exercices/${directory}/${filename.replace('.js', '')}.js`
           )) as ExerciceModule
@@ -225,6 +240,16 @@ export async function mathaleaLoadExerciceFromUuid(uuid: string) {
       const serverUpdated = await checkForServerUpdate()
       if (serverUpdated) {
         await showPopupAndWait()
+      }
+      if (pathToCheck !== '') {
+        const exists = await checkHEAD(pathToCheck)
+        // Si exists = false → bingo, c’est un problème de disponibilité du chunk.
+        // si exists = true MAIS l'import échoue → problème HTTP/2 / compression / LSCache.
+        // Dans les deux cas → infrastructure, pas ton code.
+        window.notify(
+          `Load failed: ${pathToCheck} (exists on server: ${exists})`,
+          { error, exists },
+        )
       }
       window.notify(
         `Un exercice ne s'est pas affiché ${attempts} fois: uuid:${uuid} ,filename: ${directory}/${filename}, serverUpdated: ${serverUpdated}`,

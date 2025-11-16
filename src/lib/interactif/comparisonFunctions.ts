@@ -2085,6 +2085,17 @@ export function ensembleNombres(
       .replaceAll('\\}', '')
       .split(';')
   } else {
+    if (cleanInput.endsWith(';'))
+      return {
+        isOk: false,
+        feedback:
+          'Une suite de nombres ne doit pas se terminer par un point-virgule.',
+      }
+    if (!cleanInput.includes(';') || cleanInput.includes(','))
+      return {
+        isOk: false,
+        feedback: 'Les nombres doivent tous être séparés par un point-virgule.',
+      }
     splitInput = cleanInput.split(';')
     splitGoodAnswer = clean(goodAnswer).split(';')
   }
@@ -2162,18 +2173,19 @@ export function ensembleNombres(
  */
 function intervalsCompare(input: string, goodAnswer: string) {
   const clean = generateCleaner(['virgules', 'parentheses', 'espaces'])
-  const replaceTable = [   // Indispensable pour gérer les copier-coller
-      ['∅', '\\emptyset'],
-      ['∪', '\\cup'],
-      ['⋃', '\\cup'],
-      ['∩', '\\cap'],
-      ['⋂', '\\cap'],
-      ['ℕ', '\\mathbb{N}'],
-      ['ℤ', '\\mathbb{Z}'],
-      ['𝔻', '\\mathbb{D}'],
-      ['ℚ', '\\mathbb{Q}'],   
-      ['ℝ', '\\mathbb{R}'],
-      ['ℂ', '\\mathbb{C}'],
+  const replaceTable = [
+    // Indispensable pour gérer les copier-coller
+    ['∅', '\\emptyset'],
+    ['∪', '\\cup'],
+    ['⋃', '\\cup'],
+    ['∩', '\\cap'],
+    ['⋂', '\\cap'],
+    ['ℕ', '\\mathbb{N}'],
+    ['ℤ', '\\mathbb{Z}'],
+    ['𝔻', '\\mathbb{D}'],
+    ['ℚ', '\\mathbb{Q}'],
+    ['ℝ', '\\mathbb{R}'],
+    ['ℂ', '\\mathbb{C}'],
   ]
   const localInput = replaceTable.reduce((currentInput, replacement) => {
     return currentInput.replaceAll(replacement[0], replacement[1])

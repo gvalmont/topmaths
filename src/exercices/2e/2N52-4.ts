@@ -1,16 +1,22 @@
+import { bleuMathalea } from '../../lib/colors'
+import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
+import { handleAnswers } from '../../lib/interactif/gestionInteractif'
+import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { combinaisonListesSansChangerOrdre } from '../../lib/outils/arrayOutils'
-import { texteEnCouleur } from '../../lib/outils/embellissements'
 import {
   texFractionReduite,
   texFractionSigne,
 } from '../../lib/outils/deprecatedFractions'
 import { reduireAxPlusB } from '../../lib/outils/ecritures'
-import Exercice from '../Exercice'
-import { listeQuestionsToContenu, randint } from '../../modules/outils'
+import {
+  miseEnEvidence,
+  texteEnCouleur,
+} from '../../lib/outils/embellissements'
 import { fraction } from '../../modules/fractions'
-import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
-import { handleAnswers } from '../../lib/interactif/gestionInteractif'
+import { listeQuestionsToContenu, randint } from '../../modules/outils'
+import Exercice from '../Exercice'
 
+export const dateDeModifImportante = '13/11/2025'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const titre = 'Résoudre des équations se ramenant au produit-nul'
@@ -18,7 +24,6 @@ export const titre = 'Résoudre des équations se ramenant au produit-nul'
 /**
  * Résoudre des équations se ramenant au produit-nul
  * @author Stéphane Guyon
- * 2N52-4 (ex 2L12-2)
  */
 export const uuid = '93432'
 
@@ -38,10 +43,10 @@ export default class Equationspresqueproduitnulle extends Exercice {
   }
 
   nouvelleVersion() {
-    this.consigne = `Résoudre dans $\\mathbb R$ ${this.nbQuestions > 1 ? 'les équations suivantes' : "l'équation suivante"} :`
+    this.consigne = `Résoudre dans $\\mathbb R$ ${this.nbQuestions > 1 ? 'les équations suivantes' : "l'équation suivante"}.`
     if (this.interactif) {
       this.consigne +=
-        "<br>On donnera la réponse sous forme d'un ensemble de solution."
+        "<br>On donnera la réponse sous forme d'un ensemble de solutions."
     }
     const typesDeQuestionsDisponibles = [1, 2, 3, 4, 5]
     let valeursSolution
@@ -80,7 +85,7 @@ export default class Equationspresqueproduitnulle extends Exercice {
           } else {
             texteCorr +=
               'On reconnaît une équation produit-nul, donc on applique la propriété :<br>'
-            texteCorr += `${texteEnCouleur('Un produit est nul si et seulement si au moins un de ses facteurs est nul.')}<br>`
+            texteCorr += `${texteEnCouleur('Un produit est nul si et seulement si au moins un de ses facteurs est nul.', bleuMathalea)}<br>`
             texteCorr += ` $\\iff ${reduireAxPlusB(a, b)}=0\\quad$ ou bien $\\quad ${reduireAxPlusB(c + e, d + f)}=0$<br>`
             texteCorr += `$\\iff x=${texFractionSigne(-b, a)}\\quad$ ou $\\quad x=${texFractionSigne(-d - f, c + e)}$<br>
                        On en déduit :  `
@@ -114,7 +119,7 @@ export default class Equationspresqueproduitnulle extends Exercice {
           } else {
             texteCorr +=
               'On reconnaît une équation produit-nul, donc on applique la propriété :<br>'
-            texteCorr += `${texteEnCouleur('Un produit est nul si et seulement si au moins un de ses facteurs est nul.')}<br>`
+            texteCorr += `${texteEnCouleur('Un produit est nul si et seulement si au moins un de ses facteurs est nul.', bleuMathalea)}<br>`
             texteCorr += ` $\\iff ${reduireAxPlusB(a, b)}=0\\quad$ ou bien $\\quad ${reduireAxPlusB(c - e, d - f)}=0$<br>`
             texteCorr += `$\\iff x=${texFractionSigne(-b, a)}\\quad$ ou $\\quad x=${texFractionSigne(-d + f, c - e)}$<br>
                    On en déduit :  `
@@ -147,7 +152,7 @@ export default class Equationspresqueproduitnulle extends Exercice {
           } else {
             texteCorr +=
               'On reconnaît une équation produit-nul, donc on applique la propriété :<br>'
-            texteCorr += `${texteEnCouleur('Un produit est nul si et seulement si au moins un de ses facteurs est nul.')}<br>`
+            texteCorr += `${texteEnCouleur('Un produit est nul si et seulement si au moins un de ses facteurs est nul.', bleuMathalea)}<br>`
             texteCorr += ` $\\iff ${reduireAxPlusB(a, b)}=0\\quad$ ou bien $\\quad ${reduireAxPlusB(a + e, b + f)}=0$<br>`
             texteCorr += `$\\iff x=${texFractionSigne(-b, a)}\\quad$ ou $\\quad x=${texFractionSigne(-b - f, a + e)}$<br>
                On en déduit :  `
@@ -180,7 +185,7 @@ export default class Equationspresqueproduitnulle extends Exercice {
           } else {
             texteCorr +=
               'On reconnaît une équation produit-nul, donc on applique la propriété :<br>'
-            texteCorr += `${texteEnCouleur('Un produit est nul si et seulement si au moins un de ses facteurs est nul.')}<br>`
+            texteCorr += `${texteEnCouleur('Un produit est nul si et seulement si au moins un de ses facteurs est nul.', bleuMathalea)}<br>`
             texteCorr += ` $\\iff ${reduireAxPlusB(a, b)}=0\\quad$ ou bien $\\quad ${reduireAxPlusB(c - a, d - b)}=0$<br>`
             texteCorr += `$\\iff x=${texFractionSigne(-b, a)}\\quad$ ou $\\quad x=${texFractionSigne(-d + b, c - a)}$<br>
            On en déduit :  `
@@ -213,7 +218,7 @@ export default class Equationspresqueproduitnulle extends Exercice {
             }
             texteCorr += `$\\iff (${reduireAxPlusB(a, b)})(${reduireAxPlusB(c - e, d - f)})=0$<br>`
             texteCorr += `On reconnaît une équation produit-nul, donc on applique la propriété :<br>
-        ${texteEnCouleur('Un produit est nul si et seulement si au moins un de ses facteurs est nul.')}<br>`
+        ${texteEnCouleur('Un produit est nul si et seulement si au moins un de ses facteurs est nul.', bleuMathalea)}<br>`
             texteCorr += `$(${reduireAxPlusB(a, b)})(${reduireAxPlusB(c - e, d - f)})=0$<br>`
             texteCorr += `$\\iff ${reduireAxPlusB(a, b)}=0$ ou $${reduireAxPlusB(c - e, d - f)}=0$<br>`
             if (this.correctionDetaillee) {
@@ -233,9 +238,14 @@ export default class Equationspresqueproduitnulle extends Exercice {
           }
           break
       }
-      texteCorr += `$S=\\left\\{${valeursSolution}\\right\\}$`
+      //  const solutions = valeursSolution?.split(';')
+      // texteCorr += `$S=\\left\\{${valeursSolution}\\right\\}$`
+      const solutions = valeursSolution?.split(';')
+      texteCorr += `$S=\\left\\{${solutions?.map((sol) => miseEnEvidence(sol)).join('~;~')}\\right\\}$.`
       if (this.interactif) {
-        texte += '<br>$S=$' + ajouteChampTexteMathLive(this, i, ' ')
+        texte +=
+          '<br>$S=$' +
+          ajouteChampTexteMathLive(this, i, KeyboardType.clavierEnsemble)
       }
       handleAnswers(this, i, {
         reponse: {

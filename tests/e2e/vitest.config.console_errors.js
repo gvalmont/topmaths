@@ -16,10 +16,7 @@ export default mergeConfig(
     },
     test: {
       include: ['./tests/console_errors/*.test.{js,ts}'],
-      exclude: [
-        './tests/pdfexports/pdfexport.moule.test.ts',
-        './tests/console_errors/*Zoom.test.{js,ts}',
-      ],
+      exclude: [],
       // on veut laisser le navigateur ouvert sur un plantage (3min)
       hookTimeout: 120_000,
       testTimeout: 1000_000,

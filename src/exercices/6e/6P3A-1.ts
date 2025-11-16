@@ -86,7 +86,7 @@ const situations = [
       enonce:
         'Une voiture parcourt $150\\text{ km}$ en $2$ heures et $300\\text{ km}$ en $4$ heures.',
       grandeurs: ['distance', 'temps'],
-      unites: ['km', 'h'],
+      unites: ['$\\text{km}$', 'heures'],
       estProportionnel: true,
       commentaireCorrection: '',
     },
@@ -94,7 +94,7 @@ const situations = [
       enonce:
         'Une voiture parcourt $150\\text{ km}$ en $2$ heures et $250\\text{ km}$ en $4$ heures.',
       grandeurs: ['distance', 'temps'],
-      unites: ['km', 'h'],
+      unites: ['$\\text{km}$', 'heures'],
       estProportionnel: false,
       commentaireCorrection:
         'Si la distance était proportionnelle au temps, elle serait de $300\\text{ km}$ en $4$ heures.',
@@ -149,7 +149,7 @@ const situations = [
       enonce:
         'Un robinet verse $10$ litres en $5$ minutes et $20$ litres en $10$ minutes.',
       grandeurs: ['volume', 'temps'],
-      unites: ['L', 'min'],
+      unites: ['L', 'minutes'],
       estProportionnel: true,
       commentaireCorrection: '',
     },
@@ -157,7 +157,7 @@ const situations = [
       enonce:
         'Un robinet verse $10$ litres en $5$ minutes et $15$ litres en $10$ minutes.',
       grandeurs: ['volume', 'temps'],
-      unites: ['L', 'min'],
+      unites: ['L', 'minutes'],
       estProportionnel: false,
       commentaireCorrection:
         'Si le volume était proportionnel au temps, il serait de $20$ litres en $10$ minutes.',
@@ -229,7 +229,7 @@ const situations = [
       enonce:
         'Une trottinette électrique parcourt $20\\text{ km}$ en $1$ heure puis $40\\text{ km}$ en $2$ heures.',
       grandeurs: ['distance', 'temps'],
-      unites: ['km', 'h'],
+      unites: ['$\\text{km}$', 'heures'],
       estProportionnel: true,
       commentaireCorrection: '',
     },
@@ -237,7 +237,7 @@ const situations = [
       enonce:
         'Une trottinette électrique parcourt $20\\text{ km}$ en $1$ heure puis $50\\text{ km}$ en $2$ heures.',
       grandeurs: ['distance', 'temps'],
-      unites: ['km', 'h'],
+      unites: ['$\\text{km}$', 'heures'],
       estProportionnel: false,
       commentaireCorrection:
         'Si la distance était proportionnelle au temps, elle serait de $40\\text{ km}$ en $2$ heures.',
@@ -332,7 +332,7 @@ const situations = [
       enonce:
         'Une machine fabrique $40$ pièces en $2$ heures et $160$ pièces en $8$ heures.',
       grandeurs: ['temps de fabrication', 'nombre de pièces'],
-      unites: ['h', 'pièces'],
+      unites: ['heures', 'pièces'],
       estProportionnel: true,
       commentaireCorrection: '',
     },
@@ -340,7 +340,7 @@ const situations = [
       enonce:
         'Une machine fabrique $40$ pièces en $2$ heures et $400$ pièces en $8$ heures.',
       grandeurs: ['temps de fabrication', 'nombre de pièces'],
-      unites: ['h', 'pièces'],
+      unites: ['heures', 'pièces'],
       estProportionnel: false,
       commentaireCorrection:
         'Si le nombre de pièces était proportionnel au temps de fabrication, la machine fabriquerait $160$ pièces en $8$ heures.',
@@ -369,7 +369,7 @@ const situations = [
       enonce:
         'Une imprimante imprime $30$ pages en $3$ minutes et $50$ pages en $5$ minutes.',
       grandeurs: ['nombre de pages', 'temps'],
-      unites: ['pages', 'min'],
+      unites: ['pages', 'minutes'],
       estProportionnel: true,
       commentaireCorrection: '',
     },
@@ -377,7 +377,7 @@ const situations = [
       enonce:
         'Une imprimante imprime $30$ pages en $3$ minutes et $60$ pages en $5$ minutes.',
       grandeurs: ['nombre de pages', 'temps'],
-      unites: ['pages', 'min'],
+      unites: ['pages', 'minutes'],
       estProportionnel: false,
       commentaireCorrection:
         "Si le nombre de pages était proportionnel au temps, l'imprimante imprimerait $50$ pages en $5$ minutes.",
@@ -416,7 +416,7 @@ const situations = [
     {
       enonce: 'Avec $4$ litres de peinture, on couvre $20\\text{ m}^2$.',
       grandeurs: ['volume', 'surface'],
-      unites: ['L', 'm$^2$'],
+      unites: ['L', '$\\text{m}^2$'],
       estProportionnel: true,
       commentaireCorrection: '',
     },
@@ -424,7 +424,7 @@ const situations = [
       enonce:
         'Avec $4$ litres de peinture, on couvre $20\\text{ m}^2$. Avec $5$ litres, on couvre $25\\text{ m}^2$.',
       grandeurs: ['volume', 'surface'],
-      unites: ['L', 'm$^2$'],
+      unites: ['L', '$\\text{m}^2$'],
       estProportionnel: true,
       commentaireCorrection: '',
     },
@@ -432,7 +432,7 @@ const situations = [
       enonce:
         'Avec $4$ litres de peinture, on couvre $20\\text{ m}^2$. Avec $5$ litres, on couvre $30\\text{ m}^2$.',
       grandeurs: ['volume', 'surface'],
-      unites: ['L', 'm$^2$'],
+      unites: ['L', '$\\text{m}^2$'],
       estProportionnel: false,
       commentaireCorrection:
         'Si la surface était proportionnelle au volume, on couvrirait $25\\text{ m}^2$ avec $5$ litres de peinture.',

@@ -110,9 +110,9 @@ export default class DiviserPar10 extends Exercice {
           texte += this.interactif
             ? choixDeroulant(this, 2 * i + 1, [
                 { label: 'Choisir la bonne valeur', value: '' },
-                { latex: '0,1', value: '0,1' },
-                { latex: '0,01', value: '0,01' },
-                { latex: '0,001', value: '0,001' },
+                { latex: '0,1', value: `${texNombre(0.1)}` },
+                { latex: '0,01', value: `${texNombre(0.01)}` },
+                { latex: '0,001', value: `${texNombre(0.001)}` },
               ])
             : '$\\ldots\\ldots\\ldots\\ldots$'
           handleAnswers(

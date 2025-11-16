@@ -1,6 +1,6 @@
-import { choice } from "../../lib/outils/arrayOutils"
-import { randint } from "../../modules/outils"
-import ExerciceLabyrinthe from "../_Exercice_labyrinthe"
+import { choice } from '../../lib/outils/arrayOutils'
+import { randint } from '../../modules/outils'
+import ExerciceLabyrinthe from '../_Exercice_labyrinthe'
 export const titre = 'Labyrinthe des multiples'
 
 export const dateDePublication = '30/10/2026'
@@ -15,9 +15,8 @@ export const refs = {
 /**
  * @author Rémi Angot
  */
- 
+
 export default class ExerciceLabyrintheMultiplesDe3 extends ExerciceLabyrinthe {
-  
   k!: number
 
   constructor() {
@@ -26,11 +25,15 @@ export default class ExerciceLabyrintheMultiplesDe3 extends ExerciceLabyrinthe {
     this.rows = 5
     this.orientation = 'horizontal'
     this.sup = 5
-    this.besoinFormulaireNumerique = ['Critère de divisibilité', 5, '1 : Par 2\n2 : Par 3\n3 : Par 5\n4 : Par 9\n5 : Au hasard']
+    this.besoinFormulaireNumerique = [
+      'Critère de divisibilité',
+      5,
+      '1 : Par 2\n2 : Par 3\n3 : Par 5\n4 : Par 9\n5 : Au hasard',
+    ]
   }
-  
+
   init() {
-    switch(this.sup) {
+    switch (this.sup) {
       case 1:
         this.k = 2
         break
@@ -46,15 +49,15 @@ export default class ExerciceLabyrintheMultiplesDe3 extends ExerciceLabyrinthe {
       default:
         this.k = choice([2, 3, 5, 9])
     }
-    this.consigne = `Trouver le chemin qui passe par des multiples de ${this.k}.`
+    this.consigne = `Trouver le chemin qui passe par des multiples de ${this.k}.<br>Dans ce labyrinthe, on peut se déplacer horizontalement, verticalement et en diagonale.`
     this.generateGoodAnswers()
     this.generateBadAnswers()
   }
-  
+
   generateGoodAnswers() {
     return randint(11, 50) * this.k
   }
-  
+
   generateBadAnswers() {
     return randint(11, 50) * this.k + randint(1, this.k - 1)
   }

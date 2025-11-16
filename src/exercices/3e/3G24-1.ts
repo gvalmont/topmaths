@@ -5,9 +5,9 @@ import { fixeBordures } from '../../lib/2d/fixeBordures'
 import { markTypeArray, MarqueAngle } from '../../lib/2d/MarkType'
 import { placeLatexSurSegment } from '../../lib/2d/placeLatexSurSegment'
 import { pointAbstrait } from '../../lib/2d/PointAbstrait'
-import { nommePolygone } from '../../lib/2d/polygones'
+import { NommePolygone, nommePolygone, Polygone } from '../../lib/2d/polygones'
 import { segment, Segment } from '../../lib/2d/segmentsVecteurs'
-import { labelPoint } from '../../lib/2d/textes'
+import { labelPoint, Latex2d } from '../../lib/2d/textes'
 import {
   homothetie,
   similitude,
@@ -35,6 +35,10 @@ import {
   shuffle,
   shuffleLettres,
 } from '../../lib/outils/arrayOutils'
+import {
+  miseEnEvidence,
+  texteEnCouleurEtGras,
+} from '../../lib/outils/embellissements'
 import { arrondi } from '../../lib/outils/nombres'
 import { creerNomDePolygone } from '../../lib/outils/outilString'
 import { texNombre } from '../../lib/outils/texNombre'
@@ -75,7 +79,7 @@ export default class TrianglesSemblables extends Exercice {
   constructor() {
     super()
     this.nbQuestions = 1
-    if (context.isHtml) this.spacing = 3
+    if (context.isHtml) this.spacing = 1.5
     this.sup = 1
     this.besoinFormulaireNumerique = [
       'Types de questions ',
@@ -121,6 +125,18 @@ export default class TrianglesSemblables extends Exercice {
           : triangle2points2longueurs(A, B, l2, l3)
       const angle = randint(60, 300)
       let p2 = similitude(p1, A, angle, coeff)
+      let objetsAAfficher1: (
+        | Polygone
+        | MarqueAngle
+        | NommePolygone
+        | Latex2d
+      )[] = []
+      let objetsAAfficher2: (
+        | Polygone
+        | MarqueAngle
+        | NommePolygone
+        | Latex2d
+      )[] = []
       switch (
         typeQuestionsDisponibles[i] // Suivant le type de question, le contenu sera différent
       ) {
@@ -289,6 +305,8 @@ export default class TrianglesSemblables extends Exercice {
         nom2,
         nommeP1,
         nommeP2
+      let texteInit = `Les triangles $${shuffleLettres(A.nom + B.nom + C.nom)}$ et $${shuffleLettres(D.nom + E.nom + F.nom)}$ `
+
       switch (
         typeQuestionsDisponibles[i] // Suivant le type de question, le contenu sera différent
       ) {
@@ -349,14 +367,21 @@ export default class TrianglesSemblables extends Exercice {
           ]
           const repSommet = [`${D.nom}`, `${E.nom}`, `${F.nom}`]
 
-          const objetsAAfficher1 = [p1, codeAngleA, codeAngleB, nommeP1]
-          const objetsAAfficher2 = [p2, codeAngleD, codeAngleE, nommeP2]
+          objetsAAfficher1 = [p1, codeAngleA, codeAngleB, nommeP1]
+          objetsAAfficher2 = [p2, codeAngleD, codeAngleE, nommeP2]
+          texte += `Ci-dessous, les triangles $${shuffleLettres(A.nom + B.nom + C.nom)}$ et $${shuffleLettres(D.nom + E.nom + F.nom)}$ sont semblables.<br>`
           const [colonne1, colonne2] = definiColonnes(
             objetsAAfficher1,
             objetsAAfficher2,
             scaleDessin,
           )
-          texte += `Ci-dessous, les triangles $${shuffleLettres(A.nom + B.nom + C.nom)}$ et $${shuffleLettres(D.nom + E.nom + F.nom)}$ sont semblables.<br>`
+
+          texte += deuxColonnesResp(colonne1, colonne2, {
+            largeur1: largeurCol,
+            eleId: '',
+            widthmincol1: largeurHTMCol,
+            widthmincol2: '0px',
+          })
 
           if (this.interactif) {
             texte +=
@@ -390,7 +415,7 @@ export default class TrianglesSemblables extends Exercice {
               { formatInteractif: 'listeDeroulante' },
             )
             texte +=
-              `Les sommets ${A.nom} et ` +
+              `Les sommets $${A.nom}$ et ` +
               choixDeroulant(this, indiceChampReponse + 3, auChoixSommet) +
               ' sont homologues.<br>'
             handleAnswers(
@@ -400,7 +425,7 @@ export default class TrianglesSemblables extends Exercice {
               { formatInteractif: 'listeDeroulante' },
             )
             texte +=
-              `Les sommets ${B.nom} et ` +
+              `Les sommets $${B.nom}$ et ` +
               choixDeroulant(this, indiceChampReponse + 4, auChoixSommet) +
               ' sont homologues.<br>'
             handleAnswers(
@@ -410,7 +435,7 @@ export default class TrianglesSemblables extends Exercice {
               { formatInteractif: 'listeDeroulante' },
             )
             texte +=
-              `Les sommets ${C.nom} et ` +
+              `Les sommets $${C.nom}$ et ` +
               choixDeroulant(this, indiceChampReponse + 5, auChoixSommet) +
               ' sont homologues.<br>'
             handleAnswers(
@@ -478,29 +503,24 @@ export default class TrianglesSemblables extends Exercice {
             texte += `$\\widehat{${C.nom + A.nom + B.nom}}$ et ...................... sont homologues.<br>`
             texte += `$\\widehat{${B.nom + C.nom + A.nom}}$ et ...................... sont homologues.<br>`
           }
-          texte += deuxColonnesResp(colonne1, colonne2, {
-            largeur1: largeurCol,
-            eleId: '',
-            widthmincol1: largeurHTMCol,
-            widthmincol2: '0px',
-          })
-          texteCorr = `$[${A.nom + B.nom}]$ et $[${D.nom + E.nom}]$ sont homologues.<br>`
-          texteCorr += `$[${B.nom + C.nom}]$ et $[${E.nom + F.nom}]$ sont homologues.<br>`
-          texteCorr += `$[${C.nom + A.nom}]$ et $[${F.nom + D.nom}]$ sont homologues.<br>`
+          texteCorr = `$[${A.nom + B.nom}]$ et $${miseEnEvidence(`[${D.nom + E.nom}]`)}$ sont homologues.<br>`
+          texteCorr += `$[${B.nom + C.nom}]$ et $${miseEnEvidence(`[${E.nom + F.nom}]`)}$ sont homologues.<br>`
+          texteCorr += `$[${C.nom + A.nom}]$ et $${miseEnEvidence(`[${F.nom + D.nom}]`)}$ sont homologues.<br>`
           if (this.interactif || context.isAmc) {
-            texteCorr += `Les sommets ${A.nom} et ${D.nom} sont homologues.<br>`
-            texteCorr += `Les sommets ${B.nom} et ${E.nom} sont homologues.<br>`
-            texteCorr += `Les sommets ${C.nom} et ${F.nom} sont homologues.<br>`
+            texteCorr += `Les sommets $${A.nom}$ et $${miseEnEvidence(D.nom)}$ sont homologues.<br>`
+            texteCorr += `Les sommets $${B.nom}$ et $${miseEnEvidence(E.nom)}$ sont homologues.<br>`
+            texteCorr += `Les sommets $${C.nom}$ et $${miseEnEvidence(F.nom)}$ sont homologues.<br>`
           } else {
-            texteCorr += `$\\widehat{${A.nom + B.nom + C.nom}}$ et $\\widehat{${D.nom + E.nom + F.nom}}$ sont homologues.<br>`
-            texteCorr += `$\\widehat{${C.nom + A.nom + B.nom}}$ et $\\widehat{${F.nom + D.nom + E.nom}}$ sont homologues.<br>`
-            texteCorr += `$\\widehat{${B.nom + C.nom + A.nom}}$ et $\\widehat{${E.nom + F.nom + D.nom}}$ sont homologues.<br>`
+            texteCorr += `$\\widehat{${A.nom + B.nom + C.nom}}$ et $${miseEnEvidence(`\\widehat{${D.nom + E.nom + F.nom}}`)}$ sont homologues.<br>`
+            texteCorr += `$\\widehat{${C.nom + A.nom + B.nom}}$ et $${miseEnEvidence(`\\widehat{${F.nom + D.nom + E.nom}}`)}$ sont homologues.<br>`
+            texteCorr += `$\\widehat{${B.nom + C.nom + A.nom}}$ et $${miseEnEvidence(`\\widehat{${E.nom + F.nom + D.nom}}`)}$ sont homologues.<br>`
           }
           nbDeChampsReponse += 6
           break
         }
         case 2: {
           // const sontSemblables = randint(0, 1) === 1
+
           const angleC = 180 - angleA - angleB
           let angleF = sontSemblables
             ? angleC
@@ -588,53 +608,16 @@ export default class TrianglesSemblables extends Exercice {
           )
           nommeP1 = nommePolygone(p1, nom1)
           nommeP2 = nommePolygone(p2, nom2)
+          texteInit = `Les triangles $${shuffleLettres(A.nom + B.nom + C.nom)}$ et $${shuffleLettres(D.nom + E.nom + F.nom)}$ `
 
-          const objetsAAfficher1 = [
-            p1,
-            codeAngleA,
-            codeAngleB,
-            codeAngleC,
-            nommeP1,
-          ]
-          const objetsAAfficher2 = [
-            p2,
-            codeAngleD,
-            codeAngleF,
-            codeAngleE,
-            nommeP2,
-          ]
+          objetsAAfficher1 = [p1, codeAngleA, codeAngleB, codeAngleC, nommeP1]
+          objetsAAfficher2 = [p2, codeAngleD, codeAngleF, codeAngleE, nommeP2]
           const [colonne1, colonne2] = definiColonnes(
             objetsAAfficher1,
             objetsAAfficher2,
             scaleDessin,
           )
-          texte += `Les triangles $${shuffleLettres(A.nom + B.nom + C.nom)}$ et $${shuffleLettres(D.nom + E.nom + F.nom)}$ `
-          const choices = [
-            { label: 'Choisir la proposition qui convient', value: '' },
-            { label: 'sont semblables', value: 'oui' },
-            { label: 'ne sont pas semblables', value: 'non' },
-          ]
-          if (this.interactif) {
-            texte += choixDeroulant(this, indiceChampReponse, choices) + '.'
-            handleAnswers(
-              this,
-              indiceChampReponse,
-              { reponse: { value: repSemblables } },
-              { formatInteractif: 'listeDeroulante' },
-            )
-          } else if (context.isAmc) {
-            const options = { ordered: true, vertical: true }
 
-            listeDeroulanteToQcm(
-              this,
-              indiceChampReponse,
-              choices,
-              repSemblables,
-              options,
-            )
-          } else {
-            texte += ' sont-ils semblables? Justifier.<br>'
-          }
           texte += deuxColonnesResp(colonne1, colonne2, {
             largeur1: largeurCol,
             eleId: '',
@@ -649,12 +632,11 @@ export default class TrianglesSemblables extends Exercice {
             texteCorr += `$\\widehat{${A.nom + B.nom + C.nom}}$ = $\\widehat{${D.nom + E.nom + F.nom}}$.<br>`
             texteCorr += `$\\widehat{${C.nom + A.nom + B.nom}}$ = $\\widehat{${F.nom + D.nom + E.nom}}$.<br>`
             texteCorr += `$\\widehat{${B.nom + C.nom + A.nom}}$ = $\\widehat{${E.nom + F.nom + D.nom}}$.<br>`
-            texteCorr +=
-              'Comme les angles sont deux à deux de même mesure, les deux triangles sont semblables.<br>'
+            texteCorr += `Comme les angles sont deux à deux de même mesure, les deux triangles ${texteEnCouleurEtGras('sont semblables')}.<br>`
           } else {
             texteCorr += `Les angles du triangle $${B.nom + C.nom + A.nom}$ mesurent  ${angleA}°, ${angleB}° et ${angleC}°.<br>`
             texteCorr += `Les angles du triangle $${D.nom + E.nom + F.nom}$ mesurent  ${angleA}°, ${angleE}° et ${angleF}°.<br>`
-            texteCorr += `Les deux triangles $${B.nom + C.nom + A.nom}$ et $${D.nom + E.nom + F.nom}$ n'ont donc pas deux de leurs angles deux à deux de même mesure. Donc, les deux triangles ne sont pas semblables.<br>`
+            texteCorr += `Les deux triangles $${B.nom + C.nom + A.nom}$ et $${D.nom + E.nom + F.nom}$ n'ont donc pas deux de leurs angles deux à deux de même mesure. Donc, les deux triangles ${texteEnCouleurEtGras('ne sont pas semblables')}.<br>`
           }
           nbDeChampsReponse++
           break
@@ -742,41 +724,18 @@ export default class TrianglesSemblables extends Exercice {
           )
           nommeP1 = nommePolygone(p1, nom1)
           nommeP2 = nommePolygone(p2, nom2)
-          const objetsAAfficher1 = [p1, codeAB, codeBC, codeAC, nommeP1]
-          const objetsAAfficher2 = [p2, codeDE, codeEF, codeDF, nommeP2]
+          objetsAAfficher1 = [p1, codeAB, codeBC, codeAC, nommeP1]
+          objetsAAfficher2 = [p2, codeDE, codeEF, codeDF, nommeP2]
+          texteInit = `Les triangles $${shuffleLettres(A.nom + B.nom + C.nom)}$ et $${shuffleLettres(D.nom + E.nom + F.nom)}$ `
+          texte =
+            texteInit +
+            `ont pour longueurs des côtés respectifs $${texNombre(longueurAB, 1)}\\text{ cm}$, $${texNombre(longueurAC, 1)}\\text{ cm}$ et $${texNombre(longueurBC, 1)}\\text{ cm}$ pour le premier triangle et $${texNombre(longueurDE, 1)}\\text{ cm}$, $${texNombre(longueurDF, 1)}\\text{ cm}$ et $${texNombre(longueurEF, 1)}\\text{ cm}$ pour le second triangle.`
           const [colonne1, colonne2] = definiColonnes(
             objetsAAfficher1,
             objetsAAfficher2,
             scaleDessin,
           )
-          texte += `Les triangles $${shuffleLettres(A.nom + B.nom + C.nom)}$ et $${shuffleLettres(D.nom + E.nom + F.nom)}$ `
-          const choices = [
-            { label: 'Choisir la proposition qui convient', value: '' },
-            { label: 'sont semblables', value: 'oui' },
-            { label: 'ne sont pas semblables', value: 'non' },
-          ]
-          texte += `ont pour longueurs des côtés respectifs $${texNombre(longueurAB, 1)}\\text{ cm}$, $${texNombre(longueurAC, 1)}\\text{ cm}$ et $${texNombre(longueurBC, 1)}\\text{ cm}$ pour le premier triangle et $${texNombre(longueurDE, 1)}\\text{ cm}$, $${texNombre(longueurDF, 1)}\\text{ cm}$ et $${texNombre(longueurEF, 1)}\\text{ cm}$ pour le second triangle.`
-          if (this.interactif) {
-            texte += choixDeroulant(this, indiceChampReponse, choices) + '.'
-            handleAnswers(
-              this,
-              indiceChampReponse + 1,
-              { reponse: { value: repSemblables } },
-              { formatInteractif: 'listeDeroulante' },
-            )
-          } else if (context.isAmc) {
-            const options = { ordered: true, vertical: true }
 
-            listeDeroulanteToQcm(
-              this,
-              indiceChampReponse,
-              choices,
-              repSemblables,
-              options,
-            )
-          } else {
-            texte += ' sont-ils semblables? Justifier.<br>'
-          }
           texte += deuxColonnesResp(colonne1, colonne2, {
             largeur1: largeurCol,
             eleId: '',
@@ -795,8 +754,8 @@ export default class TrianglesSemblables extends Exercice {
           texteCorr += `$${texNombre(cotes1[1], 1)} \\div  ${texNombre(cotes2[1], 1)} = ${new FractionEtendue(arrondi(cotes1[1], 1), arrondi(cotes2[1], 1)).texFractionSimplifiee}$.<br>`
           texteCorr += `$${texNombre(cotes1[2], 1)} \\div  ${texNombre(cotes2[2], 1)} = ${new FractionEtendue(arrondi(cotes1[2], 1), arrondi(cotes2[2], 1)).texFractionSimplifiee}$.<br>`
           texteCorr += sontSemblables
-            ? 'Les longueurs sont proportionnelles deux à deux donc les deux triangles sont semblables.<br>'
-            : 'Les longueurs ne sont pas proportionnelles deux à deux donc les deux triangles ne sont pas semblables.<br>'
+            ? `Les longueurs sont proportionnelles deux à deux donc les deux triangles ${texteEnCouleurEtGras('sont semblables')}.<br>`
+            : `Les longueurs ne sont pas proportionnelles deux à deux donc les deux triangles ${texteEnCouleurEtGras('ne sont pas semblables')}.<br>`
           nbDeChampsReponse++
           break
         }
@@ -845,34 +804,10 @@ export default class TrianglesSemblables extends Exercice {
             nommeP1,
             labelPoint(p2.listePoints[2]),
           ]
-          texte += `Les triangles $${shuffleLettres(A.nom + B.nom + C.nom)}$ et $${shuffleLettres(D.nom + E.nom + F.nom)}$ `
-          const choices = [
-            { label: 'Choisir la proposition qui convient', value: '' },
-            { label: 'sont semblables', value: 'oui' },
-            { label: 'ne sont pas semblables', value: 'non' },
-          ]
-          texte += `ont pour angles respectifs $\\widehat{${A.nom + F.nom + E.nom}}$ = $\\widehat{${E.nom + D.nom + C.nom}}$ = 90°, $\\widehat{${B.nom + C.nom + A.nom}}$ = $\\widehat{${F.nom + D.nom + E.nom}}$ et $\\widehat{${C.nom + A.nom + B.nom}}$ = $\\widehat{${E.nom + F.nom + D.nom}}$.`
-          if (this.interactif) {
-            texte += choixDeroulant(this, indiceChampReponse, choices) + '.'
-            handleAnswers(
-              this,
-              indiceChampReponse,
-              { reponse: { value: repSemblables } },
-              { formatInteractif: 'listeDeroulante' },
-            )
-          } else if (context.isAmc) {
-            const options = { ordered: true, vertical: true }
-
-            listeDeroulanteToQcm(
-              this,
-              indiceChampReponse,
-              choices,
-              repSemblables,
-              options,
-            )
-          } else {
-            texte += ' sont-ils semblables? Justifier.<br>'
-          }
+          texteInit = `Les triangles $${shuffleLettres(A.nom + B.nom + C.nom)}$ et $${shuffleLettres(D.nom + E.nom + F.nom)}$ `
+          texte =
+            texteInit +
+            `ont pour angles respectifs $\\widehat{${A.nom + F.nom + E.nom}}$ = $\\widehat{${E.nom + D.nom + C.nom}}$ = 90°, $\\widehat{${B.nom + C.nom + A.nom}}$ = $\\widehat{${F.nom + D.nom + E.nom}}$ et $\\widehat{${C.nom + A.nom + B.nom}}$ = $\\widehat{${E.nom + F.nom + D.nom}}$.`
           texte += mathalea2d(
             Object.assign(
               {
@@ -892,8 +827,7 @@ export default class TrianglesSemblables extends Exercice {
           texteCorr +=
             "On a donc deux paires d'angles égales donc la troisième paire aussi grâce à la règle des 180° dans un triangle (la somme des angles est égale à 180°). <br>"
           texteCorr += `$\\widehat{${B.nom + C.nom + A.nom}}$ = $\\widehat{${F.nom + D.nom + E.nom}}$.<br>`
-          texteCorr +=
-            "Les 3 paires d'angles sont égales. Comme les angles sont égaux deux à deux, les deux triangles sont semblables.<br>"
+          texteCorr += `Les 3 paires d'angles sont égales. Comme les angles sont égaux deux à deux, les deux triangles ${texteEnCouleurEtGras('sont semblables')}.<br>`
           nbDeChampsReponse++
           break
         }
@@ -1071,34 +1005,10 @@ export default class TrianglesSemblables extends Exercice {
             labelPoint(p2.listePoints[2]),
             labelPoint(p2.listePoints[1]),
           ]
-          texte += `Les triangles $${shuffleLettres(A.nom + B.nom + C.nom)}$ et $${shuffleLettres(D.nom + E.nom + F.nom)}$ `
-          const choices = [
-            { label: 'Choisir la proposition qui convient', value: '' },
-            { label: 'sont semblables', value: 'oui' },
-            { label: 'ne sont pas semblables', value: 'non' },
-          ]
-          texte += `ont pour longueurs des côtés respectifs $${texNombre(longueurAB, 1)}\\text{ cm}$, $${texNombre(longueurAC, 1)}\\text{ cm}$ et $${texNombre(longueurBC, 1)}\\text{ cm}$ pour le premier triangle et $${texNombre(longueurDE, 1)}\\text{ cm}$, $${texNombre(longueurDF, 1)}\\text{ cm}$ et $${texNombre(longueurEF, 1)}\\text{ cm}$ pour le second triangle.`
-          if (this.interactif) {
-            texte += choixDeroulant(this, indiceChampReponse, choices) + '.'
-            handleAnswers(
-              this,
-              indiceChampReponse,
-              { reponse: { value: repSemblables } },
-              { formatInteractif: 'listeDeroulante' },
-            )
-          } else if (context.isAmc) {
-            const options = { ordered: true, vertical: true }
-
-            listeDeroulanteToQcm(
-              this,
-              indiceChampReponse,
-              choices,
-              repSemblables,
-              options,
-            )
-          } else {
-            texte += ' sont-ils semblables? Justifier.<br>'
-          }
+          texteInit = `Les triangles $${shuffleLettres(A.nom + B.nom + C.nom)}$ et $${shuffleLettres(D.nom + E.nom + F.nom)}$ `
+          texte =
+            texteInit +
+            `ont pour longueurs des côtés respectifs $${texNombre(longueurAB, 1)}\\text{ cm}$, $${texNombre(longueurAC, 1)}\\text{ cm}$ et $${texNombre(longueurBC, 1)}\\text{ cm}$ pour le premier triangle et $${texNombre(longueurDE, 1)}\\text{ cm}$, $${texNombre(longueurDF, 1)}\\text{ cm}$ et $${texNombre(longueurEF, 1)}\\text{ cm}$ pour le second triangle.`
           texte += mathalea2d(
             Object.assign(
               {
@@ -1121,10 +1031,42 @@ export default class TrianglesSemblables extends Exercice {
           texteCorr += `$${texNombre(cotes1[1], 1)} \\div  ${texNombre(cotes2[1], 1)} = ${new FractionEtendue(arrondi(cotes1[1], 1), arrondi(cotes2[1], 1)).texFractionSimplifiee}$.<br>`
           texteCorr += `$${texNombre(cotes1[2], 1)} \\div  ${texNombre(cotes2[2], 1)} = ${new FractionEtendue(arrondi(cotes1[2], 1), arrondi(cotes2[2], 1)).texFractionSimplifiee}$.<br>`
           texteCorr += sontSemblables
-            ? 'Les longueurs sont proportionnelles deux à deux donc les deux triangles sont semblables.<br>'
-            : 'Les longueurs ne sont pas proportionnelles deux à deux donc les deux triangles ne sont pas semblables.<br>'
+            ? `Les longueurs sont proportionnelles deux à deux donc les deux triangles ${texteEnCouleurEtGras('sont semblables')}.<br>`
+            : `Les longueurs ne sont pas proportionnelles deux à deux donc les deux triangles ${texteEnCouleurEtGras('ne sont pas semblables')}.<br>`
           nbDeChampsReponse++
           break
+        }
+      }
+      if (typeQuestionsDisponibles[i] !== 1) {
+        const choices = [
+          { label: 'Choisir la proposition qui convient', value: '' },
+          { label: 'sont semblables', value: 'oui' },
+          { label: 'ne sont pas semblables', value: 'non' },
+        ]
+        if (this.interactif) {
+          texte +=
+            ' ' +
+            texteInit +
+            choixDeroulant(this, indiceChampReponse, choices) +
+            '.'
+          handleAnswers(
+            this,
+            indiceChampReponse,
+            { reponse: { value: repSemblables } },
+            { formatInteractif: 'listeDeroulante' },
+          )
+        } else if (context.isAmc) {
+          const options = { ordered: true, vertical: true }
+
+          listeDeroulanteToQcm(
+            this,
+            indiceChampReponse,
+            choices,
+            repSemblables,
+            options,
+          )
+        } else {
+          texte += ' ' + texteInit + ' sont-ils semblables? Justifier.<br>'
         }
       }
       //      if (this.questionJamaisPosee(i, longueur(A, B).toFixed(1), longueur(B, C).toFixed(1), longueur(C, A).toFixed(1), longueur(D, E).toFixed(1))) {

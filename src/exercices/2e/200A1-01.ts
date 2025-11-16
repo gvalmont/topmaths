@@ -1,4 +1,6 @@
+import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
+import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { sp } from '../../lib/outils/outilString'
 import {
   listeDesDiviseurs,
@@ -11,7 +13,7 @@ export const interactifReady = true
 export const interactifType = 'mathLive'
 
 export const dateDePublication = '11/07/2023' // La date de publication initiale au format 'jj/mm/aaaa' pour affichage temporaire d'un tag
-export const dateDeModifImportante = '11/07/2023' // Une date de modification importante au format 'jj/mm/aaaa' pour affichage temporaire d'un tag
+export const dateDeModifImportante = '15/11/2025'
 export const uuid = '15fd6'
 
 export const refs = {
@@ -32,6 +34,17 @@ export default class ModeleAutomatisme2nde extends ExerciceSimple {
     this.nbQuestions = 1
     this.sup = 1
     this.besoinFormulaireNumerique = ['Niveau', 3]
+    this.formatChampTexte =
+      KeyboardType.clavierDeBaseAvecFractionPuissanceCrochets
+    this.optionsChampTexte = {
+      texteAvant: sp(5),
+      texteApres: sp(5) + '(Séparer les diviseurs par un point-virgule.)',
+    }
+    this.optionsDeComparaison = { suiteDeNombres: true }
+    this.comment =
+      'Au niveau 1, l’entier est le produit de 10 par un nombre premier entre 7 et 29.<br> ' +
+      'Au niveau 2, il est obtenu en multipliant 2 par deux petits nombres premiers.<br>' +
+      'Au niveau 3, il résulte du produit de trois petits nombres premiers, puis multiplié par 10.'
   }
 
   nouvelleVersion() {
@@ -59,8 +72,12 @@ export default class ModeleAutomatisme2nde extends ExerciceSimple {
         } while (entierChoisi % 100 === 0) // on évite d'avoir 2 et 5 dans les trois facteurs aléatoires
         break
     }
-    this.question = `Lister tous les diviseurs de $${entierChoisi}$`
-    this.correction = `La liste des diviseurs de $${entierChoisi}$ est : $${listeDesDiviseurs(entierChoisi).join(`$${sp(1)};${sp(1)}$`)}$`
+    this.question = `Lister tous les diviseurs de $${entierChoisi}$. `
+    this.correction = `La liste des diviseurs de $${entierChoisi}$ est : $${listeDesDiviseurs(
+      entierChoisi,
+    )
+      .map((n) => miseEnEvidence(n))
+      .join(`$${sp(1)};${sp(1)}$`)}$.`
     this.reponse = listeDesDiviseurs(entierChoisi).join(';')
   }
 }

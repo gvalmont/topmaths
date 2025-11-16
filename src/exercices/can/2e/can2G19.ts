@@ -191,10 +191,12 @@ export default class CoeffDirDroite extends ExerciceSimple {
         break
 
       case 2:
-        xA = randint(-4, 0)
-        yA = randint(-5, 5) / 2
-        xB = randint(1, 4)
-        yB = randint(-5, 5, 0) / 2
+        do {
+          xA = randint(-4, 0)
+          yA = randint(-5, 5) / 2
+          xB = randint(1, 4)
+          yB = randint(-5, 5, 0) / 2
+        } while (yA !== xB)
         o = texteParPosition('O', -0.3, -0.3, 0, 'black', 1)
         A = point(xA, yA)
         B = point(xB, yB)

@@ -396,7 +396,7 @@ export function loadPackagesFromContent(contents: contentsType) {
     contents,
   )
   testIfLoaded(['\\degree'], '\\usepackage{gensymb}', contents)
-  testIfLoaded(['\\tblr'], '\\usepackage{tabularray}', contents)
+  testIfLoaded(['\\tblr', '{tblr}'], '\\usepackage{tabularray}', contents)
   testIfLoaded(['\\multirow{'], '\\usepackage{multirow}', contents)
   testIfLoaded(
     ['\\dotfills'],

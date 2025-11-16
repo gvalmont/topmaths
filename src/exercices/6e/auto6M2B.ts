@@ -88,7 +88,7 @@ export default class FormulesAireCarreRectangle extends Exercice {
       melange: 4,
       nbQuestions: this.nbQuestions,
       saisie: this.sup2,
-      listeOfCase: ['cm', 'dm', 'm'],
+      listeOfCase: ['$\\text{cm}$', '$\\text{dm}$', '$\\text{m}$'],
     }).map(String)
     unitesChoisies = combinaisonListes(unitesChoisies, 50)
 

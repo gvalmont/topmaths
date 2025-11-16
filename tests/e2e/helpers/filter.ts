@@ -116,14 +116,23 @@ export async function findStatic(filter: string) {
   }
 
   const uuidsDNB = uuids[0][1] as Record<string, any>
-  const uuidsE3C = uuids[1][1] as Record<string, any>
+  // key = e3c
+  const uuidsE3CG =
+    getKey<Record<string, any>>(uuids[1][1], 'E3C - Général') ?? {}
+  // key = eam_speciatite
+  const uuidsE3CSPT =
+    getKey<Record<string, any>>(uuids[1][1], 'Specialite') ?? {}
+  // key = eam_specifique
+  const uuidsE3CSPQ =
+    getKey<Record<string, any>>(uuids[1][1], 'Specifique') ?? {}
+  // key = eam_technologique
+  const uuidsE3CT =
+    getKey<Record<string, any>>(uuids[1][1], 'Technologique') ?? {}
   const uuidsBACG = getKey<Record<string, any>>(uuids[2][1], '00_Général') ?? {}
   const uuidsBACSTI = getKey<Record<string, any>>(uuids[2][1], '10_STI2D') ?? {}
   const uuidsBACSTL = getKey<Record<string, any>>(uuids[2][1], '20_STL') ?? {}
-
   const uuidsCRPE = uuids[3][1] as Record<string, any>
   const uuidsEVACOM = uuids[4][1] as Record<string, any>
-  const uuidsBAC = { ...uuidsBACG, ...uuidsBACSTI, ...uuidsBACSTL }
   const uuidsFound: [string, string][] = []
   const filters = filter.split('^')
   filters.forEach((e) => {
@@ -157,7 +166,7 @@ export async function findStatic(filter: string) {
         }
       })
     })
-    Object.entries(uuidsBAC).forEach(([, value]) => {
+    Object.entries(uuidsBACG).forEach(([, value]) => {
       // les keys sont les années, elles ne nous intéressent pas ici!
       const values = Object.values(value)
       values.forEach((val) => {
@@ -187,7 +196,82 @@ export async function findStatic(filter: string) {
         }
       })
     })
-    Object.entries(uuidsE3C).forEach(([, value]) => {
+    Object.entries(uuidsBACSTL).forEach(([, value]) => {
+      // les keys sont les années, elles ne nous intéressent pas ici!
+      const values = Object.values(value)
+      values.forEach((val) => {
+        if (
+          val !== null &&
+          typeof val === 'object' &&
+          'uuid' in val &&
+          typeof val.uuid === 'string' &&
+          val.uuid.startsWith(e)
+        ) {
+          uuidsFound.push([val.uuid, val.uuid])
+        }
+      })
+    })
+    Object.entries(uuidsE3CG).forEach(([, value]) => {
+      // les keys sont les années, elles ne nous intéressent pas ici!
+      const values = Object.values(value)
+      values.forEach((val) => {
+        if (
+          val !== null &&
+          typeof val === 'object' &&
+          'uuid' in val &&
+          typeof val.uuid === 'string' &&
+          val.uuid.startsWith(e)
+        ) {
+          uuidsFound.push([val.uuid, val.uuid])
+        }
+      })
+    })
+    Object.entries(uuidsE3CSPT).forEach(([, value]) => {
+      // les keys sont les années, elles ne nous intéressent pas ici!
+      const values = Object.values(value)
+      values.forEach((val) => {
+        if (
+          val !== null &&
+          typeof val === 'object' &&
+          'uuid' in val &&
+          typeof val.uuid === 'string' &&
+          val.uuid.startsWith(e)
+        ) {
+          uuidsFound.push([val.uuid, val.uuid])
+        }
+      })
+    })
+    Object.entries(uuidsE3CSPQ).forEach(([, value]) => {
+      // les keys sont les années, elles ne nous intéressent pas ici!
+      const values = Object.values(value)
+      values.forEach((val) => {
+        if (
+          val !== null &&
+          typeof val === 'object' &&
+          'uuid' in val &&
+          typeof val.uuid === 'string' &&
+          val.uuid.startsWith(e)
+        ) {
+          uuidsFound.push([val.uuid, val.uuid])
+        }
+      })
+    })
+    Object.entries(uuidsE3CT).forEach(([, value]) => {
+      // les keys sont les années, elles ne nous intéressent pas ici!
+      const values = Object.values(value)
+      values.forEach((val) => {
+        if (
+          val !== null &&
+          typeof val === 'object' &&
+          'uuid' in val &&
+          typeof val.uuid === 'string' &&
+          val.uuid.startsWith(e)
+        ) {
+          uuidsFound.push([val.uuid, val.uuid])
+        }
+      })
+    })
+    Object.entries(uuidsEVACOM).forEach(([, value]) => {
       // les keys sont les années, elles ne nous intéressent pas ici!
       const values = Object.values(value)
       values.forEach((val) => {
