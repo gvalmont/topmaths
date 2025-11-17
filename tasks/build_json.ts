@@ -927,13 +927,14 @@ function buildLinkFromSlugs(
     if (slug === undefined || slug === '') {
       return
     }
-    link = link.concat(slug, '&')
+    link += slug
+    if (objectiveReference !== '') {
+      link += `&o=${objectiveReference}`
+    }
+    link += '&'
     exerciseCount++
   })
   link = link.slice(0, -1)
-  if (objectiveReference !== '') {
-    link += `&o=${objectiveReference}`
-  }
   if (isSlideshow) {
     link += SLIDESHOW_VIEW_ADDENDUM
   } else {
