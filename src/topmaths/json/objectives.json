@@ -1066,11 +1066,11 @@
                 "videos": [],
                 "exercises": [
                   {
-                    "slug": "uuid=8660f&id=6N3E&n=2&d=10&s=true&s2=true&s3=2&cd=1",
+                    "slug": "uuid=8660f&id=6N3E&n=1&d=10&s=true&s2=true&s3=2&cd=1",
                     "description": "Avec une question intermédiaire"
                   },
                   {
-                    "slug": "uuid=8660f&id=6N3E&n=2&d=10&s=true&s2=false&s3=2&cd=1",
+                    "slug": "uuid=8660f&id=6N3E&n=1&d=10&s=true&s2=false&s3=2&cd=1",
                     "description": "Sans question intermédiaire"
                   }
                 ],
@@ -3208,7 +3208,7 @@
                 ],
                 "exercises": [
                   {
-                    "slug": "uuid=adac4&id=6S10-1&n=2&d=10&s=3&s2=5"
+                    "slug": "uuid=adac4&id=6S10-1&n=1&d=10&s=3&s2=5"
                   }
                 ],
                 "lessonPlans": [
