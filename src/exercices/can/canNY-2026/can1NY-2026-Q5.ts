@@ -27,20 +27,21 @@ export default class calculsFractions extends ExerciceSimple {
   }
 
   nouvelleVersion() {
-    const a = randint(2023, 2026)
-    if (choice([true, false])) {
-      this.question = `Calculer  $\\left(\\dfrac{1}{${texNombre(2025, 0)}}\\div \\dfrac{1}{${texNombre(2025, 0)}}\\right)\\div\\dfrac{1}{${texNombre(a, 0)}}$.`
+    const annee=2026
+    const a = this.canOfficielle ? 2026 : randint(2023, 2026)
+    if (this.canOfficielle ? true : choice([true, false])) {
+      this.question = `Calculer  $\\left(\\dfrac{1}{${texNombre(annee, 0)}}\\div \\dfrac{1}{${texNombre(annee, 0)}}\\right)\\div\\dfrac{1}{${texNombre(a, 0)}}$.`
       this.reponse = a
-      this.correction = `$\\left(\\dfrac{1}{${texNombre(2025, 0)}}\\div \\dfrac{1}{${texNombre(2025, 0)}}\\right)\\div\\dfrac{1}{${texNombre(a, 0)}}=1\\div \\dfrac{1}{${texNombre(a, 0)}}=${miseEnEvidence(texNombre(this.reponse, 0))}$`
+      this.correction = `$\\left(\\dfrac{1}{${texNombre(annee, 0)}}\\div \\dfrac{1}{${texNombre(annee, 0)}}\\right)\\div\\dfrac{1}{${texNombre(a, 0)}}=1\\div \\dfrac{1}{${texNombre(a, 0)}}=${miseEnEvidence(texNombre(this.reponse, 0))}$`
       if (this.interactif) {
-        this.question = `Calculer.<br><br>  $\\left(\\dfrac{1}{${texNombre(2025, 0)}}\\div \\dfrac{1}{${texNombre(2025, 0)}}\\right)\\div\\dfrac{1}{${texNombre(a, 0)}}$`
+        this.question = `Calculer.<br><br>  $\\left(\\dfrac{1}{${texNombre(annee, 0)}}\\div \\dfrac{1}{${texNombre(annee, 0)}}\\right)\\div\\dfrac{1}{${texNombre(a, 0)}}$`
       }
     } else {
-      this.question = `Calculer  $\\left(\\dfrac{1}{${texNombre(2025, 0)}}\\times \\dfrac{${texNombre(2025, 0)}}{${texNombre(a, 0)}}\\right)\\div\\dfrac{1}{${texNombre(a, 0)}}$`
+      this.question = `Calculer  $\\left(\\dfrac{1}{${texNombre(annee, 0)}}\\times \\dfrac{${texNombre(annee, 0)}}{${texNombre(a, 0)}}\\right)\\div\\dfrac{1}{${texNombre(a, 0)}}$`
       this.reponse = 1
-      this.correction = `$\\left(\\dfrac{1}{${texNombre(2025, 0)}}\\times \\dfrac{${texNombre(2025, 0)}}{${texNombre(a, 0)}}\\right)\\div\\dfrac{1}{${texNombre(a, 0)}}=\\dfrac{1}{${texNombre(a, 0)}}\\times ${texNombre(a, 0)}=${miseEnEvidence(texNombre(this.reponse, 0))}$`
+      this.correction = `$\\left(\\dfrac{1}{${texNombre(annee, 0)}}\\times \\dfrac{${texNombre(annee, 0)}}{${texNombre(a, 0)}}\\right)\\div\\dfrac{1}{${texNombre(a, 0)}}=\\dfrac{1}{${texNombre(a, 0)}}\\times ${texNombre(a, 0)}=${miseEnEvidence(texNombre(this.reponse, 0))}$`
       if (this.interactif) {
-        this.question = `Calculer.<br><br>  $\\left(\\dfrac{1}{${texNombre(2025, 0)}}\\times \\dfrac{${texNombre(2025, 0)}}{${texNombre(a, 0)}}\\right)\\div\\dfrac{1}{${texNombre(a, 0)}}$`
+        this.question = `Calculer.<br><br>  $\\left(\\dfrac{1}{${texNombre(annee, 0)}}\\times \\dfrac{${texNombre(annee, 0)}}{${texNombre(a, 0)}}\\right)\\div\\dfrac{1}{${texNombre(a, 0)}}$`
       }
     }
 

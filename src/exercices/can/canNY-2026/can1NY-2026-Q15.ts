@@ -26,9 +26,11 @@ export default class nbreSolutions extends ExerciceSimple {
   }
 
   nouvelleVersion() {
-    const a = 2025
-    const b = randint(2020, 2030)
-    this.question = ` Combien de solutions réelles possède l'équation  ${choice([true, false]) ? `$-x^2+${texNombre(a)}=${texNombre(b)}$` : `$${texNombre(a)}-x^2=${texNombre(b)}$`} ?`
+    
+    const a = 2026
+    const choix = this.canOfficielle ? true : choice([true,false])
+    const b = this.canOfficielle ? a-1 : randint(2020, 2030)
+    this.question = ` Combien de solutions réelles possède l'équation  ${ choix ? `$-x^2+${texNombre(a)}=${texNombre(b)}$` : `$${texNombre(a)}-x^2=${texNombre(b)}$`} ?`
     if (a - b > 0) {
       this.correction = `L'équation est équivalente à $-x^2=${texNombre(b)}-${texNombre(a)}$, soit $x^2=${texNombre(a - b)}$.<br>
             $${a - b}$ étant strictement positif, cette équation a $${miseEnEvidence('2')}$ solutions.`

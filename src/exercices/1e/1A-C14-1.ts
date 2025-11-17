@@ -1,6 +1,7 @@
 import { tableauSignesFonction } from '../../lib/mathFonctions/etudeFonction'
 import { choice } from '../../lib/outils/arrayOutils'
 import { reduireAxPlusB } from '../../lib/outils/ecritures'
+import { texNombre } from '../../lib/outils/texNombre'
 import FractionEtendue from '../../modules/FractionEtendue'
 import { randint } from '../../modules/outils'
 
@@ -76,8 +77,8 @@ export default class Auto1AC16a extends ExerciceQcmA {
       }),
     ]
 
-    this.correction = `La fonction $f(x) = ${reduireAxPlusB(a, b)}$ est une fonction affine de coefficient directeur $a = ${a}$ et d'ordonnée à l'origine $b = ${b}$.<br>
-    • La fonction s'annule quand $${reduireAxPlusB(a, b)} = 0$, soit $x = ${new FractionEtendue(-b, a).simplifie().texFraction}$.<br>
+    this.correction = `La fonction $f(x) = ${reduireAxPlusB(a, b)}$ est une fonction affine de coefficient directeur $a = ${a}$ et d'ordonnée à l'origine $b = ${texNombre(b,2)}$.<br>
+    • La fonction s'annule quand $${reduireAxPlusB(a, b)} = 0$, soit $x = ${texNombre(-b/a,2)}$.<br>
     • Comme $a = ${a} < 0$, la fonction est décroissante : elle est positive avant la racine et négative après.<br>Le tableau de signes de la fonction $f$ est donc le suivant :<br>
     ${tableauSignesFonction(fCorrecte, -20, 20, {
       step: 1,
@@ -95,7 +96,7 @@ export default class Auto1AC16a extends ExerciceQcmA {
     const k2 = randint(1, 10)
     const k = choice([k1, k2, k2, k2])
     const b = a * k // coefficient b de la fonction affine
-    const racineTexe = new FractionEtendue(-b, a).simplifie().texFraction
+   
 
     this.enonce = `On considère la fonction $f$ définie sur $\\mathbb{R}$ par $f(x) = ${reduireAxPlusB(a, b)}$.<br>
         Parmi les quatre tableaux de signes proposés, lequel correspond à cette fonction ?`
@@ -153,8 +154,8 @@ export default class Auto1AC16a extends ExerciceQcmA {
         ? 'elle est négative avant la racine et positive après'
         : 'elle est positive avant la racine et négative après'
 
-    this.correction = `La fonction $f(x) = ${reduireAxPlusB(a, b)}$ est une fonction affine de coefficient directeur $a = ${a}$ et d'ordonnée à l'origine $b = ${b}$.<br>
-    • La fonction s'annule quand $${reduireAxPlusB(a, b)} = 0$, soit $x = ${racineTexe}$.<br>
+    this.correction = `La fonction $f(x) = ${reduireAxPlusB(a, b)}$ est une fonction affine de coefficient directeur $a = ${a}$ et d'ordonnée à l'origine $b = ${texNombre(b,2)}$.<br>
+    • La fonction s'annule quand $${reduireAxPlusB(a, b)} = 0$, soit $x = ${texNombre(-b/a,2)}$.<br>
     • Comme $a = ${a} ${a > 0 ? '> 0' : '< 0'}$, la fonction est ${sensVariation} : ${explicationSignes}.<br>
     Le tableau de signes de la fonction $f$ est donc le suivant :<br>
     ${tableauSignesFonction(fCorrecte, -20, 20, {

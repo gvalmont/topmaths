@@ -395,7 +395,7 @@ function questionDistance(exo: Exercice, i: number) {
   const dureeR = couplePremiersEntreEux[indexN][1]
   const alea2 = randint(0, liste[alea1].vitesse.length - 1) // pour le facteur de distance parcourue
   const texte =
-    `Un ${liste[alea1].locomotion} parcourt en moyenne $${stringNombre(liste[alea1].vitesse[alea2] * dureeQ * facteur)}\\text{ km}$ en ${dureeQ} heures.
+    `Un ${liste[alea1].locomotion} parcourt en moyenne $${stringNombre(liste[alea1].vitesse[alea2] * dureeQ * facteur)} en ${dureeQ} heures.
   <br> Quelle distance va-t-il parcourir, à la même vitesse, en ${dureeR} heures ?` +
     ajouteChampTexteMathLive(exo, i, '', { texteApres: '$\\text{ km}$' })
 
@@ -405,7 +405,7 @@ function questionDistance(exo: Exercice, i: number) {
    En 1 h, le ${liste[alea1].locomotion} parcourt donc une distance ${texteEnCouleur(dureeQ)} fois moins grande qu'en ${dureeQ} h.<br>` +
     `$${stringNombre(liste[alea1].vitesse[alea2] * facteur * dureeQ)}\\text{ km}$ $\\div $ ${texteEnCouleur(dureeQ)} = ${stringNombre(liste[alea1].vitesse[alea2] * facteur)} $\\text{km}$ <br>` +
     texteEnCouleurEtGras(' Conclusion intermédiaire :', 'black') +
-    ` en 1h, le ${liste[alea1].locomotion} parcourt ${texteEnCouleur(stringNombre(liste[alea1].vitesse[alea2] * facteur), 'blue')} km. <br>` +
+    ` en 1h, le ${liste[alea1].locomotion} parcourt ${texteEnCouleur(stringNombre(liste[alea1].vitesse[alea2] * facteur), 'blue')}$\\text{ km}$. <br>` +
     ` Cherchons maintenant la distance parcourue en ${dureeR} h. <br>` +
     ` ${dureeR} h, c'est ${texteEnCouleur(dureeR)} fois 1 h.` +
     ` Le ${liste[alea1].locomotion} parcourt donc ${texteEnCouleur(dureeR)} fois plus de distance qu'en 1 h.` +
@@ -434,8 +434,8 @@ function questionEchelle(exo: Exercice, i: number) {
     ajouteChampTexteMathLive(exo, i, '', { texteApres: '$\\text{ km}$' })
 
   const texteCorr =
-    `Commençons par trouver à combien de $\\text{km}$ dans la réalité, 1 $\\text{cm}$ sur la carte correspond. <br>
-  1 cm, c'est $${miseEnEvidence(distanceCarte, bleuMathalea)}$ fois moins que $${distanceCarte}\\text{ cm}$.<br>` +
+    `Commençons par trouver à combien de $\\text{km}$ dans la réalité, $1\\text{ cm}$ sur la carte correspond. <br>
+  $1\\text{ cm}$, c'est $${miseEnEvidence(distanceCarte, bleuMathalea)}$ fois moins que $${distanceCarte}\\text{ cm}$.<br>` +
     `$${texNombre(distanceReel)}\\text{ km}\\div ${miseEnEvidence(distanceCarte, bleuMathalea)} = ${texNombre(distanceReel / distanceCarte)}\\text{ km}$ <br>` +
     texteEnCouleurEtGras(' Conclusion intermédiaire :', 'black') +
     ` $1\\text{ cm}$ sur la carte correspond donc à $${miseEnEvidence(texNombre(distanceReel / distanceCarte), bleuMathalea)}\\text{ km}$ dans la réalité. <br>` +
@@ -500,22 +500,22 @@ function questionRecouvrirSurface(exo: Exercice, i: number) {
   const qttaffichage = stringNombre(quantite) // Pour affichage avec virgule en séparateur.
   const texte =
     `${prenoms[0]} doit acheter ${liste[alea1].matiere}. <br>` +
-    `Sur la notice, il est indiqué de prévoir ${qttaffichage} ${liste[alea1].unite} pour ${stringNombre(surfaceInitiale)} m$^2$. <br> ` +
-    `Combien doit-elle en acheter pour une surface de ${stringNombre(surfaceFinale)} m$^2$ ?` +
+    `Sur la notice, il est indiqué de prévoir ${qttaffichage} ${liste[alea1].unite} pour ${stringNombre(surfaceInitiale)}$\\text{ m}^2$. <br> ` +
+    `Combien doit-elle en acheter pour une surface de ${stringNombre(surfaceFinale)}$\\text{ m}^2$ ?` +
     ajouteChampTexteMathLive(exo, i, '', {
       texteApres: ' ' + liste[alea1].unite,
     })
 
   const texteCorr =
     `Commençons par trouver combien de ${liste[alea1].unite} il faut prévoir pour$1\\text{ m}^2$. <br>
- $1\\text{ m}^2$, c'est ${texteEnCouleur(stringNombre(surfaceInitiale))} fois moins que ${stringNombre(surfaceInitiale)} m$^2$.<br>` +
+ $1\\text{ m}^2$, c'est ${texteEnCouleur(stringNombre(surfaceInitiale))} fois moins que ${stringNombre(surfaceInitiale)}$\\text{ m}^2$.<br>` +
     `${qttaffichage} ${liste[alea1].unite} $\\div $ ${texteEnCouleur(stringNombre(surfaceInitiale))} = ${stringNombre(quantite / surfaceInitiale)} ${liste[alea1].unite} <br>` +
     texteEnCouleurEtGras(' Conclusion intermédiaire :', 'black') +
     ` on a donc besoin de ${texteEnCouleur(stringNombre(quantite / surfaceInitiale), 'blue')} ${liste[alea1].unite} pour recouvrir$1\\text{ m}^2$ . <br>` +
-    ` Cherchons maintenant la quantité de ${liste[alea1].unite} nécessaire pour recouvrir ${stringNombre(surfaceFinale)} m$^2$. <br>` +
-    ` ${stringNombre(surfaceFinale)} m$^2$, c'est ${texteEnCouleur(stringNombre(surfaceFinale))} fois plus que$1\\text{ m}^2$.` +
+    ` Cherchons maintenant la quantité de ${liste[alea1].unite} nécessaire pour recouvrir ${stringNombre(surfaceFinale)}$\\text{ m}^2$. <br>` +
+    ` ${stringNombre(surfaceFinale)}$\\text{ m}^2$, c'est ${texteEnCouleur(stringNombre(surfaceFinale))} fois plus que$1\\text{ m}^2$.` +
     `<br> ${texteEnCouleur(stringNombre(quantite / surfaceInitiale), 'blue')} ${liste[alea1].unite} $\\times$ ${texteEnCouleur(stringNombre(surfaceFinale))} = ${stringNombre((quantite * surfaceFinale) / surfaceInitiale)} ${liste[alea1].unite}<br>` +
-    `${texteEnCouleurEtGras('Conclusion :', 'black')} ${prenoms[0]} aura besoin de ${stringNombre((quantite * surfaceFinale) / surfaceInitiale)} ${liste[alea1].unite} pour recouvrir ${stringNombre(surfaceFinale)} m$^2$.`
+    `${texteEnCouleurEtGras('Conclusion :', 'black')} ${prenoms[0]} aura besoin de ${stringNombre((quantite * surfaceFinale) / surfaceInitiale)} ${liste[alea1].unite} pour recouvrir ${stringNombre(surfaceFinale)}$\\text{ m}^2$.`
   setReponse(exo, i, arrondi((quantite * surfaceFinale) / surfaceInitiale, 3))
   return {
     qtexte: texte,

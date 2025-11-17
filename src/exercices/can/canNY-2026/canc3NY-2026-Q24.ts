@@ -1,10 +1,8 @@
 import ExerciceSimple from '../../ExerciceSimple'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
-
 import { randint } from '../../../modules/outils'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 import { texNombre } from '../../../lib/outils/texNombre'
-import { handleAnswers } from '../../../lib/interactif/gestionInteractif'
 export const titre = 'Utiliser une égalité pour compléter un calcul'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -17,48 +15,30 @@ export const refs = {
  * Modèle d'exercice très simple pour la course aux nombres
  * @author Gilles Mora + Eric Elter
  */
-export default class CalculDivers extends ExerciceSimple {
-  constructor() {
-    super()
-    this.typeExercice = 'simple' // Cette ligne est très importante pour faire un exercice simple !
-    this.nbQuestions = 1
-    this.nbQuestionsModifiable = false
-    this.formatInteractif = 'fillInTheBlank'
-    this.formatChampTexte = KeyboardType.clavierDeBase
-  }
-
-  nouvelleVersion() {
-    this.consigne = `En utilisant l'égalité $${texNombre(2025, 0)}=9\\times 9 \\times 5\\times 5$, compléter :`
-    switch (randint(1, 4)) {
-      case 1:
-        this.reponse = texNombre(81, 0)
-        this.question = `${texNombre(2025, 0)}= ~25 \\times %{champ1} `
-        this.correction = `$${texNombre(2025, 0)}= \\underbrace{5\\times 5}_{25}\\times\\underbrace{9\\times 9 }_{${miseEnEvidence(this.reponse)}}$`
-        handleAnswers(this, 0, { champ1: { value: this.reponse } })
-        this.canReponseACompleter = `$${texNombre(2025, 0)}= 25\\times \\ldots $`
-        break
-      case 2:
-        this.reponse = texNombre(25, 0)
-        this.question = `${texNombre(2025, 0)}= ~%{champ1}\\times 81`
-        this.correction = `$${texNombre(2025, 0)}= \\underbrace{5\\times 5}_{${miseEnEvidence(this.reponse)}}\\times \\underbrace{9\\times 9}_{81}$`
-        handleAnswers(this, 0, { champ1: { value: this.reponse } })
-        this.canReponseACompleter = `$${texNombre(2025, 0)}=\\ldots \\times 81 $`
-        break
-      case 3:
-        this.reponse = texNombre(45, 0)
-        this.question = `${texNombre(2025, 0)}= ~%{champ1} \\times 45`
-        this.correction = `$${texNombre(2025, 0)}=\\underbrace{9\\times 5}_{45}\\times \\underbrace{9\\times 5}_{45}=${miseEnEvidence(this.reponse)}\\times 45$`
-        handleAnswers(this, 0, { champ1: { value: this.reponse } })
-        this.canReponseACompleter = `$${texNombre(2025, 0)}=\\ldots \\times 45$`
-        break
-      case 4:
-        this.reponse = texNombre(2025, 0)
-        this.question = ' %{champ1}~=81\\times 25'
-        this.correction = `$${miseEnEvidence(this.reponse)}=\\underbrace{9\\times 9}_{81}\\times \\underbrace{5\\times 5}_{25}$`
-        handleAnswers(this, 0, { champ1: { value: this.reponse } })
-        this.canReponseACompleter = '$\\ldots=81\\times 25$'
-        break
+export default class CalculDivers2026 extends ExerciceSimple {
+   constructor() {
+      super()
+      this.typeExercice = 'simple' // Cette ligne est très importante pour faire un exercice simple !
+      this.nbQuestions = 1
+      this.formatChampTexte = KeyboardType.clavierDeBase
     }
-    this.canEnonce = this.consigne
+  
+    nouvelleVersion() {
+     
+  const annee = 2026
+      const a = this.canOfficielle ? 18 : randint(15, 25) 
+      this.reponse =  a
+      this.question = `Quel nombre doit-on soustraire à $${annee}$ pour obtenir $${texNombre(annee-a, 0)}$ ?`
+  
+      this.correction = `$${texNombre(annee, 0)}-${texNombre(a, 0)}=${texNombre(this.reponse, 0)}$.<br>
+      Ainsi, il faut soustraire $${miseEnEvidence(texNombre(a, 0))}$ à $${texNombre(annee, 0)}$ pour obtenir 
+      $${texNombre(annee-a, 0)}$.`
+  
+      if (this.interactif) {
+        this.question += '<br>'
+      }
+      this.canEnonce = this.question
+      this.canReponseACompleter = ''
+    }
   }
-}
+  

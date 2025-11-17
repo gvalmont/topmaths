@@ -25,35 +25,46 @@ export default class diffDeDeuxCarres extends ExerciceSimple {
   }
 
   nouvelleVersion() {
-    const choix = randint(1, 3)
+    const annee = 2026
+    const choix = this.canOfficielle ? 1 : randint(1, 3)
+    const a = randint(1, 2)
+    
     if (choix === 1) {
-      this.question = `Calculer $${texNombre(2025, 0)}^2-${texNombre(2024, 0)}^2$.`
-      this.correction = `On utilise l'égalité remarquable $a^2-b^2=(a-b)(a+b)$ avec $a=${texNombre(2025, 0)}$ et $b=${texNombre(2024, 0)}$.<br>
-      $${texNombre(2025, 0)}^2-${texNombre(2024, 0)}^2=(${texNombre(2025, 0)}-${texNombre(2024, 0)})(${texNombre(2025, 0)}+${texNombre(2024, 0)})=1\\times ${texNombre(4049, 0)}=${miseEnEvidence(`${texNombre(4049, 0)}`)}$.
-           `
-      this.reponse = '4049'
+      // Cas 1 : 2026² - 2025²
+      this.question = `Calculer $${texNombre(annee, 0)}^2-${texNombre(annee - 1, 0)}^2$.`
+      this.correction = `On utilise l'égalité remarquable $a^2-b^2=(a-b)(a+b)$ avec $a=${texNombre(annee, 0)}$ et $b=${texNombre(annee - 1, 0)}$.<br>
+      $${texNombre(annee, 0)}^2-${texNombre(annee - 1, 0)}^2=(${texNombre(annee, 0)}-${texNombre(annee - 1, 0)})(${texNombre(annee, 0)}+${texNombre(annee - 1, 0)})
+      =1\\times ${texNombre(2 * annee - 1, 0)}=${miseEnEvidence(`${texNombre(2 * annee - 1, 0)}`)}$.`
+      this.reponse = 2 * annee - 1
       if (this.interactif) {
-        this.question += `<br>$${texNombre(2025, 0)}^2-${texNombre(2024, 0)}^2=$`
+        this.question += `<br>$${texNombre(annee, 0)}^2-${texNombre(annee - 1, 0)}^2=$`
       }
     } else if (choix === 2) {
-      this.question = `Calculer $${texNombre(2025, 0)}^2-${texNombre(2024, 0)}^2$.`
-      this.correction = `On utilise l'égalité remarquable $a^2-b^2=(a-b)(a+b)$ avec $a=${texNombre(2025, 0)}$ et $b=${texNombre(2024, 0)}$.<br>
-        $${texNombre(2025, 0)}^2-${texNombre(2024, 0)}^2=(${texNombre(2025, 0)}-${texNombre(2024, 0)})(${texNombre(2025, 0)}+${texNombre(2024, 0)})=1\\times ${texNombre(4049, 0)}=${miseEnEvidence(`${texNombre(4049, 0)}`)}$.
-             `
-      this.reponse = '4049'
+      // Cas 2 : 2026² - 2024² (avec a aléatoire entre 1 et 2)
+      this.question = `Calculer $${texNombre(annee, 0)}^2-${texNombre(annee - a, 0)}^2$.`
+      const b = annee - a
+      const resultat = (annee - b) * (annee + b)
+      this.correction = `On utilise l'égalité remarquable $a^2-b^2=(a-b)(a+b)$ avec $a=${texNombre(annee, 0)}$ et $b=${texNombre(b, 0)}$.<br>
+      $${texNombre(annee, 0)}^2-${texNombre(b, 0)}^2=(${texNombre(annee, 0)}-${texNombre(b, 0)})(${texNombre(annee, 0)}+${texNombre(b, 0)})
+      =${texNombre(a, 0)}\\times ${texNombre(annee + b, 0)}=${miseEnEvidence(`${texNombre(resultat, 0)}`)}$.`
+      this.reponse = resultat
       if (this.interactif) {
-        this.question += `<br>$${texNombre(2025, 0)}^2-${texNombre(2024, 0)}^2=$`
+        this.question += `<br>$${texNombre(annee, 0)}^2-${texNombre(b, 0)}^2=$`
       }
     } else {
-      this.question = `Développer $(x-\\sqrt{${texNombre(2025, 0)}})(x+\\sqrt{${texNombre(2025, 0)}})$.`
-      this.correction = `On utilise l'égalité remarquable $(a-b)(a+b)=a^2-b^2$ avec $a=x$ et $b=\\sqrt{${texNombre(2025, 0)}}$.<br>
-          $(x-\\sqrt{${texNombre(2025, 0)}})(x+\\sqrt{${texNombre(2025, 0)}})=${miseEnEvidence(`x^2-${texNombre(2025, 0)}`)}$.
-               `
+      // Cas 3 : 2025² - 2026² ou 2024² - 2026²
+      const c = annee - a // c = 2025 ou 2024
+      this.question = `Calculer $${texNombre(c, 0)}^2-${texNombre(annee, 0)}^2$.`
+      const resultat = (c - annee) * (c + annee)
+      this.correction = `On utilise l'égalité remarquable $a^2-b^2=(a-b)(a+b)$ avec $a=${texNombre(c, 0)}$ et $b=${texNombre(annee, 0)}$.<br>
+      $${texNombre(c, 0)}^2-${texNombre(annee, 0)}^2=(${texNombre(c, 0)}-${texNombre(annee, 0)})(${texNombre(c, 0)}+${texNombre(annee, 0)})
+      =${texNombre(c - annee, 0)}\\times ${texNombre(c + annee, 0)}=${miseEnEvidence(`${texNombre(resultat, 0)}`)}$.`
+      this.reponse = resultat
       if (this.interactif) {
-        this.question += `<br>$(x-\\sqrt{${texNombre(2025, 0)}})(x+\\sqrt{${texNombre(2025, 0)}})=$`
+        this.question += `<br>$${texNombre(c, 0)}^2-${texNombre(annee, 0)}^2=$`
       }
-      this.reponse = ['x^2-2025', 'x\\times x-2025']
     }
+    
     this.canEnonce = this.question
     this.canReponseACompleter = ''
   }

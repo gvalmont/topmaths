@@ -307,7 +307,7 @@ export default class ComprendreSensPourcentage extends Exercice {
 
           break
         case 14:
-          unites = 'km'
+          unites = '$\\text{ km}$'
           pourcentage = randint(31, 79, [40, 50, 60, 70])
           texteAvant[0] = `Si un cycliste parcourt $${pourcentage}\\ \\%$ de son trajet total en montée, alors pour $100\\text{ km}$ parcourus,`
           texteApres = `${unites} sont parcourus.<br>`

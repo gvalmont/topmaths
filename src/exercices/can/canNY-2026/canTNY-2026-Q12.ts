@@ -22,7 +22,7 @@ export const refs = {
  * Modèle d'exercice très simple pour la course aux nombres
  * @author Eric Elter - Gilles Mora
  */
-export default class coordMilieu extends ExerciceSimple {
+export default class coordMilieu2026 extends ExerciceSimple {
   constructor() {
     super()
     this.typeExercice = 'simple' // Cette ligne est très importante pour faire faire un exercice simple !
@@ -31,19 +31,20 @@ export default class coordMilieu extends ExerciceSimple {
   }
 
   nouvelleVersion() {
+    const annee = 2026
     const nom = creerNomDePolygone(2, ['PQDO'])
-    const b = randint(-5, 5) * 2 + 1
-    const c = randint(-5, 5) * 2 + 1
-    const reponse1 = new FractionEtendue(2025 + b, 2).texFraction
-    const reponse2 = new FractionEtendue(2025 + c, 2).texFraction
-    this.consigne = `Dans un repère du plan, on donne $${nom[0]}(${texNombre(2025, 0)}\\,;\\,${c})$ et $${nom[1]}(${b}\\,;\\,${texNombre(2025, 0)})$.<br>
+    const b = this.canOfficielle ? -4 : randint(-5, 5) * 2 
+    const c = this.canOfficielle ? 4 : randint(-5, 5) * 2 
+    const reponse1 = new FractionEtendue(annee + b, 2).texFraction
+    const reponse2 = new FractionEtendue(annee + c, 2).texFraction
+    this.consigne = `Dans un repère du plan, on donne $${nom[0]}(${texNombre(annee, 0)}\\,;\\,${c})$ et $${nom[1]}(${b}\\,;\\,${texNombre(annee, 0)})$.<br>
         Déterminer les coordonnées (sous forme décimale) du milieu de $[${nom[0] + nom[1]}]$.`
     this.question = '(%{champ1}\\,;\\,%{champ2})'
     this.correction = `Les coordonnées du milieu sont données par :
-        $\\left(\\dfrac{${texNombre(2025, 0)}+${ecritureParentheseSiNegatif(b)}}{2};\\dfrac{${c}+${texNombre(2025, 0)}}{2}\\right)=
-        \\left(\\dfrac{${texNombre(2025 + b, 0)}}{2};\\dfrac{${texNombre(c + 2025, 0)}}{2}\\right)=
-        ${miseEnEvidence(`(${texNombre((2025 + b) / 2, 1)};${texNombre((c + 2025) / 2, 1)})`)}$.<br>`
-    this.reponse = `(${arrondi((2025 + b) / 2, 1)};${arrondi((c + 2025) / 2, 1)})`
+        $\\left(\\dfrac{${texNombre(annee, 0)}+${ecritureParentheseSiNegatif(b)}}{2};\\dfrac{${c}+${texNombre(annee, 0)}}{2}\\right)=
+        \\left(\\dfrac{${texNombre(annee + b, 0)}}{2};\\dfrac{${texNombre(c + annee, 0)}}{2}\\right)=
+        ${miseEnEvidence(`(${texNombre((annee + b) / 2, 1)};${texNombre((c + annee) / 2, 1)})`)}$.<br>`
+    this.reponse = `(${arrondi((annee + b) / 2, 1)};${arrondi((c + annee) / 2, 1)})`
 
     handleAnswers(this, 0, {
       bareme: (listePoints) => [Math.min(listePoints[0], listePoints[1]), 1],

@@ -11,13 +11,19 @@ import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { combinaisonListes } from '../../lib/outils/arrayOutils'
 import { context } from '../../modules/context'
 import { mathalea2d } from '../../modules/mathalea2d'
-import { listeQuestionsToContenu, randint } from '../../modules/outils'
+import {
+  gestionnaireFormulaireTexte,
+  listeQuestionsToContenu,
+  randint,
+} from '../../modules/outils'
 import Exercice from '../Exercice'
 
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
+import { rangeMinMax } from '../../lib/outils/nombres'
 
+export const dateDeModifImportante = '16/11/2025'
 export const titre =
   'Associer un intervalle de  $\\mathbb{R}$ à une inégalité et son schéma sur une droite graduée'
 export const interactifReady = true
@@ -25,7 +31,9 @@ export const interactifType = 'mathLive'
 
 /**
  * @author Stéphane Guyon
+ * Rajout de paramètres et amélioration de l'aléatoire par Eric Elter (16/11/2025)
  */
+
 export const uuid = '31c01'
 
 export const refs = {
@@ -43,17 +51,69 @@ export default class IntervallesDeR extends Exercice {
       3,
       "1 : Donner l'intervalle correspondant\n2 : Donner l'inégalité correspondante\n3: Mélange",
     ]
+    this.sup = 3
+    this.besoinFormulaire2Texte = [
+      "Type d'inégalités données",
+      [
+        'Nombres séparés par des tirets  :',
+        '1 : $x>a$',
+        '2 : $x\\geqslant a$',
+        '3 : $x<a$',
+        '4 : $x\\leqslant a$',
+        '5 : $a<x<b$',
+        '6 : $a\\leqslant x < b$',
+        '7 : $a\\leqslant x \\leqslant b$',
+        '8 : $a < x \\leqslant b$',
+        '9 : Mélange',
+      ].join('\n'),
+    ]
+    this.sup2 = 9
+
+    this.besoinFormulaire3Texte = [
+      "Type d'intervalles donnés",
+      [
+        'Nombres séparés par des tirets  :',
+        '1 : $x \\in ]a\\,;\\,b]$',
+        '2 : $x \\in [a\\,;\\,b]$',
+        '3 : $x \\in [a\\,;\\,b[$',
+        '4 : $x \\in ]a\\,;\\,+\\infty[$',
+        '5 : $x \\in ]-\\infty\\,;\\,a[$',
+        '6 : $x \\in ]-\\infty\\,;\\,a]$',
+        '7 : Mélange',
+      ].join('\n'),
+    ]
+    this.sup3 = 7
+    this.comment = `Le premier paramètre "Type de questions" est en lien avec les paramètres suivants.<br>
+      Vous pouvez choisir les inégalités ou les intervalles disponibles dans l'exercice.`
   }
 
   nouvelleVersion() {
+    const typesInegalitesDisponibles = gestionnaireFormulaireTexte({
+      saisie: this.sup2,
+      max: 8,
+      melange: 9,
+      defaut: 9,
+      nbQuestions: this.nbQuestions,
+    }).map(Number)
+
+    const typesIntervallesDisponibles = gestionnaireFormulaireTexte({
+      saisie: this.sup3,
+      max: 6,
+      melange: 7,
+      defaut: 7,
+      nbQuestions: this.nbQuestions,
+      listeOfCase: rangeMinMax(9, 14),
+    }).map(Number)
+
     let typesDeQuestionsDisponibles: number[] = []
     if (this.sup === 1) {
-      typesDeQuestionsDisponibles = [1] //, 2, 3, 4, 5, 6, 7, 8
+      typesDeQuestionsDisponibles = typesInegalitesDisponibles
     } else if (this.sup === 2) {
-      typesDeQuestionsDisponibles = [9, 10, 11, 12, 13, 14]
+      typesDeQuestionsDisponibles = typesIntervallesDisponibles
     } else {
       typesDeQuestionsDisponibles = [
-        1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14,
+        ...typesInegalitesDisponibles,
+        ...typesIntervallesDisponibles,
       ]
     }
     const listeTypeDeQuestions = combinaisonListes(
@@ -71,7 +131,7 @@ export default class IntervallesDeR extends Exercice {
 
       const int = intervalle(X1, X2, 'black', 0)
       let a: number
-      let b: number
+      let b: number = 0
       let A: Point
       let B: Point
       let c1: CrochetG
@@ -84,9 +144,7 @@ export default class IntervallesDeR extends Exercice {
         // Combien de chiffres ? Quelles valeurs ?
         case 1:
           a = randint(1, 15)
-          b = randint(a, 25)
           A = point(2, 0, String(a))
-          B = point(6, 0, String(b))
           c1 = crochetG(A, 'red')
           c1.taille = context.isHtml ? 0.2 : 0.4
           int1 = intervalle(A, X2, 'red', 0)
@@ -111,9 +169,7 @@ export default class IntervallesDeR extends Exercice {
 
         case 2:
           a = randint(1, 15)
-          b = randint(a, 25)
           A = point(2, 0, String(a))
-          B = point(6, 0, String(b))
           c1 = crochetD(A, 'red')
           c1.taille = context.isHtml ? 0.2 : 0.4
           int1 = intervalle(A, X2, 'red', 0)
@@ -138,9 +194,7 @@ export default class IntervallesDeR extends Exercice {
 
         case 3:
           a = randint(1, 15)
-          b = randint(a, 25)
           A = point(2, 0, String(a))
-          B = point(6, 0, String(b))
           c1 = crochetD(A, 'red')
           c1.taille = context.isHtml ? 0.2 : 0.4
           int1 = intervalle(X1, A, 'red', 0)
@@ -165,9 +219,7 @@ export default class IntervallesDeR extends Exercice {
 
         case 4:
           a = randint(1, 15)
-          b = randint(a, 25)
           A = point(2, 0, String(a))
-          B = point(6, 0, String(b))
           c1 = crochetG(A, 'red')
           c1.taille = context.isHtml ? 0.2 : 0.4
           int1 = intervalle(X1, A, 'red', 0)
@@ -438,9 +490,7 @@ export default class IntervallesDeR extends Exercice {
         case 13:
           a = randint(1, 15)
           c = a + 1
-          b = randint(c, 25)
           A = point(7, 0, String(a))
-          B = point(12, 0, String(b))
           c1 = crochetD(A, 'red')
           c1.taille = context.isHtml ? 0.2 : 0.4
 
@@ -467,9 +517,7 @@ export default class IntervallesDeR extends Exercice {
         default:
           a = randint(1, 15)
           c = a + 1
-          b = randint(c, 25)
           A = point(7, 0, String(a))
-          B = point(12, 0, String(b))
           c1 = crochetG(A, 'red')
           c1.taille = context.isHtml ? 0.2 : 0.4
 

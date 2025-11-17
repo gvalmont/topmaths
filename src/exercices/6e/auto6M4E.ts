@@ -1,12 +1,12 @@
-import Exercice from '../Exercice'
-import { listeQuestionsToContenu, randint } from '../../modules/outils'
-import { choixDeroulant } from '../../lib/interactif/questionListeDeroulante'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
+import { choixDeroulant } from '../../lib/interactif/questionListeDeroulante'
 import { choice } from '../../lib/outils/arrayOutils'
 import {
   miseEnEvidence,
   texteEnCouleurEtGras,
 } from '../../lib/outils/embellissements'
+import { listeQuestionsToContenu, randint } from '../../modules/outils'
+import Exercice from '../Exercice'
 
 export const dateDePublication = '02/08/2025'
 export const titre = "Choisir des rapports entre fraction d'heure et minutes"
@@ -60,11 +60,11 @@ export default class AutoChoisirFractionHeure extends Exercice {
         const texte = estUnePhrase
           ? (this.interactif
               ? choixDeroulant(this, i, choixListeDeroulante)
-              : '$\\ldots\\ldots\\ldots\\ldots\\ldots\\ldots\\ldots\\ldots\\ldots\\ldots\\ldots\\ldots$') +
+              : '$\\ldots\\ldots\\ldots\\ldots$') +
             ` ${durees[choix][3]} à $${durees[choix][2]}$ minutes.`
           : (this.interactif
               ? choixDeroulant(this, i, choixListeDeroulante)
-              : '$\\ldots\\ldots\\ldots\\ldots\\ldots\\ldots\\ldots\\ldots\\ldots\\ldots\\ldots\\ldots$') +
+              : '$\\ldots\\ldots\\ldots\\ldots$') +
             ` = $${durees[choix][2]}$ minutes.`
 
         const texteCorr = estUnePhrase

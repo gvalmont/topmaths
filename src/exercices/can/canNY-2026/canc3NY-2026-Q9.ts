@@ -19,7 +19,7 @@ export const refs = {
  * @author Eric Elter + Gilles Mora
 
 */
-export default class ProduitACompleter extends ExerciceSimple {
+export default class ProduitACompleter2026 extends ExerciceSimple {
   constructor() {
     super()
     this.typeExercice = 'simple' // Cette ligne est très importante pour faire un exercice simple !
@@ -31,10 +31,10 @@ export default class ProduitACompleter extends ExerciceSimple {
   }
 
   nouvelleVersion() {
-    const a = 2025
-    const b = choice([10, 100, 1000])
-    const resultat = new Decimal(2025).mul(b)
-    const choix = choice([true, false])
+    const a = 2026
+    const b = this.canOfficielle ? 100 : choice([10, 100, 1000])
+    const resultat = new Decimal(a).mul(b)
+    const choix = this.canOfficielle ? true : choice([true, false])
     this.reponse = texNombre(b, 3)
     this.consigne = "Compléter l'égalité.<br>"
     handleAnswers(this, 0, { champ1: { value: this.reponse } })

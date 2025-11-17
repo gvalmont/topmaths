@@ -86,7 +86,7 @@ export default class CalculImageParFonctionAffineFraction extends ExerciceSimple
     this.correction = `Comme $${nomF}(x)=${a === 1 ? '' : a === -1 ? '-' : a}x${ecritureAlgebrique(b)}$, on a :<br>`
     this.correction += '$\\begin{aligned}'
     this.correction += `${nomF}\\left(${fractionX.texFractionSimplifiee}\\right)`
-    this.correction += `&=${a === 1 ? '' : a === -1 ? '-' : a}\\times ${fractionX.ecritureParentheseSiNegatif}${ecritureAlgebrique(b)}\\\\`
+    this.correction += `&=${a === 1 ? '' : a === -1 ? '-' : `${a}\\times`} ${fractionX.ecritureParentheseSiNegatif}${ecritureAlgebrique(b)}\\\\`
 
     // Étape intermédiaire : calcul de a × fraction
     if (a === 1) {

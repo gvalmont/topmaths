@@ -50,8 +50,8 @@ export default class ConstruireUnTriangle extends Exercice {
     this.classe = 6
     this.besoinFormulaireNumerique = [
       'Type de constructions',
-      10,
-      '1 : Trois longueurs\n2 : Angle droit et deux longueurs\n3 : Mélange (1 et 2)\n4 : Trois longueurs avec auto-vérification\n5 : Isocèle avec deux longueurs avec auto-vérification\n6 : Rectangle avec deux longueurs dont hypoténuse avec auto-vérification\n7 : Rectangle avec deux longueurs sans hypoténuse avec auto-vérification\n8 : Equilatéral avec auto-vérification\n9 : Mélange (5, 6, 7 ,8)\n10 : Mélange (4, 5, 6, 7 ,8)',
+      11,
+      '1 : Trois longueurs\n2 : Angle droit et deux longueurs\n3 : Mélange (1 et 2)\n4 : Trois longueurs avec auto-vérification\n5 : Isocèle avec deux longueurs avec auto-vérification\n6 : Rectangle avec deux longueurs dont hypoténuse avec auto-vérification\n7 : Rectangle avec deux longueurs sans hypoténuse avec auto-vérification\n8 : Equilatéral avec auto-vérification\n9 : Mélange (5, 6, 7 ,8)\n10 : Mélange (4, 5, 6, 7 ,8)\n11 : Mélange (4, 5, 8)',
     ]
     this.sup = 3
     this.besoinFormulaire2CaseACocher = ['Ne pas montrer de schéma']
@@ -111,6 +111,9 @@ export default class ConstruireUnTriangle extends Exercice {
           break
         case 10:
           typesDeQuestionsDisponibles = [3, 4, 5, 6, 7]
+          break        
+          case 11:
+          typesDeQuestionsDisponibles = [3, 4, 7]
           break
         default:
           typesDeQuestionsDisponibles = [1, 2]

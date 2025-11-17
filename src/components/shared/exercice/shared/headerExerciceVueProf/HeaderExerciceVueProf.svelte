@@ -1,16 +1,16 @@
 <script lang="ts">
   import { createEventDispatcher } from 'svelte'
-  import BoutonMonter from './BoutonMonter.svelte'
-  import BoutonDescendre from './BoutonDescendre.svelte'
-  import {
-    globalOptions,
-    exercicesParams,
-  } from '../../../../../lib/stores/generalStore'
-  import InteractivityIcon from '../../../icons/TwoStatesIcon.svelte'
-  import uuidsRessources from '../../../../../json/uuidsRessources.json'
   import refProfs from '../../../../../json/referentielProfs.json'
+  import uuidsRessources from '../../../../../json/uuidsRessources.json'
   import { toMap } from '../../../../../lib/components/toMap'
   import { mathaleaGenerateSeed } from '../../../../../lib/mathalea'
+  import {
+    exercicesParams,
+    globalOptions,
+  } from '../../../../../lib/stores/generalStore'
+  import InteractivityIcon from '../../../icons/TwoStatesIcon.svelte'
+  import BoutonDescendre from './BoutonDescendre.svelte'
+  import BoutonMonter from './BoutonMonter.svelte'
 
   // paramètres obligatoires
   export let title: string | undefined
@@ -140,7 +140,7 @@
       {#key titleAddendum}
         <div
           id="exotitle-{indiceExercice}"
-          class="flex flex-row justify-start whitespace-pre-wrap text-start font-normal items-center text-sm md:text-base xl:text-lg pl-0
+          class="text-sm md:text-base xl:text-lg pl-0
         {id && id.length !== 0 ? 'lg:pl-0' : 'lg:pl-4'}"
         >
           {titleBase}

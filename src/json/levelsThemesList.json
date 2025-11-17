@@ -1209,7 +1209,7 @@
     "titre": "Placer une fraction sur une demi-droite graduée dans des cas simples (Exemple de mise en oeuvre : 7/3 comme 7 partagé en 3 et non comme 7 fois 1/3)."
   },
   "6N3E": {
-    "titre": "Graduer un segment de longueur donnée a. (Exemple de mise en oeuvre : Plier en 2, 4, 8... ou bien avec un guide-âne : possible numériquement ?)"
+    "titre": "Graduer un segment de longueur donnée a. (Exemple de mise en oeuvre : Plier en 2, 4, 8... ou bien avec un guide-âne)"
   },
   "6N3F": {
     "titre": "Savoir que la fraction a/b peut représenter un nombre entier, un nombre décimal non entier ou un nombre non décimal"

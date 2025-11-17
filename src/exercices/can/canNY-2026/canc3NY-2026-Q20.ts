@@ -28,15 +28,15 @@ export default class resoudreUnProblemeArgent extends ExerciceSimple {
   }
 
   nouvelleVersion() {
-    const prenoms = prenomF(2)
-
-    const a = randint(5, 15) * 100
-    this.reponse = 2025 - a
-    this.question = `${prenoms[0]} et ${prenoms[1]} ont ensemble $${texNombre(2025, 0)}$ €.<br>
+    const prenoms = this.canOfficielle ? ['Charly', 'Samuel'] : prenomF(2)
+const annee = 2026
+    const a = this.canOfficielle ? 500 : randint(5, 15) * 100
+    this.reponse = annee - a
+    this.question = `${prenoms[0]} et ${prenoms[1]} ont ensemble $${texNombre(annee, 0)}$ €.<br>
      ${prenoms[0]} a $${texNombre(a, 0)}$ €.<br>
        Combien a ${prenoms[1]} ?`
 
-    this.correction = `$${texNombre(2025, 0)}-${texNombre(a, 0)}=${texNombre(this.reponse, 0)}$.<br>
+    this.correction = `$${texNombre(annee, 0)}-${texNombre(a, 0)}=${texNombre(this.reponse, 0)}$.<br>
     ${prenoms[1]} a $${miseEnEvidence(texNombre(this.reponse, 0))}$ €.`
 
     if (this.interactif) {

@@ -27,15 +27,16 @@ export default class intersectionIntervalles extends ExerciceSimple {
   }
 
   nouvelleVersion() {
-    const a = -2024
-    const b = randint(-10, 5)
-    const c = a + randint(1, 9)
-    const d = 2025
-    const choix = choice([true, false])
-    const crochet1 = choice([']', '['])
-    const crochet2 = choice([']', '['])
-    const crochet3 = choice([']', '['])
-    const crochet4 = choice([']', '['])
+    const annee = 2026
+    const a = -annee-1
+    const b = this.canOfficielle ? 3 : randint(-10, 5)
+    const c = this.canOfficielle ? a+1 : a+randint(1, 9)
+    const d = annee
+    const choix = this.canOfficielle ? true : choice([true, false])
+    const crochet1 = this.canOfficielle ? ']' : choice([']', '['])
+    const crochet2 = this.canOfficielle ? ']' : choice([']', '['])
+    const crochet3 = this.canOfficielle ? ']' : choice([']', '['])
+    const crochet4 = this.canOfficielle ? ']' : choice([']', '['])
     this.reponse = `${crochet3}${c};${b}${crochet2}`
     this.question = `Donner une écriture simplifiée de
           ${choix ? `$${crochet1} ${texNombre(a)}\\,;\\,${texNombre(b)}${crochet2}\\,\\cap \\,${crochet3}${texNombre(c)}\\,;\\,${texNombre(d)}${crochet4}$` : `$${crochet3}${texNombre(c)}\\,;\\,${texNombre(d)}${crochet4}\\,\\cap \\,${crochet1} ${texNombre(a)}\\,;\\,${texNombre(b)}${crochet2}$`}`

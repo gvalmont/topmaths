@@ -124,12 +124,50 @@ export async function getSvelteComponent(paramsExercice: InterfaceParams) {
 }
 
 // Vérification serveur réelle
-async function checkHEAD(url: string): Promise<boolean> {
+async function checkHEAD(
+  url: string,
+): Promise<{ reachable: boolean; status: number | null }> {
+  // 1. Tentative CORS (pour obtenir status si possible)
   try {
-    const res = await fetch(url, { method: 'HEAD', cache: 'no-cache' })
-    return res.ok
-  } catch (_) {
-    return false
+    const res = await fetch(url, {
+      method: 'HEAD',
+      cache: 'no-cache',
+      mode: 'cors',
+    })
+
+    // Ici, CORS autorise → on a un vrai statut
+    console.log('🔍 CORS OK → vrai statut :', res.status)
+
+    return {
+      reachable: true,
+      status: res.status,
+    }
+  } catch (err) {
+    console.warn('⚠️ CORS a bloqué ou autre erreur :', err)
+  }
+
+  // 2. Fallback NO-CORS : détecter si le serveur répond (statut inaccessible)
+  try {
+    await fetch(url, {
+      method: 'HEAD',
+      cache: 'no-cache',
+      mode: 'no-cors',
+    })
+
+    // Si on arrive ici → le serveur a répondu, mais sans CORS
+    console.log('🌐 Serveur répond (no-cors), statut inaccessible')
+
+    return {
+      reachable: true,
+      status: null, // on ne peut pas savoir
+    }
+  } catch (err) {
+    console.error('❌ Serveur totalement injoignable :', err)
+
+    return {
+      reachable: false,
+      status: null,
+    }
   }
 }
 
@@ -242,14 +280,24 @@ export async function mathaleaLoadExerciceFromUuid(uuid: string) {
         await showPopupAndWait()
       }
       if (pathToCheck !== '') {
-        const exists = await checkHEAD(pathToCheck)
-        // Si exists = false → bingo, c’est un problème de disponibilité du chunk.
-        // si exists = true MAIS l'import échoue → problème HTTP/2 / compression / LSCache.
-        // Dans les deux cas → infrastructure, pas ton code.
-        window.notify(
-          `Load failed: ${pathToCheck} (exists on server: ${exists})`,
-          { error, exists },
-        )
+        // ---- Extraction du vrai chemin dans l'erreur ----
+        let url: string = ''
+        if (error instanceof Error && error.message) {
+          // on recupère la vraie requete pour trouver le chunk qui pose problème
+          const match = error.message.match(/https?:\/\/[^\s)]+/)
+          if (match) url = match[0]
+        }
+
+        if (url !== '') {
+          const exists = await checkHEAD(url)
+          // Si exists = false → bingo, c’est un problème de disponibilité du chunk.
+          // si exists = true MAIS l'import échoue → problème HTTP/2 / compression / LSCache.
+          // Dans les deux cas → infrastructure, pas ton code.
+          window.notify(
+            `Load failed: ${url} (exists on server: ${exists.reachable} status: ${exists.status})`,
+            { error, exists },
+          )
+        }
       }
       window.notify(
         `Un exercice ne s'est pas affiché ${attempts} fois: uuid:${uuid} ,filename: ${directory}/${filename}, serverUpdated: ${serverUpdated}`,

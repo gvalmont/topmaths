@@ -213,8 +213,8 @@ export default class nomExercice extends Exercice {
 
       if (this.questionJamaisPosee(i, texte)) {
         if (!this.interactif) {
-          texte = texte.replaceAll('unités', 'cm')
-          texteCorr = texteCorr.replaceAll('unités', 'cm')
+          texte = texte.replaceAll('unités', '$\\text{cm}$')
+          texteCorr = texteCorr.replaceAll('unités', '$\\text{cm}$')
         }
         this.listeQuestions[i] = texte
         this.listeCorrections[i] = texteCorr

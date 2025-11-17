@@ -1,8 +1,8 @@
-import ExerciceSimple from '../../ExerciceSimple'
+import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
+import { choice } from '../../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { texNombre } from '../../../lib/outils/texNombre'
-import { choice } from '../../../lib/outils/arrayOutils'
-import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
+import ExerciceSimple from '../../ExerciceSimple'
 
 export const titre = 'Calculer avec les chiffres'
 export const interactifReady = true
@@ -17,7 +17,7 @@ export const refs = {
  * @author Eric Elter + Gilles Mora
 
 */
-export default class calcAvecChiffres extends ExerciceSimple {
+export default class calcAvecChiffres2026 extends ExerciceSimple {
   constructor() {
     super()
     this.typeExercice = 'simple' // Cette ligne est très importante pour faire un exercice simple !
@@ -27,20 +27,20 @@ export default class calcAvecChiffres extends ExerciceSimple {
   }
 
   nouvelleVersion() {
-    const choix = choice([1, 2, 3])
-
+    const choix = this.canOfficielle ? 1 : choice([1, 2, 3])
+    const annee = 2026
     if (choix === 1) {
-      this.question = '$2+0+2+5$'
-      this.correction = `$2+0+2+5=${miseEnEvidence(texNombre(9, 0))}$`
-      this.reponse = 9
+      this.question = `$2+0+2+${annee % 10}$`
+      this.correction = `$2+0+2+${annee % 10}=${miseEnEvidence(texNombre(4 + (annee % 10), 0))}$`
+      this.reponse = 4 + (annee % 10)
     } else if (choix === 2) {
-      this.question = '$20+25$'
-      this.correction = `$20+25= ${miseEnEvidence(texNombre(45, 0))}$`
-      this.reponse = 45
+      this.question = `$20+${annee % 100}$`
+      this.correction = `$20+25= ${miseEnEvidence(texNombre(20 + (annee % 100), 0))}$`
+      this.reponse = 20 + (annee % 100)
     } else if (choix === 3) {
-      this.question = '$202+5$'
-      this.correction = `$202+5=${miseEnEvidence(texNombre(207, 0))}$`
-      this.reponse = 207
+      this.question = `$202+${annee % 10}$`
+      this.correction = `$202+${annee % 10}=${miseEnEvidence(texNombre(202 + (annee % 10), 0))}$`
+      this.reponse = 202 + (annee % 10)
     }
     this.canEnonce = this.question
     this.canReponseACompleter = ''

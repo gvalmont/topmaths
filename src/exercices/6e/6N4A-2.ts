@@ -221,8 +221,8 @@ export const triathlon: FonctionProbleme = (
   const distanceVelo = distanceNatation * 15 // en mètres
   const distanceCourse = distanceNatation * 5 // en mètres
   const total = distanceNatation + distanceVelo + distanceCourse
-  const enonce = `${prenom} participe à un triathlon. Il nage zone0 m, fait du vélo sur zone1 m et court sur zone2 m. Quelle distance totale a-t-${pronom} parcourue ?<br><br>
-      Réponse : ${prenom} a parcouru au total : $${texNombre(distanceNatation, 0)}+${texNombre(distanceVelo, 0)}+${texNombre(distanceCourse, 0)} = $ zone3 m.`
+  const enonce = `${prenom} participe à un triathlon. Il nage zone0 $\\text{m}$, fait du vélo sur zone1 $\\text{m}$ et court sur zone2 $\\text{m}$. Quelle distance totale a-t-${pronom} parcourue ?<br><br>
+      Réponse : ${prenom} a parcouru au total : $${texNombre(distanceNatation, 0)}+${texNombre(distanceVelo, 0)}+${texNombre(distanceCourse, 0)} = $ zone3 $\\text{m}$.`
   const barre = SchemaEnBoite.additionPartiesTout('zone3', 2, [
     'zone0',
     'zone1',
@@ -248,7 +248,7 @@ export const etapeDeMontagne: FonctionProbleme = (
   const ascension3 =
     randint(5, 25, [ascension1 / 100, ascension2 / 100].map(Math.round)) * 50 // en mètres
   const total = ascension1 + ascension2 + ascension3
-  const enonce = `${prenom} effectue à vélo une étape de montagne du tour de France. ${premiereLettreEnMajuscule(pronom)} grimpe trois cols qui ont les dénivelés suivants : zone0 m pour le premier col, zone1 m pour le deuxième et zone2 m pour le dernier. Quelle dénivelé cumulé a-t-${pronom} grimpé ?<br><br>
+  const enonce = `${prenom} effectue à vélo une étape de montagne du tour de France. ${premiereLettreEnMajuscule(pronom)} grimpe trois cols qui ont les dénivelés suivants : zone0 $\\text{m}$ pour le premier col, zone1 $\\text{m}$ pour le deuxième et zone2 $\\text{m}$ pour le dernier. Quelle dénivelé cumulé a-t-${pronom} grimpé ?<br><br>
       Réponse : ${prenom} a grimpé au total en $\\text{ m}$ : $${texNombre(ascension1, 0)}+${texNombre(ascension2, 0)}+${texNombre(ascension3)}=$ zone3.`
   const barre = SchemaEnBoite.additionPartiesTout('zone3', 2, [
     'zone0',
@@ -275,8 +275,8 @@ export const randonnee: FonctionProbleme = (
   const distance3 =
     randint(10, 15, [distance1 / 300, distance2 / 300].map(Math.round)) * 100 // en mètres
   const total = distance1 + distance2 + distance3
-  const enonce = `${prenom} part en randonnée. ${premiereLettreEnMajuscule(pronom)} marche zone0 m avant sa première halte, puis zone1 m avant le repas de midi et enfin zone2 m. Quelle distance totale a-t-${pronom} parcourue ?<br><br>
-      Réponse : ${prenom} a parcouru au total : $${texNombre(distance1, 0)}+${texNombre(distance2, 0)}+${texNombre(distance3, 0)}=$ zone3 m.`
+  const enonce = `${prenom} part en randonnée. ${premiereLettreEnMajuscule(pronom)} marche zone0 $\\text{m}$ avant sa première halte, puis zone1 $\\text{m}$ avant le repas de midi et enfin zone2 $\\text{m}$. Quelle distance totale a-t-${pronom} parcourue ?<br><br>
+      Réponse : ${prenom} a parcouru au total : $${texNombre(distance1, 0)}+${texNombre(distance2, 0)}+${texNombre(distance3, 0)}=$ zone3 $\\text{m}$.`
   const barre = SchemaEnBoite.additionPartiesTout('zone3', 2, [
     'zone0',
     'zone1',
@@ -333,7 +333,7 @@ const triathlon2: FonctionProbleme = (
   const distanceCourse = distanceNatation * 5 // en mètres
   const total = distanceNatation + distanceVelo + distanceCourse
   const totalInter = distanceNatation + distanceCourse
-  const enonce = `${prenom} participe à un triathlon. Il nage zone0 m, fait ensuite du vélo et ensuite court sur zone2 m. ${premiereLettreEnMajuscule(pronom)} a parcouru en tout zone3 m. Quelle distance a-t-${pronom} parcourue à vélo ?<br><br>
+  const enonce = `${prenom} participe à un triathlon. Il nage zone0 $\\text{m}$, fait ensuite du vélo et ensuite court sur zone2 $\\text{m}$. ${premiereLettreEnMajuscule(pronom)} a parcouru en tout zone3 $\\text{m}$. Quelle distance a-t-${pronom} parcourue à vélo ?<br><br>
       Réponse :<br>
       - Calcul de la distance parcourue en nage et en course à pied en $\\text{ m}$ : $${texNombre(distanceNatation, 0)}+${texNombre(distanceCourse, 0)}=${texNombre(totalInter, 0)}$<br>
       - Distance parcourue à vélo en $\\text{ m}$ : $${texNombre(total, 0)}-${texNombre(totalInter, 0)}=$ zone1.`
@@ -363,8 +363,8 @@ export const etapeDeMontagne2: FonctionProbleme = (
   const ascension3 =
     randint(5, 25, [ascension1 / 100, ascension2 / 100].map(Math.round)) * 50 // en mètres
   const total = ascension1 + ascension2 + ascension3
-  const enonce = `${prenom} effectue à vélo une étape de montagne du tour de France. ${premiereLettreEnMajuscule(pronom)} grimpe trois cols qui ont les dénivelés suivants : zone0 m pour le premier col et zone2 m pour le dernier. ${premiereLettreEnMajuscule(pronom)} a grimpé au total zone3 m. Combien de mètres a-t-${pronom} grimpé lors de l'ascension du deuxième col ?<br><br>
-      Réponse : ${prenom} a grimpé zone1 m au deuxième col.`
+  const enonce = `${prenom} effectue à vélo une étape de montagne du tour de France. ${premiereLettreEnMajuscule(pronom)} grimpe trois cols qui ont les dénivelés suivants : zone0 $\\text{m}$ pour le premier col et zone2 $\\text{m}$ pour le dernier. ${premiereLettreEnMajuscule(pronom)} a grimpé au total zone3 $\\text{m}$. Combien de mètres a-t-${pronom} grimpé lors de l'ascension du deuxième col ?<br><br>
+      Réponse : ${prenom} a grimpé zone1 $\\text{m}$ au deuxième col.`
   const barre = SchemaEnBoite.additionPartiesTout('zone3', 2, [
     'zone0',
     'zone1',
@@ -390,7 +390,7 @@ export const randonnee2: FonctionProbleme = (
     randint(10, 15, [distance1 / 300, distance2 / 300].map(Math.round)) * 100 // en mètres
   const total = distance1 + distance2 + distance3
   const totalInter = distance1 + distance2
-  const enonce = `${prenom} part en randonnée. ${premiereLettreEnMajuscule(pronom)} marche zone0 m avant sa première halte, ${pronom} marche encore un peu avant le repas de midi et repart ensuite pour éffectuer zone2 m. ${premiereLettreEnMajuscule(pronom)} a parcouru au total zone3 m. Quelle distance a-t-${pronom} parcourue entre sa halte matinale et le repas de midi ?<br><br>
+  const enonce = `${prenom} part en randonnée. ${premiereLettreEnMajuscule(pronom)} marche zone0 $\\text{m}$ avant sa première halte, ${pronom} marche encore un peu avant le repas de midi et repart ensuite pour éffectuer zone2 $\\text{m}$. ${premiereLettreEnMajuscule(pronom)} a parcouru au total zone3 $\\text{m}$. Quelle distance a-t-${pronom} parcourue entre sa halte matinale et le repas de midi ?<br><br>
          Réponse :<br>
       - Calcul de la distance parcourue le matin en $\\text{ m}$ : $${texNombre(distance1, 0)}+${texNombre(distance2, 0)}=${texNombre(totalInter, 0)}$<br>
       - Distance parcourue l'après-midi en $\\text{ m}$ : $${texNombre(total, 0)}-${texNombre(totalInter, 0)}=$ zone2.`
@@ -485,7 +485,7 @@ export const partageDuTemps: FonctionProbleme = (
     tempsRestant = tempsTotal % tempsParSujet
   } while (tempsRestant === 0 || nbSujets < 2)
 
-  const enonce = `${prenom} veut réviser avant un examen. ${premiereLettreEnMajuscule(pronom)} dispose de zone0 jours de révision et décide de travailler zone1 minutes chaque jour. Chaque thème à réviser demande zone2 minutes de révisions et il restera ${tempsRestant} minutes à la fin pour faire un bilan de ses révisions. Combien de thèmes a-t-${pronom} à réviser ?<br><br>
+  const enonce = `${prenom} veut réviser avant un examen. ${premiereLettreEnMajuscule(pronom)} dispose de zone0 jours de révision et décide de travailler zone1 $\\text{m}$inutes chaque jour. Chaque thème à réviser demande zone2 $\\text{m}$inutes de révisions et il restera ${tempsRestant} minutes à la fin pour faire un bilan de ses révisions. Combien de thèmes a-t-${pronom} à réviser ?<br><br>
     Réponse :<br>
     - Calcul du temps de révision total : $${nbJours} \\times ${tempsParJour} = ${tempsTotal}$ minutes.<br>
     - Calcul du temps hors bilan : $${tempsTotal}-${tempsRestant}=${tempsTotal - tempsRestant}$.<br>
@@ -548,7 +548,7 @@ export const preparationCulinaire: FonctionProbleme = (
     nombrePartsParMoule === nombreAssiettes ||
     nombrePartsParAssiette === nombreAssiettes
   )
-  const enonce = `${prenom} prépare des ${produit}. ${premiereLettreEnMajuscule(pronom)} utilise zone0 moules, chacun pouvant contenir zone1 parts. Quand ${pronom} les
+  const enonce = `${prenom} prépare des ${produit}. ${premiereLettreEnMajuscule(pronom)} utilise zone0 $\\text{m}$oules, chacun pouvant contenir zone1 parts. Quand ${pronom} les
  range dans des assiettes, chaque assiette contient zone2 parts et il en reste ${nombrePartsRestantes}. Combien d'assiettes a-t-${pronom} prévues ?<br><br>
   Réponse :<br>
   - Calcul du nombre de ${produit} total : $${nombreMoules} \\times ${nombrePartsParMoule} = ${nombreMoules * nombrePartsParMoule}$.<br>

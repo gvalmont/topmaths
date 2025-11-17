@@ -24,37 +24,70 @@ export default class multiple extends ExerciceSimple {
   }
 
   nouvelleVersion() {
-    const a = choice([2, 5, 3, 10])
-    this.autoCorrection[0] = {
-      options: { ordered: true },
-      enonce: `$${texNombre(2025, 0)}$ est-il un multiple de $${a}$ ? `,
-      propositions: [
-        {
-          texte: 'OUI',
-          statut: a === 3 || a === 5 || a === 3 || a === 5,
-        },
-        {
-          texte: 'NON',
-          statut: a === 2 || a === 10,
-        },
-      ],
+  const a = this.canOfficielle ? 3 :choice([2, 5, 3, 9, 10])
+  const annee = 2026
+  
+  this.autoCorrection[0] = {
+    options: { ordered: true },
+    enonce: `$${texNombre(annee)}$ est-il un multiple de $${a}$ ? `,
+    propositions: [
+      {
+        texte: 'OUI',
+        statut: annee % a === 0,
+      },
+      {
+        texte: 'NON',
+        statut: annee % a !== 0,
+      },
+    ],
+  }
+  
+  const qcm = propositionsQcm(this, 0)
+  this.question = `$${texNombre(annee)}$ est-il un multiple de $${a}$ ? ` + qcm.texte
+  this.canEnonce = `$${texNombre(annee)}$ est-il un multiple de $${a}$ ? `
+  this.canReponseACompleter = `OUI ${sp(7)} NON`
+  
+  // Correction selon la valeur de a
+  if (a === 2) {
+    if (annee % 2 === 0) {
+      this.correction = `$${texNombre(annee)}$ a pour chiffre des unités $${annee.toString().charAt(annee.toString().length - 1)}$ qui est pair. <br>
+      Donc $${texNombre(annee)}$ est un multiple de $2$.`
+    } else {
+      this.correction = `$${texNombre(annee)}$ a pour chiffre des unités $${annee.toString().charAt(annee.toString().length - 1)}$ qui n'est pas pair. <br>
+      Donc $${texNombre(annee)}$ n'est pas un multiple de $2$.`
     }
-    const qcm = propositionsQcm(this, 0)
-    this.question =
-      `$${texNombre(2025, 0)}$ est-il un multiple de $${a}$ ? ` + qcm.texte
-    this.canEnonce = `$${texNombre(2025, 0)}$ est-il un multiple de $${a}$ ? `
-    this.canReponseACompleter = `OUI ${sp(7)} NON`
-    if (a === 2 || a === 10) {
-      this.correction = `$${texNombre(2025, 0)}$  a pour chiffre des unités $5$ qui ${a === 2 ? "n'est pas pair" : "n'est pas $0$"}. <br>
-    Donc  $${texNombre(2025, 0)}$  n'est pas un multiple de ${a === 2 ? '$2$' : '$10$'}.`
+  } else if (a === 3) {
+    if (annee % 3 === 0) {
+      this.correction = `La somme des chiffres de $${texNombre(annee)}$ est divisible par $3$. <br>
+      Donc $${texNombre(annee)}$ est un multiple de $3$.`
+    } else {
+      this.correction = `La somme des chiffres de $${texNombre(annee)}$ n'est pas divisible par $3$. <br>
+      Donc $${texNombre(annee)}$ n'est pas un multiple de $3$.`
     }
-    if (a === 3) {
-      this.correction = `La somme des chiffres de $${texNombre(2025, 0)}$ est $2+0+2+5=9$ qui est divisible par ${a === 3 ? '$3$' : '$9$'}. <br>
-        Donc  $${texNombre(2025)}$  est un multiple de ${a === 3 ? '$3$' : '$9$'}.`
+  } else if (a === 5) {
+    if (annee % 5 === 0) {
+      this.correction = `$${texNombre(annee)}$ a pour chiffre des unités $${annee.toString().charAt(annee.toString().length - 1)}$. <br>
+      Donc $${texNombre(annee)}$ est un multiple de $5$.`
+    } else {
+      this.correction = `$${texNombre(annee)}$ a pour chiffre des unités $${annee.toString().charAt(annee.toString().length - 1)}$. <br>
+      Donc $${texNombre(annee)}$ n'est pas un multiple de $5$.`
     }
-    if (a === 5) {
-      this.correction = `$${texNombre(2025, 0)}$  a pour chiffre des unités $5$. <br>
-    Donc  $${texNombre(2025, 0)}$  est un multiple de $5$.`
+  } else if (a === 9) {
+    if (annee % 9 === 0) {
+      this.correction = `La somme des chiffres de $${texNombre(annee)}$ est divisible par $9$. <br>
+      Donc $${texNombre(annee)}$ est un multiple de $9$.`
+    } else {
+      this.correction = `La somme des chiffres de $${texNombre(annee)}$ n'est pas divisible par $9$. <br>
+      Donc $${texNombre(annee)}$ n'est pas un multiple de $9$.`
+    }
+  } else if (a === 10) {
+    if (annee % 10 === 0) {
+      this.correction = `$${texNombre(annee)}$ a pour chiffre des unités $${annee.toString().charAt(annee.toString().length - 1)}$. <br>
+      Donc $${texNombre(annee)}$ est un multiple de $10$.`
+    } else {
+      this.correction = `$${texNombre(annee)}$ a pour chiffre des unités $${annee.toString().charAt(annee.toString().length - 1)}$. <br>
+      Donc $${texNombre(annee)}$ n'est pas un multiple de $10$.`
     }
   }
+}
 }

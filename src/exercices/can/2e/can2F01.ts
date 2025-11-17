@@ -39,7 +39,7 @@ export default class CalculImageSecondDegre extends ExerciceSimple {
   nouvelleVersion() {
     let x, a, b, c, d, expression
     switch (
-      choice(['a', 'b', 'c', 'd']) //,
+      choice(['a', 'b', 'c', 'd']) 
     ) {
       case 'a':
         x = this.versionQcm ? randint(-5, -1) : randint(1, 4)
@@ -56,15 +56,15 @@ export default class CalculImageSecondDegre extends ExerciceSimple {
         if (a === 1 && b !== 1) {
           this.correction = `On a : <br>
           $\\begin{aligned}
-          f(${x})&= ${x}^2+${b}\\times ${ecritureParentheseSiNegatif(x)}+${c}\\\\
+          f(${x})&= ${ecritureParentheseSiNegatif(x)}^2+${b}\\times ${ecritureParentheseSiNegatif(x)}+${c}\\\\
           &=${x * x}${ecritureAlgebrique(b * x)}+${c}\\\\
           &= ${a * x * x}${ecritureAlgebrique(b * x)}+${c}\\\\
           &=${miseEnEvidence(a * x * x + b * x + c)}
           \\end{aligned}$<br>`
           this.correction += texteEnCouleur(
             ` Mentalement : <br>
-          On commence par calculer le carré de $${x}$, soit $${x}^2=${texNombre(x ** 2)}$. <br>
-   On calcule $${b}\\times ${x}$ que l'on ajoute à $${texNombre(a * x ** 2)}$, soit $${a * x ** 2}+${b * x}=${a * x ** 2 + b * x}$.<br>
+          On commence par calculer le carré de $${x}$, soit $${ecritureParentheseSiNegatif(x)}^2=${texNombre(x ** 2)}$. <br>
+   On calcule $${b}\\times ${ecritureParentheseSiNegatif(x)}$ que l'on ajoute à $${texNombre(a * x ** 2)}$, soit $${a * x ** 2}+${ecritureParentheseSiNegatif(b * x)}=${a * x ** 2 + b * x}$.<br>
   Pour finir, on ajoute   $${c}$, ce qui donne $${texNombre(a * x ** 2 + b * x)}+${c}$, soit $${texNombre(a * x ** 2 + b * x + c)}$.<br>
     `,
             'blue',
@@ -73,16 +73,16 @@ export default class CalculImageSecondDegre extends ExerciceSimple {
         if (a !== 1 && b !== 1) {
           this.correction = `On a :<br>
           $\\begin{aligned}
-          f(${x})&=${a}\\times${x}^2+${b}\\times ${x}+${c}\\\\
+          f(${x})&=${a}\\times${ecritureParentheseSiNegatif(x)}^2+${b}\\times ${ecritureParentheseSiNegatif(x)}+${c}\\\\
           &=${a}\\times ${x * x}${ecritureAlgebrique(b * x)}+${c}\\\\
           &=${a * x * x}${ecritureAlgebrique(b * x)}+${c}\\\\
           &=${miseEnEvidence(a * x * x + b * x + c)}
           \\end{aligned}$.<br>`
           this.correction += texteEnCouleur(
             ` Mentalement : <br>
-              On commence par calculer le carré de $${x}$, soit $${x}^2=${texNombre(x ** 2)}$. <br>
+              On commence par calculer le carré de $${x}$, soit $${ecritureParentheseSiNegatif(x)}^2=${texNombre(x ** 2)}$. <br>
      On multiplie ensuite cette valeur par le coefficient devant $x^2$, soit $${a}\\times ${texNombre(x ** 2)}=${texNombre(a * x ** 2)}$.<br>
-      On calcule $${b}\\times ${x}$ que l'on ajoute à $${texNombre(a * x ** 2)}$, soit $${a * x ** 2}+${b * x}=${a * x ** 2 + b * x}$.<br>
+      On calcule $${b}\\times ${ecritureParentheseSiNegatif(x)}$ que l'on ajoute à $${texNombre(a * x ** 2)}$, soit $${a * x ** 2}+${ecritureParentheseSiNegatif(b * x)}=${a * x ** 2 + b * x}$.<br>
       Pour finir, on ajoute   $${c}$, ce qui donne $${texNombre(a * x ** 2 + b * x)}+${c}$, soit $${texNombre(a * x ** 2 + b * x + c)}$.<br>
         `,
             'blue',
@@ -91,14 +91,14 @@ export default class CalculImageSecondDegre extends ExerciceSimple {
         if (a === 1 && b === 1) {
           this.correction = `On a :<br>
           $\\begin{aligned}
-          f(${x})&=${x}^2+ ${x}+${c}\\\\
-          &=${x * x}+${x}+${c}\\\\
+          f(${x})&=${ecritureParentheseSiNegatif(x)}^2+ ${ecritureParentheseSiNegatif(x)}+${c}\\\\
+          &=${x * x}+${ecritureParentheseSiNegatif(x)}+${c}\\\\
           &=${miseEnEvidence(x * x + b * x + c)}
           \\end{aligned}$<br>`
           this.correction += texteEnCouleur(
             ` Mentalement : <br>
-          On commence par calculer le carré de $${x}$, soit $${x}^2=${texNombre(x ** 2)}$. <br>
-   On ajoute  $${x}$ soit $${a * x ** 2}+${x}=${x ** 2 + b * x}$.<br>
+          On commence par calculer le carré de $${x}$, soit $${ecritureParentheseSiNegatif(x)}^2=${texNombre(x ** 2)}$. <br>
+   On ajoute  $${x}$ soit $${a * x ** 2}+${ecritureParentheseSiNegatif(x)}=${x ** 2 + b * x}$.<br>
   Pour finir, on ajoute   $${c}$, ce qui donne $${texNombre(a * x ** 2 + b * x)}+${c}$, soit $${texNombre(a * x ** 2 + b * x + c)}$.<br>
     `,
             'blue',
@@ -107,16 +107,16 @@ export default class CalculImageSecondDegre extends ExerciceSimple {
         if (a !== 1 && b === 1) {
           this.correction = `On a :<br>
           $\\begin{aligned}
-          f(${x})&=${a}\\times${x}^2+${b}\\times ${ecritureParentheseSiNegatif(x)}+${c}\\\\
+          f(${x})&=${a}\\times${ecritureParentheseSiNegatif(x)}^2+${b}\\times ${ecritureParentheseSiNegatif(x)}+${c}\\\\
           &=${a}\\times ${x * x}${ecritureAlgebrique(b * x)}+${c}\\\\
           &=${a * x * x}${ecritureAlgebrique(b * x)}+${c}\\\\
           &=${miseEnEvidence(a * x * x + b * x + c)}
           \\end{aligned}$<br>`
           this.correction += texteEnCouleur(
             ` Mentalement : <br>
-          On commence par calculer le carré de $${x}$, soit $${x}^2=${texNombre(x ** 2)}$. <br>
+          On commence par calculer le carré de $${x}$, soit $${ecritureParentheseSiNegatif(x)}^2=${texNombre(x ** 2)}$. <br>
  On multiplie ensuite cette valeur par le coefficient devant $x^2$, soit $${a}\\times ${texNombre(x ** 2)}=${texNombre(a * x ** 2)}$.<br>
- On ajoute  $${x}$ soit $${a * x ** 2}+${x}=${a * x ** 2 + b * x}$.<br>
+ On ajoute  $${x}$ soit $${a * x ** 2}+${ecritureParentheseSiNegatif(x)}=${a * x ** 2 + b * x}$.<br>
   Pour finir, on ajoute   $${c}$, ce qui donne $${texNombre(a * x ** 2 + b * x)}+${c}$, soit $${texNombre(a * x ** 2 + b * x + c)}$.<br>
     `,
             'blue',

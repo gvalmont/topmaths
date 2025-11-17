@@ -1,17 +1,17 @@
-import Exercice from '../Exercice'
+import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
+import { functionCompare } from '../../lib/interactif/comparisonFunctions'
+import { handleAnswers } from '../../lib/interactif/gestionInteractif'
+import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
+import { miseEnEvidence } from '../../lib/outils/embellissements'
+import { texNombre } from '../../lib/outils/texNombre'
+import FractionEtendue from '../../modules/FractionEtendue'
 import {
   gestionnaireFormulaireTexte,
   listeQuestionsToContenu,
   randint,
 } from '../../modules/outils'
-import { handleAnswers } from '../../lib/interactif/gestionInteractif'
-import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
-import { texNombre } from '../../lib/outils/texNombre'
-import { miseEnEvidence } from '../../lib/outils/embellissements'
-import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
-import { functionCompare } from '../../lib/interactif/comparisonFunctions'
-import FractionEtendue from '../../modules/FractionEtendue'
+import Exercice from '../Exercice'
 export const titre = 'Calculer avec une probabilité conditionnelle'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -49,7 +49,6 @@ export default class CalculerProbaCond extends Exercice {
   nouvelleVersion() {
     const typesDeQuestionsDisponibles = gestionnaireFormulaireTexte({
       saisie: this.sup,
-      min: 1,
       max: 3,
       melange: 4,
       defaut: 4,

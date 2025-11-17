@@ -36,8 +36,7 @@ import Exercice from '../Exercice'
 import { arc } from '../../lib/2d/Arc'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { arrondi } from '../../lib/outils/nombres'
-export const titre =
-  'Utiliser les propriétés de conservation de la symétrie axiale'
+export const titre = 'Utiliser les propriétés de conservation de la symétrie'
 
 // Gestion de la date de publication initiale
 export const dateDePublication = '25/01/2023'

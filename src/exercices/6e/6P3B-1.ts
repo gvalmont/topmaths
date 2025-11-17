@@ -243,12 +243,12 @@ export default class ProportionnalitePasProportionnalite extends Exercice {
           index1 = new Decimal(x).div(n) // vitesse fille
           index2 = new Decimal(y).div(p) // vitesse garçon
 
-          texte = `${prenoms[0]} habite à $${texNombre(x, 0)}\\text{ m}$ du collège. Elle met ${n} minutes pour s'y rendre depuis chez elle.<br>`
-          texte += `${prenoms[1]}, lui, habite à $${texNombre(y, 0)}\\text{ m}$ du collège. Il met ${p} minutes pour s'y rendre depuis chez lui.<br>`
+          texte = `${prenoms[0]} habite à $${texNombre(x, 0)}\\text{ m}$ du collège. Elle met $${n}$ minutes pour s'y rendre depuis chez elle.<br>`
+          texte += `${prenoms[1]}, lui, habite à $${texNombre(y, 0)}\\text{ m}$ du collège. Il met $${p}$ minutes pour s'y rendre depuis chez lui.<br>`
           texte +=
             'Les durées de trajet pour venir au collège sont-elles proportionnelles aux distances parcourues ?<br>'
-          texteCorr = `${prenoms[0]} parcourt ${x} m en ${n} minutes soit environ $\\dfrac{${x}\\text{ m}}{${n}\\text{ min}} ${index1.eq(index1.toDP(1)) ? '=' : '\\approx'} ${texNombre(index1.toDP(1), 1)}\\text{ m}/_{\\text{ min}}$`
-          texteCorr += ` et ${prenoms[1]} parcourt ${y} m en ${p} minutes soit environ $\\dfrac{${y}\\text{ m}}{${p}\\text{ min}} ${index2.eq(index2.toDP(1)) ? '=' : '\\approx'} ${texNombre(index2.toDP(1))}\\text{ m}/_{\\text{ min}}$.<br>`
+          texteCorr = `${prenoms[0]} parcourt $${x}\\text{ m}$ en $${n}$ minutes soit environ $\\dfrac{${x}\\text{ m}}{${n}\\text{ min}} ${index1.eq(index1.toDP(1)) ? '=' : '\\approx'} ${texNombre(index1.toDP(1), 1)}\\text{ m}/_{\\text{ min}}$`
+          texteCorr += ` et ${prenoms[1]} parcourt $${y}\\text{ m}$ en $${p}$ minutes soit environ $\\dfrac{${y}\\text{ m}}{${p}\\text{ min}} ${index2.eq(index2.toDP(1)) ? '=' : '\\approx'} ${texNombre(index2.toDP(1))}\\text{ m}/_{\\text{ min}}$.<br>`
           if (index1.eq(index2)) {
             texteCorr +=
               "Pour ces deux élèves, le temps mis et la distance parcourue sont proportionnelles (si l'on compare leur vitesse moyenne)."

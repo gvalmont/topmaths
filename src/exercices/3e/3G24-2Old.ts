@@ -21,14 +21,13 @@ import { markTypeArray, MarqueAngle } from '../../lib/2d/MarkType'
 import { PointAbstrait, pointAbstrait } from '../../lib/2d/PointAbstrait'
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif' // fonction qui va préparer l'analyse de la saisie
-import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive' // fonctions de mise en place des éléments interactifs
+import { remplisLesBlancs } from '../../lib/interactif/questionMathLive' // fonctions de mise en place des éléments interactifs
 import {
   choice,
   combinaisonListes,
   shuffle,
   shuffleLettres,
 } from '../../lib/outils/arrayOutils'
-import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { texNombre } from '../../lib/outils/texNombre'
 import { context } from '../../modules/context'
 import {
@@ -43,17 +42,15 @@ export const interactifType = 'mathLive'
 
 export const titre = 'Calculer des longueurs avec des triangles semblables'
 export const dateDePublication = '30/12/2024' // La date de publication initiale au format 'jj/mm/aaaa' pour affichage temporaire d'un tag
-export const dateDeModifImportante = '16/11/2025'
 
-export const uuid = '58a6e'
+export const uuid = '58a64'
 export const refs = {
-  'fr-fr': ['3G24-2'],
-  'fr-ch': ['11GM3-9', '1mG3-2'],
+  'fr-fr': [''],
+  'fr-ch': [''],
 }
 /**
  * calcul de longueurs avec des triangles semblables
  * @author Olivier Mimeau
- * Modification de l'interactif et coloration des réponses par Eric Elter
  */
 export default class nomExercice extends Exercice {
   constructor() {
@@ -339,14 +336,13 @@ export default class nomExercice extends Exercice {
         objetsAAfficher2,
       )
       if (this.interactif && context.isHtml) {
-        texte += `Calculer les longueurs des segments $[${D.nom}${F.nom}]$ et $[${E.nom}${F.nom}]$.<br>`
+        texte += `Donner les longueurs des segments $[${D.nom}${F.nom}]$ et $[${E.nom}${F.nom}]$.<br>`
         texte += deuxColonnesResp(colonne1, colonne2, {
           largeur1: largeurCol,
           eleId: '',
           widthmincol1: '0px',
           widthmincol2: '0px',
         })
-        /*
         texte += remplisLesBlancs(
           this,
           i,
@@ -362,29 +358,6 @@ export default class nomExercice extends Exercice {
           champ1: { value: texNombre(longueurAC * coeff, 1) },
           champ2: { value: texNombre(longueurBC * coeff, 1) },
         })
-          */
-        texte += ajouteChampTexteMathLive(
-          this,
-          2 * i,
-          KeyboardType.clavierNumbers,
-          { texteApres: '$\\text{ cm}$', texteAvant: `$${D.nom}${F.nom} =$` },
-        )
-        handleAnswers(this, 2 * i, {
-          reponse: { value: texNombre(longueurAC * coeff, 1) },
-        })
-
-        texte += ajouteChampTexteMathLive(
-          this,
-          2 * i + 1,
-          KeyboardType.clavierNumbers,
-          {
-            texteApres: '$\\text{ cm}$',
-            texteAvant: `<br>$${E.nom}${F.nom} =$`,
-          },
-        )
-        handleAnswers(this, 2 * i + 1, {
-          reponse: { value: texNombre(longueurBC * coeff, 1) },
-        })
       } else {
         texte += `Calculer les longueurs des segments $[${D.nom}${F.nom}]$ et $[${E.nom}${F.nom}]$. Justifier.<br>`
         texte += deuxColonnesResp(colonne1, colonne2, {
@@ -397,12 +370,12 @@ export default class nomExercice extends Exercice {
       texteCorr = rediger(A, B, C, D, E, F, typeQuestionsDisponibles[i] === 3)
       if (typeQuestionsDisponibles[i] === 3) {
         texteCorr += `Le coefficient ${motAgrandissementReduction} est égal à $${texNombre(longueurDE, 1)} \\div  ${texNombre(longueurAB, 1)} = ${texNombre(coeff, 1)}$.<br>`
-        texteCorr += `donc $${D.nom}${F.nom} = ${texNombre(coeff, 1)} \\times ${A.nom}${C.nom} = ${texNombre(coeff, 1)} \\times ${texNombre(longueurAC, 1)} = ${miseEnEvidence(texNombre(longueurAC * coeff, 1))}\\text{ cm}$.<br>`
-        texteCorr += `donc $${E.nom}${F.nom} = ${texNombre(coeff, 1)} \\times ${B.nom}${C.nom} = ${texNombre(coeff, 1)} \\times ${texNombre(longueurBC, 1)} = ${miseEnEvidence(texNombre(longueurBC * coeff, 1))}\\text{ cm}$.`
+        texteCorr += `donc $${D.nom}${F.nom} = ${texNombre(coeff, 1)} \\times ${A.nom}${C.nom} = ${texNombre(coeff, 1)} \\times ${texNombre(longueurAC, 1)} = ${texNombre(longueurAC * coeff, 1)}\\text{ cm}$.<br>`
+        texteCorr += `donc $${E.nom}${F.nom} = ${texNombre(coeff, 1)} \\times ${B.nom}${C.nom} = ${texNombre(coeff, 1)} \\times ${texNombre(longueurBC, 1)} = ${texNombre(longueurBC * coeff, 1)}\\text{ cm}$.`
       } else {
         texteCorr += `Les côtés $[${D.nom}${E.nom}]$ et $[${A.nom}${B.nom}]$ sont homologues et on remarque que $${D.nom}${E.nom} = ${texNombre(longueurDE, 1)}= ${texNombre(coeff, 1)} \\times ${texNombre(longueurAB, 1)}$.<br>`
-        texteCorr += `donc $${D.nom}${F.nom} = ${texNombre(coeff, 1)} \\times ${A.nom}${C.nom} = ${texNombre(coeff, 1)} \\times ${texNombre(longueurAC, 1)} = ${miseEnEvidence(texNombre(longueurAC * coeff, 1))}\\text{ cm}$.<br>`
-        texteCorr += `donc $${E.nom}${F.nom} = ${texNombre(coeff, 1)} \\times ${B.nom}${C.nom} = ${texNombre(coeff, 1)} \\times ${texNombre(longueurBC, 1)} = ${miseEnEvidence(texNombre(longueurBC * coeff, 1))}\\text{ cm}$.`
+        texteCorr += `donc $${D.nom}${F.nom} = ${texNombre(coeff, 1)} \\times ${A.nom}${C.nom} = ${texNombre(coeff, 1)} \\times ${texNombre(longueurAC, 1)} = ${texNombre(longueurAC * coeff, 1)}\\text{ cm}$.<br>`
+        texteCorr += `donc $${E.nom}${F.nom} = ${texNombre(coeff, 1)} \\times ${B.nom}${C.nom} = ${texNombre(coeff, 1)} \\times ${texNombre(longueurBC, 1)} = ${texNombre(longueurBC * coeff, 1)}\\text{ cm}$.`
       }
 
       if (

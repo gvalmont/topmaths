@@ -131,7 +131,7 @@ Il suffit donc de reporter $${num % den}$ fois la distance entre $0$ et $${fract
           droiteCorrectionOpti,
         )
       }
-      if (this.questionJamaisPosee(i, texte)) {
+      if (this.questionJamaisPosee(i, num, den)) {
         this.listeQuestions[i] = texte
         this.listeCorrections[i] = texteCorr
         i++

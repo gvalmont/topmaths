@@ -19,7 +19,7 @@ export const refs = {
  * @author Gilles Mora
 
 */
-export default class aSimplifier extends ExerciceSimple {
+export default class aSimplifier2026 extends ExerciceSimple {
   constructor() {
     super()
     this.typeExercice = 'simple' // Cette ligne est très importante pour faire un exercice simple !
@@ -29,27 +29,28 @@ export default class aSimplifier extends ExerciceSimple {
   }
 
   nouvelleVersion() {
-    const choix = choice([1, 2])
-    const a = choice([-5, 3, 5, -3, 9, -9])
-    const b = randint(-10, 10, 0)
+    const annee =2026
+    const choix = this.canOfficielle ? 1 : choice([1, 2])
+    const a = this.canOfficielle ? 1 : choice([-5, 3, 5, -3, 9, -9])
+    const b = this.canOfficielle ? 2 : randint(-10, 10, 0)
     if (choix === 1) {
-      this.question = `Écrire le plus simplement possible : $\\dfrac{${texNombre(2025, 0)}${ecritureAlgebrique(a)}}{${texNombre(2025, 0)}-${texNombre(2024, 0)}}$.`
-      this.correction = `$\\dfrac{${texNombre(2025, 0)}${ecritureAlgebrique(a)}}{${texNombre(2025, 0)}-${texNombre(2024, 0)}}=${miseEnEvidence(texNombre(2025 + a, 0))}$`
-      this.reponse = 2025 + a
+      this.question = `Écrire le plus simplement possible : $\\dfrac{${texNombre(annee, 0)}${ecritureAlgebrique(a)}}{${texNombre(annee, 0)}-${texNombre(annee-1, 0)}}$.`
+      this.correction = `$\\dfrac{${texNombre(annee, 0)}${ecritureAlgebrique(a)}}{${texNombre(annee, 0)}-${texNombre(annee-1, 0)}}=${miseEnEvidence(texNombre(annee + a, 0))}$`
+      this.reponse = annee + a
       this.canEnonce = this.question
-      this.canReponseACompleter = `$\\dfrac{${texNombre(2025, 0)}${ecritureAlgebrique(a)}}{${texNombre(2025, 0)}-${texNombre(2024, 0)}}=\\ldots$`
+      this.canReponseACompleter = `$\\dfrac{${texNombre(annee, 0)}${ecritureAlgebrique(a)}}{${texNombre(annee, 0)}-${texNombre(annee-1, 0)}}=\\ldots$`
       if (this.interactif) {
-        this.question = `Écrire le plus simplement possible.<br><br>$\\dfrac{${texNombre(2025, 0)}${ecritureAlgebrique(a)}}{${texNombre(2025, 0)}-${texNombre(2024, 0)}}$`
+        this.question = `Écrire le plus simplement possible.<br><br>$\\dfrac{${texNombre(annee, 0)}${ecritureAlgebrique(a)}}{${texNombre(annee, 0)}-${texNombre(annee-1, 0)}}$`
       }
     } else if (choix === 2) {
-      this.reponse = `\\dfrac{1}{${2025 + b}}`
-      this.question = `Écrire le plus simplement possible : $\\dfrac{${texNombre(2025, 0)}-${texNombre(2024, 0)}}{${texNombre(2025, 0)}${ecritureAlgebrique(b)}}$.`
-      this.correction = `$\\dfrac{${texNombre(2025, 0)}-${texNombre(2024, 0)}}{${texNombre(2025, 0)}${ecritureAlgebrique(b)}}=${miseEnEvidence(`\\dfrac{1}{${2025 + b}}`)}$`
+      this.reponse = `\\dfrac{1}{${annee + b}}`
+      this.question = `Écrire le plus simplement possible : $\\dfrac{${texNombre(annee, 0)}-${texNombre(annee-1, 0)}}{${texNombre(annee, 0)}${ecritureAlgebrique(b)}}$.`
+      this.correction = `$\\dfrac{${texNombre(annee, 0)}-${texNombre(annee-1, 0)}}{${texNombre(annee, 0)}${ecritureAlgebrique(b)}}=${miseEnEvidence(`\\dfrac{1}{${annee + b}}`)}$`
 
       this.canEnonce = this.question
-      this.canReponseACompleter = `$\\dfrac{${texNombre(2025, 0)}-${texNombre(2024, 0)}}{${texNombre(2025, 0)}${ecritureAlgebrique(b)}}=\\ldots$`
+      this.canReponseACompleter = `$\\dfrac{${texNombre(annee, 0)}-${texNombre(annee-1, 0)}}{${texNombre(annee, 0)}${ecritureAlgebrique(b)}}=\\ldots$`
       if (this.interactif) {
-        this.question = `Écrire le plus simplement possible.<br><br>$\\dfrac{${texNombre(2025, 0)}-${texNombre(2024, 0)}}{${texNombre(2025, 0)}${ecritureAlgebrique(b)}}$`
+        this.question = `Écrire le plus simplement possible.<br><br>$\\dfrac{${texNombre(annee, 0)}-${texNombre(annee-1, 0)}}{${texNombre(annee, 0)}${ecritureAlgebrique(b)}}$`
       }
     }
   }

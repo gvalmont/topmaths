@@ -29,9 +29,10 @@ export default class decimalPuisance extends ExerciceSimple {
   }
 
   nouvelleVersion() {
-    const puissance = randint(1, 5)
+    const annee= 2026
+    const puissance = this.canOfficielle ? 2 : randint(1, 5)
     const puissance10 = 10 ** puissance
-    const a = choice([2025, -2025])
+    const a = choice([annee, -annee])
     const dec = new Decimal(a).div(puissance10)
     this.reponse = [
       (a < 0 ? '-' : '') + `\\dfrac{${abs(a)}}{10^{${puissance}}}`,
