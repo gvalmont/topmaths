@@ -200,7 +200,7 @@
     if (exercise.seed === undefined) exercise.seed = mathaleaGenerateSeed()
     seedrandom(exercise.seed, { global: true })
     if (exercise.typeExercice === 'simple')
-      mathaleaHandleExerciceSimple(exercise, isApiGeom(exercise), exerciseIndex)
+      mathaleaHandleExerciceSimple(exercise, exercise.interactif, exerciseIndex)
     else if (typeof exercise.nouvelleVersionWrapper === 'function')
       exercise.nouvelleVersionWrapper(exerciseIndex)
   }

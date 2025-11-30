@@ -1,5 +1,6 @@
 <script lang="ts">
   import { afterUpdate, onMount, SvelteComponent, tick } from 'svelte'
+  import Keyboard from '../../../../components/keyboard/Keyboard.svelte'
   import type TypeExercice from '../../../../exercices/Exercice'
   import {
     exerciceInteractif,
@@ -54,12 +55,12 @@
   async function renderExercise(): Promise<void> {
     await tick()
     if (exercise.interactif) {
-      loadMathLive()
+      loadMathLive(divExercice)
       if (exercise.interactifType === 'cliqueFigure')
         prepareExerciceCliqueFigure(exercise)
       if (isCorrectionSeen()) newData(exerciseIndex)
     }
-    mathaleaRenderDiv(divExercice, zoom)
+    mathaleaRenderDiv(divExercice)
     adjustMathalea2dFiguresWidth()
   }
 
@@ -225,3 +226,5 @@
     {/if}
   </div>
 </div>
+
+<Keyboard />
