@@ -673,7 +673,12 @@
                 "lessonSummaryHTML": "",
                 "lessonSummaryImage": "",
                 "videos": [],
-                "exercises": []
+                "exercises": [
+                  {
+                    "slug": "uuid=de779&id=6N2F-flash1&n=2&d=10&cd=1",
+                    "description": ""
+                  }
+                ]
               },
               {
                 "reference": "6N2G",
