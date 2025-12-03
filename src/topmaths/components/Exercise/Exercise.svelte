@@ -413,10 +413,9 @@
     const url = buildUrlFromParams('exercise', [
       exercicesParams[exerciseIndex],
     ]).href
+    copyToClipboard(url)
     if (navigator.share) {
       navigator.share({ title, url })
-    } else {
-      copyToClipboard(url)
     }
   }
 
