@@ -1,7 +1,7 @@
-import { lectureAntecedent } from '../../lib/2d/courbes'
 import { droite, Droite, droiteHorizontaleParPoint } from '../../lib/2d/droites'
 import { fixeBordures } from '../../lib/2d/fixeBordures'
-import { point, Point } from '../../lib/2d/PointAbstrait'
+import { lectureAntecedent } from '../../lib/2d/LectureAntecedent'
+import { point, PointAbstrait } from '../../lib/2d/PointAbstrait'
 import { polyline } from '../../lib/2d/Polyline'
 import RepereBuilder from '../../lib/2d/RepereBuilder'
 import { segment } from '../../lib/2d/segmentsVecteurs'
@@ -105,7 +105,7 @@ const aleaPopulation = function (
 
 const trouveQuartiles = function (
   yGrecs: number[],
-  pts: Point[],
+  pts: PointAbstrait[],
 ): [number, number, number] {
   let d1: Droite | null = null
   let d2: Droite | null = null
@@ -158,7 +158,7 @@ export default class Quartiles extends Exercice {
       let q1: number
       let q2: number
       let q3: number
-      let pts: Point[]
+      let pts: PointAbstrait[]
       let echelleX: number
       let echelleY: number
       let tolerance: number

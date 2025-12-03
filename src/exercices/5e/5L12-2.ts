@@ -1,16 +1,16 @@
+import { handleAnswers } from '../../lib/interactif/gestionInteractif'
+import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { choice } from '../../lib/outils/arrayOutils'
+import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { lettreDepuisChiffre, sp } from '../../lib/outils/outilString'
 import { texNombre } from '../../lib/outils/texNombre'
-import Exercice from '../Exercice'
+import { context } from '../../modules/context'
 import {
   gestionnaireFormulaireTexte,
   listeQuestionsToContenu,
   randint,
 } from '../../modules/outils'
-import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
-import { handleAnswers } from '../../lib/interactif/gestionInteractif'
-import { miseEnEvidence } from '../../lib/outils/embellissements'
-import { context } from '../../modules/context'
+import Exercice from '../Exercice'
 
 export const titre =
   'Réduire et simplifier une expression littérale (somme et produit)'
@@ -67,11 +67,19 @@ export default class ReduireUneExpressionLitterale extends Exercice {
     this.nbQuestions = 5
 
     this.sup = 9 // valeur maximale des coefficients
+    // OM : ne peux descendre en dessous de 3,4 ou 5 selon le nombre de questions sinon probleme d'ALea
     this.sup2 = false // avec des nombres décimaux
     this.sup3 = '6-7-8-9' // Type de question
   }
 
   nouvelleVersion() {
+    const CoefMaXMininimum =
+      this.nbQuestions < 17 ? 3 : this.nbQuestions < 30 ? 4 : 5
+    // OM : pour éviter les trop petit CoefMax avec peu de questions a l'experience 4 bug a partir de 30-31 questions
+    const CoefMax =
+      typeof this.sup === 'number' && this.sup > CoefMaXMininimum
+        ? this.sup
+        : CoefMaXMininimum
     this.consigne =
       this.nbQuestions === 1
         ? "Réduire et simplifier l'expression suivante"
@@ -96,21 +104,21 @@ export default class ReduireUneExpressionLitterale extends Exercice {
       const inc = variables[choixLettre]
       const inc2 = variables[randint(0, variables.length - 1, choixLettre)]
       if (this.sup2) {
-        a = randint(2, this.sup) + randint(1, 9) / 10
+        a = randint(2, CoefMax) + randint(1, 9) / 10
         b = choice([
           randint(2, 9) + randint(1, 9) / 10,
           randint(2, 9) + randint(1, 9) / 10 + randint(1, 9) / 100,
         ])
-        c = randint(2, this.sup) + randint(1, 9) / 10
+        c = randint(2, CoefMax) + randint(1, 9) / 10
         d = choice([
           randint(2, 9) + randint(1, 9) / 10,
           randint(2, 9) + randint(1, 9) / 10 + randint(1, 9) / 100,
         ])
       } else {
-        a = randint(2, this.sup)
-        b = randint(2, this.sup)
-        c = randint(2, this.sup)
-        d = randint(2, this.sup)
+        a = randint(2, CoefMax)
+        b = randint(2, CoefMax)
+        c = randint(2, CoefMax)
+        d = randint(2, CoefMax)
       }
       switch (listeTypeDeQuestions[i]) {
         case 1: // ax+bx+c
@@ -186,7 +194,6 @@ export default class ReduireUneExpressionLitterale extends Exercice {
                 texte: texteCorr,
                 statut: 1, // OBLIGATOIRE (ici c'est le nombre de lignes du cadre pour la réponse de l'élève sur AMC)
                 sanscadre: false, // EE : ce champ est facultatif et permet (si true) de cacher le cadre et les lignes acceptant la réponse de l'élève
-                // @ts-expect-error
                 pointilles: false, // EE : ce champ est facultatif et permet (si false) d'enlever les pointillés sur chaque ligne.
               },
             ],

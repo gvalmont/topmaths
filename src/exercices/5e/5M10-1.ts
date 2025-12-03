@@ -150,7 +150,7 @@ export default class AireDeTriangles extends Exercice {
         polynom[0],
         polynom[1],
         hauteurpoly,
-        afficheCoteSegment(segment(B, A), '', 1),
+        afficheCoteSegment(segment(B, A), longueur(B, A).toString() + ' cm', 1),
         afficheLongueurSegment(A, C, 'black', 0.5),
         afficheLongueurSegment(C, B, 'black', 0.5),
         afficheLongueurSegment(C, H, 'black', 0.3),
@@ -160,7 +160,7 @@ export default class AireDeTriangles extends Exercice {
         polynom[0],
         polynom[1],
         hauteurpoly,
-        afficheCoteSegment(segment(B, A), '', 1),
+        afficheCoteSegment(segment(B, A), longueur(B, A).toString() + ' cm', 1),
         afficheLongueurSegment(C, H, 'black', 0.3),
         codageAngleDroit(A, H, C),
       )

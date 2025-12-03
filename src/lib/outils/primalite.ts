@@ -1,12 +1,60 @@
-import { gcd, isPrime } from 'mathjs'
-import { randint } from '../../modules/outils'
+/**
+ * Calcule le PGCD (Plus Grand Commun Diviseur) de deux nombres en utilisant l'algorithme d'Euclide
+ * @param {number} a - Premier nombre
+ * @param {number} b - Deuxième nombre
+ * @returns {number} Le PGCD de a et b
+ */
+export function gcd(a: number, b: number): number {
+  a = Math.abs(a)
+  b = Math.abs(b)
+
+  if (b === 0) return a
+  if (a === 0) return b
+
+  while (b !== 0) {
+    const temp = b
+    b = a % b
+    a = temp
+  }
+  return a
+}
+
+/**
+ * Calcule le PGCD de plusieurs nombres
+ * @param {...number} args - Liste des nombres
+ * @returns {number} Le PGCD de tous les nombres
+ */
+export function gcdMultiple(...args: number[]): number {
+  if (args.length === 0) return 0
+  if (args.length === 1) return Math.abs(args[0])
+
+  return args.reduce((acc, current) => gcd(acc, current))
+}
+
+/**
+ * Vérifie si un nombre est premier
+ * @param {number} n - Le nombre à tester
+ * @returns {boolean} true si le nombre est premier, false sinon
+ */
+function isPrime(n: number): boolean {
+  if (!Number.isInteger(n) || n < 2) return false
+  if (n === 2) return true
+  if (n % 2 === 0) return false
+
+  // On teste seulement les nombres impairs jusqu'à sqrt(n)
+  const sqrt = Math.sqrt(n)
+  for (let i = 3; i <= sqrt; i += 2) {
+    if (n % i === 0) return false
+  }
+  return true
+}
 
 /**
  * Renvoie le PGCD de deux nombres
  * @author Rémi Angot
  */
 export function pgcd(...args: number[]) {
-  return gcd(...args)
+  return gcdMultiple(...args)
 }
 
 /**
@@ -40,13 +88,18 @@ export function obtenirListeFacteursPremiers(n: number) {
   if (n === 1 || n === 0) return [] // 1 n'est pas premier, mais, sinon, ça retourne [NaN]
   const facteurs = []
   const signe = n < 0 ? -1 : 1
-  for (let i = 2; i <= Math.abs(n); i++) {
-    while (n % i === 0) {
+  let nAbs = Math.abs(n)
+
+  for (let i = 2; i <= nAbs; i++) {
+    while (nAbs % i === 0) {
       facteurs.push(i)
-      n /= i
+      nAbs /= i
     }
   }
-  facteurs[0] = signe * facteurs[0]
+
+  if (facteurs.length > 0) {
+    facteurs[0] = signe * facteurs[0]
+  }
   return facteurs
 }
 
@@ -73,8 +126,9 @@ export function obtenirSemiPremier(max: number): number {
     return 6
   }
 
-  // Renvoie un semi-premier au hasard
-  return semiPremiers[randint(0, semiPremiers.length - 1)]
+  // Renvoie un semi-premier au hasard en utilisant Math.random()
+  const indexAleatoire = Math.floor(Math.random() * semiPremiers.length)
+  return semiPremiers[indexAleatoire]
 }
 
 /**
@@ -149,7 +203,7 @@ export function listeDesDiviseurs(n: number) {
 }
 
 export function estPremier(n: number) {
-  return listeDesDiviseurs(n).length === 2 && n > 1
+  return isPrime(n)
 }
 /**
  * Retourne la liste des nombres premiers inférieurs à N N<300 N exclu
@@ -393,7 +447,7 @@ export function decompositionFacteursPremiers(n: number) {
   if (Math.abs(n) === 1) return n // EE : Nécessaire pour 4C22... Vérifier si aucun dommage collatéral ailleurs (29/04/2024)
   const liste = obtenirListeFacteursPremiers(n)
   for (const i in liste) {
-    decomposition += `${liste[i] < 0 ? `(${liste[i]})` : `${liste[i]}`} \\times`
+    decomposition += `${liste[i] < 0 ? `(${liste[i]})` : `${liste[i]}`}\\times`
   }
   decomposition = decomposition.substring(0, decomposition.length - 6)
   return decomposition

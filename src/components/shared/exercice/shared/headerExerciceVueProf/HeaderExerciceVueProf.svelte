@@ -4,10 +4,8 @@
   import uuidsRessources from '../../../../../json/uuidsRessources.json'
   import { toMap } from '../../../../../lib/components/toMap'
   import { mathaleaGenerateSeed } from '../../../../../lib/mathalea'
-  import {
-    exercicesParams,
-    globalOptions,
-  } from '../../../../../lib/stores/generalStore'
+  import { exercicesParams } from '../../../../../lib/stores/generalStore'
+  import { globalOptions } from '../../../../../lib/stores/globalOptions'
   import InteractivityIcon from '../../../icons/TwoStatesIcon.svelte'
   import BoutonDescendre from './BoutonDescendre.svelte'
   import BoutonMonter from './BoutonMonter.svelte'

@@ -2,7 +2,7 @@ import type {
   BoxedExpression,
   SemiBoxedExpression,
 } from '@cortex-js/compute-engine'
-import { Point } from '../../lib/2d/PointAbstrait'
+import { PointAbstrait } from '../../lib/2d/PointAbstrait'
 import engine from '../../lib/interactif/comparisonFunctions'
 import { choice } from '../../lib/outils/arrayOutils'
 import { numAlpha } from '../../lib/outils/outilString'
@@ -31,7 +31,7 @@ export const refs = {
   'fr-ch': ['1mF3-5'],
 }
 
-function pointVersTex(A: Point): string {
+function pointVersTex(A: PointAbstrait): string {
   return `${A.nom}\\left(${A.x} ; ${A.y}\\right)`
 }
 
@@ -100,13 +100,13 @@ function questionRacine() {
 function questionInterpolation() {
   const ax = randint(-7, -3)
   const ay = randint(-5, 5)
-  const A = new Point(ax, ay, 'A')
+  const A = new PointAbstrait(ax, ay, 'A')
   const bx = randint(-2, 2, [ax])
   const by = randint(-5, 5, [ay])
-  const B = new Point(bx, by, 'B')
+  const B = new PointAbstrait(bx, by, 'B')
   const cx = randint(-2, 7, [ax, bx])
   const cy = randint(-5, 5, [ay, by])
-  const C = new Point(cx, cy, 'C')
+  const C = new PointAbstrait(cx, cy, 'C')
   let texte = ''
   texte += `Soient les points $${pointVersTex(A)}$, $${pointVersTex(B)}$, et $${pointVersTex(C)}$. <br>`
   texte +=

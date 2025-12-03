@@ -1,18 +1,18 @@
+import Figure from 'apigeom'
+import { orangeMathalea } from 'apigeom/src/elements/defaultValues'
+import type Point from 'apigeom/src/elements/points/Point'
+import figureApigeom from '../../lib/figureApigeom'
 import { choice } from '../../lib/outils/arrayOutils'
-import Exercice from '../Exercice'
+import { texteEnCouleurEtGras } from '../../lib/outils/embellissements'
+import { rangeMinMax } from '../../lib/outils/nombres'
+import { lettreDepuisChiffre } from '../../lib/outils/outilString'
+import { context } from '../../modules/context'
 import {
   gestionnaireFormulaireTexte,
   listeQuestionsToContenu,
   randint,
 } from '../../modules/outils'
-import Figure from 'apigeom'
-import figureApigeom from '../../lib/figureApigeom'
-import { context } from '../../modules/context'
-import { rangeMinMax } from '../../lib/outils/nombres'
-import { lettreDepuisChiffre } from '../../lib/outils/outilString'
-import { orangeMathalea } from 'apigeom/src/elements/defaultValues'
-import { texteEnCouleurEtGras } from '../../lib/outils/embellissements'
-import type Point from 'apigeom/src/elements/points/Point'
+import Exercice from '../Exercice'
 
 export const titre =
   "Construire un point à partir d'une égalité vectorielle sur une grille"

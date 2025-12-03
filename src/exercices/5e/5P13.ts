@@ -252,7 +252,7 @@ export default class EchellesProblemes extends Exercice {
                 texte:
                   '\\times' +
                   texFractionFromString(
-                    new Decimal(nb1Unite1).mul(echelleQ.echelle),
+                    nb1Unite1 * echelleQ.echelle,
                     nb1Unite1,
                   ),
                 latex: true,
@@ -352,7 +352,7 @@ export default class EchellesProblemes extends Exercice {
               },
             })
           } else if (context.isAmc) {
-            handleAnswers(this, i, { reponse: { value: reponse } })
+            setReponse(this, i, reponse)
           }
 
           if (this.sup2) {
@@ -521,7 +521,7 @@ export default class EchellesProblemes extends Exercice {
               },
             })
           } else if (context.isAmc) {
-            handleAnswers(this, i, { reponse: { value: reponse } })
+            setReponse(this, i, reponse)
           }
 
           if (this.sup2) {

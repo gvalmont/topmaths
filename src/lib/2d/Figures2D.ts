@@ -1,7 +1,7 @@
 import { context } from '../../modules/context'
 import type { Droite } from './droites'
 import { ObjetMathalea2D } from './ObjetMathalea2D'
-import { point, type Point } from './PointAbstrait'
+import { pointAbstrait, type PointAbstrait } from './PointAbstrait'
 import { type Segment } from './segmentsVecteurs'
 import { rotation, symetrieAxiale } from './transformations'
 
@@ -249,7 +249,7 @@ export class Figure2D extends Shape2D {
   pixelsParCm: number
   axes: Segment[]
   nonAxe: Segment | null
-  centre: Point | null
+  centre: PointAbstrait | null
   nbAxes: number
   name: string
   bordures: [number, number, number, number] // [xmin, ymin, xmax, ymax]
@@ -282,7 +282,7 @@ export class Figure2D extends Shape2D {
     height: number
     pixelsParCm?: number
     axes?: Segment[]
-    centre?: Point | null
+    centre?: PointAbstrait | null
     nbAxes?: number
     opacite?: number
     name?: string
@@ -883,7 +883,7 @@ export class Figure2D extends Shape2D {
   }
 
   get Axes() {
-    return this.axes.map((el) => rotation(el, point(0, 0), this.angle))
+    return this.axes.map((el) => rotation(el, pointAbstrait(0, 0), this.angle))
   }
 }
 

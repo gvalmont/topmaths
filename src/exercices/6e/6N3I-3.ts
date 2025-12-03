@@ -1,15 +1,15 @@
+import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import {
   choice,
   combinaisonListes,
   enleveElement,
 } from '../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
-import { obtenirListeFractionsIrreductibles } from '../../modules/fractions'
-import Exercice from '../Exercice'
 import { context } from '../../modules/context'
-import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import FractionEtendue from '../../modules/FractionEtendue'
-import { handleAnswers } from '../../lib/interactif/gestionInteractif'
+import { obtenirListeFractionsIrreductibles } from '../../modules/fractions'
+import { listeQuestionsToContenu, randint } from '../../modules/outils'
+import Exercice from '../Exercice'
 
 import { remplisLesBlancs } from '../../lib/interactif/questionMathLive'
 export const interactifReady = true
@@ -27,7 +27,7 @@ export const titre = 'Comparer deux fractions (dénominateurs multiples)'
 export const uuid = '234a7'
 
 export const refs = {
-  'fr-fr': ['BP2AutoG6', '6N3I-3'],
+  'fr-fr': ['6N3I-3', 'BP2AutoG6'],
   'fr-2016': ['5N14', 'BP2AutoG6'],
   'fr-ch': ['9NO12-5'],
 }

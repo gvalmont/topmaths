@@ -32,7 +32,7 @@ export const dateDeModifImportante = '24/01/2024' // Brouillon interactif
 export const uuid = 'ab44e'
 
 export const refs = {
-  'fr-fr': ['6N3F-2', '3autoN06-2'],
+  'fr-fr': ['6N3F-2', '3AutoN06-2'],
   'fr-2016': ['6N20-2'],
   'fr-ch': ['9NO11-2'],
 }
@@ -84,7 +84,7 @@ export default class ExerciceFractionsDifferentesEcritures extends Exercice {
         isDynamic: true,
       })
       figure.divButtons.style.display = 'grid'
-      if (figure.ui) figure.ui.send('FILL')
+      if (figure.ui) figure.ui.send({ type: 'FILL' })
     } else {
       this.introduction = ''
     }
@@ -247,7 +247,6 @@ export function getDynamicFractionDiagram() {
   figure.divUserMessage.style.display = 'none'
   figure.options.automaticUserMessage = false
   figure.options.color = 'blue'
-  // figure.options.limitNumberOfElement.set('Point', 0)
 
   figure.create('RectangleFractionDiagram', {
     denominator: 2,

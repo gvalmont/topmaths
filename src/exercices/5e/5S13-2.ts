@@ -284,7 +284,7 @@ class Population {
 export const uuid = 'ff67d'
 
 export const refs = {
-  'fr-fr': ['5S13-2', 'BP2AutoA3', 'BP2SP4'],
+  'fr-fr': ['5S13-2', 'BP2AutoA3', 'BP2SP4', '3AutoP02-2'],
   'fr-ch': ['11NO2-2'],
 }
 /**

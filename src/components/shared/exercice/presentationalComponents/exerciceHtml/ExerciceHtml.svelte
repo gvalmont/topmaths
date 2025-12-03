@@ -1,13 +1,11 @@
 <script lang="ts">
   import { onDestroy, onMount } from 'svelte'
-  import HeaderExerciceVueProf from '../../shared/headerExerciceVueProf/HeaderExerciceVueProf.svelte'
   import type TypeExercice from '../../../../../exercices/Exercice'
+  import { isMenuNeededForExercises } from '../../../../../lib/stores/generalStore'
+  import { globalOptions } from '../../../../../lib/stores/globalOptions'
+  import type { VueType } from '../../../../../lib/VueType'
+  import HeaderExerciceVueProf from '../../shared/headerExerciceVueProf/HeaderExerciceVueProf.svelte'
   import HeaderExerciceVueEleve from '../shared/HeaderExerciceVueEleve.svelte'
-  import type { VueType } from '../../../../../lib/types'
-  import {
-    globalOptions,
-    isMenuNeededForExercises,
-  } from '../../../../../lib/stores/generalStore'
   export let vue: VueType | undefined
   export let exercise: TypeExercice
   export let indiceExercice: number
@@ -16,15 +14,9 @@
   let divExercice: HTMLDivElement
 
   const headerExerciceProps = {
+    isMenuNeededForExercises: true,
     title: exercise.titre,
-    id: '',
-    indiceExercice,
-    indiceLastExercice,
-    interactifReady: false,
-    randomReady: false,
-    settingsReady: false,
-    correctionReady: false,
-    isHidable: false,
+    indiceExercice: indiceExercice,
   }
 
   onMount(async () => {
@@ -43,7 +35,6 @@
 
   $: {
     headerExerciceProps.indiceExercice = indiceExercice
-    headerExerciceProps.indiceLastExercice = indiceLastExercice
   }
 </script>
 
@@ -54,8 +45,17 @@
     presMode="{$globalOptions.presMode ?? 'liste_exos'}"
   />
 {:else}
-  <HeaderExerciceVueProf {...headerExerciceProps} on:exerciseRemoved />
+  <HeaderExerciceVueProf
+    {...headerExerciceProps}
+    id="{exercise.id ?? ''}"
+    interactifReady="{exercise.interactifReady}"
+    {indiceLastExercice}
+    on:exerciseRemoved
+  />
 {/if}
-<section id="insert-html-{indiceExercice}" class="mt-6 mb-2 ml-2 lg:mx-5">
+<section
+  id="insert-html-{indiceExercice}"
+  class="mt-6 mb-2 ml-2 lg:mx-5 w-full"
+>
   <div bind:this="{divExercice}"></div>
 </section>

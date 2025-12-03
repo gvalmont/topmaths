@@ -1,5 +1,4 @@
 import { afficheLongueurSegment } from '../../lib/2d/afficheLongueurSegment'
-import { traceCompas } from '../../lib/2d/Arc'
 import { cercle } from '../../lib/2d/cercle'
 import { codageAngleDroit } from '../../lib/2d/CodageAngleDroit'
 import { codageSegments } from '../../lib/2d/CodageSegment'
@@ -9,6 +8,7 @@ import { polygoneAvecNom } from '../../lib/2d/polygones'
 import { segment } from '../../lib/2d/segmentsVecteurs'
 import { labelPoint } from '../../lib/2d/textes'
 import { texteSurSegment } from '../../lib/2d/texteSurSegment'
+import { traceCompas } from '../../lib/2d/traceCompas'
 import { tracePoint } from '../../lib/2d/TracePoint'
 import {
   milieu,
@@ -111,8 +111,8 @@ export default class ConstruireUnTriangle extends Exercice {
           break
         case 10:
           typesDeQuestionsDisponibles = [3, 4, 5, 6, 7]
-          break        
-          case 11:
+          break
+        case 11:
           typesDeQuestionsDisponibles = [3, 4, 7]
           break
         default:

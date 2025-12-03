@@ -1,6 +1,6 @@
 import { round } from 'mathjs'
 import { colorToLatexOrHTML } from '../../lib/2d/colorToLatexOrHtml'
-import { Courbe } from '../../lib/2d/courbes'
+import { Courbe } from '../../lib/2d/Courbe'
 import { repere } from '../../lib/2d/reperes'
 import { texteParPosition } from '../../lib/2d/textes'
 import PolynomeFactorisable from '../../lib/mathFonctions/PolynomeFactorisableDegMax4'

@@ -1,12 +1,12 @@
+import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
+import { handleAnswers } from '../../../lib/interactif/gestionInteractif'
+import { remplisLesBlancs } from '../../../lib/interactif/questionMathLive'
 import { choice } from '../../../lib/outils/arrayOutils'
-import Exercice from '../../Exercice'
+import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import FractionEtendue from '../../../modules/FractionEtendue'
 import { context } from '../../../modules/context'
 import { listeQuestionsToContenu } from '../../../modules/outils'
-import { remplisLesBlancs } from '../../../lib/interactif/questionMathLive'
-import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
-import { handleAnswers } from '../../../lib/interactif/gestionInteractif'
-import { miseEnEvidence } from '../../../lib/outils/embellissements'
+import Exercice from '../../Exercice'
 
 export const titre = 'Comparer deux fractions*'
 export const interactifReady = true
@@ -26,6 +26,7 @@ export default class ComparerFraction extends Exercice {
   constructor() {
     super()
     this.nbQuestions = 1
+    this.optionsDeComparaison = { texteSansCasse: true }
   }
 
   nouvelleVersion() {
@@ -80,8 +81,6 @@ export default class ComparerFraction extends Exercice {
       [14, 5, 11, 5],
       [7, 3, 11, 3],
     ]
-
-    this.formatInteractif = 'texte'
 
     for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50; ) {
       let texte = ''

@@ -3,7 +3,7 @@ import { egal } from '../../modules/outils'
 import { arrondi } from '../outils/nombres'
 import { colorToLatexOrHTML } from './colorToLatexOrHtml'
 import { ObjetMathalea2D } from './ObjetMathalea2D'
-import { Point, point, pointAbstrait, PointAbstrait } from './PointAbstrait'
+import { PointAbstrait, pointAbstrait } from './PointAbstrait'
 import { segment } from './segmentsVecteurs'
 import {
   Latex2d,
@@ -454,8 +454,8 @@ export function labelOnLine(
         const label = usedPosition[j]
         const dis =
           segment(
-            point(label.x, label.y),
-            point(positions[i].label.x, positions[i].label.y),
+            pointAbstrait(label.x, label.y),
+            pointAbstrait(positions[i].label.x, positions[i].label.y),
           ).longueur * context.pixelsParCm
         // colision deux rectangles
         const XYlabel = [
@@ -719,8 +719,8 @@ export function droiteAvecNomLatex(d: Droite, nom: string, color = 'black') {
 }
 
 /**  Trace une droite
- * @param {Point | number} arg1 Premier point de la droite OU BIEN coefficient a de l'équation de la droite ax+by+c=0
- * @param {Point | number} arg2 Deuxième point de la droite OU BIEN coefficient b de l'équation de la droite ax+by+c=0
+ * @param {PointAbstrait | number} arg1 Premier point de la droite OU BIEN coefficient a de l'équation de la droite ax+by+c=0
+ * @param {PointAbstrait | number} arg2 Deuxième point de la droite OU BIEN coefficient b de l'équation de la droite ax+by+c=0
  * @param {string | number} arg3 Nom affiché de la droite OU BIEN coefficient c de l'équation de la droite ax+by+c=0
  * @param {string} arg4 Couleur de la droite : du type 'blue' ou du type '#f15929' OU BIEN Nom affiché de la droite si arg1 est un nombre
  * @param {string} arg5 Couleur de la droite : du type 'blue' ou du type '#f15929' si arg1 est un nombre
@@ -761,6 +761,14 @@ export class Droite extends ObjetMathalea2D {
   normal: Vecteur
   directeur: Vecteur
   stringColor: string
+  usePgfplots: boolean
+  pgfplotsOptions?: string
+  pgfplotsDomain?: {
+    xmin?: number
+    xmax?: number
+    ymin?: number
+    ymax?: number
+  }
   leNom?: TexteParPoint
   constructor(
     arg1: number | PointAbstrait,
@@ -772,6 +780,7 @@ export class Droite extends ObjetMathalea2D {
     super()
     let a, b, c
     this.stringColor = 'black'
+    this.usePgfplots = false
 
     if (arguments.length === 2) {
       if (arg1 instanceof PointAbstrait && arg2 instanceof PointAbstrait) {
@@ -841,8 +850,8 @@ export class Droite extends ObjetMathalea2D {
         if (
           isNaN(arg1.x) ||
           isNaN(arg1.y) ||
-          isNaN((arg2 as Point).x) ||
-          isNaN((arg2 as Point).y)
+          isNaN((arg2 as PointAbstrait).x) ||
+          isNaN((arg2 as PointAbstrait).y)
         ) {
           window.notify(
             'Droite : (attendus : A, B et "nom") les arguments de sont pas des points valides',
@@ -854,8 +863,8 @@ export class Droite extends ObjetMathalea2D {
         }
         this.x1 = arg1.x
         this.y1 = arg1.y
-        this.x2 = (arg2 as Point).x
-        this.y2 = (arg2 as Point).y
+        this.x2 = (arg2 as PointAbstrait).x
+        this.y2 = (arg2 as PointAbstrait).y
         this.a = this.y1 - this.y2
         this.b = this.x2 - this.x1
         this.c = (this.x1 - this.x2) * this.y1 + (this.y2 - this.y1) * this.x1
@@ -900,8 +909,8 @@ export class Droite extends ObjetMathalea2D {
         if (
           isNaN(arg1.x) ||
           isNaN(arg1.y) ||
-          isNaN((arg2 as Point).x) ||
-          isNaN((arg2 as Point).y)
+          isNaN((arg2 as PointAbstrait).x) ||
+          isNaN((arg2 as PointAbstrait).y)
         ) {
           window.notify(
             'Droite : (attendus : A, B, "nom" et "couleur") les arguments de sont pas des points valides',
@@ -913,8 +922,8 @@ export class Droite extends ObjetMathalea2D {
         }
         this.x1 = arg1.x
         this.y1 = arg1.y
-        this.x2 = (arg2 as Point).x
-        this.y2 = (arg2 as Point).y
+        this.x2 = (arg2 as PointAbstrait).x
+        this.y2 = (arg2 as PointAbstrait).y
         this.a = this.y1 - this.y2
         this.b = this.x2 - this.x1
         this.c = (this.x1 - this.x2) * this.y1 + (this.y2 - this.y1) * this.x1
@@ -980,9 +989,9 @@ export class Droite extends ObjetMathalea2D {
     this.normal = vecteur(this.a, this.b)
     this.directeur = vecteur(this.b, -this.a)
     this.angleAvecHorizontale = angleOriente(
-      point(1, 0),
-      point(0, 0),
-      point(this.directeur.x, this.directeur.y),
+      pointAbstrait(1, 0),
+      pointAbstrait(0, 0),
+      pointAbstrait(this.directeur.x, this.directeur.y),
     )
     this.bordures = [
       Math.min(this.x1, this.x2),
@@ -1073,9 +1082,12 @@ export class Droite extends ObjetMathalea2D {
         { nom: this.nom },
       )
       // On retourne une droite sans nom accompagnée de son nom Latex
-      // return droiteAvecNomLAtex(new Droite(point(this.x1, this.y1), point(this.x2, this.y2)), leNom)
+      // return droiteAvecNomLAtex(new Droite(pointAbstrait(this.x1, this.y1), pointAbstrait(this.x2, this.y2)), leNom)
       // @fixme la ligne suivante sera à retirer lorsque les exos concernés auront été repérés. Et la précédente à utiliser.
-      return new Droite(point(this.x1, this.y1), point(this.x2, this.y2)) // On retourne une droite sans nom en attendant que quelqu'un adapte l'exo et utilise droiteAvecNom() à la place de droite.
+      return new Droite(
+        pointAbstrait(this.x1, this.y1),
+        pointAbstrait(this.x2, this.y2),
+      ) // On retourne une droite sans nom en attendant que quelqu'un adapte l'exo et utilise droiteAvecNom() à la place de droite.
     }
   }
 
@@ -1103,8 +1115,8 @@ export class Droite extends ObjetMathalea2D {
     if (this.opacite !== 1) {
       this.style += ` stroke-opacity="${this.opacite}" `
     }
-    const A = point(this.x1, this.y1)
-    const B = point(this.x2, this.y2)
+    const A = pointAbstrait(this.x1, this.y1)
+    const B = pointAbstrait(this.x2, this.y2)
     const A1 = pointSurSegment(A, B, -50)
     const B1 = pointSurSegment(B, A, -50)
     if (this.nom === '') {
@@ -1121,8 +1133,13 @@ export class Droite extends ObjetMathalea2D {
     }
   }
 
-  tikz() {
-    const tableauOptions = []
+  tikz(
+    axisYMin?: number,
+    axisYMax?: number,
+    axisXMin?: number,
+    axisXMax?: number,
+  ) {
+    const tableauOptions: string[] = []
     if (this.color[1].length > 1 && this.color[1] !== 'black') {
       tableauOptions.push(`color=${this.color[1]}`)
     }
@@ -1151,12 +1168,70 @@ export class Droite extends ObjetMathalea2D {
       tableauOptions.push(`opacity = ${this.opacite}`)
     }
 
-    let optionsDraw = ''
-    if (tableauOptions.length > 0) {
-      optionsDraw = '[' + tableauOptions.join(',') + ']'
+    const optionsDraw =
+      tableauOptions.length > 0 ? '[' + tableauOptions.join(',') + ']' : ''
+
+    const shouldUsePgfplots =
+      this.usePgfplots &&
+      axisYMin !== undefined &&
+      axisYMax !== undefined &&
+      axisXMin !== undefined &&
+      axisXMax !== undefined
+
+    const formatNombre = (val: number) =>
+      Number.isFinite(val) ? Number(val.toFixed(4)).toString() : '0'
+    const formatSlope = (val: number) => {
+      const formatted = Number(val.toFixed(6))
+      if (Math.abs(formatted) < 1e-9) return '0'
+      return formatted.toString()
     }
-    const A = point(this.x1, this.y1)
-    const B = point(this.x2, this.y2)
+
+    if (shouldUsePgfplots) {
+      const pgfplotsOptions = [...tableauOptions]
+      if (this.pgfplotsOptions && this.pgfplotsOptions.trim() !== '') {
+        pgfplotsOptions.push(this.pgfplotsOptions)
+      }
+      const domainMin = this.pgfplotsDomain?.xmin ?? axisXMin
+      const domainMax = this.pgfplotsDomain?.xmax ?? axisXMax
+      const rangeMin = this.pgfplotsDomain?.ymin ?? axisYMin
+      const rangeMax = this.pgfplotsDomain?.ymax ?? axisYMax
+      const optionsList = [...pgfplotsOptions]
+      const vertical = egal(this.b, 0, 0.0001)
+      let code = ''
+      if (vertical) {
+        const xValue = formatNombre(this.x1)
+        const coordYMin = formatNombre(rangeMin ?? axisYMin)
+        const coordYMax = formatNombre(rangeMax ?? axisYMax)
+        const options =
+          optionsList.length > 0 ? '[' + optionsList.join(',') + ']' : ''
+        code += `\\addplot${options} coordinates {(${xValue},${coordYMin}) (${xValue},${coordYMax})};\n`
+      } else {
+        const slope = (this.y2 - this.y1) / (this.x2 - this.x1)
+        const intercept = this.y1 - slope * this.x1
+        if (domainMin !== undefined && domainMax !== undefined) {
+          optionsList.push(
+            `domain=${formatNombre(domainMin)}:${formatNombre(domainMax)}`,
+          )
+        }
+        if (rangeMin !== undefined && rangeMax !== undefined) {
+          optionsList.push(
+            `restrict y to domain=${formatNombre(rangeMin)}:${formatNombre(rangeMax)}`,
+          )
+        }
+        const options =
+          optionsList.length > 0 ? '[' + optionsList.join(',') + ']' : ''
+        const slopeStr = formatSlope(slope)
+        const interceptStr = formatSlope(intercept)
+        const expression = interceptStr.startsWith('-')
+          ? `${slopeStr}*x${interceptStr}`
+          : `${slopeStr}*x+${interceptStr}`
+        code += `\\addplot${options} {${expression}};\n`
+      }
+      return code
+    }
+
+    const A = pointAbstrait(this.x1, this.y1)
+    const B = pointAbstrait(this.x2, this.y2)
     const A1 = pointSurSegment(A, B, -50)
     const B1 = pointSurSegment(B, A, -50)
 
@@ -1171,8 +1246,8 @@ export class Droite extends ObjetMathalea2D {
   }
 
   svgml(coeff: number, amp: number) {
-    const A = point(this.x1, this.y1)
-    const B = point(this.x2, this.y2)
+    const A = pointAbstrait(this.x1, this.y1)
+    const B = pointAbstrait(this.x2, this.y2)
     const A1 = pointSurSegment(A, B, -50)
     const B1 = pointSurSegment(B, A, -50)
     const s = segment(A1, B1, this.color[0])
@@ -1180,8 +1255,8 @@ export class Droite extends ObjetMathalea2D {
   }
 
   tikzml(amp: number) {
-    const A = point(this.x1, this.y1)
-    const B = point(this.x2, this.y2)
+    const A = pointAbstrait(this.x1, this.y1)
+    const B = pointAbstrait(this.x2, this.y2)
     const A1 = pointSurSegment(A, B, -50)
     const B1 = pointSurSegment(B, A, -50)
     const s = segment(A1, B1, this.color[1])
@@ -1218,7 +1293,7 @@ export function droite(
 
 /**  Donne la position du point A par rapport à la droite d
  * @param {Droite} d
- * @param {Point} A
+ * @param {PointAbstrait} A
  * @param {number} [tolerance = 0.0001] Seuil de tolérance pour évaluer la proximité entre d et A.
  * @example dessousDessus(d1, M) // Renvoie la position de M par rapport à d1 parmi ces 5 possibilités : 'sur', 'droite', 'gauche', 'dessous', 'dessus'
  * @example dessousDessus(d1, M, 0.005) // Renvoie la position de M par rapport à d1 parmi ces 5 possibilités : 'sur', 'droite', 'gauche', 'dessous', 'dessus' (avec une tolérance de 0,005)
@@ -1226,7 +1301,7 @@ export function droite(
  */
 // JSDOC Validee par EE Aout 2022
 
-export function dessousDessus(d: Droite, A: Point, tolerance = 0.0001) {
+export function dessousDessus(d: Droite, A: PointAbstrait, tolerance = 0.0001) {
   if (egal(d.a * A.x + d.b * A.y + d.c, 0, tolerance)) return 'sur'
   if (egal(d.b, 0)) {
     if (A.x < -d.c / d.a) return 'gauche'
@@ -1245,7 +1320,7 @@ export function dessousDessus(d: Droite, A: Point, tolerance = 0.0001) {
  * @param {number} param1.xmax
  * @param {number} param1.ymin
  * @param {number} param1.ymax
- * @return {Point} le point qui servira à placer le label.
+ * @return {PointAbstrait} le point qui servira à placer le label.
  */
 export function positionLabelDroite(
   d: Droite,
@@ -1295,7 +1370,7 @@ export function positionLabelDroite(
 }
 
 /**  Trace la droite passant par le point A et de vecteur directeur v
- * @param {PointAbstrait} A Point de la droite
+ * @param {PointAbstrait} A PointAbstrait de la droite
  * @param {Vecteur} v Vecteur directeur de la droite
  * @param {string} [nom = ''] Nom affiché de la droite
  * @param {string} [color = 'black'] Couleur de la droite : du type 'blue' ou du type '#f15929'
@@ -1311,12 +1386,12 @@ export function droiteParPointEtVecteur(
   nom = '',
   color = 'black',
 ) {
-  const B = point(A.x + v.x, A.y + v.y)
+  const B = pointAbstrait(A.x + v.x, A.y + v.y)
   return new Droite(A, B, nom, color)
 }
 
 /**  Trace la droite parallèle à d passant par le point A
- * @param {PointAbstrait} A Point de la droite
+ * @param {PointAbstrait} A PointAbstrait de la droite
  * @param {Droite} d Droite
  * @param {string} [nom = ''] Nom affiché de la droite
  * @param {string} [color = 'black'] Couleur de la droite : du type 'blue' ou du type '#f15929'
@@ -1336,7 +1411,7 @@ export function droiteParPointEtParallele(
 }
 
 /**  Trace la droite perpendiculaire à d passant par le point A
- * @param {PointAbstrait} A Point de la droite
+ * @param {PointAbstrait} A PointAbstrait de la droite
  * @param {Droite} d Droite
  * @param {string} [nom = ''] Nom affiché de la droite
  * @param {string} [color = 'black'] Couleur de la droite : du type 'blue' ou du type '#f15929'
@@ -1356,7 +1431,7 @@ export function droiteParPointEtPerpendiculaire(
 }
 
 /**  Trace la droite horizontale passant par le point A
- * @param {Point} A Point de la droite
+ * @param {PointAbstrait} A PointAbstrait de la droite
  * @param {string} [nom = ''] Nom affiché de la droite
  * @param {string} [color = 'black'] Couleur de la droite : du type 'blue' ou du type '#f15929'
  * @example droiteHorizontaleParPoint(M) // Trace la droite horizontale passant par le point M
@@ -1365,12 +1440,16 @@ export function droiteParPointEtPerpendiculaire(
  * @return {Droite}
  */
 // JSDOC Validee par EE Aout 2022
-export function droiteHorizontaleParPoint(A: Point, nom = '', color = 'black') {
+export function droiteHorizontaleParPoint(
+  A: PointAbstrait,
+  nom = '',
+  color = 'black',
+) {
   return droiteParPointEtPente(A, 0, nom, color)
 }
 
 /**  Trace la droite verticale passant par le point A
- * @param {Point} A Point de la droite
+ * @param {PointAbstrait} A PointAbstrait de la droite
  * @param {string} [nom = ''] Nom affiché de la droite
  * @param {string} [color = 'black'] Couleur de la droite : du type 'blue' ou du type '#f15929'
  * @example droiteVerticaleParPoint(M) // Trace la droite verticale passant par le point M
@@ -1379,12 +1458,16 @@ export function droiteHorizontaleParPoint(A: Point, nom = '', color = 'black') {
  * @return {Droite}
  */
 // JSDOC Validee par EE Aout 2022
-export function droiteVerticaleParPoint(A: Point, nom = '', color = 'black') {
+export function droiteVerticaleParPoint(
+  A: PointAbstrait,
+  nom = '',
+  color = 'black',
+) {
   return droiteParPointEtVecteur(A, vecteur(0, 1), nom, color)
 }
 
 /**  Trace la droite passant par le point A et de pente k
- * @param {Point} A Point de la droite
+ * @param {PointAbstrait} A PointAbstrait de la droite
  * @param {number} k Pente de la droite
  * @param {string} [nom = ''] Nom affiché de la droite
  * @param {string} [color = 'black'] Couleur de la droite : du type 'blue' ou du type '#f15929'
@@ -1395,17 +1478,17 @@ export function droiteVerticaleParPoint(A: Point, nom = '', color = 'black') {
  */
 // JSDOC Validee par EE Aout 2022
 export function droiteParPointEtPente(
-  A: Point,
+  A: PointAbstrait,
   k: number,
   nom = '',
   color = 'black',
 ) {
-  const B = point(A.x + 1, A.y + k)
+  const B = pointAbstrait(A.x + 1, A.y + k)
   return new Droite(A, B, nom, color)
 }
 
 /**  Donne la distance entre le point A et la droite d
- * @param {Point} A
+ * @param {PointAbstrait} A
  * @param {Droite} d
  * @example distancePointDroite (M, d1) // Retourne la distance entre le point M et la droite d1
  * @author Jean-Claude Lhote

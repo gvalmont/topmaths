@@ -1,4 +1,4 @@
-import { Point, point } from '../../lib/2d/PointAbstrait'
+import { PointAbstrait, pointAbstrait } from '../../lib/2d/PointAbstrait'
 import { polyline } from '../../lib/2d/Polyline'
 import { codageAngle } from '../../lib/2d/angles'
 import { droite } from '../../lib/2d/droites'
@@ -94,8 +94,8 @@ export default class NommerUnAngle extends Exercice {
       i++
     ) {
       const propositionsAMC = []
-      let listePt1: Point[] = []
-      let listePt3: Point[] = []
+      let listePt1: PointAbstrait[] = []
+      let listePt3: PointAbstrait[] = []
       // let figureExo
       // On prépare la figure...
       const marquageAngle = this.sup3
@@ -144,15 +144,15 @@ export default class NommerUnAngle extends Exercice {
             */
 
       const ordB = randint(0, 2)
-      const B = point(0, ordB, lettreDepuisChiffre(numB))
+      const B = pointAbstrait(0, ordB, lettreDepuisChiffre(numB))
 
       const absA = ChoixHorizontal * randint(7, 12)
       const ordA = randint(4, 8)
-      const A = point(absA, ordA, lettreDepuisChiffre(numA))
+      const A = pointAbstrait(absA, ordA, lettreDepuisChiffre(numA))
 
       const absC = ChoixHorizontal * randint(7, 12, [absA])
       const ordC = -1 * randint(2, 5)
-      const C = point(absC, ordC, lettreDepuisChiffre(numC))
+      const C = pointAbstrait(absC, ordC, lettreDepuisChiffre(numC))
       const fractionSegmentAB = this.sup === 1 ? randint(2, 8) : randint(4, 6)
       const fractionSegmentBC =
         this.sup === 1
@@ -188,11 +188,16 @@ export default class NommerUnAngle extends Exercice {
       //  couleurRemplissageAngle = ['none'] // Correction J-C : on définira ces couleurs en testant this.sup3
       // couleurAngle = 'black'
       let texte = ''
-      const O = point(0, 0) // Sert à construire les symboles pour les questions
-      const M1 = point(4, 0) // Sert à construire les symboles pour les questions
+      const O = pointAbstrait(0, 0) // Sert à construire les symboles pour les questions
+      const M1 = pointAbstrait(4, 0) // Sert à construire les symboles pour les questions
       let texteCorr = ''
       let positionIbis = ChoixHorizontal === -1 ? 'right' : 'left'
-      const Ibis = point(I.x, I.y, lettreDepuisChiffre(numI), positionIbis)
+      const Ibis = pointAbstrait(
+        I.x,
+        I.y,
+        lettreDepuisChiffre(numI),
+        positionIbis,
+      )
 
       for (let jj = 0, marquageAngleConsigne; jj < this.sup; jj++) {
         marquageAngleConsigne = []
@@ -555,9 +560,7 @@ export default class NommerUnAngle extends Exercice {
           enonceAvant: true, // EE : ce champ est facultatif et permet (si false) de supprimer l'énoncé ci-dessus avant la numérotation de chaque question.
           enonceCentre: true, // EE : ce champ est facultatif et permet (si true) de centrer le champ 'enonce' ci-dessus.
           melange: true, // EE : ce champ est facultatif et permet (si false) de ne pas provoquer le mélange des questions.
-          // @ts-expect-error
           options: { avecSymboleMult: true }, // facultatif. Par défaut, multicols est à false. Ce paramètre provoque un multicolonnage (sur 2 colonnes par défaut) des propositions : pratique quand on met plusieurs AMCNum. !!! Attention, cela ne fonctionne pas, nativement, pour AMCOpen. !!!
-          // @ts-expect-error
           propositions: propositionsAMC,
         }
       }

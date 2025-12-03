@@ -1,17 +1,17 @@
-import ExerciceSimple from '../ExerciceSimple'
 import Figure from 'apigeom'
-import figureApigeom from '../../lib/figureApigeom'
-import { randint } from '../../modules/outils'
+import remove from 'apigeom/src/assets/svg/restart.svg'
+import type { Coords } from 'apigeom/src/elements/calculus/Coords'
 import {
   orangeMathalea,
   orangeMathaleaLight,
 } from 'apigeom/src/elements/defaultValues'
-import type { Coords } from 'apigeom/src/elements/calculus/Coords'
-import bluePolygon from './svg/bluePolygon.svg'
-import remove from 'apigeom/src/assets/svg/restart.svg'
-import { context } from '../../modules/context'
-import { range1 } from '../../lib/outils/nombres'
+import figureApigeom from '../../lib/figureApigeom'
 import { choice } from '../../lib/outils/arrayOutils'
+import { range1 } from '../../lib/outils/nombres'
+import { context } from '../../modules/context'
+import { randint } from '../../modules/outils'
+import ExerciceSimple from '../ExerciceSimple'
+import bluePolygon from './svg/bluePolygon.svg'
 
 export const dateDePublication = '31/07/2024'
 export const dateDeModifImportante = '03/09/2024'
@@ -158,7 +158,7 @@ export default class shikaku extends ExerciceSimple {
       this.figure.options.thickness = 3
       this.figure.options.tmpFillColor = 'blue'
       this.figure.options.fillColor = orangeMathalea
-      this.figure.ui?.send('POLYGON')
+      this.figure.ui?.send({ type: 'POLYGON' })
     }
     const eraseAllPoints = () => {
       for (const element of this.figure.elements.values()) {

@@ -50,7 +50,7 @@ export default class ProblemeMultiplicatifNbParts extends Probleme {
           start: 1,
           end: 15,
           text: `$${miseEnEvidence(nbFois.toString())}$ boites`,
-          type: 'flèche',
+          type: 'accolade',
         },
       ],
     })

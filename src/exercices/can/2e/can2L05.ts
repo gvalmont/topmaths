@@ -8,6 +8,7 @@ import { randint } from '../../../modules/outils'
 import ExerciceSimple from '../../ExerciceSimple'
 
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
+import { context } from '../../../modules/context'
 export const titre = 'Résoudre une inéquation'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -40,6 +41,7 @@ export default class SolutionInequation extends ExerciceSimple {
   nouvelleVersion() {
     let a: number, b: number, racine: number, n: number
 
+    if (context.isAmc) this.versionQcm = false
     switch (choice([1])) {
       case 1: {
         a = randint(-6, 6, [-1, 0, 1])
@@ -55,11 +57,11 @@ export default class SolutionInequation extends ExerciceSimple {
         const estStrict = [STRINF, STRSUP].includes(symbol)
         // Construction de la reponse
         const makeIntervalle = (
-          borne_gauche: string,
+          borneGauche: string,
           gauche: string,
           droite: string,
-          borne_droite: string,
-        ) => borne_gauche + gauche + '~;~' + droite + borne_droite
+          borneDroite: string,
+        ) => borneGauche + gauche + '~;~' + droite + borneDroite
         function makeReponse(bigg = false) {
           const biggCmd = bigg ? '\\bigg' : ''
           if ([INF, STRINF].includes(symbolFinal)) {
@@ -90,14 +92,17 @@ $<br>`
 
         this.correction += `L'ensemble de solutions est : ${texteEnCouleur(` $${makeReponse(true)}$`)}.<br>`
         this.reponse = makeReponse()
-        let tableau = [
-          `$[${racine}~;~+\\infty[$`,
-          `$[${-racine}~;~+\\infty[$`,
-          `$]-\\infty~;~${racine}[$`,
-          `$]-\\infty~;~${-racine}[$`,
-        ]
-        tableau = shuffle(tableau)
-        this.distracteurs = [tableau[0], tableau[1], tableau[2], tableau[3]]
+
+        if (this.versionQcm) {
+          let tableau = [
+            `$[${racine}~;~+\\infty[$`,
+            `$[${-racine}~;~+\\infty[$`,
+            `$]-\\infty~;~${racine}[$`,
+            `$]-\\infty~;~${-racine}[$`,
+          ]
+          tableau = shuffle(tableau)
+          this.distracteurs = [tableau[0], tableau[1], tableau[2], tableau[3]]
+        }
         break
       }
     }

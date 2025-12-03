@@ -9,6 +9,8 @@ import Exercice from '../Exercice'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { setReponse } from '../../lib/interactif/gestionInteractif'
+import Decimal from 'decimal.js'
+import { arrondi } from '../../lib/outils/nombres'
 
 export const titre = 'Encadrer avec les racines carrées'
 export const interactifReady = true
@@ -133,12 +135,12 @@ export default class EncadrerRacineCarreeEntre2Entiers extends Exercice {
             a = randint(3, 143, [4, 9, 16, 25, 36, 49, 64, 81, 100, 121])
             b = randint(-9, 9, 0)
             c = randint(-9, 9, [0, 1])
-            const r1 = Math.sqrt(a) - 0.05
-            const r1c = r1 * c
-            const r1b = r1c + b
-            const r2 = Math.sqrt(a) + 0.05
-            const r2c = r2 * c
-            const r2b = r2c + b
+            const r1 = new Decimal(arrondi(Math.sqrt(a),1))
+            const r1c = new Decimal(r1).mul(c)
+            const r1b = new Decimal(r1c).add(b)
+            const r2 = new Decimal(arrondi(Math.sqrt(a),1)).add(0.1)
+            const r2c =  new Decimal(r2).mul(c)
+            const r2b = new Decimal(r2c).add(b)
             texte = `En utilisant l'encadrement $${texNombre(r1, 1)}<\\sqrt{${a}}<${texNombre(r2, 1)}$, donner un encadrement de $${b}${ecritureAlgebriqueSauf1(c)}\\sqrt{${a}}$ le plus précis possible.<br>`
             if (this.interactif) {
               texte +=
@@ -151,7 +153,7 @@ export default class EncadrerRacineCarreeEntre2Entiers extends Exercice {
               texteCorr += `$\\begin{aligned}
             ${texNombre(r1, 1)} &< \\sqrt{${a}} < ${texNombre(r2, 1)}\\\\
         ${miseEnEvidence(c)}\\times ${texNombre(r1, 1)}&< ${miseEnEvidence(c)}\\times \\sqrt{${a}} < ${miseEnEvidence(c)}\\times ${texNombre(r2, 1)}{\\text{ (On multiplie par un nombre strictement positif)}}\\\\
-        ${texNombre(r1c, 1)}&< ${c}\\sqrt{${a}} <${texNombre(r2c, 1)}\\\\
+     ${texNombre(r1c, 1)}&< ${c}\\sqrt{${a}} <${texNombre(r2c, 1)}\\\\
         ${miseEnEvidence(b)}+${texNombre(r1c, 1)}&< ${miseEnEvidence(b)}${ecritureAlgebriqueSauf1(c)}\\sqrt{${a}} < ${miseEnEvidence(b)}+${texNombre(r2c, 1)}\\\\
         ${texNombre(r1b, 1)}&< ${b}${ecritureAlgebriqueSauf1(c)}\\sqrt{${a}} < ${texNombre(r2b, 1)}
                        \\end{aligned}$<br>
@@ -162,7 +164,7 @@ export default class EncadrerRacineCarreeEntre2Entiers extends Exercice {
               texteCorr += `$\\begin{aligned}
             ${texNombre(r1, 1)} &< \\sqrt{${a}} < ${texNombre(r2, 1)}\\\\
         ${miseEnEvidence(c)}\\times ${texNombre(r1, 1)}&> ${miseEnEvidence(c)}\\times \\sqrt{${a}} > ${miseEnEvidence(c)}\\times ${texNombre(r2, 1)}{\\text{ (On multiplie par un nombre strictement négatif)}}\\\\
-        ${texNombre(r1c, 1)}&> ${c}\\sqrt{${a}} >${texNombre(r2c, 1)}\\\\
+        ${texNombre(r1c, 2)}&> ${c}\\sqrt{${a}} >${texNombre(r2c, 1)}\\\\
         ${miseEnEvidence(b)}${texNombre(r1c, 1)}&> ${miseEnEvidence(b)}${ecritureAlgebriqueSauf1(c)}\\sqrt{${a}} > ${miseEnEvidence(b)}${texNombre(r2c, 1)}\\\\
         ${texNombre(r1b, 1)}&> ${b}${ecritureAlgebriqueSauf1(c)}\\sqrt{${a}} > ${texNombre(r2b, 1)}
                        \\end{aligned}$<br>

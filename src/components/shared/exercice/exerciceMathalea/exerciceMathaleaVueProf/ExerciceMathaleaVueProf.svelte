@@ -22,9 +22,9 @@
   import {
     changes,
     exercicesParams,
-    globalOptions,
     resultsByExercice,
   } from '../../../../../lib/stores/generalStore'
+  import { globalOptions } from '../../../../../lib/stores/globalOptions'
   import { isLocalStorageAvailable } from '../../../../../lib/stores/storage'
   import type { InterfaceParams } from '../../../../../lib/types'
   import type { HeaderProps } from '../../../../../lib/types/ui'

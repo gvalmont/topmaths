@@ -821,7 +821,7 @@ export default class SchemaEnBoite {
                 ? nbParts
                 : `$${texNombre(Number(nbParts), precison)}$`
               : '?',
-          type: 'flèche',
+          type: 'accolade',
         },
       ],
     })

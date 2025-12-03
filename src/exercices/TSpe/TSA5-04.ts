@@ -11,6 +11,8 @@ import { miseEnEvidence } from '../../lib/outils/embellissements'
 import {
   ecritureAlgebrique,
   ecritureAlgebriqueSauf1,
+  reduireAxPlusB,
+  rienSi0,
   rienSi1,
 } from '../../lib/outils/ecritures'
 import { numAlpha, sp } from '../../lib/outils/outilString'
@@ -25,6 +27,20 @@ export const interactifType = 'mathLive'
 export const refs = {
   'fr-fr': ['TSA5-04'],
   'fr-ch': [],
+}
+
+function resoudreAxPlusBZeroTex(a: number, b: number): string {
+  let fracMoinsBsurA = new FractionEtendue(-b, a).texFractionSimplifiee
+  let texteCorr = ''
+  texteCorr += `$${reduireAxPlusB(a, b)}> 0`
+  if (b !== 0) {
+    texteCorr += `\\iff ${rienSi1(a)}x> ${-b}`
+  }
+  if (a !== 1) {
+    texteCorr += `\\iff x${a > 0 ? '> ' : '< '}${fracMoinsBsurA}`
+  }
+  texteCorr += '$'
+  return texteCorr
 }
 
 /**
@@ -42,7 +58,7 @@ export default class EquationsLog extends Exercice {
     this.sup = '1'
     this.besoinFormulaireTexte = [
       'Type de question ',
-      'Nombres séparés par des tirets  :\n : log(ax+b)=n\n2 : log(ax+b)=log(cx+d)\n3 : Mélange',
+      'Nombres séparés par des tirets  :\n1 : log(ax+b)=n\n2 : log(ax+b)=log(cx+d)\n3 : Mélange',
     ]
     this.besoinFormulaire2CaseACocher = ['Type de logarithme', false]
     this.comment = "Exercice de résolution d'équations avec logarithme"
@@ -75,9 +91,9 @@ export default class EquationsLog extends Exercice {
       let d: number
       let n: number
       do {
-        a = randint(-10, 10)
+        a = randint(-10, 10, 0)
         b = randint(-10, 10)
-        c = randint(-10, 10)
+        c = randint(-10, 10, 0)
         d = randint(-10, 10)
         n = randint(-10, 10)
       } while (!(a !== c && b !== d && b / c !== d / c))
@@ -86,7 +102,7 @@ export default class EquationsLog extends Exercice {
       let intervalle: [FractionEtendue, FractionEtendue]
       if (listeTypeQuestions[i] === 1) {
         // log(ax+b)=n
-        texte = `On demande de résoudre l'équation suivante : $${logString}(${rienSi1(a)}x${ecritureAlgebrique(b)})=${n}$.<br>`
+        texte = `On demande de résoudre l'équation suivante : $${logString}(${reduireAxPlusB(a, b)})=${n}$.<br>`
         texte +=
           `${numAlpha(0)} Déterminer le domaine sur lequel on peut résoudre cette équation.` +
           ajouteChampTexteMathLive(
@@ -103,24 +119,32 @@ export default class EquationsLog extends Exercice {
             ` ${KeyboardType.lycee} ${KeyboardType.clavierEnsemble}`,
             { texteAvant: '$\\mathcal{S}=$' },
           )
-        texteCorr = `${numAlpha(0)} Tout d'abord, la fonction $${logString}$ est définie sur $\\R_+^*$, donc $${rienSi1(a)}x${ecritureAlgebrique(b)}$ doit être strictement positif.<br>`
+
+        if (b !== 0) {
+          solution = `${a > 0 ? '' : '-'}${Math.abs(a) !== 1 ? `\\dfrac{${base}^{${n}}${ecritureAlgebrique(-b)}}{${Math.abs(a)}}` : `${base}^{${n}}${ecritureAlgebrique(a === 1 ? -b : b)}`}`
+        } else {
+          solution = `${a > 0 ? '' : '-'}${Math.abs(a) !== 1 ? `\\dfrac{${base}^{${n}}}{${Math.abs(a)}}` : `${base}^{${n}}`}`
+        }
         const f1 = new FractionEtendue(-b, a)
         const fracMoinsBsurA = f1.texFractionSimplifiee
-        texteCorr += `$${rienSi1(a)}x${ecritureAlgebrique(b)}> 0 \\iff ${rienSi1(a)}x> ${-b} \\iff x${a > 0 ? '> ' : '< '}${fracMoinsBsurA}$${a > 0 ? '' : ` (On inverse le signe car on divise chaque membre par $${a}$ qui est négatif)`}.<br>`
-        texteCorr += `Ainsi, ${sp()} $ \\mathcal{D}_f=${miseEnEvidence(a > 0 ? `\\left]${fracMoinsBsurA};+\\infty\\right[` : `\\left]-\\infty;${fracMoinsBsurA}\\right[`)}$.<br>`
+        texteCorr = `${numAlpha(0)} Tout d'abord, la fonction $${logString}$ est définie sur $\\R_+^*$, donc $${reduireAxPlusB(a, b)}$ doit être strictement positif.<br>`
+        texteCorr += resoudreAxPlusBZeroTex(a, b)
+        if (a <= 0) {
+          texteCorr += ` (On inverse le signe car on divise chaque membre par $${a}$ qui est négatif)`
+        }
+        texteCorr += `.<br>Ainsi, ${sp()} $ \\mathcal{D}_f=${miseEnEvidence(a > 0 ? `\\left]${fracMoinsBsurA};+\\infty\\right[` : `\\left]-\\infty;${fracMoinsBsurA}\\right[`)}$.<br>`
         texteCorr += `${numAlpha(1)} Ensuite,  on sait que pour tout $a$ et $b$ appartenant à $\\R_+^*, ${sp()}$ $a=b \\iff ${logString} (a) = ${logString} (b)$. D'où : <br>`
         texteCorr += `
         $\\begin{aligned}
-        ${logString}(${rienSi1(a)}x${ecritureAlgebrique(b)})= ${n} &\\iff ${logString}(${rienSi1(a)}x${ecritureAlgebrique(b)})= ${logString}(${base}^{${n}})\\\\
-         &\\iff ${rienSi1(a)}x${ecritureAlgebrique(b)}=${base}^{${n}}\\\\
-         &\\iff ${rienSi1(a)}x=${base}^{${n}}${ecritureAlgebrique(-b)}\\\\
-         &\\iff x=${a > 0 ? '' : '-'}${Math.abs(a) !== 1 ? `\\dfrac{${base}^{${n}}${ecritureAlgebrique(-b)}}{${Math.abs(a)}}` : `${base}^{${n}}${ecritureAlgebrique(a === 1 ? -b : b)}`}
+        ${logString}(${reduireAxPlusB(a, b)})= ${n} &\\iff ${logString}(${reduireAxPlusB(a, b)})= ${logString}(${base}^{${n}})\\\\
+         &\\iff ${reduireAxPlusB(a, b)}=${base}^{${n}}\\\\
+         ${b !== 0 ? `&\\iff ${rienSi1(a)}x=${base}^{${n}}${ecritureAlgebrique(-b)}\\\\` : ''}
+         &\\iff x=${solution}
          \\end{aligned}$`
         domaine =
           a > 0
             ? `\\left]${fracMoinsBsurA};+\\infty\\right[`
             : `\\left]-\\infty;${fracMoinsBsurA}\\right[`
-        solution = `${a > 0 ? '' : '-'}${Math.abs(a) !== 1 ? `\\dfrac{${base}^{${n}}${ecritureAlgebrique(-b)}}{${Math.abs(a)}}` : `${base}^{${n}}${ecritureAlgebrique(a === 1 ? -b : b)}`}`
         intervalle =
           a > 0
             ? [f1, new FractionEtendue(10 ** 15, 1)]
@@ -139,7 +163,7 @@ export default class EquationsLog extends Exercice {
         }
       } else {
         // log(ax+b)=log(cx+d)
-        texte = `On demande de résoudre l'équation suivante : $${logString}(${rienSi1(a)}x${ecritureAlgebrique(b)})=${logString}(${rienSi1(c)}x${ecritureAlgebrique(d)})$.<br>`
+        texte = `On demande de résoudre l'équation suivante : $${logString}(${reduireAxPlusB(a, b)})=${logString}(${reduireAxPlusB(c, d)})$.<br>`
         texte +=
           `${numAlpha(0)} Déterminer le domaine sur lequel on peut résoudre cette équation.<br>` +
           ajouteChampTexteMathLive(
@@ -156,15 +180,13 @@ export default class EquationsLog extends Exercice {
             ` ${KeyboardType.lycee} ${KeyboardType.clavierEnsemble}`,
             { texteAvant: '$\\mathcal{S}=$' },
           )
-        texteCorr = `${numAlpha(0)} Tout d'abord, la fonction $${logString}$ est définie sur $\\R_+^*$, donc $${rienSi1(a)}x${ecritureAlgebrique(b)}$ et $${rienSi1(c)}x${ecritureAlgebrique(d)}$ doivent être strictement positifs.<br>`
+        texteCorr = `${numAlpha(0)} Tout d'abord, la fonction $${logString}$ est définie sur $\\R_+^*$, donc $${reduireAxPlusB(a, b)}$ et $${reduireAxPlusB(c, d)}$ doivent être strictement positifs.<br>`
         const f2 = new FractionEtendue(-b, a)
         const f3 = new FractionEtendue(-d, c)
         const fracMoinsBsurA = f2.texFractionSimplifiee
         const fracMoinsDsurC = f3.texFractionSimplifiee
-        texteCorr += `D'une part, $${rienSi1(a)}x${ecritureAlgebrique(b)}> 0 \\iff ${rienSi1(a)}x> ${-b} 
-        \\iff x${a > 0 ? '> ' : '<'}${fracMoinsBsurA}$.<br>`
-        texteCorr += `D'autre part, $${rienSi1(c)}x${ecritureAlgebrique(d)}> 0 \\iff ${rienSi1(c)}x> ${-d} 
-        \\iff x${c > 0 ? '> ' : '<'}${fracMoinsDsurC}$.<br>`
+        texteCorr += `D'une part, ${resoudreAxPlusBZeroTex(a, b)}.<br>`
+        texteCorr += `D'autre part, ${resoudreAxPlusBZeroTex(c, d)}.<br>`
         if (a * c > 0) {
           // les signes sont dans le même sens, on a un intervalle inclus dans l'autre
           if (a > 0) {
@@ -253,19 +275,20 @@ export default class EquationsLog extends Exercice {
         }
         if (domaine !== '\\emptyset') {
           texteCorr += `<br>${numAlpha(1)} Ensuite, la fonction $${logString}$ étant une fonction strictement croissante de $\\R_+^*$ dans $\\R$, donc pour tout $a$ et $b$ appartenant à $\\R_+^*$, $a=b \\iff ${logString} a = ${logString} b$.<br>`
-          texteCorr += `Ainsi, En mettant à la puissance de $${base}$ :<br>$
+          texteCorr += `Ainsi, en mettant à la puissance de $${base}$ :<br>$
           \\begin{aligned} 
-          ${logString}(${rienSi1(a)}x${ecritureAlgebrique(b)})=${logString}(${rienSi1(c)}x${ecritureAlgebrique(d)})&\\iff ${rienSi1(a)}x${ecritureAlgebrique(b)}=${rienSi1(c)}x${ecritureAlgebrique(d)}\\\\`
+          ${logString}(${reduireAxPlusB(a, b)})=${logString}(${reduireAxPlusB(c, d)})&\\iff ${reduireAxPlusB(a, b)}=${reduireAxPlusB(c, d)}\\\\`
           const fracSolution = new FractionEtendue(d - b, a - c).simplifie()
           if (a > c) {
             // a>c : on ramène dans le premier membre.
-            texteCorr += `&\\iff ${rienSi1(a)}x{${ecritureAlgebriqueSauf1(-c)}x=${d}${ecritureAlgebrique(-b)}}\\\\
-            &\\iff ${rienSi1(a - c)}x=${d - b}\\\\
+            texteCorr += `&\\iff ${rienSi1(a)}x{${ecritureAlgebriqueSauf1(-c)}x=${rienSi0(d)}${b !== 0 ? (d === 0 ? -b : ecritureAlgebrique(-b)) : ''}}\\\\
+            ${a - c !== 1 ? `&\\iff ${a - c}x=${d - b}\\\\` : ''}
             &\\iff x=${fracSolution.texFSD}
             \\end{aligned}$`
           } else {
             // c>a, on ramène dans le deuxième membre
-            texteCorr += `&\\iff ${b}${ecritureAlgebrique(-d)}=${rienSi1(c)}x${ecritureAlgebriqueSauf1(-a)}x\\\\
+            texteCorr += `&\\iff ${rienSi0(b)}${d !== 0 ? (b === 0 ? -d : ecritureAlgebrique(-d)) : ''}`
+            texteCorr += `=${rienSi1(c)}x${ecritureAlgebriqueSauf1(-a)}x\\\\
             &\\iff ${b - d}=${rienSi1(c - a)}x\\\\
             &\\iff x=${fracSolution.texFSD}
             \\end{aligned}$`
@@ -284,7 +307,7 @@ export default class EquationsLog extends Exercice {
           texteCorr += `<br>${numAlpha(1)} Le domaine de définition de l'équation étant l'ensemble vide, il en est de même pour l'ensemble de solutions de l'équation.<br>`
           solution = '\\emptyset'
         }
-        texteCorr += `<br>$\\mathcal{S}=${miseEnEvidence(solution)}$`
+        texteCorr += `<br>$\\mathcal{S}=${miseEnEvidence(solution.startsWith('{') ? `\\left\\{${solution.slice(1, -1)}\\right\\}` : solution)}$`
       }
       if (this.questionJamaisPosee(i, a, b, n, listeTypeQuestions[i])) {
         if (this.interactif) {

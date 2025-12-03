@@ -36,7 +36,7 @@ export default class SommeDeProduitsCompleter extends ExerciceSimple {
   nouvelleVersion() {
     const annee = 2026
     const objets = []
-    const a = this.canOfficielle ? 12 : randint(11, 15) * 100
+    const a = this.canOfficielle ? 1200 : randint(11, 15) * 100
     const b = annee
     const A = point(0, 0, 'A', 'below')
     const B = point(5, 0, 'B', 'below')

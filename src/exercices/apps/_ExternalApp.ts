@@ -2,9 +2,9 @@ import { get } from 'svelte/store'
 import { sendToCapytaleSaveStudentAssignment } from '../../lib/handleCapytale'
 import {
   exercicesParams,
-  globalOptions,
   resultsByExercice,
 } from '../../lib/stores/generalStore'
+import { globalOptions } from '../../lib/stores/globalOptions'
 import Exercice from '../Exercice'
 
 class ExternalApp extends Exercice {

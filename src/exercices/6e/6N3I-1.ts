@@ -91,7 +91,7 @@ export default class EncadrerFractionEntre2Entiers extends Exercice {
         isDynamic: true,
       })
       figure.divButtons.style.display = 'grid'
-      if (figure.ui) figure.ui.send('FILL')
+      if (figure.ui) figure.ui.send({ type: 'FILL' })
     } else {
       this.introduction = ''
     }
@@ -114,7 +114,7 @@ export default class EncadrerFractionEntre2Entiers extends Exercice {
         this,
         i,
         `%{champ1} < \\dfrac{${n}}{${d}} < %{champ2}`,
-        KeyboardType.clavierNumbers,
+        this.lycee ? KeyboardType.clavierDeBase : KeyboardType.clavierNumbers,
         '\\ldots',
       )
       texteCorr = this.sup4

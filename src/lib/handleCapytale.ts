@@ -2,21 +2,18 @@ import { RPC } from '@mixer/postmessage-rpc'
 import { tick } from 'svelte'
 import { get } from 'svelte/store'
 
-
 import type { Activity, InterfaceResultExercice } from '../lib/types'
-import {
-  mathaleaGoToView,
-  mathaleaWriteStudentPreviousAnswers,
-} from './mathalea'
+import { mathaleaWriteStudentPreviousAnswers } from './mathalea'
+import { mathaleaGoToView } from './mathaleaUtils'
 
 import { canOptions as canOptionsStore } from './stores/canStore'
 import {
   capytaleMode,
   capytaleStudentAssignment,
   exercicesParams,
-  globalOptions,
   resultsByExercice,
 } from './stores/generalStore'
+import { globalOptions } from './stores/globalOptions'
 import type { CanState } from './types/can'
 
 interface AssignmentData {
@@ -35,7 +32,7 @@ interface ActivityParams {
 const serviceId = 'capytale-player'
 
 // Gestion des postMessage avec Capytale
-const rpc = new RPC({
+export const rpc = new RPC({
   target: window.parent,
   serviceId,
   origin: '*',
@@ -46,8 +43,8 @@ export let answersFromCapytale: InterfaceResultExercice[] = []
 export let assignmentDataFromCapytale: AssignmentData = {}
 
 // timer pour ne pas lancer hasChanged trop souvent
-let timerId: ReturnType<typeof setTimeout> | undefined
-let firstTime = true
+export let timerId: ReturnType<typeof setTimeout> | undefined
+export const firstTime = true
 let currentMode: 'create' | 'assignment' | 'review' | 'view'
 
 /**
@@ -208,7 +205,7 @@ async function toolSetActivityParams({
             await Promise.all(
               mathaleaWriteStudentPreviousAnswers(exercice.answers),
             )
-            const time = window.performance.now()
+            const time = window.performance.now() - starttime // À quoi ça sert ? @todo supprimer
           }
         }
       }
@@ -271,22 +268,6 @@ export async function waitForSvelteToBeStable(delay = 500) {
   await tick()
   // Optionnel : petit délai pour que tous les rendus batchés se terminent
   await new Promise((resolve) => setTimeout(resolve, delay))
-}
-
-export async function sendToCapytaleMathaleaHasChanged() {
-  if (firstTime) {
-    // attendre 1 seconde
-    await new Promise((resolve) => setTimeout(resolve, 1000))
-    firstTime = false
-    return
-  }
-  // On ne prévient Capytale qu'une fois toutes les demi-secondes
-  if (timerId === undefined) {
-    timerId = setTimeout(() => {
-      rpc.call('hasChanged', {})
-      timerId = undefined
-    }, 500)
-  }
 }
 
 export function sendToCapytaleSaveStudentAssignment({

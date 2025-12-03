@@ -3,15 +3,15 @@ import bigInt from 'big-integer'
 
 import { get } from 'svelte/store'
 import { showDialogForLimitedTime } from './lib/components/dialogs'
-import { createURL } from './lib/mathalea'
+import { createURL } from './lib/createURL'
 import { canOptions } from './lib/stores/canStore'
 import {
   capytaleMode,
   capytaleStudentAssignment,
   exercicesParams,
-  globalOptions,
 } from './lib/stores/generalStore'
-import { tropDeChiffres } from './modules/outils'
+import { globalOptions } from './lib/stores/globalOptions'
+import { tropDeChiffres } from './modules/messages'
 
 type Metadatas = Record<string, unknown>
 

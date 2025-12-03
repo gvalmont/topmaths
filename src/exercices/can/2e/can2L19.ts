@@ -2,6 +2,7 @@ import { texteCentre } from '../../../lib/format/miseEnPage'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 import { choice } from '../../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
+import { context } from '../../../modules/context'
 import ExerciceSimple from '../../ExerciceSimple'
 export const titre = 'Exprimer une variable en fonction des autres (formules)'
 export const interactifReady = true
@@ -36,6 +37,7 @@ export default class ExprimerEnFonction extends ExerciceSimple {
   nouvelleVersion() {
     const choixQ = choice([true, false])
 
+    if (context.isAmc) this.versionQcm = false
     switch (choice([1, 2, 3, 4, 5, 6])) {
       case 1:
         this.question = `Lorsqu’un point mobile suit une trajectoire circulaire de rayon $R$, 
@@ -53,9 +55,11 @@ export default class ExprimerEnFonction extends ExerciceSimple {
             : `Donner l'expression permettant, à partir de cette formule, d'exprimer l'accélération $a$.`
           this.reponse = choixQ ? '$\\sqrt{aR}$' : '$\\dfrac{v^2}{R}$'
         }
-        this.distracteurs = choixQ
-          ? ['$v=aR^2$', '$v=\\sqrt{\\dfrac{a}{R}}$', '$v=\\dfrac{a^2}{R}$']
-          : ['$a=v^2R$', '$a=\\dfrac{v}{\\sqrt{R}}$', '$a=\\dfrac{R}{v^2}$']
+        if (this.versionQcm) {
+          this.distracteurs = choixQ
+            ? ['$v=aR^2$', '$v=\\sqrt{\\dfrac{a}{R}}$', '$v=\\dfrac{a^2}{R}$']
+            : ['$a=v^2R$', '$a=\\dfrac{v}{\\sqrt{R}}$', '$a=\\dfrac{R}{v^2}$']
+        }
         choixQ
           ? (this.optionsChampTexte = {
               texteAvant: '<br> $v=$',
@@ -92,13 +96,15 @@ Puis en isolant $a$, on obtient : $${miseEnEvidence('a = \\dfrac{v^2}{R}')}$.`
             ? '$\\dfrac{x}{v^2}$'
             : '$\\dfrac{\\sqrt{y}-1}{x}$'
         }
-        this.distracteurs = choixQ
-          ? ['$y=\\sqrt{xv}$', '$y=x \\times v^2$', '$y=\\dfrac{v^2}{x}$']
-          : [
-              '$v=\\dfrac{y-1}{x}$',
-              '$v=\\sqrt{y} \\times x - 1$',
-              '$v=\\dfrac{1}{x \\times \\sqrt{y}}$',
-            ]
+        if (this.versionQcm) {
+          this.distracteurs = choixQ
+            ? ['$y=\\sqrt{xv}$', '$y=x \\times v^2$', '$y=\\dfrac{v^2}{x}$']
+            : [
+                '$v=\\dfrac{y-1}{x}$',
+                '$v=\\sqrt{y} \\times x - 1$',
+                '$v=\\dfrac{1}{x \\times \\sqrt{y}}$',
+              ]
+        }
         choixQ
           ? (this.optionsChampTexte = {
               texteAvant: '<br> $y=$',
@@ -140,17 +146,19 @@ Donc : $${miseEnEvidence('v = \\dfrac{\\sqrt{y} - 1}{x}')}$.`
             ? '$\\dfrac{5}{9}(F-32)$'
             : '$\\dfrac{9}{5}C+32$'
         }
-        this.distracteurs = choixQ
-          ? [
-              '$C=\\dfrac{9}{5}(F-32)$',
-              '$C=\\dfrac{5}{9}F-32$',
-              '$C=\\dfrac{5(F-32)}{9}$',
-            ]
-          : [
-              '$F=\\dfrac{5}{9}C+32$',
-              '$F=\\dfrac{9}{5}C-32$',
-              '$F=\\dfrac{9}{5}(C+32)$',
-            ]
+        if (this.versionQcm) {
+          this.distracteurs = choixQ
+            ? [
+                '$C=\\dfrac{9}{5}(F-32)$',
+                '$C=\\dfrac{5}{9}F-32$',
+                '$C=\\dfrac{5(F-32)}{9}$',
+              ]
+            : [
+                '$F=\\dfrac{5}{9}C+32$',
+                '$F=\\dfrac{9}{5}C-32$',
+                '$F=\\dfrac{9}{5}(C+32)$',
+              ]
+        }
         choixQ
           ? (this.optionsChampTexte = {
               texteAvant: '<br> $C=$',
@@ -179,11 +187,13 @@ Puis en isolant  $F$, on obtient : $${miseEnEvidence('F = \\dfrac{9}{5}C + 32')}
           this.question += `Donner l'expression permettant, à partir de cette formule, d'exprimer $t$.`
           this.reponse = '$\\sqrt{\\dfrac{2h}{g}}$'
         }
-        this.distracteurs = [
-          '$t=\\dfrac{2h}{g}$',
-          '$t=\\sqrt{\\dfrac{h}{2g}}$',
-          '$t=\\dfrac{\\sqrt{2h}}{g}$',
-        ]
+        if (this.versionQcm) {
+          this.distracteurs = [
+            '$t=\\dfrac{2h}{g}$',
+            '$t=\\sqrt{\\dfrac{h}{2g}}$',
+            '$t=\\dfrac{\\sqrt{2h}}{g}$',
+          ]
+        }
         this.optionsChampTexte = { texteAvant: '<br> $t=$' }
         this.correction = `On part de la formule : $h = \\dfrac{1}{2}gt^2$.<br>
 En multiplinat les deux membres par $2$, on obtient : $2h = gt^2$.<br>
@@ -205,10 +215,11 @@ Comme $t \\geqslant 0$, en prenant la racine carrée, on obtient : $${miseEnEvid
             : `Donner l'expression permettant, à partir de cette formule, d'exprimer $I$.`
           this.reponse = choixQ ? '$I(1+T)$' : '$\\dfrac{F}{1+T}$'
         }
-        this.distracteurs = choixQ
-          ? ['$F=TI-I$', '$F=\\dfrac{I}{1+T}$', '$F=I(T-1)$']
-          : ['$I=F(1+T)$', '$I=\\dfrac{F}{T-1}$', '$I=F-T$']
-
+        if (this.versionQcm) {
+          this.distracteurs = choixQ
+            ? ['$F=TI-I$', '$F=\\dfrac{I}{1+T}$', '$F=I(T-1)$']
+            : ['$I=F(1+T)$', '$I=\\dfrac{F}{T-1}$', '$I=F-T$']
+        }
         choixQ
           ? (this.optionsChampTexte = {
               texteAvant: '<br> $F=$',
@@ -248,18 +259,19 @@ Donc : $${miseEnEvidence('I = \\dfrac{F}{1 + T}')}$.`
             ? `Donner l'expression permettant, à partir de cette formule, d'exprimer $L$.`
             : `Donner l'expression permettant, à partir de cette formule, d'exprimer $\\ell$.`
         }
-        this.distracteurs = choixQ
-          ? [
-              '$L=\\dfrac{P-\\ell}{2}$',
-              '$L=P-2\\ell$',
-              '$L=\\dfrac{P}{2\\ell}$',
-            ]
-          : [
-              '$\\ell=\\dfrac{P-L}{2}$',
-              '$\\ell=P-2L$',
-              '$\\ell=\\dfrac{P}{2L}$',
-            ]
-
+        if (this.versionQcm) {
+          this.distracteurs = choixQ
+            ? [
+                '$L=\\dfrac{P-\\ell}{2}$',
+                '$L=P-2\\ell$',
+                '$L=\\dfrac{P}{2\\ell}$',
+              ]
+            : [
+                '$\\ell=\\dfrac{P-L}{2}$',
+                '$\\ell=P-2L$',
+                '$\\ell=\\dfrac{P}{2L}$',
+              ]
+        }
         choixQ
           ? (this.optionsChampTexte = {
               texteAvant: '<br> $L=$',

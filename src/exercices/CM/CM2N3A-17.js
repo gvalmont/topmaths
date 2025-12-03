@@ -1,6 +1,8 @@
 import { setReponse } from '../../lib/interactif/gestionInteractif'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { combinaisonListes } from '../../lib/outils/arrayOutils'
+import { miseEnEvidence } from '../../lib/outils/embellissements'
+import { texNombre } from '../../lib/outils/texNombre'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import Exercice from '../Exercice'
 
@@ -52,15 +54,15 @@ export default class SommeDeDeuxNombresMariesEtUnEntier extends Exercice {
       switch (listeTypeDeQuestions[i]) {
         case 1:
           texte = `$${a}+${b}+${c}=$`
-          texteCorr = `$${a}+${b}+${c}=${a + b + c}$`
+          texteCorr = `$${a}+${b}+${c}=${miseEnEvidence(texNombre(a + b + c))}$`
           break
         case 2:
           texte = `$${a}+${c}+${b}=$`
-          texteCorr = `$${a}+${c}+${b}=${a + b + c}$`
+          texteCorr = `$${a}+${c}+${b}=${miseEnEvidence(texNombre(a + b + c))}$`
           break
       }
       setReponse(this, i, a + b + c)
-      if (this.interactif) texte += ajouteChampTexteMathLive(this, i, '')
+      if (this.interactif) {texte += ajouteChampTexteMathLive(this, i, '')} else {texte += `$\\dots$`}
 
       if (this.listeQuestions.indexOf(texte) === -1) {
         // Si la question n'a jamais été posée, on en crée une autre

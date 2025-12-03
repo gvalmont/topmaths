@@ -8,7 +8,7 @@ import {
 import { listeShapes2DInfos } from '../../lib/2d/figures2d/shapes2d'
 import { fixeBordures } from '../../lib/2d/fixeBordures'
 import {
-  listePatternsFor6N4B,
+  listePatternsSansRatioNiFraction,
   type PatternRiche,
   type PatternRiche3D,
 } from '../../lib/2d/patterns/patternsPreDef'
@@ -47,6 +47,7 @@ export const interactifReady = true
 export const interactifType = 'mathLive'
 
 export const dateDePublication = '23/07/2025'
+export const dateDeModifImportante = '22/11/2025'
 
 /**
  * Identifier la structure d'un motif (itératif)
@@ -73,7 +74,7 @@ export default class PatternIteratif extends Exercice {
 Grâce au premier paramètre, on peut choisir le nombre de motifs visibles.<br>
 Grâce au deuxième paramètre, on peut choisir les questions à poser.<br>
 Grâce au troisième paramètre, on peut choisir le numéro du motif de la question d.<br>
-Grâce au quatrième paramètre, on peut imposer des patterns choisis dans cette <a href="https://coopmaths.fr/alea/?uuid=71ff5" target="_blank" style="color: blue">liste de patterns</a>.<br>
+Grâce au quatrième paramètre, on peut imposer des patterns choisis dans cette <a href="https://coopmaths.fr/alea/?uuid=71ff5&s=1" target="_blank" style="color: blue">liste de patterns</a>.<br>
 Si le nombre de questions est supérieur au nombre de patterns choisis, alors l'exercice sera complété par des patterns choisis au hasard.
     `
     this.besoinFormulaireNumerique = [
@@ -99,12 +100,12 @@ Si le nombre de questions est supérieur au nombre de patterns choisis, alors l'
     this.sup2 = '7'
 
     this.besoinFormulaire3Numerique = [
-      'Numéro du motif (choisi entre 11 et 99).\nMettre 100 pour laisser le hasard choisir ',
-      listePatternsFor6N4B.length,
+      'Numéro du motif de la question c) (choisi entre 11 et 99).\nMettre 100 pour laisser le hasard choisir ',
+      listePatternsSansRatioNiFraction.length,
     ]
-    this.sup3 = '0'
+    this.sup3 = 0
 
-    const maxNumPattern = listePatternsFor6N4B.length
+    const maxNumPattern = listePatternsSansRatioNiFraction.length
     this.besoinFormulaire4Texte = [
       'Numéro de pattern',
       [
@@ -129,7 +130,7 @@ Si le nombre de questions est supérieur au nombre de patterns choisis, alors l'
     this.destroyers.forEach((destroy) => destroy())
     this.destroyers.length = 0
     // on ne conserve que les linéaires et les affines sans ratio, ni fraction, ni multiple shape
-    const listePatternReference = listePatternsFor6N4B
+    const listePatternReference = listePatternsSansRatioNiFraction
     const angle = Math.PI / 6
 
     let listePattern = gestionnaireFormulaireTexte({
@@ -141,7 +142,9 @@ Si le nombre de questions est supérieur au nombre de patterns choisis, alors l'
       defaut: 0,
       exclus: [0],
     }).map(Number)
-    listePattern = enleveDoublonNum(listePattern, 0)
+
+    listePattern = enleveDoublonNum(listePattern)
+
     listePattern = completerNombresUniques(
       listePattern,
       this.nbQuestions,
@@ -191,7 +194,6 @@ Si le nombre de questions est supérieur au nombre de patterns choisis, alors l'
 
       const objetsCorr: NestedObjetMathalea2dArray = []
       const pat = listePreDef[i]
-      // const pattern = ('iterate3d' in pat) ? new VisualPattern3D({ initialCells: [], type: 'iso', shapes: ['cube'], prefixId: `Ex${this.numeroExercice}Q${i}` }) : new VisualPattern([])
       const pattern =
         'iterate3d' in pat
           ? new VisualPattern3D({

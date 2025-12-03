@@ -32,7 +32,7 @@ export const refs = {
  * Utiliser la définition du cercle et du disque
  * @author Eric Elter
  */
-export default class nomExercice extends Exercice {
+export default class defCercleDisque extends Exercice {
   figuresApiGeom!: Figure[]
   figuresApiGeomCorr!: Figure[]
   lesPoints!: Point[][]

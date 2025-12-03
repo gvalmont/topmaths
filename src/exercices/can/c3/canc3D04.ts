@@ -92,7 +92,7 @@ export default class ExerciceInteractiveClock extends Exercice {
         )
       }
       if (hour > 12) {
-        correction += `Remarque : ${hour} h correspond à ${hour - 12} h ${hour < 18 ? "de l'après-midi" : 'du soir'}.`
+        correction += `<br>Remarque : ${hour} h correspond à ${hour - 12} h ${hour < 18 ? "de l'après-midi" : 'du soir'}.`
       }
       if (this.questionJamaisPosee(i, hour, minute)) {
         this.listeQuestions[i] = enonce

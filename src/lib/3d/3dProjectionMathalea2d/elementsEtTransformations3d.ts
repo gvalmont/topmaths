@@ -4,7 +4,7 @@ import { colorToLatexOrHTML } from '../../2d/colorToLatexOrHtml'
 import { Droite, droite } from '../../2d/droites'
 import { fixeBordures } from '../../2d/fixeBordures'
 import { ObjetMathalea2D } from '../../2d/ObjetMathalea2D'
-import { Point, point } from '../../2d/PointAbstrait'
+import { PointAbstrait, pointAbstrait } from '../../2d/PointAbstrait'
 import { Polygone, polygone } from '../../2d/polygones'
 import { polyline } from '../../2d/Polyline'
 import { representant } from '../../2d/representantVecteur'
@@ -33,7 +33,7 @@ export const math = { matrix, multiply, norm, cross, dot }
  * LE POINT
  *
  * @author Jean-Claude Lhote
- * Point de l'espace défini par ses trois coordonnées (Si deux sont données seulement, le point est dans le plan XY)
+ * PointAbstrait de l'espace défini par ses trois coordonnées (Si deux sont données seulement, le point est dans le plan XY)
  * le paramètre visible définit si ce point est placé devant (par défaut) ou derrière une surface. Il sera utilisé pour définir la visibilité des arêtes qui en partent
  */
 
@@ -44,7 +44,7 @@ export class Point3d {
   isVisible: boolean
   label: string
   typeObjet: string
-  c2d: Point
+  c2d: PointAbstrait
   constructor(
     x: number,
     y: number,
@@ -67,7 +67,7 @@ export class Point3d {
     this.typeObjet = 'point3d'
     const V = math.matrix([this.x, this.y, this.z])
     const W = (math.multiply(MT, V) as any).toArray().map(Number)
-    this.c2d = point(
+    this.c2d = pointAbstrait(
       Number(W[0].toFixed(2)),
       Number(W[1].toFixed(2)),
       this.label,
@@ -341,9 +341,9 @@ export function cercle3d(
   visible: boolean = true,
   color: string = 'black',
   pointilles: boolean = false,
-): [Polygone, Point3d[], Point[]] {
+): [Polygone, Point3d[], PointAbstrait[]] {
   const M: Point3d[] = []
-  const listepoints: Point[] = []
+  const listepoints: PointAbstrait[] = []
   const listepoints3d: Point3d[] = []
   const d = droite3d(centre, normal)
   M.push(rotation3d(translation3d(centre, rayon), d, context.anglePerspective))
@@ -370,7 +370,7 @@ export function cercle3d(
 export class Polygone3d {
   listePoints: Point3d[]
   color: string = 'black'
-  listePoints2d: Point[]
+  listePoints2d: PointAbstrait[]
   aretes: Arete3d[]
   c2d: Segment[]
   constructor(...args: [Point3d[], string] | Point3d[]) {

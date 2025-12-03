@@ -1,8 +1,8 @@
-import { choice } from '../../lib/outils/arrayOutils'
 import { texPrix } from '../../lib/format/style'
-import Exercice from '../Exercice'
+import { choice } from '../../lib/outils/arrayOutils'
 import { context } from '../../modules/context'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
+import Exercice from '../Exercice'
 export const titre = 'Remplir une facture'
 
 /**
@@ -14,7 +14,7 @@ export const titre = 'Remplir une facture'
 export const uuid = '837cd'
 
 export const refs = {
-  'fr-fr': ['BP2CCF7', '6N3Q-3'],
+  'fr-fr': ['6N3Q-3', 'BP2CCF7'],
   'fr-2016': ['6P13-1', 'BP2CCF7'],
   'fr-ch': ['9FA3-14'],
 }

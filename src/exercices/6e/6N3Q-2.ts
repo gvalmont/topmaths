@@ -1,18 +1,18 @@
+import { lampeMessage } from '../../lib/format/message'
+import { texPrix } from '../../lib/format/style'
+import { handleAnswers } from '../../lib/interactif/gestionInteractif'
+import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
-import { lampeMessage } from '../../lib/format/message'
 import { numAlpha, sp } from '../../lib/outils/outilString'
 import { prenomF, prenomM } from '../../lib/outils/Personne'
-import { texPrix } from '../../lib/format/style'
-import Exercice from '../Exercice'
-import { listeQuestionsToContenu, randint } from '../../modules/outils'
-import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { context } from '../../modules/context'
-import { handleAnswers } from '../../lib/interactif/gestionInteractif'
+import { listeQuestionsToContenu, randint } from '../../modules/outils'
+import Exercice from '../Exercice'
 
-import { texNombre } from '../../lib/outils/texNombre'
 import { egalOuApprox } from '../../lib/outils/ecritures'
 import { arrondi } from '../../lib/outils/nombres'
+import { texNombre } from '../../lib/outils/texNombre'
 
 export const titre = "Augmenter ou diminuer d'un pourcentage"
 export const interactifReady = true
@@ -37,7 +37,7 @@ export const dateDeModifImportante = '16/04/2023'
 export const uuid = '064ce'
 
 export const refs = {
-  'fr-fr': ['BP2CCF6', '6N3Q-2'],
+  'fr-fr': ['6N3Q-2', 'BP2CCF6'],
   'fr-2016': ['6P13', 'BP2CCF6'],
   'fr-ch': ['9FA3-13'],
 }

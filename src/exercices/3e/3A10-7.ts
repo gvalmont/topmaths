@@ -3,7 +3,11 @@ import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { Labyrinthe, labyrinthe } from '../../modules/Labyrinthe'
 import { mathalea2d } from '../../modules/mathalea2d'
-import { listeQuestionsToContenu, randint } from '../../modules/outils'
+import {
+  contraindreValeur,
+  listeQuestionsToContenu,
+  randint,
+} from '../../modules/outils'
 import Exercice from '../Exercice'
 
 import { orangeMathalea } from 'apigeom/src/elements/defaultValues'
@@ -113,7 +117,7 @@ export default class ExerciceLabyrinthePremiers3e extends Exercice {
         }
       }
       laby = labyrinthe({ nbLignes: nbL, nbColonnes: nbC })
-      laby.niveau = Math.max(this.sup2, 1)
+      laby.niveau = contraindreValeur(1, 6, this.sup2, randint(1, 6)) // Le niveau (de 1 à 6=mélange) définit le nombre d'étapes
       monChemin = laby.choisitChemin(laby.niveau) // On choisit un chemin
       laby.murs2d = laby.construitMurs(monChemin) // On construit le labyrinthe
       laby.chemin2d = laby.traceChemin(monChemin, orangeMathalea) // On trace le chemin solution

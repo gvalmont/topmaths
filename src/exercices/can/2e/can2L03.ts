@@ -1,13 +1,13 @@
+import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 import {
   ecritureAlgebrique,
   reduireAxPlusB,
 } from '../../../lib/outils/ecritures'
-import ExerciceSimple from '../../ExerciceSimple'
-import { randint } from '../../../modules/outils'
-import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
+import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { texNombre } from '../../../lib/outils/texNombre'
 import FractionEtendue from '../../../modules/FractionEtendue'
-import { miseEnEvidence } from '../../../lib/outils/embellissements'
+import { randint } from '../../../modules/outils'
+import ExerciceSimple from '../../ExerciceSimple'
 export const titre =
   'Calculer les coordonnées du point d’intersection entre l’axe des abscisses et une droite'
 export const interactifReady = true
@@ -33,6 +33,7 @@ export default class CoordonneesPointIntersectionAxeAbscissesDroite extends Exer
     this.nbQuestions = 1
     this.formatChampTexte =
       KeyboardType.clavierDeBaseAvecFractionPuissanceCrochets
+    this.optionsDeComparaison = { texteSansCasse: true }
   }
 
   nouvelleVersion() {
@@ -45,7 +46,6 @@ export default class CoordonneesPointIntersectionAxeAbscissesDroite extends Exer
           const n = randint(-5, 5, 0)
           const b = n * a
 
-          this.formatInteractif = 'texte'
           this.reponse = this.versionQcm
             ? `$(${-b / a}\\,;\\,0)$`
             : `${-b / a};0`
@@ -82,7 +82,6 @@ export default class CoordonneesPointIntersectionAxeAbscissesDroite extends Exer
 
           const b = randint(-10, 10, 0)
 
-          this.formatInteractif = 'texte'
           this.reponse = this.versionQcm
             ? `$(${-b * a}\\,;\\,0)$`
             : `${-b * a};0`

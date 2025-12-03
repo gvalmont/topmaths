@@ -1,8 +1,8 @@
-import { choice } from '../../../lib/outils/arrayOutils'
-import ExerciceSimple from '../../ExerciceSimple'
-import { randint } from '../../../modules/outils'
-import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
+import { choice } from '../../../lib/outils/arrayOutils'
+import { miseEnEvidence } from '../../../lib/outils/embellissements'
+import { randint } from '../../../modules/outils'
+import ExerciceSimple from '../../ExerciceSimple'
 
 export const titre = "Déterminer l'intersection de deux intervalles"
 export const interactifReady = true
@@ -71,7 +71,6 @@ export default class IntersectionIntervalles extends ExerciceSimple {
           const crochet2 = choice([']', '['])
           const crochet3 = choice([']', '['])
           const crochet4 = choice([']', '['])
-          this.formatInteractif = 'texte'
           this.reponse = '\\emptyset'
           this.question = `Donner une écriture simplifiée de
           ${choix ? `$${crochet1} ${a}\\,;\\,${b}${crochet2}\\,\\cap \\,${crochet3}${c}\\,;\\,${d}${crochet4}$.` : `$${crochet3}${c}\\,;\\,${d}${crochet4}\\,\\cap \\,${crochet1} ${a}\\,;\\,${b}${crochet2}$.`}`
@@ -201,7 +200,6 @@ export default class IntersectionIntervalles extends ExerciceSimple {
           const crochet2 = choice([']', '['])
           const crochet3 = choice([']', '['])
           const choix = choice([true, false])
-          this.formatInteractif = 'texte'
           this.reponse = '\\emptyset'
           this.question = `Donner une écriture simplifiée de
                     ${choix ? `$]-\\infty \\,; \\,${b}${crochet2}\\cap ${crochet3}${c}\\,;\\,+\\infty[$.` : `$${crochet3}${c}\\,;\\,+\\infty[\\cap ]-\\infty \\,; \\,${b}${crochet2}$.`}`

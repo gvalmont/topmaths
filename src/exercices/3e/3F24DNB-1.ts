@@ -1,4 +1,4 @@
-import { courbe } from '../../lib/2d/courbes'
+import { courbe } from '../../lib/2d/Courbe'
 import { droiteParPointEtPente } from '../../lib/2d/droites'
 import { fixeBordures } from '../../lib/2d/fixeBordures'
 import { point } from '../../lib/2d/PointAbstrait'

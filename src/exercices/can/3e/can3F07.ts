@@ -1,4 +1,4 @@
-import { courbe } from '../../../lib/2d/courbes'
+import { courbe } from '../../../lib/2d/Courbe'
 import { repere } from '../../../lib/2d/reperes'
 import { segment } from '../../../lib/2d/segmentsVecteurs'
 import { texteParPosition } from '../../../lib/2d/textes'

@@ -59,7 +59,7 @@ export default class ExerciceFractionsDecomposer extends Exercice {
         figure,
         isDynamic: true,
       })
-      if (figure.ui) figure.ui.send('FILL')
+      if (figure.ui) figure.ui.send({ type: 'FILL' })
     } else {
       this.introduction = ''
     }

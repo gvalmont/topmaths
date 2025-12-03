@@ -1,11 +1,13 @@
+import { setReponse } from '../../lib/interactif/gestionInteractif'
+import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { choice } from '../../lib/outils/arrayOutils'
+import { miseEnEvidence } from '../../lib/outils/embellissements'
 import {
   arrondi,
   nombreDeChiffresDansLaPartieDecimale,
   nombreDeChiffresDansLaPartieEntiere,
 } from '../../lib/outils/nombres'
 import { texNombre } from '../../lib/outils/texNombre'
-import Exercice from '../Exercice'
 import { context } from '../../modules/context'
 import Operation from '../../modules/operations'
 import {
@@ -13,9 +15,7 @@ import {
   listeQuestionsToContenu,
   randint,
 } from '../../modules/outils'
-import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
-import { setReponse } from '../../lib/interactif/gestionInteractif'
-import { miseEnEvidence } from '../../lib/outils/embellissements'
+import Exercice from '../Exercice'
 
 export const amcReady = true
 export const interactifReady = true
@@ -42,7 +42,7 @@ export const dateDeModifImportante = '23/02/2024'
 export const uuid = 'd5e44'
 
 export const refs = {
-  'fr-fr': ['BP2AutoC3', '6N3A-1'],
+  'fr-fr': ['6N3A-1', 'BP2AutoC3'],
   'fr-2016': ['6N23-6', 'BP2AutoC3'],
   'fr-ch': ['9NO10-7'],
 }

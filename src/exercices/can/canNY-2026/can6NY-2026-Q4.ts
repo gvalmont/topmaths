@@ -1,9 +1,8 @@
-import ExerciceSimple from '../../ExerciceSimple'
+import { choice } from '../../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { texNombre } from '../../../lib/outils/texNombre'
-import { choice } from '../../../lib/outils/arrayOutils'
 import { randint } from '../../../modules/outils'
-import { handleAnswers } from '../../../lib/interactif/gestionInteractif'
+import ExerciceSimple from '../../ExerciceSimple'
 
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 export const titre = 'Compléter une égalité'
@@ -25,8 +24,7 @@ export default class EgaliteACompleter2026 extends ExerciceSimple {
     this.typeExercice = 'simple' // Cette ligne est très importante pour faire un exercice simple !
     this.nbQuestions = 1
     this.nbQuestionsModifiable = false
-    this.optionsChampTexte = { texteAvant: ' $=$' }
-    this.formatInteractif = 'fillInTheBlank'
+
     this.formatChampTexte = KeyboardType.clavierDeBase
   }
 
@@ -36,14 +34,30 @@ export default class EgaliteACompleter2026 extends ExerciceSimple {
     const c = this.canOfficielle ? 1 : randint(1, 5)
     const choix = this.canOfficielle ? true : choice([true, false])
     this.reponse = texNombre(a + b + c, 0)
-    this.consigne = "Compléter l'égalité.<br>"
-    handleAnswers(this, 0, { champ1: { value: this.reponse } })
-    this.question = `${choix ? `${texNombre(a, 0)}+${b}=~%{champ1} -${c}` : `%{champ1}~-${c}=${texNombre(a, 0)}+${b} `}`
+    this.question = "Compléter l'égalité.<br>"
+    if (this.interactif) {
+      if (choix) {
+        this.optionsChampTexte = {
+          texteAvant: ` $${texNombre(a, 0)}+${b}= $`,
+          texteApres: `$-${c}$`,
+        }
+      } else {
+        this.optionsChampTexte = {
+          texteAvant: ``,
+          texteApres: `$-${c}=${texNombre(a, 0)}+${b}$`,
+        }
+      }
+    } else {
+      this.question += choix
+        ? `$${texNombre(a, 0)}+${b}= \\ldots -${c}$`
+        : `$\\ldots -${c}=${texNombre(a, 0)}+${b}$ `
+    }
+
     this.correction = `Le nombre cherché vérifie  l'égalité : 
-         ${choix ? `$${texNombre(a + b, 0)}= \\ldots -${c}$` : `$\\ldots -${c}=${texNombre(a + b, 0)}$ `}.<br>
-         On cherche donc le nombre qui, diminué de $${c}$ est égal à  $${texNombre(a + b, 0)}$. <br>
-         Ce nombre est $${miseEnEvidence(this.reponse)}$. <br>
-         On a bien : $${choix ? `${texNombre(a, 0)}+${b}= ${miseEnEvidence(this.reponse)} -${c}` : `${miseEnEvidence(this.reponse)} -${c}=${texNombre(a, 0)}+${b} `}$.`
+       ${choix ? `$${texNombre(a + b, 0)}= \\ldots -${c}$` : `$\\ldots -${c}=${texNombre(a + b, 0)}$ `}.<br>
+       On cherche donc le nombre qui, diminué de $${c}$ est égal à   $${texNombre(a + b, 0)}$. <br>
+       Ce nombre est $${miseEnEvidence(this.reponse)}$. <br>
+       On a bien : $${choix ? `${texNombre(a, 0)}+${b}= ${miseEnEvidence(this.reponse)} -${c}` : `${miseEnEvidence(this.reponse)} -${c}=${texNombre(a, 0)}+${b} `}$.`
     this.canEnonce = "Compléter l'égalité."
     this.canReponseACompleter = `${choix ? `$${texNombre(a, 0)}+${b}= \\ldots -${c}$` : `$\\ldots -${c}=${texNombre(a, 0)}+${b}$ `}`
   }

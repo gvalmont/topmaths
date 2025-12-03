@@ -68,7 +68,7 @@ export default class TraduireDependanceGrandeursTableau extends Exercice {
           }
           temperaturesACalculer.sort((a, b) => a - b)
           texte = `La température ressentie dépend de la vitesse du vent et de la température ambiante.<br>
-Pour un vent de ${vitesseDuVent} km/h, on peut calculer la Température Ressentie ($T_R$) à partir de la Température Ambiante ($T_A$) à l'aide de la formule suivante : $T_R = ${texNombre(a, 2)}T_A ${texNombre(b, 2)}$.<br>
+Pour un vent de $${vitesseDuVent}\\text{ km/h}$, on peut calculer la Température Ressentie ($T_R$) à partir de la Température Ambiante ($T_A$) à l'aide de la formule suivante : $T_R = ${texNombre(a, 2)}T_A ${texNombre(b, 2)}$.<br>
 En s'aidant d'un tableau, calculer les températures ressenties correspondant à des températures ambiantes de ${lister(temperaturesACalculer.map((t) => ` $${t}$ °C`))}.`
           ligne1 = makeLine(
             '\\text{Température Ambiante en °C } (T_A)',
@@ -93,8 +93,8 @@ En s'aidant d'un tableau, calculer les températures ressenties correspondant à
           }
           vitesses.sort((a, b) => a - b)
           texte = `La distance de freinage d'un véhicule dépend de l'état de la route et de la vitesse à laquelle il roulait avant de commencer à freiner.<br>
-Sur une route ${secheOuMouillee}, on peut calculer la Distance de Freinage $(DF)$ en mètres à partir de sa vitesse initiale $(v_0)$ en ${msOuKmh} à l'aide de la formule $DF = \\dfrac{v_0^2}{${texNombre(denominateur, 2)}}$.<br>
-En s'aidant d'un tableau, calculer les distances de freinage correspondant à des vitesses de ${lister(vitesses.map((t) => ` $${t}$ ${msOuKmh}`))}.`
+Sur une route ${secheOuMouillee}, on peut calculer la Distance de Freinage $(DF)$ en mètres à partir de sa vitesse initiale $(v_0)$ en $\\text{${msOuKmh}}$ à l'aide de la formule $DF = \\dfrac{v_0^2}{${texNombre(denominateur, 2)}}$.<br>
+En s'aidant d'un tableau, calculer les distances de freinage correspondant à des vitesses de ${lister(vitesses.map((t) => ` $${t}\\text{ ${msOuKmh}}$`))}.`
           ligne1 = makeLine(
             `\\text{Vitesse initiale en ${msOuKmh}} (v_0)`,
             vitesses,

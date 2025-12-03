@@ -9,7 +9,7 @@ import type {
   IVecteur,
 } from './Interfaces'
 import type { ObjetMathalea2D } from './ObjetMathalea2D'
-import { Point, point, pointAbstrait, PointAbstrait } from './PointAbstrait'
+import { PointAbstrait, pointAbstrait } from './PointAbstrait'
 import { Polygone, polygone } from './polygones'
 import { Segment, segment } from './segmentsVecteurs'
 import { Vecteur, vecteur } from './Vecteur'
@@ -25,10 +25,10 @@ function degToRad(deg: number): number {
  * M = translation(O,v) //M est l'image de O dans la translation de vecteur v
  * M = translation(O,v,'M') //M est l'image de O dans la translation de vecteur v et se nomme M
  * M = translation(O,v,'M','below') //M est l'image de O dans la translation de vecteur v, se nomme M et le nom est en dessous du point
- * @param {ObjecMathalea2d} O objet à translater (Point, Droite, Segment, Polygone ou Vecteur)
+ * @param {ObjecMathalea2d} O objet à translater (PointAbstrait, Droite, Segment, Polygone ou Vecteur)
  * @param {Vecteur} v vecteur de translation
- * @param {string} nom nom du translaté pour un Point
- * @param {string} positionLabel Position du label pour un Point
+ * @param {string} nom nom du translaté pour un PointAbstrait
+ * @param {string} positionLabel Position du label pour un PointAbstrait
  * @param {string} [color='black'] Code couleur HTML acceptée
  * @author Rémi Angot
  */
@@ -75,7 +75,7 @@ export function translation(
   nom?: string,
   positionLabel?: string,
   color?: string,
-): Point
+): PointAbstrait
 export function translation(
   O: PointAbstrait,
   v: IVecteur | Vecteur | PointAbstrait,
@@ -108,18 +108,18 @@ export function translation(
   color = 'black',
 ):
   | PointAbstrait
-  | Point
+  | PointAbstrait
   | Droite
   | Segment
   | Polygone
   | Vecteur
   | ObjetMathalea2D {
-  // Points (PointAbstrait ou Point)
-  if (O instanceof Point || O instanceof PointAbstrait) {
+  // Points (PointAbstrait ou PointAbstrait)
+  if (O instanceof PointAbstrait || O instanceof PointAbstrait) {
     const x = O.x + vecteurTranslation.x
     const y = O.y + vecteurTranslation.y
-    if (O instanceof Point) {
-      return point(x, y, nom, positionLabel)
+    if (O instanceof PointAbstrait) {
+      return pointAbstrait(x, y, nom, positionLabel)
     } else {
       return pointAbstrait(x, y, nom, positionLabel)
     }
@@ -141,8 +141,14 @@ export function translation(
 
   // Droite
   if ('pente' in O) {
-    const M = translation(point(O.x1, O.y1), vecteurTranslation) as Point
-    const N = translation(point(O.x2, O.y2), vecteurTranslation) as Point
+    const M = translation(
+      pointAbstrait(O.x1, O.y1),
+      vecteurTranslation,
+    ) as PointAbstrait
+    const N = translation(
+      pointAbstrait(O.x2, O.y2),
+      vecteurTranslation,
+    ) as PointAbstrait
     return droite(M, N, color)
   }
 
@@ -192,7 +198,7 @@ export function translation2Points(
   nom?: string,
   positionLabel?: string,
   color?: string,
-): Point
+): PointAbstrait
 export function translation2Points(
   O: IDroite,
   A: IPointAbstrait,
@@ -234,13 +240,13 @@ export function translation2Points(
   nom = '',
   positionLabel = 'above',
   color = 'black',
-): PointAbstrait | Point | Droite | Segment | Polygone | Vecteur {
-  // Points (PointAbstrait ou Point)
-  if (O instanceof PointAbstrait || O instanceof Point) {
+): PointAbstrait | PointAbstrait | Droite | Segment | Polygone | Vecteur {
+  // Points (PointAbstrait ou PointAbstrait)
+  if (O instanceof PointAbstrait || O instanceof PointAbstrait) {
     const x = O.x + B.x - A.x
     const y = O.y + B.y - A.y
-    if (O instanceof Point) {
-      return point(x, y, nom, positionLabel)
+    if (O instanceof PointAbstrait) {
+      return pointAbstrait(x, y, nom, positionLabel)
     } else {
       return pointAbstrait(x, y, nom, positionLabel)
     }
@@ -259,8 +265,16 @@ export function translation2Points(
 
   // Droite
   if ('pente' in O) {
-    const M = translation2Points(point(O.x1, O.y1), A, B) as Point
-    const N = translation2Points(point(O.x2, O.y2), A, B) as Point
+    const M = translation2Points(
+      pointAbstrait(O.x1, O.y1),
+      A,
+      B,
+    ) as PointAbstrait
+    const N = translation2Points(
+      pointAbstrait(O.x2, O.y2),
+      A,
+      B,
+    ) as PointAbstrait
     return droite(M, N, color)
   }
 
@@ -283,7 +297,7 @@ export function translation2Points(
 }
 
 /**
- * @param {PointAbstrait|Point|Polygone|Droite|Vecteur|Segment} A Point, Polygone, Droite, Segment ou Vecteur
+ * @param {PointAbstrait|PointAbstrait|Polygone|Droite|Vecteur|Segment} A PointAbstrait, Polygone, Droite, Segment ou Vecteur
  * @param {PointAbstrait} O Centre de rotation
  * @param {number} angle Angle de rotation
  * @param {string} [nom=''] Nom de l'image
@@ -353,7 +367,7 @@ export function rotation(
       O.y +
       (A.x - O.x) * Math.sin((angle * Math.PI) / 180) +
       (A.y - O.y) * Math.cos((angle * Math.PI) / 180)
-    if (A instanceof Point) {
+    if (A instanceof PointAbstrait) {
       return pointAbstrait(x, y, nom, positionLabel)
     } else {
       return pointAbstrait(x, y, nom, positionLabel)
@@ -403,8 +417,8 @@ export function rotation(
 }
 
 /** Construit l'image d'un objet par homothétie
- * @param {Point|Segment|Droite|Polygone|Vecteur} Objet Objet MathAlea2d choisi parmi un point, un segment, une droite, un polygone ou un vecteur
- * @param {Point} O Centre de l'homothétie
+ * @param {PointAbstrait|Segment|Droite|Polygone|Vecteur} Objet Objet MathAlea2d choisi parmi un point, un segment, une droite, un polygone ou un vecteur
+ * @param {PointAbstrait} O Centre de l'homothétie
  * @param {number} k Rapport de l'homothétie
  * @param {string} [nom = ''] Nom du point-image
  * @param {string} [positionLabel = 'above'] Position du point-image. Les possibilités sont : 'left', 'right', 'below', 'above', 'above right', 'above left', 'below right', 'below left'. Si on se trompe dans l'orthographe, ce sera 'above left' et si on ne précise rien, pour un point ce sera 'above'.
@@ -416,7 +430,7 @@ export function rotation(
  * @example s = homothetie(segment(A, B), I, -0.5, '', '','blue')
  * // s est l'image du segment [AB] par une homothétie de centre I et de rapport -0.5.  s sera en bleu.
  * @author Rémi Angot
- * @return {Point|Segment|Droite|Polygone|Vecteur}
+ * @return {PointAbstrait|Segment|Droite|Polygone|Vecteur}
  */
 
 // Surcharges
@@ -435,7 +449,7 @@ export function homothetie(
   nom?: string,
   positionLabel?: string,
   color?: string,
-): Point
+): PointAbstrait
 export function homothetie(
   Objet: IDroite,
   O: IPointAbstrait,
@@ -477,13 +491,13 @@ export function homothetie(
   nom = '',
   positionLabel = 'above',
   color = 'black',
-): PointAbstrait | Point | Droite | Segment | Polygone | Vecteur {
-  // Points (PointAbstrait ou Point)
-  if (objet instanceof Point || objet instanceof PointAbstrait) {
+): PointAbstrait | PointAbstrait | Droite | Segment | Polygone | Vecteur {
+  // Points (PointAbstrait ou PointAbstrait)
+  if (objet instanceof PointAbstrait || objet instanceof PointAbstrait) {
     const x = O.x + k * (objet.x - O.x)
     const y = O.y + k * (objet.y - O.y)
-    if (objet instanceof Point) {
-      return point(x, y, nom, positionLabel)
+    if (objet instanceof PointAbstrait) {
+      return pointAbstrait(x, y, nom, positionLabel)
     } else {
       return pointAbstrait(x, y, nom, positionLabel)
     }
@@ -501,8 +515,16 @@ export function homothetie(
 
   // Droite
   if ('pente' in objet) {
-    const M = homothetie(point(objet.x1, objet.y1), O, k) as Point
-    const N = homothetie(point(objet.x2, objet.y2), O, k) as Point
+    const M = homothetie(
+      pointAbstrait(objet.x1, objet.y1),
+      O,
+      k,
+    ) as PointAbstrait
+    const N = homothetie(
+      pointAbstrait(objet.x2, objet.y2),
+      O,
+      k,
+    ) as PointAbstrait
     return droite(M, N, '', color)
   }
 
@@ -522,7 +544,7 @@ export function homothetie(
 
 /**
  * Renvoie le  symétrique de A par la droite d.
- * @return {Point|Polygone|Droite|Segment|Vecteur} M image de A par la symétrie axiale d'axe d.
+ * @return {PointAbstrait|Polygone|Droite|Segment|Vecteur} M image de A par la symétrie axiale d'axe d.
  * @author Jean-Claude Lhote
  */
 
@@ -568,7 +590,7 @@ export function symetrieAxiale(
   nom?: string,
   positionLabel?: string,
   color?: string,
-): Point
+): PointAbstrait
 
 // Implémentation
 export function symetrieAxiale(
@@ -577,15 +599,15 @@ export function symetrieAxiale(
   nom = '',
   positionLabel = 'above',
   color = 'black',
-): PointAbstrait | Point | Droite | Segment | Polygone | Vecteur {
+): PointAbstrait | PointAbstrait | Droite | Segment | Polygone | Vecteur {
   let x: number, y: number
   const a = d.a
   const b = d.b
   const c = d.c
   const k = 1 / (a * a + b * b)
 
-  // Points (PointAbstrait ou Point)
-  if (A instanceof Point || A instanceof PointAbstrait) {
+  // Points (PointAbstrait ou PointAbstrait)
+  if (A instanceof PointAbstrait || A instanceof PointAbstrait) {
     if (a === 0) {
       x = A.x
       y = -(A.y + (2 * c) / b)
@@ -599,8 +621,8 @@ export function symetrieAxiale(
           ((a * a - b * b) * A.y - 2 * a * b * A.x + (a * a * c) / b - b * c) -
         c / b
     }
-    if (A instanceof Point) {
-      return point(x, y, nom, positionLabel)
+    if (A instanceof PointAbstrait) {
+      return pointAbstrait(x, y, nom, positionLabel)
     } else {
       return pointAbstrait(x, y, nom, positionLabel)
     }
@@ -618,8 +640,8 @@ export function symetrieAxiale(
 
   // Droite
   if (A instanceof Droite || 'pente' in A) {
-    const M = symetrieAxiale(point(A.x1, A.y1), d) as Point
-    const N = symetrieAxiale(point(A.x2, A.y2), d) as Point
+    const M = symetrieAxiale(pointAbstrait(A.x1, A.y1), d) as PointAbstrait
+    const N = symetrieAxiale(pointAbstrait(A.x2, A.y2), d) as PointAbstrait
     return droite(M, N, color)
   }
 
@@ -661,7 +683,7 @@ export function projectionOrtho(
   d: IDroite,
   nom?: string,
   positionLabel?: string,
-): Point
+): PointAbstrait
 export function projectionOrtho(
   M: IVecteur,
   d: IDroite,
@@ -675,15 +697,15 @@ export function projectionOrtho(
   d: IDroite,
   nom = '',
   positionLabel = 'above',
-): PointAbstrait | Point | Vecteur {
+): PointAbstrait | PointAbstrait | Vecteur {
   const a = d.a
   const b = d.b
   const c = d.c
   const k = 1 / (a * a + b * b)
   let x: number, y: number
 
-  // Points (PointAbstrait ou Point)
-  if (M instanceof Point || M instanceof PointAbstrait) {
+  // Points (PointAbstrait ou PointAbstrait)
+  if (M instanceof PointAbstrait || M instanceof PointAbstrait) {
     if (a === 0) {
       x = M.x
       y = -c / b
@@ -694,17 +716,17 @@ export function projectionOrtho(
       x = k * (b * b * M.x - a * b * M.y - a * c)
       y = k * (-a * b * M.x + a * a * M.y + (a * a * c) / b) - c / b
     }
-    if (M instanceof Point) {
-      return point(x, y, nom, positionLabel)
+    if (M instanceof PointAbstrait) {
+      return pointAbstrait(x, y, nom, positionLabel)
     } else {
       return pointAbstrait(x, y, nom, positionLabel)
     }
   }
 
   // Vecteur
-  let O: Point
-  if (egal(b, 0)) O = point(-c / a, 0)
-  else O = point(0, -c / b)
+  let O: PointAbstrait
+  if (egal(b, 0)) O = pointAbstrait(-c / a, 0)
+  else O = pointAbstrait(0, -c / b)
   const A = translation(O, M as IVecteur) as PointAbstrait
   const N = projectionOrtho(A, d) as PointAbstrait
   const v = vecteur(O, N)
@@ -713,7 +735,7 @@ export function projectionOrtho(
 
 /**
  * Construit l'image d'un objet par affinité orthogonale
- * @param {PointAbstrait|Point|Segment|Droite|Polygone|Vecteur} Objet Objet MathAlea2d choisi parmi un point, un segment, une droite, un polygone ou un vecteur
+ * @param {PointAbstrait|PointAbstrait|Segment|Droite|Polygone|Vecteur} Objet Objet MathAlea2d choisi parmi un point, un segment, une droite, un polygone ou un vecteur
  * @param {Droite} d Direction de l'affinité
  * @param {number} k Rapport de l'affinité
  * @param {string} [nom=''] Nom de l'image (uniquement valable pour un point)
@@ -726,7 +748,7 @@ export function projectionOrtho(
  * // N est l'image du point M par une affinité orthogonale de direction d et de rapport 0.5. Le point sera affiché comme "point N" et ce nom sera écrit à droite de sa position.
  * @example s = affiniteOrtho(segment(A, B),d,0.1,'','','red')
  * // s est l'image du segment [AB] par une affinité orthogonale de direction d et de rapport 0.1. s sera rouge.
- * @return {PointAbstrait|Point|Segment|Droite|Polygone|Vecteur} Retourne un objet du même type que le paramètre objet de la fonction
+ * @return {PointAbstrait|PointAbstrait|Segment|Droite|Polygone|Vecteur} Retourne un objet du même type que le paramètre objet de la fonction
  */
 // JSDOC Validee par EE Juin 2022
 
@@ -739,7 +761,7 @@ export function affiniteOrtho(
   nom?: string,
   positionLabel?: string,
   color?: string,
-): Point
+): PointAbstrait
 export function affiniteOrtho(
   A: IDroite,
   d: IDroite,
@@ -789,15 +811,15 @@ export function affiniteOrtho(
   nom = '',
   positionLabel = 'above',
   color = 'black',
-): PointAbstrait | Point | Droite | Segment | Polygone | Vecteur {
+): PointAbstrait | PointAbstrait | Droite | Segment | Polygone | Vecteur {
   const a = d.a
   const b = d.b
   const c = d.c
   const q = 1 / (a * a + b * b)
   let x: number, y: number
 
-  // Points (PointAbstrait ou Point)
-  if (A instanceof Point || A instanceof PointAbstrait) {
+  // Points (PointAbstrait ou PointAbstrait)
+  if (A instanceof PointAbstrait || A instanceof PointAbstrait) {
     if (a === 0) {
       x = A.x
       y = k * A.y + (c * (k - 1)) / b
@@ -812,8 +834,8 @@ export function affiniteOrtho(
         k * A.y -
         c / b
     }
-    if (A instanceof Point) {
-      return point(x, y, nom, positionLabel)
+    if (A instanceof PointAbstrait) {
+      return pointAbstrait(x, y, nom, positionLabel)
     } else {
       return pointAbstrait(x, y, nom, positionLabel)
     }
@@ -831,8 +853,8 @@ export function affiniteOrtho(
 
   // Droite
   if ('pente' in A) {
-    const M = affiniteOrtho(point(A.x1, A.y1), d, k) as Point
-    const N = affiniteOrtho(point(A.x2, A.y2), d, k) as Point
+    const M = affiniteOrtho(pointAbstrait(A.x1, A.y1), d, k) as PointAbstrait
+    const N = affiniteOrtho(pointAbstrait(A.x2, A.y2), d, k) as PointAbstrait
     return droite(M, N, color)
   }
 
@@ -859,7 +881,7 @@ export function affiniteOrtho(
 
 /**
  *
- * @param {PointAbstrait|Point|Polygone|Droite|Vecteur|Segment} A // Le point dont on veut l'image
+ * @param {PointAbstrait|PointAbstrait|Polygone|Droite|Vecteur|Segment} A // Le point dont on veut l'image
  * @param {PointAbstrait} O // Le centre de la similitude
  * @param {number} a // L'angle de la rotation
  * @param {number} k // le rapport de l'homothétie
@@ -887,7 +909,7 @@ export function similitude(
   nom?: string,
   positionLabel?: string,
   color?: string,
-): Point
+): PointAbstrait
 export function similitude(
   A: IDroite,
   O: IPointAbstrait,
@@ -934,16 +956,16 @@ export function similitude(
   nom = '',
   positionLabel = 'above',
   color = 'black',
-): PointAbstrait | Point | Droite | Segment | Polygone | Vecteur {
-  // Points (PointAbstrait ou Point)
-  if (A instanceof Point || A instanceof PointAbstrait) {
+): PointAbstrait | PointAbstrait | Droite | Segment | Polygone | Vecteur {
+  // Points (PointAbstrait ou PointAbstrait)
+  if (A instanceof PointAbstrait || A instanceof PointAbstrait) {
     const ra = degToRad(a)
     const x =
       O.x + k * (Math.cos(ra) * (A.x - O.x) - Math.sin(ra) * (A.y - O.y))
     const y =
       O.y + k * (Math.cos(ra) * (A.y - O.y) + Math.sin(ra) * (A.x - O.x))
-    if (A instanceof Point) {
-      return point(x, y, nom, positionLabel)
+    if (A instanceof PointAbstrait) {
+      return pointAbstrait(x, y, nom, positionLabel)
     } else {
       return pointAbstrait(x, y, nom, positionLabel)
     }
@@ -961,8 +983,8 @@ export function similitude(
 
   // Droite
   if ('pente' in A) {
-    const M = similitude(point(A.x1, A.y1), O, a, k) as Point
-    const N = similitude(point(A.x2, A.y2), O, a, k) as Point
+    const M = similitude(pointAbstrait(A.x1, A.y1), O, a, k) as PointAbstrait
+    const N = similitude(pointAbstrait(A.x2, A.y2), O, a, k) as PointAbstrait
     return droite(M, N, color)
   }
 

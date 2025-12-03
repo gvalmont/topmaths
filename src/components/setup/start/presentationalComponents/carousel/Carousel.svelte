@@ -3,7 +3,6 @@
   import legacyCarouselContent from '../../../../../json/carouselContent.json'
   // import carouselContentForCapytale from '../../../../../json/carouselContentForCapytale.json'
   import ButtonTextAction from '../../../../shared/forms/ButtonTextAction.svelte'
-  import { globalOptions } from '../../../../../lib/stores/generalStore'
 
   let currentSlideIndex = 0
   let intervalId: number | null = null
@@ -163,11 +162,11 @@
                             playsinline
                           ></video>
                         {:else}
-                        <img
-                          class="flex items-center justify-center w-full h-full object-scale-down"
-                          src="images/carousel/{slide.image}"
-                          alt="Image:{slide.image}"
-                        />
+                          <img
+                            class="flex items-center justify-center w-full h-full object-scale-down"
+                            src="images/carousel/{slide.image}"
+                            alt="Image:{slide.image}"
+                          />
                         {/if}
                       </div>
                     </div>

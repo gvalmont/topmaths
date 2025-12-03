@@ -36,7 +36,7 @@ export const dateDeModifImportante = '06/02/2024'
 export const uuid = 'f6853'
 
 export const refs = {
-  'fr-fr': ['3L11-2', 'BP2AutoI10', '3autoN11-1'],
+  'fr-fr': ['3L11-2', 'BP2AutoI10', '3AutoN11-1'],
   'fr-ch': ['10FA1-13'],
 }
 export default class ReductionSiPossible extends Exercice {

@@ -1,5 +1,8 @@
+import { texSymbole } from '../../lib/format/style'
+import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
+import { handleAnswers } from '../../lib/interactif/gestionInteractif'
+import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { choice } from '../../lib/outils/arrayOutils'
-import { miseEnEvidence } from '../../lib/outils/embellissements'
 import {
   texFractionFromString,
   texFractionReduite,
@@ -10,20 +13,17 @@ import {
   reduireAxPlusB,
   rienSi1,
 } from '../../lib/outils/ecritures'
+import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { abs, signe } from '../../lib/outils/nombres'
-import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 import { pgcd } from '../../lib/outils/primalite'
-import { texSymbole } from '../../lib/format/style'
-import Exercice from '../Exercice'
 import { context } from '../../modules/context'
+import FractionEtendue from '../../modules/FractionEtendue'
 import {
   gestionnaireFormulaireTexte,
   listeQuestionsToContenu,
   randint,
 } from '../../modules/outils'
-import { handleAnswers } from '../../lib/interactif/gestionInteractif'
-import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
-import FractionEtendue from '../../modules/FractionEtendue'
+import Exercice from '../Exercice'
 
 type SymboleInegalite = '≤' | '≥' | '<' | '>'
 type Question =
@@ -123,7 +123,7 @@ export default class ExerciceInequation1 extends Exercice {
     for (let index = 0; index < this.nbQuestions; index++) {
       switch (typeDeQuestions[index]) {
         case 1:
-          listeTypeDeQuestions.push(choice(typeQuestionsPermis.slice(2)))
+          listeTypeDeQuestions.push(choice(typeQuestionsPermis.slice(0, 2)))
           break
         case 2:
           listeTypeDeQuestions.push(choice(typeQuestionsPermis.slice(2, 4)))

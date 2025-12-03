@@ -1,6 +1,6 @@
-import { lectureAntecedent } from '../../lib/2d/courbes'
 import { droite } from '../../lib/2d/droites'
 import { fixeBordures } from '../../lib/2d/fixeBordures'
+import { lectureAntecedent } from '../../lib/2d/LectureAntecedent'
 import { point } from '../../lib/2d/PointAbstrait'
 import RepereBuilder from '../../lib/2d/RepereBuilder'
 import { latex2d, texteParPosition } from '../../lib/2d/textes'

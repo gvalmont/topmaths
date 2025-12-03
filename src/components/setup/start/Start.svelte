@@ -33,9 +33,9 @@
   import {
     darkMode,
     exercicesParams,
-    globalOptions,
     previousView,
   } from '../../../lib/stores/generalStore'
+  import { globalOptions } from '../../../lib/stores/globalOptions'
   import {
     localisedIDToUuid,
     referentielLocale,
@@ -43,12 +43,12 @@
   import type {
     InterfaceGlobalOptions,
     InterfaceParams,
-    VueType,
   } from '../../../lib/types'
   import type { CanOptions } from '../../../lib/types/can'
   import type { Language } from '../../../lib/types/languages'
   import { ALLOWED_LANGUAGES, isLanguage } from '../../../lib/types/languages'
   import { type AppTierceGroup } from '../../../lib/types/referentiels'
+  import type { VueType } from '../../../lib/VueType'
   import Footer from '../../Footer.svelte'
   import Keyboard from '../../keyboard/Keyboard.svelte'
   import { SM_BREAKPOINT } from '../../keyboard/lib/sizes'

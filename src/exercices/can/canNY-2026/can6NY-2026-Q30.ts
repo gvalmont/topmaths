@@ -34,7 +34,7 @@ export default class CalculDivers extends ExerciceSimple {
     let b
     switch (this.canOfficielle ? 1 : randint(1, 2)) {
       case 1:
-        a = this.canOfficielle ? 10 : randint(8, 12, 10)
+        a = this.canOfficielle ? 12 : randint(8, 12, 10)
         b = 20 - a
         this.reponse = annee * (a + b)
         this.question = `Pour un concert, $${texNombre(annee, 0)}$ places ont été vendues à $${a}$ € la place.<br>

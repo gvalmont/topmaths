@@ -1,10 +1,11 @@
-import ExerciceSimple from '../../ExerciceSimple'
-import { miseEnEvidence } from '../../../lib/outils/embellissements'
-import { randint } from '../../../modules/outils'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 import { choice } from '../../../lib/outils/arrayOutils'
 import { ecritureParentheseSiNegatif } from '../../../lib/outils/ecritures'
+import { miseEnEvidence } from '../../../lib/outils/embellissements'
+import { context } from '../../../modules/context'
 import FractionEtendue from '../../../modules/FractionEtendue'
+import { randint } from '../../../modules/outils'
+import ExerciceSimple from '../../ExerciceSimple'
 export const titre =
   'Déterminer un coefficient directeur à partir des coordonnées'
 export const interactifReady = true
@@ -41,6 +42,7 @@ export default class TrouverpDroite extends ExerciceSimple {
     const xB = randint(-10, 10, [0, xA])
     const yB = randint(-10, 10, 0)
     const m = new FractionEtendue(yB - yA, xB - xA)
+    if (context.isAmc) this.versionQcm = false
     this.reponse = this.versionQcm
       ? `$${m.texFractionSimplifiee}$`
       : m.texFractionSimplifiee
@@ -49,11 +51,13 @@ export default class TrouverpDroite extends ExerciceSimple {
      Le coefficient directeur $m$ de la droite $(${nomA}${nomB})$ est égal à : `
 
     if (yB === yA) {
-      this.distracteurs = [
-        '$1$',
-        '$-1$',
-        `${xB - xA === 1 || xB - xA === -1 ? `$${yB}$` : `$${xB - xA}$`}`,
-      ]
+      if (this.versionQcm) {
+        this.distracteurs = [
+          '$1$',
+          '$-1$',
+          `${xB - xA === 1 || xB - xA === -1 ? `$${yB}$` : `$${xB - xA}$`}`,
+        ]
+      }
       this.correction = `Comme $y_{${nomA}}=y_{${nomB}}$, la droite $(${nomA}${nomB})$ est horizontale, son coefficient directeur est nul.<br>
     Ainsi, $m=${miseEnEvidence('0')}$`
     } else {
@@ -63,18 +67,20 @@ export default class TrouverpDroite extends ExerciceSimple {
     &= \\dfrac{${yB - yA}}{${xB - xA}}\\\\
     &=${miseEnEvidence(m.texFractionSimplifiee)}
     \\end{aligned}$`
-      if (yB - yA === xB - xA || yB - yA === -xB + xA) {
-        this.distracteurs = [
-          `$${new FractionEtendue(xA - xB, yB - yA).texFractionSimplifiee}$`,
-          '$0$',
-          `$${yB - yA}$`,
-        ]
-      } else {
-        this.distracteurs = [
-          `$${new FractionEtendue(xA - xB, yB - yA).texFractionSimplifiee}$`,
-          `$${m.inverse().texFractionSimplifiee}$`,
-          `$${new FractionEtendue(yB + yA, xB + xA).texFractionSimplifiee}$`,
-        ]
+      if (this.versionQcm) {
+        if (yB - yA === xB - xA || yB - yA === -xB + xA) {
+          this.distracteurs = [
+            `$${new FractionEtendue(xA - xB, yB - yA).texFractionSimplifiee}$`,
+            '$0$',
+            `$${yB - yA}$`,
+          ]
+        } else {
+          this.distracteurs = [
+            `$${new FractionEtendue(xA - xB, yB - yA).texFractionSimplifiee}$`,
+            `$${m.inverse().texFractionSimplifiee}$`,
+            `$${new FractionEtendue(yB + yA, xB + xA).texFractionSimplifiee}$`,
+          ]
+        }
       }
     }
 

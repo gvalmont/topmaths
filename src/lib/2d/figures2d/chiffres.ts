@@ -1,5 +1,5 @@
 import { Figure2D } from '../Figures2D'
-import { Point, point } from '../PointAbstrait'
+import { PointAbstrait, pointAbstrait } from '../PointAbstrait'
 import { segment } from '../segmentsVecteurs'
 
 function nbAxesChiffre(chiffre: number): number {
@@ -23,18 +23,18 @@ function nbAxesChiffre(chiffre: number): number {
   // Retourne le nombre d'axes de symétrie pour le chiffre donné
   return axesSymetrie[chiffre as keyof typeof axesSymetrie]
 }
-function centreChiffre(chiffre: number): Point | null {
+function centreChiffre(chiffre: number): PointAbstrait | null {
   // Tableau des chiffres et de leur centre de symétrie
   const centreSymetrie = {
-    0: point(0, 0),
-    1: point(2, 0),
-    2: point(0, 0),
+    0: pointAbstrait(0, 0),
+    1: pointAbstrait(2, 0),
+    2: pointAbstrait(0, 0),
     3: null,
     4: null,
-    5: point(0, 0),
+    5: pointAbstrait(0, 0),
     6: null,
     7: null,
-    8: point(0, 0),
+    8: pointAbstrait(0, 0),
     9: null,
   }
   // Vérification que le chiffre est valide
@@ -188,18 +188,18 @@ export function chiffreDigital(options?: {
       nbAxesChiffre(chiffre) === 0
         ? []
         : nbAxesChiffre(chiffre) === 1
-          ? [segment(point(-2.5, 0), point(2.5, 0))]
+          ? [segment(pointAbstrait(-2.5, 0), pointAbstrait(2.5, 0))]
           : [
-              segment(point(-2.5, 0), point(2.5, 0)),
-              segment(point(0, -2.5), point(0, 2.5)),
+              segment(pointAbstrait(-2.5, 0), pointAbstrait(2.5, 0)),
+              segment(pointAbstrait(0, -2.5), pointAbstrait(0, 2.5)),
             ],
     nonAxe:
       chiffre === 4 || chiffre === 7 || chiffre === 2 || chiffre === 5
         ? segment(-2, 0, 2, 0)
         : chiffre === 6 || chiffre === 9
           ? segment(
-              point(0, -4 * (chiffre === 6 ? -1 : 1)),
-              point(0, 4 * (chiffre === 6 ? -1 : 1)),
+              pointAbstrait(0, -4 * (chiffre === 6 ? -1 : 1)),
+              pointAbstrait(0, 4 * (chiffre === 6 ? -1 : 1)),
             )
           : undefined,
   })
@@ -227,7 +227,7 @@ export function nombre88(options?: {
     width: 6,
     height: 6,
     opacite: options?.opacite ?? 1,
-    centre: point(0, 0),
+    centre: pointAbstrait(0, 0),
     axes: [segment(-2, 0, 2, 0), segment(0, -2, 0, 2)],
   })
 }
@@ -478,7 +478,7 @@ export function nombre96(options?: {
     width: 6,
     height: 6,
     opacite: options?.opacite ?? 1,
-    centre: point(0, 0),
+    centre: pointAbstrait(0, 0),
     nonAxe: segment(0, -4, 0, 4),
   })
 }

@@ -1,8 +1,8 @@
+import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 import { choice } from '../../../lib/outils/arrayOutils'
 import { texNombre } from '../../../lib/outils/texNombre'
-import ExerciceSimple from '../../ExerciceSimple'
 import { randint } from '../../../modules/outils'
-import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
+import ExerciceSimple from '../../ExerciceSimple'
 export const titre = 'Déterminer le plus petit ensemble de nombres'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -26,7 +26,7 @@ export default class PlusPetitEnsemble extends ExerciceSimple {
     this.typeExercice = 'simple'
     this.nbQuestions = 1
 
-    this.formatInteractif = 'texte'
+    this.optionsDeComparaison = { texteSansCasse: true }
     this.formatChampTexte = KeyboardType.clavierEnsemblePredefini
   }
 

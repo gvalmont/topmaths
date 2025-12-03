@@ -1,3 +1,4 @@
+import { context } from '../../../modules/context'
 import { codageAngleDroit } from '../../../lib/2d/CodageAngleDroit'
 import { point } from '../../../lib/2d/PointAbstrait'
 import { polygoneAvecNom } from '../../../lib/2d/polygones'
@@ -83,7 +84,8 @@ export default class NomExercice extends ExerciceSimple {
         },
         objets,
       )
-      this.question += '<br>La valeur exacte de $EG$ est : '
+      if (context.isHtml) { this.question +=    '<br>La valeur exacte de $EG$ est : '}
+      else{this.question += ''}
       this.correction = `On utilise le théorème de Pythagore dans le triangle  $EFG$ rectangle en $F$ :<br>
         $\\begin{aligned}
         EG^2&=FE^2+FG^2\\\\
@@ -92,7 +94,7 @@ export default class NomExercice extends ExerciceSimple {
         \\end{aligned}$<br>
        Ainsi, $EG=${miseEnEvidence(`\\sqrt{${a[2]}}`)}$. `
       this.canEnonce = this.question
-      this.canReponseACompleter = '$EG=\\ldots\\text{ cm}$'
+      this.canReponseACompleter = 'La valeur exacte de $EG$ est : <br>$EG=\\ldots\\text{ cm}$'
     } else {
       if (choice([true, false])) {
         const triplet = [
@@ -140,7 +142,8 @@ export default class NomExercice extends ExerciceSimple {
           },
           objets,
         )
-        this.question += '<br>La valeur exacte de $EG$ est : '
+       if (context.isHtml) { this.question +=    '<br>La valeur exacte de $EG$ est : '}
+      else{this.question += ''}
 
         this.correction = `On utilise le théorème de Pythagore dans le triangle  $EFG$ rectangle en $F$ :<br>
           $\\begin{aligned}
@@ -150,7 +153,7 @@ export default class NomExercice extends ExerciceSimple {
           \\end{aligned}$<br>
          Ainsi, $EG=${miseEnEvidence(`\\sqrt{${a[2]}}`)}$. `
         this.canEnonce = this.question
-        this.canReponseACompleter = '$EG=\\ldots\\text{ cm}$'
+        this.canReponseACompleter = 'La valeur exacte de $EG$ est : <br>$EG=\\ldots\\text{ cm}$'
       } else {
         const triplet = [
           [6, 5, 11],
@@ -199,7 +202,8 @@ export default class NomExercice extends ExerciceSimple {
           },
           objets,
         )
-        this.question += '<br>La valeur exacte de $FG$ est : '
+      if (context.isHtml) { this.question +=    '<br>La valeur exacte de $FG$ est : '}
+      else{this.question += ''}
 
         this.correction = `On utilise le théorème de Pythagore dans le triangle  $EFG$ rectangle en $F$ :<br>
           $\\begin{aligned}
@@ -210,7 +214,7 @@ export default class NomExercice extends ExerciceSimple {
           \\end{aligned}$<br>
          Ainsi, $FG=${miseEnEvidence(`\\sqrt{${a[2]}}`)}$. `
         this.canEnonce = this.question
-        this.canReponseACompleter = '$EF=\\ldots\\text{ cm}$'
+        this.canReponseACompleter = 'La valeur exacte de $FG$ est : <br>$FG=\\ldots\\text{ cm}$'
       }
     }
     if (!this.interactif) {

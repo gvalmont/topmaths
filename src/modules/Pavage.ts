@@ -1,4 +1,4 @@
-import { Point, point } from '../lib/2d/PointAbstrait'
+import { PointAbstrait, pointAbstrait } from '../lib/2d/PointAbstrait'
 import { barycentre, Polygone, polygone } from '../lib/2d/polygones'
 import { polygoneRegulier } from '../lib/2d/polygonesParticuliers'
 import { TexteParPoint, texteParPosition } from '../lib/2d/textes'
@@ -21,7 +21,7 @@ import { egal } from './outils'
 export class Pavage {
   type: number
   polygones: Polygone[]
-  barycentres: Point[]
+  barycentres: PointAbstrait[]
   tracesCentres: TracePoint[]
   numeros: TexteParPoint[]
   coordonnees: number[][]
@@ -97,8 +97,8 @@ export class Pavage {
     let P10
     let P11
     let P12
-    A = point(0, 0)
-    B = point(taille, 0)
+    A = pointAbstrait(0, 0)
+    B = pointAbstrait(taille, 0)
     switch (type) {
       case 1: // triangles équilatéraux
         v = vecteur(A, B)

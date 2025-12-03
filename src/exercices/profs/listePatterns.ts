@@ -1,4 +1,5 @@
 import Decimal from 'decimal.js'
+import { isNumber } from 'mathjs'
 import {
   cubeDef,
   faceLeft,
@@ -17,76 +18,60 @@ import { fixeBordures } from '../../lib/2d/fixeBordures'
 import {
   listePattern3d,
   listePatternRatio,
-  listePatternsFor6I13,
-  listePatternsFor6I131,
-  listePatternsPreDef,
-  listePatternsRepetition,
+  listePatternsSansRatioNiFraction,
   type PatternRiche,
   type PatternRiche3D,
-  type PatternRicheRepetition,
 } from '../../lib/2d/patterns/patternsPreDef'
 import { VisualPattern } from '../../lib/2d/patterns/VisualPattern'
 import { VisualPattern3D } from '../../lib/2d/patterns/VisualPattern3D'
 import { point } from '../../lib/2d/PointAbstrait'
 import { polygone } from '../../lib/2d/polygones'
 import { texteParPosition } from '../../lib/2d/textes'
+import { bleuMathalea } from '../../lib/colors'
 import { choice } from '../../lib/outils/arrayOutils'
 import {
   miseEnEvidence,
   texteEnCouleurEtGras,
 } from '../../lib/outils/embellissements'
-import { sp } from '../../lib/outils/outilString'
 import { context } from '../../modules/context'
 import { mathalea2d } from '../../modules/mathalea2d'
 import { randint } from '../../modules/outils'
 import type { NestedObjetMathalea2dArray } from '../../types/2d'
 import Exercice from '../Exercice'
 
-export const titre =
-  'Liste des patterns stockés dans Mathaléa avec leurs numéros de référence'
+export const titre = "Liste des patterns disponibles pour l'exercice 6N4B"
+export const dateDePublication = '26/11/2025'
 
 export const refs = {
   'fr-fr': ['P023'],
   'fr-ch': [],
 }
-export const uuid = '4c9ca'
+export const uuid = '71ff5'
 
 /**
- * Dans le dossier src/lib/2d/patterns, on trouve un fichier patternsPreDef.ts
- * qui contient une liste de patterns stockés dans Mathaléa.
- * Ce fichier exporte une liste de patternsRiches.
- * Les patternsRiches sont des objets qui contiennent les propriétés suivantes:
- * shapeDefault: la fonction qui renvoie la Shape2D des éléments du pattern
- * fonction: la fonction qui permet de calculer le nombre d'éléments du pattern au rang x
-* formule: la formule latex qui permet de calculer ce nombre en fonction du rang n
-*   type: 'linéaire' | 'affine' | 'degré2' | 'degré3' | 'autre'
-*   pattern: Un PatternNumerique initialisé avec ses cellules de rang 1
- *  iterate: la fonction qui permet de fabriquer les cellules au rang n
- * @author Jean-Claude Lhote
+ * Affiche les patterns propres à un exercice
+ * @author Eric Elter (sur la base de listePatterns de Jean-Claude Lhote)
 
  */
-export default class ListePatternsPreDef extends Exercice {
+export default class ListePatternsTousLesExos extends Exercice {
   destroyers: (() => void)[] = []
 
   constructor() {
     super()
     this.nbQuestions = 1
-    this.listePackages = ['twemojis']
+    this.listePackages = ['twemojis'] // this.listePackages est inutile mais la présence du mot "twemojis" est indispensable pour la sortie LaTeX.
     this.nbQuestionsModifiable = false
     this.besoinFormulaireNumerique = [
       'Liste restreinte pour la référence',
       6,
-      '1 : 6I13\n2 : 6I13-1\n3 : 6I13-2\n4 : 6I14\n5 : 5L10-5\n6 : 5P12-2',
+      '1 : 6N4B\n2 : 6N4B-2\n3 : 5I13\n4 : 5L10-5\n5 : 5P12-2\n6 : 4L13-3',
     ]
     this.sup = 1
+
     this.besoinFormulaire3Numerique = ['Nombre de motifs par pattern', 6]
     this.sup3 = 4
-    this.comment = `Affiche la liste des patterns stockés dans Mathaléa avec leurs numéros de référence.<br>
-Vous pouvez choisir d'afficher un ou plusieurs patterns en indiquant leur numéro de référence dans le formulaire.<br>
-Le nombre de motifs par pattern (3 par défaut) est aussi modifiable dans le formulaire.<br>
-Le nombre de patterns à afficher est aussi modifiable dans le formulaire.<br>
-Le nombre donné entre parenthèses est le nombre d'éléments au rang 43 de chaque pattern.<br>
-L'expression donnée entre crochets est la formule qui permet de calculer le nombre d'éléments au rang n de chaque pattern.<br>`
+    this.comment = `Cette page affiche la liste des patterns disponibles dans des exercices avec leur numéro de référence et pour information, le nombre d'éléments 
+    pour le motif 43 ainsi que le nombre d'éléments au rang n de chaque pattern.<br>`
   }
 
   destroy() {
@@ -98,58 +83,49 @@ L'expression donnée entre crochets est la formule qui permet de calculer le nom
   nouvelleVersion(): void {
     // MGu quand l'exercice est modifié, on détruit les anciens listeners
     this.destroyers.forEach((destroy) => destroy())
+    this.destroyers.length = 0
     this.sup3 = Math.max(2, this.sup3) // On ne peut pas afficher moins de 2 motifs
-    let listePatterns: (
-      | PatternRiche
-      | PatternRicheRepetition
-      | PatternRiche3D
-    )[] = []
+    let texte = ''
+
+    let listeOfAll: (PatternRiche | PatternRiche3D)[] = []
     switch (this.sup) {
       case 1:
-        listePatterns = listePatternsFor6I13
+      case 3:
+      case 4:
+      case 6:
+        listeOfAll = listePatternsSansRatioNiFraction
         break
       case 2:
-        listePatterns = listePatternsFor6I131
-        break
-      case 3:
-        listePatterns = listePattern3d
-        break
-      case 4:
-        listePatterns = listePatternsRepetition
-        break
+        listeOfAll = listePattern3d
       case 5:
-        listePatterns = listePatternsPreDef
-        break
-      case 6:
-        listePatterns = listePatternRatio
+        listeOfAll = listePatternRatio
         break
     }
-    const listeShapes = Array.from(
-      new Set(listePatterns.map((pat) => pat.shapes).flat()),
-    )
-    let texte = ''
-    if (!context.isHtml) {
-      texte += `${listeShapes.map((shape) => listeShapes2DInfos[shape].shapeDef.tikz()).join('\n')}\n`
-    }
-    if (listePatterns == null || listePatterns.length === 0) return
-    for (let i = 0; i < listePatterns.length; i++) {
-      const pat = listePatterns[i]
+
+    if (listeOfAll == null || listeOfAll.length === 0) return
+    for (let i = 0; i < listeOfAll.length; i++) {
+      const pat = listeOfAll[i]
       if (pat == null) {
         texte += `\n${texteEnCouleurEtGras(`Pattern ${i + 1}`, 'red')}: ${texteEnCouleurEtGras('Pattern inexistant', 'red')}`
         continue
       }
-      if ('nbMotifMin' in pat) {
+
+      if ('nbMotifMin' in pat && isNumber(pat.nbMotifMin)) {
         // On est en présence d'un motif répétitif
         const objets: NestedObjetMathalea2dArray = []
-        for (const shape of pat.shapes) {
-          if (shape in listeShapes2DInfos) {
-            objets.push(listeShapes2DInfos[shape].shapeDef)
+        if ('shapes' in pat) {
+          for (const shape of pat.shapes) {
+            if (shape in listeShapes2DInfos) {
+              objets.push(listeShapes2DInfos[shape].shapeDef)
+            }
           }
         }
+
         for (let j = 0; j <= pat.nbMotifMin; j++) {
           const pattern = new VisualPattern([])
-          pattern.shapes = pat.shapes
-          pattern.iterate = pat.iterate
+
+          if ('shapes' in pat) pattern.shapes = pat.shapes
+          if ('iterate' in pat) pattern.iterate = pat.iterate
           objets.push(pattern.render(j, j + 1, 0))
         }
         texte += `\n${texteEnCouleurEtGras(`Pattern ${i + 1}`, 'blue')}:  <br>`
@@ -164,38 +140,24 @@ L'expression donnée entre crochets est la formule qui permet de calculer le nom
         const n43 = !('nbMotifMin' in pat)
           ? new Decimal(pat.fonctionNb(43)).toString()
           : null
-        const n43R = !('nbMotifMin' in pat)
-          ? pat.fonctionRatio
-            ? pat
-                .fonctionRatio(43)
-                .values.map((el) => new Decimal(el).toString())
-                .join('~:~')
-            : null
-          : null
-        const n43F = !('nbMotifMin' in pat)
-          ? pat.fonctionFraction && pat.fonctionRatio
-            ? `\\dfrac{${(pat.fonctionRatio(43).values[0] ?? 0).toString()}}{${new Decimal(pat.fonctionNb(43)).toString()}}`
-            : null
-          : null
+        const infosShape =
+          pat.shapes[0] in listeShapes2DInfos
+            ? listeShapes2DInfos[pat.shapes[0]]
+            : { articleCourt: 'de ', nomPluriel: 'cubes' }
 
-        texte += `\n${texteEnCouleurEtGras(`Pattern ${i + 1}`, 'blue')}: Motif 43 : $\\left(${n43}\\right)$ ${n43F ? `; fraction : $${n43F}$ ` : ''} ${n43R ? `; ratio : $${n43R}$` : ''} ; formule : ${sp(6)}$\\left[${miseEnEvidence(pat.formule ?? '')}\\right]$ <br>`
+        const nom = infosShape.nomPluriel
 
         const patternRiche = pat
-        if (context.isHtml)
-          texte +=
-            patternRiche.visualImg != null
-              ? `<a href="${patternRiche.visualImg}" target="_blank">Image</a><br><br>`
-              : ''
         const pattern =
-          'iterate3d' in pat
+          'iterate3d' in patternRiche
             ? new VisualPattern3D({
                 initialCells: [],
                 type: 'iso',
-                shapes: pat.shapes,
                 prefixId: `Ex${this.numeroExercice}Q${i}`,
+                shapes: ['cube'],
               })
             : new VisualPattern([])
-        if ('iterate3d' in pattern) {
+        if (pattern instanceof VisualPattern3D) {
           pattern.shapes = ['cube']
           pattern.iterate3d = (patternRiche as PatternRiche3D).iterate3d
         } else {
@@ -218,19 +180,16 @@ L'expression donnée entre crochets est la formule qui permet de calculer le nom
           let xmin = Infinity
           let xmax = -Infinity
           if (context.isHtml) {
+            const nom = String(choice(Object.keys(listeShapes2DInfos)))
             for (let n = 0; n < pattern.shapes.length; n++) {
               let name = pattern.shapes[n]
               if (name in listeShapes2DInfos) {
                 if (name === 'carré') {
-                  const nom = String(choice(Object.keys(listeShapes2DInfos)))
                   name = nom
                   pattern.shapes[n] = nom
-                }
-                figures[j].push(listeShapes2DInfos[name].shapeDef)
+                  figures[j].push(listeShapes2DInfos[nom].shapeDef)
+                } else figures[j].push(listeShapes2DInfos[name].shapeDef)
               } else if (name === 'cube') {
-                if ((pattern as VisualPattern3D).shape == null) {
-                  ;(pattern as VisualPattern3D).shape = shapeCubeIso()
-                }
                 const cubeIsoDef = cubeDef(`cubeIsoQ${i}F${j}`, 1)
                 cubeIsoDef.svg = function (coeff: number): string {
                   return `
@@ -250,40 +209,29 @@ L'expression donnée entre crochets est la formule qui permet de calculer le nom
               }
             }
           }
-          if ('iterate3d' in pattern) {
+          if (pattern instanceof VisualPattern3D) {
             if (pattern.shape == null) {
-              pattern.shape = shapeCubeIso(`cubeIsoQ${i}F${j}`, 0, 0, {
-                fillStyle: '#ffffff',
-                strokeStyle: '#000000',
-                lineWidth: 1,
-                opacite: 1,
+              pattern.shape = shapeCubeIso(`cubeIsoQ${i}F${j}`, 1, 1, {
                 scale: 1,
               })
             }
             if (context.isHtml) {
-              const listeners = updateCubeIso({
-                pattern,
-                i,
-                j,
-                angle,
-                inCorrectionMode: false,
-              })
+              const listeners = updateCubeIso({ pattern, i, j, angle })
               if (listeners) this.destroyers.push(listeners)
               pattern.shape.codeSvg = `<use href="#cubeIsoQ${i}F${j}"></use>`
               const cells = (pattern as VisualPattern3D).update3DCells(j + 1)
               // Ajouter les SVG générés par svg() de chaque objet
               cells.forEach((cell) => {
+                const scale = 1
                 const [px, py] = project3dIso(cell[0], cell[1], cell[2], angle)
-                const obj = shapeCubeIso(`cubeIsoQ${i}F${j}`, px, py, {
-                  scale: 1,
-                })
+                const obj = shapeCubeIso(`cubeIsoQ${i}F${j}`, px, py, { scale })
                 obj.x = px / 20
                 obj.y = -py / 20
                 objets.push(obj)
-                ymin = Math.min(ymin, obj.y)
-                ymax = Math.max(ymax, obj.y + 1)
-                xmin = Math.min(xmin, obj.x)
-                xmax = Math.max(xmax, obj.x + 1)
+                ymin = Math.min(ymin, obj.y * scale)
+                ymax = Math.max(ymax, (obj.y + 1) * scale)
+                xmin = Math.min(xmin, obj.x * scale)
+                xmax = Math.max(xmax, (obj.x + 1) * scale)
               })
             } else {
               objets = [
@@ -297,7 +245,6 @@ L'expression donnée entre crochets est la formule qui permet de calculer le nom
             ;({ xmin, ymin, xmax, ymax } = fixeBordures(objets))
           }
           figures[j].push(...objets)
-          // const { xmax, ymax, xmin, ymin } = fixeBordures(objets, { rxmin: 0.5, rymin: 0, rxmax: 0.5, rymax: 0 })
           figures[j].push(
             texteParPosition(
               `Motif ${j + 1}`,
@@ -321,6 +268,9 @@ L'expression donnée entre crochets est la formule qui permet de calculer le nom
           yMax = Math.max(yMax, ymax)
           yMin = Math.min(yMin, ymin)
         }
+        texte += `${texteEnCouleurEtGras(`Pattern ${i + 1}`, 'blue')}:<br> Pour le motif 43, il y a ${n43} ${nom}.<br>`
+        texte += `Pour le motif $${miseEnEvidence('n', bleuMathalea)}$, il y a $${miseEnEvidence(pat.formule, bleuMathalea)}$ éléments.<br>`
+
         texte +=
           figures
             .map((fig, index) =>

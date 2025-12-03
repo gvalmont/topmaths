@@ -1,5 +1,7 @@
 import { propositionsQcm } from '../../lib/interactif/qcm'
+import { miseEnEvidence, texteEnCouleurEtGras } from '../../lib/outils/embellissements'
 import { sp } from '../../lib/outils/outilString'
+import { texNombre } from '../../lib/outils/texNombre'
 import {
   gestionnaireFormulaireTexte,
   listeQuestionsToContenu,
@@ -93,86 +95,86 @@ export default class VocabulaireSur4Operations extends Exercice {
       switch (listeTypeDeQuestions[i]) {
         case 1:
           texte += `Dans l'opération «${sp()}$${a} + ${b}$${sp()}», comment s'appellent les nombres $${a}$ et $${b}$ ?`
-          texteCorr += `Dans l'opération «${sp()}$${a} + ${b}$${sp()}», $${a}$ et $${b}$ s'appellent des termes.`
+          texteCorr += `Dans l'opération «${sp()}$${a} + ${b}$${sp()}», $${a}$ et $${b}$ s'appellent des ${texteEnCouleurEtGras('termes')}.`
           reponse.textes = listeVoc
           reponse.statuts = listeVoc.map((el) => el === 'des termes')
           break
         case 2:
           texte += `Dans l'égalité «${sp()}$${a} + ${b} = ${a + b}$ ${sp()}», comment s'appelle le nombre $${a + b}$ ?`
-          texteCorr += `Dans l'égalité «${sp()}$${a} + ${b} = ${a + b}$${sp()}», $${a + b}$ s'appelle la somme de $${a}$ et $${b}$.`
+          texteCorr += `Dans l'égalité «${sp()}$${a} + ${b} = ${a + b}$${sp()}», $${a + b}$ s'appelle la ${texteEnCouleurEtGras('somme')} de $${a}$ et $${b}$.`
           reponse.textes = listeVoc
           reponse.statuts = listeVoc.map((el) => el === 'la somme')
           break
         case 3:
           texte += `Quelle est la somme de $${a}$ et $${b}$ ?`
-          texteCorr += `La somme de $${a}$ et $${b}$ est $${a + b}$ car $${a}+${b}=${a + b}$.`
+          texteCorr += `La somme de $${a}$ et $${b}$ est $${miseEnEvidence(texNombre(a + b))}$ car $${a}+${b}=${a + b}$.`
           reponse.textes = [a, b, a + b, a * b, a - b].map(String)
           reponse.statuts = [false, false, true, false, false]
           break
         case 4:
           texte += `Dans l'opération «${sp()}$${a} - ${b}$${sp()}», comment s'appellent les nombres $${a}$ et $${b}$ ?`
-          texteCorr += `Dans l'opération «${sp()}$${a} - ${b}$${sp()}», $${a}$ et $${b}$ s'appellent des termes.`
+          texteCorr += `Dans l'opération «${sp()}$${a} - ${b}$${sp()}», $${a}$ et $${b}$ s'appellent des ${texteEnCouleurEtGras('termes.')}`
           reponse.textes = listeVoc
           reponse.statuts = listeVoc.map((el) => el === 'des termes')
           break
         case 5:
           texte += `Dans l'égalité «${sp()}$${a} - ${b} = ${a - b}$${sp()}», comment s'appelle le nombre $${a - b}$ ?`
-          texteCorr += `Dans l'égalité «${sp()}$${a} - ${b} = ${a - b}$${sp()}», $${a - b}$ s'appelle la différence entre $${a}$ et $${b}$.`
+          texteCorr += `Dans l'égalité «${sp()}$${a} - ${b} = ${a - b}$${sp()}», $${a - b}$ s'appelle la ${texteEnCouleurEtGras('différence')} entre $${a}$ et $${b}$.`
           reponse.textes = listeVoc
           reponse.statuts = listeVoc.map((el) => el === 'la différence')
           break
         case 6:
           texte += `Quelle est la différence entre $${a}$ et $${b}$ ?`
-          texteCorr += `La différence entre $${a}$ et $${b}$ est $${a - b}$ car $${a}-${b}=${a - b}$.`
+          texteCorr += `La différence entre $${a}$ et $${b}$ est $${miseEnEvidence(texNombre(a - b))}$ car $${a}-${b}=${a - b}$.`
           reponse.textes = [a, b, a + b, a * b, a - b].map(String)
           reponse.statuts = [false, false, false, false, true]
           break
         case 7:
           texte += `Dans l'opération «${sp()}$${a} \\times ${b}$${sp()}», comment s'appellent les nombres $${a}$ et $${b}$ ?`
-          texteCorr += `Dans l'opération «${sp()}$${a} \\times ${b}$${sp()}», $${a}$ et $${b}$ s'appellent des facteurs.`
+          texteCorr += `Dans l'opération «${sp()}$${a} \\times ${b}$${sp()}», $${a}$ et $${b}$ s'appellent des ${texteEnCouleurEtGras('facteurs')}.`
           reponse.textes = listeVoc
           reponse.statuts = listeVoc.map((el) => el === 'des facteurs')
           break
         case 8:
           texte += `Dans l'égalité «${sp()}$${a} \\times ${b} = ${a * b}$${sp()}», comment s'appelle le nombre $${a * b}$ ?`
-          texteCorr += `Dans l'égalité «${sp()}$${a} \\times ${b} = ${a * b}$${sp()}», $${a * b}$ s'appelle le produit de $${a}$ et $${b}$.`
+          texteCorr += `Dans l'égalité «${sp()}$${a} \\times ${b} = ${a * b}$${sp()}», $${a * b}$ s'appelle le ${texteEnCouleurEtGras('produit')} de $${a}$ et $${b}$.`
           reponse.textes = listeVoc
           reponse.statuts = listeVoc.map((el) => el === 'le produit')
           break
         case 9:
           texte += `Quel est le produit de $${a}$ et $${b}$ ?`
-          texteCorr += `Le produit de $${a}$ et $${b}$ est $${a * b}$ car $${a}\\times${b}=${a * b}$.`
+          texteCorr += `Le produit de $${a}$ et $${b}$ est $${miseEnEvidence(texNombre(a * b))}$ car $${a}\\times${b}=${a * b}$.`
           reponse.textes = [a, b, a + b, a * b, a - b].map(String)
           reponse.statuts = [false, false, false, true, false]
           break
         case 10:
           texte += `Dans l'opération «${sp()}$${a * b} \\div ${b}$${sp()}», comment s'appelle le nombre $${a * b}$ ?`
-          texteCorr += `Dans l'opération «${sp()}$${a * b} \\div ${b}$${sp()}», $${a * b}$ s'appelle le dividende.`
+          texteCorr += `Dans l'opération «${sp()}$${a * b} \\div ${b}$${sp()}», $${a * b}$ s'appelle le ${texteEnCouleurEtGras('dividende')}.`
           reponse.textes = listeVoc
           reponse.statuts = listeVoc.map((el) => el === 'le dividende')
           break
         case 11:
           texte += `Dans l'opération «${sp()}$${a * b} \\div ${b}$${sp()}», comment s'appelle le nombre $${b}$ ?`
-          texteCorr += `Dans l'opération «${sp()}$${a * b} \\div ${b}$${sp()}», $${b}$ s'appelle le diviseur.`
+          texteCorr += `Dans l'opération «${sp()}$${a * b} \\div ${b}$${sp()}», $${b}$ s'appelle le ${texteEnCouleurEtGras('diviseur')}.`
           reponse.textes = listeVoc
           reponse.statuts = listeVoc.map((el) => el === 'le diviseur')
           break
         case 12:
           texte += `Dans l'égalité «${sp()}$${a * b} \\div ${b} = ${a}$${sp()}», comment s'appelle le nombre $${a}$ ?`
-          texteCorr += `Dans l'égalité «${sp()}$${a * b} \\div ${b} = ${a}$${sp()}», $${a}$ s'appelle le quotient de  $${a * b}$ par $${b}$.`
+          texteCorr += `Dans l'égalité «${sp()}$${a * b} \\div ${b} = ${a}$${sp()}», $${a}$ s'appelle le ${texteEnCouleurEtGras('quotient')} de  $${a * b}$ par $${b}$.`
           reponse.textes = listeVoc
           reponse.statuts = listeVoc.map((el) => el === 'le quotient')
           break
         case 13:
           reste = randint(1, Math.min(a, b) - 1)
           texte += `Dans l'égalité «${sp()}$${a * b + reste} = ${b} \\times ${a} + ${reste} $${sp()}», comment s'appelle le nombre $${reste}$ ?`
-          texteCorr += `Dans l'égalité «${sp()}$${a * b + reste} = ${b} \\times ${a} + ${reste} $${sp()}», $${reste}$ s'appelle le reste du quotient de  $${a * b + reste}$ par $${b}$ ou de $${a * b + reste}$ par $${a}$.`
+          texteCorr += `Dans l'égalité «${sp()}$${a * b + reste} = ${b} \\times ${a} + ${reste} $${sp()}», $${reste}$ s'appelle le ${texteEnCouleurEtGras('reste')} du quotient de  $${a * b + reste}$ par $${b}$ ou de $${a * b + reste}$ par $${a}$.`
           reponse.textes = listeVoc
           reponse.statuts = listeVoc.map((el) => el === 'le reste')
           break
         case 14:
           texte += `Quel est le quotient de $${a * b}$ par $${b}$ ?`
-          texteCorr += `Le quotient de $${a * b}$ par $${b}$ est $${a}$ car $${a * b}\\div${b}=${a}$.`
+          texteCorr += `Le quotient de $${a * b}$ par $${b}$ est $${miseEnEvidence(texNombre(a))}$ car $${a * b}\\div${b}=${a}$.`
           reponse.textes = [a, b, a * b, a * b + b, a * b - b].map(String)
           reponse.statuts = [true, false, false, false, false]
           break

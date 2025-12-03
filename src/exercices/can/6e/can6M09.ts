@@ -1,4 +1,5 @@
 import { choice } from '../../../lib/outils/arrayOutils'
+import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { texNombre } from '../../../lib/outils/texNombre'
 import { randint } from '../../../modules/outils'
 import ExerciceSimple from '../../ExerciceSimple'
@@ -36,7 +37,7 @@ export default class PerimetreCarreRectangle extends ExerciceSimple {
          Quelle est la longueur du côté du carré ? <br>(valeur décimale ou entière) `
         this.correction = `On calcule le périmètre d'un carré
         en multipliant par $4$ la longueur de son côté. <br>
-        On obtient donc la longueur du côté en divisant par $4$ son périmètre : $${a}\\div 4=${texNombre(a / 4)}\\text{ cm}$.`
+        On obtient donc la longueur du côté en divisant par $4$ son périmètre : $${a}\\div 4=${miseEnEvidence(texNombre(a / 4))}\\text{ cm}$.`
         this.reponse = a / 4
         break
       case 'b':
@@ -45,7 +46,7 @@ export default class PerimetreCarreRectangle extends ExerciceSimple {
         this.question = `Le périmètre d'un rectangle de largeur $${b}\\text{ cm}$ est $${(a + b) * 2}\\text{ cm}$.<br>Quelle est sa longueur ?
             `
         this.correction = `Si on note $L$ la longueur du rectangle, le demi-périmètre de ce rectangle est $${b}+L=\\dfrac{${(a + b) * 2}}{2}=${a + b}\\text{ cm}$.
-        <br>Donc $L=${a}\\text{ cm}$.`
+        <br>Donc $L=${miseEnEvidence(texNombre(a))}\\text{ cm}$.`
         this.reponse = a
         break
     }

@@ -1,7 +1,7 @@
 import { listeShapes2DInfos } from '../../lib/2d/figures2d/shapes2d'
 import { fixeBordures } from '../../lib/2d/fixeBordures'
 import {
-  lisdtePatternsFor5L105,
+  listePatternsSansRatioNiFraction,
   type PatternRiche,
   type PatternRiche3D,
 } from '../../lib/2d/patterns/patternsPreDef'
@@ -9,7 +9,7 @@ import { point } from '../../lib/2d/PointAbstrait'
 import { polygone } from '../../lib/2d/polygones'
 import { texteParPosition } from '../../lib/2d/textes'
 import { ajouteQuestionMathlive } from '../../lib/interactif/questionMathLive'
-import { shuffle } from '../../lib/outils/arrayOutils'
+import { enleveDoublonNum, shuffle } from '../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { mathalea2d } from '../../modules/mathalea2d'
 import type { NestedObjetMathalea2dArray } from '../../types/2d'
@@ -23,7 +23,9 @@ import {
 } from '../../lib/2d/figures2d/Shape3d'
 import { VisualPattern } from '../../lib/2d/patterns/VisualPattern'
 import { VisualPattern3D } from '../../lib/2d/patterns/VisualPattern3D'
+import { range1 } from '../../lib/outils/nombres'
 import { context } from '../../modules/context'
+import { gestionnaireFormulaireTexte } from '../../modules/outils'
 
 export const titre =
   "Définir une expression littérale à partir d'un modèle figuratif"
@@ -53,14 +55,24 @@ export default class PaternNum1 extends Exercice {
     super()
     this.nbQuestions = 3
     this.comment =
-      "Cet exercice contient des modèles issus de l'excellent site : https://www.visualpatterns.org/"
+      "Cet exercice contient des modèles issus de l'excellent site : https://www.visualpatterns.org/."
+    this.comment += `<br>
+Grâce au dernier paramètre, on peut imposer des patterns choisis dans cette <a href="https://coopmaths.fr/alea/?uuid=71ff5&s=4" target="_blank" style="color: blue">liste de patterns</a>.<br>
+Si le nombre de questions est supérieur au nombre de patterns choisis, alors l'exercice sera complété par des patterns choisis au hasard.`
     this.besoinFormulaireNumerique = ['Nombre de figures par question', 4]
     this.sup = 3
-    this.besoinFormulaire5Numerique = [
-      'Numéro de modèle (uniquement si 1 seule question)',
-      lisdtePatternsFor5L105.length,
+
+    const nbDePattern = listePatternsSansRatioNiFraction.length
+    this.besoinFormulaire2Texte = [
+      'Numéros des pattern désirés :',
+      [
+        'Nombres séparés par des tirets  :',
+        `Mettre des nombres entre 1 et ${nbDePattern}.`,
+        `Mettre ${nbDePattern + 1} pour laisser le hasard faire.`,
+      ].join('\n'),
     ]
-    this.sup5 = 1
+
+    this.sup2 = `${nbDePattern + 1}`
   }
 
   destroy() {
@@ -73,17 +85,24 @@ export default class PaternNum1 extends Exercice {
     // MGu quand l'exercice est modifié, on détruit les anciens listeners
     this.destroyers.forEach((destroy) => destroy())
     this.destroyers.length = 0
-    if (this.sup5 > lisdtePatternsFor5L105.length) {
-      this.sup5 = lisdtePatternsFor5L105.length
-    }
-    if (this.sup5 < 1) {
-      this.sup5 = 1
-    }
 
-    const listePreDef =
-      this.nbQuestions === 1
-        ? [lisdtePatternsFor5L105[Number(this.sup5) - 1]]
-        : shuffle(lisdtePatternsFor5L105)
+    const nbDePattern = listePatternsSansRatioNiFraction.length
+    let typesPattern = gestionnaireFormulaireTexte({
+      saisie: this.sup2,
+      max: nbDePattern,
+      defaut: nbDePattern + 1,
+      melange: nbDePattern + 1,
+      nbQuestions: this.nbQuestions,
+    }).map(Number)
+
+    typesPattern = [...typesPattern, ...shuffle(range1(nbDePattern))]
+    typesPattern = enleveDoublonNum(typesPattern)
+    typesPattern = typesPattern.reverse()
+
+    const listePreDef = typesPattern.map(
+      (i) => listePatternsSansRatioNiFraction[i - 1],
+    )
+
     const nbFigures = Math.max(2, this.sup)
     for (let i = 0; i < this.nbQuestions; ) {
       const objetsCorr: NestedObjetMathalea2dArray = []

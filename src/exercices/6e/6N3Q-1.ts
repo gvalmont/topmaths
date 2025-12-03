@@ -22,7 +22,7 @@ export const titre = 'Résoudre des problèmes avec des calculs de pourcentages'
 export const uuid = 'd67e9'
 
 export const refs = {
-  'fr-fr': ['BP2AutoB6', '6N3Q-1'],
+  'fr-fr': ['6N3Q-1', 'BP2AutoB6'],
   'fr-2016': ['6N33-3', 'BP2AutoB6'],
   'fr-ch': ['9NO15-2'],
 }

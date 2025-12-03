@@ -1,5 +1,4 @@
 import { afficheLongueurSegment } from '../../lib/2d/afficheLongueurSegment'
-import { traceCompas } from '../../lib/2d/Arc'
 import { cercle } from '../../lib/2d/cercle'
 import { codageMediatrice } from '../../lib/2d/CodageMediatrice'
 import { Droite } from '../../lib/2d/droites'
@@ -10,6 +9,7 @@ import { polygoneAvecNom } from '../../lib/2d/polygones'
 import { segment } from '../../lib/2d/segmentsVecteurs'
 import { labelPoint } from '../../lib/2d/textes'
 import { texteSurSegment } from '../../lib/2d/texteSurSegment'
+import { traceCompas } from '../../lib/2d/traceCompas'
 import { longueur } from '../../lib/2d/utilitairesGeometriques'
 import {
   pointAdistance,

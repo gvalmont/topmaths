@@ -1,4 +1,5 @@
-import { courbe, courbeInterpolee } from '../../lib/2d/courbes'
+import { courbe } from '../../lib/2d/Courbe'
+import { courbeInterpolee } from '../../lib/2d/CourbeInterpolee.1'
 import { point } from '../../lib/2d/PointAbstrait'
 import { repere } from '../../lib/2d/reperes'
 import { latex2d } from '../../lib/2d/textes'

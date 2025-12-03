@@ -56,7 +56,7 @@ export function tempsEcran(decimal = false): Probleme {
       start: 1,
       end: 15,
       text: `${nbFois} jours`,
-      type: 'flèche',
+      type: 'accolade',
     },
   ]
   return probleme

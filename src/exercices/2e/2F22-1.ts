@@ -1,6 +1,6 @@
-import { lectureAntecedent } from '../../lib/2d/courbes'
 import { droiteParPointEtPente } from '../../lib/2d/droites'
 import { fixeBordures } from '../../lib/2d/fixeBordures'
+import { lectureAntecedent } from '../../lib/2d/LectureAntecedent'
 import { point } from '../../lib/2d/PointAbstrait'
 import { repere } from '../../lib/2d/reperes'
 import { texteParPosition } from '../../lib/2d/textes'

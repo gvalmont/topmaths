@@ -297,7 +297,7 @@ export default class Representerfonctionaffine extends Exercice {
         figure.dx = 0.5
         figure.dy = 0.5
         texte += figureApigeom({ exercice: this, i, figure })
-        if (figure.ui) figure.ui.send('LINE')
+        if (figure.ui) figure.ui.send({ type: 'LINE' })
       }
 
       if (this.questionJamaisPosee(i, a, b)) {

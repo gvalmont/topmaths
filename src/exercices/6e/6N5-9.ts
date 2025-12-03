@@ -268,7 +268,7 @@ function probleme2(calculFacile: boolean): {
           text: `${nombreDeAliment1} ${aliment1}`,
           start: 1,
           end: longueur * nombreDeAliment1 + 1,
-          type: 'flèche',
+          type: 'accolade',
         },
       ],
       lignes: [

@@ -7,7 +7,6 @@ import { colorToLatexOrHTML } from './colorToLatexOrHtml'
 import { Droite, droite } from './droites'
 import { ObjetMathalea2D } from './ObjetMathalea2D'
 import type { PointAbstrait } from './PointAbstrait'
-import { Point } from './PointAbstrait'
 import { polygone } from './polygones'
 import { projectionOrtho, rotation, similitude } from './transformations'
 import { longueur } from './utilitairesGeometriques'
@@ -45,8 +44,8 @@ export function triangle2points1hauteur(
 }
 
 /**
- * @param {Point} A
- * @param {Point} B
+ * @param {PointAbstrait} A
+ * @param {PointAbstrait} B
  * @param {number} l1
  * @param {number} l2
  * @param {number} [n=1] Si n = 1 (défaut), C a la plus grande ordonnée possible, si n = 2, C a la plus petite ordonnée possible
@@ -81,8 +80,8 @@ export function triangle2points2longueurs(
  * @author Rémi Angot
  */
 export function triangle2points2angles(
-  A: Point | PointAbstrait,
-  B: Point | PointAbstrait,
+  A: PointAbstrait,
+  B: PointAbstrait,
   a1: number,
   a2: number,
   n = 1,
@@ -105,8 +104,8 @@ export function triangle2points2angles(
 
 /**
  *
- * @param {Point} A Le sommet pour l'angle donné = première extrémité du segment de base du triangle
- * @param {Point} B L'autre extrémité du segment de base
+ * @param {PointAbstrait} A Le sommet pour l'angle donné = première extrémité du segment de base du triangle
+ * @param {PointAbstrait} B L'autre extrémité du segment de base
  * @param {number} a l'angle au sommet A (angle compris entre 0 et 180 sinon il y est contraint)
  * @param {number} l la longueur du deuxième côté de l'angle
  * @param {number} n n=1 l'angle a est pris dans le sens direct, n différent de 1, l'angle a est pris dans le sens indirect.
@@ -114,8 +113,8 @@ export function triangle2points2angles(
  * @author Jean-Claude Lhote
  */
 export function triangle2points1angle1longueur(
-  A: Point | PointAbstrait,
-  B: Point | PointAbstrait,
+  A: PointAbstrait,
+  B: PointAbstrait,
   a: number,
   l: number,
   n = 1,
@@ -132,8 +131,8 @@ export function triangle2points1angle1longueur(
 }
 
 /**
- * @param {Point} A Le sommet pour l'angle donné = première extrémité du segment de base du triangle
- * @param {Point} B L'autre extrémité du segment de base
+ * @param {PointAbstrait} A Le sommet pour l'angle donné = première extrémité du segment de base du triangle
+ * @param {PointAbstrait} B L'autre extrémité du segment de base
  * @param {number} a l'angle au sommet A (angle compris entre 0 et 180 sinon il y est contraint)
  * @param {number} l la longueur du côté opposé à l'angle
  * @param {number} n n=1 l'angle a est pris dans le sens direct et le point est le plus près de A
@@ -144,14 +143,14 @@ export function triangle2points1angle1longueur(
  * @author Jean-Claude Lhote
  */
 export function triangle2points1angle1longueurOppose(
-  A: Point | PointAbstrait,
-  B: Point | PointAbstrait,
+  A: PointAbstrait,
+  B: PointAbstrait,
   a: number,
   l: number,
   n = 1,
   color = 'black',
 ) {
-  let M: Point
+  let M: PointAbstrait
   if (n % 2 === 1) {
     a = Math.abs(a) % 180
   } else {
@@ -167,9 +166,9 @@ export function triangle2points1angle1longueurOppose(
 
 /**
  * Code la hauteur d'un triangle
- * @param {Point} A Premier sommet d'un triangle
- * @param {Point} B Deuxième sommet d'un triangle
- * @param {Point} C Troisième sommet d'un triangle
+ * @param {PointAbstrait} A Premier sommet d'un triangle
+ * @param {PointAbstrait} B Deuxième sommet d'un triangle
+ * @param {PointAbstrait} C Troisième sommet d'un triangle
  * @param {string} [color = 'black'] Couleur des codages : du type 'blue' ou du type '#f15929'
  * @property {string} svg Sortie au format vectoriel (SVG) que l’on peut afficher dans un navigateur
  * @property {string} tikz Sortie au format TikZ que l’on peut utiliser dans un fichier LaTeX
@@ -182,9 +181,9 @@ export class CodageHauteurTriangle extends ObjetMathalea2D {
   c: CodageAngleDroit
   d: Droite
   constructor(
-    A: Point | PointAbstrait,
-    B: Point | PointAbstrait,
-    C: Point | PointAbstrait,
+    A: PointAbstrait,
+    B: PointAbstrait,
+    C: PointAbstrait,
     color = 'black',
   ) {
     super()
@@ -236,9 +235,9 @@ export class CodageHauteurTriangle extends ObjetMathalea2D {
 
 /**
  * Code la hauteur d'un triangle
- * @param {Point} A Premier sommet d'un triangle
- * @param {Point} B Deuxième sommet d'un triangle
- * @param {Point} C Troisième sommet d'un triangle
+ * @param {PointAbstrait} A Premier sommet d'un triangle
+ * @param {PointAbstrait} B Deuxième sommet d'un triangle
+ * @param {PointAbstrait} C Troisième sommet d'un triangle
  * @param {string} [color = 'black'] Couleur des codages : du type 'blue' ou du type '#f15929'
  * @example codageHauteurTriangle(M,N,P) // Code, en noir, la hauteur du triangle MNP.
  * @example codageHauteurTriangle(M,N,P,'red') // Code, en rouge, la hauteur du triangle MNP.
@@ -246,9 +245,9 @@ export class CodageHauteurTriangle extends ObjetMathalea2D {
  */
 // JSDOC Validee par EE Juin 2022
 export function codageHauteurTriangle(
-  A: Point | PointAbstrait,
-  B: Point | PointAbstrait,
-  C: Point | PointAbstrait,
+  A: PointAbstrait,
+  B: PointAbstrait,
+  C: PointAbstrait,
   color = 'black',
 ) {
   return new CodageHauteurTriangle(A, B, C, color)
@@ -256,8 +255,8 @@ export function codageHauteurTriangle(
 
 /**
  * Code la médiane d'un triangle
- * @param {Point} B Première extrémité du segment dont la médiane est relative
- * @param {Point} C Seconde extrémité du segment dont la médiane est relative
+ * @param {PointAbstrait} B Première extrémité du segment dont la médiane est relative
+ * @param {PointAbstrait} C Seconde extrémité du segment dont la médiane est relative
  * @param {string} [color = 'black'] Couleur des codages : du type 'blue' ou du type '#f15929'
  * @param {string} [mark = '//'] Symbole posé de part et d'autre du milieu du segment
  * @param {boolean} [mil = false] Trace ou nom le point du milieu.
@@ -267,8 +266,8 @@ export function codageHauteurTriangle(
  */
 // JSDOC Validee par EE Juin 2022
 export function codageMedianeTriangle(
-  A: Point | PointAbstrait,
-  B: Point | PointAbstrait,
+  A: PointAbstrait,
+  B: PointAbstrait,
   color = 'black',
   mark = '×',
   mil = false,

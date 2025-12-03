@@ -6,7 +6,7 @@ import {
   droiteParPointEtPerpendiculaire,
 } from '../../lib/2d/droites'
 import { grille, seyes } from '../../lib/2d/Grille'
-import { Point, point } from '../../lib/2d/PointAbstrait'
+import { PointAbstrait, pointAbstrait } from '../../lib/2d/PointAbstrait'
 import { segment } from '../../lib/2d/segmentsVecteurs'
 import { labelPoint } from '../../lib/2d/textes'
 import { tracePoint } from '../../lib/2d/TracePoint'
@@ -80,18 +80,18 @@ export default class ParalleleEtPerpendiculaires extends Exercice {
 
     const hasAutoCorrection = this.sup2
 
-    let A: Point
-    let B: Point
-    let C: Point
-    let D: Point
+    let A: PointAbstrait
+    let B: PointAbstrait
+    let C: PointAbstrait
+    let D: PointAbstrait
     let xE
     let E
     let F
-    let BB: Point
-    let CC: Point
-    let DD: Point
-    let EE: Point
-    let FF: Point
+    let BB: PointAbstrait
+    let CC: PointAbstrait
+    let DD: PointAbstrait
+    let EE: PointAbstrait
+    let FF: PointAbstrait
     let d
     let s1
     let s2
@@ -133,11 +133,16 @@ export default class ParalleleEtPerpendiculaires extends Exercice {
       do {
         switch (listeTypeDeQuestions[i]) {
           case 1:
-            A = point(0, 0, 'A', 'above left')
-            B = point(10, randint(-4, 4, [-1, 0, 1]), 'B', 'above right')
+            A = pointAbstrait(0, 0, 'A', 'above left')
+            B = pointAbstrait(
+              10,
+              randint(-4, 4, [-1, 0, 1]),
+              'B',
+              'above right',
+            )
             d = droite(A, B)
-            C = point(randint(2, 3), randint(3, 4), 'C', 'above left')
-            D = point(randint(7, 8), randint(-7, -6), 'D')
+            C = pointAbstrait(randint(2, 3), randint(3, 4), 'C', 'above left')
+            D = pointAbstrait(randint(7, 8), randint(-7, -6), 'D')
             dB = droiteParPointEtPerpendiculaire(B, d)
             xE = 11
             E = pointSurDroite(dB, 11, 'E', 'left')
@@ -145,7 +150,7 @@ export default class ParalleleEtPerpendiculaires extends Exercice {
               xE++
               E = pointSurDroite(dB, xE, 'E', 'left')
             }
-            F = point(E.x, B.y)
+            F = pointAbstrait(E.x, B.y)
             s1 = segment(B, F, 'red')
             s1.epaisseur = 2
             s1.pointilles = 5
@@ -249,13 +254,18 @@ export default class ParalleleEtPerpendiculaires extends Exercice {
             anim.perpendiculaireRegleEquerre2points3epoint(A, B, D)
             break
           case 2:
-            A = point(2, 0, 'A', 'below left')
-            B = point(12, randint(-4, 4, 0), 'B')
+            A = pointAbstrait(2, 0, 'A', 'below left')
+            B = pointAbstrait(12, randint(-4, 4, 0), 'B')
             d = droite(A, B)
-            C = point(0, randint(3, 4), 'C', 'above')
-            D = point(randint(7, 8), randint(-7, -6), 'D', 'below right')
-            E = point(randint(4, 5), randint(5, 6), 'E', 'below right')
-            F = point(2, -3, 'F', 'left')
+            C = pointAbstrait(0, randint(3, 4), 'C', 'above')
+            D = pointAbstrait(
+              randint(7, 8),
+              randint(-7, -6),
+              'D',
+              'below right',
+            )
+            E = pointAbstrait(randint(4, 5), randint(5, 6), 'E', 'below right')
+            F = pointAbstrait(2, -3, 'F', 'left')
 
             dE = droiteParPointEtParallele(E, d)
             dC = droiteParPointEtParallele(C, d)
@@ -376,11 +386,16 @@ export default class ParalleleEtPerpendiculaires extends Exercice {
             break
           case 3:
           default:
-            A = point(0, 0, 'A', 'above left')
-            B = point(10, randint(-4, 4, [-1, 0, 1]), 'B', 'above right')
+            A = pointAbstrait(0, 0, 'A', 'above left')
+            B = pointAbstrait(
+              10,
+              randint(-4, 4, [-1, 0, 1]),
+              'B',
+              'above right',
+            )
             d = droite(A, B)
-            C = point(randint(2, 3), randint(3, 4), 'C', 'above left')
-            D = point(randint(7, 8), randint(-7, -6), 'D')
+            C = pointAbstrait(randint(2, 3), randint(3, 4), 'C', 'above left')
+            D = pointAbstrait(randint(7, 8), randint(-7, -6), 'D')
             dB = droiteParPointEtPerpendiculaire(B, d)
             xE = 11
             E = pointSurDroite(dB, 11, 'E', 'left')
@@ -388,7 +403,7 @@ export default class ParalleleEtPerpendiculaires extends Exercice {
               xE++
               E = pointSurDroite(dB, xE, 'E', 'left')
             }
-            F = point(E.x, B.y)
+            F = pointAbstrait(E.x, B.y)
             dE = droiteParPointEtParallele(E, d)
             dD = droiteParPointEtParallele(D, d)
             dC = droiteParPointEtPerpendiculaire(C, d)

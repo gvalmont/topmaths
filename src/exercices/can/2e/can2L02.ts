@@ -25,6 +25,7 @@ export default class CoordonneesPointDroite extends ExerciceSimple {
 
     this.typeExercice = 'simple'
     this.nbQuestions = 1
+    this.optionsDeComparaison = { texteSansCasse: true }
   }
 
   nouvelleVersion() {
@@ -32,7 +33,6 @@ export default class CoordonneesPointDroite extends ExerciceSimple {
     const b = randint(-10, 10, 0)
     const c = randint(-10, 10, 0)
 
-    this.formatInteractif = 'texte'
     this.reponse = `${c};${a * c + b}`
     this.question = ` Déterminer les coordonnées du point de la droite
         d'équation $y=${reduireAxPlusB(a, b)}$ dont l'abscisse est $${c}$.

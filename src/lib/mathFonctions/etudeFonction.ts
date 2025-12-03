@@ -252,6 +252,22 @@ export function tableauDeVariation({
 
                     break
                 }
+              } else if (texte === '||') {
+                textes.push(
+                  sortieTexte(
+                    latexContent(texte),
+                    lgt + deltacl + (espcl / 2) * (k - 1),
+                    yLine - tabInit0[i][1] * hauteurLignes * demiIntervalle,
+                  ),
+                )
+                s = segment(
+                  lgt + deltacl + (espcl / 2) * (k - 1),
+                  yLine,
+                  lgt + deltacl + (espcl / 2) * (k - 1),
+                  yLine - tabInit0[i][1] * hauteurLignes * intervalle,
+                )
+                s.pointilles = 4
+                segments.push(s)
               } else if (texte === 'R/') {
                 // textes.push(sortieTexte(texte, lgt + deltacl + espcl/2 * (k - 0.6), yLine-tabInit0[i][1] / 2))
               } else {
@@ -2196,6 +2212,36 @@ export type Substitut = {
   imgVal?: number
   imgTex?: string
 }
+
+type ZeroValue = number | FractionEtendue
+
+export type ZeroDefinition =
+  | ZeroValue
+  | (() => ZeroValue)
+  | {
+      valeur: ZeroValue | (() => ZeroValue)
+      interdit?: boolean
+    }
+  | null
+  | undefined
+  | 'non'
+  | 'none'
+
+export type TableauSignesFacteur = {
+  nom: string
+  fonction: (x: FractionEtendue | number) => number
+  zero?: ZeroDefinition
+  zeros?: ZeroDefinition[]
+  interdit?: boolean
+}
+
+export type TableauSignesFacteursOptions = {
+  fractionTex?: boolean
+  substituts?: Substitut[]
+  nomVariable?: string
+  nomFonction?: string
+  espcl?: number
+}
 /**
  * renvoie le tableau de signes d'une fonction
  * EE : L'option zeros permet de passer les zéros à la fonction quand il y a des fractions sans valeur décimale nativement non trouvées par la fonction.
@@ -2326,6 +2372,352 @@ export function tableauSignesFonction(
     espcl: 2.1, // taille en cm entre deux antécédents
     deltacl: 0.8, // distance entre la bordure et les premiers et derniers antécédents
     lgt: 3, // taille de la première colonne en cm
+  })
+}
+
+export function tableauSignesFacteurs(
+  facteurs: TableauSignesFacteur[],
+  xMin: number | FractionEtendue,
+  xMax: number | FractionEtendue,
+  {
+    fractionTex = false,
+    substituts = [],
+    nomVariable = 'x',
+    nomFonction = 'f(x)',
+    espcl,
+  }: TableauSignesFacteursOptions = {},
+) {
+  const EPSILON = 1e-9
+  const toNumberValue = (value: ZeroValue) =>
+    value instanceof FractionEtendue ? value.toNumber() : value
+
+  if (xMin == null || xMax == null) {
+    window.notify('tableauSignesFacteurs() nécessite xMin et xMax.', {
+      xMin,
+      xMax,
+    })
+    return ''
+  }
+
+  let nMin = toNumberValue(xMin)
+  let nMax = toNumberValue(xMax)
+  let valeurMin: ZeroValue = xMin
+  let valeurMax: ZeroValue = xMax
+
+  if (nMin > nMax) {
+    ;[nMin, nMax] = [nMax, nMin]
+    ;[valeurMin, valeurMax] = [valeurMax, valeurMin]
+  }
+
+  const makeKey = (value: ZeroValue) => {
+    const num = toNumberValue(value)
+    return num.toFixed(12)
+  }
+
+  const preferDisplayValue = (current: ZeroValue, candidate: ZeroValue) => {
+    if (current instanceof FractionEtendue) return current
+    if (candidate instanceof FractionEtendue) return candidate
+    return current
+  }
+
+  type NormalizedZero = { valeur: ZeroValue; interdit: boolean }
+
+  const resolveZeroDefinition = (
+    definition: ZeroDefinition,
+    interditParDefaut: boolean,
+  ): NormalizedZero | null => {
+    if (definition == null) return null
+    if (typeof definition === 'string') {
+      const lowered = definition.trim().toLowerCase()
+      if (lowered === 'non' || lowered === 'none') return null
+    }
+    if (typeof definition === 'function') {
+      return resolveZeroDefinition(definition(), interditParDefaut)
+    }
+    if (
+      typeof definition === 'object' &&
+      !(definition instanceof FractionEtendue) &&
+      'valeur' in definition
+    ) {
+      const definitionObjet = definition as {
+        valeur: ZeroValue | (() => ZeroValue)
+        interdit?: boolean
+      }
+      const valeurBrute = definitionObjet.valeur
+      const interdit =
+        typeof definitionObjet.interdit === 'boolean'
+          ? definitionObjet.interdit
+          : interditParDefaut
+      return resolveZeroDefinition(valeurBrute, interdit)
+    }
+    if (
+      typeof definition !== 'number' &&
+      !(definition instanceof FractionEtendue)
+    ) {
+      window.notify(
+        'tableauSignesFacteurs() a reçu une valeur de zéro non gérée.',
+        { definition },
+      )
+      return null
+    }
+    return { valeur: definition, interdit: interditParDefaut }
+  }
+
+  type ZeroInfo = {
+    valeur: ZeroValue
+    interdit: boolean
+    hasNumeratorZero: boolean
+  }
+
+  const zeroInfos = new Map<string, ZeroInfo>()
+  const colonnesZeros = new Set<string>()
+  const factorZeroSets: Set<string>[] = []
+
+  facteurs.forEach((facteur) => {
+    const zeroSet = new Set<string>()
+    const zeroDefinitions: ZeroDefinition[] = []
+    if (facteur.zero !== undefined) zeroDefinitions.push(facteur.zero)
+    if (facteur.zeros) zeroDefinitions.push(...facteur.zeros)
+    const interditParDefaut = facteur.interdit ?? false
+
+    for (const zeroDefinition of zeroDefinitions) {
+      const normalisee = resolveZeroDefinition(
+        zeroDefinition,
+        interditParDefaut,
+      )
+      if (!normalisee) continue
+      const valeurNumeric = toNumberValue(normalisee.valeur)
+      if (valeurNumeric < nMin - EPSILON || valeurNumeric > nMax + EPSILON) {
+        continue
+      }
+      const key = makeKey(normalisee.valeur)
+      zeroSet.add(key)
+      const info = zeroInfos.get(key)
+      if (info) {
+        info.valeur = preferDisplayValue(info.valeur, normalisee.valeur)
+        info.interdit = info.interdit || normalisee.interdit
+        if (!normalisee.interdit) info.hasNumeratorZero = true
+      } else {
+        zeroInfos.set(key, {
+          valeur: normalisee.valeur,
+          interdit: normalisee.interdit,
+          hasNumeratorZero: !normalisee.interdit,
+        })
+        colonnesZeros.add(key)
+      }
+    }
+    factorZeroSets.push(zeroSet)
+  })
+
+  type BoundaryPoint = {
+    key: string
+    valeur: ZeroValue
+    numeric: number
+  }
+
+  const boundaries = new Map<string, BoundaryPoint>()
+
+  const pushBoundary = (value: ZeroValue) => {
+    const numeric = toNumberValue(value)
+    if (numeric < nMin - EPSILON || numeric > nMax + EPSILON) return
+    const key = makeKey(value)
+    const existing = boundaries.get(key)
+    if (existing) {
+      if (
+        !(existing.valeur instanceof FractionEtendue) &&
+        value instanceof FractionEtendue
+      ) {
+        boundaries.set(key, { key, valeur: value, numeric })
+      }
+    } else {
+      boundaries.set(key, { key, valeur: value, numeric })
+    }
+  }
+
+  pushBoundary(valeurMin)
+  zeroInfos.forEach((info) => {
+    pushBoundary(info.valeur)
+  })
+  pushBoundary(valeurMax)
+
+  const points = Array.from(boundaries.values()).sort(
+    (a, b) => a.numeric - b.numeric,
+  )
+
+  if (points.length < 2) {
+    window.notify(
+      'tableauSignesFacteurs() reçoit un intervalle sans points distincts.',
+      { xMin, xMax, zeros: Array.from(zeroInfos.values()) },
+    )
+    return ''
+  }
+
+  const premiereLigne: (string | number)[] = []
+  const largeurFraction = context.isHtml ? 28 : 22
+  const largeurStandard = context.isHtml ? 16 : 12
+  const largeurPremiereLigne = (
+    valeur: string | number,
+    point?: BoundaryPoint,
+  ) => {
+    const formatFraction =
+      typeof valeur === 'string' &&
+      (valeur.includes('\\frac') || valeur.includes('\\dfrac'))
+    const valeurFraction =
+      point?.valeur instanceof FractionEtendue &&
+      point.valeur.denIrred !== 1 &&
+      point.valeur.numIrred !== 0
+    if (formatFraction || valeurFraction) return largeurFraction
+    return largeurStandard
+  }
+
+  let fractionsDansEntete = fractionTex
+
+  for (let index = 0; index < points.length; index++) {
+    const point = points[index]
+    let texte: string | number = ''
+    if (index !== 0 && index !== points.length - 1) {
+      if (fractionTex === false) {
+        if (point.valeur instanceof FractionEtendue) {
+          texte = texNombre(point.valeur.toNumber())
+        } else {
+          texte = stringNombre(point.valeur, 2)
+        }
+      } else if (point.valeur instanceof FractionEtendue) {
+        texte = point.valeur.texFractionSimplifiee
+      } else {
+        texte = new FractionEtendue(point.valeur, 1).texFractionSimplifiee
+      }
+      if (
+        point.valeur instanceof FractionEtendue &&
+        point.valeur.denIrred !== 1 &&
+        point.valeur.numIrred !== 0
+      ) {
+        fractionsDansEntete = true
+      }
+    }
+    premiereLigne.push(texte, largeurPremiereLigne(texte, point))
+  }
+
+  if (substituts && Array.isArray(substituts)) {
+    for (let i = 0; i < premiereLigne.length; i += 2) {
+      if (premiereLigne[i] === '') continue
+      const nb: number = Number(
+        String(premiereLigne[i]).replaceAll(/\s/g, '').replace(',', '.'),
+      )
+      const substitut: Substitut | undefined = substituts.find(
+        (el: Substitut) => egal(el.antVal, nb, 0.01),
+      )
+      if (substitut) {
+        premiereLigne[i] = substitut.antTex
+      }
+    }
+  }
+
+  const segments = points.length - 1
+  const lignes: (string | number)[][] = []
+  const signesFacteurs: string[][] = []
+
+  const valeurSurIntervalle = (
+    f: (x: FractionEtendue | number) => number,
+    gauche: number,
+    droite: number,
+  ) => {
+    const milieu = (gauche + droite) / 2
+    const image = f(milieu)
+    const valeur =
+      image instanceof FractionEtendue ? image.toNumber() : (image ?? 0)
+    if (Number.isNaN(valeur)) return ''
+    if (Math.abs(valeur) < EPSILON) return '0'
+    return valeur > 0 ? '+' : '-'
+  }
+
+  const boundarySymbol = (zeroSet: Set<string>, key: string) => {
+    if (zeroSet.has(key)) return 'z'
+    if (colonnesZeros.has(key)) return 't'
+    return ''
+  }
+
+  const xMinKey = points[0].key
+
+  facteurs.forEach((facteur, index) => {
+    if (typeof facteur.fonction !== 'function') {
+      window.notify(
+        'tableauSignesFacteurs() appelé avec un facteur sans fonction valide.',
+        { facteur },
+      )
+      return
+    }
+    const zeroSet = factorZeroSets[index] ?? new Set<string>()
+    const ligne: (string | number)[] = ['Line', 30]
+    const signes: string[] = []
+    ligne.push(boundarySymbol(zeroSet, xMinKey), 10)
+    for (let i = 0; i < segments; i++) {
+      const gauche = points[i].numeric
+      const droite = points[i + 1].numeric
+      const signe = valeurSurIntervalle(facteur.fonction, gauche, droite)
+      signes.push(signe)
+      ligne.push(signe, 10)
+      ligne.push(boundarySymbol(zeroSet, points[i + 1].key), 10)
+    }
+    lignes.push(ligne)
+    signesFacteurs.push(signes)
+  })
+
+  const produitDesSignes = (indexSegment: number) => {
+    if (signesFacteurs.length === 0) return '+'
+    let produit = 1
+    let possedeSigne = false
+    for (const signes of signesFacteurs) {
+      const signe = signes[indexSegment]
+      if (signe === '0') return '0'
+      if (signe === '+' || signe === '-') {
+        possedeSigne = true
+        if (signe === '-') produit *= -1
+      }
+    }
+    if (!possedeSigne) return ''
+    return produit > 0 ? '+' : '-'
+  }
+
+  const symboleSynthese = (key: string) => {
+    const info = zeroInfos.get(key)
+    if (!info) return ''
+    if (info.interdit) return '||'
+    if (info.hasNumeratorZero) return 'z'
+    return ''
+  }
+
+  const ligneFinale: (string | number)[] = ['Line', 30]
+  ligneFinale.push(symboleSynthese(xMinKey), 10)
+  for (let i = 0; i < segments; i++) {
+    ligneFinale.push(produitDesSignes(i), 10)
+    ligneFinale.push(symboleSynthese(points[i + 1].key), 10)
+  }
+  lignes.push(ligneFinale)
+
+  const entetes: [string, number, number][] = [[nomVariable, 1.5, 10]]
+  for (const facteur of facteurs) {
+    entetes.push([facteur.nom, 1.5, 10])
+  }
+  entetes.push([nomFonction, 1.5, 10])
+
+  const espacementColonnes =
+    espcl ??
+    (context.isHtml
+      ? fractionsDansEntete
+        ? 3.8
+        : 3
+      : fractionsDansEntete
+        ? 2.9
+        : 2.3)
+
+  return tableauDeVariation({
+    tabInit: [entetes, premiereLigne],
+    tabLines: lignes,
+    colorBackground: '',
+    espcl: espacementColonnes,
+    deltacl: 0.8,
+    lgt: 3,
   })
 }
 

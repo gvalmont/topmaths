@@ -95,7 +95,7 @@ export default class AbscisseFractionnaire extends Exercice {
         })
       }
 
-      if (a === 3 && b % a !== 0) {
+      if ((a === 3 || a === 6) && b % a !== 0) {
         this.correction = `L'unité est divisée en $${a}$ intervalles.<br>
       Une graduation correspond donc à $\\dfrac{1}{${a}}$. <br>
        Comme le point $A$ est situé à $${b}$ graduations de l'origine,

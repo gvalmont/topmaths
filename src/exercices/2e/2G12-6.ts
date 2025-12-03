@@ -1,7 +1,7 @@
 import type { Matrix } from 'mathjs'
 import { colorToLatexOrHTML } from '../../lib/2d/colorToLatexOrHtml'
 import { fixeBordures } from '../../lib/2d/fixeBordures'
-import { point, Point } from '../../lib/2d/PointAbstrait'
+import { pointAbstrait, PointAbstrait } from '../../lib/2d/PointAbstrait'
 import { Segment, segment } from '../../lib/2d/segmentsVecteurs'
 import { labelPoint } from '../../lib/2d/textes'
 import type { TracePoint } from '../../lib/2d/TracePoint'
@@ -75,8 +75,8 @@ export default class Reperage2e extends Exercice {
     const X: number[][] = []
     const Y: number[][] = []
     const noms: string[][] = []
-    const points: Point[][] = []
-    for (let i = 0; i < this.nbQuestions; ) {
+    const points: PointAbstrait[][] = []
+    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50; ) {
       x[i] = []
       y[i] = []
       X[i] = []
@@ -90,8 +90,8 @@ export default class Reperage2e extends Exercice {
       const listeNoms = choisitLettresDifferentes(3 + this.sup3)
       const [labelI, labelK, labelO] = listeNoms.slice(0, 3)
       noms[i] = listeNoms.slice(3)
-      const pointO = point(0, 0, labelO, 'below left')
-
+      const pointO = pointAbstrait(0, 0, labelO, 'below left')
+      let compteur = 0
       do {
         switch (listeTypeDeReperes[i]) {
           case 1:
@@ -101,14 +101,14 @@ export default class Reperage2e extends Exercice {
           case 2:
             {
               const I = similitude(
-                point(randint(6, 8) * 0.2, 0),
+                pointAbstrait(randint(6, 8) * 0.2, 0),
                 pointO,
                 randint(-20, 20),
                 1,
               )
               coordsI = [I.x, I.y]
               const K = similitude(
-                point(...coordsI),
+                pointAbstrait(...coordsI),
                 pointO,
                 randint(60, 80),
                 1,
@@ -121,7 +121,7 @@ export default class Reperage2e extends Exercice {
             {
               coordsI = [1.5, randint(-4, 4, [0]) * 0.2]
               const K = similitude(
-                point(...coordsI),
+                pointAbstrait(...coordsI),
                 pointO,
                 randint(60, 80),
                 choice([0.6, 0.7, 1.25, 1.3, 1.4]),
@@ -135,9 +135,15 @@ export default class Reperage2e extends Exercice {
           [coordsI[1], coordsK[1]],
         ])
         matriceInverse = matrice.inverse()
-      } while (matrice == null || matriceInverse == null)
-      const pointI = point(coordsI[0], coordsI[1], labelI, 'below')
-      const pointK = point(coordsK[0], coordsK[1], labelK, 'left')
+        compteur++
+      } while ((matrice == null || matriceInverse == null) && compteur < 100)
+      if (matrice == null || matriceInverse == null) {
+        throw new Error(
+          "La matrice de passage n'est pas inversible après 100 tentatives. Problème dans le code.",
+        )
+      }
+      const pointI = pointAbstrait(coordsI[0], coordsI[1], labelI, 'below')
+      const pointK = pointAbstrait(coordsK[0], coordsK[1], labelK, 'left')
       const traceRep = tracePoint(pointO, pointI, pointK)
       traceRep.style = '.'
       traceRep.epaisseur = 1
@@ -151,7 +157,7 @@ export default class Reperage2e extends Exercice {
       const OK = segment(KNeg, homothetie(KPrime, pointO, 1.1))
       OK.epaisseur = 1.5
       OK.styleExtremites = '->'
-      const grid: (Point | Segment)[] = []
+      const grid: (PointAbstrait | Segment)[] = []
       /*
       Construire la grille
       */
@@ -163,13 +169,13 @@ export default class Reperage2e extends Exercice {
       }
       for (let xx = -4; xx < 4 + 1 / denX; xx += 1 / denX) {
         if (this.sup4) {
-          const pointL = point(
+          const pointL = pointAbstrait(
             ...((matrice.multiply([
               xx,
               -3,
             ]) as unknown as Matrix)!.toArray() as [number, number]),
           )
-          const pointH = point(
+          const pointH = pointAbstrait(
             ...((matrice.multiply([xx, 3]) as unknown as Matrix)!.toArray() as [
               number,
               number,
@@ -179,13 +185,13 @@ export default class Reperage2e extends Exercice {
         }
         for (let yy = -3; yy < 3 + 1 / denY; yy += 1 / denY) {
           if (this.sup4 && xx === -4) {
-            const pointL = point(
+            const pointL = pointAbstrait(
               ...((matrice.multiply([
                 -4,
                 yy,
               ]) as unknown as Matrix)!.toArray() as [number, number]),
             )
-            const pointH = point(
+            const pointH = pointAbstrait(
               ...((matrice.multiply([
                 4,
                 yy,
@@ -197,7 +203,7 @@ export default class Reperage2e extends Exercice {
             // Si pas de grille, on fait des points et on ajoute des ticks sur les axes.
             if (Math.abs(xx) > 0.1 && Math.abs(yy) > 0.1) {
               grid.push(
-                point(
+                pointAbstrait(
                   ...((matrice.multiply([
                     xx,
                     yy,
@@ -227,7 +233,7 @@ export default class Reperage2e extends Exercice {
       }
       const dots = this.sup4
         ? grid
-        : tracePoint(...grid.filter((el) => el instanceof Point))
+        : tracePoint(...grid.filter((el) => el instanceof PointAbstrait))
       const ticks = this.sup4 ? [] : grid.filter((el) => el instanceof Segment)
       if (this.sup4) {
         for (const el of dots as Segment[]) {
@@ -268,7 +274,7 @@ export default class Reperage2e extends Exercice {
         ).toArray() as [number, number]
         X[i][k] = mdx
         Y[i][k] = mdy
-        points[i][k] = point(
+        points[i][k] = pointAbstrait(
           mdx,
           mdy,
           listeNoms[3 + k],
@@ -324,12 +330,19 @@ export default class Reperage2e extends Exercice {
       const reponse = `Dans le repère $(${labelO},${labelI},${labelK})$ sont :<br>
             $${points[i].map((p, k) => `${listeNoms[k + 3]}(${x[i][k].texFractionSimplifiee};${y[i][k].texFractionSimplifiee})`).join(', ')}$`
       if (
-        this.questionJamaisPosee(i, ...X[i], ...Y[i], ...coordsI, ...coordsK)
+        this.questionJamaisPosee(
+          i,
+          X[i].join(),
+          Y[i].join(),
+          coordsI.join(),
+          coordsK.join(),
+        )
       ) {
         this.listeQuestions[i] = question
         this.listeCorrections[i] = reponse
         i++
       }
+      cpt++
     }
   }
 }

@@ -1,6 +1,6 @@
 import { colorToLatexOrHTML } from '../../lib/2d/colorToLatexOrHtml'
 import { droite, droiteAvecNomLatex } from '../../lib/2d/droites'
-import { Point, point } from '../../lib/2d/PointAbstrait'
+import { PointAbstrait, pointAbstrait } from '../../lib/2d/PointAbstrait'
 import { Polygone, polygone } from '../../lib/2d/polygones'
 import { TexteParPoint, texteParPointEchelle } from '../../lib/2d/textes'
 import {
@@ -399,10 +399,11 @@ export default class SymetrieAxialePavageTriangulaire extends Exercice {
     let typesDeQuestionsDisponibles
     const scaleFigure = 1
     // construction du pavage triangulaire
-    const triAngles: { tri: Polygone; gra: Point; n: TexteParPoint }[] = [] // tableau des triangles { tri: polygone (le triangle), gra: point(son centre de gravité), num: texteParPoint(son numéro)} l'indice du triangle est son numéro
+    const triAngles: { tri: Polygone; gra: PointAbstrait; n: TexteParPoint }[] =
+      [] // tableau des triangles { tri: polygone (le triangle), gra: pointAbstrait(son centre de gravité), num: texteParPoint(son numéro)} l'indice du triangle est son numéro
     const images = []
-    const A = point(0, 0, '')
-    const B = point(1.2, 0, '')
+    const A = pointAbstrait(0, 0, '')
+    const B = pointAbstrait(1.2, 0, '')
     const C = rotation(B, A, 60, '')
     const v = vecteur(1.2, 0)
     const w = rotation(vecteur(1.2, 0), A, 60)
@@ -475,8 +476,8 @@ export default class SymetrieAxialePavageTriangulaire extends Exercice {
       3,
     )
     const couleurs = ['blue', 'green', 'red', 'gray', 'magenta', 'purple']
-    let M: Point
-    let N: Point
+    let M: PointAbstrait
+    let N: PointAbstrait
     const d = []
     const dLatex = []
     const question = []

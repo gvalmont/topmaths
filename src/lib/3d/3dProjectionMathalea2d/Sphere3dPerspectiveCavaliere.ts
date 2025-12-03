@@ -4,7 +4,7 @@ import {
 } from '../../2d/colorToLatexOrHtml'
 import { droite } from '../../2d/droites'
 import { ObjetMathalea2D } from '../../2d/ObjetMathalea2D'
-import { Point, point } from '../../2d/PointAbstrait'
+import { PointAbstrait, pointAbstrait } from '../../2d/PointAbstrait'
 import { polygone } from '../../2d/polygones'
 import { polyline } from '../../2d/Polyline'
 import { segment } from '../../2d/segmentsVecteurs'
@@ -23,7 +23,7 @@ import {
   vecteur3d,
 } from './elementsEtTransformations3d'
 
-const longueur = (A: Point, B: Point): number =>
+const longueur = (A: PointAbstrait, B: PointAbstrait): number =>
   Math.sqrt((B.x - A.x) ** 2 + (B.y - A.y) ** 2)
 
 /*
@@ -180,9 +180,9 @@ export class Sphere3d extends ObjetMathalea2D {
     let normal
     const paralleles: {
       listePoints3d: Point3d[][]
-      ptCachePremier: Point[]
+      ptCachePremier: PointAbstrait[]
       indicePtCachePremier: number[]
-      ptCacheDernier: Point[]
+      ptCacheDernier: PointAbstrait[]
       indicePtCacheDernier: number[]
     } = {
       listePoints3d: [],
@@ -191,8 +191,8 @@ export class Sphere3d extends ObjetMathalea2D {
       ptCacheDernier: [],
       indicePtCacheDernier: [],
     }
-    const enveloppeSphere1: Point[] = []
-    let enveloppeSphere2: Point[] = []
+    const enveloppeSphere1: PointAbstrait[] = []
+    let enveloppeSphere2: PointAbstrait[] = []
     let premierParallele = 100
     let indicePremier = 0
     let indiceDernier = 0
@@ -232,9 +232,9 @@ export class Sphere3d extends ObjetMathalea2D {
     normal = rotation3d(vecteur3d(0, 0, 1), droiteRot, inclinaison)
     unDesParalleles = cercle3d(centreParallele, normal, rayonDuParallele)
     paralleles.listePoints3d.push(unDesParalleles[1])
-    paralleles.ptCachePremier.push(point(0, 0))
+    paralleles.ptCachePremier.push(pointAbstrait(0, 0))
     paralleles.indicePtCachePremier.push(0)
-    paralleles.ptCacheDernier.push(point(0, 0))
+    paralleles.ptCacheDernier.push(pointAbstrait(0, 0))
     paralleles.indicePtCacheDernier.push(0)
 
     // Construction de tous les autres parallèles jusqu'au plus proche du pôle sud
@@ -280,9 +280,9 @@ export class Sphere3d extends ObjetMathalea2D {
           poly,
         )
       }
-      paralleles.ptCachePremier.push(point(0, 0))
+      paralleles.ptCachePremier.push(pointAbstrait(0, 0))
       paralleles.indicePtCachePremier.push(0)
-      paralleles.ptCacheDernier.push(point(0, 0))
+      paralleles.ptCacheDernier.push(pointAbstrait(0, 0))
       paralleles.indicePtCacheDernier.push(0)
 
       for (
@@ -518,7 +518,7 @@ export class Sphere3d extends ObjetMathalea2D {
               const dernierPoint = polyLineCachee.pop()
               if (dernierPoint)
                 polyLineCachee = [
-                  point(dernierPoint.x, dernierPoint.y),
+                  pointAbstrait(dernierPoint.x, dernierPoint.y),
                   ...polyLineCachee,
                 ]
               securite++
@@ -534,7 +534,9 @@ export class Sphere3d extends ObjetMathalea2D {
             ) {
               const premierPoint = polyLineVisible.shift()
               if (premierPoint)
-                polyLineVisible.push(point(premierPoint.x, premierPoint.y))
+                polyLineVisible.push(
+                  pointAbstrait(premierPoint.x, premierPoint.y),
+                )
               securite++
             }
           }

@@ -4,6 +4,7 @@ import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 import { approximatelyCompare } from '../../lib/interactif/comparisonFunctions'
 import { ajouteQuestionMathlive } from '../../lib/interactif/questionMathLive'
 import { choice } from '../../lib/outils/arrayOutils'
+import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { rangeMinMax } from '../../lib/outils/nombres'
 import { texNombre } from '../../lib/outils/texNombre'
 import { context } from '../../modules/context'
@@ -25,7 +26,33 @@ export const refs = {
 /**
  * @author Jean-Claude Lhote
  */
-const baseVilles = [
+
+type GPSVille = {
+  latitude: number
+  longitude: number
+  label: string
+  pointColor?: string
+  pointRadius?: number
+  labelColor?: string
+  labelSize?: number
+  labelOffset?: number
+  font?: string
+  transparent?: boolean
+}
+type PointType = {
+  type: string
+  latitude: number
+  longitude: number
+  spherePosition: [number, number, number]
+  sphereRadius: number
+  pointRadius: number
+  pointColor: string
+  label: string
+  labelColor: string
+  labelSize: number
+}
+
+const baseVilles: GPSVille[] = [
   { latitude: 40.7128, longitude: -74.006, label: 'New York' },
   { latitude: -33.8688, longitude: 151.2093, label: 'Sydney' },
   { latitude: 39.9042, longitude: 116.4074, label: 'Pékin' },
@@ -169,9 +196,12 @@ const baseVilles = [
   { latitude: -27.5954, longitude: -48.548, label: 'Florianopolis' },
 ]
 
-function choisirNVillesAssezLointaines(n) {
-  const villes = []
-  let latBasse, latHaute, longOuest, longEst
+function choisirNVillesAssezLointaines(n: number) {
+  const villes: GPSVille[] = []
+  let latBasse: number
+  let latHaute: number
+  let longOuest: number
+  let longEst: number
   do {
     villes.length = 0
     latBasse = randint(-40, 0)
@@ -217,7 +247,12 @@ function choisirNVillesAssezLointaines(n) {
   return { villes, latBasse, latHaute, longOuest, longEst }
 }
 
-function buildSceneContent(villes, points, points2, points3) {
+function buildSceneContent(
+  villes: GPSVille[],
+  points: PointType[],
+  points2: PointType[],
+  points3: PointType[],
+) {
   return {
     objects: [
       // voie lactée
@@ -286,6 +321,8 @@ function buildSceneContent(villes, points, points2, points3) {
       ...points3,
     ],
     autoCenterZoomMargin: 0.7,
+    cameraPosition: [0, 0, 10],
+    cameraTarget: [0, 0, 0],
   }
 }
 
@@ -299,25 +336,22 @@ export default class ReperageSurLaTerre extends Exercice {
     this.nbQuestions = 4
   }
 
-  destroy() {
-    // MGu quan l'exercice est supprimé par svelte : bouton supprimé
-    this.destroyers.forEach((destroy) => destroy())
-    this.destroyers.length = 0
-  }
-
   nouvelleVersion() {
-    // MGu quand l'exercice est modifié, on détruit les anciens listeners
-    this.destroyers.forEach((destroy) => destroy())
-    this.destroyers.length = 0
-
     const correctionTexte = (
-      choix,
-      ville,
-    ) => `   En effet, la ${choix === 'latitude' ? 'latitude' : 'longitude'} est la ${choix === 'latitude' ? 'première' : 'deuxième'} coordonnée GPS, soit $${
-      choix === 'latitude'
-        ? `${texNombre(ville.latitude, 3)}\\approx ${texNombre(ville.latitude, 0)}`
-        : `${texNombre(ville.longitude, 3)}\\approx ${texNombre(ville.longitude, 0)}`
-    }$.<br>
+      choix: 'latitude' | 'longitude',
+      ville: GPSVille,
+    ) =>
+      this.sup
+        ? `${
+            choix === 'latitude'
+              ? "  Pour lire la lattitude, on regarde la position par rapport à l'équateur (ligne imaginaire qui divise la Terre en deux hémisphères : nord et sud).<br>Les graduations sont sur le méridien de Greenwitch (en vert)."
+              : "  Pour lire la longitude, on regarde la position par rapport au méridien de Greenwitch (ligne imaginaire qui divise la Terre en deux hémisphères : est et ouest).<br>Les graduations sont sur l'équateur (en rouge)."
+          }`
+        : `   En effet, la ${choix === 'latitude' ? 'latitude' : 'longitude'} est la ${choix === 'latitude' ? 'première' : 'deuxième'} coordonnée GPS, soit $${
+            choix === 'latitude'
+              ? `${texNombre(Math.round(ville.latitude), 0)}`
+              : `${texNombre(Math.round(ville.longitude), 0)}`
+          }$.<br>
         De plus, la ${choix === 'latitude' ? 'latitude' : 'longitude'} est ${
           choix === 'latitude'
             ? ville.latitude >= 0
@@ -362,7 +396,7 @@ export default class ReperageSurLaTerre extends Exercice {
         type: 'geoPoint',
         latitude: 0,
         longitude: lon,
-        spherePosition: [0, 0, 0],
+        spherePosition: [0, 0, 0] as [number, number, number],
         sphereRadius: 4,
         pointRadius: 0.001,
         pointColor: '#FFD700',
@@ -377,7 +411,7 @@ export default class ReperageSurLaTerre extends Exercice {
         type: 'geoPoint',
         latitude: lat,
         longitude: 0,
-        spherePosition: [0, 0, 0],
+        spherePosition: [0, 0, 0] as [number, number, number],
         sphereRadius: 4,
         pointRadius: 0.001,
         pointColor: '#FFD700',
@@ -389,7 +423,7 @@ export default class ReperageSurLaTerre extends Exercice {
         type: 'geoPoint',
         latitude: lat,
         longitude: 180,
-        spherePosition: [0, 0, 0],
+        spherePosition: [0, 0, 0] as [number, number, number],
         sphereRadius: 4,
         pointRadius: 0.001,
         pointColor: '#FFD700',
@@ -412,7 +446,9 @@ export default class ReperageSurLaTerre extends Exercice {
 
       for (let i = 0; i < this.nbQuestions; i++) {
         const ville = villes[i]
-        const choix = choice(['latitude', 'longitude'])
+        const choix = choice(['latitude', 'longitude']) as
+          | 'latitude'
+          | 'longitude'
         const question =
           `Quelle est la ${choix} de ${ville.label} ?` +
           ajouteQuestionMathlive({
@@ -425,41 +461,46 @@ export default class ReperageSurLaTerre extends Exercice {
               champ1: {
                 value: `${choix === 'latitude' ? Math.round(Math.abs(ville.latitude)) : Math.round(Math.abs(ville.longitude))}`,
                 compare: approximatelyCompare,
-                options: { tolerance: 1 },
+                options: { tolerance: 2 },
               },
               champ2: {
                 value: `${choix === 'latitude' ? (ville.latitude >= 0 ? 'N' : 'S') : ville.longitude >= 0 ? 'E' : 'O'}`,
                 compare: approximatelyCompare,
-                options: { tolerance: 1 },
+                options: { tolerance: 2 },
               },
             },
           })
-        const correction = `La ${choix} de ${ville.label} est d'environ ${
-          choix === 'latitude'
-            ? `${Math.round(Math.abs(ville.latitude))}°${ville.latitude >= 0 ? 'N' : 'S'}`
-            : `${Math.round(Math.abs(ville.longitude))}°${
-                ville.longitude >= 0 ? 'E' : 'O'
-              }`
-        }.<br>
+        const correction = `La ${choix} de ${ville.label} est d'environ $${miseEnEvidence(
+          `${
+            choix === 'latitude'
+              ? `${Math.round(Math.abs(Math.round(ville.latitude)))}°${ville.latitude >= 0 ? 'N' : 'S'}`
+              : `${Math.round(Math.abs(Math.round(ville.longitude)))}°${
+                  ville.longitude >= 0 ? 'E' : 'O'
+                }`
+          }`,
+        )}$.<br>
        ${correctionTexte(choix, ville)}`
         this.listeQuestions.push(question)
         this.listeCorrections.push(correction)
       }
     } else {
-      this.consigne =
-        'Cet exercice est interactif et nécessite un affichage HTML. (version modifiée pour la version pdf)'
+      this.consigne = ''
       for (let i = 0; i < this.nbQuestions; i++) {
         const ville = villes[i]
-        const choix = choice(['latitude', 'longitude'])
-        const question = `Quelle est la ${choix} de ${ville.label} dont les coordonnées GPS sont $(~${texNombre(ville.latitude, 3)}~;~${texNombre(ville.longitude, 3)}~)$ ?<br>
+        const choix = choice(['latitude', 'longitude']) as
+          | 'latitude'
+          | 'longitude'
+        const question = `Quelle est la ${choix} de ${ville.label} dont les coordonnées GPS sont $(~${texNombre(Math.round(ville.latitude), 0)}~;~${texNombre(Math.round(ville.longitude), 0)}~)$ ?<br>
          On donnera la réponse arrondie à l'unité, sous la forme d'un angle positif avec son orientation (N, S, E ou O).`
-        const correction = `La ${choix} de ${ville.label} est d'environ ${
-          choix === 'latitude'
-            ? `${Math.round(Math.abs(ville.latitude))}°${ville.latitude >= 0 ? 'N' : 'S'}`
-            : `${Math.round(Math.abs(ville.longitude))}°${
-                ville.longitude >= 0 ? 'E' : 'O'
-              }`
-        }.<br>
+        const correction = `La ${choix} de ${ville.label} est d'environ $${miseEnEvidence(
+          `${
+            choix === 'latitude'
+              ? `${Math.round(Math.abs(ville.latitude))}°${ville.latitude >= 0 ? 'N' : 'S'}`
+              : `${Math.round(Math.abs(ville.longitude))}°${
+                  ville.longitude >= 0 ? 'E' : 'O'
+                }`
+          }`,
+        )}$.<br>
          ${correctionTexte(choix, ville)}`
         this.listeQuestions.push(question)
         this.listeCorrections.push(correction)

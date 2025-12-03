@@ -14,7 +14,11 @@ import {
 } from '../../lib/outils/ecritures'
 import { texNombre } from '../../lib/outils/texNombre'
 import { context } from '../../modules/context'
-import { listeQuestionsToContenu, randint } from '../../modules/outils'
+import {
+  contraindreValeur,
+  listeQuestionsToContenu,
+  randint,
+} from '../../modules/outils'
 import Exercice from '../Exercice'
 
 import { orangeMathalea } from 'apigeom/src/elements/defaultValues'
@@ -89,6 +93,7 @@ export default class ExerciceAdditionsRelatifs extends Exercice {
       let b: number
       let texte = ''
       let texteCorr = ''
+      this.sup = contraindreValeur(1, 99999, this.sup, 10)
       a = randint(1, this.sup)
       b = randint(1, this.sup)
       const k: (1 | -1)[] = choice([

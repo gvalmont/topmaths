@@ -91,81 +91,100 @@ class Latex {
       contentCorr += '\n\\begin{enumerate}'
       for (const exercice of this.exercices) {
         if (exercice != null) {
-          // Initalisation de questionLiee à rien pour toutes les questions
-          const questionLiee: {
-            compteurQuestionsLiees: number
-            dejaLiee: boolean
-          }[] = Array.from({ length: exercice.listeQuestions.length }, () => ({
-            compteurQuestionsLiees: 0,
-            dejaLiee: false,
-          }))
+          if (exercice.typeExercice === 'statique') {
+            if (exercice.content === '') {
+              content += '\\CompteurTC  &'
+              content += "% Cet exercice n'est pas disponible au format LaTeX\n"
+              content += '&\\stepcounter{nbEx}\\\\ \n'
+              contentCorr += `\n\\item  Cet exercice n'est pas disponible au format LaTeX`
+            } else {
+              content += '\\CompteurTC  &'
+              content += `\n % @see : ${getUrlFromExercice(exercice)}`
+              content += `\n %{${exercice.examen || ''} ${exercice.mois || ''} ${exercice.annee || ''} ${exercice.lieu || ''}}\n`
+              content += exercice.content
+              content += '&\\stepcounter{nbEx}\\\\ \n'
+              contentCorr += `\n\\item ${exercice.contentCorr || ''}`
+            }
+          } else {
+            // Initalisation de questionLiee à rien pour toutes les questions
+            const questionLiee: {
+              compteurQuestionsLiees: number
+              dejaLiee: boolean
+            }[] = Array.from(
+              { length: exercice.listeQuestions.length },
+              () => ({
+                compteurQuestionsLiees: 0,
+                dejaLiee: false,
+              }),
+            )
 
-          for (let i = 0; i < exercice.listeQuestions.length; i++) {
-            // Enoncé de la question
-            const enonce =
-              exercice.listeCanEnonces != null &&
-              exercice.listeCanEnonces[i] !== undefined &&
-              exercice.listeCanEnonces[i].length !== 0
-                ? exercice.listeCanEnonces[i]
-                : exercice.listeQuestions[i]
+            for (let i = 0; i < exercice.listeQuestions.length; i++) {
+              // Enoncé de la question
+              const enonce =
+                exercice.listeCanEnonces != null &&
+                exercice.listeCanEnonces[i] !== undefined &&
+                exercice.listeCanEnonces[i].length !== 0
+                  ? exercice.listeCanEnonces[i]
+                  : exercice.listeQuestions[i]
 
-            // Ne fonctionne que pour les CAN
-            if (
-              exercice.listeCanLiees != null &&
-              !exercice.listeCanLiees.every((subTab) => subTab.length === 0)
-            ) {
-              // Recherche si la question est liée à la suivante et aux prochaines
+              // Ne fonctionne que pour les CAN
               if (
                 exercice.listeCanLiees != null &&
-                exercice.listeCanLiees[i].length !== 0 &&
-                !questionLiee[i].dejaLiee
+                !exercice.listeCanLiees.every((subTab) => subTab.length === 0)
               ) {
-                // Recherche d'une question liée à d'autres
-                let j = i + 1
-                let questionSuivante = j < exercice.listeQuestions.length
-                while (questionSuivante) {
-                  // Recherche des questions liées à la précédente
-                  questionLiee[j].dejaLiee = exercice.listeCanLiees[j].includes(
-                    exercice.listeCanNumerosLies[i],
-                  )
-                  if (questionLiee[j].dejaLiee) {
-                    questionLiee[i].compteurQuestionsLiees++
+                // Recherche si la question est liée à la suivante et aux prochaines
+                if (
+                  exercice.listeCanLiees != null &&
+                  exercice.listeCanLiees[i].length !== 0 &&
+                  !questionLiee[i].dejaLiee
+                ) {
+                  // Recherche d'une question liée à d'autres
+                  let j = i + 1
+                  let questionSuivante = j < exercice.listeQuestions.length
+                  while (questionSuivante) {
+                    // Recherche des questions liées à la précédente
+                    questionLiee[j].dejaLiee = exercice.listeCanLiees[
+                      j
+                    ].includes(exercice.listeCanNumerosLies[i])
+                    if (questionLiee[j].dejaLiee) {
+                      questionLiee[i].compteurQuestionsLiees++
+                    }
+                    questionSuivante =
+                      questionLiee[j] && j < exercice.listeQuestions.length - 1
+                    j++
                   }
-                  questionSuivante =
-                    questionLiee[j] && j < exercice.listeQuestions.length - 1
-                  j++
                 }
               }
-            }
 
-            // L'énoncé des CAN est dépendant des questions liées ou pas
-            content += '\\CompteurTC  &'
-            if (questionLiee[i].compteurQuestionsLiees !== 0) {
-              content += `\\SetCell[r=${questionLiee[i].compteurQuestionsLiees + 1}]{c}`
-            }
-            content += !questionLiee[i].dejaLiee
-              ? ` { ${format(enonce)} }&`
-              : '&'
+              // L'énoncé des CAN est dépendant des questions liées ou pas
+              content += '\\CompteurTC  &'
+              if (questionLiee[i].compteurQuestionsLiees !== 0) {
+                content += `\\SetCell[r=${questionLiee[i].compteurQuestionsLiees + 1}]{c}`
+              }
+              content += !questionLiee[i].dejaLiee
+                ? ` { ${format(enonce)} }&`
+                : '&'
 
-            // La réponse à compléter des CAN est indépendante des questions liées
-            if (
-              exercice.listeCanReponsesACompleter != null &&
-              exercice.listeCanReponsesACompleter[i] !== undefined
-            ) {
-              content += `{${format(exercice.listeCanReponsesACompleter[i])} }`
-            }
-            content += '&\\stepcounter{nbEx}\\\\'
+              // La réponse à compléter des CAN est indépendante des questions liées
+              if (
+                exercice.listeCanReponsesACompleter != null &&
+                exercice.listeCanReponsesACompleter[i] !== undefined
+              ) {
+                content += `{${format(exercice.listeCanReponsesACompleter[i])} }`
+              }
+              content += '&\\stepcounter{nbEx}\\\\'
 
-            if (
-              i + 1 < exercice.listeQuestions.length &&
-              questionLiee[i + 1].dejaLiee
-            ) {
-              content += '*'
-            } // Cette étoile permet de gérer les sauts de page malencontreux
-            content += '\n'
-          }
-          for (const correction of exercice.listeCorrections) {
-            contentCorr += `\n\\item ${format(correction)}`
+              if (
+                i + 1 < exercice.listeQuestions.length &&
+                questionLiee[i + 1].dejaLiee
+              ) {
+                content += '*'
+              } // Cette étoile permet de gérer les sauts de page malencontreux
+              content += '\n'
+            }
+            for (const correction of exercice.listeCorrections) {
+              contentCorr += `\n\\item ${format(correction)}`
+            }
           }
         }
       }

@@ -1,5 +1,7 @@
 import { setReponse } from '../../lib/interactif/gestionInteractif'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
+import { miseEnEvidence } from '../../lib/outils/embellissements'
+import { texNombre } from '../../lib/outils/texNombre'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import Exercice from '../Exercice'
 
@@ -43,9 +45,9 @@ export default class SommeDeDeuxNombresMaries extends Exercice {
       b = randint(1, 9) * 10 + u2
 
       texte = `$${a}+${b}=$`
-      texteCorr = `$${a}+${b}=${a + b}$`
+      texteCorr = `$${a}+${b}=${miseEnEvidence(texNombre(a + b))}$`
       setReponse(this, i, a + b)
-      if (this.interactif) texte += ajouteChampTexteMathLive(this, i, '')
+      if (this.interactif) {texte += ajouteChampTexteMathLive(this, i, '')} else {texte +=`$\\dots$`}
 
       if (this.listeQuestions.indexOf(texte) === -1) {
         // Si la question n'a jamais été posée, on en crée une autre

@@ -1,6 +1,6 @@
 import { point } from '../lib/2d/PointAbstrait'
 import { segment } from '../lib/2d/segmentsVecteurs'
-import { latexParCoordonnees, latexParPoint } from '../lib/2d/textes'
+import { latex2d } from '../lib/2d/textes'
 import { homothetie, translation } from '../lib/2d/transformations'
 import { vecteur } from '../lib/2d/Vecteur'
 import { texNombre } from '../lib/outils/texNombre'
@@ -253,46 +253,61 @@ export class Arbre {
       vertical ? yOrigine : yOrigine - sens * 5,
     )
 
-    const labelA = latexParCoordonnees(
+    const labelA = latex2d(
       this.nom,
       A.x + (vertical ? 0.1 * sens : 0),
       A.y + (vertical ? 0 : 0.5 * sens),
-      'black',
-      15 * this.nom.length,
-      20,
-      'white',
-      tailleCaracteres,
+      {
+        color: 'black',
+        letterSize: 'normalsize',
+        backgroundColor: 'white',
+        opacity: 0.8,
+      },
     )
+
     const positionProba = vertical
-      ? homothetie(A, B, 0.7, '', 'center')
-      : translation(
-          homothetie(A, B, 0.6),
-          vecteur(A.x > B.x ? 0.5 : -0.5, 0),
-          '',
-          'center',
-        ) // Proba au 2/5 de [AB] en partant de A.
-    positionProba.positionLabel = 'center'
+      ? homothetie(A, B, 0.5)
+      : translation(homothetie(A, B, 0.5), vecteur(A.x > B.x ? 0.5 : -0.5, 0)) // Proba au 2/5 de [AB] en partant de A.
     const probaA = this.visible
-      ? latexParPoint(
+      ? latex2d(
           this.rationnel
             ? texProba(this.proba)
             : texNombre(this.proba.valueOf(), 4),
-          positionProba,
-          'black',
-          20,
-          24,
-          'white',
-          tailleCaracteres,
+          positionProba.x,
+          positionProba.y,
+          {
+            color: 'black',
+            letterSize: 'scriptsize',
+            backgroundColor: 'white',
+            opacity: 0.7,
+          },
         )
-      : latexParPoint(
-          this.alter,
-          positionProba,
-          'black',
-          20,
-          24,
-          'white',
-          tailleCaracteres,
-        )
+      : this.alter
+        ? latex2d(this.alter, positionProba.x, positionProba.y, {
+            color: 'black',
+            letterSize: 'scriptsize',
+            backgroundColor: 'white',
+            opacity: 0.7,
+          })
+        : this.rationnel
+          ? latex2d(texProba(this.proba), positionProba.x, positionProba.y, {
+              color: 'black',
+              letterSize: 'scriptsize',
+              backgroundColor: 'white',
+              opacity: 0.7,
+            })
+          : latex2d(
+              texNombre(this.proba.valueOf(), 4),
+              positionProba.x,
+              positionProba.y,
+              {
+                color: 'black',
+                letterSize: 'scriptsize',
+                backgroundColor: 'white',
+                opacity: 0.7,
+              },
+            )
+
     if (this.enfants.length === 0) {
       return [segment(B, A), labelA, probaA]
     } else {

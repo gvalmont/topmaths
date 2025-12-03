@@ -3,7 +3,7 @@ import { colorToLatexOrHTML } from './colorToLatexOrHtml'
 import { fixeBordures } from './fixeBordures'
 import type { IPointAbstrait } from './Interfaces'
 import { ObjetMathalea2D } from './ObjetMathalea2D'
-import type { Point } from './PointAbstrait'
+import type { PointAbstrait } from './PointAbstrait'
 import { segment } from './segmentsVecteurs'
 import { rotation, similitude } from './transformations'
 
@@ -60,8 +60,8 @@ export class SensDeRotation extends ObjetMathalea2D {
 }
 
 export function sensDeRotation(
-  A: Point,
-  O: Point,
+  A: PointAbstrait,
+  O: PointAbstrait,
   sens: 1 | -1,
   color = 'black',
 ) {

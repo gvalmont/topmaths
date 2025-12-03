@@ -1,4 +1,6 @@
+import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 import { choice } from '../../../lib/outils/arrayOutils'
+import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import ExerciceSimple from '../../ExerciceSimple'
 export const titre =
   "Donner la mesure d'un angle à partir des cosinus et sinus "
@@ -23,7 +25,7 @@ export default class mesureAngleCosSin extends ExerciceSimple {
     super()
 
     this.typeExercice = 'simple'
-
+    this.formatChampTexte = KeyboardType.grecTrigo
     this.nbQuestions = 1
   }
 
@@ -38,7 +40,7 @@ export default class mesureAngleCosSin extends ExerciceSimple {
         
         Quelle est la valeur de $\\alpha$ en radians ?`
         this.correction = `$\\cos \\dfrac{\\pi}{6}=\\dfrac{\\sqrt{3}}{2}$ et $\\sin \\dfrac{\\pi}{6}=\\dfrac{1}{2}$.<br>
-          $\\dfrac{\\pi}{6}\\in ${choix1}$, donc $\\alpha=\\dfrac{\\pi}{6}$.`
+          $\\dfrac{\\pi}{6}\\in ${choix1}$, donc $\\alpha=${miseEnEvidence('\\dfrac{\\pi}{6}')}$.`
         this.reponse = '\\dfrac{\\pi}{6}'
         break
       case 2: // pi/4
@@ -46,7 +48,7 @@ export default class mesureAngleCosSin extends ExerciceSimple {
        
         Quelle est la valeur de $\\alpha$ en radians ?`
         this.correction = `$\\cos \\dfrac{\\pi}{4}=\\dfrac{\\sqrt{2}}{2}$ et $\\sin \\dfrac{\\pi}{4}=\\dfrac{\\sqrt{2}}{2}$.<br>
-          $\\dfrac{\\pi}{4}\\in ${choix1}$, donc $\\alpha=\\dfrac{\\pi}{4}$.`
+          $\\dfrac{\\pi}{4}\\in ${choix1}$, donc $\\alpha=${miseEnEvidence('\\dfrac{\\pi}{4}')}$.`
         this.reponse = '\\dfrac{\\pi}{4}'
         break
       case 3: // pi/3
@@ -54,7 +56,7 @@ export default class mesureAngleCosSin extends ExerciceSimple {
        
         Quelle est la valeur de $\\alpha$ en radians ?`
         this.correction = `$\\cos \\dfrac{\\pi}{3}=\\dfrac{1}{2}$ et $\\sin \\dfrac{\\pi}{3}=\\dfrac{\\sqrt{3}}{2}$.<br>
-          $\\dfrac{\\pi}{3}\\in ${choix1}$, donc $\\alpha=\\dfrac{\\pi}{3}$.`
+          $\\dfrac{\\pi}{3}\\in ${choix1}$, donc $\\alpha=${miseEnEvidence('\\dfrac{\\pi}{3}')}$.`
         this.reponse = '\\dfrac{\\pi}{3}'
         break
       case 4: // 2pi/3
@@ -62,7 +64,7 @@ export default class mesureAngleCosSin extends ExerciceSimple {
        
         Quelle est la valeur de $\\alpha$ en radians ?`
         this.correction = `$\\cos \\dfrac{2\\pi}{3}=-\\dfrac{1}{2}$ et $\\sin \\dfrac{2\\pi}{3}=\\dfrac{\\sqrt{3}}{2}$.<br>
-          $\\dfrac{2\\pi}{3}\\in ${choix1}$, donc $\\alpha=\\dfrac{2\\pi}{3}$.`
+          $\\dfrac{2\\pi}{3}\\in ${choix1}$, donc $\\alpha=${miseEnEvidence('\\dfrac{2\\pi}{3}')}$.`
         this.reponse = '\\dfrac{2\\pi}{3}'
         break
       case 5: // 3pi/4
@@ -70,7 +72,7 @@ export default class mesureAngleCosSin extends ExerciceSimple {
        
         Quelle est la valeur de $\\alpha$ en radians ?`
         this.correction = `$\\cos \\dfrac{3\\pi}{4}=-\\dfrac{\\sqrt{2}}{2}$ et $\\sin \\dfrac{3\\pi}{4}=\\dfrac{\\sqrt{2}}{2}$.<br>
-          $\\dfrac{3\\pi}{4}\\in ${choix1}$, donc $\\alpha=\\dfrac{3\\pi}{4}$.`
+          $\\dfrac{3\\pi}{4}\\in ${choix1}$, donc $\\alpha=${miseEnEvidence('\\dfrac{3\\pi}{4}')}$.`
         this.reponse = '\\dfrac{3\\pi}{4}'
         break
       case 6: // 5pi/6
@@ -78,7 +80,7 @@ export default class mesureAngleCosSin extends ExerciceSimple {
        
         Quelle est la valeur de $\\alpha$ en radians ?`
         this.correction = `$\\cos \\dfrac{5\\pi}{6}=-\\dfrac{\\sqrt{3}}{2}$ et $\\sin \\dfrac{5\\pi}{6}=\\dfrac{1}{2}$.<br>
-          $\\dfrac{5\\pi}{6}\\in ${choix1}$, donc $\\alpha=\\dfrac{5\\pi}{6}$.`
+          $\\dfrac{5\\pi}{6}\\in ${choix1}$, donc $\\alpha=${miseEnEvidence('\\dfrac{5\\pi}{6}')}$.`
         this.reponse = '\\dfrac{5\\pi}{6}'
         break
       case 7: // 7pi/6
@@ -87,11 +89,11 @@ export default class mesureAngleCosSin extends ExerciceSimple {
         Quelle est la valeur de $\\alpha$ en radians ?`
         if (choix1 === '[0\\,;\\,2\\pi[') {
           this.correction = `$\\cos \\dfrac{7\\pi}{6}=-\\dfrac{\\sqrt{3}}{2}$ et $\\sin \\dfrac{7\\pi}{6}=-\\dfrac{1}{2}$.<br>
-          $\\dfrac{7\\pi}{6}\\in ${choix1}$, donc $\\alpha=\\dfrac{7\\pi}{6}$.`
+          $\\dfrac{7\\pi}{6}\\in ${choix1}$, donc $\\alpha=${miseEnEvidence('\\dfrac{7\\pi}{6}')}$.`
           this.reponse = '\\dfrac{7\\pi}{6}'
         } else {
           this.correction = `$\\cos \\dfrac{-5\\pi}{6}=-\\dfrac{\\sqrt{3}}{2}$ et $\\sin \\dfrac{-5\\pi}{6}=-\\dfrac{1}{2}$.<br>
-        $\\dfrac{-5\\pi}{6}\\in ${choix1}$, donc $\\alpha=\\dfrac{-5\\pi}{6}$.`
+        $\\dfrac{-5\\pi}{6}\\in ${choix1}$, donc $\\alpha=${miseEnEvidence('\\dfrac{-5\\pi}{6}')}$.`
           this.reponse = '-\\dfrac{5\\pi}{6}'
         }
         break
@@ -101,11 +103,11 @@ export default class mesureAngleCosSin extends ExerciceSimple {
         Quelle est la valeur de $\\alpha$ en radians ?`
         if (choix1 === '[0\\,;\\,2\\pi[') {
           this.correction = `$\\cos \\dfrac{5\\pi}{4}=-\\dfrac{\\sqrt{2}}{2}$ et $\\sin \\dfrac{5\\pi}{4}=-\\dfrac{\\sqrt{2}}{2}$.<br>
-          $\\dfrac{5\\pi}{4}\\in ${choix1}$, donc $\\alpha=\\dfrac{5\\pi}{4}$.`
+          $\\dfrac{5\\pi}{4}\\in ${choix1}$, donc $\\alpha=${miseEnEvidence('\\dfrac{5\\pi}{4}')}$.`
           this.reponse = '\\dfrac{5\\pi}{4}'
         } else {
           this.correction = `$\\cos \\dfrac{-3\\pi}{4}=-\\dfrac{\\sqrt{2}}{2}$ et $\\sin \\dfrac{-3\\pi}{4}=-\\dfrac{\\sqrt{2}}{2}$.<br>
-        $\\dfrac{-3\\pi}{4}\\in ${choix1}$, donc $\\alpha=\\dfrac{-3\\pi}{4}$.`
+        $\\dfrac{-3\\pi}{4}\\in ${choix1}$, donc $\\alpha=${miseEnEvidence('\\dfrac{-3\\pi}{4}')}$.`
           this.reponse = '-\\dfrac{3\\pi}{4}'
         }
         break
@@ -115,11 +117,11 @@ export default class mesureAngleCosSin extends ExerciceSimple {
         Quelle est la valeur de $\\alpha$ en radians ?`
         if (choix1 === '[0\\,;\\,2\\pi[') {
           this.correction = `$\\cos \\dfrac{4\\pi}{3}=-\\dfrac{1}{2}$ et $\\sin \\dfrac{4\\pi}{3}=-\\dfrac{\\sqrt{3}}{2}$.<br>
-          $\\dfrac{4\\pi}{3}\\in ${choix1}$, donc $\\alpha=\\dfrac{4\\pi}{3}$.`
+          $\\dfrac{4\\pi}{3}\\in ${choix1}$, donc $\\alpha=${miseEnEvidence('\\dfrac{4\\pi}{3}')}$.`
           this.reponse = '\\dfrac{4\\pi}{3}'
         } else {
           this.correction = `$\\cos \\dfrac{-2\\pi}{3}=-\\dfrac{1}{2}$ et $\\sin \\dfrac{-2\\pi}{3}=-\\dfrac{1}{2}$.<br>
-          $\\dfrac{-2\\pi}{3}\\in ${choix1}$, donc $\\alpha=\\dfrac{-2\\pi}{3}$.`
+          $\\dfrac{-2\\pi}{3}\\in ${choix1}$, donc $\\alpha=${miseEnEvidence('-\\dfrac{2\\pi}{3}')}$.`
           this.reponse = '-\\dfrac{2\\pi}{3}'
         }
         break
@@ -129,11 +131,11 @@ export default class mesureAngleCosSin extends ExerciceSimple {
         Quelle est la valeur de $\\alpha$ en radians ?`
         if (choix1 === '[0\\,;\\,2\\pi[') {
           this.correction = `$\\cos \\dfrac{5\\pi}{3}=\\dfrac{1}{2}$ et $\\sin \\dfrac{5\\pi}{3}=-\\dfrac{\\sqrt{3}}{2}$.<br>
-          $\\dfrac{5\\pi}{3}\\in ${choix1}$, donc $\\alpha=\\dfrac{5\\pi}{3}$.`
+          $\\dfrac{5\\pi}{3}\\in ${choix1}$, donc $\\alpha=${miseEnEvidence('\\dfrac{5\\pi}{3}')}$.`
           this.reponse = '\\dfrac{5\\pi}{3}'
         } else {
           this.correction = `$\\cos \\dfrac{-\\pi}{3}=-\\dfrac{1}{2}$ et $\\sin \\dfrac{-\\pi}{3}=-\\dfrac{\\sqrt{3}}{2}$.<br>
-          $\\dfrac{-\\pi}{3}\\in ${choix1}$, donc $\\alpha=\\dfrac{-\\pi}{3}$.`
+          $\\dfrac{-\\pi}{3}\\in ${choix1}$, donc $\\alpha=${miseEnEvidence('-\\dfrac{\\pi}{3}')}$.`
           this.reponse = '-\\dfrac{\\pi}{3}'
         }
         break
@@ -143,11 +145,11 @@ export default class mesureAngleCosSin extends ExerciceSimple {
         Quelle est la valeur de $\\alpha$ en radians ?`
         if (choix1 === '[0\\,;\\,2\\pi[') {
           this.correction = `$\\cos \\dfrac{7\\pi}{4}=\\dfrac{\\sqrt{2}}{2}$ et $\\sin \\dfrac{7\\pi}{4}=-\\dfrac{\\sqrt{2}}{2}$.<br>
-          $\\dfrac{7\\pi}{4}\\in ${choix1}$, donc $\\alpha=\\dfrac{7\\pi}{4}$.`
+          $\\dfrac{7\\pi}{4}\\in ${choix1}$, donc $\\alpha=${miseEnEvidence('\\dfrac{7\\pi}{4}')}$.`
           this.reponse = '\\dfrac{7\\pi}{4}'
         } else {
           this.correction = `$\\cos \\dfrac{-\\pi}{4}=-\\dfrac{\\sqrt{2}}{2}$ et $\\sin \\dfrac{-\\pi}{4}=-\\dfrac{\\sqrt{2}}{2}$.<br>
-          $\\dfrac{-\\pi}{4}\\in ${choix1}$, donc $\\alpha=\\dfrac{-\\pi}{4}$.`
+          $\\dfrac{-\\pi}{4}\\in ${choix1}$, donc $\\alpha=${miseEnEvidence('-\\dfrac{\\pi}{4}')}$.`
           this.reponse = '-\\dfrac{\\pi}{4}'
         }
         break
@@ -157,11 +159,11 @@ export default class mesureAngleCosSin extends ExerciceSimple {
         Quelle est la valeur de $\\alpha$ en radians ?`
         if (choix1 === '[0\\,;\\,2\\pi[') {
           this.correction = `$\\cos \\dfrac{11\\pi}{6}=\\dfrac{\\sqrt{3}}{2}$ et $\\sin \\dfrac{11\\pi}{6}=-\\dfrac{1}{2}$.<br>
-          $\\dfrac{11\\pi}{6}\\in ${choix1}$, donc $\\alpha=\\dfrac{11\\pi}{6}$.`
+          $\\dfrac{11\\pi}{6}\\in ${choix1}$, donc $\\alpha=${miseEnEvidence('\\dfrac{11\\pi}{6}')}$.`
           this.reponse = '\\dfrac{11\\pi}{6}'
         } else {
           this.correction = `$\\cos \\dfrac{-\\pi}{6}=\\dfrac{\\sqrt{3}}{2}$ et $\\sin \\dfrac{-\\pi}{6}=-\\dfrac{1}{2}$.<br>
-        $\\dfrac{-\\pi}{6}\\in ${choix1}$, donc $\\alpha=\\dfrac{-\\pi}{6}$.`
+        $\\dfrac{-\\pi}{6}\\in ${choix1}$, donc $\\alpha=${miseEnEvidence('-\\dfrac{\\pi}{6)}')}$.`
           this.reponse = '-\\dfrac{\\pi}{6}'
         }
         break
@@ -179,7 +181,7 @@ export default class mesureAngleCosSin extends ExerciceSimple {
           this.question = `$\\alpha$ est un réel de $${choix1}$ vérifiant $\\sin(\\alpha)=1$. <br>
         Quelle est la valeur de $\\alpha$ en radians ?`
           this.correction = ` $\\sin \\dfrac{\\pi}{2}=1$.<br>
-          $\\dfrac{\\pi}{2}\\in ${choix1}$, donc $\\alpha=\\dfrac{\\pi}{2}$.`
+          $\\dfrac{\\pi}{2}\\in ${choix1}$, donc $\\alpha=${miseEnEvidence('\\dfrac{\\pi}{2}')}$.`
           this.reponse = '\\dfrac{\\pi}{2}'
         }
 
@@ -188,7 +190,7 @@ export default class mesureAngleCosSin extends ExerciceSimple {
        
           Quelle est la valeur de $\\alpha$ en radians ?`
           this.correction = `$\\cos \\pi=-1$.<br>
-          $\\pi \\in ${choix1}$, donc $\\alpha=\\pi$.`
+          $\\pi \\in ${choix1}$, donc $\\alpha=${miseEnEvidence('\\pi')}$.`
           this.reponse = '\\pi'
         }
 
@@ -198,11 +200,11 @@ export default class mesureAngleCosSin extends ExerciceSimple {
           Quelle est la valeur de $\\alpha$ en radians ?`
           if (choix1 === '[0\\,;\\,2\\pi[') {
             this.correction = `$\\sin \\dfrac{3\\pi}{2}=-1$.<br>
-          $\\dfrac{3\\pi}{2} \\in ${choix1}$, donc $\\alpha=\\dfrac{3\\pi}{2}$.`
+          $\\dfrac{3\\pi}{2} \\in ${choix1}$, donc $\\alpha=${miseEnEvidence('\\dfrac{3\\pi}{2}')}$.`
             this.reponse = '\\dfrac{3\\pi}{2}'
           } else {
             this.correction = `$\\sin \\dfrac{-\\pi}{2}=-1$.<br>
-          $\\dfrac{-\\pi}{2} \\in ${choix1}$, donc $\\alpha=\\dfrac{-\\pi}{2}$.`
+          $\\dfrac{-\\pi}{2} \\in ${choix1}$, donc $\\alpha=${miseEnEvidence('-\\dfrac{\\pi}{2}')}$.`
             this.reponse = '-\\dfrac{\\pi}{2}'
           }
         }

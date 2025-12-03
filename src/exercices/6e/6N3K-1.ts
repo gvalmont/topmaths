@@ -31,7 +31,7 @@ export const dateDeModifImportante = '07/03/2023' // Une date de modification im
 export const uuid = 'c75b6'
 
 export const refs = {
-  'fr-fr': ['BP2AutoH25', '6N3K-1'],
+  'fr-fr': ['6N3K-1', 'BP2AutoH25'],
   'fr-2016': ['6N22', 'BP2AutoH25'],
   'fr-ch': ['9NO13-2'],
 }

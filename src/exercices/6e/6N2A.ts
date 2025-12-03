@@ -8,6 +8,7 @@ import {
   nombreDeChiffresDansLaPartieDecimale,
   nombreDeChiffresDansLaPartieEntiere,
 } from '../../lib/outils/nombres'
+import { sp } from '../../lib/outils/outilString'
 import { texNombre } from '../../lib/outils/texNombre'
 import { context } from '../../modules/context'
 import { mathalea2d } from '../../modules/mathalea2d'
@@ -137,22 +138,6 @@ export default class AdditionnerSoustrairesDecimaux extends Exercice {
             a = b
             b = temp
           }
-          texte = `$${texNombre(a)}-${texNombre(b)}$`
-          texte += grilletxt
-          reponse = arrondi(a - b)
-          texteCorr = Operation({
-            operande1: a,
-            operande2: b,
-            type: 'soustraction',
-            style: 'display: inline-block',
-          })
-          texteCorr += Operation({
-            operande1: a,
-            operande2: b,
-            type: 'soustraction',
-            style: 'display: inline-block',
-            methodeParCompensation: false,
-          })
           break
         case 2: // xxx-xx,xx ou xx,xx-xx,xx ou xx,xx-x,xxx
           a = randint(1, 4) * 100 + randint(2, 5) * 10 + randint(1, 9)
@@ -169,22 +154,6 @@ export default class AdditionnerSoustrairesDecimaux extends Exercice {
             a = b
             b = temp
           }
-          texte = `$${texNombre(a)}-${texNombre(b)}$`
-          texte += grilletxt
-          reponse = arrondi(a - b)
-          texteCorr = Operation({
-            operande1: a,
-            operande2: b,
-            type: 'soustraction',
-            style: 'display: inline-block',
-          })
-          texteCorr += Operation({
-            operande1: a,
-            operande2: b,
-            type: 'soustraction',
-            style: 'display: inline-block',
-            methodeParCompensation: false,
-          })
           break
         case 3: // xxx,x-xxx ou xxx,x-xxx,x ou xxx,x-xx,xx
           a = arrondi(
@@ -203,22 +172,6 @@ export default class AdditionnerSoustrairesDecimaux extends Exercice {
             a = b
             b = temp
           }
-          texte = `$${texNombre(a)}-${texNombre(b)}$`
-          texte += grilletxt
-          reponse = arrondi(a - b)
-          texteCorr = Operation({
-            operande1: a,
-            operande2: b,
-            type: 'soustraction',
-            style: 'display: inline-block',
-          })
-          texteCorr += Operation({
-            operande1: a,
-            operande2: b,
-            type: 'soustraction',
-            style: 'display: inline-block',
-            methodeParCompensation: false,
-          })
           break
         case 4: // x0x-xx9,x ou x0x,x-xx9,x ou x0x,x-x9,xx
           a = arrondi(randint(5, 9) * 100 + randint(1, 5))
@@ -230,22 +183,6 @@ export default class AdditionnerSoustrairesDecimaux extends Exercice {
             b = arrondi(
               randint(1, 9) * 10 + 9 + randint(1, 9) / 10 + randint(1, 9) / 100,
             )
-          texte = `$${texNombre(a)}-${texNombre(b)}$`
-          texte += grilletxt
-          reponse = arrondi(a - b)
-          texteCorr = Operation({
-            operande1: a,
-            operande2: b,
-            type: 'soustraction',
-            style: 'display: inline-block',
-          })
-          texteCorr += Operation({
-            operande1: a,
-            operande2: b,
-            type: 'soustraction',
-            style: 'display: inline-block',
-            methodeParCompensation: false,
-          })
           break
         case 5: // xxx+xx,x ou xx,x+xx,x ou xx,x+x,xx
           a = randint(1, 4) * 100 + randint(2, 5) * 10 + randint(1, 9)
@@ -257,15 +194,6 @@ export default class AdditionnerSoustrairesDecimaux extends Exercice {
             a = b
             b = temp
           }
-          texte = `$${texNombre(a)}+${texNombre(b)}$`
-          texte += grilletxt
-          reponse = arrondi(a + b)
-          texteCorr = Operation({
-            operande1: a,
-            operande2: b,
-            type: 'addition',
-            style: 'display: inline-block',
-          })
           break
         case 6: // xxx+xx,xx ou xx,xx+xx,xx ou xx,xx+x,xxx
           a = randint(1, 4) * 100 + randint(2, 5) * 10 + randint(1, 9)
@@ -282,15 +210,6 @@ export default class AdditionnerSoustrairesDecimaux extends Exercice {
             a = b
             b = temp
           }
-          texte = `$${texNombre(a)}+${texNombre(b)}$`
-          texte += grilletxt
-          reponse = arrondi(a + b)
-          texteCorr = Operation({
-            operande1: a,
-            operande2: b,
-            type: 'addition',
-            style: 'display: inline-block',
-          })
           break
         case 7: // xxx,x+xxx ou xxx,x+xxx,x ou xxx,x+xx,xx
           a = arrondi(
@@ -309,15 +228,6 @@ export default class AdditionnerSoustrairesDecimaux extends Exercice {
             a = b
             b = temp
           }
-          texte = `$${texNombre(a)}+${texNombre(b)}$`
-          texte += grilletxt
-          reponse = arrondi(a + b)
-          texteCorr = Operation({
-            operande1: a,
-            operande2: b,
-            type: 'addition',
-            style: 'display: inline-block',
-          })
           break
         case 8: // x0x+xx9,x ou x0x,x+xx9,x ou x0x,x+x9,xx
         default:
@@ -330,17 +240,39 @@ export default class AdditionnerSoustrairesDecimaux extends Exercice {
             b = arrondi(
               randint(1, 9) * 10 + 9 + randint(1, 9) / 10 + randint(1, 9) / 100,
             )
-          texte = `$${texNombre(a)}+${texNombre(b)}$`
-          texte += grilletxt
-          reponse = arrondi(a + b)
-          texteCorr = Operation({
+      }
+      if (typesDeQuestions < 5) {
+        texte = `$${texNombre(a)}-${texNombre(b)}$`
+        reponse = arrondi(a - b)
+        texteCorr =
+          'Méthode 1 :' +
+          Operation({
             operande1: a,
             operande2: b,
-            type: 'addition',
+            type: 'soustraction',
             style: 'display: inline-block',
           })
-          break
+        texteCorr +=
+          sp(10) +
+          'Méthode 2 :' +
+          Operation({
+            operande1: a,
+            operande2: b,
+            type: 'soustraction',
+            style: 'display: inline-block',
+            methodeParCompensation: false,
+          })
+      } else {
+        texte = `$${texNombre(a)}+${texNombre(b)}$`
+        reponse = arrondi(a + b)
+        texteCorr = Operation({
+          operande1: a,
+          operande2: b,
+          type: 'addition',
+          style: 'display: inline-block',
+        })
       }
+      texte += grilletxt
       setReponse(this, i, reponse)
       if (this.interactif && context.isHtml)
         texte += '$~=$' + ajouteChampTexteMathLive(this, i, '')

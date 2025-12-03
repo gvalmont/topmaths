@@ -36,7 +36,7 @@ export const titre = 'Arrondir une valeur'
 export const uuid = 'ab793'
 
 export const refs = {
-  'fr-fr': ['BP2AutoS7', '6N1K'],
+  'fr-fr': ['6N1K', 'BP2AutoS7'],
   'fr-2016': ['6N31-3', 'BP2AutoS7'],
   'fr-ch': ['9NO7-6'],
 }

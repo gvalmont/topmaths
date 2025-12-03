@@ -221,6 +221,36 @@ export function ecritureAlgebriqueSauf1(
 }
 
 /**
+ * Ajoute le + devant les nombres positifs, n'écrit rien si 1
+ * @Example
+ * //+3 ou -3
+ * @author Nathan Scheinmann en copiant la fonction ecritureAlgebriqueSauf1
+ */
+export function ecritureAlgebriqueSauf0(
+  a: IFractionEtendue | number | Decimal,
+) {
+  if (isFractionEtendue(a)) {
+    if (a.num === 0 ) return ''
+  }
+  if (typeof a === 'string') {
+    window.notify("ecritureAlgebriqueSauf1() n'accepte pas les string.", {
+      argument: a,
+    })
+    a = Number(a)
+  }
+  if (equal(a,0)) return ''
+  else if (typeof a === 'number' || a instanceof Decimal) {
+    return ecritureAlgebrique(a)
+  } else {
+    window.notify(
+      'ecritureAlgebriqueSauf1 : type de valeur non prise en compte',
+      {},
+    )
+    return 'erreur type de valeur non prise en compte'
+  }
+}
+
+/**
  * Idem ecritureAlgebrique mais retourne le nombre en couleur (vert si positif, rouge si négatif et noir si nul).
  * @param {number} a
  */

@@ -1,44 +1,44 @@
 <script lang="ts">
-  import type { CanState } from '../../../lib/types/can'
-  import type TypeExercice from '../../../exercices/Exercice'
-  import { canOptions } from '../../../lib/stores/canStore'
-  import CountDown from './presentationalComponents/CountDown.svelte'
-  import End from './presentationalComponents/End.svelte'
-  import KickOff from './presentationalComponents/KickOff.svelte'
-  import Race from './presentationalComponents/Race.svelte'
   import { onMount } from 'svelte'
+  import { get } from 'svelte/store'
+  import type TypeExercice from '../../../exercices/Exercice'
+  import MetaExercice from '../../../exercices/MetaExerciceCan'
   import {
-    splitExercisesIntoQuestions,
     buildExercisesList,
+    splitExercisesIntoQuestions,
   } from '../../../lib/components/exercisesUtils'
-  import Solutions from './presentationalComponents/Solutions.svelte'
-  import { verifQuestionMathLive } from '../../../lib/interactif/mathLive'
-  import { verifQuestionQcm } from '../../../lib/interactif/qcm'
-  import { verifQuestionListeDeroulante } from '../../../lib/interactif/questionListeDeroulante'
-  import {
-    indexQuestionCliqueFigure,
-    verifQuestionCliqueFigure,
-  } from '../../../lib/interactif/cliqueFigure'
-  import {
-    darkMode,
-    exercicesParams,
-    globalOptions,
-    resultsByExercice,
-  } from '../../../lib/stores/generalStore'
+  import { millisecondToMinSec } from '../../../lib/components/time'
   import {
     answersFromCapytale,
     assignmentDataFromCapytale,
     sendToCapytaleSaveStudentAssignment,
   } from '../../../lib/handleCapytale'
-  import { millisecondToMinSec } from '../../../lib/components/time'
-  import { keyboardState } from '../../keyboard/stores/keyboardStore'
-  import type { InterfaceResultExercice } from '../../../lib/types'
-  import { context } from '../../../modules/context'
-  import { mathaleaUpdateUrlFromExercicesParams } from '../../../lib/mathalea'
-  import { get } from 'svelte/store'
-  import MetaExercice from '../../../exercices/MetaExerciceCan'
+  import {
+    indexQuestionCliqueFigure,
+    verifQuestionCliqueFigure,
+  } from '../../../lib/interactif/cliqueFigure'
   import { verifDragAndDrop } from '../../../lib/interactif/DragAndDrop'
+  import { verifQuestionMathLive } from '../../../lib/interactif/mathLive'
+  import { verifQuestionQcm } from '../../../lib/interactif/qcm'
+  import { verifQuestionListeDeroulante } from '../../../lib/interactif/questionListeDeroulante'
+  import { mathaleaUpdateUrlFromExercicesParams } from '../../../lib/mathalea'
+  import { canOptions } from '../../../lib/stores/canStore'
+  import {
+    darkMode,
+    exercicesParams,
+    resultsByExercice,
+  } from '../../../lib/stores/generalStore'
+  import { globalOptions } from '../../../lib/stores/globalOptions'
+  import type { InterfaceResultExercice } from '../../../lib/types'
+  import type { CanState } from '../../../lib/types/can'
+  import { context } from '../../../modules/context'
   import { statsCanTracker } from '../../../modules/stats'
+  import { keyboardState } from '../../keyboard/stores/keyboardStore'
+  import CountDown from './presentationalComponents/CountDown.svelte'
+  import End from './presentationalComponents/End.svelte'
+  import KickOff from './presentationalComponents/KickOff.svelte'
+  import Race from './presentationalComponents/Race.svelte'
+  import Solutions from './presentationalComponents/Solutions.svelte'
 
   let state: CanState = 'canHomeScreen'
   let exercises: TypeExercice[] = []

@@ -122,17 +122,17 @@ export default class CalculerProbaArbre extends Exercice {
       pAsachantBb = pAinterBb.diviseFraction(pBb)
       pAbsachantB = pAbinterB.diviseFraction(pB)
       pAbsachantBb = pAbinterBb.diviseFraction(pBb)
-      texteProbaTotaleB = `$${ev[0]}$ et $\\overline{${ev[0]}}$ forment une partition de l'univers. Donc,  d'après la formule des probabilités totales  : <br>
+      texteProbaTotaleB = `$${ev[0]}$ et $\\overset{\\rule{0.8em}{0.08em}}{${ev[0]}}$ forment une partition de l'univers. Donc,  d'après la formule des probabilités totales  : <br>
                 $\\begin{aligned}
-                P(${ev[1]})&=P(${ev[0]}\\cap ${ev[1]})+P(\\overline{${ev[0]}}\\cap ${ev[1]})\\\\
-                &=P(${ev[0]})\\times P_{${ev[0]}}(${ev[1]})+P(\\overline{${ev[0]}})\\times P_{\\overline{${ev[0]}}}(${ev[1]})\\\\
+                P(${ev[1]})&=P(${ev[0]}\\cap ${ev[1]})+P(\\overset{\\rule{0.8em}{0.08em}}{${ev[0]}}\\cap ${ev[1]})\\\\
+                &=P(${ev[0]})\\times P_{${ev[0]}}(${ev[1]})+P(\\overset{\\rule{0.8em}{0.08em}}{${ev[0]}})\\times P_{\\overset{\\rule{0.8em}{0.08em}}{${ev[0]}}}(${ev[1]})\\\\
                 &=${this.sup2 === true ? `${texProba(pA)}\\times ${texProba(pBsachantA)}` : `${texNombre(pA.valeurDecimale)}\\times ${texNombre(pBsachantA.valeurDecimale, 2)}`}+${this.sup2 === true ? `${texProba(pAb)}\\times ${texProba(pBsachantAb)}` : `${texNombre(pAb.valeurDecimale)}\\times ${texNombre(pBsachantAb.valeurDecimale, 2)}`}\\\\
                 &=${this.sup2 === true ? `${pB.simplifie().texFraction}` : `${texNombre(pB.valeurDecimale, 4)}`}
                 \\end{aligned}$<br>`
-      texteProbaTotaleBb = `$${ev[0]}$ et $\\overline{${ev[0]}}$ forment une partition de l'univers. Donc,  d'après la formule des probabilités totales  : <br>
+      texteProbaTotaleBb = `$${ev[0]}$ et $\\overset{\\rule{0.8em}{0.08em}}{${ev[0]}}$ forment une partition de l'univers. Donc,  d'après la formule des probabilités totales  : <br>
                 $\\begin{aligned}
-                P(\\overline{${ev[1]}})&=P(${ev[0]}\\cap \\overline{${ev[1]}})+P(\\overline{${ev[0]}}\\cap \\overline{${ev[1]}})\\\\
-                &=P(${ev[0]})\\times P_{${ev[0]}}(\\overline{${ev[1]}})+P(\\overline{${ev[0]}})\\times P_{\\overline{${ev[0]}}}(\\overline{${ev[1]}})\\\\
+                P(\\overset{\\rule{0.8em}{0.08em}}{${ev[1]}})&=P(${ev[0]}\\cap \\overset{\\rule{0.8em}{0.08em}}{${ev[1]}})+P(\\overset{\\rule{0.8em}{0.08em}}{${ev[0]}}\\cap \\overset{\\rule{0.8em}{0.08em}}{${ev[1]}})\\\\
+                &=P(${ev[0]})\\times P_{${ev[0]}}(\\overset{\\rule{0.8em}{0.08em}}{${ev[1]}})+P(\\overset{\\rule{0.8em}{0.08em}}{${ev[0]}})\\times P_{\\overset{\\rule{0.8em}{0.08em}}{${ev[0]}}}(\\overset{\\rule{0.8em}{0.08em}}{${ev[1]}})\\\\
                 &=${this.sup2 === true ? `${texProba(pA)}\\times ${texProba(pBbsachantA)}` : `${texNombre(pA.valeurDecimale)}\\times ${texNombre(pBbsachantA.valeurDecimale, 2)}`}+${this.sup2 === true ? `${texProba(pAb)}\\times ${texProba(pBbsachantAb)}` : `${texNombre(pAb.valeurDecimale)}\\times ${texNombre(pBbsachantAb.valeurDecimale, 2)}`}\\\\
                 &=${this.sup2 === true ? `${pBb.simplifie().texFraction}` : `${texNombre(pBb.valeurDecimale, 4)}`}
                 \\end{aligned}$<br>`
@@ -157,14 +157,14 @@ export default class CalculerProbaArbre extends Exercice {
               }),
               new Arbre({
                 rationnel,
-                nom: `\\overline{${ev[1]}}`,
+                nom: `\\overset{\\rule{0.8em}{0.08em}}{${ev[1]}}`,
                 proba: pBbsachantA,
               }),
             ],
           }),
           new Arbre({
             rationnel,
-            nom: `\\overline{${ev[0]}}`,
+            nom: `\\overset{\\rule{0.8em}{0.08em}}{${ev[0]}}`,
             proba: pAb,
             enfants: [
               new Arbre({
@@ -174,7 +174,7 @@ export default class CalculerProbaArbre extends Exercice {
               }),
               new Arbre({
                 rationnel,
-                nom: `\\overline{${ev[1]}}`,
+                nom: `\\overset{\\rule{0.8em}{0.08em}}{${ev[1]}}`,
                 proba: pBbsachantAb,
               }),
             ],
@@ -216,55 +216,59 @@ export default class CalculerProbaArbre extends Exercice {
               \\end{aligned}$`
               break
             case 2: // PAinterBb
-              texte += `Calculer $P(${ev[0]}\\cap \\overline{${ev[1]}})$.`
+              texte += `Calculer $P(${ev[0]}\\cap \\overset{\\rule{0.8em}{0.08em}}{${ev[1]}})$.`
               texte += ajouteChampTexteMathLive(
                 this,
                 i,
                 KeyboardType.clavierDeBaseAvecFraction,
-                { texteAvant: `<br>$P(${ev[0]}\\cap \\overline{${ev[1]}})=$` },
+                {
+                  texteAvant: `<br>$P(${ev[0]}\\cap \\overset{\\rule{0.8em}{0.08em}}{${ev[1]}})=$`,
+                },
               )
               reponse = pAinterBb.texFraction
               handleAnswers(this, i, { reponse: { value: reponse } })
               texteCorr = `On a : <br>
               $\\begin{aligned}
-              P(${ev[0]}\\cap \\overline{${ev[1]}})&=P(${ev[0]})\\times P_{${ev[0]}}(\\overline{${ev[1]}})\\\\
+              P(${ev[0]}\\cap \\overset{\\rule{0.8em}{0.08em}}{${ev[1]}})&=P(${ev[0]})\\times P_{${ev[0]}}(\\overset{\\rule{0.8em}{0.08em}}{${ev[1]}})\\\\
               &=${this.sup2 === true ? `${texProba(pA)}\\times ${texProba(pBbsachantA)}` : `${texNombre(pA.valeurDecimale)}\\times ${texNombre(pBbsachantA.valeurDecimale, 2)}`}\\\\
               &=${this.sup2 === true ? `${miseEnEvidence(`${pAinterBb.simplifie().texFraction}`)}` : `${miseEnEvidence(`${texNombre(pAinterBb.valeurDecimale, 4)}`)}`}
               \\end{aligned}$`
               break
             case 3: // PAbinterB
-              texte += `Calculer $P(\\overline{${ev[0]}}\\cap ${ev[1]})$.`
+              texte += `Calculer $P(\\overset{\\rule{0.8em}{0.08em}}{${ev[0]}}\\cap ${ev[1]})$.`
               texte += ajouteChampTexteMathLive(
                 this,
                 i,
                 KeyboardType.clavierDeBaseAvecFraction,
-                { texteAvant: `<br>$P(\\overline{${ev[0]}}\\cap ${ev[1]})=$` },
+                {
+                  texteAvant: `<br>$P(\\overset{\\rule{0.8em}{0.08em}}{${ev[0]}}\\cap ${ev[1]})=$`,
+                },
               )
               reponse = pAbinterB.texFraction
               handleAnswers(this, i, { reponse: { value: reponse } })
               texteCorr = `On a : <br>
               $\\begin{aligned}
-              P(\\overline{${ev[0]}}\\cap ${ev[1]})&=P(\\overline{${ev[0]}})\\times P_{\\overline{${ev[0]}}}(${ev[1]})\\\\
+              P(\\overset{\\rule{0.8em}{0.08em}}{${ev[0]}}\\cap ${ev[1]})&=P(\\overset{\\rule{0.8em}{0.08em}}{${ev[0]}})\\times P_{\\overset{\\rule{0.8em}{0.08em}}{${ev[0]}}}(${ev[1]})\\\\
               &=${this.sup2 === true ? `${texProba(pAb)}\\times ${texProba(pBsachantAb)}` : `${texNombre(pAb.valeurDecimale)}\\times ${texNombre(pBsachantAb.valeurDecimale, 2)}`}\\\\
               &=${this.sup2 === true ? `${miseEnEvidence(`${pAbinterB.simplifie().texFraction}`)}` : `${miseEnEvidence(`${texNombre(pAbinterB.valeurDecimale, 4)}`)}`}
               \\end{aligned}$`
               break
             case 4: // PAbinterBb
             default:
-              texte += `Calculer $P(\\overline{${ev[0]}}\\cap \\overline{${ev[1]}})$.`
+              texte += `Calculer $P(\\overset{\\rule{0.8em}{0.08em}}{${ev[0]}}\\cap \\overset{\\rule{0.8em}{0.08em}}{${ev[1]}})$.`
               texte += ajouteChampTexteMathLive(
                 this,
                 i,
                 KeyboardType.clavierDeBaseAvecFraction,
                 {
-                  texteAvant: `<br>$P(\\overline{${ev[0]}}\\cap \\overline{${ev[1]}})=$`,
+                  texteAvant: `<br>$P(\\overset{\\rule{0.8em}{0.08em}}{${ev[0]}}\\cap \\overset{\\rule{0.8em}{0.08em}}{${ev[1]}})=$`,
                 },
               )
               reponse = pAbinterBb.texFraction
               handleAnswers(this, i, { reponse: { value: reponse } })
               texteCorr = `On a : <br>
               $\\begin{aligned}
-              P(\\overline{${ev[0]}}\\cap \\overline{${ev[1]}})&=P(\\overline{${ev[0]}})\\times P_{\\overline{${ev[0]}}}(\\overline{${ev[1]}})\\\\
+              P(\\overset{\\rule{0.8em}{0.08em}}{${ev[0]}}\\cap \\overset{\\rule{0.8em}{0.08em}}{${ev[1]}})&=P(\\overset{\\rule{0.8em}{0.08em}}{${ev[0]}})\\times P_{\\overset{\\rule{0.8em}{0.08em}}{${ev[0]}}}(\\overset{\\rule{0.8em}{0.08em}}{${ev[1]}})\\\\
               &=${this.sup2 === true ? `${texProba(pAb)}\\times ${texProba(pBbsachantAb)}` : `${texNombre(pAb.valeurDecimale)}\\times ${texNombre(pBbsachantAb.valeurDecimale, 2)}`}\\\\
               &=${this.sup2 === true ? `${miseEnEvidence(`${pAbinterBb.simplifie().texFraction}`)}` : `${miseEnEvidence(`${texNombre(pAbinterBb.valeurDecimale, 4)}`)}`}
               \\end{aligned}$`
@@ -299,17 +303,19 @@ export default class CalculerProbaArbre extends Exercice {
               break
             case 2:
             default:
-              texte += `Calculer $P(\\overline{${ev[1]}})$.`
+              texte += `Calculer $P(\\overset{\\rule{0.8em}{0.08em}}{${ev[1]}})$.`
               texte += ajouteChampTexteMathLive(
                 this,
                 i,
                 KeyboardType.clavierDeBaseAvecFraction,
-                { texteAvant: `<br>$P(\\overline{${ev[1]}})=$` },
+                {
+                  texteAvant: `<br>$P(\\overset{\\rule{0.8em}{0.08em}}{${ev[1]}})=$`,
+                },
               )
               reponse = pBb.texFraction
               handleAnswers(this, i, { reponse: { value: reponse } })
               texteCorr = texteProbaTotaleBb
-              texteCorr += `Ainsi, ${this.sup2 === true ? `$P(\\overline{${ev[1]}})=${miseEnEvidence(`${pBb.simplifie().texFraction}`)}$.` : `$P(\\overline{${ev[1]}})=${miseEnEvidence(`${texNombre(pBb.valeurDecimale, 4)}`)}$.`}`
+              texteCorr += `Ainsi, ${this.sup2 === true ? `$P(\\overset{\\rule{0.8em}{0.08em}}{${ev[1]}})=${miseEnEvidence(`${pBb.simplifie().texFraction}`)}$.` : `$P(\\overset{\\rule{0.8em}{0.08em}}{${ev[1]}})=${miseEnEvidence(`${texNombre(pBb.valeurDecimale, 4)}`)}$.`}`
 
               break
           }
@@ -368,7 +374,7 @@ export default class CalculerProbaArbre extends Exercice {
               \\end{aligned}$`
               break
             case 2: // PAsachantBb
-              texte += `Calculer $P_{\\overline{${ev[1]}}}(${ev[0]})$.`
+              texte += `Calculer $P_{\\overset{\\rule{0.8em}{0.08em}}{${ev[1]}}}(${ev[0]})$.`
               reponse =
                 this.sup2 === true
                   ? pAsachantBb.texFraction
@@ -379,7 +385,7 @@ export default class CalculerProbaArbre extends Exercice {
                   i,
                   KeyboardType.clavierDeBaseAvecFraction,
                   {
-                    texteAvant: `<br>$P_{\\overline{${ev[1]}}}(${ev[0]})=$`,
+                    texteAvant: `<br>$P_{\\overset{\\rule{0.8em}{0.08em}}{${ev[1]}}}(${ev[0]})=$`,
                     texteApres: '(résultat en fraction)',
                   },
                 )
@@ -390,26 +396,26 @@ export default class CalculerProbaArbre extends Exercice {
                   i,
                   KeyboardType.clavierDeBaseAvecFraction,
                   {
-                    texteAvant: `<br>$P_{\\overline{${ev[1]}}}(${ev[0]})\\approx$`,
+                    texteAvant: `<br>$P_{\\overset{\\rule{0.8em}{0.08em}}{${ev[1]}}}(${ev[0]})\\approx$`,
                     texteApres: '(valeur décimale arrondie à $0,001$)',
                   },
                 )
                 handleAnswers(this, i, { reponse: { value: reponse } })
               }
-              texteCorr = `On utilise la formule :  $P_{\\overline{${ev[1]}}}(${ev[0]})=\\dfrac{P(\\overline{${ev[1]}}\\cap ${ev[0]})}{P(\\overline{${ev[1]}})}$.<br> 
-            On commence par calculer $P(\\overline{${ev[1]}})$.<br>`
+              texteCorr = `On utilise la formule :  $P_{\\overset{\\rule{0.8em}{0.08em}}{${ev[1]}}}(${ev[0]})=\\dfrac{P(\\overset{\\rule{0.8em}{0.08em}}{${ev[1]}}\\cap ${ev[0]})}{P(\\overset{\\rule{0.8em}{0.08em}}{${ev[1]}})}$.<br> 
+            On commence par calculer $P(\\overset{\\rule{0.8em}{0.08em}}{${ev[1]}})$.<br>`
               texteCorr += texteProbaTotaleBb
               texteCorr += `On obtient donc :<br>
             $\\begin{aligned}
-            P_{\\overline{${ev[1]}}}(${ev[0]})&=\\dfrac{P(\\overline{${ev[1]}}\\cap ${ev[0]})}{P(\\overline{${ev[1]}})}\\\\
-            &=\\dfrac{P(${ev[0]})\\times P_{${ev[0]}}(\\overline{${ev[1]}})}{P(\\overline{${ev[1]}})}\\\\
+            P_{\\overset{\\rule{0.8em}{0.08em}}{${ev[1]}}}(${ev[0]})&=\\dfrac{P(\\overset{\\rule{0.8em}{0.08em}}{${ev[1]}}\\cap ${ev[0]})}{P(\\overset{\\rule{0.8em}{0.08em}}{${ev[1]}})}\\\\
+            &=\\dfrac{P(${ev[0]})\\times P_{${ev[0]}}(\\overset{\\rule{0.8em}{0.08em}}{${ev[1]}})}{P(\\overset{\\rule{0.8em}{0.08em}}{${ev[1]}})}\\\\
             &=${this.sup2 === true ? `\\left(${texProba(pA)}\\times ${texProba(pBbsachantA)}\\right) \\div ${texProba(pBb)}` : `\\dfrac{${texNombre(pA.valeurDecimale, 4)}\\times ${texNombre(pBbsachantA.valeurDecimale, 4)}}{${texNombre(pBb.valeurDecimale, 4)}}`}\\\\
              &=${this.sup2 === true ? `${texProba(pAinterBb)}\\div ${texProba(pBb)}` : `\\dfrac{${texNombre(pAinterBb.valeurDecimale, 4)}}{${texNombre(pBb.valeurDecimale, 4)}}`}\\\\
             &${this.sup2 === true ? `=${miseEnEvidence(`${pAsachantBb.simplifie().texFraction}`)}` : `\\approx${miseEnEvidence(`${texNombre(pAsachantBb.valeurDecimale, 3)}`)}`}
             \\end{aligned}$`
               break
             case 3: // PAbsachantB
-              texte += `Calculer $P_{${ev[1]}}(\\overline{${ev[0]}})$.`
+              texte += `Calculer $P_{${ev[1]}}(\\overset{\\rule{0.8em}{0.08em}}{${ev[0]}})$.`
               reponse =
                 this.sup2 === true
                   ? pAbsachantB.texFraction
@@ -420,7 +426,7 @@ export default class CalculerProbaArbre extends Exercice {
                   i,
                   KeyboardType.clavierDeBaseAvecFraction,
                   {
-                    texteAvant: `<br>$P_{${ev[1]}}(\\overline{${ev[0]}})=$`,
+                    texteAvant: `<br>$P_{${ev[1]}}(\\overset{\\rule{0.8em}{0.08em}}{${ev[0]}})=$`,
                     texteApres: '(résultat en fraction)',
                   },
                 )
@@ -431,19 +437,19 @@ export default class CalculerProbaArbre extends Exercice {
                   i,
                   KeyboardType.clavierDeBaseAvecFraction,
                   {
-                    texteAvant: `<br>$P_{${ev[1]}}(\\overline{${ev[0]}})\\approx$`,
+                    texteAvant: `<br>$P_{${ev[1]}}(\\overset{\\rule{0.8em}{0.08em}}{${ev[0]}})\\approx$`,
                     texteApres: '(valeur décimale arrondie à $0,001$)',
                   },
                 )
                 handleAnswers(this, i, { reponse: { value: reponse } })
               }
-              texteCorr = `On utilise la formule :  $P_{${ev[1]}}(\\overline{${ev[0]}})=\\dfrac{P(${ev[1]}\\cap \\overline{${ev[0]}})}{P(${ev[1]})}$.<br> 
+              texteCorr = `On utilise la formule :  $P_{${ev[1]}}(\\overset{\\rule{0.8em}{0.08em}}{${ev[0]}})=\\dfrac{P(${ev[1]}\\cap \\overset{\\rule{0.8em}{0.08em}}{${ev[0]}})}{P(${ev[1]})}$.<br> 
           On commence par calculer $P(${ev[1]})$.<br>`
               texteCorr += texteProbaTotaleB
               texteCorr += `On obtient donc :<br>
           $\\begin{aligned}
-          P_{${ev[1]}}(\\overline{${ev[0]}})&=\\dfrac{P(${ev[1]}\\cap \\overline{${ev[0]}})}{P(${ev[1]})}\\\\
-          &=\\dfrac{P(\\overline{${ev[0]}})\\times P_{\\overline{${ev[0]}}}(${ev[1]})}{P(${ev[1]})}\\\\
+          P_{${ev[1]}}(\\overset{\\rule{0.8em}{0.08em}}{${ev[0]}})&=\\dfrac{P(${ev[1]}\\cap \\overset{\\rule{0.8em}{0.08em}}{${ev[0]}})}{P(${ev[1]})}\\\\
+          &=\\dfrac{P(\\overset{\\rule{0.8em}{0.08em}}{${ev[0]}})\\times P_{\\overset{\\rule{0.8em}{0.08em}}{${ev[0]}}}(${ev[1]})}{P(${ev[1]})}\\\\
           &=${this.sup2 === true ? `\\left(${texProba(pAb)}\\times ${texProba(pBsachantAb)}\\right) \\div ${texProba(pB)}` : `\\dfrac{${texNombre(pAb.valeurDecimale, 4)}\\times ${texNombre(pBsachantAb.valeurDecimale, 4)}}{${texNombre(pB.valeurDecimale, 4)}}`}\\\\
            &=${this.sup2 === true ? `${texProba(pAbinterB)}\\div ${texProba(pB)}` : `\\dfrac{${texNombre(pAbinterB.valeurDecimale, 4)}}{${texNombre(pB.valeurDecimale, 4)}}`}\\\\
           &${this.sup2 === true ? `=${miseEnEvidence(`${pAbsachantB.simplifie().texFraction}`)}` : `\\approx${miseEnEvidence(`${texNombre(pAbsachantB.valeurDecimale, 3)}`)}`}
@@ -451,7 +457,7 @@ export default class CalculerProbaArbre extends Exercice {
               break
             case 4: // PAbsachantBb
             default:
-              texte += `Calculer $P_{\\overline{${ev[1]}}}(\\overline{${ev[0]}})$.`
+              texte += `Calculer $P_{\\overset{\\rule{0.8em}{0.08em}}{${ev[1]}}}(\\overset{\\rule{0.8em}{0.08em}}{${ev[0]}})$.`
               reponse =
                 this.sup2 === true
                   ? pAbsachantBb.texFraction
@@ -462,7 +468,7 @@ export default class CalculerProbaArbre extends Exercice {
                   i,
                   KeyboardType.clavierDeBaseAvecFraction,
                   {
-                    texteAvant: `<br>$P_{\\overline{${ev[1]}}}(\\overline{${ev[0]}})=$`,
+                    texteAvant: `<br>$P_{\\overset{\\rule{0.8em}{0.08em}}{${ev[1]}}}(\\overset{\\rule{0.8em}{0.08em}}{${ev[0]}})=$`,
                     texteApres: '(résultat en fraction)',
                   },
                 )
@@ -473,19 +479,19 @@ export default class CalculerProbaArbre extends Exercice {
                   i,
                   KeyboardType.clavierDeBaseAvecFraction,
                   {
-                    texteAvant: `<br>$P_{\\overline{${ev[1]}}}(\\overline{${ev[0]}})\\approx$`,
+                    texteAvant: `<br>$P_{\\overset{\\rule{0.8em}{0.08em}}{${ev[1]}}}(\\overset{\\rule{0.8em}{0.08em}}{${ev[0]}})\\approx$`,
                     texteApres: '(valeur décimale arrondie à $0,001$)',
                   },
                 )
                 handleAnswers(this, i, { reponse: { value: reponse } })
               }
-              texteCorr = `On utilise la formule :  $P_{\\overline{${ev[1]}}}(\\overline{${ev[0]}})=\\dfrac{P(\\overline{${ev[1]}}\\cap \\overline{${ev[0]}})}{P(\\overline{${ev[1]})}}$.<br> 
-          On commence par calculer $P(\\overline{${ev[1]}})$.<br>`
+              texteCorr = `On utilise la formule :  $P_{\\overset{\\rule{0.8em}{0.08em}}{${ev[1]}}}(\\overset{\\rule{0.8em}{0.08em}}{${ev[0]}})=\\dfrac{P(\\overset{\\rule{0.8em}{0.08em}}{${ev[1]}}\\cap \\overset{\\rule{0.8em}{0.08em}}{${ev[0]}})}{P(\\overset{\\rule{0.8em}{0.08em}}{${ev[1]})}}$.<br> 
+          On commence par calculer $P(\\overset{\\rule{0.8em}{0.08em}}{${ev[1]}})$.<br>`
               texteCorr += texteProbaTotaleBb
               texteCorr += `On obtient donc :<br>
           $\\begin{aligned}
-          P_{\\overline{${ev[1]}}}(\\overline{${ev[0]}})&=\\dfrac{P(\\overline{${ev[1]}}\\cap \\overline{${ev[0]}})}{P(\\overline{${ev[1]}})}\\\\
-          &=\\dfrac{P(\\overline{${ev[0]}})\\times P_{\\overline{${ev[0]}}}(\\overline{${ev[1]}})}{P(\\overline{${ev[1]}})}\\\\
+          P_{\\overset{\\rule{0.8em}{0.08em}}{${ev[1]}}}(\\overset{\\rule{0.8em}{0.08em}}{${ev[0]}})&=\\dfrac{P(\\overset{\\rule{0.8em}{0.08em}}{${ev[1]}}\\cap \\overset{\\rule{0.8em}{0.08em}}{${ev[0]}})}{P(\\overset{\\rule{0.8em}{0.08em}}{${ev[1]}})}\\\\
+          &=\\dfrac{P(\\overset{\\rule{0.8em}{0.08em}}{${ev[0]}})\\times P_{\\overset{\\rule{0.8em}{0.08em}}{${ev[0]}}}(\\overset{\\rule{0.8em}{0.08em}}{${ev[1]}})}{P(\\overset{\\rule{0.8em}{0.08em}}{${ev[1]}})}\\\\
           &=${this.sup2 === true ? `\\left(${texProba(pAb)}\\times ${texProba(pBbsachantAb)}\\right) \\div ${texProba(pBb)}` : `\\dfrac{${texNombre(pAb.valeurDecimale, 4)}\\times ${texNombre(pBbsachantAb.valeurDecimale, 4)}}{${texNombre(pBb.valeurDecimale, 4)}}`}\\\\
            &=${this.sup2 === true ? `${texProba(pAbinterBb)}\\div ${texProba(pBb)}` : `\\dfrac{${texNombre(pAbinterBb.valeurDecimale, 4)}}{${texNombre(pBb.valeurDecimale, 4)}}`}\\\\
           &${this.sup2 === true ? `=${miseEnEvidence(`${pAbsachantBb.simplifie().texFraction}`)}` : `\\approx${miseEnEvidence(`${texNombre(pAbsachantBb.valeurDecimale, 3)}`)}`}

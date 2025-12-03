@@ -1,7 +1,7 @@
 // import { miseEnEvidence } from '../../../lib/outils/embellissements'
 
 import { colorToLatexOrHTML } from '../../../lib/2d/colorToLatexOrHtml'
-import { courbe } from '../../../lib/2d/courbes'
+import { courbe } from '../../../lib/2d/Courbe'
 import { droite } from '../../../lib/2d/droites'
 import { point } from '../../../lib/2d/PointAbstrait'
 import { repere } from '../../../lib/2d/reperes'

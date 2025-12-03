@@ -5,7 +5,7 @@ import { AddTabDbleEntryMathlive } from '../interactif/tableaux/AjouteTableauMat
 import { stringNombre, texNombre } from '../outils/texNombre'
 import { fixeBordures } from './fixeBordures'
 import { ObjetMathalea2D } from './ObjetMathalea2D'
-import { point, Point } from './PointAbstrait'
+import { PointAbstrait, pointAbstrait } from './PointAbstrait'
 import { polygone } from './polygones'
 import { Polyline, polyline } from './Polyline'
 import { Segment, segment } from './segmentsVecteurs'
@@ -28,13 +28,13 @@ export type StyledText = {
  * @author Rémi Angot
  */
 function flecheH(
-  D: Point,
-  A: Point,
+  D: PointAbstrait,
+  A: PointAbstrait,
   texte: StyledText,
   h: number = 1,
 ): (Polyline | Segment | TexteParPoint)[] {
-  const D1 = new Point(D.x, D.y + h)
-  const A1 = point(A.x, A.y + h)
+  const D1 = new PointAbstrait(D.x, D.y + h)
+  const A1 = pointAbstrait(A.x, A.y + h)
   const fleche = polyline(D, D1, A1)
   const eFleche = segment(A1, A)
   eFleche.styleExtremites = '->'
@@ -80,15 +80,15 @@ function flecheH(
  * @author Rémi Angot
  */
 function flecheV(
-  D: Point,
-  A: Point,
+  D: PointAbstrait,
+  A: PointAbstrait,
   texte: StyledText,
   h: number = 1,
   flip: boolean = false,
 ): (Polyline | Segment | TexteParPoint)[] {
   if (flip) h = -h
-  const D1 = point(D.x + h, D.y)
-  const A1 = point(A.x + h, A.y)
+  const D1 = pointAbstrait(D.x + h, D.y)
+  const A1 = pointAbstrait(A.x + h, A.y)
   const fleche = polyline(D, D1, A1)
   const eFleche = segment(A1, A)
   eFleche.styleExtremites = '->'
@@ -134,14 +134,14 @@ type TableauParams = {
   largeur?: number
   hauteur?: number
   nbColonnes?: number
-  origine?: Point
+  origine?: PointAbstrait
   ligne1: StyledText[] // Si texte.latex est false, alors c'est texteParPosition qui est utilisé avec possibilité de mise en gras, en caractères spéciaux, en couleur. Si texte.latex est true, les autres paramètres sont ignorés et le mise en forme devra être contenue dans le texte
   ligne2: StyledText[] // Si texte.latex est false, alors c'est texteParPosition qui est utilisé avec possibilité de mise en gras, en caractères spéciaux, en couleur. Si texte.latex est true, les autres paramètres sont ignorés et le mise en forme devra être contenue dans le texte
   flecheHaut?: [number, number, StyledText, number?][]
   flecheBas?: [number, number, StyledText, number?][]
-  flecheDroite?: StyledText | boolean
+  flecheDroite?: StyledText
   flecheDroiteSens?: 'bas' | 'haut'
-  flecheGauche?: StyledText | boolean
+  flecheGauche?: StyledText
   flecheGaucheSens?: 'bas' | 'haut'
 }
 export class Tableau extends ObjetMathalea2D {
@@ -154,14 +154,14 @@ export class Tableau extends ObjetMathalea2D {
     largeur = 3,
     hauteur = 2,
     nbColonnes = 3,
-    origine = point(0, 0),
+    origine = pointAbstrait(0, 0),
     ligne1,
     ligne2,
     flecheHaut = [], // [[1, 2, '\\times 6,4', 3], [2, 3, '\\div 6']]
     flecheBas = [],
-    flecheDroite = false, // à remplacer par un string
+    flecheDroite,
     flecheDroiteSens = 'bas',
-    flecheGauche = false,
+    flecheGauche,
     flecheGaucheSens = 'haut',
   }: TableauParams) {
     super()
@@ -170,21 +170,27 @@ export class Tableau extends ObjetMathalea2D {
       nbColonnes = Math.max(ligne1.length, ligne2.length, nbColonnes)
     }
     const A = origine
-    const B = point(A.x + largeurTitre + largeur * (nbColonnes - 1), A.y)
-    const C = point(B.x, B.y + 2 * hauteur)
-    const D = point(A.x, A.y + 2 * hauteur)
+    const B = pointAbstrait(
+      A.x + largeurTitre + largeur * (nbColonnes - 1),
+      A.y,
+    )
+    const C = pointAbstrait(B.x, B.y + 2 * hauteur)
+    const D = pointAbstrait(A.x, A.y + 2 * hauteur)
     // ABCD est le cadre extérieur (A en bas à gauche et B en bas à droite)
     this.objets = []
     this.objets.push(polygone(A, B, C, D))
     this.objets.push(
-      segment(point(A.x, A.y + hauteur), point(B.x, B.y + hauteur)),
+      segment(
+        pointAbstrait(A.x, A.y + hauteur),
+        pointAbstrait(B.x, B.y + hauteur),
+      ),
     )
     // trait horizontal au milieu
     let x = A.x + largeurTitre
     // x est l'abscisse de la première séparation verticale
     // Ecrit le texte dans les colonnes
     for (let i = 0; i < nbColonnes; i++) {
-      this.objets.push(segment(point(x, A.y), point(x, C.y)))
+      this.objets.push(segment(pointAbstrait(x, A.y), pointAbstrait(x, C.y)))
       if (ligne1[i + 1]) {
         if (ligne1[i + 1].latex) {
           // on utilise latexParCoordonnees() tant pis pour le zoom qui devient impossible !
@@ -316,11 +322,11 @@ export class Tableau extends ObjetMathalea2D {
       }
     }
     for (const fleche of flecheHaut) {
-      const Depart = point(
+      const Depart = pointAbstrait(
         A.x + largeurTitre + fleche[0] * largeur - 0.4 * largeur,
         A.y + 2.1 * hauteur,
       )
-      const Arrivee = point(
+      const Arrivee = pointAbstrait(
         A.x + largeurTitre + fleche[1] * largeur - 0.6 * largeur,
         A.y + 2.1 * hauteur,
       )
@@ -331,11 +337,11 @@ export class Tableau extends ObjetMathalea2D {
       }
     }
     for (const fleche of flecheBas) {
-      const Depart = point(
+      const Depart = pointAbstrait(
         A.x + largeurTitre + fleche[0] * largeur - 0.4 * largeur,
         A.y - 0.1 * hauteur,
       )
-      const Arrivee = point(
+      const Arrivee = pointAbstrait(
         A.x + largeurTitre + fleche[1] * largeur - 0.6 * largeur,
         A.y - 0.1 * hauteur,
       )
@@ -347,12 +353,14 @@ export class Tableau extends ObjetMathalea2D {
       }
       this.objets.push(...flecheH(Depart, Arrivee, fleche[2], hFleche))
     }
-    if (flecheDroite && typeof flecheDroite === 'string') {
-      const Depart = point(
+
+    // if (flecheDroite && typeof flecheDroite === 'string') {
+    if (flecheDroite) {
+      const Depart = pointAbstrait(
         A.x + largeurTitre + (nbColonnes - 1) * largeur + 0.2,
         A.y + 1.5 * hauteur,
       )
-      const Arrivee = point(
+      const Arrivee = pointAbstrait(
         A.x + largeurTitre + (nbColonnes - 1) * largeur + 0.2,
         A.y + 0.5 * hauteur,
       )
@@ -369,9 +377,10 @@ export class Tableau extends ObjetMathalea2D {
       })
       this.bordures = [xmin, ymin, xmax, ymax]
     }
-    if (flecheGauche && typeof flecheGauche === 'string') {
-      const Depart = point(A.x, A.y + 1.5 * hauteur)
-      const Arrivee = point(A.x, A.y + 0.5 * hauteur)
+    // if (flecheGauche && typeof flecheGauche === 'string') {
+    if (flecheGauche) {
+      const Depart = pointAbstrait(A.x, A.y + 1.5 * hauteur)
+      const Arrivee = pointAbstrait(A.x, A.y + 0.5 * hauteur)
       if (flecheGaucheSens === 'bas') {
         this.objets.push(...flecheV(Depart, Arrivee, flecheGauche, 1, true))
       } else {

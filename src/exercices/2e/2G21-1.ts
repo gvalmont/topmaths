@@ -70,15 +70,18 @@ export default class SommeDeVecteurs extends Exercice {
       let texteCorr = ''
       choix = typesDeQuestions[i]
       const anim = new Alea2iep()
-      xU = randint(0, 8) * 0.5
-      yU = randint(Math.round(4 - xU), 8, Math.round(xU)) * choice([-0.5, 0.5])
-      xV = randint(-8, -1) * 0.5
-      yV = randint(Math.round(4 + xV), 8) * choice([-0.5, 0.5])
-      u = vecteur(xU, yU)
-      v = vecteur(xV, yV)
-      A = point(0, 0, 'A', 'center')
-      B = translation(A, u, 'B')
-      C = translation(B, v, 'C')
+      do {
+        xU = randint(0, 8) * 0.5
+        yU =
+          randint(Math.round(4 - xU), 8, Math.round(xU)) * choice([-0.5, 0.5])
+        xV = randint(-8, -1) * 0.5
+        yV = randint(Math.round(4 + xV), 8) * choice([-0.5, 0.5])
+        u = vecteur(xU, yU)
+        v = vecteur(xV, yV)
+        A = point(0, 0, 'A', 'center')
+        B = translation(A, u, 'B')
+        C = translation(B, v, 'C')
+      } while (A.x === C.x && A.y === C.y)
       posLabelA = homothetie(C, A, -1 / longueur(A, C))
       posLabelA.positionLabel = 'center'
       p = polygoneAvecNom(B, C)

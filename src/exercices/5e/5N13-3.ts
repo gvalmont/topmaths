@@ -17,7 +17,7 @@ export const refs = {
  
 export default class ExerciceLabyrintheMultiplesDe3 extends ExerciceLabyrinthe {
   
-  consigne = 'Trouver le chemin qui passe par des fractions égales.'
+  consigne = 'Trouver le chemin qui passe par des fractions égales.' + this.consigneDeplacement
   cols = 6
   rows = 4
   orientation?: "horizontal" | "vertical" = 'horizontal'

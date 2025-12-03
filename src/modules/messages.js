@@ -120,3 +120,5 @@ export function errorHandler(error) {
   if (!error.isUserFriendly) error = new UserFriendlyError() // le message d'erreur par défaut
   addFeedback(container, error)
 }
+
+export const tropDeChiffres = 'Trop de chiffres'

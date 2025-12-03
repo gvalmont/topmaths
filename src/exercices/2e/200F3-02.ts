@@ -1,4 +1,5 @@
-import { courbe, croche } from '../../lib/2d/courbes'
+import { courbe } from '../../lib/2d/Courbe'
+import { croche } from '../../lib/2d/croche'
 import { fixeBordures } from '../../lib/2d/fixeBordures'
 import RepereBuilder from '../../lib/2d/RepereBuilder'
 import { spline, type NoeudSpline } from '../../lib/mathFonctions/Spline'

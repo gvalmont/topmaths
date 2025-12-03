@@ -218,7 +218,7 @@ export default class UtiliserLeCodagePourDecrire extends Exercice {
             codageAngleDroit(C, D, A),
           )
           objetsCorrection.push(
-            codageSegments('||', 'black', D, E, C, E, 0.8),
+            codageSegments('O', 'black', D, E, C, E, 0.8),
             codageSegments('O', 'black', A, B, B, C, C, D, D, A, 0.8),
             codageSegments('|||', 'black', F, C, B, F, 0.8),
           )

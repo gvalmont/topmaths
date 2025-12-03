@@ -1,9 +1,9 @@
 <script lang="ts">
-  import PdfTextIcon from '../../../../../../../components/shared/icons/PdfTextIcon.svelte'
   import AmcIcon from '../../../../../../../components/shared/icons/AmcIcon.svelte'
   import AnkiIcon from '../../../../../../../components/shared/icons/AnkiIcon.svelte'
   import MoodleIcon from '../../../../../../../components/shared/icons/MoodleIcon.svelte'
-  import type { VueType } from '../../../../../../../lib/types'
+  import PdfTextIcon from '../../../../../../../components/shared/icons/PdfTextIcon.svelte'
+  import type { VueType } from '../../../../../../../lib/VueType'
   import ButtonActionInfo from '../../../../../../shared/forms/ButtonActionInfo.svelte'
   import ButtonIconTooltip from '../../../../../../shared/forms/ButtonIconTooltip.svelte'
   import QcmCamIcon from '../../../../../../shared/icons/QcmCamIcon.svelte'

@@ -8,7 +8,11 @@ import {
 import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { labyrinthe, type LabyrintheChemin } from '../../modules/Labyrinthe'
 import { mathalea2d } from '../../modules/mathalea2d'
-import { listeQuestionsToContenu, randint } from '../../modules/outils'
+import {
+  contraindreValeur,
+  listeQuestionsToContenu,
+  randint,
+} from '../../modules/outils'
 import Exercice from '../Exercice'
 
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
@@ -81,7 +85,7 @@ export default class ExerciceLabyrintheDivisibilite2 extends Exercice {
       const nbC =
         this.sup4 === 1 ? randint(3, 11 - nbL) : Math.max(3, this.sup4)
       const laby = labyrinthe({ nbLignes: nbL, nbColonnes: nbC })
-      laby.niveau = this.sup // Le niveau (de 1 à 6=mélange) définit le nombre d'étapes
+      laby.niveau = contraindreValeur(1, 6, this.sup, randint(1, 6)) // Le niveau (de 1 à 6=mélange) définit le nombre d'étapes
       monChemin = laby.choisitChemin(laby.niveau) // On choisit un chemin
       laby.murs2d = laby.construitMurs(monChemin, tailleChiffre) // On construit le labyrinthe
       laby.chemin2d = laby.traceChemin(monChemin) // On trace le chemin solution

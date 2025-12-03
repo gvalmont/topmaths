@@ -2,7 +2,7 @@ import { codageAngleDroit } from '../../lib/2d/CodageAngleDroit'
 import { codageSegments } from '../../lib/2d/CodageSegment'
 import { droite, droiteAvecNomLatex } from '../../lib/2d/droites'
 import { fixeBordures } from '../../lib/2d/fixeBordures'
-import { Point, point } from '../../lib/2d/PointAbstrait'
+import { PointAbstrait, pointAbstrait } from '../../lib/2d/PointAbstrait'
 import { repere } from '../../lib/2d/reperes'
 import { segment } from '../../lib/2d/segmentsVecteurs'
 import { labelPoint } from '../../lib/2d/textes'
@@ -72,13 +72,13 @@ export default class SymAxeEtCoordonnees extends Exercice {
       nbQuestions: this.nbQuestions,
     }).map(Number)
     const k: number[] = []
-    // On initialise les Point pour éviter les erreurs typescript type undefined.
-    let A: Point = point(0, 0)
-    let B: Point = point(0, 0)
-    let C: Point = point(0, 0)
-    let Aprime: Point = point(0, 0)
-    let Bprime: Point = point(0, 0)
-    let Cprime: Point = point(0, 0)
+    // On initialise les PointAbstrait pour éviter les erreurs typescript type undefined.
+    let A: PointAbstrait = pointAbstrait(0, 0)
+    let B: PointAbstrait = pointAbstrait(0, 0)
+    let C: PointAbstrait = pointAbstrait(0, 0)
+    let Aprime: PointAbstrait = pointAbstrait(0, 0)
+    let Bprime: PointAbstrait = pointAbstrait(0, 0)
+    let Cprime: PointAbstrait = pointAbstrait(0, 0)
     const lettre1 = ['A', 'B', 'C']
     const punto: number[][] = [[]]
     const couleurs = ['brown', 'green', 'blue']
@@ -104,10 +104,10 @@ export default class SymAxeEtCoordonnees extends Exercice {
       objetsEnonce = []
       objetsCorrection = []
 
-      const xO = randint(8, 12) // Point O' (origine du repère dans lequel les transformations sont simples (centre des rotations et punto d'intersection des axes))
+      const xO = randint(8, 12) // PointAbstrait O' (origine du repère dans lequel les transformations sont simples (centre des rotations et punto d'intersection des axes))
       const yO = randint(8, 12)
 
-      const O = point(xO, yO, 'O', 'above left') // on crée le point O'
+      const O = pointAbstrait(xO, yO, 'O', 'above left') // on crée le point O'
       const d =
         axes[ee] === 1
           ? droite(O, translation(O, vecteur(1, 1)))
@@ -120,7 +120,7 @@ export default class SymAxeEtCoordonnees extends Exercice {
       let trouve = false
       let compteur = 0
       while (!trouve) {
-        xA = randint(1, 19) // Point A
+        xA = randint(1, 19) // PointAbstrait A
         yA = randint(1, 19)
         if (xA === xO && yA === yO) xA = randint(1, 19, [0, xO])
         punto[0] = imagePointParTransformation(
@@ -140,7 +140,7 @@ export default class SymAxeEtCoordonnees extends Exercice {
           compteur < 20
         ) {
           // on teste si A est dans la fenêtre sinon on en choisit un autre
-          xA = randint(1, 19, [xO, xO - 1]) // Point A
+          xA = randint(1, 19, [xO, xO - 1]) // PointAbstrait A
           yA = randint(1, 19, [yO, yO - 1])
           punto[0] = imagePointParTransformation(
             axes[ee] as TransformationsIndex,
@@ -152,11 +152,11 @@ export default class SymAxeEtCoordonnees extends Exercice {
           punto[0] = punto[0].map((e) => Number(e)) // supprime les fractions étendues, on revient à la notation décimale
           compteur++
         }
-        A = point(xA, yA, 'A')
-        Aprime = point(punto[0][0], punto[0][1], "A'")
+        A = pointAbstrait(xA, yA, 'A')
+        Aprime = pointAbstrait(punto[0][0], punto[0][1], "A'")
 
-        // xB = randint(-7, 7, [xA, 0]) // Point B
-        xB = randint(1, 19, [xA, xO, xO - 1, punto[0][0]]) // Point B
+        // xB = randint(-7, 7, [xA, 0]) // PointAbstrait B
+        xB = randint(1, 19, [xA, xO, xO - 1, punto[0][0]]) // PointAbstrait B
         yB = randint(1, 19, [yA, yO, yO - 1])
         punto[1] = imagePointParTransformation(
           axes[ee] as TransformationsIndex,
@@ -175,7 +175,7 @@ export default class SymAxeEtCoordonnees extends Exercice {
           compteur < 20
         ) {
           // on teste si on est dans les clous, sinon on choisit un autre punto B
-          xB = randint(1, 19, [xA, xO, xO - 1, punto[0][0]]) // Point B
+          xB = randint(1, 19, [xA, xO, xO - 1, punto[0][0]]) // PointAbstrait B
           yB = randint(1, 19, [yA, yO, yO - 1])
           punto[1] = imagePointParTransformation(
             axes[ee] as TransformationsIndex,
@@ -188,11 +188,11 @@ export default class SymAxeEtCoordonnees extends Exercice {
           compteur++
         }
 
-        B = point(xB, yB, 'B')
-        Bprime = point(punto[1][0], punto[1][1], "B'")
+        B = pointAbstrait(xB, yB, 'B')
+        Bprime = pointAbstrait(punto[1][0], punto[1][1], "B'")
 
-        // xC = randint(-7, 7, 0) // Point C
-        xC = randint(1, 19, [xA, xB, xO, xO - 1, punto[0][0], punto[1][0]]) // Point C
+        // xC = randint(-7, 7, 0) // PointAbstrait C
+        xC = randint(1, 19, [xA, xB, xO, xO - 1, punto[0][0], punto[1][0]]) // PointAbstrait C
         yC = randint(1, 19, [yA, yB, yO, yO - 1])
         punto[2] = imagePointParTransformation(
           axes[ee] as TransformationsIndex,
@@ -211,7 +211,7 @@ export default class SymAxeEtCoordonnees extends Exercice {
           compteur < 20
         ) {
           // on vérifie que C est dans le repère sinon on change le punto C.
-          xC = randint(1, 19, [xA, xB, xO, xO - 1, punto[0][0], punto[1][0]]) // Point C
+          xC = randint(1, 19, [xA, xB, xO, xO - 1, punto[0][0], punto[1][0]]) // PointAbstrait C
           yC = randint(1, 19, [yA, yB, yO, yO - 1])
           punto[2] = imagePointParTransformation(
             axes[ee] as TransformationsIndex,
@@ -228,8 +228,8 @@ export default class SymAxeEtCoordonnees extends Exercice {
         } else {
           continue
         }
-        C = point(xC, yC, 'C')
-        Cprime = point(punto[2][0], punto[2][1], "C'")
+        C = pointAbstrait(xC, yC, 'C')
+        Cprime = pointAbstrait(punto[2][0], punto[2][1], "C'")
       }
       const antecedents = [A, B, C]
       const images = [Aprime, Bprime, Cprime]

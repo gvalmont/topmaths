@@ -31,7 +31,7 @@ export const dateDePublication = '30/05/2021'
 export const uuid = '65288'
 
 export const refs = {
-  'fr-fr': ['BP2AutoL7', '6P3D'],
+  'fr-fr': ['6P3D', 'BP2AutoL7'],
   'fr-2016': ['6P11-2', 'BP2AutoL7'],
   'fr-ch': ['9FA3-11'],
 }
@@ -192,7 +192,7 @@ export default class ProportionnaliteParLineariteTableau extends Exercice {
               ],
               ligne2: [
                 {
-                  texte: `\\text{Masse des }${o}\\text{ (en $\\text{kg}$)}`,
+                  texte: `\\text{Masse des ${o} (en kg)}`,
                   latex: true,
                 },
                 {
@@ -402,7 +402,7 @@ export default class ProportionnaliteParLineariteTableau extends Exercice {
               ],
               ligne2: [
                 {
-                  texte: `\\text{Masse des }${o}\\text{ (en $\\text{kg}$)}`,
+                  texte: `\\text{Masse des ${o} (en kg)}`,
                   latex: true,
                 },
                 {
@@ -632,7 +632,7 @@ export default class ProportionnaliteParLineariteTableau extends Exercice {
               ],
               ligne2: [
                 {
-                  texte: `\\text{Masse des }${o}\\text{ (en $\\text{kg}$)}`,
+                  texte: `\\text{Masse des ${o} (en kg)}`,
                   latex: true,
                 },
                 {

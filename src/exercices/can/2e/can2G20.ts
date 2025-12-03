@@ -10,6 +10,7 @@ import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 import { ecritureAlgebrique, rienSi1 } from '../../../lib/outils/ecritures'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import FractionEtendue from '../../../modules/FractionEtendue'
+import { context } from '../../../modules/context'
 import { mathalea2d } from '../../../modules/mathalea2d'
 import { randint } from '../../../modules/outils'
 import ExerciceSimple from '../../ExerciceSimple'
@@ -173,6 +174,7 @@ export default class EquationDroite extends ExerciceSimple {
       lVertical,
     )
 
+    if (context.isAmc) this.versionQcm = false
     this.question = this.versionQcm
       ? ''
       : "Donner l'équation réduite de la droite.<br>"
@@ -203,34 +205,40 @@ $m=\\dfrac{${miseEnEvidence(deltaY, 'blue')}}{${miseEnEvidence(deltaX, 'red')}}$
       this.correction += `<br>${objetC}<br>`
 
       // Les réponses sont toujours basées sur la vraie équation y = mx + p où m = (yB-yA)/(xB-xA) et p = yA
-      if((yB - yA) / (xB - xA) === 1 || (yB - yA) / (xB - xA) === -1) {
-      this.reponse = this.versionQcm
-        ? `$y= ${rienSi1(maFraction.valeurDecimale)}x${yA === 0 ? '' : ` ${ecritureAlgebrique(yA)}`}$`
-        : [
-            `y=${maFraction.valeurDecimale}x${ecritureAlgebrique(yA)}`,
-            `y=\\frac{${yB - yA}}{${xB - xA}}x${ecritureAlgebrique(yA)}`,
-            `y=\\frac{${yA - yB}}{${xA - xB}}x${ecritureAlgebrique(yA)}`,
-          ]}
-          else{this.reponse = this.versionQcm
-        ? `$y= ${maFraction.texFractionSimplifiee}x${yA === 0 ? '' : ` ${ecritureAlgebrique(yA)}`}$`
-        : [
-            `y=${maFraction.texFraction}x${ecritureAlgebrique(yA)}`,
-            `y=\\frac{${yB - yA}}{${xB - xA}}x${ecritureAlgebrique(yA)}`,
-            `y=\\frac{${yA - yB}}{${xA - xB}}x${ecritureAlgebrique(yA)}`,
-          ]}
+      if ((yB - yA) / (xB - xA) === 1 || (yB - yA) / (xB - xA) === -1) {
+        this.reponse = this.versionQcm
+          ? `$y= ${rienSi1(maFraction.valeurDecimale)}x${yA === 0 ? '' : ` ${ecritureAlgebrique(yA)}`}$`
+          : [
+              `y=${maFraction.valeurDecimale}x${ecritureAlgebrique(yA)}`,
+              `y=\\frac{${yB - yA}}{${xB - xA}}x${ecritureAlgebrique(yA)}`,
+              `y=\\frac{${yA - yB}}{${xA - xB}}x${ecritureAlgebrique(yA)}`,
+            ]
+      } else {
+        this.reponse = this.versionQcm
+          ? `$y= ${maFraction.texFractionSimplifiee}x${yA === 0 ? '' : ` ${ecritureAlgebrique(yA)}`}$`
+          : [
+              `y=${maFraction.texFraction}x${ecritureAlgebrique(yA)}`,
+              `y=\\frac{${yB - yA}}{${xB - xA}}x${ecritureAlgebrique(yA)}`,
+              `y=\\frac{${yA - yB}}{${xA - xB}}x${ecritureAlgebrique(yA)}`,
+            ]
+      }
 
-      // Distracteurs basés sur des erreurs classiques
-       if((yB - yA) / (xB - xA) === 1 || (yB - yA) / (xB - xA) === -1) {
-      this.distracteurs = [
-        `$y= ${rienSi1(maFraction.multiplieEntier(-1).valeurDecimale)}x${ecritureAlgebrique(yA)}$`, // Coefficient opposé
-        `$y=${yA}$`, // Droite horizontale (erreur)
-        `$y= ${rienSi1(yA)}x${ecritureAlgebrique(yA)}$`, // Fraction inversée
-      ]}
-      else{ this.distracteurs = [
-        `$y= ${maFraction.multiplieEntier(-1).texFractionSimplifiee}x${ecritureAlgebrique(yA)}$`, // Coefficient opposé
-        `$y=${yA}$`, // Droite horizontale (erreur)
-        `$y= ${new FractionEtendue(xB - xA, yB - yA).texFractionSimplifiee}x${ecritureAlgebrique(yA)}$`, // Fraction inversée
-      ]}
+      if (this.versionQcm) {
+        // Distracteurs basés sur des erreurs classiques
+        if ((yB - yA) / (xB - xA) === 1 || (yB - yA) / (xB - xA) === -1) {
+          this.distracteurs = [
+            `$y= ${rienSi1(maFraction.multiplieEntier(-1).valeurDecimale)}x${ecritureAlgebrique(yA)}$`, // Coefficient opposé
+            `$y=${yA}$`, // Droite horizontale (erreur)
+            `$y= ${rienSi1(yA)}x${ecritureAlgebrique(-yA)}$`, // Fraction inversée
+          ]
+        } else {
+          this.distracteurs = [
+            `$y= ${maFraction.multiplieEntier(-1).texFractionSimplifiee}x${ecritureAlgebrique(yA)}$`, // Coefficient opposé
+            `$y=${yA}$`, // Droite horizontale (erreur)
+            `$y= ${new FractionEtendue(xB - xA, yB - yA).texFractionSimplifiee}x${ecritureAlgebrique(yA)}$`, // Fraction inversée
+          ]
+        }
+      }
     }
 
     this.canEnonce = this.question

@@ -1,13 +1,13 @@
 <script lang="ts">
   import { SvelteComponent, onMount } from 'svelte'
   import Exercice from '../../../exercices/Exercice'
-  import { isStatic, isSvelte } from '../../../lib/components/exercisesUtils'
+  import { isStatic, isSvelte } from '../../../lib/components/componentsUtils'
   import {
     getSvelteComponent,
     mathaleaHandleParamOfOneExercice,
     mathaleaLoadExerciceFromUuid,
   } from '../../../lib/mathalea'
-  import { globalOptions } from '../../../lib/stores/generalStore'
+  import { globalOptions } from '../../../lib/stores/globalOptions'
   import type { InterfaceParams } from '../../../lib/types'
   import ExerciceMathalea from './exerciceMathalea/ExerciceMathalea.svelte'
   import ExerciceHtml from './presentationalComponents/exerciceHtml/ExerciceHtml.svelte'

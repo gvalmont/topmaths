@@ -2,7 +2,7 @@ import { codageSegments } from '../../../lib/2d/CodageSegment'
 import { droite } from '../../../lib/2d/droites'
 import { fixeBordures } from '../../../lib/2d/fixeBordures'
 import { placeLatexSurSegment } from '../../../lib/2d/placeLatexSurSegment'
-import { Point, point } from '../../../lib/2d/PointAbstrait'
+import { PointAbstrait, pointAbstrait } from '../../../lib/2d/PointAbstrait'
 import { segment } from '../../../lib/2d/segmentsVecteurs'
 import { labelPoint } from '../../../lib/2d/textes'
 import { tracePointSurDroite } from '../../../lib/2d/TracePointSurDroite'
@@ -41,9 +41,9 @@ export default class Can2025N5Q18 extends ExerciceCan {
         c = (randint(4, 9) * b) / 10
       } while (b === 2 * a)
     }
-    const A = point(0, 0, 'A', 'above')
-    const B = point((7 * a) / b, 0, 'B', 'above')
-    const C = point(7, 0)
+    const A = pointAbstrait(0, 0, 'A', 'above')
+    const B = pointAbstrait((7 * a) / b, 0, 'B', 'above')
+    const C = pointAbstrait(7, 0)
     const s = segment(A, C)
     s.styleExtremites = '|-|'
     s.tailleExtremites = 7
@@ -56,9 +56,9 @@ export default class Can2025N5Q18 extends ExerciceCan {
     const ps: NestedObjetMathalea2dArray = []
     const pts = [A]
     const d = droite(A, C)
-    let p: Point
+    let p: PointAbstrait
     for (let i = 0; i < b - 1; i++) {
-      p = point(((i + 1) * 7) / b, 0)
+      p = pointAbstrait(((i + 1) * 7) / b, 0)
       pts.push(p)
       pts.push(p)
       const pSurS = tracePointSurDroite(p, d)

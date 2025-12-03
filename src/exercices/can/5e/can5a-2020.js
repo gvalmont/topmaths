@@ -40,13 +40,14 @@ import { droiteGraduee } from '../../../lib/2d/DroiteGraduee'
 import { grille } from '../../../lib/2d/Grille'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 import { arrondi } from '../../../lib/outils/nombres'
+import { context } from 'three/src/nodes/TSL.js'
 
 export const titre = 'CAN 5e sujet 2020'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 // Les exports suivants sont optionnels mais au moins la date de publication semble essentielle
 export const dateDePublication = '04/09/2022' // La date de publication initiale au format 'jj/mm/aaaa' pour affichage temporaire d'un tag
-// export const dateDeModifImportante = '24/10/2021' // Une date de modification importante au format 'jj/mm/aaaa' pour affichage temporaire d'un tag
+export const dateDeModifImportante = '28/11/2025' // Une date de modification importante au format 'jj/mm/aaaa' pour affichage temporaire d'un tag
 
 /**
  *
@@ -161,15 +162,20 @@ Par exemple, en choisissant 20 questions, la course aux nombres sera composée d
           if (choice([true, false])) {
             texte = `Complète : <br>$${a}\\times .... =${c}$`
             texteCorr = `$${a}\\times ${miseEnEvidence(b)} =${c}$`
+            this.listeCanEnonces.push('Complète.')
+            this.listeCanReponsesACompleter.push(`$${a}\\times .... =${c}$`)
           } else {
             texte = `Complète :<br> $ .... \\times ${a}=${c}$`
             texteCorr = `$ ${miseEnEvidence(b)} \\times ${a}=${c}$`
+            this.listeCanEnonces.push('Complète.')
+            this.listeCanReponsesACompleter.push(`$ .... \\times ${a}=${c}$`)
           }
           reponse = b
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) {
             texte += '<br>' + ajouteChampTexteMathLive(this, index, ' ')
           }
+
           nbChamps = 1
 
           break
@@ -185,10 +191,14 @@ Par exemple, en choisissant 20 questions, la course aux nombres sera composée d
           if (choice([true, false])) {
             texte = `Écris sous forme décimale : $${u}+\\dfrac{${a}}{10}+\\dfrac{${c}}{${texNombre(1000)}}$. `
             texteCorr = `$${u}+\\dfrac{${a}}{10}+\\dfrac{${c}}{${texNombre(1000)}}=${u}+${texNombre(a / 10, 1)}+${texNombre(c / 1000, 3)}=${miseEnEvidence(texNombre(u + a / 10 + c / 1000, 3))}$`
+            this.listeCanEnonces.push(texte)
+            this.listeCanReponsesACompleter.push(``)
           } else {
             texte = `Écris sous forme décimale : $${u}+\\dfrac{${c}}{${texNombre(1000)}}+\\dfrac{${a}}{10}$. `
             texteCorr = `$${u}+\\dfrac{${c}}{${texNombre(1000)}}+\\dfrac{${a}}{10}=${u}+${texNombre(c / 1000, 3)}+${texNombre(a / 10, 1)}=${miseEnEvidence(texNombre(u + a / 10 + c / 1000, 3))}$
              `
+            this.listeCanEnonces.push(texte)
+            this.listeCanReponsesACompleter.push(``)
           }
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) {
@@ -203,6 +213,10 @@ Par exemple, en choisissant 20 questions, la course aux nombres sera composée d
           reponse = new Decimal(a).add(b)
           texte = `$${texNombre(a, 2)}+${texNombre(b, 2)}=$`
           texteCorr = ` $${texNombre(a, 2)}+${texNombre(b, 2)}=${miseEnEvidence(texNombre(reponse, 2))}$`
+          this.listeCanEnonces.push('Complète.')
+          this.listeCanReponsesACompleter.push(
+            `$${texNombre(a, 2)}+${texNombre(b, 2)}=\\ldots$`,
+          )
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) {
             texte += ajouteChampTexteMathLive(this, index, ' ')
@@ -220,6 +234,10 @@ Par exemple, en choisissant 20 questions, la course aux nombres sera composée d
           texte = `$${texNombre(a, 0)}-${texNombre(b, 2)}=$`
           texteCorr = ` $${texNombre(a, 2)}-${texNombre(b, 2)}=${miseEnEvidence(texNombre(reponse, 2))}$`
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
+          this.listeCanEnonces.push('Complète.')
+          this.listeCanReponsesACompleter.push(
+            `$${texNombre(a, 0)}-${texNombre(b, 2)}=\\ldots$`,
+          )
           if (this.interactif) {
             texte += ajouteChampTexteMathLive(this, index, ' ')
           } else {
@@ -237,7 +255,10 @@ Par exemple, en choisissant 20 questions, la course aux nombres sera composée d
 
           texteCorr = `$${a}$ $\\%$ de $${b} =${texNombre(a / 100, 2)}\\times ${b}=${miseEnEvidence(texNombre((b * a) / 100, 2))}$
           `
-
+          this.listeCanEnonces.push('Complète.')
+          this.listeCanReponsesACompleter.push(
+            `$${a}$ $\\%$ de $${b} =\\ldots$`,
+          )
           reponse = new Decimal(a).div(100).mul(b)
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) {
@@ -258,7 +279,8 @@ Par exemple, en choisissant 20 questions, la course aux nombres sera composée d
 
           texteCorr = `$${c} \\div ${a} = ${miseEnEvidence(b)}$
            `
-
+          this.listeCanEnonces.push('Complète.')
+          this.listeCanReponsesACompleter.push(`$${c} \\div ${a}  =\\ldots$`)
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) {
             texte += ajouteChampTexteMathLive(this, index, ' ')
@@ -278,7 +300,8 @@ Par exemple, en choisissant 20 questions, la course aux nombres sera composée d
           À quelle heure arrive-t-il ?`
           texteCorr = `Pour atteindre $${a + 1}$ h, il faut $${60 - b}$ min, puis il faut ajouter encore $${c}$  ${c > 1 ? ' heures' : ' heure '}
           et $${d - 60 + b}$ min, soit une arrivée à  $${miseEnEvidence(a + c + 1)}$ h $${miseEnEvidence(formatMinute(b + d - 60))}$ min.`
-
+          this.listeCanEnonces.push(texte)
+          this.listeCanReponsesACompleter.push(``)
           if (this.interactif) {
             texte +=
               '<br>' +
@@ -306,10 +329,18 @@ Par exemple, en choisissant 20 questions, la course aux nombres sera composée d
             reponse = a
             texte = `La moitié de $${2 * a}$ est égale à :`
             texteCorr = `La moitié de $${2 * a}$ est égale à $${2 * a}\\div 2=${miseEnEvidence(a)}$.`
+            this.listeCanEnonces.push('Complète.')
+            this.listeCanReponsesACompleter.push(
+              `La moitié de $${2 * a}$ est égale à : $\\ldots$`,
+            )
           } else {
             reponse = 2 * b
-            texte = `Le double de $${b}$ est égal à `
+            texte = `Le double de $${b}$ est égal à :`
             texteCorr = `Le double de $${b}$ est égal à $2\\times ${b}=${miseEnEvidence(2 * b)}$.`
+            this.listeCanEnonces.push('Complète.')
+            this.listeCanReponsesACompleter.push(
+              `Le double de $${b}$ est égal à : $\\ldots$`,
+            )
           }
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) {
@@ -331,7 +362,8 @@ Par exemple, en choisissant 20 questions, la course aux nombres sera composée d
 
           texteCorr = `$${2 * a}$ gâteaux coûtent  $${texPrix(prix)}$ €, donc $${a}$ ${a > 1 ? 'gâteaux coûtent' : 'gâteau coûte'} $${texPrix(prix)} \\text{ €} \\div 2=${texPrix(prix / 2)}$ €.<br>
           Ainsi, $${3 * a}$ gâteaux coûtent $${texPrix(prix)}\\text{ €}+${texPrix(prix / 2)}\\text{ €}=${miseEnEvidence(texPrix(reponse))}$ €.`
-
+          this.listeCanEnonces.push(texte)
+          this.listeCanReponsesACompleter.push(`$\\ldots$ €`)
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) {
             texte +=
@@ -349,7 +381,10 @@ Par exemple, en choisissant 20 questions, la course aux nombres sera composée d
           texte = `Le reste de la division euclidienne de $${d}$ par $${a}$ est : `
           texteCorr = `$${d}=${a} \\times ${c} + ${b}$ avec $${b}<${a}$ donc le reste de la division de $${d}$ par $${a}$ est $${miseEnEvidence(b)}$.`
           reponse = b
-
+          this.listeCanEnonces.push('Complète.')
+          this.listeCanReponsesACompleter.push(
+            `Le reste de la division euclidienne de $${d}$ par $${a}$ est : $\\ldots$`,
+          )
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) {
             texte += ajouteChampTexteMathLive(this, index, ' ')
@@ -397,6 +432,8 @@ Par exemple, en choisissant 20 questions, la course aux nombres sera composée d
           texteCorr = `Entre $${texNombre(abs0, 0)}$ et $${texNombre(abs1, 0)}$, il y a $3$ intervalles.<br>
        Une graduation correspond donc à $\\dfrac{${texNombre(abs1, 0)}-${texNombre(abs0, 0)}}{3}=${k}$.<br>
         Ainsi, l'abscisse du point $A$ est $${miseEnEvidence(texNombre(reponse, 0))}$.`
+          this.listeCanEnonces.push(texte)
+          this.listeCanReponsesACompleter.push(``)
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) {
             texte += ajouteChampTexteMathLive(this, index, ' ')
@@ -405,7 +442,124 @@ Par exemple, en choisissant 20 questions, la course aux nombres sera composée d
           break
 
         case 12:
-          partieDec1 = new Decimal(randint(1, 9)).div(10)
+          a = randint(1, 9)
+          b = randint(3, 9)
+          c = randint(3, 9)
+          reponse = a + b * c
+          texte = `$${a}+${b}\\times ${c}=$`
+          texteCorr = `La multiplication est prioritaire : $${a}+${b}\\times ${c}=${a}+${b * c}=${miseEnEvidence(reponse)}$.
+                                   `
+          this.listeCanEnonces.push('Complète.')
+          this.listeCanReponsesACompleter.push(
+            `$${a}+${b}\\times ${c}=\\ldots$`,
+          )
+          setReponse(this, index, reponse, { formatInteractif: 'calcul' })
+          if (this.interactif) {
+            texte += ajouteChampTexteMathLive(this, index, ' ')
+          } else {
+            texte += ' $\\ldots$'
+          }
+          nbChamps = 1
+         
+          break
+case 13:
+          a = new Decimal(randint(11, 39, [20, 30])).div(10)
+          b = randint(2, 5)
+          choix = choice(['a', 'b']) //
+          if (choix === 'a') {
+            reponse = new Decimal(a).mul(4)
+            texte = `Complète la suite logique :<br>
+            $${texNombre(a, 1)}$ $${sp(8)}${texNombre(new Decimal(a).mul(2), 1)}$${sp(8)}?$${sp(8)}${texNombre(new Decimal(a).mul(8), 1)}$
+           `
+            texte += '<br>? $=$'
+
+            texteCorr = `L'hypothèse que l'on peut faire est que l'on passe d'un terme au suivant en multiplant par $2$. <br>
+            Ainsi, ? $=2\\times ${texNombre(new Decimal(a).mul(2), 1)}= ${miseEnEvidence(texNombre(reponse, 1))}$.<br>
+            On vérifie avec la dernière valeur : $2\\times ${texNombre(reponse, 1)}=${texNombre(new Decimal(a).mul(8), 1)}$.`
+            setReponse(this, index, reponse, { formatInteractif: 'calcul' })
+            this.listeCanEnonces.push('Complète la suite logique.')
+            this.listeCanReponsesACompleter.push(
+              `$${texNombre(a, 1)}$ $${sp(8)}${texNombre(new Decimal(a).mul(2), 1)}$${sp(8)}$\\ldots$$${sp(8)}${texNombre(new Decimal(a).mul(8), 1)}$`,
+            )
+            if (this.interactif) {
+              texte += ajouteChampTexteMathLive(this, index, ' ')
+            } else {
+              texte += ' $\\ldots$'
+            }
+          }
+          if (choix === 'b') {
+            reponse = new Decimal(a).add(2 * b)
+            texte = `Complète la suite logique :<br>
+            $${texNombre(a, 1)}$ $${sp(8)}${texNombre(new Decimal(a).add(b), 1)}$${sp(8)}?$${sp(8)}${texNombre(new Decimal(a).add(3 * b), 1)}$
+           `
+            texte += '<br>? $=$'
+            texteCorr = `L'hypothèse que l'on peut faire est que l'on passe d'un terme au suivant en ajoutant  $${b}$. <br>
+            Ainsi, ? $= ${texNombre(new Decimal(a).add(b), 1)}+${b}= ${miseEnEvidence(texNombre(reponse, 1))}$.<br>
+            On vérifie avec la dernière valeur : $${texNombre(reponse, 1)}+${b}=${texNombre(new Decimal(a).add(3 * b), 1)}$.`
+            this.listeCanEnonces.push('Complète la suite logique.')
+            this.listeCanReponsesACompleter.push(
+              `$${texNombre(a, 1)}$ $${sp(8)}${texNombre(new Decimal(a).add(b), 1)}$ ${sp(8)}$\\ldots$${sp(8)}$${texNombre(new Decimal(a).add(3 * b), 1)}$`,
+            )
+
+            setReponse(this, index, reponse, { formatInteractif: 'calcul' })
+            if (this.interactif) {
+              texte += ajouteChampTexteMathLive(this, index, ' ')
+            } else {
+              texte += ' $\\ldots$'
+            }
+          }
+
+          nbChamps = 1
+          break
+        case 14:
+          b = randint(2, 4)
+          a = randint(b + 1, 6)
+          c = randint(1, a - 1)
+          d = randint(1, b)
+          e = randint(0, c - 1)
+          f = randint(d, b)
+          A = polygone(
+            [
+              point(0, 0),
+              point(c, 0),
+              point(c, d),
+              point(e, d),
+              point(e, f),
+              point(0, f),
+            ],
+            'black',
+          )
+          A.couleurDeRemplissage = colorToLatexOrHTML('gray')
+
+          C = grille(0, 0, a, b, 'black', 1, 1, false)
+          D = point(1 + a, 4 - b)
+
+          texte =
+            'Quelle fraction de la surface totale représente la surface grisée ?<br>'
+          texte += mathalea2d(
+            { xmin: -1, ymin: -0.1, xmax: 12.1, ymax: b + 1, scale: 0.4 },
+            A,
+            C,
+          )
+          texteCorr = `Il y a $${c * d + e * f - e * d}$ ${c * d + e * f - e * d > 1 ? 'carrés' : 'carré'} gris sur un total de $${a * b}$ carrés, la surface grisée représente donc $${miseEnEvidence(`\\dfrac{${c * d + e * f - e * d}}{${a * b}}`)}$ de la surface totale.`
+          reponse = new FractionEtendue(c * d + e * f - e * d, a * b)
+          this.listeCanEnonces.push(mathalea2d(
+            { xmin: -1, ymin: -0.1, xmax: 12.1, ymax: b + 1, scale: 0.4 },
+            A,
+            C,
+          ))
+          this.listeCanReponsesACompleter.push( 'Quelle fraction de la surface totale représente la surface grisée ?')
+          setReponse(this, index, reponse, {
+            formatInteractif: 'fractionEgale',
+          })
+          if (this.interactif) {
+            texte += ajouteChampTexteMathLive(this, index, ' ')
+          }
+          nbChamps = 1
+          break
+
+        case 15:
+           partieDec1 = new Decimal(randint(1, 9)).div(10)
           a = new Decimal(2).add(partieDec1)
           b = new Decimal(1).add(partieDec1)
           c = new Decimal(b).mul(2)
@@ -481,6 +635,21 @@ Par exemple, en choisissant 20 questions, la course aux nombres sera composée d
             objets,
           )
           texte += '? $=$'
+          this.listeCanEnonces.push(`La figure $B$ est un agrandissement de la figure $A$. <br>`+ mathalea2d(
+            {
+              xmin,
+              ymin,
+              xmax,
+              ymax,
+              pixelsParCm: 40,
+              mainlevee: false,
+              amplitude: 0.5,
+              scale: 1.2,
+              style: 'margin: auto',
+            },
+            objets,
+          ))
+          this.listeCanReponsesACompleter.push('? $=\\ldots$ cm')
           texteCorr = `Les longueurs de la figure $B$ sont le double de celles de la figure $A$.<br>
           Ainsi, ?$=2\\times ${texNombre(a, 1)}\\text{ cm}= ${miseEnEvidence(texNombre(reponse, 1))}\\text{ cm}$.
                   `
@@ -496,104 +665,7 @@ Par exemple, en choisissant 20 questions, la course aux nombres sera composée d
           nbChamps = 1
           break
 
-        case 13:
-          b = randint(2, 4)
-          a = randint(b + 1, 6)
-          c = randint(1, a - 1)
-          d = randint(1, b)
-          e = randint(0, c - 1)
-          f = randint(d, b)
-          A = polygone(
-            [
-              point(0, 0),
-              point(c, 0),
-              point(c, d),
-              point(e, d),
-              point(e, f),
-              point(0, f),
-            ],
-            'black',
-          )
-          A.couleurDeRemplissage = colorToLatexOrHTML('gray')
-
-          C = grille(0, 0, a, b, 'black', 1, 1, false)
-          D = point(1 + a, 4 - b)
-
-          texte =
-            'Quelle fraction de la surface totale représente la surface grisée ?<br>'
-          texte += mathalea2d(
-            { xmin: -1, ymin: -0.1, xmax: 12.1, ymax: b + 1, scale: 0.7 },
-            A,
-            C,
-          )
-          texteCorr = `Il y a $${c * d + e * f - e * d}$ ${c * d + e * f - e * d > 1 ? 'carrés' : 'carré'} gris sur un total de $${a * b}$ carrés, la surface grisée représente donc $${miseEnEvidence(`\\dfrac{${c * d + e * f - e * d}}{${a * b}}`)}$ de la surface totale.`
-          reponse = new FractionEtendue(c * d + e * f - e * d, a * b)
-          setReponse(this, index, reponse, {
-            formatInteractif: 'fractionEgale',
-          })
-          if (this.interactif) {
-            texte += ajouteChampTexteMathLive(this, index, ' ')
-          }
-          nbChamps = 1
-          break
-
-        case 14:
-          a = randint(1, 9)
-          b = randint(3, 9)
-          c = randint(3, 9)
-          reponse = a + b * c
-          texte = `$${a}+${b}\\times ${c}=$`
-          texteCorr = `La multiplication est prioritaire : $${a}+${b}\\times ${c}=${a}+${b * c}=${miseEnEvidence(reponse)}$.
-                                   `
-          setReponse(this, index, reponse, { formatInteractif: 'calcul' })
-          if (this.interactif) {
-            texte += ajouteChampTexteMathLive(this, index, ' ')
-          } else {
-            texte += ' $\\ldots$'
-          }
-          nbChamps = 1
-          break
-
-        case 15:
-          a = new Decimal(randint(11, 39, [20, 30])).div(10)
-          b = randint(2, 5)
-          choix = choice(['a', 'b']) //
-          if (choix === 'a') {
-            reponse = new Decimal(a).mul(4)
-            texte = `Complète la suite logique :<br>
-            $${texNombre(a, 1)}$ $${sp(8)}${texNombre(new Decimal(a).mul(2), 1)}$${sp(8)}?$${sp(8)}${texNombre(new Decimal(a).mul(8), 1)}$
-           `
-            texte += '<br>? $=$'
-
-            texteCorr = `L'hypothèse que l'on peut faire est que l'on passe d'un terme au suivant en multiplant par $2$. <br>
-            Ainsi, ? $=2\\times ${texNombre(new Decimal(a).mul(2), 1)}= ${miseEnEvidence(texNombre(reponse, 1))}$.<br>
-            On vérifie avec la dernière valeur : $2\\times ${texNombre(reponse, 1)}=${texNombre(new Decimal(a).mul(8), 1)}$.`
-            setReponse(this, index, reponse, { formatInteractif: 'calcul' })
-            if (this.interactif) {
-              texte += ajouteChampTexteMathLive(this, index, ' ')
-            } else {
-              texte += ' $\\ldots$'
-            }
-          }
-          if (choix === 'b') {
-            reponse = new Decimal(a).add(2 * b)
-            texte = `Complète la suite logique :<br>
-            $${texNombre(a, 1)}$ $${sp(8)}${texNombre(new Decimal(a).add(b), 1)}$${sp(8)}?$${sp(8)}${texNombre(new Decimal(a).add(3 * b), 1)}$
-           `
-            texte += '<br>? $=$'
-            texteCorr = `L'hypothèse que l'on peut faire est que l'on passe d'un terme au suivant en ajoutant  $${b}$. <br>
-            Ainsi, ? $= ${texNombre(new Decimal(a).add(b), 1)}+${b}= ${miseEnEvidence(texNombre(reponse, 1))}$.<br>
-            On vérifie avec la dernière valeur : $${texNombre(reponse, 1)}+${b}=${texNombre(new Decimal(a).add(3 * b), 1)}$.`
-            setReponse(this, index, reponse, { formatInteractif: 'calcul' })
-            if (this.interactif) {
-              texte += ajouteChampTexteMathLive(this, index, ' ')
-            } else {
-              texte += ' $\\ldots$'
-            }
-          }
-
-          nbChamps = 1
-          break
+        
 
         case 16:
           objets = []
@@ -633,7 +705,7 @@ Par exemple, en choisissant 20 questions, la course aux nombres sera composée d
             }),
           )
           objets.push(
-            traceBarre(8, c, 'Autre animal', {
+            traceBarre(8, c, 'Autre', {
               epaisseur: 2,
               couleurDeRemplissage: 'red',
               hachures: true,
@@ -645,14 +717,17 @@ Par exemple, en choisissant 20 questions, la course aux nombres sera composée d
             {
               xmin: -5,
               xmax: 11,
-              ymin: -3.5,
+              ymin: -3,
               ymax: 10.5,
               pixelsParCm: 25,
-              scale: 0.8,
+              scale: 0.5,
             },
             objets,
           )
           texteCorr = `Le nombre total d'animaux est : $${50 * a}+${50 * b}+${50 * c}=${miseEnEvidence(texNombre(reponse))}$.`
+          this.listeCanEnonces.push(texte)
+          this.listeCanReponsesACompleter.push('')
+
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) {
             texte += ajouteChampTexteMathLive(this, index, ' ')
@@ -667,12 +742,14 @@ Par exemple, en choisissant 20 questions, la course aux nombres sera composée d
             reponse = 10 * b
             texteCorr = `Sur $${a}$ chiots, $${b}$ sont de couleurs marron, donc sur $${a}\\times 10=100$ chiots, $10\\times ${b}$ soit $${10 * b}$ sont de couleur marron.<br>
             Il y a donc $${miseEnEvidence(reponse)}$ $\\%$ de chiots marron.`
+            
           }
           if (a === 20) {
             b = randint(8, 15)
             reponse = 5 * b
             texteCorr = `Sur $${a}$ chiots, $${b}$ sont de couleurs marron, donc sur $${a}\\times 5=100$ chiots, $10\\times ${b}$ soit $${5 * b}$ sont de couleur marron.<br>
             Il y a donc $${miseEnEvidence(reponse)}$ $\\%$ de chiots marron.`
+          
           }
           if (a === 25) {
             b = randint(8, 15)
@@ -689,7 +766,8 @@ Par exemple, en choisissant 20 questions, la course aux nombres sera composée d
 
           texte = `Sur $${a}$ chiots, $${b}$ sont de couleur marron.<br>
           Quel est le pourcentage de chiots marron ?`
-
+ this.listeCanEnonces.push(texte)
+          this.listeCanReponsesACompleter.push(`$\\ldots\\%$`)
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) {
             texte +=
@@ -723,7 +801,8 @@ Par exemple, en choisissant 20 questions, la course aux nombres sera composée d
               },
             })
           }
-
+this.listeCanEnonces.push('Convertis en heures/minutes.')
+          this.listeCanReponsesACompleter.push(`$${texNombre(new Decimal(a).add(b), 2)}\\text{ h}= \\ldots$ h $\\ldots$ min`)
           nbChamps = 1
 
           break
@@ -737,10 +816,13 @@ Par exemple, en choisissant 20 questions, la course aux nombres sera composée d
             if (choice([true, false])) {
               texte = ` $25\\times ${a}\\times 4\\times ${b}=$`
               texteCorr = `$25\\times ${a}\\times 4\\times ${b}=\\underbrace{25\\times 4}_{=100}\\times \\underbrace{${a}\\times ${b}}_{=${a * b}}=${miseEnEvidence(texNombre(reponse))}$`
+            this.listeCanEnonces.push('Complète.')
+          this.listeCanReponsesACompleter.push(`$25\\times ${a}\\times 4\\times ${b}=\\ldots$`)
             } else {
               texte = ` $${b}\\times 4\\times ${a}\\times 25= $`
               texteCorr = `$${b}\\times 4\\times ${a}\\times 25=\\underbrace{25\\times 4}_{=100}\\times \\underbrace{${a}\\times ${b}}_{=${a * b}}=${miseEnEvidence(texNombre(reponse))}$`
-            }
+            this.listeCanEnonces.push('Complète.')
+          this.listeCanReponsesACompleter.push(`$${b}\\times 4\\times ${a}\\times 25= \\ldots$`)}
           }
           if (choix === 'b') {
             a = randint(8, 15, 10)
@@ -749,10 +831,14 @@ Par exemple, en choisissant 20 questions, la course aux nombres sera composée d
             if (choice([true, false])) {
               texte = ` $50\\times ${b}\\times 2\\times ${a}=$`
               texteCorr = `$50\\times ${b}\\times 2\\times ${a}=\\underbrace{50\\times 2}_{=100}\\times \\underbrace{${b}\\times ${a}}_{=${a * b}}=${miseEnEvidence(texNombre(reponse))}$`
-            } else {
+           this.listeCanEnonces.push('Complète.')
+          this.listeCanReponsesACompleter.push(`$50\\times ${b}\\times 2\\times ${a}= \\ldots$`)}
+             else {
               texte = ` $${b}\\times 2\\times ${a}\\times 50= $`
               texteCorr = `$${b}\\times 2\\times ${a}\\times 50=\\underbrace{50\\times 2}_{=100}\\times \\underbrace{${b}\\times ${a}}_{=${a * b}}=${miseEnEvidence(texNombre(reponse))}$`
-            }
+           this.listeCanEnonces.push('Complète.')
+          this.listeCanReponsesACompleter.push(` $${b}\\times 2\\times ${a}\\times 50=\\ldots$`)}
+            
           }
 
           if (this.interactif) {
@@ -773,7 +859,9 @@ Par exemple, en choisissant 20 questions, la course aux nombres sera composée d
                 $AB=${a}\\text{ mm}$ et $BC=${texNombre(b, 1)}\\text{ cm}$ ?<br>`
           texteCorr = `$${a}\\text{ mm}$ $= ${texNombre(a1, 1)}\\text{ cm}$.<br>
                 Le périmètre de $ABCD$ est donc : $2\\times ${texNombre(a1, 1)} \\text{ cm}+ 2\\times ${texNombre(b, 1)} \\text{ cm}=${miseEnEvidence(texNombre(reponse, 1))}\\text{ cm}$.`
-
+ this.listeCanEnonces.push(`Quel est le périmètre d'un rectangle $ABCD$ tel que :
+                $AB=${a}\\text{ mm}$ et $BC=${texNombre(b, 1)}\\text{ cm}$ ?`)
+          this.listeCanReponsesACompleter.push(` Périmètre $=\\ldots\\text{ cm}$`)
           if (this.interactif) {
             setReponse(this, index, reponse, { formatInteractif: 'calcul' })
             texte +=
@@ -805,12 +893,16 @@ Par exemple, en choisissant 20 questions, la course aux nombres sera composée d
             texteCorr = `Pour qu'un triangle soit constructible (non aplati), il faut que la longueur du plus grand côté soit strictement inférieure à la somme des deux autres.<br>
           On a $${texNombre(a, 1)}+${texNombre(b, 1)}=${texNombre(somme, 0)} > ${c}$.<br>
           L'affirmation est donc vraie (${texteEnCouleurEtGras('V')}).`
-          } else {
+       
+        } else {
             setReponse(this, index, ['F', 'f'], { formatInteractif: 'texte' })
             texteCorr = `Pour qu'un triangle soit constructible (non aplati), il faut que la longueur du plus grand côté soit strictement inférieure à la somme des deux autres.<br>
           On a $${texNombre(a, 1)}+${texNombre(b, 1)}=${texNombre(new Decimal(a).add(b), 0)} < ${c}$.<br>
           L'affirmation est donc fausse (${texteEnCouleurEtGras('F')}).`
           }
+            this.listeCanEnonces.push( `On peut construire un triangle (non aplati) dont les trois côtés ont pour longueur :<br>
+          ${propositions[0]} ${sp(4)} ${propositions[1]} ${sp(4)} ${propositions[2]}`)
+          this.listeCanReponsesACompleter.push(` Vrai ${sp(8)} Faux`)
           if (this.interactif) {
             texte += '<br>Pour Vrai, écrire V et pour Faux : F'
             texte += '<br>' + ajouteChampTexteMathLive(this, index, ' ')
@@ -825,13 +917,15 @@ Par exemple, en choisissant 20 questions, la course aux nombres sera composée d
           h = randint(2, 6, [l, L])
           pav = pave(L, l, h)
           texte = `Quel est le volume du pavé droit ci-dessous ?<br>
-        ${mathalea2d({ xmin: -2, ymin: -2, xmax: 10, ymax: 0.5 * h + l }, pav)}`
+        ${mathalea2d({ xmin: -2, ymin: -2, xmax: 10, ymax: 0.5 * h + l, scale:0.5 }, pav)}`
           reponse = L * l * h
           texteCorr = `Le volume de ce pavé droit est : $${L}\\text{ cm}\\times ${l} \\text{ cm}\\times ${h}\\text{ cm}=${miseEnEvidence(reponse)}\\text{ cm}^3$.`
           texte += ajouteChampTexteMathLive(this, index, ' ', {
             texteApres: '$\\text{ cm}^3$',
           })
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
+             this.listeCanEnonces.push(texte)
+          this.listeCanReponsesACompleter.push('$\\ldots\\text{ cm}^3$')
           nbChamps = 1
           break
 
@@ -842,7 +936,8 @@ Par exemple, en choisissant 20 questions, la course aux nombres sera composée d
           texteCorr = `$${a}\\times 101 = ${texNombre(101 * a)}$<br>`
 
           texteCorr += `$${a}\\times 101 = ${a}\\times (100+1)=${a}\\times 100+${a}\\times 1=${texNombre(a * 100)}+${a}=${miseEnEvidence(texNombre(101 * a))}$`
-
+  this.listeCanEnonces.push('Complète.')
+          this.listeCanReponsesACompleter.push(`$${a}\\times 101=\\ldots$`)
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) {
             texte += ajouteChampTexteMathLive(this, index, ' ')
@@ -865,6 +960,8 @@ Par exemple, en choisissant 20 questions, la course aux nombres sera composée d
           if (this.interactif) {
             texte += '<br>' + ajouteChampTexteMathLive(this, index, ' ')
           }
+           this.listeCanEnonces.push(texte)
+          this.listeCanReponsesACompleter.push('')
           nbChamps = 1
           break
 
@@ -908,6 +1005,8 @@ Par exemple, en choisissant 20 questions, la course aux nombres sera composée d
               reponse = a
             }
           }
+          this.listeCanEnonces.push(texte)
+          this.listeCanReponsesACompleter.push('$\\ldots$ g')
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) {
             texte +=
@@ -926,7 +1025,8 @@ Par exemple, en choisissant 20 questions, la course aux nombres sera composée d
 
           texteCorr = `Le nombre cherché est $${texNombre(b * 2 * a, 1)}\\div ${texNombre(a * 2, 0)}=${miseEnEvidence(texNombre(b, 1))}$.
             `
-
+this.listeCanEnonces.push('Complète.')
+          this.listeCanReponsesACompleter.push(`$${texNombre(a * 2, 0)}\\times \\ldots =${texNombre(b * 2 * a, 1)}$`)
           reponse = fraction(b, 1)
 
           setReponse(this, index, reponse, {
@@ -953,6 +1053,8 @@ Par exemple, en choisissant 20 questions, la course aux nombres sera composée d
             } else {
               texte += ' $\\ldots\\text{ cm}^3$'
             }
+            this.listeCanEnonces.push('Complète.')
+          this.listeCanReponsesACompleter.push(`$${a}\\text{ dm}^3=\\ldots\\text{ cm}^3$`)
           }
           if (choix === 'b') {
             reponse = a / 1000
@@ -966,6 +1068,8 @@ Par exemple, en choisissant 20 questions, la course aux nombres sera composée d
             } else {
               texte += ' $\\ldots\\text{ dm}^3$'
             }
+              this.listeCanEnonces.push('Complète.')
+          this.listeCanReponsesACompleter.push(`$${a}\\text{ cm}^3=\\ldots\\text{ dm}^3$`)
           }
           if (choix === 'c') {
             reponse = a * 1000
@@ -979,6 +1083,8 @@ Par exemple, en choisissant 20 questions, la course aux nombres sera composée d
             } else {
               texte += ' $\\ldots\\text{ dm}^3$'
             }
+              this.listeCanEnonces.push('Complète.')
+          this.listeCanReponsesACompleter.push(`$${a}\\text{ m}^3=\\ldots\\text{ dm}^3$`)
           }
           if (choix === 'd') {
             reponse = a / 1000
@@ -992,6 +1098,8 @@ Par exemple, en choisissant 20 questions, la course aux nombres sera composée d
             } else {
               texte += ' $\\ldots\\text{ m}^3$'
             }
+              this.listeCanEnonces.push('Complète.')
+          this.listeCanReponsesACompleter.push(`$${a}\\text{ dm}^3=\\ldots\\text{ m}^3$`)
           }
 
           nbChamps = 1
@@ -1047,7 +1155,7 @@ Par exemple, en choisissant 20 questions, la course aux nombres sera composée d
               xmax: 7.1,
               ymax: 4,
               pixelsParCm: 30,
-              scale: 0.7,
+              scale: 0.5,
             },
             poly,
             labelPoint(A, B, C, D, E),
@@ -1065,15 +1173,14 @@ Par exemple, en choisissant 20 questions, la course aux nombres sera composée d
           texteCorr = `L'aire du rectangle $ABCD$ est : $${b}\\text{ cm}\\times ${c}\\text{ cm}=${b * c}\\text{ cm}^2$.<br>
           L'aire du triangle $AED$ est : $\\dfrac{${a}\\text{ cm}\\times ${b}\\text{ cm}}{2}=${texNombre(f, 1)}\\text{ cm}^2$.<br>
           On en déduit que l'aire du polygone grisé est : $${b * c}\\text{ cm}^2-${texNombre(f, 1)}\\text{ cm}^2=${miseEnEvidence(texNombre(reponse, 1))}\\text{ cm}^2$.`
-          texte += ' Aire $= $'
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) {
             texte += ajouteChampTexteMathLive(this, index, ' ', {
               texteApres: '$\\text{ cm}^2$',
             })
-          } else {
-            texte += ' $\\ldots \\text{ cm}^2$<br>'
-          }
+          } 
+            this.listeCanEnonces.push(texte)
+          this.listeCanReponsesACompleter.push(' $\\ldots \\text{ cm}^2$')
           nbChamps = 1
           break
 
@@ -1094,6 +1201,8 @@ Par exemple, en choisissant 20 questions, la course aux nombres sera composée d
           } else {
             texte += ' $\\ldots$'
           }
+          this.listeCanEnonces.push('Complète.')
+          this.listeCanReponsesACompleter.push(`Le produit de la somme de $${a}$ et $${b}$ par la différence de $${c}$ et $${d}$ est égal à : $\\ldots$`)
           nbChamps = 1
           break
 
@@ -1104,12 +1213,17 @@ Par exemple, en choisissant 20 questions, la course aux nombres sera composée d
             texte = `$${a}-${a}\\div ${a}\\times ${a}+${a}\\times ${a}=$`
             texteCorr = `$${a}-${a}\\div ${a}\\times ${a}+${a}\\times ${a}=${a}-1\\times ${a}+${a * a}=${a}-${a}+${a * a}=${miseEnEvidence(a * a)}$.`
             reponse = a * a
+            this.listeCanEnonces.push('Complète.')
+          this.listeCanReponsesACompleter.push(`$${a}-${a}\\div ${a}\\times ${a}+${a}\\times ${a}=\\ldots$`)
+          
           } else {
             a = randint(2, 9)
 
             texte = `$${a}\\div ${a}\\times ${a}-${a}+${a}\\times ${a}=$`
             texteCorr = `$${a}\\div ${a}\\times ${a}-${a}+${a}\\times ${a}=1\\times ${a}-${a}+${a * a}=${a}-${a}+${a * a}=${miseEnEvidence(a * a)}$`
             reponse = a * a
+            this.listeCanEnonces.push('Complète.')
+          this.listeCanReponsesACompleter.push(`$${a}\\div ${a}\\times ${a}-${a}+${a}\\times ${a}=\\ldots$`)
           }
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) {

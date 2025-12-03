@@ -324,8 +324,8 @@ if (process.env.NIV !== null && process.env.NIV !== undefined) {
     })
   }
 } else {
-  log('Le test a été lancé sans paramètre')
-  log('Exemples')
+  log('⚠️  ATTENTION : Le test a été lancé sans paramètre')
+  log('Exemples :')
   log('Pour le lancer sur le niveau 4e :')
   log('Sur Windows (cmd) : set NIV=4e && pnpm test:e2e:console_errors')
   log('Sur Winows (PowerShell) : $env:NIV="4e"; pnpm test:e2e:console_errors')
@@ -333,4 +333,9 @@ if (process.env.NIV !== null && process.env.NIV !== undefined) {
   log("Pour le lancer sur l'exercice 6e/6G2A :")
   log('Sur Windows (cmd) : set NIV=6e/6G2A.ts && pnpm test:e2e:console_errors')
   log('Sur Linux/MacOS : NIV=6e/6G2A.ts pnpm test:e2e:console_errors')
+  describe('no-parameter-warning', () => {
+    test.skip('test requires NIV parameter - see logs for usage', () => {
+      // This test is skipped to show a warning instead of pass/fail
+    })
+  })
 }

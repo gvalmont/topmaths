@@ -1,6 +1,5 @@
 <script lang="ts">
   import { afterUpdate, beforeUpdate, onDestroy, onMount, tick } from 'svelte'
-  import type TypeExercice from '../../../exercices/Exercice'
   import {
     buildExercisesList,
     splitExercisesIntoQuestions,
@@ -25,12 +24,20 @@
   import {
     darkMode,
     exercicesParams,
-    globalOptions,
     isMenuNeededForExercises,
     isMenuNeededForQuestions,
     resultsByExercice,
   } from '../../../lib/stores/generalStore'
+  import { globalOptions } from '../../../lib/stores/globalOptions'
   import { vendor } from '../../../lib/stores/vendorStore'
+  import { handleFlowmath } from '../../../lib/handleFlowmath'
+  import {
+    isInteractivityType,
+    isOldFormatInteractifType,
+    type IExercice,
+    type InteractivityType,
+    type OldFormatInteractifType,
+  } from '../../../lib/types'
   import { loadMathLive } from '../../../modules/loaders'
   import Keyboard from '../../keyboard/Keyboard.svelte'
   import { keyboardState } from '../../keyboard/stores/keyboardStore'
@@ -43,8 +50,8 @@
   import Footer2 from './Footer2.svelte'
 
   let currentIndex: number = 0
-  let exercices: TypeExercice[] = []
-  let questions: string[] = []
+  let exercices: IExercice[] = []
+  let questions: (string | IExercice)[] = []
   let consignes: string[] = []
   let corrections: string[] = []
   let consignesCorrections: string[] = []
@@ -243,11 +250,11 @@
       $globalOptions.recorder === 'capytale' ||
       $globalOptions.recorder === 'moodle' ||
       $globalOptions.recorder === 'anki' ||
-      $globalOptions.recorder === 'labomep'
+      $globalOptions.recorder === 'labomep' ||
+      $globalOptions.recorder === 'flowmath'
     ) {
       // attend la fin de la mise à jour pour mettre l'observer
       await tick()
-
       /*
       Ce code est nécessaire seulement si coopmaths est intégré dans un autre site pour permettre de redimensionner la fenêtre
       */
@@ -267,6 +274,12 @@
       if (eleveSection != null) resizeObserver.observe(eleveSection)
     }
     log('fin mount eleve')
+
+    if ($globalOptions.recorder === 'flowmath') {
+      // Wait for exercises to be loaded before initializing RPC
+      await tick()
+      handleFlowmath(exercicesParams, resultsByExercice)
+    }
   })
 
   onDestroy(() => {
@@ -311,11 +324,17 @@
   async function checkQuestion(i: number) {
     // ToFix exercices custom avec pointsCliquable
     const exercice = exercices[indiceExercice[i]]
-    let type =
+    let type: InteractivityType | OldFormatInteractifType | undefined =
       exercice.autoCorrection[indiceQuestionInExercice[i]]?.reponse?.param
         ?.formatInteractif
     if (type === undefined || type === null) {
-      type = exercice.interactifType
+      const interactifType = exercice.interactifType
+      if (
+        isInteractivityType(interactifType) ||
+        isOldFormatInteractifType(interactifType)
+      ) {
+        type = interactifType
+      }
     }
     if (type == null) {
       // @fixme on ne devrait jamais arriver ici pour un exercice non interactif !
@@ -333,7 +352,8 @@
         exercices[indiceExercice[i]],
         indiceQuestionInExercice[i],
       )
-      resultsByQuestion[i] = resu.isOk === 'Ok' || resu.isOk === true
+      resultsByQuestion[i] =
+        resu !== undefined && (resu.isOk === 'Ok' || resu.isOk === true)
     } else if (type === 'qcm') {
       resultsByQuestion[i] =
         verifQuestionQcm(
@@ -687,63 +707,76 @@
                     ? 'lg:mt-2'
                     : ''}"
                 >
-                  <div
-                    class="container grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-10"
-                    style="font-size: {($globalOptions.z || 1).toString()}rem"
-                  >
-                    <div class="flex flex-col my-2 py-2">
-                      <div class="text-coopmaths-corpus pl-2">
-                        <!-- eslint-disable-next-line svelte/no-at-html-tags -->
-                        {@html consignes[k]}
-                      </div>
-                      <div class="text-coopmaths-corpus pl-2">
-                        <!-- eslint-disable-next-line svelte/no-at-html-tags -->
-                        {@html question}
-                      </div>
-                    </div>
-                    {#if isCorrectionVisible[k]}
-                      <div
-                        class="relative border-l-coopmaths-struct dark:border-l-coopmathsdark-struct border-l-[3px] text-coopmaths-corpus dark:text-coopmathsdark-corpus mt-2 lg:{$isMenuNeededForQuestions
-                          ? 'mt-6'
-                          : 'mt-2'} mb-6 py-2 pl-4"
-                        style="break-inside:avoid"
-                        bind:this="{divsCorrection[k]}"
-                      >
-                        {#if consignesCorrections[k].length !== 0}
-                          <div
-                            class="container bg-coopmaths-canvas dark:bg-coopmathsdark-canvas-dark px-4 py-2 mr-2 ml-6 mb-2 font-light relative w-2/3"
-                          >
-                            <div class="container absolute top-4 -left-4">
-                              <i
-                                class="bx bx-bulb scale-200 text-coopmaths-warn-dark dark:text-coopmathsdark-warn-dark"
-                              ></i>
-                            </div>
-                            <div class="">
-                              <!-- eslint-disable-next-line svelte/no-at-html-tags -->
-                              {@html consignesCorrections[k]}
-                            </div>
-                          </div>
-                        {/if}
-                        <div
-                          class="container overflow-x-auto overflow-y-hidden md:overflow-x-auto"
-                          style="break-inside:avoid"
-                        >
+                  {#if typeof questions[k] !== 'string'}
+                    {''}
+                    <Exercice
+                      paramsExercice="{$exercicesParams[indiceExercice[k]]}"
+                      indiceExercice="{indiceExercice[k]}"
+                      indiceLastExercice="{$exercicesParams.length - 1}"
+                      isCorrectionVisible="{isCorrectionVisible[
+                        indiceExercice[k]
+                      ]}"
+                      toggleSidenav="{() => {}}"
+                    />
+                  {:else}
+                    <div
+                      class="container grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-10"
+                      style="font-size: {($globalOptions.z || 1).toString()}rem"
+                    >
+                      <div class="flex flex-col my-2 py-2">
+                        <div class="text-coopmaths-corpus pl-2">
                           <!-- eslint-disable-next-line svelte/no-at-html-tags -->
-                          {@html mathaleaFormatExercice(corrections[k])}
+                          {@html consignes[k]}
                         </div>
-                        <!-- <div class="absolute border-coopmaths-struct dark:border-coopmathsdark-struct top-0 left-0 border-b-[3px] w-10" /> -->
-                        <div
-                          class="absolute flex flex-row py-[1.5px] px-3 rounded-t-md justify-center items-center -left-[3px] -top-[15px] bg-coopmaths-struct dark:bg-coopmathsdark-struct font-semibold text-xs text-coopmaths-canvas dark:text-coopmathsdark-canvas"
-                        >
-                          Correction
+                        <div class="text-coopmaths-corpus pl-2">
+                          <!-- eslint-disable-next-line svelte/no-at-html-tags -->
+                          {@html question}
                         </div>
-                        <div
-                          class="absolute border-coopmaths-struct dark:border-coopmathsdark-struct bottom-0 left-0 border-b-[3px] w-4"
-                        ></div>
                       </div>
-                    {/if}
-                  </div>
-                  {#if exercices[indiceExercice[k]].interactif}
+                      {#if isCorrectionVisible[k]}
+                        <div
+                          class="relative border-l-coopmaths-struct dark:border-l-coopmathsdark-struct border-l-[3px] text-coopmaths-corpus dark:text-coopmathsdark-corpus mt-2 lg:{$isMenuNeededForQuestions
+                            ? 'mt-6'
+                            : 'mt-2'} mb-6 py-2 pl-4"
+                          style="break-inside:avoid"
+                          bind:this="{divsCorrection[k]}"
+                        >
+                          {#if consignesCorrections[k].length !== 0}
+                            <div
+                              class="container bg-coopmaths-canvas dark:bg-coopmathsdark-canvas-dark px-4 py-2 mr-2 ml-6 mb-2 font-light relative w-2/3"
+                            >
+                              <div class="container absolute top-4 -left-4">
+                                <i
+                                  class="bx bx-bulb scale-200 text-coopmaths-warn-dark dark:text-coopmathsdark-warn-dark"
+                                ></i>
+                              </div>
+                              <div class="">
+                                <!-- eslint-disable-next-line svelte/no-at-html-tags -->
+                                {@html consignesCorrections[k]}
+                              </div>
+                            </div>
+                          {/if}
+                          <div
+                            class="container overflow-x-auto overflow-y-hidden md:overflow-x-auto"
+                            style="break-inside:avoid"
+                          >
+                            <!-- eslint-disable-next-line svelte/no-at-html-tags -->
+                            {@html mathaleaFormatExercice(corrections[k])}
+                          </div>
+                          <!-- <div class="absolute border-coopmaths-struct dark:border-coopmathsdark-struct top-0 left-0 border-b-[3px] w-10" /> -->
+                          <div
+                            class="absolute flex flex-row py-[1.5px] px-3 rounded-t-md justify-center items-center -left-[3px] -top-[15px] bg-coopmaths-struct dark:bg-coopmathsdark-struct font-semibold text-xs text-coopmaths-canvas dark:text-coopmathsdark-canvas"
+                          >
+                            Correction
+                          </div>
+                          <div
+                            class="absolute border-coopmaths-struct dark:border-coopmathsdark-struct bottom-0 left-0 border-b-[3px] w-4"
+                          ></div>
+                        </div>
+                      {/if}
+                    </div>
+                  {/if}
+                  {#if exercices[indiceExercice[k]].interactif && exercices[indiceExercice[k]].interactifReady}
                     <div class="pb-4 mt-10">
                       <ButtonTextAction
                         text="Vérifier"
@@ -751,7 +784,7 @@
                         disabled="{isDisabledButton[k]}"
                       />
                     </div>
-                  {:else if $globalOptions.isSolutionAccessible}
+                  {:else if $globalOptions.isSolutionAccessible && corrections[k]}
                     <div class="{$isMenuNeededForExercises ? 'ml-4' : ''}">
                       <ButtonToggle
                         titles="{[

@@ -1,14 +1,19 @@
-import Exercice from '../Exercice'
-import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils'
-import { combinaisonListes } from '../../lib/outils/arrayOutils'
-import { lettreDepuisChiffre } from '../../lib/outils/outilString'
-import { miseEnEvidence } from '../../lib/outils/embellissements'
+import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
-import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
+import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
 import { ecritureParentheseSiNegatif } from '../../lib/outils/ecritures'
+import { miseEnEvidence } from '../../lib/outils/embellissements'
+import { lettreDepuisChiffre } from '../../lib/outils/outilString'
+import {
+  gestionnaireFormulaireTexte,
+  listeQuestionsToContenu,
+  randint,
+} from '../../modules/outils'
+import Exercice from '../Exercice'
 
-export const titre = "Calculer une expression littérale simple pour une valeur donnée"
+export const titre =
+  'Calculer une expression littérale simple pour une valeur donnée'
 export const interactifReady = true
 export const dateDePublication = '22/10/2025'
 
@@ -30,7 +35,7 @@ export default class CalculerUneExpressionSimple extends Exercice {
     this.besoinFormulaire2CaseACocher = ['Avec des nombres relatifs']
     this.sup2 = false
     this.besoinFormulaire3Texte = [
-      'Types d\'expressions',
+      "Types d'expressions",
       `1 : ax + b
 2 : a(x + b)
 3 : (x + a)(x + b)
@@ -41,6 +46,8 @@ export default class CalculerUneExpressionSimple extends Exercice {
 8 : Mélange`,
     ]
     this.sup3 = 8
+    this.besoinFormulaire4CaseACocher = ['Avec uniquement la lettre $x$']
+    this.sup4 = true
   }
 
   nouvelleVersion() {
@@ -51,7 +58,15 @@ export default class CalculerUneExpressionSimple extends Exercice {
       melange: 8,
       defaut: 7,
       nbQuestions: this.nbQuestions,
-      listeOfCase: ['ax+b' , 'a(x+b)', '(x+a)(x+b)', 'x*x+a', 'x*x+a*x', 'ax-b', 'a(x-b)']
+      listeOfCase: [
+        'ax+b',
+        'a(x+b)',
+        '(x+a)(x+b)',
+        'x*x+a',
+        'x*x+a*x',
+        'ax-b',
+        'a(x-b)',
+      ],
     })
     const listeTypeQuestions = combinaisonListes(
       typesDeQuestionsDisponibles,
@@ -60,6 +75,9 @@ export default class CalculerUneExpressionSimple extends Exercice {
     const signeDisponible = this.sup2 ? [1, -1] : [1]
     const signes = combinaisonListes(signeDisponible, this.nbQuestions)
     for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50; ) {
+      const inconnue = this.sup4
+        ? 'x'
+        : choice(['x', 'y', 'z', 'm', 't', 'a', 'b', 'c'])
       let texte = ''
       let texteCorr = ''
       let expression = ''
@@ -70,66 +88,80 @@ export default class CalculerUneExpressionSimple extends Exercice {
 
       switch (listeTypeQuestions[i]) {
         case 'ax+b':
-          expression = this.sup ? `${a} \\times x + ${b}` : `${a}x + ${b}`
+          expression = this.sup
+            ? `${a} \\times ${inconnue} + ${b}`
+            : `${a}${inconnue} + ${b}`
           texteCorr = `$${lettreDepuisChiffre(i + 1)} = ${a} \\times ${ecritureParentheseSiNegatif(x)} + ${b}$<br>`
           texteCorr += `$${lettreDepuisChiffre(i + 1)} = ${miseEnEvidence(a * x + b)}$`
           answer = a * x + b
           break
         case 'a(x+b)':
-          expression = this.sup ? `${a} \\times (x + ${b})` : `${a}(x + ${b})`
+          expression = this.sup
+            ? `${a} \\times (${inconnue} + ${b})`
+            : `${a}(${inconnue} + ${b})`
           texteCorr = `$${lettreDepuisChiffre(i + 1)} = ${a} \\times (${x} + ${b})$<br>`
           texteCorr += `$${lettreDepuisChiffre(i + 1)} = ${a} \\times ${ecritureParentheseSiNegatif(x + b)}$<br>`
           texteCorr += `$${lettreDepuisChiffre(i + 1)} = ${miseEnEvidence(a * x + a * b)}$`
           answer = a * (x + b)
           break
         case '(x+a)(x+b)':
-          expression = this.sup ? `(x + ${a}) \\times (x + ${b})` : `(x + ${a})(x + ${b})`
+          expression = this.sup
+            ? `(${inconnue} + ${a}) \\times (${inconnue} + ${b})`
+            : `(${inconnue} + ${a})(${inconnue} + ${b})`
           texteCorr = `$${lettreDepuisChiffre(i + 1)} = (${x} + ${a}) \\times (${x} + ${b})$<br>`
           texteCorr += `$${lettreDepuisChiffre(i + 1)} = ${x + a} \\times ${ecritureParentheseSiNegatif(x + b)}$<br>`
           texteCorr += `$${lettreDepuisChiffre(i + 1)} = ${miseEnEvidence(x * x + a * x + b * x + a * b)}$`
           answer = (x + a) * (x + b)
           break
         case 'x*x+a':
-          expression = this.sup ? `x \\times x + ${a}` : `x^2 + ${a}`
+          expression = this.sup
+            ? `${inconnue} \\times ${inconnue} + ${a}`
+            : `${inconnue}^2 + ${a}`
           texteCorr = `$${lettreDepuisChiffre(i + 1)} = ${x} \\times ${x} + ${a}$<br>`
           texteCorr += `$${lettreDepuisChiffre(i + 1)} = ${x * x} + ${a}$<br>`
           texteCorr += `$${lettreDepuisChiffre(i + 1)} = ${miseEnEvidence(x * x + a)}$`
           answer = x * x + a
           break
         case 'x*x+a*x':
-          expression = this.sup ? `x \\times x + ${a} \\times x` : `x^2 + ${a}x`
+          expression = this.sup
+            ? `${inconnue} \\times ${inconnue} + ${a} \\times ${inconnue}`
+            : `${inconnue}^2 + ${a}${inconnue}`
           texteCorr = `$${lettreDepuisChiffre(i + 1)} = ${x} \\times ${x} + ${a} \\times ${x}$<br>`
           texteCorr += `$${lettreDepuisChiffre(i + 1)} = ${x * x} + ${a * x}$<br>`
           texteCorr += `$${lettreDepuisChiffre(i + 1)} = ${miseEnEvidence(x * x + a * x)}$`
           answer = x * x + a * x
           break
         case 'ax-b':
-        if (!this.sup2) {
-          b = randint(1, a * x)
-        }
-          expression = this.sup ? `${a} \\times x - ${b}` : `${a}x - ${b}`
+          if (!this.sup2) {
+            b = randint(1, a * x)
+          }
+          expression = this.sup
+            ? `${a} \\times ${inconnue} - ${b}`
+            : `${a}${inconnue} - ${b}`
           texteCorr = `$${lettreDepuisChiffre(i + 1)} = ${a} \\times ${x} - ${b}$<br>`
           texteCorr += `$${lettreDepuisChiffre(i + 1)} = ${a * x} - ${b}$<br>`
           texteCorr += `$${lettreDepuisChiffre(i + 1)} = ${miseEnEvidence(a * x - b)}$`
           answer = a * x - b
           break
         default:
-        // case 'a(x-b)':
-        if (!this.sup2) {
-          b = randint(1, x)
-        }
-          expression = this.sup ? `${a} \\times (x - ${b})` : `${a}(x - ${b})`
+          // case 'a(x-b)':
+          if (!this.sup2) {
+            b = randint(1, x)
+          }
+          expression = this.sup
+            ? `${a} \\times (${inconnue} - ${b})`
+            : `${a}(${inconnue} - ${b})`
           texteCorr = `$${lettreDepuisChiffre(i + 1)} = ${a} \\times (${x} - ${b})$<br>`
           texteCorr += `$${lettreDepuisChiffre(i + 1)} = ${a} \\times ${ecritureParentheseSiNegatif(x - b)}$<br>`
           texteCorr += `$${lettreDepuisChiffre(i + 1)} = ${miseEnEvidence(a * x - a * b)}$`
           answer = a * (x - b)
           break
       }
-      texte = `Calculer $${lettreDepuisChiffre(i + 1)} = ${expression}$, pour $x = ${x}$`
+      texte = `Calculer $${lettreDepuisChiffre(i + 1)} = ${expression}$, pour $${inconnue} = ${x}$.`
       if (this.interactif) {
-      texte += `<br>$${lettreDepuisChiffre(i + 1)} = $`
-      texte += ajouteChampTexteMathLive(this, i, KeyboardType.clavierDeBase)
-      handleAnswers(this, i, {reponse:{value: answer}})
+        texte += `<br>$${lettreDepuisChiffre(i + 1)} = $`
+        texte += ajouteChampTexteMathLive(this, i, KeyboardType.clavierDeBase)
+        handleAnswers(this, i, { reponse: { value: answer } })
       }
       if (this.questionJamaisPosee(i, texte)) {
         this.listeQuestions[i] = texte

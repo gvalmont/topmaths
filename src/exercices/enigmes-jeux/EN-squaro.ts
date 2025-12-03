@@ -1,16 +1,16 @@
-import ExerciceSimple from '../Exercice'
 import Figure from 'apigeom'
-import figureApigeom from '../../lib/figureApigeom'
-import { randint } from '../../modules/outils'
-import { orangeMathalea } from 'apigeom/src/elements/defaultValues'
-import bluePoint from './svg/blueCirclePoint.svg'
-import redPoint from './svg/redPoint.svg'
 import remove from 'apigeom/src/assets/svg/restart.svg'
-import { texteEnCouleurEtGras } from '../../lib/outils/embellissements'
-import { choice } from '../../lib/outils/arrayOutils'
-import { context } from '../../modules/context'
+import { orangeMathalea } from 'apigeom/src/elements/defaultValues'
 import Element2D from 'apigeom/src/elements/Element2D'
 import Circle from 'apigeom/src/elements/lines/Circle'
+import figureApigeom from '../../lib/figureApigeom'
+import { choice } from '../../lib/outils/arrayOutils'
+import { texteEnCouleurEtGras } from '../../lib/outils/embellissements'
+import { context } from '../../modules/context'
+import { randint } from '../../modules/outils'
+import ExerciceSimple from '../Exercice'
+import bluePoint from './svg/blueCirclePoint.svg'
+import redPoint from './svg/redPoint.svg'
 
 export const dateDePublication = '15/07/2024'
 export const titre = 'Résoudre une grille de SquarO'
@@ -138,12 +138,12 @@ class squaro extends ExerciceSimple {
     const drawBluePoint = () => {
       this.figure.options.shape = 'o'
       this.figure.options.color = 'blue'
-      this.figure.ui?.send('POINT')
+      this.figure.ui?.send({ type: 'POINT' })
     }
     const drawRedPoint = () => {
       this.figure.options.shape = 'x'
       this.figure.options.color = 'red'
-      this.figure.ui?.send('POINT')
+      this.figure.ui?.send({ type: 'POINT' })
     }
     const eraseAllPoints = () => {
       for (const element of this.figure.elements.values()) {

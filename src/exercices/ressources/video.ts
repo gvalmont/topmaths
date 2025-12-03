@@ -1,9 +1,10 @@
-import { exercicesParams, globalOptions } from '../../lib/stores/generalStore'
 import { get } from 'svelte/store'
-import { createButon, createIButton, createTextInput } from './_components'
-import { getUniqueStringBasedOnTimeStamp } from '../../lib/components/time'
-import Exercice from '../Exercice'
 import { updateIframeSize } from '../../lib/components/sizeTools'
+import { getUniqueStringBasedOnTimeStamp } from '../../lib/components/time'
+import { exercicesParams } from '../../lib/stores/generalStore'
+import { globalOptions } from '../../lib/stores/globalOptions'
+import Exercice from '../Exercice'
+import { createButon, createIButton, createTextInput } from './_components'
 
 export const uuid = 'video'
 export const titre = 'Vidéo'
@@ -35,6 +36,7 @@ class ressourceVideo extends Exercice {
     this.teacherText = document.createElement('div')
     window.addEventListener('resize', this.updateSize)
     this.container.addEventListener('addedToDom', this.updateSize)
+    document.addEventListener('questionDisplay', this.updateSize)
 
     // constitution d'une ID pour mise en forme dans app.css
     this.iframe.setAttribute(

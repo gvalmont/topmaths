@@ -29,7 +29,7 @@ export const interactifType = 'mathLive'
 export const uuid = 'e564b'
 
 export const refs = {
-  'fr-fr': ['4G20-3', '3autoN08-1'],
+  'fr-fr': ['4G20-3', '3AutoN08-2'],
   'fr-ch': ['10NO2-2'],
 }
 export default class calculsDeCarre extends Exercice {

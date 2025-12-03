@@ -5,7 +5,7 @@ import { stringNombre } from '../outils/texNombre'
 import { colorToLatexOrHTML } from './colorToLatexOrHtml'
 import type { IPoint3d, IPointAbstrait, IPolygone } from './Interfaces'
 import { ObjetMathalea2D } from './ObjetMathalea2D'
-import { point, Point, PointAbstrait } from './PointAbstrait'
+import { pointAbstrait, PointAbstrait } from './PointAbstrait'
 import type { Vide2d } from './Vide2d'
 
 export type AncrageDeRotationType = 'gauche' | 'milieu' | 'droite'
@@ -24,7 +24,7 @@ export const svgAncrages = {
  * @param {number} [distance=1.5] Taille de l'angle
  * @param {string} [label=''] Si vide, alors affiche la mesure de l'angle sinon affiche ce label.
  * @param {Object} parametres À saisir entre accolades
- * @param {Point|Point[]} [parametres.points = []] Point ou tableau de points
+ * @param {PointAbstrait|PointAbstrait[]} [parametres.points = []] PointAbstrait ou tableau de points
  * @param {string} [parametres.color = 'black'] Couleur du label : du type 'blue' ou du type '#f15929'
  * @param {number} [parametres.taille = 8] Taille du label
  * @param {number} [parametres.largeur = 10] Largeur en pixels du label à des fins de centrage
@@ -50,7 +50,7 @@ export function labelLatexPoint(
     hauteur,
     couleurDeRemplissage,
   }: {
-    points: Point[]
+    points: PointAbstrait[]
     color?: string
     taille: number
     largeur?: number
@@ -202,7 +202,7 @@ export function labelLatexPoint(
 }
 
 /**  Nomme les points passés en argument, le nombre d'arguments n'est pas limité.
- * @param  {(Point|string)[]} args Points mis à la suite si une couleur doit être passée, c'est le dernier argument
+ * @param  {(PointAbstrait|string)[]} args Points mis à la suite si une couleur doit être passée, c'est le dernier argument
  * @property {string} color Couleur des points. À associer obligatoirement à colorToLatexOrHTML().
  * @property {number} taille Taille de la boite contenant le nom des points
  * @property {number} largeur Largeur de la boite contenant le nom des points
@@ -212,7 +212,7 @@ export function labelLatexPoint(
  */
 // JSDOC Validee par EE Septembre 2022
 export function labelPoint(
-  ...args: (IPointAbstrait | PointAbstrait | Point | string)[]
+  ...args: (IPointAbstrait | PointAbstrait | PointAbstrait | string)[]
 ) {
   const taille = 1
   const points = [...args]
@@ -226,7 +226,7 @@ export function labelPoint(
   const objets = []
   for (const unPoint of points) {
     let x, y
-    if (unPoint instanceof Point || unPoint instanceof PointAbstrait) {
+    if (unPoint instanceof PointAbstrait || unPoint instanceof PointAbstrait) {
       x = unPoint.x
       y = unPoint.y
       // if (this.positionLabel === '' && unPoint.typeObjet === 'point3d') A.positionLabel = this.positionLabel
@@ -679,7 +679,7 @@ export class TexteParPointEchelle extends ObjetMathalea2D {
 }
 export function texteParPointEchelle(
   texte: string,
-  A: Point,
+  A: PointAbstrait,
   orientation: number = 0,
   color: string = 'black',
   scale: number = 1,
@@ -712,7 +712,7 @@ export function texteParPositionEchelle(
 ) {
   return texteParPointEchelle(
     texte,
-    point(arrondi(x, 2), arrondi(y, 2), '', 'center'),
+    pointAbstrait(arrondi(x, 2), arrondi(y, 2), '', 'center'),
     orientation,
     color,
     scale,
@@ -770,7 +770,7 @@ export function texteParPosition(
   } else {
     return new TexteParPoint(
       texte,
-      point(x, y, ''),
+      pointAbstrait(x, y, ''),
       orientation,
       color,
       scale,
@@ -1236,8 +1236,8 @@ export class Latex2d extends ObjetMathalea2D {
           : `{${this.col}}`
     }
     return this.backgroundCol !== '' && this.backgroundCol !== 'none'
-      ? `\\draw (${this.x},${this.y}) node[anchor = center, rotate=${this.orientation}] {\\colorbox{${this.backgroundCol}} {\\${this.letterSize}  \\color${this.col}{$${this.latex}$}}};`
-      : `\\draw (${this.x},${this.y}) node[anchor = center, rotate=${this.orientation}] {\\${this.letterSize} \\color${this.col}{$${this.latex}$}};`
+      ? `\\draw[opacity=${this.opacity}] (${this.x},${this.y}) node[anchor = center, rotate=${this.orientation}] {\\colorbox{${this.backgroundCol}} {\\${this.letterSize}  \\color${this.col}{$${this.latex}$}}};`
+      : `\\draw[opacity=${this.opacity}] (${this.x},${this.y}) node[anchor = center, rotate=${this.orientation}] {\\${this.letterSize} \\color${this.col}{$${this.latex}$}};`
   }
 }
 

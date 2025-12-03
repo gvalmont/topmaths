@@ -23,7 +23,7 @@ import {
   obtenirListeFractionsIrreductibles,
   obtenirListeFractionsIrreductiblesFaciles,
 } from '../../modules/fractions'
-import { listeQuestionsToContenu, randint } from '../../modules/outils'
+import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 export const titre =
@@ -31,7 +31,7 @@ export const titre =
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const dateDePublication = '24/09/2022'
-export const dateDeModifImportante = '07/11/2023'
+export const dateDeModifImportante = '18/11/2025'
 /**
  * Répondre à des questions sur les fonctions.
  * @author Gilles Mora
@@ -46,53 +46,92 @@ export const refs = {
 export default class CalculPointSurCourbe extends Exercice {
   constructor() {
     super()
-    this.besoinFormulaireNumerique = [
-      'Choix des questions',
-      4,
-      '1 : Fonction affine\n2 : Polynôme de degré 2 \n3 : Fonction a/x+b \n4 : Mélange',
+    this.besoinFormulaireTexte = [
+      'Choix des fonctions',
+      [
+        'Nombres séparés par des tirets  :',
+        '1 : Fonction affine',
+        '2 : Polynôme de degré 2',
+        '3 : Fonction a/x+b',
+        '4 : Mélange',
+      ].join('\n'),
     ]
-    this.besoinFormulaire2Numerique = [
-      'Choix des questions',
-      3,
-      '1 : Valeurs entières\n2 : Valeurs fractionnaire\n3 : Mélange',
+    this.besoinFormulaire2Texte = [
+      'Choix des valeurs',
+      [
+        'Nombres séparés par des tirets  :',
+        '1 : Valeurs entières',
+        '2 : Valeurs fractionnaires',
+        '3 : Mélange',
+      ].join('\n'),
     ]
-    this.sup = 1
-    this.sup2 = 1
+    this.besoinFormulaire3Texte = [
+      'Type de calcul',
+      [
+        'Nombres séparés par des tirets  :',
+        '1 : Calculer l\'ordonnée',
+        '2 : Calculer les abscisses éventuelles',
+        '3 : Mélange',
+      ].join('\n'),
+    ]
+    this.sup = 4
+    this.sup2 = 3
+    this.sup3 = 3
 
     this.nbQuestions = 2
   }
 
   nouvelleVersion() {
-    let typesDeQuestionsDisponibles
-    switch (this.sup) {
-      case 1:
-        typesDeQuestionsDisponibles = ['affine']
-        break
-      case 2:
-        typesDeQuestionsDisponibles = ['polynôme']
-        break
-      case 3:
-        typesDeQuestionsDisponibles = ['a/x+b']
-        break
-      case 4:
-      default:
-        typesDeQuestionsDisponibles = ['affine', 'polynôme', 'a/x+b']
-        break
+    // Gestion du premier paramètre avec gestionnaireFormulaireTexte
+    const choixType = gestionnaireFormulaireTexte({
+      saisie: this.sup,
+      max: 3,
+      melange: 4,
+      defaut: 4,
+      nbQuestions: this.nbQuestions,
+    }).map(Number)
 
-      //
+    const typesDeQuestionsDisponibles: string[] = []
+    for (const choix of choixType) {
+      switch (choix) {
+        case 1:
+          typesDeQuestionsDisponibles.push('affine')
+          break
+        case 2:
+          typesDeQuestionsDisponibles.push('polynôme')
+          break
+        case 3:
+          typesDeQuestionsDisponibles.push('a/x+b')
+          break
+      }
     }
+
     const listeTypeDeQuestions = combinaisonListes(
       typesDeQuestionsDisponibles,
       this.nbQuestions,
     )
-    let sousChoix
-    if (this.sup2 === 1) {
-      sousChoix = combinaisonListes([0], this.nbQuestions) // pour choisir aléatoirement des questions dans chaque catégorie
-    } else if (this.sup2 === 2) {
-      sousChoix = combinaisonListes([1], this.nbQuestions)
-    } else {
-      sousChoix = combinaisonListes([0, 1], this.nbQuestions)
-    }
+
+    // Gestion du deuxième paramètre avec gestionnaireFormulaireTexte
+    const choixValeurs = gestionnaireFormulaireTexte({
+      saisie: this.sup2,
+      max: 2,
+      melange: 3,
+      defaut: 3,
+      nbQuestions: this.nbQuestions,
+    }).map(Number)
+
+    const sousChoix = choixValeurs.map((v) => v - 1) // Convertir 1,2 en 0,1
+
+    // Gestion du troisième paramètre avec gestionnaireFormulaireTexte
+    const choixCalcul = gestionnaireFormulaireTexte({
+      saisie: this.sup3,
+      max: 2,
+      melange: 3,
+      defaut: 3,
+      nbQuestions: this.nbQuestions,
+    }).map(Number)
+
+    const typeCalcul = choixCalcul.map((v) => v === 1) // 1 = true (ordonnée), 2 = false (abscisse)
 
     const nomF = [['f'], ['g'], ['h'], ['u'], ['v'], ['w']]
     const pointM = [['M'], ['N'], ['P'], ['R'], ['S'], ['T']]
@@ -134,13 +173,13 @@ export default class CalculPointSurCourbe extends Exercice {
             sousChoix[i] // sousChoix[i]
           ) {
             case 0:
-              a = randint(-12, 12, [0, 1])
+              a = randint(-5, 12, [0, 1])
               b = randint(-12, 12, 0)
               abs = randint(-12, 12, 0)
               ord = a * abs + b
               nom = choice(nomF)
               point = choice(pointM)
-              if (choice([true, false])) {
+              if (typeCalcul[i]) {
                 enonce = `Soit $${nom}$ la fonction définie sur $\\mathbb{R}$ par :
               ${texteCentre(`$${nom}(x)=${reduireAxPlusB(a, b)}$`)}
               On note $\\mathscr{C}$ la courbe représentative de la fonction $${nom}$ dans un repère.<br>
@@ -184,7 +223,7 @@ export default class CalculPointSurCourbe extends Exercice {
               break
             case 1:
             default:
-              a = randint(-10, 10, [0, 1])
+              a = randint(-5, 10, [0, 1])
               b = randint(-10, 10, 0)
               f = choice(obtenirListeFractionsIrreductibles())
               f1 = new FractionEtendue(a * f.n + b * f.d, f.d) // ordonnée du point
@@ -194,7 +233,7 @@ export default class CalculPointSurCourbe extends Exercice {
               fractionC = new FractionEtendue(f.n - b * f.d, a * f.d) // abscisse du point
               nom = choice(nomF)
               point = choice(pointM)
-              if (choice([true, false])) {
+              if (typeCalcul[i]) {
                 enonce = `Soit $${nom}$ la fonction définie sur $\\mathbb{R}$ par :
               ${texteCentre(`$${nom}(x)=${reduireAxPlusB(a, b)}$`)}
               On note $\\mathscr{C}$ la courbe représentative de la fonction $${nom}$ dans un repère.<br>
@@ -262,7 +301,7 @@ export default class CalculPointSurCourbe extends Exercice {
             sousChoix[i] // ax^2+bx+c
           ) {
             case 0:
-              if (choice([true, false])) {
+              if (typeCalcul[i]) {
                 a = randint(-10, 10, 0)
                 b = randint(-10, 10, 0)
                 c = randint(-10, 10)
@@ -298,13 +337,13 @@ export default class CalculPointSurCourbe extends Exercice {
                 ${texteCentre(`$${nom}(x)=${reduirePolynomeDegre3(0, a, 0, c)}$`)}
                 On note $\\mathscr{C}$ la courbe représentative de la fonction $${nom}$ dans un repère.<br>
                 Existe-t-il des points de $\\mathscr{C}$ d'ordonnée $${ord}$ ? <br>
-                Si oui, quelles sont les abscisses possibles de ces points ?`
+                Si ces points existent, calculer leurs abscisses respectives.`
                 if (this.interactif) {
                   enonce = `Soit $${nom}$ la fonction définie sur $\\mathbb{R}$ par :
 ${texteCentre(`$${nom}(x)=${reduirePolynomeDegre3(0, a, 0, c)}$`)}
 On note $\\mathscr{C}$ la courbe représentative de la fonction $${nom}$ dans un repère.<br>
 Existe-t-il des points de $\\mathscr{C}$ d'ordonnée $${ord}$ ? <br>
-Si oui, quelles sont les abscisses possibles de ces points ?<br>
+ Si ces points existent, calculer leurs abscisses respectives.<br>
 Écrire les valeurs séparées par un point-virgule ou $\\emptyset$ s'il n'y en a pas.`
                 }
 
@@ -414,7 +453,7 @@ Les  abscisses de ces points sont : $${miseEnEvidence(`-\\sqrt{${abs}}`)}$ et $$
             sousChoix[i] // sousChoix[i] = randint(0, 5)
           ) {
             case 0:
-              if (choice([true, false])) {
+              if (typeCalcul[i]) {
                 a = randint(-9, 9, 0)
                 b = randint(-9, 9, 0)
                 abs = randint(-9, 9, [0, 1, -1])
@@ -451,7 +490,7 @@ Les  abscisses de ces points sont : $${miseEnEvidence(`-\\sqrt{${abs}}`)}$ et $$
                     ${texteCentre(`$${nom}(x)=\\dfrac{${a}}{x}${ecritureAlgebrique(b)}$`)}
                     On note $\\mathscr{C}$ la courbe représentative de la fonction $${nom}$ dans un repère.<br>
                     Existe-t-il des points de $\\mathscr{C}$ d'ordonnée $${ord}$ ? <br>
-                    Si oui, quelles sont les abscisses possibles de ces points ?`
+                   Si ces points existent, calculer leurs abscisses respectives.`
 
                 correction = ` Si un point de $\\mathscr{C}$ a pour ordonnée $${ord}$, son abscisse est un antécédent de $${ord}$.<br> `
 
@@ -474,7 +513,7 @@ Les  abscisses de ces points sont : $${miseEnEvidence(`-\\sqrt{${abs}}`)}$ et $$
 
             case 1:
             default:
-              if (choice([true, false])) {
+              if (typeCalcul[i]) {
                 a = randint(-9, 9, 0)
                 b = randint(-9, 9, 0)
                 abs = choice(obtenirListeFractionsIrreductiblesFaciles())
@@ -512,7 +551,7 @@ Les  abscisses de ces points sont : $${miseEnEvidence(`-\\sqrt{${abs}}`)}$ et $$
                 ${texteCentre(`$${nom}(x)=\\dfrac{${a}}{x}${ecritureAlgebrique(b)}$`)}
                 On note $\\mathscr{C}$ la courbe représentative de la fonction $${nom}$ dans un repère.<br>
                 Existe-t-il des points de $\\mathscr{C}$ d'ordonnée $${ord.texFraction}$ ? <br>
-                Si oui, quelles sont les abscisses possibles de ces points ?`
+               Si ces points existent, calculer leurs abscisses respectives.`
 
                 correction = ` Si un point de $\\mathscr{C}$ a pour ordonnée $${ord.texFraction}$, son abscisse est un antécédent de $${ord.texFraction}$.<br> `
 

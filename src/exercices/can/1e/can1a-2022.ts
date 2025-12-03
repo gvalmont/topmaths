@@ -1,6 +1,6 @@
+import { courbe } from '../../../lib/2d/Courbe'
 import { point } from '../../../lib/2d/PointAbstrait'
 import { tracePoint } from '../../../lib/2d/TracePoint'
-import { courbe } from '../../../lib/2d/courbes'
 import { droite } from '../../../lib/2d/droites'
 import { fixeBordures } from '../../../lib/2d/fixeBordures'
 import { pave } from '../../../lib/2d/projections3d'

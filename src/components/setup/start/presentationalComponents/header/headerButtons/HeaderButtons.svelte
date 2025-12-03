@@ -1,8 +1,8 @@
 <script lang="ts">
+  import type { VueType } from '../../../../../../lib/VueType'
   import ButtonsDeck from '../../../../../shared/ui/ButtonsDeck.svelte'
-  import SetupButtons from './setupButtons/SetupButtons.svelte'
   import ExportButtons from './exportButtons/ExportButtons.svelte'
-  import type { VueType } from '../../../../../../lib/types'
+  import SetupButtons from './setupButtons/SetupButtons.svelte'
 
   export let reorderModalDisplayed: boolean = false
   export let zoomUpdate: (plusMinus: '+' | '-') => void

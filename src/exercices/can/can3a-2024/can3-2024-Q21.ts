@@ -1,7 +1,7 @@
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 import { choice } from '../../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
-import { prenom } from '../../../lib/outils/Personne'
+import { personne } from '../../../lib/outils/Personne'
 import ExerciceSimple from '../../ExerciceSimple'
 
 export const titre = "Calculer une distance à partir d'une vitesse"
@@ -32,7 +32,7 @@ export default class NomExercice extends ExerciceSimple {
       this.correction = `En $20$ minutes, il parcourt $3$ fois moins de $\\text{km}$ qu'en $1$ heure, soit $\\dfrac{90}{3}=
        ${miseEnEvidence(30)}\\text{ km}$.`
     } else {
-      const P = prenom()
+      const P = personne()
       const listeHeureVitesse = [
         [90, 20, 3, 30],
         [60, 10, 6, 10],
@@ -47,9 +47,9 @@ export default class NomExercice extends ExerciceSimple {
       ] // vitesse, temps, fois moins, reponse
       const choix = choice(listeHeureVitesse)
       this.reponse = choix[3]
-      this.question = `${P} roule à une vitesse constante de $${choix[0]}\\text{ km/h}$. <br>
-      Quelle distance parcourt-il en  $${choix[1]}$  minutes ?`
-      this.correction = `En $${choix[1]}$ minutes, il parcourt $${choix[2]}$ fois moins de $\\text{km}$ qu'en $1$ heure, 
+      this.question = `${P.prenom} roule à une vitesse constante de $${choix[0]}\\text{ km/h}$. <br>
+      Quelle distance parcourt-${P.pronom} en  $${choix[1]}$  minutes ?`
+      this.correction = `En $${choix[1]}$ minutes, ${P.pronom} parcourt $${choix[2]}$ fois moins de $\\text{km}$ qu'en $1$ heure, 
       soit $\\dfrac{${choix[0]}}{${choix[2]}}=${miseEnEvidence(this.reponse)}\\text{ km}$.`
     }
     this.canEnonce = this.question

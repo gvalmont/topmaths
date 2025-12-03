@@ -1,7 +1,8 @@
-import { courbe } from '../../../lib/2d/courbes'
+import { courbe } from '../../../lib/2d/Courbe'
 import { repere } from '../../../lib/2d/reperes'
 import { texteParPosition } from '../../../lib/2d/textes'
 import { choice } from '../../../lib/outils/arrayOutils'
+import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import FractionEtendue from '../../../modules/FractionEtendue'
 import { mathalea2d } from '../../../modules/mathalea2d'
 import { randint } from '../../../modules/outils'
@@ -47,31 +48,30 @@ export default class LectureGraphiqueNombreDerivee extends ExerciceSimple {
       [5, 3],
       [5, 4],
     ]
-    let b
-    let f
+    let b: number
+    let f: (x: number) => number
     let r
-    let alpha
-    let beta
-    let a
-    let F
+    let alpha: number
+    let beta: number
+    let a: number
+    let F: (x: number) => number
     let o
-    let nbre
+    let nbre: number
     let tang
-    let frac
+    let frac: FractionEtendue
+    let valueFrac: number
     let fraction = []
-    switch (
-      choice([1, 2, 3, 4, 5]) //
-    ) {
+    switch (choice([1, 2, 3, 4, 5])) {
       case 1:
         a = randint(1, 2)
         nbre = randint(-1, 1)
         alpha = randint(-1, 1)
         beta = randint(-2, 2)
         o = texteParPosition('O', -0.3, -0.3, 0, 'black', 1)
-        f = function (x) {
+        f = function (x: number) {
           return 2 * a * x - 2 * a * alpha
         }
-        F = function (x) {
+        F = function (x: number) {
           return a * (x - alpha) ** 2 + beta
         }
         r = repere({
@@ -97,7 +97,7 @@ export default class LectureGraphiqueNombreDerivee extends ExerciceSimple {
           grilleSecondaireXMin: -4,
           grilleSecondaireXMax: 4,
         })
-        tang = (x) => f(nbre) * (x - nbre) + F(nbre)
+        tang = (x: number) => f(nbre) * (x - nbre) + F(nbre)
         F = (x) => a * (x - alpha) ** 2 + beta
         this.question = `La courbe représente une fonction $f$ et la droite est la tangente au point d'abscisse $${nbre}$.<br>
         
@@ -122,7 +122,6 @@ export default class LectureGraphiqueNombreDerivee extends ExerciceSimple {
         this.correction = `$f'(${nbre})$ est donné par le coefficient directeur de la tangente à la courbe au point d'abscisse $${nbre}$, soit $${f(nbre)}$.`
 
         this.reponse = f(nbre)
-        // this.formatInteractif = 'mathLive'
 
         this.canEnonce = this.question
         this.canReponseACompleter = `$f'(${nbre})=\\ldots$`
@@ -134,10 +133,10 @@ export default class LectureGraphiqueNombreDerivee extends ExerciceSimple {
         alpha = randint(-1, 1)
         beta = randint(-2, 2)
         o = texteParPosition('O', -0.3, -0.3, 0, 'black', 1)
-        f = function (x) {
+        f = function (x: number) {
           return 2 * a * x - 2 * a * alpha
         }
-        F = function (x) {
+        F = function (x: number) {
           return a * (x - alpha) ** 2 + beta
         }
         r = repere({
@@ -163,7 +162,7 @@ export default class LectureGraphiqueNombreDerivee extends ExerciceSimple {
           grilleSecondaireXMin: -4,
           grilleSecondaireXMax: 4,
         })
-        tang = (x) => f(nbre) * (x - nbre) + F(nbre)
+        tang = (x: number) => f(nbre) * (x - nbre) + F(nbre)
         F = (x) => a * (x - alpha) ** 2 + beta
         this.question = `La courbe représente une fonction $f$ et la droite est la tangente au point d'abscisse $${nbre}$.<br>
         Déterminer $f'(${nbre})$.`
@@ -187,7 +186,6 @@ export default class LectureGraphiqueNombreDerivee extends ExerciceSimple {
         this.correction = `$f'(${nbre})$ est donné par le coefficient directeur de la tangente à la courbe au point d'abscisse $${nbre}$, soit $${f(nbre)}$.`
 
         this.reponse = f(nbre)
-        // this.formatInteractif = 'mathLive'
         this.canEnonce = this.question
         this.canReponseACompleter = `$f'(${nbre})=\\ldots$`
         break
@@ -198,10 +196,10 @@ export default class LectureGraphiqueNombreDerivee extends ExerciceSimple {
         b = randint(0, 3)
         frac = new FractionEtendue(-a, nbre * nbre)
         o = texteParPosition('O', -0.3, -0.3, 0, 'black', 1)
-        f = function (x) {
+        f = function (x: number) {
           return -a / (x * x)
         }
-        F = function (x) {
+        F = function (x: number) {
           return a / x + b
         }
         this.question = `La courbe représente une fonction $f$ et la droite est la tangente au point d'abscisse $${nbre}$.<br>
@@ -227,7 +225,7 @@ export default class LectureGraphiqueNombreDerivee extends ExerciceSimple {
           grilleSecondaireXMin: -1,
           grilleSecondaireXMax: 7,
         })
-        tang = (x) => f(nbre) * (x - nbre) + F(nbre)
+        tang = (x: number) => f(nbre) * (x - nbre) + F(nbre)
         F = (x) => a / x + b
 
         this.question +=
@@ -254,7 +252,7 @@ export default class LectureGraphiqueNombreDerivee extends ExerciceSimple {
             courbe(tang, { repere: r, color: 'red', epaisseur: 2 }),
           )
 
-        this.correction = `$f'(${nbre})$ est donné par le coefficient directeur de la tangente à la courbe au point d'abscisse $${nbre}$, soit $${frac.texFraction}${frac.texSimplificationAvecEtapes()}$.`
+        this.correction = `$f'(${nbre})$ est donné par le coefficient directeur de la tangente à la courbe au point d'abscisse $${nbre}$, soit $${frac.texFraction}${frac.estEntiere ? '' : frac.texSimplificationAvecEtapes()}$.`
         this.reponse = frac
         this.canEnonce = this.question
         this.canReponseACompleter = `$f'(${nbre})=\\ldots$`
@@ -265,11 +263,12 @@ export default class LectureGraphiqueNombreDerivee extends ExerciceSimple {
         frac = new FractionEtendue(fraction[0], fraction[1])
         nbre = 0
         o = texteParPosition('O', -0.3, -0.3, 0, 'black', 1)
-        f = function (x) {
-          return frac * Math.exp(frac * x)
+        valueFrac = frac.valueOf()
+        f = function (x: number) {
+          return valueFrac * Math.exp(valueFrac * x)
         }
-        F = function (x) {
-          return Math.exp(frac * x)
+        F = function (x: number) {
+          return Math.exp(valueFrac * x)
         }
         this.question = `La courbe représente une fonction $f$ et la droite est la tangente au point d'abscisse $0$.<br>
         Déterminer $f'(0)$.`
@@ -295,8 +294,8 @@ export default class LectureGraphiqueNombreDerivee extends ExerciceSimple {
           grilleSecondaireXMin: -2,
           grilleSecondaireXMax: 6,
         })
-        tang = (x) => f(0) * x + F(0)
-        F = (x) => Math.exp(frac * x)
+        tang = (x: number) => f(0) * x + F(0)
+        F = (x) => Math.exp(valueFrac * x)
         this.question +=
           '<br>' +
           mathalea2d(
@@ -320,7 +319,7 @@ export default class LectureGraphiqueNombreDerivee extends ExerciceSimple {
             }),
             courbe(tang, { repere: r, color: 'red', epaisseur: 2 }),
           )
-        this.correction = `$f'(0)$ est donné par le coefficient directeur de la tangente à la courbe au point d'abscisse $0$, soit $${frac.texFraction}${frac.texSimplificationAvecEtapes()}$.`
+        this.correction = `$f'(0)$ est donné par le coefficient directeur de la tangente à la courbe au point d'abscisse $0$, soit $${frac.texFraction}${frac.estEntiere ? '' : frac.texSimplificationAvecEtapes()}$.`
         this.reponse = frac
         this.canEnonce = this.question
         this.canReponseACompleter = "$f'(0)=\\ldots$"
@@ -330,13 +329,14 @@ export default class LectureGraphiqueNombreDerivee extends ExerciceSimple {
       default:
         fraction = choice(listeFractions)
         frac = new FractionEtendue(fraction[0] * -1, fraction[1])
+        valueFrac = frac.valueOf()
         o = texteParPosition('O', -0.3, -0.3, 0, 'black', 1)
         nbre = 0
-        f = function (x) {
-          return frac * Math.exp(frac * x)
+        f = function (x: number) {
+          return valueFrac * Math.exp(valueFrac * x)
         }
-        F = function (x) {
-          return Math.exp(frac * x)
+        F = function (x: number) {
+          return Math.exp(valueFrac * x)
         }
         this.question = `La courbe représente une fonction $f$ et la droite est la tangente au point d'abscisse $0$.<br>
         Déterminer $f'(0)$.`
@@ -362,8 +362,8 @@ export default class LectureGraphiqueNombreDerivee extends ExerciceSimple {
           grilleSecondaireXMin: -5,
           grilleSecondaireXMax: 2,
         })
-        tang = (x) => f(0) * x + F(0)
-        F = (x) => Math.exp(frac * x)
+        tang = (x: number) => f(0) * x + F(0)
+        F = (x) => Math.exp(valueFrac * x)
 
         this.question +=
           '<br>' +
@@ -389,12 +389,32 @@ export default class LectureGraphiqueNombreDerivee extends ExerciceSimple {
             courbe(tang, { repere: r, color: 'red', epaisseur: 2 }),
           )
 
-        this.correction = `$f'(0)$ est donné par le coefficient directeur de la tangente à la courbe au point d'abscisse $0$, soit $${frac.texFraction}${frac.texSimplificationAvecEtapes()}$.`
+        this.correction = `$f'(0)$ est donné par le coefficient directeur de la tangente à la courbe au point d'abscisse $0$, soit $${frac.texFraction}${frac.estEntiere ? '' : frac.texSimplificationAvecEtapes()}$.`
 
         this.reponse = frac
         this.canEnonce = this.question
         this.canReponseACompleter = "$f'(0)=\\ldots$"
         break
+    }
+    if (this.correction.includes('=')) {
+      const textCorrSplit = this.correction.split('=')
+      let aRemplacer = textCorrSplit[textCorrSplit.length - 1]
+      aRemplacer = aRemplacer.replaceAll('$', '')
+
+      this.correction = ''
+      for (let ee = 0; ee < textCorrSplit.length - 1; ee++) {
+        this.correction += textCorrSplit[ee] + '='
+      }
+      this.correction += ` ${miseEnEvidence(aRemplacer.slice(0, -1))}$.`
+    } else {
+      const textCorrSplit = this.correction.split('soit')
+
+      let aRemplacer = textCorrSplit[1]
+      aRemplacer = aRemplacer.replaceAll('$', '')
+      this.correction =
+        textCorrSplit[0] +
+        'soit ' +
+        `$${miseEnEvidence(aRemplacer.slice(0, -1))}$.`
     }
     if (this.interactif) {
       this.question += '<br>' + `$f'(${nbre})=$`

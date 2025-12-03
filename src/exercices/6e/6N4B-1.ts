@@ -1,6 +1,10 @@
+import { BoiteBuilder } from '../../lib/2d/BoiteBuilder'
+import { listeEmojisInfos } from '../../lib/2d/figures2d/listeEmojis'
 import { listeShapes2DInfos } from '../../lib/2d/figures2d/shapes2d'
 import { fixeBordures } from '../../lib/2d/fixeBordures'
+import { VisualPattern } from '../../lib/2d/patterns/VisualPattern'
 import { createList } from '../../lib/format/lists'
+import { propositionsQcm } from '../../lib/interactif/qcm'
 import { ajouteQuestionMathlive } from '../../lib/interactif/questionMathLive'
 import {
   combinaisonListes,
@@ -12,11 +16,6 @@ import { mathalea2d } from '../../modules/mathalea2d'
 import { gestionnaireFormulaireTexte, randint } from '../../modules/outils'
 import type { NestedObjetMathalea2dArray } from '../../types/2d'
 import Exercice from '../Exercice'
-// import type { VisualPattern } from '../../lib/2d/patterns/VisualPattern'
-import { BoiteBuilder } from '../../lib/2d/BoiteBuilder'
-import { listeEmojisInfos } from '../../lib/2d/figures2d/listeEmojis'
-import { VisualPattern } from '../../lib/2d/patterns/VisualPattern'
-import { propositionsQcm } from '../../lib/interactif/qcm'
 
 export const titre = 'Comprendre un algorithme répétitif'
 export const interactifReady = true

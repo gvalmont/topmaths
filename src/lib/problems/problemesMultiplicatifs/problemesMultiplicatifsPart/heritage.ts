@@ -52,7 +52,7 @@ export function heritage(decimal = false): Probleme {
       start: 1,
       end: 15,
       text: `${nbFois} héritiers`,
-      type: 'flèche',
+      type: 'accolade',
     },
   ]
   return probleme

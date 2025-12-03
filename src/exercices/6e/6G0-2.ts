@@ -1,6 +1,6 @@
 import { demiDroite, type DemiDroite } from '../../lib/2d/DemiDroite'
 import { Droite, droite } from '../../lib/2d/droites'
-import { Point, point } from '../../lib/2d/PointAbstrait'
+import { PointAbstrait, pointAbstrait } from '../../lib/2d/PointAbstrait'
 import { Segment, segment } from '../../lib/2d/segmentsVecteurs'
 import { labelPoint } from '../../lib/2d/textes'
 import { tracePointSurDroite } from '../../lib/2d/TracePointSurDroite'
@@ -56,13 +56,13 @@ export default class DescriptionSegmentDroiteDemiDroite extends Exercice {
       if (i % 5 === 0) listeDeNomsDePolygones = ['QD']
       const p = creerNomDePolygone(2, listeDeNomsDePolygones)
       listeDeNomsDePolygones.push(p)
-      const A = point(0, randint(0, 20) / 10, p[0])
-      const B = point(4, randint(0, 20) / 10, p[1])
+      const A = pointAbstrait(0, randint(0, 20) / 10, p[0])
+      const B = pointAbstrait(4, randint(0, 20) / 10, p[1])
       const t1 = tracePointSurDroite(A, B)
       const t2 = tracePointSurDroite(B, A)
       const creerDroiteDemiSegment: (
-        A: Point,
-        B: Point,
+        A: PointAbstrait,
+        B: PointAbstrait,
       ) => {
         trait: Segment | Droite | DemiDroite
         correction: string
@@ -80,7 +80,7 @@ export default class DescriptionSegmentDroiteDemiDroite extends Exercice {
             bonneReponse: boolean
           }
         }
-      } = (A: Point, B: Point) => {
+      } = (A: PointAbstrait, B: PointAbstrait) => {
         let trait, correction
         const propsQcm = {
           droite: {

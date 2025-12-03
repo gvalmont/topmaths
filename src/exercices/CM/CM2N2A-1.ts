@@ -102,7 +102,7 @@ export default class FractionsDunite extends Exercice {
       if (this.interactif) {
         texte = `$${frac.texFraction}$ unité.`
       } else {
-        texte = `$${frac.texFraction}$ unité en prenant ${unit} carreaux (ou ${unit} cm) pour une unité.`
+        texte = `$${frac.texFraction}$ unité en prenant $${unit}$ carreaux (ou $${unit}\\text{ cm}$) pour une unité.`
       }
       if (this.sup2 < 3) g = grille(0, 0, 26, 2, 'gray', 0.7)
       else g = vide2d()

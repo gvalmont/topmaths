@@ -11,10 +11,10 @@ import { randint } from '../../modules/outils'
 import Exercice from '../Exercice'
 
 import Figure from 'apigeom'
+import { courbe } from '../../lib/2d/Courbe'
 import { point } from '../../lib/2d/PointAbstrait'
 import RepereBuilder from '../../lib/2d/RepereBuilder'
 import { colorToLatexOrHTML } from '../../lib/2d/colorToLatexOrHtml'
-import { courbe } from '../../lib/2d/courbes'
 import { fixeBordures } from '../../lib/2d/fixeBordures'
 import { segment } from '../../lib/2d/segmentsVecteurs'
 import { latex2d } from '../../lib/2d/textes'
@@ -778,7 +778,7 @@ class resolutionEquationInequationGraphique extends Exercice {
     // Il est impératif de choisir les boutons avant d'utiliser figureApigeom
 
     this.figureApiGeom.divButtons.style.display = 'flex'
-    this.figureApiGeom.ui.send('DRAG')
+    this.figureApiGeom.ui.send({ type: 'DRAG'})
     if (context.isHtml) {
       if (this.interactif) {
         this.listeQuestions = [enonce + figureApigeom({ exercice: this, i: 0, figure: this.figureApiGeom, isDynamic: true })]

@@ -10,7 +10,11 @@ import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { context } from '../../modules/context'
 import { labyrinthe } from '../../modules/Labyrinthe'
 import { mathalea2d } from '../../modules/mathalea2d'
-import { listeQuestionsToContenu, randint } from '../../modules/outils'
+import {
+  contraindreValeur,
+  listeQuestionsToContenu,
+  randint,
+} from '../../modules/outils'
 import Exercice from '../Exercice'
 
 export const amcReady = true
@@ -103,7 +107,7 @@ export default class ExerciceLabyrintheMultiples extends Exercice {
       const nbC =
         this.sup4 === 1 ? randint(3, 11 - nbL) : Math.max(3, this.sup4)
       laby = labyrinthe({ nbLignes: nbL, nbColonnes: nbC, scaleFigure: 0.7 })
-      laby.niveau = parseInt(this.sup2) // Le niveau (de 1 à 6=mélange) définit le nombre d'étapes
+      laby.niveau = contraindreValeur(1, 6, this.sup2, randint(1, 6)) // Le niveau (de 1 à 6=mélange) définit le nombre d'étapes
       monChemin = laby.choisitChemin(laby.niveau) // On choisit un chemin
       laby.murs2d = laby.construitMurs(monChemin) // On construit le labyrinthe
       laby.chemin2d = laby.traceChemin(monChemin) // On trace le chemin solution

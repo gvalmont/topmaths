@@ -1,4 +1,5 @@
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
+import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { texNombre } from '../../../lib/outils/texNombre'
 import { randint } from '../../../modules/outils'
 import ExerciceSimple from '../../ExerciceSimple'
@@ -34,7 +35,7 @@ export default class CalculMoitieImpair extends ExerciceSimple {
     const a = randint(3, 48) * 2 + 1
     this.reponse = a / 2
     this.question = `Calculer la moitié de $${a}$. `
-    this.correction = `$${a}\\div 2=${texNombre(this.reponse)}$
+    this.correction = `$${a}\\div 2=${miseEnEvidence(texNombre(this.reponse))}$
          `
     this.canEnonce = this.question
     this.canReponseACompleter = ''

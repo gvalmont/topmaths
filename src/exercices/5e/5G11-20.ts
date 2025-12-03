@@ -288,7 +288,6 @@ class ConstructionsSymetrieCentraleFigures extends Exercice {
           })
         }
       }
-      // this.figuresApiGeom[i].options.limitNumberOfElement.set('Point', 1)
       if (context.isHtml) {
         if (this.interactif) {
           this.listeQuestions[i] =

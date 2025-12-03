@@ -1,14 +1,14 @@
+import { handleAnswers } from '../../lib/interactif/gestionInteractif'
+import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { choice } from '../../lib/outils/arrayOutils'
+import { context } from '../../modules/context'
 import FractionEtendue from '../../modules/FractionEtendue'
-import Exercice from '../Exercice'
 import {
+  gestionnaireFormulaireTexte,
   listeQuestionsToContenu,
   randint,
-  gestionnaireFormulaireTexte,
 } from '../../modules/outils'
-import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
-import { context } from '../../modules/context'
-import { handleAnswers } from '../../lib/interactif/gestionInteractif'
+import Exercice from '../Exercice'
 
 import { fraction } from '../../modules/fractions'
 
@@ -20,7 +20,6 @@ export const dateDeModifImportante = '26/04/2023' // Correction par Rémi Angot 
 /**
  * Développer avec les 3 identités remarquables
  * @author Jean-Claude Lhote
- * 2N41-6, ex 2L10
  */
 export const uuid = '04b0a'
 
@@ -34,7 +33,7 @@ export default class DevelopperIdentitesRemarquables2 extends Exercice {
     this.besoinFormulaireNumerique = [
       'Niveau de difficulté',
       4,
-      '1 : Coefficient de x égal à 1\n 2 : Coefficient de x supérieur à 1\n 3 : Coefficient de x rationnel\n 4 : Mélange des cas 1 et 2',
+      '1 : Coefficient de x égal à 1\n2 : Coefficient de x supérieur à 1\n3 : Coefficient de x rationnel\n4 : Mélange des cas 1 et 2',
     ]
 
     this.besoinFormulaire2Texte = [

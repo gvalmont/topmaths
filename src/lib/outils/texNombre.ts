@@ -2,11 +2,9 @@ import Decimal from 'decimal.js'
 import { evaluate, format, round } from 'mathjs'
 import { context } from '../../modules/context'
 import type { IFractionEtendue } from '../../modules/FractionEtendue.type'
-import { tropDeChiffres } from '../../modules/outils'
 import { extraireRacineCarree } from './calculs'
 import { miseEnEvidence } from './embellissements'
 import { nombreDeChiffresDansLaPartieDecimale } from './nombres'
-import { sp } from './outilString'
 
 // Garde structurel pour détecter une FractionEtendue
 const isFractionEtendue = (x: unknown): x is IFractionEtendue =>
@@ -15,6 +13,16 @@ const isFractionEtendue = (x: unknown): x is IFractionEtendue =>
   typeof (x as any).sommeFraction === 'function'
 
 const math = { format, evaluate }
+
+function sp(nb = 1) {
+  let s = ''
+  for (let i = 0; i < nb; i++) {
+    if (context.isHtml) s += '&nbsp;'
+    else s += '\\,'
+  }
+  return s
+}
+
 /**
  *
  * @param {number} n
@@ -552,7 +560,7 @@ function afficherNombre(
     // au delà de 15 chiffres significatifs, on risque des erreurs d'arrondi
     window.notify(
       fonction +
-        ` : ${tropDeChiffres} le nombre passé à la fonction a trop de chiffres significatifs, soit c'est un bug à corriger, soit il faut utiliser un Decimal !`,
+        ` : Trop de chiffres le nombre passé à la fonction a trop de chiffres significatifs, soit c'est un bug à corriger, soit il faut utiliser un Decimal !`,
       { nb, precision },
     )
     return insereEspacesNombre(

@@ -1,5 +1,5 @@
 import { fixeBordures } from '../../lib/2d/fixeBordures'
-import { Point, point } from '../../lib/2d/PointAbstrait'
+import { PointAbstrait, pointAbstrait } from '../../lib/2d/PointAbstrait'
 import { polygone } from '../../lib/2d/polygones'
 import RepereBuilder from '../../lib/2d/RepereBuilder'
 import { segment } from '../../lib/2d/segmentsVecteurs'
@@ -155,7 +155,7 @@ export default class ConstructionsParallelogrammesParticuliers extends Exercice 
         y: number
         nom: string
         visible: boolean
-        p?: Point
+        p?: PointAbstrait
       }[] = []
       let v1: Vecteur
       let v2: Vecteur
@@ -244,7 +244,7 @@ export default class ConstructionsParallelogrammesParticuliers extends Exercice 
         yMax += deltaY
       }
       for (let j = 0; j < 4; j++) {
-        sommets[j].p = point(sommets[j].x, sommets[j].y, sommets[j].nom)
+        sommets[j].p = pointAbstrait(sommets[j].x, sommets[j].y, sommets[j].nom)
       }
       const repbuilder = new RepereBuilder({
         xMin: Math.min(Math.floor(xMin - 1), 0),
@@ -289,7 +289,7 @@ export default class ConstructionsParallelogrammesParticuliers extends Exercice 
       const rep = repbuilder.buildCustom()
       objetsEnonce.push(rep)
       objetsCorrection.push(rep)
-      const centre: Point = point(
+      const centre: PointAbstrait = pointAbstrait(
         (sommets[0].x + sommets[2].x) / 2,
         (sommets[0].y + sommets[2].y) / 2,
         noms[4],
@@ -316,7 +316,9 @@ export default class ConstructionsParallelogrammesParticuliers extends Exercice 
           }
         }
       }
-      const sommetsPara = sommets.slice(0, 4).map((s) => point(s.x, s.y, s.nom))
+      const sommetsPara = sommets
+        .slice(0, 4)
+        .map((s) => pointAbstrait(s.x, s.y, s.nom))
       objetsCorrection.push(polygone(...sommetsPara))
       const diag1 = segment(sommetsPara[0], sommetsPara[2], 'green')
       const diag2 = segment(sommetsPara[1], sommetsPara[3], 'green')
@@ -325,14 +327,14 @@ export default class ConstructionsParallelogrammesParticuliers extends Exercice 
       diag1.pointilles = 4
       diag2.pointilles = 4
       objetsCorrection.push(diag1, diag2)
-      const pointsVisibles: Point[] = []
+      const pointsVisibles: PointAbstrait[] = []
       for (let j = 0; j < sommets.length; j++) {
         if (sommets[j].visible) {
           const p = sommets[j].p
           if (p != null) pointsVisibles.push(p)
         }
       }
-      const pointsInvisibles: Point[] = []
+      const pointsInvisibles: PointAbstrait[] = []
       for (let j = 0; j < sommets.length; j++) {
         if (!sommets[j].visible) {
           const p = sommets[j].p

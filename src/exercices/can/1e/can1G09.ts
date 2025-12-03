@@ -5,8 +5,10 @@ import { polygoneAvecNom } from '../../../lib/2d/polygones'
 import { segment } from '../../../lib/2d/segmentsVecteurs'
 import { texteParPosition } from '../../../lib/2d/textes'
 import { pointSurCercle } from '../../../lib/2d/utilitairesPoint'
+import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 import { choice } from '../../../lib/outils/arrayOutils'
 import { rienSi1 } from '../../../lib/outils/ecritures'
+import { texteEnCouleurEtGras } from '../../../lib/outils/embellissements'
 import { abs } from '../../../lib/outils/nombres'
 import { mathalea2d } from '../../../modules/mathalea2d'
 import ExerciceSimple from '../../ExerciceSimple'
@@ -33,7 +35,7 @@ export default class AngleSurCercleTrigo extends ExerciceSimple {
     super()
 
     this.typeExercice = 'simple'
-
+    this.formatChampTexte = KeyboardType.alphanumeric
     this.nbQuestions = 1
   }
 
@@ -153,7 +155,7 @@ export default class AngleSurCercleTrigo extends ExerciceSimple {
           if (a === '0') {
             this.correction = 'Le point $I$ est le point-image du réel $0$.'
           } else {
-            this.correction = `Comme $${a}=0$ modulo $2\\pi$, le point-image de $${a}$ est le point $I$.  `
+            this.correction = `Comme $${a}=0$ modulo $2\\pi$, le point-image de $${a}$ est le point ${texteEnCouleurEtGras('I')}.  `
           }
           this.reponse = 'I'
         }
@@ -161,7 +163,7 @@ export default class AngleSurCercleTrigo extends ExerciceSimple {
           if (a === '\\pi') {
             this.correction = 'Le point $K$ est le point-image du réel $\\pi$.'
           } else {
-            this.correction = `Comme $${a}=\\pi$ modulo $2\\pi$, le point-image de $${a}$ est le point $K$.  `
+            this.correction = `Comme $${a}=\\pi$ modulo $2\\pi$, le point-image de $${a}$ est le point ${texteEnCouleurEtGras('K')}.  `
           }
           this.reponse = 'K'
         }
@@ -183,7 +185,7 @@ export default class AngleSurCercleTrigo extends ExerciceSimple {
             this.correction =
               'Le point $A$ est le point-image du réel $\\dfrac{\\pi}{6}$.'
           } else {
-            this.correction = `Comme $\\dfrac{${rienSi1(k)}\\pi}{6}=\\dfrac{\\pi}{6}$ modulo $2\\pi$, le point-image de $\\dfrac{${rienSi1(k)}\\pi}{6}$ est le point $A$.`
+            this.correction = `Comme $\\dfrac{${rienSi1(k)}\\pi}{6}=\\dfrac{\\pi}{6}$ modulo $2\\pi$, le point-image de $\\dfrac{${rienSi1(k)}\\pi}{6}$ est le point ${texteEnCouleurEtGras('A')}.`
           }
           this.reponse = 'A'
         }
@@ -192,7 +194,7 @@ export default class AngleSurCercleTrigo extends ExerciceSimple {
             this.correction =
               'Le point $F$ est le point-image du réel $\\dfrac{5\\pi}{6}$.'
           } else {
-            this.correction = `Comme $\\dfrac{${rienSi1(k)}\\pi}{6}=\\dfrac{5\\pi}{6}$ modulo $2\\pi$, le point-image de $\\dfrac{${rienSi1(k)}\\pi}{6}$ est le point $F$.  `
+            this.correction = `Comme $\\dfrac{${rienSi1(k)}\\pi}{6}=\\dfrac{5\\pi}{6}$ modulo $2\\pi$, le point-image de $\\dfrac{${rienSi1(k)}\\pi}{6}$ est le point ${texteEnCouleurEtGras('F')}.  `
           }
           this.reponse = 'F'
         }
@@ -200,7 +202,7 @@ export default class AngleSurCercleTrigo extends ExerciceSimple {
           if (k === 7) {
             this.correction = `Le point $G$ est le point-image du réel $\\dfrac{${k}\\pi}{6}$.`
           } else {
-            this.correction = `Comme $\\dfrac{${rienSi1(k)}\\pi}{6}=\\dfrac{7\\pi}{6}$ modulo $2\\pi$, le point-image de $\\dfrac{${rienSi1(k)}\\pi}{6}$ est le point $G$.  `
+            this.correction = `Comme $\\dfrac{${rienSi1(k)}\\pi}{6}=\\dfrac{7\\pi}{6}$ modulo $2\\pi$, le point-image de $\\dfrac{${rienSi1(k)}\\pi}{6}$ est le point ${texteEnCouleurEtGras('G')}.  `
           }
           this.reponse = 'G'
         }
@@ -209,7 +211,7 @@ export default class AngleSurCercleTrigo extends ExerciceSimple {
             this.correction =
               'Le point $Q$ est le point-image du réel $-\\dfrac{\\pi}{6}$.'
           } else {
-            this.correction = `Comme $\\dfrac{${rienSi1(k)}\\pi}{6}=\\dfrac{7\\pi}{6}$ modulo $2\\pi$, le point-image de $\\dfrac{${rienSi1(k)}\\pi}{6}$ est le point $Q$.  `
+            this.correction = `Comme $\\dfrac{${rienSi1(k)}\\pi}{6}=\\dfrac{7\\pi}{6}$ modulo $2\\pi$, le point-image de $\\dfrac{${rienSi1(k)}\\pi}{6}$ est le point ${texteEnCouleurEtGras('Q')}.  `
           }
           this.reponse = 'Q'
         }
@@ -232,7 +234,7 @@ export default class AngleSurCercleTrigo extends ExerciceSimple {
             this.correction =
               'Le point $B$ est le point-image du réel $\\dfrac{\\pi}{4}$.'
           } else {
-            this.correction = `Comme $\\dfrac{${rienSi1(k)}\\pi}{4}=\\dfrac{\\pi}{4}$ modulo $2\\pi$, le point-image de $\\dfrac{${rienSi1(k)}\\pi}{4}$ est le point $B$.`
+            this.correction = `Comme $\\dfrac{${rienSi1(k)}\\pi}{4}=\\dfrac{\\pi}{4}$ modulo $2\\pi$, le point-image de $\\dfrac{${rienSi1(k)}\\pi}{4}$ est le point ${texteEnCouleurEtGras('B')}.`
           }
           this.reponse = 'B'
         }
@@ -241,15 +243,15 @@ export default class AngleSurCercleTrigo extends ExerciceSimple {
             this.correction =
               'Le point $E$ est le point-image du réel $\\dfrac{3\\pi}{4}$.'
           } else {
-            this.correction = `Comme $\\dfrac{${rienSi1(k)}\\pi}{4}=\\dfrac{3\\pi}{4}$ modulo $2\\pi$, le point-image de $\\dfrac{${rienSi1(k)}\\pi}{4}$ est le point $E$.  `
+            this.correction = `Comme $\\dfrac{${rienSi1(k)}\\pi}{4}=\\dfrac{3\\pi}{4}$ modulo $2\\pi$, le point-image de $\\dfrac{${rienSi1(k)}\\pi}{4}$ est le point ${texteEnCouleurEtGras('E')}.  `
           }
           this.reponse = 'E'
         }
         if (k === 5 || k === -3) {
           if (k === 5) {
-            this.correction = `Le point $H$ est le point-image du réel $\\dfrac{${k}\\pi}{4}$.`
+            this.correction = `Le point ${texteEnCouleurEtGras('H')} est le point-image du réel $\\dfrac{${k}\\pi}{4}$.`
           } else {
-            this.correction = `Comme $\\dfrac{${rienSi1(k)}\\pi}{4}=\\dfrac{5\\pi}{4}$ modulo $2\\pi$, le point-image de $\\dfrac{${rienSi1(k)}\\pi}{4}$ est le point $H$.  `
+            this.correction = `Comme $\\dfrac{${rienSi1(k)}\\pi}{4}=\\dfrac{5\\pi}{4}$ modulo $2\\pi$, le point-image de $\\dfrac{${rienSi1(k)}\\pi}{4}$ est le point ${texteEnCouleurEtGras('H')}.  `
           }
           this.reponse = 'H'
         }
@@ -258,7 +260,7 @@ export default class AngleSurCercleTrigo extends ExerciceSimple {
             this.correction =
               'Le point $P$ est le point-image du réel $-\\dfrac{\\pi}{4}$.'
           } else {
-            this.correction = `Comme $\\dfrac{${rienSi1(k)}\\pi}{4}=-\\dfrac{\\pi}{4}$ modulo $2\\pi$, le point-image de $\\dfrac{${rienSi1(k)}\\pi}{4}$ est le point $P$.  `
+            this.correction = `Comme $\\dfrac{${rienSi1(k)}\\pi}{4}=-\\dfrac{\\pi}{4}$ modulo $2\\pi$, le point-image de $\\dfrac{${rienSi1(k)}\\pi}{4}$ est le point ${texteEnCouleurEtGras('P')}.  `
           }
           this.reponse = 'P'
         }
@@ -281,7 +283,7 @@ export default class AngleSurCercleTrigo extends ExerciceSimple {
             this.correction =
               'Le point $C$ est le point-image du réel $\\dfrac{\\pi}{3}$.'
           } else {
-            this.correction = `Comme $\\dfrac{${rienSi1(k)}\\pi}{3}=\\dfrac{\\pi}{3}$ modulo $2\\pi$, le point-image de $\\dfrac{${rienSi1(k)}\\pi}{3}$ est le point $C$.`
+            this.correction = `Comme $\\dfrac{${rienSi1(k)}\\pi}{3}=\\dfrac{\\pi}{3}$ modulo $2\\pi$, le point-image de $\\dfrac{${rienSi1(k)}\\pi}{3}$ est le point ${texteEnCouleurEtGras('C')}.`
           }
           this.reponse = 'C'
         }
@@ -290,12 +292,12 @@ export default class AngleSurCercleTrigo extends ExerciceSimple {
             this.correction =
               'Le point $D$ est le point-image du réel $\\dfrac{2\\pi}{3}$.'
           } else {
-            this.correction = `Comme $\\dfrac{${rienSi1(k)}\\pi}{3}=\\dfrac{2\\pi}{3}$ modulo $2\\pi$, le point-image de $\\dfrac{${rienSi1(k)}\\pi}{3}$ est le point $D$.  `
+            this.correction = `Comme $\\dfrac{${rienSi1(k)}\\pi}{3}=\\dfrac{2\\pi}{3}$ modulo $2\\pi$, le point-image de $\\dfrac{${rienSi1(k)}\\pi}{3}$ est le point ${texteEnCouleurEtGras('D')}.  `
           }
           this.reponse = 'D'
         }
         if (k === 4 || k === -2 || k === -8) {
-          this.correction = `Comme $\\dfrac{${rienSi1(k)}\\pi}{3}=-\\dfrac{2\\pi}{3}$ modulo $2\\pi$, le point-image de $\\dfrac{${rienSi1(k)}\\pi}{3}$ est le point $M$.  `
+          this.correction = `Comme $\\dfrac{${rienSi1(k)}\\pi}{3}=-\\dfrac{2\\pi}{3}$ modulo $2\\pi$, le point-image de $\\dfrac{${rienSi1(k)}\\pi}{3}$ est le point ${texteEnCouleurEtGras('M')}.  `
           this.reponse = 'M'
         }
         if (k === 5 || k === -1 || k === -7) {
@@ -303,7 +305,7 @@ export default class AngleSurCercleTrigo extends ExerciceSimple {
             this.correction =
               'Le point $N$ est le point-image du réel $-\\dfrac{\\pi}{3}$.'
           } else {
-            this.correction = `Comme $\\dfrac{${rienSi1(k)}\\pi}{3}=-\\dfrac{\\pi}{3}$ modulo $2\\pi$, le point-image de $\\dfrac{${rienSi1(k)}\\pi}{3}$ est le point $N$.  `
+            this.correction = `Comme $\\dfrac{${rienSi1(k)}\\pi}{3}=-\\dfrac{\\pi}{3}$ modulo $2\\pi$, le point-image de $\\dfrac{${rienSi1(k)}\\pi}{3}$ est le point ${texteEnCouleurEtGras('N')}.  `
           }
           this.reponse = 'N'
         }
@@ -326,7 +328,7 @@ export default class AngleSurCercleTrigo extends ExerciceSimple {
             this.correction =
               'Le point $J$ est le point-image du réel $\\dfrac{\\pi}{2}$.'
           } else {
-            this.correction = `Comme $\\dfrac{${rienSi1(k)}\\pi}{2}=\\dfrac{\\pi}{2}$ modulo $2\\pi$, le point-image de $\\dfrac{${rienSi1(k)}\\pi}{2}$ est le point $J$.`
+            this.correction = `Comme $\\dfrac{${rienSi1(k)}\\pi}{2}=\\dfrac{\\pi}{2}$ modulo $2\\pi$, le point-image de $\\dfrac{${rienSi1(k)}\\pi}{2}$ est le point ${texteEnCouleurEtGras('J')}.`
           }
           this.reponse = 'J'
         }
@@ -335,7 +337,7 @@ export default class AngleSurCercleTrigo extends ExerciceSimple {
             this.correction =
               'Le point $L$ est le point-image du réel $-\\dfrac{\\pi}{2}$.'
           } else {
-            this.correction = `Comme $\\dfrac{${rienSi1(k)}\\pi}{2}=-\\dfrac{\\pi}{2}$ modulo $2\\pi$, le point-image de $\\dfrac{${rienSi1(k)}\\pi}{2}$ est le point $L$.  `
+            this.correction = `Comme $\\dfrac{${rienSi1(k)}\\pi}{2}=-\\dfrac{\\pi}{2}$ modulo $2\\pi$, le point-image de $\\dfrac{${rienSi1(k)}\\pi}{2}$ est le point ${texteEnCouleurEtGras('L')}.  `
           }
           this.reponse = 'L'
         }

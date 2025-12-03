@@ -6,7 +6,11 @@ import { pgcd } from '../../lib/outils/primalite'
 import { context } from '../../modules/context'
 import { labyrinthe } from '../../modules/Labyrinthe'
 import { mathalea2d } from '../../modules/mathalea2d'
-import { listeQuestionsToContenu, randint } from '../../modules/outils'
+import {
+  contraindreValeur,
+  listeQuestionsToContenu,
+  randint,
+} from '../../modules/outils'
 import Exercice from '../Exercice'
 
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
@@ -28,7 +32,7 @@ export const titre = 'Parcourir un labyrinthe de fractions égales'
 export const uuid = 'f8a4d'
 
 export const refs = {
-  'fr-fr': ['BP2AutoG5', '6N3H-1'],
+  'fr-fr': ['6N3H-1', 'BP2AutoG5'],
   'fr-2016': ['6N41-1', 'BP2AutoG5'],
   'fr-ch': ['9NO12-2'],
 }
@@ -80,7 +84,7 @@ export default class ExerciceLabyrintheFractionsEgales extends Exercice {
       const nbC =
         this.sup4 === 1 ? randint(3, 11 - nbL) : Math.max(3, this.sup4)
       const laby = labyrinthe({ nbLignes: nbL, nbColonnes: nbC })
-      laby.niveau = parseInt(this.sup2) // Le niveau (de 1 à 6=mélange) définit le nombre d'étapes
+      laby.niveau = contraindreValeur(1, 6, this.sup2, randint(1, 6)) // Le niveau (de 1 à 6=mélange) définit le nombre d'étapes
       const monchemin = laby.choisitChemin(laby.niveau) // on choisit un chemin
       laby.murs2d = laby.construitMurs(monchemin) // On construit le labyrinthe
       laby.chemin2d = laby.traceChemin(monchemin) // On trace le chemin solution

@@ -1,5 +1,7 @@
 import { setReponse } from '../../lib/interactif/gestionInteractif'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
+import { miseEnEvidence } from '../../lib/outils/embellissements'
+import { texNombre } from '../../lib/outils/texNombre'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import Exercice from '../Exercice'
 
@@ -39,9 +41,13 @@ export default class Ajouter9 extends Exercice {
     ) {
       a = randint(0, 9) * 10 + randint(1, 9)
       texte = `$${a}+9 = $`
-      texteCorr = `$${a}+9=${a + 9}$`
+      texteCorr = `$${a}+9=${miseEnEvidence(texNombre(a + 9))}$`
       setReponse(this, i, a + 9)
-      if (this.interactif) texte += ajouteChampTexteMathLive(this, i, '')
+      if (this.interactif) {
+        texte += ajouteChampTexteMathLive(this, i, '')
+      } else {
+        texte += `$\\dots$`
+      }
 
       if (this.listeQuestions.indexOf(texte) === -1) {
         // Si la question n'a jamais été posée, on en crée une autre

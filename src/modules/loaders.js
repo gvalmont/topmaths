@@ -3,7 +3,7 @@ import { MathfieldElement } from 'mathlive'
 import { get } from 'svelte/store'
 import { keyboardState } from '../components/keyboard/stores/keyboardStore'
 import { getKeyboardShortcusts } from '../lib/interactif/claviers/keyboard'
-import { globalOptions } from '../lib/stores/generalStore'
+import { globalOptions } from '../lib/stores/globalOptions'
 import { context } from './context'
 import { UserFriendlyError } from './messages'
 /**

@@ -13,7 +13,7 @@ export default class ExerciceDevelopper4e extends ExerciceDevelopper {
   constructor() {
     super()
     this.sup = 3 // difficulté
-    this.sup2 = 1 // consigne
+    this.sup2 = 2 // Développer et réduire par défaut
     this.sup3 = 7 // forme de développement
   }
 }

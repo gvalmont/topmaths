@@ -26,7 +26,7 @@ export const dateDeModifImportante = '03/05/2024'
 export const uuid = '6d576'
 
 export const refs = {
-  'fr-fr': ['5R11-2', '3autoN15-2'],
+  'fr-fr': ['5R11-2', '3AutoN15-2'],
   'fr-ch': ['9NO9-2'],
 }
 
@@ -216,6 +216,7 @@ class PlacerPointsSurAxeRelatifs extends Exercice {
         label,
         x,
         y: 0,
+        precision: 0.001,
       })
       const point = points[0]
       if (isValid) {

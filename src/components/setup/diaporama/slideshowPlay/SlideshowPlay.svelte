@@ -1,13 +1,14 @@
 <script lang="ts">
-  import type { Slide, Slideshow } from '../types'
-  import SlideshowPlayQuestion from './presentationalComponents/slideshowPlayQuestion/SlideshowPlayQuestion.svelte'
-  import SlideshowPlaySettings from './presentationalComponents/slideshowPlaySettings/SlideshowPlaySettings.svelte'
-  import SlideshowPlaySteps from './presentationalComponents/SlideshowPlaySteps.svelte'
-  import SlideshowPlayEndButtons from './presentationalComponents/SlideshowPlayEndButtons.svelte'
   import { onDestroy, tick } from 'svelte'
   import { showDialogForLimitedTime } from '../../../../lib/components/dialogs'
   import { mathaleaRenderDiv } from '../../../../lib/mathalea'
-  import { globalOptions } from '../../../../lib/stores/generalStore'
+  import { arrondi } from '../../../../lib/outils/nombres'
+  import { globalOptions } from '../../../../lib/stores/globalOptions'
+  import type { Slide, Slideshow } from '../types'
+  import SlideshowPlayEndButtons from './presentationalComponents/SlideshowPlayEndButtons.svelte'
+  import SlideshowPlayQuestion from './presentationalComponents/slideshowPlayQuestion/SlideshowPlayQuestion.svelte'
+  import SlideshowPlaySettings from './presentationalComponents/slideshowPlaySettings/SlideshowPlaySettings.svelte'
+  import SlideshowPlaySteps from './presentationalComponents/SlideshowPlaySteps.svelte'
 
   export let slideshow: Slideshow
   export let transitionSounds: Record<string, HTMLAudioElement>
@@ -24,8 +25,10 @@
   let isQuestionVisible = true
   let advanceRatioTimeInterval: number
   let ratioTime = 0 // Pourcentage du temps écoulé (entre 1 et 100)
-  let userZoom = 1
   let optimalZoom = 1
+  let userZoom: number[] = Array(
+    slideshow.selectedQuestionsNumber || slideshow.slides.length,
+  ).fill(1)
 
   let flow: 'Q->Q' | 'Q->R->Q' | 'Q->(Q+R)->Q'
   $: {
@@ -147,7 +150,10 @@
       const exerciseContainerDiv = document.getElementById(
         'exerciseContainer' + vueIndex,
       )
-      mathaleaRenderDiv(exerciseContainerDiv, optimalZoom * userZoom)
+      mathaleaRenderDiv(
+        exerciseContainerDiv,
+        optimalZoom * userZoom[slideshow.currentQuestion],
+      )
     }
     document.dispatchEvent(exercicesAffiches)
   }
@@ -257,16 +263,29 @@
   }
 
   function zoomPlus() {
-    userZoom += 0.05
-    renderAllViews(false)
+    updateZoom(0.05)
   }
 
   function zoomMinus() {
-    if (userZoom > 0.5) {
-      userZoom -= 0.05
+    if (userZoom[slideshow.currentQuestion] > 0.5) {
+      updateZoom(-0.05)
+    }
+  }
+
+  function updateZoom(zoomIncrease: number) {
+    const currentZoom = userZoom[slideshow.currentQuestion]
+    const newZoom = arrondi(currentZoom + zoomIncrease, 2)
+    const currentUuid = currentSlide.exercise.uuid
+    const slidesCount =
+      slideshow.selectedQuestionsNumber || slideshow.slides.length
+    for (let i = 0; i < slidesCount; i++) {
+      if (slideshow.slides[order[i]].exercise.uuid === currentUuid) {
+        userZoom[i] = newZoom
+      }
     }
     renderAllViews(false)
   }
+
   async function switchDisplayMode() {
     pause()
     if (isQuestionVisible && !isCorrectionVisible) {

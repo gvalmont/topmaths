@@ -278,6 +278,9 @@
   "2mFctPoly": {
     "titre": "Fonctions polynomiales"
   },
+  "2mFctRat": {
+    "titre": "Fonctions rationnelles"
+  },
   "2mIneq": {
     "titre": "Inéquations"
   },

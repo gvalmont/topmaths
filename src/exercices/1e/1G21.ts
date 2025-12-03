@@ -1,5 +1,5 @@
 import { droite, Droite } from '../../lib/2d/droites'
-import { Point } from '../../lib/2d/PointAbstrait'
+import { PointAbstrait } from '../../lib/2d/PointAbstrait'
 import { milieu } from '../../lib/2d/utilitairesPoint'
 import { Vecteur } from '../../lib/2d/Vecteur'
 import engine from '../../lib/interactif/comparisonFunctions'
@@ -23,7 +23,7 @@ export const refs = {
   'fr-ch': [],
 }
 
-function pointVersTex(A: Point): string {
+function pointVersTex(A: PointAbstrait): string {
   return `${A.nom}\\left(${A.x} ; ${A.y}\\right)`
 }
 
@@ -45,10 +45,10 @@ function vecteurNormal(u: Vecteur, nom: string = 'n'): Vecteur {
 // }
 
 function construireDroite(
-  A: Point,
-  { B, u, n }: { B?: Point; u?: Vecteur; n?: Vecteur },
+  A: PointAbstrait,
+  { B, u, n }: { B?: PointAbstrait; u?: Vecteur; n?: Vecteur },
 ): [Droite, string] | undefined {
-  if (B instanceof Point) {
+  if (B instanceof PointAbstrait) {
     const u = new Vecteur(A, B, `${A.nom}${B.nom}`)
     const [d, details] = construireDroite(A, { u }) as [Droite, string]
     return [
@@ -78,17 +78,21 @@ function construireDroite(
   }
 }
 
-function hauteur(A: Point, B: Point, C: Point): [Droite, string] {
+function hauteur(
+  A: PointAbstrait,
+  B: PointAbstrait,
+  C: PointAbstrait,
+): [Droite, string] {
   const n = new Vecteur(B, C, 'BC')
   const [d, details] = construireDroite(A, { n }) as [Droite, string]
   return [
     d,
-    `La hauteur $(h)$ issue de $${A.nom}$ dans le triangle $${A.nom}${B.nom}${C.nom}$ passe par le point $${A.nom}$ et est perpendiculaire à la droite $(${B.nom}${C.nom}$). Ainsi le vecteur $${vecteurVersTex(n)}$ est un vecteur normal à la droite $(h)$. ` +
+    `La hauteur $(h)$ issue de $${A.nom}$ dans le triangle $${A.nom}${B.nom}${C.nom}$ passe par le PointAbstrait $${A.nom}$ et est perpendiculaire à la droite $(${B.nom}${C.nom}$). Ainsi le vecteur $${vecteurVersTex(n)}$ est un vecteur normal à la droite $(h)$. ` +
       details,
   ]
 }
 
-function mediatrice(A: Point, B: Point): [Droite, string] {
+function mediatrice(A: PointAbstrait, B: PointAbstrait): [Droite, string] {
   const I = milieu(A, B, 'I')
   const n = new Vecteur(A, B, 'AB')
 
@@ -103,8 +107,8 @@ function mediatrice(A: Point, B: Point): [Droite, string] {
 }
 
 function questionDeuxPoints(i: number = 0): [string, string] {
-  const A = new Point(randint(-5, 5), randint(-5, 5), 'A')
-  const B = new Point(randint(-5, 5, [A.x]), randint(-5, 5, [A.y]), 'B')
+  const A = new PointAbstrait(randint(-5, 5), randint(-5, 5), 'A')
+  const B = new PointAbstrait(randint(-5, 5, [A.x]), randint(-5, 5, [A.y]), 'B')
   const [, details] = construireDroite(A, { B }) as [Droite, string]
 
   return [
@@ -114,34 +118,34 @@ function questionDeuxPoints(i: number = 0): [string, string] {
 }
 
 function questionPointvDir(i: number = 0): [string, string] {
-  const A = new Point(randint(-5, 5), randint(-5, 5), 'A')
+  const A = new PointAbstrait(randint(-5, 5), randint(-5, 5), 'A')
   const ux = randint(-5, 5)
   const uy = randint(-5, 5, ux)
   const u = new Vecteur(ux, uy, 'u')
   const [, details] = construireDroite(A, { u }) as [Droite, string]
 
   return [
-    `Soient le point $${pointVersTex(A)}$, et le vecteur $${vecteurVersTex(u)}$. Donner l'équation de la droite $(d)$ passant par le point $${A.nom}$ et de vecteur directeur $\\vec{${u.nom}}$.`,
+    `Soient le PointAbstrait $${pointVersTex(A)}$, et le vecteur $${vecteurVersTex(u)}$. Donner l'équation de la droite $(d)$ passant par le PointAbstrait $${A.nom}$ et de vecteur directeur $\\vec{${u.nom}}$.`,
     details,
   ]
 }
 
 function questionPointvNorm(i: number = 0): [string, string] {
-  const A = new Point(randint(-5, 5), randint(-5, 5), 'A')
+  const A = new PointAbstrait(randint(-5, 5), randint(-5, 5), 'A')
   const ux = randint(-5, 5)
   const uy = randint(-5, 5, ux)
   const n = new Vecteur(ux, uy, 'n')
   const [, details] = construireDroite(A, { n }) as [Droite, string]
   return [
-    `Soient le point $${pointVersTex(A)}$, et le vecteur $${vecteurVersTex(n)}$. Donner l'équation de la droite $(d)$ passant par le point $${A.nom}$ et de vecteur normal $\\vec{${n.nom}}$.`,
+    `Soient le PointAbstrait $${pointVersTex(A)}$, et le vecteur $${vecteurVersTex(n)}$. Donner l'équation de la droite $(d)$ passant par le PointAbstrait $${A.nom}$ et de vecteur normal $\\vec{${n.nom}}$.`,
     details,
   ]
 }
 
 function questionHauteur(i: number = 0): [string, string] {
-  const A = new Point(randint(-5, 5), randint(-5, 5), 'A')
-  const B = new Point(randint(-5, 5, [A.x]), randint(-5, 5, [A.y]), 'B')
-  const C = new Point(
+  const A = new PointAbstrait(randint(-5, 5), randint(-5, 5), 'A')
+  const B = new PointAbstrait(randint(-5, 5, [A.x]), randint(-5, 5, [A.y]), 'B')
+  const C = new PointAbstrait(
     randint(-5, 5, [A.x, B.x]),
     randint(-5, 5, [A.y, B.y]),
     'C',
@@ -154,8 +158,8 @@ function questionHauteur(i: number = 0): [string, string] {
 }
 
 function questionMediatrice(i: number = 0): [string, string] {
-  const A = new Point(randint(-5, 5), randint(-5, 5), 'A')
-  const B = new Point(randint(-5, 5, [A.x]), randint(-5, 5, [A.y]), 'B')
+  const A = new PointAbstrait(randint(-5, 5), randint(-5, 5), 'A')
+  const B = new PointAbstrait(randint(-5, 5, [A.x]), randint(-5, 5, [A.y]), 'B')
   const [, details] = mediatrice(A, B)
   return [
     `Soient les points $${pointVersTex(A)}$ et $${pointVersTex(B)}$. Déterminer une équation cartésienne de la médiatrice du segment $[${A.nom}${B.nom}$].`,

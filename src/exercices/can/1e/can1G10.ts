@@ -5,6 +5,7 @@ import { polygoneAvecNom } from '../../../lib/2d/polygones'
 import { segment } from '../../../lib/2d/segmentsVecteurs'
 import { texteParPosition } from '../../../lib/2d/textes'
 import { pointSurCercle } from '../../../lib/2d/utilitairesPoint'
+import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 import { choice } from '../../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { mathalea2d } from '../../../modules/mathalea2d'
@@ -34,7 +35,7 @@ export default class PointSurCercleTrigo extends ExerciceSimple {
     super()
 
     this.typeExercice = 'simple'
-
+    this.formatChampTexte = KeyboardType.grecTrigo
     this.nbQuestions = 1
   }
 

@@ -3,7 +3,7 @@ import { cercle } from '../../lib/2d/cercle'
 import { codageAngleDroit } from '../../lib/2d/CodageAngleDroit'
 import { colorToLatexOrHTML } from '../../lib/2d/colorToLatexOrHtml'
 import { droite, droiteVerticaleParPoint } from '../../lib/2d/droites'
-import { Point, point } from '../../lib/2d/PointAbstrait'
+import { point, PointAbstrait } from '../../lib/2d/PointAbstrait'
 import {
   NommePolygone,
   Polygone,
@@ -126,21 +126,21 @@ export default class ProblemesTrigoLongueur extends Exercice {
     let beta = 0
     let alpha = 0
     let taille
-    let A: Point | Point3d
-    let B: Point | Point3d
-    let S: Point | Point3d
-    let C: Point | Point3d
-    let R: [Polygone, NommePolygone] | Vecteur3d | Point
+    let A: PointAbstrait | Point3d
+    let B: PointAbstrait | Point3d
+    let S: PointAbstrait | Point3d
+    let C: PointAbstrait | Point3d
+    let R: [Polygone, NommePolygone] | Vecteur3d | PointAbstrait
     let objets = []
     let p
-    let O: Point | Point3d
-    let H: Point | Point3d
-    let M: Point | Point3d
+    let O: PointAbstrait | Point3d
+    let H: PointAbstrait | Point3d
+    let M: PointAbstrait | Point3d
     let R2: Vecteur3d
     let Axe
     let normalV
     let normalH
-    let P: Point | Point3d
+    let P: PointAbstrait | Point3d
     let HP: Arete3d
     let Sph
     let OP: Arete3d

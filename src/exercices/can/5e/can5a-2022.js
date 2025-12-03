@@ -1,3 +1,4 @@
+import { context } from 'three/src/nodes/TSL.js'
 import { codageAngle } from '../../../lib/2d/angles'
 import { arc } from '../../../lib/2d/Arc'
 import { codageAngleDroit } from '../../../lib/2d/CodageAngleDroit'
@@ -24,6 +25,7 @@ import {
 import { ajouteChampTexteMathLive } from '../../../lib/interactif/questionMathLive'
 import { choice, shuffle } from '../../../lib/outils/arrayOutils'
 import { texFractionReduite } from '../../../lib/outils/deprecatedFractions'
+import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { arrondi } from '../../../lib/outils/nombres'
 import { lettreDepuisChiffre, sp } from '../../../lib/outils/outilString'
 import { stringNombre, texNombre } from '../../../lib/outils/texNombre'
@@ -39,7 +41,7 @@ export const interactifReady = true
 export const interactifType = 'mathLive'
 // Les exports suivants sont optionnels mais au moins la date de publication semble essentielle
 export const dateDePublication = '02/05/2022' // La date de publication initiale au format 'jj/mm/aaaa' pour affichage temporaire d'un tag
-// export const dateDeModifImportante = '24/10/2021' // Une date de modification importante au format 'jj/mm/aaaa' pour affichage temporaire d'un tag
+export const dateDeModifImportante = '30/11/2025' // Une date de modification importante au format 'jj/mm/aaaa' pour affichage temporaire d'un tag
 
 /**
  *
@@ -193,7 +195,7 @@ export default class SujetCAN2022cinquieme extends Exercice {
           a = randint(4, 9)
           b = randint(4, 9)
           texte = `$${a} \\times ${b}=$ `
-          texteCorr = `$${a} \\times ${b}=${a * b}$`
+          texteCorr = `$${a} \\times ${b}=${miseEnEvidence(a * b)}$`
           reponse = a * b
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) {
@@ -202,6 +204,7 @@ export default class SujetCAN2022cinquieme extends Exercice {
             texte += '$\\ldots$'
           }
           nbChamps = 1
+          this.listeCanEnonces.push(`$${a} \\times ${b}$ `)
 
           break
 
@@ -256,13 +259,13 @@ export default class SujetCAN2022cinquieme extends Exercice {
               ${chiffre2[b][0]}-et-${chiffre[a][0]}-mille-${chiffre[c][0]} `
               reponse = (chiffre2[b][1] + chiffre[a][1]) * 1000 + chiffre[c][1]
               texteCorr = ` ${chiffre2[b][0]}-et-${chiffre[a][0]}-mille-${chiffre[c][0]}$=
-              ${(chiffre2[b][1] + chiffre[a][1]) * 1000} + ${chiffre[c][1]}=${(chiffre2[b][1] + chiffre[a][1]) * 1000 + chiffre[c][1]}$ `
+           ${texNombre((chiffre2[b][1] + chiffre[a][1]) * 1000)} + ${chiffre[c][1]}=   ${miseEnEvidence(`${texNombre((chiffre2[b][1] + chiffre[a][1]) * 1000 + chiffre[c][1])}`)}$ `
             } else {
               texte = `Écris en chiffres le nombre : <br>
                           ${chiffre2[b][0]}-${chiffre[a][0]}-mille-${chiffre[c][0]} `
               reponse = (chiffre2[b][1] + chiffre[a][1]) * 1000 + chiffre[c][1]
               texteCorr = ` ${chiffre2[b][0]}-${chiffre[a][0]}-mille-${chiffre[c][0]}$=
-                          ${(chiffre2[b][1] + chiffre[a][1]) * 1000} + ${chiffre[c][1]}=${(chiffre2[b][1] + chiffre[a][1]) * 1000 + chiffre[c][1]}$ `
+                          ${texNombre((chiffre2[b][1] + chiffre[a][1]) * 1000)} + ${chiffre[c][1]}=${miseEnEvidence(`${texNombre((chiffre2[b][1] + chiffre[a][1]) * 1000 + chiffre[c][1])}`)}$ `
             }
           } else {
             if (a === 0) {
@@ -270,16 +273,16 @@ export default class SujetCAN2022cinquieme extends Exercice {
               ${chiffre2[b][0]}-et-${chiffre[a][0]}-mille-${chiffre2[d][0]} `
               reponse = (chiffre2[b][1] + chiffre[a][1]) * 1000 + chiffre2[d][1]
               texteCorr = ` ${chiffre2[b][0]}-et-${chiffre[a][0]}-mille-${chiffre2[d][0]}$=
-              ${(chiffre2[b][1] + chiffre[a][1]) * 1000} + ${chiffre2[d][1]}=${(chiffre2[b][1] + chiffre[a][1]) * 1000 + chiffre2[d][1]}$ `
+              ${texNombre((chiffre2[b][1] + chiffre[a][1]) * 1000)} + ${chiffre2[d][1]}=${miseEnEvidence(`${texNombre((chiffre2[b][1] + chiffre[a][1]) * 1000 + chiffre2[d][1])}`)}$ `
             } else {
               texte = `Écris en chiffres le nombre : <br>
                           ${chiffre2[b][0]}-${chiffre[a][0]}-mille-${chiffre2[d][0]} `
               reponse = (chiffre2[b][1] + chiffre[a][1]) * 1000 + chiffre2[d][1]
               texteCorr = ` ${chiffre2[b][0]}-${chiffre[a][0]}-mille-${chiffre2[d][0]}$=
-                          ${(chiffre2[b][1] + chiffre[a][1]) * 1000} + ${chiffre2[d][1]}=${(chiffre2[b][1] + chiffre[a][1]) * 1000 + chiffre2[d][1]}$ `
+                          ${texNombre((chiffre2[b][1] + chiffre[a][1]) * 1000)} + ${chiffre2[d][1]}=${miseEnEvidence(`${texNombre((chiffre2[b][1] + chiffre[a][1]) * 1000 + chiffre2[d][1])}`)}$ `
             }
           }
-
+          this.listeCanEnonces.push(texte)
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) {
             texte += ajouteChampTexteMathLive(this, index, '  ')
@@ -293,7 +296,7 @@ export default class SujetCAN2022cinquieme extends Exercice {
           b = choice([19, 29])
           reponse = a - b
           texte = `$${a}-${b}=$ `
-          texteCorr = `$${a}-${b}=${a}-${b + 1}+1=${a - b}$ `
+          texteCorr = `$${a}-${b}=${a}-${b + 1}+1=${miseEnEvidence(a - b)}$ `
 
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) {
@@ -301,6 +304,7 @@ export default class SujetCAN2022cinquieme extends Exercice {
           } else {
             texte += '$\\ldots$'
           }
+          this.listeCanEnonces.push(`$${a}-${b}$ `)
           nbChamps = 1
           break
 
@@ -313,26 +317,32 @@ export default class SujetCAN2022cinquieme extends Exercice {
             texteCorr = `
         Comme $1\\text{ m}$ $=100\\text{ cm}$, alors $1\\text{ cm}$ $=0,01\\text{ m}$.<br>
         Ainsi pour passer des $\\text{m}$ au $\\text{cm}$, on divise par $100$.<br>
-          Comme : $${a}\\div 100 =${texNombre(a / 100, 2)}$, alors $${a}\\text{ cm}=${texNombre(a / 100, 2)}\\text{ m}$.  `
+          Comme : $${a}\\div 100 =${texNombre(a / 100, 2)}$, alors $${a}\\text{ cm}=${miseEnEvidence(texNombre(a / 100, 2))}\\text{ m}$.  `
             setReponse(this, index, reponse, { formatInteractif: 'calcul' })
             if (this.interactif) {
               texte += ajouteChampTexteMathLive(this, index, '  ') + 'm'
             } else {
               texte += '  $\\ldots\\text{ m}$'
             }
+            this.canEnonce = 'Complète.'
+            this.canReponseACompleter = `$${a}\\text{ cm}=\\ldots\\text{ m}$`
           } else {
             a = randint(1, 9) + randint(1, 9) / 10
             reponse = a * 100
             texte = `$${texNombre(a, 1)}\\text{ m}$  $=$ `
             texteCorr = ` Comme $1\\text{ m}$ $=100\\text{ cm}$,  pour passer des $\\text{m}$ au $\\text{cm}$, on multiplie par $100$.<br>
-                Comme : $${texNombre(a, 1)}\\times 100 =${texNombre(a * 100, 0)}$, alors $${texNombre(a, 2)}\\text{ m}=${texNombre(reponse, 0)}\\text{ cm}$.`
+                Comme : $${texNombre(a, 1)}\\times 100 =${texNombre(a * 100, 0)}$, alors $${texNombre(a, 2)}\\text{ m}=${miseEnEvidence(texNombre(reponse, 0))}\\text{ cm}$.`
             setReponse(this, index, reponse, { formatInteractif: 'calcul' })
             if (this.interactif) {
               texte += ajouteChampTexteMathLive(this, index, '  ') + 'cm'
             } else {
               texte += '  $\\ldots\\text{ cm}$'
             }
+            this.canEnonce = 'Complète.'
+            this.canReponseACompleter = `$${texNombre(a, 1)}\\text{ m}=\\ldots\\text{ cm}$`
           }
+          this.listeCanEnonces.push(this.canEnonce)
+          this.listeCanReponsesACompleter[i] = this.canReponseACompleter
           nbChamps = 1
 
           break
@@ -343,11 +353,13 @@ export default class SujetCAN2022cinquieme extends Exercice {
             if (choice([true, false])) {
               texte = `$2\\times${a}\\times 5=$
              `
-              texteCorr = `$2\\times${a}\\times 5=10\\times ${a}=${10 * a}$`
+              this.canEnonce = `$2\\times${a}\\times 5$`
+              texteCorr = `$2\\times${a}\\times 5=10\\times ${a}=${miseEnEvidence(10 * a)}$`
             } else {
               texte = `$5\\times${a}\\times 2=$
              `
-              texteCorr = `$5\\times${a}\\times 2=10\\times ${a}=${10 * a}$`
+              this.canEnonce = `$5\\times${a}\\times 2$`
+              texteCorr = `$5\\times${a}\\times 2=10\\times ${a}=${miseEnEvidence(10 * a)}$`
             }
 
             reponse = 10 * a
@@ -356,11 +368,13 @@ export default class SujetCAN2022cinquieme extends Exercice {
             if (choice([true, false])) {
               texte = `$4\\times${a}\\times 25=$
              `
-              texteCorr = `$4\\times${a}\\times 25=100\\times ${a}=${100 * a}$`
+              this.canEnonce = `$4\\times${a}\\times 25$`
+              texteCorr = `$4\\times${a}\\times 25=100\\times ${a}=${miseEnEvidence(100 * a)}$`
             } else {
               texte = `$50\\times${a}\\times 2=$
              `
-              texteCorr = `$50\\times${a}\\times 2=100\\times ${a}=${100 * a}$`
+              this.canEnonce = `$50\\times${a}\\times 2$`
+              texteCorr = `$50\\times${a}\\times 2=100\\times ${a}=${miseEnEvidence(100 * a)}$`
             }
 
             reponse = 100 * a
@@ -372,6 +386,7 @@ export default class SujetCAN2022cinquieme extends Exercice {
           } else {
             texte += '  $\\ldots$'
           }
+          this.listeCanEnonces.push(this.canEnonce)
           nbChamps = 1
           break
 
@@ -382,16 +397,19 @@ export default class SujetCAN2022cinquieme extends Exercice {
           reponse = arrondi(u + a * 0.1 + c * 0.001, 3)
           if (choice([true, false])) {
             texte = `Écrire sous forme décimale : $${u}+\\dfrac{${a}}{10}+\\dfrac{${c}}{1000}$. `
-            texteCorr = `$${u}+\\dfrac{${a}}{10}+\\dfrac{${c}}{1000}=${u}+${texNombre(a / 10, 1)}+${texNombre(c / 1000, 3)}=${texNombre(u + a / 10 + c / 1000, 3)}$`
+            texteCorr = `$${u}+\\dfrac{${a}}{10}+\\dfrac{${c}}{1000}=${u}+${texNombre(a / 10, 1)}+${texNombre(c / 1000, 3)}=${miseEnEvidence(texNombre(u + a / 10 + c / 1000, 3))}$`
           } else {
             texte = `Écris sous forme décimale : $${u}+\\dfrac{${c}}{1000}+\\dfrac{${a}}{10}$. `
-            texteCorr = `$${u}+\\dfrac{${c}}{1000}+\\dfrac{${a}}{10}=${u}+${texNombre(c / 1000, 3)}+${texNombre(a / 10, 1)}=${texNombre(u + a / 10 + c / 1000, 3)}$
+            texteCorr = `$${u}+\\dfrac{${c}}{1000}+\\dfrac{${a}}{10}=${u}+${texNombre(c / 1000, 3)}+${texNombre(a / 10, 1)}=${miseEnEvidence(texNombre(u + a / 10 + c / 1000, 3))}$
              `
           }
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) {
-            texte += ajouteChampTexteMathLive(this, index, '  ')
+            texte += ajouteChampTexteMathLive(this, index, '  ', {
+              texteAvant: '<br>',
+            })
           }
+          this.listeCanEnonces.push(texte)
           nbChamps = 1
           break
 
@@ -401,7 +419,7 @@ export default class SujetCAN2022cinquieme extends Exercice {
           c = randint(3, 9)
           reponse = a + b * c
           texte = `$${a}+${b}\\times ${c}=$`
-          texteCorr = `La multiplication est prioritaire : $${a}+${b}\\times ${c}=${a}+${b * c}$
+          texteCorr = `La multiplication est prioritaire : $${a}+${b}\\times ${c}=${a}+${b * c}=${miseEnEvidence(a + b * c)}$
                                    `
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) {
@@ -409,6 +427,8 @@ export default class SujetCAN2022cinquieme extends Exercice {
           } else {
             texte += ' $\\ldots$'
           }
+          this.listeCanEnonces.push(`$${a}+${b}\\times ${c}$`)
+
           nbChamps = 1
           break
 
@@ -417,7 +437,7 @@ export default class SujetCAN2022cinquieme extends Exercice {
           b = choice([19, 29])
           reponse = a + b
           texte = `$${a}+${b}=$ `
-          texteCorr = `$${a}+${b}=${a}+${b + 1}-1=${a + b}$ `
+          texteCorr = `$${a}+${b}=${a}+${b + 1}-1=${miseEnEvidence(a + b)}$ `
 
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) {
@@ -425,6 +445,7 @@ export default class SujetCAN2022cinquieme extends Exercice {
           } else {
             texte += '$\\ldots$'
           }
+          this.listeCanEnonces.push(`$${a}+${b}$ `)
           nbChamps = 1
           break
 
@@ -444,7 +465,8 @@ export default class SujetCAN2022cinquieme extends Exercice {
             $${texNombre(a, 1)}\\times ${texNombre(b, 1)}$.<br>`
 
             texte += `${propositions[0]} ${sp(6)} ${propositions[1]} ${sp(6)} ${propositions[2]}`
-            texteCorr = `En prenant un ordre de grandeur pour chacun des deux nombres, on obtient  $50\\times ${Math.round(b)}=${50 * Math.round(b)}$.`
+            texteCorr = `En prenant un ordre de grandeur pour chacun des deux nombres, on obtient  $50\\times ${Math.round(b)}=${50 * Math.round(b)}$.<br>
+            Le résultat le plus proche est donc $${miseEnEvidence(texNombre(a * b, 2))}$.`
           }
           if (choix === 'b') {
             a = randint(3, 9) + randint(1, 9) / 10
@@ -459,7 +481,8 @@ export default class SujetCAN2022cinquieme extends Exercice {
                 $${texNombre(a, 1)}\\times ${texNombre(b, 1)}$<br>`
 
             texte += `${propositions[0]} ${sp(6)} ${propositions[1]} ${sp(6)} ${propositions[2]}`
-            texteCorr = `En prenant un ordre de grandeur pour chacun des deux nombres, on obtient  $${Math.round(a)}\\times ${Math.round(b)}=${Math.round(a) * Math.round(b)}$.`
+            texteCorr = `En prenant un ordre de grandeur pour chacun des deux nombres, on obtient  $${Math.round(a)}\\times ${Math.round(b)}=${Math.round(a) * Math.round(b)}$.<br>
+            Le résultat le plus proche est donc $${miseEnEvidence(texNombre(a * b, 2))}$.`
           }
           if (choix === 'c') {
             a = randint(45, 49) + randint(1, 9) / 10
@@ -474,13 +497,16 @@ export default class SujetCAN2022cinquieme extends Exercice {
                     $${texNombre(a, 1)}\\times ${texNombre(b, 1)}$<br>`
 
             texte += `${propositions[0]} ${sp(6)} ${propositions[1]} ${sp(6)} ${propositions[2]}`
-            texteCorr =
-              'En prenant un ordre de grandeur pour chacun des deux nombres, on obtient  $30\\times 50=1500$.'
+            texteCorr = `En prenant un ordre de grandeur pour chacun des deux nombres, on obtient  $30\\times 50=1500$.<br>
+            Le résultat le plus proche est donc $${miseEnEvidence(texNombre(a * b, 2))}$.`
           }
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) {
-            texte += ajouteChampTexteMathLive(this, index, '  ')
+            texte += ajouteChampTexteMathLive(this, index, '  ', {
+              texteAvant: '<br>',
+            })
           }
+          this.listeCanEnonces.push(texte)
           nbChamps = 1
           break
 
@@ -494,24 +520,27 @@ export default class SujetCAN2022cinquieme extends Exercice {
 
           if (d === 0.1) {
             texte = `$${f}\\times ${texNombre(d, 1)}=$`
-            texteCorr = `$${f}\\times ${texNombre(d, 1)}=${texNombre(reponse, 3)}$`
+            this.listeCanEnonces.push(`$${f}\\times ${texNombre(d, 1)}$`)
+            texteCorr = `$${f}\\times ${texNombre(d, 1)}=${miseEnEvidence(texNombre(reponse, 3))}$<br>`
             texteCorr += `
           $${f}\\times ${texNombre(d, 1)}=${f}\\div 10=${a}${b},\\underline{${c}}$ `
           }
           if (d === 0.01) {
             texte = `$${f}\\times ${texNombre(d, 2)}=$`
-            texteCorr = `$${f}\\times ${texNombre(d, 2)}=${texNombre(reponse, 3)}$`
+            texteCorr = `$${f}\\times ${texNombre(d, 2)}=${miseEnEvidence(texNombre(reponse, 3))}$<br>`
             texteCorr += `
           $${f}\\times ${texNombre(d, 2)}=${f}\\div 100=${a},${b}\\underline{${c}}$<br>
                       `
+            this.listeCanEnonces.push(`$${f}\\times ${texNombre(d, 2)}$`)
           }
           if (d === 0.001) {
             texte = `$${f}\\times ${texNombre(d, 3)}=$`
-            texteCorr = `$${f}\\times ${texNombre(d, 3)}=${texNombre(reponse, 3)}$`
+            texteCorr = `$${f}\\times ${texNombre(d, 3)}=${miseEnEvidence(texNombre(reponse, 3))}$<br>`
             texteCorr += `
           $${f}\\times ${texNombre(d, 3)}=${f}\\div 1000=0,${a}${b}\\underline{${c}}$<br>
 
              `
+            this.listeCanEnonces.push(`$${f}\\times ${texNombre(d, 3)}$`)
           }
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) {
@@ -519,6 +548,7 @@ export default class SujetCAN2022cinquieme extends Exercice {
           } else {
             texte += '  $\\ldots$ '
           }
+
           nbChamps = 1
           break
 
@@ -532,7 +562,7 @@ export default class SujetCAN2022cinquieme extends Exercice {
          `
 
           texteCorr = `Le nombre de petits cubes est donné par le produit :<br>
-          $${a}\\times ${b}\\times ${c} = ${a * b * c}$
+          $${a}\\times ${b}\\times ${c} = ${miseEnEvidence(a * b * c)}$
           `
 
           reponse = a * b * c
@@ -541,6 +571,7 @@ export default class SujetCAN2022cinquieme extends Exercice {
             texte += ajouteChampTexteMathLive(this, index, '  ')
           }
           nbChamps = 1
+          this.listeCanEnonces.push(texte)
           break
 
         case 12:
@@ -550,7 +581,7 @@ export default class SujetCAN2022cinquieme extends Exercice {
           if (!this.interactif) {
             texte = `Complète : <br>$${d}$ min $=$ .....  h ..... min`
             texteCorr = ` On cherche le multiple de $60$ inférieur à $${d}$ le plus grand possible. C'est $${Math.floor(d / 60)}\\times 60 = ${Math.floor(d / 60) * 60}$.<br>
-          Ainsi $${d} = ${Math.floor(d / 60) * 60} + ${d % 60}$ donc $${d}$min $= ${Math.floor(d / 60)}$h$${d % 60}$min.`
+          Ainsi $${d} = ${Math.floor(d / 60) * 60} + ${d % 60}$ donc $${d}$ min $= ${miseEnEvidence(Math.floor(d / 60))}$ h $${miseEnEvidence(d % 60)}$ min.`
           } else {
             texte = `Écrire en heures/minutes : <br>$${d}$ min $=$ `
             texte += ajouteChampTexteMathLive(
@@ -568,6 +599,9 @@ export default class SujetCAN2022cinquieme extends Exercice {
             texteCorr = ` On cherche le multiple de $60$ inférieur à $${d}$ le plus grand possible. C'est $${Math.floor(d / 60)}\\times 60 = ${Math.floor(d / 60) * 60}$.<br>
           Ainsi $${d} = ${Math.floor(d / 60) * 60} + ${d % 60}$ donc $${d}$min $= ${Math.floor(d / 60)}$h$${d % 60}$min.`
           }
+          this.listeCanEnonces.push('Complète.')
+          this.listeCanReponsesACompleter[i] =
+            `$${d}$ min $=$ $\\ldots$ h $\\ldots$ min`
           nbChamps = 1
 
           break
@@ -577,7 +611,7 @@ export default class SujetCAN2022cinquieme extends Exercice {
           texte = `$${texNombre(a / 10, 1)}\\times ${b * 100}=$
            `
 
-          texteCorr = `$${texNombre(a / 10, 1)}\\times ${b}=${texNombre(a, 1)}\\times 0,1 \\times ${b}\\times 100=\\underbrace{${a} \\times ${b}}_{=${a * b}}\\times \\underbrace{0,1\\times 100}_{=10}=${texNombre(a * b, 0)}\\times 10=${texNombre(a * b * 10, 0)}$
+          texteCorr = `$${texNombre(a / 10, 1)}\\times ${b}=${texNombre(a, 1)}\\times 0,1 \\times ${b}\\times 100=\\underbrace{${a} \\times ${b}}_{=${a * b}}\\times \\underbrace{0,1\\times 100}_{=10}=${texNombre(a * b, 0)}\\times 10=${miseEnEvidence(texNombre(a * b * 10, 0))}$
             `
 
           reponse = arrondi(a * b * 10, 0)
@@ -587,6 +621,9 @@ export default class SujetCAN2022cinquieme extends Exercice {
           } else {
             texte += ' $\\ldots$'
           }
+          this.listeCanEnonces.push(
+            `$${texNombre(a / 10, 1)}\\times ${b * 100}$`,
+          )
           nbChamps = 1
           break
 
@@ -628,7 +665,7 @@ export default class SujetCAN2022cinquieme extends Exercice {
           poly1.epaisseur = 1
           poly2.epaisseur = 1
           texte =
-            'Le triangle $FGH$ est le symétrique du triangle $DEF$ par rapport à la droite $d$<br> '
+            'Le triangle $FGH$ est le symétrique du triangle $DEF$ par rapport à la droite $d$.<br>  '
           texte += mathalea2d(
             {
               xmin: 0,
@@ -636,7 +673,7 @@ export default class SujetCAN2022cinquieme extends Exercice {
               xmax: 10,
               ymax: 10,
               pixelsParCm: 27,
-              scale: 0.8,
+              scale: 0.7,
             },
             poly1,
             poly2,
@@ -648,17 +685,20 @@ export default class SujetCAN2022cinquieme extends Exercice {
             h,
             codeA,
           )
-          texteCorr = `La symétrie axiale conserve les angles.
-           Cela signifie que la mesure de l'angle  $\\widehat{C}$ est égale à celle de l'angle $\\widehat{G}$, celle de l'angle $\\widehat{D}$ est égale à celle de
-           l'angle $\\widehat{F}$ et celle de l'angle $\\widehat{E}$ est égale à celle de l'angle $\\widehat{H}$.`
 
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) {
             texte += ' <br>?$= $'
             texte += ajouteChampTexteMathLive(this, index, '  ') + '$^\\circ$'
           } else {
-            texte += ' ? $=\\ldots ^\\circ$'
+            texte += context.isHtml ? ' ? $=\\ldots ^\\circ$' : ''
           }
+          texteCorr = `La symétrie axiale conserve les angles.
+           Cela signifie que la mesure de l'angle  $\\widehat{C}$ est égale à celle de l'angle $\\widehat{G}$, celle de l'angle $\\widehat{D}$ est égale à celle de
+           l'angle $\\widehat{F}$ et celle de l'angle $\\widehat{E}$ est égale à celle de l'angle $\\widehat{H}$.<br>
+           On a donc ? $=${miseEnEvidence(texNombre(reponse))}^\\circ$.`
+          this.listeCanEnonces.push(texte)
+          this.listeCanReponsesACompleter[i] = ' ? $=\\ldots ^\\circ$'
           nbChamps = 1
           break
 
@@ -668,7 +708,7 @@ export default class SujetCAN2022cinquieme extends Exercice {
           texte = `La moitié de $${texNombre((2 * a + 1) / 10, 1)}$ est :
            `
 
-          texteCorr = `La moitié de $${texNombre((2 * a + 1) / 10, 1)}$ est égale à $${texNombre((2 * a + 1) / 10, 1)}\\div 2=${texNombre((2 * a + 1) / 20, 2)}$.
+          texteCorr = `La moitié de $${texNombre((2 * a + 1) / 10, 1)}$ est égale à $${texNombre((2 * a + 1) / 10, 1)}\\div 2=${miseEnEvidence(texNombre((2 * a + 1) / 20, 2))}$.
             `
 
           reponse = arrondi((2 * a + 1) / 20, 2)
@@ -678,6 +718,9 @@ export default class SujetCAN2022cinquieme extends Exercice {
           } else {
             texte += ' $\\ldots$'
           }
+          this.listeCanEnonces.push(
+            `La moitié de $${texNombre((2 * a + 1) / 10, 1)}$.`,
+          )
           nbChamps = 1
           break
         case 16:
@@ -714,18 +757,14 @@ export default class SujetCAN2022cinquieme extends Exercice {
             milieu(A, D).x - 0.7,
             milieu(A, D).y,
           )
-
-          texte =
-            'Un ordre de grandeur du périmètre de cette figure est : <br> '
-          texte += `${propositions[0]} ${sp(6)} ${propositions[1]} ${sp(6)} ${propositions[2]}${sp(6)} ${propositions[3]}<br>`
-          texte += mathalea2d(
+          const figure = mathalea2d(
             {
               xmin: -1.5,
               ymin: -1,
               xmax: 10,
               ymax: 5,
               pixelsParCm: 27,
-              scale: 1,
+              scale: 0.6,
             },
             segmentAB,
             segmentAD,
@@ -739,9 +778,13 @@ export default class SujetCAN2022cinquieme extends Exercice {
             codage3,
             codage4,
           )
+          texte =
+            'Un ordre de grandeur du périmètre de cette figure est : <br> '
+          texte += `${propositions[0]} ${sp(6)} ${propositions[1]} ${sp(6)} ${propositions[2]}${sp(6)} ${propositions[3]}<br>`
+          texte += figure
           texteCorr = `La figure est constituée de deux longueurs de $${a}\\text{ cm}$, d'une longueur de $${texNombre(2 * b, 0)}\\text{ cm}$ et de la longueur d'un demmi-cercle de rayon $${b}\\text{ cm}$.<br>
           Comme le périmètre d'un cercle est $2\\times \\pi \\times $ Rayon, le périmètre du demi-cercle est $ \\pi\\times $ Rayon, dont une valeur approchée est $3\\times $Rayon.<br>
-          Ainsi, un ordre de grandeur du périmètre de la figure est : $2\\times ${a}+${texNombre(2 * b, 0)}+3\\times ${b}=${texNombre(2 * a + 5 * b)}\\text{ cm}$.`
+          Ainsi, un ordre de grandeur du périmètre de la figure est : $2\\times ${a}+${texNombre(2 * b, 0)}+3\\times ${b}=${miseEnEvidence(texNombre(2 * a + 5 * b))}\\text{ cm}$.`
 
           setReponse(this, index, new Grandeur(2 * a + 5 * b, 'cm'), {
             formatInteractif: 'unites',
@@ -749,8 +792,19 @@ export default class SujetCAN2022cinquieme extends Exercice {
           if (this.interactif) {
             texte +=
               ' Recopie la réponse correcte (nombre et unité à recopier).'
-            texte += ajouteChampTexteMathLive(this, index, ' unites[Longueur]')
+            texte += ajouteChampTexteMathLive(
+              this,
+              index,
+              ' unites[Longueur]',
+              { texteAvant: '<br>' },
+            )
           }
+          this.listeCanEnonces.push(
+            'Entoure la réponse correcte.<br>Un ordre de grandeur du périmètre de cette figure est :<br>' +
+              figure,
+          )
+          this.listeCanReponsesACompleter[i] =
+            `${propositions[0]} ${sp(6)} ${propositions[1]} ${sp(6)} ${propositions[2]}${sp(6)} ${propositions[3]}`
           nbChamps = 1
           break
 
@@ -760,16 +814,16 @@ export default class SujetCAN2022cinquieme extends Exercice {
             texte = `L'opposé de $${texNombre(a, 1)}$ est :
            `
 
-            texteCorr = `L'opposé de $${texNombre(a, 1)}$ est : $-(${texNombre(a, 1)})=${texNombre(-a, 1)}$.
+            texteCorr = `L'opposé de $${texNombre(a, 1)}$ est : $-(${texNombre(a, 1)})=${miseEnEvidence(texNombre(-a, 1))}$.
             `
-
+            this.listeCanEnonces.push(`L'opposé de $${texNombre(a, 1)}$.`)
             reponse = -a
             setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           } else {
             texte = `L'inverse de $${texNombre(a, 1)}$ est :
           `
-
-            texteCorr = `L'inverse de $${texNombre(a, 1)}$ est :$\\dfrac{1}{${texNombre(a, 1)}}$.
+            this.listeCanEnonces.push(`L'inverse de $${texNombre(a, 1)}$.`)
+            texteCorr = `L'inverse de $${texNombre(a, 1)}$ est :$${miseEnEvidence(`\\dfrac{1}{${texNombre(a, 1)}`)}}$.
            `
 
             reponse = fraction(1, a)
@@ -788,13 +842,15 @@ export default class SujetCAN2022cinquieme extends Exercice {
         case 18:
           a = randint(1, 6)
           b = choice([1.5, 2.5, 3.5, 4.5])
-          texte = `Complète : <br>
+          texte = `Complète avec une valeur décimale : <br>
           $${texNombre(a * 2, 0)}\\times \\ldots =${texNombre(b * 2 * a, 1)}$
            `
 
-          texteCorr = `Le nombre cherché est $\\dfrac{${texNombre(b * 2 * a, 1)}}{${texNombre(a * 2, 0)}}=${texFractionReduite(2 * a * b, a * 2)}=${texNombre(b, 1)}$.
+          texteCorr = `Le nombre cherché est $\\dfrac{${texNombre(b * 2 * a, 1)}}{${texNombre(a * 2, 0)}}=${texFractionReduite(2 * a * b, a * 2)}=${miseEnEvidence(texNombre(b, 1))}$.
             `
-
+          this.listeCanEnonces.push(`Complète avec une valeur décimale.`)
+          this.listeCanReponsesACompleter[i] =
+            `$${texNombre(a * 2, 0)}\\times \\ldots =${texNombre(b * 2 * a, 1)}$`
           reponse = b
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) {
@@ -810,17 +866,22 @@ export default class SujetCAN2022cinquieme extends Exercice {
           c = randint(1, 9, a)
           reponse = c * k
 
-          texte = 'Complète le tableau de proportionnalité ci-dessous :<br>'
+          texte = 'Complète le tableau de proportionnalité :<br>'
           texte += tableauColonneLigne([a, b], [c], [''])
           texteCorr = `On constate que $${b}$ s'obtient en multipliant $${a}$ par $${k}$.
               Ainsi, on obtient la quatrième proportionnelle en multipliant $${c}$ par $${k}$.<br>
-              La valeur cherchée est donc $${c}\\times ${k}=${k * c}$.`
+              La valeur cherchée est donc $${c}\\times ${k}=${miseEnEvidence(k * c)}$.`
 
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) {
             texte += ajouteChampTexteMathLive(this, index, '  ')
           }
-
+          this.listeCanEnonces.push('Complète le tableau de proportionnalité.')
+          this.listeCanReponsesACompleter[i] = tableauColonneLigne(
+            [a, b],
+            [c],
+            ['...'],
+          )
           nbChamps = 1
           break
 
@@ -837,7 +898,7 @@ export default class SujetCAN2022cinquieme extends Exercice {
                   ymin: -1,
                   xmax: 15,
                   ymax: 1.5,
-                  scale: 0.7,
+                  scale: 0.5,
                   style: 'margin: auto',
                 },
                 droiteGraduee({
@@ -849,7 +910,7 @@ export default class SujetCAN2022cinquieme extends Exercice {
                   thickSecDist: 1 / 10,
                   thickSec: true,
                   thickoffset: 0,
-                  axeStyle: '|->',
+                  axeStyle: '->',
                   pointListe: [[a + k / 10, 'A']],
                   pointCouleur: 'blue',
                   pointStyle: 'x',
@@ -859,7 +920,7 @@ export default class SujetCAN2022cinquieme extends Exercice {
                   step2: 1,
                 }),
               )
-            texteCorr = `L'unité est divisée en $10$ (chaque graduation "correspond" à $0,1$). Ainsi, l'abscisse du point A est  : $${texNombre(reponse, 1)}$`
+            texteCorr = `L'unité est divisée en $10$ (chaque graduation "correspond" à $0,1$). Ainsi, l'abscisse du point A est  : $${miseEnEvidence(texNombre(reponse, 1))}$`
           } else {
             a = randint(21, 28)
             k = randint(1, 4)
@@ -872,7 +933,7 @@ export default class SujetCAN2022cinquieme extends Exercice {
                   ymin: -1,
                   xmax: 15,
                   ymax: 1.5,
-                  scale: 0.7,
+                  scale: 0.5,
                   style: 'margin: auto',
                 },
                 droiteGraduee({
@@ -884,7 +945,7 @@ export default class SujetCAN2022cinquieme extends Exercice {
                   thickSecDist: 1 / 5,
                   thickSec: true,
                   thickoffset: 0,
-                  axeStyle: '|->',
+                  axeStyle: '->',
                   pointListe: [[a + k / 5, 'A']],
                   pointCouleur: 'blue',
                   pointStyle: 'x',
@@ -894,9 +955,9 @@ export default class SujetCAN2022cinquieme extends Exercice {
                   step2: 1,
                 }),
               )
-            texteCorr = `L'unité est divisée en $5$ (chaque graduation "correspond" à $0,2$). Ainsi, l'abscisse du point A est  : $${texNombre(reponse, 1)}$`
+            texteCorr = `L'unité est divisée en $5$ (chaque graduation "correspond" à $0,2$). Ainsi, l'abscisse du point A est  : $${miseEnEvidence(texNombre(reponse, 1))}$`
           }
-
+          this.listeCanEnonces.push(texte)
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) {
             texte += ajouteChampTexteMathLive(this, index, '  ')
@@ -909,18 +970,18 @@ export default class SujetCAN2022cinquieme extends Exercice {
             a = randint(11, 69, [20, 30, 40, 50, 60])
 
             reponse = arrondi(a * 2, 0)
-            texte = `$20\\%$ de $${a * 10}= $`
-
-            texteCorr = `Comme $10\\%$  de $${a * 10}$ vaut $${a}$ (pour prendre $10\\%$  d'une quantité, on la divise par $10$), alors
-           $20\\%$ de $${a * 10}=2\\times  ${a}=${reponse}$.`
+            texte = `$20\\,\\%$ de $${a * 10}= $`
+            this.listeCanEnonces.push(`$20\\,\\%$ de $${a * 10}$`)
+            texteCorr = `Comme $10\\,\\%$  de $${a * 10}$ vaut $${a}$ (pour prendre $10\\,\\%$  d'une quantité, on la divise par $10$), alors
+           $20\\%$ de $${a * 10}=2\\times  ${a}=${miseEnEvidence(reponse)}$.`
           } else {
             a = randint(11, 35, [20, 17, 18, 19, 27, 28, 29])
             p = choice([30, 40])
             reponse = arrondi((a * p) / 10, 0)
             texte = `$${p}\\%$ de $${a * 10}= $`
-
-            texteCorr = `Comme $10\\%$  de $${a * 10}$ vaut $${a}$ (pour prendre $10\\%$  d'une quantité, on la divise par $10$), alors
-           $${p}\\%$ de $${a * 10}=${p / 10}\\times  ${a}=${reponse}$.`
+            this.listeCanEnonces.push(`$${p}\\%$ de $${a * 10}$`)
+            texteCorr = `Comme $10\\,\\%$  de $${a * 10}$ vaut $${a}$ (pour prendre $10\\,\\%$  d'une quantité, on la divise par $10$), alors
+           $${p}\\%$ de $${a * 10}=${p / 10}\\times  ${a}=${miseEnEvidence(reponse)}$.`
           }
 
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
@@ -946,13 +1007,18 @@ export default class SujetCAN2022cinquieme extends Exercice {
           $${texNombre(a + b / 10 + c / 100, 2)}+${texNombre(e + f / 10 + g / 100, 2)}+${texNombre(k - a - b / 10 - c / 100, 2)}=$`
 
             texteCorr = `$${texNombre(a + b / 10 + c / 100, 2)}+${texNombre(e + f / 10 + g / 100, 2)}+${texNombre(k - a - b / 10 - c / 100, 2)}=
-            \\underbrace{${texNombre(a + b / 10 + c / 100, 2)}+${texNombre(k - a - b / 10 - c / 100, 2)}}_{=${k}}+${texNombre(e + f / 10 + g / 100, 2)}=${texNombre(reponse, 2)}$`
+            \\underbrace{${texNombre(a + b / 10 + c / 100, 2)}+${texNombre(k - a - b / 10 - c / 100, 2)}}_{=${k}}+${texNombre(e + f / 10 + g / 100, 2)}=${miseEnEvidence(texNombre(reponse, 2))}$`
+            this.listeCanEnonces.push(
+              `$${texNombre(a + b / 10 + c / 100, 2)}+${texNombre(e + f / 10 + g / 100, 2)}+${texNombre(k - a - b / 10 - c / 100, 2)}$`,
+            )
           } else {
             texte = `
             $${texNombre(e + f / 10 + g / 100, 2)}+${texNombre(a + b / 10 + c / 100, 2)}+${texNombre(k - a - b / 10 - c / 100, 2)}=$`
-
+            this.listeCanEnonces.push(
+              `$${texNombre(e + f / 10 + g / 100, 2)}+${texNombre(a + b / 10 + c / 100, 2)}+${texNombre(k - a - b / 10 - c / 100, 2)}$`,
+            )
             texteCorr = `$${texNombre(e + f / 10 + g / 100, 2)}+${texNombre(a + b / 10 + c / 100, 2)}+${texNombre(k - a - b / 10 - c / 100, 2)}=
-              \\underbrace{${texNombre(a + b / 10 + c / 100, 2)}+${texNombre(k - a - b / 10 - c / 100, 2)}}_{=${k}}+${texNombre(e + f / 10 + g / 100, 2)}=${texNombre(reponse, 2)}$`
+              \\underbrace{${texNombre(a + b / 10 + c / 100, 2)}+${texNombre(k - a - b / 10 - c / 100, 2)}}_{=${k}}+${texNombre(e + f / 10 + g / 100, 2)}=${miseEnEvidence(texNombre(reponse, 2))}$`
           }
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) {
@@ -969,19 +1035,20 @@ export default class SujetCAN2022cinquieme extends Exercice {
           reponse = a
           texte = `$0,5\\times ${2 * a}=$`
           texteCorr = `Multiplier par $0,5$ revient à diviser par $2$. <br>
-          Ainsi, $0,5\\times ${2 * a}=${2 * a}\\div 2=${a}$.`
+          Ainsi, $0,5\\times ${2 * a}=${2 * a}\\div 2=${miseEnEvidence(a)}$.`
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) {
             texte += ajouteChampTexteMathLive(this, index, '  ')
           } else {
             texte += ' $\\ldots$'
           }
+          this.listeCanEnonces.push(`$0,5\\times ${2 * a}$`)
           nbChamps = 1
           break
 
         case 24:
           a = randint(1, 17, 9)
-          tailleRapporteur = 7
+          tailleRapporteur = 5
           // Mise en place des points encadrant l'espace pour le rapporteur. Utiles pour paramsEnonce car le rapporteur peut tourner et optimisons l'espace pour ce rapporteur.
           sudOuest = point(-(tailleRapporteur + 0.5), 0)
           nordOuest = point(-(tailleRapporteur + 0.5), tailleRapporteur + 0.5)
@@ -1078,7 +1145,7 @@ export default class SujetCAN2022cinquieme extends Exercice {
             taille: tailleRapporteur,
             depart: angC < 0 ? angB + 180 : angB,
             semi: true,
-            avecNombre: 'deuxSens',
+            avecNombre: 'unSens',
             precisionAuDegre: 10,
             stepGraduation: 90,
             rayonsVisibles: false,
@@ -1105,7 +1172,7 @@ export default class SujetCAN2022cinquieme extends Exercice {
               false,
               true,
               '?',
-              2,
+              1,
             ),
           ) // On remplit les tableaux d'objets Mathalea2d
           texte = "Donne la mesure de l'angle."
@@ -1121,13 +1188,13 @@ export default class SujetCAN2022cinquieme extends Exercice {
           texte += '<br>' + mathalea2d(paramsEnonce, objetsEnonce)
 
           reponse = a * 10
-
+          this.listeCanEnonces.push(texte)
           if (a < 9) {
             texteCorr = `L'angle est aigu (sa mesure est inférieure à $90^\\circ$).<br>
-          Chaque graduation mesure $10^\\circ$. On en déduit que l'angle a une mesure de $${a * 10}^\\circ$. `
+          Chaque graduation mesure $10^\\circ$. On en déduit que l'angle a une mesure de $${miseEnEvidence(a * 10)}^\\circ$. `
           } else {
             texteCorr = `L'angle est obtus (sa mesure est supérieure à $90^\\circ$).<br>
-          Chaque graduation mesure $10^\\circ$. On en déduit que l'angle a une mesure de $${a * 10}^\\circ$. `
+          Chaque graduation mesure $10^\\circ$. On en déduit que l'angle a une mesure de $${miseEnEvidence(a * 10)}^\\circ$. `
           }
 
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
@@ -1148,8 +1215,8 @@ export default class SujetCAN2022cinquieme extends Exercice {
                 `
 
           texteCorr = `La somme  de $${b}$ et $${c}$ est : $${b}+${c}=${b + c}$.<br>
-          Le produit de $${a}$ par la somme de $${b}$ et $${c}$ est donc : $${a}\\times ${b + c}=${reponse}$.`
-
+          Le produit de $${a}$ par la somme de $${b}$ et $${c}$ est donc : $${a}\\times ${b + c}=${miseEnEvidence(reponse)}$.`
+          this.listeCanEnonces.push(texte)
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) {
             texte += ajouteChampTexteMathLive(this, index, '  ')
@@ -1167,8 +1234,8 @@ export default class SujetCAN2022cinquieme extends Exercice {
           texte = `Calcule : $ ${a}+(${b}-${c})\\times ${d}=$
                   `
 
-          texteCorr = `$ ${a}+(${b}-${c})\\times ${d}=${a}+${b - c}\\times ${d}=${a}+${d * b - d * c}=${reponse}$`
-
+          texteCorr = `$ ${a}+(${b}-${c})\\times ${d}=${a}+${b - c}\\times ${d}=${a}+${d * b - d * c}=${miseEnEvidence(reponse)}$`
+          this.listeCanEnonces.push(`$ ${a}+(${b}-${c})\\times ${d}$`)
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) {
             texte += ajouteChampTexteMathLive(this, index, '  ')
@@ -1181,7 +1248,7 @@ export default class SujetCAN2022cinquieme extends Exercice {
         case 27:
           a = grille(-2, -2, 9, 8, 'gray', 1, 1)
           b = randint(1, 8, 4)
-          c = randint(1, 7)
+          c = randint(1, 6)
           d = randint(0, 1)
 
           A = point(b, c, 'A', 'above')
@@ -1198,7 +1265,7 @@ export default class SujetCAN2022cinquieme extends Exercice {
           xmin = -2
           ymin = -2
           xmax = 9
-          ymax = 8
+          ymax = 8.2
           traceA = tracePoint(A, 'red') // Variable qui trace les points avec une croix
           traceB = tracePoint(B)
           traceC = tracePoint(C)
@@ -1206,9 +1273,9 @@ export default class SujetCAN2022cinquieme extends Exercice {
           objets = []
           objets.push(
             texteParPosition(
-              '1  cm',
+              '$1  \\text{cm}$',
               milieu(D, E).x,
-              milieu(D, E).y + 0.4,
+              milieu(D, E).y + 0.6,
               'milieu',
               'black',
               1,
@@ -1234,7 +1301,7 @@ export default class SujetCAN2022cinquieme extends Exercice {
               pixelsParCm: 20,
               mainlevee: false,
               amplitude: 0.5,
-              scale: 0.7,
+              scale: 0.5,
               style: 'margin: auto',
             },
             objets,
@@ -1248,7 +1315,7 @@ export default class SujetCAN2022cinquieme extends Exercice {
               pixelsParCm: 15,
               mainlevee: false,
               amplitude: 0.5,
-              scale: 0.7,
+              scale: 0.5,
               style: 'margin: auto',
             },
             objets,
@@ -1267,15 +1334,16 @@ export default class SujetCAN2022cinquieme extends Exercice {
             ),
             labelPoint(H),
           )
-          texteCorr += `La distance du point $A$ à la droite $(BC)$ est donnée par la longueur $AH$ : $${texNombre(reponse, 1)}\\text{ cm}$`
+          texteCorr += `La distance du point $A$ à la droite $(BC)$ est donnée par la longueur $AH$ : $${miseEnEvidence(texNombre(reponse, 1))}\\text{ cm}$`
 
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) {
             texte += ajouteChampTexteMathLive(this, index, '  ') + 'cm'
           } else {
-            texte += ' $\\ldots\\text{ cm}$'
+            texte += ''
           }
-
+          this.listeCanEnonces.push(texte)
+          this.listeCanReponsesACompleter[i] = '$\\ldots$ cm'
           nbChamps = 1
 
           break
@@ -1285,8 +1353,8 @@ export default class SujetCAN2022cinquieme extends Exercice {
           texte = `$${a}\\times 101=$`
           texteCorr = `$${a}\\times 101 = ${101 * a}$<br>`
 
-          texteCorr += `$${a}\\times 101 = ${a}\\times (100+1)=${a}\\times 100+${a}\\times 1=${texNombre(a * 100, 0)}+${a}=${texNombre(101 * a, 0)}$`
-
+          texteCorr += `$${a}\\times 101 = ${a}\\times (100+1)=${a}\\times 100+${a}\\times 1=${texNombre(a * 100, 0)}+${a}=${miseEnEvidence(texNombre(101 * a, 0))}$`
+          this.listeCanEnonces.push(`$${a}\\times 101$`)
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) {
             texte += ajouteChampTexteMathLive(this, index, '  ')
@@ -1301,11 +1369,13 @@ export default class SujetCAN2022cinquieme extends Exercice {
 
           reponse = a * a
 
-          texte = `L'aire d'un disque de rayon $${a}\\text{ cm}$ est :
-                `
+          texte = `L'aire d'un disque de rayon $${a}\\text{ cm}$ est : `
 
-          texteCorr = `L'aire d'un disque de rayon $${a}\\text{ cm}$ est : $\\pi\\times \\text{Rayon}^2=\\pi\\times ${a}^2=${a * a}\\pi\\text{ cm}^2$.`
-
+          texteCorr = `L'aire d'un disque de rayon $${a}\\text{ cm}$ est : $\\pi\\times \\text{Rayon}^2=\\pi\\times ${a}^2=${miseEnEvidence(`${a * a}\\pi`)}\\text{ cm}^2$.`
+          this.listeCanEnonces.push(
+            `Donner l'aire exacte d'un disque de rayon $${a}\\text{ cm}$.`,
+          )
+          this.listeCanReponsesACompleter[i] = ' $\\ldots$ cm'
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) {
             texte +=
@@ -1327,18 +1397,21 @@ export default class SujetCAN2022cinquieme extends Exercice {
             texteCorr = `$\\dfrac{${fraction30[0]}}{${fraction30[1]}}=
           \\dfrac{${Math.floor(fraction30[0] / 4) * 4}+${fraction30[0] - Math.floor(fraction30[0] / 4) * 4}}{4 }=
           \\dfrac{${Math.floor(fraction30[0] / 4) * 4}}{4}+\\dfrac{${fraction30[0] - Math.floor(fraction30[0] / 4) * 4}}{4 }
-          =${Math.floor(fraction30[0] / 4)}+${texNombre((fraction30[0] - Math.floor(fraction30[0] / 4) * 4) / 4, 2)}=${texNombre(reponse, 2)}$`
+          =${Math.floor(fraction30[0] / 4)}+${texNombre((fraction30[0] - Math.floor(fraction30[0] / 4) * 4) / 4, 2)}=${miseEnEvidence(texNombre(reponse, 2))}$`
           } else {
             texteCorr = `$\\dfrac{${fraction30[0]}}{${fraction30[1]}}=
           \\dfrac{${Math.floor(fraction30[0] / 5) * 5}+${fraction30[0] - Math.floor(fraction30[0] / 5) * 5}}{5 }=
           \\dfrac{${Math.floor(fraction30[0] / 5) * 5}}{5}+\\dfrac{${fraction30[0] - Math.floor(fraction30[0] / 5) * 5}}{5 }
-          =${Math.floor(fraction30[0] / 5)}+${texNombre((fraction30[0] - Math.floor(fraction30[0] / 5) * 5) / 5, 2)}=${texNombre(reponse, 2)}$`
+          =${Math.floor(fraction30[0] / 5)}+${texNombre((fraction30[0] - Math.floor(fraction30[0] / 5) * 5) / 5, 2)}=${miseEnEvidence(texNombre(reponse, 2))}$`
           }
 
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) {
-            texte += ajouteChampTexteMathLive(this, index, '  ')
+            texte += ajouteChampTexteMathLive(this, index, '  ', {
+              texteAvant: '<br>',
+            })
           }
+          this.listeCanEnonces.push(texte)
           nbChamps = 1
           break
       }

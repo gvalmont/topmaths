@@ -5,7 +5,7 @@ import {
   crochetG,
   intervalle,
 } from '../../lib/2d/intervalles'
-import { Point, point } from '../../lib/2d/PointAbstrait'
+import { point, PointAbstrait } from '../../lib/2d/PointAbstrait'
 import { Segment, segment } from '../../lib/2d/segmentsVecteurs'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { combinaisonListes } from '../../lib/outils/arrayOutils'
@@ -76,13 +76,15 @@ export default class IntervallesDeR extends Exercice {
         '1 : $x \\in ]a\\,;\\,b]$',
         '2 : $x \\in [a\\,;\\,b]$',
         '3 : $x \\in [a\\,;\\,b[$',
-        '4 : $x \\in ]a\\,;\\,+\\infty[$',
-        '5 : $x \\in ]-\\infty\\,;\\,a[$',
-        '6 : $x \\in ]-\\infty\\,;\\,a]$',
-        '7 : Mélange',
+        '4 : $x \\in ]a\\,;\\,b[$',
+        '5 : $x \\in ]a\\,;\\,+\\infty[$',
+        '6 : $x \\in [a\\,;\\,+\\infty[$',
+        '7 : $x \\in ]-\\infty\\,;\\,a[$',
+        '8 : $x \\in ]-\\infty\\,;\\,a]$',
+        '9 : Mélange',
       ].join('\n'),
     ]
-    this.sup3 = 7
+    this.sup3 = 9
     this.comment = `Le premier paramètre "Type de questions" est en lien avec les paramètres suivants.<br>
       Vous pouvez choisir les inégalités ou les intervalles disponibles dans l'exercice.`
   }
@@ -98,11 +100,11 @@ export default class IntervallesDeR extends Exercice {
 
     const typesIntervallesDisponibles = gestionnaireFormulaireTexte({
       saisie: this.sup3,
-      max: 6,
-      melange: 7,
-      defaut: 7,
+      max: 8,
+      melange: 9,
+      defaut: 9,
       nbQuestions: this.nbQuestions,
-      listeOfCase: rangeMinMax(9, 14),
+      listeOfCase: rangeMinMax(9, 16),
     }).map(Number)
 
     let typesDeQuestionsDisponibles: number[] = []
@@ -132,8 +134,8 @@ export default class IntervallesDeR extends Exercice {
       const int = intervalle(X1, X2, 'black', 0)
       let a: number
       let b: number = 0
-      let A: Point
-      let B: Point
+      let A: PointAbstrait
+      let B: PointAbstrait
       let c1: CrochetG
       let c2: CrochetD
       let int1: Segment
@@ -393,7 +395,7 @@ export default class IntervallesDeR extends Exercice {
             c1,
             c2,
           )
-          reponse = [`${a}< x\\leqslant ${b}`, `${b}< x\\geqslant ${a}`]
+          reponse = [`${a}< x\\leqslant ${b}`, `${b}> x\\geqslant ${a}`]
           texteCorr += `$${miseEnEvidence(reponse[0])}$`
           break
         case 10:
@@ -456,10 +458,40 @@ export default class IntervallesDeR extends Exercice {
             c1,
             c2,
           )
-          reponse = [`${a}\\leqslant x< ${b}`, `${b}\\geqslant x< ${a}`]
+          reponse = [`${a}\\leqslant x< ${b}`, `${b}\\geqslant x> ${a}`]
           texteCorr += `$${miseEnEvidence(reponse[0])}$`
           break
         case 12:
+          a = randint(1, 15)
+          c = a + 1
+          b = randint(c, 25)
+          A = point(2, 0, String(a))
+          B = point(6, 0, String(b))
+          c1 = crochetG(A, 'red')
+          c1.taille = context.isHtml ? 0.2 : 0.4
+          c2 = crochetD(B, 'red')
+          c2.taille = context.isHtml ? 0.2 : 0.4
+          int1 = intervalle(A, B, 'red', 0)
+          int1.epaisseur = 6
+          texte = `Déterminer l'inégalité correspondant à $x \\in ]${a}\\,;\\,${b}[$${this.interactif || this.can ? '.' : " et représenter l'intervalle sur une droite graduée."}`
+          texteCorr = mathalea2d(
+            {
+              xmin: -2,
+              ymin: -2,
+              xmax: 15,
+              ymax: 2,
+              scale: 0.6,
+            },
+            s,
+            int,
+            int1,
+            c1,
+            c2,
+          )
+          reponse = [`${a}< x< ${b}`, `${b}> x> ${a}`]
+          texteCorr += `$${miseEnEvidence(reponse[0])}$`
+          break
+        case 13:
           a = randint(1, 15)
           c = a + 1
           b = randint(c, 25)
@@ -487,7 +519,35 @@ export default class IntervallesDeR extends Exercice {
           reponse = [`x > ${a}`, `${a} < x`]
           texteCorr += `$${miseEnEvidence(reponse[0])}$`
           break
-        case 13:
+        case 14:
+          a = randint(1, 15)
+          c = a + 1
+          b = randint(c, 25)
+          A = point(2, 0, String(a))
+          B = point(12, 0, String(b))
+          c1 = crochetD(A, 'red')
+          c1.taille = context.isHtml ? 0.2 : 0.4
+
+          int1 = intervalle(A, B, 'red', 0)
+          texte = `Déterminer l'inégalité correspondant à $x \\in [${a}\\,;\\,+\\infty[$${this.interactif || this.can ? '.' : " et représenter l'intervalle sur une droite graduée."}`
+          int1.epaisseur = 6
+          texteCorr = mathalea2d(
+            {
+              xmin: -2,
+              ymin: -2,
+              xmax: 15,
+              ymax: 2,
+              scale: 0.6,
+            },
+            s,
+            int,
+            int1,
+            c1,
+          )
+          reponse = [`x \\geqslant ${a}`, `${a} \\leqslant x`]
+          texteCorr += `$${miseEnEvidence(reponse[0])}$`
+          break
+        case 15:
           a = randint(1, 15)
           c = a + 1
           A = point(7, 0, String(a))
@@ -513,7 +573,7 @@ export default class IntervallesDeR extends Exercice {
           reponse = [`x < ${a}`, `${a} > x`]
           texteCorr += `$${miseEnEvidence(reponse[0])}$`
           break
-        case 14:
+        case 16:
         default:
           a = randint(1, 15)
           c = a + 1

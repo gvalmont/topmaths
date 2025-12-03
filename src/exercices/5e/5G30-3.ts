@@ -5,7 +5,7 @@ import {
   droiteParPointEtPente,
   droiteParPointEtPerpendiculaire,
 } from '../../lib/2d/droites'
-import { Point, point } from '../../lib/2d/PointAbstrait'
+import { PointAbstrait, pointAbstrait } from '../../lib/2d/PointAbstrait'
 import { tracePoint } from '../../lib/2d/TracePoint'
 import { rotation, translation2Points } from '../../lib/2d/transformations'
 import { angleOriente, longueur } from '../../lib/2d/utilitairesGeometriques'
@@ -48,7 +48,7 @@ export const refs = {
 }
 
 // Fonction pour vérifier si tous les points sont dans l'intervalle
-function tousDansIntervalle(points: Point[]): boolean {
+function tousDansIntervalle(points: PointAbstrait[]): boolean {
   return points.every(
     (point) => point.x >= -8 && point.x <= 8 && point.y >= -8 && point.y <= 8,
   )
@@ -90,7 +90,7 @@ export default class VocabulaireAngles extends Exercice {
       let texteCorr = ''
       const objets = []
 
-      const origine = point(0, 0)
+      const origine = pointAbstrait(0, 0)
 
       let ARot,
         BRot,
@@ -113,8 +113,8 @@ export default class VocabulaireAngles extends Exercice {
         const xB = xA * -1
         const yB = yA * -1
 
-        const A = point(xA, yA)
-        const B = point(xB, yB)
+        const A = pointAbstrait(xA, yA)
+        const B = pointAbstrait(xB, yB)
         const d1 = droiteParPointEtPente(A, 0.5)
         const d2 = droiteParPointEtPente(B, 0.3)
         let C
@@ -165,7 +165,13 @@ export default class VocabulaireAngles extends Exercice {
 
       const tabAngles: [
         CodageAngle | CodageAngleDroit,
-        CodageAngle | CodageAngleDroit | Point | DemiDroite | TracePoint,
+        (
+          | CodageAngle
+          | CodageAngleDroit
+          | PointAbstrait
+          | DemiDroite
+          | TracePoint
+        ),
         CodageAngle | CodageAngleDroit,
       ][] = []
       const choixQuestion = number(typesDeQuestionsDisponibles[i]) - 1
@@ -1008,7 +1014,7 @@ export default class VocabulaireAngles extends Exercice {
               1,
               this.sup3 ? 'black' : bleuMathalea,
             ),
-            point(DRot.x, DRot.y),
+            pointAbstrait(DRot.x, DRot.y),
             codageAngle(
               DRot,
               CRot,
@@ -1033,7 +1039,7 @@ export default class VocabulaireAngles extends Exercice {
               1,
               this.sup3 ? 'black' : bleuMathalea,
             ),
-            point(CRot.x, CRot.y),
+            pointAbstrait(CRot.x, CRot.y),
             codageAngle(
               DRot,
               CRot,
@@ -1230,11 +1236,11 @@ export default class VocabulaireAngles extends Exercice {
       let objet2 = tabAngles[choixAngle][1]
       if (
         choixQuestion === 5 &&
-        !(objet2 instanceof Point) &&
+        !(objet2 instanceof PointAbstrait) &&
         !(objet2 instanceof CodageAngleDroit)
       )
         objet2.epaisseur = 3
-      else if (choixQuestion === 6 && objet2 instanceof Point) {
+      else if (choixQuestion === 6 && objet2 instanceof PointAbstrait) {
         objet2 = tracePoint(objet2, this.sup3 ? 'black' : 'red')
         objet2.epaisseur = 2
         objet2.taille = 5

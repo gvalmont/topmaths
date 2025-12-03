@@ -395,7 +395,7 @@ function questionDistance(exo: Exercice, i: number) {
   const dureeR = couplePremiersEntreEux[indexN][1]
   const alea2 = randint(0, liste[alea1].vitesse.length - 1) // pour le facteur de distance parcourue
   const texte =
-    `Un ${liste[alea1].locomotion} parcourt en moyenne $${stringNombre(liste[alea1].vitesse[alea2] * dureeQ * facteur)} en ${dureeQ} heures.
+    `Un ${liste[alea1].locomotion} parcourt en moyenne $${stringNombre(liste[alea1].vitesse[alea2] * dureeQ * facteur)}\\text{ km}$ en ${dureeQ} heures.
   <br> Quelle distance va-t-il parcourir, à la même vitesse, en ${dureeR} heures ?` +
     ajouteChampTexteMathLive(exo, i, '', { texteApres: '$\\text{ km}$' })
 

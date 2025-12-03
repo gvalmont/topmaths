@@ -7,7 +7,7 @@ import {
 import { listeShapes2DInfos } from '../../lib/2d/figures2d/shapes2d'
 import { fixeBordures } from '../../lib/2d/fixeBordures'
 import {
-  listePatternsFor5I13,
+  listePatternsSansRatioNiFraction,
   type PatternRiche,
   type PatternRiche3D,
 } from '../../lib/2d/patterns/patternsPreDef'
@@ -16,6 +16,7 @@ import { VisualPattern3D } from '../../lib/2d/patterns/VisualPattern3D'
 import { point } from '../../lib/2d/PointAbstrait'
 import { polygone } from '../../lib/2d/polygones'
 import { texteParPosition } from '../../lib/2d/textes'
+import { bleuMathalea } from '../../lib/colors'
 import { createList } from '../../lib/format/lists'
 import { ajouteQuestionMathlive } from '../../lib/interactif/questionMathLive'
 import {
@@ -41,7 +42,7 @@ export const titre = "Identifier la structure d'un motif (itératif)"
 export const interactifReady = true
 export const interactifType = 'mathLive'
 
-export const dateDeModifImportante = '23/07/2025'
+export const dateDeModifImportante = '22/11/2025'
 
 /**
  * Étudier les premiers termes d'une série de motifs afin de donner le nombre de formes du motif suivant.
@@ -67,7 +68,7 @@ export default class PatternIteratif extends Exercice {
  Cet exercice propose d'étudier les premiers termes d'une série de motifs afin de répondre à différentes questions possibles.<br>
 Grâce au premier paramètre, on peut choisir le nombre de motifs visibles.<br>
 Grâce au deuxième paramètre, on peut choisir les questions à poser.<br>
-Grâce au troisième paramètre, on peut imposer des patterns choisis dans cette <a href="https://coopmaths.fr/alea/?uuid=71ff5" target="_blank" style="color: blue">liste de patterns</a>.<br>
+Grâce au troisième paramètre, on peut imposer des patterns choisis dans cette <a href="https://coopmaths.fr/alea/?uuid=71ff5&s=3" target="_blank" style="color: blue">liste de patterns</a>.<br>
 Si le nombre de questions est supérieur au nombre de patterns choisis, alors l'exercice sera complété par des patterns choisis au hasard.
     `
     this.besoinFormulaireNumerique = [
@@ -92,11 +93,17 @@ Si le nombre de questions est supérieur au nombre de patterns choisis, alors l'
     ]
     this.sup2 = '7'
 
-    this.besoinFormulaire3Numerique = [
-      'Numéro de pattern si nombre de question = 1 :',
-      listePatternsFor5I13.length,
+    const nbDePattern = listePatternsSansRatioNiFraction.length
+    this.besoinFormulaire3Texte = [
+      'Numéros des pattern désirés :',
+      [
+        'Nombres séparés par des tirets  :',
+        `Mettre des nombres entre 1 et ${nbDePattern}.`,
+        `Mettre ${nbDePattern + 1} pour laisser le hasard faire.`,
+      ].join('\n'),
     ]
-    this.sup3 = 1
+
+    this.sup3 = `${nbDePattern + 1}`
     this.listePackages = ['twemojis'] // this.listePackages est inutile mais la présence du mot "twemojis" est indispensable pour la sortie LaTeX.
   }
 
@@ -115,7 +122,6 @@ Si le nombre de questions est supérieur au nombre de patterns choisis, alors l'
 
     let typesQuestionsInitiales = gestionnaireFormulaireTexte({
       saisie: this.sup2,
-      min: 1,
       max: 6,
       defaut: 1,
       melange: 7,
@@ -125,15 +131,28 @@ Si le nombre de questions est supérieur au nombre de patterns choisis, alors l'
     typesQuestionsInitiales = enleveDoublonNum(typesQuestionsInitiales)
     if (typesQuestionsInitiales.length === 6)
       typesQuestionsInitiales = range1(5)
+
+    const nbDePattern = listePatternsSansRatioNiFraction.length
+    let typesPattern = gestionnaireFormulaireTexte({
+      saisie: this.sup3,
+      max: nbDePattern,
+      defaut: nbDePattern + 1,
+      melange: nbDePattern + 1,
+      nbQuestions: this.nbQuestions,
+    }).map(Number)
+
+    typesPattern = [...typesPattern, ...shuffle(range1(nbDePattern))]
+    typesPattern = enleveDoublonNum(typesPattern)
+
     let typesQuestions
     let indexInteractif = 0
-    const listePreDef =
-      this.nbQuestions === 1
-        ? [listePatternsFor5I13[this.sup3 - 1]]
-        : shuffle(listePatternsFor5I13)
+    const listePreDef = typesPattern.map(
+      (i) => listePatternsSansRatioNiFraction[i - 1],
+    )
+
     for (
-      let i = 0;
-      i < Math.min(listePatternsFor5I13.length, this.nbQuestions);
+      let i = 0, cpt = 0;
+      i < Math.min(nbDePattern, this.nbQuestions) && cpt < 50;
 
     ) {
       if (compteOccurences(typesQuestionsInitiales, 6) > 0) {
@@ -337,7 +356,7 @@ Si le nombre de questions est supérieur au nombre de patterns choisis, alors l'
               )}
             `)
               listeCorrections.push(`Le motif $10$ contient $${miseEnEvidence(nbTex)}$ ${infosShape.nomPluriel}.<br>
-            En effet, la formule pour trouver le nombre ${deMotif} est : $${miseEnEvidence(pat.formule.replaceAll('n', '10'))}$.<br>
+            En effet, la formule pour trouver le nombre ${deMotif} est : $${miseEnEvidence(pat.formule.replaceAll('n', '10'), bleuMathalea)}$.<br>
             ${explain}`)
             }
             break
@@ -363,7 +382,7 @@ Si le nombre de questions est supérieur au nombre de patterns choisis, alors l'
                   : `On constate que le nombre de formes augmente de $${delta}$ à chaque étape.<br>
         Cependant, il n'y a pas ${delta} formes sur le motif 1, mais ${pat.fonctionNb(1)}. Par conséquent, il faut ${b < 0 ? `ajouter ${-b}` : `retirer ${b}`} au nombre de formes puis diviser le résultat par ${delta} : <br>
         $\\dfrac{${nbTex} ${b < 0 ? '+' : '-'} ${Math.abs(b)}}{${delta}}=${miseEnEvidence(etape)}$.`
-              listeCorrections.push(`C'est le motif numéro $${miseEnEvidence(etape.toString())}$ qui contient $${miseEnEvidence(texNombre(nbFormes, 0))}$ ${infosShape.nomPluriel}.<br>
+              listeCorrections.push(`C'est le motif numéro $${miseEnEvidence(etape.toString())}$ qui contient $${miseEnEvidence(texNombre(nbFormes, 0), bleuMathalea)}$ ${infosShape.nomPluriel}.<br>
             ${explain2}`)
             }
             break
@@ -381,7 +400,7 @@ Si le nombre de questions est supérieur au nombre de patterns choisis, alors l'
               )}
             `)
               listeCorrections.push(`Le motif $100$ contient $${miseEnEvidence(nbTex)}$ formes ${deMotif}.<br>
-            En effet, la formule pour trouver le nombre ${deMotif} est : $${miseEnEvidence(pat.formule.replaceAll('n', '100'))}$.<br>
+            En effet, la formule pour trouver le nombre ${deMotif} est : $${miseEnEvidence(pat.formule.replaceAll('n', '100'), bleuMathalea)}$.<br>
             ${explain}`)
             }
             break
@@ -401,9 +420,12 @@ Si le nombre de questions est supérieur au nombre de patterns choisis, alors l'
               items: listeCorrections,
               style: 'alpha',
             })
-      this.listeQuestions.push(texte)
-      this.listeCorrections.push(texteCorr)
-      i++
+      if (this.questionJamaisPosee(i, typesQuestions.join(''), pat.numero)) {
+        this.listeQuestions.push(texte)
+        this.listeCorrections.push(texteCorr)
+        i++
+        cpt++
+      }
     }
   }
 }

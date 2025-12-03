@@ -1,5 +1,5 @@
-import QcmJsonGenerator from './QcmJsonGenerator'
-import type { QcmJsonData } from './QcmJsonGenerator'
+import type { QcmJsonData } from '../beta/QcmJsonGenerator'
+import QcmJsonGenerator from '../beta/QcmJsonGenerator'
 
 // Exemple d'utilisation du générateur QCM JSON
 // Données JSON pour un QCM de mathématiques

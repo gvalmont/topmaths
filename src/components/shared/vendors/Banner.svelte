@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { mathaleaGoToView } from '../../../lib/mathalea'
+  import { mathaleaGoToView } from '../../../lib/mathaleaUtils'
   import ButtonIconTooltip from '../forms/ButtonIconTooltip.svelte'
 
   export let brandImagePath: string | null = null

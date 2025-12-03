@@ -785,23 +785,18 @@
               {exercice.besoinFormulaire5Texte[1]}
             </div>
           </label>
-          <div
-            class="tooltip tooltip-top after:z-[500] w-full before:whitespace-pre-wrap before:content-[attr(data-tip)] before:text-left"
-            data-tip="{exercice.besoinFormulaire5Texte[1]}"
-          >
-            <input
-              class="w-full text-coopmaths-corpus-lightest dark:text-coopmathsdark-corpus-dark border-1 border-coopmaths-action dark:border-coopmathsdark-action focus:border-coopmaths-action dark:focus:border-coopmathsdark-action-lightest focus:outline-0 focus:ring-0 focus:border-1 bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark"
-              name="settings-formText5"
-              id="settings-formText5-{exerciceIndex}"
-              type="text"
-              autocomplete="off"
-              autocorrect="off"
-              autocapitalize="off"
-              spellcheck="false"
-              bind:value="{sup5}"
-              on:input="{dispatchNewSettings}"
-            />
-          </div>
+          <input
+            class="w-full text-coopmaths-corpus-lightest dark:text-coopmathsdark-corpus-dark border-1 border-coopmaths-action dark:border-coopmathsdark-action focus:border-coopmaths-action dark:focus:border-coopmathsdark-action-lightest focus:outline-0 focus:ring-0 focus:border-1 bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark"
+            name="settings-formText5"
+            id="settings-formText5-{exerciceIndex}"
+            type="text"
+            autocomplete="off"
+            autocorrect="off"
+            autocapitalize="off"
+            spellcheck="false"
+            bind:value="{sup5}"
+            on:input="{dispatchNewSettings}"
+          />
         {/if}
       </form>
     {/if}

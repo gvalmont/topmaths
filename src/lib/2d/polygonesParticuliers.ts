@@ -4,7 +4,7 @@ import { lettreDepuisChiffre } from '../outils/outilString'
 import { codageAngleDroit } from './CodageAngleDroit'
 import { codageSegments } from './CodageSegment'
 import type { ObjetMathalea2D } from './ObjetMathalea2D'
-import { pointAbstrait, type Point } from './PointAbstrait'
+import { pointAbstrait, type PointAbstrait } from './PointAbstrait'
 import { polygone, polygoneAvecNom } from './polygones'
 import { homothetie, rotation, translation } from './transformations'
 import { pointAdistance, pointSurSegment } from './utilitairesPoint'
@@ -15,17 +15,17 @@ import { vecteur } from './Vecteur'
  * fonction qui retourne le parallélogramme ABCD dont on donne les 3 premiers points A, B et C
  *
  * @param {string} nom
- * @param {Point} A
- * @param {Point} B
- * @param {Point} C
+ * @param {PointAbstrait} A
+ * @param {PointAbstrait} B
+ * @param {PointAbstrait} C
  * @return {PolygoneAvecNom}
  */
 
 export function parallelogramme3points(
   nom: string,
-  A: Point,
-  B: Point,
-  C: Point,
+  A: PointAbstrait,
+  B: PointAbstrait,
+  C: PointAbstrait,
 ) {
   const D = translation(A, vecteur(B, C), nom[3])
   A.nom = nom[0]
@@ -45,8 +45,8 @@ export function parallelogramme3points(
  */
 export function parallelogramme2points1hauteur(
   nom: string,
-  A: Point,
-  B: Point,
+  A: PointAbstrait,
+  B: PointAbstrait,
   h: number,
 ) {
   if (typeof B === 'number') {
@@ -61,13 +61,13 @@ export function parallelogramme2points1hauteur(
     A,
     randint(-5, 5, rangeMinMax(-2, 2)) / 10,
   )
-  const D = translation(H, vecteur(A, pointHomothetie as Point), nom[3])
+  const D = translation(H, vecteur(A, pointHomothetie as PointAbstrait), nom[3])
   const C = translation(D, vecteur(A, B), nom[2])
   return polygoneAvecNom(A, B, C, D)
 }
 /**
  * Construit un rectangle à partir d'un point A et de deux longueurs
- * @param {Point} A
+ * @param {PointAbstrait} A
  * @param {number} longueur
  * @param {number} largeur
  * @param {object} options
@@ -81,7 +81,7 @@ export function parallelogramme2points1hauteur(
  * @author Guillaume Valmont d'après 6M11 d'Eric Elter
  */
 export function rectangle1Point2Longueurs(
-  A: Point,
+  A: PointAbstrait,
   longueur: number,
   largeur: number,
   options: {
@@ -137,16 +137,16 @@ export function rectangle1Point2Longueurs(
 /**
  * Trace le polygone régulier direct à n côtés qui a pour côté [AB]
  * Pour tracer le polygone régulier indirect de côté [AB], on iversera A et B
- * @param {Point} A
- * @param {Point} B
+ * @param {PointAbstrait} A
+ * @param {PointAbstrait} B
  * @param {number} n Nombre de côtés
  * @param {string} [color = 'black'] Couleur de l'arc ou 'none' : du type 'blue' ou du type '#f15929'
  * @return {Polygone}
  * @author Rémi Angot
  **/
 export function polygoneRegulier(
-  A: Point,
-  B: Point,
+  A: PointAbstrait,
+  B: PointAbstrait,
   n: number,
   color = 'black',
 ) {
@@ -167,7 +167,7 @@ export function polygoneRegulier(
  * @author Rémi Angot
  */
 export function polygoneRegulierParCentreEtRayon(
-  O: Point,
+  O: PointAbstrait,
   r: number,
   n: number,
   color = 'black',
@@ -182,8 +182,8 @@ export function polygoneRegulierParCentreEtRayon(
 
 /**
  * Trace un carré
- * @param {Point} A Un sommet du carré
- * @param {Point} B Un sommet du carré, consécutif au précédent
+ * @param {PointAbstrait} A Un sommet du carré
+ * @param {PointAbstrait} B Un sommet du carré, consécutif au précédent
  * @param {string} [color = 'black'] Couleur de l'arc ou 'none' : du type 'blue' ou du type '#f15929'
  * @example carre(M,N)
  *  // Trace le carré noir de sommets consécutifs M et N dans le sens direct
@@ -196,6 +196,6 @@ export function polygoneRegulierParCentreEtRayon(
  * JSDOC Validee par EE Juin 2022
  *
  */
-export function carre(A: Point, B: Point, color = 'black') {
+export function carre(A: PointAbstrait, B: PointAbstrait, color = 'black') {
   return polygoneRegulier(A, B, 4, color)
 }

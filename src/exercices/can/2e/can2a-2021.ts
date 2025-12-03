@@ -1,5 +1,5 @@
 import { codageSegment } from '../../../lib/2d/CodageSegment'
-import { courbe } from '../../../lib/2d/courbes'
+import { courbe } from '../../../lib/2d/Courbe'
 import { point } from '../../../lib/2d/PointAbstrait'
 import { repere } from '../../../lib/2d/reperes'
 import { segment } from '../../../lib/2d/segmentsVecteurs'

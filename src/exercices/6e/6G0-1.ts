@@ -1,6 +1,6 @@
 import { demiDroite } from '../../lib/2d/DemiDroite'
 import { droite } from '../../lib/2d/droites'
-import { Point, point } from '../../lib/2d/PointAbstrait'
+import { PointAbstrait, pointAbstrait } from '../../lib/2d/PointAbstrait'
 import { segment } from '../../lib/2d/segmentsVecteurs'
 import { labelPoint } from '../../lib/2d/textes'
 import { tracePoint } from '../../lib/2d/TracePoint'
@@ -51,10 +51,14 @@ export default class NotationSegmentDroiteDemiDroite extends Exercice {
       if (i % 5 === 0) listeDeNomsDePolygones = ['PQD']
       const p = creerNomDePolygone(3, listeDeNomsDePolygones)
       listeDeNomsDePolygones.push(p)
-      const A = point(0, 0, p[0], 'above left')
-      const B = point(2, 2.2, p[1], 'above')
-      const C = point(4.2, -0.6, p[2], 'above right')
-      const creerDroiteDemiSegment = (A: Point, B: Point, type: number) => {
+      const A = pointAbstrait(0, 0, p[0], 'above left')
+      const B = pointAbstrait(2, 2.2, p[1], 'above')
+      const C = pointAbstrait(4.2, -0.6, p[2], 'above right')
+      const creerDroiteDemiSegment = (
+        A: PointAbstrait,
+        B: PointAbstrait,
+        type: number,
+      ) => {
         let trait, notation, typeLigne
         switch (type) {
           case 1:

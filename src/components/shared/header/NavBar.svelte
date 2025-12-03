@@ -1,16 +1,17 @@
 <script lang="ts">
-  import { globalOptions, darkMode } from '../../../lib/stores/generalStore'
-  import ButtonIcon from '../forms/ButtonIcon.svelte'
-  import { mathaleaGoToView } from '../../../lib/mathalea'
-  import NavBarSubtitle from './NavBarSubtitle.svelte'
+  import { mathaleaGoToView } from '../../../lib/mathaleaUtils'
+  import { darkMode } from '../../../lib/stores/generalStore'
+  import { globalOptions } from '../../../lib/stores/globalOptions'
   import {
     VUES_WITH_LANG_STATUS_ONLY,
     type Language,
   } from '../../../lib/types/languages'
-  import LanguageStatus from '../ui/LanguageStatus.svelte'
+  import ButtonIcon from '../forms/ButtonIcon.svelte'
+  import ModalLanguageChoice from '../modal/ModalLanguageChoice.svelte'
   import LanguageDropdown from '../ui/LanguageDropdown.svelte'
   import LanguageIcon from '../ui/LanguageIcon.svelte'
-  import ModalLanguageChoice from '../modal/ModalLanguageChoice.svelte'
+  import LanguageStatus from '../ui/LanguageStatus.svelte'
+  import NavBarSubtitle from './NavBarSubtitle.svelte'
 
   export let title: string = 'MathALÉA'
   export let subtitle: string = ''

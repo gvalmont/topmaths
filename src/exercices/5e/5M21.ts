@@ -1,21 +1,21 @@
-import Exercice from '../Exercice'
-import {
-  gestionnaireFormulaireTexte,
-  listeQuestionsToContenu,
-  randint,
-} from '../../modules/outils'
+import type { AllChoicesType } from '../../lib/interactif/listeDeroulante/ListeDeroulante'
 import { choixDeroulant } from '../../lib/interactif/questionListeDeroulante'
+import { ajouteFeedback } from '../../lib/interactif/questionMathLive'
 import {
   combinaisonListes,
   enleveDoublonNum,
   shuffle,
 } from '../../lib/outils/arrayOutils'
-import type { AllChoicesType } from '../../lib/interactif/listeDeroulante/ListeDeroulante'
-import { ajouteFeedback } from '../../lib/interactif/questionMathLive'
 import {
   miseEnEvidence,
   texteEnCouleurEtGras,
 } from '../../lib/outils/embellissements'
+import {
+  gestionnaireFormulaireTexte,
+  listeQuestionsToContenu,
+  randint,
+} from '../../modules/outils'
+import Exercice from '../Exercice'
 
 export const titre = "Connaître la définition d'une unité de volume"
 export const interactifReady = true
@@ -87,7 +87,7 @@ export default class DefinitionUnitesVolumes extends Exercice {
       melange: 4,
       nbQuestions: this.nbQuestions,
       saisie: this.sup2,
-      listeOfCase: ['cm', 'dm', 'm'],
+      listeOfCase: ['$\\text{ cm}$', '$\\text{ dm}$', '$\\text{ m}$'],
     }).map(String)
     unitesChoisies = combinaisonListes(unitesChoisies, 50)
 
@@ -139,13 +139,16 @@ export default class DefinitionUnitesVolumes extends Exercice {
     this.tabIndiceInteractif = [0]
     for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50; ) {
       const unite = unitesChoisies[cpt] // cpt choisi ici et dans tous les tableaux comme indice par pas assez de questions sinon.
-
+      const match = unite.match(/\{ *([^}]*) *\}/)
+      let uniteBrut = ''
+      if (match) {
+        uniteBrut = match[1]
+      }
       let texte = ''
       let texteCorr = ''
       const texteFixe = []
       const choixListeDeroulantePourCeCas: AllChoicesType[] = []
       let choixPossibilites = 0
-
       switch (nbDeListesDeroulantes[cpt]) {
         case 1:
           choixPossibilites = randint(1, 4)
@@ -163,7 +166,7 @@ export default class DefinitionUnitesVolumes extends Exercice {
             case 2:
               texteFixe.push(`$1$ ${unite}$^3$ est le volume d'un cube de `)
               texteFixe.push(' de côté.')
-              this.listeReponses[i] = [unite]
+              this.listeReponses[i] = [uniteBrut]
               choixListeDeroulantePourCeCas.push([
                 { label: 'Choisir une proposition', value: '' },
                 ...shuffle(choixListeDeroulante[2]),
@@ -185,7 +188,7 @@ export default class DefinitionUnitesVolumes extends Exercice {
               texteFixe.push(
                 ` est le volume d'un cube de $1$ ${unite} de côté.`,
               )
-              this.listeReponses[i] = [unite + '3']
+              this.listeReponses[i] = [uniteBrut + '3']
               choixListeDeroulantePourCeCas.push([
                 { label: 'Choisir une proposition', value: '' },
                 ...shuffle(choixListeDeroulante[3]),
@@ -225,7 +228,7 @@ export default class DefinitionUnitesVolumes extends Exercice {
               texteFixe.push(`$1$ ${unite}$^3$ est `)
               texteFixe.push(" d'un cube de ")
               texteFixe.push(' de côté.')
-              this.listeReponses[i] = ['volume', unite]
+              this.listeReponses[i] = ['volume', uniteBrut]
               choixListeDeroulantePourCeCas.push([
                 { label: 'Choisir une proposition', value: '' },
                 ...shuffle(choixListeDeroulante[0]),
@@ -240,7 +243,7 @@ export default class DefinitionUnitesVolumes extends Exercice {
               texteFixe.push(`$1$ ${unite}$^3$ est le volume d'un `)
               texteFixe.push(' de ')
               texteFixe.push(' de côté.')
-              this.listeReponses[i] = ['cube', unite]
+              this.listeReponses[i] = ['cube', uniteBrut]
               choixListeDeroulantePourCeCas.push([
                 { label: 'Choisir une proposition', value: '' },
                 ...shuffle(choixListeDeroulante[1]),
@@ -255,7 +258,7 @@ export default class DefinitionUnitesVolumes extends Exercice {
               texteFixe.push(' ')
               texteFixe.push(' est ')
               texteFixe.push(` d'un cube de $1$ ${unite} de côté.`)
-              this.listeReponses[i] = [unite + '3', 'volume']
+              this.listeReponses[i] = [uniteBrut + '3', 'volume']
               choixListeDeroulantePourCeCas.push([
                 { label: 'Choisir une proposition', value: '' },
                 ...shuffle(choixListeDeroulante[3]),
@@ -270,10 +273,10 @@ export default class DefinitionUnitesVolumes extends Exercice {
               texteFixe.push(' ')
               texteFixe.push(" est le volume d'un ")
               texteFixe.push(` de $1$ ${unite} de côté.`)
-              this.listeReponses[i] = [unite + '3', 'cube']
+              this.listeReponses[i] = [uniteBrut + '3', 'cube']
               choixListeDeroulantePourCeCas.push([
                 { label: 'Choisir une proposition', value: '' },
-                ...shuffle(choixListeDeroulante[4]),
+                ...shuffle(choixListeDeroulante[3]),
               ])
               choixListeDeroulantePourCeCas.push([
                 { label: 'Choisir une proposition', value: '' },
@@ -308,7 +311,7 @@ export default class DefinitionUnitesVolumes extends Exercice {
               texteFixe.push(" d'un ")
               texteFixe.push(' de ')
               texteFixe.push(' de côté.')
-              this.listeReponses[i] = ['volume', 'cube', unite]
+              this.listeReponses[i] = ['volume', 'cube', uniteBrut]
               choixListeDeroulantePourCeCas.push([
                 { label: 'Choisir une proposition', value: '' },
                 ...shuffle(choixListeDeroulante[0]),
@@ -329,7 +332,7 @@ export default class DefinitionUnitesVolumes extends Exercice {
               texteFixe.push(" d'un ")
               texteFixe.push(` de $1$ ${unite} de côté.`)
               texteFixe.push('')
-              this.listeReponses[i] = [unite + '3', 'volume', 'cube']
+              this.listeReponses[i] = [uniteBrut + '3', 'volume', 'cube']
               choixListeDeroulantePourCeCas.push([
                 { label: 'Choisir une proposition', value: '' },
                 ...shuffle(choixListeDeroulante[3]),
@@ -377,7 +380,7 @@ export default class DefinitionUnitesVolumes extends Exercice {
       if (
         this.questionJamaisPosee(
           i,
-          unite,
+          uniteBrut,
           choixPossibilites,
           this.listeReponses[i].length,
         )

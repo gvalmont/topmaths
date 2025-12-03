@@ -1,7 +1,7 @@
 import { codageSegments } from '../../../lib/2d/CodageSegment'
+import { courbeInterpolee } from '../../../lib/2d/CourbeInterpolee.1'
 import { demiDroite } from '../../../lib/2d/DemiDroite'
 import { point } from '../../../lib/2d/PointAbstrait'
-import { courbeInterpolee } from '../../../lib/2d/courbes'
 import { droite } from '../../../lib/2d/droites'
 import { repere } from '../../../lib/2d/reperes'
 import {

@@ -137,20 +137,63 @@ export default class NomExercice extends Exercice {
         vz = -6
         listeTypeQuestions[i] = 'secantes'
       }
+      // Pré-calculs numériques pour éviter divisions par zéro ou resultat2 == 0
+      let num1 = ux * (yB - yA) - uy * (xB - xA)
+      let den1 = uy * vx - ux * vy
+      let num2 = ux * (zB - zA) - uz * (xB - xA)
+      let den2 = uz * vx - ux * vz
+
+      // Pour les cas non-parallèles, tenter une régénération partielle de (vx,vy,vz)
+      if (listeTypeQuestions[i] !== 'paralleles') {
+        // Régénération continue de vx,vy,vz jusqu'à obtenir des valeurs valides.
+        // La sortie forcée est contrôlée uniquement par le compteur global `cpt`.
+        while (den1 === 0 || den2 === 0 || num2 === 0) {
+          // si on a tenté trop d'essais au total, on rejette ce tirage
+          cpt++
+          if (cpt >= 50) {
+            break
+          }
+          // régénérer les composantes du vecteur directeur v
+          vx = randint(-10, 10, [ux, xA, 0])
+          vy = randint(-10, 10, [uy, yA, 0])
+          vz = randint(-10, 10, [uz, zA, 0])
+          if (vx / ux === vy / uy && vy / uy === vz / uz) {
+            vz = vz + 1
+          }
+          // recalculer xB,yB,zB selon le type pour garder la construction souhaitée
+          if (listeTypeQuestions[i] === 'secantes') {
+            xB = alpha * ux + beta * vx + xA
+            yB = alpha * uy + beta * vy + yA
+            zB = alpha * uz + beta * vz + zA
+          } else if (listeTypeQuestions[i] === 'nonCoplanaires') {
+            xB = alpha * ux + beta * vx + xA
+            yB = alpha * uy + beta * vy + yA
+            zB = alpha * uz + beta * vz + zA - 1
+          }
+          // recomputer les numérateurs/dénominateurs
+          num1 = ux * (yB - yA) - uy * (xB - xA)
+          den1 = uy * vx - ux * vy
+          num2 = ux * (zB - zA) - uz * (xB - xA)
+          den2 = uz * vx - ux * vz
+        }
+        // si après avoir utilisé le budget global on n'a pas de solution sûre, rejeter le tirage entier
+        if (den1 === 0 || den2 === 0 || num2 === 0) {
+          continue
+        }
+      }
+
       const u1 = new FractionEtendue(vx, ux) // On crée les fractions étendues pour les vecteurs directeurs
       const u2 = new FractionEtendue(vy, uy) // On crée les fractions étendues pour les vecteurs directeurs
       const u3 = new FractionEtendue(vz, uz) // On crée les fractions étendues pour les vecteurs directeurs
       const u4 = new FractionEtendue(xB - xA, ux) // On crée les fractions étendues pour les vecteurs directeurs
       const u5 = new FractionEtendue(yB - yA, uy) // On crée les fractions étendues pour les vecteurs directeurs
       const u6 = new FractionEtendue(zB - zA, uz) // On crée les fractions étendues pour les vecteurs directeurs
-      const resultat1 = new FractionEtendue(
-        ux * (yB - yA) - uy * (xB - xA),
-        uy * vx - ux * vy,
-      ) // Pour le calcul de colinéarité
-      const resultat2 = new FractionEtendue(
-        ux * (zB - zA) - uz * (xB - xA),
-        uz * vx - ux * vz,
-      ) // Pour le calcul de colinéarité
+      const resultat1 = den1 !== 0
+        ? new FractionEtendue(num1, den1)
+        : new FractionEtendue(num1, 1) // valeur factice si dénominateur nul (cas parallèle)
+      const resultat2 = den2 !== 0
+        ? new FractionEtendue(num2, den2)
+        : new FractionEtendue(num2, 1) // valeur factice si dénominateur nul (cas parallèle)
       const quotient1 = new FractionEtendue(ux * uy, vx * uy - vy * ux) // Pour la dernière ligne de calcul du quotient de la colinéarité
       const quotient2 = new FractionEtendue(ux * uz, vx * uz - vz * ux) // Pour la dernière ligne de calcul du quotient de la colinéarité
       const bloc1 = ` <br>$\\begin{cases}

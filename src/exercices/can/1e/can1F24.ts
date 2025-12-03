@@ -1,4 +1,4 @@
-import { courbe } from '../../../lib/2d/courbes'
+import { courbe } from '../../../lib/2d/Courbe'
 import { Repere } from '../../../lib/2d/reperes'
 import { latex2d, Latex2d, TexteParPoint } from '../../../lib/2d/textes'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'

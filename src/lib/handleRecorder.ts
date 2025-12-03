@@ -1,7 +1,8 @@
 import { get } from 'svelte/store'
 import { buildMathAleaURL } from './components/urls'
 import { mathaleaGetExercicesFromParams } from './mathalea'
-import { exercicesParams, globalOptions } from './stores/generalStore'
+import { exercicesParams } from './stores/generalStore'
+import { globalOptions } from './stores/globalOptions'
 
 export async function sendActivityParams() {
   const exercices = []
@@ -24,7 +25,7 @@ export async function sendActivityParams() {
       } else if (key === 'nbQuestions') {
         paramUrl += `n=${param[key]}&`
       } else if (key === 'versionQcm') {
-          paramUrl += `qcm\\=${param[key]}&`
+        paramUrl += `qcm\\=${param[key]}&`
       } else if (key !== 'alea' && key !== 'id') {
         paramUrl += `${key}=${param[key]}&`
       }

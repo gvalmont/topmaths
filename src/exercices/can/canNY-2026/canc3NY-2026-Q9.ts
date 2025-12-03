@@ -25,21 +25,36 @@ export default class ProduitACompleter2026 extends ExerciceSimple {
     this.typeExercice = 'simple' // Cette ligne est très importante pour faire un exercice simple !
     this.nbQuestions = 1
     this.nbQuestionsModifiable = false
-    this.optionsChampTexte = { texteAvant: ' $=$' }
-    this.formatInteractif = 'fillInTheBlank'
     this.formatChampTexte = KeyboardType.clavierDeBase
   }
 
-  nouvelleVersion() {
+ nouvelleVersion() {
     const a = 2026
     const b = this.canOfficielle ? 100 : choice([10, 100, 1000])
     const resultat = new Decimal(a).mul(b)
     const choix = this.canOfficielle ? true : choice([true, false])
     this.reponse = texNombre(b, 3)
-    this.consigne = "Compléter l'égalité.<br>"
-    handleAnswers(this, 0, { champ1: { value: this.reponse } })
-    this.question = `${choix ? `${texNombre(a, 0)}\\times %{champ1} =${texNombre(resultat, 3)}` : `%{champ1} \\times ${texNombre(a, 0)}=${texNombre(resultat, 3)} `}`
-    this.correction = `$${choix ? `${texNombre(a, 0)}\\times ${miseEnEvidence(this.reponse)} =${texNombre(resultat, 3)}` : `${miseEnEvidence(this.reponse)} \\times ${texNombre(a, 0)}=${texNombre(resultat, 3)} `}$ `
+    this.question = "Compléter l'égalité.<br>"
+    
+    if (this.interactif) {
+      if (choix) {
+        this.optionsChampTexte = {
+          texteAvant: `$${texNombre(a, 0)}\\times$`,
+          texteApres: `$=${texNombre(resultat, 3)}$`,
+        }
+      } else {
+        this.optionsChampTexte = {
+          texteAvant: ``,
+          texteApres: `$\\times ${texNombre(a, 0)}=${texNombre(resultat, 3)}$`,
+        }
+      }
+    } else {
+      this.question += choix
+        ? `$${texNombre(a, 0)}\\times \\ldots =${texNombre(resultat, 3)}$`
+        : `$\\ldots \\times ${texNombre(a, 0)}=${texNombre(resultat, 3)}$`
+    }
+    
+    this.correction = `$${choix ? `${texNombre(a, 0)}\\times ${miseEnEvidence(this.reponse)} =${texNombre(resultat, 3)}` : `${miseEnEvidence(this.reponse)} \\times ${texNombre(a, 0)}=${texNombre(resultat, 3)} `}$`
     this.canEnonce = "Compléter l'égalité."
     this.canReponseACompleter = `$${choix ? `${texNombre(a, 0)}\\times \\ldots =${texNombre(resultat, 3)}` : `\\ldots \\times ${texNombre(a, 0)}=${texNombre(resultat, 3)} `}$`
   }

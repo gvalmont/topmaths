@@ -1,4 +1,4 @@
-import type { VueType } from '../types'
+import type { VueType } from '../VueType'
 
 export const ALLOWED_LANGUAGES = ['fr-FR', 'fr-CH'] as const
 export type Language = (typeof ALLOWED_LANGUAGES)[number]

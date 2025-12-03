@@ -1,6 +1,6 @@
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
-import Exercice from '../Exercice'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
+import Exercice from '../Exercice'
 
 import { propositionsQcm } from '../../lib/interactif/qcm'
 import { stringNombre, texNombre } from '../../lib/outils/texNombre'
@@ -19,7 +19,7 @@ export const dateDeModifImportante = '23/06/2024'
 export const uuid = '103a2'
 
 export const refs = {
-  'fr-fr': ['BP2AutoU5', '6N5-5'],
+  'fr-fr': ['6N5-5', 'BP2AutoU5'],
   'fr-2016': ['6C12-5', 'BP2AutoU5'],
   'fr-ch': ['9QCM-4', '10QCM-2'],
 }

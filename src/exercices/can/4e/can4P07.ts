@@ -1,10 +1,11 @@
-import ExerciceSimple from '../../ExerciceSimple'
-import { miseEnEvidence } from '../../../lib/outils/embellissements'
-import { randint } from '../../../modules/outils'
-import { choice } from '../../../lib/outils/arrayOutils'
-import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 import Decimal from 'decimal.js'
+import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
+import { choice } from '../../../lib/outils/arrayOutils'
+import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { texNombre } from '../../../lib/outils/texNombre'
+import { context } from '../../../modules/context'
+import { randint } from '../../../modules/outils'
+import ExerciceSimple from '../../ExerciceSimple'
 export const titre = 'Retrouver un pourcentage'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -45,12 +46,16 @@ export default class PourcentageARetrouver extends ExerciceSimple {
     ] //
     const choix = choice(listeValeurs)
     const valeur = new Decimal(choix[0]).mul(choix[1]).div(100)
+
+    if (context.isAmc) this.versionQcm = false
     this.reponse = this.versionQcm ? `$p=${texNombre(choix[0], 2)}$` : choix[0]
-    this.distracteurs = [
-      `$p=${texNombre(choix[0] / 10, 2)}$`,
-      `$p=${texNombre(choix[0] * 10, 0)}$`,
-      `$p=${texNombre(valeur, 2)}$`,
-    ]
+    if (this.versionQcm) {
+      this.distracteurs = [
+        `$p=${texNombre(choix[0] / 10, 2)}$`,
+        `$p=${texNombre(choix[0] * 10, 0)}$`,
+        `$p=${texNombre(valeur, 2)}$`,
+      ]
+    }
     this.question = `$p\\,\\%$ de $${choix[1]}$ est égal à $${texNombre(valeur, 1)}$.<br> `
     if (!this.versionQcm) {
       this.question += ' Quelle est la valeur de $p$ ?'

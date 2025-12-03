@@ -9,7 +9,7 @@ import {
   droiteParPointEtPente,
   droiteVerticaleParPoint,
 } from '../../lib/2d/droites'
-import { Point, point } from '../../lib/2d/PointAbstrait'
+import { PointAbstrait, point } from '../../lib/2d/PointAbstrait'
 import { repere } from '../../lib/2d/reperes'
 import { representant } from '../../lib/2d/representantVecteur'
 import { segment } from '../../lib/2d/segmentsVecteurs'
@@ -76,13 +76,13 @@ export default class TransformationsDuPlanEtCoordonnees extends Exercice {
 
   nouvelleVersion() {
     const k: number[] = []
-    // On initialise les Point pour éviter les erreurs typescript type undefined.
-    let A: Point = point(0, 0)
-    let B: Point = point(0, 0)
-    let C: Point = point(0, 0)
-    let Aprime: Point = point(0, 0)
-    let Bprime: Point = point(0, 0)
-    let Cprime: Point = point(0, 0)
+    // On initialise les PointAbstrait pour éviter les erreurs typescript type undefined.
+    let A: PointAbstrait = point(0, 0)
+    let B: PointAbstrait = point(0, 0)
+    let C: PointAbstrait = point(0, 0)
+    let Aprime: PointAbstrait = point(0, 0)
+    let Bprime: PointAbstrait = point(0, 0)
+    let Cprime: PointAbstrait = point(0, 0)
     const xP = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14] // ces nombres sont juste là pour compter combien il y en a... ils seront remplacés plus tard par les coordonnées utiles ou pas.
     const yP = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14] // comme pour t, je n'utiliserai pas le premier élément pour coller aux index.
     const t = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0] // il y a 14 transformations mais je n'utilise pas t[0] pour coller avec les index.
@@ -135,7 +135,7 @@ export default class TransformationsDuPlanEtCoordonnees extends Exercice {
         }
       }
 
-      const xO = randint(-3, 3, [0, -1]) // Point O' (origine du repère dans lequel les transformations sont simples (centre des rotations et punto d'intersection des axes))
+      const xO = randint(-3, 3, [0, -1]) // PointAbstrait O' (origine du repère dans lequel les transformations sont simples (centre des rotations et punto d'intersection des axes))
       const yO = randint(-3, 3, [0, -1])
       const pointO = point(0, 0, 'O', 'above right')
 
@@ -151,7 +151,7 @@ export default class TransformationsDuPlanEtCoordonnees extends Exercice {
       let trouve = false
       let compteur = 0
       while (!trouve) {
-        xA = randint(-7, 7, 0) // Point A
+        xA = randint(-7, 7, 0) // PointAbstrait A
         yA = randint(-7, 7, -1)
         if (xA === xO && yA === yO) xA = randint(-7, 7, [0, xO])
         punto[0] = imagePointParTransformation(
@@ -171,7 +171,7 @@ export default class TransformationsDuPlanEtCoordonnees extends Exercice {
           compteur < 20
         ) {
           // on teste si A est dans la fenêtre sinon on en choisit un autre
-          xA = randint(-7, 7, [0]) // Point A
+          xA = randint(-7, 7, [0]) // PointAbstrait A
           yA = randint(-7, 7, -1)
           if (xA === xO && yA === yO) xA = randint(-7, 7, [0, xO])
           punto[0] = imagePointParTransformation(
@@ -187,8 +187,8 @@ export default class TransformationsDuPlanEtCoordonnees extends Exercice {
         A = point(xA, yA, 'A')
         Aprime = point(punto[0][0], punto[0][1], "A'")
 
-        // xB = randint(-7, 7, [xA, 0]) // Point B
-        xB = randint(-7, 7, [xA, 0, punto[0][0]]) // Point B
+        // xB = randint(-7, 7, [xA, 0]) // PointAbstrait B
+        xB = randint(-7, 7, [xA, 0, punto[0][0]]) // PointAbstrait B
         // yB = randint(-7, 7, -1)
         yB = randint(-7, 7, [yA, -1])
         if (xB === xO && yB === yO) xB = randint(-7, 7, [0, xO, xA])
@@ -218,7 +218,7 @@ export default class TransformationsDuPlanEtCoordonnees extends Exercice {
           compteur < 20
         ) {
           // on teste si on est dans les clous, sinon on choisit un autre punto B
-          xB = randint(-7, 7, [0, xA]) // Point B
+          xB = randint(-7, 7, [0, xA]) // PointAbstrait B
           yB = randint(-7, 7, -1)
           if (xB === xO && yB === yO) xB = randint(-7, 7, [0, xO, xA])
           if (choixTransformation[1] > 4) {
@@ -244,8 +244,8 @@ export default class TransformationsDuPlanEtCoordonnees extends Exercice {
         B = point(xB, yB, 'B')
         Bprime = point(punto[1][0], punto[1][1], "B'")
 
-        // xC = randint(-7, 7, 0) // Point C
-        xC = randint(-7, 7, [0, punto[0][0], punto[1][0]]) // Point C
+        // xC = randint(-7, 7, 0) // PointAbstrait C
+        xC = randint(-7, 7, [0, punto[0][0], punto[1][0]]) // PointAbstrait C
         yC = randint(-7, 7, [yA, yB, -1])
         if (xC === xO && yC === yO) xC = randint(-7, 7, [0, xO, xA, xB])
         if (choixTransformation[2] > 4) {
@@ -274,7 +274,7 @@ export default class TransformationsDuPlanEtCoordonnees extends Exercice {
           compteur < 20
         ) {
           // on vérifie que C est dans le repère sinon on change le punto C.
-          xC = randint(-7, 7, [0, xA, xB]) // Point C
+          xC = randint(-7, 7, [0, xA, xB]) // PointAbstrait C
           yC = randint(-7, 7, [yA, yB, -1])
           if (xC === xO && yC === yO) xC = randint(-7, 7, [0, xO, xA, xB])
           if (choixTransformation[2] > 4) {

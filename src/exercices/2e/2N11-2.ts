@@ -5,7 +5,7 @@ import {
   crochetG,
   intervalle,
 } from '../../lib/2d/intervalles'
-import { Point, point } from '../../lib/2d/PointAbstrait'
+import { point, PointAbstrait } from '../../lib/2d/PointAbstrait'
 import { Segment, segment } from '../../lib/2d/segmentsVecteurs'
 import { Vide2d, vide2d } from '../../lib/2d/Vide2d'
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
@@ -61,10 +61,10 @@ export default class UnionEtIntersectionIntervallesDeR extends Exercice {
       let e = 0
       let f = 0
       let s: Segment
-      let A: Point
-      let B: Point
-      let C: Point
-      let D: Point
+      let A: PointAbstrait
+      let B: PointAbstrait
+      let C: PointAbstrait
+      let D: PointAbstrait
       let c1: CrochetG | Vide2d
       let c2: CrochetD | Vide2d
       let c3: CrochetG | Vide2d

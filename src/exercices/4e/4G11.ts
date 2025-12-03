@@ -1,6 +1,6 @@
 import { codageSegment } from '../../lib/2d/CodageSegment'
 import { colorToLatexOrHTML } from '../../lib/2d/colorToLatexOrHtml'
-import { Point } from '../../lib/2d/PointAbstrait'
+import { PointAbstrait } from '../../lib/2d/PointAbstrait'
 import type { Polygone } from '../../lib/2d/polygones'
 import { Segment, segment } from '../../lib/2d/segmentsVecteurs'
 import { texteParPosition } from '../../lib/2d/textes'
@@ -16,7 +16,12 @@ import type { NestedObjetMathalea2dArray } from '../../types/2d'
 
 import { representant } from '../../lib/2d/representantVecteur'
 import { vecteur, type Vecteur } from '../../lib/2d/Vecteur'
-import { egal, listeQuestionsToContenu, randint } from '../../modules/outils'
+import {
+  contraindreValeur,
+  egal,
+  listeQuestionsToContenu,
+  randint,
+} from '../../modules/outils'
 import { Pavage, pavage } from '../../modules/Pavage'
 import Exercice from '../Exercice'
 export const titre =
@@ -25,7 +30,6 @@ export const titre =
 /**
  * @author Jean-Claude Lhote
  * publié le 16/12/2020
- * Réf : 4G11
  * Trouver une figure image dans un pavage par une translation. 6 pavages différents.
  */
 export const uuid = '3bfb6'
@@ -61,8 +65,9 @@ export default class PavageEtTranslation2d extends Exercice {
   }
 
   nouvelleVersion() {
-    this.sup = Number(this.sup)
-    this.sup3 = Number(this.sup3)
+    this.sup = contraindreValeur(1, 2, this.sup, randint(1, 2))
+    this.sup3 = contraindreValeur(1, 8, this.sup3, 8)
+    if (this.sup3 == 8) this.sup3 = randint(1, 7)
     const videcouples = function (tableau: [number, number][]) {
       for (let k = 0; k < tableau.length; k++) {
         for (let j = k + 1; j < tableau.length; j++) {
@@ -90,7 +95,10 @@ export default class PavageEtTranslation2d extends Exercice {
       } else return false
     }
 
-    const compare2sommets = function (sommet1: Point, sommet2: Point) {
+    const compare2sommets = function (
+      sommet1: PointAbstrait,
+      sommet2: PointAbstrait,
+    ) {
       if (egal(sommet1.x, sommet2.x, 0.1) && egal(sommet1.y, sommet2.y, 0.1)) {
         return true
       } else return false
@@ -138,87 +146,57 @@ export default class PavageEtTranslation2d extends Exercice {
     }
 
     const objets: NestedObjetMathalea2dArray = []
-    const objetsCorrection = []
+    let objetsCorrection: NestedObjetMathalea2dArray = []
     let P1, P2, P3, t
-    let taillePavage = this.sup
+    let taillePavage = this.nbQuestions > 5 ? 2 : this.sup
     let couples: [number, number][] = []
-    if (taillePavage < 1 || taillePavage > 2) {
-      taillePavage = 1
-    }
-    if (this.nbQuestions > 5) {
-      taillePavage = 2
-    }
-
     let Nx, Ny, A, B, image
-    let monpavage, fenetre
+    let monpavage = pavage()
+    let fenetre
     let texte = ''
     let texteCorr = ''
-    let typeDePavage = this.sup
     let nombreTentatives
     let nombrePavageTestes = 1
     let v: Vecteur | null = null
     let d: Segment | null = null
-    monpavage = pavage()
-    if (this.sup3 === 8) {
-      typeDePavage = randint(1, 7)
-    } else {
-      typeDePavage = this.sup3
-    }
+    let typeDePavage = this.sup3
     let index1: number | null = null
     let index2: number | null = null
-    while (couples.length < this.nbQuestions && nombrePavageTestes < 6) {
-      nombreTentatives = 0
-      monpavage = pavage() // On crée l'objet Pavage qui va s'appeler monpavage
-      const tailles = [
-        [
-          [3, 2],
-          [3, 2],
-          [2, 2],
-          [2, 2],
-          [2, 2],
-          [2, 2],
-          [3, 2],
-        ],
-        [
-          [4, 3],
-          [4, 3],
-          [3, 3],
-          [3, 3],
-          [3, 3],
-          [3, 2],
-          [5, 3],
-        ],
-      ]
-      Nx = tailles[taillePavage - 1][typeDePavage - 1][0]
-      Ny = tailles[taillePavage - 1][typeDePavage - 1][1]
-      monpavage.construit(typeDePavage, Nx, Ny, 3) // On initialise toutes les propriétés de l'objet.
-      fenetre = monpavage.fenetre
-      while (couples.length < this.nbQuestions + 2 && nombreTentatives < 3) {
-        // On cherche d pour avoir suffisamment de couples
-        couples = [] // On vide la liste des couples pour une nouvelle recherche
-        index1 = randint(
-          Math.floor(monpavage.nb_polygones / 3),
-          Math.ceil((monpavage.nb_polygones * 2) / 3),
-        ) // On choisit 2 points dans 2 polygones distincts.
-        index2 = randint(
-          Math.floor(monpavage.nb_polygones / 3),
-          Math.ceil((monpavage.nb_polygones * 2) / 3),
-          index1,
-        )
-        while (
-          !comparenbsommets(
-            monpavage.polygones[index1],
-            monpavage.polygones[index2],
-          )
-        ) {
-          // On vérifie que les deux polygones sont compatibles
-          index2 = (index2 + 1) % (monpavage.polygones.length - 1)
-        }
-        A = monpavage.barycentres[index1] // On prends  les barycentres
-        B = monpavage.barycentres[index2]
-        v = vecteur(A, B)
-        while (compare2sommets(A, B)) {
-          // On vérifie qu'ils sont bien distincts sinon, on change.
+    while (taillePavage < 3) {
+      while (couples.length < this.nbQuestions && nombrePavageTestes < 6) {
+        nombreTentatives = 0
+        monpavage = pavage() // On crée l'objet Pavage qui va s'appeler monpavage
+        const tailles = [
+          [
+            [3, 2],
+            [3, 2],
+            [2, 2],
+            [2, 2],
+            [2, 2],
+            [2, 2],
+            [3, 2],
+          ],
+          [
+            [4, 3],
+            [4, 3],
+            [3, 3],
+            [3, 3],
+            [3, 3],
+            [3, 2],
+            [5, 3],
+          ],
+        ]
+        Nx = tailles[taillePavage - 1][typeDePavage - 1][0]
+        Ny = tailles[taillePavage - 1][typeDePavage - 1][1]
+        monpavage.construit(typeDePavage, Nx, Ny, 3) // On initialise toutes les propriétés de l'objet.
+        fenetre = monpavage.fenetre
+        while (couples.length < this.nbQuestions + 2 && nombreTentatives < 30) {
+          // On cherche d pour avoir suffisamment de couples
+          couples = [] // On vide la liste des couples pour une nouvelle recherche
+          index1 = randint(
+            Math.floor(monpavage.nb_polygones / 3),
+            Math.ceil((monpavage.nb_polygones * 2) / 3),
+          ) // On choisit 2 points dans 2 polygones distincts.
           index2 = randint(
             Math.floor(monpavage.nb_polygones / 3),
             Math.ceil((monpavage.nb_polygones * 2) / 3),
@@ -236,27 +214,49 @@ export default class PavageEtTranslation2d extends Exercice {
           A = monpavage.barycentres[index1] // On prends  les barycentres
           B = monpavage.barycentres[index2]
           v = vecteur(A, B)
-        }
-        d = segment(A, B, 'red')
-        d.styleExtremites = '->'
-        d.epaisseur = 3
-        for (let i = 1; i <= monpavage.nb_polygones; i++) {
-          // on crée une liste des couples (antécédents, images)
-          image = translacion(monpavage, v, i)
-          if (image !== -1) {
-            // si l'image du polygone i existe, on ajoute le couple à la liste
-            couples.push([i, image])
+          while (compare2sommets(A, B)) {
+            // On vérifie qu'ils sont bien distincts sinon, on change.
+            index2 = randint(
+              Math.floor(monpavage.nb_polygones / 3),
+              Math.ceil((monpavage.nb_polygones * 2) / 3),
+              index1,
+            )
+            while (
+              !comparenbsommets(
+                monpavage.polygones[index1],
+                monpavage.polygones[index2],
+              )
+            ) {
+              // On vérifie que les deux polygones sont compatibles
+              index2 = (index2 + 1) % (monpavage.polygones.length - 1)
+            }
+            A = monpavage.barycentres[index1] // On prends  les barycentres
+            B = monpavage.barycentres[index2]
+            v = vecteur(A, B)
           }
+          d = segment(A, B, 'red')
+          d.styleExtremites = '->'
+          d.epaisseur = 3
+          for (let i = 1; i <= monpavage.nb_polygones; i++) {
+            // on crée une liste des couples (antécédents, images)
+            image = translacion(monpavage, v, i)
+            if (image !== -1) {
+              // si l'image du polygone i existe, on ajoute le couple à la liste
+              couples.push([i, image])
+            }
+          }
+          couples = videcouples(couples) // supprime tous les couples en double (x,y)=(y,x)
+          nombreTentatives++
         }
-        couples = videcouples(couples) // supprime tous les couples en double (x,y)=(y,x)
-        nombreTentatives++
-      }
-      if (couples.length < this.nbQuestions) {
-        if (this.sup3 === 7) {
-          typeDePavage = ((typeDePavage + 1) % 5) + 1
+        if (couples.length < this.nbQuestions) {
+          if (this.sup3 === 7) {
+            typeDePavage = ((typeDePavage + 1) % 5) + 1
+          }
+          nombrePavageTestes++
         }
-        nombrePavageTestes++
       }
+      if (couples.length === 0) taillePavage++
+      else taillePavage = 3
     }
     if (couples.length < this.nbQuestions) {
       console.error('trop de questions, augmentez la taille du pavage')
@@ -289,14 +289,14 @@ export default class PavageEtTranslation2d extends Exercice {
       // il faut afficher tous les polygones du pavage
       objets.push(monpavage.polygones[i])
     }
-    texte = mathalea2d(fenetre, objets) // monpavage.fenetre est calibrée pour faire entrer le pavage dans une feuille A4
+    this.introduction = mathalea2d(fenetre, objets) // monpavage.fenetre est calibrée pour faire entrer le pavage dans une feuille A4
     if (index1 == null || index2 == null) {
       console.error('index1 ou index2 est null')
       return
     }
-    for (let i = 0; i < this.nbQuestions; i++) {
-      texte += `Quelle est l'image de la figure $${couples[i][0]}$ dans la translation transformant la figure $${index1 + 1}$ en la figure $${index2 + 1}$ ?<br>`
-      texteCorr += `L'image de la figure $${couples[i][0]}$ dans la translation transformant la figure $${index1 + 1}$ en la figure $${index2 + 1}$ est la figure ${couples[i][1]}.<br>`
+    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50; ) {
+      texte = `Quelle est l'image de la figure $${couples[i][0]}$ dans la translation transformant la figure $${index1 + 1}$ en la figure $${index2 + 1}$ ?<br>`
+      texteCorr = `L'image de la figure $${couples[i][0]}$ dans la translation transformant la figure $${index1 + 1}$ en la figure $${index2 + 1}$ est la figure ${couples[i][1]}.<br>`
       //      symetriques=associesommets(monpavage.polygones[couples[i][0]-1],monpavage.polygones[couples[i][1]-1],d)
       if (this.correctionDetaillee) {
         A = monpavage.barycentres[couples[i][0] - 1]
@@ -318,6 +318,7 @@ export default class PavageEtTranslation2d extends Exercice {
         P2.couleurDeRemplissage = colorToLatexOrHTML(texcolors(i))
         P2.opaciteDeRemplissage = 0.5
         P2.epaisseur = 2
+        objetsCorrection = []
         objetsCorrection.push(
           tracePoint(A, B),
           d,
@@ -336,12 +337,19 @@ export default class PavageEtTranslation2d extends Exercice {
           objetsCorrection.push(P3)
         }
       }
+
+      if (this.correctionDetaillee) {
+        texteCorr += mathalea2d(fenetre, objets, objetsCorrection)
+      }
+      if (this.questionJamaisPosee(i, couples[i][0])) {
+        // Si la question n'a jamais été posée, on en crée une autre
+        this.listeQuestions[i] = texte
+        this.listeCorrections[i] = texteCorr
+        i++
+      }
+
+      cpt++
     }
-    if (this.correctionDetaillee) {
-      texteCorr += mathalea2d(fenetre, objets, objetsCorrection)
-    }
-    this.listeQuestions.push(texte)
-    this.listeCorrections.push(texteCorr)
     listeQuestionsToContenu(this)
   }
 }

@@ -1,4 +1,3 @@
-import { traceCompas } from './Arc'
 import { codageBissectrice } from './CodageBissectrice'
 import { codageSegments } from './CodageSegment'
 import { colorToLatexOrHTML } from './colorToLatexOrHtml'
@@ -7,6 +6,7 @@ import { droite } from './droites'
 import type { PointAbstrait } from './PointAbstrait'
 import { Point } from './PointAbstrait'
 import { segment } from './segmentsVecteurs'
+import { traceCompas } from './traceCompas'
 import { rotation, symetrieAxiale } from './transformations'
 import { angleOriente, longueur, pointEstSur } from './utilitairesGeometriques'
 import { pointSurSegment } from './utilitairesPoint'
@@ -162,9 +162,9 @@ export class Bissectrice extends DemiDroite {
 // JSDOC Validee par EE Juin 2022
 
 export function bissectrice(
-  A: Point | PointAbstrait,
-  O: Point | PointAbstrait,
-  B: Point | PointAbstrait,
+  A: PointAbstrait,
+  O: PointAbstrait,
+  B: PointAbstrait,
   couleurBissectrice = 'red',
   color = 'blue',
   couleurConstruction = 'black',

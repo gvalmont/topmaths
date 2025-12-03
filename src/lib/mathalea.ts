@@ -20,8 +20,6 @@ import {
   type InterfaceParams,
   type MathaleaSVG,
   type Valeur,
-  type VueType,
-  convertVueType,
   isAnswerValueType,
   isValeur,
 } from '../lib/types'
@@ -29,16 +27,16 @@ import FractionEtendue from '../modules/FractionEtendue'
 import Grandeur from '../modules/Grandeur'
 import Hms from '../modules/Hms'
 import { contraindreValeur } from '../modules/outils'
+import { isStatic, isSvelte } from './components/componentsUtils'
 import {
   showDialogForLimitedTime,
   showPopupAndWait,
 } from './components/dialogs'
-import { isStatic, isSvelte } from './components/exercisesUtils'
 import { resizeContent } from './components/sizeTools'
 import { delay } from './components/time'
 import { decrypt, isCrypted } from './components/urls'
 import { checkForServerUpdate } from './components/version'
-import { sendToCapytaleMathaleaHasChanged } from './handleCapytale'
+import { createURL } from './createURL'
 import { fonctionComparaison } from './interactif/comparisonFunctions'
 import { handleAnswers, setReponse } from './interactif/gestionInteractif'
 import type ListeDeroulanteElement from './interactif/listeDeroulante/ListeDeroulanteElement'
@@ -46,15 +44,15 @@ import { propositionsQcm } from './interactif/qcm'
 import { shuffle } from './outils/arrayOutils'
 import { formaterReponse } from './outils/ecritures'
 import renderScratch from './renderScratch'
+import { sendToCapytaleMathaleaHasChanged } from './sendToCapytaleMathaleaHasChanged'
 import { canOptions } from './stores/canStore'
 import {
   exercicesParams,
   freezeUrl,
-  globalOptions,
   presModeId,
-  previousView,
   updateGlobalOptionsInURL,
 } from './stores/generalStore'
+import { globalOptions } from './stores/globalOptions'
 import {
   getLang,
   localisedIDToUuid,
@@ -67,6 +65,7 @@ import {
   isIntegerInRange0to4,
   isIntegerInRange1to4,
 } from './types/integerInRange'
+import { type VueType, convertVueType } from './VueType'
 
 const ERROR_MESSAGE =
   'Erreur - Veuillez actualiser la page et nous contacter si le problème persiste.'
@@ -532,33 +531,6 @@ function renderKatex(element: HTMLElement) {
   document.dispatchEvent(new window.Event('katexRendered'))
 }
 
-export function createURL(params: InterfaceParams[]) {
-  const url = new URL(
-    window.location.protocol +
-      '//' +
-      window.location.host +
-      window.location.pathname,
-  )
-  for (const ex of params) {
-    url.searchParams.append('uuid', ex.uuid)
-    if (ex.id != null) url.searchParams.append('id', ex.id)
-    if (ex.nbQuestions !== undefined)
-      url.searchParams.append('n', ex.nbQuestions.toString())
-    if (ex.duration != null)
-      url.searchParams.append('d', ex.duration.toString())
-    if (ex.sup != null) url.searchParams.append('s', ex.sup)
-    if (ex.sup2 != null) url.searchParams.append('s2', ex.sup2)
-    if (ex.sup3 != null) url.searchParams.append('s3', ex.sup3)
-    if (ex.sup4 != null) url.searchParams.append('s4', ex.sup4)
-    if (ex.sup5 != null) url.searchParams.append('s5', ex.sup5)
-    if (ex.versionQcm != null) url.searchParams.append('qcm', ex.versionQcm)
-    if (ex.interactif === '1') url.searchParams.append('i', '1')
-    if (ex.cd != null) url.searchParams.append('cd', ex.cd)
-    if (ex.cols != null) url.searchParams.append('cols', ex.cols.toString())
-    if (ex.alea != null) url.searchParams.append('alea', ex.alea)
-  }
-  return url
-}
 /**
  * Modifie l'url courante avec le store exercicesParams ou un tableau similaire
  * sauf si le store freezeUrl est à true (utile sur un site externe)
@@ -606,7 +578,13 @@ export function mathaleaUpdateExercicesParamsFromUrl(
   let title = ''
   let iframe = ''
   let answers = ''
-  let recorder: 'capytale' | 'moodle' | 'labomep' | 'anki' | undefined
+  let recorder:
+    | 'capytale'
+    | 'moodle'
+    | 'labomep'
+    | 'anki'
+    | 'flowmath'
+    | undefined
   let done: '1' | undefined
   let es
   let presMode:
@@ -695,7 +673,8 @@ export function mathaleaUpdateExercicesParamsFromUrl(
           entry[1] === 'capytale' ||
           entry[1] === 'moodle' ||
           entry[1] === 'labomep' ||
-          entry[1] === 'anki'
+          entry[1] === 'anki' ||
+          entry[1] === 'flowmath'
         ) {
           recorder = entry[1]
         }
@@ -1226,18 +1205,6 @@ export function mathaleaFormatExercice(texte = ' ') {
   return formattedText
 }
 
-export function mathaleaGoToView(destinationView: '' | VueType) {
-  const originView = get(globalOptions).v ?? ''
-  previousView.set(originView)
-  if (destinationView !== get(globalOptions).v) {
-    // on met à jour que si ncécessaire
-    globalOptions.update((l) => {
-      l.v = destinationView
-      return l
-    })
-  }
-}
-
 /**
  * On attend un élément ou des éléments du DOM en fonction d'un selecteur
  * @param elementId selecteur
@@ -1308,6 +1275,7 @@ function waitFor(
     check()
   })
 }
+
 export function mathaleaWriteStudentPreviousAnswers(answers?: {
   [key: string]: string
 }): Promise<Boolean>[] {

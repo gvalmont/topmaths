@@ -1,4 +1,3 @@
-import { traceCompas } from '../../lib/2d/Arc'
 import { cercle, cercleCentrePoint } from '../../lib/2d/cercle'
 import { cibleCarree, dansLaCibleCarree } from '../../lib/2d/cibles'
 import { codageSegments } from '../../lib/2d/CodageSegment'
@@ -8,6 +7,7 @@ import { point } from '../../lib/2d/PointAbstrait'
 import { polygone, polygoneAvecNom } from '../../lib/2d/polygones'
 import { segment } from '../../lib/2d/segmentsVecteurs'
 import { labelPoint, texteParPoint } from '../../lib/2d/textes'
+import { traceCompas } from '../../lib/2d/traceCompas'
 import { tracePoint } from '../../lib/2d/TracePoint'
 import { rotation, similitude } from '../../lib/2d/transformations'
 import {

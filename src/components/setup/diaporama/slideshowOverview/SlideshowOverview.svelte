@@ -8,8 +8,8 @@
   import {
     darkMode,
     exercicesParams,
-    globalOptions,
   } from '../../../../lib/stores/generalStore'
+  import { globalOptions } from '../../../../lib/stores/globalOptions'
   import type { IExercice, InterfaceParams } from '../../../../lib/types'
   import { isIntegerInRange0to4 } from '../../../../lib/types/integerInRange'
   import ZoomButtons from '../../start/presentationalComponents/header/headerButtons/setupButtons/ZoomButtons.svelte'

@@ -1,4 +1,4 @@
-import { courbe } from '../../../lib/2d/courbes'
+import { courbe } from '../../../lib/2d/Courbe'
 import { repere } from '../../../lib/2d/reperes'
 import { texteParPosition } from '../../../lib/2d/textes'
 import { handleAnswers } from '../../../lib/interactif/gestionInteractif'

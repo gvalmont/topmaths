@@ -8,7 +8,7 @@ import { codageAngleDroit } from '../../lib/2d/CodageAngleDroit'
 import { codageSegment } from '../../lib/2d/CodageSegment'
 import { droite, droiteParPointEtPerpendiculaire } from '../../lib/2d/droites'
 import { fixeBordures } from '../../lib/2d/fixeBordures'
-import { Point, point } from '../../lib/2d/PointAbstrait'
+import { PointAbstrait, pointAbstrait } from '../../lib/2d/PointAbstrait'
 import { polygoneAvecNom } from '../../lib/2d/polygones'
 import { segment } from '../../lib/2d/segmentsVecteurs'
 import { texteSurSegment } from '../../lib/2d/texteSurSegment'
@@ -57,7 +57,7 @@ export const dateDeModifImportante = '06/05/2024'
 export const uuid = '5999f'
 
 export const refs = {
-  'fr-fr': ['BP2AutoV5', '5M11-5'],
+  'fr-fr': ['5M11-5', 'BP2AutoV5'],
   'fr-2016': ['6M11-2', 'BP2AutoV5'],
   'fr-ch': ['9GM1-8', '10GM1-6'],
 }
@@ -162,7 +162,12 @@ export default class PerimetreOuAireDeFiguresComposees extends Exercice {
       saisie: this.sup,
     }).map(Number)
 
-    const texteSurSeg = function (A: Point, B: Point, texte: string, d = 0.7) {
+    const texteSurSeg = function (
+      A: PointAbstrait,
+      B: PointAbstrait,
+      texte: string,
+      d = 0.7,
+    ) {
       const segT = texteSurSegment(texte, A, B, 'black', d)
       segT.mathOn = false
       segT.scale = 1.1
@@ -197,11 +202,11 @@ export default class PerimetreOuAireDeFiguresComposees extends Exercice {
           const L1 =
             randint(Math.ceil(l1) + 1, Math.ceil(l1) + 4) + randint(1, 9) / 10
           const zoom = randint(10, 14) / (L1 + L2)
-          const A = point(0, 0, 'A')
-          const B = point(0, l1 * zoom, 'B')
-          const C = point(L1 * zoom, l1 * zoom, 'C')
-          const D = point((L1 + L2) * zoom, l1 * zoom, 'D')
-          const E = point(L1 * zoom, 0, 'E')
+          const A = pointAbstrait(0, 0, 'A')
+          const B = pointAbstrait(0, l1 * zoom, 'B')
+          const C = pointAbstrait(L1 * zoom, l1 * zoom, 'C')
+          const D = pointAbstrait((L1 + L2) * zoom, l1 * zoom, 'D')
+          const E = pointAbstrait(L1 * zoom, 0, 'E')
           const p1 = polygoneAvecNom(A, B, C, D, E)
           contourFigure.push(p1[0])
           codagesDecoupage.push(
@@ -257,7 +262,7 @@ export default class PerimetreOuAireDeFiguresComposees extends Exercice {
                 zoom: 1,
                 optionsTikz: 'baseline=(current bounding box.north)',
               },
-              fixeBordures([A, B, C, D, E, point(C.x, C.y + 0.5)], {
+              fixeBordures([A, B, C, D, E, pointAbstrait(C.x, C.y + 0.5)], {
                 rxmin: -1.2,
                 rymin: -1.2,
               }),
@@ -275,7 +280,15 @@ export default class PerimetreOuAireDeFiguresComposees extends Exercice {
                   optionsTikz: 'baseline=(current bounding box.north)',
                 },
                 fixeBordures(
-                  [A, B, C, D, E, point(C.x, C.y + 0.2), labelsAvecDecoupage],
+                  [
+                    A,
+                    B,
+                    C,
+                    D,
+                    E,
+                    pointAbstrait(C.x, C.y + 0.2),
+                    labelsAvecDecoupage,
+                  ],
                   { rxmin: -1, rymin: -1 },
                 ),
               ),
@@ -311,10 +324,10 @@ export default class PerimetreOuAireDeFiguresComposees extends Exercice {
           const c2 = triplet[1] * adjust
           const c = triplet[2] * adjust
           const zoom = randint(8, 12) / c
-          const M = point(0, 0, 'M')
-          const N = point(0, c * zoom, 'N')
-          const O = point(c * zoom, c * zoom, 'O')
-          const P = point(c * zoom, 0, 'P')
+          const M = pointAbstrait(0, 0, 'M')
+          const N = pointAbstrait(0, c * zoom, 'N')
+          const O = pointAbstrait(c * zoom, c * zoom, 'O')
+          const P = pointAbstrait(c * zoom, 0, 'P')
           const S = pointIntersectionCC(
             cercle(N, c1 * zoom),
             cercle(O, c2 * zoom),
@@ -369,7 +382,7 @@ export default class PerimetreOuAireDeFiguresComposees extends Exercice {
                 zoom: 1,
                 optionsTikz: 'baseline=(current bounding box.north)',
               },
-              fixeBordures([M, N, S, O, P, point(N.x, N.y + 0.5)], {
+              fixeBordures([M, N, S, O, P, pointAbstrait(N.x, N.y + 0.5)], {
                 rxmin: -1,
                 rymin: -1.2,
               }),
@@ -386,7 +399,7 @@ export default class PerimetreOuAireDeFiguresComposees extends Exercice {
                   zoom: 1,
                   optionsTikz: 'baseline=(current bounding box.north)',
                 },
-                fixeBordures([M, N, S, O, P, point(N.x, N.y + 0.5)], {
+                fixeBordures([M, N, S, O, P, pointAbstrait(N.x, N.y + 0.5)], {
                   rxmin: -1,
                   rymin: -1.2,
                 }),
@@ -463,10 +476,10 @@ export default class PerimetreOuAireDeFiguresComposees extends Exercice {
           const zoom = randint(8, 12) / (c1 + c2)
           const h = com1
           const c = c1 + c2
-          const M = point(0, 0, 'M')
-          const N = point(0, c * zoom, 'N')
-          const O = point(c * zoom, c * zoom, 'O')
-          const P = point(c * zoom, 0, 'P')
+          const M = pointAbstrait(0, 0, 'M')
+          const N = pointAbstrait(0, c * zoom, 'N')
+          const O = pointAbstrait(c * zoom, c * zoom, 'O')
+          const P = pointAbstrait(c * zoom, 0, 'P')
           const S = pointIntersectionCC(
             cercle(N, h1 * zoom),
             cercle(O, h2 * zoom),
@@ -560,7 +573,7 @@ export default class PerimetreOuAireDeFiguresComposees extends Exercice {
                 zoom: 1,
                 optionsTikz: 'baseline=(current bounding box.north)',
               },
-              fixeBordures([M, N, S, O, P, point(N.x, N.y + 0.5)], {
+              fixeBordures([M, N, S, O, P, pointAbstrait(N.x, N.y + 0.5)], {
                 rxmin: -1,
                 rymin: -1,
               }),
@@ -577,7 +590,7 @@ export default class PerimetreOuAireDeFiguresComposees extends Exercice {
                   zoom: 1,
                   optionsTikz: 'baseline=(current bounding box.north)',
                 },
-                fixeBordures([M, N, S, O, P, point(N.x, N.y + 0.5)], {
+                fixeBordures([M, N, S, O, P, pointAbstrait(N.x, N.y + 0.5)], {
                   rxmin: -1,
                   rymin: -1,
                 }),
@@ -611,11 +624,11 @@ export default class PerimetreOuAireDeFiguresComposees extends Exercice {
           // L2 = L2 + (randint(1, 9) / 10)
           L2 = L2 + randint(1, 4) / 5
           const zoom = randint(6, 8) / L2
-          const A = point(0, 0, 'A')
-          const B = point(0, L2 * zoom, 'B')
-          const C = point(L1 * zoom, L2 * zoom, 'C')
-          const D = point(L1 * zoom, 0, 'D')
-          const E = point(L1 * zoom, L2 * zoom * 0.5, 'E')
+          const A = pointAbstrait(0, 0, 'A')
+          const B = pointAbstrait(0, L2 * zoom, 'B')
+          const C = pointAbstrait(L1 * zoom, L2 * zoom, 'C')
+          const D = pointAbstrait(L1 * zoom, 0, 'D')
+          const E = pointAbstrait(L1 * zoom, L2 * zoom * 0.5, 'E')
           const R = pointSurCercle(cercle(E, (zoom * L2) / 2), -5, 'R')
           contourFigure.push(segment(A, B), segment(B, C), segment(A, D))
           const demicercle = arc(D, E, 180, false, 'none')
@@ -670,10 +683,13 @@ export default class PerimetreOuAireDeFiguresComposees extends Exercice {
                 zoom: 1,
                 optionsTikz: 'baseline=(current bounding box.north)',
               },
-              fixeBordures([A, B, C, D, E, demicercle, point(C.x, C.y + 0.2)], {
-                rxmin: -1.2,
-                rymin: -1.2,
-              }),
+              fixeBordures(
+                [A, B, C, D, E, demicercle, pointAbstrait(C.x, C.y + 0.2)],
+                {
+                  rxmin: -1.2,
+                  rymin: -1.2,
+                },
+              ),
             ),
             objetsEnonce,
           )
@@ -687,7 +703,7 @@ export default class PerimetreOuAireDeFiguresComposees extends Exercice {
                   optionsTikz: 'baseline=(current bounding box.north)',
                 },
                 fixeBordures(
-                  [A, B, C, D, E, demicercle, point(C.x, C.y + 0.2)],
+                  [A, B, C, D, E, demicercle, pointAbstrait(C.x, C.y + 0.2)],
                   {
                     rxmin: -1,
                     rymin: -1.2,
@@ -736,12 +752,12 @@ export default class PerimetreOuAireDeFiguresComposees extends Exercice {
           L1 = L1 + randint(1, 9, [1, 3, 5, 7, 9]) / 10
           L2 = L2 + randint(1, 9, [1, 3, 5, 7, 9]) / 10
           const zoom = randint(6, 8) / L2
-          const A = point(0, 0, 'A')
-          const B = point(0, L2 * zoom, 'B')
-          const C = point(L1 * zoom, L2 * zoom, 'C')
-          const D = point(L1 * zoom, 0, 'D')
-          const E = point(L1 * zoom, L2 * zoom * 0.5, 'E')
-          const F = point(0, L2 * zoom * 0.5, 'F')
+          const A = pointAbstrait(0, 0, 'A')
+          const B = pointAbstrait(0, L2 * zoom, 'B')
+          const C = pointAbstrait(L1 * zoom, L2 * zoom, 'C')
+          const D = pointAbstrait(L1 * zoom, 0, 'D')
+          const E = pointAbstrait(L1 * zoom, L2 * zoom * 0.5, 'E')
+          const F = pointAbstrait(0, L2 * zoom * 0.5, 'F')
           const R = pointSurCercle(cercle(E, (zoom * L2) / 2), -5, 'R')
           const S = pointSurCercle(cercle(F, (zoom * L2) / 2), -185, 'R')
           const demicercle = arc(D, E, 180, false, 'none')
@@ -810,7 +826,16 @@ export default class PerimetreOuAireDeFiguresComposees extends Exercice {
                 optionsTikz: 'baseline=(current bounding box.north)',
               },
               fixeBordures(
-                [A, B, C, D, E, demicercle, demicercle2, point(C.x, C.y + 0.2)],
+                [
+                  A,
+                  B,
+                  C,
+                  D,
+                  E,
+                  demicercle,
+                  demicercle2,
+                  pointAbstrait(C.x, C.y + 0.2),
+                ],
                 {
                   rxmin: -1,
                   rymin: -1.2,
@@ -837,7 +862,7 @@ export default class PerimetreOuAireDeFiguresComposees extends Exercice {
                     E,
                     demicercle,
                     demicercle2,
-                    point(C.x, C.y + 0.2),
+                    pointAbstrait(C.x, C.y + 0.2),
                   ],
                   {
                     rxmin: -1,
@@ -896,12 +921,12 @@ export default class PerimetreOuAireDeFiguresComposees extends Exercice {
           const L1 =
             randint(Math.ceil(l1) + 1, Math.ceil(l1) + 4) + randint(1, 9) / 10
           const zoom = randint(14, 18) / (L1 + L2)
-          const A = point(0, 0, 'A')
-          const B = point(0, l1 * zoom, 'B')
-          const C = point(L1 * zoom, l1 * zoom, 'C')
-          const D = point((L1 + L2) * zoom, l1 * zoom, 'D')
-          const E = point(L1 * zoom, 0, 'E')
-          const F = point(0, l1 * zoom * 0.5, 'E')
+          const A = pointAbstrait(0, 0, 'A')
+          const B = pointAbstrait(0, l1 * zoom, 'B')
+          const C = pointAbstrait(L1 * zoom, l1 * zoom, 'C')
+          const D = pointAbstrait((L1 + L2) * zoom, l1 * zoom, 'D')
+          const E = pointAbstrait(L1 * zoom, 0, 'E')
+          const F = pointAbstrait(0, l1 * zoom * 0.5, 'E')
           const R = pointSurCercle(cercle(F, (zoom * l1) / 2), 185, 'R')
           const demicercle = arc(B, F, 180, false, 'none')
           contourFigure.push(
@@ -961,10 +986,13 @@ export default class PerimetreOuAireDeFiguresComposees extends Exercice {
                 zoom: 1,
                 optionsTikz: 'baseline=(current bounding box.north)',
               },
-              fixeBordures([demicercle, A, B, C, D, E, point(C.x, C.y + 0.6)], {
-                rxmin: -1,
-                rymin: -1.2,
-              }),
+              fixeBordures(
+                [demicercle, A, B, C, D, E, pointAbstrait(C.x, C.y + 0.6)],
+                {
+                  rxmin: -1,
+                  rymin: -1.2,
+                },
+              ),
             ),
             objetsEnonce,
           )
@@ -978,7 +1006,7 @@ export default class PerimetreOuAireDeFiguresComposees extends Exercice {
                   optionsTikz: 'baseline=(current bounding box.north)',
                 },
                 fixeBordures(
-                  [demicercle, A, B, C, D, E, point(C.x, C.y + 0.2)],
+                  [demicercle, A, B, C, D, E, pointAbstrait(C.x, C.y + 0.2)],
                   {
                     rxmin: -1,
                     rymin: -1.2,

@@ -2,14 +2,13 @@ import { setReponse } from '../../lib/interactif/gestionInteractif'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
 import { minToHour } from '../../lib/outils/dateEtHoraires'
-import { texteEnCouleurEtGras } from '../../lib/outils/embellissements'
+import {
+  miseEnEvidence,
+  texteEnCouleurEtGras,
+} from '../../lib/outils/embellissements'
 import { sp } from '../../lib/outils/outilString'
 import { prenomF, prenomM } from '../../lib/outils/Personne'
-import {
-  nombreAvecEspace,
-  stringNombre,
-  texNombre,
-} from '../../lib/outils/texNombre'
+import { nombreAvecEspace, texNombre } from '../../lib/outils/texNombre'
 import { context } from '../../modules/context'
 import FractionEtendue from '../../modules/FractionEtendue'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
@@ -107,7 +106,7 @@ export default class VitesseDistanceTemps extends Exercice {
         listeTypeDeQuestions[i] // Suivant le type de question, le contenu sera différent
       ) {
         case 'vitesse':
-          texte = `${prenom} met ${minToHour(t)} pour aller ${destination} qui est à une distance de ${nombreAvecEspace(d)} km. Déterminer sa vitesse moyenne`
+          texte = `${prenom} met ${minToHour(t)} pour aller ${destination} qui est à une distance de $${texNombre(d)}\\text{ km}$. Déterminer sa vitesse moyenne`
           texte += this.interactif ? ' : ' : '.'
           if (this.sup2 === 1) {
             if (context.isHtml) {
@@ -131,12 +130,12 @@ export default class VitesseDistanceTemps extends Exercice {
             }
           }
           texteCorr += '<br><br>'
-          texteCorr += `Sa vitesse moyenne est de ${texteEnCouleurEtGras(v)} km/h.`
-          texteApres = sp() + ' km/h'
+          texteCorr += `Sa vitesse moyenne est de $${miseEnEvidence(v)}\\text{ km/h}$.`
+          texteApres = sp() + '$\\text{ km/h}$'
           setReponse(this, i, v)
           break
         case 'temps':
-          texte = `Si ${prenom} roule à ${v} km/h, combien de temps`
+          texte = `Si ${prenom} roule à $${v}\\text{ km/h}$, combien de temps`
           texte += this.interactif ? ' (en minutes)' : ''
           texte += ' lui faudra-t-'
           texte += `${pronomgenre}`
@@ -170,7 +169,7 @@ export default class VitesseDistanceTemps extends Exercice {
           break
         case 'distance':
         default:
-          texte = `${prenom} roule à ${v} km/h de moyenne pendant ${minToHour(t)}. Calculer la distance parcourue`
+          texte = `${prenom} roule à $${v}\\text{ km/h}$ de moyenne pendant ${minToHour(t)}. Calculer la distance parcourue`
           texte += this.interactif ? ' : ' : '.'
           if (this.sup2 === 1) {
             if (context.isHtml) {
@@ -194,8 +193,8 @@ export default class VitesseDistanceTemps extends Exercice {
             }
           }
           texteCorr += '<br><br>'
-          texteCorr += `${pronomgenre.charAt(0).toUpperCase() + pronomgenre.slice(1)} a donc parcouru ${texteEnCouleurEtGras(stringNombre(d))} km.`
-          texteApres = sp() + ' km'
+          texteCorr += `${pronomgenre.charAt(0).toUpperCase() + pronomgenre.slice(1)} a donc parcouru $${miseEnEvidence(texNombre(d))}\\text{ km}$.`
+          texteApres = sp() + '$\\text{ km}$'
           setReponse(this, i, d)
           break
       }

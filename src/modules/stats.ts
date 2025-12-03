@@ -1,9 +1,6 @@
 import { get } from 'svelte/store'
-import {
-  capytaleMode,
-  exercicesParams,
-  globalOptions,
-} from '../lib/stores/generalStore'
+import { capytaleMode, exercicesParams } from '../lib/stores/generalStore'
+import { globalOptions } from '../lib/stores/globalOptions'
 import type { InterfaceParams } from '../lib/types'
 import { getIntrus, log, logDebug } from './statsUtils'
 
@@ -21,6 +18,7 @@ let activeStats = document.location.hostname !== 'localhost'
 if (activeStats) {
   const _paq = (window._paq = window._paq || [])
   _paq.push(['trackPageView'])
+  _paq.push(['disableCookies'])
   ;(function () {
     const u = '//ynh.coopmaths.fr/matomo/'
     _paq.push(['setTrackerUrl', u + 'matomo.php'])

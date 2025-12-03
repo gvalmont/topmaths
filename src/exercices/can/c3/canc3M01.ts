@@ -28,7 +28,8 @@ export default class TrouverLaBonneUnite extends ExerciceSimple {
     this.nbQuestions = 1
 
     this.typeExercice = 'simple'
-    this.formatInteractif = 'texte'
+
+    this.optionsDeComparaison = { texteSansCasse: true }
     this.formatChampTexte = KeyboardType.alphanumeric
   }
 

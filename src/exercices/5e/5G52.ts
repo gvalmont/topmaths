@@ -6,12 +6,7 @@ import {
 } from '../../modules/outils'
 import Exercice from '../Exercice'
 
-import {
-  Point,
-  point,
-  pointAbstrait,
-  PointAbstrait,
-} from '../../lib/2d/PointAbstrait'
+import { PointAbstrait, pointAbstrait } from '../../lib/2d/PointAbstrait'
 import { tracePoint } from '../../lib/2d/TracePoint'
 import { vecteur } from '../../lib/2d/Vecteur'
 import { cercle } from '../../lib/2d/cercle'
@@ -135,7 +130,7 @@ export default class nomExercice extends Exercice {
       const hEx = randint(3, 10, [rEx]) // hauteur
       const rAff = Math.max(3, Math.min(rEx, 5))
       const hAff = hEx
-      const cent1 = point(0, 0, 'A', 'left')
+      const cent1 = pointAbstrait(0, 0, 'A', 'left')
 
       let cylindreEx = cylindre({
         centre: cent1,
@@ -143,13 +138,13 @@ export default class nomExercice extends Exercice {
         hauteur: hAff,
         color: 'black',
       })
-      let cent2 = point(0, hAff, 'Z', 'left')
+      let cent2 = pointAbstrait(0, hAff, 'Z', 'left')
       // On initialise les éléments servant aux questions avec n'importe quoi (ce sera remplacé ensuite)
       let ext1RayonDiametre: PointAbstrait = pointAbstrait(0, 0)
       let ext2RayonDiametre: PointAbstrait
       // On initialise les éléments servant aux questions avec n'importe quoi (ce sera remplacé ensuite)
-      let ext1Hauteur = point(0, 0)
-      let ext2Hauteur = point(0, 1)
+      let ext1Hauteur = pointAbstrait(0, 0)
+      let ext2Hauteur = pointAbstrait(0, 1)
 
       switch (listeTypeOrientationCylindre[i]) {
         case 'DeboutVuDessus':
@@ -160,17 +155,17 @@ export default class nomExercice extends Exercice {
             position: 'DeboutVuDessus',
             color: 'black',
           })
-          cent2 = point(0, hAff, 'B', 'left')
-          ext1RayonDiametre = point(rAff, 0)
+          cent2 = pointAbstrait(0, hAff, 'B', 'left')
+          ext1RayonDiametre = pointAbstrait(rAff, 0)
           if (listeTypeBaseCylindre[i] === 'rayon') {
             ext2RayonDiametre = cent1
           } else {
             // 'diametre'
             cent1.positionLabel = 'above'
-            ext2RayonDiametre = point(-rAff, 0)
+            ext2RayonDiametre = pointAbstrait(-rAff, 0)
           }
-          ext1Hauteur = point(rAff, hAff)
-          ext2Hauteur = point(rAff, 0)
+          ext1Hauteur = pointAbstrait(rAff, hAff)
+          ext2Hauteur = pointAbstrait(rAff, 0)
           break
         case 'baseAvantCoucheVuGauche': {
           // valeurs dans la perspective
@@ -195,15 +190,15 @@ export default class nomExercice extends Exercice {
           const ey = -rAff * Math.cos((angDeFuite * Math.PI) / 180)
           const ex = rAff * Math.sin((angDeFuite * Math.PI) / 180)
           if (listeTypeBaseCylindre[i] === 'rayon') {
-            ext1RayonDiametre = point(cent1.x + rAff, cent1.y)
+            ext1RayonDiametre = pointAbstrait(cent1.x + rAff, cent1.y)
             ext2RayonDiametre = cent1
           } else {
             // 'diametre'
-            ext1RayonDiametre = point(cent1.x, cent1.y + rAff)
-            ext2RayonDiametre = point(cent1.x, cent1.y - rAff)
+            ext1RayonDiametre = pointAbstrait(cent1.x, cent1.y + rAff)
+            ext2RayonDiametre = pointAbstrait(cent1.x, cent1.y - rAff)
           }
-          ext1Hauteur = point(cent2.x + ex, cent2.y + ey)
-          ext2Hauteur = point(cent1.x + ex, cent1.y + ey)
+          ext1Hauteur = pointAbstrait(cent2.x + ex, cent2.y + ey)
+          ext2Hauteur = pointAbstrait(cent1.x + ex, cent1.y + ey)
           break
         }
         case 'baseCoteCoucheVuDroite':
@@ -216,17 +211,17 @@ export default class nomExercice extends Exercice {
             position: 'baseCoteCoucheVuDroite',
             color: 'black',
           })
-          cent2 = point(hAff, 0, 'B', 'left')
+          cent2 = pointAbstrait(hAff, 0, 'B', 'left')
           if (listeTypeBaseCylindre[i] === 'rayon') {
             ext2RayonDiametre = cent2
-            ext1RayonDiametre = point(hAff, rAff)
+            ext1RayonDiametre = pointAbstrait(hAff, rAff)
           } else {
             // 'diametre'
-            ext1RayonDiametre = point(hAff, rAff)
-            ext2RayonDiametre = point(hAff, -rAff)
+            ext1RayonDiametre = pointAbstrait(hAff, rAff)
+            ext2RayonDiametre = pointAbstrait(hAff, -rAff)
           }
-          ext1Hauteur = point(0, rAff)
-          ext2Hauteur = point(hAff, rAff)
+          ext1Hauteur = pointAbstrait(0, rAff)
+          ext2Hauteur = pointAbstrait(hAff, rAff)
           break
       }
       const tCent1 = tracePoint(cent1)
@@ -297,15 +292,15 @@ export default class nomExercice extends Exercice {
       }
 
       const [dimlRect, dimLRect, dimRCercle] = [4, 12, 2] // dimLargeurRectangle
-      const A = point(0, 0)
-      const B = point(0, dimlRect)
-      const C = point(dimLRect, dimlRect)
-      const D = point(dimLRect, 0)
-      const centreHaut = point(
+      const A = pointAbstrait(0, 0)
+      const B = pointAbstrait(0, dimlRect)
+      const C = pointAbstrait(dimLRect, dimlRect)
+      const D = pointAbstrait(dimLRect, 0)
+      const centreHaut = pointAbstrait(
         randint(dimlRect, dimLRect - dimRCercle),
         dimlRect + dimRCercle,
       )
-      const centreBas = point(
+      const centreBas = pointAbstrait(
         randint(dimlRect, dimLRect - dimRCercle),
         -dimRCercle,
       )
@@ -315,18 +310,18 @@ export default class nomExercice extends Exercice {
       objetsPatron.push(rectanglePatron, cercleHaut, cercleBas)
       objetsPatronReponse.push(rectanglePatron, cercleHaut, cercleBas)
       // les quatre éléments suivants : positions à varier ??
-      let ALongueurPatron: Point
-      let BLongueurPatron: Point
+      let ALongueurPatron: PointAbstrait
+      let BLongueurPatron: PointAbstrait
       // let coteLongueurPatron:Segment
       // let qLongueurPatron:Latex2d
       // let rLongueurPatron:Latex2d
       let coteHauteurPatron: Segment
       let qHauteurPatron: Latex2d
       let rHauteurPatron: Latex2d
-      let ptExtremite1Rayon: Point
-      let ptExtremite2Rayon: Point
-      let ptExtremite1Diametre: Point
-      let ptExtremite2Diametre: Point
+      let ptExtremite1Rayon: PointAbstrait
+      let ptExtremite2Rayon: PointAbstrait
+      let ptExtremite1Diametre: PointAbstrait
+      let ptExtremite2Diametre: PointAbstrait
       if (choice([0, 1]) === 0) {
         ALongueurPatron = C
         BLongueurPatron = B
@@ -381,15 +376,33 @@ export default class nomExercice extends Exercice {
         })
       }
       if (choice([0, 1]) === 0) {
-        ptExtremite1Rayon = point(centreHaut.x, centreHaut.y)
-        ptExtremite2Rayon = point(centreHaut.x + dimRCercle, centreHaut.y)
-        ptExtremite1Diametre = point(centreBas.x - dimRCercle, centreBas.y)
-        ptExtremite2Diametre = point(centreBas.x + dimRCercle, centreBas.y)
+        ptExtremite1Rayon = pointAbstrait(centreHaut.x, centreHaut.y)
+        ptExtremite2Rayon = pointAbstrait(
+          centreHaut.x + dimRCercle,
+          centreHaut.y,
+        )
+        ptExtremite1Diametre = pointAbstrait(
+          centreBas.x - dimRCercle,
+          centreBas.y,
+        )
+        ptExtremite2Diametre = pointAbstrait(
+          centreBas.x + dimRCercle,
+          centreBas.y,
+        )
       } else {
-        ptExtremite1Rayon = point(centreHaut.x, centreHaut.y)
-        ptExtremite2Rayon = point(centreHaut.x + dimRCercle, centreHaut.y)
-        ptExtremite1Diametre = point(centreBas.x - dimRCercle, centreBas.y)
-        ptExtremite2Diametre = point(centreBas.x + dimRCercle, centreBas.y)
+        ptExtremite1Rayon = pointAbstrait(centreHaut.x, centreHaut.y)
+        ptExtremite2Rayon = pointAbstrait(
+          centreHaut.x + dimRCercle,
+          centreHaut.y,
+        )
+        ptExtremite1Diametre = pointAbstrait(
+          centreBas.x - dimRCercle,
+          centreBas.y,
+        )
+        ptExtremite2Diametre = pointAbstrait(
+          centreBas.x + dimRCercle,
+          centreBas.y,
+        )
       }
       const coteRayon = afficheCoteSegmentSansTexte(
         segment(ptExtremite1Rayon, ptExtremite2Rayon),

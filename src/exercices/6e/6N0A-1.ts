@@ -1,4 +1,8 @@
-import { handleAnswers } from '../../lib/interactif/gestionInteractif'
+import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
+import {
+  handleAnswers,
+  setReponse,
+} from '../../lib/interactif/gestionInteractif'
 import { remplisLesBlancs } from '../../lib/interactif/questionMathLive'
 import { choice } from '../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
@@ -62,7 +66,6 @@ export default class ExerciceTablesAdditions extends Exercice {
       i < this.nbQuestions && cpt < 50;
 
     ) {
-      this.autoCorrection[i] = {}
       a = randint(2, this.sup)
       b = randint(2, this.sup)
       const choix = choice([false, true])
@@ -72,20 +75,20 @@ export default class ExerciceTablesAdditions extends Exercice {
               this,
               i,
               `${texNombre(a, 0)} + ${texNombre(b, 0)} = %{champ1}`,
-              'fillInTheBlank',
+              KeyboardType.clavierNumbers,
             )
           : choix
             ? remplisLesBlancs(
                 this,
                 i,
                 `${texNombre(a, 0)} + %{champ1} = ${texNombre(a + b, 0)}`,
-                'fillInTheBlank',
+                KeyboardType.clavierNumbers,
               )
             : remplisLesBlancs(
                 this,
                 i,
                 `%{champ1} + ${texNombre(a, 0)} = ${texNombre(a + b, 0)}`,
-                'fillInTheBlank',
+                KeyboardType.clavierNumbers,
               )
 
       texteCorr =
@@ -104,13 +107,18 @@ export default class ExerciceTablesAdditions extends Exercice {
       }
 
       if (context.isAmc) {
+        setReponse(
+          this,
+          i,
+          String(listeTypeDeQuestions[i] === 'somme' ? a + b : b),
+        )
         this.autoCorrection[i].enonce = texte
         this.autoCorrection[i].propositions = [{ texte: texteCorr, statut: '' }]
-        // @ts-expect-error
-        this.autoCorrection[i].reponse.param = {
+        this.autoCorrection[i].reponse!.param = {
           digits: Math.max(2, nombreDeChiffresDansLaPartieEntiere(a + b)),
           decimals: 0,
           exposantNbChiffres: 0,
+          exposantSigne: false,
           signe: false,
         }
       }

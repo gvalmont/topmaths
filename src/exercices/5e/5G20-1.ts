@@ -5,7 +5,7 @@ import { Droite, droite } from '../../lib/2d/droites'
 import { fixeBordures } from '../../lib/2d/fixeBordures'
 import { mediatrice } from '../../lib/2d/Mediatrice'
 import { placeLatexSurSegment } from '../../lib/2d/placeLatexSurSegment'
-import { Point, pointAbstrait } from '../../lib/2d/PointAbstrait'
+import { PointAbstrait, pointAbstrait } from '../../lib/2d/PointAbstrait'
 import { polygoneAvecNom } from '../../lib/2d/polygones'
 import { rotation, similitude } from '../../lib/2d/transformations'
 import {
@@ -89,7 +89,7 @@ export default class VocabulaireDesTriangles extends Exercice {
     let texte = ''
     let texteCorr = ''
     const A = pointAbstrait(0, 0)
-    let B: Point, C: Point
+    let B: PointAbstrait, C: PointAbstrait
     const figureMainLevee: NestedObjetMathalea2dArray = []
     let nomTriangle = ''
 
@@ -116,7 +116,7 @@ export default class VocabulaireDesTriangles extends Exercice {
             tQuel.l1,
             l1 < l2 || l1 < l3 ? randint(-70, -89) : randint(-20, 20),
           )
-          let inter: Point | false
+          let inter: PointAbstrait | false
           do {
             const c1 = cercle(A, (tQuel.l2 * randint(10, 12)) / 10)
             const c2 = cercle(B, (tQuel.l3 * randint(10, 12)) / 10)

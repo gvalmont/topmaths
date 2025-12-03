@@ -11,7 +11,7 @@ import { colorToLatexOrHTML } from '../../lib/2d/colorToLatexOrHtml'
 import { demiDroite } from '../../lib/2d/DemiDroite'
 import { fixeBordures } from '../../lib/2d/fixeBordures'
 import { grille } from '../../lib/2d/Grille'
-import { point, Point } from '../../lib/2d/PointAbstrait'
+import { pointAbstrait, PointAbstrait } from '../../lib/2d/PointAbstrait'
 import { labelPoint } from '../../lib/2d/textes'
 import { TracePoint } from '../../lib/2d/TracePoint'
 import { rotation } from '../../lib/2d/transformations'
@@ -41,7 +41,7 @@ export const refs = {
  * @param pointA
  * @param pointB
  */
-function positionneLabel(pointA: Point, pointB: Point) {
+function positionneLabel(pointA: PointAbstrait, pointB: PointAbstrait) {
   if (pointA.x < pointB.x) return 'above left'
   else if (pointA.x > pointB.x) return 'below right'
   else {
@@ -71,7 +71,7 @@ class ConstrctionsSymetrieCentralePoints extends Exercice {
   antecedents2d!: object[][]
   antecedentsApiGeom!: PointApigeom[][]
   labels!: string[][]
-  centres2d!: Point[]
+  centres2d!: PointAbstrait[]
   centresApiGeom!: PointApigeom[]
   exoCustomResultat: boolean
   nbPoints!: number
@@ -111,8 +111,8 @@ class ConstrctionsSymetrieCentralePoints extends Exercice {
     for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 20; ) {
       let enonce = ''
       // Ici on fait une figure Mathalea2d, pas apiGeom. On est en mode non interactif pour l'instant
-      let antecedents2d: Array<Point> = []
-      const symetriques: Point[] = []
+      let antecedents2d: Array<PointAbstrait> = []
+      const symetriques: PointAbstrait[] = []
       const objets: NestedObjetMathalea2dArray = []
       let objetsCorrection: NestedObjetMathalea2dArray = []
 
@@ -142,9 +142,9 @@ class ConstrctionsSymetrieCentralePoints extends Exercice {
 
       // Les antécédents sont des points nommés
       antecedents2d = shuffle(nuage).map((el, k) =>
-        point(el.x, el.y, this.labels[i][k]),
+        pointAbstrait(el.x, el.y, this.labels[i][k]),
       ) // on mélange et on ne prendra que les this.nbPoints premiers
-      this.centres2d[i] = point(0, 0, labelCentre, 'above')
+      this.centres2d[i] = pointAbstrait(0, 0, labelCentre, 'above')
 
       const guideDroites = []
       for (let k = 0; k < this.nbPoints; k++) {
@@ -316,7 +316,6 @@ class ConstrctionsSymetrieCentralePoints extends Exercice {
               })
             }
           }
-          this.figuresApiGeom[i].options.limitNumberOfElement.set('Point', 1)
           const emplacementPourFigure = figureApigeom({
             exercice: this,
             i,

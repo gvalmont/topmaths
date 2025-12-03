@@ -1,9 +1,7 @@
 import Decimal from 'decimal.js'
-import {
-  antecedentParDichotomie,
-  courbe,
-  courbeInterpolee,
-} from '../../lib/2d/courbes'
+import { antecedentParDichotomie } from '../../lib/2d/antecedentParDichotomie'
+import { courbe } from '../../lib/2d/Courbe'
+import { courbeInterpolee } from '../../lib/2d/CourbeInterpolee.1'
 import { droiteParPointEtPente } from '../../lib/2d/droites'
 import { point } from '../../lib/2d/PointAbstrait'
 import { repere } from '../../lib/2d/reperes'
@@ -89,15 +87,15 @@ export default class EtudeFctPoly3 extends Exercice {
       ) {
         case 1: // salle de sport deux formules
           {
-            const a = randint(10, 12)
-            const dec1 = choice([0, 0.25, 0.5, 0.75, 1])
+            const a = randint(11, 13)
+            const dec1 = randint(1, 9) / 10
             const b = new Decimal(randint(5, 6)).add(dec1)
-            const c = randint(25, 30)
-            const dec2 = choice([0, 0.25, 0.5, 0.75, 1])
+            const c = randint(20, 25)
+            const dec2 = randint(4, 7) / 10
             const d = new Decimal(randint(4, 4)).add(dec2)
             const P = prenomM()
             const T = randint(30, 70)
-            const e = randint(25, 30)
+            const e = randint(35, 37)
 
             texte = ` Dans une salle de sport, deux formules sont proposées :<br>
             ${texteGras('Formule A :')} abonnement mensuel de $${a}$ € puis $${texPrix(b)}$ € par séance ;<br>
@@ -143,12 +141,18 @@ x&\\leqslant \\dfrac{${T - c}}{${texPrix(d)}}${sp(8)} \\text{(On divise par ${te
 <br>
 Le plus grand entier inférieur ou égal à $\\dfrac{${T - c}}{${texPrix(d)}}$ est $${new Decimal(T - c).div(d).floor()}$.<br>
 Avec la formule B, ${P} pourra faire au maximum $${new Decimal(T - c).div(d).floor()}$ séances.<br><br>
-          ${
-            new Decimal(T - c).div(d).floor() ===
-            new Decimal(T - a).div(b).floor()
-              ? `Les deux formules permettent autant de séances avec un budget de $${T}$ €.<br><br>`
-              : `${texteGras('Conclusion : ')}  ${new Decimal(T - c).div(d).floor() > new Decimal(T - a).div(b).floor() ? 'La formule B ' : 'La formule A'} permet de faire plus de séances, elle est plus avanatgeuse pour ${P}.`
-          }`,
+               ${texteGras('Conclusion : ')}  ${
+                 new Decimal(T - c)
+                   .div(d)
+                   .floor()
+                   .equals(new Decimal(T - a).div(b).floor())
+                   ? `Les formules A et B permettent de faire autant de séances. Il n'y a donc pas de formule avantageuse dans ce cas.`
+                   : new Decimal(T - c).div(d).floor() <
+                       new Decimal(T - a).div(b).floor()
+                     ? `La formule A permet de faire plus de séances, elle est plus avanatgeuse pour ${P}.`
+                     : `La formule B permet de faire plus de séances, elle est plus avanatgeuse pour ${P}.`
+               } 
+          `,
                 ` La formule B est plus avantageuse que la formule A lorsque $g(x)$ est strictement inférieure à $f(x)$.<br>
             ${sp(8)} $\\begin{aligned}
             ${c}+${texPrix(d)}x&<${a}+${texPrix(b)}x\\\\

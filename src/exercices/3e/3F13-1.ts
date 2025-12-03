@@ -1,4 +1,4 @@
-import { graphiqueInterpole } from '../../lib/2d/courbes'
+import { graphiqueInterpole } from '../../lib/2d/GraphiqueInterpole'
 import { repere } from '../../lib/2d/reperes'
 import { deuxColonnes } from '../../lib/format/miseEnPage'
 import { setReponse } from '../../lib/interactif/gestionInteractif'

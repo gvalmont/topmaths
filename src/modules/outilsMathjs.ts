@@ -1249,9 +1249,9 @@ export function commentStep(
     DISTRIBUTE: 'Distribution.',
     SIMPLIFY_RIGHT_SIDE: 'Simplifier le membre de droite.',
     SIMPLIFY_LEFT_SIDE: 'Simplifier le membre de gauche.',
-    COLLECT_AND_COMBINE_LIKE_TERMS:
-      'Regrouper et réduire les termes de même nature.',
+    COLLECT_AND_COMBINE_LIKE_TERMS: 'Regrouper et réduire les termes.',
     SIMPLIFY_ARITHMETIC: 'Calcul arithmétique.',
+    SIMPLIFY_TERMS: 'Simplifier les termes.',
     SIMPLIFY_FRACTION: 'Simplifier une fraction.',
     REMOVE_MULTIPLYING_BY_NEGATIVE_ONE: 'Calculer la multiplication par $-1$.',
     REMOVE_ADDING_ZERO: 'Enlever des zéros.',

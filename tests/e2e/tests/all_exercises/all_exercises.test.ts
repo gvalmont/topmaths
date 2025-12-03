@@ -34,6 +34,15 @@ vi.mock('../../../../src/lib/renderScratch', () => ({
   renderScratch: vi.fn(() => 'mocked value'),
 }))
 
+vi.mock('apigeom', async (original) => {
+  const real = await original()
+
+  // On étend l'original en patchant APP_VERSION **dans** le module
+  ;(globalThis as any).APP_VERSION = 'test'
+
+  return real
+})
+
 const { mathaleaLoadExerciceFromUuid } = await import(
   '../../../../src/lib/mathalea'
 )
@@ -391,9 +400,9 @@ async function testRunAllLots(filter: string) {
   log(uuids)
   if (uuids.length === 0) {
     log(`Aucun uuid trouvé pour le filtre '${filter}'`)
-    describe('dummy', () => {
-      test('should pass', () => {
-        expect(true).toBe(true)
+    describe('no-parameter-warning', () => {
+      test.skip(`Aucun uuid trouvé pour le filtre '${filter}'`, () => {
+        // This test is skipped to show a warning instead of pass/fail
       })
     })
   }
@@ -473,7 +482,7 @@ if (process.env.NIV !== null && process.env.NIV !== undefined) {
   }
 } else {
   // testRunAllLots('2e/2F22-1')
-  testRunAllLots('5e/5M11-5')
+  testRunAllLots('6e/6N3H-1')
   // testRunAllLots('4e/4G52')
 
   // testRunAllLots('techno1')

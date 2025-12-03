@@ -1,5 +1,4 @@
 import Decimal from 'decimal.js'
-import { factorisation } from './primalite'
 
 /**
  * Retourne la somme des chiffres (ou d'un tableau de chiffres) d'un nombre en valeur et sous forme de String [valeur, String]
@@ -87,26 +86,28 @@ export function quatriemeProportionnelle(
 }
 
 /**
- *
- * @param {number} n
- * Extrait le plus grand nombre possible de la racine carrée de n
- * retourne le résulat [a, b] pour a²b=n
- * @author Jean-Claude Lhote
+ * Extrait le plus grand facteur entier a dont le carré divise n
+ * @param {number} n - Le nombre entier dont on veut extraire la racine carrée
+ * @returns {[number, number]} - [a, n/a²] où a² est le plus grand carré parfait divisant n
+ * @author Jean-Claude Lhote (réimplémentation sans dépendance circulaire)
  */
 export function extraireRacineCarree(n: number): [number, number] {
+  if (n <= 0) return [0, n]
   if (n === 1) return [1, 1]
-  const facto = factorisation(n) as number[][]
-  let radical = 1
-  let facteur = 1
-  for (let i = 0; i < facto.length; i++) {
-    if (facto[i][1] % 2 === 0) {
-      facteur *= facto[i][0] ** (facto[i][1] >> 1)
-    } else if (facto[i][1] > 1) {
-      facteur *= facto[i][0] ** ((facto[i][1] - 1) >> 1)
-      radical *= facto[i][0]
-    } else radical *= facto[i][0]
+
+  let a = 1
+  let reste = n
+
+  // On teste tous les nombres de 2 à sqrt(n)
+  for (let i = 2; i * i <= reste; i++) {
+    // Tant que i² divise reste, on l'extrait
+    while (reste % (i * i) === 0) {
+      a *= i
+      reste = Math.floor(reste / (i * i))
+    }
   }
-  return [facteur, radical]
+
+  return [a, reste]
 }
 
 /**

@@ -1,6 +1,6 @@
 import { colorToLatexOrHTML } from '../../lib/2d/colorToLatexOrHtml'
 import { Droite, droite, droiteAvecNomLatex } from '../../lib/2d/droites'
-import { Point } from '../../lib/2d/PointAbstrait'
+import { PointAbstrait } from '../../lib/2d/PointAbstrait'
 import { repere } from '../../lib/2d/reperes'
 import { texteParPosition } from '../../lib/2d/textes'
 import { pointIntersectionDD } from '../../lib/2d/utilitairesPoint'
@@ -43,7 +43,7 @@ export default class IntersectionDroites extends Exercice {
       '1 : Deux droites \n2 : Trois droites\n3 :Mélange',
     ]
     this.besoinFormulaire2Numerique = [
-      "Point d'intersection",
+      "PointAbstrait d'intersection",
       3,
       '1 : Sur le graphique \n2 : Au moins un en dehors du graphique \n3 :Mélange',
     ]
@@ -89,7 +89,7 @@ export default class IntersectionDroites extends Exercice {
       return [x, y]
     }
     const inGraph = function (
-      p: Point,
+      p: PointAbstrait,
       xMin = -8,
       xMax = 8,
       yMin = -6,
@@ -97,7 +97,7 @@ export default class IntersectionDroites extends Exercice {
     ) {
       return p.x >= xMin && p.x <= xMax && p.y >= yMin && p.y <= yMax
     }
-    const coordEntieres = function (p: Point) {
+    const coordEntieres = function (p: PointAbstrait) {
       return p.x % 1 === 0 && p.y % 1 === 0
     }
     const listeTypeQuestions = combinaisonListes(
@@ -157,9 +157,9 @@ export default class IntersectionDroites extends Exercice {
       let aFrac: Array<number> = []
       let a2Frac: Array<number> = []
       let a3Frac: Array<number> = []
-      let pAproxInt12 = new Point(0, 0)
-      let pAproxInt13 = new Point(0, 0)
-      let pAproxInt23 = new Point(0, 0)
+      let pAproxInt12 = new PointAbstrait(0, 0)
+      let pAproxInt13 = new PointAbstrait(0, 0)
+      let pAproxInt23 = new PointAbstrait(0, 0)
       switch (listeTypeQuestions[i]) {
         case 'deuxDroitesSG':
         case 'troisDroitesSG':

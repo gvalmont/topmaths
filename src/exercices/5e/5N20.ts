@@ -306,15 +306,15 @@ export default class ExerciceAdditionnerSoustraireFractions5ebis extends Exercic
         texteCorr = `$${f1.texFraction}-${f2.texFraction}=`
         if (this.level !== 6 && this.sup !== 1) {
           texteCorr += f2PlusGdQuef1
-            ? `${f1.texFraction}-\\dfrac{${c}${miseEnEvidence('\\times ' + k, 'blue')}}{${d}${miseEnEvidence('\\times ' + k, 'blue')}}=${f1.texFraction}-${new FractionEtendue(c * k, d * k).texFraction}=`
+            ? `${f1.texFraction}-\\dfrac{${c}${miseEnEvidence('\\times ' + k, 'blue')}}{${d}${miseEnEvidence('\\times ' + k, 'blue')}}=${f1.texFraction}-${new FractionEtendue(c * k, b).texFraction}=`
             : `\\dfrac{${a}${miseEnEvidence('\\times ' + k, 'blue')}}{${b}${miseEnEvidence('\\times ' + k, 'blue')}}-${f2.texFraction}=${new FractionEtendue(a * k, b * k).texFraction}-${f2.texFraction}=`
         }
         texteCorr += f2PlusGdQuef1
-          ? `\\dfrac{${a}-${ecritureParentheseSiNegatif(c * k)}}{${d}}=${new FractionEtendue(a - c * k, d).texFraction}`
+          ? `\\dfrac{${a}-${ecritureParentheseSiNegatif(c * k)}}{${d * k}}=${new FractionEtendue(a - c * k, b).texFraction}`
           : `\\dfrac{${a * k}-${ecritureParentheseSiNegatif(c)}}{${d}}=${new FractionEtendue(a * k - c, d).texFraction}`
         texteCorr += f2PlusGdQuef1
           ? a - c * k < 0
-            ? `=${new FractionEtendue(a - c * k, d).texFSD}$`
+            ? `=${new FractionEtendue(a - c * k, b).texFSD}$`
             : '$'
           : a * k - c < 0
             ? `=${new FractionEtendue(a * k - c, d).texFSD}$`
@@ -323,15 +323,16 @@ export default class ExerciceAdditionnerSoustraireFractions5ebis extends Exercic
         // Est-ce que le résultat est simplifiable ?
         if (this.sup3) {
           const numerateur = f2PlusGdQuef1 ? a - c * k : a * k - c
-          s = pgcd(Math.abs(numerateur), d)
-          if (Math.abs(numerateur) % d === 0) {
+          const denominateur = f2PlusGdQuef1 ? b : d
+          s = pgcd(Math.abs(numerateur), denominateur)
+          if (Math.abs(numerateur) % denominateur === 0) {
             // Si la fraction peut être un nombre entier
-            texteCorr += `$=${texNombre(numerateur / d, 0)}$`
+            texteCorr += `$=${texNombre(numerateur / denominateur, 0)}$`
           } else if (s !== 1) {
             if (numerateur < 0) {
-              texteCorr += `$=-\\dfrac{${Math.abs(numerateur) / s}${miseEnEvidence('\\times ' + s, 'blue')}}{${d / s}${miseEnEvidence('\\times ' + s, 'blue')}}=${new FractionEtendue(numerateur / s, d / s).texFractionSimplifiee}$`
+              texteCorr += `$=-\\dfrac{${Math.abs(numerateur) / s}${miseEnEvidence('\\times ' + s, 'blue')}}{${denominateur / s}${miseEnEvidence('\\times ' + s, 'blue')}}=${new FractionEtendue(numerateur / s, denominateur / s).texFractionSimplifiee}$`
             } else {
-              texteCorr += `$=\\dfrac{${numerateur / s}${miseEnEvidence('\\times ' + s, 'blue')}}{${d / s}${miseEnEvidence('\\times ' + s, 'blue')}}=${new FractionEtendue(numerateur / s, d / s).texFractionSimplifiee}$`
+              texteCorr += `$=\\dfrac{${numerateur / s}${miseEnEvidence('\\times ' + s, 'blue')}}{${denominateur / s}${miseEnEvidence('\\times ' + s, 'blue')}}=${new FractionEtendue(numerateur / s, denominateur / s).texFractionSimplifiee}$`
             }
           }
         }

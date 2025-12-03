@@ -1,7 +1,10 @@
 import { get } from 'svelte/store'
-import { type InterfaceGlobalOptions, type VueType } from '../../lib/types'
+import { type InterfaceGlobalOptions } from '../../lib/types'
+import { type VueType } from '../VueType'
 import { canOptions } from '../stores/canStore'
-import { exercicesParams, globalOptions } from '../stores/generalStore'
+import { exercicesParams } from '../stores/generalStore'
+import { globalOptions } from '../stores/globalOptions'
+import { buildDsParams } from './buildDsParams'
 
 export class MathAleaURL extends URL {
   /**
@@ -150,7 +153,7 @@ export function buildMathAleaURL(options: {
   } else {
     const title = global.title ?? 'Évaluation'
     if (title !== '') {
-      url.addParam('title', title)
+      url.addParam('title', encodeURIComponent(title))
     }
   }
   if (global.beta) {
@@ -192,20 +195,6 @@ export function buildEsParams(
   es += options.twoColumns ? '1' : '0'
   es += options.isTitleDisplayed ? '1' : '0'
   return es
-}
-
-export function buildDsParams(): string {
-  let ds = ''
-  const options = get(globalOptions)
-  ds += options.nbVues?.toString() ?? '1'
-  ds += options.flow?.toString() ?? '0'
-  ds += options.screenBetweenSlides ? '1' : '0'
-  ds += options.sound?.toString() ?? '0'
-  ds += options.shuffle ? '1' : '0'
-  ds += options.manualMode ? '1' : '0'
-  ds += options.pauseAfterEachQuestion ? '1' : '0'
-  ds += options.isImagesOnSides ? '1' : '0'
-  return ds
 }
 
 export async function getShortenedCurrentUrl(

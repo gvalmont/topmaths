@@ -5,6 +5,7 @@ import { repere } from '../../../lib/2d/reperes'
 import { segment } from '../../../lib/2d/segmentsVecteurs'
 import { texteParPosition } from '../../../lib/2d/textes'
 import { milieu } from '../../../lib/2d/utilitairesPoint'
+import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 import { choice } from '../../../lib/outils/arrayOutils'
 import { ecritureParentheseSiNegatif } from '../../../lib/outils/ecritures'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
@@ -33,7 +34,7 @@ export const refs = {
 export default class CoeffDirDroite extends ExerciceSimple {
   constructor() {
     super()
-
+  this.formatChampTexte = KeyboardType.clavierDeBaseAvecFraction
     this.typeExercice = 'simple'
     this.nbQuestions = 1
   }
@@ -68,16 +69,21 @@ export default class CoeffDirDroite extends ExerciceSimple {
       choice([1, 2]) //, 2, 2
     ) {
       case 1:
-        xA = randint(-4, -1)
-        yA = randint(0, 4)
-        xB = randint(2, 4)
-        yB = randint(1, 4)
-        o = texteParPosition('O', -0.3, -0.3, 0, 'black', 1)
-        A = point(xA, yA)
-        B = point(xB, yB)
-        Bx = point(B.x, A.y)
+        do {
+          xA = randint(-4, -1)
+          yA = randint(0, 4)
+          xB = randint(2, 4)
+          yB = randint(1, 4)
+          A = point(xA, yA)
+          B = point(xB, yB)
+          Bx = point(B.x, A.y)
+        } while (
+          (A.x === Bx.x && A.y === Bx.y) ||
+          (B.x === Bx.x && B.y === Bx.y)
+        )
         sABx = segment(A, Bx)
         sBBx = segment(B, Bx)
+        o = texteParPosition('O', -0.3, -0.3, 0, 'black', 1)
         m = new FractionEtendue(yB - yA, xB - xA)
         sBBx.epaisseur = 2
         sBBx.pointilles = 5

@@ -1,14 +1,14 @@
-import { traceCompas } from '../../lib/2d/Arc'
 import { codageAngleDroit } from '../../lib/2d/CodageAngleDroit'
 import { codageMediatrice } from '../../lib/2d/CodageMediatrice'
 import { codageSegments } from '../../lib/2d/CodageSegment'
 import { demiDroite } from '../../lib/2d/DemiDroite'
 import { mediatrice } from '../../lib/2d/Mediatrice'
-import { Point, point } from '../../lib/2d/PointAbstrait'
+import { pointAbstrait, PointAbstrait } from '../../lib/2d/PointAbstrait'
 import { cercle } from '../../lib/2d/cercle'
 import { fixeBordures } from '../../lib/2d/fixeBordures'
 import { placeLatexSurSegment } from '../../lib/2d/placeLatexSurSegment'
 import { polygoneAvecNom } from '../../lib/2d/polygones'
+import { traceCompas } from '../../lib/2d/traceCompas'
 import { longueur } from '../../lib/2d/utilitairesGeometriques'
 import {
   pointIntersectionCC,
@@ -86,10 +86,10 @@ export default class ConstruireUnTriangleParticulierEtSonCercleCirconscrit exten
       let sommets: string[] = []
       for (let i = 0; i < 3; i++) sommets.push(nom[i])
       const codages: NestedObjetMathalea2dArray = []
-      const A = point(0, 0, 'A', 'left')
+      const A = pointAbstrait(0, 0, 'A', 'left')
 
-      let B: Point
-      let C: Point
+      let B: PointAbstrait
+      let C: PointAbstrait
       let lAB: number
       let lBC: number
       let lAC: number
@@ -111,13 +111,13 @@ export default class ConstruireUnTriangleParticulierEtSonCercleCirconscrit exten
                   : randint(20, Math.max(20, Math.floor(2 * ab - 1) * 10)) / 10
             sommets =
               this.seed === 'myriade' ? ['A', 'B', 'C'] : shuffle(sommets)
-            C = point(ac, 0, sommets[2], 'right')
+            C = pointAbstrait(ac, 0, sommets[2], 'right')
             const cA = cercle(A, ab)
             const cC = cercle(C, ab)
             B = pointIntersectionCC(cA, cC, sommets[1], 1)
             B.positionLabel = 'above'
             ;[A, B, C].forEach(
-              (p: Point, index: number) => (p.nom = sommets[index]),
+              (p: PointAbstrait, index: number) => (p.nom = sommets[index]),
             )
             codages.push(
               codageSegments('||', 'black', A, B, C, B),
@@ -167,13 +167,13 @@ export default class ConstruireUnTriangleParticulierEtSonCercleCirconscrit exten
 
             sommets =
               this.seed === 'myriade' ? ['D', 'E', 'F'] : shuffle(sommets)
-            C = point(ab, 0, sommets[2], 'right')
+            C = pointAbstrait(ab, 0, sommets[2], 'right')
             const cA = cercle(A, ab)
             const cC = cercle(C, ab)
             B = pointIntersectionCC(cA, cC, sommets[1], 1)
             B.positionLabel = 'above'
             ;[A, B, C].forEach(
-              (p: Point, index: number) => (p.nom = sommets[index]),
+              (p: PointAbstrait, index: number) => (p.nom = sommets[index]),
             )
             codages.push(
               codageSegments('||', 'black', A, B, C, B, A, C),
@@ -226,13 +226,13 @@ export default class ConstruireUnTriangleParticulierEtSonCercleCirconscrit exten
             const ac = Math.sqrt(bc ** 2 - ab ** 2)
             sommets =
               this.seed === 'myriade' ? ['I', 'J', 'K'] : shuffle(sommets)
-            B = point(-ab, 0, sommets[1], 'right')
+            B = pointAbstrait(-ab, 0, sommets[1], 'right')
             const cA = cercle(A, ac)
             const cB = cercle(B, bc)
             C = pointIntersectionCC(cA, cB, sommets[1], 1)
             C.positionLabel = 'above'
             ;[A, B, C].forEach(
-              (p: Point, index: number) => (p.nom = sommets[index]),
+              (p: PointAbstrait, index: number) => (p.nom = sommets[index]),
             )
             codages.push(
               codageAngleDroit(C, A, B),
@@ -260,7 +260,7 @@ export default class ConstruireUnTriangleParticulierEtSonCercleCirconscrit exten
             IEP.cercleCirconscrit(aIEP, bIEP, cIEP)
             verif = ''
             const T = polygoneAvecNom(A, B, C)
-            const CC = point(
+            const CC = pointAbstrait(
               C.x + randint(-3, 3) / 10,
               C.y + randint(-3, 3) / 10,
               C.nom,

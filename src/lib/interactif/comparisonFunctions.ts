@@ -204,6 +204,12 @@ function cleanMathRm(str: string): string {
   return str.replace(/\\mathrm\{(\w+)}/g, '$1')
 }
 
+function cleanOperatorName(str: string): string {
+  return str
+    .replace(/\\operatorname\{\s*\}/g, ' ') // remplace les accolades vides
+    .replace(/\\operatorname(?!\s*\{)/g, '') // supprime operatorname sans accolades
+}
+
 /**
  * Nettoie le latex \text{} mis pour séparer le nombre de l'unité en mode texte
  * @param {string} str
@@ -262,6 +268,8 @@ export function generateCleaner(
         return cleanPower
       case 'mathrm':
         return cleanMathRm
+      case 'operatorName':
+        return cleanOperatorName
       case 'divisions':
         return cleanDivisions
       case 'latex':
@@ -2358,11 +2366,13 @@ function unitsCompare(
     'fractions',
     'parentheses',
     'mathrm',
+    'operatorName',
   ])
   const inputGrandeur = inputToGrandeur(cleaner(localInput))
   const goodAnswerGrandeur = Grandeur.fromString(
     cleaner(goodAnswer).replace('^\\circ', '°').replace('\\degree', '°'),
   )
+
   if (inputGrandeur) {
     if (
       inputGrandeur.uniteDeReference !== goodAnswerGrandeur.uniteDeReference

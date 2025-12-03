@@ -230,7 +230,7 @@ Par exemple, en choisissant 20 questions, la course aux nombres sera composée d
             texte += '<br>' + ajouteChampTexteMathLive(this, index, '')
           }
           this.listeCanEnonces.push(texte)
-          this.listeCanReponsesACompleter.push('$\\ldots$ boules noires')
+          this.listeCanReponsesACompleter[i] = '$\\ldots$ boules noires'
           nbChamps = 1
           break
 
@@ -338,7 +338,7 @@ Par exemple, en choisissant 20 questions, la course aux nombres sera composée d
             texte += ajouteChampTexteMathLive(this, index, '')
           }
           this.listeCanEnonces.push(texte)
-          this.listeCanReponsesACompleter.push('? $=\\ldots$')
+          this.listeCanReponsesACompleter[i] = '? $=\\ldots$'
           nbChamps = 1
           break
 
@@ -408,7 +408,7 @@ Par exemple, en choisissant 20 questions, la course aux nombres sera composée d
           }
 
           this.listeCanEnonces.push(this.canEnonce)
-          this.listeCanReponsesACompleter.push(this.canReponseACompleter)
+          this.listeCanReponsesACompleter[i] = this.canReponseACompleter
           nbChamps = 1
           break
 
@@ -454,9 +454,8 @@ Par exemple, en choisissant 20 questions, la course aux nombres sera composée d
           })
 
           this.listeCanEnonces.push(texte)
-          this.listeCanReponsesACompleter.push(
-            '$\\ldots\\text{ h }\\ldots \\text{ min}$',
-          )
+          this.listeCanReponsesACompleter[i] =
+            '$\\ldots\\text{ h }\\ldots \\text{ min}$'
           nbChamps = 1
 
           break
@@ -495,9 +494,8 @@ Par exemple, en choisissant 20 questions, la course aux nombres sera composée d
           }
 
           this.listeCanEnonces.push(texte)
-          this.listeCanReponsesACompleter.push(
-            'Je dois utiliser $\\ldots$ boîtes.',
-          )
+          this.listeCanReponsesACompleter[i] =
+            'Je dois utiliser $\\ldots$ boîtes.'
           nbChamps = 1
           break
 
@@ -534,9 +532,8 @@ Par exemple, en choisissant 20 questions, la course aux nombres sera composée d
           this.listeCanEnonces.push(
             `Entoure la réponse possible.<br> La hauteur d'une ${taille1[a][0]} est :`,
           )
-          this.listeCanReponsesACompleter.push(
-            `${propositions[0]} ${sp(8)} ${propositions[1]} \\\\ ${propositions[2]}${sp(8)} ${propositions[3]}`,
-          )
+          this.listeCanReponsesACompleter[i] =
+            `${propositions[0]} ${sp(8)} ${propositions[1]} \\\\ ${propositions[2]}${sp(8)} ${propositions[3]}`
           nbChamps = 1
           break
 
@@ -620,7 +617,6 @@ Par exemple, en choisissant 20 questions, la course aux nombres sera composée d
             texte += '<br>' + ajouteChampTexteMathLive(this, index, '')
           }
           this.listeCanEnonces.push(texte)
-
           nbChamps = 1
 
           break
@@ -646,7 +642,7 @@ Par exemple, en choisissant 20 questions, la course aux nombres sera composée d
 
             this.listeCanEnonces.push(`${prenom1} a $${a}$ billes. <br>
             Elle en a $${b}$ fois plus que sa sœur.`)
-            this.listeCanReponsesACompleter.push('Sa sœur a $\\ldots$ billes.')
+            this.listeCanReponsesACompleter[i] = 'Sa sœur a $\\ldots$ billes.'
           } else {
             b = randint(6, 15)
             reponse = 2 * b
@@ -663,7 +659,7 @@ Par exemple, en choisissant 20 questions, la course aux nombres sera composée d
             }
             this.listeCanEnonces.push(`${prenom1} a $${b}$ ans. <br>
               ${prenom2} est deux fois plus âgé que ${prenom1}.`)
-            this.listeCanReponsesACompleter.push(`${prenom2} a $\\ldots$ ans.`)
+            this.listeCanReponsesACompleter[i] = `${prenom2} a $\\ldots$ ans.`
           }
 
           nbChamps = 1
@@ -811,7 +807,7 @@ Par exemple, en choisissant 20 questions, la course aux nombres sera composée d
           }
 
           this.listeCanEnonces.push(texte)
-          this.listeCanReponsesACompleter.push('? $=\\ldots$')
+          this.listeCanReponsesACompleter[i] = '? $=\\ldots$'
           nbChamps = 1
           break
 
@@ -829,9 +825,7 @@ Par exemple, en choisissant 20 questions, la course aux nombres sera composée d
           }
 
           this.listeCanEnonces.push('Complète.')
-          this.listeCanReponsesACompleter.push(
-            `$${texNombre(b, 1)}+\\ldots =${res}$`,
-          )
+          this.listeCanReponsesACompleter[i] = `$${texNombre(b, 1)}+\\ldots =${res}$`
           nbChamps = 1
 
           break
@@ -915,7 +909,7 @@ Par exemple, en choisissant 20 questions, la course aux nombres sera composée d
           }
 
           this.listeCanEnonces.push('Complète.')
-          this.listeCanReponsesACompleter.push(`$${c}\\div ${a} =\\ldots$`)
+          this.listeCanReponsesACompleter[i] = `$${c}\\div ${a} =\\ldots$`
           nbChamps = 1
           break
         case 18:
@@ -943,9 +937,7 @@ Par exemple, en choisissant 20 questions, la course aux nombres sera composée d
             this.listeCanEnonces.push(
               `Si une pile de $${a}$ pièces de monnaie a une hauteur de $${2 * a}\\text{ mm}$, `,
             )
-            this.listeCanReponsesACompleter.push(
-              `alors une pile de $${texNombre(b, 0)}$ pièces a une hauteur de $\\ldots\\text{ mm}$.`,
-            )
+            this.listeCanReponsesACompleter[i] = `alors une pile de $${texNombre(b, 0)}$ pièces a une hauteur de $\\ldots\\text{ mm}$.`
           } else {
             a = randint(2, 6)
             k = randint(2, 4)
@@ -958,9 +950,7 @@ Par exemple, en choisissant 20 questions, la course aux nombres sera composée d
 
             setReponse(this, index, reponse, { formatInteractif: 'calcul' })
             this.listeCanEnonces.push(`Si $${a}$ cahiers coûtent $${b}$ €,`)
-            this.listeCanReponsesACompleter.push(
-              `alors $${b}$ cahiers coûtent $\\ldots$ €.`,
-            )
+            this.listeCanReponsesACompleter[i] = `alors $${b}$ cahiers coûtent $\\ldots$ €.`
             if (this.interactif) {
               texte += ajouteChampTexteMathLive(this, index, ' ', {
                 texteApres: '€',
@@ -1167,7 +1157,7 @@ Par exemple, en choisissant 20 questions, la course aux nombres sera composée d
           }
 
           this.listeCanEnonces.push(this.canEnonce)
-          this.listeCanReponsesACompleter.push(this.canReponseACompleter)
+          this.listeCanReponsesACompleter[i] = this.canReponseACompleter
           nbChamps = 1
           break
         case 20:
@@ -1216,9 +1206,7 @@ Par exemple, en choisissant 20 questions, la course aux nombres sera composée d
           }
 
           this.listeCanEnonces.push(`Une voiture roule à $${c}\\text{ km/h}$.`)
-          this.listeCanReponsesACompleter.push(
-            `Elle parcourt $\\ldots\\text{ km}$ en $${b}$ min à cette vitesse.`,
-          )
+          this.listeCanReponsesACompleter[i] = `Elle parcourt $\\ldots\\text{ km}$ en $${b}$ min à cette vitesse.`
           nbChamps = 1
 
           break
@@ -1254,9 +1242,8 @@ Par exemple, en choisissant 20 questions, la course aux nombres sera composée d
               })
           }
           this.listeCanEnonces.push(`Une voiture roule à $${c}\\text{ km/h}$.`)
-          this.listeCanReponsesACompleter.push(
-            `Elle parcourt $\\ldots\\text{ km}$ en $${d}$ h et $${b * e}$ min à cette vitesse.`,
-          )
+          this.listeCanReponsesACompleter[i] =
+            `Elle parcourt $\\ldots\\text{ km}$ en $${d}$ h et $${b * e}$ min à cette vitesse.`
           nbChamps = 1
           break
 
@@ -1295,9 +1282,8 @@ Par exemple, en choisissant 20 questions, la course aux nombres sera composée d
                $${texNombre(d, 1)}= ${texNombre(d * 10, 0)}$ dixièmes. <br>
                Ainsi, $${a}$ centaines et $${miseEnEvidence(texNombre(d * 10, 0))}$ dixièmes font $${texNombre(c, 1)}$.`
             this.listeCanEnonces.push('Complète.')
-            this.listeCanReponsesACompleter.push(
-              `$${a}$ centaines et $\\ldots$ dixièmes font $${texNombre(c, 1)}$.`,
-            )
+            this.listeCanReponsesACompleter[i] =
+              `$${a}$ centaines et $\\ldots$ dixièmes font $${texNombre(c, 1)}$.`
           } else {
             a = randint(2, 9)
             d = new Decimal(randint(21, 99, [30, 40, 50, 60, 70, 80, 90])).div(
@@ -1313,9 +1299,8 @@ Par exemple, en choisissant 20 questions, la course aux nombres sera composée d
                      $${texNombre(d, 2)}= ${texNombre(d * 100, 0)}$ centièmes. <br>
                      Ainsi, $${a}$ dizaines et $${miseEnEvidence(texNombre(d * 100, 0))}$ centièmes font $${texNombre(c, 2)}$.`
             this.listeCanEnonces.push('Complète.')
-            this.listeCanReponsesACompleter.push(
-              `$${a}$ dizaines et $\\ldots$ centièmes font $${texNombre(c, 1)}$.`,
-            )
+            this.listeCanReponsesACompleter[i] =
+              `$${a}$ dizaines et $\\ldots$ centièmes font $${texNombre(c, 1)}$.`
           }
 
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
@@ -1361,7 +1346,7 @@ Par exemple, en choisissant 20 questions, la course aux nombres sera composée d
             D = point(1 + a, 4 - b)
 
             texte = `${prenom1} veut construire une figure d'aire $\\dfrac{${f[a][0]}}{${f[a][1]}}$ ${f[a][0] > f[a][1] > 2 ? 'unités' : 'unité'} d'aire (uA).<br>
-        
+
             Combien de petits carreaux doit-elle contenir ?
             <br>
 
@@ -1415,7 +1400,7 @@ Par exemple, en choisissant 20 questions, la course aux nombres sera composée d
             C = grille(0, 0, 12, 5, 'black', 1, 1, false)
 
             texte = `${prenom1} veut construire une figure d'aire $\\dfrac{${f[a][0]}}{${f[a][1]}}$ ${f[a][0] / f[a][1] > 2 ? 'unités' : 'unité'} d'aire (uA).<br>
-          
+
             Combien de petits carreaux doit-elle contenir ?<br>
 
           `
@@ -1460,9 +1445,8 @@ Par exemple, en choisissant 20 questions, la course aux nombres sera composée d
                 B,
               ),
           )
-          this.listeCanReponsesACompleter.push(
-            'La figure doit contenir $\\ldots$ petits carreaux.',
-          )
+          this.listeCanReponsesACompleter[i] =
+            'La figure doit contenir $\\ldots$ petits carreaux.'
           nbChamps = 1
           break
 
@@ -1564,7 +1548,7 @@ Par exemple, en choisissant 20 questions, la course aux nombres sera composée d
           }
 
           this.listeCanEnonces.push(texte)
-          this.listeCanReponsesACompleter.push('? $=\\ldots$')
+          this.listeCanReponsesACompleter[i] = '? $=\\ldots$'
           nbChamps = 1
           break
 
@@ -1608,7 +1592,7 @@ Par exemple, en choisissant 20 questions, la course aux nombres sera composée d
             }
           }
           this.listeCanEnonces.push(texte)
-          this.listeCanReponsesACompleter.push('$\\ldots$ centimes')
+          this.listeCanReponsesACompleter[i] = '$\\ldots$ centimes'
           nbChamps = 1
           break
 
@@ -1782,7 +1766,7 @@ Par exemple, en choisissant 20 questions, la course aux nombres sera composée d
 
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           this.listeCanEnonces.push(texte)
-          this.listeCanReponsesACompleter.push('$\\ldots\\text{ cm}$')
+          this.listeCanReponsesACompleter[i] = '$\\ldots\\text{ cm}$'
           if (this.interactif) {
             texte += ajouteChampTexteMathLive(this, index, '', {
               texteApres: '$\\text{ cm}$',
@@ -1829,7 +1813,7 @@ Par exemple, en choisissant 20 questions, la course aux nombres sera composée d
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
 
           this.listeCanEnonces.push(texte)
-          this.listeCanReponsesACompleter.push('$\\ldots$ repas')
+          this.listeCanReponsesACompleter[i] = '$\\ldots$ repas'
           if (this.interactif) {
             texte +=
               '<br>' +

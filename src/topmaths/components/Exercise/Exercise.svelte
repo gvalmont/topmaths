@@ -205,10 +205,6 @@
       exercise.nouvelleVersionWrapper(exerciseIndex)
   }
 
-  function isApiGeom(exercise: Exercice): boolean {
-    return exercise.uuid !== '' && apiGeomUuids.includes(exercise.uuid)
-  }
-
   /**
    * Recherche toutes les figures ayant la classe `mathalea2d` et réduit leur largeur à 95% de la valeur
    * maximale du div reperé par l'ID `consigne<X>-0` où `X` est l'indice de l'exercice

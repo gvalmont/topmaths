@@ -31,7 +31,7 @@ export const amcType = 'AMCHybride'
 export const uuid = 'cd7ce'
 
 export const refs = {
-  'fr-fr': ['5R11', '3autoN15-1'],
+  'fr-fr': ['5R11', '3AutoN15-1'],
   'fr-ch': ['9NO9-1'],
 }
 const changeCoord = function (x: number, abs0: number, pas1: number) {

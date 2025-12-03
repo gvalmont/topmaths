@@ -3,7 +3,7 @@ import { latex2d } from '../../lib/2d/textes'
 import { choice } from '../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
 
-import { courbe } from '../../lib/2d/courbes'
+import { courbe } from '../../lib/2d/Courbe'
 import { point } from '../../lib/2d/PointAbstrait'
 import { tracePoint } from '../../lib/2d/TracePoint'
 import { deuxColonnes } from '../../lib/format/miseEnPage'

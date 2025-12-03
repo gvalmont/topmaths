@@ -2,7 +2,7 @@
   import type Exercice from '../../../../exercices/Exercice'
   import { mathaleaRenderDiv } from '../../../../lib/mathalea'
   import { listOfRandomIndexes } from '../../../../lib/outils/arrayOutils'
-  import { globalOptions } from '../../../../lib/stores/generalStore'
+  import { globalOptions } from '../../../../lib/stores/globalOptions'
   import { referentielLocale } from '../../../../lib/stores/languagesStore'
   import { type NumberRange } from '../../../../lib/types'
   import { isIntegerInRange0to4 } from '../../../../lib/types/integerInRange'

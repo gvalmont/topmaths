@@ -454,7 +454,7 @@ export default class TracerQuadrilatèresParticuliers extends Exercice {
           afficheLongueurSegment(A, D),
         )
         const txt = texteSurSegment(
-          `${A.nom}${C.nom}≃${stringNombre(segment(A, C).longueur, 1)} cm`,
+          `$${A.nom}${C.nom}\\approx${texNombre(segment(A, C).longueur, 1)}\\text{ cm}$`,
           milieu(A, C),
           C,
           'blue',
@@ -464,19 +464,19 @@ export default class TracerQuadrilatèresParticuliers extends Exercice {
         objetsCorrection.push(txt)
       } else if (typeDeQuestion === 'Carré1diag') {
         const txt = texteSurSegment(
-          `${A.nom}${C.nom}=${stringNombre(segment(A, C).longueur, 1)} cm`,
+          `$${A.nom}${C.nom}\\approx${texNombre(segment(A, C).longueur, 1)}\\text{ cm}$`,
           milieu(A, C),
           C,
         )
         txt.mathOn = false
         const txt2 = texteSurSegment(
-          `${B.nom}${D.nom}=${stringNombre(segment(B, D).longueur, 1)} cm`,
+          `$${B.nom}${D.nom}\\approx${texNombre(segment(B, D).longueur, 1)}\\text{ cm}$`,
           milieu(B, D),
           D,
         )
         txt2.mathOn = false
         const txt3 = texteSurSegment(
-          `${D.nom}${C.nom}≃${stringNombre(segment(D, C).longueur, 1)} cm`,
+          `$${D.nom}${C.nom}\\approx${texNombre(segment(D, C).longueur, 1)}\\text{ cm}$`,
           D,
           C,
           'blue',
@@ -487,13 +487,13 @@ export default class TracerQuadrilatèresParticuliers extends Exercice {
       } else if (typeDeQuestion === 'Rectangle1diag') {
         objetsCorrection.push(afficheLongueurSegment(B, A))
         const txt = texteSurSegment(
-          `${A.nom}${C.nom}=${stringNombre(segment(A, C).longueur, 1)} cm`,
+          `$${A.nom}${C.nom}\\approx${texNombre(segment(A, C).longueur, 1)}\\text{ cm}$`,
           milieu(A, C),
           C,
         )
         txt.mathOn = false
         const txt3 = texteSurSegment(
-          `${B.nom}${C.nom}≃${stringNombre(segment(B, C).longueur, 1)} cm`,
+          `$${B.nom}${C.nom}\\approx${texNombre(segment(B, C).longueur, 1)}\\text{ cm}$`,
           C,
           B,
           'blue',
@@ -509,13 +509,13 @@ export default class TracerQuadrilatèresParticuliers extends Exercice {
           afficheLongueurSegment(A, D),
         )
         const txt = texteSurSegment(
-          `${A.nom}${C.nom}=${stringNombre(segment(A, C).longueur, 1)} cm`,
+          `$${A.nom}${C.nom}\\approx${texNombre(segment(A, C).longueur, 1)}\\text{ cm}$`,
           milieu(A, C),
           C,
         )
         txt.mathOn = false
         const txt2 = texteSurSegment(
-          `${B.nom}${D.nom}≃${stringNombre(segment(B, D).longueur, 1)} cm`,
+          `$${B.nom}${D.nom}\\approx${texNombre(segment(B, D).longueur, 1)}\\text{ cm}$`,
           milieu(B, D),
           D,
           'blue',
@@ -525,19 +525,19 @@ export default class TracerQuadrilatèresParticuliers extends Exercice {
         objetsCorrection.push(txt, txt2)
       } else if (typeDeQuestion === 'Losange2diag') {
         const txt = texteSurSegment(
-          `${A.nom}${C.nom}=${stringNombre(segment(A, C).longueur, 1)} cm`,
+          `$${A.nom}${C.nom}\\approx${texNombre(segment(A, C).longueur, 1)}\\text{ cm}$`,
           milieu(A, C),
           C,
         )
         txt.mathOn = false
         const txt2 = texteSurSegment(
-          `${B.nom}${D.nom}=${stringNombre(segment(B, D).longueur, 1)} cm`,
+          `$${B.nom}${D.nom}\\approx${texNombre(segment(B, D).longueur, 1)}\\text{ cm}$`,
           milieu(B, D),
           D,
         )
         txt2.mathOn = false
         const txt3 = texteSurSegment(
-          `${D.nom}${C.nom}≃${stringNombre(segment(D, C).longueur, 1)} cm`,
+          `$${D.nom}${C.nom}\\approx${texNombre(segment(D, C).longueur, 1)}\\text{ cm}$`,
           D,
           C,
           'blue',
@@ -547,13 +547,13 @@ export default class TracerQuadrilatèresParticuliers extends Exercice {
         objetsCorrection.push(txt, txt2, txt3)
       } else if (typeDeQuestion === 'Parallélogramme') {
         const txt = texteSurSegment(
-          `${A.nom}${C.nom}=${stringNombre(segment(A, C).longueur, 1)} cm`,
+          `$${A.nom}${C.nom}\\approx${texNombre(segment(A, C).longueur, 1)}\\text{ cm}$`,
           milieu(A, C),
           C,
         )
         txt.mathOn = false
         const txt2 = texteSurSegment(
-          `${B.nom}${D.nom}≃${stringNombre(segment(B, D).longueur, 1)} cm`,
+          `$${B.nom}${D.nom}\\approx${texNombre(segment(B, D).longueur, 1)}\\text{ cm}$`,
           milieu(A, C),
           B,
           'blue',

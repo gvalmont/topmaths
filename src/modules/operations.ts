@@ -2,6 +2,7 @@ import Decimal from 'decimal.js'
 import { fixeBordures } from '../lib/2d/fixeBordures'
 import { segment } from '../lib/2d/segmentsVecteurs'
 import { texteParPosition } from '../lib/2d/textes'
+import { bleuMathalea, orangeMathalea } from '../lib/colors'
 import { base10VersBaseN } from '../lib/mathFonctions/baseConversions'
 import {
   nombreDeChiffresDansLaPartieEntiere,
@@ -529,6 +530,7 @@ export default function Operation({
     let lresultat
     let decalage
     let chiffreop1, chiffreop2
+    const coefEntreChiffres = context.vue === 'latex' ? 0.6 : 1
     if (base ? base === 10 : true) {
       const dec1 = nombreDeChiffresApresLaVirgule(operande1)
       const dec2 = nombreDeChiffresApresLaVirgule(operande2)
@@ -590,7 +592,7 @@ export default function Operation({
             texteParPosition(
               retenues[i],
               i * espacement - 0.25 + espacement * offsetCarry,
-              4,
+              4 * coefEntreChiffres,
               0,
               'red',
               0.8,
@@ -603,7 +605,7 @@ export default function Operation({
             texteParPosition(
               sop1[i],
               i * espacement,
-              4,
+              4 * coefEntreChiffres,
               0,
               'black',
               1.2,
@@ -616,7 +618,7 @@ export default function Operation({
             texteParPosition(
               sop2[i],
               i * espacement,
-              3,
+              3 * coefEntreChiffres,
               0,
               'black',
               1.2,
@@ -629,7 +631,7 @@ export default function Operation({
             texteParPosition(
               `+${retenues[i]}`,
               (i + offsetCarry - 1) * espacement,
-              2.5,
+              2.5 * coefEntreChiffres,
               0,
               'blue',
               0.6,
@@ -642,7 +644,7 @@ export default function Operation({
             texteParPosition(
               sresultat[i],
               i * espacement,
-              1,
+              2 * coefEntreChiffres,
               0,
               'black',
               1.2,
@@ -675,7 +677,7 @@ export default function Operation({
             texteParPosition(
               ArrsOp1[i],
               i * espacement,
-              4,
+              4 * coefEntreChiffres,
               0,
               'black',
               1.2,
@@ -704,9 +706,9 @@ export default function Operation({
               objets.push(
                 segment(
                   i * espacement - 0.3,
-                  4 + hauteur[i] - 0.3,
+                  (4 + hauteur[i] - 0.3) * coefEntreChiffres,
                   i * espacement + 0.3,
-                  4 + hauteur[i] + 0.3,
+                  (4 + hauteur[i] + 0.3) * coefEntreChiffres,
                 ),
               )
               if (parseInt(ArrsOp1[i]) > 0) {
@@ -717,10 +719,10 @@ export default function Operation({
                 objets.push(
                   texteParPosition(
                     '1',
-                    i * espacement - 0.25,
-                    4 + hauteur[i],
+                    i * espacement - 0.3,
+                    (4 + hauteur[i]) * coefEntreChiffres,
                     0,
-                    'red',
+                    bleuMathalea,
                     0.8,
                     'milieu',
                     false,
@@ -732,7 +734,7 @@ export default function Operation({
                 texteParPosition(
                   ArrsOp1[i],
                   i * espacement,
-                  4 + hauteur[i],
+                  (4 + hauteur[i]) * coefEntreChiffres,
                   0,
                   'black',
                   1.2,
@@ -749,10 +751,10 @@ export default function Operation({
               objets.push(
                 texteParPosition(
                   '1',
-                  i * espacement - 0.25,
-                  4 + hauteur[i],
+                  i * espacement - 0.3,
+                  (4 + hauteur[i]) * coefEntreChiffres,
                   0,
-                  'red',
+                  bleuMathalea,
                   0.8,
                   'milieu',
                   false,
@@ -767,7 +769,7 @@ export default function Operation({
             texteParPosition(
               sop2[i],
               i * espacement,
-              3,
+              3 * coefEntreChiffres,
               0,
               'black',
               1.2,
@@ -780,9 +782,9 @@ export default function Operation({
             texteParPosition(
               sresultat[i],
               i * espacement,
-              1,
+              2 * coefEntreChiffres,
               0,
-              'black',
+              orangeMathalea,
               1.2,
               'milieu',
               false,
@@ -791,13 +793,21 @@ export default function Operation({
       }
     }
 
-    objets.push(segment(0, 2, (longueuroperandes + 1) * espacement, 2))
+    objets.push(
+      segment(
+        0,
+        (2 + 0.5) * coefEntreChiffres,
+        (longueuroperandes + 1) * espacement,
+        (2 + 0.5) * coefEntreChiffres,
+      ),
+    ) // Barre de la soustraction
+
     if (decalage !== 0) {
       objets.push(
         texteParPosition(
           ',',
           0.3 + espacement * (longueuroperandes - decalage),
-          4 + (context.vue === 'latex' ? -0.2 : 0),
+          (4 + (context.vue === 'latex' ? -0.2 : 0)) * coefEntreChiffres,
           0,
           'black',
           1.2,
@@ -809,7 +819,7 @@ export default function Operation({
         texteParPosition(
           ',',
           0.3 + espacement * (longueuroperandes - decalage),
-          3 + (context.vue === 'latex' ? -0.2 : 0),
+          (3 + (context.vue === 'latex' ? -0.2 : 0)) * coefEntreChiffres,
           0,
           'black',
           1.2,
@@ -822,9 +832,9 @@ export default function Operation({
           texteParPosition(
             ',',
             0.3 + espacement * (longueuroperandes - decalage),
-            1 + (context.vue === 'latex' ? -0.2 : 0),
+            (2 + (context.vue === 'latex' ? -0.2 : 0)) * coefEntreChiffres,
             0,
-            'black',
+            orangeMathalea,
             1.2,
             'milieu',
             false,
@@ -834,7 +844,12 @@ export default function Operation({
 
     code += mathalea2d(
       Object.assign(
-        { pixelsParCm: 20, scale: 0.8, style },
+        {
+          pixelsParCm: 20,
+          scale: 0.8,
+          style,
+          optionsTikz: ['transform shape, yshift=-1.75cm'],
+        },
         fixeBordures(objets),
       ),
       objets,
@@ -1205,8 +1220,8 @@ export default function Operation({
           Code = options.colore
             ? `Addition${colore}[${solution}]{${operande1}}{${operande2}}`
             : options.solution
-              ? `\\opsub[lineheight=\\baselineskip,columnwidth=2ex,carrysub,lastcarry,decimalsepsymbol={,},voperator=bottom,voperation=top]{${operande1}}{${operande2}}`
-              : `\\opsub[lineheight=\\baselineskip,columnwidth=2ex,displayshiftintermediary=none,resultstyle=\\white,intermediarystyle=\\white,remainderstyle=\\white,decimalsepsymbol={,},voperator=bottom,voperation=top]{${operande1}}{${operande2}}`
+              ? `\\opsub[lineheight=\\baselineskip,columnwidth=3ex,carrysub,lastcarry,decimalsepsymbol={,},voperator=bottom,voperation=top]{${operande1}}{${operande2}}`
+              : `\\opsub[lineheight=\\baselineskip,columnwidth=3ex,displayshiftintermediary=none,resultstyle=\\white,intermediarystyle=\\white,remainderstyle=\\white,decimalsepsymbol={,},voperator=bottom,voperation=top]{${operande1}}{${operande2}}`
         } // { Code = `\\opsub[carrysub,lastcarry,decimalsepsymbol={,},voperator=bottom,voperation=top]{${operande1}}{${operande2}}` }
         break
       case 'multiplication':

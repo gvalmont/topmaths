@@ -13,6 +13,8 @@
   export let switchInteractif: () => void
   export let columnsCount: number
   export let columnsCountUpdate: (plusMinus: '+' | '-') => void
+  export let showCorrectionButton: boolean = true
+  export let showInteractivityButton: boolean = true
 </script>
 
 <div
@@ -39,35 +41,39 @@
       }}"
     />
   </div>
-  <div
-    class="{globalOptions.isSolutionAccessible &&
-    !exercise.isDone &&
-    ((exercise.interactif && exercise.isDone) || !exercise.interactif)
-      ? 'flex ml-2'
-      : 'hidden'}"
-  >
-    <ButtonTextAction
-      text="{isCorrectionVisible
-        ? 'Masquer la correction'
-        : 'Voir la correction'}"
-      icon="{isCorrectionVisible ? 'bx-hide' : 'bx-show'}"
-      class="py-[2px] px-2 text-[0.7rem] w-36"
-      inverted="{true}"
-      on:click="{switchCorrectionVisible}"
-    />
-  </div>
-  <button
-    class="{globalOptions.isInteractiveFree && exercise?.interactifReady
-      ? 'w-5 ml-2 tooltip tooltip-right tooltip-neutral '
-      : 'hidden'}"
-    data-tip="{isInteractif
-      ? "Désactiver l'interactivité"
-      : 'Rendre interactif'}"
-    type="button"
-    on:click="{switchInteractif}"
-  >
-    <InteractivityIcon isOnStateActive="{isInteractif}" size="{4}" />
-  </button>
+  {#if showCorrectionButton}
+    <div
+      class="{globalOptions.isSolutionAccessible &&
+      !exercise.isDone &&
+      ((exercise.interactif && exercise.isDone) || !exercise.interactif)
+        ? 'flex ml-2'
+        : 'hidden'}"
+    >
+      <ButtonTextAction
+        text="{isCorrectionVisible
+          ? 'Masquer la correction'
+          : 'Voir la correction'}"
+        icon="{isCorrectionVisible ? 'bx-hide' : 'bx-show'}"
+        class="py-[2px] px-2 text-[0.7rem] w-36"
+        inverted="{true}"
+        on:click="{switchCorrectionVisible}"
+      />
+    </div>
+  {/if}
+  {#if showInteractivityButton}
+    <button
+      class="{globalOptions.isInteractiveFree && exercise?.interactifReady
+        ? 'w-5 ml-2 tooltip tooltip-right tooltip-neutral '
+        : 'hidden'}"
+      data-tip="{isInteractif
+        ? "Désactiver l'interactivité"
+        : 'Rendre interactif'}"
+      type="button"
+      on:click="{switchInteractif}"
+    >
+      <InteractivityIcon isOnStateActive="{isInteractif}" size="{4}" />
+    </button>
+  {/if}
   {#if globalOptions.recorder === undefined}
     <div
       class="hidden md:flex flex-row justify-start items-center text-coopmaths-struct dark:text-coopmathsdark-struct text-xs"

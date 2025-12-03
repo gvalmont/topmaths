@@ -25,11 +25,13 @@ export default class decimalPuisance extends ExerciceSimple {
     this.typeExercice = 'simple' // Cette ligne est très importante pour faire un exercice simple !
     this.nbQuestions = 1
     this.formatChampTexte = KeyboardType.clavierFullOperations
-    this.optionsDeComparaison = { fractionIdentique: true }
+    this.optionsDeComparaison = {
+      fractionIdentique: true,
+    }
   }
 
   nouvelleVersion() {
-    const annee= 2026
+    const annee = 2026
     const puissance = this.canOfficielle ? 2 : randint(1, 5)
     const puissance10 = 10 ** puissance
     const a = choice([annee, -annee])
@@ -37,6 +39,7 @@ export default class decimalPuisance extends ExerciceSimple {
     this.reponse = [
       (a < 0 ? '-' : '') + `\\dfrac{${abs(a)}}{10^{${puissance}}}`,
       `\\dfrac{${a}}{10^{${puissance}}}`,
+      `\\dfrac{${a}}{${10 ** puissance}}`,
     ] // Sans cela, le cas où la fraction est négative ne passe pas.
 
     this.question = `Écrire $${texNombre(dec, 5)}$ sous la forme $\\dfrac{a}{10^n}$ avec $a\\in \\mathbb{Z}$ et $n\\in \\mathbb{N}$, $n$ le plus petit possible.`

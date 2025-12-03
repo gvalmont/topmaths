@@ -32,7 +32,7 @@ export default class sensDesPrefixes extends Exercice {
 
     this.nbQuestions = 4
 
-    this.sup = 0
+    this.sup = 1
     this.besoinFormulaireNumerique = [
       'Type de questions',
       3,

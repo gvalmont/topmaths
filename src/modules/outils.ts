@@ -17,7 +17,6 @@ const isFractionEtendue = (x: unknown): x is IFractionEtendue =>
   x !== null &&
   typeof (x as any).sommeFraction === 'function'
 
-export const tropDeChiffres = 'Trop de chiffres'
 export const epsilon = 0.000001
 
 /**

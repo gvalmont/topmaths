@@ -1,6 +1,6 @@
 import { colorToLatexOrHTML } from '../lib/2d/colorToLatexOrHtml'
 import { ObjetMathalea2D } from '../lib/2d/ObjetMathalea2D'
-import { Point, point } from '../lib/2d/PointAbstrait'
+import { PointAbstrait, pointAbstrait } from '../lib/2d/PointAbstrait'
 import { Polygone, polygone } from '../lib/2d/polygones'
 import { tracePoint } from '../lib/2d/TracePoint'
 import { context } from './context'
@@ -12,7 +12,7 @@ import { context } from './context'
  * @param {object} options over, out et click sont des objets pour le style css des évènements de la souris, radius, width, color, opacite, size, style sont les paramètres possibles pour la trace du point
  */
 export class PointCliquable extends ObjetMathalea2D {
-  point: Point
+  point: PointAbstrait
   etat: boolean
   width: number
   style: string
@@ -43,7 +43,7 @@ export class PointCliquable extends ObjetMathalea2D {
     },
   ) {
     super()
-    this.point = point(x, y)
+    this.point = pointAbstrait(x, y)
     this.width = options.width ?? options.size ?? 1
     this.stringColor = options.color ?? 'black'
     this.style = options.style ?? 'x'
@@ -242,10 +242,10 @@ export class RectangleCliquable extends ObjetMathalea2D {
     },
   ) {
     super()
-    const A = point(x1, y1)
-    const B = point(x2, y1)
-    const C = point(x2, y2)
-    const D = point(x1, y2)
+    const A = pointAbstrait(x1, y1)
+    const B = pointAbstrait(x2, y1)
+    const C = pointAbstrait(x2, y2)
+    const D = pointAbstrait(x1, y2)
     this.rectangle = polygone(A, B, C, D)
     this.bordure = polygone(A, B, C, D)
     if (!options) options = {}
@@ -452,7 +452,7 @@ export class FractionCliquable extends ObjetMathalea2D {
     const cliquable = options.cliquable !== undefined ? options.cliquable : true
     let O
     for (let i = 0; i < unites; i++) {
-      O = point(x + i * (longueur + ecart), y)
+      O = pointAbstrait(x + i * (longueur + ecart), y)
       for (let j = 0; j < denominateur; j++) {
         if (liste1.includes(i * denominateur + j + 1)) {
           this.objets.push(

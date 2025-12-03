@@ -1,7 +1,6 @@
 import { codageMilieu } from '../../lib/2d/CodageMilieu'
 import { colorToLatexOrHTML } from '../../lib/2d/colorToLatexOrHtml'
 import type { PointAbstrait } from '../../lib/2d/PointAbstrait'
-import { Point } from '../../lib/2d/PointAbstrait'
 import type { Polygone } from '../../lib/2d/polygones'
 import { segment } from '../../lib/2d/segmentsVecteurs'
 import { labelPoint, texteParPosition } from '../../lib/2d/textes'
@@ -18,7 +17,12 @@ import { nombreAvecEspace } from '../../lib/outils/texNombre'
 import { rotationAnimee } from '../../modules/2dAnimation'
 import { context } from '../../modules/context'
 import { mathalea2d } from '../../modules/mathalea2d'
-import { egal, listeQuestionsToContenu, randint } from '../../modules/outils'
+import {
+  contraindreValeur,
+  egal,
+  listeQuestionsToContenu,
+  randint,
+} from '../../modules/outils'
 import { Pavage, pavage } from '../../modules/Pavage'
 import type { NestedObjetMathalea2dArray } from '../../types/2d'
 import Exercice from '../Exercice'
@@ -34,7 +38,6 @@ export const dateDeModifImportante = '23/07/2023'
  * Trouver l'image par symétrie centrale d'une figure dans un pavage
  * Version Latex & Html grâce à Mathalea2d
  * @author Jean-Claude Lhote
- * Ref 5G12
  */
 export const uuid = '76ea9'
 
@@ -62,15 +65,16 @@ export default class PavageEtDemiTour2D extends Exercice {
     this.correctionDetailleeDisponible = true
     this.correctionDetaillee = true
 
-    this.sup = 1 // 1 pour des pavages modestes, 2 pour des plus grand.
+    this.sup = 1 // 1 pour des pavages modestes, 2 pour des plus grands.
     this.sup2 = false // On cache les barycentres par défaut.
     this.sup3 = 7
     context.isHtml ? (this.spacingCorr = 2.5) : (this.spacingCorr = 1.5)
   }
 
   nouvelleVersion() {
-    this.sup = Number(this.sup)
-    this.sup3 = Number(this.sup3)
+    this.sup = contraindreValeur(1, 2, this.sup, randint(1, 2))
+    this.sup3 = contraindreValeur(1, 8, this.sup3, 8)
+    if (this.sup3 == 8) this.sup3 = randint(1, 7)
     const videcouples = function (
       tableau: [number, number][],
     ): [number, number][] {
@@ -109,8 +113,8 @@ export default class PavageEtDemiTour2D extends Exercice {
     }
 
     const compare2sommets = function (
-      sommet1: Point | PointAbstrait,
-      sommet2: Point | PointAbstrait,
+      sommet1: PointAbstrait,
+      sommet2: PointAbstrait,
     ) {
       if (egal(sommet1.x, sommet2.x, 0.1) && egal(sommet1.y, sommet2.y, 0.1)) {
         return true
@@ -145,7 +149,7 @@ export default class PavageEtDemiTour2D extends Exercice {
 
     const demitour = function (
       pavage: Pavage,
-      A: Point | PointAbstrait,
+      A: PointAbstrait,
       numero: number,
     ) {
       // retourne le numero du polygone symétrique ou -1 si il n'existe pas
@@ -188,19 +192,13 @@ export default class PavageEtDemiTour2D extends Exercice {
     let image
     let couples: [number, number][] = []
     let tailles = []
-    let monpavage
+    let monpavage = pavage()
     let fenetre
     let texte = ''
     let texteCorr = ''
-    let typeDePavage = this.sup
+    let typeDePavage = this.sup3
     let nombreTentatives
     let nombrePavageTestes = 1
-    if (this.sup3 === 8) {
-      typeDePavage = randint(1, 7)
-    } else {
-      typeDePavage = this.sup3
-    }
-    monpavage = pavage()
     while (couples.length < this.nbQuestions && nombrePavageTestes < 6) {
       nombreTentatives = 0
       monpavage = pavage() // On crée l'objet Pavage qui va s'appeler monpavage
@@ -234,7 +232,7 @@ export default class PavageEtDemiTour2D extends Exercice {
         fenetre.xmax,
         fenetre.ymax,
       ]
-      while (couples.length < this.nbQuestions + 2 && nombreTentatives < 3) {
+      while (couples.length < this.nbQuestions + 2 && nombreTentatives < 30) {
         // On cherche d pour avoir suffisamment de couples
         couples = [] // On vide la liste des couples pour une nouvelle recherche
 

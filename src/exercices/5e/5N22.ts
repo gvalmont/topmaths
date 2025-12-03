@@ -1,7 +1,7 @@
 import { codageAngle } from '../../lib/2d/angles'
 import { cercleCentrePoint } from '../../lib/2d/cercle'
 import { codageAngleDroit } from '../../lib/2d/CodageAngleDroit'
-import { Point, point } from '../../lib/2d/PointAbstrait'
+import { PointAbstrait, pointAbstrait } from '../../lib/2d/PointAbstrait'
 import { segment } from '../../lib/2d/segmentsVecteurs'
 import { labelPoint } from '../../lib/2d/textes'
 import { rotation } from '../../lib/2d/transformations'
@@ -26,7 +26,13 @@ export const refs = {
   'fr-ch': ['9NO15-4'],
 }
 // une fonction pour gérer le codage des angles
-function myCodageAngle(A: Point, O: Point, B: Point, angle: number, [...args]) {
+function myCodageAngle(
+  A: PointAbstrait,
+  O: PointAbstrait,
+  B: PointAbstrait,
+  angle: number,
+  [...args],
+) {
   if (angle === 90) {
     return codageAngleDroit(A, O, B)
   } else {
@@ -225,8 +231,8 @@ export default class ProblemesAdditifsFractions5e extends Exercice {
         pixelsParCm: 20,
         scale: 0.5,
       }
-      const OVols = point(0, 0)
-      const AVols = point(fenetreMathalea2D.xmin + 6, 0)
+      const OVols = pointAbstrait(0, 0)
+      const AVols = pointAbstrait(fenetreMathalea2D.xmin + 6, 0)
       const cVols = cercleCentrePoint(OVols, AVols, 'blue')
       cVols.epaisseur = 2
       // on trace les quartiers
@@ -283,7 +289,7 @@ export default class ProblemesAdditifsFractions5e extends Exercice {
       )
 
       // légende
-      const ALegende = point(fenetreMathalea2D.xmin + 4, 0)
+      const ALegende = pointAbstrait(fenetreMathalea2D.xmin + 4, 0)
       const LVolsegmentcat1 = rotation(
         ALegende,
         OVols,

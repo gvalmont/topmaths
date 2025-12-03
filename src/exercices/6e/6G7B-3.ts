@@ -1,10 +1,10 @@
-import { traceCompas } from '../../lib/2d/Arc'
 import { cibleCarree, dansLaCibleCarree } from '../../lib/2d/cibles'
 import { codageMediatrice } from '../../lib/2d/CodageMediatrice'
 import { distancePointDroite, droite } from '../../lib/2d/droites'
 import { point } from '../../lib/2d/PointAbstrait'
 import { segment } from '../../lib/2d/segmentsVecteurs'
 import { labelPoint } from '../../lib/2d/textes'
+import { traceCompas } from '../../lib/2d/traceCompas'
 import { tracePoint } from '../../lib/2d/TracePoint'
 import {
   homothetie,

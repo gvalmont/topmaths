@@ -938,19 +938,20 @@ export default class ModelisationProblemes extends Exercice {
       (type, i) => problèmes[type][i % problèmes[type].length],
     )
     let indexInteractif = 0
-    for (let i = 0; i < this.nbQuestions; ) {
+    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50; ) {
       const { enonce, nextInteractif, correction } = genereEnonces(
         this,
         typeDeQuestions[i],
         indexInteractif,
         fonctions[i],
       )
-      if (this.questionJamaisPosee(i, enonce.split(' ')[0])) {
+      if (this.questionJamaisPosee(i, enonce.split('?')[0])) {
         indexInteractif = nextInteractif
         this.listeQuestions.push(enonce)
         this.listeCorrections.push(correction)
         i++
       }
+      cpt++
     }
   }
 }

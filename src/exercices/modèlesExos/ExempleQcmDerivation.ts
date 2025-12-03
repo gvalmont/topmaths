@@ -1,4 +1,5 @@
-import { createQcmFromJson } from './qcmUtils'
+import { createQcmFromJson } from "../beta/qcmUtils"
+
 export const uuid = 'deriv'
 export const titre = 'QCM Dérivation'
 export const refs = {

@@ -1,9 +1,9 @@
 import type Figure from 'apigeom'
 import { get } from 'svelte/store'
 import { canOptions } from '../../src/lib/stores/canStore'
-import { globalOptions } from '../../src/lib/stores/generalStore'
 import type { IExercice } from '../lib/types'
 import { context } from '../modules/context'
+import { globalOptions } from './stores/globalOptions'
 
 /**
  * - Insère une figure apigeom dans la sortie HTML de l'exercice

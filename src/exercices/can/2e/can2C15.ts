@@ -5,6 +5,7 @@ import {
   texFractionFromString,
 } from '../../../lib/outils/deprecatedFractions'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
+import { context } from '../../../modules/context'
 import FractionEtendue from '../../../modules/FractionEtendue'
 import { randint } from '../../../modules/outils'
 import ExerciceSimple from '../../ExerciceSimple'
@@ -44,6 +45,8 @@ export default class NombreInverse extends ExerciceSimple {
     const e = new FractionEtendue(a * c - b, c)
     const listeNom = ['R', 'x', 'y', 'T', 'z', 'U', 'A', 'B', 'C']
     const Nom = choice(listeNom)
+
+    if (context.isAmc) this.versionQcm = false
     if (choice([true, false])) {
       this.reponse = this.versionQcm
         ? `$${Nom}=${new FractionEtendue(a * c + b, c).inverse().texFraction}$`
@@ -56,12 +59,15 @@ export default class NombreInverse extends ExerciceSimple {
    L'inverse de $${Nom}$ vaut  $${d.texFraction}$, donc $${Nom}=${miseEnEvidence(`${d.inverse().texFraction}`)}$.`
       this.canEnonce = `$\\dfrac{1}{${Nom}}=${a}+${texFractionFromString(b, c)}$` // 'Compléter'
       this.canReponseACompleter = `$${Nom}=\\ldots$`
-      this.distracteurs = [
-        `$${Nom}=${new FractionEtendue(a * c + b, c).texFraction}$`,
-        `$${Nom}=${new FractionEtendue(a + b, c).texFractionSimplifiee}$`,
-        `$${Nom}=${new FractionEtendue(a + b, c).inverse().texFractionSimplifiee}$`,
-        `$${Nom}=${new FractionEtendue(a * b + c, b).inverse().texFractionSimplifiee}$`,
-      ]
+
+      if (this.versionQcm) {
+        this.distracteurs = [
+          `$${Nom}=${new FractionEtendue(a * c + b, c).texFraction}$`,
+          `$${Nom}=${new FractionEtendue(a + b, c).texFractionSimplifiee}$`,
+          `$${Nom}=${new FractionEtendue(a + b, c).inverse().texFractionSimplifiee}$`,
+          `$${Nom}=${new FractionEtendue(a * b + c, b).inverse().texFractionSimplifiee}$`,
+        ]
+      }
     } else {
       this.reponse = this.versionQcm
         ? `$${Nom}=${new FractionEtendue(a * c - b, c).inverse().texFraction}$`
@@ -75,12 +81,15 @@ export default class NombreInverse extends ExerciceSimple {
       this.canEnonce = `$\\dfrac{1}{${Nom}}=${a}-${texFractionFromString(b, c)}$` // 'Compléter'
       this.canReponseACompleter = `$${Nom}=\\ldots$`
       this.optionsChampTexte = { texteAvant: `<br>$${Nom}=$` }
-      this.distracteurs = [
-        `$${Nom}=${new FractionEtendue(a * c - b, c).texFraction}$`,
-        `$${Nom}=${new FractionEtendue(a - b, c).texFractionSimplifiee}$`,
-        `${a - b === 0 ? `$${Nom}=${new FractionEtendue(a + b, c).inverse().texFractionSimplifiee}$` : `$${Nom}=${new FractionEtendue(a - b, c).inverse().texFractionSimplifiee}$`}`,
-        `$${Nom}=${new FractionEtendue(a * b + c, b).inverse().texFractionSimplifiee}$`,
-      ]
+
+      if (this.versionQcm) {
+        this.distracteurs = [
+          `$${Nom}=${new FractionEtendue(a * c - b, c).texFraction}$`,
+          `$${Nom}=${new FractionEtendue(a - b, c).texFractionSimplifiee}$`,
+          `${a - b === 0 ? `$${Nom}=${new FractionEtendue(a + b, c).inverse().texFractionSimplifiee}$` : `$${Nom}=${new FractionEtendue(a - b, c).inverse().texFractionSimplifiee}$`}`,
+          `$${Nom}=${new FractionEtendue(a * b + c, b).inverse().texFractionSimplifiee}$`,
+        ]
+      }
     }
   }
 }

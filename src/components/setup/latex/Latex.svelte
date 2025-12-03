@@ -18,10 +18,10 @@
   } from '../../../lib/LatexTypes'
   import {
     mathaleaGetExercicesFromParams,
-    mathaleaGoToView,
     mathaleaRenderDiv,
     mathaleaUpdateUrlFromExercicesParams,
   } from '../../../lib/mathalea.js'
+  import { mathaleaGoToView } from '../../../lib/mathaleaUtils'
   import { darkMode, exercicesParams } from '../../../lib/stores/generalStore'
   import { referentielLocale } from '../../../lib/stores/languagesStore'
   import Footer from '../../Footer.svelte'

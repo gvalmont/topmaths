@@ -27,15 +27,19 @@ export default class VolumePaveSimple extends ExerciceSimple {
     super()
     this.typeExercice = 'simple'
     this.nbQuestions = 1
+    this.optionsChampTexte = {
+      texteAvant: '$V= $',
+      texteApres: '$\\text{ cm}^3$',
+    }
     this.sup = 1
   }
 
   nouvelleVersion() {
-    const l = randint(2, 5)
-    const L = randint(2, 4)
-    const h = randint(2, 6, [l, L])
+    const l = randint(2, 3)
+    const L = randint(3, 5)
+    const h = randint(2, 7, [l, L])
     const pav = pave(L, l, h)
-    this.question = `L'unité de longueur est le centimètre. Quel est le volume du pavé droit ci-dessous ?<br>
+    this.question = `Quel est le volume du pavé droit ci-dessous ?<br>
   ${mathalea2d(Object.assign({ scale: 0.8 }, fixeBordures([pav])), pav)}`
     this.reponse = L * l * h
     this.correction = `Le volume de ce pavé droit est : $${L}$ $\\text{cm}\\times ${l}$ $\\text{cm}\\times ${h}$ $\\text{cm}=${miseEnEvidence(this.reponse)}$ $\\text{cm}^3$.`

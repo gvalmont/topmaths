@@ -7,12 +7,7 @@ import { cordelette } from '../../lib/2d/Cordelette'
 import { droite } from '../../lib/2d/droites'
 import { fixeBordures } from '../../lib/2d/fixeBordures'
 import { placeLatexSurSegment } from '../../lib/2d/placeLatexSurSegment'
-import {
-  Point,
-  point,
-  PointAbstrait,
-  pointAbstrait,
-} from '../../lib/2d/PointAbstrait'
+import { PointAbstrait, pointAbstrait } from '../../lib/2d/PointAbstrait'
 import { polygone } from '../../lib/2d/polygones'
 import { segment } from '../../lib/2d/segmentsVecteurs'
 import { labelPoint, texteParPosition } from '../../lib/2d/textes'
@@ -90,10 +85,10 @@ export default class ProblemeDeLaChevreDansSonEnclos extends Exercice {
       const objetsCorrection = []
       let texte = ''
       let texteCorr = ''
-      const A = point(0, 0)
-      const B = point(longueurEnclos, 0)
-      const C = point(longueurEnclos, largeurEnclos)
-      const D = point(0, largeurEnclos)
+      const A = pointAbstrait(0, 0)
+      const B = pointAbstrait(longueurEnclos, 0)
+      const C = pointAbstrait(longueurEnclos, largeurEnclos)
+      const D = pointAbstrait(0, largeurEnclos)
       // Les bords de l'enclos pour les intersections
       const AB = droite(A, B)
       const BC = droite(B, C)
@@ -112,14 +107,14 @@ export default class ProblemeDeLaChevreDansSonEnclos extends Exercice {
         /*********************************/
         case 2:
           {
-            cabA = point(
+            cabA = pointAbstrait(
               longueurEnclos,
               randint(3, largeurEnclos - largeurCabane - 1),
             )
-            cabB = point(longueurEnclos, cabA.y + largeurCabane)
-            cabD = point(cabA.x - longueurCabane, cabA.y)
-            cabC = point(cabD.x, cabB.y)
-            P = point(cabA.x - offsetPointP, cabA.y, 'P', 'above')
+            cabB = pointAbstrait(longueurEnclos, cabA.y + largeurCabane)
+            cabD = pointAbstrait(cabA.x - longueurCabane, cabA.y)
+            cabC = pointAbstrait(cabD.x, cabB.y)
+            P = pointAbstrait(cabA.x - offsetPointP, cabA.y, 'P', 'above')
             // longueur additionnelle énoncé
             const hSousCabane = afficheCoteSegment(
               segment(cabA, B),
@@ -133,7 +128,7 @@ export default class ProblemeDeLaChevreDansSonEnclos extends Exercice {
             )
             objetsEnonce.push(hSousCabane)
             // On s'occupe d'abord de ce qu'il y a sous la cabane
-            let I: Point
+            let I: PointAbstrait
             const J = homothetie(
               P,
               cabA,
@@ -491,7 +486,7 @@ export default class ProblemeDeLaChevreDansSonEnclos extends Exercice {
           // cabane au centre
           /*********************************/
           {
-            cabA = point(
+            cabA = pointAbstrait(
               randint(
                 Math.ceil(longueurEnclos / 3) + longueurCabane,
                 longueurEnclos - 2,
@@ -504,10 +499,10 @@ export default class ProblemeDeLaChevreDansSonEnclos extends Exercice {
                 ),
               ),
             )
-            cabB = point(cabA.x, cabA.y + largeurCabane)
-            cabD = point(cabA.x - longueurCabane, cabA.y)
-            cabC = point(cabD.x, cabB.y)
-            P = point(cabA.x - offsetPointP, cabA.y, 'P', 'above')
+            cabB = pointAbstrait(cabA.x, cabA.y + largeurCabane)
+            cabD = pointAbstrait(cabA.x - longueurCabane, cabA.y)
+            cabC = pointAbstrait(cabD.x, cabB.y)
+            P = pointAbstrait(cabA.x - offsetPointP, cabA.y, 'P', 'above')
             const hSousCabane = afficheCoteSegment(
               segment(cabA, pointAbstrait(cabA.x, 0)),
               `${cabA.y}\\,\\text{m}`,
@@ -544,10 +539,10 @@ export default class ProblemeDeLaChevreDansSonEnclos extends Exercice {
             const isTouchCDByRight =
               cabA.y + longueurRestanteDroite > largeurEnclos
             // On commence par le dessous de la cabane
-            let M: Point
-            let N: Point
-            let I: Point
-            let J: Point
+            let M: PointAbstrait
+            let N: PointAbstrait
+            let I: PointAbstrait
+            let J: PointAbstrait
             const c1 = cercle(P, longueurCordelette)
             if (isTouchAB) {
               // On commence par ajouter le triangle bas
@@ -582,7 +577,7 @@ export default class ProblemeDeLaChevreDansSonEnclos extends Exercice {
               )
               objetsCorrection.push(t1, r1, r2)
               // arc gauche
-              const X = point(0, cabA.y)
+              const X = pointAbstrait(0, cabA.y)
               if (P.x - longueurCordelette < 0 && M.x > 0) {
                 // contact à gauche
                 J = pointIntersectionLC(DA, c1, '', 2)
@@ -626,7 +621,7 @@ export default class ProblemeDeLaChevreDansSonEnclos extends Exercice {
                 // il y a contact avec la droite
                 I = pointIntersectionLC(BC, c1, '', 2)
               } else {
-                I = point(
+                I = pointAbstrait(
                   Math.min(longueurEnclos, P.x + longueurCordelette),
                   cabA.y,
                 )
@@ -643,18 +638,18 @@ export default class ProblemeDeLaChevreDansSonEnclos extends Exercice {
               objetsCorrection.push(a1, a2)
             } else {
               // On ne touche pas le fond, on dessine un arc
-              const X = point(P.x, P.y - longueurCordelette)
+              const X = pointAbstrait(P.x, P.y - longueurCordelette)
               if (P.x + longueurCordelette >= longueurEnclos) {
                 // il y a contact avec la droite
                 I = pointIntersectionLC(BC, c1, '', 2)
               } else {
-                I = point(P.x + longueurCordelette, cabA.y)
+                I = pointAbstrait(P.x + longueurCordelette, cabA.y)
               }
               if (P.x - longueurCordelette < 0) {
                 // il y a contact avec la gauche
                 J = pointIntersectionLC(DA, c1, '', 2)
               } else {
-                J = point(P.x - longueurCordelette, cabA.y)
+                J = pointAbstrait(P.x - longueurCordelette, cabA.y)
               }
               const r1 = afficheCoteSegment(
                 segment(P, X),
@@ -703,7 +698,7 @@ export default class ProblemeDeLaChevreDansSonEnclos extends Exercice {
             }
             if (I.y < cabA.y) {
               // on a dessiné un arc jusqu'au bord droit mais il reste un triangle à faire
-              const t2 = polygone(I, P, point(longueurEnclos, cabA.y))
+              const t2 = polygone(I, P, pointAbstrait(longueurEnclos, cabA.y))
               t2.couleurDeRemplissage = colorToLatexOrHTML('pink')
               t2.opaciteDeRemplissage = 0.4
               t2.couleurDesHachures = colorToLatexOrHTML('black')
@@ -715,14 +710,17 @@ export default class ProblemeDeLaChevreDansSonEnclos extends Exercice {
             // On s'occupe de la partie à droite de la cabane
             const c2 = cercle(cabA, longueurRestanteDroite)
             const SDroit = pointIntersectionLC(droite(cabA, cabB), c2, '', 1)
-            let TDroit: Point
+            let TDroit: PointAbstrait
             let a2: Arc
 
             if (!isTouchCDByRight) {
               // On ne touche pas le haut, on peut tracer un arc jusqu'à la veticale du bord droit de la cabane
               TDroit = cabB // C'est juste pour éviter de faire des tests de nullité, il ne sera pas utilisé si on ne touche pas le haut
               if (P.x + longueurCordelette <= longueurEnclos) {
-                const extremiteDroite = point(P.x + longueurCordelette, cabA.y)
+                const extremiteDroite = pointAbstrait(
+                  P.x + longueurCordelette,
+                  cabA.y,
+                )
                 a2 = arc(
                   extremiteDroite,
                   cabA,
@@ -735,7 +733,11 @@ export default class ProblemeDeLaChevreDansSonEnclos extends Exercice {
               } else {
                 let T = pointIntersectionLC(BC, c2, '', 1)
                 if (T.y > largeurEnclos) T = C // ça ne devrait pas arriver vu qu'on n'est pas censé toucher le bord haut
-                const t2 = polygone(point(longueurEnclos, cabA.y), cabA, T)
+                const t2 = polygone(
+                  pointAbstrait(longueurEnclos, cabA.y),
+                  cabA,
+                  T,
+                )
                 t2.couleurDeRemplissage = colorToLatexOrHTML('pink')
                 t2.opaciteDeRemplissage = 0.3
                 t2.couleurDesHachures = colorToLatexOrHTML('black')
@@ -800,7 +802,7 @@ export default class ProblemeDeLaChevreDansSonEnclos extends Exercice {
             } else {
               // Là on va toucher en haut on doit donc s'arrêter avant de depasser le bord haut de l'enclos
               const U = pointIntersectionLC(CD, c2, '', 2)
-              TDroit = point(cabA.x, largeurEnclos)
+              TDroit = pointAbstrait(cabA.x, largeurEnclos)
               const r1 = afficheCoteSegment(
                 segment(cabA, pointAbstrait(longueurEnclos, cabA.y)),
                 `${longueurEnclos - cabA.x}\\,\\text{m}`,
@@ -815,7 +817,7 @@ export default class ProblemeDeLaChevreDansSonEnclos extends Exercice {
                 // le contact a lieu à droite de l'enclos on doit donc tracer un trapèze
                 const t3 = polygone(
                   cabA,
-                  point(longueurEnclos, cabA.y),
+                  pointAbstrait(longueurEnclos, cabA.y),
                   C,
                   TDroit,
                 )
@@ -830,7 +832,11 @@ export default class ProblemeDeLaChevreDansSonEnclos extends Exercice {
                 if (P.x + longueurCordelette > longueurEnclos) {
                   let T = pointIntersectionLC(BC, c2, '', 1)
                   if (T.y > largeurEnclos) T = C // ça ne devrait pas arriver
-                  const t3 = polygone(cabA, point(longueurEnclos, cabA.y), T)
+                  const t3 = polygone(
+                    cabA,
+                    pointAbstrait(longueurEnclos, cabA.y),
+                    T,
+                  )
                   const t4 = polygone(cabA, U, TDroit)
                   a2 = arc(
                     T,
@@ -857,13 +863,16 @@ export default class ProblemeDeLaChevreDansSonEnclos extends Exercice {
             // On s'occupe de la partie à gauche de la cabane
             const c3 = cercle(cabD, longueurRestanteGauche)
             const SGauche = pointIntersectionLC(droite(cabC, cabD), c3, '', 1)
-            let TGauche: Point
+            let TGauche: PointAbstrait
             let a3: Arc
             if (!isTouchCDByLeft) {
               // On ne touche pas le haut, on peut tracer un arc jusqu'à la veticale du bord gauche de la cabane
               TGauche = cabD // C'est juste pour éviter de faire des tests de nullité, il ne sera pas utilisé si on ne touche pas le haut
               if (P.x - longueurCordelette >= 0) {
-                const extremiteGauche = point(P.x - longueurCordelette, cabA.y)
+                const extremiteGauche = pointAbstrait(
+                  P.x - longueurCordelette,
+                  cabA.y,
+                )
                 a3 = arc(
                   extremiteGauche,
                   cabD,
@@ -910,7 +919,7 @@ export default class ProblemeDeLaChevreDansSonEnclos extends Exercice {
                   true,
                 )
                 if (T.y > largeurEnclos) T = D // ça ne devrait pas arriver vu qu'on n'est pas censé toucher le bord haut
-                const t2 = polygone(point(0, cabA.y), cabD, T)
+                const t2 = polygone(pointAbstrait(0, cabA.y), cabD, T)
                 t2.couleurDeRemplissage = colorToLatexOrHTML('pink')
                 t2.opaciteDeRemplissage = 0.3
                 t2.couleurDesHachures = colorToLatexOrHTML('black')
@@ -935,7 +944,7 @@ export default class ProblemeDeLaChevreDansSonEnclos extends Exercice {
             } else {
               // Là on va toucher en haut on doit donc s'arrêter avant de depasser le bord haut de l'enclos
               const U = pointIntersectionLC(CD, c3, '', 1)
-              TGauche = point(cabD.x, largeurEnclos)
+              TGauche = pointAbstrait(cabD.x, largeurEnclos)
               const r2 = afficheCoteSegment(
                 segment(TGauche, cabC),
                 `${largeurEnclos - cabC.y}\\,\\text{m}`,
@@ -951,9 +960,9 @@ export default class ProblemeDeLaChevreDansSonEnclos extends Exercice {
                 // le contact a lieu à gauche de l'enclos on doit donc tracer un trapèze
                 const t3 = polygone(
                   cabD,
-                  point(0, cabA.y),
+                  pointAbstrait(0, cabA.y),
                   D,
-                  point(cabD.x, largeurEnclos),
+                  pointAbstrait(cabD.x, largeurEnclos),
                 )
                 t3.couleurDeRemplissage = colorToLatexOrHTML('pink')
                 t3.opaciteDeRemplissage = 0.3
@@ -963,13 +972,13 @@ export default class ProblemeDeLaChevreDansSonEnclos extends Exercice {
                 objetsCorrection.push(t3)
               } else {
                 // contact haut avec le coin inaccessible : on cherche on trace un arc entre 2 triangles
-                let T: Point
+                let T: PointAbstrait
                 if (P.x - longueurCordelette <= 0) {
                   // On touche à gauche
                   T = pointIntersectionLC(DA, c3, '', 1)
                   if (T.y > largeurEnclos) T = D // ça ne devrait pas arriver vu qu'on n'est pas censé toucher le bord haut
                   if (T.y > cabD.y) {
-                    const t3 = polygone(cabD, point(0, cabA.y), T)
+                    const t3 = polygone(cabD, pointAbstrait(0, cabA.y), T)
                     t3.couleurDeRemplissage = colorToLatexOrHTML('pink')
                     t3.opaciteDeRemplissage = 0.3
                     t3.couleurDesHachures = colorToLatexOrHTML('black')
@@ -979,7 +988,7 @@ export default class ProblemeDeLaChevreDansSonEnclos extends Exercice {
                   }
                 } else {
                   // On ne touche pas à gauche}
-                  T = point(cabD.x - longueurRestanteGauche, cabD.y)
+                  T = pointAbstrait(cabD.x - longueurRestanteGauche, cabD.y)
                 }
                 const t4 = polygone(cabD, U, TGauche)
                 const r2 = afficheCoteSegment(
@@ -1016,28 +1025,34 @@ export default class ProblemeDeLaChevreDansSonEnclos extends Exercice {
             if (
               longueurRestanteHautDroite <= 0 &&
               longueurRestanteHautGauche <= 0
-            )
+            ) {
               break // Il n'y a pas de cordelette au dessus de la cabane
+            }
+            let VGauche: PointAbstrait | undefined
+            let VDroite: PointAbstrait | undefined
+
             const c5 = cercle(cabB, Math.max(longueurRestanteHautDroite, 0))
             const c6 = cercle(cabC, Math.max(longueurRestanteHautGauche, 0))
-            const contact = pointIntersectionCC(c5, c6, '', 1)
+            if (
+              longueurRestanteHautDroite + longueurRestanteHautGauche >=
+              cabB.x - cabC.x
+            ) {
+              // Il y a contact entre les deux arcs
 
-            let VGauche: Point | undefined
-            let VDroite: Point | undefined
-            if (isTouchCDByRight) {
-              VDroite = pointIntersectionLC(CD, c5, '', 1)
-            } else {
-              VDroite = SDroit
-            }
-            if (isTouchCDByLeft) {
-              VGauche = pointIntersectionLC(CD, c6, '', 2)
-            } else {
-              VGauche = SGauche
-            }
+              const contact = pointIntersectionCC(c5, c6, '', 1)
+              if (isTouchCDByRight) {
+                VDroite = pointIntersectionLC(CD, c5, '', 1)
+              } else {
+                VDroite = SDroit
+              }
+              if (isTouchCDByLeft) {
+                VGauche = pointIntersectionLC(CD, c6, '', 2)
+              } else {
+                VGauche = SGauche
+              }
 
-            if (contact && contact.y < largeurEnclos) {
-              if (contact.y >= cabB.y) {
-                // Point de contact en dessous du bord haut de l'enclos et au dessus de la cabane
+              if (contact && contact.y < largeurEnclos) {
+                // PointAbstrait de contact en dessous du bord haut de l'enclos et au dessus de la cabane
                 if (TDroit.y === largeurEnclos && TDroit.x !== VDroite.x) {
                   const t6 = polygone(cabB, TDroit, VDroite)
                   t6.couleurDeRemplissage = colorToLatexOrHTML('pink')
@@ -1090,16 +1105,30 @@ export default class ProblemeDeLaChevreDansSonEnclos extends Exercice {
                 a5.hachures = 'north east lines'
                 a5.opacite = 0.3
                 objetsCorrection.push(a5, a4)
+              } else if (contact && contact.y >= largeurEnclos) {
+                // On trace un rectangle car les deux arcs se croisent au dessus de l'enclos
+                const t8 = polygone(
+                  cabB,
+                  pointAbstrait(cabB.x, largeurEnclos),
+                  pointAbstrait(cabC.x, largeurEnclos),
+                  cabC,
+                )
+                t8.couleurDeRemplissage = colorToLatexOrHTML('pink')
+                t8.opaciteDeRemplissage = 0.2
+                t8.couleurDesHachures = colorToLatexOrHTML('black')
+                t8.hachures = 'north east lines'
+                t8.opacite = 0.2
+                objetsCorrection.push(t8)
               }
-            } else if (!contact) {
+            } else {
               // la cordelette ne permet pas de faire se toucher les deux arcs
-              if (
-                longueurRestanteHautDroite <= 0 &&
-                longueurRestanteHautGauche <= 0
-              )
-                break // Il n'y a pas de cordelette au dessus de la cabane
               // on trace séparément les deux arcs, parce qu'ils peuvent potentiellement ne pas exister
               if (longueurRestanteHautDroite > 0) {
+                if (isTouchCDByRight) {
+                  VDroite = pointIntersectionLC(CD, c5, '', 1)
+                } else {
+                  VDroite = SDroit
+                }
                 const finDroite = pointIntersectionLC(
                   droite(cabB, cabC),
                   c5,
@@ -1118,7 +1147,11 @@ export default class ProblemeDeLaChevreDansSonEnclos extends Exercice {
                 a4.couleurDesHachures = colorToLatexOrHTML('black')
                 a4.hachures = 'north east lines'
                 a4.opacite = 0.2
-                const a6 = polygone(cabB, VDroite, point(cabB.x, largeurEnclos))
+                const a6 = polygone(
+                  cabB,
+                  VDroite,
+                  pointAbstrait(cabB.x, largeurEnclos),
+                )
                 a6.couleurDeRemplissage = colorToLatexOrHTML('pink')
                 a6.opaciteDeRemplissage = 0.3
                 a6.couleurDesHachures = colorToLatexOrHTML('black')
@@ -1127,6 +1160,11 @@ export default class ProblemeDeLaChevreDansSonEnclos extends Exercice {
                 objetsCorrection.push(a4, a6)
               }
               if (longueurRestanteHautGauche > 0) {
+                if (isTouchCDByLeft) {
+                  VGauche = pointIntersectionLC(CD, c6, '', 2)
+                } else {
+                  VGauche = SGauche
+                }
                 const finGauche = pointIntersectionLC(
                   droite(cabB, cabC),
                   c6,
@@ -1145,7 +1183,11 @@ export default class ProblemeDeLaChevreDansSonEnclos extends Exercice {
                 a5.couleurDesHachures = colorToLatexOrHTML('black')
                 a5.hachures = 'north east lines'
                 a5.opacite = 0.2
-                const a7 = polygone(cabC, VGauche, point(cabC.x, largeurEnclos))
+                const a7 = polygone(
+                  cabC,
+                  VGauche,
+                  pointAbstrait(cabC.x, largeurEnclos),
+                )
                 a7.couleurDeRemplissage = colorToLatexOrHTML('pink')
                 a7.opaciteDeRemplissage = 0.3
                 a7.couleurDesHachures = colorToLatexOrHTML('black')
@@ -1153,20 +1195,6 @@ export default class ProblemeDeLaChevreDansSonEnclos extends Exercice {
                 a7.opacite = 0.3
                 objetsCorrection.push(a5, a7)
               }
-            } else {
-              // On trace un rectangle car les deux arcs se croisent au dessus de l'enclos
-              const t8 = polygone(
-                cabB,
-                pointAbstrait(cabB.x, largeurEnclos),
-                pointAbstrait(cabC.x, largeurEnclos),
-                cabC,
-              )
-              t8.couleurDeRemplissage = colorToLatexOrHTML('pink')
-              t8.opaciteDeRemplissage = 0.2
-              t8.couleurDesHachures = colorToLatexOrHTML('black')
-              t8.hachures = 'north east lines'
-              t8.opacite = 0.2
-              objetsCorrection.push(t8)
             }
           }
           break
@@ -1177,14 +1205,14 @@ export default class ProblemeDeLaChevreDansSonEnclos extends Exercice {
           /*********************************/
           {
             // éléments communs énoncé et correction
-            cabA = point(longueurEnclos, largeurEnclos - largeurCabane)
+            cabA = pointAbstrait(longueurEnclos, largeurEnclos - largeurCabane)
             cabB = C
-            cabC = point(longueurEnclos - longueurCabane, largeurEnclos)
-            cabD = point(
+            cabC = pointAbstrait(longueurEnclos - longueurCabane, largeurEnclos)
+            cabD = pointAbstrait(
               longueurEnclos - longueurCabane,
               largeurEnclos - largeurCabane,
             )
-            P = point(
+            P = pointAbstrait(
               longueurEnclos - offsetPointP,
               largeurEnclos - largeurCabane,
               'P',

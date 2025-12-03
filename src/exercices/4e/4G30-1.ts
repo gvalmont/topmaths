@@ -6,7 +6,7 @@ export const dateDePublication = '05/01/2023'
 export const dateDeModifImportante = '08/11/2025'
 export const uuid = 'ff410'
 export const refs = {
-  'fr-fr': ['4G30-1', 'BP2AutoR10', 'BP2G11'],
+  'fr-fr': ['4G30-1', 'BP2AutoR10', 'BP2G11', '3AutoG12-1'],
   'fr-ch': ['11GM3-2'],
 }
 export default class RelationDeThales4e extends RelationDeThales {

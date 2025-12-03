@@ -7,7 +7,7 @@ export const titre = 'Calculs simples avec des fractions'
 export const uuid = '64422'
 
 export const refs = {
-  'fr-fr': ['BP2AutoH24', '6N3K'],
+  'fr-fr': ['6N3K', 'BP2AutoH24'],
   'fr-2016': ['6C23', 'BP2AutoH24'],
   'fr-ch': ['NR'],
 }

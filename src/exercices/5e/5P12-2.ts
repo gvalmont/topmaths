@@ -8,13 +8,15 @@ import { point } from '../../lib/2d/PointAbstrait'
 import { polygone } from '../../lib/2d/polygones'
 import { texteParPosition } from '../../lib/2d/textes'
 import { ajouteQuestionMathlive } from '../../lib/interactif/questionMathLive'
-import { shuffle } from '../../lib/outils/arrayOutils'
+import { enleveDoublonNum, shuffle } from '../../lib/outils/arrayOutils'
 import { mathalea2d } from '../../modules/mathalea2d'
 import type { NestedObjetMathalea2dArray } from '../../types/2d'
 import Exercice from '../Exercice'
 // import type { VisualPattern } from '../../lib/2d/patterns/VisualPattern'
 import { VisualPattern } from '../../lib/2d/patterns/VisualPattern'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
+import { range1 } from '../../lib/outils/nombres'
+import { gestionnaireFormulaireTexte } from '../../modules/outils'
 
 export const titre = "Trouver le ratio d'évolution d'un motif numérique"
 export const interactifReady = true
@@ -42,28 +44,58 @@ export default class PaternNum1 extends Exercice {
     this.nbQuestions = 3
     this.comment =
       "Cet exercice contient des patterns issus de l'excellent site : https://www.visualpatterns.org/"
+    this.comment += `<br>
+Grâce au dernier paramètre, on peut imposer des patterns choisis dans cette <a href="https://coopmaths.fr/alea/?uuid=71ff5&s=5" target="_blank" style="color: blue">liste de patterns</a>.<br>
+Si le nombre de questions est supérieur au nombre de patterns choisis, alors l'exercice sera complété par des patterns choisis au hasard.`
     this.besoinFormulaireNumerique = ['Nombre de figures par question', 4]
     this.sup = 3
+    const nbDePattern = listePatternRatio.length
+    this.besoinFormulaire2Texte = [
+      'Numéros des pattern désirés :',
+      [
+        'Nombres séparés par des tirets  :',
+        `Mettre des nombres entre 1 et ${nbDePattern}.`,
+        `Mettre ${nbDePattern + 1} pour laisser le hasard faire.`,
+      ].join('\n'),
+    ]
+
+    this.sup2 = `${nbDePattern + 1}`
   }
 
   nouvelleVersion(): void {
-    const listePat: PatternRiche[] = shuffle(
+    /*const listePat: PatternRiche[] = shuffle(
       listePatternRatio,
     ) as PatternRiche[]
-    const nbFigures = Math.max(2, this.sup)
+    */ const nbFigures = Math.max(2, this.sup)
+
+    const nbDePattern = listePatternRatio.length
+    let typesPattern = gestionnaireFormulaireTexte({
+      saisie: this.sup2,
+      max: nbDePattern,
+      defaut: nbDePattern + 1,
+      melange: nbDePattern + 1,
+      nbQuestions: this.nbQuestions,
+    }).map(Number)
+
+    typesPattern = [...typesPattern, ...shuffle(range1(nbDePattern))]
+    typesPattern = enleveDoublonNum(typesPattern)
+    typesPattern = typesPattern.reverse()
+
+    const listePreDef = typesPattern.map((i) => listePatternRatio[i - 1])
+
     for (
       let i = 0;
       i < Math.min(this.nbQuestions, listePatternRatio.length);
 
     ) {
       const objetsCorr: NestedObjetMathalea2dArray = []
-      const popped = listePat.pop()
+      const popped = listePreDef.pop()
       if (!popped) {
         continue
       }
       const pat = popped
       const pattern = new VisualPattern([])
-      pattern.iterate = pat.iterate
+      pattern.iterate = (pat as PatternRiche).iterate
       pattern.shapes = pat.shapes
 
       //  patterns.push(pattern)
@@ -144,7 +176,7 @@ export default class PaternNum1 extends Exercice {
         )
         .join('\n')
       let texteCorr = ''
-      texte += `<br>Donner le ratio "${pat.texRatio}" dans le motif au rang $${nbFigures + 1}$ ?<br>${ajouteQuestionMathlive(
+      texte += `<br>Donner le ratio "${(pat as PatternRiche).texRatio}" dans le motif au rang $${nbFigures + 1}$ ?<br>${ajouteQuestionMathlive(
         {
           exercice: this,
           question: i,
@@ -158,7 +190,7 @@ export default class PaternNum1 extends Exercice {
         )
       }
       const ratio = pat.fonctionRatio(nbFigures + 1)
-      texteCorr += `Au rang $${nbFigures + 1}$ le ratio "${pat.texRatio}" sera $${miseEnEvidence(ratio.toLatex())}$.<br>`
+      texteCorr += `Au rang $${nbFigures + 1}$, le ratio "${(pat as PatternRiche).texRatio}" sera $${miseEnEvidence(ratio.toLatex())}$.<br>`
       this.listeQuestions.push(texte)
       this.listeCorrections.push(texteCorr)
       i++

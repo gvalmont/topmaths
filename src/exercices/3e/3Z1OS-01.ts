@@ -1,4 +1,4 @@
-import { courbe } from '../../lib/2d/courbes'
+import { courbe } from '../../lib/2d/Courbe'
 import { fixeBordures } from '../../lib/2d/fixeBordures'
 import RepereBuilder from '../../lib/2d/RepereBuilder'
 import { tableauColonneLigne } from '../../lib/2d/tableau'

@@ -1,7 +1,19 @@
 import { colorToLatexOrHTML } from './colorToLatexOrHtml'
-import { xSVG, ySVG } from './courbes'
 import { ObjetMathalea2D } from './ObjetMathalea2D'
-
+/**
+ * Une fonction pour convertir des abscisses en unité Mathalé en abscisses svg
+ * @param x
+ * @param coeff
+ * @return {number}
+ */
+const xSVG = (x: number, coeff: number) => Number((x * coeff).toFixed(1))
+/**
+ * Une fonction pour convertir des ordonnées en unité Mathalé en ordonnées svg
+ * @param y
+ * @param coeff
+ * @return {number}
+ */
+const ySVG = (y: number, coeff: number) => Number((-y * coeff).toFixed(1))
 export class BezierPath extends ObjetMathalea2D {
   xStart: number
   yStart: number

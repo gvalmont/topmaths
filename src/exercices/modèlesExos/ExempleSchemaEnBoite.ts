@@ -9,6 +9,10 @@ import Exercice from '../Exercice'
 
 export const titre = 'Schemas en boite'
 export const uuid = 'sebseb'
+export const refs = {
+  'fr-fr': [],
+  'fr-ch': [],
+}
 
 export default class BetaSchemaEnBoite extends Exercice {
   constructor() {
@@ -310,8 +314,8 @@ Quelle est la plus grande longueur qu’elle peut choisir pour que toutes les in
             seb = new SchemaEnBoite({
               topBraces: [
                 {
-                  text: `${texNombre(nb2, 0)} cm`,
-                  type: 'flèche',
+                  text: `${texNombre(nb2, 0)}\\text{ cm}`,
+                  type: 'accolade',
                   options: { color: 'magenta' },
                   start: 1,
                   end: 1 + nb1 * 2,

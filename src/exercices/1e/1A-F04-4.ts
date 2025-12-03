@@ -3,7 +3,7 @@ import { latex2d } from '../../lib/2d/textes'
 import { choice } from '../../lib/outils/arrayOutils'
 import { texteEnCouleurEtGras } from '../../lib/outils/embellissements'
 
-import { courbe } from '../../lib/2d/courbes'
+import { courbe } from '../../lib/2d/Courbe'
 import { deuxColonnes } from '../../lib/format/miseEnPage'
 import { mathalea2d } from '../../modules/mathalea2d'
 import { randint } from '../../modules/outils'

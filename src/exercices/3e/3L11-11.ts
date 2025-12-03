@@ -55,8 +55,6 @@ export default class NomExercice extends Exercice {
       '1\n2\n3\n4\n5',
     ]
     this.besoinFormulaire5Numerique = ['Nombre de termes', 5, '2\n3\n4\n5\n6']
-    // this.besoinFormulaireCaseACocher = ['Type de coefficients', 3, 'Entiers\nFractionnaires\nMélange']
-    // this.besoinFormulaire5Numerique = ['Nombre de termes', 5, '1\n2\n3\n4\n5']
     this.sup = 1
     this.sup2 = 3
     this.sup3 = 3

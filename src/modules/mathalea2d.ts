@@ -163,6 +163,8 @@ export function mathalea2d(
     skipRepere = false,
     axisYMin?: number,
     axisYMax?: number,
+    axisXMin?: number,
+    axisXMax?: number,
   ) => {
     let codeTikz = ''
     // Skip Repere objects when using pgfplots (pgfplots handles axis/grid)
@@ -177,9 +179,7 @@ export function mathalea2d(
     // Don't expand Courbe objects when using pgfplots (they handle their own tikz output)
     // Check BEFORE expanding objets.objets
     const shouldNotExpand =
-      objets instanceof ObjetMathalea2D &&
-      objets.constructor.name === 'Courbe' &&
-      (objets as any).usePgfplots === true
+      objets instanceof ObjetMathalea2D && (objets as any).usePgfplots === true
     if (objets instanceof ObjetMathalea2D) {
       if (objets.objets != null && !shouldNotExpand) {
         objets = objets.objets as ObjetMathalea2D[]
@@ -192,11 +192,11 @@ export function mathalea2d(
           if (!mainlevee || typeof objets.tikzml === 'undefined') {
             if (typeof objets.tikz === 'function') {
               // Pass axis bounds to Courbe's tikz method
-              if (
-                objets.constructor.name === 'Courbe' &&
-                (objets as any).usePgfplots === true
-              ) {
-                codeTikz = '\t' + objets.tikz(axisYMin, axisYMax) + '\n'
+              if ((objets as any).usePgfplots === true) {
+                codeTikz =
+                  '\t' +
+                  objets.tikz(axisYMin, axisYMax, axisXMin, axisXMax) +
+                  '\n'
               } else {
                 codeTikz = '\t' + objets.tikz() + '\n'
               }
@@ -219,6 +219,8 @@ export function mathalea2d(
           skipRepere,
           axisYMin,
           axisYMax,
+          axisXMin,
+          axisXMax,
         )
       }
     }
@@ -271,6 +273,7 @@ export function mathalea2d(
     codeTikz += `  ymin=${ymin}, ymax=${ymax},\n`
     codeTikz += '  axis lines=middle,\n'
     codeTikz += '  axis line style={-Stealth},\n'
+    codeTikz += '  axis on top=false,\n'
     codeTikz += '  xlabel={},\n'
     codeTikz += '  ylabel={},\n'
     codeTikz += '  xtick distance=2,\n'
@@ -284,7 +287,15 @@ export function mathalea2d(
     codeTikz += '  clip=true,\n'
     codeTikz += ']\n'
     // code += codeTikz(...objets)
-    codeTikz += ajouteCodeTikz(mainlevee, objets, true, ymin, ymax) // Skip Repere when using pgfplots, pass axis bounds
+    codeTikz += ajouteCodeTikz(
+      mainlevee,
+      objets,
+      true,
+      ymin,
+      ymax,
+      xmin,
+      xmax,
+    ) // Skip Repere when using pgfplots, pass axis bounds
     codeTikz += '\\end{axis}\n'
     codeTikz += '\\end{tikzpicture}'
     if (centerLatex) codeTikz += '\\par}'

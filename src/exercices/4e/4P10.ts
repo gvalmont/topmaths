@@ -393,7 +393,7 @@ export default class ProblemesGrandeursComposees extends Exercice {
                 numAlpha(1) +
                 ` Si on le remplit ${liquides[index2][0]} (dont la ` +
                 ajouterAide(
-                  "La densité d'une substance est égale à la masse volumique de la substance divisée par la masse volumique du corps de référence à la même température.<br>Pour les liquides et les solides, l'eau est utilisée comme référence (sa masse volumique est de $1$\\text{ kg/dm}^3$), pour les gaz, la mesure s'effectue par rapport à l'air.<br>Donc pour les liquides, la densité est égale à la masse volumique exprimée en $\\text{kg/dm}^3$.",
+                  "La densité d'une substance est égale à la masse volumique de la substance divisée par la masse volumique du corps de référence à la même température.<br>Pour les liquides et les solides, l'eau est utilisée comme référence (sa masse volumique est de $1 \\text{ kg/dm}^3$), pour les gaz, la mesure s'effectue par rapport à l'air.<br>Donc pour les liquides, la densité est égale à la masse volumique exprimée en $\\text{kg/dm}^3$.",
                   {
                     texteAvant: 'densité',
                     titreAide: 'Définition : Densité (grandeur physique)',
@@ -1194,7 +1194,7 @@ export default class ProblemesGrandeursComposees extends Exercice {
             concentration2 = randint(11, solutes[index2][2] * 10) / 10
           } else concentration2 = randint(2, solutes[index2][2])
           texte =
-            "La concentration massique exprimée ici en $\\text{g/L}$ est la quantité de matière (masse) en $\\text{g} par unité de volume ($\\text{L}$).<br>On l'obtient donc en divisant la masse de produit dissous par le volume de la solution ($\\dfrac{m}{V}$).<br>" +
+            "La concentration massique exprimée ici en $\\text{g/L}$ est la quantité de matière (masse) en $\\text{g}$ par unité de volume ($\\text{L}$).<br>On l'obtient donc en divisant la masse de produit dissous par le volume de la solution ($\\dfrac{m}{V}$).<br>" +
             numAlpha(0) +
             ` On a dissous $${texNombre(masse, 1)}\\text{ g}$ de ${
               solutes[index1][0]

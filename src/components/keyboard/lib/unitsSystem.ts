@@ -1,49 +1,82 @@
-import type { Prefix, UnitCategory } from '../types/units'
+import type { UnitCategory } from '../types/units'
 
-export const prefixes = {
-  24: {
+/**
+ * Type pour les puissances de 10 utilisées comme clés dans prefixes
+ */
+type PrefixPower =
+  | '24'
+  | '21'
+  | '18'
+  | '15'
+  | '12'
+  | '9'
+  | '6'
+  | '3'
+  | '2'
+  | '1'
+  | '0'
+  | '-1'
+  | '-2'
+  | '-3'
+  | '-6'
+  | '-9'
+  | '-12'
+  | '-15'
+  | '-18'
+  | '-21'
+  | '-24'
+
+/**
+ * Interface pour un préfixe d'unité
+ */
+interface PrefixInfo {
+  symbol: string
+  name: string
+}
+
+export const prefixes: Record<PrefixPower, PrefixInfo> = {
+  '24': {
     symbol: 'Y',
     name: 'yotta',
   },
-  21: {
+  '21': {
     symbol: 'Z',
     name: 'zetta',
   },
-  18: {
+  '18': {
     symbol: 'E',
     name: 'exa',
   },
-  15: {
+  '15': {
     symbol: 'P',
     name: 'peta',
   },
-  12: {
+  '12': {
     symbol: 'T',
     name: 'tera',
   },
-  9: {
+  '9': {
     symbol: 'G',
     name: 'giga',
   },
-  6: {
+  '6': {
     symbol: 'M',
     name: 'méga',
   },
-  3: {
+  '3': {
     symbol: 'k',
     name: 'kilo',
   },
-  2: {
+  '2': {
     symbol: 'h',
     name: 'hecto',
   },
-  1: {
+  '1': {
     symbol: 'da',
     name: 'déca',
   },
-  0: {
+  '0': {
     symbol: '',
-
     name: '',
   },
   '-1': {
@@ -86,14 +119,23 @@ export const prefixes = {
     symbol: 'y',
     name: 'yocto',
   },
+} as const
+
+/**
+ * Interface pour une unité de base
+ */
+interface UnitInfo {
+  symbol: string
+  name: string
 }
 
-export const units = {
+export const units: Record<UnitCategory, UnitInfo> = {
   length: {
     symbol: 'm',
     name: 'mètre',
   },
-  content: {
+  volume: {
+    // changé de 'content' vers 'volume' pour correspondre au type UnitCategory
     symbol: 'L',
     name: 'litre',
   },
@@ -105,7 +147,8 @@ export const units = {
     symbol: 'W',
     name: 'watt',
   },
-  current: {
+  electric: {
+    // changé de 'current' vers 'electric' pour correspondre au type UnitCategory
     symbol: 'A',
     name: 'ampère',
   },
@@ -117,26 +160,39 @@ export const units = {
     symbol: 'J',
     name: 'joule',
   },
-  resistance: {
-    symbol: 'Ω',
-    name: 'ohm',
-  },
-  potential: {
-    symbol: 'V',
-    name: 'volt',
-  },
-  pressure: {
-    symbol: 'Pa',
-    name: 'pascal',
+  // Ajout des catégories manquantes pour correspondre au type UnitCategory
+  time: {
+    symbol: 's',
+    name: 'seconde',
   },
   area: {
     symbol: 'a',
     name: 'are',
   },
-}
+  temperature: {
+    symbol: '°C',
+    name: 'degré Celsius',
+  },
+  pressure: {
+    symbol: 'Pa',
+    name: 'pascal',
+  },
+  speed: {
+    symbol: 'm/s',
+    name: 'mètre par seconde',
+  },
+  force: {
+    symbol: 'N',
+    name: 'newton',
+  },
+  angle: {
+    symbol: 'rad',
+    name: 'radian',
+  },
+} as const
 
 export class Unit {
-  prefix: Prefix
+  prefix: PrefixPower
   category: UnitCategory
   exp: 1 | 2 | 3
   name: string
@@ -160,7 +216,7 @@ export class Unit {
     },
   ]
 
-  constructor(pre: Prefix, cat: UnitCategory, e: 1 | 2 | 3 = 1) {
+  constructor(pre: PrefixPower, cat: UnitCategory, e: 1 | 2 | 3 = 1) {
     this.prefix = pre
     this.category = cat
     this.exp = e
@@ -187,32 +243,35 @@ export class UnitSystem {
   units: Unit[]
   private exp: number
 
-  constructor(prefixList: Prefix[], cat: UnitCategory, e: 1 | 2 | 3 = 1) {
+  constructor(prefixList: PrefixPower[], cat: UnitCategory, e: 1 | 2 | 3 = 1) {
     this.units = prefixList.map((p) => new Unit(p, cat, e))
     this.exp = e
   }
 }
 
 export const lengthUnits: UnitSystem = new UnitSystem(
-  [3, 2, 1, 0, '-1', '-2', '-3'],
+  ['3', '2', '1', '0', '-1', '-2', '-3'],
   'length',
 )
 export const areaMetricUnits: UnitSystem = new UnitSystem(
-  [3, 2, 1, 0, '-1', '-2', '-3'],
+  ['3', '2', '1', '0', '-1', '-2', '-3'],
   'length',
   2,
 )
-export const areaOtherUnits: UnitSystem = new UnitSystem([2, 0, '-2'], 'area')
+export const areaOtherUnits: UnitSystem = new UnitSystem(
+  ['2', '0', '-2'],
+  'area',
+)
 export const volumeMetricUnits: UnitSystem = new UnitSystem(
-  [3, 2, 1, 0, '-1', '-2', '-3'],
+  ['3', '2', '1', '0', '-1', '-2', '-3'],
   'length',
   3,
 )
 export const volumeOtherUnits: UnitSystem = new UnitSystem(
-  [2, 1, 0, '-1', '-2', '-3'],
-  'content',
+  ['2', '1', '0', '-1', '-2', '-3'],
+  'volume', // changé de 'content' vers 'volume'
 )
 export const massUnits: UnitSystem = new UnitSystem(
-  [3, 2, 1, 0, '-1', '-2', '-3'],
+  ['3', '2', '1', '0', '-1', '-2', '-3'],
   'mass',
 )

@@ -1,8 +1,10 @@
+
 import { droiteGraduee } from '../../../lib/2d/DroiteGraduee'
 import { propositionsQcm } from '../../../lib/interactif/qcm'
 import { choice } from '../../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { texNombre } from '../../../lib/outils/texNombre'
+import { context } from '../../../modules/context'
 import FractionEtendue from '../../../modules/FractionEtendue'
 import { mathalea2d } from '../../../modules/mathalea2d'
 import ExerciceSimple from '../../ExerciceSimple'
@@ -35,7 +37,7 @@ export default class Can2025N6Q26 extends ExerciceSimple {
             new FractionEtendue(3, 2).texFraction,
             'E',
             new FractionEtendue(6, 4).texFraction,
-          ],
+         1.5 ],
         ]
       : [
           [
@@ -43,31 +45,31 @@ export default class Can2025N6Q26 extends ExerciceSimple {
             new FractionEtendue(1, 4).texFraction,
             'A',
             new FractionEtendue(1, 4).texFraction,
-          ],
+          0.25],
           [
             texNombre(0.5, 1),
             new FractionEtendue(1, 2).texFraction,
             'B',
             new FractionEtendue(2, 4).texFraction,
-          ],
+         0.5 ],
           [
             texNombre(0.75, 2),
             new FractionEtendue(3, 4).texFraction,
             'C',
             new FractionEtendue(3, 4).texFraction,
-          ],
+          0.75],
           [
             texNombre(1.25, 2),
             new FractionEtendue(5, 4).texFraction,
             'D',
             new FractionEtendue(5, 4).texFraction,
-          ],
+         1.25 ],
           [
             texNombre(1.75, 2),
             new FractionEtendue(7, 4).texFraction,
             'F',
             new FractionEtendue(7, 4).texFraction,
-          ],
+         1.75 ],
         ]
     const a = choice(choix)
     const d = droiteGraduee({
@@ -122,12 +124,45 @@ export default class Can2025N6Q26 extends ExerciceSimple {
       d,
     )
     this.question += `Quelle lettre repère le nombre $${a[1]}$ ?`
-    if (a[2] === 'E' || a[2] === 'B') {
-      this.correction = `L'unité est partagée en $4$.<br>
+   if(context.isHtml){
+  if (a[2] === 'E' || a[2] === 'B') {
+      this.correction =  `L'unité est partagée en $4$.<br>
       Comme  $${a[1]}=${a[3]}$, alors la lettre qui repère le nombre $${a[1]}$ est $${miseEnEvidence(a[2])}$.`
     } else {
-      this.correction = `L'unité est partagée en $4$ donc la lettre qui repère le nombre $${a[1]}$ est $${miseEnEvidence(a[2])}$.`
+      this.correction =   `L'unité est partagée en $4$ donc la lettre qui repère le nombre $${a[1]}$ est $${miseEnEvidence(a[2])}$.`
     }
+} else { 
+  const dCorrection = droiteGraduee({
+    Unite: 3,
+    Min: 0,
+    Max: 2.5,
+    x: 0,
+    y: 0,
+    thickDistance: 1,
+    thickSec: true,
+    thickSecDist: 0.25,
+    thickOffset: 0,
+    axeStyle: '->',
+    pointListe:[
+        [a[4] as number, `\\text{${a[2]}}`]
+      ],
+    pointCouleur: 'blue',
+    pointStyle: '',
+    labelsPrincipaux: true,
+  })
+  this.correction = mathalea2d(
+    {
+      xmin: -1,
+      ymin: -1.3,
+      xmax: 10,
+      ymax: 1.5,
+      pixelsParCm: 20,
+      scale: 0.5,
+      style: 'margin: auto',
+    },
+    dCorrection,
+  )
+}
     this.canEnonce = `Place le nombre $${a[1]}$.`
     this.canReponseACompleter = mathalea2d(
       {

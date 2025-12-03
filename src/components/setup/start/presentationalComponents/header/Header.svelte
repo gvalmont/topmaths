@@ -1,11 +1,11 @@
 <script lang="ts">
   import NavBar from '../../../../../components/shared/header/NavBar.svelte'
-  import ModalReorder from './ModalReorder.svelte'
-  import HeaderButtons from './headerButtons/HeaderButtons.svelte'
-  import SideMenuWrapper from './SideMenuWrapper.svelte'
-  import type { VueType } from '../../../../../lib/types'
+  import type { VueType } from '../../../../../lib/VueType'
   import type { Language } from '../../../../../lib/types/languages'
   import NavBarRecorder from '../../capytale/NavBarRecorder.svelte'
+  import ModalReorder from './ModalReorder.svelte'
+  import SideMenuWrapper from './SideMenuWrapper.svelte'
+  import HeaderButtons from './headerButtons/HeaderButtons.svelte'
 
   export let isExerciseDisplayed: boolean
   export let isNavBarVisible: boolean

@@ -1,7 +1,10 @@
 import Figure from 'apigeom'
 import { reflectOverLineCoord } from 'apigeom/src/elements/calculus/Coords'
 import type Line from 'apigeom/src/elements/lines/Line'
-import type PointApigeom from 'apigeom/src/elements/points/Point'
+import type {
+  default as Point,
+  default as PointApigeom,
+} from 'apigeom/src/elements/points/Point'
 import { cercleCentrePoint } from '../../lib/2d/cercle'
 import { codageAngleDroit } from '../../lib/2d/CodageAngleDroit'
 import { codageMilieu } from '../../lib/2d/CodageMilieu'
@@ -14,7 +17,7 @@ import {
   droiteVerticaleParPoint,
 } from '../../lib/2d/droites'
 import { grille } from '../../lib/2d/Grille'
-import { point, Point } from '../../lib/2d/PointAbstrait'
+import { point } from '../../lib/2d/PointAbstrait'
 import {
   labelPoint,
   latexParCoordonnees,
@@ -112,6 +115,7 @@ class ConstrctionsSymetriquesPoints extends Exercice {
   labels!: string[][]
   d!: Line[]
   exoCustomResultat: boolean
+
   constructor() {
     super()
     this.exoCustomResultat = true
@@ -137,6 +141,7 @@ class ConstrctionsSymetriquesPoints extends Exercice {
   }
 
   nouvelleVersion() {
+    this.sup = Number(this.sup) || 1 // valeur min 1
     const marks: string[] = ['//', '///', 'x', 'O', '|||']
     const colors: string[] = context.isHtml
       ? ['red', 'green', 'purple', 'blue', 'gray']
@@ -434,7 +439,6 @@ class ConstrctionsSymetriquesPoints extends Exercice {
             })
           }
         }
-        // this.figuresApiGeom[i].options.limitNumberOfElement.set('Point', 1)
         const emplacementPourFigure = figureApigeom({
           exercice: this,
           i,

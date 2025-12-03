@@ -16,10 +16,10 @@
   } from '../../../../../lib/mathalea'
   import {
     exercicesParams,
-    globalOptions,
     isMenuNeededForExercises,
     resultsByExercice,
   } from '../../../../../lib/stores/generalStore'
+  import { globalOptions } from '../../../../../lib/stores/globalOptions'
   import { isLocalStorageAvailable } from '../../../../../lib/stores/storage'
   import type {
     InterfaceParams,
@@ -44,6 +44,11 @@
   let isInteractif = exercise.interactif && exercise?.interactifReady
   // une variable locale car si on modifie isCorrectionVisible, parfois elle devient undefined
   let isCorrectVisible = isCorrectionVisible
+
+  // URL-driven display toggles (only used for FlowMath recorder)
+  let boutonValidationUrlFlag = true
+  let boutonCorrectionUrlFlag = true
+  let boutonInteractiviteUrlFlag = true
 
   let title: string
   if ($globalOptions.isTitleDisplayed) {
@@ -112,6 +117,20 @@
 
   onMount(async () => {
     log('onMount:' + exercise.id + ', v:' + $globalOptions.v)
+
+    // Check boutonValidation mode after component is mounted
+    if ($globalOptions.recorder === 'flowmath') {
+      try {
+        const urlParams = new URLSearchParams(window.location.search)
+        boutonValidationUrlFlag = urlParams.get('boutonValidation') !== 'false'
+        boutonCorrectionUrlFlag = urlParams.get('boutonCorrection') !== 'false'
+        boutonInteractiviteUrlFlag =
+          urlParams.get('boutonInteractivite') !== 'false'
+      } catch (e) {
+        console.warn('Could not check FlowMath button flags:', e)
+      }
+    }
+
     document.addEventListener('newDataForAll', newData)
     document.addEventListener('setAllInteractif', setAllInteractif)
     document.addEventListener('removeAllInteractif', removeAllInteractif)
@@ -611,6 +630,12 @@
         {switchInteractif}
         {columnsCount}
         {columnsCountUpdate}
+        showCorrectionButton="{$globalOptions.recorder === 'flowmath'
+          ? boutonCorrectionUrlFlag
+          : true}"
+        showInteractivityButton="{$globalOptions.recorder === 'flowmath'
+          ? boutonInteractiviteUrlFlag
+          : true}"
       />
       <article
         class=" {$isMenuNeededForExercises
@@ -671,6 +696,11 @@
           type="submit"
           on:click="{verifExerciceVueEleve}"
           bind:this="{buttonScore}"
+          id="buttonScoreEx{exerciseIndex}"
+          class="{$globalOptions.recorder === 'flowmath' &&
+          !boutonValidationUrlFlag
+            ? 'hidden'
+            : ''}"
           >Vérifier {numberOfAnswerFields > 1
             ? 'les réponses'
             : 'la réponse'}</button

@@ -737,7 +737,7 @@ On note les évènements suivants :<br>`
         case 6: // le salon de coiffure
           texte =
             'Une chaîne de salons de coiffure propose à ses clients qui viennent pour une coupe, deux prestations supplémentaires cumulables :<br>'
-          texte += texte +=
+          texte +=
             createList({
               items: [
                 ' Une coloration naturelle à base de plantes appelée « couleur-soin » ;',

@@ -27,7 +27,7 @@ export const dateDePublication = '18/03/2023'
 export const uuid = '2d5eb'
 
 export const refs = {
-  'fr-fr': ['BP2AutoL9', '5P10-2'],
+  'fr-fr': ['5P10-2', 'BP2AutoL9'],
   'fr-2016': ['6P15', 'BP2AutoL9'],
   'fr-ch': ['9FA3-2'],
 }
@@ -294,7 +294,12 @@ export default class CalculerCoeffPropo extends Exercice {
               nbColonnes: 4,
               ligne1,
               ligne2,
-              flecheDroite: { texte: '\\times \\ldots', latex: true },
+              flecheDroite: {
+                texte: '\\times \\ldots',
+                latex: true,
+                color: 'blue',
+                gras: true,
+              },
               flecheDroiteSens: 'bas',
               flecheGauche: { texte: '\\times \\ldots', latex: true },
               flecheGaucheSens: 'haut',
@@ -306,7 +311,12 @@ export default class CalculerCoeffPropo extends Exercice {
               nbColonnes: 4,
               ligne1,
               ligne2,
-              flecheDroite: { texte: '×...' },
+              flecheDroite: {
+                texte: '\\times \\ldots',
+                latex: true,
+                color: 'blue',
+                gras: true,
+              },
               flecheDroiteSens: 'bas',
             })
       const ligne1Corr = [{ texte: 'Grandeur A' }].concat(
@@ -343,7 +353,7 @@ export default class CalculerCoeffPropo extends Exercice {
               nbColonnes: 4,
               ligne1: ligne1Corr,
               ligne2: ligne2Corr,
-              flecheDroite: { texte: `× ${coefficientTex}`, math: true },
+              flecheDroite: { texte: `\\times ${coefficientTex}`, latex: true },
               flecheDroiteSens: 'bas',
             })
       texte =
@@ -444,11 +454,11 @@ export default class CalculerCoeffPropo extends Exercice {
                     reponse: {
                       // coefficient
                       texte: texte + 'valeur du coefficient',
-                      valeur: [coefficient],
+                      valeur: coefficient,
                       param: coefficientDecimal
                         ? {
                             digits: 3,
-                            decimal: 2,
+                            decimals: 2,
                             signe: false,
                             approx: 0,
                           }

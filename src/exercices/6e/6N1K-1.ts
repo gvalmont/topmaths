@@ -22,7 +22,7 @@ export const interactifType = 'mathLive'
  */
 
 export const refs = {
-  'fr-fr': ['BP2AutoS8', '6N1K-1'],
+  'fr-fr': ['6N1K-1', 'BP2AutoS8'],
   'fr-2016': ['6N31-6', 'BP2AutoS8'],
   'fr-ch': ['9NO7-9'],
 }

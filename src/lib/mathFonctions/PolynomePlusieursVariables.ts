@@ -194,47 +194,104 @@ class PolynomePlusieursVariables {
     }
   }
 
-  toStringSansLeDernierTerme(): string {
+  toStringSansLeTerme(index: number): string {
+    if (this.monomes.length === 0) return '\\ldots\\ldots'
+    if (index < 0 || index >= this.monomes.length) return this.toString()
+
     let result = ''
-    if (this.monomes.length === 0) {
-      result = '\\ldots\\ldots'
-    } else {
-      const polynomeSansDernierTerme =
-        PolynomePlusieursVariables.PolynomeNonReduit(
-          this.monomes.slice(0, this.monomes.length - 1),
-        )
-      result += polynomeSansDernierTerme.toString()
-      if (this.monomes[this.monomes.length - 1].coefficient.signe === 1) {
-        result += ' + \\ldots\\ldots'
-      } else {
-        result += '-\\ldots\\ldots'
+    let firstPieceAdded = false
+
+    this.monomes.forEach((monome, i) => {
+      if (monome.coefficient.num === 0 && i !== index) {
+        return
       }
+
+      if (i === index) {
+        // Replace this term by ellipsis
+        if (!firstPieceAdded) {
+          // First position
+          if (monome.coefficient.signe === -1) {
+            result += '-\\ldots\\ldots'
+          } else {
+            result += '\\ldots\\ldots'
+          }
+        } else {
+          if (monome.coefficient.signe === 1) {
+            result += ' + \\ldots\\ldots'
+          } else {
+            result += ' - \\ldots\\ldots'
+          }
+        }
+        firstPieceAdded = true
+        return
+      }
+
+      const monomeStr = monome.toString()
+      if (!firstPieceAdded) {
+        result += monomeStr
+      } else {
+        if (monome.coefficient.signe === 1) {
+          result += ' + ' + monomeStr
+        } else {
+          result += ' ' + monomeStr
+        }
+      }
+      firstPieceAdded = true
+    })
+
+    if (!firstPieceAdded) {
+      // Case where only the hidden term existed
+      return '\\ldots\\ldots'
     }
+
     return result
   }
 
-  toStringAvecDernierTermeEnEvidence(): string {
+  toStringAvecTermeEnEvidence(index: number): string {
+    if (this.monomes.length === 0) return ''
+    if (index < 0 || index >= this.monomes.length) return this.toString()
+
     let result = ''
-    if (this.monomes.length === 0) {
-      result = ''
-    } else {
-      const polynomeSansDernierTerme =
-        PolynomePlusieursVariables.PolynomeNonReduit(
-          this.monomes.slice(0, this.monomes.length - 1),
-        )
-      result += polynomeSansDernierTerme.toString()
-      if (this.monomes[this.monomes.length - 1].coefficient.signe === 1) {
-        result += ' + '
+    let firstPieceAdded = false
+
+    this.monomes.forEach((monome, i) => {
+      if (monome.coefficient.num === 0) return
+
+      const monomeStr = monome.toString()
+
+      if (i === index) {
+        // Mettre en évidence ce terme
+        if (!firstPieceAdded) {
+          // Premier terme
+          if (monome.coefficient.signe === -1) {
+            result += '-' + miseEnEvidence(monome.oppose().toString())
+          } else {
+            result += miseEnEvidence(monomeStr)
+          }
+        } else {
+          // Terme suivant
+          if (monome.coefficient.signe === 1) {
+            result += ' + ' + miseEnEvidence(monomeStr)
+          } else {
+            result += ' - ' + miseEnEvidence(monome.oppose().toString())
+          }
+        }
+        firstPieceAdded = true
       } else {
-        result += '- '
+        // Terme normal (non mis en évidence)
+        if (!firstPieceAdded) {
+          result += monomeStr
+        } else {
+          if (monome.coefficient.signe === 1) {
+            result += ' + ' + monomeStr
+          } else {
+            result += monomeStr
+          }
+        }
+        firstPieceAdded = true
       }
-    }
-    const dernierTerme = this.monomes[this.monomes.length - 1]
-    if (dernierTerme.coefficient.signe === -1) {
-      result += miseEnEvidence(dernierTerme.oppose().toString())
-    } else {
-      result += miseEnEvidence(dernierTerme.toString())
-    }
+    })
+
     return result
   }
 

@@ -8,9 +8,9 @@
   import {
     exercicesParams,
     freezeUrl,
-    globalOptions,
     isInIframe,
   } from '../lib/stores/generalStore'
+  import { globalOptions } from '../lib/stores/globalOptions'
   import { updateReferentielLocaleFromURL } from '../lib/stores/languagesStore'
   import { vendor } from '../lib/stores/vendorStore'
   import type { CanSolutionsMode } from '../lib/types/can'

@@ -1,8 +1,8 @@
-import ExerciceSimple from '../../ExerciceSimple'
+import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
+import { choice } from '../../../lib/outils/arrayOutils'
 import { texteEnCouleurEtGras } from '../../../lib/outils/embellissements'
 import { randint } from '../../../modules/outils'
-import { choice } from '../../../lib/outils/arrayOutils'
-import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
+import ExerciceSimple from '../../ExerciceSimple'
 export const titre = 'Déterminer une lettre dans une suite répétitive'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -23,7 +23,7 @@ export default class SuitesRep extends ExerciceSimple {
 
     this.typeExercice = 'simple' // Cette ligne est très importante pour faire un exercice simple !
     this.nbQuestions = 1
-    this.formatInteractif = 'texte'
+    this.optionsDeComparaison = { texteSansCasse: true }
     this.formatChampTexte = KeyboardType.alphanumeric
   }
 

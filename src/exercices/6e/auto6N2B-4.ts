@@ -1,12 +1,12 @@
+import { setReponse } from '../../lib/interactif/gestionInteractif'
+import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { choice } from '../../lib/outils/arrayOutils'
 import { texFractionFromString } from '../../lib/outils/deprecatedFractions'
+import { arrondi } from '../../lib/outils/nombres'
 import { texNombre } from '../../lib/outils/texNombre'
-import Exercice from '../Exercice'
 import { context } from '../../modules/context'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
-import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
-import { setReponse } from '../../lib/interactif/gestionInteractif'
-import { arrondi } from '../../lib/outils/nombres'
+import Exercice from '../Exercice'
 
 export const titre = "Donner l'écriture décimale d'une fraction décimale"
 export const interactifReady = true
@@ -24,7 +24,7 @@ export const amcType = 'AMCNum'
 export const uuid = '4b9d5'
 
 export const refs = {
-  'fr-fr': ['BP2AutoC2', 'auto6N2B-4'],
+  'fr-fr': ['auto6N2B-4', 'BP2AutoC2'],
   'fr-2016': ['6N23', 'BP2AutoC2'],
   'fr-ch': [],
 }

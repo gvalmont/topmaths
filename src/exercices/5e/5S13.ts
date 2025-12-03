@@ -1,21 +1,21 @@
-import { choice } from '../../lib/outils/arrayOutils'
+import { setReponse } from '../../lib/interactif/gestionInteractif'
+import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import {
   listeDeNotes,
   tirerLesDes,
   unMoisDeTemperature,
 } from '../../lib/outils/aleatoires'
+import { choice } from '../../lib/outils/arrayOutils'
 import { joursParMois, nomDuMois } from '../../lib/outils/dateEtHoraires'
 import { texFractionFromString } from '../../lib/outils/deprecatedFractions'
+import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { arrondi } from '../../lib/outils/nombres'
 import { prenom } from '../../lib/outils/Personne'
 import { texNombre } from '../../lib/outils/texNombre'
-import Exercice from '../Exercice'
-import { listeQuestionsToContenu, randint } from '../../modules/outils'
-import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
-import FractionEtendue from '../../modules/FractionEtendue'
 import { context } from '../../modules/context'
-import { setReponse } from '../../lib/interactif/gestionInteractif'
-import { miseEnEvidence } from '../../lib/outils/embellissements'
+import FractionEtendue from '../../modules/FractionEtendue'
+import { listeQuestionsToContenu, randint } from '../../modules/outils'
+import Exercice from '../Exercice'
 
 export const titre = 'Calculer des fréquences'
 
@@ -33,7 +33,7 @@ export const dateDeModifImportante = '28/02/2022'
 export const uuid = '8cdd5'
 
 export const refs = {
-  'fr-fr': ['5S13', 'BP2AutoA2', 'BP2SP3'],
+  'fr-fr': ['5S13', 'BP2AutoA2', 'BP2SP3', '3AutoP02-1'],
   'fr-ch': ['11NO2-1'],
 }
 export default class CalculerDesFrequences extends Exercice {
@@ -303,7 +303,6 @@ export default class CalculerDesFrequences extends Exercice {
           propositions: [
             {
               type: 'AMCOpen',
-              // @ts-expect-error
               propositions: [
                 {
                   texte: texteCorr,
@@ -313,7 +312,6 @@ export default class CalculerDesFrequences extends Exercice {
             },
             {
               type: 'AMCNum',
-              // @ts-expect-error
               propositions: [
                 {
                   texte: '',

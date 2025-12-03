@@ -2,7 +2,7 @@ import { arc } from '../lib/2d/Arc'
 import { cercle } from '../lib/2d/cercle'
 import { colorToLatexOrHTML } from '../lib/2d/colorToLatexOrHtml'
 import { ObjetMathalea2D } from '../lib/2d/ObjetMathalea2D'
-import { point, Point } from '../lib/2d/PointAbstrait'
+import { pointAbstrait, PointAbstrait } from '../lib/2d/PointAbstrait'
 import { carre } from '../lib/2d/polygonesParticuliers'
 import { segment } from '../lib/2d/segmentsVecteurs'
 import { texteParPosition } from '../lib/2d/textes'
@@ -42,8 +42,8 @@ export function representationFractionIrred(
     couleur: string = 'black',
     epaisseur: number = 1,
   ) {
-    const A = point(x, y + 0.2, '')
-    const B = point(x, y - 0.2, '')
+    const A = pointAbstrait(x, y + 0.2, '')
+    const B = pointAbstrait(x, y - 0.2, '')
     const g = segment(A, B, couleur)
     g.epaisseur = epaisseur
     return g
@@ -51,14 +51,14 @@ export function representationFractionIrred(
 
   if (type === 'gateau') {
     for (k = 0; k < n; k++) {
-      const O = point(x + k * 2 * (rayon + 0.5), y)
+      const O = pointAbstrait(x + k * 2 * (rayon + 0.5), y)
       const C = cercle(O, rayon)
       objets.push(C)
       for (let i = 0; i < fraction.denIrred; i++) {
         const s = segment(
           O,
           rotation(
-            point(x + rayon + k * 2 * (rayon + 0.5), y),
+            pointAbstrait(x + rayon + k * 2 * (rayon + 0.5), y),
             O,
             90 - (i * 360) / fraction.denIrred,
           ),
@@ -66,7 +66,7 @@ export function representationFractionIrred(
         objets.push(s)
       }
       let dep = rotation(
-        point(x + rayon + k * 2 * (rayon + 0.5), y),
+        pointAbstrait(x + rayon + k * 2 * (rayon + 0.5), y),
         O,
         90 - (depart * 360) / fraction.denIrred,
       )
@@ -79,14 +79,14 @@ export function representationFractionIrred(
       num -= fraction.denIrred
     }
     if (Math.abs(fraction.numIrred) % Math.abs(fraction.denIrred) !== 0) {
-      const O = point(x + k * 2 * (rayon + 0.5), y)
+      const O = pointAbstrait(x + k * 2 * (rayon + 0.5), y)
       const C = cercle(O, rayon)
       objets.push(C)
       for (let i = 0; i < fraction.denIrred; i++) {
         const s = segment(
           O,
           rotation(
-            point(x + rayon + k * 2 * (rayon + 0.5), y),
+            pointAbstrait(x + rayon + k * 2 * (rayon + 0.5), y),
             O,
             90 - (i * 360) / fraction.denIrred,
           ),
@@ -94,7 +94,7 @@ export function representationFractionIrred(
         objets.push(s)
       }
       let dep = rotation(
-        point(x + rayon + k * 2 * (rayon + 0.5), y),
+        pointAbstrait(x + rayon + k * 2 * (rayon + 0.5), y),
         O,
         90 - (depart * 360) / fraction.denIrred,
       )
@@ -107,7 +107,7 @@ export function representationFractionIrred(
     }
   } else if (type === 'segment') {
     for (k = 0; k < n; k++) {
-      const O = point(x + k * rayon, y)
+      const O = pointAbstrait(x + k * rayon, y)
       const C = translation(O, vecteur(rayon, 0))
       const s = segment(O, C)
       s.styleExtremites = '-|'
@@ -122,7 +122,7 @@ export function representationFractionIrred(
       }
       const a = segment(
         O,
-        point(
+        pointAbstrait(
           O.x + (Math.min(num, fraction.denIrred) * rayon) / fraction.denIrred,
           O.y,
         ),
@@ -133,7 +133,7 @@ export function representationFractionIrred(
       objets.push(a)
       num -= fraction.denIrred
     }
-    const O = point(x + k * rayon, y)
+    const O = pointAbstrait(x + k * rayon, y)
     const C = translation(O, vecteur(rayon, 0))
     const s = segment(O, C)
     s.styleExtremites = '-|'
@@ -149,7 +149,7 @@ export function representationFractionIrred(
     if (num > 0) {
       const a = segment(
         O,
-        point(
+        pointAbstrait(
           O.x +
             (Math.min(fraction.numIrred, fraction.denIrred) * rayon) /
               fraction.denIrred,
@@ -245,11 +245,11 @@ export function representationFractionIrred(
     for (k = 0; k < n; k++) {
       for (let j = 0; j < diviseur; j++) {
         for (let h = 0; h < fraction.denIrred / diviseur; h++) {
-          const O = point(
+          const O = pointAbstrait(
             x + k * (diviseur * tailleCarres + 1) + j * tailleCarres,
             y + h * tailleCarres,
           )
-          const C: Point = translation(O, vecteur(tailleCarres, 0))
+          const C: PointAbstrait = translation(O, vecteur(tailleCarres, 0))
           const dep = carre(O, C, 'black')
           dep.couleurDeRemplissage = colorToLatexOrHTML(couleur)
           dep.opaciteDeRemplissage = 0.4
@@ -261,7 +261,7 @@ export function representationFractionIrred(
     if (num > 0) {
       for (let j = 0; j < diviseur; j++) {
         for (let h = 0; h < fraction.denIrred / diviseur; h++) {
-          const O = point(
+          const O = pointAbstrait(
             x + n * (diviseur * tailleCarres + 1) + j * tailleCarres,
             y + h * tailleCarres,
           )
@@ -271,7 +271,7 @@ export function representationFractionIrred(
         }
       }
       for (let i = 0; i < num; i++) {
-        const O = point(
+        const O = pointAbstrait(
           x + n * (diviseur * tailleCarres + 1) + (i % diviseur) * tailleCarres,
           y + quotientier(i, diviseur) * tailleCarres,
         )
@@ -314,8 +314,8 @@ export function representationFraction(
     couleur: string = 'black',
     epaisseur: number = 1,
   ) {
-    const A = point(x, y + 0.2)
-    const B = point(x, y - 0.2)
+    const A = pointAbstrait(x, y + 0.2)
+    const B = pointAbstrait(x, y - 0.2)
     const g = segment(A, B, couleur)
     g.epaisseur = epaisseur
     return g
@@ -323,14 +323,14 @@ export function representationFraction(
 
   if (type === 'gateau') {
     for (k = 0; k < n; k++) {
-      const O = point(x + k * 2 * (rayon + 0.5), y)
+      const O = pointAbstrait(x + k * 2 * (rayon + 0.5), y)
       const C = cercle(O, rayon)
       objets.push(C)
       for (let i = 0; i < fraction.den; i++) {
         const s = segment(
           O,
           rotation(
-            point(x + rayon + k * 2 * (rayon + 0.5), y),
+            pointAbstrait(x + rayon + k * 2 * (rayon + 0.5), y),
             O,
             90 - (i * 360) / fraction.den,
           ),
@@ -338,7 +338,7 @@ export function representationFraction(
         objets.push(s)
       }
       let dep = rotation(
-        point(x + rayon + k * 2 * (rayon + 0.5), y),
+        pointAbstrait(x + rayon + k * 2 * (rayon + 0.5), y),
         O,
         90 - (depart * 360) / fraction.den,
       )
@@ -351,14 +351,14 @@ export function representationFraction(
       num -= fraction.den
     }
     if (fraction.num % fraction.den !== 0) {
-      const O = point(x + k * 2 * (rayon + 0.5), y)
+      const O = pointAbstrait(x + k * 2 * (rayon + 0.5), y)
       const C = cercle(O, rayon)
       objets.push(C)
       for (let i = 0; i < fraction.den; i++) {
         const s = segment(
           O,
           rotation(
-            point(x + rayon + k * 2 * (rayon + 0.5), y),
+            pointAbstrait(x + rayon + k * 2 * (rayon + 0.5), y),
             O,
             90 - (i * 360) / fraction.den,
           ),
@@ -367,7 +367,7 @@ export function representationFraction(
       }
 
       let dep = rotation(
-        point(x + rayon + k * 2 * (rayon + 0.5), y),
+        pointAbstrait(x + rayon + k * 2 * (rayon + 0.5), y),
         O,
         90 - (depart * 360) / fraction.den,
       )
@@ -382,7 +382,7 @@ export function representationFraction(
     }
   } else if (type === 'segment') {
     for (k = 0; k < n; k++) {
-      const O = point(x + k * rayon, y)
+      const O = pointAbstrait(x + k * rayon, y)
       const C = translation(O, vecteur(rayon, 0))
       const s = segment(O, C)
       s.styleExtremites = '-|'
@@ -397,7 +397,10 @@ export function representationFraction(
       }
       const a = segment(
         O,
-        point(O.x + (Math.min(num, fraction.den) * rayon) / fraction.den, O.y),
+        pointAbstrait(
+          O.x + (Math.min(num, fraction.den) * rayon) / fraction.den,
+          O.y,
+        ),
         couleur,
       )
       a.opacite = 0.4
@@ -405,7 +408,7 @@ export function representationFraction(
       objets.push(a)
       num -= fraction.den
     }
-    const O = point(x + k * rayon, y)
+    const O = pointAbstrait(x + k * rayon, y)
     const C = translation(O, vecteur(rayon, 0))
     const s = segment(O, C)
     s.styleExtremites = '-|'
@@ -421,7 +424,10 @@ export function representationFraction(
     if (num > 0) {
       const a = segment(
         O,
-        point(O.x + (Math.min(num, fraction.den) * rayon) / fraction.den, O.y),
+        pointAbstrait(
+          O.x + (Math.min(num, fraction.den) * rayon) / fraction.den,
+          O.y,
+        ),
         couleur,
       )
       a.opacite = 0.4
@@ -512,7 +518,7 @@ export function representationFraction(
     for (k = 0; k < n; k++) {
       for (let j = 0; j < diviseur; j++) {
         for (let h = 0; h < fraction.den / diviseur; h++) {
-          const O = point(
+          const O = pointAbstrait(
             x + k * (diviseur * tailleCarres + 1) + j * tailleCarres,
             y + h * tailleCarres,
           )
@@ -528,7 +534,7 @@ export function representationFraction(
     if (num > 0) {
       for (let j = 0; j < diviseur; j++) {
         for (let h = 0; h < fraction.den / diviseur; h++) {
-          const O = point(
+          const O = pointAbstrait(
             x + n * (diviseur * tailleCarres + 1) + j * tailleCarres,
             y + h * tailleCarres,
           )
@@ -538,7 +544,7 @@ export function representationFraction(
         }
       }
       for (let i = 0; i < num; i++) {
-        const O = point(
+        const O = pointAbstrait(
           x + n * (diviseur * tailleCarres + 1) + (i % diviseur) * tailleCarres,
           y + quotientier(i, diviseur) * tailleCarres,
         )

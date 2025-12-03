@@ -2,20 +2,20 @@
   import katex from 'katex'
   import { onDestroy } from 'svelte'
   import {
-      isExerciceItemInReferentiel,
-      isGeoDynamic,
-      isTool,
-      resourceHasMonth,
-      resourceHasPlace,
-      type JSONReferentielEnding,
+    isExerciceItemInReferentiel,
+    isGeoDynamic,
+    isTool,
+    resourceHasMonth,
+    resourceHasPlace,
+    type JSONReferentielEnding,
   } from '../../../../../../lib/types/referentiels'
-// eslint-disable-next-line no-unused-vars, @typescript-eslint/no-unused-vars
+  // eslint-disable-next-line no-unused-vars, @typescript-eslint/no-unused-vars
   import { mathaleaGenerateSeed } from '../../../../../../lib/mathalea'
   import {
-      changes,
-      exercicesParams,
-      globalOptions,
+    changes,
+    exercicesParams,
   } from '../../../../../../lib/stores/generalStore'
+  import { globalOptions } from '../../../../../../lib/stores/globalOptions'
   import type { InterfaceParams } from '../../../../../../lib/types'
   import { isLessThan1Month } from '../../../../../../lib/types/dates'
   import NoInteractivityIcon from '../../../../../shared/icons/NoInteractivityIcon.svelte'

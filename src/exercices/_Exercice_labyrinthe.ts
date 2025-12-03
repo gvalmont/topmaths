@@ -8,6 +8,7 @@ import Exercice from './Exercice'
  * @author Rémi Angot
  */
 export default class ExerciceLabyrinthe extends Exercice {
+  consigneDeplacement = '<br>Dans ce labyrinthe, on peut se déplacer horizontalement, verticalement et en diagonale.'
   labyrinthe!: Labyrinthe
   labyrintheElement!: LabyrintheElement
   cols = 6
@@ -70,7 +71,9 @@ export default class ExerciceLabyrinthe extends Exercice {
               const { default: LabyrintheElement } = await import(
                 'labyrinthe/src/LabyrintheElement'
               )
-              customElements.define('labyrinthe-grid', LabyrintheElement as any)
+              try {
+                customElements.define('labyrinthe-grid', LabyrintheElement as any)
+              } catch {}
             }
             const el = document.createElement(
               'labyrinthe-grid',
@@ -81,6 +84,7 @@ export default class ExerciceLabyrinthe extends Exercice {
             if (this.orientation) {
               el.orientation = this.orientation
             }
+            container.innerHTML = ''
             // Cela lance connectedCallback qui regénère le chemin
             container.appendChild(el)
             await new Promise<void>((resolve) => {

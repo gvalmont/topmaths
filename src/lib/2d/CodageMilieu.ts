@@ -25,8 +25,8 @@ import { milieu } from './utilitairesPoint'
 
 export class CodageMilieu extends ObjetMathalea2D {
   constructor(
-    A: Point | PointAbstrait,
-    B: Point | PointAbstrait,
+    A: PointAbstrait,
+    B: PointAbstrait,
     color = 'black',
     mark = '×',
     mil = true,
@@ -76,8 +76,8 @@ export class CodageMilieu extends ObjetMathalea2D {
  */
 // JSDOC Validee par EE Juin 2022
 export function codageMilieu(
-  A: Point | PointAbstrait,
-  B: Point | PointAbstrait,
+  A: PointAbstrait,
+  B: PointAbstrait,
   color = 'black',
   mark = '×',
   mil = true,

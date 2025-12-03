@@ -858,7 +858,7 @@ export default class SujetCAN20213ieme extends Exercice {
                 KeyboardType.clavierNumbers,
               ) + '$\\text{ m}$'
           } else {
-            texte += '(en $\\text{m})'
+            texte += '(en $\\text{m}$)'
           }
           nbChamps = 1
           break
