@@ -6,7 +6,6 @@ export const amcReady = true
 export const amcType = 'AMCHybride'
 
 /**
- * Alias de 6D13.js
  * @author Jean-Claude Lhote
  * Créé pendant l'été 2021
 
@@ -14,7 +13,7 @@ export const amcType = 'AMCHybride'
 export const uuid = 'd34e5'
 
 export const refs = {
-  'fr-fr': ['can6D04', '6M4C-flash3'],
+  'fr-fr': ['can6D04', '6M4C-flash3', '3AutoG06-8'],
   'fr-ch': [],
 }
 export default class ConvertirMinutesHeures extends ConversionHeuresMinutesOuMinutesEtSecondes {

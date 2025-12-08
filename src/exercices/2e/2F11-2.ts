@@ -108,7 +108,7 @@ export default class ComparerAvecFonctionRef extends Exercice {
             }
             nom = choice(nomF)
             texte = ` Soit $${nom}$ la fonction définie sur $\\mathbb{R}$ par : $${nom}(x)=${texNombre(a, 2)}x+${texNombre(b, 1)}$.<br>
-            Sans effectuer de calcul, comparer $${nom}(${texNombre(x1, 1)})$ et $${nom}(${texNombre(x2, 1)})$. `
+            Sans effectuer de calcul, comparer $${nom}(${texNombre(x1, 1)})$ et $${nom}(${texNombre(x2, 1)})$.`
             texteCorr = `La fonction $${nom}$ est une fonction de la forme $${nom}(x)=mx+p$ avec
             `
             if (a1 > 0) {
@@ -155,7 +155,7 @@ export default class ComparerAvecFonctionRef extends Exercice {
             nom = choice(nomF)
             if (this.sup2 === 1) {
               texte = ` Soit $${nom}$ la fonction carré.<br>
-            Sans effectuer de calcul, comparer $${nom}(${texNombre(x1, 3)})$ et $${nom}(${texNombre(x2, 3)})$. `
+            Sans effectuer de calcul, comparer $${nom}(${texNombre(x1, 3)})$ et $${nom}(${texNombre(x2, 3)})$.`
             } else {
               texte = `Sans effectuer de calcul, comparer $${texNombre(x1, 3)}^2$ et $${texNombre(x2, 3)}^2$.`
             }
@@ -201,7 +201,7 @@ export default class ComparerAvecFonctionRef extends Exercice {
             nom = choice(nomF)
             if (this.sup2 === 1) {
               texte = ` Soit $${nom}$ la fonction carré.<br>
-            Sans effectuer de calcul, comparer $${nom}(${texNombre(x1, 3)})$ et $${nom}(${texNombre(x2, 3)})$. `
+            Sans effectuer de calcul, comparer $${nom}(${texNombre(x1, 3)})$ et $${nom}(${texNombre(x2, 3)})$.`
             } else {
               texte = `Sans effectuer de calcul, comparer $(${texNombre(x1, 3)})^2$ et $(${texNombre(x2, 3)})^2$.`
             }
@@ -244,7 +244,7 @@ export default class ComparerAvecFonctionRef extends Exercice {
             nom = choice(nomF)
             if (this.sup2 === 1) {
               texte = ` Soit $${nom}$ la fonction inverse.<br>
-            Sans effectuer de calcul, comparer $${nom}(${texNombre(x1, 2)})$ et $${nom}(${texNombre(x2, 2)})$. `
+            Sans effectuer de calcul, comparer $${nom}(${texNombre(x1, 2)})$ et $${nom}(${texNombre(x2, 2)})$.`
             } else {
               texte = `Sans effectuer de calcul, comparer $\\dfrac{1}{${texNombre(x1, 2)}}$ et $\\dfrac{1}{${texNombre(x2, 2)}}$.`
             }
@@ -287,7 +287,7 @@ export default class ComparerAvecFonctionRef extends Exercice {
             nom = choice(nomF)
             if (this.sup2 === 1) {
               texte = ` Soit $${nom}$ la fonction inverse.<br>
-            Sans effectuer de calcul, comparer $${nom}(${texNombre(x1, 2)})$ et $${nom}(${texNombre(x2, 2)})$. `
+            Sans effectuer de calcul, comparer $${nom}(${texNombre(x1, 2)})$ et $${nom}(${texNombre(x2, 2)})$.`
             } else {
               texte = `Sans effectuer de calcul, comparer $\\dfrac{1}{${texNombre(x1, 2)}}$ et $\\dfrac{1}{${texNombre(x2, 2)}}$.`
             }
@@ -332,7 +332,7 @@ export default class ComparerAvecFonctionRef extends Exercice {
             nom = choice(nomF)
             if (this.sup2 === 1) {
               texte = ` Soit $${nom}$ la fonction racine carrée.<br>
-            Sans effectuer de calcul, comparer $${nom}(${texNombre(x1, 1)})$ et $${nom}(${texNombre(x2, 1)})$. `
+            Sans effectuer de calcul, comparer $${nom}(${texNombre(x1, 1)})$ et $${nom}(${texNombre(x2, 1)})$.`
             } else {
               texte = `Sans effectuer de calcul, comparer $\\sqrt{${texNombre(x1, 1)}}$ et $\\sqrt{${texNombre(x2, 1)}}$.`
             }
@@ -374,7 +374,7 @@ export default class ComparerAvecFonctionRef extends Exercice {
             nom = choice(nomF)
             if (this.sup2 === 1) {
               texte = ` Soit $${nom}$ la fonction cube.<br>
-            Sans effectuer de calcul, comparer $${nom}(${texNombre(x1, 1)})$ et $${nom}(${texNombre(x2, 1)})$. `
+            Sans effectuer de calcul, comparer $${nom}(${texNombre(x1, 1)})$ et $${nom}(${texNombre(x2, 1)})$.`
             } else {
               texte = `Sans effectuer de calcul, comparer $${ecritureParentheseSiNegatif(x1)}^3$ et $${ecritureParentheseSiNegatif(x2)}^3$.`
             }
@@ -413,7 +413,7 @@ export default class ComparerAvecFonctionRef extends Exercice {
       const choixListeDeroulante2 = [
         { label: 'Choisir', value: '' },
         { latex: '\\mathbb{R}', value: 'R' },
-        { latex: '}0\\,;\\,+\\infty[', value: 'R+' },
+        { latex: ']0\\,;\\,+\\infty[', value: 'R+' },
         { latex: ']-\\infty\\,;\\,0[', value: 'R-' },
       ]
       const choixListeDeroulante3 = [
@@ -423,7 +423,7 @@ export default class ComparerAvecFonctionRef extends Exercice {
       ]
       if (this.interactif) {
         texte = texte.slice(0, -1)
-        texte += ' et compléter ensuite la phrase suivante.'
+        texte += ', et compléter ensuite la phrase suivante.'
         texte +=
           `<br><br>La fonction $${nom}$ est ` +
           (this.interactif
@@ -433,7 +433,7 @@ export default class ComparerAvecFonctionRef extends Exercice {
           (this.interactif
             ? choixDeroulant(this, 3 * i + 1, choixListeDeroulante2)
             : '$\\ldots\\ldots\\ldots\\ldots$') +
-          `  donc  $${nom}(${texNombre(x1, 1)})$ et $${nom}(${texNombre(x2, 1)})$` +
+          `  donc  $${nom}(${texNombre(x1, 1)})$` +
           (this.interactif
             ? choixDeroulant(this, 3 * i + 2, choixListeDeroulante3)
             : '$\\ldots\\ldots\\ldots\\ldots$') +

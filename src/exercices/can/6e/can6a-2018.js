@@ -66,7 +66,7 @@ Par exemple, en choisissant 20 questions, la course aux nombres sera composée d
   }
 
   nouvelleVersion() {
-    const nbQ1 = Math.min(arrondi((this.nbQuestions * 7) / 30), 7) // Choisir d'un nb de questions de niveau 1 parmi les 7 possibles.
+    const nbQ1 = Math.min(Math.round((this.nbQuestions * 7) / 30), 7) // Choisir d'un nb de questions de niveau 1 parmi les 7 possibles.
     const nbQ2 = Math.min(this.nbQuestions - nbQ1, 23)
     const typeQuestionsDisponiblesNiv1 = shuffle([1, 2, 4, 5, 6, 7, 10])
       .slice(-nbQ1)

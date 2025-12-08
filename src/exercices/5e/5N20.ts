@@ -11,7 +11,7 @@ import FractionEtendue from '../../modules/FractionEtendue'
 import { context } from '../../modules/context'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import Exercice from '../Exercice'
-export const dateDeModifImportante = '09/11/2025'
+export const dateDeModifImportante = '04/12/2025'
 export const amcReady = true
 export const amcType = 'qcmMono'
 export const interactifReady = true
@@ -301,7 +301,10 @@ export default class ExerciceAdditionnerSoustraireFractions5ebis extends Exercic
         }
 
         texte = `$${f1.texFraction}-${f2.texFraction}$`
-        const reponse = new FractionEtendue(a * k - c, d).toLatex()
+        const reponse = new FractionEtendue(
+          f2PlusGdQuef1 ? a - c * k : a * k - c,
+          f2PlusGdQuef1 ? b : d,
+        ).toLatex()
 
         texteCorr = `$${f1.texFraction}-${f2.texFraction}=`
         if (this.level !== 6 && this.sup !== 1) {

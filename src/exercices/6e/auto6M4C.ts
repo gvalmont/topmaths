@@ -1,9 +1,9 @@
-import Exercice from '../Exercice'
-import { listeQuestionsToContenu, randint } from '../../modules/outils'
-import { choixDeroulant } from '../../lib/interactif/questionListeDeroulante'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
+import { choixDeroulant } from '../../lib/interactif/questionListeDeroulante'
 import { choice } from '../../lib/outils/arrayOutils'
 import { texteEnCouleurEtGras } from '../../lib/outils/embellissements'
+import { listeQuestionsToContenu, randint } from '../../modules/outils'
+import Exercice from '../Exercice'
 
 export const dateDePublication = '02/08/2025'
 export const titre = 'Choisir les bonnes unités de mesure de durées courtes'
@@ -17,7 +17,7 @@ export const interactifType = 'listeDeroulante'
 export const uuid = 'd040a'
 
 export const refs = {
-  'fr-fr': ['auto6M4C'],
+  'fr-fr': ['auto6M4C', '3AutoG06-6'],
   'fr-2016': ['6D10-1'],
   'fr-ch': [''],
 }

@@ -1,3 +1,4 @@
+import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { combinaisonListes } from '../../lib/outils/arrayOutils'
 import {
   texteEnCouleur,
@@ -6,16 +7,15 @@ import {
 import { sp } from '../../lib/outils/outilString'
 import { context } from '../../modules/context'
 import Hms from '../../modules/Hms'
-import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 
-import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
+import { listeQuestionsToContenu, randint } from '../../modules/outils'
 
+import { bleuMathalea } from '../../lib/colors'
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 import { minToHoraire } from '../../lib/outils/dateEtHoraires'
-import Exercice from '../Exercice'
 import { arrondi } from '../../lib/outils/nombres'
-import { bleuMathalea } from '../../lib/colors'
+import Exercice from '../Exercice'
 
 export const titre = 'Convertir en min vers h et min ou en s vers min et s'
 export const interactifReady = true
@@ -25,10 +25,10 @@ export const amcType = 'AMCHybride'
 export const dateDeModifImportante = '14/05/2022'
 
 /**
- *
  * @author
  * Ajout d'une option "Mélange" par Guillaume Valmont le 14/05/2022
  */
+
 export const uuid = '4f8f4'
 
 export const refs = {

@@ -12,8 +12,8 @@
     mathaleaHandleExerciceSimple,
     mathaleaRenderDiv,
     mathaleaUpdateUrlFromExercicesParams,
-    mathaleaWriteStudentPreviousAnswers,
   } from '../../../../../lib/mathalea'
+  import { mathaleaWriteStudentPreviousAnswers } from '../../../../../lib/mathaleaUtils'
   import {
     exercicesParams,
     isMenuNeededForExercises,

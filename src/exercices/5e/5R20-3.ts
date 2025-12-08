@@ -123,7 +123,7 @@ export default class ExerciceAdditionsDe5Relatifs extends Exercice {
       const s2 = 1
       const s3 = 1
       const s4 = 1
-      const reponse = a + b + c + d + e
+      const reponse = arrondi(a + b + c + d + e)
       if (this.sup2 === 3) {
         texte = `$ ${lettreDepuisChiffre(i + 1)} = ${texNombre(a, 2)}${ecritureAlgebrique(b)}${ecritureAlgebrique(c)}${ecritureAlgebrique(d)}${ecritureAlgebrique(
           e,

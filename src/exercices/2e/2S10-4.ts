@@ -1,20 +1,21 @@
-import { combinaisonListes, choice } from '../../lib/outils/arrayOutils'
-import { numAlpha } from '../../lib/outils/outilString'
-import Exercice from '../Exercice'
-import {
-  randint,
-  listeQuestionsToContenuSansNumero,
-} from '../../modules/outils'
-import { context } from '../../modules/context'
 import { tableauColonneLigne } from '../../lib/2d/tableau'
-import { AddTabDbleEntryMathlive } from '../../lib/interactif/tableaux/AjouteTableauMathlive'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
+import { AddTabDbleEntryMathlive } from '../../lib/interactif/tableaux/AjouteTableauMathlive'
+import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
+import { numAlpha } from '../../lib/outils/outilString'
+import { context } from '../../modules/context'
+import {
+  gestionnaireFormulaireTexte,
+  listeQuestionsToContenuSansNumero,
+  randint,
+} from '../../modules/outils'
+import Exercice from '../Exercice'
 
-import { texNombre } from '../../lib/outils/texNombre'
-import FractionEtendue from '../../modules/FractionEtendue'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { arrondi } from '../../lib/outils/nombres'
+import { texNombre } from '../../lib/outils/texNombre'
+import FractionEtendue from '../../modules/FractionEtendue'
 export const titre = "Compléter et utiliser un tableau d'effectif"
 export const dateDePublication = '08/01/2024'
 export const interactifReady = true
@@ -35,10 +36,9 @@ export const uuid = '3f39d'
 export default class TableauProportion extends Exercice {
   constructor() {
     super()
-    this.besoinFormulaireNumerique = [
-      'Niveau de difficulté',
-      3,
-      ' 1 : Tableau à compléter\n 2 : Utiliser un tableau\n 3 : Mélange',
+    this.besoinFormulaireTexte = [
+      'Types de questions',
+      'nombres séparés par des tirets\n1 : Tableau à compléter \n2 : Tableau à utiliser\n3 : Mélange',
     ]
 
     this.spacing = context.isHtml ? 1.5 : 2
@@ -46,20 +46,22 @@ export default class TableauProportion extends Exercice {
     this.nbQuestions = 1
     this.sup = 2
 
-    this.listeAvecNumerotation = false
+    this.listeAvecNumerotation = true
     this.exoCustomResultat = true
-    this.nbQuestionsModifiable = false
+    this.nbQuestionsModifiable = true
   }
 
   nouvelleVersion() {
     this.answers = {}
 
-    let typesDeQuestionsDisponibles = [1]
-    if (this.sup === 2) {
-      typesDeQuestionsDisponibles = [2]
-    } else {
-      typesDeQuestionsDisponibles = [1, 2]
-    }
+    const typesDeQuestionsDisponibles = gestionnaireFormulaireTexte({
+      saisie: this.sup,
+      min: 1,
+      max: 2,
+      melange: 3,
+      defaut: 3,
+      nbQuestions: this.nbQuestions,
+    })
     const toutPourUn: (l: number[]) => [number, number] = (
       listePoints: number[],
     ) => [Math.min(...listePoints), 1]

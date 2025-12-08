@@ -45,7 +45,7 @@ export default class auto1AP3 extends ExerciceQcmA {
             new Arbre({
               rationnel: false,
               nom: '\\bar B',
-              proba: 1,
+              proba: Number(1 - pBA),
               visible: false,
             }),
           ],
@@ -59,7 +59,7 @@ export default class auto1AP3 extends ExerciceQcmA {
             new Arbre({
               rationnel: false,
               nom: 'B',
-              proba: 1,
+              proba:  Number(1 - pBbAb),
               visible: false,
               // alter: 'x'
             }),
@@ -155,7 +155,7 @@ export default class auto1AP3 extends ExerciceQcmA {
             new Arbre({
               rationnel: false,
               nom: '\\bar B',
-              proba: 1,
+              proba: Number(1 - pBA),
               visible: false,
             }),
           ],
@@ -169,7 +169,7 @@ export default class auto1AP3 extends ExerciceQcmA {
             new Arbre({
               rationnel: false,
               nom: 'B',
-              proba: 1,
+              proba: Number(1 - pBbAb),
               visible: false,
               // alter: 'x'
             }),

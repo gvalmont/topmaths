@@ -14,11 +14,7 @@ import { centrage, deuxColonnes } from '../../lib/format/miseEnPage'
 import { texcolors } from '../../lib/format/style'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
-import {
-  choice,
-  compteOccurences,
-  enleveElement,
-} from '../../lib/outils/arrayOutils'
+import { choice } from '../../lib/outils/arrayOutils'
 import {
   miseEnEvidence,
   texteEnCouleur,
@@ -35,6 +31,7 @@ import { mathalea2d } from '../../modules/mathalea2d'
 import {
   contraindreValeur,
   listeQuestionsToContenu,
+  randint,
 } from '../../modules/outils'
 import type { NestedObjetMathalea2dArray } from '../../types/2d'
 import Exercice from '../Exercice'
@@ -585,8 +582,8 @@ export default class SerieDeTransformations extends Exercice {
     ]
     this.besoinFormulaire2Numerique = [
       "Nombre de transformations entre le départ et l'arrivée",
-      6,
-      '1 : 8\n2 : 10\n3 : 12\n4 : 14\n5 : 16\n6 : Entre 8 et 16',
+      5,
+      '1 : de 8 à 12\n2 : de 10 à 14\n3 : de 8 à 14\n4 : de 10 à 16\n5 : de 8 et 16',
     ]
     this.besoinFormulaire3CaseACocher = ['Énoncés raccourcis', false]
     this.sup = 4
@@ -594,6 +591,7 @@ export default class SerieDeTransformations extends Exercice {
     this.sup3 = false
     this.version = 4
     this.nbQuestions = 1
+    this.nbQuestionsModifiable = false
   }
 
   nouvelleVersion() {
@@ -614,6 +612,7 @@ export default class SerieDeTransformations extends Exercice {
 
     for (
       let i = 0,
+        cpt = 0,
         texte,
         texteCorr,
         paramsCorrection,
@@ -625,8 +624,8 @@ export default class SerieDeTransformations extends Exercice {
         parcoursPossible,
         numeroFigure,
         leurre0;
-      i < this.nbQuestions;
-      i++
+      i < this.nbQuestions && cpt < 10;
+
     ) {
       this.autoCorrection[i] = {}
       let chemin: number[]
@@ -645,7 +644,8 @@ export default class SerieDeTransformations extends Exercice {
         arrivee: number
         type: 'symax' | 'trans' | 'rot90' | 'rot180'
       }[] = []
-      polys[0] = homothetie(choice(motifs), A, 0.4)
+      const unMotif = randint(0, motifs.length - 1)
+      polys[0] = homothetie(motifs[unMotif], A, 0.4)
       leurre0 = translation(
         polys[0],
         vecteur(
@@ -699,104 +699,29 @@ export default class SerieDeTransformations extends Exercice {
       switch (this.sup2) {
         case 1:
           nbTransfMin = 8
-          nbTransfMax = 10
+          nbTransfMax = 12
           break
         case 2:
           nbTransfMin = 10
-          nbTransfMax = 12
+          nbTransfMax = 14
           break
         case 3:
-          nbTransfMin = 12
+          nbTransfMin = 8
           nbTransfMax = 14
           break
         case 4:
-          nbTransfMin = 14
+          nbTransfMin = 10
           nbTransfMax = 16
           break
         case 5:
-          nbTransfMin = 16
-          nbTransfMax = 18
-          break
         default:
           nbTransfMin = 8
-          nbTransfMax = 18
+          nbTransfMax = 16
           break
       }
-      while (chemin.length < nbTransfMin || chemin.length > nbTransfMax) {
-        chemin = [0]
-        numeroFigure = 0
-        parcoursPossible = [
-          numeroFigure - 6,
-          numeroFigure - 1,
-          numeroFigure + 1,
-          numeroFigure + 6,
-        ]
-
-        while (numeroFigure !== 28) {
-          parcoursPossible = [
-            numeroFigure - 6,
-            numeroFigure - 1,
-            numeroFigure + 1,
-            numeroFigure + 6,
-          ]
-          if (numeroFigure % 6 === 0) {
-            // bord bas de la figure
-            enleveElement(parcoursPossible, numeroFigure - 6)
-            enleveElement(parcoursPossible, numeroFigure - 1)
-          } else if (numeroFigure % 6 === 4) {
-            // bord haut de la figure
-            enleveElement(parcoursPossible, numeroFigure - 6)
-            enleveElement(parcoursPossible, numeroFigure + 1)
-          } else if (numeroFigure % 6 === 3) {
-            // Avant-dernière ligne de la figure
-            enleveElement(parcoursPossible, numeroFigure - 6) // Interdiction d'aller à gauche sous peine de retour impossible
-          }
-          if (numeroFigure >= 24) {
-            // bord droit de la figure
-            enleveElement(parcoursPossible, numeroFigure + 6)
-            enleveElement(parcoursPossible, numeroFigure - 1)
-          } else if (numeroFigure <= 4) {
-            // bord gauche de la figure
-            enleveElement(parcoursPossible, numeroFigure - 6)
-            enleveElement(parcoursPossible, numeroFigure - 1)
-          } else if (numeroFigure <= 22 && numeroFigure >= 18) {
-            // Avant-dernière colonne de la figure
-            enleveElement(parcoursPossible, numeroFigure - 1) // Interdiction d'aller en bas sous peine de retour impossible
-          }
-          numeroFigure = choice(parcoursPossible)
-          futursVoisinsPossibles = [
-            numeroFigure - 6,
-            numeroFigure - 1,
-            numeroFigure + 1,
-            numeroFigure + 6,
-          ]
-          nbVoisins = 0
-          for (let kk = 0; kk < 4; kk++) {
-            nbVoisins =
-              nbVoisins + compteOccurences(chemin, futursVoisinsPossibles[kk])
-          }
-          while (
-            compteOccurences(chemin, numeroFigure) !== 0 ||
-            nbVoisins > 1
-          ) {
-            // Il ne faut pas choisir une case qui soit voisine avec une case déjà choisie car sinon on pourrait avoir des raccourcis non désirés.
-            enleveElement(parcoursPossible, numeroFigure)
-            numeroFigure = choice(parcoursPossible)
-            futursVoisinsPossibles = [
-              numeroFigure - 6,
-              numeroFigure - 1,
-              numeroFigure + 1,
-              numeroFigure + 6,
-            ]
-            nbVoisins = 0
-            for (let kk = 0; kk < 4; kk++) {
-              nbVoisins =
-                nbVoisins + compteOccurences(chemin, futursVoisinsPossibles[kk])
-            }
-          }
-          chemin.push(numeroFigure)
-        }
-      }
+      do {
+        chemin = genererCheminOptimise(nbTransfMin, nbTransfMax)
+      } while (chemin.length < nbTransfMin || chemin.length > nbTransfMax)
       for (let k = 0; k < chemin.length - 1; k++) {
         transfos[k] = definitElements(
           choice(typeDeTransfos),
@@ -991,10 +916,245 @@ export default class SerieDeTransformations extends Exercice {
       }
       texte += context.isHtml ? '<br>' : '\n \\medskip'
       texteCorr += context.isHtml ? '<br>' : '\n \\medskip'
-
-      this.listeQuestions.push(texte)
-      this.listeCorrections.push(texteCorr)
+      if (
+        this.questionJamaisPosee(
+          i,
+          chemin.map(String).join(''),
+          unMotif.toString(),
+        )
+      ) {
+        this.listeQuestions.push(texte)
+        this.listeCorrections.push(texteCorr)
+        i++
+      }
+      cpt++
     }
     listeQuestionsToContenu(this)
   }
 }
+
+function genererCheminOptimise(
+  nbTransfMin: number,
+  nbTransfMax: number,
+): number[] {
+  const MAX_TENTATIVES = 20
+
+  for (let tentative = 0; tentative < MAX_TENTATIVES; tentative++) {
+    const chemin = [0]
+    const visite = new Set<number>([0])
+    let numeroFigure = 0
+    while (numeroFigure !== 28) {
+      const voisins = obtenirVoisinsPossibles(numeroFigure, visite, chemin)
+
+      if (voisins.length === 0) {
+        // Impasse : on recommence
+        break
+      }
+
+      // Pondération pour favoriser la direction vers 28
+      const voisinsPonderes = pondererVoisins(voisins, numeroFigure)
+      numeroFigure = choisirVoisinPondere(voisinsPonderes)
+
+      chemin.push(numeroFigure)
+      visite.add(numeroFigure)
+
+      // Si on atteint 28, vérifier la longueur
+      if (numeroFigure === 28) {
+        if (chemin.length >= nbTransfMin && chemin.length <= nbTransfMax) {
+          return chemin
+        }
+        // Sinon recommencer
+        break
+      }
+    }
+  }
+  // Fallback : générer un chemin direct si l'optimisé échoue
+  return genererCheminDirect(nbTransfMin, nbTransfMax)
+}
+
+function obtenirVoisinsPossibles(
+  numeroFigure: number,
+  visite: Set<number>,
+  chemin: number[],
+): number[] {
+  const voisins = []
+  const candidats = [
+    numeroFigure - 6, // gauche
+    numeroFigure - 1, // bas
+    numeroFigure + 1, // haut
+    numeroFigure + 6, // droite
+  ]
+
+  for (const candidat of candidats) {
+    if (estVoisinValide(candidat, numeroFigure, visite, chemin)) {
+      voisins.push(candidat)
+    }
+  }
+
+  return voisins
+}
+
+function estVoisinValide(
+  candidat: number,
+  numeroFigure: number,
+  visite: Set<number>,
+  chemin: number[],
+): boolean {
+  // Vérifier les limites de la grille
+  if (candidat < 0 || candidat > 28) return false
+
+  // Vérifier que le candidat n'est pas dans une position interdite (modulo 6 = 5)
+  if (candidat % 6 === 5) return false
+
+  // Vérifier que le mouvement est valide
+  if (!estMouvementValide(numeroFigure, candidat)) return false
+
+  // Vérifier que le candidat n'a pas déjà été visité
+  if (visite.has(candidat)) return false
+
+  // Vérifier qu'on ne crée pas de raccourci non désiré
+  return !creeRaccourci(candidat, chemin)
+}
+
+function estMouvementValide(de: number, vers: number): boolean {
+  const diff = vers - de
+
+  // Mouvement horizontal (±6)
+  if (Math.abs(diff) === 6) return true
+
+  // Mouvement vertical (±1) mais pas de changement de colonne
+  if (Math.abs(diff) === 1 && Math.floor(de / 6) === Math.floor(vers / 6))
+    return true
+
+  return false
+}
+
+function creeRaccourci(candidat: number, chemin: number[]): boolean {
+  const voisinsDuCandidat = [
+    candidat - 6,
+    candidat - 1,
+    candidat + 1,
+    candidat + 6,
+  ].filter((v) => v >= 0 && v <= 28 && v % 6 !== 5)
+
+  // Compter combien de voisins du candidat sont déjà dans le chemin
+  let nbVoisinsDansLechemin = 0
+  for (const voisin of voisinsDuCandidat) {
+    if (chemin.includes(voisin)) {
+      nbVoisinsDansLechemin++
+    }
+  }
+
+  // Si plus d'un voisin est dans le chemin, c'est un raccourci
+  return nbVoisinsDansLechemin > 1
+}
+
+function pondererVoisins(
+  voisins: number[],
+  numeroActuel: number,
+): { numero: number; poids: number }[] {
+  return voisins.map((voisin) => {
+    // Distance de Manhattan vers 28 (ligne 4, colonne 4)
+    const ligneActuelle = numeroActuel % 6
+    const colonneActuelle = Math.floor(numeroActuel / 6)
+    const ligneVoisin = voisin % 6
+    const colonneVoisin = Math.floor(voisin / 6)
+
+    const distanceActuelle =
+      Math.abs(4 - ligneActuelle) + Math.abs(4 - colonneActuelle)
+    const distanceVoisin =
+      Math.abs(4 - ligneVoisin) + Math.abs(4 - colonneVoisin)
+
+    // Favoriser les mouvements qui se rapprochent de 28
+    const poids = distanceActuelle > distanceVoisin ? 3 : 1
+
+    return { numero: voisin, poids }
+  })
+}
+
+function choisirVoisinPondere(
+  voisinsPonderes: { numero: number; poids: number }[],
+): number {
+  const poidsTotal = voisinsPonderes.reduce((sum, v) => sum + v.poids, 0)
+  let seuil = Math.random() * poidsTotal
+
+  for (const voisin of voisinsPonderes) {
+    seuil -= voisin.poids
+    if (seuil <= 0) {
+      return voisin.numero
+    }
+  }
+
+  // Fallback
+  return voisinsPonderes[0].numero
+}
+
+function genererCheminDirect(
+  nbTransfMin: number,
+  nbTransfMax: number,
+): number[] {
+  // Chemin de base le plus court : 0 → 6 → 12 → 18 → 24 → 25 → 26 → 27 → 28
+  let chemin =
+    nbTransfMin < 11
+      ? [0, 6, 12, 18, 24, 25, 26, 27, 28]
+      : nbTransfMin < 12
+        ? [0, 1, 2, 3, 4, 10, 9, 15, 21, 27, 28]
+        : [0, 6, 12, 13, 7, 8, 9, 15, 14, 20, 26, 27, 28]
+
+  // Si le chemin de base est déjà assez long
+  if (chemin.length >= nbTransfMin && chemin.length <= nbTransfMax) {
+    return chemin
+  }
+
+  // Essayer d'ajouter des détours sans créer de doublons
+  let tentatives = 0
+  const MAX_TENTATIVES_DETOUR = 50
+
+  while (
+    (chemin.length < nbTransfMin || chemin.length > nbTransfMax) &&
+    tentatives < MAX_TENTATIVES_DETOUR
+  ) {
+    tentatives++
+
+    // Choisir un segment aléatoire dans le chemin pour y insérer un détour
+    const indexSegment = randint(0, chemin.length - 2)
+    const debut = chemin[indexSegment]
+    const fin = chemin[indexSegment + 1]
+
+    // Chercher un détour possible entre debut et fin
+    const detour = trouverDetourValide(debut, fin, new Set(chemin))
+
+    if (detour !== null) {
+      // Insérer le détour entre debut et fin
+      chemin.splice(indexSegment + 1, 0, detour)
+    }
+  }
+  return chemin
+}
+
+function trouverDetourValide(
+  debut: number,
+  fin: number,
+  cheminExistant: Set<number>,
+): number | null {
+  // Trouver tous les voisins du point de début
+  const voisinsDebut = [debut - 6, debut - 1, debut + 1, debut + 6].filter(
+    (v) =>
+      v >= 0 &&
+      v <= 28 &&
+      v % 6 !== 5 &&
+      !cheminExistant.has(v) &&
+      estMouvementValide(debut, v),
+  )
+
+  // Pour chaque voisin du début, vérifier s'il peut rejoindre la fin
+  for (const candidat of voisinsDebut) {
+    if (estMouvementValide(candidat, fin)) {
+      return candidat
+    }
+  }
+
+  return null
+}
+
+// Supprimer la fonction ajouterAllersRetours car elle crée des doublons

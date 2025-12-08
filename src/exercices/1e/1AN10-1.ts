@@ -19,8 +19,7 @@ import {
 } from '../../modules/outils'
 import Trinome from '../../modules/Trinome'
 import Exercice from '../Exercice'
-export const titre =
-  "Calculer un nombre dérivé à partir de la définition"
+export const titre = 'Calculer un nombre dérivé à partir de la définition'
 export const interactifType = 'mathLive'
 export const interactifReady = true
 
@@ -57,13 +56,13 @@ export default class Tauxvariation extends Exercice {
         '6 : Fonction $ax^2+bx+c$ avec $a \\neq 1$',
         '7 : Fonction  $\\dfrac{a}{x}$',
         '8 : Fonction  $\\dfrac{a}{x+b}$',
-        '8 : Mélange',
+        '9 : Mélange',
       ].join('\n'),
     ]
 
     this.nbQuestions = 1 // Nombre de questions par défaut
 
-    this.sup = '8'
+    this.sup = '9'
   }
 
   nouvelleVersion() {
@@ -361,18 +360,18 @@ $\\lim\\limits_{h \\rightarrow 0} ${2 * coefA * a + b}${ecritureAlgebriqueSauf1(
 
           break
 
-  case 7: // 'fonction a/x':
+        case 7: // 'fonction a/x':
           const coefNum7 = randint(-5, 10, [0, 1, -1]) // coefficient au numérateur
-          
+
           // S'assurer que le point où on calcule la dérivée est différent du coefficient
           // et qu'il n'y a pas de simplification facile
-          let pointA7 = coefNum7+choice([-1,1])
-          
+          let pointA7 = coefNum7 + choice([-1, 1])
+
           const Q1cas7 = `Calculer le taux de variation $t(h)$ de $f$ entre $${pointA7}$ et $${pointA7}+h$, où $h$ est un réel non nul.`
           const Q2cas7 = `En déduire que $f$ est dérivable en $${pointA7}$ et déterminer $f'(${pointA7})$.`
-          
+
           texteApp = `\\text{Application à } f(x)=\\dfrac{${coefNum7}}{x}`
-          
+
           texte = `Soit $f$ la fonction définie pour tout $x$ de $\\mathbb{R}^*$ par $f(x)=\\dfrac{${coefNum7}}{x}$.<br>`
           texte += createList({
             items: [Q1cas7, Q2cas7],
@@ -399,10 +398,10 @@ $\\lim\\limits_{h \\rightarrow 0} \\dfrac{${-coefNum7}}{${pointA7}(${pointA7}+h)
             ],
             style: 'nombres',
           })
-          
+
           reponse1 = `\\frac{${-coefNum7}}{${pointA7}(${pointA7}+h)}`
           reponse2 = `\\frac{${-coefNum7}}{${pointA7 * pointA7}}`
-          
+
           break
 
         case 8: // ' a/(x+b)':
@@ -445,7 +444,7 @@ $\\begin{aligned}t(h) &= \\dfrac{f(${xA}+h)-f(${xA})}{h}${this.correctionDetaill
 $\\lim\\limits_{h \\rightarrow 0} \\dfrac{${coefNumOppose}}{(h${ecritureAlgebrique(denominateurEnA)})\\times ${denominateurEnA}}=\\dfrac{${coefNumOppose}}{${denominateurEnA * denominateurEnA}}$<br>
 ` +
                 Conclusion +
-                ` $${xA}$ et donc $f'(${xA})=${miseEnEvidence(`${new FractionEtendue(coefNumOppose, denominateurEnA * denominateurEnA).texFractionSimplifiee}`)}$.`, 
+                ` $${xA}$ et donc $f'(${xA})=${miseEnEvidence(`${new FractionEtendue(coefNumOppose, denominateurEnA * denominateurEnA).texFractionSimplifiee}`)}$.`,
             ],
             style: 'nombres',
           })

@@ -86,7 +86,9 @@ export function handleFlowmath(
       await new Promise((resolve) => setTimeout(resolve, 1500))
 
       // Import the necessary functions
-      const { mathaleaWriteStudentPreviousAnswers } = await import('./mathalea')
+      const { mathaleaWriteStudentPreviousAnswers } = await import(
+        './mathaleaUtils'
+      )
 
       // Reinject answers for each exercise
       for (const exercice of exercicesData) {

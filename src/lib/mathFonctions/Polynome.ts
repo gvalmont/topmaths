@@ -233,7 +233,7 @@ export class Polynome {
     coeffs,
     useFraction = false,
     useDecimal = false,
-    letter = 'x'
+    letter = 'x',
   }: {
     rand?: boolean
     deg?: number
@@ -409,7 +409,9 @@ export class Polynome {
               maj = egal(Number(c), 0, 1e-15) ? '' : `${coeffD}`
               break
             default:
-              maj = egal(Number(c), 0, 1e-15) ? '' : `${coeffD}${this.letter}^${i}`
+              maj = egal(Number(c), 0, 1e-15)
+                ? ''
+                : `${coeffD}${this.letter}^${i}`
           }
           break
         }
@@ -471,7 +473,7 @@ export class Polynome {
               ? `${c.valeurDecimale < 0 ? (c.valeurAbsolue().valeurDecimale === 1 ? '-' : c.texFSD) : c.valeurDecimale === 1 ? '+' : c.ecritureAlgebrique}`
               : this.deg === 0
                 ? c.texFSD
-                : rienSi1(Number(c))
+                : rienSi1(c)
             if (this.deg === 0) return c.texFSD
             switch (this.deg) {
               case 1:
@@ -481,7 +483,9 @@ export class Polynome {
                 maj = egal(Number(c), 0, 1e-15) ? '' : `${coeffD}`
                 break
               default:
-                maj = egal(Number(c), 0, 1e-15) ? '' : `${coeffD}${this.letter}^{${i}}`
+                maj = egal(Number(c), 0, 1e-15)
+                  ? ''
+                  : `${coeffD}${this.letter}^{${i}}`
             }
             break
           }
@@ -533,7 +537,9 @@ export class Polynome {
                 maj = egal(Number(c), 0, 1e-15) ? '' : `${coeffD}`
                 break
               default:
-                maj = egal(Number(c), 0, 1e-15) ? '' : `${coeffD}${this.letter}^{${i}}`
+                maj = egal(Number(c), 0, 1e-15)
+                  ? ''
+                  : `${coeffD}${this.letter}^{${i}}`
             }
             break
           }

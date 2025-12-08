@@ -1,4 +1,8 @@
-import { ecritureAlgebrique, ecritureAlgebriqueSauf1, reduireAxPlusB } from '../../lib/outils/ecritures'
+import {
+  ecritureAlgebrique,
+  ecritureAlgebriqueSauf1,
+  reduireAxPlusB,
+} from '../../lib/outils/ecritures'
 import FractionEtendue from '../../modules/FractionEtendue'
 import { randint } from '../../modules/outils'
 import ExerciceQcmA from '../ExerciceQcmA'
@@ -8,7 +12,6 @@ export const uuid = 'b0831'
 export const refs = {
   'fr-fr': ['1A-C09-6'],
   'fr-ch': [],
-
 }
 export const interactifReady = true
 export const interactifType = 'qcm'
@@ -25,29 +28,37 @@ export default class Puissances extends ExerciceQcmA {
         &=2x^2-5x-3.
      \\end{aligned}$`
 
-    this.reponses = ['$(2x+1)(x-3)$', '$(2x-1)(x+3)$ ', '$(x+\\dfrac12)(x-3)$ ', '$(2x+1)(x+3)$ ']
+    this.reponses = [
+      '$(2x+1)(x-3)$',
+      '$(2x-1)(x+3)$ ',
+      '$(x+\\dfrac12)(x-3)$ ',
+      '$(2x+1)(x+3)$ ',
+    ]
   }
 
   versionAleatoire = () => {
-    const a1 = randint(-4, 4,0)
-    const b1 = randint(-4, 4,0)
-    const a2 = randint(-4, 4,[0,a1])
-    const b2 = randint(-4, 4,[0,b1])
-    const distracteur= new FractionEtendue(b1,a1)
+    let a1, a2, b1, b2
+    do {
+      a1 = randint(-4, 4, 0)
+      b1 = randint(-4, 4, 0)
+      a2 = randint(-4, 4, [0, a1])
+      b2 = randint(-4, 4, [0, b1])
+    } while (a1 * b2 + a2 * b1 === 0)
+    const distracteur = new FractionEtendue(b1, a1)
     this.enonce = 'Soit $x$ un réel.<br>'
 
-    this.enonce += `À quelle expression est égale $${a1*a2}x^2${ecritureAlgebriqueSauf1(a1*b2+a2*b1)}x${ecritureAlgebrique(b1*b2)}$ ?`
+    this.enonce += `À quelle expression est égale $${a1 * a2}x^2${ecritureAlgebriqueSauf1(a1 * b2 + a2 * b1)}x${ecritureAlgebrique(b1 * b2)}$ ?`
     this.correction = `On cherche parmi les  propositions, lesquelles peuvent donner, après développement, l'expression de l'énoncé. <br>
               $\\begin{aligned}
-     \\left (${reduireAxPlusB(a1,b1)}\\right)\\left(${reduireAxPlusB(a2,b2)}\\right)&=${a1*a2}x^2${ecritureAlgebriqueSauf1(a1*b2)}x${ecritureAlgebriqueSauf1(a2*b1)}x${ecritureAlgebrique(b1*b2)}\\\\
-      &=${a1*a2}x^2${ecritureAlgebriqueSauf1(a1*b2+a2*b1)}x${ecritureAlgebrique(b1*b2)}\\\\
+     \\left (${reduireAxPlusB(a1, b1)}\\right)\\left(${reduireAxPlusB(a2, b2)}\\right)&=${a1 * a2}x^2${ecritureAlgebriqueSauf1(a1 * b2)}x${ecritureAlgebriqueSauf1(a2 * b1)}x${ecritureAlgebrique(b1 * b2)}\\\\
+      &=${a1 * a2}x^2${ecritureAlgebriqueSauf1(a1 * b2 + a2 * b1)}x${ecritureAlgebrique(b1 * b2)}\\\\
      \\end{aligned}$`
 
     this.reponses = [
-      `$\\left( ${reduireAxPlusB(a1,b1)}\\right)\\left( ${reduireAxPlusB(a2,b2)}\\right)$`,
-      `$\\left( ${reduireAxPlusB(a1,-b1)}\\right)\\left( ${reduireAxPlusB(a2,b2)}\\right)$`,
-      `$\\left( ${reduireAxPlusB(a1,-b1)}\\right)\\left( ${reduireAxPlusB(a2,-b2)}\\right)$`,
-      `$\\left( x${distracteur.simplifie().ecritureAlgebrique}\\right)\\left( ${reduireAxPlusB(a2,b2)}\\right)$`,
+      `$\\left( ${reduireAxPlusB(a1, b1)}\\right)\\left( ${reduireAxPlusB(a2, b2)}\\right)$`,
+      `$\\left( ${reduireAxPlusB(a1, -b1)}\\right)\\left( ${reduireAxPlusB(a2, b2)}\\right)$`,
+      `$\\left( ${reduireAxPlusB(a1, -b1)}\\right)\\left( ${reduireAxPlusB(a2, -b2)}\\right)$`,
+      `$\\left( x${distracteur.simplifie().ecritureAlgebrique}\\right)\\left( ${reduireAxPlusB(a2, b2)}\\right)$`,
     ]
   }
 

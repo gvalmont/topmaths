@@ -72,7 +72,7 @@ export default class SujetCAN20215ieme extends Exercice {
   }
 
   nouvelleVersion() {
-    const nbQ1 = Math.min(arrondi((this.nbQuestions * 8) / 30), 8) // Choisir d'un nb de questions de niveau 1 parmi les 7 possibles.
+    const nbQ1 = Math.min(Math.round((this.nbQuestions * 8) / 30), 8) // Choisir d'un nb de questions de niveau 1 parmi les 7 possibles.
     const nbQ2 = Math.min(this.nbQuestions - nbQ1, 22)
     const typeQuestionsDisponiblesNiv1 = shuffle([1, 2, 3, 4, 5, 6, 7, 8])
       .slice(-nbQ1)

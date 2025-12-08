@@ -21,6 +21,7 @@ export const titre = "Donner une mesure d'angle à l'aide de la bissectrice"
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const dateDePublication = '27/08/2025'
+export const dateDeModifImportante = '05/12/2025'
 
 export const refs = {
   'fr-fr': ['6G5A'],
@@ -116,7 +117,7 @@ export default class QuestionBissectrice extends Exercice {
           ],
           style: 'fleches',
         })}` +
-          ajouteChampTexteMathLive(this, i, KeyboardType.angles, {
+          ajouteChampTexteMathLive(this, i, KeyboardType.nombresEtDegre, {
             texteAvant: `$\\widehat{${A}${B}${I}}=$`,
           })
         handleAnswers(this, i, {
@@ -154,7 +155,7 @@ export default class QuestionBissectrice extends Exercice {
           ],
           style: 'fleches',
         })}` +
-          ajouteChampTexteMathLive(this, i, KeyboardType.angles, {
+          ajouteChampTexteMathLive(this, i, KeyboardType.nombresEtDegre, {
             texteAvant: `$\\widehat{${A}${B}${C}}=$`,
           })
         handleAnswers(this, i, {

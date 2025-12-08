@@ -2099,7 +2099,8 @@ export function ensembleNombres(
         feedback:
           'Une suite de nombres ne doit pas se terminer par un point-virgule.',
       }
-    if (!cleanInput.includes(';') || cleanInput.includes(','))
+    if (!/^\d+(;\d+)*$/.test(cleanInput))
+      // Pour vérifier que le séparateur est bien un point-virgule.
       return {
         isOk: false,
         feedback: 'Les nombres doivent tous être séparés par un point-virgule.',

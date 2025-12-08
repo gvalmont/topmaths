@@ -25,8 +25,8 @@ export const dateDePublication = '03/11/2024'
 export default class metropoleSept2023Q4 extends ExerciceQcm {
   versionOriginale: () => void = () => {
     this.reponses = [
-      'une suite décroissante ',
       'une suite géométrique de raison 1,2  ',
+      'une suite décroissante ',
       'une suite arithmétique de raison $60$',
       'une suite ni géométrique ni arithmétique',
     ]

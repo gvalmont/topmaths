@@ -144,15 +144,15 @@ class ConstructionTriangle extends ExerciceSimple {
     }))
     if (message) feedback += `${message}<br>`
     resultat.push(isValid ? 'OK' : 'KO')
-    const isPolygoneDrawn = true // this.figure.checkPolygonByLabels({
-    //   labels: [labelA, labelB, labelC]
-    // }).isValid
     if (resultat.every((r) => r === 'OK')) {
       resultat.push('OK')
     } else {
       resultat.push('KO')
     }
-    if (isPolygoneDrawn) {
+    const isPolygoneDrawn = this.figure.checkPolygonByLabels({
+       labels: [labelA, labelB, labelC]
+     }).isValid
+    if (isPolygoneDrawn && resultat.every((r) => r === 'OK')) {
       resultat.push('OK')
       feedback += `Le triangle $${labelA + labelB + labelC}$ a bien été tracé.<br>`
     } else {

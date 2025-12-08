@@ -12,7 +12,6 @@ import {
   setReponse,
 } from '../../../lib/interactif/gestionInteractif'
 import { ajouteChampTexteMathLive } from '../../../lib/interactif/questionMathLive'
-import { arrondi } from '../../../lib/outils/nombres'
 import Grandeur from '../../../modules/Grandeur'
 import ClasseCan2023 from './_Canc3a'
 
@@ -53,7 +52,7 @@ export default class SujetCAN2023CM2 extends Exercice {
   }
 
   nouvelleVersion() {
-    const nbQ1 = Math.min(arrondi((this.nbQuestions * 10) / 30), 10) // Choisir d'un nb de questions de niveau 1 parmi les 8 possibles.
+    const nbQ1 = Math.min(Math.round((this.nbQuestions * 10) / 30), 10) // Choisir d'un nb de questions de niveau 1 parmi les 8 possibles.
     const nbQ2 = Math.min(this.nbQuestions - nbQ1, 20)
     const typeQuestionsDisponiblesNiv1 = shuffle([
       1, 2, 3, 4, 5, 6, 7, 8, 9, 10,

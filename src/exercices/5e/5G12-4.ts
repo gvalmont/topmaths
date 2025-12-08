@@ -14,7 +14,11 @@ import { choice } from '../../lib/outils/arrayOutils'
 import { sp } from '../../lib/outils/outilString'
 import { context } from '../../modules/context'
 import { mathalea2d } from '../../modules/mathalea2d'
-import { gestionnaireFormulaireTexte, randint } from '../../modules/outils'
+import {
+  contraindreValeur,
+  gestionnaireFormulaireTexte,
+  randint,
+} from '../../modules/outils'
 import type { NestedObjetMathalea2dArray } from '../../types/2d'
 import Exercice from '../Exercice'
 
@@ -54,7 +58,7 @@ export default class NbAxesDeSymetrie extends Exercice {
   }
 
   nouvelleVersion(): void {
-    let nbFigures = this.sup2
+    let nbFigures = contraindreValeur(1, 3, this.sup2, 3)
     const factor = this.sup4 ? 2 : 1
     const typeDeFigures = gestionnaireFormulaireTexte({
       saisie: this.sup,
