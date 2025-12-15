@@ -5,7 +5,7 @@ import engine from '../../lib/interactif/comparisonFunctions'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { remplisLesBlancs } from '../../lib/interactif/questionMathLive'
 import { choice } from '../../lib/outils/arrayOutils'
-import type { AnswerType } from '../../lib/types'
+import type { AnswerType, IExercice } from '../../lib/types'
 import { gestionnaireFormulaireTexte, randint } from '../../modules/outils'
 import { assignVariables, calculer } from '../../modules/outilsMathjs'
 import Exercice from '../Exercice'
@@ -313,10 +313,7 @@ class MettreDesParentheses extends Exercice {
             {
               removeImplicit: false,
               suppr1: false,
-              suppr0: false,
-              supprPlusMoins: false,
               comment: true,
-              commentStep: true,
             },
           )
         : calculer(
@@ -324,16 +321,13 @@ class MettreDesParentheses extends Exercice {
             {
               removeImplicit: false,
               suppr1: false,
-              suppr0: false,
-              supprPlusMoins: false,
               comment: true,
-              commentStep: true,
             },
           )
       const texteCorr: string = `${answer.texteCorr}`
       // La callback de correction intéractive
       const callback = (
-        exercice: Exercice,
+        exercice: IExercice,
         question: number,
         variables: [string, AnswerType][],
       ) => {
@@ -363,7 +357,7 @@ class MettreDesParentheses extends Exercice {
         }
         const expSaisie = assignVariables(laSaisie, valeurs)
         const saisieParsed = engine.parse(expSaisie)
-        const isOk1 = goodAnswer.isEqual(saisieParsed) // L'expression saisie et la bonne réponse donne le même résultat, c'est trés bon signe.
+        const isOk1 = goodAnswer.isEqual(saisieParsed) ?? false // L'expression saisie et la bonne réponse donne le même résultat, c'est trés bon signe.
         // cependant, il peut y avoir des parenthèses inutiles.
         let isOk2 = true
         for (let index2 = 0; index2 < variables.length; index2++) {

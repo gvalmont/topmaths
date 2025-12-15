@@ -413,7 +413,7 @@ export function rotation(
       A.x * Math.sin((angle * Math.PI) / 180) +
       A.y * Math.cos((angle * Math.PI) / 180)
   }
-  return vecteur(x, y)
+  return vecteur(x, y) as Vecteur
 }
 
 /** Construit l'image d'un objet par homothétie

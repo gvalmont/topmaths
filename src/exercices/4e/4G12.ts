@@ -619,10 +619,6 @@ export default class SerieDeTransformations extends Exercice {
         paramsEnonce,
         nbTransfMin,
         nbTransfMax,
-        nbVoisins,
-        futursVoisinsPossibles,
-        parcoursPossible,
-        numeroFigure,
         leurre0;
       i < this.nbQuestions && cpt < 10;
 
@@ -1094,7 +1090,7 @@ function genererCheminDirect(
   nbTransfMax: number,
 ): number[] {
   // Chemin de base le plus court : 0 → 6 → 12 → 18 → 24 → 25 → 26 → 27 → 28
-  let chemin =
+  const chemin =
     nbTransfMin < 11
       ? [0, 6, 12, 18, 24, 25, 26, 27, 28]
       : nbTransfMin < 12

@@ -14,6 +14,7 @@ import {
 import { personne, personnes } from '../../lib/outils/Personne'
 import { ppcm } from '../../lib/outils/primalite'
 import { texNombre } from '../../lib/outils/texNombre'
+import type { IExercice } from '../../lib/types'
 import {
   gestionnaireFormulaireTexte,
   listeQuestionsToContenu,
@@ -590,7 +591,7 @@ export default class ProblemeDeRatio extends Exercice {
               while (c < 1024) {
                 c += k
               }
-              const callback = (exercice: Exercice, question: number) => {
+              const callback = (exercice: IExercice, question: number) => {
                 const spanReponseLigne = document.querySelector(
                   `#resultatCheckEx${exercice.numeroExercice}Q${question}`,
                 )

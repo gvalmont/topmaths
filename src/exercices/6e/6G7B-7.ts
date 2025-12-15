@@ -1,15 +1,10 @@
 import { colorToLatexOrHTML } from '../../lib/2d/colorToLatexOrHtml'
-import {
-  Droite,
-  droiteHorizontaleParPoint,
-  droiteVerticaleParPoint,
-} from '../../lib/2d/droites'
-import { Point, point, PointAbstrait } from '../../lib/2d/PointAbstrait'
+import { Droite, droiteAvecNomLatex } from '../../lib/2d/droites'
+import { Point, PointAbstrait } from '../../lib/2d/PointAbstrait'
 import { segment } from '../../lib/2d/segmentsVecteurs'
-import { latexParCoordonnees, texteParPosition } from '../../lib/2d/textes'
+import { texteParPosition } from '../../lib/2d/textes'
 import { tracePoint } from '../../lib/2d/TracePoint'
 import { symetrieAxiale } from '../../lib/2d/transformations'
-import { pointIntersectionDD } from '../../lib/2d/utilitairesPoint'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import {
   choice,
@@ -71,7 +66,8 @@ type FenetreType = {
 export default class PavageEtReflexion2d extends Exercice {
   constructor() {
     super()
-    this.nbQuestions = 3
+    this.nbQuestions = 1
+    this.nbQuestionsModifiable = false
     this.besoinFormulaireNumerique = [
       'Taille du pavage (la grande est automatique au-delà de 5 questions)',
       2,
@@ -83,16 +79,18 @@ export default class PavageEtReflexion2d extends Exercice {
       8,
       "1 : Triangles équilatéraux\n2 : Carrés\n3 : Hexagones réguliers\n4 : Carrés et triangles équilatéraux\n5 : Octogones et carrés\n 6 : Losanges (pavage hexagonal d'écolier)\n7 : Hexagones et triangles équilatéraux\n8 : Un des sept pavages au hasard",
     ]
-
+    this.besoinFormulaire4Numerique = ['Nombre de symétriques à trouver', 3]
     this.correctionDetaillee = true
     this.correctionDetailleeDisponible = true
 
-    this.sup = 1 // 1 pour des pavages modestes, 2 pour des plus grands.
+    this.sup = 2 // 1 pour des pavages modestes, 2 pour des plus grands.
     this.sup2 = false // On cache les centres par défaut.
     this.sup3 = 7
+    this.sup4 = 3
   }
 
   nouvelleVersion() {
+    const nbSymetriques = Math.max(1, Math.min(7, parseInt(this.sup4)))
     const videcouples = function (tableau: any[]) {
       for (let k = 0; k < tableau.length; k++) {
         for (let j = k + 1; j < tableau.length; j++) {
@@ -182,7 +180,7 @@ export default class PavageEtReflexion2d extends Exercice {
     if (taillePavage < 1 || taillePavage > 2) {
       taillePavage = 1
     }
-    if (this.nbQuestions > 5) {
+    if (nbSymetriques > 5) {
       taillePavage = 2
     }
 
@@ -207,15 +205,15 @@ export default class PavageEtReflexion2d extends Exercice {
     }
     let texte = ''
     let texteCorr = ''
-    let typeDePavage = this.sup3
+    let typeDePavage = Math.max(1, parseInt(this.sup3))
     let nombreTentatives
     let nombrePavageTestes = 1
     if (this.sup3 === 8) {
       typeDePavage = randint(1, 7)
     } else {
-      typeDePavage = this.sup3 % 8
+      typeDePavage = Math.max(1, this.sup3 % 8)
     }
-    while (couples.length < this.nbQuestions && nombrePavageTestes < 2) {
+    while (couples.length < nbSymetriques && nombrePavageTestes < 2) {
       nombreTentatives = 0
       monpavage = pavage() // On crée l'objet Pavage qui va s'appeler monpavage
       tailles = [
@@ -248,7 +246,7 @@ export default class PavageEtReflexion2d extends Exercice {
         fenetre.xmax,
         fenetre.ymax,
       ]
-      while (couples.length < this.nbQuestions && nombreTentatives < 5) {
+      while (couples.length < nbSymetriques && nombreTentatives < 5) {
         // On cherche d pour avoir suffisamment de couples
         couples = [] // On vide la liste des couples pour une nouvelle recherche
         index1 = randint(
@@ -299,135 +297,18 @@ export default class PavageEtReflexion2d extends Exercice {
           nombreTentatives++
         }
       }
-      if (couples.length < this.nbQuestions) {
+      if (couples.length < nbSymetriques) {
         nombrePavageTestes++
       }
     }
-    if (couples.length < this.nbQuestions || d == null) {
+    if (couples.length < nbSymetriques || d == null) {
       console.error('trop de questions, augmentez la taille du pavage')
       return
     }
 
     objets.push(d) // la droite d est trouvée
-    let pt1, pt2
-    if (Math.abs(d.pente) > 0.1 && Math.abs(d.pente) < 10) {
-      pt1 = pointIntersectionDD(
-        d as Droite,
-        droiteHorizontaleParPoint(
-          point(context.fenetreMathalea2d[2], context.fenetreMathalea2d[3]),
-        ),
-      )
-      pt2 = pointIntersectionDD(
-        d as Droite,
-        droiteVerticaleParPoint(
-          point(context.fenetreMathalea2d[0], context.fenetreMathalea2d[1]),
-        ),
-      )
-      if (!(pt1 instanceof PointAbstrait) || !(pt2 instanceof PointAbstrait)) {
-        window.notify("pt1 ou pt2 n'est pas un point", { pt1, pt2 })
-        return
-      }
-      if (pt1.x > pt2.x) {
-        objets.push(
-          latexParCoordonnees('(d)', pt1.x, pt1.y - 2.5, 'red', 20, 10, '', 12),
-        )
-      } else {
-        if (pt2.x < context.fenetreMathalea2d[2] + 0.5)
-          objets.push(
-            latexParCoordonnees(
-              '(d)',
-              pt2.x + 0.75 * context.zoom,
-              pt2.y - 0.8 * context.zoom,
-              'red',
-              20,
-              10,
-              '',
-              12,
-            ),
-          )
-        else
-          objets.push(
-            latexParCoordonnees(
-              '(d)',
-              pt2.x + 0.75 * context.zoom,
-              pt2.y + 0.15 * context.zoom,
-              'red',
-              20,
-              10,
-              '',
-              12,
-            ),
-          )
-      }
-    } else if (d.pente >= 0 && d.pente < 10) {
-      pt1 = pointIntersectionDD(
-        d as Droite,
-        droiteHorizontaleParPoint(
-          point(context.fenetreMathalea2d[2], context.fenetreMathalea2d[3]),
-        ),
-      )
-      pt2 = pointIntersectionDD(
-        d as Droite,
-        droiteVerticaleParPoint(
-          point(context.fenetreMathalea2d[2], context.fenetreMathalea2d[3]),
-        ),
-      )
-      if (!(pt1 instanceof Point) || !(pt2 instanceof Point)) {
-        window.notify("pt1 ou pt2 n'est pas un point", { pt1, pt2 })
-        return
-      }
-      if (pt1.x < pt2.x) {
-        objets.push(
-          latexParCoordonnees(
-            '(d)',
-            pt1.x - 0.75 * context.zoom,
-            pt1.y - 2.5,
-            'red',
-            20,
-            10,
-            '',
-            12,
-          ),
-        )
-      } else {
-        objets.push(
-          latexParCoordonnees(
-            '(d)',
-            pt2.x - 0.75 * context.zoom,
-            pt2.y + 0.5 * context.zoom,
-            'red',
-            20,
-            10,
-            '',
-            12,
-          ),
-        )
-      }
-    } else {
-      // d est verticale
-      pt1 = pointIntersectionDD(
-        d as Droite,
-        droiteHorizontaleParPoint(
-          point(context.fenetreMathalea2d[2], context.fenetreMathalea2d[3]),
-        ),
-      )
-      if (!(pt1 instanceof Point)) {
-        window.notify("pt1 n'est pas un point", { pt1, pt2 })
-        return
-      }
-      objets.push(
-        latexParCoordonnees(
-          '(d)',
-          pt1.x - 1,
-          pt1.y - 1.5,
-          'red',
-          20,
-          10,
-          '',
-          12,
-        ),
-      )
-    }
+
+    objets.push(droiteAvecNomLatex(d as Droite, '(d)', 'red')) // on ajoute la droite d avec son nom
 
     couples = shuffle(couples) // on mélange les couples
     const texteNoir = []
@@ -470,11 +351,8 @@ export default class PavageEtReflexion2d extends Exercice {
     }
 
     texte = mathalea2d(fenetre, objets, texteNoir) // monpavage.fenetre est calibrée pour faire entrer le pavage dans une feuille A4
-    const couleurs = combinaisonListes(
-      ['green', 'red', 'blue'],
-      this.nbQuestions,
-    )
-    for (let i = 0; i < this.nbQuestions; i++) {
+    const couleurs = combinaisonListes(['green', 'red', 'blue'], nbSymetriques)
+    for (let i = 0; i < nbSymetriques; i++) {
       setReponse(this, i, couples[i][1])
       texte +=
         numAlpha(i) +
@@ -485,7 +363,7 @@ export default class PavageEtReflexion2d extends Exercice {
         numAlpha(i) +
         `L'image de ${texteEnCouleur('la figure', couleurs[i])} $${miseEnEvidence(couples[i][0], couleurs[i])}$ dans la symétrie d'axe $(d)$ est la figure $${miseEnEvidence(couples[i][1])}$.<br>`
       if (this.correctionDetaillee) {
-        t = this.nbQuestions * 3
+        t = nbSymetriques * 3
         A = monpavage.barycentres[couples[i][0] - 1]
         B = monpavage.barycentres[couples[i][1] - 1]
         P1 = monpavage.polygones[couples[i][0] - 1]
@@ -508,7 +386,7 @@ export default class PavageEtReflexion2d extends Exercice {
           P3 = symetrieAnimee(
             P1,
             d,
-            `begin="${i * 3}s;${i * 3 + t}s;${i * 3 + t * 2}s" end="${i * 3 + 2}s;${i * 3 + t + 2}s;${i * 3 + t * 2 + 2}s" dur="2s" repeatCount="indefinite" repeatDur="${9 * this.nbQuestions}s" id="poly-${i}-anim"`,
+            `begin="${i * 3}s;${i * 3 + t}s;${i * 3 + t * 2}s" end="${i * 3 + 2}s;${i * 3 + t + 2}s;${i * 3 + t * 2 + 2}s" dur="2s" repeatCount="indefinite" repeatDur="${9 * nbSymetriques}s" id="poly-${i}-anim"`,
           )
           objetsCorrection.push(P3)
         }

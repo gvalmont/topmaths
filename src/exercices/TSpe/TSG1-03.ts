@@ -13,10 +13,6 @@ export const refs = {
   'fr-fr': ['TSG1-03'],
   'fr-ch': ['3mP1-19'],
 }
-function factorielle(num: number): number {
-  if (num === 0 || num === 1) return 1
-  return num * factorielle(num - 1)
-}
 /**
  * Modèle d'exercice très simple pour la course aux nombres
  * @author Stéphane Guyon

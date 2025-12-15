@@ -142,7 +142,6 @@ export default class CalculsAvecGrandsTraitsDeFraction extends Exercice {
           ajouteChampTexteMathLive(this, i, KeyboardType.clavierDeBase, {
             texteAvant: `$${lettreDepuisChiffre(i + 1)} = $`,
           })
-        // @ts-expect-error typage handleanswer
         handleAnswers(this, i, {
           reponse: {
             value: answer,

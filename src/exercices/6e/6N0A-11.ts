@@ -1,6 +1,7 @@
 import { propositionsQcm } from '../../lib/interactif/qcm'
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
+import { sp } from '../../lib/outils/outilString'
 import { texNombre } from '../../lib/outils/texNombre'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import Exercice from '../Exercice'
@@ -191,7 +192,7 @@ export default class ComparerDeuxNombresEntiers extends Exercice {
             }
             texteCorr += `$${texNombre(a)}$ et $${texNombre(b)}$ comptent le même nombre de chiffres.<br>`
             texteCorr +=
-              'On cherche le premier chiffre différent à partir de la gauche :<br>'
+              'On cherche le premier chiffre différent à partir de la gauche (les chiffres identiques sont en orange) :<br>'
             const dernierChiffreEnCommunPremierNombre =
               miseEnEvidenceDesChiffresEnCommun(a, b)
             const dernierChiffreEnCommunDeuxiemeNombre =
@@ -207,9 +208,9 @@ export default class ComparerDeuxNombresEntiers extends Exercice {
           break
       }
       if (a > b) {
-        texteCorr += `$${texNombre(a)}$ > $${texNombre(b)}$`
+        texteCorr += `$${texNombre(a)}${sp(1)}${miseEnEvidence('\\boldsymbol{>}')}${sp(1)}${texNombre(b)}$`
       } else {
-        texteCorr += `$${texNombre(a)}$ < $${texNombre(b)}$`
+        texteCorr += `$${texNombre(a)}${sp(1)}${miseEnEvidence('\\boldsymbol{<}')}${sp(1)}${texNombre(b)}$`
       }
       if (this.correctionDetaillee) texteCorr += '.'
       if (this.questionJamaisPosee(i, a, b)) {

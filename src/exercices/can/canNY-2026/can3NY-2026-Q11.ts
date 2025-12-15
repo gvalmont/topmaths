@@ -3,7 +3,6 @@ import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 import { choice } from '../../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { texNombre } from '../../../lib/outils/texNombre'
-import { randint } from '../../../modules/outils'
 import ExerciceSimple from '../../ExerciceSimple'
 
 export const titre = 'Écrire sous forme décimale'
@@ -28,19 +27,16 @@ export default class ecrireDecimale2026 extends ExerciceSimple {
 
   nouvelleVersion() {
     const a = 2026
-    const b = this.canOfficielle ? a % 100 : randint(11, 59, [20, 30, 40, 50])
-    const c = new Decimal(a).div(10)
-    const d = new Decimal(b).div(100)
-    const e = new Decimal(a).div(100)
-    const f = new Decimal(b).div(10)
-    if (choice([true, false])) {
-      this.reponse = texNombre(new Decimal(c).add(d), 3)
-      this.question = `Écrire sous forme décimale $\\dfrac{${texNombre(a)}}{10}+\\dfrac{${b}}{100}$. `
-      this.correction = `$\\dfrac{${texNombre(a)}}{10}+\\dfrac{${b}}{100}=${texNombre(a / 10, 1)}+${texNombre(b / 100, 2)}=${miseEnEvidence(this.reponse)}$<br>`
+    const choix = this.canOfficielle ? true : choice([true, false])
+
+    if (choix) {
+      this.reponse = texNombre(new Decimal(200).add((a % 100) / 100), 3)
+      this.question = `Écrire sous forme décimale $\\dfrac{${texNombre(2000)}}{10}+\\dfrac{${a % 100}}{100}$. `
+      this.correction = `$\\dfrac{${texNombre(2000)}}{10}+\\dfrac{${a % 100}}{100}=${texNombre(200, 1)}+${texNombre((a % 100) / 100, 2)}=${miseEnEvidence(this.reponse)}$<br>`
     } else {
-      this.reponse = texNombre(new Decimal(e).add(f), 3)
-      this.question = `Écrire sous forme décimale $\\dfrac{${b}}{10}+\\dfrac{${texNombre(a)}}{100}$. `
-      this.correction = `$\\dfrac{${b}}{10}+\\dfrac{${texNombre(a)}}{100}=${texNombre(b / 10, 1)}+${texNombre(a / 100, 2)}=${miseEnEvidence(this.reponse)}$<br>`
+      this.reponse = texNombre(new Decimal((a % 10) / 100).add(2020 / 100), 3)
+      this.question = `Écrire sous forme décimale $\\dfrac{${a % 10}}{10}+\\dfrac{${texNombre(2020)}}{100}$. `
+      this.correction = `$\\dfrac{${a % 10}}{10}+\\dfrac{${texNombre(2020)}}{100}=${texNombre((a % 10) / 10, 1)}+${texNombre(2020 / 100, 2)}=${miseEnEvidence(this.reponse)}$<br>`
     }
     if (this.interactif) {
       this.question += '<br>'

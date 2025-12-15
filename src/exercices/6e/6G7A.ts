@@ -1,10 +1,7 @@
 import Figure from 'apigeom'
 import { reflectOverLineCoord } from 'apigeom/src/elements/calculus/Coords'
 import type Line from 'apigeom/src/elements/lines/Line'
-import type {
-  default as Point,
-  default as PointApigeom,
-} from 'apigeom/src/elements/points/Point'
+import type PointApigeom from 'apigeom/src/elements/points/Point'
 import { cercleCentrePoint } from '../../lib/2d/cercle'
 import { codageAngleDroit } from '../../lib/2d/CodageAngleDroit'
 import { codageMilieu } from '../../lib/2d/CodageMilieu'
@@ -17,7 +14,7 @@ import {
   droiteVerticaleParPoint,
 } from '../../lib/2d/droites'
 import { grille } from '../../lib/2d/Grille'
-import { point } from '../../lib/2d/PointAbstrait'
+import { pointAbstrait, PointAbstrait } from '../../lib/2d/PointAbstrait'
 import {
   labelPoint,
   latexParCoordonnees,
@@ -59,7 +56,7 @@ export const refs = {
  * @param pointA
  * @param pointB
  */
-function positionneLabel(pointA: Point, pointB: Point) {
+function positionneLabel(pointA: PointAbstrait, pointB: PointAbstrait) {
   if (pointA.x < pointB.x) return 'above left'
   else if (pointA.x > pointB.x) return 'below right'
   else {
@@ -112,6 +109,7 @@ class ConstrctionsSymetriquesPoints extends Exercice {
   figuresApiGeom!: Figure[]
   nbPoints!: number
   antecedents!: PointApigeom[][]
+  antecedentsMathalea2d!: PointAbstrait[][]
   labels!: string[][]
   d!: Line[]
   exoCustomResultat: boolean
@@ -161,9 +159,11 @@ class ConstrctionsSymetriquesPoints extends Exercice {
     this.d = []
     for (let i = 0; i < this.nbQuestions; i++) {
       let enonce = ''
-      let antecedents: Array<Point> = []
-      const middle: Point[] = []
-      const symetriques: Point[] = []
+      let antecedentsMathalea2d: Array<PointAbstrait> = []
+      const middle: PointAbstrait[] = []
+      const middleMathalea2d: PointAbstrait[] = []
+      const symetriques: PointAbstrait[] = []
+      const symetriquesMathalea2d: PointAbstrait[] = []
       const objets: NestedObjetMathalea2dArray = []
       let objetsCorrection: NestedObjetMathalea2dArray = []
       const d: Droite[] = []
@@ -173,7 +173,7 @@ class ConstrctionsSymetriquesPoints extends Exercice {
       objetsCorrection.length = 0
       middle.length = 0
       symetriques.length = 0
-      antecedents.length = 0
+      antecedentsMathalea2d.length = 0
       let nuage: { x: number; y: number }[] = []
       let nuageSaved: { x: number; y: number }[] = []
       // On construit les points
@@ -216,10 +216,10 @@ class ConstrctionsSymetriquesPoints extends Exercice {
       // Maintenant, je les mets dans l'ordre alphabétique pour faciliter l'interactivité
 
       // Les antécédents sont des points nommés
-      antecedents = shuffle(nuage).map((el, k) =>
-        point(el.x, el.y, this.labels[i][k]),
+      antecedentsMathalea2d = shuffle(nuage).map((el, k) =>
+        pointAbstrait(el.x, el.y, this.labels[i][k]),
       ) // on mélange et on ne prendra que les nbPoints premiers
-      const O = point(0, 0, '', 'above')
+      const O = pointAbstrait(0, 0, '', 'above')
 
       if (choixDeLaxe[i] === 1) {
         d[i] = droiteHorizontaleParPoint(O) as Droite
@@ -237,7 +237,7 @@ class ConstrctionsSymetriquesPoints extends Exercice {
       const guideDroites = []
       for (let k = 0; k < this.nbPoints; k++) {
         const guide = droiteParPointEtPerpendiculaire(
-          antecedents[k],
+          antecedentsMathalea2d[k],
           d[i],
         ) as Droite
         guide.pointilles = 2
@@ -258,13 +258,20 @@ class ConstrctionsSymetriquesPoints extends Exercice {
           : '<br>')
       const guidesArc = []
       for (let k = 0; k < this.nbPoints; k++) {
-        symetriques[k] = symetrieAxiale(antecedents[k], d[i])
-        middle[k] = projectionOrtho(antecedents[k], d[i])
+        symetriquesMathalea2d[k] = symetrieAxiale(
+          antecedentsMathalea2d[k],
+          d[i],
+        )
+        middleMathalea2d[k] = projectionOrtho(antecedentsMathalea2d[k], d[i])
         /*  const angleOffset = choice([-12, -10, -8, 8, 10, 12])
           const ext1 = rotation(symetriques[k], middle[k], 3 * angleOffset)
           const ext2 = rotation(symetriques[k], middle[k], -angleOffset)
          */
-        const guide = cercleCentrePoint(middle[k], antecedents[k], colors[k])
+        const guide = cercleCentrePoint(
+          middleMathalea2d[k],
+          antecedentsMathalea2d[k],
+          colors[k],
+        )
         guide.pointilles = 2
         guide.opacite = 0.8
         guidesArc.push(guide)
@@ -281,19 +288,27 @@ class ConstrctionsSymetriquesPoints extends Exercice {
       }
       objets.push(d[i], labelD)
       for (let k = 0; k < this.nbPoints; k++) {
-        objets.push(new TracePoint(antecedents[k]))
+        objets.push(new TracePoint(antecedentsMathalea2d[k]))
         const sym = symetrieAxiale(
-          antecedents[k],
+          antecedentsMathalea2d[k],
           d[i],
-          antecedents[k].nom + "'",
+          antecedentsMathalea2d[k].nom + "'",
         )
-        sym.positionLabel = positionneLabel(sym, antecedents[k])
-        antecedents[k].positionLabel = positionneLabel(antecedents[k], sym)
-        const egalite = codageMilieu(antecedents[k], sym, colors[k], marks[k])
+        sym.positionLabel = positionneLabel(sym, antecedentsMathalea2d[k])
+        antecedentsMathalea2d[k].positionLabel = positionneLabel(
+          antecedentsMathalea2d[k],
+          sym,
+        )
+        const egalite = codageMilieu(
+          antecedentsMathalea2d[k],
+          sym,
+          colors[k],
+          marks[k],
+        )
         const trace: TracePoint = new TracePoint(sym)
         trace.color = colorToLatexOrHTML('red')
         const labelSym = labelPoint(sym)
-        const label = labelPoint(antecedents[k])
+        const label = labelPoint(antecedentsMathalea2d[k])
         objets.push(label)
         objetsCorrection.push(trace, labelSym, egalite)
       }
@@ -315,8 +330,8 @@ class ConstrctionsSymetriquesPoints extends Exercice {
       const pointSurD = pointSurDroite(d[i], 50, '', 'above')
       for (let k = 0; k < this.nbPoints; k++) {
         const carre = codageAngleDroit(
-          antecedents[k],
-          middle[k],
+          antecedentsMathalea2d[k],
+          middleMathalea2d[k],
           pointSurD,
           'blue',
           0.3,
@@ -393,11 +408,11 @@ class ConstrctionsSymetriquesPoints extends Exercice {
         this.antecedents[i] = []
         for (let k = 0; k < this.nbPoints; k++) {
           this.antecedents[i][k] = this.figuresApiGeom[i].create('Point', {
-            x: antecedents[k].x,
-            y: antecedents[k].y,
+            x: antecedentsMathalea2d[k].x,
+            y: antecedentsMathalea2d[k].y,
             isSelectable: true,
             isFree: false,
-            label: antecedents[k].nom,
+            label: antecedentsMathalea2d[k].nom,
           })
         }
         if (this.sup2 === 1) {
@@ -430,8 +445,8 @@ class ConstrctionsSymetriquesPoints extends Exercice {
             this.figuresApiGeom[i].create('CircleCenterPoint', {
               center: this.figuresApiGeom[i].create('Point', {
                 isVisible: false,
-                x: middle[k].x,
-                y: middle[k].y,
+                x: middleMathalea2d[k].x,
+                y: middleMathalea2d[k].y,
               }),
               point: this.antecedents[i][k],
               isDashed: true,

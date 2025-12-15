@@ -7,7 +7,6 @@ import { tracePoint } from '../../lib/2d/TracePoint'
 import {
   handleAnswers,
   setReponse,
-  type AutoCorrection,
 } from '../../lib/interactif/gestionInteractif'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
@@ -16,6 +15,7 @@ import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { abs, rangeMinMax } from '../../lib/outils/nombres'
 import { pgcd, premierAvec } from '../../lib/outils/primalite'
 import { texNombre } from '../../lib/outils/texNombre'
+import type { AutoCorrection } from '../../lib/types'
 import { context } from '../../modules/context'
 import FractionEtendue from '../../modules/FractionEtendue'
 import { mathalea2d } from '../../modules/mathalea2d'
@@ -125,7 +125,8 @@ Le choix a été fait d'un antécédent primaire entier positif, le coefficient 
           break
       }
 
-      let imageString, formatInteractif
+      let imageString
+      let formatInteractif: 'calcul' | 'fractionEgale'
       //
       const antecedent = choice(
         rangeMinMax(-10, 10, [antecedent0, 0, 1, -1, 2 * antecedent0]),

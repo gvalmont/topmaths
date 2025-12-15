@@ -34,7 +34,7 @@ export default class additionFraction2026 extends ExerciceSimple {
     if (this.canOfficielle ? true : choice([true, false])) {
       this.reponse = new FractionEtendue(1 + 2 * a, 2 * annee).toLatex()
       this.question = `Calculer sous la forme d'une fraction :<br>
-    $\\dfrac{${a}}{${texNombre(annee, 0)}} +\\dfrac{1}{${texNombre(2 * annee)}}$`
+    $\\dfrac{${a}}{${texNombre(annee, 0)}} +\\dfrac{1}{${texNombre(2 * annee)}}$.`
 
       this.correction = ` $\\dfrac{${a}}{${texNombre(annee, 0)}} +\\dfrac{1}{${texNombre(2 * annee, 0)}}=\\dfrac{${2 * a}}{${texNombre(2 * annee, 0)}} +\\dfrac{1}{${texNombre(2 * annee, 0)}}=${miseEnEvidence(`\\dfrac{${1 + 2 * a}}{${texNombre(2 * annee, 0)}}`)}$`
     } else {

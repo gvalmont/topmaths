@@ -1,22 +1,22 @@
+import { bleuMathalea } from '../../lib/colors'
+import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
+import { handleAnswers } from '../../lib/interactif/gestionInteractif'
+import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { choice } from '../../lib/outils/arrayOutils'
 import { texFractionFromString } from '../../lib/outils/deprecatedFractions'
 import { ecritureAlgebrique, reduireAxPlusB } from '../../lib/outils/ecritures'
-import Exercice from '../Exercice'
+import {
+  miseEnEvidence,
+  texteEnCouleurEtGras,
+} from '../../lib/outils/embellissements'
+import { numAlpha } from '../../lib/outils/outilString'
+import FractionEtendue from '../../modules/FractionEtendue'
 import {
   gestionnaireFormulaireTexte,
   listeQuestionsToContenu,
   randint,
 } from '../../modules/outils'
-import { numAlpha } from '../../lib/outils/outilString'
-import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
-import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
-import { handleAnswers } from '../../lib/interactif/gestionInteractif'
-import {
-  miseEnEvidence,
-  texteEnCouleurEtGras,
-} from '../../lib/outils/embellissements'
-import { bleuMathalea } from '../../lib/colors'
-import FractionEtendue from '../../modules/FractionEtendue'
+import Exercice from '../Exercice'
 
 export const titre =
   "Reconnaitre coefficient directeur et ordonnée à l'origine d'une fonction affine"
@@ -306,7 +306,9 @@ export default class CoefficientDirecteur extends Exercice {
       texte += ajouteChampTexteMathLive(
         this,
         2 * i,
-        KeyboardType.clavierDeBaseAvecFraction,
+        typesDeQuestionsDisponibles[i] === 6
+          ? KeyboardType.clavierFullOperations
+          : KeyboardType.clavierDeBaseAvecFraction,
       )
       texte +=
         '<br>' +
@@ -315,7 +317,9 @@ export default class CoefficientDirecteur extends Exercice {
       texte += ajouteChampTexteMathLive(
         this,
         2 * i + 1,
-        KeyboardType.clavierDeBaseAvecFraction,
+        typesDeQuestionsDisponibles[i] === 6
+          ? KeyboardType.clavierFullOperations
+          : KeyboardType.clavierDeBaseAvecFraction,
       )
       const reponse1 =
         typeof coefDir === 'number' ? coefDir.toString() : coefDir

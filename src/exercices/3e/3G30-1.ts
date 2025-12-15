@@ -610,7 +610,6 @@ export default class ExprimerCosSinTan extends Exercice {
               this,
               2 * (fonctionsTrigonometriques.length * i + ee),
               {
-                bareme: (listePoints) => [listePoints[0] * listePoints[1], 2],
                 champ1: {
                   value: correctionTrigoRLB[fonctionsTrigonometriques[ee]][0],
                   options: { texteAvecCasse: true },

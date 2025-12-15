@@ -1,25 +1,26 @@
-import { miseEnEvidence } from '../../lib/outils/embellissements'
-import { texNombre } from '../../lib/outils/texNombre'
-import Exercice from '../Exercice'
-import {
-  gestionnaireFormulaireTexte,
-  listeQuestionsToContenu,
-} from '../../modules/outils'
 import { tableauColonneLigne } from '../../lib/2d/tableau'
-import { AddTabDbleEntryMathlive } from '../../lib/interactif/tableaux/AjouteTableauMathlive'
+import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
-import { arrondi } from '../../lib/outils/nombres'
-import FractionEtendue from '../../modules/FractionEtendue'
+import { AddTabDbleEntryMathlive } from '../../lib/interactif/tableaux/AjouteTableauMathlive'
 import {
   choice,
   combinaisonListes,
   enleveDoublonNum,
 } from '../../lib/outils/arrayOutils'
+import { miseEnEvidence } from '../../lib/outils/embellissements'
+import { arrondi } from '../../lib/outils/nombres'
 import { sp } from '../../lib/outils/outilString'
-import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
+import { texNombre } from '../../lib/outils/texNombre'
+import FractionEtendue from '../../modules/FractionEtendue'
+import {
+  gestionnaireFormulaireTexte,
+  listeQuestionsToContenu,
+} from '../../modules/outils'
+import Exercice from '../Exercice'
 
 export const titre = 'Lier nombre décimal, fraction spécifique et pourcentage'
 export const dateDePublication = '04/06/2025'
+export const dateDeModifImportante = '12/12/2025'
 export const interactifType = 'mathLive'
 export const interactifReady = true
 
@@ -170,8 +171,20 @@ export default class DecimalFractionPourcentage extends Exercice {
         tabLinesCorr: nbDecimalCorrNu
           .concat(fractionDecimaleCorrNu)
           .concat(pourcentageCorrNu),
-        enonce: `${tableauColonneLigne([], ['\\text{Nombre décimal}', '\\text{Fraction}', '\\text{Pourcentage}'], nbDecimal.concat(fractionDecimale).concat(pourcentage))}`,
-        correction: `${tableauColonneLigne([], ['\\text{Nombre décimal}', '\\text{Fraction}', '\\text{Pourcentage}'], nbDecimalCorr.concat(fractionDecimaleCorr).concat(pourcentageCorr))}`,
+        enonce: `${tableauColonneLigne(
+          [],
+          ['\\text{Nombre décimal}', '\\text{Fraction}', '\\text{Pourcentage}'],
+          nbDecimal.concat(fractionDecimale).concat(pourcentage),
+          2.5,
+          true,
+        )}`,
+        correction: `${tableauColonneLigne(
+          [],
+          ['\\text{Nombre décimal}', '\\text{Fraction}', '\\text{Pourcentage}'],
+          nbDecimalCorr.concat(fractionDecimaleCorr).concat(pourcentageCorr),
+          2.5,
+          true,
+        )}`,
       })
       let objetReponse = {}
       for (let i = 0; i < enonces[0].tabLines.length; i++) {
@@ -233,7 +246,7 @@ export default class DecimalFractionPourcentage extends Exercice {
       }
       texteCorr = `${enonces[0].correction}`
 
-      if (this.questionJamaisPosee(i, JSON.stringify(objetReponse))) {
+      if (this.questionJamaisPosee(i, texteCorr)) {
         // Si la question n'a jamais été posée, on en créé une autre
         this.listeQuestions[i] = texte
         this.listeCorrections[i] = texteCorr

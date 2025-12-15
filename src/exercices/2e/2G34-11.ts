@@ -164,27 +164,24 @@ export default class IntersectionDroites extends Exercice {
         case 'deuxDroitesSG':
         case 'troisDroitesSG':
           do {
-            a = randint(-5, 5, [0]) // numérateut coefficient directeur non nul
-            b = randint(-5, 5) // ordonnée à l'origine
-            aFrac = choice(listeFractions)
-            a = aFrac[0] * choice([-1, 1]) //
-            d = aFrac[1] //
-            a2 = randint(-5, 5, [0]) // numérateut coefficient directeur non nul
-            b2 = randint(-5, 5) // ordonnée à l'origine
-            a2Frac = choice(listeFractions)
-            a2 = a2Frac[0] * choice([-1, 1]) //
-            d2 = a2Frac[1] //
-            a3 = randint(-5, 5, [0]) // numérateut coefficient directeur non nul
-            b3 = randint(-5, 5) // ordonnée à l'origine
-            a3Frac = choice(listeFractions)
-            a3 = a3Frac[0] * choice([-1, 1]) //
-            d3 = a3Frac[1] //
-            if (
+            do {
+              b = randint(-5, 5) // ordonnée à l'origine
+              aFrac = choice(listeFractions)
+              a = aFrac[0] * choice([-1, 1]) //
+              d = aFrac[1] //
+              b2 = randint(-5, 5) // ordonnée à l'origine
+              a2Frac = choice(listeFractions)
+              a2 = a2Frac[0] * choice([-1, 1]) //
+              d2 = a2Frac[1] //
+              b3 = randint(-5, 5) // ordonnée à l'origine
+              a3Frac = choice(listeFractions)
+              a3 = a3Frac[0] * choice([-1, 1]) //
+              d3 = a3Frac[1]
+            } while ( //
               Math.abs(a2 / d2 - a / d) < 0.5 ||
               Math.abs(a3 / d3 - a / d) < 0.5 ||
               Math.abs(a2 / d2 - a3 / d3) < 0.5
             )
-              continue
             c = droite(a / d, -1, b)
             c.color = colorToLatexOrHTML('red')
             c.epaisseur = 1

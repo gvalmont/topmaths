@@ -102,7 +102,8 @@ export default class Calculercoordonneesvecteurs extends Exercice {
         texte = `Dans un repère orthonormé $\\big(O\\,;\\,\\vec \\imath,\\,\\vec \\jmath\\big)$, on donne les points suivants : $${nomsPoints[0]}\\left(${xA}\\,;\\,${yA}\\right)$ et $${nomsPoints[1]}\\left(${xB}\\,;\\,${yB}\\right)$.<br>`
         texte += `Déterminer les coordonnées du vecteur $\\overrightarrow{${nomsPoints[0]}${nomsPoints[1]}}$.`
 
-        texteCorr = `$\\overrightarrow{${nomsPoints[0]}${nomsPoints[1]}}\\begin{pmatrix}${xB}-${ecritureParentheseSiNegatif(xA)}\\\\${yB}-${ecritureParentheseSiNegatif(yA)}\\end{pmatrix}$, soit $\\overrightarrow{${nomsPoints[0]}${nomsPoints[1]}}\\begin{pmatrix}${xABFraction.texFraction}\\\\${yABFraction.texFraction}\\end{pmatrix}$.<br>`
+        texteCorr = `$\\overrightarrow{${nomsPoints[0]}${nomsPoints[1]}}\\begin{pmatrix}${xB}-${ecritureParentheseSiNegatif(xA)}\\\\${yB}-${ecritureParentheseSiNegatif(yA)}\\end{pmatrix}$, soit $\\overrightarrow{${nomsPoints[0]}${nomsPoints[1]}}\\begin{pmatrix}${miseEnEvidence(xABFraction.texFSD)}\\\\[0.7em]${miseEnEvidence(yABFraction.texFSD)}\\end{pmatrix}$.<br>`
+                                                                                                                                                                                                                                                     
         if (this.correctionDetaillee) {
           texteCorr =
             "On sait d'après le cours que si $A(x_A\\,;\\,y_A)$ et $B(x_B\\,;\\,y_B)$ sont deux points d'un repère, alors on a $\\overrightarrow{AB}\\begin{pmatrix}x_B-x_A\\\\y_B-y_A\\end{pmatrix}$.<br>"
@@ -200,7 +201,7 @@ export default class Calculercoordonneesvecteurs extends Exercice {
         texte = `Dans un repère orthonormé $\\big(O\\,;\\,\\vec \\imath,\\,\\vec \\jmath\\big)$, on donne les points suivants : $${nomsPoints[0]}\\left(${xA.texFSD}\\,;\\,${yA.texFSD}\\right)$ et $${nomsPoints[1]}\\left(${xB.texFSD}\\,;\\,${yB}\\right)$.<br>`
         texte += `Déterminer les coordonnées du vecteur $\\overrightarrow{${nomsPoints[0]}${nomsPoints[1]}}$.`
 
-        texteCorr = `$\\overrightarrow{${nomsPoints[0]}${nomsPoints[1]}}\\begin{pmatrix}${xB.texFSD}-${xA.texFSP}\\\\[0.7em]${yB}-${yA.texFSP}\\end{pmatrix}$, soit $\\overrightarrow{${nomsPoints[0]}${nomsPoints[1]}}\\begin{pmatrix}${miseEnEvidence(xABFraction.texFraction)}\\\\[0.7em]${miseEnEvidence(yABFraction.texFSD)}\\end{pmatrix}$.<br>`
+        texteCorr = `$\\overrightarrow{${nomsPoints[0]}${nomsPoints[1]}}\\begin{pmatrix}${xB.texFSD}-${xA.texFSP}\\\\[0.7em]${yB}-${yA.texFSP}\\end{pmatrix}$, soit $\\overrightarrow{${nomsPoints[0]}${nomsPoints[1]}}\\begin{pmatrix}${miseEnEvidence(xABFraction.texFSD)}\\\\[0.7em]${miseEnEvidence(yABFraction.texFSD)}\\end{pmatrix}$.<br>`
         if (this.correctionDetaillee) {
           texteCorr =
             "On sait d'après le cours que si $A(x_A\\,;\\,y_A)$ et $B(x_B\\,;\\,y_B)$ sont deux points d'un repère, alors on a $\\overrightarrow{AB}\\begin{pmatrix}x_B-x_A\\\\y_B-y_A\\end{pmatrix}$.<br>"

@@ -19,6 +19,7 @@ import {
   numAlpha,
   reverseString,
 } from '../../lib/outils/outilString'
+import type { IExercice } from '../../lib/types'
 import { context } from '../../modules/context'
 import { mathalea2d } from '../../modules/mathalea2d'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
@@ -411,7 +412,7 @@ export default class SymetrieAxialeConservation1 extends Exercice {
 
         if (this.interactif) {
           const typeDeQuestion = listeTypeDeQuestions[ii]
-          const callback = function (exercice: Exercice, question: number) {
+          const callback = function (exercice: IExercice, question: number) {
             let feedback = ''
             const mfe = document.querySelector(
               `#champTexteEx${exercice.numeroExercice}Q${question}`,

@@ -500,8 +500,7 @@ export default class ResoudreUneEquationProduitNul extends Exercice {
                         decimals: 0, // obligatoire pour AMC (le nombre de chiffres dans la partie décimale du nombre, si decimals est mis à 0, alors il sera déterminé pour coller au nombre décimal demandé)
                         signe: true, // obligatoire pour AMC (présence d'une case + ou -)
                         approx: 0, // (0 = valeur exacte attendue, sinon valeur de tolérance (voir explication détaillée dans type AMCNum))
-                        vertical: false, // facultatif. Si true, les cases à cocher seront positionnées verticalement
-                        aussiCorrect: solution2,
+                        aussiCorrect: Number(solution2),
                       },
                     },
                   },
@@ -523,8 +522,7 @@ export default class ResoudreUneEquationProduitNul extends Exercice {
                         decimals: 0, // obligatoire pour AMC (le nombre de chiffres dans la partie décimale du nombre, si decimals est mis à 0, alors il sera déterminé pour coller au nombre décimal demandé)
                         signe: true, // obligatoire pour AMC (présence d'une case + ou -)
                         approx: 0, // (0 = valeur exacte attendue, sinon valeur de tolérance (voir explication détaillée dans type AMCNum))
-                        vertical: false, // facultatif. Si true, les cases à cocher seront positionnées verticalement
-                        aussiCorrect: solution1,
+                        aussiCorrect: Number(solution1),
                       },
                     },
                   },

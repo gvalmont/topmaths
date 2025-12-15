@@ -11,6 +11,7 @@ beforeAll(() => {
       return { x: 0, y: 0, width: 0, height: 0 }
     }
   }
+  window.matchMedia = vi.fn().mockReturnValue({ matches: false })
 })
 
 vi.mock('../../../../src/lib/3d/3d_dynamique/Canvas3DElement', () => ({
@@ -202,12 +203,19 @@ async function getConsoleTest(uuid: string, urlExercice: string) {
     Array.isArray(exercice.besoinFormulaireNumerique) &&
     exercice.besoinFormulaireNumerique.length > 0
   ) {
-    const max =
+    let max =
       typeof exercice.besoinFormulaireNumerique[1] === 'number'
         ? exercice.besoinFormulaireNumerique[1]
         : parseInt(exercice.besoinFormulaireNumerique[1])
-    for (let i = 0; i <= max; i++) {
-      sup[i] = i
+    if (isNaN(max)) {
+      window.notify(
+        `Exercice ${exercice.uuid} : besoinFormulaireNumerique[1] is NaN`,
+        { formulaire: exercice.besoinFormulaireNumerique },
+      )
+    }
+    max = isNaN(max) ? 2 : max
+    for (let i = 0; i < max; i++) {
+      sup[i] = i + 1
     }
   } else if (exercice.besoinFormulaireCaseACocher) {
     sup[0] = true
@@ -231,12 +239,19 @@ async function getConsoleTest(uuid: string, urlExercice: string) {
     Array.isArray(exercice.besoinFormulaire2Numerique) &&
     exercice.besoinFormulaire2Numerique.length > 0
   ) {
-    const max =
+    let max =
       typeof exercice.besoinFormulaire2Numerique[1] === 'number'
         ? exercice.besoinFormulaire2Numerique[1]
         : parseInt(exercice.besoinFormulaire2Numerique[1])
-    for (let i = 0; i <= max; i++) {
-      sup2[i] = i
+    if (isNaN(max)) {
+      window.notify(
+        `Exercice ${exercice.uuid} : besoinFormulaire2Numerique[1] is NaN`,
+        { formulaire: exercice.besoinFormulaire2Numerique },
+      )
+    }
+    max = isNaN(max) ? 2 : max
+    for (let i = 0; i < max; i++) {
+      sup2[i] = i + 1
     }
   } else if (exercice.besoinFormulaire2CaseACocher) {
     sup2[0] = true
@@ -260,12 +275,19 @@ async function getConsoleTest(uuid: string, urlExercice: string) {
     Array.isArray(exercice.besoinFormulaire3Numerique) &&
     exercice.besoinFormulaire3Numerique.length > 0
   ) {
-    const max =
+    let max =
       typeof exercice.besoinFormulaire3Numerique[1] === 'number'
         ? exercice.besoinFormulaire3Numerique[1]
         : parseInt(exercice.besoinFormulaire3Numerique[1])
+    if (isNaN(max)) {
+      window.notify(
+        `Exercice ${exercice.uuid} : besoinFormulaire3Numerique[1] is NaN`,
+        { formulaire: exercice.besoinFormulaire3Numerique },
+      )
+    }
+    max = isNaN(max) ? 2 : max
     for (let i = 0; i <= max; i++) {
-      sup3[i] = i
+      sup3[i] = i + 1
     }
   } else if (exercice.besoinFormulaire3CaseACocher) {
     sup3[0] = true
@@ -302,7 +324,7 @@ async function getConsoleTest(uuid: string, urlExercice: string) {
             ]
               .map(String)
               .join(':')
-            // log(signature)
+            // log('sig:' + signature)
             const c = mockConsole()
             try {
               exercice.nouvelleVersionWrapper()
@@ -325,14 +347,25 @@ async function getConsoleTest(uuid: string, urlExercice: string) {
               )
             }
             if (c.logs.log.length > 0) {
-              logError(
-                `logs for exercice ${exercice.uuid} with signature ${signature}:`,
-                c.logs.log,
+              const filtered = c.logs.log.filter(
+                (msg) =>
+                  !msg.filter((item) =>
+                    String(item)
+                      .toLowerCase()
+                      .includes('figure destroyed successfully'),
+                  ),
               )
-              logError(
-                `URL: for exercice ${exercice.uuid} with signature ${signature}:`,
-                createURL(exercice),
-              )
+              c.logs.log = filtered
+              if (filtered.length > 0) {
+                logError(
+                  `logs for exercice ${exercice.uuid} with signature ${signature}:`,
+                  filtered,
+                )
+                logError(
+                  `URL: for exercice ${exercice.uuid} with signature ${signature}:`,
+                  createURL(exercice),
+                )
+              }
             }
             if (c.logs.warn.length > 0) {
               logError(

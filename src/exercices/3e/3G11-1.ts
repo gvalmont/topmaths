@@ -1,10 +1,10 @@
+import Decimal from 'decimal.js'
 import { combinaisonListes, shuffle } from '../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { texNombre } from '../../lib/outils/texNombre'
-import Exercice from '../Exercice'
-import { listeQuestionsToContenu, randint } from '../../modules/outils'
-import Decimal from 'decimal.js'
 import FractionEtendue from '../../modules/FractionEtendue'
+import { listeQuestionsToContenu, randint } from '../../modules/outils'
+import Exercice from '../Exercice'
 
 export const titre = 'Homothétie - Rapport'
 
@@ -61,8 +61,7 @@ export default class HomothetieRapport extends Exercice {
       const decimalPositifInferieurUn = new Decimal(randint(1, 9)).div(10)
       const entierNegatifModuleSuperieurUn = 0 - randint(2, 9)
       const decimalPositifSuperieurUn = new Decimal(randint(11, 49)).div(10)
-      const decimalNegatifModuleInferieurUn =
-        0 - new Decimal(randint(1, 9)).div(10)
+      const decimalNegatifModuleInferieurUn = 0 - randint(1, 9) / 10
       let numerateur = randint(2, 9)
       let denominateur = randint(2, 9, [numerateur])
       // Si le denominateur est inférieur au numérateur on inverse les deux

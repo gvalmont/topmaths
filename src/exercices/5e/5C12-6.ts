@@ -116,15 +116,16 @@ export default class MultiplierEnDistribuant extends Exercice {
               c = 10 - (b % 10) + randint(1, 6) * 10
               texte = `$${a} \\times ${b}+${a} \\times ${c}$`
               texteCorr = `$\\begin{aligned}${a} \\times ${b}+${a} \\times ${c} &= ${a}\\times (${b} + ${c})\\\\ &= ${a} \\times ${b + c}\\\\ &=${a * (b + c)}\\end{aligned}$`
+              reponse = String(a * (b + c))
               break
             default:
               b = randint(6, 9) * 10 - choice([1, 2])
               c = b - randint(2, 5) * 10
               texte = `$${a} \\times ${b}-${a} \\times ${c}$`
               texteCorr = `$\\begin{aligned}${a} \\times ${b}-${a} \\times ${c} &= ${a}\\times (${b} - ${c})\\\\ &= ${a} \\times ${b - c}\\\\ &=${a * (b - c)}\\end{aligned}$`
+              reponse = String(a * (b - c))
               break
           }
-          reponse = String(a * (b - c))
           break
         }
       }

@@ -1,3 +1,7 @@
+import { texteGras } from '../../lib/format/style'
+import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
+import { handleAnswers } from '../../lib/interactif/gestionInteractif'
+import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { combinaisonListes } from '../../lib/outils/arrayOutils'
 import { texFractionReduite } from '../../lib/outils/deprecatedFractions'
 import {
@@ -5,16 +9,11 @@ import {
   ecritureParentheseSiNegatif,
   rienSi1,
 } from '../../lib/outils/ecritures'
-import { texteGras } from '../../lib/format/style'
-import { abs } from '../../lib/outils/nombres'
-import Exercice from '../Exercice'
-import { context } from '../../modules/context'
-import FractionEtendue from '../../modules/FractionEtendue'
-import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
-import { listeQuestionsToContenu, randint } from '../../modules/outils'
-import { handleAnswers } from '../../lib/interactif/gestionInteractif'
-import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
+import { abs } from '../../lib/outils/nombres'
+import { context } from '../../modules/context'
+import { listeQuestionsToContenu, randint } from '../../modules/outils'
+import Exercice from '../Exercice'
 
 export const titre = 'Déterminer une fonction affine'
 export const interactifReady = true
@@ -120,11 +119,7 @@ export default class Determinerfonctionaffine extends Exercice {
             let p = randint(-9, 9)
             let b = k1 * a + p
             let d = k2 * c + p
-            const m = new FractionEtendue(b - d, a - c).simplifie()
-            const pfraction = new FractionEtendue(
-              b * (a - c) - (b - d) * a,
-              a - c,
-            ).simplifie()
+
             while (Number.isInteger((b - d) / (a - c))) {
               k1 = randint(-6, 6, 0)
               k2 = k1 + 1
@@ -169,7 +164,7 @@ export default class Determinerfonctionaffine extends Exercice {
                 texteCorr += '\\end{aligned}$<br>'
                 if ((b * (a - c) - (b - d) * a) * (a - c) > 0) {
                   texteCorr += `Ainsi, $f(x)=${texFractionReduite(b - d, a - c)}x+${texFractionReduite(b * (a - c) - (b - d) * a, a - c)}$.`
-                reponse = `${texFractionReduite(b - d, a - c)}x+${texFractionReduite(b * (a - c) - (b - d) * a, a - c)}`
+                  reponse = `${texFractionReduite(b - d, a - c)}x+${texFractionReduite(b * (a - c) - (b - d) * a, a - c)}`
                 }
                 if ((b * (a - c) - (b - d) * a) * (a - c) < 0) {
                   texteCorr += `Ainsi, $f(x)=${texFractionReduite(b - d, a - c)}x-${texFractionReduite(abs(b * (a - c) - (b - d) * a), abs(a - c))}$.`
@@ -194,11 +189,7 @@ export default class Determinerfonctionaffine extends Exercice {
             const p = randint(-9, 9)
             const b = k1 * a + p
             const d = k2 * c + p
-            const m = new FractionEtendue(b - d, a - c).simplifie()
-            const pfraction = new FractionEtendue(
-              b * (a - c) - (b - d) * a,
-              a - c,
-            ).simplifie()
+
             texte = `Déterminer, en détaillant les calculs, l'expression algébrique de la fonction affine $f$ dont la représentation  graphique $\\mathscr{C_f}$ passe par les points $A(${a};${b})$ et $B(${c};${d})$.<br>`
             if (context.isDiaporama) {
               if ((b * (a - c) - (b - d) * a) * (a - c) > 0) {

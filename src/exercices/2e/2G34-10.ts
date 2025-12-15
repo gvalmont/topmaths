@@ -300,7 +300,6 @@ export default class AssocierGraphiqueSysteme extends Exercice {
         grilleSecondaireXDistance: 1,
         grilleSecondaireYMin: -6,
         grilleSecondaireYMax: 6,
-        labelListe: [],
         grilleSecondaireXMin: -7,
         grilleSecondaireXMax: 7,
       })

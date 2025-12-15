@@ -289,7 +289,7 @@ export default class AcosOmegaTPlusBSinOmegaT extends Exercice {
     this.sup = '1'
     this.besoinFormulaireTexte = [
       'Type de questions',
-      ' Nombres séparés par des tirets :\n1 : algébrique vers trigonométrique\n2 : trigonométrique vers algébrique\n3 : algébrique vers $k.e^{i\\theta}$\n4 : $k.e^{i\\theta}$ vers algébrique\n5 : Mélange',
+      ' Nombres séparés par des tirets :\n1 : algébrique vers trigonométrique\n2 : trigonométrique vers algébrique\n3 : algébrique vers $ke^{i\\theta}$\n4 : $ke^{i\\theta}$ vers algébrique\n5 : Mélange',
     ]
   }
 
@@ -328,47 +328,47 @@ export default class AcosOmegaTPlusBSinOmegaT extends Exercice {
 
       switch (Number(listeTypeDeQuestions[i])) {
         case 1: // algébrique vers trigo
-          texte += `$z=${a}${b === '1' ? '+' : b === '-1' ? '-' : b.startsWith('-') ? b : `+${b}`}i$.<br>`
+          texte += `$z=${a}${b === '1' ? '+' : b === '-1' ? '-' : b.startsWith('-') ? b : `+${b}`}\\text{i}$.<br>`
           texte += "Donner l'écriture trigonométrique de $z$."
-          texteCorr = `$z=${a}${b === '1' ? '+' : b === '-1' ? '-' : b.startsWith('-') ? b : `+${b}`}i$ est de la forme $a+bi$ avec $a=${a}$ et $b=${b}$.<br>`
+          texteCorr = `$z=${a}${b === '1' ? '+' : b === '-1' ? '-' : b.startsWith('-') ? b : `+${b}`}\\text{i}$ est de la forme $a+b\\text{i}$ avec $a=${a}$ et $b=${b}$.<br>`
           texteCorr += `Calculons le module de $z$ : $|z|=\\sqrt{${a2}+${b2}}=${A}$.<br>`
-          texteCorr += `Factorisons $|z|$ : $z=${A}\\left(${aSurA}${bSurA.startsWith('-') ? `${bSurA}` : `+${bSurA}`}i\\right)$.<br>`
+          texteCorr += `Factorisons $|z|$ : $z=${A}\\left(${aSurA}${bSurA.startsWith('-') ? `${bSurA}` : `+${bSurA}`}\\text{i}\\right)$.<br>`
           texteCorr += `Nous reconnaissons ici :<br>d'une part $\\cos(${phi})=${aSurA}$<br>d'autre part $\\sin(${phi})=${bSurA}$.<br>`
-          value = `${A}\\left(\\cos(${phi})+i\\sin(${phi})\\right)`
+          value = `${A}\\left(\\cos(${phi})+\\text{i}\\sin(${phi})\\right)`
           break
         case 2: // trigo vers algébrique
-          texte += `$z=${A}\\left(\\cos(${phi})+i\\sin(${phi})\\right)$.<br>`
+          texte += `$z=${A}\\left(\\cos(${phi})+\\text{i}\\sin(${phi})\\right)$.<br>`
           texte += "Donner l'écriture algébrique de $z$"
           texteCorr = `Nous savons que $\\cos(${phi})=${aSurA}$ et $\\sin(${phi})=${bSurA}$, donc en substituant dans l'expression de $z$, nous obtenons :<br>`
-          texteCorr += `$z=${A}\\left(${aSurA}${bSurA.startsWith('-') ? `${bSurA}` : `+${bSurA}`}i\\right)$.<br>`
-          texteCorr += `En développant : $z=${A}\\times ${aSurA.startsWith('-') ? `\\left(${aSurA}\\right)` : aSurA}${bSurA.startsWith('-') ? `-${A}\\times ${bSurA.substring(1)}` : `+${A}\\times ${bSurA}`}i$.<br>`
-          value = `${a}${b.startsWith('-') ? `${b}` : `+${b}`}i`
+          texteCorr += `$z=${A}\\left(${aSurA}${bSurA.startsWith('-') ? `${bSurA}` : `+${bSurA}`}\\text{i}\\right)$.<br>`
+          texteCorr += `En développant : $z=${A}\\times ${aSurA.startsWith('-') ? `\\left(${aSurA}\\right)` : aSurA}${bSurA.startsWith('-') ? `-${A}\\times ${bSurA.substring(1)}` : `+${A}\\times ${bSurA}`}\\text{i}$.<br>`
+          value = `${a}${b.startsWith('-') ? `${b}` : `+${b}`}\\text{i}`
 
           break
         case 3:
-          texte += `$z=${a}${b === '1' ? '+' : b === '-1' ? '-' : b.startsWith('-') ? b : `+${b}`}i$.<br>`
-          texte += "Donner l'écriture de $z$ sous la forme $k.e^{i\\theta}$."
-          texteCorr = `$z=${a}${b === '1' ? '+' : b === '-1' ? '-' : b.startsWith('-') ? b : `+${b}`}i$ est de la forme $a+bi$ avec $a=${a}$ et $b=${b}$.<br>`
+          texte += `$z=${a}${b === '1' ? '+' : b === '-1' ? '-' : b.startsWith('-') ? b : `+${b}`}\\text{i}$.<br>`
+          texte += "Donner l'écriture de $z$ sous la forme $ke^{i\\theta}$."
+          texteCorr = `$z=${a}${b === '1' ? '+' : b === '-1' ? '-' : b.startsWith('-') ? b : `+${b}`}\\text{i}$ est de la forme $a+b\\text{i}$ avec $a=${a}$ et $b=${b}$.<br>`
           texteCorr += `Calculons le module de $z$ : $|z|=\\sqrt{${a2}+${b2}}=${A}$.<br>`
-          texteCorr += `Factorisons $|z|$ : $z=${A}\\left(${aSurA}${bSurA.startsWith('-') ? `${bSurA}` : `+${bSurA}`}i\\right)$.<br>`
+          texteCorr += `Factorisons $|z|$ : $z=${A}\\left(${aSurA}${bSurA.startsWith('-') ? `${bSurA}` : `+${bSurA}`}\\text{i}\\right)$.<br>`
           texteCorr += `Nous reconnaissons ici :<br>d'une part $\\cos(${phi})=${aSurA}$<br>d'autre part $\\sin(${phi})=${bSurA}$.<br>`
-          value = `${A}e^{${phi.replace('\\dfrac', 'i\\frac')}}`
+          value = `${A}e^{${phi.replace('\\dfrac', '\\text{i}\\frac')}}`
 
           break
         default: // k.e^{i\\theta} vers écriture algébrique
-          texte += `$z=${A}e^{${phi.replace('\\dfrac', 'i\\frac')}}$.<br>`
+          texte += `$z=${A}e^{${phi.replace('\\dfrac', '\\text{i}\\frac')}}$.<br>`
           texte += "Donner l'écriture algébrique de $z$."
-          texteCorr = `Nous savons que $e^{${phi.replace('\\dfrac', 'i\\frac')}}=\\cos(${phi})+i\\sin(${phi})=${aSurA}${bSurA.startsWith('-') ? `${bSurA}` : `+${bSurA}`}i$.<br>`
-          texteCorr += `Donc $z=${A}\\left(${aSurA}${bSurA.startsWith('-') ? `${bSurA}` : `+${bSurA}`}i\\right)$.<br>`
-          texteCorr += `Developpons : $z=${A}\\times ${aSurA.startsWith('-') ? `\\left(${aSurA}\\right)` : aSurA}${bSurA.startsWith('-') ? `-${A}\\times ${bSurA.substring(1)}` : `+${A}\\times ${bSurA}`}i$.<br>`
-          value = `${a}${b.startsWith('-') ? `${b}` : `+${b}`}i`
+          texteCorr = `Nous savons que $e^{${phi.replace('\\dfrac', '\\text{i}\\frac')}}=\\cos(${phi})+\\text{i}\\sin(${phi})=${aSurA}${bSurA.startsWith('-') ? `${bSurA}` : `+${bSurA}`}\\text{i}$.<br>`
+          texteCorr += `Donc $z=${A}\\left(${aSurA}${bSurA.startsWith('-') ? `${bSurA}` : `+${bSurA}`}\\text{i}\\right)$.<br>`
+          texteCorr += `Developpons : $z=${A}\\times ${aSurA.startsWith('-') ? `\\left(${aSurA}\\right)` : aSurA}${bSurA.startsWith('-') ? `-${A}\\times ${bSurA.substring(1)}` : `+${A}\\times ${bSurA}`}\\text{i}$.<br>`
+          value = `${a}${b.startsWith('-') ? `${b}` : `+${b}`}\\text{i}`
       }
       texteCorr += `Par conséquent, $z=${miseEnEvidence(value)}$.`
 
       if (this.questionJamaisPosee(i, a, b)) {
         this.listeQuestions[i] =
           texte +
-          ajouteChampTexteMathLive(this, i, `  ${KeyboardType.lycee}`, {
+          ajouteChampTexteMathLive(this, i, `  ${KeyboardType.complexes}`, {
             texteAvant: '<br>$z=$',
           })
 

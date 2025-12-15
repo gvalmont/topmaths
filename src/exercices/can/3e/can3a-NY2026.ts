@@ -35,9 +35,9 @@ export const titre = 'CAN Spéciale année 2026'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const uuid = 'aad16'
-export const dateDePublication = '15/11/2026'
+export const dateDePublication = '13/12/2025'
 export const refs = {
-  'fr-fr': [''],
+  'fr-fr': ['can3a-NY2026'],
   'fr-ch': [],
 }
 /**

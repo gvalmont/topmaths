@@ -339,6 +339,7 @@ export function papierPointe({
  * @param {number}  options.grilleSecondaireYOpacite = grilleSecondaireOpacite
  */
 export class Repere extends ObjetMathalea2D {
+  readonly isRepere = true as const
   xUnite: number
   yUnite: number
   xMin: number

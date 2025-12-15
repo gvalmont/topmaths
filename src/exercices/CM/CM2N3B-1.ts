@@ -93,16 +93,18 @@ export default class Moitie extends Exercice {
           if (this.interactif) texte += ajouteChampTexteMathLive(this, i, '')
           break
         case 6: // 1xx avec xx un nombre pair
+        default:
           a = randint(2, 9)
           texte = `$\\text{La moitié de }${100 + a * 2}$`
-          texteCorr = `$\\text{La moitié de }${100 + a * 2} \\text{ est } ${miseEnEvidence(texNombre(50 + a))
-          }$`
+          texteCorr = `$\\text{La moitié de }${100 + a * 2} \\text{ est } ${miseEnEvidence(
+            texNombre(50 + a),
+          )}$`
           setReponse(this, i, 50 + a)
           if (this.interactif) texte += ajouteChampTexteMathLive(this, i, '')
           break
       }
 
-      if (this.listeQuestions.indexOf(texte) === -1) {
+      if (this.questionJamaisPosee(i, listeTypeDeQuestions[i], String(a))) {
         // Si la question n'a jamais été posée, on en crée une autre
         this.listeQuestions[i] = texte
         this.listeCorrections[i] = texteCorr

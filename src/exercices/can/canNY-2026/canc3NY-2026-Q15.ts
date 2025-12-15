@@ -24,7 +24,7 @@ export default class multiple extends ExerciceSimple {
   }
 
   nouvelleVersion() {
-  const a = this.canOfficielle ? 3 :choice([2, 5, 3, 9, 10])
+  const a = this.canOfficielle ? 3 :choice([2, 5, 10])
   const annee = 2026
   
   this.autoCorrection[0] = {

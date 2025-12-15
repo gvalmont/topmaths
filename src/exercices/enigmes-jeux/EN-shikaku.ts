@@ -10,7 +10,7 @@ import { choice } from '../../lib/outils/arrayOutils'
 import { range1 } from '../../lib/outils/nombres'
 import { context } from '../../modules/context'
 import { randint } from '../../modules/outils'
-import ExerciceSimple from '../ExerciceSimple'
+import Exercice from '../Exercice'
 import bluePolygon from './svg/bluePolygon.svg'
 
 export const dateDePublication = '31/07/2024'
@@ -40,7 +40,7 @@ type Rectangle = {
   bottomRight: [number, number]
 }
 
-export default class shikaku extends ExerciceSimple {
+export default class shikaku extends Exercice {
   // On déclare des propriétés supplémentaires pour cet exercice afin de pouvoir les réutiliser dans la correction
   figure!: Figure
   figureCorrection!: Figure
@@ -51,10 +51,8 @@ export default class shikaku extends ExerciceSimple {
   constructor() {
     super()
     this.goodAnswers = []
-    this.typeExercice = 'simple'
     this.nbQuestions = 1
     this.nbQuestionsModifiable = false
-    this.reponse = ''
 
     this.exoCustomResultat = true
     this.besoinFormulaireTexte = [
@@ -409,6 +407,7 @@ export default class shikaku extends ExerciceSimple {
     for (let j = 0; j < this.largeur; j++) {
       for (let i = 0; i < this.longueur; i++) {
         this.figure.create('TextByPosition', {
+          isDeletable: false,
           anchor: 'middleCenter',
           text: newGrid[this.largeur - j - 1][i].value.toString(),
           //  x: i + 0.5,
@@ -466,10 +465,10 @@ export default class shikaku extends ExerciceSimple {
     }
     document.addEventListener('exercicesAffiches', handleExercicesAffiches)
 
-    const enonce = ''
-    const texteCorr = 'Voici une solution possible :<br>'
-    this.question = enonce + emplacementPourFigure
-    this.correction = texteCorr + this.figureCorrection.getStaticHtml()
+    let texteCorr =
+      'Voici une solution possible :<br>' +
+      this.figureCorrection.getStaticHtml()
+    let texte = emplacementPourFigure
 
     // Construction de la grille au format voulu par ProfCollege... Inutile finalement car on se passe de ProfCollege pour la correction.
     const tabProfCollege: string[] = []
@@ -494,9 +493,12 @@ export default class shikaku extends ExerciceSimple {
     }
 
     if (!context.isHtml) {
-      this.question += '<br>' + this.figure.latex({ includePreambule: false })
-      this.correction = this.figureCorrection.latex({ includePreambule: false })
+      texte += '<br>' + this.figure.latex({ includePreambule: false })
+      texteCorr = this.figureCorrection.latex({ includePreambule: false })
     }
+
+    this.listeQuestions.push(texte)
+    this.listeCorrections.push(texteCorr)
   }
 
   correctionInteractive = () => {

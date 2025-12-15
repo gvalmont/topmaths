@@ -46,7 +46,6 @@ export default class PuissancesEncadrement extends Exercice {
 
   nouvelleVersion() {
     const listeTypeDeQuestions = []
-    let signeChange
     this.consigne =
       this.nbQuestions === 1
         ? "Encadrer le nombre suivant par deux puissances de 10 d'exposants consécutifs."
@@ -58,7 +57,7 @@ export default class PuissancesEncadrement extends Exercice {
         "<br>Dans le cas où le nombre est négatif, on utilisera les opposés de puissances de 10 d'exposants consécutifs."
     }
 
-    signeChange = this.classe === 2 && !!this.sup2
+    const signeChange = this.classe === 2 && !!this.sup2
 
     const typeDeQuestions = gestionnaireFormulaireTexte({
       saisie: this.sup,

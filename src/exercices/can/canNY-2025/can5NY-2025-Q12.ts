@@ -32,9 +32,9 @@ export default class anneeATrouver extends ExerciceSimple {
     this.question =
       'Si ' +
       prenom +
-      ` a $${a}$ ans en $2025$, en quelle année est-elle naît  ?`
+      ` a $${a}$ ans en $2025$, en quelle année est-elle née  ?`
     this.reponse = 2025 - a
-    this.correction = `Comme $${2025}-${a}=${texNombre(this.reponse, 0)}$, ${prenom} est naît en $${miseEnEvidence(texNombre(this.reponse))}$.`
+    this.correction = `Comme $${texNombre(2025)}-${a}=${texNombre(this.reponse, 0)}$, ${prenom} est née en $${miseEnEvidence(this.reponse)}$.`
     if (this.interactif) {
       this.question += '<br>'
     }

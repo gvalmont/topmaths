@@ -115,7 +115,7 @@ export default class ProportiondeProportion extends ExerciceSimple {
         g = (b * c) / 100
         tauxG = (b * c) / 10000
         this.question = `Dans un lycée,  $${b}\\,\\%$ des lycéens sont en classe de première et  $${texNombre(g, 2)}\\,\\%$ des lycéens sont en première technologique.<br>
-              Quel est le pourcentage d'élèves en première technologique parmi les élèves du lycée ?<br>`
+              Quel est le pourcentage d'élèves en première technologique parmi les élèves de première du lycée ?<br>`
         this.correction = `La population de référence est celle des élèves du lycée.<br>
               La sous-population est celle des élèves de première et d'après l'énoncé, $p_1=${b}\\,\\%$.<br>
               Dans cette sous-population, on note $p_2$ la proportion des élèves en première technologique.<br>

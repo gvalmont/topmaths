@@ -36,9 +36,9 @@ export default class MonExoGuideAne extends Exercice {
     this.besoinFormulaireCaseACocher = ['Affichage de la longueur AD']
     this.besoinFormulaire2CaseACocher = ['Affichage du rapport AD/AB']
   }
+
   nouvelleVersion(): void {
-    for (let i = 0, cpt = 0; i < this.nbQuestions; ) {
-      let texteCorr = ''
+    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50; ) {
       const alpha = choice([30, 45, 60])
       const targetAB = randint(5, 16, 10)
 
@@ -74,7 +74,6 @@ export default class MonExoGuideAne extends Exercice {
         const A = pointAbstrait(0, 0, 'A', 'below left')
         const B = pointAbstrait(targetAB, 0, 'B', 'below right')
         const C = similitude(B, A, 30, 1)
-        const dRef = droite(C, B)
         const d = droite(A, C)
         for (let k = 1; k < 11; k++) {
           const Ck = homothetie(C, A, k / 10, `C_${k}`, 'above')
@@ -94,11 +93,12 @@ export default class MonExoGuideAne extends Exercice {
       cpt++
     }
   }
+
   correctionInteractive = (i: number) => {
-    let spanReponseLigne = document.querySelector(
+    const spanReponseLigne = document.querySelector(
       `#resultatCheckEx${this.numeroExercice}Q${i}`,
     )
-    let divFeedback = document.querySelector(
+    const divFeedback = document.querySelector(
       `#feedbackEx${this.numeroExercice}Q${i}`,
     )
     let isOk = false

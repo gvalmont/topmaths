@@ -330,38 +330,43 @@ export default class DecompositionNombreDecimal extends Exercice {
           this.autoCorrection[i]!.reponse!.param!.decimals = 0
           break
         case 11:
-          texte = `Le nombre de dixièmes du nombre $${n}$ est : `
-          const nombreDixiemes =
-            typeDeNombres === 1
-              ? di! + u! * 10
-              : typeDeNombres === 2
-                ? di! + u! * 10 + d! * 100
-                : di! + u! * 10 + d! * 100 + c! * 1000 + m! * 10000
-          texteCorr = texte + `$${miseEnEvidence(texNombre(nombreDixiemes))}$`
-          texte += ajouteChampTexteMathLive(this, i, '')
-          setReponse(this, i, nombreDixiemes)
-          this.autoCorrection[i]!.reponse!.param!.digits = 6
-          this.autoCorrection[i]!.reponse!.param!.decimals = 0
+          {
+            texte = `Le nombre de dixièmes du nombre $${n}$ est : `
+            const nombreDixiemes =
+              typeDeNombres === 1
+                ? di! + u! * 10
+                : typeDeNombres === 2
+                  ? di! + u! * 10 + d! * 100
+                  : di! + u! * 10 + d! * 100 + c! * 1000 + m! * 10000
+            texteCorr = texte + `$${miseEnEvidence(texNombre(nombreDixiemes))}$`
+            texte += ajouteChampTexteMathLive(this, i, '')
+            setReponse(this, i, nombreDixiemes)
+            this.autoCorrection[i]!.reponse!.param!.digits = 6
+            this.autoCorrection[i]!.reponse!.param!.decimals = 0
+          }
           break
         case 12:
         default:
-          texte = `Le nombre de centièmes du nombre $${n}$ est : `
-          const nombreCentiemes =
-            typeDeNombres === 1
-              ? ci! + di! * 10 + u! * 100
-              : typeDeNombres === 2
-                ? ci! + di! * 10 + u! * 100 + d! * 1000
-                : ci! +
-                  di! * 10 +
-                  u! * 100 +
-                  d! * 1000 +
-                  c! * 10000 +
-                  m! * 100000
-          texteCorr = texte + `$${miseEnEvidence(texNombre(nombreCentiemes))}$`
-          texte += ajouteChampTexteMathLive(this, i, '')
-          setReponse(this, i, nombreCentiemes)
-          this.autoCorrection[i]!.reponse!.param!.digits = 6
-          this.autoCorrection[i]!.reponse!.param!.decimals = 0
+          {
+            texte = `Le nombre de centièmes du nombre $${n}$ est : `
+            const nombreCentiemes =
+              typeDeNombres === 1
+                ? ci! + di! * 10 + u! * 100
+                : typeDeNombres === 2
+                  ? ci! + di! * 10 + u! * 100 + d! * 1000
+                  : ci! +
+                    di! * 10 +
+                    u! * 100 +
+                    d! * 1000 +
+                    c! * 10000 +
+                    m! * 100000
+            texteCorr =
+              texte + `$${miseEnEvidence(texNombre(nombreCentiemes))}$`
+            texte += ajouteChampTexteMathLive(this, i, '')
+            setReponse(this, i, nombreCentiemes)
+            this.autoCorrection[i]!.reponse!.param!.digits = 6
+            this.autoCorrection[i]!.reponse!.param!.decimals = 0
+          }
           break
       }
 

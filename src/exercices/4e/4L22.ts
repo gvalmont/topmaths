@@ -14,7 +14,6 @@ export const dateDePublication = '24/05/2025'
 export default class CalculerLaValeurDUneExpressionLitteraleDeg1Inc1 extends CalculerLaValeurDUneExpressionLitterale {
   constructor() {
     super()
-    this.version = '4L22'
     this.nbQuestions = 2
   }
 }

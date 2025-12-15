@@ -1,16 +1,16 @@
+import { setReponse } from '../../lib/interactif/gestionInteractif'
+import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { combinaisonListes } from '../../lib/outils/arrayOutils'
 import { ecritureParentheseSiNegatif } from '../../lib/outils/ecritures'
-import { sp } from '../../lib/outils/outilString'
-import Exercice from '../Exercice'
-import { listeQuestionsToContenu, randint } from '../../modules/outils'
-import { context } from '../../modules/context'
-import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
-import { setReponse } from '../../lib/interactif/gestionInteractif'
 import {
   miseEnEvidence,
   texteEnCouleurEtGras,
 } from '../../lib/outils/embellissements'
 import { nombreDeChiffresDansLaPartieEntiere } from '../../lib/outils/nombres'
+import { sp } from '../../lib/outils/outilString'
+import { context } from '../../modules/context'
+import { listeQuestionsToContenu, randint } from '../../modules/outils'
+import Exercice from '../Exercice'
 
 export const titre = 'Tester une égalité'
 export const dateDeModifImportante = '18/11/2023'
@@ -314,7 +314,6 @@ export default class TesterUneEgalite extends Exercice {
             propositions: [
               {
                 type: 'AMCOpen',
-                // @ts-expect-error
                 propositions: [
                   {
                     texte: ' ',
@@ -328,7 +327,6 @@ export default class TesterUneEgalite extends Exercice {
               },
               {
                 type: 'AMCOpen',
-                // @ts-expect-error
                 propositions: [
                   {
                     texte: ' ',
@@ -351,7 +349,6 @@ export default class TesterUneEgalite extends Exercice {
             propositions: [
               {
                 type: 'AMCNum',
-                // @ts-expect-error
                 propositions: [
                   {
                     texte: '',
@@ -374,7 +371,6 @@ export default class TesterUneEgalite extends Exercice {
               },
               {
                 type: 'AMCNum',
-                // @ts-expect-error
                 propositions: [
                   {
                     texte: '',
@@ -411,7 +407,6 @@ export default class TesterUneEgalite extends Exercice {
               },
               {
                 type: 'AMCNum',
-                // @ts-expect-error
                 propositions: [
                   {
                     texte: '',
@@ -434,7 +429,6 @@ export default class TesterUneEgalite extends Exercice {
               },
               {
                 type: 'AMCNum',
-                // @ts-expect-error
                 propositions: [
                   {
                     texte: '',
@@ -457,7 +451,6 @@ export default class TesterUneEgalite extends Exercice {
               },
               {
                 type: 'qcmMono',
-                // @ts-expect-error
                 enonce: `Conclusion : l'égalité ${expression} est-elle vérifiée pour $x=${x2}$ ?`,
                 propositions: [
                   {

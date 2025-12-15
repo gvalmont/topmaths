@@ -151,8 +151,6 @@ export default class ProblemesFractions extends Exercice {
               [5, 10],
               [6, 12],
             ]
-      let schema1: SchemaEnBoite
-      let schema2: SchemaEnBoite
 
       const coupleDen = choice(couplesDens)
       const num1 = randint(1, coupleDen[0] - 1)
@@ -166,7 +164,7 @@ export default class ProblemesFractions extends Exercice {
       )
       const frac4 = fraction(coupleDen[1] - frac3.num, coupleDen[1])
       if (frac4.inferieurlarge(0)) continue
-      schema1 = new SchemaEnBoite({
+      const schema1 = new SchemaEnBoite({
         bottomBraces: [
           {
             start: 1,
@@ -212,7 +210,7 @@ export default class ProblemesFractions extends Exercice {
           },
         ],
       })
-      schema2 = new SchemaEnBoite({
+      const schema2 = new SchemaEnBoite({
         lignes: [
           {
             barres: [

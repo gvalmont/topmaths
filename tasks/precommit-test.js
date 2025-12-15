@@ -47,7 +47,12 @@ try {
     {
       stdio: 'inherit',
       cwd: path.resolve(process.cwd()),
-      env: { ...process.env, CI: 'true', CHANGED_FILES: testFiles.join(' ') },
+      env: {
+        ...process.env,
+        CI: 'true',
+        CHANGED_FILES: testFiles.join(' '),
+        NODE_OPTIONS: '--max-old-space-size=4096',
+      },
     },
   )
 

@@ -16,6 +16,7 @@
   import { saveAs } from 'file-saver'
   import JSZip from 'jszip'
 
+
   onMount(() => {
     initTE({ Tab })
   })
@@ -107,6 +108,8 @@
   */
   let exercices: TypeExercice[]
 
+  let justBookmarklet = false
+
   async function initExercices() {
     contentGift = ''
     let xmlScorm = document.implementation.createDocument('', '', null)
@@ -140,6 +143,11 @@
     xmlManifest.appendChild(xmlResources)
     mathaleaUpdateExercicesParamsFromUrl()
     exercices = await mathaleaGetExercicesFromParams($exercicesParams)
+    if (exercices.length === 0) {
+      tab = 'bookmarklet'
+      document.getElementById('tabs-bookmarklet-btn')?.click()
+      justBookmarklet = true
+    }
     let i = 0
     for (const param of $exercicesParams) {
       let paramUrl = ''
@@ -261,7 +269,9 @@
     initExercices()
   }
 
-  let tab = 'gift'
+  let tab = 'gift';
+
+
 </script>
 
 <main
@@ -298,6 +308,7 @@
         role="tablist"
         data-te-nav-ref
       >
+        {#if !justBookmarklet}
         <li role="presentation" class="flex-grow basis-0 text-center">
           <a
             id="tabs-gift-btn"
@@ -335,6 +346,7 @@
             Export SCORM
           </a>
         </li>
+        {/if}
         <li role="presentation" class="flex-grow basis-0 text-center">
           <a
             id="tabs-bookmarklet-btn"
@@ -590,38 +602,65 @@
                 Utilisation
               </h1>
 
-              Pour utilisez le marque-page magique :
               <ul style="list-style-type: square;margin-left:30px;">
-                <li>Ouvrez la page d'un cours en mode édition.</li>
                 <li>
-                  Appuyez sur le bouton permettant d'ajouter une activité à une
-                  section.
+                Pour utilisez le marque-page magique pour créer une <strong>activité MathALÉA</strong> :
+                <ul style="list-style-type: square;margin-left:30px;">
+                  <li>Ouvrez la page d'un cours en mode édition.</li>
+                  <li>
+                    Appuyez sur le bouton permettant d'ajouter une activité à une
+                    section.
+                  </li>
+                  <li>
+                    Lorsque le sélecteur d'activité s'affiche, appuyez sur le
+                    marque-page magique.
+                  </li>
+                  <li>
+                    La fenêtre vous propose alors de choisir un ou plusieurs
+                    exercices MathALÉA à ajouter à votre cours.
+                  </li>
+                  <li>
+                    Une fois les exercices choisis, appuyez sur le bouton
+                    "Ajouter" pour les insérer dans votre cours.
+                  </li>
+                </ul>
                 </li>
                 <li>
-                  Lorsque le sélecteur d'activité s'affiche, appuyez sur le
-                  marque-page magique.
-                </li>
-                <li>
-                  La fenêtre vous propose alors de choisir une ou plusieurs
-                  activités MathALÉA à ajouter à votre cours.
-                </li>
-                <li>
-                  Une fois les activités choisies, appuyez sur le bouton
-                  "Ajouter" pour les insérer dans votre cours.
+                Pour utilisez le marque-page magique pour créer une <strong>question MathALÉA</strong> dans un test :
+                <ul style="list-style-type: square;margin-left:30px;">
+                  <li>Se rendre dans l'onglet Questions d'un test</li>
+                  <li>
+                    Appuyez sur le bouton "Ajouter" puis choisir "Une question"
+                  </li>
+                  <li>
+                    Lorsque le sélecteur de type de questions s'affiche, appuyez sur le
+                    marque-page magique.
+                  </li>
+                  <li>
+                    La fenêtre vous propose alors de choisir un ou plusieurs
+                    exercices MathALÉA à ajouter à votre cours.
+                  </li>
+                  <li>
+                    Une fois les exercices choisis, appuyez sur le bouton
+                    "Ajouter" pour les insérer dans votre quiz (à la fin).
+                  </li>
+                </ul>
                 </li>
               </ul>
-              <strong
+              <!--
+                <strong
                 >Important : en raison d'un bug moodle, le calcul du score sera
                 incorrect dans le cas où plusieurs exercices ont été choisis. Il
                 faut donc pour l'instant se limiter à un exercice par activité
                 MathALÉA.</strong
-              ><br />
-              L'activité obtenue est une activité au format SCORM, le marque-page
-              ne fait que simplifier la création de l'activité. Reportez-vous à la
+                ><br />
+              -->
+              L'utilisation du marque-page magique revient à importer un <strong>fichier SCORM</strong>, ou à importer une question au format <strong>GIFT</strong> dans un test Moodle. Le marque-page magique ne fait que simplifier le procéssus de création.<br />
+             Reportez-vous à la
               <a
-                href="https://forge.apps.education.fr/coopmaths/mathalea/-/wikis/Utilisation-de-Mathalea-avec-Moodle/Export-Scorm"
+                href="https://forge.apps.education.fr/coopmaths/mathalea/-/wikis/1.-Utilisation-de-MathAL%C3%89A/1.2-Int%C3%A9gration-avec-d'autres-plateformes/Utilisation-de-Mathalea-avec-Moodle-ELEA"
                 style="text-decoration:underline;"
-                >documentation de l'export Scorm</a
+                >documentation</a
               > pour plus d'information.
             </section>
             <!-- FIN BOOKMARKLET -->

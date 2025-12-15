@@ -51,6 +51,10 @@ def locationName(text:str)->str:
         return 'Antilles - Guyane'
     elif text == 'Réunion' :
         return 'La Réunion'
+    elif text == 'sujet0va' :
+        return 'Sujet O Version B'
+    elif text == 'sujet0vb' :
+        return 'Sujet O Version A'
     else :
         return text
 

@@ -14,7 +14,7 @@ export const titre = 'Jouer au "compte est bon" en version semi-aléatoire'
 export const uuid = 'fec06'
 
 export const refs = {
-  'fr-fr': ['CM2N4B-2'],
+  'fr-fr': ['CM2N4B-3'],
   'fr-2016': ['CM020'],
   'fr-ch': [],
 }

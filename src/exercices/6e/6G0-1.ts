@@ -1,5 +1,6 @@
 import { demiDroite } from '../../lib/2d/DemiDroite'
 import { droite } from '../../lib/2d/droites'
+import type { ObjetMathalea2D } from '../../lib/2d/ObjetMathalea2D'
 import { PointAbstrait, pointAbstrait } from '../../lib/2d/PointAbstrait'
 import { segment } from '../../lib/2d/segmentsVecteurs'
 import { labelPoint } from '../../lib/2d/textes'
@@ -59,7 +60,7 @@ export default class NotationSegmentDroiteDemiDroite extends Exercice {
         B: PointAbstrait,
         type: number,
       ) => {
-        let trait, notation, typeLigne
+        let trait: ObjetMathalea2D, notation, typeLigne
         switch (type) {
           case 1:
             trait = droite(A, B)
@@ -77,12 +78,13 @@ export default class NotationSegmentDroiteDemiDroite extends Exercice {
             typeLigne = 'la demi-droite'
             break
           case 4:
+          default:
             trait = segment(A, B)
             notation = `$[${A.nom}${B.nom}]$`
             typeLigne = 'le segment'
             break
         }
-        return [trait, notation, typeLigne]
+        return [trait, notation, typeLigne] as [ObjetMathalea2D, string, string]
       }
       const [dAB, dABCorr, typeLigneAB] = creerDroiteDemiSegment(
         A,

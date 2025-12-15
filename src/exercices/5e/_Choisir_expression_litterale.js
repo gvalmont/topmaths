@@ -2,7 +2,6 @@ import {
   simplificationDeFractionAvecEtapes,
   texFractionFromString,
 } from '../../lib/outils/deprecatedFractions'
-import { rienSi1 } from '../../lib/outils/ecritures'
 import { arrondi } from '../../lib/outils/nombres'
 import { nombreAvecEspace, texNombre } from '../../lib/outils/texNombre'
 import { estentier, randint } from '../../modules/outils'
@@ -102,7 +101,7 @@ export default function ChoisirExpressionLitterale(
         case 1: // a(b-c)
           if (b <= c) b = arrondi(b + c) // b-c positif
           expf = `Le produit de $${l1}$ par la différence de $${b}$ et $${nombreAvecEspace(c)}$`
-          expl = `$${l1}${signex}(${texNombre(b)}-${texNombre(c)})=${l1}\\times ${texNombre(b - c)}=${rienSi1(b - c)}${l1}$`
+          expl = `$${l1}${signex}(${texNombre(b)}-${texNombre(c)})$`
           expc = `$${l1}${signex}(${texNombre(b)}-${texNombre(c)}) = ${texNombre(val1)}${signex}(${texNombre(b)}-${texNombre(c)})=${texNombre(val1)}\\times ${texNombre(b - c)}=${texNombre(val1 * (b - c))}$`
           lastOp = 'multiplication'
           break

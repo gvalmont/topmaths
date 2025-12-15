@@ -79,7 +79,7 @@ const annee = 2026
                     On obtient :<br>
                     $\\begin{aligned}
                       ${nom[0]}${nom[2]}^2&=${nom[1]}${nom[2]}^2+${nom[0]}${nom[1]}^2\\\\
-                      ${nom[0]}${nom[2]}^2&=(\\sqrt{${texNombre(2024)}})^2+${a}^2\\\\
+                      ${nom[0]}${nom[2]}^2&=(\\sqrt{${texNombre(annee)}})^2+${a}^2\\\\
                       ${nom[0]}${nom[2]}^2&=${texNombre(annee, 0)}+${a * a}\\\\
                       ${nom[0]}${nom[2]}^2&=${texNombre(annee + a * a, 0)}\\\\
                       ${nom[0]}${nom[2]}&= ${miseEnEvidence(`\\sqrt{${texNombre(annee + a * a, 0)}}`)}\\\\

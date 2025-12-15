@@ -151,6 +151,7 @@ async function getConsoleTest(page: Page, urlExercice: string) {
           !msg.text().includes('LaTeX-incompatible input') && // katex
           !msg.text().includes('mtgLoad') && // mtgLoad : 3G22
           !msg.text().includes('MG32div0') && // MG32div0 : 3G22
+          !msg.text().includes('Figure destroyed successfully') && // apigeom
           !msg
             .text()
             .includes('UserFriendlyError: Le chargement de mathgraph') &&
@@ -240,6 +241,15 @@ async function testRunAllLots(filter: string) {
     filter.includes('dnb') || filter.includes('bac') || filter.includes('e3c')
       ? await findStatic(filter)
       : await findUuid(filter)
+  log(uuids)
+  if (uuids.length === 0) {
+    log(`Aucun uuid trouvé pour le filtre '${filter}'`)
+    describe('no-parameter-warning', () => {
+      test.skip(`Aucun uuid trouvé pour le filtre '${filter}'`, () => {
+        // This test is skipped to show a warning instead of pass/fail
+      })
+    })
+  }
   for (let i = 0; i < uuids.length && i < prefs.nbExosParLot; i += 20) {
     const ff: ((page: Page) => Promise<boolean>)[] = []
     for (let k = i; k < i + 20 && k < uuids.length; k++) {

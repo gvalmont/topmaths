@@ -1,5 +1,5 @@
 import Exercice from '../Exercice'
-import { listeQuestionsToContenu, randint } from '../../modules/outils'
+import { factorielle, listeQuestionsToContenu, randint } from '../../modules/outils'
 import { combinaisonListes } from '../../lib/outils/arrayOutils'
 import { texNombre } from '../../lib/outils/texNombre'
 import {
@@ -10,10 +10,7 @@ import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 
-function factorielle(num: number): number {
-  if (num === 0 || num === 1) return 1
-  return num * factorielle(num - 1)
-}
+
 export const titre = 'Dénombrer des tirages de boules dans une urne'
 export const interactifReady = true
 export const interactifType = 'mathLive'

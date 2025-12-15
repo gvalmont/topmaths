@@ -74,7 +74,7 @@ export default class PavageEtDemiTour2D extends Exercice {
   nouvelleVersion() {
     this.sup = contraindreValeur(1, 2, this.sup, randint(1, 2))
     this.sup3 = contraindreValeur(1, 8, this.sup3, 8)
-    if (this.sup3 == 8) this.sup3 = randint(1, 7)
+    if (this.sup3 === 8) this.sup3 = randint(1, 7)
     const videcouples = function (
       tableau: [number, number][],
     ): [number, number][] {

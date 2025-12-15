@@ -28,6 +28,7 @@ export const refs = {
  * @author Jean-Claude Lhote
  */
 export default class AngleComplémentaireTriangleRectangle extends ExerciceSimple {
+  can: boolean
   constructor() {
     super()
     this.besoinFormulaireCaseACocher = [
@@ -42,7 +43,8 @@ export default class AngleComplémentaireTriangleRectangle extends ExerciceSimpl
     this.sup2 = '10'
     this.typeExercice = 'simple'
     this.nbQuestions = 1
-    this.optionsChampTexte = { texteApres: '$^\\circ$' }
+    this.optionsChampTexte = { texteAvant : '<br>$\\widehat{C} =$', texteApres: '$^\\circ$' }
+     this.can = false
   }
 
   nouvelleVersion() {
@@ -98,7 +100,8 @@ export default class AngleComplémentaireTriangleRectangle extends ExerciceSimpl
     this.reponse = 90 - alpha
     this.question =
       figure +
-      `Dans le triangle $ABC$ rectangle en $B$, on sait que $\\widehat{A} = ${alpha}^\\circ$. Calculer $\\widehat{C}$.`
+      `Dans le triangle $ABC$ rectangle en $B$, on sait que $\\widehat{A} = ${alpha}^\\circ$. <br>
+      Calculer $\\widehat{C}$.`
 
     this.correction = `On sait que la somme des angles d'un triangle est égale à $180^\\circ$. <br>
     Donc, dans le triangle $ABC$, on a : <br>
@@ -108,5 +111,9 @@ export default class AngleComplémentaireTriangleRectangle extends ExerciceSimpl
     D'où $\\widehat{C} = 180^\\circ - 90^\\circ - ${alpha}^\\circ = 90^\\circ - ${alpha}^\\circ = ${miseEnEvidence(
       `${90 - alpha}`,
     )}^\\circ$.`
+
+     this.canEnonce =  figure +'Calculer $\\widehat{C}$'
+      this.canReponseACompleter = '$\\widehat{C} =\\ldots ^\\circ$ '
+
   }
 }

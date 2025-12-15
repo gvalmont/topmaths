@@ -51,7 +51,6 @@ export default class ProduitScalaireAlKashi extends Exercice {
     for (
       let i = 0, texte, texteCorr, reponse, objets, objetsC, cpt = 0;
       i < this.nbQuestions && cpt < 50;
-
     ) {
       objets = []
       objetsC = []
@@ -147,12 +146,14 @@ export default class ProduitScalaireAlKashi extends Exercice {
         codeABcours,
         codeBCcours,
       )
+      // On fixe la valeur de l'angle ici pour que l'arrondi fait dans MathALÉA2D et dans l'exercice soit toujours le même
+      const angleBACString = Math.round(angle(B, A, C)).toFixed(0)
       objets.push(
         ABC,
         nommeABC,
         codeAB,
         codeAC,
-        afficheMesureAngle(B, A, C, 'black', 1),
+        afficheMesureAngle(B, A, C, 'black', 1, `${angleBACString}^\\circ`),
       )
       const figure = mathalea2d(
         Object.assign(
@@ -192,10 +193,10 @@ export default class ProduitScalaireAlKashi extends Exercice {
           On applique la formule d'Al Kashi  : <br><br>
                 $\\begin{aligned}
                ${nom[1]}${nom[2]}^2&=${nom[0]}${nom[1]}^2+ ${nom[0]}${nom[2]}^2-2\\times ${nom[0]}${nom[1]}\\times ${nom[0]}${nom[2]} \\times \\cos(\\widehat{${nom[1]}${nom[0]}${nom[2]}})\\\\
-                ${nom[1]}${nom[2]}^2&=${longueurAB}^2+ ${longueurAC}^2-2\\times ${longueurAB}\\times ${longueurAC} \\times\\cos(${Math.round(angle(B, A, C))}°)\\\\
-                ${nom[1]}${nom[2]}^2&=${longueurAB ** 2 + longueurAC ** 2}-${2 * longueurAB * longueurAC}\\cos(${Math.round(angle(B, A, C))}°)\\\\
-                ${nom[1]}${nom[2]}&=\\sqrt{${longueurAB ** 2 + longueurAC ** 2}-${2 * longueurAB * longueurAC}\\cos(${Math.round(angle(B, A, C))}°)}\\\\
-                ${nom[1]}${nom[2]}&\\approx ${miseEnEvidence(texNombre(Math.sqrt(longueurAB ** 2 + longueurAC ** 2 - 2 * longueurAB * longueurAC * Math.cos(arrondi((angle(B, A, C) * Math.PI) / 180, 4))), 1))}\\\\
+                ${nom[1]}${nom[2]}^2&=${longueurAB}^2+ ${longueurAC}^2-2\\times ${longueurAB}\\times ${longueurAC} \\times\\cos(${angleBACString}°)\\\\
+                ${nom[1]}${nom[2]}^2&=${longueurAB ** 2 + longueurAC ** 2}-${2 * longueurAB * longueurAC}\\cos(${angleBACString}°)\\\\
+                ${nom[1]}${nom[2]}&=\\sqrt{${longueurAB ** 2 + longueurAC ** 2}-${2 * longueurAB * longueurAC}\\cos(${angleBACString}°)}\\\\
+                ${nom[1]}${nom[2]}&\\approx ${miseEnEvidence(texNombre(Math.sqrt(longueurAB ** 2 + longueurAC ** 2 - 2 * longueurAB * longueurAC * Math.cos(arrondi((Number(angleBACString) * Math.PI) / 180, 4))), 1))}\\\\
               \\end{aligned}$`
       reponse = texNombre(
         Math.sqrt(

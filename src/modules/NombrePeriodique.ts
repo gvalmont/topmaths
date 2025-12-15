@@ -1,29 +1,40 @@
 // Classe pour les nombres périodiques
 
-import { miseEnEvidence } from '../lib/outils/embellissements'
-import FractionEtendue from './FractionEtendue'
 import Decimal from 'decimal.js'
-import { texNombre } from '../lib/outils/texNombre'
 import { bleuMathalea, vertMathalea } from '../lib/colors'
+import { miseEnEvidence } from '../lib/outils/embellissements'
+import { texNombre } from '../lib/outils/texNombre'
 import { getLang } from '../lib/stores/languagesStore'
+import FractionEtendue from './FractionEtendue'
 
 class NombrePeriodique {
   partieEntiere: number
   partieDecimale: number
   periode: number
+  nombreChiffresDecimaux: number
   fractionEntiere: FractionEtendue
   fractionDecimale: FractionEtendue
   fractionPeriode: FractionEtendue
   numberOfNines: number
   fractionJustePeriode: FractionEtendue
-  constructor(partieEntiere: number, partieDecimale: number, periode: number) {
+  constructor(
+    partieEntiere: number,
+    partieDecimale: number,
+    periode: number,
+    contient0PremierePosition = false,
+  ) {
     this.partieEntiere = partieEntiere
     this.partieDecimale = partieDecimale
     this.periode = periode
+    // Si contient0PremierePosition est vrai, on ajoute 1 au nombre de chiffres
+    this.nombreChiffresDecimaux =
+      partieDecimale === -1
+        ? 0
+        : partieDecimale.toString().length + (contient0PremierePosition ? 1 : 0)
     this.fractionEntiere = new FractionEtendue(this.partieEntiere, 1)
     this.fractionDecimale = new FractionEtendue(
       this.partieDecimale,
-      10 ** this.partieDecimale.toString().length,
+      10 ** this.nombreChiffresDecimaux,
     )
     if (this.partieDecimale === -1) {
       this.fractionDecimale = new FractionEtendue(0, 1)
@@ -38,7 +49,7 @@ class NombrePeriodique {
       this.fractionPeriode = new FractionEtendue(
         this.periode,
         10 ** this.numberOfNines - 1,
-      ).entierDivise(10 ** this.partieDecimale.toString().length)
+      ).entierDivise(10 ** this.nombreChiffresDecimaux)
     }
     this.fractionJustePeriode = new FractionEtendue(
       this.periode,
@@ -47,7 +58,15 @@ class NombrePeriodique {
   }
 
   toString() {
-    return `${this.partieEntiere}, ${this.partieDecimale === -1 ? '' : this.partieDecimale}${this.periode === 0 ? '' : `\\overline{${this.periode}}`}`
+    let partieDecimaleStr = ''
+    if (this.partieDecimale !== -1) {
+      // Ajouter des zéros à gauche si nécessaire
+      const chiffresManquants =
+        this.nombreChiffresDecimaux - this.partieDecimale.toString().length
+      partieDecimaleStr =
+        '0'.repeat(chiffresManquants) + this.partieDecimale.toString()
+    }
+    return `${this.partieEntiere}{,}${partieDecimaleStr}${this.periode === 0 ? '' : `\\overline{${this.periode}}`}`
   }
 
   toFraction(): FractionEtendue {
@@ -62,7 +81,7 @@ class NombrePeriodique {
         .sommeFraction(this.fractionDecimale)
         .sommeFraction(
           this.fractionJustePeriode.diviseFraction(
-            new FractionEtendue(10 ** this.partieDecimale.toString().length, 1),
+            new FractionEtendue(10 ** this.nombreChiffresDecimaux, 1),
           ),
         )
         .simplifie()
@@ -71,10 +90,17 @@ class NombrePeriodique {
 
   toFractionProcedure(): string {
     let procedure = ''
-    const nombreSansPeriode = `${this.partieEntiere} ${this.partieDecimale === -1 ? '' : `,${this.partieDecimale}`}`
+    let partieDecimaleStr = ''
+    if (this.partieDecimale !== -1) {
+      const chiffresManquants =
+        this.nombreChiffresDecimaux - this.partieDecimale.toString().length
+      partieDecimaleStr =
+        '0'.repeat(chiffresManquants) + this.partieDecimale.toString()
+    }
+    const nombreSansPeriode = `${this.partieEntiere} ${this.partieDecimale === -1 ? '' : `,${partieDecimaleStr}`}`
     // Nombre de zéros égalent à la longueur de la partie décimale
     const nombreZeros = '0'.repeat(
-      this.partieDecimale === -1 ? 0 : this.partieDecimale.toString().length,
+      this.partieDecimale === -1 ? 0 : this.nombreChiffresDecimaux,
     )
     const justePeriode = `0,${nombreZeros}\\overline{${this.periode}}`
     const justePeriodeApresVirgule = `0,\\overline{${this.periode}}`
@@ -90,7 +116,7 @@ class NombrePeriodique {
     }
     procedure += `On a : \\[${justePeriodeApresVirgule}=\\dfrac{${this.periode}}{${'9'.repeat(this.numberOfNines)}}${this.partieDecimale === -1 && new FractionEtendue(this.periode, 10 ** this.periode.toString().length - 1).estIrreductible === false ? `=${new FractionEtendue(this.periode, 10 ** this.periode.toString().length - 1).texFractionSimplifiee}` : ''}\\]`
     if (this.partieDecimale !== -1) {
-      procedure += `Par ailleurs $${justePeriode}=${justePeriodeApresVirgule}${this.partieDecimale === -1 ? '' : `: 10{${this.partieDecimale.toString().length >= 2 ? `^${this.partieDecimale.toString().length}` : ''}}`}.$ Ainsi : \\[{\\color{blue}${justePeriode}=${justePeriodeApresVirgule}${this.partieDecimale === -1 ? '' : `: 10{${this.partieDecimale.toString().length >= 2 ? `^${this.partieDecimale.toString().length}` : ''}}`} =${this.fractionJustePeriode.diviseFraction(new FractionEtendue(10 ** this.partieDecimale.toString().length, 1)).texFraction}=${this.fractionJustePeriode.diviseFraction(new FractionEtendue(10 ** this.partieDecimale.toString().length, 1)).texFractionSimplifiee}}\\]`
+      procedure += `Par ailleurs $${justePeriode}=${justePeriodeApresVirgule}${this.partieDecimale === -1 ? '' : `: 10{${this.nombreChiffresDecimaux >= 2 ? `^${this.nombreChiffresDecimaux}` : ''}}`}.$ Ainsi : \\[{\\color{blue}${justePeriode}=${justePeriodeApresVirgule}${this.partieDecimale === -1 ? '' : `: 10{${this.nombreChiffresDecimaux >= 2 ? `^${this.nombreChiffresDecimaux}` : ''}}`} =${this.fractionJustePeriode.diviseFraction(new FractionEtendue(10 ** this.nombreChiffresDecimaux, 1)).texFraction}=${this.fractionJustePeriode.diviseFraction(new FractionEtendue(10 ** this.nombreChiffresDecimaux, 1)).texFractionSimplifiee}}\\]`
     }
     if (this.partieDecimale !== -1 || this.partieEntiere !== 0) {
       procedure += `On additionne les fractions obtenues et on réduit le résultat pour obtenir la fraction irréductible de $${this.toString()}$.\\[${this.toString()}={\\color{green}${this.fractionEntiere.sommeFraction(this.fractionDecimale).texFractionSimplifiee}} +{\\color{blue}${this.fractionPeriode.texFractionSimplifiee}}=${miseEnEvidence(this.toFraction().texFraction)}\\]`
@@ -105,12 +131,19 @@ class NombrePeriodique {
     const lang = getLang()
     let partieDecimaleString = ''
     if (this.partieDecimale !== -1) {
-      partieDecimaleString = this.partieDecimale.toString()
+      // Ajouter des zéros à gauche si nécessaire
+      const chiffresManquants =
+        this.nombreChiffresDecimaux - this.partieDecimale.toString().length
+      partieDecimaleString =
+        '0'.repeat(chiffresManquants) + this.partieDecimale.toString()
     } else {
       partieDecimaleString = ''
     }
+    // On décale la virgule de numberOfNines positions vers la droite
+    // Position initiale de la virgule : après partieEntiere
+    // Après décalage : partieEntiere.length + numberOfNines
     const placeVirgule =
-      this.partieEntiere.toString().length + this.periode.toString().length
+      this.partieEntiere.toString().length + this.numberOfNines
     const nombre =
       this.partieEntiere.toString() +
       partieDecimaleString +
@@ -120,16 +153,19 @@ class NombrePeriodique {
     if (nvPartieDecimale === '') {
       nvPartieDecimale = '-1'
     }
+    const contient0PremierePosition =
+      nvPartieDecimale !== '-1' &&
+      nvPartieDecimale.length > Number(nvPartieDecimale).toString().length
     const nouveauNb = new NombrePeriodique(
       Number(nvPartieEntiere),
       Number(nvPartieDecimale),
       this.periode,
+      contient0PremierePosition,
     )
     const nbSansPeriode = nouveauNb
       .toFraction()
       .differenceFraction(this.toFraction())
-      .fractionDecimale()
-    const nbDecimal = new Decimal(nbSansPeriode.num / nbSansPeriode.den)
+    const nbDecimal = new Decimal(nbSansPeriode.valeurDecimale)
     let procedure = `On multiplie le nombre par $10^{${this.periode.toString().length}}=${10 ** this.periode.toString().length}$ afin de décaler la virgule du nombre de crans correspondant à la période. On a deux égalités avec le même membre de gauche<br><br>
     $\\begin{aligned}
     &${miseEnEvidence(`${10 ** this.periode.toString().length}\\times${this.toString()}-${this.toString()}`, vertMathalea)}=${miseEnEvidence(`${10 ** this.periode.toString().length - 1}\\times${this.toString()}`, bleuMathalea)}\\\\

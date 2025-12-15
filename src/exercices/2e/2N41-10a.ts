@@ -1,28 +1,28 @@
+import { handleAnswers } from '../../lib/interactif/gestionInteractif'
+import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
 import {
   ecritureAlgebrique,
   reduirePolynomeDegre3,
   rienSi1,
 } from '../../lib/outils/ecritures'
+import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { lettreDepuisChiffre } from '../../lib/outils/outilString'
-import Exercice from '../Exercice'
 import { context } from '../../modules/context'
 import {
   gestionnaireFormulaireTexte,
   listeQuestionsToContenuSansNumero,
   randint,
 } from '../../modules/outils'
-import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
-import { handleAnswers } from '../../lib/interactif/gestionInteractif'
-import { miseEnEvidence } from '../../lib/outils/embellissements'
+import Exercice from '../Exercice'
 
+import type { BoxedExpression } from '@cortex-js/compute-engine'
+import engine from '../../lib/interactif/comparisonFunctions'
 import {
   developpe,
   regroupeTermesMemeDegre,
   suppressionParentheses,
 } from '../../lib/mathFonctions/outilsMaths'
-import engine from '../../lib/interactif/comparisonFunctions'
-import type { BoxedExpression } from '@cortex-js/compute-engine'
 
 export const titre =
   'Développer puis réduire des expressions littérales complexes'
@@ -323,7 +323,7 @@ export default class DevelopperReduireExprComplexe extends Exercice {
                   statut: '',
                   reponse: {
                     texte: `valeur de $p$ dans $m${choixLettre}^2+n${choixLettre}+p$`,
-                    valeur: coeffConst,
+                    valeur: Number(coeffConst),
                     param: {
                       digits: 2,
                       decimals: 0,

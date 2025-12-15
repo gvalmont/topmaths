@@ -369,7 +369,7 @@ export const dictionnaireDNBPRO = {
     mois: 'Juin',
     numeroInitial: '1',
     typeExercice: 'dnbpro',
-    tags: [''],
+    tags: ['Pourcentages', 'Puissances', 'Proportionnalité', 'Volumes', 'Equations', 'QCM'],
   },
   dnbpro_2025_06_metropole_2: {
     annee: '2025',
@@ -377,7 +377,7 @@ export const dictionnaireDNBPRO = {
     mois: 'Juin',
     numeroInitial: '2',
     typeExercice: 'dnbpro',
-    tags: [''],
+    tags: ['Pourcentages', 'Fonctions', 'Lecture graphique'],
   },
   dnbpro_2025_06_metropole_3: {
     annee: '2025',
@@ -385,7 +385,7 @@ export const dictionnaireDNBPRO = {
     mois: 'Juin',
     numeroInitial: '3',
     typeExercice: 'dnbpro',
-    tags: [''],
+    tags: ['Statistiques', 'Probabilités'],
   },
   dnbpro_2025_06_metropole_4: {
     annee: '2025',
@@ -393,7 +393,7 @@ export const dictionnaireDNBPRO = {
     mois: 'Juin',
     numeroInitial: '4',
     typeExercice: 'dnbpro',
-    tags: [''],
+    tags: ['Pythagore'],
   },
   dnbpro_2025_06_metropole_5: {
     annee: '2025',
@@ -401,7 +401,7 @@ export const dictionnaireDNBPRO = {
     mois: 'Juin',
     numeroInitial: '5',
     typeExercice: 'dnbpro',
-    tags: [''],
+    tags: ['Algorithmique-programmation'],
   },
   dnbpro_2025_06_polynesie_1: {
     annee: '2025',
@@ -409,7 +409,7 @@ export const dictionnaireDNBPRO = {
     mois: 'Juin',
     numeroInitial: '1',
     typeExercice: 'dnbpro',
-    tags: [''],
+    tags: ['QCM', 'Fonctions', 'Volumes', 'Equations', 'Fractions', 'Statistiques'],
   },
   dnbpro_2025_06_polynesie_2: {
     annee: '2025',
@@ -417,7 +417,7 @@ export const dictionnaireDNBPRO = {
     mois: 'Juin',
     numeroInitial: '2',
     typeExercice: 'dnbpro',
-    tags: [''],
+    tags: ['Tableur', 'Pourcentages',],
   },
   dnbpro_2025_06_polynesie_3: {
     annee: '2025',
@@ -425,7 +425,7 @@ export const dictionnaireDNBPRO = {
     mois: 'Juin',
     numeroInitial: '3',
     typeExercice: 'dnbpro',
-    tags: [''],
+    tags: ['Algorithmique-programmation'],
   },
   dnbpro_2025_06_polynesie_4: {
     annee: '2025',
@@ -433,7 +433,7 @@ export const dictionnaireDNBPRO = {
     mois: 'Juin',
     numeroInitial: '4',
     typeExercice: 'dnbpro',
-    tags: [''],
+    tags: ['Aires et périmètres', 'Thalès', 'Pythagore', 'Fonctions', 'Lecture graphique'],
   },
   dnbpro_2025_06_polynesie_5: {
     annee: '2025',
@@ -441,6 +441,6 @@ export const dictionnaireDNBPRO = {
     mois: 'Juin',
     numeroInitial: '5',
     typeExercice: 'dnbpro',
-    tags: [''],
+    tags: ['Probabilités'],
   },
 }

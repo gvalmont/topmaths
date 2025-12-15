@@ -75,7 +75,6 @@ function anglesSecantes(A, rot = { O: 60, A: 0 }) {
       rot.O - rot.A,
       'black',
       0.7,
-      true,
     ),
     labelb: texteSurArc(
       ((180 - (rot.O - rot.A)) % 180) + '°',
@@ -84,7 +83,6 @@ function anglesSecantes(A, rot = { O: 60, A: 0 }) {
       180 - (rot.O - rot.A),
       'black',
       0.7,
-      true,
     ),
     labelc: texteSurArc(
       ((rot.O - rot.A) % 180) + '°',
@@ -93,7 +91,6 @@ function anglesSecantes(A, rot = { O: 60, A: 0 }) {
       rot.O - rot.A,
       'black',
       0.7,
-      true,
     ),
     labeld: texteSurArc(
       ((180 - (rot.O - rot.A)) % 180) + '°',
@@ -102,7 +99,6 @@ function anglesSecantes(A, rot = { O: 60, A: 0 }) {
       180 - (rot.O - rot.A),
       'black',
       0.7,
-      true,
     ),
   }
 }
@@ -353,7 +349,6 @@ export default class ExercicesAnglesAIC extends Exercice {
             param.O - param.A,
             'black',
             0.7,
-            true,
           )
           anglesA.labelb = texteSurArc(
             ((180 - (param.O - param.A) + epsilon) % 180) + '°',
@@ -362,7 +357,6 @@ export default class ExercicesAnglesAIC extends Exercice {
             180 - (param.O - param.A),
             'black',
             0.7,
-            true,
           )
           anglesA.labelc = texteSurArc(
             ((param.O - param.A + epsilon) % 180) + '°',
@@ -371,7 +365,6 @@ export default class ExercicesAnglesAIC extends Exercice {
             param.O - param.A,
             'black',
             0.7,
-            true,
           )
           anglesA.labeld = texteSurArc(
             ((180 - (param.O - param.A) + epsilon) % 180) + '°',
@@ -380,7 +373,6 @@ export default class ExercicesAnglesAIC extends Exercice {
             180 - (param.O - param.A),
             'black',
             0.7,
-            true,
           )
           anglesB.labela = texteSurArc(
             ((param.O - param.A) % 180) + '°',
@@ -389,7 +381,6 @@ export default class ExercicesAnglesAIC extends Exercice {
             param.O - param.A,
             'black',
             0.7,
-            true,
           )
           anglesB.labelb = texteSurArc(
             ((180 - (param.O - param.A)) % 180) + '°',
@@ -398,7 +389,6 @@ export default class ExercicesAnglesAIC extends Exercice {
             180 - (param.O - param.A),
             'black',
             0.7,
-            true,
           )
           anglesB.labelc = texteSurArc(
             ((param.O - param.A) % 180) + '°',
@@ -407,7 +397,6 @@ export default class ExercicesAnglesAIC extends Exercice {
             param.O - param.A,
             'black',
             0.7,
-            true,
           )
           anglesB.labeld = texteSurArc(
             ((180 - (param.O - param.A)) % 180) + '°',
@@ -416,7 +405,6 @@ export default class ExercicesAnglesAIC extends Exercice {
             180 - (param.O - param.A),
             'black',
             0.7,
-            true,
           )
           objetsEnonce.push(
             anglesA[a],
@@ -638,7 +626,6 @@ export default class ExercicesAnglesAIC extends Exercice {
             param.O - param.A,
             'black',
             0.7,
-            true,
           )
           anglesA.labelb = texteSurArc(
             ((180 - (param.O - param.A) + epsilon) % 180) + '°',
@@ -647,7 +634,6 @@ export default class ExercicesAnglesAIC extends Exercice {
             180 - (param.O - param.A),
             'black',
             0.7,
-            true,
           )
           anglesA.labelc = texteSurArc(
             ((param.O - param.A + epsilon) % 180) + '°',
@@ -656,7 +642,6 @@ export default class ExercicesAnglesAIC extends Exercice {
             param.O - param.A,
             'black',
             0.7,
-            true,
           )
           anglesA.labeld = texteSurArc(
             ((180 - (param.O - param.A) + epsilon) % 180) + '°',
@@ -665,7 +650,6 @@ export default class ExercicesAnglesAIC extends Exercice {
             180 - (param.O - param.A),
             'black',
             0.7,
-            true,
           )
           anglesB.labela = texteSurArc(
             ((param.O - param.A) % 180) + '°',
@@ -674,7 +658,6 @@ export default class ExercicesAnglesAIC extends Exercice {
             param.O - param.A,
             'black',
             0.7,
-            true,
           )
           anglesB.labelb = texteSurArc(
             ((180 - (param.O - param.A)) % 180) + '°',
@@ -683,7 +666,6 @@ export default class ExercicesAnglesAIC extends Exercice {
             180 - (param.O - param.A),
             'black',
             0.7,
-            true,
           )
           anglesB.labelc = texteSurArc(
             ((param.O - param.A) % 180) + '°',
@@ -692,7 +674,6 @@ export default class ExercicesAnglesAIC extends Exercice {
             param.O - param.A,
             'black',
             0.7,
-            true,
           )
           anglesB.labeld = texteSurArc(
             ((180 - (param.O - param.A)) % 180) + '°',
@@ -701,7 +682,6 @@ export default class ExercicesAnglesAIC extends Exercice {
             180 - (param.O - param.A),
             'black',
             0.7,
-            true,
           )
           objetsEnonce.push(
             anglesA[a],
@@ -1049,7 +1029,6 @@ export default class ExercicesAnglesAIC extends Exercice {
                 param.O - param.A,
                 'black',
                 0.4,
-                true,
               ),
             )
             objetsEnonce.push(
@@ -1060,7 +1039,6 @@ export default class ExercicesAnglesAIC extends Exercice {
                 180 - (param.O - param.A),
                 'black',
                 0.4,
-                true,
               ),
             )
             objetsEnonce.push(
@@ -1071,7 +1049,6 @@ export default class ExercicesAnglesAIC extends Exercice {
                 param.O - param.A,
                 'black',
                 0.4,
-                true,
               ),
             )
             objetsEnonce.push(
@@ -1082,7 +1059,6 @@ export default class ExercicesAnglesAIC extends Exercice {
                 180 - (param.O - param.A),
                 'black',
                 0.4,
-                true,
               ),
             )
           } else {
@@ -1404,7 +1380,6 @@ export default class ExercicesAnglesAIC extends Exercice {
             param.O - param.A,
             'black',
             0.7,
-            true,
           )
           anglesA.labelb = texteSurArc(
             ((180 - (param.O - param.A) + epsilon) % 180) + '°',
@@ -1413,7 +1388,6 @@ export default class ExercicesAnglesAIC extends Exercice {
             180 - (param.O - param.A),
             'black',
             0.7,
-            true,
           )
           anglesA.labelc = texteSurArc(
             ((param.O - param.A + epsilon) % 180) + '°',
@@ -1422,7 +1396,6 @@ export default class ExercicesAnglesAIC extends Exercice {
             param.O - param.A,
             'black',
             0.7,
-            true,
           )
           anglesA.labeld = texteSurArc(
             ((180 - (param.O - param.A) + epsilon) % 180) + '°',
@@ -1431,7 +1404,6 @@ export default class ExercicesAnglesAIC extends Exercice {
             180 - (param.O - param.A),
             'black',
             0.7,
-            true,
           )
           anglesB.labela = texteSurArc(
             ((param.O - param.A) % 180) + '°',
@@ -1440,7 +1412,6 @@ export default class ExercicesAnglesAIC extends Exercice {
             param.O - param.A,
             'black',
             0.7,
-            true,
           )
           anglesB.labelb = texteSurArc(
             ((180 - (param.O - param.A)) % 180) + '°',
@@ -1449,7 +1420,6 @@ export default class ExercicesAnglesAIC extends Exercice {
             180 - (param.O - param.A),
             'black',
             0.7,
-            true,
           )
           anglesB.labelc = texteSurArc(
             ((param.O - param.A) % 180) + '°',
@@ -1458,7 +1428,6 @@ export default class ExercicesAnglesAIC extends Exercice {
             param.O - param.A,
             'black',
             0.7,
-            true,
           )
           anglesB.labeld = texteSurArc(
             ((180 - (param.O - param.A)) % 180) + '°',
@@ -1467,7 +1436,6 @@ export default class ExercicesAnglesAIC extends Exercice {
             180 - (param.O - param.A),
             'black',
             0.7,
-            true,
           )
           objetsEnonce.push(
             anglesA[a],
@@ -1738,7 +1706,6 @@ export default class ExercicesAnglesAIC extends Exercice {
             param.O - param.A,
             'black',
             0.7,
-            true,
           )
           anglesA.labelb = texteSurArc(
             ((180 - (param.O - param.A) + epsilon) % 180) + '°',
@@ -1747,7 +1714,6 @@ export default class ExercicesAnglesAIC extends Exercice {
             180 - (param.O - param.A),
             'black',
             0.7,
-            true,
           )
           anglesA.labelc = texteSurArc(
             ((param.O - param.A + epsilon) % 180) + '°',
@@ -1756,7 +1722,6 @@ export default class ExercicesAnglesAIC extends Exercice {
             param.O - param.A,
             'black',
             0.7,
-            true,
           )
           anglesA.labeld = texteSurArc(
             ((180 - (param.O - param.A) + epsilon) % 180) + '°',
@@ -1765,7 +1730,6 @@ export default class ExercicesAnglesAIC extends Exercice {
             180 - (param.O - param.A),
             'black',
             0.7,
-            true,
           )
           anglesB.labela = texteSurArc(
             ((param.O - param.A) % 180) + '°',
@@ -1774,7 +1738,6 @@ export default class ExercicesAnglesAIC extends Exercice {
             param.O - param.A,
             'black',
             0.7,
-            true,
           )
           anglesB.labelb = texteSurArc(
             ((180 - (param.O - param.A)) % 180) + '°',
@@ -1783,7 +1746,6 @@ export default class ExercicesAnglesAIC extends Exercice {
             180 - (param.O - param.A),
             'black',
             0.7,
-            true,
           )
           anglesB.labelc = texteSurArc(
             ((param.O - param.A) % 180) + '°',
@@ -1792,7 +1754,6 @@ export default class ExercicesAnglesAIC extends Exercice {
             param.O - param.A,
             'black',
             0.7,
-            true,
           )
           anglesB.labeld = texteSurArc(
             ((180 - (param.O - param.A)) % 180) + '°',
@@ -1801,7 +1762,6 @@ export default class ExercicesAnglesAIC extends Exercice {
             180 - (param.O - param.A),
             'black',
             0.7,
-            true,
           )
           objetsEnonce.push(
             anglesA[a],

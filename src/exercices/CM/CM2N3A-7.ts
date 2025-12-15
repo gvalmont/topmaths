@@ -48,35 +48,30 @@ export default class TablesAdditionsSoustractions extends Exercice {
 
   nouvelleVersion() {
     this.sup = contraindreValeur(5, 9999, this.sup, 6)
-    let listeTypeDeQuestions = []
+    let listeTypeDeQuestions: string[] = []
     if (this.sup2 === 1) {
       listeTypeDeQuestions = combinaisonListes(['addition'], this.nbQuestions)
-    }
-    if (this.sup2 === 2) {
+    } else if (this.sup2 === 2) {
       listeTypeDeQuestions = combinaisonListes(
         ['addition_a_trou'],
         this.nbQuestions,
       )
-    }
-    if (this.sup2 === 3) {
+    } else if (this.sup2 === 3) {
       listeTypeDeQuestions = combinaisonListes(
         ['soustraction'],
         this.nbQuestions,
       )
-    }
-    if (this.sup2 === 4) {
+    } else if (this.sup2 === 4) {
       listeTypeDeQuestions = combinaisonListes(
         ['soustraction_a_trou'],
         this.nbQuestions,
       )
-    }
-    if (this.sup2 === 5) {
+    } else if (this.sup2 === 5) {
       listeTypeDeQuestions = combinaisonListes(
         ['addition', 'soustraction'],
         this.nbQuestions,
       )
-    }
-    if (this.sup2 === 6) {
+    } else {
       listeTypeDeQuestions = combinaisonListes(
         ['addition', 'addition_a_trou', 'soustraction', 'soustraction_a_trou'],
         this.nbQuestions,
@@ -125,6 +120,7 @@ export default class TablesAdditionsSoustractions extends Exercice {
           setReponse(this, i, a - b, { formatInteractif: 'calcul' })
           break
         case 'soustraction_a_trou':
+        default:
           if (a === b) {
             a = randint(2, this.sup, b)
           }
@@ -142,22 +138,24 @@ export default class TablesAdditionsSoustractions extends Exercice {
           setReponse(this, i, b, { formatInteractif: 'calcul' })
           break
       }
+      const autoCorr = this.autoCorrection[i]
+      if (autoCorr && autoCorr.reponse && autoCorr.reponse.valeur) {
+        const value = autoCorr.reponse.valeur.reponse?.value
 
-      this.autoCorrection[i].reponse.param = {
-        digits: nombreDeChiffresDansLaPartieEntiere(
-          this.autoCorrection[i].reponse.valeur.reponse.value,
-        ),
-        decimals: 0,
-        signe: false,
-        exposantNbChiffres: 0,
-        exposantSigne: false,
-        approx: 0,
-        formatInteractif: 'calcul',
+        autoCorr.reponse.param = {
+          digits: nombreDeChiffresDansLaPartieEntiere(Number(value)),
+          decimals: 0,
+          signe: false,
+          exposantNbChiffres: 0,
+          exposantSigne: false,
+          approx: 0,
+          formatInteractif: 'calcul',
+        }
+        this.autoCorrection[i].enonce = texte
+        this.listeQuestions.push(texte)
+        this.listeCorrections.push(texteCorr)
       }
-      this.autoCorrection[i].enonce = texte
-      this.listeQuestions.push(texte)
-      this.listeCorrections.push(texteCorr)
+      listeQuestionsToContenu(this)
     }
-    listeQuestionsToContenu(this)
   }
 }

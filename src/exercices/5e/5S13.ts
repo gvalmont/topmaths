@@ -318,7 +318,7 @@ export default class CalculerDesFrequences extends Exercice {
                   statut: '',
                   reponse: {
                     texte: "Résultat sous forme d'une fraction irréductible",
-                    valeur: [reponse],
+                    valeur: reponse,
                     param: {
                       signe: false,
                       approx: 0,

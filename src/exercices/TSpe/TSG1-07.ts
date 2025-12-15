@@ -4,7 +4,7 @@ import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { arrondi } from '../../lib/outils/nombres'
 import { texNombre } from '../../lib/outils/texNombre'
-import { listeQuestionsToContenu, randint } from '../../modules/outils'
+import { factorielle, listeQuestionsToContenu, randint } from '../../modules/outils'
 import Exercice from '../Exercice'
 export const titre = 'Effectuer un dénombrement'
 export const interactifReady = true
@@ -32,10 +32,7 @@ export default class denombrement extends Exercice {
   }
 
   nouvelleVersion() {
-    function factorielle(num: number): number {
-      if (num === 0 || num === 1) return 1
-      return num * factorielle(num - 1)
-    }
+   
     // membre association
     const n = randint(20, 40) // nombre d'adhérents
     const ca = randint(5, 8) // nombre membres au CA

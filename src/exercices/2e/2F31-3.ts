@@ -232,7 +232,7 @@ export default class ComparerImagesTableau extends Exercice {
                 }
                 if (choixIntervalle === 2) {
                   // corr dans le cas ou x1 et x2 sont dans l'intervalle 2
-                  texteCorr = `D'après le tableau de variations, la fonction $f$ est ${a > 0 ? 'décroissante' : 'croissante'}  sur $[${borneInf}\\,;\\,${rac1}]$. <br>
+                  texteCorr = `D'après le tableau de variations, la fonction $f$ est ${a > 0 ? 'décroissante' : 'croissante'}  sur $[${rac1}\\,;\\,${rac2}]$. <br>
                     De plus,<br>
                     $\\bullet$ $${x1}\\in [${rac1}\\,;\\,${rac2}]$,<br>
                     $\\bullet$ $${x2}\\in [${rac1}\\,;\\,${rac2}]$, <br>

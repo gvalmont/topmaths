@@ -374,7 +374,7 @@ function questionRecette(exo: Exercice, i: number) {
               statut: '',
               reponse: {
                 texte: enonceAMC2,
-                valeur: [((nbPersonneInit * quantite2) / quantite).toFixed(3)],
+                valeur: [Math.round((nbPersonneInit * quantite2) / quantite)],
                 param: {
                   digits: nombreDeChiffresDansLaPartieEntiere(
                     (nbPersonneInit * quantite2) / quantite,
@@ -958,6 +958,7 @@ fois $${miseEnEvidence(texNombre(liste[alea1].qtt_surface[alea3]), bleuMathalea)
             {
               enonce: enonceAMC2,
               statut: 2,
+              texte: '',
             },
           ],
         },

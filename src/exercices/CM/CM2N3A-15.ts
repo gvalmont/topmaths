@@ -47,12 +47,12 @@ export default class ComplementAUneDizaine extends Exercice {
       this.sup === 1
         ? (texte = `$${texNombre(a)} - ${texNombre(b)}=$`)
         : (texte = `$${texNombre(b)} + $`)
-      if ((this.sup === 1) & this.interactif) {
+      if (this.sup === 1 && this.interactif) {
         texte += ajouteChampTexteMathLive(this, i, '')
       } else if (this.sup === 1) {
         texte += `$ \\ldots\\ldots $`
       }
-      if ((this.sup === 2) & this.interactif) {
+      if (this.sup === 2 && this.interactif) {
         texte += ajouteChampTexteMathLive(this, i, '')
         texte += `$ = ${a} $`
       } else if (this.sup === 2) {

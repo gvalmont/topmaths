@@ -35,10 +35,10 @@ export const interactifReady = true
 export const interactifType = 'mathLive'
 export const uuid = '47e58'
 export const refs = {
-  'fr-fr': [''],
+  'fr-fr': ['can6a-NY2026'],
   'fr-ch': [''],
 }
-export const dateDePublication = '11/11/2026'
+export const dateDePublication = '13/12/2025'
 /**
  * Annales CAN 2026
  * @author Gilles Mora

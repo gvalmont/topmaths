@@ -12,7 +12,6 @@ export default [
       'comma-dangle': ['error', 'always-multiline'],
       '@stylistic/comma-dangle': ['error', 'always-multiline'],
       'no-multiple-empty-lines': ['error', { max: 1, maxEOF: 1, maxBOF: 1 }],
-      'import/no-duplicates': ['error', { considerQueryString: true }],
     },
   },
   prettier, // à maintenir en dernier pour éviter les conflits entre ESLint et Prettier

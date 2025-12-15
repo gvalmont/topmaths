@@ -254,6 +254,7 @@ Si le nombre de questions est supérieur au nombre de patterns choisis, alors l'
         this.listeCorrections.push(texteCorr)
         i++
       }
+      cpt++
     }
   }
 }

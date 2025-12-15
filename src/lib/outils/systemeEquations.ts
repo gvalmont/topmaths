@@ -1,8 +1,8 @@
 import FractionEtendue from '../../modules/FractionEtendue'
 import {
-  rienSi1,
   ecritureAlgebrique,
   ecritureAlgebriqueSauf1,
+  rienSi1,
 } from './ecritures'
 import { texNombre } from './texNombre'
 
@@ -75,9 +75,12 @@ export function timesIfNotUn(valeur: number) {
   }
 }
 
-export function multCoeff(vect: Array<number>, coeff: number) {
-  return vect.map(function (x: number) {
-    return x * coeff
+export function multCoeff(
+  vect: Array<number | FractionEtendue>,
+  coeff: number,
+) {
+  return vect.map(function (x: number | FractionEtendue) {
+    return x instanceof FractionEtendue ? x.multiplieEntier(coeff) : x * coeff
   })
 }
 export function addCombLin(

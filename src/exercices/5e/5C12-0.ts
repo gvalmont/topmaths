@@ -1,3 +1,5 @@
+import { setReponse } from '../../lib/interactif/gestionInteractif'
+import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import {
   choice,
   combinaisonListes,
@@ -14,8 +16,6 @@ import { lettreDepuisChiffre } from '../../lib/outils/outilString'
 import { listeDesDiviseurs } from '../../lib/outils/primalite'
 import { context } from '../../modules/context'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
-import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
-import { setReponse } from '../../lib/interactif/gestionInteractif'
 import Exercice from '../Exercice'
 
 export const titre = 'Calculer en utilisant les priorités opératoires'
@@ -414,11 +414,14 @@ export default class Priorites extends Exercice {
           this.autoCorrection[i].enonce =
             texte.substring(0, texte.length - 1) + '~=$'
           this.autoCorrection[i].propositions = [{ texte: texteCorr }]
-          // @ts-expect-error Trop compliqué à type
-          this.autoCorrection[i].reponse.param.digits =
-            nombreDeChiffresDansLaPartieEntiere(
-              this.autoCorrection[i].reponse.valeur[0],
-            ) + 1
+          const reponse = this.autoCorrection[i].reponse
+          if (reponse != null) {
+            const param = reponse.param
+            if (param && Array.isArray(reponse.valeur)) {
+              param.digits =
+                nombreDeChiffresDansLaPartieEntiere(reponse.valeur[0]) + 1
+            }
+          }
           // @ts-expect-error Trop compliqué à type
           this.autoCorrection[i].reponse.param.decimals = 0
         }

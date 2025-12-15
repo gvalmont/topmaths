@@ -3,7 +3,6 @@ import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { texNombre } from '../../../lib/outils/texNombre'
 import ExerciceSimple from '../../ExerciceSimple'
 
-import { handleAnswers } from '../../../lib/interactif/gestionInteractif'
 import { randint } from '../../../modules/outils'
 export const titre = 'Compléter une égalité'
 export const interactifReady = true
@@ -27,36 +26,34 @@ export default class EgaliteCompleter2026 extends ExerciceSimple {
     this.formatChampTexte = KeyboardType.clavierFullOperations
   }
 
-  
   nouvelleVersion() {
     const annee = 2026
-    
-    
+
     switch (this.canOfficielle ? 1 : randint(1, 3)) {
       case 1:
         this.question = 'Compléter :<br>'
         this.optionsDeComparaison = { texteAvecCasse: true }
         this.reponse = `\\sqrt{${annee}}`
-        
+
         if (this.interactif) {
           this.optionsChampTexte = {
             texteAvant: `$\\sqrt{${texNombre(annee, 0)}}\\times$`,
-            texteApres: `$=${annee}$`,
+            texteApres: `$=${texNombre(annee)}$`,
           }
         } else {
-          this.question += `$\\sqrt{${texNombre(annee, 0)}}\\times \\ldots =${annee}$`
+          this.question += `$\\sqrt{${texNombre(annee, 0)}}\\times \\ldots =${texNombre(annee)}$`
         }
-        
+
         this.correction = `On utilise la propriété $\\sqrt{a}\\times \\sqrt{a} =a$ valable pour $a$ positif.<br>
-        Ainsi, $\\sqrt{${texNombre(annee, 0)}}\\times${miseEnEvidence(this.reponse)}=${annee}$`
-        this.canReponseACompleter = `$\\sqrt{${texNombre(annee, 0)}}\\times \\ldots =${annee}$`
+        Ainsi, $\\sqrt{${texNombre(annee, 0)}}\\times${miseEnEvidence(`\\sqrt{${texNombre(annee)}}`)}=${texNombre(annee)}$`
+        this.canReponseACompleter = `$\\sqrt{${texNombre(annee, 0)}}\\times \\ldots =${texNombre(annee)}$`
         break
-        
+
       case 2:
         this.question = 'Compléter le plus simplement possible :<br>'
         this.optionsDeComparaison = { texteAvecCasse: true }
         this.reponse = `2\\times\\sqrt{${annee}}`
-        
+
         if (this.interactif) {
           this.optionsChampTexte = {
             texteAvant: `$\\sqrt{${texNombre(annee, 0)}}+\\sqrt{${texNombre(annee, 0)}}=$`,
@@ -65,16 +62,16 @@ export default class EgaliteCompleter2026 extends ExerciceSimple {
         } else {
           this.question += `$\\sqrt{${texNombre(annee, 0)}}+\\sqrt{${texNombre(annee, 0)}}= \\ldots$`
         }
-        
-        this.correction = `$\\sqrt{${texNombre(annee, 0)}}+\\sqrt{${texNombre(annee, 0)}}=${miseEnEvidence(this.reponse)}$`
+
+        this.correction = `$\\sqrt{${texNombre(annee, 0)}}+\\sqrt{${texNombre(annee, 0)}}=${miseEnEvidence(`2\\times\\sqrt{${texNombre(annee)}}`)}$`
         this.canReponseACompleter = `$\\sqrt{${texNombre(annee, 0)}}+\\sqrt{${texNombre(annee, 0)}}= \\ldots$`
         break
-        
+
       case 3:
         this.question = 'Compléter le plus simplement possible :<br>'
         this.optionsDeComparaison = { nombreDecimalSeulement: true }
         this.reponse = `${annee}`
-        
+
         if (this.interactif) {
           this.optionsChampTexte = {
             texteAvant: `$\\sqrt{${texNombre(annee, 0)}}\\times \\sqrt{${texNombre(annee, 0)}}=$`,
@@ -83,9 +80,9 @@ export default class EgaliteCompleter2026 extends ExerciceSimple {
         } else {
           this.question += `$\\sqrt{${texNombre(annee, 0)}}\\times \\sqrt{${texNombre(annee, 0)}} =\\ldots$`
         }
-        
+
         this.correction = `On utilise la propriété $\\sqrt{a}\\times \\sqrt{a} =a$ valable pour $a$ positif.<br>
-        $\\sqrt{${texNombre(annee, 0)}}\\times \\sqrt{${texNombre(annee, 0)}}=${miseEnEvidence(this.reponse)}$`
+        $\\sqrt{${texNombre(annee, 0)}}\\times \\sqrt{${texNombre(annee, 0)}}=${miseEnEvidence(texNombre(annee))}$`
         this.canReponseACompleter = `$\\sqrt{${texNombre(annee, 0)}}\\times \\sqrt{${texNombre(annee, 0)}} =\\ldots$`
         break
     }

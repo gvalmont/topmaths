@@ -100,6 +100,7 @@ export default class NomQuelconqueDeLaFonctionQuiCreeExercice extends Exercice {
           reponse = arrondi(a + b / 100)
           break
         case 'type6':
+        default:
           texte = `$\\dfrac{${b}}{100} + ${a}$`
           texteCorr = `$\\dfrac{${b}}{100} + ${a} = ${texNombre(a + b / 100)}$`
           reponse = arrondi(a + b / 100)

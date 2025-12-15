@@ -86,7 +86,7 @@ export default class multiple2026 extends ExerciceSimple {
       Donc $${texNombre(annee)}$ est un multiple de $10$.`
     } else {
       this.correction = `$${texNombre(annee)}$ a pour chiffre des unités $${annee.toString().charAt(annee.toString().length - 1)}$. <br>
-      Donc $${texNombre(annee)}$ n'est pas un multiple de $10$.`
+      Ce n'est pas $0$, donc $${texNombre(annee)}$ n'est pas un multiple de $10$.`
     }
   }
 }

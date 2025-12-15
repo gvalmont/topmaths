@@ -59,7 +59,7 @@ export default class calculPuissances2026 extends ExerciceSimple {
       this.reponse = valAnnee - valAnneeMoins2
       this.question = `Calculer $(-1)^{${texNombre(annee)}}-(-1)^{${texNombre(annee-2)}}$.`
       this.correction = ` Si $n$ est pair, $(-1)^n=1$ et si $n$ est impair, $(-1)^n=-1$. <br>
-              Ainsi, $(-1)^{${texNombre(annee)}}-(-1)^{${texNombre(annee-2)}}=${valAnnee === -1 ? '(-1)' : valAnnee}-${valAnneeMoins2 === -1 ? '(-1)' : `(${valAnneeMoins2})`}=${miseEnEvidence(this.reponse)}$.`
+              Ainsi, $(-1)^{${texNombre(annee)}}-(-1)^{${texNombre(annee-2)}}=${valAnnee === -1 ? '(-1)' : valAnnee}-${valAnneeMoins2 === -1 ? '(-1)' : `${valAnneeMoins2}`}=${miseEnEvidence(this.reponse)}$.`
     }
 
     if (this.interactif) {

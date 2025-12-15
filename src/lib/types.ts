@@ -889,13 +889,16 @@ export interface IEtiquette {
   callback?: (e: Event) => void
 }
 
+export type DragHandler = (event: DragEvent) => void
+export type TouchHandler = (event: TouchEvent) => void
+
 export interface IDragAndDrop {
   exercice: IExercice
   question: number
   consigne: string
   etiquettes: IEtiquette[][]
   enonceATrous: string
-  listeners: [Element, string, EventListener][]
+  listeners: [Element, string, DragHandler | TouchHandler][]
 
   ajouteDragAndDrop(options: { melange: boolean; duplicable: boolean }): string
 }

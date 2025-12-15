@@ -1,26 +1,34 @@
+import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
+import { handleAnswers } from '../../lib/interactif/gestionInteractif'
+import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
+import { Polynome } from '../../lib/mathFonctions/Polynome'
 import { combinaisonListes } from '../../lib/outils/arrayOutils'
 import {
   ecritureAlgebrique,
-  ecritureAlgebriqueSauf1,
   ecritureParentheseSiNegatif,
   reduireAxPlusB,
+  rienSi1,
 } from '../../lib/outils/ecritures'
-import Exercice from '../Exercice'
-import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
-import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
-import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
-import { handleAnswers } from '../../lib/interactif/gestionInteractif'
+import { signe } from '../../lib/outils/nombres'
+import FractionEtendue from '../../modules/FractionEtendue'
+import {
+  gestionnaireFormulaireTexte,
+  listeQuestionsToContenu,
+  randint,
+} from '../../modules/outils'
+import Trinome from '../../modules/Trinome'
+import Exercice from '../Exercice'
 export const titre = 'Déterminer une équation de tangente'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 
 export const dateDePublication = '16/12/2021'
-export const dateDeModifImportante = '06/02/2025'
+export const dateDeModifImportante = '09/12/2025'
 
 /**
- * Déterminer une équation de tangente en utilisant un nombre dérivé
- * Ajout de l'interactivité par Jean-Claude Lhote et passage en typescript
+ * Déterminer une équation de tangente
+ * Gilles Mora Ajout de l'interactivité par Jean-Claude Lhote et passage en typescript 
  */
 export const uuid = '4c8c7'
 
@@ -31,101 +39,300 @@ export const refs = {
 export default class Equationdetangente extends Exercice {
   constructor() {
     super()
-    this.besoinFormulaireNumerique = [
-      'Consigne ',
-      2,
-      '1 : Avec formule\n2 : Avec démonstration',
+    this.besoinFormulaireTexte = [
+      'Type de questions',
+      [
+        'Nombres séparés par des tirets :',
+        '1 : Avec un nombre dérivé et une image donnés',
+        '2 : Polynôme degré 2',
+        '3 : Polynôme degré 3',
+        '4 : Fonction rationnelle',
+        '5 : Mélange',
+      ].join('\n'),
     ]
+    this.besoinFormulaire2CaseACocher = ['Correction sans formule']
     this.nbQuestions = 1 // Nombre de questions par défaut
-    this.nbCols = 2 // Uniquement pour la sortie LaTeX
-    this.nbColsCorr = 2 // Uniquement pour la sortie LaTeX
-
-    this.sup = 2
+    this.nbCols = 1 // Uniquement pour la sortie LaTeX
+    this.nbColsCorr = 1 // Uniquement pour la sortie LaTeX
+    this.spacing = 1.5
+    this.spacingCorr = 1.5
+    this.sup = '5'
   }
 
   nouvelleVersion() {
-    const typesDeQuestionsDisponibles = [this.sup]
+    const typesDeQuestionsDisponibles = gestionnaireFormulaireTexte({
+      saisie: this.sup,
+      min: 1,
+      max: 4,
+      melange: 5,
+      defaut: 5,
+      nbQuestions: this.nbQuestions,
+    })
     const listeTypeQuestions = combinaisonListes(
       typesDeQuestionsDisponibles,
       this.nbQuestions,
     ) // Tous les types de questions sont posés mais l'ordre diffère à chaque "cycle"
 
     for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50; ) {
-      // Boucle principale où i+1 correspond au numéro de la question
       let texte = ''
       let texteCorr = ''
-      let a: number, b: number, c: number
+      let a: number, b: number, c: number, d: number, e: number
+      let reponse: string
+      let borneInf: number
+      let borneSup: number
+      let cours: string
+      let cours2: string
+      cours =
+        " L'équation réduite de la tangente $(T)$ au point d'abscisse $a$  est : $y=f'(a)(x-a)+f(a)$.<br><br>"
+      cours2 = ` L'équation réduite de la tangente $(T)$ au point d'abscisse $a$  est : $y=mx+p$.<br>
+       $m$ est le nombre dérivé de $f$ en $a$ et on calcule $p$ en utlisant un point qui appartient à la droite. <br>
+       On utilise pour cela le point de coordonnées $(a\\,;\\,f(a))$.<br><br>`
       switch (listeTypeQuestions[i]) {
-        case 2: // Sans formule
-          a = randint(-5, 5)
-          b = randint(-5, 5) // f(a)
-          c = randint(-5, 5) // f'(a)
-          texte =
-            'Soit $f$ une fonction dérivable sur $[-5;5]$ et $\\mathcal{C}_f$ sa courbe représentative.<br>'
-          texte += `On sait que  $f(${a})=${b}~~$ et que $~~f'(${a})=${c}$.`
-          texte += `<br>Déterminer une équation de la tangente $(T)$ à la courbe $\\mathcal{C}_f$ au point d'abscisse $${a}$,`
-          texte +=
-            "<br>sans utiliser la formule de cours de l'équation de tangente.<br>"
+        case 1: // Cas 1 : Nombre dérivé donné
+          a = randint(-5, 5) // Point d'abscisse
+          b = randint(-5, 5, 0) // f(a)
+          c = randint(-10, 10) // f'(a)
+          borneInf = randint(-10, -7)
+          borneSup = randint(7, 10)
+          texte = `Soit $f$ une fonction dérivable sur $[${borneInf}\\,;\\,${borneSup}]$ et $\\mathcal{C}_f$ sa courbe représentative.<br>`
+          texte += `On sait que $f(${a})=${b}$ et que $f'(${a})=${c}$.<br>`
+          texte += `Déterminer l'équation réduite de la tangente $(T)$ à la courbe $\\mathcal{C}_f$ au point d'abscisse $${a}$.<br>`
 
-          texteCorr =
-            "On sait que la tangente n'est pas une droite verticale, puisque la fonction est dérivable sur l'intervalle."
-          texteCorr += `<br>On en déduit que la tangente $(T)$ au point d'abscisse $${a}$, admet une équation réduite de la forme :  `
-          texteCorr += '$(T) : y=m x + p$. <br>'
-          texteCorr += '<br>$\\bullet$ Détermination de $m$ :'
-          texteCorr += `<br>On sait que le nombre dérivé en $${a}$ est par définition, le coefficient directeur de la tangente au point d'abscisse $${a}$.`
-          texteCorr += `<br>Par conséquent, on a déjà : $m=f'(${a})=${c}$.`
-          texteCorr += `<br> On en déduit que  $(T) : y= ${c} x + p$`
-          texteCorr += '<br>$\\bullet$ Détermination de $p$ :'
-          texteCorr += `<br> Pour cela, on utilise que si $f(${a})=${b}~~$, alors le point $A$ de coordonnées $(${a};${b})$ appartient à $\\mathcal{C}_f$ mais aussi à $(T)$.`
-          texteCorr += `<br> On peut écrire $A(${a};${b}) = \\mathcal{C}_f \\cap (T)$.`
-          texteCorr += `<br> On remplace alors les coordonnées de $A(${a};${b})$ dans l'équation  $(T) : y= ${c} x + p$.`
-          texteCorr += `<br> $\\begin{aligned} \\phantom{\\iff}&A(${a};${b})\\in (T)\\\\`
-          texteCorr += ` \\iff& ${b}= ${c} \\times ${ecritureParentheseSiNegatif(a)}  + p\\\\`
-          texteCorr += ` \\iff& p=${b} ${ecritureAlgebriqueSauf1(-c)} \\times ${ecritureParentheseSiNegatif(a)}  \\\\`
-          texteCorr += ` \\iff& p=${b} ${ecritureAlgebriqueSauf1(-c * a)}   \\\\`
-          texteCorr += ` \\iff& p=${b - c * a}\\\\`
-          break
-        case 1: // 'formule':
-        default:
-          a = randint(-5, 5)
-          b = randint(-5, 5) // f(a)
-          c = randint(-5, 5, [1]) // f'(a)
-          texte =
-            'Soit $f$ une fonction dérivable sur $[-5;5]$ et $\\mathcal{C}_f$ sa courbe représentative.<br>'
-          texte += `On sait que  $f(${a})=${b}~~$ et que $~~f'(${a})=${c}$.`
-          texte += `<br>Déterminer une équation de la tangente $(T)$ à la courbe $\\mathcal{C}_f$ au point d'abscisse $${a}$,`
-          texte +=
-            "<br>en utilisant la formule de cours de l'équation de tangente.<br>"
-          texteCorr = ` $${a}\\in[-5;5]$ donc la fonction est dérivable en $${a}$.`
-          texteCorr += ` <br> On peut donc appliquer la formule de cours qui donne une équation de la tangente $(T)$ au point d'abscisse $${a}$ : `
-          texteCorr += '<br> $\\begin{aligned} '
-          texteCorr +=
-            "(T) : y&=f'(a)(x-a)+f(a)&\\text{On cite la relation de cours.}\\\\ "
-          texteCorr += `(T) : y&=f'(${a})(x-${ecritureParentheseSiNegatif(a)})+f(${a})&\\text{On applique à l'énoncé.}\\\\ `
-          texteCorr += `(T) : y&=${c}(x-${ecritureParentheseSiNegatif(a)})${ecritureAlgebrique(b)}&\\text{On remplace les valeurs connues.}\\\\ `
-          if (a < 0) {
-            texteCorr += `(T) : y&=${c}(x${ecritureAlgebrique(-a)})${ecritureAlgebrique(b)}&\\text{On simplifie l'expression.}\\\\ `
+          if (this.sup2) {
+            // Correction sans formule (démonstration complète)
+
+            texteCorr =
+              cours2 +
+              `Le coefficient directeur de la tangente est égal au nombre dérivé. <br>
+            Ainsi, $m=f'(${a})=${c}$.<br><br>`
+            texteCorr += `On obtient alors $(T) : y=${c}x+p$.<br><br>`
+            texteCorr += `La tangente passe par le point $A$ de coordonnées $(${a}\\,;\\,f(${a}))$.<br>`
+            texteCorr += `On a $f(${a})=${b}$.<br><br>`
+            texteCorr += `Les coordonnées de $A$ vérifient l'équation, donc :<br>`
+            texteCorr += `$${b}=${c}\\times${ecritureParentheseSiNegatif(a)}+p$<br>`
+            texteCorr += `$${b}=${c * a}+p$<br>`
+            texteCorr += `$p=${b}${ecritureAlgebrique(-c * a)}$<br>`
+            texteCorr += `$p=${b - c * a}$<br><br>`
+            texteCorr += `Ainsi, l'équation de la tangente est : $(T) : ${miseEnEvidence(`y=${reduireAxPlusB(c, b - c * a)}`)}$.`
+          } else {
+            // Correction avec formule
+            texteCorr =
+              cours +
+              `On obtient pour $a=${a}$ :<br>
+          $y=f'(${a})(x-${ecritureParentheseSiNegatif(a)})+f(${a})$<br><br>
+         D'après l'énoncé, $f'(${a})=${c}$ et $f(${a})=${b}$, on a alors :<br>
+          ${a === 0 ? `$y=${c}x${ecritureAlgebrique(b)}$` : `$y=${c}(x${ecritureAlgebrique(-a)})${ecritureAlgebrique(b)}$`}<br><br>`
+            texteCorr += `En simplifiant l'écriture, on obtient  : $(T) : ${miseEnEvidence(`y=${reduireAxPlusB(c, b - c * a)}`)}$.`
           }
-          texteCorr += `(T) : y&=${reduireAxPlusB(c, -a * c)}${ecritureAlgebrique(b)}&\\text{On développe.}\\\\ `
+
+          reponse = reduireAxPlusB(c, b - c * a)
+          break
+
+        case 2: // Cas 2 : Polynôme avec Trinome
+          a = randint(-3, 3, [0]) // coefficient de x²
+          b = randint(3, 3) // coefficient de x
+          c = randint(-5, 5) // terme constant
+          d = randint(-4, 4, [0]) // point d'abscisse pour la tangente
+
+          const poly = new Trinome(a, b, c)
+          const valeurEnD = poly.texCalculImage(d) // Texte du calcul de f(d)
+          const imageD = poly.image(d).valeurDecimale // Valeur numérique de f(d)
+          const deriveeEnD = 2 * a * d + b // f'(d)
+
+          texte = `Soit $f$ la fonction définie sur $\\mathbb{R}$ par $f(x)=${poly.tex}$ et $\\mathcal{C}_f$ sa courbe représentative.<br>`
+          texte += `Déterminer l'équation réduite de la tangente $(T)$ à $\\mathcal{C}_f$ au point d'abscisse $${d}$.`
+
+          if (this.sup2) {
+            // Correction sans formule
+            texteCorr =
+              cours2 +
+              `La fonction $f$ est un polynôme, donc elle est dérivable sur $\\mathbb{R}$.<br><br>
+          $\\bullet$ Calcul de $f'(x)$ :<br>
+          $f'(x)=${reduireAxPlusB(2 * a, b)}$<br><br>
+          $\\bullet$  Calcul de $f'(${d})$ :<br>
+          $f'(${d})=${2 * a}\\times${ecritureParentheseSiNegatif(d)}${b === 0 ? `` : `${ecritureAlgebrique(b)}`}=${deriveeEnD}$<br><br>
+          $\\bullet$ Calcul de $f(${d})$ :<br>
+          $f(${d})=${valeurEnD}$<br><br>
+      
+          Le coefficient directeur de la tangente est le nombre dérivé. <br>
+          Ainsi, $m=f'(${d})=${deriveeEnD}$.<br><br>
+          On obtient alors $(T) : y=${deriveeEnD}x+p$.<br><br>
+          La tangente passe par le point $A$ de coordonnées $(${d}\\,;\\,f(${d}))$ soit $(${d}\\,;\\,${imageD})$.<br><br>
+          Les coordonnées de $A$ vérifient l'équation, donc :<br>
+          $${imageD}=${deriveeEnD}\\times${ecritureParentheseSiNegatif(d)}+p$<br>
+          $${imageD}=${deriveeEnD * d}+p$<br>
+          $p=${imageD}${ecritureAlgebrique(-deriveeEnD * d)}$<br>
+          $p=${imageD - deriveeEnD * d}$<br><br>
+          Ainsi, l'équation de la tangente est : $(T) : ${miseEnEvidence(`y=${reduireAxPlusB(deriveeEnD, imageD - d * deriveeEnD)}`)}$.`
+          } else {
+            // Correction avec formule
+            texteCorr =
+              cours +
+              `La fonction $f$ est un polynôme, donc elle est dérivable sur $\\mathbb{R}$.<br><br>
+          $\\bullet$ Calcul de $f'(x)$ :<br>
+          $f'(x)=${2 * a === 1 ? '' : 2 * a === -1 ? '-' : 2 * a}x${b === 0 ? `` : `${ecritureAlgebrique(b)}`}$<br><br>
+          $\\bullet$  Calcul de $f'(${d})$ :<br>
+          $f'(${d})=${2 * a}\\times${ecritureParentheseSiNegatif(d)}${b === 0 ? `` : `${ecritureAlgebrique(b)}`}=${deriveeEnD}$<br><br>
+          $\\bullet$ Calcul de $f(${d})$ :<br>
+          $f(${d})=${valeurEnD}$<br><br>
+          En remplaçant les valeurs dans cette équation, on obtient : <br>
+       $y=f'(${d})(x${ecritureAlgebrique(-d)})+f(${d})$ <br>
+       $y=${deriveeEnD}(x${ecritureAlgebrique(-d)})${ecritureAlgebrique(imageD)}$<br> <br>
+       En simplifiant l'écriture, on obtient  : $(T) : ${miseEnEvidence(`y=${reduireAxPlusB(deriveeEnD, imageD - d * deriveeEnD)}`)}$.`
+          }
+
+          reponse = reduireAxPlusB(deriveeEnD, imageD - d * deriveeEnD)
+          break
+
+        case 3: // Cas 3 : Polynôme degré 3
+          a = randint(-2, 2, [0]) // coefficient de x³
+          b = randint(-3, 3) // coefficient de x²
+          c = randint(-2, 5) // coefficient de x
+          d = randint(-5, 5, 0) // terme constant
+          e = randint(-2, 4) // point d'abscisse pour la tangente
+
+          const poly3 = new Polynome({ coeffs: [d, c, b, a] })
+          const imageE = poly3.image(e) // f(e)
+          const derivee3 = poly3.derivee()
+          const deriveeEnE = derivee3.image(e) // f'(e)
+
+          // Calcul détaillé de f(e) avec une étape
+          const calcul_fe = `${a === 1 || a === -1 ? `${rienSi1(a)}` : `${a}\\times`}${ecritureParentheseSiNegatif(e)}^3${b === 0 ? '' : `${b === 1 || b === -1 ? `${signe(b)}` : `${ecritureAlgebrique(b)}\\times`}${ecritureParentheseSiNegatif(e)}^2`}${c === 0 ? '' : `${c === 1 || c === -1 ? `${signe(c)}` : `${ecritureAlgebrique(c)}\\times`}${ecritureParentheseSiNegatif(e)}`}${d === 0 ? '' : `${ecritureAlgebrique(d)}`}`
+
+          // Calcul détaillé de f'(e) avec une étape
+          const coef_derivee_x2 = 3 * a
+          const coef_derivee_x = 2 * b
+          const calcul_fprima_e = `${coef_derivee_x2 === 1 || coef_derivee_x2 === -1 ? rienSi1(coef_derivee_x2) : `${coef_derivee_x2}\\times`}${ecritureParentheseSiNegatif(e)}^2${coef_derivee_x === 0 ? '' : `${coef_derivee_x === 1 || coef_derivee_x === -1 ? ecritureAlgebrique(coef_derivee_x) : `${ecritureAlgebrique(coef_derivee_x)}\\times`}${ecritureParentheseSiNegatif(e)}`}${c === 0 ? '' : `${ecritureAlgebrique(c)}`}`
+const texteCommun3 = `La fonction $f$ est un polynôme, donc elle est dérivable sur $\\mathbb{R}$.<br><br>`
+          texte = `Soit $f$ la fonction définie sur $\\mathbb{R}$ par $f(x)=${poly3.toLatex()}$ et $\\mathcal{C}_f$ sa courbe représentative.<br>`
+          texte += `Déterminer l'équation réduite de la tangente $(T)$ à $\\mathcal{C}_f$ au point d'abscisse $${e}$.`
+
+          if (this.sup2) {
+            // Correction sans formule
+            texteCorr =
+              cours2 +
+              texteCommun3 + `
+          $\\bullet$ Calcul de $f'(x)$ :<br>
+          $f'(x)=${derivee3.toLatex()}$<br><br>
+          $\\bullet$ Calcul de $f'(${e})$ :<br>
+          $f'(${e})=${calcul_fprima_e}=${deriveeEnE}$<br><br>
+          $\\bullet$ Calcul de $f(${e})$ :<br>
+          $f(${e})=${calcul_fe}=${imageE}$<br><br>
+        
+          Le coefficient directeur de la tangente est le nombre dérivé.<br>
+          Ainsi, $m=f'(${e})=${deriveeEnE}$.<br><br>
+          On obtient alors $(T) : y=${deriveeEnE}x+p$.<br><br>
+          La tangente passe par le point $A$ de coordonnées $(${e}\\,;\\,f(${e}))=(${e}\\,;\\,${imageE})$.<br><br>
+          Les coordonnées de $A$ vérifient l'équation, donc :<br>
+          $${imageE}=${deriveeEnE}\\times${ecritureParentheseSiNegatif(e)}+p$<br>
+          $${imageE}=${deriveeEnE * e}+p$<br>
+          $p=${imageE}${ecritureAlgebrique(-deriveeEnE * e)}$<br>
+          $p=${imageE - deriveeEnE * e}$<br><br>
+          Ainsi, l'équation de la tangente est : $(T) : ${miseEnEvidence(`y=${reduireAxPlusB(deriveeEnE, imageE - e * deriveeEnE)}`)}$.`
+          } else {
+            // Correction avec formule
+            texteCorr =
+              cours +
+              texteCommun3 + `
+          $\\bullet$ Calcul de $f'(x)$ :<br>
+          $f'(x)=${derivee3.toLatex()}$<br><br>
+          $\\bullet$ Calcul de $f'(${e})$ :<br>
+          $f'(${e})=${calcul_fprima_e}=${deriveeEnE}$<br><br>
+          $\\bullet$ Calcul de $f(${e})$ :<br>
+          $f(${e})=${calcul_fe}=${imageE}$<br><br>
+          En remplaçant les valeurs dans cette équation, on obtient : <br>
+       $y=f'(${e})(x${ecritureAlgebrique(-e)})+f(${e})$ <br>
+       $y=${deriveeEnE}(x${ecritureAlgebrique(-e)})${ecritureAlgebrique(imageE)}$<br> <br>
+       En simplifiant l'écriture, on obtient  : $(T) : ${miseEnEvidence(`y=${reduireAxPlusB(deriveeEnE, imageE - e * deriveeEnE)}`)}$.`
+          }
+
+          reponse = reduireAxPlusB(deriveeEnE, imageE - e * deriveeEnE)
+          break
+        case 4: // Cas 4 : Fonction rationnelle a/(bx+c)
+        default:
+          a = randint(1, 5) // numérateur
+          b = randint(1, 2) // coefficient de x (on évite 1 pour avoir bx explicite)
+          const valeurInterdite = randint(1, 4) // valeur interdite (nombre entier positif)
+          c = -b * valeurInterdite // pour avoir -c/b = valeurInterdite
+          d = randint(valeurInterdite + 1, 8) // point d'abscisse (différent de la valeur interdite)
+
+          // Calcul avec FractionEtendue pour des valeurs exactes
+          const denominateurEnD = b * d + c
+          const frac_fd = new FractionEtendue(a, denominateurEnD).simplifie() // f(d)
+          const frac_fprimd = new FractionEtendue(
+            -a * b,
+            denominateurEnD * denominateurEnD,
+          ).simplifie() // f'(d) = -ab/(bx+c)²
+
+          // Calcul de l'ordonnée à l'origine : fd - d*f'(d) avec des fractions
+          const frac_d = new FractionEtendue(d, 1)
+          const ordOrigineFrac = frac_fd
+            .differenceFraction(frac_fprimd.produitFraction(frac_d))
+            .simplifie()
+
+          // Construction du texte pour le dénominateur bx+c
+          const denomTexte = `${rienSi1(b)}x${ecritureAlgebrique(c)}`
+          const texteCommun4 = `La fonction $f$ est dérivable sur $]${valeurInterdite}\\,;\\,+\\infty[$ (quotient de fonctions dérivables dont le dénominateur ne s'annule pas sur $]${valeurInterdite}\\,;\\,+\\infty[$).<br><br>`
+          texte = `Soit $f$ la fonction définie sur $]${valeurInterdite}\\,;\\,+\\infty[$ par $f(x)=\\dfrac{${a}}{${denomTexte}}$ et $\\mathcal{C}_f$ sa courbe représentative.<br>`
+          texte += `Déterminer l'équation réduite de la tangente $(T)$ à $\\mathcal{C}_f$ au point d'abscisse $${d}$.`
+
+          if (this.sup2) {
+            // Correction sans formule
+            texteCorr =
+              texteCommun4 + `
+          $\\bullet$ Calcul de $f'(x)$ :<br>
+          $f'(x)=\\dfrac{${-a * b}}{(${denomTexte})^2}$<br><br>
+          $\\bullet$ Calcul de $f'(${d})$ :<br>
+          $f'(${d})=\\dfrac{${-a * b}}{(${b === 1 ? `` : `${b}\\times`}${d}${ecritureAlgebrique(c)})^2}=\\dfrac{${-a * b}}{${ecritureParentheseSiNegatif(denominateurEnD)}^2}=${frac_fprimd.texFractionSimplifiee}$<br><br>
+          $\\bullet$ Calcul de $f(${d})$ :<br>
+          $f(${d})=\\dfrac{${a}}{${b === 1 ? `` : `${b}\\times`}${d}${ecritureAlgebrique(c)}}=\\dfrac{${a}}{${denominateurEnD}}=${frac_fd.texFractionSimplifiee}$<br><br>
+          L'équation réduite de la tangente est $(T) : y=mx+p$.<br><br>
+          Le coefficient directeur de la tangente est le nombre dérivé. <br>
+          Ainsi, $m=f'(${d})=${frac_fprimd.texFractionSimplifiee}$.<br><br>
+          On obtient alors $(T) : y=${frac_fprimd.texFractionSimplifiee}x+p$.<br><br>
+          La tangente passe par le point $A$ de coordonnées $(${d}\\,;\\,f(${d}))$ soit $\\left(${d}\\,;\\,${frac_fd.texFractionSimplifiee}\\right)$.<br><br>
+          Les coordonnées de $A$ vérifient l'équation, donc :<br>
+          $${frac_fd.texFractionSimplifiee}=${frac_fprimd.texFractionSimplifiee}\\times${ecritureParentheseSiNegatif(d)}+p$<br>
+          $p=${frac_fd.texFractionSimplifiee}${frac_fprimd.produitFraction(frac_d).oppose().ecritureAlgebrique}$<br>
+          $p=${ordOrigineFrac.texFractionSimplifiee}$<br><br>
+          Ainsi, l'équation de la tangente est : $(T) : ${miseEnEvidence(`y=${frac_fprimd.valeurDecimale === 1 ? 'x' : frac_fprimd.valeurDecimale === -1 ? '-x' : `${frac_fprimd.texFractionSimplifiee}x`}${ordOrigineFrac.ecritureAlgebrique}`)}$.`
+          } else {
+            // Correction avec formule
+            texteCorr =
+              cours +
+              texteCommun4 + `
+          $\\bullet$ Calcul de $f'(x)$ :<br>
+          $f'(x)=\\dfrac{${-a * b}}{(${denomTexte})^2}$<br><br>
+          $\\bullet$ Calcul de $f'(${d})$ :<br>
+          $f'(${d})=\\dfrac{${-a * b}}{(${b === 1 ? `` : `${b}\\times`}${d}${ecritureAlgebrique(c)})^2}=\\dfrac{${-a * b}}{${denominateurEnD * denominateurEnD}}=${frac_fprimd.texFractionSimplifiee}$<br><br>
+          $\\bullet$ Calcul de $f(${d})$ :<br>
+          $f(${d})=\\dfrac{${a}}{${b === 1 ? `` : `${b}\\times`}${d}${ecritureAlgebrique(c)}}=${frac_fd.texFractionSimplifiee}$<br><br>
+          En remplaçant les valeurs dans cette équation, on obtient : <br>
+       $y=f'(${d})(x-${ecritureParentheseSiNegatif(d)})+f(${d})$ <br>
+       $y=${frac_fprimd.texFractionSimplifiee}(x-${ecritureParentheseSiNegatif(d)})${frac_fd.ecritureAlgebrique}$.<br> <br>
+       En simplifiant l'écriture, on obtient  : $(T) : ${miseEnEvidence(`y=${frac_fprimd.valeurDecimale === 1 ? 'x' : frac_fprimd.valeurDecimale === -1 ? '-x' : `${frac_fprimd.texFractionSimplifiee}x`}${ordOrigineFrac.ecritureAlgebrique}`)}$.`
+          }
+
+          reponse = reduireAxPlusB(frac_fprimd, ordOrigineFrac)
           break
       }
-      texteCorr += '\\end{aligned}$'
-      texteCorr += `<br>On peut conclure que : $(T) : ${miseEnEvidence(`y=${reduireAxPlusB(c, b - c * a)}`)}$.`
+
       texte += ajouteChampTexteMathLive(this, i, KeyboardType.lycee, {
-        texteAvant: '$y=$',
+        texteAvant: '<br>$y=$',
       })
+
       handleAnswers(this, i, {
-        reponse: { value: `${reduireAxPlusB(c, b - c * a)}` },
+        reponse: { value: reponse },
       })
+
       // Si la question n'a jamais été posée, on l'enregistre
-      if (this.questionJamaisPosee(i, a, b, c)) {
-        // <- laisser le i et ajouter toutes les variables qui rendent les exercices différents (par exemple a, b, c et d)
+      if (this.questionJamaisPosee(i, listeTypeQuestions[i], a, b, c)) {
         this.listeQuestions[i] = texte
         this.listeCorrections[i] = texteCorr
         i++
       }
       cpt++
     }
-    listeQuestionsToContenu(this) // On envoie l'exercice à la fonction de mise en page
+    listeQuestionsToContenu(this)
   }
 }

@@ -35,7 +35,9 @@ export default class aSimplifier2026 extends ExerciceSimple {
     const b = this.canOfficielle ? 2 : randint(-10, 10, 0)
     if (choix === 1) {
       this.question = `Écrire le plus simplement possible : $\\dfrac{${texNombre(annee, 0)}${ecritureAlgebrique(a)}}{${texNombre(annee, 0)}-${texNombre(annee-1, 0)}}$.`
-      this.correction = `$\\dfrac{${texNombre(annee, 0)}${ecritureAlgebrique(a)}}{${texNombre(annee, 0)}-${texNombre(annee-1, 0)}}=${miseEnEvidence(texNombre(annee + a, 0))}$`
+      this.correction = `$\\dfrac{${texNombre(annee, 0)}${ecritureAlgebrique(a)}}{${texNombre(annee, 0)}-${texNombre(annee-1, 0)}}=
+      \\dfrac{${texNombre(annee+a, 0)}}{${texNombre(1, 0)}} =    
+      ${miseEnEvidence(texNombre(annee + a, 0))}$`
       this.reponse = annee + a
       this.canEnonce = this.question
       this.canReponseACompleter = `$\\dfrac{${texNombre(annee, 0)}${ecritureAlgebrique(a)}}{${texNombre(annee, 0)}-${texNombre(annee-1, 0)}}=\\ldots$`
@@ -45,7 +47,8 @@ export default class aSimplifier2026 extends ExerciceSimple {
     } else if (choix === 2) {
       this.reponse = `\\dfrac{1}{${annee + b}}`
       this.question = `Écrire le plus simplement possible : $\\dfrac{${texNombre(annee, 0)}-${texNombre(annee-1, 0)}}{${texNombre(annee, 0)}${ecritureAlgebrique(b)}}$.`
-      this.correction = `$\\dfrac{${texNombre(annee, 0)}-${texNombre(annee-1, 0)}}{${texNombre(annee, 0)}${ecritureAlgebrique(b)}}=${miseEnEvidence(`\\dfrac{1}{${annee + b}}`)}$`
+      this.correction = `$\\dfrac{${texNombre(annee, 0)}-${texNombre(annee-1, 0)}}{${texNombre(annee, 0)}${ecritureAlgebrique(b)}}=
+      ${miseEnEvidence(`\\dfrac{1}{${annee + b}}`)}$`
 
       this.canEnonce = this.question
       this.canReponseACompleter = `$\\dfrac{${texNombre(annee, 0)}-${texNombre(annee-1, 0)}}{${texNombre(annee, 0)}${ecritureAlgebrique(b)}}=\\ldots$`

@@ -195,7 +195,11 @@ const choisirPolygone: (
       D = similitude(B, A, 90, randint(30, 80) / 100, nom[3])
       C = translation(
         D,
-        homothetie(vecteur(A, B), A, randint(30, 80) / 100) as Vecteur,
+        homothetie(
+          vecteur(A, B),
+          A,
+          randint(30, 80) / 100,
+        ) as unknown as Vecteur,
         nom[2],
       )
       q = polygone(A, B, C, D) as Polygone

@@ -68,7 +68,15 @@ export default class VocabulaireNotationsFonctions extends Exercice {
     )
     const sousChoix = combinaisonListes(rangeMinMax(0, 4), this.nbQuestions) // pour choisir aléatoirement des questions dans chaque catégorie
     for (
-      let i = 0, x, y, m, d, A, reponses = [], monQcm, cpt = 0;
+      let i = 0,
+        x,
+        y,
+        m,
+        d,
+        A,
+        reponses: [string, boolean][][] = [],
+        monQcm,
+        cpt = 0;
       i < this.nbQuestions && cpt < 50;
 
     ) {
@@ -95,6 +103,7 @@ export default class VocabulaireNotationsFonctions extends Exercice {
               enonce = `L'image de $${x}$ par la fonction $f$ est $${y}$, alors pour la fonction $f$ :`
               break
             case 4:
+            default:
               enonce = `$${y}$ est l'image de $${x}$ par la fonction $f$, alors pour la fonction $f$ :`
               break
           }
@@ -107,6 +116,7 @@ export default class VocabulaireNotationsFonctions extends Exercice {
           break
 
         case 'notations':
+        default:
           if (!this.sup2 && sousChoix[i] === 3)
             sousChoix[i] = choice([0, 1, 2, 4])
           switch (sousChoix[i]) {
@@ -164,6 +174,7 @@ export default class VocabulaireNotationsFonctions extends Exercice {
               ]
               break
             case 4:
+            default:
               m = randint(-9, 9, [x, y])
               enonce = `On sait que $f(${x})=f(${y})=${m}$, alors pour la fonction $f$ :`
               reponses[i] = [

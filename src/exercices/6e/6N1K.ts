@@ -322,6 +322,7 @@ export default class ArrondirUneValeur6e extends Exercice {
             {
               type: 'AMCOpen',
               propositions: [
+                // @ts-ignore
                 {
                   enonce:
                     'Encadrer ' +
@@ -334,6 +335,7 @@ export default class ArrondirUneValeur6e extends Exercice {
             {
               type: 'AMCOpen',
               propositions: [
+                // @ts-ignore
                 {
                   enonce:
                     'Encadrer ' +
@@ -346,6 +348,7 @@ export default class ArrondirUneValeur6e extends Exercice {
             {
               type: 'AMCOpen',
               propositions: [
+                // @ts-ignore
                 {
                   enonce:
                     'Encadrer ' +

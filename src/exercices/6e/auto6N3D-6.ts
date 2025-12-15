@@ -4,6 +4,7 @@ import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { remplisLesBlancs } from '../../lib/interactif/questionMathLive'
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
+import type { IExercice } from '../../lib/types'
 import { context } from '../../modules/context'
 import {
   gestionnaireFormulaireTexte,
@@ -74,7 +75,7 @@ export default class nomExercice extends Exercice {
           // bareme: (listePoints) => [listePoints[0] * listePoints[1] + listePoints[2], 2],
           champ1: { value: '' },
           champ2: { value: '' },
-          callback: (exercice: Exercice, question: number) => {
+          callback: (exercice: IExercice, question: number) => {
             let feedback = ''
             const mfe = document.querySelector(
               `#champTexteEx${exercice.numeroExercice}Q${question}`,

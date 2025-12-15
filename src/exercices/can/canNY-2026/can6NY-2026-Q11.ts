@@ -35,7 +35,7 @@ export default class ChangerUnites extends ExerciceSimple {
 
       this.correction = `
     Comme $1\\text{ m}$ $=100\\text{ cm}$, alors $1\\text{ cm}$ $=0,01\\text{ m}$.<br>
-    Ainsi  $${texNombre(annee)}\\text{ cm}=${miseEnEvidence(texNombre(2025 / 100, 2))}\\text{ m}$.  `
+    Ainsi  $${texNombre(annee)}\\text{ cm}=${miseEnEvidence(texNombre(2026 / 100, 2))}\\text{ m}$.  `
       if (!this.interactif) {
         this.question += '$=\\ldots\\text{ m}$'
       }

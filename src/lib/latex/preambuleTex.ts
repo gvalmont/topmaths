@@ -324,7 +324,7 @@ export function loadPackagesFromContent(contents: contentsType) {
     contents,
   )
   testIfLoaded(['\\euro'], '\\usepackage[gen]{eurosym}', contents)
-  testIfLoaded(['\\tkzTabInit'], '\\usepackage{tkz-tab}', contents)
+  testIfLoaded(['\\tkzTabInit', '\\tkzTab'], '\\usepackage{tkz-tab}', contents)
   testIfLoaded(['{tabularx}', '{tabular}'], '\\usepackage{tabularx}', contents)
   testIfLoaded(['\\ang', '\\num{'], '\\usepackage{siunitx}', contents)
   testIfLoaded(['\\begin{multicols}'], '\\usepackage{multicol}', contents)

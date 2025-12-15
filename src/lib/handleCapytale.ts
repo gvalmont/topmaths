@@ -1,5 +1,7 @@
 import { RPC } from '@mixer/postmessage-rpc'
+// eslint-disable-next-line import-x/no-duplicates
 import { tick } from 'svelte'
+// eslint-disable-next-line import-x/no-duplicates
 import { get } from 'svelte/store'
 
 import type { Activity, InterfaceResultExercice } from '../lib/types'

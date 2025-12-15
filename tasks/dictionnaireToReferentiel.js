@@ -39,6 +39,12 @@ const tagsDNB = [...setTagsDNB].sort((a, b) => {
   return a.localeCompare(b)
 })
 for (const annee of [
+  '2031',
+  '2030',
+  '2029',
+  '2028',
+  '2027',
+  '2026',
   '2025',
   '2024',
   '2023',

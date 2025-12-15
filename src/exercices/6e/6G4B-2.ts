@@ -1,7 +1,10 @@
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
-import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
-import { combinaisonListes } from '../../lib/outils/arrayOutils'
+import {
+  ajouteChampTexteMathLive,
+  remplisLesBlancs,
+} from '../../lib/interactif/questionMathLive'
+import { enleveDoublonNum } from '../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
 import {
   gestionnaireFormulaireTexte,
@@ -14,6 +17,7 @@ export const amcReady = false
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const dateDePublication = '04/12/2025'
+export const dateDeModifImportante = '14/12/2025'
 
 /**
  * @author Éric Elter
@@ -28,10 +32,10 @@ export default class MesureAnglesParticuliers extends Exercice {
   constructor() {
     super()
     this.consigne = 'Compléter.'
-    this.sup = '7'
+    this.sup = '1-2-3-4-5-6'
     this.spacing = 1
     this.comment =
-      "Par le peu d'angles disponibles, cet exerice ne possède que 6 questions au maximum."
+      "Par le peu d'angles disponibles, cet exerice ne possède que 8 questions au maximum."
 
     this.besoinFormulaireTexte = [
       "Type d'angles",
@@ -43,7 +47,9 @@ export default class MesureAnglesParticuliers extends Exercice {
         '4 : Obtus',
         '5 : Plat',
         '6 : Plein',
-        '7 : Mélange',
+        '7 : Saillant',
+        '8 : Rentrant',
+        '9 : Mélange',
       ].join('\n'),
     ]
   }
@@ -51,24 +57,24 @@ export default class MesureAnglesParticuliers extends Exercice {
   nouvelleVersion() {
     const listeTypeDeQuestions = gestionnaireFormulaireTexte({
       saisie: this.sup,
-      max: 6,
-      defaut: 7,
-      melange: 7,
-      nbQuestions: 6,
-    })
+      max: 8,
+      defaut: 9,
+      melange: 9,
+      nbQuestions: 8,
+    }).map(Number)
 
-    const typeQuestionsDisponibles = combinaisonListes(
-      listeTypeDeQuestions,
-      this.nbQuestions,
-    )
+    const typeQuestionsDisponibles = enleveDoublonNum(listeTypeDeQuestions)
 
     for (
-      let i = 0, typeAngle, texteExtra, reponse, texte, texteCorr, cpt = 0;
-      i < this.nbQuestions && cpt < 50;
+      let i = 0, typeAngle, cpt = 0;
+      i < Math.min(this.nbQuestions, typeQuestionsDisponibles.length) &&
+      cpt < 50;
 
     ) {
       if (this.questionJamaisPosee(i, typeQuestionsDisponibles[i])) {
-        texteExtra = ''
+        let reponse1 = 0
+        let reponse2 = 0
+        let reponse = 0
         switch (typeQuestionsDisponibles[i]) {
           case 1:
             typeAngle = 'nul'
@@ -76,8 +82,8 @@ export default class MesureAnglesParticuliers extends Exercice {
             break
           case 2:
             typeAngle = 'aigu'
-            reponse = 90
-            texteExtra = 'moins de '
+            reponse1 = 0
+            reponse2 = 90
             break
           case 3:
             typeAngle = 'droit'
@@ -85,36 +91,80 @@ export default class MesureAnglesParticuliers extends Exercice {
             break
           case 4:
             typeAngle = 'obtus'
-            reponse = 90
-            texteExtra = 'plus de '
+            reponse1 = 90
+            reponse2 = 180
             break
           case 5:
             typeAngle = 'plat'
             reponse = 180
             break
-          default:
+          case 6:
             typeAngle = 'plein'
             reponse = 360
             break
+          case 7:
+            typeAngle = 'saillant'
+            reponse1 = 0
+            reponse2 = 180
+            break
+          default:
+            typeAngle = 'rentrant'
+            reponse1 = 180
+            reponse2 = 360
+            break
         }
+        let texte = ''
+        let texteCorr = ''
+        switch (typeQuestionsDisponibles[i]) {
+          case 1:
+          case 3:
+          case 5:
+          case 6:
+            texte = `Un angle ${typeAngle} mesure `
 
-        texte = `Un angle ${typeAngle} mesure ${texteExtra}`
+            texteCorr = texte + `$${miseEnEvidence(reponse)}^\\circ$.`
 
-        texteCorr = texte + `$${miseEnEvidence(reponse)}^\\circ$.`
+            texte += this.interactif
+              ? ajouteChampTexteMathLive(this, i, KeyboardType.clavierNumbers, {
+                  texteApres: '$^\\circ$.',
+                })
+              : '\\ldots\\ldots\\ldots $^\\circ$.'
 
-        texte += this.interactif
-          ? ajouteChampTexteMathLive(this, i, KeyboardType.clavierNumbers, {
-              texteApres: '$^\\circ$.',
+            handleAnswers(this, i, {
+              reponse: {
+                value: reponse,
+                options: { nombreDecimalSeulement: true },
+              },
             })
-          : '\\ldots\\ldots\\ldots $^\\circ$.'
+            break
+          default:
+            texte = `Un angle ${typeAngle} mesure entre `
 
-        handleAnswers(this, i, {
-          reponse: {
-            value: reponse,
-            options: { nombreDecimalSeulement: true },
-          },
-        })
+            texteCorr =
+              texte +
+              `$${miseEnEvidence(reponse1)}^\\circ$ et $${miseEnEvidence(reponse2)}^\\circ$.`
 
+            texte += this.interactif
+              ? remplisLesBlancs(
+                  this,
+                  i,
+                  '%{champ1}^\\circ\\text{ }et\\text{ }%{champ2}^\\circ.',
+                )
+              : '\\ldots\\ldots\\ldots $^\\circ$ et \\ldots\\ldots\\ldots $^\\circ$.'
+            handleAnswers(
+              this,
+              i,
+              {
+                bareme: (listePoints: number[]) => [
+                  Math.min(listePoints[0], listePoints[1]),
+                  1,
+                ],
+                champ1: { value: String(reponse1) },
+                champ2: { value: String(reponse2) },
+              },
+              { formatInteractif: 'fillInTheBlank' },
+            )
+        }
         this.listeQuestions[i] = texte
         this.listeCorrections[i] = texteCorr
         i++

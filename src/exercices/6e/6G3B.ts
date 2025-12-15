@@ -48,13 +48,14 @@ interface EnsembleDesQuestions {
 }
 
 export default class nomExercice extends Exercice {
-  figuresApiGeom!: Figure[]
-  figuresApiGeomCorr!: Figure[]
-  lesPoints!: Point[][]
-  lesPointsCorr!: Point[][]
-  mediatrices!: Mediatrice[][]
-  nbMediatrices!: number
-  ensembleDesQuestions!: EnsembleDesQuestions[]
+  figuresApiGeom: Figure[] = []
+  figuresApiGeomCorr: Figure[] = []
+  lesPoints: Point[][] = []
+  lesPointsCorr: Point[][] = []
+  mediatrices: Mediatrice[][] = []
+  nbMediatrices: number = 1
+  ensembleDesQuestions: EnsembleDesQuestions[] = []
+
   constructor() {
     super()
     this.nbQuestions = 1
@@ -78,7 +79,25 @@ export default class nomExercice extends Exercice {
   }
 
   nouvelleVersion() {
+    this.figuresApiGeom.forEach((fig) => {
+      if (
+        fig instanceof Figure &&
+        'destroy' in fig &&
+        typeof fig.destroy === 'function'
+      ) {
+        fig.destroy()
+      }
+    })
     this.figuresApiGeom = []
+    this.figuresApiGeomCorr.forEach((fig) => {
+      if (
+        fig instanceof Figure &&
+        'destroy' in fig &&
+        typeof fig.destroy === 'function'
+      ) {
+        fig.destroy()
+      }
+    })
     this.figuresApiGeomCorr = []
     this.lesPoints = []
     this.lesPointsCorr = []
@@ -161,6 +180,7 @@ export default class nomExercice extends Exercice {
         this.sup2,
         1,
       )
+      this.mediatrices[i] = this.mediatrices[i].slice(0, this.nbMediatrices)
 
       // On construit l'énoncé et les médiatrices en fonction du nombre de médiatrices demandés par l'utilisateur.
       const choixCouleur = combinaisonListes([
@@ -278,24 +298,26 @@ export default class nomExercice extends Exercice {
               color: this.mediatrices[i][ee].couleurMed.couleurHTML,
               thickness: 2,
             })
-            this.figuresApiGeom[i].setToolbar({
-              tools: [
-                'POINT',
-                'POINT_ON',
-                'POINT_INTERSECTION',
-                'SEGMENT',
-                'LINE',
-                'CIRCLE_CENTER_POINT',
-                'CIRCLE_RADIUS',
-                'DRAG',
-                'SHAKE',
-                'REMOVE',
-                'SET_OPTIONS',
-              ],
-            })
-            this.figuresApiGeom[i].options.changeColorChangeActionToSetOptions =
-              true
-
+            if (this.interactif) {
+              this.figuresApiGeom[i].setToolbar({
+                tools: [
+                  'POINT',
+                  'POINT_ON',
+                  'POINT_INTERSECTION',
+                  'SEGMENT',
+                  'LINE',
+                  'CIRCLE_CENTER_POINT',
+                  'CIRCLE_RADIUS',
+                  'DRAG',
+                  'SHAKE',
+                  'REMOVE',
+                  'SET_OPTIONS',
+                ],
+              })
+              this.figuresApiGeom[
+                i
+              ].options.changeColorChangeActionToSetOptions = true
+            }
             break
           }
           default: {
@@ -358,43 +380,45 @@ export default class nomExercice extends Exercice {
               directionPoint: pointSurMediatrice,
             })
 
-            if (this.sup3 === 1)
-              this.figuresApiGeom[i].setToolbar({
-                tools: [
-                  'POINT',
-                  'MIDDLE',
-                  'POINT_ON',
-                  'POINT_INTERSECTION',
-                  'SEGMENT',
-                  'LINE',
-                  'LINE_PERPENDICULAR',
-                  'DRAG',
-                  'SHAKE',
-                  'REMOVE',
-                  'SET_OPTIONS',
-                ],
-              })
-            else
-              this.figuresApiGeom[i].setToolbar({
-                tools: [
-                  'POINT',
-                  'MIDDLE',
-                  'POINT_ON',
-                  'POINT_INTERSECTION',
-                  'SEGMENT',
-                  'LINE',
-                  'LINE_PERPENDICULAR',
-                  'CIRCLE_CENTER_POINT',
-                  'CIRCLE_RADIUS',
-                  'DRAG',
-                  'SHAKE',
-                  'REMOVE',
-                  'SET_OPTIONS',
-                ],
-              })
-            this.figuresApiGeom[i].options.changeColorChangeActionToSetOptions =
-              true
-
+            if (this.interactif) {
+              if (this.sup3 === 1)
+                this.figuresApiGeom[i].setToolbar({
+                  tools: [
+                    'POINT',
+                    'MIDDLE',
+                    'POINT_ON',
+                    'POINT_INTERSECTION',
+                    'SEGMENT',
+                    'LINE',
+                    'LINE_PERPENDICULAR',
+                    'DRAG',
+                    'SHAKE',
+                    'REMOVE',
+                    'SET_OPTIONS',
+                  ],
+                })
+              else
+                this.figuresApiGeom[i].setToolbar({
+                  tools: [
+                    'POINT',
+                    'MIDDLE',
+                    'POINT_ON',
+                    'POINT_INTERSECTION',
+                    'SEGMENT',
+                    'LINE',
+                    'LINE_PERPENDICULAR',
+                    'CIRCLE_CENTER_POINT',
+                    'CIRCLE_RADIUS',
+                    'DRAG',
+                    'SHAKE',
+                    'REMOVE',
+                    'SET_OPTIONS',
+                  ],
+                })
+              this.figuresApiGeom[
+                i
+              ].options.changeColorChangeActionToSetOptions = true
+            }
             break
           }
         }
@@ -403,23 +427,24 @@ export default class nomExercice extends Exercice {
       if (!context.isHtml) {
         texte += this.figuresApiGeom[i].tikz()
         texteCorr += this.figuresApiGeomCorr[i].tikz()
+      } else {
+        texte += figureApigeom({
+          exercice: this,
+          i,
+          figure: this.figuresApiGeom[i],
+          idAddendum: '6G25' + i,
+          defaultAction: 'DRAG',
+        })
+        texteCorr += figureApigeom({
+          exercice: this,
+          i,
+          figure: this.figuresApiGeomCorr[i],
+          idAddendum: '6G25Cor' + i,
+        })
+        this.figuresApiGeomCorr[i].isDynamic = false
+        this.figuresApiGeomCorr[i].divButtons.style.display = 'none'
+        this.figuresApiGeomCorr[i].divUserMessage.style.display = 'none'
       }
-      texte += figureApigeom({
-        exercice: this,
-        i,
-        figure: this.figuresApiGeom[i],
-        idAddendum: '6G25' + i,
-        defaultAction: 'DRAG',
-      })
-      texteCorr += figureApigeom({
-        exercice: this,
-        i,
-        figure: this.figuresApiGeomCorr[i],
-        idAddendum: '6G25Cor' + i,
-      })
-      this.figuresApiGeomCorr[i].isDynamic = false
-      this.figuresApiGeomCorr[i].divButtons.style.display = 'none'
-      this.figuresApiGeomCorr[i].divUserMessage.style.display = 'none'
 
       if (this.questionJamaisPosee(i, texte)) {
         this.listeQuestions[i] = texte
@@ -433,6 +458,7 @@ export default class nomExercice extends Exercice {
   }
 
   async shakeCorrection(i: number) {
+    if (this.figuresApiGeom[i].elements.size === 0) return
     await this.figuresApiGeom[i].shake()
     for (let ee = 0; ee < this.lesPoints[i].length; ee++) {
       this.lesPointsCorr[i][ee].x = this.lesPoints[i][ee].x

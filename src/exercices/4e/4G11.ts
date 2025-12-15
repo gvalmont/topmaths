@@ -67,7 +67,7 @@ export default class PavageEtTranslation2d extends Exercice {
   nouvelleVersion() {
     this.sup = contraindreValeur(1, 2, this.sup, randint(1, 2))
     this.sup3 = contraindreValeur(1, 8, this.sup3, 8)
-    if (this.sup3 == 8) this.sup3 = randint(1, 7)
+    if (this.sup3 === 8) this.sup3 = randint(1, 7)
     const videcouples = function (tableau: [number, number][]) {
       for (let k = 0; k < tableau.length; k++) {
         for (let j = k + 1; j < tableau.length; j++) {

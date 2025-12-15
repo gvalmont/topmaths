@@ -4,10 +4,7 @@ import { polyline } from '../../lib/2d/Polyline'
 import { repere } from '../../lib/2d/reperes'
 import { latexParPoint, texteParPoint } from '../../lib/2d/textes'
 import { tracePoint } from '../../lib/2d/TracePoint'
-import {
-  handleAnswers,
-  type AutoCorrection,
-} from '../../lib/interactif/gestionInteractif'
+import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
 import {
@@ -18,6 +15,7 @@ import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { rangeMinMax } from '../../lib/outils/nombres'
 import { pgcd, premierAvec } from '../../lib/outils/primalite'
 import { stringNombre, texNombre } from '../../lib/outils/texNombre'
+import type { AutoCorrection } from '../../lib/types'
 import { context } from '../../modules/context'
 import FractionEtendue from '../../modules/FractionEtendue'
 import { fraction } from '../../modules/fractions'

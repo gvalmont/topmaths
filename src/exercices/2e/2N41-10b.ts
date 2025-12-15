@@ -1,27 +1,27 @@
+import { handleAnswers } from '../../lib/interactif/gestionInteractif'
+import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
 import {
   ecritureAlgebrique,
   reduirePolynomeDegre3,
 } from '../../lib/outils/ecritures'
+import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { lettreDepuisChiffre } from '../../lib/outils/outilString'
-import Exercice from '../Exercice'
 import { context } from '../../modules/context'
 import {
   gestionnaireFormulaireTexte,
   listeQuestionsToContenuSansNumero,
   randint,
 } from '../../modules/outils'
-import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
-import { handleAnswers } from '../../lib/interactif/gestionInteractif'
-import { miseEnEvidence } from '../../lib/outils/embellissements'
+import Exercice from '../Exercice'
 
+import engine from '../../lib/interactif/comparisonFunctions'
 import {
   developpe,
   regroupeTermesMemeDegre,
   suppressionParentheses,
 } from '../../lib/mathFonctions/outilsMaths'
 import { obtenirListeFractionsIrreductiblesFaciles } from '../../modules/fractions'
-import engine from '../../lib/interactif/comparisonFunctions'
 
 export const titre =
   'Développer puis réduire des expressions littérales complexes (avec fractions)'
@@ -294,7 +294,7 @@ export default class DevelopperReduireExprComplexe extends Exercice {
                   statut: '',
                   reponse: {
                     texte: `valeur de $m$ dans $m${choixLettre}^2+n${choixLettre}+p$`,
-                    valeur: coeffX2,
+                    valeur: Number(coeffX2),
                     param: {
                       digits: 2,
                       decimals: 0,
@@ -313,7 +313,7 @@ export default class DevelopperReduireExprComplexe extends Exercice {
                   statut: '',
                   reponse: {
                     texte: `valeur de $n$ dans $m${choixLettre}^2+n${choixLettre}+p$`,
-                    valeur: coeffX,
+                    valeur: Number(coeffX),
                     param: {
                       digits: 2,
                       decimals: 0,
@@ -332,7 +332,7 @@ export default class DevelopperReduireExprComplexe extends Exercice {
                   statut: '',
                   reponse: {
                     texte: `valeur de $p$ dans $m${choixLettre}^2+n${choixLettre}+p$`,
-                    valeur: coeffConst,
+                    valeur: Number(coeffConst),
                     param: {
                       digits: 2,
                       decimals: 0,

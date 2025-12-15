@@ -52,8 +52,6 @@ export default class EcrireUneExpressionNumerique extends Exercice {
   nouvelleVersion() {
     this.interactifType = this.version !== 2 ? 'mathLive' : 'listeDeroulante'
 
-    let reponse
-
     const listeTypeDeQuestions = gestionnaireFormulaireTexte({
       saisie: this.sup4,
       min: 1,
@@ -98,7 +96,7 @@ export default class EcrireUneExpressionNumerique extends Exercice {
     ) {
       let texte: string
       let texteCorr: string
-      reponse = ''
+      let reponse
       nbOperations = listeTypeDeQuestions[i]
       val1 = randint(2, 5)
       val2 = randint(6, 9)
@@ -155,7 +153,10 @@ export default class EcrireUneExpressionNumerique extends Exercice {
                 : '.'
             reponse =
               expn.length > 1
-                ? expn[1].substring(1, expn[1].length - 1)
+                ? [
+                    expn[0].substring(1, expn[0].length - 1),
+                    expn[1].substring(1, expn[1].length - 1),
+                  ]
                 : expn[0].substring(1, expn[0].length - 1)
             break
           case 2:
@@ -324,7 +325,14 @@ export default class EcrireUneExpressionNumerique extends Exercice {
                   texteAvant: ' Résultat : ',
                 },
               )
-            handleAnswers(this, i, { reponse: { value: reponse } })
+
+            if (reponse === undefined) {
+              throw new Error('Réponse absente')
+            }
+
+            handleAnswers(this, i, {
+              reponse: { value: reponse },
+            })
           }
         }
         // on doit donner la traduction en français de l'expression (liste déroulante pour l'interactif et AMCOpen)
@@ -396,10 +404,13 @@ export default class EcrireUneExpressionNumerique extends Exercice {
                 },
               )
 
+            if (reponse === undefined) {
+              throw new Error('Réponse absente')
+            }
+
             handleAnswers(this, i, {
               reponse: {
                 value: reponse,
-                // options: { operationSeulementEtNonResultat: true },
                 options: {
                   expressionNumerique: !this.litteral,
                 },

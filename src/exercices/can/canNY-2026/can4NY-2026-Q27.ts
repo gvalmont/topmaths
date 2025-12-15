@@ -43,7 +43,7 @@ export default class Convertir extends ExerciceSimple {
           this.question += ' $\\dots\\text{ L}$ '
         }
         this.optionsChampTexte = { texteApres: ' L' }
-        this.correction = `Comme $1\\text{ m}^3=${texNombre(1000, 0)}\\text{ L}$, alors $${texNombre(a, 0)}\\text{ m}^3 =${texNombre(a)}\\times ${texNombre(1000, 0)}$ L $ = ${miseEnEvidence(this.reponse)}$ L.`
+        this.correction = `Comme $1\\text{ m}^3=${texNombre(1000, 0)}\\text{ L}$, alors $${texNombre(a, 4)}\\text{ m}^3 =${texNombre(a)}\\times ${texNombre(1000, 0)}$ L $ = ${miseEnEvidence(this.reponse)}$ L.`
 
         this.canEnonce = 'Compléter.'
         this.canReponseACompleter = `$${texNombre(a)}\\text{ m}^3 = \\dots\\text{ L}$`
@@ -65,7 +65,7 @@ export default class Convertir extends ExerciceSimple {
         this.optionsChampTexte = { texteApres: '$\\text{ m}^3$' }
         this.canEnonce = 'Compléter.'
         this.canReponseACompleter = `$${texNombre(a)}\\text{ L} = \\dots\\text{ m}^3$`
-        this.correction = `Comme $1\\text{ L} =0,001\\text{ m}^3$, alors $${texNombre(a)}\\text{ L}=${texNombre(a)}\\times 0,001\\text{ m}^3 = ${miseEnEvidence(this.reponse)}\\text{ m}^3$.`
+        this.correction = `Comme $1\\text{ L} =0,001\\text{ m}^3$, alors $${texNombre(a,4)}\\text{ L}=${texNombre(a,4)}\\times 0,001\\text{ m}^3 = ${miseEnEvidence(this.reponse)}\\text{ m}^3$.`
 
         break
     }

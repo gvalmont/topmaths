@@ -104,8 +104,6 @@ Si le nombre de questions est supérieur au nombre de patterns choisis, alors l'
 
     typesPattern = [...typesPattern, ...shuffle(range1(nbDePattern))]
     typesPattern = enleveDoublonNum(typesPattern)
-
-    //if (this.nbQuestions > 25) this.nbQuestions = 25 // EE : Pourquoi ce code ? Pourquoi 25 ? Le code était avant moi : je le laisse.
     typesPattern = typesPattern.slice(0, 25)
     typesPattern = typesPattern.reverse()
 

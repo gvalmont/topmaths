@@ -1,6 +1,8 @@
 import { lampeMessage } from '../../lib/format/message'
 import { texSymbole, texteGras } from '../../lib/format/style'
 
+import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
+import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { tableauDeVariation } from '../../lib/mathFonctions/etudeFonction'
 import { combinaisonListes } from '../../lib/outils/arrayOutils'
@@ -17,8 +19,6 @@ import { sp } from '../../lib/outils/outilString'
 import { context } from '../../modules/context'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import Exercice from '../Exercice'
-import { handleAnswers } from '../../lib/interactif/gestionInteractif'
-import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -440,7 +440,6 @@ export default class ExerciceInequationProduit extends Exercice {
             ],
           ],
           // Les autres lignes du tableau dont le fonctionnement est expliqué plus haut
-          // @ts-expect-error TableauDeVariation n'est pas typé correctement
           tabLines: [
             ligne1,
             ligne2,
@@ -599,7 +598,6 @@ export default class ExerciceInequationProduit extends Exercice {
               30,
             ],
           ],
-          // @ts-expect-error TableauDeVariation n'est pas typé correctement
           tabLines: [
             lignes[0],
             lignes[1],

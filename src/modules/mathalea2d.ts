@@ -172,7 +172,7 @@ export function mathalea2d(
     if (
       skipRepere &&
       objets instanceof ObjetMathalea2D &&
-      objets.constructor.name === 'Repere'
+      (objets as any).isRepere === true
     ) {
       return codeTikz
     }

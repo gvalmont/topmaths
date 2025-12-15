@@ -236,7 +236,6 @@ export default class MesurerUnAngleAvecRapporteur extends Exercice {
                   approx: 0, // (0 = valeur exacte attendue, sinon valeur de tolérance (voir explication détaillée dans type AMCNum))
                 },
               },
-              options: { ordered: false, lastChoice: false }, // options pour Qcms
             },
           ],
         }
@@ -304,7 +303,6 @@ export default class MesurerUnAngleAvecRapporteur extends Exercice {
                     approx: 0, // (0 = valeur exacte attendue, sinon valeur de tolérance (voir explication détaillée dans type AMCNum))
                   },
                 },
-                options: { ordered: false, lastChoice: false }, // options pour Qcms
               },
             ],
           }
@@ -382,7 +380,7 @@ export default class MesurerUnAngleAvecRapporteur extends Exercice {
                       approx: 0, // (0 = valeur exacte attendue, sinon valeur de tolérance (voir explication détaillée dans type AMCNum))
                     },
                   },
-                  options: { ordered: false, lastChoice: false }, // options pour Qcms
+                  // ts-lint:disable-next-line: max-line-length
                 },
               ],
             }
@@ -460,7 +458,6 @@ export default class MesurerUnAngleAvecRapporteur extends Exercice {
                         approx: 0, // (0 = valeur exacte attendue, sinon valeur de tolérance (voir explication détaillée dans type AMCNum))
                       },
                     },
-                    options: { ordered: false, lastChoice: false }, // options pour Qcms
                   },
                 ],
               }

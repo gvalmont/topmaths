@@ -1,15 +1,16 @@
+/* eslint-disable no-unmodified-loop-condition */
 /**
  * ⚠️ Cet exercice est utilisé dans le test : tests/e2e/tests/interactivity/mathLive.fraction.test.ts ⚠️
  */
 
+import { setReponse } from '../../lib/interactif/gestionInteractif'
+import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
 import { arrondi } from '../../lib/outils/nombres'
 import { texNombre } from '../../lib/outils/texNombre'
-import Exercice from '../Exercice'
-import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import FractionEtendue from '../../modules/FractionEtendue'
-import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
-import { setReponse } from '../../lib/interactif/gestionInteractif'
+import { listeQuestionsToContenu, randint } from '../../modules/outils'
+import Exercice from '../Exercice'
 
 export const titre =
   "Passer d'une fraction à une écriture décimale et inversement"
@@ -103,11 +104,10 @@ export default class PasserEcritureDecimaleEcritureFractionnaireInversement exte
           numerateur += 1
         }
       }
-      // eslint-disable-next-line no-unmodified-loop-condition
       while (
         numerateur % denominateur === 0 ||
         denominateur % numerateur === 0 ||
-        (denominateur === 4 && numerateur % 2 === 0)
+        (numerateur % 2 === 0 && denominateur === 4)
       ) {
         numerateur += 1
       }

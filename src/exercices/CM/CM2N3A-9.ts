@@ -36,7 +36,7 @@ export default class TablesDeDivisions extends Exercice {
   constructor(tablesParDefaut = '2-3-4-5-6-7-8-9') {
     super()
     this.besoinFormulaireTexte = [
-      'Choix des tables',
+      'Choix des tables (10 pour aléatoire)',
       'Nombres séparés par des tirets :',
     ] // Texte, tooltip
     this.besoinFormulaire2Numerique = [
@@ -60,6 +60,7 @@ export default class TablesDeDivisions extends Exercice {
       max: 9,
       min: 2,
       enleveDoublons: true,
+      melange: 10,
     })
     const couples = creerCouples(
       tables.map(Number),

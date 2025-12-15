@@ -144,7 +144,6 @@ export default class CalculerUneExpressionNumerique extends Exercice {
             propositions: [
               {
                 type: 'AMCOpen',
-                // @ts-expect-error
                 propositions: [
                   {
                     enonce: texte,
@@ -156,14 +155,13 @@ export default class CalculerUneExpressionNumerique extends Exercice {
               },
               {
                 type: 'AMCNum',
-                // @ts-expect-error
                 propositions: [
                   {
                     texte: '',
                     statut: '',
                     reponse: {
                       texte: 'Résultat de cet enchaînement de calculs : ',
-                      valeur: [reponse],
+                      valeur: [Number(reponse)],
                       param: {
                         digits: 2,
                         decimals: 0,

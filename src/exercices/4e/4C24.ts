@@ -166,7 +166,7 @@ export default class SimplifierFractions extends Exercice {
                     statut: '',
                     reponse: {
                       texte: 'Rendre irréductible la fraction ' + texte + '.',
-                      valeur: [f.simplifie()],
+                      valeur: f.simplifie(),
                       param: {
                         digits: 2,
                         decimals: 0,

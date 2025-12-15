@@ -331,7 +331,7 @@ export default class Thales2D extends Exercice {
                     statut: '',
                     reponse: {
                       texte: `$\\hspace{21pt}${nomM + nomN}$`,
-                      valeur: [reponse.toFixed(1)],
+                      valeur: [Number(reponse.toFixed(1))],
                       param: {
                         digits:
                           Math.max(
@@ -357,7 +357,7 @@ export default class Thales2D extends Exercice {
                     statut: '',
                     reponse: {
                       texte: `$\\hspace{21pt}${nomC + nomB}$`,
-                      valeur: [reponse2.toFixed(1)],
+                      valeur: [Number(reponse2.toFixed(1))],
                       param: {
                         digits:
                           Math.max(

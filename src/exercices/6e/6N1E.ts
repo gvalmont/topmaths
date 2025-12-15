@@ -141,8 +141,19 @@ export default class DecimalFractionPourcentage extends Exercice {
         tabLinesCorr: nbDecimalCorrNu
           .concat(fractionDecimaleCorrNu)
           .concat(pourcentageCorrNu),
-        enonce: `${tableauColonneLigne([], ['\\text{Nombre décimal}', '\\text{Fraction décimale}', '\\text{Pourcentage}'], nbDecimal.concat(fractionDecimale).concat(pourcentage))}`,
-        correction: `${tableauColonneLigne([], ['\\text{Nombre décimal}', '\\text{Fraction décimale}', '\\text{Pourcentage}'], nbDecimalCorr.concat(fractionDecimaleCorr).concat(pourcentageCorr))}`,
+        enonce: `${tableauColonneLigne(
+          [], 
+          ['\\text{Nombre décimal}', '\\text{Fraction décimale}', '\\text{Pourcentage}'], 
+          nbDecimal.concat(fractionDecimale).concat(pourcentage),
+        2.5,
+        true
+        )}`,
+        correction: `${tableauColonneLigne(
+          [], ['\\text{Nombre décimal}', '\\text{Fraction décimale}', '\\text{Pourcentage}'], 
+          nbDecimalCorr.concat(fractionDecimaleCorr).concat(pourcentageCorr),
+        2.5,
+        true
+        )},`,
       })
       let objetReponse = {}
       for (let i = 0; i < enonces[0].tabLines.length; i++) {

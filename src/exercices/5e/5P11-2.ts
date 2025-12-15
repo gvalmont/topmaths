@@ -78,7 +78,6 @@ export default class ConvertirVitesse extends Exercice {
       let valeur: number
       let uniteDepart: string
       let uniteArrivee: string
-      let reponse: number
 
       // Déterminer les unités selon le type de question
       if (typeDeQuestion === 1) {
@@ -117,7 +116,7 @@ export default class ConvertirVitesse extends Exercice {
       // Utiliser la classe Grandeur pour effectuer la conversion
       const vitesse = new Grandeur(valeur, uniteDepart)
       const vitesseConvertie = vitesse.convertirEn(uniteArrivee)
-      reponse = vitesseConvertie.mesure
+      const reponse = vitesseConvertie.mesure
 
       // Formater la question
       texte = `Convertir $${texNombre(valeur, 2)}\\text{\\,${uniteDepart}}$ en $\\text{${uniteArrivee}}$.`

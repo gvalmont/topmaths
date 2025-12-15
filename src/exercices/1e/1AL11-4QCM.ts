@@ -21,7 +21,7 @@ export default class Puissances extends ExerciceQcmA {
     const p = 1
      const up = 5
     const n = 8
-    this.enonce = `Soient $(u_n)$ la suite arithmétique de premier rang  $u_${p}=${up}$ et de raison $${r}$.<br>
+    this.enonce = `Soit $(u_n)$ la suite arithmétique de premier terme $u_${p}=${up}$ et de raison $${r}$.<br>
    $u_{${n}}$ vaut :`
     this.correction = `Soit $p\\in \\mathbb{N}$ et $r\\in\\mathbb{R}$.<br>
     On sait que le terme de rang $n$ d'une suite arithmétique $(u_n)$ de premier terme $u_p$ et de rasion $r$ s'écrit $u_n=u_p + (n-p)r$.<br>

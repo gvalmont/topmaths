@@ -53,9 +53,9 @@ export default function figureApigeom({
   // Pour revoir la copie de l'élève dans Capytale
   // Attention, la clé de answers[] doit contenir apigeom, c'est pourquoi l'id est généré par cette fonction
   function idApigeomFunct(event: Event): void {
-    if (!figure.container) {
+    if (!figure.container || !figure.container.id) {
       // figure effacée, donc on annule la mise à jour...
-      document.removeEventListener(idApigeom, idApigeomFunct)
+      destroy()
       return
     }
     const customEvent = event as CustomEvent
@@ -73,7 +73,7 @@ export default function figureApigeom({
   function updateZoom(event: Event): void {
     if (!figure.container || !figure.container.id) {
       // figure effacée, donc on annule la mise à jour...
-      document.removeEventListener('zoomChanged', updateZoom)
+      destroy()
       return
     }
     // console.log('ExZoom:' + idApigeom)
@@ -96,14 +96,10 @@ export default function figureApigeom({
   function updateAffichage(): void {
     if (!figure.container || !figure.container.id) {
       // figure effacée, donc on annule la mise à jour...
-      document.removeEventListener('exercicesAffiches', updateAffichage)
-      document.removeEventListener('zoomChanged', updateZoom)
-      document.removeEventListener(idApigeom, idApigeomFunct)
+      destroy()
       return
     }
-    // console.log('ExAff:' + idApigeom)
     if (!context.isHtml) {
-      // document.removeEventListener('exercicesAffiches', updateAffichage)
       return
     }
     const container = document.querySelector(`#${idApigeom}`) as HTMLDivElement
@@ -137,7 +133,6 @@ export default function figureApigeom({
     const zoom = Number(get(globalOptions).z)
     if (oldZoom !== zoom) {
       oldZoom = zoom
-      // console.log('ExAff:' + idApigeom + ':' + zoom)
       figure.zoom(zoom, {
         changeHeight: true,
         changeWidth: true,
@@ -147,6 +142,30 @@ export default function figureApigeom({
     }
   }
   document.addEventListener('exercicesAffiches', updateAffichage)
+
+  // --------------------------
+  // CLEANUP
+  // --------------------------
+
+  let destroyed = false
+  const destroy = () => {
+    if (destroyed) return
+    destroyed = true
+    document.removeEventListener(idApigeom, idApigeomFunct)
+    document.removeEventListener('zoomChanged', updateZoom)
+    document.removeEventListener('exercicesAffiches', updateAffichage)
+  }
+
+  // On surcharge la méthode clearHtml de la figure pour faire le cleanup des listeners
+  const originalDestroy = figure.destroy?.bind(figure)
+
+  figure.destroy = () => {
+    destroy()
+    // Appeler Apigeom original pour purger ce qu’il doit purger
+    if (figure.svg && originalDestroy) {
+      originalDestroy()
+    }
+  }
 
   return `<div class="m-6 leading-none" id="${idApigeom}"></div><span id="resultatCheckEx${exercice.numeroExercice}Q${i}"></span><div class="ml-2 py-2 text-coopmaths-warn-darkest dark:text-coopmathsdark-warn-darkest" id="feedbackEx${exercice.numeroExercice}Q${i}"></div>`
 }

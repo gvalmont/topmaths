@@ -477,7 +477,7 @@ export const randFloat = (a: number, b: number, precision = 3): number => {
  * afin de contrôler que l'aléatoire ne produit pas deux questions identiques.
  * @author Jean-Claude Lhote
  */
-export function checkSum(...args: number[]) {
+export function checkSum(...args: (number | string)[]) {
   let checkString = ''
   for (let i = 0; i < args.length; i++) {
     if (typeof args[i] === 'number') {
@@ -739,4 +739,14 @@ export function itemize(tableauDeTexte: string[]) {
       { tableauDeTexte },
     )
   }
+}
+/**
+ * Retourne la factorielle d'un nombre
+ *
+ * @author Stéphane Guyon
+ *
+ */
+export function factorielle(num: number): number {
+  if (num === 0 || num === 1) return 1
+  return num * factorielle(num - 1)
 }

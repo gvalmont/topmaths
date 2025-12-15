@@ -1,5 +1,5 @@
 import ExerciceSimple from '../ExerciceSimple'
-import { randint } from '../../modules/outils'
+import { factorielle, randint } from '../../modules/outils'
 import { texNombre } from '../../lib/outils/texNombre'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { choice } from '../../lib/outils/arrayOutils'
@@ -14,10 +14,7 @@ export const refs = {
   'fr-fr': ['TSG1-02'],
   'fr-ch': [],
 }
-function factorielle(num: number): number {
-  if (num === 0 || num === 1) return 1
-  return num * factorielle(num - 1)
-}
+
 /**
  * Modèle d'exercice très simple pour la course aux nombres
  * @author Stéphane Guyon

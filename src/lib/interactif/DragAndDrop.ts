@@ -1,4 +1,4 @@
-import type { IExercice } from '../../lib/types'
+import type { DragHandler, IExercice, TouchHandler } from '../../lib/types'
 import { context } from '../../modules/context'
 import { messageFeedback } from '../../modules/messages'
 import { get } from '../html/dom'
@@ -28,8 +28,6 @@ Ce n'est qu'une idée, je ne sais même pas si c'est réalisable, ni même souha
 En fait, c'était pour éviter de doubler le nombre d'étiquettes avec des singuliers et des pluriels...
 Pour l'instant, l'utilisation de cette callback n'est pas implémentée.
 */
-type DragHandler = (e: DragEvent) => void
-type TouchHandler = (e: TouchEvent) => void
 
 /**
  * On stocke l'élément en déplacement

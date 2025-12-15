@@ -61,7 +61,6 @@ export default class nomExercice extends Exercice {
     for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50; ) {
       let texte = ''
       let texteCorr = ''
-      const degMax = 1
       const coeffMax = 12
       const variables = ['x', 'y', 'z', 'r', 's', 't']
       const variablesSelect = getRandomSubarray(variables, 1)
@@ -69,8 +68,6 @@ export default class nomExercice extends Exercice {
       let typeofCoeff = []
       let p1: MonomePlusieursVariables
       let p2: MonomePlusieursVariables
-      let pSP1: MonomePlusieursVariables
-      let pSP2: MonomePlusieursVariables
       p1 = new MonomePlusieursVariables(new FractionEtendue(1, 1), {
         variables: [],
         exposants: [],
@@ -79,14 +76,7 @@ export default class nomExercice extends Exercice {
         variables: [],
         exposants: [],
       })
-      pSP1 = new MonomePlusieursVariables(new FractionEtendue(1, 1), {
-        variables: [],
-        exposants: [],
-      })
-      pSP2 = new MonomePlusieursVariables(new FractionEtendue(1, 1), {
-        variables: [],
-        exposants: [],
-      })
+
       if (this.sup2 === 1) {
         typeofCoeff = ['entier']
       } else if (this.sup2 === 2) {
@@ -116,7 +106,7 @@ export default class nomExercice extends Exercice {
         p2 = p2.oppose()
       }
       if (this.correctionDetaillee) {
-        texteCorr = `Les deux termes présents dans l\'expression sont des carrés parfaits. On détermine les monômes qui au carré donnent ces termes.<br> On obtient un premier terme qui vaut $${p1.toString()}$ et un second terme qui vaut $${p2.toString()}$.<br>Le terme manquant est donc $2\\times ${p1.toString()}\\times ${p2.toString()}=${p1
+        texteCorr = `Les deux termes présents dans l'expression sont des carrés parfaits. On détermine les monômes qui au carré donnent ces termes.<br> On obtient un premier terme qui vaut $${p1.toString()}$ et un second terme qui vaut $${p2.toString()}$.<br>Le terme manquant est donc $2\\times ${p1.toString()}\\times ${p2.toString()}=${p1
           .produit(p2)
           .produit(
             new MonomePlusieursVariables(new FractionEtendue(2, 1), {

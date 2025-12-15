@@ -46,7 +46,7 @@ export default class canQ232026 extends ExerciceSimple {
     alors $${texNombre(aDiv, 4)} \\times ${texNombre(NbanneeDiv, 4)}= \\dfrac{${texNombre(a, 4)}}{${texNombre(new Decimal(10).pow(exposantA))}} \\times \\dfrac{${texNombre(annee, 0)}}{${texNombre(new Decimal(10).pow(exposantannee))}} = 
     \\dfrac{${texNombre(a, 0)} \\times ${texNombre(annee, 0)}}{${texNombre(new Decimal(10).pow(exposantA))} \\times ${new Decimal(10).pow(exposantannee)}}= 
     \\dfrac{${texNombre(a * annee, 0)}}{${texNombre(new Decimal(10).pow(exposantA + exposantannee))}}$<br><br>
-    et donc $${texNombre(aDiv, 4)} \\times ${texNombre(NbanneeDiv, 4)}=${miseEnEvidence(texNombre(reponse, 5))}$`
+    et donc $${texNombre(aDiv, 4)} \\times ${texNombre(NbanneeDiv, 4)}=${miseEnEvidence(texNombre(reponse, 5))}$.`
 
     if (this.interactif) {
       this.question += '<br>'

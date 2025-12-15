@@ -392,7 +392,6 @@ export default class EvolutionsEnPourcentage extends Exercice {
           break
         }
         case 'population':
-        default:
           depart = choice([randint(11, 99) * 1000, randint(11, 99) * 10000])
           taux = randint(5, 35) * choice([-1, 1])
           tauxDec = taux / 100
@@ -568,7 +567,8 @@ export default class EvolutionsEnPourcentage extends Exercice {
           break
         }
 
-        case 'abonnement': {
+        case 'abonnement':
+        default: {
           // Prix d'abonnement entre 5€ et 50€
           switch (randint(1, 3)) {
             case 1:

@@ -1,5 +1,13 @@
 import type { Writable } from 'svelte/store'
 import { get } from 'svelte/store'
+import {
+  getFlowmathAttemptIdFromUrl,
+  sendFlowmathAttemptFinished,
+  sendFlowmathAttemptStarted,
+  sendFlowmathError,
+  sendFlowmathReady,
+  sendFlowmathReplayCompleted,
+} from './flowmathRpc'
 
 /**
  * Handler pour la communication RPC avec FlowMath
@@ -9,10 +17,10 @@ export function handleFlowmath(
   exercicesParams: Writable<any[]>,
   resultsByExercice: Writable<any[]>,
 ) {
-  const isInIframe = window.self !== window.top
+  if (typeof window === 'undefined') return
 
   // Listen for messages from parent window
-  window.addEventListener('message', async (event) => {
+  const onMessage = async (event: MessageEvent<any>) => {
     if (!event.data || typeof event.data !== 'object') return
 
     if (event.data.type === 'FINISH_ATTEMPT') {
@@ -62,24 +70,19 @@ export function handleFlowmath(
       const score = totalQuestions > 0 ? correctAnswers / totalQuestions : 0
 
       // Send complete results back to parent
-      window.parent.postMessage(
-        {
-          type: 'ATTEMPT_FINISHED',
-          payload: {
-            score,
-            exercicesData: results,
-            totalQuestions,
-            correctAnswers,
-          },
-        },
-        '*',
-      )
+      sendFlowmathAttemptFinished({
+        score,
+        exercicesData: results,
+        totalQuestions,
+        correctAnswers,
+      })
     }
 
     if (event.data.type === 'REPLAY_ATTEMPT') {
       const exercicesData = event.data.payload.exercicesData
       if (!exercicesData || !Array.isArray(exercicesData)) {
         console.error('[MathALEA-FlowMath] Invalid exercicesData')
+        sendFlowmathError('[MathALEA] Invalid exercicesData received')
         return
       }
 
@@ -100,23 +103,38 @@ export function handleFlowmath(
 
       await new Promise((resolve) => setTimeout(resolve, 800))
 
-      // Click all validation buttons
-      for (const exercice of exercicesData) {
-        if (exercice == null) continue
-
-        const buttonScore = document.querySelector(
-          `#buttonScoreEx${exercice.indice}`,
-        ) as HTMLButtonElement
-
-        if (buttonScore !== null) {
-          buttonScore.click()
-          await new Promise((resolve) => setTimeout(resolve, 500))
-        } else {
-          console.info(
-            `[MathALEA-FlowMath] Validation button #buttonScoreEx${exercice.indice} not found`,
-          )
-        }
-      }
+      // Signal that replay is complete - parent can now send FINISH_ATTEMPT
+      sendFlowmathReplayCompleted()
     }
-  })
+  }
+
+  window.addEventListener('message', onMessage)
+
+  const onWindowError = (event: ErrorEvent) => {
+    if (!event?.message) return
+    sendFlowmathError(event.message)
+  }
+
+  const onUnhandledRejection = (event: PromiseRejectionEvent) => {
+    if (event?.reason == null) return
+    if (typeof event.reason === 'string') {
+      sendFlowmathError(event.reason)
+    } else if (event.reason instanceof Error) {
+      sendFlowmathError(event.reason.message)
+    } else {
+      sendFlowmathError(String(event.reason))
+    }
+  }
+
+  window.addEventListener('error', onWindowError)
+  window.addEventListener('unhandledrejection', onUnhandledRejection)
+
+  sendFlowmathReady()
+  sendFlowmathAttemptStarted(getFlowmathAttemptIdFromUrl())
+
+  return () => {
+    window.removeEventListener('message', onMessage)
+    window.removeEventListener('error', onWindowError)
+    window.removeEventListener('unhandledrejection', onUnhandledRejection)
+  }
 }

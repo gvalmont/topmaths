@@ -406,6 +406,7 @@ export default class SymetrieAxialePavageTriangulaire extends Exercice {
     const B = pointAbstrait(1.2, 0, '')
     const C = rotation(B, A, 60, '')
     const v = vecteur(1.2, 0)
+    // @ts-ignore
     const w = rotation(vecteur(1.2, 0), A, 60)
     triAngles[0] = {
       tri: polygone(A, B, C),

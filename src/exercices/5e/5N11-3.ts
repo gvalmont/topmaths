@@ -1,18 +1,18 @@
-import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
-import { texNombre } from '../../lib/outils/texNombre'
-import Exercice from '../Exercice'
-import { listeQuestionsToContenu, randint } from '../../modules/outils'
-import {
-  ajouteChampTexteMathLive,
-  remplisLesBlancs,
-} from '../../lib/interactif/questionMathLive'
-import { context } from '../../modules/context'
+import { ComputeEngine } from '@cortex-js/compute-engine'
+import type { MathfieldElement } from 'mathlive'
 import {
   handleAnswers,
   setReponse,
 } from '../../lib/interactif/gestionInteractif'
-import { ComputeEngine } from '@cortex-js/compute-engine'
-import type { MathfieldElement } from 'mathlive'
+import {
+  ajouteChampTexteMathLive,
+  remplisLesBlancs,
+} from '../../lib/interactif/questionMathLive'
+import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
+import { texNombre } from '../../lib/outils/texNombre'
+import { context } from '../../modules/context'
+import { listeQuestionsToContenu, randint } from '../../modules/outils'
+import Exercice from '../Exercice'
 
 export const titre =
   "Écrire une fraction sur 100 puis sous la forme d'un pourcentage"
@@ -132,9 +132,8 @@ export default class FractionVersPourcentage extends Exercice {
   }
 
   correctionInteractive = (i: number) => {
-    // @ts-expect-error
     const reponseAttendue = String(
-      this.autoCorrection[i].reponse.valeur.champ4.value,
+      this.autoCorrection[i].reponse?.valeur?.champ4?.value,
     )
     if (this.answers === undefined) this.answers = {}
     let result = 'KO'

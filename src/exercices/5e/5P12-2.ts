@@ -63,10 +63,11 @@ Si le nombre de questions est supérieur au nombre de patterns choisis, alors l'
   }
 
   nouvelleVersion(): void {
-    /*const listePat: PatternRiche[] = shuffle(
+    /* const listePat: PatternRiche[] = shuffle(
       listePatternRatio,
     ) as PatternRiche[]
-    */ const nbFigures = Math.max(2, this.sup)
+    */
+    const nbFigures = Math.max(2, this.sup)
 
     const nbDePattern = listePatternRatio.length
     let typesPattern = gestionnaireFormulaireTexte({

@@ -4,26 +4,26 @@
   import type TypeExercice from '../../../../../exercices/Exercice'
   import { sendToCapytaleSaveStudentAssignment } from '../../../../../lib/handleCapytale'
   import {
-    exerciceInteractif,
-    prepareExerciceCliqueFigure,
+      exerciceInteractif,
+      prepareExerciceCliqueFigure,
   } from '../../../../../lib/interactif/gestionInteractif'
   import {
-    mathaleaGenerateSeed,
-    mathaleaHandleExerciceSimple,
-    mathaleaRenderDiv,
-    mathaleaUpdateUrlFromExercicesParams,
+      mathaleaGenerateSeed,
+      mathaleaHandleExerciceSimple,
+      mathaleaRenderDiv,
+      mathaleaUpdateUrlFromExercicesParams,
   } from '../../../../../lib/mathalea'
   import { mathaleaWriteStudentPreviousAnswers } from '../../../../../lib/mathaleaUtils'
   import {
-    exercicesParams,
-    isMenuNeededForExercises,
-    resultsByExercice,
+      exercicesParams,
+      isMenuNeededForExercises,
+      resultsByExercice,
   } from '../../../../../lib/stores/generalStore'
   import { globalOptions } from '../../../../../lib/stores/globalOptions'
   import { isLocalStorageAvailable } from '../../../../../lib/stores/storage'
   import type {
-    InterfaceParams,
-    InterfaceResultExercice,
+      InterfaceParams,
+      InterfaceResultExercice,
   } from '../../../../../lib/types'
   import { loadMathLive } from '../../../../../modules/loaders'
   import { statsTracker } from '../../../../../modules/statsUtils'
@@ -611,6 +611,7 @@
         $globalOptions.presMode !== 'un_exo_par_page'}"
       isMenuNeededForExercises="{$isMenuNeededForExercises}"
       presMode="{$globalOptions.presMode}"
+      seed="{exercise.seed}"
     />
   {/if}
 

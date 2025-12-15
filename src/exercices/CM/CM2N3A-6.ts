@@ -14,7 +14,6 @@ export default class DernierChiffreC3 extends DernierChiffre {
   constructor() {
     super()
     this.nbQuestions = 4
-    this.version = 2
     this.besoinFormulaireNumerique = false
   }
 }

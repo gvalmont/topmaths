@@ -1,5 +1,5 @@
 import Exercice from '../Exercice'
-import { listeQuestionsToContenu, randint } from '../../modules/outils'
+import { factorielle, listeQuestionsToContenu, randint } from '../../modules/outils'
 import {
   miseEnEvidence,
   texteEnCouleurEtGras,
@@ -38,11 +38,7 @@ export default class nomExercice extends Exercice {
   }
 
   nouvelleVersion() {
-    function factorielle(num: number): number {
-      if (num === 0 || num === 1) return 1
-      return num * factorielle(num - 1)
-    }
-    const n = randint(7, 10) // nombre de lettres
+     const n = randint(7, 10) // nombre de lettres
     const con = randint(3, n - 3) // nombre de consonnes dans le jeu
     const voy = n - con // nombre de voyelles dans le jeu
     const tirage = 2 // nombre de lettres à tirer

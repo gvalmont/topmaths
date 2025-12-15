@@ -200,7 +200,7 @@ export default class Calculercoordonneessommevecteurs extends Exercice {
 
             texteCorr = `$\\overrightarrow{AB}\\begin{pmatrix}${xB}-${ecritureParentheseSiNegatif(xA)}\\\\${yB}-${ecritureParentheseSiNegatif(yA)}\\end{pmatrix}$, soit $\\overrightarrow{AB}\\begin{pmatrix}${xB - xA}\\\\${yB - yA}\\end{pmatrix}$.<br><br>`
             texteCorr += `$\\overrightarrow{CD}\\begin{pmatrix}${xD}-${ecritureParentheseSiNegatif(xC)}\\\\${yD}-${ecritureParentheseSiNegatif(yC)}\\end{pmatrix}$, soit $\\overrightarrow{CD}\\begin{pmatrix}${xD - xC}\\\\${yD - yC}\\end{pmatrix}$.<br><br>`
-            texteCorr += `$\\overrightarrow{w}\\begin{pmatrix}${xB - xA}+${ecritureParentheseSiNegatif(xD - xC)}\\\\${yB - yA}+${ecritureParentheseSiNegatif(yD - yC)}\\end{pmatrix}$, soit $\\overrightarrow{w}\\begin{pmatrix}${wxFraction.texFraction}\\\\${wyFraction.texFraction}\\end{pmatrix}$.<br>`
+            texteCorr += `$\\overrightarrow{w}\\begin{pmatrix}${xB - xA}+${ecritureParentheseSiNegatif(xD - xC)}\\\\${yB - yA}+${ecritureParentheseSiNegatif(yD - yC)}\\end{pmatrix}$, soit $\\overrightarrow{w}\\begin{pmatrix}${miseEnEvidence(wxFraction.texFraction)}\\\\${miseEnEvidence(wyFraction.texFraction)}\\end{pmatrix}$.<br>`
             if (this.correctionDetaillee) {
               texteCorr =
                 "On sait d'après le cours que si $A(x_A;y_A)$ et $B(x_B;y_B)$ sont deux points d'un repère, alors on a $\\overrightarrow{AB}\\begin{pmatrix}x_B-x_A\\\\y_B-y_A\\end{pmatrix}$.<br>"

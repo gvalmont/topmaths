@@ -4,6 +4,7 @@
   export let title: string
   export let indiceExercice: number
   export let showNumber = true
+  export let seed: string
 </script>
 
 <!--
@@ -48,6 +49,8 @@
           : 'text-lg'} ml-2"
       >
         {title}
+
+        <span class="text-[#FEFEFE] select-none pointer-events-none touch-none">{seed}</span>
       </div>
     </div>
   </h1>

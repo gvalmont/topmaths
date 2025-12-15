@@ -17,7 +17,7 @@ export const titre = 'Jouer au "compte est bon" original'
 export const uuid = 'bd6ff'
 
 export const refs = {
-  'fr-fr': ['CM2N4B-3'],
+  'fr-fr': ['CM2N4B-4'],
   'fr-2016': ['CM021'],
   'fr-ch': [],
 }
@@ -118,6 +118,7 @@ export default class CompteEstBon extends Exercice {
           }
           break
         case 3:
+        default:
           a = randint(2, 5)
           b = randint(3, 8, a)
           c = randint(3, 9, [a, b])

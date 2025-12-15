@@ -55,7 +55,7 @@ export default class EgaliteACompleter2026 extends ExerciceSimple {
 
     this.correction = `Le nombre cherché vérifie  l'égalité : 
        ${choix ? `$${texNombre(a + b, 0)}= \\ldots -${c}$` : `$\\ldots -${c}=${texNombre(a + b, 0)}$ `}.<br>
-       On cherche donc le nombre qui, diminué de $${c}$ est égal à   $${texNombre(a + b, 0)}$. <br>
+       On cherche donc le nombre qui, diminué de $${c}$, est égal à   $${texNombre(a + b, 0)}$. <br>
        Ce nombre est $${miseEnEvidence(this.reponse)}$. <br>
        On a bien : $${choix ? `${texNombre(a, 0)}+${b}= ${miseEnEvidence(this.reponse)} -${c}` : `${miseEnEvidence(this.reponse)} -${c}=${texNombre(a, 0)}+${b} `}$.`
     this.canEnonce = "Compléter l'égalité."

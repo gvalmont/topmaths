@@ -7,6 +7,7 @@ import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { sp } from '../../lib/outils/outilString'
 import { factorisation } from '../../lib/outils/primalite'
 import { texNombre } from '../../lib/outils/texNombre'
+import type { IExercice } from '../../lib/types'
 import { context } from '../../modules/context'
 import {
   contraindreValeur,
@@ -342,7 +343,7 @@ export default class RecourirDecompositionFacteursPremiers extends Exercice {
       handleAnswers(this, i, {
         // @ts-expect-error
         reponse: { value: bonneDecomposition },
-        callback: (exercice: Exercice, question: number) => {
+        callback: (exercice: IExercice, question: number) => {
           let isOk
           let feedback = ''
           const mfe = document.querySelector(

@@ -66,7 +66,6 @@ export default class QuestionBissectrice extends Exercice {
       melange: 4,
       defaut: 4,
     }).map(Number)
-    const avecFigure = this.sup4
     for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 100; ) {
       const minuscule = choice(['x', 'y', 'z'])
       const lettres = choisitLettresDifferentes(4, 'XYZ')

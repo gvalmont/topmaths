@@ -2,7 +2,6 @@ import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 import { choice } from '../../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { texNombre } from '../../../lib/outils/texNombre'
-import { randint } from '../../../modules/outils'
 import ExerciceSimple from '../../ExerciceSimple'
 
 import { reduireAxPlusB } from '../../../lib/outils/ecritures'
@@ -28,8 +27,8 @@ export default class canQ152026 extends ExerciceSimple {
   }
 
   nouvelleVersion() {
-    const annee= 2026
-    const b = this.canOfficielle ? 4 : randint(4, 30)
+    const annee = 2026
+    const b = this.canOfficielle ? 26 : choice([6, 20, 26])
     const r1 = annee - b
     const r2 = -annee + b
     if (this.canOfficielle ? true : choice([true, false])) {

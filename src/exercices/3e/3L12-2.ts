@@ -145,12 +145,13 @@ export default class nomExercice extends Exercice {
           const facteurCommun = produitReduit.miseEnFacteurCommun()
           const facteurCommunOppose = facteurCommun.oppose()
           const polynomeRestant = produitReduit.diviserParMonome(facteurCommun)
+          texteCorr = `On met en évidence le plus grand facteur possible, ici $${facteurCommun.toString()}$ ou $${facteurCommunOppose.toString()}$.<br>`
           if (testAllNeg) {
-            texteCorr = `$${lettreDepuisChiffre(i + 1)}=${miseEnEvidence(`${facteurCommunOppose.toString()}(${polynomeRestant.oppose().toString()})`)}$`
+            texteCorr += `$${lettreDepuisChiffre(i + 1)}=${miseEnEvidence(`${facteurCommunOppose.toString()}(${polynomeRestant.oppose().toString()})`)}$`
           } else if (testSomeNeg) {
-            texteCorr = `$${lettreDepuisChiffre(i + 1)}=${miseEnEvidence(`${facteurCommun.toString()}(${polynomeRestant.toString()})`)}$ ou $${lettreDepuisChiffre(i + 1)}=${miseEnEvidence(`${facteurCommunOppose.toString()}(${polynomeRestant.oppose().toString()})`)}$`
+            texteCorr += `$${lettreDepuisChiffre(i + 1)}=${miseEnEvidence(`${facteurCommun.toString()}(${polynomeRestant.toString()})`)}$ ou $${lettreDepuisChiffre(i + 1)}=${miseEnEvidence(`${facteurCommunOppose.toString()}(${polynomeRestant.oppose().toString()})`)}$`
           } else {
-            texteCorr = `$${lettreDepuisChiffre(i + 1)}=${miseEnEvidence(`${facteurCommun.toString()}(${polynomeRestant.toString()})`)}$`
+            texteCorr += `$${lettreDepuisChiffre(i + 1)}=${miseEnEvidence(`${facteurCommun.toString()}(${polynomeRestant.toString()})`)}$`
           }
           break
         }

@@ -57,14 +57,25 @@ export default class SommeDeDeuxNombresMariesEtUnEntier extends Exercice {
           texteCorr = `$${a}+${b}+${c}=${miseEnEvidence(texNombre(a + b + c))}$`
           break
         case 2:
+        default:
           texte = `$${a}+${c}+${b}=$`
           texteCorr = `$${a}+${c}+${b}=${miseEnEvidence(texNombre(a + b + c))}$`
           break
       }
       setReponse(this, i, a + b + c)
-      if (this.interactif) {texte += ajouteChampTexteMathLive(this, i, '')} else {texte += `$\\dots$`}
+      if (this.interactif) {
+        texte += ajouteChampTexteMathLive(this, i, '')
+      } else {
+        texte += `$\\dots$`
+      }
 
-      if (this.listeQuestions.indexOf(texte) === -1) {
+      if (
+        this.questionJamaisPosee(
+          i,
+          listeTypeDeQuestions[i],
+          String(a) + String(b) + String(c),
+        )
+      ) {
         // Si la question n'a jamais été posée, on en crée une autre
         this.listeQuestions[i] = texte
         this.listeCorrections[i] = texteCorr
