@@ -182,6 +182,7 @@ class squaro extends Exercice {
     const emplacementPourFigure = figureApigeom({
       exercice: this,
       i: 0,
+      idAddendum: 'squaro',
       figure: this.figure,
     })
     this.goodAnswers = []

@@ -179,6 +179,7 @@ export default class shikaku extends Exercice {
     const emplacementPourFigure = figureApigeom({
       exercice: this,
       i: 0,
+      idAddendum: 'shikaku',
       figure: this.figure,
     })
     this.goodAnswers = []

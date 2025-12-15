@@ -26,6 +26,7 @@
   import HeaderExerciceMathalea from './presentationalComponents/HeaderExerciceMathalea.svelte'
 
   export let isMd: boolean
+  export let url: string = ''
 
   type ExerciseType = 'mathalea' | 'static' | 'html' | 'svelte'
   type ExerciseWithMeta = {
@@ -46,11 +47,18 @@
   const apiGeomUuids = getApiGeomUuids()
 
   onMount(async () => {
-    let url: string
-    if ($exerciseLinks.length > 0)
-      url = $exerciseLinks[randint(0, $exerciseLinks.length - 1)]
-    else url = window.location.href
-    initComponent(url)
+    let selectedUrl: string
+    if (url && url.length > 0) {
+      selectedUrl = url
+    } else if ($exerciseLinks.length > 0) {
+      selectedUrl = $exerciseLinks[randint(0, $exerciseLinks.length - 1)]
+    } else {
+      selectedUrl = window.location.href
+    }
+    initComponent(selectedUrl)
+    if (url && url.length > 0) {
+      return
+    }
     updateUrlFromParams('exercise', exercicesParams)
   })
 
