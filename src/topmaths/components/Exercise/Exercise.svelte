@@ -279,10 +279,7 @@
             .closest('article')
             ?.querySelector('[id^="consigne"]')
           // const consigneDiv = document.getElementById('consigne' + exnumero + '-0')
-          if (
-            consigneDiv &&
-            mathalea2dFigures[k].clientWidth > consigneDiv.clientWidth
-          ) {
+          if (consigneDiv) {
             const coef =
               (consigneDiv.clientWidth * 0.95) /
               mathalea2dFigures[k].clientWidth
