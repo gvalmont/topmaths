@@ -463,6 +463,7 @@
           bind:isCorrectionVisible="{exerciseWithMeta.isCorrectionVisible}"
           {isMd}
           nbCols="{exerciseWithMeta.nbCols}"
+          zoom="{exercisesWithMeta[exerciseWithMeta.exerciseIndex].zoom}"
           {columnsCountUpdate}
           {newData}
           {spacingUpdate}

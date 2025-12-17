@@ -16,6 +16,7 @@
   export let sourceUnit: UnitReference | undefined
   export let isMd: boolean
   export let nbCols: number
+  export let zoom: number = 1
   export let newData: (exerciseIndex: number) => void
   export let switchCorrectionVisible: (exerciseIndex: number) => void
   export let navigatorShare: (exerciseIndex: number) => void
@@ -246,7 +247,7 @@
       >
         <button
           type="button"
-          class:invisible="{exercise.spacing < 0.1}"
+          class:invisible="{zoom < 0.8}"
           on:click="{() => zoomUpdate('-', exerciseIndex)}"
         >
           <i
