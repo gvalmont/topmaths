@@ -229,7 +229,7 @@
     if (mathalea2dFigures != null) {
       if (mathalea2dFigures.length !== 0) {
         // await tick()
-        // console.log('adjustMathalea2dFiguresWidth:' + initialDimensionsAreNeeded )
+        // console.log('adjustMathalea2dFiguresWidth:' + initialDimensionsAreNeeded)
         for (let k = 0; k < mathalea2dFigures.length; k++) {
           if (initialDimensionsAreNeeded) {
             // réinitialisation
@@ -279,7 +279,10 @@
             .closest('article')
             ?.querySelector('[id^="consigne"]')
           // const consigneDiv = document.getElementById('consigne' + exnumero + '-0')
-          if (consigneDiv) {
+          if (
+            consigneDiv &&
+            mathalea2dFigures[k].clientWidth > consigneDiv.clientWidth
+          ) {
             const coef =
               (consigneDiv.clientWidth * 0.95) /
               mathalea2dFigures[k].clientWidth

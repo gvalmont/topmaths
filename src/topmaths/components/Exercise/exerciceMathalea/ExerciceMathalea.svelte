@@ -60,7 +60,7 @@
         prepareExerciceCliqueFigure(exercise)
       if (isCorrectionSeen()) newData(exerciseIndex)
     }
-    mathaleaRenderDiv(divExercice)
+    mathaleaRenderDiv(divExercice, zoom)
     adjustMathalea2dFiguresWidth()
   }
 
