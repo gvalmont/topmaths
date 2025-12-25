@@ -3194,7 +3194,16 @@
                 "lessonSummaryHTML": "",
                 "lessonSummaryImage": "",
                 "videos": [],
-                "exercises": []
+                "exercises": [],
+                "lessonPlans": [
+                  {
+                    "studentMaterialsNeeded": [],
+                    "teacherMaterialsNeeded": ["6P1D_Poly_x2"],
+                    "startSteps": [],
+                    "segments": [],
+                    "closureSteps": []
+                  }
+                ]
               },
               {
                 "reference": "6P1E",
