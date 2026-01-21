@@ -1481,10 +1481,6 @@
                 ],
                 "exercises": [
                   {
-                    "slug": "uuid=challengeTables",
-                    "description": "Lancer l'application sur les tables de multiplication"
-                  },
-                  {
                     "slug": "uuid=0e6bd&id=6C10-1&n=10&d=10&s=2-3-4-5-6-7-8-9-10-11-12&s2=1-2&s3=false&alea=Cj8R",
                     "description": "Lancer l'exerice sur les tables de multiplication"
                   },
