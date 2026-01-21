@@ -3,6 +3,7 @@
   "include": ["src/topmaths/types/shared.js", "tasks/**/*.ts"],
   "compilerOptions": {
     "resolveJsonModule": true,
+    "types": ["node"],
     "outDir": "./tmp"
   }
 }
