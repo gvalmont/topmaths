@@ -1,6 +1,6 @@
 <script lang="ts">
   import seedrandom from 'seedrandom'
-  import { SvelteComponent, onMount } from 'svelte'
+  import { onMount } from 'svelte'
   import Exercice from '../../../exercices/Exercice'
   import referentielStatic from '../../../json/referentielStaticFR.json'
   import uuidToUrl from '../../../json/uuidsToUrlFR.json'
@@ -34,7 +34,7 @@
     exerciseIndex: number
     lastExerciseIndex: number
     exerciseType: string
-    exercise: Exercice | SvelteComponent | undefined
+    exercise: Exercice | undefined
     isCorrectionVisible: boolean
     nbCols: number
     zoom: number
@@ -98,7 +98,7 @@
     lastExerciseIndex: number,
   ): Promise<ExerciseWithMeta> {
     let exerciseType: string
-    let exercise: SvelteComponent | Exercice | undefined
+    let exercise: Exercice | undefined
     if (isStatic(paramsExercice.uuid)) {
       exerciseType = 'static'
       exercise =
@@ -162,7 +162,7 @@
 
   async function getSvelteComponent(
     paramsExercice: InterfaceParamsWithMeta,
-  ): Promise<SvelteComponent> {
+  ): Promise<any> {
     const urlExercice = uuidToUrl[paramsExercice.uuid as keyof typeof uuidToUrl]
     // Pour l'instant tous les exercices Svelte doivent être dans le dossier src/exercicesInteractifs
     return (
@@ -449,24 +449,24 @@
   class="text-left w-full max-w-screen-lg
     {$isDoubleView ? '' : 'p-4'}"
 >
-  {#each exercisesWithMeta as exerciseWithMeta}
+  {#each exercisesWithMeta as exerciseWithMeta (exerciseWithMeta.exercise?.key)}
     <div
       class="flex flex-col justify-start items-start"
       id="exercice{exerciseWithMeta.exerciseIndex}"
     >
       {#if exerciseWithMeta.exerciseType !== 'html' || $exerciseLinks.length > 1}
         <HeaderExerciceMathalea
-          sourceObjective="{exercicesParams[exerciseWithMeta.exerciseIndex]
-            .sourceObjective}"
-          sourceUnit="{exercicesParams[exerciseWithMeta.exerciseIndex]
-            .sourceUnit}"
-          exerciseType="{exerciseWithMeta.exerciseType}"
-          exerciseIndex="{exerciseWithMeta.exerciseIndex}"
-          exercise="{exerciseWithMeta.exercise ?? new Exercice()}"
-          bind:isCorrectionVisible="{exerciseWithMeta.isCorrectionVisible}"
+          sourceObjective={exercicesParams[exerciseWithMeta.exerciseIndex]
+            .sourceObjective}
+          sourceUnit={exercicesParams[exerciseWithMeta.exerciseIndex]
+            .sourceUnit}
+          exerciseType={exerciseWithMeta.exerciseType}
+          exerciseIndex={exerciseWithMeta.exerciseIndex}
+          exercise={exerciseWithMeta.exercise ?? new Exercice()}
+          bind:isCorrectionVisible={exerciseWithMeta.isCorrectionVisible}
           {isMd}
-          nbCols="{exerciseWithMeta.nbCols}"
-          zoom="{exercisesWithMeta[exerciseWithMeta.exerciseIndex].zoom}"
+          nbCols={exerciseWithMeta.nbCols}
+          zoom={exercisesWithMeta[exerciseWithMeta.exerciseIndex].zoom}
           {columnsCountUpdate}
           {newData}
           {spacingUpdate}
@@ -477,32 +477,32 @@
       {/if}
       {#if exerciseWithMeta.exerciseType === 'static'}
         <ExerciceStatic
-          exerciseIndex="{exerciseWithMeta.exerciseIndex}"
-          isCorrectionVisible="{exerciseWithMeta.isCorrectionVisible}"
-          uuid="{exerciseWithMeta.uuid}"
-          zoomFactor="{'1'}"
+          exerciseIndex={exerciseWithMeta.exerciseIndex}
+          isCorrectionVisible={exerciseWithMeta.isCorrectionVisible}
+          uuid={exerciseWithMeta.uuid}
+          zoomFactor={'1'}
         />
       {:else if exerciseWithMeta.exerciseType === 'html'}
         <ExerciceHtml
-          exercise="{exerciseWithMeta.exercise ?? new Exercice()}"
-          indiceExercice="{exerciseWithMeta.exerciseIndex}"
-          indiceLastExercice="{exerciseWithMeta.lastExerciseIndex}"
+          exercise={exerciseWithMeta.exercise ?? new Exercice()}
+          indiceExercice={exerciseWithMeta.exerciseIndex}
+          indiceLastExercice={exerciseWithMeta.lastExerciseIndex}
         />
       {:else if exerciseWithMeta.exerciseType === 'svelte'}
         <svelte:component
-          this="{exerciseWithMeta.exercise}"
-          indiceExercice="{exerciseWithMeta.exerciseIndex}"
-          indiceLastExercice="{exerciseWithMeta.lastExerciseIndex}"
+          this={exerciseWithMeta.exercise}
+          indiceExercice={exerciseWithMeta.exerciseIndex}
+          indiceLastExercice={exerciseWithMeta.lastExerciseIndex}
         />
       {:else if exerciseWithMeta.exerciseType === 'mathalea'}
         <ExerciceMathalea
-          exercise="{exerciseWithMeta.exercise ?? new Exercice()}"
-          exerciseIndex="{exerciseWithMeta.exerciseIndex}"
+          exercise={exerciseWithMeta.exercise ?? new Exercice()}
+          exerciseIndex={exerciseWithMeta.exerciseIndex}
           {adjustMathalea2dFiguresWidth}
-          nbCols="{exerciseWithMeta.nbCols}"
+          nbCols={exerciseWithMeta.nbCols}
           {newData}
-          isCorrectionVisible="{exerciseWithMeta.isCorrectionVisible}"
-          zoom="{exerciseWithMeta.zoom}"
+          isCorrectionVisible={exerciseWithMeta.isCorrectionVisible}
+          zoom={exerciseWithMeta.zoom}
         />
       {/if}
     </div>

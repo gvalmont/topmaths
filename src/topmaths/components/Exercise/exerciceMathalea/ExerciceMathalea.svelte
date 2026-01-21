@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { afterUpdate, onMount, SvelteComponent, tick } from 'svelte'
+  import { afterUpdate, onMount, tick } from 'svelte'
   import Keyboard from '../../../../components/keyboard/Keyboard.svelte'
   import type TypeExercice from '../../../../exercices/Exercice'
   import {
@@ -10,7 +10,7 @@
   import { loadMathLive } from '../../../../modules/loaders'
   import { DEFAULT_LINE_HEIGHT } from '../../../services/environment'
   import Question from './presentationalComponents/Question.svelte'
-  export let exercise: TypeExercice | SvelteComponent
+  export let exercise: TypeExercice
   export let exerciseIndex: number
   export let isCorrectionVisible: boolean
   export let nbCols: number = 1
@@ -151,7 +151,7 @@
 </script>
 
 <div
-  bind:this="{divExercice}"
+  bind:this={divExercice}
   class="z-0 flex-1
     {exercise.spacing < 1 ? '' : 'mb-10 md:mb-20'}"
 >
@@ -212,14 +212,14 @@
             />
           {/each}
         </ul>
-        <div id="divScoreEx{exerciseIndex}" bind:this="{divScore}"></div>
+        <div id="divScoreEx{exerciseIndex}" bind:this={divScore}></div>
       </div>
     </article>
     {#if exercise.interactif && !isCorrectionVisible}
       <button
         type="submit"
-        on:click="{verifExerciceVueEleve}"
-        bind:this="{buttonScore}"
+        on:click={verifExerciceVueEleve}
+        bind:this={buttonScore}
       >
         Vérifier {numberOfAnswerFields > 1 ? 'les réponses' : 'la réponse'}
       </button>

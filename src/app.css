@@ -1093,3 +1093,95 @@ svg[display='none'] {
     opacity: 0;
   }
 }
+
+@theme {
+  /* --- Topmaths --- */
+  /* Keep in sync with src/topmaths/styles/tailwind-colors.scss, themes.css and types/color.ts */
+  --color-topmaths: #0284c7;
+  --color-topmaths-light: #0284c7;
+  --color-topmaths-filter: invert(51%) sepia(74%) saturate(6105%) hue-rotate(179deg) brightness(92%) contrast(98%);
+
+  --color-topmaths-canvas: #ffffff; /* Keep in sync with index.html html, body background-color */
+  --color-topmaths-canvas-dark: #f6f6f6;
+
+  --color-topmaths-corpus: #1d1d1d;
+  --color-topmaths-corpus-light: #45505b;
+
+  /* --- Topmaths Dark --- */
+  --color-topmathsdark: #0284c7;
+  --color-topmathsdark-light: #0284c7;
+  --color-topmathsdark-filter: invert(51%) sepia(74%) saturate(6105%) hue-rotate(179deg) brightness(92%) contrast(98%);
+
+  --color-topmathsdark-canvas: #ffffff; /* Keep in sync with index.html html, body background-color */
+  --color-topmathsdark-canvas-dark: #f6f6f6;
+
+  --color-topmathsdark-corpus: #1d1d1d;
+  --color-topmathsdark-corpus-light: #45505b;
+
+  /* --- Is Group --- */
+  --color-is: transparent;
+
+  /* Sponsor */
+  --color-is-sponsor: #ea4aaa;
+  --color-is-sponsor-light: #fffafa;
+  --color-is-sponsor-filter: invert(41%) sepia(47%) saturate(2515%) hue-rotate(298deg) brightness(97%) contrast(88%);
+
+  /* Fuchsia */
+  --color-is-fuchsia: #c75ad5;
+  --color-is-fuchsia-light: #c75ad5;
+  --color-is-fuchsia-filter: invert(66%) sepia(95%) saturate(7499%) hue-rotate(280deg) brightness(89%) contrast(100%);
+
+  /* Green */
+  --color-is-green: #16A34A;
+  --color-is-green-light: #16A34A;
+  --color-is-green-filter: invert(43%) sepia(81%) saturate(478%) hue-rotate(89deg) brightness(98%) contrast(91%);
+
+  /* Link */
+  --color-is-link: #485fc7;
+  --color-is-link-light: #eff1fa;
+  --color-is-link-filter: invert(29%) sepia(98%) saturate(796%) hue-rotate(203deg) brightness(101%) contrast(88%);
+
+  /* Info */
+  --color-is-info: #3e8ed0;
+  --color-is-info-light: #e7f4fc; /* Added missing # from original source */
+  --color-is-info-filter: invert(49%) sepia(45%) saturate(746%) hue-rotate(165deg) brightness(94%) contrast(83%);
+  
+  --color-is-info-darker: #4175d2;
+  --color-is-info-darker-light: #e93fa5;
+  --color-is-info-darker-filter: invert(42%) sepia(53%) saturate(1203%) hue-rotate(190deg) brightness(88%) contrast(84%);
+
+  /* Warning */
+  --color-is-warning: #ffe08a;
+  --color-is-warning-light: #fff3d1;
+  --color-is-warning-filter: invert(73%) sepia(96%) saturate(209%) hue-rotate(346deg) brightness(104%) contrast(103%);
+
+  /* Danger */
+  --color-is-danger: #f14668;
+  --color-is-danger-light: #fcd4dc;
+  --color-is-danger-filter: invert(44%) sepia(73%) saturate(4057%) hue-rotate(324deg) brightness(98%) contrast(92%);
+
+  /* Purple */
+  --color-is-purple: #9333ea;
+  --color-is-purple-light: #faf5ff;
+  --color-is-purple-filter: invert(22%) sepia(70%) saturate(3716%) hue-rotate(264deg) brightness(94%) contrast(95%);
+
+  /* Tout */
+  --color-is-tout: #feb60a;
+  --color-is-tout-light: #fffbeb;
+  --color-is-tout-filter: invert(82%) sepia(18%) saturate(7498%) hue-rotate(354deg) brightness(103%) contrast(99%);
+
+  /* Brown */
+  --color-is-brown: #A0522D;
+  --color-is-brown-light: #EFD8CD;
+  --color-is-brown-filter: invert(33%) sepia(58%) saturate(769%) hue-rotate(336deg) brightness(94%) contrast(82%);
+
+  /* Coopmaths */
+  --color-is-coopmaths: #F15929;
+  --color-is-coopmaths-light: #F15929;
+  --color-is-coopmaths-filter: invert(54%) sepia(65%) saturate(5242%) hue-rotate(346deg) brightness(98%) contrast(92%);
+
+  /* Black */
+  --color-is-black: #000000;
+  --color-is-black-light: #FFFFFF;
+  --color-is-black-filter: invert(11%) sepia(12%) saturate(783%) hue-rotate(169deg) brightness(93%) contrast(92%);
+}

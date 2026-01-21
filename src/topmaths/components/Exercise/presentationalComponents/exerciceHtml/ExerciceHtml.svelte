@@ -1,7 +1,7 @@
 <script lang="ts">
-  import { onMount, SvelteComponent } from 'svelte'
+  import { onMount } from 'svelte'
   import type TypeExercice from '../../../../../exercices/Exercice'
-  export let exercise: TypeExercice | SvelteComponent
+  export let exercise: TypeExercice
   export let indiceExercice: number
   export let indiceLastExercice: number
 
@@ -36,5 +36,5 @@
   id="insert-html-{indiceExercice}"
   class="mt-6 mb-2 ml-2 lg:mx-5 w-full"
 >
-  <div bind:this="{divExercice}"></div>
+  <div bind:this={divExercice}></div>
 </section>
