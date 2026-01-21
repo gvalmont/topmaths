@@ -13,8 +13,8 @@
 
 <!-- Fenêtre de dialogue pour le choix des applications tierces -->
 <BasicClassicModal
-  bind:this="{thirdAppsChoiceModal}"
-  bind:isDisplayed="{showThirdAppsChoiceDialog}"
+  bind:this={thirdAppsChoiceModal}
+  bind:isDisplayed={showThirdAppsChoiceDialog}
 >
   <div slot="header">Applications</div>
   <div slot="content">
@@ -27,9 +27,9 @@
           <div class="grid grid-cols-1 md:grid-cols-4 gap-6">
             {#each group.liste as app}
               <Card
-                application="{app}"
-                selected="{appsTierceInExercisesList.includes(app.uuid)}"
-                loadImages="{showThirdAppsChoiceDialog}"
+                application={app}
+                selected={appsTierceInExercisesList.includes(app.uuid)}
+                loadImages={showThirdAppsChoiceDialog}
               />
             {/each}
           </div>

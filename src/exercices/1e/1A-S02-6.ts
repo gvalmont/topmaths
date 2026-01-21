@@ -161,6 +161,7 @@ Laquelle des ces 4 propositions est vraie ?`
   // Ici il n'y a rien à faire, on appelle juste la version aleatoire (pour un qcm aleatoirisé, c'est le fonctionnement par défaut)
   constructor() {
     super()
+    this.besoinFormulaireCaseACocher = false
     this.options = { vertical: true, ordered: false }
     this.versionAleatoire()
   }

@@ -283,7 +283,8 @@ export default class Auto1AS1 extends ExerciceQcmA {
       rayon: r,
       legendeAffichage: false,
       visibles: Array(n).fill(true),
-      remplissage: Array(n).fill(true),
+      // remplissage: Array(n).fill(true),
+      hachures: [true, true, true],
     })
 
     const objets = [diag]

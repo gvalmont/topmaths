@@ -45,6 +45,28 @@ export const refs = {
   'fr-2016': ['6C11-2'],
   'fr-ch': ['9NO3-6'],
 }
+
+/**
+ * Met en couleur et en gras le dernier mot d'une chaîne de texte.
+ *
+ * @param texte
+ * Chaîne de caractères contenant des mots séparés par des espaces.
+ *
+ * @returns
+ * La chaîne reconstruite dont le dernier mot est transformé
+ * par la fonction `texteEnCouleurEtGras`.
+ */
+function mettreDernierMotEnCouleurEtGras(texte: string): string {
+  const mots = texte.trim().split(/\s+/)
+
+  if (mots.length === 0) return texte
+
+  const dernierMot = mots.pop()!
+  const debut = mots.join(' ')
+
+  return (debut ? debut + ' ' : '') + texteEnCouleurEtGras(dernierMot)
+}
+
 export default class VocabulaireDivisionEuclidienne extends Exercice {
   constructor() {
     super()
@@ -120,7 +142,6 @@ export default class VocabulaireDivisionEuclidienne extends Exercice {
     for (
       let i = 0, texte, texteCorr, cpt = 0;
       i < this.nbQuestions && cpt < 50;
-
     ) {
       Nbutilises[0] = 0
       Nbutilises[1] = randint(5, 99)
@@ -189,33 +210,33 @@ export default class VocabulaireDivisionEuclidienne extends Exercice {
           for (let kk = 0; kk < 3; kk++) {
             texteCorr +=
               kk === ChoixQuestions[i]
-                ? texteEnCouleurEtGras(TabCorrection[kk])
+                ? mettreDernierMotEnCouleurEtGras(TabCorrection[kk])
                 : TabCorrection[kk]
             texteCorr += kk < 2 ? ', ' : ' et '
           }
           texteCorr +=
             ChoixQuestions[i] === 3
-              ? texteEnCouleurEtGras(TabCorrection[3])
+              ? mettreDernierMotEnCouleurEtGras(TabCorrection[3])
               : TabCorrection[3]
           texteCorr += '.<br>'
           TabCorrection[1] = `$${Nbutilises[1]}$ est le quotient`
           TabCorrection[2] = `$${Nbutilises[2]}$ est le diviseur`
-          TabCorrection[ChoixQuestions[i]] = texteEnCouleurEtGras(
+          /* TabCorrection[ChoixQuestions[i]] = mettreDernierMotEnCouleurEtGras(
             TabCorrection[ChoixQuestions[i]],
-          )
+          ) */
           texteCorr +=
             numAlpha(1) +
             `soit la division euclidienne de $ ${texNombre(Nbutilises[0])} $ par $ ${Nbutilises[2]} $. Alors, `
           for (let kk = 0; kk < 3; kk++) {
             texteCorr +=
               kk === ChoixQuestions[i]
-                ? texteEnCouleurEtGras(TabCorrection[kk])
+                ? mettreDernierMotEnCouleurEtGras(TabCorrection[kk])
                 : TabCorrection[kk]
             texteCorr += kk < 2 ? ', ' : ' et '
           }
           texteCorr +=
             ChoixQuestions[i] === 3
-              ? texteEnCouleurEtGras(TabCorrection[3])
+              ? mettreDernierMotEnCouleurEtGras(TabCorrection[3])
               : TabCorrection[3]
           texteCorr += '.<br>'
           if (mod(ChoixQuestions[i], 3) === 0) {
@@ -234,13 +255,13 @@ export default class VocabulaireDivisionEuclidienne extends Exercice {
           for (let kk = 0; kk < 3; kk++) {
             texteCorr +=
               kk === ChoixQuestions[i]
-                ? texteEnCouleurEtGras(TabCorrection[kk])
+                ? mettreDernierMotEnCouleurEtGras(TabCorrection[kk])
                 : TabCorrection[kk]
             texteCorr += kk < 2 ? ', ' : ' et '
           }
           texteCorr +=
             ChoixQuestions[i] === 3
-              ? texteEnCouleurEtGras(TabCorrection[3])
+              ? mettreDernierMotEnCouleurEtGras(TabCorrection[3])
               : TabCorrection[3]
           texteCorr += '.<br>'
           ReponsesCorrectes = [ChoixReponses[ChoixQuestions[i]]]
@@ -256,13 +277,13 @@ export default class VocabulaireDivisionEuclidienne extends Exercice {
         for (let kk = 0; kk < 3; kk++) {
           texteCorr +=
             kk === ChoixQuestions[i]
-              ? texteEnCouleurEtGras(TabCorrection[kk])
+              ? mettreDernierMotEnCouleurEtGras(TabCorrection[kk])
               : TabCorrection[kk]
           texteCorr += kk < 2 ? ', ' : ' et '
         }
         texteCorr +=
           ChoixQuestions[i] === 3
-            ? texteEnCouleurEtGras(TabCorrection[3])
+            ? mettreDernierMotEnCouleurEtGras(TabCorrection[3])
             : TabCorrection[3]
         texteCorr += '.<br>'
         ReponsesCorrectes = [

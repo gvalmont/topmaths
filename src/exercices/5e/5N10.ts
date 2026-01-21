@@ -3,9 +3,11 @@
  * ⚠️ Cet exercice est utilisé dans le test : tests/e2e/tests/interactivity/mathLive.fraction.test.ts ⚠️
  */
 
-import { setReponse } from '../../lib/interactif/gestionInteractif'
+import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
+import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
+import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { arrondi } from '../../lib/outils/nombres'
 import { texNombre } from '../../lib/outils/texNombre'
 import FractionEtendue from '../../modules/FractionEtendue'
@@ -80,7 +82,6 @@ export default class PasserEcritureDecimaleEcritureFractionnaireInversement exte
     for (
       let i = 0, texte, texteCorr, cpt = 0;
       i < this.nbQuestions && cpt < 50;
-
     ) {
       let numerateur = 0
       let denominateur = 1
@@ -118,40 +119,44 @@ export default class PasserEcritureDecimaleEcritureFractionnaireInversement exte
         if (this.interactif) {
           texte +=
             '<br>' +
-            ajouteChampTexteMathLive(this, i, '', {
-              texteAvant: `$${texNombre(ecritureDecimale, 3)} = $`,
-            })
+            ajouteChampTexteMathLive(
+              this,
+              i,
+              KeyboardType.clavierDeBaseAvecFraction,
+              {
+                texteAvant: `$${texNombre(ecritureDecimale, 3)} = $`,
+              },
+            )
         }
         if (listeTypeFractions[i] === 'fractionsNonDecimales') {
           let multiple
           denominateur === 4 ? (multiple = 100) : (multiple = 10)
-          texteCorr = `$${texNombre(ecritureDecimale, 3)} = \\dfrac{${ecritureDecimale * multiple}}{${multiple}}$  ou $${texNombre(ecritureDecimale, 3)} = \\dfrac{${numerateur}}{${denominateur}}$`
-          setReponse(
-            this,
-            i,
-            [
-              new FractionEtendue(ecritureDecimale * multiple, multiple),
-              new FractionEtendue(numerateur, denominateur),
-            ],
-            { formatInteractif: 'fractionEgale' },
-          )
+          texteCorr = `$${texNombre(ecritureDecimale, 3)} = ${miseEnEvidence(`\\dfrac{${ecritureDecimale * multiple}}{${multiple}}`)}$  ou $${texNombre(ecritureDecimale, 3)} = ${miseEnEvidence(`\\dfrac{${numerateur}}{${denominateur}}`)}$`
         } else {
-          texteCorr = `$${texNombre(ecritureDecimale, 3)} = \\dfrac{${numerateur}}{${denominateur}}$`
-          setReponse(this, i, new FractionEtendue(numerateur, denominateur), {
-            formatInteractif: 'fractionEgale',
-          })
+          texteCorr = `$${texNombre(ecritureDecimale, 3)} = ${miseEnEvidence(`\\dfrac{${numerateur}}{${denominateur}}`)}$`
         }
+        handleAnswers(this, i, {
+          reponse: {
+            value: new FractionEtendue(numerateur, denominateur),
+            options: { fractionEgale: true },
+          },
+        })
       } else {
         texte = `Donner l'écriture décimale de $\\dfrac{${numerateur}}{${denominateur}}$.`
         if (this.interactif) {
           texte +=
             '<br>' +
-            ajouteChampTexteMathLive(this, i, '', {
+            ajouteChampTexteMathLive(this, i, KeyboardType.clavierNumbers, {
               texteAvant: `$\\dfrac{${numerateur}}{${denominateur}} = $`,
             })
         }
-        texteCorr = `$\\dfrac{${numerateur}}{${denominateur}} = ${texNombre(ecritureDecimale, 3)}$`
-        setReponse(this, i, arrondi(ecritureDecimale, 3))
+        texteCorr = `$\\dfrac{${numerateur}}{${denominateur}} = ${miseEnEvidence(texNombre(ecritureDecimale, 3))}$`
+        handleAnswers(this, i, {
+          reponse: {
+            value: arrondi(ecritureDecimale, 3),
+            options: { nombreDecimalSeulement: true },
+          },
+        })
       }
 
       if (

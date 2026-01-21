@@ -1,3 +1,4 @@
+import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
@@ -70,16 +71,25 @@ export default class ImageFonctionsRefs extends Exercice {
       this.nbQuestions,
     )
 
-    const listeTypeQuestionsDansLOrdre = typeQuestionsDisponibles.filter(x=>listeTypeQuestions.includes(x))
+    const listeTypeQuestionsDansLOrdre = typeQuestionsDisponibles.filter((x) =>
+      listeTypeQuestions.includes(x),
+    )
 
-    this.consigne = (typeQuestionsDisponibles.length >=2 ? 'Soient ' : 'Soit ') +
-      listeTypeQuestionsDansLOrdre.map((x,i)=>'$' + ['f','g','h','i'][i] + '$ la fonction ' + x).join(', ').replace(/,([^,]*$)/,' et$1') + '.'
+    this.consigne =
+      (typeQuestionsDisponibles.length >= 2 ? 'Soient ' : 'Soit ') +
+      listeTypeQuestionsDansLOrdre
+        .map((x, i) => '$' + ['f', 'g', 'h', 'i'][i] + '$ la fonction ' + x)
+        .join(', ')
+        .replace(/,([^,]*$)/, ' et$1') +
+      '.'
 
     const listePhrases = combinaisonListes([0, 1], this.nbQuestions)
     for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50; ) {
       let texte = ''
       let texteCorr = ''
-      const nom = ['f','g','h','i'][listeTypeQuestionsDansLOrdre.indexOf(listeTypeQuestions[i])]
+      const nom = ['f', 'g', 'h', 'i'][
+        listeTypeQuestionsDansLOrdre.indexOf(listeTypeQuestions[i])
+      ]
       let nombre: number
       let solution: FractionEtendue
       let calcul: number
@@ -100,7 +110,7 @@ export default class ImageFonctionsRefs extends Exercice {
           calcul = randint(1, 10)
           solution = new FractionEtendue(calcul, 1)
           nombre = calcul * calcul
-          texteCorr = `$${nom}(${nombre}) = ${miseEnEvidence(`\\sqrt{${nombre}}`)} = ${miseEnEvidence(solution.texFraction)} $ car $ ${ecritureParentheseSiNegatif(solution.valeurDecimale)}^2 = ${texNombre(nombre, 0)} $`
+          texteCorr = `$${nom}(${nombre}) = ${miseEnEvidence(`\\sqrt{${nombre}}`)} = ${miseEnEvidence(solution.texFraction)} $ car $ ${ecritureParentheseSiNegatif(solution.valeurDecimale)}^2 = ${texNombre(nombre, 0)}$.`
           break
         case 'inverse':
         default:
@@ -125,7 +135,11 @@ export default class ImageFonctionsRefs extends Exercice {
       listePhrases[i] &&
         (texteCorr += `<br>L'image de $${texNombre(nombre, 0)}$ par la fonction $${nom}$ est donc $${miseEnEvidence(solution.texFractionSimplifiee)}$.`)
       texte = `Calculer ${phrase}.`
-      texte += ajouteChampTexteMathLive(this, i, '')
+      texte += ajouteChampTexteMathLive(
+        this,
+        i,
+        KeyboardType.clavierDeBaseAvecFraction,
+      )
 
       // Si la question n'a jamais été posée, on l'enregistre
       if (this.questionJamaisPosee(i, listeTypeQuestions[i], nombre)) {

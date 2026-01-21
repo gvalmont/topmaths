@@ -86,8 +86,8 @@
     {floatUnderText}
     {cornerIcon}
     {cornerIconClass}
-    class="{$$props.class || ''}"
-    on:click="{actionFunction}"
+    class={$$props.class || ''}
+    on:click={actionFunction}
   />
 {:else}
   <ButtonTextAction
@@ -96,8 +96,8 @@
     {disabled}
     {icon}
     {inverted}
-    class="{$$props.class || ''}"
-    on:click="{actionFunction}"
+    class={$$props.class || ''}
+    on:click={actionFunction}
   />
 {/if}
 

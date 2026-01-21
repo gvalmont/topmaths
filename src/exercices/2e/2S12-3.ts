@@ -1,13 +1,18 @@
-import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
-import { texteEnCouleur } from '../../lib/outils/embellissements'
-import { egalOuApprox } from '../../lib/outils/ecritures'
-import { texNombre } from '../../lib/outils/texNombre'
-import Exercice from '../Exercice'
-import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
+import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
+import { egalOuApprox } from '../../lib/outils/ecritures'
+import {
+  miseEnEvidence,
+  texteEnCouleur,
+} from '../../lib/outils/embellissements'
+import { texNombre } from '../../lib/outils/texNombre'
+import { listeQuestionsToContenu, randint } from '../../modules/outils'
+import Exercice from '../Exercice'
 
-import { arrondi } from '../../lib/outils/nombres'
+import { bleuMathalea } from '../../lib/colors'
+import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
+import { arrondi } from '../../lib/outils/nombres'
 
 export const titre = "Déterminer un taux d'évolution réciproque"
 export const interactifReady = true
@@ -21,7 +26,6 @@ export const dateDePublication = '16/01/2022'
  * * Déterminer un taux d'évolution réciproque
  * * Mélange des 3 types de problèmes
  * @author Florence Tapiero
- * 2S12-3
  */
 export const uuid = '509db'
 
@@ -84,7 +88,12 @@ export default class EvolutionsSuccesives extends Exercice {
           texte = `Le prix d'un article subit une ${nom} de $${t}\\,\\%$.<br>Quelle évolution devra-t-il subir pour revenir à son prix initial ?`
           texte +=
             "<br>On donnera le taux d'évolution en pourcentage, éventuellement arrondi à $0,01\\,\\%$ près."
-          texte += ajouteChampTexteMathLive(this, i, '', { texteApres: '%' })
+          texte += ajouteChampTexteMathLive(
+            this,
+            i,
+            KeyboardType.clavierDeBase,
+            { texteApres: '%' },
+          )
           texteCorr =
             "Pour déterminer le taux d'évolution réciproque, on commence par calculer le coefficient multiplicateur associé :"
           if (taux > 0) {
@@ -97,6 +106,7 @@ export default class EvolutionsSuccesives extends Exercice {
           if (CMr - CMra !== 0) {
             texteCorr += texteEnCouleur(
               '<br>Remarque : Il faut arrondir les valeurs à $10^{-4}$ pour avoir un arrondi en pourcentage à $10^{-2}$.',
+              bleuMathalea,
             )
           }
           if (CMr > 1) {
@@ -106,9 +116,9 @@ export default class EvolutionsSuccesives extends Exercice {
             texteCorr += `<br><br> Le taux d'évolution réciproque est donc : <br>$T_R=CM_R-1=${texNombre(CMra, 4)}-1=${texNombre(pr, 4)}=-${texNombre(tr, 2)}\\,\\%$ ce qui correspond à une baisse de $${texNombre(tr, 2)}\\,\\%$.`
           }
           if (CMr - CMra === 0) {
-            texteCorr += `<br><br>Il faut donc appliquer une ${nomr} de $${texNombre(tr, 2)}\\,\\%$ pour revenir au prix initial.`
+            texteCorr += `<br><br>Il faut donc appliquer une ${nomr} de $${miseEnEvidence(texNombre(tr, 2))}\\,\\%$ pour revenir au prix initial.`
           } else {
-            texteCorr += `<br><br>Il faut donc appliquer une ${nomr} d'environ $${texNombre(tr, 2)}\\,\\%$ pour revenir au prix initial.`
+            texteCorr += `<br><br>Il faut donc appliquer une ${nomr} d'environ $${miseEnEvidence(texNombre(tr, 2))}\\,\\%$ pour revenir au prix initial.`
           }
           break
         case 2:
@@ -143,7 +153,12 @@ export default class EvolutionsSuccesives extends Exercice {
           texte = `${metier} a décidé ${nom} son tarif horaire de $${t}\\,\\%$.<br>Quelle évolution devra-t-il subir pour revenir à son niveau de départ ?`
           texte +=
             "<br>On donnera le taux d'évolution en pourcentage, éventuellement arrondi à $0,01\\,\\%$ près."
-          texte += ajouteChampTexteMathLive(this, i, '', { texteApres: '%' })
+          texte += ajouteChampTexteMathLive(
+            this,
+            i,
+            KeyboardType.clavierDeBase,
+            { texteApres: '%' },
+          )
           texteCorr =
             "Pour déterminer le taux d'évolution réciproque, on commence par calculer le coefficient multiplicateur associé :"
           if (taux > 0) {
@@ -157,6 +172,7 @@ export default class EvolutionsSuccesives extends Exercice {
           if (CMr - CMra !== 0) {
             texteCorr += texteEnCouleur(
               '<br>Remarque : Il faut arrondir les valeurs à $10^{-4}$ pour avoir un arrondi en pourcentage à $10^{-2}$.',
+              bleuMathalea,
             )
           }
           if (CMr > 1) {
@@ -166,9 +182,9 @@ export default class EvolutionsSuccesives extends Exercice {
             texteCorr += `<br><br> Le taux d'évolution réciproque est donc : <br>$T_R=CM_R-1=${texNombre(CMra, 4)}-1=${texNombre(pr, 4)}=-${texNombre(tr, 2)}\\,\\%$ ce qui correspond à une baisse de $${texNombre(tr, 2)}\\,\\%$.`
           }
           if (CMr - CMra === 0) {
-            texteCorr += `<br><br>Il faut donc appliquer une ${nomr} de $${texNombre(tr, 2)}\\,\\%$ pour revenir au niveau de départ.`
+            texteCorr += `<br><br>Il faut donc appliquer une ${nomr} de $${miseEnEvidence(texNombre(tr, 2))}\\,\\%$ pour revenir au niveau de départ.`
           } else {
-            texteCorr += `<br><br>Il faut donc appliquer une ${nomr} d'environ $${texNombre(tr, 2)}\\,\\%$ pour revenir au niveau de départ.`
+            texteCorr += `<br><br>Il faut donc appliquer une ${nomr} d'environ $${miseEnEvidence(texNombre(tr, 2))}\\,\\%$ pour revenir au niveau de départ.`
           }
           break
         case 3:
@@ -201,7 +217,12 @@ export default class EvolutionsSuccesives extends Exercice {
           texte = `Le nombre ${metier} d'une entreprise a ${nom} de $${t}\\,\\%$.<br>Quelle évolution permettrait de retrouver le nombre de départ ?`
           texte +=
             "<br>On donnera le taux d'évolution en pourcentage, éventuellement arrondi à $0,01\\,\\%$ près."
-          texte += ajouteChampTexteMathLive(this, i, '', { texteApres: '%' })
+          texte += ajouteChampTexteMathLive(
+            this,
+            i,
+            KeyboardType.clavierDeBase,
+            { texteApres: '%' },
+          )
           texteCorr =
             "Pour déterminer le taux d'évolution réciproque, on commence par calculer le coefficient multiplicateur associé :"
           if (taux > 0) {
@@ -214,6 +235,7 @@ export default class EvolutionsSuccesives extends Exercice {
           if (CMr - CMra !== 0) {
             texteCorr += texteEnCouleur(
               '<br>Remarque : Il faut arrondir les valeurs à $10^{-4}$ pour avoir un arrondi en pourcentage à $10^{-2}$.',
+              bleuMathalea,
             )
           }
           if (CMr > 1) {
@@ -224,9 +246,9 @@ export default class EvolutionsSuccesives extends Exercice {
           }
 
           if (CMr - CMra === 0) {
-            texteCorr += `<br><br>Il faut donc appliquer une ${nomr} de $${texNombre(tr, 2)}\\,\\%$ pour revenir au niveau de départ.`
+            texteCorr += `<br><br>Il faut donc appliquer une ${nomr} de $${miseEnEvidence(texNombre(tr, 2))}\\,\\%$ pour revenir au niveau de départ.`
           } else {
-            texteCorr += `<br><br>Il faut donc appliquer une ${nomr} d'environ $${texNombre(tr, 2)}\\,\\%$ pour revenir au niveau de départ.`
+            texteCorr += `<br><br>Il faut donc appliquer une ${nomr} d'environ $${miseEnEvidence(texNombre(tr, 2))}\\,\\%$ pour revenir au niveau de départ.`
           }
           break
       }

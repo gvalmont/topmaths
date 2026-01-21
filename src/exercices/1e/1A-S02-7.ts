@@ -22,9 +22,10 @@ export const dateDePublication = '05/08/2025'
  */
 
 export default class MoyenneEcartTypeClasseQCM extends ExerciceQcmA {
-  // Ceci est la fonction qui s'occupe d'écrire l'énoncé, la correction et les réponses
-  // Elle factorise le code qui serait dupliqué dans versionAleatoire et versionOriginale
-  private appliquerLesValeurs(): void {
+  private appliquerLesValeurs(
+    serieAForcee?: number[],
+    serieBForcee?: number[],
+  ): void {
     const moyenne = (arr: number[]) =>
       arr.reduce((sum, x) => sum + x, 0) / arr.length
 
@@ -54,33 +55,39 @@ export default class MoyenneEcartTypeClasseQCM extends ExerciceQcmA {
       return melange.map((d) => base + d)
     }
 
-    // Choix aléatoire de scénario
-    const scenario = Math.floor(Math.random() * 4)
-
     let serieA: number[] = []
     let serieB: number[] = []
 
-    switch (scenario) {
-      case 0:
-        // Même moyenne, mais série B plus dispersée
-        serieA = genereSerie(10, 1)
-        serieB = genereSerie(10, 3)
-        break
-      case 1:
-        // Moyenne A > B, écart-type similaire
-        serieA = genereSerie(12, 2)
-        serieB = genereSerie(9, 2)
-        break
-      case 2:
-        // Moyenne égale, A plus dispersée
-        serieA = genereSerie(10, 3)
-        serieB = genereSerie(10, 1)
-        break
-      case 3:
-        // Moyenne B > A, écart-type égal
-        serieA = genereSerie(9, 3)
-        serieB = genereSerie(12, 3)
-        break
+    // Si des séries sont forcées (version originale), on les utilise
+    if (serieAForcee && serieBForcee) {
+      serieA = serieAForcee
+      serieB = serieBForcee
+    } else {
+      // Sinon, génération aléatoire (version aléatoire)
+      const scenario = Math.floor(Math.random() * 4)
+
+      switch (scenario) {
+        case 0:
+          // Même moyenne, mais série B plus dispersée
+          serieA = genereSerie(10, 1)
+          serieB = genereSerie(10, 3)
+          break
+        case 1:
+          // Moyenne A > B, écart-type similaire
+          serieA = genereSerie(12, 2)
+          serieB = genereSerie(9, 2)
+          break
+        case 2:
+          // Moyenne égale, A plus dispersée
+          serieA = genereSerie(10, 3)
+          serieB = genereSerie(10, 1)
+          break
+        case 3:
+          // Moyenne B > A, écart-type égal
+          serieA = genereSerie(9, 3)
+          serieB = genereSerie(12, 3)
+          break
+      }
     }
 
     const moyA = moyenne(serieA)
@@ -92,8 +99,8 @@ export default class MoyenneEcartTypeClasseQCM extends ExerciceQcmA {
     const toutesLesReponses = [
       'La moyenne de la série B est strictement supérieure à la moyenne de la série A.',
       'La moyenne de la série A est strictement supérieure à la moyenne de la série B.',
-      'L’écart-type de la série A est strictement supérieur à l’écart-type de la série B.',
-      'L’écart-type de la série B est strictement supérieur à l’écart-type de la série A.',
+      "L'écart-type de la série A est strictement supérieur à l'écart-type de la série B.",
+      "L'écart-type de la série B est strictement supérieur à l'écart-type de la série A.",
     ]
 
     // Détection automatique de la bonne réponse
@@ -112,17 +119,61 @@ export default class MoyenneEcartTypeClasseQCM extends ExerciceQcmA {
       Il n'est pas nécessaire de calculer l'écart-type pour répondre à cette question.`
     } else if (etA > etB) {
       bonnePhrase = toutesLesReponses[2]
-      explication = `On calcule facilement les moyennes des deux séries qui sont toutes les deux égales à ${texNombre(moyA, 2)}.<br>
-      Il s'agit donc de comparer les écarts-types des deux séries et non pas de les calculer. L'écart-type est un paramètre qui quantifie la dispersion d'une série. 
-      On constate visuellement que la série A est plus dispersée que celle de la série B. <br>
-      En conséquence, son écart-type est plus élevé. <br>
+
+      // Calcul des termes pour l'écart-type A
+      const termesA = serieA
+        .map((x) => `(${x} - ${texNombre(moyA, 0)})^2`)
+        .join(' + ')
+      const sommeCarresA = serieA.reduce(
+        (sum, x) => sum + Math.pow(x - moyA, 2),
+        0,
+      )
+      const varianceA = sommeCarresA / serieA.length
+
+      // Calcul des termes pour l'écart-type B
+      const termesB = serieB
+        .map((x) => `(${x} - ${texNombre(moyB, 0)})^2`)
+        .join(' + ')
+      const sommeCarresB = serieB.reduce(
+        (sum, x) => sum + Math.pow(x - moyB, 2),
+        0,
+      )
+      const varianceB = sommeCarresB / serieB.length
+
+      explication = `On calcule les moyennes des deux séries qui sont toutes les deux égales à ${texNombre(moyA, 2)}.<br>
+      Les moyennes sont égales, on calcule les écarts-types :<br>
+      $\\sigma_A = \\sqrt{\\dfrac{${termesA}}{${serieA.length}}} = \\sqrt{\\dfrac{${sommeCarresA}}{${serieA.length}}} = \\sqrt{${texNombre(varianceA, 2)}}$<br>
+      $\\sigma_B = \\sqrt{\\dfrac{${termesB}}{${serieB.length}}} = \\sqrt{\\dfrac{${sommeCarresB}}{${serieB.length}}} = \\sqrt{${texNombre(varianceB, 2)}}$<br>
+      On a donc $\\sigma_A > \\sigma_B$.<br>
       L'écart-type de la série A est strictement supérieur à celui de la série B.`
     } else {
       bonnePhrase = toutesLesReponses[3]
-      explication = `On calcule facilement les moyennes des deux séries qui sont toutes les deux égales à ${texNombre(moyA, 2)}.<br>
-      Il s'agit donc de comparer les écarts-types des deux séries et non pas de les calculer. L'écart-type est un paramètre qui quantifie la dispersion d'une série. 
-      On constate visuellement que la série B est plus dispersée que celle de la série A. <br>
-      En conséquence, son écart-type est plus élevé. <br>
+
+      // Calcul des termes pour l'écart-type A
+      const termesA = serieA
+        .map((x) => `(${x} - ${texNombre(moyA, 0)})^2`)
+        .join(' + ')
+      const sommeCarresA = serieA.reduce(
+        (sum, x) => sum + Math.pow(x - moyA, 2),
+        0,
+      )
+      const varianceA = sommeCarresA / serieA.length
+
+      // Calcul des termes pour l'écart-type B
+      const termesB = serieB
+        .map((x) => `(${x} - ${texNombre(moyB, 0)})^2`)
+        .join(' + ')
+      const sommeCarresB = serieB.reduce(
+        (sum, x) => sum + Math.pow(x - moyB, 2),
+        0,
+      )
+      const varianceB = sommeCarresB / serieB.length
+
+      explication = `On calcule les moyennes des deux séries qui sont toutes les deux égales à ${texNombre(moyA, 2)}.<br>
+      Les moyennes sont égales, on calcule les écarts-types :<br>
+      $\\sigma_A = \\sqrt{\\dfrac{${termesA}}{${serieA.length}}} = \\sqrt{\\dfrac{${sommeCarresA}}{${serieA.length}}} = \\sqrt{${texNombre(varianceA, 2)}}$<br>
+      $\\sigma_B = \\sqrt{\\dfrac{${termesB}}{${serieB.length}}} = \\sqrt{\\dfrac{${sommeCarresB}}{${serieB.length}}} = \\sqrt{${texNombre(varianceB, 2)}}$<br>
+      On a donc $\\sigma_B > \\sigma_A$.<br>
       L'écart-type de la série B est strictement supérieur à celui de la série A.`
     }
 
@@ -144,6 +195,13 @@ Laquelle des quatre propositions suivantes est vraie ?`
     this.correction = explication
   }
 
+  versionOriginale: () => void = () => {
+    // Données fixes de la version originale
+    const serieA = [10, 11, 10, 9]
+    const serieB = [7, 13, 10, 10]
+    this.appliquerLesValeurs(serieA, serieB)
+  }
+
   versionAleatoire: () => void = () => {
     const n = 4 // nombre de réponses différentes voulues (on rappelle que la première réponse est la bonne)
     do {
@@ -155,6 +213,7 @@ Laquelle des quatre propositions suivantes est vraie ?`
   constructor() {
     super()
     this.options = { vertical: true, ordered: false }
+    this.spacing = 1.5
     this.versionAleatoire()
   }
 }

@@ -11,6 +11,7 @@ import { rotation, translation } from '../../lib/2d/transformations'
 import { pointEstSur } from '../../lib/2d/utilitairesGeometriques'
 import { milieu } from '../../lib/2d/utilitairesPoint'
 import { vecteur } from '../../lib/2d/Vecteur'
+import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 import {
   handleAnswers,
   setReponse,
@@ -96,7 +97,6 @@ export default class SymAxeEtCoordonnees extends Exercice {
         objetsCorrection,
         cpt = 0;
       ee < this.nbQuestions && cpt < 50;
-
     ) {
       let enonceAmc = ''
       texte = ''
@@ -270,7 +270,11 @@ export default class SymAxeEtCoordonnees extends Exercice {
         texteCorr +=
           (i === 0 ? numAlpha(i) : '<br>' + numAlpha(i)) +
           ` $${lettre1[i]}'$, l'image de $${lettre1[i]}$ par la symétrie d'axe $(d)$ a pour coordonnées $${miseEnEvidence(`(${texNombre(punto[i][0])};${texNombre(punto[i][1])})`)}$.<br>`
-        texte += ajouteChampTexteMathLive(this, i, '')
+        texte += ajouteChampTexteMathLive(
+          this,
+          i,
+          KeyboardType.clavierDeBaseAvecFractionPuissanceCrochets,
+        )
         texte += '<br>'
         if (context.isAmc)
           setReponse(this, i, [

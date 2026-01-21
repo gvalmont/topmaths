@@ -49,6 +49,7 @@ class ReperagePointDuPlan extends ExerciceSimple {
       width: 378,
       height: 378,
     })
+    this.figures = [this.figure]
     // De -6.3 à 6.3 donc width = 12.6 * 30 = 378
     this.figure.create('Grid', { xMin: -6, yMin: -6, xMax: 6, yMax: 6 })
     this.figure.options.labelAutomaticBeginsWith = 'A' // Les points sont nommés par ordre alphabétique
@@ -90,6 +91,7 @@ class ReperagePointDuPlan extends ExerciceSimple {
       height: 420,
       isDynamic: false,
     })
+    this.figures.push(figureCorr)
     figureCorr.setToolbar({ tools: ['REMOVE'], position: 'top' })
     figureCorr.create('Grid', { xMin: -6, yMin: -6, xMax: 6, yMax: 6 })
     for (const coord of this.points) {

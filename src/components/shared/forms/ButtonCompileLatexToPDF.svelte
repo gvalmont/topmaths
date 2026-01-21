@@ -247,6 +247,7 @@
         <div class="absolute top-2 right-3">
           <button
             type="button"
+            aria-label="Close editor"
             on:click="{() => {
               dialogToDisplayToggle()
             }}"

@@ -8,8 +8,7 @@
 import type { DemiDroite } from '../lib/2d/DemiDroite'
 import type { Droite } from '../lib/2d/droites'
 import { fixeBordures } from '../lib/2d/fixeBordures'
-import type { IDroite, IVecteur } from '../lib/2d/Interfaces'
-import type { Mediatrice } from '../lib/2d/Mediatrice'
+import type { IDroite, IPolygone, IVecteur } from '../lib/2d/Interfaces'
 import { ObjetMathalea2D } from '../lib/2d/ObjetMathalea2D'
 import type { PointAbstrait } from '../lib/2d/PointAbstrait'
 import type { Polygone } from '../lib/2d/polygones'
@@ -481,12 +480,12 @@ export function homothetieAnimee(
  * @author Rémi Angot
  */
 export class SymetrieAnimee extends ObjetMathalea2D {
-  p: Polygone
-  d: Droite | Mediatrice
+  p: IPolygone
+  d: IDroite
   animation: string
   constructor(
-    p: Polygone,
-    d: Droite | Mediatrice,
+    p: IPolygone,
+    d: IDroite,
     animation = 'begin="0s" dur="2s" repeatCount="indefinite"',
   ) {
     super()
@@ -515,21 +514,21 @@ export class SymetrieAnimee extends ObjetMathalea2D {
   }
 }
 export function symetrieAnimee(
-  p: Polygone,
-  d: Droite | Mediatrice,
+  p: IPolygone,
+  d: IDroite,
   animation = 'begin="0s" dur="2s" repeatCount="indefinite"',
 ) {
   return new SymetrieAnimee(p, d, animation)
 }
 
 export class AffiniteOrthoAnimee extends ObjetMathalea2D {
-  p: Polygone
-  d: Droite
+  p: IPolygone
+  d: IDroite
   k: number
   animation: string
   constructor(
-    p: Polygone,
-    d: Droite,
+    p: IPolygone,
+    d: IDroite,
     k: number,
     animation = 'begin="0s" dur="2s" repeatCount="indefinite"',
   ) {
@@ -560,8 +559,8 @@ export class AffiniteOrthoAnimee extends ObjetMathalea2D {
   }
 }
 export function affiniteOrthoAnimee(
-  p: Polygone,
-  d: Droite,
+  p: IPolygone,
+  d: IDroite,
   k: number,
   animation = 'begin="0s" dur="2s" repeatCount="indefinite"',
 ) {
@@ -570,7 +569,7 @@ export function affiniteOrthoAnimee(
 
 export class TranslationPuisRotationAnimee extends ObjetMathalea2D {
   figure1: ObjetMathalea2D | ObjetMathalea2D[]
-  v: Vecteur
+  v: IVecteur
   figure2: ObjetMathalea2D | ObjetMathalea2D[]
   O: PointAbstrait
   angle: number

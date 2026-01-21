@@ -1,22 +1,23 @@
+import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
+import { handleAnswers } from '../../lib/interactif/gestionInteractif'
+import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
-import { miseEnEvidence } from '../../lib/outils/embellissements'
 import {
-  texFractionFromString,
   obtenirListeFractionsIrreductibles,
   obtenirListeFractionsIrreductiblesFaciles,
   produitDeDeuxFractions,
   simplificationDeFractionAvecEtapes,
+  texFractionFromString,
 } from '../../lib/outils/deprecatedFractions'
 import { ecritureParentheseSiNegatif } from '../../lib/outils/ecritures'
+import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { lettreDepuisChiffre } from '../../lib/outils/outilString'
 import { pgcd, ppcm } from '../../lib/outils/primalite'
-import Exercice from '../Exercice'
 import { context } from '../../modules/context'
-import { listeQuestionsToContenu, randint } from '../../modules/outils'
-import { fraction } from '../../modules/fractions'
-import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
-import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import type FractionEtendue from '../../modules/FractionEtendue'
+import { fraction } from '../../modules/fractions'
+import { listeQuestionsToContenu, randint } from '../../modules/outils'
+import Exercice from '../Exercice'
 
 export const titre = 'Fractions et priorités opératoires'
 export const amcReady = true
@@ -288,7 +289,12 @@ export default class ExerciceAdditionnerFractionProduit extends Exercice {
       }
 
       if (this.questionJamaisPosee(i, a, b, c, d, typesDeQuestions)) {
-        texte += ajouteChampTexteMathLive(this, i, '  ', { texteAvant: '$=$' })
+        texte += ajouteChampTexteMathLive(
+          this,
+          i,
+          KeyboardType.clavierDeBaseAvecFraction,
+          { texteAvant: '$=$' },
+        )
         handleAnswers(this, i, {
           reponse: {
             value: reponse.toLatex(),

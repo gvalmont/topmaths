@@ -1,11 +1,12 @@
-import ExerciceSimple from '../../ExerciceSimple'
-import { miseEnEvidence } from '../../../lib/outils/embellissements'
-import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
-import { randint } from '../../../modules/outils'
-import { choice } from '../../../lib/outils/arrayOutils'
-import FractionEtendue from '../../../modules/FractionEtendue'
-import { toutPourUnPoint } from '../../../lib/interactif/mathLive'
 import type { MathfieldElement } from 'mathlive'
+import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
+import { toutPourUnPoint } from '../../../lib/interactif/mathLive'
+import { choice } from '../../../lib/outils/arrayOutils'
+import { miseEnEvidence } from '../../../lib/outils/embellissements'
+import type { IExercice } from '../../../lib/types'
+import FractionEtendue from '../../../modules/FractionEtendue'
+import { randint } from '../../../modules/outils'
+import ExerciceSimple from '../../ExerciceSimple'
 export const titre = 'Additionner un entier et une fraction'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -55,7 +56,7 @@ export default class SommeEntierFraction extends ExerciceSimple {
     const numD = choix ? d.num : e.num
     const denD = choix ? d.den : e.den
 
-    const callback = (exercice: Exercice, question: number) => {
+    const callback = (exercice: IExercice, question: number) => {
       const mfe = document.querySelector(
         `#champTexteEx${exercice.numeroExercice}Q${question}`,
       ) as MathfieldElement

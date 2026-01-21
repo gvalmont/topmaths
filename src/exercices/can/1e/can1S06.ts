@@ -5,6 +5,7 @@ import {
 } from '../../../lib/outils/ecritures'
 import ExerciceSimple from '../../ExerciceSimple'
 import { randint } from '../../../modules/outils'
+import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 export const titre =
   'Donner la forme explicite d’une suite arithmétique/géométrique'
 export const interactifReady = true
@@ -28,9 +29,9 @@ export const refs = {
 export default class CalculTermeSuiteRec extends ExerciceSimple {
   constructor() {
     super()
-
     this.typeExercice = 'simple'
     this.nbQuestions = 1
+    this.formatChampTexte = KeyboardType.clavierDeBaseAvecVariable
   }
 
   nouvelleVersion() {

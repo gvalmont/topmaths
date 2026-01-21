@@ -32,14 +32,14 @@
     text-coopmaths-corpus-lightest dark:text-coopmathsdark-corpus-lightest"
   >
     <i
-      class="{type === 'export'
+      class={type === 'export'
         ? 'bx bx-export rotate-90 md:translate-y-1'
-        : 'hidden'}"
+        : 'hidden'}
     ></i>
     <i
-      class="{type === 'design'
+      class={type === 'design'
         ? 'bx bx-chevron-right md:translate-y-1'
-        : 'hidden'}"
+        : 'hidden'}
     ></i>
   </div>
   <div

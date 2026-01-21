@@ -10,6 +10,7 @@ import { pgcd } from '../../lib/outils/primalite'
 import { context } from '../../modules/context'
 import Exercice from '../Exercice'
 
+import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { sp } from '../../lib/outils/outilString'
@@ -98,7 +99,6 @@ export default class ExerciceEquation1 extends Exercice {
     for (
       let i = 0, a, b, c, d, texte, texteCorr, reponse, cpt = 0;
       i < this.nbQuestions && cpt < 50;
-
     ) {
       const inconnue = this.sup3
         ? 'x'
@@ -359,7 +359,7 @@ export default class ExerciceEquation1 extends Exercice {
       texte += ajouteChampTexteMathLive(
         this,
         i,
-        '  clavierDeBaseAvecFraction',
+        KeyboardType.clavierDeBaseAvecFraction,
         { texteAvant: `<br>$ ${inconnue} = $ ` },
       )
       handleAnswers(this, i, { reponse: { value: reponse.texFSD } })

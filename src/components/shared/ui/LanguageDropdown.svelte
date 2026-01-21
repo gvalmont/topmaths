@@ -11,9 +11,9 @@
   <button
     type="button"
     class="flex flex-row justify-start items-center"
-    on:click="{() => {
+    on:click={() => {
       isMenuOpen = !isMenuOpen
-    }}"
+    }}
   >
     <LanguageIcon {locale} />
     <i
@@ -35,10 +35,10 @@
           type="button"
           class="w-full flex flex-row space-x-2 justify-end items-center text-coopmaths-action dark:text-coopmathsdark-action"
           id="languageChoice{lang.short}"
-          on:click="{() => {
+          on:click={() => {
             handleLanguage(loc)
             isMenuOpen = false
-          }}"
+          }}
         >
           <div class="flex flex-row items-center">
             <i
@@ -49,7 +49,7 @@
             <span>Référentiel {lang.long}</span>
           </div>
           <div>
-            <LanguageIcon locale="{loc}" />
+            <LanguageIcon locale={loc} />
           </div>
         </button>
       </li>

@@ -69,7 +69,7 @@ export default class Exercice3I1DNB0 extends ExerciceBrevetA {
     switch (figure) {
       case 'rectangle':
         {
-          texteScratch1 = `\\begin{scratch}[${context.isHtml ? 'print,' : ''}fill,blocks,scale=0.8]
+          texteScratch1 = `\\begin{scratch}[${context.isHtml ? '' : 'print,'} fill blocks,scale=0.8]
         \\initmoreblocks{définir \\namemoreblocks{${figure}}}
         \\blockpen{stylo en position d'écriture}
         \\blockrepeat{répéter \\ovalnum{2} fois}
@@ -81,7 +81,7 @@ export default class Exercice3I1DNB0 extends ExerciceBrevetA {
       }
          \\blockpen{relever le stylo}
          \\end{scratch}`
-          texteScratch2 = `\\begin{scratch}[${context.isHtml ? 'print,' : ''}fill,blocks,scale=0.8]
+          texteScratch2 = `\\begin{scratch}[${context.isHtml ? '' : 'print,'} fill blocks,scale=0.8]
         \\initmoreblocks{définir \\namemoreblocks{Motif A}}
         \\blockrepeat{répéter \\ovalnum{${rep}} fois}
         {
@@ -98,7 +98,7 @@ export default class Exercice3I1DNB0 extends ExerciceBrevetA {
         break
       case 'carré':
         {
-          texteScratch1 = `\\begin{scratch}[${context.isHtml ? 'print,' : ''}fill,blocks,scale=0.8]
+          texteScratch1 = `\\begin{scratch}[${context.isHtml ? '' : 'print,'} fill blocks,scale=0.8]
         \\initmoreblocks{définir \\namemoreblocks{${figure}}}
         \\blockpen{stylo en position d'écriture}
         \\blockrepeat{répéter \\ovalnum{2} fois}
@@ -110,7 +110,7 @@ export default class Exercice3I1DNB0 extends ExerciceBrevetA {
       }
          \\blockpen{relever le stylo}
          \\end{scratch}\n`
-          texteScratch2 = `\\begin{scratch}[${context.isHtml ? 'print,' : ''}fill,blocks,scale=0.8]
+          texteScratch2 = `\\begin{scratch}[${context.isHtml ? '' : 'print,'} fill blocks,scale=0.8]
         \\initmoreblocks{définir \\namemoreblocks{Motif A}}
         \\blockrepeat{répéter \\ovalnum{${rep}} fois}
         {
@@ -127,7 +127,7 @@ export default class Exercice3I1DNB0 extends ExerciceBrevetA {
         break
       default:
         {
-          texteScratch1 = `\\begin{scratch}[${context.isHtml ? 'print,' : ''}fill,blocks,scale=0.8]\n
+          texteScratch1 = `\\begin{scratch}[${context.isHtml ? '' : 'print,'} fill blocks,scale=0.8]\n
         \\initmoreblocks{définir \\namemoreblocks{${figure}}}
         \\blockpen{stylo en position d'écriture}
         \\blockrepeat{répéter \\ovalnum{2} fois}
@@ -139,7 +139,7 @@ export default class Exercice3I1DNB0 extends ExerciceBrevetA {
       }
          \\blockpen{relever le stylo}
          \\end{scratch}\n`
-          texteScratch2 = `\\begin{scratch}[${context.isHtml ? 'print,' : ''}fill,blocks,scale=0.8]
+          texteScratch2 = `\\begin{scratch}[${context.isHtml ? '' : 'print,'} fill blocks,scale=0.8]
         \\initmoreblocks{définir \\namemoreblocks{Motif A}}
         \\blockrepeat{répéter \\ovalnum{${rep}} fois}
         {

@@ -204,6 +204,10 @@ function cleanMathRm(str: string): string {
   return str.replace(/\\mathrm\{(\w+)}/g, '$1')
 }
 
+function cleanImaginaire(str: string): string {
+  return str.replace(/\\mathrm\{i\}|\{i\}/g, 'i')
+}
+
 function cleanOperatorName(str: string): string {
   return str
     .replace(/\\operatorname\{\s*\}/g, ' ') // remplace les accolades vides
@@ -256,6 +260,8 @@ export function generateCleaner(
     switch (operation) {
       case 'fractions':
         return cleanFractions
+      case 'imaginaires':
+        return cleanImaginaire
       case 'fractionsMemesNegatives':
         return cleanFractionsMemesNegatives
       case 'virgules':
@@ -726,7 +732,7 @@ export function fonctionComparaison(
     fractionEgale, // Documenté
     fractionIdentique, // Documenté
     nombreDecimalSeulement, // Documenté
-    expressionNumerique, // Non Documenté
+    expressionNumerique, // Documenté
     additionSeulementEtNonResultat, // Documenté
     soustractionSeulementEtNonResultat, // Documenté
     multiplicationSeulementEtNonResultat, // Documenté
@@ -919,26 +925,30 @@ function customCanonical(
   }
   // Fonctionnement par défaut : Tout est accepté si l'expression est un nombre
   // Ci-dessous, on accepte le résultat d'un calcul mais pas un autre enchaînement Ici, si 4+2 est attendu, alors 4+2=6 mais 4+2!=5+1. C'est la valeur par défaut
-  if (typeof expression.value === 'number') {
+  // Note: depuis compute-engine v0.30, .value ne retourne plus un number directement.
+  // On utilise .canonical.N().numericValue pour vérifier si l'expression est numérique.
+  const numericVal = expression.canonical.N().numericValue
+  if (numericVal !== null) {
     // L'expression est une expression numérique, les expressions littérales ne sont pas traitées ici
     if (fractionIrreductible) {
       if (
         (expression.operator === 'Divide' ||
           expression.operator === 'Rational') && // L'expression contient une division ou une fraction fractionIrreductible
-        (expression.engine.box(['GCD', expression.op1, expression.op2])
-          .value !== 1 ||
-          expression.op2.value === 1)
+        (expression.engine
+          .box(['GCD', expression.op1, expression.op2])
+          .evaluate().numericValue !== 1 ||
+          expression.op2.numericValue === 1)
       )
         return expression
 
       if (expression.operator === 'Number') {
         // Ce cas est si un élève note 1.4 pour une fraction de 7/5 par exemple.
-        return engine.parse(`\\frac{${expression.value}}{1}`, {
+        return engine.parse(`\\frac{${Number(numericVal)}}{1}`, {
           canonical: false,
         })
       }
     }
-    return expression.engine.number(expression.value)
+    return expression.engine.number(Number(numericVal))
   }
   /* Supprimé depuis la création de expressionNumerique
   if (expressionsForcementReduites) {
@@ -964,7 +974,7 @@ function customCanonical(
   */
   if (expression.operator === 'Divide' || expression.operator === 'Rational') {
     // Pour enlever les divisions éventuelles par 1
-    if (expression.op2.value === 1) expression = expression.op1
+    if (expression.op2.numericValue === 1) expression = expression.op1
   }
 
   // Ne pas prendre en compte les indices comme c_{n} // Sans doute plus du tout utile depuis l'introduction de l'option calculFormel
@@ -1033,10 +1043,14 @@ function comparaisonFraction(
     // if (!(reponseNativeParsed.operator === 'Number' || (reponseNativeParsed.operator === 'Negate' && reponseNativeParsed.ops !== null && reponseNativeParsed.ops.length === 1))) return { isOk: false, feedback: 'Résultat incorrect car une valeur décimale (ou entière) est attendue.' }
   }
 
+  // Note: depuis compute-engine v0.30, .value retourne undefined pour les fractions.
+  // On utilise .canonical.N().numericValue pour obtenir la valeur numérique.
   const reponseParsed = reponseNativeParsed.engine.number(
-    Number(reponseNativeParsed.value),
+    Number(reponseNativeParsed.canonical.N().numericValue),
   ) // Ici, c'est la valeur numérique (même approchée) de cleanGoodAnswer.
-  if (saisieNativeParsed.isEqual(reponseNativeParsed)) {
+  // Note: depuis compute-engine v0.30, isEqual sur des expressions non-canoniques
+  // compare la structure et non la valeur. On utilise .canonical pour comparer les valeurs.
+  if (saisieNativeParsed.canonical.isEqual(reponseNativeParsed.canonical)) {
     if (fractionIdentique) {
       if (saisieNativeParsed.isSame(reponseNativeParsed))
         return { isOk: true, feedback: '' }
@@ -1062,11 +1076,11 @@ function comparaisonFraction(
         let num, den
         if (saisieNativeParsed.operator !== 'Negate') {
           // Traitement des cas si la fraction est négative ou pas.
-          num = saisieNativeParsed.op1.evaluate().numericValue
-          den = saisieNativeParsed.op2.evaluate().numericValue
+          num = saisieNativeParsed.op1.canonical.evaluate().numericValue
+          den = saisieNativeParsed.op2.canonical.evaluate().numericValue
         } else {
-          num = saisieNativeParsed.op1.op1.evaluate().numericValue
-          den = saisieNativeParsed.op1.op2.evaluate().numericValue
+          num = saisieNativeParsed.op1.op1.canonical.evaluate().numericValue
+          den = saisieNativeParsed.op1.op2.canonical.evaluate().numericValue
         }
         if (Number.isInteger(num) && Number.isInteger(den)) {
           return { isOk: true }
@@ -1105,11 +1119,11 @@ function comparaisonFraction(
       if (
         ((saisieNativeParsed.operator === 'Divide' ||
           saisieNativeParsed.operator === 'Rational') &&
-          saisieNativeParsed.engine.box([
-            'GCD',
-            saisieNativeParsed.op1,
-            saisieNativeParsed.op2,
-          ]).value === 1) ||
+          // Note: depuis compute-engine v0.30, .value retourne undefined pour les expressions.
+          // On utilise .evaluate().numericValue pour obtenir la valeur du GCD.
+          saisieNativeParsed.engine
+            .box(['GCD', saisieNativeParsed.op1, saisieNativeParsed.op2])
+            .evaluate().numericValue === 1) ||
         saisieNativeParsed.canonical.isInteger
       ) {
         return { isOk: true }
@@ -1238,9 +1252,11 @@ function expressionDeveloppeeEtReduiteCompare(
     'fractionsMemesNegatives',
     'parentheses',
     'foisUn',
+    'imaginaires',
   ])
   let localInput = clean(input)
   const localGoodAnswer = clean(goodAnswer)
+
   if (calculFormel)
     if (
       engine
@@ -1843,6 +1859,7 @@ export function expressionNumeriqueCompare(
   const localGoodAnswer = cleaner(goodAnswer)
   const goodAnswerParsed = engine.parse(localGoodAnswer, { canonical: true }) // Important ce canonical à true
   const inputParsed = engine.parse(input, { canonical: true })
+  // console.log(input, localGoodAnswer, goodAnswerParsed.json)
   if (goodAnswerParsed.isSame(inputParsed)) return { isOk: true }
   if (goodAnswerParsed.isEqual(inputParsed))
     if (inputParsed.isNumber) {
@@ -2060,8 +2077,12 @@ export function ensembleNombres(
   { kUplet = false, avecAccolades = true } = {},
 ): ResultType {
   const clean = generateCleaner(['virgules', 'fractions', 'parentheses'])
-  const cleanInput = clean(input).replaceAll('∅', '\\emptyset')
+  const cleanInput = clean(input)
+    .replaceAll('∅', '\\emptyset')
+    .replaceAll('\\lbrace', '\\{')
+    .replaceAll('\\rbrace', '\\}')
   goodAnswer = clean(goodAnswer)
+
   if (goodAnswer === '\\emptyset' && cleanInput === goodAnswer)
     return { isOk: true }
   if (goodAnswer === '\\emptyset' && cleanInput.includes('\\emptyset'))
@@ -2099,7 +2120,8 @@ export function ensembleNombres(
         feedback:
           'Une suite de nombres ne doit pas se terminer par un point-virgule.',
       }
-    if (!/^\d+(;\d+)*$/.test(cleanInput))
+
+    if (!/^-?\d+(?:\.\d+)?(?:;-?\d+(?:\.\d+)?)*$/.test(cleanInput))
       // Pour vérifier que le séparateur est bien un point-virgule.
       return {
         isOk: false,
@@ -2128,7 +2150,7 @@ export function ensembleNombres(
     return {
       isOk: false,
       feedback:
-        'Résultat incorrect car cet ensemble ne contient pas assez de nombres.',
+        'Résultat incorrect car cet ensemble ne contient pas assez de nombres (les nombres doivent être séparés par un ; et non par une virgule).',
     }
   }
 
@@ -2865,7 +2887,7 @@ export function checkLeCompteEstBon( // Ne fonctionne que si numbers est un tabl
     canonical: false,
   }) as BoxedExpression
   const value = answer.value
-  if (value !== target) {
+  if (value === undefined || Number(value) !== target) {
     return {
       isOk: false,
       feedback: `L'expression vaut ${value} et non ${target}.`,

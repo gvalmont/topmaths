@@ -534,6 +534,7 @@ const ensembleDefiniCaps: CompleteKeysList = {
     'EMPTY',
     'UNION',
     'INTER',
+    'BACKSLASH',
   ],
   block: [
     'COMP',
@@ -545,6 +546,7 @@ const ensembleDefiniCaps: CompleteKeysList = {
     'EMPTY',
     'UNION',
     'INTER',
+    'BACKSLASH',
   ],
 }
 

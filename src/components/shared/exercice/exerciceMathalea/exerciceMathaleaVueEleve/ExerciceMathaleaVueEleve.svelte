@@ -1,29 +1,30 @@
 <script lang="ts">
   import seedrandom from 'seedrandom'
   import { afterUpdate, beforeUpdate, onDestroy, onMount, tick } from 'svelte'
+  import { get } from 'svelte/store'
   import type TypeExercice from '../../../../../exercices/Exercice'
   import { sendToCapytaleSaveStudentAssignment } from '../../../../../lib/handleCapytale'
   import {
-      exerciceInteractif,
-      prepareExerciceCliqueFigure,
+    exerciceInteractif,
+    prepareExerciceCliqueFigure,
   } from '../../../../../lib/interactif/gestionInteractif'
   import {
-      mathaleaGenerateSeed,
-      mathaleaHandleExerciceSimple,
-      mathaleaRenderDiv,
-      mathaleaUpdateUrlFromExercicesParams,
+    mathaleaGenerateSeed,
+    mathaleaHandleExerciceSimple,
+    mathaleaRenderDiv,
+    mathaleaUpdateUrlFromExercicesParams,
   } from '../../../../../lib/mathalea'
   import { mathaleaWriteStudentPreviousAnswers } from '../../../../../lib/mathaleaUtils'
   import {
-      exercicesParams,
-      isMenuNeededForExercises,
-      resultsByExercice,
+    exercicesParams,
+    isMenuNeededForExercises,
+    resultsByExercice,
   } from '../../../../../lib/stores/generalStore'
   import { globalOptions } from '../../../../../lib/stores/globalOptions'
   import { isLocalStorageAvailable } from '../../../../../lib/stores/storage'
   import type {
-      InterfaceParams,
-      InterfaceResultExercice,
+    InterfaceParams,
+    InterfaceResultExercice,
   } from '../../../../../lib/types'
   import { loadMathLive } from '../../../../../modules/loaders'
   import { statsTracker } from '../../../../../modules/statsUtils'
@@ -40,8 +41,36 @@
   let divExercice: HTMLDivElement
   let divScore: HTMLDivElement
   let buttonScore: HTMLButtonElement
-  let columnsCount = $exercicesParams[exerciseIndex].cols || 1
   let isInteractif = exercise.interactif && exercise?.interactifReady
+
+  /*
+   * MGu Attention interfaceParams est un objet qui est une copie du store,
+   * donc le mettre à jour directement met à jour le store sans le signaler au subscriber
+   * DE PLUS, si on change l'ordre des exercices OU si on supprime un exercice, exerciseIndex
+   * va devenir faux mais cela n'est pas génant car l'exercice va être destroy...
+   * Cependant, avant un DESTROY, il y aura un beforeupdate et un afterupdate, donc cette variable
+   * peut devenir UNDEFINED ou ERRONEE
+   */
+  let interfaceParams: InterfaceParams | undefined =
+    get(exercicesParams)[exerciseIndex]
+  let columnsCount = interfaceParams?.cols || 1
+
+  let debug = false
+  function log(str: string) {
+    if (debug || window.logDebug > 1) {
+      console.info(str)
+    }
+  }
+
+  const subscribeExercicesParamsStore = exercicesParams.subscribe((value) => {
+    log('new interface:' + JSON.stringify(interfaceParams))
+    if (value[exerciseIndex] !== interfaceParams) {
+      // MGu c'est une comparaison par référence
+      log('new interfaceParams subscribe:' + JSON.stringify(interfaceParams))
+      interfaceParams = value[exerciseIndex]
+    }
+  })
+
   // une variable locale car si on modifie isCorrectionVisible, parfois elle devient undefined
   let isCorrectVisible = isCorrectionVisible
 
@@ -64,12 +93,6 @@
   })
 
   let headerExerciceProps: { title: string } = { title }
-
-  $: {
-    if (isInteractif && buttonScore) initButtonScore()
-    if (!isInteractif && divScore) divScore.innerHTML = ''
-    headerExerciceProps = headerExerciceProps
-  }
 
   let numberOfAnswerFields: number = 0
 
@@ -98,7 +121,7 @@
       ) {
         $globalOptions.answers = objAnswers
       }
-      mathaleaUpdateUrlFromExercicesParams($exercicesParams)
+      mathaleaUpdateUrlFromExercicesParams()
       Promise.all(mathaleaWriteStudentPreviousAnswers(objAnswers)).then(() => {
         // une fois que les réponses sont chargées et on en est sûr, on clique...
         if (buttonScore) {
@@ -113,11 +136,11 @@
     log('ondestroy' + exercise.id)
     // Détruit l'objet exercice pour libérer la mémoire
     exercise.reinit() // MGu nécessaire pour supprimer les listeners
+    subscribeExercicesParamsStore()
   })
 
   onMount(async () => {
     log('onMount:' + exercise.id + ', v:' + $globalOptions.v)
-
     // Check boutonValidation mode after component is mounted
     if ($globalOptions.recorder === 'flowmath') {
       try {
@@ -141,12 +164,16 @@
     } else if ($globalOptions.setInteractive === '0') {
       removeAllInteractif()
     }
+    log('End onMount:' + exercise.id + ', v:' + $globalOptions.v)
   })
 
   beforeUpdate(async () => {
     log('beforeUpdate:' + exercise.id + ', v:' + $globalOptions.v)
-    numberOfAnswerFields = countMathField(exercise)
-    log('isCorrectVisible:' + isCorrectVisible)
+    const count = countMathField(exercise)
+    if (count !== numberOfAnswerFields) {
+      numberOfAnswerFields = count
+      log('numberOfAnswerFields:' + numberOfAnswerFields)
+    }
   })
 
   afterUpdate(async () => {
@@ -226,7 +253,6 @@
     if (isCorrectVisible) switchCorrectionVisible(false)
     const seed = mathaleaGenerateSeed()
     exercise.seed = seed
-    if (buttonScore) initButtonScore()
     if (buttonScore?.dataset?.capytaleLoadAnswers === '1') {
       // si les données ont été chargées par Capytale, on remet à 0
       buttonScore.dataset.capytaleLoadAnswers = '0'
@@ -248,13 +274,6 @@
     }
   }
 
-  let debug = false
-  function log(str: string) {
-    if (debug || window.logDebug > 1) {
-      console.info(str)
-    }
-  }
-
   async function updateDisplay() {
     log('updateDisplay:' + exercise.id + ', v:' + $globalOptions.v)
     if (exercise.typeExercice === 'simple') {
@@ -263,27 +282,41 @@
       mathaleaHandleExerciceSimple(exercise, !!isInteractif, exerciseIndex)
     }
     exercise.interactif = isInteractif
-    if ($exercicesParams[exerciseIndex] != null) {
-      // Des erreurs bugsnag font état de cet objet undefined. JC le 3/12/2024
-      // MGU ne sette que si nécessaire, car ici c'est un storer
-      if ($exercicesParams[exerciseIndex].alea !== exercise.seed)
-        $exercicesParams[exerciseIndex].alea = exercise.seed
-      if (isInteractif && $exercicesParams[exerciseIndex].interactif !== '1')
-        $exercicesParams[exerciseIndex].interactif = '1'
-      if (!isInteractif && $exercicesParams[exerciseIndex].interactif !== '0')
-        $exercicesParams[exerciseIndex].interactif = '0'
-      if (
-        columnsCount > 1 &&
-        columnsCount !== $exercicesParams[exerciseIndex].cols
-      )
-        $exercicesParams[exerciseIndex].cols = columnsCount
-      if (
-        columnsCount <= 1 &&
-        $exercicesParams[exerciseIndex].hasOwnProperty('cols') &&
-        $exercicesParams[exerciseIndex].cols !== undefined
-      )
-        $exercicesParams[exerciseIndex].cols = undefined
+    if (interfaceParams) {
+      let changed = false
+
+      if (interfaceParams.alea !== exercise.seed) {
+        interfaceParams.alea = exercise.seed
+        changed = true
+      }
+
+      const interactifValue = isInteractif ? '1' : '0'
+      if (interfaceParams.interactif !== interactifValue) {
+        interfaceParams.interactif = interactifValue
+        changed = true
+      }
+
+      if (columnsCount > 1) {
+        if (interfaceParams.cols !== columnsCount) {
+          interfaceParams.cols = columnsCount
+          changed = true
+        }
+      } else if (columnsCount <= 1) {
+        if (interfaceParams.cols !== undefined) {
+          interfaceParams.cols = undefined
+          changed = true
+        }
+      }
+      if (changed) {
+        exercicesParams.update((l: InterfaceParams[]) => {
+          if (interfaceParams) {
+            l[exerciseIndex] = interfaceParams
+          }
+          return l
+        })
+      }
     }
+
     exercise.numeroExercice = exerciseIndex
     if (
       exercise !== undefined &&
@@ -295,7 +328,9 @@
       seedrandom(exercise.seed, { global: true })
       exercise.nouvelleVersionWrapper(exerciseIndex)
     }
-    mathaleaUpdateUrlFromExercicesParams($exercicesParams)
+    numberOfAnswerFields = countMathField(exercise)
+    log('numberOfAnswerFields:' + numberOfAnswerFields)
+    mathaleaUpdateUrlFromExercicesParams()
     await adjustMathalea2dFiguresWidth()
   }
 
@@ -306,13 +341,11 @@
         exercise,
         $globalOptions.recorder ?? '',
         $globalOptions.v ?? '',
-        buttonScore.dataset.capytaleLoadAnswers === '1' ? 'review' : '',
+        buttonScore?.dataset?.capytaleLoadAnswers === '1' ? 'review' : '',
       )
     exercise.isDone = true
-    if ($globalOptions.isSolutionAccessible) isCorrectVisible = true
     if (exercise.numeroExercice != null) {
-      const previousBestScore =
-        $exercicesParams[exercise.numeroExercice]?.bestScore ?? 0
+      const previousBestScore = interfaceParams?.bestScore ?? 0
       const { numberOfPoints, numberOfQuestions } = exerciceInteractif(
         exercise,
         divScore,
@@ -331,9 +364,9 @@
           `Le score de l'exercice ${exercise.numeroExercice} est incorrect, passé de ${previousBestScore} à ${numberOfPoints}. Merci de le signaler au support.`,
           {
             exo: exercise,
-            globalOptions: $globalOptions,
-            exercicesParams: $exercicesParams,
-            resultsByExercice: $resultsByExercice,
+            globalOptions: get(globalOptions),
+            exercicesParams: get(exercicesParams),
+            resultsByExercice: get(resultsByExercice),
           },
         )
       }
@@ -362,6 +395,8 @@
           return l
         })
       }
+
+      if ($globalOptions.isSolutionAccessible) isCorrectVisible = true
 
       if ($globalOptions.recorder === 'moodle') {
         const url = new URL(window.location.href)
@@ -395,45 +430,6 @@
     }
   }
 
-  function initButtonScore() {
-    buttonScore.classList.remove(...buttonScore.classList)
-    buttonScore.id = `buttonScoreEx${exerciseIndex}`
-    buttonScore.classList.add(
-      'inline-block',
-      'px-6',
-      'py-2.5',
-      'mr-10',
-      'my-5',
-      'ml-6',
-      'bg-coopmaths-action',
-      'dark:bg-coopmathsdark-action',
-      'text-coopmaths-canvas',
-      'dark:text-coopmathsdark-canvas',
-      'font-medium',
-      'text-xs',
-      'leading-tight',
-      'uppercase',
-      'rounded',
-      'shadow-md',
-      'transform',
-      'hover:bg-coopmaths-action-lightest',
-      'dark:hover:bg-coopmathsdark-action-lightest',
-      'hover:shadow-lg',
-      'focus:bg-coopmaths-action-lightest',
-      'dark:focus:bg-coopmathsdark-action-lightest',
-      'focus:shadow-lg',
-      'focus:outline-none',
-      'focus:ring-0',
-      'active:bg-coopmaths-action-lightest',
-      'dark:active:bg-coopmathsdark-action-lightest',
-      'active:shadow-lg',
-      'transition',
-      'duration-150',
-      'ease-in-out',
-      'checkReponses',
-    )
-  }
-
   /**
    * Recherche toutes les figures ayant la classe `mathalea2d` et réduit leur largeur à 95% de la valeur
    * maximale du div reperé par l'ID `consigne<X>-0` où `X` est l'indice de l'exercice
@@ -443,117 +439,110 @@
   async function adjustMathalea2dFiguresWidth(
     initialDimensionsAreNeeded: boolean = false,
   ) {
-    const mathalea2dFigures =
-      document.querySelectorAll<SVGElement>('.mathalea2d')
+    const mathalea2dFigures: NodeListOf<SVGElement> | undefined =
+      divExercice?.querySelectorAll<SVGElement>('.mathalea2d')
+    if (!mathalea2dFigures || mathalea2dFigures.length === 0) return
+
     const zoom = Number($globalOptions.z ?? 1)
-    // console.log('zoom:' + zoom )
-    if (mathalea2dFigures != null) {
-      if (mathalea2dFigures.length !== 0) {
-        // await tick()
-        // console.log('adjustMathalea2dFiguresWidth:' + initialDimensionsAreNeeded )
-        for (let k = 0; k < mathalea2dFigures.length; k++) {
-          if (initialDimensionsAreNeeded) {
-            // réinitialisation
-            const initialWidth = mathalea2dFigures[k].getAttribute(
-              'data-width-initiale',
-            )
-            const initialHeight = mathalea2dFigures[k].getAttribute(
-              'data-height-initiale',
-            )
-            mathalea2dFigures[k].setAttribute(
-              'width',
-              (Number(initialWidth) * zoom).toString(),
-            )
-            mathalea2dFigures[k].setAttribute(
-              'height',
-              (Number(initialHeight) * zoom).toString(),
-            )
-            // les éléments Katex des figures SVG
-            if (
-              mathalea2dFigures[k] != null &&
-              mathalea2dFigures[k].parentElement != null
-            ) {
-              const eltsInFigures =
-                mathalea2dFigures[
-                  k
-                ].parentElement?.querySelectorAll<HTMLElement>(
-                  'div.divLatex',
-                ) || []
-              for (const elt of eltsInFigures) {
-                const e = elt
-                e.style.setProperty(
-                  'top',
-                  (Number(e.dataset.top) * zoom).toString() + 'px',
-                )
-                e.style.setProperty(
-                  'left',
-                  (Number(e.dataset.left) * zoom).toString() + 'px',
-                )
-              }
+    log('zoom:' + zoom)
+    if (mathalea2dFigures.length !== 0) {
+      for (let k = 0; k < mathalea2dFigures.length; k++) {
+        if (initialDimensionsAreNeeded) {
+          // réinitialisation
+          const initialWidth = mathalea2dFigures[k].getAttribute(
+            'data-width-initiale',
+          )
+          const initialHeight = mathalea2dFigures[k].getAttribute(
+            'data-height-initiale',
+          )
+          mathalea2dFigures[k].setAttribute(
+            'width',
+            (Number(initialWidth) * zoom).toString(),
+          )
+          mathalea2dFigures[k].setAttribute(
+            'height',
+            (Number(initialHeight) * zoom).toString(),
+          )
+          // les éléments Katex des figures SVG
+          if (
+            mathalea2dFigures[k] != null &&
+            mathalea2dFigures[k].parentElement != null
+          ) {
+            const eltsInFigures =
+              mathalea2dFigures[k].parentElement?.querySelectorAll<HTMLElement>(
+                'div.divLatex',
+              ) || []
+            for (const elt of eltsInFigures) {
+              const e = elt
+              e.style.setProperty(
+                'top',
+                (Number(e.dataset.top) * zoom).toString() + 'px',
+              )
+              e.style.setProperty(
+                'left',
+                (Number(e.dataset.left) * zoom).toString() + 'px',
+              )
             }
           }
-          /* Mickael:
+        }
+        /* Mickael:
           Ne surtout pas mettre la référence de l'exercice dans la requête suivante,
           car dans svelte, la référence est liée au dernier exercice chargé, ce qui bug!
           */
-          const consigneDiv = mathalea2dFigures[k]
-            .closest('article')
-            ?.querySelector('[id^="consigne"]')
-          // const consigneDiv = document.getElementById('consigne' + exnumero + '-0')
-          if (
-            consigneDiv &&
-            mathalea2dFigures[k].clientWidth > consigneDiv.clientWidth
-          ) {
-            const coef =
-              (consigneDiv.clientWidth * 0.95) /
-              mathalea2dFigures[k].clientWidth
-            // console.log('coef:' + coef )
-            const width = mathalea2dFigures[k].getAttribute('width')
-            const height = mathalea2dFigures[k].getAttribute('height')
-            if (!mathalea2dFigures[k].dataset.widthInitiale && width != null)
-              mathalea2dFigures[k].dataset.widthInitiale = width
-            if (!mathalea2dFigures[k].dataset.heightInitiale && height != null)
-              mathalea2dFigures[k].dataset.heightInitiale = height
-            const newHeight = (
-              Number(mathalea2dFigures[k].dataset.heightInitiale) *
-              zoom *
-              coef
-            ).toString()
-            const newWidth = (
-              Number(mathalea2dFigures[k].dataset.widthInitiale) *
-              zoom *
-              coef
-            ).toString()
-            if (width !== newWidth) {
-              mathalea2dFigures[k].setAttribute('width', newWidth)
-            }
-            if (height !== newHeight) {
-              mathalea2dFigures[k].setAttribute('height', newHeight)
-            }
+        const consigneDiv = mathalea2dFigures[k]
+          .closest('article')
+          ?.querySelector('[id^="consigne"]')
+        // const consigneDiv = document.getElementById('consigne' + exnumero + '-0')
+        if (
+          consigneDiv &&
+          mathalea2dFigures[k].clientWidth > consigneDiv.clientWidth
+        ) {
+          const coef =
+            (consigneDiv.clientWidth * 0.95) / mathalea2dFigures[k].clientWidth
+          // console.log('coef:' + coef )
+          const width = mathalea2dFigures[k].getAttribute('width')
+          const height = mathalea2dFigures[k].getAttribute('height')
+          if (!mathalea2dFigures[k].dataset.widthInitiale && width != null)
+            mathalea2dFigures[k].dataset.widthInitiale = width
+          if (!mathalea2dFigures[k].dataset.heightInitiale && height != null)
+            mathalea2dFigures[k].dataset.heightInitiale = height
+          const newHeight = (
+            Number(mathalea2dFigures[k].dataset.heightInitiale) *
+            zoom *
+            coef
+          ).toString()
+          const newWidth = (
+            Number(mathalea2dFigures[k].dataset.widthInitiale) *
+            zoom *
+            coef
+          ).toString()
+          if (width !== newWidth) {
+            mathalea2dFigures[k].setAttribute('width', newWidth)
+          }
+          if (height !== newHeight) {
+            mathalea2dFigures[k].setAttribute('height', newHeight)
+          }
 
-            if (
-              mathalea2dFigures[k] != null &&
-              mathalea2dFigures[k].parentElement !== null
-            ) {
-              const eltsInFigures =
-                mathalea2dFigures[
-                  k
-                ].parentElement?.querySelectorAll<HTMLElement>(
-                  'div.divLatex',
-                ) || []
-              for (const elt of eltsInFigures) {
-                const e = elt
-                const initialTop = Number(e.dataset.top) ?? 0
-                const initialLeft = Number(e.dataset.left) ?? 0
-                e.style.setProperty(
-                  'top',
-                  (initialTop * coef * zoom).toString() + 'px',
-                )
-                e.style.setProperty(
-                  'left',
-                  (initialLeft * coef * zoom).toString() + 'px',
-                )
-              }
+          if (
+            mathalea2dFigures[k] != null &&
+            mathalea2dFigures[k].parentElement !== null
+          ) {
+            const eltsInFigures =
+              mathalea2dFigures[k].parentElement?.querySelectorAll<HTMLElement>(
+                'div.divLatex',
+              ) || []
+            for (const elt of eltsInFigures) {
+              const e = elt
+              const initialTop = Number(e.dataset.top) ?? 0
+              const initialLeft = Number(e.dataset.left) ?? 0
+              e.style.setProperty(
+                'top',
+                (initialTop * coef * zoom).toString() + 'px',
+              )
+              e.style.setProperty(
+                'left',
+                (initialLeft * coef * zoom).toString() + 'px',
+              )
             }
           }
         }
@@ -591,7 +580,6 @@
     if (isCorrectVisible) switchCorrectionVisible()
     isInteractif = !isInteractif
     exercise.interactif = isInteractif
-    $exercicesParams[exerciseIndex].interactif = isInteractif ? '1' : '0'
     updateDisplay()
   }
 
@@ -602,16 +590,16 @@
   }
 </script>
 
-<div class="z-0 flex-1 w-full mb-10 lg:mb-20" bind:this="{divExercice}">
+<div class="z-0 flex-1 w-full mb-10 lg:mb-20" bind:this={divExercice}>
   {#if $globalOptions.presMode !== 'recto' && $globalOptions.presMode !== 'verso'}
     <HeaderExerciceVueEleve
       {...headerExerciceProps}
-      indiceExercice="{exerciseIndex}"
-      showNumber="{indiceLastExercice > 0 &&
-        $globalOptions.presMode !== 'un_exo_par_page'}"
-      isMenuNeededForExercises="{$isMenuNeededForExercises}"
-      presMode="{$globalOptions.presMode}"
-      seed="{exercise.seed}"
+      indiceExercice={exerciseIndex}
+      showNumber={indiceLastExercice > 0 &&
+        $globalOptions.presMode !== 'un_exo_par_page'}
+      isMenuNeededForExercises={$isMenuNeededForExercises}
+      presMode={$globalOptions.presMode}
+      seed={exercise.seed}
     />
   {/if}
 
@@ -621,22 +609,22 @@
       id="exercice{exerciseIndex}"
     >
       <ExerciceVueEleveButtons
-        globalOptions="{$globalOptions}"
+        globalOptions={$globalOptions}
         {indiceLastExercice}
         {exercise}
-        isCorrectionVisible="{isCorrectVisible}"
+        isCorrectionVisible={isCorrectVisible}
         {newData}
         {switchCorrectionVisible}
         {isInteractif}
         {switchInteractif}
         {columnsCount}
         {columnsCountUpdate}
-        showCorrectionButton="{$globalOptions.recorder === 'flowmath'
+        showCorrectionButton={$globalOptions.recorder === 'flowmath'
           ? boutonCorrectionUrlFlag
-          : true}"
-        showInteractivityButton="{$globalOptions.recorder === 'flowmath'
+          : true}
+        showInteractivityButton={$globalOptions.recorder === 'flowmath'
           ? boutonInteractiviteUrlFlag
-          : true}"
+          : true}
       />
       <article
         class=" {$isMenuNeededForExercises
@@ -647,26 +635,28 @@
         ).toString()}rem;  line-height: calc({$globalOptions.z || 1});"
       >
         <div class="flex flex-col w-full mt-2 lg:mt-0 mb-2">
-          {#if typeof exercise.consigne !== 'undefined' && exercise.consigne.length !== 0}
-            <div>
-              <p
-                class="mt-2 mb-2 ml-2 lg:mx-6 text-coopmaths-corpus dark:text-coopmathsdark-corpus"
-              >
-                <!-- eslint-disable-next-line svelte/no-at-html-tags -->
-                {@html exercise.consigne}
-              </p>
-            </div>
-          {/if}
-          {#if exercise.introduction}
-            <div>
-              <p
-                class="mt-2 mb-2 ml-2 lg:mx-6 text-coopmaths-corpus dark:text-coopmathsdark-corpus"
-              >
-                <!-- eslint-disable-next-line svelte/no-at-html-tags -->
-                {@html exercise.introduction}
-              </p>
-            </div>
-          {/if}
+          {#key exercise.key}
+            {#if typeof exercise.consigne !== 'undefined' && exercise.consigne.length !== 0}
+              <div>
+                <p
+                  class="mt-2 mb-2 ml-2 lg:mx-6 text-coopmaths-corpus dark:text-coopmathsdark-corpus"
+                >
+                  <!-- eslint-disable-next-line svelte/no-at-html-tags -->
+                  {@html exercise.consigne}
+                </p>
+              </div>
+            {/if}
+            {#if exercise.introduction}
+              <div>
+                <p
+                  class="mt-2 mb-2 ml-2 lg:mx-6 text-coopmaths-corpus dark:text-coopmathsdark-corpus"
+                >
+                  <!-- eslint-disable-next-line svelte/no-at-html-tags -->
+                  {@html exercise.introduction}
+                </p>
+              </div>
+            {/if}
+          {/key}
         </div>
         <div
           style="columns: {window.innerWidth > 1000
@@ -680,32 +670,38 @@
               : 'list-decimal'} list-inside mx-2 lg:mx-6 marker:text-coopmaths-struct dark:marker:text-coopmathsdark-struct marker:font-bold"
           >
             <!-- eslint-disable-next-line @typescript-eslint/no-unused-vars -->
-            {#each exercise.listeQuestions as question, questionIndex (questionIndex + '_' + (exercise.seed || ''))}
+            {#each exercise.listeQuestions as question, questionIndex (exercise.key + '_' + exerciseIndex + '_' + questionIndex)}
               <Question
                 {exercise}
                 {questionIndex}
                 {exerciseIndex}
-                isCorrectionVisible="{isCorrectVisible}"
+                isCorrectionVisible={isCorrectVisible}
               />
             {/each}
-            <div bind:this="{divScore}" id="divScoreEx{exerciseIndex}"></div>
+            <div bind:this={divScore} id="divScoreEx{exerciseIndex}"></div>
           </ul>
         </div>
       </article>
       {#if isInteractif && !isCorrectVisible}
         <button
           type="submit"
-          on:click="{verifExerciceVueEleve}"
-          bind:this="{buttonScore}"
+          bind:this={buttonScore}
+          on:click={verifExerciceVueEleve}
           id="buttonScoreEx{exerciseIndex}"
-          class="{$globalOptions.recorder === 'flowmath' &&
-          !boutonValidationUrlFlag
-            ? 'hidden'
-            : ''}"
-          >Vérifier {numberOfAnswerFields > 1
-            ? 'les réponses'
-            : 'la réponse'}</button
+          class={`inline-block px-6 py-2.5 mr-10 my-5 ml-6
+                  bg-coopmaths-action dark:bg-coopmathsdark-action
+                  text-coopmaths-canvas dark:text-coopmathsdark-canvas
+                  font-medium text-xs leading-tight uppercase rounded shadow-md
+                  transform hover:bg-coopmaths-action-lightest dark:hover:bg-coopmathsdark-action-lightest
+                  hover:shadow-lg focus:bg-coopmaths-action-lightest dark:focus:bg-coopmathsdark-action-lightest
+                  focus:shadow-lg focus:outline-none focus:ring-0
+                  active:bg-coopmaths-action-lightest dark:active:bg-coopmathsdark-action-lightest
+                  active:shadow-lg transition duration-150 ease-in-out checkReponses`}
+          class:hidden={$globalOptions.recorder === 'flowmath' && !boutonValidationUrlFlag}
+          hidden={$globalOptions.recorder === 'flowmath' && !boutonValidationUrlFlag}
         >
+          Vérifier {numberOfAnswerFields > 1 ? 'les réponses' : 'la réponse'}
+        </button>
       {/if}
     </div>
   </div>

@@ -34,7 +34,7 @@ export const interactifReady = true
 export const interactifType = 'mathLive'
 
 export const dateDePublication = '20/01/2022'
-export const dateDeModifImportante = '11/05/2025'
+export const dateDeModifImportante = '14/01/2026'
 /**
  * Donner l\'écriture (décimale ou en fraction décimale) d\'une somme (ou différence) de nombres avec fractions décimales et pourcentages
  *
@@ -91,13 +91,14 @@ export default class SommeFractionsDecimales extends Exercice {
       max: 3,
       defaut: 4,
       melange: 4,
-      nbQuestions: this.nbQuestions,
+      nbQuestions: 50, // EE : ici, mettre this.nbQuestions empêchait d'avoir 2 ou 3 champs si une seule question. C'était donc une mauvaise idée.
       saisie: this.sup2,
     })
 
     let typesDeSolutionsDisponiblesEntiers = typesDeSolutionsDisponibles.map(
       (value) => parseInt(value.toString(), 10),
     )
+
     typesDeSolutionsDisponiblesEntiers = enleveDoublonNum(
       typesDeSolutionsDisponiblesEntiers,
     )
@@ -122,14 +123,14 @@ export default class SommeFractionsDecimales extends Exercice {
     } else if (typesDeSolutionsDisponiblesEntiers.length === 3) {
       casSolutionsAttendues = 7
       this.consigne +=
-        "d'un nombre décimal puis d'une fraction décimale puis d'un pourcentage."
+        "d'une fraction décimale puis d'une écriture décimale puis d'un pourcentage."
     } else if (typesDeSolutionsDisponiblesEntiers.includes(1)) {
       if (typesDeSolutionsDisponiblesEntiers.includes(2)) {
         casSolutionsAttendues = 4
-        this.consigne += "d'un nombre décimal puis d'une fraction décimale."
+        this.consigne += "d'une fraction décimale puis d'une écriture décimale."
       } else {
         casSolutionsAttendues = 5
-        this.consigne += "d'un nombre décimal puis d'un pourcentage."
+        this.consigne += "d'une écriture décimale puis d'un pourcentage."
       }
     } else {
       casSolutionsAttendues = 6
@@ -151,7 +152,6 @@ export default class SommeFractionsDecimales extends Exercice {
         numAMC,
         choix;
       i < this.nbQuestions && cpt < 50;
-
     ) {
       a = randint(2, 19)
       b = randint(2, 19, a)

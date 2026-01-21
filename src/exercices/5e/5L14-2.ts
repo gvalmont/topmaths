@@ -1,3 +1,4 @@
+import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 import { setReponse } from '../../lib/interactif/gestionInteractif'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import {
@@ -93,7 +94,6 @@ export default class ExerciceSubstituer extends Exercice {
     for (
       let i = 0, texte, texteCorr, cpt = 0;
       i < this.nbQuestions && cpt < 50;
-
     ) {
       this.autoCorrection[i] = {}
       switch (listeTypeDeQuestions[i]) {
@@ -150,7 +150,7 @@ export default class ExerciceSubstituer extends Exercice {
           break
       }
       if (this.interactif) {
-        texte += ajouteChampTexteMathLive(this, i, '', {
+        texte += ajouteChampTexteMathLive(this, i, KeyboardType.clavierDeBase, {
           texteAvant: '$~=~$',
         })
       } else if (context.isAmc)

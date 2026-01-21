@@ -7,11 +7,11 @@
   } from '../../../lib/Latex'
   import { type latexFileType } from '../../../lib/LatexTypes'
 
-  import type TypeExercice from '../../../exercices/Exercice'
   import ProfMaquette from '../../../lib/latex/ProfMaquette.sty?raw'
+  import type { IExercice } from '../../../lib/types'
 
   export let disabled: boolean
-  export let exercices: TypeExercice[]
+  export let exercices: IExercice[]
   export let latexFile: latexFileType
 
   let textForOverleafInput: HTMLInputElement

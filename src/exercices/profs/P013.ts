@@ -19,7 +19,7 @@ export const uuid = '5b767'
  * @author Jean-Claude Lhote
 
 */
-function valideListeOfPoints(liste: string): boolean {
+export function valideListeOfPoints(liste: string): boolean {
   const points = liste.split('/')
   if (points.length < 2) {
     return false
@@ -134,5 +134,4 @@ export default class TraceCourbeInterpolee1 extends Exercice {
 
 function exit(this: TraceCourbeInterpolee1) {
   this.listeQuestions[0] = "La liste de points n'est pas correctement formatée."
-  return
 }

@@ -1,3 +1,4 @@
+import { fixeBordures } from '../../lib/2d/fixeBordures'
 import { bleuMathalea, orangeMathalea } from '../../lib/colors'
 import { setCliqueFigure } from '../../lib/interactif/gestionInteractif'
 import { combinaisonListes, shuffle } from '../../lib/outils/arrayOutils'
@@ -44,17 +45,6 @@ export default class TracerAvecScratch extends Exercice {
   nouvelleVersion() {
     const typesDeQuestionsDisponibles = [1, 2, 3, 4, 5]
 
-    const fenetreMathalea2D = {
-      style: 'display: inline-block',
-      xmin: -4,
-      ymin: -13.5,
-      xmax: 10,
-      ymax: 0.5,
-      pixelsParCm: 10,
-      scale: 0.2,
-      id: 'ADeterminerPlusTard',
-    }
-
     const listeTypeDeQuestions = combinaisonListes(
       typesDeQuestionsDisponibles,
       this.nbQuestions,
@@ -65,7 +55,6 @@ export default class TracerAvecScratch extends Exercice {
     for (
       let i = 0, texte, texteCorr, cpt = 0;
       i < this.nbQuestions && cpt < 50;
-
     ) {
       // une fonction pour gérer la sortie HTML/LaTeX
       // code est un string contenant le code svg ou tikz
@@ -147,7 +136,7 @@ export default class TracerAvecScratch extends Exercice {
           baisseCrayon(lutinEnonce[indiceLutin])
           for (let k = 1; k < tabNbCote[indiceLutin] + 1; k++) {
             avance(
-              myPolyName(tabNbCote[indiceLutin]).nbPas,
+              myPolyName(tabNbCote[indiceLutin]).nbPas / 6,
               lutinEnonce[indiceLutin],
             )
             tournerD(
@@ -155,10 +144,21 @@ export default class TracerAvecScratch extends Exercice {
               lutinEnonce[indiceLutin],
             )
           }
-
-          fenetreMathalea2D.id = `cliquefigure${indiceLutin}Ex${this.numeroExercice}Q${i}`
+          lutinEnonce[indiceLutin].updateBordures()
           figLutinEnonce[indiceLutin] = mathalea2d(
-            fenetreMathalea2D,
+            Object.assign(
+              {
+                style: 'display: inline-block',
+                xmin: -4,
+                ymin: -13.5,
+                xmax: 10,
+                ymax: 0.5,
+                pixelsParCm: 20,
+                scale: 0.4,
+                id: `cliquefigure${indiceLutin}Ex${this.numeroExercice}Q${i}`,
+              },
+              fixeBordures([lutinEnonce[indiceLutin]]),
+            ),
             lutinEnonce[indiceLutin],
           )
         }
@@ -173,11 +173,26 @@ export default class TracerAvecScratch extends Exercice {
         lutinCorr.stringColor = orangeMathalea
         baisseCrayon(lutinCorr)
         for (let k = 1; k < n + 1; k++) {
-          avance(myPolyName(n).nbPas, lutinCorr)
+          avance(myPolyName(n).nbPas / 6, lutinCorr)
           tournerD(360 / n, lutinCorr)
         }
+        lutinCorr.updateBordures()
 
-        const figLutinCorr = mathalea2d(fenetreMathalea2D, lutinCorr)
+        const figLutinCorr = mathalea2d(
+          Object.assign(
+            {
+              style: 'display: inline-block',
+              xmin: -4,
+              ymin: -13.5,
+              xmax: 10,
+              ymax: 0.5,
+              pixelsParCm: 20,
+              scale: 0.4,
+            },
+            fixeBordures([lutinCorr]),
+          ),
+          lutinCorr,
+        )
 
         situations[0].fig_corr = figLutinCorr
 

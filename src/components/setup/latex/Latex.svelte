@@ -1,8 +1,6 @@
 <script lang="ts">
   import { afterUpdate, beforeUpdate, onDestroy, onMount } from 'svelte'
   import { get } from 'svelte/store'
-  import { Carousel, initTE } from 'tw-elements'
-  import type TypeExercice from '../../../exercices/Exercice'
   import { downloadTexWithImagesZip, downloadZip } from '../../../lib/files'
   import Latex, {
     doesLatexNeedsPics,
@@ -24,13 +22,17 @@
   import { mathaleaGoToView } from '../../../lib/mathaleaUtils'
   import { darkMode, exercicesParams } from '../../../lib/stores/generalStore'
   import { referentielLocale } from '../../../lib/stores/languagesStore'
+  import type { IExercice } from '../../../lib/types'
   import Footer from '../../Footer.svelte'
   import ButtonActionInfo from '../../shared/forms/ButtonActionInfo.svelte'
   import ButtonCompileLatexToPDF from '../../shared/forms/ButtonCompileLatexToPDF.svelte'
   import ButtonOverleaf from '../../shared/forms/ButtonOverleaf.svelte'
   import ButtonTextAction from '../../shared/forms/ButtonTextAction.svelte'
+  import InputNumber from '../../shared/forms/InputNumber.svelte'
+  import InputText from '../../shared/forms/InputText.svelte'
   import NavBar from '../../shared/header/NavBar.svelte'
   import BasicClassicModal from '../../shared/modal/BasicClassicModal.svelte'
+  import ImageCarousel from '../../shared/ui/ImageCarousel.svelte'
   import SimpleCard from '../../shared/ui/SimpleCard.svelte'
   import FormConfigSection from './FormConfigSection.svelte'
   import { decodeBase64, encodeBase64 } from './LatexConfig'
@@ -69,8 +71,20 @@
     ProfMaquetteQrcode: 'images/exports/export-profmaquette-qrcode',
     Can: 'images/exports/export-can',
   }
+
+  $: carouselImages = [
+    {
+      src: `${imgStylePartialUrls[latexFileInfos.style]}-thumb1.png`,
+      alt: `${latexFileInfos.style} image-1`,
+    },
+    {
+      src: `${imgStylePartialUrls[latexFileInfos.style]}-thumb2.png`,
+      alt: `${latexFileInfos.style} image-2`,
+    },
+  ]
+
   let dialogLua: HTMLDialogElement
-  let exercices: TypeExercice[]
+  let exercices: IExercice[]
   let latexFile: latexFileType = {
     contents: { preamble: '', intro: '', content: '', contentCorr: '' },
     latexWithoutPreamble: '',
@@ -208,7 +222,6 @@
   }
 
   onMount(async () => {
-    initTE({ Carousel })
     // console.log('onMount')
     promise = initExercices()
       .then(() => updateLatexWithAbortController())
@@ -278,8 +291,8 @@
   <NavBar
     subtitle="LaTeX"
     subtitleType="export"
-    handleLanguage="{() => {}}"
-    locale="{$referentielLocale}"
+    handleLanguage={() => {}}
+    locale={$referentielLocale}
   />
 
   <section
@@ -296,100 +309,69 @@
       <div
         class="flex flex-col w-full md:flex-row justify-between rounded-lg bg-coopmaths-canvas-dark shadow-[0_2px_15px_-3px_rgba(0,0,0,0.07),0_10px_20px_-2px_rgba(0,0,0,0.04)] dark:bg-coopmathsdark-canvas-dark"
       >
-        <div class="flex flex-col py-4 pl-16 w-2/3">
+        <div
+          class="flex flex-col py-4 pl-16 w-2/3 text-coopmaths-corpus dark:text-coopmathsdark-corpus"
+        >
           <FormConfigSection {latex} bind:latexFileInfos {promise} />
         </div>
         <!-- Carousel de vignette pour les aperçus -->
         <div class="flex justify-center w-full md:w-1/3">
-          <div
-            id="carouselExampleSlidesOnly"
-            class="relative w-2/3 md:w-full"
-            data-te-carousel-init
-            data-te-ride="carousel"
-          >
-            <div
-              class="relative w-full overflow-hidden after:clear-both after:block after:content-['']"
-            >
-              <!-- first item -->
-              <div
-                class="relative float-left -mr-[100%] w-full transition-transform duration-[300ms] ease-in-out motion-reduce:transition-none"
-                data-te-carousel-item
-                data-te-carousel-active
-              >
-                <img
-                  src="{`${imgStylePartialUrls[latexFileInfos.style]}-thumb1.png`}"
-                  alt="{latexFileInfos.style} image-1"
-                  class="block h-auto w-full rounded-r-lg"
-                />
-              </div>
-              <!-- second item -->
-              <div
-                class="relative float-left -mr-[100%] hidden w-full transition-transform duration-[300ms] ease-in-out motion-reduce:transition-none"
-                data-te-carousel-item
-              >
-                <img
-                  src="{`${imgStylePartialUrls[latexFileInfos.style]}-thumb2.png`}"
-                  alt="{latexFileInfos.style} image-2"
-                  class="block h-auto w-full rounded-r-lg"
-                />
-              </div>
-            </div>
+          <div class="relative w-2/3 md:w-full">
+            <ImageCarousel images={carouselImages} interval={3000} />
           </div>
         </div>
       </div>
 
-      <SimpleCard icon="{''}" title="{'Éléments de titres'}">
+      <SimpleCard icon={''} title={'Éléments de titres'}>
         <div class="flex flex-col w-full justify-start items-start space-y-2">
-          <input
-            type="text"
-            id="export-latex-titre-input"
-            class="border-1 w-full disabled:opacity-20 border-coopmaths-action dark:border-coopmathsdark-action focus:border-coopmaths-action-lightest dark:focus:border-coopmathsdark-action-lightest focus:outline-0 focus:ring-0 focus:border-1 bg-coopmaths-canvas dark:bg-coopmathsdark-canvas text-sm text-coopmaths-corpus-light dark:text-coopmathsdark-corpus-light placeholder:opacity-40"
-            placeholder="{latexFileInfos.style === 'Can'
+          <InputText
+            inputID="export-latex-titre-input"
+            placeholder={latexFileInfos.style === 'Can'
               ? 'Course aux nombres'
-              : 'Titre'}"
-            bind:value="{latexFileInfos.title}"
+              : 'Titre'}
+            bind:value={latexFileInfos.title}
+            showTitle={false}
+            classAddenda="placeholder:opacity-40"
           />
-          <input
-            type="text"
-            id="export-latex-reference-input"
-            class=" border-1 w-full disabled:opacity-20 border-coopmaths-action dark:border-coopmathsdark-action focus:border-coopmaths-action-lightest dark:focus:border-coopmathsdark-action-lightest focus:outline-0 focus:ring-0 focus:border-1 bg-coopmaths-canvas dark:bg-coopmathsdark-canvas text-sm text-coopmaths-corpus-light dark:text-coopmathsdark-corpus-light placeholder:opacity-40"
-            placeholder="{latexFileInfos.style === 'Coopmaths' ||
+          <InputText
+            inputID="export-latex-reference-input"
+            placeholder={latexFileInfos.style === 'Coopmaths' ||
             latexFileInfos.style === 'ProfMaquetteQrcode' ||
             latexFileInfos.style === 'ProfMaquette'
               ? 'Référence'
-              : 'Haut de page gauche'}"
-            bind:value="{latexFileInfos.reference}"
-            disabled="{latexFileInfos.style === 'Can'}"
+              : 'Haut de page gauche'}
+            bind:value={latexFileInfos.reference}
+            isDisabled={latexFileInfos.style === 'Can'}
+            showTitle={false}
+            classAddenda="placeholder:opacity-40"
           />
-          <input
-            type="text"
-            id="export-latex-soustitre-input"
-            class="border-1 w-full disabled:opacity-20 border-coopmaths-action dark:border-coopmathsdark-action focus:border-coopmaths-action-lightest dark:focus:border-coopmathsdark-action-lightest focus:outline-0 focus:ring-0 focus:border-1 bg-coopmaths-canvas dark:bg-coopmathsdark-canvas text-sm text-coopmaths-corpus-light dark:text-coopmathsdark-corpus-light placeholder:opacity-40"
-            placeholder="{latexFileInfos.style === 'Coopmaths' ||
+          <InputText
+            inputID="export-latex-soustitre-input"
+            placeholder={latexFileInfos.style === 'Coopmaths' ||
             latexFileInfos.style === 'ProfMaquetteQrcode' ||
             latexFileInfos.style === 'ProfMaquette'
               ? 'Sous-titre / Chapitre'
-              : 'Pied de page droit'}"
-            bind:value="{latexFileInfos.subtitle}"
-            disabled="{latexFileInfos.style === 'Can'}"
+              : 'Pied de page droit'}
+            bind:value={latexFileInfos.subtitle}
+            isDisabled={latexFileInfos.style === 'Can'}
+            showTitle={false}
+            classAddenda="placeholder:opacity-40"
           />
         </div>
       </SimpleCard>
-      <SimpleCard icon="{''}" title="{'Nombre de versions des exercices'}">
-        <input
-          type="number"
-          id="export-latex-nb-versions-input"
-          class="min-w-14 border-1 w-1/5 border-coopmaths-action dark:border-coopmathsdark-action focus:border-coopmaths-action-lightest dark:focus:border-coopmathsdark-action-lightest focus:outline-0 focus:ring-0 focus:border-1 bg-coopmaths-canvas dark:bg-coopmathsdark-canvas text-sm text-coopmaths-corpus-light dark:text-coopmathsdark-corpus-light"
-          name="numberOfVersions"
-          maxlength="2"
-          min="1"
-          max="20"
-          bind:value="{latexFileInfos.nbVersions}"
-        />
+      <SimpleCard icon={''} title={'Nombre de versions des exercices'}>
+        <span class="w-30">
+          <InputNumber
+            id="export-latex-nb-versions-input"
+            min={1}
+            max={50}
+            bind:value={latexFileInfos.nbVersions}
+          />
+        </span>
       </SimpleCard>
     </div>
 
-    <div bind:this="{divText}">
+    <div bind:this={divText}>
       <h1
         class="mt-12 mb-4 text-center md:text-left text-coopmaths-struct dark:text-coopmathsdark-struct text-2xl md:text-4xl font-bold"
       >
@@ -404,7 +386,7 @@
         <div
           class="grid grid-cols-1 grid-rows-1 md:grid-cols-2 xl:grid-cols-2 gap-8"
         >
-          <SimpleCard title="{'Compiler le code pour avoir un fichier PDF'}">
+          <SimpleCard title={'Compiler le code pour avoir un fichier PDF'}>
             <div>
               Je souhaite obtenir un fichier PDF à partir du code $\LaTeX$.
               J'essaie le nouveau compilateur en ligne (serveur TexLive.net) qui
@@ -414,16 +396,18 @@
               {#await promise}
                 <p>Chargement en cours...</p>
               {:then}
-                <ButtonCompileLatexToPDF
-                  class="flex w-full flex-col justify-center"
-                  {latex}
-                  {latexFileInfos}
-                  id="0"
-                />
+                <div>
+                  <ButtonCompileLatexToPDF
+                    class="flex w-full flex-col justify-center"
+                    {latex}
+                    {latexFileInfos}
+                    id="0"
+                  />
+                </div>
               {/await}
             </div>
           </SimpleCard>
-          <SimpleCard title="{'Obtenir un PDF'}">
+          <SimpleCard title={'Obtenir un PDF'}>
             <div>
               Je souhaite obtenir un fichier PDF à partir du code $\LaTeX$. Je
               vais être redirigé(e) vers le site OverLeaf (qui nécessite d'avoir
@@ -433,16 +417,18 @@
               {#await promise}
                 <p>Chargement en cours...</p>
               {:then}
-                <ButtonOverleaf
-                  class="flex w-full flex-col justify-center"
-                  {latexFile}
-                  {exercices}
-                  disabled="{false}"
-                />
+                <div>
+                  <ButtonOverleaf
+                    class="flex w-full flex-col justify-center"
+                    {latexFile}
+                    {exercices}
+                    disabled={false}
+                  />
+                </div>
               {/await}
             </div>
           </SimpleCard>
-          <SimpleCard title="{'Copier le code'}" icon="{'bx-copy-alt'}">
+          <SimpleCard title={'Copier le code'} icon={'bx-copy-alt'}>
             <div>
               Je souhaite copier le code $\LaTeX$ pour le coller dans un autre
               logiciel.
@@ -451,41 +437,45 @@
               {#await promise}
                 <p>Chargement en cours...</p>
               {:then}
-                <ButtonActionInfo
-                  action="copy"
-                  textToCopy="{latexFile.latexWithoutPreamble}"
-                  text="Code seul"
-                  successMessage="{messageForCopyPasteModal}"
-                  errorMessage="Impossible de copier le code LaTeX dans le presse-papier"
-                  class="px-2 py-1 rounded-md"
-                />
+                <div>
+                  <ButtonActionInfo
+                    action="copy"
+                    textToCopy={latexFile.latexWithoutPreamble}
+                    text="Code seul"
+                    successMessage={messageForCopyPasteModal}
+                    errorMessage="Impossible de copier le code LaTeX dans le presse-papier"
+                    class="px-2 py-1 rounded-md"
+                  />
+                </div>
               {/await}
             </div>
             <div slot="button2">
               {#await promise}
                 <p></p>
               {:then}
-                <ButtonActionInfo
-                  action="copy"
-                  textToCopy="{latexFile.latexWithPreamble}"
-                  text="Code + préambule"
-                  successMessage="{messageForCopyPasteModal}"
-                  errorMessage="Impossible de copier le code LaTeX dans le presse-papier"
-                  class="px-2 py-1 rounded-md"
-                />
+                <div>
+                  <ButtonActionInfo
+                    action="copy"
+                    textToCopy={latexFile.latexWithPreamble}
+                    text="Code + préambule"
+                    successMessage={messageForCopyPasteModal}
+                    errorMessage="Impossible de copier le code LaTeX dans le presse-papier"
+                    class="px-2 py-1 rounded-md"
+                  />
+                </div>
               {/await}
             </div>
           </SimpleCard>
-          <SimpleCard title="{'Télécharger le code'}" icon="{'bx-download'}">
+          <SimpleCard title={'Télécharger le code'} icon={'bx-download'}>
             <div>Je souhaite télécharger le matériel sur mon ordinateur.</div>
             <div slot="button1">
               <ButtonTextAction
                 class="px-2 py-1 rounded-md"
                 id="downloadFullArchive"
-                on:click="{async () => {
+                on:click={async () => {
                   await promise
                   downloadTexWithImagesZip('coopmaths', latexFile, exercices)
-                }}"
+                }}
                 text="Archive complète"
               />
             </div>
@@ -493,35 +483,34 @@
               {#await promise}
                 <p></p>
               {:then}
-                <ButtonTextAction
-                  class="inline-block px-2 py-1 rounded-md"
-                  id="downloadPicsButton"
-                  on:click="{handleDownloadPicsModalDisplay}"
-                  text="Uniquement les figures"
-                  disabled="{!picsWanted}"
-                />
+                <div>
+                  <ButtonTextAction
+                    class="inline-block px-2 py-1 rounded-md"
+                    id="downloadPicsButton"
+                    on:click={handleDownloadPicsModalDisplay}
+                    text="Uniquement les figures"
+                    disabled={!picsWanted}
+                  />
+                </div>
               {/await}
             </div>
           </SimpleCard>
-          <SimpleCard
-            title="{'Basculer vers la vue PDF'}"
-            icon="{'bx-download'}"
-          >
+          <SimpleCard title={'Basculer vers la vue PDF'} icon={'bx-download'}>
             <div>Je souhaite basculer vers la vue PDF.</div>
             <div slot="button1">
               <ButtonTextAction
                 class="px-2 py-1 rounded-md"
                 id="vuePDF"
-                on:click="{() => {
+                on:click={() => {
                   mathaleaGoToView('pdf')
-                }}"
+                }}
                 text="Basculer sur la vue PDF"
               />
             </div>
           </SimpleCard>
         </div>
         <BasicClassicModal
-          bind:isDisplayed="{isDownloadPicsModalDisplayed}"
+          bind:isDisplayed={isDownloadPicsModalDisplayed}
           icon="bx-code"
         >
           <span slot="header"></span>
@@ -552,7 +541,7 @@
           <div slot="footer">
             <ButtonTextAction
               text="Télécharger les figures"
-              on:click="{handleActionFromDownloadPicsModal}"
+              on:click={handleActionFromDownloadPicsModal}
             />
           </div>
         </BasicClassicModal>
@@ -560,7 +549,7 @@
     </div>
 
     <dialog
-      bind:this="{dialogLua}"
+      bind:this={dialogLua}
       class="rounded-xl bg-coopmaths-canvas text-coopmaths-corpus dark:bg-coopmathsdark-canvas-dark dark:text-coopmathsdark-corpus-light font-light shadow-lg p-6"
     >
       <!-- eslint-disable-next-line svelte/no-at-html-tags -->

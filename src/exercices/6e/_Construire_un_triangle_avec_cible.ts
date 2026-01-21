@@ -126,7 +126,6 @@ export default class ConstruireUnTriangleAvecCible extends Exercice {
     for (
       let i = 0, texte, texteCorr, cpt = 0;
       i < this.nbQuestions && cpt < 50;
-
     ) {
       IEP = new Alea2iep()
       objetsEnonce = []
@@ -691,22 +690,30 @@ export default class ConstruireUnTriangleAvecCible extends Exercice {
       if (this.sup) {
         // @ts-ignore typage de objetsEnonce ou gestion des undefined
         texte += mathalea2d(
-          Object.assign({}, fixeBordures(objetsEnonce), {
-            pixelsParCm: 30,
-            scale: 1,
-            mainlevee: false,
-          }),
-          objetsEnonce,
+          Object.assign(
+            {},
+            fixeBordures(objetsEnonce.filter((el) => el !== undefined)),
+            {
+              pixelsParCm: 30,
+              scale: 1,
+              mainlevee: false,
+            },
+          ),
+          objetsEnonce.filter((el) => el !== undefined),
         )
       }
       // @ts-ignore typage de objetsEnonceCorrection ou gestion des undefined
       texteCorr += mathalea2d(
-        Object.assign({}, fixeBordures(objetsCorrection), {
-          pixelsParCm: 30,
-          scale: 1,
-          mainlevee: false,
-        }),
-        objetsCorrection,
+        Object.assign(
+          {},
+          fixeBordures(objetsCorrection.filter((el) => el !== undefined)),
+          {
+            pixelsParCm: 30,
+            scale: 1,
+            mainlevee: false,
+          },
+        ),
+        objetsCorrection.filter((el) => el !== undefined),
       )
       texteCorr += '<br>' + IEP.htmlBouton(this.numeroExercice, i)
       if (this.listeQuestions.indexOf(texte) === -1) {

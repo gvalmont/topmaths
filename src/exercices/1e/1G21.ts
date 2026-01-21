@@ -3,17 +3,19 @@ import { PointAbstrait } from '../../lib/2d/PointAbstrait'
 import { milieu } from '../../lib/2d/utilitairesPoint'
 import { Vecteur } from '../../lib/2d/Vecteur'
 import engine from '../../lib/interactif/comparisonFunctions'
+import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import Exercice from '../Exercice'
 
-export const titre = 'Équations cartésiennes de droites'
+export const titre = "Trouver l'équation cartésienne d'une droite"
 export const dateDePublication = '24/06/2024'
+export const dateDeModificationImportante = '10/01/2026'
 
 /**
  * Calcul d'équations cartésiennes de droites
  * Beaucoup trop de fonctions... Comment les intégrer à la base
  * de code déjà existante ?
- * @florianpicard
+ * @author : florianpicard
  */
 
 export const uuid = '8472c'
@@ -27,10 +29,6 @@ function pointVersTex(A: PointAbstrait): string {
   return `${A.nom}\\left(${A.x} ; ${A.y}\\right)`
 }
 
-// function vecteurcoordVersTex (u: Vecteur): string {
-//   return `\\begin{pmatrix} ${u.x} \\\\ ${u.y} \\end{pmatrix}`
-// }
-
 function vecteurVersTex(u: Vecteur): string {
   const fonctionLatex = u.nom.length >= 2 ? 'overrightarrow' : 'vec'
   return `\\${fonctionLatex}{${u.nom}} \\begin{pmatrix} ${u.x} \\\\ ${u.y} \\end{pmatrix}`
@@ -39,10 +37,6 @@ function vecteurVersTex(u: Vecteur): string {
 function vecteurNormal(u: Vecteur, nom: string = 'n'): Vecteur {
   return new Vecteur(-u.y, u.x, nom)
 }
-
-// function equationCartesienne (d: Droite): string {
-//   return engine.parse(`${d.a}x + ${d.b}y + ${d.c} = 0`)
-// }
 
 function construireDroite(
   A: PointAbstrait,
@@ -73,7 +67,7 @@ function construireDroite(
     const equa = engine.parse(`${n.x}x + ${n.y}y + ${c} = 0`).simplify()
     return [
       droite(n.x, n.y, c),
-      `La droite de vecteur normal $${vecteurVersTex(n)}$ admet pour équation cartésienne $${partial.latex}$, pour un certain nombre réel $c$. Comme $${A.nom}$ appartient à la droite, $${Aind.latex}$. Ainsi, $c = ${c}$, l'équation cartésienne de la droite est donc $${equa.latex}$.`,
+      `La droite de vecteur normal $${vecteurVersTex(n)}$ admet pour équation cartésienne $${partial.latex}$, pour un certain nombre réel $c$. Comme $${A.nom}$ appartient à la droite, $${Aind.latex}$. Ainsi, $c = ${c}$, l'équation cartésienne de la droite est donc $${miseEnEvidence(equa.latex)}$.`,
     ]
   }
 }
@@ -87,7 +81,7 @@ function hauteur(
   const [d, details] = construireDroite(A, { n }) as [Droite, string]
   return [
     d,
-    `La hauteur $(h)$ issue de $${A.nom}$ dans le triangle $${A.nom}${B.nom}${C.nom}$ passe par le PointAbstrait $${A.nom}$ et est perpendiculaire à la droite $(${B.nom}${C.nom}$). Ainsi le vecteur $${vecteurVersTex(n)}$ est un vecteur normal à la droite $(h)$. ` +
+    `La hauteur $(h)$ issue de $${A.nom}$ dans le triangle $${A.nom}${B.nom}${C.nom}$ passe par le point $${A.nom}$ et est perpendiculaire à la droite $(${B.nom}${C.nom}$). Ainsi le vecteur $${vecteurVersTex(n)}$ est un vecteur normal à la droite $(h)$. ` +
       details,
   ]
 }
@@ -125,7 +119,7 @@ function questionPointvDir(i: number = 0): [string, string] {
   const [, details] = construireDroite(A, { u }) as [Droite, string]
 
   return [
-    `Soient le PointAbstrait $${pointVersTex(A)}$, et le vecteur $${vecteurVersTex(u)}$. Donner l'équation de la droite $(d)$ passant par le PointAbstrait $${A.nom}$ et de vecteur directeur $\\vec{${u.nom}}$.`,
+    `Soient le point $${pointVersTex(A)}$, et le vecteur $${vecteurVersTex(u)}$. Donner l'équation de la droite $(d)$ passant par le point $${A.nom}$ et de vecteur directeur $\\vec{${u.nom}}$.`,
     details,
   ]
 }
@@ -137,7 +131,7 @@ function questionPointvNorm(i: number = 0): [string, string] {
   const n = new Vecteur(ux, uy, 'n')
   const [, details] = construireDroite(A, { n }) as [Droite, string]
   return [
-    `Soient le PointAbstrait $${pointVersTex(A)}$, et le vecteur $${vecteurVersTex(n)}$. Donner l'équation de la droite $(d)$ passant par le PointAbstrait $${A.nom}$ et de vecteur normal $\\vec{${n.nom}}$.`,
+    `Soient le point $${pointVersTex(A)}$, et le vecteur $${vecteurVersTex(n)}$. Donner l'équation de la droite $(d)$ passant par le point $${A.nom}$ et de vecteur normal $\\vec{${n.nom}}$.`,
     details,
   ]
 }
@@ -186,7 +180,10 @@ export default class nomExercice extends Exercice {
       const [texte, texteCorr] = questions[i % questions.length](i)
       if (this.questionJamaisPosee(i, texte)) {
         this.listeQuestions[i] = texte
-        this.listeCorrections[i] = texteCorr
+        this.listeCorrections[i] = texteCorr.replace(
+          /\b(\d+)\.(\d+)\b/g,
+          '$1{,}$2',
+        )
         i++
       }
     }

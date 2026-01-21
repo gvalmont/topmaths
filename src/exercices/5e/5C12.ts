@@ -1,3 +1,4 @@
+import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 import { setReponse } from '../../lib/interactif/gestionInteractif'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
@@ -82,7 +83,6 @@ export default class CalculerUneExpressionNumerique extends Exercice {
     for (
       let i = 0, texte: string, texteCorr: string, cpt = 0;
       i < this.nbQuestions && cpt < 50;
-
     ) {
       this.autoCorrection[i] = {}
       nbOperations = listeTypeDeQuestions[i]
@@ -133,7 +133,12 @@ export default class CalculerUneExpressionNumerique extends Exercice {
       if (this.questionJamaisPosee(i, expn, expf)) {
         // Si la question n'a jamais été posée, on en créé une autre
         if (this.interactif) {
-          texte += ajouteChampTexteMathLive(this, i, ' ', { texteAvant: '$=$' })
+          texte += ajouteChampTexteMathLive(
+            this,
+            i,
+            KeyboardType.clavierDeBase,
+            { texteAvant: '$=$' },
+          )
           setReponse(this, i, reponse)
         } else if (context.isAmc) {
           texte +=

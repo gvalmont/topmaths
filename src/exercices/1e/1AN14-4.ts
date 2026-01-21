@@ -8,7 +8,7 @@ import { rienSi1 } from '../../lib/outils/ecritures'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { gestionnaireFormulaireTexte, randint } from '../../modules/outils'
 import Exercice from '../Exercice'
-export const titre = 'Dérivée de $u + v$'
+export const titre = 'Dériver $u + v$'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const uuid = 'a83c0'
@@ -28,7 +28,7 @@ class DerivationSommesSimples extends Exercice {
     super()
     this.besoinFormulaireTexte = [
       'Types de fonctions',
-      'Nombres séparés par des tirets :\n1 : polynôme et inverse\n2 : polynôme et racine carrée\n3 : inverse et racine carrée\n4 : les trois réunis\n5 : Mélange',
+      'Nombres séparés par des tirets :\n1 : Polynôme et inverse\n2 : Polynôme et racine carrée\n3 : Inverse et racine carrée\n4 : Les trois réunis\n5 : Mélange',
     ]
     this.sup = '5'
     this.nbQuestions = 5
@@ -160,12 +160,9 @@ class DerivationSommesSimples extends Exercice {
       }
       const texte =
         `Donner l'expression de la dérivée de la fonction $f$ définie sur $${df}$ par $f(x)=${laFonction}$.<br>` +
-        ajouteChampTexteMathLive(
-          this,
-          i,
-          `${KeyboardType.clavierDeBaseAvecX} ${KeyboardType.clavierFullOperations}`,
-          { texteAvant: "$f'(x)=$" },
-        )
+        ajouteChampTexteMathLive(this, i, KeyboardType.lyceeClassique, {
+          texteAvant: "$f'(x)=$",
+        })
       let texteCorr = ''
       if (this.correctionDetaillee) {
         for (const f of fonctionsMelangees) {

@@ -6,7 +6,7 @@ import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { numAlpha, sp } from '../../lib/outils/outilString'
 import { texNombre } from '../../lib/outils/texNombre'
 import { context } from '../../modules/context'
-import Operation from '../../modules/operations'
+import operation from '../../modules/operations'
 import {
   gestionnaireFormulaireTexte,
   listeQuestionsToContenu,
@@ -78,7 +78,6 @@ export default class DivisionEuclidienneEtAjout extends Exercice {
         texteCorr,
         cpt = 0;
       i < this.nbQuestions && cpt < 50;
-
     ) {
       texte = ''
       texteCorr = ''
@@ -119,7 +118,7 @@ export default class DivisionEuclidienneEtAjout extends Exercice {
         texteNbAMC = numAlpha(1) + ' Quel '
         texteCorr +=
           numAlpha(0) +
-          Operation({
+          operation({
             operande1: dividende,
             operande2: diviseur,
             type: 'divisionE',

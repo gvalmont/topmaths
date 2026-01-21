@@ -1,15 +1,16 @@
+import { remplisLesBlancs } from '../../lib/interactif/questionMathLive'
 import { texNombre } from '../../lib/outils/texNombre'
-import Exercice from '../Exercice'
+import { context } from '../../modules/context'
+import { fraction } from '../../modules/fractions'
 import {
   gestionnaireFormulaireTexte,
   listeQuestionsToContenu,
   randint,
 } from '../../modules/outils'
-import { context } from '../../modules/context'
-import { fraction } from '../../modules/fractions'
-import { remplisLesBlancs } from '../../lib/interactif/questionMathLive'
+import Exercice from '../Exercice'
 
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
+import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { arrondi } from '../../lib/outils/nombres'
 
 export const titre = 'Donner différentes écritures de nombres décimaux'
@@ -126,7 +127,7 @@ export default class ExerciceDifferentesEcrituresNombresDecimaux extends Exercic
             })
           } else {
             texte = `$${fraction(n, 100).texFraction}=${context.isAmc ? 'a' : '\\ldots\\ldots'}+${texFraction(context.isAmc ? 'b' : '\\ldots\\ldots', '10')}+${texFraction(context.isAmc ? 'c' : '\\ldots\\ldots', '100')}=${context.isAmc ? 'd' : '\\ldots\\ldots'}$`
-            texteCorr = `$${fraction(n, 100).texFraction}=${u}+${texFraction(d, '10')}+${texFraction(c, '100')}=${ecritureDecimale}$`
+            texteCorr = `$${fraction(n, 100).texFraction}=${miseEnEvidence(u)}+${texFraction(miseEnEvidence(d), '10')}+${texFraction(miseEnEvidence(c), '100')}=${miseEnEvidence(ecritureDecimale)}$`
             this.autoCorrection[i] = {
               enonceAvant: false,
               options: { multicols: true },
@@ -209,10 +210,10 @@ export default class ExerciceDifferentesEcrituresNombresDecimaux extends Exercic
           break
         case 2: // n/100 = ... + .../100 + .../10
           ecritureDecimale = texNombre(arrondi(u + d / 10 + c / 100, 2))
-          texteCorr = `$${texFraction(n, '100')}=${u}+${texFraction(
-            c,
+          texteCorr = `$${texFraction(n, '100')}=${miseEnEvidence(u)}+${texFraction(
+            miseEnEvidence(c),
             100,
-          )}+${texFraction(d, 10)}=${ecritureDecimale}$`
+          )}+${texFraction(miseEnEvidence(d), 10)}=${miseEnEvidence(ecritureDecimale)}$`
           if (this.interactif && !context.isAmc) {
             const content = `${fraction(n, 100).texFraction}~=~ %{champ1} + \\dfrac{%{champ2}}{100} + \\dfrac{%{champ3}}{10}~=~%{champ4}`
             texte = remplisLesBlancs(this, i, content)
@@ -315,10 +316,10 @@ export default class ExerciceDifferentesEcrituresNombresDecimaux extends Exercic
           break
         case 3: // .../... = u + d/10 + c/100=...
           ecritureDecimale = texNombre(arrondi(u + d / 10 + c / 100, 2))
-          texteCorr = `$${texFraction(n, '100')}=${u}+${texFraction(
+          texteCorr = `$${texFraction(miseEnEvidence(n), '100')}=${u}+${texFraction(
             d,
             '10',
-          )}+${texFraction(c, '100')}=${ecritureDecimale}$`
+          )}+${texFraction(c, '100')}=${miseEnEvidence(ecritureDecimale)}$`
           if (this.interactif && !context.isAmc) {
             const content = `\\dfrac{%{champ1}}{%{champ2}}~=~ ${u} + \\dfrac{${d}}{10} + \\dfrac{${c}}{100}~=~%{champ3}`
             texte = remplisLesBlancs(this, i, content)
@@ -381,7 +382,7 @@ export default class ExerciceDifferentesEcrituresNombresDecimaux extends Exercic
           }
           break
         case 4: // u = .../10
-          texteCorr = `$${u}=${texFraction(10 * u, '10')}$`
+          texteCorr = `$${u}=${texFraction(miseEnEvidence(10 * u), '10')}$`
           if (this.interactif && !context.isAmc) {
             const content = `${u}~=~\\dfrac{%{champ1}}{10}`
             texte = remplisLesBlancs(this, i, content)
@@ -418,7 +419,7 @@ export default class ExerciceDifferentesEcrituresNombresDecimaux extends Exercic
 
           break
         case 5: // u = .../100
-          texteCorr = `$${u}=${texFraction(100 * u, '100')}$`
+          texteCorr = `$${u}=${texFraction(miseEnEvidence(100 * u), '100')}$`
           if (this.interactif && !context.isAmc) {
             const content = `${u}~=~\\dfrac{%{champ1}}{100}`
             texte = remplisLesBlancs(this, i, content)
@@ -455,7 +456,7 @@ export default class ExerciceDifferentesEcrituresNombresDecimaux extends Exercic
           break
         case 6: // n/10 = ... + .../10 + .../100 = ...
           ecritureDecimale = texNombre(arrondi(n / 10, 1))
-          texteCorr = `$${texFraction(n, 10)}=${u * 10 + d}+${texFraction(c, 10)}+${texFraction(0, 100)}=${ecritureDecimale}$`
+          texteCorr = `$${texFraction(n, 10)}=${miseEnEvidence(u * 10 + d)}+${texFraction(miseEnEvidence(c), 10)}+${texFraction(miseEnEvidence(0), 100)}=${miseEnEvidence(ecritureDecimale)}$`
           if (this.interactif && !context.isAmc) {
             const content = `\\dfrac{${n}}{10}~=~ %{champ1} + \\dfrac{%{champ2}}{10} + \\dfrac{%{champ3}}{100}~=~%{champ4}`
             texte = remplisLesBlancs(this, i, content)
@@ -555,7 +556,7 @@ export default class ExerciceDifferentesEcrituresNombresDecimaux extends Exercic
         case 7: // .../100 = u + d/10 =...
         default:
           ecritureDecimale = texNombre(arrondi(u + d / 10, 1))
-          texteCorr = `$${texFraction(n, '100')}=${u}+${texFraction(d, '10')}=${ecritureDecimale}$`
+          texteCorr = `$${texFraction(miseEnEvidence(n), '100')}=${u}+${texFraction(d, '10')}=${miseEnEvidence(ecritureDecimale)}$`
           if (this.interactif && !context.isAmc) {
             const content = `\\dfrac{%{champ1}}{100}~=~ ${u} + \\dfrac{${d}}{10}~=~%{champ2}`
             texte = remplisLesBlancs(this, i, content)

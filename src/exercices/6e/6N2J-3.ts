@@ -4,7 +4,7 @@ import { combinaisonListes } from '../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { texNombre } from '../../lib/outils/texNombre'
 import { context } from '../../modules/context'
-import Operation from '../../modules/operations'
+import operation from '../../modules/operations'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import Exercice from '../Exercice'
 
@@ -62,25 +62,25 @@ export default class DivisibleDiviseurMultiple extends Exercice {
     }
     this.introduction = `À l'aide des calculs suivants, compléter les phrases suivantes avec les nombres $${texNombre(a1)}$, $${texNombre(a)}$, $${texNombre(b)}$ ou $${texNombre(q)}$.<br><br>`
     if (randint(0, 1) === 0) {
-      this.introduction += Operation({
+      this.introduction += operation({
         operande1: a,
         operande2: b,
         type: 'divisionE',
       })
       if (!context.isHtml) this.introduction += '\\qquad'
-      this.introduction += Operation({
+      this.introduction += operation({
         operande1: a1,
         operande2: b,
         type: 'divisionE',
       })
     } else {
-      this.introduction += Operation({
+      this.introduction += operation({
         operande1: a1,
         operande2: b,
         type: 'divisionE',
       })
       if (!context.isHtml) this.introduction += '\\qquad'
-      this.introduction += Operation({
+      this.introduction += operation({
         operande1: a,
         operande2: b,
         type: 'divisionE',

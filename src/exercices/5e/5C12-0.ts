@@ -1,3 +1,5 @@
+import { bleuMathalea } from '../../lib/colors'
+import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 import { setReponse } from '../../lib/interactif/gestionInteractif'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import {
@@ -133,7 +135,6 @@ export default class Priorites extends Exercice {
     for (
       let i = 0, liste, somme, a, b, c, d, cpt = 0;
       i < this.nbQuestions && cpt < 50;
-
     ) {
       let texte: string
       let texteCorr: string
@@ -143,7 +144,7 @@ export default class Priorites extends Exercice {
           b = randint(2, 11)
           c = randint(2, 11)
           texte = `$${a}+${b}\\times${c}$`
-          texteCorr = `$${a}+${miseEnEvidence(b + '\\times' + c)}=${a}+${
+          texteCorr = `$${a}+${miseEnEvidence(b + '\\times' + c, bleuMathalea)}=${a}+${
             b * c
           }=${a + b * c}$`
           setReponse(this, i, a + b * c)
@@ -153,7 +154,7 @@ export default class Priorites extends Exercice {
           c = randint(2, 11)
           b = c * randint(2, 11)
           texte = `$${a}+${b}\\div${c}$`
-          texteCorr = `$${a}+${miseEnEvidence(b + '\\div' + c)}=${a}+${
+          texteCorr = `$${a}+${miseEnEvidence(b + '\\div' + c, bleuMathalea)}=${a}+${
             b / c
           }=${a + b / c}$`
           setReponse(this, i, a + b / c)
@@ -163,7 +164,7 @@ export default class Priorites extends Exercice {
           c = randint(2, 11)
           a = b * randint(2, 11)
           texte = `$${a}\\div${b}\\times${c}$`
-          texteCorr = `$${miseEnEvidence(a + '\\div' + b)}\\times${c}=${
+          texteCorr = `$${miseEnEvidence(a + '\\div' + b, bleuMathalea)}\\times${c}=${
             a / b
           }\\times${c}=${(a / b) * c}$`
           setReponse(this, i, (a / b) * c)
@@ -173,7 +174,7 @@ export default class Priorites extends Exercice {
           c = randint(2, 11)
           a = b * c + randint(2, 11)
           texte = `$${a}-${b}\\times${c}$`
-          texteCorr = `$${a}-${miseEnEvidence(b + '\\times' + c)}=${a}-${
+          texteCorr = `$${a}-${miseEnEvidence(b + '\\times' + c, bleuMathalea)}=${a}-${
             b * c
           }=${a - b * c}$`
           setReponse(this, i, a - b * c)
@@ -191,7 +192,7 @@ export default class Priorites extends Exercice {
             a = randint(2, 6)
           }
           texte = `$${a}\\times${b}\\div${c}$`
-          texteCorr = `$${miseEnEvidence(a + '\\times' + b)}\\div${c}=${
+          texteCorr = `$${miseEnEvidence(a + '\\times' + b, bleuMathalea)}\\div${c}=${
             a * b
           }\\div${c}=${(a * b) / c}$`
           setReponse(this, i, (a * b) / c)
@@ -201,7 +202,7 @@ export default class Priorites extends Exercice {
           b = randint(2, 11)
           c = randint(2, 11)
           texte = `$${a}\\times${b}+${c}$`
-          texteCorr = `$${miseEnEvidence(a + '\\times' + b)}+${c}=${
+          texteCorr = `$${miseEnEvidence(a + '\\times' + b, bleuMathalea)}+${c}=${
             a * b
           }+${c}=${a * b + c}$`
           setReponse(this, i, a * b + c)
@@ -211,7 +212,7 @@ export default class Priorites extends Exercice {
           a = b + randint(11, 29)
           c = randint(11, 29)
           texte = `$${a}-${b}+${c}$`
-          texteCorr = `$${miseEnEvidence(a + '-' + b)}+${c}=${a - b}+${c}=${a - b + c}$`
+          texteCorr = `$${miseEnEvidence(a + '-' + b, bleuMathalea)}+${c}=${a - b}+${c}=${a - b + c}$`
           setReponse(this, i, a - b + c)
           break
         case 8:
@@ -222,6 +223,7 @@ export default class Priorites extends Exercice {
           texte = `$${a}+${b}+${c}\\times${d}$`
           texteCorr = `$${a}+${b}+${miseEnEvidence(
             c + '\\times' + d,
+            bleuMathalea,
           )}=${a}+${b}+${c * d}=${a + b + c * d}$`
           setReponse(this, i, a + b + c * d)
           break
@@ -233,7 +235,11 @@ export default class Priorites extends Exercice {
           texte = `$${a}\\times${b}+${c}\\times${d}$`
           texteCorr = `$${miseEnEvidence(
             a + '\\times' + b,
-          )}+${miseEnEvidence(c + '\\times' + d)}=${a * b}+${c * d}=${a * b + c * d}$`
+            bleuMathalea,
+          )}+${miseEnEvidence(
+            c + '\\times' + d,
+            bleuMathalea,
+          )}=${a * b}+${c * d}=${a * b + c * d}$`
           setReponse(this, i, a * b + c * d)
           break
         case 10:
@@ -244,7 +250,8 @@ export default class Priorites extends Exercice {
           texte = `$${a}\\times${b}\\times${c}-${d}$`
           texteCorr = `$${miseEnEvidence(
             a + '\\times' + b,
-          )}\\times${c}-${d}=${miseEnEvidence(a * b + '\\times' + c)}-${d}=${a * b * c - d}$`
+            bleuMathalea,
+          )}\\times${c}-${d}=${miseEnEvidence(a * b + '\\times' + c, bleuMathalea)}-${d}=${a * b * c - d}$`
           setReponse(this, i, a * b * c - d)
           break
         case 11:
@@ -255,7 +262,8 @@ export default class Priorites extends Exercice {
           texte = `$${a}\\times${b}-${c}\\div${d}$`
           texteCorr = `$${miseEnEvidence(
             a + '\\times' + b,
-          )}-${miseEnEvidence(c + '\\div' + d)}=${a * b}-${c / d}=${a * b - c / d}$`
+            bleuMathalea,
+          )}-${miseEnEvidence(c + '\\div' + d, bleuMathalea)}=${a * b}-${c / d}=${a * b - c / d}$`
           setReponse(this, i, a * b - c / d)
           break
         case 12:
@@ -266,7 +274,8 @@ export default class Priorites extends Exercice {
           texte = `$${a}\\times${b}+${c}\\div${d}$`
           texteCorr = `$${miseEnEvidence(
             a + '\\times' + b,
-          )}+${miseEnEvidence(c + '\\div' + d)}=${a * b}+${c / d}=${a * b + c / d}$`
+            bleuMathalea,
+          )}+${miseEnEvidence(c + '\\div' + d, bleuMathalea)}=${a * b}+${c / d}=${a * b + c / d}$`
           setReponse(this, i, a * b + c / d)
           break
         case 13:
@@ -276,6 +285,7 @@ export default class Priorites extends Exercice {
           texte = `$${a}\\times(${b}-${c})$`
           texteCorr = `$${a}\\times(${miseEnEvidence(
             b + '-' + c,
+            bleuMathalea,
           )})=${a}\\times${b - c}=${a * (b - c)}$`
           setReponse(this, i, a * (b - c))
           break
@@ -284,7 +294,7 @@ export default class Priorites extends Exercice {
           a = b + randint(2, 11)
           c = randint(2, 11)
           texte = `$(${a}-${b})\\times${c}$`
-          texteCorr = `$(${miseEnEvidence(a + '-' + b)})\\times${c}=${
+          texteCorr = `$(${miseEnEvidence(a + '-' + b, bleuMathalea)})\\times${c}=${
             a - b
           }\\times${c}=${(a - b) * c}$`
           setReponse(this, i, (a - b) * c)
@@ -294,7 +304,7 @@ export default class Priorites extends Exercice {
           b = randint(11, 39)
           a = b + c * randint(2, 9)
           texte = `$(${a}-${b})\\div${c}$`
-          texteCorr = `$(${miseEnEvidence(a + '-' + b)})\\div${c}=${
+          texteCorr = `$(${miseEnEvidence(a + '-' + b, bleuMathalea)})\\div${c}=${
             a - b
           }\\div${c}=${(a - b) / c}$`
           setReponse(this, i, (a - b) / c)
@@ -304,7 +314,7 @@ export default class Priorites extends Exercice {
           c = randint(2, 6)
           a = (b + c) * randint(2, 9)
           texte = `$${a}\\div(${b}+${c})$`
-          texteCorr = `$${a}\\div(${miseEnEvidence(b + '+' + c)})=${a}\\div${
+          texteCorr = `$${a}\\div(${miseEnEvidence(b + '+' + c, bleuMathalea)})=${a}\\div${
             b + c
           }=${a / (b + c)}$`
           setReponse(this, i, a / (b + c))
@@ -314,7 +324,7 @@ export default class Priorites extends Exercice {
           b = randint(11, 39)
           a = b + c * randint(2, 9)
           texte = `$(${a}-${b})\\div${c}$`
-          texteCorr = `$(${miseEnEvidence(a + '-' + b)})\\div${c}=${
+          texteCorr = `$(${miseEnEvidence(a + '-' + b, bleuMathalea)})\\div${c}=${
             a - b
           }\\div${c}=${(a - b) / c}$`
           setReponse(this, i, (a - b) / c)
@@ -327,6 +337,7 @@ export default class Priorites extends Exercice {
           texte = `$${a}\\times(${b}-${c})\\times${d}$`
           texteCorr = `$${a}\\times(${miseEnEvidence(
             b + '-' + c,
+            bleuMathalea,
           )})\\times${d}=${a}\\times${b - c}\\times${d}=${a * (b - c) * d}$`
           setReponse(this, i, a * (b - c) * d)
           break
@@ -338,6 +349,7 @@ export default class Priorites extends Exercice {
           texte = `$${a}\\times${b}\\times(${c}-${d})$`
           texteCorr = `$${a}\\times${b}\\times(${miseEnEvidence(
             c + '-' + d,
+            bleuMathalea,
           )})=${a}\\times${b}\\times${c - d}=${a * b * (c - d)}$`
           setReponse(this, i, a * b * (c - d))
           break
@@ -349,7 +361,8 @@ export default class Priorites extends Exercice {
           texte = `$${a}\\times(${b}-${c}\\times${d})$`
           texteCorr = `$${a}\\times(${b}-${miseEnEvidence(
             c + '\\times' + d,
-          )})=${a}\\times(${miseEnEvidence(b + '-' + c * d)})=${a}\\times${
+            bleuMathalea,
+          )})=${a}\\times(${miseEnEvidence(b + '-' + c * d, bleuMathalea)})=${a}\\times${
             b - c * d
           }=${a * (b - c * d)}$`
           setReponse(this, i, a * (b - c * d))
@@ -371,7 +384,8 @@ export default class Priorites extends Exercice {
           texte = `$${a}\\times${b}\\div(${c}+${d})$`
           texteCorr = `$${a}\\times${b}\\div(${miseEnEvidence(
             c + '+' + d,
-          )})=${miseEnEvidence(a + '\\times' + b)}\\div${c + d}=${
+            bleuMathalea,
+          )})=${miseEnEvidence(a + '\\times' + b, bleuMathalea)}\\div${c + d}=${
             a * b
           }\\div${c + d}=${(a * b) / (c + d)}$`
           setReponse(this, i, (a * b) / (c + d))
@@ -385,8 +399,10 @@ export default class Priorites extends Exercice {
           texte = `$${a}\\times(${b}\\div${c}+${d})$`
           texteCorr = `$${a}\\times(${miseEnEvidence(
             b + '\\div' + c,
+            bleuMathalea,
           )}+${d})=${a}\\times(${miseEnEvidence(
             b / c + '+' + d,
+            bleuMathalea,
           )})=${a}\\times${b / c + d}=${a * (b / c + d)}$`
           setReponse(this, i, a * (b / c + d))
           break
@@ -408,7 +424,7 @@ export default class Priorites extends Exercice {
         texte =
           texte.substring(0, texte.length - 1) +
           '~=$' +
-          ajouteChampTexteMathLive(this, i, ' clavierDeBaseAvecEgal')
+          ajouteChampTexteMathLive(this, i, KeyboardType.clavierDeBase)
       if (this.listeQuestions.indexOf(texte) === -1) {
         if (context.isAmc) {
           this.autoCorrection[i].enonce =
@@ -427,6 +443,18 @@ export default class Priorites extends Exercice {
         }
         // Si la question n'a jamais été posée, on en crée une autre
         this.listeQuestions[i] = texte
+        // Uniformisation : Mise en place de la réponse attendue en interactif en orange et gras
+        const textCorrSplit = texteCorr.split('=')
+        let aRemplacer = textCorrSplit[textCorrSplit.length - 1]
+        aRemplacer = aRemplacer.replace('$', '')
+
+        texteCorr = ''
+        for (let ee = 0; ee < textCorrSplit.length - 1; ee++) {
+          texteCorr += textCorrSplit[ee] + '='
+        }
+        texteCorr += `$ $${miseEnEvidence(aRemplacer)}$`
+        // Fin de cette uniformisation
+
         this.listeCorrections[i] = texteCorr
         i++
       }

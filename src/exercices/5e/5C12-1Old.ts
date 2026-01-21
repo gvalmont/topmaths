@@ -1,4 +1,5 @@
 import { ComputeEngine } from '@cortex-js/compute-engine'
+import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 import engine, { exprCompare } from '../../lib/interactif/comparisonFunctions'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif' // fonction qui va préparer l'analyse de la saisie
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive' // fonctions de mise en place des éléments interactifs
@@ -527,7 +528,7 @@ $${miseEnCouleur(`${miseEnCouleur(`\\overset{${calcul1}}{${resultat1}}`, 'red')}
       const texte = `${prenom()} a obtenu le nombre ${nombreCible} à partir des nombres suivants : ${lister(nombresUtilises)}.<br>
 Voici ses calculs :<br>
 ${calculs}
-Les écrire en une seule ligne. ${ajouteChampTexteMathLive(this, i, ' clavierDeBaseAvecEgal')}`
+Les écrire en une seule ligne. ${ajouteChampTexteMathLive(this, i, KeyboardType.clavierDeBase)}`
       const expressionReduite = engine.parse(redaction, {
         canonical: true,
       }).latex

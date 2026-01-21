@@ -22,7 +22,7 @@ export const interactifType = 'mathLive'
 export const uuid = '874e8'
 export const refs = {
   'fr-fr': [''],
-  'fr-ch': ['11FA3-6'],
+  'fr-ch': ['11FA3-4b'],
 }
 export default class FactoriserIdentitesremarquables2 extends Exercice {
   constructor() {
@@ -52,7 +52,6 @@ export default class FactoriserIdentitesremarquables2 extends Exercice {
     for (
       let i = 0, texte, texteCorr, cpt = 0, a, b, c, d, k, typesDeQuestions;
       i < this.nbQuestions && cpt < 50;
-
     ) {
       do {
         a = randint(2, 9) * choice([-1, 1])

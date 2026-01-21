@@ -365,7 +365,7 @@
   - **origin** (_ResourceAndItsPath[]_) : le référentiel à rechercher (déplier dans un tableau)
   - **result** (_ResourceAndItsPath[]_) : la liste des entrées correspondant au texte dans le champ de recherche
  -->
-<svelte:window on:keydown="{onKeyDown}" on:keyup="{onKeyUp}" />
+<svelte:window on:keydown={onKeyDown} on:keyup={onKeyUp} />
 <div class="flex flex-col justify-start items-center">
   <div class="relative flex flex-col w-full">
     <input
@@ -373,10 +373,10 @@
       id="searchInputField-{timeStamp}"
       class="w-full border border-coopmaths-action dark:border-coopmathsdark-action focus:border-coopmaths-action-lightest dark:focus:border-coopmathsdark-action-lightest focus:outline-0 focus:ring-0 focus:border-1 bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark text-coopmaths-corpus-light dark:text-coopmathsdark-corpus-light text-sm placeholder-coopmaths-corpus-lightest dark:placeholder-coopmathsdark-corpus-lightest placeholder:italic placeholder-opacity-50"
       placeholder="🔍 Thème, identifiant..."
-      bind:value="{inputSearch}"
-      bind:this="{searchField}"
-      on:focus="{onFocusInput}"
-      on:blur="{onBlurInput}"
+      bind:value={inputSearch}
+      bind:this={searchField}
+      on:focus={onFocusInput}
+      on:blur={onBlurInput}
       autocomplete="off"
       autocorrect="off"
       name="”notASearchField”"
@@ -394,46 +394,46 @@
     <ButtonIcon
       icon="bxs-tag-x text-2xl"
       class="absolute right-2 top-1"
-      disabled="{inputSearch.length === 0}"
-      on:click="{() => {
+      disabled={inputSearch.length === 0}
+      on:click={() => {
         inputSearch = ''
-      }}"
+      }}
     />
     <!-- Bouton pour afficher les filtres -->
     <button
       type="button"
       class="absolute right-2 -bottom-6 text-sm text-coopmaths-action dark:text-coopmathsdark-action hover:text-coopmaths-action-lightest hover:dark:text-coopmathsdark-action-lightest"
-      on:click="{() => {
+      on:click={() => {
         isFiltersVisible = !isFiltersVisible
-      }}"
+      }}
     >
       Filtrer les exercices <i class="bx bx-filter-alt"></i>
     </button>
   </div>
   <!-- Chips des filtres -->
   <div
-    class="{selectedFilters.length === 0
+    class={selectedFilters.length === 0
       ? 'hidden'
-      : 'flex w-full flex-row flex-wrap justify-start text-sm mt-6 leading-tight'}"
+      : 'flex w-full flex-row flex-wrap justify-start text-sm mt-6 leading-tight'}
   >
     {#each selectedFilters as filter}
       <Chip
-        text="{filter.content.title}"
+        text={filter.content.title}
         textColor="canvas"
         bgColor="struct"
-        isVisible="{true}"
-        on:action="{() => {
+        isVisible={true}
+        on:action={() => {
           $allFilters[filter.type][filter.key].isSelected = false
           handleUncheckingMutipleFilters(filter.key)
           dispatch('filters-change')
           $filtersHaveChanged = true
           triggerUpdate()
-        }}"
+        }}
       />
     {/each}
   </div>
   <!-- Filtres -->
-  <div class="{isFiltersVisible ? 'flex flex-col w-full mt-4' : 'hidden'}">
+  <div class={isFiltersVisible ? 'flex flex-col w-full mt-4' : 'hidden'}>
     <Filtres class="mt-2" filterType="levels" on:filters-change />
     <Filtres class="mt-2" filterType="specs" on:filters-change />
     <Filtres class="mt-2" filterType="types" on:filters-change />

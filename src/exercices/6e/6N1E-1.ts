@@ -6,6 +6,7 @@ import {
   choice,
   combinaisonListes,
   enleveDoublonNum,
+  shuffle,
 } from '../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { arrondi } from '../../lib/outils/nombres'
@@ -20,7 +21,7 @@ import Exercice from '../Exercice'
 
 export const titre = 'Lier nombre décimal, fraction spécifique et pourcentage'
 export const dateDePublication = '04/06/2025'
-export const dateDeModifImportante = '12/12/2025'
+export const dateDeModifImportante = '17/12/2026'
 export const interactifType = 'mathLive'
 export const interactifReady = true
 
@@ -80,7 +81,7 @@ export default class DecimalFractionPourcentage extends Exercice {
       25, 50, 75, 10, 20, 30, 40, 50, 60, 70, 80, 90,
     ]
 
-    const numerateur = gestionnaireFormulaireTexte({
+    let numerateur = gestionnaireFormulaireTexte({
       saisie: this.sup,
       min: 1,
       max: 12,
@@ -88,29 +89,25 @@ export default class DecimalFractionPourcentage extends Exercice {
       melange: 13,
       nbQuestions: 6,
       listeOfCase: numerateursSpecifiques,
-    })
+    }).map(Number)
 
-    let numerateurAuFormatNumber: number[] = numerateur.filter(
-      (val): val is number => typeof val === 'number',
-    )
-    numerateurAuFormatNumber = enleveDoublonNum(numerateurAuFormatNumber)
-
-    const longueurListe = numerateurAuFormatNumber.length
-    if (longueurListe < 6) {
-      for (let i = longueurListe; i < 6; i++) {
-        numerateurAuFormatNumber.push(
-          choice(numerateursSpecifiques, numerateurAuFormatNumber),
-        )
-      }
-    }
+    numerateur = enleveDoublonNum(numerateur)
 
     for (
       let i = 0, texte, texteCorr, cpt = 0;
       i < this.nbQuestions && cpt < 50;
 
     ) {
+      numerateur = shuffle(numerateur)
+      const longueurListe = numerateur.length
+      if (longueurListe < 6) {
+        for (let i = longueurListe; i < 6; i++) {
+          numerateur.push(choice(numerateursSpecifiques, numerateur))
+        }
+      }
+
       const nbfractionDecimaleEtPourcentage = function (i: number) {
-        const nbNum = numerateurAuFormatNumber[i]
+        const nbNum = numerateur[i]
         return {
           decimal: texNombre(arrondi(nbNum / 100)),
           fractionDecimale: new FractionEtendue(nbNum, 100).simplifie()
@@ -118,7 +115,6 @@ export default class DecimalFractionPourcentage extends Exercice {
           pourcentage: texNombre(nbNum),
         }
       }
-
       const nbDecimal = []
       const nbDecimalCorr = []
       const nbDecimalCorrNu = []
@@ -129,8 +125,10 @@ export default class DecimalFractionPourcentage extends Exercice {
       const fractionDecimaleCorr = []
       const fractionDecimaleCorrNu = []
       const typeLignes = combinaisonListes([0, 1, 2], 6)
+      const pourEviterDeuxExosIdentiques = []
       for (let k = 0; k < 6; k++) {
         const nb = nbfractionDecimaleEtPourcentage(k)
+        pourEviterDeuxExosIdentiques.push(nb.pourcentage)
         const lig = typeLignes[k]
         nbDecimalCorrNu.push(nb.decimal)
         pourcentageCorrNu.push(nb.pourcentage + sp() + '\\%')
@@ -158,7 +156,6 @@ export default class DecimalFractionPourcentage extends Exercice {
           pourcentageCorr.push(miseEnEvidence(nb.pourcentage) + sp() + '\\%')
         }
       }
-
       const enonces = []
       enonces.push({
         tabEntetesColonnes: [],
@@ -246,7 +243,7 @@ export default class DecimalFractionPourcentage extends Exercice {
       }
       texteCorr = `${enonces[0].correction}`
 
-      if (this.questionJamaisPosee(i, texteCorr)) {
+      if (this.questionJamaisPosee(i, ...pourEviterDeuxExosIdentiques)) {
         // Si la question n'a jamais été posée, on en créé une autre
         this.listeQuestions[i] = texte
         this.listeCorrections[i] = texteCorr

@@ -1,3 +1,4 @@
+import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 import { setReponse } from '../../lib/interactif/gestionInteractif'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
@@ -161,7 +162,7 @@ export default class VitesseDistanceTemps extends Exercice {
           texteCorr += '<br><br>'
           texteCorr += `${prenom} mettra`
           texteCorr += this.interactif
-            ? ` ${texteEnCouleurEtGras(t)} min`
+            ? ` $${miseEnEvidence(t)}$ min`
             : ` ${texteEnCouleurEtGras(minToHour(t))}`
           texteCorr += ` pour aller ${destination}.`
           texteApres = sp() + ' minutes'
@@ -198,7 +199,9 @@ export default class VitesseDistanceTemps extends Exercice {
           setReponse(this, i, d)
           break
       }
-      texte += ajouteChampTexteMathLive(this, i, ' ', { texteApres })
+      texte += ajouteChampTexteMathLive(this, i, KeyboardType.clavierNumbers, {
+        texteApres,
+      })
       if (this.questionJamaisPosee(i, v, t)) {
         // Si la question n'a jamais été posée, on en crée une autre
         this.listeQuestions[i] = texte

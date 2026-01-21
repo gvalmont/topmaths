@@ -1,15 +1,16 @@
+import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
+import { handleAnswers } from '../../lib/interactif/gestionInteractif'
+import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import {
   ecritureParentheseSiNegatif,
   reduireAxPlusB,
 } from '../../lib/outils/ecritures'
-import { pgcd } from '../../lib/outils/primalite'
-import Exercice from '../Exercice'
-import { listeQuestionsToContenu, randint } from '../../modules/outils'
-import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
-import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
-import FractionEtendue from '../../modules/FractionEtendue'
+import { pgcd } from '../../lib/outils/primalite'
 import { getLang } from '../../lib/stores/languagesStore'
+import FractionEtendue from '../../modules/FractionEtendue'
+import { listeQuestionsToContenu, randint } from '../../modules/outils'
+import Exercice from '../Exercice'
 
 export const titre = 'Déterminer une équation réduite de droite'
 export const dateDeModifImportante = '08/12/2024'
@@ -139,14 +140,24 @@ export default class EquationReduiteDeDroites extends Exercice {
       }
       const nomDroite = this.sup === 1 ? 'AB' : 'd'
       if (this.sup === 1 && xA === xB!) {
-        texte += ajouteChampTexteMathLive(this, i, ' ', {
-          texteAvant: `<br>$(${nomDroite}) :$`,
-        })
+        texte += ajouteChampTexteMathLive(
+          this,
+          i,
+          KeyboardType.clavierFullOperations,
+          {
+            texteAvant: `<br>$(${nomDroite}) :$`,
+          },
+        )
         reponse = [`x=${xA}`, `${xA}=x`]
       } else {
-        texte += ajouteChampTexteMathLive(this, i, ' ', {
-          texteAvant: `<br>$(${nomDroite}) : y=$`,
-        })
+        texte += ajouteChampTexteMathLive(
+          this,
+          i,
+          KeyboardType.clavierFullOperations,
+          {
+            texteAvant: `<br>$(${nomDroite}) : y=$`,
+          },
+        )
         reponse = reduireAxPlusB(
           new FractionEtendue(n, d).simplifie(),
           new FractionEtendue(d * yA - n * xA, d).simplifie(),

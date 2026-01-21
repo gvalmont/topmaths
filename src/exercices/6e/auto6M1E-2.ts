@@ -78,7 +78,7 @@ export default class PerimetresCalculMental extends Exercice {
             texteInteractif += ajouteChampTexteMathLive(
               this,
               i,
-              KeyboardType.college6eme,
+              KeyboardType.clavierDeBase,
               {
                 texteAvant: '$\\mathcal{P}_\\text{carré} =$',
                 texteApres: '$\\text{ cm}$',
@@ -99,7 +99,7 @@ export default class PerimetresCalculMental extends Exercice {
             texteInteractif += ajouteChampTexteMathLive(
               this,
               i,
-              KeyboardType.college6eme,
+              KeyboardType.clavierDeBase,
               {
                 texteAvant: '$\\mathcal{P}_\\text{rectangle} =$',
                 texteApres: '$\\text{ cm}$',
@@ -121,7 +121,7 @@ export default class PerimetresCalculMental extends Exercice {
             texteInteractif += ajouteChampTexteMathLive(
               this,
               i,
-              KeyboardType.college6eme,
+              KeyboardType.clavierDeBase,
               {
                 texteAvant: '$\\mathcal{P}_\\text{cercle} =$',
                 texteApres: '$\\text{ cm}$',
@@ -143,7 +143,7 @@ export default class PerimetresCalculMental extends Exercice {
           texteInteractif += ajouteChampTexteMathLive(
             this,
             i,
-            KeyboardType.college6eme,
+            KeyboardType.clavierDeBase,
             {
               texteAvant: '$\\mathcal{P}_\\text{cercle} =$',
               texteApres: '$\\text{ cm}$',

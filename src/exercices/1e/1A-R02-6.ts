@@ -1,5 +1,5 @@
 /**
- * Exercice 1A-R7-1 : Calculer un prix dans une situation de proportionnalité
+ * Exercice 1A-R02-6 : Calculer un prix dans une situation de proportionnalité
  *
  * L'élève doit calculer le prix d'une certaine quantité d'objets connaissant
  * le prix d'une autre quantité des mêmes objets.
@@ -23,6 +23,7 @@
  * @author G.Marris
  * @date 22/09/2025
  * @updated 08/10/2025 - Refactorisation : architecture conforme (appliquerLesValeurs)
+ * @updated 08/01/2026 - Correction bug sujet original (énoncé figé)
  */
 
 import { choice } from '../../lib/outils/arrayOutils'
@@ -83,6 +84,9 @@ interface DonneesExercice {
   prixUnitaire: number
   bonneReponse: number
   distracteurs: [number, number, number]
+  enoncePersonnalise?: string
+  modele?: ModelePhrase
+  prenom?: { nom: string; pronom: string } | null
 }
 
 // ============================================================================
@@ -445,27 +449,21 @@ export default class Auto1AR71 extends ExerciceQcmA {
    * - #PRENOM, #PRONOM_SUJET : personnage si utilisé
    *
    * @param phrase Phrase modèle avec champs
-   * @param contexte Données de l'exercice
-   * @param objet Informations sur l'objet
-   * @param prenom Informations sur le prénom (optionnel)
+   * @param donnees Données de l'exercice
    * @returns Phrase complète avec remplacements
    */
-  private remplacerChamps(
-    phrase: string,
-    contexte: DonneesExercice,
-    objet: ObjetAchat,
-    prenom: any | null,
-  ): string {
+  private remplacerChamps(phrase: string, donnees: DonneesExercice): string {
+    const { objet, lieu, qte1, qte2, prix1, prenom } = donnees
     let resultat = phrase
 
     // Remplacements de base
-    resultat = resultat.replace(/#Q1/g, contexte.qte1.toString())
-    resultat = resultat.replace(/#Q2/g, contexte.qte2.toString())
-    resultat = resultat.replace(/#PRIX1/g, `$${texNombre(contexte.prix1, 2)}$`)
+    resultat = resultat.replace(/#Q1/g, qte1.toString())
+    resultat = resultat.replace(/#Q2/g, qte2.toString())
+    resultat = resultat.replace(/#PRIX1/g, `$${texNombre(prix1, 2)}$`)
 
     // Objets avec accord singulier/pluriel
-    const objet1 = contexte.qte1 > 1 ? objet.pluriel : objet.nom
-    const objet2 = contexte.qte2 > 1 ? objet.pluriel : objet.nom
+    const objet1 = qte1 > 1 ? objet.pluriel : objet.nom
+    const objet2 = qte2 > 1 ? objet.pluriel : objet.nom
 
     let compteurObjet = 0
     resultat = resultat.replace(/#OBJET/g, () => {
@@ -474,8 +472,8 @@ export default class Auto1AR71 extends ExerciceQcmA {
     })
 
     // Lieux
-    resultat = resultat.replace(/#LIEU_DEBUT/g, contexte.lieu.debut)
-    resultat = resultat.replace(/#LIEU_MILIEU/g, contexte.lieu.milieu)
+    resultat = resultat.replace(/#LIEU_DEBUT/g, lieu.debut)
+    resultat = resultat.replace(/#LIEU_MILIEU/g, lieu.milieu)
 
     // Prénoms
     if (prenom) {
@@ -575,32 +573,41 @@ export default class Auto1AR71 extends ExerciceQcmA {
   // ==========================================================================
 
   versionOriginale: () => void = () => {
-    const objet = Auto1AR71.OBJETS.find((o) => o.nom === 'stylo')!
-    const lieu = Auto1AR71.CONTEXTES[1] // papeterie
+    const objet = Auto1AR71.OBJETS.find((o) => o.nom === 'croissant')!
+    const lieu = Auto1AR71.CONTEXTES[0]
 
     this.appliquerLesValeurs({
       objet,
       lieu,
-      qte1: 10,
-      prix1: 12,
-      qte2: 3,
-      prixUnitaire: 1.2,
-      bonneReponse: 3.6,
-      distracteurs: [4, 2.5, 40],
+      qte1: 4,
+      prix1: 6,
+      qte2: 10,
+      prixUnitaire: 1.5,
+      bonneReponse: 15,
+      distracteurs: [60, 8, 8.5],
+      enoncePersonnalise:
+        'Quatre croissants coûtent $6$ euros.<br>Dix croissants coûtent :',
     })
   }
 
   versionAleatoire: () => void = () => {
     for (let tentative = 0; tentative < Auto1AR71.MAX_TENTATIVES; tentative++) {
+      // Choix aléatoires des données mathématiques (objet, lieu, quantités, prix, distracteurs)
       const config = this.genererConfiguration()
       if (!config) continue
 
-      // Si toutes les conditions sont satisfaites, appliquer les valeurs
-      this.appliquerLesValeurs(config)
+      // Choix aléatoires de la formulation (modèle de phrase, prénom éventuel)
+      const modele = choice(Auto1AR71.MODELES)
+      const prenom = modele.utilise_prenom ? choice(Auto1AR71.PRENOMS) : null
+
+      this.appliquerLesValeurs({
+        ...config,
+        modele,
+        prenom,
+      })
       return
     }
 
-    // Fallback si aucune configuration valide trouvée
     console.warn(
       'Impossible de générer un exercice valide, utilisation de la version originale',
     )
@@ -612,24 +619,27 @@ export default class Auto1AR71 extends ExerciceQcmA {
   // ==========================================================================
 
   private appliquerLesValeurs(donnees: DonneesExercice): void {
+    // Affectation par décomposition (destructuring) : l'ordre n'importe pas, seuls les noms comptent
     const {
       objet,
-      lieu,
       qte1,
       prix1,
       qte2,
       prixUnitaire,
       bonneReponse,
       distracteurs,
+      enoncePersonnalise,
+      modele,
     } = donnees
 
     // ========================================================================
     // CONSTRUCTION ÉNONCÉ
     // ========================================================================
-    const modele = choice(Auto1AR71.MODELES)
-    const prenom = modele.utilise_prenom ? choice(Auto1AR71.PRENOMS) : null
-
-    this.enonce = this.remplacerChamps(modele.phrase, donnees, objet, prenom)
+    if (enoncePersonnalise) {
+      this.enonce = enoncePersonnalise
+    } else {
+      this.enonce = this.remplacerChamps(modele!.phrase, donnees)
+    }
 
     // ========================================================================
     // CONSTRUCTION CORRECTION

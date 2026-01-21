@@ -121,10 +121,10 @@
   {cornerIcon}
   {cornerIconClass}
   {tooltip}
-  on:click="{() => {
+  on:click={() => {
     updateQRCodeImage()
     isDisplayed = !isDisplayed
-  }}"
+  }}
 />
 
 <BasicClassicModal bind:isDisplayed>
@@ -132,7 +132,7 @@
   <div slot="content" class="flex flex-col items-center">
     <div class="flex flex-col justify-center">
       <div class="flex flex-row justify-center p-4">
-        <img id="{imageId}" alt="QR-Code" width="200px" />
+        <img id={imageId} alt="QR-Code" width="200px" />
       </div>
     </div>
   </div>
@@ -141,19 +141,19 @@
       <ButtonIconTooltip
         icon="bx-copy-alt text-[30px] mx-3"
         tooltip="Copier le QR-Code"
-        on:click="{copyQRCodeImageToClipboard}"
+        on:click={copyQRCodeImageToClipboard}
       />
       <ButtonIconTooltip
         icon="bx-download text-[30px] mx-3"
         tooltip="Télécharger le QR-Code"
-        on:click="{downloadQRCodeImage}"
+        on:click={downloadQRCodeImage}
       />
     </div>
   </div>
 </BasicClassicModal>
 
 <BasicInfoModal
-  bind:contentDisplayed="{QRCodeCopyState}"
+  bind:contentDisplayed={QRCodeCopyState}
   successMessage="Le QR-Code est copié dans le presse-papier !"
   errorMessage="Impossible de copier le QR-Code dans ce navigateur !<br /> Vérifier les permissions."
 />

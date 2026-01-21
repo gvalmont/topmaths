@@ -12,14 +12,14 @@
 
 {#each Array(series.length).keys() as seriesId}
   <div
-    class="{currentSeriesIndex === 4 || currentSeriesIndex === seriesId
+    class={currentSeriesIndex === 4 || currentSeriesIndex === seriesId
       ? ''
-      : 'hidden'}"
+      : 'hidden'}
   >
     <SlideshowOverviewSeries
       {isQuestionsVisible}
       {isCorrectionVisible}
-      seriesIndex="{seriesId}"
+      seriesIndex={seriesId}
       {order}
       {series}
       {correctionsSteps}

@@ -36,10 +36,10 @@ export default class NomExercice extends ExerciceSimple {
     const a = randint(-7, 7, 0)
     const b = randint(-7, 7, 0)
 
-    this.question = `Soit $z=${a}${ecritureAlgebriqueSauf1(b)}\\text{i}\\in\\mathbb{C}$. <br>`
+    this.question = `Soit $z=${a}${ecritureAlgebriqueSauf1(b)}\\mathrm{i}\\in\\mathbb{C}$. <br>`
     this.question += 'Calculer le module de $z$.'
     this.correction =
-      'On sait que si $z=a+\\text{i}b$ alors $\\vert z\\vert=\\sqrt{a^2+b^2}$'
+      'On sait que si $z=a+\\mathrm{i}b$ alors $\\vert z\\vert=\\sqrt{a^2+b^2}$'
     this.correction += `<br>Il vient ici : $\\vert z\\vert=\\sqrt{${ecritureParentheseSiNegatif(a)}^2+${ecritureParentheseSiNegatif(b)}^2}$,`
     this.correction += ` d'où $\\vert z\\vert=\\sqrt{${a * a}+${b * b}}=\\sqrt{${a * a + b * b}}$.`
     this.correction += `<br>Le module de $z$ est donc $\\vert z\\vert=${miseEnEvidence(`\\sqrt{${a * a + b * b}}`)}$.`

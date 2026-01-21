@@ -1,12 +1,13 @@
+import { texPrix } from '../../lib/format/style'
+import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
+import { handleAnswers } from '../../lib/interactif/gestionInteractif'
+import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { choice } from '../../lib/outils/arrayOutils'
 import { texFractionFromString } from '../../lib/outils/deprecatedFractions'
-import { texPrix } from '../../lib/format/style'
-import Exercice from '../Exercice'
+import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { context } from '../../modules/context'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
-import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
-import { handleAnswers } from '../../lib/interactif/gestionInteractif'
-import { miseEnEvidence } from '../../lib/outils/embellissements'
+import Exercice from '../Exercice'
 
 export const titre = 'Variation en pourcentages'
 export const interactifReady = true
@@ -42,7 +43,6 @@ export default class VariationEnPourcentages extends Exercice {
     for (
       let i = 0, prix, taux, texte, texteCorr, cpt = 0;
       i < this.nbQuestions && cpt < 50;
-
     ) {
       prix = choice([
         randint(2, 9),
@@ -60,8 +60,9 @@ export default class VariationEnPourcentages extends Exercice {
           if (this.interactif) {
             texte += '&ensp;&ensp;&ensp;&ensp;Le nouveau prix est :'
             texte +=
-              ajouteChampTexteMathLive(this, i, '', { texteApres: '€' }) +
-              '<br>'
+              ajouteChampTexteMathLive(this, i, KeyboardType.clavierNumbers, {
+                texteApres: '€',
+              }) + '<br>'
           }
         } else {
           // partie latex
@@ -79,8 +80,9 @@ export default class VariationEnPourcentages extends Exercice {
           if (this.interactif) {
             texte += '&ensp;&ensp;&ensp;&ensp;Le nouveau prix est :'
             texte +=
-              ajouteChampTexteMathLive(this, i, '', { texteApres: '€' }) +
-              '<br>'
+              ajouteChampTexteMathLive(this, i, KeyboardType.clavierNumbers, {
+                texteApres: '€',
+              }) + '<br>'
           }
         } else {
           // partie latex

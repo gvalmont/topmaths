@@ -1,6 +1,6 @@
 import { max } from 'mathjs'
 import { texcolors } from '../format/style'
-import { combinaisonListes } from '../outils/arrayOutils'
+import { combinaisonListesSansChangerOrdre } from '../outils/arrayOutils'
 import { numberFormat, texNombre } from '../outils/texNombre'
 import { arc } from './Arc'
 import { axeY, labelY } from './AxeY'
@@ -653,7 +653,7 @@ export class DiagrammeCirculaire extends ObjetMathalea2D {
     super()
     this.objets = []
     const listeHachuresDisponibles = [0, 1, 3, 4, 5, 6, 7, 8, 9, 10]
-    const listeMotifs = combinaisonListes(
+    const listeMotifs = combinaisonListesSansChangerOrdre(
       listeHachuresDisponibles,
       effectifs.length,
     )

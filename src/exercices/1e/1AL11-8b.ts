@@ -26,7 +26,7 @@ export default class SommeSuiteArithmetique extends ExerciceSimple {
     super()
     this.typeExercice = 'simple'
     this.nbQuestions = 2
-    this.spacingCorr = 1.5
+    this.spacingCorr = 2
     this.consigneCorrection =
       'Rappel : $1 + 2 + 3 + ... + n = \\dfrac{n(n + 1)}{2}$.'
     this.formatChampTexte = KeyboardType.clavierDeBase
@@ -52,10 +52,10 @@ export default class SommeSuiteArithmetique extends ExerciceSimple {
       this.correction += `<br>$\\phantom{S} = ${miseEnEvidence(texNombre(this.reponse))}$`
       this.correction += '<br><br>'
       this.correction += `${texteGras('Deuxième méthode')} : <br>on utilise la formule $S = \\text{nombre de termes} \\times \\dfrac{\\text{premier terme} + \\text{dernier terme}}{2}$.`
-      this.correction += `<br><br>$S = n \\times \\dfrac{${u}_1 + ${u}_{${n}}}{2}$`
-      this.correction += `<br><br>$\\phantom{S} = ${n} \\times \\dfrac{${u1} + (${u1} + (${n} - 1) \\times ${r})}{2}$`
-      this.correction += `<br><br>$\\phantom{S} = ${n} \\times \\dfrac{${u1} + ${u1 + (n - 1) * r}}{2}$`
-      this.correction += `<br><br>$\\phantom{S} = ${miseEnEvidence(texNombre(this.reponse))}$`
+      this.correction += `<br>$S =  ${n} \\times \\dfrac{${u}_1 + ${u}_{${n}}}{2}$`
+      this.correction += `<br>$\\phantom{S} = ${n} \\times \\dfrac{${u1} + (${u1} + (${n} - 1) \\times ${r})}{2}$`
+      this.correction += `<br>$\\phantom{S} = ${n} \\times \\dfrac{${u1} + ${u1 + (n - 1) * r}}{2}$`
+      this.correction += `<br>$\\phantom{S} = ${miseEnEvidence(texNombre(this.reponse))}$`
     } else {
       this.question = `Soit $(${u}_n)$ la suite arithmétique de premier terme $${u}_0 = ${u0}$ et de raison $${r}$.`
       this.question += `<br>Calculer $\\displaystyle S = ${u}_0 + ${u}_1 + ... + ${u}_{${n}} =\\sum_{k=0}^{k=${n}}${u}_k$.`
@@ -66,10 +66,10 @@ export default class SommeSuiteArithmetique extends ExerciceSimple {
       this.correction += `<br>$\\phantom{S} = ${miseEnEvidence(texNombre(this.reponse))}$`
       this.correction += '<br><br>'
       this.correction += `${texteGras('Deuxième méthode')} : <br>on utilise la formule $S = \\text{nombre de termes} \\times \\dfrac{\\text{premier terme} + \\text{dernier terme}}{2}$.`
-      this.correction += `<br><br>$S = (n + 1) \\times \\dfrac{${u}_0 + ${u}_{${n}}}{2}$`
-      this.correction += `<br><br>$\\phantom{S} = ${n + 1} \\times \\dfrac{${u0} + (${u0} + ${n} \\times ${r})}{2}$`
-      this.correction += `<br><br>$\\phantom{S} = ${n + 1} \\times \\dfrac{${u0} + ${u0 + n * r}}{2}$`
-      this.correction += `<br><br>$\\phantom{S} = ${miseEnEvidence(texNombre(this.reponse))}$`
+      this.correction += `<br>$S =  ${n + 1} \\times \\dfrac{${u}_0 + ${u}_{${n}}}{2}$`
+      this.correction += `<br>$\\phantom{S} = ${n + 1} \\times \\dfrac{${u0} + (${u0} + ${n} \\times ${r})}{2}$`
+      this.correction += `<br>$\\phantom{S} = ${n + 1} \\times \\dfrac{${u0} + ${u0 + n * r}}{2}$`
+      this.correction += `<br>$\\phantom{S} = ${miseEnEvidence(texNombre(this.reponse))}$`
     }
   }
 }

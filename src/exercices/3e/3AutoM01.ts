@@ -1,3 +1,5 @@
+import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
+import { texteEnCouleurEtGras } from '../../lib/outils/embellissements'
 import Hms from '../../modules/Hms'
 import { randint } from '../../modules/outils'
 import ExerciceSimple from '../ExerciceSimple'
@@ -30,6 +32,8 @@ export default class ConvertirMinutesEnHeures extends ExerciceSimple {
     this.sup2 = false
     this.typeExercice = 'simple'
     this.nbQuestions = 1
+    this.formatChampTexte = KeyboardType.clavierHms
+    this.optionsDeComparaison = { HMS: true }
   }
 
   nouvelleVersion() {
@@ -42,18 +46,17 @@ export default class ConvertirMinutesEnHeures extends ExerciceSimple {
         : nombreTotalDeMinutes < 300
           ? 'show'
           : 'concours'
-
-    this.reponse = new Hms({
+    const answer = new Hms({
       hour: nbHeuresEntieres,
       minute: nombreDeMinutesEnPlus,
     })
-
+    this.reponse = answer
     this.question = `Un ${evenement} dure $${nombreTotalDeMinutes}$ minutes. Quelle est sa durée en heures ${nombreDeMinutesEnPlus > 0 ? 'et minutes' : ''} ?`
     this.correction = `Une heure contient 60 minutes. <br>
     ${
       nombreDeMinutesEnPlus === 0
-        ? `Dans $${nombreTotalDeMinutes}$ minutes, il y a $${Math.floor(nombreTotalDeMinutes / 60)}\\times 60$ minutes, soit $${Math.floor(nombreTotalDeMinutes / 60)}$ heures.`
-        : `$${nombreTotalDeMinutes}=${nbHeuresEntieres * 60}+${nombreDeMinutesEnPlus}=${Math.floor(nombreTotalDeMinutes / 60)}\\times 60+${nombreDeMinutesEnPlus}$, donc dans $${nombreTotalDeMinutes}$ minutes il y a $${Math.floor(nombreTotalDeMinutes / 60)}$ heures et $${nombreTotalDeMinutes % 60}$ minutes.`
+      ? `Dans $${nombreTotalDeMinutes}$ minutes, il y a $${Math.floor(nombreTotalDeMinutes / 60)}\\times 60$ minutes, soit ${texteEnCouleurEtGras(answer.toString())}.`
+        : `$${nombreTotalDeMinutes}=${nbHeuresEntieres * 60}+${nombreDeMinutesEnPlus}=${Math.floor(nombreTotalDeMinutes / 60)}\\times 60+${nombreDeMinutesEnPlus}$, donc dans $${nombreTotalDeMinutes}$ minutes il y a ${texteEnCouleurEtGras(answer.toString())}.`
     }`
   }
 }

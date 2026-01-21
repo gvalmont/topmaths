@@ -1,12 +1,14 @@
+import { ajouteChampTexteMathLive } from '../../../lib/interactif/questionMathLive'
 import { choice } from '../../../lib/outils/arrayOutils'
 import { texNombre } from '../../../lib/outils/texNombre'
-import Exercice from '../../Exercice'
-import { listeQuestionsToContenu, randint } from '../../../modules/outils'
 import FractionEtendue from '../../../modules/FractionEtendue'
-import { ajouteChampTexteMathLive } from '../../../lib/interactif/questionMathLive'
+import { listeQuestionsToContenu, randint } from '../../../modules/outils'
+import Exercice from '../../Exercice'
 
-import { setReponse } from '../../../lib/interactif/gestionInteractif'
 import { tableauColonneLigne } from '../../../lib/2d/tableau'
+import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
+import { setReponse } from '../../../lib/interactif/gestionInteractif'
+import { miseEnEvidence } from '../../../lib/outils/embellissements'
 
 export const titre = 'Déterminer une probabilité dans un tableau d’effectifs'
 export const dateDePublication = '06/07/2022'
@@ -31,13 +33,6 @@ export default class CalculProbaTableauEff extends Exercice {
     super()
 
     this.sup = true
-    this.keyboard = [
-      'numbers',
-      'fullOperations',
-      'variables',
-      'trigo',
-      'advanced',
-    ]
 
     this.nbQuestions = 1
   }
@@ -54,9 +49,8 @@ export default class CalculProbaTableauEff extends Exercice {
         T,
         FinterV,
         texte,
-        texteCorr;
+        texteCorr = '';
       i < this.nbQuestions && cpt < 50;
-
     ) {
       // On choisit les probas de l'arbre
       F = randint(27, 80)
@@ -89,14 +83,22 @@ export default class CalculProbaTableauEff extends Exercice {
           if (choice([true, false])) {
             if (this.interactif) {
               texte += '<br>$P(F)=$ '
-              texte += ajouteChampTexteMathLive(this, i, ' lycee')
+              texte += ajouteChampTexteMathLive(
+                this,
+                i,
+                KeyboardType.clavierDeBaseAvecFraction,
+              )
             } else {
               texte += '<br>Déterminer $P(F)$.'
             }
           } else {
             if (this.interactif) {
               texte += '<br>Quelle est la probabilité de choisir une fille ?'
-              texte += ajouteChampTexteMathLive(this, i, ' lycee')
+              texte += ajouteChampTexteMathLive(
+                this,
+                i,
+                KeyboardType.clavierDeBaseAvecFraction,
+              )
             } else {
               texte +=
                 '<br>Quelle est la probabilité de choisir une fille ?<br>'
@@ -116,7 +118,11 @@ export default class CalculProbaTableauEff extends Exercice {
           if (choice([true, false])) {
             if (this.interactif) {
               texte += '<br> $P(F\\cap V)=$ '
-              texte += ajouteChampTexteMathLive(this, i, ' lycee')
+              texte += ajouteChampTexteMathLive(
+                this,
+                i,
+                KeyboardType.clavierDeBaseAvecFraction,
+              )
             } else {
               texte += '<br> Déterminer $P(F\\cap V)$.'
               this.canEnonce += `${tableau}<br>`
@@ -126,7 +132,11 @@ export default class CalculProbaTableauEff extends Exercice {
             if (this.interactif) {
               texte +=
                 '<br>Quelle est la probabilité de choisir une fille qui a plus de $20$ ans ?'
-              texte += ajouteChampTexteMathLive(this, i, ' lycee')
+              texte += ajouteChampTexteMathLive(
+                this,
+                i,
+                KeyboardType.clavierDeBaseAvecFraction,
+              )
             } else {
               texte +=
                 '<br> Quelle est la probabilité de choisir une fille de plus de $20$ ans ?<br>'
@@ -135,8 +145,7 @@ export default class CalculProbaTableauEff extends Exercice {
               this.canReponseACompleter = ''
             }
           }
-          texteCorr = ` La probabilité est donnée par : <br>
-          $P(F\\cap V)=\\dfrac{\\text{Nombre de filles de plus de 20 ans}}{\\text{Nombre  de personnes au total}}=\\dfrac{${texNombre(F)}}{${texNombre(T)}}$
+          texteCorr = `$P(F\\cap V)=\\dfrac{\\text{Nombre de filles de plus de 20 ans}}{\\text{Nombre  de personnes au total}}=\\dfrac{${texNombre(F)}}{${texNombre(T)}}$
       `
           reponse = new FractionEtendue(FinterV, T)
           setReponse(this, i, reponse, { formatInteractif: 'fractionEgale' })
@@ -147,7 +156,11 @@ export default class CalculProbaTableauEff extends Exercice {
           if (choice([true, false])) {
             if (this.interactif) {
               texte += '<br> $P_V(F)=$ '
-              texte += ajouteChampTexteMathLive(this, i, ' lycee')
+              texte += ajouteChampTexteMathLive(
+                this,
+                i,
+                KeyboardType.clavierDeBaseAvecFraction,
+              )
             } else {
               texte += '<br>Déterminer $P_V(F)$. '
               this.canEnonce += `${tableau}<br>`
@@ -159,7 +172,11 @@ export default class CalculProbaTableauEff extends Exercice {
                 ? '<br>Quelle est la probabilité de choisir une fille sachant qu’elle a plus de $20$ ans ?'
                 : '<br>La personne choisie a plus de $20$ ans. Quelle est la probabilité que ce soit une fille ?'
             }`
-            texte += ajouteChampTexteMathLive(this, i, ' lycee')
+            texte += ajouteChampTexteMathLive(
+              this,
+              i,
+              KeyboardType.clavierDeBaseAvecFraction,
+            )
             this.canEnonce += `${tableau}<br>
             ${
               choix
@@ -168,8 +185,7 @@ export default class CalculProbaTableauEff extends Exercice {
             }`
             this.canReponseACompleter = ''
           }
-          texteCorr = `La probabilité est donnée par : <br>
-          $P_V(F)=\\dfrac{\\text{Nombre de filles de plus de 20 ans}}{\\text{Nombre  de personnes de plus de 20 ans}}=\\dfrac{${texNombre(FinterV)}}{${texNombre(V)}}$
+          texteCorr = `$P_V(F)=\\dfrac{\\text{Nombre de filles de plus de 20 ans}}{\\text{Nombre  de personnes de plus de 20 ans}}=\\dfrac{${texNombre(FinterV)}}{${texNombre(V)}}$
       `
           reponse = new FractionEtendue(FinterV, V)
           setReponse(this, i, reponse, { formatInteractif: 'fractionEgale' })
@@ -180,7 +196,11 @@ export default class CalculProbaTableauEff extends Exercice {
           if (choice([true, false])) {
             if (this.interactif) {
               texte += '<br> $P(F\\cap\\overline{V})=$ '
-              texte += ajouteChampTexteMathLive(this, i, ' lycee')
+              texte += ajouteChampTexteMathLive(
+                this,
+                i,
+                KeyboardType.clavierDeBaseAvecFraction,
+              )
             } else {
               texte += '<br>Déterminer $P(F\\cap\\overline{V})$. '
               this.canEnonce += `${tableau}<br>`
@@ -190,7 +210,11 @@ export default class CalculProbaTableauEff extends Exercice {
             if (this.interactif) {
               texte +=
                 '<br>Quelle est la probabilité de choisir une fille de moins de $20$ ans ?'
-              texte += ajouteChampTexteMathLive(this, i, ' lycee')
+              texte += ajouteChampTexteMathLive(
+                this,
+                i,
+                KeyboardType.clavierDeBaseAvecFraction,
+              )
             } else {
               texte +=
                 '<br>Quelle est la probabilité de choisir une fille de moins de $20$ ans ?<br>'
@@ -199,8 +223,7 @@ export default class CalculProbaTableauEff extends Exercice {
               this.canReponseACompleter = ''
             }
           }
-          texteCorr = `La probabilité est donnée par : <br>
-          $P(F\\cap\\overline{V})=\\dfrac{\\text{Nombre de filles de moins de 20 ans}}{\\text{Nombre  total de personnes}}=\\dfrac{${texNombre(F - FinterV)}}{${texNombre(T)}}$
+          texteCorr = `$P(F\\cap\\overline{V})=\\dfrac{\\text{Nombre de filles de moins de 20 ans}}{\\text{Nombre  total de personnes}}=\\dfrac{${texNombre(F - FinterV)}}{${texNombre(T)}}$
       `
           reponse = new FractionEtendue(F - FinterV, T)
           setReponse(this, i, reponse, { formatInteractif: 'fractionEgale' })
@@ -212,7 +235,11 @@ export default class CalculProbaTableauEff extends Exercice {
           if (choice([true, false])) {
             if (this.interactif) {
               texte += '<br> $P_{\\overline{V}}(\\overline{F})=$ '
-              texte += ajouteChampTexteMathLive(this, i, ' lycee')
+              texte += ajouteChampTexteMathLive(
+                this,
+                i,
+                KeyboardType.clavierDeBaseAvecFraction,
+              )
             } else {
               texte += `<br>
             Déterminer $P_{\\overline{V}}(\\overline{F})$. `
@@ -226,7 +253,11 @@ export default class CalculProbaTableauEff extends Exercice {
                 ? '<br>Quelle est la probabilité de choisir un garçon sachant qu’il a moins de $20$ ans ?'
                 : '<br> La personne choisie a moins de $20$ ans. Quelle est la probabilité que ce soit un garçon ?'
             }`
-            texte += ajouteChampTexteMathLive(this, i, ' lycee')
+            texte += ajouteChampTexteMathLive(
+              this,
+              i,
+              KeyboardType.clavierDeBaseAvecFraction,
+            )
             this.canEnonce += `${tableau}<br>
             ${
               choix
@@ -235,8 +266,7 @@ export default class CalculProbaTableauEff extends Exercice {
             }`
             this.canReponseACompleter = ''
           }
-          texteCorr = `La probabilité est donnée par : <br>
-          $P_{\\overline{V}}(\\overline{F})=\\dfrac{\\text{Nombre de garçons de moins de 20 ans}}{\\text{Nombre  de personnes de moins de 20 ans}}=\\dfrac{${texNombre(T - F - V + FinterV)}}{${texNombre(T - V)}}$
+          texteCorr = `$P_{\\overline{V}}(\\overline{F})=\\dfrac{\\text{Nombre de garçons de moins de 20 ans}}{\\text{Nombre  de personnes de moins de 20 ans}}=\\dfrac{${texNombre(T - F - V + FinterV)}}{${texNombre(T - V)}}$
       `
           reponse = new FractionEtendue(T - F - V + FinterV, T - V)
           setReponse(this, i, reponse, { formatInteractif: 'fractionEgale' })
@@ -247,7 +277,11 @@ export default class CalculProbaTableauEff extends Exercice {
           if (choice([true, false])) {
             if (this.interactif) {
               texte += '<br> $P_{F}(V)=$ '
-              texte += ajouteChampTexteMathLive(this, i, ' lycee')
+              texte += ajouteChampTexteMathLive(
+                this,
+                i,
+                KeyboardType.clavierDeBaseAvecFraction,
+              )
             } else {
               texte += '<br>Déterminer $P_{F}(V)$. '
               this.canEnonce += `${tableau}<br>`
@@ -259,7 +293,11 @@ export default class CalculProbaTableauEff extends Exercice {
                 ? '<br> Quelle est la probabilité de choisir une personne de plus de $20$ ans sachant que c’est une fille ?'
                 : '<br> La personne choisie est une fille. Quelle est la probabilité qu’elle ait plus de $20$ ans  ?'
             }`
-            texte += ajouteChampTexteMathLive(this, i, ' lycee')
+            texte += ajouteChampTexteMathLive(
+              this,
+              i,
+              KeyboardType.clavierDeBaseAvecFraction,
+            )
             this.canEnonce += `${tableau}<br>
             ${
               choix
@@ -268,8 +306,7 @@ export default class CalculProbaTableauEff extends Exercice {
             }`
             this.canReponseACompleter = ''
           }
-          texteCorr = `La probabilité est donnée par : <br>
-          $P_{F}(V)=\\dfrac{\\text{Nombre de filles de plus de 20 ans}}{\\text{Nombre  de filles}}=\\dfrac{${texNombre(FinterV)}}{${texNombre(F)}}$
+          texteCorr = `$P_{F}(V)=\\dfrac{\\text{Nombre de filles de plus de 20 ans}}{\\text{Nombre  de filles}}=\\dfrac{${texNombre(FinterV)}}{${texNombre(F)}}$
       `
           reponse = new FractionEtendue(FinterV, F)
           setReponse(this, i, reponse, { formatInteractif: 'fractionEgale' })
@@ -281,7 +318,11 @@ export default class CalculProbaTableauEff extends Exercice {
           if (choice([true, false])) {
             if (this.interactif) {
               texte += '<br> $P_{\\overline{F}}(V)=$ '
-              texte += ajouteChampTexteMathLive(this, i, ' lycee')
+              texte += ajouteChampTexteMathLive(
+                this,
+                i,
+                KeyboardType.clavierDeBaseAvecFraction,
+              )
             } else {
               texte += '<br> Déterminer $P_{\\overline{F}}(V)$. '
               this.canEnonce += `${tableau}<br>`
@@ -293,7 +334,11 @@ export default class CalculProbaTableauEff extends Exercice {
                 ? '<br>Quelle est la probabilité de choisir une personne de plus de $20$ ans sachant que c’est un garçon ?'
                 : '<br>La personne choisie est un garçon. Quelle est la probabilité qu’il ait plus de $20$ ans  ?'
             }`
-            texte += ajouteChampTexteMathLive(this, i, ' lycee')
+            texte += ajouteChampTexteMathLive(
+              this,
+              i,
+              KeyboardType.clavierDeBaseAvecFraction,
+            )
             this.canEnonce += `${tableau}<br>
             ${
               choix
@@ -303,8 +348,7 @@ export default class CalculProbaTableauEff extends Exercice {
             this.canReponseACompleter = ''
           }
 
-          texteCorr = `La probabilité est donnée par : <br>
-          $P_{\\overline{F}}(V)=\\dfrac{\\text{Nombre de garçons de plus de 20 ans}}{\\text{Nombre  de garçons}}=\\dfrac{${texNombre(V - FinterV)}}{${texNombre(T - F)}}$
+          texteCorr = `$P_{\\overline{F}}(V)=\\dfrac{\\text{Nombre de garçons de plus de 20 ans}}{\\text{Nombre  de garçons}}=\\dfrac{${texNombre(V - FinterV)}}{${texNombre(T - F)}}$
       `
           reponse = new FractionEtendue(V - FinterV, T - F)
           setReponse(this, i, reponse, { formatInteractif: 'fractionEgale' })
@@ -316,7 +360,11 @@ export default class CalculProbaTableauEff extends Exercice {
           if (choice([true, false])) {
             if (this.interactif) {
               texte += '<br> $P(\\overline{V})=$ '
-              texte += ajouteChampTexteMathLive(this, i, ' lycee')
+              texte += ajouteChampTexteMathLive(
+                this,
+                i,
+                KeyboardType.clavierDeBaseAvecFraction,
+              )
             } else {
               texte += '<br>Déterminer $P(\\overline{V})$. '
               this.canEnonce += `${tableau}<br>`
@@ -326,7 +374,11 @@ export default class CalculProbaTableauEff extends Exercice {
             if (this.interactif) {
               texte +=
                 '<br>Quelle est la probabilité de choisir une personne de moins de $20$ ans ?'
-              texte += ajouteChampTexteMathLive(this, i, ' lycee')
+              texte += ajouteChampTexteMathLive(
+                this,
+                i,
+                KeyboardType.clavierDeBaseAvecFraction,
+              )
             } else {
               texte +=
                 '<br>  Quelle est la probabilité de choisir une personne de moins de $20$ ans ?'
@@ -344,7 +396,21 @@ export default class CalculProbaTableauEff extends Exercice {
       }
       if (this.questionJamaisPosee(i, F, V)) {
         this.listeQuestions[i] = texte
-        this.listeCorrections[i] = texteCorr
+        // Uniformisation : Mise en place de la réponse attendue en interactif en orange et gras
+        const textCorrSplit = texteCorr.split('=')
+        let aRemplacer = textCorrSplit[textCorrSplit.length - 1]
+        aRemplacer = aRemplacer.replace('$', '')
+
+        texteCorr = ''
+        for (let ee = 0; ee < textCorrSplit.length - 1; ee++) {
+          texteCorr += textCorrSplit[ee] + '='
+        }
+        texteCorr += `${miseEnEvidence(aRemplacer)}$`
+        // Fin de cette uniformisation
+
+        this.listeCorrections[i] =
+          `La probabilité est donnée par : <br><br>
+          ` + texteCorr
 
         this.listeCanEnonces.push(this.canEnonce)
         this.listeCanReponsesACompleter.push(this.canReponseACompleter)

@@ -1,4 +1,6 @@
 import { texSymbole } from '../../lib/format/style'
+import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
+import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { tableauDeVariation } from '../../lib/mathFonctions/etudeFonction'
 import { combinaisonListes } from '../../lib/outils/arrayOutils'
@@ -8,11 +10,9 @@ import {
 } from '../../lib/outils/ecritures'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { context } from '../../modules/context'
-import { listeQuestionsToContenu, randint } from '../../modules/outils'
-import { handleAnswers } from '../../lib/interactif/gestionInteractif'
-import Exercice from '../Exercice'
 import FractionEtendue from '../../modules/FractionEtendue'
-import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
+import { listeQuestionsToContenu, randint } from '../../modules/outils'
+import Exercice from '../Exercice'
 
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -132,7 +132,6 @@ export default class ExerciceInequationQuotient extends Exercice {
         texteCorr = '',
         cpt = 0;
       i < this.nbQuestions && cpt < 50;
-
     ) {
       // Génère 4 nombres relatifs a, b, c et d tous différents avec a et c qui ne peuvent pas être 1 car ce sont ceux qui peuvent multiplier x pour éviter à la fois d'avoir '1x' et de diviser par 1
       a = randint(-13, 13, [0, 1, -1])
@@ -489,7 +488,6 @@ export default class ExerciceInequationQuotient extends Exercice {
             ],
           ],
           tabLines: [ligne1, ligne2, ligne3],
-          colorBackground: '',
           espcl: 3.5,
           deltacl: 0.8,
           lgt: 8,
@@ -676,7 +674,6 @@ export default class ExerciceInequationQuotient extends Exercice {
             ],
           ],
           tabLines: [ligne1, ligne2, ligne3],
-          colorBackground: '',
           espcl: 3.5,
           deltacl: 0.8,
           lgt: 10,
@@ -962,7 +959,6 @@ $\\bullet$ On résout l'inéquation sur $\\R ${texSymbole('\\')} \\{${fractionMd
             ],
           ],
           tabLines: [ligne1, ligne2, ligne3, ligne4],
-          colorBackground: '',
           espcl: 3.5,
           deltacl: 0.8,
           lgt: 9,
@@ -1232,7 +1228,6 @@ $\\bullet$ On résout l'inéquation sur $\\R ${texSymbole('\\')} \\{${fractionMd
             ],
           ],
           tabLines: [ligne1, ligne2, ligne3],
-          colorBackground: '',
           espcl: 3.5,
           deltacl: 0.8,
           lgt: 10,
@@ -1451,7 +1446,6 @@ $\\bullet$ On résout l'inéquation sur $\\R ${texSymbole('\\')} \\{${fractionMd
             ],
           ],
           tabLines: [ligne1, ligne2, ligne3],
-          colorBackground: '',
           espcl: 3.5,
           deltacl: 0.8,
           lgt: 10,

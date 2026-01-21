@@ -25,6 +25,7 @@
   import ConfigEleve from './setup/configEleve/ConfigEleve.svelte'
   import Diaporama from './setup/diaporama/Diaporama.svelte'
   import Latex from './setup/latex/Latex.svelte'
+  import RawLatex from './setup/latex/RawLatex.svelte'
   import Pdf from './setup/latex/Pdf.svelte'
   import Moodle from './setup/moodle/Moodle.svelte'
   import Start from './setup/start/Start.svelte'
@@ -126,7 +127,11 @@
 
   function updateContext() {
     context.isDiaporama = $globalOptions.v === 'diaporama'
-    if ($globalOptions.v === 'latex' || $globalOptions.v === 'pdf') {
+    if (
+      $globalOptions.v === 'latex' ||
+      $globalOptions.v === 'pdf' ||
+      $globalOptions.v === 'raw'
+    ) {
       context.isHtml = false
     } else {
       context.isHtml = true
@@ -145,7 +150,8 @@
     }
     context.vue = ''
     if ($globalOptions.v === 'diaporama') context.vue = 'diap' // for compatibility
-    if ($globalOptions.v === 'latex') context.vue = 'latex' // for compatibility
+    if ($globalOptions.v === 'latex' || $globalOptions.v === 'raw')
+      context.vue = 'latex' // for compatibility
     if ($globalOptions.v === 'can') context.vue = 'can' // for compatibility
     // lorsque l'éditeur sera intégré à la v3, il faudra mettre à true cette propriété pour l'editeur
     context.isInEditor = false
@@ -175,9 +181,9 @@
 <div id="appComponent" class="antialiased">
   {#if showPopup}
     <Popup
-      message="{popupMessage}"
-      visible="{showPopup}"
-      onClose="{handlePopupClose}"
+      message={popupMessage}
+      visible={showPopup}
+      onClose={handlePopupClose}
     />
   {:else if $globalOptions.v === 'diaporama' || $globalOptions.v === 'overview'}
     <Diaporama />
@@ -187,6 +193,8 @@
     <Eleve />
   {:else if $globalOptions.v === 'latex'}
     <Latex />
+  {:else if $globalOptions.v === 'raw'}
+    <RawLatex />
   {:else if $globalOptions.v === 'alacarte'}
     <Alacarte />
   {:else if $globalOptions.v === 'confeleve'}

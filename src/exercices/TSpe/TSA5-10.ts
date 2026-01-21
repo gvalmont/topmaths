@@ -43,7 +43,7 @@ export default class VraiFauxSuites extends ExerciceVraiFaux {
       },
       {
         texte:
-          'Le nombre dérivé de la fonction logarithme néparien en $1$ vaut $1$.',
+          'Le nombre dérivé de la fonction logarithme népérien en $1$ vaut $1$.',
         statut: true,
         correction:
           'La dérivée de la fonction logarithme népérien est la fonction inverse, donc sa dérivée en $1$ vaut $1$.',

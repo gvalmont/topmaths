@@ -27,7 +27,7 @@ export function courses5(decimal = true): Probleme {
   const data = { nb1: prix1, nb2: solde }
   const enonce = `Dans la boutique de ${personnage.prenom}, un client vient d'acheter ${objet.nom} à $${texNombre(prix1, 2)}$ €. Il y a maintenant dans la caisse $${texNombre(solde, 2)}$ €.
 Combien y avait-il dans la caisse avant cet achat ?`
-  const correction = `Avant cet achat, il y avait $${texNombre(solde, 2)}\\text{ €} - ${texNombre(prix1, 2)}\\text{ €} = ${miseEnEvidence(texNombre(solde - prix1, 2))}$ € dans la caisse.`
+  const correction = `Avant cet achat, la somme qu'il y avait dans la caisse était de : $${texNombre(solde, 2)}\\text{ €} - ${texNombre(prix1, 2)}\\text{ €} = ${miseEnEvidence(texNombre(solde - prix1, 2))}$ €.`
   const probleme = new ProblemeTransfoAvant('courses5', data)
   probleme.enonce = enonce
   probleme.correction = correction
@@ -40,7 +40,7 @@ Combien y avait-il dans la caisse avant cet achat ?`
   probleme.schema.topBraces[0].text = `$${texNombre(solde, 2)}\\text{ €}$`
   probleme.schema.lignes[0].barres[0].content = `$${miseEnEvidence(texNombre(solde - prix1, 2))}\\text{ €}$`
   probleme.schema.lignes[0].barres[1].content = `$${texNombre(prix1, 2)}\\text{ €}$`
-  probleme.styleChampTexteMathlive = KeyboardType.college6eme
+  probleme.styleChampTexteMathlive = KeyboardType.clavierDeBase
   probleme.optionsChampTexteMathlive = { texteApres: ' €' }
   probleme.reponse = `${texNombre(solde - prix1, 2)}`
   return probleme

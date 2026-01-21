@@ -4,6 +4,7 @@ import { polygone } from '../../lib/2d/polygones'
 import { segment } from '../../lib/2d/segmentsVecteurs'
 import { texteParPosition } from '../../lib/2d/textes'
 import { deuxColonnes } from '../../lib/format/miseEnPage'
+import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { choice, shuffle } from '../../lib/outils/arrayOutils'
@@ -795,9 +796,14 @@ export default class ModelisationProblemes extends Exercice {
         })
         texteCorr += "L'opération qui peut résoudre le problème est : "
         texteCorr += `$${miseEnEvidence(correctionSansSchemaLatex)}$`
-        colonne1 += ajouteChampTexteMathLive(this, i, ' college6eme', {
-          texteAvant: sp(5) + '<br>Opération :',
-        })
+        colonne1 += ajouteChampTexteMathLive(
+          this,
+          i,
+          KeyboardType.clavierDeBase,
+          {
+            texteAvant: sp(5) + '<br>Opération :',
+          },
+        )
       } else if (this.sup3 === 2) {
         texteCorr +=
           'Cet énoncé peut être associé avec le schéma ci-dessous.<br>' +
@@ -810,9 +816,14 @@ export default class ModelisationProblemes extends Exercice {
         if (this.correctionDetaillee) {
           texteCorr += '<br>' + schemas[brouilleLesCartes[i]]
         }
-        colonne1 += ajouteChampTexteMathLive(this, i, ' alphanumeric', {
-          texteAvant: sp(5) + '<br>Schéma :',
-        })
+        colonne1 += ajouteChampTexteMathLive(
+          this,
+          i,
+          KeyboardType.alphanumeric,
+          {
+            texteAvant: sp(5) + '<br>Schéma :',
+          },
+        )
       }
       this.listeQuestions.push(colonne1)
       this.listeCorrections.push(texteCorr)

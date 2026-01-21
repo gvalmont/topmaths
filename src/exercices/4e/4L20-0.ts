@@ -1,11 +1,12 @@
+import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
+import { setReponse } from '../../lib/interactif/gestionInteractif'
+import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { combinaisonListes } from '../../lib/outils/arrayOutils'
+import { equation1erDegre1Inconnue } from '../../lib/outils/equations'
 import { sp } from '../../lib/outils/outilString'
-import Exercice from '../Exercice'
 import { context } from '../../modules/context'
 import { listeQuestionsToContenu } from '../../modules/outils'
-import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
-import { setReponse } from '../../lib/interactif/gestionInteractif'
-import { equation1erDegre1Inconnue } from '../../lib/outils/equations'
+import Exercice from '../Exercice'
 
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -46,11 +47,7 @@ export default class ExerciceEquationASolutionEntiere extends Exercice {
     this.spacing = 2
     context.isHtml ? (this.spacingCorr = 3) : (this.spacingCorr = 2)
     this.correctionDetailleeDisponible = true
-    if (!context.isHtml) {
-      this.correctionDetaillee = false
-    } else {
-      this.correctionDetaillee = true
-    }
+    this.correctionDetaillee = context.isHtml
     this.sup = true // Avec des nombres relatifs
     this.sup2 = 4 // Choix du type d'équation
     this.nbQuestions = 6
@@ -93,11 +90,13 @@ export default class ExerciceEquationASolutionEntiere extends Exercice {
         valeursRelatives: this.sup,
         type: listeTypeDeQuestions[i],
       })
-      const texte = `$${equation.egalite}$ ${ajouteChampTexteMathLive(this, i, '', { texteAvant: sp(10) + '<br>La solution est $x=$' })}`
+      const texte = `$${equation.egalite}$ ${ajouteChampTexteMathLive(this, i, KeyboardType.clavierDeBase, { texteAvant: sp(10) + '<br>La solution est $x=$' })}`
       const texteCorr =
-        texte + '<br>' + this.correctionDetaillee
+        texte +
+        '<br>' +
+        (this.correctionDetaillee
           ? equation.correctionDetaillee
-          : equation.correction
+          : equation.correction)
       setReponse(this, i, equation.reponse, { signe: !!this.sup })
       if (this.questionJamaisPosee(i, equation.a, equation.b, equation.c)) {
         this.listeQuestions[i] = texte

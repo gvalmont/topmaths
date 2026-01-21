@@ -22,6 +22,7 @@ import {
 import { pave3d } from '../../lib/3d/3dProjectionMathalea2d/PaveEtPaveLPH3dPerspectiveCavaliere'
 import { pyramide3d } from '../../lib/3d/3dProjectionMathalea2d/Pyramide3dPerspectiveCavaliere'
 import { sphere3d } from '../../lib/3d/3dProjectionMathalea2d/Sphere3dPerspectiveCavaliere'
+import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 
 import { setReponse } from '../../lib/interactif/gestionInteractif'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
@@ -141,7 +142,6 @@ export default class CalculPythagoreEspace extends Exercice {
         sph,
         cpt = 0;
       i < this.nbQuestions && cpt < 50;
-
     ) {
       this.autoCorrection[i] = {}
       texte = ''
@@ -1099,7 +1099,7 @@ export default class CalculPythagoreEspace extends Exercice {
       if (this.interactif && context.isHtml)
         texte +=
           `<br>$${longueurATrouver}\\approx$` +
-          ajouteChampTexteMathLive(this, i, '  unites[longueurs]', {
+          ajouteChampTexteMathLive(this, i, KeyboardType.longueur, {
             texteApres: ' (Il faut penser à indiquer une unité.)',
           })
 

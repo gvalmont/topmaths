@@ -1,7 +1,7 @@
 import { base10VersBaseN } from '../../lib/mathFonctions/baseConversions'
 import { combinaisonListes } from '../../lib/outils/arrayOutils'
 import { context } from '../../modules/context'
-import Operation from '../../modules/operations'
+import operation from '../../modules/operations'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import Exercice from '../Exercice'
 export const titre = "Additions et soustractions dans d'autres bases"
@@ -75,7 +75,6 @@ export default class AdditionSoustractionBaseN extends Exercice {
     for (
       let i = 0, texte, texteCorr, m, n, mb, nb, base, cpt = 0;
       i < this.nbQuestions && cpt < 50;
-
     ) {
       base = listeBases[i]
       if (listeOperations[i] === '+') {
@@ -86,7 +85,7 @@ export default class AdditionSoustractionBaseN extends Exercice {
         texte = `$(${mb})_{${base}} + (${nb})_{${base}}$`
         texteCorr =
           `En base ${base} :<br>` +
-          Operation({ operande1: m, operande2: n, type: 'addition', base })
+          operation({ operande1: m, operande2: n, type: 'addition', base })
         const retenue = []
         for (let rang = 0; rang < Math.max(mb.length, nb.length); rang++) {
           const somme: number =
@@ -119,7 +118,7 @@ export default class AdditionSoustractionBaseN extends Exercice {
         texte = `$(${mb})_{${base}} - (${nb})_{${base}}$`
         texteCorr =
           `En base ${base} :<br>` +
-          Operation({ operande1: m, operande2: n, type: 'soustraction', base })
+          operation({ operande1: m, operande2: n, type: 'soustraction', base })
         const retenue = []
         for (let rang = 0; rang < Math.max(mb.length, nb.length); rang++) {
           let difference =

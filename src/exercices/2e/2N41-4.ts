@@ -1,14 +1,16 @@
+import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
+import { setReponse } from '../../lib/interactif/gestionInteractif'
+import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
 import {
   texFractionFromString,
   texFractionReduite,
 } from '../../lib/outils/deprecatedFractions'
+import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { pgcd } from '../../lib/outils/primalite'
-import Exercice from '../Exercice'
-import { listeQuestionsToContenu, randint } from '../../modules/outils'
-import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { context } from '../../modules/context'
-import { setReponse } from '../../lib/interactif/gestionInteractif'
+import { listeQuestionsToContenu, randint } from '../../modules/outils'
+import Exercice from '../Exercice'
 
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -113,7 +115,6 @@ export default class DevelopperIdentitesRemarquables3 extends Exercice {
         ds,
         typesDeQuestions;
       i < this.nbQuestions && cpt < 50;
-
     ) {
       typesDeQuestions = listeTypeDeQuestions[i]
       a = randint(1, 12)
@@ -126,9 +127,9 @@ export default class DevelopperIdentitesRemarquables3 extends Exercice {
         case 1:
           texte = `$\\left(x+${a}\\right)^2$` // (x+a)^2
           if (this.correctionDetaillee) {
-            texteCorr += `On développe l'expression en utilisant l'identité remarquable $(a+b)^2=a^2+2ab+b^2$, <br> avec $\\color{red} a = x\\color{black}$ et $\\color{green} b = ${a} \\color{black} $ : <br> <br>`
-            texteCorr += `$\\left(\\color{red}x\\color{black}+\\color{green}${a}\\color{black}\\right)^2=\\color{red}x\\color{black}^2+2 \\times \\color{red}x \\color{black}\\times \\color{green}${a} \\color{black}+ \\color{green}${a}\\color{black}^2$ <br>`
-            texteCorr += `$\\phantom{\\left(\\color{red}x\\color{black}+\\color{green}${a}\\color{black}\\right)^2} = x^2+${2 * a}x+${a * a}$`
+            texteCorr += `On développe l'expression en utilisant l'identité remarquable $(a+b)^2=a^2+2ab+b^2$, <br> avec $\\color{blue} a = x\\color{black}$ et $\\color{green} b = ${a} \\color{black} $ : <br> <br>`
+            texteCorr += `$\\left(\\color{blue}x\\color{black}+\\color{green}${a}\\color{black}\\right)^2=\\color{blue}x\\color{black}^2+2 \\times \\color{blue}x \\color{black}\\times \\color{green}${a} \\color{black}+ \\color{green}${a}\\color{black}^2$ <br>`
+            texteCorr += `$\\phantom{\\left(\\color{blue}x\\color{black}+\\color{green}${a}\\color{black}\\right)^2} = x^2+${2 * a}x+${a * a}$`
           } else {
             texteCorr += `$\\left(x+${a} \\right)^2=x^2+${2 * a}x+${a * a}$`
           }
@@ -137,9 +138,9 @@ export default class DevelopperIdentitesRemarquables3 extends Exercice {
         case 2:
           texte = `$\\left(${b}x+${a}\\right)^2$` // b>1
           if (this.correctionDetaillee) {
-            texteCorr += `On développe l'expression en utilisant l'identité remarquable $(a+b)^2=a^2+2ab+b^2$, <br> avec $\\color{red} a = ${b}x\\color{black}$ et $\\color{green} b = ${a} \\color{black} $ : <br> <br>`
-            texteCorr += `$\\left(\\color{red}${b}x\\color{black}+\\color{green}${a}\\color{black}\\right)^2 = \\left(\\color{red}${b}x\\color{black}\\right)^2 + 2 \\times \\color{red}${b}x\\color{black} \\times \\color{green}${a} + ${a}\\color{black}^2$ <br>`
-            texteCorr += `$\\phantom{\\left(\\color{red}${b}x\\color{black}+\\color{green}${a}\\color{black}\\right)^2} = ${b * b}x^2+${2 * b * a}x+${a * a}$`
+            texteCorr += `On développe l'expression en utilisant l'identité remarquable $(a+b)^2=a^2+2ab+b^2$, <br> avec $\\color{blue} a = ${b}x\\color{black}$ et $\\color{green} b = ${a} \\color{black} $ : <br> <br>`
+            texteCorr += `$\\left(\\color{blue}${b}x\\color{black}+\\color{green}${a}\\color{black}\\right)^2 = \\left(\\color{blue}${b}x\\color{black}\\right)^2 + 2 \\times \\color{blue}${b}x\\color{black} \\times \\color{green}${a} + ${a}\\color{black}^2$ <br>`
+            texteCorr += `$\\phantom{\\left(\\color{blue}${b}x\\color{black}+\\color{green}${a}\\color{black}\\right)^2} = ${b * b}x^2+${2 * b * a}x+${a * a}$`
           } else {
             texteCorr += `$\\left(${b}x+${a}\\right)^2 = ${b * b}x^2+${2 * b * a}x+${a * a}$`
           }
@@ -149,9 +150,9 @@ export default class DevelopperIdentitesRemarquables3 extends Exercice {
           b = -b
           texte = `$\\left(${b}x+${a}\\right)^2$` // b<-1
           if (this.correctionDetaillee) {
-            texteCorr += `On développe l'expression en utilisant l'identité remarquable $(a+b)^2=a^2+2ab+b^2$, <br> avec $\\color{red} a = ${b}x\\color{black}$ et $\\color{green} b = ${a} \\color{black} $ : <br> <br>`
-            texteCorr += `$\\left(\\color{red}${b}x\\color{black}+\\color{green}${a}\\color{black}\\right)^2 = \\left(\\color{red}${b}x\\color{black}\\right)^2 + 2 \\times \\color{red}(${b}x)\\color{black} \\times \\color{green}${a} + ${a}\\color{black}^2$ <br>`
-            texteCorr += `$\\phantom{\\left(\\color{red}${b}x\\color{black}+\\color{green}${a}\\color{black}\\right)^2} = ${b * b}x^2 -${2 * -b * a}x+${a * a}$`
+            texteCorr += `On développe l'expression en utilisant l'identité remarquable $(a+b)^2=a^2+2ab+b^2$, <br> avec $\\color{blue} a = ${b}x\\color{black}$ et $\\color{green} b = ${a} \\color{black} $ : <br> <br>`
+            texteCorr += `$\\left(\\color{blue}${b}x\\color{black}+\\color{green}${a}\\color{black}\\right)^2 = \\left(\\color{blue}${b}x\\color{black}\\right)^2 + 2 \\times \\color{blue}(${b}x)\\color{black} \\times \\color{green}${a} + ${a}\\color{black}^2$ <br>`
+            texteCorr += `$\\phantom{\\left(\\color{blue}${b}x\\color{black}+\\color{green}${a}\\color{black}\\right)^2} = ${b * b}x^2 -${2 * -b * a}x+${a * a}$`
           } else {
             texteCorr = texte + `$= ${b * b}x^2 -${2 * -b * a}x+${a * a}$`
           }
@@ -161,11 +162,11 @@ export default class DevelopperIdentitesRemarquables3 extends Exercice {
         default:
           texte = `$\\left(${texFractionFromString(ns, ds)}x+${a}\\right)^2$`
           if (this.correctionDetaillee) {
-            texteCorr += `On développe l'expression en utilisant l'identité remarquable $(a+b)^2=a^2+2ab+b^2$, <br> avec $\\color{red} a = ${texFractionFromString(ns, ds)}x\\color{black}$ et $\\color{green} b = ${a} \\color{black} $ : <br> <br>`
-            texteCorr += `$\\left(\\color{red}${texFractionFromString(ns, ds)}x\\color{black}+\\color{green}${a}\\color{black}\\right)^2 = \\left(\\color{red}${texFractionFromString(ns, ds)}x\\color{black}\\right)^2 + 2 \\times \\color{red}${texFractionFromString(ns, ds)}x\\color{black} \\times \\color{green}${a} + ${a}\\color{black}^2 $ <br><br>`
-            texteCorr += `$\\phantom{\\left(\\color{red}${texFractionFromString(ns, ds)}x\\color{black}+\\color{green}${a}\\color{black}\\right)^2} = ${texFractionFromString(ns * ns, ds * ds)}x^2+${texFractionFromString(2 * ns * a, ds)}x+${a * a}$`
+            texteCorr += `On développe l'expression en utilisant l'identité remarquable $(a+b)^2=a^2+2ab+b^2$, <br> avec $\\color{blue} a = ${texFractionFromString(ns, ds)}x\\color{black}$ et $\\color{green} b = ${a} \\color{black} $ : <br> <br>`
+            texteCorr += `$\\left(\\color{blue}${texFractionFromString(ns, ds)}x\\color{black}+\\color{green}${a}\\color{black}\\right)^2 = \\left(\\color{blue}${texFractionFromString(ns, ds)}x\\color{black}\\right)^2 + 2 \\times \\color{blue}${texFractionFromString(ns, ds)}x\\color{black} \\times \\color{green}${a} + ${a}\\color{black}^2 $ <br><br>`
+            texteCorr += `$\\phantom{\\left(\\color{blue}${texFractionFromString(ns, ds)}x\\color{black}+\\color{green}${a}\\color{black}\\right)^2} = ${texFractionFromString(ns * ns, ds * ds)}x^2+${texFractionFromString(2 * ns * a, ds)}x+${a * a}$`
             if (pgcd(ns, ds) !== 1 || pgcd(2 * ns * a, ds) !== 1) {
-              texteCorr += `<br> <br> $\\phantom{\\left(\\color{red}${texFractionFromString(ns, ds)}x\\color{black}+\\color{green}${a}\\color{black}\\right)^2} = ${texFractionReduite(ns * ns, ds * ds)}x^2+${texFractionReduite(2 * ns * a, ds)}x+${a * a}$`
+              texteCorr += `<br> <br> $\\phantom{\\left(\\color{blue}${texFractionFromString(ns, ds)}x\\color{black}+\\color{green}${a}\\color{black}\\right)^2} = ${texFractionReduite(ns * ns, ds * ds)}x^2+${texFractionReduite(2 * ns * a, ds)}x+${a * a}$`
             }
           } else {
             // texteCorr = texte + `$= ${texFractionReduite(ns * ns, ds * ds)}x^2+${texFractionReduite(2 * ns * a, ds)}x+${a * a}$`
@@ -173,7 +174,7 @@ export default class DevelopperIdentitesRemarquables3 extends Exercice {
               texte +
               `$= ${texFractionFromString(ns * ns, ds * ds)}x^2+${texFractionFromString(2 * ns * a, ds)}x+${a * a}$`
             if (pgcd(ns, ds) !== 1 || pgcd(2 * ns * a, ds) !== 1) {
-              texteCorr += `<br> <br> $\\phantom{\\left(\\color{red}${texFractionFromString(ns, ds)}x\\color{black}+\\color{green}${a}\\color{black}\\right)^2} = ${texFractionReduite(ns * ns, ds * ds)}x^2+${texFractionReduite(2 * ns * a, ds)}x+${a * a}$`
+              texteCorr += `<br> <br> $\\phantom{\\left(\\color{blue}${texFractionFromString(ns, ds)}x\\color{black}+\\color{green}${a}\\color{black}\\right)^2} = ${texFractionReduite(ns * ns, ds * ds)}x^2+${texFractionReduite(2 * ns * a, ds)}x+${a * a}$`
             }
           }
           reponse = [
@@ -182,11 +183,25 @@ export default class DevelopperIdentitesRemarquables3 extends Exercice {
           ]
           break
       }
-      texte += ajouteChampTexteMathLive(this, i, '', { texteAvant: ' $=$ ' })
+      texte += ajouteChampTexteMathLive(this, i, KeyboardType.lyceeClassique, {
+        texteAvant: ' $=$ ',
+      })
       setReponse(this, i, reponse)
       if (this.questionJamaisPosee(i, typesDeQuestions, a)) {
         // Si la question n'a jamais été posée, on en créé une autre
         this.listeQuestions[i] = texte
+        // Uniformisation : Mise en place de la réponse attendue en interactif en orange et gras
+        const textCorrSplit = texteCorr.split('=')
+        let aRemplacer = textCorrSplit[textCorrSplit.length - 1]
+        aRemplacer = aRemplacer.replace('$', '')
+
+        texteCorr = ''
+        for (let ee = 0; ee < textCorrSplit.length - 1; ee++) {
+          texteCorr += textCorrSplit[ee] + '='
+        }
+        texteCorr += `${miseEnEvidence(aRemplacer)}$`
+        // Fin de cette uniformisation
+
         this.listeCorrections[i] = texteCorr
         i++
       }

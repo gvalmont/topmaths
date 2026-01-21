@@ -16,6 +16,7 @@ export const interactifReady = true
 export const interactifType = 'mathLive'
 
 export const dateDePublication = '06/12/2025'
+export const dateDeModifImportante = '19/01/2026'
 
 export const uuid = '6ab87'
 
@@ -29,11 +30,12 @@ export const refs = {
 export default class FormuleCosinus extends ExerciceSimple {
   constructor() {
     super()
-    this.besoinFormulaireCaseACocher = [
+    /* this.besoinFormulaireCaseACocher = [
       'Sujet original (2e paramètre inutile si coché)',
       false,
     ]
     this.besoinFormulaire2CaseACocher = ['Autres formules', false]
+    */
     this.sup = false
     this.sup2 = false
     this.typeExercice = 'simple'
@@ -42,7 +44,7 @@ export default class FormuleCosinus extends ExerciceSimple {
   }
 
   nouvelleVersion() {
-    const fonctionTrigo = this.sup
+    const fonctionTrigo = !this.sup2
       ? 'cosinus'
       : choice(['cosinus', 'sinus', 'tangente'])
     const positionAngleDroit = this.sup

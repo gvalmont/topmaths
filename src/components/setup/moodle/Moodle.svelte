@@ -1,10 +1,8 @@
 <script lang="ts">
-  import { onMount } from 'svelte'
-  import { Tab, initTE } from 'tw-elements'
   import type TypeExercice from '../../../exercices/Exercice'
   import {
-      mathaleaGetExercicesFromParams,
-      mathaleaUpdateExercicesParamsFromUrl,
+    mathaleaGetExercicesFromParams,
+    mathaleaUpdateExercicesParamsFromUrl,
   } from '../../../lib/mathalea'
   import { darkMode, exercicesParams } from '../../../lib/stores/generalStore'
   import { referentielLocale } from '../../../lib/stores/languagesStore'
@@ -12,14 +10,9 @@
   import ButtonToggleAlt from '../../shared/forms/ButtonToggleAlt.svelte'
   import FormRadio from '../../shared/forms/FormRadio.svelte'
   import NavBar from '../../shared/header/NavBar.svelte'
-// pour les tabs
+  import Tabs from '../../shared/ui/Tabs.svelte'
   import { saveAs } from 'file-saver'
   import JSZip from 'jszip'
-
-
-  onMount(() => {
-    initTE({ Tab })
-  })
 
   const copyCode = async () => {
     const preElt = document.querySelector('pre')
@@ -145,7 +138,6 @@
     exercices = await mathaleaGetExercicesFromParams($exercicesParams)
     if (exercices.length === 0) {
       tab = 'bookmarklet'
-      document.getElementById('tabs-bookmarklet-btn')?.click()
       justBookmarklet = true
     }
     let i = 0
@@ -155,7 +147,7 @@
         if (key === 'sup') {
           // 28-10-2025 Ajout de encodeURIComponent pour gérer DéfiTable correctement
           // A vérifier que ça ne casse pas d'autres choses
-          paramUrl += `s\\=${encodeURIComponent(param[key] || "")}&`
+          paramUrl += `s\\=${encodeURIComponent(param[key] || '')}&`
         } else if (key === 'sup2') {
           paramUrl += `s2\\=${param[key]}&`
         } else if (key === 'sup3') {
@@ -269,9 +261,19 @@
     initExercices()
   }
 
-  let tab = 'gift';
+  let tab = 'gift'
 
+  $: moodleTabs = justBookmarklet
+    ? [{ id: 'bookmarklet', label: 'Marque-page magique', ariaControls: 'tabs-bookmarklet' }]
+    : [
+        { id: 'gift', label: 'Export Gift (Quiz)', ariaControls: 'tabs-gift' },
+        { id: 'scorm', label: 'Export SCORM', ariaControls: 'tabs-scorm' },
+        { id: 'bookmarklet', label: 'Marque-page magique', ariaControls: 'tabs-bookmarklet' },
+      ]
 
+  function handleTabChange(e: CustomEvent<string>) {
+    tab = e.detail
+  }
 </script>
 
 <main
@@ -282,8 +284,8 @@
   <NavBar
     subtitle="Moodle"
     subtitleType="export"
-    handleLanguage="{() => {}}"
-    locale="{$referentielLocale}"
+    handleLanguage={() => {}}
+    locale={$referentielLocale}
   />
   <div
     class="flex flex-col h-full w-full bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark"
@@ -303,79 +305,14 @@
       </div>
       -->
       <!-- Tabulations pour la présentation -->
-      <ul
-        class="flex list-none flex-row flex-wrap border-b-0 pl-0 pt-0 bg-coopmaths-canvas-darkest dark:bg-coopmathsdark-canvas"
-        role="tablist"
-        data-te-nav-ref
-      >
-        {#if !justBookmarklet}
-        <li role="presentation" class="flex-grow basis-0 text-center">
-          <a
-            id="tabs-gift-btn"
-            href="#tabs-gift"
-            class="relative block font-extrabold px-7 pb-3.5 pt-4 text-base uppercase leading-tight text-coopmaths-action bg-coopmaths-canvas-darkest dark:bg-coopmathsdark-canvas-darkest hover:isolate hover:bg-coopmaths-action focus:isolate data-[te-nav-active]:bg-coopmaths-canvas data-[te-nav-active]:text-coopmaths-struct dark:text-coopmathsdark-action dark:hover:bg-coopmathsdark-action dark:hover:bg-opacity-20 dark:data-[te-nav-active]:bg-coopmathsdark-canvas dark:data-[te-nav-active]:text-coopmathsdark-struct
-            {tab === 'gift' ? ' hover:bg-opacity-0' : ' hover:bg-opacity-10'}"
-            data-te-toggle="pill"
-            data-te-target="#tabs-gift"
-            role="tab"
-            aria-controls="tabs-gift"
-            aria-selected="true"
-            data-te-nav-active=""
-            on:click="{() => {
-              tab = 'gift'
-            }}"
-          >
-            Export Gift (Quiz)
-          </a>
-        </li>
-        <li role="presentation" class="flex-grow basis-0 text-center">
-          <a
-            id="tabs-scorm-btn"
-            href="#tabs-scorm"
-            class="relative block font-extrabold px-7 pb-3.5 pt-4 text-base uppercase leading-tight text-coopmaths-action bg-coopmaths-canvas-darkest dark:bg-coopmathsdark-canvas-darkest hover:isolate hover:bg-coopmaths-action focus:isolate data-[te-nav-active]:bg-coopmaths-canvas data-[te-nav-active]:text-coopmaths-struct dark:text-coopmathsdark-action dark:hover:bg-coopmathsdark-action dark:hover:bg-opacity-20 dark:data-[te-nav-active]:bg-coopmathsdark-canvas dark:data-[te-nav-active]:text-coopmathsdark-struct
-            {tab === 'scorm' ? ' hover:bg-opacity-0' : ' hover:bg-opacity-10'}"
-            data-te-toggle="pill"
-            data-te-target="#tabs-scorm"
-            role="tab"
-            aria-controls="tabs-scorm"
-            aria-selected="false"
-            on:click="{() => {
-              tab = 'scorm'
-            }}"
-          >
-            Export SCORM
-          </a>
-        </li>
-        {/if}
-        <li role="presentation" class="flex-grow basis-0 text-center">
-          <a
-            id="tabs-bookmarklet-btn"
-            href="#tabs-bookmarklet"
-            class="relative block font-extrabold px-7 pb-3.5 pt-4 text-base uppercase leading-tight text-coopmaths-action bg-coopmaths-canvas-darkest dark:bg-coopmathsdark-canvas-darkest hover:isolate hover:bg-coopmaths-action focus:isolate data-[te-nav-active]:bg-coopmaths-canvas data-[te-nav-active]:text-coopmaths-struct dark:text-coopmathsdark-action dark:hover:bg-coopmathsdark-action dark:hover:bg-opacity-20 dark:data-[te-nav-active]:bg-coopmathsdark-canvas dark:data-[te-nav-active]:text-coopmathsdark-struct
-            {tab === 'bookmarklet'
-              ? ' hover:bg-opacity-0'
-              : ' hover:bg-opacity-10'}"
-            data-te-toggle="pill"
-            data-te-target="#tabs-bookmarklet"
-            role="tab"
-            aria-controls="tabs-bookmarklet"
-            aria-selected="false"
-            on:click="{() => {
-              tab = 'bookmarklet'
-            }}"
-          >
-            Marque-page magique
-          </a>
-        </li>
-      </ul>
+      <Tabs tabs={moodleTabs} activeTab={tab} on:change={handleTabChange} />
       <!-- Pages des réglages -->
       <div class="pb-6 pt-4 bg-coopmaths-canvas dark:bg-coopmathsdark-canvas">
         <div
-          class="hidden opacity-100 transition-opacity duration-150 ease-linear data-[te-tab-active]:block"
+          class="transition-opacity duration-150 ease-linear {tab === 'gift' ? 'block opacity-100' : 'hidden opacity-0'}"
           id="tabs-gift"
           role="tabpanel"
-          aria-labelledby="tabs-gift"
-          data-te-tab-active=""
+          aria-labelledby="tabs-gift-btn"
         >
           <div
             class="flex px-6 py-2 font-light text-lg text-coopmaths-corpus-light dark:text-coopmathsdark-corpus-light"
@@ -419,8 +356,8 @@
                   </div>
                   <FormRadio
                     title="Type d'aléatoire"
-                    bind:valueSelected="{aleaType}"
-                    labelsValues="{[
+                    bind:valueSelected={aleaType}
+                    labelsValues={[
                       {
                         label:
                           "L'énoncé change à chaque actualisation de la page",
@@ -435,7 +372,7 @@
                         label: "Pas d'aléatoire (utiliser l'énoncé actuel')",
                         value: 'graine',
                       },
-                    ]}"
+                    ]}
                   />
                   <div
                     class="pl-2 pb-2 mt-2 font-bold text-coopmaths-struct-light dark:text-coopmathsdark-struct-light"
@@ -443,17 +380,17 @@
                     Autres options
                   </div>
                   <ButtonToggleAlt
-                    title="{'Afficher le titre'}"
-                    bind:value="{showTitle}"
-                    explanations="{[
+                    title={'Afficher le titre'}
+                    bind:value={showTitle}
+                    explanations={[
                       "Le titre de l'exercice sera affiché",
                       "Le titre de l'exercice ne sera pas affiché",
-                    ]}"
+                    ]}
                   />
                 </div>
                 <button
                   type="submit"
-                  on:click="{downloadGift}"
+                  on:click={downloadGift}
                   class="p-2 rounded-xl text-coopmaths-canvas dark:text-coopmathsdark-canvas bg-coopmaths-action hover:bg-coopmaths-action-lightest dark:bg-coopmathsdark-action dark:hover:bg-coopmathsdark-action-lightest"
                 >
                   <i class="bx bx-download mr-2"></i>Télécharger le fichier gift
@@ -479,10 +416,10 @@
           </div>
         </div>
         <div
-          class="hidden opacity-100 transition-opacity duration-150 ease-linear data-[te-tab-active]:block"
+          class="transition-opacity duration-150 ease-linear {tab === 'scorm' ? 'block opacity-100' : 'hidden opacity-0'}"
           id="tabs-scorm"
           role="tabpanel"
-          aria-labelledby="tabs-scorm"
+          aria-labelledby="tabs-scorm-btn"
         >
           <div
             class="flex px-6 py-2 font-light text-lg text-coopmaths-corpus-light dark:text-coopmathsdark-corpus-light"
@@ -519,18 +456,18 @@
               <div class="flex flex-col justify-center items-center space-y-2">
                 <div class="pl-4 pt-4">
                   <ButtonToggleAlt
-                    title="{'Utiliser des exercices aléatoires'}"
-                    bind:value="{useAlea}"
-                    explanations="{[
+                    title={'Utiliser des exercices aléatoires'}
+                    bind:value={useAlea}
+                    explanations={[
                       'Chaque élève aura des exercices différents.',
                       'Tous les élèves auront le même exercice',
-                    ]}"
+                    ]}
                   />
                 </div>
 
                 <button
                   type="submit"
-                  on:click="{downloadScorm}"
+                  on:click={downloadScorm}
                   class="p-2 rounded-xl text-coopmaths-canvas dark:text-coopmathsdark-canvas bg-coopmaths-action hover:bg-coopmaths-action-lightest dark:bg-coopmathsdark-action dark:hover:bg-coopmathsdark-action-lightest"
                 >
                   <i class="bx bx-download mr-2"></i>Télécharger le fichier
@@ -549,10 +486,10 @@
           </div>
         </div>
         <div
-          class="hidden opacity-100 transition-opacity duration-150 ease-linear data-[te-tab-active]:block"
+          class="transition-opacity duration-150 ease-linear {tab === 'bookmarklet' ? 'block opacity-100' : 'hidden opacity-0'}"
           id="tabs-bookmarklet"
           role="tabpanel"
-          aria-labelledby="tabs-bookmarklet"
+          aria-labelledby="tabs-bookmarklet-btn"
         >
           <div
             class="flex px-6 py-2 font-light text-lg text-coopmaths-corpus-light dark:text-coopmathsdark-corpus-light"
@@ -583,7 +520,7 @@
               page :<br />
               <!-- svelte-ignore a11y-invalid-attribute -->
               <a
-                href="javascript:var MathAleaBookmarkletScript = document.createElement('script');MathAleaBookmarkletScript.type='text/javascript';MathAleaBookmarkletScript.src='https://coopmaths.fr/alea/assets/externalJs/moodle-bookmarklet.js';document.body.appendChild(MathAleaBookmarkletScript);void(0);"
+                href="javascript:var MathAleaBookmarkletScript = document.createElement('script');MathAleaBookmarkletScript.type='text/javascript';MathAleaBookmarkletScript.src='https://coopmaths.fr/alea/assets/externalJs/moodle-bookmarklet.js?v=2';document.body.appendChild(MathAleaBookmarkletScript);void(0);"
                 style="color:blue;text-decoration:underline;"
                 >Activité MathALÉA</a
               >
@@ -604,47 +541,54 @@
 
               <ul style="list-style-type: square;margin-left:30px;">
                 <li>
-                Pour utilisez le marque-page magique pour créer une <strong>activité MathALÉA</strong> :
-                <ul style="list-style-type: square;margin-left:30px;">
-                  <li>Ouvrez la page d'un cours en mode édition.</li>
-                  <li>
-                    Appuyez sur le bouton permettant d'ajouter une activité à une
-                    section.
-                  </li>
-                  <li>
-                    Lorsque le sélecteur d'activité s'affiche, appuyez sur le
-                    marque-page magique.
-                  </li>
-                  <li>
-                    La fenêtre vous propose alors de choisir un ou plusieurs
-                    exercices MathALÉA à ajouter à votre cours.
-                  </li>
-                  <li>
-                    Une fois les exercices choisis, appuyez sur le bouton
-                    "Ajouter" pour les insérer dans votre cours.
-                  </li>
-                </ul>
+                  Pour utilisez le marque-page magique pour créer une <strong
+                    >activité MathALÉA</strong
+                  >
+                  :
+                  <ul style="list-style-type: square;margin-left:30px;">
+                    <li>Ouvrez la page d'un cours en mode édition.</li>
+                    <li>
+                      Appuyez sur le bouton permettant d'ajouter une activité à
+                      une section.
+                    </li>
+                    <li>
+                      Lorsque le sélecteur d'activité s'affiche, appuyez sur le
+                      marque-page magique.
+                    </li>
+                    <li>
+                      La fenêtre vous propose alors de choisir un ou plusieurs
+                      exercices MathALÉA à ajouter à votre cours.
+                    </li>
+                    <li>
+                      Une fois les exercices choisis, appuyez sur le bouton
+                      "Ajouter" pour les insérer dans votre cours.
+                    </li>
+                  </ul>
                 </li>
                 <li>
-                Pour utilisez le marque-page magique pour créer une <strong>question MathALÉA</strong> dans un test :
-                <ul style="list-style-type: square;margin-left:30px;">
-                  <li>Se rendre dans l'onglet Questions d'un test</li>
-                  <li>
-                    Appuyez sur le bouton "Ajouter" puis choisir "Une question"
-                  </li>
-                  <li>
-                    Lorsque le sélecteur de type de questions s'affiche, appuyez sur le
-                    marque-page magique.
-                  </li>
-                  <li>
-                    La fenêtre vous propose alors de choisir un ou plusieurs
-                    exercices MathALÉA à ajouter à votre cours.
-                  </li>
-                  <li>
-                    Une fois les exercices choisis, appuyez sur le bouton
-                    "Ajouter" pour les insérer dans votre quiz (à la fin).
-                  </li>
-                </ul>
+                  Pour utilisez le marque-page magique pour créer une <strong
+                    >question MathALÉA</strong
+                  >
+                  dans un test :
+                  <ul style="list-style-type: square;margin-left:30px;">
+                    <li>Se rendre dans l'onglet Questions d'un test</li>
+                    <li>
+                      Appuyez sur le bouton "Ajouter" puis choisir "Une
+                      question"
+                    </li>
+                    <li>
+                      Lorsque le sélecteur de type de questions s'affiche,
+                      appuyez sur le marque-page magique.
+                    </li>
+                    <li>
+                      La fenêtre vous propose alors de choisir un ou plusieurs
+                      exercices MathALÉA à ajouter à votre cours.
+                    </li>
+                    <li>
+                      Une fois les exercices choisis, appuyez sur le bouton
+                      "Ajouter" pour les insérer dans votre quiz (à la fin).
+                    </li>
+                  </ul>
                 </li>
               </ul>
               <!--
@@ -655,12 +599,14 @@
                 MathALÉA.</strong
                 ><br />
               -->
-              L'utilisation du marque-page magique revient à importer un <strong>fichier SCORM</strong>, ou à importer une question au format <strong>GIFT</strong> dans un test Moodle. Le marque-page magique ne fait que simplifier le procéssus de création.<br />
-             Reportez-vous à la
+              L'utilisation du marque-page magique revient à importer un
+              <strong>fichier SCORM</strong>, ou à importer une question au
+              format <strong>GIFT</strong> dans un test Moodle. Le marque-page
+              magique ne fait que simplifier le procéssus de création.<br />
+              Reportez-vous à la
               <a
                 href="https://forge.apps.education.fr/coopmaths/mathalea/-/wikis/1.-Utilisation-de-MathAL%C3%89A/1.2-Int%C3%A9gration-avec-d'autres-plateformes/Utilisation-de-Mathalea-avec-Moodle-ELEA"
-                style="text-decoration:underline;"
-                >documentation</a
+                style="text-decoration:underline;">documentation</a
               > pour plus d'information.
             </section>
             <!-- FIN BOOKMARKLET -->

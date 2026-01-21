@@ -6,7 +6,7 @@ import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { texNombre } from '../../lib/outils/texNombre'
 import Hms from '../../modules/Hms'
-import Operation from '../../modules/operations'
+import operation from '../../modules/operations'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import Exercice from '../Exercice'
 
@@ -111,7 +111,7 @@ export default class ConversionsDeDurees extends Exercice {
         h = randint(1, 23)
         texte = `$${texNombre(h + 24 * j)}~\\text{h en jours et heures.}$`
         texteCorr =
-          Operation({
+          operation({
             operande1: h + 24 * j,
             operande2: 24,
             type: 'divisionE',
@@ -133,14 +133,14 @@ export default class ConversionsDeDurees extends Exercice {
             h * 3600 + m * 60 + s,
           )}~\\text{s en heures, minutes et secondes.}$`
           texteCorr =
-            Operation({
+            operation({
               operande1: h * 3600 + m * 60 + s,
               operande2: 3600,
               type: 'divisionE',
               style: 'margin-bottom: 1em',
             }) ?? ''
           texteCorr +=
-            Operation({
+            operation({
               operande1: m * 60 + s,
               operande2: 60,
               type: 'divisionE',
@@ -173,14 +173,14 @@ export default class ConversionsDeDurees extends Exercice {
         if (s > 1) {
           // pour la gestion du pluriel de semaines
           texteCorr =
-            Operation({
+            operation({
               operande1: h + 24 * j + 24 * 7 * s,
               operande2: 24,
               type: 'divisionE',
               style: 'margin-bottom: 1em',
             }) ?? ''
           texteCorr +=
-            Operation({
+            operation({
               operande1: 7 * s + j,
               operande2: 7,
               type: 'divisionE',

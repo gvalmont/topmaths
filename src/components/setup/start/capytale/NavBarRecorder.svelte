@@ -61,36 +61,36 @@
         <ButtonIconTooltip
           icon="bx-zoom-out text-3xl"
           tooltip="Réduire la taille du texte"
-          on:click="{() => zoomUpdate('-')}"
+          on:click={() => zoomUpdate('-')}
         />
         <ButtonIconTooltip
           icon="bx-zoom-in text-3xl"
           tooltip="Augmenter la taille du texte"
-          on:click="{() => zoomUpdate('+')}"
+          on:click={() => zoomUpdate('+')}
         />
         <ButtonIconTooltip
           icon="bx-refresh text-3xl"
           tooltip="Nouveaux énoncés"
-          on:click="{newDataForAll}"
+          on:click={newDataForAll}
         />
         <ButtonIconTooltip
           icon="bx-trash text-3xl"
           tooltip="Supprimer tous les exercicess"
-          on:click="{trash}"
+          on:click={trash}
         />
       </div>
       <div slot="input" class="flex flex-row items-center space-x-4">
         <InputText
           title="Importer les exercices d'une feuille élève"
           placeholder="Lien"
-          bind:value="{urlFeuilleEleve}"
+          bind:value={urlFeuilleEleve}
           classAddenda="w-50"
         />
         <ButtonTextAction
           class="text-sm py-1 px-2 rounded-md h-7"
           text="Ajouter"
-          disabled="{urlFeuilleEleve === ''}"
-          on:click="{() => importExercises(urlFeuilleEleve)}"
+          disabled={urlFeuilleEleve === ''}
+          on:click={() => importExercises(urlFeuilleEleve)}
         />
       </div>
       <div
@@ -101,16 +101,16 @@
           <ButtonTextAction
             class="text-sm py-1 px-2 rounded-md h-7"
             text="Valider"
-            disabled="{isExercisesListEmpty}"
-            on:click="{handleRecorder}"
+            disabled={isExercisesListEmpty}
+            on:click={handleRecorder}
           />
         {/if}
         {#if isCapytale}
           <ButtonIconTooltip
             icon="bx-cog text-3xl"
             tooltip="Régler l'affichage du mode élève"
-            disabled="{isExercisesListEmpty}"
-            on:click="{showSettingsDialog}"
+            disabled={isExercisesListEmpty}
+            on:click={showSettingsDialog}
           />
         {/if}
         <div>
@@ -118,10 +118,10 @@
             icon="bx-log-out bx-rotate-180"
             tooltip="Rejoindre MathALÉA"
             class="text-3xl"
-            disabled="{isExercisesListEmpty}"
-            on:click="{() => {
+            disabled={isExercisesListEmpty}
+            on:click={() => {
               buildUrlAndOpenItInNewTab('usual')
-            }}"
+            }}
           />
         </div>
       </div>

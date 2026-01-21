@@ -8,6 +8,7 @@ import { rotation } from '../../lib/2d/transformations'
 import { angleModulo } from '../../lib/2d/utilitairesGeometriques'
 import { pointSurSegment } from '../../lib/2d/utilitairesPoint'
 import { texteGras } from '../../lib/format/style'
+import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 import { setReponse } from '../../lib/interactif/gestionInteractif'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { choice } from '../../lib/outils/arrayOutils'
@@ -212,9 +213,14 @@ export default class MesurerUnAngleAvecRapporteur extends Exercice {
       texte = texteAMC
       texteCorr += `Comme la demi-droite (${lettreDepuisChiffre(numB) + lettreDepuisChiffre(numA)}] passe par la graduation ${texteGras(0)} du rapporteur et que la demi-droite (${lettreDepuisChiffre(numC) + lettreDepuisChiffre(numA)}] passe par la graduation ${texteEnCouleurEtGras(Math.abs(angC), 'red')} du rapporteur, on lit que l'angle $\\widehat{${lettreDepuisChiffre(numB) + lettreDepuisChiffre(numA) + lettreDepuisChiffre(numC)}}$ mesure ${texteEnCouleurEtGras(abs(angC) + '°')}.<br>`
       if (this.interactif) {
-        texte += ajouteChampTexteMathLive(this, i * nbAngles, '', {
-          texteApres: ' °',
-        })
+        texte += ajouteChampTexteMathLive(
+          this,
+          i * nbAngles,
+          KeyboardType.clavierNumbers,
+          {
+            texteApres: ' °',
+          },
+        )
       }
       setReponse(this, i * nbAngles, abs(angC))
       if (context.isAmc) {
@@ -279,9 +285,14 @@ export default class MesurerUnAngleAvecRapporteur extends Exercice {
         texteCorr += `La demi-droite (${lettreDepuisChiffre(numD) + lettreDepuisChiffre(numA)}] passe par la graduation ${texteEnCouleurEtGras(Math.abs(angC + angD), 'blue')} du rapporteur. `
         texteCorr += `Et ${abs(angC + angD)}-${abs(angC)}=${texteGras(Math.abs(angD))}.<br>Donc on en déduit que l'angle $\\widehat{${lettreDepuisChiffre(numC) + lettreDepuisChiffre(numA) + lettreDepuisChiffre(numD)}}$ mesure ${texteEnCouleurEtGras(abs(angD) + '°')}.<br>`
         if (this.interactif) {
-          texte += ajouteChampTexteMathLive(this, i * nbAngles + 1, '', {
-            texteApres: ' °',
-          })
+          texte += ajouteChampTexteMathLive(
+            this,
+            i * nbAngles + 1,
+            KeyboardType.clavierNumbers,
+            {
+              texteApres: ' °',
+            },
+          )
         }
         setReponse(this, i * nbAngles + 1, abs(angD))
         if (context.isAmc) {
@@ -356,9 +367,14 @@ export default class MesurerUnAngleAvecRapporteur extends Exercice {
           texteCorr += `La demi-droite (${lettreDepuisChiffre(numE) + lettreDepuisChiffre(numA)}] passe par la graduation ${texteEnCouleurEtGras(Math.abs(angC + angD + angE), 'magenta')} du rapporteur. `
           texteCorr += `Et ${abs(angC + angD + angE)}-${abs(angC + angD)}=${texteGras(Math.abs(angE))}.<br>Donc on en déduit que l'angle $\\widehat{${lettreDepuisChiffre(numD) + lettreDepuisChiffre(numA) + lettreDepuisChiffre(numE)}}$ mesure ${texteEnCouleurEtGras(abs(angE) + '°')}.<br>`
           if (this.interactif) {
-            texte += ajouteChampTexteMathLive(this, i * nbAngles + 2, '', {
-              texteApres: ' °',
-            })
+            texte += ajouteChampTexteMathLive(
+              this,
+              i * nbAngles + 2,
+              KeyboardType.clavierNumbers,
+              {
+                texteApres: ' °',
+              },
+            )
           }
           setReponse(this, i * nbAngles + 2, abs(angE))
           if (context.isAmc) {
@@ -434,9 +450,14 @@ export default class MesurerUnAngleAvecRapporteur extends Exercice {
             texteCorr += `La demi-droite (${lettreDepuisChiffre(numF) + lettreDepuisChiffre(numA)}] passe par la graduation ${texteEnCouleurEtGras(Math.abs(angC + angD + angE + angF), 'green')} du rapporteur. `
             texteCorr += `Et ${abs(angC + angD + angE + angF)}-${abs(angC + angD + angE)}=${texteGras(Math.abs(angF))}.<br>Donc on en déduit que l'angle $\\widehat{${lettreDepuisChiffre(numE) + lettreDepuisChiffre(numA) + lettreDepuisChiffre(numF)}}$ mesure ${texteEnCouleurEtGras(abs(angF) + '°')}.<br>`
             if (this.interactif) {
-              texte += ajouteChampTexteMathLive(this, i * nbAngles + 3, '', {
-                texteApres: ' °',
-              })
+              texte += ajouteChampTexteMathLive(
+                this,
+                i * nbAngles + 3,
+                KeyboardType.clavierNumbers,
+                {
+                  texteApres: ' °',
+                },
+              )
             }
             setReponse(this, i * nbAngles + 3, abs(angF))
             if (context.isAmc) {

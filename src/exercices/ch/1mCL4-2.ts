@@ -11,6 +11,7 @@ import { combinaisonListes } from '../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
 
 import { bleuMathalea, vertMathalea } from '../../lib/colors'
+import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import MonomePlusieursVariables from '../../lib/mathFonctions/MonomePlusieursVariables'
 import PolynomePlusieursVariables from '../../lib/mathFonctions/PolynomePlusieursVariables'
@@ -212,10 +213,15 @@ export default class ExerciceEquationSecondDegre extends Exercice {
       }
       texte +=
         '<br><br>' +
-        ajouteChampTexteMathLive(this, 2 * i + 1, 'clavierFullOperations', {
-          texteAvant:
-            "Donner l'ensemble des solutions en séparant chaque solution par un point-virgule $S=$",
-        })
+        ajouteChampTexteMathLive(
+          this,
+          2 * i + 1,
+          KeyboardType.clavierFullOperations,
+          {
+            texteAvant:
+              "Donner l'ensemble des solutions en séparant chaque solution par un point-virgule $S=$",
+          },
+        )
       texteCorr += ' '
       texteCorr += '$\\begin{aligned}'
       if (this.sup3) {

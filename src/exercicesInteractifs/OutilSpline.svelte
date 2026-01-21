@@ -1,5 +1,7 @@
 <script>
   import HeaderExerciceVueProf from '../components/shared/exercice/shared/headerExerciceVueProf/HeaderExerciceVueProf.svelte'
+  import CheckboxWithLabel from '../components/shared/forms/CheckboxWithLabel.svelte'
+  import InputNumber from '../components/shared/forms/InputNumber.svelte'
   import { fixeBordures } from '../lib/2d/fixeBordures'
   import { repere } from '../lib/2d/reperes'
   import { spline, trieNoeuds } from '../lib/mathFonctions/Spline'
@@ -86,72 +88,78 @@
   refreshCourb()
 </script>
 
-<HeaderExerciceVueProf
-  {indiceExercice}
-  {indiceLastExercice}
-  id="spline"
-  {...headerExerciceProps}
-/>
+<div class="text-coopmaths-corpus dark:text-coopmathsdark-corpus">
+  <HeaderExerciceVueProf
+    {indiceExercice}
+    {indiceLastExercice}
+    id="spline"
+    {...headerExerciceProps}
+  />
 
-<section>
-  <div class="grid grid-cols-2 gap-4">
-    <div>
-      <!-- eslint-disable-next-line svelte/no-at-html-tags -->
-      {@html contenu}
+  <section>
+    <div class="grid grid-cols-2 gap-4">
+      <div>
+        <!-- eslint-disable-next-line svelte/no-at-html-tags -->
+        {@html contenu}
+      </div>
+      <div class="my-10 grid grid-cols-5 gap-4 text-center">
+        <div>x</div>
+        <div>y</div>
+        <div>Dérivée à gauche</div>
+        <div>Dérivée à droite</div>
+        <div class="text-left">Visible ?</div>
+        {#each noeuds as { x, y, deriveeGauche, deriveeDroit, isVisible }, i}
+          <InputNumber
+            id="spline-x-{i}"
+            bind:value={x}
+            min={-10}
+            max={10}
+            step={0.1}
+            on:change={refreshCourb}
+          />
+          <InputNumber
+            id="spline-y-{i}"
+            bind:value={y}
+            min={-10}
+            max={10}
+            step={0.1}
+            on:change={refreshCourb}
+          />
+          <InputNumber
+            id="spline-deriveeGauche-{i}"
+            bind:value={deriveeGauche}
+            min={-10}
+            max={10}
+            step={0.1}
+            on:change={refreshCourb}
+          />
+          <InputNumber
+            id="spline-deriveeDroit-{i}"
+            bind:value={deriveeDroit}
+            min={-10}
+            max={10}
+            step={0.1}
+            on:change={refreshCourb}
+          />
+          <CheckboxWithLabel
+            id="spline-visible-{i}"
+            bind:isChecked={isVisible}
+            on:change={refreshCourb}
+          />
+        {/each}
+        <button on:click={removeNoeud} aria-label="Supprimer un noeud"
+          ><i class="bx bx-lg bx-minus-circle"></i></button
+        >
+        <button on:click={addNoeud} aria-label="Ajouter un noeud"
+          ><i class="bx bx-lg bx-plus-circle"></i></button
+        >
+        <button on:click={copy} aria-label="Copier"
+          ><i class="bx bx-lg bx-clipboard"></i></button
+        >
+        <button on:click={paste} aria-label="Coller"
+          ><i class="bx bx-lg bx-download"></i></button
+        >
+      </div>
     </div>
-    <div class="my-10 grid grid-cols-5 gap-4 text-center">
-      <div>x</div>
-      <div>y</div>
-      <div>Dérivée à gauche</div>
-      <div>Dérivée à droite</div>
-      <div class="text-left">Visible ?</div>
-      {#each noeuds as { x, y, deriveeGauche, deriveeDroit, isVisible }}
-        <input
-          type="number"
-          bind:value="{x}"
-          min="{-10}"
-          max="{10}"
-          step="{0.1}"
-          on:change="{refreshCourb}"
-        />
-        <input
-          type="number"
-          bind:value="{y}"
-          min="{-10}"
-          max="{10}"
-          step="{0.1}"
-          on:change="{refreshCourb}"
-        />
-        <input
-          type="number"
-          bind:value="{deriveeGauche}"
-          min="{-10}"
-          max="{10}"
-          step="{0.1}"
-          on:change="{refreshCourb}"
-        />
-        <input
-          type="number"
-          bind:value="{deriveeDroit}"
-          min="{-10}"
-          max="{10}"
-          step="{0.1}"
-          on:change="{refreshCourb}"
-        />
-        <input
-          type="checkbox"
-          bind:checked="{isVisible}"
-          on:change="{refreshCourb}"
-        />
-      {/each}
-      <button on:click="{removeNoeud}"
-        ><i class="bx bx-lg bx-minus-circle"></i></button
-      >
-      <button on:click="{addNoeud}"
-        ><i class="bx bx-lg bx-plus-circle"></i></button
-      >
-      <button on:click="{copy}"><i class="bx bx-lg bx-clipboard"></i></button>
-      <button on:click="{paste}"><i class="bx bx-lg bx-download"></i></button>
-    </div>
-  </div>
-</section>
+  </section>
+</div>

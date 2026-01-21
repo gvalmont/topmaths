@@ -12,17 +12,17 @@
 <ButtonIcon
   icon="bx-skip-previous {BUTTONS_CLASS}"
   title="Raccourci clavier : flèche gauche"
-  on:click="{prevQuestion}"
+  on:click={prevQuestion}
 />
 <ButtonIcon
   icon="{isPause ? 'bx-play' : 'bx-pause'} {BUTTONS_CLASS} {isManualModeActive
     ? 'invisible'
     : ''}"
   title="Raccourci clavier : espace"
-  on:click="{() => switchPause(true)}"
+  on:click={() => switchPause(true)}
 />
 <ButtonIcon
   icon="bx-skip-next {BUTTONS_CLASS}"
   title="Raccourci clavier : flèche droite"
-  on:click="{nextQuestion}"
+  on:click={nextQuestion}
 />

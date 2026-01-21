@@ -1,23 +1,24 @@
+import { handleAnswers } from '../../lib/interactif/gestionInteractif'
+import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
-import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { extraireRacineCarree } from '../../lib/outils/calculs'
 import { texFractionReduite } from '../../lib/outils/deprecatedFractions'
 import {
   ecritureAlgebrique,
   ecritureParentheseSiNegatif,
 } from '../../lib/outils/ecritures'
+import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { sp } from '../../lib/outils/outilString'
 import { texNombre } from '../../lib/outils/texNombre'
 import Exercice from '../Exercice'
-import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
-import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 
+import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
+import FractionEtendue from '../../modules/FractionEtendue'
 import {
   gestionnaireFormulaireTexte,
   listeQuestionsToContenu,
   randint,
 } from '../../modules/outils'
-import FractionEtendue from '../../modules/FractionEtendue'
 export const titre =
   'Résoudre algébriquement une équation $f(x)=k$ avec une fonction de référence'
 export const dateDePublication = '07/01/2022'
@@ -106,7 +107,6 @@ export default class EquationsFonctionsRef extends Exercice {
         reponse,
         cpt = 0;
       i < this.nbQuestions && cpt < 50;
-
     ) {
       // on ne choisit que des nombres compris entre 1 et 20
 
@@ -792,7 +792,9 @@ Ainsi,    $S=${miseEnEvidence('\\emptyset')}$.<br>
       texte =
         enonce +
         '<br>' +
-        ajouteChampTexteMathLive(this, i, ' lycee   ', { texteAvant: ' $S=$' })
+        ajouteChampTexteMathLive(this, i, KeyboardType.clavierEnsemble, {
+          texteAvant: ' $S=$',
+        })
       texteCorr = correction
       if (this.interactif) {
         texte += '<br>$\\textit{Respecter les notations}$.'

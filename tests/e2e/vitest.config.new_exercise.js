@@ -19,11 +19,9 @@ export default mergeConfig(
       include: ['./tests/test_exercice/testExercice.test.{js,ts}'],
       hookTimeout: 1200_000,
       testTimeout: 1200_000,
-      poolOptions: {
-        threads: {
-          singleThread: true,
-        },
-      },
+      pool: 'threads',
+      maxWorkers: 1,
+      isolate: false,
     },
   }),
 )

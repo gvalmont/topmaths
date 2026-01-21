@@ -1,13 +1,19 @@
 import { afficheLongueurSegment } from '../../lib/2d/afficheLongueurSegment'
+import { cercle } from '../../lib/2d/cercle'
 import { codageAngleDroit } from '../../lib/2d/CodageAngleDroit'
-import { distancePointDroite, droite } from '../../lib/2d/droites'
+import {
+  distancePointDroite,
+  droiteParPointEtPente,
+} from '../../lib/2d/droites'
 import { point } from '../../lib/2d/PointAbstrait'
 import { polygoneAvecNom } from '../../lib/2d/polygones'
 import { segment } from '../../lib/2d/segmentsVecteurs'
 import { labelPoint } from '../../lib/2d/textes'
 import { tracePoint } from '../../lib/2d/TracePoint'
-import { projectionOrtho } from '../../lib/2d/transformations'
+import { homothetie, projectionOrtho } from '../../lib/2d/transformations'
+import { pointIntersectionLC } from '../../lib/2d/utilitairesPoint'
 import { choisitLettresDifferentes } from '../../lib/outils/aleatoires'
+import { choice } from '../../lib/outils/arrayOutils'
 import { texNombre } from '../../lib/outils/texNombre'
 import { context } from '../../modules/context'
 import { mathalea2d } from '../../modules/mathalea2d'
@@ -40,13 +46,13 @@ export default class MesurerDistancePointDroite extends Exercice {
     for (
       let i = 0, texte, texteCorr, cpt = 0;
       i < this.nbQuestions && cpt < 50;
-
     ) {
       const objetsEnonce = []
       const objetsCorrection = []
-      const O = point(0, 0)
-      const B = point(randint(-4, 4, [0]), randint(-3, 4, [0]))
-      const d = droite(O, B, '(d)')
+      const pente = randint(1, 3) * choice([-1, 1])
+      const O = point(0, 0, '$(d)$', 'left')
+
+      const d = droiteParPointEtPente(O, pente)
       let A = point(
         randint(-4, 4),
         randint(-3, 4),
@@ -59,11 +65,19 @@ export default class MesurerDistancePointDroite extends Exercice {
           choisitLettresDifferentes(1, 'OH')[0],
         )
       }
+      const c = cercle(O, 4)
+      const H = projectionOrtho(A, d, 'H')
+      let B = pointIntersectionLC(d, c, '(d)', 1)
+      if ((B.x - H.x) ** 2 + (B.y - H.y) ** 2 < 2) {
+        B = pointIntersectionLC(d, c, '(d)', 2)
+      }
+      B.positionLabel = 'right'
+      const BPrime = homothetie(B, O, 10) // point éloigné de O pour codage angle droit afin que H et B soient distincts (JCL
+
       const traceA = tracePoint(A)
       traceA.taille = context.isHtml ? 2 : 1
-      objetsEnonce.push(traceA, labelPoint(A), d)
+      objetsEnonce.push(traceA, labelPoint(A, B), d)
       objetsCorrection.push(traceA, d)
-      const H = projectionOrtho(A, d, 'H')
       if (A.y > H.y) H.positionLabel = 'below'
       const segmentAH = segment(A, H)
       segmentAH.pointilles = 5
@@ -72,7 +86,8 @@ export default class MesurerDistancePointDroite extends Exercice {
         AH[0],
         AH[1],
         afficheLongueurSegment(A, H),
-        codageAngleDroit(A, H, B),
+        labelPoint(B),
+        codageAngleDroit(A, H, BPrime),
       )
       const xmin = -5
       const xmax = 5

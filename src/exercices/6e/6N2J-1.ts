@@ -9,7 +9,7 @@ import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { sp } from '../../lib/outils/outilString'
 import { texNombre } from '../../lib/outils/texNombre'
 import { context } from '../../modules/context'
-import Operation from '../../modules/operations'
+import operation from '../../modules/operations'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import Exercice from '../Exercice'
 
@@ -95,7 +95,6 @@ export default class DivisionsEuclidiennesEgaliteFondamentale extends Exercice {
     for (
       let i = 0, texte = '', texteCorr = '', cpt = 0, a, b, q, r;
       i < this.nbQuestions && cpt < 50;
-
     ) {
       // La ligne suivante ne doit pas être mise après les setReponses car sinon elle les efface
       this.autoCorrection[i] = {
@@ -138,18 +137,18 @@ export default class DivisionsEuclidiennesEgaliteFondamentale extends Exercice {
       a = b * q + r
       texte = this.sup2
         ? String(
-            Operation({
+            operation({
               operande1: a,
               operande2: b,
               type: 'divisionE',
-              options: { solution: false, colore: '' },
+              // options: { solution: false, colore: '' },
             }),
           )
         : `La division euclidienne de $${texNombre(a)}$ par $${b}$.`
       if (r === 0) {
         texteCorr =
           String(
-            Operation({
+            operation({
               operande1: a,
               operande2: b,
               type: 'divisionE',
@@ -177,7 +176,7 @@ export default class DivisionsEuclidiennesEgaliteFondamentale extends Exercice {
       } else {
         texteCorr =
           String(
-            Operation({
+            operation({
               operande1: a,
               operande2: b,
               type: 'divisionE',

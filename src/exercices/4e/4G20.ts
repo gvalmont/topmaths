@@ -20,7 +20,9 @@ import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import Exercice from '../Exercice'
 import { RedactionPythagore } from './_pythagore'
 
+import type { MathfieldElement } from 'mathlive'
 import { bleuMathalea, orangeMathalea } from '../../lib/colors'
+import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 import engine from '../../lib/interactif/comparisonFunctions'
 import { ordreAlphabetique } from '../../lib/outils/ecritures'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
@@ -40,8 +42,8 @@ export const interactifType = 'mathLive'
  */
 export function pythagoreCompare(input: string, goodAnswer: string) {
   input = input.replaceAll(/([A-Z]{2})/g, '\\mathrm{$1}')
-  let parsedInput = engine.parse(input)
-  let parsedAnswer = engine.parse(goodAnswer)
+  const parsedInput = engine.parse(input)
+  const parsedAnswer = engine.parse(goodAnswer)
   if (parsedAnswer.operator === 'Equal') {
     if (parsedInput.operator !== 'Equal')
       return {
@@ -113,10 +115,10 @@ export function pythagoreCompare(input: string, goodAnswer: string) {
     // EE : computeEngine 0.47.0
     // L'usage de mathrm rend le parse problématique alphabétiquement avec un negate d'où les 4 nouvelles lignes
     // et la suppression de l'ordre alphabétique qui n'a plus d'intérêt.
-    input = input.replace(/\\mathrm\{([^}]+)\}/g, '{$1}')
+    /* input = input.replace(/\\mathrm\{([^}]+)\}/g, '{$1}')
     goodAnswer = goodAnswer.replace(/\\mathrm\{([^}]+)\}/g, '{$1}')
     parsedInput = engine.parse(input)
-    parsedAnswer = engine.parse(goodAnswer)
+    parsedAnswer = engine.parse(goodAnswer) */
 
     if (parsedInput.operator !== 'Add')
       return {
@@ -152,12 +154,13 @@ export function pythagoreCompare(input: string, goodAnswer: string) {
       }
     }
 
-    //  const L1 = ordreAlphabetique(inputT1.ops![0].toString()).replaceAll('"', '') // on met la longueur saisie dans l'ordre alphabétique
-    // const L2 = ordreAlphabetique(inputT2.ops![0].toString()).replaceAll('"', '') // on met la longueur saisie dans l'ordre alphabétique
-    const L1 = inputT1.ops![0].toString().replaceAll('"', '') // on met la longueur saisie dans l'ordre alphabétique
-    const L2 = inputT2.ops![0].toString().replaceAll('"', '') // on met la longueur saisie dans l'ordre alphabétique
+    const L1 = ordreAlphabetique(inputT1.ops![0].toString()).replaceAll('"', '') // on met la longueur saisie dans l'ordre alphabétique
+    const L2 = ordreAlphabetique(inputT2.ops![0].toString()).replaceAll('"', '') // on met la longueur saisie dans l'ordre alphabétique
+    // const L1 = inputT1.ops![0].toString().replaceAll('"', '') // on met la longueur saisie dans l'ordre alphabétique
+    // const L2 = inputT2.ops![0].toString().replaceAll('"', '') // on met la longueur saisie dans l'ordre alphabétique
     const LL1 = answerT1.ops![0].toString().replaceAll('"', '') // Ces longueurs sont déjà dans l'ordre alphabétique
     const LL2 = answerT2.ops![0].toString().replaceAll('"', '')
+
     if ((LL1 === L1 && LL2 === L2) || (LL1 === L2 && LL2 === L1 && !isSub))
       return { isOk: true }
     // else return { isOk: false, feedback: 'Regarde bien la correction.' }
@@ -230,7 +233,6 @@ export default class Pythagore2D extends Exercice {
     for (
       let i = 0, texte, texteCorr, cpt = 0;
       i < this.nbQuestions && cpt < 50;
-
     ) {
       if (i % 5 === 0) listeDeNomsDePolygones = ['QD']
       texte = ''
@@ -333,7 +335,7 @@ export default class Pythagore2D extends Exercice {
         texteCorr = redaction[0] ?? ''
         texte += this.interactif
           ? `$${nomCote} ${redaction[1]}$` +
-            ajouteChampTexteMathLive(this, i, '  unites[longueurs]', {
+            ajouteChampTexteMathLive(this, i, KeyboardType.longueur, {
               texteApres:
                 '<em class="ml-2">(Une unité de longueur est attendue.)</em>',
             })
@@ -398,6 +400,10 @@ export default class Pythagore2D extends Exercice {
           `\\mathrm{${ordreAlphabetique(A.nom + C.nom)}}^2`,
         ]
 
+        if (this.interactif) {
+          handleButtons(this.numeroExercice ?? 0, i, A.nom, B.nom, C.nom)
+        }
+
         redaction = RedactionPythagore(
           A.nom,
           B.nom,
@@ -433,14 +439,17 @@ export default class Pythagore2D extends Exercice {
           texte += this.interactif ? '' : `$${sp(2)}\\ldots$`
         }
 
-        handleAnswers(this, i, {
-          reponse: { value: expr, compare: pythagoreCompare },
-        })
-        texte += ajouteChampTexteMathLive(
-          this,
-          i,
-          ' clavierDeBase alphanumeric',
-        )
+        if (this.interactif) {
+          handleAnswers(this, i, {
+            reponse: { value: expr, compare: pythagoreCompare },
+          })
+          texte += ajouteChampTexteMathLive(
+            this,
+            i,
+            `${KeyboardType.clavierDeBase} ${KeyboardType.alphanumeric}`,
+          )
+          texte += `<div id="containerForButtonsEx${this.numeroExercice}Q${i}"></div>`
+        }
       }
       if (this.questionJamaisPosee(i, B1.x, B.y, C1.x, C1.y)) {
         // Si la question n'a jamais été posée, on en créé une autre
@@ -452,4 +461,48 @@ export default class Pythagore2D extends Exercice {
     }
     listeQuestionsToContenu(this)
   }
+}
+
+function handleButtons(
+  numeroExercice: number,
+  indiceQuestion: number,
+  label1: string,
+  label2: string,
+  label3: string,
+) {
+  // wait for event 'exercicesAffiches'
+  document.addEventListener('exercicesAffiches', () => {
+    const container = document.getElementById(
+      `containerForButtonsEx${numeroExercice}Q${indiceQuestion}`,
+    )
+    if (!container) return
+    container.innerHTML = ''
+    container.classList.add('my-4')
+    const mathfield = document.querySelector(
+      `#champTexteEx${numeroExercice}Q${indiceQuestion}`,
+    ) as MathfieldElement
+    if (!mathfield) return
+    const addButton = (label: string, insertText: string) => {
+      const button = document.createElement('button')
+      button.textContent = label
+      button.className =
+        'inline-flex mx-4 justify-center items-center text-sm md:text-xl border-b-2 border-r border-r-slate-400 dark:border-r-gray-500 border-b-slate-300 dark:border-b-gray-600 active:border-b-0 active:border-r-0 text-coopmaths-corpus-light dark:text-coopmathsdark-corpus-light active:text-coopmaths-canvas active:translate-y-[1.5px] dark:active:text-coopmathsdark-canvas active:bg-coopmaths-action active:shadow-none dark:active:bg-coopmathsdark-action dark:active:shadow-none transition-transform ease-in-out shadow-[2px_2px_4px_rgba(180,180,180,0.5)] bg-coopmaths-canvas-darkest dark:bg-coopmathsdark-canvas py-1 px-1 md:py-2 md:px-4 text-center rounded-md font-mono touch-none'
+      button.addEventListener('click', () => {
+        if (insertText === 'remove') {
+          mathfield.executeCommand('deleteBackward')
+        } else {
+          mathfield.insert(insertText)
+        }
+      })
+      container.appendChild(button)
+    }
+    addButton(label1, label1)
+    addButton(label2, label2)
+    addButton(label3, label3)
+    addButton('+', '+')
+    addButton('-', '-')
+    addButton('=', '=')
+    addButton('²', '^2')
+    addButton('⌫', 'remove')
+  })
 }

@@ -1,15 +1,15 @@
-import Exercice from '../Exercice'
+import Decimal from 'decimal.js'
+import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
+import { handleAnswers } from '../../lib/interactif/gestionInteractif'
+import { remplisLesBlancs } from '../../lib/interactif/questionMathLive'
 import {
   choice,
   combinaisonListes,
   shuffle,
 } from '../../lib/outils/arrayOutils'
-import { listeQuestionsToContenu, randint } from '../../modules/outils'
-import Decimal from 'decimal.js'
 import { texNombre } from '../../lib/outils/texNombre'
-import { remplisLesBlancs } from '../../lib/interactif/questionMathLive'
-import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
-import { handleAnswers } from '../../lib/interactif/gestionInteractif'
+import { listeQuestionsToContenu, randint } from '../../modules/outils'
+import Exercice from '../Exercice'
 export const titre = 'Ranger des nombres relatifs'
 
 export const dateDePublication = '22/09/2024'
@@ -29,6 +29,8 @@ export default class RelatifsOrdre extends Exercice {
   constructor() {
     super()
     this.nbQuestions = 3
+    this.besoinFormulaireCaseACocher = ['Avec des nombres entiers', false]
+    this.sup = false
   }
 
   nouvelleVersion() {
@@ -48,7 +50,9 @@ export default class RelatifsOrdre extends Exercice {
       const d = a.add(new Decimal(randint(1, 9)).div(10))
       const e = a.add(new Decimal(randint(-9, -1)).div(10))
       const f = a.add(new Decimal(choice([-1, 1])).mul(randint(10, 19)).div(10))
-      let numbers = shuffle([a, b, c, d, e, f])
+      let numbers = this.sup
+        ? shuffle([a, b, c, d, e, f]).map((d) => d.mul(100))
+        : shuffle([a, b, c, d, e, f])
       const n = randint(2, 3)
       for (let i = 0; i < n; i++) {
         numbers[i] = numbers[i].mul(-1)

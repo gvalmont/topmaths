@@ -15,7 +15,7 @@ export const interactifReady = true
 export const interactifType = 'qcm'
 export const amcReady = 'true'
 export const amcType = 'qcmMono'
-export const titre = "Taux d'évolution entre deux grandeurs"
+export const titre = "Calculer un taux d'évolution entre deux grandeurs"
 export const dateDePublication = '10/07/2025'
 
 export default class TauxEvolution extends ExerciceQcmA {

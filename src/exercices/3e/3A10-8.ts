@@ -16,7 +16,8 @@ import {
 import { texNombre } from '../../lib/outils/texNombre'
 import Exercice from '../Exercice'
 
-export const titre = 'Decomposition et recherche du plus grand diviseur commun'
+export const titre =
+  'Decomposer et rechercher le plus grand diviseur commun de deux nombres'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const dateDePublication = '13/11/2024'

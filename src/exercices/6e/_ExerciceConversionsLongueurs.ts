@@ -1,5 +1,6 @@
 import Decimal from 'decimal.js'
 import { texTexte } from '../../lib/format/texTexte'
+import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 import { setReponse } from '../../lib/interactif/gestionInteractif'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
@@ -37,7 +38,7 @@ export default class ExerciceConversionsLongueurs extends Exercice {
     this.besoinFormulaireNumerique = [
       'Niveau de difficulté',
       4,
-      ' 1 : De dam, hm, $\\text{km}$ vers m\n 2 : De dm, cm, mm vers m\n 3 : Conversions en mètres\n4 : Au hasard',
+      ' 1 : De dam, hm, km vers m\n 2 : De dm, cm, mm vers m\n 3 : Conversions en mètres\n4 : Au hasard',
     ]
     this.besoinFormulaire2CaseACocher = ['Avec des nombres décimaux']
     this.besoinFormulaire3CaseACocher = ['Avec tableau']
@@ -85,7 +86,6 @@ export default class ExerciceConversionsLongueurs extends Exercice {
     for (
       let i = 0, a, k, div, resultat, texte, texteCorr, cpt = 0;
       i < this.nbQuestions && cpt < 50;
-
     ) {
       // On limite le nombre d'essais pour chercher des valeurs nouvelles
       const unite = typeDeGrandeur[i] === 1 ? 'm' : 'g'
@@ -143,7 +143,7 @@ export default class ExerciceConversionsLongueurs extends Exercice {
         texte = `$${texNombre(a)} ${texTexte(prefixeMulti[k][0] + unite)} = `
         texte +=
           this.interactif && context.isHtml
-            ? `$${ajouteChampTexteMathLive(this, i, '', { texteApres: `${sp()}$${texTexte(unite)}$` })}`
+            ? `$${ajouteChampTexteMathLive(this, i, KeyboardType.clavierNumbers, { texteApres: `${sp()}$${texTexte(unite)}$` })}`
             : `\\dotfills  ${texTexte(unite)}$`
         texteCorr = `$ ${texNombre(a)}${texTexte(prefixeMulti[k][0] + unite)} =  ${texNombre(a)}\\times${prefixeMulti[k][1]}${texTexte(unite)} = ${miseEnEvidence(texNombre(resultat))}${texTexte(unite)}$`
         if (this.sup3 && context.vue === 'diap') {
@@ -157,7 +157,7 @@ export default class ExerciceConversionsLongueurs extends Exercice {
         texte = `$${texNombre(a)} ${texTexte(prefixeDiv[k][0] + unite)} = `
         texte +=
           this.interactif && context.isHtml
-            ? `$${ajouteChampTexteMathLive(this, i, '', { texteApres: `${sp()}$${texTexte(unite)}$` })}`
+            ? `$${ajouteChampTexteMathLive(this, i, KeyboardType.clavierNumbers, { texteApres: `${sp()}$${texTexte(unite)}$` })}`
             : `\\dotfills  ${texTexte(unite)}$`
         texteCorr = `$ ${texNombre(a)}${texTexte(prefixeDiv[k][0] + unite)} =  ${texNombre(a)}\\div${texTexte(String(prefixeDiv[k][1]))}${texTexte(unite)} = ${miseEnEvidence(texNombre(resultat))}${texTexte(unite)}$`
         if (this.sup3 && context.vue === 'diap') {
@@ -183,7 +183,7 @@ export default class ExerciceConversionsLongueurs extends Exercice {
           texte = `$${texNombre(a)} ${texTexte(listeUnite[unite2])} = `
           texte +=
             this.interactif && context.isHtml
-              ? `$${ajouteChampTexteMathLive(this, i, '', { texteApres: `${sp()}$${texTexte(listeUnite[unite1])}$` })}`
+              ? `$${ajouteChampTexteMathLive(this, i, KeyboardType.clavierNumbers, { texteApres: `${sp()}$${texTexte(listeUnite[unite1])}$` })}`
               : `\\dotfills  ${texTexte(listeUnite[unite1])}$`
           texteCorr = `$ ${texNombre(a)}${texTexte(listeUnite[unite2])} =  ${texNombre(a)}\\times${texNombre(10 ** ecart)}${texTexte(listeUnite[unite1])} = ${miseEnEvidence(texNombre(resultat))}${texTexte(listeUnite[unite1])}$`
           if (this.sup3 && context.vue === 'diap') {
@@ -197,7 +197,7 @@ export default class ExerciceConversionsLongueurs extends Exercice {
           texte = `$${texNombre(a)} ${texTexte(listeUnite[unite1])} = `
           texte +=
             this.interactif && context.isHtml
-              ? `$${ajouteChampTexteMathLive(this, i, '', { texteApres: `${sp()}$${texTexte(listeUnite[unite2])}$` })}`
+              ? `$${ajouteChampTexteMathLive(this, i, KeyboardType.clavierNumbers, { texteApres: `${sp()}$${texTexte(listeUnite[unite2])}$` })}`
               : `\\dotfills  ${texTexte(listeUnite[unite2])}$`
           texteCorr = `$ ${texNombre(a)}${texTexte(listeUnite[unite1])} =  ${texNombre(a)}\\div${texNombre(10 ** ecart)}${texTexte(listeUnite[unite2])} = ${miseEnEvidence(texNombre(resultat))}${texTexte(listeUnite[unite2])}$`
           if (this.sup3 && context.vue === 'diap') {

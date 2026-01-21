@@ -127,7 +127,6 @@ export default class ParallelogrammeAPartirDUneFigure extends Exercice {
     for (
       let i = 0, texte, texteCorr, cpt = 0;
       i < this.nbQuestions && cpt < 50;
-
     ) {
       // Boucle principale où i+1 correspond au numéro de la question
       let estUnParallegramme = false
@@ -161,10 +160,10 @@ export default class ParallelogrammeAPartirDUneFigure extends Exercice {
           nom = gestionNom(i)
           texte = mathalea2d(paramsEnonce, [
             p,
-            codageSegment(A, B, 'X', 'blue'),
-            codageSegment(B, C, 'X', 'blue'),
-            codageSegment(C, D, '||', 'blue'),
-            codageSegment(D, A, '||', 'blue'),
+            codageSegment(A, B, 'X', 'blue', 1.5),
+            codageSegment(B, C, 'X', 'blue', 1.5),
+            codageSegment(C, D, '||', 'blue', 1.5),
+            codageSegment(D, A, '||', 'blue', 1.5),
             nommePolygone(p, nom),
           ])
           texteCorr = `Les côtés consécutifs de $${nom}$ sont de même longueur deux par deux, $${miseEnEvidence(nom)}$ ${texteEnCouleurEtGras("n'est donc pas forcément un parallélogramme")} comme le montre le contre-exemple suivant (il s'agit d'un cerf-volant).`
@@ -174,10 +173,10 @@ export default class ParallelogrammeAPartirDUneFigure extends Exercice {
           O1 = point(0, -6)
           P1 = point(1, -2)
           p1 = polygone(M1, N1, O1, P1)
-          s1 = codageSegment(M1, N1, 'X', 'blue')
-          s2 = codageSegment(M1, P1, 'X', 'blue')
-          s3 = codageSegment(O1, P1, 'O', 'blue')
-          s4 = codageSegment(O1, N1, 'O', 'blue')
+          s1 = codageSegment(M1, N1, 'X', 'blue', 1.5)
+          s2 = codageSegment(M1, P1, 'X', 'blue', 1.5)
+          s3 = codageSegment(O1, P1, 'O', 'blue', 1.5)
+          s4 = codageSegment(O1, N1, 'O', 'blue', 1.5)
           texteCorr +=
             '<br>' +
             mathalea2d(
@@ -224,8 +223,8 @@ export default class ParallelogrammeAPartirDUneFigure extends Exercice {
           O1 = point(-1, -6)
           P1 = point(-1, -1)
           p1 = polygone(M1, N1, O1, P1)
-          s1 = codageSegment(M1, N1, 'X', 'blue')
-          s2 = codageSegment(O1, P1, 'X', 'blue')
+          s1 = codageSegment(M1, N1, 'X', 'blue', 1.5)
+          s2 = codageSegment(O1, P1, 'X', 'blue', 1.5)
           texteCorr = `Seulement deux côtés opposés sont de même longueur, $${miseEnEvidence(nom)}$ ${texteEnCouleurEtGras("n'est donc pas forcément un parallélogramme")} comme le montre le contre-exemple suivant.`
           // texteCorr += '<br>' + mathalea2d({ xmin: -1.5, ymin: -6.5, xmax: 1.5, ymax: 0.5, pixelsParCm: 20, scale: 1 }, [p1, s1, s2, s3, s4])
           texteCorr +=
@@ -249,8 +248,8 @@ export default class ParallelogrammeAPartirDUneFigure extends Exercice {
           O1 = point(6, -4)
           P1 = point(-1, -4)
           p1 = polygone(M1, N1, O1, P1)
-          s1 = codageSegment(O1, N1, 'O', 'blue')
-          s2 = codageSegment(M1, P1, 'O', 'blue')
+          s1 = codageSegment(O1, N1, 'O', 'blue', 1.5)
+          s2 = codageSegment(M1, P1, 'O', 'blue', 1.5)
           texteCorr = `Seulement deux côtés opposés sont de même longueur, $${miseEnEvidence(nom)}$ ${texteEnCouleurEtGras("n'est donc pas forcément un parallélogramme")} comme le montre le contre-exemple suivant.`
           texteCorr +=
             '<br>' +

@@ -4,12 +4,13 @@ import { segment } from '../../../lib/2d/segmentsVecteurs'
 import { labelPoint, latex2d } from '../../../lib/2d/textes'
 import { milieu, pointAdistance } from '../../../lib/2d/utilitairesPoint'
 import { choice } from '../../../lib/outils/arrayOutils'
+import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { creerNomDePolygone } from '../../../lib/outils/outilString'
 import { texNombre } from '../../../lib/outils/texNombre'
 import { mathalea2d } from '../../../modules/mathalea2d'
 import { randint } from '../../../modules/outils'
 import ExerciceSimple from '../../ExerciceSimple'
-export const titre = 'Calculer une longueur avec le théorème de Thalès'
+export const titre = 'Calculer une longueur avec le théorème de Thalès (agrandissement/réduction)'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 
@@ -30,7 +31,7 @@ export default class CalculLongueurThales2 extends ExerciceSimple {
     super()
 
     this.typeExercice = 'simple'
-
+this.spacingCorr=1.5
     this.nbQuestions = 1
   }
 
@@ -75,11 +76,12 @@ export default class CalculLongueurThales2 extends ExerciceSimple {
       Calculer $${nom[3]}${nom[4]}$.<br>
       
       `
-      this.correction = ` Le triangle $${nom[0]}${nom[3]}${nom[4]}$ est un agrandissement du triangle $${nom[0]}${nom[1]}${nom[2]}$.<br>
+      this.correction = ` Les droites $(${nom[1]}${nom[2]})$ et $(${nom[3]}${nom[4]})$ sont parallèles, donc les triangles $${nom[0]}${nom[1]}${nom[2]}$ et $${nom[0]}${nom[3]}${nom[4]}$ sont en configuration de Thalès.<br>
+      Le triangle $${nom[0]}${nom[3]}${nom[4]}$ est donc un agrandissement du triangle $${nom[0]}${nom[1]}${nom[2]}$.<br>
     Le coefficient d'agrandissement est  donné par :  $\\dfrac{${nom[0]}${nom[3]}}{${nom[0]}${nom[1]}}=\\dfrac{${texNombre(a)}}{${b}}=${texNombre(a / b)}$.<br>
     On en déduit que les longueurs du triangle $${nom[0]}${nom[3]}${nom[4]}$ sont $${texNombre(a / b)}$ fois plus grandes que les longueurs du triangle $${nom[0]}${nom[1]}${nom[2]}$. <br>
-        Ainsi, $${nom[3]}${nom[4]}=${texNombre(a / b)}\\times ${c}=${texNombre((a * c) / b)}$.
-                  <br>`
+        Ainsi, $${nom[3]}${nom[4]}=${texNombre(a / b)}\\times ${c}=${miseEnEvidence(texNombre((a * c) / b))}$.
+                `
       this.reponse = (a * c) / b
       this.canReponseACompleter = `$${nom[3]}${nom[4]}=\\ldots$`
     } else {

@@ -1,17 +1,18 @@
+import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
+import { setReponse } from '../../lib/interactif/gestionInteractif'
+import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { choice } from '../../lib/outils/arrayOutils'
-import { miseEnEvidence } from '../../lib/outils/embellissements'
 import {
-  texFractionFromString,
   simplificationDeFractionAvecEtapes,
+  texFractionFromString,
 } from '../../lib/outils/deprecatedFractions'
+import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { arrondi } from '../../lib/outils/nombres'
+import { sp } from '../../lib/outils/outilString'
 import { texNombre } from '../../lib/outils/texNombre'
-import Exercice from '../Exercice'
 import { context } from '../../modules/context'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
-import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
-import { setReponse } from '../../lib/interactif/gestionInteractif'
-import { sp } from '../../lib/outils/outilString'
+import Exercice from '../Exercice'
 
 export const titre = "Calculer la fraction d'un nombre"
 export const interactifReady = true
@@ -84,7 +85,6 @@ export default class FractionDUnNombre extends Exercice {
     for (
       let i = 0, a, b, k, n, j, fraction, texte, texteCorr, cpt = 0;
       i < this.nbQuestions && cpt < 50;
-
     ) {
       fraction = choice(listeFractions)
       a = fraction[0]
@@ -202,7 +202,7 @@ export default class FractionDUnNombre extends Exercice {
       texte += ajouteChampTexteMathLive(
         this,
         i,
-        '  clavierDeBaseAvecFraction',
+        KeyboardType.clavierDeBaseAvecFraction,
         { texteAvant: sp() + '$=$' },
       )
       if (context.isAmc) {

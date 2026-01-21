@@ -26,7 +26,7 @@ import {
 import Exercice from '../Exercice'
 
 export const titre =
-  'Résoudre des problèmes de masses avec des aliments mettant en jeu diverses opérations'
+  'Résoudre des problèmes de prix avec des aliments mettant en jeu diverses opérations'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const amcReady = true
@@ -78,7 +78,6 @@ export default class QuestionsMasses extends Exercice {
     for (
       let i = 0, texte, texteCorr, cpt = 0;
       i < this.nbQuestions && cpt < 50;
-
     ) {
       const typesQuestionsDisponibles = gestionnaireFormulaireTexte({
         max: 8,

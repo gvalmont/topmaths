@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { renderDiv } from '../../../../../../lib/mathalea'
   import type { Vue } from '../../../types'
 
   export let slideView: Vue
@@ -9,8 +10,10 @@
     <!-- eslint-disable-next-line svelte/no-at-html-tags -->
     {@html slideView.consigne}
   </div>
-  <div>
-    <!-- eslint-disable-next-line svelte/no-at-html-tags -->
-    {@html slideView.question}
-  </div>
+  {#key slideView.question}
+    <div use:renderDiv={slideView.question}>
+      <!-- eslint-disable-next-line svelte/no-at-html-tags -->
+      {@html slideView.question}
+    </div>
+  {/key}
 </div>

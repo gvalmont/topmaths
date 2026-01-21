@@ -8,7 +8,9 @@ import Exercice from '../../Exercice'
 
 import { ajouteChampTexteMathLive } from '../../../lib/interactif/questionMathLive'
 
+import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 import { setReponse } from '../../../lib/interactif/gestionInteractif'
+import { miseEnEvidence } from '../../../lib/outils/embellissements'
 
 export const titre =
   'Calculer la probabilité d’une intersection à partir d’un arbre'
@@ -34,13 +36,6 @@ export default class CalculerProbabiliteIntersection extends Exercice {
     super()
 
     this.sup = true
-    this.keyboard = [
-      'numbers',
-      'fullOperations',
-      'variables',
-      'trigo',
-      'advanced',
-    ]
 
     this.nbQuestions = 1
   }
@@ -60,11 +55,10 @@ export default class CalculerProbabiliteIntersection extends Exercice {
         pAbarre,
         pBsachantAbarre,
         omega,
-        texte,
-        texteCorr,
+        texte = '',
+        texteCorr = '',
         objets;
       i < this.nbQuestions && cpt < 50;
-
     ) {
       objets = []
       // On choisit les probas de l'arbre
@@ -95,38 +89,40 @@ export default class CalculerProbabiliteIntersection extends Exercice {
               new Arbre({
                 rationnel: false,
                 nom: 'A',
-                proba: 1,
+                proba: pA.toNumber(),
                 visible: false,
                 alter: '',
                 enfants: [
                   new Arbre({
                     rationnel: false,
                     nom: 'B',
-                    proba: 1,
+                    proba: pBsachantA.toNumber(),
                     visible: false,
                     alter: '',
                   }),
                   new Arbre({
                     rationnel: false,
                     nom: '\\overline{B}',
-                    proba: new Decimal(1 - pBsachantA),
+                    proba: new Decimal(1 - pBsachantA.toNumber()).toNumber(),
                   }),
                 ],
               }),
               new Arbre({
                 rationnel: false,
                 nom: '\\overline{A}',
-                proba: pAbarre,
+                proba: pAbarre.toNumber(),
                 enfants: [
                   new Arbre({
                     rationnel: false,
                     nom: 'B',
-                    proba: new Decimal(pBsachantAbarre),
+                    proba: new Decimal(pBsachantAbarre).toNumber(),
                   }),
                   new Arbre({
                     rationnel: false,
                     nom: '\\overline{B}',
-                    proba: new Decimal(1 - pBsachantAbarre),
+                    proba: new Decimal(
+                      1 - pBsachantAbarre.toNumber(),
+                    ).toNumber(),
                   }),
                 ],
               }),
@@ -134,7 +130,7 @@ export default class CalculerProbabiliteIntersection extends Exercice {
           })
 
           omega.setTailles() // On calcule les tailles des arbres.
-          objets = omega.represente(0, 7, 0, 1.5, true, 1) // On crée l'arbre complet echelle 1.4 feuilles verticales sens gauche-droite
+          objets = omega.represente(0, 7, 0, 1.5, true, 1, 10) // On crée l'arbre complet echelle 1.4 feuilles verticales sens gauche-droite
           texte = `On donne l'arbre de probabilités ci-dessous :<br>
           
           `
@@ -152,7 +148,11 @@ export default class CalculerProbabiliteIntersection extends Exercice {
 
           if (this.interactif) {
             texte += '<br> $P(A\\cap B)=$ '
-            texte += ajouteChampTexteMathLive(this, i, ' lycee')
+            texte += ajouteChampTexteMathLive(
+              this,
+              i,
+              KeyboardType.clavierNumbers,
+            )
           } else {
             texte += `<br>
           
@@ -161,7 +161,7 @@ export default class CalculerProbabiliteIntersection extends Exercice {
 
           texteCorr = ` $P(A\\cap B)=P(A)\\times P_{A}(B)$.<br>
       $P(A)=1-${texNombre(pAbarre, 1)}= ${texNombre(pA, 1)}$.<br>
-      $P_{A}(B)=1-${texNombre(1 - pBsachantA, 1)}= ${texNombre(pBsachantA, 1)}$.<br>
+      $P_{A}(B)=1-${texNombre(1 - pBsachantA.toNumber(), 1)}= ${texNombre(pBsachantA, 1)}$.<br>
       Ainsi, $P(A\\cap B)=P(A)\\times P_{A}(B)=${texNombre(pA, 1)}\\times ${texNombre(pBsachantA, 1)}=${texNombre(reponse1, 2)}$.
       `
           setReponse(this, i, reponse1)
@@ -189,7 +189,7 @@ export default class CalculerProbabiliteIntersection extends Exercice {
                   new Arbre({
                     rationnel: false,
                     nom: 'B',
-                    proba: pBsachantA,
+                    proba: pBsachantA.toNumber(),
                     alter: '',
                   }),
                   new Arbre({
@@ -203,17 +203,17 @@ export default class CalculerProbabiliteIntersection extends Exercice {
               new Arbre({
                 rationnel: false,
                 nom: '\\overline{A}',
-                proba: pAbarre,
+                proba: pAbarre.toNumber(),
                 enfants: [
                   new Arbre({
                     rationnel: false,
                     nom: 'B',
-                    proba: new Decimal(pBsachantAbarre),
+                    proba: new Decimal(pBsachantAbarre).toNumber(),
                   }),
                   new Arbre({
                     rationnel: false,
                     nom: '\\overline{B}',
-                    proba: pBbarresachantAbarre,
+                    proba: pBbarresachantAbarre.toNumber(),
                   }),
                 ],
               }),
@@ -221,7 +221,7 @@ export default class CalculerProbabiliteIntersection extends Exercice {
           })
 
           omega.setTailles() // On calcule les tailles des arbres.
-          objets = omega.represente(0, 7, 0, 1.5, true, 1) // On crée l'arbre complet echelle 1.4 feuilles verticales sens gauche-droite
+          objets = omega.represente(0, 7, 0, 1.5, true, 1, 10) // On crée l'arbre complet echelle 1.4 feuilles verticales sens gauche-droite
           texte = `On donne l'arbre de probabilités ci-dessous :<br>
           
           `
@@ -239,7 +239,11 @@ export default class CalculerProbabiliteIntersection extends Exercice {
 
           if (this.interactif) {
             texte += '<br> $P(A\\cap \\overline{B})=$ '
-            texte += ajouteChampTexteMathLive(this, i, ' lycee')
+            texte += ajouteChampTexteMathLive(
+              this,
+              i,
+              KeyboardType.clavierNumbers,
+            )
           } else {
             texte += `<br>
           
@@ -248,8 +252,8 @@ export default class CalculerProbabiliteIntersection extends Exercice {
 
           texteCorr = ` $P(A\\cap \\overline{B})=P(A)\\times P_{A}(\\overline{B})$.<br>
         $P(A)=1-${texNombre(pAbarre, 1)}= ${texNombre(pA, 1)}$.<br>
-        $P_{A}(\\overline{B})=1-${texNombre(pBsachantA, 1)}= ${texNombre(1 - pBsachantA, 1)}$.<br>
-        Ainsi, $P(A\\cap \\overline{B})=P(A)\\times P_{A}(\\overline{B})=${texNombre(pA, 1)}\\times ${texNombre(1 - pBsachantA, 1)}=${texNombre(reponse2, 2)}$.
+        $P_{A}(\\overline{B})=1-${texNombre(pBsachantA, 1)}= ${texNombre(1 - pBsachantA.toNumber(), 1)}$.<br>
+        Ainsi, $P(A\\cap \\overline{B})=P(A)\\times P_{A}(\\overline{B})=${texNombre(pA, 1)}\\times ${texNombre(1 - pBsachantA.toNumber(), 1)}=${texNombre(reponse2, 2)}$.
         `
           setReponse(this, i, reponse2)
           this.canEnonce = texte
@@ -269,19 +273,19 @@ export default class CalculerProbabiliteIntersection extends Exercice {
               new Arbre({
                 rationnel: false,
                 nom: 'A',
-                proba: pA,
+                proba: pA.toNumber(),
                 alter: '',
                 enfants: [
                   new Arbre({
                     rationnel: false,
                     nom: 'B',
-                    proba: pBsachantA,
+                    proba: pBsachantA.toNumber(),
                     alter: '',
                   }),
                   new Arbre({
                     rationnel: false,
                     nom: '\\overline{B}',
-                    proba: pBbarresachantA,
+                    proba: pBbarresachantA.toNumber(),
                   }),
                 ],
               }),
@@ -300,7 +304,7 @@ export default class CalculerProbabiliteIntersection extends Exercice {
                   new Arbre({
                     rationnel: false,
                     nom: '\\overline{B}',
-                    proba: pBbarresachantAbarre,
+                    proba: pBbarresachantAbarre.toNumber(),
                   }),
                 ],
               }),
@@ -308,7 +312,7 @@ export default class CalculerProbabiliteIntersection extends Exercice {
           })
 
           omega.setTailles() // On calcule les tailles des arbres.
-          objets = omega.represente(0, 7, 0, 1.5, true, 1) // On crée l'arbre complet echelle 1.4 feuilles verticales sens gauche-droite
+          objets = omega.represente(0, 7, 0, 1.5, true, 1, 10) // On crée l'arbre complet echelle 1.4 feuilles verticales sens gauche-droite
           texte = `On donne l'arbre de probabilités ci-dessous :<br>
           
           `
@@ -326,7 +330,11 @@ export default class CalculerProbabiliteIntersection extends Exercice {
 
           if (this.interactif) {
             texte += '<br> $P(\\overline{A}\\cap B)=$ '
-            texte += ajouteChampTexteMathLive(this, i, ' lycee')
+            texte += ajouteChampTexteMathLive(
+              this,
+              i,
+              KeyboardType.clavierNumbers,
+            )
           } else {
             texte += `<br>
           
@@ -342,7 +350,7 @@ export default class CalculerProbabiliteIntersection extends Exercice {
 
         $P(\\overline{A}\\cap B)=P(\\overline{A})\\times P_{\\overline{A}}(B)$.<br>
         $P(\\overline{A})=1-${texNombre(pA, 1)}=${texNombre(pAbarre, 1)}$.<br>
-        $P_{\\overline{A}}(B)=1-${texNombre(pBbarresachantAbarre, 1)}= ${texNombre(1 - pBbarresachantAbarre, 1)}$.<br>
+        $P_{\\overline{A}}(B)=1-${texNombre(pBbarresachantAbarre, 1)}= ${texNombre(1 - pBbarresachantAbarre.toNumber(), 1)}$.<br>
         Ainsi, $P(\\overline{A}\\cap B)=P(\\overline{A})\\times P_{\\overline{A}}(B)=${texNombre(pAbarre, 1)}\\times ${texNombre(pBsachantAbarre, 1)}=${texNombre(reponse3, 2)}$.
         `
           setReponse(this, i, reponse3)
@@ -363,19 +371,19 @@ export default class CalculerProbabiliteIntersection extends Exercice {
               new Arbre({
                 rationnel: false,
                 nom: 'A',
-                proba: pA,
+                proba: pA.toNumber(),
                 alter: '',
                 enfants: [
                   new Arbre({
                     rationnel: false,
                     nom: 'B',
-                    proba: pBsachantA,
+                    proba: pBsachantA.toNumber(),
                     alter: '',
                   }),
                   new Arbre({
                     rationnel: false,
                     nom: '\\overline{B}',
-                    proba: pBbarresachantA,
+                    proba: pBbarresachantA.toNumber(),
                   }),
                 ],
               }),
@@ -388,7 +396,7 @@ export default class CalculerProbabiliteIntersection extends Exercice {
                   new Arbre({
                     rationnel: false,
                     nom: 'B',
-                    proba: pBsachantAbarre,
+                    proba: pBsachantAbarre.toNumber(),
                   }),
                   new Arbre({
                     rationnel: false,
@@ -402,7 +410,7 @@ export default class CalculerProbabiliteIntersection extends Exercice {
           })
 
           omega.setTailles() // On calcule les tailles des arbres.
-          objets = omega.represente(0, 7, 0, 1.5, true, 1) // On crée l'arbre complet echelle 1.4 feuilles verticales sens gauche-droite
+          objets = omega.represente(0, 7, 0, 1.5, true, 1, 10) // On crée l'arbre complet echelle 1.4 feuilles verticales sens gauche-droite
           texte = `On donne l'arbre de probabilités ci-dessous :<br>
           
           `
@@ -420,7 +428,11 @@ export default class CalculerProbabiliteIntersection extends Exercice {
 
           if (this.interactif) {
             texte += '<br> $P(\\overline{A}\\cap \\overline{B})=$ '
-            texte += ajouteChampTexteMathLive(this, i, ' lycee')
+            texte += ajouteChampTexteMathLive(
+              this,
+              i,
+              KeyboardType.clavierNumbers,
+            )
           } else {
             texte += `<br>
           
@@ -446,6 +458,19 @@ export default class CalculerProbabiliteIntersection extends Exercice {
       }
       if (this.questionJamaisPosee(i, pA, pBsachantA)) {
         this.listeQuestions[i] = texte
+        // Uniformisation : Mise en place de la réponse attendue en interactif en orange et gras
+        const textCorrSplit = texteCorr.split('=')
+        let aRemplacer = textCorrSplit[textCorrSplit.length - 1]
+        aRemplacer = aRemplacer.replace('$', '')
+        aRemplacer = aRemplacer.replace('.', '')
+
+        texteCorr = ''
+        for (let ee = 0; ee < textCorrSplit.length - 1; ee++) {
+          texteCorr += textCorrSplit[ee] + '='
+        }
+        texteCorr += `$ $${miseEnEvidence(aRemplacer)}$` + '.' // Gestion du point final
+        // Fin de cette uniformisation
+
         this.listeCorrections[i] = texteCorr
         i++
       }

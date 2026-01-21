@@ -1,7 +1,7 @@
 import { fixeBordures } from '../../lib/2d/fixeBordures'
 import RepereBuilder from '../../lib/2d/RepereBuilder'
 import { Tableau } from '../../lib/2d/tableau'
-import figureApigeom from '../../lib/figureApigeom'
+import figureApigeom, { isFigureArray } from '../../lib/figureApigeom'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { toutAUnPoint } from '../../lib/interactif/mathLive'
 import {
@@ -59,6 +59,7 @@ class LireImageParApiGeom extends Exercice {
   }
 
   nouvelleVersion(): void {
+    this.figures = []
     // on va chercher une spline aléatoire
     const noeuds = this.sup2
       ? noeudsSplineAleatoire(12, false, -6, 2, 1)
@@ -71,6 +72,7 @@ class LireImageParApiGeom extends Exercice {
       width: 378,
       height: 378,
     })
+    if (isFigureArray(this.figures)) this.figures.push(this.figure)
     this.figure.create('Grid')
     this.figure.options.limitNumberOfElement.Point = 1
 
@@ -142,7 +144,6 @@ class LireImageParApiGeom extends Exercice {
       index++
     }
     for (let i = 0; i < this.nbImages; i++) {
-      //  enonce += `${numAlpha(i)} $${texNombre(this.X[i], 1)}$ ?` + ajouteChampTexteMathLive(this, i, '', { texteApres: '  ' }) + '<br>'
       const image = spline.fonction(this.X[i])
       this.Y[i] = Math.round(10 * Number(image)) / 10
     }

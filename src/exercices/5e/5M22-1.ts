@@ -1,8 +1,10 @@
 import Decimal from 'decimal.js'
+import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 import { setReponse } from '../../lib/interactif/gestionInteractif'
 import { propositionsQcm } from '../../lib/interactif/qcm'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { combinaisonListes } from '../../lib/outils/arrayOutils'
+import { miseEnEvidence } from '../../lib/outils/embellissements'
 import {
   nombreDeChiffresDansLaPartieDecimale,
   nombreDeChiffresDe,
@@ -64,6 +66,13 @@ export default class UnitesDeVolumesEtDeCapacite extends Exercice {
   }
 
   nouvelleVersion() {
+    this.introduction =
+      this.sup3 === 1 || this.sup3 === 3
+        ? 'Vous pourrez vous aider de ce tableau :<br><br>' +
+          buildTab(0, '', 0, '', this.nbQuestions, false) +
+          '<br><br>'
+        : ''
+
     if (!(context.vue === 'diap'))
       this.besoinFormulaire4Numerique = [
         'Exercice interactif',
@@ -114,7 +123,6 @@ export default class UnitesDeVolumesEtDeCapacite extends Exercice {
     for (
       let i = 0, n, uniteFinale, texte, texteCorr, cpt = 0;
       i < this.nbQuestions && cpt < 50;
-
     ) {
       if (this.sup2) {
         switch (listeDeN[i]) {
@@ -174,7 +182,7 @@ export default class UnitesDeVolumesEtDeCapacite extends Exercice {
               bonusDecimalesAMC,
             signe: false,
           })
-          texteCorr = `$${texNombre(n, 3)}${sp()}\\text{dam}^3=${texNombre(n, 3)}\\times1${sp()}000\\times1${sp()}000${sp()}\\text{dm}^3=${texNombre(resultat, 0)}${sp()}\\text{L}$`
+          texteCorr = `$${texNombre(n, 3)}${sp()}\\text{dam}^3=${texNombre(n, 3)}\\times1${sp()}000\\times1${sp()}000${sp()}\\text{dm}^3=${miseEnEvidence(`${texNombre(resultat, 0)}${sp()}\\text{L}`)}$`
           texteCorr +=
             this.sup3 === 1 || this.sup3 === 4
               ? ''
@@ -201,7 +209,7 @@ export default class UnitesDeVolumesEtDeCapacite extends Exercice {
               bonusDecimalesAMC,
             signe: false,
           })
-          texteCorr = `$${texNombre(n, 3)}${sp()}\\text{m}^3=${texNombre(n, 3)}\\times1${sp()}000${sp()}\\text{dm}^3=${texNombre(resultat, 0)}${sp()}\\text{L}$`
+          texteCorr = `$${texNombre(n, 3)}${sp()}\\text{m}^3=${texNombre(n, 3)}\\times1${sp()}000${sp()}\\text{dm}^3=${miseEnEvidence(`${texNombre(resultat, 0)}${sp()}\\text{L}`)}$`
           texteCorr +=
             this.sup3 === 1 || this.sup3 === 4
               ? ''
@@ -220,7 +228,7 @@ export default class UnitesDeVolumesEtDeCapacite extends Exercice {
               bonusDecimalesAMC,
             signe: false,
           })
-          texteCorr = `$${texNombre(n, 3)}${sp()}\\text{dm}^3=${texNombre(resultat, 3)}${sp()}\\text{L}$`
+          texteCorr = `$${texNombre(n, 3)}${sp()}\\text{dm}^3=${miseEnEvidence(`${texNombre(resultat, 3)}${sp()}\\text{L}`)}$`
           texteCorr +=
             this.sup3 === 1 || this.sup3 === 4
               ? ''
@@ -239,7 +247,7 @@ export default class UnitesDeVolumesEtDeCapacite extends Exercice {
               bonusDecimalesAMC,
             signe: false,
           })
-          texteCorr = `$${texNombre(n, 3)}${sp()}\\text{cm}^3=${texNombre(n, 3)}\\div 1${sp()}000${sp()}\\text{dm}^3=${texNombre(resultat, 6)}${sp()}\\text{L}$`
+          texteCorr = `$${texNombre(n, 3)}${sp()}\\text{cm}^3=${texNombre(n, 3)}\\div 1${sp()}000${sp()}\\text{dm}^3=${miseEnEvidence(`${texNombre(resultat, 6)}${sp()}\\text{L}`)}$`
           texteCorr +=
             this.sup3 === 1 || this.sup3 === 4
               ? ''
@@ -258,7 +266,7 @@ export default class UnitesDeVolumesEtDeCapacite extends Exercice {
               bonusDecimalesAMC,
             signe: false,
           })
-          texteCorr = `$${texNombre(n, 3)}${sp()}\\text{mm}^3=${texNombre(n, 3)}\\div1${sp()}000\\div 1${sp()}000${sp()}\\text{dm}^3=${texNombre(resultat, 9)}${sp()}\\text{L}$`
+          texteCorr = `$${texNombre(n, 3)}${sp()}\\text{mm}^3=${texNombre(n, 3)}\\div1${sp()}000\\div 1${sp()}000${sp()}\\text{dm}^3=${miseEnEvidence(`${texNombre(resultat, 9)}${sp()}\\text{L}`)}$`
           texteCorr +=
             this.sup3 === 1 || this.sup3 === 4
               ? ''
@@ -277,7 +285,7 @@ export default class UnitesDeVolumesEtDeCapacite extends Exercice {
               bonusDecimalesAMC,
             signe: false,
           })
-          texteCorr = `$${texNombre(n, 3)}${sp()}\\text{L}=${texNombre(resultat, 3)}${sp()}\\text{dm}^3$`
+          texteCorr = `$${texNombre(n, 3)}${sp()}\\text{L}=${miseEnEvidence(`${texNombre(resultat, 3)}${sp()}\\text{dm}^3`)}$`
           texteCorr +=
             this.sup3 === 1 || this.sup3 === 4
               ? ''
@@ -296,7 +304,7 @@ export default class UnitesDeVolumesEtDeCapacite extends Exercice {
               bonusDecimalesAMC,
             signe: false,
           })
-          texteCorr = `$${texNombre(n, 3)}${sp()}\\text{L}=${texNombre(n, 0)}${sp()}\\text{dm}^3=${texNombre(n, 0)}\\times1${sp()}000${sp()}\\text{cm}^3=${texNombre(n.mul(1000))}${sp()}\\text{cm}^3$`
+          texteCorr = `$${texNombre(n, 3)}${sp()}\\text{L}=${texNombre(n, 0)}${sp()}\\text{dm}^3=${texNombre(n, 0)}\\times1${sp()}000${sp()}\\text{cm}^3=${miseEnEvidence(`${texNombre(n.mul(1000))}${sp()}\\text{cm}^3`)}$`
           texteCorr +=
             this.sup3 === 1 || this.sup3 === 4
               ? ''
@@ -316,7 +324,7 @@ export default class UnitesDeVolumesEtDeCapacite extends Exercice {
               bonusDecimalesAMC,
             signe: false,
           })
-          texteCorr = `$${texNombre(n, 3)}${sp()}\\text{L}=${texNombre(n, 3)}${sp()}\\text{dm}^3=${texNombre(n, 3)}\\div1${sp()}000${sp()}\\text{m}^3=${texNombre(resultat, 6)}${sp()}\\text{m}^3$`
+          texteCorr = `$${texNombre(n, 3)}${sp()}\\text{L}=${texNombre(n, 3)}${sp()}\\text{dm}^3=${texNombre(n, 3)}\\div1${sp()}000${sp()}\\text{m}^3=${miseEnEvidence(`${texNombre(resultat, 6)}${sp()}\\text{m}^3`)}$`
           texteCorr +=
             this.sup3 === 1 || this.sup3 === 4
               ? ''
@@ -369,21 +377,20 @@ export default class UnitesDeVolumesEtDeCapacite extends Exercice {
           uniteFinale === 'L'
             ? sp() + '$\\text{L}$'
             : sp() + `$ \\text{${uniteFinale.split('3')[0]}}^3$`
-        // texte = texte.replace('\\dotfill', `$${ajouteChampTexteMathLive(this, i, '', {
         texte =
           texte.split('\\dotfill')[0] +
-          `$${ajouteChampTexteMathLive(this, i, '', {
+          `$${ajouteChampTexteMathLive(this, i, KeyboardType.clavierNumbers, {
             texteApres: uniteFinale,
           })}`
         setReponse(this, i, resultat)
       }
 
-      if ((this.sup3 === 1 || this.sup3 === 3) && i === this.nbQuestions - 1) {
+      /* if ((this.sup3 === 1 || this.sup3 === 3) && i === this.nbQuestions - 1) {
         texte +=
           '<br><br>' +
           buildTab(0, '', 0, '', Math.min(8, this.nbQuestions), true)
       }
-
+      */
       if (this.questionJamaisPosee(i, uniteFinale ?? 'm', resultat)) {
         // Si la question n'a jamais été posée, on en crée une autre
         if (context.vue === 'diap') {
@@ -414,121 +421,36 @@ function buildTab(
   correction = false,
 ) {
   const tabRep = function (nbre: number, uniteNbre: string): string[] {
-    const res = []
-    let caseARemplir
-    // for (let ee = 0; ee < 21; ee++) res.push('\\hspace*{0.4cm}')
-    for (let ee = 0; ee < 21; ee++) res.push('')
-    switch (uniteNbre.replaceAll(' ', '')) {
-      case 'dam':
-        for (let i = 0; i < 21; i++) {
-          caseARemplir =
-            i % 3 === 1
-              ? getDigitFromNumber(String(nbre), 10 ** (5 - i)) !== ''
-                ? '\\hspace*{0.2cm}' +
-                  getDigitFromNumber(String(nbre), 10 ** (5 - i)) +
-                  '\\hspace*{0.2cm}'
-                : '\\hspace*{0.6cm}'
-              : getDigitFromNumber(String(nbre), 10 ** (5 - i)) === ''
-                ? '\\hspace*{0.2cm}'
-                : getDigitFromNumber(String(nbre), 10 ** (5 - i))
-          res[i] =
-            (5 - i === 0 ? '\\color{red}{' : '') +
-            caseARemplir +
-            (5 - i === 0
-              ? new Decimal(nbre).decimalPlaces() === 0
-                ? '}'
-                : ',}'
-              : '')
-        }
-        break
-      case 'm':
-        for (let i = 0; i < 21; i++) {
-          caseARemplir =
-            i % 3 === 1
-              ? getDigitFromNumber(String(nbre), 10 ** (8 - i)) !== ''
-                ? '\\hspace*{0.2cm}' +
-                  getDigitFromNumber(String(nbre), 10 ** (8 - i)) +
-                  '\\hspace*{0.2cm}'
-                : '\\hspace*{0.6cm}'
-              : getDigitFromNumber(String(nbre), 10 ** (8 - i)) === ''
-                ? '\\hspace*{0.2cm}'
-                : getDigitFromNumber(String(nbre), 10 ** (8 - i))
-          res[i] =
-            (8 - i === 0 ? '\\color{red}{' : '') +
-            caseARemplir +
-            (8 - i === 0
-              ? new Decimal(nbre).decimalPlaces() === 0
-                ? '}'
-                : ',}'
-              : '')
-        }
-        break
-      case 'dm':
-        for (let i = 0; i < 21; i++) {
-          caseARemplir =
-            i % 3 === 1
-              ? getDigitFromNumber(String(nbre), 10 ** (11 - i)) !== ''
-                ? '\\hspace*{0.2cm}' +
-                  getDigitFromNumber(String(nbre), 10 ** (11 - i)) +
-                  '\\hspace*{0.2cm}'
-                : '\\hspace*{0.6cm}'
-              : getDigitFromNumber(String(nbre), 10 ** (11 - i)) === ''
-                ? '\\hspace*{0.2cm}'
-                : getDigitFromNumber(String(nbre), 10 ** (11 - i))
-          res[i] =
-            (11 - i === 0 ? '\\color{red}{' : '') +
-            caseARemplir +
-            (11 - i === 0
-              ? new Decimal(nbre).decimalPlaces() === 0
-                ? '}'
-                : ',}'
-              : '')
-        }
-        break
-      case 'cm':
-        for (let i = 0; i < 21; i++) {
-          caseARemplir =
-            i % 3 === 1
-              ? getDigitFromNumber(String(nbre), 10 ** (14 - i)) !== ''
-                ? '\\hspace*{0.2cm}' +
-                  getDigitFromNumber(String(nbre), 10 ** (14 - i)) +
-                  '\\hspace*{0.2cm}'
-                : '\\hspace*{0.6cm}'
-              : getDigitFromNumber(String(nbre), 10 ** (14 - i)) === ''
-                ? '\\hspace*{0.2cm}'
-                : getDigitFromNumber(String(nbre), 10 ** (14 - i))
-          res[i] =
-            (14 - i === 0 ? '\\color{red}{' : '') +
-            caseARemplir +
-            (14 - i === 0
-              ? new Decimal(nbre).decimalPlaces() === 0
-                ? '}'
-                : ',}'
-              : '')
-        }
-        break
-      case 'mm':
-        for (let i = 0; i < 21; i++) {
-          caseARemplir =
-            i % 3 === 1
-              ? getDigitFromNumber(String(nbre), 10 ** (17 - i)) !== ''
-                ? '\\hspace*{0.2cm}' +
-                  getDigitFromNumber(String(nbre), 10 ** (17 - i)) +
-                  '\\hspace*{0.2cm}'
-                : '\\hspace*{0.6cm}'
-              : getDigitFromNumber(String(nbre), 10 ** (17 - i)) === ''
-                ? '\\hspace*{0.2cm}'
-                : getDigitFromNumber(String(nbre), 10 ** (17 - i))
-          res[i] =
-            (17 - i === 0 ? '\\color{red}{' : '') +
-            caseARemplir +
-            (17 - i === 0
-              ? new Decimal(nbre).decimalPlaces() === 0
-                ? '}'
-                : ',}'
-              : '')
-        }
-        break
+    const res: string[] = []
+    // 18 columns: hm³(0-2), dam³(3-5), m³(6-8), dm³(9-11), cm³(12-14), mm³(15-17)
+    for (let ee = 0; ee < 18; ee++) res.push('')
+
+    // Base index for units position (3rd column of each group)
+    // hm: 2, dam: 5, m: 8, dm: 11, cm: 14, mm: 17
+    const uniteBases: Record<string, number> = {
+      hm: 2,
+      dam: 5,
+      m: 8,
+      dm: 11,
+      cm: 14,
+      mm: 17,
+    }
+
+    const unite = uniteNbre.replaceAll(' ', '')
+    const base = uniteBases[unite]
+    if (base === undefined) return res
+
+    for (let i = 0; i < 18; i++) {
+      const digit = getDigitFromNumber(String(nbre), 10 ** (base - i))
+      const isUnitsPosition = base - i === 0
+      const hasDecimal = new Decimal(nbre).decimalPlaces() !== 0
+
+      if (digit !== '') {
+        res[i] =
+          (isUnitsPosition ? '\\color{red}{' : '') +
+          digit +
+          (isUnitsPosition ? (hasDecimal ? ',}' : '}') : '')
+      }
     }
     return res
   }
@@ -536,71 +458,78 @@ function buildTab(
   const createTab = function (
     aT: string[],
     rT: string[],
-    first: number,
-    end: number,
+    _first: number,
+    _end: number,
     ligne: number,
     correction = false,
   ) {
-    let texte = '$\\def\\arraystretch{1.5}\\begin{array}{|'
-    for (let i = first; i <= end; i++) {
-      texte += 'c|'
-    }
-    texte += '}'
-    const headers2 = [
-      '\\hspace*{0.4cm}',
+    const phantom = '\\phantom{\\text{d}^3}'
+    const volumeUnits = [
+      '\\text{hm}^3',
       '\\text{dam}^3',
       '\\text{m}^3',
       '\\text{dm}^3',
       '\\text{cm}^3',
       '\\text{mm}^3',
-      '\\hspace*{0.4cm}',
     ]
-    texte += '\\hline '
-    for (let i = first; i < end; i++) {
-      texte += `${headers2[i]} ${i < end - 1 ? ' &' : ' \\\\'}`
+    const capacityUnits = [
+      '\\text{hL}',
+      '\\text{daL}',
+      '\\text{L}',
+      '\\text{dL}',
+      '\\text{cL}',
+      '\\text{mL}',
+    ]
+
+    // Build column specification: ||c|c|c|| for each group of 3
+    let texte =
+      '$\\begin{array}{||c|c|c||c|c|c||c|c|c||c|c|c||c|c|c||c|c|c||}\n'
+    texte += '\\hline\n'
+
+    // First header row: volume units (in 3rd column of each group)
+    texte += '\\rule{0pt}{3ex}'
+    for (let i = 0; i < 6; i++) {
+      texte += `${phantom} & ${phantom} & ${volumeUnits[i]}`
+      texte += i < 5 ? ' & ' : ' \\\\\n'
     }
 
-    for (let i = first; i < first + 3; i++) {
-      texte += '&'
+    // Second header row: capacity units (only in dm³ and cm³ groups)
+    for (let i = 0; i < 18; i++) {
+      if (i >= 9 && i <= 14) {
+        // Capacity units in columns 9-14 (dm³ and cm³ groups)
+        texte += capacityUnits[i - 9]
+      } else {
+        texte += phantom
+      }
+      texte += i < 17 ? ' & ' : ' \\\\\n'
     }
-    texte += '\\begin{array}{c|c|c}'
-    texte += '\\text{hL} & \\text{daL} & \\text{L}\\hspace*{0.2cm}\\\\'
-    texte += '\\end{array}&'
-    texte += '\\begin{array}{c|c|c}'
-    texte +=
-      '\\hspace*{0.1cm}\\text{dL} & \\hspace*{0.1cm}\\text{cL}\\hspace*{0.1cm} & \\text{mL}\\\\'
-    texte += '\\end{array}&'
+    texte += '\\hline\n'
 
-    for (let i = first + 5; i < end; i++) {
-      texte += i !== end - 1 ? ' & ' : ''
-    }
+    // Data rows
     if (correction) {
-      texte += '\\\\'
-      texte += '\\hline '
-      for (let i = first; i < end; i++) {
-        texte += '\\begin{array}{c|c|c}'
-        texte += `${aT[3 * i]} & ${aT[3 * i + 1]}& ${aT[3 * i + 2]}  \\\\`
-        texte += `${rT[3 * i]}  & ${rT[3 * i + 1]}& ${rT[3 * i + 2]}  \\\\`
-        texte += !correction
-          ? ` ${rT[3 * i]} & ${rT[3 * i + 1]}& ${rT[3 * i + 2]}  \\\\`
-          : ''
-        texte += '\\end{array}'
-        texte += i !== end - 1 ? ' & ' : ''
+      // Row for input number (aT)
+      for (let i = 0; i < 18; i++) {
+        texte += aT[i] || ''
+        texte += i < 17 ? ' & ' : ' \\\\\n'
       }
+      // Row for result number (rT)
+      for (let i = 0; i < 18; i++) {
+        texte += rT[i] || ''
+        texte += i < 17 ? ' & ' : ' \\\\\n'
+      }
+      texte += '\\hline\n'
     } else {
-      for (let k = 1; k <= ligne; k++) {
-        texte += '\\\\ \\hline '
-        for (let i = first; i < end; i++) {
-          texte += '\\begin{array}{c|c|c}'
-          texte += '\\hspace*{0.6cm} & \\hspace*{0.6cm} & \\hspace*{0.6cm} \\\\'
-          texte += '\\end{array}'
-          texte += i !== end - 1 ? ' & ' : ''
+      // Empty rows for students to fill in
+      for (let k = 0; k < ligne; k++) {
+        texte += '\\rule{0pt}{4.5ex}'
+        for (let i = 0; i < 18; i++) {
+          texte += ''
+          texte += i < 17 ? ' & ' : ' \\\\\n'
         }
+        texte += '\\hline\n'
       }
     }
-    texte += '\\\\ \\hline '
-
-    texte += ' \\end{array}$'
+    texte += '\\end{array}$'
     return texte
   }
   const aTab = tabRep(a, uniteA)

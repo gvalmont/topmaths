@@ -6,7 +6,7 @@
 <ButtonIconTooltip
   icon="bx-transfer text-3xl rotate-90"
   tooltip="Réorganisation"
-  on:click="{() => {
+  on:click={() => {
     reorderModalDisplayed = !reorderModalDisplayed
-  }}"
+  }}
 />

@@ -18,6 +18,7 @@ import FractionEtendue from '../../modules/FractionEtendue'
 import Grandeur from '../../modules/Grandeur'
 import Hms from '../../modules/Hms'
 import { addElement, get, setStyles } from '../html/dom'
+import { verifQuestionTableur } from '../tableur/outilsTableur'
 import { afficheScore } from './afficheScore'
 import { fonctionComparaison } from './comparisonFunctions'
 import { verifDragAndDrop } from './DragAndDrop'
@@ -127,6 +128,7 @@ export function exerciceInteractif(
   let nbQuestionsValidees = 0
   let nbQuestionsNonValidees = 0
   exercice.answers = {}
+
   if (exercice.interactifType === 'custom') {
     return verifExerciceCustom(exercice, divScore, buttonScore)
   }
@@ -134,6 +136,35 @@ export function exerciceInteractif(
     const format = exercice.autoCorrection[i]?.reponse?.param?.formatInteractif
     let resultat: string
     switch (format) {
+      case 'tableur': {
+        const result = verifQuestionTableur(exercice, i)
+        if (result == null) {
+          window.notify('erreur dans la correction de la question', {
+            exercice,
+            i,
+          })
+        } else {
+          nbQuestionsValidees += result.score.nbBonnesReponses
+          nbQuestionsNonValidees +=
+            result.score.nbReponses - result.score.nbBonnesReponses
+          if (result.feedback && result.feedback !== '') {
+            const divFeedback = document.querySelector(
+              `#feedbackEx${exercice.numeroExercice}Q${i}`,
+            )
+            if (divFeedback != null) {
+              divFeedback.innerHTML = `💡 ${result.feedback}`
+              divFeedback.classList.add(
+                'py-2',
+                'italic',
+                'text-coopmaths-warn-darkest',
+                'dark:text-coopmathsdark-warn-darkest',
+              )
+              ;(divFeedback as HTMLDivElement).style.display = 'block'
+            }
+          }
+        }
+        break
+      }
       case 'custom': {
         if (isMetaExercice(exercice)) {
           const result = exercice.correctionInteractives[i](i)

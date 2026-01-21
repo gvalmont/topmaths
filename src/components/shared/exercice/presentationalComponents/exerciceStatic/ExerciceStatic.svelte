@@ -39,17 +39,16 @@
   if (isStaticWithoutPngUrl(foundResource)) {
     const [examen, filiere] = foundResource.uuid.split('_')
     if (examen === 'eam') {
-    foundResource.png = `https://coopmaths.fr/alea/static/eam/${foundResource.annee}/tex/png/${foundResource.uuid}.png`
-    foundResource.pngCor = `https://coopmaths.fr/alea/static/eam/${foundResource.annee}/tex/png/${foundResource.uuid}_cor.png`
-    }
-    else if (examen === 'STL') {
+      foundResource.png = `https://coopmaths.fr/alea/static/eam/${foundResource.annee}/tex/png/${foundResource.uuid}.png`
+      foundResource.pngCor = `https://coopmaths.fr/alea/static/eam/${foundResource.annee}/tex/png/${foundResource.uuid}_cor.png`
+    } else if (examen === 'STL') {
       foundResource.png = `https://coopmaths.fr/alea/static/stl/${foundResource.annee}/tex/png/${foundResource.uuid}.png`
       foundResource.pngCor = `https://coopmaths.fr/alea/static/stl/${foundResource.annee}/tex/png/${foundResource.uuid}_cor.png`
     } else {
-    foundResource.png = `https://coopmaths.fr/alea/static/${examen}/${foundResource.annee}/tex/png/${foundResource.uuid}.png`
-    foundResource.pngCor = `https://coopmaths.fr/alea/static/${examen}/${foundResource.annee}/tex/png/${foundResource.uuid}_cor.png`
-  }
-  console.log(foundResource)
+      foundResource.png = `https://coopmaths.fr/alea/static/${examen}/${foundResource.annee}/tex/png/${foundResource.uuid}.png`
+      foundResource.pngCor = `https://coopmaths.fr/alea/static/${examen}/${foundResource.annee}/tex/png/${foundResource.uuid}_cor.png`
+    }
+    console.log(foundResource)
   }
   const resourceToDisplay =
     isStaticType(foundResource) || isCrpeType(foundResource)
@@ -104,13 +103,13 @@
   {...headerExerciceProps}
   {indiceExercice}
   {indiceLastExercice}
-  on:clickCorrection="{(event) => {
+  on:clickCorrection={(event) => {
     isCorrectionVisible = event.detail.isCorrectionVisible
-  }}"
-  on:clickVisible="{(event) => {
+  }}
+  on:clickVisible={(event) => {
     isContentVisible = event.detail.isVisible
     isCorrectionVisible = event.detail.isVisible
-  }}"
+  }}
   on:exerciseRemoved
 />
 
@@ -119,7 +118,7 @@
     {#if exercice}
       {#each exercice.png as url}
         <img
-          src="{url}"
+          src={url}
           class="mb-6"
           style="width: calc(100% * {zoomFactor}"
           alt="énoncé"
@@ -140,11 +139,11 @@
               <p class="text-red-500">Aucune correction disponible</p>
             {:else}
               <img
-                src="{url}"
+                src={url}
                 class="p-2"
                 style="width: calc(100% * {zoomFactor}"
                 alt="correction"
-                on:error="{handleNoCorrectionAvailable}"
+                on:error={handleNoCorrectionAvailable}
               />
             {/if}
           {/each}

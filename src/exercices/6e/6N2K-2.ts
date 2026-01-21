@@ -1,186 +1,156 @@
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
-import { setReponse } from '../../lib/interactif/gestionInteractif'
+import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
-import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
+import { choice } from '../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
+import { numAlpha } from '../../lib/outils/outilString'
 import { texNombre } from '../../lib/outils/texNombre'
-import { context } from '../../modules/context'
-import Operation from '../../modules/operations'
+import operation from '../../modules/operations'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import Exercice from '../Exercice'
 
-export const amcReady = true
-export const amcType = 'AMCOpen'
+export const titre =
+  'Résoudre des problèmes utilisant la division euclidienne (3)'
+
+// Gestion de la date de publication initiale
+export const dateDePublication = '11/12/2023'
+export const dateDeModifImportante = '09/01/2025'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 
-export const titre = "Indiquer une égalité à partir d'une division euclidienne"
-
-export const dateDePublication = '09/09/2022'
-
 /**
- * À partir de divisions euclidiennes, indiquer l'égalité fondamentale correspondante.
- *
- * Niveau de difficulté 1
- * * division par 2, 3 , 4 ou 5
- *
- * Niveau de difficulté 2 :
- * * division par 2, 3 , 4 ou 5
- * * division par 6 à 9
- * * un 0 dans le quotient
- *
- * Niveau de difficulté 3 :
- * * division par 11, 12, 15, 25
- * * division par 13,14,21,22,23 ou 24 et un 0 dans le quotient
- * * division par un multiple de 10 et un 0 dans le quotient
- * @author Eric Elter (à partir de 6C11)
-
+ * Résolution de problèmes utilisant la division Euclidienne
+ * @author Mickael Guironnet
  */
-export const uuid = 'd0cd7'
+
+export const uuid = '88e2x'
 
 export const refs = {
   'fr-fr': ['6N2K-2'],
-  'fr-2016': ['6C11-3'],
-  'fr-ch': ['9NO3-7'],
+  'fr-2016': [''],
+  'fr-ch': [''],
 }
-export default class APartirDeDivisionsEuclidiennes extends Exercice {
-  classe: number
+export default class QuestionsDivisionsEuclidiennes extends Exercice {
   constructor() {
     super()
-    this.besoinFormulaireNumerique = [
-      'Niveau de difficulté',
-      3,
-      '1 : Divisions par 2, 3, 4 ou 5\n2 : Diviseur à 1 chiffre\n3 : Diviseur à 2 chiffres',
-    ]
-    this.sup = 3
-    this.spacing = 2
-    this.spacing = context.isHtml ? 2 : 1 // Important sinon opidiv n'est pas joli
-    this.spacingCorr = context.isHtml ? 2 : 1
-    this.nbQuestions = 4
-    this.classe = 6
+    this.nbQuestions = 1
+    this.spacing = 1.5
+    this.spacingCorr = 1.5
   }
 
   nouvelleVersion() {
-    this.consigne = 'À partir '
-    this.consigne +=
-      this.nbQuestions === 1
-        ? 'de la division euclidienne suivante, '
-        : 'des divisions euclidiennes suivantes, '
-    this.consigne += "donner l'égalité fondamentale correspondante."
+    this.consigne =
+      this.nbQuestions > 1
+        ? 'Résoudre les problèmes suivants.'
+        : 'Résoudre le problème suivant.'
 
-    let typesDeQuestionsDisponibles, typesDeQuestions
-    if (this.sup === 1) typesDeQuestionsDisponibles = [1, 1, 1, 1]
-    else if (this.sup === 2) typesDeQuestionsDisponibles = [1, 2, 2, 3]
-    else typesDeQuestionsDisponibles = [4, 4, 5, 6]
-    const listeTypeDeQuestions = combinaisonListes(
-      typesDeQuestionsDisponibles,
-      this.nbQuestions,
-    ) // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
-
+    const questionsDisponibles = [7]
+    let indiceInteractif = 0
+    let indiceInteractifAvant = 0
     for (
-      let i = 0, texte = '', texteCorr = '', cpt = 0, a, b, q, r;
+      let i = 0, texte, texteCorr, cpt = 0;
       i < this.nbQuestions && cpt < 50;
-
     ) {
-      // La ligne suivante ne doit pas être mise après les setReponses car sinon elle les efface
-      this.autoCorrection[i] = {
-        enonce: texte,
-        propositions: [{ texte: texteCorr, statut: 4, feedback: '' }],
+      indiceInteractifAvant = indiceInteractif
+      let diviseur, dividende
+      switch (questionsDisponibles[i]) {
+        case 7:
+        default: {
+          // problème sur perle d'un collier
+          const nbPerlesJaune = randint(4, 9)
+          const nbPerlesRouge = randint(4, 9, [nbPerlesJaune])
+          const nbColliers = randint(22, 38)
+          const plus = choice([false, true])
+            ? [0, randint(10, 25)]
+            : [randint(10, 25), 0]
+          const nbPerlesJauneTotal = nbPerlesJaune * nbColliers + plus[0]
+          const nbPerlesRougeTotal = nbPerlesRouge * nbColliers + plus[1]
+          const nbColliersRouge = Math.floor(nbPerlesRougeTotal / nbPerlesRouge)
+          const nbColliersJaune = Math.floor(nbPerlesJauneTotal / nbPerlesJaune)
+          diviseur = nbColliers
+          dividende = nbPerlesJauneTotal
+          texte = `Un bijoutier fabrique des colliers avec des perles. Il décide de mettre ${nbPerlesJaune} perles jaunes et ${nbPerlesRouge} perles rouges par collier. Il possède ${nbPerlesRougeTotal} perles rouges et ${nbPerlesJauneTotal} perles jaunes.`
+          texte += `<br>${numAlpha(0)} Combien pourra-t-il fabriquer de colliers ?`
+          texte += ajouteChampTexteMathLive(
+            this,
+            indiceInteractif,
+            KeyboardType.clavierNumbers,
+          )
+          texte += `<br> ${numAlpha(1)} Combien lui restera-t-il de perles jaunes ?`
+          texte += ajouteChampTexteMathLive(
+            this,
+            indiceInteractif + 1,
+            KeyboardType.clavierNumbers,
+          )
+          texte += `<br> ${numAlpha(2)} Combien lui restera-t-il de perles rouges ?`
+          texte += ajouteChampTexteMathLive(
+            this,
+            indiceInteractif + 2,
+            KeyboardType.clavierNumbers,
+          )
+          texteCorr = `${numAlpha(0)} Posons la division euclidienne de $${texNombre(nbPerlesJauneTotal)}$ par $${nbPerlesJaune}$. <br>`
+          texteCorr +=
+            operation({
+              operande1: nbPerlesJauneTotal,
+              operande2: nbPerlesJaune,
+              type: 'divisionE',
+            }) +
+            `$${miseEnEvidence(`${texNombre(nbPerlesJauneTotal)}=${nbPerlesJauneTotal - nbPerlesJaune * nbColliersJaune === 0 ? `${nbPerlesJaune}\\times${texNombre(nbColliersJaune)}` : `(${nbPerlesJaune}\\times${texNombre(nbColliersJaune)})+ ${nbPerlesJauneTotal - nbPerlesJaune * nbColliersJaune}`}`, 'blue')}$`
+          texteCorr += `<br>Il peut faire $${miseEnEvidence(texNombre(nbColliersJaune), 'blue')}$ colliers avec les perles jaunes.`
+          texteCorr += `<br>Posons la division euclidienne de $${texNombre(nbPerlesRougeTotal)}$ par $${nbPerlesRouge}$. <br>`
+          texteCorr +=
+            operation({
+              operande1: nbPerlesRougeTotal,
+              operande2: nbPerlesRouge,
+              type: 'divisionE',
+            }) +
+            `$${miseEnEvidence(`${texNombre(nbPerlesRougeTotal)}=${nbPerlesRougeTotal - nbPerlesRouge * nbColliersRouge === 0 ? `${nbPerlesRouge}\\times${texNombre(nbColliersRouge)}` : `(${nbPerlesRouge}\\times${texNombre(nbColliersRouge)})+ ${nbPerlesRougeTotal - nbPerlesRouge * nbColliersRouge}`}`, 'blue')}$`
+          texteCorr += `<br>Il peut faire $${miseEnEvidence(texNombre(nbColliersRouge), 'blue')}$ colliers avec les perles rouges.`
+          texteCorr += `<br>Finalement, en prenant en compte les deux couleurs, et puisque $${texNombre(Math.min(nbColliersRouge, nbColliersJaune))}$ < $${texNombre(Math.max(nbColliersRouge, nbColliersJaune))}$, le bijoutier ne pourra faire que $${miseEnEvidence(texNombre(Math.min(nbColliersRouge, nbColliersJaune)))}$ colliers.`
+          texteCorr += `<br>${numAlpha(1)} $${nbPerlesJauneTotal} - (${nbPerlesJaune} \\times ${Math.min(nbColliersRouge, nbColliersJaune)})=${miseEnEvidence(String(nbPerlesJauneTotal - nbPerlesJaune * Math.min(nbColliersRouge, nbColliersJaune)))}$`
+          texteCorr +=
+            nbPerlesJauneTotal -
+              nbPerlesJaune * Math.min(nbColliersRouge, nbColliersJaune) ===
+            0
+              ? '<br>Il ne restera aucune perle jaune.'
+              : `<br>Il restera $${miseEnEvidence(String(nbPerlesJauneTotal - nbPerlesJaune * Math.min(nbColliersRouge, nbColliersJaune)))}$  perles jaunes.`
+          texteCorr += `<br>${numAlpha(2)} $${nbPerlesRougeTotal} - (${nbPerlesRouge} \\times ${Math.min(nbColliersRouge, nbColliersJaune)})=${miseEnEvidence(String(nbPerlesRougeTotal - nbPerlesRouge * Math.min(nbColliersRouge, nbColliersJaune)))}$`
+          texteCorr +=
+            nbPerlesRougeTotal -
+              nbPerlesRouge * Math.min(nbColliersRouge, nbColliersJaune) ===
+            0
+              ? '<br>Il ne restera aucune perle rouge.'
+              : `<br>Il restera $${miseEnEvidence(String(nbPerlesRougeTotal - nbPerlesRouge * Math.min(nbColliersRouge, nbColliersJaune)))}$  perles rouges.`
+          handleAnswers(this, indiceInteractif, {
+            reponse: { value: Math.min(nbColliersRouge, nbColliersJaune) },
+          })
+          handleAnswers(this, indiceInteractif + 1, {
+            reponse: {
+              value:
+                nbPerlesJauneTotal -
+                nbPerlesJaune * Math.min(nbColliersRouge, nbColliersJaune),
+            },
+          })
+          handleAnswers(this, indiceInteractif + 2, {
+            reponse: {
+              value:
+                nbPerlesRougeTotal -
+                nbPerlesRouge * Math.min(nbColliersRouge, nbColliersJaune),
+            },
+          })
+          indiceInteractif += 3
+          break
+        }
       }
-      typesDeQuestions = listeTypeDeQuestions[i]
-      switch (typesDeQuestions) {
-        case 1: // division par 2, 3 , 4 ou 5
-          q = randint(2, 5) * 100 + randint(2, 5) * 10 + randint(2, 5)
-          b = randint(2, 5)
-          break
-        case 2: // division par 6 à 9
-          q = randint(5, 9) * 100 + randint(2, 5) * 10 + randint(5, 9)
-          b = randint(6, 9)
-          break
-        case 3: // un 0 dans le quotient
-          if (randint(1, 2) === 1) {
-            q = randint(2, 9) * 1000 + randint(2, 9) * 100 + randint(2, 9)
-          } else {
-            q = randint(2, 9) * 1000 + randint(2, 9) * 10 + randint(2, 9)
-          }
-          b = randint(7, 9)
-          break
-        case 4: // division par 11, 12, 15, 25
-          q = randint(1, 5) * 100 + randint(1, 5) * 10 + randint(1, 5)
-          b = choice([11, 12, 15, 25])
-          break
-        case 5: // division par 13,14,21,22,23 ou 24 et un 0 dans le quotient
-          q = randint(1, 5) * 1000 + randint(6, 9) * 100 + randint(1, 5)
-          b = choice([11, 12, 13, 14, 21, 22, 23, 24])
-          break
-        case 6: // division par un multiple de 10 et un 0 dans le quotient
-        default:
-          q = randint(6, 9) * 1000 + randint(6, 9) * 10 + randint(1, 5)
-          b = randint(2, 9) * 10
-          break
-      }
-      r = randint(0, b - 1) // reste inférieur au diviseur
-      a = b * q + r
-      texte = `${Operation({ operande1: a, operande2: b, type: 'divisionE' })}<br>`
-      if (r === 0) {
-        texteCorr = `$${miseEnEvidence(`${texNombre(a)}=${b}\\times${texNombre(q)}`)}$`
-        setReponse(this, i, [
-          `${a}=${b}\\times${q}`,
-          `${a}=${q}\\times${b}`,
-          `${b}\\times${q}=${a}`,
-          `${q}\\times${b}=${a}`,
-          `${a}=${b}\\times ${q}+${0}`,
-          `${a}=${q}\\times ${b}+${0}`,
-          `${b}\\times ${q}+${0}=${a}`,
-          `${q}\\times ${b}+${0}=${a}`,
-          `${a}=(${b}\\times ${q})+${0}`,
-          `${a}=(${q}\\times ${b})+${0}`,
-          `(${b}\\times ${q})+${0}=${a}`,
-          `(${q}\\times ${b})+${0}=${a}`,
-          `${a}\\div${b}=${q}`,
-          `${a}\\div${q}=${b}`,
-          `${q}=${a}\\div${b}`,
-          `${b}=${a}\\div${q}`,
-        ])
-      } else {
-        texteCorr =
-          this.classe === 3
-            ? `$${miseEnEvidence(`${texNombre(a)}=${b}\\times${texNombre(q)}+${r}`)}$`
-            : `$${miseEnEvidence(`${texNombre(a)}=(${b}\\times${texNombre(q)})+${r}`)}$`
-        setReponse(this, i, [
-          `${a}=${b}\\times ${q}+${r}`,
-          `${a}=${q}\\times ${b}+${r}`,
-          `${b}\\times ${q}+${r}=${a}`,
-          `${q}\\times ${b}+${r}=${a}`,
-          `${a}=(${b}\\times ${q})+${r}`,
-          `${a}=(${q}\\times ${b})+${r}`,
-          `(${b}\\times ${q})+${r}=${a}`,
-          `(${q}\\times ${b})+${r}=${a}`,
-        ])
-      }
-      texte += ajouteChampTexteMathLive(
-        this,
-        i,
-        KeyboardType.clavierDeBaseAvecEgal,
-      )
-      // Pour AMC question AmcOpen
-      if (context.isAmc) {
-        this.autoCorrection[i].enonce =
-          'Indiquer une égalité à partir de la  division euclidienne suivante : <br><br>' +
-          texte
-        // @ts-expect-error Trop compliqué à typer
-        this.autoCorrection[i].propositions[0].texte = texteCorr
-        // @ts-expect-error Trop compliqué à typer
-        this.autoCorrection[i].propositions[0].statut = 1
-      }
-      if (this.listeQuestions.indexOf(texte) === -1) {
+      if (this.questionJamaisPosee(i, dividende, diviseur)) {
         // Si la question n'a jamais été posée, on en crée une autre
         this.listeQuestions[i] = texte
         this.listeCorrections[i] = texteCorr
         i++
-      }
+      } else indiceInteractif = indiceInteractifAvant
       cpt++
-    }
+    } // fin du for
+
     listeQuestionsToContenu(this)
   }
 }

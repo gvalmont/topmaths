@@ -1,7 +1,4 @@
-import {
-  miseEnEvidence,
-  texteEnCouleurEtGras,
-} from '../../../lib/outils/embellissements'
+import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import ExerciceQcm from '../../ExerciceQcm'
 
 export const uuid = '752b3'
@@ -29,30 +26,30 @@ export const dateDePublication = '09/03/2025'
 export default class SujetZero2024Ex5Q5 extends ExerciceQcm {
   versionOriginale: () => void = () => {
     this.reponses = [
-      '$F(x) = \\dfrac{1}{2}\\text{e}^{x^2} + \\dfrac{1}{2}$', // Réponse correcte (d)
-      '$F(x) = \\dfrac{x^2}{2}\\text{e}^{x^2}$', // Mauvaise réponse (a)
-      '$F(x) = \\dfrac{1}{2}\\text{e}^{x^2}$', // Mauvaise réponse (b)
-      '$F(x) = \\left(1 + 2x^2\\right)\\text{e}^{x^2}$', // Mauvaise réponse (c)
+      '$F(x) = \\dfrac{1}{2}\\mathrm{e}^{x^2} + \\dfrac{1}{2}$', // Réponse correcte (d)
+      '$F(x) = \\dfrac{x^2}{2}\\mathrm{e}^{x^2}$', // Mauvaise réponse (a)
+      '$F(x) = \\dfrac{1}{2}\\mathrm{e}^{x^2}$', // Mauvaise réponse (b)
+      '$F(x) = \\left(1 + 2x^2\\right)\\mathrm{e}^{x^2}$', // Mauvaise réponse (c)
     ]
 
     this.enonce = 'Soit $f$ la fonction définie sur $\\R$ par '
-    this.enonce += '$f(x) = x\\text{e}^{x^2}.$<br>'
+    this.enonce += '$f(x) = x\\mathrm{e}^{x^2}.$<br>'
     this.enonce +=
       'La primitive $F$ de $f$ sur $\\R$ qui vérifie $F(0) = 1$ est définie par :'
 
     this.correction =
-      "On remarque que $f(x)$ est de la forme $u'(x) \\times \\text{e}^{u(x)}$ avec $u(x) = x^2$.<br>"
+      "On remarque que $f(x)$ est de la forme $u'(x) \\times \\mathrm{e}^{u(x)}$ avec $u(x) = x^2$.<br>"
     this.correction += 'Ainsi, une primitive de $f$ est :'
-    this.correction += '$F(x) = \\dfrac{1}{2} \\text{e}^{x^2} + k,$ '
+    this.correction += '$F(x) = \\dfrac{1}{2} \\mathrm{e}^{x^2} + k,$ '
     this.correction += 'où $k$ est une constante.<br>'
     this.correction +=
       'On utilise la condition $F(0) = 1$ pour déterminer $k$ :<br>'
     this.correction +=
-      '$\\dfrac{1}{2} \\text{e}^{0} + k = 1 \\iff \\dfrac{1}{2} + k = 1 \\iff k = \\dfrac{1}{2}.$<br>'
+      '$\\dfrac{1}{2} \\mathrm{e}^{0} + k = 1 \\iff \\dfrac{1}{2} + k = 1 \\iff k = \\dfrac{1}{2}.$<br>'
     this.correction += 'Donc, la primitive recherchée est :'
     this.correction +=
-      ' $F(x) = \\dfrac{1}{2} \\text{e}^{x^2} + \\dfrac{1}{2}.$<br>'
-    this.correction += `La bonne réponse est donc $${miseEnEvidence('F(x) = \\dfrac{1}{2}\\text{e}^{x^2} + \\dfrac{1}{2}')}$.`
+      ' $F(x) = \\dfrac{1}{2} \\mathrm{e}^{x^2} + \\dfrac{1}{2}.$<br>'
+    this.correction += `La bonne réponse est donc $${miseEnEvidence('F(x) = \\dfrac{1}{2}\\mathrm{e}^{x^2} + \\dfrac{1}{2}')}$.`
   }
 
   constructor() {

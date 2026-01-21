@@ -1,7 +1,9 @@
+import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 import { setReponse } from '../../lib/interactif/gestionInteractif'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { choice } from '../../lib/outils/arrayOutils'
 import { texFractionFromString } from '../../lib/outils/deprecatedFractions'
+import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { arrondi } from '../../lib/outils/nombres'
 import { texNombre } from '../../lib/outils/texNombre'
 import { context } from '../../modules/context'
@@ -44,7 +46,6 @@ export default class ExerciceEcritureDecimaleApartirDeFractionDecimale extends E
     for (
       let i = 0, a, b, texte, texteCorr, cpt = 0;
       i < this.nbQuestions && cpt < 50;
-
     ) {
       a = choice(
         [
@@ -66,12 +67,12 @@ export default class ExerciceEcritureDecimaleApartirDeFractionDecimale extends E
       texte += `$${texFractionFromString(texNombre(a), texNombre(b))}$`
       texte += context.isAmc
         ? '.'
-        : `${!this.interactif ? '$ = \\dotfill $' : '$=$' + ajouteChampTexteMathLive(this, i, '')}`
+        : `${!this.interactif ? '$ = \\dotfill $' : '$=$' + ajouteChampTexteMathLive(this, i, KeyboardType.clavierNumbers)}`
       texteCorr =
         '$ ' +
         texFractionFromString(texNombre(a), texNombre(b)) +
         ' = ' +
-        texNombre(arrondi(a / b)) +
+        miseEnEvidence(texNombre(arrondi(a / b))) +
         ' $'
       if (this.questionJamaisPosee(i, a, b)) {
         // Si la question n'a jamais été posée, on en crée une autre

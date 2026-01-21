@@ -1,7 +1,4 @@
-import {
-  miseEnEvidence,
-  texteEnCouleurEtGras,
-} from '../../../lib/outils/embellissements'
+import { texteEnCouleurEtGras } from '../../../lib/outils/embellissements'
 import ExerciceQcm from '../../ExerciceQcm'
 
 export const uuid = 'bdd72'
@@ -37,11 +34,11 @@ export default class SujetZero2024Ex5Q5 extends ExerciceQcm {
 
     this.enonce =
       'Parmi les primitives de la fonction $f$ définie sur $\\R$ par  '
-    this.enonce += '$f(x) = 3\\text{e}^{-x^2} + 2,$<br>'
+    this.enonce += '$f(x) = 3\\mathrm{e}^{-x^2} + 2,$<br>'
     this.enonce += 'laquelle des affirmations suivantes est correcte ?'
 
     this.correction =
-      'La fonction $f$ est continue et strictement positive sur $\\R$ car $\\text{e}^{-x^2} > 0$.<br>'
+      'La fonction $f$ est continue et strictement positive sur $\\R$ car $\\mathrm{e}^{-x^2} > 0$.<br>'
     this.correction +=
       'Ainsi, toutes les primitives de $f$ ont pour dérivée $f$, qui est positive.<br>'
     this.correction +=

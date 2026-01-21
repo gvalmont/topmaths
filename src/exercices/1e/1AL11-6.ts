@@ -1,22 +1,23 @@
-import Exercice from '../Exercice'
+import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
 import {
   gestionnaireFormulaireTexte,
   listeQuestionsToContenu,
   randint,
 } from '../../modules/outils'
-import { handleAnswers } from '../../lib/interactif/gestionInteractif'
+import Exercice from '../Exercice'
 
-import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
-import { texNombre } from '../../lib/outils/texNombre'
-import { miseEnEvidence } from '../../lib/outils/embellissements'
 import Decimal from 'decimal.js'
+import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
+import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import {
   ecritureAlgebrique,
   ecritureAlgebriqueSauf1,
   ecritureParentheseSiNegatif,
   reduireAxPlusB,
 } from '../../lib/outils/ecritures'
+import { miseEnEvidence } from '../../lib/outils/embellissements'
+import { texNombre } from '../../lib/outils/texNombre'
 
 export const titre =
   "Donner la forme explicite d'une suite arithmétique ou géométrique"
@@ -236,7 +237,9 @@ export default class SuitesExplicites extends Exercice {
       if (this.interactif) {
         texte +=
           '<br>' +
-          ajouteChampTexteMathLive(this, i, ' ', { texteAvant: `$${NomS}_n=$` })
+          ajouteChampTexteMathLive(this, i, KeyboardType.lyceeClassique, {
+            texteAvant: `$${NomS}_n=$`,
+          })
       }
       if (this.questionJamaisPosee(i, a, q, r, b)) {
         // <- laisser le i et ajouter toutes les variables qui rendent les exercices différents (par exemple a, b, c et d)

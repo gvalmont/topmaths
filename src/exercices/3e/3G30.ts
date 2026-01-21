@@ -7,14 +7,18 @@ import { latexParPoint } from '../../lib/2d/textes'
 import { homothetie, rotation } from '../../lib/2d/transformations'
 import { longueur } from '../../lib/2d/utilitairesGeometriques'
 import { milieu } from '../../lib/2d/utilitairesPoint'
+import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
 import { quatriemeProportionnelle } from '../../lib/outils/calculs'
 import { texFractionFromString } from '../../lib/outils/deprecatedFractions'
-import { texteEnCouleurEtGras } from '../../lib/outils/embellissements'
+import {
+  miseEnEvidence,
+  texteEnCouleurEtGras,
+} from '../../lib/outils/embellissements'
 import { arrondi } from '../../lib/outils/nombres'
-import { creerNomDePolygone, numAlpha } from '../../lib/outils/outilString'
+import { creerNomDePolygone, numAlpha, sp } from '../../lib/outils/outilString'
 import { texNombre } from '../../lib/outils/texNombre'
 import { context } from '../../modules/context'
 import Grandeur from '../../modules/Grandeur'
@@ -141,7 +145,7 @@ export default class CalculDeLongueur extends Exercice {
           bc = randint(10, 15)
           ab = bc * Math.cos(angleABCr)
           ac = bc * Math.sin(angleABCr)
-          texteAMC += `Dans le triangle $${nom}$ rectangle en $${nom[0]}$,<br> $${nom[1] + nom[2]}=${bc}$ ${unite} et $\\widehat{${nom}}=${angleABC}^\\circ$.<br>`
+          texteAMC += `Dans le triangle $${nom}$ rectangle en $${nom[0]}$,<br> $${nom[1] + nom[2]}=${bc}\\text{ ${unite}}$ et $\\widehat{${nom}}=${angleABC}^\\circ$.<br>`
           nom1 = nom[0]
           nom2 = nom[1]
           break
@@ -149,7 +153,7 @@ export default class CalculDeLongueur extends Exercice {
           bc = randint(10, 15)
           ab = bc * Math.cos(angleABCr)
           ac = bc * Math.sin(angleABCr)
-          texteAMC += `Dans le triangle $${nom}$ rectangle en $${nom[0]}$,<br> $${nom[1] + nom[2]}=${bc}$ ${unite} et $\\widehat{${nom}}=${angleABC}^\\circ$.<br>`
+          texteAMC += `Dans le triangle $${nom}$ rectangle en $${nom[0]}$,<br> $${nom[1] + nom[2]}=${bc}\\text{ ${unite}}$ et $\\widehat{${nom}}=${angleABC}^\\circ$.<br>`
           nom1 = nom[0]
           nom2 = nom[2]
           break
@@ -157,7 +161,7 @@ export default class CalculDeLongueur extends Exercice {
           ab = randint(7, 10)
           ac = ab * Math.tan(angleABCr)
           bc = ab / Math.cos(angleABCr)
-          texteAMC += `Dans le triangle $${nom}$ rectangle en $${nom[0]}$,<br> $${nom[0] + nom[1]}=${ab}$ ${unite} et $\\widehat{${nom}}=${angleABC}^\\circ$.<br>`
+          texteAMC += `Dans le triangle $${nom}$ rectangle en $${nom[0]}$,<br> $${nom[0] + nom[1]}=${ab}\\text{ ${unite}}$ et $\\widehat{${nom}}=${angleABC}^\\circ$.<br>`
           nom1 = nom[0]
           nom2 = nom[2]
           break
@@ -165,7 +169,7 @@ export default class CalculDeLongueur extends Exercice {
           ab = randint(7, 10)
           bc = ab / Math.cos(angleABCr)
           ac = bc * Math.sin(angleABCr)
-          texteAMC += `Dans le triangle $${nom}$ rectangle en $${nom[0]}$,<br> $${nom[0] + nom[1]}=${ab}$ ${unite} et $\\widehat{${nom}}=${angleABC}^\\circ$.<br>`
+          texteAMC += `Dans le triangle $${nom}$ rectangle en $${nom[0]}$,<br> $${nom[0] + nom[1]}=${ab}\\text{ ${unite}}$ et $\\widehat{${nom}}=${angleABC}^\\circ$.<br>`
           nom1 = nom[1]
           nom2 = nom[2]
           break
@@ -173,7 +177,7 @@ export default class CalculDeLongueur extends Exercice {
           ac = randint(7, 10)
           bc = ac / Math.sin(angleABCr)
           ab = bc * Math.cos(angleABCr)
-          texteAMC += `Dans le triangle $${nom}$ rectangle en $${nom[0]}$,<br> $${nom[0] + nom[2]}=${ac}$ ${unite} et $\\widehat{${nom}}=${angleABC}^\\circ$.<br>`
+          texteAMC += `Dans le triangle $${nom}$ rectangle en $${nom[0]}$,<br> $${nom[0] + nom[2]}=${ac}\\text{ ${unite}}$ et $\\widehat{${nom}}=${angleABC}^\\circ$.<br>`
           nom1 = nom[1]
           nom2 = nom[2]
           break
@@ -182,13 +186,14 @@ export default class CalculDeLongueur extends Exercice {
           ac = randint(7, 10)
           bc = ac / Math.sin(angleABCr)
           ab = Math.cos(angleABCr) * bc
-          texteAMC += `Dans le triangle $${nom}$ rectangle en $${nom[0]}$,<br> $${nom[0] + nom[2]}=${ac}$ ${unite} et $\\widehat{${nom}}=${angleABC}^\\circ$.<br>`
+          texteAMC += `Dans le triangle $${nom}$ rectangle en $${nom[0]}$,<br> $${nom[0] + nom[2]}=${ac}\\text{ ${unite}}$ et $\\widehat{${nom}}=${angleABC}^\\circ$.<br>`
           nom1 = nom[0]
           nom2 = nom[1]
           break
       }
-      texte += texteAMC + `Calculer $${nom1 + nom2}$ à $0,1$ ${unite} près.`
-      q2AMC = `Calculer $${nom1 + nom2}$ au dixième de ${unite}.`
+      texte +=
+        texteAMC + `Calculer $${nom1 + nom2}$ à $0,1\\text{ ${unite}}$ près.`
+      q2AMC = `Calculer $${nom1 + nom2}$ au dixième de $\\text{ ${unite}}$.`
 
       if (!context.isHtml && this.sup) {
         // texte += '\n\\end{minipage}\n'
@@ -374,7 +379,7 @@ export default class CalculDeLongueur extends Exercice {
             texteCorr += `$\\cos\\left(${angleABC}^\\circ\\right)=${texFractionFromString(nom[0] + nom[1], bc)}$<br>`
             texteCorr += `$${nom[0] + nom[1]}=${bc} \\times \\cos\\left(${angleABC}^\\circ\\right)$`
           }
-          texteCorr += `<br>soit $${nom[0] + nom[1]}\\approx${texNombre(ab, 1)}$ ${unite}.`
+          texteCorr += `<br>soit $${nom[0] + nom[1]}\\approx${miseEnEvidence(texNombre(ab, 1))}\\text{ ${unite}}$.`
           reponse = arrondi(ab, 1)
           nomLongueur = `$${nom[0] + nom[1]}$`
           calcul0 = `$${nom[1] + nom[2]}\\times\\cos\\left(${angleABC}^\\circ\\right)$`
@@ -397,7 +402,7 @@ export default class CalculDeLongueur extends Exercice {
             texteCorr += `$\\sin\\left(${angleABC}^\\circ\\right)=${texFractionFromString(nom[0] + nom[2], bc)}$<br>`
             texteCorr += `$${nom[0] + nom[2]}=${bc} \\times \\sin\\left(${angleABC}^\\circ\\right)$`
           }
-          texteCorr += `<br>soit $${nom[0] + nom[2]}\\approx${texNombre(ac, 1)}$ ${unite}.`
+          texteCorr += `<br>soit $${nom[0] + nom[2]}\\approx${miseEnEvidence(texNombre(ac, 1))}\\text{ ${unite}}$.`
           reponse = arrondi(ac, 1)
           nomLongueur = `$${nom[0] + nom[2]}$`
           calcul0 = `$${nom[1] + nom[2]}\\times\\cos\\left(${angleABC}^\\circ\\right)$`
@@ -420,7 +425,7 @@ export default class CalculDeLongueur extends Exercice {
             texteCorr += `$\\tan\\left(${angleABC}^\\circ\\right)=${texFractionFromString(nom[0] + nom[2], ab)}$<br>`
             texteCorr += `$${nom[0] + nom[2]}=${ab} \\times \\tan\\left(${angleABC}^\\circ\\right)$`
           }
-          texteCorr += `<br>soit $${nom[0] + nom[2]}\\approx${texNombre(ac, 1)}$ ${unite}.`
+          texteCorr += `<br>soit $${nom[0] + nom[2]}\\approx${miseEnEvidence(texNombre(ac, 1))}\\text{ ${unite}}$.`
           reponse = arrondi(ac, 1)
           nomLongueur = `$${nom[0] + nom[2]}$`
           calcul0 = `$${nom[0] + nom[1]}\\times\\cos\\left(${angleABC}^\\circ\\right)$`
@@ -443,7 +448,7 @@ export default class CalculDeLongueur extends Exercice {
             texteCorr += `$\\cos\\left(${angleABC}^\\circ\\right)=${texFractionFromString(ab, nom[1] + nom[2])}$<br>`
             texteCorr += `$${nom[1] + nom[2]}= \\dfrac{${ab}}{\\cos\\left(${angleABC}^\\circ\\right)}$`
           }
-          texteCorr += `<br>soit $${nom[1] + nom[2]}\\approx${texNombre(bc, 1)}$ ${unite}.`
+          texteCorr += `<br>soit $${nom[1] + nom[2]}\\approx${miseEnEvidence(texNombre(bc, 1))}\\text{ ${unite}}$.`
           reponse = arrondi(bc, 1)
           nomLongueur = `$${nom[1] + nom[2]}$`
           calcul0 = `$${nom[0] + nom[1]}\\times\\cos\\left(${angleABC}^\\circ\\right)$`
@@ -466,7 +471,7 @@ export default class CalculDeLongueur extends Exercice {
             texteCorr += `$\\sin\\left(${angleABC}^\\circ\\right)=${texFractionFromString(ac, nom[1] + nom[2])}$<br>`
             texteCorr += `$${nom[1] + nom[2]}=\\dfrac{${ac}}{\\sin\\left(${angleABC}^\\circ\\right)}$`
           }
-          texteCorr += `<br>soit $${nom[1] + nom[2]}\\approx${texNombre(bc, 1)}$ ${unite}.`
+          texteCorr += `<br>soit $${nom[1] + nom[2]}\\approx${miseEnEvidence(texNombre(bc, 1))}\\text{ ${unite}}$.`
           reponse = arrondi(bc, 1)
           nomLongueur = `$${nom[1] + nom[2]}$`
           calcul0 = `$${nom[0] + nom[2]}\\times\\cos\\left(${angleABC}^\\circ\\right)$`
@@ -489,7 +494,7 @@ export default class CalculDeLongueur extends Exercice {
             texteCorr += `$\\tan\\left(${angleABC}^\\circ\\right)=${texFractionFromString(ac, nom[0] + nom[1])}$<br>`
             texteCorr += `$${nom[0] + nom[1]}=\\dfrac{${ac}}{\\tan\\left(${angleABC}^\\circ\\right)}$`
           }
-          texteCorr += `<br>soit $${nom[0] + nom[1]}\\approx${texNombre(ab, 1)}$ ${unite}.`
+          texteCorr += `<br>soit $${nom[0] + nom[1]}\\approx${miseEnEvidence(texNombre(ab, 1))}\\text{ ${unite}}$.`
           reponse = arrondi(ab, 1)
           nomLongueur = `$${nom[0] + nom[1]}$`
           calcul0 = `$${nom[0] + nom[2]}\\times\\cos\\left(${angleABC}^\\circ\\right)$`
@@ -588,7 +593,9 @@ export default class CalculDeLongueur extends Exercice {
         }
       }
       if (context.isHtml && !context.isAmc) {
-        texte += ajouteChampTexteMathLive(this, i, ' unites[Longueur]')
+        texte += ajouteChampTexteMathLive(this, i, KeyboardType.longueur, {
+          texteApres: sp(2) + "(Préciser l'unité de longueur.)",
+        })
         handleAnswers(this, i, {
           reponse: {
             value: new Grandeur(arrondi(Number(reponse), 1), unite),

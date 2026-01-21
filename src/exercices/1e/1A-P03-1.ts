@@ -17,10 +17,7 @@ export const amcReady = 'true'
 export const amcType = 'qcmMono'
 export const titre = 'Calculer une probabilité dans un tableau'
 export default class auto1AP1 extends ExerciceQcmA {
-  /**
-   * Génère l'énoncé commun avec le tableau de probabilités
-   */
-  private genererEnonce(valeurs: string[]): string {
+ private genererEnonce(valeurs: string[]): string {
     return (
       `On lance un dé à 4 faces. La probabilité d'obtenir chacune des faces est donnée dans le tableau ci-dessous :<br><br>` +
       tableauColonneLigne(
@@ -41,6 +38,8 @@ export default class auto1AP1 extends ExerciceQcmA {
 
   /**
    * Applique les valeurs pour le cas 3 : 2 décimales + 1 fraction → réponse en fraction
+   * CORRECTION : on affiche fraction1, fraction2, fraction3 et x (qui vaut fraction4)
+   * fraction3 doit être la plus petite valeur pour que la somme reste < 1
    */
   private appliquerLesValeurs(
     fraction1: { frac: FractionEtendue; fracd: FractionEtendue; val: number },
@@ -48,6 +47,7 @@ export default class auto1AP1 extends ExerciceQcmA {
     fraction3: { frac: FractionEtendue; fracd: FractionEtendue; val: number },
     fraction4: { frac: FractionEtendue; fracd: FractionEtendue; val: number }
   ): void {
+    // On affiche fraction1, fraction2, fraction3 dans le tableau, et x à trouver (= fraction4)
     this.enonce = this.genererEnonce([
       texNombre(fraction1.val),
       texNombre(fraction2.val),
@@ -55,6 +55,7 @@ export default class auto1AP1 extends ExerciceQcmA {
       'x',
     ])
 
+    // La correction calcule x = fraction4
     this.correction =
       this.debutCorrection() +
       `Comme $${fraction3.frac.texFraction}=${texNombre(fraction3.val)}$, on a : <br>
@@ -64,11 +65,12 @@ export default class auto1AP1 extends ExerciceQcmA {
          x&=${miseEnEvidence(fraction4.frac.texFraction)}
         \\end{aligned}$ <br>`
 
+    // Distracteurs adaptés
     this.reponses = [
-      `$x=${fraction4.frac.texFraction}$`,
-      `$x=${fraction1.fracd.sommeFractions(fraction2.fracd, fraction3.fracd).texFraction}$`,
-      `$\\vphantom{\\dfrac{1}{3}}x=${texNombre(1 - fraction4.val)}$`,
-      `$x=${fraction1.frac.sommeFractions(fraction3.fracd).oppose().ajouteEntier(1).texFraction}$`,
+      `$x=${fraction4.frac.texFraction}$`, // Bonne réponse
+      `$x=${fraction1.fracd.sommeFractions(fraction2.fracd, fraction3.fracd).texFraction}$`, // Somme au lieu de différence
+      `$\\vphantom{\\dfrac{1}{3}}x=${texNombre(1 - fraction4.val)}$`, // Erreur de calcul
+      `$x=${fraction1.frac.sommeFractions(fraction3.fracd).oppose().ajouteEntier(1).texFraction}$`, // Calcul partiel erroné
     ]
   }
 
@@ -312,6 +314,8 @@ export default class auto1AP1 extends ExerciceQcmA {
       default: {
         // Cas avec 2 décimales, 1 fraction, x (bonne réponse en fraction)
         // Utilise appliquerLesValeurs()
+        // fraction1, fraction2, fraction3 affichées → fraction4 = x à calculer
+        // IMPORTANT: fraction1.val + fraction2.val + fraction3.val + fraction4.val = 1
         const tableaux = [
           {
             fraction1: {
@@ -325,26 +329,26 @@ export default class auto1AP1 extends ExerciceQcmA {
               val: 0.15,
             },
             fraction3: {
-              frac: new FractionEtendue(7, 20),
-              fracd: new FractionEtendue(7, 20),
-              val: 0.35,
+              frac: new FractionEtendue(1, 4),
+              fracd: new FractionEtendue(5, 20),
+              val: 0.25,
             },
             fraction4: {
-              frac: new FractionEtendue(1, 5),
-              fracd: new FractionEtendue(4, 20),
-              val: 0.2,
+              frac: new FractionEtendue(3, 10),
+              fracd: new FractionEtendue(6, 20),
+              val: 0.3,
             },
           },
           {
             fraction1: {
-              frac: new FractionEtendue(3, 5),
-              fracd: new FractionEtendue(6, 10),
-              val: 0.6,
+              frac: new FractionEtendue(1, 5),
+              fracd: new FractionEtendue(2, 10),
+              val: 0.2,
             },
             fraction2: {
-              frac: new FractionEtendue(1, 10),
-              fracd: new FractionEtendue(1, 10),
-              val: 0.1,
+              frac: new FractionEtendue(3, 10),
+              fracd: new FractionEtendue(3, 10),
+              val: 0.3,
             },
             fraction3: {
               frac: new FractionEtendue(1, 5),
@@ -352,9 +356,9 @@ export default class auto1AP1 extends ExerciceQcmA {
               val: 0.2,
             },
             fraction4: {
-              frac: new FractionEtendue(1, 10),
-              fracd: new FractionEtendue(1, 10),
-              val: 0.1,
+              frac: new FractionEtendue(3, 10),
+              fracd: new FractionEtendue(3, 10),
+              val: 0.3,
             },
           },
           {
@@ -369,14 +373,14 @@ export default class auto1AP1 extends ExerciceQcmA {
               val: 0.3,
             },
             fraction3: {
-              frac: new FractionEtendue(9, 20),
-              fracd: new FractionEtendue(9, 20),
-              val: 0.45,
-            },
-            fraction4: {
               frac: new FractionEtendue(1, 20),
               fracd: new FractionEtendue(1, 20),
               val: 0.05,
+            },
+            fraction4: {
+              frac: new FractionEtendue(3, 10),
+              fracd: new FractionEtendue(6, 20),
+              val: 0.3,
             },
           },
           {
@@ -386,19 +390,19 @@ export default class auto1AP1 extends ExerciceQcmA {
               val: 0.45,
             },
             fraction2: {
-              frac: new FractionEtendue(7, 20),
-              fracd: new FractionEtendue(7, 20),
-              val: 0.35,
-            },
-            fraction3: {
               frac: new FractionEtendue(3, 20),
               fracd: new FractionEtendue(3, 20),
               val: 0.15,
             },
+            fraction3: {
+              frac: new FractionEtendue(1, 10),
+              fracd: new FractionEtendue(2, 20),
+              val: 0.1,
+            },
             fraction4: {
-              frac: new FractionEtendue(1, 20),
-              fracd: new FractionEtendue(1, 20),
-              val: 0.05,
+              frac: new FractionEtendue(3, 10),
+              fracd: new FractionEtendue(6, 20),
+              val: 0.3,
             },
           },
         ]

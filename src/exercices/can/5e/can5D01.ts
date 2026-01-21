@@ -3,14 +3,14 @@ import { texFractionReduite } from '../../../lib/outils/deprecatedFractions'
 import { sp } from '../../../lib/outils/outilString'
 import { texNombre } from '../../../lib/outils/texNombre'
 
-import Hms from '../../../modules/Hms'
-import { ajouteChampTexteMathLive } from '../../../lib/interactif/questionMathLive'
-import { listeQuestionsToContenu, randint } from '../../../modules/outils'
-import Exercice from '../../Exercice'
 import {
   handleAnswers,
   setReponse,
 } from '../../../lib/interactif/gestionInteractif'
+import { ajouteChampTexteMathLive } from '../../../lib/interactif/questionMathLive'
+import Hms from '../../../modules/Hms'
+import { listeQuestionsToContenu, randint } from '../../../modules/outils'
+import Exercice from '../../Exercice'
 
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 
@@ -42,7 +42,6 @@ export default class ConversionHeuresDecimalesMinutes extends Exercice {
     for (
       let i = 0, index = 0, nbChamps = 0, cpt = 0;
       i < this.nbQuestions && cpt < 50;
-
     ) {
       switch (
         choice([1, 2]) //, 'b'
@@ -81,9 +80,14 @@ export default class ConversionHeuresDecimalesMinutes extends Exercice {
           Ainsi, $${texNombre(a)}$ h $${texNombre(b * 60)}$ min  $=$ $${texNombre(a + b)}$ h.`
           } else {
             texte = `Compléter par un nombre décimal : <br>$${texNombre(a)}$ h $${texNombre(b * 60)}$ min  $=$`
-            texte += ajouteChampTexteMathLive(this, index, '', {
-              texteApres: sp(5) + 'h',
-            })
+            texte += ajouteChampTexteMathLive(
+              this,
+              index,
+              KeyboardType.clavierNumbers,
+              {
+                texteApres: sp(5) + 'h',
+              },
+            )
             texteCorr = `$${texNombre(b * 60)}$ min  $=   \\dfrac{${texNombre(b * 60)}}{60}$ h $=${texFractionReduite(b * 60, 60)}$ h $=   ${texNombre(b)}$ h. <br>
           Ainsi, $${texNombre(a)}$ h $${texNombre(b * 60)}$ min  $=$ $${texNombre(a + b)}$ h.`
             setReponse(this, index, a + b)

@@ -70,9 +70,14 @@ export default class HeuresDecimalesHeuresMinutes2 extends Exercice {
             texte = `Compléter par un nombre décimal : <br>$${texNombre(a)}$ h $${texNombre(b * 60)}$ min  $=$ ..... h`
           } else {
             texte = `Compléter par un nombre décimal : <br>$${texNombre(a)}$ h $${texNombre(b * 60)}$ min  $=$`
-            texte += ajouteChampTexteMathLive(this, i, '', {
-              texteApres: sp(1) + 'h',
-            })
+            texte += ajouteChampTexteMathLive(
+              this,
+              i,
+              KeyboardType.clavierNumbers,
+              {
+                texteApres: sp(1) + 'h',
+              },
+            )
           }
           handleAnswers(this, i, { reponse: { value: (a + b).toString() } })
           texteCorr = `$${texNombre(b * 60)}$ min  $=   \\dfrac{${texNombre(b * 60)}}{60}$ h $=${texFractionReduite(b * 60, 60)}$ h $=   ${texNombre(b)}$ h. <br>

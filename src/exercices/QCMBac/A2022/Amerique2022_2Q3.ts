@@ -26,10 +26,10 @@ export const dateDePublication = '09/03/2025'
 export default class SujetZero2024Ex5Q5 extends ExerciceQcm {
   versionOriginale: () => void = () => {
     this.reponses = [
-      "La droite d'équation $y = -\\dfrac{1}{2} \\text{e}$ est tangente à la courbe $\\mathcal{C}_f$ au point d'abscisse $\\sqrt{\\text{e}}$.", // Réponse correcte (d)
+      "La droite d'équation $y = -\\dfrac{1}{2} \\mathrm{e}$ est tangente à la courbe $\\mathcal{C}_f$ au point d'abscisse $\\sqrt{\\mathrm{e}}$.", // Réponse correcte (d)
       "Pour tout réel $x$ de l'intervalle $]0~;~+ \\infty[$, $f'(x) = 2x + \\dfrac{1}{x}$.", // Mauvaise réponse (a)
       "La fonction $f$ est croissante sur l'intervalle $]0~;~+ \\infty[$.", // Mauvaise réponse (b)
-      "$f'\\left(\\sqrt{\\text{e}} \\right)$ est différent de $0$.", // Mauvaise réponse (c)
+      "$f'\\left(\\sqrt{\\mathrm{e}} \\right)$ est différent de $0$.", // Mauvaise réponse (c)
     ]
 
     this.enonce =
@@ -46,15 +46,16 @@ export default class SujetZero2024Ex5Q5 extends ExerciceQcm {
       "$f'(x) = 2x(-1 + \\ln x) + x^2 \\times \\dfrac{1}{x} = -2x + 2x \\ln x + x = x(2 \\ln x - 1).$<br>"
     this.correction += "On résout $f'(x) = 0$ :<br>"
     this.correction +=
-      '$x(2 \\ln x - 1) = 0 \\iff 2 \\ln x - 1 = 0 \\iff \\ln x = \\dfrac{1}{2} \\iff x = \\sqrt{\\text{e}}.$<br>'
+      '$x(2 \\ln x - 1) = 0 \\iff 2 \\ln x - 1 = 0 \\iff \\ln x = \\dfrac{1}{2} \\iff x = \\sqrt{\\mathrm{e}}.$<br>'
     this.correction +=
-      "La tangente au point d'abscisse $a = \\sqrt{\\text{e}}$ est horizontale. Son équation est donnée par :<br>"
+      "La tangente au point d'abscisse $a = \\sqrt{\\mathrm{e}}$ est horizontale. Son équation est donnée par :<br>"
     this.correction += "$y = f'(a)(x - a) + f(a).$<br>"
-    this.correction += "On a $f'\\left(\\sqrt{\\text{e}}\\right) = 0$ et :<br>"
     this.correction +=
-      '$f\\left(\\sqrt{\\text{e}}\\right) = \\left(\\sqrt{\\text{e}}\\right)^2 \\left(-1 + \\ln \\left(\\sqrt{\\text{e}}\\right)\\right) = \\text{e} \\left(-1 + \\dfrac{1}{2}\\right) = -\\dfrac{1}{2} \\text{e}.$<br>'
+      "On a $f'\\left(\\sqrt{\\mathrm{e}}\\right) = 0$ et :<br>"
+    this.correction +=
+      '$f\\left(\\sqrt{\\mathrm{e}}\\right) = \\left(\\sqrt{\\mathrm{e}}\\right)^2 \\left(-1 + \\ln \\left(\\sqrt{\\mathrm{e}}\\right)\\right) = \\mathrm{e} \\left(-1 + \\dfrac{1}{2}\\right) = -\\dfrac{1}{2} \\mathrm{e}.$<br>'
     this.correction += "L'équation de la tangente est donc :"
-    this.correction += `$${miseEnEvidence('y = -\\dfrac{1}{2} \\text{e}.')}$<br>`
+    this.correction += `$${miseEnEvidence('y = -\\dfrac{1}{2} \\mathrm{e}.')}$<br>`
   }
 
   constructor() {

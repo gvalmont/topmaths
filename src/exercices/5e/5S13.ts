@@ -1,3 +1,4 @@
+import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 import { setReponse } from '../../lib/interactif/gestionInteractif'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import {
@@ -70,7 +71,6 @@ export default class CalculerDesFrequences extends Exercice {
         texteCorr,
         cpt = 0;
       i < this.nbQuestions && cpt < 50;
-
     ) {
       if (this.sup === 1) {
         // ici on lance des dés
@@ -286,7 +286,11 @@ export default class CalculerDesFrequences extends Exercice {
       if (this.interactif) {
         texte +=
           ' On donnera la valeur exacte en écriture fractionnaire ou décimale si elle existe.<br>'
-        texte += ajouteChampTexteMathLive(this, i, '')
+        texte += ajouteChampTexteMathLive(
+          this,
+          i,
+          KeyboardType.clavierDeBaseAvecFraction,
+        )
         setReponse(this, i, reponse, {
           formatInteractif: 'fractionEgale',
           digits: 5,

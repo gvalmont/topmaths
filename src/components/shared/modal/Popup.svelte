@@ -10,11 +10,11 @@
 </script>
 
 {#if visible}
-  <button class="overlay" on:click="{closePopup}" aria-label="Close popup"
+  <button class="overlay" on:click={closePopup} aria-label="Close popup"
   ></button>
   <div class="popup">
     <p>{@html message}</p>
-    <button class="button" on:click="{closePopup}">Fermer</button>
+    <button class="button" on:click={closePopup}>Fermer</button>
   </div>
 {/if}
 

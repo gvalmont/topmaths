@@ -18,8 +18,8 @@
     min="0"
     name="duration"
     id="duration"
-    bind:value="{cursorTimeValue}"
-    on:change="{() => dispatch('change', cursorTimeValue)}"
+    bind:value={cursorTimeValue}
+    on:change={() => dispatch('change', cursorTimeValue)}
   />
   <label
     class="

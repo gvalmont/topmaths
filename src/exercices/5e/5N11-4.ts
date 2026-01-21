@@ -1,12 +1,12 @@
+import { fonctionComparaison } from '../../lib/interactif/comparisonFunctions'
+import { handleAnswers } from '../../lib/interactif/gestionInteractif'
+import { remplisLesBlancs } from '../../lib/interactif/questionMathLive'
 import { combinaisonListes } from '../../lib/outils/arrayOutils'
+import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { arrondi } from '../../lib/outils/nombres'
 import { texNombre } from '../../lib/outils/texNombre'
-import Exercice from '../Exercice'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
-import { remplisLesBlancs } from '../../lib/interactif/questionMathLive'
-import { handleAnswers } from '../../lib/interactif/gestionInteractif'
-import { miseEnEvidence } from '../../lib/outils/embellissements'
-import { fonctionComparaison } from '../../lib/interactif/comparisonFunctions'
+import Exercice from '../Exercice'
 
 export const titre =
   "Exprimer une fraction sous la forme d'une valeur approchée d'un pourcentage"
@@ -59,7 +59,6 @@ export default class ValeurApprocheeDePourcentages extends Exercice {
     for (
       let i = 0, texte, texteCorr, num, den, cpt = 0;
       i < this.nbQuestions && cpt < 50;
-
     ) {
       den = randint(10, listeTypeDeQuestions[i])
       num = randint(1, den - 8)
@@ -115,7 +114,7 @@ export default class ValeurApprocheeDePourcentages extends Exercice {
           { formatInteractif: 'fillInTheBlank' },
         )
       } else {
-        texteCorr = `$\\dfrac{${num}}{${den}}\\approx ${texNombre(num / den, 3)} $ soit environ $${miseEnEvidence(texNombre((num / den) * 100, 1))}~\\%$ $\\left(\\text{car } ${texNombre(num / den, 3)}=\\dfrac{${arrondi((num / den) * 100, 1)}}{100}\\right)$.`
+        texteCorr = `$\\dfrac{${num}}{${den}}\\approx ${texNombre(num / den, 3)} $ soit environ $${miseEnEvidence(texNombre((num / den) * 100, 1))}~\\%$ $\\left(\\text{car } ${texNombre(num / den, 3)}=\\dfrac{${texNombre(arrondi((num / den) * 100, 1))}}{100}\\right)$.`
         const reponseTab2: string[] = []
         reponseTab2.push(
           (Math.floor((num / den) * Math.pow(10, 3)) / 10).toFixed(1),

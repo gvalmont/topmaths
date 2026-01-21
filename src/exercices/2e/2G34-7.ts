@@ -1,16 +1,16 @@
-import Exercice from '../Exercice'
-import { listeQuestionsToContenu, randint } from '../../modules/outils'
+import { handleAnswers } from '../../lib/interactif/gestionInteractif'
+import { remplisLesBlancs } from '../../lib/interactif/questionMathLive'
+import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
 import {
   ecritureAlgebrique,
   ecritureAlgebriqueSauf1,
   ecritureParentheseSiNegatif,
   rienSi1,
 } from '../../lib/outils/ecritures'
-import { texNombre } from '../../lib/outils/texNombre'
-import { handleAnswers } from '../../lib/interactif/gestionInteractif'
-import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
-import { remplisLesBlancs } from '../../lib/interactif/questionMathLive'
+import { texNombre } from '../../lib/outils/texNombre'
+import { listeQuestionsToContenu, randint } from '../../modules/outils'
+import Exercice from '../Exercice'
 export const titre =
   'Résoudre un système linéaire de deux équations à deux inconnues par substitution'
 export const interactifReady = true
@@ -18,7 +18,7 @@ export const interactifType = 'mathlive'
 export const dateDePublication = '08/04/2024'
 export const uuid = '521b6'
 export const refs = {
-  'fr-ch': ['11FA6-5'],
+  'fr-ch': ['11FA12-5'],
   'fr-fr': ['2G34-7'],
 }
 // export const dateDeModifImportante = '24/10/2021'

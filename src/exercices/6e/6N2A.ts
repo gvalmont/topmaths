@@ -1,5 +1,6 @@
 import { grille, seyes } from '../../lib/2d/Grille'
 import { vide2d } from '../../lib/2d/Vide2d'
+import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 import { setReponse } from '../../lib/interactif/gestionInteractif'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { combinaisonListes } from '../../lib/outils/arrayOutils'
@@ -12,7 +13,7 @@ import { sp } from '../../lib/outils/outilString'
 import { texNombre } from '../../lib/outils/texNombre'
 import { context } from '../../modules/context'
 import { mathalea2d } from '../../modules/mathalea2d'
-import Operation from '../../modules/operations'
+import operation from '../../modules/operations'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import Exercice from '../Exercice'
 
@@ -123,7 +124,6 @@ export default class AdditionnerSoustrairesDecimaux extends Exercice {
     for (
       let i = 0, aleaTermes, texte, texteCorr, cpt = 0, a, b;
       i < this.nbQuestions && cpt < 50;
-
     ) {
       typesDeQuestions = listeTypeDeQuestions[i]
       aleaTermes = this.sup3 < 4 ? this.sup3 : randint(1, 3)
@@ -246,7 +246,7 @@ export default class AdditionnerSoustrairesDecimaux extends Exercice {
         reponse = arrondi(a - b)
         texteCorr =
           'Méthode 1 :' +
-          Operation({
+          operation({
             operande1: a,
             operande2: b,
             type: 'soustraction',
@@ -255,7 +255,7 @@ export default class AdditionnerSoustrairesDecimaux extends Exercice {
         texteCorr +=
           sp(10) +
           'Méthode 2 :' +
-          Operation({
+          operation({
             operande1: a,
             operande2: b,
             type: 'soustraction',
@@ -265,7 +265,7 @@ export default class AdditionnerSoustrairesDecimaux extends Exercice {
       } else {
         texte = `$${texNombre(a)}+${texNombre(b)}$`
         reponse = arrondi(a + b)
-        texteCorr = Operation({
+        texteCorr = operation({
           operande1: a,
           operande2: b,
           type: 'addition',
@@ -275,7 +275,9 @@ export default class AdditionnerSoustrairesDecimaux extends Exercice {
       texte += grilletxt
       setReponse(this, i, reponse)
       if (this.interactif && context.isHtml)
-        texte += '$~=$' + ajouteChampTexteMathLive(this, i, '')
+        texte +=
+          '$~=$' +
+          ajouteChampTexteMathLive(this, i, KeyboardType.clavierNumbers)
       if (context.isAmc) {
         this.autoCorrection[i].enonce = texte
         this.autoCorrection[i].propositions = [{ texte: texteCorr }]

@@ -16,24 +16,24 @@
   <div>
     <CheckboxWithLabel
       id="slideshow-links-same-data-checkbox"
-      bind:isChecked="{isSameData}"
+      bind:isChecked={isSameData}
       label="Mêmes valeurs d'une session à l'autre"
     />
   </div>
   <div class="flex flex-row pl-4 space-x-2 font-normal">
     <ButtonActionInfo
       action="copy"
-      icon="{'bx-link text-2xl'}"
-      useCurrentUrl="{true}"
-      removeSeed="{!isSameData}"
+      icon={'bx-link text-2xl'}
+      useCurrentUrl={true}
+      removeSeed={!isSameData}
       tooltip="Lien du Diaporama"
       successMessage="Le lien du diaporama est copié dans le presse-papier !"
       errorMessage="Impossible de copier le lien du diaporama dans le presse-papier."
     />
     <ButtonQRCode
-      tooltip="{'QR-code du diaporama'}"
-      useCurrentUrl="{true}"
-      removeSeed="{!isSameData}"
+      tooltip={'QR-code du diaporama'}
+      useCurrentUrl={true}
+      removeSeed={!isSameData}
     />
   </div>
 </div>

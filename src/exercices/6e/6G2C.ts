@@ -20,6 +20,7 @@ import {
   pointIntersectionLC,
   pointSurSegment,
 } from '../../lib/2d/utilitairesPoint'
+import { vide2d } from '../../lib/2d/Vide2d'
 import { numAlpha } from '../../lib/outils/outilString'
 import { context } from '../../modules/context'
 import { mathalea2d } from '../../modules/mathalea2d'
@@ -1222,12 +1223,19 @@ export default class ProblemeDeLaChevreDansSonEnclos extends Exercice {
             // éléments correction
             const c1 = cercle(P, longueurCordelette)
             const I = pointIntersectionLC(droite(B, C), c1, '', 2)
-            const r1Mes = placeLatexSurSegment(
-              `${longueurCordelette}\\text{ m}`,
-              P,
-              I,
-              { distance: -0.7, horizontal: true, letterSize: 'normalsize' },
-            )
+            const r1Mes =
+              I.y === P.y
+                ? vide2d()
+                : placeLatexSurSegment(
+                    `${longueurCordelette}\\text{ m}`,
+                    P,
+                    I,
+                    {
+                      distance: -0.7,
+                      horizontal: true,
+                      letterSize: 'normalsize',
+                    },
+                  )
             const J = homothetie(
               P,
               cabA,
@@ -1261,6 +1269,9 @@ export default class ProblemeDeLaChevreDansSonEnclos extends Exercice {
             )
             const longRestante =
               longueurCordelette - (longueurCabane - offsetPointP)
+            a1.opacite = 0.2
+            t1.opacite = 0.2
+            objetsCorrection.push(a1, r1Mes, t1)
             if (longRestante < largeurCabane) {
               const quartDeC2 = arc(J, cabD, -90, true, 'pink', 'black', 0.2)
               quartDeC2.hachures = 'north east lines'
@@ -1272,6 +1283,7 @@ export default class ProblemeDeLaChevreDansSonEnclos extends Exercice {
                 rotation(J, cabD, -90),
                 { distance: 0.7, horizontal: true, letterSize: 'normalsize' },
               )
+
               objetsCorrection.push(quartDeC2, r2, diff)
             } else {
               const c2 = cercle(cabD, longRestante)
@@ -1302,9 +1314,6 @@ export default class ProblemeDeLaChevreDansSonEnclos extends Exercice {
               a2.opacite = 0.2
               objetsCorrection.push(a2, t2, r2, diff)
             }
-            a1.opacite = 0.2
-            t1.opacite = 0.2
-            objetsCorrection.push(a1, r1Mes, t1)
           }
           break
       }
@@ -1373,7 +1382,7 @@ export default class ProblemeDeLaChevreDansSonEnclos extends Exercice {
         'black',
         0.5,
         0.7,
-        context.isHtml ? 'gray' : 'darkgray',
+        'black',
         true,
       )
       const longEnclos = afficheCoteSegment(

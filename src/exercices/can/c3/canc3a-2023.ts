@@ -77,7 +77,6 @@ export default class SujetCAN2023CM2 extends Exercice {
     for (
       let i = 0, index = 0, nbChamps, texte, texteCorr, cpt = 0;
       i < this.nbQuestions && cpt < 50;
-
     ) {
       switch (typeQuestionsDisponibles[i]) {
         case 1:
@@ -89,7 +88,13 @@ export default class SujetCAN2023CM2 extends Exercice {
               formatInteractif: 'calcul',
             })
             if (this.interactif && !context.isAmc) {
-              texte += ' $=$' + ajouteChampTexteMathLive(this, index, ' ')
+              texte +=
+                ' $=$' +
+                ajouteChampTexteMathLive(
+                  this,
+                  index,
+                  KeyboardType.clavierNumbers,
+                )
             }
             nbChamps = 1
             this.listeCanEnonces.push(produit.canEnonce)
@@ -106,7 +111,13 @@ export default class SujetCAN2023CM2 extends Exercice {
               formatInteractif: 'calcul',
             })
             if (this.interactif && !context.isAmc) {
-              texte += ' $=$' + ajouteChampTexteMathLive(this, index, ' ')
+              texte +=
+                ' $=$' +
+                ajouteChampTexteMathLive(
+                  this,
+                  index,
+                  KeyboardType.clavierNumbers,
+                )
             }
             nbChamps = 1
             this.listeCanEnonces.push(somme.canEnonce)
@@ -123,7 +134,11 @@ export default class SujetCAN2023CM2 extends Exercice {
               formatInteractif: 'calcul',
             })
             if (this.interactif && !context.isAmc) {
-              texte += ajouteChampTexteMathLive(this, index, '')
+              texte += ajouteChampTexteMathLive(
+                this,
+                index,
+                KeyboardType.clavierNumbers,
+              )
             }
             nbChamps = 1
             this.listeCanEnonces.push(figureProduit.canEnonce)
@@ -142,7 +157,13 @@ export default class SujetCAN2023CM2 extends Exercice {
               formatInteractif: 'calcul',
             })
             if (this.interactif && !context.isAmc) {
-              texte += ' est ' + ajouteChampTexteMathLive(this, index, ' ')
+              texte +=
+                ' est ' +
+                ajouteChampTexteMathLive(
+                  this,
+                  index,
+                  KeyboardType.clavierNumbers,
+                )
             }
             nbChamps = 1
             this.listeCanEnonces.push(moitieDouble.canEnonce)
@@ -159,7 +180,11 @@ export default class SujetCAN2023CM2 extends Exercice {
             texteCorr = axe.texteCorr
             setReponse(this, index, axe.reponse, { formatInteractif: 'calcul' })
             if (this.interactif && !context.isAmc) {
-              texte += ajouteChampTexteMathLive(this, index, '')
+              texte += ajouteChampTexteMathLive(
+                this,
+                index,
+                KeyboardType.clavierNumbers,
+              )
             }
             nbChamps = 1
             this.listeCanEnonces.push(axe.canEnonce)
@@ -178,7 +203,11 @@ export default class SujetCAN2023CM2 extends Exercice {
             if (this.interactif && !context.isAmc) {
               texte +=
                 '<br>Écris les deux nombres séparés par un point-virgule.'
-              texte += ajouteChampTexteMathLive(this, index, '')
+              texte += ajouteChampTexteMathLive(
+                this,
+                index,
+                KeyboardType.clavierFullOperations,
+              )
             }
             nbChamps = 1
             this.listeCanEnonces.push(facteursDUnProduit.canEnonce)
@@ -224,7 +253,11 @@ export default class SujetCAN2023CM2 extends Exercice {
               formatInteractif: 'calcul',
             })
             if (this.interactif && !context.isAmc) {
-              texte += ajouteChampTexteMathLive(this, index, '')
+              texte += ajouteChampTexteMathLive(
+                this,
+                index,
+                KeyboardType.clavierNumbers,
+              )
             }
             nbChamps = 1
             this.listeCanEnonces.push(partages.canEnonce)
@@ -250,7 +283,7 @@ export default class SujetCAN2023CM2 extends Exercice {
               texte += ajouteChampTexteMathLive(
                 this,
                 index,
-                ' unites[Longueurs]',
+                KeyboardType.longueur,
               )
             }
             nbChamps = 1
@@ -270,7 +303,11 @@ export default class SujetCAN2023CM2 extends Exercice {
               formatInteractif: 'calcul',
             })
             if (this.interactif && !context.isAmc) {
-              texte += ajouteChampTexteMathLive(this, index, '')
+              texte += ajouteChampTexteMathLive(
+                this,
+                index,
+                KeyboardType.clavierNumbers,
+              )
             }
             nbChamps = 1
             this.listeCanEnonces.push(ecrireUnNombreEnChiffre.canEnonce)
@@ -297,11 +334,11 @@ export default class SujetCAN2023CM2 extends Exercice {
               texte += ajouteChampTexteMathLive(
                 this,
                 index,
-                '',
+                KeyboardType.clavierNumbers,
                 dePlusDeMoins.champTexteApres,
               )
             } else {
-              texte += dePlusDeMoins.texteApres
+              texte += dePlusDeMoins.champTexteApres
             }
             nbChamps = 1
             this.listeCanEnonces.push(dePlusDeMoins.canEnonce)
@@ -325,7 +362,11 @@ export default class SujetCAN2023CM2 extends Exercice {
               { formatInteractif: 'calcul' },
             )
             if (this.interactif && !context.isAmc) {
-              texte += ajouteChampTexteMathLive(this, index, '')
+              texte += ajouteChampTexteMathLive(
+                this,
+                index,
+                KeyboardType.clavierNumbers,
+              )
             }
             nbChamps = 1
             this.listeCanEnonces.push(
@@ -347,7 +388,11 @@ export default class SujetCAN2023CM2 extends Exercice {
               formatInteractif: 'calcul',
             })
             if (this.interactif && !context.isAmc) {
-              texte += ajouteChampTexteMathLive(this, index, '')
+              texte += ajouteChampTexteMathLive(
+                this,
+                index,
+                KeyboardType.clavierNumbers,
+              )
             }
             nbChamps = 1
             this.listeCanEnonces.push(
@@ -369,7 +414,11 @@ export default class SujetCAN2023CM2 extends Exercice {
               reponse: { value: trouverUnTermeDecimalInconnu.reponse },
             })
             if (this.interactif && !context.isAmc) {
-              texte += ajouteChampTexteMathLive(this, index, '')
+              texte += ajouteChampTexteMathLive(
+                this,
+                index,
+                KeyboardType.clavierNumbers,
+              )
             }
             nbChamps = 1
             this.listeCanEnonces.push(trouverUnTermeDecimalInconnu.canEnonce)
@@ -395,7 +444,11 @@ export default class SujetCAN2023CM2 extends Exercice {
             if (this.interactif && !context.isAmc) {
               texte +=
                 "<br>Écris le nombre de dizaines puis d'unités dans cet ordre séparés par un point-virgule. "
-              texte += ajouteChampTexteMathLive(this, index, '')
+              texte += ajouteChampTexteMathLive(
+                this,
+                index,
+                KeyboardType.clavierFullOperations,
+              )
             }
             nbChamps = 1
             this.listeCanEnonces.push(
@@ -420,7 +473,11 @@ export default class SujetCAN2023CM2 extends Exercice {
               },
             })
             if (this.interactif && !context.isAmc) {
-              texte += ajouteChampTexteMathLive(this, index, '')
+              texte += ajouteChampTexteMathLive(
+                this,
+                index,
+                KeyboardType.clavierDeBaseAvecFraction,
+              )
             }
             nbChamps = 1
             this.listeCanEnonces.push(
@@ -441,7 +498,11 @@ export default class SujetCAN2023CM2 extends Exercice {
               formatInteractif: 'calcul',
             })
             if (this.interactif && !context.isAmc) {
-              texte += ajouteChampTexteMathLive(this, index, '')
+              texte += ajouteChampTexteMathLive(
+                this,
+                index,
+                KeyboardType.clavierNumbers,
+              )
             }
             nbChamps = 1
             this.listeCanEnonces.push(determinerUnQuotient.canEnonce)
@@ -467,7 +528,7 @@ export default class SujetCAN2023CM2 extends Exercice {
               formatInteractif: 'calcul',
             })
             if (this.interactif && !context.isAmc) {
-              texte += `${ajouteChampTexteMathLive(this, index, ' ')} ${proportionnaliteParAddition.uniteInteractif} .`
+              texte += `${ajouteChampTexteMathLive(this, index, KeyboardType.clavierNumbers)} ${proportionnaliteParAddition.uniteInteractif} .`
             } else {
               texte += ` $\\ldots$ ${proportionnaliteParAddition.uniteInteractif}.`
             }
@@ -492,7 +553,14 @@ export default class SujetCAN2023CM2 extends Exercice {
               },
             })
             if (this.interactif && !context.isAmc) {
-              texte += '<br>' + ajouteChampTexteMathLive(this, index, '') + 'ul'
+              texte +=
+                '<br>' +
+                ajouteChampTexteMathLive(
+                  this,
+                  index,
+                  KeyboardType.clavierNumbers,
+                ) +
+                'ul'
             }
             nbChamps = 1
             this.listeCanEnonces.push(
@@ -513,7 +581,11 @@ export default class SujetCAN2023CM2 extends Exercice {
               formatInteractif: 'calcul',
             })
             if (this.interactif && !context.isAmc) {
-              texte += ajouteChampTexteMathLive(this, index, '')
+              texte += ajouteChampTexteMathLive(
+                this,
+                index,
+                KeyboardType.clavierNumbers,
+              )
             }
             nbChamps = 1
             this.listeCanEnonces.push(multiplierParCinq.canEnonce)
@@ -586,7 +658,11 @@ export default class SujetCAN2023CM2 extends Exercice {
               formatInteractif: 'calcul',
             })
             if (this.interactif && !context.isAmc) {
-              texte += ajouteChampTexteMathLive(this, index, '')
+              texte += ajouteChampTexteMathLive(
+                this,
+                index,
+                KeyboardType.clavierNumbers,
+              )
             }
             nbChamps = 1
             this.listeCanEnonces.push(dansNCombienDeFoisP.canEnonce)
@@ -610,7 +686,11 @@ export default class SujetCAN2023CM2 extends Exercice {
               { formatInteractif: 'calcul' },
             )
             if (this.interactif && !context.isAmc) {
-              texte += ajouteChampTexteMathLive(this, index, '')
+              texte += ajouteChampTexteMathLive(
+                this,
+                index,
+                KeyboardType.clavierNumbers,
+              )
             }
             nbChamps = 1
             this.listeCanEnonces.push(
@@ -635,9 +715,14 @@ export default class SujetCAN2023CM2 extends Exercice {
               { formatInteractif: 'calcul' },
             )
             if (this.interactif && !context.isAmc) {
-              texte += ajouteChampTexteMathLive(this, index, '', {
-                texteApres: sp(5) + 'petits carreaux',
-              })
+              texte += ajouteChampTexteMathLive(
+                this,
+                index,
+                KeyboardType.clavierNumbers,
+                {
+                  texteApres: sp(5) + 'petits carreaux',
+                },
+              )
             }
             nbChamps = 1
             this.listeCanEnonces.push(
@@ -659,10 +744,15 @@ export default class SujetCAN2023CM2 extends Exercice {
               formatInteractif: 'calcul',
             })
             if (this.interactif && !context.isAmc) {
-              texte += `${ajouteChampTexteMathLive(this, index, ' ', {
-                texteAvant: `<br>Dans $${texNombre(nombreDeDixiemesDansUnDecimal.nombre, 2)}$ il y a`,
-                texteApres: sp(5) + 'dixièmes en tout.',
-              })}`
+              texte += `${ajouteChampTexteMathLive(
+                this,
+                index,
+                KeyboardType.clavierNumbers,
+                {
+                  texteAvant: `<br>Dans $${texNombre(nombreDeDixiemesDansUnDecimal.nombre, 2)}$ il y a`,
+                  texteApres: sp(5) + 'dixièmes en tout.',
+                },
+              )}`
             }
             nbChamps = 1
             this.listeCanEnonces.push(nombreDeDixiemesDansUnDecimal.canEnonce)
@@ -684,9 +774,14 @@ export default class SujetCAN2023CM2 extends Exercice {
               formatInteractif: 'calcul',
             })
             if (this.interactif && !context.isAmc) {
-              texte += ajouteChampTexteMathLive(this, index, '', {
-                texteApres: ' centimes',
-              })
+              texte += ajouteChampTexteMathLive(
+                this,
+                index,
+                KeyboardType.clavierNumbers,
+                {
+                  texteApres: ' centimes',
+                },
+              )
             }
             nbChamps = 1
             this.listeCanEnonces.push(proportionnaliteEtDiviseur.canEnonce)
@@ -711,9 +806,14 @@ export default class SujetCAN2023CM2 extends Exercice {
               { formatInteractif: 'calcul' },
             )
             if (this.interactif && !context.isAmc) {
-              texte += ajouteChampTexteMathLive(this, index, '', {
-                texteApres: ' $\\text{cm}$',
-              })
+              texte += ajouteChampTexteMathLive(
+                this,
+                index,
+                KeyboardType.clavierNumbers,
+                {
+                  texteApres: ' $\\text{cm}$',
+                },
+              )
             }
             nbChamps = 1
             this.listeCanEnonces.push(
@@ -734,9 +834,14 @@ export default class SujetCAN2023CM2 extends Exercice {
               reponse: { value: ajouterDeuxDecimaux.reponse },
             })
             if (this.interactif && !context.isAmc) {
-              texte += ajouteChampTexteMathLive(this, index, ' ', {
-                texteAvant: `${sp(2)} $=$`,
-              })
+              texte += ajouteChampTexteMathLive(
+                this,
+                index,
+                KeyboardType.clavierNumbers,
+                {
+                  texteAvant: `${sp(2)} $=$`,
+                },
+              )
             }
             nbChamps = 1
             this.listeCanEnonces.push(ajouterDeuxDecimaux.canEnonce)
@@ -759,9 +864,14 @@ export default class SujetCAN2023CM2 extends Exercice {
               formatInteractif: 'calcul',
             })
             if (this.interactif && !context.isAmc) {
-              texte += ajouteChampTexteMathLive(this, index, '', {
-                texteApres: `${sp(2)} repas`,
-              })
+              texte += ajouteChampTexteMathLive(
+                this,
+                index,
+                KeyboardType.clavierNumbers,
+                {
+                  texteApres: `${sp(2)} repas`,
+                },
+              )
             }
             nbChamps = 1
             this.listeCanEnonces.push(nombreDeCombinaisons.canEnonce)

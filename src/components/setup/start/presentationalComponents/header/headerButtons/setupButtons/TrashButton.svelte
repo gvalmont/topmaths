@@ -7,5 +7,5 @@
 <ButtonIconTooltip
   icon="bx-trash text-3xl"
   tooltip="Supprimer tous les exercices"
-  on:click="{trash}"
+  on:click={trash}
 />

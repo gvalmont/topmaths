@@ -42,12 +42,12 @@
 
 <button
   type="button"
-  class="{`${$$props.class || ''}`}"
+  class={`${$$props.class || ''}`}
   on:click
-  disabled="{isDisabled}"
-  id="{idLabel}"
+  disabled={isDisabled}
+  id={idLabel}
 >
   <slot name="svelte-icon">
-    <LatexIcon class="{classDeclaration}" />
+    <LatexIcon class={classDeclaration} />
   </slot>
 </button>

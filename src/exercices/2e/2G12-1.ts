@@ -10,6 +10,7 @@ import { tracePoint } from '../../lib/2d/TracePoint'
 import { milieu, pointIntersectionLC } from '../../lib/2d/utilitairesPoint'
 import { deuxColonnes } from '../../lib/format/miseEnPage'
 import { texteGras } from '../../lib/format/style'
+import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 import { setReponse } from '../../lib/interactif/gestionInteractif'
 import {
   ajouteChampTexte,
@@ -114,9 +115,14 @@ export default class Distance extends Exercice {
             texte += `Calculer la distance $${A.nom}${B.nom}$.`
             texte += this.interactif
               ? '<br>' +
-                ajouteChampTexteMathLive(this, i, ' ', {
-                  texteAvant: `$${A.nom}${B.nom}=$`,
-                })
+                ajouteChampTexteMathLive(
+                  this,
+                  i,
+                  KeyboardType.clavierFullOperations,
+                  {
+                    texteAvant: `$${A.nom}${B.nom}=$`,
+                  },
+                )
               : ''
             if (this.correctionDetaillee) {
               texteCorr = `${CorrD}<br>`

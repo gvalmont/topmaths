@@ -26,7 +26,7 @@ import {
 import Exercice from '../Exercice'
 export const titre = 'Effectuer des liens entre angles et parallélisme'
 export const dateDePublication = '15/01/2022'
-export const dateDeModifImportante = '20/02/2025'
+export const dateDeModifImportante = '24/12/2025'
 export const amcReady = true
 export const amcType = 'AMCHybride'
 export const interactifReady = true
@@ -1062,7 +1062,7 @@ export default class ExercicesAnglesAIC extends Exercice {
               ),
             )
           } else {
-            texte = `Marquer en rouge l'angle ${reponse} à l'angle marqué en bleu.<br>`
+            texte = `Marquer, en une autre couleur ou une autre teinte, l'angle ${reponse} à l'angle marqué en bleu.<br>`
           }
           const texteCorr = mathalea2d(
             Object.assign({ scale: 0.4 }, paramsEnonce),

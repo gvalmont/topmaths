@@ -5,8 +5,10 @@ import { texteParPoint } from '../../lib/2d/textes'
 import { homothetie, rotation } from '../../lib/2d/transformations'
 import { angleOriente } from '../../lib/2d/utilitairesGeometriques'
 import { pointSurSegment } from '../../lib/2d/utilitairesPoint'
-import { setReponse } from '../../lib/interactif/gestionInteractif'
-import { ajouteChampTexte } from '../../lib/interactif/questionMathLive'
+import { bleuMathalea } from '../../lib/colors'
+import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
+import { handleAnswers } from '../../lib/interactif/gestionInteractif'
+import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { choice } from '../../lib/outils/arrayOutils'
 import { texFractionFromString } from '../../lib/outils/deprecatedFractions'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
@@ -26,7 +28,7 @@ export const interactifReady = true
 export const interactifType = 'mathLive'
 export const amcReady = true
 export const amcType = 'AMCHybride'
-export const dateDeModifImportante = '11/06/2024'
+export const dateDeModifImportante = '14/01/2025'
 
 export const titre =
   'Démontrer que deux droites sont ou ne sont pas parallèles avec le théorème de Thalès'
@@ -79,7 +81,6 @@ export default class ReciproqueThales extends Exercice {
     for (
       let i = 0, texte, texteCorr, cpt = 0;
       i < this.nbQuestions && cpt < 50;
-
     ) {
       const lettre1 = randint(1, 26) // aleatoirisation du nom des points
       const s1 = lettreDepuisChiffre(lettre1)
@@ -220,30 +221,42 @@ export default class ReciproqueThales extends Exercice {
         texte += `Les droites $(${s2 + s3})$ et $(${s4 + s5})$ sont-elles parallèles ?<br>`
         if (this.interactif) {
           texte += '<div class="italic">Répondre « oui » ou « non ».</div>'
-          texte += ajouteChampTexte(this, i)
+          texte += ajouteChampTexteMathLive(this, i, KeyboardType.vFON)
         }
 
         texteCorr += `D'une part, on a : $\\dfrac{${s1 + s2}}{${s1 + s4}}=\\dfrac{${s12}}{${s14}}=\\dfrac{${s12}\\times${miseEnEvidence(
           s15,
-        )}}{${s14}\\times${miseEnEvidence(s15)}}=\\dfrac{
+          bleuMathalea,
+        )}}{${s14}\\times${miseEnEvidence(s15, bleuMathalea)}}=\\dfrac{
         ${texNombre(dist12 * dist15, 3)}}
-        {${s14}\\times${s15}}
+        {${texNombre(dist14 * dist15, 3)}}
       $.`
         texteCorr += `<br>D'autre part, on a : $\\dfrac{${s1 + s3}}{${s1 + s5}}=\\dfrac{${s13}}{${s15}}=\\dfrac{${s13}\\times${miseEnEvidence(
           s14,
-        )}}{${s15}\\times${miseEnEvidence(s14)}}=\\dfrac{${texNombre(dist13 * dist14, 3)}}
-        {${s14}\\times${s15}}
+          bleuMathalea,
+        )}}{${s15}\\times${miseEnEvidence(s14, bleuMathalea)}}=\\dfrac{${texNombre(dist13 * dist14, 3)}}
+        {${texNombre(dist14 * dist15, 3)}}
       $.`
 
         if (!k.eq(k2)) {
           if (!context.isAmc)
-            setReponse(this, i, 'non', { formatInteractif: 'ignorerCasse' })
+            handleAnswers(this, i, {
+              reponse: {
+                value: ['n', 'non'],
+                options: { texteSansCasse: true },
+              },
+            })
           // droites non parallèles
           texteCorr += `<br>D'où : $\\dfrac{${s1 + s2}}{${s1 + s4}}\\not=\\dfrac{${s1 + s3}}{${s1 + s5}}$.<br>`
           texteCorr += `Donc d'après le théorème de Thalès, les droites $(${s2 + s3})$ et $(${s4 + s5})$ ne sont pas parallèles.<br>`
         } else {
           if (!context.isAmc)
-            setReponse(this, i, 'oui', { formatInteractif: 'ignorerCasse' })
+            handleAnswers(this, i, {
+              reponse: {
+                value: ['o', 'oui'],
+                options: { texteSansCasse: true },
+              },
+            })
           // droites parallèles
           texteCorr += `<br>D'où : $\\dfrac{${s1 + s2}}{${s1 + s4}}=\\dfrac{${s1 + s3}}{${s1 + s5}}$.<br>`
           if (k.isPos()) {
@@ -423,13 +436,15 @@ export default class ReciproqueThales extends Exercice {
         // correction
         texteCorr += `D'une part on a $\\dfrac{${s1 + s2}}{${s1 + s4}}=\\dfrac{${s12}}{${s14}}=\\dfrac{${s12}\\times${miseEnEvidence(
           s15,
-        )}}{${s14}\\times${miseEnEvidence(s15)}}=${texFractionFromString(
+          bleuMathalea,
+        )}}{${s14}\\times${miseEnEvidence(s15, bleuMathalea)}}=${texFractionFromString(
           texNombre(dist12 * dist15, 3),
           texNombre(dist14 * dist15, 4),
         )}$.`
         texteCorr += `<br>D'autre part on a $\\dfrac{${s1 + s3}}{${s1 + s5}}=\\dfrac{${s13}}{${s15}}=\\dfrac{${s13}\\times${miseEnEvidence(
           s14,
-        )}}{${s15}\\times${miseEnEvidence(s14)}}=${texFractionFromString(
+          bleuMathalea,
+        )}}{${s15}\\times${miseEnEvidence(s14, bleuMathalea)}}=${texFractionFromString(
           texNombre(dist13 * dist14, 3),
           texNombre(dist14 * dist15, 4),
         )}$.`

@@ -19,11 +19,9 @@ export default mergeConfig(
       include: ['./tests/screenshot/screenshot.test.{js,ts}'],
       hookTimeout: 600_000,
       testTimeout: 20_000,
-      poolOptions: {
-        threads: {
-          singleThread: true,
-        },
-      },
+      pool: 'threads',
+      maxWorkers: 1,
+      isolate: false,
     },
   }),
 )

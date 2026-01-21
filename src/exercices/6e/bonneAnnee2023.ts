@@ -21,7 +21,7 @@ import { numAlphaNum, sp } from '../../lib/outils/outilString'
 import { texNombre } from '../../lib/outils/texNombre'
 import { context } from '../../modules/context'
 import { mathalea2d } from '../../modules/mathalea2d'
-import Operation from '../../modules/operations'
+import operation from '../../modules/operations'
 import {
   gestionnaireFormulaireTexte,
   listeQuestionsToContenu,
@@ -165,7 +165,7 @@ export default class Questions2023 extends Exercice {
         case 9: // 6e
           texte += ` $${texNombre(2023)}$ est-il divisible par la somme de ses chiffres ?<br>`
           texteCorr += `La somme des chiffres de $${texNombre(2023)}$ est $2+0+2+3=7$. Posons : $${texNombre(2023)}\\div7$.<br>`
-          texteCorr += Operation({
+          texteCorr += operation({
             operande1: 2023,
             operande2: 7,
             type: 'divisionE',
@@ -251,7 +251,7 @@ export default class Questions2023 extends Exercice {
           texteCorr +=
             ' Un nombre de Harshad est un entier naturel qui est divisible par la somme de ses chiffres.<br>'
           texteCorr += `La somme des chiffres de $${texNombre(2023)}$ est $2+0+2+3=7$. Posons : $${texNombre(2023)}\\div7$.<br>`
-          texteCorr += Operation({
+          texteCorr += operation({
             operande1: 2023,
             operande2: 7,
             type: 'divisionE',
@@ -288,6 +288,8 @@ export default class Questions2023 extends Exercice {
             xMax: 3,
             yMin: -1,
             yMax: 10,
+            labelsXareVisible: false,
+            labelsYareVisible: false,
             axeXisVisible: false,
             axeYisVisible: false,
             grille: false,
@@ -481,7 +483,7 @@ export default class Questions2023 extends Exercice {
           texte +=
             ' Quel est le reste de la division euclidienne de $\\text{7}^\\text{7}$ par $\\text{7!}$ ?<br>'
           texteCorr += `$\\text{7}^\\text{7}=${texNombre(823543)}$ et $\\text{7!}=${texNombre(5040)}$. Posons : $${texNombre(823543)}\\div${texNombre(5040)}$.<br>`
-          texteCorr += Operation({
+          texteCorr += operation({
             operande1: 823543,
             operande2: 5040,
             type: 'divisionE',

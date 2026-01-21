@@ -1,5 +1,6 @@
 import Decimal from 'decimal.js'
 import { format } from 'mathjs'
+import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import {
   ajouteChampTexteMathLive,
@@ -73,7 +74,6 @@ export default class ExerciceEcritureDecimaleOuFractionDecimale extends Exercice
     for (
       let i = 0, a, b, n, typesDeQuestions, texte, texteCorr, cpt = 0;
       i < this.nbQuestions && cpt < 50;
-
     ) {
       typesDeQuestions = listeTypeDeQuestions[i]
       a = choice([
@@ -95,7 +95,7 @@ export default class ExerciceEcritureDecimaleOuFractionDecimale extends Exercice
           handleAnswers(this, i, { reponse: { value: texNombre(n, 3) } })
           texte =
             `$${texFraction(texNombre(a), texNombre(b))}  ${!this.interactif ? '=\\ldots\\ldots\\ldots\\ldots' : '='} $` +
-            ajouteChampTexteMathLive(this, i, '')
+            ajouteChampTexteMathLive(this, i, KeyboardType.clavierNumbers)
           texteCorr =
             '$ ' +
             texFraction(String(a), String(b)) +
@@ -139,11 +139,16 @@ export default class ExerciceEcritureDecimaleOuFractionDecimale extends Exercice
                   this,
                   i,
                   `${texNombre(n, precision, this.sup3)} = \\dfrac{%{champ1}}{${texNombre(b)}}`,
-                  'fillInTheBlanks',
+                  KeyboardType.clavierNumbers,
                 )
-              : ajouteChampTexteMathLive(this, i, ' ', {
-                  texteAvant: `$${texNombre(n, precision, this.sup3)} = $`,
-                })
+              : ajouteChampTexteMathLive(
+                  this,
+                  i,
+                  KeyboardType.clavierDeBaseAvecFraction,
+                  {
+                    texteAvant: `$${texNombre(n, precision, this.sup3)} = $`,
+                  },
+                )
 
             if (!this.sup2) {
               handleAnswers(this, i, {

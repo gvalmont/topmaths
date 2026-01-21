@@ -1,22 +1,22 @@
+import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
+import { setReponse } from '../../lib/interactif/gestionInteractif'
+import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import {
   choice,
   combinaisonListes,
   enleveElement,
 } from '../../lib/outils/arrayOutils'
-import { miseEnEvidence } from '../../lib/outils/embellissements'
 import {
   ecritureAlgebrique,
   ecritureParentheseSiNegatif,
 } from '../../lib/outils/ecritures'
+import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { range1 } from '../../lib/outils/nombres'
 import { lettreDepuisChiffre } from '../../lib/outils/outilString'
 import { listeDesDiviseurs } from '../../lib/outils/primalite'
-import Exercice from '../Exercice'
-import { context } from '../../modules/context'
-import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
-import { setReponse } from '../../lib/interactif/gestionInteractif'
-import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
+import Exercice from '../Exercice'
+import { bleuMathalea } from './../../lib/colors'
 
 export const titre = 'Calculs utilisant les priorités opératoires'
 export const interactifReady = true
@@ -54,6 +54,7 @@ export const interactifType = 'mathLive'
  * * a-(b+c)
  * * (a+b+c)*d
  * @author Rémi Angot
+ * @author Matthieu Devillers pour l'amélioration des corrections
  */
 export const uuid = '62f66'
 
@@ -69,15 +70,16 @@ export default class PrioritesEtRelatifs extends Exercice {
     this.spacing = 2
     this.nbQuestions = 6
     this.nbCols = 2
-
+    this.nbColsCorr = 2
     this.sup = 3
+    this.sup2 = false
     this.besoinFormulaireNumerique = [
       'Type de calculs',
       3,
       '1 : Sans opérations entre parenthèses\n2 : Avec des opérations entre parenthèses\n3 : Mélange',
     ]
     this.besoinFormulaire2CaseACocher = [
-      'Présentation des corrections en colonnes',
+      'Présentation des corrections en ligne',
       false,
     ]
     this.listeAvecNumerotation = false
@@ -86,9 +88,9 @@ export default class PrioritesEtRelatifs extends Exercice {
   nouvelleVersion() {
     let listeQuestionsDisponibles
     if (this.sup === 1) {
-      listeQuestionsDisponibles = range1(11)
+      listeQuestionsDisponibles = range1(10)
     } else if (this.sup === 2) {
-      listeQuestionsDisponibles = range1(20, range1(11))
+      listeQuestionsDisponibles = range1(20, range1(10))
     } else {
       listeQuestionsDisponibles = range1(20)
     }
@@ -103,7 +105,16 @@ export default class PrioritesEtRelatifs extends Exercice {
       let b: number
       let c: number
       let d: number
-
+      let sepa = ''
+      let aligne = ''
+      let endaligne = ''
+      let egal = '='
+      if (this.sup2 === false) {
+        aligne = '~$<br>$\\begin{aligned}'
+        endaligne = '\\end{aligned}'
+        sepa = '\\\\'
+        egal = '&='
+      }
       switch (listeTypeDeQuestions[i]) {
         case 1: // a+b*c
           a = randint(2, 11) * choice([-1, 1])
@@ -114,10 +125,13 @@ export default class PrioritesEtRelatifs extends Exercice {
             b = randint(2, 11) * choice([-1, 1])
             c = randint(2, 11) * choice([-1, 1])
           }
-          texte = `$${lettreDepuisChiffre(i + 1)} = ${a}${ecritureAlgebrique(b)}\\times${ecritureParentheseSiNegatif(c)}=$`
-          texteCorr = `$${lettreDepuisChiffre(i + 1)} = ${a}${miseEnEvidence('~' + ecritureAlgebrique(b) + '\\times' + ecritureParentheseSiNegatif(c))}=${a}${ecritureAlgebrique(
-            b * c,
-          )}=${a + b * c}$`
+          if (this.sup2 === false) {
+            sepa += `${lettreDepuisChiffre(i + 1)}`
+          }
+          texte = `$${lettreDepuisChiffre(i + 1)} = ${a}${ecritureAlgebrique(b)}\\times${ecritureParentheseSiNegatif(c)}$`
+          texteCorr = `$${aligne}${lettreDepuisChiffre(i + 1)} ${egal} ${a}${miseEnEvidence('~' + ecritureAlgebrique(b) + '\\times' + ecritureParentheseSiNegatif(c), bleuMathalea)} ${sepa}`
+          texteCorr += `${egal}${a}${ecritureAlgebrique(b * c)} ${sepa}`
+          texteCorr += `${egal}${miseEnEvidence(`${a + b * c}`)} ${endaligne}$`
           setReponse(this, i, a + b * c)
           break
         case 2: // a+b/c
@@ -129,10 +143,13 @@ export default class PrioritesEtRelatifs extends Exercice {
             c = randint(2, 11) * choice([-1, 1])
             b = c * randint(2, 11) * choice([-1, 1])
           }
-          texte = `$${lettreDepuisChiffre(i + 1)} = ${a}${ecritureAlgebrique(b)}\\div${ecritureParentheseSiNegatif(c)}=$`
-          texteCorr = `$${lettreDepuisChiffre(i + 1)} = ${a}${miseEnEvidence('~' + ecritureAlgebrique(b) + '\\div' + ecritureParentheseSiNegatif(c))}=${a}${ecritureAlgebrique(
+          if (this.sup2 === false) {
+            sepa += `${lettreDepuisChiffre(i + 1)}`
+          }
+          texte = `$  ${lettreDepuisChiffre(i + 1)} = ${a}${ecritureAlgebrique(b)}\\div${ecritureParentheseSiNegatif(c)}$`
+          texteCorr = `$${aligne}${lettreDepuisChiffre(i + 1)} ${egal} ${a}${miseEnEvidence('~' + ecritureAlgebrique(b) + '\\div' + ecritureParentheseSiNegatif(c), bleuMathalea)}${sepa}${egal} ${a}${ecritureAlgebrique(
             b / c,
-          )}=${a + b / c}$`
+          )}${sepa}${egal}${miseEnEvidence(`${a + b / c}`)}${endaligne}$`
           setReponse(this, i, a + b / c)
           break
         case 3: // a/b*c
@@ -144,10 +161,13 @@ export default class PrioritesEtRelatifs extends Exercice {
             c = randint(2, 11) * choice([-1, 1])
             a = b * randint(2, 11) * choice([-1, 1])
           }
-          texte = `$${lettreDepuisChiffre(i + 1)} = ${a}\\div${ecritureParentheseSiNegatif(b)}\\times${ecritureParentheseSiNegatif(c)}=$`
-          texteCorr = `$${lettreDepuisChiffre(i + 1)} = ${miseEnEvidence(a + '\\div' + ecritureParentheseSiNegatif(b))}\\times${ecritureParentheseSiNegatif(c)}=${
+          if (this.sup2 === false) {
+            sepa += `${lettreDepuisChiffre(i + 1)}`
+          }
+          texte = `$${lettreDepuisChiffre(i + 1)} = ${a}\\div${ecritureParentheseSiNegatif(b)}\\times${ecritureParentheseSiNegatif(c)}$`
+          texteCorr = `$${aligne} ${lettreDepuisChiffre(i + 1)} ${egal} ( ${miseEnEvidence(a + '\\div' + ecritureParentheseSiNegatif(b), bleuMathalea)} )\\times${ecritureParentheseSiNegatif(c)}${sepa}${egal}${
             a / b
-          }\\times${ecritureParentheseSiNegatif(c)}=${(a / b) * c}$`
+          }\\times${ecritureParentheseSiNegatif(c)}${sepa}${egal}${miseEnEvidence(`${(a / b) * c}`)}${endaligne}$`
           setReponse(this, i, (a / b) * c)
           break
         case 4: // a*b/c
@@ -172,10 +192,13 @@ export default class PrioritesEtRelatifs extends Exercice {
               a = randint(2, 6) * choice([-1, 1])
             }
           }
-          texte = `$${lettreDepuisChiffre(i + 1)} = ${a}\\times${ecritureParentheseSiNegatif(b)}\\div${ecritureParentheseSiNegatif(c)}=$`
-          texteCorr = `$${lettreDepuisChiffre(i + 1)} = ${miseEnEvidence(a + '\\times' + ecritureParentheseSiNegatif(b))}\\div${ecritureParentheseSiNegatif(c)}=${
+          if (this.sup2 === false) {
+            sepa += `${lettreDepuisChiffre(i + 1)}`
+          }
+          texte = `$${lettreDepuisChiffre(i + 1)} = ${a}\\times${ecritureParentheseSiNegatif(b)}\\div${ecritureParentheseSiNegatif(c)}$`
+          texteCorr = `$${aligne}${lettreDepuisChiffre(i + 1)} ${egal} ${miseEnEvidence(a + '\\times' + ecritureParentheseSiNegatif(b), bleuMathalea)}\\div${ecritureParentheseSiNegatif(c)}${sepa}${egal}${
             a * b
-          }\\div${ecritureParentheseSiNegatif(c)}=${(a * b) / c}$`
+          }\\div${ecritureParentheseSiNegatif(c)}${sepa}${egal} ${miseEnEvidence(`${(a * b) / c}`)}${endaligne}$`
           setReponse(this, i, (a * b) / c)
           break
         case 5: // a*b+c
@@ -187,10 +210,13 @@ export default class PrioritesEtRelatifs extends Exercice {
             b = randint(2, 11) * choice([-1, 1])
             c = randint(2, 11) * choice([-1, 1])
           }
-          texte = `$${lettreDepuisChiffre(i + 1)} = ${a}\\times${ecritureParentheseSiNegatif(b)}${ecritureAlgebrique(c)}=$`
-          texteCorr = `$${lettreDepuisChiffre(i + 1)} = ${miseEnEvidence(a + '\\times' + ecritureParentheseSiNegatif(b))}${ecritureAlgebrique(c)}=${
+          if (this.sup2 === false) {
+            sepa += `${lettreDepuisChiffre(i + 1)}`
+          }
+          texte = `$${lettreDepuisChiffre(i + 1)} = ${a}\\times${ecritureParentheseSiNegatif(b)}${ecritureAlgebrique(c)}$`
+          texteCorr = `$${aligne}${lettreDepuisChiffre(i + 1)} ${egal} ${miseEnEvidence(a + '\\times' + ecritureParentheseSiNegatif(b), bleuMathalea)}${ecritureAlgebrique(c)}${sepa}${egal}${
             a * b
-          }${ecritureAlgebrique(c)}=${a * b + c}$`
+          }${ecritureAlgebrique(c)}${sepa}${egal}${miseEnEvidence(`${a * b + c}`)}${endaligne}$`
           setReponse(this, i, a * b + c)
           break
         case 6: // a-b+c
@@ -202,10 +228,11 @@ export default class PrioritesEtRelatifs extends Exercice {
             b = randint(2, 11) * choice([-1, 1])
             c = randint(2, 11) * choice([-1, 1])
           }
-          texte = `$${lettreDepuisChiffre(i + 1)} = ${a}-(${ecritureAlgebrique(b)})${ecritureAlgebrique(c)}=$`
-          texteCorr = `$${lettreDepuisChiffre(i + 1)} = ${a}${miseEnEvidence(ecritureAlgebrique(-b))}${ecritureAlgebrique(c)}=${a - b}${ecritureAlgebrique(c)}=${
-            a - b + c
-          }$`
+          if (this.sup2 === false) {
+            sepa += `${lettreDepuisChiffre(i + 1)}`
+          }
+          texte = `$${lettreDepuisChiffre(i + 1)} = ${a}-(${ecritureAlgebrique(b)})${ecritureAlgebrique(c)}$`
+          texteCorr = `$${aligne}${lettreDepuisChiffre(i + 1)} ${egal} ${a}${miseEnEvidence(ecritureAlgebrique(-b), bleuMathalea)}${ecritureAlgebrique(c)}${sepa}${egal}${a - b}${ecritureAlgebrique(c)}${sepa}${egal}${miseEnEvidence(`${a - b + c}`)}${endaligne}$`
           setReponse(this, i, a - b + c)
           break
         case 7: // a+b+c*d
@@ -219,10 +246,14 @@ export default class PrioritesEtRelatifs extends Exercice {
             c = randint(2, 11) * choice([-1, 1])
             d = randint(2, 11) * choice([-1, 1])
           }
-          texte = `$${lettreDepuisChiffre(i + 1)} = ${a}${ecritureAlgebrique(b)}${ecritureAlgebrique(c)}\\times${ecritureParentheseSiNegatif(d)}=$`
-          texteCorr = `$${lettreDepuisChiffre(i + 1)} = ${a}${ecritureAlgebrique(b)}${miseEnEvidence(
+          if (this.sup2 === false) {
+            sepa += `${lettreDepuisChiffre(i + 1)}`
+          }
+          texte = `$${lettreDepuisChiffre(i + 1)} = ${a}${ecritureAlgebrique(b)}${ecritureAlgebrique(c)}\\times${ecritureParentheseSiNegatif(d)}$`
+          texteCorr = `$${aligne}${lettreDepuisChiffre(i + 1)} ${egal} ${a}${ecritureAlgebrique(b)}${miseEnEvidence(
             ecritureAlgebrique(c) + '\\times' + ecritureParentheseSiNegatif(d),
-          )}=${a}${ecritureAlgebrique(b)}${ecritureAlgebrique(c * d)}=${a + b + c * d}$`
+            bleuMathalea,
+          )}${sepa}${egal}${a}${ecritureAlgebrique(b)}${ecritureAlgebrique(c * d)}${sepa}${egal}${miseEnEvidence(`${a + b + c * d}`)}${endaligne}$`
           setReponse(this, i, a + b + c * d)
           break
         case 8: // a*b+c*d
@@ -236,12 +267,17 @@ export default class PrioritesEtRelatifs extends Exercice {
             c = randint(2, 11) * choice([-1, 1])
             d = randint(2, 11) * choice([-1, 1])
           }
-          texte = `$${lettreDepuisChiffre(i + 1)} = ${a}\\times${ecritureParentheseSiNegatif(b)}${ecritureAlgebrique(c)}\\times${ecritureParentheseSiNegatif(d)}=$`
-          texteCorr = `$${lettreDepuisChiffre(i + 1)} = ${
-            a + miseEnEvidence('\\times') + ecritureParentheseSiNegatif(b)
-          }${ecritureAlgebrique(c) + miseEnEvidence('\\times') + ecritureParentheseSiNegatif(d)}=${a * b}${ecritureAlgebrique(c * d)}=${
-            a * b + c * d
-          }$`
+          if (this.sup2 === false) {
+            sepa += `${lettreDepuisChiffre(i + 1)}`
+          }
+          texte = `$${lettreDepuisChiffre(i + 1)} = ${a}\\times${ecritureParentheseSiNegatif(b)}${ecritureAlgebrique(c)}\\times${ecritureParentheseSiNegatif(d)}$`
+          texteCorr = `$${aligne}${lettreDepuisChiffre(i + 1)} ${egal} ${
+            a +
+            miseEnEvidence('\\times', bleuMathalea) +
+            ecritureParentheseSiNegatif(b)
+          }${ecritureAlgebrique(c) + miseEnEvidence('\\times', bleuMathalea) + ecritureParentheseSiNegatif(d)}${sepa}${egal}${a * b}${ecritureAlgebrique(c * d)}${sepa}${egal} ${miseEnEvidence(
+            `${a * b + c * d}`,
+          )}${endaligne}$`
           setReponse(this, i, a * b + c * d)
           break
         case 9: // a*b*c+d
@@ -255,12 +291,16 @@ export default class PrioritesEtRelatifs extends Exercice {
             c = randint(2, 5) * choice([-1, 1])
             d = randint(2, 11) * choice([-1, 1])
           }
-          texte = `$${lettreDepuisChiffre(i + 1)} = ${a}\\times${ecritureParentheseSiNegatif(b)}\\times${ecritureParentheseSiNegatif(c)}${ecritureAlgebrique(d)}=$`
-          texteCorr = `$${lettreDepuisChiffre(i + 1)} = ${miseEnEvidence(
+          if (this.sup2 === false) {
+            sepa += `${lettreDepuisChiffre(i + 1)}`
+          }
+          texte = `$${lettreDepuisChiffre(i + 1)} = ${a}\\times${ecritureParentheseSiNegatif(b)}\\times${ecritureParentheseSiNegatif(c)}${ecritureAlgebrique(d)}$`
+          texteCorr = `$${aligne}${lettreDepuisChiffre(i + 1)} ${egal} ${miseEnEvidence(
             a + '\\times' + ecritureParentheseSiNegatif(b),
-          )}\\times${ecritureParentheseSiNegatif(c)}${ecritureAlgebrique(d)}=${miseEnEvidence(a * b + '\\times' + ecritureParentheseSiNegatif(c))}${ecritureAlgebrique(d)}
-          =${a * b * c}${ecritureAlgebrique(d)}
-          =${a * b * c + d}$`
+            bleuMathalea,
+          )}\\times${ecritureParentheseSiNegatif(c)}${ecritureAlgebrique(d)}${sepa}${egal}${miseEnEvidence(a * b + '\\times' + ecritureParentheseSiNegatif(c), bleuMathalea)}${ecritureAlgebrique(d)}
+          ${sepa}${egal}${a * b * c}${ecritureAlgebrique(d)}
+          ${sepa}${egal} ${miseEnEvidence(`${a * b * c + d}`)}${endaligne}$`
           setReponse(this, i, a * b * c + d)
           break
         case 10:
@@ -268,15 +308,18 @@ export default class PrioritesEtRelatifs extends Exercice {
           b = randint(2, 11) * choice([-1, 1])
           d = randint(2, 11) * choice([-1, 1])
           c = d * randint(2, 8) * choice([-1, 1])
-          texte = `$${lettreDepuisChiffre(i + 1)} = ${a}\\times${ecritureParentheseSiNegatif(b)}${ecritureAlgebrique(c)}\\div${ecritureParentheseSiNegatif(d)}=$`
-          texteCorr = `$${lettreDepuisChiffre(i + 1)} = ${
+          if (this.sup2 === false) {
+            sepa += `${lettreDepuisChiffre(i + 1)}`
+          }
+          texte = `$${lettreDepuisChiffre(i + 1)} = ${a}\\times${ecritureParentheseSiNegatif(b)}${ecritureAlgebrique(c)}\\div${ecritureParentheseSiNegatif(d)}$`
+          texteCorr = `$${aligne}${lettreDepuisChiffre(i + 1)} ${egal} ${
             a +
-            miseEnEvidence('\\times') +
+            miseEnEvidence('\\times', bleuMathalea) +
             ecritureParentheseSiNegatif(b) +
             ecritureAlgebrique(c) +
-            miseEnEvidence('\\div') +
+            miseEnEvidence('\\div', bleuMathalea) +
             ecritureParentheseSiNegatif(d)
-          }=${a * b}${ecritureAlgebrique(c / d)}=${a * b + c / d}$`
+          }${sepa}${egal}${a * b}${ecritureAlgebrique(c / d)}${sepa}${egal}${miseEnEvidence(`${a * b + c / d}`)}${endaligne}$`
           setReponse(this, i, a * b + c / d)
           break
         case 11: // a*(b+c)
@@ -288,8 +331,11 @@ export default class PrioritesEtRelatifs extends Exercice {
             b = randint(1, 11) * choice([-1, 1])
             c = randint(1, 11) * choice([-1, 1])
           }
-          texte = `$${lettreDepuisChiffre(i + 1)} = ${a}\\times(${b}${ecritureAlgebrique(c)})=$`
-          texteCorr = `$${lettreDepuisChiffre(i + 1)} = ${a}\\times(${miseEnEvidence(b + ecritureAlgebrique(c))})=${a}\\times${ecritureParentheseSiNegatif(b + c)}=${a * (b + c)}$`
+          if (this.sup2 === false) {
+            sepa += `${lettreDepuisChiffre(i + 1)}`
+          }
+          texte = `$${lettreDepuisChiffre(i + 1)} = ${a}\\times(${b}${ecritureAlgebrique(c)})$`
+          texteCorr = `$${aligne}${lettreDepuisChiffre(i + 1)} ${egal} ${a}\\times(${miseEnEvidence(b + ecritureAlgebrique(c), bleuMathalea)})${sepa}${egal}${a}\\times${ecritureParentheseSiNegatif(b + c)}${sepa}${egal}${miseEnEvidence(`${a * (b + c)}`)}${endaligne}$`
           setReponse(this, i, a * (b + c))
           break
         case 12: // (a+b)*c
@@ -301,8 +347,11 @@ export default class PrioritesEtRelatifs extends Exercice {
             b = randint(1, 11) * choice([-1, 1])
             c = randint(2, 11) * choice([-1, 1])
           }
-          texte = `$${lettreDepuisChiffre(i + 1)} = (${a}${ecritureAlgebrique(b)})\\times${ecritureParentheseSiNegatif(c)}=$`
-          texteCorr = `$${lettreDepuisChiffre(i + 1)} = (${miseEnEvidence(a + ecritureAlgebrique(b))})\\times${ecritureParentheseSiNegatif(c)}=${a + b}\\times${ecritureParentheseSiNegatif(c)}=${(a + b) * c}$`
+          if (this.sup2 === false) {
+            sepa += `${lettreDepuisChiffre(i + 1)}`
+          }
+          texte = `$${lettreDepuisChiffre(i + 1)} = (${a}${ecritureAlgebrique(b)})\\times${ecritureParentheseSiNegatif(c)}$`
+          texteCorr = `$${aligne}${lettreDepuisChiffre(i + 1)} ${egal} (${miseEnEvidence(a + ecritureAlgebrique(b), bleuMathalea)})\\times${ecritureParentheseSiNegatif(c)}${sepa}${egal}${a + b}\\times${ecritureParentheseSiNegatif(c)}${sepa}${egal}${miseEnEvidence(`${(a + b) * c}`)}${endaligne}$`
           setReponse(this, i, (a + b) * c)
           break
         case 13: // (a+b)/c
@@ -314,10 +363,13 @@ export default class PrioritesEtRelatifs extends Exercice {
             b = randint(11, 39) * choice([-1, 1])
             a = c * randint(2, 9) * choice([-1, 1]) - b
           }
-          texte = `$${lettreDepuisChiffre(i + 1)} = (${a}${ecritureAlgebrique(b)})\\div${ecritureParentheseSiNegatif(c)}=$`
-          texteCorr = `$${lettreDepuisChiffre(i + 1)} = (${miseEnEvidence(a + ecritureAlgebrique(b))})\\div${ecritureParentheseSiNegatif(c)}=${
+          if (this.sup2 === false) {
+            sepa += `${lettreDepuisChiffre(i + 1)}`
+          }
+          texte = `$${lettreDepuisChiffre(i + 1)} = (${a}${ecritureAlgebrique(b)})\\div${ecritureParentheseSiNegatif(c)}$`
+          texteCorr = `$${aligne}${lettreDepuisChiffre(i + 1)} ${egal} (${miseEnEvidence(a + ecritureAlgebrique(b), bleuMathalea)})\\div${ecritureParentheseSiNegatif(c)}${sepa}${egal}${
             a + b
-          }\\div${ecritureParentheseSiNegatif(c)}=${(a + b) / c}$`
+          }\\div${ecritureParentheseSiNegatif(c)}${sepa}${egal}${miseEnEvidence(`${(a + b) / c}`)}${endaligne}$`
           setReponse(this, i, (a + b) / c)
           break
         case 14: // a/(b+c)
@@ -329,8 +381,11 @@ export default class PrioritesEtRelatifs extends Exercice {
             c = randint(-6, 6, [-1, 0, 1, -b])
             a = (b + c) * randint(2, 9) * choice([-1, 1])
           }
-          texte = `$${lettreDepuisChiffre(i + 1)} = ${a}\\div(${b}${ecritureAlgebrique(c)})=$`
-          texteCorr = `$${lettreDepuisChiffre(i + 1)} = ${a}\\div(${miseEnEvidence(b + ecritureAlgebrique(c))})=${a}\\div${ecritureParentheseSiNegatif(b + c)}=${a / (b + c)}$`
+          if (this.sup2 === false) {
+            sepa += `${lettreDepuisChiffre(i + 1)}`
+          }
+          texte = `$${lettreDepuisChiffre(i + 1)} = ${a}\\div(${b}${ecritureAlgebrique(c)})$`
+          texteCorr = `$${aligne}${lettreDepuisChiffre(i + 1)} ${egal} ${a}\\div(${miseEnEvidence(b + ecritureAlgebrique(c), bleuMathalea)})${sepa}${egal}${a}\\div${ecritureParentheseSiNegatif(b + c)}${sepa}${egal}${miseEnEvidence(`${a / (b + c)}`)}${endaligne}$`
           setReponse(this, i, a / (b + c))
           break
         case 15: // a(b+c)*d
@@ -344,8 +399,11 @@ export default class PrioritesEtRelatifs extends Exercice {
             a = randint(2, 5) * choice([-1, 1])
             d = randint(2, 5) * choice([-1, 1])
           }
-          texte = `$${lettreDepuisChiffre(i + 1)} = ${a}\\times(${b}${ecritureAlgebrique(c)})\\times${ecritureParentheseSiNegatif(d)}=$`
-          texteCorr = `$${lettreDepuisChiffre(i + 1)} = ${a}\\times(${miseEnEvidence(b + ecritureAlgebrique(c))})\\times${ecritureParentheseSiNegatif(d)}=${a}\\times${ecritureParentheseSiNegatif(b + c)}\\times${ecritureParentheseSiNegatif(d)}=${a * (b + c) * d}$`
+          if (this.sup2 === false) {
+            sepa += `${lettreDepuisChiffre(i + 1)}`
+          }
+          texte = `$${lettreDepuisChiffre(i + 1)} = ${a}\\times(${b}${ecritureAlgebrique(c)})\\times${ecritureParentheseSiNegatif(d)}$`
+          texteCorr = `$${aligne}${lettreDepuisChiffre(i + 1)} ${egal} ${a}\\times(${miseEnEvidence(b + ecritureAlgebrique(c), bleuMathalea)})\\times${ecritureParentheseSiNegatif(d)}${sepa}${egal}${a}\\times${ecritureParentheseSiNegatif(b + c)}\\times${ecritureParentheseSiNegatif(d)}${sepa}${egal}${miseEnEvidence(`${a * (b + c) * d}`)}${endaligne}$`
           setReponse(this, i, a * (b + c) * d)
           break
         case 16: // a*b*(c+d)
@@ -359,10 +417,14 @@ export default class PrioritesEtRelatifs extends Exercice {
             a = randint(2, 5) * choice([-1, 1])
             b = randint(2, 5) * choice([-1, 1])
           }
-          texte = `$${lettreDepuisChiffre(i + 1)} = ${a}\\times${ecritureParentheseSiNegatif(b)}\\times(${c}${ecritureAlgebrique(d)})=$`
-          texteCorr = `$${lettreDepuisChiffre(i + 1)} = ${a}\\times${ecritureParentheseSiNegatif(b)}\\times(${miseEnEvidence(
+          if (this.sup2 === false) {
+            sepa += `${lettreDepuisChiffre(i + 1)}`
+          }
+          texte = `$${lettreDepuisChiffre(i + 1)} = ${a}\\times${ecritureParentheseSiNegatif(b)}\\times(${c}${ecritureAlgebrique(d)})$`
+          texteCorr = `$${aligne}${lettreDepuisChiffre(i + 1)} ${egal} ${a}\\times${ecritureParentheseSiNegatif(b)}\\times(${miseEnEvidence(
             c + ecritureAlgebrique(d),
-          )})=${a}\\times${ecritureParentheseSiNegatif(b)}\\times${ecritureParentheseSiNegatif(c + d)}=${a * b * (c + d)}$`
+            bleuMathalea,
+          )})${sepa}${egal}${a}\\times${ecritureParentheseSiNegatif(b)}\\times${ecritureParentheseSiNegatif(c + d)}${sepa}${egal}${miseEnEvidence(`${a * b * (c + d)}`)}${endaligne}$`
           setReponse(this, i, a * b * (c + d))
           break
         case 17: // a*(b/c+d)
@@ -370,12 +432,17 @@ export default class PrioritesEtRelatifs extends Exercice {
           c = randint(2, 11) * choice([-1, 1])
           b = c * randint(2, 5) * choice([-1, 1])
           d = randint(2, 6) * choice([-1, 1])
-          texte = `$${lettreDepuisChiffre(i + 1)} = ${a}\\times(${b}\\div${ecritureParentheseSiNegatif(c)}${ecritureAlgebrique(d)})=$`
-          texteCorr = `$${lettreDepuisChiffre(i + 1)} = ${a}\\times(${miseEnEvidence(
+          if (this.sup2 === false) {
+            sepa += `${lettreDepuisChiffre(i + 1)}`
+          }
+          texte = `$${lettreDepuisChiffre(i + 1)} = ${a}\\times(${b}\\div${ecritureParentheseSiNegatif(c)}${ecritureAlgebrique(d)})$`
+          texteCorr = `$${aligne}${lettreDepuisChiffre(i + 1)} ${egal} ${a}\\times(${miseEnEvidence(
             b + '\\div' + ecritureParentheseSiNegatif(c),
-          )}${ecritureAlgebrique(d)})=${a}\\times(${miseEnEvidence(
+            bleuMathalea,
+          )}${ecritureAlgebrique(d)})${sepa}${egal}${a}\\times(${miseEnEvidence(
             b / c + ecritureAlgebrique(d),
-          )})=${a}\\times${ecritureParentheseSiNegatif(b / c + d)}=${a * (b / c + d)}$`
+            bleuMathalea,
+          )})${sepa}${egal}${a}\\times${ecritureParentheseSiNegatif(b / c + d)}${sepa}${egal}${miseEnEvidence(`${a * (b / c + d)}`)}${endaligne}$`
           setReponse(this, i, a * (b / c + d))
           break
         case 18:
@@ -402,12 +469,16 @@ export default class PrioritesEtRelatifs extends Exercice {
               a *= choice([-1, 1])
               b *= choice([-1, 1])
             }
-            texte = `$${lettreDepuisChiffre(i + 1)} = ${a}\\times${ecritureParentheseSiNegatif(b)}\\div(${c}${ecritureAlgebrique(d)})=$`
-            texteCorr = `$${lettreDepuisChiffre(i + 1)} = ${a}\\times${ecritureParentheseSiNegatif(b)}\\div(${miseEnEvidence(
+            if (this.sup2 === false) {
+              sepa += `${lettreDepuisChiffre(i + 1)}`
+            }
+            texte = `$${lettreDepuisChiffre(i + 1)} = ${a}\\times${ecritureParentheseSiNegatif(b)}\\div(${c}${ecritureAlgebrique(d)})$`
+            texteCorr = `$${aligne}${lettreDepuisChiffre(i + 1)} ${egal} ${a}\\times${ecritureParentheseSiNegatif(b)}\\div(${miseEnEvidence(
               c + ecritureAlgebrique(d),
-            )})=${miseEnEvidence(a + '\\times' + ecritureParentheseSiNegatif(b))}\\div${ecritureParentheseSiNegatif(c + d)}=${
+              bleuMathalea,
+            )})${sepa}${egal}${miseEnEvidence(a + '\\times' + ecritureParentheseSiNegatif(b), bleuMathalea)}\\div${ecritureParentheseSiNegatif(c + d)}${sepa}${egal}${
               a * b
-            }\\div${ecritureParentheseSiNegatif(c + d)}=${(a * b) / (c + d)}$`
+            }\\div${ecritureParentheseSiNegatif(c + d)}${sepa}${egal}${miseEnEvidence(`${(a * b) / (c + d)}`)}${endaligne}$`
             setReponse(this, i, (a * b) / (c + d))
           }
           break
@@ -420,8 +491,11 @@ export default class PrioritesEtRelatifs extends Exercice {
             b = randint(1, 9) * choice([-1, 1])
             c = randint(1, 9) * choice([-1, 1])
           }
-          texte = `$${lettreDepuisChiffre(i + 1)} = ${a}-(${b}${ecritureAlgebrique(c)})=$`
-          texteCorr = `$${lettreDepuisChiffre(i + 1)} = ${a}-(${miseEnEvidence(b + ecritureAlgebrique(c))})=${a}-(${ecritureAlgebrique(b + c)})=${a + ecritureAlgebrique(-b - c)}=${a - b - c}$`
+          if (this.sup2 === false) {
+            sepa += `${lettreDepuisChiffre(i + 1)}`
+          }
+          texte = `$${lettreDepuisChiffre(i + 1)} = ${a}-(${b}${ecritureAlgebrique(c)})$`
+          texteCorr = `$${aligne}${lettreDepuisChiffre(i + 1)} ${egal} ${a}-(${miseEnEvidence(b + ecritureAlgebrique(c), bleuMathalea)})${sepa}${egal}${a}-(${ecritureAlgebrique(b + c)})${sepa}${egal}${a + ecritureAlgebrique(-b - c)}${sepa}${egal}${miseEnEvidence(`${a - b - c}`)}${endaligne}$`
           setReponse(this, i, a - b - c)
           break
         case 20: // (a+b+c)*d
@@ -435,25 +509,16 @@ export default class PrioritesEtRelatifs extends Exercice {
             b = randint(1, 9) * choice([-1, 1])
             c = randint(1, 9) * choice([-1, 1])
           }
-          texte = `$${lettreDepuisChiffre(i + 1)} = (${a + ecritureAlgebrique(b) + ecritureAlgebrique(c)})\\times${ecritureParentheseSiNegatif(d)}=$`
-          texteCorr = `$${lettreDepuisChiffre(i + 1)} = (${miseEnEvidence(a + ecritureAlgebrique(b) + ecritureAlgebrique(c))})\\times${ecritureParentheseSiNegatif(d)}=${a + b + c}\\times${ecritureParentheseSiNegatif(d)}=${(a + b + c) * d} $`
+          if (this.sup2 === false) {
+            sepa += `${lettreDepuisChiffre(i + 1)}`
+          }
+          texte = `$${lettreDepuisChiffre(i + 1)} = (${a + ecritureAlgebrique(b) + ecritureAlgebrique(c)})\\times${ecritureParentheseSiNegatif(d)}$`
+          texteCorr = `$${aligne}${lettreDepuisChiffre(i + 1)} ${egal} (${miseEnEvidence(a + ecritureAlgebrique(b) + ecritureAlgebrique(c), bleuMathalea)})\\times${ecritureParentheseSiNegatif(d)}${sepa}${egal}${a + b + c}\\times${ecritureParentheseSiNegatif(d)}${sepa}${egal}${miseEnEvidence(`${(a + b + c) * d}`)}${endaligne} $`
           setReponse(this, i, (a + b + c) * d)
           break
       }
+      texte += this.interactif ? ` = ` : ''
       texte += ajouteChampTexteMathLive(this, i, KeyboardType.clavierDeBase)
-      if (this.sup2) {
-        texte = `${lettreDepuisChiffre(i + 1)} = ${texte.substring(0, texte.length - 2) + '$'}`
-        // On découpe
-        const etapes = texteCorr.split('=')
-        texteCorr = ''
-        etapes.forEach(function (etape) {
-          etape = etape.replace('$', '')
-          if (context.isHtml) {
-            texteCorr += '<br>'
-          }
-          texteCorr += `${lettreDepuisChiffre(i + 1)} = $${etape}$ <br>`
-        })
-      }
       if (this.questionJamaisPosee(i, listeTypeDeQuestions[i], a, b, c)) {
         // Si la question n'a jamais été posée, on en créé une autre
         this.listeQuestions[i] = texte

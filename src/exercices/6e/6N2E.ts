@@ -1,11 +1,12 @@
+import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
+import { setReponse } from '../../lib/interactif/gestionInteractif'
+import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
+import { arrondi } from '../../lib/outils/nombres'
 import { texNombre } from '../../lib/outils/texNombre'
 import { context } from '../../modules/context'
+import operation from '../../modules/operations'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
-import Operation from '../../modules/operations'
-import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
-import { setReponse } from '../../lib/interactif/gestionInteractif'
 import Exercice from '../Exercice'
-import { arrondi } from '../../lib/outils/nombres'
 
 export const amcReady = true
 export const amcType = 'AMCNum'
@@ -70,7 +71,6 @@ export default class MultiplierDecimaux extends Exercice {
     for (
       let i = 0, texte, texteCorr, cpt = 0, a, b;
       i < this.nbQuestions && cpt < 50;
-
     ) {
       a =
         this.sup === 1
@@ -94,7 +94,7 @@ export default class MultiplierDecimaux extends Exercice {
       b = b / Math.pow(10, parseInt(this.sup4))
       texte = `$${texNombre(a)}\\times${texNombre(b)}$`
       reponse = arrondi(a * b)
-      texteCorr = Operation({
+      texteCorr = operation({
         operande1: a,
         operande2: b,
         type: 'multiplication',
@@ -102,14 +102,16 @@ export default class MultiplierDecimaux extends Exercice {
       })
       texteCorr +=
         '$\\phantom{espace}$' +
-        Operation({
+        operation({
           operande1: b,
           operande2: a,
           type: 'multiplication',
           style: 'display: inline',
         })
       if (context.isHtml && this.interactif)
-        texte += '$~=$' + ajouteChampTexteMathLive(this, i, '')
+        texte +=
+          '$~=$' +
+          ajouteChampTexteMathLive(this, i, KeyboardType.clavierNumbers)
       setReponse(this, i, reponse)
       this.autoCorrection[i].options = {
         digits: 0,

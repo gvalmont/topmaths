@@ -56,7 +56,7 @@ export default class ProblemeCompMulNbParts extends Probleme {
 
     this.enonce = `Un chocolatier vend ses chocolats selon deux types de conditionnement : en sachets à $${texNombre(data.nb1, 2, true)}$ € et en boites  à $${texNombre(nb2, 2, true)}$.
 Combien de sachets peut-on avoir pour le prix d'une boite ?`
-    this.correction = `Pour le prix d'une boite, on peut acheter $\\dfrac{${texNombre(nb2, 2)}}{${texNombre(data.nb1, 2)}}=${miseEnEvidence(texNombre(nb2 / data.nb1, 0))}$ sachets.`
+    this.correction = `Pour le prix d'une boite, le nombre de sachets qu'on peut acheter est : $\{${texNombre(nb2, 2)}}\\text{\\,€} \\div {${texNombre(data.nb1, 2)}}\\text{\\,€}=${miseEnEvidence(texNombre(nb2 / data.nb1, 0))}$.`
     this.reponse = texNombre(data.nbFois, 0)
   }
 }

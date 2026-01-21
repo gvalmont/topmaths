@@ -6,6 +6,7 @@ import { repere } from '../../lib/2d/reperes'
 import { segment } from '../../lib/2d/segmentsVecteurs'
 import { texteParPoint } from '../../lib/2d/textes'
 import { milieu } from '../../lib/2d/utilitairesPoint'
+import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 import { functionCompare } from '../../lib/interactif/comparisonFunctions'
 import {
   handleAnswers,
@@ -14,6 +15,7 @@ import {
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { choice } from '../../lib/outils/arrayOutils'
 import { ecritureAlgebrique, rienSi1 } from '../../lib/outils/ecritures'
+import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { numAlpha, sp } from '../../lib/outils/outilString'
 import { texNombre } from '../../lib/outils/texNombre'
 import { context } from '../../modules/context'
@@ -83,7 +85,6 @@ export default class PenteEtOrdonneeOrigineDroite extends Exercice {
     for (
       let i = 0, texte, texteCorr, cpt = 0;
       i < this.nbQuestions && cpt < 50;
-
     ) {
       const signeNum =
         this.sup2 === 3 ? choice([-1, 1]) : this.sup2 === 2 ? -1 : 1
@@ -183,11 +184,15 @@ export default class PenteEtOrdonneeOrigineDroite extends Exercice {
         question1 =
           numAlpha(indice) +
           `Quelle est l'ordonnée à l'origine de la fonction $${nomFonction}$ ?`
-        question1 += ajouteChampTexteMathLive(this, questionInteractif, ' ')
+        question1 += ajouteChampTexteMathLive(
+          this,
+          questionInteractif,
+          KeyboardType.clavierDeBase,
+        )
         correction1 = consigneCorrection + '<br>'
         correction1 +=
           numAlpha(indice) +
-          `La droite coupe l'axe des ordonnées au point de coordonnées $(0;${b})$. L'ordonnée de $${nomFonction}$ à l'origine est donc $${b}$.`
+          `La droite coupe l'axe des ordonnées au point de coordonnées $(0;${b})$. L'ordonnée de $${nomFonction}$ à l'origine est donc $${miseEnEvidence(b)}$.`
         indice++
       }
       question2 =
@@ -196,12 +201,12 @@ export default class PenteEtOrdonneeOrigineDroite extends Exercice {
       question2 += ajouteChampTexteMathLive(
         this,
         (vocabulaire === 'affine' ? 1 : 0) + questionInteractif,
-        ' ',
+        KeyboardType.clavierDeBase,
       )
       correction2 =
         numAlpha(indice) +
         `À chaque fois que l'on avance de 1 unité d'abscisses, on ${a > 0 ? 'monte' : 'descend'} de $${texNombre(Math.abs(a))}$ unité${Math.abs(a) >= 2 ? 's' : ''} d'ordonnées. `
-      correction2 += `Le coefficient directeur de $${nomFonction}$ est donc $${texNombre(a)}$.`
+      correction2 += `Le coefficient directeur de $${nomFonction}$ est donc $${miseEnEvidence(texNombre(a))}$.`
       indice++
       question3 =
         numAlpha(indice) +
@@ -209,7 +214,7 @@ export default class PenteEtOrdonneeOrigineDroite extends Exercice {
       question3 += ajouteChampTexteMathLive(
         this,
         (vocabulaire === 'affine' ? 2 : 1) + questionInteractif,
-        ' ',
+        KeyboardType.clavierDeBaseAvecX,
         { texteAvant: `$${sp(10)}${nomFonction} : x \\mapsto $` },
       )
       correction3 =
@@ -219,8 +224,10 @@ export default class PenteEtOrdonneeOrigineDroite extends Exercice {
           ? "$ax + b$ avec $a$ son coefficient directeur (ou pente) et $b$ son ordonnée à l'origine."
           : '$ax$ avec $a$ son coefficient directeur (ou pente).')
       correction3 +=
-        `<br>Finalement, $${nomFonction} : x \\mapsto ${(rienSi1(a) as string).toString().replace('.', ',')}x$` +
-        (vocabulaire === 'affine' ? `$${ecritureAlgebrique(b)}$.` : '.')
+        `<br>Finalement, $${nomFonction} : x \\mapsto ${miseEnEvidence(`${(rienSi1(a) as string).toString().replace('.', ',')}x`)}$` +
+        (vocabulaire === 'affine'
+          ? `$${miseEnEvidence(ecritureAlgebrique(b))}$.`
+          : '.')
 
       if (vocabulaire === 'affine') setReponse(this, questionInteractif, b)
       handleAnswers(

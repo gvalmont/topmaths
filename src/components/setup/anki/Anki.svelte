@@ -1,8 +1,8 @@
 <script lang="ts">
   import type TypeExercice from '../../../exercices/Exercice'
   import {
-      mathaleaGetExercicesFromParams,
-      mathaleaUpdateExercicesParamsFromUrl,
+    mathaleaGetExercicesFromParams,
+    mathaleaUpdateExercicesParamsFromUrl,
   } from '../../../lib/mathalea.js'
   import { darkMode, exercicesParams } from '../../../lib/stores/generalStore'
   import { referentielLocale } from '../../../lib/stores/languagesStore'
@@ -15,7 +15,7 @@
     fields: {
       Titre: string
       url: string
-    },
+    }
     options?: {
       allowDuplicate?: boolean
     }
@@ -162,8 +162,8 @@
   <NavBar
     subtitle="Anki"
     subtitleType="export"
-    handleLanguage="{() => {}}"
-    locale="{$referentielLocale}"
+    handleLanguage={() => {}}
+    locale={$referentielLocale}
   />
 
   <section
@@ -217,7 +217,7 @@
       {#if !chargement}
         <button
           type="submit"
-          on:click="{importer}"
+          on:click={importer}
           class="p-2 rounded-xl text-coopmaths-canvas dark:text-coopmathsdark-canvas bg-coopmaths-action hover:bg-coopmaths-action-lightest dark:bg-coopmathsdark-action dark:hover:bg-coopmathsdark-action-lightest"
         >
           <i class="bx bx-download mr-2"></i>Importer les exercices dans Anki

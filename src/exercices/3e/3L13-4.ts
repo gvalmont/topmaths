@@ -2,6 +2,7 @@ import { fixeBordures } from '../../lib/2d/fixeBordures'
 import { point } from '../../lib/2d/PointAbstrait'
 import { rectangle1Point2Longueurs } from '../../lib/2d/polygonesParticuliers'
 import { texteSurSegment } from '../../lib/2d/texteSurSegment'
+import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { ecritureAlgebrique, rienSi1 } from '../../lib/outils/ecritures'
@@ -59,7 +60,6 @@ export default class ProblemeEquationsPerimetreAireRectangle extends Exercice {
     for (
       let i = 0, cpt = 0, texte, texteCorr;
       i < this.nbQuestions && cpt < 50;
-
     ) {
       const objets = []
       const rectangle = rectangle1Point2Longueurs(point(0, 0), 5, 3.5, {
@@ -218,7 +218,7 @@ export default class ProblemeEquationsPerimetreAireRectangle extends Exercice {
       texte +=
         `Le périmètre de $${nomRectangle}$ mesure $${perimetre}\\text{ cm}$.<br>
       Déterminer son aire en $\\text{cm}^2$.` +
-        ajouteChampTexteMathLive(this, i, 'inline')
+        ajouteChampTexteMathLive(this, i, KeyboardType.clavierNumbers)
       handleAnswers(this, i, { reponse: { value: reponse } })
       texte += mathalea2d(
         Object.assign(

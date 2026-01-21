@@ -1,17 +1,19 @@
+import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
+import { setReponse } from '../../lib/interactif/gestionInteractif'
+import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { choice } from '../../lib/outils/arrayOutils'
 import { texFractionFromString } from '../../lib/outils/deprecatedFractions'
 import { reduirePolynomeDegre3 } from '../../lib/outils/ecritures'
+import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { range1 } from '../../lib/outils/nombres'
 import { lettreDepuisChiffre } from '../../lib/outils/outilString'
-import Exercice from '../Exercice'
+import { context } from '../../modules/context'
+import FractionEtendue from '../../modules/FractionEtendue'
 import {
   listeQuestionsToContenuSansNumero,
   randint,
 } from '../../modules/outils'
-import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
-import { context } from '../../modules/context'
-import FractionEtendue from '../../modules/FractionEtendue'
-import { setReponse } from '../../lib/interactif/gestionInteractif'
+import Exercice from '../Exercice'
 
 export const titre = 'Développer (a-b)(a+b)'
 export const interactifReady = true
@@ -108,7 +110,6 @@ export default class DevelopperIdentitesRemarquables3 extends Exercice {
         b,
         fraction = [];
       i < this.nbQuestions && cpt < 50;
-
     ) {
       choixLettre = choice(lettresPossibles)
       choixPossible = this.sup === 4 ? choice(range1(3)) : this.sup
@@ -157,7 +158,11 @@ export default class DevelopperIdentitesRemarquables3 extends Exercice {
         setReponse(this, i, reponse)
         texte += this.interactif
           ? `<br>$${lettreDepuisChiffre(i + 1)} = $` +
-            ajouteChampTexteMathLive(this, i, ' ')
+            ajouteChampTexteMathLive(
+              this,
+              i,
+              KeyboardType.clavierDeBaseAvecVariable,
+            )
           : ''
       } else {
         this.autoCorrection[i] = {
@@ -244,6 +249,20 @@ export default class DevelopperIdentitesRemarquables3 extends Exercice {
       ) {
         // Si la question n'a jamais été posée, on en créé une autre
         this.listeQuestions[i] = texte
+
+        // Uniformisation : Mise en place de la réponse attendue en interactif en orange et gras
+        const textCorrSplit = texteCorr.split('=')
+        let aRemplacer = textCorrSplit[textCorrSplit.length - 1]
+        aRemplacer = aRemplacer.replace('$', '')
+        aRemplacer = aRemplacer.replace('<br>', '')
+
+        texteCorr = ''
+        for (let ee = 0; ee < textCorrSplit.length - 1; ee++) {
+          texteCorr += textCorrSplit[ee] + '='
+        }
+        texteCorr += `${miseEnEvidence(aRemplacer.slice(0, -1))}$`
+        // Fin de cette uniformisation
+
         this.listeCorrections[i] = texteCorr
         i++
       }

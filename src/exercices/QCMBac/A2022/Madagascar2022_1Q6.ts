@@ -55,7 +55,7 @@ export default class SujetZero2024Ex5Q5 extends ExerciceQcm {
     this.correction += '$\\begin{aligned}'
     this.correction += "h''(x) = 0 &\\iff 2 + \\ln (x) = 0 \\\\"
     this.correction += '&\\iff \\ln (x) = -2 \\\\'
-    this.correction += '&\\iff x = \\text{e}^{-2} \\approx 0,135 \\in ]0~;~2]'
+    this.correction += '&\\iff x = \\mathrm{e}^{-2} \\approx 0,135 \\in ]0~;~2]'
     this.correction += '\\end{aligned}$<br>'
     this.correction +=
       "La dérivée seconde s'annule donc une seule fois sur l'intervalle $]0~;~2]$ en changeant de signe.<br>"

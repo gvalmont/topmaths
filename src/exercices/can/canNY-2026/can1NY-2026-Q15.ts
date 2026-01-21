@@ -11,7 +11,7 @@ export const interactifType = 'mathLive'
 export const uuid = 'pz2gi'
 export const refs = {
   'fr-fr': [],
-  'fr-ch': ['11FA10-7b'],
+  'fr-ch': ['NR'],
 }
 /**
  * Modèle d'exercice très simple pour la course aux nombres
@@ -26,11 +26,10 @@ export default class nbreSolutions extends ExerciceSimple {
   }
 
   nouvelleVersion() {
-    
     const a = 2026
-    const choix = this.canOfficielle ? true : choice([true,false])
-    const b = this.canOfficielle ? a-1 : randint(2020, 2030)
-    this.question = ` Combien de solutions réelles possède l'équation  ${ choix ? `$-x^2+${texNombre(a)}=${texNombre(b)}$` : `$${texNombre(a)}-x^2=${texNombre(b)}$`} ?`
+    const choix = this.canOfficielle ? true : choice([true, false])
+    const b = this.canOfficielle ? a - 1 : randint(2020, 2030)
+    this.question = ` Combien de solutions réelles possède l'équation  ${choix ? `$-x^2+${texNombre(a)}=${texNombre(b)}$` : `$${texNombre(a)}-x^2=${texNombre(b)}$`} ?`
     if (a - b > 0) {
       this.correction = `L'équation est équivalente à $-x^2=${texNombre(b)}-${texNombre(a)}$, soit $x^2=${texNombre(a - b)}$.<br>
             $${a - b}$ étant strictement positif, cette équation a $${miseEnEvidence('2')}$ solutions.`

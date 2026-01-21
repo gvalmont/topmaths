@@ -1,14 +1,16 @@
+import Decimal from 'decimal.js'
+import { ajouteChampTexteMathLive } from '../../../lib/interactif/questionMathLive'
 import { choice } from '../../../lib/outils/arrayOutils'
 import { sp } from '../../../lib/outils/outilString'
 import { texNombre } from '../../../lib/outils/texNombre'
-import Exercice from '../../Exercice'
-import { listeQuestionsToContenu, randint } from '../../../modules/outils'
 import FractionEtendue from '../../../modules/FractionEtendue'
-import Decimal from 'decimal.js'
-import { ajouteChampTexteMathLive } from '../../../lib/interactif/questionMathLive'
+import { listeQuestionsToContenu, randint } from '../../../modules/outils'
+import Exercice from '../../Exercice'
 
-import { setReponse } from '../../../lib/interactif/gestionInteractif'
 import { tableauColonneLigne } from '../../../lib/2d/tableau'
+import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
+import { setReponse } from '../../../lib/interactif/gestionInteractif'
+import { miseEnEvidence } from '../../../lib/outils/embellissements'
 
 export const titre =
   'Compléter le tableau d’une loi de probabilité d’une variable aléatoire'
@@ -34,14 +36,6 @@ export default class ProbaLoiVA extends Exercice {
     super()
 
     this.sup = true
-    this.keyboard = [
-      'numbers',
-      'fullOperations',
-      'variables',
-      'trigo',
-      'advanced',
-    ]
-
     this.nbQuestions = 1
   }
 
@@ -83,24 +77,21 @@ export default class ProbaLoiVA extends Exercice {
         tableau2,
         tableau3,
         tableau,
-        a,
-        b,
-        c,
         p1,
         p2,
         p3,
-        texte,
-        texteCorr;
+        texte = '',
+        texteCorr = '';
       i < this.nbQuestions && cpt < 50;
-
     ) {
+      const a = randint(-3, 2)
+      const b = randint(3, 6)
+      const c = randint(7, 10)
+
       switch (
         choice([1, 2]) //
       ) {
         case 1: // val décimale
-          a = randint(-3, 2)
-          b = randint(3, 6)
-          c = randint(7, 10)
           p1 = new Decimal(randint(1, 30)).div(100)
           p2 = new Decimal(randint(31, 60)).div(100)
           p3 = new Decimal(p1).plus(p2).mul(-1).plus(1)
@@ -126,7 +117,11 @@ export default class ProbaLoiVA extends Exercice {
           texte += `${tableau}<br>`
           texte += `Quelle est la valeur de $a$ ?${sp(5)}`
           if (this.interactif) {
-            texte += ajouteChampTexteMathLive(this, i, ' lycee')
+            texte += ajouteChampTexteMathLive(
+              this,
+              i,
+              KeyboardType.clavierDeBaseAvecFraction,
+            )
           }
 
           texteCorr = ` La somme des probabilités est égale à $1$.<br>
@@ -140,10 +135,6 @@ export default class ProbaLoiVA extends Exercice {
           break
 
         case 2: // fraction
-          a = randint(-3, 2)
-          b = randint(3, 6)
-          c = randint(7, 10)
-
           fraction = choice(listeFractions)
           f1 = new FractionEtendue(fraction[0], fraction[1])
           f2 = new FractionEtendue(fraction[2], fraction[3])
@@ -155,7 +146,7 @@ export default class ProbaLoiVA extends Exercice {
           )
           p1 = new Decimal(randint(1, 30)).div(100)
           p2 = new Decimal(randint(31, 60)).div(100)
-          p3 = new Decimal(1 - p1 - p2)
+          p3 = new Decimal(1 - p1.toNumber() - p2.toNumber())
           tableau1 = tableauColonneLigne(
             ['x_i', `${a}`, `${b}`, `${sp(4)}${c}${sp(4)}`],
             ['P(X=x_i)'],
@@ -178,7 +169,11 @@ export default class ProbaLoiVA extends Exercice {
           texte += `${tableau}<br>`
           texte += `Quelle est la valeur de $a$ ?${sp(5)}`
           if (this.interactif) {
-            texte += ajouteChampTexteMathLive(this, i, ' lycee')
+            texte += ajouteChampTexteMathLive(
+              this,
+              i,
+              KeyboardType.clavierDeBaseAvecFraction,
+            )
           }
           texteCorr = ` La somme des probabilités est égale à $1$.<br>
           Ainsi, $a=1-${f1.texFraction}-${f2.texFraction}=\\dfrac{${fraction[1] * fraction[3]}}{${fraction[1] * fraction[3]}}-\\dfrac{${fraction[0] * fraction[3]}}{${fraction[1] * fraction[3]}}-\\dfrac{${fraction[2] * fraction[1]}}{${fraction[1] * fraction[3]}}=${f3.texFraction}${f3.texSimplificationAvecEtapes()}$.
@@ -191,6 +186,19 @@ export default class ProbaLoiVA extends Exercice {
       }
       if (this.questionJamaisPosee(i, a, b, c)) {
         this.listeQuestions[i] = texte
+        // Uniformisation : Mise en place de la réponse attendue en interactif en orange et gras
+        const textCorrSplit = texteCorr.split('=')
+        let aRemplacer = textCorrSplit[textCorrSplit.length - 1]
+        aRemplacer = aRemplacer.replace('$', '')
+        aRemplacer = aRemplacer.replace('.', '')
+
+        texteCorr = ''
+        for (let ee = 0; ee < textCorrSplit.length - 1; ee++) {
+          texteCorr += textCorrSplit[ee] + '='
+        }
+        texteCorr += `${miseEnEvidence(aRemplacer)}$` + '.'
+        // Fin de cette uniformisation
+
         this.listeCorrections[i] = texteCorr
         i++
       }

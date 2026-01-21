@@ -1,3 +1,4 @@
+import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 import {
   expressionDeveloppeeEtNonReduiteCompare,
   fonctionComparaison,
@@ -147,7 +148,6 @@ export default class ExerciceDevelopperEnJS extends Exercice {
         reponse3,
         cpt = 0;
       i < this.nbQuestions && cpt < 50;
-
     ) {
       const typesDeQuestions = listeTypeDeQuestions[i]
       const k = randint(2, 11) * (this.sup === 3 ? choice([-1, 1]) : 1)
@@ -251,7 +251,11 @@ export default class ExerciceDevelopperEnJS extends Exercice {
       if (!context.isAmc) {
         texte += this.interactif
           ? `<br>$${lettreDepuisChiffre(i + 1)} = $` +
-            ajouteChampTexteMathLive(this, i, 'largeur75 inline nospacebefore')
+            ajouteChampTexteMathLive(
+              this,
+              i,
+              KeyboardType.clavierFullOperations,
+            )
           : ''
       } else {
         this.autoCorrection[i] = {

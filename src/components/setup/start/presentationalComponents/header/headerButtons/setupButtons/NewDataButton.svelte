@@ -7,5 +7,5 @@
 <ButtonIconTooltip
   icon="bx-refresh text-3xl"
   tooltip="Nouveaux énoncés"
-  on:click="{newDataForAll}"
+  on:click={newDataForAll}
 />

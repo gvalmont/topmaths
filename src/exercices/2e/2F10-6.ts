@@ -103,7 +103,6 @@ export default class Variationsfonctionaffine extends Exercice {
               ],
               // tabLines ci-dessous contient les autres lignes du tableau.
               tabLines: [ligne1],
-              colorBackground: '',
               espcl: 3, // taille en cm entre deux antécédents
               deltacl: 0.8, // distance entre la bordure et les premiers et derniers antécédents
               lgt: 3, // taille de la première colonne en cm
@@ -156,7 +155,6 @@ export default class Variationsfonctionaffine extends Exercice {
               ],
               // tabLines ci-dessous contient les autres lignes du tableau.
               tabLines: [ligne1],
-              colorBackground: '',
               espcl: 3, // taille en cm entre deux antécédents
               deltacl: 0.8, // distance entre la bordure et les premiers et derniers antécédents
               lgt: 3, // taille de la première colonne en cm
@@ -208,7 +206,6 @@ export default class Variationsfonctionaffine extends Exercice {
               ],
               // tabLines ci-dessous contient les autres lignes du tableau.
               tabLines: [ligne1],
-              colorBackground: '',
               espcl: 3, // taille en cm entre deux antécédents
               deltacl: 0.8, // distance entre la bordure et les premiers et derniers antécédents
               lgt: 3, // taille de la première colonne en cm

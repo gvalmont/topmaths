@@ -1,16 +1,17 @@
+import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
+import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { lettreDepuisChiffre } from '../../lib/outils/outilString'
-import Exercice from '../Exercice'
+import FractionEtendue from '../../modules/FractionEtendue'
 import {
   contraindreValeur,
   listeQuestionsToContenuSansNumero,
   randint,
 } from '../../modules/outils'
-import FractionEtendue from '../../modules/FractionEtendue'
 import Trinome from '../../modules/Trinome'
-import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
-import { miseEnEvidence } from '../../lib/outils/embellissements'
+import Exercice from '../Exercice'
 
+import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 import { setReponse } from '../../lib/interactif/gestionInteractif'
 
 export const titre = "Calculer le discriminant d'un polynôme du second degré"
@@ -43,8 +44,8 @@ export default class CalculerDiscriminant extends Exercice {
     this.sup = contraindreValeur(1, 4, this.sup, 1)
 
     if (this.nbQuestions > 1)
-      this.consigne = 'Calculer le discriminant de chacune de ces expressions :'
-    else this.consigne = 'Calculer le discriminant de cett expression :'
+      this.consigne = 'Calculer le discriminant de chacune de ces expressions.'
+    else this.consigne = "Calculer le discriminant de l'expression suivante."
     let listeTypesDeQuestions
     if (this.sup < 4)
       listeTypesDeQuestions = combinaisonListes([this.sup], this.nbQuestions)
@@ -53,7 +54,6 @@ export default class CalculerDiscriminant extends Exercice {
     for (
       let i = 0, cpt = 0, texte, texteCorr;
       i < this.nbQuestions && cpt < 50;
-
     ) {
       switch (listeTypesDeQuestions[i]) {
         case 1:
@@ -79,7 +79,9 @@ export default class CalculerDiscriminant extends Exercice {
       if (this.interactif) {
         texte +=
           '<br><br>' +
-          ajouteChampTexteMathLive(this, i, '', { texteAvant: '$\\Delta = $' })
+          ajouteChampTexteMathLive(this, i, KeyboardType.clavierNumbers, {
+            texteAvant: '$\\Delta = $',
+          })
         setReponse(this, i, p.discriminant)
       }
       texteCorr = `$\\Delta_${lettreDepuisChiffre(i + 1)} = ${p.texCalculDiscriminantSansResultat}$`

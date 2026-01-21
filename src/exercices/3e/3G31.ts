@@ -7,6 +7,7 @@ import { latexParPoint } from '../../lib/2d/textes'
 import { homothetie, rotation, similitude } from '../../lib/2d/transformations'
 import { angleOriente, longueur } from '../../lib/2d/utilitairesGeometriques'
 import { milieu } from '../../lib/2d/utilitairesPoint'
+import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 import { setReponse } from '../../lib/interactif/gestionInteractif'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { choice, shuffle } from '../../lib/outils/arrayOutils'
@@ -446,7 +447,9 @@ export default class CalculDAngle extends Exercice {
       }
       texte += ' à $1 ^\\circ$ près.'
 
-      texte += ajouteChampTexteMathLive(this, i, '', { texteApres: ' °' })
+      texte += ajouteChampTexteMathLive(this, i, KeyboardType.clavierNumbers, {
+        texteApres: ' °',
+      })
 
       if (this.questionJamaisPosee(i, nom, choixRapportTrigo)) {
         this.listeQuestions[i] = texte

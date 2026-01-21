@@ -10,6 +10,7 @@ import { context } from '../../modules/context'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import Exercice from '../Exercice'
 
+import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 import { egalOuApprox } from '../../lib/outils/ecritures'
 import { arrondi } from '../../lib/outils/nombres'
 import { texNombre } from '../../lib/outils/texNombre'
@@ -207,9 +208,14 @@ export default class AugmenterEtReduireDunPourcentage extends Exercice {
                 ? `${numAlpha(0)} Le montant de la réduction est :`
                 : `${numAlpha(0)} Calculer le montant de la réduction.`
             texte = enonceInit + '<br>' + enonceAMC
-            texte += ajouteChampTexteMathLive(this, 2 * i, ' ', {
-              texteApres: ' €.',
-            })
+            texte += ajouteChampTexteMathLive(
+              this,
+              2 * i,
+              KeyboardType.clavierNumbers,
+              {
+                texteApres: ' €.',
+              },
+            )
             texte += '<br>'
             if (!context.isAmc && this.interactif) {
               handleAnswers(this, 2 * i, {
@@ -245,9 +251,14 @@ export default class AugmenterEtReduireDunPourcentage extends Exercice {
             texte += enonceAMC
             texte +=
               this.interactif && context.isHtml
-                ? ajouteChampTexteMathLive(this, 2 * i + 1, ' ', {
-                    texteApres: ' €.',
-                  })
+                ? ajouteChampTexteMathLive(
+                    this,
+                    2 * i + 1,
+                    KeyboardType.clavierNumbers,
+                    {
+                      texteApres: ' €.',
+                    },
+                  )
                 : ''
             if (!context.isAmc) {
               handleAnswers(this, 2 * i + 1, {
@@ -300,9 +311,14 @@ export default class AugmenterEtReduireDunPourcentage extends Exercice {
                 ? `${numAlpha(0)} Le montant de l'augmentation est :`
                 : `${numAlpha(0)} Calculer le montant de l'augmentation.`
             texte = enonceInit + '<br>' + enonceAMC
-            texte += ajouteChampTexteMathLive(this, 2 * i, ' ', {
-              texteApres: ' €.',
-            })
+            texte += ajouteChampTexteMathLive(
+              this,
+              2 * i,
+              KeyboardType.clavierNumbers,
+              {
+                texteApres: ' €.',
+              },
+            )
             texte += '<br>'
             if (!context.isAmc) {
               handleAnswers(this, 2 * i, {
@@ -338,9 +354,14 @@ export default class AugmenterEtReduireDunPourcentage extends Exercice {
             texte += enonceAMC
             texte +=
               this.interactif && context.isHtml
-                ? ajouteChampTexteMathLive(this, 2 * i + 1, ' ', {
-                    texteApres: ' €.',
-                  })
+                ? ajouteChampTexteMathLive(
+                    this,
+                    2 * i + 1,
+                    KeyboardType.clavierNumbers,
+                    {
+                      texteApres: ' €.',
+                    },
+                  )
                 : ''
             if (!context.isAmc) {
               handleAnswers(this, 2 * i + 1, {

@@ -39,14 +39,9 @@ export default mergeConfig(
         json: './logs/json-report.json',
         html: './logs/testconsole.html',
       },
-      poolOptions: {
-        threads: {
-          singleThread: true,
-        },
-        // forks: {
-        //   singleFork: true
-        // }
-      },
+      pool: 'threads',
+      maxWorkers: 1,
+      isolate: false,
     },
   }),
 )

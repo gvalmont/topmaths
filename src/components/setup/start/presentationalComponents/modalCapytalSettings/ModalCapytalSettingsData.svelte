@@ -14,7 +14,7 @@
 <div class="text-sm font-extralight">Tous les élèves auront des pages :</div>
 <div class="flex flex-row justify-start items-center px-4">
   <ButtonToggle
-    titles="{['différentes', 'identiques']}"
-    bind:value="{globalOptions.isDataRandom}"
+    titles={['différentes', 'identiques']}
+    bind:value={globalOptions.isDataRandom}
   />
 </div>

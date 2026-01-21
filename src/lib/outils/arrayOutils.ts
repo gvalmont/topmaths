@@ -89,12 +89,19 @@ export function creerCouples<T1, T2>(
   E1: T1[],
   E2: T2[],
   nombreDeCouplesMin = 10,
+  forcerElementsDifferents = false,
 ) {
   let result = []
   let temp = []
   for (const i of E1) {
     for (const j of E2) {
-      result.push([i, j])
+      if (!forcerElementsDifferents) {
+        result.push([i, j])
+      } else {
+        if (typeof i !== typeof j || String(i) !== String(j)) {
+          result.push([i, j])
+        }
+      }
     }
   }
 

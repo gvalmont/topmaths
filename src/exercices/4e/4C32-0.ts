@@ -1,11 +1,12 @@
-import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
-import { texNombre } from '../../lib/outils/texNombre'
-import Exercice from '../Exercice'
-import { listeQuestionsToContenu, randint } from '../../modules/outils'
-import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import Decimal from 'decimal.js'
+import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 import { setReponse } from '../../lib/interactif/gestionInteractif'
+import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
+import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
 import { sp } from '../../lib/outils/outilString'
+import { texNombre } from '../../lib/outils/texNombre'
+import { listeQuestionsToContenu, randint } from '../../modules/outils'
+import Exercice from '../Exercice'
 
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -58,7 +59,6 @@ export default class EcritureDecimaleApresPuissancesDeDix extends Exercice {
     for (
       let i = 0, n, nb, d, p, texte, texteCorr, cpt = 0;
       i < this.nbQuestions && cpt < 50;
-
     ) {
       texte = ''
       texteCorr = ''
@@ -106,7 +106,7 @@ export default class EcritureDecimaleApresPuissancesDeDix extends Exercice {
           break
       }
 
-      texte += ajouteChampTexteMathLive(this, i, ' ', {
+      texte += ajouteChampTexteMathLive(this, i, KeyboardType.clavierNumbers, {
         texteAvant: `${sp(2)}$=$${sp(2)}`,
       })
 

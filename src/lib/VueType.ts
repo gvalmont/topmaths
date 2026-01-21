@@ -9,6 +9,7 @@ const VueTypeArray = <const>[
   'eleve',
   'latex',
   'pdf',
+  'raw',
   'confeleve',
   'amc',
   'anki',

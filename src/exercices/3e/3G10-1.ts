@@ -19,6 +19,7 @@ import { pointEstSur } from '../../lib/2d/utilitairesGeometriques'
 import { milieu, pointSurDroite } from '../../lib/2d/utilitairesPoint'
 import { vecteur } from '../../lib/2d/Vecteur'
 import { vide2d } from '../../lib/2d/Vide2d'
+import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 import {
   handleAnswers,
   setReponse,
@@ -105,7 +106,6 @@ export default class TransformationsDuPlanEtCoordonnees extends Exercice {
         objetsCorrection,
         cpt = 0;
       ee < this.nbQuestions && cpt < 50;
-
     ) {
       const typesDeQuestionsDisponibles = gestionnaireFormulaireTexte({
         saisie: this.sup,
@@ -1373,7 +1373,7 @@ export default class TransformationsDuPlanEtCoordonnees extends Exercice {
               ` $${lettre1[i]}'$, l'image de $${lettre1[i]}$ par la rotation de centre $${lettre2[i]}$ et d'angle 120° dans le sens horaire a pour coordonnées ($${texNombre(punto[i][0], 2)};${texNombre(punto[i][1], 2)}$).<br>`
             break
         }
-        texte += ajouteChampTexteMathLive(this, i, '')
+        texte += ajouteChampTexteMathLive(this, i, KeyboardType.lyceeClassique)
         texte += '<br>'
         if (context.isAmc)
           setReponse(this, i, [

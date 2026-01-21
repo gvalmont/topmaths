@@ -1,15 +1,10 @@
 {
-  "cSpell.words": ["defaut", "reponse"],
-  "genieai.openai.model": "gpt-3.5-turbo",
   "javascript.preferences.importModuleSpecifier": "relative",
   "typescript.preferences.importModuleSpecifier": "relative",
   "typescript.preferences.importModuleSpecifierEnding": "minimal",
   "javascript.preferences.importModuleSpecifierEnding": "minimal",
   "typescript.updateImportsOnFileMove.enabled": "always",
   "javascript.updateImportsOnFileMove.enabled": "always",
-  "svelte.typescript.preferences.importModuleSpecifier": "relative",
-  "svelte.typescript.updateImportsOnFileMove.enabled": "always",
-  "vitest.disableWorkspaceWarning": true,
   "editor.codeActionsOnSave": {
     "source.organizeImports": "always",
     "source.fixAll.eslint": "always"
@@ -21,7 +16,6 @@
     "typescriptreact",
     "svelte"
   ],
-  "svelte.plugin.svelte3.disable": false,
   "editor.defaultFormatter": "esbenp.prettier-vscode",
   "editor.formatOnSave": true,
   "eslint.codeActionsOnSave.rules": null,
@@ -51,5 +45,8 @@
   },
   "[html]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "files.associations": {
+    "*.css": "tailwindcss"
   }
 }

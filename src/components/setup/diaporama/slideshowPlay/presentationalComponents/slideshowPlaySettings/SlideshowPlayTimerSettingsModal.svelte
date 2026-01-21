@@ -7,7 +7,7 @@
 </script>
 
 <BasicClassicModal
-  bind:isDisplayed="{isTimerSettingsModalDisplayed}"
+  bind:isDisplayed={isTimerSettingsModalDisplayed}
   icon="bx-stopwatch"
 >
   <h3
@@ -26,10 +26,10 @@
     </p>
     <div class="flex justify-center w-full md:w-3/4 xl:w-2/3">
       <RangeSlider
-        on:change="{(e) => {
+        on:change={(e) => {
           const cursorTimeValue = e.detail
           handleTimerChange(cursorTimeValue)
-        }}"
+        }}
       />
     </div>
   </div>

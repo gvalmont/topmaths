@@ -23,13 +23,13 @@
 </script>
 
 <form
-  class="{`${$$props.class || 'flex flex-col md:flex-row mx-4 pb-4 md:pb-8 md:space-x-4 space-y-3 justify-center md:justify-start items-center'}`}"
+  class={`${$$props.class || 'flex flex-col md:flex-row mx-4 pb-4 md:pb-8 md:space-x-4 space-y-3 justify-center md:justify-start items-center'}`}
   target="_blank"
 >
   <button
     id="btn_config"
     type="submit"
-    on:click|preventDefault="{dialogConfigToDisplayToggle}"
+    on:click|preventDefault={dialogConfigToDisplayToggle}
     class="px-2 py-1 rounded-md text-coopmaths-canvas dark:text-coopmathsdark-canvas bg-coopmaths-action hover:bg-coopmaths-action-lightest dark:bg-coopmathsdark-action dark:hover:bg-coopmathsdark-action-lightest"
   >
     Paramétrer
@@ -46,9 +46,10 @@
         <div class="absolute top-2 right-3">
           <button
             type="button"
-            on:click="{() => {
+            aria-label="Fermer la configuration"
+            on:click={() => {
               dialogConfigToDisplayToggle()
-            }}"
+            }}
           >
             <i
               class="text-coopmaths-action hover:text-coopmaths-action-lightest dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest text-xl bx bx-x"

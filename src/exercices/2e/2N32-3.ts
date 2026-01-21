@@ -1,7 +1,8 @@
-import Exercice from '../Exercice'
-import { listeQuestionsToContenu, randint } from '../../modules/outils'
-import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
+import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 import { setReponse } from '../../lib/interactif/gestionInteractif'
+import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
+import { listeQuestionsToContenu, randint } from '../../modules/outils'
+import Exercice from '../Exercice'
 
 export const titre = 'Écrire une racine carrée sous la forme $\\;a\\sqrt{b}$'
 export const interactifReady = true
@@ -70,9 +71,14 @@ export default class ExtraireUnCarreParfaitDUneRacineCarree extends Exercice {
       // Pb MathLive 01/11/23 : ligne 48, supprimer 3 dernières réponses
       setReponse(this, i, reponse, { formatInteractif: 'texte' })
       if (this.interactif) {
-        texte = ajouteChampTexteMathLive(this, i, '', {
-          texteAvant: enonce.replace('}$', '}=$'),
-        })
+        texte = ajouteChampTexteMathLive(
+          this,
+          i,
+          KeyboardType.clavierFullOperations,
+          {
+            texteAvant: enonce.replace('}$', '}=$'),
+          },
+        )
       } else texte = enonce
       if (this.listeQuestions.indexOf(texte) === -1) {
         // Si la question n'a jamais été posée, on en créé une autre

@@ -1,11 +1,11 @@
-import Exercice from '../Exercice'
-import { listeQuestionsToContenu, randint } from '../../modules/outils'
-import { miseEnEvidence } from '../../lib/outils/embellissements'
-import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
-import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
-import { ecritureAlgebrique, ecritureParentheseSiNegatif } from '../../lib/outils/ecritures'
+import { handleAnswers } from '../../lib/interactif/gestionInteractif'
+import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
+import { ecritureAlgebrique } from '../../lib/outils/ecritures'
+import { miseEnEvidence } from '../../lib/outils/embellissements'
 import FractionEtendue from '../../modules/FractionEtendue'
+import { listeQuestionsToContenu, randint } from '../../modules/outils'
+import Exercice from '../Exercice'
 
 export const titre = 'Prouver que 3 points de l’espace sont ou non alignés.'
 export const interactifReady = true
@@ -29,25 +29,18 @@ export default class ExerciceAlignementEspace extends Exercice {
     for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50; ) {
       // scénario : aligné ou non
       const casAligne = randint(0, 1) === 1
-     
+
       // point A
       const xA = randint(-5, 5)
       const yA = randint(-5, 5)
       const zA = randint(-5, 5)
 
       // choisir dx, dy, dz chacun non nuls (évite que xB-xA etc. soient nuls)
-      let dx: number
-      let dy: number
-      let dz: number
-   
-        dx = randint(-5, 5, [0])
-   
-     
-        dy = randint(-5, 5, [0])
-     
-     
-        dz = randint(-5, 5, [0])
-     
+      const dx = randint(-5, 5, [0])
+
+      const dy = randint(-5, 5, [0])
+
+      const dz = randint(-5, 5, [0])
 
       // construire B (k1 != 0) et C
       const k1 = randint(1, 4)
@@ -56,31 +49,30 @@ export default class ExerciceAlignementEspace extends Exercice {
       const zB = zA + k1 * dz
 
       let xC: number, yC: number, zC: number
-         const k2 = randint(-4, 4,[0, k1])
-        xC = xA + k2 * dx
-        yC = yA + k2 * dy
-        zC = zA + k2 * dz
-    
-    let aligne=0
-        // C initialement sur la droite (k2 non nul), puis perturbation pour casser l'alignement
+      const k2 = randint(-4, 4, [0, k1])
+      xC = xA + k2 * dx
+      yC = yA + k2 * dy
+      zC = zA + k2 * dz
+
+      // C initialement sur la droite (k2 non nul), puis perturbation pour casser l'alignement
       if (!casAligne) {
-      
         // perturber C sur une coordonnée pour garantir non-colinéarité
         const coord = randint(1, 3)
         if (coord === 1) xC += 1
         else if (coord === 2) yC += 1
         else zC += 1
       }
-const kX=new FractionEtendue(xB-xA,xC-xA,)
-    const kY=new FractionEtendue(yB-yA,yC-yA)
-    const kZ=new FractionEtendue(zB-zA,zC-zA)
+      const kX = new FractionEtendue(xB - xA, xC - xA)
+      const kY = new FractionEtendue(yB - yA, yC - yA)
+      const kZ = new FractionEtendue(zB - zA, zC - zA)
       const texte = `Dans l’espace, muni d'un repère orthonormé, on considère trois points  :
 <br>$A(${xA}~;~${yA}~;~${zA})$, $B(${xB}~;~${yB}~;~${zB})$ et $C(${xC}~;~${yC}~;~${zC})$.<br>
 <br>Les points $A$, $B$ et $C$ sont-ils alignés ? Justifier votre réponse.`
 
-      let texteCorr = 'La méthode consiste à savoir si les vecteurs $\\overrightarrow{AB}$ et $\\overrightarrow{AC}$ sont colinéaires.<br>'
-       texteCorr += `On cherche s'il existe un réel $k$ tel que  $\\overrightarrow{AB} = k\\overrightarrow{AC}$.<br>`
-       texteCorr += `Pour le vérifier, on calcule les coordonnées des deux vecteurs, en sachant que  $\\overrightarrow{AB}\\begin{pmatrix}x_B - x_A\\\\y_B - y_A\\\\z_B - z_A\\end{pmatrix}$. <br> On obtient $\\overrightarrow{AB}\\begin{pmatrix}${xB} ${ecritureAlgebrique(-xA)}\\\\${yB} ${ecritureAlgebrique(-yA)}\\\\${zB } ${ecritureAlgebrique(-zA)}\\end{pmatrix}$  `
+      let texteCorr =
+        'La méthode consiste à savoir si les vecteurs $\\overrightarrow{AB}$ et $\\overrightarrow{AC}$ sont colinéaires.<br>'
+      texteCorr += `On cherche s'il existe un réel $k$ tel que  $\\overrightarrow{AB} = k\\overrightarrow{AC}$.<br>`
+      texteCorr += `Pour le vérifier, on calcule les coordonnées des deux vecteurs, en sachant que  $\\overrightarrow{AB}\\begin{pmatrix}x_B - x_A\\\\y_B - y_A\\\\z_B - z_A\\end{pmatrix}$. <br> On obtient $\\overrightarrow{AB}\\begin{pmatrix}${xB} ${ecritureAlgebrique(-xA)}\\\\${yB} ${ecritureAlgebrique(-yA)}\\\\${zB} ${ecritureAlgebrique(-zA)}\\end{pmatrix}$  `
       texteCorr += ` d'où  $\\overrightarrow{AB}\\begin{pmatrix}${xB - xA}\\\\${yB - yA}\\\\${zB - zA}\\end{pmatrix}$ . <br> Il vient de la même manière  $\\overrightarrow{AC}\\begin{pmatrix}${xC - xA}\\\\${yC - yA}\\\\${zC - zA}\\end{pmatrix}$.<br>`
 
       // test robuste de colinéarité : on calcule k à partir d'une composante non nulle de AC
@@ -106,19 +98,18 @@ const kX=new FractionEtendue(xB-xA,xC-xA,)
       if (this.questionJamaisPosee(i, texte)) {
         this.listeQuestions[i] =
           texte +
-          ajouteChampTexteMathLive(this, i, `  ${KeyboardType.vFON}`, {
-            texteAvant: `<br>Réponse : `,
-            texteApres: ` (écrire "oui" ou "non")`,
+          ajouteChampTexteMathLive(this, i, KeyboardType.vFON, {
+            texteAvant: `<br>Réponse (O (Oui) ou N (Non)) : `,
           })
 
         this.listeCorrections[i] = texteCorr
 
-         handleAnswers(this, i, {
-        reponse: {
-          value: casAligne ? ['oui','Oui','OUI','O'] : ['non','Non','NON','N'],
-          options: { texteSansCasse: true },
-        },
-      })
+        handleAnswers(this, i, {
+          reponse: {
+            value: casAligne ? ['oui', 'O'] : ['non', 'N'],
+            options: { texteSansCasse: true },
+          },
+        })
 
         i++
       }
@@ -128,5 +119,3 @@ const kX=new FractionEtendue(xB-xA,xC-xA,)
     listeQuestionsToContenu(this)
   }
 }
-
-

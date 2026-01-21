@@ -16,7 +16,7 @@ export function plantation(): Probleme {
   const enonce = `${personnage.prenom} a planté $${texNombre(nb1, 0)}$ arbres le matin et $${texNombre(nb2, 0)}$ arbres l'après-midi.
 Combien d'arbres a-t-${personnage.pronom} plantés en tout ?`
   const correction = `${personnage.prenom} a planté $${texNombre(nb1, 0)}$ arbres le matin et $${texNombre(nb2, 0)}$ arbres l'après-midi.
-Donc, au total, ${personnage.pronom} a planté $${texNombre(nb1, 0)}+${texNombre(nb2, 0)}=${miseEnEvidence(texNombre(nb1 + nb2, 0))}$ arbres.`
+<br>Donc, au total, le nombre d'arbres qu'${personnage.pronom} a planté est : $${texNombre(nb1, 0)}+${texNombre(nb2, 0)}=${miseEnEvidence(texNombre(nb1 + nb2, 0))}$.`
   const probleme = new ProblemeAdditif('plantation', data)
   probleme.enonce = enonce
   probleme.correction = correction
@@ -27,7 +27,7 @@ Donc, au total, ${personnage.pronom} a planté $${texNombre(nb1, 0)}+${texNombre
     probleme.schema.topBraces = []
   }
   probleme.schema.topBraces[0].text = 'arbres plantés en tout'
-  probleme.styleChampTexteMathlive = KeyboardType.college6eme
+  probleme.styleChampTexteMathlive = KeyboardType.clavierDeBase
   probleme.reponse = `${texNombre(nb1 + nb2, 0)}`
   return probleme
 }

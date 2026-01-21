@@ -11,15 +11,20 @@
   import { type LatexFileInfos } from '../../../lib/LatexTypes'
   import PdFviewer from '../../shared/forms/PDFviewer.svelte'
 
-  export let latex: Latex
-  export let latexFileInfos: LatexFileInfos
-  export let autoStart: boolean
+  const { latex, latexFileInfos, autoStart, pdfViewerDisplay } = $props<{
+    latex: Latex
+    latexFileInfos: LatexFileInfos
+    autoStart: boolean
+    pdfViewerDisplay: boolean
+  }>()
 
-  let pdfBlob: Blob | null = null
-  let downloadFilename: string | null = null
-  let clockAbled = false
-  let errorMessage: string | null = null // 🟠 <-- nouvelle variable d’état
-  let errorLog = '' // 🔹 pour stocker le texte brut du serveur
+  // Variables locales réactives
+  let pdfBlob: Blob | null = $state(null)
+  let downloadFilename: string | null = $state(null)
+  let pdfUrl: string | null = $state(null)
+  let clockAbled = $state(false)
+  let errorMessage: string | null = $state(null) // 🟠 <-- nouvelle variable d’état
+  let errorLog = $state('') // 🔹 pour stocker le texte brut du serveur
 
   const original = 60 // secondes
   const timer = tweened(original)
@@ -60,6 +65,8 @@
     formData.append('name', 'document.tex')
     formData.append('originalname', 'document.tex')
     formData.append('file', new Blob([latexWithPreamble]), 'document.tex')
+
+    console.log(latexWithPreamble)
 
     for (let im = 0; im < imagesUrls.length; im++) {
       const imaUrl = imagesUrls[im].replace(
@@ -107,6 +114,23 @@
     }
   }
 
+  $effect(() => {
+    if (pdfBlob === null) {
+      pdfUrl = null
+      return
+    }
+
+    const url = URL.createObjectURL(pdfBlob)
+    pdfUrl = url
+
+    // cleanup garanti :
+    // - avant le prochain effet
+    // - à la destruction du composant
+    return () => {
+      URL.revokeObjectURL(url)
+    }
+  })
+
   // auto-lancement
   onMount(() => {
     if (autoStart) compileToPDF()
@@ -118,9 +142,9 @@
     <!-- 🟣 Bouton manuel pour lancer la compilation -->
     <div class="m-2 text-center">
       <button
-        on:click="{compileToPDF}"
+        onclick={compileToPDF}
         class="px-3 py-1 rounded bg-coopmaths-action text-white hover:bg-coopmaths-action-lightest disabled:opacity-50"
-        disabled="{clockAbled}"
+        disabled={clockAbled}
       >
         {#if clockAbled}
           Compilation en cours...
@@ -133,7 +157,7 @@
 
   {#if clockAbled}
     <div class="loader text-center m-2">
-      <progress value="{$timer / original}"></progress>
+      <progress value={$timer / original}></progress>
       {$timer.toFixed(0)}s
     </div>
   {/if}
@@ -142,18 +166,19 @@
     {#if downloadFilename}
       <div class="m-2">
         <a
-          href="{URL.createObjectURL(pdfBlob)}"
-          download="{downloadFilename}"
+          href={pdfUrl}
+          download={downloadFilename}
           class="px-3 py-1 rounded bg-coopmaths-action text-white hover:bg-coopmaths-action-lightest"
         >
           Télécharger {downloadFilename}
         </a>
       </div>
     {/if}
-
-    <div class="flex-1 overflow-auto m-2">
-      <PdFviewer blob="{pdfBlob}" />
-    </div>
+    {#if pdfViewerDisplay}
+      <div class="flex-1 overflow-auto m-2">
+        <PdFviewer blob={pdfBlob} />
+      </div>
+    {/if}
   {/if}
 
   {#if !pdfBlob && !clockAbled && !errorMessage}

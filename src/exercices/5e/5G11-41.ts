@@ -5,6 +5,7 @@ import { repere } from '../../lib/2d/reperes'
 import { segment } from '../../lib/2d/segmentsVecteurs'
 import { labelPoint } from '../../lib/2d/textes'
 import { tracePoint } from '../../lib/2d/TracePoint'
+import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 import {
   handleAnswers,
   setReponse,
@@ -69,7 +70,6 @@ export default class DemiTourEtCoordonnees extends Exercice {
         objetsCorrection,
         cpt = 0;
       ee < this.nbQuestions && cpt < 50;
-
     ) {
       let enonceAmc = ''
       texte = ''
@@ -225,7 +225,11 @@ export default class DemiTourEtCoordonnees extends Exercice {
         texteCorr +=
           (i === 0 ? numAlpha(i) : '<br>' + numAlpha(i)) +
           ` $${lettre1[i]}'$, l'image de $${lettre1[i]}$ par la symétrie de centre $O$ a pour coordonnées $${miseEnEvidence(`(${texNombre(punto[i][0])};${texNombre(punto[i][1])})`)}$.<br>`
-        texte += ajouteChampTexteMathLive(this, i, '')
+        texte += ajouteChampTexteMathLive(
+          this,
+          i,
+          KeyboardType.clavierDeBaseAvecFractionPuissanceCrochets,
+        )
         texte += '<br>'
         if (context.isAmc)
           setReponse(this, i, [

@@ -1,18 +1,20 @@
+import { handleAnswers } from '../../lib/interactif/gestionInteractif'
+import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { combinaisonListes } from '../../lib/outils/arrayOutils'
 import { ecritureAlgebrique } from '../../lib/outils/ecritures'
-import Exercice from '../Exercice'
 import { context } from '../../modules/context'
+import FractionEtendue from '../../modules/FractionEtendue'
 import {
   gestionnaireFormulaireTexte,
   listeQuestionsToContenu,
   randint,
 } from '../../modules/outils'
-import FractionEtendue from '../../modules/FractionEtendue'
-import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
-import { handleAnswers } from '../../lib/interactif/gestionInteractif'
+import Exercice from '../Exercice'
 
-import { miseEnEvidence } from '../../lib/outils/embellissements'
+import { orangeMathalea } from '../../lib/colors'
+import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 import { texFractionFromString } from '../../lib/outils/deprecatedFractions'
+import { miseEnEvidence } from '../../lib/outils/embellissements'
 
 export const titre = 'Déterminer un antécédent par une fonction affine'
 export const interactifReady = true
@@ -73,7 +75,6 @@ export default class AntecedentParCalcul extends Exercice {
     for (
       let i = 0, texte, texteCorr, cpt = 0;
       i < this.nbQuestions && cpt < 50;
-
     ) {
       texte = ''
       let a = 0
@@ -156,12 +157,12 @@ export default class AntecedentParCalcul extends Exercice {
       }
 
       if ((!ante.estIrreductible || ante.inferieurstrict(0)) && ante.num !== 0)
-        texteCorr += `x &=${ante.texFraction}${ante.texSimplificationAvecEtapes('none', '#f15929')} \\\\` // c'est la couleur de miseEnEvidence
+        texteCorr += `x &=${ante.texFraction}${ante.texSimplificationAvecEtapes('none', orangeMathalea)} \\\\` // c'est la couleur de miseEnEvidence
       else texteCorr += `x &=${miseEnEvidence(ante.texFSD)}`
       texteCorr += '\\end{aligned}$'
       if (this.questionJamaisPosee(i, a, b, listeTypeDeQuestions[i])) {
         if (this.interactif) {
-          texte += `<br>${ajouteChampTexteMathLive(this, i, '')}`
+          texte += `<br>${ajouteChampTexteMathLive(this, i, KeyboardType.clavierDeBaseAvecFraction)}`
           handleAnswers(this, i, {
             reponse: {
               value: ante.simplifie().texFSD,

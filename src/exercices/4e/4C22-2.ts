@@ -1,19 +1,20 @@
+import { handleAnswers } from '../../lib/interactif/gestionInteractif'
+import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
 import {
-  texFractionFromString,
   obtenirListeFractionsIrreductibles,
+  texFractionFromString,
   texFractionSigne,
 } from '../../lib/outils/deprecatedFractions'
 import { ecritureParentheseSiNegatif } from '../../lib/outils/ecritures'
 import { pgcd } from '../../lib/outils/primalite'
-import Exercice from '../Exercice'
-import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import { fraction } from '../../modules/fractions'
-import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
-import { handleAnswers } from '../../lib/interactif/gestionInteractif'
+import { listeQuestionsToContenu, randint } from '../../modules/outils'
+import Exercice from '../Exercice'
 
-import { context } from '../../modules/context'
+import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
+import { context } from '../../modules/context'
 
 export const titre = 'Diviser des fractions'
 export const amcReady = true
@@ -70,7 +71,6 @@ export default class ExerciceDiviserFractions extends Exercice {
         typesDeQuestions,
         cpt = 0;
       i < this.nbQuestions && cpt < 50;
-
     ) {
       let a: number = 0
       let b: number = 0
@@ -174,7 +174,12 @@ export default class ExerciceDiviserFractions extends Exercice {
 
       reponse = fraction((signe === '-' ? -1 : 1) * a * d, b * c).simplifie()
       if (this.questionJamaisPosee(i, a, b, c, d, typesDeQuestions)) {
-        texte += ajouteChampTexteMathLive(this, i, '  ', { texteAvant: '$=$' })
+        texte += ajouteChampTexteMathLive(
+          this,
+          i,
+          KeyboardType.clavierDeBaseAvecFraction,
+          { texteAvant: '$=$' },
+        )
         handleAnswers(this, i, {
           reponse: {
             value: reponse.toLatex(),

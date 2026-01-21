@@ -1160,6 +1160,7 @@ export class Latex2d extends ObjetMathalea2D {
   bordures: [number, number, number, number]
   col: string
   backgroundCol: string
+  gras: boolean
 
   /**
    * Les paramètres obligatoires (ne pas mettre de $ $ dans le latex !
@@ -1184,12 +1185,14 @@ export class Latex2d extends ObjetMathalea2D {
       letterSize = 'normalsize',
       orientation = 0,
       opacity = 1,
+      gras = false,
     }: {
       color: string
       backgroundColor: string
       letterSize: LetterSizeType
       orientation: number
       opacity: number
+      gras: boolean
     },
   ) {
     super()
@@ -1203,6 +1206,7 @@ export class Latex2d extends ObjetMathalea2D {
     this.y = y
     const marge = 0.25
     this.bordures = [x - marge, y - marge, x + marge, y + marge]
+    this.gras = gras
   }
 
   svg(): ObjetDivLatex {
@@ -1217,6 +1221,7 @@ export class Latex2d extends ObjetMathalea2D {
       color: this.col.replace('#', ''),
       backgroundColor: this.backgroundCol.replace('#', ''),
       bordures: this.bordures,
+      gras: this.gras,
     }
   }
 
@@ -1236,8 +1241,8 @@ export class Latex2d extends ObjetMathalea2D {
           : `{${this.col}}`
     }
     return this.backgroundCol !== '' && this.backgroundCol !== 'none'
-      ? `\\draw[opacity=${this.opacity}] (${this.x},${this.y}) node[anchor = center, rotate=${this.orientation}] {\\colorbox{${this.backgroundCol}} {\\${this.letterSize}  \\color${this.col}{$${this.latex}$}}};`
-      : `\\draw[opacity=${this.opacity}] (${this.x},${this.y}) node[anchor = center, rotate=${this.orientation}] {\\${this.letterSize} \\color${this.col}{$${this.latex}$}};`
+      ? `\\draw[opacity=${this.opacity}] (${this.x},${this.y}) node[anchor = center, rotate=${this.orientation}] {\\colorbox{${this.backgroundCol}} {\\${this.letterSize}  \\color${this.col}${this.gras ? '$\\boldsymbol{' : ''}${this.latex}${this.gras ? '}$' : ''}}};`
+      : `\\draw[opacity=${this.opacity}] (${this.x},${this.y}) node[anchor = center, rotate=${this.orientation}] {\\${this.letterSize} \\color${this.col}${this.gras ? '$\\boldsymbol{' : ''}${this.latex}${this.gras ? '}$' : ''}};`
   }
 }
 
@@ -1265,12 +1270,14 @@ export function latex2d(
     letterSize,
     orientation,
     opacity,
+    gras,
   }: {
     color?: string
     backgroundColor?: string
     letterSize?: LetterSizeType
     orientation?: number
     opacity?: number
+    gras?: boolean
   },
 ) {
   color = color ?? 'black'
@@ -1282,6 +1289,7 @@ export function latex2d(
       : backgroundColor
   letterSize = letterSize ?? 'normalsize'
   orientation = orientation ?? 0
+  gras = gras ?? false
 
   opacity = opacity ?? 1
   return new Latex2d(latex, x, y, {
@@ -1290,6 +1298,7 @@ export function latex2d(
     letterSize,
     orientation,
     opacity,
+    gras,
   })
 }
 

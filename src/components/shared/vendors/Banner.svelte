@@ -25,22 +25,22 @@
       class="h-7 lg:h-9"
     />
     <div class="flex flex-row m-0 p-0 items-center justify-center space-x-3">
-      <img class="h-6 lg:h-8" src="{productImagePath}" alt="Manual" />
+      <img class="h-6 lg:h-8" src={productImagePath} alt="Manual" />
       {#if brandImagePath}
-        <img class="h-6 lg:h-8" src="{brandImagePath}" alt="Brand" />
+        <img class="h-6 lg:h-8" src={brandImagePath} alt="Brand" />
       {/if}
     </div>
     <ButtonIconTooltip
       {icon}
       tooltip="Accéder aux réglages"
       class="hidden lg:block text-3xl"
-      on:click="{goToVueProf}"
+      on:click={goToVueProf}
     />
   </div>
   <ButtonIconTooltip
     {icon}
     tooltip="Accéder aux réglages"
     class="block lg:hidden text-3xl"
-    on:click="{goToVueProf}"
+    on:click={goToVueProf}
   />
 </div>

@@ -15,7 +15,7 @@ import ExerciceSimple from '../../ExerciceSimple'
 export const titre = 'Rechercher une valeur avec le théorème de Pythagore'
 export const interactifReady = true
 export const interactifType = 'mathLive'
-
+export const dateDeModifImportante = '02/01/2026'
 /**
  * Modèle d'exercice très simple pour la course aux nombres
  * @author Gilles Mora
@@ -35,12 +35,13 @@ export default class RechercheValeurPythagore extends ExerciceSimple {
     this.typeExercice = 'simple'
     this.formatChampTexte = KeyboardType.clavierFullOperations
     this.nbQuestions = 1
+    this.spacingCorr = 1.5
   }
 
   nouvelleVersion() {
     let a, A, B, C, objets, nom, pol
 
-    switch (choice(['b'])) {
+    switch (choice(['a', 'b'])) {
       case 'a':
         nom = creerNomDePolygone(3, ['QD'])
         a = randint(1, 5) * 2 //
@@ -71,8 +72,9 @@ export default class RechercheValeurPythagore extends ExerciceSimple {
           this.question += 'Déterminer $x$ pour que le triangle soit rectangle.'
         }
 
-        this.correction = ` Le plus grand côté est $${a}$ (autrement il y aurait deux hypoténuses). On cherche $x$ tel que $x^2+x^2=${a}^2$, soit $2x^2=${a * a}$.<br>
-      En divisant par $2$ chacun des membres, on obtient : $x^2=${(a * a) / 2}$.<br>
+        this.correction = ` Le plus grand côté est $${a}$ (autrement il y aurait deux hypoténuses).<br>
+       On cherche $x$ pour que le triangle soit rectangle, donc $x$ doit vérifier l'égalité du théorème de Pythagore, soit $x^2+x^2=${a * a}$.<br>
+        On en déduit $2x^2=${a * a}$ et en divisant par $2$ chacun des membres, on obtient : $x^2=${(a * a) / 2}$.<br>
       Comme la valeur de $x$ cherchée est positive, on a  $x=${miseEnEvidence(`\\sqrt{${texNombre(a ** 2 / 2)}}`)}$.`
 
         this.reponse = [`\\sqrt{${a ** 2 / 2}}`, `${Math.sqrt(a ** 2 / 2)}`]
@@ -106,9 +108,9 @@ export default class RechercheValeurPythagore extends ExerciceSimple {
         } else {
           this.question += 'Déterminer $x$ pour que le triangle soit rectangle.'
         }
-        this.correction = ` Le plus grand côté est $\\sqrt{${a}}$ (autrement il y aurait deux hypoténuses).
-        On cherche $x$ tel que $x^2+x^2=\\sqrt{${a}}^2$, soit $2x^2=${a}$.<br>
-      En divisant par $2$ chacun des membres, on obtient : $x^2=${a / 2}$.<br>
+        this.correction = ` Le plus grand côté est $\\sqrt{${a}}$ (autrement il y aurait deux hypoténuses).<br>
+        On cherche $x$ pour que le triangle soit rectangle, donc $x$ doit vérifier l'égalité du théorème de Pythagore, soit $x^2+x^2=\\sqrt{${a}}^2$.<br>
+        On en déduit $2x^2=${a}$ et en divisant par $2$ chacun des membres, on obtient : $x^2=${a / 2}$.<br>
       Comme la valeur de $x$ cherchée est positive, on a  $x=\\sqrt{${texNombre(a / 2)}}=${miseEnEvidence(`${Math.sqrt(a / 2)}`)}$.`
         this.reponse = `\\sqrt{${a / 2}}`
         break

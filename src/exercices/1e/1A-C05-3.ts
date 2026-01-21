@@ -33,7 +33,7 @@ export default class auto1AC5b extends ExerciceQcmA {
        `$${texNombre(resultat)}$`,
        `$${texNombre(resultat * 10)}$`,
        `$${texNombre(resultat / 10)}$`,
-       `$${texNombre(arrondiA * arrondiB * 2)}$`,
+       `$${texNombre(resultat / 100)}$`,
      ]
   }
   

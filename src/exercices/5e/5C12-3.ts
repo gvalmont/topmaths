@@ -1,13 +1,13 @@
+import { ComputeEngine } from '@cortex-js/compute-engine'
+import type { MathfieldElement } from 'mathlive'
+import { remplisLesBlancs } from '../../lib/interactif/questionMathLive'
 import { combinaisonListes } from '../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { lettreDepuisChiffre, sp } from '../../lib/outils/outilString'
 import { texNombre } from '../../lib/outils/texNombre'
-import Exercice from '../Exercice'
-import { listeQuestionsToContenu, randint } from '../../modules/outils'
-import { remplisLesBlancs } from '../../lib/interactif/questionMathLive'
 import { context } from '../../modules/context'
-import { ComputeEngine } from '@cortex-js/compute-engine'
-import type { MathfieldElement } from 'mathlive'
+import { listeQuestionsToContenu, randint } from '../../modules/outils'
+import Exercice from '../Exercice'
 
 export const titre = 'Utiliser la distributivité pour du calcul mental'
 export const interactifReady = true
@@ -272,8 +272,8 @@ class DistributiviteNumerique extends Exercice {
     ) as MathfieldElement
     this.answers[`Ex${this.numeroExercice}Q${i}`] = mf.getValue()
     // C'est dommage d'utiliser ce divFeedback pour y mettre juste un smiley !
-    const divFeedback = document.querySelector(
-      `div#feedbackEx${this.numeroExercice}Q${i}`,
+    const spanResultatCheck = document.querySelector(
+      `span#resultatCheckEx${this.numeroExercice}Q${i}`,
     ) as HTMLDivElement
     const test1 = ce
       .parse(mf.getPromptValue('champ1'))
@@ -299,10 +299,10 @@ class DistributiviteNumerique extends Exercice {
       if (test1 && test2 && test3 && test4) {
         // question à 5 champs test5 est pour la réponse finale
         result.push('OK')
-        if (divFeedback) divFeedback.innerHTML = '😎'
+        if (spanResultatCheck) spanResultatCheck.innerHTML = '😎'
       } else {
         result.push('KO')
-        if (divFeedback) divFeedback.innerHTML = '☹️'
+        if (spanResultatCheck) spanResultatCheck.innerHTML = '☹️'
       }
       if (test5) {
         result.push('OK')
@@ -313,10 +313,10 @@ class DistributiviteNumerique extends Exercice {
       // question à 4 champs test4 est pour la réponse final
       if (test1 && test2 && test3) {
         result.push('OK')
-        if (divFeedback) divFeedback.innerHTML = '😎'
+        if (spanResultatCheck) spanResultatCheck.innerHTML = '😎'
       } else {
         result.push('KO')
-        if (divFeedback) divFeedback.innerHTML = '☹️'
+        if (spanResultatCheck) spanResultatCheck.innerHTML = '☹️'
       }
       if (test4) {
         result.push('OK')

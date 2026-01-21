@@ -30,8 +30,8 @@ export default class PavagesMathalea2d extends Exercice {
 
     this.besoinFormulaireNumerique = [
       'Type de pavage',
-      7,
-      "1 : Triangles équilatéraux\n2 : Carrés\n3 : Hexagones\n4 : Pavage 3².4.3.4\n5 : Pavage 8².4\n6 : Pavage hexagonal d'écolier\n7 : Pavage 6.3.6.3\n8 : Mélange",
+      8,
+      "1 : Triangles équilatéraux\n2 : Carrés\n3 : Hexagones\n4 : Pavage 3².4.3.4\n5 : Pavage 8².4\n6 : Pavage hexagonal d'écolier\n7 : Pavage 6.3.6.3",
     ]
     this.besoinFormulaire2Texte = [
       'Nombre de répétitions du motif (2 entiers séparés par un tiret)',
@@ -67,10 +67,14 @@ export default class PavagesMathalea2d extends Exercice {
         nbQuestions: 2,
         shuffle: false,
       }).map(Number)
+      if (isNaN(Nx) || isNaN(Ny)) {
+        Nx = 1
+        Ny = 1
+      }
     }
 
     const monpavage: Pavage = new Pavage() // On crée l'objet Pavage qui va s'appeler monpavage
-    const typeDePavage = this.sup === 8 ? randint(1, 7) : this.sup
+    const typeDePavage = this.sup > 7 ? randint(1, 7) : this.sup
     monpavage.construit(typeDePavage, Nx, Ny, 3) // On initialise toutes les propriétés de l'objet.
     if (this.sup3) {
       // Doit-on afficher les Numéros ?

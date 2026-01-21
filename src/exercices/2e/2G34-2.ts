@@ -2,17 +2,17 @@
  * ⚠️ Cet exercice est utilisé dans le test : tests/e2e/tests/interactivity/liste-deroulante.test.ts ⚠️
  */
 
-import Exercice from '../Exercice'
-import { listeQuestionsToContenu, randint } from '../../modules/outils'
+import { handleAnswers } from '../../lib/interactif/gestionInteractif'
+import { choixDeroulant } from '../../lib/interactif/questionListeDeroulante'
+import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
 import {
   ecritureAlgebrique,
   ecritureAlgebriqueSauf1,
   rienSi1,
 } from '../../lib/outils/ecritures'
 import { texNombre } from '../../lib/outils/texNombre'
-import { handleAnswers } from '../../lib/interactif/gestionInteractif'
-import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
-import { choixDeroulant } from '../../lib/interactif/questionListeDeroulante'
+import { listeQuestionsToContenu, randint } from '../../modules/outils'
+import Exercice from '../Exercice'
 
 import { texteEnCouleurEtGras } from '../../lib/outils/embellissements'
 export const titre =
@@ -22,7 +22,7 @@ export const interactifType = 'listeDeroulante'
 export const dateDePublication = '08/04/2024'
 export const uuid = '2eee3'
 export const refs = {
-  'fr-ch': ['11FA6-3', '1mF2-8'],
+  'fr-ch': ['11FA12-3', '1mF2-8'],
   'fr-fr': ['2G34-2'],
 }
 // export const dateDeModifImportante = '24/10/2021'

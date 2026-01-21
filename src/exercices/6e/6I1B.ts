@@ -3,6 +3,7 @@ import { grille } from '../../lib/2d/Grille'
 import { point } from '../../lib/2d/PointAbstrait'
 import { polygone } from '../../lib/2d/polygones'
 import { texteParPosition } from '../../lib/2d/textes'
+import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 import { texteSansCasseCompare } from '../../lib/interactif/comparisonFunctions'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
@@ -336,7 +337,7 @@ export default class ColorierDeplacement extends Exercice {
 
     if (this.interactif && context.isHtml) {
       texte += `<br>
-      ${numAlphaNum(0)} Quelle est la première case coloriée par le lutin ? ${ajouteChampTexteMathLive(this, 0, 'alphanumeric', { placeholder: 'A1' })}`
+      ${numAlphaNum(0)} Quelle est la première case coloriée par le lutin ? ${ajouteChampTexteMathLive(this, 0, KeyboardType.alphanumeric, { placeholder: 'A1' })}`
       handleAnswers(this, 0, {
         reponse: {
           value: positionApresPremierDeplacement,
@@ -344,7 +345,7 @@ export default class ColorierDeplacement extends Exercice {
         },
       })
       texte += `<br>
-      ${numAlphaNum(1)} Quelle est la dernière case coloriée par le lutin ? ${ajouteChampTexteMathLive(this, 1, 'alphanumeric', { placeholder: 'A1' })}`
+      ${numAlphaNum(1)} Quelle est la dernière case coloriée par le lutin ? ${ajouteChampTexteMathLive(this, 1, KeyboardType.alphanumeric, { placeholder: 'A1' })}`
       handleAnswers(this, 1, {
         reponse: {
           value: positionApresDernierDeplacement,

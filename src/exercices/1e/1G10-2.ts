@@ -5,6 +5,7 @@ import { repere } from '../../lib/2d/reperes'
 import { latex2d } from '../../lib/2d/textes'
 import { tracePoint } from '../../lib/2d/TracePoint'
 import { createList } from '../../lib/format/lists'
+import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { combinaisonListes } from '../../lib/outils/arrayOutils'
@@ -95,7 +96,6 @@ export default class AngleProduitScalaire extends Exercice {
         objets,
         cpt = 0;
       i < this.nbQuestions && cpt < 50;
-
     ) {
       objets = []
       xA = randint(-2, 2)
@@ -276,7 +276,7 @@ export default class AngleProduitScalaire extends Exercice {
       if (this.interactif) {
         texte +=
           '<br>' +
-          ajouteChampTexteMathLive(this, i, ' ', {
+          ajouteChampTexteMathLive(this, i, KeyboardType.clavierNumbers, {
             texteAvant: '$\\widehat{BAC}\\approx$',
             texteApres: '$^{\\circ}$',
           })

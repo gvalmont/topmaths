@@ -1,10 +1,10 @@
-import Exercice from '../Exercice'
-import { listeQuestionsToContenu, randint } from '../../modules/outils'
-import { miseEnEvidence } from '../../lib/outils/embellissements'
-import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
-import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
+import { handleAnswers } from '../../lib/interactif/gestionInteractif'
+import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
+import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { pgcd } from '../../lib/outils/primalite'
+import { listeQuestionsToContenu, randint } from '../../modules/outils'
+import Exercice from '../Exercice'
 
 export const titre = "Calculer un PGCD avec l'algorithme d'Euclide. "
 export const interactifReady = true
@@ -75,7 +75,7 @@ export default class ExerciceEuclide extends Exercice {
       if (this.questionJamaisPosee(i, texte)) {
         this.listeQuestions[i] =
           texte +
-          ajouteChampTexteMathLive(this, i, `  ${KeyboardType.lycee}`, {
+          ajouteChampTexteMathLive(this, i, KeyboardType.clavierNumbers, {
             texteAvant: `<br>$PGCD(${a}~;~${b})=~~$`,
           })
 

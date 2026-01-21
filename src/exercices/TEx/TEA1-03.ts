@@ -1,4 +1,5 @@
 import { tableauColonneLigne } from '../../lib/2d/tableau'
+import { bleuMathalea } from '../../lib/colors'
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
@@ -116,14 +117,14 @@ $${a}x \\equiv ${b} \\,[${k}]$.<br> `
       texteCorr += `On procède à une disjonction des cas en dressant une table de congruence modulo $${k}$ :<br>`
       texteCorr += table
       texteCorr += `<br>On en déduit que $x \\equiv ${r} \\,[${k}]$.`
-       texteCorr += `<br>On vérifie réciproquement que si $x \\equiv ${r} \\,[${k}]$ alors $${a}x \\equiv ${b} \\,[${k}]$ $.`
-      texteCorr += `<br>L'ensemble solutions est donc : $${miseEnEvidence(`S=\\{  ${r} + ${k}n , n \\in \\mathbb{Z} \\}`)}$. `
+      texteCorr += `<br>On vérifie réciproquement que si $x \\equiv ${r} \\,[${k}]$ alors $${a}x \\equiv ${miseEnEvidence(b)} \\,[${k}]$ $.`
+      texteCorr += `<br>L'ensemble des solutions est donc : $${miseEnEvidence(`S=\\{  ${r} + ${k}n , n \\in \\mathbb{Z} \\}`, bleuMathalea)}$. `
 
       if (this.questionJamaisPosee(i, texte)) {
         // Question affichée + champ interactif
         this.listeQuestions[i] =
           texte +
-          ajouteChampTexteMathLive(this, i, `  ${KeyboardType.lycee}`, {
+          ajouteChampTexteMathLive(this, i, KeyboardType.clavierNumbers, {
             texteAvant: `<br>$x \\equiv ~~$`,
             texteApres: `$~[${k}]$.`,
           })
@@ -142,4 +143,3 @@ $${a}x \\equiv ${b} \\,[${k}]$.<br> `
     listeQuestionsToContenu(this)
   }
 }
-

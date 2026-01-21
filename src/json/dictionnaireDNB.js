@@ -6918,7 +6918,7 @@ export const dictionnaireDNB = {
     mois: 'Janvier',
     numeroInitial: '1',
     typeExercice: 'dnb',
-    tags: [''],
+    tags: ['Pourcentages', 'Statistiques'],
   },
   dnb_2026_01_sujet0va_2: {
     annee: '2026',
@@ -6926,7 +6926,7 @@ export const dictionnaireDNB = {
     mois: 'Janvier',
     numeroInitial: '2',
     typeExercice: 'dnb',
-    tags: [''],
+    tags: ['Programme de calculs', 'Calcul littéral'],
   },
   dnb_2026_01_sujet0va_3: {
     annee: '2026',
@@ -6934,7 +6934,7 @@ export const dictionnaireDNB = {
     mois: 'Janvier',
     numeroInitial: '3',
     typeExercice: 'dnb',
-    tags: [''],
+    tags: ['Fonctions', 'Lecture graphique'],
   },
   dnb_2026_01_sujet0va_4: {
     annee: '2026',
@@ -6942,7 +6942,7 @@ export const dictionnaireDNB = {
     mois: 'Janvier',
     numeroInitial: '4',
     typeExercice: 'dnb',
-    tags: [''],
+    tags: ['Géométrie plane', 'Aires et périmètres', 'Pythagore', 'Pourcentages'],
   },
   dnb_2026_01_sujet0vb_1: {
     annee: '2026',
@@ -6950,7 +6950,7 @@ export const dictionnaireDNB = {
     mois: 'Janvier',
     numeroInitial: '1',
     typeExercice: 'dnb',
-    tags: [''],
+    tags: ['Géométrie plane'],
   },
   dnb_2026_01_sujet0vb_2: {
     annee: '2026',
@@ -6958,7 +6958,7 @@ export const dictionnaireDNB = {
     mois: 'Janvier',
     numeroInitial: '2',
     typeExercice: 'dnb',
-    tags: [''],
+    tags: ['Probabilités', 'Arithmétique'],
   },
   dnb_2026_01_sujet0vb_3: {
     annee: '2026',
@@ -6966,7 +6966,7 @@ export const dictionnaireDNB = {
     mois: 'Janvier',
     numeroInitial: '3',
     typeExercice: 'dnb',
-    tags: [''],
+    tags: ['Proportionnalité', 'Fonctions', 'Lecture graphique', 'Volumes', 'Équations'],
   },
   dnb_2026_01_sujet0vb_4: {
     annee: '2026',
@@ -6974,6 +6974,6 @@ export const dictionnaireDNB = {
     mois: 'Janvier',
     numeroInitial: '4',
     typeExercice: 'dnb',
-    tags: [''],
+    tags: ['Arithmétique'],
   },
 }

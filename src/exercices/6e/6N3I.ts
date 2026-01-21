@@ -1,12 +1,12 @@
-import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
-import Exercice from '../Exercice'
-import FractionEtendue from '../../modules/FractionEtendue'
-import { remplisLesBlancs } from '../../lib/interactif/questionMathLive'
-import { handleAnswers } from '../../lib/interactif/gestionInteractif'
-import { listeQuestionsToContenu } from '../../modules/outils'
-import { context } from '../../modules/context'
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
+import { handleAnswers } from '../../lib/interactif/gestionInteractif'
+import { remplisLesBlancs } from '../../lib/interactif/questionMathLive'
+import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
+import { context } from '../../modules/context'
+import FractionEtendue from '../../modules/FractionEtendue'
+import { listeQuestionsToContenu } from '../../modules/outils'
+import Exercice from '../Exercice'
 
 export const titre = 'Comparer des fractions de même dénominateur/numérateur'
 export const interactifReady = true
@@ -65,7 +65,6 @@ export default class ComparerFraction extends Exercice {
       [21, 40, 27, 40],
       [8, 15, 14, 15],
       [13, 22, 15, 22],
-
       [47, 25, 51, 25],
       [9, 8, 11, 8],
       [15, 11, 19, 11],
@@ -87,7 +86,7 @@ export default class ComparerFraction extends Exercice {
       [10, 13, 12, 13],
       [27, 12, 35, 12],
       [21, 11, 25, 11],
-      [14, 5, 11, 5],
+      [11, 5, 14, 5],
       [7, 3, 11, 3],
     ]
     let a, b, fraction1
@@ -102,8 +101,14 @@ export default class ComparerFraction extends Exercice {
       switch (typeDeQuestionsDisponibles[i]) {
         case 1: // même dénominateur
           fraction1 = choice(listeFractions1)
-          a = new FractionEtendue(fraction1[0], fraction1[1])
-          b = new FractionEtendue(fraction1[2], fraction1[3])
+          a = new FractionEtendue(
+            Math.min(fraction1[0], fraction1[2]),
+            fraction1[1],
+          )
+          b = new FractionEtendue(
+            Math.max(fraction1[0], fraction1[2]),
+            fraction1[1],
+          )
 
           if (choice([true, false])) {
             texte = remplisLesBlancs(
@@ -142,8 +147,14 @@ export default class ComparerFraction extends Exercice {
         case 2: // même numérateur
         default:
           fraction1 = choice(listeFractions1)
-          a = new FractionEtendue(fraction1[1], fraction1[0])
-          b = new FractionEtendue(fraction1[3], fraction1[2])
+          a = new FractionEtendue(
+            fraction1[1],
+            Math.min(fraction1[0], fraction1[2]),
+          )
+          b = new FractionEtendue(
+            fraction1[1],
+            Math.max(fraction1[0], fraction1[2]),
+          )
 
           if (choice([true, false])) {
             texte = remplisLesBlancs(

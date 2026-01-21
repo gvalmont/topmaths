@@ -1,26 +1,28 @@
 <script lang="ts">
+  import seedrandom from 'seedrandom'
+  import { onMount } from 'svelte'
+  import type TypeExercice from '../../../exercices/Exercice'
   import { creerDocumentAmc } from '../../../lib/amc/creerDocumentAmc.js'
-  import { context } from '../../../modules/context.js'
   import {
+    mathaleaGenerateSeed,
     mathaleaGetExercicesFromParams,
     mathaleaHandleExerciceSimple,
     mathaleaUpdateExercicesParamsFromUrl,
-    mathaleaGenerateSeed,
     mathaleaUpdateUrlFromExercicesParams,
   } from '../../../lib/mathalea.js'
-  import Footer from '../../Footer.svelte'
   import {
     darkMode,
     exercicesParams,
   } from '../../../lib/stores/generalStore.js'
-  import type TypeExercice from '../../../exercices/Exercice'
-  import FormRadio from '../../shared/forms/FormRadio.svelte'
-  import NavBar from '../../shared/header/NavBar.svelte'
-  import seedrandom from 'seedrandom'
-  import { onMount } from 'svelte'
   import { referentielLocale } from '../../../lib/stores/languagesStore.js'
-  import ButtonTextAction from '../../shared/forms/ButtonTextAction.svelte'
+  import { context } from '../../../modules/context.js'
+  import Footer from '../../Footer.svelte'
   import ButtonActionInfo from '../../shared/forms/ButtonActionInfo.svelte'
+  import ButtonTextAction from '../../shared/forms/ButtonTextAction.svelte'
+  import FormRadio from '../../shared/forms/FormRadio.svelte'
+  import InputNumber from '../../shared/forms/InputNumber.svelte'
+  import InputText from '../../shared/forms/InputText.svelte'
+  import NavBar from '../../shared/header/NavBar.svelte'
   import BasicClassicModal from '../../shared/modal/BasicClassicModal.svelte'
 
   const isSettingsVisible: boolean[] = []
@@ -161,27 +163,25 @@
   <NavBar
     subtitle="AMC"
     subtitleType="export"
-    handleLanguage="{() => {}}"
-    locale="{$referentielLocale}"
+    handleLanguage={() => {}}
+    locale={$referentielLocale}
   />
 
-  <section class="px-10 py-10 bg-coopmaths-canvas dark:bg-coopmathsdark-canvas">
+  <section
+    class="px-10 py-10 bg-coopmaths-canvas dark:bg-coopmathsdark-canvas text-coopmaths-struct-lightest dark:text-coopmathsdark-struct-lightest"
+  >
     <div
       class="flex flex-col md:flex-row justify-start items-start my-4 space-y-5 md:space-y-0 md:space-x-10"
     >
       <div>
-        <div
-          class="pb-2 font-bold text-coopmaths-struct-light dark:text-coopmathsdark-struct-light"
-        >
-          Type d'entête
-        </div>
+        <div class="pb-2 font-bold">Type d'entête</div>
         <FormRadio
-          bind:valueSelected="{entete}"
-          labelsValues="{[
+          bind:valueSelected={entete}
+          labelsValues={[
             { label: 'Grille de codage', value: 'AMCcodeGrid' },
             { label: 'Copies pré-remplies', value: 'AMCassociation' },
             { label: 'Noms et prénoms manuscrits', value: 'manuscrits' },
-          ]}"
+          ]}
           title="entete"
         />
       </div>
@@ -192,11 +192,11 @@
           Format
         </div>
         <FormRadio
-          bind:valueSelected="{format}"
-          labelsValues="{[
+          bind:valueSelected={format}
+          labelsValues={[
             { label: 'Format A4 portrait', value: 'A4' },
             { label: 'Format A3 paysage 2 colonnes', value: 'A3' },
-          ]}"
+          ]}
           title="format"
         />
       </div>
@@ -210,11 +210,11 @@
         >
           Matière
         </div>
-        <input
-          bind:value="{matiere}"
-          id="amc-export-matiere-input"
-          class="ml-4 md:ml-0 border-1 border-coopmaths-action dark:border-coopmathsdark-action focus:border-coopmaths-action-lightest dark:focus:border-coopmathsdark-action-lightest focus:outline-0 focus:ring-0 focus:border-1 bg-coopmaths-canvas dark:bg-coopmathsdark-canvas text-sm text-coopmaths-corpus-light dark:text-coopmathsdark-corpus-light"
-          type="text"
+        <InputText
+          inputID="amc-export-matiere-input"
+          bind:value={matiere}
+          showTitle={false}
+          classAddenda="ml-4 md:ml-0"
         />
       </div>
       <div>
@@ -223,11 +223,11 @@
         >
           Titre
         </div>
-        <input
-          bind:value="{titre}"
-          id="amc-export-titre-input"
-          class="ml-4 md:ml-0 border-1 border-coopmaths-action dark:border-coopmathsdark-action focus:border-coopmaths-action-lightest dark:focus:border-coopmathsdark-action-lightest focus:outline-0 focus:ring-0 focus:border-1 bg-coopmaths-canvas dark:bg-coopmathsdark-canvas text-sm text-coopmaths-corpus-light dark:text-coopmathsdark-corpus-light"
-          type="text"
+        <InputText
+          inputID="amc-export-titre-input"
+          bind:value={titre}
+          showTitle={false}
+          classAddenda="ml-4 md:ml-0"
         />
       </div>
       <div>
@@ -243,12 +243,12 @@
               : ''}{exercice.sup2 ? `-S2:${exercice.sup2}` : ''}{exercice.sup3
               ? `-S3:${exercice.sup3}`
               : ''}
-            <input
-              type="text"
-              id="amc-export-nb-questions-gr{i}-input"
-              class="ml-4 md:ml-0 border-1 border-coopmaths-action dark:border-coopmathsdark-action focus:border-coopmaths-action-lightest dark:focus:border-coopmathsdark-action-lightest focus:outline-0 focus:ring-0 focus:border-1 bg-coopmaths-canvas dark:bg-coopmathsdark-canvas text-sm text-coopmaths-corpus-light dark:text-coopmathsdark-corpus-light"
-              placeholder="{exercice.nbQuestions.toString()}"
-              bind:value="{nbQuestionsModif[i]}"
+            <InputText
+              inputID="amc-export-nb-questions-gr{i}-input"
+              placeholder={exercice.nbQuestions.toString()}
+              bind:value={nbQuestionsModif[i]}
+              showTitle={false}
+              classAddenda="ml-4 md:ml-0"
             />
             <span>{exercice.amcType ? exercice.amcType : 'not amcReady'}</span>
             <button
@@ -256,14 +256,15 @@
               data-tip="Nouvel énoncé"
               id="amc-export-new-enonce-button"
               type="button"
-              on:click="{() => {
+              aria-label="Nouvel énoncé"
+              on:click={() => {
                 exercice.seed = mathaleaGenerateSeed()
                 seedrandom(exercice.seed, { global: true })
                 if (exercice.nouvelleVersionWrapper != null)
                   exercice.nouvelleVersionWrapper()
                 $exercicesParams[i].alea = exercice.seed
                 mathaleaUpdateUrlFromExercicesParams()
-              }}"
+              }}
               ><i
                 class="text-coopmaths-action hover:text-coopmaths-action-lightest dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest bx bx-refresh"
               ></i>
@@ -290,7 +291,7 @@
         {/each}
         <div>
           <BasicClassicModal
-            bind:isDisplayed="{isNonAMCModaleDisplayed}"
+            bind:isDisplayed={isNonAMCModaleDisplayed}
             icon="bxs-error"
           >
             <span slot="header"></span>
@@ -312,11 +313,11 @@
         >
           Nombre d'exemplaires distincts
         </div>
-        <input
-          bind:value="{nbExemplaires}"
-          class="ml-4 md:ml-0 border-1 border-coopmaths-action dark:border-coopmathsdark-action focus:border-coopmaths-action-lightest dark:focus:border-coopmathsdark-action-lightest focus:outline-0 focus:ring-0 focus:border-1 bg-coopmaths-canvas dark:bg-coopmathsdark-canvas text-sm text-coopmaths-corpus-light dark:text-coopmathsdark-corpus-light"
-          min="1"
-          type="number"
+        <InputNumber
+          id="amc-nb-exemplaires"
+          min={1}
+          max={100}
+          bind:value={nbExemplaires}
         />
       </div>
     </div>
@@ -326,21 +327,21 @@
     >
       <ButtonActionInfo
         action="copy"
-        textToCopy="{content}"
+        textToCopy={content}
         tooltip="Copier le code LaTeX dans le presse-papier"
         text="Copier le code LaTeX"
-        inverted="{false}"
+        inverted={false}
         successMessage="Le code LaTeX a été copié dans le presse-papier"
         errorMessage="Impossible de copier le code dans le presse-papier !"
-        displayDuration="{3000}"
+        displayDuration={3000}
         class="px-2 py-1 rounded-md"
       />
       <ButtonTextAction
         class="px-2 py-1 rounded-md"
         id="open-btn"
-        on:click="{() => {
+        on:click={() => {
           isOverleafModalDisplayed = true
-        }}"
+        }}
         text="Compiler sur OverLeaf"
       />
     </div>
@@ -351,7 +352,7 @@
   </section>
   <!-- Message avant envoi sur Overleaf -->
   <BasicClassicModal
-    bind:isDisplayed="{isOverleafModalDisplayed}"
+    bind:isDisplayed={isOverleafModalDisplayed}
     icon="bxs-error"
   >
     <span slot="header">Attention !</span>
@@ -365,7 +366,7 @@
     <div slot="footer">
       <ButtonTextAction
         text="Compiler sur OverLeaf"
-        on:click="{handleOverLeaf}"
+        on:click={handleOverLeaf}
       />
     </div>
   </BasicClassicModal>
@@ -390,7 +391,7 @@
     />
     <input
       autocomplete="off"
-      bind:this="{textForOverleaf}"
+      bind:this={textForOverleaf}
       name="snip_uri[]"
       type="hidden"
       value=""

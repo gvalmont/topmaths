@@ -1,12 +1,12 @@
+import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
+import { handleAnswers } from '../../lib/interactif/gestionInteractif'
+import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
+import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { texNombre } from '../../lib/outils/texNombre'
 import { context } from '../../modules/context'
+import operation from '../../modules/operations'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
-import Operation from '../../modules/operations'
-import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
-import { handleAnswers } from '../../lib/interactif/gestionInteractif'
-import { miseEnEvidence } from '../../lib/outils/embellissements'
-import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 import Exercice from '../Exercice'
 
 export const interactifReady = true
@@ -75,7 +75,6 @@ export default class DivisionsEuclidiennes extends Exercice {
     for (
       let i = 0, texte = '', texteCorr = '', cpt = 0, a, b, q, r;
       i < this.nbQuestions && cpt < 50;
-
     ) {
       // La ligne suivante ne doit pas être mise après les setReponses car sinon elle les efface
       // this.autoCorrection[i] = { enonce: texte, propositions: [{ texte: texteCorr, statut: 4, feedback: '' }] }
@@ -116,14 +115,14 @@ export default class DivisionsEuclidiennes extends Exercice {
       texte = `La division euclidienne de $${texNombre(a)}$ par $${b}$.`
       if (r === 0) {
         texteCorr =
-          Operation({
+          operation({
             operande1: a,
             operande2: b,
             type: 'divisionE',
           }) + `$${texNombre(a)}=${b}\\times${texNombre(q)}$`
       } else {
         texteCorr =
-          Operation({
+          operation({
             operande1: a,
             operande2: b,
             type: 'divisionE',

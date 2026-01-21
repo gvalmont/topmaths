@@ -147,7 +147,7 @@ export default class Auto1AF6b extends ExerciceQcmA {
   }
 
   versionOriginale: () => void = () => {
-    this.genererExercice(2, -5)
+    this.genererExercice(-2, 5)
   }
 
   versionAleatoire: () => void = () => {

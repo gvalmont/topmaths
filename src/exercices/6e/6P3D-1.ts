@@ -1,18 +1,19 @@
+import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
+import {
+  handleAnswers,
+  setReponse,
+} from '../../lib/interactif/gestionInteractif'
+import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { choice } from '../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
-import Exercice from '../Exercice'
+import { texNombre } from '../../lib/outils/texNombre'
+import { context } from '../../modules/context'
 import {
   gestionnaireFormulaireTexte,
   listeQuestionsToContenu,
   randint,
 } from '../../modules/outils'
-import { context } from '../../modules/context'
-import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
-import {
-  handleAnswers,
-  setReponse,
-} from '../../lib/interactif/gestionInteractif'
-import { texNombre } from '../../lib/outils/texNombre'
+import Exercice from '../Exercice'
 
 export const titre = 'Utiliser la proportionnalité'
 export const interactifReady = true
@@ -80,7 +81,6 @@ export default class ProblemesDeProportionnalité extends Exercice {
     for (
       let i = 0, texte, texteCorr, cpt = 0;
       i < this.nbQuestions && cpt < 50;
-
     ) {
       const f = choice(fois, foisUsed) // On choisit un nombre de fois aléatoire
       const quantite =
@@ -102,7 +102,7 @@ export default class ProblemesDeProportionnalité extends Exercice {
             `$${1}$ carton`,
             '$\\rightarrow$',
             this.interactif && !context.isAmc
-              ? ajouteChampTexteMathLive(this, i, ' ', {
+              ? ajouteChampTexteMathLive(this, i, KeyboardType.clavierNumbers, {
                   texteApres: ` ${unité}`,
                 })
               : '....',
@@ -125,7 +125,7 @@ export default class ProblemesDeProportionnalité extends Exercice {
             `$${cartons * f}$ cartons`,
             '$\\rightarrow$',
             this.interactif && !context.isAmc
-              ? ajouteChampTexteMathLive(this, i, ' ', {
+              ? ajouteChampTexteMathLive(this, i, KeyboardType.clavierNumbers, {
                   texteApres: ` ${unité}`,
                 })
               : '....',
@@ -148,7 +148,7 @@ export default class ProblemesDeProportionnalité extends Exercice {
             `$${cartons}$ cartons`,
             '$\\rightarrow$',
             this.interactif && !context.isAmc
-              ? ajouteChampTexteMathLive(this, i, ' ', {
+              ? ajouteChampTexteMathLive(this, i, KeyboardType.clavierNumbers, {
                   texteApres: ` ${unité}`,
                 })
               : '....',
@@ -169,7 +169,7 @@ export default class ProblemesDeProportionnalité extends Exercice {
             '$\\rightarrow$',
             `$${texNombre(quantite)}~\\text{${unité}}$`,
             this.interactif && !context.isAmc
-              ? ajouteChampTexteMathLive(this, i, ' ', {
+              ? ajouteChampTexteMathLive(this, i, KeyboardType.clavierNumbers, {
                   texteApres: ' cartons',
                 })
               : '....',
@@ -192,7 +192,7 @@ export default class ProblemesDeProportionnalité extends Exercice {
             '$\\rightarrow$',
             `$${texNombre(quantite * f)}~\\text{${unité}}$`,
             this.interactif && !context.isAmc
-              ? ajouteChampTexteMathLive(this, i, ' ', {
+              ? ajouteChampTexteMathLive(this, i, KeyboardType.clavierNumbers, {
                   texteApres: ' cartons',
                 })
               : '....',

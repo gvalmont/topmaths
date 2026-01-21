@@ -34,7 +34,7 @@ class EquationSecondDegre {
   correctionDetailleeTex: string
   correctionTex: string
   variable: string
-  fonctionEvaluer: (x: number) => number
+  fonctionEvaluer: (x: number | FractionEtendue) => number
   constructor(
     a: FractionEtendue,
     b: FractionEtendue,
@@ -46,9 +46,11 @@ class EquationSecondDegre {
   ) {
     const lang = getLang()
     this.coefficients = [a, b, c, d, e, f]
-    this.fonctionEvaluer = (x: number) =>
-      (this.coefficients[0].num / this.coefficients[0].den) * x * x +
-      (this.coefficients[1].num / this.coefficients[1].den) * x +
+    this.fonctionEvaluer = (x: number | FractionEtendue) =>
+      (this.coefficients[0].num / this.coefficients[0].den) *
+        Number(x) *
+        Number(x) +
+      (this.coefficients[1].num / this.coefficients[1].den) * Number(x) +
       this.coefficients[2].num / this.coefficients[2].den
     let melange = true
     this.variable = options.variable
@@ -275,7 +277,7 @@ class EquationSecondDegre {
             let sol2RevisiteeTex = `\\dfrac{${a} + ${b === 1 ? '' : b}\\sqrt{${c}}}{${d}}`
             let sol1RevisiteeTexOppose = `-\\dfrac{${a} - ${b === 1 ? '' : b}\\sqrt{${c}}}{${d}}`
             let sol2RevisiteeTexOppose = `-\\dfrac{${a} + ${b === 1 ? '' : b}\\sqrt{${c}}}{${d}}`
-            if (d == 1) {
+            if (d === 1) {
               sol1RevisiteeTex = `${a} - ${b === 1 ? '' : b}\\sqrt{${c}}`
               sol2RevisiteeTex = `${a} + ${b === 1 ? '' : b}\\sqrt{${c}}`
               sol1RevisiteeTexOppose = `-${a} - ${b === 1 ? '' : b}\\sqrt{${c}}`

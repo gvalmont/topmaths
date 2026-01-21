@@ -1,10 +1,10 @@
-import ExerciceSimple from '../../ExerciceSimple'
 import Decimal from 'decimal.js'
-import { texNombre } from '../../../lib/outils/texNombre'
-import { miseEnEvidence } from '../../../lib/outils/embellissements'
-import { randint } from '../../../modules/outils'
-import { choice } from '../../../lib/outils/arrayOutils'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
+import { choice } from '../../../lib/outils/arrayOutils'
+import { miseEnEvidence } from '../../../lib/outils/embellissements'
+import { texNombre } from '../../../lib/outils/texNombre'
+import { randint } from '../../../modules/outils'
+import ExerciceSimple from '../../ExerciceSimple'
 
 export const titre = 'Faire une somme avec des fractions décimales'
 export const interactifReady = true
@@ -24,7 +24,6 @@ export default class NomExercice extends ExerciceSimple {
     this.formatChampTexte = KeyboardType.clavierDeBase
 
     this.canOfficielle = false
-    // this.question += ajouteChampTexteMathLive(this, 0, ' ', { texteAvant: '$=$' })
   }
 
   nouvelleVersion() {

@@ -209,6 +209,12 @@
   "canExa": {
     "titre": "Sujets (annales/créations)"
   },
+  "CPCA": {
+    "titre": "Sommes d'entiers"
+  },
+  "CPNA": {
+    "titre": "Numération des entiers"
+  },
   "CM1N1": {
     "titre": "Nombres entiers"
   },

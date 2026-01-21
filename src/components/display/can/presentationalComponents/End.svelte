@@ -49,9 +49,9 @@
     <ButtonTextAction
       text="Accéder aux solutions"
       class="p-2 md:p-4 font-bold rounded-lg text-sm md:text-xl mt-6 md:mt-10"
-      on:click="{() => {
+      on:click={() => {
         state = 'solutions'
-      }}"
+      }}
     />
   {/if}
 </div>

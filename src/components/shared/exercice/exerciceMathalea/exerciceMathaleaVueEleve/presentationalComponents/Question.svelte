@@ -26,9 +26,9 @@
       id="correction-exo{exerciseIndex}Q{questionIndex}"
     >
       <div
-        class="{exercise.consigneCorrection.length !== 0
+        class={exercise.consigneCorrection.length !== 0
           ? 'container max-w-full text-justify bg-coopmaths-canvas dark:bg-coopmathsdark-canvas-dark px-4 py-2 mr-2 ml-6 mb-2 font-light relative w-2/3'
-          : 'hidden'}"
+          : 'hidden'}
       >
         <div
           class="{exercise.consigneCorrection.length !== 0

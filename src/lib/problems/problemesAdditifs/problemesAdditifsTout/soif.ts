@@ -31,7 +31,7 @@ Donc, en tout, ${personnage.pronom} a bu $${texNombre(nb1, 1)}\\text{ ${unite}}+
     probleme.schema.topBraces = []
   }
   probleme.schema.topBraces[0].text = 'consommation totale'
-  probleme.styleChampTexteMathlive = KeyboardType.college6eme
+  // probleme.styleChampTexteMathlive = KeyboardType.clavierDeBase
   probleme.reponse = `${texNombre(nb1 + nb2, 1)} ${unite}`
   probleme.styleChampTexteMathlive = KeyboardType.volume
   probleme.optionsComparaison = { unite: true }

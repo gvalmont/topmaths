@@ -5,6 +5,7 @@ import { segment } from '../../lib/2d/segmentsVecteurs'
 import { texteParPosition } from '../../lib/2d/textes'
 import { homothetie } from '../../lib/2d/transformations'
 import { texPrix } from '../../lib/format/style'
+import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { choice } from '../../lib/outils/arrayOutils'
@@ -663,7 +664,7 @@ function isocele(cd: boolean) {
   if (choice([true, false])) {
     enonce +=
       '<br>Quelle est la mesure de sa base' +
-      (context.isAmc ? ', en mm' : '') +
+      (context.isAmc ? ', en $\\text{mm}$' : '') +
       " ? (La figure n'est pas en vraie grandeur.)"
     intro = `Posons $x$ la longueur de sa base. La longueur des côtés égaux est : $x${ecritureAlgebrique(-c)}$.<br>`
     intro += "Le calcul du périmètre donne l'équation suivante :<br>"
@@ -748,7 +749,7 @@ function thales(cd: boolean) {
   const figure = figureThales(a, b, c, '')
   let enonce =
     "Soit la figure ci-dessous qui n'est pas en vraie grandeur où $[CD]$ et $[AB]$ sont parallèles."
-  enonce += ` $AB=${c}\\text{mm}$, $AC=${b}\\text{mm}$ et $CD=${a}\\text{mm}$.<br> Déterminer la longueur $OC$${context.isAmc ? ', en mm.' : '.'}`
+  enonce += ` $AB=${c}\\text{ mm}$, $AC=${b}\\text{ mm}$ et $CD=${a}\\text{ mm}$.<br> Déterminer la longueur $OC$${context.isAmc ? ', en $\\text{mm}$.' : '.'}`
   let intro =
     "Dans cette configuration de Thalès, on a l'égalité suivante : $\\dfrac{OC}{OA}=\\dfrac{CD}{AB}$.<br>"
   intro +=
@@ -805,7 +806,7 @@ function thales2(cd: boolean) {
   const figure = figureThales(a, '', c, b)
   let enonce =
     "Soit la figure ci-dessous qui n'est pas en vraie grandeur où $[CD]$ et $[AB]$ sont parallèles."
-  enonce += ` $AB=${c}\\text{mm}$, $OC=${b}\\text{mm}$ et $CD=${a}\\text{mm}$.<br> Déterminer la longueur $AC$${context.isAmc ? ', en mm.' : '.'}`
+  enonce += ` $AB=${c}\\text{ mm}$, $OC=${b}\\text{ mm}$ et $CD=${a}\\text{ mm}$.<br> Déterminer la longueur $AC$${context.isAmc ? ', en $\\text{mm}$.' : '.'}`
   let intro =
     "Dans cette configuration de Thalès, on a l'égalité suivante : $\\dfrac{OA}{OC}=\\dfrac{AB}{CD}$.<br>"
   intro +=
@@ -892,9 +893,16 @@ export default class ProblemesEnEquation extends Exercice {
       const texte =
         enonce +
         figure +
-        ajouteChampTexteMathLive(this, i, '' + uniteOptions[0], {
-          texteApres: sp(2) + uniteOptions[2],
-        })
+        ajouteChampTexteMathLive(
+          this,
+          i,
+          uniteOptions[0] === ' unites[Longueurs]'
+            ? KeyboardType.longueur
+            : KeyboardType.clavierDeBase,
+          {
+            texteApres: sp(2) + uniteOptions[2],
+          },
+        )
       let texteCorr = intro
       texteCorr += `$${resolution.equation}$<br>`
       texteCorr += resolution.texteCorr
@@ -910,6 +918,7 @@ export default class ProblemesEnEquation extends Exercice {
               type: 'AMCOpen',
               propositions: [
                 {
+                  texte: '',
                   enonce:
                     texte +
                     '<br>Mettre le problème en équation ci-dessous et la résoudre.',

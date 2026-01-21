@@ -1,11 +1,12 @@
+import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { combinaisonListes } from '../../lib/outils/arrayOutils'
-import Exercice from '../Exercice'
 import { context } from '../../modules/context'
 import { listeQuestionsToContenu } from '../../modules/outils'
-import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
+import Exercice from '../Exercice'
 
-import { handleAnswers } from '../../lib/interactif/gestionInteractif'
+import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 import { functionCompare } from '../../lib/interactif/comparisonFunctions'
+import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 
 export const titre = 'cos et sin associés à un réel $x$'
 export const interactifReady = true
@@ -116,7 +117,7 @@ export default class MesurePrincipale extends Exercice {
           compare: functionCompare,
         },
       })
-      texte += ajouteChampTexteMathLive(this, i, '  grecTrigo') // n'ajoute rien si on n'est pas en interactif
+      texte += ajouteChampTexteMathLive(this, i, KeyboardType.grecTrigo) // n'ajoute rien si on n'est pas en interactif
       if (!this.interactif) texte += '$\\ldots$'
 
       // Si la question n'a jamais été posée, on l'enregistre

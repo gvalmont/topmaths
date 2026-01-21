@@ -43,8 +43,9 @@ export default class ProgrammesDeCalculsEquivalent extends Exercice {
         '2 : a(x+b) + bx = (a+ b)x  + ab',
         '3 : (x+a)^2 = x^2 + 2ax + a^2',
         '4 : (x+a)(x-a) = x^2 - a^2)',
-        '5 : (x+a)^2-x^2 = x(x + 2a)',
-        '6 : Mélange',
+        '5 : (x+a)^2-x^2 = 2ax + a^2',
+        '6 : (x+a)^2-a^2 = x(x + 2a)',
+        '7 : Mélange',
       ].join('\n'),
     ]
   }
@@ -53,9 +54,9 @@ export default class ProgrammesDeCalculsEquivalent extends Exercice {
     const listeTypeDeQuestions = gestionnaireFormulaireTexte({
       saisie: this.sup,
       min: 1,
-      max: 5,
-      melange: 6,
-      defaut: 6,
+      max: 6,
+      melange: 7,
+      defaut: 7,
       nbQuestions: this.nbQuestions,
     })
     for (
@@ -97,8 +98,14 @@ export default class ProgrammesDeCalculsEquivalent extends Exercice {
           break
         }
         case 5: {
-          // 5 : (x+a)^2-x^2 = x(x + 2a)
+          // 5 : (x+a)^2-x^2 = 2ax + a^2
           prog1 = generateProgram('(x+a)^2-x^2', { a, b })
+          prog2 = generateProgram('ax+b', { a: 2 * a, b: a * a })
+          break
+        }
+        case 6: {
+          // 6 : (x+a)^2-a^2 = x(x + 2a)
+          prog1 = generateProgram('(x+a)^2+b', { a, b: -a * a })
           prog2 = generateProgram('x(x+a)', { a: 2 * a, b })
           break
         }
@@ -120,7 +127,7 @@ export default class ProgrammesDeCalculsEquivalent extends Exercice {
         ${ajouteChampTexteMathLive(this, 6 * i + 1, ' ', { texteAvant: `Pour le ${texteGras('Programme A')} si $x=${x2}$ on a:`, texteApres: '<br>' })}
         ${ajouteChampTexteMathLive(this, 6 * i + 2, ' ', { texteAvant: `Pour le ${texteGras('Programme B')} si $x=${x1}$ on a:`, texteApres: '<br>' })}
         ${ajouteChampTexteMathLive(this, 6 * i + 3, ' ', { texteAvant: `Pour le ${texteGras('Programme B')} si $x=${x2}$ on a:`, texteApres: '<br>' })}
-        ${texteEnCouleurEtGras('b)')} Prouver que les deux programmes donnent les mêmes résultats quelque soit le nombre choisi.<br><br>
+        ${texteEnCouleurEtGras('b)')} Prouver que les deux programmes donnent les mêmes résultats quel que soit le nombre choisi.<br><br>
         ${ajouteChampTexteMathLive(this, 6 * i + 4, ' ', { texteAvant: `Pour le ${texteGras('Programme A')}, <br> donner l'expression littérale sans la développer :`, texteApres: '<br>' })}
         ${ajouteChampTexteMathLive(this, 6 * i + 5, ' ', { texteAvant: `Pour le ${texteGras('Programme B')}, <br> donner l'expression littérale sans la développer :`, texteApres: '<br>' })}`
 

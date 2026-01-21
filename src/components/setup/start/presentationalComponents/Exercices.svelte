@@ -1,5 +1,6 @@
 <script lang="ts">
   import { flip } from 'svelte/animate'
+  import { isReordering } from '../../../../lib/stores/generalStore'
   import type { InterfaceParams } from '../../../../lib/types'
   import Footer from '../../../Footer.svelte'
   import Exercice from '../../../shared/exercice/Exercice.svelte'
@@ -14,12 +15,12 @@
 >
   <div class="flex flex-col md:mt-9 xl:mt-0">
     {#each exercicesParams as paramsExercice, i (paramsExercice)}
-      <div id="exo{i}" animate:flip="{{ duration: (d) => 30 * Math.sqrt(d) }}">
+      <div id="exo{i}" animate:flip={{ duration: $isReordering ? (d) => 30 * Math.sqrt(d) : 0 }}>
         <Exercice
           {paramsExercice}
           {toggleSidenav}
-          indiceExercice="{i}"
-          indiceLastExercice="{exercicesParams.length - 1}"
+          indiceExercice={i}
+          indiceLastExercice={exercicesParams.length - 1}
           on:exerciseRemoved
         />
       </div>

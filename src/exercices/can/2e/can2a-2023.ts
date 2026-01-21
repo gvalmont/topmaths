@@ -31,6 +31,7 @@ import { listeQuestionsToContenu, randint } from '../../../modules/outils'
 import Exercice from '../../Exercice'
 
 import { grille } from '../../../lib/2d/Grille'
+import { polyline } from '../../../lib/2d/Polyline'
 import { tracePoint } from '../../../lib/2d/TracePoint'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 import { handleAnswers } from '../../../lib/interactif/gestionInteractif'
@@ -40,9 +41,7 @@ import type { NestedObjetMathalea2dArray } from '../../../types/2d'
 export const titre = 'CAN Seconde sujet 2023'
 export const interactifReady = true
 export const interactifType = 'mathLive'
-// Les exports suivants sont optionnels mais au moins la date de publication semble essentielle
 export const dateDePublication = '03/04/2023' // La date de publication initiale au format 'jj/mm/aaaa' pour affichage temporaire d'un tag
-// export const dateDeModifImportante = '24/10/2021' // Une date de modification importante au format 'jj/mm/aaaa' pour affichage temporaire d'un tag
 export const uuid = '9bc44'
 
 export const refs = {
@@ -52,8 +51,7 @@ export const refs = {
 
 /**
  * Aléatoirisation du sujet 2023 de CAN seconde
- * Gilles Mora
-
+ * @author Gilles Mora
  */
 
 function compareNombres(a: number, b: number) {
@@ -155,7 +153,9 @@ export default class SujetCAN2023Seconde extends Exercice {
           texteCorr = `$${a} \\times ${texNombre(b, 1)}=${miseEnEvidence(texNombre(reponse, 1))}$`
           handleAnswers(this, index, { reponse: { value: reponse.toFixed(1) } })
           if (this.interactif) {
-            texte += ' $=$' + ajouteChampTexteMathLive(this, index, '')
+            texte +=
+              ' $=$' +
+              ajouteChampTexteMathLive(this, index, KeyboardType.clavierNumbers)
           }
           this.canEnonce = `$${a} \\times ${texNombre(b, 1)}$`
           this.canReponseACompleter = ''
@@ -181,7 +181,11 @@ export default class SujetCAN2023Seconde extends Exercice {
 
           handleAnswers(this, index, { reponse: { value: reponse.toFixed(2) } })
           if (this.interactif) {
-            texte += ajouteChampTexteMathLive(this, index, '')
+            texte += ajouteChampTexteMathLive(
+              this,
+              index,
+              KeyboardType.clavierNumbers,
+            )
           }
 
           this.listeCanEnonces.push(this.canEnonce)
@@ -235,8 +239,11 @@ export default class SujetCAN2023Seconde extends Exercice {
             this.canEnonce = texte
             this.canReponseACompleter = ''
             if (this.interactif) {
-              texte += ajouteChampTexteMathLive(this, index, '')
-              //  handleAnswers(this, index, {reponse:{value: reponse}, { formatInteractif: 'calcul' })
+              texte += ajouteChampTexteMathLive(
+                this,
+                index,
+                KeyboardType.lyceeClassique,
+              )
             }
             this.listeCanEnonces.push(this.canEnonce)
             this.listeCanReponsesACompleter.push(this.canReponseACompleter)
@@ -285,7 +292,9 @@ export default class SujetCAN2023Seconde extends Exercice {
           texteCorr = `$${a} -${b}\\times ${c}=${a}-${b * c}=${miseEnEvidence(reponse)}$`
           handleAnswers(this, index, { reponse: { value: reponse } })
           if (this.interactif) {
-            texte += ' $=$' + ajouteChampTexteMathLive(this, index, '')
+            texte +=
+              ' $=$' +
+              ajouteChampTexteMathLive(this, index, KeyboardType.clavierDeBase)
           }
           this.canEnonce = texte
           this.canReponseACompleter = ''
@@ -343,7 +352,12 @@ export default class SujetCAN2023Seconde extends Exercice {
               reponse: { value: reponse.toFixed(2) },
             })
             if (this.interactif) {
-              texte += ajouteChampTexteMathLive(this, index, '') + '€'
+              texte +=
+                ajouteChampTexteMathLive(
+                  this,
+                  index,
+                  KeyboardType.clavierNumbers,
+                ) + '€'
             }
             this.canEnonce = texte
             this.canReponseACompleter = '$\\ldots$ €'
@@ -368,7 +382,13 @@ export default class SujetCAN2023Seconde extends Exercice {
               reponse: { value: reponse.toFixed(2) },
             })
             if (this.interactif) {
-              texte += ' $=$' + ajouteChampTexteMathLive(this, index, '')
+              texte +=
+                ' $=$' +
+                ajouteChampTexteMathLive(
+                  this,
+                  index,
+                  KeyboardType.clavierNumbers,
+                )
             }
             this.canEnonce = texte
             this.canReponseACompleter = ''
@@ -391,7 +411,13 @@ export default class SujetCAN2023Seconde extends Exercice {
               reponse: { value: reponse.toFixed(3) },
             })
             if (this.interactif) {
-              texte += ' $=$' + ajouteChampTexteMathLive(this, index, '')
+              texte +=
+                ' $=$' +
+                ajouteChampTexteMathLive(
+                  this,
+                  index,
+                  KeyboardType.clavierNumbers,
+                )
             }
             this.canEnonce = texte
             this.canReponseACompleter = ''
@@ -469,7 +495,11 @@ export default class SujetCAN2023Seconde extends Exercice {
 
           handleAnswers(this, index, { reponse: { value: reponse } })
           if (this.interactif) {
-            texte += ajouteChampTexteMathLive(this, index, '')
+            texte += ajouteChampTexteMathLive(
+              this,
+              index,
+              KeyboardType.clavierDeBase,
+            )
           }
           this.listeCanEnonces.push(this.canEnonce)
           this.listeCanReponsesACompleter.push(this.canReponseACompleter)
@@ -496,7 +526,11 @@ export default class SujetCAN2023Seconde extends Exercice {
           `
           handleAnswers(this, index, { reponse: { value: reponse } })
           if (this.interactif) {
-            texte += ajouteChampTexteMathLive(this, index, '')
+            texte += ajouteChampTexteMathLive(
+              this,
+              index,
+              KeyboardType.clavierDeBase,
+            )
           }
           this.canEnonce = texte
           this.canReponseACompleter = ''
@@ -513,7 +547,9 @@ export default class SujetCAN2023Seconde extends Exercice {
           Ainsi, $${a} \\times 0,5=${miseEnEvidence(texNombre(reponse, 0))}$.`
           handleAnswers(this, index, { reponse: { value: reponse } })
           if (this.interactif) {
-            texte += ' $=$' + ajouteChampTexteMathLive(this, index, '')
+            texte +=
+              ' $=$' +
+              ajouteChampTexteMathLive(this, index, KeyboardType.clavierNumbers)
           }
           this.canEnonce = `$${a} \\times 0,5$ `
           this.canReponseACompleter = ''
@@ -594,7 +630,11 @@ export default class SujetCAN2023Seconde extends Exercice {
               reponse: { value: reponse.toFixed(1) },
             })
             if (this.interactif) {
-              texte += ajouteChampTexteMathLive(this, index, '')
+              texte += ajouteChampTexteMathLive(
+                this,
+                index,
+                KeyboardType.clavierDeBase,
+              )
             }
             this.canEnonce = texte // 'Compléter'
             this.canReponseACompleter = `Abscisse de $A$ : <br>
@@ -614,7 +654,9 @@ export default class SujetCAN2023Seconde extends Exercice {
           Ainsi, $${a} \\times 0,5=${miseEnEvidence(texNombre(reponse, 0))}$.`
           handleAnswers(this, index, { reponse: { value: reponse } })
           if (this.interactif) {
-            texte += ' $=$' + ajouteChampTexteMathLive(this, index, '')
+            texte +=
+              ' $=$' +
+              ajouteChampTexteMathLive(this, index, KeyboardType.clavierNumbers)
           }
           this.canEnonce = texte
           this.canReponseACompleter = ''
@@ -640,7 +682,11 @@ export default class SujetCAN2023Seconde extends Exercice {
                 reponse: { value: `${a}^{${b + 1}}` },
               })
               if (this.interactif) {
-                texte += ajouteChampTexteMathLive(this, index, '')
+                texte += ajouteChampTexteMathLive(
+                  this,
+                  index,
+                  KeyboardType.clavierDeBaseAvecFractionPuissanceCrochets,
+                )
               }
               texteCorr = `L${c[d][0]} de $${a}^{${b}}$ se calcule  par
            : <br>
@@ -652,7 +698,11 @@ export default class SujetCAN2023Seconde extends Exercice {
                 reponse: { value: `${a}^{${b - 1}}` },
               })
               if (this.interactif) {
-                texte += ajouteChampTexteMathLive(this, index, '')
+                texte += ajouteChampTexteMathLive(
+                  this,
+                  index,
+                  KeyboardType.clavierDeBaseAvecFractionPuissanceCrochets,
+                )
               }
               texteCorr = `L${c[d][1]} de $${a}^{${b}}$ se calcule  par
        : <br>
@@ -676,7 +726,14 @@ export default class SujetCAN2023Seconde extends Exercice {
             texteCorr = `Comme $1\\text{ m}^3$= $1000$ L, $${texNombre(a, 1)}\\text{ m}^3=${miseEnEvidence(texNombre(reponse, 0))}$ L.`
             handleAnswers(this, index, { reponse: { value: reponse } })
             if (this.interactif) {
-              texte += '$=$' + ajouteChampTexteMathLive(this, index, '') + 'L'
+              texte +=
+                '$=$' +
+                ajouteChampTexteMathLive(
+                  this,
+                  index,
+                  KeyboardType.clavierNumbers,
+                ) +
+                'L'
             } else {
               texte += ' $=\\ldots$ L'
             }
@@ -744,7 +801,11 @@ export default class SujetCAN2023Seconde extends Exercice {
             },
           })
           if (this.interactif) {
-            texte += ajouteChampTexteMathLive(this, index, '')
+            texte += ajouteChampTexteMathLive(
+              this,
+              index,
+              KeyboardType.clavierDeBaseAvecFractionPuissanceCrochets,
+            )
           }
           this.canEnonce = texte
           this.canReponseACompleter = ''
@@ -773,7 +834,11 @@ export default class SujetCAN2023Seconde extends Exercice {
             },
           })
           if (this.interactif) {
-            texte += ajouteChampTexteMathLive(this, index, '')
+            texte += ajouteChampTexteMathLive(
+              this,
+              index,
+              KeyboardType.lyceeClassique,
+            )
           }
           this.canEnonce = texte
           this.canReponseACompleter = ''
@@ -796,7 +861,12 @@ export default class SujetCAN2023Seconde extends Exercice {
 
           handleAnswers(this, index, { reponse: { value: reponse.toFixed(0) } })
           if (this.interactif) {
-            texte += ajouteChampTexteMathLive(this, index, '') + '€'
+            texte +=
+              ajouteChampTexteMathLive(
+                this,
+                index,
+                KeyboardType.clavierNumbers,
+              ) + '€'
           }
           this.canEnonce = texte
           this.canReponseACompleter = '$\\ldots$ €'
@@ -934,7 +1004,11 @@ export default class SujetCAN2023Seconde extends Exercice {
             handleAnswers(this, index, { reponse: { value: reponse } })
             if (this.interactif) {
               texte += '<br>$AE=$'
-              texte += ajouteChampTexteMathLive(this, index, '')
+              texte += ajouteChampTexteMathLive(
+                this,
+                index,
+                KeyboardType.clavierNumbers,
+              )
             }
             this.canEnonce =
               '$(BE)$ et $(DC)$ sont parallèles.<br>' +
@@ -1031,7 +1105,11 @@ export default class SujetCAN2023Seconde extends Exercice {
             handleAnswers(this, index, { reponse: { value: reponse } })
             if (this.interactif) {
               texte += '<br>$CE=$'
-              texte += ajouteChampTexteMathLive(this, index, '')
+              texte += ajouteChampTexteMathLive(
+                this,
+                index,
+                KeyboardType.clavierNumbers,
+              )
             }
             this.canEnonce =
               '$(AB)$ et $(DC)$ sont parallèles.<br>' +
@@ -1091,7 +1169,11 @@ export default class SujetCAN2023Seconde extends Exercice {
 
           handleAnswers(this, index, { reponse: { value: reponse } })
           if (this.interactif) {
-            texte += ajouteChampTexteMathLive(this, index, '')
+            texte += ajouteChampTexteMathLive(
+              this,
+              index,
+              KeyboardType.clavierNumbers,
+            )
           }
           this.canEnonce = texte
           this.canReponseACompleter = ''
@@ -1111,7 +1193,14 @@ export default class SujetCAN2023Seconde extends Exercice {
 
           handleAnswers(this, index, { reponse: { value: reponse } })
           if (this.interactif) {
-            texte += '$=$' + ajouteChampTexteMathLive(this, index, '') + 'min'
+            texte +=
+              '$=$' +
+              ajouteChampTexteMathLive(
+                this,
+                index,
+                KeyboardType.clavierNumbers,
+              ) +
+              'min'
           } else {
             texte += '$=\\ldots$ min'
           }
@@ -1122,323 +1211,154 @@ export default class SujetCAN2023Seconde extends Exercice {
           nbChamps = 1
           break
         case 24:
-          choix = choice(['a', 'b', 'd', 'e']) //
-          texte =
-            'Quelle est la longueur de la ligne brisée en unité de longueur (u.l.) ? <br>'
-          if (choix === 'a') {
-            const a = grille(-2, -2, 7, 4, 'gray', 1, 1)
-            b = choice([3, 4, 5, 6])
-            const A = point(0, 2, 'A', 'below')
-            const B = point(1, 2, 'B', 'below')
-            const C = point(1, 0, 'C', 'above')
-            const D = point(2, 0, 'D', 'above')
-            const E = point(2, 2, 'C', 'above')
-            const F = point(3, 2, 'D', 'above')
-            const G = point(0, 4, 'C', 'above')
-            const H = point(b, 4, 'D', 'above')
-            const s1 = segmentAvecExtremites(G, H)
-            s1.epaisseur = 2
-            const s2 = segment(A, B)
-            s2.epaisseur = 2
-            const s3 = segment(C, B)
-            s3.epaisseur = 2
-            const s4 = segment(C, D)
-            s4.epaisseur = 2
-            const s5 = segment(D, E)
-            s5.epaisseur = 2
-            const s6 = segment(E, F)
-            s6.epaisseur = 2
-            const xmin = -1
-            const ymin = -2
-            const xmax = 7
-            const ymax = 5
-            const objets = []
-            objets.push(
-              texteParPosition(
-                '1 u.l.',
-                milieu(G, H).x,
-                milieu(G, H).y + 0.7,
-                0,
-                'black',
-                context.isHtml ? 1 : 0.7,
-              ),
-              a,
-              s1,
-              s2,
-              s3,
-              s4,
-              s5,
-              s6,
-            )
-            reponse = new FractionEtendue(7, b)
-            texte +=
-              mathalea2d(
-                {
-                  xmin,
-                  ymin,
-                  xmax,
-                  ymax,
-                  pixelsParCm: 20,
-                  mainlevee: false,
-                  amplitude: 0.5,
-                  scale: 0.5,
-                  style: 'margin: auto',
-                },
-                objets,
-              ) + '<br>'
-            texteCorr = `Une unité correspond à $${b}$ carreaux, la ligne brisée mesure $7$ carreaux, soit $\\dfrac{${miseEnEvidence(7)}}{${miseEnEvidence(b)}}$ u.l. `
-          } else if (choix === 'b') {
-            const a = grille(-2, -1, 7, 4, 'gray', 1, 1)
-            b = choice([3, 4, 5, 6])
-            const A = point(0, 2, 'A', 'below')
-            const B = point(1, 2, 'B', 'below')
-            const C = point(1, 0, 'C', 'above')
-            const D = point(4, 0, 'D', 'above')
-            const E = point(4, 1, 'C', 'above')
-            const G = point(0, 4, 'C', 'above')
-            const H = point(b, 4, 'D', 'above')
-            const s1 = segmentAvecExtremites(G, H)
-            s1.epaisseur = 2
-            const s2 = segment(A, B)
-            s2.epaisseur = 2
-            const s3 = segment(C, B)
-            s3.epaisseur = 2
-            const s4 = segment(C, D)
-            s4.epaisseur = 2
-            const s5 = segment(D, E)
-            s5.epaisseur = 2
+          {
+            // Fonction pour créer aléatoirement une question de ligne brisée sur grille
+            const creerQuestionLigneBrisee = () => {
+              // Choix aléatoire de la longueur de l'unité (en carreaux)
+              const longueurUnite = choice([3, 4, 5, 6])
 
-            const xmin = -1
-            const ymin = -1
-            const xmax = 7
-            const ymax = 5
-            const objets = []
-            objets.push(
-              texteParPosition(
-                '1 u.l.',
-                milieu(G, H).x,
-                milieu(G, H).y + 0.7,
-                0,
-                'black',
-                context.isHtml ? 1 : 0.7,
-              ),
-              a,
-              s1,
-              s2,
-              s3,
-              s4,
-              s5,
-            )
-            reponse = new FractionEtendue(7, b)
-            texte +=
-              mathalea2d(
-                {
-                  xmin,
-                  ymin,
-                  xmax,
-                  ymax,
-                  pixelsParCm: 20,
-                  mainlevee: false,
-                  amplitude: 0.5,
-                  scale: 0.5,
-                  style: 'margin: auto',
-                },
-                objets,
-              ) + '<br>'
-            texteCorr = `Une unité correspond à $${b}$ carreaux, la ligne brisée mesure $7$ carreaux, soit $\\dfrac{${miseEnEvidence(7)}}{${miseEnEvidence(b)}}$ u.l. `
-          } else if (choix === 'c') {
-            const a = grille(-2, -1, 7, 4, 'gray', 1, 1)
-            b = choice([3, 4, 5, 6])
-            const A = point(0, 2, 'A', 'below')
-            const B = point(1, 2, 'B', 'below')
-            const C = point(1, 0, 'C', 'above')
-            const D = point(3, 0, 'D', 'above')
-            const E = point(3, 2, 'C', 'above')
-            const G = point(0, 4, 'C', 'above')
-            const H = point(b, 4, 'D', 'above')
-            const s1 = segmentAvecExtremites(G, H)
-            s1.epaisseur = 2
-            const s2 = segment(A, B)
-            s2.epaisseur = 2
-            const s3 = segment(C, B)
-            s3.epaisseur = 2
-            const s4 = segment(C, D)
-            s4.epaisseur = 2
-            const s5 = segment(D, E)
-            s5.epaisseur = 2
+              // Définir les limites de la grille
+              const xmin = -1
+              const ymin = -2
+              const xmax = 7
+              const ymax = 5
 
-            const xmin = -1
-            const ymin = -1
-            const xmax = 7
-            const ymax = 5
-            const objets = []
-            objets.push(
-              texteParPosition(
-                '1 u.l.',
-                milieu(G, H).x,
-                milieu(G, H).y + 0.7,
-                0,
-                'black',
-                context.isHtml ? 1 : 0.7,
-              ),
-              a,
-              s1,
-              s2,
-              s3,
-              s4,
-              s5,
-            )
-            reponse = new FractionEtendue(7, b)
-            texte +=
-              mathalea2d(
-                {
-                  xmin,
-                  ymin,
-                  xmax,
-                  ymax,
-                  pixelsParCm: 20,
-                  mainlevee: false,
-                  amplitude: 0.5,
-                  scale: 0.5,
-                  style: 'margin: auto',
-                },
-                objets,
-              ) + '<br>'
-            texteCorr = `Une unité correspond à $${b}$ carreaux, la ligne brisée mesure $7$ carreaux, soit $\\dfrac{${miseEnEvidence(7)}}{${miseEnEvidence(b)}}$ u.l. `
-          } else if (choix === 'd') {
-            const a = grille(-2, -1, 7, 4, 'gray', 1, 1)
-            b = choice([3, 4, 6])
-            const A = point(0, 2, 'A', 'below')
-            const B = point(1, 2, 'B', 'below')
-            const C = point(1, 1, 'C', 'above')
-            const D = point(3, 1, 'D', 'above')
-            const E = point(3, 2, 'C', 'above')
-            const G = point(0, 4, 'C', 'above')
-            const H = point(b, 4, 'D', 'above')
-            const s1 = segmentAvecExtremites(G, H)
-            s1.epaisseur = 2
-            const s2 = segment(A, B)
-            s2.epaisseur = 2
-            const s3 = segment(C, B)
-            s3.epaisseur = 2
-            const s4 = segment(C, D)
-            s4.epaisseur = 2
-            const s5 = segment(D, E)
-            s5.epaisseur = 2
+              // Créer la grille
+              const grilleObj = grille(-2, ymin, xmax, ymax - 1, 'gray', 1, 1)
 
-            const xmin = -1
-            const ymin = -1
-            const xmax = 7
-            const ymax = 5
-            const objets = []
-            objets.push(
-              texteParPosition(
-                '1 u.l.',
-                milieu(G, H).x,
-                milieu(G, H).y + 0.7,
-                0,
-                'black',
-                context.isHtml ? 1 : 0.7,
-              ),
-              a,
-              s1,
-              s2,
-              s3,
-              s4,
-              s5,
-            )
-            reponse = new FractionEtendue(5, b)
-            texte +=
-              mathalea2d(
-                {
-                  xmin,
-                  ymin,
-                  xmax,
-                  ymax,
-                  pixelsParCm: 20,
-                  mainlevee: false,
-                  amplitude: 0.5,
-                  scale: 0.5,
-                  style: 'margin: auto',
-                },
-                objets,
-              ) + '<br>'
-            texteCorr = `Une unité correspond à $${b}$ carreaux, la ligne brisée mesure $5$ carreaux, soit $\\dfrac{${miseEnEvidence(5)}}{${miseEnEvidence(b)}}$ u.l. `
-          } else {
-            const a = grille(-2, -1, 7, 4, 'gray', 1, 1)
-            b = choice([3, 4, 6])
-            const A = point(0, 2, 'A', 'below')
-            const B = point(1, 2, 'B', 'below')
-            const C = point(2, 2, 'C', 'above')
-            const D = point(2, 1, 'D', 'above')
-            const E = point(4, 1, 'C', 'above')
-            const G = point(0, 4, 'C', 'above')
-            const H = point(b, 4, 'D', 'above')
-            const s1 = segmentAvecExtremites(G, H)
-            s1.epaisseur = 2
-            const s2 = segment(A, B)
-            s2.epaisseur = 2
-            const s3 = segment(C, B)
-            s3.epaisseur = 2
-            const s4 = segment(C, D)
-            s4.epaisseur = 2
-            const s5 = segment(D, E)
-            s5.epaisseur = 2
+              // Créer le segment unité en haut
+              const G = point(0, 4, 'G', 'above')
+              const H = point(longueurUnite, 4, 'H', 'above')
+              const segmentUnite = segmentAvecExtremites(G, H)
+              segmentUnite.epaisseur = 2
 
-            const xmin = -1
-            const ymin = -1
-            const xmax = 7
-            const ymax = 5
-            const objets = []
-            objets.push(
-              texteParPosition(
-                '1 u.l.',
-                milieu(G, H).x,
-                milieu(G, H).y + 0.7,
-                0,
-                'black',
-                context.isHtml ? 1 : 0.7,
-              ),
-              a,
-              s1,
-              s2,
-              s3,
-              s4,
-              s5,
-            )
-            reponse = new FractionEtendue(5, b)
+              // Générer aléatoirement une ligne brisée
+              // La ligne brisée aura entre longueurUnite et 3*longueurUnite carreaux de longueur
+              const longueurLigneBrisee = randint(
+                longueurUnite + 1,
+                3 * longueurUnite,
+              )
+
+              // Créer les points de la ligne brisée
+              // On commence à (0, 2) et on crée des segments horizontaux et verticaux
+              const points = [point(0, 2)]
+              let xActuel = 0
+              let yActuel = 2
+              let longueurRestante = longueurLigneBrisee
+              const xMaxLigne = 6 // Limite horizontale pour la ligne brisée
+              let longueurReelle = 0 // Longueur réelle de la ligne brisée créée
+
+              while (longueurRestante > 0) {
+                // Alterner entre segments horizontaux et verticaux
+                if (points.length % 2 === 1) {
+                  // Segment horizontal
+                  // Calculer la longueur maximale possible sans sortir de la grille
+                  const longueurMax = Math.min(
+                    xMaxLigne - xActuel,
+                    longueurRestante,
+                  )
+                  if (longueurMax <= 0) {
+                    // Si on ne peut plus avancer horizontalement, on arrête
+                    break
+                  }
+                  const longueur = Math.min(randint(1, 3), longueurMax)
+                  xActuel += longueur
+                  points.push(point(xActuel, yActuel))
+                  longueurRestante -= longueur
+                  longueurReelle += longueur
+                } else {
+                  // Segment vertical
+                  const direction = choice([-1, 1])
+                  const longueur = Math.min(randint(1, 2), longueurRestante)
+                  const nouveauY = yActuel + direction * longueur
+                  // Limiter y entre 0 et 3 et calculer la longueur effective
+                  const yFinal = Math.max(0, Math.min(3, nouveauY))
+                  const longueurEffective = Math.abs(yFinal - yActuel)
+                  yActuel = yFinal
+                  points.push(point(xActuel, yActuel))
+                  longueurRestante -= longueurEffective
+                  longueurReelle += longueurEffective
+                }
+              }
+              const ligneBrisee = polyline(...points)
+              ligneBrisee.epaisseur = 2
+
+              // Assembler les objets
+              const objets = []
+              objets.push(
+                texteParPosition(
+                  '1 u.l.',
+                  milieu(G, H).x,
+                  milieu(G, H).y + 0.7,
+                  0,
+                  'black',
+                  context.isHtml ? 1 : 0.7,
+                ),
+                grilleObj,
+                segmentUnite,
+                ligneBrisee,
+              )
+
+              return {
+                objets,
+                longueurUnite,
+                longueurLigneBrisee: longueurReelle, // Retourner la longueur réelle
+                xmin,
+                ymin,
+                xmax,
+                ymax,
+              }
+            }
+
+            const questionData = creerQuestionLigneBrisee()
+            b = questionData.longueurUnite
+            const longueurCarreaux = questionData.longueurLigneBrisee
+
+            reponse = new FractionEtendue(longueurCarreaux, b)
+
+            texte =
+              'Quelle est la longueur de la ligne brisée en unité de longueur (u.l.) ? <br>'
             texte +=
               mathalea2d(
                 {
-                  xmin,
-                  ymin,
-                  xmax,
-                  ymax,
+                  xmin: questionData.xmin,
+                  ymin: questionData.ymin,
+                  xmax: questionData.xmax,
+                  ymax: questionData.ymax,
                   pixelsParCm: 20,
                   mainlevee: false,
                   amplitude: 0.5,
                   scale: 0.5,
                   style: 'margin: auto',
                 },
-                objets,
-              ) + '<br>'
-            texteCorr = `Une unité correspond à $${b}$ carreaux, la ligne brisée mesure $5$ carreaux, soit $\\dfrac{${miseEnEvidence(5)}}{${miseEnEvidence(b)}}$ u.l. `
+                questionData.objets,
+              ) + `<br>`
+
+            texteCorr = `Une unité correspond à $${b}$ carreaux, la ligne brisée mesure $${longueurCarreaux}$ carreaux, soit $${miseEnEvidence(reponse.texFraction)}$ u.l. `
+
+            this.canEnonce = texte
+            this.canReponseACompleter = '$\\ldots$ u.l.'
+            handleAnswers(this, index, {
+              reponse: {
+                value: reponse.texFraction,
+                options: { fractionEgale: true },
+              },
+            })
+            if (this.interactif) {
+              texte +=
+                '<br>' +
+                ajouteChampTexteMathLive(
+                  this,
+                  index,
+                  KeyboardType.clavierDeBaseAvecFraction,
+                ) +
+                'u.l.'
+            }
+
+            this.listeCanEnonces.push(this.canEnonce)
+            this.listeCanReponsesACompleter.push(this.canReponseACompleter)
+            nbChamps = 1
           }
-          this.canEnonce = texte
-          this.canReponseACompleter = '$\\ldots$ u.l.'
-          handleAnswers(this, index, {
-            reponse: {
-              value: reponse.texFraction,
-              options: { fractionEgale: true },
-            },
-          })
-          if (this.interactif) {
-            texte += '<br>' + ajouteChampTexteMathLive(this, index, '') + 'u.l.'
-          }
-
-          this.listeCanEnonces.push(this.canEnonce)
-          this.listeCanReponsesACompleter.push(this.canReponseACompleter)
-          nbChamps = 1
           break
         case 25:
           a = randint(5, 10)
@@ -1527,12 +1447,16 @@ export default class SujetCAN2023Seconde extends Exercice {
             texteCorr = `En partant de l'ordonnée à l'origine de la droite pour aller jusqu'au point $A$, on se décale de $${xA26}$ unités vers la droite et on monte de $${yA26 - yB26}$ unités vers le haut. <br>
             Ainsi, le coefficient directeur de la droite est $\\dfrac{${yA26 - yB26}}{${xA26}}${m.texSimplificationAvecEtapes()}$.`
 
-            reponse = m
+            reponse = m.texFraction
             handleAnswers(this, index, {
               reponse: { value: reponse, options: { fractionEgale: true } },
             })
             if (this.interactif) {
-              texte += ajouteChampTexteMathLive(this, index, '')
+              texte += ajouteChampTexteMathLive(
+                this,
+                index,
+                KeyboardType.clavierDeBaseAvecFraction,
+              )
             }
             this.canEnonce = mathalea2d(
               {
@@ -1682,7 +1606,11 @@ export default class SujetCAN2023Seconde extends Exercice {
               texte += '$B$ est un point de la courbe. Compléter : <br>'
               texte +=
                 `$B(${listeB[0]}\\,;$` +
-                ajouteChampTexteMathLive(this, index, ' ') +
+                ajouteChampTexteMathLive(
+                  this,
+                  index,
+                  KeyboardType.clavierDeBase,
+                ) + // Faudrait mettre un remplisLesBlancs plutôt pour le "en cas d'erreur"
                 '$)$'
             } else {
               texte += `$B$ est un point de la courbe. <br>
@@ -1788,7 +1716,11 @@ export default class SujetCAN2023Seconde extends Exercice {
             }
             handleAnswers(this, index, { reponse: { value: reponse } })
             if (this.interactif) {
-              texte += ajouteChampTexteMathLive(this, index, ' ')
+              texte += ajouteChampTexteMathLive(
+                this,
+                index,
+                KeyboardType.clavierNumbers,
+              )
             }
             this.canEnonce = texte
             this.canReponseACompleter = ''
@@ -1816,7 +1748,11 @@ export default class SujetCAN2023Seconde extends Exercice {
 
             handleAnswers(this, index, { reponse: { value: reponse } })
             if (this.interactif) {
-              texte += ajouteChampTexteMathLive(this, index, '')
+              texte += ajouteChampTexteMathLive(
+                this,
+                index,
+                KeyboardType.clavierNumbers,
+              )
             }
             this.canEnonce = texte
             this.canReponseACompleter = '$n=\\ldots$'

@@ -19,11 +19,9 @@ export default mergeConfig(
       include: ['./tests/consistency/consistency.test.{js,ts}'],
       hookTimeout: 600_000,
       testTimeout: 200_000,
-      poolOptions: {
-        threads: {
-          singleThread: true,
-        },
-      },
+      pool: 'threads',
+      maxWorkers: 1,
+      isolate: false,
     },
   }),
 )

@@ -31,7 +31,7 @@ export const uuid = '23c48'
 export const refs = {
   'fr-fr': ['6N1H-3'],
   'fr-2016': ['6N23-3'],
-  'fr-ch': ['9NO11-7'],
+  'fr-ch': ['9NO11-7b'],
 }
 export default class LireUneAbscisseAvecZoom extends Exercice {
   niveau: string
@@ -58,7 +58,6 @@ export default class LireUneAbscisseAvecZoom extends Exercice {
     for (
       let i = 0, texte, texteCorr, cpt = 0;
       i < this.nbQuestions && cpt < 50;
-
     ) {
       let reponse1
       let reponse2A

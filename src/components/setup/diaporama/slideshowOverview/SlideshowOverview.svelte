@@ -147,12 +147,12 @@
   }
 </script>
 
-<div class="{$darkMode.isActive ? 'dark' : ''}">
+<div class={$darkMode.isActive ? 'dark' : ''}>
   <div
-    class="fixed z-20 rounded-b-full rounded-t-full bg-opacity-80
+    class="fixed z-20 rounded-b-full rounded-t-full
     bottom-2 lg:bottom-6
     right-2 lg:right-6
-    bg-coopmaths-canvas dark:bg-coopmathsdark-canvas"
+    bg-coopmaths-canvas/80 dark:bg-coopmathsdark-canvas/80"
   >
     <div
       class="flex flex-col space-y-2
@@ -169,8 +169,8 @@
       <SlideshowOverviewLeftPanel
         {isQuestionsVisible}
         {isCorrectionVisible}
-        currentVue="{currentSeriesIndex}"
-        nbOfVues="{nbVues}"
+        currentVue={currentSeriesIndex}
+        nbOfVues={nbVues}
         {setCurrentVue}
         {setQuestionsVisible}
         {setCorrectionVisible}
@@ -183,7 +183,7 @@
       class="flex flex-row p-2
       bg-coopmaths-canvas dark:bg-coopmathsdark-canvas
       text-coopmaths-corpus dark:text-coopmathsdark-corpus"
-      bind:this="{divExercice}"
+      bind:this={divExercice}
     >
       <SlideshowOverviewMainPanel
         {isQuestionsVisible}

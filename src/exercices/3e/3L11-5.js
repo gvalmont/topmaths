@@ -1,17 +1,18 @@
+import { warnMessage } from '../../lib/format/message'
+import { texteGras } from '../../lib/format/style'
+import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
+import { setReponse } from '../../lib/interactif/gestionInteractif'
+import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import {
   choice,
   combinaisonListesSansChangerOrdre,
   shuffle,
 } from '../../lib/outils/arrayOutils'
-import { warnMessage } from '../../lib/format/message'
-import { texteGras } from '../../lib/format/style'
-import { texNombre } from '../../lib/outils/texNombre'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
-import Exercice from '../Exercice'
+import { texNombre } from '../../lib/outils/texNombre'
 import { context } from '../../modules/context'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
-import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
-import { setReponse } from '../../lib/interactif/gestionInteractif'
+import Exercice from '../Exercice'
 
 export const titre =
   'Utiliser la distributivité pour effectuer du calcul mental'
@@ -113,7 +114,6 @@ export default class IdentitesCalculs extends Exercice {
     for (
       let i = 0, texte, texteCorr, cpt = 0;
       i < this.nbQuestions && cpt < 50;
-
     ) {
       // une fonction pour gérer l'affichage sous forme de carré
       // a et b  sont les facteurs du produit, s'ils sont égaux on affiche sous forme de carré
@@ -468,7 +468,12 @@ export default class IdentitesCalculs extends Exercice {
           break
       }
       if (!this.can) {
-        texte += ajouteChampTexteMathLive(this, i, '', { texteAvant: ' $=$ ' })
+        texte += ajouteChampTexteMathLive(
+          this,
+          i,
+          KeyboardType.clavierNumbers,
+          { texteAvant: ' $=$ ' },
+        )
       }
       if (this.questionJamaisPosee(i, a, coeff, coeffSomDif)) {
         // Si la question n'a jamais été posée, on en créé une autre

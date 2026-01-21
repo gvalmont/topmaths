@@ -352,11 +352,39 @@ export function sendToCapytaleSaveStudentAssignment({
         console.info('Sauvegarde effectuée')
         // Afficher sauvegarde réussie
       })
-      .catch(() => {
-        console.error('Problème avec la sauvegarde')
+      .catch((err) => {
+        console.error('Problème avec la sauvegarde', err)
         // Indiquer à l'élève qu'il y a un soucis réseau
 
+        console.error('typeof err =', typeof err)
+
+        if (err instanceof Error) {
+          console.error('message =', err.message)
+          console.error('stack =', err.stack)
+        }
+
+        if (err?.response) {
+          console.error('response =', err.response)
+        }
+
+        if (err?.data) {
+          console.error('data =', err.data)
+        }
+
+        const message = [
+          err.code && `code: ${err.code}`,
+          err.status && `status: ${err.status}`,
+          err.message && `message: ${err.message}`,
+          err.stack && `stack: ${err.stack}`,
+          err?.data?.message && `data.message: ${err?.data?.message}`,
+          err?.error?.message && `error.message: ${err?.error?.message}`,
+        ]
+          .filter(Boolean)
+          .join('\n')
+
         window.notify('Problème avec la sauvegarde Capytale', {
+          error: err,
+          message,
           mode: currentMode,
           indiceExercice,
           data,

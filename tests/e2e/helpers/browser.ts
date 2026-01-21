@@ -1,3 +1,4 @@
+import fetch from 'node-fetch'
 import type {
   Browser,
   ConsoleMessage,
@@ -6,10 +7,9 @@ import type {
   Request,
   Response,
 } from 'playwright'
-import fetch from 'node-fetch'
 import playwright from 'playwright'
-import prefs from './prefs'
 import { log, logError, logIfVerbose } from './log'
+import prefs from './prefs'
 import type { BrowserName } from './types'
 
 declare global {
@@ -158,7 +158,10 @@ export async function getDefaultPage({
         ...args,
       )
     } else if (prefs.debug || (prefs.verbose && type === 'warning')) {
-      log(`[Browser ${type}]`, ...args)
+      if (String(args[0]) !== 'placeholderMetrics') {
+        // la version 108 de mathlive spamme les warnings placeholderMetrics
+        log(`[Browser ${type}]`, ...args)
+      }
     }
   }
   const pageErrorListener = (error: Error) => {

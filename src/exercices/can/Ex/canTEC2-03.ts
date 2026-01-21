@@ -32,9 +32,9 @@ export default class NomExercice extends ExerciceSimple {
     const r = randint(1, 10)
 
     this.question = 'Soit $z\\in\\mathbb{C}$. <br>'
-    this.question += `Déterminer l'ensemble des points $M$ du plan complexe, d'affixe $z$, qui vérifient $\\vert z${ecritureAlgebrique(-a)}${ecritureAlgebriqueSauf1(-b)}\\text{i}\\vert=${r}\\quad (1)$`
-    this.correction = `Soit $A$ le point du plan complexe d'affixe $z_A=${a}${ecritureAlgebriqueSauf1(b)}\\text{i}$.`
-    this.correction += `<br>On sait que $AM=\\vert z-z_A\\vert=\\vert z${ecritureAlgebrique(-a)}${ecritureAlgebriqueSauf1(-b)}\\text{i}\\vert$.<br>`
+    this.question += `Déterminer l'ensemble des points $M$ du plan complexe, d'affixe $z$, qui vérifient $\\vert z${ecritureAlgebrique(-a)}${ecritureAlgebriqueSauf1(-b)}\\mathrm{i}\\vert=${r}\\quad (1)$`
+    this.correction = `Soit $A$ le point du plan complexe d'affixe $z_A=${a}${ecritureAlgebriqueSauf1(b)}\\mathrm{i}$.`
+    this.correction += `<br>On sait que $AM=\\vert z-z_A\\vert=\\vert z${ecritureAlgebrique(-a)}${ecritureAlgebriqueSauf1(-b)}\\mathrm{i}\\vert$.<br>`
     this.correction += `<br>On montre donc que  $(1) \\iff AM=${r}$.`
     this.correction += `<br>Les points $M$ solutions correspondent donc à l'ensemble des points du plan complexe,<br> situés à une distance de ${r} unités du point $A$.<br>`
     this.correction += `C'est donc le cercle de centre $A$ et de rayon ${r}.`

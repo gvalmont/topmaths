@@ -1,4 +1,5 @@
 import { bleuMathalea } from '../../lib/colors'
+import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
@@ -292,7 +293,12 @@ export default class ExerciceAdditionnerOuSoustraireDesFractions extends Exercic
       if (!new FractionEtendue(num, den).estIrreductible)
         texteCorr += sp(5) + ' (On a réduit le plus possible la fraction.)'
 
-      texte += ajouteChampTexteMathLive(this, i, ' ', { texteAvant: '=' })
+      texte += ajouteChampTexteMathLive(
+        this,
+        i,
+        KeyboardType.clavierDeBaseAvecFraction,
+        { texteAvant: '=' },
+      )
       reponse = this.sup3 ? fraction(num, den).simplifie() : fraction(num, den)
       handleAnswers(this, i, {
         reponse: {

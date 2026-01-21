@@ -1,10 +1,11 @@
 import { bleuMathalea } from '../../../lib/colors'
+import { choice } from '../../../lib/outils/arrayOutils'
 import {
   miseEnEvidence,
   texteEnCouleur,
 } from '../../../lib/outils/embellissements'
 import { sp } from '../../../lib/outils/outilString'
-import { prenomM } from '../../../lib/outils/Personne'
+import { prenoms } from '../../../lib/outils/Personne'
 import { randint } from '../../../modules/outils'
 import ExerciceSimple from '../../ExerciceSimple'
 export const titre = 'Calculer une durée en minutes'
@@ -39,9 +40,11 @@ export default class CalculDureeMinutes extends ExerciceSimple {
     const b = a + 1
     const c = randint(1, 4) * 10
     const d = randint(10, 58)
+    const {prenom, pronom} = choice(prenoms)
+    const pronomMajuscule = prenom.charAt(0).toUpperCase() + prenom.slice(1)
     this.reponse = b * 60 + d - (a * 60 + c)
-    this.question = `${prenomM()} est parti à  $${a}$h${sp(1)}$${c}$ de son domicile.
-    Il est arrivé à $${b}$h${sp(1)}$${d}$.<br>
+    this.question = `${prenom} est parti${pronom === 'elle' ? 'e' : ''} à  $${a}$h${sp(1)}$${c}$ de son domicile.
+    ${pronomMajuscule} est arrivé${pronom === 'elle' ? 'e' : ''} à $${b}$h${sp(1)}$${d}$.<br>
 
     Combien de temps a duré son trajet ?`
     this.correction = `$${b}$h${sp(1)}$${d}-${a}$h${sp(1)}$${c}=${miseEnEvidence(this.reponse)}$ min`

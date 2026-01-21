@@ -44,23 +44,24 @@
     type="button"
     {id}
     class="flex justify-center items-center"
-    on:click="{toggle}"
-    disabled="{isDisabled}"
+    on:click={toggle}
+    disabled={isDisabled}
+    aria-label={value ? titles[0] : titles[1]}
   >
     <i
-      class=" text-coopmaths-action hover:text-coopmaths-action-lightest dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest bx bx-{buttonSize} translate-y-[0.15rem] {value
+      class="bx bx-{buttonSize} translate-y-[0.15rem] {value
         ? 'bx-toggle-right'
         : 'bx-toggle-left'}
-        {isDisabled ? 'text-opacity-10' : ''}"
-      aria-describedby="{value ? titles[0] : titles[1]}"
+        {isDisabled ? 'text-coopmaths-action/10 dark:text-coopmathsdark-action/10' : 'text-coopmaths-action hover:text-coopmaths-action-lightest dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest'}"
+      aria-describedby={value ? titles[0] : titles[1]}
     ></i>
   </button>
   <div
     class="{textSize === 'xs'
       ? 'pl-1'
-      : 'pl-2'} inline-block text-{textSize} font-light text-coopmaths-corpus dark:text-coopmathsdark-corpus {isDisabled
-      ? 'text-opacity-10'
-      : 'text-opacity-70'}"
+      : 'pl-2'} inline-block text-{textSize} font-light {isDisabled
+      ? 'text-coopmaths-corpus/10 dark:text-coopmathsdark-corpus/10'
+      : 'text-coopmaths-corpus/70 dark:text-coopmathsdark-corpus/70'}"
   >
     <!-- eslint-disable-next-line svelte/no-at-html-tags -->
     {@html `${value ? titles[0] : titles[1]}`}

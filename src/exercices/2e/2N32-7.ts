@@ -1,22 +1,23 @@
+import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
+import { equalFractionCompareSansRadical } from '../../lib/interactif/comparisonFunctions'
+import { handleAnswers } from '../../lib/interactif/gestionInteractif'
+import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { texFractionFromString } from '../../lib/outils/deprecatedFractions'
 import {
   ecritureAlgebrique,
   ecritureAlgebriqueSauf1,
 } from '../../lib/outils/ecritures'
+import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { abs } from '../../lib/outils/nombres'
+import { lettreIndiceeDepuisChiffre, sp } from '../../lib/outils/outilString'
 import { pgcd } from '../../lib/outils/primalite'
-import Exercice from '../Exercice'
+import FractionEtendue from '../../modules/FractionEtendue'
 import {
   gestionnaireFormulaireTexte,
   listeQuestionsToContenu,
   randint,
 } from '../../modules/outils'
-import { miseEnEvidence } from '../../lib/outils/embellissements'
-import { lettreIndiceeDepuisChiffre, sp } from '../../lib/outils/outilString'
-import { handleAnswers } from '../../lib/interactif/gestionInteractif'
-import { equalFractionCompareSansRadical } from '../../lib/interactif/comparisonFunctions'
-import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
-import FractionEtendue from '../../modules/FractionEtendue'
+import Exercice from '../Exercice'
 
 export const titre =
   'Simplifier une fraction pour supprimer la racine carrée de son dénominateur'
@@ -183,12 +184,17 @@ export default class Rendreentier extends Exercice {
           }
         }
       }
-      texte += ajouteChampTexteMathLive(this, i, ' ', {
-        texteAvant:
-          listeQuestions[i] < 3
-            ? `$${sp()}=$`
-            : `<br><br>$${lettreIndiceeDepuisChiffre(i + 1)}=$`,
-      })
+      texte += ajouteChampTexteMathLive(
+        this,
+        i,
+        KeyboardType.clavierFullOperations,
+        {
+          texteAvant:
+            listeQuestions[i] < 3
+              ? `$${sp()}=$`
+              : `<br><br>$${lettreIndiceeDepuisChiffre(i + 1)}=$`,
+        },
+      )
       handleAnswers(this, i, {
         reponse: { value: reponse, compare: equalFractionCompareSansRadical },
       })

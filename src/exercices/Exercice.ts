@@ -267,6 +267,20 @@ export default class Exercice implements IExercice {
     this._html = value
   }
 
+  get key(): string {
+    return [
+      this.nbQuestions,
+      this.interactif,
+      this.sup,
+      this.sup2,
+      this.sup3,
+      this.sup4,
+      this.sup5,
+      this.seed,
+      this.correctionDetaillee,
+    ].join('_')
+  }
+
   destroy(): void {
     // Nécessaire pour éviter les fuites de mémoire des exercices HTML
   }

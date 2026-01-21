@@ -26,54 +26,80 @@ export const dateDePublication = '02/08/2025'
  */
 
 export default class MoyenneQCM extends ExerciceQcmA {
+  // Méthode privée pour factoriser le code redondant
+  private appliquerLesValeurs(
+    valeurs: number[],
+    effectif: number,
+    moyenne: number,
+    x: number,
+    distracteur2: number,
+    distracteur3: number,
+    distracteur4: number,
+  ): void {
+    const somme = valeurs.reduce((a, b) => a + b, 0)
+
+    // Construction du tableau de réponses avec la bonne réponse en premier
+    this.reponses = [
+      `$${texNombre(x)}$`, // Bonne réponse
+      `$${texNombre(distracteur2)}$`, // Distracteur 1
+      `$${texNombre(distracteur3)}$`, // Distracteur 2
+      `$${texNombre(distracteur4)}$`, // Distracteur 3
+    ]
+
+    // Construction de l'énoncé
+    this.enonce = `On donne la série statistique suivante : $${valeurs.join(' ; ')}$.<br>
+    Quelle valeur faut-il ajouter à la série pour que sa moyenne soit égale à $${texNombre(moyenne)}$ ?`
+
+    // Construction de la correction
+    this.correction = `Appelons $x$ la valeur cherchée.<br>
+    On commence par calculer la somme des valeurs de la série de l'énoncé :<br>
+    $${valeurs.join(' + ')} = ${somme}$.<br>
+    Comme la série de l'énoncé contient $${effectif}$ valeurs, la nouvelle série avec $x$ en contient $${effectif + 1}$.
+    <br>On peut calculer sa moyenne avec l'expression : $\\dfrac{${somme} + x}{${effectif + 1}}$<br>
+    Comme cette moyenne vaut $${texNombre(moyenne)}$ d'après l'énoncé, il faut alors résoudre l'équation : <br>
+    $\\dfrac{${somme} + x}{${effectif + 1}} = ${texNombre(moyenne)}$
+    <br>
+    $${somme} + x = ${texNombre(moyenne)} \\times ${effectif + 1}$
+    <br>
+    $x = ${texNombre(moyenne)} \\times ${effectif + 1} - ${somme}$
+    <br>$x = ${miseEnEvidence(texNombre(x))}$`
+  }
+
   // Ceci est la fonction qui s'occupe d'écrire l'énoncé, la correction et les réponses
   // Elle factorise le code qui serait dupliqué dans versionAleatoire et versionOriginale
   versionOriginale: () => void = () => {
-  // Version avec données statiques
-  const effectif = 4
-  const valeurs = [8, 12, 6, 10] // Série fixe
-  const somme = valeurs.reduce((a, b) => a + b, 0) // somme = 36
-  const moyenne = 9 // Moyenne cible fixe
-  
-  // Calcul de la valeur à ajouter : x = moyenne * (effectif + 1) - somme
-  const x = moyenne * (effectif + 1) - somme // x = 9 * 5 - 36 = 9
-  
-  // Distracteurs fixes
-  const distracteur2 = 7  // x - 2
-  const distracteur3 = 11 // x + 2
-  const distracteur4 = 5  // x - 4
+    // Version avec données statiques
+    const effectif = 4
+    const valeurs = [8, 12, 6, 10] // Série fixe
+    const somme = valeurs.reduce((a, b) => a + b, 0) // somme = 36
+    const moyenne = 9 // Moyenne cible fixe
 
-  // Construction du tableau de réponses avec la bonne réponse en premier
-  this.reponses = [
-    `$${texNombre(x)}$`,           // Bonne réponse : 9
-    `$${texNombre(distracteur2)}$`, // Distracteur 1 : 7
-    `$${texNombre(distracteur3)}$`, // Distracteur 2 : 11
-    `$${texNombre(distracteur4)}$`  // Distracteur 3 : 5
-  ]
+    // Calcul de la valeur à ajouter : x = moyenne * (effectif + 1) - somme
+    const x = moyenne * (effectif + 1) - somme // x = 9 * 5 - 36 = 9
 
-  // Construction de l'énoncé
-  this.enonce = `On donne la série statistique suivante : $${valeurs.join(' ; ')}$.<br>
-  Quelle valeur faut-il ajouter à la série pour que sa moyenne soit égale à $${texNombre(moyenne)}$ ?`
+    // Distracteurs fixes
+    const distracteur2 = 7 // x - 2
+    const distracteur3 = 11 // x + 2
+    const distracteur4 = 5 // x - 4
 
-  // Construction de la correction
-  this.correction = `Appelons $x$ la valeur cherchée.<br>
-  On commence par calculer la somme des valeurs de la série de l'énoncé :<br>
-  $${valeurs.join(' + ')} = ${somme}$.<br>
-  Comme la série de l'énoncé contient $${effectif}$ valeurs, la nouvelle série avec $x$ en contient $${effectif + 1}$.
-  <br>On peut calculer sa moyenne avec l'expression : $\\dfrac{${somme} + x}{${effectif + 1}}$<br>
-  Comme cette moyenne vaut $${texNombre(moyenne)}$ d'après l'énoncé, il faut alors résoudre l'équation : <br>
-  $\\dfrac{${somme} + x}{${effectif + 1}} = ${texNombre(moyenne)}$
-  <br>
-  $${somme} + x = ${texNombre(moyenne)} \\times ${effectif + 1}$
-  <br>
-  $x = ${texNombre(moyenne)} \\times ${effectif + 1} - ${somme}$
-  <br>$x = ${miseEnEvidence(texNombre(x))}$`
-}
+    this.appliquerLesValeurs(
+      valeurs,
+      effectif,
+      moyenne,
+      x,
+      distracteur2,
+      distracteur3,
+      distracteur4,
+    )
+  }
 
- versionAleatoire = () => {
+  versionAleatoire = () => {
     const n = 4 // nombre de réponses
-    let x: number, distracteur2: number, distracteur3: number, distracteur4: number
-    
+    let x: number,
+      distracteur2: number,
+      distracteur3: number,
+      distracteur4: number
+
     do {
       const effectif = choice([4, 5])
       const valeurs = []
@@ -82,10 +108,10 @@ export default class MoyenneQCM extends ExerciceQcmA {
       for (let i = 0; i < effectif; i++) {
         valeurs.push(randint(5, 15, 0))
       }
-      
+
       const somme = valeurs.reduce((a, b) => a + b, 0)
       const moyenne1 = somme / effectif
-      
+
       // Calcul de la moyenne cible
       let moyenne: number
       if (moyenne1 > 11) {
@@ -93,7 +119,7 @@ export default class MoyenneQCM extends ExerciceQcmA {
       } else {
         moyenne = Math.floor(moyenne1) + 1
       }
-      
+
       // Calcul de la valeur à ajouter
       x = moyenne * (effectif + 1) - somme
 
@@ -126,7 +152,10 @@ export default class MoyenneQCM extends ExerciceQcmA {
           )
         }
 
-        const [distracteur2, distracteur3, distracteur4] = candidates.slice(0, 3)
+        const [distracteur2, distracteur3, distracteur4] = candidates.slice(
+          0,
+          3,
+        )
         return { distracteur2, distracteur3, distracteur4 }
       }
 
@@ -135,32 +164,15 @@ export default class MoyenneQCM extends ExerciceQcmA {
       distracteur3 = distracteurs.distracteur3
       distracteur4 = distracteurs.distracteur4
 
-      // Construction du tableau de réponses avec la bonne réponse en premier
-      this.reponses = [
-        `$${texNombre(x)}$`,           // Bonne réponse
-        `$${texNombre(distracteur2)}$`, // Distracteur 1
-        `$${texNombre(distracteur3)}$`, // Distracteur 2
-        `$${texNombre(distracteur4)}$`  // Distracteur 3
-      ]
-
-      // Construction de l'énoncé
-      this.enonce = `On donne la série suivante : $${valeurs.join(' ; ')}$.<br>
-      Quelle valeur faut-il ajouter à la série pour que sa moyenne soit égale à $${texNombre(moyenne)}$ ?`
-
-      // Construction de la correction
-      this.correction = `Appelons $x$ la valeur cherchée.<br>
-      On commence par calculer la somme des valeurs de la série de l'énoncé :<br>
-      $${valeurs.join(' + ')} = ${somme}$.<br>
-      Comme la série de l'énoncé contient $${effectif}$ valeurs, la nouvelle série avec $x$ en contient $${effectif + 1}$.
-      <br>On peut calculer sa moyenne avec l'expression : $\\dfrac{${somme} + x}{${effectif + 1}}$<br>
-      Comme cette moyenne vaut $${texNombre(moyenne)}$ d'après l'énoncé, il faut alors résoudre l'équation : <br>
-      $\\dfrac{${somme} + x}{${effectif + 1}} = ${texNombre(moyenne)}$
-      <br>
-      $${somme} + x = ${texNombre(moyenne)} \\times ${effectif + 1}$
-      <br>
-      $x = ${texNombre(moyenne)} \\times ${effectif + 1} - ${somme}$
-      <br>$x = ${miseEnEvidence(texNombre(x))}$`
-
+      this.appliquerLesValeurs(
+        valeurs,
+        effectif,
+        moyenne,
+        x,
+        distracteur2,
+        distracteur3,
+        distracteur4,
+      )
     } while (nombreElementsDifferents(this.reponses) < n)
   }
 

@@ -1,13 +1,15 @@
+import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 import { choice } from '../../../lib/outils/arrayOutils'
 import { ecritureParentheseSiNegatif } from '../../../lib/outils/ecritures'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
-import ExerciceSimple from '../../ExerciceSimple'
 import { randint } from '../../../modules/outils'
-import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
-export const titre = 'Calculer/déterminer une racine carrée (phrase ou calcul)'
+import ExerciceSimple from '../../ExerciceSimple'
+export const titre = 'Calculer avec des racines carrées '
 export const interactifReady = true
 export const interactifType = 'mathLive'
+
 export const dateDePublication = '19/09/2022'
+export const dateDeModifImportante = '19/12/2025'
 /**
  * Modèle d'exercice très simple pour la course aux nombres
  * @author Gilles Mora
@@ -33,7 +35,7 @@ export default class CalculAvecRacineDef extends ExerciceSimple {
   nouvelleVersion() {
     let a, choix
     switch (
-      choice([1, 2, 3, 4, 5, 6, 7, 8]) //
+      choice([1, 2, 3, 4, 5]) //
     ) {
       case 1:
         a = choice([1, 4, 9, 16, 25, 36, 49, 64, 81, 100])
@@ -103,70 +105,14 @@ export default class CalculAvecRacineDef extends ExerciceSimple {
         break
 
       case 5:
-        a = randint(2, 30, [4, 9, 16, 25])
+      default:
+        a = choice([2, 3, 5, 7, 10, 11, 13, 15, 17, 19, 21])
         choix = choice([true, false])
         this.question = `Écrire plus simplement $\\sqrt{${a}}+ \\sqrt{${a}}$. `
         this.correction = `La somme de deux racines carrées n'est pas égale à la racine carrée de la somme.<br> Autrement dit, $\\sqrt{${a}}+ \\sqrt{${a}}$
              n'est pas égal à $\\sqrt{${2 * a}}$.<br>
              En revanche on peut écrire : $\\sqrt{${a}} + \\sqrt{${a}}= ${miseEnEvidence(`2\\sqrt{${a}}`)}$.`
         this.reponse = [`2\\sqrt{${a}}`]
-        break
-
-      case 6:
-        a = randint(2, 10)
-        choix = choice([true, false])
-        this.question = `Donner le nombre ${choix ? 'positif' : 'négatif'} dont le carré est $${a}$.`
-        if (a === 4) {
-          this.correction = `Par définition, le nombre positif dont le carré est $${a}$ est $\\sqrt{${a}}=2$.<br>`
-          this.correction += `${choix ? '' : `Ainsi, le nombre négatif dont le carré est $${a}$ est $-\\sqrt{${a}}=${miseEnEvidence(-2)}$.`}`
-        }
-        if (a === 9) {
-          this.correction = `Par définition, le nombre positif dont le carré est $${a}$ est $\\sqrt{${a}}=3$.<br>`
-          this.correction += `${choix ? '' : `Ainsi, le nombre négatif dont le carré est $${a}$ est $-\\sqrt{${a}}=${miseEnEvidence(-3)}$.`}`
-        }
-        if (a !== 4 && a !== 9) {
-          this.correction = `Par définition, le nombre positif dont le carré est $${a}$ est $\\sqrt{${a}}$.<br>`
-          this.correction += `${choix ? '' : `Ainsi, le nombre négatif dont le carré est $${a}$ est $${miseEnEvidence('-')} ${miseEnEvidence(`\\sqrt{${a}}`)}$.`}`
-        }
-        this.reponse = choix
-          ? [`\\sqrt{${a}}`, `${Math.sqrt(a)}`]
-          : [`-\\sqrt{${a}}`, `-${Math.sqrt(a)}`]
-        break
-
-      case 7:
-        a = randint(2, 10)
-        choix = choice([true, false])
-        if (choice([true, false])) {
-          this.question = `Un nombre ${choix ? 'positif' : 'négatif'} a pour  carré $${a}$.<br>
-                Quel est ce nombre ?`
-        } else {
-          this.question = `Le carré d'un nombre ${choix ? 'positif' : 'négatif'} est $${a}$.<br>
-                Quel est ce nombre ?`
-        }
-
-        if (a === 4) {
-          this.correction = `Par définition, le nombre positif dont le carré est $${a}$ est $\\sqrt{${a}}=2$.<br>`
-          this.correction += `${choix ? '' : `Ainsi, le nombre négatif dont le carré est $${a}$ est $-\\sqrt{${a}}=${miseEnEvidence(-2)}$.`}`
-        }
-        if (a === 9) {
-          this.correction = `Par définition, le nombre positif dont le carré est $${a}$ est $\\sqrt{${a}}=3$.<br>`
-          this.correction += `${choix ? '' : `Ainsi, le nombre négatif dont le carré est $${a}$ est $-\\sqrt{${a}}=${miseEnEvidence(-3)}$.`}`
-        }
-        if (a !== 4 && a !== 9) {
-          this.correction = `Par définition, le nombre positif dont le carré est $${a}$ est $\\sqrt{${a}}$.<br>`
-          this.correction += `${choix ? '' : `Ainsi, le nombre négatif dont le carré est $${a}$ est $${miseEnEvidence('-')} ${miseEnEvidence(`\\sqrt{${a}}`)}$.`}`
-        }
-        this.reponse = choix
-          ? [`\\sqrt{${a}}`, `${Math.sqrt(a)}`]
-          : [`-\\sqrt{${a}}`, `-${Math.sqrt(a)}`]
-        break
-
-      case 8:
-        a = randint(1, 12)
-        this.question = `Quel est le nombre dont la racine carrée vaut $${a}$ ?`
-        this.correction = `Comme $\\sqrt{${a ** 2}}=${a}$, le nombre dont la racine carrée est $${a}$ est $${miseEnEvidence(`${a ** 2}`)}$.`
-        this.optionsDeComparaison = { texteSansCasse: true }
-        this.reponse = a * a
         break
     }
     this.canEnonce = this.question // 'Compléter'

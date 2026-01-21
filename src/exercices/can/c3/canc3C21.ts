@@ -25,6 +25,7 @@ export default class AjouterDizainesAUnPres extends Exercice {
     this.nbQuestions = 1
     this.spacing = 1.5
     this.formatChampTexte = KeyboardType.clavierDeBase
+     this.optionsChampTexte = { texteAvant: '<br>' }
     this.besoinFormulaireTexte = [
       'Types de questions',
       'Nombres séparés par des tirets  :\n1: Ajouter 9 ou 99\n2: Soustraire 9 ou 99\n3: Ajouter x9\n4: Soustraire x9\n5: Ajouter xx9\n6: Soustraire xx9\n7: Mélange',

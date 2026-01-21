@@ -10,7 +10,7 @@ import { labelPoint, latex2d } from '../../lib/2d/textes'
 import { tracePoint } from '../../lib/2d/TracePoint'
 import { vecteur } from '../../lib/2d/Vecteur'
 import { orangeMathalea } from '../../lib/colors'
-import figureApigeom from '../../lib/figureApigeom'
+import figureApigeom, { isFigureArray } from '../../lib/figureApigeom'
 import { choice } from '../../lib/outils/arrayOutils'
 import { abs } from '../../lib/outils/nombres'
 import { getLang } from '../../lib/stores/languagesStore'
@@ -40,7 +40,7 @@ export const refs = {
   'fr-ch': ['10FA5-19', '11FA8-16', '1mF2-14'],
 }
 export default class RepresenterfDroite extends Exercice {
-  figures: Figure[] = []
+  figuresApiGeom: Figure[] = []
   pointsA: Point[] = []
   pointsB: Point[] = []
   constructor() {
@@ -287,12 +287,14 @@ export default class RepresenterfDroite extends Exercice {
         width: 290,
         height: 290,
       })
+      if (isFigureArray(this.figures)) this.figures.push(figure)
       const figureCorr = new Figure({
         xMin: cadre.xMin + 0.1,
         yMin: cadre.yMin + 0.1,
         width: 290,
         height: 290,
       })
+      if (isFigureArray(this.figures)) this.figures.push(figureCorr)
       figure.options.labelAutomaticBeginsWith = 'A'
       figure.create('Grid')
       figure.options.color = 'blue'
@@ -301,7 +303,7 @@ export default class RepresenterfDroite extends Exercice {
       figure.snapGrid = true
       figureCorr.loadJson(JSON.parse(figure.json))
 
-      this.figures[i] = figure
+      this.figuresApiGeom[i] = figure
 
       const A1 = figureCorr.create('Point', { x: A.x, y: A.y, label: A.nom })
       const B1 = figureCorr.create('Point', { x: B.x, y: B.y, label: B.nom })
@@ -341,7 +343,7 @@ export default class RepresenterfDroite extends Exercice {
 
   correctionInteractive = (i: number) => {
     if (this.pointsA[i] == null || this.pointsB[i] == null) return 'KO'
-    const figure = this.figures[i]
+    const figure = this.figuresApiGeom[i]
     figure.isDynamic = false
     figure.divButtons.style.display = 'none'
     figure.divUserMessage.style.display = 'none'

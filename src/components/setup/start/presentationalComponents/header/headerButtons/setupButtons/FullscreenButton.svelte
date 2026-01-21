@@ -145,11 +145,11 @@
 <button
   type="button"
   class="tooltip tooltip-bottom tooltip-neutral"
-  data-tip="{isFullScreen ? 'Quitter le plein écran' : 'Plein écran'}"
-  on:click="{switchFullScreen}"
+  data-tip={isFullScreen ? 'Quitter le plein écran' : 'Plein écran'}
+  on:click={switchFullScreen}
 >
   <div class="px-2">
-    <TwoStatesIcon isOnStateActive="{isFullScreen}">
+    <TwoStatesIcon isOnStateActive={isFullScreen}>
       <i
         slot="icon_to_switch_on"
         class="bx bx-fullscreen text-3xl

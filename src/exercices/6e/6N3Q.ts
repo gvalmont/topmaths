@@ -1,16 +1,17 @@
+import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
+import { setReponse } from '../../lib/interactif/gestionInteractif'
+import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { choice } from '../../lib/outils/arrayOutils'
 import { texFractionFromString } from '../../lib/outils/deprecatedFractions'
+import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { texNombre } from '../../lib/outils/texNombre'
-import Exercice from '../Exercice'
 import { context } from '../../modules/context'
 import {
   gestionnaireFormulaireTexte,
   listeQuestionsToContenu,
   randint,
 } from '../../modules/outils'
-import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
-import { setReponse } from '../../lib/interactif/gestionInteractif'
-import { miseEnEvidence } from '../../lib/outils/embellissements'
+import Exercice from '../Exercice'
 
 export const amcReady = true
 export const amcType = 'AMCNum'
@@ -73,7 +74,6 @@ export default class PourcentageDunNombre extends Exercice {
     for (
       let i = 0, texte, texteCorr, cpt = 0;
       i < this.nbQuestions && cpt < 50;
-
     ) {
       const p = pourcentages[i]
       let n = choice([
@@ -115,7 +115,7 @@ $${p}~\\%~\\text{de }${n}= ${p / 10} \\times ${n}\\div${10} =  ${texNombre((p * 
           }
       }
       if (context.isHtml && this.interactif)
-        texte += ajouteChampTexteMathLive(this, i, '')
+        texte += ajouteChampTexteMathLive(this, i, KeyboardType.clavierNumbers)
       setReponse(this, i, (n * p) / 100)
       if (context.isAmc) {
         this.autoCorrection[i].enonce = texte + '='

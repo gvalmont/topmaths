@@ -17,6 +17,7 @@ import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import Exercice from '../Exercice'
 
 import { point } from '../../lib/2d/PointAbstrait'
+import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 import { choice } from '../../lib/outils/arrayOutils'
 
 export const titre =
@@ -210,6 +211,7 @@ export default class Lecturegraphiquedeaetb extends Exercice {
                 type: 'AMCNum',
                 propositions: [
                   {
+                    texte: '',
                     statut: '',
                     reponse: {
                       texte: "ordonnée à l'origine",
@@ -228,16 +230,26 @@ export default class Lecturegraphiquedeaetb extends Exercice {
           }
         }
 
-        texte += ajouteChampTexteMathLive(this, i, ' ', {
-          texteAvant: "<br>L'équation réduite de la droite est : $y=$",
-        })
+        texte += ajouteChampTexteMathLive(
+          this,
+          i,
+          KeyboardType.clavierFullOperations,
+          {
+            texteAvant: "<br>L'équation réduite de la droite est : $y=$",
+          },
+        )
         const reponse = reduireAxPlusB(coeffDir.simplifie(), b)
         handleAnswers(this, i, { reponse: { value: reponse } })
       } else {
         texteCorr = 'On observe que la droite est verticale.'
-        texte += ajouteChampTexteMathLive(this, i, ' ', {
-          texteAvant: "<br>L'équation réduite de la droite est : ",
-        })
+        texte += ajouteChampTexteMathLive(
+          this,
+          i,
+          KeyboardType.clavierFullOperations,
+          {
+            texteAvant: "<br>L'équation réduite de la droite est : ",
+          },
+        )
         texteCorr += `<br>On peut en déduire que l'équation réduite de la droite $(d)$ est : $x=${miseEnEvidence(a)}$.`
         const reponse = `x=${a}`
         handleAnswers(this, i, {

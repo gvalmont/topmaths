@@ -15,6 +15,7 @@ type LiteralModel =
   | '(x+a)(x-a)'
   | 'x^2-abs(a)'
   | '(x+a)^2-x^2'
+  | '(x+a)^2+b'
   | 'x(x+a)'
 
 export interface GeneratedProgram {
@@ -41,6 +42,7 @@ export function generateProgram(
 
   const sign = ecritureAlgebrique
   const parNeg = ecritureParentheseSiNegatif
+  const signSauf0 = (n: number) => (n === 0 ? '' : sign(n))
 
   switch (model) {
     case 'ax+b': {
@@ -56,13 +58,13 @@ export function generateProgram(
         solutionX: [
           '- Choisir un nombre $ \\rightarrow x$',
           `- Le multiplier par $${a}$ $ \\rightarrow ${a}x$`,
-          `- ${b >= 0 ? 'Ajouter' : 'Soustraire'} $${Math.abs(b)}$ $ \\rightarrow ${a}x ${sign(b)}$.`,
+          `- ${b >= 0 ? 'Ajouter' : 'Soustraire'} $${Math.abs(b)} \\rightarrow ${miseEnEvidence(`${a}x ${sign(b)}`)}$.`,
         ],
         solutionV: function (value: number): string[] {
           return [
             `- Choisir un nombre $ \\rightarrow ${value}$`,
-            `- Le multiplier par $${a}$ $ \\rightarrow ${value} \\times ${a} = ${value * a}$`,
-            `- ${b >= 0 ? 'Ajouter' : 'Soustraire'} $${Math.abs(b)}$ $ \\rightarrow ${value * a} ${sign(b)} = ${miseEnEvidence(value * a + b)}$.`,
+            `- Le multiplier par $${a}$ $ \\rightarrow ${value} \\times ${parNeg(a)} = ${value * a}$`,
+            `- ${b >= 0 ? 'Ajouter' : 'Soustraire'} $${Math.abs(b)} \\rightarrow ${value * a} ${sign(b)} = ${miseEnEvidence(value * a + b)}$.`,
           ]
         },
         testV: function (value: number): number {
@@ -89,7 +91,7 @@ export function generateProgram(
           '- Développer :',
           `$${a}(x ${sign(b)}) = ${a}\\times x ${sign(a)} \\times ${parNeg(b)}$`,
           '- Réduire :',
-          `$${a}(x ${sign(b)}) = ${a}x ${sign(a * b)}$`,
+          `$${a}(x ${sign(b)}) = ${miseEnEvidence(`${a}x ${sign(a * b)}`)}$`,
         ],
         solutionV: function (value: number): string[] {
           return [
@@ -125,7 +127,7 @@ export function generateProgram(
           '- Développer :',
           `$x(x ${sign(a)}) = x \\times x + x \\times ${parNeg(a)}$`,
           '- Réduire :',
-          `$${a}(x ${sign(b)}) = x^{2} ${sign(a)} x$`,
+          `$x(x ${sign(a)}) = ${miseEnEvidence(`x^{2} ${sign(a)} x`)}$`,
         ],
         solutionV: function (value: number): string[] {
           return [
@@ -152,7 +154,7 @@ export function generateProgram(
         solutionX: [
           '- Choisir un nombre $ \\rightarrow x$',
           "- L'élever au carré $ \\rightarrow x^2$",
-          `- Soustraire $${Math.abs(a)}$ $ \\rightarrow x^{2} ${sign(-Math.abs(a))}$.`,
+          `- Soustraire $${Math.abs(a)}$ $ \\rightarrow ${miseEnEvidence(`x^{2} ${sign(-Math.abs(a))}`)}$.`,
         ],
         solutionV: function (value: number): string[] {
           return [
@@ -188,7 +190,7 @@ export function generateProgram(
           `$(x ${sign(a)})(x ${sign(-a)}) = x\\times x + x \\times ${parNeg(-a)} ${sign(a)} \\times x  ${sign(a)} \\times ${parNeg(-a)}$`,
           '- Réduire :',
           `$(x ${sign(a)})(x ${sign(-a)}) = x^{2} ${sign(-a)} x ${sign(a)} x  ${sign(-a * a)}$`,
-          `$(x ${sign(a)})(x ${sign(-a)}) = x^{2} ${sign(-a * a)}$`,
+          `$(x ${sign(a)})(x ${sign(-a)}) = ${miseEnEvidence(`x^{2} ${sign(-a * a)}`)}$`,
         ],
         solutionV: function (value: number): string[] {
           return [
@@ -229,7 +231,7 @@ export function generateProgram(
           `$${a}(x ${sign(b)}) ${sign(b)}x = ${a} \\times x ${sign(a)} \\times ${parNeg(b)} ${sign(b)}x$`,
           '- Réduire :',
           `$${a}(x ${sign(b)}) ${sign(b)}x = ${a}x ${sign(a * b)}  ${sign(b)}x$`,
-          `$${a}(x ${sign(b)}) ${sign(b)}x = ${a + b}x ${sign(a * b)}$`,
+          `$${a}(x ${sign(b)}) ${sign(b)}x = ${miseEnEvidence(`${a + b}x ${sign(a * b)}`)}$`,
         ],
         solutionV: function (value: number): string[] {
           return [
@@ -263,11 +265,11 @@ export function generateProgram(
         ],
         simplify: [
           '- Développer :',
-          `$(x ${sign(a)})^{2} = (x ${sign(a)})(x ${sign(a)}) - x^{2}$`,
-          `$(x ${sign(a)})^{2} = x\\times x + x \\times ${parNeg(a)} ${sign(a)} \\times x  ${sign(a)} \\times ${parNeg(a)} - x^{2}$`,
+          `$(x ${sign(a)})^{2} - x^{2} = (x ${sign(a)})(x ${sign(a)}) - x^{2}$`,
+          `$(x ${sign(a)})^{2} - x^{2} = x\\times x + x \\times ${parNeg(a)} ${sign(a)} \\times x  ${sign(a)} \\times ${parNeg(a)} - x^{2}$`,
           '- Réduire :',
-          `$(x ${sign(a)})^{2} = x^{2} ${sign(a)} x ${sign(a)} x  ${sign(a * a)} - x^{2}$`,
-          `$(x ${sign(a)})^{2} = ${sign(2 * a)} x ${sign(a * a)}$`,
+          `$(x ${sign(a)})^{2} - x^{2} = x^{2} ${sign(a)} x ${sign(a)} x  ${sign(a * a)} - x^{2}$`,
+          `$(x ${sign(a)})^{2} - x^{2} = ${miseEnEvidence(`${2 * a} x ${sign(a * a)}`)}$`,
         ],
         solutionV: function (value: number): string[] {
           return [
@@ -279,6 +281,43 @@ export function generateProgram(
         },
         testV: function (value: number): number {
           return (value + a) ** 2 - value ** 2
+        },
+      }
+    }
+    case '(x+a)^2+b': {
+      return {
+        expression: `(x ${sign(a)})^2 ${sign(b)}`,
+        a,
+        program: [
+          'Choisir un nombre.',
+          `${a >= 0 ? 'Ajouter' : 'Soustraire'} $${Math.abs(a)}$.`,
+          'Élever le résultat au carré.',
+          `${b >= 0 ? 'Ajouter' : 'Soustraire'} $${Math.abs(b)}$.`,
+        ],
+        solutionX: [
+          '- Choisir un nombre $ \\rightarrow x$',
+          `- ${a >= 0 ? 'Ajouter' : 'Soustraire'} $${Math.abs(a)}$ $ \\rightarrow x ${sign(a)}$.`,
+          `- Élever le résultat au carré $  \\rightarrow (x ${sign(a)})^{2} $.`,
+          `- ${b >= 0 ? 'Ajouter' : 'Soustraire'} $${Math.abs(b)}$ $ \\rightarrow (x ${sign(a)})^{2} ${sign(b)} $.`,
+        ],
+        simplify: [
+          '- Développer :',
+          `$(x ${sign(a)})^{2} ${sign(b)} = (x ${sign(a)})(x ${sign(a)}) ${sign(b)}$`,
+          `$(x ${sign(a)})^{2} ${sign(b)} = x\\times x + x \\times ${parNeg(a)} ${sign(a)} \\times x  ${sign(a)} \\times ${parNeg(a)} ${sign(b)}$`,
+          '- Réduire :',
+          `$(x ${sign(a)})^{2} ${sign(b)} = x^{2} ${sign(a)} x ${sign(a)} x  ${sign(a * a)} ${sign(b)}$`,
+          `$(x ${sign(a)})^{2} ${sign(b)}= ${miseEnEvidence(`x^{2} ${sign(2 * a)} x ${signSauf0(a * a + b)}`)}$`,
+        ],
+        solutionV: function (value: number): string[] {
+          return [
+            `- Choisir un nombre : $${value}$`,
+            `- ${a >= 0 ? 'Ajouter' : 'Soustraire'} $${Math.abs(a)}$ $ \\rightarrow ${value} ${sign(a)} = ${value + a}$.`,
+            `- Élever le résultat au carré $ \\rightarrow ${parNeg(value + a)}^2 = ${(value + a) ** 2} $.`,
+            `- ${b >= 0 ? 'Ajouter' : 'Soustraire'} $${Math.abs(b)}$ $ \\rightarrow ${(value + a) ** 2} ${sign(b)} = ${miseEnEvidence((value + a) ** 2 + b)} $.`,
+          ]
+        },
+        testV: function (value: number): number {
+          return (value + a) ** 2 + b
         },
       }
     }
@@ -302,7 +341,7 @@ export function generateProgram(
           `$(x ${sign(a)})^{2} = x\\times x + x \\times ${parNeg(a)} ${sign(a)} \\times x  ${sign(a)} \\times ${parNeg(a)}$`,
           '- Réduire :',
           `$(x ${sign(a)})^{2} = x^{2} ${sign(a)} x ${sign(a)} x  ${sign(a * a)}$`,
-          `$(x ${sign(a)})^{2} = x^{2} ${sign(2 * a)} x ${sign(a * a)}$`,
+          `$(x ${sign(a)})^{2} = ${miseEnEvidence(`x^{2} ${sign(2 * a)} x ${sign(a * a)}`)}$`,
         ],
         solutionV: function (value: number): string[] {
           return [
@@ -332,7 +371,7 @@ export function generateProgram(
           '- Choisir un nombre $ \\rightarrow x$',
           `- Le multiplier par $${a}$ $\\rightarrow ${a}x$.`,
           `- ${b >= 0 ? 'Ajouter' : 'Soustraire'} ${Math.abs(b)} $\\rightarrow ${a}x ${sign(b)}$.`,
-          `- Élever le résultat au carré $\\rightarrow ({a}x ${sign(b)})^{2} $.`,
+          `- Élever le résultat au carré $\\rightarrow ${miseEnEvidence(`({a}x ${sign(b)})^{2}`)} $.`,
         ],
         solutionV: function (value: number): string[] {
           return [
@@ -366,7 +405,7 @@ export function generateProgram(
           '- Choisir un nombre $ \\rightarrow x$',
           "- L'élever au carré $ \\rightarrow x^2$",
           `- ${a >= 0 ? 'Ajouter' : 'Soustraire'} $${Math.abs(a)}$ fois le nombre choisi  $ \\rightarrow x^2 ${sign(a)}x$`,
-          `- ${b >= 0 ? 'Ajouter' : 'Soustraire'} $${Math.abs(b)}$ $ \\rightarrow x^2 ${sign(a)}x ${sign(b)}$.`,
+          `- ${b >= 0 ? 'Ajouter' : 'Soustraire'} $${Math.abs(b)}$ $ \\rightarrow ${miseEnEvidence(`x^2 ${sign(a)}x ${sign(b)}`)}$.`,
         ],
         solutionV: function (value: number): string[] {
           return [

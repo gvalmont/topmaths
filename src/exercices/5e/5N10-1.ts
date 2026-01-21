@@ -1,5 +1,7 @@
+import { bleuMathalea, orangeMathalea } from '../../lib/colors'
 import { ajouteQuestionMathlive } from '../../lib/interactif/questionMathLive'
 import { choice } from '../../lib/outils/arrayOutils'
+import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { pgcd } from '../../lib/outils/primalite'
 import { texNombre } from '../../lib/outils/texNombre'
 import FractionEtendue from '../../modules/FractionEtendue'
@@ -53,7 +55,6 @@ export default class PasserEcritureFractionnaireFraction extends Exercice {
     for (
       let i = 0, texte, texteCorr, cpt = 0;
       i < this.nbQuestions && cpt < 50;
-
     ) {
       let nbDecimalesNumerateur = 0
       let nbDecimalesDenominateur = 0
@@ -117,12 +118,12 @@ export default class PasserEcritureFractionnaireFraction extends Exercice {
       const multiplicateur = texNombre(10 ** nbDecimalesSup, 0)
       texteCorr = `Pour transformer l'écriture fractionnaire en fraction, il faut multiplier le numérateur et le dénominateur par $${multiplicateur}$.<br>
       $\\begin{aligned}\\dfrac{${texNombreNumerateur}}{${texNombreDenominateur}}&=\\dfrac{${texNombreNumerateur}\\times ${multiplicateur}}{${texNombreDenominateur}\\times ${multiplicateur}}\\\\
-      &=${value.texFraction}
+      &=${miseEnEvidence(value.texFraction, this.sup3 ? bleuMathalea : orangeMathalea)}
       \\end{aligned}$`
       if (this.sup3) {
         texteCorr += `<br>On peut simplifier la fraction en divisant le numérateur et le dénominateur par ${facteurCommun}.<br>
         $\\begin{aligned}${value.texFraction}&=\\dfrac{${value.num}\\div ${facteurCommun}}{${value.den}\\div ${facteurCommun}}\\\\
-        &=${value.texFractionSimplifiee}
+        &=${miseEnEvidence(value.texFractionSimplifiee)}
         \\end{aligned}$`
       }
       if (this.questionJamaisPosee(i, numerateur, denominateur)) {

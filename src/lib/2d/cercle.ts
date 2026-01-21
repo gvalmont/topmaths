@@ -58,7 +58,7 @@ export class Cercle extends ObjetMathalea2D {
     epaisseur = 1,
     pointilles = 0,
     opacite = 1,
-    opaciteDeRemplissage = 1.1,
+    opaciteDeRemplissage = 1,
     epaisseurDesHachures = 1,
     distanceDesHachures = 10,
   ) {
@@ -171,7 +171,7 @@ export class Cercle extends ObjetMathalea2D {
       this.couleurDeRemplissage[1] !== ''
     ) {
       tableauOptions.push(
-        `preaction={fill,color = ${this.couleurDeRemplissage[1]}}`,
+        `preaction={fill,color = ${this.couleurDeRemplissage[1]},opacity = ${this.opaciteDeRemplissage}}`,
       )
     }
 

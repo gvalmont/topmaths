@@ -3,6 +3,7 @@ import { segment } from '../lib/2d/segmentsVecteurs'
 import { latex2d } from '../lib/2d/textes'
 import { homothetie, translation } from '../lib/2d/transformations'
 import { vecteur } from '../lib/2d/Vecteur'
+import { vide2d } from '../lib/2d/Vide2d'
 import { texNombre } from '../lib/outils/texNombre'
 import type { NestedObjetMathalea2dArray } from '../types/2d'
 import FractionEtendue from './FractionEtendue'
@@ -289,24 +290,7 @@ export class Arbre {
             backgroundColor: 'white',
             opacity: 0.7,
           })
-        : this.rationnel
-          ? latex2d(texProba(this.proba), positionProba.x, positionProba.y, {
-              color: 'black',
-              letterSize: 'scriptsize',
-              backgroundColor: 'white',
-              opacity: 0.7,
-            })
-          : latex2d(
-              texNombre(this.proba.valueOf(), 4),
-              positionProba.x,
-              positionProba.y,
-              {
-                color: 'black',
-                letterSize: 'scriptsize',
-                backgroundColor: 'white',
-                opacity: 0.7,
-              },
-            )
+        : vide2d()
 
     if (this.enfants.length === 0) {
       return [segment(B, A), labelA, probaA]

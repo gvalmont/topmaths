@@ -3,12 +3,14 @@ import { cercle } from '../lib/2d/cercle'
 import { colorToLatexOrHTML } from '../lib/2d/colorToLatexOrHtml'
 import { ObjetMathalea2D } from '../lib/2d/ObjetMathalea2D'
 import { pointAbstrait, PointAbstrait } from '../lib/2d/PointAbstrait'
+import { polygone } from '../lib/2d/polygones'
 import { carre } from '../lib/2d/polygonesParticuliers'
 import { segment } from '../lib/2d/segmentsVecteurs'
-import { texteParPosition } from '../lib/2d/textes'
+import { latex2d, texteParPosition } from '../lib/2d/textes'
 import { rotation, translation } from '../lib/2d/transformations'
 import { vecteur } from '../lib/2d/Vecteur'
 import { stringNombre } from '../lib/outils/texNombre'
+import type { NestedObjetMathalea2dArray } from '../types/2d'
 import type FractionEtendue from './FractionEtendue'
 import { quotientier } from './outils'
 
@@ -555,6 +557,49 @@ export function representationFraction(
         objets.push(dep)
       }
     }
+  }
+  return objets
+}
+
+export function representeFractionSurBarre(
+  fraction: FractionEtendue,
+  denominator: number,
+  max: number,
+  width: number,
+): NestedObjetMathalea2dArray {
+  const hauteur = 0.2
+
+  const objets: NestedObjetMathalea2dArray = []
+  function unegraduation(x: number, width: number, vide = false) {
+    const A = pointAbstrait(x, hauteur / 2)
+    const B = pointAbstrait(x, -hauteur / 2)
+    const C = pointAbstrait(x + width, -hauteur / 2)
+    const D = pointAbstrait(x + width, hauteur / 2)
+    const rect = polygone([A, B, C, D])
+    rect.couleurDeRemplissage = vide
+      ? colorToLatexOrHTML('white')
+      : colorToLatexOrHTML('blue')
+    rect.couleur = colorToLatexOrHTML('blue')
+    rect.opaciteDeRemplissage = 0.5
+    return rect
+  }
+  const ratio = denominator / fraction.den
+  const widthByPart = width / denominator
+  for (let i = 0; i < fraction.num * ratio; i++) {
+    objets.push([unegraduation(i * widthByPart, widthByPart, false)])
+  }
+  for (let i = fraction.num * ratio; i < max * denominator; i++) {
+    objets.push([unegraduation(i * widthByPart, widthByPart, true)])
+  }
+  for (let k = 0; k <= max; k++) {
+    const seg = segment(k * width, -hauteur - 0.1, k * width, hauteur + 0.1)
+    seg.color = colorToLatexOrHTML('blue')
+    seg.epaisseur = 3
+    const txt = latex2d(k.toString(), k * width, hauteur + 1, {
+      color: 'black',
+      letterSize: 'normalsize',
+    })
+    objets.push([seg, txt])
   }
   return objets
 }

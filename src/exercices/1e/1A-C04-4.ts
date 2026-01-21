@@ -22,14 +22,14 @@ export const dateDePublication = '29/09/2025'
  */
 export default class AutoC4c extends ExerciceQcmA {
   versionOriginale: () => void = () => {
-    this.enonce = `Le tiers d'un quart correspond Ã  la fraction  : `
-    this.correction = ` Le tiers d'un quart est Ã©gal Ã  $\\dfrac{1}{3}\\times \\dfrac{1}{4}$ soit  $${miseEnEvidence('\\dfrac{1}{12}')}$.
+    this.enonce = `Le tiers d'un quart correspond à la fraction  : `
+    this.correction = ` Le tiers d'un quart est égal à $\\dfrac{1}{3}\\times \\dfrac{1}{4}$ soit  $${miseEnEvidence('\\dfrac{1}{12}')}$.
   `
 
     this.reponses = [
       '$\\dfrac{1}{12}$',
       '$\\dfrac{1}{7}$',
-      `$$\\dfrac{3}{4}$$`,
+      `$\\dfrac{3}{4}$`,
       '$\\dfrac{1}{3}\\times 4$',
     ]
   }

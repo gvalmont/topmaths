@@ -27,7 +27,7 @@ export function courses4(decimal = true): Probleme {
   const data = { nb1: prix1, nb2: augmentation }
   const enonce = `${personnage.prenom} a repéré hier ${objet.nom} à $${texNombre(prix1, 2, true)}$ € dans une boutique. Mais aujourd'hui, le prix est de $${texNombre(prix1 + augmentation, 2, true)}$ €.
 Quel est le montant de l'augmentation ?`
-  const correction = `Le montant de l'augmentation est de $${texNombre(prix1 + augmentation, 2, true)}\\text{\\,€}-${texNombre(prix1, 2, true)}\\text{\\,€} = ${miseEnEvidence(texNombre(augmentation, 2, true))}$ €.`
+  const correction = `Le montant de l'augmentation est de : $${texNombre(prix1 + augmentation, 2, true)}\\text{\\,€}-${texNombre(prix1, 2, true)}\\text{\\,€} = ${miseEnEvidence(texNombre(augmentation, 2, true))}$ €.`
   const probleme = new ProblemeTransfoTransfo('courses4', data)
   probleme.enonce = enonce
   probleme.correction = correction
@@ -40,7 +40,7 @@ Quel est le montant de l'augmentation ?`
   probleme.schema.topBraces[0].text = `$${texNombre(prix1 + augmentation, 2, true)}\\text{ €}$`
   probleme.schema.lignes[0].barres[0].content = `$${texNombre(prix1, 2, true)}\\text{ €}$`
   probleme.schema.lignes[0].barres[1].content = `$${miseEnEvidence(texNombre(augmentation, 2, true))}\\text{ €}$`
-  probleme.styleChampTexteMathlive = KeyboardType.college6eme
+  probleme.styleChampTexteMathlive = KeyboardType.clavierDeBase
   probleme.optionsChampTexteMathlive = { texteApres: ' €' }
   probleme.reponse = `${texNombre(augmentation, 2)}`
   return probleme

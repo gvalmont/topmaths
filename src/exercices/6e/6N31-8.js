@@ -26,7 +26,7 @@ export const uuid = '843e5'
 
 export const refs = {
   'fr-fr': [],
-  'fr-ch': ['9NO8-12'],
+  'fr-ch': ['9NO8-12b'],
 }
 // une fonction pour ordre de grandeur en fonction de ... opération 1
 function myOrdreOpe1(c, d) {
@@ -126,7 +126,6 @@ export default class OrdreDeGrandeurOperationsDecimaux extends Exercice {
     for (
       let i = 0, texte, texteCorr, cpt = 0;
       i < this.nbQuestions && cpt < 50;
-
     ) {
       const ligneEntete = [
         '\\text{Opération}',

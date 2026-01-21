@@ -1,7 +1,6 @@
 import { saveAs } from 'file-saver'
 import JSZip from 'jszip'
 import JSZipUtils from 'jszip-utils'
-import type TypeExercice from '../exercices/Exercice'
 import {
   buildImagesUrlsList,
   doesLatexNeedsPics,
@@ -9,6 +8,7 @@ import {
   getPicsNames,
 } from './Latex'
 import { type latexFileType } from './LatexTypes'
+import type { IExercice } from './types'
 
 export function downloadZip(filesUrls: string[], zipFileName: string) {
   const zip = new JSZip()
@@ -41,7 +41,7 @@ export function downloadZip(filesUrls: string[], zipFileName: string) {
 export async function downloadTexWithImagesZip(
   zipFileName: string,
   latexFile: latexFileType,
-  exercices: TypeExercice[],
+  exercices: IExercice[],
 ) {
   const zip = new JSZip()
   const withImages = doesLatexNeedsPics(latexFile.contents)

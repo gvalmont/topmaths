@@ -11,7 +11,7 @@ export const interactifType = 'mathLive'
 export const uuid = 'b3jon'
 export const refs = {
   'fr-fr': [],
-  'fr-ch': ['1mEI-5'],
+  'fr-ch': ['NR'],
 }
 /**
  * Modèle d'exercice très simple pour la course aux nombres
@@ -28,9 +28,9 @@ export default class intersectionIntervalles extends ExerciceSimple {
 
   nouvelleVersion() {
     const annee = 2026
-    const a = -annee-1
+    const a = -annee - 1
     const b = this.canOfficielle ? 3 : randint(-10, 5)
-    const c = this.canOfficielle ? a+1 : a+randint(1, 9)
+    const c = this.canOfficielle ? a + 1 : a + randint(1, 9)
     const d = annee
     const choix = this.canOfficielle ? true : choice([true, false])
     const crochet1 = this.canOfficielle ? ']' : choice([']', '['])

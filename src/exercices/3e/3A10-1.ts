@@ -136,7 +136,7 @@ export default class PremierOuPas extends Exercice {
           texteCorr =
             'Comme ' +
             nombreAvecEspace(N) +
-            'est pair, il admet donc au moins trois diviseurs qui sont 1, 2 et lui-même, '
+            ' est pair, il admet donc au moins trois diviseurs qui sont 1, 2 et lui-même, '
           texteCorr +=
             texteEnCouleurEtGras(
               nombreAvecEspace(N) + " n'est donc pas premier",

@@ -29,9 +29,9 @@
 </script>
 
 <BasicClassicModal
-  isWithCloseButton="{false}"
-  bind:isDisplayed="{isSuccessDisplayed}"
-  on:close="{() => (contentDisplayed = 'none')}"
+  isWithCloseButton={false}
+  bind:isDisplayed={isSuccessDisplayed}
+  on:close={() => (contentDisplayed = 'none')}
 >
   <div slot="content">
     <!-- eslint-disable-next-line svelte/no-at-html-tags -->
@@ -40,9 +40,9 @@
 </BasicClassicModal>
 
 <BasicClassicModal
-  isWithCloseButton="{false}"
-  bind:isDisplayed="{isErrorDisplayed}"
-  on:close="{() => (contentDisplayed = 'none')}"
+  isWithCloseButton={false}
+  bind:isDisplayed={isErrorDisplayed}
+  on:close={() => (contentDisplayed = 'none')}
 >
   <div slot="content">
     <!-- eslint-disable-next-line svelte/no-at-html-tags -->

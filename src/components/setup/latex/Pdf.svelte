@@ -1,7 +1,6 @@
 <script lang="ts">
   import { afterUpdate, beforeUpdate, onDestroy, onMount } from 'svelte'
   import { get } from 'svelte/store'
-  import { Carousel, initTE } from 'tw-elements'
   import Latex from '../../../lib/Latex'
   import { type LatexFileInfos } from '../../../lib/LatexTypes'
   import { mathaleaGetExercicesFromParams } from '../../../lib/mathalea.js'
@@ -14,7 +13,10 @@
   import ButtonTextAction from '../../shared/forms/ButtonTextAction.svelte'
   import FormConfigGlobal from '../../shared/forms/FormConfigGlobal.svelte'
   import FormConfigIndividual from '../../shared/forms/FormConfigIndividual.svelte'
+  import InputNumber from '../../shared/forms/InputNumber.svelte'
+  import InputText from '../../shared/forms/InputText.svelte'
   import NavBar from '../../shared/header/NavBar.svelte'
+  import ImageCarousel from '../../shared/ui/ImageCarousel.svelte'
   import SimpleCard from '../../shared/ui/SimpleCard.svelte'
   import FormConfigSection from './FormConfigSection.svelte'
   import { decodeBase64, encodeBase64 } from './LatexConfig'
@@ -60,6 +62,18 @@
     ProfMaquetteQrcode: 'images/exports/export-profmaquette-qrcode',
     Can: 'images/exports/export-can',
   }
+
+  $: carouselImages = [
+    {
+      src: `${imgStylePartialUrls[latexFileInfos.style]}-thumb1.png`,
+      alt: `${latexFileInfos.style} image-1`,
+    },
+    {
+      src: `${imgStylePartialUrls[latexFileInfos.style]}-thumb2.png`,
+      alt: `${latexFileInfos.style} image-2`,
+    },
+  ]
+
   let exercices: IExercice[]
   let isExerciceStaticInTheList = false
   let promise: Promise<void>
@@ -191,7 +205,6 @@
   }
 
   onMount(async () => {
-    initTE({ Carousel })
     await initExercices()
     promise = updateLatexWithAbortController().catch((err) => {
       if (err.name === 'AbortError') {
@@ -217,15 +230,15 @@
 </script>
 
 <main
-  class="bg-coopmaths-canvas dark:bg-coopmathsdark-canvas {$darkMode.isActive
-    ? 'dark'
-    : ''}"
+  class="bg-coopmaths-canvas dark:bg-coopmathsdark-canvas
+   text-coopmaths-corpus dark:text-coopmathsdark-corpus
+  {$darkMode.isActive ? 'dark' : ''}"
 >
   <NavBar
     subtitle="PDF"
     subtitleType="export"
-    handleLanguage="{() => {}}"
-    locale="{$referentielLocale}"
+    handleLanguage={() => {}}
+    locale={$referentielLocale}
   />
   <section class="px-4 py-0 bg-coopmaths-canvas dark:bg-coopmathsdark-canvas">
     <!-- Titre toujours en pleine largeur -->
@@ -238,9 +251,10 @@
         class="mx-2 tooltip tooltip-left tooltip-neutral"
         data-tip="Changer les paramètres du PDF"
         type="button"
-        on:click="{() => {
+        aria-label="Changer les paramètres du PDF"
+        on:click={() => {
           showAdvanced = !showAdvanced
-        }}"
+        }}
       >
         <i
           class="text-coopmaths-action hover:text-coopmaths-action-lightest
@@ -252,9 +266,9 @@
 
     <!-- Grille responsive uniquement pour le contenu -->
     <div
-      class="{showAdvanced
+      class={showAdvanced
         ? 'grid grid-cols-1 gap-8 md:grid-cols-2 xl:grid-cols-3 items-stretch'
-        : ''}"
+        : ''}
     >
       {#if showAdvanced}
         <!-- Colonne configuration -->
@@ -263,36 +277,36 @@
           <div class="flex space-x-4 border-b border-gray-600 mb-4">
             <button
               class="pb-2 px-2 -mb-px text-sm font-medium transition-colors duration-200"
-              class:text-blue-500="{activeTab === 'general'}"
-              class:border-b-2="{activeTab === 'general'}"
-              class:border-blue-500="{activeTab === 'general'}"
-              class:text-gray-400="{activeTab !== 'general'}"
-              class:hover:text-gray-200="{activeTab !== 'general'}"
-              on:click="{() => (activeTab = 'general')}"
+              class:text-blue-500={activeTab === 'general'}
+              class:border-b-2={activeTab === 'general'}
+              class:border-blue-500={activeTab === 'general'}
+              class:text-gray-400={activeTab !== 'general'}
+              class:hover:text-gray-200={activeTab !== 'general'}
+              on:click={() => (activeTab = 'general')}
             >
               Général
             </button>
             {#if latexFileInfos.style === 'ProfMaquette'}
               <button
                 class="pb-2 px-2 -mb-px text-sm font-medium transition-colors duration-200"
-                class:text-blue-500="{activeTab === 'global'}"
-                class:border-b-2="{activeTab === 'global'}"
-                class:border-blue-500="{activeTab === 'global'}"
-                class:text-gray-400="{activeTab !== 'global'}"
-                class:hover:text-gray-200="{activeTab !== 'global'}"
-                on:click="{() => (activeTab = 'global')}"
+                class:text-blue-500={activeTab === 'global'}
+                class:border-b-2={activeTab === 'global'}
+                class:border-blue-500={activeTab === 'global'}
+                class:text-gray-400={activeTab !== 'global'}
+                class:hover:text-gray-200={activeTab !== 'global'}
+                on:click={() => (activeTab = 'global')}
               >
                 Global
               </button>
 
               <button
                 class="pb-2 px-2 -mb-px text-sm font-medium transition-colors duration-200"
-                class:text-blue-500="{activeTab === 'advanced'}"
-                class:border-b-2="{activeTab === 'advanced'}"
-                class:border-blue-500="{activeTab === 'advanced'}"
-                class:text-gray-400="{activeTab !== 'advanced'}"
-                class:hover:text-gray-200="{activeTab !== 'advanced'}"
-                on:click="{() => (activeTab = 'advanced')}"
+                class:text-blue-500={activeTab === 'advanced'}
+                class:border-b-2={activeTab === 'advanced'}
+                class:border-blue-500={activeTab === 'advanced'}
+                class:text-gray-400={activeTab !== 'advanced'}
+                class:hover:text-gray-200={activeTab !== 'advanced'}
+                on:click={() => (activeTab = 'advanced')}
               >
                 Avancé
               </button>
@@ -315,86 +329,53 @@
                 </div>
                 <!-- Carousel de vignette pour les aperçus -->
                 <div class="flex justify-center w-full md:w-1/3">
-                  <div
-                    id="carouselExampleSlidesOnly"
-                    class="relative w-2/3 md:w-full"
-                    data-te-carousel-init
-                    data-te-ride="carousel"
-                  >
-                    <div
-                      class="relative w-full overflow-hidden after:clear-both after:block after:content-['']"
-                    >
-                      <!-- first item -->
-                      <div
-                        class="relative float-left -mr-[100%] w-full transition-transform duration-[300ms] ease-in-out motion-reduce:transition-none"
-                        data-te-carousel-item
-                        data-te-carousel-active
-                      >
-                        <img
-                          src="{`${imgStylePartialUrls[latexFileInfos.style]}-thumb1.png`}"
-                          alt="{latexFileInfos.style} image-1"
-                          class="block h-auto w-full rounded-r-lg max-w-[200px]"
-                        />
-                      </div>
-                      <!-- second item -->
-                      <div
-                        class="relative float-left -mr-[100%] hidden w-full transition-transform duration-[300ms] ease-in-out motion-reduce:transition-none"
-                        data-te-carousel-item
-                      >
-                        <img
-                          src="{`${imgStylePartialUrls[latexFileInfos.style]}-thumb2.png`}"
-                          alt="{latexFileInfos.style} image-2"
-                          class="block h-auto w-full rounded-r-lg"
-                        />
-                      </div>
-                    </div>
+                  <div class="relative w-2/3 md:w-full max-w-[200px]">
+                    <ImageCarousel images={carouselImages} interval={3000} />
                   </div>
                 </div>
-                <!-- fin carousel -->
               </div>
 
-              <SimpleCard
-                icon="{''}"
-                title="{'Éléments de titres'}"
-                class="mb-4"
-              >
-                <input
-                  type="text"
+              <SimpleCard icon={''} title={'Éléments de titres'} class="mb-4">
+                <InputText
+                  inputID="pdf-titre-input"
                   placeholder="Titre"
-                  bind:value="{latexFileInfos.title}"
+                  bind:value={latexFileInfos.title}
+                  showTitle={false}
                 />
-                <input
-                  type="text"
+                <InputText
+                  inputID="pdf-reference-input"
                   placeholder="Référence"
-                  bind:value="{latexFileInfos.reference}"
+                  bind:value={latexFileInfos.reference}
+                  showTitle={false}
                 />
-                <input
-                  type="text"
+                <InputText
+                  inputID="pdf-subtitle-input"
                   placeholder="Sous-titre"
-                  bind:value="{latexFileInfos.subtitle}"
+                  bind:value={latexFileInfos.subtitle}
+                  showTitle={false}
                 />
               </SimpleCard>
 
               <SimpleCard
-                icon="{''}"
-                title="{'Nombre de versions des exercices'}"
+                icon={''}
+                title={'Nombre de versions des exercices'}
                 class="mb-4"
               >
-                <input
-                  type="number"
-                  min="1"
-                  max="20"
-                  bind:value="{latexFileInfos.nbVersions}"
+                <InputNumber
+                  id="pdf-nb-versions"
+                  min={1}
+                  max={50}
+                  bind:value={latexFileInfos.nbVersions}
                 />
               </SimpleCard>
 
-              <SimpleCard title="{''}" icon="{''}" class="mb-4">
+              <SimpleCard title={''} icon={''} class="mb-4">
                 <ButtonTextAction
                   class="px-2 py-1 rounded-md"
                   id="vueLatex"
-                  on:click="{() => {
+                  on:click={() => {
                     mathaleaGoToView('latex')
-                  }}"
+                  }}
                   text="Basculer vers la vue Latex"
                 />
 
@@ -450,7 +431,12 @@
         {#await promise}
           <p>Chargement en cours...</p>
         {:then}
-          <PdfResult {latex} {latexFileInfos} autoStart="{!showAdvanced}" />
+          <PdfResult
+            {latex}
+            {latexFileInfos}
+            autoStart={!showAdvanced}
+            pdfViewerDisplay={true}
+          />
         {/await}
       </div>
     </div>

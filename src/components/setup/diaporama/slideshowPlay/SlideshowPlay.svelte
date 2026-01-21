@@ -315,7 +315,6 @@
       // Permet de ne pas sauter une question si la correction est affichée et qu'on se déplace en cliquant sur les steps
       isQuestionVisible = true
       isCorrectionVisible = false
-      renderAllViews()
     }
     if ($globalOptions.manualMode) {
       return
@@ -375,7 +374,7 @@
   }
 </script>
 
-<svelte:window on:keydown="{handleShortcut}" />
+<svelte:window on:keydown={handleShortcut} />
 
 {#if slideshow.currentQuestion < slideshow.selectedQuestionsNumber && slideshow.currentQuestion > -1}
   <div
@@ -389,9 +388,9 @@
       bg-coopmaths-canvas dark:bg-coopmathsdark-canvas"
     >
       <SlideshowPlaySteps
-        currentQuestionNumber="{slideshow.currentQuestion}"
-        isManualModeActive="{$globalOptions.manualMode}"
-        totalQuestionsNumber="{slideshow.selectedQuestionsNumber}"
+        currentQuestionNumber={slideshow.currentQuestion}
+        isManualModeActive={$globalOptions.manualMode}
+        totalQuestionsNumber={slideshow.selectedQuestionsNumber}
         {ratioTime}
         {currentSlideDuration}
         {goToQuestion}
@@ -407,9 +406,9 @@
         {isQuestionVisible}
         {isCorrectionVisible}
         {currentSlide}
-        currentQuestion="{slideshow.currentQuestion}"
-        selectedQuestionsNumber="{slideshow.selectedQuestionsNumber}"
-        isImagesOnSides="{!!$globalOptions.isImagesOnSides}"
+        currentQuestion={slideshow.currentQuestion}
+        selectedQuestionsNumber={slideshow.selectedQuestionsNumber}
+        isImagesOnSides={!!$globalOptions.isImagesOnSides}
       />
     </main>
     <footer
@@ -417,7 +416,7 @@
       bg-coopmaths-canvas dark:bg-coopmathsdark-canvas"
     >
       <SlideshowPlaySettings
-        isManualModeActive="{$globalOptions.manualMode}"
+        isManualModeActive={$globalOptions.manualMode}
         {isQuestionVisible}
         {isCorrectionVisible}
         {currentSlideDuration}

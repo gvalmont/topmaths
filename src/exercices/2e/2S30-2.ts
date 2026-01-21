@@ -1,7 +1,8 @@
 import FonctionsProbabilite1 from '../6e/6P2B-1'
 export const titre =
   'Calculer des probabilités dans une expérience aléatoire à une épreuve'
-export const interactifReady = false
+export const interactifReady = true
+export const interactifType = 'mathLive'
 
 /**
  * @author Sébastien LOZANO

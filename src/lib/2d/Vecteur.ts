@@ -1,4 +1,4 @@
-import type { IPointAbstrait } from './Interfaces'
+import type { IPointAbstrait, IVecteur } from './Interfaces'
 import type { PointAbstrait } from './PointAbstrait'
 
 export class Vecteur {
@@ -76,16 +76,16 @@ export class Vecteur {
  */
 // Surcharges pour la fabrique
 
-export function vecteur(x: number, y: number, nom?: string): Vecteur
+export function vecteur(x: number, y: number, nom?: string): IVecteur
 export function vecteur(
   A: PointAbstrait | IPointAbstrait,
   B: PointAbstrait | IPointAbstrait,
   nom?: string,
-): Vecteur
+): IVecteur
 export function vecteur(
   a: number | PointAbstrait | IPointAbstrait,
   b: number | PointAbstrait | IPointAbstrait,
   nom: string = '',
-) {
+): IVecteur {
   return new Vecteur(a as any, b as any, nom)
 }

@@ -454,7 +454,7 @@ export default class ScratchMultiScript extends Exercice {
       }
       lutins[i].animation +=
         '" begin="10s" dur="10s" repeatCount="indefinite" />; </circle>'
-
+      lutins[i].updateBordures()
       objetsCorrection.push(lePlateau.objets, lutins[i])
       texteCorr += mathalea2d(
         Object.assign({}, fixeBordures(objetsCorrection), {

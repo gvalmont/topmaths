@@ -1,7 +1,7 @@
+import { resolve } from 'node:path'
 import { mergeConfig } from 'vite'
 import { defineConfig } from 'vitest/config'
 import viteConfig from './vite.config'
-import { resolve } from 'node:path'
 
 export default mergeConfig(
   viteConfig,
@@ -21,11 +21,9 @@ export default mergeConfig(
         json: './logs/json-report.json',
         html: './logs/testconsole.html',
       },
-      poolOptions: {
-        threads: {
-          singleThread: true,
-        },
-      },
+      pool: 'threads',
+      maxWorkers: 1,
+      isolate: false,
     },
   }),
 )

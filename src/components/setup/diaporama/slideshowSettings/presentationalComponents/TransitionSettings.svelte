@@ -46,39 +46,39 @@
   </div>
   <CheckboxWithLabel
     id="slideshow-transition-alternate-checkbox"
-    isChecked="{questionThenCorrectionToggle}"
+    isChecked={questionThenCorrectionToggle}
     label="Alterner questions et corrections"
-    on:change="{(e) => {
+    on:change={(e) => {
       const isChecked = e.detail
       updateFlow(isChecked ? 1 : 0)
-    }}"
+    }}
   />
   <div class="ml-3">
     <CheckboxWithLabel
       id="slideshow-transition-with-question-checkbox"
-      isChecked="{questionWithCorrectionToggle}"
-      isDisabled="{!questionThenCorrectionToggle}"
+      isChecked={questionWithCorrectionToggle}
+      isDisabled={!questionThenCorrectionToggle}
       label="En gardant les questions affichées"
-      on:change="{(e) => {
+      on:change={(e) => {
         const isChecked = e.detail
         updateFlow(isChecked ? 2 : 1)
-      }}"
+      }}
     />
   </div>
   <CheckboxWithLabel
     id="slideshow-transition-screen-between-checkbox"
-    isChecked="{screenBetweenSlides}"
+    isChecked={screenBetweenSlides}
     label="Avec des cartons entre les questions"
-    on:change="{(e) => {
+    on:change={(e) => {
       const isChecked = e.detail
       updateScreenBetweenSlides(isChecked)
-    }}"
+    }}
   />
   <CheckboxWithLabel
     id="slideshow-transition-sound-checkbox"
-    isChecked="{soundToggle}"
+    isChecked={soundToggle}
     label="Jouer un son entre les questions"
-    on:change="{(e) => {
+    on:change={(e) => {
       const isChecked = e.detail
       if (isChecked) {
         transitionSounds[tune].play()
@@ -86,26 +86,26 @@
       } else {
         updateTune(-1)
       }
-    }}"
+    }}
   />
   <FormRadio
     title="son"
-    isDisabled="{!soundToggle}"
-    bind:valueSelected="{tune}"
-    labelsValues="{labelsForSounds}"
+    isDisabled={!soundToggle}
+    bind:valueSelected={tune}
+    labelsValues={labelsForSounds}
     orientation="row"
-    on:newvalue="{() => {
+    on:newvalue={() => {
       transitionSounds[tune].play()
       updateTune(tune)
-    }}"
+    }}
   />
   <CheckboxWithLabel
     id="slideshow-pause-after-each-question-checkbox"
-    isChecked="{pauseAfterEachQuestion}"
+    isChecked={pauseAfterEachQuestion}
     label="Avec une pause après chaque question"
-    on:change="{(e) => {
+    on:change={(e) => {
       const isChecked = e.detail
       updatePauseAfterEachQuestion(isChecked)
-    }}"
+    }}
   />
 </div>

@@ -1,10 +1,10 @@
 <script lang="ts">
   export let isMenuNeededForExercises: boolean
-  export let presMode: string
+  export let presMode: string | undefined
   export let title: string
   export let indiceExercice: number
   export let showNumber = true
-  export let seed: string
+  export let seed: string | undefined
 </script>
 
 <!--
@@ -34,7 +34,7 @@
       class="flex flex-row justify-start items-start"
       id="exerciceHeader{indiceExercice}"
     >
-      <div class="{showNumber ? 'flex' : 'hidden'}">
+      <div class={showNumber ? 'flex' : 'hidden'}>
         <div
           class="{isMenuNeededForExercises && presMode !== 'liste_exos'
             ? 'hidden'
@@ -50,7 +50,9 @@
       >
         {title}
 
-        <span class="text-[#FEFEFE] select-none pointer-events-none touch-none">{seed}</span>
+        <span class="text-[#FEFEFE] select-none pointer-events-none touch-none"
+          >{seed}</span
+        >
       </div>
     </div>
   </h1>

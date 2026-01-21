@@ -12,6 +12,7 @@ import {
   texteGras,
   texteItalique,
 } from '../../lib/outils/embellissements'
+import { texNombre } from '../../lib/outils/texNombre'
 import FractionEtendue from '../../modules/FractionEtendue'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import Exercice from '../Exercice'
@@ -352,14 +353,14 @@ export default class NomExercice extends Exercice {
           texteCorr +=
             '<br>En remplaçant la valeur de $s$ dans le sytème, on obtient :'
           texteCorr += `<br>$t =${u1.texFractionSimplifiee}\\times ${resultat2.simplifie().texFraction}${u4.simplifie().ecritureAlgebrique}~~$`
-          texteCorr += `d'où $~~t =${t}$.`
+          texteCorr += `d'où $~~t =${texNombre(t)}$.`
 
-          texteCorr += `<br>${texteGras('Réciproquement')}, on vérifie que pour $t=${t}~~$ et $~~s=${resultat2.simplifie().texFraction}$, les deux représentations donnent les coordonnées de leur point commun.<br>`
+          texteCorr += `<br>${texteGras('Réciproquement')}, on vérifie que pour $t=${texNombre(t)}~~$ et $~~s=${resultat2.simplifie().texFraction}$, les deux représentations donnent les coordonnées de leur point commun.<br>`
           texteCorr += `$(d):\\begin{cases}x=${ux}\\times ${ecritureParentheseSiNegatif(t)}${ecritureAlgebrique(xA)}\\\\[7pt] y=${uy}\\times ${ecritureParentheseSiNegatif(t)}${ecritureAlgebrique(yA)}\\\\[7pt] z=${uz}\\times ${ecritureParentheseSiNegatif(t)}${ecritureAlgebrique(zA)}\\end{cases}$`
-          texteCorr += `$\\quad\\quad(d):\\begin{cases}x=${ux * t + xA}\\\\ y=${uy * t + yA}\\\\ z=${uz * t + zA}\\end{cases}$`
+          texteCorr += `$\\quad\\quad(d):\\begin{cases}x=${texNombre(ux * t + xA)}\\\\ y=${texNombre(uy * t + yA)}\\\\ z=${texNombre(uz * t + zA)}\\end{cases}$`
           texteCorr += `<br>$(d'):\\begin{cases}x=${vx}\\times ${ecritureParentheseSiNegatif(resultat2.simplifie())}${ecritureAlgebrique(xB)}\\\\[7pt] y=${vy}\\times ${resultat2.simplifie().texFraction}${ecritureAlgebrique(yB)}\\\\[7pt] z=${vz}\\times ${resultat2.simplifie().texFraction}${ecritureAlgebrique(zB)}\\end{cases}$`
-          texteCorr += `$\\quad\\quad(d'):\\begin{cases}x=${ux * t + xA}\\\\ y=${uy * t + yA}\\\\ z=${uz * t + zA}\\end{cases}$`
-          texteCorr += `<br>On a montré que les droites $(d)$ et $(d')$ étaient sécantes au point de coordonnées $(${ux * t + xA}; ${uy * t + yA};${uz * t + zA})$.<br>`
+          texteCorr += `$\\quad\\quad(d'):\\begin{cases}x=${texNombre(ux * t + xA)}\\\\ y=${texNombre(uy * t + yA)}\\\\ z=${texNombre(uz * t + zA)}\\end{cases}$`
+          texteCorr += `<br>On a montré que les droites $(d)$ et $(d')$ étaient sécantes au point de coordonnées $(${texNombre(ux * t + xA)}; ${texNombre(uy * t + yA)};${texNombre(uz * t + zA)})$.<br>`
 
           texteCorr += texteEnCouleurEtGras('Conclusion :<br>')
           texteCorr +=

@@ -1,6 +1,6 @@
-import ExerciceSimple from '../../ExerciceSimple'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 import { randint } from '../../../modules/outils'
+import ExerciceSimple from '../../ExerciceSimple'
 export const titre = 'Calculer une dérivée'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -27,9 +27,9 @@ export default class Can2025TQ22 extends ExerciceSimple {
   nouvelleVersion() {
     const a = this.canOfficielle ? 2 : randint(1, 9)
     this.reponse = `e^{2x}-${a ** 2}`
-    this.question = `Simplifier au maximum $(\\text{e}^x+${a})(\\text{e}^x-${a})$.`
-    this.correction = `On développe en utilisant l'égalité remarquable $(a-b)(a+b)=a^2-b^2$ avec $a=\\text{e}^x$ et $b=${a}$.<br>
-    $(\\text{e}^x+${a})(\\text{e}^x-${a})=\\text{e}^{2x}-${a ** 2}$`
+    this.question = `Simplifier au maximum $(\\mathrm{e}^x+${a})(\\mathrm{e}^x-${a})$.`
+    this.correction = `On développe en utilisant l'égalité remarquable $(a-b)(a+b)=a^2-b^2$ avec $a=\\mathrm{e}^x$ et $b=${a}$.<br>
+    $(\\mathrm{e}^x+${a})(\\mathrm{e}^x-${a})=\\mathrm{e}^{2x}-${a ** 2}$`
     this.canEnonce = this.question
     this.canReponseACompleter = ''
   }

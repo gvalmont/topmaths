@@ -1,10 +1,11 @@
+import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
+import { setReponse } from '../../lib/interactif/gestionInteractif'
+import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
-import Exercice from '../Exercice'
 import { context } from '../../modules/context'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
-import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
-import { setReponse } from '../../lib/interactif/gestionInteractif'
+import Exercice from '../Exercice'
 
 export const titre = 'Résoudre une équation $x^2 = a$'
 export const interactifReady = true
@@ -93,7 +94,6 @@ export default class ResoudreEquatioeX2EgalA extends Exercice {
     for (
       let i = 0, fraction, ns, ds, a, texte, texteCorr, cpt = 0;
       i < this.nbQuestions && cpt < 50;
-
     ) {
       switch (listeTypeQuestions[i]) {
         case 1:
@@ -132,7 +132,7 @@ export default class ResoudreEquatioeX2EgalA extends Exercice {
           ])
           break
       }
-      texte += ajouteChampTexteMathLive(this, i, '')
+      texte += ajouteChampTexteMathLive(this, i, KeyboardType.lyceeClassique)
       if (this.questionJamaisPosee(i, a)) {
         // Si la question n'a jamais été posée, on en créé une autre
         this.listeQuestions[i] = texte

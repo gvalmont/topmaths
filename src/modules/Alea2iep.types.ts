@@ -228,8 +228,8 @@ export interface IAlea2iep {
 
   // Points et polygones
   pointCreer(A: PointAbstrait, options?: OptionsOutil): void
-  pointMasquer(...points: [...PointAbstrait[], OptionsOutil?]): void
-  polygoneRapide(...args: [...PointAbstrait[], OptionsCrayon?]): void
+  pointMasquer(...points: (PointAbstrait | OptionsOutil)[]): void
+  polygoneRapide(...args: (PointAbstrait | OptionsCrayon)[]): void
 
   // Textes
   textePoint(
@@ -243,7 +243,7 @@ export interface IAlea2iep {
     y: number,
     options?: OptionsTexte,
   ): number
-  texteMasquer(id: number, options?: OptionsIep): void
+  texteMasquer(id: number, options: OptionsIep): void
   texteChangeCouleur(texte: string, id: number, couleur: string): void
 
   // Codages
@@ -257,7 +257,7 @@ export interface IAlea2iep {
     B: PointAbstrait,
     C: PointAbstrait,
     options?: OptionsRegle,
-  ): [number, number]
+  ): number[]
   angleCodage(
     B: PointAbstrait,
     A: PointAbstrait,

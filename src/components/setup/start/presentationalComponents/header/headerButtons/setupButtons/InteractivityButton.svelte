@@ -7,16 +7,16 @@
 
 <button
   type="button"
-  on:click="{() => {
+  on:click={() => {
     isAllInteractive = !isAllInteractive
     setAllInteractive(isAllInteractive)
-  }}"
+  }}
   class="tooltip tooltip-bottom tooltip-neutral"
-  data-tip="{isAllInteractive
+  data-tip={isAllInteractive
     ? "Supprimer l'interactivité"
-    : 'Tous les exercices en interactif'}"
+    : 'Tous les exercices en interactif'}
 >
   <div class="px-2">
-    <TwoStatesIcon isOnStateActive="{isAllInteractive}" size="{7}" />
+    <TwoStatesIcon isOnStateActive={isAllInteractive} size={7} />
   </div>
 </button>

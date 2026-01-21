@@ -23,18 +23,18 @@
 </script>
 
 <button
-  bind:this="{button}"
+  bind:this={button}
   class="key--{keyName} customdimensions h-full flex justify-center items-center text-sm md:text-xl border-b-2 border-r border-r-slate-400 dark:border-r-gray-500 border-b-slate-300 dark:border-b-gray-600 active:border-b-0 active:border-r-0 text-coopmaths-corpus-light dark:text-coopmathsdark-corpus-light active:text-coopmaths-canvas active:translate-y-[1.5px] dark:active:text-coopmathsdark-canvas active:bg-coopmaths-action active:shadow-none dark:active:bg-coopmathsdark-action dark:active:shadow-none transition-transform ease-in-out shadow-[2px_2px_4px_rgba(180,180,180,0.5)] {isSpecial
     ? 'bg-coopmaths-canvas-moredark dark:bg-coopmathsdark-canvas-moredark'
     : 'bg-coopmaths-canvas-darkest dark:bg-coopmathsdark-canvas'}  py-1 px-1 md:py-2 md:px-4 text-center rounded-md font-mono touch-none"
   style="--keycapwidth:{keycapwidth}; --keycapheight:{keycapheight};"
-  on:mousedown="{(e) => {
+  on:mousedown={(e) => {
     e.preventDefault()
     e.stopPropagation()
-  }}"
-  on:click="{(e) => {
+  }}
+  on:click={(e) => {
     clickKeycap(key, e)
-  }}"
+  }}
 >
   <div id="key-{key.display}" class="relative">
     <!-- eslint-disable-next-line svelte/no-at-html-tags -->

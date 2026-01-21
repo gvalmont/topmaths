@@ -44,6 +44,7 @@ export class ObjetLutin extends ObjetMathalea2D {
   crayonBaisse: boolean
   isVisible: boolean
   costume: string
+  updateBordures: () => void
   listeTraces: [
     number,
     number,
@@ -67,6 +68,20 @@ export class ObjetLutin extends ObjetMathalea2D {
     this.yMin = 0
     this.yMax = 0
     this.bordures = [0, 0, 0, 0] // désolé, mais pour pouvoir définir les bordures, il faudrait avoir déjà les traces. Or au moment de la création du lutin, il n'a encore pas bougé !
+    this.updateBordures = function () {
+      let xmin = 1000
+      let xmax = -1000
+      let ymin = 1000
+      let ymax = -1000
+      for (const p of this.listeTraces) {
+        xmin = Math.min(xmin, p[0], p[2])
+        xmax = Math.max(xmax, p[0], p[2])
+        ymin = Math.min(ymin, p[1], p[3])
+        ymax = Math.max(ymax, p[1], p[3])
+      }
+      this.bordures = [xmin, ymin, xmax, ymax]
+    }
+
     this.xSVG = function (coeff) {
       return this.x * coeff
     }

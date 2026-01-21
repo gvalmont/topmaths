@@ -1,3 +1,6 @@
+import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
+import { setReponse } from '../../lib/interactif/gestionInteractif'
+import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
 import {
   ecritureAlgebrique,
@@ -5,11 +8,10 @@ import {
   ecritureParentheseSiNegatif,
   rienSi1,
 } from '../../lib/outils/ecritures'
+import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { lettreDepuisChiffre } from '../../lib/outils/outilString'
-import Exercice from '../Exercice'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
-import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
-import { setReponse } from '../../lib/interactif/gestionInteractif'
+import Exercice from '../Exercice'
 
 export const titre =
   'Réduire et simplifier, si possible, une expression littérale simple'
@@ -81,7 +83,6 @@ export default class ReductionsPiegesClassiques extends Exercice {
     for (
       let i = 0, texte, texteCorr, a, b, cpt = 0;
       i < this.nbQuestions && cpt < 50;
-
     ) {
       typesDeQuestions = listeTypeDeQuestions[i]
       a = randint(2, 11)
@@ -169,12 +170,29 @@ export default class ReductionsPiegesClassiques extends Exercice {
           `${lettreDepuisChiffre(i + 1, saufD)}=${reponse}`.replace('D=', 'd='),
         ]
         setReponse(this, i, reponse)
-        texte += ajouteChampTexteMathLive(this, i, ' ', { texteAvant: ' $=$' })
+        texte += ajouteChampTexteMathLive(
+          this,
+          i,
+          KeyboardType.clavierFullOperations,
+          { texteAvant: ' $=$' },
+        )
       }
 
       if (this.listeQuestions.indexOf(texte) === -1) {
         // Si la question n'a jamais été posée, on en créé une autre
         this.listeQuestions[i] = texte
+        // Uniformisation : Mise en place de la réponse attendue en interactif en orange et gras
+        const textCorrSplit = texteCorr.split('=')
+        let aRemplacer = textCorrSplit[textCorrSplit.length - 1]
+        aRemplacer = aRemplacer.replace('$', '')
+
+        texteCorr = ''
+        for (let ee = 0; ee < textCorrSplit.length - 1; ee++) {
+          texteCorr += textCorrSplit[ee] + '='
+        }
+        texteCorr += `$ $${miseEnEvidence(aRemplacer)}$`
+        // Fin de cette uniformisation
+
         this.listeCorrections[i] = texteCorr
         i++
       }

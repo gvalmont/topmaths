@@ -201,24 +201,20 @@ export default class CalculProduitScalaireAngle extends Exercice {
             ],
           ] // ]
           const angle = choice(listeAngle)
-          const cor1 = `
-                &=${a}\\times ${b}\\times \\cos\\left(${this.sup2 ? `${angle[1]}` : `${angle[0]}^\\circ`}\\right)\\\\
+          const cor1 = `&=${a}\\times ${b}\\times \\cos\\left(${this.sup2 ? `${angle[1]}` : `${angle[0]}^\\circ`}\\right)\\\\
                          &=${a * b}\\times${angle[2]}\\\\
                          &=${angle[3]}
                          \\end{aligned}$`
-          const cor2 = `
-                &=-${a}\\times ${b}\\times \\cos\\left(${this.sup2 ? `${angle[1]}` : `${angle[0]}^\\circ`}\\right)\\\\
+          const cor2 = `&=-${a}\\times ${b}\\times \\cos\\left(${this.sup2 ? `${angle[1]}` : `${angle[0]}^\\circ`}\\right)\\\\
                          &=-${a * b}\\times${angle[2]}\\\\
                          &=${angle[4]}
                          \\end{aligned}$`
-          const cor3 = `
-                         &=-${a}\\times ${b}\\times \\cos\\left(${this.sup2 ? `${angle[6]}` : `${angle[7]}^\\circ`}\\right)\\\\
+          const cor3 = `&=-${a}\\times ${b}\\times \\cos\\left(${this.sup2 ? `${angle[6]}` : `${angle[7]}^\\circ`}\\right)\\\\
                                   &=-${a * b}\\times\\left(-${angle[2]}\\right)\\\\
                                   &=${angle[3]}
                                   \\end{aligned}$`
 
-          const cor4 = `
-                         &=${a}\\times ${b}\\times \\cos\\left(${this.sup2 ? `${angle[6]}` : `${angle[7]}^\\circ`}\\right)\\\\
+          const cor4 = `&=${a}\\times ${b}\\times \\cos\\left(${this.sup2 ? `${angle[6]}` : `${angle[7]}^\\circ`}\\right)\\\\
                                   &=${a * b}\\times\\left(-${angle[2]}\\right)\\\\
                                   &=${angle[4]}
                                   \\end{aligned}$`
@@ -235,7 +231,7 @@ export default class CalculProduitScalaireAngle extends Exercice {
             A,
             D,
             'black',
-            1.8,
+            1,
             `${this.sup2 ? `${angle[1]}` : `${angle[0]}^\\circ`}`,
           )
           const objets = []

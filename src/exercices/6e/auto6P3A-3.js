@@ -1,6 +1,8 @@
+import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 import { setReponse } from '../../lib/interactif/gestionInteractif'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { combinaisonListes } from '../../lib/outils/arrayOutils'
+import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { range1 } from '../../lib/outils/nombres'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import Exercice from '../Exercice'
@@ -43,43 +45,62 @@ export default class DoubleMoitieTiersTriple extends Exercice {
     for (
       let i = 0, texte, texteCorr, a, cpt = 0;
       i < this.nbQuestions && cpt < 50;
-
     ) {
       switch (listeTypeDeQuestions[i]) {
         case 1: // Double
           a = randint(2, 9)
           texte = `$\\text{Le double de }${a}$`
-          texteCorr = `$\\text{Le double de }${a} \\text{ est } ${a * 2}$`
+          texteCorr = `$\\text{Le double de }${a} \\text{ est } ${miseEnEvidence(a * 2)}$`
           setReponse(this, i, a * 2)
-          if (this.interactif) texte += ajouteChampTexteMathLive(this, i, '')
+          if (this.interactif)
+            texte += ajouteChampTexteMathLive(
+              this,
+              i,
+              KeyboardType.clavierNumbers,
+            )
           break
         case 2: // Moitié
           a = randint(2, 9) * 2
           texte = `$\\text{La moitié de }${a * 2}$`
-          texteCorr = `$\\text{La moitié de }${a * 2} \\text{ est } ${a}$`
+          texteCorr = `$\\text{La moitié de }${a * 2} \\text{ est } ${miseEnEvidence(a)}$`
           setReponse(this, i, a)
-          if (this.interactif) texte += ajouteChampTexteMathLive(this, i, '')
+          if (this.interactif)
+            texte += ajouteChampTexteMathLive(
+              this,
+              i,
+              KeyboardType.clavierNumbers,
+            )
           break
         case 3: // Triple
           a = randint(2, 9)
           texte = `$\\text{Le triple de }${a}$`
-          texteCorr = `$\\text{Le triple de }${a} \\text{ est } ${a * 3}$`
+          texteCorr = `$\\text{Le triple de }${a} \\text{ est } ${miseEnEvidence(a * 3)}$`
           setReponse(this, i, a * 3)
-          if (this.interactif) texte += ajouteChampTexteMathLive(this, i, '')
+          if (this.interactif)
+            texte += ajouteChampTexteMathLive(
+              this,
+              i,
+              KeyboardType.clavierNumbers,
+            )
           break
         case 4: // Tiers
           a = randint(2, 9)
           texte = `$\\text{Le tiers de }${a * 3}$`
-          texteCorr = `$\\text{Le tiers de }${a * 3} \\text{ est } ${a}$`
+          texteCorr = `$\\text{Le tiers de }${a * 3} \\text{ est } ${miseEnEvidence(a)}$`
           setReponse(this, i, a)
-          if (this.interactif) texte += ajouteChampTexteMathLive(this, i, '')
+          if (this.interactif)
+            texte += ajouteChampTexteMathLive(
+              this,
+              i,
+              KeyboardType.clavierNumbers,
+            )
           break
       }
 
       if (this.listeQuestions.indexOf(texte) === -1) {
         // Si la question n'a jamais été posée, on en crée une autre
         this.listeQuestions[i] = texte
-        this.listeCorrections[i] = texteCorr
+        this.listeCorrections[i] = texteCorr + '.'
         i++
       }
       cpt++

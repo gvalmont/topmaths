@@ -9,7 +9,7 @@
   export let locale: Language
 </script>
 
-<BasicClassicModal bind:isDisplayed="{showLanguageChoiceModal}">
+<BasicClassicModal bind:isDisplayed={showLanguageChoiceModal}>
   <div slot="header" class="text-2xl w-full">Langue du Référentiel</div>
   <div slot="content">
     <ul class="p2 flex flex-col justify-start items-end">
@@ -21,10 +21,10 @@
             type="button"
             class="w-full flex flex-row space-x-2 justify-end items-center text-coopmaths-action dark:text-coopmathsdark-action"
             id="languageChoice{lang.short}"
-            on:click="{() => {
+            on:click={() => {
               handleLanguage(loc)
               showLanguageChoiceModal = false
-            }}"
+            }}
           >
             <div class="flex flex-row items-center">
               <i
@@ -35,7 +35,7 @@
               <span>Référentiel {lang.long}</span>
             </div>
             <div>
-              <LanguageIcon locale="{loc}" />
+              <LanguageIcon locale={loc} />
             </div>
           </button>
         </li>

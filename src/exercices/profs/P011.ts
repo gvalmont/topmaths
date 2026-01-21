@@ -19,12 +19,12 @@ export const refs = {
 export const uuid = '697a7'
 
 function aLeMinDArguments(params: any[], nombre: number) {
-  if (params.length >= nombre) {
-    return true
-  } else {
-    return false
-  }
+  return params.length >= nombre
 }
+/**
+ * Permet de construire un triangle animé à partir de différentes données
+ * @author Jean-Claude Lhote
+ */
 export default class ConstruisMonTriangle extends Exercice {
   constructor() {
     super()
@@ -51,20 +51,16 @@ export default class ConstruisMonTriangle extends Exercice {
     let triangle: PointAbstrait[] = []
     let defaut = [3, 4, 5]
     const type = contraindreValeur(1, 6, this.sup, 1)
-    let params = this.sup3.toString()
-    if (params.indexOf(' ') === -1) {
-      params = [parseFloat(this.sup3)]
-      if (isNaN(params[0])) params = defaut
-    } else {
-      params = this.sup3.split(' ')
-      for (let i = 0; i < params.length; i++) {
-        params[i] = parseFloat(params[i])
-        if (isNaN(params[i])) {
-          params = defaut
-          break
-        }
+    const params = this.sup3.split(' ')
+
+    const donnees = params.map(Number)
+
+    for (let i = 0; i < donnees.length; i++) {
+      if (isNaN(donnees[i]) || donnees[i] <= 0) {
+        donnees[i] = 4.2
       }
     }
+
     const nom = this.sup2.slice(0, 3)
     const anim = new Alea2iep()
     const objetsEnonceml = []
@@ -73,17 +69,17 @@ export default class ConstruisMonTriangle extends Exercice {
     ) {
       case 1:
         defaut = [3, 4, 5]
-        if (aLeMinDArguments(params, 3)) {
+        if (aLeMinDArguments(donnees, 3)) {
           const triang = new Triangle()
-          triang.l1 = params[0]
-          triang.l2 = params[1]
-          triang.l3 = params[2]
+          triang.l1 = donnees[0]
+          triang.l2 = donnees[1]
+          triang.l3 = donnees[2]
           if (triang.isTrueTriangleLongueurs()) {
             triangle = anim.triangle3longueurs(
               nom,
-              params[0],
-              params[1],
-              params[2],
+              donnees[0],
+              donnees[1],
+              donnees[2],
               { description: true },
             )
           } else {
@@ -113,12 +109,12 @@ export default class ConstruisMonTriangle extends Exercice {
 
       case 2:
         defaut = [3, 40, 50]
-        if (aLeMinDArguments(params, 3)) {
+        if (aLeMinDArguments(donnees, 3)) {
           triangle = anim.triangle1longueur2angles(
             nom,
-            params[0],
-            params[1],
-            params[2],
+            donnees[0],
+            donnees[1],
+            donnees[2],
             { description: true },
           )
         } else {
@@ -139,8 +135,8 @@ export default class ConstruisMonTriangle extends Exercice {
 
       case 3:
         defaut = [3, 4]
-        if (aLeMinDArguments(params, 2)) {
-          triangle = anim.triangleRectangle2Cotes(nom, params[0], params[1], {
+        if (aLeMinDArguments(donnees, 2)) {
+          triangle = anim.triangleRectangle2Cotes(nom, donnees[0], donnees[1], {
             description: true,
           })
         } else {
@@ -157,9 +153,9 @@ export default class ConstruisMonTriangle extends Exercice {
 
       case 4:
         defaut = [3, 5]
-        if (aLeMinDArguments(params, 2)) {
-          const cote = Math.min(params[0], params[1])
-          const hypothenuse = Math.max(params[0], params[1])
+        if (aLeMinDArguments(donnees, 2)) {
+          const cote = Math.min(donnees[0], donnees[1])
+          const hypothenuse = Math.max(donnees[0], donnees[1])
           triangle = anim.triangleRectangleCoteHypotenuse(
             nom,
             cote,
@@ -183,8 +179,8 @@ export default class ConstruisMonTriangle extends Exercice {
 
       case 5:
         defaut = [4]
-        if (aLeMinDArguments(params, 1)) {
-          triangle = anim.triangleEquilateral(nom, params[0])
+        if (aLeMinDArguments(donnees, 1)) {
+          triangle = anim.triangleEquilateral(nom, donnees[0])
         } else {
           triangle = anim.triangleEquilateral(nom, defaut[0])
         }
@@ -205,12 +201,12 @@ export default class ConstruisMonTriangle extends Exercice {
 
       case 6:
         defaut = [3, 4, 70]
-        if (aLeMinDArguments(params, 3)) {
+        if (aLeMinDArguments(donnees, 3)) {
           triangle = anim.triangle2longueurs1angle(
             nom,
-            params[0],
-            params[1],
-            params[2],
+            donnees[0],
+            donnees[1],
+            donnees[2],
           )
         } else {
           triangle = anim.triangle2longueurs1angle(
@@ -221,7 +217,7 @@ export default class ConstruisMonTriangle extends Exercice {
           )
         }
         objetsEnonceml.push(
-          afficheLongueurSegment(triangle[0], triangle[1]),
+          afficheLongueurSegment(triangle[1], triangle[0]),
           afficheLongueurSegment(triangle[0], triangle[2]),
           afficheMesureAngle(triangle[1], triangle[0], triangle[2]),
         )

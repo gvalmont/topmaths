@@ -3,10 +3,12 @@ import { texFractionReduite } from '../../../lib/outils/deprecatedFractions'
 import { sp } from '../../../lib/outils/outilString'
 import { texNombre } from '../../../lib/outils/texNombre'
 
+import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
+import { setReponse } from '../../../lib/interactif/gestionInteractif'
 import { ajouteChampTexteMathLive } from '../../../lib/interactif/questionMathLive'
+import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { listeQuestionsToContenu } from '../../../modules/outils'
 import Exercice from '../../Exercice'
-import { setReponse } from '../../../lib/interactif/gestionInteractif'
 
 export const titre =
   'Convertir des fractions d’heures en minutes et inversement'
@@ -65,13 +67,18 @@ export default class HeuresFractionHeuresMinutes2 extends Exercice {
             texte = `Compléter : <br>$\\dfrac{${a}}{${b}}$ h $=$ ..... min`
           } else {
             texte = `Compléter : <br>$\\dfrac{${a}}{${b}}$ h $=$`
-            texte += ajouteChampTexteMathLive(this, i, '', {
-              texteApres: sp(5) + 'min',
-            })
+            texte += ajouteChampTexteMathLive(
+              this,
+              i,
+              KeyboardType.clavierNumbers,
+              {
+                texteApres: sp(5) + 'min',
+              },
+            )
             texteCorr = `$${texNombre(a + b)}$h$ = ${a}$ h $ + ${texNombre(b)} \\times 60  = ${a}$ h $${d}$ min`
             setReponse(this, i, (a * 60) / b)
           }
-          texteCorr = `$\\dfrac{${a}}{${b}}$ h $= \\dfrac{${a}}{${b}}\\times 60$ min  $= ${a}\\times \\dfrac{60}{${b}}$ min $= ${a}\\times ${texNombre(60 / b)}$ min$=${texNombre((a * 60) / b)}$ min`
+          texteCorr = `$\\dfrac{${a}}{${b}}$ h $= \\dfrac{${a}}{${b}}\\times 60$ min  $= ${a}\\times \\dfrac{60}{${b}}$ min $= ${a}\\times ${texNombre(60 / b)}$ min$=${miseEnEvidence(texNombre((a * 60) / b))}$ min`
           this.canEnonce = 'Compléter.'
           this.canReponseACompleter = `$\\dfrac{${a}}{${b}}$ h $=\\ldots$ min`
           break
@@ -87,12 +94,17 @@ export default class HeuresFractionHeuresMinutes2 extends Exercice {
             texte = `Compléter par une fraction irréductible : <br>$${a}$ min  $=$ ..... h`
           } else {
             texte = `Compléter par une fraction irréductible : <br>$${a}$ min  $=$ `
-            texte += ajouteChampTexteMathLive(this, i, '', {
-              texteApres: sp(5) + 'h',
-            })
+            texte += ajouteChampTexteMathLive(
+              this,
+              i,
+              KeyboardType.clavierDeBaseAvecFraction,
+              {
+                texteApres: sp(3) + 'h',
+              },
+            )
             setReponse(this, i, [`${texFractionReduite(a, 60)}`])
           }
-          texteCorr = `$${a}$ min  $= \\dfrac{${a}}{60}$ h$=${texFractionReduite(a, 60)}$ h`
+          texteCorr = `$${a}$ min  $= \\dfrac{${a}}{60}$ h $=${miseEnEvidence(texFractionReduite(a, 60))}$ h`
           this.canEnonce = 'Compléter par une fraction irréductible.'
           this.canReponseACompleter = `$${a}$ min  $= \\ldots$ h`
           break

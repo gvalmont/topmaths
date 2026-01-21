@@ -1,4 +1,4 @@
-import type { IExerciceCan } from './Exercice.type'
+import type { IExerciceCan } from '../lib/types'
 import ExerciceSimple from './ExerciceSimple'
 
 export default class ExerciceCan

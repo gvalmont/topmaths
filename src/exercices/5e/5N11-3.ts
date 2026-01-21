@@ -1,5 +1,6 @@
 import { ComputeEngine } from '@cortex-js/compute-engine'
 import type { MathfieldElement } from 'mathlive'
+import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 import {
   handleAnswers,
   setReponse,
@@ -53,9 +54,10 @@ export default class FractionVersPourcentage extends Exercice {
   }
 
   nouvelleVersion() {
-    this.introduction = this.interactif
-      ? 'La première fraction est facultative : elle sera corrigée, mais ne sera pas prise en compte dans le barème.'
-      : ''
+    this.introduction =
+      this.interactif && this.sup === 1
+        ? 'La première fraction est facultative : elle sera corrigée, mais ne sera pas prise en compte dans le barème.'
+        : ''
 
     const typeDeDenominateurs = [10, 20, 50, 1000, 2, 4, 5, 200]
     const listeTypeDeQuestions = combinaisonListes(
@@ -65,7 +67,6 @@ export default class FractionVersPourcentage extends Exercice {
     for (
       let i = 0, texte, texteCorr, percenti, den, num, cpt = 0;
       i < this.nbQuestions && cpt < 50;
-
     ) {
       // Boucle principale où i+1 correspond au numéro de la question
       den = listeTypeDeQuestions[i]
@@ -110,7 +111,7 @@ export default class FractionVersPourcentage extends Exercice {
         )
       } else {
         this.interactifType = 'mathLive'
-        texte = `$\\dfrac{${percenti}}{100}= $${context.isHtml && this.interactif ? ajouteChampTexteMathLive(this, i, ' clavierDeBaseAvecFraction', { texteApres: ' %' }) : '$\\ldots\\ldots\\%$'}`
+        texte = `$\\dfrac{${percenti}}{100}= $${context.isHtml && this.interactif ? ajouteChampTexteMathLive(this, i, KeyboardType.clavierNumbers, { texteApres: ' %' }) : '$\\ldots\\ldots\\%$'}`
         texteCorr = `$\\dfrac{${texNombre(percenti, 0)}}{100}=${texNombre(percenti, 0)}~\\%$`
         setReponse(this, i, percenti, {
           formatInteractif: 'calcul',

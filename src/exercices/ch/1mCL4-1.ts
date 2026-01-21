@@ -1,19 +1,20 @@
+import { handleAnswers } from '../../lib/interactif/gestionInteractif'
+import { combinaisonListes } from '../../lib/outils/arrayOutils'
+import { extraireRacineCarree } from '../../lib/outils/calculs'
+import {
+  miseEnEvidence,
+  texteEnCouleurEtGras,
+} from '../../lib/outils/embellissements'
+import EquationSecondDegre from '../../modules/EquationSecondDegre'
+import FractionEtendue from '../../modules/FractionEtendue'
 import {
   gestionnaireFormulaireTexte,
   listeQuestionsToContenu,
   randint,
 } from '../../modules/outils'
 import Exercice from '../Exercice'
-import FractionEtendue from '../../modules/FractionEtendue'
-import EquationSecondDegre from '../../modules/EquationSecondDegre'
-import { combinaisonListes } from '../../lib/outils/arrayOutils'
-import {
-  miseEnEvidence,
-  texteEnCouleurEtGras,
-} from '../../lib/outils/embellissements'
-import { extraireRacineCarree } from '../../lib/outils/calculs'
-import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 
+import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 
 export const titre =
@@ -236,10 +237,15 @@ export default class ExerciceEquationSecondDegre extends Exercice {
       }
 
       texteCorr += '\\end{aligned}$'
-      texte += ajouteChampTexteMathLive(this, 2 * i, 'clavierFullOperations', {
-        texteAvant:
-          "<br><br> Donner sous forme d'un entier ou d'une fraction irréductible le nombre qui permet de compléter le carré :",
-      })
+      texte += ajouteChampTexteMathLive(
+        this,
+        2 * i,
+        KeyboardType.clavierFullOperations,
+        {
+          texteAvant:
+            "<br><br> Donner sous forme d'un entier ou d'une fraction irréductible le nombre qui permet de compléter le carré :",
+        },
+      )
       handleAnswers(this, 2 * i, {
         reponse: {
           value: termeCompletion.texFractionSimplifiee,
@@ -248,10 +254,15 @@ export default class ExerciceEquationSecondDegre extends Exercice {
       })
       texte +=
         '<br><br>' +
-        ajouteChampTexteMathLive(this, 2 * i + 1, 'clavierFullOperations', {
-          texteAvant:
-            "Donner l'ensemble des solutions en séparant chaque solution par un point-virgule $S=$",
-        })
+        ajouteChampTexteMathLive(
+          this,
+          2 * i + 1,
+          KeyboardType.clavierFullOperations,
+          {
+            texteAvant:
+              "Donner l'ensemble des solutions en séparant chaque solution par un point-virgule $S=$",
+          },
+        )
       handleAnswers(this, 2 * i + 1, {
         reponse: {
           value: `\\{${reponse1};${reponse2}\\}`,

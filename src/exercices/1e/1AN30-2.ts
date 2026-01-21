@@ -684,17 +684,22 @@ export default class SimplifierExponentielles extends Exercice {
         texte += props.texte
       }
 
-      texte = texte.replace(/e\^/g, '\\text{e}^')
-      texteCorr = texteCorr.replace(/e\^/g, '\\text{e}^')
+      texte = texte.replace(/e\^/g, '\\mathrm{e}^')
+      texteCorr = texteCorr.replace(/e\^/g, '\\mathrm{e}^')
 
       if (this.can) {
         texte = "Simplifier l'expression :<br>" + texte
       }
 
       if (this.interactif && this.interactifType === 'mathLive') {
-        texte += ajouteChampTexteMathLive(this, i, KeyboardType.lycee, {
-          texteAvant: ' $=$ ',
-        })
+        texte += ajouteChampTexteMathLive(
+          this,
+          i,
+          KeyboardType.clavierFonctionsTerminales,
+          {
+            texteAvant: ' $=$ ',
+          },
+        )
         handleAnswers(this, i, {
           reponse: { value: answer, options: { expressionNumerique: true } },
         })

@@ -1,25 +1,24 @@
 <script lang="ts">
+  import { MathfieldElement } from 'mathlive'
   import { tick } from 'svelte'
-  import { keyboardState } from './stores/keyboardStore'
-  import { mathaleaRenderDiv } from '../../lib/mathalea'
   import { fly } from 'svelte/transition'
+  import { mathaleaRenderDiv } from '../../lib/mathalea'
+  import { keyboardBlocks } from './layouts/keysBlocks'
+  import { GAP_BETWEEN_BLOCKS, getMode } from './lib/sizes'
+  import Alphanumeric from './presentationalComponents/alphanumeric/Alphanumeric.svelte'
+  import KeyboardPage from './presentationalComponents/keyboardpage/KeyboardPage.svelte'
+  import { keyboardState } from './stores/keyboardStore'
   import {
     Keyboard,
     inLineBlockWidth,
+    type AlphanumericPages,
     type KeyboardBlock,
     type Keys,
-    type AlphanumericPages,
   } from './types/keyboardContent'
-  import { keyboardBlocks } from './layouts/keysBlocks'
-  import KeyboardPage from './presentationalComponents/keyboardpage/KeyboardPage.svelte'
-  import { GAP_BETWEEN_BLOCKS, getMode } from './lib/sizes'
   import type { KeyCap } from './types/keycap'
-  import { MathfieldElement } from 'mathlive'
-  import Alphanumeric from './presentationalComponents/alphanumeric/Alphanumeric.svelte'
   import { isPageKey } from './types/keycap'
 
-  $: innerWidth = 0
-
+  let innerWidth: number = 0
   let pages: KeyboardBlock[][] = []
   let usualBlocks: KeyboardBlock[] = []
   let unitsBlocks: KeyboardBlock[] = []
@@ -163,25 +162,26 @@
 </script>
 
 <svelte:window bind:innerWidth />
+{''}
 {#if isVisible}
   <div
-    on:mousedown="{(e) => {
+    on:mousedown={(e) => {
       e.preventDefault()
       e.stopPropagation()
-    }}"
+    }}
     role="none"
-    transition:fly|global="{{ y: '100%', opacity: 1 }}"
-    bind:this="{divKeyboard}"
+    transition:fly|global={{ y: '100%', opacity: 1 }}
+    bind:this={divKeyboard}
     class=" bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark p-2 md:p-4 w-full fixed bottom-0 left-0 right-0 z-[9999] drop-shadow-[0_-3px_5px_rgba(130,130,130,0.25)] dark:drop-shadow-[0_-3px_5px_rgba(250,250,250,0.25)]"
   >
     {#if alphanumericDisplayed}
       <Alphanumeric {clickKeycap} {pageType} />
     {:else}
-      <div class="{isInLine ? 'relative px-10' : 'py-2 md:py-0'}">
+      <div class={isInLine ? 'relative px-10' : 'py-2 md:py-0'}>
         <KeyboardPage
-          unitsBlocks="{[...unitsBlocks].reverse()}"
-          usualBlocks="{[...usualBlocks].reverse()}"
-          page="{pages[currentPageIndex]}"
+          unitsBlocks={[...unitsBlocks].reverse()}
+          usualBlocks={[...usualBlocks].reverse()}
+          page={pages[currentPageIndex]}
           {isInLine}
           {innerWidth}
           {clickKeycap}
@@ -189,28 +189,30 @@
         <!-- Boutons de navigation entre les pages : vers la DROITE -->
         <button
           id="kb-nav-right"
-          class="absolute right-2 md:right-0 top-0 bottom-0 m-auto flex justify-center items-center h-8 w-8 text-coopmaths-action dark:text-coopmathsdark-action hover:text-coopmaths-action-lightest dark:hover:text-coopmathsdark-action-lightest disabled:text-opacity-0 dark:disabled:text-opacity-0"
-          on:click="{navRight}"
-          on:mousedown="{(e) => {
+          aria-label="Page suivante"
+          class="absolute right-2 md:right-0 top-0 bottom-0 m-auto flex justify-center items-center h-8 w-8 text-coopmaths-action dark:text-coopmathsdark-action hover:text-coopmaths-action-lightest dark:hover:text-coopmathsdark-action-lightest disabled:text-transparent dark:disabled:text-transparent"
+          on:click={navRight}
+          on:mousedown={(e) => {
             e.preventDefault()
             e.stopPropagation()
-          }}"
-          disabled="{pages.length === 1 || currentPageIndex === 0 || !isInLine}"
+          }}
+          disabled={pages.length === 1 || currentPageIndex === 0 || !isInLine}
         >
           <i class="bx bx-chevron-right bx-lg"></i>
         </button>
         <!-- Boutons de navigation entre les pages : vers la GAUCHE -->
         <button
           id="kb-nav-left"
-          class="absolute left-2 md:left-0 top-0 bottom-0 m-auto flex justify-center items-center h-8 w-8 text-coopmaths-action dark:text-coopmathsdark-action hover:text-coopmaths-action-lightest dark:hover:text-coopmathsdark-action-lightest disabled:text-opacity-0 dark:disabled:text-opacity-0"
-          on:click="{navLeft}"
-          on:mousedown="{(e) => {
+          aria-label="Page précédente"
+          class="absolute left-2 md:left-0 top-0 bottom-0 m-auto flex justify-center items-center h-8 w-8 text-coopmaths-action dark:text-coopmathsdark-action hover:text-coopmaths-action-lightest dark:hover:text-coopmathsdark-action-lightest disabled:text-transparent dark:disabled:text-transparent"
+          on:click={navLeft}
+          on:mousedown={(e) => {
             e.preventDefault()
             e.stopPropagation()
-          }}"
-          disabled="{pages.length === 1 ||
+          }}
+          disabled={pages.length === 1 ||
             currentPageIndex === pages.length - 1 ||
-            !isInLine}"
+            !isInLine}
         >
           <i class="bx bx-chevron-left bx-lg"></i>
         </button>
@@ -220,19 +222,20 @@
     <button
       id="kb-nav-reduced"
       type="button"
+      aria-label={isInLine ? 'Agrandir le clavier' : 'Réduire le clavier'}
       class="z-[10000] absolute right-0 top-0 h-5 w-5 rounded-sm bg-coopmaths-action hover:bg-coopmaths-action-lightest dark:bg-coopmathsdark-action-light dark:hover:bg-coopmathsdark-action-lightest text-coopmaths-canvas dark:text-coopmaths-canvas"
-      on:click="{async (e) => {
+      on:click={async (e) => {
         e.preventDefault()
         e.stopPropagation()
         computePages()
         $keyboardState.isInLine = !$keyboardState.isInLine
         await tick()
         mathaleaRenderDiv(divKeyboard)
-      }}"
-      on:mousedown="{(e) => {
+      }}
+      on:mousedown={(e) => {
         e.preventDefault()
         e.stopPropagation()
-      }}"
+      }}
     >
       <i class="bx {isInLine ? 'bx-plus' : 'bx-minus'}"></i>
     </button>
@@ -240,20 +243,23 @@
     <button
       id="kb-nav-alpha"
       type="button"
+      aria-label={alphanumericDisplayed
+        ? 'Clavier mathématique'
+        : 'Clavier alphanumérique'}
       class="z-[10000] {$keyboardState.blocks.includes('alphanumeric')
         ? 'flex justify-center items-center'
         : 'hidden'} absolute right-0 top-6 h-5 w-5 rounded-sm bg-coopmaths-action hover:bg-coopmaths-action-lightest dark:bg-coopmathsdark-action-light dark:hover:bg-coopmathsdark-action-lightest text-coopmaths-canvas dark:text-coopmaths-canvas"
-      on:click="{async (e) => {
+      on:click={async (e) => {
         e.preventDefault()
         e.stopPropagation()
         alphanumericDisplayed = !alphanumericDisplayed
         await tick()
         mathaleaRenderDiv(divKeyboard)
-      }}"
-      on:mousedown="{(e) => {
+      }}
+      on:mousedown={(e) => {
         e.preventDefault()
         e.stopPropagation()
-      }}"
+      }}
     >
       <i class="bx {alphanumericDisplayed ? 'bx-math' : 'bx-font-family'}"></i>
     </button>

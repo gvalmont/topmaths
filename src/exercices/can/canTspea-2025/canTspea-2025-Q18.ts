@@ -1,8 +1,8 @@
-import ExerciceSimple from '../../ExerciceSimple'
-import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
-import { randint } from '../../../modules/outils'
 import { functionCompare } from '../../../lib/interactif/comparisonFunctions'
+import { miseEnEvidence } from '../../../lib/outils/embellissements'
+import { randint } from '../../../modules/outils'
+import ExerciceSimple from '../../ExerciceSimple'
 export const titre = 'Calculer une dérivée'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -33,14 +33,14 @@ export default class Can2025TQ18 extends ExerciceSimple {
     const a = this.canOfficielle ? -2 : randint(-5, 5, [-1, 0, 1])
     const b = this.canOfficielle ? 5 : randint(3, 9)
     this.reponse = `${a}\\times e^{${a}x}+\\dfrac{1}{${b}}`
-    this.question = `Soit $f(x)=\\text{e}^{${a}x}+\\dfrac{x}{${b}}$<br>`
+    this.question = `Soit $f(x)=\\mathrm{e}^{${a}x}+\\dfrac{x}{${b}}$<br>`
     if (!this.interactif) {
       this.question += "$f'(x)=\\ldots$"
     }
-    this.correction = `D'après le cours, si $f=\\text{e}^u$ alors $f'=u'\\times \\text{e}^{u}$.<br>
+    this.correction = `D'après le cours, si $f=\\mathrm{e}^u$ alors $f'=u'\\times \\mathrm{e}^{u}$.<br>
     De plus, $\\dfrac{x}{${b}}=\\dfrac{1}{${b}}x$.<br>
-    Donc $f'(x)=${miseEnEvidence(`${a}\\text{e}^{${a}x}+\\dfrac{1}{${b}}`)}$.`
-    this.canEnonce = ` $f(x)=\\text{e}^{${a}x}+\\dfrac{x}{${b}}$`
+    Donc $f'(x)=${miseEnEvidence(`${a}\\mathrm{e}^{${a}x}+\\dfrac{1}{${b}}`)}$.`
+    this.canEnonce = ` $f(x)=\\mathrm{e}^{${a}x}+\\dfrac{x}{${b}}$`
     this.canReponseACompleter = "$f'(x)=\\ldots$"
   }
 }

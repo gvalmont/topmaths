@@ -44,19 +44,19 @@
 <ButtonIcon
   icon="bx-stopwatch {BUTTONS_CLASS}"
   title="Régler la durée de chaque question"
-  floatUnderText="{isManualModeActive ? 'Manuel' : currentSlideDuration + 's'}"
-  on:click="{displayTimerSettingsModal}"
+  floatUnderText={isManualModeActive ? 'Manuel' : currentSlideDuration + 's'}
+  on:click={displayTimerSettingsModal}
 />
 <ButtonIcon
   icon="bx-show {BUTTONS_CLASS}"
   title="Raccourci clavier : Entrée"
-  floatUnderText="{getDisplayMode()}"
-  on:click="{switchDisplayMode}"
+  floatUnderText={getDisplayMode()}
+  on:click={switchDisplayMode}
 />
 <ButtonIcon
   icon="bx-power-off {BUTTONS_CLASS}"
   title="Retour au paramétrage"
-  on:click="{backToSettings}"
+  on:click={backToSettings}
 />
 <SlideshowPlayTimerSettingsModal
   bind:isTimerSettingsModalDisplayed

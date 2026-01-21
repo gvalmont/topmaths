@@ -1,6 +1,7 @@
 import Decimal from 'decimal.js'
 import { grille, seyes } from '../../lib/2d/Grille'
 import { vide2d } from '../../lib/2d/Vide2d'
+import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 import {
   handleAnswers,
   setReponse,
@@ -10,7 +11,7 @@ import { combinaisonListes } from '../../lib/outils/arrayOutils'
 import { texNombre } from '../../lib/outils/texNombre'
 import { context } from '../../modules/context'
 import { mathalea2d } from '../../modules/mathalea2d'
-import Operation from '../../modules/operations'
+import operation from '../../modules/operations'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import Exercice from '../Exercice'
 
@@ -84,7 +85,6 @@ export default class MultiplierDecimaux extends Exercice {
     for (
       let i = 0, texte, texteCorr, cpt = 0, a, b, c;
       i < this.nbQuestions && cpt < 50;
-
     ) {
       typesDeQuestions = listeTypeDeQuestions[i]
       switch (typesDeQuestions) {
@@ -120,20 +120,22 @@ export default class MultiplierDecimaux extends Exercice {
       texte = `$${texNombre(a)}\\times${texNombre(b)}$`
       texte += grilletxt
       reponse = new Decimal(a).mul(b)
-      texteCorr = Operation({
+      texteCorr = operation({
         operande1: a.toNumber(),
         operande2: b.toNumber(),
         type: 'multiplication',
         style: 'display: inline',
       })
       texteCorr += context.isHtml ? '' : '\\hspace*{30mm}'
-      texteCorr += Operation({
+      texteCorr += operation({
         operande1: b.toNumber(),
         operande2: a.toNumber(),
         type: 'multiplication',
         style: 'display: inline',
       })
-      texte += ajouteChampTexteMathLive(this, i, '', { texteAvant: '$~=$' })
+      texte += ajouteChampTexteMathLive(this, i, KeyboardType.clavierNumbers, {
+        texteAvant: '$~=$',
+      })
       if (context.isAmc) setReponse(this, i, reponse)
       else handleAnswers(this, i, { reponse: { value: reponse } })
       this.autoCorrection[i].options = {

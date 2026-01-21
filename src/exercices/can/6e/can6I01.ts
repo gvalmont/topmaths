@@ -5,6 +5,7 @@ import { point } from '../../../lib/2d/PointAbstrait'
 import { texteParPositionEchelle } from '../../../lib/2d/textes'
 import { tracePoint } from '../../../lib/2d/TracePoint'
 import { texteGras } from '../../../lib/format/style'
+import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 import { setReponse } from '../../../lib/interactif/gestionInteractif'
 import { ajouteChampTexteMathLive } from '../../../lib/interactif/questionMathLive'
 import { choice } from '../../../lib/outils/arrayOutils'
@@ -304,7 +305,7 @@ export default class CanNoteLaCouleur6 extends Exercice {
       } else {
         texte = ''
       }
-      texte += `Exécuter le programme et trouver la couleur à noter. ${ajouteChampTexteMathLive(this, q, 'alphanumeric ')}<br><br>`
+      texte += `Exécuter le programme et trouver la couleur à noter. ${ajouteChampTexteMathLive(this, q, KeyboardType.alphanumeric)}<br><br>`
       if (context.isHtml) {
         texte +=
           '<table><tr><td>' +

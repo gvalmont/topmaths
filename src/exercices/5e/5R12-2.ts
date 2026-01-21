@@ -48,19 +48,25 @@ export default class ReperagePointDuPlan extends Exercice {
     this.besoinFormulaire2CaseACocher = [
       'Grille pour les demis ou pour les quarts',
     ]
-    this.besoinFormulaire3Numerique = ['Nombre de points (entre 2 et 5)', 5]
+    this.besoinFormulaire3Numerique = ['Nombre de points (entre 1 et 5)', 5]
+    this.besoinFormulaire4CaseACocher = [
+      'Avec forcément un point sur un axe',
+      true,
+    ]
     this.nbQuestions = 1
     this.nbQuestionsModifiable = false
 
     this.sup = 1
     this.sup2 = true
     this.sup3 = 5
+    this.sup4 = true
     this.quartDePlan = false
     this.listeAvecNumerotation = false
   }
 
   nouvelleVersion() {
     let texte, texteCorr
+    const forcerPointSurAxe = this.sup4
 
     let listePoints = []
     const points = []
@@ -68,7 +74,7 @@ export default class ReperagePointDuPlan extends Exercice {
     const k = Math.pow(2, this.sup - 1)
     const nom = []
     const objets2d = []
-    const nbPoints = contraindreValeur(2, 5, this.sup3, 5)
+    const nbPoints = contraindreValeur(1, 5, this.sup3, 5)
     if (this.quartDePlan) {
       xmin = 0
       ymin = 0
@@ -98,7 +104,7 @@ export default class ReperagePointDuPlan extends Exercice {
     }
     let X0 = false
     let Y0 = false
-    listePoints = creerCouples(listeAbs, listeOrd, 10 * k)
+    listePoints = creerCouples(listeAbs, listeOrd, 10 * k, true)
     for (let l = 0, lettre = randint(1, 20); l < 5; l++) {
       nom.push(lettreDepuisChiffre(l + lettre))
     }
@@ -113,10 +119,10 @@ export default class ReperagePointDuPlan extends Exercice {
         Y0 = true
       }
     }
-    if (!X0) {
+    if (!X0 && forcerPointSurAxe) {
       points[0].x = 0
     }
-    if (!Y0) {
+    if (!Y0 && nbPoints > 1 && forcerPointSurAxe) {
       points[1].y = 0
     }
     shuffle2tableaux(points, nom)
@@ -131,8 +137,14 @@ export default class ReperagePointDuPlan extends Exercice {
       }
     }
 
-    texte = 'Déterminer les coordonnées des points'
-    texteCorr = 'Les coordonnées des points sont :<br>'
+    texte =
+      nbPoints > 1
+        ? 'Déterminer les coordonnées respectives des points'
+        : 'Déterminer les coordonnées du point'
+    texteCorr =
+      nbPoints > 1
+        ? 'Les coordonnées respectives des points sont :<br>'
+        : 'Les coordonnées du point sont :<br>'
     for (let i = 0; i < nbPoints - 1; i++) {
       texte += ` $${nom[i]}$, `
       texteCorr += ` $${nom[i]}(${miseEnEvidence(texNombre(points[i].x))};${miseEnEvidence(texNombre(points[i].y))})$,`
@@ -182,10 +194,16 @@ export default class ReperagePointDuPlan extends Exercice {
         )
       }
     }
-    texte = texte.slice(0, texte.length - 1) + ` et $${nom[nbPoints - 1]}$.<br>`
+    texte =
+      nbPoints > 1
+        ? texte.slice(0, texte.length - 1) + ` et $${nom[nbPoints - 1]}$.<br>`
+        : texte + ` $${nom[nbPoints - 1]}$.<br>`
     texteCorr =
-      texteCorr.slice(0, texteCorr.length - 1) +
-      ` et $${nom[nbPoints - 1]}(${miseEnEvidence(texNombre(points[nbPoints - 1].x))};${miseEnEvidence(texNombre(points[nbPoints - 1].y))})$.`
+      nbPoints > 1
+        ? texteCorr.slice(0, texteCorr.length - 1) +
+          ` et $${nom[nbPoints - 1]}(${miseEnEvidence(texNombre(points[nbPoints - 1].x))};${miseEnEvidence(texNombre(points[nbPoints - 1].y))})$.`
+        : texteCorr +
+          ` $${nom[nbPoints - 1]}(${miseEnEvidence(texNombre(points[nbPoints - 1].x))};${miseEnEvidence(texNombre(points[nbPoints - 1].y))})$.`
     if (this.sup2) {
       objets2d.push(
         repere({

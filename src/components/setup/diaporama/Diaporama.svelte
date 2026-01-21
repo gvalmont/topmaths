@@ -288,7 +288,10 @@
   }
 </script>
 
-<div id="diaporama" class="h-screen {$darkMode.isActive ? 'dark' : ''}">
+<div
+  id="diaporama"
+  class="min-h-screen h-screen {$darkMode.isActive ? 'dark' : ''}"
+>
   {#if $globalOptions.v === 'overview' && slideshow.slides.length > 0}
     <SlideshowOverview
       {exercises}
@@ -307,9 +310,9 @@
               bg-coopmaths-struct dark:bg-coopmathsdark-struct
               hover:bg-coopmaths-struct-light dark:hover:bg-coopmathsdark-struct-lightest"
             text="Paramètres"
-            on:click="{() => {
+            on:click={() => {
               state = 'end'
-            }}"
+            }}
           />
         </KickOff>
       {:else if state === 'countdown'}

@@ -27,7 +27,7 @@ export const uuid = '843e6'
 
 export const refs = {
   'fr-fr': ['6N31-2', 'BP2AutoU6'],
-  'fr-ch': ['9NO8-12'],
+  'fr-ch': ['9NO8-12a'],
 }
 
 export default class OrdreDeGrandeurMultiplication extends Exercice {

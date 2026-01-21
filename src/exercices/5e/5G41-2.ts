@@ -1,4 +1,4 @@
-import TracerQuadrilatèresParticuliers from '../CM/CM2G3D-1'
+import TracerQuadrilatèresParticuliers from '../CM2/CM2G3D-1'
 
 export const titre =
   'Construire des quadrilatères particuliers et auto-vérification'

@@ -3,7 +3,7 @@ import { setOutputLatex, setOutputHtml } from '../../modules/context'
 
 const simpleNone = {
   name: 'simple none style',
-  input: { items: ['item 1'], style: 'none' },
+  input: { items: ['item 1'], style: 'none' as const },
   latexOut: `
 \\begin{itemize}
 item 1\\par
@@ -17,7 +17,7 @@ item 1\\par
 }
 const simpleNone2Items = {
   name: 'simple none style two items',
-  input: { items: ['item 1', 'item 2'], style: 'none' },
+  input: { items: ['item 1', 'item 2'], style: 'none' as const },
   latexOut: `
 \\begin{itemize}
 item 1\\par
@@ -33,7 +33,7 @@ item 2\\par
 }
 const simplePuces = {
   name: 'simples puces styles',
-  input: { items: ['item 1'], style: 'puces' },
+  input: { items: ['item 1'], style: 'puces' as const },
   latexOut: `
 \\begin{itemize}[label=$\\bullet$]
 	\\item item 1
@@ -47,7 +47,7 @@ const simplePuces = {
 }
 const simplePuces2Items = {
   name: 'simple puces style 2 items',
-  input: { items: ['item 1', 'item 2'], style: 'puces' },
+  input: { items: ['item 1', 'item 2'], style: 'puces' as const },
   latexOut: `
 \\begin{itemize}[label=$\\bullet$]
 	\\item item 1
@@ -66,7 +66,7 @@ const listWithDescriptionItem = {
   name: 'description item',
   input: {
     items: ['item 1', { description: 'en-tête', text: 'texte' }, 'item 3'],
-    style: 'puces',
+    style: 'puces' as const,
   },
   htmlOut: `
 <ul class='puces'>
@@ -90,9 +90,9 @@ const listWithIntroAndSubList = {
     items: [
       'item 1',
       'item 2',
-      { items: ['item 3'], style: 'carres', introduction: 'intro' },
+      { items: ['item 3'], style: 'carres' as const, introduction: 'intro' },
     ],
-    style: 'puces',
+    style: 'puces' as const,
   },
   htmlOut: `
 <ul class='puces'>

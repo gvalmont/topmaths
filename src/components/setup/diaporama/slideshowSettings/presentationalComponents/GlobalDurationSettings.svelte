@@ -40,31 +40,31 @@
   <div class="flex items-center">
     <CheckboxWithLabel
       id="slideshow-manual-mode-checkbox"
-      isChecked="{isManualModeActive}"
+      isChecked={isManualModeActive}
       label="Défilement manuel"
-      on:change="{(e) => {
+      on:change={(e) => {
         const isChecked = e.detail
         updateManualMode(isChecked)
-      }}"
+      }}
     />
     <CheckboxWithLabel
       id="slideshow-same-duration-checkbox"
-      isChecked="{isSameDurationForAll}"
-      isDisabled="{exercises.length === 1 || isManualModeActive}"
+      isChecked={isSameDurationForAll}
+      isDisabled={exercises.length === 1 || isManualModeActive}
       label="Même durée pour toutes les questions"
-      on:change="{(e) => {
+      on:change={(e) => {
         const isChecked = e.detail
         handleChangeIsSameDurationForAll(isChecked)
-      }}"
+      }}
     />
     <NumberInput
       id="diaporama-same-duration-input"
-      value="{previousDurationGlobal}"
-      isDisabled="{!isSameDurationForAll || isManualModeActive}"
-      on:change="{(e) => {
+      value={previousDurationGlobal}
+      isDisabled={!isSameDurationForAll || isManualModeActive}
+      on:change={(e) => {
         const previousDurationGlobal = e.detail
         updatePreviousDurationGlobal(previousDurationGlobal)
-      }}"
+      }}
     />
   </div>
 </div>

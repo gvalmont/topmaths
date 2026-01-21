@@ -1,13 +1,7 @@
-import { combinaisonListes } from '../../lib/outils/arrayOutils'
-import { lettreDepuisChiffre } from '../../lib/outils/outilString'
-import Exercice from '../Exercice'
-import { context } from '../../modules/context'
-import {
-  listeQuestionsToContenuSansNumero,
-  randint,
-} from '../../modules/outils'
-import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
+import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
+import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
+import { combinaisonListes } from '../../lib/outils/arrayOutils'
 import {
   ecritureAlgebrique,
   ecritureAlgebriqueSauf1,
@@ -15,6 +9,14 @@ import {
   reduirePolynomeDegre3,
   rienSi1,
 } from '../../lib/outils/ecritures'
+import { miseEnEvidence } from '../../lib/outils/embellissements'
+import { lettreDepuisChiffre } from '../../lib/outils/outilString'
+import { context } from '../../modules/context'
+import {
+  listeQuestionsToContenuSansNumero,
+  randint,
+} from '../../modules/outils'
+import Exercice from '../Exercice'
 
 export const titre = 'Utiliser la distributivité (simple ou double) et réduire'
 export const interactifReady = true
@@ -80,7 +82,6 @@ export default class DistributiviteSimpleDoubleReduction extends Exercice {
         e,
         cpt = 0;
       i < this.nbQuestions && cpt < 50;
-
     ) {
       a = randint(-11, 11, 0)
       b = randint(-11, 11, 0)
@@ -180,7 +181,11 @@ export default class DistributiviteSimpleDoubleReduction extends Exercice {
         handleAnswers(this, i, { reponse: { value: reponse } })
         texte += this.interactif
           ? `<br>$${lettreDepuisChiffre(i + 1)} = $` +
-            ajouteChampTexteMathLive(this, i, ' ')
+            ajouteChampTexteMathLive(
+              this,
+              i,
+              KeyboardType.clavierDeBaseAvecVariable,
+            )
           : ''
       } else {
         this.autoCorrection[i] = {
@@ -261,6 +266,19 @@ export default class DistributiviteSimpleDoubleReduction extends Exercice {
       if (this.questionJamaisPosee(i, a, b, c, d, e)) {
         // Si la question n'a jamais été posée, on en créé une autre
         this.listeQuestions[i] = texte
+
+        // Uniformisation : Mise en place de la réponse attendue en interactif en orange et gras
+        const textCorrSplit = texteCorr.split('=')
+        let aRemplacer = textCorrSplit[textCorrSplit.length - 1]
+        aRemplacer = aRemplacer.replace('$', '')
+
+        texteCorr = ''
+        for (let ee = 0; ee < textCorrSplit.length - 1; ee++) {
+          texteCorr += textCorrSplit[ee] + '='
+        }
+        texteCorr += `$ $${miseEnEvidence(aRemplacer)}$`
+        // Fin de cette uniformisation
+
         this.listeCorrections[i] = texteCorr
         i++
       }

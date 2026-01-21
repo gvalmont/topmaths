@@ -34,6 +34,7 @@ import {
 import Exercice from '../Exercice'
 
 import { arc } from '../../lib/2d/Arc'
+import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { arrondi } from '../../lib/outils/nombres'
 export const titre = 'Utiliser les propriétés de conservation de la symétrie'
@@ -126,12 +127,11 @@ export default class SymetrieAxialeProprietes extends Exercice {
         noms,
         cpt = 0;
       i < this.nbQuestions && cpt < 50;
-
     ) {
       texte = ''
       texteCorr = ''
       objetsEnonce = []
-      let reponse = ''
+      let reponse: string | string[] = ''
       a = randint(-10, 10)
       b = randint(-10, 10, a)
       d = droite(a, b, 0, '(d)')
@@ -203,7 +203,7 @@ export default class SymetrieAxialeProprietes extends Exercice {
           texteCorr +=
             "Or, le symétrique d'un segment est un segment de même longueur.<br>"
           texteCorr += `Donc les segments $[${A.nom}${B.nom}]$ et $[${C.nom}${D.nom}]$ ont la même longueur et $${miseEnEvidence(C.nom + D.nom + '=' + texNombre(longueur(A, B, 1)))}$${sp()}${texteEnCouleurEtGras('cm')}.<br>`
-          reponse = texNombre(longueur(A, B, 1), 1) + 'cm'
+          reponse = texNombre(longueur(A, B, 1), 1)
           break
         case 3:
           nbpoints = 6
@@ -265,7 +265,7 @@ export default class SymetrieAxialeProprietes extends Exercice {
           texteCorr += `Les points $${D.nom}$, $${E.nom}$ et $${F.nom}$ sont les symétriques respectifs de $${A.nom}$, $${B.nom}$ et $${C.nom}$ par rapport à $${typesDeTransformations[i] === 2 ? '(d)' : 'O'}$ et sont alignés.<br>`
           texteCorr += "Or, la symétrie axiale conserve l'alignement.<br>"
           texteCorr += `Donc les points $${miseEnEvidence(D.nom)}$${texteEnCouleurEtGras(', ')}$${miseEnEvidence(E.nom)}$${texteEnCouleurEtGras(' et ')}$${miseEnEvidence(F.nom)}$ ${texteEnCouleurEtGras(' sont alignés')} également.<br>`
-          reponse = 'oui'
+          reponse = ['oui', 'V', 'O']
           break
         case 2:
           nbpoints = 6
@@ -368,7 +368,7 @@ export default class SymetrieAxialeProprietes extends Exercice {
           texteCorr +=
             "Or, le symétrique d'un segment est un segment de même longueur.<br>"
           texteCorr += `Donc les segments $[${A.nom}${B.nom}]$ et $[${D.nom}${E.nom}]$ ont la même longueur et $${miseEnEvidence(D.nom + E.nom + '=' + texNombre(longueur(A, B, 1)))}$${sp()}${texteEnCouleurEtGras('cm')}.<br>`
-          reponse = texNombre(longueur(A, B, 1), 1) + 'cm'
+          reponse = texNombre(longueur(A, B, 1), 1)
           break
         case 4:
           nbpoints = 6
@@ -528,7 +528,7 @@ export default class SymetrieAxialeProprietes extends Exercice {
           texteCorr +=
             "Or, le symétrique d'un angle est un angle de même mesure.<br>"
           texteCorr += `Donc les angles $\\widehat{${A.nom}${C.nom}${B.nom}}$ et $\\widehat{${D.nom}${F.nom}${E.nom}}$ ont la même mesure et $\\widehat{${D.nom}${F.nom}${E.nom}} = ${angle(D, F, E, 0)}^\\circ$.<br>`
-          reponse = texNombre(angle(D, F, E, 0)) + '°'
+          reponse = texNombre(angle(D, F, E, 0))
           break
       }
       if (this.questionJamaisPosee(i, a, b)) {
@@ -541,7 +541,9 @@ export default class SymetrieAxialeProprietes extends Exercice {
                 options: { unite: true, precisionUnite: 0.1 },
               },
             })
-            texte += ajouteChampTexteMathLive(this, i, ' unites[longueurs]')
+            texte += ajouteChampTexteMathLive(this, i, KeyboardType.longueur, {
+              texteApres: '$\\text{ cm}',
+            })
           } else if (reponse.indexOf('°') !== -1) {
             handleAnswers(this, i, {
               reponse: {
@@ -549,12 +551,19 @@ export default class SymetrieAxialeProprietes extends Exercice {
                 options: { unite: true, precisionUnite: 1 },
               },
             })
-            texte += ajouteChampTexteMathLive(this, i, ' angles college6eme')
+            texte += ajouteChampTexteMathLive(
+              this,
+              i,
+              KeyboardType.clavierNumbers,
+              {
+                texteApres: '°',
+              },
+            )
           } else {
             handleAnswers(this, i, {
               reponse: { value: reponse, options: { texteSansCasse: true } },
             })
-            texte += ajouteChampTexteMathLive(this, i, ' alphanumeric')
+            texte += ajouteChampTexteMathLive(this, i, KeyboardType.vFON)
           }
         }
         this.listeQuestions[i] = texte

@@ -65,12 +65,14 @@ export function placeLatexSurSegment(
     backgroundColor = 'none',
     letterSize = 'normalsize',
     horizontal = false,
+    opacity = 1.0,
   }: {
     distance?: number
     color?: string
     backgroundColor?: string
     letterSize?: LetterSizeType
     horizontal?: boolean
+    opacity?: number
   } = {},
 ): Latex2d {
   const position = placeLatex2d(A, B, distance)
@@ -79,6 +81,7 @@ export function placeLatexSurSegment(
     color,
     backgroundColor,
     letterSize,
+    opacity,
   })
   return Q
 }

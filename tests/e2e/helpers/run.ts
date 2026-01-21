@@ -1,13 +1,13 @@
-import prefs from './prefs.js'
+import path from 'node:path'
 import { fileURLToPath } from 'node:url'
-import { afterEach, beforeEach, describe, expect, it, afterAll } from 'vitest'
+import type { Locator, Page } from 'playwright'
+import { afterAll, afterEach, beforeEach, describe, expect, it } from 'vitest'
 import { getDefaultPage } from './browser.js'
 import { getFileLogger, logError } from './log.js'
-import type { Locator, Page } from 'playwright'
-import type { Prefs, Question } from './types.js'
-import { clean } from './text.js'
-import path from 'node:path'
+import prefs from './prefs.js'
 import { store } from './store.js'
+import { clean } from './text.js'
+import type { Prefs, Question } from './types.js'
 
 declare global {
   interface Window {
@@ -284,26 +284,39 @@ async function getMathField(questionLocator: Locator) {
   return mathField[0]
 }
 
+async function fillMathField(
+  page: Page,
+  selector: string,
+  answer: string | number | (string | number)[],
+) {
+  await page.waitForSelector(selector) // Les champs MathLive mettent un peu plus de temps à se charger que le reste
+  const champTexteMathlive = page.locator(selector)
+  if (Array.isArray(answer)) {
+    for (let i = 0; i < answer.length; i++) {
+      if (i === 0) {
+        await champTexteMathlive.click()
+        await champTexteMathlive.press('Shift+Tab')
+      } else {
+        await champTexteMathlive.press('Tab')
+      }
+      await champTexteMathlive.pressSequentially(answer[i].toString())
+    }
+  } else {
+    await champTexteMathlive.click()
+    await champTexteMathlive.pressSequentially(answer.toString())
+  }
+}
+
 export async function inputAnswer(
   page: Page,
   question: Question,
   answer: string | number | (string | number)[] | undefined,
 ) {
-  const champTexteSelector = `#champTexteEx${question.id}`
-
   if (answer === undefined)
     throw Error(`La réponse à la question ${question.id} est undefined`)
 
-  await page.waitForSelector(champTexteSelector) // Les champs MathLive mettent un peu plus de temps à se charger que le reste
-  const champTexteMathlive = page.locator(champTexteSelector)
-  if (Array.isArray(answer)) {
-    for (let i = 0; i < answer.length; i++) {
-      if (i > 0) await champTexteMathlive.press('Tab')
-      await champTexteMathlive.pressSequentially(answer[i].toString()) // On a besoin de pressSequentially au lieu de fill pour que le clavier MathLive réagisse (et transforme les / en fraction par exemple)
-    }
-  } else {
-    await champTexteMathlive.pressSequentially(answer.toString())
-  }
+  const selector = `#champTexteEx${question.id}`
+  await fillMathField(page, selector, answer)
 }
 
 export async function inputAnswerById(
@@ -311,21 +324,11 @@ export async function inputAnswerById(
   id: string,
   answer: string | number | (string | number)[] | undefined,
 ) {
-  const champTexteSelector = `#champTexteEx${id}`
-
   if (answer === undefined)
     throw Error(`La réponse à la question ${id} est undefined`)
 
-  await page.waitForSelector(champTexteSelector) // Les champs MathLive mettent un peu plus de temps à se charger que le reste
-  const champTexteMathlive = page.locator(champTexteSelector)
-  if (Array.isArray(answer)) {
-    for (let i = 0; i < answer.length; i++) {
-      if (i > 0) await champTexteMathlive.press('Tab')
-      await champTexteMathlive.pressSequentially(answer[i].toString()) // On a besoin de pressSequentially au lieu de fill pour que le clavier MathLive réagisse (et transforme les / en fraction par exemple)
-    }
-  } else {
-    await champTexteMathlive.pressSequentially(answer.toString())
-  }
+  const selector = `#champTexteEx${id}`
+  await fillMathField(page, selector, answer)
 }
 
 export async function checkFeedback(page: Page, questions: Question[]) {

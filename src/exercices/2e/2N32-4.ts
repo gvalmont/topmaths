@@ -1,11 +1,13 @@
+import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
+import { setReponse } from '../../lib/interactif/gestionInteractif'
+import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { choice } from '../../lib/outils/arrayOutils'
 import { ecritureAlgebrique } from '../../lib/outils/ecritures'
+import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { lettreDepuisChiffre } from '../../lib/outils/outilString'
-import Exercice from '../Exercice'
-import { listeQuestionsToContenu, randint } from '../../modules/outils'
-import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { context } from '../../modules/context'
-import { setReponse } from '../../lib/interactif/gestionInteractif'
+import { listeQuestionsToContenu, randint } from '../../modules/outils'
+import Exercice from '../Exercice'
 
 export const titre = 'Simplifier une somme de racines carrées'
 export const interactifReady = true
@@ -41,7 +43,6 @@ export default class SimplifierUneSommeDeRacinesCarrees extends Exercice {
     for (
       let i = 0, texte, texteCorr, cpt = 0;
       i < this.nbQuestions && cpt < 50;
-
     ) {
       const e1 = randint(2, 8) * choice([-1, 1])
       const e2 = randint(2, 8) * choice([-1, 1])
@@ -66,7 +67,7 @@ export default class SimplifierUneSommeDeRacinesCarrees extends Exercice {
         this.sup === 1
           ? ` sous la forme $a\\sqrt{${c}}$ où $a$ est un entier.`
           : ' sous la forme $a\\sqrt{b}$ où $a$ et $b$ sont des entiers et $b$ le plus petit possible.'
-      texteCorr = `On cherche le plus grand carré parfait diviseur de ${d1}, ${d2} et ${d3}. <br>
+      texteCorr = `On cherche le plus grand carré parfait diviseur de $${d1}$, $${d2}$ et $${d3}$. <br>
                 On trouve $${d1}=${b1} \\times ${c}~~$, $~~${d2}=${b2} \\times ${c}~~$ et $${d3}=${b3} \\times ${c}$<br>
                 On a donc  : $\\sqrt{${d1}}=\\sqrt{${a1}^{2} \\times ${c} }=${a1}\\times \\sqrt{${c}}$,
                 $~~\\sqrt{${d2}}=\\sqrt{${a2}^{2} \\times ${c} }=${a2}\\times \\sqrt{${c}}~$ et
@@ -78,15 +79,32 @@ export default class SimplifierUneSommeDeRacinesCarrees extends Exercice {
       if (this.interactif) {
         texte +=
           '<br><br>' +
-          ajouteChampTexteMathLive(this, i, '', {
-            texteAvant: `$${lettreDepuisChiffre(i + 1)}=$`,
-          })
+          ajouteChampTexteMathLive(
+            this,
+            i,
+            KeyboardType.clavierFullOperations,
+            {
+              texteAvant: `$${lettreDepuisChiffre(i + 1)}=$`,
+            },
+          )
         setReponse(this, i, `${f}\\sqrt{${c}}`)
       }
 
       if (this.questionJamaisPosee(i, e1, e2, e3, d1, d2, d3)) {
         // Si la question n'a jamais été posée, on en créé une autre
         this.listeQuestions[i] = texte
+        // Uniformisation : Mise en place de la réponse attendue en interactif en orange et gras
+        const textCorrSplit = texteCorr.split('=')
+        let aRemplacer = textCorrSplit[textCorrSplit.length - 1]
+        aRemplacer = aRemplacer.replace('$', '')
+
+        texteCorr = ''
+        for (let ee = 0; ee < textCorrSplit.length - 1; ee++) {
+          texteCorr += textCorrSplit[ee] + '='
+        }
+        texteCorr += `${miseEnEvidence(aRemplacer)}$`
+        // Fin de cette uniformisation
+
         this.listeCorrections[i] = texteCorr
         i++
       }

@@ -8,6 +8,7 @@ import { mathalea2d } from '../../../modules/mathalea2d'
 import { listeQuestionsToContenu, randint } from '../../../modules/outils'
 import Exercice from '../../Exercice'
 
+import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 import { setReponse } from '../../../lib/interactif/gestionInteractif'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
 
@@ -37,15 +38,21 @@ export default class LectureGraphiqueParaboleB extends Exercice {
   }
 
   nouvelleVersion() {
-    let texte, texteCorr, a, b, o, f, r
+    let texte = ''
+    let texteCorr = ''
     for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50; ) {
+      let a = 0
+      let b = 0
+      let o
+      let f
+      let r
       switch (choice([1, 2])) {
         case 1: // cas parabole a>0
           a = randint(1, 4)
           b = randint(-3, 3, 0)
           o = texteParPosition('O', -0.3, -0.3, 0, 'black', 1)
 
-          f = function (x) {
+          f = function (x: number) {
             return a * x ** 2 + b
           }
           if (b > 0) {
@@ -67,7 +74,7 @@ export default class LectureGraphiqueParaboleB extends Exercice {
               axeYStyle: '->',
             })
 
-            f = (x) => a * x ** 2 + b
+            f = (x: number) => a * x ** 2 + b
 
             texte = ` $f$ est définie par $f(x)=${rienSi1(a)}x^2+b$ .<br>
                         `
@@ -108,7 +115,7 @@ export default class LectureGraphiqueParaboleB extends Exercice {
               axeYStyle: '->',
             })
 
-            f = (x) => a * x ** 2 + b
+            f = (x: number) => a * x ** 2 + b
 
             texte = `$f$ est définie par $f(x)=${rienSi1(a)}x^2+b$ .<br>
             `
@@ -132,9 +139,14 @@ export default class LectureGraphiqueParaboleB extends Exercice {
               )
           }
           if (this.interactif) {
-            texte += ajouteChampTexteMathLive(this, i, ' ', {
-              texteAvant: '$b=$',
-            })
+            texte += ajouteChampTexteMathLive(
+              this,
+              i,
+              KeyboardType.clavierNumbers,
+              {
+                texteAvant: '$b=$',
+              },
+            )
             setReponse(this, i, b)
           }
 
@@ -149,7 +161,7 @@ export default class LectureGraphiqueParaboleB extends Exercice {
           b = randint(-3, 3, 0)
           o = texteParPosition('O', -0.3, -0.3, 0, 'black', 1)
 
-          f = function (x) {
+          f = function (x: number) {
             return a * x ** 2 + b
           }
           if (b > 0) {
@@ -171,7 +183,7 @@ export default class LectureGraphiqueParaboleB extends Exercice {
               axeYStyle: '->',
             })
 
-            f = (x) => a * x ** 2 + b
+            f = (x: number) => a * x ** 2 + b
 
             texte = `$f$ est définie par $f(x)=${rienSi1(a)}x^2+b$ .<br>
             `
@@ -212,7 +224,7 @@ export default class LectureGraphiqueParaboleB extends Exercice {
               axeYStyle: '->',
             })
 
-            f = (x) => a * x ** 2 + b
+            f = (x: number) => a * x ** 2 + b
 
             texte = `$f$ est définie par $f(x)=${rienSi1(a)}x^2+b$ .<br>
             `
@@ -236,9 +248,14 @@ export default class LectureGraphiqueParaboleB extends Exercice {
               )
           }
           if (this.interactif) {
-            texte += ajouteChampTexteMathLive(this, i, ' ', {
-              texteAvant: '$b=$',
-            })
+            texte += ajouteChampTexteMathLive(
+              this,
+              i,
+              KeyboardType.clavierDeBase,
+              {
+                texteAvant: '$b=$',
+              },
+            )
             setReponse(this, i, b)
           }
 

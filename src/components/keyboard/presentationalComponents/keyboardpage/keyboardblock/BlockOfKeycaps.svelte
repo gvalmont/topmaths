@@ -1,9 +1,9 @@
 <script lang="ts">
-  import Key from './keycap/Keycap.svelte'
-  import { GAP_BETWEEN_KEYS, SM_BREAKPOINT, getMode } from '../../../lib/sizes'
-  import type { KeyboardBlock } from '../../../types/keyboardContent'
   import { keys } from '../../../lib/keycaps'
+  import { GAP_BETWEEN_KEYS, getMode } from '../../../lib/sizes'
+  import type { KeyboardBlock } from '../../../types/keyboardContent'
   import { type KeyCap, isSpecialKey } from '../../../types/keycap'
+  import Key from './keycap/Keycap.svelte'
   export let innerWidth: number
   export let block: KeyboardBlock
   export let isInLine: boolean = false
@@ -22,14 +22,15 @@
   >
     {#if isInLine}
       <div
-        class="grid grid-cols-{block.keycaps.inline.length} customgap h-full"
-        style="--gapsize:{gapsize};"
+        class="grid customgap h-full"
+        style="grid-template-columns: repeat({block.keycaps.inline
+          .length}, minmax(0, 1fr)); --gapsize:{gapsize};"
       >
-        {#each block.keycaps.inline as key}
+        {#each block.keycaps.inline as key, index (key + '_' + index)}
           <Key
-            keyName="{key}"
-            key="{keys[key]}"
-            isSpecial="{isSpecialKey(key)}"
+            keyName={key}
+            key={keys[key]}
+            isSpecial={isSpecialKey(key)}
             {isInLine}
             {innerWidth}
             {clickKeycap}
@@ -38,14 +39,14 @@
       </div>
     {:else}
       <div
-        class="grid grid-cols-{block.cols} customgap h-full"
-        style="--gapsize:{gapsize};"
+        class="grid customgap h-full"
+        style="grid-template-columns: repeat({block.cols}, minmax(0, 1fr)); --gapsize:{gapsize};"
       >
-        {#each block.keycaps.block as key}
+        {#each block.keycaps.block as key, index (key + '_' + index)}
           <Key
-            keyName="{key}"
-            key="{keys[key]}"
-            isSpecial="{isSpecialKey(key)}"
+            keyName={key}
+            key={keys[key]}
+            isSpecial={isSpecialKey(key)}
             {isInLine}
             {innerWidth}
             {clickKeycap}

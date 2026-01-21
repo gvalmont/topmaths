@@ -7,6 +7,7 @@ import { obtenirListeFractionsIrreductibles } from '../../modules/fractions'
 import { gestionnaireFormulaireTexte } from '../../modules/outils'
 import Exercice from '../Exercice'
 
+import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
 
 export const titre = 'Effectuer des calculs complexes avec des fractions'
@@ -294,7 +295,12 @@ export default class FractionEtPriorites extends Exercice {
           // dernière étape on simplifie si c'est nécessaire après le switch car étape commune
           break
       }
-      texte += ajouteChampTexteMathLive(this, i, '  ', { texteAvant: '$=$' })
+      texte += ajouteChampTexteMathLive(
+        this,
+        i,
+        KeyboardType.clavierDeBaseAvecFraction,
+        { texteAvant: '$=$' },
+      )
 
       // La dernière étape de réduction est commune on la fait maintenant si besoin
       if (!reponse.estIrreductible) {

@@ -14,11 +14,15 @@
 <!-- À la différence de ButtonIcon qui est vraiment un bouton, ButtonIconTooltip est un div qui contient un bouton -->
 
 <div
-  class="tooltip tooltip-{tooltipPosition} tooltip-neutral"
-  data-tip="{tooltip}"
+  class="tooltip tooltip-neutral"
+  class:tooltip-top={tooltipPosition === 'top'}
+  class:tooltip-bottom={tooltipPosition === 'bottom'}
+  class:tooltip-left={tooltipPosition === 'left'}
+  class:tooltip-right={tooltipPosition === 'right'}
+  data-tip={tooltip}
 >
   <ButtonIcon
-    class="{$$props.class || ''}"
+    class={$$props.class || ''}
     {icon}
     {title}
     {disabled}

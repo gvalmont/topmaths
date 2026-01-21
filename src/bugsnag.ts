@@ -33,6 +33,7 @@ function handleBugsnag() {
       event.addMetadata('Parametres: ', {
         globalOptions: get(globalOptions),
         canOptions: get(canOptions),
+        exercicesParams: get(exercicesParams),
         capytaleMode: get(capytaleMode),
         studentAssignment: get(capytaleStudentAssignment),
       })

@@ -1,12 +1,12 @@
 <script lang="ts">
   import { mathaleaGoToView } from '../../../lib/mathaleaUtils'
-  import { darkMode } from '../../../lib/stores/generalStore'
   import { globalOptions } from '../../../lib/stores/globalOptions'
   import {
     VUES_WITH_LANG_STATUS_ONLY,
     type Language,
   } from '../../../lib/types/languages'
   import ButtonIcon from '../forms/ButtonIcon.svelte'
+  import ButtonToggleDarkMode from '../forms/ButtonToggleDarkMode.svelte'
   import ModalLanguageChoice from '../modal/ModalLanguageChoice.svelte'
   import LanguageDropdown from '../ui/LanguageDropdown.svelte'
   import LanguageIcon from '../ui/LanguageIcon.svelte'
@@ -62,8 +62,8 @@
       >
         <div>
           <div
-            on:click="{() => mathaleaGoToView('')}"
-            on:keydown="{() => mathaleaGoToView('')}"
+            on:click={() => mathaleaGoToView('')}
+            on:keydown={() => mathaleaGoToView('')}
             role="link"
             tabindex="0"
             class="relative inline-flex font-logo9 tracking-tighter font-black
@@ -93,7 +93,7 @@
             </a>
           </div>
         </div>
-        <NavBarSubtitle {subtitle} type="{subtitleType}" />
+        <NavBarSubtitle {subtitle} type={subtitleType} />
       </div>
     </div>
     <div
@@ -111,36 +111,24 @@
         <div class="md:hidden">
           <button
             type="button"
-            on:click="{() => {
+            on:click={() => {
               showLanguageChoiceModal = !showLanguageChoiceModal
-            }}"
+            }}
           >
             <LanguageIcon {locale} />
           </button>
         </div>
       {/if}
-      <label
-        class="swap swap-rotate
-          text-coopmaths-action dark:text-coopmathsdark-action
-          hover:text-coopmaths-action-lightest dark:hover:text-coopmathsdark-action-lightest"
-      >
-        <!-- this hidden checkbox controls the state -->
-        <input
-          id="hidden-checkbox-for-darkmode"
-          type="checkbox"
-          class="invisible"
-          bind:checked="{$darkMode.isActive}"
+      <ButtonToggleDarkMode />
+      {#if $globalOptions.v !== ''}
+        <ButtonIcon
+          icon="bx-x {subtitleType === 'design' ? 'hidden' : ''}"
+          class="text-3xl"
+          on:click={() => {
+            mathaleaGoToView('')
+          }}
         />
-        <div class="swap-on"><i class="bx bx-sm bx-sun"></i></div>
-        <div class="swap-off"><i class="bx bx-sm bx-moon"></i></div>
-      </label>
-      <ButtonIcon
-        icon="bx-x {subtitleType === 'design' ? 'hidden' : ''}"
-        class="text-3xl"
-        on:click="{() => {
-          mathaleaGoToView('')
-        }}"
-      />
+      {/if}
     </div>
   </div>
 </nav>

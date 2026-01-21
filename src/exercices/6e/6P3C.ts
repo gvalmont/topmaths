@@ -1,5 +1,6 @@
 import { bleuMathalea } from '../../lib/colors'
 import { texPrix } from '../../lib/format/style'
+import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 import { setReponse } from '../../lib/interactif/gestionInteractif'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import {
@@ -40,6 +41,12 @@ export const amcType = 'AMCHybride'
  * Relecture : Décembre 2021 par EE
  */
 
+type QuestionReturn = {
+  qtexte: string
+  qtexteCorr: string
+  incrementInteractif: number
+  incrementAMC: number
+}
 let versionSimplifiee = false
 let indexN: number = 0
 const couplePremiersEntreEux: [number, number][] = [
@@ -68,7 +75,7 @@ const couplePremiersEntreEux: [number, number][] = [
   [12, 13],
 ] // Couples de nombres premiers entre eux
 
-function questionAchat(exo: Exercice, i: number) {
+function questionAchat(exo: Exercice, i: number): QuestionReturn {
   // questions d'origine du 6P11 : achat.
   const listeDeLieux: string[] = [
     'dans un magasin de bricolage',
@@ -169,7 +176,9 @@ function questionAchat(exo: Exercice, i: number) {
   let texte = enonceAMC1
   enonceAMC1 += `Elle veut en acheter $${y}$.<br> Combien d'euros va-t-elle dépenser${sp()}? `
   texte += `Elle veut en acheter $${y}$.<br> Combien va-t-elle dépenser${sp()}? `
-  texte += ajouteChampTexteMathLive(exo, i, '', { texteApres: `${sp()}€` })
+  texte += ajouteChampTexteMathLive(exo, i, KeyboardType.clavierNumbers, {
+    texteApres: `${sp()}€`,
+  })
   let texteCorr =
     `${numAlpha(0)} $${y}$ ${objet}, c'est $${miseEnEvidence(
       texNombre(y / n),
@@ -198,7 +207,9 @@ function questionAchat(exo: Exercice, i: number) {
   texte +=
     '<br>' +
     enonceAMC2 +
-    ajouteChampTexteMathLive(exo, i + 1, '', { texteApres: ' ' + objet })
+    ajouteChampTexteMathLive(exo, i + 1, KeyboardType.clavierNumbers, {
+      texteApres: ' ' + objet,
+    })
   texteCorr += `${numAlpha(1)} $${texPrix(z)}$${sp()}€, c'est $${miseEnEvidence(
     texNombre(z / x),
   )}$ fois $${texPrix(x)}$${sp()}€.<br> Si avec $${texPrix(x)}$${sp()}€ on peut acheter $${miseEnEvidence(
@@ -272,10 +283,12 @@ function questionAchat(exo: Exercice, i: number) {
   return {
     qtexte: texte,
     qtexteCorr: texteCorr,
+    incrementInteractif: 2,
+    incrementAMC: 1,
   }
 }
 
-function questionRecette(exo: Exercice, i: number) {
+function questionRecette(exo: Exercice, i: number): QuestionReturn {
   // questions avec des masses pour un nombre de personne dans des recettes correction : passage à l'unité
   let texte, texteCorr
   const liste = [
@@ -318,7 +331,9 @@ function questionRecette(exo: Exercice, i: number) {
   texte = enonceAMC1
   enonceAMC1 += `<br> Quelle masse, en${sp()}g, de ${liste[alea1].ingredient} doit-elle prévoir${sp()}? `
   texte += `<br> Quelle masse de ${liste[alea1].ingredient} doit-elle prévoir${sp()}? `
-  texte += ajouteChampTexteMathLive(exo, i, '', { texteApres: ' g' })
+  texte += ajouteChampTexteMathLive(exo, i, KeyboardType.clavierNumbers, {
+    texteApres: ' g',
+  })
   texteCorr =
     `${numAlpha(0)} $${nbPersonneFinal}$ personnes, c'est $${miseEnEvidence(texNombre(nbPersonneFinal / nbPersonneInit), bleuMathalea)}$ fois $${nbPersonneInit}$ personnes. ` +
     `Il faut donc $${miseEnEvidence(texNombre(nbPersonneFinal / nbPersonneInit), bleuMathalea)}$ fois plus de ${liste[alea1].ingredient}.<br>` +
@@ -329,7 +344,9 @@ function questionRecette(exo: Exercice, i: number) {
   texte +=
     '<br> ' +
     enonceAMC2 +
-    ajouteChampTexteMathLive(exo, i + 1, '', { texteApres: ' personnes' })
+    ajouteChampTexteMathLive(exo, i + 1, KeyboardType.clavierNumbers, {
+      texteApres: ' personnes',
+    })
   texteCorr +=
     `${numAlpha(1)} $${quantite2}$${sp()}g, c'est $${miseEnEvidence(texNombre(quantite2 / quantite), bleuMathalea)}$ fois $${quantite}$${sp()}g. ` +
     `${prenoms[1]} peut donc cuisiner pour $${miseEnEvidence(texNombre(quantite2 / quantite), bleuMathalea)}$ fois plus de personnes.<br>` +
@@ -393,6 +410,8 @@ function questionRecette(exo: Exercice, i: number) {
   return {
     qtexte: texte,
     qtexteCorr: texteCorr,
+    incrementInteractif: 2,
+    incrementAMC: 1,
   }
 }
 /*
@@ -449,7 +468,7 @@ function questionDillution (exo:Exercice, i:number) { // questions de mélange d
   let texte = enonceAMC
   enonceAMC += `Quel volume, en${sp()}${liste[alea1].unite_solute}, de ${liste[alea1].solute} doit-on prévoir${sp()}? `
   texte += `Quel volume de ${liste[alea1].solute} doit-on prévoir${sp()}? `
-  texte += ajouteChampTexteMathLive(exo, i, '', { texteApres: ' ' + liste[alea1].unite_solute })
+  texte += ajouteChampTexteMathLive(exo, i, KeyboardType.clavierNumbers, { texteApres: ' ' + liste[alea1].unite_solute })
   const texteCorr = `Le volume de ${liste[alea1].solute} est proportionnel au volume d'eau. <br> ` +
         ` ${miseEnEvidence(volumeFinalAff)} ${uniteSolvantVolumeFinal} d'eau, c'est ${miseEnEvidence(texNombre(volumeFinal / volumeInitial))} fois ${volumeInitialAff} ${liste[alea1].unite_solvant[0]} d'eau. <br> ` +
         `Il faut donc ${miseEnEvidence(texNombre(volumeFinal / volumeInitial))} fois plus que ${miseEnEvidence(texNombre(quantite), bleuMathalea)}${sp()}${liste[alea1].unite_solute} de ${liste[alea1].solute}. <br>` +
@@ -490,7 +509,7 @@ function questionDillution (exo:Exercice, i:number) { // questions de mélange d
   }
 }
 */
-function questionDistance(exo: Exercice, i: number) {
+function questionDistance(exo: Exercice, i: number): QuestionReturn {
   // questions de distance parcourue à une vitesse moyenne donnée
   let texte, texteCorr
   const liste = [
@@ -558,7 +577,7 @@ function questionDistance(exo: Exercice, i: number) {
     let enonceAMC = `Un ${liste[alea1].locomotion} parcourt en moyenne ${texNombre(distance)}${sp()}$\\text{km}$ en ${dureeQ} heures.`
     texte = enonceAMC
     enonceAMC += `<br> Quelle distance, en${sp()}$\\text{km}$, va-t-il parcourir, à la même vitesse en ${dureeR} heures${sp()}?`
-    texte += `<br> Quelle distance va-t-il parcourir, à la même vitesse en ${dureeR} heures${sp()}?` + ajouteChampTexteMathLive(exo, i, '', { texteApres: ' $\\text{km}$' })
+    texte += `<br> Quelle distance va-t-il parcourir, à la même vitesse en ${dureeR} heures${sp()}?` + ajouteChampTexteMathLive(exo, i, KeyboardType.clavierNumbers, { texteApres: ' $\\text{km}$' })
     texteCorr = `${miseEnEvidence(texNombre(dureeR))} heures, c'est ${miseEnEvidence(texNombre(dureeR / dureeQ))} fois ${dureeQ} heures.<br> ` +
             `Le ${liste[alea1].locomotion} parcourra donc ${miseEnEvidence(texNombre(dureeR / dureeQ))} fois plus de distance qu'en ${dureeQ} heures.<br>` +
             `${texNombre(distance)}${sp()}$\\text{km}$ $\\times $ ${miseEnEvidence(texNombre(dureeR / dureeQ))} = ${texNombre(distance * dureeR / dureeQ)}${sp()}$\\text{km}$.<br>` +
@@ -609,7 +628,9 @@ function questionDistance(exo: Exercice, i: number) {
   texte = enonceAMC1
   enonceAMC1 += `Quelle distance, en${sp()}$\\text{km}$, va-t-il parcourir, à la même vitesse, en ${duree[alea2].temps}${sp()}? `
   texte += `Quelle distance va-t-il parcourir, à la même vitesse, en ${duree[alea2].temps}${sp()}? `
-  texte += ajouteChampTexteMathLive(exo, i, '', { texteApres: ' $\\text{km}$' })
+  texte += ajouteChampTexteMathLive(exo, i, KeyboardType.clavierNumbers, {
+    texteApres: ' $\\text{km}$',
+  })
   texteCorr =
     `${numAlpha(0)} ${duree[alea2].temps}, c'est $${miseEnEvidence(texNombre(duree[alea2].rapport), bleuMathalea)}$ fois une heure.<br> ` +
     `En une heure, le ${liste[alea1].locomotion} parcourt $${miseEnEvidence(texNombre(liste[alea1].vitesse[alea2]), bleuMathalea)}\\text{ km}$ donc en ${duree[alea2].temps}, il va parcourir $${miseEnEvidence(texNombre(duree[alea2].rapport), bleuMathalea)}$ fois $${miseEnEvidence(texNombre(liste[alea1].vitesse[alea2]), bleuMathalea)}\\text{ km}$. <br>` +
@@ -619,7 +640,9 @@ function questionDistance(exo: Exercice, i: number) {
   const enonceAMC2 = `${numAlpha(1)} Combien de temps, en minutes, va-t-il mettre pour parcourir $${distance}\\text{ km}$ à cette même vitesse${sp()}? `
   texte +=
     `<br> ${numAlpha(1)} Combien de temps va-t-il mettre pour parcourir $${distance}\\text{ km}$ à cette même vitesse${sp()}? ` +
-    ajouteChampTexteMathLive(exo, i + 1, '', { texteApres: ' minutes' })
+    ajouteChampTexteMathLive(exo, i + 1, KeyboardType.clavierNumbers, {
+      texteApres: ' minutes',
+    })
   texteCorr +=
     `${numAlpha(1)} $${distance}\\text{ km}$, c'est $${miseEnEvidence(texNombre(rapportQuestion2[alea3]), bleuMathalea)}$ fois $${texNombre(liste[alea1].vitesse[alea2])}\\text{ km}$.
       Le ${liste[alea1].locomotion} parcourt $${texNombre(liste[alea1].vitesse[alea2])}\\text{ km}$ en une heure. <br>` +
@@ -685,10 +708,12 @@ function questionDistance(exo: Exercice, i: number) {
   return {
     qtexte: texte,
     qtexteCorr: texteCorr,
+    incrementInteractif: 2,
+    incrementAMC: 1,
   }
 }
 
-function questionEchelle(exo: Exercice, i: number) {
+function questionEchelle(exo: Exercice, i: number): QuestionReturn {
   // X$\\text{ cm}$ sur une carte correspond à x $\\text{km}$ dans la réalité...
   let texte, texteCorr
   const distanceCarte = couplePremiersEntreEux[indexN][0] // Choix d'un nombre de$\\text{ cm}$ sur la carte
@@ -710,7 +735,9 @@ ${prenoms[0]} mesure son trajet et elle trouve une distance de $${distanceCarte2
     `À quelle distance, en $\\text{km}$, cela correspond dans la réalité${sp()}?`
   texte +=
     `À quelle distance cela correspond dans la réalité${sp()}? ` +
-    ajouteChampTexteMathLive(exo, i, '', { texteApres: ' $\\text{km}$' })
+    ajouteChampTexteMathLive(exo, i, KeyboardType.clavierNumbers, {
+      texteApres: ' $\\text{km}$',
+    })
   texteCorr =
     `${numAlpha(0)} $${distanceCarte2}\\text{ cm}$, c'est $${miseEnEvidence(texNombre(rapport[alea1]), bleuMathalea)}$ fois $${distanceCarte}\\text{ cm}$. <br>
 Dans la réalité, $${distanceCarte}\\text{ cm}$ correspond à $${miseEnEvidence(texNombre(distanceReel), bleuMathalea)}\\text{ km}$ donc` +
@@ -722,7 +749,9 @@ Dans la réalité, $${distanceCarte}\\text{ cm}$ correspond à $${miseEnEvidence
   enonceAMC2 += `Quelle distance, en $\\text{cm}$, va-t-on mesurer sur la carte entre ces deux villes${sp()}?`
   texte +=
     `Quelle distance va-t-on mesurer sur la carte entre ces deux villes${sp()}?` +
-    ajouteChampTexteMathLive(exo, i + 1, '', { texteApres: '$\\text{ cm}$' })
+    ajouteChampTexteMathLive(exo, i + 1, KeyboardType.clavierNumbers, {
+      texteApres: '$\\text{ cm}$',
+    })
   texteCorr +=
     `${numAlpha(1)} $${distanceReelQ2}\\text{ km}$, c'est $${miseEnEvidence(texNombre(rapport[alea2]), bleuMathalea)}$ fois $${distanceReel}\\text{ km}$.
 Or $${distanceReel}\\text{ km}$ est représenté par $${miseEnEvidence(texNombre(distanceCarte), bleuMathalea)}\\text{ cm}$ sur la carte. <br>` +
@@ -792,10 +821,12 @@ Or $${distanceReel}\\text{ km}$ est représenté par $${miseEnEvidence(texNombre
   return {
     qtexte: texte,
     qtexteCorr: texteCorr,
+    incrementInteractif: 2,
+    incrementAMC: 1,
   }
 }
 
-function questionRecouvrirSurface(exo: Exercice, i: number) {
+function questionRecouvrirSurface(exo: Exercice, i: number): QuestionReturn {
   // peinture, gazon, carrelage pour une surface donnée.
   let texte, texteCorr
   const liste = [
@@ -829,7 +860,7 @@ function questionRecouvrirSurface(exo: Exercice, i: number) {
     const enonceAMC = `${prenoms[0]} doit acheter ${liste[alea1].matiere}. ` +
             `Sur la notice, il est indiqué de prévoir ${quantiteD}${sp()}${liste[alea1].unite} pour ${surfaceD}\\text{ m}^2$. <br> ` +
             `Combien de${sp()}${liste[alea1].unite} doit-elle en acheter pour une surface de ${surfaceF}\\text{ m}^2$${sp()}?`
-    texte = enonceAMC + ajouteChampTexteMathLive(exo, i, '', { texteApres: ' ' + liste[alea1].unite })
+    texte = enonceAMC + ajouteChampTexteMathLive(exo, i, KeyboardType.clavierNumbers, { texteApres: ' ' + liste[alea1].unite })
     texteCorr = `${texNombre(surfaceF)}\\text{ m}^2$, c'est ${miseEnEvidence(texNombre(coef))} fois ${surfaceD}\\text{ m}^2$ <br>` +
             `Il va donc falloir ${miseEnEvidence(texNombre(coef))} fois ${miseEnEvidence(texNombre(quantiteD), bleuMathalea)}${sp()}${liste[alea1].unite} pour ${texNombre(surfaceF)}\\text{ m}^2$. <br>` +
             `${miseEnEvidence(texNombre(coef))} $\\times$ ${miseEnEvidence(texNombre(quantiteD), bleuMathalea)}${sp()}${liste[alea1].unite} = ${texNombre(quantiteF)}${sp()}${liste[alea1].unite}<br>` +
@@ -885,7 +916,7 @@ function questionRecouvrirSurface(exo: Exercice, i: number) {
     `Combien de${sp()}${liste[alea1].unite} doit-elle en acheter pour une surface de $${texNombre(surfaceFinale)}\\text{ m}^2$${sp()}?`
   texte =
     enonceAMC1 +
-    ajouteChampTexteMathLive(exo, i, '', {
+    ajouteChampTexteMathLive(exo, i, KeyboardType.clavierNumbers, {
       texteApres: ' ' + liste[alea1].unite,
     })
   texteCorr =
@@ -900,7 +931,9 @@ function questionRecouvrirSurface(exo: Exercice, i: number) {
   texte +=
     '<br>' +
     enonceAMC2 +
-    ajouteChampTexteMathLive(exo, i + 1, '', { texteApres: ' (oui ou non)' })
+    ajouteChampTexteMathLive(exo, i + 1, KeyboardType.vFON, {
+      texteApres: ' (O pour oui ou N pour non)',
+    })
   texteCorr +=
     `${numAlpha(1)} $${texNombre(quantite2)}$${sp()}${liste[alea1].unite}, c'est $${miseEnEvidence(texNombre(rapport[alea5]), bleuMathalea)}$ fois $${qttaffichage}$${sp()}${liste[alea1].unite}. <br>` +
     `Avec $${texNombre(quantite2)}$${sp()}${liste[alea1].unite} on peut donc traiter une surface de $${miseEnEvidence(texNombre(rapport[alea5]), bleuMathalea)}$
@@ -919,8 +952,8 @@ fois $${miseEnEvidence(texNombre(liste[alea1].qtt_surface[alea3]), bleuMathalea)
       exo,
       i + 1,
       rapport[alea5] * liste[alea1].qtt_surface[alea3] > surfaceFinale2
-        ? 'oui'
-        : 'non',
+        ? 'O'
+        : 'N',
     )
   } else {
     exo.autoCorrection[i] = {
@@ -969,6 +1002,8 @@ fois $${miseEnEvidence(texNombre(liste[alea1].qtt_surface[alea3]), bleuMathalea)
   return {
     qtexte: texte,
     qtexteCorr: texteCorr,
+    incrementInteractif: 2,
+    incrementAMC: 1,
   }
 }
 
@@ -1012,7 +1047,7 @@ export default class ProportionnaliteParLinearite extends Exercice {
           ? 'Répondre à la question posée en justifiant.'
           : 'Répondre aux questions posées en justifiant.'
     }
-    let incrementInteractif = 0
+    // const incrementInteractif = 0
     let indiceChampTexte = 0
 
     const listeIndexSituations = gestionnaireFormulaireTexte({
@@ -1033,19 +1068,14 @@ export default class ProportionnaliteParLinearite extends Exercice {
       switch (listeIndexSituations[i]) {
         case 1:
           question = questionAchat(this, indiceChampTexte)
-          if (!context.isAmc) {
+          /* if (!context.isAmc) {
             incrementInteractif = 2
           } else {
             incrementInteractif = 1
-          }
+          } */
           break
         case 2:
           question = questionRecette(this, indiceChampTexte)
-          if (!context.isAmc) {
-            incrementInteractif = 2
-          } else {
-            incrementInteractif = 1
-          }
           break
         /* case 3:
           question = questionDillution(this, indiceChampTexte)
@@ -1054,36 +1084,13 @@ export default class ProportionnaliteParLinearite extends Exercice {
           */
         case 3:
           question = questionDistance(this, indiceChampTexte)
-          if (versionSimplifiee) {
-            incrementInteractif = 1
-          } else {
-            if (!context.isAmc) {
-              incrementInteractif = 2
-            } else {
-              incrementInteractif = 1
-            }
-          }
           break
         case 4:
           question = questionEchelle(this, indiceChampTexte)
-          if (!context.isAmc) {
-            incrementInteractif = 2
-          } else {
-            incrementInteractif = 1
-          }
           break
         case 5:
         default:
           question = questionRecouvrirSurface(this, indiceChampTexte)
-          if (versionSimplifiee) {
-            incrementInteractif = 1
-          } else {
-            if (!context.isAmc) {
-              incrementInteractif = 2
-            } else {
-              incrementInteractif = 1
-            }
-          }
           break
       }
       if (this.questionJamaisPosee(i, indexN, question.qtexteCorr)) {
@@ -1091,7 +1098,9 @@ export default class ProportionnaliteParLinearite extends Exercice {
         this.listeQuestions[i] = question.qtexte
         this.listeCorrections[i] = question.qtexteCorr
         i++
-        indiceChampTexte += incrementInteractif
+        indiceChampTexte += context.isAmc
+          ? question.incrementAMC || 1
+          : question.incrementInteractif || 2
       }
       cpt++
     }

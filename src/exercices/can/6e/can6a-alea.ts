@@ -10,9 +10,9 @@ import { gestionnaireFormulaireTexte } from '../../../modules/outils'
 import Decimal from 'decimal.js'
 import seedrandom from 'seedrandom'
 import uuidToUrl from '../../../json/uuidsToUrlFR.json'
+import { isKeyboardCategory } from '../../../lib/interactif/claviers/keyboard'
 import {
-  mathaleaGenerateSeed,
-  mathaleaLoadExerciceFromUuid,
+  mathaleaLoadExerciceFromUuid
 } from '../../../lib/mathalea'
 import FractionEtendue from '../../../modules/FractionEtendue'
 import Exercice from '../../Exercice'
@@ -34,14 +34,12 @@ export const refs = {
   'fr-ch': ['NR'],
 }
 
-const debug = false
 
 const log = function (str: string) {
-  if (debug) console.info(str)
+  if (window.logDebug > 1) console.info(str)
 }
 
 export default class can6eAll extends Exercice {
-  seed: string
   constructor() {
     super()
     this.besoinFormulaireTexte = [
@@ -49,10 +47,10 @@ export default class can6eAll extends Exercice {
       [
         'Nombres séparés\n par des tirets :',
         'All : Mélange',
-        'C1 à C47 : can de 6C01 à 6C47',
-        'G1 à G7 : can de 6G01 à 6G07',
-        'M1 à M7 : can de 6M01 à 6M13',
-        'N1 à N17 : can de 6N01 à 6N17',
+        'C1 à C65 : can de 6C01 à 6C65 (sauf 6C37)',
+        'G1 à G8 : can de 6G01 à 6G08',
+        'M1 à M20 : can de 6M01 à 6M20',
+        'N1 à N20 : can de 6N01 à 6N20',
         'C : Mélange calcul',
         'G : Mélange géométrie',
         'M : Mélange mesure',
@@ -62,7 +60,6 @@ export default class can6eAll extends Exercice {
     this.nbQuestions = 4
     this.sup = 'All'
     this.lastCallback = ''
-    this.seed = mathaleaGenerateSeed()
 
     this.nouvelleVersionWrapper = function () {
       this.nouvelleVersion()
@@ -99,9 +96,9 @@ export default class can6eAll extends Exercice {
       gestionnaireFormulaireTexte({
         saisie: qCal,
         min: 0,
-        max: 47,
+        max: 65,
         defaut: 0,
-        melange: 48,
+        melange: 66,
         nbQuestions: 0,
         shuffle: false,
         exclus: [37, 0],
@@ -116,11 +113,11 @@ export default class can6eAll extends Exercice {
     ) {
       // pas de question du type C1
       questionsDisponiblesCalc = gestionnaireFormulaireTexte({
-        saisie: 48,
+        saisie: 66,
         min: 1,
-        max: 47,
+        max: 65,
         defaut: 1,
-        melange: 48,
+        melange: 66,
         nbQuestions: this.nbQuestions,
         shuffle: true,
         exclus: [37],
@@ -133,9 +130,9 @@ export default class can6eAll extends Exercice {
       gestionnaireFormulaireTexte({
         saisie: qGeo,
         min: 0,
-        max: 7,
+        max: 8,
         defaut: 0,
-        melange: 8,
+        melange: 9,
         nbQuestions: 0,
         shuffle: false,
       }),
@@ -148,11 +145,11 @@ export default class can6eAll extends Exercice {
     ) {
       // pas de question du type G2
       questionsDisponiblesGeo = gestionnaireFormulaireTexte({
-        saisie: 8,
+        saisie: 9,
         min: 1,
-        max: 7,
+        max: 8,
         defaut: 1,
-        melange: 8,
+        melange: 9,
         nbQuestions: this.nbQuestions,
         shuffle: true,
       })
@@ -164,9 +161,9 @@ export default class can6eAll extends Exercice {
       gestionnaireFormulaireTexte({
         saisie: qNum,
         min: 0,
-        max: 17,
+        max: 20,
         defaut: 0,
-        melange: 18,
+        melange: 21,
         nbQuestions: 0,
         shuffle: false,
       }),
@@ -179,11 +176,11 @@ export default class can6eAll extends Exercice {
     ) {
       // pas de question du type N2
       questionsDisponiblesNum = gestionnaireFormulaireTexte({
-        saisie: 18,
+        saisie: 21,
         min: 1,
-        max: 17,
+        max: 20,
         defaut: 1,
-        melange: 18,
+        melange: 21,
         nbQuestions: this.nbQuestions,
         shuffle: true,
       })
@@ -195,9 +192,9 @@ export default class can6eAll extends Exercice {
       gestionnaireFormulaireTexte({
         saisie: qMes,
         min: 0,
-        max: 13,
+        max: 20,
         defaut: 0,
-        melange: 14,
+        melange: 21,
         nbQuestions: 0,
         shuffle: false,
       }),
@@ -210,11 +207,11 @@ export default class can6eAll extends Exercice {
     ) {
       // pas de question du type N2
       questionsDisponiblesMes = gestionnaireFormulaireTexte({
-        saisie: 14,
+        saisie: 21,
         min: 1,
-        max: 13,
+        max: 20,
         defaut: 1,
-        melange: 14,
+        melange: 21,
         nbQuestions: this.nbQuestions,
         shuffle: true,
       })
@@ -322,12 +319,13 @@ export default class can6eAll extends Exercice {
         .then((exports) => {
           // const quest =  import(fileScript).then(exports => {
           const q2 = exports // new exports.default()
+          const k = i
           exercice.interactif ? (q2.interactif = true) : (q2.interactif = false)
           q2.numeroExercice = exercice.numeroExercice
           q2.seed = exercice.seed
           seedrandom(q2.seed, { global: true })
           q2.nouvelleVersion()
-          const k = i
+          
           if (q2.listeQuestions.length === 0) {
             exercice.listeCorrections[k] = q2.correction
             exercice.listeCanEnonces[k] = q2.canEnonce
@@ -355,7 +353,7 @@ export default class can6eAll extends Exercice {
               ajouteChampTexteMathLive(
                 exercice,
                 k,
-                q2.formatChampTexte || '',
+                isKeyboardCategory(q2.formatChampTexte) ? q2.formatChampTexte : ( typeof q2.formatChampTexte === 'string' ? q2.formatChampTexte : '' ),
                 q2.optionsChampTexte || {},
               )
           } else {
@@ -380,6 +378,24 @@ export default class can6eAll extends Exercice {
                 `resultatCheckEx${exercice.numeroExercice}Q${0}`,
                 `resultatCheckEx${exercice.numeroExercice}Q${k}`,
               )
+              exercice.listeQuestions[k] = exercice.listeQuestions[
+                k
+              ].replaceAll(
+                `tabMathliveEx${exercice.numeroExercice}Q${0}`,
+                `tabMathliveEx${exercice.numeroExercice}Q${k}`,
+              )
+              exercice.listeQuestions[k] = exercice.listeQuestions[
+                k
+              ].replaceAll(
+                `tabMathliveEx${exercice.numeroExercice}Q${0}`,
+                `tabMathliveEx${exercice.numeroExercice}Q${k}`,
+              )
+              exercice.listeQuestions[k] = exercice.listeQuestions[
+                k
+              ].replaceAll(
+                `spanEx${exercice.numeroExercice}Q${0}`,
+                `spanEx${exercice.numeroExercice}Q${k}`,
+              )              
             } else {
               // qcm
               const monQcm = propositionsQcm(exercice, k) // update les références HTML
@@ -404,6 +420,12 @@ export default class can6eAll extends Exercice {
     }
 
     loadAllQuests(this, questionsDisponibles)
+
+    this.listeQuestions = []
+    this.listeCorrections = []
+    this.listeCanEnonces = []
+    this.listeCanReponsesACompleter = []
+    this.autoCorrection = []
     for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50; cpt++) {
       this.listeCorrections[i] = ''
       this.listeCanEnonces[i] = ''

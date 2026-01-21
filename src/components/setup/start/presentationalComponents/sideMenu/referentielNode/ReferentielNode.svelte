@@ -258,11 +258,11 @@
   - **levelTitle** (_string_) : titre du niveau courant (clé du nœud retraduite sur la base des fichiers `levelsThemesList.json` et `codeToLevelList.json`).
 
  -->
-<div class="{`${$$props.class || ''}`}">
+<div class={`${$$props.class || ''}`}>
   <button
-    id="{'titre-liste-' + indexBase}"
+    id={'titre-liste-' + indexBase}
     type="button"
-    disabled="{Object.keys(subset).length === 0}"
+    disabled={Object.keys(subset).length === 0}
     class="w-full flex flex-row text-start items-center justify-between font-bold first-letter:first-linemarker
     {nestedLevelCount !== 1
       ? 'text-coopmaths-action dark:text-coopmathsdark-action hover:bg-coopmaths-canvas-darkest dark:hover:bg-coopmathsdark-canvas-darkest'
@@ -279,12 +279,12 @@
       ? 'opacity-10'
       : 'opacity-100 cursor-pointer'}"
     style="padding-left: {(nestedLevelCount * 2) / 5}rem"
-    on:click="{() => {
+    on:click={() => {
       unfold = !unfold
-    }}"
+    }}
   >
     <div
-      id="{'titre-liste-' + indexBase + '-content'}"
+      id={'titre-liste-' + indexBase + '-content'}
       class=" {nestedLevelCount === 1
         ? 'text-xl'
         : themeCodeisSubthemeCode(
@@ -299,12 +299,12 @@
         {codeToLevelTitle(levelTitle)}
       {/if}
       <span
-        class="{themeCodeisSubthemeCode(
+        class={themeCodeisSubthemeCode(
           levelTitle,
           Array.from(levelTitle.replace('auto', ''))[0],
         )
           ? 'font-normal text-sm leading-[80%]'
-          : 'font-normal '}">{@html themeTitle(levelTitle)}</span
+          : 'font-normal '}>{@html themeTitle(levelTitle)}</span
       >
     </div>
     <div>
@@ -329,22 +329,22 @@
   </button>
   <div>
     {#if unfold}
-      <ul transition:slide|global="{{ duration: 500 }}">
+      <ul transition:slide|global={{ duration: 500 }}>
         {#each items as [key, obj], i}
           <li>
             {#if isJSONReferentielEnding(obj)}
               <ReferentielEnding
-                ending="{obj}"
-                nestedLevelCount="{nestedLevelCount + 1}"
-                class="{i === items.length - 1 ? 'pb-1' : ''}"
+                ending={obj}
+                nestedLevelCount={nestedLevelCount + 1}
+                class={i === items.length - 1 ? 'pb-1' : ''}
               />
             {:else}
               <svelte:self
-                indexBase="{`${indexBase}-${i.toString()}`}"
-                levelTitle="{key}"
-                nestedLevelCount="{nestedLevelCount + 1}"
-                pathToThisNode="{[...pathToThisNode, key]}"
-                bind:subset="{obj}"
+                indexBase={`${indexBase}-${i.toString()}`}
+                levelTitle={key}
+                nestedLevelCount={nestedLevelCount + 1}
+                pathToThisNode={[...pathToThisNode, key]}
+                bind:subset={obj}
               />
             {/if}
           </li>

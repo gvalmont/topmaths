@@ -50,17 +50,19 @@
 <button
   type="button"
   class="relative block w-full rounded-lg bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark shadow-lg border border-coopmaths-canvas-darkest dark:border-coopmathsdark-canvas-darkest"
-  on:click="{handelSelection}"
+  on:click={handelSelection}
 >
   <div class="{reversed ? 'hide' : 'block'} ">
     {#if loadImages}
       <img
-        src="{application.imgPath}"
+        src={application.imgPath}
         alt="{application.title} image"
         class="object-fill rounded-t-lg"
       />
     {:else}
-      <div class="h-48 bg-gray-200 rounded-t-lg flex items-center justify-center">
+      <div
+        class="h-48 bg-gray-200 rounded-t-lg flex items-center justify-center"
+      >
         <span class="text-gray-500">Image à charger...</span>
       </div>
     {/if}

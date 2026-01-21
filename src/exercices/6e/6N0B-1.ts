@@ -1,3 +1,4 @@
+import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { propositionsQcm } from '../../lib/interactif/qcm'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
@@ -191,7 +192,11 @@ export default class VocabulaireEtOperations extends Exercice {
           expf = 'l' + String(expf).substring(1)
           texte += `${expf}.`
           if (this.interactif) {
-            texte += ajouteChampTexteMathLive(this, i, '')
+            texte += ajouteChampTexteMathLive(
+              this,
+              i,
+              KeyboardType.clavierNumbers,
+            )
             handleAnswers(this, i, { reponse: { value: resultat } })
           }
           expf = 'L' + String(expf).substring(1)

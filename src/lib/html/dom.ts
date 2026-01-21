@@ -38,7 +38,9 @@ export function setStyles(
               string,
             ]
             try {
-              if (!elt.style[key]) elt.style[key] = value
+              if (!elt.style.getPropertyValue(key.toString())) {
+                elt.style.setProperty(key.toString(), value)
+              }
             } catch (error) {
               console.warn(
                 `Cannot assign value to style property ${String(key)}: ${error}`,

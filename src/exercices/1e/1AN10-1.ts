@@ -272,6 +272,7 @@ $\\lim\\limits_{h \\rightarrow 0} \\dfrac{1}{\\sqrt{${a}+h}+\\sqrt{${a}}}=\\dfra
           break
 
         case 5: // 'polynôme second degré':
+          {
           b = randint(-2, 3)
           c = randint(-4, 5, b)
           const poly = new Trinome(1, b, c)
@@ -312,17 +313,17 @@ $\\lim\\limits_{h \\rightarrow 0} ${2 * a + b}+h=${2 * a + b}$<br>
             ],
             style: 'nombres',
           })
-
+        }
           break
 
         case 6: // 'polynôme second degré avec coefficient ≠ 1':
-          const coefA = randint(-2, 3, [0, 1]) // coefficient de x² différent de 0 et 1
+          {const coefA = randint(-2, 3, [0, 1]) // coefficient de x² différent de 0 et 1
           b = randint(-2, 2)
           c = randint(-2, 3)
           const poly6 = new Trinome(coefA, b, c)
           const valeurEnA6 = coefA * a * a + b * a + c
           const valeurEnAh6 = `(${rienSi1(coefA)}(${a}+h)^2${b === 0 ? `` : `${ecritureAlgebriqueSauf1(b)}(${a}+h)`}${c === 0 ? `` : `${ecritureAlgebrique(c)}`})`
-          const developpementAh6 = `${rienSi1(coefA)}${ecritureParentheseSiNegatif(a)}^2${ecritureAlgebrique(2 * coefA * a)} h${ecritureAlgebriqueSauf1(coefA)}h^2${b === 0 ? `` : `${ecritureAlgebrique(b * a)}${ecritureAlgebriqueSauf1(b)}h`}${c === 0 ? `` : `${ecritureAlgebrique(c)}`}`
+          const developpementAh6 = `${rienSi1(coefA)}\\times${ecritureParentheseSiNegatif(a)}^2${ecritureAlgebrique(2 * coefA * a)} h${ecritureAlgebriqueSauf1(coefA)}h^2${b === 0 ? `` : `${ecritureAlgebrique(b * a)}${ecritureAlgebriqueSauf1(b)}h`}${c === 0 ? `` : `${ecritureAlgebrique(c)}`}`
           const simplificationAh6 = `${coefA * a * a}${ecritureAlgebrique(2 * coefA * a)}h${ecritureAlgebriqueSauf1(coefA)}h^2${b === 0 ? `` : `${ecritureAlgebrique(b * a)}${ecritureAlgebriqueSauf1(b)}h`}${c === 0 ? `` : `${ecritureAlgebrique(c)}`}`
           const reductionNum6 = `${rienSi1(2 * coefA * a + b)}h${ecritureAlgebriqueSauf1(coefA)}h^2`
           const factorisation6 = `h(${2 * coefA * a + b}${ecritureAlgebriqueSauf1(coefA)}h)`
@@ -357,15 +358,16 @@ $\\lim\\limits_{h \\rightarrow 0} ${2 * coefA * a + b}${ecritureAlgebriqueSauf1(
           })
           reponse1 = `${2 * coefA * a + b}${ecritureAlgebriqueSauf1(coefA)}h`
           reponse2 = String(2 * coefA * a + b)
-
+        }
           break
 
         case 7: // 'fonction a/x':
+          {
           const coefNum7 = randint(-5, 10, [0, 1, -1]) // coefficient au numérateur
 
           // S'assurer que le point où on calcule la dérivée est différent du coefficient
           // et qu'il n'y a pas de simplification facile
-          let pointA7 = coefNum7 + choice([-1, 1])
+          const pointA7 = coefNum7 + choice([-1, 1])
 
           const Q1cas7 = `Calculer le taux de variation $t(h)$ de $f$ entre $${pointA7}$ et $${pointA7}+h$, où $h$ est un réel non nul.`
           const Q2cas7 = `En déduire que $f$ est dérivable en $${pointA7}$ et déterminer $f'(${pointA7})$.`
@@ -401,11 +403,12 @@ $\\lim\\limits_{h \\rightarrow 0} \\dfrac{${-coefNum7}}{${pointA7}(${pointA7}+h)
 
           reponse1 = `\\frac{${-coefNum7}}{${pointA7}(${pointA7}+h)}`
           reponse2 = `\\frac{${-coefNum7}}{${pointA7 * pointA7}}`
-
+        }
           break
-
+        
         case 8: // ' a/(x+b)':
         default:
+          {
           const coefNum = randint(2, 6) // coefficient a du numérateur
           const coefDenom = randint(-5, 5, [0, coefNum + 1]) // coefficient b de x+b
 
@@ -448,7 +451,7 @@ $\\lim\\limits_{h \\rightarrow 0} \\dfrac{${coefNumOppose}}{(h${ecritureAlgebriq
             ],
             style: 'nombres',
           })
-
+        }
           break
       }
       texte += ajouteChampTexteMathLive(this, 2 * i, KeyboardType.lycee, {

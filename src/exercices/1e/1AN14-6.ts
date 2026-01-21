@@ -1,3 +1,4 @@
+import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 import engine, {
   functionCompare,
 } from '../../lib/interactif/comparisonFunctions'
@@ -62,10 +63,7 @@ export default class DeriveeQuotient extends Exercice {
       'Montrer que... (non interactif)',
       false,
     ]
-    // this.consigne = "Pour chacune des fonctions suivantes, dire sur quel ensemble elle est dérivable, puis déterminer l'expression de sa fonction dérivée."
-    this.consigne =
-      "Pour chacune des fonctions suivantes, déterminer l'expression de sa fonction dérivée."
-    this.nbQuestions = 5
+    this.nbQuestions = 4
     // Sortie LaTeX
     this.nbCols = 2 // Nombre de colonnes
     this.nbColsCorr = 2 // Nombre de colonnes dans la correction
@@ -74,6 +72,10 @@ export default class DeriveeQuotient extends Exercice {
   }
 
   nouvelleVersion() {
+    this.consigne =
+      this.nbQuestions > 1
+        ? "Pour chacune des fonctions suivantes, déterminer l'expression de sa fonction dérivée."
+        : "Déterminer l'expression de la fonction dérivée de la fonction suivante."
     const listeValeurs: string[] = [] // Les questions sont différentes du fait du nom de la fonction, donc on stocke les valeurs
     if (this.sup2) {
       this.interactifReady = false
@@ -198,7 +200,7 @@ export default class DeriveeQuotient extends Exercice {
             texteCorr += 'Les termes en $x$ se compensent et on obtient : '
             texteCorr += `\\[${nameF}'(x)=\\frac{${Number(a) * Number(d)}${ecritureAlgebrique(-c * Number(b))}}{(${termeDen.latex})^2}.\\]`
             texteCorr += "C'est-à-dire : "
-            texteCorr += `$${miseEnEvidence(`${nameF}'(x)=\\frac{${Number(a) * Number(d) - Number(c) * Number(b)}}{(${termeDen.latex})^2}`)}$.`
+            texteCorr += `$${nameF}'(x)=${miseEnEvidence(`\\frac{${Number(a) * Number(d) - Number(c) * Number(b)}}{(${termeDen.latex})^2}`)}$.`
             maReponse = `\\frac{${Number(a) * Number(d) - Number(c) * Number(b)}}{(${termeDen.latex})^2}`
           } else if ((fNum as Polynome).deg === 2) {
             texteCorr += `\\[${nameF}'(x)=\\frac{(${(fNum as Polynome).derivee()})(${termeDen.latex})-(${termeNum.latex})\\times${Number(c) < 0 ? `(${c})` : c}}{(${termeDen.latex})^2}.\\]`
@@ -209,7 +211,7 @@ export default class DeriveeQuotient extends Exercice {
             texteCorr += `\\[${nameF}'(x)=\\frac{${polyInterm}-(${(fNum as Polynome).multiply(c)})}{(${termeDen.latex})^2}.\\]`
             texteCorr += 'On réduit le numérateur pour obtenir : '
             maReponse = `\\frac{${polyInterm.add((fNum as Polynome).multiply(-c))}}{(${termeDen.latex})^2}`
-            texteCorr += `$${miseEnEvidence(`${nameF}'(x)=${maReponse}`)}$.<br>`
+            texteCorr += ` $${nameF}'(x)=${miseEnEvidence(`${maReponse}`)}$.<br>`
             texteCorr += `${texteEnCouleurEtGras('Remarque :', 'black')} la plupart du temps, on veut le signe de la dérivée. Il serait donc plus logique de factoriser le numérateur si possible, mais cela sort du cadre de cet exercice.`
           }
           break
@@ -243,7 +245,7 @@ export default class DeriveeQuotient extends Exercice {
                   (fDen as Polynome).derivee().multiply(-1),
                 ),
               )}}{(${termeDen.latex})^2}`
-            texteCorr += `$${miseEnEvidence(`${nameF}'(x)=${maReponse}.`)}$.<br>`
+            texteCorr += ` $${nameF}'(x)=${miseEnEvidence(`${maReponse}`)}$.<br>`
             texteCorr += `${texteEnCouleurEtGras('Remarque :', 'black')} la plupart du temps, on veut le signe de la dérivée. Il serait donc plus logique de factoriser le numérateur, mais cela sort du cadre de cet exercice.`
           }
           break
@@ -263,7 +265,7 @@ export default class DeriveeQuotient extends Exercice {
             .derivee()
             .multiply(fDen as Polynome)
             .add((fNum as Polynome).multiply(-c))}}{(${termeDen.latex})^2}`
-          texteCorr += `$${miseEnEvidence(`${nameF}'(x)=${maReponse}`)}$.<br>`
+          texteCorr += ` $${nameF}'(x)=${miseEnEvidence(`${maReponse}`)}$.<br>`
           texteCorr += `${texteEnCouleurEtGras('Remarque :', 'black')} la plupart du temps, on veut le signe de la dérivée. Il serait donc plus logique de factoriser le numérateur, mais cela sort du cadre de cet exercice.`
           break
         }
@@ -300,13 +302,13 @@ export default class DeriveeQuotient extends Exercice {
       if (this.interactif && !this.sup2) {
         texte +=
           '<br><br>' +
-          ajouteChampTexteMathLive(this, i, '', {
+          ajouteChampTexteMathLive(this, i, KeyboardType.lyceeClassique, {
             texteAvant: `$${nameF}'(x)=$`,
           })
       }
       if (listeValeurs.indexOf(expression) === -1) {
         listeValeurs.push(expression)
-        this.listeQuestions[i] = texte
+        this.listeQuestions[i] = texte + '.'
         this.listeCorrections[i] = texteCorr
 
         handleAnswers(this, i, {

@@ -1,12 +1,13 @@
 import { combinaisonListes } from '../../lib/outils/arrayOutils'
+import { ecritureParentheseSiNegatif } from '../../lib/outils/ecritures'
 import { simpExp } from '../../lib/outils/puissance'
-import Exercice from '../Exercice'
 import { context } from '../../modules/context'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
-import { ecritureParentheseSiNegatif } from '../../lib/outils/ecritures'
+import Exercice from '../Exercice'
 
-import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
+import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
+import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
 
 export const titre =
@@ -216,7 +217,12 @@ export default class PuissancesDUnRelatif2 extends Exercice {
         handleAnswers(this, i, {
           reponse: { value: reponseInteractive, options: { puissance: true } },
         })
-        texte += ajouteChampTexteMathLive(this, i, '', { texteAvant: ' $=$' })
+        texte += ajouteChampTexteMathLive(
+          this,
+          i,
+          KeyboardType.lyceeClassique,
+          { texteAvant: ' $=$' },
+        )
       }
       // Pour moi, cela ne peut pas fonctionner : base est une chaine de caractère alors qu'AMC va attendre un nombre ! (JCL le 22/01/2025 lors du typage en typescript)
       /* if (context.isAmc) {

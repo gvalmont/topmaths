@@ -1,13 +1,10 @@
 import { point } from '../../lib/2d/PointAbstrait'
+import { createList } from '../../lib/format/lists'
 import { infoMessage } from '../../lib/format/message'
 import { texteGras } from '../../lib/format/style'
 import Alea2iep from '../../modules/Alea2iep'
 import { context } from '../../modules/context'
-import {
-  enumerate,
-  enumerateSansPuceSansNumero,
-  randint,
-} from '../../modules/outils'
+import { randint } from '../../modules/outils'
 import Exercice from '../Exercice'
 
 // Les exports suivants sont optionnels mais au moins la date de publication semble essentielle
@@ -78,13 +75,13 @@ export default class PuzzlesGeometriques extends Exercice {
           nbFig = randint(1, 5)
           break
       }
-      let sortie = enumerateSansPuceSansNumero(
-        [
+      let sortie = createList({
+        items: [
           `Découper les ${nbPieces} pièces délimitées par les lignes rouges.`,
           'Construire la silhouette proposée.',
         ],
-        1.5,
-      )
+        style: 'none',
+      })
       if (context.isHtml) {
         sortie += `<img class="ui middle aligned image" src="assets/puzzlesGeom/img/${type}${nbFig}.png"/>`
       } else {
@@ -192,17 +189,17 @@ export default class PuzzlesGeometriques extends Exercice {
       anim.crayonMasquer()
 
       if (version === 'v1') {
-        texte += enumerate(
-          [
+        texte += createList({
+          items: [
             'Placer les points $A$, $B$, $C$, $D$, $E$, $F$, $G$, $H$ et $I$.',
             'Tracer en rouge les segments $[AB]$, $[BC]$, $[CD]$, $[DA]$, $[FG]$, $[GH]$, $[DI]$, $[EI]$.',
           ],
-          1,
-        )
+          style: 'fleches',
+        })
       }
       if (version === 'v2') {
-        texte += enumerate(
-          [
+        texte += createList({
+          items: [
             'Placer les points $A$, $B$, $C$, $D$, $E_1$, $F_1$, $G_1$, $H_1$ et $I$.',
             'Tracer en rouge les segments $[AB]$, $[BC]$, $[CD]$, $[DA]$ et $[DI]$.',
             'Tracer en pointillés, au crayon de papier, les segments $[F_1G_1]$, $[E_1I]$ et $[BH_1]$.',
@@ -212,8 +209,8 @@ export default class PuzzlesGeometriques extends Exercice {
             "Placer $H$ à l'intersection de $[DI]$ et de $[BH_1]$",
             'Tracer en rouge les segments $[FG]$, $[BH]$ et $[EI]$.',
           ],
-          1,
-        )
+          style: 'fleches',
+        })
       }
       if (context.isHtml) {
         texte += `<img class="ui middle aligned image" src="assets/puzzlesGeom/img/samLoydQuadrillageEtPoints${version}.png"/>`
@@ -319,8 +316,8 @@ export default class PuzzlesGeometriques extends Exercice {
           context.isHtml === true
             ? (myArcCommand = '\\overgroup')
             : (myArcCommand = '\\wideparen')
-          texte += enumerate(
-            [
+          texte += createList({
+            items: [
               "Tracer deux droites perpendiculaires $(\\Delta)$ et $(\\Delta ')$, elles se coupent en $O$.",
               'Tracer le cercle de centre $O$ et de rayon $7\\text{ cm}$.',
               'Ce cercle coupe $(\\Delta)$ en $A$, à gauche de $O$, et $C$.',
@@ -334,8 +331,8 @@ export default class PuzzlesGeometriques extends Exercice {
               'Effacer $[OG]$ et le noms des points.',
               `Tracer en rouge $[AC]$, $[LG]$, $[GK]$, $[GD]$, $[OH]$, $[AF]$, $[CE]$ et l'arc $${myArcCommand}{AC}$ de centre $O$ situé sous le point $O$.`,
             ],
-            1,
-          )
+            style: 'fleches',
+          })
           texte += infoMessage({
             titre: "Les oiseaux sortent de l'œuf, c'est bien connu !",
             texte: texteMessage(9, 'oiseau'),
@@ -437,8 +434,8 @@ export default class PuzzlesGeometriques extends Exercice {
           anim.regleSegment(G, I, { couleur: 'red', epaisseur: 4 })
           anim.regleMasquer()
           anim.crayonMasquer()
-          texte += enumerate(
-            [
+          texte += createList({
+            items: [
               'Tracer un carré ABCD de $14\\text{ cm}$ de côté.',
               'Placer $E$, $F$ et $G$ sur $[DB]$ tels que $DE=EF=FG=GB$.',
               'Placer $H$ au milieu de $[CD]$.',
@@ -446,8 +443,8 @@ export default class PuzzlesGeometriques extends Exercice {
               'La diagonale $[AC]$ coupe $[HJ]$ en $I$',
               'Tracer en rouge $[AB]$, $[BC]$, $[CD]$, $[DA]$, $[DB]$, $[AI]$, $[HJ]$, $[EH]$, $[GI]$.',
             ],
-            1,
-          )
+            style: 'fleches',
+          })
           texte += infoMessage({
             titre:
               "Toute sorte de personnage peut sortir de ce drôle de carré, c'est bien connu !",

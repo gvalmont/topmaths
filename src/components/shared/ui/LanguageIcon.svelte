@@ -8,7 +8,7 @@
 </script>
 
 <img
-  src="{buildLangIconPath(languages[locale].short)}"
-  alt="{languages[locale].short}"
+  src={buildLangIconPath(languages[locale].short)}
+  alt={languages[locale].short}
   class="h-4 w-4"
 />

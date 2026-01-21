@@ -320,17 +320,21 @@ export class Pyramide3d extends ObjetMathalea2D {
       p.isVisible = false
       if (this.centre.label === '' || this.centre.label === this.sommet.label)
         this.sommet.label = choisitLettresDifferentes(1, 'OQWX')[0]
-      const nomBase = choisitLettresDifferentes(
-        this.base.listePoints.length,
-        'OQWX' + this.sommet.label + this.centre.label,
-      )
+      const labelsRenseignes = p.listePoints.map((pt) => pt.nom).join('')
+      const nomBase =
+        labelsRenseignes === ''
+          ? choisitLettresDifferentes(
+              this.base.listePoints.length,
+              'OQWX' + this.sommet.label + this.centre.label,
+            )
+          : Array.from(labelsRenseignes)
       renommePolygone(p, nomBase)
       for (let ee = 0; ee < this.base.listePoints2d.length; ee++) {
         this.base.listePoints2d[ee].positionLabel =
           this.sommet.z > 0 ? 'below' : 'above'
       }
       this.c2d.push(labelPoint(...p.listePoints))
-      this.c2d.push(labelPoint(this.sommet))
+      this.c2d.push(labelPoint(this.sommet.c2d))
       this.nom = nomBase.join('') + this.sommet.label
     }
   }

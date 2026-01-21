@@ -1,17 +1,18 @@
+import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
+import {
+  handleAnswers,
+  setReponse,
+} from '../../lib/interactif/gestionInteractif'
+import {
+  ajouteChampTexte,
+  ajouteChampTexteMathLive,
+} from '../../lib/interactif/questionMathLive'
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
 import { texNombre } from '../../lib/outils/texNombre'
-import { nombreEnLettres } from '../../modules/nombreEnLettres'
-import Exercice from '../Exercice'
 import { context } from '../../modules/context'
+import { nombreEnLettres } from '../../modules/nombreEnLettres'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
-import {
-  ajouteChampTexteMathLive,
-  ajouteChampTexte,
-} from '../../lib/interactif/questionMathLive'
-import {
-  setReponse,
-  handleAnswers,
-} from '../../lib/interactif/gestionInteractif'
+import Exercice from '../Exercice'
 
 export const dateDeModifImportante = '08/09/2024'
 export const titre = 'Écrire un nombre décimal en chiffres ou en lettres'
@@ -100,7 +101,6 @@ export default class ÉcrireNombresDecimal extends Exercice {
         partDec,
         cpt = 0;
       i < this.nbQuestions && cpt < 50;
-
     ) {
       type = listeTypeDeQuestions[i]
       nombre = 0
@@ -153,7 +153,7 @@ export default class ÉcrireNombresDecimal extends Exercice {
         })
       } else {
         if (context.vue !== 'diap') {
-          texte = `Écrire le nombre ${nombreEnLettres(nombre, type)} en chiffres :  ${this.interactif ? ajouteChampTexteMathLive(this, i, '') : '\\dotfill'}`
+          texte = `Écrire le nombre ${nombreEnLettres(nombre, type)} en chiffres :  ${this.interactif ? ajouteChampTexteMathLive(this, i, KeyboardType.clavierNumbers) : '\\dotfill'}`
         } else {
           texte = ` ${nombreEnLettres(nombre, type)}`
         }

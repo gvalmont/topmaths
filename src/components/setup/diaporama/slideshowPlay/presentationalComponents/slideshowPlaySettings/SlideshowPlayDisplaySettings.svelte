@@ -11,10 +11,10 @@
 <ButtonIcon
   icon="bx-plus {BUTTONS_CLASS}"
   title="Raccourci clavier : +"
-  on:click="{zoomPlus}"
+  on:click={zoomPlus}
 />
 <ButtonIcon
   icon="bx-minus {BUTTONS_CLASS}"
   title="Raccourci clavier : -"
-  on:click="{zoomMinus}"
+  on:click={zoomMinus}
 />

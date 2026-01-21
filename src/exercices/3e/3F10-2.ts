@@ -1,3 +1,4 @@
+import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 import { setReponse } from '../../lib/interactif/gestionInteractif'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
@@ -141,7 +142,6 @@ export default class CalculsImagesFonctions extends Exercice {
         img,
         cpt = 0;
       i < this.nbQuestions && cpt < 50;
-
     ) {
       // on ne choisit que des nombres compris entre 1 et 20
       texte = ''
@@ -358,13 +358,18 @@ export default class CalculsImagesFonctions extends Exercice {
         if (tagImage) {
           texte =
             enonce +
-            ajouteChampTexteMathLive(this, i, ' ', {
-              texteAvant: `$f(${ant})=$`,
-            })
+            ajouteChampTexteMathLive(
+              this,
+              i,
+              KeyboardType.clavierDeBaseAvecFraction,
+              {
+                texteAvant: `$f(${ant})=$`,
+              },
+            )
         } else {
           texte =
             enonce +
-            ajouteChampTexteMathLive(this, i, ' ', {
+            ajouteChampTexteMathLive(this, i, KeyboardType.clavierNumbers, {
               texteAvant: '$f($',
               texteApres: `$)=${img}$`,
             })

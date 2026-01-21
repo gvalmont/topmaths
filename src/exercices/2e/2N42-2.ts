@@ -8,6 +8,7 @@ import {
 import { listeQuestionsToContenu } from '../../modules/outils'
 import Exercice from '../Exercice'
 
+import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { sp } from '../../lib/outils/outilString'
 export const interactifReady = true
@@ -465,7 +466,7 @@ Exprimer $h$ en fonction de $A$, de $B$ et de $b$.<br>`
       if (this.interactif) {
         texte +=
           '<br>' +
-          ajouteChampTexteMathLive(this, i, ' alphanumeric  ', {
+          ajouteChampTexteMathLive(this, i, KeyboardType.alphanumeric, {
             texteAvant: sp(10) + `$${varAExprimer} =$`,
           })
       }

@@ -18,10 +18,10 @@ export function coureur4(decimal = true): Probleme {
   const enonce = `${personnage.prenom} a réalisé un trail de $${texNombre(nb1 + nb2, 3)}$ ${uniteComplete} au cours duquel ${personnage.pronom} a couru sur $${texNombre(nb1, 3)}$ ${uniteComplete} et a marché $${texNombre(nb2, 3)}$ ${uniteComplete}.
   Quelle est la différence entre la distance courue et celle marchée ?`
   const correction = `${personnage.prenom} a couru sur $${texNombre(nb1, 3)}$ ${uniteComplete} et a marché sur $${texNombre(nb2, 3)}$ ${uniteComplete}.
-${personnage.prenom} a donc marché ${
+<br>${personnage.prenom} a donc marché : ${
     nb2 > nb1
-      ? `$${texNombre(nb2, 3)}-${texNombre(nb1, 3)} = ${texNombre(nb2 - nb1, 3)}$ ${uniteComplete} de plus`
-      : `$${texNombre(nb1, 3)}-${texNombre(nb2, 3)} = ${miseEnEvidence(texNombre(nb1 - nb2, 3))}$ ${uniteComplete} de moins`
+      ? `$${texNombre(nb2, 3)}\\text{  ${unite}}-${texNombre(nb1, 3)}\\text{  ${unite}} = ${texNombre(nb2 - nb1, 3)}\\text{  ${unite}}$ de plus`
+      : `$${texNombre(nb1, 3)}\\text{  ${unite}}-${texNombre(nb2, 3)}\\text{  ${unite}} = ${miseEnEvidence(texNombre(nb1 - nb2, 3))}\\text{  ${unite}}$ de moins`
   } qu'${personnage.pronom} a couru.`
   const probleme = new ProblemeCompAddEcart('coureur4', data)
   probleme.enonce = enonce
@@ -36,7 +36,7 @@ ${personnage.prenom} a donc marché ${
     probleme.schema.lignes[1].barres[0].content = `$${texNombre(nb2, 3)}\\text{  ${unite}}$`
   }
 
-  probleme.styleChampTexteMathlive = KeyboardType.college6eme
+  // probleme.styleChampTexteMathlive = KeyboardType.clavierDeBase
   probleme.reponse = `${texNombre(nb2 - nb1, 3)}${unite}`
   probleme.styleChampTexteMathlive = KeyboardType.longueur
   probleme.optionsComparaison = { unite: true }

@@ -483,7 +483,7 @@ function texteCorrMedianeNotes(
   }
 
   texteCorr += `D'où la médiane des ${noteStr[0]}s est ${scoresMedians[0] === scoresMedians[1] ? '' : `$\\mathbf{(${scoresMedians[0]} + ${scoresMedians[1]}) \\div 2=}$`} $${miseEnEvidence(texNombre(medianeCorr))}$${noteStr[1]}.<br>`
-  if (notes.length % 2 === 0) {
+  /* if (notes.length % 2 === 0) {
     texteCorr += lampeMessage({
       titre: 'Interprétation',
       texte: `Il y a bien $${notes.length / 2}$ ${noteStr[0]}s inférieures ou égales à  $${texNombre(medianeCorr, 1)}$ et $${notes.length / 2}$ ${noteStr[0]}s supérieures ou égales à  $${texNombre(medianeCorr, 1)}$.`,
@@ -495,7 +495,7 @@ function texteCorrMedianeNotes(
       texte: `Il y a bien $${(notes.length - 1) / 2}$ ${noteStr[0]}s inférieures ou égales à  $${texNombre(medianeCorr, 1)}$ et $${(notes.length - 1) / 2}$ ${noteStr[0]}s supérieures ou égales à  $${texNombre(medianeCorr, 1)}$.`,
       couleur: 'nombres',
     })
-  }
+  } */
   return texteCorr
 }
 
@@ -552,11 +552,11 @@ function texteCorrMedianeTirages2DSalaires(
               ${desTabEffCumul(salaires, true, categories, salairesStr[5] as string[])}<br><br>
               La $${nombreTirages / 2}^{e}$ valeur est $${scoresMedians[0]}$ et la $${nombreTirages / 2 + 1}^{e}$ valeur est $${scoresMedians[1]}$.<br>`
     texteCorr += `D'où ${salairesStr[2]} est ${scoresMedians[0] === scoresMedians[1] ? '' : `$(${scoresMedians[0]} + ${scoresMedians[1]}) \\div 2=$`} $${miseEnEvidence(texNombre(medianeCorr))}$${salairesStr[3]}.<br>`
-    texteCorr += lampeMessage({
+    /* texteCorr += lampeMessage({
       titre: 'Interprétation',
       texte: `Il y a bien $${nombreTirages / 2}$ ${salairesStr[0]}s dont la valeur est inférieure ou égale à  $${texNombre(medianeCorr, 1)}$${salairesStr[3]} et $${nombreTirages / 2}$ ${salairesStr[0]}s dont la valeur est supérieure ou égale à  $${texNombre(medianeCorr, 1)}$${salairesStr[3]}.`,
       couleur: 'nombres',
-    })
+    }) */
   } else {
     // Le nombre de tirages est impair
     texteCorr += `Ce nombre est impair, les ${salairesStr[0]}s sont rangé${salairesStr[0] === 'M' ? '' : 'e'}s dans l'ordre croissant.<br>
@@ -566,11 +566,11 @@ function texteCorrMedianeTirages2DSalaires(
                   On peut ajouter une ligne avec les effectifs cumulés pour trouver cette valeur.<br><br>
                   ${desTabEffCumul(salaires, true, categories, salairesStr[5] as string[])}<br><br>`
     texteCorr += `D'où ${salairesStr[2]} est $${miseEnEvidence(texNombre(medianeCorr))}$ ${salairesStr[3]}.<br>`
-    texteCorr += lampeMessage({
+    /* texteCorr += lampeMessage({
       titre: 'Interprétation',
       texte: `Il y a bien $${(nombreTirages - 1) / 2}$ ${salairesStr[0]}s dont la valeur est inférieure ou égale à  $${texNombre(medianeCorr, 1)}$${salairesStr[3]} et $${(nombreTirages - 1) / 2}$ ${salairesStr[0]}s dont la valeur est supérieure ou égale à  $${texNombre(medianeCorr, 1)}$${salairesStr[3]}.`,
       couleur: 'nombres',
-    })
+    }) */
   }
   return texteCorr
 }
@@ -591,11 +591,11 @@ function texteCorrMedianeTirages2D(
               ${desTabEffCumul(tirages, true)}<br><br>
               La $${nombreTirages / 2}^{e}$ valeur est $${scoresMedians[0]}$ et la $${nombreTirages / 2 + 1}^{e}$ valeur est $${scoresMedians[1]}$.<br>`
     texteCorr += `D'où le score médian est ${scoresMedians[0] === scoresMedians[1] ? '' : `$(${scoresMedians[0]} + ${scoresMedians[1]}) \\div 2=$`} $${miseEnEvidence(texNombre(medianeCorr))}$.<br>`
-    texteCorr += lampeMessage({
+    /* texteCorr += lampeMessage({
       titre: 'Interprétation',
       texte: `Il y a bien $${nombreTirages / 2}$ lancers dont le score est inférieur ou égal à  $${texNombre(medianeCorr, 1)}$ et $${nombreTirages / 2}$ lancers dont le score est supérieur ou égal à  $${texNombre(medianeCorr, 1)}$.`,
       couleur: 'nombres',
-    })
+    }) */
   } else {
     // Le nombre de lancers est impair ici
     texteCorr += `Le nombre de lancers est impair, les scores sont rangés dans l'ordre croissant.<br>
@@ -605,11 +605,11 @@ function texteCorrMedianeTirages2D(
                   On peut ajouter une ligne avec les effectifs cumulés pour trouver cette valeur.<br><br>
                   ${desTabEffCumul(tirages, true)}<br><br>`
     texteCorr += `D'où le score médian est $${miseEnEvidence(texNombre(medianeCorr))}$.<br>`
-    texteCorr += lampeMessage({
+    /* texteCorr += lampeMessage({
       titre: 'Interprétation',
       texte: `Il y a bien $${(nombreTirages - 1) / 2}$ lancers dont le score est inférieur ou égal à  $${texNombre(medianeCorr, 1)}$ et $${(nombreTirages - 1) / 2}$ lancers dont le score est supérieur ou égal à  $${texNombre(medianeCorr, 1)}$.`,
       couleur: 'nombres',
-    })
+    }) */
   }
   return texteCorr
 }
@@ -893,195 +893,167 @@ export function creerSerieDeQuartiles({
 }
 
 /**
- * Génère une série de `n` valeurs, dont la moyenne est ≈ `mean` et l'étendue est ≈ `range`.
- * Les valeurs sont comprises entre `mean - range/2` et `mean + range/2` (approximatif).
+ * Génère une série de `n` valeurs, dont la moyenne est exactement `mean` et l'étendue est exactement `range`.
+ * Les valeurs sont comprises entre min et max où max - min = range.
  *
- * @param mean - moyenne cible (par défaut 50)
- * @param range - étendue cible (max - min) (par défaut 30)
+ * @param mean - moyenne cible (requis)
+ * @param range - étendue cible (max - min) (requis)
  * @param n - nombre de valeurs (par défaut 20)
  * @param isInteger - si les valeurs doivent être entières (par défaut false)
- * @returns série de nombres de longueur `n`, avec moyenne ≈ `mean` et étendue ≈ `range`
+ * @param precision - précision décimale pour les flottants (par défaut 2)
+ * @param gaussian - si les valeurs doivent suivre une distribution gaussienne (par défaut false)
+ * @returns série de nombres de longueur `n`, avec moyenne exacte = `mean` et étendue exacte = `range`
  */
 export function creerSerieDeMoyenneEtEtendue({
-  mean = 50,
-  range = 30,
+  mean,
+  range,
   n = 20,
   isInteger = false,
   precision = 2,
+  gaussian = false,
 }: {
   mean: number
   range: number
   n?: number
   isInteger?: boolean
   precision?: number
+  gaussian?: boolean
 }): number[] {
   if (n <= 0) throw new Error('n doit être supérieur à 0')
-  if (range < 0) throw new Error('range doit être positif')
-  if (mean < 0) throw new Error('mean doit être positif')
+  if (range < 0) throw new Error('range doit être positif ou nul')
+  if (!isFinite(mean)) throw new Error('mean doit être un nombre fini')
 
-  // calcul min/max cibles
-  const deltaNeg = randint(Math.round(range * 0.3), Math.round(range * 0.7))
-  const deltaPos = range - deltaNeg
+  // Calculer min et max pour avoir exactement l'étendue voulue
+  const min = isInteger ? Math.floor(mean - range / 2) : mean - range / 2
+  const max = min + range
 
-  let min = mean - deltaNeg
-  let max = mean + deltaPos
-
-  if (isInteger) {
-    min = Math.round(min)
-    max = Math.round(max)
-    if (min > max) {
-      const tmp = min
-      min = max
-      max = tmp
-    }
-  }
-
-  // Générer des quartiles cohérents (Q1, Q2, Q3)
-  let [q1, mediane, q3] = [
-    isInteger ? randint(Math.floor(min), Math.floor(max)) : randFloat(min, max),
-    isInteger ? randint(Math.floor(min), Math.floor(max)) : randFloat(min, max),
-    isInteger ? randint(Math.floor(min), Math.floor(max)) : randFloat(min, max),
-  ].sort((a, b) => a - b)
-
-  // Répéter jusqu'à quartiles distincts
-  let safety = 0
-  while ((q1 === mediane || mediane === q3 || q1 === q3) && safety < 1000) {
-    ;[q1, mediane, q3] = [
-      isInteger
-        ? randint(Math.floor(min), Math.floor(max))
-        : randFloat(min, max, precision),
-      isInteger
-        ? randint(Math.floor(min), Math.floor(max))
-        : randFloat(min, max, precision),
-      isInteger
-        ? randint(Math.floor(min), Math.floor(max))
-        : randFloat(min, max, precision),
-    ].sort((a, b) => a - b)
-    safety++
-  }
-  if (safety >= 1000)
-    throw new Error('Impossible de générer des quartiles distincts')
-
-  // Construire exactement n valeurs (réparties par "tranches")
   const serie: number[] = []
-  while (serie.length < n) {
-    if (serie.length < n) {
-      serie.push(
-        isInteger
-          ? randint(Math.floor(min), Math.floor(q1))
-          : randFloat(min, q1, precision),
-      )
-    }
-    if (serie.length < n) {
-      serie.push(
-        isInteger
-          ? randint(Math.floor(q1), Math.floor(mediane))
-          : randFloat(q1, mediane, precision),
-      )
-    }
-    if (serie.length < n) {
-      serie.push(
-        isInteger
-          ? randint(Math.floor(mediane), Math.floor(q3))
-          : randFloat(mediane, q3, precision),
-      )
-    }
-    if (serie.length < n) {
-      serie.push(
-        isInteger
-          ? randint(Math.floor(q3), Math.floor(max))
-          : randFloat(q3, max, precision),
-      )
-    }
+
+  if (n === 1) {
+    // Cas spécial : une seule valeur = la moyenne
+    serie.push(isInteger ? Math.round(mean) : mean)
+    return serie
   }
 
-  // Tronquer si besoin (sécurité) et forcer extrêmes
-  const finalSerie = serie.slice(0, n)
-  finalSerie.sort((a, b) => a - b)
-  finalSerie[0] = isInteger ? Math.round(min) : min
-  finalSerie[n - 1] = isInteger ? Math.round(max) : max
-
-  // Ajuster la somme pour obtenir exactement la moyenne souhaitée
-  const requiredSum = mean * n
-  const currentSum = finalSerie.reduce((s, v) => s + v, 0)
-  let diff = requiredSum - currentSum
-
-  // diff doit être entier ; répartir ±1 sur les indices 1..n-2
-  diff = Math.round(diff)
-  const maxIterations = Math.abs(diff) * n + 1000
-  let iter = 0
-  // indices utilisables
-  const indices = []
-  for (let i = 1; i < n - 1; i++) indices.push(i)
-  while (diff !== 0 && iter < maxIterations) {
-    for (const idx of indices) {
-      if (diff === 0) break
-      if (diff > 0 && finalSerie[idx] < max) {
-        finalSerie[idx] = Math.min(max, finalSerie[idx] + 1)
-        diff--
-      } else if (diff < 0 && finalSerie[idx] > min) {
-        finalSerie[idx] = Math.max(min, finalSerie[idx] - 1)
-        diff++
-      }
-    }
-    iter++
-    // si on ne peut plus bouger (tous indices au max/min), sortir pour éviter boucle infinie
-    const canIncrease = indices.some((i) => finalSerie[i] < max)
-    const canDecrease = indices.some((i) => finalSerie[i] > min)
-    if ((diff > 0 && !canIncrease) || (diff < 0 && !canDecrease)) break
+  // Générateur de nombre aléatoire gaussien (Box-Muller)
+  const gaussianRandom = (): number => {
+    let u1 = 0
+    let u2 = 0
+    while (u1 === 0) u1 = Math.random() // Éviter log(0)
+    while (u2 === 0) u2 = Math.random()
+    const z0 = Math.sqrt(-2 * Math.log(u1)) * Math.cos(2 * Math.PI * u2)
+    return z0
   }
-  if (diff !== 0) {
-    // Si on n'a pas réussi à tout ajuster, avertir mais retourner la meilleure série
-    console.warn(
-      `Ajustement entier incomplet (restant=${diff}). Moyenne finale = ${finalSerie.reduce((a, b) => a + b, 0) / n}`,
-    )
-  }
-  let iterations = 0
 
-  if (!isInteger) {
-    const requiredSum = mean * n
-    const currentSum = finalSerie.reduce((s, v) => s + v, 0)
-    diff = requiredSum - currentSum
-    // flottants : pas à pas +/- step
-    const tolerance = 0.001
-    let remaining = diff
-    const step = 0.005
-    const maxIterations = 10000
-    let i = 1
-    let direction = 1
-    while (Math.abs(remaining) > tolerance && iterations < maxIterations) {
-      if (i === 0 || i === n - 1) {
-        direction = -direction
-        i += direction
-      }
-      if (remaining > 0) {
-        if (finalSerie[i] < max) {
-          finalSerie[i] += step
-          remaining -= step
-        }
+  if (gaussian) {
+    // Distribution gaussienne
+    // L'écart-type est estimé pour que ~99.7% des valeurs soient dans [min, max]
+    const stdDev = range / 6 // 3 sigma = range
+
+    // Générer n valeurs gaussiennes
+    for (let i = 0; i < n; i++) {
+      let value = mean + gaussianRandom() * stdDev
+
+      // Clamp les valeurs hors limites
+      value = Math.max(min, Math.min(max, value))
+
+      if (isInteger) {
+        value = Math.round(value)
       } else {
-        if (finalSerie[i] > min) {
-          finalSerie[i] -= step
-          remaining += step
+        value =
+          Math.round(value * Math.pow(10, precision)) / Math.pow(10, precision)
+      }
+      serie.push(value)
+    }
+
+    // Réajuster la moyenne si nécessaire
+    const actualSum = serie.reduce((a, b) => a + b, 0)
+    const requiredSum = mean * n
+    let diff = requiredSum - actualSum
+
+    if (Math.abs(diff) > 0.001) {
+      for (let i = 0; i < n && Math.abs(diff) > 0.001; i++) {
+        const oldVal = serie[i]
+        let newVal = oldVal + diff / (n - i)
+
+        // Clamp
+        newVal = Math.max(min, Math.min(max, newVal))
+
+        if (isInteger) {
+          newVal = Math.round(newVal)
+        } else {
+          newVal =
+            Math.round(newVal * Math.pow(10, precision)) /
+            Math.pow(10, precision)
+        }
+
+        diff -= newVal - oldVal
+        serie[i] = newVal
+      }
+    }
+  } else {
+    // Initialiser avec min et max (pour assurer l'étendue exacte)
+    serie.push(isInteger ? Math.round(min) : min)
+    serie.push(isInteger ? Math.round(max) : max)
+
+    // Calcul de la somme requise
+    const requiredSum = mean * n
+    const currentSum = serie[0] + serie[1]
+    let remaining = requiredSum - currentSum
+
+    // Remplir le reste des valeurs
+    for (let i = 2; i < n; i++) {
+      let value: number
+      if (i < n - 1) {
+        // Pour les valeurs intermédiaires, générer aléatoirement dans [min, max]
+        value = isInteger
+          ? randint(Math.ceil(min), Math.floor(max))
+          : randFloat(min, max, precision)
+      } else {
+        // Dernière valeur : calculer exactement pour atteindre la moyenne
+        value = remaining
+        if (isInteger) {
+          value = Math.round(value)
+        } else {
+          value =
+            Math.round(value * Math.pow(10, precision)) /
+            Math.pow(10, precision)
         }
       }
-      i += direction
-      if (i < 0 || i >= n) {
-        i = 1
-        direction = 1
-      }
-      iterations++
+
+      // Vérifier que la valeur respecte les bornes
+      if (value < min) value = min
+      if (value > max) value = max
+
+      serie.push(value)
+      remaining -= value
     }
-    if (iterations >= maxIterations) {
-      console.warn(
-        `Ajustement flottant incomplet après ${maxIterations} itérations. Moyenne finale = ${finalSerie.reduce((a, b) => a + b, 0) / n}`,
-      )
+
+    // Réajustement si nécessaire pour les erreurs d'arrondi
+    if (Math.abs(remaining) > 0.001) {
+      // Ajouter le reste à une valeur intermédiaire (pas min ni max)
+      let adjusted = false
+      for (let i = 1; i < n - 1; i++) {
+        const newVal = serie[i] + remaining
+        if (newVal >= min && newVal <= max) {
+          serie[i] = isInteger
+            ? Math.round(newVal)
+            : Math.round(newVal * Math.pow(10, precision)) /
+              Math.pow(10, precision)
+          adjusted = true
+          break
+        }
+      }
+      if (!adjusted) {
+        console.warn(
+          `Impossible d'atteindre exactement la moyenne ${mean} avec l'étendue ${range}. Écart : ${remaining}`,
+        )
+      }
     }
   }
 
-  // Tri, puis mélange pour retourner une série non triée
-  finalSerie.sort((a, b) => a - b)
-  return shuffle(finalSerie)
+  // Mélanger la série avant de la retourner
+  return shuffle(serie)
 }
 
 export function creerSerieDeValeurs(

@@ -1,5 +1,4 @@
 import { tableauColonneLigne } from '../../lib/2d/tableau'
-import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 import { functionCompare } from '../../lib/interactif/comparisonFunctions'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { toutPourUnPoint } from '../../lib/interactif/mathLive'
@@ -13,19 +12,18 @@ import {
 import { lettreDepuisChiffre } from '../../lib/outils/outilString'
 import { context } from '../../modules/context'
 import {
-  egal,
   listeQuestionsToContenuSansNumero,
   randint,
 } from '../../modules/outils'
 import Exercice from '../Exercice'
 export const titre = 'Table de double distributivité'
 export const dateDePublication = '23/02/2023'
-export const dateDeModifImportante = '04/01/2025'
+export const dateDeModifImportante = '29/12/2025'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 /**
  * Développer des expressions de double distributivité à l'aide d'un tableau de  multiplication
- * @author Sébastien LOZANO
+ * @author Sébastien LOZANO ; Olivier Mimeau (passage TS - factorisation)
  */
 
 export const uuid = 'c8403'
@@ -70,11 +68,10 @@ export default class TableDoubleDistributivite extends Exercice {
       typesDeQuestionsDisponibles,
       this.nbQuestions,
     )
-
+    const hauteurLigne = 1.7
     for (
       let i = 0, cpt = 0, a, b, c, d, typesDeQuestions;
       i < this.nbQuestions && cpt < 50;
-
     ) {
       typesDeQuestions = listeTypeDeQuestions[i]
       let texte = ''
@@ -104,38 +101,27 @@ export default class TableDoubleDistributivite extends Exercice {
       this.autoCorrection[3 * i + 2] = {}
       switch (typesDeQuestions) {
         case 1: // (x+b)(x+d)
+          a = 1
           b = randint(2, 10)
+          c = 1
           d = randint(2, 12)
-          texte = `$${lettreDepuisChiffre(i + 1)} = (x+${b})(x+${d})$`
-          texteCorr = `$${lettreDepuisChiffre(i + 1)} = (x+${b})(x+${d})$`
-          developpements = faitDeveloppement(1, d, b, b * d)
-          tableau = faitTableau(1, b, 1, d)
-          break
-        case 2: // (ax+b)(cx+d)
-          texte = `$${lettreDepuisChiffre(i + 1)} = (${a}x+${b})(${c}x+${d})$`
-          texteCorr = `$${lettreDepuisChiffre(i + 1)} = (${a}x+${b})(${c}x+${d})$`
-          developpements = faitDeveloppement(a * c, b * c, a * d, b * d)
-          tableau = faitTableau(a, b, c, d)
           break
         case 3: // (ax-b)(cx+d)
-          texte = `$${lettreDepuisChiffre(i + 1)} = (${a}x-${b})(${c}x+${d})$`
-          texteCorr = `$${lettreDepuisChiffre(i + 1)} = (${a}x-${b})(${c}x+${d})$`
-          if (egal(a * d - b * c, 0)) {
-            developpements = faitDeveloppement(a * c, a * d, -b * c, -b * d)
-          } else {
-            developpements = faitDeveloppement(a * c, a * d, -b * c, -b * d)
-          }
-          tableau = faitTableau(a, -b, c, d)
+          b = -b
           break
         case 4: // (ax-b)(cx-d)
-          texte = `$${lettreDepuisChiffre(i + 1)} = (${a}x-${b})(${c}x-${d})$`
-          texteCorr = `$${lettreDepuisChiffre(i + 1)} = (${a}x-${b})(${c}x-${d})$`
-          developpements = faitDeveloppement(a * c, -a * d, -b * c, b * d)
-          tableau = faitTableau(a, -b, c, -d)
+          b = -b
+          d = -d
+          break
+        default:
           break
       }
+      // reduireAxPlusB(c, 0)
+      texte = `$${lettreDepuisChiffre(i + 1)} = (${reduireAxPlusB(a, b)})(${reduireAxPlusB(c, d)})$` // (${a}x+${b})(${c}x-${d})$`
+      texteCorr = texte + '<br>'
+      developpements = faitDeveloppement(a * c, a * d, b * c, b * d)
+      tableau = faitTableau(a, b, c, d)
       texte += context.isHtml ? '<br>' : '\\par\\medskip'
-
       if (this.interactif) {
         const tableauVide = AddTabDbleEntryMathlive.convertTclToTableauMathlive(
           tableau.entetesCol,
@@ -148,8 +134,8 @@ export default class TableDoubleDistributivite extends Exercice {
           this.numeroExercice ?? 0,
           3 * i,
           tableauVide,
-          ` ${KeyboardType.clavierDeBaseAvecVariable}`,
-          this.interactif,
+          `tableauMathlive`, // ` ${KeyboardType.clavierDeBaseAvecVariable}`,
+          true,
           { L0C0: 'red' },
         )
         texte += tabMathlive.output
@@ -158,7 +144,7 @@ export default class TableDoubleDistributivite extends Exercice {
           tableau.entetesCol,
           tableau.entetesLgn,
           tableau.contenu,
-          1,
+          hauteurLigne,
           true,
           this.numeroExercice,
           i,
@@ -174,7 +160,7 @@ export default class TableDoubleDistributivite extends Exercice {
         ? '<br> Développement réduit : '
         : '\\par\\medskip Développement réduit: '
       texte += ajouteChampTexteMathLive(this, 3 * i + 2, '')
-      texteCorr += context.isHtml ? '<br>' : '\\par\\medskip'
+      // aucune gestion de la largeur de colonne ici
       texteCorr += tableauColonneLigne(
         tableau.entetesCol,
         tableau.entetesLgn,
@@ -184,17 +170,17 @@ export default class TableDoubleDistributivite extends Exercice {
           tableau.L2C1txt,
           `${tableau.L2C2nbr}`,
         ],
-        1,
+        1.2,
         true,
         this.numeroExercice,
         i,
         false,
         { L0C0: 'red' },
       )
-      texteCorr += context.isHtml ? '<br>' : '\\par\\medskip '
-      texteCorr += `Développement : $${lettreDepuisChiffre(i + 1)} = ${developpements.eclate}$`
-      texteCorr += context.isHtml ? '<br>' : '\\par\\medskip '
-      texteCorr += `Développement réduit : $${lettreDepuisChiffre(i + 1)} = ${developpements.reduit}$`
+
+      texteCorr += `<br>Développement : $${lettreDepuisChiffre(i + 1)} = ${developpements.eclate}$`
+
+      texteCorr += `<br>Développement réduit : $${lettreDepuisChiffre(i + 1)} = ${developpements.reduit}$`
 
       handleAnswers(this, 3 * i, {
         bareme: toutPourUnPoint,
@@ -258,17 +244,21 @@ function faitDeveloppement(
 function faitTableau(a: number, b: number, c: number, d: number): TableauData {
   // ici (ax+b)(cx+d)
   const tableau: TableauData = {
-    entetesCol: ['\\times', reduireAxPlusB(a, 0), `${b}`],
-    entetesLgn: [reduireAxPlusB(c, 0), `${d}`],
+    entetesCol: [
+      '\\phantom{A.}\\times\\phantom{B.}',
+      reduireAxPlusB(c, 0),
+      `${d}`,
+    ],
+    entetesLgn: [reduireAxPlusB(a, 0), `${b}`],
     contenu: [
-      `\\phantom{${a}x}`,
-      `\\phantom{${b}}`,
+      `\\phantom{ABxCD}`,
+      `\\phantom{ABxCD}`,
       `\\phantom{${c}x}`,
       `\\phantom{${d}}`,
     ],
     L1C1txt: reduirePolynomeDegre3(0, a * c, 0, 0), // `${a * c}x^2`,
-    L1C2txt: reduireAxPlusB(b * c, 0), // `${b * c}x`,
-    L2C1txt: reduireAxPlusB(a * d, 0), // `${a * c}x`,
+    L1C2txt: reduireAxPlusB(a * d, 0), // `${b * c}x`,
+    L2C1txt: reduireAxPlusB(b * c, 0), // `${a * c}x`,
     L2C2nbr: b * d,
   }
   return tableau

@@ -1,13 +1,14 @@
+import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
+import { handleAnswers } from '../../lib/interactif/gestionInteractif'
+import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
-import Exercice from '../Exercice'
+import { miseEnEvidence } from '../../lib/outils/embellissements'
 import {
   contraindreValeur,
   listeQuestionsToContenu,
   randint,
 } from '../../modules/outils'
-import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
-import { handleAnswers } from '../../lib/interactif/gestionInteractif'
-import { miseEnEvidence } from '../../lib/outils/embellissements'
+import Exercice from '../Exercice'
 
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -109,7 +110,6 @@ export default class SimplifierEcritureLitterale extends Exercice {
         texteCorr,
         cpt = 0;
       i < this.nbQuestions && cpt < 50;
-
     ) {
       const a = randint(2, 9)
       const b = randint(2, 9, [a])
@@ -393,7 +393,12 @@ export default class SimplifierEcritureLitterale extends Exercice {
       reponse = reponse.replace(/\s/g, '') // En retirant les espaces
       reponse = reponse.replace(/\\timesx/g, '\\times x') // Et en les remettant entre les times et les x
       if (this.interactif) {
-        texte += ajouteChampTexteMathLive(this, i, ' ', { texteAvant: ' $=$ ' })
+        texte += ajouteChampTexteMathLive(
+          this,
+          i,
+          KeyboardType.lyceeClassique,
+          { texteAvant: ' $=$ ' },
+        )
       }
       if (!this.sup2) {
         handleAnswers(this, i, { reponse: { value: reponse } })

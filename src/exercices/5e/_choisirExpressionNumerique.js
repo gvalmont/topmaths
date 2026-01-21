@@ -169,7 +169,7 @@ export default function ChoisirExpressionNumerique(
             b = randint(2, 9)
             a = randint(2, 9)
           }
-          expf = `La somme de ${nombreAvecEspace(a)} et du produit de ${nombreAvecEspace(b)} et ${nombreAvecEspace(c)}`
+          expf = `La somme de ${nombreAvecEspace(a)} et du produit de ${nombreAvecEspace(b)} par ${nombreAvecEspace(c)}`
           expn = `$${texNombre(a)}+${texNombre(b)} \\times ${texNombre(c)}$`
           expc = `$${texNombre(a)}+${texNombre(b)} \\times ${texNombre(c)}=${texNombre(a)}+${texNombre(b * c)} = ${texNombre(a + b * c)}$`
           repNum = arrondi(a + b * c)
@@ -181,7 +181,7 @@ export default function ChoisirExpressionNumerique(
             b = randint(2, 9)
             a = randint(2, 9) + b * c
           }
-          expf = `La différence entre ${nombreAvecEspace(a)} et le produit de ${nombreAvecEspace(b)} et ${nombreAvecEspace(c)}`
+          expf = `La différence entre ${nombreAvecEspace(a)} et le produit de ${nombreAvecEspace(b)} par ${nombreAvecEspace(c)}`
           expn = `$${texNombre(a)}-${texNombre(b)} \\times ${texNombre(c)}$`
           expc = `$${texNombre(a)}-${texNombre(b)} \\times ${texNombre(c)}=${texNombre(a)}-${texNombre(b * c)} = ${texNombre(a - b * c)}$`
           repNum = arrondi(a - b * c)
@@ -394,7 +394,7 @@ export default function ChoisirExpressionNumerique(
               b = arrondi(b + d)
             }
           }
-          expf = `La différence entre le produit de ${nombreAvecEspace(a)} et ${nombreAvecEspace(b)} et le produit de ${nombreAvecEspace(c)} par ${nombreAvecEspace(d)}`
+          expf = `La différence entre le produit de ${nombreAvecEspace(a)} par ${nombreAvecEspace(b)} et le produit de ${nombreAvecEspace(c)} par ${nombreAvecEspace(d)}`
           expn = `$${texNombre(a)} \\times ${texNombre(b)}-${texNombre(c)} \\times ${texNombre(d)}$`
           expc = `$${texNombre(a)} \\times ${texNombre(b)}-${texNombre(c)} \\times ${texNombre(d)} = ${texNombre(a * b)}-${texNombre(c * d)} = ${texNombre(a * b - c * d)}$`
           repNum = arrondi(a * b - c * d)

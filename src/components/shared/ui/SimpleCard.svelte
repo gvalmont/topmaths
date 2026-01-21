@@ -4,7 +4,8 @@
 </script>
 
 <div
-  class="{$$props.class || 'mr-4'} block rounded-lg bg-coopmaths-canvas-dark shadow-[0_2px_15px_-3px_rgba(0,0,0,0.07),0_10px_20px_-2px_rgba(0,0,0,0.04)] dark:bg-coopmathsdark-canvas-dark"
+  class="{$$props.class ||
+    'mr-4'} block rounded-lg bg-coopmaths-canvas-dark shadow-[0_2px_15px_-3px_rgba(0,0,0,0.07),0_10px_20px_-2px_rgba(0,0,0,0.04)] dark:bg-coopmathsdark-canvas-dark"
 >
   {#if icon.length !== 0}
     <div class="flex justify-center items-center p-4">

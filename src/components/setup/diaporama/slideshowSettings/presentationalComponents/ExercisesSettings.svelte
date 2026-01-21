@@ -105,7 +105,7 @@
             text-center text-sm font-semibold
             text-coopmaths-struct dark:text-coopmathsdark-struct"
         >
-          <div class="{isManualModeActive ? 'opacity-20' : ''}">
+          <div class={isManualModeActive ? 'opacity-20' : ''}>
             Durée par question
           </div>
           <div
@@ -140,7 +140,7 @@
       </tr>
     </thead>
     <tbody class="overflow-y-auto" id="exercisesList">
-      {#each exercises as exercise, i}
+      {#each exercises as exercise, i (exercise.id + '-' + i)}
         <tr>
           <td
             class="whitespace-normal px-3 py-4 text-sm text-coopmaths-corpus dark:text-coopmathsdark-corpus"
@@ -161,22 +161,23 @@
           <td class="whitespace-normal px-3 py-4 text-sm">
             <NumberInput
               id="diaporama-exo-duration-{i}"
-              value="{exercise.duration || 10}"
-              isDisabled="{!!durationGlobal || isManualModeActive}"
-              on:change="{(e) => {
+              max={1000}
+              value={exercise.duration || 10}
+              isDisabled={!!durationGlobal || isManualModeActive}
+              on:change={(e) => {
                 const duration = e.detail
                 updateDuration(i, duration)
-              }}"
+              }}
             />
           </td>
           <td class="whitespace-normal px-3 py-4 text-sm">
             <NumberInput
               id="diaporama-exo-nb-questions-{i}"
-              value="{exercise.nbQuestions}"
-              on:change="{(e) => {
+              value={exercise.nbQuestions}
+              on:change={(e) => {
                 const nbQuestions = e.detail
                 updateQuestionsNb(i, nbQuestions)
-              }}"
+              }}
             />
           </td>
           <td>
@@ -184,7 +185,8 @@
               class="mx-2 tooltip tooltip-left tooltip-neutral"
               data-tip="Supprimer l'exercice"
               type="button"
-              on:click="{() => remove(i)}"
+              aria-label="Supprimer l'exercice"
+              on:click={() => remove(i)}
             >
               <i
                 class="text-coopmaths-action hover:text-coopmaths-action-lightest dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest bx bx-trash"

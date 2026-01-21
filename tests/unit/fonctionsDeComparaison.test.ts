@@ -171,6 +171,14 @@ describe('fonctionComparaison', () => {
     expect(result4.feedback).toBe(
       'Résultat incorrect car une fraction est attendue.',
     )
+    const result5 = fonctionComparaison('\\dfrac{-3}{4}', '-\\dfrac{3}{4}', {
+      fractionEgale: true,
+    })
+    expect(result5.isOk).toBe(true)
+    const result6 = fonctionComparaison('\\dfrac{-3}{4}', '-\\dfrac{30}{40}', {
+      fractionEgale: true,
+    })
+    expect(result6.isOk).toBe(true)
   })
 
   it("Vérifie le fonctionnement de l'option nombreDecimalSeulement", () => {

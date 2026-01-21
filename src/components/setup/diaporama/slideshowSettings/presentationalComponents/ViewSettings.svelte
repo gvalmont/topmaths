@@ -24,18 +24,18 @@
 </div>
 <div class="flex flex-col px-4 pb-8">
   <FormRadio
-    bind:valueSelected="{nbOfViews}"
-    on:newvalue="{() => updateNbOfViews(nbOfViews)}"
+    bind:valueSelected={nbOfViews}
+    on:newvalue={() => updateNbOfViews(nbOfViews)}
     title="multivue"
-    labelsValues="{labelsForMultivue}"
+    labelsValues={labelsForMultivue}
   />
   <CheckboxWithLabel
     id="slideshow-view-images-on-sides-checkbox"
-    isChecked="{isImagesOnSides}"
+    isChecked={isImagesOnSides}
     label="Afficher les images sur les côtés"
-    on:change="{(e) => {
+    on:change={(e) => {
       const isChecked = e.detail
       updateIsImagesOnSides(isChecked)
-    }}"
+    }}
   />
 </div>

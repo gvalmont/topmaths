@@ -6,7 +6,7 @@
   id="svg5"
   xmlns="http://www.w3.org/2000/svg"
   xmlns:svg="http://www.w3.org/2000/svg"
-  class="{$$props.class}"
+  class={$$props.class}
   fill="currentColor"
 >
   <defs id="defs2"></defs>

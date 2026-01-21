@@ -3,6 +3,7 @@
  */
 
 import Decimal from 'decimal.js'
+import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 import { fonctionComparaison } from '../../lib/interactif/comparisonFunctions'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { propositionsQcm } from '../../lib/interactif/qcm'
@@ -142,7 +143,6 @@ export default class CalculDeVolumes extends Exercice {
         volume,
         cpt = 0;
       i < this.nbQuestions && cpt < 100;
-
     ) {
       this.autoCorrection[i] = {}
       texte = 'Calculer le volume'
@@ -187,8 +187,12 @@ export default class CalculDeVolumes extends Exercice {
               ? `, arrondi au $${listeUnites[j][1]}$ près,`
               : ''
             texte += ` d'un pavé droit de $${texNombre(l, 1)}${listeUnites[j][0]}$ de profondeur, de $${texNombre(L, 1)}${listeUnites[j][0]}$ de longueur et de $${texNombre(h)}${listeUnites[j][0]}$ de hauteur.`
-            texteCorr = `$\\mathcal{V}= l \\times L \\times h = ${texNombre(l, 1)}${context.isAmc ? listeUnites[j][2] : listeUnites[j][0]}\\times${texNombre(L, 1)}${context.isAmc ? listeUnites[j][2] : listeUnites[j][0]}\\times${texNombre(h)}${context.isAmc ? listeUnites[j][2] : listeUnites[j][0]}=`
-            texteCorr += `${miseEnEvidence(`${texNombre(volume)}${listeUnites[j][1]}`)}$`
+            texteCorr = `$\\mathcal{V}= l \\times L \\times h = ${texNombre(l, 1)}${context.isAmc ? listeUnites[j][2] : listeUnites[j][0]}\\times${texNombre(L, 1)}${context.isAmc ? listeUnites[j][2] : listeUnites[j][0]}\\times${texNombre(h)}${context.isAmc ? listeUnites[j][2] : listeUnites[j][0]}`
+            if (volume.eq(volume.round())) {
+              texteCorr += `=${miseEnEvidence(`${texNombre(volume)}${listeUnites[j][1]}`)}$`
+            } else {
+              texteCorr += `\\approx${miseEnEvidence(`${texNombre(volume.round())}${listeUnites[j][1]}`)}$`
+            }
             resultat = volume
             resultat2 = l.plus(L).plus(h).mul(6)
             if (resultat2.eq(resultat)) resultat2 = resultat2.div(2)
@@ -587,7 +591,7 @@ export default class CalculDeVolumes extends Exercice {
           },
           { formatInteractif: 'mathlive' },
         )
-        texte += ajouteChampTexteMathLive(this, i, 'unites[volumes]', {
+        texte += ajouteChampTexteMathLive(this, i, KeyboardType.volume, {
           texteAvant:
             '<br>' +
             sp(12) +

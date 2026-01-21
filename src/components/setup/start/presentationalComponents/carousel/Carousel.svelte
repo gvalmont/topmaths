@@ -94,16 +94,16 @@
 {#if carouselContent.slides && carouselContent.slides.length !== 0}
   <div class="h-[90%]">
     <div
-      class="carousel w-full h-full cursor-pause-circle"
-      on:mouseenter="{handleMouseEnter}"
-      on:mouseleave="{handleMouseLeave}"
+      class="carousel w-full h-full cursor-pause-circle flex flex-row flex-nowrap overflow-x-hidden snap-x snap-mandatory"
+      on:mouseenter={handleMouseEnter}
+      on:mouseleave={handleMouseLeave}
       role="region"
       aria-label="Caroussel d'images"
     >
       {#each carouselContent.slides as slide, i}
         <div
           id="carousel-item{i}"
-          class="carousel-item w-full h-full flex justify-center items-center"
+          class="carousel-item w-full h-full flex justify-center items-center shrink-0 snap-start"
           style="transition: opacity {TRANSITION_DURATION}ms ease-in-out;"
         >
           <div
@@ -114,11 +114,11 @@
             <div
               class="relative w-full h-full
             {slide.message && slide.message.length !== 0
-                ? 'bg-opacity-80'
-                : 'bg-opacity-0'}
-            {slide.background && slide.background.length !== 0
+                ? (slide.background && slide.background.length !== 0 ? 'bg-coopmaths-canvas/80 dark:bg-coopmathsdark-canvas/80' : 'bg-coopmaths-struct/80 dark:bg-coopmathsdark-struct/80')
+                : ''}
+            {slide.message && slide.message.length === 0 && slide.background && slide.background.length !== 0
                 ? 'bg-coopmaths-canvas dark:bg-coopmathsdark-canvas'
-                : 'bg-coopmaths-struct dark:bg-coopmathsdark-struct'}"
+                : (slide.message && slide.message.length === 0 ? 'bg-coopmaths-struct dark:bg-coopmathsdark-struct' : '')}"
             >
               <div
                 class="w-full h-full xl:p-20 lg:p-10 md:p-6 sm:p-4 p-3 flex flex-col justify-between items-start"
@@ -140,7 +140,7 @@
                       <div
                         class="w-full lg:w-1/2 h-full flex justify-start items-center
                         overflow-hidden text-ellipsis
-                 px-4 sm:px-6 md:px-8 lg:px-10 text-opacity-100 font-light
+                 px-4 sm:px-6 md:px-8 lg:px-10 font-light
                  text-lg sm:text-xl md:text-2xl lg:text-xl xl:text-2xl 2xl:text-4xl
                  {slide.background && slide.background.length !== 0
                           ? 'text-coopmaths-corpus dark:text-coopmathsdark-corpus'
@@ -174,7 +174,7 @@
                     <div
                       class="w-full h-[80%] flex justify-start items-center
                       overflow-hidden text-ellipsis
-               px-4 sm:px-6 md:px-8 lg:px-10 text-opacity-100 font-light
+               px-4 sm:px-6 md:px-8 lg:px-10 font-light
                text-lg sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl
                {slide.background && slide.background.length !== 0
                         ? 'text-coopmaths-corpus dark:text-coopmathsdark-corpus'
@@ -188,11 +188,11 @@
               {#if slide.link && slide.link.length !== 0}
                 <div class="absolute bottom-6 right-6">
                   <ButtonTextAction
-                    text="{slide.buttonTitle && slide.buttonTitle.length !== 0
+                    text={slide.buttonTitle && slide.buttonTitle.length !== 0
                       ? slide.buttonTitle
-                      : 'En savoir plus'}"
+                      : 'En savoir plus'}
                     class="inline-flex items-center py-1 px-3 rounded-md font-normal"
-                    on:click="{() => {
+                    on:click={() => {
                       const w = window.open(
                         slide.link || 'https://coopmaths.fr/alea/',
                         '_blank',
@@ -200,7 +200,7 @@
                       if (w) {
                         w.focus()
                       }
-                    }}"
+                    }}
                   />
                 </div>
               {/if}
@@ -212,11 +212,11 @@
     <div class="flex w-full justify-center gap-2 py-2">
       {#each carouselContent.slides as slide, i}
         <button
-          class="btn btn-xs border-0
+          class="btn btn-xs border-0 px-2 py-1 rounded-lg text-xs
             {i === currentSlideIndex
             ? 'bg-coopmaths-light text-coopmaths-canvas dark:bg-coopmathsdark-action dark:text-coopmathsdark-canvas-dark'
             : 'bg-coopmaths-canvas-darkest text-coopmaths dark:bg-coopmathsdark-canvas-dark dark:text-coopmathsdark-action'} font-light transition-all duration-200"
-          on:click="{() => handleIndicatorClick(i)}"
+          on:click={() => handleIndicatorClick(i)}
           aria-label="Aller au slide {i + 1}"
         >
           {i + 1}

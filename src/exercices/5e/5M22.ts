@@ -1,5 +1,6 @@
 import Decimal from 'decimal.js'
 import { texTexte } from '../../lib/format/texTexte'
+import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 import { setReponse } from '../../lib/interactif/gestionInteractif'
 import { propositionsQcm } from '../../lib/interactif/qcm'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
@@ -57,21 +58,22 @@ export default class ExerciceConversionsVolumes extends Exercice {
       '1 : Conversions en mètres-cubes avec des multiplications\n2 : Conversions en mètres-cubes avec des divisions\n3 : Conversions en mètres-cubes avec des multiplications ou divisions\n4 : Conversions avec des multiplications ou divisions\n5 : Mélange',
     ]
     this.besoinFormulaire2CaseACocher = ['Avec des nombres décimaux']
+    this.besoinFormulaire3Numerique = [
+      'Exercice interactif',
+      2,
+      '1 : QCM\n2 : Numérique',
+    ]
     this.besoinFormulaire4CaseACocher = ['Avec tableau', false]
 
     this.sup = 1 // Niveau de difficulté de l`exercice
     this.sup2 = false // Avec des nombres décimaux ou pas
     this.sup3 = 1 // interactifType Qcm
+    this.sup4 = false
     this.spacing = 2
   }
 
   nouvelleVersion() {
-    if (context.isHtml && !(context.vue === 'diap'))
-      this.besoinFormulaire3Numerique = [
-        'Exercice interactif',
-        2,
-        '1 : QCM\n2 : Numérique',
-      ] // Texte, tooltip
+    // if (context.vue === 'diap') this.sup3 = 1 // EE : Pourquoi forcer ce choix ? Je l'enlève.
     this.consigne =
       this.interactif && this.sup3 === 1
         ? 'Cocher la bonne réponse.'
@@ -104,7 +106,6 @@ export default class ExerciceConversionsVolumes extends Exercice {
         texteCorr,
         cpt = 0;
       i < this.nbQuestions && cpt < 50;
-
     ) {
       this.autoCorrection[i] = {}
       // On limite le nombre d`essais pour chercher des valeurs nouvelles
@@ -364,7 +365,7 @@ export default class ExerciceConversionsVolumes extends Exercice {
       } else if (this.interactif && this.interactifType === 'mathLive') {
         texte = texte.replace(
           '\\dotfill',
-          `$${ajouteChampTexteMathLive(this, i, 'longueur ')}$`,
+          `$${ajouteChampTexteMathLive(this, i, KeyboardType.clavierNumbers)}$`,
         )
         setReponse(this, i, resultat)
       }

@@ -15,6 +15,7 @@ import {
 } from '../../modules/outils'
 import Exercice from '../Exercice'
 
+import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 import engine from '../../lib/interactif/comparisonFunctions'
 import {
   developpe,
@@ -242,8 +243,22 @@ export default class DevelopperReduireExprComplexe extends Exercice {
               .sommeFraction(g.multiplieEntier(f))
               .simplifie().texFSD
       const coeffConst = String(ope === '-' ? b * d - f * h : b * d + f * h)
+      const coeffX2Rationnel = coeffX2.startsWith('-')
+        ? coeffX2 === '-1'
+          ? '-'
+          : coeffX2
+        : coeffX2 === '1'
+          ? ''
+          : coeffX2
+      const coeffXRationnel = coeffX.startsWith('-')
+        ? coeffX === '-1'
+          ? '-'
+          : coeffX
+        : coeffX === '1'
+          ? '+'
+          : '+' + coeffX
       const reponse = rationnels
-        ? `${coeffX2}${choixLettre}^2${coeffX.startsWith('-') ? coeffX : '+' + coeffX}${choixLettre}${coeffConst.startsWith('-') ? coeffConst : '+' + coeffConst}`
+        ? `${coeffX2Rationnel}${choixLettre}^2${coeffXRationnel}${choixLettre}${coeffConst.startsWith('-') ? coeffConst : '+' + coeffConst}`
         : `${reduirePolynomeDegre3(0, coeffX2, coeffX, Number(coeffConst), choixLettre)}`
       let texte = `$${lettreDepuisChiffre(i + 1)}=${expression}$`
       let texteCorr = `$\\begin{aligned}${lettreDepuisChiffre(i + 1)} &=${expression}\\\\`
@@ -265,7 +280,11 @@ export default class DevelopperReduireExprComplexe extends Exercice {
         handleAnswers(this, i, { reponse: { value: reponse } })
         texte += this.interactif
           ? `<br>$${lettreDepuisChiffre(i + 1)} = $` +
-            ajouteChampTexteMathLive(this, i, ' ')
+            ajouteChampTexteMathLive(
+              this,
+              i,
+              KeyboardType.clavierDeBaseAvecVariable,
+            )
           : ''
       } else {
         this.autoCorrection[i] = {

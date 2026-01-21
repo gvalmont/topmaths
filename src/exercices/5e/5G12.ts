@@ -9,6 +9,7 @@ import { tracePoint } from '../../lib/2d/TracePoint'
 import { rotation, translation } from '../../lib/2d/transformations'
 import { vecteur } from '../../lib/2d/Vecteur'
 import { texcolors } from '../../lib/format/style'
+import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 import { setReponse } from '../../lib/interactif/gestionInteractif'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { choice, shuffle } from '../../lib/outils/arrayOutils'
@@ -328,7 +329,8 @@ export default class PavageEtDemiTour2D extends Exercice {
     for (let i = 0; i < this.nbQuestions; i++) {
       texte += `Donner le numéro de l'image de la figure $${couples[i][0]}$ dans la symétrie de centre $A$.`
       setReponse(this, i, couples[i][1])
-      texte += ajouteChampTexteMathLive(this, i, '') + '<br>'
+      texte +=
+        ajouteChampTexteMathLive(this, i, KeyboardType.clavierNumbers) + '<br>'
       texteCorr += `L'image de la figure $${couples[i][0]}$ dans la symétrie de centre $A$ est la figure $${miseEnEvidence(couples[i][1])}$.<br>`
       if (this.correctionDetaillee) {
         t = this.nbQuestions * 3

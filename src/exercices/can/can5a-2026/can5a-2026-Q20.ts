@@ -1,0 +1,53 @@
+import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
+import { choice } from '../../../lib/outils/arrayOutils'
+import { miseEnEvidence } from '../../../lib/outils/embellissements'
+import { texNombre } from '../../../lib/outils/texNombre'
+import FractionEtendue from '../../../modules/FractionEtendue'
+import { randint } from '../../../modules/outils'
+import ExerciceCan from '../../ExerciceCan'
+
+export const titre = 'Écrire une fraction décimale en écriture décimale'
+export const interactifReady = true
+export const interactifType = 'mathLive'
+export const uuid = 'ehdej'
+export const refs = {
+  'fr-fr': [],
+  'fr-ch': [],
+}
+
+/**
+ * @author Gilles Mora
+
+*/
+export default class Can52026Q20 extends ExerciceCan {
+   enonce(numerateur?: number, denominateur?: number) {
+    if (numerateur == null || denominateur == null) {
+      // Choix du dénominateur : 10, 100 ou 1000
+      denominateur = choice([10, 100])
+      
+      
+        numerateur = choice([randint(1, 9) * 100 +  randint(1, 9), randint(1, 9) * 1000   + randint(1, 9)
+         ])
+      
+    }
+
+    const frac = new FractionEtendue(numerateur, denominateur)
+    const resultat = numerateur / denominateur
+
+    this.question = `Écriture décimale de $${frac.texFraction}$`
+
+    this.correction = `$${frac.texFraction}=${texNombre(numerateur)}\\div ${texNombre(denominateur)}=${miseEnEvidence(texNombre(resultat))}$`
+ this.formatChampTexte = KeyboardType.clavierDeBase
+    this.reponse = resultat
+    this.canEnonce = this.question
+    this.canReponseACompleter = ''
+    
+    if (this.interactif) {
+      this.optionsChampTexte = { texteAvant: '<br>' }
+    }
+  }
+
+  nouvelleVersion() {
+    this.canOfficielle ? this.enonce(207, 10) : this.enonce()
+  }
+}

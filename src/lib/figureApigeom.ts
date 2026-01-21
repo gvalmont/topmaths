@@ -1,9 +1,14 @@
-import type Figure from 'apigeom'
+import Figure from 'apigeom'
 import { get } from 'svelte/store'
 import { canOptions } from '../../src/lib/stores/canStore'
 import type { IExercice } from '../lib/types'
 import { context } from '../modules/context'
+import { exercicesParams } from './stores/generalStore'
 import { globalOptions } from './stores/globalOptions'
+
+export function isFigureArray(figs: IExercice['figures']): figs is Figure[] {
+  return Array.isArray(figs) && figs.length > 0 && figs[0] instanceof Figure
+}
 
 /**
  * - Insère une figure apigeom dans la sortie HTML de l'exercice
@@ -22,6 +27,7 @@ export default function figureApigeom({
   defaultAction,
   idAddendum = '',
   isDynamic,
+  hasFeedback = true,
 }: {
   exercice: IExercice
   figure: Figure
@@ -35,6 +41,8 @@ export default function figureApigeom({
   defaultAction?: string
   /** figure chargé en interactif et pourtant on souhaite qu'elle soit statique => isDynamic = false */
   isDynamic?: boolean
+  /** la figure sera-t-elle évaluée ? */
+  hasFeedback?: boolean
 }): string {
   if (!context.isHtml) return ''
   // Styles par défaut
@@ -53,7 +61,7 @@ export default function figureApigeom({
   // Pour revoir la copie de l'élève dans Capytale
   // Attention, la clé de answers[] doit contenir apigeom, c'est pourquoi l'id est généré par cette fonction
   function idApigeomFunct(event: Event): void {
-    if (!figure.container || !figure.container.id) {
+    if (!figure.options) {
       // figure effacée, donc on annule la mise à jour...
       destroy()
       return
@@ -71,7 +79,7 @@ export default function figureApigeom({
 
   let oldZoom = 1
   function updateZoom(event: Event): void {
-    if (!figure.container || !figure.container.id) {
+    if (!figure.options) {
       // figure effacée, donc on annule la mise à jour...
       destroy()
       return
@@ -94,7 +102,7 @@ export default function figureApigeom({
   document.addEventListener('zoomChanged', updateZoom)
 
   function updateAffichage(): void {
-    if (!figure.container || !figure.container.id) {
+    if (!figure.options) {
       // figure effacée, donc on annule la mise à jour...
       destroy()
       return
@@ -117,7 +125,22 @@ export default function figureApigeom({
     }
 
     container.innerHTML = ''
-    figure.setContainer(container)
+    try {
+      figure.setContainer(container)
+    } catch (e) {
+      window.notify(
+        `figureApigeom: erreur lors du setContainer de la figure ${idApigeom}`,
+        {
+          figure,
+          container,
+          exo: exercice,
+          globalOptions: get(globalOptions),
+          exercicesParams: get(exercicesParams),
+        },
+      )
+      throw e
+    }
+
     if (animation) {
       figure.divUserMessage.innerHTML = ''
       figure.restart()
@@ -162,10 +185,13 @@ export default function figureApigeom({
   figure.destroy = () => {
     destroy()
     // Appeler Apigeom original pour purger ce qu’il doit purger
-    if (figure.svg && originalDestroy) {
+    if (figure.options && originalDestroy) {
       originalDestroy()
     }
   }
 
-  return `<div class="m-6 leading-none" id="${idApigeom}"></div><span id="resultatCheckEx${exercice.numeroExercice}Q${i}"></span><div class="ml-2 py-2 text-coopmaths-warn-darkest dark:text-coopmathsdark-warn-darkest" id="feedbackEx${exercice.numeroExercice}Q${i}"></div>`
+  if (hasFeedback) {
+    return `<div class="m-6 leading-none" id="${idApigeom}"></div><span id="resultatCheckEx${exercice.numeroExercice}Q${i}"></span><div class="ml-2 py-2 text-coopmaths-warn-darkest dark:text-coopmathsdark-warn-darkest" id="feedbackEx${exercice.numeroExercice}Q${i}"></div>`
+  }
+  return `<div class="m-6 leading-none" id="${idApigeom}"></div>`
 }

@@ -1,4 +1,5 @@
 import { texPrix } from '../../lib/format/style'
+import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 import {
   handleAnswers,
   setReponse,
@@ -75,7 +76,6 @@ export default class ProblemesDeFoisPlusEtDeFoisMoins extends Exercice {
     for (
       let i = 0, texte, texteCorr, cpt = 0;
       i < this.nbQuestions && cpt < 50;
-
     ) {
       if (typesDeQuestions[i] === 1) {
         listeTypeQuestions[i] =
@@ -99,9 +99,14 @@ export default class ProblemesDeFoisPlusEtDeFoisMoins extends Exercice {
         case 'combienDeFoisPlus': {
           texte = `J'ai $${texPrix(resu)}$ €. Combien font ${f} fois plus ?`
           if (this.interactif && !context.isAmc) {
-            texte += ajouteChampTexteMathLive(this, i, ' ', {
-              texteApres: ' €',
-            })
+            texte += ajouteChampTexteMathLive(
+              this,
+              i,
+              KeyboardType.clavierNumbers,
+              {
+                texteApres: ' €',
+              },
+            )
           }
           texteCorr = `$${texPrix(resu)}$ € $\\times ${f}$ = $${texPrix(value)}$ € <br>`
           texteCorr += `Donc le résultat est $${miseEnEvidence(texPrix(value))}$ €.`
@@ -112,9 +117,14 @@ export default class ProblemesDeFoisPlusEtDeFoisMoins extends Exercice {
         case 'combienDeFoisMoins': {
           texte = `J'ai $${texPrix(value)}$ €. Combien font ${f} fois moins ?`
           if (this.interactif && !context.isAmc) {
-            texte += ajouteChampTexteMathLive(this, i, ' ', {
-              texteApres: ' €',
-            })
+            texte += ajouteChampTexteMathLive(
+              this,
+              i,
+              KeyboardType.clavierNumbers,
+              {
+                texteApres: ' €',
+              },
+            )
           }
           texteCorr = `$${texPrix(value)}$ € $\\div ${f}$ = $${texPrix(resu)}$ € <br>`
           texteCorr += `Donc le résultat est $${miseEnEvidence(texPrix(resu))}$ €.`
@@ -125,9 +135,14 @@ export default class ProblemesDeFoisPlusEtDeFoisMoins extends Exercice {
         case 'foisMoinsQue': {
           texte = `${f} fois moins que $${texPrix(value)}$  €, c'est `
           if (this.interactif && !context.isAmc) {
-            texte += ajouteChampTexteMathLive(this, i, ' ', {
-              texteApres: ' €',
-            })
+            texte += ajouteChampTexteMathLive(
+              this,
+              i,
+              KeyboardType.clavierNumbers,
+              {
+                texteApres: ' €',
+              },
+            )
           } else {
             texte += '$\\ldots\\ldots$ €'
           }
@@ -141,9 +156,14 @@ export default class ProblemesDeFoisPlusEtDeFoisMoins extends Exercice {
         case 'foisPlusQue': {
           texte = `${f} fois plus que $${texPrix(resu)}$  €, c'est `
           if (this.interactif && !context.isAmc) {
-            texte += ajouteChampTexteMathLive(this, i, ' ', {
-              texteApres: ' €',
-            })
+            texte += ajouteChampTexteMathLive(
+              this,
+              i,
+              KeyboardType.clavierNumbers,
+              {
+                texteApres: ' €',
+              },
+            )
           } else {
             texte += '$\\ldots\\ldots$ €'
           }

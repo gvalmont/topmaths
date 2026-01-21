@@ -1,4 +1,4 @@
-import DivisionsEuclidiennesEgalite from '../6e/6N2J-1'
+import DivisionsEuclidiennesEgalite2 from '../6e/6N2K-3'
 export const titre =
   "Déterminer reste et quotient d'une division euclidienne à partir d'une égalité"
 export const amcReady = true
@@ -10,7 +10,6 @@ export const dateDePublication = '14/09/2022'
 
 /**
  * Détermination du reste et quotient à partir de l'égalité découlant de la division euclidienne
- * Ref 3A13-2
  *
  * @author Eric Elter
  */
@@ -18,10 +17,10 @@ export const dateDePublication = '14/09/2022'
 export const uuid = 'd8bf2'
 
 export const refs = {
-  'fr-fr': ['3A13-2'],
+  'fr-fr': ['3A13-2Old'],
   'fr-ch': [],
 }
-export default class DivisionsEuclidiennesEgalite3e extends DivisionsEuclidiennesEgalite {
+export default class DivisionsEuclidiennesEgalite3e extends DivisionsEuclidiennesEgalite2 {
   constructor() {
     super()
     this.nbQuestions = 3

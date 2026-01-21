@@ -49,7 +49,7 @@ export default class FeuilleDAxesGradues extends Exercice {
 
     for (let i = 0, texte; i < this.nbQuestions; i++) {
       texte = mathalea2d(
-        { xmin: -0.5, ymin: -1, xmax: 20, ymax: 1 },
+        { xmin: -0.5, ymin: -1, xmax: 20, ymax: 1, scale: 0.75 },
         droiteGraduee({
           Unite: 4,
           Min: 0,

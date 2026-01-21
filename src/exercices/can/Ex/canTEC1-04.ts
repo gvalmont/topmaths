@@ -15,10 +15,8 @@ export const amcType = 'qcmMono'
 export const titre = 'Calculer les puissances de $i$'
 export default class Complexes1 extends ExerciceQcmA {
   versionOriginale: () => void = () => {
-    //
-    this.enonce = '$\\mathrm{i}^{4}$ est égal à '
+    this.enonce = '$\\mathrm{i}^{4}$ est égal à : '
     this.correction = `On sait que $\\mathrm{i}^{2}=-1$ donc $\\mathrm{i}^{4}=\\left(-1\\right)^{2}=${miseEnEvidence('1')}.$`
-
     this.reponses = ['$1 $', '$-1$ ', '$\\mathrm{i} $', '$-\\mathrm{i}$ ']
   }
 
@@ -38,48 +36,44 @@ export default class Complexes1 extends ExerciceQcmA {
           } else {
             this.correction += `donc $\\mathrm{i}^{4}=1$.<br>
         $ \\begin{aligned}\\mathrm{i}^{${k}}&=\\left(\\mathrm{i}^{4}\\right)^{${k / 4}}\\\\
-        &=${miseEnEvidence('1')}.
+        &=${miseEnEvidence('1')}
         \\end{aligned}$`
           }
           this.reponses = ['$1$', '$-1$ ', '$\\mathrm{i}$', '$-\\mathrm{i}$ ']
-        }
-        if (k === 7) {
+        } else if (k === 7) {
           // Cas particulier de l'exposant =7
-          this.correction += `donc $\\mathrm{i}^{4}=1$, <br>
+          this.correction += `donc $\\mathrm{i}^{4}=1$. <br>
          $\\begin{aligned}
          \\mathrm{i}^{7}&=\\mathrm{i}^{4}\\times \\mathrm{i}^{3}\\\\
           &=\\mathrm{i}^{3}\\\\
          &=\\mathrm{i}^{2}\\times \\mathrm{i}\\\\
-          &=${miseEnEvidence('-i.')}
+          &=${miseEnEvidence('-i')}
          \\end{aligned}$`
           this.reponses = ['$-\\mathrm{i} $', '$1 $', '$-1$ ', '$\\mathrm{i}$ ']
-        }
-        if (k === 3) {
+        } else if (k === 3) {
           //
           this.correction += `  <br>
          $\\begin{aligned}
          \\mathrm{i}^{3}&=\\mathrm{i}^{2}\\times \\mathrm{i}\\\\
-         &=${miseEnEvidence('-i.')}
+         &=${miseEnEvidence('-i')}
          \\end{aligned}$`
           this.reponses = ['$-\\mathrm{i} $', '$1 $', '$-1$ ', '$\\mathrm{i}$ ']
-        }
-        if (k % 4 === 2) {
+        } else if (k % 4 === 2) {
           // Cas où l'exposant est multiple de 2 mais pas de 4
-          this.correction += `donc $\\mathrm{i}^{4}=1$, <br>
+          this.correction += `donc $\\mathrm{i}^{4}=1$. <br>
          $\\begin{aligned}
          \\mathrm{i}^{${k}}&=\\mathrm{i}^{${k - 2}}\\times \\mathrm{i}^{2}\\\\
          &=\\left(\\mathrm{i}^{4}\\right)^{${(k - 2) / 4}}\\times \\mathrm{i}^{2}\\\\
-         &=${miseEnEvidence('-1.')}
+         &=${miseEnEvidence('-1')}
          \\end{aligned}$`
           this.reponses = ['$-1$ ', '$-\\mathrm{i}$ ', '$1 $', '$\\mathrm{i}$ ']
-        }
-        if (k % 4 === 1) {
+        } else if (k % 4 === 1) {
           // Cas où l'exposant donne un reste 1 à la division par 4
-          this.correction += `donc $\\mathrm{i}^{4}=1$, <br>
+          this.correction += `donc $\\mathrm{i}^{4}=1$. <br>
          $\\begin{aligned}
           \\mathrm{i}^{${k}}&=\\mathrm{i}^{${k - 1}}\\times \\mathrm{i}\\\\
          &=\\left(\\mathrm{i}^{4}\\right)^{${(k - 1) / 4}}\\times \\mathrm{i}\\\\
-         &=${miseEnEvidence('\\mathrm{i}.')}
+         &=${miseEnEvidence('\\mathrm{i}')}
          \\end{aligned}$`
           this.reponses = ['$\\mathrm{i}$ ', '$1 $', '$-1$ ', '$-\\mathrm{i}$ ']
         }
@@ -91,29 +85,27 @@ export default class Complexes1 extends ExerciceQcmA {
 
         if (k % 4 === 0) {
           if (k === 4) {
-            this.correction += ` donc $\\mathrm{i}^{4}=1$ et finalement $\\left(\\mathrm{-i}\\right)^{4}=${miseEnEvidence('1')}$ .`
+            this.correction += ` donc $\\mathrm{i}^{4}=1$ et finalement $\\left(\\mathrm{-i}\\right)^{4}=${miseEnEvidence('1')}$.`
           } else {
-            this.correction += ` donc $\\mathrm{i}^{4}=1$ .<br>
+            this.correction += ` donc $\\mathrm{i}^{4}=1$.<br>
         $\\begin{aligned}\\left(\\mathrm{-i}\\right)^{${k}}
         &=\\mathrm{-i}^{${k}}\\\\
         &=\\left(\\mathrm{i}^{4}\\right)^{${k / 4}}\\\\
-        &=${miseEnEvidence('1')}.
+        &=${miseEnEvidence('1')}
         \\end{aligned}$`
           }
           this.reponses = ['$1 $', '$-1$ ', '$\\mathrm{i} $', '$-\\mathrm{i}$ ']
-        }
-        if (k === 7) {
-          this.correction += `donc $\\mathrm{i}^{4}=1$, <br>
+        } else if (k === 7) {
+          this.correction += `donc $\\mathrm{i}^{4}=1$.<br>
          $\\begin{aligned}
          \\left(\\mathrm{-i}\\right)^{7}&=\\left(-1\\right)^{7}\\times \\mathrm{i}^{7}\\\\
          &=-\\mathrm{i}^{4}\\times \\mathrm{i}^{3}\\\\
          &=-\\mathrm{i}^{3}\\\\
          &=-\\mathrm{i}^{2}\\times \\mathrm{i}\\\\
-          &=${miseEnEvidence('i.')}
+          &=${miseEnEvidence('i')}
          \\end{aligned}$`
           this.reponses = ['$i $', '$1 $', '$-1$ ', '$-i$ ']
-        }
-        if (k === 3) {
+        } else if (k === 3) {
           this.correction += `   <br> 
          $\\begin{aligned}
          \\left(\\mathrm{-i}\\right)^{3}&= -i^{3}\\\\
@@ -121,8 +113,7 @@ export default class Complexes1 extends ExerciceQcmA {
          &=${miseEnEvidence('i.')}
          \\end{aligned}$`
           this.reponses = ['$\\mathrm{i} $', '$1 $', '$-1$ ', '$-\\mathrm{i}$ ']
-        }
-        if (k % 4 === 2) {
+        } else if (k % 4 === 2) {
           this.correction += `donc $\\mathrm{i}^{4}=1$, <br> 
          $\\begin{aligned}
          \\left(\\mathrm{-i}\\right)^{${k}}&=\\left(-1\\right)^{${k}}\\times \\mathrm{i}^{${k - 2}}\\times \\mathrm{i}^{2}\\\\
@@ -131,8 +122,7 @@ export default class Complexes1 extends ExerciceQcmA {
          &=${miseEnEvidence('-1.')}
          \\end{aligned}$`
           this.reponses = ['$-1$ ', '$-\\mathrm{i}$ ', '$1 $', '$\\mathrm{i} $']
-        }
-        if (k % 4 === 1) {
+        } else if (k % 4 === 1) {
           this.correction += `donc $\\mathrm{i}^{4}=1$, <br>  
          $\\begin{aligned}
          \\left(\\mathrm{-i}\\right)^{${k}}&=(-1)^{${k}}\\times \\mathrm{-i}^{${k - 1}}\\times \\mathrm{-i}\\\\
@@ -140,9 +130,8 @@ export default class Complexes1 extends ExerciceQcmA {
          &=${miseEnEvidence('-\\mathrm{i}.')}
          \\end{aligned}$`
           this.reponses = ['$-\\mathrm{i}$ ', '$1 $', '$-1$ ', '$\\mathrm{i} $']
-
-          break
         }
+        break
     }
   }
 

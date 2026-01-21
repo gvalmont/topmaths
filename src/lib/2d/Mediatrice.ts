@@ -2,6 +2,7 @@ import { codageMediatrice } from './CodageMediatrice'
 import { codageSegments } from './CodageSegment'
 import { colorToLatexOrHTML } from './colorToLatexOrHtml'
 import { Droite } from './droites'
+import type { IDroite } from './Interfaces'
 import { ObjetMathalea2D } from './ObjetMathalea2D'
 import type { PointAbstrait } from './PointAbstrait'
 import { segment } from './segmentsVecteurs'
@@ -40,12 +41,22 @@ import { milieu, pointSurSegment } from './utilitairesPoint'
  */
 // JSDOC Validee par EE Juin 2022
 
-export class Mediatrice extends ObjetMathalea2D {
+export class Mediatrice extends ObjetMathalea2D implements IDroite {
   couleurMediatrice?: string
   epaisseurMediatrice?: number
   opaciteMediatrice?: number
   pointillesMediatrice?: number
   couleurConstruction?: string
+  x1: number
+  y1: number
+  x2: number
+  y2: number
+  a: number
+  b: number
+  c: number
+  pente: number
+  angleAvecHorizontale: number
+  nom: string
 
   constructor(
     A: PointAbstrait,
@@ -69,6 +80,16 @@ export class Mediatrice extends ObjetMathalea2D {
     const M = pointSurSegment(O, m, longueur(A, B) * 0.785)
     const N = pointSurSegment(O, n, longueur(A, B) * 0.785)
     const d = new Droite(M, N, nom, couleurMediatrice)
+    this.x1 = d.x1
+    this.y1 = d.y1
+    this.x2 = d.x2
+    this.y2 = d.y2
+    this.a = d.a
+    this.b = d.b
+    this.c = d.c
+    this.pente = d.pente
+    this.nom = d.nom
+    this.angleAvecHorizontale = d.angleAvecHorizontale
     if (arguments.length < 5) {
       // Si on n'a que 2 arguments, on retourne juste une Droite
       this.color = colorToLatexOrHTML(couleurMediatrice)

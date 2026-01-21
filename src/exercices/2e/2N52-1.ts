@@ -1,22 +1,23 @@
+import { handleAnswers } from '../../lib/interactif/gestionInteractif'
+import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
-import {
-  miseEnEvidence,
-  texteEnCouleur,
-} from '../../lib/outils/embellissements'
 import {
   ecritureAlgebrique,
   ecritureParentheseSiNegatif,
   reduireAxPlusB,
 } from '../../lib/outils/ecritures'
-import Exercice from '../Exercice'
-import { listeQuestionsToContenu, randint } from '../../modules/outils'
+import {
+  miseEnEvidence,
+  texteEnCouleur,
+} from '../../lib/outils/embellissements'
 import {
   fraction,
   obtenirListeFractionsIrreductiblesFaciles,
 } from '../../modules/fractions'
-import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
-import { handleAnswers } from '../../lib/interactif/gestionInteractif'
+import { listeQuestionsToContenu, randint } from '../../modules/outils'
+import Exercice from '../Exercice'
 
+import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 import { sp } from '../../lib/outils/outilString'
 export const titre = 'Résoudre les équations produit-nul'
 export const interactifReady = true
@@ -71,7 +72,6 @@ export default class EquationsProduitsNuls2 extends Exercice {
     for (
       let i = 0, texte, texteCorr, cpt = 0, typesDeQuestions;
       i < this.nbQuestions && cpt < 50;
-
     ) {
       typesDeQuestions = listeTypeDeQuestions[i]
       const a = randint(-9, 9, 0)
@@ -168,7 +168,9 @@ export default class EquationsProduitsNuls2 extends Exercice {
       }
       texte +=
         sp(4) +
-        ajouteChampTexteMathLive(this, i, ' lycee   ', { texteAvant: ' $S=$' })
+        ajouteChampTexteMathLive(this, i, KeyboardType.clavierEnsemble, {
+          texteAvant: ' $S=$',
+        })
       handleAnswers(this, i, {
         reponse: { value: reponse, options: { ensembleDeNombres: true } },
       })

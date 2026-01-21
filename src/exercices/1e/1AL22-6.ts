@@ -7,6 +7,7 @@ import {
   ecritureAlgebrique,
   ecritureParentheseSiNegatif,
 } from '../../lib/outils/ecritures'
+import type FractionEtendue from '../../modules/FractionEtendue'
 import {
   gestionnaireFormulaireTexte,
   listeQuestionsToContenu,
@@ -62,17 +63,21 @@ export default class variationPol2 extends Exercice {
       const b = a * randint(-10, 10, 0)
       const c = randint(-10, 10, 0)
       const p = new Trinome(a, b, c)
-      const fonction = (x: number) => a * x ** 2 + b * x + c // forme développée
-      const derivee = (x: number) => 2 * a * x + b // Sa dérivée
+      const fonction = (x: number | FractionEtendue) =>
+        a * Number(x) ** 2 + b * Number(x) + c // forme développée
+      const derivee = (x: number | FractionEtendue) => 2 * a * Number(x) + b // Sa dérivée
       const a1 = randint(-3, 3, [-1, 0, 1])
       const rac1 = randint(-5, 5, 0)
       const rac2 = rac1 + 2 * randint(1, 4)
       const q = new Trinome(a1, -rac1 - rac2, rac1 * rac2)
       q.defFormeFactorisee(a1, rac1, rac2) //
-      const fonctionFactorisee = (x: number) =>
-        a1 * x ** 2 - a1 * rac1 * x - a1 * rac2 * x + a1 * rac1 * rac2 // Forme factorisée
-      const deriveeFactorisee = (x: number) =>
-        2 * a1 * x - a1 * rac1 - a1 * rac2 // Sa dérivée
+      const fonctionFactorisee = (x: number | FractionEtendue) =>
+        a1 * Number(x) ** 2 -
+        a1 * rac1 * Number(x) -
+        a1 * rac2 * Number(x) +
+        a1 * rac1 * rac2 // Forme factorisée
+      const deriveeFactorisee = (x: number | FractionEtendue) =>
+        2 * a1 * Number(x) - a1 * rac1 - a1 * rac2 // Sa dérivée
       const borneInf = randint(-5, 5, Math.floor(-b / (2 * a)))
       const borneSup = randint(borneInf + 1, 10, Math.floor(-b / (2 * a)))
       const intervalle =

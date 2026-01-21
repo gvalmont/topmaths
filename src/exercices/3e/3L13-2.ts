@@ -14,6 +14,7 @@ import FractionEtendue from '../../modules/FractionEtendue'
 
 import { fixeBordures } from '../../lib/2d/fixeBordures'
 import { tableau } from '../../lib/2d/tableau'
+import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 import {
   handleAnswers,
   setReponse,
@@ -39,7 +40,7 @@ export const dateDeModifImportante = '15/06/2024'
 export const uuid = '6516e'
 
 export const refs = {
-  'fr-fr': ['3L13-2', 'BP2RES13'],
+  'fr-fr': ['3L13-2', '3G20-3', 'BP2RES13'],
   'fr-ch': ['11GM3-7', '11FA5-5'],
 }
 export default class EqResolvantesThales extends Exercice {
@@ -82,7 +83,6 @@ export default class EqResolvantesThales extends Exercice {
     for (
       let i = 0, texte, texteCorr, reponse, cpt = 0;
       i < this.nbQuestions && cpt < 50;
-
     ) {
       // on a besoin d'un coeff pour le type de nombres
       let coeff: [number, number, number]
@@ -266,7 +266,7 @@ $${inc}=${miseEnEvidence(texNombre((b * a) / c, 4))}$`,
         .replace('{', '')
         .replace('}', '')
 
-      texte += ajouteChampTexteMathLive(this, i, ' ', {
+      texte += ajouteChampTexteMathLive(this, i, KeyboardType.clavierDeBase, {
         texteAvant: `<br> $${inc} =$ `,
       })
       reponse = new FractionEtendue(

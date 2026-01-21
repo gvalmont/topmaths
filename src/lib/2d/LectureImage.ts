@@ -32,6 +32,7 @@ export class LectureImage extends ObjetMathalea2D {
     this.textAbs = textAbs
     this.textOrd = textOrd
     this.stringColor = color
+    this.bordures = [0, 0, 0, 0]
   }
 
   svg(coeff: number) {

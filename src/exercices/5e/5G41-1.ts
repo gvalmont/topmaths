@@ -1,4 +1,4 @@
-import TracerQuadrilatèresParticuliers from '../CM/CM2G3D-2'
+import TracerQuadrilatèresParticuliers from '../CM2/CM2G3D-2'
 
 export const interactifReady = false
 export const titre =

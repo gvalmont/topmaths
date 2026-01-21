@@ -4,6 +4,7 @@ import { repere } from '../../lib/2d/reperes'
 import { segment } from '../../lib/2d/segmentsVecteurs'
 import { latexParCoordonnees, texteParPosition } from '../../lib/2d/textes'
 import { tracePoint } from '../../lib/2d/TracePoint'
+import { vide2d } from '../../lib/2d/Vide2d'
 import { combinaisonListes } from '../../lib/outils/arrayOutils'
 import { texFractionReduite } from '../../lib/outils/deprecatedFractions'
 import { mathalea2d } from '../../modules/mathalea2d'
@@ -294,7 +295,7 @@ export default class EtudierGraphiqueParite extends Exercice {
           {
             // Cas f(x)=ax^2
             const a = randint(-2, 2, [0])
-            let b = randint(1, 5)
+            let b = randint(2, 5)
             if (a > 0) {
               b = -b
             }
@@ -344,7 +345,7 @@ export default class EtudierGraphiqueParite extends Exercice {
             const labA0 = latexParCoordonnees(
               '-x',
               -2 * x - 0.2,
-              -0.8,
+              -1.6,
               'red',
               20,
               10,
@@ -354,7 +355,7 @@ export default class EtudierGraphiqueParite extends Exercice {
             const labB0 = latexParCoordonnees(
               'x',
               2 * x,
-              -0.8,
+              -1.6,
               'red',
               20,
               10,
@@ -392,18 +393,27 @@ export default class EtudierGraphiqueParite extends Exercice {
               14,
             )
             const traceAetB = tracePoint(A, B, 'red') // objet qui contient les croix des points
-            const s1 = segment(2 * x, a * x * x + b, 2 * x, 0, 'red')
-            const s2 = segment(-2 * x, a * x * x + b, -2 * x, 0, 'red')
-            const s3 = segment(-2 * x, a * x * x + b, 0, a * x * x + b, 'red')
-            const s4 = segment(2 * x, a * x * x + b, 0, a * x * x + b, 'red')
+            const s1 =
+              a * x * x + b === 0
+                ? vide2d()
+                : segment(2 * x, a * x * x + b, 2 * x, 0, 'red')
+            const s2 =
+              a * x * x + b === 0
+                ? vide2d()
+                : segment(-2 * x, a * x * x + b, -2 * x, 0, 'red')
+            const s3 = segment(
+              -2 * x,
+              a * x * x + b,
+              2 * x,
+              a * x * x + b,
+              'red',
+            )
             s1.pointilles = 5
             s2.pointilles = 5
             s3.pointilles = 5
-            s4.pointilles = 5
             s1.epaisseur = 2
             s2.epaisseur = 2
             s3.epaisseur = 2
-            s4.epaisseur = 2
             traceAetB.taille = 4
             traceAetB.epaisseur = 2
 
@@ -437,11 +447,10 @@ export default class EtudierGraphiqueParite extends Exercice {
                 traceAetB,
                 labB0,
                 labA1,
+                labA0,
                 s1,
                 s2,
                 s3,
-                s4,
-                labA0,
               )
             variables.push(a, x)
           }

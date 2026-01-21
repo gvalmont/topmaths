@@ -10,6 +10,7 @@ import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import Exercice from '../Exercice'
 
+import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { abs, signe } from '../../lib/outils/nombres'
 
@@ -165,7 +166,12 @@ ${texte}&=\\underbrace{\\sqrt{${a}}\\times \\sqrt{${a}}}_{=${a}}${ecritureAlgebr
           break
       }
       texte = `$${texte}$`
-      texte += ajouteChampTexteMathLive(this, i, ' ', { texteAvant: '$=$' })
+      texte += ajouteChampTexteMathLive(
+        this,
+        i,
+        KeyboardType.clavierFullOperations,
+        { texteAvant: '$=$' },
+      )
       handleAnswers(this, i, { reponse: { value: reponse } })
 
       if (this.questionJamaisPosee(i, a1, a2, a, b1, b2)) {

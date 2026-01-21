@@ -18,7 +18,7 @@ import {
 import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { arrondi } from '../../lib/outils/nombres'
 import { creerNomDePolygone, sp } from '../../lib/outils/outilString'
-import { texNombre } from '../../lib/outils/texNombre'
+import { stringNombre, texNombre } from '../../lib/outils/texNombre'
 import { context } from '../../modules/context'
 import Grandeur from '../../modules/Grandeur'
 import { mathalea2d } from '../../modules/mathalea2d'
@@ -160,7 +160,11 @@ export default class AireDeTriangles extends Exercice {
         polynom[0],
         polynom[1],
         hauteurpoly,
-        afficheCoteSegment(segment(B, A), longueur(B, A).toString() + ' cm', 1),
+        afficheCoteSegment(
+          segment(B, A),
+          stringNombre(longueur(B, A), 0) + ' cm',
+          1,
+        ),
         afficheLongueurSegment(C, H, 'black', 0.3),
         codageAngleDroit(A, H, C),
       )

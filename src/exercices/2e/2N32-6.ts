@@ -1,13 +1,14 @@
+import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
 import {
   ecritureAlgebrique,
   ecritureParentheseSiNegatif,
 } from '../../lib/outils/ecritures'
-import Exercice from '../Exercice'
-import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
-import { handleAnswers } from '../../lib/interactif/gestionInteractif'
+import { listeQuestionsToContenu, randint } from '../../modules/outils'
+import Exercice from '../Exercice'
 
+import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 
 export const titre =
@@ -123,7 +124,12 @@ export default class IdentitesRemarquablesEtRacineCarree extends Exercice {
       }
       texteCorr += `$\\phantom{${texte}}=${miseEnEvidence(reponse)}$`
       texte = `$${texte}$`
-      texte += ajouteChampTexteMathLive(this, i, ' ', { texteAvant: '$=$' })
+      texte += ajouteChampTexteMathLive(
+        this,
+        i,
+        KeyboardType.clavierFullOperations,
+        { texteAvant: '$=$' },
+      )
       handleAnswers(this, i, { reponse: { value: reponse } })
 
       if (this.questionJamaisPosee(i, a, b, c, d)) {

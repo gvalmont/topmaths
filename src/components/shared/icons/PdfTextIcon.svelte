@@ -4,7 +4,7 @@
   viewBox="0 0 7.67183 8.4666661"
   version="1.1"
   id="svg-pdf-text-icon"
-  class="{$$props.class}"
+  class={$$props.class}
   xmlns="http://www.w3.org/2000/svg"
   xmlns:svg="http://www.w3.org/2000/svg"
 >

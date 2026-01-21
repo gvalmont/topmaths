@@ -13,6 +13,7 @@ import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import Exercice from '../Exercice'
 
 import { fixeBordures } from '../../lib/2d/fixeBordures'
+import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 import { setReponse } from '../../lib/interactif/gestionInteractif'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
@@ -99,7 +100,6 @@ export default class FractionDuneQuantite extends Exercice {
         nbreponse,
         cpt = 0;
       i < this.nbQuestions && cpt < 50;
-
     ) {
       switch (listeTypeDeQuestions[i]) {
         case 1:
@@ -107,7 +107,7 @@ export default class FractionDuneQuantite extends Exercice {
           den = choixdenh[i]
           num = randint(2, den - 1)
           frac = fraction(num, den)
-          texte = `À combien de minutes correspondent $${frac.texFraction}$ d'heure ? ${ajouteChampTexteMathLive(this, index, ' college6eme', { texteApres: ' minutes' })}<br>`
+          texte = `À combien de minutes correspondent $${frac.texFraction}$ d'heure ? ${ajouteChampTexteMathLive(this, index, KeyboardType.clavierNumbers, { texteApres: ' minutes' })}<br>`
           if (this.sup2) {
             texte += 'Cette fraction est représentée ci-dessous :<br>'
             const figure = representationFraction(
@@ -131,7 +131,7 @@ export default class FractionDuneQuantite extends Exercice {
           den = choixdenh[i]
           num = randint(2, 3 * den, den)
           frac = fraction(num, den)
-          texte = `À combien de minutes correspondent $${frac.texFraction}$ d'heure ? ${ajouteChampTexteMathLive(this, index, ' college6eme', { texteApres: ' minutes' })}<br>`
+          texte = `À combien de minutes correspondent $${frac.texFraction}$ d'heure ? ${ajouteChampTexteMathLive(this, index, KeyboardType.clavierNumbers, { texteApres: ' minutes' })}<br>`
           if (this.sup2) {
             texte += 'Cette fraction est représentée ci-dessous :<br>'
             const figure = representationFraction(
@@ -164,13 +164,13 @@ export default class FractionDuneQuantite extends Exercice {
           texte = `Une tablette de chocolat a une masse totale de $${masse}$ grammes. Quelqu'un en a déjà consommé les $${frac.texFractionSimplifiee}$.<br>`
           choix = nbQuestions3[indiceNbQuestions3]
           if (choix === 1) {
-            texte += `Quelle masse de chocolat a été consommée ? ${ajouteChampTexteMathLive(this, index, ' college6eme', { texteApres: ' g' })}<br>`
+            texte += `Quelle masse de chocolat a été consommée ? ${ajouteChampTexteMathLive(this, index, KeyboardType.clavierNumbers, { texteApres: ' g' })}<br>`
             texteCorr = `Comme la tablette a une masse de $${masse}$ grammes, $${texFractionFromString(1, denIrred)}$ de la tablette représente une masse de $${texNombre(masse / denIrred, 2)}$ grammes.<br>`
             texteCorr += `Ici, il y a $${frac.texFractionSimplifiee}$ de la tablette qui a été consommé, ce qui représente $${numIrred}$ fois plus, soit $${numIrred}\\times${texNombre(masse / denIrred, 2)}=${texNombre((numIrred * masse) / denIrred, 2)}$.<br>`
             texteCorr += `La masse de chocolat consommée est $${miseEnEvidence(texNombre((numIrred * masse) / denIrred, 2))}$ grammes.`
             setReponse(this, index, arrondi((numIrred * masse) / denIrred, 2))
           } else {
-            texte += `Quelle masse de chocolat reste-t-il ? ${ajouteChampTexteMathLive(this, index, ' college6eme', { texteApres: ' g' })}<br>`
+            texte += `Quelle masse de chocolat reste-t-il ? ${ajouteChampTexteMathLive(this, index, KeyboardType.clavierNumbers, { texteApres: ' g' })}<br>`
             texteCorr = `Comme la tablette a une masse de $${masse}$ grammes, $${texFractionFromString(1, denIrred)}$ de la tablette représente une masse de $${texNombre(masse / denIrred, 2)}$ grammes.<br>`
             texteCorr += `Ici, il y a $${frac.texFractionSimplifiee}$ de la tablette qui a été consommé, ce qui représente $${numIrred}$ fois plus, soit $${numIrred}\\times${texNombre(masse / denIrred, 2)}=${texNombre((numIrred * masse) / denIrred, 2)}$.<br>`
             texteCorr += `La masse de chocolat consommée est $${texNombre((numIrred * masse) / denIrred, 2)}$ grammes.<br>`
@@ -218,15 +218,20 @@ export default class FractionDuneQuantite extends Exercice {
           texte += ` de longueur est coupé à $${frac.texFractionSimplifiee}$ de sa longueur.<br>`
           texte += 'Calculer la longueur de chacun des morceaux en mètres.<br>'
           texte +=
-            ajouteChampTexteMathLive(this, index, '  college6eme', {
+            ajouteChampTexteMathLive(this, index, KeyboardType.clavierNumbers, {
               texteAvant: 'Morceau le plus long : ',
               texteApres: '$\\text{ m}$',
             }) + '<br>'
           texte +=
-            ajouteChampTexteMathLive(this, index + 1, '  college6eme', {
-              texteAvant: 'Morceau le plus court : ',
-              texteApres: '$\\text{ m}$',
-            }) + '<br>'
+            ajouteChampTexteMathLive(
+              this,
+              index + 1,
+              KeyboardType.clavierNumbers,
+              {
+                texteAvant: 'Morceau le plus court : ',
+                texteApres: '$\\text{ m}$',
+              },
+            ) + '<br>'
 
           setReponse(
             this,

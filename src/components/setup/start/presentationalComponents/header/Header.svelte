@@ -27,6 +27,7 @@
   export let isSidenavOpened: boolean
   export let toggleSidenav: (test: boolean) => void
   export let exportQcmCam: () => Promise<void>
+  export let isMd: boolean
 
   let reorderModalDisplayed: boolean
 </script>
@@ -68,17 +69,21 @@
         />
       </div>
     {/if}
-    <!-- Barre de boutons si non-smartphone  -->
     <div
       class="flex {isExerciseDisplayed ? 'xl:h-[50px] md:h-[100px]' : 'h-0'}"
     >
       <div
-        class="{!isExerciseDisplayed
+        class={!isExerciseDisplayed
           ? 'hidden'
-          : 'relative w-full flex flex-col justify-center items-center bg-coopmaths-canvas dark:bg-coopmathsdark-canvas'}"
+          : 'relative w-full flex flex-col justify-center items-center bg-coopmaths-canvas dark:bg-coopmathsdark-canvas'}
         id="barre-boutons"
       >
-        <SideMenuWrapper {isRecorder} {isSidenavOpened} {toggleSidenav} />
+        <SideMenuWrapper
+          {isRecorder}
+          {isSidenavOpened}
+          {toggleSidenav}
+          {isMd}
+        />
         <HeaderButtons
           bind:reorderModalDisplayed
           {zoomUpdate}

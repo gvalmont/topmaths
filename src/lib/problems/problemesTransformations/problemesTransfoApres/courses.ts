@@ -27,7 +27,7 @@ export function courses3(decimal = true): Probleme {
   const data = { nb1: prix1, nb2: augmentation }
   const enonce = `${personnage.prenom} a repéré hier ${objet.nom} à $${texNombre(prix1, 2, true)}$ € dans une boutique. Mais aujourd'hui, le prix a augmenté de $${texNombre(augmentation, 2, true)}$ €.
 Combien ${personnage.prenom} doit-${personnage.pronom} dépenser aujourd'hui ?`
-  const correction = `Aujourd'hui, le prix d'${objet.nom} est de $${texNombre(prix1, 2, true)}\\text{\\,€}+${texNombre(augmentation, 2, true)}\\text{\\,€} = ${miseEnEvidence(texNombre(prix1 + augmentation, 2, true))}$ €.`
+  const correction = `Aujourd'hui, le prix d'${objet.nom} est de : $${texNombre(prix1, 2, true)}\\text{\\,€}+${texNombre(augmentation, 2, true)}\\text{\\,€} = ${miseEnEvidence(texNombre(prix1 + augmentation, 2, true))}$ €.`
   const probleme = new ProblemeTransfoApres('courses3', data)
   probleme.enonce = enonce
   probleme.correction = correction
@@ -40,7 +40,7 @@ Combien ${personnage.prenom} doit-${personnage.pronom} dépenser aujourd'hui ?`
   probleme.schema.topBraces[0].text = `$${miseEnEvidence(texNombre(prix1 + augmentation, 2, true))}\\text{ €}$`
   probleme.schema.lignes[0].barres[0].content = `$${texNombre(prix1, 2, true)}\\text{ €}$`
   probleme.schema.lignes[0].barres[1].content = `$${texNombre(augmentation, 2, true)}\\text{ €}$`
-  probleme.styleChampTexteMathlive = KeyboardType.college6eme
+  probleme.styleChampTexteMathlive = KeyboardType.clavierDeBase
   probleme.optionsChampTexteMathlive = { texteApres: ' €' }
   probleme.reponse = `${texNombre(prix1 + augmentation, 2)}`
   return probleme

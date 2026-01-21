@@ -2,7 +2,7 @@ import earcut from 'earcut'
 import { context } from '../../modules/context'
 import { arrondi } from '../outils/nombres'
 import { colorToLatexOrHTML } from './colorToLatexOrHtml'
-import type { IPointAbstrait } from './Interfaces'
+import type { IPointAbstrait, IPolygone } from './Interfaces'
 import { ObjetMathalea2D } from './ObjetMathalea2D'
 import { pattern } from './pattern'
 import {
@@ -38,7 +38,7 @@ function aireTriangle(p: {
  * @return {Point}
  */
 // JSDOC Validee par EE Juin 2022
-export function barycentre(p: Polygone, nom = '', positionLabel = 'above') {
+export function barycentre(p: IPolygone, nom = '', positionLabel = 'above') {
   let sommex = 0
   let sommey = 0
   let nbsommets = 0
@@ -150,7 +150,6 @@ export class Polygone extends ObjetMathalea2D {
     let xmax = -1000
     let ymin = 1000
     let ymax = -1000
-    this.bordures = [xmin, ymin, xmax, ymax]
     for (const unPoint of this.listePoints) {
       if (unPoint.typeObjet !== 'point')
         window.notify('Polygone : argument invalide', { ...points })

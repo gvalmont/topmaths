@@ -34,9 +34,9 @@ export default class ecrireDecimale2026 extends ExerciceSimple {
       this.question = `Écrire sous forme décimale $\\dfrac{${texNombre(2000)}}{10}+\\dfrac{${a % 100}}{100}$. `
       this.correction = `$\\dfrac{${texNombre(2000)}}{10}+\\dfrac{${a % 100}}{100}=${texNombre(200, 1)}+${texNombre((a % 100) / 100, 2)}=${miseEnEvidence(this.reponse)}$<br>`
     } else {
-      this.reponse = texNombre(new Decimal((a % 10) / 100).add(2020 / 100), 3)
-      this.question = `Écrire sous forme décimale $\\dfrac{${a % 10}}{10}+\\dfrac{${texNombre(2020)}}{100}$. `
-      this.correction = `$\\dfrac{${a % 10}}{10}+\\dfrac{${texNombre(2020)}}{100}=${texNombre((a % 10) / 10, 1)}+${texNombre(2020 / 100, 2)}=${miseEnEvidence(this.reponse)}$<br>`
+      this.reponse = texNombre(new Decimal((a % 10) / 100).add(2020 / 10), 3)
+      this.question = `Écrire sous forme décimale $\\dfrac{${a % 10}}{100}+\\dfrac{${texNombre(2020)}}{10}$. `
+      this.correction = `$\\dfrac{${a % 10}}{100}+\\dfrac{${texNombre(2020)}}{10}=${texNombre((a % 10) / 100, 2)}+${texNombre(2020 / 10, 2)}=${miseEnEvidence(this.reponse)}$<br>`
     }
     if (this.interactif) {
       this.question += '<br>'

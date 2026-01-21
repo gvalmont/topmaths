@@ -1,15 +1,17 @@
 import type { BoxedExpression } from '@cortex-js/compute-engine'
+import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 import engine, {
   functionCompare,
 } from '../../lib/interactif/comparisonFunctions'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
-import { Polynome } from '../../lib/mathFonctions/Polynome'
+import { Polynome, type CoeffType } from '../../lib/mathFonctions/Polynome'
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
 import {
   ecritureAlgebrique,
   ecritureAlgebriqueSauf1,
 } from '../../lib/outils/ecritures'
+import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { obtenirListeFractionsIrreductibles } from '../../modules/fractions'
 import {
   gestionnaireFormulaireTexte,
@@ -18,7 +20,7 @@ import {
 } from '../../modules/outils'
 import Exercice from '../Exercice'
 
-export const titre = "Dérivée d'un polynôme"
+export const titre = 'Dériver un polynôme'
 export const dateDePublication = '06/05/2024'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -69,24 +71,30 @@ export default class DeriveePoly extends Exercice {
   nouvelleVersion() {
     const listeValeurs: string[] = [] // Les questions sont différentes du fait du nom de la fonction, donc on stocke les valeurs
 
+    const listeOfCase = ['const', 'poly1', 'poly2', 'poly3', 'monbis']
+
+    type TypeQuestion = (typeof listeOfCase)[number]
+
     // Types d'énoncés
     const listeTypeDeQuestions = gestionnaireFormulaireTexte({
       saisie: this.sup,
       nbQuestions: this.nbQuestions,
-      listeOfCase: ['const', 'poly1', 'poly2', 'poly3', 'monbis'],
+      listeOfCase,
       min: 1,
       max: 5,
       melange: 6,
       defaut: 1,
-    }).map(String)
+    })
+      .map(String)
+      .filter((x): x is TypeQuestion => listeOfCase.includes(x as TypeQuestion))
+
     for (
       let i = 0, texte, texteCorr, nameF, cpt = 0;
       i < this.nbQuestions && cpt < 50;
-
     ) {
       // On commence par générer des fonctions qui pourrait servir
       const listeFracs = obtenirListeFractionsIrreductibles()
-      let coeffs
+      let coeffs: CoeffType[]
       let useFraction
       if (this.sup2) {
         if (this.sup3) useFraction = choice([true, false])
@@ -113,7 +121,7 @@ export default class DeriveePoly extends Exercice {
       const deuxCoeffs = coeffs.slice(0, 2)
       const troisCoeffs = coeffs.slice(0, 3)
       const unCoeff = coeffs.slice(0, 1)
-      const dictFonctions = {
+      const dictFonctions: Record<TypeQuestion, Polynome> = {
         poly1: new Polynome({
           rand: true,
           coeffs: deuxCoeffs,
@@ -248,9 +256,10 @@ export default class DeriveePoly extends Exercice {
       if (this.interactif) {
         texte +=
           `<br>${useFraction ? '<br>' : ''}` +
-          ajouteChampTexteMathLive(this, i, '', {
+          ajouteChampTexteMathLive(this, i, KeyboardType.lyceeClassique, {
             texteAvant: `$${nameF}'(x)=$`,
-          })
+          }) +
+          '<br>'
       }
       handleAnswers(this, i, {
         reponse: { value: poly.derivee().toLatex(), compare: functionCompare },
@@ -259,6 +268,19 @@ export default class DeriveePoly extends Exercice {
       if (listeValeurs.indexOf(expression) === -1) {
         listeValeurs.push(expression)
         this.listeQuestions[i] = texte
+        // Uniformisation : Mise en place de la réponse attendue en interactif en orange et gras
+        const textCorrSplit = texteCorr.split('=')
+        let aRemplacer = textCorrSplit[textCorrSplit.length - 1]
+        aRemplacer = aRemplacer.replaceAll('$', '')
+        aRemplacer = aRemplacer.replaceAll('.', '')
+
+        texteCorr = ''
+        for (let ee = 0; ee < textCorrSplit.length - 1; ee++) {
+          texteCorr += textCorrSplit[ee] + '='
+        }
+        texteCorr += ` ${miseEnEvidence(aRemplacer)}$` + '.'
+        // Fin de cette uniformisation
+
         this.listeCorrections[i] = texteCorr
         i++
       }

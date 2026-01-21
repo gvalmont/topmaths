@@ -1,10 +1,10 @@
 import { choice, shuffle } from '../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
-import { randint } from '../../modules/outils'
+import { texNombre } from '../../lib/outils/texNombre'
 // import ExerciceQcmA from '../../ExerciceQcmA'
 import ExerciceQcmA from '../ExerciceQcmA'
 
-export const uuid = '8b272'
+export const uuid = '43516'
 export const refs = {
   'fr-fr': ['1A-C04-5'],
   'fr-ch': [],
@@ -13,8 +13,8 @@ export const interactifReady = true
 export const interactifType = 'qcm'
 export const amcReady = 'true'
 export const amcType = 'qcmMono'
-export const titre = 'Écrire le calcul correspondant à une phrase avec produit et somme'
-export const dateDePublication = '29/11/2025'
+export const titre = 'Calculer une somme de nombres'
+export const dateDePublication = '18/01/2026'
 // Ceci est un exemple de QCM avec version originale et version aléatoire
 /**
  *
@@ -22,111 +22,147 @@ export const dateDePublication = '29/11/2025'
  *
  */
 export default class AutoC4e extends ExerciceQcmA {
-  private appliquerLesValeurs(a: number, variable: string, b: number, cas: number): void {
-    if (cas === 1) {
-      // Cas 1 : Le produit de a par la somme de variable et de b
-      this.enonce = `Le produit de $${a}$ par la somme de $${variable}$ et de $${b}$ est égal à : `
+    private appliquerLesValeurs(
+    partieEntiere: number,
+    partieDecimale: number,
+    denominateur: number,
+    typeBonneReponse: 'decimal' | 'fraction'
+  ): void {
+    // Calcul du résultat
+    const resultatDecimal = partieEntiere + partieDecimale + 1 / denominateur
+    
+    // Construction du numérateur de la fraction correcte
+    const numerateurFraction = partieEntiere * denominateur + partieDecimale * denominateur + 1
+    
+    // Énoncé
+    this.enonce = `On considère $A = ${texNombre(partieEntiere)} + ${texNombre(partieDecimale)} + \\dfrac{1}{${texNombre(denominateur)}}$. <br>
+    On a :`
+
+    // Créer tous les distracteurs possibles
+    const tousLesDistracteursDecimaux = [
+      `$A = ${texNombre(partieEntiere + partieDecimale + 0.1)}$`,
+      `$A = ${texNombre(partieEntiere + 1 / denominateur)}$`,
+      `$A = ${texNombre(partieEntiere + partieDecimale)}$`,
+      `$A = ${texNombre(partieEntiere + partieDecimale + 0.01)}$`,
+      `$A = ${texNombre(partieEntiere + partieDecimale + 0.11)}$`,
+      `$A = ${texNombre(partieEntiere + 0.01 + 1 / denominateur)}$`,
+      `$A = ${texNombre(partieEntiere + 0.1)}$`,
+      `$A = ${texNombre(partieEntiere + 1)}$`,
+      `$A = ${texNombre(partieEntiere + partieDecimale + 1)}$`,
+      `$A = ${texNombre(partieEntiere + partieDecimale + 0.001)}$`,
+      `$A = ${texNombre(partieEntiere + 0.001)}$`,
+    ]
+    
+    const tousLesDistracteursFractions = [
+      `$A = \\dfrac{${texNombre(partieEntiere+denominateur)}}{${texNombre(denominateur)}}$`,
+      `$A = \\dfrac{${texNombre(partieEntiere * denominateur + 1)}}{${texNombre(denominateur)}}$`,
+      `$A = \\dfrac{${texNombre(partieEntiere * denominateur + (partieDecimale * 10) * denominateur)}}{${texNombre(denominateur)}}$`,
+      `$A = \\dfrac{${texNombre(partieEntiere * denominateur)}}{${texNombre(denominateur)}}$`,
+      `$A = \\dfrac{${texNombre(Math.round((partieEntiere + partieDecimale) * denominateur))}}{${texNombre(denominateur)}}$`,
+      `$A = \\dfrac{${texNombre(partieEntiere * denominateur + 10)}}{${texNombre(denominateur)}}$`,
+    ]
+
+    if (typeBonneReponse === 'decimal') {
+      const bonneReponse = `$A = ${texNombre(resultatDecimal)}$`
       
-      const bonnesReponses = [
-        `$${a}(${variable}+${b})$`,
-        `$${a}${variable}+${a * b}$`,
-        `$${a}\\times ${b}+${a}${variable}$`,
-        `$(${variable}+${b})\\times ${a}$`,
-        `$${a}${variable}+${a}\\times ${b}$`
+      // Filtrer les distracteurs décimaux différents de la bonne réponse et éliminer les doublons
+      const distracteursDisponiblesDecimaux = shuffle([...new Set(tousLesDistracteursDecimaux)].filter(d => d !== bonneReponse))
+      
+      // Prendre 1 distracteur décimal aléatoire
+      const distracteurDecimal = distracteursDisponiblesDecimaux[0]
+      
+      // Prendre 2 distracteurs fractions aléatoires
+      const distracteursFractionsSelectionnes = shuffle(tousLesDistracteursFractions).slice(0, 2)
+      
+      this.reponses = [
+        bonneReponse,
+        distracteurDecimal,
+        ...distracteursFractionsSelectionnes,
       ]
       
-      const mauvaisesReponses = [
-        `$${a}${variable}+${b}$`,
-        `$${a}+${b}${variable}$`,
-        `$${a}${variable}\\times ${b}$`,
-        `$${a}\\times ${b}+${variable}$`,
-        `$${a}(${variable}\\times ${b})$`
-      ]
-      
-      const bonneReponse = choice(bonnesReponses)
-      const mauvaisesList = shuffle(mauvaisesReponses).slice(0, 3)
-      
-      // Correction adaptée
-      const formeFactorisee = `$${a}(${variable}+${b})$`
-      const formeDeveloppee1 = `$${a}${variable}+${a * b}$`
-      const formeDeveloppee2 = `$${a}\\times ${b}+${a}${variable}$`
-      const formeDeveloppee3 = `$${a}${variable}+${a}\\times ${b}$`
-      const formeCommutative = `$(${variable}+${b})\\times ${a}$`
-      
-      let explication = `Le produit de $${a}$ par la somme de $${variable}$ et de $${b}$ s'écrit : ${formeFactorisee}`
-      
-      if (bonneReponse === formeDeveloppee1 || bonneReponse === formeDeveloppee2 || bonneReponse === formeDeveloppee3) {
-        explication += `, qui se développe en $${miseEnEvidence(bonneReponse.slice(1, -1))}$.`
-      } else if (bonneReponse === formeCommutative) {
-        explication = `Le produit de $${a}$ par la somme de $${variable}$ et de $${b}$ s'écrit : $${miseEnEvidence(formeCommutative.slice(1, -1))}$.`
-      } else {
-        explication = `Le produit de $${a}$ par la somme de $${variable}$ et de $${b}$ s'écrit : $${miseEnEvidence(formeFactorisee.slice(1, -1))}$.`
-      }
-     
-      
-      this.correction = explication
-      this.reponses = [bonneReponse, mauvaisesList[0], mauvaisesList[1], mauvaisesList[2]]
+      this.correction = `On a : <br>$\\begin{aligned}  
+      A &= ${texNombre(partieEntiere)} + ${texNombre(partieDecimale)} + \\dfrac{1}{${texNombre(denominateur)}}\\\\
+      & = ${texNombre(partieEntiere + partieDecimale)} + ${texNombre(1 / denominateur)}\\\\
+      & = ${miseEnEvidence(texNombre(resultatDecimal))}
+      \\end{aligned}$.`
     } else {
-      // Cas 2 : Le produit de variable par la somme de a et de b
-      this.enonce = `Le produit de $${variable}$ par la somme de $${a}$ et de $${b}$ est égal à : `
+      const bonneReponse = `$A = \\dfrac{${texNombre(numerateurFraction)}}{${texNombre(denominateur)}}$`
+      const bonneReponseDecimale = `$A = ${texNombre(resultatDecimal)}$`
       
-      const bonnesReponses = [
-        `$${variable}(${a}+${b})$`,
-        `$${a}${variable}+${b}${variable}$`,
-        `$${variable}\\times ${a}+${b}${variable}$`,
-        `$(${a}+${b})\\times ${variable}$`,
-        `$${b}${variable}+${variable}\\times ${a}$`
+      // Filtrer les distracteurs fractions différents de la bonne réponse et éliminer les doublons
+      const distracteursDisponiblesFractions = shuffle([...new Set(tousLesDistracteursFractions)].filter(d => d !== bonneReponse))
+      
+      // Prendre 1 distracteur fraction aléatoire
+      const distracteurFraction = distracteursDisponiblesFractions[0]
+      
+      // Filtrer les distracteurs décimaux et éliminer les doublons
+      const distracteursDisponiblesDecimaux = shuffle([...new Set(tousLesDistracteursDecimaux)].filter(
+        d => d !== bonneReponseDecimale
+      ))
+      
+      // Prendre 2 distracteurs décimaux aléatoires
+      const distracteursDecimauxSelectionnes = distracteursDisponiblesDecimaux.slice(0, 2)
+      
+      this.reponses = [
+        bonneReponse,
+        distracteurFraction,
+        ...distracteursDecimauxSelectionnes,
       ]
       
-      const mauvaisesReponses = [
-        `$${a}${variable}+${b}$`,
-        `$${variable}+${a}${b}$`,
-        `$${a}${variable}\\times ${b}$`,
-        `$${variable}\\times ${a}+${b}$`,
-        `$${variable}(${a}\\times ${b})$`
-      ]
+      const numerateurEntier = partieEntiere * denominateur
+      const numerateurDecimal = partieDecimale * denominateur
       
-      const bonneReponse = choice(bonnesReponses)
-      const mauvaisesList = shuffle(mauvaisesReponses).slice(0, 3)
+      this.correction = `On a : <br>
       
-      // Correction adaptée
-      const formeFactorisee = `$${variable}(${a}+${b})$`
-      const formeDeveloppee1 = `$${a}${variable}+${b}${variable}$`
-      const formeDeveloppee2 = `$${variable}\\times ${a}+${b}${variable}$`
-      const formeDeveloppee3 = `$${b}${variable}+${variable}\\times ${a}$`
-      const formeCommutative = `$(${a}+${b})\\times ${variable}$`
-      
-      let explication = `Le produit de $${variable}$ par la somme de $${a}$ et de $${b}$ s'écrit : ${formeFactorisee}`
-      
-      if (bonneReponse === formeDeveloppee1 || bonneReponse === formeDeveloppee2 || bonneReponse === formeDeveloppee3) {
-        explication += `, qui se développe en $${miseEnEvidence(bonneReponse.slice(1, -1))}$.`
-      } else if (bonneReponse === formeCommutative) {
-        explication = `Le produit de $${variable}$ par la somme de $${a}$ et de $${b}$ s'écrit : $${miseEnEvidence(formeCommutative.slice(1, -1))}$.`
-      } else {
-        explication = `Le produit de $${variable}$ par la somme de $${a}$ et de $${b}$ s'écrit : $${miseEnEvidence(formeFactorisee.slice(1, -1))}$.`
-      }
-      explication += '.'
-      
-      this.correction = explication
-      this.reponses = [bonneReponse, mauvaisesList[0], mauvaisesList[1], mauvaisesList[2]]
+      $\\begin{aligned}
+      A &= ${texNombre(partieEntiere)} + ${texNombre(partieDecimale)} + \\dfrac{1}{${texNombre(denominateur)}}\\\\
+      & = \\dfrac{${texNombre(numerateurEntier)}}{${texNombre(denominateur)}} + \\dfrac{${texNombre(numerateurDecimal)}}{${texNombre(denominateur)}} + \\dfrac{1}{${texNombre(denominateur)}}\\\\
+      & = ${miseEnEvidence('\\dfrac{' + texNombre(numerateurFraction) + '}{' + texNombre(denominateur) + '}')}
+      \\end{aligned}$.<br>`
     }
   }
 
   versionOriginale: () => void = () => {
-    this.appliquerLesValeurs(4, 'y', 7, 1)
+    // Version originale conforme à l'image : 10 + 0,1 + 1/1000 = 10,101
+    this.enonce = `On considère $A = ${texNombre(10)} + ${texNombre(0.1)} + \\dfrac{1}{${texNombre(1000)}}$. On a :`
+    
+    this.reponses = [
+      `$A = ${texNombre(10.101)}$`,
+      `$A = \\dfrac{20^{-1}}{${texNombre(1000)}}$`,
+      `$A = \\dfrac{1}{${texNombre(1000)}}$`,
+      `$A = ${texNombre(10.110)}$`,
+    ]
+    
+    this.correction = `On a : <br>
+    $\\begin{aligned}
+    A &= ${texNombre(10)} + ${texNombre(0.1)} + \\dfrac{1}{${texNombre(1000)}}\\\\
+    &= ${texNombre(10.1)} + ${texNombre(0.001)}\\\\
+    &= ${miseEnEvidence(texNombre(10.101))}
+    \\end{aligned}$.`
   }
 
   versionAleatoire: () => void = () => {
-    const cas = randint(1, 2)
-    const variable = choice(['x', 'y', 'a', 'z', 'b'])
-    const a = randint(2, 10)
-    const b = randint(2, 10, a)
+    // Configurations possibles : [partieEntiere, partieDecimale, denominateur]
+    const configurations = [
+      [10, 0.1, 1000],
+      [100, 0.01, 100],
+      [1000, 0.1, 10],
+      [10, 0.01, 100],
+      [100, 0.1, 1000],
+      [10, 0.1, 10],
+      [10, 0.001, 1000],
+      [100, 0.001, 1000],
+      [1000, 0.001, 1000],
+    ]
     
-    this.appliquerLesValeurs(a, variable, b, cas)
+    const config = choice(configurations)
+    const typeBonneReponse = choice(['decimal', 'fraction'] as const)
+    
+    this.appliquerLesValeurs(config[0], config[1], config[2], typeBonneReponse)
   }
 
   constructor() {
     super()
-    this.versionAleatoire()
+    this.options = { vertical: false, ordered: false }
   }
 }

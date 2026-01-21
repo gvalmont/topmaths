@@ -1,3 +1,4 @@
+import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
@@ -804,7 +805,7 @@ ${barreCorr.display()}`
               ajouteChampTexteMathLive(
                 exercice,
                 indexInteractif,
-                'schemaEnBoite',
+                `schemaEnBoite ${KeyboardType.clavierDeBase}`,
               ),
             )
             handleAnswers(exercice, indexInteractif, {
@@ -835,7 +836,7 @@ ${barreCorr.display()}`
               ajouteChampTexteMathLive(
                 exercice,
                 indexInteractif,
-                'schemaEnBoite',
+                `schemaEnBoite ${KeyboardType.clavierDeBase}`,
               ),
             )
             handleAnswers(exercice, indexInteractif, {
@@ -864,7 +865,7 @@ ${barreCorr.display()}`
               ajouteChampTexteMathLive(
                 exercice,
                 indexInteractif,
-                'schemaEnBoite',
+                `schemaEnBoite ${KeyboardType.clavierDeBase}`,
               ),
             )
             handleAnswers(exercice, indexInteractif, {

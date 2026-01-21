@@ -338,7 +338,7 @@ export function rotation(
   nom?: string,
   positionLabel?: string,
   color?: string,
-): Vecteur
+): IVecteur
 
 export function rotation(
   A: PointAbstrait,
@@ -629,7 +629,7 @@ export function symetrieAxiale(
   }
 
   // Polygone
-  if (A instanceof Polygone) {
+  if ('listePoints' in A) {
     const p2: PointAbstrait[] = []
     for (let i = 0; i < A.listePoints.length; i++) {
       p2[i] = symetrieAxiale(A.listePoints[i], d) as PointAbstrait

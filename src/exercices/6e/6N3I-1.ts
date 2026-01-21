@@ -10,7 +10,8 @@ import {
 } from '../../modules/outils'
 import Exercice from '../Exercice'
 
-import figureApigeom from '../../lib/figureApigeom'
+import Figure from 'apigeom/src/Figure'
+import handleApigeomFigureElement from '../../lib/apigeom/apigeom-figure'
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 import { consecutiveCompare } from '../../lib/interactif/comparisonFunctions'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
@@ -19,7 +20,6 @@ import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { ajouterAide } from '../../lib/outils/enrichissements'
 import { fraction } from '../../modules/fractions'
 import { representationFraction } from '../../modules/representationsFractions'
-import { getDynamicFractionDiagram } from './6N3F-2'
 
 export const titre =
   'Encadrer une fraction entre deux nombres entiers consécutifs'
@@ -82,16 +82,21 @@ export default class EncadrerFractionEntre2Entiers extends Exercice {
       nbQuestions: this.nbQuestions,
       exclus: this.lycee ? [] : [6, 7, 8, 9],
     }).map(Number)
-    if (this.sup3) {
-      const figure = getDynamicFractionDiagram()
-      this.introduction = figureApigeom({
-        exercice: this,
-        i: 0,
-        figure,
-        isDynamic: true,
+    if (this.sup3 && context.isHtml) {
+      const figure = new Figure({
+        xMin: -0.5,
+        yMin: -2,
+        width: 800,
+        height: 120,
       })
-      figure.divButtons.style.display = 'grid'
-      if (figure.ui) figure.ui.send({ type: 'FILL' })
+      figure.options.automaticUserMessage = false
+      figure.options.color = 'blue'
+      figure.create('RectangleFractionDiagram', {
+        denominator: 2,
+        numberOfRectangles: 5,
+      })
+      handleApigeomFigureElement()
+      this.introduction = `<apigeom-figure interactive default-action='FILL' x-min=${figure.xMin} y-min=${figure.yMin} width=${figure.width} height=${figure.height} numero-exercice=${this.numeroExercice} index=0 auto-index><script type="application/json">${figure.json}</script></apigeom-figure>`
     } else {
       this.introduction = ''
     }
@@ -103,7 +108,6 @@ export default class EncadrerFractionEntre2Entiers extends Exercice {
     for (
       let i = 0, texte, texteCorr, n, d, k, cpt = 0;
       i < this.nbQuestions && cpt < 50;
-
     ) {
       d = this.listeDeDenominateurs[i]
       k = this.lycee

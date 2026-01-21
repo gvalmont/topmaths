@@ -23,6 +23,7 @@ import { translation } from '../../lib/2d/transformations'
 import { milieu, pointSurDroite } from '../../lib/2d/utilitairesPoint'
 import { vecteur } from '../../lib/2d/Vecteur'
 import { vide2d } from '../../lib/2d/Vide2d'
+import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import {
@@ -125,7 +126,6 @@ export default class Transformations extends Exercice {
         objetsCorrection,
         cpt = 0;
       indiceQuestion < this.nbQuestions && cpt < 50;
-
     ) {
       texte = ''
       texteCorr = ''
@@ -1142,7 +1142,7 @@ export default class Transformations extends Exercice {
         texte += ajouteChampTexteMathLive(
           this,
           indiceQuestion * nbImages + i,
-          '',
+          KeyboardType.clavierNumbers,
         )
       }
       const graphique = mathalea2d(

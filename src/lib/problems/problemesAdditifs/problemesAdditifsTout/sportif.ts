@@ -31,7 +31,7 @@ Donc, en tout, ${personnage.pronom} a brûlé $${texNombre(nb1, 0)}\\text{ ${uni
     probleme.schema.topBraces = []
   }
   probleme.schema.topBraces[0].text = 'énergie totale'
-  probleme.styleChampTexteMathlive = KeyboardType.college6eme
+  probleme.styleChampTexteMathlive = KeyboardType.clavierDeBase
   probleme.optionsChampTexteMathlive = { texteApres: ` ${unite}` }
   probleme.reponse = `${texNombre(nb1 + nb2, 1)}`
   return probleme

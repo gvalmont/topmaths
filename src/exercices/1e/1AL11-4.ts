@@ -1,14 +1,15 @@
-import Exercice from '../Exercice'
+import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
 import {
   gestionnaireFormulaireTexte,
   listeQuestionsToContenu,
   randint,
 } from '../../modules/outils'
-import { handleAnswers } from '../../lib/interactif/gestionInteractif'
+import Exercice from '../Exercice'
 
+import Decimal from 'decimal.js'
+import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
-import { texNombre } from '../../lib/outils/texNombre'
 import {
   ecritureAlgebrique,
   ecritureAlgebriqueSauf1,
@@ -16,7 +17,7 @@ import {
   rienSi1,
 } from '../../lib/outils/ecritures'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
-import Decimal from 'decimal.js'
+import { texNombre } from '../../lib/outils/texNombre'
 export const titre =
   "Calculer les termes d'une suite arithmétique ou géométrique"
 export const interactifReady = true
@@ -291,13 +292,13 @@ export default class TermesSASG extends Exercice {
       ) {
         texte +=
           '<br>' +
-          ajouteChampTexteMathLive(this, i, ' ', {
+          ajouteChampTexteMathLive(this, i, KeyboardType.clavierDeBase, {
             texteAvant: `$${NomS}_{${k}}=$`,
           })
       } else {
         texte +=
           '<br>' +
-          ajouteChampTexteMathLive(this, i, ' ', {
+          ajouteChampTexteMathLive(this, i, KeyboardType.clavierDeBase, {
             texteAvant: `$${NomS}_{${k}}\\simeq$`,
           })
       }

@@ -1,15 +1,255 @@
-/* Write your global styles here, in PostCSS syntax */
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+/* Tailwind CSS v4 imports */
+@import 'tailwindcss';
 
+/* Dark mode: use class strategy instead of media query */
+@custom-variant dark (&:where(.dark, .dark *));
+
+/* Plugins */
+@plugin "daisyui";
+@plugin "daisyui/theme" {
+  name: 'mytheme';
+  default: true;
+  --color-base-100: #ffff;
+  --color-base-200: #f2f2f2;
+  --color-base-300: #e5e5e5;
+  --color-base-content: #1f2937;
+  --color-primary: #f15929;
+  --color-primary-content: #ffffff;
+  --color-secondary: #216d9a;
+  --color-secondary-content: #ffffff;
+  --color-accent: #d84010;
+  --color-accent-content: #ffffff;
+  --color-neutral: #e1e1e6;
+  --color-neutral-content: #1f2937;
+  --color-info: #bd93f9;
+  --color-info-content: #000000;
+  --color-success: #36d399;
+  --color-success-content: #000000;
+  --color-warning: #fbbd23;
+  --color-warning-content: #000000;
+  --color-error: #f87272;
+  --color-error-content: #000000;
+}
+@plugin "@tailwindcss/forms";
+
+/* Custom theme extending Tailwind */
+@theme {
+  /* Custom grid columns */
+  --grid-template-columns-13: repeat(13, minmax(0, 1fr));
+  --grid-template-columns-14: repeat(14, minmax(0, 1fr));
+  --grid-template-columns-15: repeat(15, minmax(0, 1fr));
+  --grid-template-columns-16: repeat(16, minmax(0, 1fr));
+  --grid-template-columns-17: repeat(17, minmax(0, 1fr));
+  --grid-template-columns-18: repeat(18, minmax(0, 1fr));
+  --grid-template-columns-19: repeat(19, minmax(0, 1fr));
+  --grid-template-columns-20: repeat(20, minmax(0, 1fr));
+  --grid-template-columns-21: repeat(21, minmax(0, 1fr));
+  --grid-template-columns-22: repeat(22, minmax(0, 1fr));
+  --grid-template-columns-23: repeat(23, minmax(0, 1fr));
+  --grid-template-columns-24: repeat(24, minmax(0, 1fr));
+  --grid-template-columns-25: repeat(25, minmax(0, 1fr));
+  --grid-template-columns-26: repeat(26, minmax(0, 1fr));
+  --grid-template-columns-27: repeat(27, minmax(0, 1fr));
+  --grid-template-columns-28: repeat(28, minmax(0, 1fr));
+  --grid-template-columns-29: repeat(29, minmax(0, 1fr));
+  --grid-template-columns-30: repeat(30, minmax(0, 1fr));
+
+  /* Custom scale */
+  --scale-175: 1.75;
+  --scale-200: 2;
+
+  /* Fonts */
+  --font-sans:
+    'Source Sans Pro', ui-sans-serif, system-ui, sans-serif,
+    'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+  --font-mono:
+    'Source Code Pro', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas,
+    'Liberation Mono', 'Courier New', monospace;
+  --font-logo9: 'jelleebold';
+
+  /* coopmaths colors - light mode */
+  --color-coopmaths: #f15929;
+  --color-coopmaths-lightest: #f87f5c;
+  --color-coopmaths-light: #f56d45;
+  --color-coopmaths-dark: #f45e27;
+  --color-coopmaths-darkest: #e64a10;
+  --color-coopmaths-back: #f5f1f3;
+  --color-coopmaths-backdark: #dadbdf;
+  --color-coopmaths-backdarker: #cecfd4;
+  --color-coopmaths-backcorrection: #e0a588;
+  --color-coopmaths-backnav: #f15929;
+  --color-coopmaths-backnavlight: #f56d45;
+  --color-coopmaths-title: #342a34;
+  --color-coopmaths-titlemenu: #f15929;
+  --color-coopmaths-titlelight: #f5f1f3;
+  --color-coopmaths-titleexercise: #f15929;
+  --color-coopmaths-darkmode: #2e2e2b;
+  --color-coopmaths-darkmodelight: #363633;
+
+  /* coopmaths canvas colors */
+  --color-coopmaths-canvas: #ffffff;
+  --color-coopmaths-canvas-dark: #f6f6f6;
+  --color-coopmaths-canvas-darkest: #e9e9e9;
+  --color-coopmaths-canvas-moredark: #c8c8c8;
+
+  /* coopmaths corpus colors */
+  --color-coopmaths-corpus: #1f2429;
+  --color-coopmaths-corpus-light: #45505b;
+  --color-coopmaths-corpus-lightest: #6a7c8d;
+  --color-coopmaths-corpus-dark: #191d21;
+  --color-coopmaths-corpus-darkest: #131619;
+
+  /* coopmaths action colors */
+  --color-coopmaths-action: #f15929;
+  --color-coopmaths-action-light: #f47a54;
+  --color-coopmaths-action-lightest: #f79b7f;
+  --color-coopmaths-action-dark: #d43d0e;
+  --color-coopmaths-action-darkest: #9f2e0a;
+  --color-coopmaths-action-100: #feeeea;
+  --color-coopmaths-action-200: #fcded4;
+  --color-coopmaths-action-300: #fbcdbf;
+  --color-coopmaths-action-400: #f9bda9;
+  --color-coopmaths-action-500: #f8ac94;
+  --color-coopmaths-action-600: #f79b7f;
+  --color-coopmaths-action-700: #f58b69;
+  --color-coopmaths-action-800: #f47a54;
+  --color-coopmaths-action-900: #f26a3e;
+
+  /* coopmaths warn colors */
+  --color-coopmaths-warn: #80d925;
+  --color-coopmaths-warn-light: #99e150;
+  --color-coopmaths-warn-lightest: #b3e97c;
+  --color-coopmaths-warn-dark: #66ae1e;
+  --color-coopmaths-warn-darkest: #4d8216;
+  --color-coopmaths-warn-50: #f3fced;
+  --color-coopmaths-warn-100: #e6f9db;
+  --color-coopmaths-warn-200: #daf5c9;
+  --color-coopmaths-warn-300: #cdf2b7;
+  --color-coopmaths-warn-400: #c1eea4;
+  --color-coopmaths-warn-500: #b4ea90;
+  --color-coopmaths-warn-600: #a8e67c;
+  --color-coopmaths-warn-700: #9be265;
+  --color-coopmaths-warn-800: #8edd4b;
+  --color-coopmaths-warn-900: #6ebc1f;
+  --color-coopmaths-warn-1000: #5da119;
+  --color-coopmaths-warn-1100: #4d8613;
+
+  /* coopmaths struct colors */
+  --color-coopmaths-struct: #216d9a;
+  --color-coopmaths-struct-light: #2c93cf;
+  --color-coopmaths-struct-lightest: #5faedd;
+  --color-coopmaths-struct-dark: #1a577b;
+  --color-coopmaths-struct-darkest: #14415c;
+
+  /* coopmathsdark colors - dark mode */
+  --color-coopmathsdark: #f15929;
+  --color-coopmathsdark-lightest: #f87f5c;
+  --color-coopmathsdark-light: #f56d45;
+  --color-coopmathsdark-dark: #f45e27;
+  --color-coopmathsdark-darkest: #e64a10;
+  --color-coopmathsdark-back: #2e2e2b;
+  --color-coopmathsdark-backdark: #dadbdf;
+  --color-coopmathsdark-backdarker: #cecfd4;
+  --color-coopmathsdark-backcorrection: #e0a588;
+  --color-coopmathsdark-backnav: #f15929;
+  --color-coopmathsdark-backnavlight: #f56d45;
+  --color-coopmathsdark-title: #342a34;
+  --color-coopmathsdark-titlemenu: #f15929;
+  --color-coopmathsdark-titlelight: #f5f1f3;
+  --color-coopmathsdark-titleexercise: #f15929;
+  --color-coopmathsdark-darkmode: #2e2e2b;
+  --color-coopmathsdark-darkmodelight: #363633;
+
+  /* coopmathsdark canvas colors */
+  --color-coopmathsdark-canvas: #282a36;
+  --color-coopmathsdark-canvas-dark: #3a3d4e;
+  --color-coopmathsdark-canvas-darkest: #4b4f66;
+  --color-coopmathsdark-canvas-moredark: #68688c;
+  --color-coopmathsdark-canvas-light: #9fa3b8;
+
+  /* coopmathsdark corpus colors */
+  --color-coopmathsdark-corpus: #b0b0b0;
+  --color-coopmathsdark-corpus-light: #c8c8c8;
+  --color-coopmathsdark-corpus-lightest: #dfdfdf;
+  --color-coopmathsdark-corpus-dark: #7b7b7b;
+  --color-coopmathsdark-corpus-darkest: #464646;
+
+  /* coopmathsdark action colors */
+  --color-coopmathsdark-action: #ffb86c;
+  --color-coopmathsdark-action-light: #ffc689;
+  --color-coopmathsdark-action-lightest: #ffd4a7;
+  --color-coopmathsdark-action-dark: #ff9523;
+  --color-coopmathsdark-action-darkest: #da7100;
+
+  /* coopmathsdark warn colors */
+  --color-coopmathsdark-warn: #ff79c6;
+  --color-coopmathsdark-warn-light: #ff94d1;
+  --color-coopmathsdark-warn-lightest: #ffafdd;
+  --color-coopmathsdark-warn-dark: #ff2ea6;
+  --color-coopmathsdark-warn-darkest: #e20082;
+
+  /* coopmathsdark struct colors */
+  --color-coopmathsdark-struct: #bd93f9;
+  --color-coopmathsdark-struct-light: #c49efa;
+  --color-coopmathsdark-struct-lightest: #caa9fa;
+  --color-coopmathsdark-struct-dark: #a66df7;
+  --color-coopmathsdark-struct-darkest: #8f48f5;
+}
+
+/* Restore cursor-pointer on interactive elements (removed in Tailwind v4 Preflight) */
+@layer base {
+  button,
+  [role='button'],
+  [type='button'],
+  [type='submit'],
+  [type='reset'],
+  select,
+  summary {
+    cursor: pointer;
+  }
+}
+
+/* Text selection highlight - consistent in light and dark modes */
+::selection {
+  background-color: hsl(212, 70%, 85%);
+  color: #000;
+}
+.dark ::selection {
+  background-color: hsl(212, 65%, 55%);
+  color: #fff;
+}
+
+/* Modifie le style des sb3-comment-label */
+text.sb3-comment-label {
+  fill: #000 !important;
+}
 /* Cache le menu toggle de MathLive */
+math-field {
+  @apply bg-coopmaths-canvas dark:bg-coopmathsdark-canvas
+  text-coopmaths-corpus dark:text-coopmathsdark-corpus;
+  /* Override MathLive highlight colors to match our class-based dark mode (not prefers-color-scheme) */
+  --caret-color: hsl(212, 40%, 49%);
+  --selection-color: #000;
+  --selection-background-color: hsl(212, 70%, 85%);
+  --contains-highlight-color: hsl(212, 40%, 49%);
+  --contains-highlight-background-color: hsl(212, 40%, 95%);
+  --highlight-text: hsla(212, 40%, 50%, 0.1);
+}
+.dark math-field {
+  --caret-color: hsl(212, 65%, 55%);
+  --selection-color: #fff;
+  --selection-background-color: hsl(212, 65%, 55%);
+  --contains-highlight-color: hsl(212, 85%, 75%);
+  --contains-highlight-background-color: hsl(212, 30%, 40%);
+  --highlight-text: hsla(212, 40%, 50%, 0.6);
+}
 math-field::part(menu-toggle) {
   display: none;
 }
 math-field::part(virtual-keyboard-toggle) {
   display: none;
 }
+
 math-field:not(.fillInTheBlanks) {
   font-size: '1em';
   margin-left: 5px;
@@ -18,8 +258,8 @@ math-field:not(.fillInTheBlanks) {
   padding-left: 5px;
   padding-right: 5px;
   border-radius: 4px;
-  border: 1px solid rgba(0, 0, 0, 0.3);
   min-width: 80px;
+  @apply border border-[#ACACAC];
 }
 math-field.fillInTheBlanks {
   /* @apply bg-coopmaths-canvas dark:bg-coopmathsdark-canvas text-coopmaths-corpus dark:text-coopmathsdark-corpus; */
@@ -28,8 +268,11 @@ math-field.fillInTheBlanks {
   font-size: '1em';
   margin-top: '1px';
   padding: '2px';
+  background-color: transparent;
 }
-
+math-field.fillInTheBlanks::part(prompt) {
+  min-height: 1.1em;
+}
 math-field.schemaEnBoite {
   margin: 0;
   display: inline-block;
@@ -37,7 +280,7 @@ math-field.schemaEnBoite {
   padding: 0px 0px;
   border-radius: 4px;
   border: 1px solid rgba(0, 0, 0, 0.3);
-  min-width: 50px;
+  min-width: 30px;
 }
 
 @media print {
@@ -125,6 +368,7 @@ input[type='range']:focus::-moz-range-track {
 @media screen and (-webkit-min-device-pixel-ratio: 0) {
   input[type='range'] {
     -webkit-appearance: none;
+    appearance: none;
   }
 
   /* piste */
@@ -197,6 +441,14 @@ input[type='radio']:checked {
   background-color: #f15929;
 }
 
+input[type='radio']:disabled {
+  @apply opacity-30;
+}
+
+input[type='radio']:focus {
+  @apply ring-transparent outline-none;
+}
+
 /*
 8888888888                   888                      
 888                          888                      
@@ -215,9 +467,9 @@ input[type='radio']:checked {
   font-weight: 200;
   src:
     local(''),
-    url('fonts/source-sans-pro-v21-latin-200.woff2') format('woff2'),
+    url('/fonts/source-sans-pro-v21-latin-200.woff2') format('woff2'),
     /* Chrome 26+, Opera 23+, Firefox 39+ */
-      url('fonts/source-sans-pro-v21-latin-200.woff') format('woff'); /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
+      url('/fonts/source-sans-pro-v21-latin-200.woff') format('woff'); /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
 }
 /* source-sans-pro-200italic - latin */
 @font-face {
@@ -226,9 +478,9 @@ input[type='radio']:checked {
   font-weight: 200;
   src:
     local(''),
-    url('fonts/source-sans-pro-v21-latin-200italic.woff2') format('woff2'),
+    url('/fonts/source-sans-pro-v21-latin-200italic.woff2') format('woff2'),
     /* Chrome 26+, Opera 23+, Firefox 39+ */
-      url('fonts/source-sans-pro-v21-latin-200italic.woff') format('woff'); /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
+      url('/fonts/source-sans-pro-v21-latin-200italic.woff') format('woff'); /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
 }
 /* source-sans-pro-300 - latin */
 @font-face {
@@ -237,9 +489,9 @@ input[type='radio']:checked {
   font-weight: 300;
   src:
     local(''),
-    url('fonts/source-sans-pro-v21-latin-300.woff2') format('woff2'),
+    url('/fonts/source-sans-pro-v21-latin-300.woff2') format('woff2'),
     /* Chrome 26+, Opera 23+, Firefox 39+ */
-      url('fonts/source-sans-pro-v21-latin-300.woff') format('woff'); /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
+      url('/fonts/source-sans-pro-v21-latin-300.woff') format('woff'); /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
 }
 /* source-sans-pro-300italic - latin */
 @font-face {
@@ -248,9 +500,9 @@ input[type='radio']:checked {
   font-weight: 300;
   src:
     local(''),
-    url('fonts/source-sans-pro-v21-latin-300italic.woff2') format('woff2'),
+    url('/fonts/source-sans-pro-v21-latin-300italic.woff2') format('woff2'),
     /* Chrome 26+, Opera 23+, Firefox 39+ */
-      url('fonts/source-sans-pro-v21-latin-300italic.woff') format('woff'); /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
+      url('/fonts/source-sans-pro-v21-latin-300italic.woff') format('woff'); /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
 }
 /* source-sans-pro-regular - latin */
 @font-face {
@@ -259,9 +511,9 @@ input[type='radio']:checked {
   font-weight: 400;
   src:
     local(''),
-    url('fonts/source-sans-pro-v21-latin-regular.woff2') format('woff2'),
+    url('/fonts/source-sans-pro-v21-latin-regular.woff2') format('woff2'),
     /* Chrome 26+, Opera 23+, Firefox 39+ */
-      url('fonts/source-sans-pro-v21-latin-regular.woff') format('woff'); /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
+      url('/fonts/source-sans-pro-v21-latin-regular.woff') format('woff'); /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
 }
 /* source-sans-pro-italic - latin */
 @font-face {
@@ -270,9 +522,9 @@ input[type='radio']:checked {
   font-weight: 400;
   src:
     local(''),
-    url('fonts/source-sans-pro-v21-latin-italic.woff2') format('woff2'),
+    url('/fonts/source-sans-pro-v21-latin-italic.woff2') format('woff2'),
     /* Chrome 26+, Opera 23+, Firefox 39+ */
-      url('fonts/source-sans-pro-v21-latin-italic.woff') format('woff'); /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
+      url('/fonts/source-sans-pro-v21-latin-italic.woff') format('woff'); /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
 }
 /* source-sans-pro-600 - latin */
 @font-face {
@@ -281,9 +533,9 @@ input[type='radio']:checked {
   font-weight: 600;
   src:
     local(''),
-    url('fonts/source-sans-pro-v21-latin-600.woff2') format('woff2'),
+    url('/fonts/source-sans-pro-v21-latin-600.woff2') format('woff2'),
     /* Chrome 26+, Opera 23+, Firefox 39+ */
-      url('fonts/source-sans-pro-v21-latin-600.woff') format('woff'); /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
+      url('/fonts/source-sans-pro-v21-latin-600.woff') format('woff'); /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
 }
 /* source-sans-pro-600italic - latin */
 @font-face {
@@ -292,9 +544,9 @@ input[type='radio']:checked {
   font-weight: 600;
   src:
     local(''),
-    url('fonts/source-sans-pro-v21-latin-600italic.woff2') format('woff2'),
+    url('/fonts/source-sans-pro-v21-latin-600italic.woff2') format('woff2'),
     /* Chrome 26+, Opera 23+, Firefox 39+ */
-      url('fonts/source-sans-pro-v21-latin-600italic.woff') format('woff'); /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
+      url('/fonts/source-sans-pro-v21-latin-600italic.woff') format('woff'); /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
 }
 /* source-sans-pro-700 - latin */
 @font-face {
@@ -303,9 +555,9 @@ input[type='radio']:checked {
   font-weight: 700;
   src:
     local(''),
-    url('fonts/source-sans-pro-v21-latin-700.woff2') format('woff2'),
+    url('/fonts/source-sans-pro-v21-latin-700.woff2') format('woff2'),
     /* Chrome 26+, Opera 23+, Firefox 39+ */
-      url('fonts/source-sans-pro-v21-latin-700.woff') format('woff'); /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
+      url('/fonts/source-sans-pro-v21-latin-700.woff') format('woff'); /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
 }
 /* source-sans-pro-700italic - latin */
 @font-face {
@@ -314,9 +566,9 @@ input[type='radio']:checked {
   font-weight: 700;
   src:
     local(''),
-    url('fonts/source-sans-pro-v21-latin-700italic.woff2') format('woff2'),
+    url('/fonts/source-sans-pro-v21-latin-700italic.woff2') format('woff2'),
     /* Chrome 26+, Opera 23+, Firefox 39+ */
-      url('fonts/source-sans-pro-v21-latin-700italic.woff') format('woff'); /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
+      url('/fonts/source-sans-pro-v21-latin-700italic.woff') format('woff'); /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
 }
 /* source-sans-pro-900 - latin */
 @font-face {
@@ -325,9 +577,9 @@ input[type='radio']:checked {
   font-weight: 900;
   src:
     local(''),
-    url('fonts/source-sans-pro-v21-latin-900.woff2') format('woff2'),
+    url('/fonts/source-sans-pro-v21-latin-900.woff2') format('woff2'),
     /* Chrome 26+, Opera 23+, Firefox 39+ */
-      url('fonts/source-sans-pro-v21-latin-900.woff') format('woff'); /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
+      url('/fonts/source-sans-pro-v21-latin-900.woff') format('woff'); /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
 }
 /* source-sans-pro-900italic - latin */
 @font-face {
@@ -336,17 +588,17 @@ input[type='radio']:checked {
   font-weight: 900;
   src:
     local(''),
-    url('fonts/source-sans-pro-v21-latin-900italic.woff2') format('woff2'),
+    url('/fonts/source-sans-pro-v21-latin-900italic.woff2') format('woff2'),
     /* Chrome 26+, Opera 23+, Firefox 39+ */
-      url('fonts/source-sans-pro-v21-latin-900italic.woff') format('woff'); /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
+      url('/fonts/source-sans-pro-v21-latin-900italic.woff') format('woff'); /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
 }
 /* jelleebold - latin */
 @font-face {
   font-family: 'jelleebold';
   src:
     local(''),
-    url('fonts/jellee-roman-webfont.woff2') format('woff2'),
-    url('fonts/jellee-roman-webfont.woff') format('woff');
+    url('/fonts/jellee-roman-webfont.woff2') format('woff2'),
+    url('/fonts/jellee-roman-webfont.woff') format('woff');
   font-weight: normal;
   font-style: normal;
 }
@@ -357,9 +609,9 @@ input[type='radio']:checked {
   font-weight: 200;
   src:
     local(''),
-    url('fonts/source-code-pro-200.woff2') format('woff2'),
+    url('/fonts/source-code-pro-200.woff2') format('woff2'),
     /* Chrome 26+, Opera 23+, Firefox 39+ */
-      url('fonts/source-code-pro-200.woff') format('woff'); /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
+      url('/fonts/source-code-pro-200.woff') format('woff'); /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
 }
 /* source-code-pro-200-italic - latin */
 @font-face {
@@ -368,9 +620,9 @@ input[type='radio']:checked {
   font-weight: 200;
   src:
     local(''),
-    url('fonts/source-code-pro-200-italic.woff2') format('woff2'),
+    url('/fonts/source-code-pro-200-italic.woff2') format('woff2'),
     /* Chrome 26+, Opera 23+, Firefox 39+ */
-      url('fonts/source-code-pro-200-italic.woff') format('woff'); /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
+      url('/fonts/source-code-pro-200-italic.woff') format('woff'); /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
 }
 /* source-code-pro-300 - latin */
 @font-face {
@@ -379,9 +631,9 @@ input[type='radio']:checked {
   font-weight: 300;
   src:
     local(''),
-    url('fonts/source-code-pro-300.woff2') format('woff2'),
+    url('/fonts/source-code-pro-300.woff2') format('woff2'),
     /* Chrome 26+, Opera 23+, Firefox 39+ */
-      url('fonts/source-code-pro-300.woff') format('woff'); /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
+      url('/fonts/source-code-pro-300.woff') format('woff'); /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
 }
 /* source-code-pro-300-italic - latin */
 @font-face {
@@ -390,9 +642,9 @@ input[type='radio']:checked {
   font-weight: 300;
   src:
     local(''),
-    url('fonts/source-code-pro-300-italic.woff2') format('woff2'),
+    url('/fonts/source-code-pro-300-italic.woff2') format('woff2'),
     /* Chrome 26+, Opera 23+, Firefox 39+ */
-      url('fonts/source-code-pro-300-italic.woff') format('woff'); /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
+      url('/fonts/source-code-pro-300-italic.woff') format('woff'); /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
 }
 /* source-code-pro-400 - latin */
 @font-face {
@@ -401,9 +653,9 @@ input[type='radio']:checked {
   font-weight: 400;
   src:
     local(''),
-    url('fonts/source-code-pro-400.woff2') format('woff2'),
+    url('/fonts/source-code-pro-400.woff2') format('woff2'),
     /* Chrome 26+, Opera 23+, Firefox 39+ */
-      url('fonts/source-code-pro-400.woff') format('woff'); /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
+      url('/fonts/source-code-pro-400.woff') format('woff'); /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
 }
 /* source-code-pro-400-italic - latin */
 @font-face {
@@ -412,9 +664,9 @@ input[type='radio']:checked {
   font-weight: 400;
   src:
     local(''),
-    url('fonts/source-code-pro-400-italic.woff2') format('woff2'),
+    url('/fonts/source-code-pro-400-italic.woff2') format('woff2'),
     /* Chrome 26+, Opera 23+, Firefox 39+ */
-      url('fonts/source-code-pro-400-italic.woff') format('woff'); /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
+      url('/fonts/source-code-pro-400-italic.woff') format('woff'); /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
 }
 /* source-code-pro-500 - latin */
 @font-face {
@@ -423,9 +675,9 @@ input[type='radio']:checked {
   font-weight: 500;
   src:
     local(''),
-    url('fonts/source-code-pro-500.woff2') format('woff2'),
+    url('/fonts/source-code-pro-500.woff2') format('woff2'),
     /* Chrome 26+, Opera 23+, Firefox 39+ */
-      url('fonts/source-code-pro-500.woff') format('woff'); /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
+      url('/fonts/source-code-pro-500.woff') format('woff'); /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
 }
 /* source-code-pro-500-italic - latin */
 @font-face {
@@ -434,9 +686,9 @@ input[type='radio']:checked {
   font-weight: 500;
   src:
     local(''),
-    url('fonts/source-code-pro-500-italic.woff2') format('woff2'),
+    url('/fonts/source-code-pro-500-italic.woff2') format('woff2'),
     /* Chrome 26+, Opera 23+, Firefox 39+ */
-      url('fonts/source-code-pro-500-italic.woff') format('woff'); /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
+      url('/fonts/source-code-pro-500-italic.woff') format('woff'); /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
 }
 /* source-code-pro-600 - latin */
 @font-face {
@@ -445,9 +697,9 @@ input[type='radio']:checked {
   font-weight: 600;
   src:
     local(''),
-    url('fonts/source-code-pro-600.woff2') format('woff2'),
+    url('/fonts/source-code-pro-600.woff2') format('woff2'),
     /* Chrome 26+, Opera 23+, Firefox 39+ */
-      url('fonts/source-code-pro-600.woff') format('woff'); /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
+      url('/fonts/source-code-pro-600.woff') format('woff'); /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
 }
 /* source-code-pro-600-italic - latin */
 @font-face {
@@ -456,9 +708,9 @@ input[type='radio']:checked {
   font-weight: 600;
   src:
     local(''),
-    url('fonts/source-code-pro-600-italic.woff2') format('woff2'),
+    url('/fonts/source-code-pro-600-italic.woff2') format('woff2'),
     /* Chrome 26+, Opera 23+, Firefox 39+ */
-      url('fonts/source-code-pro-600-italic.woff') format('woff'); /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
+      url('/fonts/source-code-pro-600-italic.woff') format('woff'); /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
 }
 /* source-code-pro-700 - latin */
 @font-face {
@@ -467,9 +719,9 @@ input[type='radio']:checked {
   font-weight: 700;
   src:
     local(''),
-    url('fonts/source-code-pro-700.woff2') format('woff2'),
+    url('/fonts/source-code-pro-700.woff2') format('woff2'),
     /* Chrome 26+, Opera 23+, Firefox 39+ */
-      url('fonts/source-code-pro-700.woff') format('woff'); /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
+      url('/fonts/source-code-pro-700.woff') format('woff'); /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
 }
 /* source-code-pro-700-italic - latin */
 @font-face {
@@ -478,9 +730,9 @@ input[type='radio']:checked {
   font-weight: 700;
   src:
     local(''),
-    url('fonts/source-code-pro-700-italic.woff2') format('woff2'),
+    url('/fonts/source-code-pro-700-italic.woff2') format('woff2'),
     /* Chrome 26+, Opera 23+, Firefox 39+ */
-      url('fonts/source-code-pro-700-italic.woff') format('woff'); /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
+      url('/fonts/source-code-pro-700-italic.woff') format('woff'); /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
 }
 /* source-code-pro-900 - latin */
 @font-face {
@@ -489,9 +741,9 @@ input[type='radio']:checked {
   font-weight: 900;
   src:
     local(''),
-    url('fonts/source-code-pro-900.woff2') format('woff2'),
+    url('/fonts/source-code-pro-900.woff2') format('woff2'),
     /* Chrome 26+, Opera 23+, Firefox 39+ */
-      url('fonts/source-code-pro-900.woff') format('woff'); /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
+      url('/fonts/source-code-pro-900.woff') format('woff'); /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
 }
 /* source-code-pro-900-italic - latin */
 @font-face {
@@ -500,9 +752,9 @@ input[type='radio']:checked {
   font-weight: 900;
   src:
     local(''),
-    url('fonts/source-code-pro-900-italic.woff2') format('woff2'),
+    url('/fonts/source-code-pro-900-italic.woff2') format('woff2'),
     /* Chrome 26+, Opera 23+, Firefox 39+ */
-      url('fonts/source-code-pro-900-italic.woff') format('woff'); /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
+      url('/fonts/source-code-pro-900-italic.woff') format('woff'); /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
 }
 
 /* 
@@ -723,9 +975,9 @@ table.tableauMathlive {
       }
     }
     th {
-      @apply border border-coopmaths-corpus dark:border-coopmathsdark-corpus bg-coopmaths-struct dark:bg-coopmathsdark-struct bg-opacity-40 dark:bg-opacity-40 text-coopmaths-corpus dark:text-coopmathsdark-corpus p-2 text-center min-w-[75px] m-[3px];
+      @apply border border-coopmaths-corpus dark:border-coopmathsdark-corpus bg-coopmaths-struct/40 dark:bg-coopmathsdark-struct/40 text-coopmaths-corpus dark:text-coopmathsdark-corpus p-2 text-center min-w-18.75 m-0.75;
     }
-    @apply border border-coopmaths-corpus dark:border-coopmathsdark-corpus p-2 m-[3px] text-center;
+    @apply border border-coopmaths-corpus dark:border-coopmathsdark-corpus p-2 m-0.75 text-center;
   }
   @apply mx-auto mt-2 border-collapse text-center border-2 border-coopmaths-corpus dark:border-coopmathsdark-corpus;
 }
@@ -832,4 +1084,12 @@ div.etiquettes {
 /* Fixes issue where Blockly toolbox scrollbar doesn't hide - https://github.com/google/blockly/issues/5840*/
 svg[display='none'] {
   display: none;
+}
+
+/* Ripple animation for button effects */
+@keyframes ripple-animation {
+  to {
+    transform: translate(-50%, -50%) scale(4);
+    opacity: 0;
+  }
 }

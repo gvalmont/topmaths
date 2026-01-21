@@ -3,7 +3,7 @@ import {
   baseNVersBase10,
 } from '../../lib/mathFonctions/baseConversions'
 import { context } from '../../modules/context'
-import Operation from '../../modules/operations'
+import operation from '../../modules/operations'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import Exercice from '../Exercice'
 
@@ -55,7 +55,6 @@ export default class MultiplicationsBaseN extends Exercice {
     for (
       let i = indicePremierCalcul, texte, texteCorr, m, n, mb, nb, cpt = 0;
       i < this.nbQuestions && cpt < 50;
-
     ) {
       const n1 = base === 3 ? randint(0, 2) : randint(2, base - 1)
       const n2 = base === 3 ? randint(1, 2) : randint(2, base - 1, n1)
@@ -73,7 +72,7 @@ export default class MultiplicationsBaseN extends Exercice {
       if (parseInt(mb) < parseInt(nb)) [mb, nb] = [nb, mb]
       texteCorr =
         `En base ${base} :<br>` +
-        Operation({
+        operation({
           operande1: m,
           operande2: n,
           type: 'multiplication',

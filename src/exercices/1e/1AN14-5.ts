@@ -1,3 +1,4 @@
+import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 import engine, {
   functionCompare,
 } from '../../lib/interactif/comparisonFunctions'
@@ -5,6 +6,7 @@ import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { Polynome } from '../../lib/mathFonctions/Polynome'
 import { ecritureAlgebrique, rienSi1 } from '../../lib/outils/ecritures'
+import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { signe } from '../../lib/outils/nombres'
 import {
   gestionnaireFormulaireTexte,
@@ -13,7 +15,7 @@ import {
 } from '../../modules/outils'
 import Exercice from '../Exercice'
 
-export const titre = 'Dérivée de $u\\times v$'
+export const titre = 'Dériver $u\\times v$'
 export const dateDePublication = '22/01/2022'
 export const dateDeModifImportante = '06/05/2024'
 export const interactifReady = true
@@ -57,8 +59,6 @@ export default class DeriveeProduit extends Exercice {
       'Nombres séparés par des tirets :\n1 Monôme2 et affine\n2 : Inverse et affine\n3 : Racine et polynôme\n4 : Racine et polynôme degré 2 sans degré 1\n5 : Monôme2 et racine\n6 : Mélange',
     ]
 
-    this.consigne =
-      "Pour chacune des fonctions suivantes, déterminer l'expression de sa fonction dérivée."
     this.nbQuestions = 3
     // Sortie LaTeX
     this.nbCols = 2 // Nombre de colonnes
@@ -73,6 +73,10 @@ export default class DeriveeProduit extends Exercice {
   }
 
   nouvelleVersion() {
+    this.consigne =
+      this.nbQuestions > 1
+        ? "Pour chacune des fonctions suivantes, déterminer l'expression de sa fonction dérivée."
+        : "Déterminer l'expression de la fonction dérivée de la fonction suivante."
     const listeValeurs = [] // Les questions sont différentes du fait du nom de la fonction, donc on stocke les valeurs
 
     // Types d'énoncés
@@ -111,7 +115,6 @@ export default class DeriveeProduit extends Exercice {
         namef,
         cpt = 0;
       i < this.nbQuestions && cpt < 50;
-
     ) {
       // On commence par générer des fonctions qui pourrait servir
       const dictFonctions = {
@@ -219,14 +222,14 @@ export default class DeriveeProduit extends Exercice {
           texteCorr += 'On additionne les deux fractions pour obtenir : '
           texteCorr += `\\[${namef}'(x)=\\frac{${f2.multiply(-1)}}{x^2}+\\frac{${Polynome.print([0, Number(a)])}}{x^2}=\\frac{${f2.multiply(-1)}${Polynome.print([0, Number(a)], true)}}{x^2}.\\]`
           texteCorr += 'Des termes se simplifient au numérateur et on a : '
-          texteCorr += `\\[${namef}'(x)=\\frac{${Polynome.print([-b])}}{x^2}.\\]`
+          texteCorr += `\\[${namef}'(x)=${miseEnEvidence(`\\frac{${Polynome.print([-b])}}{x^2}`)}.\\]`
           // Remarque sur la méthode alternative
           const fExpand = engine.parse(`${a}${ecritureAlgebrique(b)}/x`).latex
           texteCorr += `Remarque : on pourrait bien entendu développer avant de dériver.<br>Dans ce cas, $${namef}(x)=${fExpand}$.<br>`
           const maReponse = engine
             .box(['D', engine.parse(fExpand), 'x'])
             .evaluate().latex
-          texteCorr += `Et donc $${namef}'(x)=${maReponse}$. Ce qui est bien cohérent avec le résultat trouvé plus haut.`
+          texteCorr += `Et donc $${namef}'(x)=${miseEnEvidence(maReponse)}$. Ce qui est bien cohérent avec le résultat trouvé plus haut.`
           // Sans le replace { x} est mal interprété par le parser de mathLive
           handleAnswers(this, i, {
             reponse: { value: maReponse, compare: functionCompare },
@@ -241,10 +244,10 @@ export default class DeriveeProduit extends Exercice {
           // Début correction
           texteCorr += `On utilise la formule rappelée plus haut et on a  \\[${namef}'(x)=\\underbrace{${mon2.derivee()}}_{u'(x)}\\times(${exprf2})+(${mon2.toMathExpr()})\\times\\underbrace{${Number(a) > 0 ? a.toString() : `(${a})`}}_{v'(x)}.\\]`
           texteCorr += `On développe pour obtenir : \\[${namef}'(x)=${mon2.derivee().multiply(poly1)}${mon2.multiply(a).toMathExpr(true)}.\\]`
-          texteCorr += `Puis, en regroupant les termes de même degré : \\[${namef}'(x)=${polExpand.derivee()}.\\]`
+          texteCorr += `Puis, en regroupant les termes de même degré : \\[${namef}'(x)=${miseEnEvidence(`${polExpand.derivee()}`)}.\\]`
           // Remarque sur la méthode alternative
           texteCorr += `Remarque : on pourrait bien entendu développer avant de dériver.<br>Dans ce cas, $${namef}(x)=${polExpand}$.<br>`
-          texteCorr += `Et donc $${namef}'(x)=${polExpand.derivee()}$. Ce qui est bien cohérent avec le résultat trouvé plus haut.`
+          texteCorr += `Et donc $${namef}'(x)=${miseEnEvidence(`${polExpand.derivee()}`)}$. Ce qui est bien cohérent avec le résultat trouvé plus haut.`
           handleAnswers(this, i, {
             reponse: {
               value: polExpand.derivee().toString(),
@@ -259,9 +262,9 @@ export default class DeriveeProduit extends Exercice {
           texteCorr += 'On applique la  formule rappellée plus haut : '
           texteCorr += `\\[${namef}'(x)=\\underbrace{${mon2.derivee()}}_{u'(x)}\\times\\sqrt{x}+(${mon2.toMathExpr()})\\times\\underbrace{\\frac{1}{2\\sqrt{x}}}_{v'(x)}.\\]`
           texteCorr += "On peut réduire un peu l'expression : "
-          texteCorr += `\\[${namef}'(x)=${rienSi1(2 * m)}x\\sqrt{x}${signe(m)}` // attention l'équation finit ligne suivante
+          texteCorr += `\\[${namef}'(x)=${miseEnEvidence(`${rienSi1(2 * m)}x\\sqrt{x}${signe(m)}`)}` // attention l'équation finit ligne suivante
           if (m % 2 !== 0) {
-            texteCorr += `\\frac{${rienSi1(Math.abs(m))}x^2}{2\\sqrt{x}}.\\]`
+            texteCorr += `${miseEnEvidence(`\\frac{${rienSi1(Math.abs(m))}x^2}{2\\sqrt{x}}`)}.\\]`
             handleAnswers(this, i, {
               reponse: {
                 value: `${rienSi1(2 * m)}x\\sqrt{x}${signe(m)}\\frac{${rienSi1(Math.abs(m))}x^2}{2\\sqrt{x}}`,
@@ -270,7 +273,7 @@ export default class DeriveeProduit extends Exercice {
             })
             // Réponse réduite à ajouter
           } else {
-            texteCorr += `\\frac{${Polynome.print([0, 0, Math.abs(m / 2)])}}{\\sqrt{x}}.\\]`
+            texteCorr += `${miseEnEvidence(`\\frac{${Polynome.print([0, 0, Math.abs(m / 2)])}}{\\sqrt{x}}`)}.\\]`
             handleAnswers(this, i, {
               reponse: {
                 value: `${rienSi1(2 * m)}x\\sqrt{x}${signe(m)}\\frac{${Polynome.print([0, 0, Math.abs(m / 2)])}}{\\sqrt{x}}`,
@@ -312,7 +315,7 @@ export default class DeriveeProduit extends Exercice {
             interm2 = `${derivee.isMon() ? `${derivee.toLatex()}` : `(${derivee.toLatex()})`}\\sqrt{x}+\\frac{${poly}}{2\\sqrt{x}}`
           texteCorr +=
             "L'énoncé ne demandant rien de plus, on se contente de simplifier l'expression :"
-          texteCorr += `\\[${namef}'(x)=${interm2}\\]`
+          texteCorr += `\\[${namef}'(x)=${miseEnEvidence(`${interm2}`)}.\\]`
           handleAnswers(this, i, {
             reponse: { value: interm2, compare: functionCompare },
           })
@@ -339,7 +342,7 @@ export default class DeriveeProduit extends Exercice {
             const termeGauche = expGauche ? 'e^x' : interm2
             const termeDroite = expGauche ? interm2 : 'e^x'
             texteCorr += "Comme demandé, on factorise l'expression par $e^x$ : "
-            texteCorr += `\\[${namef}'(x)=${termeGauche}${termeDroite}\\]`
+            // texteCorr += `\\[${namef}'(x)=${termeGauche}${termeDroite}\\]`
             handleAnswers(this, i, {
               reponse: {
                 value: `${termeGauche}${termeDroite}`,
@@ -351,12 +354,15 @@ export default class DeriveeProduit extends Exercice {
             const termeGauche2 = expGauche ? 'e^x' : interm2Simp
             const termeDroite2 = expGauche ? interm2Simp : 'e^x'
             if (
-              `${termeGauche2}${termeDroite2}` !==
+              `${termeGauche2}${termeDroite2}` ===
               `${termeGauche}${termeDroite}`
             ) {
+              texteCorr += `\\[${namef}'(x)=${miseEnEvidence(`${termeGauche}${termeDroite}`)}.\\]`
+            } else {
+              texteCorr += `\\[${namef}'(x)=${termeGauche}${termeDroite}\\]`
               texteCorr +=
                 "On peut réduire ou réordonner l'expression entre parenthèses : "
-              texteCorr += `\\[${namef}'(x)=${termeGauche2}${termeDroite2}\\]`
+              texteCorr += `\\[${namef}'(x)=${miseEnEvidence(`${termeGauche2}${termeDroite2}`)}.\\]`
               handleAnswers(this, i, {
                 reponse: {
                   value: `${termeGauche2}${termeDroite2}`,
@@ -375,7 +381,7 @@ export default class DeriveeProduit extends Exercice {
       if (this.interactif) {
         texte +=
           '<br><br>' +
-          ajouteChampTexteMathLive(this, i, '', {
+          ajouteChampTexteMathLive(this, i, KeyboardType.lyceeClassique, {
             texteAvant: `$${namef}'(x)=$`,
           })
       }

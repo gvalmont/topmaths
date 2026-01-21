@@ -12,7 +12,7 @@ export const interactifType = 'mathLive'
 export const uuid = 'f38cf'
 export const refs = {
   'fr-fr': [],
-  'fr-ch': ['3mA2-5'],
+  'fr-ch': ['3mA2-10'],
 }
 export const dateDePublication = '18/04/2024'
 const questions = [

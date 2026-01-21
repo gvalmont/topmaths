@@ -20,7 +20,7 @@ export const interactifReady = true
 export const interactifType = 'qcm'
 export const amcReady = 'true'
 export const amcType = 'qcmMono'
-export const titre = "Retrouver le calcul d'un prix après une évolution"
+export const titre = "Trouver le calcul d'un prix subissant une évolution"
 
 export default class BaissePrix extends ExerciceQcmA {
   private appliquerLesValeurs(prixInitial: number, pourcentage: number): void {

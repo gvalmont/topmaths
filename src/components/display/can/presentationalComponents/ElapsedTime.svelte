@@ -20,7 +20,7 @@
     </div>
   </div>
   <div
-    class="relative h-5 bg-coopmaths-action bg-opacity-70 dark:bg-coopmathsdark-warn-light dark:bg-opacity-70"
+    class="relative h-5 bg-coopmaths-action/70 dark:bg-coopmathsdark-warn-light/70"
     style="width: calc( 100% * ( 1 - {widthFactor} ) );"
   >
     <div

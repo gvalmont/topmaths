@@ -19,6 +19,17 @@ export const refs = {
 export const uuid = 'testEE'
 
 const engine = new ComputeEngine()
+const saisie = engine.parse('(x+5)^2', { canonical: true })
+const saisieDev = engine
+  .box(['ExpandAll', saisie])
+  .evaluate()
+  .simplify().canonical
+const reponseParsed = engine.parse('(x+5)(x+5)', { canonical: true })
+const reponseDev = engine
+  .box(['ExpandAll', reponseParsed])
+  .evaluate()
+  .simplify().canonical
+console.info(saisieDev.isEqual(reponseDev))
 /* const result = fonctionComparaison('3.1\\times10^{3}', '3100', {
   ecritureScientifique: true,
 })
@@ -78,7 +89,6 @@ export default class desTestsPourInteractivité extends Exercice {
     for (
       let i = 0, texte, texteCorr, cpt = 0, a, b;
       i < this.nbQuestions && cpt < 50;
-
     ) {
       a = randint(1, 12)
       b = randint(2, 12)
@@ -95,11 +105,11 @@ export default class desTestsPourInteractivité extends Exercice {
       // const enonce = '$Donner une valeur numér égale à 0.4 : $'
       // reponse = reponse.toString()
       texteCorr = ''
-      // texte = `$${enonce}=$` + ajouteChampTexteMathLive(this, i, 'inline15 college6eme ' + KeyboardType.clavierDeBaseAvecFraction)
+      // texte = `$${enonce}=$` + ajouteChampTexteMathLive(this, i, KeyboardType.clavierDeBaseAvecFraction)
       texte =
         `$${enonce}$` +
         ajouteChampTexteMathLive(this, i, KeyboardType.clavierSuite)
-      // texte += `$${enonce}$` + ajouteChampTexteMathLive(this, i + 1, 'largeur01 inline nospacebefore ' + KeyboardType.clavierDeBaseAvecFraction)
+      // texte += `$${enonce}$` + ajouteChampTexteMathLive(this, i + 1,  KeyboardType.clavierDeBaseAvecFraction)
       // texte += ajouteFeedback(this, i + 1)
       // handleAnswers(this, i, { reponse: { value: reponse, compare: expressionDeveloppeeEtNonReduiteCompare } })
       // handleAnswers(this, i, { reponse: { value: reponse } })

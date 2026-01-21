@@ -9,8 +9,8 @@
 <button
   type="button"
   {title}
-  id="{$$props.id}"
-  class="{$$props.class || 'rounded-lg py-1 px-2'}"
+  id={$$props.id}
+  class={$$props.class || 'rounded-lg py-1 px-2'}
   {disabled}
   on:click
 >

@@ -12,6 +12,7 @@ import { listeQuestionsToContenu, randint } from '../../../modules/outils'
 import Exercice from '../../Exercice'
 
 import { droiteGraduee } from '../../../lib/2d/DroiteGraduee'
+import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 import { setReponse } from '../../../lib/interactif/gestionInteractif'
 import { arrondi } from '../../../lib/outils/nombres'
 import FractionEtendue from '../../../modules/FractionEtendue'
@@ -134,7 +135,6 @@ export default class CourseAuxNombres5e extends Exercice {
     for (
       let i = 0, texte, texteCorr, cpt = 0;
       i < this.nbQuestions && cpt < 50;
-
     ) {
       // Boucle principale où i+1 correspond au numéro de la question
       switch (
@@ -491,17 +491,27 @@ export default class CourseAuxNombres5e extends Exercice {
           break
       }
       if (listeTypeQuestions[i] === 'q22') {
-        texte += ajouteChampTexteMathLive(this, i, '', {
-          texteApres: '$\\text{ m}$',
-        })
+        texte += ajouteChampTexteMathLive(
+          this,
+          i,
+          KeyboardType.clavierNumbers,
+          {
+            texteApres: '$\\text{ m}$',
+          },
+        )
       } else if (listeTypeQuestions[i] === 'q25') {
-        texte += ajouteChampTexteMathLive(this, i, '', {
-          texteApres: ` ${hauteurs[a][3]}`,
-        })
+        texte += ajouteChampTexteMathLive(
+          this,
+          i,
+          KeyboardType.clavierNumbers,
+          {
+            texteApres: ` ${hauteurs[a][3]}`,
+          },
+        )
       } else if (listeTypeQuestions[i] === 'q27') {
-        texte += ajouteChampTexteMathLive(this, i, ' unites[longueurs]')
+        texte += ajouteChampTexteMathLive(this, i, KeyboardType.longueur)
       } else {
-        texte += ajouteChampTexteMathLive(this, i)
+        texte += ajouteChampTexteMathLive(this, i, KeyboardType.clavierNumbers)
       }
       if (this.questionJamaisPosee(i, a, b, c, d, resultat)) {
         // Si la question n'a jamais été posée, on en crée une autre

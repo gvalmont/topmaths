@@ -80,15 +80,15 @@ export default class DeriveeExp extends Exercice {
             if (choix === true) {
               texte =
                 texteIntro +
-                ` $f(x)=${rienSi1(a)}\\text{e}^x${b === 0 ? `${ecritureAlgebrique(c)}` : `${signe(b)}${reduireAxPlusB(abs(b), c)}`}$.<br>
+                ` $f(x)=${rienSi1(a)}\\mathrm{e}^x${b === 0 ? `${ecritureAlgebrique(c)}` : `${signe(b)}${reduireAxPlusB(abs(b), c)}`}$.<br>
             Calculer $f'(x)$.`
-              texteCorr += `$f'(x)=${miseEnEvidence(`${rienSi1(a)}\\text{e}^x${b === 0 ? '' : `${ecritureAlgebrique(b)}`}`)}$.`
+              texteCorr += `$f'(x)=${miseEnEvidence(`${rienSi1(a)}\\mathrm{e}^x${b === 0 ? '' : `${ecritureAlgebrique(b)}`}`)}$.`
             } else {
               texte =
                 texteIntro +
-                ` $f(x)=${reduireAxPlusB(b, c)}${signe(a)}${rienSi1(abs(a))}\\text{e}^x$.<br>
+                ` $f(x)=${reduireAxPlusB(b, c)}${signe(a)}${rienSi1(abs(a))}\\mathrm{e}^x$.<br>
             Calculer $f'(x)$.`
-              texteCorr += `$f'(x)=${miseEnEvidence(`${b === 0 ? '' : `${b}`}${ecritureAlgebriqueSauf1(a)}\\text{e}^x`)}$.`
+              texteCorr += `$f'(x)=${miseEnEvidence(`${b === 0 ? '' : `${b}`}${ecritureAlgebriqueSauf1(a)}\\mathrm{e}^x`)}$.`
             }
             texte += ajouteChampTexteMathLive(
               this,
@@ -113,12 +113,12 @@ export default class DeriveeExp extends Exercice {
             const derivee = poly.derivee()
             texte =
               texteIntro +
-              `$f(x)=\\text{e}^{${poly}}$.<br>
+              `$f(x)=\\mathrm{e}^{${poly}}$.<br>
              Calculer $f'(x)$.`
             texteCorr = `La fonction $f$ est dérivable sur $\\mathbb{R}$ comme composée de fonctions dérivables sur $\\mathbb{R}$.<br>
-            $f$ est de la forme $\\text{e}^u$ avec $u(x)=${poly}$, donc sa fonction dérivée est donnée par $f'=u'\\text{e}^u$.<br><br>
+            $f$ est de la forme $\\mathrm{e}^u$ avec $u(x)=${poly}$, donc sa fonction dérivée est donnée par $f'=u'\\mathrm{e}^u$.<br><br>
             Pour tout $x$ de $\\mathbb{R}$, `
-            texteCorr += `${derivee.isMon() ? `$f'(x)=${miseEnEvidence(`${derivee}\\text{e}^{${poly}}`)}$` : `$f'(x)=${miseEnEvidence(`(${derivee})\\text{e}^{${poly}}`)}$`}.`
+            texteCorr += `${derivee.isMon() ? `$f'(x)=${miseEnEvidence(`${derivee}\\mathrm{e}^{${poly}}`)}$` : `$f'(x)=${miseEnEvidence(`(${derivee})\\mathrm{e}^{${poly}}`)}$`}.`
             texte += ajouteChampTexteMathLive(
               this,
               i,
@@ -148,12 +148,12 @@ export default class DeriveeExp extends Exercice {
             const derivee = poly.derivee()
             texte =
               texteIntro +
-              `$f(x)=\\text{e}^{${poly}}$.<br>
+              `$f(x)=\\mathrm{e}^{${poly}}$.<br>
              Calculer $f'(x)$.`
             texteCorr = `La fonction $f$ est dérivable sur $\\mathbb{R}$ comme composée de fonctions dérivables sur $\\mathbb{R}$.<br>
-            $f$ est de la forme $\\text{e}^u$ avec $u(x)=${poly}$, donc sa fonction dérivée est donnée par $f'=u'\\text{e}^u$.<br><br>
+            $f$ est de la forme $\\mathrm{e}^u$ avec $u(x)=${poly}$, donc sa fonction dérivée est donnée par $f'=u'\\mathrm{e}^u$.<br><br>
             Pour tout $x$ de $\\mathbb{R}$, `
-            texteCorr += `${derivee.isMon() ? `$f'(x)=${miseEnEvidence(`${derivee}\\text{e}^{${poly}}`)}$` : `$f'(x)=${miseEnEvidence(`(${derivee})\\text{e}^{${poly}}`)}$`}.`
+            texteCorr += `${derivee.isMon() ? `$f'(x)=${miseEnEvidence(`${derivee}\\mathrm{e}^{${poly}}`)}$` : `$f'(x)=${miseEnEvidence(`(${derivee})\\mathrm{e}^{${poly}}`)}$`}.`
             texte += ajouteChampTexteMathLive(
               this,
               i,
@@ -181,18 +181,18 @@ export default class DeriveeExp extends Exercice {
                 }) // ax+b
 
                 texteCorr = `La fonction $f$ est dérivable sur $\\mathbb{R}$ comme produit de fonctions dérivables sur $\\mathbb{R}$.<br>
-            $f$ est de la forme $u\\times v$ avec $u(x)=${poly}$ et $v(x)=\\text{e}^x$, donc sa fonction dérivée est donnée par 
+            $f$ est de la forme $u\\times v$ avec $u(x)=${poly}$ et $v(x)=\\mathrm{e}^x$, donc sa fonction dérivée est donnée par 
             $f'=u'\\times v+ u\\times v'$.<br><br>
             Pour tout $x$ de $\\mathbb{R}$, <br>`
                 texte =
                   texteIntro +
-                  ` $f(x)=${poly.isMon() ? `${poly}\\text{e}^x` : `(${poly})\\text{e}^x`}$.<br>
+                  ` $f(x)=${poly.isMon() ? `${poly}\\mathrm{e}^x` : `(${poly})\\mathrm{e}^x`}$.<br>
             Calculer $f'(x)$ et écrire son expression sous forme factorisée.`
                 texteCorr += ` 
               $\\begin{aligned}
-              f'(x)&=\\underbrace{${poly.derivee()}}_{u'(x)}\\times \\underbrace{\\text{e}^x}_{v(x)}+\\underbrace{(${poly})}_{u(x)}\\times \\underbrace{\\text{e}^x}_{v'(x)}\\\\
-            ${poly.isMon() ? '' : `&=\\text{e}^x(${poly.derivee()}+(${poly}))\\\\`}
-              &= ${miseEnEvidence(`${ab[0] + ab[1] === 0 ? `${ab[0]}\\text{e}^x` : `\\text{e}^x(${reduireAxPlusB(ab[0], ab[0] + ab[1])})`}`)}.
+              f'(x)&=\\underbrace{${poly.derivee()}}_{u'(x)}\\times \\underbrace{\\mathrm{e}^x}_{v(x)}+\\underbrace{(${poly})}_{u(x)}\\times \\underbrace{\\mathrm{e}^x}_{v'(x)}\\\\
+            ${poly.isMon() ? '' : `&=\\mathrm{e}^x(${poly.derivee()}+(${poly}))\\\\`}
+              &= ${miseEnEvidence(`${ab[0] + ab[1] === 0 ? `${ab[0]}\\mathrm{e}^x` : `\\mathrm{e}^x(${reduireAxPlusB(ab[0], ab[0] + ab[1])})`}`)}.
               \\end{aligned}$`
 
                 texte += ajouteChampTexteMathLive(
@@ -230,18 +230,18 @@ export default class DeriveeExp extends Exercice {
                 })
 
                 texteCorr = `La fonction $f$ est dérivable sur $\\mathbb{R}$ comme produit de fonctions dérivables sur $\\mathbb{R}$.<br>
-            $f$ est de la forme $u\\times v$ avec $u(x)=${poly}$ et $v(x)=\\text{e}^x$, donc sa fonction dérivée est donnée par 
+            $f$ est de la forme $u\\times v$ avec $u(x)=${poly}$ et $v(x)=\\mathrm{e}^x$, donc sa fonction dérivée est donnée par 
             $f'=u'\\times v+ u\\times v'$.<br><br>
             Pour tout $x$ de $\\mathbb{R}$, <br>`
                 texte =
                   texteIntro +
-                  ` $f(x)=${poly.isMon() ? `${poly}\\text{e}^x` : `(${poly})\\text{e}^x`}$.<br>
+                  ` $f(x)=${poly.isMon() ? `${poly}\\mathrm{e}^x` : `(${poly})\\mathrm{e}^x`}$.<br>
             Calculer $f'(x)$ et écrire son expression sous forme factorisée.`
                 texteCorr += ` 
               $\\begin{aligned}
-              f'(x)&=\\underbrace{${derivee.isMon() ? `${derivee}` : `(${derivee})`}}_{u'(x)}\\times \\underbrace{\\text{e}^x}_{v(x)}+\\underbrace{(${poly})}_{u(x)}\\times \\underbrace{\\text{e}^x}_{v'(x)}\\\\
-           &=${derivee.isMon() ? `${miseEnEvidence(`\\text{e}^x(${polyF})`)}.` : `\\text{e}^x(${derivee}+(${poly}))`}\\\\
-              ${derivee.isMon() ? '' : `&=${miseEnEvidence(`\\text{e}^x(${polyF})`)}.`}
+              f'(x)&=\\underbrace{${derivee.isMon() ? `${derivee}` : `(${derivee})`}}_{u'(x)}\\times \\underbrace{\\mathrm{e}^x}_{v(x)}+\\underbrace{(${poly})}_{u(x)}\\times \\underbrace{\\mathrm{e}^x}_{v'(x)}\\\\
+           &=${derivee.isMon() ? `${miseEnEvidence(`\\mathrm{e}^x(${polyF})`)}.` : `\\mathrm{e}^x(${derivee}+(${poly}))`}\\\\
+              ${derivee.isMon() ? '' : `&=${miseEnEvidence(`\\mathrm{e}^x(${polyF})`)}.`}
               \\end{aligned}$`
                 texte += ajouteChampTexteMathLive(
                   this,
@@ -274,20 +274,20 @@ export default class DeriveeExp extends Exercice {
               coeffs: [ab[0] + m * ab[1], m * ab[0]],
             })
             texteCorr = `La fonction $f$ est dérivable sur $\\mathbb{R}$ comme produit de fonctions dérivables sur $\\mathbb{R}$.<br>
-            $f$ est de la forme $u\\times v$ avec $u(x)=${poly}$ et $v(x)=\\text{e}^{${rienSi1(m)}x}$, donc sa fonction dérivée est donnée par 
+            $f$ est de la forme $u\\times v$ avec $u(x)=${poly}$ et $v(x)=\\mathrm{e}^{${rienSi1(m)}x}$, donc sa fonction dérivée est donnée par 
             $f'=u'\\times v+ u\\times v'$.<br><br>
             Pour tout $x$ de $\\mathbb{R}$, <br>`
 
             texte =
               texteIntro +
-              ` $f(x)=${poly.isMon() ? `${poly}\\text{e}^{${rienSi1(m)}x}` : `(${poly})\\text{e}^{${rienSi1(m)}x}`}$.<br>
+              ` $f(x)=${poly.isMon() ? `${poly}\\mathrm{e}^{${rienSi1(m)}x}` : `(${poly})\\mathrm{e}^{${rienSi1(m)}x}`}$.<br>
             Calculer $f'(x)$ et écrire son expression sous forme factorisée.`
             texteCorr += ` 
               $\\begin{aligned}
-              f'(x)&=\\underbrace{${derivee}}_{u'(x)}\\times \\underbrace{\\text{e}^{${rienSi1(m)}x}}_{v(x)}+\\underbrace{(${poly})}_{u(x)}\\times \\underbrace{${ecritureParentheseSiMoins(m)}\\text{e}^{${rienSi1(m)}x}}_{v'(x)}\\\\
-            ${poly.isMon() ? `&=${rienSi1(m)}\\text{e}^{${rienSi1(m)}x} ${ecritureAlgebriqueSauf1(ab[0] * m)}x\\text{e}^{${rienSi1(m)}x}\\\\` : ''}
-            ${poly.isMon() ? '' : `&=\\text{e}^{${rienSi1(m)}x}(${derivee}+${poly.isMon() ? `(${m}\\times (${poly}))` : `(${m}(${poly}))`}\\\\`}
-              &= ${miseEnEvidence(`\\text{e}^{${rienSi1(m)}x}(${polyF})`)}.
+              f'(x)&=\\underbrace{${derivee}}_{u'(x)}\\times \\underbrace{\\mathrm{e}^{${rienSi1(m)}x}}_{v(x)}+\\underbrace{(${poly})}_{u(x)}\\times \\underbrace{${ecritureParentheseSiMoins(m)}\\mathrm{e}^{${rienSi1(m)}x}}_{v'(x)}\\\\
+            ${poly.isMon() ? `&=${rienSi1(m)}\\mathrm{e}^{${rienSi1(m)}x} ${ecritureAlgebriqueSauf1(ab[0] * m)}x\\mathrm{e}^{${rienSi1(m)}x}\\\\` : ''}
+            ${poly.isMon() ? '' : `&=\\mathrm{e}^{${rienSi1(m)}x}(${derivee}+${poly.isMon() ? `(${m}\\times (${poly}))` : `(${m}(${poly}))`}\\\\`}
+              &= ${miseEnEvidence(`\\mathrm{e}^{${rienSi1(m)}x}(${polyF})`)}.
               \\end{aligned}$`
 
             texte += ajouteChampTexteMathLive(
@@ -324,17 +324,17 @@ export default class DeriveeExp extends Exercice {
                 const polyNum = poly.multiply(m).add(-m * ab[0])
                 const vi = new FractionEtendue(-ab[1], ab[0]).simplifie()
                 texteCorr = `La fonction $f$ est dérivable sur $\\mathbb{R}$ comme quotient de fonctions dérivables sur $\\mathbb{R}\\smallsetminus\\left\\{${vi.texFraction}\\right\\}$ dont le dénominateur ne s'annule pas sur $\\mathbb{R}\\smallsetminus\\left\\{${vi.texFraction}\\right\\}$.<br>
-            $f$ est de la forme $\\dfrac{u}{v}$ avec $u(x)=${rienSi1(m)}\\text{e}^{x}$ et $v(x)=${poly}$, donc sa fonction dérivée est donnée par 
+            $f$ est de la forme $\\dfrac{u}{v}$ avec $u(x)=${rienSi1(m)}\\mathrm{e}^{x}$ et $v(x)=${poly}$, donc sa fonction dérivée est donnée par 
             $f'=\\dfrac{u'\\times v- u\\times v'}{v^2}$.<br><br>
             Pour tout $x$ de $\\mathbb{R}\\smallsetminus\\left\\{${vi.texFraction}\\right\\}$, <br>`
                 texte = ` On considère la fonction $f$ définie sur $\\mathbb{R}\\smallsetminus\\left\\{${vi.texFraction}\\right\\}$ par : 
-            $f(x)=\\dfrac{${rienSi1(m)}\\text{e}^{x}}{${poly}}$.<br>
+            $f(x)=\\dfrac{${rienSi1(m)}\\mathrm{e}^{x}}{${poly}}$.<br>
             Calculer $f'(x)$.`
                 texteCorr += ` 
               $\\begin{aligned}
-              f'(x)&=\\dfrac{\\overbrace{${rienSi1(m)}\\text{e}^{x}}^{u'(x)}\\times \\overbrace{${poly.isMon() ? `${poly}` : `(${poly})`}}^{v(x)}-\\overbrace{${rienSi1(m)}\\text{e}^{x}}^{u(x)}\\times \\overbrace{${ecritureParentheseSiNegatif(ab[0])}}^{v'(x)}}{\\underbrace{(${poly})^2}_{(v(x))^2}}\\\\
-         &=\\dfrac{  ${poly.multiply(m)}\\text{e}^{x}- ${m * ab[0]}\\text{e}^{x}}{(${poly})^2} \\\\
-        &=${miseEnEvidence(`\\dfrac{${polyNum.isMon() ? ` ${polyNum}` : `(${polyNum})`}\\text{e}^{x}}{${ab[0] === 1 && ab[1] === 0 ? `${poly}^2` : `(${poly})^2`}}`)}.
+              f'(x)&=\\dfrac{\\overbrace{${rienSi1(m)}\\mathrm{e}^{x}}^{u'(x)}\\times \\overbrace{${poly.isMon() ? `${poly}` : `(${poly})`}}^{v(x)}-\\overbrace{${rienSi1(m)}\\mathrm{e}^{x}}^{u(x)}\\times \\overbrace{${ecritureParentheseSiNegatif(ab[0])}}^{v'(x)}}{\\underbrace{(${poly})^2}_{(v(x))^2}}\\\\
+         &=\\dfrac{  ${poly.multiply(m)}\\mathrm{e}^{x}- ${m * ab[0]}\\mathrm{e}^{x}}{(${poly})^2} \\\\
+        &=${miseEnEvidence(`\\dfrac{${polyNum.isMon() ? ` ${polyNum}` : `(${polyNum})`}\\mathrm{e}^{x}}{${ab[0] === 1 && ab[1] === 0 ? `${poly}^2` : `(${poly})^2`}}`)}.
               \\end{aligned}$`
 
                 texte += ajouteChampTexteMathLive(
@@ -373,17 +373,17 @@ export default class DeriveeExp extends Exercice {
                   coeffs: [abc[2] * m, -2 * abc[0] * m, m * abc[0]],
                 })
                 texteCorr = `La fonction $f$ est dérivable sur $${abc[2] !== 0 ? '\\mathbb{R}' : '\\mathbb{R}^*'}$ comme quotient de fonctions dérivables sur ${abc[2] !== 0 ? '$\\mathbb{R}$' : "$\\mathbb{R}^*$ dont le dénominateur ne s'annule pas sur $\\mathbb{R}^*$"}.<br>
-            $f$ est de la forme $\\dfrac{u}{v}$ avec $u(x)=${rienSi1(m)}\\text{e}^{x}$ et $v(x)=${poly}$, donc sa fonction dérivée est donnée par 
+            $f$ est de la forme $\\dfrac{u}{v}$ avec $u(x)=${rienSi1(m)}\\mathrm{e}^{x}$ et $v(x)=${poly}$, donc sa fonction dérivée est donnée par 
             $f'=\\dfrac{u'\\times v- u\\times v'}{v^2}$.<br><br>
             Pour tout $x$ de $\\mathbb{R}$, <br>`
                 texte = `
                On considère la fonction $f$ définie sur $\\mathbb{R}$ par : 
-            $f(x)=\\dfrac{${rienSi1(m)}\\text{e}^{x}}{${poly}}$.<br>
+            $f(x)=\\dfrac{${rienSi1(m)}\\mathrm{e}^{x}}{${poly}}$.<br>
             Calculer $f'(x)$.`
                 texteCorr += ` 
               $\\begin{aligned}
-              f'(x)&=\\dfrac{\\overbrace{${rienSi1(m)}\\text{e}^{x}}^{u'(x)}\\times \\overbrace{${poly.isMon() ? `${poly}` : `(${poly})`}}^{v(x)}-\\overbrace{${rienSi1(m)}\\text{e}^{x}}^{u(x)}\\times \\overbrace{${derivee}}^{v'(x)}}{\\underbrace{(${poly})^2}_{(v(x))^2}}\\\\
-        &=${miseEnEvidence(`\\dfrac{${polyF.isMon() ? ` ${polyF}` : `(${polyF})`}\\text{e}^{x}}{(${poly})^2}`)}.
+              f'(x)&=\\dfrac{\\overbrace{${rienSi1(m)}\\mathrm{e}^{x}}^{u'(x)}\\times \\overbrace{${poly.isMon() ? `${poly}` : `(${poly})`}}^{v(x)}-\\overbrace{${rienSi1(m)}\\mathrm{e}^{x}}^{u(x)}\\times \\overbrace{${derivee}}^{v'(x)}}{\\underbrace{(${poly})^2}_{(v(x))^2}}\\\\
+        &=${miseEnEvidence(`\\dfrac{${polyF.isMon() ? ` ${polyF}` : `(${polyF})`}\\mathrm{e}^{x}}{(${poly})^2}`)}.
               \\end{aligned}$`
 
                 texte += ajouteChampTexteMathLive(

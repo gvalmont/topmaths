@@ -10,7 +10,9 @@ import {
 } from '../../modules/outils'
 import Exercice from '../Exercice'
 
+import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 import { setReponse } from '../../lib/interactif/gestionInteractif'
+import { miseEnEvidence } from '../../lib/outils/embellissements'
 
 export const titre = 'Convertir des grandeurs composées'
 export const interactifReady = true
@@ -255,7 +257,6 @@ export default class NomExercice extends Exercice {
     for (
       let i = 0, texte, texteCorr, cpt = 0;
       i < this.nbQuestions && cpt < 50;
-
     ) {
       valeurDepart = randint(1, 80) * 9 // Comme ça même si on doit diviser par 3600 le résultat restera décimal
       typeDeComposition = 'quotient'
@@ -297,11 +298,11 @@ export default class NomExercice extends Exercice {
       = ${cfrac}{${valeurDepart}\\text{ ${unite1Depart.unite}}}${times}{1 \\text{ ${unite2Depart.unite}}}
       = ${cfrac}{${valeurDepart} \\times ${fraction(unite1Depart.coef, unite1Arrivee.coef).texFractionSimplifiee} \\text{ ${unite1Arrivee.unite}}}
       ${times}{${fraction(unite2Depart.coef, unite2Arrivee.coef).texFractionSimplifiee} \\text{ ${unite2Arrivee.unite}}}
-      = ${texNombre(valeurArrivee, precision)}\\text{ ${unite1Arrivee.unite}${operateur}${unite2Arrivee.unite}}$`
+      = ${miseEnEvidence(texNombre(valeurArrivee, precision))}\\text{ ${unite1Arrivee.unite}${operateur}${unite2Arrivee.unite}}$`
       if (this.interactif && context.isHtml) {
         setReponse(this, i, valeurArrivee)
         texte += `<br> $${valeurDepart}$ ${unite1Depart.unite}${operateur}${unite2Depart.unite} = `
-        texte += ajouteChampTexteMathLive(this, i, '')
+        texte += ajouteChampTexteMathLive(this, i, KeyboardType.clavierNumbers)
         texte += ` ${unite1Arrivee.unite}${operateur}${unite2Arrivee.unite}`
       }
       if (this.questionJamaisPosee(i, texte)) {

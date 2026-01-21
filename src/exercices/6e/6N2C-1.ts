@@ -1,12 +1,13 @@
+import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
+import { setReponse } from '../../lib/interactif/gestionInteractif'
+import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
 import { nombreDeChiffresDansLaPartieEntiere } from '../../lib/outils/nombres'
 import { sp } from '../../lib/outils/outilString'
 import { texNombre } from '../../lib/outils/texNombre'
-import Exercice from '../Exercice'
-import { listeQuestionsToContenu, randint } from '../../modules/outils'
-import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { context } from '../../modules/context'
-import { setReponse } from '../../lib/interactif/gestionInteractif'
+import { listeQuestionsToContenu, randint } from '../../modules/outils'
+import Exercice from '../Exercice'
 
 export const titre =
   'Multiplier ou diviser un entier par 10, 100, 1 000... (résultat entier)'
@@ -77,7 +78,6 @@ export default class MultiplierEntierPar101001000 extends Exercice {
     for (
       let i = 0, texte, texteCorr, a, b, cpt = 0;
       i < this.nbQuestions && cpt < 50;
-
     ) {
       switch (listeTypeDeQuestions[i]) {
         case 1:
@@ -129,7 +129,7 @@ export default class MultiplierEntierPar101001000 extends Exercice {
           texteCorr = `$${texNombre(a * b)}\\div${texNombre(b)}=${texNombre(a)}$`
           break
       }
-      texte += ajouteChampTexteMathLive(this, i, ' college6eme', {
+      texte += ajouteChampTexteMathLive(this, i, KeyboardType.clavierNumbers, {
         texteAvant: `${sp(2)}=`,
       })
       if (context.isAmc) {

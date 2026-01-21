@@ -101,8 +101,8 @@ export default class FatorisationEgR extends ExerciceSimple {
         break
       case 3: // a^2-b^2
         {
-          const a = randint(1, 3)
-          const b = randint(1, 10)
+          const a = randint(2, 3)
+          const b = randint(2, 10)
           const choix = choice([true, false])
           this.reponse = choix
             ? `$(${reduireAxPlusB(a, -b)})(${reduireAxPlusB(a, b)})$`

@@ -22,7 +22,6 @@ export const refs = {
 
 */
 
-
 // modulo positif
 function mod(n: number, k: number): number {
   return ((n % k) + k) % k
@@ -113,13 +112,12 @@ Déterminer l'inverse de $${a}$ modulo $${k}$. <br>`
       texteCorr += table
       texteCorr += `<br>On observe que  si $x\\equiv ${invA}  [${k}]$ alors $${a}\\times${invA} \\equiv 1 \\,[${k}]$.`
       texteCorr += `<br>Donc l'inverse de $${a}$ modulo $${k}$ est $${miseEnEvidence(`${invA}`)}$ .`
-      
 
       if (this.questionJamaisPosee(i, texte)) {
         // Question affichée + champ interactif
         this.listeQuestions[i] =
           texte +
-          ajouteChampTexteMathLive(this, i, `  ${KeyboardType.lycee}`, {
+          ajouteChampTexteMathLive(this, i, KeyboardType.clavierNumbers, {
             texteAvant: `L'inverse de $${a}$ modulo $${k}$ est`,
             texteApres: ``,
           })

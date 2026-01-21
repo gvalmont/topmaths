@@ -1,9 +1,9 @@
 import Figure from 'apigeom'
 import type PointApigeom from 'apigeom/src/elements/points/Point'
-import { point } from '../../lib/2d/PointAbstrait'
+import { point, pointAbstrait } from '../../lib/2d/PointAbstrait'
 import { similitude } from '../../lib/2d/transformations'
 import { wrapperApigeomToMathalea } from '../../lib/apigeom/apigeomZoom'
-import figureApigeom from '../../lib/figureApigeom'
+import figureApigeom, { isFigureArray } from '../../lib/figureApigeom'
 import { Matrice } from '../../lib/mathFonctions/Matrice'
 import { choisitLettresDifferentes } from '../../lib/outils/aleatoires'
 import { choice } from '../../lib/outils/arrayOutils'
@@ -29,10 +29,11 @@ export const refs = {
  * On se propose de placer des points aux coordonnées données dans un repère orthogonal, normé ou quelconque.
  */
 export default class BetaReperage2e extends Exercice {
-  figuresApiGeom!: Figure[]
-  labelsPoints!: string[][]
-  X!: number[][]
-  Y!: number[][]
+  figuresApiGeom: Figure[]
+  labelsPoints: string[][]
+  X: number[][]
+  Y: number[][]
+
   constructor() {
     super()
     this.nbQuestions = 1
@@ -65,6 +66,10 @@ export default class BetaReperage2e extends Exercice {
   }
 
   nouvelleVersion() {
+    this.figuresApiGeom = []
+    this.labelsPoints = []
+    this.X = []
+    this.Y = []
     const listeTypeDeReperes = gestionnaireFormulaireTexte({
       saisie: this.sup,
       min: 1,
@@ -79,23 +84,6 @@ export default class BetaReperage2e extends Exercice {
 
     for (let i = 0; i < this.nbQuestions; ) {
       const options = {}
-      this.figuresApiGeom[i] = new Figure(
-        Object.assign(options, {
-          xMin: -10,
-          yMin: -10,
-          width: 300,
-          height: 300,
-          scale: 0.5,
-        }),
-      )
-      this.figuresApiGeom[i].options.latexHeight = 20
-      this.figuresApiGeom[i].options.labelDxInPixels = 20
-      this.figuresApiGeom[i].options.labelDyInPixels = 20
-      this.figuresApiGeom[i].setToolbar({
-        tools: ['NAME_POINT', 'POINT_INTERSECTION', 'UNDO', 'REDO', 'REMOVE'],
-        position: 'top',
-      })
-      const fig = this.figuresApiGeom[i]
       x[i] = []
       y[i] = []
       this.X[i] = []
@@ -108,31 +96,29 @@ export default class BetaReperage2e extends Exercice {
       const listeNoms = choisitLettresDifferentes(3 + this.sup3)
       const [labelI, labelK, labelO] = listeNoms.slice(0, 3)
       this.labelsPoints[i] = listeNoms.slice(3)
-      const pointO = fig.create('Point', {
-        x: 0,
-        y: 0,
-        label: labelO,
-        labelDxInPixels: -20,
-        labelDyInPixels: -20,
-        color: 'black',
-        shape: 'o',
-        sizeInPixels: 2,
-        isSelectable: false,
-      })
+
       do {
         switch (listeTypeDeReperes[i]) {
           case 1:
-            coordsI = [choice([1.5, 2.5]), 0]
-            coordsK = [0, choice([1, 2])]
+            {
+              const ratio = choice([
+                [3, 2],
+                [2, 3],
+                [2.5, 2],
+                [2, 2.5],
+              ])
+              coordsI = [ratio[0], 0] // [choice([1.5, 2.5]), 0]
+              coordsK = [0, ratio[1]] // [0, choice([1, 2])]
+            }
             break
           case 2:
             {
-              const o = point(pointO.x, pointO.y)
+              const o = pointAbstrait(0, 0)
               const I = similitude(
                 point(randint(6, 8) * 0.2, 0),
                 o,
                 randint(-20, 20),
-                1,
+                1.5,
               )
               coordsI = [I.x, I.y]
               const K = similitude(point(...coordsI), o, randint(60, 80), 1)
@@ -142,18 +128,19 @@ export default class BetaReperage2e extends Exercice {
           case 3:
           default:
             {
-              const o = point(pointO.x, pointO.y)
-              coordsI = [1.5, randint(-4, 4, [0]) * 0.2]
+              const o = pointAbstrait(0, 0)
+              coordsI = [2, randint(-4, 4, [0]) * 0.2]
               const K = similitude(
                 point(...coordsI),
                 o,
                 randint(60, 80),
-                choice([0.6, 0.7, 1.25, 1.3, 1.4]),
+                choice([1.25, 1.3, 1.4]),
               )
               coordsK = [K.x, K.y]
             }
             break
         }
+
         matrice = new Matrice([
           [coordsI[0], coordsK[0]],
           [coordsI[1], coordsK[1]],
@@ -161,12 +148,78 @@ export default class BetaReperage2e extends Exercice {
         matriceInverse = matrice.inverse()
       } while (matriceInverse == null)
 
+      // génération des points de l'exercice
+      let denX: number = 1
+      let denY: number = 1
+      if (this.sup2) {
+        denX = choice([1, 2, 3])
+        denY = choice([1, 2, 3], [denX])
+      }
+
+      for (let k = 0; k < this.sup3; k++) {
+        do {
+          x[i][k] = fraction(randint(-3 * denX, 3 * denX, [0]), denX)
+          y[i][k] = fraction(randint(-2 * denY, 2 * denY, [0]), denY)
+        } while (
+          x[i]
+            .slice(0, k)
+            .map((el) => el.num)
+            .includes(x[i][k].num) &&
+          y[i]
+            .slice(0, k)
+            .map((el) => el.num)
+            .includes(y[i][k].num)
+        )
+        const [mdx, mdy] = (
+          matrice.multiply([
+            x[i][k].valeurDecimale,
+            y[i][k].valeurDecimale,
+          ]) as Matrice
+        ).toArray() as [number, number]
+        this.X[i][k] = mdx
+        this.Y[i][k] = mdy
+      }
+      const yMin = -3 * coordsK[1]
+      const yMax = 3 * coordsK[1]
+      const xMin = -4 * coordsI[0]
+      const xMax = 4 * coordsI[0]
+
+      this.figuresApiGeom[i] = new Figure(
+        Object.assign(options, {
+          xMin,
+          yMin,
+          width: 30 * (xMax - xMin),
+          height: 30 * (yMax - yMin),
+          scale: 1,
+        }),
+      )
+      if (isFigureArray(this.figures)) this.figures.push(this.figuresApiGeom[i])
+      this.figuresApiGeom[i].options.latexHeight = 10
+      this.figuresApiGeom[i].options.labelDxInPixels = 10
+      this.figuresApiGeom[i].options.labelDyInPixels = 10
+      this.figuresApiGeom[i].setToolbar({
+        tools: ['NAME_POINT', 'POINT_INTERSECTION', 'UNDO', 'REDO', 'REMOVE'],
+        position: 'top',
+      })
+
+      const fig = this.figuresApiGeom[i]
+      fig.create('Point', {
+        x: 0,
+        y: 0,
+        label: labelO,
+        labelDxInPixels: -10,
+        labelDyInPixels: -10,
+        color: 'black',
+        shape: 'o',
+        sizeInPixels: 2,
+        isSelectable: false,
+      })
       const pointI = fig.create('Point', {
         x: coordsI[0],
         y: coordsI[1],
         label: labelI,
         labelDxInPixels: 0,
-        labelDyInPixels: -20,
+        labelDyInPixels: -10,
         shape: 'o',
         color: 'black',
         sizeInPixels: 2,
@@ -176,7 +229,7 @@ export default class BetaReperage2e extends Exercice {
         x: coordsK[0],
         y: coordsK[1],
         label: labelK,
-        labelDxInPixels: -20,
+        labelDxInPixels: -10,
         labelDyInPixels: 0,
         shape: 'o',
         color: 'black',
@@ -226,16 +279,16 @@ export default class BetaReperage2e extends Exercice {
       /*
       Construire la grille
       */
-      let denX: number = 1
-      let denY: number = 1
-      if (this.sup2) {
-        denX = choice([1, 2, 3])
-        denY = choice([1, 2, 3], [denX])
-      }
 
       for (let xx = -4; xx < 4 + 1 / denX; xx += 1 / denX) {
-        const coordL = matrice.multiply([xx, -3]).toArray() as [number, number]
-        const coordH = matrice.multiply([xx, 3]).toArray() as [number, number]
+        const coordL = (matrice.multiply([xx, -3]) as Matrice).toArray() as [
+          number,
+          number,
+        ]
+        const coordH = (matrice.multiply([xx, 3]) as Matrice).toArray() as [
+          number,
+          number,
+        ]
         const pointL = fig.create('Point', {
           x: coordL[0],
           y: coordL[1],
@@ -260,14 +313,12 @@ export default class BetaReperage2e extends Exercice {
           })
         for (let yy = -3; yy < 3 + 1 / denY; yy += 1 / denY) {
           if (xx === -4) {
-            const coordsL = matrice.multiply([-4, yy]).toArray() as [
-              number,
-              number,
-            ]
-            const coordsR = matrice.multiply([4, yy]).toArray() as [
-              number,
-              number,
-            ]
+            const coordsL = (
+              matrice.multiply([-4, yy]) as Matrice
+            ).toArray() as [number, number]
+            const coordsR = (
+              matrice.multiply([4, yy]) as Matrice
+            ).toArray() as [number, number]
             const pointL = fig.create('Point', {
               x: coordsL[0],
               y: coordsL[1],
@@ -296,47 +347,27 @@ export default class BetaReperage2e extends Exercice {
 
       const figureCorrection = new Figure(
         Object.assign(options, {
-          xMin: -10,
-          yMin: -10,
-          width: 300,
-          height: 300,
-          scale: 0.5,
+          xMin,
+          yMin,
+          width: 30 * (xMax - xMin),
+          height: 30 * (yMax - yMin),
+          scale: 1,
         }),
       )
-      figureCorrection.options.latexHeight = 20
-      figureCorrection.options.labelDxInPixels = 20
-      figureCorrection.options.labelDyInPixels = 20
+      if (isFigureArray(this.figures)) this.figures.push(figureCorrection)
+      figureCorrection.options.latexHeight = 10
+      figureCorrection.options.labelDxInPixels = 10
+      figureCorrection.options.labelDyInPixels = 10
       figureCorrection.loadJson(JSON.parse(this.figuresApiGeom[i].json))
-
       for (let k = 0; k < this.sup3; k++) {
-        do {
-          x[i][k] = fraction(randint(-3 * denX, 3 * denX, [0]), denX)
-          y[i][k] = fraction(randint(-2 * denY, 2 * denY, [0]), denY)
-        } while (
-          x[i]
-            .slice(0, k)
-            .map((el) => el.num)
-            .includes(x[i][k].num) &&
-          y[i]
-            .slice(0, k)
-            .map((el) => el.num)
-            .includes(y[i][k].num)
-        )
-        const [mdx, mdy] = matrice
-          .multiply([x[i][k].valeurDecimale, y[i][k].valeurDecimale])
-          .toArray()
-        this.X[i][k] = mdx
-        this.Y[i][k] = mdy
-
         figureCorrection.create('Point', {
-          x: mdx,
-          y: mdy,
+          x: this.X[i][k],
+          y: this.Y[i][k],
           label: listeNoms[3 + k],
-          labelDxInPixels: x[i][k].valeurDecimale < 0 ? -20 : 20,
-          labelDyInPixels: y[i][k].valeurDecimale < 0 ? -20 : 20,
+          labelDxInPixels: x[i][k].valeurDecimale < 0 ? -10 : 10,
+          labelDyInPixels: y[i][k].valeurDecimale < 0 ? -10 : 10,
         })
       }
-
       let question: string = ''
       if (context.isHtml) {
         if (this.interactif) {
@@ -393,7 +424,7 @@ export default class BetaReperage2e extends Exercice {
     let allPointsAreGood = true
     for (let j = 0; j < this.labelsPoints[i].length; j++) {
       const label = this.labelsPoints[i][j]
-      const { isValid, message, points } = figure.checkCoords({
+      const { isValid, points } = figure.checkCoords({
         checkOnlyAbscissa: false,
         label,
         x: this.X[i][j],
@@ -411,7 +442,6 @@ export default class BetaReperage2e extends Exercice {
         if (point !== undefined) {
           point.color = 'red'
           point.colorLabel = 'red'
-          point.color = 'red'
           point.thickness = 3
         }
       }

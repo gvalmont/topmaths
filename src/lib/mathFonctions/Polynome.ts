@@ -204,7 +204,7 @@ const quotient = function (a: unknown, b: unknown) {
   }
 }
 
-type CoeffType = NombreType | [number, boolean]
+export type CoeffType = NombreType | [number, boolean]
 /**
  * Avertissement ! pour l'instant la classe ne gère pas les coefficients fractionnaires !
  * @param {boolean} useFraction laissé à false pour l'instant (les coefficients fractionnaires ne sont pas encore utilisé et

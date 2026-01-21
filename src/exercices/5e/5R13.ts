@@ -36,7 +36,7 @@ export default class InequationsLog extends Exercice {
     this.sup = '1'
     this.besoinFormulaireTexte = [
       'Type de questions',
-      'Nombres séparés par des tirets :\n1 : Nombres décimaux à une seule décimale \n2 : Nombres décimaux à deux décimales \n3 : Nombres décimaux à trois décimales \n4 : Mélange',
+      'Nombres séparés par des tirets :\n0 : Nombres entiers\n1 : Nombres décimaux à une seule décimale \n2 : Nombres décimaux à deux décimales \n3 : Nombres décimaux à trois décimales \n4 : Mélange',
     ]
   }
 
@@ -45,12 +45,18 @@ export default class InequationsLog extends Exercice {
     const questionsDisponibles = gestionnaireFormulaireTexte({
       saisie: this.sup,
       nbQuestions: this.nbQuestions,
-      min: 1,
+      min: 0,
       max: 3,
       melange: 4,
       defaut: 1,
       shuffle: false,
     })
+    const unitQuests = shuffle([
+      'entierMemeSignePos',
+      'entierMemeSigneNeg',
+      'entierMemeSigneNeg',
+      'entierSignesContraires',
+    ])
     const dixQuests = shuffle([
       'dixiemeMemeSignePos',
       'dixiemeMemeSigneNeg',
@@ -70,15 +76,18 @@ export default class InequationsLog extends Exercice {
       'milliemeSigneContraire',
     ])
     for (const val of questionsDisponibles) {
-      if (val === 1) {
-        const val = dixQuests.shift()
-        if (val) typeQuestionsDisponibles.push(val)
+      if (val === 0) {
+        const quest = unitQuests.shift()
+        if (quest) typeQuestionsDisponibles.push(quest)
+      } else if (val === 1) {
+        const quest = dixQuests.shift()
+        if (quest) typeQuestionsDisponibles.push(quest)
       } else if (val === 2) {
-        const val = centQuests.shift()
-        if (val) typeQuestionsDisponibles.push(val)
+        const quest = centQuests.shift()
+        if (quest) typeQuestionsDisponibles.push(quest)
       } else if (val === 3) {
-        const val = millQuests.shift()
-        if (val) typeQuestionsDisponibles.push(val)
+        const quest = millQuests.shift()
+        if (quest) typeQuestionsDisponibles.push(quest)
       }
     }
     const listeTypeQuestions = combinaisonListes(
@@ -89,9 +98,25 @@ export default class InequationsLog extends Exercice {
       let texte = ''
       let texteCorr = ''
       let answer = ''
-      let a
-      let b
+      let a = new Decimal(0)
+      let b = new Decimal(0)
       switch (listeTypeQuestions[i]) {
+        case 'entierMemeSignePos': {
+          a = new Decimal(randint(0, 99))
+          b = new Decimal(randint(0, 99, a.toNumber()))
+          break
+        }
+        case 'entierSignesContraires': {
+          a = new Decimal(randint(0, 99))
+          b = new Decimal(randint(0, 99, a.toNumber()))
+          randint(0, 1) === 1 ? (a = a.neg()) : (b = b.neg())
+          break
+        }
+        case 'entierMemeSigneNeg': {
+          a = new Decimal(-randint(0, 99))
+          b = new Decimal(-randint(0, 99, -a.toNumber()))
+          break
+        }
         case 'dixiemeMemeSignePos': {
           const partieEntiere = randint(0, 9)
           const dixiemeA = randint(0, 9)
@@ -283,7 +308,7 @@ export default class InequationsLog extends Exercice {
           KeyboardType.clavierCompare,
         )
       }
-      if (this.questionJamaisPosee(i, a!.toString(), b!.toString())) {
+      if (this.questionJamaisPosee(i, a.toString(), b.toString())) {
         // <- laisser le i et ajouter toutes les variables qui rendent les exercices différents (par exemple a, b, c et d)
         this.listeQuestions[i] = texte
         this.listeCorrections[i] = texteCorr

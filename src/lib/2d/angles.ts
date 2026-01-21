@@ -71,7 +71,11 @@ export function codageAngle(
   } else {
     angleNumerique = angle
   }
-  if ((angleNumerique === 90 || angleNumerique === -90) && !noAngleDroit) {
+  if (
+    (Math.abs(angleNumerique - 90) < 0.1 ||
+      Math.abs(angleNumerique + 90) < 0.1) &&
+    !noAngleDroit
+  ) {
     return new CodageAngleDroit(
       A,
       O,

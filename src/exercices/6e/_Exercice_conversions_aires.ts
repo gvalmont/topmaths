@@ -1,14 +1,15 @@
+import Decimal from 'decimal.js'
+import { texTexte } from '../../lib/format/texTexte'
+import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
+import { setReponse } from '../../lib/interactif/gestionInteractif'
+import { propositionsQcm } from '../../lib/interactif/qcm'
+import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
 import { texNombre } from '../../lib/outils/texNombre'
 import { context } from '../../modules/context'
-import Decimal from 'decimal.js'
-import { getDigitFromNumber } from './_ExerciceConversionsLongueurs'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
-import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
-import { propositionsQcm } from '../../lib/interactif/qcm'
-import { texTexte } from '../../lib/format/texTexte'
-import { setReponse } from '../../lib/interactif/gestionInteractif'
 import Exercice from '../Exercice'
+import { getDigitFromNumber } from './_ExerciceConversionsLongueurs'
 
 export const amcReady = true
 export const amcType = 'qcmMono'
@@ -97,7 +98,6 @@ export default class ExerciceConversionsAires extends Exercice {
         texteCorr,
         cpt = 0;
       i < this.nbQuestions && cpt < 50;
-
     ) {
       this.autoCorrection[i] = {}
       // On limite le nombre d'essais pour chercher des valeurs nouvelles
@@ -409,7 +409,9 @@ export default class ExerciceConversionsAires extends Exercice {
         if (this.interactif && this.interactifType !== 'qcm') {
           texte = texte.replace(
             '\\dotfills',
-            '$' + ajouteChampTexteMathLive(this, i, ' ') + '$',
+            '$' +
+              ajouteChampTexteMathLive(this, i, KeyboardType.clavierNumbers) +
+              '$',
           )
           setReponse(this, i, parseFloat(resultat.toString()))
         }

@@ -1,3 +1,4 @@
+import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 import { setReponse } from '../../lib/interactif/gestionInteractif'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
@@ -100,7 +101,6 @@ export default class ResoudreUneEquationProduitNul extends Exercice {
     for (
       let i = 0, a, b, c, d, solution1, solution2, texte, texteCorr, cpt = 0;
       i < this.nbQuestions && cpt < 50;
-
     ) {
       // initialisation des variables pour this.questionJamaisPosee
       a = 0
@@ -441,7 +441,11 @@ export default class ResoudreUneEquationProduitNul extends Exercice {
         texteCorr += `<br>Les solutions de l'équation sont : $${miseEnEvidence(solution1)}$ et $${miseEnEvidence(solution2)}$.`
       else
         texteCorr += `<br>Les solutions de l'équation sont : $${miseEnEvidence('-' + texFractionReduite(b, a))}$ et $${miseEnEvidence((listeTypeDeQuestions[i] === 5 ? '-' : '') + texFractionReduite(d, c))}$.`
-      texte += ajouteChampTexteMathLive(this, i, '')
+      texte += ajouteChampTexteMathLive(
+        this,
+        i,
+        KeyboardType.clavierDeBaseAvecFractionPuissanceCrochets,
+      )
       this.introduction =
         this.interactif && context.isHtml
           ? "<em>S'il y a plusieurs réponses, les séparer par un point-virgule.</em>"

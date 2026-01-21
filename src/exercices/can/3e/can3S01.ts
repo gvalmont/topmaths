@@ -65,31 +65,38 @@ export default class CalculProbaSimple extends ExerciceSimple {
       {
         key: 'livres',
         start: 'On choisit un livre au hasard sur un étal présentant',
-        itemSing: 'livre',
-        itemPlur: 'livres',
-        type: 'flavour',
-        labels: [
-          'roman historique',
-          'thriller',
-          'romance',
-          "roman d'anticipation",
-          'fantasy',
-          'polar',
-        ],
+        itemSing: 'un livre',
+        itemPlur: '',
+        type: 'fixed',
+        lab1Sing: 'roman historique',
+        lab1Plur: 'romans historiques',
+        lab2Sing: 'thriller',
+        lab2Plur: 'thrillers',
+        lab3Sing: 'romance',
+        lab3Plur: 'romances',
+        lab4Sing: 'roman d\'anticipation',
+        lab4Plur: 'romans d\'anticipation',
+        lab5Sing: 'roman de fantasy',
+        lab5Plur: 'romans de fantasy',
+        lab6Sing: 'polar',
+        lab6Plur: 'polars',
       },
       {
         key: 'films',
         start: "On choisit un film au hasard parmi ceux à l'affiche proposant",
-        itemSing: 'film',
-        itemPlur: 'films',
-        type: 'flavour',
-        labels: [
-          'une comédie',
-          'un drame',
-          "un film d'action",
-          'un film de science-fiction',
-          'un thriller',
-        ],
+        itemSing: 'un film',
+        itemPlur: '',
+        type: 'fixed',
+        lab1Sing: 'comédie',
+        lab1Plur: 'comédies',
+        lab2Sing: 'drame',
+        lab2Plur: 'drames',
+        lab3Sing: 'film d\'action',
+        lab3Plur: 'films d\'actions',
+        lab4Sing: 'film de science-fiction',
+        lab4Plur: 'films de science-fictions',
+        lab5Sing: 'thriller',
+        lab5Plur: 'thrillers',
       },
       {
         key: 'urne',
@@ -139,7 +146,7 @@ export default class CalculProbaSimple extends ExerciceSimple {
 
     const situ = choice(situations)
     const a = randint(3, 10)
-    const k = choice([1, 3, 4, 9])
+    const k = choice([3, 4, 9])
 
     let label1Sing: string,
       label2Sing: string,
@@ -216,7 +223,9 @@ export default class CalculProbaSimple extends ExerciceSimple {
      On choisit ${situ.itemSing} au hasard. <br>
 Quelle est la probabilité de choisir ${ciblePhrase} ?`
 
-    this.correction = `Il y a en tout : $${a} + ${k * a} = ${denomTotal}$ ${situ.itemPlur}.<br>La probabilité de choisir ${ciblePhrase} est de $\\dfrac{${numCorrect}}{${denomTotal}}=${miseEnEvidence(correctTexSimpl)}$.`
+    this.correction = this.versionQcm
+      ? `Il y a en tout : $${a} + ${k * a} = ${denomTotal}$ ${situ.itemPlur}.<br>La probabilité de choisir ${ciblePhrase} est de $${miseEnEvidence(`\\dfrac{${numCorrect}}{${denomTotal}}`)}$.`
+      : `Il y a en tout : $${a} + ${k * a} = ${denomTotal}$ ${situ.itemPlur}.<br>La probabilité de choisir ${ciblePhrase} est de $${miseEnEvidence(`\\dfrac{${numCorrect}}{${denomTotal}}`)}$ ou $${miseEnEvidence(correctTexSimpl)}$.`
 
     // Version QCM : distracteurs plausibles
     if (this.versionQcm) {
@@ -225,23 +234,23 @@ Quelle est la probabilité de choisir ${ciblePhrase} ?`
 
       // erreurs/alternatives courantes adaptées à la cible
       // erreur plausible : confondre a*(k+1) avec a + k
-      candidates.push(fraction(numCorrect, a + k).texFraction)
+      candidates.push(fraction((k - 1) * a, k * a).texFraction)
       // complémentaire (1 - p)
       candidates.push(
-        fraction(denomTotal - numCorrect, denomTotal).texFractionSimplifiee,
+        fraction(denomTotal - (ciblePremiere ? k * a : a), k * a).texFraction,
       )
       // oublier le facteur k (si cible = 2ème étiquette on peut confondre num / a)
       const otherNum = ciblePremiere ? k * a : a
       candidates.push(fraction(otherNum, denomTotal).texFraction) // confondre les deux catégories
       // erreurs arithmétiques courantes
-      if (numCorrect > 1)
+      /*  if (numCorrect > 1)
         candidates.push(
           fraction(numCorrect - 1, denomTotal).texFractionSimplifiee,
         )
       candidates.push(
         fraction(numCorrect + 1, denomTotal).texFractionSimplifiee,
       )
-
+*/
       // filtrer, dédupliquer et retirer la bonne réponse, puis choisir 3 distracteurs
       const uniq = Array.from(
         new Set(candidates.filter((s) => s && s !== correctTex)),

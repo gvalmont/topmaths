@@ -155,8 +155,7 @@ export default class LoiBinomialeUrne extends Exercice {
               texteCorr += `On sait que  $P(X=${k}) = \\displaystyle\\binom{${n}}{${k}}\\times \\left(${p.texFractionSimplifiee}\\right)^{${k}}\\times \\left(${q.texFractionSimplifiee}\\right)^{${n - k}}$.<br>`
               const bino =
                 factorielle(n) / (factorielle(k) * factorielle(n - k))
-              const reponseNum =
-                bino * p.valeurDecimale ** k * q.valeurDecimale ** (n - k)
+              const reponseNum = arrondi(bino * p.valeurDecimale ** k * q.valeurDecimale ** (n - k), 2)
               texteCorr += `Par calcul, on obtient que $P(X=${k})\\approx ${miseEnEvidence(texNombre(arrondi(reponseNum, 2)))}$.<br>`
               if (this.interactif) {
                 texte += ajouteChampTexteMathLive(

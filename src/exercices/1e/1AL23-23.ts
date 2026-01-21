@@ -21,7 +21,7 @@ import Trinome from '../../modules/Trinome'
 import Exercice from '../Exercice'
 
 export const titre =
-  "Nombre de solutions d'une équation du second degré à paramètre"
+  "Déterminer le ombre de solutions d'une équation du second degré selon un paramètre"
 export const dateDePublication = '30/10/2021' // exercice original de Éric Schraffstetter complètement refondu par Jean-Claude Lhote
 export const dateDeModificationImportante = '05/10/2025' // ajout de cas de figure 2 et 3 et grosse refactorisation
 
@@ -86,7 +86,6 @@ export default class EquationDuSecondDegreAvecUnParametre extends Exercice {
     let equation: string
     let coefficients: CoefficientsEquation
     let coeffsDiscriminant: CoefficientsDiscriminant
-
     switch (typeQuestion) {
       case 1: // Coefficient de x² constant
         equation = `${coefficientDeMDansDeltaB}mx${ecritureAlgebrique(valeurAjustementDeltaA)}x^2${ecritureAlgebriqueSauf1(coefficientDeMDansDeltaC)}m${ecritureAlgebriqueSauf1(coefficientConstantDansDeltaB)}x${ecritureAlgebrique(coefficientConstantDansDeltaC)}`
@@ -127,7 +126,7 @@ export default class EquationDuSecondDegreAvecUnParametre extends Exercice {
 
       case 3: // Coefficient de x² en m+a
       default:
-        equation = `(m${ecritureAlgebriqueSauf1(valeurAjustementDeltaA)})x^2${ecritureAlgebriqueSauf1(coefficientDeMDansDeltaB)}mx${ecritureAlgebriqueSauf1(coefficientDeMDansDeltaC)}m${ecritureAlgebriqueSauf1(coefficientConstantDansDeltaB)}x${ecritureAlgebrique(coefficientConstantDansDeltaC)}`
+        equation = `(m${ecritureAlgebrique(valeurAjustementDeltaA)})x^2${ecritureAlgebriqueSauf1(coefficientDeMDansDeltaB)}mx${ecritureAlgebriqueSauf1(coefficientDeMDansDeltaC)}m${ecritureAlgebriqueSauf1(coefficientConstantDansDeltaB)}x${ecritureAlgebrique(coefficientConstantDansDeltaC)}`
         coefficients = {
           a: `m${ecritureAlgebriqueSauf1(valeurAjustementDeltaA)}`,
           b: `${rienSi1(coefficientDeMDansDeltaB)}m${ecritureAlgebrique(coefficientConstantDansDeltaB)}`,
@@ -178,7 +177,7 @@ export default class EquationDuSecondDegreAvecUnParametre extends Exercice {
     texteCorr += `On a donc $a=${coefficients.a}$, $b=${coefficients.b}$ et $c=${coefficients.c}$<br>`
 
     const deltaExpr = `(${coefficients.b})^2-4\\times ${parenthesesSiSommeOuDifference(coefficients.a)}\\times ${parenthesesSiSommeOuDifference(coefficients.c)}`
-    texteCorr += `Le discriminant vaut $\\Delta=b^2-4\\times a\\times c = ${deltaExpr}$<br>`
+    texteCorr += `Le discriminant vaut $\\Delta=b^2-4\\times a\\times c = ${deltaExpr}$.<br>`
 
     const delta2 = engine.parse(deltaExpr).expand().simplify().latex
     texteCorr += `Ou encore, sous forme développée : $\\Delta = ${delta2}$<br>`
@@ -210,13 +209,13 @@ export default class EquationDuSecondDegreAvecUnParametre extends Exercice {
       // Delta est constant
       if (coeffCC === 0) {
         texteCorr +=
-          "Quelque soit $m$ réel, on a $\\Delta$ qui est nul. L'équation du départ admet donc toujours une unique solution.<br>"
+          "Quel que soit $m$ réel, on a $\\Delta$ qui est nul. L'équation du départ admet donc toujours une unique solution.<br>"
       } else if (coeffCC > 0) {
         texteCorr +=
-          "Quelque soit $m$ réel, on a $\\Delta$ qui est strictement positif. L'équation du départ admet donc toujours 2 solutions.<br>"
+          "Quel que soit $m$ réel, on a $\\Delta$ qui est strictement positif. L'équation du départ admet donc toujours 2 solutions.<br>"
       } else {
         texteCorr +=
-          "Quelque soit $m$ réel, on a $\\Delta$ qui est strictement négatif. L'équation du départ n'admet jamais de solution réelle.<br>"
+          "Quel que soit $m$ réel, on a $\\Delta$ qui est strictement négatif. L'équation du départ n'admet jamais de solution réelle.<br>"
       }
     } else {
       const m1 = fraction(-coeffCC, coeffBB).texFractionSimplifiee
@@ -230,7 +229,7 @@ export default class EquationDuSecondDegreAvecUnParametre extends Exercice {
           items: [
             `Si $m < ${m1}$, l'équation n'a pas de solution réelle;`,
             `Si $m = ${m1}$, l'équation a une unique solution réelle;`,
-            `Si $m > ${m1}$, l'équation a 2 solutions réelles;`,
+            `Si $m > ${m1}$, l'équation a 2 solutions réelles.`,
           ],
           style: 'fleches',
         })
@@ -242,7 +241,7 @@ export default class EquationDuSecondDegreAvecUnParametre extends Exercice {
           items: [
             `Si $m < ${m1}$, l'équation a 2 solutions réelles;`,
             `Si $m = ${m1}$, l'équation a une unique solution réelle;`,
-            `Si $m > ${m1}$, l'équation n'a pas de solution réelle;`,
+            `Si $m > ${m1}$, l'équation n'a pas de solution réelle.`,
           ],
           style: 'fleches',
         })
@@ -263,7 +262,7 @@ export default class EquationDuSecondDegreAvecUnParametre extends Exercice {
   ): string {
     texteCorr +=
       'Cherchons les valeurs de $m$ qui annulent cette expression du second degré :<br>'
-    texteCorr += `Le discriminant $\\Delta^\\prime$ vaut : $\\Delta^\\prime =${deltaPrime}$<br>`
+    texteCorr += `Le discriminant $\\Delta^\\prime$ vaut $${deltaPrime}$.<br>`
 
     const trinom = new Trinome(coeffAA, coeffBB, coeffCC)
     const f = trinom.discriminant
@@ -346,7 +345,7 @@ export default class EquationDuSecondDegreAvecUnParametre extends Exercice {
           items: [
             `Si $m=${m1}$ ou $m=${m2}$, l'équation admet une unique solution;`,
             `Si $m\\in {\\Large]}${m1},${m2}{\\Large[}$, l'équation n'a pas de solution réelle;`,
-            `Si $m\\in {\\Large]}-\\infty,${m1}{\\Large[\\cup]}${m2},+\\infty{\\Large[}$, l'équation admet 2 solutions réelles;`,
+            `Si $m\\in {\\Large]}-\\infty,${m1}{\\Large[\\cup]}${m2},+\\infty{\\Large[}$, l'équation admet 2 solutions réelles.`,
           ],
           style: 'fleches',
         })}`
@@ -360,7 +359,7 @@ export default class EquationDuSecondDegreAvecUnParametre extends Exercice {
           items: [
             `Si $m=${m1}$ ou $m=${m2}$, l'équation admet une unique solution;`,
             `Si $m\\in {\\Large ]}${m1},${m2}{\\Large [}$, l'équation admet 2 solutions réelles;`,
-            `Si $m\\in {\\Large]}-\\infty,${m1}{\\Large[} {\\Large\\cup} {\\Large]}${m2},+\\infty{\\Large[}$, l'équation n'a pas de solution réelle;`,
+            `Si $m\\in {\\Large]}-\\infty,${m1}{\\Large[} {\\Large\\cup} {\\Large]}${m2},+\\infty{\\Large[}$, l'équation n'a pas de solution réelle.`,
           ],
           style: 'fleches',
         })}`
@@ -431,7 +430,6 @@ export default class EquationDuSecondDegreAvecUnParametre extends Exercice {
     for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50; ) {
       const { equation, coefficients, coeffsDiscriminant, params } =
         this.genererCoefficients(typesDeQuestions[i])
-
       const expr0 = engine.parse(equation).simplify().latex
       const texte = `$${expr0}=0$`
 

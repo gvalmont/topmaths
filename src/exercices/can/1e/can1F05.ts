@@ -3,6 +3,7 @@ import { point } from '../../../lib/2d/PointAbstrait'
 import { repere } from '../../../lib/2d/reperes'
 import { texteParPosition } from '../../../lib/2d/textes'
 import { tracePoint } from '../../../lib/2d/TracePoint'
+import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 import { setReponse } from '../../../lib/interactif/gestionInteractif'
 import { ajouteChampTexteMathLive } from '../../../lib/interactif/questionMathLive'
 import { choice } from '../../../lib/outils/arrayOutils'
@@ -86,7 +87,12 @@ export default class LectureGraphiqueParabolebEtc extends Exercice {
       )
 
       if (this.interactif) {
-        texte += ajouteChampTexteMathLive(this, i, ' ', { texteAvant: '$b=$' })
+        texte += ajouteChampTexteMathLive(
+          this,
+          i,
+          KeyboardType.clavierNumbers,
+          { texteAvant: '$b=$' },
+        )
 
         setReponse(this, i, -2 * a * alpha)
       }

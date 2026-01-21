@@ -21,12 +21,13 @@
   </InteractivityIcon>
   ```
  -->
-<div class="{isOnStateActive ? 'hidden' : 'block'}">
+<div class={isOnStateActive ? 'hidden' : 'block'}>
   <slot name="icon_to_switch_on">
     <svg
       xmlns="http://www.w3.org/2000/svg"
       viewBox="0 0 8.467 8.467"
-      class="w-{size} h-{size} fill-coopmaths-action dark:fill-coopmathsdark-action stroke-coopmaths-action dark:stroke-coopmathsdark-action"
+      class="fill-coopmaths-action dark:fill-coopmathsdark-action stroke-coopmaths-action dark:stroke-coopmathsdark-action"
+      style="width: {size * 0.25}rem; height: {size * 0.25}rem;"
     >
       <defs>
         <marker
@@ -97,7 +98,8 @@
     <svg
       xmlns="http://www.w3.org/2000/svg"
       viewBox="0 0 8.467 8.467"
-      class=" w-{size} h-{size} text-coopmaths-action dark:text-coopmathsdark-action fill-coopmaths-action dark:fill-coopmathsdark-action stroke-coopmaths-action dark:stroke-coopmathsdark-action"
+      class="text-coopmaths-action dark:text-coopmathsdark-action fill-coopmaths-action dark:fill-coopmathsdark-action stroke-coopmaths-action dark:stroke-coopmathsdark-action"
+      style="width: {size * 0.25}rem; height: {size * 0.25}rem;"
     >
       <defs>
         <marker

@@ -1,3 +1,5 @@
+import { orangeMathalea } from '../../lib/colors'
+import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { choice } from '../../lib/outils/arrayOutils'
@@ -82,7 +84,6 @@ export default class SimplifierFractions extends Exercice {
     for (
       let i = 0, texte, texteCorr, cpt = 0;
       i < this.nbQuestions && cpt < 50;
-
     ) {
       /* let facteurCommun1 = this.sup2 !== 1 ? choice([2, 3, 5, 11, 13, 17, 19]) : choice([2, 3, 5])
       let facteurCommun2 = this.sup2 !== 1 ? choice([2, 3, 5, 11, 13, 17, 19]) : choice([2, 3, 5])
@@ -121,8 +122,13 @@ export default class SimplifierFractions extends Exercice {
           break
       }
       const f = new FractionEtendue(numerateur, denominateur)
-      texte = `$${f.texFraction}$${ajouteChampTexteMathLive(this, i, ' ', { texteAvant: ' =' })}`
-      texteCorr = `$${f.texFraction}${f.texSimplificationAvecEtapes(true, '#f15929')}$`
+      texte = `$${f.texFraction}$${ajouteChampTexteMathLive(
+        this,
+        i,
+        KeyboardType.clavierDeBaseAvecFraction,
+        { texteAvant: ' =' },
+      )}`
+      texteCorr = `$${f.texFraction}${f.texSimplificationAvecEtapes(true, orangeMathalea)}$`
       handleAnswers(this, i, {
         reponse: {
           value: f.simplifie().toLatex(),

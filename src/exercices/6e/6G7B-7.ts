@@ -1,6 +1,6 @@
 import { colorToLatexOrHTML } from '../../lib/2d/colorToLatexOrHtml'
 import { Droite, droiteAvecNomLatex } from '../../lib/2d/droites'
-import { Point, PointAbstrait } from '../../lib/2d/PointAbstrait'
+import { PointAbstrait } from '../../lib/2d/PointAbstrait'
 import { segment } from '../../lib/2d/segmentsVecteurs'
 import { texteParPosition } from '../../lib/2d/textes'
 import { tracePoint } from '../../lib/2d/TracePoint'
@@ -25,10 +25,17 @@ import { Pavage, pavage } from '../../modules/Pavage'
 import Exercice from '../Exercice'
 
 import { codageMediatrice } from '../../lib/2d/CodageMediatrice'
-import { mediatrice, type Mediatrice } from '../../lib/2d/Mediatrice'
-import type { Polygone } from '../../lib/2d/polygones'
+import { fixeBordures } from '../../lib/2d/fixeBordures'
+import type {
+  IDroite,
+  IPointAbstrait,
+  IPolygone,
+} from '../../lib/2d/Interfaces'
+import { mediatrice } from '../../lib/2d/Mediatrice'
 import { vide2d } from '../../lib/2d/Vide2d'
+import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 import { setReponse } from '../../lib/interactif/gestionInteractif'
+import type { NestedObjetMathalea2dArray } from '../../types/2d'
 
 export const titre =
   "Trouver l'image d'une figure par une symétrie axiale dans un pavage"
@@ -101,7 +108,7 @@ export default class PavageEtReflexion2d extends Exercice {
       }
       return tableau
     }
-    const compare2polys = function (poly1: Polygone, poly2: Polygone) {
+    const compare2polys = function (poly1: IPolygone, poly2: IPolygone) {
       if (comparenbsommets(poly1, poly2)) {
         if (comparesommets(poly1, poly2)) {
           return true
@@ -112,18 +119,21 @@ export default class PavageEtReflexion2d extends Exercice {
         return false
       }
     }
-    const comparenbsommets = function (poly1: Polygone, poly2: Polygone) {
+    const comparenbsommets = function (poly1: IPolygone, poly2: IPolygone) {
       if (poly1.listePoints.length === poly2.listePoints.length) {
         return true
       } else return false
     }
 
-    const compare2sommets = function (sommet1: Point, sommet2: Point) {
+    const compare2sommets = function (
+      sommet1: IPointAbstrait,
+      sommet2: IPointAbstrait,
+    ) {
       if (egal(sommet1.x, sommet2.x, 0.1) && egal(sommet1.y, sommet2.y, 0.1)) {
         return true
       } else return false
     }
-    const comparesommets = function (poly1: Polygone, poly2: Polygone) {
+    const comparesommets = function (poly1: IPolygone, poly2: IPolygone) {
       let trouve = false
       let trouves = 0
       if (comparenbsommets(poly1, poly2)) {
@@ -150,16 +160,12 @@ export default class PavageEtReflexion2d extends Exercice {
       } else return false
     }
 
-    const refleccion = function (
-      pavage: Pavage,
-      d: Droite | Mediatrice,
-      numero: number,
-    ) {
+    const refleccion = function (pavage: Pavage, d: IDroite, numero: number) {
       // retourne le numero du polygone symétrique ou -1 si il n'existe pas
       const poly = pavage.polygones[numero - 1]
       let pol
       const result = -1
-      const sympoly = symetrieAxiale(poly, d)
+      const sympoly = symetrieAxiale(poly, d as IDroite)
       for (let k = 0; k < pavage.polygones.length; k++) {
         pol = pavage.polygones[k]
         if (compare2polys(sympoly, pol)) {
@@ -169,8 +175,8 @@ export default class PavageEtReflexion2d extends Exercice {
       return result
     }
 
-    const objets = []
-    const objetsCorrection = []
+    const objets: NestedObjetMathalea2dArray = []
+    const objetsCorrection: NestedObjetMathalea2dArray = []
     let P1
     let P2
     let P3
@@ -205,13 +211,20 @@ export default class PavageEtReflexion2d extends Exercice {
     }
     let texte = ''
     let texteCorr = ''
-    let typeDePavage = Math.max(1, parseInt(this.sup3))
+    let typeDePavage = Math.max(1, parseInt(this.sup3)) as
+      | 1
+      | 2
+      | 3
+      | 4
+      | 5
+      | 6
+      | 7
     let nombreTentatives
     let nombrePavageTestes = 1
     if (this.sup3 === 8) {
-      typeDePavage = randint(1, 7)
+      typeDePavage = randint(1, 7) as 1 | 2 | 3 | 4 | 5 | 6 | 7
     } else {
-      typeDePavage = Math.max(1, this.sup3 % 8)
+      typeDePavage = Math.max(1, this.sup3 % 8) as 1 | 2 | 3 | 4 | 5 | 6 | 7
     }
     while (couples.length < nbSymetriques && nombrePavageTestes < 2) {
       nombreTentatives = 0
@@ -273,7 +286,7 @@ export default class PavageEtReflexion2d extends Exercice {
           index2 = choice(indicesSimilaires, lastChoice)
           B = monpavage.barycentres[index2]
           if (longueur(A, B) === 0) continue
-          d = mediatrice(A, B, '', 'red') // l'axe sera la droite passant par ces deux points si ça fonctionne
+          d = mediatrice(A, B, '', 'red') as IDroite // l'axe sera la droite passant par ces deux points si ça fonctionne
           if (Math.abs(d.pente) < 0.1) {
             continue
           }
@@ -350,14 +363,18 @@ export default class PavageEtReflexion2d extends Exercice {
       objets.push(monpavage.polygones[i])
     }
 
-    texte = mathalea2d(fenetre, objets, texteNoir) // monpavage.fenetre est calibrée pour faire entrer le pavage dans une feuille A4
+    texte = mathalea2d(
+      Object.assign({}, fixeBordures([...objets, ...texteNoir])),
+      objets,
+      texteNoir,
+    ) // monpavage.fenetre est calibrée pour faire entrer le pavage dans une feuille A4
     const couleurs = combinaisonListes(['green', 'red', 'blue'], nbSymetriques)
     for (let i = 0; i < nbSymetriques; i++) {
       setReponse(this, i, couples[i][1])
       texte +=
         numAlpha(i) +
         `Quelle est l'image de la figure $${couples[i][0]}$ dans la symétrie d'axe $(d)$ ?` +
-        ajouteChampTexteMathLive(this, i, '') +
+        ajouteChampTexteMathLive(this, i, KeyboardType.clavierNumbers) +
         '<br>'
       texteCorr +=
         numAlpha(i) +
@@ -395,7 +412,15 @@ export default class PavageEtReflexion2d extends Exercice {
       }
     }
     if (this.correctionDetaillee) {
-      texteCorr += mathalea2d(fenetre, objets, objetsCorrection, texteGris)
+      texteCorr += mathalea2d(
+        Object.assign(
+          {},
+          fixeBordures([...objets, ...objetsCorrection, ...texteGris]),
+        ),
+        objets,
+        objetsCorrection,
+        texteGris,
+      )
     }
     this.listeQuestions.push(texte)
     this.listeCorrections.push(texteCorr)

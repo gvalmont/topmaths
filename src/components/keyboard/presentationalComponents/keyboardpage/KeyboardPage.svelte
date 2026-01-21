@@ -1,10 +1,10 @@
 <script lang="ts">
-  import BlockOfKeyCaps from './keyboardblock/BlockOfKeycaps.svelte'
-  import type { KeyboardBlock } from '../../types/keyboardContent'
-  import { GAP_BETWEEN_BLOCKS, SM_BREAKPOINT, getMode } from '../../lib/sizes'
-  import type { KeyCap } from '../../types/keycap'
-  import BlockOfKeycapsWithPagination from './keyboardblock/BlockOfKeycapsWithPagination.svelte'
   import { afterUpdate, beforeUpdate } from 'svelte'
+  import { GAP_BETWEEN_BLOCKS, getMode } from '../../lib/sizes'
+  import type { KeyboardBlock } from '../../types/keyboardContent'
+  import type { KeyCap } from '../../types/keycap'
+  import BlockOfKeyCaps from './keyboardblock/BlockOfKeycaps.svelte'
+  import BlockOfKeycapsWithPagination from './keyboardblock/BlockOfKeycapsWithPagination.svelte'
 
   export let innerWidth: number
   export let unitsBlocks: KeyboardBlock[]
@@ -16,7 +16,6 @@
   export let isInLine: boolean
   // // $: blocksToBeDisplayed = isInLine ? [...page] : [...blocks]
   $: blockgapsize = GAP_BETWEEN_BLOCKS[getMode(innerWidth, isInLine)]
-
   beforeUpdate(() => {
     // if (debug) console.log('beforeUpdate KeyboardPage)
     blocks =
@@ -41,10 +40,11 @@
       {/each}
     </div>
   {:else}
-    <div class="{unitsBlocks.length > 1 && !isInLine ? 'flex' : 'hidden'}">
+    <div class={unitsBlocks.length > 1 && !isInLine ? 'flex' : 'hidden'}>
       <BlockOfKeycapsWithPagination
-        blocksList="{unitsBlocks}"
+        blocksList={unitsBlocks}
         {isInLine}
+        {innerWidth}
         {clickKeycap}
       />
     </div>

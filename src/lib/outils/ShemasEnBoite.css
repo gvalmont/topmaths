@@ -4,7 +4,7 @@
 .SchemaContainer {
   display: grid;
   grid-template-rows: repeat(
-    4,
+    5,
     auto
   ); /* Deux lignes ajustées automatiquement */
   grid-auto-columns: 1.5em;
@@ -26,6 +26,7 @@
 }
 .SchemaBottom {
   display: block;
+  min-height: 16px;
 }
 .latexAccoladeBottom {
   position: relative;

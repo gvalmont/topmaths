@@ -32,7 +32,6 @@ export default class Camemberts extends Exercice {
 
     this.nbCols = 1
     this.nbQuestions = 3
-    this.nbQuestionsModifiable = false
     this.sup = '2-3-4-5' // nombre de parts
     this.sup2 = '5' // nombre de disques par ligne
   }

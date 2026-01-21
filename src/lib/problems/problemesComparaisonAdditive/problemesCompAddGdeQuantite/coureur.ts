@@ -19,7 +19,7 @@ export function coureur5(decimal = true): Probleme {
   const enonce = `${personnage.prenom} a réalisé un trail au cours duquel ${personnage.pronom} a couru sur $${texNombre(nb1, 3)}$ ${uniteComplete}. ${premiereLettreEnMajuscule(personnage.pronom)} a marché $${texNombre(nb2, 3)}$ ${uniteComplete} de plus que ce qu'${personnage.pronom} a couru.
   Sur quelle distance a-t-${personnage.pronom} marché ?`
   const correction = `${personnage.prenom} a marché sur $${texNombre(nb2, 3)}$ ${uniteComplete} de plus que $${texNombre(nb1, 3)}$ ${uniteComplete}.
-  ${personnage.prenom} a donc marché  $${texNombre(nb1, 3)}+${texNombre(nb2, 3)} = ${miseEnEvidence(texNombre(nb2 + nb1, 3))}$ ${uniteComplete}.`
+  ${personnage.prenom} a donc marché : $${texNombre(nb1, 3)}\\text{  ${unite}}+${texNombre(nb2, 3)}\\text{  ${unite}} = ${miseEnEvidence(texNombre(nb2 + nb1, 3))}\\text{  ${unite}}$.`
   const probleme = new ProblemeCompAddGdeQantite('coureur5', data)
   probleme.enonce = enonce
   probleme.correction = correction
@@ -27,7 +27,7 @@ export function coureur5(decimal = true): Probleme {
   probleme.schema.lignes[1].barres[1].content = `$${texNombre(nb2, 3)}\\text{  ${unite}}$`
   probleme.schema.lignes[0].barres[0].content = `$${miseEnEvidence(texNombre(nb1 + nb2, 3))}\\text{  ${unite}}$`
 
-  probleme.styleChampTexteMathlive = KeyboardType.college6eme
+  // probleme.styleChampTexteMathlive = KeyboardType.clavierDeBase
   probleme.reponse = `${texNombre(nb2 + nb1, 3)}${unite}`
   probleme.styleChampTexteMathlive = KeyboardType.longueur
   probleme.optionsComparaison = { unite: true }

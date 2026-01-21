@@ -1,3 +1,4 @@
+import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 import { setReponse } from '../../lib/interactif/gestionInteractif'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
@@ -124,7 +125,6 @@ export default class DecompositionNombreDecimal extends Exercice {
     for (
       let i = 0, m, c, d, u, di, ci, mi, n, texte, texteCorr, cpt = 0;
       i < this.nbQuestions && cpt < 50;
-
     ) {
       if (i % typesDeQuestionsDisponibles.length === 0) {
         // Génération des chiffres selon le type de nombre souhaité
@@ -181,7 +181,11 @@ export default class DecompositionNombreDecimal extends Exercice {
           texteCorr =
             texte +
             `$${miseEnEvidence(texNombre(m! * 1000 + c! * 100 + d! * 10 + u!))}$`
-          texte += ajouteChampTexteMathLive(this, i, '')
+          texte += ajouteChampTexteMathLive(
+            this,
+            i,
+            KeyboardType.clavierNumbers,
+          )
           setReponse(this, i, m! * 1000 + c! * 100 + d! * 10 + u!)
           this.autoCorrection[i]!.reponse!.param!.digits = 5
           this.autoCorrection[i]!.reponse!.param!.decimals = 0
@@ -191,7 +195,11 @@ export default class DecompositionNombreDecimal extends Exercice {
           texteCorr =
             texte +
             `$${miseEnEvidence(texNombre(di! / 10 + ci! / 100 + mi! / 1000))}$`
-          texte += ajouteChampTexteMathLive(this, i, '')
+          texte += ajouteChampTexteMathLive(
+            this,
+            i,
+            KeyboardType.clavierNumbers,
+          )
           setReponse(this, i, arrondi(di! / 10 + ci! / 100 + mi! / 1000, 3))
           this.autoCorrection[i]!.reponse!.param!.digits = 6
           this.autoCorrection[i]!.reponse!.param!.decimals = 4
@@ -201,12 +209,20 @@ export default class DecompositionNombreDecimal extends Exercice {
           if (typeDeNombres === 1) {
             texte = `Le chiffre des unités du nombre $${n}$ est : `
             texteCorr = texte + `$${miseEnEvidence(u!)}$`
-            texte += ajouteChampTexteMathLive(this, i, '')
+            texte += ajouteChampTexteMathLive(
+              this,
+              i,
+              KeyboardType.clavierNumbers,
+            )
             setReponse(this, i, u!)
           } else {
             texte = `Le chiffre des dizaines du nombre $${n}$ est : `
             texteCorr = texte + `$${miseEnEvidence(d!)}$`
-            texte += ajouteChampTexteMathLive(this, i, '')
+            texte += ajouteChampTexteMathLive(
+              this,
+              i,
+              KeyboardType.clavierNumbers,
+            )
             setReponse(this, i, d!)
           }
           this.autoCorrection[i]!.reponse!.param!.digits = 1
@@ -215,7 +231,11 @@ export default class DecompositionNombreDecimal extends Exercice {
         case 'chiffreDesUnites':
           texte = `Le chiffre des unités du nombre $${n}$ est : `
           texteCorr = texte + `$${miseEnEvidence(u!)}$`
-          texte += ajouteChampTexteMathLive(this, i, '')
+          texte += ajouteChampTexteMathLive(
+            this,
+            i,
+            KeyboardType.clavierNumbers,
+          )
           setReponse(this, i, u!)
           this.autoCorrection[i]!.reponse!.param!.digits = 1
           this.autoCorrection[i]!.reponse!.param!.decimals = 0
@@ -226,18 +246,30 @@ export default class DecompositionNombreDecimal extends Exercice {
             if (typeDeNombres === 1) {
               texte = `Le chiffre des unités du nombre $${n}$ est : `
               texteCorr = texte + `$${miseEnEvidence(u!)}$`
-              texte += ajouteChampTexteMathLive(this, i, '')
+              texte += ajouteChampTexteMathLive(
+                this,
+                i,
+                KeyboardType.clavierNumbers,
+              )
               setReponse(this, i, u!)
             } else {
               texte = `Le chiffre des dizaines du nombre $${n}$ est : `
               texteCorr = texte + `$${miseEnEvidence(d!)}$`
-              texte += ajouteChampTexteMathLive(this, i, '')
+              texte += ajouteChampTexteMathLive(
+                this,
+                i,
+                KeyboardType.clavierNumbers,
+              )
               setReponse(this, i, d!)
             }
           } else {
             texte = `Le chiffre des centaines du nombre $${n}$ est : `
             texteCorr = texte + `$${miseEnEvidence(c!)}$`
-            texte += ajouteChampTexteMathLive(this, i, '')
+            texte += ajouteChampTexteMathLive(
+              this,
+              i,
+              KeyboardType.clavierNumbers,
+            )
             setReponse(this, i, c!)
           }
           this.autoCorrection[i]!.reponse!.param!.digits = 1
@@ -249,18 +281,30 @@ export default class DecompositionNombreDecimal extends Exercice {
             if (typeDeNombres === 1) {
               texte = `Le chiffre des unités du nombre $${n}$ est : `
               texteCorr = texte + `$${miseEnEvidence(u!)}$`
-              texte += ajouteChampTexteMathLive(this, i, '')
+              texte += ajouteChampTexteMathLive(
+                this,
+                i,
+                KeyboardType.clavierNumbers,
+              )
               setReponse(this, i, u!)
             } else {
               texte = `Le chiffre des centaines du nombre $${n}$ est : `
               texteCorr = texte + `$${miseEnEvidence(0)}$` // Pas de centaines pour < 100
-              texte += ajouteChampTexteMathLive(this, i, '')
+              texte += ajouteChampTexteMathLive(
+                this,
+                i,
+                KeyboardType.clavierNumbers,
+              )
               setReponse(this, i, 0)
             }
           } else {
             texte = `Le chiffre des milliers du nombre $${n}$ est : `
             texteCorr = texte + `$${miseEnEvidence(m!)}$`
-            texte += ajouteChampTexteMathLive(this, i, '')
+            texte += ajouteChampTexteMathLive(
+              this,
+              i,
+              KeyboardType.clavierNumbers,
+            )
             setReponse(this, i, m!)
           }
           this.autoCorrection[i]!.reponse!.param!.digits = 1
@@ -269,7 +313,11 @@ export default class DecompositionNombreDecimal extends Exercice {
         case 6:
           texte = `Le chiffre des dixièmes du nombre $${n}$ est : `
           texteCorr = texte + `$${miseEnEvidence(di!)}$`
-          texte += ajouteChampTexteMathLive(this, i, '')
+          texte += ajouteChampTexteMathLive(
+            this,
+            i,
+            KeyboardType.clavierNumbers,
+          )
           setReponse(this, i, di!)
           this.autoCorrection[i]!.reponse!.param!.digits = 1
           this.autoCorrection[i]!.reponse!.param!.decimals = 0
@@ -277,7 +325,11 @@ export default class DecompositionNombreDecimal extends Exercice {
         case 7:
           texte = `Le chiffre des centièmes du nombre $${n}$ est : `
           texteCorr = texte + `$${miseEnEvidence(ci!)}$`
-          texte += ajouteChampTexteMathLive(this, i, '')
+          texte += ajouteChampTexteMathLive(
+            this,
+            i,
+            KeyboardType.clavierNumbers,
+          )
           setReponse(this, i, ci!)
           this.autoCorrection[i]!.reponse!.param!.digits = 1
           this.autoCorrection[i]!.reponse!.param!.decimals = 0
@@ -285,7 +337,11 @@ export default class DecompositionNombreDecimal extends Exercice {
         case 8:
           texte = `Le chiffre des millièmes du nombre $${n}$ est : `
           texteCorr = texte + `$${miseEnEvidence(mi!)}$`
-          texte += ajouteChampTexteMathLive(this, i, '')
+          texte += ajouteChampTexteMathLive(
+            this,
+            i,
+            KeyboardType.clavierNumbers,
+          )
           setReponse(this, i, mi!)
           this.autoCorrection[i]!.reponse!.param!.digits = 1
           this.autoCorrection[i]!.reponse!.param!.decimals = 0
@@ -295,14 +351,22 @@ export default class DecompositionNombreDecimal extends Exercice {
           if (typeDeNombres === 1) {
             texte = `Le nombre de dixièmes du nombre $${n}$ est : `
             texteCorr = texte + `$${miseEnEvidence(texNombre(di! + u! * 10))}$`
-            texte += ajouteChampTexteMathLive(this, i, '')
+            texte += ajouteChampTexteMathLive(
+              this,
+              i,
+              KeyboardType.clavierNumbers,
+            )
             setReponse(this, i, di! + u! * 10)
           } else {
             texte = `Le nombre de dizaines du nombre $${n}$ est : `
             const nombreDizaines =
               typeDeNombres === 2 ? d! : d! + c! * 10 + m! * 100
             texteCorr = texte + `$${miseEnEvidence(texNombre(nombreDizaines))}$`
-            texte += ajouteChampTexteMathLive(this, i, '')
+            texte += ajouteChampTexteMathLive(
+              this,
+              i,
+              KeyboardType.clavierNumbers,
+            )
             setReponse(this, i, nombreDizaines)
           }
           this.autoCorrection[i]!.reponse!.param!.digits = 6
@@ -318,12 +382,20 @@ export default class DecompositionNombreDecimal extends Exercice {
                 : ci! + di! * 10 + u! * 100 + d! * 1000
             texteCorr =
               texte + `$${miseEnEvidence(texNombre(nombreCentiemes))}$`
-            texte += ajouteChampTexteMathLive(this, i, '')
+            texte += ajouteChampTexteMathLive(
+              this,
+              i,
+              KeyboardType.clavierNumbers,
+            )
             setReponse(this, i, nombreCentiemes)
           } else {
             texte = `Le nombre de centaines du nombre $${n}$ est : `
             texteCorr = texte + `$${miseEnEvidence(texNombre(c! + m! * 10))}$`
-            texte += ajouteChampTexteMathLive(this, i, '')
+            texte += ajouteChampTexteMathLive(
+              this,
+              i,
+              KeyboardType.clavierNumbers,
+            )
             setReponse(this, i, c! + m! * 10)
           }
           this.autoCorrection[i]!.reponse!.param!.digits = 6
@@ -339,7 +411,11 @@ export default class DecompositionNombreDecimal extends Exercice {
                   ? di! + u! * 10 + d! * 100
                   : di! + u! * 10 + d! * 100 + c! * 1000 + m! * 10000
             texteCorr = texte + `$${miseEnEvidence(texNombre(nombreDixiemes))}$`
-            texte += ajouteChampTexteMathLive(this, i, '')
+            texte += ajouteChampTexteMathLive(
+              this,
+              i,
+              KeyboardType.clavierNumbers,
+            )
             setReponse(this, i, nombreDixiemes)
             this.autoCorrection[i]!.reponse!.param!.digits = 6
             this.autoCorrection[i]!.reponse!.param!.decimals = 0
@@ -362,7 +438,11 @@ export default class DecompositionNombreDecimal extends Exercice {
                     m! * 100000
             texteCorr =
               texte + `$${miseEnEvidence(texNombre(nombreCentiemes))}$`
-            texte += ajouteChampTexteMathLive(this, i, '')
+            texte += ajouteChampTexteMathLive(
+              this,
+              i,
+              KeyboardType.clavierNumbers,
+            )
             setReponse(this, i, nombreCentiemes)
             this.autoCorrection[i]!.reponse!.param!.digits = 6
             this.autoCorrection[i]!.reponse!.param!.decimals = 0

@@ -94,26 +94,26 @@
   <NavBar
     subtitle="À la carte"
     subtitleType="export"
-    handleLanguage="{() => {}}"
-    locale="{$referentielLocale}"
+    handleLanguage={() => {}}
+    locale={$referentielLocale}
   />
 
   <section
     class="px-4 py-0 md:py-10 bg-coopmaths-canvas dark:bg-coopmathsdark-canvas"
   >
     <textarea
-      bind:value="{$userInput}"
+      bind:value={$userInput}
       class="w-full p-2 border rounded mb-5"
       rows="10"
       placeholder=""
-      on:keydown="{handleKeyDownUserInput}"
+      on:keydown={handleKeyDownUserInput}
     ></textarea>
 
-    <ButtonTextAction text="Valider" on:click="{handleValidate}" />
+    <ButtonTextAction text="Valider" on:click={handleValidate} />
 
     <ButtonActionInfo
       action="copy"
-      textToCopy="{$latexOutput}"
+      textToCopy={$latexOutput}
       text="Copier le code"
       successMessage="Code LaTeX copié"
       errorMessage="Impossible de copier le code LaTeX dans le presse-papier"

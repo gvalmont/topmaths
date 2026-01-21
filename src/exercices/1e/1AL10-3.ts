@@ -1,20 +1,21 @@
+import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
+import { functionCompare } from '../../lib/interactif/comparisonFunctions'
+import { handleAnswers } from '../../lib/interactif/gestionInteractif'
+import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
 import {
   ecritureAlgebrique,
   ecritureAlgebriqueSauf1,
   rienSi1,
 } from '../../lib/outils/ecritures'
-import Exercice from '../Exercice'
+import { miseEnEvidence } from '../../lib/outils/embellissements'
+import FractionEtendue from '../../modules/FractionEtendue'
 import {
   gestionnaireFormulaireTexte,
   listeQuestionsToContenu,
   randint,
 } from '../../modules/outils'
-import { handleAnswers } from '../../lib/interactif/gestionInteractif'
-import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
-import { functionCompare } from '../../lib/interactif/comparisonFunctions'
-import { miseEnEvidence } from '../../lib/outils/embellissements'
-import FractionEtendue from '../../modules/FractionEtendue'
+import Exercice from '../Exercice'
 export const titre =
   "Déterminer les termes d'une suite définie de façon explicite"
 export const interactifReady = true
@@ -65,7 +66,6 @@ export default class TermeDUneSuiteDefinieExplicitement extends Exercice {
     for (
       let i = 0, texte, texteCorr, reponse, cpt = 0, a, b, c, d, k;
       i < this.nbQuestions && cpt < 50;
-
     ) {
       switch (
         listeTypeDeQuestions[i] // listeTypeDeQuestions[i]
@@ -82,7 +82,7 @@ export default class TermeDUneSuiteDefinieExplicitement extends Exercice {
 
           texte += `<br>Calculer $u_{${k}}$.`
 
-          texteCorr = `Dans l'expression de $u_n$ on remplace $n$ par ${k}, on obtient : <br>
+          texteCorr = `Dans l'expression de $u_n$, on remplace $n$ par ${k}, on obtient : <br>
           $\\begin{aligned}
 u_{${k}}&=${a === 1 ? '' : a === -1 ? '-' : `${a} \\times`} ${k} ${ecritureAlgebrique(b)}\\\\
 &=${miseEnEvidence(a * k + b)}
@@ -104,7 +104,7 @@ u_{${k}}&=${a === 1 ? '' : a === -1 ? '-' : `${a} \\times`} ${k} ${ecritureAlgeb
 
           texte += `<br>Calculer $u_{${k}}$.`
 
-          texteCorr = `Dans l'expression de $u_n$ on remplace $n$ par $${k}$, on obtient :<br>`
+          texteCorr = `Dans l'expression de $u_n$, on remplace $n$ par $${k}$, on obtient :<br>`
           if (b === 0) {
             texteCorr += `$\\begin{aligned}
             u_{${k}}&=${a === 1 ? '' : a === -1 ? '-' : `${a} \\times`} ${k}^2${ecritureAlgebrique(c)}\\\\
@@ -138,7 +138,7 @@ u_{${k}}&=${a === 1 ? '' : a === -1 ? '-' : `${a} \\times`} ${k}^2 ${b === 1 ? '
               options: { fractionIrreductible: true },
             },
           })
-          texteCorr = `Dans l'expression de $u_n$ on remplace $n$ par $${k}$, on obtient :<br>
+          texteCorr = `Dans l'expression de $u_n$, on remplace $n$ par $${k}$, on obtient :<br>
          $\\begin{aligned}
 u_{${k}}&=\\dfrac{${a === 1 ? '' : a === -1 ? '-' : `${a} \\times`} ${k} ${ecritureAlgebrique(b)}}{${c === 1 ? '' : c === -1 ? '-' : `${c} \\times`} ${k} ${ecritureAlgebrique(d)}}\\\\
 &=${miseEnEvidence(reponse.texFSD)}
@@ -148,7 +148,12 @@ u_{${k}}&=\\dfrac{${a === 1 ? '' : a === -1 ? '-' : `${a} \\times`} ${k} ${ecrit
       }
       texte +=
         '<br>' +
-        ajouteChampTexteMathLive(this, i, ' ', { texteAvant: `$u_{${k}}=$` })
+        ajouteChampTexteMathLive(
+          this,
+          i,
+          KeyboardType.clavierDeBaseAvecFraction,
+          { texteAvant: `$u_{${k}}=$` },
+        )
 
       if (this.questionJamaisPosee(i, a, b, k)) {
         this.listeQuestions[i] = texte

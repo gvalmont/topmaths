@@ -1,3 +1,4 @@
+import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 import { setReponse } from '../../lib/interactif/gestionInteractif'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
@@ -131,7 +132,6 @@ export default class PrioritesEtRelatifsEtPuissances extends Exercice {
     for (
       let i = 0, texte, texteCorr, a, b, c, d, m, n, p, cpt = 0;
       i < this.nbQuestions && cpt < 50;
-
     ) {
       a = typeDePuissances[i] === 'Carre' ? randint(2, 7) : randint(2, 5)
       b = randint(1, 7)
@@ -266,7 +266,8 @@ export default class PrioritesEtRelatifsEtPuissances extends Exercice {
         if (!context.isAmc && this.interactif) {
           // On vérifie qu'on est pas en AMC pour vérifier qu'on ne casse rien à ce qui a été fait pour AMC
           setReponse(this, i, reponse)
-          texte += ' =' + ajouteChampTexteMathLive(this, i, '')
+          texte +=
+            ' =' + ajouteChampTexteMathLive(this, i, KeyboardType.clavierDeBase)
         } else if (context.isAmc) {
           this.autoCorrection[i] = {
             enonce: texte,

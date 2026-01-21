@@ -1,4 +1,5 @@
 import { texPrix } from '../../lib/format/style'
+import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 import { setReponse } from '../../lib/interactif/gestionInteractif'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
@@ -66,7 +67,6 @@ export default class AppliquerUnPourcentage6N3Q extends Exercice {
     for (
       let i = 0, texte, texteCorr, montant, cpt = 0;
       i < this.nbQuestions && cpt < 50;
-
     ) {
       pourcent[i] = choice(listePourcentages)
       switch (choix[i]) {
@@ -78,7 +78,12 @@ export default class AppliquerUnPourcentage6N3Q extends Exercice {
           montant = (pourcent[i] * prix[i]) / 100
           texte = `${article[index[i]][0]} coûtant $${prix[i]}$${sp()}€ bénéficie d'une réduction de $${pourcent[i]} ${sp()}${sp()}\\%$.<br>`
           texte += 'Quel est le montant en euro de cette réduction ?'
-          texte += ajouteChampTexteMathLive(this, i, '', { texteApres: ' €' })
+          texte += ajouteChampTexteMathLive(
+            this,
+            i,
+            KeyboardType.clavierNumbers,
+            { texteApres: ' €' },
+          )
           texteCorr = `On doit calculer $${pourcent[i]}${sp()}\\%$ de $${prix[i]}$${sp()}€ :<br>`
           texteCorr += `$${pourcent[i]}${sp()}\\%\\text{ de }${prix[i]}=${texFractionFromString(pourcent[i], 100)}\\times${prix[i]}=(${pourcent[i]}\\times${prix[i]})\\div100=${texNombre(pourcent[i] * prix[i])}\\div100=${texNombre(montant)}$<br>`
           texteCorr += `Le montant de la réduction est de $${miseEnEvidence(texPrix(montant))}$${sp()}€.`
@@ -99,7 +104,12 @@ export default class AppliquerUnPourcentage6N3Q extends Exercice {
           texte = `${legume[index[i]][0]} pesant $${masse[i]}$ grammes a eu une croissance de $${pourcent[i]} ${sp()}\\%$.<br>`
           texte +=
             'Quelle est la masse supplémentaire en grammes correspondant à cette croissance ?'
-          texte += ajouteChampTexteMathLive(this, i, '', { texteApres: ' g' })
+          texte += ajouteChampTexteMathLive(
+            this,
+            i,
+            KeyboardType.clavierNumbers,
+            { texteApres: ' g' },
+          )
           texteCorr = `On doit calculer $${pourcent[i]}${sp()}\\%$ de $${masse[i]}$ grammes :<br>`
           texteCorr += `$${pourcent[i]}${sp()}\\%\\text{ de }${masse[i]}=${texFractionFromString(pourcent[i], 100)}\\times${masse[i]}=(${pourcent[i]}\\times${masse[i]})\\div100=${texNombre(pourcent[i] * masse[i])}\\div100=${texNombre(montant)}$<br>`
           texteCorr += `La masse a augmenté de $${miseEnEvidence(texNombre(montant))}$ g.`

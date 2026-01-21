@@ -1,3 +1,4 @@
+import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 import { setReponse } from '../../lib/interactif/gestionInteractif'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { choice } from '../../lib/outils/arrayOutils'
@@ -9,7 +10,7 @@ import {
 } from '../../lib/outils/nombres'
 import { texNombre } from '../../lib/outils/texNombre'
 import { context } from '../../modules/context'
-import Operation from '../../modules/operations'
+import operation from '../../modules/operations'
 import {
   gestionnaireFormulaireTexte,
   listeQuestionsToContenu,
@@ -58,15 +59,15 @@ export default class DivisionFraction extends Exercice {
     this.besoinFormulaire3Texte = [
       'Types de questions',
       `Nombres séparés par des tirets
-1 : entier divisé par 4 (quotient exact)
-2 : entier divisé par 8 (quotient exact)
-3 : entier divisé par 6 (quotient exact)
-4 : entier divisé par 2 (quotient exact)
-5 : entier divisé par 5 (quotient exact)
-6 : entier divisé par 10 (quotient exact)
-7 : entier divisé par 7 (quotient approché)
-8 : entier divisé par 9 (quotient approché)
-9 : entier divisé par 3 (quotient approché)
+1 : Entier divisé par 4 (quotient exact)
+2 : Entier divisé par 8 (quotient exact)
+3 : Entier divisé par 6 (quotient exact)
+4 : Entier divisé par 2 (quotient exact)
+5 : Entier divisé par 5 (quotient exact)
+6 : Entier divisé par 10 (quotient exact)
+7 : Entier divisé par 7 (quotient approché)
+8 : Entier divisé par 9 (quotient approché)
+9 : Entier divisé par 3 (quotient approché)
 10 : Mélange`,
     ]
     this.consigne = 'Calculer la valeur décimale des fractions suivantes.'
@@ -90,7 +91,6 @@ export default class DivisionFraction extends Exercice {
     for (
       let i = 0, texte, texteCorr, cpt = 0, a, b, q;
       i < this.nbQuestions && cpt < 50;
-
     ) {
       switch (listeTypeDeQuestions[i]) {
         case 1: // fraction : entier divisé par 4 quotient : xx,25 ou xx,75
@@ -149,7 +149,7 @@ export default class DivisionFraction extends Exercice {
       }
       texte = `$${texFraction(texNombre(a), texNombre(b))}`
       if (this.sup === 1) {
-        texteCorr = Operation({
+        texteCorr = operation({
           operande1: a,
           operande2: b,
           type: 'division',
@@ -157,7 +157,7 @@ export default class DivisionFraction extends Exercice {
         })
         texteCorr += `<br>$${texFraction(texNombre(a), texNombre(b))}=${miseEnEvidence(texNombre(q))}$`
       } else {
-        texteCorr = Operation({
+        texteCorr = operation({
           operande1: a,
           operande2: b,
           type: 'division',
@@ -172,7 +172,7 @@ export default class DivisionFraction extends Exercice {
         } else {
           texte += '~\\approx$'
         }
-        texte += ajouteChampTexteMathLive(this, i, ' ')
+        texte += ajouteChampTexteMathLive(this, i, KeyboardType.clavierNumbers)
       } else {
         texte += '$'
       }

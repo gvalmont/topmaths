@@ -167,7 +167,6 @@ ${a !== 1 ? `x& ${a < 0 ? `${miseEnEvidence(`${sp(1.5)}\\boldsymbol{<}${sp(1.5)}
               ],
               // tabLines ci-dessous contient les autres lignes du tableau.
               tabLines: [ligne1],
-              colorBackground: '',
               espcl: 3.5, // taille en cm entre deux antécédents
               deltacl: 0.8, // distance entre la bordure et les premiers et derniers antécédents
               lgt: 8, // taille de la première colonne en cm
@@ -281,7 +280,6 @@ ${a !== 1 ? `x& ${a < 0 ? `${miseEnEvidence(`${sp(1.5)}\\boldsymbol{<}${sp(1.5)}
               ],
               // tabLines ci-dessous contient les autres lignes du tableau.
               tabLines: [ligne1],
-              colorBackground: '',
               espcl: 3.5, // taille en cm entre deux antécédents
               deltacl: 0.8, // distance entre la bordure et les premiers et derniers antécédents
               lgt: 8, // taille de la première colonne en cm

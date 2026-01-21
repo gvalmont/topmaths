@@ -54,8 +54,8 @@ export default class ProblemeMultiplicatifNbParts extends Probleme {
         },
       ],
     })
-    this.enonce = `Un centre de loisirs a acheté $${texNombre(total, 2)}$ feutres. Ils veulent les répartir dans ${nbFois} boites? Combien de feutres y a-t-il par boites ?`
-    this.correction = `On cherche à répartir $${texNombre(total, 2)}$ feutres dans ${nbFois} boites. Donc, il y a $\\dfrac{${texNombre(total, 2)}}{${texNombre(nbFois, 2)}}=${miseEnEvidence(texNombre(total / nbFois, 2))}$ feutres par boite.`
+    this.enonce = `Un centre de loisirs a acheté $${texNombre(total, 2)}$ feutres. Ils veulent les répartir dans ${nbFois} boites. Combien de feutres y a-t-il par boite ?`
+    this.correction = `On cherche à répartir $${texNombre(total, 2)}$ feutres dans ${nbFois} boites. Donc, le nombre de feutres par boite est de : $${texNombre(total, 2)} \\div ${texNombre(nbFois, 2)}=${miseEnEvidence(texNombre(total / nbFois, 2))}$.`
     this.reponse = texNombre(total / nbFois, 2)
   }
 }

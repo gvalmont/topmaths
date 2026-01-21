@@ -15,8 +15,8 @@
 </div>
 <div class="flex flex-row justify-start items-center px-4">
   <ButtonToggle
-    isDisabled="{canOptions.isChoosen}"
-    titles="{['Accès aux corrections', 'Pas de corrections']}"
-    bind:value="{globalOptions.isSolutionAccessible}"
+    isDisabled={canOptions.isChoosen}
+    titles={['Accès aux corrections', 'Pas de corrections']}
+    bind:value={globalOptions.isSolutionAccessible}
   />
 </div>

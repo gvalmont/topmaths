@@ -10,7 +10,12 @@ import { polygone } from './polygones'
 import { Polyline, polyline } from './Polyline'
 import { Segment, segment } from './segmentsVecteurs'
 import './tableau2x2.scss'
-import { latexParCoordonnees, TexteParPoint, texteParPosition } from './textes'
+import {
+  latex2d,
+  latexParCoordonnees,
+  TexteParPoint,
+  texteParPosition,
+} from './textes'
 import { milieu } from './utilitairesPoint'
 
 export type StyledText = {
@@ -193,17 +198,16 @@ export class Tableau extends ObjetMathalea2D {
       this.objets.push(segment(pointAbstrait(x, A.y), pointAbstrait(x, C.y)))
       if (ligne1[i + 1]) {
         if (ligne1[i + 1].latex) {
-          // on utilise latexParCoordonnees() tant pis pour le zoom qui devient impossible !
           this.objets.push(
-            latexParCoordonnees(
+            latex2d(
               ligne1[i + 1].texte ?? '',
               x + largeur / 2,
               A.y + 1.4 * hauteur,
-              ligne1[i + 1].color || 'black',
-              largeur * 8,
-              20,
-              '',
-              10,
+              {
+                letterSize: 'normalsize',
+                color: ligne1[i + 1].color || 'black',
+                gras: ligne1[i + 1].gras || false,
+              },
             ),
           )
         } else {
@@ -226,15 +230,15 @@ export class Tableau extends ObjetMathalea2D {
       if (ligne2[i + 1]) {
         if (ligne2[i + 1].latex) {
           this.objets.push(
-            latexParCoordonnees(
+            latex2d(
               ligne2[i + 1].texte ?? '',
               x + largeur / 2,
               A.y + 0.4 * hauteur,
-              ligne2[i + 1].color || 'black',
-              largeur * 8,
-              20,
-              '',
-              10,
+              {
+                letterSize: 'normalsize',
+                gras: ligne2[i + 1].gras || false,
+                color: ligne2[i + 1].color || 'black',
+              },
             ),
           )
         } else {
@@ -261,15 +265,15 @@ export class Tableau extends ObjetMathalea2D {
       if (ligne1[0].latex) {
         // on utilise latexParCoordonnees() tant pis pour le zoom qui devient impossible !
         this.objets.push(
-          latexParCoordonnees(
+          latex2d(
             ligne1[0].texte ?? '',
             A.x + largeurTitre / 2,
             A.y + 1.4 * hauteur,
-            'black',
-            largeur * 8,
-            20,
-            '',
-            10,
+            {
+              letterSize: 'normalsize',
+              color: ligne1[0].color || 'black',
+              gras: ligne1[0].gras || false,
+            },
           ),
         )
       } else {
@@ -291,17 +295,17 @@ export class Tableau extends ObjetMathalea2D {
     }
     if (ligne2[0]) {
       if (ligne2[0].latex) {
-        // on utilise latexParCoordonnees() tant pis pour le zoom qui devient impossible !
+        // on utilise latex2d() tant pis pour le zoom qui devient impossible !
         this.objets.push(
-          latexParCoordonnees(
+          latex2d(
             ligne2[0].texte ?? '',
             A.x + largeurTitre / 2,
             A.y + 0.4 * hauteur,
-            'black',
-            largeur * 8,
-            20,
-            '',
-            10,
+            {
+              letterSize: 'normalsize',
+              color: ligne2[0].color || 'black',
+              gras: ligne2[0].gras || false,
+            },
           ),
         )
       } else {

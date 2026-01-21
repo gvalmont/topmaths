@@ -1,6 +1,9 @@
+import { handleAnswers } from '../../lib/interactif/gestionInteractif'
+import {
+  choixDeroulant,
+  listeDeroulanteToQcm,
+} from '../../lib/interactif/questionListeDeroulante'
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
-import Exercice from '../Exercice'
-import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import {
   ecritureAlgebrique,
   ecritureAlgebriqueSauf1,
@@ -8,11 +11,8 @@ import {
   rienSi1,
 } from '../../lib/outils/ecritures'
 import { texNombre } from '../../lib/outils/texNombre'
-import { handleAnswers } from '../../lib/interactif/gestionInteractif'
-import {
-  choixDeroulant,
-  listeDeroulanteToQcm,
-} from '../../lib/interactif/questionListeDeroulante'
+import { listeQuestionsToContenu, randint } from '../../modules/outils'
+import Exercice from '../Exercice'
 
 import { texteEnCouleurEtGras } from '../../lib/outils/embellissements'
 export const titre =
@@ -24,7 +24,7 @@ export const amcType = 'qcmMono'
 export const dateDePublication = '28/03/2024'
 export const uuid = 'ccb71'
 export const refs = {
-  'fr-ch': ['11FA6-1'],
+  'fr-ch': ['11FA12-1'],
   'fr-fr': ['2G34-3'],
 }
 

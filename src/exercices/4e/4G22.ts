@@ -1,4 +1,5 @@
 import Figure from 'apigeom'
+import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { propositionsQcm } from '../../lib/interactif/qcm'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
@@ -169,7 +170,6 @@ export default class ProblemesPythagore extends Exercice {
     for (
       let i = 0, texte, texteCorr, cpt = 0;
       i < this.nbQuestions && cpt < 50;
-
     ) {
       if (i % 3 === 0) listeNomsQuadrilateres = ['LMNOQD'] // lettres à éviter
       const nomQuadrilatere = creerNomDePolygone(4, listeNomsQuadrilateres)
@@ -213,7 +213,7 @@ export default class ProblemesPythagore extends Exercice {
           texte += this.interactif
             ? sp(20) +
               `$${D + B} = $` +
-              ajouteChampTexteMathLive(this, i, ' ', {
+              ajouteChampTexteMathLive(this, i, KeyboardType.clavierNumbers, {
                 texteApres: '$\\text{  cm}$',
               })
             : ''
@@ -251,7 +251,7 @@ export default class ProblemesPythagore extends Exercice {
           texte += this.interactif
             ? sp(20) +
               `$${B + C} = $` +
-              ajouteChampTexteMathLive(this, i, ' ', {
+              ajouteChampTexteMathLive(this, i, KeyboardType.clavierNumbers, {
                 texteApres: '$\\text{  cm}$',
               })
             : ''
@@ -268,7 +268,7 @@ export default class ProblemesPythagore extends Exercice {
           texte += this.interactif
             ? sp(20) +
               `$${A + C} = $` +
-              ajouteChampTexteMathLive(this, i, ' ', {
+              ajouteChampTexteMathLive(this, i, KeyboardType.clavierNumbers, {
                 texteApres: '$\\text{  cm}$',
               })
             : ''

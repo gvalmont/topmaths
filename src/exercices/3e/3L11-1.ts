@@ -2,18 +2,19 @@
  * ⚠️ Cet exercice est utilisé dans le test : tests/unit/3L11-1.test.ts ⚠️
  */
 
+import { handleAnswers } from '../../lib/interactif/gestionInteractif'
+import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { combinaisonListes } from '../../lib/outils/arrayOutils'
+import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { lettreDepuisChiffre } from '../../lib/outils/outilString'
-import Exercice from '../Exercice'
+import { context } from '../../modules/context'
 import {
   listeQuestionsToContenuSansNumero,
   randint,
 } from '../../modules/outils'
-import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
-import { context } from '../../modules/context'
-import { handleAnswers } from '../../lib/interactif/gestionInteractif'
-import { miseEnEvidence } from '../../lib/outils/embellissements'
+import Exercice from '../Exercice'
 
+import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 import {
   ecritureAlgebriqueSauf1,
   reduirePolynomeDegre3,
@@ -79,7 +80,6 @@ export default class DoubleDistributivite extends Exercice {
     for (
       let i = 0, cpt = 0, a, b, c, d, typesDeQuestions;
       i < this.nbQuestions && cpt < 50;
-
     ) {
       let texte = ''
       let texteCorr = ''
@@ -164,7 +164,12 @@ export default class DoubleDistributivite extends Exercice {
             options: { expressionsForcementReduites: true },
           },
         })
-        texte += ajouteChampTexteMathLive(this, i, ' ', { texteAvant: ' $=$' })
+        texte += ajouteChampTexteMathLive(
+          this,
+          i,
+          KeyboardType.clavierFullOperations,
+          { texteAvant: ' $=$' },
+        )
       } else {
         this.autoCorrection[i] = {
           enonce: '',

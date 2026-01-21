@@ -321,6 +321,7 @@ Si le nombre de questions est supérieur au nombre de patterns choisis, alors l'
           ),
         )
         .join('\n')
+      texte += '<br><br>'
       let texteCorr = ''
       const listeQuestions: string[] = []
       const listeCorrections: string[] = []

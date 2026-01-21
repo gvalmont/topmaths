@@ -1,8 +1,10 @@
 import { cercleTrigo } from '../../lib/2d/angles'
+import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 import { setReponse } from '../../lib/interactif/gestionInteractif'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { Angle, valeursTrigo } from '../../lib/mathFonctions/Angle'
 import { combinaisonListes, shuffle } from '../../lib/outils/arrayOutils'
+import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { context } from '../../modules/context'
 import {
   gestionnaireFormulaireTexte,
@@ -146,11 +148,12 @@ export default class CosEtsin extends Exercice {
     for (
       let i = 0, texte, texteCorr, cpt = 0;
       i < this.nbQuestions && cpt < 127;
-
     ) {
       const monAngle = listeTypeQuestions[i][1]
       texte = `$\\${listeTypeQuestions[i][0]}\\left(${monAngle.radians}\\right)$`
-      texte += ajouteChampTexteMathLive(this, i, '', { texteAvant: ' = ' })
+      texte += ajouteChampTexteMathLive(this, i, KeyboardType.lyceeClassique, {
+        texteAvant: ' = ',
+      })
       texteCorr = `$\\${listeTypeQuestions[i][0]}\\left(${monAngle.radians}\\right)`
       let valeurFonction = ''
       // listeTypeQuestions[i][0] contient 'cos' ou 'sin', donc ça permet d'atteindre la propriété souhaitée dans l'objet Angle.
@@ -161,7 +164,7 @@ export default class CosEtsin extends Exercice {
       valeurFonction = Array.isArray(monAngle[listeTypeQuestions[i][0]])
         ? monAngle[listeTypeQuestions[i][0]][0]
         : (monAngle[listeTypeQuestions[i][0]] as string)
-      texteCorr += `=${valeurFonction}$`
+      texteCorr += `=${miseEnEvidence(valeurFonction)}$`
 
       texteCorr += '<br><br>'
       texteCorr += cercleTrigo(monAngle, listeTypeQuestions[i][0])

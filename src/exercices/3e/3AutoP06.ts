@@ -1,0 +1,118 @@
+import { choice } from '../../lib/outils/arrayOutils'
+import { miseEnEvidence } from '../../lib/outils/embellissements'
+import { texNombre } from '../../lib/outils/texNombre'
+import { fraction } from '../../modules/fractions'
+import Hms from '../../modules/Hms'
+import { egal } from '../../modules/outils'
+import ExerciceQcmA from '../ExerciceQcmA'
+
+export const titre =
+  'Calculer le temps de trajet en fonction de la vitesse et de la distance'
+
+export const interactifReady = true
+export const interactifType = 'mathLive'
+
+export const dateDePublication = '24/12/2025'
+
+export const uuid = '5ba87'
+
+export const refs = {
+  'fr-fr': ['3AutoP06'],
+  'fr-ch': [],
+}
+
+/**
+ * @author Jean-Claude Lhote
+ */
+export default class VitesseEtDistance extends ExerciceQcmA {
+  private appliquerLesValeurs(
+    vitesse: number,
+    diviseurMultiple: [number, number[]],
+  ): void {
+    const diviseur = this.sup ? 2 : diviseurMultiple[0]
+    const rapport = this.sup ? 1 : choice(diviseurMultiple[1])
+
+    const duree = (60 * rapport) / diviseur
+    const distance = vitesse * (duree / 60)
+
+    const hour = Math.floor(duree / 60)
+    const duree2 = duree / 2
+    const duree3 = duree * 1.5
+    const duree4 = duree * 2
+    const hour2 = Math.floor(duree2 / 60)
+    const hour3 = Math.floor(duree3 / 60)
+    const hour4 = Math.floor(duree4 / 60)
+    const minute2 = Math.floor((duree2 / 60 - hour2) * 60)
+    const minute3 = Math.floor((duree3 / 60 - hour3) * 60)
+    const minute4 = Math.round((duree4 / 60 - hour4) * 60)
+    const minute = Math.round((duree / 60 - hour) * 60)
+    const seconde2 = Math.round(((duree2 / 60 - hour2) * 60 - minute2) * 60)
+    const seconde3 = Math.round(((duree3 / 60 - hour3) * 60 - minute3) * 60)
+    const frac =
+      diviseur === 20
+        ? fraction(Math.round(distance * 10), vitesse * 10)
+        : fraction(Math.round(distance), vitesse)
+    this.reponses = this.sup
+      ? [
+          new Hms({ hour, minute }).toString(),
+          new Hms({ minute: 15 }).toString(),
+          new Hms({ minute: 45 }).toString(),
+          new Hms({ hour: 1 }).toString(),
+        ]
+      : [
+          new Hms({ hour, minute }).toString(),
+          new Hms({
+            hour: hour2,
+            minute: minute2,
+            second: seconde2,
+          }).toString(),
+          new Hms({
+            hour: hour3,
+            minute: minute3,
+            second: seconde3,
+          }).toString(),
+          new Hms({ hour: hour4, minute: minute4 }).toString(),
+        ]
+
+    this.enonce = `Une voiture roule à $${vitesse}$ km/h. Combien de temps met-elle pour parcourir $${texNombre(distance, 2)}$ km ?`
+    this.correction = `Pour parcourir $${texNombre(distance, 2)}$ km à $${vitesse}$ km/h, il faut :<br>
+    $${diviseur === 20 ? `\\dfrac{${texNombre(distance, 1)}}{${vitesse}}\\text{h}=` : ''}${frac.texFraction}\\text{h}${
+      frac.estIrreductible
+        ? egal(frac.valeurDecimale, distance / vitesse, 3)
+          ? `=${texNombre(frac.valeurDecimale, 3)}\\text{h}`
+          : ''
+        : `=${frac.texFractionSimplifiee}\\text{h}`
+    }=${miseEnEvidence(`${hour > 0 ? `${hour}\\text{h }` : ''}${minute}\\text{min}`)}$.`
+  }
+
+  // S'occupe de passser les données originales à la fonction appliquerLesValeurs
+  versionOriginale: () => void = () => {
+    const vitesse = 90
+    const diviseurMultiple: [number, number[]] = [2, [1]]
+    this.appliquerLesValeurs(vitesse, diviseurMultiple) // valeurs du sujet original
+  }
+
+  // s'occupe d'aléatoiriser les valeurs à passer à la fonction appliquerLesValeurs en vérifiant qu'on a bien 3 réponses différentes
+  // Pour un qcm à n réponses, il faudrait vérifier que nombreElementsDifferents(this.reponses) < n
+  versionAleatoire: () => void = () => {
+    const vitesse = this.sup2
+      ? choice([60, 80, 100, 120])
+      : choice([50, 70, 90, 110, 130])
+    const diviseurMultiple: [number, number[]] = this.sup2
+      ? choice([
+          [2, [1, 3, 5]],
+          [4, [1, 3, 5, 7]],
+          [10, [1, 3, 9, 11]],
+        ])
+      : choice([[20, [1, 9, 11]]])
+    this.appliquerLesValeurs(vitesse, diviseurMultiple)
+  }
+
+  // Ici il n'y a rien à faire, on appelle juste la version aleatoire (pour un qcm aleatoirisé, c'est le fonctionnement par défaut)
+  constructor() {
+    super()
+    this.besoinFormulaire2CaseACocher = ['Distances entières', true]
+    this.sup2 = true
+    this.versionAleatoire()
+  }
+}

@@ -16,7 +16,7 @@
     <ButtonIconTooltip
       icon="bx-detail text-2xl"
       tooltip="Aperçu des questions/réponses"
-      on:click="{goToOverview}"
+      on:click={goToOverview}
     />
   </div>
   <div class="pl-4">

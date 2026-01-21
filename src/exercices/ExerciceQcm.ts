@@ -3,9 +3,9 @@ import { qcmCamExport } from '../lib/amc/qcmCam'
 import { createList } from '../lib/format/lists'
 import { propositionsQcm } from '../lib/interactif/qcm'
 import { texteEnCouleurEtGras } from '../lib/outils/embellissements'
+import type { IExerciceQcm, IExerciceQcmOptions } from '../lib/types'
 import { context } from '../modules/context'
 import Exercice from './Exercice'
-import type { IExerciceQcm } from './Exercice.type'
 
 // export const uuid = 'UUID à modifier'
 // export const titre = 'Titre de l'exercice à modifier'
@@ -30,7 +30,7 @@ export default class ExerciceQcm extends Exercice implements IExerciceQcm {
   reponses!: string[]
   bonnesReponses?: boolean[]
   corrections?: string[]
-  options: { vertical?: boolean; ordered: boolean; lastChoice?: number }
+  options: IExerciceQcmOptions
   ajouteQcmCorr = false // Pour savoir si on ajoute le qcm corrigé à la fin de la correction.
   versionAleatoire?: () => void
   versionOriginale?: () => void = undefined

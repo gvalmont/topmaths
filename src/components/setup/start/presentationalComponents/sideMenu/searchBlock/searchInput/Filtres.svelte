@@ -1,12 +1,13 @@
 <script lang="ts">
   import { createEventDispatcher } from 'svelte'
+  import { getUniqueStringBasedOnTimeStamp } from '../../../../../../../lib/components/time'
   import {
     FILTER_SECTIONS_TITLES,
     type FilterType,
   } from '../../../../../../../lib/types'
   import type { Level } from '../../../../../../../lib/types/referentiels'
+  import CheckboxWithLabel from '../../../../../../shared/forms/CheckboxWithLabel.svelte'
   import { allFilters, filtersHaveChanged } from '../../filtersStore'
-  import { getUniqueStringBasedOnTimeStamp } from '../../../../../../../lib/components/time'
   export let filterType: FilterType = 'levels'
   const timeTag: string = getUniqueStringBasedOnTimeStamp()
   const dispatch = createEventDispatcher()
@@ -57,7 +58,7 @@
   }
 </script>
 
-<div class="{`${$$props.class || ''} flex flex-col`}">
+<div class={`${$$props.class || ''} flex flex-col`}>
   <div
     class="text-coopmaths-struct font-semibold text-sm px-1 border-b w-full border-coopmaths-struct"
   >
@@ -67,26 +68,19 @@
     <ul class="w-full columns-[175px] gap-4 mt-2">
       {#each Object.entries($allFilters[filterType]) as [key, filter], i}
         <li
-          class="flex-row justify-start items-center pr-4 pl-6 py-0 my-0 line-clamp-1 leading-none"
+          class="flex-row justify-start items-center pr-4 pl-6 py-0 my-0 line-clamp-1 leading-none
+          text-coopmaths-corpus dark:text-coopmathsdark-corpus"
         >
-          <input
+          <CheckboxWithLabel
             id="checkbox-{key}-{i}-{timeTag}"
-            aria-describedby="checkbox-{key}-{i}-{timeTag}"
-            type="checkbox"
-            class="w-3 h-3 bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark border-coopmaths-action text-coopmaths-action dark:border-coopmathsdark-action dark:text-coopmathsdark-action focus:ring-0 rounded"
-            value="{key}"
-            bind:checked="{filter.isSelected}"
-            on:change="{() => {
+            bind:isChecked={filter.isSelected}
+            label={filter.title}
+            size="sm"
+            on:change={() => {
               handleFiltersChanges(key)
               dispatch('filters-change')
-            }}"
+            }}
           />
-          <label
-            for="checkbox-{key}-{i}-{timeTag}"
-            class="ml-2 text-xs font-light text-coopmaths-corpus dark:text-coopmathsdark-corpus"
-          >
-            {filter.title}
-          </label>
         </li>
       {/each}
     </ul>

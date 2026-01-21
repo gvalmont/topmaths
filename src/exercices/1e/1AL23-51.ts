@@ -51,21 +51,21 @@ export default class EtudeParabole extends Exercice {
     if (a > 0) {
       variations = [
         'Var',
-        30,
+        5,
         '+/',
-        10,
+        35,
         `-/$${p.beta.simplifie().texFraction}$`,
-        10,
+        5,
         '+/',
       ]
     } else {
       variations = [
         'Var',
-        30,
+        5,
         '-/',
-        10,
+        30,
         `+/$${p.beta.simplifie().texFraction}$`,
-        10,
+        5,
         '-/',
       ]
     }
@@ -91,7 +91,7 @@ export default class EtudeParabole extends Exercice {
         // tabLines ci-dessous contient les autres lignes du tableau.
         tabLines: [variations],
         colorBackground: '',
-        espcl: 3.5, // taille en cm entre deux antécédents
+        espcl: 7, // taille en cm entre deux antécédents
         deltacl: 0.8, // distance entre la bordure et les premiers et derniers antécédents
         lgt: 8, // taille de la première colonne en cm
         hauteurLignes: [12, 25],

@@ -2,10 +2,11 @@ import { choice } from '../../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { context } from '../../../modules/context'
 
+import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
+import { setReponse } from '../../../lib/interactif/gestionInteractif'
 import { ajouteChampTexteMathLive } from '../../../lib/interactif/questionMathLive'
 import { listeQuestionsToContenu, randint } from '../../../modules/outils'
 import Exercice from '../../Exercice'
-import { setReponse } from '../../../lib/interactif/gestionInteractif'
 
 export const titre = 'Calculer avec des puissances'
 export const interactifReady = true
@@ -54,7 +55,11 @@ export default class CalculPuissanceSimple extends Exercice {
         case 'a':
           texte =
             `Donner l${c[index][0]} de  $${a}^{${b}}$. ` +
-            ajouteChampTexteMathLive(this, i, '')
+            ajouteChampTexteMathLive(
+              this,
+              i,
+              KeyboardType.clavierDeBaseAvecFractionPuissanceCrochets,
+            )
           setReponse(this, i, [`${a}^{${b + 1}}`], {
             formatInteractif: 'texte',
           })
@@ -77,7 +82,11 @@ export default class CalculPuissanceSimple extends Exercice {
         case 'b':
           texte =
             `Donner l${c[index][1]} de $${a}^{${b}}$. ` +
-            ajouteChampTexteMathLive(this, i, '')
+            ajouteChampTexteMathLive(
+              this,
+              i,
+              KeyboardType.clavierDeBaseAvecFractionPuissanceCrochets,
+            )
           setReponse(this, i, [`${a}^{${b - 1}}`], {
             formatInteractif: 'texte',
           })
@@ -103,7 +112,11 @@ export default class CalculPuissanceSimple extends Exercice {
           if (!context.isAmc) {
             texte +=
               `sous la forme d'une puissance de $${a}$.` +
-              ajouteChampTexteMathLive(this, i, '')
+              ajouteChampTexteMathLive(
+                this,
+                i,
+                KeyboardType.clavierDeBaseAvecFractionPuissanceCrochets,
+              )
           }
 
           setReponse(this, i, [`${a}^{${b + 2}}`], {
@@ -129,7 +142,11 @@ export default class CalculPuissanceSimple extends Exercice {
           if (!context.isAmc) {
             texte +=
               `sous la forme d'une puissance de $${a}$.` +
-              ajouteChampTexteMathLive(this, i, '')
+              ajouteChampTexteMathLive(
+                this,
+                i,
+                KeyboardType.clavierDeBaseAvecFractionPuissanceCrochets,
+              )
           }
 
           setReponse(this, i, [`${a}^{${b - 2}}`], {
@@ -153,7 +170,7 @@ export default class CalculPuissanceSimple extends Exercice {
         // this.optionsChampTexte = { texteApres: "(juste l'exposant)" }
       }
       this.listeQuestions.push(texte)
-      this.listeCorrections.push(texteCorr)
+      this.listeCorrections.push(texteCorr + '.')
     }
     listeQuestionsToContenu(this)
     this.canReponseACompleter = ''

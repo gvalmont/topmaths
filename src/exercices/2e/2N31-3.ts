@@ -3,6 +3,7 @@ import { context } from '../../modules/context'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import Exercice from '../Exercice'
 
+import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 import {
   handleAnswers,
   setReponse,
@@ -259,9 +260,14 @@ export default class PuissancesDUnRelatif2 extends Exercice {
             options: { sansExposantUn: true },
           },
         })
-        texte += ajouteChampTexteMathLive(this, i, '', {
-          texteAvant: sp(2) + '$=$',
-        })
+        texte += ajouteChampTexteMathLive(
+          this,
+          i,
+          KeyboardType.clavierDeBaseAvecFractionPuissanceCrochets,
+          {
+            texteAvant: sp(2) + '$=$',
+          },
+        )
       }
       if (context.isAmc) {
         setReponse(this, i, reponseInteractive, {

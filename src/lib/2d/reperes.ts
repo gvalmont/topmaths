@@ -283,6 +283,8 @@ export function papierPointe({
  * @param {number[]}  options.yThickListe = false,
  * @param {number}  options.yThickMin = yMin + yThickDistance,
  * @param {number}  options.yThickMax = yMax - yThickDistance,
+ * @param {boolean}  options.labelsXareVisible = true,
+ * @param {boolean}  options.labelsYareVisible = true,
  * @param {number}  options.xLabelDistance = xThickDistance,
  * @param {number[]}  options.xLabelListe = false,
  * @param {number}  options.xLabelMin = xThickMin,
@@ -350,6 +352,8 @@ export class Repere extends ObjetMathalea2D {
   grilleXMax: number
   grilleYMin: number
   grilleYMax: number
+  labelsXareVisible: boolean = true
+  labelsYareVisible: boolean = true
   objets: ObjetMathalea2D[]
 
   constructor({
@@ -376,6 +380,8 @@ export class Repere extends ObjetMathalea2D {
     yThickListe = [],
     yThickMin = yMin + yThickDistance,
     yThickMax = yMax - yThickDistance,
+    labelsXareVisible = true,
+    labelsYareVisible = true,
     xLabelDistance = xThickDistance,
     xLabelListe = [],
     xLabelMin = xThickMin,
@@ -454,6 +460,8 @@ export class Repere extends ObjetMathalea2D {
     yThickListe?: number[] | boolean
     yThickMin?: number
     yThickMax?: number
+    labelsXareVisible?: boolean
+    labelsYareVisible?: boolean
     xLabelDistance?: number
     xLabelListe?: boolean | (number | { valeur: number; texte: string })[]
     xLabelMin?: number
@@ -581,7 +589,7 @@ export class Repere extends ObjetMathalea2D {
           grilleYListe.push(0)
           for (
             let y = grilleYDistance / yUnite;
-            y < Math.max(-grilleYMin, grilleYMax);
+            y <= Math.max(-grilleYMin, grilleYMax);
             y += grilleYDistance / yUnite
           ) {
             if (y <= grilleYMax) grilleYListe.push(y)
@@ -643,7 +651,7 @@ export class Repere extends ObjetMathalea2D {
           grilleXListe.push(0)
           for (
             let x = grilleXDistance / xUnite;
-            x < Math.max(-grilleXMin, grilleXMax);
+            x <= Math.max(-grilleXMin, grilleXMax);
             x += grilleXDistance / xUnite
           ) {
             if (x <= grilleXMax) grilleXListe.push(x)
@@ -890,7 +898,7 @@ export class Repere extends ObjetMathalea2D {
       }
     }
     // LES LABELS
-    if (axeXisVisible) {
+    if (labelsXareVisible) {
       if (
         (typeof xLabelListe === 'boolean' && xLabelListe) ||
         (Array.isArray(xLabelListe) && xLabelListe.length === 0)
@@ -928,7 +936,7 @@ export class Repere extends ObjetMathalea2D {
         }
       }
     }
-    if (axeYisVisible) {
+    if (labelsYareVisible) {
       if (
         (typeof yLabelListe === 'boolean' && yLabelListe) ||
         (Array.isArray(yLabelListe) && yLabelListe.length === 0)
@@ -1083,6 +1091,8 @@ export function repere({
   yThickListe = [],
   yThickMin = yMin + yThickDistance,
   yThickMax = yMax - yThickDistance,
+  labelsXareVisible = true,
+  labelsYareVisible = true,
   xLabelDistance = xThickDistance,
   xLabelListe = [],
   xLabelMin = xThickMin,
@@ -1161,6 +1171,8 @@ export function repere({
   yThickListe?: number[] | boolean
   yThickMin?: number
   yThickMax?: number
+  labelsXareVisible?: boolean
+  labelsYareVisible?: boolean
   xLabelDistance?: number
   xLabelListe?: boolean | (number | { valeur: number; texte: string })[]
   xLabelMin?: number
@@ -1240,6 +1252,8 @@ export function repere({
     yThickListe,
     yThickMin,
     yThickMax,
+    labelsXareVisible,
+    labelsYareVisible,
     xLabelDistance,
     xLabelListe,
     xLabelMin,

@@ -3,6 +3,7 @@ import { point } from '../../lib/2d/PointAbstrait'
 import { texteParPoint } from '../../lib/2d/textes'
 import { rotation } from '../../lib/2d/transformations'
 import { pointSurSegment } from '../../lib/2d/utilitairesPoint'
+import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 import { setReponse } from '../../lib/interactif/gestionInteractif'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { combinaisonListes } from '../../lib/outils/arrayOutils'
@@ -73,7 +74,6 @@ export default class CalculerUnPourcentage extends Exercice {
     for (
       let i = 0, texte, texteCorr, cpt = 0;
       i < this.nbQuestions && cpt < 50;
-
     ) {
       objets = []
       p1 = randint(6, 9) * 5
@@ -86,7 +86,6 @@ export default class CalculerUnPourcentage extends Exercice {
           
           `
           texte += `Quel est le pourcentage des élèves qui se déplacent ${moy3} ?`
-          texte += ajouteChampTexteMathLive(this, i, '', { texteApres: ' %' })
           texteCorr = `Les élèves qui ${moy1} ou qui ${moy2} représentent $${p1}${sp(1)}\\%$ + $${p2}${sp(1)}\\% = ${p1 + p2}${sp(1)}\\%$.<br>`
           texteCorr += `Donc on calcule : $100 - ${p1 + p2}${sp(1)}\\% = ${p3}${sp(1)}\\%$.<br>`
           texteCorr += `$${miseEnEvidence(p3)}${sp(1)}\\%$ des élèves de ce collège se déplacent ${moy3}.<br>`
@@ -102,7 +101,6 @@ export default class CalculerUnPourcentage extends Exercice {
           
           `
           texte += `Quel est le pourcentage des ados qui pratiquent ${moy3} ?`
-          texte += ajouteChampTexteMathLive(this, i, '', { texteApres: ' %' })
           texteCorr = `Les ados qui pratiquent ${moy1} ou ${moy2} représentent $${p1}${sp(1)}\\% + ${p2}${sp(1)}\\% = ${p1 + p2}${sp(1)}\\%$.<br>`
           texteCorr += `Donc on calcule : $100${sp(1)}\\% - ${p1 + p2}${sp(1)}\\% = ${p3}${sp(1)}\\%$.<br>`
           texteCorr += `$${miseEnEvidence(p3)}${sp(1)}\\%$ des ados de cette association sportive pratiquent ${moy3}.<br>`
@@ -119,7 +117,6 @@ export default class CalculerUnPourcentage extends Exercice {
           
           `
           texte += `Quel est le pourcentage des membres qui préfèrent ${moy3} ?`
-          texte += ajouteChampTexteMathLive(this, i, '', { texteApres: ' %' })
           texteCorr = `Les membres qui préfèrent ${moy1} ou ${moy2} représentent $${p1}${sp(1)}\\% + ${p2}${sp(1)}\\% = ${p1 + p2}${sp(1)}\\%$.<br>`
           texteCorr += `Donc on calcule : $100${sp(1)}\\% - ${p1 + p2}${sp(1)}\\% = ${p3}${sp(1)}\\%$.<br>`
           texteCorr += `$${miseEnEvidence(p3)}${sp(1)}\\%$ des membres de cette association culturelle préfèrent ${moy3}.<br>`
@@ -130,6 +127,10 @@ export default class CalculerUnPourcentage extends Exercice {
           }
           break
       }
+      texte += ajouteChampTexteMathLive(this, i, KeyboardType.clavierNumbers, {
+        texteApres: ' %',
+      })
+
       objets.push(
         codageAngle(
           depart,

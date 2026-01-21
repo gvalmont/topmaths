@@ -15,7 +15,7 @@ import { mathalea2d } from '../../modules/mathalea2d'
 import { gestionnaireFormulaireTexte, randint } from '../../modules/outils'
 import Exercice from '../Exercice'
 
-export const titre = 'Calculer des longueurs dans un triangle équilatéral'
+export const titre = 'Calculer dans un triangle équilatéral (longueur, aire)'
 export const dateDePublication = '12/12/2025'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -43,12 +43,18 @@ function figureTriangleEquilateral(
   const nomH = labelPoint(H)
   const hauteurSeg = segment(C, H)
   const angledroit = codageAngleDroit(B, H, C, 'red', 0.7)
-  const codageCotes = codageSegments('//', 'black', A, B, B, C, C, A)
-  const longueurCote = placeLatexSurSegment(
+  const codageCotes = codageSegments('//', 'black', B, C, C, A)
+  const longueurCoteAB = placeLatexSurSegment(
     `${texNombre(cote, 0)}\\text{ cm}`,
     A,
     B,
     { distance: -1.2 },
+  )
+  const longueurCoteBC = placeLatexSurSegment(
+    `${texNombre(cote, 0)}\\text{ cm}`,
+    C,
+    B,
+    { distance: 0.6 },
   )
   const afficheHauteur = placeLatexSurSegment(
     `${texNombre((cote * Math.sqrt(3)) / 2, 1)}\\text{ cm}`,
@@ -59,7 +65,7 @@ function figureTriangleEquilateral(
   const afficheLongeurs =
     afficheQuelleLongueur === 'hauteur'
       ? [afficheHauteur, codageCotes]
-      : [longueurCote, codageCotes]
+      : [longueurCoteAB, longueurCoteBC, codageCotes]
   const egalitesLongueurs = codageSegments('O', 'black', A, H, H, B)
   const objets = [
     triangleInitial,
@@ -95,6 +101,7 @@ function calculeHauteur(
  $${texNombre(cote * cote, 0)} = ${texNombre((cote * cote) / 4, 2)} + ${nomHauteur}^2$<br>
  Soit :<br>
  $${nomHauteur}^2=${texNombre(cote * cote, 0)} - ${texNombre((cote * cote) / 4, 2)}=${texNombre((3 * cote * cote) / 4, 2)}$<br>
+ $${nomHauteur}=\\sqrt{${texNombre((3 * cote * cote) / 4, 2)}}$<br>
  Donc la hauteur $${nomHauteur}$ est ${typeDeReponse.includes('exacte') ? 'égale' : 'environ égale'} à
     ${
       typeDeReponse.includes('exacte')
@@ -121,11 +128,7 @@ function calculeAire(
   ${calculeLaHauteur.replace(`${context.isHtml ? '#f15929' : 'f15929'}`, '000000')}<br>
   L'aire d'un triangle est donnée par la formule $\\dfrac{\\mathcal{B}\\times h}{2}$.<br>
   Donc, l'aire du triangle $${nomTriangle}$ est :<br>
-  $\\dfrac{${texNombre(cote, 0)}\\times ${
-    typeDeReponse.includes('exacte')
-      ? `\\sqrt{${texNombre((3 * cote * cote) / 4, 2)}}`
-      : `${texNombre((cote * Math.sqrt(3)) / 2, 1)}`
-  }}{2}${
+  $\\dfrac{${texNombre(cote, 0)}\\times \\sqrt{${texNombre((3 * cote * cote) / 4, 2)}}}{2}${
     typeDeReponse.includes('exacte')
       ? `=${texNombre(cote / 2, 1)} \\sqrt{${texNombre((3 * cote * cote) / 4, 2)}}`
       : `\\approx${texNombre((cote * cote * Math.sqrt(3)) / 4, 1)}`
@@ -164,7 +167,8 @@ function calculeCote(
   $\\dfrac{4}{3}${nomHauteur}^2=${nomHypotenuse}^2$<br>
   Soit :<br>
   $${nomHypotenuse}^2=\\dfrac{4}{3}\\times ${texNombre(hauteur * hauteur, 0)}=\\dfrac{${texNombre(4 * hauteur * hauteur, 0)}}{3}$<br>
-  Donc le côté $${nomHypotenuse}$ est égal à ${
+  $${nomHypotenuse}=\\sqrt{\\dfrac{${texNombre(4 * hauteur * hauteur, 0)}}{3}}$<br>
+Donc le côté $${nomHypotenuse}$ est égal à ${
     typeDeReponse.includes('exacte')
       ? `$${miseEnEvidence(`\\sqrt{\\dfrac{${texNombre(4 * hauteur * hauteur, 0)}}{3}}`)}$`
       : `$${miseEnEvidence(texNombre((2 * hauteur) / Math.sqrt(3), 1))}$`
@@ -178,7 +182,7 @@ export default class TriangleEquilateral extends Exercice {
   niveau: number = 4
   constructor() {
     super()
-    this.sup = '5'
+    this.sup = '1-2'
     this.niveau = 4
     this.spacingCorr = 2
     this.comment =
@@ -187,12 +191,7 @@ export default class TriangleEquilateral extends Exercice {
       'Type de questions',
       "Nombres séparés par des tirets\n1 : Calcul de la hauteur\n2 : Calcul de l'aire",
     ]
-    // La version ci-dessous est pour un clone en 2e incluant le calcul du côté
-    /*  this.besoinFormulaireTexte = [
-      'Type de questions',
-      "Nombres séparés par des tirets\n1 : Calcul de la hauteur\n2 : Calcul de l'aire\n3 : Calcul du côté (hors programme !)",
-    ]
-      */
+
     this.besoinFormulaire2Numerique = [
       'Type de réponse attendue',
       3,
@@ -243,10 +242,11 @@ export default class TriangleEquilateral extends Exercice {
             )
             question =
               `Calculer la longueur du côté du triangle équilatéral $${nomTriangle}$ dont la hauteur mesure $${texNombre(hauteur, 0)}$ cm.<br>
-            Donner la valeur exacte.` +
+          ${typeDeReponse}.` +
               ajouteQuestionMathlive({
                 exercice: this,
                 question: i,
+                texteApres: ' cm',
                 objetReponse: {
                   reponse: {
                     value: typeDeReponse.includes('exacte')
@@ -282,6 +282,7 @@ export default class TriangleEquilateral extends Exercice {
               ajouteQuestionMathlive({
                 exercice: this,
                 question: i,
+                texteApres: ' cm$^2$',
                 objetReponse: {
                   reponse: {
                     value: typeDeReponse.includes('exacte')
@@ -317,6 +318,7 @@ export default class TriangleEquilateral extends Exercice {
               ajouteQuestionMathlive({
                 exercice: this,
                 question: i,
+                texteApres: ' cm',
                 objetReponse: {
                   reponse: {
                     value: typeDeReponse.includes('exacte')

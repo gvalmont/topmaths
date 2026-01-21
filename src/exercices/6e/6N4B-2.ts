@@ -17,7 +17,10 @@ export const interactifType = 'mathLive'
 
 // Gestion de la date de publication initiale
 export const dateDePublication = '10/06/2025'
-export const dateDeModifImportante = '22/11/2025'
+export const dateDeModifImportante = '30/12/2025' // Ajout de patterns affines et linéaires
+const patternsFor6N4B = listePattern3d.filter(
+  (p) => p.type === 'affine' || p.type === 'linéaire',
+) // On enlève les patterns quadratiques pour cet exercice
 
 /**
  * Étudier les premiers termes d'une série de motifs afin de donner le nombre de formes ${['e','a','é','i','o','u','y','è','ê'].includes(pattern.shapes[0][0]) ? 'd\'':'de'}${pattern.shapes[0]} du motif suivant.
@@ -50,7 +53,7 @@ Si le nombre de questions est supérieur au nombre de patterns choisis, alors l'
       'Nombres séparés par des tirets :\n1: Motif suivant à dessiner\n2 : Motif suivant (nombre)\n3 : Motif 10 (nombre)\n4 : Numéro du motif\n5 : Motif 100 (nombre)\n6 : Question au hasard parmi les 5 précédentes',
     ]
     this.sup4 = '6'
-    const nbDePattern = listePattern3d.length
+    const nbDePattern = patternsFor6N4B.length
     this.besoinFormulaire5Texte = [
       'Numéros des pattern désirés :',
       [
@@ -63,23 +66,21 @@ Si le nombre de questions est supérieur au nombre de patterns choisis, alors l'
   }
 
   nouvelleVersion(): void {
-    const nbDePattern = listePattern3d.length
+    const nbDePattern = patternsFor6N4B.length
     let typesPattern = gestionnaireFormulaireTexte({
       saisie: this.sup5,
       max: nbDePattern,
       defaut: nbDePattern + 1,
       melange: nbDePattern + 1,
-      nbQuestions: this.nbQuestions,
+      nbQuestions: Math.min(this.nbQuestions, nbDePattern),
     }).map(Number)
 
     typesPattern = [...typesPattern, ...shuffle(range1(nbDePattern))]
     typesPattern = enleveDoublonNum(typesPattern)
-
-    // if (this.nbQuestions > 25) this.nbQuestions = 25 // EE : Pourquoi ce code ? Pourquoi 25 ? Le code était avant moi : je le laisse.
     typesPattern = typesPattern.slice(0, 25)
     typesPattern = typesPattern.reverse()
 
-    const listePreDef = typesPattern.map((i) => listePattern3d[i - 1])
+    const listePreDef = typesPattern.map((i) => patternsFor6N4B[i - 1])
     const nbFigures = Math.max(1, this.sup)
     const typesQuestions = Array.from(
       new Set(
@@ -89,13 +90,16 @@ Si le nombre de questions est supérieur au nombre de patterns choisis, alors l'
           max: 5,
           defaut: 1,
           melange: 6,
-          nbQuestions: 5,
+          nbQuestions: 4,
           shuffle: false,
         }).map(Number),
       ),
     )
     let indexInteractif = 0
-    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50; ) {
+    for (
+      let i = 0, cpt = 0;
+      i < Math.min(this.nbQuestions, nbDePattern) && cpt < 50;
+    ) {
       const canvas3d: any[] = []
       const popped = listePreDef.pop()
       if (!popped) {

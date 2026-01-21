@@ -1,7 +1,4 @@
-import {
-  miseEnEvidence,
-  texteEnCouleurEtGras,
-} from '../../../lib/outils/embellissements'
+import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import ExerciceQcm from '../../ExerciceQcm'
 
 export const uuid = 'a2828'
@@ -29,10 +26,10 @@ export const dateDePublication = '07/03/2025'
 export default class SujetZero2024Ex5Q5 extends ExerciceQcm {
   versionOriginale: () => void = () => {
     this.reponses = [
-      '$y = \\left(6\\text{e}^{\\frac12}\\right)  x - 4\\text{e}$', // Réponse correcte (d)
-      '$y = \\left(6\\text{e}^{\\frac12}\\right) x$', // Mauvaise réponse (a)
-      '$y = \\left(6\\sqrt{\\text{e}}\\right) x + 2\\text{e}$', // Mauvaise réponse (b)
-      '$y = 6\\text{e}^{\\frac{x}{2}}$', // Mauvaise réponse (c)
+      '$y = \\left(6\\mathrm{e}^{\\frac12}\\right)  x - 4\\mathrm{e}$', // Réponse correcte (d)
+      '$y = \\left(6\\mathrm{e}^{\\frac12}\\right) x$', // Mauvaise réponse (a)
+      '$y = \\left(6\\sqrt{\\mathrm{e}}\\right) x + 2\\mathrm{e}$', // Mauvaise réponse (b)
+      '$y = 6\\mathrm{e}^{\\frac{x}{2}}$', // Mauvaise réponse (c)
     ]
 
     this.enonce =
@@ -44,17 +41,17 @@ export default class SujetZero2024Ex5Q5 extends ExerciceQcm {
     this.enonce +=
       ' <br>On note $\\mathcal{C}_h$ la courbe représentative de $h$ dans un repère du plan. '
     this.enonce +=
-      "<br>Une équation de la tangente à $\\mathcal{C}_h$ au point d'abscisse $\\sqrt{\\text{e}}$ est :<br>"
+      "<br>Une équation de la tangente à $\\mathcal{C}_h$ au point d'abscisse $\\sqrt{\\mathrm{e}}$ est :<br>"
     this.correction =
       "<br>Une équation de la tangente est $y=h'\\left(\\sqrt{\\mathrm{e}}\\right) \\left(x - \\sqrt{\\mathrm{e}}\\right)+h\\left(\\sqrt{\\mathrm{e}}\\right)$.<br>"
     this.correction +=
-      "$\\bullet~~$ On calcule $h'\\left(\\sqrt{\\text{e}}\\right) = 4 \\times \\sqrt{\\text{e}}\\left(1 + \\ln \\left(\\sqrt{\\text{e}}\\right)\\right) = 4 \\times \\sqrt{\\text{e}} \\times \\left(1 + \\dfrac12\\right) = 6\\sqrt{\\text{e}}$.<br>"
+      "$\\bullet~~$ On calcule $h'\\left(\\sqrt{\\mathrm{e}}\\right) = 4 \\times \\sqrt{\\mathrm{e}}\\left(1 + \\ln \\left(\\sqrt{\\mathrm{e}}\\right)\\right) = 4 \\times \\sqrt{\\mathrm{e}} \\times \\left(1 + \\dfrac12\\right) = 6\\sqrt{\\mathrm{e}}$.<br>"
     this.correction +=
-      '$\\bullet~~$ On calcule $h\\left(\\sqrt{\\text{e}}\\right) = \\left(\\sqrt{\\text{e}}\\right)^2\\left(1 + 2 \\ln \\left(\\sqrt{\\text{e}}\\right)\\right) = \\text{e} \\times (1 + 1) = 2\\text{e}$.<br>'
+      '$\\bullet~~$ On calcule $h\\left(\\sqrt{\\mathrm{e}}\\right) = \\left(\\sqrt{\\mathrm{e}}\\right)^2\\left(1 + 2 \\ln \\left(\\sqrt{\\mathrm{e}}\\right)\\right) = \\mathrm{e} \\times (1 + 1) = 2\\mathrm{e}$.<br>'
     this.correction += "L'équation de la tangente s'écrit donc :<br>"
     this.correction +=
-      '$\\begin{aligned}    y  &= 6\\sqrt{\\text{e}}\\left(x - \\sqrt{\\text{e}}\\right)+ 2\\text{e}  \\\\    \\iff y &= 6x\\sqrt{\\text{e}} - 4\\text{e} \\end{aligned}$<br>'
-    this.correction += `L'équation de la tangente est donc : $${miseEnEvidence('y = \\left(6\\text{e}^{\\frac12}\\right)  x - 4\\text{e}')}$`
+      '$\\begin{aligned}    y  &= 6\\sqrt{\\mathrm{e}}\\left(x - \\sqrt{\\mathrm{e}}\\right)+ 2\\mathrm{e}  \\\\    \\iff y &= 6x\\sqrt{\\mathrm{e}} - 4\\mathrm{e} \\end{aligned}$<br>'
+    this.correction += `L'équation de la tangente est donc : $${miseEnEvidence('y = \\left(6\\mathrm{e}^{\\frac12}\\right)  x - 4\\mathrm{e}')}$`
   }
 
   constructor() {

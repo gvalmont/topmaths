@@ -6,6 +6,7 @@ import { point } from '../../lib/2d/PointAbstrait'
 import { repere } from '../../lib/2d/reperes'
 import { latexParPoint } from '../../lib/2d/textes'
 import { Vide2d } from '../../lib/2d/Vide2d'
+import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 import { functionCompare } from '../../lib/interactif/comparisonFunctions'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
@@ -162,7 +163,7 @@ export default class LectureExpressionFonctionsAffines extends Exercice {
     for (let i = 0; i < nbDroites; i++) {
       this.listeQuestions.push(
         `Déterminer l'expression de la fonction $f_${i + 1}$ représentée par la droite $(d_${i + 1})$.${this.interactif ? '<br>' : ''}` +
-          ajouteChampTexteMathLive(this, i, ' ', {
+          ajouteChampTexteMathLive(this, i, KeyboardType.clavierDeBaseAvecX, {
             texteAvant: sp() + `$f_${i + 1}(x)=$`,
           }),
       )

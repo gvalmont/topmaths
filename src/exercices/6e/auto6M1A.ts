@@ -27,5 +27,8 @@ export default class Reglages6N35 extends ExerciceConversions {
     this.correctionDetailleeDisponible = true
     this.valUnitaire = true
     this.besoinFormulaire2CaseACocher = false
+    this.nbQuestions = 6
+    this.comment +=
+      '<br>Cet exercice est limité en nombre de questions, au peu de choix possibles.'
   }
 }

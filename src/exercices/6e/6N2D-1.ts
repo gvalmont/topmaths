@@ -1,19 +1,19 @@
+import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
+import { handleAnswers } from '../../lib/interactif/gestionInteractif'
+import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { choice } from '../../lib/outils/arrayOutils'
+import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { arrondi } from '../../lib/outils/nombres'
+import { numAlpha } from '../../lib/outils/outilString'
 import { texNombre } from '../../lib/outils/texNombre'
 import { context } from '../../modules/context'
+import operation from '../../modules/operations'
 import {
   gestionnaireFormulaireTexte,
   listeQuestionsToContenu,
   randint,
 } from '../../modules/outils'
-import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
-import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import Exercice from '../Exercice'
-import { miseEnEvidence } from '../../lib/outils/embellissements'
-import { numAlpha } from '../../lib/outils/outilString'
-import Operation from '../../modules/operations'
-import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 
 export const dateDePublication = '06/05/2025'
 export const dateDeModifImportante = '25/05/2025'
@@ -62,14 +62,15 @@ export default class ProduitDeDecimauxAPartirProduitConnu extends Exercice {
       'Types du calcul final',
       [
         'Nombres séparés par des tirets  :',
-        '1 : nb1*10^p1 + nb2',
-        '2 : nb1 + nb2*10^p2',
-        '3 : nb1*10^p1 + nb2*10^p2',
+        '1 : nb1$\\times$10^p1 $\\times$ nb2',
+        '2 : nb1 $\\times$ nb2$\\times$10^p2',
+        '3 : nb1$\\times$10^p1 $\\times$ nb2$\\times$10^p2',
         '4 : Mélange',
       ].join('\n'),
     ]
     this.comment =
-      'Dans le premier paramètre, nb1, nb2 représentent des entiers entre 2 et 99.<br> p1 et p2 représentent des entiers non nuls entre -3 et 3.'
+      'Le premier calcul est nb1 $\\times$ nb2 où nb1 et nb2 représentent des entiers entre 2 et 99. <br> Le premier paramètre permet de paramétrer le calcul final ' +
+      'dans lequel p1 et p2 représentent des exposants entiers non nuls entre -3 et 3.'
     this.besoinFormulaire2Numerique = [
       'Nombre de chiffres non nuls dans le plus petit facteur',
       4,
@@ -98,7 +99,6 @@ export default class ProduitDeDecimauxAPartirProduitConnu extends Exercice {
     for (
       let i = 0, texte, texteCorr, cpt = 0;
       i < this.nbQuestions && cpt < 50;
-
     ) {
       let d1 = randint(1, 9)
       const u1 = randint(2, 9)
@@ -110,17 +110,17 @@ export default class ProduitDeDecimauxAPartirProduitConnu extends Exercice {
 
       let choix = true
       switch (listeTypeDeQuestions[i]) {
-        case 1: // nb1*10^p1 + nb2
+        case 1: // nb1*10^p1 x nb2
           if (this.sup2 === 1) d1 = 0
           p1 = randint(-3, 3, [0])
           break
 
-        case 2: // nb1 + nb2*10^p2
+        case 2: // nb1 x nb2*10^p2
           if (this.sup2 === 1) d2 = 0
           p2 = randint(-3, 3, [0])
           break
 
-        case 3: // nb1*10^p1 + nb2*10^p2
+        case 3: // nb1*10^p1 x nb2*10^p2
           do {
             p1 = randint(-3, 3, [0])
             p2 = randint(-3, 3, [0])
@@ -164,7 +164,7 @@ export default class ProduitDeDecimauxAPartirProduitConnu extends Exercice {
         const [op1, op2] = useNb1Decomposed ? [nb1, nb2] : [nb2, nb1]
         texteCorr += numAlpha(0) + `Posons $${op1}\\times ${op2}$.<br>`
         texteCorr += String(
-          Operation({
+          operation({
             operande1: op1,
             operande2: op2,
             type: 'multiplication',
@@ -179,11 +179,16 @@ export default class ProduitDeDecimauxAPartirProduitConnu extends Exercice {
       if (this.sup3) {
         texte = `Sachant que $${nb1}\\times ${nb2} = ${texNombre(nb1 * nb2)}$,
                 calculer $${texNombre(multipleNb1)}\\times ${texNombre(multipleNb2)}$`
-        texte += this.interactif
-          ? ajouteChampTexteMathLive(this, i, KeyboardType.clavierNumbers, {
+        if (this.interactif)
+          texte += ajouteChampTexteMathLive(
+            this,
+            i,
+            KeyboardType.clavierNumbers,
+            {
               texteAvant: ' : ',
-            })
-          : '.'
+            },
+          )
+        texte += '.'
         handleAnswers(this, i, {
           reponse: {
             value: reponse[1],
@@ -194,12 +199,14 @@ export default class ProduitDeDecimauxAPartirProduitConnu extends Exercice {
         reponse[0] = 0
       } else {
         texte = numAlpha(0) + `Calculer en ligne $${nb1}\\times ${nb2}$`
+
         texte += this.interactif
           ? ajouteChampTexteMathLive(this, 2 * i, KeyboardType.clavierNumbers, {
               texteAvant: ' puis donner le résultat : ',
-              texteApres: '.<br>',
+              texteApres: '.',
             })
-          : '.<br>'
+          : '.'
+        texte += '<br>'
         handleAnswers(this, 2 * i, {
           reponse: {
             value: reponse[0],

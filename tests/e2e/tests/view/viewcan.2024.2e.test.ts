@@ -36,11 +36,7 @@ async function testCanView(page: Page) {
     .first()
     .click()
   log('Accès aux solutions->à la fin')
-  await page
-    .getByLabel('Les questions seront posées')
-    .locator('input[type="number"]')
-    .first()
-    .fill('10')
+  await page.locator('#config-eleve-can-duration-input').fill('10')
   log('Les questions seront posées->10min')
 
   const page1Promise = page.waitForEvent('popup')

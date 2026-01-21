@@ -1,16 +1,18 @@
+import type { BoxedExpression } from '@cortex-js/compute-engine'
+import { Matrix } from 'mathjs'
 import { randint } from '../../modules/outils'
+import engine, { generateCleaner } from '../interactif/comparisonFunctions'
 import { ecritureAlgebrique } from '../outils/ecritures'
+import { miseEnEvidence } from '../outils/embellissements'
 import { matrice } from './Matrice'
 import { Polynome } from './Polynome'
-import { miseEnEvidence } from '../outils/embellissements'
-import engine, { generateCleaner } from '../interactif/comparisonFunctions'
 
 /**
  * delta(true) retourne dans un tableau des valeurs de a, b, c telles que b*b-4*a*c >0
  * delta(false) retourne dans un tableau des valeurs de a, b, c telles que b*b-4*a*c <0
  * @author Jean-Claude Lhote
  */
-export function choisiDelta(positif) {
+export function choisiDelta(positif: boolean) {
   let d, a, b, c
   do {
     a = randint(-5, 5, 0)
@@ -23,12 +25,13 @@ export function choisiDelta(positif) {
 
 /**
  * fonction qui retourne un polynome du second degré correctement écrit.
+ * @author Jean-Claude Lhote
  * @param {number} a
  * @param {number} b
  * @param {number} c
  * @returns {string}
  */
-export function expTrinome(a, b, c) {
+export function expTrinome(a: number, b: number, c: number): string {
   let expr = ''
   if (typeof a === 'number') {
     switch (a) {
@@ -86,6 +89,7 @@ export function expTrinome(a, b, c) {
 
 /**
  * Une fonction qui retourrne le polynome de Lagrange passant par une liste de points
+ * @author Jean-Claude Lhote
  * @param {{x:number,y:number}[]} listePoints
  * @return {Polynome}
  */
@@ -136,17 +140,25 @@ export function interpolationDeLagrange(
  * @return {[[number,number],[number,number]]}
  * @author Jean-Claude Lhote
  */
-export function resolutionSystemeLineaire2x2(x1, x2, fx1, fx2, c) {
+export function resolutionSystemeLineaire2x2(
+  x1: number,
+  x2: number,
+  fx1: number,
+  fx2: number,
+  c: number,
+): [number, number] {
   const maMatrice = matrice([
     [x1 ** 2, x1],
     [x2 ** 2, x2],
   ])
   if (maMatrice.determinant() === 0) return [0, 0]
-  const [a, b] = maMatrice
-    .inverse()
-    .multiply([fx1 - c, fx2 - c])
-    .toArray()
-  return [a, b]
+  const resultat = maMatrice.inverse().multiply([fx1 - c, fx2 - c])
+  if (resultat instanceof Matrix) {
+    const [a, b] = resultat.toArray() as number[]
+    return [a, b]
+  }
+
+  return [0, 0]
 }
 
 /**
@@ -174,61 +186,83 @@ export function resolutionSystemeLineaire3x3(
   if (maMatrice && maMatrice.determinant() === 0) {
     return [0, 0, 0]
   }
-  const [a, b, c] = maMatrice.inverse().multiply([y1, y2, y3]).toArray()
-  return [a, b, c]
+  const resultat = maMatrice.inverse().multiply([y1, y2, y3])
+  if (resultat instanceof Matrix) {
+    const [a, b, c] = resultat.toArray() as number[]
+    return [a, b, c]
+  }
+  return [0, 0, 0]
 }
 
 /**
  * Une fonction utilisée dans les 3 fonctions qui suivent (suppressionParentheses, regroupeTermesMemeDegre et developpe afin de colorier ou pas les termes
+ * @author Jean-Claude Lhote
  * @param str
  * @param color
  * @param isColored
  * @return {string|*}
  */
-const miseEnForme = (str, color, isColored) =>
+const miseEnForme = (str: string, color: string, isColored: boolean) =>
   isColored ? miseEnEvidence(str, color) : str
-function neg(expr) {
-  if (expr.head !== 'Add') return engine.function('Multiply', [expr, '-1'])
-  return engine.function('Add', expr.ops.map(neg), { canonical: false })
+function neg(expr: BoxedExpression): BoxedExpression {
+  if (expr.operator !== 'Add')
+    return engine.function('Multiply', [expr, engine.parse('-1')])
+  const ops = expr.ops ?? []
+  if (ops.length === 0)
+    return engine.function('Multiply', [expr, engine.parse('-1')])
+  else
+    return engine.function('Add', ops.map(neg), {
+      canonical: false,
+      structural: false,
+    })
 }
 
 /**
  * Une fonction pour supprimer les parenthèses et aplatir l'expression (un Add avec une série de termes)
+ * @author Jean-Claude Lhote
  * @param expr
  * @return {*|BoxedExpression}
  */
-function flattenAdd(expr) {
-  if (expr.head === 'Negate') {
+function flattenAdd(expr: BoxedExpression): BoxedExpression {
+  if (expr.operator === 'Negate') {
     const oppose = neg(expr.op1)
-    const newExpr = engine.function('Add', [oppose], { canonical: false })
+    const newExpr = engine.function('Add', [oppose], {
+      canonical: false,
+      structural: false,
+    })
     return newExpr
   }
-  if (expr.head === 'Subtract') {
+  if (expr.operator === 'Subtract') {
     const oppose = neg(expr.op2)
     const newExpr = engine.function('Add', [expr.op1, oppose], {
       canonical: false,
+      structural: false,
     })
     return flattenAdd(newExpr)
   }
 
-  if (expr.head !== 'Add') return expr
+  if (expr.operator !== 'Add') return expr
 
   const ops = []
-  for (let op of expr.ops) {
+  for (let op of expr.ops ?? []) {
     op = flattenAdd(op)
-    if (op.head === 'Add' || op.head === 'Delimiter')
-      ops.push(...op.ops.map(flattenAdd))
+    if (op.operator === 'Add' || op.operator === 'Delimiter')
+      ops.push(...(op.ops ?? []).map(flattenAdd))
     else ops.push(op)
   }
-  return engine.function('Add', ops, { canonical: false })
+  return engine.function('Add', ops, { canonical: false, structural: false })
 }
 
 /**
  * Supprime les parenthèses dans une somme du type (5x+3)-(2x^2-3x+4)+(4x+7-3x^3)
+ * @author Jean-Claude Lhote
  * @param {string} exp
  * @param {{color: boolean}} options
  */
-export function suppressionParentheses(exp, options) {
+export function suppressionParentheses(
+  exp: string,
+  options: { couleurs?: string[]; isColored?: boolean },
+) {
   const couleurs = options.couleurs ?? [
     'red',
     'blue',
@@ -249,7 +283,7 @@ export function suppressionParentheses(exp, options) {
   exp = clean(exp)
   const arbre = engine.parse(exp, { canonical: false })
   const sp = flattenAdd(flattenAdd(arbre))
-  const parts = sp.ops
+  const parts = sp.ops ?? []
   let expressionFinale = ''
   for (let index = 0; index < parts.length; index++) {
     const latex = parts[index].latex.startsWith('-')
@@ -260,11 +294,11 @@ export function suppressionParentheses(exp, options) {
     const hereIsPower = parts[index].getSubexpressions('Power')[0]
     let deg = 0
     if (hereIsPower != null) {
-      deg = hereIsPower.op2.value
+      deg = Number(hereIsPower.op2.value)
     } else {
-      if (parts[index].head === 'Square') {
+      if (parts[index].operator === 'Square') {
         deg = 2
-      } else if (parts[index].head === 'Negate') {
+      } else if (parts[index].operator === 'Negate') {
         if (parts[index].op1.isConstant) {
           deg = 0
         } else {
@@ -280,7 +314,7 @@ export function suppressionParentheses(exp, options) {
     expressionFinale += miseEnForme(
       latex,
       couleurs[Math.max(0, 2 - deg)],
-      isColored,
+      isColored ?? false,
     )
   }
   return expressionFinale
@@ -288,9 +322,13 @@ export function suppressionParentheses(exp, options) {
 
 /**
  * une fonction pour trier les termes d'une somme algébrique selon l'exposant de la puissance
+ * @author Jean-Claude Lhote
  * @param {string} exp
  */
-export function regroupeTermesMemeDegre(exp, options) {
+export function regroupeTermesMemeDegre(
+  exp: string,
+  options: { couleurs?: string[]; isColored?: boolean },
+) {
   const couleurs = options.couleurs ?? [
     'red',
     'blue',
@@ -311,16 +349,16 @@ export function regroupeTermesMemeDegre(exp, options) {
   exp = clean(exp)
   if (exp.length === 0) return ''
   const arbre = engine.parse(exp, { canonical: false })
-  const parts = flattenAdd(arbre).ops
-  const allTheTerms = []
+  const parts = flattenAdd(arbre).ops ?? []
+  const allTheTerms: string[][] = []
   for (let index = 0; index < parts.length; index++) {
     let deg = 0
     const terme = parts[index]
     if (terme.getSubexpressions('Power')[0] != null) {
-      deg = terme.getSubexpressions('Power')[0].op2.numericValue
-    } else if (terme.head === 'Square') {
+      deg = Number(terme.getSubexpressions('Power')[0].op2.numericValue)
+    } else if (terme.operator === 'Square') {
       deg = 2
-    } else if (terme.head === 'Negate') {
+    } else if (terme.operator === 'Negate') {
       if (terme.op1.isConstant) {
         deg = 0
       } else {
@@ -350,28 +388,37 @@ export function regroupeTermesMemeDegre(exp, options) {
         parcel += term
       }
       expressionFinale.push(
-        `(${miseEnForme(parcel, couleurs[Math.max(0, 2 - (i - 1))], isColored)})`,
+        `(${miseEnForme(parcel, couleurs[Math.max(0, 2 - (i - 1))], isColored ?? false)})`,
       )
     }
   }
   return expressionFinale.join('+')
 }
 
+const isNumeric = (node: BoxedExpression) => node.isNumberLiteral
+const isSingleSymbol = (node: BoxedExpression) =>
+  node.symbol && node.symbol.length === 1 && node.latex.length === 1
+
 /**
- *
+ * @author Jean-Claude Lhote
  * @param expr
  * @param {{isColored: boolean, colorOffset: number, level: 0|1}} options
  * @return {string}
  */
 export function developpe(
   expr: string,
-  options: { isColored: boolean; colorOffset?: number; level?: 0 | 1 | 2 },
+  options: {
+    couleurs?: string[]
+    isColored: boolean
+    colorOffset?: number
+    level?: 0 | 1 | 2
+  },
 ): string {
   const isColored = options?.isColored
   const colorOffset = options.colorOffset ?? 0
   const level = options?.level ?? 0
   const clean = generateCleaner(['parentheses', 'fractions'])
-  const couleurs = options.isColored ?? [
+  const couleurs = options.couleurs ?? [
     'red',
     'blue',
     'green',
@@ -383,40 +430,48 @@ export function developpe(
   ]
   expr = clean(expr)
   const arbre = engine.parse(expr)
-  if (!['Square', 'Multiply', 'Power'].includes(arbre.head)) {
+  if (!['Square', 'Multiply', 'Power'].includes(arbre.operator)) {
     // On ne développe que les produits où les carrés ici
     return expr.replaceAll('\\frac', '\\dfrac')
   }
-  if (arbre.head === 'Square' || arbre.head === 'Power') {
+  if (arbre.operator === 'Square' || arbre.operator === 'Power') {
     // on est sans doute en présence d'une égalité remarquable ?
     if (arbre.op2.numericValue !== 2)
       return expr.replaceAll('\\frac', '\\dfrac')
     const interior = arbre.op1
-    const somme = interior.head === 'Add'
+    const somme = interior.operator === 'Add'
     const terme1 = interior.op1
     const terme2 = interior.op2
-    const carre1 = terme1.isAlgebraic
+    const carre1 = isNumeric(terme1)
       ? terme1.latex.startsWith('-')
         ? `\\left( ${terme1.latex}\\right) ^2`
         : `${terme1.latex}^2`
-      : `\\left( ${terme1.latex}\\right) ^2`
-    const carre2 = terme2.isAlgebraic
+      : isSingleSymbol(terme1)
+        ? `${terme1.latex}^2`
+        : `\\left( ${terme1.latex}\\right) ^2`
+    const carre2 = isNumeric(terme2)
       ? terme2.latex.startsWith('-')
         ? `\\left( ${terme2.latex}\\right) ^2`
         : `${terme2.latex}^2`
-      : `\\left( ${terme2.latex}\\right) ^2`
+      : isSingleSymbol(terme2)
+        ? `${terme2.latex}^2`
+        : `\\left( ${terme2.latex}\\right) ^2`
     const dbleProd = `2\\times ${
-      terme1.isConstant
+      isNumeric(terme1)
         ? terme1.latex.startsWith('-')
           ? `\\left( ${terme1.latex}\\right) `
           : `${terme1.latex}`
-        : `\\left( ${terme1.latex}\\right) `
+        : isSingleSymbol(terme1)
+          ? `${terme1.latex}`
+          : `\\left( ${terme1.latex}\\right) `
     }\\times ${
-      terme2.isConstant
+      isNumeric(terme2)
         ? terme2.latex.startsWith('-')
           ? `\\left( ${terme2.latex}\\right) `
           : `${terme2.latex}`
-        : `${terme2.latex}`
+        : isSingleSymbol(terme2)
+          ? `${terme2.latex}`
+          : `\\left( ${terme2.latex}\\right) `
     }`
     if (level === 2) {
       return `${miseEnForme(carre1, couleurs[colorOffset], isColored)}${somme ? '+' : '-'}${miseEnForme(dbleProd, couleurs[colorOffset + 1], isColored)}+${miseEnForme(carre2, couleurs[colorOffset + 2], isColored)}`.replaceAll(
@@ -438,10 +493,10 @@ export function developpe(
     const facteur2 = arbre.op2
     const terme1 = facteur1.op1
     const terme2 = facteur1.op2
-    const somme1 = facteur1.head === 'Add'
+    const somme1 = facteur1.operator === 'Add'
     const terme3 = facteur2.op1
     const terme4 = facteur2.op2
-    const somme2 = facteur2.head === 'Add'
+    const somme2 = facteur2.operator === 'Add'
     const t1 = terme1.latex.startsWith('-')
       ? `\\left( ${terme1.latex}\\right) `
       : terme1.latex

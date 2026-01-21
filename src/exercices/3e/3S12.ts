@@ -1,5 +1,6 @@
 import { traceBarre } from '../../lib/2d/diagrammes'
 import { repere } from '../../lib/2d/reperes'
+import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 import { setReponse } from '../../lib/interactif/gestionInteractif'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { choice } from '../../lib/outils/arrayOutils'
@@ -193,23 +194,38 @@ export default class CalculEffectifFrequence extends Exercice {
       const texteAMC = texte
       texte0 =
         numAlpha(0) + " Quel est l'effectif des " + lstAnimauxExo[0] + ' ?'
-      texte0 += ajouteChampTexteMathLive(this, 4 * ee, '') + '<br>'
+      texte0 +=
+        ajouteChampTexteMathLive(this, 4 * ee, KeyboardType.clavierNumbers) +
+        '<br>'
       texte1 =
         numAlpha(1) +
         ' Calculer la fréquence des ' +
         lstAnimauxExo[1] +
         `. Donner le résultat sous la forme d'un pourcentage arrondi, si besoin, à 0,1${symbolePourCent} près.`
       texte1 +=
-        ajouteChampTexteMathLive(this, 4 * ee + 1, '', { texteApres: '%' }) +
-        '<br>'
+        ajouteChampTexteMathLive(
+          this,
+          4 * ee + 1,
+          KeyboardType.clavierNumbers,
+          { texteApres: '%' },
+        ) + '<br>'
       texte2 = numAlpha(2) + " Calculer l'effectif des quadrupèdes."
-      texte2 += ajouteChampTexteMathLive(this, 4 * ee + 2, '') + '<br>'
+      texte2 +=
+        ajouteChampTexteMathLive(
+          this,
+          4 * ee + 2,
+          KeyboardType.clavierNumbers,
+        ) + '<br>'
       texte3 =
         numAlpha(3) +
         ` Calculer la fréquence des oiseaux. Donner le résultat sous la forme d'un pourcentage arrondi, si besoin, à 0,1${symbolePourCent} près.`
       texte3 +=
-        ajouteChampTexteMathLive(this, 4 * ee + 3, '', { texteApres: '%' }) +
-        '<br>'
+        ajouteChampTexteMathLive(
+          this,
+          4 * ee + 3,
+          KeyboardType.clavierNumbers,
+          { texteApres: '%' },
+        ) + '<br>'
       texte += texte0 + texte1 + texte2 + texte3
 
       // début de la correction

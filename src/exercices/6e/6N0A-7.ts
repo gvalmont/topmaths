@@ -79,7 +79,6 @@ export default class ÉcrireNombresEntiers extends Exercice {
     for (
       let i = 0, texte, texteCorr, a, b, c, nombre, tranche, cpt = 0;
       i < this.nbQuestions && cpt < 50;
-
     ) {
       nombre = 0
       tranche = []
@@ -112,7 +111,7 @@ export default class ÉcrireNombresEntiers extends Exercice {
       if (typeDeConsigne[i] === 1) {
         setReponse(this, i, nombreEnLettres(nombre))
         if (context.vue !== 'diap')
-          texte = `$${texNombre(nombre)} ${!this.interactif ? ' :  $' : '$ <br>' + ajouteChampTexteMathLive(this, i, 'alphanumeric')}`
+          texte = `$${texNombre(nombre)} ${!this.interactif ? ' :  $' : '$ <br>' + ajouteChampTexteMathLive(this, i, KeyboardType.alphanumeric)}`
         else texte = `$${texNombre(nombre)}$`
         if (context.vue !== 'diap')
           texteCorr = `$${texNombre(nombre)}$ : ${nombreEnLettres(nombre)}`

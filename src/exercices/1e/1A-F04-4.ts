@@ -50,7 +50,7 @@ export default class auto1AF4c extends ExerciceQcmA {
     const objetsEnonce = [repere1] //, courbe1
 
     this.enonce = `${deuxColonnes(
-      `On donne ci-contre la courbe représentative $\\mathscr{C}$ d'une fonction $f$ définie sur $[-3\\,;\\,]$.<br>
+      `On donne ci-contre la courbe représentative $\\mathscr{C}$ d'une fonction $f$ définie sur $[-3\\,;\\,2]$.<br>
    On s'intéresse à l'équation $f(x)=0$.<br><br>Une seule de ces propositions est exacte :`,
       mathalea2d(
         Object.assign(

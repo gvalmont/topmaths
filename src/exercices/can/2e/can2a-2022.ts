@@ -22,9 +22,12 @@ import Exercice from '../../Exercice'
 
 import { fixeBordures } from '../../../lib/2d/fixeBordures'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
-import { setReponse } from '../../../lib/interactif/gestionInteractif'
+import {
+  handleAnswers,
+  setReponse,
+} from '../../../lib/interactif/gestionInteractif'
 import { ajouteChampTexteMathLive } from '../../../lib/interactif/questionMathLive'
-import { arrondi } from '../../../lib/outils/nombres'
+import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import type { NestedObjetMathalea2dArray } from '../../../types/2d'
 
 export const titre = 'CAN seconde sujet 2022'
@@ -111,6 +114,7 @@ export default class SujetCAN2022Seconde extends Exercice {
       let nbChamps = 1
       let choix = 'a'
       switch (typeQuestionsDisponibles[i]) {
+        // switch (24) {
         case 1:
           a = randint(2, 9)
           b = randint(1, 9) / 10
@@ -123,7 +127,11 @@ export default class SujetCAN2022Seconde extends Exercice {
           reponse = a * b
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) {
-            texte += ajouteChampTexteMathLive(this, index, '')
+            texte += ajouteChampTexteMathLive(
+              this,
+              index,
+              KeyboardType.clavierNumbers,
+            )
           } else {
             texte += ' $\\ldots$'
           }
@@ -140,7 +148,11 @@ export default class SujetCAN2022Seconde extends Exercice {
               reponse = new FractionEtendue(a * b[1] + b[0], b[1])
               texte = `$${a}+${f.texFraction}= $`
               if (this.interactif) {
-                texte += ajouteChampTexteMathLive(this, index, '')
+                texte += ajouteChampTexteMathLive(
+                  this,
+                  index,
+                  KeyboardType.clavierDeBaseAvecFraction,
+                )
               } else {
                 texte += ' $\\ldots$'
               }
@@ -149,7 +161,11 @@ export default class SujetCAN2022Seconde extends Exercice {
               reponse = new FractionEtendue(a * b[1] - b[0], b[1])
               texte = `$${a}-${f.texFraction}= $`
               if (this.interactif) {
-                texte += ajouteChampTexteMathLive(this, index, '')
+                texte += ajouteChampTexteMathLive(
+                  this,
+                  index,
+                  KeyboardType.clavierDeBaseAvecFraction,
+                )
               } else {
                 texte += ' $\\ldots$'
               }
@@ -176,7 +192,11 @@ export default class SujetCAN2022Seconde extends Exercice {
 
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) {
-            texte += ajouteChampTexteMathLive(this, index, '')
+            texte += ajouteChampTexteMathLive(
+              this,
+              index,
+              KeyboardType.lyceeClassique,
+            )
           }
           nbChamps = 1
 
@@ -200,7 +220,11 @@ export default class SujetCAN2022Seconde extends Exercice {
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
 
           if (this.interactif) {
-            texte += ajouteChampTexteMathLive(this, index, '')
+            texte += ajouteChampTexteMathLive(
+              this,
+              index,
+              KeyboardType.clavierNumbers,
+            )
           }
           nbChamps = 1
           break
@@ -227,7 +251,11 @@ export default class SujetCAN2022Seconde extends Exercice {
             formatInteractif: 'fractionEgale',
           })
           if (this.interactif) {
-            texte += ajouteChampTexteMathLive(this, index, '')
+            texte += ajouteChampTexteMathLive(
+              this,
+              index,
+              KeyboardType.clavierDeBaseAvecFraction,
+            )
           }
           nbChamps = 1
           break
@@ -290,7 +318,12 @@ export default class SujetCAN2022Seconde extends Exercice {
           }
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) {
-            texte += ajouteChampTexteMathLive(this, index, '') + ' €'
+            texte +=
+              ajouteChampTexteMathLive(
+                this,
+                index,
+                KeyboardType.clavierNumbers,
+              ) + ' €'
           }
           nbChamps = 1
 
@@ -310,7 +343,11 @@ export default class SujetCAN2022Seconde extends Exercice {
             formatInteractif: 'fractionEgale',
           })
           if (this.interactif) {
-            texte += ajouteChampTexteMathLive(this, index, '')
+            texte += ajouteChampTexteMathLive(
+              this,
+              index,
+              KeyboardType.clavierDeBaseAvecFraction,
+            )
           }
           nbChamps = 1
           break
@@ -325,7 +362,11 @@ export default class SujetCAN2022Seconde extends Exercice {
                       `
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) {
-            texte += ajouteChampTexteMathLive(this, index, '')
+            texte += ajouteChampTexteMathLive(
+              this,
+              index,
+              KeyboardType.clavierDeBase,
+            )
           }
           nbChamps = 1
           break
@@ -353,7 +394,11 @@ export default class SujetCAN2022Seconde extends Exercice {
 
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) {
-            texte += ajouteChampTexteMathLive(this, index, '')
+            texte += ajouteChampTexteMathLive(
+              this,
+              index,
+              KeyboardType.clavierNumbers,
+            )
           }
           nbChamps = 1
           break
@@ -371,7 +416,11 @@ export default class SujetCAN2022Seconde extends Exercice {
 
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) {
-            texte += ajouteChampTexteMathLive(this, index, '')
+            texte += ajouteChampTexteMathLive(
+              this,
+              index,
+              KeyboardType.clavierNumbers,
+            )
           } else {
             texte += ' $\\ldots$'
           }
@@ -428,7 +477,11 @@ export default class SujetCAN2022Seconde extends Exercice {
           }
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) {
-            texte += ajouteChampTexteMathLive(this, index, ' ')
+            texte += ajouteChampTexteMathLive(
+              this,
+              index,
+              KeyboardType.clavierDeBaseAvecFractionPuissanceCrochets,
+            )
           }
           nbChamps = 1
           break
@@ -488,7 +541,11 @@ export default class SujetCAN2022Seconde extends Exercice {
           }
           if (this.interactif) {
             setReponse(this, index, reponse, { formatInteractif: 'calcul' })
-            texte += ajouteChampTexteMathLive(this, index, '')
+            texte += ajouteChampTexteMathLive(
+              this,
+              index,
+              KeyboardType.clavierNumbers,
+            )
           } else {
             texte += ' $\\ldots$'
           }
@@ -503,7 +560,11 @@ export default class SujetCAN2022Seconde extends Exercice {
           texteCorr = `On utilise l'égalité remarquable $a^2-b^2=(a-b)(a+b)$ avec $a=${a}$ et $b=${b}$.<br>
             $${a}^2-${b}^2=(${a}-${b})(${a}+${b})=${a - b}\\times ${a + b}=${reponse}$ `
           if (this.interactif) {
-            texte += ajouteChampTexteMathLive(this, index, '')
+            texte += ajouteChampTexteMathLive(
+              this,
+              index,
+              KeyboardType.clavierNumbers,
+            )
           } else {
             texte += ' $\\ldots$'
           }
@@ -521,7 +582,7 @@ export default class SujetCAN2022Seconde extends Exercice {
             setReponse(this, index, ['F', 'f'], { formatInteractif: 'texte' })
             if (this.interactif) {
               texte += '<br>Pour Vrai, écrire V et pour Faux : F'
-              texte += ajouteChampTexteMathLive(this, index, '')
+              texte += ajouteChampTexteMathLive(this, index, KeyboardType.vFON)
             }
             texteCorr = `Le volume d'un cube d'arête $c$ est donné par $c^3$. <br>
               Si on double la longueur de l'arête, le volume du cube n'est pas multiplié par $2$. Il est multiplié par $2^3$, soit $8$. <br>
@@ -532,7 +593,7 @@ export default class SujetCAN2022Seconde extends Exercice {
             setReponse(this, index, ['F', 'f'], { formatInteractif: 'texte' })
             if (this.interactif) {
               texte += '<br>Pour Vrai, écrire V et pour Faux : F'
-              texte += ajouteChampTexteMathLive(this, index, '')
+              texte += ajouteChampTexteMathLive(this, index, KeyboardType.vFON)
             }
             texteCorr = `L'aire d'un disque de rayon $r$ est donnée par : $\\pi\\times r^2$. <br>
               Si on double la longueur du rayon, l'aire du disque n'est pas multiplée par $2$. Elle est multiplié par $2^2$, soit $4$. <br>
@@ -543,7 +604,7 @@ export default class SujetCAN2022Seconde extends Exercice {
             setReponse(this, index, ['V', 'v'], { formatInteractif: 'texte' })
             if (this.interactif) {
               texte += '<br>Pour Vrai, écrire V et pour Faux : F'
-              texte += ajouteChampTexteMathLive(this, index, '')
+              texte += ajouteChampTexteMathLive(this, index, KeyboardType.vFON)
             }
             texteCorr = `L'aire d'un rectangle de largeur constante $l$ et de longueur $L$ est donnée par : $L\\times l$. <br>
               Si on multiplie la longueur par $k$, l'aire du nouveau rectangle est alors : $l\\times k\\times L$. Elle est donc aussi multipliée par $k$. <br>
@@ -558,7 +619,7 @@ export default class SujetCAN2022Seconde extends Exercice {
             setReponse(this, index, ['V', 'v'], { formatInteractif: 'texte' })
             if (this.interactif) {
               texte += '<br>Pour Vrai, écrire V et pour Faux : F'
-              texte += ajouteChampTexteMathLive(this, index, '')
+              texte += ajouteChampTexteMathLive(this, index, KeyboardType.vFON)
             }
             texteCorr = `Si on va $k$ fois plus de fois à la piscine, le prix payé est $k$ fois plus immportant (il est égal à $${n}\\times ${a}\\times k$).<br>
                         Ces deux grandeurs  sont donc proportionnelles. `
@@ -573,7 +634,7 @@ export default class SujetCAN2022Seconde extends Exercice {
             setReponse(this, index, ['F', 'f'], { formatInteractif: 'texte' })
             if (this.interactif) {
               texte += '<br>Pour Vrai, écrire V et pour Faux : F'
-              texte += ajouteChampTexteMathLive(this, index, '')
+              texte += ajouteChampTexteMathLive(this, index, KeyboardType.vFON)
             }
             texteCorr = `Si on va $k$ fois plus de fois à la piscine, le prix payé n'est  pas $k$ fois plus immportant (il est égal à $${n}\\times ${a}\\times k +${b}$).<br>
                         Ces deux grandeurs sont donc proportionnelles. `
@@ -583,22 +644,22 @@ export default class SujetCAN2022Seconde extends Exercice {
             setReponse(this, index, ['F', 'f'], { formatInteractif: 'texte' })
             if (this.interactif) {
               texte += '<br>Pour Vrai, écrire V et pour Faux : F'
-              texte += ajouteChampTexteMathLive(this, index, '')
+              texte += ajouteChampTexteMathLive(this, index, KeyboardType.vFON)
             }
             texteCorr = `Le périmètre d'un rectangle de largeur $l$ et de longueur $L$ est donnée par : $2\\times (L+ l)$. <br>
               Si on multiplie la longueur par $k$, l'aire du nouveau rectangle est alors : $2\\times (L\\times k+ l)$. Elle n'est donc pas  multipliée par $k$. <br>
-                        Ces deux grandeurs  ne sont  donc pas proportionnelles. `
+                        Ces deux grandeurs ne sont donc pas proportionnelles. `
           } else {
             texte = `Vrai ou faux<br>
          Le périmètre d'un carré  est proportionnel à la longueur de son côté.`
             setReponse(this, index, ['V', 'v'], { formatInteractif: 'texte' })
             if (this.interactif) {
               texte += '<br>Pour Vrai, écrire V et pour Faux : F'
-              texte += ajouteChampTexteMathLive(this, index, '')
+              texte += ajouteChampTexteMathLive(this, index, KeyboardType.vFON)
             }
             texteCorr = `Le périmètre d'un carré de côté $c$ est donné par : $4\\times c$.<br>
               Si on multiplie la longueur de son côté par $k$, le périmètre du nouveau carré est alors : $4\\times\\times k$. Le périmètre est donc aussi  multiplié par $k$. <br>
-              Ces deux grandeurs  sont  donc  proportionnelles. `
+              Ces deux grandeurs sont donc proportionnelles. `
           }
           nbChamps = 1
           break
@@ -614,7 +675,11 @@ export default class SujetCAN2022Seconde extends Exercice {
 
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) {
-            texte += ajouteChampTexteMathLive(this, index, '')
+            texte += ajouteChampTexteMathLive(
+              this,
+              index,
+              KeyboardType.clavierNumbers,
+            )
           }
           nbChamps = 1
           break
@@ -641,9 +706,14 @@ export default class SujetCAN2022Seconde extends Exercice {
 
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) {
-            texte += ajouteChampTexteMathLive(this, index, '', {
-              texteApres: 'L',
-            })
+            texte += ajouteChampTexteMathLive(
+              this,
+              index,
+              KeyboardType.clavierNumbers,
+              {
+                texteApres: 'L',
+              },
+            )
           } else {
             texte += ' $\\ldots$ L'
           }
@@ -666,7 +736,11 @@ export default class SujetCAN2022Seconde extends Exercice {
           $${reduireAxPlusB(m, p)}=${m * x + p}$ a pour solution $${x}$ donc l'antécédent de $${m * x + p}$ par $f$ est $${x}$.`
             setReponse(this, index, reponse, { formatInteractif: 'calcul' })
             if (this.interactif) {
-              texte += ajouteChampTexteMathLive(this, index, '')
+              texte += ajouteChampTexteMathLive(
+                this,
+                index,
+                KeyboardType.clavierNumbers,
+              )
             }
             nbChamps = 1
           }
@@ -727,7 +801,12 @@ export default class SujetCAN2022Seconde extends Exercice {
 
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) {
-            texte += ajouteChampTexteMathLive(this, index, '') + '€'
+            texte +=
+              ajouteChampTexteMathLive(
+                this,
+                index,
+                KeyboardType.clavierNumbers,
+              ) + '€'
           }
           nbChamps = 1
           break
@@ -750,7 +829,11 @@ export default class SujetCAN2022Seconde extends Exercice {
               formatInteractif: 'fractionEgale',
             })
             if (this.interactif) {
-              texte += ajouteChampTexteMathLive(this, index, '')
+              texte += ajouteChampTexteMathLive(
+                this,
+                index,
+                KeyboardType.clavierDeBaseAvecFraction,
+              )
             }
             nbChamps = 1
           }
@@ -854,9 +937,14 @@ export default class SujetCAN2022Seconde extends Exercice {
             setReponse(this, index, reponse, { formatInteractif: 'calcul' })
             if (this.interactif) {
               texte += '<br>$BC=$'
-              texte += ajouteChampTexteMathLive(this, index, '', {
-                texteApres: '$\\text{ cm}$',
-              })
+              texte += ajouteChampTexteMathLive(
+                this,
+                index,
+                KeyboardType.clavierNumbers,
+                {
+                  texteApres: '$\\text{ cm}$',
+                },
+              )
             }
             nbChamps = 1
           }
@@ -891,7 +979,11 @@ export default class SujetCAN2022Seconde extends Exercice {
               formatInteractif: 'fractionEgale',
             })
             if (this.interactif) {
-              texte += ajouteChampTexteMathLive(this, index, '')
+              texte += ajouteChampTexteMathLive(
+                this,
+                index,
+                KeyboardType.clavierDeBaseAvecFraction,
+              )
             }
             nbChamps = 1
           }
@@ -911,7 +1003,11 @@ export default class SujetCAN2022Seconde extends Exercice {
             Comme il y a ${c ? `$4\\times ${k}$ filles` : `$${g}\\times ${k}$ garçons`}, le nombre de ${c ? 'garçons ' : 'filles'} est  $${c ? `${g}\\times ${k} ` : `4\\times ${k} `} =${reponse}$.`
             setReponse(this, index, reponse, { formatInteractif: 'calcul' })
             if (this.interactif) {
-              texte += ajouteChampTexteMathLive(this, index, '')
+              texte += ajouteChampTexteMathLive(
+                this,
+                index,
+                KeyboardType.clavierNumbers,
+              )
             }
           } else if (choix === 'b') {
             const g = choice([3, 5, 7])
@@ -924,7 +1020,11 @@ export default class SujetCAN2022Seconde extends Exercice {
             Comme il y a ${c ? `$2\times ${k}$ filles` : `$${g}\\times ${k}$ garçons`}, le nombre de ${c ? 'garçons ' : 'filles'} est  $${c ? `${g}\\times ${k} ` : `2\\times ${k} `} =${reponse}$.`
             setReponse(this, index, reponse, { formatInteractif: 'calcul' })
             if (this.interactif) {
-              texte += ajouteChampTexteMathLive(this, index, '')
+              texte += ajouteChampTexteMathLive(
+                this,
+                index,
+                KeyboardType.clavierNumbers,
+              )
             }
           } else if (choix === 'c') {
             const g = choice([3, 5, 7])
@@ -939,7 +1039,11 @@ export default class SujetCAN2022Seconde extends Exercice {
             Il y a donc dans cette classe $${reponse}$ élèves au total.`
             setReponse(this, index, reponse, { formatInteractif: 'calcul' })
             if (this.interactif) {
-              texte += ajouteChampTexteMathLive(this, index, '')
+              texte += ajouteChampTexteMathLive(
+                this,
+                index,
+                KeyboardType.clavierNumbers,
+              )
             }
           } else {
             const g = choice([3, 5, 7])
@@ -954,7 +1058,11 @@ export default class SujetCAN2022Seconde extends Exercice {
             Il y a donc dans cette classe $${reponse}$ élèves au total.`
             setReponse(this, index, reponse, { formatInteractif: 'calcul' })
             if (this.interactif) {
-              texte += ajouteChampTexteMathLive(this, index, '')
+              texte += ajouteChampTexteMathLive(
+                this,
+                index,
+                KeyboardType.clavierNumbers,
+              )
             }
           }
           nbChamps = 1
@@ -966,31 +1074,36 @@ export default class SujetCAN2022Seconde extends Exercice {
             let listeFacteurs24 = [2, 3, 5, 7]
             listeFacteurs24 = shuffle(listeFacteurs24)
 
-            reponse = [
-              `${listeFacteurs24[0]}\\times${listeFacteurs24[1]}\\times ${listeFacteurs24[2]}`,
-            ]
+            reponse = `${listeFacteurs24[0]}\\times${listeFacteurs24[1]}\\times ${listeFacteurs24[2]}`
+
             texte = `Décomposer $${listeFacteurs24[0] * listeFacteurs24[1] * listeFacteurs24[2]}$ en produit de facteurs premiers.`
 
-            texteCorr = `$${listeFacteurs24[0] * listeFacteurs24[1] * listeFacteurs24[2]}=${listeFacteurs24[0]}\\times ${listeFacteurs24[1]}\\times ${listeFacteurs24[2]}$`
+            texteCorr = `$${listeFacteurs24[0] * listeFacteurs24[1] * listeFacteurs24[2]}=${miseEnEvidence(`${listeFacteurs24[0]}\\times ${listeFacteurs24[1]}\\times ${listeFacteurs24[2]}`)}$`
           } else {
             let listeFacteurs24 = [2, 3, 5]
             listeFacteurs24 = shuffle(listeFacteurs24)
             while (listeFacteurs24[0] ** 2 * listeFacteurs24[1] ** 2 > 190) {
-              listeFacteurs24 = [2, 2, 3, 5]
+              // listeFacteurs24 = [2, 2, 3, 5] // Sinon, on peut avoir 2^4 et la correction ne fonctionne pas.
               listeFacteurs24 = shuffle(listeFacteurs24)
             }
             reponse = [
-              `${listeFacteurs24[0]}\\times${listeFacteurs24[0]}\\times ${listeFacteurs24[1]}\\times ${listeFacteurs24[1]}`,
-              `${listeFacteurs24[0]}^2\\times ${listeFacteurs24[1]}`,
+              `${listeFacteurs24[0]}\\times${listeFacteurs24[0]}\\times${listeFacteurs24[1]}\\times${listeFacteurs24[1]}`,
+              `${listeFacteurs24[1]}^2\\times${listeFacteurs24[0]}^2`,
             ]
             texte = `Décomposer $${listeFacteurs24[0] * listeFacteurs24[0] * listeFacteurs24[1] * listeFacteurs24[1]}$ en produit de facteurs premiers.`
 
-            texteCorr = `$${listeFacteurs24[0] * listeFacteurs24[0] * listeFacteurs24[1] * listeFacteurs24[1]}=${listeFacteurs24[0]}\\times ${listeFacteurs24[0]}\\times ${listeFacteurs24[1]}\\times ${listeFacteurs24[1]}=${listeFacteurs24[0]}^2\\times ${listeFacteurs24[1]}^2$`
+            texteCorr = `$${listeFacteurs24[0] * listeFacteurs24[0] * listeFacteurs24[1] * listeFacteurs24[1]}=${listeFacteurs24[0]}\\times ${listeFacteurs24[0]}\\times ${listeFacteurs24[1]}\\times ${listeFacteurs24[1]}=${miseEnEvidence(`${listeFacteurs24[0]}^2\\times ${listeFacteurs24[1]}^2`)}$`
           }
 
-          setReponse(this, index, reponse, { formatInteractif: 'calcul' })
+          handleAnswers(this, index, {
+            reponse: { value: reponse, options: { expressionNumerique: true } },
+          })
           if (this.interactif) {
-            texte += ajouteChampTexteMathLive(this, index, '')
+            texte += ajouteChampTexteMathLive(
+              this,
+              index,
+              KeyboardType.clavierDeBase,
+            )
           }
           nbChamps = 1
 
@@ -1019,7 +1132,11 @@ export default class SujetCAN2022Seconde extends Exercice {
           }
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) {
-            texte += ajouteChampTexteMathLive(this, index, '')
+            texte += ajouteChampTexteMathLive(
+              this,
+              index,
+              KeyboardType.lyceeClassique,
+            )
           }
           nbChamps = 1
           break
@@ -1032,7 +1149,11 @@ export default class SujetCAN2022Seconde extends Exercice {
           texteCorr = `
           $${texNombre(a, 2)}\\times ${b}=(${texNombre(a - 0.25, 0)}+0,25)\\times 4\\times ${texNombre(b / 4, 0)}=(${texNombre(4 * a - 1, 0)}+1)\\times ${texNombre(b / 4, 0)}=${reponse}$ `
           if (this.interactif) {
-            texte += ajouteChampTexteMathLive(this, index, '')
+            texte += ajouteChampTexteMathLive(
+              this,
+              index,
+              KeyboardType.clavierNumbers,
+            )
           } else {
             texte += ' $\\ldots$'
           }
@@ -1054,7 +1175,11 @@ export default class SujetCAN2022Seconde extends Exercice {
           Cette équation a deux solutions $${-c}$ et $${c}$. La solution négative est donc $${-c}$.
           `
           if (this.interactif) {
-            texte += ajouteChampTexteMathLive(this, index, '')
+            texte += ajouteChampTexteMathLive(
+              this,
+              index,
+              KeyboardType.clavierDeBase,
+            )
           }
 
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
@@ -1124,7 +1249,11 @@ export default class SujetCAN2022Seconde extends Exercice {
             setReponse(this, index, reponse, { formatInteractif: 'calcul' })
             if (this.interactif) {
               texte += '<br>$DE=$'
-              texte += ajouteChampTexteMathLive(this, index, '')
+              texte += ajouteChampTexteMathLive(
+                this,
+                index,
+                KeyboardType.clavierNumbers,
+              )
             } else {
               texte += '$DE=$ $\\ldots$ '
             }
@@ -1174,7 +1303,11 @@ export default class SujetCAN2022Seconde extends Exercice {
             formatInteractif: 'fractionEgale',
           })
           if (this.interactif) {
-            texte += ajouteChampTexteMathLive(this, index, '')
+            texte += ajouteChampTexteMathLive(
+              this,
+              index,
+              KeyboardType.clavierDeBaseAvecFraction,
+            )
           }
 
           nbChamps = 1
@@ -1205,7 +1338,11 @@ export default class SujetCAN2022Seconde extends Exercice {
             reponse = a
             setReponse(this, index, reponse, { formatInteractif: 'calcul' })
             if (this.interactif) {
-              texte += ajouteChampTexteMathLive(this, index, '')
+              texte += ajouteChampTexteMathLive(
+                this,
+                index,
+                KeyboardType.clavierNumbers,
+              )
             }
             nbChamps = 1
           }

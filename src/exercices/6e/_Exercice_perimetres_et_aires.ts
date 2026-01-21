@@ -18,6 +18,7 @@ import {
   pointSurCercle,
   pointSurSegment,
 } from '../../lib/2d/utilitairesPoint'
+import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { choice } from '../../lib/outils/arrayOutils'
@@ -134,7 +135,6 @@ export default class ExercicePerimetresEtAires extends Exercice {
         donneLeDiametre,
         cpt = 0;
       i < this.nbQuestions && cpt < 50;
-
     ) {
       texteCorr = ''
       if (i % 4 === 0) listeDeNomsDePolygones = ['QD']
@@ -611,7 +611,7 @@ export default class ExercicePerimetresEtAires extends Exercice {
         texte += ajouteChampTexteMathLive(
           this,
           indiceInteractif,
-          ' unites[longueurs,aires]',
+          KeyboardType.longueur,
           {
             texteAvant: '<br>Périmètre : ',
             texteApres: '<em class="ml-2">(Une unité est attendue.)</em>',
@@ -624,7 +624,7 @@ export default class ExercicePerimetresEtAires extends Exercice {
           ajouteChampTexteMathLive(
             this,
             indiceInteractif + (this.sup5 === 3 ? 1 : 0),
-            ' unites[longueurs,aires]',
+            KeyboardType.aire,
             {
               texteAvant: '<br>' + sp(13) + 'Aire : ',
               texteApres: '<em class="ml-2">(Une unité est attendue.)</em>',

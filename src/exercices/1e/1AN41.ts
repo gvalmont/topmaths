@@ -1,11 +1,13 @@
+import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { combinaisonListes } from '../../lib/outils/arrayOutils'
 import { ecritureAlgebrique, rienSi1 } from '../../lib/outils/ecritures'
 import { sp } from '../../lib/outils/outilString'
-import Exercice from '../Exercice'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
-import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
+import Exercice from '../Exercice'
 
+import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 import { setReponse } from '../../lib/interactif/gestionInteractif'
+import { miseEnEvidence } from '../../lib/outils/embellissements'
 
 export const titre = "Mesure principale d'un angle"
 export const interactifReady = true
@@ -13,6 +15,7 @@ export const interactifType = 'mathLive'
 
 // Les exports suivants sont optionnels mais au moins la date de publication semble essentielle
 export const dateDePublication = '20/04/2022' // La date de publication initiale au format 'jj/mm/aaaa' pour affichage temporaire d'un tag
+export const dateDeModifImportante = '27/12/2025'
 
 /**
  *
@@ -67,7 +70,6 @@ export default class MesurePrincipale extends Exercice {
     for (
       let i = 0, k, kMin, p, n, angle, texte, texteCorr, cpt = 0;
       i < this.nbQuestions && cpt < 50;
-
     ) {
       // Boucle principale où i+1 correspond au numéro de la question
       switch (
@@ -119,7 +121,11 @@ export default class MesurePrincipale extends Exercice {
         setReponse(this, i, `$\\dfrac{${rienSi1(p)}\\pi}{${n}}$`)
         texte +=
           ' et sa mesure principale est :' +
-          ajouteChampTexteMathLive(this, i, ' ')
+          ajouteChampTexteMathLive(
+            this,
+            i,
+            KeyboardType.clavierDeBaseAvecFraction,
+          )
       }
 
       kMin = angle / (2 * n) < k ? k - 1 : k // Ce parametre permet d'adapter le code selon si k est la borne inférieure ou supérieure de l'encadrement entre deux entiers de angle/2n.
@@ -127,10 +133,10 @@ export default class MesurePrincipale extends Exercice {
       texteCorr = `On cherche le nombre de multiples inutiles de $2\\pi$ pour déterminer la mesure principale de $\\dfrac{${angle}\\pi}{${n}}$,`
       texteCorr += `<br>c'est-à-dire le nombre de multiples de $${2 * n}\\pi$ dans $${angle}\\pi$.`
       texteCorr +=
-        '<br>On peut diviser le numérateur par le double du dénominateur, pour avoir un ordre de grandeur du meilleur multiple :'
-      texteCorr += `<br> On obtient : $\\quad ${kMin}<\\dfrac{${angle}\\pi}{${2 * n}\\pi}< ${kMin + 1}$`
-      texteCorr += `<br><br>D'une part : $${alfa}=\\dfrac{${angle}\\pi}{${n}}=\\dfrac{${angle - 2 * n * kMin}\\pi${ecritureAlgebrique(2 * n * kMin)} \\pi  }{${n}}=  \\dfrac{${angle - 2 * n * kMin}\\pi}{${n}}+\\dfrac{${kMin} \\times ${2 * n}\\pi}{${n}} =\\dfrac{${angle - 2 * n * kMin}\\pi}{${n}}${ecritureAlgebrique(kMin)}\\times 2\\pi$`
-      texteCorr += `<br><br>D'autre part : $${alfa}=\\dfrac{${2 * n * k + p}\\pi}{${n}}=\\dfrac{${angle - 2 * n * (kMin + 1)}\\pi${ecritureAlgebrique(2 * n * (kMin + 1))}\\pi}{${n}}= \\dfrac{${angle - 2 * n * (kMin + 1)}\\pi}{${n}}+\\dfrac{${kMin + 1} \\times ${2 * n}\\pi}{${n}}=\\dfrac{${angle - 2 * n * (kMin + 1)}\\pi}{${n}}${ecritureAlgebrique(kMin + 1)}\\times 2\\pi$`
+        '<br>On peut diviser le numérateur par le double du dénominateur, pour avoir un ordre de grandeur du meilleur multiple.'
+      texteCorr += `<br> On obtient : $\\quad ${kMin}<\\dfrac{${angle}\\pi}{${2 * n}\\pi}< ${kMin + 1}$.`
+      texteCorr += `<br><br>D'une part : $${alfa}=\\dfrac{${angle}\\pi}{${n}}=\\dfrac{${angle - 2 * n * kMin}\\pi${ecritureAlgebrique(2 * n * kMin)} \\pi  }{${n}}=  \\dfrac{${angle - 2 * n * kMin}\\pi}{${n}}+\\dfrac{${kMin} \\times ${2 * n}\\pi}{${n}} =\\dfrac{${angle - 2 * n * kMin}\\pi}{${n}}${ecritureAlgebrique(kMin)}\\times 2\\pi$.`
+      texteCorr += `<br><br>D'autre part : $${alfa}=\\dfrac{${2 * n * k + p}\\pi}{${n}}=\\dfrac{${angle - 2 * n * (kMin + 1)}\\pi${ecritureAlgebrique(2 * n * (kMin + 1))}\\pi}{${n}}= \\dfrac{${angle - 2 * n * (kMin + 1)}\\pi}{${n}}+\\dfrac{${kMin + 1} \\times ${2 * n}\\pi}{${n}}=\\dfrac{${angle - 2 * n * (kMin + 1)}\\pi}{${n}}${ecritureAlgebrique(kMin + 1)}\\times 2\\pi$.`
       texteCorr += '<br><br>On observe que : '
       texteCorr +=
         kMin === k
@@ -143,7 +149,7 @@ export default class MesurePrincipale extends Exercice {
           ? `$\\dfrac{${angle - 2 * n * (kMin + 1)}\\pi}{${n}}`
           : `$\\dfrac{${angle - 2 * n * kMin}\\pi}{${n}}`
       texteCorr += `${sp()}\\in${sp()}]-\\pi${sp()} ;${sp()} \\pi ]$,`
-      texteCorr += `<br> La mesure principale de $${alfa}$ est donc $\\dfrac{${rienSi1(p)}\\pi}{${n}}$.`
+      texteCorr += `<br> La mesure principale de $${alfa}$ est donc $${miseEnEvidence(`\\dfrac{${rienSi1(p)}\\pi}{${n}}`)}$.`
       // Si la question n'a jamais été posée, on l'enregistre
       if (this.questionJamaisPosee(i, texte)) {
         // <- laisser le i et ajouter toutes les variables qui rendent les exercices différents (par exemple a, b, c et d)

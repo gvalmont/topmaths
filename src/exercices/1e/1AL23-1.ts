@@ -1,15 +1,16 @@
+import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
+import { setReponse } from '../../lib/interactif/gestionInteractif'
+import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import {
   ecritureAlgebrique,
   ecritureAlgebriqueSauf1,
   ecritureParentheseSiNegatif,
   rienSi1,
 } from '../../lib/outils/ecritures'
-import Exercice from '../Exercice'
-import { listeQuestionsToContenu, randint } from '../../modules/outils'
-import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
-import { setReponse } from '../../lib/interactif/gestionInteractif'
-import { sp } from '../../lib/outils/outilString'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
+import { sp } from '../../lib/outils/outilString'
+import { listeQuestionsToContenu, randint } from '../../modules/outils'
+import Exercice from '../Exercice'
 
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -49,7 +50,6 @@ export default class Formacanonique extends Exercice {
     for (
       let i = 0, texte, texteCorr, a, b, c, alpha, beta, cpt = 0;
       i < this.nbQuestions && cpt < 50;
-
     ) {
       // k(x-x1)(x-x2)
       alpha = randint(-5, 5, [0])
@@ -111,7 +111,7 @@ export default class Formacanonique extends Exercice {
         }
       }
 
-      texte += ajouteChampTexteMathLive(this, i, ' ', {
+      texte += ajouteChampTexteMathLive(this, i, KeyboardType.lyceeClassique, {
         texteAvant: `$${sp()}=${sp()}$`,
       })
       if (this.questionJamaisPosee(i, a, b, c)) {

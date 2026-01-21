@@ -1,15 +1,22 @@
+import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
+import { functionCompare } from '../../lib/interactif/comparisonFunctions'
+import { handleAnswers } from '../../lib/interactif/gestionInteractif'
+import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { Polynome } from '../../lib/mathFonctions/Polynome'
 import { combinaisonListes } from '../../lib/outils/arrayOutils'
 import { rienSi1 } from '../../lib/outils/ecritures'
+import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { lettreMinusculeDepuisChiffre } from '../../lib/outils/outilString'
-import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils'
+import {
+  gestionnaireFormulaireTexte,
+  listeQuestionsToContenu,
+  randint,
+} from '../../modules/outils'
 import Exercice from '../Exercice'
-import { handleAnswers } from '../../lib/interactif/gestionInteractif'
-import { functionCompare } from '../../lib/interactif/comparisonFunctions'
-import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 export const interactifReady = true
 export const interactifType = 'mathLive'
-export const titre = 'Dérivée de $x\\mapsto u(ax + b)$'
+// export const titre = 'Dérivée de $x\\mapsto u(ax + b)$'
+export const titre = 'Dériver $u(ax + b)$'
 
 /**
  * Calculer la dérivée de x -> f(ax+b)
@@ -22,12 +29,17 @@ export const refs = {
   'fr-fr': ['1AN14-7'],
   'fr-ch': ['3mA2-9', '4mAna-3'],
 }
-type TypeDeFonction = 'monome' | 'racine' | 'inv' | 'exp'
 
 export default class DeriveeComposee extends Exercice {
   constructor() {
     super()
-    this.besoinFormulaireTexte = ['Choix possibles pour $u$', 'Nombres séparés par des tirets.\n' + ["Puissance", "Racine", "Inverse", "Exponentielle", "Mélange"].map((nom, index) => `${index + 1}. ${nom}`).join("\n")]
+    this.besoinFormulaireTexte = [
+      'Choix possibles pour $u$',
+      'Nombres séparés par des tirets.\n' +
+        ['Puissance', 'Racine', 'Inverse', 'Exponentielle', 'Mélange']
+          .map((nom, index) => `${index + 1}. ${nom}`)
+          .join('\n'),
+    ]
     this.sup = 5
     // this.consigne = "Pour chacune des fonctions suivantes, dire sur quel ensemble elle est dérivable, puis déterminer l'expression de sa fonction dérivée."
     this.consigne =
@@ -40,14 +52,8 @@ export default class DeriveeComposee extends Exercice {
   }
 
   nouvelleVersion() {
-
-
-    const listeValeurs = [
-      'monome',
-      'racine',
-      'inv',
-      'exp'
-    ]
+    const listeValeurs = ['monome', 'racine', 'inv', 'exp']
+    type TypeDeFonction = (typeof listeValeurs)[number]
     const listeTypeDeQuestionsDisponibles = gestionnaireFormulaireTexte({
       saisie: this.sup,
       min: 1,
@@ -56,13 +62,16 @@ export default class DeriveeComposee extends Exercice {
       defaut: 5,
       nbQuestions: this.nbQuestions,
       listeOfCase: listeValeurs,
-
     })
+      .map(String)
+      .filter((x): x is TypeDeFonction =>
+        listeValeurs.includes(x as TypeDeFonction),
+      )
     const listeTypeDeQuestions = combinaisonListes(
       listeTypeDeQuestionsDisponibles,
       this.nbQuestions,
     )
-    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50; ) {
       let texte = ''
       let texteCorr = ''
       let exprF = ''
@@ -71,7 +80,7 @@ export default class DeriveeComposee extends Exercice {
       const coeffs = new Array(randint(2, 9))
       coeffs.fill(0)
       coeffs.push(1)
-      const dictFonctions = {
+      const dictFonctions: Record<TypeDeFonction, string | Polynome> = {
         exp: 'e^',
         racine: '\\sqrt',
         inv: '1/',
@@ -124,13 +133,13 @@ export default class DeriveeComposee extends Exercice {
       texteCorr += `Soit $x$ un réel de l'ensemble de dérivabilité de $${nameF}$. On a, en appliquant la formule ci-dessus : `
       switch (typeF) {
         case 'exp':
-          texteCorr += `\\[${nameF}'(x)=${rienSi1(a)}e^{${polAff}}.\\]`
+          texteCorr += `\\[${nameF}'(x)=${miseEnEvidence(`${rienSi1(a)}e^{${polAff}}`)}.\\]`
           value = `${rienSi1(a)}e^{${polAff}}`
           break
         case 'inv':
           texteCorr += `\\[${nameF}'(x)=${a}\\times ${`\\frac{-1}{(${polAff})^2}`}.\\]`
           texteCorr += "D'où, en simplifiant : "
-          texteCorr += `\\[${nameF}'(x)=${`\\frac{${-a}}{(${polAff})^2}`}.\\]`
+          texteCorr += `\\[${nameF}'(x)=${miseEnEvidence(`\\frac{${-a}}{(${polAff})^2}`)}\\].`
           value = `${`\\frac{${-a}}{(${polAff})^2}`}`
           break
         case 'racine': {
@@ -138,19 +147,21 @@ export default class DeriveeComposee extends Exercice {
           texteCorr += "D'où, en simplifiant :"
           const num = a % 2 === 0 ? a / 2 : a
           const den = `${a % 2 === 0 ? '' : '2'}\\sqrt{${polAff}}`
-          texteCorr += `\\[${nameF}'(x)=${`\\frac{${num}}{${den}}`}.\\]`
+          texteCorr += `\\[${nameF}'(x)=${miseEnEvidence(`\\frac{${num}}{${den}}`)}.\\]`
           value = `${`\\frac{${num}}{${den}}`}`
           break
         }
         case 'monome':
           texteCorr += `\\[${nameF}'(x)=${a}\\times ${`${(f as Polynome).deg}(${polAff})${(f as Polynome).deg === 2 ? '' : `^{${(f as Polynome).deg - 1}}`}`}.\\]`
           texteCorr += "D'où, en simplifiant : "
-          texteCorr += `\\[${nameF}'(x)=${a * (f as Polynome).deg}(${polAff})${(f as Polynome).deg === 2 ? '' : `^{${(f as Polynome).deg - 1}}`}.\\]`
-          value = `${a * (f as Polynome).deg}(${polAff})${(f as Polynome).deg === 2 ? '' : `^{${(f as Polynome).deg - 1}}`}`
 
-          if ((f as Polynome).deg === 2) {
+          if ((f as Polynome).deg !== 2) {
+            texteCorr += `\\[${nameF}'(x)=${miseEnEvidence(`${a * (f as Polynome).deg}(${polAff})${(f as Polynome).deg === 2 ? '' : `^{${(f as Polynome).deg - 1}}`}`)}.\\]`
+            value = `${a * (f as Polynome).deg}(${polAff})${(f as Polynome).deg === 2 ? '' : `^{${(f as Polynome).deg - 1}}`}`
+          } else {
+            texteCorr += `\\[${nameF}'(x)=${a * (f as Polynome).deg}(${polAff})${(f as Polynome).deg === 2 ? '' : `^{${(f as Polynome).deg - 1}}`}.\\]`
             texteCorr += 'On développe et on réduit pour obtenir  :'
-            texteCorr += `\\[${nameF}'(x)=${polAff.multiply(2 * a)}\\]`
+            texteCorr += `\\[${nameF}'(x)=${miseEnEvidence(`${polAff.multiply(2 * a)}`)}.\\]`
             value = `${polAff.multiply(2 * a)}`
           }
           break
@@ -160,7 +171,11 @@ export default class DeriveeComposee extends Exercice {
       }
       texte =
         texte.replaceAll('\\frac', '\\dfrac') +
-        ajouteChampTexteMathLive(this, i, '')
+        ajouteChampTexteMathLive(
+          this,
+          i,
+          KeyboardType.clavierFonctionsTerminales,
+        )
       texteCorr = texteCorr.replaceAll('\\frac', '\\dfrac')
 
       if (listeValeurs.indexOf(expression) === -1) {

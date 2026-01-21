@@ -6,7 +6,7 @@
   id="svg2697"
   xmlns="http://www.w3.org/2000/svg"
   xmlns:svg="http://www.w3.org/2000/svg"
-  class="{$$props.class}"
+  class={$$props.class}
   stroke="currentColor"
 >
   <g fill="none" stroke="currentColor">

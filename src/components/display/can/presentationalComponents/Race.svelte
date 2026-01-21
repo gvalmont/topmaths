@@ -1,16 +1,13 @@
 <script lang="ts">
-  import { afterUpdate, type SvelteComponent } from 'svelte'
-  import type { CanState } from '../../../../lib/types/can'
-  import Question from './Question.svelte'
-  import Pagination from './Pagination.svelte'
-  import NavigationButtons from './NavigationButtons.svelte'
+  import { afterUpdate } from 'svelte'
   import { canOptions } from '../../../../lib/stores/canStore'
+  import type { CanState } from '../../../../lib/types/can'
   import Keyboard from '../../../keyboard/Keyboard.svelte'
   import { keyboardState } from '../../../keyboard/stores/keyboardStore'
+  import NavigationButtons from './NavigationButtons.svelte'
+  import Pagination from './Pagination.svelte'
+  import Question from './Question.svelte'
   import Timer from './Timer.svelte'
-  interface TimerComponent extends SvelteComponent {
-    terminateTimer: () => void
-  }
 
   export let state: CanState
   export let numberOfSeconds: number = 20
@@ -19,7 +16,7 @@
   export let questions: string[]
   export let consignes: string[]
   const numberOfQuestions: number = questions.length
-  let timerComponent: TimerComponent
+  let timerComponent: Timer
 
   afterUpdate(() => {
     const exercicesAffiches = new window.Event('exercicesAffiches', {
@@ -59,15 +56,15 @@
 >
   <div class="w-full flex flex-col">
     <Timer
-      bind:this="{timerComponent}"
-      durationInMilliSeconds="{numberOfSeconds * 1000}"
-      on:message="{endTimer}"
+      bind:this={timerComponent}
+      durationInMilliSeconds={numberOfSeconds * 1000}
+      on:message={endTimer}
     />
     <Pagination
       bind:current
       {numberOfQuestions}
-      state="{'race'}"
-      resultsByQuestion="{[]}"
+      state={'race'}
+      resultsByQuestion={[]}
     />
   </div>
   <div
@@ -83,13 +80,13 @@
   >
     {#each [...Array(numberOfQuestions).keys()] as i}
       <Question
-        consigne="{consignes[i]}"
-        question="{questions[i]}"
-        consigneCorrection="{''}"
-        correction="{''}"
-        mode="{'display'}"
-        visible="{current === i}"
-        index="{i}"
+        consigne={consignes[i]}
+        question={questions[i]}
+        consigneCorrection={''}
+        correction={''}
+        mode={'display'}
+        visible={current === i}
+        index={i}
         {nextQuestion}
       />
     {/each}
@@ -105,11 +102,11 @@
     <NavigationButtons
       bind:current
       {numberOfQuestions}
-      handleEndOfRace="{() => {
+      handleEndOfRace={() => {
         timerComponent.terminateTimer()
-      }}"
+      }}
       {state}
-      resultsByQuestion="{[]}"
+      resultsByQuestion={[]}
     />
   </div>
   <Keyboard />

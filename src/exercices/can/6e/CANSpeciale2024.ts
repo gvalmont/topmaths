@@ -255,7 +255,6 @@ export default class CourseAuxNombresSpeciale2024 extends Exercice {
     for (
       let i = 0, index = 0, reponse, texte, texteCorr, cpt = 0;
       i < this.nbQuestions && cpt < 100;
-
     ) {
       //
       // Boucle principale où i+1 correspond au numéro de la question
@@ -282,9 +281,14 @@ export default class CourseAuxNombresSpeciale2024 extends Exercice {
             reponse = 6072
           }
           setReponse(this, index, reponse)
-          texte += ajouteChampTexteMathLive(this, index, ' ', {
-            texteAvant: ' =',
-          })
+          texte += ajouteChampTexteMathLive(
+            this,
+            index,
+            KeyboardType.clavierNumbers,
+            {
+              texteAvant: ' =',
+            },
+          )
           this.listeCanEnonces.push(texte)
 
           break
@@ -311,7 +315,12 @@ export default class CourseAuxNombresSpeciale2024 extends Exercice {
           setReponse(this, index, reponse)
           texte += !this.interactif
             ? '.'
-            : ajouteChampTexteMathLive(this, index, ' ', { texteAvant: ' :' })
+            : ajouteChampTexteMathLive(
+                this,
+                index,
+                KeyboardType.clavierNumbers,
+                { texteAvant: ' :' },
+              )
           this.listeCanEnonces.push(texte)
 
           break
@@ -323,9 +332,14 @@ export default class CourseAuxNombresSpeciale2024 extends Exercice {
             texte = `$${texNombre(2024)}-${texNombre(a, 2)}$`
             texteCorr = `$${texNombre(2024)}-${texNombre(a, 2)}=${miseEnEvidence(texNombre(reponse, 2))}$`
             setReponse(this, index, reponse.toFixed(2))
-            texte += ajouteChampTexteMathLive(this, index, ' ', {
-              texteAvant: ' =',
-            })
+            texte += ajouteChampTexteMathLive(
+              this,
+              index,
+              KeyboardType.clavierNumbers,
+              {
+                texteAvant: ' =',
+              },
+            )
             this.listeCanEnonces.push(texte)
           }
           break
@@ -361,7 +375,11 @@ export default class CourseAuxNombresSpeciale2024 extends Exercice {
               }
             }
             setReponse(this, index, reponse)
-            texte += ajouteChampTexteMathLive(this, index, '')
+            texte += ajouteChampTexteMathLive(
+              this,
+              index,
+              KeyboardType.clavierNumbers,
+            )
             this.listeCanEnonces.push(texte)
             this.listeCanReponsesACompleter.push('')
           }
@@ -377,9 +395,14 @@ export default class CourseAuxNombresSpeciale2024 extends Exercice {
             reponse = 2024 + a
             texteCorr = `$${texNombre(2024)}+${a}=${miseEnEvidence(texNombre(reponse, 0))}$`
             setReponse(this, index, reponse)
-            texte += ajouteChampTexteMathLive(this, index, ' ', {
-              texteAvant: ' =',
-            })
+            texte += ajouteChampTexteMathLive(
+              this,
+              index,
+              KeyboardType.clavierNumbers,
+              {
+                texteAvant: ' =',
+              },
+            )
             this.listeCanEnonces.push(texte)
           }
           break
@@ -392,9 +415,14 @@ export default class CourseAuxNombresSpeciale2024 extends Exercice {
             reponse = 2024 - a
             texteCorr = `$${texNombre(2024)}-${a}=${miseEnEvidence(texNombre(reponse, 0))}$`
             setReponse(this, index, reponse)
-            texte += ajouteChampTexteMathLive(this, index, ' ', {
-              texteAvant: ' =',
-            })
+            texte += ajouteChampTexteMathLive(
+              this,
+              index,
+              KeyboardType.clavierNumbers,
+              {
+                texteAvant: ' =',
+              },
+            )
             this.listeCanEnonces.push(texte)
           }
           break
@@ -406,9 +434,14 @@ export default class CourseAuxNombresSpeciale2024 extends Exercice {
             reponse = a - 2024
             texteCorr = `$${a}-${texNombre(2024)}=${miseEnEvidence(texNombre(reponse, 0))}$`
             setReponse(this, index, reponse)
-            texte += ajouteChampTexteMathLive(this, index, ' ', {
-              texteAvant: ' =',
-            })
+            texte += ajouteChampTexteMathLive(
+              this,
+              index,
+              KeyboardType.clavierDeBase,
+              {
+                texteAvant: ' =',
+              },
+            )
             this.listeCanEnonces.push(texte)
           }
           break
@@ -424,7 +457,12 @@ export default class CourseAuxNombresSpeciale2024 extends Exercice {
             setReponse(this, index, reponse)
             texte += !this.interactif
               ? '.'
-              : ajouteChampTexteMathLive(this, index, ' ', { texteAvant: ' :' })
+              : ajouteChampTexteMathLive(
+                  this,
+                  index,
+                  KeyboardType.clavierDeBaseAvecFractionPuissanceCrochets,
+                  { texteAvant: ' :' },
+                )
             this.listeCanEnonces.push(texte)
           }
           break
@@ -437,9 +475,14 @@ export default class CourseAuxNombresSpeciale2024 extends Exercice {
             texteCorr = `$${texNombre(2024)}\\times ${calc1}=${miseEnEvidence(texNombre(2024 * calc1, 0))}$`
             reponse = arrondi(calc1 * 2024, 0)
             setReponse(this, index, reponse)
-            texte += ajouteChampTexteMathLive(this, index, ' ', {
-              texteAvant: ' =',
-            })
+            texte += ajouteChampTexteMathLive(
+              this,
+              index,
+              KeyboardType.clavierNumbers,
+              {
+                texteAvant: ' =',
+              },
+            )
             this.listeCanEnonces.push(texte)
           }
           break
@@ -450,9 +493,14 @@ export default class CourseAuxNombresSpeciale2024 extends Exercice {
             texteCorr = `$${texNombre(2024)}\\times ${texNombre(a, 3)}=${miseEnEvidence(texNombre(2024 * Number(a), 3))}$`
             reponse = (a * 2024).toFixed(3)
             setReponse(this, index, reponse)
-            texte += ajouteChampTexteMathLive(this, index, ' ', {
-              texteAvant: ' =',
-            })
+            texte += ajouteChampTexteMathLive(
+              this,
+              index,
+              KeyboardType.clavierNumbers,
+              {
+                texteAvant: ' =',
+              },
+            )
             this.listeCanEnonces.push(texte)
           }
           break
@@ -468,9 +516,14 @@ export default class CourseAuxNombresSpeciale2024 extends Exercice {
             texte = `$${texNombre(a, 3)}\\times ${texNombre(choix ? calc1 : calc2)}$`
             texteCorr = ` $${texNombre(a, 3)}\\times ${texNombre(choix ? calc1 : calc2)}=${miseEnEvidence(texNombre(a * (choix ? calc1 : calc2), 6))}$ `
             setReponse(this, index, reponse)
-            texte += ajouteChampTexteMathLive(this, index, ' ', {
-              texteAvant: ' =',
-            })
+            texte += ajouteChampTexteMathLive(
+              this,
+              index,
+              KeyboardType.clavierNumbers,
+              {
+                texteAvant: ' =',
+              },
+            )
             this.listeCanEnonces.push(texte)
           }
           break
@@ -551,7 +604,11 @@ export default class CourseAuxNombresSpeciale2024 extends Exercice {
             Donc le reste est $${miseEnEvidence(reponse)}$.`
             }
             setReponse(this, index, reponse)
-            texte += ajouteChampTexteMathLive(this, index, '')
+            texte += ajouteChampTexteMathLive(
+              this,
+              index,
+              KeyboardType.clavierNumbers,
+            )
             this.listeCanEnonces.push(texte)
           }
           break
@@ -563,9 +620,14 @@ export default class CourseAuxNombresSpeciale2024 extends Exercice {
             reponse = a - b
             texteCorr = `$${texNombre(a, 2)}-${b}=${miseEnEvidence(texNombre(reponse, 2))}$`
             setReponse(this, index, reponse.toFixed(2))
-            texte += ajouteChampTexteMathLive(this, index, ' ', {
-              texteAvant: ' =',
-            })
+            texte += ajouteChampTexteMathLive(
+              this,
+              index,
+              KeyboardType.clavierNumbers,
+              {
+                texteAvant: ' =',
+              },
+            )
             this.listeCanEnonces.push(texte)
           }
           break
@@ -577,9 +639,14 @@ export default class CourseAuxNombresSpeciale2024 extends Exercice {
             reponse = a - b
             texteCorr = `$${texNombre(a, 4)}-${b}=${miseEnEvidence(texNombre(reponse, 4))}$`
             setReponse(this, index, reponse.toFixed(4))
-            texte += ajouteChampTexteMathLive(this, index, ' ', {
-              texteAvant: ' =',
-            })
+            texte += ajouteChampTexteMathLive(
+              this,
+              index,
+              KeyboardType.clavierDeBase,
+              {
+                texteAvant: ' =',
+              },
+            )
             this.listeCanEnonces.push(texte)
           }
           break
@@ -601,7 +668,11 @@ export default class CourseAuxNombresSpeciale2024 extends Exercice {
               texteCorr = `$\\dfrac{${b}}{10}+\\dfrac{${texNombre(a)}}{100}=${texNombre(b / 10, 1)}+${texNombre(a / 100, 2)}=${miseEnEvidence(texNombre(reponse, 2))}$<br>`
             }
             setReponse(this, index, reponse.toFixed(2))
-            texte += ajouteChampTexteMathLive(this, index, '')
+            texte += ajouteChampTexteMathLive(
+              this,
+              index,
+              KeyboardType.clavierNumbers,
+            )
             this.listeCanEnonces.push(texte)
           }
           break
@@ -618,9 +689,14 @@ export default class CourseAuxNombresSpeciale2024 extends Exercice {
               prenom +
               ` aura $(${a}-${2024})$ ans, soit $${miseEnEvidence(texNombre(reponse))}$ ans.`
             setReponse(this, index, reponse)
-            texte += ajouteChampTexteMathLive(this, index, '', {
-              texteApres: ' ans',
-            })
+            texte += ajouteChampTexteMathLive(
+              this,
+              index,
+              KeyboardType.clavierNumbers,
+              {
+                texteApres: ' ans',
+              },
+            )
             this.listeCanEnonces.push(texte)
           }
           break
@@ -681,7 +757,12 @@ export default class CourseAuxNombresSpeciale2024 extends Exercice {
             texte = "Déterminer l'abscisse du point $A$ ci-dessous"
             texte += !this.interactif
               ? '.'
-              : ajouteChampTexteMathLive(this, index, ' ', { texteAvant: ' :' })
+              : ajouteChampTexteMathLive(
+                  this,
+                  index,
+                  KeyboardType.clavierNumbers,
+                  { texteAvant: ' :' },
+                )
             texte +=
               '<br>' +
               mathalea2d(
@@ -696,7 +777,6 @@ export default class CourseAuxNombresSpeciale2024 extends Exercice {
                 texteParPosition('A', 4 * Number(x1), 0.8, 0, 'blue', 1.5),
                 d,
               )
-            // texte += ajouteChampTexteMathLive(this, index, '')
             this.listeCanEnonces.push(texte)
           }
           break
@@ -757,7 +837,12 @@ export default class CourseAuxNombresSpeciale2024 extends Exercice {
             texte = "Déterminer l'abscisse du point $A$ ci-dessous"
             texte += !this.interactif
               ? '.'
-              : ajouteChampTexteMathLive(this, index, ' ', { texteAvant: ' :' })
+              : ajouteChampTexteMathLive(
+                  this,
+                  index,
+                  KeyboardType.clavierNumbers,
+                  { texteAvant: ' :' },
+                )
             texte +=
               '<br>' +
               mathalea2d(
@@ -804,7 +889,12 @@ export default class CourseAuxNombresSpeciale2024 extends Exercice {
             })
             texte += !this.interactif
               ? '.'
-              : ajouteChampTexteMathLive(this, index, ' ', { texteAvant: ' =' })
+              : ajouteChampTexteMathLive(
+                  this,
+                  index,
+                  KeyboardType.clavierDeBaseAvecFraction,
+                  { texteAvant: ' =' },
+                )
             this.listeCanEnonces.push(texte)
           }
           break
@@ -829,9 +919,14 @@ export default class CourseAuxNombresSpeciale2024 extends Exercice {
              `
             setReponse(this, index, reponse)
             texte += this.interactif ? '<br>' : ''
-            texte += ajouteChampTexteMathLive(this, index, ' ', {
-              texteAvant: sp(10) + '$x=$',
-            })
+            texte += ajouteChampTexteMathLive(
+              this,
+              index,
+              KeyboardType.clavierDeBase,
+              {
+                texteAvant: sp(10) + '$x=$',
+              },
+            )
             this.listeCanEnonces.push(texte)
           }
           break
@@ -851,7 +946,12 @@ export default class CourseAuxNombresSpeciale2024 extends Exercice {
             setReponse(this, index, reponse)
             texte += !this.interactif
               ? '.'
-              : ajouteChampTexteMathLive(this, index, ' ', { texteAvant: ' :' })
+              : ajouteChampTexteMathLive(
+                  this,
+                  index,
+                  KeyboardType.clavierNumbers,
+                  { texteAvant: ' :' },
+                )
             this.listeCanEnonces.push(texte)
           }
           break
@@ -866,9 +966,14 @@ export default class CourseAuxNombresSpeciale2024 extends Exercice {
             texteCorr += `$f(${c})=${a * c}+${texNombre(2024)}$<br>`
             texteCorr += `$f(${c})=${miseEnEvidence(texNombre(reponse))}$`
             setReponse(this, index, reponse)
-            texte += ajouteChampTexteMathLive(this, index, ' ', {
-              texteAvant: sp(10) + `$f(${c})=$`,
-            })
+            texte += ajouteChampTexteMathLive(
+              this,
+              index,
+              KeyboardType.clavierNumbers,
+              {
+                texteAvant: sp(10) + `$f(${c})=$`,
+              },
+            )
             this.listeCanEnonces.push(texte)
             this.listeCanReponsesACompleter.push(`$f(${c})=\\ldots$`)
           }
@@ -898,7 +1003,12 @@ export default class CourseAuxNombresSpeciale2024 extends Exercice {
             })
             texte += !this.interactif
               ? '.'
-              : ajouteChampTexteMathLive(this, index, ' ', { texteAvant: ' =' })
+              : ajouteChampTexteMathLive(
+                  this,
+                  index,
+                  KeyboardType.clavierDeBaseAvecFraction,
+                  { texteAvant: ' =' },
+                )
             this.listeCanEnonces.push(texte)
           }
           break
@@ -912,15 +1022,23 @@ export default class CourseAuxNombresSpeciale2024 extends Exercice {
           Il s'agit  de $${miseEnEvidence(reponse.texFSD)}$.`
             // EE : On n'a pas une fonction qui rédige tout seule la rédaction d'une solution d'une équation.
             // texteCorr += '<br>' + resoudre('2*x+4=4*x-5').texteCorr
-            setReponse(this, index, reponse, {
-              formatInteractif: 'fractionEgale',
+            handleAnswers(this, i, {
+              reponse: {
+                value: reponse.toLatex(),
+                options: { fractionEgale: true },
+              },
             })
             texte += !this.interactif
               ? ''
               : '<br>' +
-                ajouteChampTexteMathLive(this, index, ' ', {
-                  texteAvant: `L'antécédent de $${texNombre(ant)}$ par la fonction $f$ est : `,
-                })
+                ajouteChampTexteMathLive(
+                  this,
+                  index,
+                  KeyboardType.clavierDeBaseAvecFraction,
+                  {
+                    texteAvant: `L'antécédent de $${texNombre(ant)}$ par la fonction $f$ est : `,
+                  },
+                )
             this.listeCanEnonces.push(texte)
           }
           break
@@ -944,7 +1062,11 @@ export default class CourseAuxNombresSpeciale2024 extends Exercice {
             }
           }
           setReponse(this, index, reponse)
-          texte += ajouteChampTexteMathLive(this, index, '')
+          texte += ajouteChampTexteMathLive(
+            this,
+            index,
+            KeyboardType.clavierNumbers,
+          )
           this.listeCanEnonces.push(texte)
           break
         case 27:
@@ -984,10 +1106,10 @@ export default class CourseAuxNombresSpeciale2024 extends Exercice {
               texte += ajouteChampTexteMathLive(
                 this,
                 index,
-                '  unites[longueur] ',
+                KeyboardType.longueur,
               )
             else
-              texte += ajouteChampTexteMathLive(this, index, '  unites[masse] ')
+              texte += ajouteChampTexteMathLive(this, index, KeyboardType.masse)
           }
           break
         case 28:
@@ -1016,7 +1138,11 @@ export default class CourseAuxNombresSpeciale2024 extends Exercice {
               texteCorr = `$${texNombre(2024)}$ centaines est égal à $${texNombre(2024)}\\times 100=${miseEnEvidence(texNombre(reponse, 0))}$.`
             }
             setReponse(this, index, reponse.toFixed(3))
-            texte += ajouteChampTexteMathLive(this, index, '')
+            texte += ajouteChampTexteMathLive(
+              this,
+              index,
+              KeyboardType.clavierNumbers,
+            )
             this.listeCanEnonces.push(texte)
             this.listeCanReponsesACompleter.push('$\\ldots$')
           }
@@ -1038,7 +1164,11 @@ export default class CourseAuxNombresSpeciale2024 extends Exercice {
               reponse = a * 100 + b * 10 + c
             }
             setReponse(this, index, reponse)
-            texte += ajouteChampTexteMathLive(this, index, '')
+            texte += ajouteChampTexteMathLive(
+              this,
+              index,
+              KeyboardType.clavierNumbers,
+            )
             this.listeCanEnonces.push(texte)
           }
           break
@@ -1096,9 +1226,14 @@ export default class CourseAuxNombresSpeciale2024 extends Exercice {
                 Puisque le périmètre est  $${texNombre(2 * a + b)}\\text{ cm}$, on obtient la somme des deux longueurs égales  du triangle en effectuant la différence $${texNombre(2 * a + b)}-${texNombre(b)}=${texNombre(2 * a)}\\text{ cm}$.<br>
                 On obtient la longueur cherchée en divisant par $2$, soit $${texNombre(2 * a)}\\div 2=${miseEnEvidence(texNombre(a))}\\text{ cm}$.`
             }
-            texte += ajouteChampTexteMathLive(this, index, '', {
-              texteApres: ' $\\text{cm}$',
-            })
+            texte += ajouteChampTexteMathLive(
+              this,
+              index,
+              KeyboardType.clavierNumbers,
+              {
+                texteApres: ' $\\text{cm}$',
+              },
+            )
             texte +=
               '<br>' +
               mathalea2d(
@@ -1142,9 +1277,14 @@ export default class CourseAuxNombresSpeciale2024 extends Exercice {
             setReponse(this, index, reponse.toFixed(3))
             texte += !this.interactif
               ? '.'
-              : ajouteChampTexteMathLive(this, index, ' ', {
-                  texteAvant: ' $=$',
-                })
+              : ajouteChampTexteMathLive(
+                  this,
+                  index,
+                  KeyboardType.clavierNumbers,
+                  {
+                    texteAvant: ' $=$',
+                  },
+                )
             this.listeCanEnonces.push(texte)
           }
           break
@@ -1167,9 +1307,14 @@ export default class CourseAuxNombresSpeciale2024 extends Exercice {
             setReponse(this, index, reponse.toFixed(3))
             texte += !this.interactif
               ? '.'
-              : ajouteChampTexteMathLive(this, index, ' ', {
-                  texteAvant: ' $=$',
-                })
+              : ajouteChampTexteMathLive(
+                  this,
+                  index,
+                  KeyboardType.clavierNumbers,
+                  {
+                    texteAvant: ' $=$',
+                  },
+                )
             this.listeCanEnonces.push(texte)
           }
           break
@@ -1195,7 +1340,11 @@ export default class CourseAuxNombresSpeciale2024 extends Exercice {
               reponse = 1
             }
             setReponse(this, index, reponse)
-            texte += ajouteChampTexteMathLive(this, index, '')
+            texte += ajouteChampTexteMathLive(
+              this,
+              index,
+              KeyboardType.clavierDeBaseAvecFractionPuissanceCrochets,
+            )
             this.listeCanEnonces.push(texte)
           }
           break
@@ -1220,9 +1369,14 @@ export default class CourseAuxNombresSpeciale2024 extends Exercice {
             setReponse(this, index, reponse)
             texte += !this.interactif
               ? '.'
-              : ajouteChampTexteMathLive(this, index, ' lycee  ', {
-                  texteAvant: ' :',
-                })
+              : ajouteChampTexteMathLive(
+                  this,
+                  index,
+                  KeyboardType.clavierEnsemble,
+                  {
+                    texteAvant: ' :',
+                  },
+                )
             this.listeCanEnonces.push(texte)
             this.listeCanReponsesACompleter.push('')
           }
@@ -1241,8 +1395,11 @@ export default class CourseAuxNombresSpeciale2024 extends Exercice {
               reponse = `${crochet1 === '[' ? '-2024' : '-2023'}`
             }
             setReponse(this, index, reponse)
-            texte += ajouteChampTexteMathLive(this, index, '')
-            this.listeCanEnonces.push(texte)
+            texte += ajouteChampTexteMathLive(
+              this,
+              index,
+              KeyboardType.clavierDeBase,
+            )
           }
           break
         case 36: //
@@ -1255,7 +1412,12 @@ export default class CourseAuxNombresSpeciale2024 extends Exercice {
           $${rienSi1(a)}(x${ecritureAlgebrique(-b)})^2 ${inégalité} 0$.`
             if (this.interactif) {
               texte +=
-                '<br>$S=$' + ajouteChampTexteMathLive(this, index, ' lycee  ')
+                '<br>$S=$' +
+                ajouteChampTexteMathLive(
+                  this,
+                  index,
+                  KeyboardType.clavierEnsemble,
+                )
             }
             if (a > 0) {
               texteCorr = `Pour tout réel $x$, $${rienSi1(a)}(x${ecritureAlgebrique(-b)})^2$ est positif et s'annule en $${texNombre(b)}$.<br>
@@ -1265,27 +1427,32 @@ export default class CourseAuxNombresSpeciale2024 extends Exercice {
             Ainsi, l'ensemble $S$ des solutions de l'inéquation est `
             }
             if ((inégalité === '>' && a > 0) || (inégalité === '<' && a < 0)) {
-              solution1 = `$\\mathbb{R}\\\\{${b}\\}$`
-              texteCorr += ` $${miseEnEvidence(`\\mathbb{R}\\smallsetminus\\{${texNombre(b)}\\}`)}$.`
+              solution1 = [
+                `\\mathbb{R}\\\\{${b}\\}`,
+                `\\mathbb{R}\\backslash\\{${b}\\}`,
+                `]-\\infty;2024[\\cup]2024;+\\infty[`,
+              ]
+              texteCorr += `$${miseEnEvidence(`\\mathbb{R}\\smallsetminus\\{${texNombre(b)}\\}`)}$.`
             } else if (
               (inégalité === '\\geqslant' && a > 0) ||
               (inégalité === '\\leqslant' && a < 0)
             ) {
-              solution1 = '$\\mathbb{R}$'
+              solution1 = '\\mathbb{R}'
               texteCorr += ` $${miseEnEvidence('\\mathbb{R}')}$.`
             } else if (
               (inégalité === '<' && a > 0) ||
               (inégalité === '>' && a < 0)
             ) {
-              solution1 = '$\\emptyset$'
+              solution1 = '\\emptyset'
               texteCorr += ` $${miseEnEvidence('\\emptyset')}$.`
             } else {
-              // solution1 = `$\\{${b}\\}$`
-              solution1 = `$\\left\\lbrace${b}\\right\\rbrace$`
+              solution1 = [`\\{${b}\\}`, `\\left\\lbrace${b}\\right\\rbrace`]
               texteCorr += ` $${miseEnEvidence(`\\{${texNombre(b)}\\}`)}$.`
             }
             reponse = solution1
-            setReponse(this, index, reponse)
+            handleAnswers(this, index, {
+              reponse: { value: reponse, options: { texteSansCasse: true } },
+            })
             this.listeCanEnonces.push(texte)
             this.listeCanReponsesACompleter.push('')
           }
@@ -1307,7 +1474,11 @@ export default class CourseAuxNombresSpeciale2024 extends Exercice {
               }
             }
             setReponse(this, index, reponse)
-            texte += ajouteChampTexteMathLive(this, index, '')
+            texte += ajouteChampTexteMathLive(
+              this,
+              index,
+              KeyboardType.clavierDeBaseAvecFraction,
+            )
             this.listeCanEnonces.push(texte)
           }
           break
@@ -1321,9 +1492,14 @@ export default class CourseAuxNombresSpeciale2024 extends Exercice {
             texteCorr = `$${texNombre(a)}${ecritureAlgebrique(b)} = ${miseEnEvidence(texNombre(a + b))} $`
             reponse = a + b
             setReponse(this, index, reponse)
-            texte += ajouteChampTexteMathLive(this, index, ' ', {
-              texteAvant: ' $=$',
-            })
+            texte += ajouteChampTexteMathLive(
+              this,
+              index,
+              KeyboardType.clavierDeBase,
+              {
+                texteAvant: ' $=$',
+              },
+            )
             this.listeCanEnonces.push(texte)
           }
           break
@@ -1361,7 +1537,11 @@ export default class CourseAuxNombresSpeciale2024 extends Exercice {
               reponse = -nbre + 1
             }
             setReponse(this, index, reponse)
-            texte += ajouteChampTexteMathLive(this, index, '')
+            texte += ajouteChampTexteMathLive(
+              this,
+              index,
+              KeyboardType.clavierDeBase,
+            )
             this.listeCanEnonces.push(texte)
           }
           break
@@ -1380,7 +1560,11 @@ export default class CourseAuxNombresSpeciale2024 extends Exercice {
             reponse = '-\\sqrt{2024}'
           }
           setReponse(this, index, reponse)
-          texte += ajouteChampTexteMathLive(this, index, '')
+          texte += ajouteChampTexteMathLive(
+            this,
+            index,
+            KeyboardType.clavierFullOperations,
+          )
           this.listeCanEnonces.push(texte)
           break
         case 41:
@@ -1403,7 +1587,12 @@ export default class CourseAuxNombresSpeciale2024 extends Exercice {
             setReponse(this, index, reponse)
             texte += !this.interactif
               ? '.'
-              : ajouteChampTexteMathLive(this, index, ' ', { texteAvant: ' :' })
+              : ajouteChampTexteMathLive(
+                  this,
+                  index,
+                  KeyboardType.clavierFullOperations,
+                  { texteAvant: ' :' },
+                )
             this.listeCanEnonces.push(texte)
           }
           break
@@ -1460,9 +1649,14 @@ export default class CourseAuxNombresSpeciale2024 extends Exercice {
             setReponse(this, index, reponse)
             texte += !this.interactif
               ? '.'
-              : ajouteChampTexteMathLive(this, index, ' lycee  ', {
-                  texteAvant: ' :',
-                })
+              : ajouteChampTexteMathLive(
+                  this,
+                  index,
+                  KeyboardType.clavierEnsemble,
+                  {
+                    texteAvant: ' :',
+                  },
+                )
             this.listeCanEnonces.push(texte)
           }
           break
@@ -1478,9 +1672,14 @@ export default class CourseAuxNombresSpeciale2024 extends Exercice {
              `
             reponse = 24 * (31 - date) + 24 - nbre
             setReponse(this, index, reponse)
-            texte += ajouteChampTexteMathLive(this, index, '', {
-              texteApres: ' heures',
-            })
+            texte += ajouteChampTexteMathLive(
+              this,
+              index,
+              KeyboardType.clavierNumbers,
+              {
+                texteApres: ' heures',
+              },
+            )
             this.listeCanEnonces.push(texte)
             this.listeCanReponsesACompleter.push('$\\ldots$ heures')
           }
@@ -1492,9 +1691,14 @@ export default class CourseAuxNombresSpeciale2024 extends Exercice {
             if (this.interactif) {
               texte = `Compléter avec un nombre décimal :<br>
               $20$ h $24$ min $=$`
-              texte += ajouteChampTexteMathLive(this, index, ' ', {
-                texteApres: ' h',
-              })
+              texte += ajouteChampTexteMathLive(
+                this,
+                index,
+                KeyboardType.clavierNumbers,
+                {
+                  texteApres: ' h',
+                },
+              )
             } else {
               texte = `Compléter avec un nombre décimal :<br>
             $20$ h $24$ min $=\\ldots$ h`
@@ -1548,7 +1752,12 @@ export default class CourseAuxNombresSpeciale2024 extends Exercice {
             }
             texte += !this.interactif
               ? '.'
-              : ajouteChampTexteMathLive(this, index, ' ', { texteAvant: ' :' })
+              : ajouteChampTexteMathLive(
+                  this,
+                  index,
+                  KeyboardType.clavierNumbers,
+                  { texteAvant: ' :' },
+                )
             this.listeCanEnonces.push(texte)
           }
           break
@@ -1574,7 +1783,12 @@ export default class CourseAuxNombresSpeciale2024 extends Exercice {
             setReponse(this, index, reponse)
             texte += !this.interactif
               ? '.'
-              : ajouteChampTexteMathLive(this, index, ' ', { texteAvant: ' :' })
+              : ajouteChampTexteMathLive(
+                  this,
+                  index,
+                  KeyboardType.clavierNumbers,
+                  { texteAvant: ' :' },
+                )
             this.listeCanEnonces.push(texte)
           }
           break
@@ -1595,7 +1809,12 @@ export default class CourseAuxNombresSpeciale2024 extends Exercice {
             setReponse(this, index, reponse)
             texte += !this.interactif
               ? '.'
-              : ajouteChampTexteMathLive(this, index, ' ', { texteAvant: ' :' })
+              : ajouteChampTexteMathLive(
+                  this,
+                  index,
+                  KeyboardType.clavierDeBaseAvecX,
+                  { texteAvant: ' :' },
+                )
             this.listeCanEnonces.push(texte)
           }
           break
@@ -1611,7 +1830,12 @@ export default class CourseAuxNombresSpeciale2024 extends Exercice {
             texteCorr = `$${texNombre(dec, 5)}=${miseEnEvidence(`\\dfrac{${texNombre(a, 0)}}{10^{${puissance}}}`)}$`
             texte += !this.interactif
               ? '.'
-              : ajouteChampTexteMathLive(this, index, ' ', { texteAvant: ' :' })
+              : ajouteChampTexteMathLive(
+                  this,
+                  index,
+                  KeyboardType.clavierDeBaseAvecFractionPuissanceCrochets,
+                  { texteAvant: ' :' },
+                )
             this.listeCanEnonces.push(texte)
           }
           break
@@ -1654,7 +1878,11 @@ export default class CourseAuxNombresSpeciale2024 extends Exercice {
             }
             texteCorr += ` est $${miseEnEvidence(reponse)}$.`
             setReponse(this, index, reponse)
-            texte += ajouteChampTexteMathLive(this, index, '')
+            texte += ajouteChampTexteMathLive(
+              this,
+              index,
+              KeyboardType.clavierNumbers,
+            )
             this.listeCanEnonces.push(texte)
           }
           break
@@ -1693,7 +1921,11 @@ export default class CourseAuxNombresSpeciale2024 extends Exercice {
             texteCorr = `Le plus ${PGouPP === PlusGrand ? 'petit nombre entier strictement supérieur' : 'grand nombre entier strictement inférieur'} à $${texNombre(2024, 0)}$  dont le chiffre des unités est $${PGouPP[0]}$ est $${miseEnEvidence(texNombre(PGouPP[1]))}$.`
             reponse = PGouPP[1]
             setReponse(this, index, reponse)
-            texte += ajouteChampTexteMathLive(this, index, '')
+            texte += ajouteChampTexteMathLive(
+              this,
+              index,
+              KeyboardType.clavierNumbers,
+            )
             this.listeCanEnonces.push(texte)
           }
           break
@@ -1706,8 +1938,8 @@ export default class CourseAuxNombresSpeciale2024 extends Exercice {
             const correctionOui = `${texteEnCouleurEtGras('Oui')}, $${choix}$ est un diviseur de $${texNombre(2024, 0)}$ car `
             texte = `$${choix}$ est-il un diviseur de $${texNombre(2024, 0)}$ ?`
             if (this.interactif) {
-              texte += ajouteChampTexteMathLive(this, index, '')
-              texte += '(Répondre par oui ou par non.)'
+              texte += ajouteChampTexteMathLive(this, index, KeyboardType.vFON)
+              texte += '(Répondre par oui (O) ou par non (N).)'
             }
             texte += ` <br>On pourra s'aider de la décomposition  en produits de facteurs premiers :  $${texNombre(2024, 0)}=2^3\\times 11 \\times 23$. `
             if (choix === 13 || choix === 17 || choix === 19 || choix === 7) {
@@ -1729,11 +1961,10 @@ export default class CourseAuxNombresSpeciale2024 extends Exercice {
             } else {
               texteCorr = `${correctionOui} $2^2$ et $11$  sont des diviseurs de $${texNombre(2024, 0)}$ (on le sait grâce à la décomposition).`
             }
-            reponse =
-              choix === Diviseurs
-                ? ['oui', 'OUI', 'Oui']
-                : ['non', 'NON', 'Non']
-            setReponse(this, index, reponse)
+            reponse = choix === Diviseurs ? ['oui', 'O'] : ['non', 'N']
+            handleAnswers(this, index, {
+              reponse: { value: reponse, options: { texteSansCasse: true } },
+            })
             this.listeCanEnonces.push(texte)
           }
           break
@@ -1754,7 +1985,11 @@ export default class CourseAuxNombresSpeciale2024 extends Exercice {
             reponse = resultat
             setReponse(this, index, reponse.toFixed(5))
             if (this.interactif) {
-              texte += ajouteChampTexteMathLive(this, index, '')
+              texte += ajouteChampTexteMathLive(
+                this,
+                index,
+                KeyboardType.clavierNumbers,
+              )
             }
             this.listeCanEnonces.push(texte)
           }
@@ -1765,17 +2000,17 @@ export default class CourseAuxNombresSpeciale2024 extends Exercice {
             const b = choice([2024, -2024])
             const c = choice([-1, 1])
             if (choice([true, false])) {
-              texte = `Soit $f$ la fonction définie sur $\\mathbb{R}$ par : $f(x)=\\text{e}^{${reduireAxPlusB(a, b)}}$.<br>
+              texte = `Soit $f$ la fonction définie sur $\\mathbb{R}$ par : $f(x)=\\mathrm{e}^{${reduireAxPlusB(a, b)}}$.<br>
             Donner sa fonction dérivée. `
-              texteCorr = `$f$ est de la forme $\\text{e}^{u}$ avec $u(x)=${reduireAxPlusB(a, b)}$. On a donc $u'(x)=${a}$.<br>
-            Comme $f'=u'\\text{e}^u$,  $f'(x)=${miseEnEvidence(`${texNombre(a)}\\text{e}^{${reduireAxPlusB(a, b)}}`)}$
+              texteCorr = `$f$ est de la forme $\\mathrm{e}^{u}$ avec $u(x)=${reduireAxPlusB(a, b)}$. On a donc $u'(x)=${a}$.<br>
+            Comme $f'=u'\\mathrm{e}^u$,  $f'(x)=${miseEnEvidence(`${texNombre(a)}\\mathrm{e}^{${reduireAxPlusB(a, b)}}`)}$
              `
               reponse = `${a}e^{${reduireAxPlusB(a, b)}}`
             } else {
-              texte = `Soit $f$ la fonction définie sur $\\mathbb{R}$ par : $f(x)=${texNombre(a)}\\text{e}^{${rienSi1(c)}x}$.<br>
+              texte = `Soit $f$ la fonction définie sur $\\mathbb{R}$ par : $f(x)=${texNombre(a)}\\mathrm{e}^{${rienSi1(c)}x}$.<br>
           Donner sa fonction dérivée. `
-              texteCorr = `$f$ est de la forme $\\text{e}^{u}$ avec $u(x)=${rienSi1(c)}x$. On a donc $u'(x)=${c}$.<br>
-          Comme $f'=u'\\text{e}^u$,  $f'(x)=${miseEnEvidence(`${texNombre(a * c)}\\text{e}^{${rienSi1(c)}x}`)}$
+              texteCorr = `$f$ est de la forme $\\mathrm{e}^{u}$ avec $u(x)=${rienSi1(c)}x$. On a donc $u'(x)=${c}$.<br>
+          Comme $f'=u'\\mathrm{e}^u$,  $f'(x)=${miseEnEvidence(`${texNombre(a * c)}\\mathrm{e}^{${rienSi1(c)}x}`)}$
            `
               reponse = `${a * c}e^{${rienSi1(c)}x}`
             }
@@ -1783,7 +2018,11 @@ export default class CourseAuxNombresSpeciale2024 extends Exercice {
             if (this.interactif) {
               texte +=
                 "<br>$f'(x)=$" +
-                ajouteChampTexteMathLive(this, index, '  lycee alphanumeric')
+                ajouteChampTexteMathLive(
+                  this,
+                  index,
+                  KeyboardType.clavierFonctionsTerminales,
+                )
             }
             this.listeCanEnonces.push(texte)
           }
@@ -1867,7 +2106,12 @@ export default class CourseAuxNombresSpeciale2024 extends Exercice {
             setReponse(this, index, reponse)
             if (this.interactif) {
               texte +=
-                "<br>$f'(x)=$" + ajouteChampTexteMathLive(this, index, ' ')
+                "<br>$f'(x)=$" +
+                ajouteChampTexteMathLive(
+                  this,
+                  index,
+                  KeyboardType.clavierDeBaseAvecX,
+                )
             }
             this.listeCanEnonces.push(texte)
           }
@@ -1886,7 +2130,11 @@ export default class CourseAuxNombresSpeciale2024 extends Exercice {
 
             setReponse(this, index, reponse)
             if (this.interactif) {
-              texte += ajouteChampTexteMathLive(this, index, ' ')
+              texte += ajouteChampTexteMathLive(
+                this,
+                index,
+                KeyboardType.clavierDeBase,
+              )
             }
             this.listeCanEnonces.push(texte)
           }
@@ -1917,7 +2165,12 @@ export default class CourseAuxNombresSpeciale2024 extends Exercice {
             setReponse(this, index, reponse)
             texte += !this.interactif
               ? '.'
-              : ajouteChampTexteMathLive(this, index, ' ', { texteAvant: ' :' })
+              : ajouteChampTexteMathLive(
+                  this,
+                  index,
+                  KeyboardType.lyceeClassique,
+                  { texteAvant: ' :' },
+                )
             this.listeCanEnonces.push(texte)
           }
           break
@@ -1946,7 +2199,11 @@ export default class CourseAuxNombresSpeciale2024 extends Exercice {
             }
 
             setReponse(this, index, reponse)
-            texte += ajouteChampTexteMathLive(this, index, ' ')
+            texte += ajouteChampTexteMathLive(
+              this,
+              index,
+              KeyboardType.clavierNumbers,
+            )
             this.listeCanEnonces.push(texte)
           }
           break
@@ -1963,12 +2220,17 @@ export default class CourseAuxNombresSpeciale2024 extends Exercice {
             texteCorr = `Le chiffre des unités de ce produit est donné par le chiffre des unités de $4\\times ${u}$, soit $${(4 * u) % 10}$.<br>
             Ainsi,  $${texNombre(2024)}\\times ${a}=${miseEnEvidence(`${texNombre(2024 * a)}`)}$.
                  `
-            reponse = `${2024 * a}`
+            reponse = 2024 * a
 
             setReponse(this, index, reponse)
-            texte += ajouteChampTexteMathLive(this, index, ' ', {
-              texteAvant: `<br>$${texNombre(2024)}\\times ${a}=$`,
-            })
+            texte += ajouteChampTexteMathLive(
+              this,
+              index,
+              KeyboardType.clavierNumbers,
+              {
+                texteAvant: `<br>$${texNombre(2024)}\\times ${a}=$`,
+              },
+            )
             this.listeCanEnonces.push(texte)
           }
           break
@@ -1984,12 +2246,17 @@ export default class CourseAuxNombresSpeciale2024 extends Exercice {
             La moitié de $${texNombre(2024 - a)}$ € est $${texNombre((2024 - a) / 2, 0)}$ €. <br>
               Ainsi, son dernier versement sera de $${miseEnEvidence(`${texNombre((2024 - a) / 2, 0)}`)}$ €.
                    `
-            reponse = `${(2024 - a) / 2}`
+            reponse = (2024 - a) / 2
 
             setReponse(this, index, reponse)
-            texte += ajouteChampTexteMathLive(this, index, ' ', {
-              texteApres: ' €',
-            })
+            texte += ajouteChampTexteMathLive(
+              this,
+              index,
+              KeyboardType.clavierNumbers,
+              {
+                texteApres: ' €',
+              },
+            )
             this.listeCanEnonces.push(texte)
             this.listeCanReponsesACompleter.push('$\\ldots$ €')
           }
@@ -2012,7 +2279,11 @@ export default class CourseAuxNombresSpeciale2024 extends Exercice {
             )
           }
           if (this.interactif) {
-            texte += ajouteChampTexteMathLive(this, index, ' ')
+            texte += ajouteChampTexteMathLive(
+              this,
+              index,
+              KeyboardType.clavierNumbers,
+            )
           } else {
             texte += '$\\ldots$'
           }
@@ -2042,7 +2313,11 @@ export default class CourseAuxNombresSpeciale2024 extends Exercice {
           }
           setReponse(this, index, reponse)
           if (this.interactif) {
-            texte += ajouteChampTexteMathLive(this, index, ' ')
+            texte += ajouteChampTexteMathLive(
+              this,
+              index,
+              KeyboardType.lyceeClassique,
+            )
           } else {
             texte += '$\\ldots$'
           }
@@ -2071,7 +2346,12 @@ export default class CourseAuxNombresSpeciale2024 extends Exercice {
             this.listeCanReponsesACompleter.push('')
             texte += !this.interactif
               ? '.'
-              : ajouteChampTexteMathLive(this, index, ' ', { texteAvant: ' :' })
+              : ajouteChampTexteMathLive(
+                  this,
+                  index,
+                  KeyboardType.lyceeClassique,
+                  { texteAvant: ' :' },
+                )
           }
 
           break
@@ -2132,9 +2412,14 @@ export default class CourseAuxNombresSpeciale2024 extends Exercice {
             setReponse(this, index, reponse)
             texte += !this.interactif
               ? '.'
-              : ajouteChampTexteMathLive(this, index, ' ', {
-                  texteAvant: ' $=$',
-                })
+              : ajouteChampTexteMathLive(
+                  this,
+                  index,
+                  KeyboardType.clavierDeBase,
+                  {
+                    texteAvant: ' $=$',
+                  },
+                )
             this.listeCanEnonces.push(texte)
           }
           break
@@ -2156,9 +2441,14 @@ export default class CourseAuxNombresSpeciale2024 extends Exercice {
             })
             texte += !this.interactif
               ? '.'
-              : ajouteChampTexteMathLive(this, index, ' ', {
-                  texteAvant: ' $=$',
-                })
+              : ajouteChampTexteMathLive(
+                  this,
+                  index,
+                  KeyboardType.clavierDeBaseAvecFraction,
+                  {
+                    texteAvant: ' $=$',
+                  },
+                )
             this.listeCanEnonces.push(texte)
           }
           break
@@ -2183,9 +2473,14 @@ export default class CourseAuxNombresSpeciale2024 extends Exercice {
             setReponse(this, index, reponse)
             texte += !this.interactif
               ? '.'
-              : ajouteChampTexteMathLive(this, index, ' ', {
-                  texteAvant: ' $=$',
-                })
+              : ajouteChampTexteMathLive(
+                  this,
+                  index,
+                  KeyboardType.clavierDeBase,
+                  {
+                    texteAvant: ' $=$',
+                  },
+                )
             this.listeCanEnonces.push(texte)
           }
           break
@@ -2229,9 +2524,14 @@ export default class CourseAuxNombresSpeciale2024 extends Exercice {
               s4,
             )
             texte = 'Quel est le périmètre de ce carré ? '
-            texte += ajouteChampTexteMathLive(this, index, '', {
-              texteApres: ' $\\text{cm}$',
-            })
+            texte += ajouteChampTexteMathLive(
+              this,
+              index,
+              KeyboardType.clavierNumbers,
+              {
+                texteApres: ' $\\text{cm}$',
+              },
+            )
             texte +=
               '<br>' +
               mathalea2d(
@@ -2292,9 +2592,14 @@ export default class CourseAuxNombresSpeciale2024 extends Exercice {
             setReponse(this, index, reponse)
             texte += !this.interactif
               ? '.'
-              : ajouteChampTexteMathLive(this, index, ' ', {
-                  texteAvant: ' $=$',
-                })
+              : ajouteChampTexteMathLive(
+                  this,
+                  index,
+                  KeyboardType.clavierNumbers,
+                  {
+                    texteAvant: ' $=$',
+                  },
+                )
             texte +=
               '<br>' +
               mathalea2d(
@@ -2379,9 +2684,14 @@ export default class CourseAuxNombresSpeciale2024 extends Exercice {
             setReponse(this, index, reponse)
             texte += !this.interactif
               ? '.'
-              : ajouteChampTexteMathLive(this, index, ' ', {
-                  texteAvant: ' $=$',
-                })
+              : ajouteChampTexteMathLive(
+                  this,
+                  index,
+                  KeyboardType.lyceeClassique,
+                  {
+                    texteAvant: ' $=$',
+                  },
+                )
             texte +=
               '<br>' +
               mathalea2d(
@@ -2436,7 +2746,11 @@ export default class CourseAuxNombresSpeciale2024 extends Exercice {
             texteCorr = ` Le plus grand nombre entier est $${miseEnEvidence(`${texNombre(reponse)}`)}$.`
 
             setReponse(this, index, reponse)
-            texte += ajouteChampTexteMathLive(this, index, '')
+            texte += ajouteChampTexteMathLive(
+              this,
+              index,
+              KeyboardType.clavierNumbers,
+            )
             this.listeCanEnonces.push(texte)
           }
           break
@@ -2461,14 +2775,18 @@ export default class CourseAuxNombresSpeciale2024 extends Exercice {
             texteCorr = `$2023=${miseEnEvidence(reponse)}$`
           }
           setReponse(this, index, reponse)
-          texte += ajouteChampTexteMathLive(this, index, ' alphanumeric')
+          texte += ajouteChampTexteMathLive(
+            this,
+            index,
+            KeyboardType.alphanumeric,
+          )
           this.listeCanEnonces.push(texte)
 
           break
 
         case 72:
           if (randint(1, 3) === 1) {
-            reponse = ['oui', 'OUI', 'Oui']
+            reponse = ['oui', 'O']
             texte = `$${texNombre(2024)}$ est-il un multiple de la somme de ses chiffres ? `
             texteCorr = `La somme des chiffres de $${texNombre(2024)}$  est $8$. <br>
             On a $${texNombre(2024)}\\div 2=${texNombre(1012)}$, <br>
@@ -2476,13 +2794,13 @@ export default class CourseAuxNombresSpeciale2024 extends Exercice {
              $${texNombre(506)}\\div 2=${texNombre(253)}$.<br>
             Donc  $${texNombre(2024)}$  ${texteEnCouleurEtGras('est un multiple ')} de $8$.`
           } else if (choice([true, false])) {
-            reponse = ['non', 'NON', 'Non']
+            reponse = ['non', 'N']
             texte = `$${texNombre(2024)}$ est-il un diviseur de la somme de ses chiffres ?`
 
             texteCorr = `La somme des chiffres de $${texNombre(2024)}$ est $8$. <br>
             Comme   $${texNombre(2024)} >8$, $${texNombre(2024)}$  ${texteEnCouleurEtGras("n'est pas un diviseur ")} de $8$.`
           } else {
-            reponse = ['oui', 'OUI', 'Oui']
+            reponse = ['oui', 'O']
             texte = `La somme des  chiffres de $${texNombre(2024)}$ est-elle un diviseur de $${texNombre(2024)}$ ? `
 
             texteCorr = `La somme des chiffres de $${texNombre(2024)}$  est $8$. <br>
@@ -2491,11 +2809,13 @@ export default class CourseAuxNombresSpeciale2024 extends Exercice {
              $${texNombre(506)}\\div 2=${texNombre(253)}$.<br>
             Donc  $${texNombre(2024)}$  ${texteEnCouleurEtGras('est un multiple ')} de $8$.`
           }
+          handleAnswers(this, index, {
+            reponse: { value: reponse, options: { texteSansCasse: true } },
+          })
 
-          setReponse(this, index, reponse)
           if (this.interactif) {
-            texte += ajouteChampTexteMathLive(this, index, '')
-            texte += '(Répondre par oui ou par non.)'
+            texte += ajouteChampTexteMathLive(this, index, KeyboardType.vFON)
+            texte += '(Répondre par oui (O) ou par non (N).)'
           }
           this.listeCanEnonces.push(texte)
 
@@ -2518,7 +2838,11 @@ export default class CourseAuxNombresSpeciale2024 extends Exercice {
           On obtient donc : $f(x)=${miseEnEvidence(`${rienSi1(a)}x`)}$.`
             setReponse(this, index, reponse)
             if (this.interactif) {
-              texte += ajouteChampTexteMathLive(this, index, ' ')
+              texte += ajouteChampTexteMathLive(
+                this,
+                index,
+                KeyboardType.clavierDeBaseAvecX,
+              )
             } else {
               texte += '$\\ldots$'
             }
@@ -2540,7 +2864,11 @@ export default class CourseAuxNombresSpeciale2024 extends Exercice {
             On obtient donc : $f(x)=${miseEnEvidence(`-x${ecritureAlgebrique(a)}`)}$.`
             setReponse(this, index, reponse)
             if (this.interactif) {
-              texte += ajouteChampTexteMathLive(this, index, ' ')
+              texte += ajouteChampTexteMathLive(
+                this,
+                index,
+                KeyboardType.clavierDeBaseAvecX,
+              )
             } else {
               texte += '$\\ldots$'
             }
@@ -2564,7 +2892,11 @@ export default class CourseAuxNombresSpeciale2024 extends Exercice {
 
             setReponse(this, index, reponse)
             if (this.interactif) {
-              texte += ajouteChampTexteMathLive(this, index, '')
+              texte += ajouteChampTexteMathLive(
+                this,
+                index,
+                KeyboardType.clavierNumbers,
+              )
             }
             this.listeCanEnonces.push(texte)
             this.listeCanReponsesACompleter.push('')
@@ -2580,9 +2912,14 @@ export default class CourseAuxNombresSpeciale2024 extends Exercice {
             reponse = 2024 + a
             texteCorr = `$${texNombre(2024)}+${a}=${miseEnEvidence(texNombre(reponse, 0))}$`
             setReponse(this, index, reponse)
-            texte += ajouteChampTexteMathLive(this, index, ' ', {
-              texteAvant: ' $=$',
-            })
+            texte += ajouteChampTexteMathLive(
+              this,
+              index,
+              KeyboardType.clavierNumbers,
+              {
+                texteAvant: ' $=$',
+              },
+            )
             this.listeCanEnonces.push(texte)
           }
           break
@@ -2595,9 +2932,14 @@ export default class CourseAuxNombresSpeciale2024 extends Exercice {
             reponse = 2024 - a
             texteCorr = `$${texNombre(2024)}-${a}=${miseEnEvidence(texNombre(reponse, 0))}$`
             setReponse(this, index, reponse)
-            texte += ajouteChampTexteMathLive(this, index, ' ', {
-              texteAvant: ' $=$',
-            })
+            texte += ajouteChampTexteMathLive(
+              this,
+              index,
+              KeyboardType.clavierNumbers,
+              {
+                texteAvant: ' $=$',
+              },
+            )
             this.listeCanEnonces.push(texte)
           }
           break
@@ -2611,9 +2953,14 @@ export default class CourseAuxNombresSpeciale2024 extends Exercice {
             reponse = a + b
             texteCorr = `$${texNombre(a, 3)}+${texNombre(b, 3)}=${miseEnEvidence(texNombre(reponse, 3))}$`
             setReponse(this, index, reponse.toFixed(3))
-            texte += ajouteChampTexteMathLive(this, index, ' ', {
-              texteAvant: ' $=$',
-            })
+            texte += ajouteChampTexteMathLive(
+              this,
+              index,
+              KeyboardType.clavierNumbers,
+              {
+                texteAvant: ' $=$',
+              },
+            )
             this.listeCanEnonces.push(texte)
           }
           break
@@ -2627,9 +2974,14 @@ export default class CourseAuxNombresSpeciale2024 extends Exercice {
             reponse = a - b
             texteCorr = `$${texNombre(a, 3)}-${texNombre(b, 3)}=${miseEnEvidence(texNombre(reponse, 3))}$`
             setReponse(this, index, reponse.toFixed(3))
-            texte += ajouteChampTexteMathLive(this, index, ' ', {
-              texteAvant: ' $=$',
-            })
+            texte += ajouteChampTexteMathLive(
+              this,
+              index,
+              KeyboardType.clavierDeBase,
+              {
+                texteAvant: ' $=$',
+              },
+            )
             this.listeCanEnonces.push(texte)
           }
           break
@@ -2651,9 +3003,14 @@ export default class CourseAuxNombresSpeciale2024 extends Exercice {
             reponse = 2024 + a
             texteCorr = `$${texNombre(2024, 0)}+${texNombre(a, 0)}=${miseEnEvidence(texNombre(reponse, 4))}$`
             setReponse(this, index, reponse)
-            texte += ajouteChampTexteMathLive(this, index, ' ', {
-              texteAvant: ' $=$',
-            })
+            texte += ajouteChampTexteMathLive(
+              this,
+              index,
+              KeyboardType.clavierNumbers,
+              {
+                texteAvant: ' $=$',
+              },
+            )
             this.listeCanEnonces.push(texte)
           }
           break
@@ -2683,9 +3040,14 @@ export default class CourseAuxNombresSpeciale2024 extends Exercice {
             reponse = a - b
             texteCorr = `$${texNombre(a, 0)}-${texNombre(b, 0)}=${miseEnEvidence(texNombre(reponse, 4))}$`
             setReponse(this, index, reponse)
-            texte += ajouteChampTexteMathLive(this, index, ' ', {
-              texteAvant: ' $=$',
-            })
+            texte += ajouteChampTexteMathLive(
+              this,
+              index,
+              KeyboardType.clavierDeBase,
+              {
+                texteAvant: ' $=$',
+              },
+            )
             this.listeCanEnonces.push(texte)
           }
           break
@@ -2705,7 +3067,11 @@ export default class CourseAuxNombresSpeciale2024 extends Exercice {
             reponse = aDiv * Nb2024Div
             texteCorr = `$${texNombre(aDiv, 3)} \\times ${texNombre(Nb2024Div, 3)}=${miseEnEvidence(texNombre(reponse, 6))}$`
             setReponse(this, index, reponse.toFixed(6))
-            texte += ajouteChampTexteMathLive(this, index, '')
+            texte += ajouteChampTexteMathLive(
+              this,
+              index,
+              KeyboardType.clavierNumbers,
+            )
             this.listeCanEnonces.push(texte)
           }
           break
@@ -2749,7 +3115,11 @@ export default class CourseAuxNombresSpeciale2024 extends Exercice {
               break
           }
           setReponse(this, index, reponse)
-          texte += ajouteChampTexteMathLive(this, index, '')
+          texte += ajouteChampTexteMathLive(
+            this,
+            index,
+            KeyboardType.clavierNumbers,
+          )
           this.listeCanEnonces.push(texte)
 
           break
@@ -2793,7 +3163,11 @@ export default class CourseAuxNombresSpeciale2024 extends Exercice {
               break
           }
           setReponse(this, index, reponse)
-          texte += ajouteChampTexteMathLive(this, index, '')
+          texte += ajouteChampTexteMathLive(
+            this,
+            index,
+            KeyboardType.clavierNumbers,
+          )
           this.listeCanEnonces.push(texte)
 
           break
@@ -2807,9 +3181,14 @@ export default class CourseAuxNombresSpeciale2024 extends Exercice {
             setReponse(this, index, reponse)
             texte += !this.interactif
               ? '.'
-              : ajouteChampTexteMathLive(this, index, ' ', {
-                  texteAvant: ' $=$',
-                })
+              : ajouteChampTexteMathLive(
+                  this,
+                  index,
+                  KeyboardType.clavierNumbers,
+                  {
+                    texteAvant: ' $=$',
+                  },
+                )
             this.listeCanEnonces.push(texte)
           }
           break
@@ -2835,7 +3214,11 @@ export default class CourseAuxNombresSpeciale2024 extends Exercice {
               break
           }
           setReponse(this, index, reponse)
-          texte += ajouteChampTexteMathLive(this, index, '')
+          texte += ajouteChampTexteMathLive(
+            this,
+            index,
+            KeyboardType.clavierDeBaseAvecFraction,
+          )
           this.listeCanEnonces.push(texte)
           break
 
@@ -2862,7 +3245,11 @@ export default class CourseAuxNombresSpeciale2024 extends Exercice {
             setReponse(this, index, reponse.toFixed(0), {
               formatInteractif: 'calcul',
             })
-            texte += ajouteChampTexteMathLive(this, index, '')
+            texte += ajouteChampTexteMathLive(
+              this,
+              index,
+              KeyboardType.clavierNumbers,
+            )
             this.listeCanEnonces.push(
               'Compléter le tableau de proportionnalité.',
             )
@@ -2907,7 +3294,11 @@ export default class CourseAuxNombresSpeciale2024 extends Exercice {
             const reponse = 2024 - b
             texteCorr = ` L'algorithme retourne $2024-${b}=${miseEnEvidence(texNombre(reponse, 0))}$. `
             setReponse(this, index, reponse, { formatInteractif: 'calcul' })
-            texte += ajouteChampTexteMathLive(this, index, '')
+            texte += ajouteChampTexteMathLive(
+              this,
+              index,
+              KeyboardType.clavierNumbers,
+            )
             this.listeCanEnonces.push(texte)
             this.listeCanReponsesACompleter.push(
               `Que renvoie  $\\texttt{calcul(${b})}$ ?<br> $\\ldots$`,
@@ -2930,7 +3321,11 @@ export default class CourseAuxNombresSpeciale2024 extends Exercice {
             Le chiffre des unités est donc $${miseEnEvidence(texNombre(reponse, 0))}$.`
             setReponse(this, index, reponse)
             if (this.interactif) {
-              texte += ajouteChampTexteMathLive(this, index, ' ')
+              texte += ajouteChampTexteMathLive(
+                this,
+                index,
+                KeyboardType.clavierNumbers,
+              )
             } else {
               texte += '$\\ldots$'
             }
@@ -2955,7 +3350,11 @@ export default class CourseAuxNombresSpeciale2024 extends Exercice {
 
             texte += !this.interactif
               ? '?'
-              : ajouteChampTexteMathLive(this, index, ' ')
+              : ajouteChampTexteMathLive(
+                  this,
+                  index,
+                  KeyboardType.clavierNumbers,
+                )
 
             this.listeCanEnonces.push('Compléter la suite.')
             this.listeCanReponsesACompleter.push(
@@ -3002,7 +3401,11 @@ export default class CourseAuxNombresSpeciale2024 extends Exercice {
             texte = `Parmi les nombres ci-dessous, quel est le plus ${choix ? 'grand' : 'petit'} nombre ?`
             texte += !this.interactif
               ? '<br>'
-              : ajouteChampTexteMathLive(this, index, '')
+              : ajouteChampTexteMathLive(
+                  this,
+                  index,
+                  KeyboardType.clavierDeBaseAvecFraction,
+                )
             texte += `<br>$${Nombre1[0]}$${sp(4)};${sp(4)}  $${Nombre1[1]}$${sp(4)};${sp(4)}  $${Nombre1[2]}$`
             texteCorr = `$${f1.texFraction} > 1$ et $${f2.texFraction}<1$, donc le plus ${choix ? 'grand' : 'petit'} nombre est : $${miseEnEvidence(reponse)}$.`
             handleAnswers(this, i, {
@@ -3038,9 +3441,14 @@ export default class CourseAuxNombresSpeciale2024 extends Exercice {
             setReponse(this, index, reponse)
 
             if (this.interactif) {
-              texte += ajouteChampTexteMathLive(this, index, '', {
-                texteApres: ' bouteilles',
-              })
+              texte += ajouteChampTexteMathLive(
+                this,
+                index,
+                KeyboardType.clavierNumbers,
+                {
+                  texteApres: ' bouteilles',
+                },
+              )
             } else {
               texte += ''
             }

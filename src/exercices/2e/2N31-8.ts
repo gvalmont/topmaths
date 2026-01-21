@@ -1,3 +1,4 @@
+import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 import { setReponse } from '../../lib/interactif/gestionInteractif'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
@@ -223,9 +224,14 @@ export default class ConversionsPuissancesDe10 extends Exercice {
       }
       texte = this.interactif
         ? `$${texNombre(a)}\\times10^{${n}}~${uniteOrdre[0]} = ${texNombre(a)}\\times $` +
-          ajouteChampTexteMathLive(this, i, ' ', {
-            texteApres: ` $${uniteOrdre[1]}$`,
-          })
+          ajouteChampTexteMathLive(
+            this,
+            i,
+            KeyboardType.clavierDeBaseAvecFractionPuissanceCrochets,
+            {
+              texteApres: ` $${uniteOrdre[1]}$`,
+            },
+          )
         : `$${texNombre(a)}\\times10^{${n}}~${uniteOrdre[0]} = ${texNombre(a)}\\times 10^{${miseEnEvidence('\\ldots', 'black')}}~${uniteOrdre[1]}$`
       setReponse(this, i, [
         '10^' + exposantReponse,

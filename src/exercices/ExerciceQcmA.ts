@@ -1,4 +1,4 @@
-import type { IExerciceQcmA } from './Exercice.type'
+import type { IExerciceQcmA } from '../lib/types'
 import ExerciceQcm from './ExerciceQcm'
 
 // class à utiliser pour fabriquer des Qcm ayant une version aléatoire

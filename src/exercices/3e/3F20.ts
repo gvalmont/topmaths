@@ -4,6 +4,7 @@ import { polyline } from '../../lib/2d/Polyline'
 import { repere } from '../../lib/2d/reperes'
 import { texteParPoint } from '../../lib/2d/textes'
 import { tracePoint } from '../../lib/2d/TracePoint'
+import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 import {
   handleAnswers,
   setReponse,
@@ -102,7 +103,6 @@ Le choix a été fait d'un antécédent primaire entier positif, le coefficient 
     for (
       let i = 0, texteAMC, valeurAMC, cpt = 0;
       i < this.nbQuestions && cpt < 50;
-
     ) {
       const elementAmc: AutoCorrection = {}
       const nomFonction = String.fromCharCode(102 + i)
@@ -131,6 +131,7 @@ Le choix a été fait d'un antécédent primaire entier positif, le coefficient 
       const antecedent = choice(
         rangeMinMax(-10, 10, [antecedent0, 0, 1, -1, 2 * antecedent0]),
       )
+
       const image0 =
         coefficient instanceof FractionEtendue
           ? coefficient.num
@@ -219,14 +220,20 @@ Le choix a été fait d'un antécédent primaire entier positif, le coefficient 
         1,
         'gauche',
       )
-
       switch (listeTypesDeQuestions[i]) {
         // On détermine l'image à partir de l'expression générale de la fonction
         case 'imageParExpression':
           texte += `Soit $${nomFonction}(x)=${coefficient instanceof FractionEtendue ? coefficient.texFSD : texNombre(coefficient as number)}x$.<br>`
           texte += `Calculer l'image de $${antecedent}$ par $${nomFonction}$`
           texte += this.interactif
-            ? ajouteChampTexteMathLive(this, i, ' ', { texteAvant: ' :' })
+            ? ajouteChampTexteMathLive(
+                this,
+                i,
+                coefficient instanceof FractionEtendue
+                  ? KeyboardType.clavierDeBaseAvecFraction
+                  : KeyboardType.clavierNumbers,
+                { texteAvant: ' :' },
+              )
             : '.'
           texteCorr += `$${nomFonction}(${texNombre(antecedent, 0)})=${coefficient instanceof FractionEtendue ? coefficient.texFSD : texNombre(coefficient as number, 0)} \\times ${ecritureParentheseSiNegatif(antecedent)}`
           texteCorr += `=${coefficient instanceof FractionEtendue ? (image as FractionEtendue).texFSD : texNombre(image, 0)}$`
@@ -239,7 +246,14 @@ Le choix a été fait d'un antécédent primaire entier positif, le coefficient 
           texte += `Soit $${nomFonction}$ la fonction linéaire telle que $${nomFonction}(${antecedent0})=${texNombre(image0, 0)}$.<br>`
           texte += `Calculer l'image de $${antecedent}$ par $${nomFonction}$`
           texte += this.interactif
-            ? ajouteChampTexteMathLive(this, i, ' ', { texteAvant: ' :' })
+            ? ajouteChampTexteMathLive(
+                this,
+                i,
+                coefficient instanceof FractionEtendue
+                  ? KeyboardType.clavierDeBaseAvecFraction
+                  : KeyboardType.clavierNumbers,
+                { texteAvant: ' :' },
+              )
             : '.'
           texteCorr += `Comme $${nomFonction}(${antecedent0})=${texNombre(image0, 0)}$, le coefficient $a$ tel que de $${nomFonction}(x)=ax$ vérifie $a\\times ${antecedent0} = ${image0}$.<br>`
           texteCorr += `On en déduit $a=\\dfrac{${texNombre(image0, 0)}}{${antecedent0}}`
@@ -262,7 +276,14 @@ Le choix a été fait d'un antécédent primaire entier positif, le coefficient 
           texte += `La droite représentant la fonction linéaire $${nomFonction}$ passe par le point de coordonnées $(${antecedent0};${image0})$.<br>`
           texte += `Calculer l'image de $${antecedent}$ par $${nomFonction}$`
           texte += this.interactif
-            ? ajouteChampTexteMathLive(this, i, ' ', { texteAvant: ' :' })
+            ? ajouteChampTexteMathLive(
+                this,
+                i,
+                coefficient instanceof FractionEtendue
+                  ? KeyboardType.clavierDeBaseAvecFraction
+                  : KeyboardType.clavierNumbers,
+                { texteAvant: ' :' },
+              )
             : '.'
           texte += '<br>'
           texte += mathalea2d(
@@ -290,7 +311,14 @@ Le choix a été fait d'un antécédent primaire entier positif, le coefficient 
           texte += `Soit $${nomFonction}(x)=${coefficient instanceof FractionEtendue ? coefficient.texFSD : texNombre(coefficient as number)}x$.<br>`
           texte += `Calculer l'antécédent de $${imageString}$ par $${nomFonction}$`
           texte += this.interactif
-            ? ajouteChampTexteMathLive(this, i, ' ', { texteAvant: ' :' })
+            ? ajouteChampTexteMathLive(
+                this,
+                i,
+                coefficient instanceof FractionEtendue
+                  ? KeyboardType.clavierDeBaseAvecFraction
+                  : KeyboardType.clavierNumbers,
+                { texteAvant: ' :' },
+              )
             : '.'
           texteCorr += `Posons $b$ l'antécédent de $${imageString}$, alors $${nomFonction}(b)=${coefficientString}\\times b=${imageString}$.<br>`
           if (coefficient instanceof FractionEtendue) {
@@ -309,7 +337,14 @@ Le choix a été fait d'un antécédent primaire entier positif, le coefficient 
           texte += `Soit $${nomFonction}$ la fonction linéaire telle que $${nomFonction}(${antecedent0})=${texNombre(image0, 0)}$.<br>`
           texte += `Calculer l'antécédent de $${imageString}$ par $${nomFonction}$`
           texte += this.interactif
-            ? ajouteChampTexteMathLive(this, i, ' ', { texteAvant: ' :' })
+            ? ajouteChampTexteMathLive(
+                this,
+                i,
+                coefficient instanceof FractionEtendue
+                  ? KeyboardType.clavierDeBaseAvecFraction
+                  : KeyboardType.clavierNumbers,
+                { texteAvant: ' :' },
+              )
             : '.'
           texteCorr += `Comme $${nomFonction}(${antecedent0})=${texNombre(image0, 0)}$, le coefficient $a$ tel que de $${nomFonction}(x)=ax$ vérifie $a\\times ${antecedent0} = ${image0}$.<br>`
           texteCorr += `$a=\\dfrac{${texNombre(image0, 0)}}{${antecedent0}}`
@@ -335,7 +370,14 @@ Le choix a été fait d'un antécédent primaire entier positif, le coefficient 
           texte += `La droite représentant la fonction linéaire $${nomFonction}$ passe par le point de coordonnées $(${antecedent0};${image0})$.<br>`
           texte += `Calculer l'antécédent de $${imageString}$ par $${nomFonction}$`
           texte += this.interactif
-            ? ajouteChampTexteMathLive(this, i, ' ', { texteAvant: ' :' })
+            ? ajouteChampTexteMathLive(
+                this,
+                i,
+                coefficient instanceof FractionEtendue
+                  ? KeyboardType.clavierDeBaseAvecFraction
+                  : KeyboardType.clavierNumbers,
+                { texteAvant: ' :' },
+              )
             : '.'
           texte += '<br>'
           texte += mathalea2d(
@@ -377,9 +419,14 @@ Le choix a été fait d'un antécédent primaire entier positif, le coefficient 
             texte += `Donner le coefficient de  $${nomFonction}$.`
           } else {
             texte += `Donner l'expression de  $${nomFonction}(x)$.`
-            texte += ajouteChampTexteMathLive(this, i, ' ', {
-              texteAvant: `<br>$${nomFonction}(x)=$`,
-            })
+            texte += ajouteChampTexteMathLive(
+              this,
+              i,
+              KeyboardType.clavierFullOperations,
+              {
+                texteAvant: `<br>$${nomFonction}(x)=$`,
+              },
+            )
           }
           texteCorr += `Comme $${nomFonction}(${antecedent0})=${texNombre(image0, 0)}$, le coefficient $a$ tel que de $${nomFonction}(x)=ax$ vérifie $a\\times ${antecedent0} = ${image0}$.<br>`
           texteCorr += `Soit $a=\\dfrac{${texNombre(image0, 0)}}{${antecedent0}}`
@@ -406,9 +453,14 @@ Le choix a été fait d'un antécédent primaire entier positif, le coefficient 
             texte += `Donner le coefficient de  $${nomFonction}$.`
           } else {
             texte += `Donner l'expression de  $${nomFonction}(x)$.`
-            texte += ajouteChampTexteMathLive(this, i, ' ', {
-              texteAvant: `<br>$${nomFonction}(x)=$`,
-            })
+            texte += ajouteChampTexteMathLive(
+              this,
+              i,
+              KeyboardType.clavierFullOperations,
+              {
+                texteAvant: `<br>$${nomFonction}(x)=$`,
+              },
+            )
           }
           texte += '<br>'
           texte += mathalea2d(
@@ -456,6 +508,7 @@ Le choix a été fait d'un antécédent primaire entier positif, le coefficient 
               type: 'AMCNum',
               propositions: [
                 {
+                  texte: '',
                   reponse: {
                     texte: JCAMC ? texteAMC : '',
                     valeur: valeurAMC,

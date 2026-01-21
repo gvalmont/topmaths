@@ -9,6 +9,7 @@ import {
 // import { reduireAxPlusB } from '../../lib/outils/ecritures'
 
 import { texNombre } from '../../lib/outils/texNombre'
+import { context } from '../../modules/context'
 import type FractionEtendue from '../../modules/FractionEtendue'
 import { mathalea2d } from '../../modules/mathalea2d'
 import { randint } from '../../modules/outils'
@@ -275,14 +276,12 @@ export default class Auto1AF5 extends ExerciceQcmA {
     On en déduit le tableau de signes de leur produit :` +
       tableauDeVariation({
         tabInit: [
-          // @ts-expect-error TableauDeVariation n'est pas typé correctement
           [
             ['$x$', 2, 30],
             ['$g(x)$', 2, 50],
             ['$h(x)$', 2, 50],
             ['$f(x)$', 2, 100],
           ],
-          // @ts-expect-error tableau de variation n'est pas typé
           [
             '$-\\infty$',
             30,
@@ -294,9 +293,7 @@ export default class Auto1AF5 extends ExerciceQcmA {
             30,
           ],
         ],
-        // @ts-expect-error tableau de variation n'est pas typé
         tabLines: [ligne1, ligne2, ligne3],
-        colorBackground: '',
         espcl: 3,
         deltacl: 1,
         lgt: 5,
@@ -309,14 +306,18 @@ export default class Auto1AF5 extends ExerciceQcmA {
     // Générer des coefficients jusqu'à obtenir des racines différentes
     do {
       a = randint(-4, 4, 0)
-      b = a * randint(-3, 3, 0)
+      b = a * randint(-4, 4)
       m = randint(-4, 4, [a, 0])
       p = m * randint(-3, 3, 0)
 
       // Calcul des racines
       racine1 = -b / a // racine de ax + b = 0
       racine2 = -p / m // racine de mx + p = 0
-    } while (Math.abs(racine1 - racine2) < 0.1) // S'assurer que les racines sont suffisamment différentes
+    } while (
+      Math.abs(racine1 - racine2) < 0.1 ||
+      racine1 === racine2 ||
+      racine1 === -racine2
+    ) // S'assurer que les racines sont suffisamment différentes
 
     // Tri des racines par ordre croissant
     const racines = [racine1, racine2].sort((x, y) => x - y)
@@ -580,14 +581,12 @@ export default class Auto1AF5 extends ExerciceQcmA {
     On en déduit le tableau de signes de leur produit :` +
       tableauDeVariation({
         tabInit: [
-          // @ts-expect-error TableauDeVariation n'est pas typé correctement
           [
             ['$x$', 2, 30],
             ['$g(x)$', 2, 50],
             ['$h(x)$', 2, 50],
             ['$f(x)$', 2, 100],
           ],
-          // @ts-expect-error tableau de variation n'est pas typé
           [
             '$-\\infty$',
             30,
@@ -599,9 +598,7 @@ export default class Auto1AF5 extends ExerciceQcmA {
             30,
           ],
         ],
-        // @ts-expect-error tableau de variation n'est pas typé
         tabLines: [ligne1, ligne2, ligne3],
-        colorBackground: '',
         espcl: 3,
         deltacl: 1,
         lgt: 5,
@@ -612,5 +609,8 @@ export default class Auto1AF5 extends ExerciceQcmA {
     super()
     // Appel de la version originale par défaut, ou de la version aléatoire selon les besoins
     this.versionOriginale()
+    context.isHtml
+      ? (this.options = { vertical: false, ordered: false })
+      : (this.options = { vertical: true, ordered: false })
   }
 }

@@ -38,35 +38,36 @@
           {i + 1}
         </div>
       {/if}
-      <div
-        id="exerciseContainer{i}"
-        bind:this="{divQuestion[i]}"
-        class="flex flex-col justify-center items-center px-4 w-full min-h-[100%] max-h-[100%]"
-      >
-        {#if isQuestionVisible && currentSlide.vues[i]}
-          <div class="py-4 flex items-center" id="question{i}">
-            {#if isImagesOnSides}
-              <QuestionWithImagesOnSides slideView="{currentSlide.vues[i]}" />
-            {:else}
-              <QuestionWithImagesInside slideView="{currentSlide.vues[i]}" />
-            {/if}
-          </div>
-        {/if}
-        {#if isCorrectionVisible && currentSlide.vues[i]}
-          <div
-            id="correction{i}"
-            class="flex items-center my-10
-              bg-opacity-30 dark:bg-opacity-30
-              bg-coopmaths-warn-light dark:bg-coopmathsdark-warn-light"
-          >
-            {#if isImagesOnSides}
-              <CorrectionWithImagesOnSides slideView="{currentSlide.vues[i]}" />
-            {:else}
-              <CorrectionWithImagesInside slideView="{currentSlide.vues[i]}" />
-            {/if}
-          </div>
-        {/if}
-      </div>
+      {#key currentSlide.vues[i].question + currentSlide.vues[i].correction}
+        <div
+          id="exerciseContainer{i}"
+          bind:this={divQuestion[i]}
+          class="flex flex-col justify-center items-center px-4 w-full min-h-[100%] max-h-[100%]"
+        >
+          {#if isQuestionVisible && currentSlide.vues[i]}
+            <div class="py-4 flex items-center" id="question{i}">
+              {#if isImagesOnSides}
+                <QuestionWithImagesOnSides slideView={currentSlide.vues[i]} />
+              {:else}
+                <QuestionWithImagesInside slideView={currentSlide.vues[i]} />
+              {/if}
+            </div>
+          {/if}
+          {#if isCorrectionVisible && currentSlide.vues[i]}
+            <div
+              id="correction{i}"
+              class="flex items-center my-10
+              bg-coopmaths-warn-light/30 dark:bg-coopmathsdark-warn-light/30"
+            >
+              {#if isImagesOnSides}
+                <CorrectionWithImagesOnSides slideView={currentSlide.vues[i]} />
+              {:else}
+                <CorrectionWithImagesInside slideView={currentSlide.vues[i]} />
+              {/if}
+            </div>
+          {/if}
+        </div>
+      {/key}
     </div>
   {/each}
 </div>

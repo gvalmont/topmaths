@@ -6,6 +6,7 @@ import { triangle2points2longueurs } from '../../lib/2d/triangles'
 import { angleOriente, longueur } from '../../lib/2d/utilitairesGeometriques'
 import { pointAdistance, pointSurSegment } from '../../lib/2d/utilitairesPoint'
 import { texteGras } from '../../lib/format/style'
+import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { ajouterBoutonMathalea2d } from '../../lib/outils/enrichissements'
@@ -71,7 +72,6 @@ export default class Thales2D extends Exercice {
     for (
       let i = 0, texte = '', texteCorr = '', cpt = 0;
       i < this.nbQuestions && cpt < 50;
-
     ) {
       // this.autoCorrection[i] = {}
       if (i % 3 === 0) {
@@ -296,9 +296,13 @@ export default class Thales2D extends Exercice {
             options: { unite: true },
           },
         }) // 2 réponses par question donc 2i et 2i + 1 ainsi elles restent ordonnées
-        texte += ajouteChampTexteMathLive(this, i * 2, 'unites[longueurs] ')
+        texte += ajouteChampTexteMathLive(this, i * 2, KeyboardType.longueur)
         texte += `<br>$${nomC + nomB} = $`
-        texte += ajouteChampTexteMathLive(this, i * 2 + 1, 'unites[longueurs] ')
+        texte += ajouteChampTexteMathLive(
+          this,
+          i * 2 + 1,
+          KeyboardType.longueur,
+        )
         handleAnswers(this, i * 2 + 1, {
           reponse: { value: new Grandeur(bc, 'cm'), options: { unite: true } },
         })

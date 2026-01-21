@@ -64,6 +64,13 @@ RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
   <FilesMatch "^version\.txt$">
     Header set Cache-Control "no-cache, no-store, must-revalidate, max-age=0"
   </FilesMatch>
+  
+   # SPECIAL: ne pas mettre en cache les scripts moodle
+  <FilesMatch "^(moodle(\.scorm|-bookmarklet)?\.js)$">
+    Header set Cache-Control "no-cache, no-store, must-revalidate, max-age=0"
+    Header unset Expires
+    Header unset Pragma
+  </FilesMatch>
 
   # Assets AVEC hash (-[A-Za-z0-9]{8,}) => long cache immutable
   Header set Cache-Control "public, max-age=31536000, immutable" "expr=%{REQUEST_URI} =~ m#\.(?:css|js|jpg|jpeg|png|gif|svg|ico|webp|woff|woff2|ttf|eot|otf|map|tex)$#i && %{REQUEST_URI} =~ m#-[A-Za-z0-9]{8,}#"

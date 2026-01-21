@@ -29,7 +29,6 @@ import {
   setReponse,
 } from '../../../lib/interactif/gestionInteractif'
 import { ajouteChampTexteMathLive } from '../../../lib/interactif/questionMathLive'
-import { arrondi } from '../../../lib/outils/nombres'
 import FractionEtendue from '../../../modules/FractionEtendue'
 import type { NestedObjetMathalea2dArray } from '../../../types/2d'
 
@@ -141,7 +140,11 @@ export default class SujetCAN2021Seconde extends Exercice {
           reponse = a * 99
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) {
-            texte += ajouteChampTexteMathLive(this, index, ' ')
+            texte += ajouteChampTexteMathLive(
+              this,
+              index,
+              KeyboardType.clavierNumbers,
+            )
           } else {
             texte += '$\\ldots$'
           }
@@ -162,7 +165,11 @@ export default class SujetCAN2021Seconde extends Exercice {
 
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) {
-            texte += ajouteChampTexteMathLive(this, index, ' ')
+            texte += ajouteChampTexteMathLive(
+              this,
+              index,
+              KeyboardType.clavierNumbers,
+            )
           } else {
             texte += '$\\ldots$'
           }
@@ -184,11 +191,18 @@ export default class SujetCAN2021Seconde extends Exercice {
              =\\dfrac{${b.n * c.d}+${c.n * b.d}}{${c.d * b.d}}=\\dfrac{${b.n * c.d + c.n * b.d}}{${b.d * c.d}}$.`
 
             reponse = fraction(b.n * c.d + c.n * b.d, b.d * c.d)
-            setReponse(this, index, reponse, {
-              formatInteractif: 'fractionEgale',
+            handleAnswers(this, i, {
+              reponse: {
+                value: reponse,
+                options: { fractionEgale: true },
+              },
             })
             if (this.interactif) {
-              texte += ajouteChampTexteMathLive(this, index, ' ')
+              texte += ajouteChampTexteMathLive(
+                this,
+                index,
+                KeyboardType.clavierDeBaseAvecFraction,
+              )
             } else {
               texte += '$\\ldots$'
             }
@@ -207,7 +221,11 @@ export default class SujetCAN2021Seconde extends Exercice {
           reponse = a
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) {
-            texte += ajouteChampTexteMathLive(this, index, ' ')
+            texte += ajouteChampTexteMathLive(
+              this,
+              index,
+              KeyboardType.clavierNumbers,
+            )
           } else {
             texte += '$\\ldots$'
           }
@@ -230,7 +248,12 @@ export default class SujetCAN2021Seconde extends Exercice {
           }
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) {
-            texte += ajouteChampTexteMathLive(this, index, ' ') + 'km/h'
+            texte +=
+              ajouteChampTexteMathLive(
+                this,
+                index,
+                KeyboardType.clavierNumbers,
+              ) + 'km/h'
           } else {
             texte += '$\\ldots\\text{ km/h}$'
           }
@@ -248,7 +271,11 @@ export default class SujetCAN2021Seconde extends Exercice {
 
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) {
-            texte += ajouteChampTexteMathLive(this, index, ' ')
+            texte += ajouteChampTexteMathLive(
+              this,
+              index,
+              KeyboardType.clavierNumbers,
+            )
           }
           nbChamps = 1
           break
@@ -267,11 +294,18 @@ export default class SujetCAN2021Seconde extends Exercice {
           \\dfrac{${b.n}\\times ${k2}}{${b.d}\\times${k1}}\\times \\dfrac{${c.n}\\times ${k1}}{${c.d}\\times ${k2}}=\\dfrac{${b.n}\\times ${k2}\\times ${c.n}\\times ${k1}}{${b.d}\\times${k1}\\times ${c.d}\\times ${k2}}=${texFractionReduite(b.n * c.n, b.d * c.d)}$`
 
             reponse = fraction(b.n * c.n, b.d * c.d)
-            setReponse(this, index, reponse, {
-              formatInteractif: 'fractionEgale',
+            handleAnswers(this, i, {
+              reponse: {
+                value: reponse,
+                options: { fractionEgale: true },
+              },
             })
             if (this.interactif) {
-              texte += ajouteChampTexteMathLive(this, index, ' ')
+              texte += ajouteChampTexteMathLive(
+                this,
+                index,
+                KeyboardType.clavierDeBaseAvecFraction,
+              )
             } else {
               texte += '$\\ldots$'
             }
@@ -295,7 +329,11 @@ export default class SujetCAN2021Seconde extends Exercice {
                       `
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) {
-            texte += ajouteChampTexteMathLive(this, index, ' ')
+            texte += ajouteChampTexteMathLive(
+              this,
+              index,
+              KeyboardType.clavierNumbers,
+            )
           }
           nbChamps = 1
           break
@@ -318,7 +356,11 @@ export default class SujetCAN2021Seconde extends Exercice {
           }
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) {
-            texte += ajouteChampTexteMathLive(this, index, ' ')
+            texte += ajouteChampTexteMathLive(
+              this,
+              index,
+              KeyboardType.clavierNumbers,
+            )
           }
           nbChamps = 1
           break
@@ -335,7 +377,11 @@ export default class SujetCAN2021Seconde extends Exercice {
                    `
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) {
-            texte += ajouteChampTexteMathLive(this, index, ' ')
+            texte += ajouteChampTexteMathLive(
+              this,
+              index,
+              KeyboardType.clavierNumbers,
+            )
           } else {
             texte += '$\\ldots$'
           }
@@ -372,7 +418,11 @@ export default class SujetCAN2021Seconde extends Exercice {
             }
             setReponse(this, index, reponse, { formatInteractif: 'calcul' })
             if (this.interactif) {
-              texte += ajouteChampTexteMathLive(this, index, ' ')
+              texte += ajouteChampTexteMathLive(
+                this,
+                index,
+                KeyboardType.clavierDeBaseAvecFractionPuissanceCrochets,
+              )
             }
             nbChamps = 1
           }
@@ -395,7 +445,11 @@ export default class SujetCAN2021Seconde extends Exercice {
           })
           if (this.interactif) {
             texte += '<br>Écrire les entiers séparés par un point-virgule.'
-            texte += ajouteChampTexteMathLive(this, index, '')
+            texte += ajouteChampTexteMathLive(
+              this,
+              index,
+              KeyboardType.clavierFullOperations,
+            )
           }
 
           nbChamps = 1
@@ -417,7 +471,11 @@ export default class SujetCAN2021Seconde extends Exercice {
           }
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) {
-            texte += ajouteChampTexteMathLive(this, index, ' ')
+            texte += ajouteChampTexteMathLive(
+              this,
+              index,
+              KeyboardType.lyceeClassique,
+            )
           }
           nbChamps = 1
 
@@ -446,7 +504,12 @@ export default class SujetCAN2021Seconde extends Exercice {
 
             setReponse(this, index, reponse, { formatInteractif: 'calcul' })
             if (this.interactif) {
-              texte += ajouteChampTexteMathLive(this, index, ' ') + 'L'
+              texte +=
+                ajouteChampTexteMathLive(
+                  this,
+                  index,
+                  KeyboardType.clavierNumbers,
+                ) + 'L'
             } else {
               texte += '$\\ldots$ L'
             }
@@ -475,7 +538,11 @@ export default class SujetCAN2021Seconde extends Exercice {
             })
 
             if (this.interactif) {
-              texte += ajouteChampTexteMathLive(this, index, ' ')
+              texte += ajouteChampTexteMathLive(
+                this,
+                index,
+                KeyboardType.clavierDeBaseAvecFraction,
+              )
             }
             nbChamps = 1
           }
@@ -508,9 +575,18 @@ export default class SujetCAN2021Seconde extends Exercice {
               texteCorr = `$${listeFacteurs16[0] * listeFacteurs16[0] * listeFacteurs16[1]}=${listeFacteurs16[0]}\\times ${listeFacteurs16[0]}\\times ${listeFacteurs16[1]}=${listeFacteurs16[0]}^2\\times ${listeFacteurs16[1]}$`
             }
 
-            setReponse(this, index, reponse, { formatInteractif: 'calcul' })
+            handleAnswers(this, index, {
+              reponse: {
+                value: reponse,
+                options: { expressionNumerique: true },
+              },
+            })
             if (this.interactif) {
-              texte += ajouteChampTexteMathLive(this, index, ' ')
+              texte += ajouteChampTexteMathLive(
+                this,
+                index,
+                KeyboardType.clavierDeBase,
+              )
             }
             nbChamps = 1
           }
@@ -531,7 +607,11 @@ export default class SujetCAN2021Seconde extends Exercice {
           reponse = 100 * a
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) {
-            texte += ajouteChampTexteMathLive(this, index, ' ')
+            texte += ajouteChampTexteMathLive(
+              this,
+              index,
+              KeyboardType.clavierNumbers,
+            )
           } else {
             texte += '$\\ldots$'
           }
@@ -553,10 +633,15 @@ export default class SujetCAN2021Seconde extends Exercice {
           setReponse(this, index, reponse, { formatInteractif: 'texte' })
           texte +=
             '<br>' +
-            ajouteChampTexteMathLive(this, index, ' ', {
-              texteAvant: '$($',
-              texteApres: '$)$',
-            })
+            ajouteChampTexteMathLive(
+              this,
+              index,
+              KeyboardType.clavierFullOperations,
+              {
+                texteAvant: '$($',
+                texteApres: '$)$',
+              },
+            )
 
           nbChamps = 1
 
@@ -662,7 +747,11 @@ export default class SujetCAN2021Seconde extends Exercice {
             }
             setReponse(this, index, reponse, { formatInteractif: 'calcul' })
             if (this.interactif) {
-              texte += ajouteChampTexteMathLive(this, index, ' ')
+              texte += ajouteChampTexteMathLive(
+                this,
+                index,
+                KeyboardType.clavierNumbers,
+              )
             }
             nbChamps = 1
           }
@@ -699,7 +788,11 @@ export default class SujetCAN2021Seconde extends Exercice {
             }
             setReponse(this, index, reponse, { formatInteractif: 'calcul' })
             if (this.interactif) {
-              texte += ajouteChampTexteMathLive(this, index, ' ')
+              texte += ajouteChampTexteMathLive(
+                this,
+                index,
+                KeyboardType.lyceeClassique,
+              )
             }
             nbChamps = 1
           }
@@ -788,7 +881,11 @@ export default class SujetCAN2021Seconde extends Exercice {
           }
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) {
-            texte += ajouteChampTexteMathLive(this, index, ' ')
+            texte += ajouteChampTexteMathLive(
+              this,
+              index,
+              KeyboardType.clavierDeBase,
+            )
           }
           nbChamps = 1
           break
@@ -806,11 +903,18 @@ export default class SujetCAN2021Seconde extends Exercice {
            $\\dfrac{y_B-y_A}{x_B-x_A}=\\dfrac{${d}-${b}}{${c}-${a}}=${(d - b) / (c - a)}$.
           `
           reponse = fraction(d - b, c - a)
-          setReponse(this, index, reponse, {
-            formatInteractif: 'fractionEgale',
+          handleAnswers(this, i, {
+            reponse: {
+              value: reponse,
+              options: { fractionEgale: true },
+            },
           })
           if (this.interactif) {
-            texte += ajouteChampTexteMathLive(this, index, ' ')
+            texte += ajouteChampTexteMathLive(
+              this,
+              index,
+              KeyboardType.clavierDeBaseAvecFraction,
+            )
           }
           nbChamps = 1
           break
@@ -846,11 +950,18 @@ export default class SujetCAN2021Seconde extends Exercice {
           texteCorr = `Il y a $${b}$ boules rouges sur un total de $${a + b}$ boules. <br>
           La probabilité de tirer une boule rouge est donc : $\\dfrac{${a}}{${a + b}}${simplificationDeFractionAvecEtapes(a, a + b)}$`
 
-          setReponse(this, index, reponse, {
-            formatInteractif: 'fractionEgale',
+          handleAnswers(this, i, {
+            reponse: {
+              value: reponse,
+              options: { fractionEgale: true },
+            },
           })
           if (this.interactif) {
-            texte += ajouteChampTexteMathLive(this, index, ' ')
+            texte += ajouteChampTexteMathLive(
+              this,
+              index,
+              KeyboardType.clavierDeBaseAvecFraction,
+            )
           }
           nbChamps = 1
           break
@@ -1028,7 +1139,11 @@ Donner une valeur approchée de l'antécédent de $${a}$ par $f$ ?<br>`
 
             setReponse(this, index, reponse, { formatInteractif: 'intervalle' })
             if (this.interactif) {
-              texte += ajouteChampTexteMathLive(this, index, ' ')
+              texte += ajouteChampTexteMathLive(
+                this,
+                index,
+                KeyboardType.clavierNumbers,
+              )
             }
             nbChamps = 1
           }
@@ -1059,7 +1174,11 @@ Donner une valeur approchée de l'antécédent de $${a}$ par $f$ ?<br>`
               },
             })
             if (this.interactif) {
-              texte += ajouteChampTexteMathLive(this, index, ' ')
+              texte += ajouteChampTexteMathLive(
+                this,
+                index,
+                KeyboardType.clavierDeBaseAvecFraction,
+              )
             }
             nbChamps = 1
           }

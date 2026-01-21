@@ -1,17 +1,18 @@
+import { handleAnswers } from '../../lib/interactif/gestionInteractif'
+import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
-import { miseEnEvidence } from '../../lib/outils/embellissements'
 import {
-  texFractionFromString,
   simplificationDeFractionAvecEtapes,
+  texFractionFromString,
 } from '../../lib/outils/deprecatedFractions'
 import { ecritureParentheseSiNegatif } from '../../lib/outils/ecritures'
+import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { pgcd, ppcm } from '../../lib/outils/primalite'
-import Exercice from '../Exercice'
-import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import { fraction } from '../../modules/fractions'
-import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
-import { handleAnswers } from '../../lib/interactif/gestionInteractif'
+import { listeQuestionsToContenu, randint } from '../../modules/outils'
+import Exercice from '../Exercice'
 
+import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 import { context } from '../../modules/context'
 
 export const titre = 'Additionner deux fractions'
@@ -224,7 +225,12 @@ export default class ExerciceAdditionnerDesFractions extends Exercice {
       // Fin de cette uniformisation
 
       reponse = fraction(num, den).simplifie()
-      texte += ajouteChampTexteMathLive(this, i, '  ', { texteAvant: '$=$' })
+      texte += ajouteChampTexteMathLive(
+        this,
+        i,
+        KeyboardType.clavierDeBaseAvecFraction,
+        { texteAvant: '$=$' },
+      )
       handleAnswers(this, i, {
         reponse: {
           value: reponse.toLatex(),

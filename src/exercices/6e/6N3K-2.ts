@@ -5,6 +5,7 @@ import { mathalea2d } from '../../modules/mathalea2d'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import Exercice from '../Exercice'
 
+import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 import { setReponse } from '../../lib/interactif/gestionInteractif'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import FractionEtendue from '../../modules/FractionEtendue'
@@ -58,7 +59,6 @@ export default class AjouterDesFractionsDunite extends Exercice {
     for (
       let i = 0, texte, texteCorr, cpt = 0;
       i < this.nbQuestions && cpt < 50;
-
     ) {
       objets = []
       den = liste[i]
@@ -86,7 +86,11 @@ export default class AjouterDesFractionsDunite extends Exercice {
         },
       )
       if (this.interactif && !context.isAmc) {
-        texte += ajouteChampTexteMathLive(this, i, '')
+        texte += ajouteChampTexteMathLive(
+          this,
+          i,
+          KeyboardType.clavierDeBaseAvecFraction,
+        )
       }
       texteCorr =
         'Voici sur ces dessins, coloriés en rouge, les différents segments :<br>'

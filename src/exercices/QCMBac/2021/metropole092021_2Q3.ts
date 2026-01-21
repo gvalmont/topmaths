@@ -132,9 +132,9 @@ export default class MetropoleJuin24Exo4Q1 extends ExerciceQcmA {
     this.enonce +=
       'On admet que la dérivée seconde de la fonction $f$ est définie sur $\\mathbb R$ par :<br> '
     this.enonce +=
-      '$f^{\\prime\\prime}(x) = (10x + 25)\\text{e}^x$. <br>On peut affirmer que:'
-    this.correction = `$f''(x) = 0 \\iff (10x + 25)\\text{e}^x = 0 \\iff 10x + 25 = 0$ <br>
-    (car $\\text{e}^x > 0$ quel que soit $x \\in \\mathbb R$) ;<br> donc 
+      '$f^{\\prime\\prime}(x) = (10x + 25)\\mathrm{e}^x$. <br>On peut affirmer que:'
+    this.correction = `$f''(x) = 0 \\iff (10x + 25)\\mathrm{e}^x = 0 \\iff 10x + 25 = 0$ <br>
+    (car $\\mathrm{e}^x > 0$ quel que soit $x \\in \\mathbb R$) ;<br> donc 
 $f''(x) = 0 \\iff x = - 2,5$ : C est donc l'unique point d'inflexion.`
   }
 

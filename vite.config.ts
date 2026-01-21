@@ -1,4 +1,5 @@
 import { svelte } from '@sveltejs/vite-plugin-svelte'
+import tailwindcss from '@tailwindcss/vite'
 import * as fs from 'fs'
 import * as path from 'path'
 import { visualizer } from 'rollup-plugin-visualizer'
@@ -67,6 +68,7 @@ export default defineConfig({
     __REACT_DEVTOOLS_GLOBAL_HOOK__: JSON.stringify({ isDisabled: true }),
   },
   plugins: [
+    tailwindcss(),
     svelte({
       compilerOptions: {
         dev: process.env.NODE_ENV !== 'production',

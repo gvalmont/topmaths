@@ -1,32 +1,32 @@
 <script lang="ts">
   import {
-    type JSONReferentielObject,
-    type ResourceAndItsPath,
-    type ReferentielInMenu,
-    type ActivationName,
-  } from '../../../../../lib/types/referentiels'
-  import {
     buildReferentiel,
     getAllEndings,
   } from '../../../../../lib/components/refUtils'
+  import {
+    type ActivationName,
+    type JSONReferentielObject,
+    type ReferentielInMenu,
+    type ResourceAndItsPath,
+  } from '../../../../../lib/types/referentiels'
   import ReferentielNode from './referentielNode/ReferentielNode.svelte'
   import SearchBlock from './searchBlock/SearchBlock.svelte'
   import SideMenuApps from './SideMenuApps.svelte'
 
+  import { onDestroy, onMount, type Component } from 'svelte'
   import codeToLevelList from '../../../../../json/codeToLevelList.json'
-  import { onDestroy, onMount } from 'svelte'
-  import { applyFilters } from './filtersStore'
   import { referentielLocale } from '../../../../../lib/stores/languagesStore'
+  import { applyFilters } from './filtersStore'
 
-  import type { SvelteComponent } from 'svelte'
-  import type { Language } from '../../../../../lib/types/languages'
   import { get } from 'svelte/store'
+  import { sortArrayOfResourcesBasedOnYearAndMonth } from '../../../../../lib/components/sorting'
   import {
     deepReferentielInMenuCopy,
     getReferentiels,
   } from '../../../../../lib/stores/referentielsStore'
-  import { sortArrayOfResourcesBasedOnYearAndMonth } from '../../../../../lib/components/sorting'
-  interface SearchBlockType extends SvelteComponent {
+  import type { Language } from '../../../../../lib/types/languages'
+
+  interface SearchBlockType extends Component {
     triggerUpdateFromSearchBlock: () => void
   }
 
@@ -165,25 +165,25 @@
   class="flex w-full md:h-full md:min-h-full flex-col items-start pb-4 pt-0 md:pt-4 ml-0 md:mx-0 bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark"
 >
   <SearchBlock
-    bind:this="{searchBlock}"
+    bind:this={searchBlock}
     class="w-full flex flex-col justify-start pt-0 sm:"
-    resourcesSet="{buildResourcesSet(referentielsForMenu)}"
-    on:filters-change="{() => {
+    resourcesSet={buildResourcesSet(referentielsForMenu)}
+    on:filters-change={() => {
       updateRepositories()
       searchBlock.triggerUpdateFromSearchBlock()
-    }}"
+    }}
     {addExercise}
   />
   <div class="mt-4 w-full">
     <!-- Affichage de tous les référentiels -->
     {#each referentielsForMenu as item, i}
       <ReferentielNode
-        bind:subset="{item.referentiel}"
-        indexBase="{i + 1}"
-        levelTitle="{item.title}"
-        nestedLevelCount="{1}"
+        bind:subset={item.referentiel}
+        indexBase={i + 1}
+        levelTitle={item.title}
+        nestedLevelCount={1}
         class="w-full px-4 text-[10px]"
-        pathToThisNode="{[]}"
+        pathToThisNode={[]}
       />
     {/each}
     <!-- Bouton spécial pour les applications tierces -->

@@ -15,6 +15,7 @@ import {
 } from '../../modules/outils'
 import Exercice from '../Exercice'
 
+import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { lettreDepuisChiffre } from '../../lib/outils/outilString'
 
@@ -116,7 +117,6 @@ export default class ExerciceMultiplierFractions extends Exercice {
         typesDeQuestions,
         cpt = 0;
       i < this.nbQuestions && cpt < 50;
-
     ) {
       typesDeQuestions = listeTypeDeQuestions[i]
       do {
@@ -208,7 +208,12 @@ export default class ExerciceMultiplierFractions extends Exercice {
       }
       if (this.questionJamaisPosee(i, a, b, c, d, typesDeQuestions)) {
         // Si la question n'a jamais été posée, on en créé une autre
-        texte += ajouteChampTexteMathLive(this, i, '  ', { texteAvant: '$=$' })
+        texte += ajouteChampTexteMathLive(
+          this,
+          i,
+          KeyboardType.clavierDeBaseAvecFraction,
+          { texteAvant: '$=$' },
+        )
         handleAnswers(this, i, {
           reponse: {
             value: reponse.toLatex(),

@@ -1,5 +1,6 @@
 import { glisseNombre } from '../../lib/2d/GlisseNombre'
 import { lampeMessage } from '../../lib/format/message'
+import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
@@ -94,7 +95,6 @@ export default class MultiplierUnDecimalParPuissanceDeDix extends Exercice {
     for (
       let i = 0, texte, texteCorr, cpt = 0;
       i < this.nbQuestions && cpt < 50;
-
     ) {
       const choixAlea = listeChoixAlea[i]
       const centaine = randint(0, 1) === 0 ? choice(rangeMinMax(0, 9)) : 0
@@ -112,11 +112,7 @@ export default class MultiplierUnDecimalParPuissanceDeDix extends Exercice {
 
       texte = `$${texNombre(exemple, 2)} \\times ${texNombre(10 ** (choixAlea - 3), 3)} =$`
       if (this.interactif) {
-        texte += ajouteChampTexteMathLive(
-          this,
-          i,
-          'inline largeur01 college6eme',
-        )
+        texte += ajouteChampTexteMathLive(this, i, KeyboardType.clavierNumbers)
       }
       texteCorr = `$${texNombre(exemple, 2)} \\times ${miseEnCouleur(texNombre(10 ** (choixAlea - 3), 3), 'blue')} = $  `
       texteCorr += `$${texNombre(exemple, 2)}$ ${texteEnCouleur(choixUnites[choixAlea], 'blue')} = $${miseEnEvidence(texNombre(exemple * 10 ** (choixAlea - 3), 5))}.$<br>`
@@ -132,7 +128,13 @@ export default class MultiplierUnDecimalParPuissanceDeDix extends Exercice {
         }
       }
 
-      if (this.questionJamaisPosee(i, texNombre(exemple, 2), texNombre(exemple * 10 ** (choixAlea - 3)))) {
+      if (
+        this.questionJamaisPosee(
+          i,
+          texNombre(exemple, 2),
+          texNombre(exemple * 10 ** (choixAlea - 3)),
+        )
+      ) {
         // Si la question n'a jamais été posée, on la stocke dans la liste des questions
         this.listeQuestions[i] = texte
         this.listeCorrections[i] = texteCorr

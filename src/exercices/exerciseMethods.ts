@@ -2,10 +2,10 @@ import Figure from 'apigeom/src/Figure'
 import CryptoJS from 'crypto-js'
 import type Decimal from 'decimal.js'
 import seedrandom from 'seedrandom'
+import type { IExercice, IExerciceSimple } from '../lib/types'
 import { CRC32 } from '../modules/crc32'
 import FractionEtendue from '../modules/FractionEtendue'
 import type { IFractionEtendue } from '../modules/FractionEtendue.type'
-import type { IExercice, IExerciceSimple } from './Exercice.type'
 type EventListener = (evt: Event) => void
 
 export function exportedNouvelleVersionWrapper(
@@ -55,8 +55,7 @@ export function exportedReinit(this: IExerciceSimple) {
     // figure APIGEOM
     this.figures.forEach((fig) => {
       if (fig instanceof Figure) {
-        fig.clearHtml()
-        fig.container = document.createElement('div')
+        fig.destroy()
       }
     })
   }

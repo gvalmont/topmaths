@@ -1,4 +1,5 @@
 import Decimal from 'decimal.js'
+import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { combinaisonListes } from '../../lib/outils/arrayOutils'
@@ -58,13 +59,13 @@ export default class EcritureDecimalePuissanceDe10 extends Exercice {
     for (
       let i = 0, texte, texteCorr, n, cpt = 0;
       i < this.nbQuestions && cpt < 50;
-
     ) {
       switch (listeTypeDeQuestions[i]) {
         case '+':
           n = randint(1, 10)
           texte = this.interactif
-            ? `$10^{${n}}${sp()}=$` + ajouteChampTexteMathLive(this, i, '')
+            ? `$10^{${n}}${sp()}=$` +
+              ajouteChampTexteMathLive(this, i, KeyboardType.clavierNumbers)
             : `$10^{${n}}${sp()}=${sp()}\\dots$`
           handleAnswers(this, i, {
             reponse: {
@@ -86,7 +87,8 @@ export default class EcritureDecimalePuissanceDe10 extends Exercice {
         default:
           n = randint(1, 10)
           texte = this.interactif
-            ? `$10^{${-n}}${sp()}=$` + ajouteChampTexteMathLive(this, i, ' ')
+            ? `$10^{${-n}}${sp()}=$` +
+              ajouteChampTexteMathLive(this, i, KeyboardType.clavierNumbers)
             : `$10^{${-n}}${sp()}=${sp()}\\dots$`
           handleAnswers(this, i, {
             reponse: {

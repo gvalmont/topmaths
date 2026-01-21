@@ -151,7 +151,6 @@ Par exemple, en choisissant 20 questions, la course aux nombres sera composée d
         objets,
         cpt = 0;
       i < this.nbQuestions && cpt < 50;
-
     ) {
       texte = 'cas non traité'
       texteCorr = 'cas non traité'
@@ -175,7 +174,9 @@ Par exemple, en choisissant 20 questions, la course aux nombres sera composée d
           reponse = b
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) {
-            texte += '<br>' + ajouteChampTexteMathLive(this, index, ' ')
+            texte +=
+              '<br>' +
+              ajouteChampTexteMathLive(this, index, KeyboardType.clavierNumbers)
           }
 
           nbChamps = 1
@@ -204,7 +205,9 @@ Par exemple, en choisissant 20 questions, la course aux nombres sera composée d
           }
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) {
-            texte += '<br>' + ajouteChampTexteMathLive(this, index, ' ')
+            texte +=
+              '<br>' +
+              ajouteChampTexteMathLive(this, index, KeyboardType.clavierNumbers)
           }
           nbChamps = 1
           break
@@ -221,7 +224,11 @@ Par exemple, en choisissant 20 questions, la course aux nombres sera composée d
           )
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) {
-            texte += ajouteChampTexteMathLive(this, index, ' ')
+            texte += ajouteChampTexteMathLive(
+              this,
+              index,
+              KeyboardType.clavierNumbers,
+            )
           } else {
             texte += ' $\\ldots$ '
           }
@@ -241,7 +248,11 @@ Par exemple, en choisissant 20 questions, la course aux nombres sera composée d
             `$${texNombre(a, 0)}-${texNombre(b, 2)}=\\ldots$`,
           )
           if (this.interactif) {
-            texte += ajouteChampTexteMathLive(this, index, ' ')
+            texte += ajouteChampTexteMathLive(
+              this,
+              index,
+              KeyboardType.clavierNumbers,
+            )
           } else {
             texte += ' $\\ldots$ '
           }
@@ -264,7 +275,11 @@ Par exemple, en choisissant 20 questions, la course aux nombres sera composée d
           reponse = new Decimal(a).div(100).mul(b)
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) {
-            texte += ajouteChampTexteMathLive(this, index, ' ')
+            texte += ajouteChampTexteMathLive(
+              this,
+              index,
+              KeyboardType.clavierNumbers,
+            )
           } else {
             texte += ' $\\ldots$'
           }
@@ -285,7 +300,11 @@ Par exemple, en choisissant 20 questions, la course aux nombres sera composée d
           this.listeCanReponsesACompleter.push(`$${c} \\div ${a}  =\\ldots$`)
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) {
-            texte += ajouteChampTexteMathLive(this, index, ' ')
+            texte += ajouteChampTexteMathLive(
+              this,
+              index,
+              KeyboardType.clavierNumbers,
+            )
           } else {
             texte += ' $\\ldots$'
           }
@@ -346,7 +365,11 @@ Par exemple, en choisissant 20 questions, la course aux nombres sera composée d
           }
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) {
-            texte += ajouteChampTexteMathLive(this, index, ' ')
+            texte += ajouteChampTexteMathLive(
+              this,
+              index,
+              KeyboardType.clavierNumbers,
+            )
           } else {
             texte += ' $\\ldots$'
           }
@@ -370,7 +393,12 @@ Par exemple, en choisissant 20 questions, la course aux nombres sera composée d
           if (this.interactif) {
             texte +=
               '<br>' +
-              ajouteChampTexteMathLive(this, index, ' ', { texteApres: '€' })
+              ajouteChampTexteMathLive(
+                this,
+                index,
+                KeyboardType.clavierNumbers,
+                { texteApres: '€' },
+              )
           }
           nbChamps = 1
           break
@@ -389,7 +417,11 @@ Par exemple, en choisissant 20 questions, la course aux nombres sera composée d
           )
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) {
-            texte += ajouteChampTexteMathLive(this, index, ' ')
+            texte += ajouteChampTexteMathLive(
+              this,
+              index,
+              KeyboardType.clavierNumbers,
+            )
           } else {
             texte += ' $\\ldots$'
           }
@@ -438,7 +470,11 @@ Par exemple, en choisissant 20 questions, la course aux nombres sera composée d
           this.listeCanReponsesACompleter.push(``)
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) {
-            texte += ajouteChampTexteMathLive(this, index, ' ')
+            texte += ajouteChampTexteMathLive(
+              this,
+              index,
+              KeyboardType.clavierNumbers,
+            )
           }
           nbChamps = 1
           break
@@ -457,7 +493,11 @@ Par exemple, en choisissant 20 questions, la course aux nombres sera composée d
           )
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) {
-            texte += ajouteChampTexteMathLive(this, index, ' ')
+            texte += ajouteChampTexteMathLive(
+              this,
+              index,
+              KeyboardType.clavierNumbers,
+            )
           } else {
             texte += ' $\\ldots$'
           }
@@ -484,12 +524,15 @@ Par exemple, en choisissant 20 questions, la course aux nombres sera composée d
               `$${texNombre(a, 1)}$ $${sp(8)}${texNombre(new Decimal(a).mul(2), 1)}$${sp(8)}$\\ldots$$${sp(8)}${texNombre(new Decimal(a).mul(8), 1)}$`,
             )
             if (this.interactif) {
-              texte += ajouteChampTexteMathLive(this, index, ' ')
+              texte += ajouteChampTexteMathLive(
+                this,
+                index,
+                KeyboardType.clavierNumbers,
+              )
             } else {
               texte += ' $\\ldots$'
             }
-          }
-          if (choix === 'b') {
+          } else if (choix === 'b') {
             reponse = new Decimal(a).add(2 * b)
             texte = `Complète la suite logique :<br>
             $${texNombre(a, 1)}$ $${sp(8)}${texNombre(new Decimal(a).add(b), 1)}$${sp(8)}?$${sp(8)}${texNombre(new Decimal(a).add(3 * b), 1)}$
@@ -505,7 +548,11 @@ Par exemple, en choisissant 20 questions, la course aux nombres sera composée d
 
             setReponse(this, index, reponse, { formatInteractif: 'calcul' })
             if (this.interactif) {
-              texte += ajouteChampTexteMathLive(this, index, ' ')
+              texte += ajouteChampTexteMathLive(
+                this,
+                index,
+                KeyboardType.clavierNumbers,
+              )
             } else {
               texte += ' $\\ldots$'
             }
@@ -555,11 +602,18 @@ Par exemple, en choisissant 20 questions, la course aux nombres sera composée d
           this.listeCanReponsesACompleter.push(
             'Quelle fraction de la surface totale représente la surface grisée ?',
           )
-          setReponse(this, index, reponse, {
-            formatInteractif: 'fractionEgale',
+          handleAnswers(this, index, {
+            reponse: {
+              value: reponse.texFraction,
+              options: { fractionEgale: true },
+            },
           })
           if (this.interactif) {
-            texte += ajouteChampTexteMathLive(this, index, ' ')
+            texte += ajouteChampTexteMathLive(
+              this,
+              index,
+              KeyboardType.clavierDeBaseAvecFraction,
+            )
           }
           nbChamps = 1
           break
@@ -656,9 +710,14 @@ Par exemple, en choisissant 20 questions, la course aux nombres sera composée d
 
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) {
-            texte += ajouteChampTexteMathLive(this, index, ' ', {
-              texteApres: '$\\text{ cm}$',
-            })
+            texte += ajouteChampTexteMathLive(
+              this,
+              index,
+              KeyboardType.clavierNumbers,
+              {
+                texteApres: '$\\text{ cm}$',
+              },
+            )
           } else {
             texte += ' $\\ldots\\text{ cm}$'
           }
@@ -728,7 +787,11 @@ Par exemple, en choisissant 20 questions, la course aux nombres sera composée d
 
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) {
-            texte += ajouteChampTexteMathLive(this, index, ' ')
+            texte += ajouteChampTexteMathLive(
+              this,
+              index,
+              KeyboardType.clavierNumbers,
+            )
           }
           nbChamps = 1
           break
@@ -769,9 +832,14 @@ Par exemple, en choisissant 20 questions, la course aux nombres sera composée d
           if (this.interactif) {
             texte +=
               '<br>' +
-              ajouteChampTexteMathLive(this, index, ' ', {
-                texteApres: '$\\%$',
-              })
+              ajouteChampTexteMathLive(
+                this,
+                index,
+                KeyboardType.clavierNumbers,
+                {
+                  texteApres: '$\\%$',
+                },
+              )
           }
           nbChamps = 1
 
@@ -852,7 +920,11 @@ Par exemple, en choisissant 20 questions, la course aux nombres sera composée d
 
           if (this.interactif) {
             setReponse(this, index, reponse, { formatInteractif: 'calcul' })
-            texte += ajouteChampTexteMathLive(this, index, ' ')
+            texte += ajouteChampTexteMathLive(
+              this,
+              index,
+              KeyboardType.clavierNumbers,
+            )
           } else {
             texte += ' $\\ldots$'
           }
@@ -878,9 +950,14 @@ Par exemple, en choisissant 20 questions, la course aux nombres sera composée d
             setReponse(this, index, reponse, { formatInteractif: 'calcul' })
             texte +=
               '<br>' +
-              ajouteChampTexteMathLive(this, index, '', {
-                texteApres: ' $\\text{cm}$',
-              })
+              ajouteChampTexteMathLive(
+                this,
+                index,
+                KeyboardType.clavierNumbers,
+                {
+                  texteApres: ' $\\text{cm}$',
+                },
+              )
           } else {
             texte += 'Périmètre $=\\ldots\\text{ cm}$'
           }
@@ -917,7 +994,8 @@ Par exemple, en choisissant 20 questions, la course aux nombres sera composée d
           this.listeCanReponsesACompleter.push(` Vrai ${sp(8)} Faux`)
           if (this.interactif) {
             texte += '<br>Pour Vrai, écrire V et pour Faux : F'
-            texte += '<br>' + ajouteChampTexteMathLive(this, index, ' ')
+            texte +=
+              '<br>' + ajouteChampTexteMathLive(this, index, KeyboardType.vFON)
           }
 
           nbChamps = 1
@@ -932,9 +1010,14 @@ Par exemple, en choisissant 20 questions, la course aux nombres sera composée d
         ${mathalea2d({ xmin: -2, ymin: -2, xmax: 10, ymax: 0.5 * h + l, scale: 0.5 }, pav)}`
           reponse = L * l * h
           texteCorr = `Le volume de ce pavé droit est : $${L}\\text{ cm}\\times ${l} \\text{ cm}\\times ${h}\\text{ cm}=${miseEnEvidence(reponse)}\\text{ cm}^3$.`
-          texte += ajouteChampTexteMathLive(this, index, ' ', {
-            texteApres: '$\\text{ cm}^3$',
-          })
+          texte += ajouteChampTexteMathLive(
+            this,
+            index,
+            KeyboardType.clavierNumbers,
+            {
+              texteApres: '$\\text{ cm}^3$',
+            },
+          )
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           this.listeCanEnonces.push(texte)
           this.listeCanReponsesACompleter.push('$\\ldots\\text{ cm}^3$')
@@ -952,7 +1035,11 @@ Par exemple, en choisissant 20 questions, la course aux nombres sera composée d
           this.listeCanReponsesACompleter.push(`$${a}\\times 101=\\ldots$`)
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) {
-            texte += ajouteChampTexteMathLive(this, index, ' ')
+            texte += ajouteChampTexteMathLive(
+              this,
+              index,
+              KeyboardType.clavierNumbers,
+            )
           } else {
             texte += ' $\\ldots$'
           }
@@ -970,7 +1057,9 @@ Par exemple, en choisissant 20 questions, la course aux nombres sera composée d
 
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) {
-            texte += '<br>' + ajouteChampTexteMathLive(this, index, ' ')
+            texte +=
+              '<br>' +
+              ajouteChampTexteMathLive(this, index, KeyboardType.clavierNumbers)
           }
           this.listeCanEnonces.push(texte)
           this.listeCanReponsesACompleter.push('')
@@ -1024,7 +1113,12 @@ Par exemple, en choisissant 20 questions, la course aux nombres sera composée d
           if (this.interactif) {
             texte +=
               '<br>' +
-              ajouteChampTexteMathLive(this, index, ' ', { texteApres: 'g' })
+              ajouteChampTexteMathLive(
+                this,
+                index,
+                KeyboardType.clavierNumbers,
+                { texteApres: 'g' },
+              )
           }
           nbChamps = 1
           break
@@ -1044,11 +1138,17 @@ Par exemple, en choisissant 20 questions, la course aux nombres sera composée d
           )
           reponse = fraction(b, 1)
 
-          setReponse(this, index, reponse, {
-            formatInteractif: 'fractionEgale',
+          handleAnswers(this, index, {
+            reponse: { value: reponse, options: { fractionEgale: true } },
           })
           if (this.interactif) {
-            texte += '<br>' + ajouteChampTexteMathLive(this, index, ' ')
+            texte +=
+              '<br>' +
+              ajouteChampTexteMathLive(
+                this,
+                index,
+                KeyboardType.clavierDeBaseAvecFraction,
+              )
           }
           nbChamps = 1
           break
@@ -1062,9 +1162,14 @@ Par exemple, en choisissant 20 questions, la course aux nombres sera composée d
             texteCorr = `$1\\text{ dm}^3= ${texNombre(1000)}\\text{ cm}^3$, donc $${a}\\text{ dm}^3=${a}\\times ${texNombre(1000)}\\text{ cm}^3=${miseEnEvidence(texNombre(a * 1000))}\\text{ cm}^3$.`
             setReponse(this, index, reponse, { formatInteractif: 'calcul' })
             if (this.interactif) {
-              texte += ajouteChampTexteMathLive(this, index, ' ', {
-                texteApres: '$\\text{ cm}^3$',
-              })
+              texte += ajouteChampTexteMathLive(
+                this,
+                index,
+                KeyboardType.clavierNumbers,
+                {
+                  texteApres: '$\\text{ cm}^3$',
+                },
+              )
             } else {
               texte += ' $\\ldots\\text{ cm}^3$'
             }
@@ -1079,9 +1184,14 @@ Par exemple, en choisissant 20 questions, la course aux nombres sera composée d
             texteCorr = `$1\\text{ cm}^3= 0,001\\text{ dm}^3$, donc $${a}\\text{ cm}^3=${a}\\times 0,001\\text{ dm}^3=${miseEnEvidence(texNombre(a / 1000))}\\text{ dm}^3$.`
             setReponse(this, index, reponse, { formatInteractif: 'calcul' })
             if (this.interactif) {
-              texte += ajouteChampTexteMathLive(this, index, ' ', {
-                texteApres: 'dm$^3$',
-              })
+              texte += ajouteChampTexteMathLive(
+                this,
+                index,
+                KeyboardType.clavierNumbers,
+                {
+                  texteApres: 'dm$^3$',
+                },
+              )
             } else {
               texte += ' $\\ldots\\text{ dm}^3$'
             }
@@ -1096,9 +1206,14 @@ Par exemple, en choisissant 20 questions, la course aux nombres sera composée d
             texteCorr = `$1\\text{ m}^3= ${texNombre(1000)}\\text{ dm}^3$, donc $${a}\\text{ m}^3=${a}\\times ${texNombre(1000)}\\text{ dm}^3=${miseEnEvidence(texNombre(a * 1000))}\\text{ dm}^3$.`
             setReponse(this, index, reponse, { formatInteractif: 'calcul' })
             if (this.interactif) {
-              texte += ajouteChampTexteMathLive(this, index, ' ', {
-                texteApres: 'dm$^3$',
-              })
+              texte += ajouteChampTexteMathLive(
+                this,
+                index,
+                KeyboardType.clavierNumbers,
+                {
+                  texteApres: 'dm$^3$',
+                },
+              )
             } else {
               texte += ' $\\ldots\\text{ dm}^3$'
             }
@@ -1113,9 +1228,14 @@ Par exemple, en choisissant 20 questions, la course aux nombres sera composée d
             texteCorr = `$1\\text{ dm}^3= 0,001\\text{ m}^3$, donc $${a}\\text{ dm}^3=${a}\\times 0,001\\text{ m}^3=${miseEnEvidence(texNombre(a / 1000))}\\text{ m}^3$.`
             setReponse(this, index, reponse, { formatInteractif: 'calcul' })
             if (this.interactif) {
-              texte += ajouteChampTexteMathLive(this, index, ' ', {
-                texteApres: '$\\text{ m}^3$',
-              })
+              texte += ajouteChampTexteMathLive(
+                this,
+                index,
+                KeyboardType.clavierNumbers,
+                {
+                  texteApres: '$\\text{ m}^3$',
+                },
+              )
             } else {
               texte += ' $\\ldots\\text{ m}^3$'
             }
@@ -1198,9 +1318,14 @@ Par exemple, en choisissant 20 questions, la course aux nombres sera composée d
           On en déduit que l'aire du polygone grisé est : $${b * c}\\text{ cm}^2-${texNombre(f, 1)}\\text{ cm}^2=${miseEnEvidence(texNombre(reponse, 1))}\\text{ cm}^2$.`
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) {
-            texte += ajouteChampTexteMathLive(this, index, ' ', {
-              texteApres: '$\\text{ cm}^2$',
-            })
+            texte += ajouteChampTexteMathLive(
+              this,
+              index,
+              KeyboardType.clavierNumbers,
+              {
+                texteApres: '$\\text{ cm}^2$',
+              },
+            )
           }
           this.listeCanEnonces.push(texte)
           this.listeCanReponsesACompleter.push(' $\\ldots \\text{ cm}^2$')
@@ -1220,7 +1345,11 @@ Par exemple, en choisissant 20 questions, la course aux nombres sera composée d
 
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) {
-            texte += ajouteChampTexteMathLive(this, index, ' ')
+            texte += ajouteChampTexteMathLive(
+              this,
+              index,
+              KeyboardType.clavierNumbers,
+            )
           } else {
             texte += ' $\\ldots$'
           }
@@ -1237,8 +1366,6 @@ Par exemple, en choisissant 20 questions, la course aux nombres sera composée d
 
             texte = `$${a}-${a}\\div ${a}\\times ${a}+${a}\\times ${a}=$`
             texteCorr = `$${a}-${a}\\div ${a}\\times ${a}+${a}\\times ${a}=${a}-1\\times ${a}+${a * a}=${a}-${a}+${a * a}=${miseEnEvidence(a * a)}$.`
-            reponse = a * a
-            this.listeCanEnonces.push('Complète.')
             this.listeCanReponsesACompleter.push(
               `$${a}-${a}\\div ${a}\\times ${a}+${a}\\times ${a}=\\ldots$`,
             )
@@ -1247,22 +1374,25 @@ Par exemple, en choisissant 20 questions, la course aux nombres sera composée d
 
             texte = `$${a}\\div ${a}\\times ${a}-${a}+${a}\\times ${a}=$`
             texteCorr = `$${a}\\div ${a}\\times ${a}-${a}+${a}\\times ${a}=1\\times ${a}-${a}+${a * a}=${a}-${a}+${a * a}=${miseEnEvidence(a * a)}$`
-            reponse = a * a
-            this.listeCanEnonces.push('Complète.')
             this.listeCanReponsesACompleter.push(
               `$${a}\\div ${a}\\times ${a}-${a}+${a}\\times ${a}=\\ldots$`,
             )
           }
+          reponse = a * a
+          this.listeCanEnonces.push('Complète.')
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) {
-            texte += ajouteChampTexteMathLive(this, index, ' ')
+            texte += ajouteChampTexteMathLive(
+              this,
+              index,
+              KeyboardType.clavierNumbers,
+            )
           } else {
             texte += ' $\\ldots$ '
           }
           nbChamps = 1
           break
       }
-      
 
       if (this.questionJamaisPosee(i, texte)) {
         // Si la question n'a jamais été posée, on en créé une autre

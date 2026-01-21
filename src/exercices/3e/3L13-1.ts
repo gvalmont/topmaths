@@ -1,4 +1,5 @@
 import { bleuMathalea } from '../../lib/colors'
+import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { combinaisonListes } from '../../lib/outils/arrayOutils'
@@ -103,7 +104,6 @@ export default class ExerciceEquation1Tiret2 extends Exercice {
     for (
       let i = 0, a, b, c, d, k, texte, texteCorr, cpt = 0;
       i < this.nbQuestions && cpt < 50;
-
     ) {
       let reponse = new FractionEtendue(1, 1)
       let equation = ''
@@ -259,7 +259,13 @@ export default class ExerciceEquation1Tiret2 extends Exercice {
 
         if (this.interactif) {
           texte +=
-            '$x = $' + ajouteChampTexteMathLive(this, i, ' ') + '<br><br>'
+            '$x = $' +
+            ajouteChampTexteMathLive(
+              this,
+              i,
+              KeyboardType.clavierDeBaseAvecFraction,
+            ) +
+            '<br><br>'
           handleAnswers(this, i, {
             reponse: {
               value: reponse,

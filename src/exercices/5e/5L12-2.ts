@@ -1,3 +1,4 @@
+import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { choice } from '../../lib/outils/arrayOutils'
@@ -97,7 +98,6 @@ export default class ReduireUneExpressionLitterale extends Exercice {
     for (
       let i = 0, texte, texteCorr, reponse, cpt = 0;
       i < this.nbQuestions && cpt < 50;
-
     ) {
       let a, b, c, d
       const choixLettre = randint(0, variables.length - 1)
@@ -175,7 +175,7 @@ export default class ReduireUneExpressionLitterale extends Exercice {
       */
       texteCorr += `=${miseEnEvidence(reponse)}$`
       handleAnswers(this, i, { reponse: { value: reponse } })
-      texte += ajouteChampTexteMathLive(this, i, ' ', {
+      texte += ajouteChampTexteMathLive(this, i, KeyboardType.lyceeClassique, {
         texteAvant: sp() + '= ',
       })
       if (this.questionJamaisPosee(i, a, b, c, d)) {

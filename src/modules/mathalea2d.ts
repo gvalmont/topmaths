@@ -1,7 +1,12 @@
 import katex from 'katex'
 import { ObjetMathalea2D } from '../lib/2d/ObjetMathalea2D'
 import { normaliseOrientation } from '../lib/2d/utilitairesGeometriques'
-import type { NestedObjetMathalea2dArray, ObjetDivLatex } from '../types/2d'
+import { remplisLesBlancs } from '../lib/interactif/questionMathLive'
+import type {
+  Interactif2dData,
+  NestedObjetMathalea2dArray,
+  ObjetDivLatex,
+} from '../types/2d'
 import { context } from './context'
 /*
   MathALEA2D
@@ -109,28 +114,35 @@ export function mathalea2d(
                 )
                 return codeSvg
               }
+
               const xSvg = (codeLatex.x - xmin) * pixelsParCm * zoom
               const ySvg = -(codeLatex.y - ymax) * pixelsParCm * zoom
+              if ('letterSize' in codeLatex) {
+                codeLatex.backgroundColor = codeLatex.backgroundColor
+                  .replace('{', '')
+                  .replace('}', '')
+                codeLatex.color = codeLatex.color
+                  .replace('{', '')
+                  .replace('}', '')
 
-              codeLatex.backgroundColor = codeLatex.backgroundColor
-                .replace('{', '')
-                .replace('}', '')
-              codeLatex.color = codeLatex.color
-                .replace('{', '')
-                .replace('}', '')
-
-              const divOuterHtml =
-                codeLatex.backgroundColor !== '' &&
-                codeLatex.backgroundColor !== 'none'
-                  ? `<div class="divLatex" style="background-color: ${codeLatex.backgroundColor}; position: absolute; top: ${ySvg}px; left: ${xSvg}px; transform: translate(-50%,-50%) rotate(${-codeLatex.orientation}deg); opacity: ${codeLatex.opacity};" data-top=${ySvg} data-left=${xSvg}>${katex.renderToString('\\' + codeLatex.letterSize + ' {\\color{' + codeLatex.color + '}{' + codeLatex.latex + '}}')}</div>`
-                  : `<div class="divLatex" style="position: absolute; top: ${ySvg}px; left: ${xSvg}px; transform: translate(-50%,-50%) rotate(${normaliseOrientation(-codeLatex.orientation)}deg); opacity: ${codeLatex.opacity};" data-top=${ySvg} data-left=${xSvg}>${katex.renderToString('{\\color{' + codeLatex.color + '} \\' + codeLatex.letterSize + '{' + codeLatex.latex + '}}')}</div>`
-              divsLatex.push(divOuterHtml)
+                const divOuterHtml =
+                  codeLatex.backgroundColor !== '' &&
+                  codeLatex.backgroundColor !== 'none'
+                    ? `<div class="divLatex" style="background-color: ${codeLatex.backgroundColor}; position: absolute; top: ${ySvg}px; left: ${xSvg}px; transform: translate(-50%,-50%) rotate(${-codeLatex.orientation}deg); opacity: ${codeLatex.opacity};" data-top=${ySvg} data-left=${xSvg}>${katex.renderToString('\\' + codeLatex.letterSize + ' {\\color{' + codeLatex.color + '}{' + (codeLatex.gras ? '\\textbf{' : '') + codeLatex.latex + (codeLatex.gras ? '}' : '') + '}}')}</div>`
+                    : `<div class="divLatex" style="position: absolute; top: ${ySvg}px; left: ${xSvg}px; transform: translate(-50%,-50%) rotate(${normaliseOrientation(-codeLatex.orientation)}deg); opacity: ${codeLatex.opacity};" data-top=${ySvg} data-left=${xSvg}>${katex.renderToString('{\\color{' + codeLatex.color + '} \\' + codeLatex.letterSize + '{' + (codeLatex.gras ? '\\textbf{' : '') + codeLatex.latex + (codeLatex.gras ? '}' : '') + '}}')}</div>`
+                divsLatex.push(divOuterHtml)
+              } else if ('exercice' in codeLatex) {
+                const code = codeLatex as unknown as Interactif2dData
+                // C'est un interactif2d
+                const divOuterHtml = `<div class="divLatex" style="position: absolute; top: ${ySvg}px; left: ${xSvg}px; transform: translate(-50%,-50%); opacity: ${code.opacity};" data-top=${ySvg} data-left=${xSvg}>${remplisLesBlancs(code.exercice, code.question, code.content)}</div>`
+                divsLatex.push(divOuterHtml)
+              } else {
+                window.notify(
+                  "Dans mathalea2d, la méthode svg() de l'objet a renvoyé un objet inconnu",
+                  { codeLatex },
+                )
+              }
             }
-          } else {
-            window.notify(
-              'Un problème avec ce mathalea2d, la liste des objets contient un truc louche',
-              { objets: JSON.stringify(objets) },
-            )
           }
         } else {
           if (objet?.svgml) {
@@ -287,15 +299,7 @@ export function mathalea2d(
     codeTikz += '  clip=true,\n'
     codeTikz += ']\n'
     // code += codeTikz(...objets)
-    codeTikz += ajouteCodeTikz(
-      mainlevee,
-      objets,
-      true,
-      ymin,
-      ymax,
-      xmin,
-      xmax,
-    ) // Skip Repere when using pgfplots, pass axis bounds
+    codeTikz += ajouteCodeTikz(mainlevee, objets, true, ymin, ymax, xmin, xmax) // Skip Repere when using pgfplots, pass axis bounds
     codeTikz += '\\end{axis}\n'
     codeTikz += '\\end{tikzpicture}'
     if (centerLatex) codeTikz += '\\par}'

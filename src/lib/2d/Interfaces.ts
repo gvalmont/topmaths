@@ -85,7 +85,7 @@ export interface IDroiteGraduee {
 /**
  * Interface minimale pour Droite
  */
-export interface IDroite {
+export interface IDroite extends ObjetMathalea2D {
   x1: number
   x2: number
   y1: number
@@ -99,14 +99,14 @@ export interface IDroite {
   normal?: { x: number; y: number }
   directeur?: { x: number; y: number }
   stringColor?: string
-  color?: [string, string]
-  epaisseur?: number
-  opacite?: number
-  pointilles?: number
-  bordures?: [number, number, number, number]
+  color: [string, string]
+  epaisseur: number
+  opacite: number
+  pointilles: number
+  bordures: [number, number, number, number]
 
-  svg?(coeff: number): string
-  tikz?(): string
+  svg(coeff: number): string
+  tikz(): string
   svgml?(coeff: number, amp: number): string
   tikzml?(amp: number): string
 }
@@ -186,10 +186,10 @@ export interface IPlot {
   x: number
   y: number
   opaciteDeRemplissage: number
-  bordures?: [number, number, number, number]
+  bordures: [number, number, number, number]
 
-  svg?(coeff: number): string
-  tikz?(): string
+  svg(coeff: number): string
+  tikz(): string
 }
 
 /**
@@ -200,13 +200,13 @@ export interface ITracePoint {
   tailleTikz: number
   points: any[]
   couleurDeRemplissage?: string[]
-  epaisseur?: number
-  opacite?: number
-  style?: string
-  bordures?: [number, number, number, number]
+  epaisseur: number
+  opacite: number
+  style: string
+  bordures: [number, number, number, number]
 
-  svg?(coeff: number): string
-  tikz?(): string
+  svg(coeff: number): string
+  tikz(): string
 }
 
 /**
@@ -218,10 +218,10 @@ export interface ITracePointSurDroite {
   x: number
   y: number
   direction: IPoint
-  bordures?: [number, number, number, number]
+  bordures: [number, number, number, number]
 
-  svg?(coeff: number): string
-  tikz?(): string
+  svg(coeff: number): string
+  tikz(): string
 }
 
 /**
@@ -233,17 +233,17 @@ export interface IMediatrice {
   opaciteMediatrice?: number
   pointillesMediatrice?: number
   couleurConstruction?: string
-  color?: [string, string]
-  epaisseur?: number
-  opacite?: number
-  pointilles?: number
-  objets?: any[]
-  bordures?: [number, number, number, number]
+  color: [string, string]
+  epaisseur: number
+  opacite: number
+  pointilles: number
+  objets: any[]
+  bordures: [number, number, number, number]
 
-  svg?(coeff: number): string
-  tikz?(): string
-  svgml?(coeff: number, amp: number): string
-  tikzml?(amp: number): string
+  svg(coeff: number): string
+  tikz(): string
+  svgml(coeff: number, amp: number): string
+  tikzml(amp: number): string
 }
 
 /**
@@ -258,17 +258,17 @@ export interface ICercle {
   couleurDesHachures: string[]
   epaisseurDesHachures: number
   distanceDesHachures: number
-  color?: [string, string]
-  epaisseur?: number
-  pointilles?: number
-  opacite?: number
-  style?: string
-  bordures?: [number, number, number, number]
+  color: [string, string]
+  epaisseur: number
+  pointilles: number
+  opacite: number
+  style: string
+  bordures: [number, number, number, number]
 
-  svg?(coeff: number): string
-  tikz?(): string
-  svgml?(coeff: number): string
-  tikzml?(amp: number): string
+  svg(coeff: number): string
+  tikz(): string
+  svgml(coeff: number): string
+  tikzml(amp: number): string
 }
 
 /**
@@ -283,21 +283,21 @@ export interface ISegment {
   extremite2: IPointAbstrait
   longueur: number
   angleAvecHorizontale: number
-  tailleExtremites?: number
-  styleExtremites?: string
-  color?: [string, string]
-  epaisseur?: number
-  pointilles?: number
-  opacite?: number
-  style?: string
-  bordures?: [number, number, number, number]
+  tailleExtremites: number
+  styleExtremites: string
+  color: [string, string]
+  epaisseur: number
+  pointilles: number
+  opacite: number
+  style: string
+  bordures: [number, number, number, number]
   typeObjet?: string
 
-  svg?(coeff: number): string
-  tikz?(): string
-  svgml?(coeff: number, amp: number): string
-  tikzml?(amp: number): string
-  estSecant?(objet: any): boolean
+  svg(coeff: number): string
+  tikz(): string
+  svgml(coeff: number, amp: number): string
+  tikzml(amp: number): string
+  estSecant(objet: any): boolean
 }
 /**
  * Interface minimale pour Vecteur
@@ -311,18 +311,11 @@ export interface IVecteur {
   oppose(): void
   xSVG(coeff: number): number
   ySVG(coeff: number): number
-  representant(A: IPoint | IPointAbstrait, color?: string): ISegment
-  representantNomme(
-    A: IPoint,
-    nom: string,
-    taille?: number,
-    color?: string,
-  ): any
 }
 /**
  * Interface minimale pour Polygone
  */
-export interface IPolygone {
+export interface IPolygone extends ObjetMathalea2D {
   listePoints: IPointAbstrait[]
   nom: string
   couleurDeRemplissage: string[]
@@ -332,21 +325,21 @@ export interface IPolygone {
   epaisseurDesHachures: number
   hachures: boolean | string
   perimetre: number
-  color?: [string, string]
-  epaisseur?: number
-  pointilles?: number
-  opacite?: number
-  style?: string
-  bordures?: [number, number, number, number]
+  color: [string, string]
+  epaisseur: number
+  pointilles: number
+  opacite: number
+  style: string
+  bordures: [number, number, number, number]
   typeObjet?: string
   aire?: number
   triangulation: [IPointAbstrait, IPointAbstrait, IPointAbstrait][]
 
-  binomesXY?(coeff: number): string
-  svg?(coeff: number): string
-  tikz?(): string
-  svgml?(coeff: number, amp: number): string
-  tikzml?(amp: number): string
+  binomesXY(coeff: number): string
+  svg(coeff: number): string
+  tikz(): string
+  svgml(coeff: number, amp: number): string
+  tikzml(amp: number): string
 }
 
 export type CylindrePosition =

@@ -20,7 +20,7 @@ import { homothetie } from '../../lib/2d/transformations'
 import { longueur } from '../../lib/2d/utilitairesGeometriques'
 import { milieu } from '../../lib/2d/utilitairesPoint'
 import { vecteur } from '../../lib/2d/Vecteur'
-import figureApigeom from '../../lib/figureApigeom'
+import figureApigeom, { isFigureArray } from '../../lib/figureApigeom'
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
 import {
   miseEnEvidence,
@@ -51,7 +51,7 @@ export const refs = {
 }
 
 export default class RepresenterUnVecteur extends Exercice {
-  figures: Figure[]
+  figuresApiGeom: Figure[]
   longueur?: number
   largeur?: number
   xA: number[]
@@ -69,7 +69,7 @@ export default class RepresenterUnVecteur extends Exercice {
       3,
       '1 : Avec un point origine\n2 : Avec un point extrémité\n3 : Mélange',
     ]
-    this.figures = []
+    this.figuresApiGeom = []
     this.xA = []
     this.xB = []
     this.yA = []
@@ -79,7 +79,7 @@ export default class RepresenterUnVecteur extends Exercice {
   nouvelleVersion() {
     this.longueur = 10
     this.largeur = 10
-    this.figures = []
+    this.figuresApiGeom = []
     this.xA = []
     this.xB = []
     this.yA = []
@@ -94,7 +94,7 @@ export default class RepresenterUnVecteur extends Exercice {
     for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50; ) {
       let texte = ''
       let texteCorr = ''
-      this.figures[i] = new Figure({
+      this.figuresApiGeom[i] = new Figure({
         xMin: -this.longueur - 0.25, // On enlève 0.25 unités
         yMin: -this.largeur - 0.25,
         width: 0.65 * (this.longueur * 2 * 30 + 20), // On ajoute 20 pixels
@@ -103,22 +103,24 @@ export default class RepresenterUnVecteur extends Exercice {
         scale: 0.65,
       })
 
-      const OVecteur = this.figures[i].create('Point', {
+      if (isFigureArray(this.figures)) this.figures.push(this.figuresApiGeom[i])
+
+      const OVecteur = this.figuresApiGeom[i].create('Point', {
         x: 0,
         y: 0,
         isVisible: false,
       })
-      const IVecteur = this.figures[i].create('Point', {
+      const IVecteur = this.figuresApiGeom[i].create('Point', {
         x: 1,
         y: 0,
         isVisible: false,
       })
-      const JVecteur = this.figures[i].create('Point', {
+      const JVecteur = this.figuresApiGeom[i].create('Point', {
         x: 0,
         y: 1,
         isVisible: false,
       })
-      this.figures[i].create('TextByPosition', {
+      this.figuresApiGeom[i].create('TextByPosition', {
         text: '$O$',
         x: -0.15,
         y: -0.15,
@@ -126,7 +128,7 @@ export default class RepresenterUnVecteur extends Exercice {
         color: orangeMathalea,
         fontSize: '8pt',
       })
-      this.figures[i].create('Grid', {
+      this.figuresApiGeom[i].create('Grid', {
         strokeWidthGrid: 1,
         color: 'black',
         yMin: -this.largeur + 0.1,
@@ -138,7 +140,7 @@ export default class RepresenterUnVecteur extends Exercice {
         labelX: true,
         labelY: true,
       })
-      this.figures[i].create('TextByPosition', {
+      this.figuresApiGeom[i].create('TextByPosition', {
         text: '$\\vec \\imath$',
         x: 0.5,
         y: 0,
@@ -146,7 +148,7 @@ export default class RepresenterUnVecteur extends Exercice {
         color: orangeMathalea,
         fontSize: '1.5em',
       })
-      this.figures[i].create('TextByPosition', {
+      this.figuresApiGeom[i].create('TextByPosition', {
         text: '$\\vec \\jmath$',
         x: -0.5,
         y: 0,
@@ -154,26 +156,26 @@ export default class RepresenterUnVecteur extends Exercice {
         color: orangeMathalea,
         fontSize: '1.5em',
       })
-      this.figures[i].create('VectorByPoints', {
+      this.figuresApiGeom[i].create('VectorByPoints', {
         point1: OVecteur,
         point2: IVecteur,
         color: orangeMathalea,
         thickness: 3,
         isSelectable: false,
       })
-      this.figures[i].create('VectorByPoints', {
+      this.figuresApiGeom[i].create('VectorByPoints', {
         point1: OVecteur,
         point2: JVecteur,
         color: orangeMathalea,
         thickness: 3,
         isSelectable: false,
       })
-      this.figures[i].snapGrid = true
-      this.figures[i].setToolbar({
+      this.figuresApiGeom[i].snapGrid = true
+      this.figuresApiGeom[i].setToolbar({
         tools: ['DRAG', 'REMOVE', 'VECTOR', 'POINT', 'SET_OPTIONS'],
         // position: 'top'
       })
-      this.figures[i].options.thickness = 3
+      this.figuresApiGeom[i].options.thickness = 3
 
       this.xA.push(randint(2, 8) * choice([-1, 1]))
       this.yA.push(randint(2, 8) * choice([-1, 1]))
@@ -253,21 +255,21 @@ export default class RepresenterUnVecteur extends Exercice {
         // texte = ` Dans un repère orthonormé $\\big(O ; \\vec i,\\vec j\\big)$, représenter le vecteur $\\vec{u}\\begin{pmatrix}${ux} \\\\${uy}\\end{pmatrix}$, `
         texte = ` Dans un repère orthonormé $\\big(O ; \\vec i,\\vec j\\big)$, représenter le vecteur de coordonnées $\\begin{pmatrix}${ux} \\\\${uy}\\end{pmatrix}$, `
         texte += `ayant pour origine le point $${nomPoint1}\\left(${this.xA[i]};${this.yA[i]}\\right)$.`
-        this.figures[i].create('Point', {
+        this.figuresApiGeom[i].create('Point', {
           x: this.xA[i],
           y: this.yA[i],
           label: nomPoint1,
           isFree: false,
           isSelectable: false,
         })
-        this.figures[i].options.color = 'green'
+        this.figuresApiGeom[i].options.color = 'green'
         texteCorr = "On sait qu'un vecteur mesure un déplacement."
         texteCorr += `<br> À partir du point $${nomPoint1}$,  on trace donc le déplacement correspondant à $${ux}$ unités horizontalement puis $${uy}$ unités verticalement pour arriver au point $${nomPoint2}$, extrémité du vecteur $\\vec{u}$.`
       } else {
         // texte = ` Dans un repère orthonormé $\\big(O ; \\vec i,\\vec j\\big)$, représenter le vecteur $\\vec{u}\\begin{pmatrix}${ux} \\\\${uy}\\end{pmatrix}$, `
         texte = ` Dans un repère orthonormé $\\big(O ; \\vec i,\\vec j\\big)$, représenter le vecteur de coordonnées $\\begin{pmatrix}${ux} \\\\${uy}\\end{pmatrix}$, `
         texte += `ayant pour extrémité le point $${nomPoint2}\\left(${this.xB[i]};${this.yB[i]}\\right)$.`
-        this.figures[i].create('Point', {
+        this.figuresApiGeom[i].create('Point', {
           x: this.xB[i],
           y: this.yB[i],
           label: nomPoint2,
@@ -284,7 +286,7 @@ export default class RepresenterUnVecteur extends Exercice {
         : ''
       texte += figureApigeom({
         exercice: this,
-        figure: this.figures[i],
+        figure: this.figuresApiGeom[i],
         i,
         defaultAction: 'VECTOR',
       })
@@ -336,15 +338,15 @@ export default class RepresenterUnVecteur extends Exercice {
   correctionInteractive = (i: number) => {
     if (this.answers == null) this.answers = {}
     // Sauvegarde de la réponse pour Capytale
-    this.answers[this.figures[i].id] = this.figures[i].json
+    this.answers[this.figuresApiGeom[i].id] = this.figuresApiGeom[i].json
     const divFeedback = document.querySelector(
       `#feedbackEx${this.numeroExercice}Q${i}`,
     ) as HTMLDivElement
-    this.figures[i].isDynamic = false
-    this.figures[i].divButtons.style.display = 'none'
-    this.figures[i].divUserMessage.style.display = 'none'
+    this.figuresApiGeom[i].isDynamic = false
+    this.figuresApiGeom[i].divButtons.style.display = 'none'
+    this.figuresApiGeom[i].divUserMessage.style.display = 'none'
 
-    let { isValid, vectors } = this.figures[i].checkVector({
+    let { isValid, vectors } = this.figuresApiGeom[i].checkVector({
       color: 'green',
       xOrigin: this.xA[i],
       x: this.xB[i] - this.xA[i],
@@ -352,7 +354,7 @@ export default class RepresenterUnVecteur extends Exercice {
       y: this.yB[i] - this.yA[i],
     })
 
-    const nbVecteurs = [...this.figures[i].elements.values()].filter(
+    const nbVecteurs = [...this.figuresApiGeom[i].elements.values()].filter(
       (e) =>
         e.type === 'VectorByPoints' && (e as VectorByPoints).color === 'green',
     ).length
@@ -367,7 +369,7 @@ export default class RepresenterUnVecteur extends Exercice {
       return 'OK'
     }
 
-    const wrongVectors = [...this.figures[i].elements.values()].filter(
+    const wrongVectors = [...this.figuresApiGeom[i].elements.values()].filter(
       (e) => e.type === 'VectorByPoints' && (e as VectorByPoints).isSelectable,
     ) as VectorByPoints[]
     for (const vector of wrongVectors) {

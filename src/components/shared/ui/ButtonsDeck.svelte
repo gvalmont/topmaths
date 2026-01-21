@@ -42,9 +42,9 @@
  -->
 
 <div
-  class="{`${
+  class={`${
     $$props.class || ''
-  } flex flex-col w-full md:flex-row justify-start items-start sm:justify-center sm:items-center`}"
+  } flex flex-col w-full md:flex-row justify-start items-start sm:justify-center sm:items-center`}
 >
   <div class="relative flex flex-col w-full">
     <div

@@ -105,7 +105,6 @@ export default class SujetCAN2022Premiere extends Exercice {
     for (
       let i = 0, index = 0, nbChamps = 0, cpt = 0;
       i < this.nbQuestions && cpt < 50;
-
     ) {
       let a: any
       let b: any
@@ -125,7 +124,11 @@ export default class SujetCAN2022Premiere extends Exercice {
             const reponse = (a * b).toFixed(1)
             setReponse(this, index, reponse, { formatInteractif: 'calcul' })
             if (this.interactif) {
-              texte += ajouteChampTexteMathLive(this, index, '')
+              texte += ajouteChampTexteMathLive(
+                this,
+                index,
+                KeyboardType.clavierNumbers,
+              )
             } else {
               texte += ' $\\ldots$'
             }
@@ -143,7 +146,11 @@ export default class SujetCAN2022Premiere extends Exercice {
               reponse = new FractionEtendue(a * b[1] + b[0], b[1])
               texte = `$${a}+${f.texFraction}= $`
               if (this.interactif) {
-                texte += ajouteChampTexteMathLive(this, index, '')
+                texte += ajouteChampTexteMathLive(
+                  this,
+                  index,
+                  KeyboardType.clavierDeBaseAvecFraction,
+                )
               } else {
                 texte += ' $\\ldots$'
               }
@@ -152,7 +159,11 @@ export default class SujetCAN2022Premiere extends Exercice {
               reponse = new FractionEtendue(a * b[1] - b[0], b[1])
               texte = `$${a}-${f.texFraction}= $`
               if (this.interactif) {
-                texte += ajouteChampTexteMathLive(this, index, '')
+                texte += ajouteChampTexteMathLive(
+                  this,
+                  index,
+                  KeyboardType.clavierDeBaseAvecFraction,
+                )
               } else {
                 texte += ' $\\ldots$'
               }
@@ -179,7 +190,11 @@ export default class SujetCAN2022Premiere extends Exercice {
 
             setReponse(this, index, reponse, { formatInteractif: 'calcul' })
             if (this.interactif) {
-              texte += ajouteChampTexteMathLive(this, index, '')
+              texte += ajouteChampTexteMathLive(
+                this,
+                index,
+                KeyboardType.clavierFullOperations,
+              )
             }
             nbChamps = 1
           }
@@ -209,7 +224,11 @@ export default class SujetCAN2022Premiere extends Exercice {
             setReponse(this, index, reponse, { formatInteractif: 'calcul' })
 
             if (this.interactif) {
-              texte += ajouteChampTexteMathLive(this, index, '')
+              texte += ajouteChampTexteMathLive(
+                this,
+                index,
+                KeyboardType.clavierNumbers,
+              )
             }
             nbChamps = 1
           }
@@ -238,7 +257,11 @@ export default class SujetCAN2022Premiere extends Exercice {
               formatInteractif: 'fractionEgale',
             })
             if (this.interactif) {
-              texte += ajouteChampTexteMathLive(this, index, '')
+              texte += ajouteChampTexteMathLive(
+                this,
+                index,
+                KeyboardType.clavierDeBaseAvecFraction,
+              )
             }
             nbChamps = 1
           }
@@ -302,7 +325,12 @@ export default class SujetCAN2022Premiere extends Exercice {
             }
             setReponse(this, index, reponse, { formatInteractif: 'calcul' })
             if (this.interactif) {
-              texte += ajouteChampTexteMathLive(this, index, '') + ' €'
+              texte +=
+                ajouteChampTexteMathLive(
+                  this,
+                  index,
+                  KeyboardType.clavierNumbers,
+                ) + ' €'
             }
             nbChamps = 1
           }
@@ -341,7 +369,11 @@ export default class SujetCAN2022Premiere extends Exercice {
               formatInteractif: 'fractionEgale',
             })
             if (this.interactif) {
-              texte += ajouteChampTexteMathLive(this, index, '')
+              texte += ajouteChampTexteMathLive(
+                this,
+                index,
+                KeyboardType.clavierDeBaseAvecFraction,
+              )
             }
             nbChamps = 1
           }
@@ -359,7 +391,11 @@ export default class SujetCAN2022Premiere extends Exercice {
                       `
             setReponse(this, index, reponse, { formatInteractif: 'calcul' })
             if (this.interactif) {
-              texte += ajouteChampTexteMathLive(this, index, '')
+              texte += ajouteChampTexteMathLive(
+                this,
+                index,
+                KeyboardType.clavierNumbers,
+              )
             }
             nbChamps = 1
           }
@@ -391,7 +427,11 @@ export default class SujetCAN2022Premiere extends Exercice {
 
             setReponse(this, index, reponse, { formatInteractif: 'calcul' })
             if (this.interactif) {
-              texte += ajouteChampTexteMathLive(this, index, '')
+              texte += ajouteChampTexteMathLive(
+                this,
+                index,
+                KeyboardType.clavierNumbers,
+              )
             }
             nbChamps = 1
           }
@@ -411,7 +451,11 @@ export default class SujetCAN2022Premiere extends Exercice {
 
             setReponse(this, index, reponse, { formatInteractif: 'calcul' })
             if (this.interactif) {
-              texte += ajouteChampTexteMathLive(this, index, '')
+              texte += ajouteChampTexteMathLive(
+                this,
+                index,
+                KeyboardType.clavierNumbers,
+              )
             } else {
               texte += ' $\\ldots$'
             }
@@ -426,7 +470,7 @@ export default class SujetCAN2022Premiere extends Exercice {
             const h = randint(2, 6, [l, L])
             const pav = pave(L, l, h)
             texte =
-              ' Quel est le volume en $\\text{cm}^3$ de ce  pavé droit ?<br>'
+              ' Quel est le volume en $\\text{cm}^3$ de ce pavé droit ?<br>'
             texte += ` ${mathalea2d({ xmin: -2, ymin: -2, xmax: 10, ymax: l + 2, scale: 0.8 }, pav)}`
 
             const reponse = L * l * h
@@ -474,7 +518,11 @@ export default class SujetCAN2022Premiere extends Exercice {
               reponse = u
               if (this.interactif) {
                 setReponse(this, index, reponse, { formatInteractif: 'calcul' })
-                texte += ajouteChampTexteMathLive(this, index, '')
+                texte += ajouteChampTexteMathLive(
+                  this,
+                  index,
+                  KeyboardType.clavierDeBase,
+                )
               } else {
                 texte += ' $\\ldots$'
               }
@@ -496,7 +544,11 @@ export default class SujetCAN2022Premiere extends Exercice {
               reponse = u
               if (this.interactif) {
                 setReponse(this, index, reponse, { formatInteractif: 'calcul' })
-                texte += ajouteChampTexteMathLive(this, index, '')
+                texte += ajouteChampTexteMathLive(
+                  this,
+                  index,
+                  KeyboardType.clavierDeBase,
+                )
               } else {
                 texte += ' $\\ldots$'
               }
@@ -620,7 +672,7 @@ export default class SujetCAN2022Premiere extends Exercice {
             `
               reponse = xA
             } else if (choix === 'b') {
-              texte = 'Quelle est l’ordonnée  du point $A$ ?<br>'
+              texte = 'Quelle est l’ordonnée du point $A$ ?<br>'
               texte += mathalea2d(
                 {
                   xmin: -1,
@@ -672,7 +724,11 @@ export default class SujetCAN2022Premiere extends Exercice {
             }
             setReponse(this, index, reponse, { formatInteractif: 'calcul' })
             if (this.interactif) {
-              texte += ajouteChampTexteMathLive(this, index, '')
+              texte += ajouteChampTexteMathLive(
+                this,
+                index,
+                KeyboardType.clavierNumbers,
+              )
             }
             nbChamps = 1
           }
@@ -716,7 +772,11 @@ export default class SujetCAN2022Premiere extends Exercice {
             }
             setReponse(this, index, reponse, { formatInteractif: 'calcul' })
             if (this.interactif) {
-              texte += ajouteChampTexteMathLive(this, index, '')
+              texte += ajouteChampTexteMathLive(
+                this,
+                index,
+                KeyboardType.clavierNumbers,
+              )
             }
             nbChamps = 1
           }
@@ -758,7 +818,11 @@ export default class SujetCAN2022Premiere extends Exercice {
             const reponse = a * k + b
             setReponse(this, index, reponse, { formatInteractif: 'calcul' })
             if (this.interactif) {
-              texte += ajouteChampTexteMathLive(this, index, '')
+              texte += ajouteChampTexteMathLive(
+                this,
+                index,
+                KeyboardType.clavierDeBase,
+              )
             } else {
               texte += ' $\\ldots$'
             }
@@ -800,7 +864,12 @@ export default class SujetCAN2022Premiere extends Exercice {
             const reponse = new Decimal(a).mul(-1).add(1).mul(100)
             setReponse(this, index, reponse, { formatInteractif: 'calcul' })
             if (this.interactif) {
-              texte += ajouteChampTexteMathLive(this, index, '') + '$\\%$'
+              texte +=
+                ajouteChampTexteMathLive(
+                  this,
+                  index,
+                  KeyboardType.clavierDeBase,
+                ) + '$\\%$'
             } else {
               texte += ' $\\ldots$ $\\%$'
             }
@@ -819,12 +888,22 @@ export default class SujetCAN2022Premiere extends Exercice {
               texteCorr = `$${texNombre(a + b, 2)}$ h $ = ${a}$ h $ + ${texNombre(b, 2)} \\times 60$ min $  = ${a}$ h $${texNombre(d, 0)}$ min`
             } else {
               texte = `Convertir en heures/minutes : <br>$${texNombre(a + b)}$ h $=$`
-              texte += ajouteChampTexteMathLive(this, index, '', {
-                texteApres: sp(5) + 'h',
-              })
-              texte += ajouteChampTexteMathLive(this, index + 1, '', {
-                texteApres: sp(5) + 'min',
-              })
+              texte += ajouteChampTexteMathLive(
+                this,
+                index,
+                KeyboardType.clavierNumbers,
+                {
+                  texteApres: sp(5) + 'h',
+                },
+              )
+              texte += ajouteChampTexteMathLive(
+                this,
+                index + 1,
+                KeyboardType.clavierNumbers,
+                {
+                  texteApres: sp(5) + 'min',
+                },
+              )
               texteCorr = `$${texNombre(a + b, 2)}$ h $ = ${a}$ h $ + ${texNombre(b, 2)} \\times 60$ min $ = ${a}$ h $${texNombre(d, 0)}$ min`
               setReponse(this, index, a)
               setReponse(this, index + 1, d)
@@ -869,7 +948,11 @@ export default class SujetCAN2022Premiere extends Exercice {
               texte = `On donne la courbe représentative d'une fonction $f$. <br>
             $f(0)\\times f(1)=$ `
               if (this.interactif) {
-                texte += ajouteChampTexteMathLive(this, index, '')
+                texte += ajouteChampTexteMathLive(
+                  this,
+                  index,
+                  KeyboardType.clavierDeBase,
+                )
               } else {
                 texte += ' $\\ldots$<br>'
               }
@@ -892,7 +975,11 @@ export default class SujetCAN2022Premiere extends Exercice {
               texte = `On donne la courbe représentative d'une fonction $f$. <br>
             $f(-1)\\times f(1)=$ `
               if (this.interactif) {
-                texte += ajouteChampTexteMathLive(this, index, '')
+                texte += ajouteChampTexteMathLive(
+                  this,
+                  index,
+                  KeyboardType.clavierDeBase,
+                )
               } else {
                 texte += ' $\\ldots$<br>'
               }
@@ -988,7 +1075,11 @@ export default class SujetCAN2022Premiere extends Exercice {
               }
               if (this.interactif) {
                 texte +=
-                  ajouteChampTexteMathLive(this, index, '') + 'solution(s)'
+                  ajouteChampTexteMathLive(
+                    this,
+                    index,
+                    KeyboardType.clavierNumbers,
+                  ) + 'solution(s)'
               }
               setReponse(this, index, reponse, { formatInteractif: 'calcul' })
             } else {
@@ -1075,7 +1166,11 @@ export default class SujetCAN2022Premiere extends Exercice {
               }
               if (this.interactif) {
                 texte +=
-                  ajouteChampTexteMathLive(this, index, '') + 'solution(s)'
+                  ajouteChampTexteMathLive(
+                    this,
+                    index,
+                    KeyboardType.clavierNumbers,
+                  ) + 'solution(s)'
               }
               setReponse(this, index, reponse, { formatInteractif: 'calcul' })
             }
@@ -1143,7 +1238,11 @@ export default class SujetCAN2022Premiere extends Exercice {
             const reponse = f(nbre)
 
             if (this.interactif) {
-              texte += ajouteChampTexteMathLive(this, index, '')
+              texte += ajouteChampTexteMathLive(
+                this,
+                index,
+                KeyboardType.clavierDeBase,
+              )
             }
 
             setReponse(this, index, reponse, { formatInteractif: 'calcul' })
@@ -1164,7 +1263,12 @@ export default class SujetCAN2022Premiere extends Exercice {
                 formatInteractif: 'calcul',
               })
               if (this.interactif) {
-                texte += ajouteChampTexteMathLive(this, index, '') + 'L'
+                texte +=
+                  ajouteChampTexteMathLive(
+                    this,
+                    index,
+                    KeyboardType.clavierNumbers,
+                  ) + 'L'
               } else {
                 texte += ' $\\ldots$ L'
               }
@@ -1223,7 +1327,11 @@ export default class SujetCAN2022Premiere extends Exercice {
             }
             setReponse(this, index, reponse, { formatInteractif: 'calcul' })
             if (this.interactif) {
-              texte += ajouteChampTexteMathLive(this, index, '')
+              texte += ajouteChampTexteMathLive(
+                this,
+                index,
+                KeyboardType.clavierDeBase,
+              )
             }
             nbChamps = 1
           }
@@ -1247,7 +1355,11 @@ export default class SujetCAN2022Premiere extends Exercice {
             if (this.interactif) {
               texte += 'Compléter $M($'
               texte +=
-                ajouteChampTexteMathLive(this, index, '') + `$;${ordonnee})$`
+                ajouteChampTexteMathLive(
+                  this,
+                  index,
+                  KeyboardType.clavierDeBase,
+                ) + `$;${ordonnee})$`
             } else {
               texte += `${sp(5)}Compléter $M(\\ldots$ ; $${ordonnee})$`
             }
@@ -1284,7 +1396,11 @@ export default class SujetCAN2022Premiere extends Exercice {
             texteCorr += `$> ${b}$. Donc l'algorithme retourne $${n}$.`
             setReponse(this, index, n, { formatInteractif: 'calcul' })
             if (this.interactif) {
-              texte += ajouteChampTexteMathLive(this, index, '')
+              texte += ajouteChampTexteMathLive(
+                this,
+                index,
+                KeyboardType.clavierNumbers,
+              )
             }
             nbChamps = 1
           }
@@ -1376,7 +1492,11 @@ export default class SujetCAN2022Premiere extends Exercice {
             setReponse(this, index, reponse, { formatInteractif: 'calcul' })
             if (this.interactif) {
               texte += '<br>$CE=$'
-              texte += ajouteChampTexteMathLive(this, index, '')
+              texte += ajouteChampTexteMathLive(
+                this,
+                index,
+                KeyboardType.clavierNumbers,
+              )
             } else {
               texte += ' $CE=\\ldots$ '
             }
@@ -1461,8 +1581,11 @@ export default class SujetCAN2022Premiere extends Exercice {
 
             if (this.interactif) {
               texte += '<br> $P(A\\cap B)=$ '
-              texte += ajouteChampTexteMathLive(this, index, '')
-            } else {
+              texte += ajouteChampTexteMathLive(
+                this,
+                index,
+                KeyboardType.clavierNumbers,
+              )
               texte += '<br>$P(A\\cap B)=\\ldots$ '
             }
 
@@ -1507,7 +1630,11 @@ export default class SujetCAN2022Premiere extends Exercice {
               setReponse(this, index, reponse, { formatInteractif: 'calcul' })
               if (this.interactif) {
                 texte +=
-                  ajouteChampTexteMathLive(this, index, '') + '$\\text{cm}^2$'
+                  ajouteChampTexteMathLive(
+                    this,
+                    index,
+                    KeyboardType.clavierNumbers,
+                  ) + '$\\text{cm}^2$'
               }
             }
 
@@ -1522,14 +1649,18 @@ export default class SujetCAN2022Premiere extends Exercice {
             b = randint(-10, 10, [0, 1])
             const c = randint(1, 10, [0, 1])
             const reponse = a + b - c
-            texte = `$\\dfrac{\\text{e}^{${a}}\\times \\text{e}^{${b}}}{\\text{e}^{${c}}}=$`
+            texte = `$\\dfrac{\\mathrm{e}^{${a}}\\times \\mathrm{e}^{${b}}}{\\mathrm{e}^{${c}}}=$`
 
-            texteCorr = `$\\dfrac{\\text{e}^{${a}}\\times \\text{e}^{${b}}}{\\text{e}^{${c}}}=
-          \\dfrac{\\text{e}^{${a}+${ecritureParentheseSiNegatif(b)}}}{\\text{e}^{${c}}}=\\text{e}^{${a + b}-${c}}=\\text{e}^{${reponse}}$`
+            texteCorr = `$\\dfrac{\\mathrm{e}^{${a}}\\times \\mathrm{e}^{${b}}}{\\mathrm{e}^{${c}}}=
+          \\dfrac{\\mathrm{e}^{${a}+${ecritureParentheseSiNegatif(b)}}}{\\mathrm{e}^{${c}}}=\\mathrm{e}^{${a + b}-${c}}=\\mathrm{e}^{${reponse}}$`
             setReponse(this, index, reponse, { formatInteractif: 'calcul' })
             if (this.interactif) {
-              texte += '$\\text{e}^a$ avec $a=$'
-              texte += ajouteChampTexteMathLive(this, index, '')
+              texte += '$\\mathrm{e}^a$ avec $a=$'
+              texte += ajouteChampTexteMathLive(
+                this,
+                index,
+                KeyboardType.clavierDeBase,
+              )
             } else {
               texte += '$\\ldots$'
             }

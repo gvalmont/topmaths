@@ -50,9 +50,9 @@
         class="py-3 px-6 text-3xl rounded-xl flex flex-row-reverse items-center space-x-6 font-bold animate-pulse"
         text="Démarrer"
         icon="bx-play bx-lg pl-1"
-        on:click="{() => {
+        on:click={() => {
           state = 'countdown'
-        }}"
+        }}
       />
     {/if}
   </div>

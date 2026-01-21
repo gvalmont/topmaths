@@ -44,11 +44,11 @@
 <button
   type="button"
   class="block relative w-full rounded-lg bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark shadow-lg border border-coopmaths-canvas-darkest dark:border-coopmathsdark-canvas-darkest"
-  on:click="{handelSelection}"
+  on:click={handelSelection}
 >
   <div class="{reversed ? 'hide' : 'block'} ">
     <img
-      src="{exercise.png}"
+      src={exercise.png}
       alt="{exercise.uuid} image"
       class="object-fill rounded-t-lg"
     />

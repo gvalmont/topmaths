@@ -1,16 +1,17 @@
-import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
 import { texPrix } from '../../lib/format/style'
-import { texNombre } from '../../lib/outils/texNombre'
-import Exercice from '../Exercice'
-import { listeQuestionsToContenu, randint } from '../../modules/outils'
-import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
-import { context } from '../../modules/context'
+import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 import {
   handleAnswers,
   setReponse,
 } from '../../lib/interactif/gestionInteractif'
+import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
+import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { arrondi } from '../../lib/outils/nombres'
+import { texNombre } from '../../lib/outils/texNombre'
+import { context } from '../../modules/context'
+import { listeQuestionsToContenu, randint } from '../../modules/outils'
+import Exercice from '../Exercice'
 
 export const titre = 'Calculer une proportion ou appliquer un pourcentage'
 export const interactifReady = true
@@ -139,7 +140,7 @@ export default class Proportions extends Exercice {
                   break
                 case 2:
                   texte = `$${texNombre(totale, 0)}$ personnes assistent à un concert. $${taux}~\\%$ ont moins de $18$ ans. <br>Calculer le nombre de personnes majeures dans le public.`
-                  texteCorr = `${context.isHtml ? '<br>' : ''}On commence par déterminer la proportion de personnes majeures avec ce calcul : <br> $100-${taux}=${100 - taux}$.`
+                  texteCorr = `On commence par déterminer la proportion de personnes majeures avec ce calcul : <br> $100-${taux}=${100 - taux}$.<br>`
                   texteCorr +=
                     'Pour appliquer une proportion à une valeur, on multiplie celle-ci par la proportion $p$.'
                   texteCorr += `<br>Comme $${100 - taux}~\\%$ des $${texNombre(totale, 0)}$ personnes sont majeures, le nombre de personnes majeures est donné par :`
@@ -233,9 +234,9 @@ export default class Proportions extends Exercice {
               texte = `Pour le cadeau de ${prénom}, j'ai donné $${texPrix(sous)}$ €. Cela représente $${taux}~\\%$ du prix total du cadeau. <br>Quel est le montant du cadeau ?`
               texteCorr = `Soit $x$ le montant du cadeau. <br> Comme $${taux}~\\%$ de $x$ est égal à $${texPrix(sous)}$, on a :`
               texteCorr += `<br>$\\begin{aligned}
-              \\dfrac{${taux}}{100} \\times x &= ${sous} \\\\\\
-              ${texNombre(p, 2)} \\times x &= ${sous} \\\\
-              x &= \\dfrac{${texPrix(sous)}}{${texNombre(p, 2)}} \\\\
+              \\dfrac{${taux}}{100} \\times x &= ${texNombre(sous)} \\\\\\
+              ${texNombre(p, 2)} \\times x &= ${texNombre(sous)} \\\\
+              x &= \\dfrac{${texNombre(sous)}}{${texNombre(p, 2)}} \\\\
               x &= ${texPrix(totale)}
               \\end{aligned}$`
               texteCorr += `<br>Le cadeau coûte $${miseEnEvidence(texPrix(totale))}$ €.`
@@ -373,7 +374,7 @@ export default class Proportions extends Exercice {
         // @ts-expect-error
         this.autoCorrection[i].reponse.texte = '\\\\En \\% : '
       }
-      texte += ajouteChampTexteMathLive(this, i, '', {
+      texte += ajouteChampTexteMathLive(this, i, KeyboardType.clavierNumbers, {
         texteApres:
           listeTypeDeQuestions[i] === 'proportion'
             ? ' %'

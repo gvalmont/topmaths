@@ -87,7 +87,7 @@ export default class AiresCalculMental extends Exercice {
             texteInteractif += ajouteChampTexteMathLive(
               this,
               i,
-              KeyboardType.college6eme,
+              KeyboardType.clavierDeBase,
               {
                 texteAvant: '$\\mathcal{A}_\\text{carré} =$',
                 texteApres: '$\\text{ cm}^2$',
@@ -107,7 +107,7 @@ export default class AiresCalculMental extends Exercice {
             texteInteractif += ajouteChampTexteMathLive(
               this,
               i,
-              KeyboardType.college6eme,
+              KeyboardType.clavierDeBase,
               {
                 texteAvant: '$\\mathcal{A}_\\text{rectangle} =$',
                 texteApres: '$\\text{ cm}^2$',
@@ -129,7 +129,7 @@ export default class AiresCalculMental extends Exercice {
             texteInteractif += ajouteChampTexteMathLive(
               this,
               i,
-              KeyboardType.college6eme,
+              KeyboardType.clavierDeBase,
               {
                 texteAvant: '$\\mathcal{A}_\\text{triangle} =$',
                 texteApres: '$\\text{ cm}^2$',
@@ -151,7 +151,7 @@ export default class AiresCalculMental extends Exercice {
             texteInteractif += ajouteChampTexteMathLive(
               this,
               i,
-              KeyboardType.college6eme,
+              KeyboardType.clavierDeBase,
               {
                 texteAvant: '$\\mathcal{A}_\\text{disque} =$',
                 texteApres: '$\\text{ cm}^2$',
@@ -174,7 +174,7 @@ export default class AiresCalculMental extends Exercice {
           texteInteractif += ajouteChampTexteMathLive(
             this,
             i,
-            KeyboardType.college6eme,
+            KeyboardType.clavierDeBase,
             {
               texteAvant: '$\\mathcal{A}_\\text{disque} =$',
               texteApres: '$\\text{ cm}^2$',

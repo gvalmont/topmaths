@@ -37,7 +37,7 @@ export default class SujetZero2024Ex5Q5 extends ExerciceQcm {
     this.enonce +=
       'On note $\\mathcal{C}_h$ la courbe représentative de $h$ dans un repère du plan. <br>'
     this.enonce +=
-      "Sur l'intervalle $\\left]\\dfrac{1}{\\text{e}}~;~2\\right]$, la fonction $h$ s'annule :<br>"
+      "Sur l'intervalle $\\left]\\dfrac{1}{\\mathrm{e}}~;~2\\right]$, la fonction $h$ s'annule :<br>"
     this.correction =
       'On a  :<br> $\\begin{aligned}&h(x) = 0\\\\ \\iff &x^2(1 + 2\\ln (x)) = 0\\end{aligned}$'
     this.correction +=
@@ -49,10 +49,10 @@ export default class SujetZero2024Ex5Q5 extends ExerciceQcm {
     this.correction +=
       ' <br>$\\begin{aligned}\\iff& \\begin{cases}x =0\\\\\\ln (x)=- \\dfrac{1}{2}\\end{cases} \\end{aligned}$'
     this.correction +=
-      ' <br>$\\begin{aligned}\\iff& \\begin{cases}x =0\\\\x=\\text{e}^{- \\dfrac{1}{2}}\\end{cases} \\end{aligned}$'
+      ' <br>$\\begin{aligned}\\iff& \\begin{cases}x =0\\\\x=\\mathrm{e}^{- \\dfrac{1}{2}}\\end{cases} \\end{aligned}$'
 
     this.correction +=
-      "<br>Comme 0 ne peut être solution et que $\\text{e}^{- \\frac{1}{2}} \\in ]0~;~2]$, l'équation a une solution."
+      "<br>Comme 0 ne peut être solution et que $\\mathrm{e}^{- \\frac{1}{2}} \\in ]0~;~2]$, l'équation a une solution."
     this.correction += `<br>Elle s'annule ${texteEnCouleurEtGras('exactement 1 fois.')}`
   }
 

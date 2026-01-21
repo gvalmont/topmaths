@@ -1,6 +1,8 @@
+import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 import { setReponse } from '../../lib/interactif/gestionInteractif'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
+import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { arrondi, range1 } from '../../lib/outils/nombres'
 import { texNombre } from '../../lib/outils/texNombre'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
@@ -43,15 +45,19 @@ export default class Quart extends Exercice {
     for (
       let i = 0, texte, texteCorr, a, b, cpt = 0;
       i < this.nbQuestions && cpt < 50;
-
     ) {
       switch (listeTypeDeQuestions[i]) {
         case 1: // Table de 4
           a = randint(2, 9)
           texte = `$\\text{Le quart de }${a * 4}$`
-          texteCorr = `$\\text{Le quart de }${a * 4} \\text{ est } ${a}$`
+          texteCorr = `$\\text{Le quart de }${a * 4} \\text{ est } ${miseEnEvidence(a)}$`
           setReponse(this, i, a)
-          if (this.interactif) texte += ajouteChampTexteMathLive(this, i, '')
+          if (this.interactif)
+            texte += ajouteChampTexteMathLive(
+              this,
+              i,
+              KeyboardType.clavierNumbers,
+            )
           break
         case 2: // Impair
           a = randint(2, 9)
@@ -59,27 +65,42 @@ export default class Quart extends Exercice {
           texte = `$\\text{Le quart de }${a * 4 + b}$`
           texteCorr = `$\\text{Le quart de }${
             a * 4 + b
-          } \\text{ est } ${texNombre(a + b / 4)}$`
+          } \\text{ est } ${miseEnEvidence(texNombre(a + b / 4))}$`
           setReponse(this, i, arrondi(a + b / 4))
-          if (this.interactif) texte += ajouteChampTexteMathLive(this, i, '')
+          if (this.interactif)
+            texte += ajouteChampTexteMathLive(
+              this,
+              i,
+              KeyboardType.clavierNumbers,
+            )
           break
         case 3: // Table de 400
           a = randint(2, 9)
           texte = `$\\text{Le quart de }${texNombre(a * 4 * 100)}$`
           texteCorr = `$\\text{Le quart de }${texNombre(
             a * 4 * 100,
-          )} \\text{ est } ${texNombre(a * 100)}$`
+          )} \\text{ est } ${miseEnEvidence(texNombre(a * 100))}$`
           setReponse(this, i, a * 100)
-          if (this.interactif) texte += ajouteChampTexteMathLive(this, i, '')
+          if (this.interactif)
+            texte += ajouteChampTexteMathLive(
+              this,
+              i,
+              KeyboardType.clavierNumbers,
+            )
           break
         case 4: // Table de 40
           a = randint(2, 9)
           texte = `$\\text{Le quart de }${texNombre(a * 4 * 10)}$`
           texteCorr = `$\\text{Le quart de }${texNombre(
             a * 4 * 10,
-          )} \\text{ est } ${texNombre(a * 10)}$`
+          )} \\text{ est } ${miseEnEvidence(texNombre(a * 10))}$`
           setReponse(this, i, a * 10)
-          if (this.interactif) texte += ajouteChampTexteMathLive(this, i, '')
+          if (this.interactif)
+            texte += ajouteChampTexteMathLive(
+              this,
+              i,
+              KeyboardType.clavierNumbers,
+            )
           break
         case 5: // a,b avec a et b divisibles par 4
           a = randint(2, 9)
@@ -87,16 +108,21 @@ export default class Quart extends Exercice {
           texte = `$\\text{Le quart de }${texNombre(a * 4 + (b * 4) / 100)}$`
           texteCorr = `$\\text{Le quart de }${texNombre(
             a * 4 + (b * 4) / 100,
-          )} \\text{ est } ${texNombre(a + b / 100)}$`
+          )} \\text{ est } ${miseEnEvidence(texNombre(a + b / 100))}$`
           setReponse(this, i, arrondi(a + b / 100))
-          if (this.interactif) texte += ajouteChampTexteMathLive(this, i, '')
+          if (this.interactif)
+            texte += ajouteChampTexteMathLive(
+              this,
+              i,
+              KeyboardType.clavierNumbers,
+            )
           break
       }
 
       if (this.listeQuestions.indexOf(texte) === -1) {
         // Si la question n'a jamais été posée, on en crée une autre
         this.listeQuestions[i] = texte
-        this.listeCorrections[i] = texteCorr
+        this.listeCorrections[i] = texteCorr + '.'
         i++
       }
       cpt++

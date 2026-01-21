@@ -11,7 +11,7 @@ import { nombreDeChiffresDe } from '../../lib/outils/nombres'
 import { texNombre } from '../../lib/outils/texNombre'
 import { context } from '../../modules/context'
 import { mathalea2d } from '../../modules/mathalea2d'
-import Operation from '../../modules/operations'
+import operation from '../../modules/operations'
 import {
   gestionnaireFormulaireTexte,
   listeQuestionsToContenu,
@@ -114,7 +114,6 @@ export default class AdditionsSoustractionsMultiplicationsPosees extends Exercic
     for (
       let i = 0, cpt = 0, a, b, c, d, e, f, g, x, y;
       i < this.nbQuestions && cpt < 50;
-
     ) {
       typesDeQuestions = listeTypeDeQuestions[i]
       this.autoCorrection[i] = {}
@@ -139,7 +138,7 @@ export default class AdditionsSoustractionsMultiplicationsPosees extends Exercic
           texte += grilletxt
           reponse = a + b
           texteCorr = String(
-            Operation({
+            operation({
               options: { colore, solution: true },
               operande1: a,
               operande2: b,
@@ -149,7 +148,7 @@ export default class AdditionsSoustractionsMultiplicationsPosees extends Exercic
           if (this.sup3) {
             texte =
               String(
-                Operation({
+                operation({
                   operande1: a,
                   operande2: b,
                   type: 'addition',
@@ -177,7 +176,7 @@ export default class AdditionsSoustractionsMultiplicationsPosees extends Exercic
           texte += grilletxt
           reponse = x - y
           texteCorr = String(
-            Operation({
+            operation({
               operande1: x,
               operande2: y,
               type: 'soustraction',
@@ -187,7 +186,7 @@ export default class AdditionsSoustractionsMultiplicationsPosees extends Exercic
           if (this.sup3) {
             texte =
               String(
-                Operation({
+                operation({
                   operande1: x,
                   operande2: y,
                   type: 'soustraction',
@@ -215,7 +214,7 @@ export default class AdditionsSoustractionsMultiplicationsPosees extends Exercic
           texte += grilletxt
           reponse = x - y
           texteCorr = String(
-            Operation({
+            operation({
               operande1: x,
               operande2: y,
               type: 'soustraction',
@@ -225,7 +224,7 @@ export default class AdditionsSoustractionsMultiplicationsPosees extends Exercic
           if (this.sup3) {
             texte =
               String(
-                Operation({
+                operation({
                   operande1: x,
                   operande2: y,
                   type: 'soustraction',
@@ -252,7 +251,7 @@ export default class AdditionsSoustractionsMultiplicationsPosees extends Exercic
           texte += grilletxt
           reponse = x * y
           texteCorr = String(
-            Operation({
+            operation({
               operande1: x,
               operande2: y,
               type: 'multiplication',
@@ -262,7 +261,7 @@ export default class AdditionsSoustractionsMultiplicationsPosees extends Exercic
           if (this.sup3) {
             texte =
               String(
-                Operation({
+                operation({
                   operande1: x,
                   operande2: y,
                   type: 'multiplication',
@@ -290,7 +289,7 @@ export default class AdditionsSoustractionsMultiplicationsPosees extends Exercic
           texte += grilletxt
           reponse = x * y
           texteCorr = String(
-            Operation({
+            operation({
               operande1: x,
               operande2: y,
               type: 'multiplication',
@@ -300,7 +299,7 @@ export default class AdditionsSoustractionsMultiplicationsPosees extends Exercic
           if (this.sup3) {
             texte =
               String(
-                Operation({
+                operation({
                   operande1: x,
                   operande2: y,
                   type: 'multiplication',

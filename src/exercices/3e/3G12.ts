@@ -7,6 +7,7 @@ import { labelPoint, texteParPosition } from '../../lib/2d/textes'
 import { tracePoint } from '../../lib/2d/TracePoint'
 import { rotation } from '../../lib/2d/transformations'
 import { arcenciel, texcolors } from '../../lib/format/style'
+import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 import { setReponse } from '../../lib/interactif/gestionInteractif'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { choice, shuffle } from '../../lib/outils/arrayOutils'
@@ -373,7 +374,7 @@ export default class PavageEtRotation2D extends Exercice {
       for (let i = 0; i < this.nbQuestions; i++) {
         texteAMC =
           `Quelle est l'image de la figure $${couples[i][0]}$ ?` +
-          ajouteChampTexteMathLive(this, i, '') +
+          ajouteChampTexteMathLive(this, i, KeyboardType.clavierNumbers) +
           '<br>'
         texte += texteAMC
         texteCorr += `L'image de la figure $${couples[i][0]}$ est la figure $${miseEnEvidence(couples[i][1])}$.<br>`

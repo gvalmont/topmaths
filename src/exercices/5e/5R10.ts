@@ -1,23 +1,23 @@
-import { combinaisonListes } from '../../lib/outils/arrayOutils'
-import {
-  ecritureAlgebrique,
-  ecritureParentheseSiMoins,
-} from '../../lib/outils/ecritures'
-import {
-  arrondi,
-  nombreDeChiffresDansLaPartieEntiere,
-} from '../../lib/outils/nombres'
-import { texNombre } from '../../lib/outils/texNombre'
-import Exercice from '../Exercice'
-import { context } from '../../modules/context'
-import { listeQuestionsToContenu, randint } from '../../modules/outils'
+import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 import {
   handleAnswers,
   setReponse,
 } from '../../lib/interactif/gestionInteractif'
 import { remplisLesBlancs } from '../../lib/interactif/questionMathLive'
-import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
+import { combinaisonListes } from '../../lib/outils/arrayOutils'
+import {
+  ecritureAlgebrique,
+  ecritureParentheseSiMoins,
+} from '../../lib/outils/ecritures'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
+import {
+  arrondi,
+  nombreDeChiffresDansLaPartieEntiere,
+} from '../../lib/outils/nombres'
+import { texNombre } from '../../lib/outils/texNombre'
+import { context } from '../../modules/context'
+import { listeQuestionsToContenu, randint } from '../../modules/outils'
+import Exercice from '../Exercice'
 
 export const interactifReady = true
 
@@ -76,7 +76,6 @@ export default class TermeInconnuDeSomme extends Exercice {
     for (
       let i = 0, a, b, texte, texteCorr, cpt = 0;
       i < this.nbQuestions && cpt < 50;
-
     ) {
       do {
         if (!context.isAmc) {
@@ -95,7 +94,7 @@ export default class TermeInconnuDeSomme extends Exercice {
           texte = remplisLesBlancs(
             this,
             i,
-            `${texNombre(a)} + %{champ1} = ${texNombre(b)}`,
+            `${texNombre(a)}~+~%{champ1}~=~${texNombre(b)}`,
             KeyboardType.clavierDeBase,
             '\\ldots',
           )
@@ -106,7 +105,7 @@ export default class TermeInconnuDeSomme extends Exercice {
           texte = remplisLesBlancs(
             this,
             i,
-            `%{champ1} + ${texNombre(a)} = ${texNombre(b)}`,
+            `%{champ1}~+~${texNombre(a)}~=~${texNombre(b)}`,
             KeyboardType.clavierDeBase,
             '\\ldots',
           )
@@ -117,7 +116,7 @@ export default class TermeInconnuDeSomme extends Exercice {
           texte = remplisLesBlancs(
             this,
             i,
-            `${texNombre(b)} = %{champ1} + ${texNombre(a)}`,
+            `${texNombre(b)}~=~%{champ1}~+~${texNombre(a)}`,
             KeyboardType.clavierDeBase,
             '\\ldots',
           )
@@ -129,7 +128,7 @@ export default class TermeInconnuDeSomme extends Exercice {
           texte = remplisLesBlancs(
             this,
             i,
-            `${texNombre(b)} = ${texNombre(a)} + %{champ1}`,
+            `${texNombre(b)}~=~${texNombre(a)}~+~%{champ1}`,
             KeyboardType.clavierDeBase,
             '\\ldots',
           )

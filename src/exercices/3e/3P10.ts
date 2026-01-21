@@ -1,10 +1,11 @@
 import { texPrix } from '../../lib/format/style'
+import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { abs, arrondi } from '../../lib/outils/nombres'
-import { stringNombre, texNombre } from '../../lib/outils/texNombre'
+import { texNombre } from '../../lib/outils/texNombre'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import Exercice from '../Exercice'
 
@@ -38,6 +39,8 @@ export default class EvolutionsEnPourcentage extends Exercice {
       4,
       '1 : Déterminer le résultat après une variation en pourcentage\n2 : Exprimer une variation en pourcentage\n3 : Calculer la valeur initiale en connaissant la variation et la situation finale\n4 : Mélange',
     ]
+    this.besoinFormulaire2CaseACocher = ['calculs faisables mentalement', false]
+    this.sup2 = false
 
     this.nbQuestions = 4
 
@@ -74,11 +77,13 @@ export default class EvolutionsEnPourcentage extends Exercice {
       let texteCorr = ''
       switch (typesDeSituations[i]) {
         case 'prix':
-          depart = choice([
-            randint(11, 99) / 10,
-            randint(11, 99),
-            randint(11, 99) * 10,
-          ])
+          depart = this.sup2
+            ? randint(2, 8) * choice([100, 1000])
+            : choice([
+                randint(11, 99) / 10,
+                randint(11, 99),
+                randint(11, 99) * 10,
+              ])
           taux = choice([10, 20, 30, 40, 60])
           taux *= choice([-1, 1])
           coeff = texNombre(1 + taux / 100)
@@ -135,21 +140,27 @@ export default class EvolutionsEnPourcentage extends Exercice {
           // Multiple de 50 et multiple de 2%
           // Multiple de 20 et multiple de 5%
           // Multiple de 100 et n%
-          switch (randint(1, 3)) {
-            case 1:
-              depart = 50 * randint(7, 24)
-              taux = 2 * randint(1, 5)
-              break
-            case 2:
-              depart = 20 * randint(17, 60)
-              taux = 5 * randint(1, 3)
-              break
-            case 3:
-            default:
-              depart = 100 * randint(4, 12)
-              taux = randint(1, 11)
-              break
+          if (this.sup2) {
+            depart = 100 * randint(4, 12)
+            taux = 2 * randint(1, 5)
+          } else {
+            switch (randint(1, 3)) {
+              case 1:
+                depart = 50 * randint(7, 24)
+                taux = 2 * randint(1, 5)
+                break
+              case 2:
+                depart = 20 * randint(17, 60)
+                taux = 5 * randint(1, 3)
+                break
+              case 3:
+              default:
+                depart = 100 * randint(4, 12)
+                taux = randint(1, 11)
+                break
+            }
           }
+
           arrive = depart * (1 + taux / 100)
           coeff = texNombre(1 + taux / 100)
           date = new Date()
@@ -177,12 +188,12 @@ export default class EvolutionsEnPourcentage extends Exercice {
                 texte = `Depuis ${anneeDerniere} le nombre d'élèves d'un ${etablissement} a augmenté de $${taux}~\\%$. Il y a maintenant $${texNombre(arrive)}$ élèves. Calculer le nombre d'élèves en ${anneeDerniere} dans cet établissement.`
                 texteCorr = `Une augmentation de $${taux}~\\%$ revient à multiplier par $100~\\% + ${taux}~\\% = ${100 + taux}~\\% = ${coeff}$.<br>Pour retrouver le nombre initial d'élèves, on va donc diviser le nombre actuel d'élèves par $${coeff}$.`
                 texteCorr += `<br>$${texNombre(arrive)}\\div ${coeff} = ${texNombre(depart)}$`
-                texteCorr += `<br>En ${anneeDerniere}, il y avait $${miseEnEvidence(stringNombre(depart))}$ élèves dans ce ${etablissement}.`
+                texteCorr += `<br>En ${anneeDerniere}, il y avait $${miseEnEvidence(texNombre(depart))}$ élèves dans ce ${etablissement}.`
               } else {
                 texte = `Depuis ${anneeDerniere} le nombre d'élèves d'un ${etablissement} a diminué de $${taux}~\\%$. Il y a maintenant $${texNombre(arrive)}$ élèves. Calculer le nombre d'élèves en ${anneeDerniere} dans cet établissement.`
                 texteCorr = `Une diminution de $${abs(taux)}~\\%$ revient à multiplier par $100~\\% ${taux}~\\% = ${100 + taux}~\\% = ${coeff}$.<br>Pour retrouver le nombre initial d'élèves, on va donc diviser le nombre actuel d'élèves par $${coeff}$.`
                 texteCorr += `<br>$${texNombre(arrive)}\\div ${coeff} = ${texNombre(depart)}$`
-                texteCorr += `<br>En ${anneeDerniere}, il y avait $${miseEnEvidence(stringNombre(depart))}$ élèves dans ce ${etablissement}.`
+                texteCorr += `<br>En ${anneeDerniere}, il y avait $${miseEnEvidence(texNombre(depart))}$ élèves dans ce ${etablissement}.`
               }
               reponse = depart
               texteApres = ' élèves'
@@ -204,8 +215,8 @@ export default class EvolutionsEnPourcentage extends Exercice {
           }
           break
         case 'facture':
-          depart = randint(700, 1400)
-          taux = randint(1, 12)
+          depart = this.sup2 ? randint(7, 14) * 100 : randint(700, 1400)
+          taux = this.sup2 ? randint(1, 2) * 10 : randint(1, 12)
           taux *= choice([-1, 1])
           coeff = texNombre(1 + taux / 100)
           arrive = depart * (1 + taux / 100)
@@ -266,8 +277,10 @@ export default class EvolutionsEnPourcentage extends Exercice {
           break
         case 'population':
         default:
-          depart = choice([randint(11, 99) * 1000, randint(11, 99) * 10000])
-          taux = randint(5, 35)
+          depart = this.sup2
+            ? randint(10, 90) * 1000
+            : choice([randint(11, 99) * 1000, randint(11, 99) * 10000])
+          taux = this.sup2 ? randint(1, 3) * 10 : randint(5, 35)
           taux *= choice([-1, 1])
           coeff = texNombre(1 + taux / 100)
           arrive = depart * (1 + taux / 100)
@@ -322,7 +335,9 @@ export default class EvolutionsEnPourcentage extends Exercice {
       }
       handleAnswers(this, i, { reponse: { value: arrondi(reponse) } })
 
-      texte += ajouteChampTexteMathLive(this, i, '', { texteApres })
+      texte += ajouteChampTexteMathLive(this, i, KeyboardType.clavierNumbers, {
+        texteApres,
+      })
       if (this.questionJamaisPosee(i, reponse)) {
         // Si la question n'a jamais été posée, on en créé une autre
         this.listeQuestions[i] = texte

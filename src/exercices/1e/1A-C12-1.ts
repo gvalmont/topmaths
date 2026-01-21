@@ -21,6 +21,5 @@ export default class Auto1AC14 extends CalculExpAvecValeurs {
   constructor() {
     super()
     this.versionQcm = true
-    this.formatInteractif = 'qcm'
   }
 }

@@ -11,7 +11,6 @@
   }[] = []
   export let isDisabled: boolean = false
   export let orientation: FlexOrientation = 'col'
-  export let bgColor: string = 'bg-coopmaths-canvas'
 
   const name =
     title !== undefined
@@ -54,43 +53,39 @@
   ```
  -->
 
-<div class="flex flex-{orientation} justify-start items-start mt-1">
+<div
+  class="flex justify-start items-start mt-1"
+  class:flex-col={orientation === 'col'}
+  class:flex-row={orientation === 'row'}
+>
   {#each labelsValues as labelValue, i}
     <div class="form-check flex flex-row ml-4 items-center">
       <input
-        class="form-check-input rounded-full h-4 w-4 mt-1 mr-2
-          transition duration-200
+        class="form-check-input rounded-full h-4 w-4 mt-1 mr-2 border
+          transition duration-200 focus:outline-0 focus:ring-0
           text-coopmaths-action dark:text-coopmathsdark-action
-          {bgColor} dark:bg-coopmathsdark-canvas-dark
-          border
+          bg-coopmaths-canvas dark:bg-coopmathsdark-canvas-dark
           border-coopmaths-action dark:border-coopmathsdark-action
           checked:border-coopmaths-action dark:checked:border-coopmathsdark-action
           active:border-coopmaths-action dark:active:border-coopmathsdark-action
-          focus:outline-0 focus:ring-0 focus:border-1
           focus:border-coopmaths-action dark:focus:border-coopmathsdark-action
           checked:bg-coopmaths-action dark:checked:bg-coopmathsdark-action
-          checked:disabled:bg-opacity-10 checked:disabled:border-opacity-10
-          {isDisabled || labelValue.isDisabled
-          ? `border-opacity-10 dark:border-opacity-10
-              bg-opacity-10 dark:bg-opacity-10
-              checked:disabled:opacity-10 dark:checked:disabled:opacity-10`
-          : 'cursor-pointer'}"
+          {isDisabled || labelValue.isDisabled ? '' : 'cursor-pointer'}"
         type="radio"
         {name}
-        id="{name + i.toString()}"
-        bind:group="{valueSelected}"
-        value="{labelValue.value}"
-        disabled="{isDisabled || labelValue.isDisabled}"
-        on:change="{valueHasChanged}"
+        id={name + i.toString()}
+        bind:group={valueSelected}
+        value={labelValue.value}
+        disabled={isDisabled || labelValue.isDisabled}
+        on:change={valueHasChanged}
       />
       <label
         class="form-check-label inline-block text-sm
-          text-coopmaths-corpus dark:text-coopmathsdark-corpus
           {valueSelected === labelValue.value ? 'font-semibold' : 'font-light'}
           {isDisabled || labelValue.isDisabled
-          ? 'text-opacity-10'
-          : 'text-opacity-70 cursor-pointer'}"
-        for="{name + i.toString()}"
+          ? 'text-coopmaths-corpus/10 dark:text-coopmathsdark-corpus/10'
+          : 'text-coopmaths-corpus/70 dark:text-coopmathsdark-corpus/70 cursor-pointer'}"
+        for={name + i.toString()}
       >
         {labelValue.label}
       </label>

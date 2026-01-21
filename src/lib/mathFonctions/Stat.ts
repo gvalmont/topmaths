@@ -10,6 +10,7 @@ import { segment } from '../2d/segmentsVecteurs'
 import { latex2d } from '../2d/textes'
 import { tracePoint } from '../2d/TracePoint'
 import { milieu } from '../2d/utilitairesPoint'
+import { vide2d } from '../2d/Vide2d'
 import { shuffle } from '../outils/arrayOutils'
 import { texNombre } from '../outils/texNombre'
 
@@ -26,7 +27,8 @@ export default class Stat {
   isQualitative: boolean = false
   constructor(
     serie: Array<number | string | [number | string, number]>,
-    isQualitative?: boolean,
+    isQualitative = false,
+    shuffled = true,
   ) {
     if (!Array.isArray(serie) || serie.length === 0) {
       throw new Error('La série doit être un array non vide')
@@ -76,7 +78,11 @@ export default class Stat {
       typeof isQualitative === 'boolean' ? isQualitative : inferredQualitative
 
     // stocker la série (mélangée pour éviter biais d'ordre)
-    this.serie = shuffle(processed)
+    if (shuffled) {
+      this.serie = shuffle(processed)
+    } else {
+      this.serie = processed
+    }
 
     // construire this.serieTableau : tableau [valeur, effectif]
     const counts = new Map<number | string, number>()
@@ -200,6 +206,14 @@ export default class Stat {
     return this.ecartType() / this.moyenne()
   }
 
+  get q1(): number {
+    return this.quartiles().q1
+  }
+
+  get q3(): number {
+    return this.quartiles().q3
+  }
+
   quartiles(): { q1: number; q2: number; q3: number } {
     if (this.isQualitative) {
       throw new Error('Quartiles non définis : la série est qualitative')
@@ -217,6 +231,16 @@ export default class Stat {
       ? this.medianeArray(upper)
       : values[values.length - 1]
     return { q1, q2, q3 }
+  }
+
+  ecartInterQuartile(): number {
+    if (this.isQualitative) {
+      throw new Error(
+        'Écart interquartile non défini : la série est qualitative',
+      )
+    }
+    const { q1, q3 } = this.quartiles()
+    return q3 - q1
   }
 
   serieTriee(): number[] {
@@ -346,8 +370,14 @@ export default class Stat {
     const lineMin = segment(minDownPoint, minUpPoint, 'blue')
     const lineMax = segment(maxDownPoint, maxUpPoint, 'blue')
     const lineQ2 = segment(q2DownPoint, q2UpPoint, 'blue')
-    const lineQ0Q1 = segment(minMiddlePoint, q1MiddlePoint, 'blue')
-    const lineQ3Q4 = segment(q3MiddlePoint, maxMiddlePoint, 'blue')
+    const lineQ0Q1 =
+      minMiddlePoint.x === q1MiddlePoint.x
+        ? vide2d()
+        : segment(minMiddlePoint, q1MiddlePoint, 'blue')
+    const lineQ3Q4 =
+      q3MiddlePoint.x === maxMiddlePoint.x
+        ? vide2d()
+        : segment(q3MiddlePoint, maxMiddlePoint, 'blue')
     lineMin.epaisseur = 2
     lineMax.epaisseur = 2
     lineQ2.epaisseur = 2
@@ -579,7 +609,7 @@ export default class Stat {
       barres
         ? cumul
           ? `diagramme cumulé (${croissance ? 'croissant' : 'décroissant'})`
-          : 'Diagramme en bâtons'
+          : 'Diagramme en barres'
         : cumul
           ? `Polygone des ${yName} cumulé${yName === 'fréquences' ? 'es' : 's'} (${croissance ? 'croissantes' : 'décroissantes'})`
           : `Polygone des ${yName}`
@@ -623,7 +653,7 @@ export default class Stat {
           )
         } else {
           yLabelsAndOrdinate = Array.from({
-            length: Math.floor((effectifMax + 1) / echelleY),
+            length: Math.ceil((effectifMax + 1) / echelleY),
           }).map((_, i) => [i * echelleY, (i * 8 * echelleY) / effectifMax])
         }
       }

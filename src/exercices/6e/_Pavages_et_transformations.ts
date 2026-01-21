@@ -15,7 +15,7 @@ import { mediatrice } from '../../lib/2d/Mediatrice'
 import { point } from '../../lib/2d/PointAbstrait'
 import { barycentre, polygone } from '../../lib/2d/polygones'
 import { representant } from '../../lib/2d/representantVecteur'
-import { segment } from '../../lib/2d/segmentsVecteurs'
+import { Segment, segment } from '../../lib/2d/segmentsVecteurs'
 import {
   labelPoint,
   latexParCoordonnees,
@@ -29,6 +29,8 @@ import {
   pointSurDroite,
 } from '../../lib/2d/utilitairesPoint'
 import { vecteur } from '../../lib/2d/Vecteur'
+import { vide2d, type Vide2d } from '../../lib/2d/Vide2d'
+import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 import { setReponse } from '../../lib/interactif/gestionInteractif'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { choice } from '../../lib/outils/arrayOutils'
@@ -139,19 +141,16 @@ export default class PavagesEtTransformations extends Exercice {
       rayon22,
       rayon31,
       rayon32
-    let vecteur1,
-      vecteur2,
-      vecteur3,
-      vector1,
-      vector2,
-      vector3,
-      origine1,
-      origine2,
-      origine3,
-      indexsym2,
-      indexsym1,
-      indexsym3
-    let segCorr11, segCorr12, segCorr21, segCorr22, segCorr31, segCorr32
+    let vecteur1: Segment | Vide2d = vide2d()
+    let vecteur2: Segment | Vide2d = vide2d()
+    let vecteur3: Segment | Vide2d = vide2d()
+    let origine1, origine2, origine3, indexsym2, indexsym1, indexsym3
+    let segCorr11: Segment | Vide2d = vide2d()
+    let segCorr12: Segment | Vide2d = vide2d()
+    let segCorr21: Segment | Vide2d = vide2d()
+    let segCorr22: Segment | Vide2d = vide2d()
+    let segCorr31: Segment | Vide2d = vide2d()
+    let segCorr32: Segment | Vide2d = vide2d()
     let iB1, iB2, iB3, iC1, iA1, iD1
     let texte = ''
     let texteCorr = ''
@@ -419,7 +418,7 @@ export default class PavagesEtTransformations extends Exercice {
           ' Quel est le numéro de la figure symétrique de la figure ' +
           texteEnCouleurEtGras(`${numA}`, context.isAmc ? 'black' : 'green') +
           ` dans la symétrie d'axe  $${miseEnEvidence('(d_1)', context.isAmc ? 'black' : 'green')}$  ?` +
-          ajouteChampTexteMathLive(this, 0, '') +
+          ajouteChampTexteMathLive(this, 0, KeyboardType.clavierNumbers) +
           '<br>'
         texte += texteAMC1
         texteCorr +=
@@ -507,7 +506,7 @@ export default class PavagesEtTransformations extends Exercice {
           ' Quel est le numéro de la figure symétrique de la figure ' +
           texteEnCouleurEtGras(`${numD}`, context.isAmc ? 'black' : 'red') +
           ` dans la symétrie d'axe  $${miseEnEvidence('(d_2)', context.isAmc ? 'black' : 'red')}$  ?` +
-          ajouteChampTexteMathLive(this, 1, '') +
+          ajouteChampTexteMathLive(this, 1, KeyboardType.clavierNumbers) +
           '<br>'
         texte += '<br>' + texteAMC2
         texteCorr +=
@@ -595,7 +594,7 @@ export default class PavagesEtTransformations extends Exercice {
           ' Quel est le numéro de la figure symétrique de la figure ' +
           texteEnCouleurEtGras(`${numC}`, context.isAmc ? 'black' : 'blue') +
           ` dans la symétrie d'axe  $${miseEnEvidence('(d_3)', context.isAmc ? 'black' : 'blue')}$  ?` +
-          ajouteChampTexteMathLive(this, 2, '') +
+          ajouteChampTexteMathLive(this, 2, KeyboardType.clavierNumbers) +
           '<br>'
         texte += '<br>' + texteAMC3
         texteCorr +=
@@ -959,7 +958,7 @@ export default class PavagesEtTransformations extends Exercice {
             ` Quel est le numéro de la figure symétrique de la figure ${numA} dans la symétrie de centre ${s0} ?`,
             context.isAmc ? 'black' : 'green',
           ) +
-          ajouteChampTexteMathLive(this, 0, '') +
+          ajouteChampTexteMathLive(this, 0, KeyboardType.clavierNumbers) +
           '<br>'
         texte += texteAMC1
         texteCorr =
@@ -1020,7 +1019,7 @@ export default class PavagesEtTransformations extends Exercice {
             ` Quel est le numéro de la figure symétrique de la figure ${numD} dans la symétrie de centre ${s1} ?`,
             context.isAmc ? 'black' : 'red',
           ) +
-          ajouteChampTexteMathLive(this, 1, '') +
+          ajouteChampTexteMathLive(this, 1, KeyboardType.clavierNumbers) +
           '<br>'
         texte += '<br>' + texteAMC2
         texteCorr +=
@@ -1093,7 +1092,7 @@ export default class PavagesEtTransformations extends Exercice {
             ` Quel est le numéro de la figure symétrique de la figure ${numC} dans la symétrie de centre ${s2} ?`,
             context.isAmc ? 'black' : 'blue',
           ) +
-          ajouteChampTexteMathLive(this, 2, '') +
+          ajouteChampTexteMathLive(this, 2, KeyboardType.clavierNumbers) +
           '<br>'
         texte += '<br>' + texteAMC3
         texteCorr +=
@@ -1266,11 +1265,10 @@ export default class PavagesEtTransformations extends Exercice {
               xa = tabfigA[indexA][0]
               ya = tabfigA[indexA][1]
               origine1 = point(tabfigB[iB1][0], tabfigB[iB1][1])
-              vector1 = vecteur(
+              vecteur1 = representant(
+                vecteur(origine1, point(tabfigB[iB2][0], tabfigB[iB2][1])),
                 origine1,
-                point(tabfigB[iB2][0], tabfigB[iB2][1]),
               )
-              vecteur1 = representant(vector1, origine1)
               vecteur1.color = colorToLatexOrHTML(
                 context.isAmc ? 'black' : 'green',
               )
@@ -1304,7 +1302,7 @@ export default class PavagesEtTransformations extends Exercice {
             ` Dans la translation qui transforme la figure ${tabfigB[iB1][2]} en la figure ${tabfigB[iB2][2]}, quel est le numéro de l'image de la figure ${numA} ?`,
             context.isAmc ? 'black' : 'green',
           ) +
-          ajouteChampTexteMathLive(this, 0, '') +
+          ajouteChampTexteMathLive(this, 0, KeyboardType.clavierNumbers) +
           '<br>'
         texte += texteAMC1
         texteCorr =
@@ -1339,11 +1337,10 @@ export default class PavagesEtTransformations extends Exercice {
               xb = tabfigD[indexD][0]
               yb = tabfigD[indexD][1]
               origine2 = point(tabfigC[iC1][0], tabfigC[iC1][1])
-              vector2 = vecteur(
+              vecteur2 = representant(
+                vecteur(origine2, point(tabfigA[iA1][0], tabfigA[iA1][1])),
                 origine2,
-                point(tabfigA[iA1][0], tabfigA[iA1][1]),
               )
-              vecteur2 = representant(vector2, origine2)
               vecteur2.color = colorToLatexOrHTML(
                 context.isAmc ? 'black' : 'red',
               )
@@ -1377,7 +1374,7 @@ export default class PavagesEtTransformations extends Exercice {
             ` Dans la translation qui transforme la figure ${tabfigC[iC1][2]} en la figure ${tabfigA[iA1][2]}, quel est le numéro de l'image de la figure ${numD} ?`,
             context.isAmc ? 'black' : 'red',
           ) +
-          ajouteChampTexteMathLive(this, 1, '') +
+          ajouteChampTexteMathLive(this, 1, KeyboardType.clavierNumbers) +
           '<br>'
         texte += '<br>' + texteAMC2
         texteCorr +=
@@ -1413,11 +1410,10 @@ export default class PavagesEtTransformations extends Exercice {
               xc = tabfigC[indexC][0]
               yc = tabfigC[indexC][1]
               origine3 = point(tabfigC[iD1][0], tabfigC[iD1][1])
-              vector3 = vecteur(
+              vecteur3 = representant(
+                vecteur(origine3, point(tabfigA[iB3][0], tabfigA[iB3][1])),
                 origine3,
-                point(tabfigA[iB3][0], tabfigA[iB3][1]),
               )
-              vecteur3 = representant(vector3, origine3)
               vecteur3.color = colorToLatexOrHTML(
                 context.isAmc ? 'black' : 'blue',
               )
@@ -1449,9 +1445,9 @@ export default class PavagesEtTransformations extends Exercice {
           num1 == null ||
           num2 == null ||
           num3 == null ||
-          vector1 == null ||
-          vector2 == null ||
-          vector3 == null
+          vecteur1.x1 == null ||
+          vecteur2.x1 == null ||
+          vecteur3.x1 == null
         ) {
           throw Error('num1, num2 ou num3 est null')
         }
@@ -1461,7 +1457,7 @@ export default class PavagesEtTransformations extends Exercice {
             ` Dans la translation qui transforme la figure ${tabfigC[iD1][2]} en la figure ${tabfigA[iB3][2]}, quel est le numéro de l'image de la figure ${numC} ?`,
             context.isAmc ? 'black' : 'blue',
           ) +
-          ajouteChampTexteMathLive(this, 2, '') +
+          ajouteChampTexteMathLive(this, 2, KeyboardType.clavierNumbers) +
           '<br>'
         texte += '<br>' + texteAMC3
         texteCorr +=
@@ -1476,18 +1472,18 @@ export default class PavagesEtTransformations extends Exercice {
         if (context.isHtml)
           objetsCorrection.push(
             translationAnimee(
-              quad[numA],
-              vector1,
+              [quad[numA]],
+              vecteur(vecteur1.x2 - vecteur1.x1, vecteur1.y2 - vecteur1.y1),
               `id="anim${numeroExercice}A" dur="2s" repeatcount="1"`,
             ),
             translationAnimee(
-              quad[numD],
-              vector2,
+              [quad[numD]],
+              vecteur(vecteur2.x2 - vecteur2.x1, vecteur2.y2 - vecteur2.y1),
               `id="anim${numeroExercice}B" dur="2s" repeatcount="1"`,
             ),
             translationAnimee(
-              quad[numC],
-              vector3,
+              [quad[numC]],
+              vecteur(vecteur3.x2 - vecteur3.x1, vecteur3.y2 - vecteur3.y1),
               `id="anim${numeroExercice}C" dur="2s" repeatcount="1"`,
             ),
           )
@@ -1524,13 +1520,22 @@ export default class PavagesEtTransformations extends Exercice {
           context.isAmc ? 'black' : 'blue',
         )
         quad3.opaciteDeRemplissage = 0.3
-        rayon11 = representant(vector1, point(xa, ya))
+        rayon11 = representant(
+          vecteur(vecteur1.x2 - vecteur1.x1, vecteur1.y2 - vecteur1.y1),
+          point(xa, ya),
+        )
         rayon11.color = colorToLatexOrHTML(context.isAmc ? 'black' : 'green')
         rayon11.epaisseur = 2
-        rayon21 = representant(vector2, point(xb, yb))
+        rayon21 = representant(
+          vecteur(vecteur2.x2 - vecteur2.x1, vecteur2.y2 - vecteur2.y1),
+          point(xb, yb),
+        )
         rayon21.color = colorToLatexOrHTML(context.isAmc ? 'black' : 'red')
         rayon21.epaisseur = 2
-        rayon31 = representant(vector3, point(xc, yc))
+        rayon31 = representant(
+          vecteur(vecteur3.x2 - vecteur3.x1, vecteur3.y2 - vecteur3.y1),
+          point(xc, yc),
+        )
         rayon31.color = colorToLatexOrHTML(context.isAmc ? 'black' : 'blue')
         rayon31.epaisseur = 2
         objetsCorrection.push(quad1, quad2, quad3, rayon11, rayon21, rayon31)
@@ -1601,7 +1606,7 @@ export default class PavagesEtTransformations extends Exercice {
           ' dans la rotation de centre ' +
           texteEnCouleurEtGras(`${s0}`, context.isAmc ? 'black' : 'green') +
           " et d'angle 90° dans le sens des aiguilles d'une montre ?" +
-          ajouteChampTexteMathLive(this, 0, '') +
+          ajouteChampTexteMathLive(this, 0, KeyboardType.clavierNumbers) +
           '<br>'
         texte += texteAMC1
         texteCorr +=
@@ -1664,7 +1669,7 @@ export default class PavagesEtTransformations extends Exercice {
           ' dans la rotation de centre ' +
           texteEnCouleurEtGras(`${s1}`, context.isAmc ? 'black' : 'red') +
           " et d'angle 90° dans le sens contraire des aiguilles d'une montre ?" +
-          ajouteChampTexteMathLive(this, 1, '') +
+          ajouteChampTexteMathLive(this, 1, KeyboardType.clavierNumbers) +
           '<br>'
         texte += '<br>' + texteAMC2
         texteCorr +=
@@ -1740,7 +1745,7 @@ export default class PavagesEtTransformations extends Exercice {
           ' dans la rotation de centre ' +
           texteEnCouleurEtGras(`${s2}`, context.isAmc ? 'black' : 'blue') +
           " et d'angle 90° dans le sens des aiguilles d'une montre ?" +
-          ajouteChampTexteMathLive(this, 2, '') +
+          ajouteChampTexteMathLive(this, 2, KeyboardType.clavierNumbers) +
           '<br>'
         texte += '<br>' + texteAMC3
         texteCorr +=

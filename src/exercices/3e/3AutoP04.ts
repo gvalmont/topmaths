@@ -1,4 +1,5 @@
 import { choice } from '../../lib/outils/arrayOutils'
+import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { range } from '../../lib/outils/nombres'
 import { texNombre } from '../../lib/outils/texNombre'
 import { randint } from '../../modules/outils'
@@ -54,6 +55,6 @@ export default class MedianeDeSerieDeNotes extends ExerciceSimple {
       .join(' ; ')}$.<br>
     Comme il y a ${serie.length} notes (nombre impair), la médiane est la note du milieu, c'est-à-dire la ${Math.ceil(
       serie.length / 2,
-    )}e note : $${this.reponse}$.`
+    )}e note : $${miseEnEvidence(this.reponse)}$.`
   }
 }

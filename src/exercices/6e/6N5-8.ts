@@ -1,3 +1,10 @@
+import { texPrix } from '../../lib/format/style'
+import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
+import {
+  handleAnswers,
+  setReponse,
+} from '../../lib/interactif/gestionInteractif'
+import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { combinaisonListes } from '../../lib/outils/arrayOutils'
 import {
   miseEnEvidence,
@@ -6,15 +13,10 @@ import {
 } from '../../lib/outils/embellissements'
 import { sp } from '../../lib/outils/outilString'
 import { prenomF } from '../../lib/outils/Personne'
-import { texPrix } from '../../lib/format/style'
-import Exercice from '../Exercice'
-import { listeQuestionsToContenu, randint } from '../../modules/outils'
+import SchemaEnBoite from '../../lib/outils/SchemaEnBoite'
 import { context } from '../../modules/context'
-import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
-import {
-  handleAnswers,
-  setReponse,
-} from '../../lib/interactif/gestionInteractif'
+import { listeQuestionsToContenu, randint } from '../../modules/outils'
+import Exercice from '../Exercice'
 
 export const titre =
   'Résoudre des problèmes de type : ... de plus ou ... de moins'
@@ -24,7 +26,7 @@ export const amcReady = true
 export const amcType = 'AMCNum'
 
 export const dateDePublication = '10/07/2021'
-export const dateDeModifImportante = '11/12/2024'
+export const dateDeModifImportante = '13/01/2026'
 
 /**
  *
@@ -85,8 +87,8 @@ export default class ProblemesDePlusEtDeMoins extends Exercice {
     for (
       let i = 0, texte, texteCorr, cpt = 0;
       i < this.nbQuestions && cpt < 50;
-
     ) {
+      let schema = ''
       // Boucle principale où i+1 correspond au numéro de la question
       prenom1 = prenomF()
       prenom2 = prenomF()
@@ -105,9 +107,14 @@ export default class ProblemesDePlusEtDeMoins extends Exercice {
           if (this.interactif && !context.isAmc) {
             texte += "Combien d'argent,  en tout, possèdent les deux filles ?"
             texte += '<br>Les deux filles possèdent,  en tout, '
-            texte += ajouteChampTexteMathLive(this, i, ' ', {
-              texteApres: ' €',
-            })
+            texte += ajouteChampTexteMathLive(
+              this,
+              i,
+              KeyboardType.clavierNumbers,
+              {
+                texteApres: ' €',
+              },
+            )
           } else {
             texte +=
               "Combien d'argent en euros possèdent,  en tout, les deux filles ?"
@@ -121,6 +128,59 @@ export default class ProblemesDePlusEtDeMoins extends Exercice {
           texteCorr += texteEnCouleur(
             `<br>Les deux filles possèdent,  en tout, $${miseEnEvidence(texPrix(somme))}$ €.`,
           )
+          schema = new SchemaEnBoite({
+            lignes: [
+              {
+                barres: [
+                  {
+                    length: 5,
+                    content: `? €`,
+                    type: 'boite',
+                    color: 'lightblue',
+                  },
+                  {
+                    length: 5,
+                    content: `? €`,
+                    type: 'boite',
+                    color: 'lightblue',
+                  },
+                  {
+                    length: 2,
+                    content: `$${texPrix(e)}$ €`,
+                    type: 'boite',
+                    color: 'orange',
+                  },
+                ],
+              },
+            ],
+            topBraces: [
+              {
+                start: 1,
+                end: 6,
+                text: `${prenom1}`,
+                type: 'accolade',
+              },
+              {
+                start: 6,
+                end: 13,
+                text: `${prenom2}`,
+                type: 'accolade',
+              },
+            ],
+            bottomBraces: [
+              {
+                start: 1,
+                end: 6,
+                text: `$${texPrix(r)}$ € - $${texPrix(e)}$ €`,
+              },
+              {
+                start: 6,
+                end: 13,
+                text: `$${texPrix(r)}$ €`,
+                type: 'accolade',
+              },
+            ],
+          }).display()
 
           break
         case 'deMoinsPourAddition':
@@ -131,9 +191,14 @@ export default class ProblemesDePlusEtDeMoins extends Exercice {
           if (this.interactif && !context.isAmc) {
             texte +=
               "Combien d'argent,  en tout, possèdent les deux filles ?<br>Les deux filles possèdent,  en tout, :"
-            texte += ajouteChampTexteMathLive(this, i, ' ', {
-              texteApres: ' €',
-            })
+            texte += ajouteChampTexteMathLive(
+              this,
+              i,
+              KeyboardType.clavierNumbers,
+              {
+                texteApres: ' €',
+              },
+            )
           } else {
             texte +=
               "Combien d'argent en euros possèdent,  en tout, les deux filles ?"
@@ -147,6 +212,54 @@ export default class ProblemesDePlusEtDeMoins extends Exercice {
           texteCorr += texteEnCouleur(
             `<br>Les deux filles possèdent,  en tout, $${miseEnEvidence(texPrix(somme))}$ €.`,
           )
+          schema = new SchemaEnBoite({
+            lignes: [
+              {
+                barres: [
+                  {
+                    length: 5,
+                    content: `$${texPrix(r)}$ €`,
+                    type: 'boite',
+                    color: 'lightblue',
+                  },
+                  {
+                    length: 2,
+                    content: `$${texPrix(e)}$ €`,
+                    type: 'boite',
+                    color: 'orange',
+                  },
+                  {
+                    length: 5,
+                    content: `$${texPrix(r)}$ €`,
+                    type: 'boite',
+                    color: 'lightblue',
+                  },
+                ],
+              },
+            ],
+            topBraces: [
+              {
+                start: 1,
+                end: 6,
+                text: `${prenom2}`,
+                type: 'accolade',
+              },
+              {
+                start: 6,
+                end: 13,
+                text: `${prenom1}`,
+                type: 'accolade',
+              },
+            ],
+            bottomBraces: [
+              {
+                start: 1,
+                end: 13,
+                text: `? €`,
+                type: 'accolade',
+              },
+            ],
+          }).display()
 
           break
         case 'dePlusPourAddition':
@@ -157,9 +270,14 @@ export default class ProblemesDePlusEtDeMoins extends Exercice {
           if (this.interactif && !context.isAmc) {
             texte +=
               "Combien d'argent,  en tout, possèdent les deux filles ?<br>Les deux filles possèdent,  en tout, :"
-            texte += ajouteChampTexteMathLive(this, i, ' ', {
-              texteApres: ' €',
-            })
+            texte += ajouteChampTexteMathLive(
+              this,
+              i,
+              KeyboardType.clavierNumbers,
+              {
+                texteApres: ' €',
+              },
+            )
           } else {
             texte +=
               "Combien d'argent en euros possèdent,  en tout, les deux filles ?"
@@ -171,7 +289,54 @@ export default class ProblemesDePlusEtDeMoins extends Exercice {
           texteCorr += texteEnCouleur(
             `<br>Les deux filles possèdent,  en tout, $${miseEnEvidence(texPrix(somme))}$ €.`,
           )
-
+          schema = new SchemaEnBoite({
+            lignes: [
+              {
+                barres: [
+                  {
+                    length: 5,
+                    content: `$${texPrix(r)}$ €`,
+                    type: 'boite',
+                    color: 'lightblue',
+                  },
+                  {
+                    length: 2,
+                    content: `$${texPrix(e)}$ €`,
+                    type: 'boite',
+                    color: 'orange',
+                  },
+                  {
+                    length: 5,
+                    content: `$${texPrix(r)}$ €`,
+                    type: 'boite',
+                    color: 'lightblue',
+                  },
+                ],
+              },
+            ],
+            topBraces: [
+              {
+                start: 1,
+                end: 6,
+                text: `${prenom1}`,
+                type: 'accolade',
+              },
+              {
+                start: 6,
+                end: 13,
+                text: `${prenom2}`,
+                type: 'accolade',
+              },
+            ],
+            bottomBraces: [
+              {
+                start: 1,
+                end: 13,
+                text: `? €`,
+                type: 'accolade',
+              },
+            ],
+          }).display()
           break
         case 'deMoinsPourSoustraction':
         default:
@@ -182,9 +347,14 @@ export default class ProblemesDePlusEtDeMoins extends Exercice {
           if (this.interactif && !context.isAmc) {
             texte +=
               "Combien d'argent,  en tout, possèdent les deux filles ?<br>Les deux filles possèdent,  en tout, :"
-            texte += ajouteChampTexteMathLive(this, i, ' ', {
-              texteApres: ' €',
-            })
+            texte += ajouteChampTexteMathLive(
+              this,
+              i,
+              KeyboardType.clavierNumbers,
+              {
+                texteApres: ' €',
+              },
+            )
           } else {
             texte +=
               "Combien d'argent en euros possèdent,  en tout, les deux filles ?"
@@ -196,6 +366,59 @@ export default class ProblemesDePlusEtDeMoins extends Exercice {
           texteCorr += texteEnCouleur(
             `<br>Les deux filles possèdent,  en tout, $${miseEnEvidence(texPrix(somme))}$ €.`,
           )
+          schema = new SchemaEnBoite({
+            lignes: [
+              {
+                barres: [
+                  {
+                    length: 5,
+                    content: `? €`,
+                    type: 'boite',
+                    color: 'lightblue',
+                  },
+                  {
+                    length: 5,
+                    content: `? €`,
+                    type: 'boite',
+                    color: 'lightblue',
+                  },
+                  {
+                    length: 2,
+                    content: `$${texPrix(e)}$ €`,
+                    type: 'boite',
+                    color: 'orange',
+                  },
+                ],
+              },
+            ],
+            topBraces: [
+              {
+                start: 1,
+                end: 6,
+                text: `${prenom2}`,
+                type: 'accolade',
+              },
+              {
+                start: 6,
+                end: 13,
+                text: `${prenom1}`,
+                type: 'accolade',
+              },
+            ],
+            bottomBraces: [
+              {
+                start: 1,
+                end: 6,
+                text: `$${texPrix(r)}$ € - $${texPrix(e)}$ €`,
+              },
+              {
+                start: 6,
+                end: 13,
+                text: `$${texPrix(r)}$ €`,
+                type: 'accolade',
+              },
+            ],
+          }).display()
 
           break
       }
@@ -205,7 +428,7 @@ export default class ProblemesDePlusEtDeMoins extends Exercice {
       if (this.questionJamaisPosee(i, m, somme)) {
         // Si la question n'a jamais été posée, on en crée une autre
         this.listeQuestions[i] = texte
-        this.listeCorrections[i] = texteCorr
+        this.listeCorrections[i] = `${schema}<br><br>${texteCorr}`
         i++
       }
       cpt++

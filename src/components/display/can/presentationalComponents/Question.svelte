@@ -237,10 +237,10 @@
 
 <div
   id="question-content-{index}"
-  class="{visible
+  class={visible
     ? 'px-4 md:px-20 lg:px-32 flex flex-col justify-center items-center font-normal leading-relaxed h-[100%]  w-[100%] text-center'
-    : 'hidden'}"
-  bind:this="{questionContainer}"
+    : 'hidden'}
+  bind:this={questionContainer}
 >
   {#if mode === 'display' || mode === 'correction'}
     <div

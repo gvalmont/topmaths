@@ -3,6 +3,7 @@ import { repere } from '../../lib/2d/reperes'
 import { spline, type NoeudSpline } from '../../lib/mathFonctions/Spline'
 import { mathalea2d } from '../../modules/mathalea2d'
 import Exercice from '../Exercice'
+import { valideListeOfPoints } from './P013'
 
 export const titre = 'Interpollation par splines avec tangentes'
 
@@ -42,10 +43,20 @@ export default class TraceCourbeSpline extends Exercice {
   }
 
   nouvelleVersion() {
+    if (!valideListeOfPoints(this.sup)) {
+      this.sup = '(-3;-2)/(-1;0)/(1;-3)/(3;4)'
+    }
+    if (!valideListeOfPoints(this.sup2)) {
+      this.sup2 = '(2;2)/(0;0)/(0;0)/(1;1)'
+    }
+
     const noeuds: NoeudSpline[] = []
     const listeCoords = this.sup.split('/')
     const listePentes = this.sup2.split('/')
-    const listeVisibles = this.sup3.split('/')
+    const listeVisibles = this.sup3
+      .split('/')
+      .map((s: string) => Boolean(Number(s)))
+
     if (listeCoords.length < 2) return
     for (let i = 0; i < listeCoords.length; i++) {
       const coordonnees = listeCoords[i].slice(1, -1).split(';')
@@ -67,17 +78,17 @@ export default class TraceCourbeSpline extends Exercice {
       noeuds[i].deriveeDroit = pentes[1]
     }
     for (let i = 0; i < noeuds.length; i++) {
-      noeuds[i].isVisible = !(
-        listeVisibles[i] === null || listeVisibles[i] === '0'
-      )
+      noeuds[i].isVisible = listeVisibles[i]
     }
 
     const f = spline(noeuds)
     const { xMin, xMax, yMin, yMax } = f.trouveMaxes()
     const r = repere({ xMin, xMax, yMin, yMax })
-    const c = f.courbe({ repere: r, ajouteNoeuds: true })
+    const c = f.courbe({ ajouteNoeuds: true })
     const objets = [r, c]
-    this.contenu = mathalea2d(Object.assign({}, fixeBordures(objets)), objets)
-    this.listeQuestions[0] = this.contenu
+    this.listeQuestions[0] = mathalea2d(
+      Object.assign({}, fixeBordures(objets)),
+      objets,
+    )
   }
 }

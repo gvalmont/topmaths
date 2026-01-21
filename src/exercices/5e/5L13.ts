@@ -1,3 +1,4 @@
+import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { combinaisonListes } from '../../lib/outils/arrayOutils'
@@ -7,6 +8,7 @@ import {
   reduireAxPlusB,
   rienSi1,
 } from '../../lib/outils/ecritures'
+import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { lettreDepuisChiffre } from '../../lib/outils/outilString'
 import { context } from '../../modules/context'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
@@ -60,7 +62,6 @@ export default class Reductionaxbx extends Exercice {
     for (
       let i = 0, texte, texteCorr, reponse, a, b, cpt = 0;
       i < this.nbQuestions && cpt < 50;
-
     ) {
       const x = variables[randint(0, 5)]
       a = randint(-11, 11, 0)
@@ -69,19 +70,21 @@ export default class Reductionaxbx extends Exercice {
       switch (listeTypeDeQuestions[i]) {
         case 'ax+bx':
           texte = `$${lettreDepuisChiffre(i + 1)}=${rienSi1(a)}${x}${ecritureAlgebriqueSauf1(b)}${x}$`
-          texteCorr = `$${lettreDepuisChiffre(i + 1)}=${rienSi1(a)}${x}${ecritureAlgebriqueSauf1(b)}${x}=(${a}${ecritureAlgebrique(b)})\\times ${x}=${rienSi1(a + b)}${x}$`
+          texteCorr = `$${lettreDepuisChiffre(i + 1)}=${rienSi1(a)}${x}${ecritureAlgebriqueSauf1(b)}${x}=(${a}${ecritureAlgebrique(b)})\\times ${x}=${miseEnEvidence(`${rienSi1(a + b)}${x}`)}$`
           reponse = reduireAxPlusB(a + b, 0, x)
           break
         case 'ax+x':
         default:
           texte = `$${lettreDepuisChiffre(i + 1)}=${rienSi1(a)}${x}+${x}$`
-          texteCorr = `$${lettreDepuisChiffre(i + 1)}=${rienSi1(a)}${x}+${x}=(${a}+1)\\times ${x}=${rienSi1(a + 1)}${x}$`
+          texteCorr = `$${lettreDepuisChiffre(i + 1)}=${rienSi1(a)}${x}+${x}=(${a}+1)\\times ${x}=${miseEnEvidence(`${rienSi1(a + 1)}${x}`)}$`
           reponse = reduireAxPlusB(a + 1, 0, x)
           break
       }
 
       handleAnswers(this, i, { reponse: { value: reponse } })
-      texte += ajouteChampTexteMathLive(this, i, ' ', { texteAvant: ' $=$' })
+      texte += ajouteChampTexteMathLive(this, i, KeyboardType.lyceeClassique, {
+        texteAvant: ' $=$',
+      })
       if (this.questionJamaisPosee(i, x, a, b)) {
         // Si la question n'a jamais été posée, on en créé une autre
         this.listeQuestions[i] = texte

@@ -59,13 +59,13 @@ export default class Auto1AC10f extends ExerciceQcmA {
 
     // Énoncé
     this.enonce = this.sup5
-      ? `On note $(I)$ l'inéquation, sur $[0\\,;\\,+\\infty[$, $\\sqrt{x}${signeInégalité} ${val}$.<br><br>
+      ? `On note $(I)$ l'inéquation, sur $[0\\,;\\,+\\infty[$, $\\sqrt{x}${signeInégalité} ${val}$.
          L'ensemble des solutions $S$ de cette inéquation est :`
       : `${deuxColonnes(
           `On a représenté la courbe d'équation $y=\\sqrt{x}$. <br><br>
-           On note $(I)$ l'inéquation, sur $[0\\,;\\,+\\infty[$, $\\sqrt{x}${signeInégalité} ${val}$.<br><br>`,
+           On note $(I)$ l'inéquation, sur $[0\\,;\\,+\\infty[$, $\\sqrt{x}${signeInégalité} ${val}$.<br>`,
           `${graphique}`,
-        )}<br> L'ensemble des solutions $S$ de cette inéquation est :`
+        )} L'ensemble des solutions $S$ de cette inéquation est :`
 
     // Correction
     this.correction = this.genererCorrection(

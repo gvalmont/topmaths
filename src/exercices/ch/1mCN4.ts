@@ -48,10 +48,12 @@ export default class NombrePeriodiqueVersFraction extends Exercice {
       'Indiquer que la calculatrice est autorisée',
     ]
     this.sup = 1
+    this.sup = 1
     this.sup2 = 1
     this.sup3 = 1
     this.sup4 = false
     this.sup5 = true
+    this.correctionDetailleeDisponible
     this.correctionDetailleeDisponible
   }
 
@@ -71,6 +73,7 @@ export default class NombrePeriodiqueVersFraction extends Exercice {
       let entier = arrondi(
         randint(10 ** (this.sup2 - 1), 10 ** this.sup2 - 1) /
           10 ** randint(0, this.sup2),
+        0,
         0,
       )
       let decimal = 0

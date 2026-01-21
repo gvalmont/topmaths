@@ -7,7 +7,8 @@ import { choice, shuffle } from '../../lib/outils/arrayOutils'
 import { range1 } from '../../lib/outils/nombres'
 import { listeDesDiviseurs } from '../../lib/outils/primalite'
 import { texNombre } from '../../lib/outils/texNombre'
-import { addSheet, MySpreadsheetElement } from '../../lib/tableur/MySpreadSheet'
+import { MySpreadsheetElement } from '../../lib/tableur/MySpreadSheet'
+import { addSheet } from '../../lib/tableur/outilsTableur'
 import { context } from '../../modules/context'
 import { mathalea2d } from '../../modules/mathalea2d'
 
@@ -268,7 +269,6 @@ export default class ExerciceTableur extends Exercice {
       Faire de même pour les autres cellules. <br>
       Attention, les formules doivent fonctionner même si le nombre de départ change (Cellule A1).<br>
       `
-      // ${JSON.stringify({rowCount:4,columnCount:steps.length + 1,cellData:data,styles:ExerciceTableur.styles})}
       const style = buildStyleFromColos(
         Object.values(ExerciceTableur.colors),
         steps.length,
@@ -283,6 +283,7 @@ export default class ExerciceTableur extends Exercice {
           style,
           columns: [{ width: 90 }, { width: 90 }, { width: 90 }, { width: 90 }],
           interactif: this.interactif,
+          showVerifyButton: true,
         })
       } else {
         const options: {

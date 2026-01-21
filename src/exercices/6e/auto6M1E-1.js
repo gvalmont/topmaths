@@ -10,7 +10,11 @@ import {
   pointIntersectionCC,
 } from '../../lib/2d/utilitairesPoint'
 import { vecteur } from '../../lib/2d/Vecteur'
-import { setReponse } from '../../lib/interactif/gestionInteractif'
+import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
+import {
+  handleAnswers,
+  setReponse,
+} from '../../lib/interactif/gestionInteractif'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { creerNomDePolygone } from '../../lib/outils/outilString'
 import { context } from '../../modules/context'
@@ -46,8 +50,6 @@ export default class AireCarresRectanglesTrianglesSL extends Exercice {
   constructor() {
     super()
 
-    this.amcReady = amcReady
-    this.amcType = amcType
     this.interactif = false
 
     this.spacing = 2
@@ -131,8 +133,11 @@ export default class AireCarresRectanglesTrianglesSL extends Exercice {
           texte = 'Calculer le périmètre du carré en cm.'
 
           texteCorr += `$\\mathcal{P}_{${nom[0] + nom[1] + nom[2] + nom[3]}}=4\\times ${c}\\text{ cm}=${4 * c}\\text{ cm}$`
-          setReponse(this, i, new Grandeur(4 * c, 'cm'), {
-            formatInteractif: 'unites',
+          handleAnswers(this, i, {
+            reponse: {
+              value: 4 * c,
+              options: { nombreDecimalSeulement: true },
+            },
           })
           if (context.isAmc) {
             this.autoCorrection[i] = {
@@ -158,8 +163,11 @@ export default class AireCarresRectanglesTrianglesSL extends Exercice {
           texteCorr += `$\\mathcal{P}_{${nom[4] + nom[5] + nom[6] + nom[7]}}=2\\times ${L}\\text{ cm} + 2\\times${l}\\text{ cm}=${
             2 * L + 2 * l
           }\\text{ cm}$`
-          setReponse(this, i, new Grandeur(2 * L + 2 * l, 'cm'), {
-            formatInteractif: 'unites',
+          handleAnswers(this, i, {
+            reponse: {
+              value: 2 * L + 2 * l,
+              options: { nombreDecimalSeulement: true },
+            },
           })
           if (context.isAmc) {
             this.autoCorrection[i] = {
@@ -206,7 +214,7 @@ export default class AireCarresRectanglesTrianglesSL extends Exercice {
           }
           break
       }
-      texte += ajouteChampTexteMathLive(this, i, 'unites[longueurs,aires]')
+      texte += ajouteChampTexteMathLive(this, i, KeyboardType.clavierNumbers)
       this.listeQuestions.push(texte)
       this.listeCorrections.push(texteCorr)
     }

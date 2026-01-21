@@ -10,6 +10,8 @@ import {
 } from '../../modules/outils'
 import Exercice from '../Exercice'
 
+import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
+import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { fraction } from '../../modules/fractions'
 
 export const interactifReady = true
@@ -155,7 +157,6 @@ export default class DevelopperIdentitesRemarquables2 extends Exercice {
     for (
       let i = 0, texte, texteCorr, cpt = 0, a, b, typesDeQuestions;
       i < this.nbQuestions && cpt < 50;
-
     ) {
       typesDeQuestions = listeTypeDeQuestions[i]
       b = randint(2, 9)
@@ -171,9 +172,9 @@ export default class DevelopperIdentitesRemarquables2 extends Exercice {
         case 1:
           texte = `$(x+${a})^2$` // (x+a)²
           if (this.correctionDetaillee) {
-            texteCorr += `On développe l'expression en utilisant l'identité remarquable $(a+b)^2=a^2+2ab+b^2$, <br> avec $\\color{red} a = x\\color{black}$ et $\\color{green} b = ${a} \\color{black} $ : <br>`
-            texteCorr += `$\\left(\\color{red}x\\color{black}+\\color{green}${a}\\color{black}\\right)^2=\\color{red}x\\color{black}^2+2 \\times \\color{red}x \\color{black}\\times \\color{green}${a} \\color{black}+ \\color{green}${a}\\color{black}^2$ <br>`
-            texteCorr += `$\\phantom{\\left(\\color{red}x\\color{black}+\\color{green}${a}\\color{black}\\right)^2} = x^2+${2 * a}x+${a * a}$`
+            texteCorr += `On développe l'expression en utilisant l'identité remarquable $(a+b)^2=a^2+2ab+b^2$, <br> avec $\\color{blue} a = x\\color{black}$ et $\\color{green} b = ${a} \\color{black} $ : <br>`
+            texteCorr += `$\\left(\\color{blue}x\\color{black}+\\color{green}${a}\\color{black}\\right)^2=\\color{blue}x\\color{black}^2+2 \\times \\color{blue}x \\color{black}\\times \\color{green}${a} \\color{black}+ \\color{green}${a}\\color{black}^2$ <br>`
+            texteCorr += `$\\phantom{\\left(\\color{blue}x\\color{black}+\\color{green}${a}\\color{black}\\right)^2} = x^2+${2 * a}x+${a * a}$`
           } else {
             texteCorr += `$(x+${a})^2=x^2+${2 * a}x+${a * a}$`
           }
@@ -184,7 +185,7 @@ export default class DevelopperIdentitesRemarquables2 extends Exercice {
         case 2:
           texte = `$(x-${a})^2$` // (x-a)²
           if (this.correctionDetaillee) {
-            texteCorr += `On développe l'expression en utilisant l'identité remarquable $(a-b)^2=a^2-2ab+b^2$, <br> avec $\\color{red} a = x\\color{black}$ et $\\color{green} b = ${a} \\color{black} $ : <br>`
+            texteCorr += `On développe l'expression en utilisant l'identité remarquable $(a-b)^2=a^2-2ab+b^2$, <br> avec $\\color{blue} a = x\\color{black}$ et $\\color{green} b = ${a} \\color{black} $ : <br>`
           }
           texteCorr += `$(x-${a})^2=x^2-2 \\times ${a} \\times x+${a}^2=x^2-${2 * a}x+${a * a}$`
           handleAnswers(this, i, {
@@ -194,7 +195,7 @@ export default class DevelopperIdentitesRemarquables2 extends Exercice {
         case 3:
           texte = `$(x-${a})(x+${a})$` // (x-a)(x+a)
           if (this.correctionDetaillee) {
-            texteCorr += `On développe l'expression en utilisant l'identité remarquable $(a+b)(a-b)=a^2-b^2$, <br> avec $\\color{red} a = x\\color{black}$ et $\\color{green} b = ${a} \\color{black} $ : <br>`
+            texteCorr += `On développe l'expression en utilisant l'identité remarquable $(a+b)(a-b)=a^2-b^2$, <br> avec $\\color{blue} a = x\\color{black}$ et $\\color{green} b = ${a} \\color{black} $ : <br>`
           }
           texteCorr += `$(x-${a})(x+${a})=x^2-${a}^2=x^2-${a * a}$`
           handleAnswers(this, i, { reponse: { value: `x^2-${a * a}` } })
@@ -202,7 +203,7 @@ export default class DevelopperIdentitesRemarquables2 extends Exercice {
         case 4:
           texte = `$(${b}x+${a})^2$` // (bx+a)²  b>1
           if (this.correctionDetaillee) {
-            texteCorr += `On développe l'expression en utilisant l'identité remarquable $(a+b)^2=a^2+2ab+b^2$, <br> avec $\\color{red} a = ${b}x\\color{black}$ et $\\color{green} b = ${a} \\color{black} $ : <br>`
+            texteCorr += `On développe l'expression en utilisant l'identité remarquable $(a+b)^2=a^2+2ab+b^2$, <br> avec $\\color{blue} a = ${b}x\\color{black}$ et $\\color{green} b = ${a} \\color{black} $ : <br>`
           }
           texteCorr += `$(${b}x+${a})^2=(${b}x)^2+2 \\times ${b}x \\times ${a} + ${a}^2=${b * b}x^2+${2 * b * a}x+${a * a}$`
           handleAnswers(this, i, {
@@ -212,7 +213,7 @@ export default class DevelopperIdentitesRemarquables2 extends Exercice {
         case 5:
           texte = `$(${b}x-${a})^2$` // (bx-a)² b>1
           if (this.correctionDetaillee) {
-            texteCorr += `On développe l'expression en utilisant l'identité remarquable $(a-b)^2=a^2-2ab+b^2$, <br> avec $\\color{red} a = ${b}x\\color{black}$ et $\\color{green} b = ${a} \\color{black} $ : <br>`
+            texteCorr += `On développe l'expression en utilisant l'identité remarquable $(a-b)^2=a^2-2ab+b^2$, <br> avec $\\color{blue} a = ${b}x\\color{black}$ et $\\color{green} b = ${a} \\color{black} $ : <br>`
           }
           texteCorr += `$(${b}x-${a})^2=(${b}x)^2-2 \\times ${b}x \\times ${a} + ${a}^2=${b * b}x^2-${2 * b * a}x+${a * a}$`
           handleAnswers(this, i, {
@@ -222,7 +223,7 @@ export default class DevelopperIdentitesRemarquables2 extends Exercice {
         case 6:
           texte = `$(${b}x-${a})(${b}x+${a})$` // (bx-a)(bx+a) b>1
           if (this.correctionDetaillee) {
-            texteCorr += `On développe l'expression en utilisant l'identité remarquable $(a+b)(a-b)=a^2-b^2$, <br> avec $\\color{red} a = ${b}x\\color{black}$ et $\\color{green} b = ${a} \\color{black} $ : <br>`
+            texteCorr += `On développe l'expression en utilisant l'identité remarquable $(a+b)(a-b)=a^2-b^2$, <br> avec $\\color{blue} a = ${b}x\\color{black}$ et $\\color{green} b = ${a} \\color{black} $ : <br>`
           }
           texteCorr += `$(${b}x-${a})(${b}x+${a})=(${b}x)^2-${a}^2=${b * b}x^2-${a * a}$`
           handleAnswers(this, i, { reponse: { value: `${b * b}x^2-${a * a}` } })
@@ -230,7 +231,7 @@ export default class DevelopperIdentitesRemarquables2 extends Exercice {
         case 7:
           texte = `$\\left(${frac}x+${a}\\right)^2$` // (kx+a)² k rationnel
           if (this.correctionDetaillee) {
-            texteCorr += `On développe l'expression en utilisant l'identité remarquable $(a+b)^2=a^2+2ab+b^2$, <br> avec $\\color{red} a = ${new FractionEtendue(ns, ds).simplifie().texFraction}x\\color{black}$ et $\\color{green} b = ${a} \\color{black} $ : <br>`
+            texteCorr += `On développe l'expression en utilisant l'identité remarquable $(a+b)^2=a^2+2ab+b^2$, <br> avec $\\color{blue} a = ${new FractionEtendue(ns, ds).simplifie().texFraction}x\\color{black}$ et $\\color{green} b = ${a} \\color{black} $ : <br>`
           }
           texteCorr += `$\\left(${frac}x+${a}\\right)^2=\\left(${frac}x\\right)^2+2 \\times ${frac}x \\times ${a} + ${a}^2=${frac2}x^2+${new FractionEtendue(ns * 2 * a, ds).texFraction}x+${a * a}$`
           handleAnswers(this, i, {
@@ -240,7 +241,7 @@ export default class DevelopperIdentitesRemarquables2 extends Exercice {
         case 8:
           texte = `$\\left(${frac}x-${a}\\right)^2$` // (kx-a)² k rationnel
           if (this.correctionDetaillee) {
-            texteCorr += `On développe l'expression en utilisant l'identité remarquable $(a-b)^2=a^2-2ab+b^2$, <br> avec $\\color{red} a = ${frac}x\\color{black}$ et $\\color{green} b = ${a} \\color{black} $ : <br>`
+            texteCorr += `On développe l'expression en utilisant l'identité remarquable $(a-b)^2=a^2-2ab+b^2$, <br> avec $\\color{blue} a = ${frac}x\\color{black}$ et $\\color{green} b = ${a} \\color{black} $ : <br>`
           }
           texteCorr += `$\\left(${frac}x-${a}\\right)^2=\\left(${frac}x\\right)^2-2 \\times ${frac}x \\times ${a} + ${a}^2=${frac2}x^2-${dblProdFrac}x+${a * a}$`
           handleAnswers(this, i, {
@@ -252,17 +253,31 @@ export default class DevelopperIdentitesRemarquables2 extends Exercice {
           //  (bx-a)(bx+a) avec a entier et b rationnel simple
           texte = `$\\left(${frac}x-${a}\\right)\\left(${frac}x+${a}\\right)$` // b>1
           if (this.correctionDetaillee) {
-            texteCorr += `On développe l'expression en utilisant l'identité remarquable $(a+b)(a-b)=a^2-b^2$, <br> avec $\\color{red} a = ${frac}x\\color{black}$ et $\\color{green} b = ${a} \\color{black} $ : <br>`
+            texteCorr += `On développe l'expression en utilisant l'identité remarquable $(a+b)(a-b)=a^2-b^2$, <br> avec $\\color{blue} a = ${frac}x\\color{black}$ et $\\color{green} b = ${a} \\color{black} $ : <br>`
           }
           texteCorr += `$\\left(${frac}x-${a}\\right)\\left(${frac}x+${a}\\right)=\\left(${frac}x\\right)^2-${a}^2=${frac2}x^2-${a * a}$`
           handleAnswers(this, i, { reponse: { value: `${frac2}x^2-${a * a}` } })
           break
       }
       if (this.interactif)
-        texte += ' $=$ ' + ajouteChampTexteMathLive(this, i, '  college6e ml-2')
+        texte +=
+          ' $=$ ' +
+          ajouteChampTexteMathLive(this, i, KeyboardType.clavierFullOperations)
       if (this.questionJamaisPosee(i, typesDeQuestions, a)) {
         // Si la question n'a jamais été posée, on en créé une autre
         this.listeQuestions[i] = texte
+        // Uniformisation : Mise en place de la réponse attendue en interactif en orange et gras
+        const textCorrSplit = texteCorr.split('=')
+        let aRemplacer = textCorrSplit[textCorrSplit.length - 1]
+        aRemplacer = aRemplacer.replace('$', '')
+
+        texteCorr = ''
+        for (let ee = 0; ee < textCorrSplit.length - 1; ee++) {
+          texteCorr += textCorrSplit[ee] + '='
+        }
+        texteCorr += `$ $${miseEnEvidence(aRemplacer)}$` + '.' // Gestion du point final
+        // Fin de cette uniformisation
+
         this.listeCorrections[i] = texteCorr
         i++
       }

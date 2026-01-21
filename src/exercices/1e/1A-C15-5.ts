@@ -24,7 +24,7 @@ export const dateDePublication = '09/12/2025'
  * @author Gilles Mora assisté de Claude ai
  *
  */
-export default class Auto1C15_5 extends ExerciceQcmA {
+export default class Auto1C15r extends ExerciceQcmA {
    private appliquerLesValeurs(
     puissance: number,
     duree: number,

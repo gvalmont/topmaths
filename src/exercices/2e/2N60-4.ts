@@ -80,6 +80,7 @@ export default class ExerciceInequation1 extends Exercice {
     ]
 
     this.spacing = 1.5
+    this.spacingCorr = 1.5
     context.isHtml ? (this.spacingCorr = 2) : (this.spacingCorr = 1.5)
     this.correctionDetailleeDisponible = true
     if (!context.isHtml) {
@@ -385,11 +386,11 @@ export default class ExerciceInequation1 extends Exercice {
           // évitons un résultat nul
           e = randint(1, 13, [a * c])
         }
-        texte = `$${a}(${reduireAxPlusB(b, c)})${symboleInegalite}${reduireAxPlusB(d, e)}$`
+        texte = `$${a}(${reduireAxPlusB(b, c)}) ${texSymbole(symboleInegalite)} ${reduireAxPlusB(d, e)}$`
         texteCorr = texte + '<br>'
         texteCorr += 'On commence par développer le membre de gauche.<br>'
-        texteCorr += `$${a}\\times ${b === 1 ? '' : ecritureParentheseSiNegatif(b)}x${ecritureAlgebrique(a)}\\times${ecritureParentheseSiNegatif(c)}${symboleInegalite}${reduireAxPlusB(d, e)}$<br>`
-        texteCorr += `$${reduireAxPlusB(a * b, a * c)}${symboleInegalite}${reduireAxPlusB(d, e)}$<br>`
+        texteCorr += `$${a}\\times ${b === 1 ? '' : ecritureParentheseSiNegatif(b)}x${ecritureAlgebrique(a)}\\times${ecritureParentheseSiNegatif(c)}${texSymbole(symboleInegalite)}${reduireAxPlusB(d, e)}$<br>`
+        texteCorr += `$${reduireAxPlusB(a * b, a * c)}${texSymbole(symboleInegalite)}${reduireAxPlusB(d, e)}$<br>`
         if (this.correctionDetaillee) {
           if (d > 0) {
             texteCorr += `On soustrait $${rienSi1(d)}x$ aux deux membres.<br>`
@@ -397,7 +398,7 @@ export default class ExerciceInequation1 extends Exercice {
             texteCorr += `On ajoute $${rienSi1(-d)}x$ aux deux membres.<br>`
           }
         }
-        texteCorr += `$${reduireAxPlusB(a * b, a * c)}${miseEnEvidence(signe(-1 * d) + rienSi1(abs(d)) + 'x', 'blue')}${symboleInegalite}${reduireAxPlusB(d, e)}${miseEnEvidence(signe(-1 * d) + rienSi1(abs(d)) + 'x', 'blue')}$<br>`
+        texteCorr += `$${reduireAxPlusB(a * b, a * c)}${miseEnEvidence(signe(-1 * d) + rienSi1(abs(d)) + 'x', 'blue')}${texSymbole(symboleInegalite)}${reduireAxPlusB(d, e)}${miseEnEvidence(signe(-1 * d) + rienSi1(abs(d)) + 'x', 'blue')}$<br>`
         texteCorr += `$${rienSi1(a * b - d)}x${ecritureAlgebrique(a * c)}${texSymbole(symboleInegalite)}${e}$<br>`
         if (this.correctionDetaillee) {
           if (a * c > 0) {

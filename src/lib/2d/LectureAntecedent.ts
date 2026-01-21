@@ -33,7 +33,7 @@ export class LectureAntecedent extends ObjetMathalea2D {
     this.textAbs = textAbs
     this.textOrd = textOrd
     this.stringColor = color
-    this.bordures = [-2, -1.5, x + 2, y > 0 ? y + 1 : 0]
+    this.bordures = [0, 0, 0, 0]
   }
 
   svg(coeff: number) {

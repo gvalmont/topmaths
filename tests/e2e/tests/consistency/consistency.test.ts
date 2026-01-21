@@ -88,7 +88,7 @@ const callback = async (
 async function diaporamaStatePush(page: Page, view: View) {
   const url = page.url()
   const numbers: string[] = []
-  const maxQuestionsNb = await page.locator('#stepsUl > button').count()
+  const maxQuestionsNb = await page.locator('#stepsContainer > button').count()
   // const maxQuestionsNb = 50
   for (let i = 0; i < maxQuestionsNb; i++) {
     numbers.push(await getSlideshowNumbers(page))

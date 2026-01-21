@@ -8,7 +8,7 @@ import { arrondi, range1, rangeMinMax } from '../../lib/outils/nombres'
 import { sp } from '../../lib/outils/outilString'
 import { texNombre, texPrix } from '../../lib/outils/texNombre'
 import { context } from '../../modules/context'
-import Operation from '../../modules/operations'
+import operation from '../../modules/operations'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import Exercice from '../Exercice'
 
@@ -65,7 +65,6 @@ export default class DivisionDecimale extends Exercice {
     for (
       let i = 0, texte, texteCorr, cpt = 0, a, b, q;
       i < this.nbQuestions && cpt < 50;
-
     ) {
       typesDeQuestions = listeTypeDeQuestions[i]
       switch (typesDeQuestions) {
@@ -97,7 +96,7 @@ export default class DivisionDecimale extends Exercice {
             },
           })
           texteCorr = `On va partager $${texNombre(a)}$ L de jus ${fruits} en $${b}$ en posant la division : $${texNombre(a)} \\div ${b}$.`
-          texteCorr += Operation({
+          texteCorr += operation({
             operande1: a,
             operande2: b,
             type: 'division',
@@ -127,7 +126,7 @@ export default class DivisionDecimale extends Exercice {
             reponse: { value: q, options: { nombreDecimalSeulement: true } },
           })
           texteCorr = `On va partager $${texPrix(a)}$ € en $${b}$ en posant la division : $${texPrix(a)} \\div ${b}$.`
-          texteCorr += Operation({
+          texteCorr += operation({
             operande1: a,
             operande2: b,
             type: 'division',
@@ -155,7 +154,7 @@ export default class DivisionDecimale extends Exercice {
             reponse: { value: q, options: { nombreDecimalSeulement: true } },
           })
           texteCorr = `On va partager $${texNombre(a)}$ litres d'eau en $${b}$ en posant la division : $${texNombre(a)} \\div ${b}$.`
-          texteCorr += Operation({
+          texteCorr += operation({
             operande1: a,
             operande2: b,
             type: 'division',
@@ -191,7 +190,7 @@ export default class DivisionDecimale extends Exercice {
             },
           })
           texteCorr = `On va partager $${texNombre(a)}\\text{ m}$ ${matiere} en $${b}$ en posant la division : $${texNombre(a)} \\div ${b}$.`
-          texteCorr += Operation({
+          texteCorr += operation({
             operande1: a,
             operande2: b,
             type: 'division',
@@ -227,7 +226,7 @@ export default class DivisionDecimale extends Exercice {
             },
           })
           texteCorr = `On va partager $${texNombre(a)}$ kg ${aliment} en $${b}$ en posant la division : $${texNombre(a)} \\div ${b}$.`
-          texteCorr += Operation({
+          texteCorr += operation({
             operande1: a,
             operande2: b,
             type: 'division',
@@ -254,7 +253,7 @@ export default class DivisionDecimale extends Exercice {
             reponse: { value: q, options: { nombreDecimalSeulement: true } },
           })
           texteCorr = `On va partager $${texNombre(a)}\\text{ km}$ en $${b}$ en posant la division : $${texNombre(a)} \\div ${b}$.`
-          texteCorr += Operation({
+          texteCorr += operation({
             operande1: a,
             operande2: b,
             type: 'division',
@@ -282,7 +281,7 @@ export default class DivisionDecimale extends Exercice {
             reponse: { value: q, options: { nombreDecimalSeulement: true } },
           })
           texteCorr = `On va partager $${texNombre(a)}$ Go en $${b}$ en posant la division : $${texNombre(a)} \\div ${b}$.`
-          texteCorr += Operation({
+          texteCorr += operation({
             operande1: a,
             operande2: b,
             type: 'division',

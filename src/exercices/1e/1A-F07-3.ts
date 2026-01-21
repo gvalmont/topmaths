@@ -164,7 +164,7 @@ export default class Auto1AF6c extends ExerciceQcmA {
       this.correction += `<br>${objetC}<br>`
       this.reponses = [
         `$${maFraction.texFractionSimplifiee}$`,
-        `${yB - yA !== xB - xA && yB - yA !== -(xB - xA) ? `$${maFraction.inverse().texFractionSimplifiee}$` : '$0$'}`,
+        `${Math.abs((yB - yA) / (xB - xA)) !== 1 ? `$${maFraction.inverse().texFractionSimplifiee}$` : '$0$'}`,
         `$${maFraction.oppose().texFractionSimplifiee}$`,
         `${(yB - yA) / (xB - xA) !== yA ? `$${yA}$` : `$${xB}$`}`,
       ]

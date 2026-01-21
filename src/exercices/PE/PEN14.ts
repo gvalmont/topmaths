@@ -1,10 +1,10 @@
-import Exercice from '../Exercice'
-import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import { choice } from '../../lib/outils/arrayOutils'
-import Operation from '../../modules/operations'
-import FractionEtendue from '../../modules/FractionEtendue'
 import { obtenirListeFacteursPremiers } from '../../lib/outils/primalite'
 import { texNombre } from '../../lib/outils/texNombre'
+import FractionEtendue from '../../modules/FractionEtendue'
+import operation from '../../modules/operations'
+import { listeQuestionsToContenu, randint } from '../../modules/outils'
+import Exercice from '../Exercice'
 export const titre =
   "Déterminer la n-ième décimale d'un nombre irrationnel non décimal"
 export const uuid = 'cbd18'
@@ -29,10 +29,10 @@ export default class NiemeDecimale extends Exercice {
       const num = randint(den + 1, 2 * den - 1)
       let n = randint(1, 9) * 100 + randint(1, 9) * 10 + randint(1, 9)
       if (choice([true, false])) n = new Date().getFullYear()
-      const texte = `Déterminer la $${n}^{\\text{e}}$ décimale du nombre $\\dfrac{${num}}{${den}}$.`
+      const texte = `Déterminer la $${n}^{\\mathrm{e}}$ décimale du nombre $\\dfrac{${num}}{${den}}$.`
       const { hasPeriod, periodLength, firstRepeat } = analyzeDecimal(num, den)
       if (!hasPeriod) throw new Error('Pas de période')
-      let texteCorr = Operation({
+      let texteCorr = operation({
         operande1: num,
         operande2: den,
         type: 'division',
@@ -42,7 +42,7 @@ export default class NiemeDecimale extends Exercice {
       texteCorr += '<br><br>'
       texteCorr += `La division posée fait apparaitre un reste déjà obtenu, l'écriture décimale de $\\dfrac{${num}}{${den}}\\approx ${texNombreAvecZeroInutile(toFixedTruncate(num / den, periodLength))}\\ldots$ a une période à ${periodLength} chiffres.`
       texteCorr += '<br><br>'
-      texteCorr += Operation({
+      texteCorr += operation({
         operande1: n,
         operande2: periodLength,
         type: 'divisionE',
@@ -51,13 +51,13 @@ export default class NiemeDecimale extends Exercice {
       texteCorr += '<br><br>'
       const rang = n % periodLength
       const rangString =
-        rang === 1 ? `$${rang}^{\\text{re}}$` : `$${rang}^{\\text{e}}$`
+        rang === 1 ? `$${rang}^{\\text{re}}$` : `$${rang}^{\\mathrm{e}}$`
       if (rang === 0) {
         texteCorr += `$${n} = ${periodLength} \\times ${Math.floor(n / periodLength)}$<br>`
-        texteCorr += `La $${n}^{\\text{e}}$ décimale du nombre $\\dfrac{${num}}{${den}}$ est donc identique à la dernière décimale de la période soit ${toFixedTruncate(num / den, periodLength).at(-1)}.`
+        texteCorr += `La $${n}^{\\mathrm{e}}$ décimale du nombre $\\dfrac{${num}}{${den}}$ est donc identique à la dernière décimale de la période soit ${toFixedTruncate(num / den, periodLength).at(-1)}.`
       } else {
         texteCorr += `$${n} = ${periodLength} \\times ${Math.floor(n / periodLength)} + ${n % periodLength}$<br>`
-        texteCorr += `La $${n}^{\\text{e}}$ décimale du nombre $\\dfrac{${num}}{${den}}$ est donc identique à la ${rangString} décimale soit ${toFixedTruncate(num / den, n % periodLength).at(-1)}.`
+        texteCorr += `La $${n}^{\\mathrm{e}}$ décimale du nombre $\\dfrac{${num}}{${den}}$ est donc identique à la ${rangString} décimale soit ${toFixedTruncate(num / den, n % periodLength).at(-1)}.`
       }
 
       if (this.questionJamaisPosee(i, texte)) {

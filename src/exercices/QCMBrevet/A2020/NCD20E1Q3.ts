@@ -50,7 +50,7 @@ export default class NouvelleCaledonieDec20Exo1Q3 extends ExerciceQcmA {
       return a - b
     })
     this.correction = `Il y a $${String(effectif)}$ valeurs dans la série. C'est un nombre impair.<br>
-     Donc la médiane est la $ ${String((effectif + 1) / 2)}^{\\text{e}}$ valeur de la série rangée dans l'ordre croissant.<br>`
+     Donc la médiane est la $ ${String((effectif + 1) / 2)}^{\\mathrm{e}}$ valeur de la série rangée dans l'ordre croissant.<br>`
     for (let i = 0; i < effectif; i++) {
       this.correction +=
         i === 0

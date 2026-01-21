@@ -12,6 +12,7 @@ import { vecteur, type Vecteur } from '../../lib/2d/Vecteur'
 import { vide2d, type Vide2d } from '../../lib/2d/Vide2d'
 import { centrage, deuxColonnes } from '../../lib/format/miseEnPage'
 import { texcolors } from '../../lib/format/style'
+import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { choice } from '../../lib/outils/arrayOutils'
@@ -30,12 +31,14 @@ import { context } from '../../modules/context'
 import { mathalea2d } from '../../modules/mathalea2d'
 import {
   contraindreValeur,
+  gestionnaireFormulaireTexte,
   listeQuestionsToContenu,
   randint,
 } from '../../modules/outils'
 import type { NestedObjetMathalea2dArray } from '../../types/2d'
 import Exercice from '../Exercice'
 import { transfoPoly } from './4G12-1'
+import { CHEMINS_PREDEFINIS } from './_4G12-paths'
 
 export const titre = 'Trouver une série de transformations'
 export const interactifReady = true
@@ -580,18 +583,16 @@ export default class SerieDeTransformations extends Exercice {
       4,
       '1 : Symétries axiales seulement\n2 : Symétries axiales et centrales\n3 : Symétries et translations\n4 : Symétries, translations et quarts de tour',
     ]
-    this.besoinFormulaire2Numerique = [
+    this.besoinFormulaire2Texte = [
       "Nombre de transformations entre le départ et l'arrivée",
-      5,
-      '1 : de 8 à 12\n2 : de 10 à 14\n3 : de 8 à 14\n4 : de 10 à 16\n5 : de 8 et 16',
+      'Nombres séparés par des tirets(0 pour laisser le hasard choisir)\n8 \n10\n12\n14 \n16',
     ]
     this.besoinFormulaire3CaseACocher = ['Énoncés raccourcis', false]
     this.sup = 4
-    this.sup2 = 6
+    this.sup2 = '8-10-12'
     this.sup3 = false
     this.version = 4
     this.nbQuestions = 1
-    this.nbQuestionsModifiable = false
   }
 
   nouvelleVersion() {
@@ -609,7 +610,16 @@ export default class SerieDeTransformations extends Exercice {
     else if (this.sup === 2) typeDeTransfos = ['symax', 'rot180']
     else if (this.sup === 3) typeDeTransfos = ['symax', 'trans', 'rot180']
     else typeDeTransfos = ['symax', 'trans', 'rot90', 'rot180']
-
+    const nbTransfos = gestionnaireFormulaireTexte({
+      saisie: this.sup2,
+      min: 8,
+      max: 16,
+      melange: 0,
+      nbQuestions: this.nbQuestions,
+      defaut: 10,
+    })
+      .map(Number)
+      .map((el) => Math.floor(el / 2) * 2) // on force pair
     for (
       let i = 0,
         cpt = 0,
@@ -617,11 +627,8 @@ export default class SerieDeTransformations extends Exercice {
         texteCorr,
         paramsCorrection,
         paramsEnonce,
-        nbTransfMin,
-        nbTransfMax,
         leurre0;
       i < this.nbQuestions && cpt < 10;
-
     ) {
       this.autoCorrection[i] = {}
       let chemin: number[]
@@ -692,32 +699,8 @@ export default class SerieDeTransformations extends Exercice {
       // Construction d'un chemin pour aller de la figure de départ à celle d'arrivée
       chemin = []
       this.sup2 = parseInt(this.sup2)
-      switch (this.sup2) {
-        case 1:
-          nbTransfMin = 8
-          nbTransfMax = 12
-          break
-        case 2:
-          nbTransfMin = 10
-          nbTransfMax = 14
-          break
-        case 3:
-          nbTransfMin = 8
-          nbTransfMax = 14
-          break
-        case 4:
-          nbTransfMin = 10
-          nbTransfMax = 16
-          break
-        case 5:
-        default:
-          nbTransfMin = 8
-          nbTransfMax = 16
-          break
-      }
-      do {
-        chemin = genererCheminOptimise(nbTransfMin, nbTransfMax)
-      } while (chemin.length < nbTransfMin || chemin.length > nbTransfMax)
+
+      chemin = genererCheminOptimise(nbTransfos[i])
       for (let k = 0; k < chemin.length - 1; k++) {
         transfos[k] = definitElements(
           choice(typeDeTransfos),
@@ -871,7 +854,7 @@ export default class SerieDeTransformations extends Exercice {
         texteCorr += transfos[etape].texteCorr + '<br>'
       }
       if (context.isHtml) {
-        texte += ajouteChampTexteMathLive(this, i, '')
+        texte += ajouteChampTexteMathLive(this, i, KeyboardType.clavierNumbers)
         texte = deuxColonnes(texte, mathalea2d(paramsEnonce, objetsEnonce), 50)
         texteCorr = deuxColonnes(
           texteCorr,
@@ -929,228 +912,28 @@ export default class SerieDeTransformations extends Exercice {
   }
 }
 
-function genererCheminOptimise(
-  nbTransfMin: number,
-  nbTransfMax: number,
-): number[] {
-  const MAX_TENTATIVES = 20
-
-  for (let tentative = 0; tentative < MAX_TENTATIVES; tentative++) {
-    const chemin = [0]
-    const visite = new Set<number>([0])
-    let numeroFigure = 0
-    while (numeroFigure !== 28) {
-      const voisins = obtenirVoisinsPossibles(numeroFigure, visite, chemin)
-
-      if (voisins.length === 0) {
-        // Impasse : on recommence
-        break
-      }
-
-      // Pondération pour favoriser la direction vers 28
-      const voisinsPonderes = pondererVoisins(voisins, numeroFigure)
-      numeroFigure = choisirVoisinPondere(voisinsPonderes)
-
-      chemin.push(numeroFigure)
-      visite.add(numeroFigure)
-
-      // Si on atteint 28, vérifier la longueur
-      if (numeroFigure === 28) {
-        if (chemin.length >= nbTransfMin && chemin.length <= nbTransfMax) {
-          return chemin
-        }
-        // Sinon recommencer
-        break
-      }
-    }
+function genererCheminOptimise(nbTransfos: number): number[] {
+  if (nbTransfos < 8 || nbTransfos > 16 || nbTransfos % 2 !== 0) {
+    nbTransfos = choice([8, 10, 12, 14, 16])
   }
-  // Fallback : générer un chemin direct si l'optimisé échoue
-  return genererCheminDirect(nbTransfMin, nbTransfMax)
-}
+  const longueursDisponibles = Object.keys(CHEMINS_PREDEFINIS)
+    .map(Number)
+    .filter((longueur) => longueur === nbTransfos)
 
-function obtenirVoisinsPossibles(
-  numeroFigure: number,
-  visite: Set<number>,
-  chemin: number[],
-): number[] {
-  const voisins = []
-  const candidats = [
-    numeroFigure - 6, // gauche
-    numeroFigure - 1, // bas
-    numeroFigure + 1, // haut
-    numeroFigure + 6, // droite
-  ]
+  const longueursEligibles =
+    longueursDisponibles.length > 0
+      ? longueursDisponibles
+      : Object.keys(CHEMINS_PREDEFINIS).map(Number)
 
-  for (const candidat of candidats) {
-    if (estVoisinValide(candidat, numeroFigure, visite, chemin)) {
-      voisins.push(candidat)
-    }
+  const longueurChoisie = choice(longueursEligibles)
+  const cheminsPourLongueur = CHEMINS_PREDEFINIS[longueurChoisie]
+
+  if (!cheminsPourLongueur || cheminsPourLongueur.length === 0) {
+    window.notify(
+      'Aucun chemin prédéfini disponible pour la longueur choisie.',
+      { longueurChoisie },
+    )
   }
 
-  return voisins
+  return [...choice(cheminsPourLongueur)]
 }
-
-function estVoisinValide(
-  candidat: number,
-  numeroFigure: number,
-  visite: Set<number>,
-  chemin: number[],
-): boolean {
-  // Vérifier les limites de la grille
-  if (candidat < 0 || candidat > 28) return false
-
-  // Vérifier que le candidat n'est pas dans une position interdite (modulo 6 = 5)
-  if (candidat % 6 === 5) return false
-
-  // Vérifier que le mouvement est valide
-  if (!estMouvementValide(numeroFigure, candidat)) return false
-
-  // Vérifier que le candidat n'a pas déjà été visité
-  if (visite.has(candidat)) return false
-
-  // Vérifier qu'on ne crée pas de raccourci non désiré
-  return !creeRaccourci(candidat, chemin)
-}
-
-function estMouvementValide(de: number, vers: number): boolean {
-  const diff = vers - de
-
-  // Mouvement horizontal (±6)
-  if (Math.abs(diff) === 6) return true
-
-  // Mouvement vertical (±1) mais pas de changement de colonne
-  if (Math.abs(diff) === 1 && Math.floor(de / 6) === Math.floor(vers / 6))
-    return true
-
-  return false
-}
-
-function creeRaccourci(candidat: number, chemin: number[]): boolean {
-  const voisinsDuCandidat = [
-    candidat - 6,
-    candidat - 1,
-    candidat + 1,
-    candidat + 6,
-  ].filter((v) => v >= 0 && v <= 28 && v % 6 !== 5)
-
-  // Compter combien de voisins du candidat sont déjà dans le chemin
-  let nbVoisinsDansLechemin = 0
-  for (const voisin of voisinsDuCandidat) {
-    if (chemin.includes(voisin)) {
-      nbVoisinsDansLechemin++
-    }
-  }
-
-  // Si plus d'un voisin est dans le chemin, c'est un raccourci
-  return nbVoisinsDansLechemin > 1
-}
-
-function pondererVoisins(
-  voisins: number[],
-  numeroActuel: number,
-): { numero: number; poids: number }[] {
-  return voisins.map((voisin) => {
-    // Distance de Manhattan vers 28 (ligne 4, colonne 4)
-    const ligneActuelle = numeroActuel % 6
-    const colonneActuelle = Math.floor(numeroActuel / 6)
-    const ligneVoisin = voisin % 6
-    const colonneVoisin = Math.floor(voisin / 6)
-
-    const distanceActuelle =
-      Math.abs(4 - ligneActuelle) + Math.abs(4 - colonneActuelle)
-    const distanceVoisin =
-      Math.abs(4 - ligneVoisin) + Math.abs(4 - colonneVoisin)
-
-    // Favoriser les mouvements qui se rapprochent de 28
-    const poids = distanceActuelle > distanceVoisin ? 3 : 1
-
-    return { numero: voisin, poids }
-  })
-}
-
-function choisirVoisinPondere(
-  voisinsPonderes: { numero: number; poids: number }[],
-): number {
-  const poidsTotal = voisinsPonderes.reduce((sum, v) => sum + v.poids, 0)
-  let seuil = Math.random() * poidsTotal
-
-  for (const voisin of voisinsPonderes) {
-    seuil -= voisin.poids
-    if (seuil <= 0) {
-      return voisin.numero
-    }
-  }
-
-  // Fallback
-  return voisinsPonderes[0].numero
-}
-
-function genererCheminDirect(
-  nbTransfMin: number,
-  nbTransfMax: number,
-): number[] {
-  // Chemin de base le plus court : 0 → 6 → 12 → 18 → 24 → 25 → 26 → 27 → 28
-  const chemin =
-    nbTransfMin < 11
-      ? [0, 6, 12, 18, 24, 25, 26, 27, 28]
-      : nbTransfMin < 12
-        ? [0, 1, 2, 3, 4, 10, 9, 15, 21, 27, 28]
-        : [0, 6, 12, 13, 7, 8, 9, 15, 14, 20, 26, 27, 28]
-
-  // Si le chemin de base est déjà assez long
-  if (chemin.length >= nbTransfMin && chemin.length <= nbTransfMax) {
-    return chemin
-  }
-
-  // Essayer d'ajouter des détours sans créer de doublons
-  let tentatives = 0
-  const MAX_TENTATIVES_DETOUR = 50
-
-  while (
-    (chemin.length < nbTransfMin || chemin.length > nbTransfMax) &&
-    tentatives < MAX_TENTATIVES_DETOUR
-  ) {
-    tentatives++
-
-    // Choisir un segment aléatoire dans le chemin pour y insérer un détour
-    const indexSegment = randint(0, chemin.length - 2)
-    const debut = chemin[indexSegment]
-    const fin = chemin[indexSegment + 1]
-
-    // Chercher un détour possible entre debut et fin
-    const detour = trouverDetourValide(debut, fin, new Set(chemin))
-
-    if (detour !== null) {
-      // Insérer le détour entre debut et fin
-      chemin.splice(indexSegment + 1, 0, detour)
-    }
-  }
-  return chemin
-}
-
-function trouverDetourValide(
-  debut: number,
-  fin: number,
-  cheminExistant: Set<number>,
-): number | null {
-  // Trouver tous les voisins du point de début
-  const voisinsDebut = [debut - 6, debut - 1, debut + 1, debut + 6].filter(
-    (v) =>
-      v >= 0 &&
-      v <= 28 &&
-      v % 6 !== 5 &&
-      !cheminExistant.has(v) &&
-      estMouvementValide(debut, v),
-  )
-
-  // Pour chaque voisin du début, vérifier s'il peut rejoindre la fin
-  for (const candidat of voisinsDebut) {
-    if (estMouvementValide(candidat, fin)) {
-      return candidat
-    }
-  }
-
-  return null
-}
-
-// Supprimer la fonction ajouterAllersRetours car elle crée des doublons

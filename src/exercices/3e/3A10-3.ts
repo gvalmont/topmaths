@@ -1,4 +1,5 @@
 import { warnMessage } from '../../lib/format/message'
+import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 import { setReponse } from '../../lib/interactif/gestionInteractif'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
@@ -263,9 +264,14 @@ export default class DecompositionFacteursPremiers extends Exercice {
           }
           break
       }
-      texte += ajouteChampTexteMathLive(this, i, '', {
-        texteAvant: `<br> <b>Écrire les facteurs premiers dans l'ordre croissant et la décomposition à l'aide de puissances lorsque l'exposant est supérieur ou égal à deux.</b> <br> La décomposition de $${texNombre(nombre)}$ est : `,
-      })
+      texte += ajouteChampTexteMathLive(
+        this,
+        i,
+        KeyboardType.clavierDeBaseAvecFractionPuissanceCrochets,
+        {
+          texteAvant: `<br> <b>Écrire les facteurs premiers dans l'ordre croissant et la décomposition à l'aide de puissances lorsque l'exposant est supérieur ou égal à deux.</b> <br> La décomposition de $${texNombre(nombre)}$ est : `,
+        },
+      )
       if (context.isAmc) {
         this.autoCorrection[i] = {
           enonce: texte,
@@ -276,6 +282,19 @@ export default class DecompositionFacteursPremiers extends Exercice {
       if (this.questionJamaisPosee(i, reponse)) {
         // Si la question n'a jamais été posée, on en créé une autre
         this.listeQuestions[i] = texte
+        // Uniformisation : Mise en place de la réponse attendue en interactif en orange et gras
+        const textCorrSplit = texteCorr.split('=')
+        let aRemplacer = textCorrSplit[textCorrSplit.length - 1]
+        aRemplacer = aRemplacer.replace('$', '')
+        aRemplacer = aRemplacer.replace('.', '')
+
+        texteCorr = ''
+        for (let ee = 0; ee < textCorrSplit.length - 1; ee++) {
+          texteCorr += textCorrSplit[ee] + '='
+        }
+        texteCorr += `$ $${miseEnEvidence(aRemplacer)}$` + '.' // Gestion du point final
+        // Fin de cette uniformisation
+
         this.listeCorrections[i] = texteCorr
         i++
       }

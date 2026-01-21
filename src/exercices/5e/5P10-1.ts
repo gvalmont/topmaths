@@ -8,6 +8,7 @@ import { rotation } from '../../lib/2d/transformations'
 import { triangle2points2longueurs } from '../../lib/2d/triangles'
 import { angleOriente } from '../../lib/2d/utilitairesGeometriques'
 import { pointAdistance } from '../../lib/2d/utilitairesPoint'
+import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { choice } from '../../lib/outils/arrayOutils'
@@ -208,7 +209,11 @@ class AgrandirReduireFigure extends Exercice {
                   objets,
                 )
               if (this.interactif) {
-                texte += ajouteChampTexteMathLive(this, i, '')
+                texte += ajouteChampTexteMathLive(
+                  this,
+                  i,
+                  KeyboardType.clavierNumbers,
+                )
                 texte += enonceAMC
                 handleAnswers(this, i, { reponse: { value: reponse } })
               } else if (!context.isAmc) {
@@ -418,7 +423,11 @@ class AgrandirReduireFigure extends Exercice {
                   objets,
                 )
               if (this.interactif) {
-                texte += ajouteChampTexteMathLive(this, i, '')
+                texte += ajouteChampTexteMathLive(
+                  this,
+                  i,
+                  KeyboardType.clavierNumbers,
+                )
                 texte += enonceAMC
                 handleAnswers(this, i, { reponse: { value: reponse } })
               } else if (!context.isAmc) {
@@ -623,7 +632,11 @@ class AgrandirReduireFigure extends Exercice {
                   case 1:
                     texte +=
                       '<br> Dans le nouveau triangle, la plus petite longueur sera :' +
-                      ajouteChampTexteMathLive(this, i, '')
+                      ajouteChampTexteMathLive(
+                        this,
+                        i,
+                        KeyboardType.clavierNumbers,
+                      )
                     handleAnswers(this, i, {
                       reponse: { value: Math.min(reponse, reponse1, reponse2) },
                     })
@@ -637,7 +650,11 @@ class AgrandirReduireFigure extends Exercice {
                   case 2:
                     texte +=
                       '<br> Dans le nouveau triangle, la plus grande longueur sera :' +
-                      ajouteChampTexteMathLive(this, i, '')
+                      ajouteChampTexteMathLive(
+                        this,
+                        i,
+                        KeyboardType.clavierNumbers,
+                      )
                     handleAnswers(this, i, {
                       reponse: { value: Math.max(reponse, reponse1, reponse2) },
                     })
@@ -651,7 +668,11 @@ class AgrandirReduireFigure extends Exercice {
                   case 3: {
                     texte +=
                       "<br> Dans le nouveau triangle, la longueur, qui n'est ni la plus petite, ni la plus grande, sera :" +
-                      ajouteChampTexteMathLive(this, i, '')
+                      ajouteChampTexteMathLive(
+                        this,
+                        i,
+                        KeyboardType.clavierNumbers,
+                      )
                     let derniereReponse
                     // Trouver la valeur minimale et la valeur maximale
                     const minValue = Math.min(reponse, reponse1, reponse2)
@@ -977,7 +998,11 @@ class AgrandirReduireFigure extends Exercice {
                   case 1:
                     texte +=
                       '<br> Dans le nouveau triangle, la plus petite longueur à trouver sera :' +
-                      ajouteChampTexteMathLive(this, i, '')
+                      ajouteChampTexteMathLive(
+                        this,
+                        i,
+                        KeyboardType.clavierNumbers,
+                      )
                     handleAnswers(this, i, {
                       reponse: { value: Math.min(reponse, reponse1) },
                     })
@@ -989,7 +1014,11 @@ class AgrandirReduireFigure extends Exercice {
                   case 2:
                     texte +=
                       '<br> Dans le nouveau triangle, la plus grande longueur à trouver sera :' +
-                      ajouteChampTexteMathLive(this, i, '')
+                      ajouteChampTexteMathLive(
+                        this,
+                        i,
+                        KeyboardType.clavierNumbers,
+                      )
                     handleAnswers(this, i, {
                       reponse: { value: Math.max(reponse, reponse1) },
                     })
@@ -1255,7 +1284,11 @@ class AgrandirReduireFigure extends Exercice {
                   case 1:
                     texte +=
                       '<br> Dans le nouveau rectangle, le côté le moins long aura pour longueur :' +
-                      ajouteChampTexteMathLive(this, i, '')
+                      ajouteChampTexteMathLive(
+                        this,
+                        i,
+                        KeyboardType.clavierNumbers,
+                      )
                     handleAnswers(this, i, {
                       reponse: { value: Math.min(reponse, reponse1) },
                     })
@@ -1267,7 +1300,11 @@ class AgrandirReduireFigure extends Exercice {
                   case 2:
                     texte +=
                       '<br> Dans le nouveau rectangle, le côté le plus long aura pour longueur :' +
-                      ajouteChampTexteMathLive(this, i, '')
+                      ajouteChampTexteMathLive(
+                        this,
+                        i,
+                        KeyboardType.clavierNumbers,
+                      )
                     handleAnswers(this, i, {
                       reponse: { value: Math.max(reponse, reponse1) },
                     })
@@ -1575,7 +1612,11 @@ class AgrandirReduireFigure extends Exercice {
                 )
               if (this.interactif) {
                 texte = enonceInit
-                texte += ajouteChampTexteMathLive(this, i, '')
+                texte += ajouteChampTexteMathLive(
+                  this,
+                  i,
+                  KeyboardType.clavierNumbers,
+                )
                 texte += enonceAMC
                 handleAnswers(this, i, { reponse: { value: reponse1 } })
               } else if (!context.isAmc) {

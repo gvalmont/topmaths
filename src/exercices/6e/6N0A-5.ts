@@ -1,7 +1,8 @@
-import { texteGras } from '../../lib/format/style'
+import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 import { setReponse } from '../../lib/interactif/gestionInteractif'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { combinaisonListes } from '../../lib/outils/arrayOutils'
+import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { context } from '../../modules/context'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import Exercice from '../Exercice'
@@ -15,7 +16,6 @@ export const amcType = 'AMCNum'
 /**
  * Trouver le dernier chiffre d'un calcul (somme, produit, différence)
  * @author Erwan DUPLESSY
- * 6C34
  */
 
 export const uuid = 'b3843'
@@ -69,7 +69,6 @@ export default class DernierChiffre extends Exercice {
     for (
       let i = 0, a = 0, b = 0, texte = '', texteCorr = '', cpt = 0;
       i < this.nbQuestions && cpt < 50;
-
     ) {
       switch (listeTypeDeQuestions[i]) {
         case 'somme':
@@ -79,11 +78,10 @@ export default class DernierChiffre extends Exercice {
           texteCorr = ''
           if (this.correctionDetaillee) {
             texteCorr += `Le dernier chiffre de $${a} + ${b}$ est le dernier chiffre de $${a % 10} + ${b % 10}$. `
-            texteCorr += `Or : $${a % 10} + ${b % 10} = ${(a % 10) + (b % 10)} $<br>`
+            texteCorr += `Or, $${a % 10} + ${b % 10} = ${(a % 10) + (b % 10)}$.<br>`
           }
-          texteCorr += texteGras(
-            `Le dernier chiffre de $${a} + ${b}$ est : $${(b + a) % 10}$.`,
-          )
+          texteCorr += `Le dernier chiffre de $${a} + ${b}$ est $${miseEnEvidence((b + a) % 10)}$.`
+
           setReponse(this, i, (b + a) % 10)
 
           break
@@ -94,11 +92,10 @@ export default class DernierChiffre extends Exercice {
           texteCorr = ''
           if (this.correctionDetaillee) {
             texteCorr += `Le dernier chiffre de $${a} \\times ${b}$ est le dernier chiffre de $${a % 10} \\times ${b % 10}$. `
-            texteCorr += `Or : $${a % 10} \\times ${b % 10} = ${(a % 10) * (b % 10)} $<br>`
+            texteCorr += `Or, $${a % 10} \\times ${b % 10} = ${(a % 10) * (b % 10)}$.<br>`
           }
-          texteCorr += texteGras(
-            `Le dernier chiffre de $${a} \\times ${b}$ est : $${(b * a) % 10}$.`,
-          )
+          texteCorr += `Le dernier chiffre de $${a} \\times ${b}$ est $${miseEnEvidence((b * a) % 10)}$.`
+
           setReponse(this, i, (b * a) % 10)
           break
 
@@ -114,9 +111,8 @@ export default class DernierChiffre extends Exercice {
               texteCorr += `Comme  $${a % 10} < ${b % 10}$, on doit faire la soustraction : $${(a % 10) + 10} - ${b % 10} = ${(a % 10) + 10 - (b % 10)}$. <br>`
             }
           }
-          texteCorr += texteGras(
-            `Le dernier chiffre de $${a} - ${b}$ est : $${(a - b) % 10}$.`,
-          )
+          texteCorr += `Le dernier chiffre de $${a} - ${b}$ est $${miseEnEvidence((a - b) % 10)}$.`
+
           setReponse(this, i, (a - b) % 10)
           break
       }
@@ -124,7 +120,7 @@ export default class DernierChiffre extends Exercice {
       if (context.isHtml && this.interactif)
         texte +=
           '<br>Le chiffre des unités est : ' +
-          ajouteChampTexteMathLive(this, i, '')
+          ajouteChampTexteMathLive(this, i, KeyboardType.clavierNumbers)
       if (context.isAmc) {
         this.autoCorrection[i].enonce =
           texte.substring(0, texte.length - 1) +

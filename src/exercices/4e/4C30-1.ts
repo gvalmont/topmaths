@@ -1,3 +1,4 @@
+import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 import { setReponse } from '../../lib/interactif/gestionInteractif'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { choice } from '../../lib/outils/arrayOutils'
@@ -106,7 +107,6 @@ export default class PuissancesEncadrement extends Exercice {
         exposantSup,
         cpt = 0;
       i < this.nbQuestions && cpt < 50;
-
     ) {
       // nombre entier positif, entre 1 et 10, puis 10 et 100 puis ....100 000 et 1 000 000
       const entPos = []
@@ -174,9 +174,17 @@ export default class PuissancesEncadrement extends Exercice {
         // nombre entier positif
         consigneAMC = `$\\dots\\dots\\dots${sp(1)}\\leqslant ${entPos[listeTypeDeQuestions[i] - 1].val}\\leqslant${sp(1)}\\dots\\dots\\dots$`
         texte = this.interactif
-          ? ajouteChampTexteMathLive(this, 2 * i, '') +
+          ? ajouteChampTexteMathLive(
+              this,
+              2 * i,
+              KeyboardType.clavierDeBaseAvecFractionPuissanceCrochets,
+            ) +
             `$\\leqslant ${entPos[listeTypeDeQuestions[i] - 1].val}\\leqslant $` +
-            ajouteChampTexteMathLive(this, 2 * i + 1, '')
+            ajouteChampTexteMathLive(
+              this,
+              2 * i + 1,
+              KeyboardType.clavierDeBaseAvecFractionPuissanceCrochets,
+            )
           : consigneAMC
         exposantInf = entPos[listeTypeDeQuestions[i] - 1].exposantInf
         exposantSup = entPos[listeTypeDeQuestions[i] - 1].exposantSup
@@ -198,9 +206,17 @@ export default class PuissancesEncadrement extends Exercice {
         // nombre décimal positif
         consigneAMC = `$\\dots\\dots\\dots${sp(1)}\\leqslant ${decPos[listeTypeDeQuestions[i] - 7].val}\\leqslant${sp(1)}\\dots\\dots\\dots$`
         texte = this.interactif
-          ? ajouteChampTexteMathLive(this, 2 * i, '') +
+          ? ajouteChampTexteMathLive(
+              this,
+              2 * i,
+              KeyboardType.clavierDeBaseAvecFractionPuissanceCrochets,
+            ) +
             `$\\leqslant ${decPos[listeTypeDeQuestions[i] - 7].val}\\leqslant $` +
-            ajouteChampTexteMathLive(this, 2 * i + 1, '')
+            ajouteChampTexteMathLive(
+              this,
+              2 * i + 1,
+              KeyboardType.clavierDeBaseAvecFractionPuissanceCrochets,
+            )
           : consigneAMC
         exposantInf = decPos[listeTypeDeQuestions[i] - 7].exposantInf
         exposantSup = decPos[listeTypeDeQuestions[i] - 7].exposantSup
@@ -222,9 +238,17 @@ export default class PuissancesEncadrement extends Exercice {
         // nombre décimal positif inferieur à 1
         consigneAMC = `$\\dots\\dots\\dots${sp(1)}\\leqslant ${decPosInfUn[listeTypeDeQuestions[i] - 11].val}\\leqslant${sp(1)}\\dots\\dots\\dots$`
         texte = this.interactif
-          ? ajouteChampTexteMathLive(this, 2 * i, '') +
+          ? ajouteChampTexteMathLive(
+              this,
+              2 * i,
+              KeyboardType.clavierDeBaseAvecFractionPuissanceCrochets,
+            ) +
             `$\\leqslant ${decPosInfUn[listeTypeDeQuestions[i] - 11].val}\\leqslant $` +
-            ajouteChampTexteMathLive(this, 2 * i + 1, '')
+            ajouteChampTexteMathLive(
+              this,
+              2 * i + 1,
+              KeyboardType.clavierDeBaseAvecFractionPuissanceCrochets,
+            )
           : consigneAMC
         exposantInf = decPosInfUn[listeTypeDeQuestions[i] - 11].exposantInf
         exposantSup = decPosInfUn[listeTypeDeQuestions[i] - 11].exposantSup

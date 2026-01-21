@@ -77,9 +77,8 @@ export default class auto1AP3b extends ExerciceQcmA {
     omega.setTailles() // On calcule les tailles des arbres.
     objets = omega.represente(0, 6, 0, 3, true, 1, 8)
 
-    let distracteur2: number
-    let distracteur3: number
-    // Génère distracteur2 différent de distracteur1 et de la bonne réponse
+  
+ 
 
     this.enonce = "On donne l'arbre de probabilités ci-dessous :<br>"
     this.enonce += mathalea2d(
@@ -133,7 +132,7 @@ export default class auto1AP3b extends ExerciceQcmA {
       rationnel,
       nom: '',
       proba: 1,
-      visible: false,
+      visible: true,
       alter: '',
       enfants: [
         new Arbre({
@@ -145,14 +144,14 @@ export default class auto1AP3b extends ExerciceQcmA {
             new Arbre({
               rationnel,
               nom: 'C',
-              proba: pAC,
               visible: false,
+            alter: '\\ldots',
             }),
             new Arbre({
               rationnel,
               nom: '\\overline C',
-              proba: pAC.entierMoinsFraction(1),
-              visible: false,
+             visible: false,
+            alter: ' ',
             }),
           ],
         }),
@@ -223,6 +222,4 @@ export default class auto1AP3b extends ExerciceQcmA {
     this.versionAleatoire()
   }
 }
-function Do(arg0: number) {
-  throw new Error('Function not implemented.')
-}
+

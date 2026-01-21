@@ -1,8 +1,9 @@
+import { propositionsQcm } from '../../lib/interactif/qcm'
 import { combinaisonListes } from '../../lib/outils/arrayOutils'
 import { ecritureParentheseSiNegatif } from '../../lib/outils/ecritures'
-import { propositionsQcm } from '../../lib/interactif/qcm'
-import { listeQuestionsToContenu, randint, itemize } from '../../modules/outils'
+import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { context } from '../../modules/context'
+import { itemize, listeQuestionsToContenu, randint } from '../../modules/outils'
 import Exercice from '../Exercice'
 export const amcReady = true
 export const amcType = 'qcmMono'
@@ -70,8 +71,8 @@ export default class TraduireUnProgrammeDeCalcul extends Exercice {
           texteCorr += '$<br>'
           texteCorr += 'Le résultat du programme est donc '
           this.sup
-            ? (texteCorr += `$${b}x+${a * b + c}$.`)
-            : (texteCorr += `$(x+${a})\\times  ${b} + ${c}$.`)
+            ? (texteCorr += `$${miseEnEvidence(`${b}x+${a * b + c}`)}$.`)
+            : (texteCorr += `$${miseEnEvidence(`(x+${a})\\times  ${b} + ${c}`)}$.`)
           if (this.sup) [A, B] = [b, a * b + c]
           this.autoCorrection[i] = {}
           this.autoCorrection[i].enonce = `${texte}\n`
@@ -113,8 +114,8 @@ export default class TraduireUnProgrammeDeCalcul extends Exercice {
           texteCorr += '$<br>'
           texteCorr += 'Le résultat du programme est donc '
           this.sup
-            ? (texteCorr += `$${a * c}y+${b * c}$.`)
-            : (texteCorr += `$(${a}y+${b})\\times ${c}$.`)
+            ? (texteCorr += `$${miseEnEvidence(`${a * c}y+${b * c}`)}$.`)
+            : (texteCorr += `$${miseEnEvidence(`(${a}y+${b})\\times ${c}`)}$.`)
           if (this.sup) [A, B] = [a * c, b * c]
           this.autoCorrection[i] = {}
           this.autoCorrection[i].enonce = `${texte}\n`
@@ -153,7 +154,7 @@ export default class TraduireUnProgrammeDeCalcul extends Exercice {
             'Si on note $a$ le nombre de départ, quel est le résultat du programme de calcul ?'
           texteCorr = `$a\\xrightarrow{\\times  ${a}} ${a}a\\xrightarrow{+${b}}${a}a+${b} \\xrightarrow{-2a}${a}a+${b}-2a=${a - 2}a+${b}$`
           texteCorr += '<br>'
-          texteCorr += `Le résultat du programme est donc $${a - 2}a+${b}$.`
+          texteCorr += `Le résultat du programme est donc $${miseEnEvidence(`${a - 2}a+${b}`)}$.`
           if (this.sup) [A, B] = [a - 2, b]
           this.autoCorrection[i] = {}
           this.autoCorrection[i].enonce = `${texte}\n`
@@ -190,7 +191,7 @@ export default class TraduireUnProgrammeDeCalcul extends Exercice {
             'Si on note $t$ le nombre de départ, quel est le résultat du programme de calcul ?'
           texteCorr = `$t\\xrightarrow{\\times  ${a}} ${a}t\\xrightarrow{+${b}}${a}t+${b} \\xrightarrow{+3t}${a}t+${b}+3t=${a + 3}t+${b}$`
           texteCorr += '<br>'
-          texteCorr += `Le résultat du programme est donc $${a + 3}t+${b}$.`
+          texteCorr += `Le résultat du programme est donc $${miseEnEvidence(`${a + 3}t+${b}`)}$.`
           if (this.sup) [A, B] = [a + 3, b]
           this.autoCorrection[i] = {}
           this.autoCorrection[i].enonce = `${texte}\n`
@@ -233,8 +234,8 @@ export default class TraduireUnProgrammeDeCalcul extends Exercice {
           texteCorr += '$<br>'
           texteCorr += 'Le résultat du programme est donc '
           this.sup
-            ? (texteCorr += `$${a * c}x+${b * c - d}$.`)
-            : (texteCorr += `$(${a}x+${b})\\times  ${c} - ${d}$.`)
+            ? (texteCorr += `$${miseEnEvidence(`${a * c}x+${b * c - d}`)}$.`)
+            : (texteCorr += `$${miseEnEvidence(`(${a}x+${b})\\times  ${c} - ${d}`)}$.`)
           if (this.sup) [A, B] = [a * c, b * c - d]
           this.autoCorrection[i] = {}
           this.autoCorrection[i].enonce = `${texte}\n`
@@ -281,8 +282,8 @@ export default class TraduireUnProgrammeDeCalcul extends Exercice {
           texteCorr += '$<br>'
           texteCorr += 'Le résultat du programme est donc '
           this.sup
-            ? (texteCorr += `$${a * c + 1}y+${b * c}$.`)
-            : (texteCorr += `$(${a}y+${b})\\times  ${c} + y$.`)
+            ? (texteCorr += `$${miseEnEvidence(`${a * c + 1}y+${b * c}`)}$.`)
+            : (texteCorr += `$${miseEnEvidence(`(${a}y+${b})\\times  ${c} + y`)}$.`)
           if (this.sup) [A, B] = [a * c + 1, b * c]
           this.autoCorrection[i] = {}
           this.autoCorrection[i].enonce = `${texte}\n`

@@ -1,8 +1,8 @@
+import { fireEvent, render, screen } from '@testing-library/svelte/svelte5'
+import { exercicesParams } from '../../../../../lib/stores/generalStore'
 import { getMockInterfacesParams } from '../../../../../lib/types.mock'
 import { randint } from '../../../../../modules/outils'
 import BoutonMonter from './BoutonMonter.svelte'
-import { fireEvent, render, screen } from '@testing-library/svelte'
-import { exercicesParams } from '../../../../../lib/stores/generalStore'
 
 describe('BoutonMonter Component', () => {
   test('should be displayed', () => {

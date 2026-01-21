@@ -2,15 +2,16 @@ import { choice } from '../../../lib/outils/arrayOutils'
 import { texteEnCouleur } from '../../../lib/outils/embellissements'
 import { scratchblock } from '../../../modules/scratchblock'
 
-import { ajouteChampTexteMathLive } from '../../../lib/interactif/questionMathLive'
+import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
+import { setReponse } from '../../../lib/interactif/gestionInteractif'
 import { propositionsQcm } from '../../../lib/interactif/qcm'
+import { ajouteChampTexteMathLive } from '../../../lib/interactif/questionMathLive'
+import { arrondi } from '../../../lib/outils/nombres'
 import {
   listeQuestionsToContenuSansNumero,
   randint,
 } from '../../../modules/outils'
 import Exercice from '../../Exercice'
-import { setReponse } from '../../../lib/interactif/gestionInteractif'
-import { arrondi } from '../../../lib/outils/nombres'
 
 export const titre = 'Travailler les répétitions (Scratch)'
 export const dateDePublication = '24/10/2021'
@@ -64,7 +65,7 @@ export default class RepetitionScratch extends Exercice {
         setReponse(this, 0, angleRot)
         this.listeQuestions[0] =
           `${scratchblock(prog)}<br>Quel nombre doit-on écrire à la place des pointillés pour tracer un ${b[1]} ?` +
-          ajouteChampTexteMathLive(this, 0, '')
+          ajouteChampTexteMathLive(this, 0, KeyboardType.clavierNumbers)
         this.listeCorrections[0] = `Un ${b[1]} a des anlges de $${arrondi(180 - angleRot)}^\\circ$. Le lutin doit tourner de $180-${arrondi(180 - angleRot)}=${angleRot}^\\circ$ après avoir tracé un côté.<br>`
         this.listeCorrections[0] += texteEnCouleur(
           `Mentalement on divise $360$ par $${nbRep}$ : $\\dfrac{360}{${nbRep}}=${angleRot}$.`,
@@ -81,7 +82,7 @@ export default class RepetitionScratch extends Exercice {
         setReponse(this, 0, nbRep)
         this.listeQuestions[0] =
           `${scratchblock(prog)}<br>Quel nombre doit-on écrire à la place des pointillés pour tracer un ${b[1]} ?` +
-          ajouteChampTexteMathLive(this, 0, '')
+          ajouteChampTexteMathLive(this, 0, KeyboardType.clavierNumbers)
         this.listeCorrections[0] = `Un ${b[1]} a ${nbRep} côtés ($${nbRep}\\times ${angleRot}=360^\\circ$), il faut donc répéter ${nbRep} fois les instructions de la boucle.<br>`
         this.listeCorrections[0] += texteEnCouleur(
           `Mentalement, on divise $360$ par $${angleRot}$ : $\\dfrac{360}{${angleRot}}=${nbRep}$.`,

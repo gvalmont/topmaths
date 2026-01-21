@@ -20,7 +20,7 @@ export const interactifType = 'mathLive'
 export const amcReady = true
 export const amcType = 'AMCOpen'
 
-export const titre = 'Problèmes avec des engrenages'
+export const titre = 'Résoudre des problèmes avec des engrenages'
 export const dateDePublication = '05/10/2022'
 export const dateDeModifImportante = '17/01/2024'
 

@@ -38,7 +38,7 @@ export default class SimulateurDes extends Exercice {
       melange: 0,
       saisie: this.sup,
       min: 4,
-      max: 100,
+      max: 20,
       defaut: 6,
       shuffle: false,
       nbQuestions: this.sup.split('-').length,

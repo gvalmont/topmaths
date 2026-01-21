@@ -1,5 +1,6 @@
+import type { IPolygone } from '../lib/2d/Interfaces'
 import { PointAbstrait, pointAbstrait } from '../lib/2d/PointAbstrait'
-import { barycentre, Polygone, polygone } from '../lib/2d/polygones'
+import { barycentre, polygone } from '../lib/2d/polygones'
 import { polygoneRegulier } from '../lib/2d/polygonesParticuliers'
 import { TexteParPoint, texteParPosition } from '../lib/2d/textes'
 import { tracePoint, type TracePoint } from '../lib/2d/TracePoint'
@@ -20,7 +21,7 @@ import { egal } from './outils'
  */
 export class Pavage {
   type: number
-  polygones: Polygone[]
+  polygones: IPolygone[]
   barycentres: PointAbstrait[]
   tracesCentres: TracePoint[]
   numeros: TexteParPoint[]
@@ -58,7 +59,7 @@ export class Pavage {
     Ny: number = 1,
     taille: number = 3,
   ): Pavage {
-    const nettoieObjets = function (objets: Polygone[]) {
+    const nettoieObjets = function (objets: IPolygone[]) {
       let barywhite, baryblack // c'est drôle non ?
       for (let i = 0; i < objets.length; i++) {
         barywhite = barycentre(objets[i])

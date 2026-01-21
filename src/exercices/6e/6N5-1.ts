@@ -13,7 +13,7 @@ import { numAlpha, sp } from '../../lib/outils/outilString'
 import { prenomF } from '../../lib/outils/Personne'
 import { texNombre3, texPrix } from '../../lib/outils/texNombre'
 import { context } from '../../modules/context'
-import Operation from '../../modules/operations'
+import operation from '../../modules/operations'
 import {
   estentier,
   gestionnaireFormulaireTexte,
@@ -81,7 +81,6 @@ export default class QuestionsPrix extends Exercice {
     for (
       let i = 0, texte, texteCorr, cpt = 0;
       i < this.nbQuestions && cpt < 50;
-
     ) {
       const typesDeQuestionsDisponibles = gestionnaireFormulaireTexte({
         max: 8,
@@ -322,7 +321,7 @@ export default class QuestionsPrix extends Exercice {
             enonceAMC += `Si ${quidame} décidait d'acheter ${ArticleDemonst} ${ArticleSingulier} avec $${Nbpartage}$ camarades, quelle somme équitable minimale devraient-ils, chacun, donner${sp()}?<br><br>`
             correctionAMC += `$1 + ${Nbpartage} = ${Nbpartage + 1}$<br>`
             correctionAMC += `Le partage se ferait entre ${Nbpartage + 1} personnes.<br>`
-            correctionAMC += Operation({
+            correctionAMC += operation({
               operande1: PrixUnitaire,
               operande2: Nbpartage + 1,
               type: 'division',

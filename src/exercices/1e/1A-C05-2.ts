@@ -21,7 +21,7 @@ export default class auto1AC5a extends ExerciceQcmA {
       this.correction = `$10^{${-b}}$ est très petit devant $10^{${a}}$.<br>
      En effet, $10^{${-b}}=\\dfrac{1}{10^{${b}}}=\\underbrace{0,0\\ldots 0}_{${b} \\text{ zéros}}1$ et $10^{${a}}=1\\underbrace{0\\ldots 0}_{${a}\\text{ zéros}}$.<br>
      On en déduit  que $10^{${a}}+10^{${-b}}$ est environ égal à $${miseEnEvidence(`10^{${a}}`)}$.`
-      this.reponses = [`$10^{${a}}$`, `$1$`, `$10^{${a - b}}$`, `$10^{${-b}}$`]
+      this.reponses = [`$10^{${a}}$`, `$20^{${a}}$`, `$10^{${a - b}}$`, `$0$`]
     } else if (cas === 2) {
       // Cas 2 : a + 10^b avec b positif grand
       this.enonce = `$${a}+10^{${b}}$ est environ égal à :`

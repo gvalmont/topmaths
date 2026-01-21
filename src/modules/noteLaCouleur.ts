@@ -16,7 +16,7 @@ import { texteParPositionEchelle } from '../lib/2d/textes'
 import { avance, ObjetLutin, tournerD, tournerG } from './2dLutin'
 import { randint } from './outils'
 
-export const thePlateau = [
+export const thePlateau: CouleurNLC[][] = [
   [
     'Blanc',
     'Blanc',
@@ -234,6 +234,26 @@ export const thePlateau = [
     'Blanc',
   ],
 ]
+
+export type CouleurNLC =
+  | 'Blanc'
+  | 'Noir'
+  | 'Rouge'
+  | 'Bleu'
+  | 'Orange'
+  | 'Rose'
+  | 'Jaune'
+  | 'Vert'
+  | 'Gris'
+  | '(0) Blanc'
+  | '(1) Noir'
+  | '(2) Rouge'
+  | '(3) Bleu'
+  | '(4) Orange'
+  | '(5) Rose'
+  | '(6) Jaune'
+  | '(7) Vert'
+  | '(8) Gris'
 /**
  *
  * @param {number} repetitions
@@ -476,18 +496,7 @@ export function testSequence(
     pionfantome.currentOrientation,
   ]
 }
-export function traducColor(
-  couleur:
-    | 'Blanc'
-    | 'Bleu'
-    | 'Noir'
-    | 'Rouge'
-    | 'Jaune'
-    | 'Rose'
-    | 'Vert'
-    | 'Orange'
-    | 'Gris',
-) {
+export function traducColor(couleur: CouleurNLC) {
   switch (couleur) {
     case 'Blanc':
       return 'white'
@@ -510,18 +519,7 @@ export function traducColor(
   }
 }
 
-export function traducNum(
-  couleur:
-    | 'Blanc'
-    | 'Bleu'
-    | 'Noir'
-    | 'Rouge'
-    | 'Jaune'
-    | 'Rose'
-    | 'Vert'
-    | 'Orange'
-    | 'Gris',
-) {
+export function traducNum(couleur: CouleurNLC) {
   switch (couleur) {
     case 'Blanc':
       return '0'
@@ -546,7 +544,7 @@ export function traducNum(
 
 class NoteLaCouleur {
   objetLutin: ObjetLutin
-  plateauNLC: string[][]
+  plateauNLC: CouleurNLC[][]
   currentPos: { x: number; y: number }
   currentOrientation: number
   codeScratch: string
@@ -572,7 +570,7 @@ class NoteLaCouleur {
     nx?: number
     ny?: number
     pas?: number
-    plateau?: string[][]
+    plateau?: CouleurNLC[][]
   }) {
     this.plateauNLC = plateau
     this.currentPos = { x, y }
@@ -589,7 +587,7 @@ class NoteLaCouleur {
     this.objetLutin.orientation = orientation
   }
 
-  nlc() {
+  nlc(): CouleurNLC {
     return this.plateauNLC[
       Math.ceil(
         ((this.relatif
@@ -604,7 +602,7 @@ class NoteLaCouleur {
           this.currentPos.x) /
           this.pas,
       )
-    ]
+    ] as CouleurNLC
   }
 
   testCoords(x: number, y: number) {
@@ -641,7 +639,7 @@ export function noteLaCouleur({
   x?: number
   y?: number
   orientation?: number
-  plateau?: string[][]
+  plateau?: CouleurNLC[][]
   relatif?: boolean
   nx?: number
   ny?: number
@@ -657,7 +655,8 @@ export class Plateau2dNLC extends ObjetMathalea2D {
   scale: number
   nx: number
   ny: number
-  plateauNLC: string[][]
+  plateauNLC: CouleurNLC[][]
+  objets: ObjetMathalea2D[]
   constructor({
     type = 1,
     melange = false,
@@ -744,18 +743,8 @@ export class Plateau2dNLC extends ObjetMathalea2D {
               })
               .addTextIn({
                 size: 1.2,
-                textIn: traducNum(
-                  this.plateauNLC[ny - 1 - Y][X] as
-                    | 'Blanc'
-                    | 'Bleu'
-                    | 'Noir'
-                    | 'Rouge'
-                    | 'Jaune'
-                    | 'Rose'
-                    | 'Vert'
-                    | 'Orange'
-                    | 'Gris',
-                ),
+                textIn:
+                  traducNum(this.plateauNLC[ny - 1 - Y][X] as CouleurNLC) ?? '',
                 color: 'black',
                 opacity: 0.8,
               })
@@ -798,18 +787,8 @@ export class Plateau2dNLC extends ObjetMathalea2D {
                 size: 1.2,
                 color: 'black',
                 opacity: 0.9,
-                textIn: traducNum(
-                  this.plateauNLC[ny - 1 - Y][X] as
-                    | 'Blanc'
-                    | 'Bleu'
-                    | 'Noir'
-                    | 'Rouge'
-                    | 'Jaune'
-                    | 'Rose'
-                    | 'Vert'
-                    | 'Orange'
-                    | 'Gris',
-                ),
+                textIn:
+                  traducNum(this.plateauNLC[ny - 1 - Y][X] as CouleurNLC) ?? '',
               })
             break
         }
@@ -1002,7 +981,7 @@ export function plateau2dNLC({
   pas?: number
   nx?: number
   ny?: number
-  plateau?: string[][]
+  plateau?: CouleurNLC[][]
 } = {}) {
   if (plateau !== undefined) {
     return new Plateau2dNLC({

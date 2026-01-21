@@ -1,12 +1,20 @@
+import Decimal from 'decimal.js'
+import { bleuMathalea } from '../../lib/colors'
+import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
+import { handleAnswers } from '../../lib/interactif/gestionInteractif'
+import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { choice, shuffle } from '../../lib/outils/arrayOutils'
+import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { numAlpha, sp } from '../../lib/outils/outilString'
 import { texNombre } from '../../lib/outils/texNombre'
+import operation from '../../modules/operations'
+import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import Exercice from '../Exercice'
-import { randint, listeQuestionsToContenu } from '../../modules/outils'
-import Operation from '../../modules/operations'
-import Decimal from 'decimal.js'
-export const titre = 'Produit et somme ou différence de décimaux'
+export const titre = 'Effectuer produit et somme ou différence de décimaux'
 
+export const interactifReady = true
+export const interactifType = 'mathLive'
+export const dateDeModifImportante = '14/01/2026'
 export const dateDePublication = '20/12/2022'
 
 /**
@@ -42,7 +50,6 @@ export default class ProduitEtSommeOuDifferenceDeDecimaux extends Exercice {
     for (
       let i = 0, texte, texteCorr, cpt = 0;
       i < this.nbQuestions && cpt < 50;
-
     ) {
       const A = new Decimal(
         choice([randint(10, 99), randint(100, 999)]) * 10 + randint(1, 9),
@@ -66,7 +73,7 @@ export default class ProduitEtSommeOuDifferenceDeDecimaux extends Exercice {
       const couples = shuffle(couplesPossibles).slice(0, this.sup)
       texte = 'Calculer.'
       texteCorr =
-        Operation({
+        operation({
           operande1: A.toNumber(),
           operande2: B.toNumber(),
           type: 'multiplication',
@@ -74,21 +81,69 @@ export default class ProduitEtSommeOuDifferenceDeDecimaux extends Exercice {
           options: { solution: true, colore: '' },
         }) + '<br>'
       let indice = 0
+      const afficherIndice = couples.length > 1
+
       for (const couple of couples) {
+        if (afficherIndice) {
+          texte += `<br>${numAlpha(indice)}`
+          texteCorr += `<br>${numAlpha(indice)}<br>`
+        } else {
+          texte += `<br>`
+          texteCorr += `<br>`
+        }
+
         const addition = this.sup2 ? choice([true, false]) : true
-        texte += `<br>${numAlpha(indice)}$${texNombre(couple.A)} ${addition ? '+' : '-'} ${texNombre(couple.B)}$ ${sp()} ${sp()} ${sp()} et ${sp()} ${sp()} ${sp()} $${texNombre(couple.A)} \\times ${texNombre(couple.B)}$.`
-        texteCorr += `<br>${numAlpha(indice)}<br>`
-        texteCorr += Operation({
-          operande1: couple.A.toNumber(),
-          operande2: couple.B.toNumber(),
+        const operande1 =
+          this.interactif && !addition
+            ? Math.max(couple.A.toNumber(), couple.B.toNumber())
+            : couple.A.toNumber()
+        const operande2 =
+          this.interactif && !addition
+            ? Math.min(couple.A.toNumber(), couple.B.toNumber())
+            : couple.B.toNumber()
+
+        texte += `$${texNombre(operande1)} ${addition ? '+' : '-'} ${texNombre(operande2)}$ `
+        texte += this.interactif
+          ? ajouteChampTexteMathLive(
+              this,
+              2 * (i * this.sup + indice),
+              KeyboardType.clavierNumbers,
+              {
+                texteAvant: ' =',
+              },
+            )
+          : ``
+        texte += ` ${sp(6)} et  ${sp(6)} $${texNombre(couple.A)} \\times ${texNombre(couple.B)}$`
+        texte += this.interactif
+          ? ajouteChampTexteMathLive(
+              this,
+              2 * (i * this.sup + indice) + 1,
+              KeyboardType.clavierNumbers,
+              {
+                texteAvant: ' =',
+                texteApres: '.',
+              },
+            )
+          : `.`
+        texteCorr += operation({
+          operande1,
+          operande2,
           type: addition ? 'addition' : 'soustraction',
           style: 'display: inline',
           methodeParCompensation: addition,
         })
+        handleAnswers(this, 2 * (i * this.sup + indice), {
+          reponse: {
+            value: addition ? operande1 + operande2 : operande1 - operande2,
+          },
+        })
+        handleAnswers(this, 2 * (i * this.sup + indice) + 1, {
+          reponse: { value: couple.B.mul(couple.A) },
+        })
 
-        texteCorr += `<br> Je sais que $${texNombre(A)}\\times${texNombre(B)}=${texNombre(B.mul(A))}$.`
+        texteCorr += `<br> Je sais que $${texNombre(A)}\\times${texNombre(B)}=${miseEnEvidence(texNombre(B.mul(A)), bleuMathalea)}$.`
         texteCorr += '<br>'
-        texteCorr += `<br> J'en déduis que $${texNombre(couple.A)}\\times${texNombre(couple.B)}=${texNombre(couple.B.mul(couple.A))}$.`
+        texteCorr += `<br> J'en déduis que $${texNombre(couple.A)}\\times${texNombre(couple.B)}=${miseEnEvidence(texNombre(couple.B.mul(couple.A)))}$.`
         texteCorr += '<br>'
         indice++
       }

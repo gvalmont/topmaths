@@ -72,32 +72,33 @@ export default class nomExercice extends Exercice {
       this.nbQuestions,
     )
     let reponse = ''
-    let n = randint(3, 15)
-    const k = randint(2, n - 1)
-    const arrangement = factorielle(n) / factorielle(n - k)
-    const combinaison = factorielle(n) / (factorielle(k) * factorielle(n - k))
-    let factorielleN = 0
-    let kuplet = ''
-    if (k === 2) {
-      kuplet = 'couples'
-    }
-    if (k === 3) {
-      kuplet = 'triplets'
-    }
-    if (k === 4) {
-      kuplet = 'quadruplets'
-    }
-    if (k === 5) {
-      kuplet = 'quintuplets'
-    }
-    if (k >= 6) {
-      kuplet = `${k}-uplets`
-    }
+    
 
     for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50; ) {
       let texte = ''
       let texteCorr = ''
       const variables: string[] = []
+      const n = listeTypeQuestions[i] === 'type5' ? randint(3, 9) : randint(3, 15)
+      const k = randint(2, n - 1)
+      const arrangement = factorielle(n) / factorielle(n - k)
+      const combinaison = factorielle(n) / (factorielle(k) * factorielle(n - k))
+      let factorielleN = 0
+      let kuplet = ''
+      if (k === 2) {
+        kuplet = 'couples'
+      }
+      if (k === 3) {
+        kuplet = 'triplets'
+      }
+      if (k === 4) {
+        kuplet = 'quadruplets'
+      }
+      if (k === 5) {
+        kuplet = 'quintuplets'
+      }
+      if (k >= 6) {
+        kuplet = `${k}-uplets`
+      }
       switch (listeTypeQuestions[i]) {
         case 'type1':
           texte = `On considère une urne contenant ${n} boules numérotées de $1$ à ${n}.<br> On tire successivement ${k} boules au hasard dans l'urne, en replaçant après chaque tirage la boule dans l'urne.<br>`
@@ -139,7 +140,6 @@ export default class nomExercice extends Exercice {
           texteCorr += `Il y a donc $${miseEnEvidence(texNombre(arrangement))}$ tirages possibles.<br>`
           reponse = `${arrangement}`
           break
-          texteCorr += `Il y a donc $${miseEnEvidence(n ** k)}$ tirages possibles.<br>`
         case 'type3':
           texte = `On considère une urne contenant ${n} boules numérotées de $1$ à ${n}.<br> On tire simultanément ${k} boules au hasard dans l'urne.<br>`
           texte += 'Déterminer le nombre de tirages possibles.<br>'
@@ -160,11 +160,8 @@ export default class nomExercice extends Exercice {
           reponse = `${2 ** n}`
           break
         case 'type5':
-          if (n >= 10) {
-            n = randint(3, 9)
-          }
           factorielleN = factorielle(n)
-          texte = `On ${n} boules numérotées de $1$ à ${n}.<br> Déterminer le nombre de permutations possibles.<br>`
+          texte = `On a ${n} boules numérotées de $1$ à ${n}.<br> Déterminer le nombre de permutations possibles.<br>`
           texteCorr =
             "On sait que le nombre de permutations d'un ensemble fini à $n$ éléménts est $n~!$<br>"
           texteCorr += `Dans notre situation, $\\mathrm{Card}(E)=${n}$.<br>`

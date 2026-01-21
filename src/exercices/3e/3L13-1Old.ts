@@ -1,3 +1,4 @@
+import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { combinaisonListes } from '../../lib/outils/arrayOutils'
@@ -73,7 +74,6 @@ export default class ExerciceEquation1Tiret2 extends Exercice {
     for (
       let i = 0, a, b, c, d, k, texte, texteCorr, cpt = 0;
       i < this.nbQuestions && cpt < 50;
-
     ) {
       // On limite le nombre d'essais pour chercher des valeurs nouvelles
       a = randint(-9, 9, 0)
@@ -81,49 +81,6 @@ export default class ExerciceEquation1Tiret2 extends Exercice {
       c = randint(-9, 9, 0)
       d = randint(-9, 9, 0)
       k = randint(2, 9)
-      /* if (listeTypeDeQuestions[i] === 'ax+b=cx+d') {
-        if (c === a) {
-          c = randint(1, 9, [a])
-        } // sinon on arrive à une division par 0
-        if (!this.sup && a < c) {
-          c = randint(1, 9)
-          a = randint(c + 1, 15) // a sera plus grand que c pour que a-c>0
-        }
-        texte = `$${rienSi1(a)}x${ecritureAlgebrique(b)}=${rienSi1(c)}x${ecritureAlgebrique(d)}$<br>`
-        texteCorr = texte
-        if (this.interactif) {
-          texte += '$x =$' + ajouteChampTexteMathLive(this, i, '') + '<br><br>'
-          setReponse(this, i, new FractionEtendue(d - b, a - c), { formatInteractif: 'fractionEgale' })
-        }
-        if (this.correctionDetaillee) {
-          if (c > 0) {
-            texteCorr += `On soustrait $${rienSi1(c)}x$ aux deux membres.<br>`
-          } else {
-            texteCorr += `On ajoute $${rienSi1(-1 * c)}x$ aux deux membres.<br>`
-          }
-        }
-        texteCorr += `$${rienSi1(a)}x${ecritureAlgebrique(b)}${miseEnEvidence(signe(-1 * c) + rienSi1(abs(c)) + 'x')}=${c}x+${d}${miseEnEvidence(signe(-1 * c) + rienSi1(abs(c)) + 'x')}$<br>`
-        texteCorr += `$${rienSi1(a - c)}x${ecritureAlgebrique(b)}=${d}$<br>`
-        if (this.correctionDetaillee) {
-          if (b > 0) {
-            texteCorr += `On soustrait $${b}$ aux deux membres.<br>`
-          } else {
-            texteCorr += `On ajoute $${-1 * b}$ aux deux membres.<br>`
-          }
-        }
-        texteCorr += `$${rienSi1(a - c)}x${ecritureAlgebrique(b)}${miseEnEvidence(ecritureAlgebrique(-1 * b))}=${d}${miseEnEvidence(ecritureAlgebrique(-1 * b))}$<br>`
-        texteCorr += `$${rienSi1(a - c)}x=${d - b}$<br>`
-
-        if (this.correctionDetaillee) {
-          texteCorr += `On divise les deux membres par $${a - c}$.<br>`
-        }
-        texteCorr += `$${rienSi1(a - c)}x${miseEnEvidence('\\div' + ecritureParentheseSiNegatif(a - c))}=${d - b + miseEnEvidence('\\div' + ecritureParentheseSiNegatif(a - c))}$<br>`
-        texteCorr += `$x=${texFractionFromString(d - b, a - c)}$`
-        if (pgcd(abs(d - b), abs(a - c)) > 1 || (a - c) < 0) {
-          texteCorr += `<br>$x=${texFractionReduite(d - b, a - c)}$`
-        }
-        texteCorr += `<br> La solution est $${texFractionReduite(d - b, a - c)}$.`
-      } */
 
       if (listeTypeDeQuestions[i] === 'k(ax+b)=cx+d') {
         if (c === k * a) {
@@ -133,7 +90,13 @@ export default class ExerciceEquation1Tiret2 extends Exercice {
         texteCorr = texte
         if (this.interactif) {
           texte +=
-            '$x = $' + ajouteChampTexteMathLive(this, i, ' ') + '<br><br>'
+            '$x = $' +
+            ajouteChampTexteMathLive(
+              this,
+              i,
+              KeyboardType.clavierDeBaseAvecFraction,
+            ) +
+            '<br><br>'
           handleAnswers(this, i, {
             reponse: {
               value: new FractionEtendue(d - k * b, a * k - c),
@@ -182,7 +145,13 @@ export default class ExerciceEquation1Tiret2 extends Exercice {
         texteCorr = texte
         if (this.interactif) {
           texte +=
-            '$x = $' + ajouteChampTexteMathLive(this, i, ' ') + '<br><br>'
+            '$x = $' +
+            ajouteChampTexteMathLive(
+              this,
+              i,
+              KeyboardType.clavierDeBaseAvecFraction,
+            ) +
+            '<br><br>'
           handleAnswers(this, i, {
             reponse: {
               value: new FractionEtendue(k - b - d, a + c),

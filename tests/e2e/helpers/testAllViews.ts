@@ -533,7 +533,7 @@ async function getForms(page: Page) {
   for (let i = 0; i < 5; i++) {
     const formCheck = settingsLocator.locator(`#settings-check${i + 1}-0`)
     if (await formCheck.isVisible()) {
-      const label = formCheck.locator('xpath=preceding-sibling::label')
+      const label = formCheck.locator('xpath=following-sibling::label')
       formChecks.push({
         description: sanitizeFilename(await label.innerHTML()),
         locator: formCheck,
@@ -561,7 +561,9 @@ async function getForms(page: Page) {
     if (await formNum.isVisible()) {
       const elementHandle = await formNum.elementHandle()
       if (!elementHandle) throw new Error('Element not found')
-      const label = formNum.locator('xpath=preceding-sibling::label')
+      const label = settingsLocator.locator(
+        `label[for="settings-formNum${i + 1}-0"]`,
+      )
       const tagName = await elementHandle.evaluate((node) =>
         node.tagName.toLowerCase(),
       )
@@ -573,7 +575,7 @@ async function getForms(page: Page) {
         )
         const values = allValues.filter((value) => value !== null)
         formNumSelects.push({
-          description: sanitizeFilename(await label.innerHTML()),
+          description: sanitizeFilename(await label.innerText()),
           locator: formNum,
           type: 'select',
           values,
@@ -598,7 +600,7 @@ async function getForms(page: Page) {
           throw new Error('Max should be greater than min')
         }
         formNums.push({
-          description: sanitizeFilename(await label.innerHTML()),
+          description: sanitizeFilename(await label.innerText()),
           locator: formNum,
           type: 'num',
           values: [min, min + 1, max],
@@ -623,12 +625,14 @@ async function getForms(page: Page) {
   for (let i = 0; i < 5; i++) {
     const formText = settingsLocator.locator(`#settings-formText${i + 1}-0`)
     if (await formText.isVisible()) {
-      const label = formText.locator('xpath=preceding-sibling::label')
-      const labelText = await label.innerText()
+      const titleDiv = formText.locator(
+        'xpath=../preceding-sibling::div/div[1]',
+      )
+      const labelText = await titleDiv.innerText()
       const allNumbers = getAllNumbersFromString(labelText || '')
       const uniqueNumbers = Array.from(new Set(allNumbers))
       formTexts.push({
-        description: sanitizeFilename(await label.innerHTML()),
+        description: sanitizeFilename(labelText),
         locator: formText,
         type: 'text',
         values: [uniqueNumbers.map((num) => num.toString()).join('-')],

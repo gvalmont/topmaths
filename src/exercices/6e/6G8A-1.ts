@@ -93,7 +93,6 @@ export default class DenombrerCubes extends Exercice {
     for (
       let q = 0, texte, texteCorr, cpt = 0;
       q < this.nbQuestions && cpt < 50;
-
     ) {
       let figure, figureCorrection
       const L = empilementCubes(longueur, largeur, hauteur) // crée un empilement aléatoire
@@ -124,7 +123,7 @@ export default class DenombrerCubes extends Exercice {
         case 1:
           texte += unitesCubes
             ? 'combien de petits cubes contient cet empilement de cubes ?' +
-              ajouteChampTexteMathLive(this, q, '')
+              ajouteChampTexteMathLive(this, q, KeyboardType.clavierNumbers)
             : 'quel est le volume en $\\text{cm}^3$ de cet empilement de cubes ?' +
               ajouteChampTexteMathLive(this, q, KeyboardType.volume)
           texte += '<br>' + figure
@@ -142,7 +141,7 @@ export default class DenombrerCubes extends Exercice {
         case 2:
           texte += unitesCubes
             ? `combien de petits cubes manque-t-il pour reconstruire un grand cube de $${longueur}\\text{cm}$ d'arête ?` +
-              ajouteChampTexteMathLive(this, q, '')
+              ajouteChampTexteMathLive(this, q, KeyboardType.clavierNumbers)
             : `quel volume en $\\text{cm}^3$ manque-t-il pour reconstruire un cube de $${longueur}\\text{cm}$ d'arête ?` +
               ajouteChampTexteMathLive(this, q, KeyboardType.volume)
           texte += '<br>' + figure

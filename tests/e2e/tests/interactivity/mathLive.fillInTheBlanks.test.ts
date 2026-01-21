@@ -1,11 +1,11 @@
+import type { Page } from 'playwright'
+import prefs from '../../helpers/prefs.js'
 import {
   checkFeedback,
   getQuestions,
   inputAnswer,
   runTest,
 } from '../../helpers/run'
-import type { Page } from 'playwright'
-import prefs from '../../helpers/prefs.js'
 
 async function test6N203(page: Page) {
   const hostname = local

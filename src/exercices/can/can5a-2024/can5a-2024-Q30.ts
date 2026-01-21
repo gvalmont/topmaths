@@ -31,7 +31,6 @@ export default class NomExercice extends ExerciceSimple {
     this.formatChampTexte = KeyboardType.clavierDeBase
 
     this.canOfficielle = false
-    // this.question += ajouteChampTexteMathLive(this, 0, ' ', { texteAvant: '$=$' })
   }
 
   nouvelleVersion() {

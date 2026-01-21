@@ -13,7 +13,7 @@ export function musique(decimal = false): Probleme {
   const data = { nbFois, quotité }
   const probleme = new ProblemeMultiplicatifParts('musique', data)
   probleme.enonce = `Un morceau de musique dure $${texNombre(total, 2)}$ minutes. Il est divisé en $${texNombre(nbFois, 0)}$ parties égales. Quelle est la durée d'une partie ?`
-  probleme.correction = `On divise $${texNombre(total, 2)}$ minutes en $${texNombre(nbFois, 0)}$ parties. Chaque partie dure $\\dfrac{${texNombre(total, 2)}}{${texNombre(nbFois, 0)}} = ${miseEnEvidence(texNombre(total / nbFois, 2))}$ minutes.`
+  probleme.correction = `On divise $${texNombre(total, 2)}$ minutes en $${texNombre(nbFois, 0)}$ parties. La durée d'une partie est : $${texNombre(total, 2)}\\text{\\,min} \\div ${texNombre(nbFois, 0)} = ${miseEnEvidence(texNombre(total / nbFois, 2))}\\text{\\,min}$`
   probleme.schema.topBraces = [
     {
       start: 1,
@@ -25,7 +25,7 @@ export function musique(decimal = false): Probleme {
     {
       barres: [
         {
-          content: `$${texNombre(quotité, 2)}\\text{\\,min}$`,
+          content: `$${miseEnEvidence(texNombre(quotité, 2))}\\text{\\,min}$`,
           length: 3,
           color: 'lightgray',
         },
@@ -38,7 +38,7 @@ export function musique(decimal = false): Probleme {
           },
         },
         {
-          content: `$${texNombre(quotité, 2)}\\text{\\,min}$`,
+          content: `$${miseEnEvidence(texNombre(quotité, 2))}\\text{\\,min}$`,
           length: 3,
           color: 'lightgray',
         },

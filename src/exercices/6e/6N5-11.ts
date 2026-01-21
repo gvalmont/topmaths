@@ -125,7 +125,7 @@ export default class ExerciceProblemesComplexes extends Exercice {
             texte += ajouteChampTexteMathLive(
               this,
               indiceInteractif,
-              KeyboardType.clavierDeBase,
+              KeyboardType.clavierNumbers,
               { texteApres: ' calories' },
             )
 
@@ -139,7 +139,7 @@ export default class ExerciceProblemesComplexes extends Exercice {
             texte += ajouteChampTexteMathLive(
               this,
               indiceInteractif + 1,
-              KeyboardType.clavierDeBase,
+              KeyboardType.clavierNumbers,
               { texteApres: ' calories' },
             )
 
@@ -153,7 +153,7 @@ export default class ExerciceProblemesComplexes extends Exercice {
             texte += ajouteChampTexteMathLive(
               this,
               indiceInteractif + 2,
-              KeyboardType.clavierDeBase,
+              KeyboardType.clavierNumbers,
               { texteApres: ' calories' },
             )
 
@@ -167,7 +167,7 @@ export default class ExerciceProblemesComplexes extends Exercice {
             texte += ajouteChampTexteMathLive(
               this,
               indiceInteractif + 3,
-              KeyboardType.clavierDeBase,
+              KeyboardType.clavierNumbers,
               { texteApres: ' calories' },
             )
 
@@ -233,7 +233,7 @@ export default class ExerciceProblemesComplexes extends Exercice {
           texte += ajouteChampTexteMathLive(
             this,
             indiceInteractif + 1,
-            KeyboardType.clavierDeBase,
+            KeyboardType.clavierNumbers,
             { texteApres: ' kg' },
           )
 
@@ -271,7 +271,7 @@ export default class ExerciceProblemesComplexes extends Exercice {
             texte += ajouteChampTexteMathLive(
               this,
               indiceInteractif,
-              KeyboardType.clavierDeBase,
+              KeyboardType.clavierNumbers,
             )
 
             texte += `<br>${numAlpha(1)} Effectuer ce programme avec $${n2}$.`
@@ -281,7 +281,7 @@ export default class ExerciceProblemesComplexes extends Exercice {
             texte += ajouteChampTexteMathLive(
               this,
               indiceInteractif + 1,
-              KeyboardType.clavierDeBase,
+              KeyboardType.clavierNumbers,
             )
           }
           const correction1 = `Si le nombre est $${n1}$ :<br>
@@ -319,7 +319,7 @@ export default class ExerciceProblemesComplexes extends Exercice {
           texte += ajouteChampTexteMathLive(
             this,
             indiceInteractif,
-            KeyboardType.clavierDeBase,
+            KeyboardType.clavierNumbers,
             { texteApres: ' €' },
           )
 
@@ -332,7 +332,7 @@ export default class ExerciceProblemesComplexes extends Exercice {
           texte += ajouteChampTexteMathLive(
             this,
             indiceInteractif + 1,
-            KeyboardType.clavierDeBase,
+            KeyboardType.clavierNumbers,
             { texteApres: ' €' },
           )
 
@@ -365,7 +365,7 @@ export default class ExerciceProblemesComplexes extends Exercice {
           texte += ajouteChampTexteMathLive(
             this,
             indiceInteractif,
-            KeyboardType.clavierDeBase,
+            KeyboardType.clavierNumbers,
             { texteApres: '$\\text{ m}$' },
           )
 
@@ -376,7 +376,7 @@ export default class ExerciceProblemesComplexes extends Exercice {
           texte += ajouteChampTexteMathLive(
             this,
             indiceInteractif + 1,
-            KeyboardType.clavierDeBase,
+            KeyboardType.clavierNumbers,
             { texteApres: ' minutes' },
           )
 
@@ -384,9 +384,14 @@ export default class ExerciceProblemesComplexes extends Exercice {
           handleAnswers(this, indiceInteractif + 2, {
             reponse: { value: ((60 + min) * 30).toFixed(2) },
           })
-          texte += ajouteChampTexteMathLive(this, indiceInteractif + 2, '', {
-            texteApres: '$\\text{ m}$',
-          })
+          texte += ajouteChampTexteMathLive(
+            this,
+            indiceInteractif + 2,
+            KeyboardType.clavierNumbers,
+            {
+              texteApres: '$\\text{ m}$',
+            },
+          )
 
           texte += `<br>${numAlpha(3)} Si le film dure $1${sp()}\\text{h}${sp()}${min}$, combien faut-il de pellicules entières de $600\\text{ m}$ ?`
           handleAnswers(this, indiceInteractif + 3, {
@@ -395,7 +400,7 @@ export default class ExerciceProblemesComplexes extends Exercice {
           texte += ajouteChampTexteMathLive(
             this,
             indiceInteractif + 3,
-            KeyboardType.clavierDeBase,
+            KeyboardType.clavierNumbers,
             { texteApres: ' pellicules entières de $600\\text{ m}$' },
           )
 
@@ -406,7 +411,7 @@ export default class ExerciceProblemesComplexes extends Exercice {
           texte += ajouteChampTexteMathLive(
             this,
             indiceInteractif + 4,
-            KeyboardType.clavierDeBase,
+            KeyboardType.clavierNumbers,
             { texteApres: ' minutes' },
           )
 
@@ -419,7 +424,7 @@ export default class ExerciceProblemesComplexes extends Exercice {
           texte += ajouteChampTexteMathLive(
             this,
             indiceInteractif + 5,
-            KeyboardType.clavierDeBase,
+            KeyboardType.clavierNumbers,
             { texteApres: ' images' },
           )
 
@@ -469,7 +474,7 @@ export default class ExerciceProblemesComplexes extends Exercice {
           texte += ajouteChampTexteMathLive(
             this,
             indiceInteractif,
-            KeyboardType.clavierDeBase,
+            KeyboardType.clavierNumbers,
             { texteApres: ' €' },
           )
 
@@ -513,7 +518,7 @@ export default class ExerciceProblemesComplexes extends Exercice {
           texte += ajouteChampTexteMathLive(
             this,
             indiceInteractif,
-            KeyboardType.clavierDeBase,
+            KeyboardType.clavierNumbers,
             { texteApres: ' €' },
           )
 
@@ -547,7 +552,7 @@ export default class ExerciceProblemesComplexes extends Exercice {
             texte += ajouteChampTexteMathLive(
               this,
               indiceInteractif,
-              KeyboardType.clavierDeBase,
+              KeyboardType.clavierNumbers,
               { texteApres: ' billets de 5 €' },
             )
 
@@ -558,7 +563,7 @@ export default class ExerciceProblemesComplexes extends Exercice {
             texte += ajouteChampTexteMathLive(
               this,
               indiceInteractif + 1,
-              KeyboardType.clavierDeBase,
+              KeyboardType.clavierNumbers,
               { texteApres: ' billets de 10 €' },
             )
           }
@@ -604,7 +609,7 @@ export default class ExerciceProblemesComplexes extends Exercice {
           texte += ajouteChampTexteMathLive(
             this,
             indiceInteractif,
-            KeyboardType.clavierDeBase,
+            KeyboardType.clavierNumbers,
             { texteApres: ' €' },
           )
 
@@ -642,7 +647,7 @@ export default class ExerciceProblemesComplexes extends Exercice {
             texte += ajouteChampTexteMathLive(
               this,
               indiceInteractif,
-              KeyboardType.clavierDeBase,
+              KeyboardType.clavierNumbers,
             )
 
             texte += '<br>Quel est le plus grand de ces deux nombres ?'
@@ -652,7 +657,7 @@ export default class ExerciceProblemesComplexes extends Exercice {
             texte += ajouteChampTexteMathLive(
               this,
               indiceInteractif + 1,
-              KeyboardType.clavierDeBase,
+              KeyboardType.clavierNumbers,
             )
           }
 

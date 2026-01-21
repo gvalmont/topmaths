@@ -1,5 +1,6 @@
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 import { choice, shuffle } from '../../../lib/outils/arrayOutils'
+import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { range1 } from '../../../lib/outils/nombres'
 import { prenomF, prenomM } from '../../../lib/outils/Personne'
 import SchemaEnBoite from '../../../lib/outils/SchemaEnBoite'
@@ -107,18 +108,18 @@ export default class FoisPlusFoisMoins extends ExerciceSimple {
     const quantité1 = randint(3, 12)
     const facteur = choice([3, 4, 5, 6])
     const quantité2 = quantité1 * facteur
-    this.optionsChampTexte = { texteApres: ` ${objet}` }
+    this.optionsChampTexte = { texteAvant: `<br>`, texteApres: ` ${objet}` }
     switch (
       choice([1, 2, 3]) // 1, 2
     ) {
       case 1:
-        this.reponse = plusOuMoins ? quantité2 : quantité1
+        this.reponse = plusOuMoins === 'plus' ? quantité2 : quantité1
         this.question = choice([true, false])
           ? `${prenom1} a $${facteur}$ fois  ${plusOuMoins}  de ${objet} que ${prenom2} qui en a ${plusOuMoins === 'plus' ? `$${quantité1}$` : ` $${quantité2}$`}.<br>`
           : `${prenom2} a ${plusOuMoins === 'plus' ? `$${quantité1}$` : ` $${quantité2}$ `} ${objet}. ${prenom1} en a $${facteur}$ fois ${plusOuMoins}.<br>`
         this.question += `Combien de ${objet} a  ${prenom1} ? `
         this.correction = `${prenom2}  a ${plusOuMoins === 'plus' ? `$${quantité1}$` : ` $${quantité2}$ `}  ${objet}.<br>
-        ${prenom1} en a $${facteur}$ fois  ${plusOuMoins} ; il en a donc ${plusOuMoins === 'plus' ? `$${facteur}\\times ${quantité1}$` : ` $${quantité2}\\div ${facteur}$ `}, soit ${plusOuMoins === 'plus' ? `$${quantité2}$` : ` $${quantité1}$`}.<br>`
+        ${prenom1} en a $${facteur}$ fois  ${plusOuMoins} ; il en a donc ${plusOuMoins === 'plus' ? `$${facteur}\\times ${quantité1}$` : ` $${quantité2}\\div ${facteur}$ `}, soit ${plusOuMoins === 'plus' ? `$${miseEnEvidence(quantité2)}$` : ` $${miseEnEvidence(quantité1)}$`}.<br>`
         if (this.correctionDetaillee) {
           this.correction += schema(
             prenom1,
@@ -130,13 +131,13 @@ export default class FoisPlusFoisMoins extends ExerciceSimple {
         }
         break
       case 2:
-        this.reponse = plusOuMoins ? quantité1 : quantité2
+        this.reponse = plusOuMoins === 'plus' ? quantité1 : quantité2
         this.question = choice([true, false])
           ? `${prenom1} a ${plusOuMoins === 'plus' ? `$${quantité2}$` : ` $${quantité1}$`} ${objet}. Il en a $${facteur}$ fois ${plusOuMoins}  que ${prenom2}.<br>C`
           : `${prenom1} a  $${facteur}$ fois ${plusOuMoins} de ${objet} que ${prenom2}.<br>Sachant qu'il a ${plusOuMoins === 'plus' ? `$${quantité2}$` : ` $${quantité1}$`} ${objet}, c`
         this.question += `ombien de ${objet} a  ${prenom2} ? `
         this.correction = `Puisque   ${prenom1} a ${plusOuMoins === 'plus' ? `$${quantité2}$` : ` $${quantité1}$ `} ${objet} et qu'il en a $${facteur}$ fois ${plusOuMoins}  que ${prenom2}, ${prenom2} en a $${facteur}$ fois ${plusOuMoins === 'plus' ? 'moins' : 'plus'}.<br>
-          Elle en a donc ${plusOuMoins === 'plus' ? `$${quantité2}\\div ${facteur}$` : ` $${facteur}\\times ${quantité1}$ `}, soit ${plusOuMoins === 'plus' ? `$${quantité1}$` : ` $${quantité2}$ `} ${objet}.<br>`
+          Elle en a donc ${plusOuMoins === 'plus' ? `$${quantité2}\\div ${facteur}$` : ` $${facteur}\\times ${quantité1}$ `}, soit ${plusOuMoins === 'plus' ? `$${miseEnEvidence(quantité1)}$` : ` $${miseEnEvidence(quantité2)}$ `} ${objet}.<br>`
         if (this.correctionDetaillee) {
           this.correction += schema(
             prenom1,
@@ -149,7 +150,7 @@ export default class FoisPlusFoisMoins extends ExerciceSimple {
         break
 
       case 3:
-        this.reponse = plusOuMoins ? quantité2 : quantité1
+        this.reponse = plusOuMoins === 'plus' ? quantité2 : quantité1
         this.question = choice([true, false])
           ? `Dans un club de ${club}, il y a ${plusOuMoins === 'plus' ? `$${quantité1}$` : ` $${quantité2}$ `} ${sexe1} et
           $${facteur}$ fois  ${plusOuMoins} de ${sexe2}.<br>C`
@@ -157,7 +158,7 @@ export default class FoisPlusFoisMoins extends ExerciceSimple {
           Sachant qu'il y a ${plusOuMoins === 'plus' ? `$${quantité1}$` : ` $${quantité2}$ `} ${sexe1}, c`
         this.question += `ombien y a-t-il de ${sexe2} ? `
         this.correction = `Puisqu'il y a  $${facteur}$ fois  ${plusOuMoins} de ${sexe2} que de ${sexe1},
-          le nombre de  ${sexe2} est : ${plusOuMoins === 'plus' ? `$${facteur}\\times ${quantité1}$` : ` $${quantité2}\\div ${facteur}$`}, soit ${plusOuMoins === 'plus' ? `$${quantité2}$` : ` $${quantité1}$`}.<br>`
+          le nombre de  ${sexe2} est : ${plusOuMoins === 'plus' ? `$${facteur}\\times ${quantité1}$` : ` $${quantité2}\\div ${facteur}$`}, soit ${plusOuMoins === 'plus' ? `$${miseEnEvidence(quantité2)}$` : ` $${miseEnEvidence(quantité1)}$`}.<br>`
         if (this.correctionDetaillee) {
           this.correction += schema(
             sexe1,
@@ -168,9 +169,7 @@ export default class FoisPlusFoisMoins extends ExerciceSimple {
           ).display()
         }
         // On écrase les options par défaut
-        this.optionsChampTexte = {
-          texteApres: ` ${sexe2}`,
-        }
+        this.optionsChampTexte = { texteAvant: `<br>`, texteApres: ` ${sexe2}` }
 
         break
     }

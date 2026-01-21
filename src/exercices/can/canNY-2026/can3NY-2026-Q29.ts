@@ -1,20 +1,20 @@
-import ExerciceSimple from '../../ExerciceSimple'
-import { miseEnEvidence } from '../../../lib/outils/embellissements'
-import { choice } from '../../../lib/outils/arrayOutils'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
+import { choice } from '../../../lib/outils/arrayOutils'
+import { miseEnEvidence } from '../../../lib/outils/embellissements'
+import ExerciceSimple from '../../ExerciceSimple'
 
+import { handleAnswers } from '../../../lib/interactif/gestionInteractif'
+import { toutPourUnPoint } from '../../../lib/interactif/mathLive'
+import { sp } from '../../../lib/outils/outilString'
 import { texNombre } from '../../../lib/outils/texNombre'
 import { randint } from '../../../modules/outils'
-import { handleAnswers } from '../../../lib/interactif/gestionInteractif'
-import { sp } from '../../../lib/outils/outilString'
-import { toutPourUnPoint } from '../../../lib/interactif/mathLive'
 export const titre = ''
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const uuid = 'n67jc'
 export const refs = {
   'fr-fr': [],
-  'fr-ch': ['10FA5-22'],
+  'fr-ch': ['NR'],
 }
 /**
  * Modèle d'exercice très simple pour la course aux nombres
@@ -33,9 +33,8 @@ export default class ComparerFractions2026 extends ExerciceSimple {
   }
 
   nouvelleVersion() {
-    
     const a = 2026
-    const b = this.canOfficielle ? a-1: choice([a-1, a+1])
+    const b = this.canOfficielle ? a - 1 : choice([a - 1, a + 1])
     const choix = this.canOfficielle ? true : choice([true, false])
     switch (this.canOfficielle ? 1 : randint(1, 2)) {
       case 1:

@@ -7,6 +7,7 @@ import FractionEtendue from '../../modules/FractionEtendue'
 import { gestionnaireFormulaireTexte, randint } from '../../modules/outils'
 import Exercice from '../Exercice'
 
+import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 import { context } from '../../modules/context'
 export const titre = 'Équations différentielles'
 export const interactifReady = true
@@ -142,9 +143,14 @@ class EquaDiffs extends Exercice {
       // C'est fini... sauf pour la correction détaillée ci-dessous.
       if (this.questionJamaisPosee(i, a)) {
         if (this.interactif && context.isHtml) {
-          texte += ajouteChampTexteMathLive(this, i, ' ', {
-            texteAvant: '$y=$ ',
-          })
+          texte += ajouteChampTexteMathLive(
+            this,
+            i,
+            KeyboardType.clavierFonctionsTerminales,
+            {
+              texteAvant: '$y=$ ',
+            },
+          )
           handleAnswers(this, i, { reponse: { value: reponse } })
         }
         this.listeQuestions[i] = texte

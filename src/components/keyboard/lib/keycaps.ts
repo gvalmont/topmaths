@@ -65,8 +65,8 @@ const basicKeys = {
     insert: '#@^{#0}',
   },
   'e^': {
-    display: '$e^{\\square}$',
-    insert: 'e^{#0}',
+    display: '$\\mathrm{e}^{\\square}$',
+    insert: '\\mathrm{e}^{#0}',
   },
   LOG: {
     display: '$\\log(\\square)$',
@@ -280,7 +280,7 @@ const basicKeys = {
   g: { display: 'g' },
   h: { display: 'h' },
   i: { display: 'i' },
-  iComplex: { display: 'i', insert: '\\text{i}' },
+  iComplex: { display: 'i', insert: '\\mathrm{i}' },
   j: { display: 'j' },
   k: { display: 'k' },
   l: { display: 'l' },

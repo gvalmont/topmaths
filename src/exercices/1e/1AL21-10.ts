@@ -3,15 +3,16 @@ import type {
   SemiBoxedExpression,
 } from '@cortex-js/compute-engine'
 import { PointAbstrait } from '../../lib/2d/PointAbstrait'
+import { bleuMathalea, orangeMathalea } from '../../lib/colors'
 import engine from '../../lib/interactif/comparisonFunctions'
-import { choice } from '../../lib/outils/arrayOutils'
+import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { numAlpha } from '../../lib/outils/outilString'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import Exercice from '../Exercice'
 
 export const titre = 'Interpolation polynomiale'
 export const dateDePublication = '10/07/2024'
-export const dateDeModifImportante = '08/09/2024'
+export const dateDeModifImportante = '10/01/2025'
 
 /**
  * Interpolation polynomiale :
@@ -21,10 +22,11 @@ export const dateDeModifImportante = '08/09/2024'
  * - Déterminer la fonction polynomiale de degré 2 dont la courbe
  * représentative passe par trois points donnés du plan. On réduit
  * ce problème au problème précédent à l'aide d'une fonction auxiliaire.
- * @florianpicard
+ * @author florianpicard
+ * EE : Rajout d'un paramètre pour choisir entre racine et interpolation.
  */
 
-export const uuid = '9fa71' // exécuter pnpm getNewUuid
+export const uuid = '9fa71'
 
 export const refs = {
   'fr-fr': ['1AL21-10'],
@@ -51,6 +53,7 @@ function polynomeInterpolation(
   x: number,
   fdex: SemiBoxedExpression,
   fname: string = 'f',
+  dansRacine: boolean = false,
 ) {
   // Renvoie la fonction polynomiale p de degré 2 telle que f(r1) = f(r2) = 0, et f(x) = fdex.
   // fdex est soit un nombre numérique soit une BoxExpression
@@ -65,17 +68,16 @@ function polynomeInterpolation(
   )
   let f = engine.parse(`a(x - ${r1})(x - ${r2})`, { canonical: false }) // on définit f sous forme factorisée
   let details = ''
-  details += `Comme $${fname}\\left(${r1}\\right) = 0$ et $${fname}\\left(${r2}\\right) = 0$, $${r1}$ et $${r2}$ sont des racines de $${fname}$. `
+  details += `Comme $${fname}\\left(${r1}\\right) = 0$ et $${fname}\\left(${r2}\\right) = 0$, $${r1}$ et $${r2}$ sont des racines de $${fname}$.<br>`
   details += `On peut donc écrire $${fname}$ sous forme factorisée.`
   details += `\\[${fname}(x) = ${f.latex}\\]`
   details += `On sait de plus que $${fname}(${x}) = ${fdex.latex}$. Donc : `
   const replacex = f.subs({ x }, { canonical: false }) // On utilise l'information f(x) = fdex
   details += `\\[${fdex.latex} = ${fname}(${x}) = ${replacex.latex} \\]`
-  details += `On trouve alors : $a = ${a.latex} = ${a.evaluate().latex}$. La forme factorisée de $${fname}$ est donc :`
-  f = f.subs({ a: a.evaluate() })
+  details += `On trouve alors : $a = ${a.latex} =  ${a.canonical.evaluate().latex}$.<br>La forme factorisée de $${fname}$ est donc :`
+  f = f.subs({ a: a.canonical.evaluate() })
   details += `\\[${fname}(x) = ${f.latex}\\]`
-  details += `On développe et on trouve $${fname}(x) = ${f.evaluate().latex}$`
-
+  details += `On développe et on trouve $${fname}(x) = ${miseEnEvidence(f.canonical.evaluate().latex, dansRacine ? orangeMathalea : bleuMathalea)}$.`
   return {
     details,
     reponse: f,
@@ -94,7 +96,14 @@ function questionRacine() {
   texte += `On suppose que $f(${a}) = f(${b}) = 0$, et que $f(${c}) = ${h}$. <br>`
   texte += 'Déterminer la forme développée de $f$.'
 
-  return [texte, polynomeInterpolation(a, b, c, h).details, a, b, c, h]
+  return [
+    texte,
+    polynomeInterpolation(a, b, c, h, 'f', true).details,
+    a,
+    b,
+    c,
+    h,
+  ]
 }
 
 function questionInterpolation() {
@@ -134,28 +143,41 @@ function questionInterpolation() {
 
   let texteCorr = `${numAlpha(0)} On a : \\[h(${ax}) = f(${ax}) - g(${ax}) = ${ay} - \\left(${gax.latex}\\right) = ${hax.simplify()}\\]`
   texteCorr += `De même on a $h(${cx}) = ${hcx.simplify().latex}$. `
-  texteCorr += `Enfin, on a : \\[h(${bx}) = f(${bx}) - g(${bx}) = ${by} - \\left(${gbx.latex}\\right) = ${hbx.simplify().latex}\\] `
+  texteCorr += `Enfin, on a : \\[h(${bx}) = f(${bx}) - g(${bx}) = ${by} - \\left(${gbx.latex}\\right) = ${miseEnEvidence(hbx.simplify().latex)}\\] `
   texteCorr += `<br> ${numAlpha(1)}`
   texteCorr += details
-  texteCorr += `<br> Comme $f(x) = h(x) + g(x)$, on trouve $f(x) = ${f.simplify().latex}$`
+  texteCorr += `<br> Comme $f(x) = h(x) + g(x)$, on trouve $f(x) = ${miseEnEvidence(f.simplify().latex)}$.`
   return [texte, texteCorr, ax, ay, bx, by]
 }
 
-export default class nomExercice extends Exercice {
+export default class RacineInterpolation extends Exercice {
   constructor() {
     super()
     this.nbQuestions = 2
+    this.besoinFormulaireNumerique = [
+      'Type de question',
+      3,
+      '1 : Racine\n2 : Interpolation\n3 : Mélange',
+    ]
+    this.sup = 3
   }
 
   nouvelleVersion() {
     for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50; ) {
       const [texte, texteCorr, ax, ay, bx, by] =
-        i % 2 === 0
-          ? choice([questionRacine(), questionInterpolation()])
-          : choice([questionRacine(), questionInterpolation()])
+        this.sup === 1
+          ? questionRacine()
+          : this.sup === 2
+            ? questionInterpolation()
+            : i % 2 === 0
+              ? questionRacine()
+              : questionInterpolation()
       if (this.questionJamaisPosee(i, ax, ay, bx, by)) {
         this.listeQuestions[i] = String(texte)
-        this.listeCorrections[i] = String(texteCorr)
+        this.listeCorrections[i] = String(texteCorr).replace(
+          /\\frac/g,
+          '\\dfrac',
+        )
         i++
       }
       cpt++

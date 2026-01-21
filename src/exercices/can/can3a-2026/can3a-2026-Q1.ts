@@ -1,0 +1,41 @@
+import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
+import { choice } from '../../../lib/outils/arrayOutils'
+import { miseEnEvidence } from '../../../lib/outils/embellissements'
+import { texNombre } from '../../../lib/outils/texNombre'
+import ExerciceCan from '../../ExerciceCan'
+
+export const titre = 'Calculer un produit (table de multiplication)'
+export const interactifReady = true
+export const interactifType = 'mathLive'
+export const uuid = '45105'
+export const refs = {
+  'fr-fr': [],
+  'fr-ch': [],
+}
+
+/**
+ * @author Gilles Mora
+
+*/
+export default class Can32026Q1 extends ExerciceCan {
+  enonce(a?: number, b?: number) {
+    if (a == null || b == null) {
+      a = choice([4, 6, 7, 8])
+      b = choice([4, 6, 7, 8], [a])
+    }
+
+    this.formatChampTexte = KeyboardType.clavierNumbers
+    this.reponse = a * b
+    this.question = `$${a} \\times ${b}$ `
+    this.correction = `$${a}\\times${b}=${miseEnEvidence(texNombre(this.reponse, 0))}$`
+    this.canEnonce = this.question
+    this.canReponseACompleter = ''
+    if (this.interactif) {
+      this.question += '$=$'
+    }
+  }
+
+  nouvelleVersion() {
+    this.canOfficielle ? this.enonce(4, 7) : this.enonce()
+  }
+}

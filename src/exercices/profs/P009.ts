@@ -16,10 +16,7 @@ export const refs = {
 export const uuid = '691a7'
 
 /**
- * Reconnaitre une fonction affine
- * @author Erwan Duplessy
- * 6C30-1
- * D'après le document "Attendus en fin de 3eme"
+ * @author Jean-Claude Lhote
  * On donne les fréquences d\'apparition de chaque face d\'un dé pour 10000 lancers.
  * L\'élève interprète les résultats en les comparant aux probabilités théoriques.
  */
@@ -36,7 +33,7 @@ export default class SimulateurAleatoire extends Exercice {
       'Nombre de tirages',
       `Taper un nombre entier : ${10000} par exemple`,
     ]
-    this.besoinFormulaire3CaseACocher = ['Équiprobabilité', true]
+    this.besoinFormulaire3Numerique = ['Nombre de faces du dé', 20]
 
     this.nbQuestions = 1 // Ici le nombre de questions
 
@@ -44,8 +41,8 @@ export default class SimulateurAleatoire extends Exercice {
     this.correctionDetailleeDisponible = true
     this.correctionDetaillee = true
     this.sup = 1 // situation 1=dés
-    this.sup2 = 10000 // nbLancers
-    this.sup3 = false // true = équiprobable, false = jeu truqué
+    this.sup2 = '10000' // nbLancers
+    this.sup3 = 6
 
     //  this.consigne = '<center><a title="Diacritica, CC BY-SA 3.0 &lt;https://creativecommons.org/licenses/by-sa/3.0&gt;, via Wikimedia Commons" href="https://commons.wikimedia.org/wiki/File:Dice_(typical_role_playing_game_dice).jpg"><img width="128" alt="Dice (typical role playing game dice)" src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e5/Dice_%28typical_role_playing_game_dice%29.jpg/128px-Dice_%28typical_role_playing_game_dice%29.jpg"></a></center>'
 
@@ -58,8 +55,12 @@ export default class SimulateurAleatoire extends Exercice {
 
     let texte = '' // Nous utilisons souvent cette variable pour construire le texte de la question.
     let texteCorr = ''
-    let nbFaces = 2 * randint(1, 5) + 2 // nombre de faces du dé : 4, 6, 8, 10 ou 12
-    const nbLancers = parseInt(this.sup2) // nombre de lancers
+    let nbFaces = this.sup3 // nombre de faces du dé : 4, 6, 8, 10 ou 12
+    let nbLancers = parseInt(this.sup2) // nombre de lancers
+    if (isNaN(nbLancers) || nbLancers < 1) {
+      nbLancers = 10000
+    }
+
     const tabEff = [] // tableau d'effectifs temporaires - une dimension [eff]
     let S = 0 // effectif total
     const tabRes = [] // tableau des fréqeunces observées - deux dimensions [val, freq]
@@ -80,7 +81,7 @@ export default class SimulateurAleatoire extends Exercice {
     }
 
     switch (
-      parseInt(this.sup) //
+      this.sup //
     ) {
       case 1: // Tirages de dés
         f = fraction(1, nbFaces)
@@ -122,6 +123,7 @@ export default class SimulateurAleatoire extends Exercice {
         break
 
       case 2: // Tirage dans une urne
+      default:
         face = randint(1, 4)
         texte +=
           'Des boules de différentes couleurs sont placées dans une urne.<br>'
@@ -185,7 +187,7 @@ export default class SimulateurAleatoire extends Exercice {
         }
         break
     }
-    switch (parseInt(this.sup)) {
+    switch (this.sup) {
       case 1:
         texte += '$\\begin{array}{|l|' + 'c|'.repeat(nbFaces) + '}\n'
         texte += '\\hline\n'
@@ -201,6 +203,7 @@ export default class SimulateurAleatoire extends Exercice {
         texte += '\\\\\\hline\n'
         texte += '\\end{array}\n$'
         texte += '<br>'
+
         if (this.correctionDetaillee) {
           const coef = 10
           const r = repere({
@@ -210,12 +213,14 @@ export default class SimulateurAleatoire extends Exercice {
             xLabelListe: false,
             yUnite: 1 / coef,
             yThickDistance: 1 * coef,
-            yMax: 40,
+            yMax: 100,
             xMin: 0,
-            xMax: 10,
+            xMax: this.sup3,
             yMin: 0,
             axeXStyle: '',
+            yLabelMax: 100,
             yLegende: 'fréquences en %',
+            yLegendePosition: [3.5, 10.5],
           })
 
           const lstElementGraph = []
@@ -223,7 +228,7 @@ export default class SimulateurAleatoire extends Exercice {
             //  lstElementGraph.push(traceBarre(((r.xMax - r.xMin) / nbFaces) * (i + 0.5), tabRes[i][1] * 10, i + 1), { unite: 1 / coef })
             lstElementGraph.push(
               traceBarre(
-                ((r.xMax - r.xMin) / nbFaces) * (i + 0.5),
+                ((r.xMax - r.xMin) / nbFaces) * i + 0.4,
                 tabRes[i][1] * 10,
                 String(i + 1),
                 {},
@@ -233,9 +238,9 @@ export default class SimulateurAleatoire extends Exercice {
           texte += mathalea2d(
             {
               xmin: -1,
-              xmax: 11,
+              xmax: 21,
               ymin: -4,
-              ymax: 5.5,
+              ymax: 11.5,
               pixelsParCm: 30,
               scale: 1,
             },
@@ -245,6 +250,7 @@ export default class SimulateurAleatoire extends Exercice {
         }
         break
       case 2:
+      default:
         texte += '$\\begin{array}{|l|' + 'c|'.repeat(nbFaces) + '}\n'
         texte += '\\hline\n'
         texte += '\\text{Couleur de la boule}'

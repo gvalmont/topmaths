@@ -1,4 +1,5 @@
 import { orangeMathalea } from '../../lib/colors'
+import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import {
@@ -14,7 +15,6 @@ import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { lettreDepuisChiffre } from '../../lib/outils/outilString'
 import { pgcd } from '../../lib/outils/primalite'
 import { texNombre } from '../../lib/outils/texNombre'
-import { context } from '../../modules/context'
 import FractionEtendue from '../../modules/FractionEtendue'
 import {
   gestionnaireFormulaireTexte,
@@ -49,8 +49,7 @@ export default class SommeOuProduitFractions extends Exercice {
       'Nombres séparés par des tirets :\n1 : Somme\n2 : Différence\n3 : Produit\n4 : Avec priorités opératoires\n5 : Mélange\n6 : Quotient\n7 : Mélange avec quotient',
     ]
     this.spacing = 3
-    this.spacingCorr = context.isHtml ? 3 : 3
-    this.consigne = 'Effectuer les calculs suivants.'
+    this.spacingCorr = 3
     this.nbQuestions = 8 // Nombre de questions par défaut
     this.nbCols = 4 // Uniquement pour la sortie LaTeX
     this.nbColsCorr = 4 // Uniquement pour la sortie LaTeX
@@ -66,6 +65,10 @@ export default class SommeOuProduitFractions extends Exercice {
   }
 
   nouvelleVersion() {
+    this.consigne =
+      this.nbQuestions > 1
+        ? 'Effectuer les calculs suivants.'
+        : 'Effectuer le calcul suivant.'
     let typeQuestionsDisponibles = []
     const typeQuestionsPossibles = [
       ['sommeMult', 'sommeAvecEntier'],
@@ -136,7 +139,6 @@ export default class SommeOuProduitFractions extends Exercice {
         den,
         cpt = 0;
       i < this.nbQuestions && cpt < 50;
-
     ) {
       // Boucle principale où i+1 correspond au numéro de la question
       // les numérateurs
@@ -367,15 +369,24 @@ export default class SommeOuProduitFractions extends Exercice {
 
         // Fin de cette uniformisation
       } else {
-        if (this.sup2){
-        texteCorr += `<br>$${lettre}  ${simplificationDeFractionAvecEtapes(num, den, { couleur1: 'blue', couleur2: orangeMathalea })}$`}
+        if (this.sup2) {
+          texteCorr += `<br>$${lettre}  ${simplificationDeFractionAvecEtapes(num, den, { couleur1: 'blue', couleur2: orangeMathalea })}$`
+        }
       }
       texteCorr += '<br>'
-      texte += ajouteChampTexteMathLive(this, i, ' ', {
-        texteAvant: `<br>$${lettre}=$`,
-      })
+      texte += ajouteChampTexteMathLive(
+        this,
+        i,
+        KeyboardType.clavierDeBaseAvecFraction,
+        {
+          texteAvant: `<br>$${lettre}=$`,
+        },
+      )
       handleAnswers(this, i, {
-        reponse: { value: new FractionEtendue(num, den).texFraction },
+        reponse: {
+          value: new FractionEtendue(num, den).texFraction,
+          options: { fractionEgale: true },
+        },
       })
 
       // Si la question n'a jamais été posée, on l'enregistre

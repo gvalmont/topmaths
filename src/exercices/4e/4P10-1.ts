@@ -40,10 +40,9 @@ export default class GraphiquesEtProportionnalite2 extends Exercice {
     for (
       let i = 0, texte, texteCorr, cpt = 0;
       i < this.nbQuestions && cpt < 50;
-
     ) {
       // on prévoit un peu d'aléatoire pour les prix unitaires
-      const prixUnitaireOranges = choice([1.2, 1.4, 1.6, 1.8])
+      const prixUnitaireOranges = choice([0.8, 1.2, 1.4])
       const prixUnitaireBaguettes = choice([0.6, 0.8, 1.2])
       // on prévoit un tableau avec des situations
       const situations = [
@@ -55,7 +54,7 @@ export default class GraphiquesEtProportionnalite2 extends Exercice {
           prix_unitaire: prixUnitaireOranges,
           qte: 'poids',
           qte_max: 10,
-          qte2: 3,
+          qte2: randint(2, 7),
           unite: "kg d'",
           legendeX: 'poids en kg',
           legendeY: 'prix en €',
@@ -70,7 +69,7 @@ export default class GraphiquesEtProportionnalite2 extends Exercice {
           prix_unitaire: prixUnitaireBaguettes,
           qte: 'nombre',
           qte_max: 10,
-          qte2: 3,
+          qte2: randint(2, 7),
           unite: '',
           legendeX: 'quantité',
           legendeY: 'prix en €',
@@ -79,14 +78,12 @@ export default class GraphiquesEtProportionnalite2 extends Exercice {
         },
       ]
       // on en choisit une
-      const situation = situations[randint(0, situations.length - 1)]
+      const situation = choice(situations)
       let r
       const xscale = 1
-      const yscale = choice([1, 2, 5])
+      const yscale = 1
       // pour aléatoiriser un peu le pas sur l'axe des prix
-      let stepAxeSecondaire
-      if (yscale === 1) stepAxeSecondaire = choice([0.5, 0.2, 0.25])
-      else stepAxeSecondaire = choice([0.5, 0.2, 0.25])
+      const stepAxeSecondaire = 0.2
       // on finit les appels
       const mesAppels: NestedObjetMathalea2dArray = [
         (r = repere({

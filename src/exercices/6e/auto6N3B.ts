@@ -1,12 +1,12 @@
-import { choice, shuffle } from '../../lib/outils/arrayOutils'
-import Exercice from '../Exercice'
-import { listeQuestionsToContenu } from '../../modules/outils'
-import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
+import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
+import { choice, shuffle } from '../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
-import FractionEtendue from '../../modules/FractionEtendue'
 import { range1, rangeMinMax } from '../../lib/outils/nombres'
+import FractionEtendue from '../../modules/FractionEtendue'
+import { listeQuestionsToContenu } from '../../modules/outils'
+import Exercice from '../Exercice'
 
 export const titre =
   'Connaître, de façon automatique, les liens entre 1/4, 1/2 et 3/4'
@@ -242,7 +242,10 @@ export default class ConnaitreQuart extends Exercice {
         texteCorr = texteAvant + miseEnEvidence(reponse) + texteApres
       }
 
-      if (this.questionJamaisPosee(i, typeQuestions[i + 1])) {
+      if (
+        typeQuestions[i] != null &&
+        this.questionJamaisPosee(i, typeQuestions[i].toString())
+      ) {
         this.listeQuestions[i] = texte
         this.listeCorrections[i] = texteCorr
         handleAnswers(this, i, {

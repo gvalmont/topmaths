@@ -173,7 +173,6 @@ Si le nombre de questions est supérieur au nombre de patterns choisis, alors l'
     for (
       let i = 0;
       i < Math.min(listePatternReference.length, this.nbQuestions);
-
     ) {
       typesQuestions = typesQuestionsInitiales
       if (compteOccurences(typesQuestionsInitiales, 6) > 0) {
@@ -449,7 +448,7 @@ Si le nombre de questions est supérieur au nombre de patterns choisis, alors l'
       }
       texte +=
         listeQuestions.length === 1
-          ? listeQuestions[0]
+          ? '<br>' + listeQuestions[0]
           : createList({
               items: listeQuestions,
               style: 'alpha',

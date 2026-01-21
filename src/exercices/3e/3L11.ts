@@ -2,6 +2,7 @@
  * ⚠️ Cet exercice est utilisé dans le test : tests/e2e/tests/interactivity/mathLive.calcul.test.ts ⚠️
  */
 
+import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
@@ -142,7 +143,6 @@ export default class ExerciceDevelopper extends Exercice {
         reponse3,
         cpt = 0;
       i < this.nbQuestions && cpt < 50;
-
     ) {
       texte = ''
       texteCorr = ''
@@ -244,7 +244,11 @@ export default class ExerciceDevelopper extends Exercice {
       if (!context.isAmc) {
         texte += this.interactif
           ? `<br>$${lettreDepuisChiffre(i + 1)} = $` +
-            ajouteChampTexteMathLive(this, i, ' ')
+            ajouteChampTexteMathLive(
+              this,
+              i,
+              KeyboardType.clavierDeBaseAvecVariable,
+            )
           : ''
       } else {
         this.autoCorrection[i] = {

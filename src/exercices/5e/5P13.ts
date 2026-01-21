@@ -1,6 +1,7 @@
 import Decimal from 'decimal.js'
 import { fixeBordures } from '../../lib/2d/fixeBordures'
 import { tableau } from '../../lib/2d/tableau'
+import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 import {
   handleAnswers,
   setReponse,
@@ -160,8 +161,17 @@ export default class EchellesProblemes extends Exercice {
           reponse = new FractionEtendue(nb1, nb2)
           texte += `Sur le plan ${echelleQ.lieu} de  ${quidam[1]} ${quidam[0]}, ${quidam2} constate que $${texNombre(nb1Unite1)}$ ${unite1} sur le plan correspond à $${texNombre(nb2Unite2)}$ ${unite2} dans la réalité.<br>`
           texte += " Quelle est l'échelle du plan ? "
-          texte += ajouteChampTexteMathLive(this, i, '')
-          setReponse(this, i, reponse, { formatInteractif: 'fractionEgale' })
+          texte += ajouteChampTexteMathLive(
+            this,
+            i,
+            KeyboardType.clavierDeBaseAvecFraction,
+          )
+          if (context.isAmc)
+            setReponse(this, i, reponse, { formatInteractif: 'fractionEgale' })
+          else
+            handleAnswers(this, i, {
+              reponse: { value: reponse, options: { fractionEgale: true } },
+            })
 
           if (this.sup2) {
             texteCorr =
@@ -342,7 +352,7 @@ export default class EchellesProblemes extends Exercice {
           texte += context.isAmc ? ' (en ' + unite2 + ')' : ''
           texte += ', ce segment correspond-il ?'
           if (this.interactif) {
-            texte += ajouteChampTexteMathLive(this, i, ' unites[longueurs]', {
+            texte += ajouteChampTexteMathLive(this, i, KeyboardType.longueur, {
               texteAvant: ' (Il faut penser à indiquer une unité.)',
             })
             handleAnswers(this, i, {
@@ -511,7 +521,7 @@ export default class EchellesProblemes extends Exercice {
           texte += context.isAmc ? ' (en ' + unite1 + ')' : ''
           texte += ` du segment tracé sur le plan par ${quidam2} ?`
           if (this.interactif) {
-            texte += ajouteChampTexteMathLive(this, i, ' unites[longueurs]', {
+            texte += ajouteChampTexteMathLive(this, i, KeyboardType.longueur, {
               texteAvant: ' (Il faut penser à indiquer une unité.)',
             })
             handleAnswers(this, i, {

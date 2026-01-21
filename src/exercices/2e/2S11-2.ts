@@ -1,4 +1,5 @@
 import { texPrix } from '../../lib/format/style'
+import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
@@ -121,10 +122,15 @@ export default class EvolutionsEnPourcentage extends Exercice {
                 texteCorr += `<br>$${texPrix(depart)}\\times ${texNombre(coeff, 2)} = ${texPrix(arrive)}$`
                 texteCorr += `<br>Le nouveau prix de cet article est $${miseEnEvidence(`${texPrix(arrive)}`)}$ €.`
                 reponse = arrive
-                texte += ajouteChampTexteMathLive(this, i, '', {
-                  texteAvant: '<br>',
-                  texteApres: '€',
-                })
+                texte += ajouteChampTexteMathLive(
+                  this,
+                  i,
+                  KeyboardType.clavierNumbers,
+                  {
+                    texteAvant: '<br>',
+                    texteApres: '€',
+                  },
+                )
               } else {
                 texte = `Un article coûtait $${texPrix(depart)}$ € et son prix est soldé à $${taux}~\\%$.<br>
                  Calculer son nouveau prix.`
@@ -132,10 +138,15 @@ export default class EvolutionsEnPourcentage extends Exercice {
                 texteCorr += `<br>$${texPrix(depart)}\\times ${texNombre(coeff, 2)} = ${texPrix(arrive)}$`
                 texteCorr += `<br>Le nouveau prix de cet article est $${miseEnEvidence(`${texPrix(arrive)}`)}$ €.`
                 reponse = arrive
-                texte += ajouteChampTexteMathLive(this, i, '', {
-                  texteAvant: '<br>',
-                  texteApres: '€',
-                })
+                texte += ajouteChampTexteMathLive(
+                  this,
+                  i,
+                  KeyboardType.clavierNumbers,
+                  {
+                    texteAvant: '<br>',
+                    texteApres: '€',
+                  },
+                )
               }
               break
             case 'initiale':
@@ -144,12 +155,17 @@ export default class EvolutionsEnPourcentage extends Exercice {
                 Calculer son prix avant l'augmentation.`
                 texteCorr = `Augmenter de $${taux}~\\%$ revient à multiplier par $1 + \\dfrac{${taux}}{100} = 1+ ${texNombre(tauxDec, 2)} = ${texNombre(coeff, 2)}$.<br>Pour retrouver le prix initial, on va donc diviser le prix final par $${texNombre(coeff, 2)}$.`
                 texteCorr += `<br>$\\dfrac{${texPrix(arrive)}}{${texNombre(coeff, 2)}}  = ${texPrix(depart)}$`
-                texteCorr += `<br>Avant l'augmentation cet article coûtait $${miseEnEvidence(`${texPrix(depart)}`)}$ €.`
+                texteCorr += `<br>Avant l'augmentation, cet article coûtait $${miseEnEvidence(`${texPrix(depart)}`)}$ €.`
                 reponse = depart
-                texte += ajouteChampTexteMathLive(this, i, '', {
-                  texteAvant: '<br>',
-                  texteApres: '€',
-                })
+                texte += ajouteChampTexteMathLive(
+                  this,
+                  i,
+                  KeyboardType.clavierNumbers,
+                  {
+                    texteAvant: '<br>',
+                    texteApres: '€',
+                  },
+                )
               } else {
                 texte = `Soldé à $${abs(taux)}~\\%$ un article coûte $${texPrix(arrive)}$ €. <br>
                 Calculer son prix avant les soldes.`
@@ -157,10 +173,15 @@ export default class EvolutionsEnPourcentage extends Exercice {
                 texteCorr += `<br>$\\dfrac{${texPrix(arrive)}}{${texNombre(coeff, 2)}}  = ${texPrix(depart)}$`
                 texteCorr += `<br>Avant les soldes cet article coûtait $${miseEnEvidence(`${texPrix(depart)}`)}$ €.`
                 reponse = depart
-                texte += ajouteChampTexteMathLive(this, i, '', {
-                  texteAvant: '<br>',
-                  texteApres: '€',
-                })
+                texte += ajouteChampTexteMathLive(
+                  this,
+                  i,
+                  KeyboardType.clavierNumbers,
+                  {
+                    texteAvant: '<br>',
+                    texteApres: '€',
+                  },
+                )
               }
               break
             case 'evolution':
@@ -190,10 +211,15 @@ export default class EvolutionsEnPourcentage extends Exercice {
                 $t = ${texNombre(coeff, 2)}-1= ${taux}~\\%$`
                 reponse = taux
               }
-              texte += ajouteChampTexteMathLive(this, i, '', {
-                texteAvant: '<br>',
-                texteApres: '%',
-              })
+              texte += ajouteChampTexteMathLive(
+                this,
+                i,
+                KeyboardType.clavierNumbers,
+                {
+                  texteAvant: '<br>',
+                  texteApres: '%',
+                },
+              )
               break
           }
           break
@@ -241,10 +267,15 @@ export default class EvolutionsEnPourcentage extends Exercice {
                 texteCorr += `<br>Il y a maintenant $${miseEnEvidence(`${texNombre(arrive, 0)}`)}$ élèves dans ce ${etablissement}.`
                 reponse = arrive
               }
-              texte += ajouteChampTexteMathLive(this, i, '', {
-                texteAvant: '<br>',
-                texteApres: 'élèves',
-              })
+              texte += ajouteChampTexteMathLive(
+                this,
+                i,
+                KeyboardType.clavierNumbers,
+                {
+                  texteAvant: '<br>',
+                  texteApres: 'élèves',
+                },
+              )
               break
             case 'initiale':
               if (taux > 0) {
@@ -262,10 +293,15 @@ export default class EvolutionsEnPourcentage extends Exercice {
                 texteCorr += `<br>En ${anneeDerniere}, il y avait $${miseEnEvidence(`${texNombre(depart, 0)}`)}$ élèves dans ce ${etablissement}.`
                 reponse = depart
               }
-              texte += ajouteChampTexteMathLive(this, i, '', {
-                texteAvant: '<br>',
-                texteApres: 'élèves',
-              })
+              texte += ajouteChampTexteMathLive(
+                this,
+                i,
+                KeyboardType.clavierNumbers,
+                {
+                  texteAvant: '<br>',
+                  texteApres: 'élèves',
+                },
+              )
               break
             case 'evolution':
             default:
@@ -292,10 +328,15 @@ export default class EvolutionsEnPourcentage extends Exercice {
                 $t = ${texNombre(coeff, 2)}-1= ${taux}~\\%$`
                 reponse = taux
               }
-              texte += ajouteChampTexteMathLive(this, i, '', {
-                texteAvant: '<br>',
-                texteApres: '%',
-              })
+              texte += ajouteChampTexteMathLive(
+                this,
+                i,
+                KeyboardType.clavierNumbers,
+                {
+                  texteAvant: '<br>',
+                  texteApres: '%',
+                },
+              )
               break
           }
           break
@@ -331,10 +372,15 @@ export default class EvolutionsEnPourcentage extends Exercice {
                 texteCorr += `<br>Le ${prixOuMontant} de ${facture} est maintenant de $${miseEnEvidence(`${texPrix(arrive)}`)}$ €.`
                 reponse = arrive
               }
-              texte += ajouteChampTexteMathLive(this, i, '', {
-                texteAvant: '<br>',
-                texteApres: '€',
-              })
+              texte += ajouteChampTexteMathLive(
+                this,
+                i,
+                KeyboardType.clavierNumbers,
+                {
+                  texteAvant: '<br>',
+                  texteApres: '€',
+                },
+              )
               break
             case 'initiale':
               if (taux > 0) {
@@ -352,10 +398,15 @@ export default class EvolutionsEnPourcentage extends Exercice {
                 texteCorr += `<br>Avant la diminution le ${prixOuMontant} de ${facture} était de $${miseEnEvidence(`${texPrix(depart)}`)}$ €.`
                 reponse = depart
               }
-              texte += ajouteChampTexteMathLive(this, i, '', {
-                texteAvant: '<br>',
-                texteApres: '€',
-              })
+              texte += ajouteChampTexteMathLive(
+                this,
+                i,
+                KeyboardType.clavierNumbers,
+                {
+                  texteAvant: '<br>',
+                  texteApres: '€',
+                },
+              )
               break
             case 'evolution':
               if (taux > 0) {
@@ -383,10 +434,15 @@ export default class EvolutionsEnPourcentage extends Exercice {
                 $t = ${texNombre(coeff, 2)}-1= ${taux}~\\%$`
                 reponse = taux
               }
-              texte += ajouteChampTexteMathLive(this, i, '', {
-                texteAvant: '<br>',
-                texteApres: '%',
-              })
+              texte += ajouteChampTexteMathLive(
+                this,
+                i,
+                KeyboardType.clavierNumbers,
+                {
+                  texteAvant: '<br>',
+                  texteApres: '%',
+                },
+              )
               break
           }
           break
@@ -414,10 +470,15 @@ export default class EvolutionsEnPourcentage extends Exercice {
                 texteCorr += `<br>La population de cette ville est maintenant de $${miseEnEvidence(`${texNombre(arrive, 2)}`)}$ habitants.`
               }
               reponse = arrive
-              texte += ajouteChampTexteMathLive(this, i, '', {
-                texteAvant: '<br>',
-                texteApres: 'habitants',
-              })
+              texte += ajouteChampTexteMathLive(
+                this,
+                i,
+                KeyboardType.clavierNumbers,
+                {
+                  texteAvant: '<br>',
+                  texteApres: 'habitants',
+                },
+              )
               break
             case 'initiale':
               if (taux > 0) {
@@ -434,10 +495,15 @@ export default class EvolutionsEnPourcentage extends Exercice {
                 texteCorr += `<br>Il y a ${nb} ans cette ville comptait $${miseEnEvidence(`${texNombre(depart, 0)}`)}$ habitants.`
               }
               reponse = depart
-              texte += ajouteChampTexteMathLive(this, i, '', {
-                texteAvant: '<br>',
-                texteApres: 'habitants',
-              })
+              texte += ajouteChampTexteMathLive(
+                this,
+                i,
+                KeyboardType.clavierNumbers,
+                {
+                  texteAvant: '<br>',
+                  texteApres: 'habitants',
+                },
+              )
               break
             case 'evolution':
               if (taux > 0) {
@@ -464,10 +530,15 @@ export default class EvolutionsEnPourcentage extends Exercice {
                 $t = ${texNombre(coeff, 2)}-1= ${taux}~\\%$`
               }
               reponse = taux
-              texte += ajouteChampTexteMathLive(this, i, '', {
-                texteAvant: '<br>',
-                texteApres: '%',
-              })
+              texte += ajouteChampTexteMathLive(
+                this,
+                i,
+                KeyboardType.clavierNumbers,
+                {
+                  texteAvant: '<br>',
+                  texteApres: '%',
+                },
+              )
               break
           }
           break
@@ -518,10 +589,15 @@ export default class EvolutionsEnPourcentage extends Exercice {
                 texteCorr += `<br>Le chiffre d'affaires en ${annee2} est de $${miseEnEvidence(`${texNombre(arrive, 2)}`)}$ €.`
               }
               reponse = arrive
-              texte += ajouteChampTexteMathLive(this, i, '', {
-                texteAvant: '<br>',
-                texteApres: '€',
-              })
+              texte += ajouteChampTexteMathLive(
+                this,
+                i,
+                KeyboardType.clavierNumbers,
+                {
+                  texteAvant: '<br>',
+                  texteApres: '€',
+                },
+              )
               break
 
             case 'initiale':
@@ -539,10 +615,15 @@ export default class EvolutionsEnPourcentage extends Exercice {
                 texteCorr += `<br>Le chiffre d'affaires en ${annee1} était de $${miseEnEvidence(`${texNombre(depart, 0)}`)}$ €.`
               }
               reponse = depart
-              texte += ajouteChampTexteMathLive(this, i, '', {
-                texteAvant: '<br>',
-                texteApres: '€',
-              })
+              texte += ajouteChampTexteMathLive(
+                this,
+                i,
+                KeyboardType.clavierNumbers,
+                {
+                  texteAvant: '<br>',
+                  texteApres: '€',
+                },
+              )
               break
 
             case 'evolution':
@@ -558,10 +639,15 @@ export default class EvolutionsEnPourcentage extends Exercice {
               texteCorr += `<br>$CM=\\dfrac{V_f}{V_i}=\\dfrac{${texNombre(arrive, 2)}}{${texNombre(depart, 2)}} = ${texNombre(coeff, 2)}$<br>
       $t = ${texNombre(coeff, 2)}-1= ${taux}~\\%$`
               reponse = taux
-              texte += ajouteChampTexteMathLive(this, i, '', {
-                texteAvant: '<br>',
-                texteApres: '%',
-              })
+              texte += ajouteChampTexteMathLive(
+                this,
+                i,
+                KeyboardType.clavierNumbers,
+                {
+                  texteAvant: '<br>',
+                  texteApres: '%',
+                },
+              )
               break
           }
           break
@@ -612,10 +698,15 @@ export default class EvolutionsEnPourcentage extends Exercice {
                 texteCorr += `<br>Le nouveau prix de l'abonnement est $${miseEnEvidence(`${texPrix(arrive)}`)}$ €.`
               }
               reponse = arrive
-              texte += ajouteChampTexteMathLive(this, i, '', {
-                texteAvant: '<br>',
-                texteApres: '€',
-              })
+              texte += ajouteChampTexteMathLive(
+                this,
+                i,
+                KeyboardType.clavierNumbers,
+                {
+                  texteAvant: '<br>',
+                  texteApres: '€',
+                },
+              )
               break
 
             case 'initiale':
@@ -633,10 +724,15 @@ export default class EvolutionsEnPourcentage extends Exercice {
                 texteCorr += `<br>Avant la diminution, l'abonnement coûtait $${miseEnEvidence(`${texPrix(depart)}`)}$ €.`
               }
               reponse = depart
-              texte += ajouteChampTexteMathLive(this, i, '', {
-                texteAvant: '<br>',
-                texteApres: '€',
-              })
+              texte += ajouteChampTexteMathLive(
+                this,
+                i,
+                KeyboardType.clavierNumbers,
+                {
+                  texteAvant: '<br>',
+                  texteApres: '€',
+                },
+              )
               break
 
             case 'evolution':
@@ -652,10 +748,15 @@ export default class EvolutionsEnPourcentage extends Exercice {
               texteCorr += `<br>$CM=\\dfrac{V_f}{V_i}=\\dfrac{${texPrix(arrive)}}{${texPrix(depart)}} = ${texNombre(coeff, 2)}$<br>
       $t = ${texNombre(coeff, 2)}-1= ${taux}~\\%$`
               reponse = taux
-              texte += ajouteChampTexteMathLive(this, i, '', {
-                texteAvant: '<br>',
-                texteApres: '%',
-              })
+              texte += ajouteChampTexteMathLive(
+                this,
+                i,
+                KeyboardType.clavierNumbers,
+                {
+                  texteAvant: '<br>',
+                  texteApres: '%',
+                },
+              )
               break
           }
           break
@@ -664,7 +765,7 @@ export default class EvolutionsEnPourcentage extends Exercice {
       handleAnswers(this, i, { reponse: { value: arrondi(reponse) } })
       if (this.interactif) texte += '<br><br>'
       //  if (listeTypeDeQuestions[i] === 'evolution') {
-      //    texte += ajouteChampTexteMathLive(this, i, '', { texteApres: '%' })
+      //    texte += ajouteChampTexteMathLive(this, i, KeyboardType.clavierNumbers, { texteApres: '%' })
       //  } else {
       //  texte += ajouteChampTexteMathLive(this, i)
       //  }

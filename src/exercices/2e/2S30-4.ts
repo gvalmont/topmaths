@@ -9,6 +9,7 @@ import { mathalea2d } from '../../modules/mathalea2d'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import Exercice from '../Exercice'
 
+import { fixeBordures } from '../../lib/2d/fixeBordures'
 import { tableauColonneLigne } from '../../lib/2d/tableau'
 import { setReponse } from '../../lib/interactif/gestionInteractif'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
@@ -47,7 +48,7 @@ function unePieceDeuxUrnes(
   i += numQuestionInteractif
   const p = []
   const choix = randint(0, 2)
-  let nombres1, nombres2, n1, n2, urne1, urne2, texte, texteCorr
+  let nombres1, nombres2, urne1, urne2, texte, texteCorr
   if (!sup3) {
     nombres1 = choice([
       [1, 2, 3],
@@ -62,15 +63,16 @@ function unePieceDeuxUrnes(
       [1, 1, 3],
     ])
   } else {
-    nombres1 = [1, 2, 3]
-    nombres2 = [1, 2, 3]
+    const n = randint(1, 3)
+    nombres1 = [n, n, n]
+    nombres2 = [n, n, n]
   }
   const B = ['B', 'R', 'V']
   const boules = ['bleue', 'rouge', 'verte']
-  do {
-    n1 = shuffle(nombres1)
-    n2 = shuffle(nombres2)
-  } while (n1[0] === n2[0] && n1[1] === n2[1])
+  // do {
+  const n1 = shuffle(nombres1)
+  const n2 = shuffle(nombres2)
+  // } while (n1[0] === n2[0] && n1[1] === n2[1])
   const card1 = n1[0] + n1[1] + n1[2]
   const card2 = n2[0] + n2[1] + n2[2]
   if (sup2) {
@@ -188,10 +190,7 @@ function unePieceDeuxUrnes(
   texte += ` et ${n2[2]} boule${n2[2] > 1 ? 's' : ''} ${boules[2]}${n2[2] > 1 ? 's' : ''}.<br>`
   texte += sup ? "On a représenté l'expérience par l'arbre ci-dessous<br>" : ''
   texte += sup
-    ? mathalea2d(
-        { xmin: -0.1, xmax: 16, ymin: 0, ymax: 12, zoom: 1.5, scale: 0.6 },
-        ...objets,
-      )
+    ? mathalea2d(Object.assign({ scale: 0.6 }, fixeBordures(objets)), objets)
     : ''
   texte +=
     `<br>Donner la probabilité d'obtenir une boule ${boules[choix]}.` +
@@ -241,22 +240,11 @@ function urneDeuxTiragesAvecRemise(
   const contenu = []
   const card = nbBoule1 + nbBoule2
   const tirage1 = []
-  for (let i = 0; i < nbBoule1; i++) {
-    tirage1.push(
-      new Arbre({
-        nom: `${b1Char}`,
-        rationnel: true,
-        proba: fraction(1, card),
-        visible: false,
-        alter: '',
-        enfants: [],
-        racine: false,
-      }),
-    )
-    for (let j = 0; j < nbBoule1; j++) {
-      tirage1[i].enfants.push(
+  if (!sup2) {
+    for (let i = 0; i < nbBoule1; i++) {
+      tirage1.push(
         new Arbre({
-          nom: `${b1Char} `,
+          nom: `${b1Char}`,
           rationnel: true,
           proba: fraction(1, card),
           visible: false,
@@ -265,9 +253,36 @@ function urneDeuxTiragesAvecRemise(
           racine: false,
         }),
       )
+      for (let j = 0; j < nbBoule1; j++) {
+        tirage1[i].enfants.push(
+          new Arbre({
+            nom: `${b1Char} `,
+            rationnel: true,
+            proba: fraction(1, card),
+            visible: false,
+            alter: '',
+            enfants: [],
+            racine: false,
+          }),
+        )
+      }
+      for (let j = 0; j < nbBoule2; j++) {
+        tirage1[i].enfants.push(
+          new Arbre({
+            nom: `${b2Char}`,
+            rationnel: true,
+            proba: fraction(1, card),
+            visible: false,
+            alter: '',
+            enfants: [],
+            racine: false,
+          }),
+        )
+      }
     }
-    for (let j = 0; j < nbBoule2; j++) {
-      tirage1[i].enfants.push(
+
+    for (let i = 0; i < nbBoule2; i++) {
+      tirage1.push(
         new Arbre({
           nom: `${b2Char}`,
           rationnel: true,
@@ -278,41 +293,74 @@ function urneDeuxTiragesAvecRemise(
           racine: false,
         }),
       )
+      for (let j = 0; j < nbBoule1; j++) {
+        tirage1[i + nbBoule1].enfants.push(
+          new Arbre({
+            nom: `${b1Char} `,
+            rationnel: true,
+            proba: fraction(1, card),
+            visible: false,
+            alter: '',
+            enfants: [],
+            racine: false,
+          }),
+        )
+      }
+      for (let j = 0; j < nbBoule2; j++) {
+        tirage1[i + nbBoule1].enfants.push(
+          new Arbre({
+            nom: `${b2Char} `,
+            rationnel: true,
+            proba: fraction(1, card),
+            visible: false,
+            alter: '',
+            enfants: [],
+            racine: false,
+          }),
+        )
+      }
     }
-  }
-
-  for (let i = 0; i < nbBoule2; i++) {
+  } else {
     tirage1.push(
       new Arbre({
-        nom: `${b2Char}`,
+        nom: `${b1Char}`,
         rationnel: true,
-        proba: fraction(1, card),
-        visible: false,
+        proba: fraction(nbBoule1, card),
+        visible: true,
         alter: '',
         enfants: [],
         racine: false,
       }),
     )
-    for (let j = 0; j < nbBoule1; j++) {
-      tirage1[i + nbBoule1].enfants.push(
+    tirage1.push(
+      new Arbre({
+        nom: `${b2Char}`,
+        rationnel: true,
+        proba: fraction(nbBoule2, card),
+        visible: true,
+        alter: '',
+        enfants: [],
+        racine: false,
+      }),
+    )
+    for (let j = 0; j < 2; j++) {
+      tirage1[j].enfants.push(
         new Arbre({
           nom: `${b1Char} `,
           rationnel: true,
-          proba: fraction(1, card),
-          visible: false,
+          proba: fraction(nbBoule1, card),
+          visible: true,
           alter: '',
           enfants: [],
           racine: false,
         }),
       )
-    }
-    for (let j = 0; j < nbBoule2; j++) {
-      tirage1[i + nbBoule1].enfants.push(
+      tirage1[j].enfants.push(
         new Arbre({
           nom: `${b2Char} `,
           rationnel: true,
-          proba: fraction(1, card),
-          visible: false,
+          proba: fraction(nbBoule2, card),
+          visible: true,
           alter: '',
           enfants: [],
           racine: false,
@@ -339,7 +387,9 @@ function urneDeuxTiragesAvecRemise(
       colonneEnt.push(`\\text{${b2Char}}`)
     }
     for (let j = 0; j < card; j++) {
-      contenu.push(`\\text{${tirage1[i].nom + tirage1[i].enfants[j].nom}}`)
+      contenu.push(
+        `\\text{${i < nbBoule1 ? b1Char : b2Char}${j < nbBoule1 ? b1Char : b2Char}}`,
+      )
     }
   }
 
@@ -367,6 +417,18 @@ function urneDeuxTiragesAvecRemise(
   const proba4 = proba3.multiplieEntier(2)
   let texte = `Dans une urne, il y a ${nbBoule1} boule${nbBoule1 > 1 ? 's' : ''} ${b1Color}${nbBoule1 > 1 && b1Char !== 'O' ? 's' : ''} et ${nbBoule2} boule${nbBoule2 > 1 ? 's' : ''} ${b2Color}${nbBoule2 > 1 && b2Char !== 'O' ? 's' : ''} indiscernables au toucher.<br>`
   texte += 'On tire successivement et avec remise deux boules.<br>'
+  if (sup)
+    texte +=
+      mathalea2d(
+        Object.assign(
+          {
+            zoom: 0.8,
+            scale: 1 / card,
+          },
+          fixeBordures(objets),
+        ),
+        objets,
+      ) + '<br><br>'
   texte += `${numAlpha(0)} Déterminer la probabilité d'obtenir deux boules ${choix[1]}${choix[2] !== 'O' ? 's' : ''}.`
   texte += ajouteChampTexteMathLive(exercice, i, '') + '<br>'
   setReponse(exercice, i, probaChoix, { formatInteractif: 'fractionEgale' })
@@ -383,18 +445,17 @@ function urneDeuxTiragesAvecRemise(
   texteCorr +=
     "On peut aussi présenter les deux épreuves sous la forme d'un arbre de dénombrement :<br>"
   texteCorr += mathalea2d(
-    {
-      xmin: 0,
-      xmax: card * 8.5,
-      ymin: 0,
-      ymax: 13,
-      zoom: 0.8,
-      scale: 1 / card,
-    },
-    ...objets,
+    Object.assign(
+      {
+        zoom: 0.8,
+        scale: 1 / card,
+      },
+      fixeBordures(objets),
+    ),
+    objets,
   )
   texteCorr += `<br>${numAlpha(0)} L'événement "obtenir deux boules ${choix[1]}${choix[2] !== 'O' ? 's' : ''}" est réalisé par l'issue {${choix[2]} ${choix[2]}}.`
-  texteCorr += ` On comptabilise ${Number(choix[0]) ** 2} issues {${choix[2]} ${choix[2]}} sur ${card ** 2} issues en tout.<br>`
+  texteCorr += ` On comptabilise ${Number(choix[0]) ** 2} issues {${choix[2]}${choix[2]}} sur ${card ** 2} issues en tout.<br>`
   texteCorr += `La probabilité de cet événement est donc de $${probaChoix.texFraction}${!probaChoix.estIrreductible ? '=' + probaChoix.texFractionSimplifiee : ''}$.<br>`
   texteCorr += `${numAlpha(1)} L'événement "obtenir deux boules de la même couleur" est réalisé par les issues {${b1Char + b1Char}, ${b2Char + b2Char}}.`
   texteCorr += ` On comptabilise ${nbBoule1 ** 2} issues {${b1Char + b1Char}} et   ${nbBoule2 ** 2} issues {${b2Char + b2Char}} sur ${card ** 2} issues en tout.<br>`
@@ -413,7 +474,10 @@ export default class CalculProbaExperience2Epreuves2e extends Exercice {
   constructor() {
     super()
     this.besoinFormulaireCaseACocher = ['Avec arbre', false]
-    this.besoinFormulaire2CaseACocher = ['Arbre pondéré', false]
+    this.besoinFormulaire2CaseACocher = [
+      'Arbre pondéré (si "Avec arbre" coché)',
+      false,
+    ]
     this.besoinFormulaire3CaseACocher = ['Équiprobabilité', false]
     this.sup = true
     this.sup2 = false
@@ -428,7 +492,6 @@ export default class CalculProbaExperience2Epreuves2e extends Exercice {
     for (
       let i = 0, cpt = 0, question, numQuestionInteractif = 0;
       i < this.nbQuestions && cpt < 50;
-
     ) {
       switch (i % 2) {
         case 0:

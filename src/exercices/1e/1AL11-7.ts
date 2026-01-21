@@ -1,18 +1,19 @@
-import Exercice from '../Exercice'
-import { choice } from '../../lib/outils/arrayOutils'
-import { listeQuestionsToContenu, randint } from '../../modules/outils'
-import { texNombre } from '../../lib/outils/texNombre'
 import Decimal from 'decimal.js'
+import { createList } from '../../lib/format/lists'
+import { handleAnswers } from '../../lib/interactif/gestionInteractif'
+import { propositionsQcm } from '../../lib/interactif/qcm'
+import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
+import { choice } from '../../lib/outils/arrayOutils'
 import {
   ecritureAlgebrique,
   ecritureParentheseSiNegatif,
   rienSi1,
 } from '../../lib/outils/ecritures'
-import { createList } from '../../lib/format/lists'
-import { propositionsQcm } from '../../lib/interactif/qcm'
-import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
-import { handleAnswers } from '../../lib/interactif/gestionInteractif'
+import { texNombre } from '../../lib/outils/texNombre'
+import { listeQuestionsToContenu, randint } from '../../modules/outils'
+import Exercice from '../Exercice'
 
+import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
 export const titre = 'Étudier une suite arithmético-géométrique'
 export const dateDePublication = '30/11/2024'
@@ -97,13 +98,23 @@ Montrer que  $(${NomSA}_n)$ est une suite géométrique.<br>
  Donner sa raison et son premier terme.`
           }`,
           `Exprimer $${NomSA}_n$ en fonction de $n$.` +
-            ajouteChampTexteMathLive(this, 3 * i + 1, '', {
-              texteAvant: `<br>$${NomSA}_n=$`,
-            }),
+            ajouteChampTexteMathLive(
+              this,
+              3 * i + 1,
+              KeyboardType.clavierSuite,
+              {
+                texteAvant: `<br>$${NomSA}_n=$`,
+              },
+            ),
           `En déduire l'expression du terme général de $(${NomS}_n)$ en fonction de $n$.` +
-            ajouteChampTexteMathLive(this, 3 * i + 2, '', {
-              texteAvant: `<br>$${NomS}_n=$`,
-            }),
+            ajouteChampTexteMathLive(
+              this,
+              3 * i + 2,
+              KeyboardType.clavierSuite,
+              {
+                texteAvant: `<br>$${NomS}_n=$`,
+              },
+            ),
         ],
         style: 'nombres',
       })
@@ -119,14 +130,15 @@ Montrer que  $(${NomSA}_n)$ est une suite géométrique.<br>
            &=${texNombre(a, 1)}${NomSA}_n
            \\end{aligned}$<br>
            On a donc $${miseEnEvidence(`${NomSA}_{n+1}=${texNombre(a, 1)}${NomSA}_n`)}$.<br>
-           $(${NomSA}_n)$ est donc une suite géométrique de raison $${texNombre(a, 1)}$.<br>
+           `,
+          `
+          $(${NomSA}_n)$ est donc une suite géométrique de raison $${texNombre(a, 1)}$.<br>
            On calcule son premier terme $${NomSA}_0$ : <br>
            $\\begin{aligned}
           ${NomSA}_0&=${NomS}_0${ecritureAlgebrique(-k)}\\\\
           &=${texNombre(u0, 1)}${ecritureAlgebrique(-k)}\\\\
           &=${texNombre(new Decimal(u0).sub(k), 1)}
-          \\end{aligned}$`,
-          `
+          \\end{aligned}$<br>
           On en déduit l'expression de $${NomSA}_n$ en fonction de $n$ pour tout entier naturel $n$ : $${NomSA}_n=${miseEnEvidence(`${texNombre(new Decimal(u0).sub(k), 1)}\\times ${ecritureParentheseSiNegatif(a)}^n`)}$.
            `,
           `Puisque $${NomSA}_n=${NomS}_n ${ecritureAlgebrique(-k)}$, alors $${NomS}_n=${NomSA}_n ${ecritureAlgebrique(k)}$.<br>

@@ -1,11 +1,12 @@
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
-import { pgcd } from '../../lib/outils/primalite'
-import Exercice from '../Exercice'
-import { listeQuestionsToContenu, randint } from '../../modules/outils'
-import { context } from '../../modules/context'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
+import { pgcd } from '../../lib/outils/primalite'
+import { context } from '../../modules/context'
 import { fraction } from '../../modules/fractions'
+import { listeQuestionsToContenu, randint } from '../../modules/outils'
+import Exercice from '../Exercice'
 
+import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 
@@ -98,7 +99,6 @@ export default class DevelopperIdentitesRemarquables4 extends Exercice {
     for (
       let i = 0, texte, texteCorr, texteCorr2, cpt = 0, a, b, typesDeQuestions;
       i < this.nbQuestions && cpt < 50;
-
     ) {
       typesDeQuestions = listeTypeDeQuestions[i]
       a = randint(1, 12)
@@ -191,7 +191,9 @@ export default class DevelopperIdentitesRemarquables4 extends Exercice {
 
       texteCorr += texteCorr2
       if (this.interactif)
-        texte += '$=$' + ajouteChampTexteMathLive(this, i, '  college6e ml-2')
+        texte +=
+          '$=$' +
+          ajouteChampTexteMathLive(this, i, KeyboardType.clavierFullOperations)
       if (this.questionJamaisPosee(i, a, b, ns, ds, typesDeQuestions)) {
         // Si la question n'a jamais été posée, on en créé une autre
         this.listeQuestions[i] = texte

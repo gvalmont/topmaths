@@ -36,15 +36,13 @@ export function RedactionPythagore(
   let texte = ``
   let signeEgal = ``
   texte = `Le triangle $${A + B + C}$ est rectangle en $${A}$.`
-  texte += `<br> D'après le théorème de Pythagore, on a : <br> <br>
-  $\\begin{aligned}`
-  if (rechercheHypotenuse === 1 || rechercheHypotenuse === 2)
-    texte += `${B + C}^2&=${A + B}^2+${A + C}^2\\\\`
-  else
-    texte += `${miseEnEvidence(
-      `${B + C}^2&=${A + B}^2+${A + C}^2`,
-      couleurReponse,
-    )}\\\\`
+  texte += `<br> D'après le théorème de Pythagore, on a : <br> <br>`
+
+  if (rechercheHypotenuse === 1 || rechercheHypotenuse === 2) {
+    texte += `$\\begin{aligned} ${B + C}^2&=${A + B}^2+${A + C}^2\\\\`
+  } else {
+    texte += `$ ${miseEnEvidence(`${B + C}^2=${A + B}^2+${A + C}^2`, couleurReponse)}\\\\$`
+  }
   if (rechercheHypotenuse === 1) {
     texte += `${B + C}^2&=${texNombre(AB, 2)}^2+${texNombre(AC, 2)}^2\\\\`
     texte += `${B + C}^2&=${texNombre(AB ** 2)}+${texNombre(AC ** 2)}\\\\`
@@ -59,6 +57,7 @@ export function RedactionPythagore(
       texNombre(BC, 2),
       couleurReponse,
     )}${miseEnEvidence(`\\text{ ${unite}}`, couleurReponse)}\\\\`
+    texte += `\\end{aligned}$ `
   } else if (rechercheHypotenuse === 2) {
     texte += `${texNombre(BC, 2)}^2&=${A + B}^2+${texNombre(AC)}^2\\\\`
     texte += `${texNombre(BC ** 2)}&=${A + B}^2+${texNombre(AC ** 2)}\\\\`
@@ -74,7 +73,7 @@ export function RedactionPythagore(
       texNombre(AB, 2),
       couleurReponse,
     )}${miseEnEvidence(`\\text{ ${unite}}`, couleurReponse)}\\\\`
+    texte += `\\end{aligned}$ `
   }
-  texte += `\\end{aligned}$ `
   return [texte, signeEgal]
 }

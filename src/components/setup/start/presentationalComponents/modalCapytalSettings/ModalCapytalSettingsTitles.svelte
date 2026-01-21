@@ -13,7 +13,7 @@ text-coopmaths-struct-light dark:text-coopmathsdark-struct-light"
 </div>
 <div class="flex flex-row justify-start items-center px-4">
   <ButtonToggle
-    titles="{['Tous les titres sont affichés', 'Tous les titres sont masqués']}"
-    bind:value="{globalOptions.isTitleDisplayed}"
+    titles={['Tous les titres sont affichés', 'Tous les titres sont masqués']}
+    bind:value={globalOptions.isTitleDisplayed}
   />
 </div>

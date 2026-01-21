@@ -262,14 +262,27 @@ Si le nombre de questions est supérieur au nombre de patterns choisis, alors l'
         .join('\n')
       let texteCorr = ''
 
-      const nbFormes = pat.fonctionNb(nbFigures + 1)
-      const nbTex = miseEnEvidence(nbFormes)
       const infosShape =
         pat.shapes[0] in listeShapes2DInfos
           ? listeShapes2DInfos[pat.shapes[0]]
           : { articleCourt: 'de ', nomPluriel: 'cubes' }
-      texteCorr += `Le motif de rang $n$ contient $${nbTex}$ ${infosShape.nomPluriel}.<br>`
-      texteCorr += `En effet, la formule pour trouver le nombre ${infosShape.articleCourt}${infosShape.nomPluriel} est : $${miseEnEvidence(pat.formule.replaceAll('n', 'n'))}$.<br>`
+      const type = pat.type
+      switch (type) {
+        case 'linéaire':
+          texteCorr += `On remarque que le nombre ${infosShape.articleCourt}${infosShape.nomPluriel} augmente de manière constante à chaque nouveau motif.<br>
+          Le motif 2 en a deux fois plus que le motif 1.<br>
+          Le motif 3 en a trois fois plus que le motif 1.<br>
+          C'est une situation de proportionnalité.<br>`
+          break
+        case 'affine':
+          texteCorr += `On remarque que le nombre ${infosShape.articleCourt}${infosShape.nomPluriel} augmente de manière constante à chaque nouveau motif.<br>
+          Le motif 2 en a ${pat.formule.split('\\times')[0]} de plus que le motif 1.<br>
+          Le motif 3 en a encore ${pat.formule.split('\\times')[0]} de plus que le motif 2.<br>
+          Mais le motif 1 n'en a pas ${pat.formule.split('\\times')[0]} mais ${pat.fonctionNb(1)}.<br>`
+          break
+      }
+
+      texteCorr += `La formule pour trouver le nombre ${infosShape.articleCourt}${infosShape.nomPluriel} est : $${miseEnEvidence(pat.formule.replaceAll('n', 'n'))}$ où $n$ est le numéro du motif.<br>`
       texte += `<br>Quel sera le nombre ${infosShape.articleCourt}${infosShape.nomPluriel} dans le motif au rang $n$ en fonction de $n$ ?<br>${ajouteQuestionMathlive(
         {
           exercice: this,

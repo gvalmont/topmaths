@@ -44,9 +44,10 @@ export default class DecompositionNombre extends Exercice {
           c = randint(1, 9)
           n = c * 100 + d * 10 + u
           if (choice([true, false])) {
-            this.consigne = 'Compléter : '
+         
             if (this.interactif) {
-              texte = remplisLesBlancs(
+                texte = 'Compléter : <br>'
+              texte += remplisLesBlancs(
                 this,
                 i,
                 `${texNombre(n)}= \\, %{champ1}  \\text{ centaine(s) }  \\, %{champ2}\\, \\text{ unité(s)}`,
@@ -101,10 +102,11 @@ export default class DecompositionNombre extends Exercice {
           d = randint(1, 9)
           c = randint(1, 9)
           n = um * 1000 + c * 100 + d * 10 + u
-          this.consigne = 'Compléter : '
+        
           if (choice([true, false])) {
             if (this.interactif) {
-              texte = remplisLesBlancs(
+                texte = 'Compléter : <br>'
+              texte += remplisLesBlancs(
                 this,
                 i,
                 `${texNombre(n)}= \\, %{champ1}  \\text{ centaine(s) }  \\, %{champ2}\\, \\text{ unité(s)}`,

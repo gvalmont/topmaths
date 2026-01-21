@@ -1,4 +1,4 @@
-import PlacerPointsAbscissesFractionnaires from '../CM/CM2N2E-2'
+import PlacerPointsAbscissesFractionnaires from '../CM2/CM2N2E-2'
 export const titre = 'Utiliser les abscisses fractionnaires'
 export const interactifReady = true
 export const interactifType = 'custom'

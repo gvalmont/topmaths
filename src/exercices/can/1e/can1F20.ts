@@ -248,7 +248,7 @@ export default class ResoudreEquationsSecondDegreSansDelta extends Exercice {
                `
           }
 
-          if (k > 0) {
+          if (Number(k) > 0) {
             this.autoCorrection[i] = {
               enonce: texte,
 
@@ -304,7 +304,7 @@ export default class ResoudreEquationsSecondDegreSansDelta extends Exercice {
             }
           }
 
-          if (k > 0) {
+          if (Number(k) > 0) {
             texteCorr = `En factorisant le premier membre de l'équation on obtient :
             $x(${rienSi1(a)}x${ecritureAlgebrique(b)})$.<br>
             L'équation s'écrit alors : $x(${rienSi1(a)}x${ecritureAlgebrique(b)})=0$.<br>
@@ -323,6 +323,7 @@ export default class ResoudreEquationsSecondDegreSansDelta extends Exercice {
           break
 
         case 4: // egalite remarquable
+        default:
           a = choice([1, 2])
           b = randint(-3, 5, 0)
           c = b ** 2
@@ -335,7 +336,7 @@ export default class ResoudreEquationsSecondDegreSansDelta extends Exercice {
                `
           }
 
-          if (k > 0) {
+          if (Number(k) > 0) {
             this.autoCorrection[i] = {
               enonce: texte,
 

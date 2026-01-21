@@ -1,11 +1,12 @@
+import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
+import { setReponse } from '../../lib/interactif/gestionInteractif'
+import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { combinaisonListes } from '../../lib/outils/arrayOutils'
 import { nombreDeChiffresDansLaPartieEntiere } from '../../lib/outils/nombres'
 import { texNombre } from '../../lib/outils/texNombre'
-import Exercice from '../Exercice'
-import { listeQuestionsToContenu, randint } from '../../modules/outils'
-import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { context } from '../../modules/context'
-import { setReponse } from '../../lib/interactif/gestionInteractif'
+import { listeQuestionsToContenu, randint } from '../../modules/outils'
+import Exercice from '../Exercice'
 
 export const titre = 'Encadrer une racine carrée et en donner un arrondi'
 export const interactifReady = true
@@ -81,7 +82,6 @@ export default class CalculValeurApprocheeRacineCarree extends Exercice {
         reponseD,
         cpt = 0;
       i < this.nbQuestions && cpt < 50;
-
     ) {
       if (listeAvecOuSansCalculatrice[i] === 'avec') {
         a = randint(
@@ -125,7 +125,11 @@ export default class CalculValeurApprocheeRacineCarree extends Exercice {
           texte = `Encadrer $\\sqrt{${a}}$ ${type} près et en donner un arrondi ${type} près.`
         } else {
           texte = `Donner la valeur arrondie de $\\sqrt{${a}}$ ${type} près : `
-          texte += ajouteChampTexteMathLive(this, indexRep, '')
+          texte += ajouteChampTexteMathLive(
+            this,
+            indexRep,
+            KeyboardType.clavierNumbers,
+          )
         }
         texteCorr = `$\\sqrt{${a}} \\simeq ${texNombre(Math.sqrt(a), 6)}$.<br>`
         texteCorr += `Or $${reponseG} < ${texNombre(Math.sqrt(a), 6)} < ${reponseD}$,<br>`
@@ -139,9 +143,17 @@ export default class CalculValeurApprocheeRacineCarree extends Exercice {
         nbDec = 0 // idem
         texte = `Sans utiliser de calculatrice, encadrer $\\sqrt{${a}}$ entre deux nombres entiers consécutifs.<br>`
         if (this.interactif) {
-          texte += ajouteChampTexteMathLive(this, indexRep, '')
+          texte += ajouteChampTexteMathLive(
+            this,
+            indexRep,
+            KeyboardType.clavierNumbers,
+          )
           texte += ` $< \\sqrt{${a}} <$ `
-          texte += ajouteChampTexteMathLive(this, indexRep + 1, '')
+          texte += ajouteChampTexteMathLive(
+            this,
+            indexRep + 1,
+            KeyboardType.clavierNumbers,
+          )
           setReponse(this, indexRep, reponseG)
           setReponse(this, indexRep + 1, reponseD)
         }

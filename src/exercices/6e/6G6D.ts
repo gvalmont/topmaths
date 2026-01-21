@@ -6,6 +6,7 @@ import { point } from '../../lib/2d/PointAbstrait'
 import { nommePolygone } from '../../lib/2d/polygones'
 import { segment } from '../../lib/2d/segmentsVecteurs'
 import { triangle2points2angles } from '../../lib/2d/triangles'
+import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 import { setReponse } from '../../lib/interactif/gestionInteractif'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { shuffle } from '../../lib/outils/arrayOutils'
@@ -144,7 +145,6 @@ export default class ExerciceAnglesTriangles extends Exercice {
     for (
       let i = 0, texte, texteCorr, texteCorrFinal, cpt = 0;
       i < this.nbQuestions && cpt < 50;
-
     ) {
       const objetsEnonce = []
       const objetsCorrection = []
@@ -1344,24 +1344,39 @@ export default class ExerciceAnglesTriangles extends Exercice {
       if (this.interactif) {
         texte +=
           '<br>' +
-          ajouteChampTexteMathLive(this, indiceSetReponse, ' ', {
-            texteAvant: `$\\widehat{${nomAngles[choixAngle[0]]}} = $`,
-            texteApres: '$^\\circ$',
-          })
+          ajouteChampTexteMathLive(
+            this,
+            indiceSetReponse,
+            KeyboardType.clavierNumbers,
+            {
+              texteAvant: `$\\widehat{${nomAngles[choixAngle[0]]}} = $`,
+              texteApres: '$^\\circ$',
+            },
+          )
         if (reponseInteractive.length > 1) {
           texte +=
             '<br>' +
-            ajouteChampTexteMathLive(this, indiceSetReponse + 1, ' ', {
-              texteAvant: `$\\widehat{${nomAngles[choixAngle[1]]}} = $`,
-              texteApres: '$^\\circ$',
-            })
+            ajouteChampTexteMathLive(
+              this,
+              indiceSetReponse + 1,
+              KeyboardType.clavierNumbers,
+              {
+                texteAvant: `$\\widehat{${nomAngles[choixAngle[1]]}} = $`,
+                texteApres: '$^\\circ$',
+              },
+            )
           if (reponseInteractive.length > 2) {
             texte +=
               '<br>' +
-              ajouteChampTexteMathLive(this, indiceSetReponse + 2, ' ', {
-                texteAvant: `$\\widehat{${nomAngles[choixAngle[2]]}} = $`,
-                texteApres: '$^\\circ$',
-              })
+              ajouteChampTexteMathLive(
+                this,
+                indiceSetReponse + 2,
+                KeyboardType.clavierNumbers,
+                {
+                  texteAvant: `$\\widehat{${nomAngles[choixAngle[2]]}} = $`,
+                  texteApres: '$^\\circ$',
+                },
+              )
           }
         }
       }

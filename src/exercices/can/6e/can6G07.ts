@@ -12,6 +12,7 @@ import { mathalea2d } from '../../../modules/mathalea2d'
 import { listeQuestionsToContenu, randint } from '../../../modules/outils'
 import Exercice from '../../Exercice'
 
+import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 import { setReponse } from '../../../lib/interactif/gestionInteractif'
 
 export const titre = 'Compter les points symétriques manquants'
@@ -64,7 +65,6 @@ export default class CompleterParSymetrieCan extends Exercice {
         nbCouplesComplets,
         objetsCorrection;
       i < this.nbQuestions && cpt < 50;
-
     ) {
       typeDePapier[0] = typeDePapier[1 + (i % 3)]
       // on remet à vide tous les tableaux utilisés pour la question suivante
@@ -171,7 +171,7 @@ export default class CompleterParSymetrieCan extends Exercice {
         ...objetsEnonce,
       )
       if (this.interactif && context.isHtml) {
-        texte += ajouteChampTexteMathLive(this, i, '')
+        texte += ajouteChampTexteMathLive(this, i, KeyboardType.clavierNumbers)
       }
       texteCorr += mathalea2d(
         {

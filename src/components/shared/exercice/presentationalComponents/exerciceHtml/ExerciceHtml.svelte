@@ -41,14 +41,14 @@
 {#if vue === 'eleve'}
   <HeaderExerciceVueEleve
     {...headerExerciceProps}
-    isMenuNeededForExercises="{$isMenuNeededForExercises}"
-    presMode="{$globalOptions.presMode ?? 'liste_exos'}"
+    isMenuNeededForExercises={$isMenuNeededForExercises}
+    presMode={$globalOptions.presMode ?? 'liste_exos'}
   />
 {:else}
   <HeaderExerciceVueProf
     {...headerExerciceProps}
-    id="{exercise.id ?? ''}"
-    interactifReady="{exercise.interactifReady}"
+    id={exercise.id ?? ''}
+    interactifReady={exercise.interactifReady}
     {indiceLastExercice}
     on:exerciseRemoved
   />
@@ -57,5 +57,5 @@
   id="insert-html-{indiceExercice}"
   class="mt-6 mb-2 ml-2 lg:mx-5 w-full"
 >
-  <div bind:this="{divExercice}"></div>
+  <div bind:this={divExercice}></div>
 </section>

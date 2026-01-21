@@ -953,7 +953,7 @@ Calculer sa vitesse de rotation au bout de $1$ minute.`,
                     items: [
                       'Exprimer $f(x)$ en fonction de $x$.',
                       `Déterminer le prix payé par un ménage consommant $${conso}\\text{ m}^3$ d'eau par an.`,
-                      `À partir de quelle quantité d'eau consommée, la facture s'élève à $${texNombre(fac2, 2, true)}$ € ? `,
+                      `À partir de quelle quantité d'eau consommée, la facture s'élève à plus de $${texNombre(fac2, 2, true)}$ € ? `,
                     ],
                     style: 'alpha',
                   }),

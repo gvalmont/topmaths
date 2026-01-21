@@ -26,7 +26,7 @@ export default class Can2025N4Q27 extends ExerciceCan {
     this.canEnonce = this.question
     this.canReponseACompleter = '$\\ldots\\text{ m}^2$'
     this.optionsChampTexte = { texteApres: '$\\text{ m}^2$' }
-    this.formatChampTexte = KeyboardType.college6eme
+    this.formatChampTexte = KeyboardType.clavierDeBase
     this.reponse = `${Math.round((a * a) / 4)}\\pi`
     this.question += this.interactif ? '<br>' : ''
   }

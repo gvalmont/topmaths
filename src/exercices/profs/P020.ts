@@ -1,12 +1,12 @@
+import { tableauColonneLigne } from '../../lib/2d/tableau'
 import { choice, shuffle } from '../../lib/outils/arrayOutils'
-import Exercice from '../Exercice'
 import {
   contraindreValeur,
   listeQuestionsToContenu,
 } from '../../modules/outils'
-import { tableauColonneLigne } from '../../lib/2d/tableau'
+import Exercice from '../Exercice'
 
-export const titre = 'Encodeur de texte'
+export const titre = 'Décoder un message avec les tables de multiplication'
 
 export const refs = {
   'fr-fr': ['P020'],
@@ -116,7 +116,6 @@ export default class EncodeurTexte extends Exercice {
     for (
       let i = 0, texte, positionCourante, tabCar, cpt = 0;
       i < this.nbQuestions && cpt < 50;
-
     ) {
       const table: string[][] = []
       const associations: Map<number, string> = new Map()

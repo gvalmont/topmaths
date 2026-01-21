@@ -31,39 +31,37 @@ export default class FeuilleDeZooms extends Exercice {
     ]
 
     this.sup = 1
-
-    this.nbQuestionsModifiable = false
+    this.nbQuestions = 3
   }
 
   nouvelleVersion() {
-    let texte = ''
-    const noms = choisitLettresDifferentes(5, 'QFN')
-    let xmin,
-      origine,
-      xmax,
-      x1,
-      x2,
-      x3,
-      x21,
-      x31,
-      pA1,
-      pA2,
-      pB1,
-      pB2,
-      pC1,
-      pC2,
-      pD1,
-      pD2,
-      sA,
-      sB,
-      sC,
-      sD,
-      extremite,
-      fenetre
-    const objets = []
-    for (let n = 0; n < 8 / parseInt(this.sup); n++) {
-      objets.length = 0
-      if (parseInt(this.sup) === 1) {
+    for (let i = 0; i < this.nbQuestions; i++) {
+      let texte = ''
+      const noms = choisitLettresDifferentes(5, 'QFN')
+      let xmin,
+        origine,
+        xmax,
+        x1,
+        x2,
+        x3,
+        x21,
+        x31,
+        pA1,
+        pA2,
+        pB1,
+        pB2,
+        pC1,
+        pC2,
+        pD1,
+        pD2,
+        sA,
+        sB,
+        sC,
+        sD,
+        extremite,
+        fenetre
+      const objets = []
+      if (this.sup === 1) {
         xmin = randint(5, 10) - 0.2
         origine = Math.round(xmin + 0.2)
         const thickOff = 0.1
@@ -276,9 +274,7 @@ export default class FeuilleDeZooms extends Exercice {
       }
       texte = mathalea2d(fenetre, objets)
 
-      this.contenu = texte
-      this.contenu += '<br>'
-      this.listeQuestions[0] = this.contenu
+      this.listeQuestions.push(texte)
     }
   }
 }

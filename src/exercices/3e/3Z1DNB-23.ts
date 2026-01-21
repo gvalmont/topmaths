@@ -12,7 +12,7 @@ import { texNombre } from '../../lib/outils/texNombre'
 export const uuid = 'bc6ae'
 export const refs = {
   'fr-fr': ['3Z1DNB-23'],
-  'fr-ch': ['1mT-14'],
+  'fr-ch': ['3mP1-20'],
 }
 export const titre =
   'Préparation DNB : Statistiques, pourcentages, trigonométrie'

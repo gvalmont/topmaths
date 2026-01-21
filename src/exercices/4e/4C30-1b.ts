@@ -1,3 +1,4 @@
+import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { choice } from '../../lib/outils/arrayOutils'
@@ -143,7 +144,6 @@ export default class PuissancesEncadrementCoefficients extends Exercice {
         encadrement,
         cpt = 0;
       i < this.nbQuestions && cpt < 50;
-
     ) {
       // Générer un nombre selon le type de question
       if (listeTypeDeQuestions[i] < 7) {
@@ -186,9 +186,17 @@ export default class PuissancesEncadrementCoefficients extends Exercice {
       consigneAMC = `$\\dots\\dots\\dots${sp(1)}\\leqslant ${nombreTexte}\\leqslant${sp(1)}\\dots\\dots\\dots$`
 
       texte = this.interactif
-        ? ajouteChampTexteMathLive(this, 2 * i, '') +
+        ? ajouteChampTexteMathLive(
+            this,
+            2 * i,
+            KeyboardType.clavierDeBaseAvecFractionPuissanceCrochets,
+          ) +
           `$\\leqslant ${nombreTexte}\\leqslant $` +
-          ajouteChampTexteMathLive(this, 2 * i + 1, '')
+          ajouteChampTexteMathLive(
+            this,
+            2 * i + 1,
+            KeyboardType.clavierDeBaseAvecFractionPuissanceCrochets,
+          )
         : consigneAMC
 
       // Définir les réponses pour l'interactif

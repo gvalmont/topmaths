@@ -12,6 +12,37 @@ beforeAll(() => {
     }
   }
   window.matchMedia = vi.fn().mockReturnValue({ matches: false })
+
+  Object.defineProperty(HTMLCanvasElement.prototype, 'getContext', {
+    configurable: true,
+    value: () => {
+      return {
+        fillRect: () => {},
+        clearRect: () => {},
+        getImageData: () => ({ data: [] }),
+        putImageData: () => {},
+        createImageData: () => [],
+        setTransform: () => {},
+        drawImage: () => {},
+        save: () => {},
+        restore: () => {},
+        beginPath: () => {},
+        moveTo: () => {},
+        lineTo: () => {},
+        closePath: () => {},
+        stroke: () => {},
+        translate: () => {},
+        scale: () => {},
+        rotate: () => {},
+        arc: () => {},
+        fill: () => {},
+        measureText: () => ({ width: 0 }),
+        transform: () => {},
+        rect: () => {},
+        clip: () => {},
+      }
+    },
+  })
 })
 
 vi.mock('../../../../src/lib/3d/3d_dynamique/Canvas3DElement', () => ({
@@ -44,9 +75,8 @@ vi.mock('apigeom', async (original) => {
   return real
 })
 
-const { mathaleaLoadExerciceFromUuid } = await import(
-  '../../../../src/lib/mathalea'
-)
+const { mathaleaLoadExerciceFromUuid } =
+  await import('../../../../src/lib/mathalea')
 
 const logConsole = getFileLogger('exportConsole', { append: true })
 
@@ -389,6 +419,7 @@ async function getConsoleTest(uuid: string, urlExercice: string) {
             expect(c.logs.error.length, signature).toBe(0)
             expect(c.logs.log.length, signature).toBe(0)
             expect(c.logs.warn.length, signature).toBe(0)
+            exercice.reinit()
             // expect(exercice.listeQuestions.length).toBe(i)
           }
         }
@@ -430,8 +461,15 @@ async function testRunAllLots(filter: string) {
   const uuids = filter.includes('dnb')
     ? await findStatic(filter)
     : await findUuid(filter)
-  log(uuids)
-  if (uuids.length === 0) {
+
+  // Exclure les exercices contenant "test" ou "beta" dans leur nom
+  const filteredUuids = uuids.filter(([uuid, name]) => {
+    const nameLower = name.toLowerCase()
+    return !nameLower.includes('test') && !nameLower.includes('beta')
+  })
+
+  log(filteredUuids)
+  if (filteredUuids.length === 0) {
     log(`Aucun uuid trouvé pour le filtre '${filter}'`)
     describe('no-parameter-warning', () => {
       test.skip(`Aucun uuid trouvé pour le filtre '${filter}'`, () => {
@@ -439,23 +477,27 @@ async function testRunAllLots(filter: string) {
       })
     })
   }
-  for (let i = 0; i < uuids.length && i < 300; i += 20) {
+  for (let i = 0; i < filteredUuids.length && i < 300; i += 20) {
     const ff: (() => Promise<boolean>)[] = []
-    for (let k = i; k < i + 20 && k < uuids.length; k++) {
-      const myName = uuids[k][1]
+    for (let k = i; k < i + 20 && k < filteredUuids.length; k++) {
+      const myName = filteredUuids[k][1]
       const f = async function () {
         log(filter)
-        log(`uuid=${uuids[k][0]} exo=${uuids[k][1]} i=${k} / ${uuids.length}`)
+        log(
+          `uuid=${filteredUuids[k][0]} exo=${filteredUuids[k][1]} i=${k} / ${filteredUuids.length}`,
+        )
         try {
           const resultReq = await getConsoleTest(
-            uuids[k][0],
-            `uuid=${uuids[k][0]}&id=${uuids[k][1].substring(0, uuids[k][1].lastIndexOf('.')) || uuids[k][1]}&alea=${alea}&testCI`,
+            filteredUuids[k][0],
+            `uuid=${filteredUuids[k][0]}&id=${filteredUuids[k][1].substring(0, filteredUuids[k][1].lastIndexOf('.')) || filteredUuids[k][1]}&alea=${alea}&testCI`,
           )
-          log(`Resu: ${resultReq} uuid=${uuids[k][0]} exo=${uuids[k][1]}`)
+          log(
+            `Resu: ${resultReq} uuid=${filteredUuids[k][0]} exo=${filteredUuids[k][1]}`,
+          )
           return resultReq === 'OK'
         } catch (e) {
           log(e)
-          log(`Resu: KO uuid=${uuids[k][0]} exo=${uuids[k][1]}`)
+          log(`Resu: KO uuid=${filteredUuids[k][0]} exo=${filteredUuids[k][1]}`)
           throw e
         }
       }
@@ -515,7 +557,7 @@ if (process.env.NIV !== null && process.env.NIV !== undefined) {
   }
 } else {
   // testRunAllLots('2e/2F22-1')
-  testRunAllLots('6e/6N3H-1')
+  testRunAllLots('1e/1AN14-3')
   // testRunAllLots('4e/4G52')
 
   // testRunAllLots('techno1')

@@ -64,6 +64,7 @@ export default class PrioritesEtRelatifsComplex extends Exercice {
     this.nbQuestions = 6
     this.nbCols = 2
     this.sup = 13
+    this.sup2 = true
     this.besoinFormulaireTexte = [
       "Type d'expressions",
       [
@@ -86,7 +87,7 @@ export default class PrioritesEtRelatifsComplex extends Exercice {
 
     this.besoinFormulaire2CaseACocher = [
       'Présentation des corrections en colonnes',
-      false,
+      true,
     ]
     this.listeAvecNumerotation = false
   }

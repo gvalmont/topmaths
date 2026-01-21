@@ -12,6 +12,7 @@ import { texNombre } from '../../lib/outils/texNombre'
 import { listeQuestionsToContenu } from '../../modules/outils'
 import Exercice from '../Exercice'
 
+import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 import FractionEtendue from '../../modules/FractionEtendue'
 
 export const titre = "Donner l'écriture entière d'une puissance"
@@ -92,7 +93,6 @@ export default class EcritureDecimalePuissance extends Exercice {
     for (
       let i = 0, texte, texteCorr, a, n, cpt = 0;
       i < this.nbQuestions && cpt < 50;
-
     ) {
       switch (listeTypeDeQuestions[i]) {
         case '+':
@@ -123,7 +123,7 @@ export default class EcritureDecimalePuissance extends Exercice {
           break
       }
 
-      texte += ajouteChampTexteMathLive(this, i, ' ', {
+      texte += ajouteChampTexteMathLive(this, i, KeyboardType.clavierNumbers, {
         texteAvant: sp(2) + '$=$' + sp(2),
       })
 

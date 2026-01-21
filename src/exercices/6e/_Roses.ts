@@ -114,7 +114,6 @@ export default class ExoRose extends Exercice {
     for (
       let i = 0, objets, objetsCorr, texte, texteCorr, cpt = 0;
       i < this.nbQuestions && cpt < 50;
-
     ) {
       this.indexInconnue[i] = randint(0, this.nombreDeValeurs - 1)
       if (this.operation === 'multiplication') {
@@ -173,7 +172,7 @@ export default class ExoRose extends Exercice {
       )
       if (this.interactif) {
         if (this.type.substring(0, 3) === 'can') {
-          texte += ajouteChampTexteMathLive(this, i, '   ' + this.clavier, {
+          texte += ajouteChampTexteMathLive(this, i, this.clavier, {
             texteAvant: `${lettreMinusculeDepuisChiffre(this.indexInconnue[i] + 1)}=`,
           })
         } else {
@@ -217,6 +216,9 @@ export default class ExoRose extends Exercice {
   }
 
   correctionInteractive = (i: number) => {
+    if (this.answers === undefined) {
+      this.answers = {}
+    }
     const taille = this.nombreDeValeurs
     const champsTexte = []
     const spanResultat = document.querySelector(
@@ -227,6 +229,9 @@ export default class ExoRose extends Exercice {
       champsTexte[0] = document.getElementById(
         `champTexteEx${this.numeroExercice}Q${i}`,
       ) as MathfieldElement
+      if (champsTexte[0]) {
+        this.answers[champsTexte[0].id] = champsTexte[0].value
+      }
       if (champsTexte[0] != null) {
         saisies[0] = champsTexte[0].value
           .replace(',', '.')
@@ -236,6 +241,9 @@ export default class ExoRose extends Exercice {
       const mfe = document.querySelector(
         `math-field#champTexteEx${this.numeroExercice}Q${i}`,
       ) as MathfieldElement
+      if (mfe) {
+        this.answers[mfe.id] = mfe.value
+      }
       for (let k = 0; k < taille; k++) {
         champsTexte[k] = mfe.getPromptValue(`champ${k + 1}`)
         saisies[k] = champsTexte[k]
@@ -309,11 +317,11 @@ export default class ExoRose extends Exercice {
 
         resultatOK = Boolean(
           resultatOK &&
-            (saisieParsed == null
-              ? false
-              : saisieParsed.isEqual(
-                  engine.parse(stringResultat) ?? engine.parse('NaN'),
-                )),
+          (saisieParsed == null
+            ? false
+            : saisieParsed.isEqual(
+                engine.parse(stringResultat) ?? engine.parse('NaN'),
+              )),
         )
       }
       return resultatOK

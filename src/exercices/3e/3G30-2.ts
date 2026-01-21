@@ -1,12 +1,13 @@
-import { randint } from '../../modules/outils'
-import Exercice from '../Exercice'
-import { combinaisonListes } from '../../lib/outils/arrayOutils'
+import Decimal from 'decimal.js'
+import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 import { setReponse } from '../../lib/interactif/gestionInteractif'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
-import Decimal from 'decimal.js'
-import { stringNombre } from '../../lib/outils/texNombre'
+import { combinaisonListes } from '../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { sp } from '../../lib/outils/outilString'
+import { stringNombre } from '../../lib/outils/texNombre'
+import { randint } from '../../modules/outils'
+import Exercice from '../Exercice'
 
 export const titre = 'Résoudre une équation trigonométrique'
 export const dateDePublication = '20/11/2023'
@@ -105,10 +106,15 @@ class EquationTrigo extends Exercice {
               break
           }
           if (this.interactif) {
-            texte += ajouteChampTexteMathLive(this, i, '', {
-              texteAvant: `$${nomA}${nomC} \\approx$`,
-              texteApres: sp(10) + ' (valeur approchée au dixième près)',
-            })
+            texte += ajouteChampTexteMathLive(
+              this,
+              i,
+              KeyboardType.clavierNumbers,
+              {
+                texteAvant: `$${nomA}${nomC} \\approx$`,
+                texteApres: sp(10) + ' (valeur approchée au dixième près)',
+              },
+            )
           } else {
             texte += `Calculer la longueur $${nomA}${nomC}$ (au dixième près).`
           }
@@ -145,10 +151,15 @@ class EquationTrigo extends Exercice {
               break
           }
           if (this.interactif) {
-            texte += ajouteChampTexteMathLive(this, i, '', {
-              texteAvant: `$${nomA}${nomC} \\approx$`,
-              texteApres: sp(10) + ' (valeur approchée au dixième près)',
-            })
+            texte += ajouteChampTexteMathLive(
+              this,
+              i,
+              KeyboardType.clavierNumbers,
+              {
+                texteAvant: `$${nomA}${nomC} \\approx$`,
+                texteApres: sp(10) + ' (valeur approchée au dixième près)',
+              },
+            )
           } else {
             texte += `Calculer la longueur $${nomA}${nomC}$ (au dixième près).`
           }
@@ -157,7 +168,12 @@ class EquationTrigo extends Exercice {
           $${nomA}${nomC} \\approx ${miseEnEvidence(stringNombre(reponse, 1))}$`
           break
         case 'angle':
-          lBC = new Decimal(randint(lAB.times(10).toNumber(), 120)).div(10)
+          lBC = new Decimal(
+            randint(lAB.times(10).toNumber() + 1, 120, [
+              2 * lAB.times(10).toNumber(),
+            ]),
+          ).div(10)
+
           texte += `$\\${cosSinTan}\\left( \\widehat{${nomA}${nomB}${nomC}} \\right) = \\dfrac{${stringNombre(lAB, 1)}}{${stringNombre(lBC, 1)}}$.<br>`
           switch (cosSinTan) {
             case 'cos':
@@ -177,10 +193,15 @@ class EquationTrigo extends Exercice {
               break
           }
           if (this.interactif) {
-            texte += ajouteChampTexteMathLive(this, i, '', {
-              texteAvant: `$\\widehat{${nomA}${nomB}${nomC}}\\approx$`,
-              texteApres: '°' + sp(10) + ' (valeur approchée au degré près)',
-            })
+            texte += ajouteChampTexteMathLive(
+              this,
+              i,
+              KeyboardType.clavierNumbers,
+              {
+                texteAvant: `$\\widehat{${nomA}${nomB}${nomC}}\\approx$`,
+                texteApres: '°' + sp(10) + ' (valeur approchée au degré près)',
+              },
+            )
           } else {
             texte += `Calculer la mesure l'angle $\\widehat{${nomA}${nomB}${nomC}}$ (au degré près).`
           }

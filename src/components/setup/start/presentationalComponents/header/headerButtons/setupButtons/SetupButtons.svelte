@@ -19,4 +19,4 @@
 <ReorderButton bind:reorderModalDisplayed />
 <NewDataButton {newDataForAll} />
 <TrashButton {trash} />
-<FullscreenButton callback="{setFullScreen}" />
+<FullscreenButton callback={setFullScreen} />

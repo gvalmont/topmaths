@@ -1,7 +1,6 @@
 import { arc } from './Arc'
 import { colorToLatexOrHTML } from './colorToLatexOrHtml'
 import { fixeBordures } from './fixeBordures'
-import type { IPointAbstrait } from './Interfaces'
 import { ObjetMathalea2D } from './ObjetMathalea2D'
 import type { PointAbstrait } from './PointAbstrait'
 import { segment } from './segmentsVecteurs'
@@ -16,8 +15,8 @@ import { rotation, similitude } from './transformations'
 
 export class SensDeRotation extends ObjetMathalea2D {
   constructor(
-    A1: IPointAbstrait,
-    centre: IPointAbstrait,
+    A1: PointAbstrait,
+    centre: PointAbstrait,
     sens: 1 | -1,
     color = 'black',
   ) {

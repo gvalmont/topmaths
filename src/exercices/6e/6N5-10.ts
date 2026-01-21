@@ -1,3 +1,4 @@
+import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 import { fonctionComparaison } from '../../lib/interactif/comparisonFunctions'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
@@ -286,7 +287,7 @@ export default class ProblemesVaries extends Exercice {
     for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 100; ) {
       const probleme = fonctionsProblemes[i](this.sup2 ?? false)
       const question = this.interactif
-        ? `${probleme.enonce}<br>${ajouteChampTexteMathLive(this, i, probleme.styleChampTexteMathlive ?? '', probleme.optionsChampTexteMathlive)}`
+        ? `${probleme.enonce}<br>${ajouteChampTexteMathLive(this, i, probleme.styleChampTexteMathlive ?? KeyboardType.clavierNumbers, probleme.optionsChampTexteMathlive)}`
         : probleme.enonce
       if (this.interactif) {
         handleAnswers(this, i, {

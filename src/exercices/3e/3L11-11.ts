@@ -1,4 +1,5 @@
 import { max } from 'mathjs'
+import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import MonomePlusieursVariables from '../../lib/mathFonctions/MonomePlusieursVariables'
@@ -180,7 +181,9 @@ export default class NomExercice extends Exercice {
           rep = PolynomePlusieursVariables.PolynomeReduit(monomesListe)
           texte =
             `$${lettreDepuisChiffre(i + 1)}=${t.toString()}$` +
-            ajouteChampTexteMathLive(this, i, '', { texteAvant: '$=$' })
+            ajouteChampTexteMathLive(this, i, KeyboardType.lyceeClassique, {
+              texteAvant: '$=$',
+            })
           texteCorr = `$${lettreDepuisChiffre(i + 1)}=${miseEnEvidence(rep.toString())}$`
         }
       }

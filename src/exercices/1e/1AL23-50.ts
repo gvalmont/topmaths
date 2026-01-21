@@ -155,7 +155,7 @@ export default class LireElementsCarac extends Exercice {
             texte += ajouteChampTexteMathLive(
               this,
               i,
-              KeyboardType.clavierDeBase,
+              KeyboardType.clavierDeBaseAvecFractionPuissanceCrochets,
               {
                 texteAvant: 'Les racines sont : ',
                 texteApres:

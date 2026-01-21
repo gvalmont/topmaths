@@ -166,8 +166,9 @@ export default class Parallélogramme extends Exercice {
               }),
             )
 
+            texteCorr = ''
             if (this.correctionDetaillee) {
-              texteCorr =
+              texteCorr +=
                 "On peut représenter la situation avec les données de l'énoncé : <br>"
               texteCorr += mathalea2d(
                 {
@@ -182,11 +183,10 @@ export default class Parallélogramme extends Exercice {
               )
               texteCorr += `<br>Pour savoir si $${A.nom}${B.nom}${D.nom}${C.nom}$ est un parallélogramme, on peut utiliser l'un des deux résultats suivants :  <br>
              $\\bullet$ $${A.nom}${B.nom}${D.nom}${C.nom}$ est un parallélogramme si et seulement si ses diagonales se coupent en leur milieu (c'est-à-dire si $[${A.nom}${D.nom}]$ et $[${B.nom}${C.nom}]$ ont le même milieu). <br>
-             $\\bullet$ $${A.nom}${B.nom}${D.nom}${C.nom}$ est un parallélogramme si et seulement si ses côtés opposés sont deux à deux de même longueur.<br>`
-            } else {
-              texteCorr = ''
+             $\\bullet$ $${A.nom}${B.nom}${D.nom}${C.nom}$ est un parallélogramme si et seulement si ses côtés opposés sont deux à deux de même longueur.<br><br>`
             }
-            texteCorr += `<br> ${texteGras('En utilisant les milieux :')} : <br> `
+
+            texteCorr += `${texteGras('En utilisant les milieux :')} : <br> `
             texteCorr += `<br> $\\bullet$ Soit $M$ le milieu de $[${A.nom}${D.nom}]$ : <br> `
             texteCorr += `$\\begin{cases}x_M=\\dfrac{x_${A.nom}+x_${D.nom}}{2}= \\dfrac{${xA}+${ecritureParentheseSiNegatif(xD)}}{2}=\\dfrac{${texNombre(xA + xD)}}{2}${xM.texSimplificationAvecEtapes()}\\\\[0.8em] y_M=\\dfrac{y_${A.nom}+y_${D.nom}}{2}= \\dfrac{${yA}+${ecritureParentheseSiNegatif(yD)}}{2}=\\dfrac{${texNombre(yA + yD)}}{2}${yM.texSimplificationAvecEtapes()}\\end{cases}$`
             texteCorr += `  <br><br>Ainsi : $ M\\left(${xM.simplifie().texFSD}\\,;\\,${yM.simplifie().texFSD}\\right)$`

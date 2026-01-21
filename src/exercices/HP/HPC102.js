@@ -9,6 +9,7 @@ import {
 import { courbe } from '../../lib/2d/Courbe'
 import { integrale } from '../../lib/2d/Integrale'
 import { repere } from '../../lib/2d/reperes'
+import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 import { setReponse } from '../../lib/interactif/gestionInteractif'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { combinaisonListes } from '../../lib/outils/arrayOutils'
@@ -98,7 +99,6 @@ export default class CalculsLoiNormale extends Exercice {
         calculstep,
         cpt = 0;
       i < this.nbQuestions && cpt < 50;
-
     ) {
       switch (listeTypeDeQuestions[i]) {
         case 'N01':
@@ -234,7 +234,7 @@ export default class CalculsLoiNormale extends Exercice {
             (1 / variables.sigma / math.sqrt(2 * math.pi)) *
             math.exp(-((x - variables.mu) ** 2) / 2 / variables.sigma ** 2)
           r = repere({
-            axeYisVisible: false,
+            labelsYareVisible: false,
             xMin: -4 * variables.sigma + variables.mu,
             xMax: 4 * variables.sigma + variables.mu,
             yMin: -1,
@@ -485,7 +485,7 @@ export default class CalculsLoiNormale extends Exercice {
       if (this.interactif) {
         texte +=
           '<br><br>' +
-          ajouteChampTexteMathLive(this, i, '', {
+          ajouteChampTexteMathLive(this, i, KeyboardType.clavierNumbers, {
             texteAvant: `La probabilité est : $\\mathrm{P}(${bornec} < X < ${borned}) \\approx $`,
           })
       }

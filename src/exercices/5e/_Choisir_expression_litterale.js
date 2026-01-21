@@ -136,14 +136,14 @@ export default function ChoisirExpressionLitterale(
           lastOp = 'division'
           break
         case 6: // a + bc
-          expf = `La somme de $${nombreAvecEspace(a)}$ et du produit de $${nombreAvecEspace(b)}$ et $${l1}$`
+          expf = `La somme de $${nombreAvecEspace(a)}$ et du produit de $${nombreAvecEspace(b)}$ par $${l1}$`
           expl = `$${texNombre(a)}+${texNombre(b)}${l1}$`
           expc = `$${texNombre(a)}+${texNombre(b)}${l1}=${texNombre(a)}+${texNombre(b)}\\times ${val1}=${texNombre(a)}+${texNombre(b * val1)} = ${texNombre(a + b * val1)}$`
           lastOp = 'addition'
           break
         case 7: // a - bc
           a = arrondi(a + b * val1)
-          expf = `La différence entre $${nombreAvecEspace(a)}$ et le produit de $${nombreAvecEspace(b)}$ et $${l1}$`
+          expf = `La différence entre $${nombreAvecEspace(a)}$ et le produit de $${nombreAvecEspace(b)}$ par $${l1}$`
           expl = `$${texNombre(a)}-${texNombre(b)}${l1}$`
           expc = `$${texNombre(a)}-${texNombre(b)}${l1}=${texNombre(a)}-${texNombre(b)}\\times ${val1}=${texNombre(a)}-${texNombre(b * val1)} = ${texNombre(a - b * val1)}$`
           lastOp = 'soustraction'
