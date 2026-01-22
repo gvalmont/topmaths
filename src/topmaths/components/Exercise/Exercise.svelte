@@ -449,7 +449,7 @@
   class="text-left w-full max-w-screen-lg
     {$isDoubleView ? '' : 'p-4'}"
 >
-  {#each exercisesWithMeta as exerciseWithMeta (exerciseWithMeta.exercise?.key)}
+  {#each exercisesWithMeta as exerciseWithMeta (exerciseWithMeta.exercise?.key + '-' + exerciseWithMeta.exerciseIndex)}
     <div
       class="flex flex-col justify-start items-start"
       id="exercice{exerciseWithMeta.exerciseIndex}"
