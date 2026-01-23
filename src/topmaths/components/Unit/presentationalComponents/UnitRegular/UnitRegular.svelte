@@ -45,9 +45,9 @@
   >
     Séquence {unit.number} :<br />{unit.title}
   </h1>
-  <UnitRegularObjectives {unit} {goToView} isTeacherMode="{$isTeacherMode}" />
+  <UnitRegularObjectives {unit} {goToView} isTeacherMode={$isTeacherMode} />
   <UnitRegularAssessment {unit} />
   {#if unit.downloadLinks.lessonLink || unit.downloadLinks.lessonSummaryLink || unit.downloadLinks.missionLink || ($isPersonalMode && unit.downloadLinks.lessonPlanLink)}
-    <UnitRegularDownloads {unit} isPersonalMode="{$isPersonalMode}" />
+    <UnitRegularDownloads {unit} isPersonalMode={$isPersonalMode} />
   {/if}
 </div>

@@ -91,32 +91,32 @@
   {#if exercisesLink === ''}
     <button><slot /></button>
   {:else}
-    <a href="{exercisesLink}" class="is-interactive">
+    <a href={exercisesLink} class="is-interactive">
       <button
         class="flex items-center"
-        on:click="{(mouseEvent) => launchExercise(mouseEvent, exercisesLink)}"
+        on:click={(mouseEvent) => launchExercise(mouseEvent, exercisesLink)}
       >
         <slot /> &nbsp;
         <TooltipIcon
-          dropdownText="{exerciseIndex < 0
+          dropdownText={exerciseIndex < 0
             ? 'Lancer les exercices'
-            : "Lancer l'exercice"}"
+            : "Lancer l'exercice"}
           imgSrc="/topmaths/img/cc0/fullscreen-svgrepo-com.svg"
           imgAlt="Lancer l'exercice"
         />
       </button>
     </a>
     {#if $isTeacherMode && isTopmaths(exercisesLink) && !exercisesLink.includes('&v=diaporama')}
-      <a href="{exercisesLink}" class="ml-2 is-interactive">
+      <a href={exercisesLink} class="ml-2 is-interactive">
         <button
           class="flex items-center"
-          on:click="{(mouseEvent) =>
-            launchExercise(mouseEvent, exercisesLink, true)}"
+          on:click={(mouseEvent) =>
+            launchExercise(mouseEvent, exercisesLink, true)}
         >
           <TooltipIcon
-            dropdownText="{exerciseIndex < 0
+            dropdownText={exerciseIndex < 0
               ? 'Lancer les exercices en double-vue'
-              : "Lancer l'exercice en double-vue"}"
+              : "Lancer l'exercice en double-vue"}
             imgSrc="/topmaths/img/cc0/fullscreen-double-svgrepo-com.svg"
             imgAlt="Lancer l'exercice en double-vue"
           />
@@ -125,13 +125,13 @@
     {/if}
     {#if $isTeacherMode && isTopmaths(exercisesLink)}
       <a
-        href="{exercisesLink.replace('v=exercise', 'v=latex')}"
+        href={exercisesLink.replace('v=exercise', 'v=latex')}
         class="ml-2 is-interactive"
       >
         <button
           class="flex items-center"
-          on:click="{(mouseEvent) =>
-            goToCoopmathsView(mouseEvent, exercisesLink, 'latex')}"
+          on:click={(mouseEvent) =>
+            goToCoopmathsView(mouseEvent, exercisesLink, 'latex')}
         >
           <TooltipIcon
             imgSrc="/topmaths/img/cc0/printing-document-svgrepo-com.svg"
@@ -141,31 +141,31 @@
         </button>
       </a>
       {#if includesTopmathsExercises(itemsToAddToCart)}
-        <a href="{capytaleLink}" class="ml-2 is-interactive">
+        <a href={capytaleLink} class="ml-2 is-interactive">
           <button
             class="flex items-center"
-            on:click="{(mouseEvent) => copyCapytaleLink(mouseEvent)}"
+            on:click={(mouseEvent) => copyCapytaleLink(mouseEvent)}
           >
             <TooltipIcon
               imgSrc="/topmaths/img/gvalmont/capytale.svg"
-              dropdownText="{'Créer un lien pour une utilisation avec CAPYTALE'}"
-              imgAlt="{'"PY" dans un cercle'}"
+              dropdownText={'Créer un lien pour une utilisation avec CAPYTALE'}
+              imgAlt={'"PY" dans un cercle'}
             />
           </button>
         </a>
         {#if isCartEmpty}
           <button
-            on:click="{() => {
+            on:click={() => {
               addExercisesToCart()
               isCartEmpty = false
-            }}"
+            }}
             class="is-interactive flex items-center ml-1"
           >
             <TooltipIcon
               imgSrc="/topmaths/img/cc0/cart-plus-svgrepo-com.svg"
-              dropdownText="{itemsToAddToCart.length > 1
+              dropdownText={itemsToAddToCart.length > 1
                 ? 'Ajouter tous les exercices au panier'
-                : "Ajouter l'exercice au panier"}"
+                : "Ajouter l'exercice au panier"}
               imgAlt="Caddie avec un signe + à l'intérieur"
             />
           </button>
@@ -173,9 +173,9 @@
           <button class="is-interactive flex items-center ml-1">
             <TooltipIcon
               imgSrc="/topmaths/img/cc0/cart-check-svgrepo-com.svg"
-              dropdownText="{itemsToAddToCart.length > 1
+              dropdownText={itemsToAddToCart.length > 1
                 ? 'Les exercices sont déjà tous dans le panier'
-                : "L'exercice est déjà présent dans le panier"}"
+                : "L'exercice est déjà présent dans le panier"}
               imgAlt="Caddie rempli"
             />
           </button>

@@ -27,10 +27,10 @@
   <div class="flex flex-wrap m-auto justify-center">
     {#each papiersCrayons as activite}
       <div class="p-4">
-        <a href="{activite.ggb}">
+        <a href={activite.ggb}>
           <img
             src="https://www-irem.univ-paris13.fr/site_spip/{activite.src}"
-            alt="{activite.titre}"
+            alt={activite.titre}
           />
         </a>
       </div>

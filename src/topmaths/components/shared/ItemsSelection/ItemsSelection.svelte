@@ -385,17 +385,17 @@
 </script>
 
 <GradeSelectionTabs
-  activeLevelTab="{$filter.grade}"
-  onClick="{(grade) => updateFilter({ grade })}"
+  activeLevelTab={$filter.grade}
+  onClick={(grade) => updateFilter({ grade })}
 />
 <TermSelectionButtons
-  selectedTerm="{$filter.term}"
-  on:change="{(e) => {
+  selectedTerm={$filter.term}
+  on:change={(e) => {
     const term = e.detail
     updateFilter({ term })
-  }}"
+  }}
 />
-<SearchInput bind:searchString="{$searchString}" />
+<SearchInput bind:searchString={$searchString} />
 {#if view !== 'unit'}
   <button
     class="my-4 mx-1 rounded transition-all duration-300 border border-[#ec8b0c] {$filter.isAutomaticity
@@ -403,15 +403,15 @@
       : ''}
     w-8 h-8
     text-base md:text-xl"
-    on:click="{() => {
+    on:click={() => {
       updateFilter({ isAutomaticity: !$filter.isAutomaticity })
-    }}"
+    }}
   >
     ⚡️
   </button>
   {#if $isTeacherMode}
     <span class="print-hidden absolute">
-      <InputCheckbox bind:isChecked="{$isTitleAcademicPreferred}">
+      <InputCheckbox bind:isChecked={$isTitleAcademicPreferred}>
         Intitulés du programme
       </InputCheckbox>
     </span>
@@ -433,7 +433,7 @@
       </h1>
       {#if view === 'unit'}
         {#each unitsByGrade[grade] as unit}
-          <RowRegular item="{unit}" {view} {goToView} />
+          <RowRegular item={unit} {view} {goToView} />
         {/each}
       {/if}
       {#if view === 'objective'}
@@ -452,7 +452,7 @@
               {subTheme}
             </h3>
             {#each objectivesByGradeAndThemeAndSubTheme[grade][theme][subTheme] as objective}
-              <RowRegular item="{objective}" {view} {goToView} />
+              <RowRegular item={objective} {view} {goToView} />
             {/each}
           {/each}
         {/each}
@@ -483,8 +483,8 @@
                     <a
                       class="is-interactive"
                       href="?v=unit&ref={unit.reference}"
-                      on:click="{(event) =>
-                        goToView(event, 'unit', unit.reference)}"
+                      on:click={(event) =>
+                        goToView(event, 'unit', unit.reference)}
                     >
                       {unit.reference}
                     </a>
@@ -501,13 +501,12 @@
                 {#each getObjectivesFromUnit(unit) as objective, objectiveIndex}
                   <RowCurriculum
                     {objective}
-                    gradeTeached="{unit.grade}"
+                    gradeTeached={unit.grade}
                     {goToView}
-                    isLastRow="{termIndex === termsByGrade[grade].length - 1 &&
+                    isLastRow={termIndex === termsByGrade[grade].length - 1 &&
                       unitIndex ===
                         unitsByGradeAndTerm[grade][term].length - 1 &&
-                      objectiveIndex ===
-                        getObjectivesFromUnit(unit).length - 1}"
+                      objectiveIndex === getObjectivesFromUnit(unit).length - 1}
                   />
                 {/each}
               </div>

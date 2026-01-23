@@ -14,24 +14,24 @@
 </h2>
 <ul class="p-6">
   <ListItemPdfDownload
-    href="{unit.downloadLinks.lessonLink}"
+    href={unit.downloadLinks.lessonLink}
     label="Télécharger le cours"
-    grade="{unit.grade}"
+    grade={unit.grade}
   />
   <ListItemPdfDownload
-    href="{unit.downloadLinks.lessonSummaryLink}"
+    href={unit.downloadLinks.lessonSummaryLink}
     label="Télécharger le résumé"
-    grade="{unit.grade}"
+    grade={unit.grade}
   />
   <ListItemPdfDownload
-    href="{unit.downloadLinks.missionLink}"
+    href={unit.downloadLinks.missionLink}
     label="Télécharger la mission"
-    grade="{unit.grade}"
+    grade={unit.grade}
   />
   <ListItemPdfDownload
-    displayCondition="{!!(isPersonalMode && unit.downloadLinks.lessonPlanLink)}"
-    href="{unit.downloadLinks.lessonPlanLink}"
+    displayCondition={!!(isPersonalMode && unit.downloadLinks.lessonPlanLink)}
+    href={unit.downloadLinks.lessonPlanLink}
     label="Télécharger la fiche"
-    grade="{unit.grade}"
+    grade={unit.grade}
   />
 </ul>

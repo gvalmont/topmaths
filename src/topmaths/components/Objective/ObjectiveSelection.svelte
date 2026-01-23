@@ -7,4 +7,4 @@
   <title>Liste des objectifs - topmaths</title>
 </svelte:head>
 
-<ItemsSelection items="{objectives}" view="objective" />
+<ItemsSelection items={objectives} view="objective" />

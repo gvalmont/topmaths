@@ -47,9 +47,9 @@
   le référencement via des liens hypertextes, de ressources tierces présentes
   sur Internet, tant en ce qui concerne leur contenu que leur pertinence.
   <br /><br />
-  Le propriétaire du site autorise les liens hypertextes vers l’une des pages de
-  ce site, à condition que ceux-ci ouvrent une nouvelle fenêtre et soient présentés
-  de manière non équivoque afin d’éviter tout risque de confusion entre le site citant
+  Le propriétaire du site autorise les liens hypertextes vers l’une des pages de ce
+  site, à condition que ceux-ci ouvrent une nouvelle fenêtre et soient présentés de
+  manière non équivoque afin d’éviter tout risque de confusion entre le site citant
   et le propriétaire du site ainsi que toute présentation tendancieuse, ou contraire
   aux lois en vigueur.
   <br /><br />
@@ -64,7 +64,7 @@
   Voir également la page
   <button
     class="is-topmaths is-interactive"
-    on:click="{(event) => goToView(event, 'info', 'privacy-policy')}"
+    on:click={(event) => goToView(event, 'info', 'privacy-policy')}
   >
     Politique de confidentialité
   </button>

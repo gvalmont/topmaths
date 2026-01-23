@@ -17,7 +17,7 @@
     {#each stringGradeValidKeys as grade}
       <li>
         <button
-          on:click="{() => onClick(grade)}"
+          on:click={() => onClick(grade)}
           class="button is-light is-{grade}
             text-base md:text-2xl
             my-1 md:my-4
@@ -27,7 +27,7 @@
             {grade === stringGradeValidKeys[stringGradeValidKeys.length - 1]
             ? 'rounded-r-[1.5rem]'
             : ''}"
-          class:is-active="{activeLevelTab === grade}"
+          class:is-active={activeLevelTab === grade}
         >
           {grade === DEFAULT_GRADE ? 'Tout' : grade}
         </button>

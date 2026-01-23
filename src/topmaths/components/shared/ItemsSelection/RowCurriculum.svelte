@@ -34,8 +34,8 @@
         <a
           class="is-interactive p-1"
           href="?v=objective&ref={objective.reference}"
-          on:click="{(event) =>
-            goToView(event, 'objective', objective.reference)}"
+          on:click={(event) =>
+            goToView(event, 'objective', objective.reference)}
         >
           {objective.reference}
         </a>
@@ -44,15 +44,14 @@
       <a
         class="is-interactive p-1 m-0.5"
         href="?v=objective&ref={objective.reference}"
-        on:click="{(event) =>
-          goToView(event, 'objective', objective.reference)}"
+        on:click={(event) => goToView(event, 'objective', objective.reference)}
       >
         {objective.reference}
       </a>
     {/if}
     <span class="is-black">
       <ButtonPrerequisitesVisualization
-        objectiveReference="{objective.reference}"
+        objectiveReference={objective.reference}
         {gradeTeached}
       />
     </span>

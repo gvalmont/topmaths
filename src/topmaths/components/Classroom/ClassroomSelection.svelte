@@ -33,7 +33,7 @@
     {/if}
     <div>
       <button
-        on:click="{() => Storage.setTeacherMode(!$isTeacherMode)}"
+        on:click={() => Storage.setTeacherMode(!$isTeacherMode)}
         class="button is-green border
           rounded md:rounded-lg
           py-1 md:py-2

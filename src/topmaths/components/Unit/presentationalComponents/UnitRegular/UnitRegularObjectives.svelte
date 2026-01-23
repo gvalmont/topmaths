@@ -26,15 +26,14 @@
       <a
         class="is-interactive"
         href="/?v=objective&ref={objective.reference}"
-        on:click="{(event) =>
-          goToView(event, 'objective', objective.reference)}"
+        on:click={(event) => goToView(event, 'objective', objective.reference)}
       >
         {objective.reference} : {getTitle(objective)}
       </a>
       {#if isTeacherMode}
         <ButtonPrerequisitesVisualization
-          objectiveReference="{objective.reference}"
-          gradeTeached="{unit.grade}"
+          objectiveReference={objective.reference}
+          gradeTeached={unit.grade}
         />
       {/if}
     </li>

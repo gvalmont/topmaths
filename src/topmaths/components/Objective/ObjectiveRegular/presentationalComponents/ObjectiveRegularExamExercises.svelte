@@ -45,7 +45,7 @@
     <ExercisesButtons
       {itemsToAddToCart}
       {videos}
-      exercisesLink="{examExercisesLink}"
+      exercisesLink={examExercisesLink}
     />
   </li>
 </ul>

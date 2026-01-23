@@ -52,7 +52,7 @@
   text-coopmaths-corpus dark:text-coopmathsdark-corpus"
   tabindex="-1"
   id="timeOverlay"
-  on:click="{toggleTimeOverlaySize}"
+  on:click={toggleTimeOverlaySize}
 >
   {time}
 </button>

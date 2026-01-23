@@ -23,7 +23,7 @@
       <a
         class="is-interactive"
         href="/?v=unit&ref={unit.reference}"
-        on:click="{(event) => goToView(event, 'unit', unit.reference)}"
+        on:click={(event) => goToView(event, 'unit', unit.reference)}
       >
         {'Séquence ' + unit.reference.slice(3) + ' : ' + unit.title}
       </a>

@@ -288,12 +288,12 @@
         imageAlt="Symbole P entouré"
         imageClass="size-12"
         class="border-2 rounded-full p-0"
-        on:click="{toggerPointsInfo}"
+        on:click={toggerPointsInfo}
       />
     </div>
-    <div bind:this="{pointsInfoBackground}" id="points-info-background"></div>
+    <div bind:this={pointsInfoBackground} id="points-info-background"></div>
     <div
-      bind:this="{pointsInfoText}"
+      bind:this={pointsInfoText}
       id="points-info-text"
       class="text-center
         text-base md:text-xl
@@ -363,7 +363,7 @@
       >
         <option>Minuteur</option>
         {#each range(9) as i}
-          <option on:click="{() => setupTimer(i + 1)}">{i + 1} min</option>
+          <option on:click={() => setupTimer(i + 1)}>{i + 1} min</option>
         {/each}
       </select>
     </div>
@@ -375,7 +375,7 @@
           imageSrc="/topmaths/img/cc0/pause-svgrepo-com.svg"
           imageAlt="Pause"
           imageClass="size-6 md:size-8"
-          on:click="{stopTimer}"
+          on:click={stopTimer}
         />
       {:else if secondsLeft > 0}
         <ButtonImage
@@ -384,12 +384,12 @@
           imageSrc="/topmaths/img/cc0/play-button-svgrepo-com.svg"
           imageAlt="Play"
           imageClass="size-6 md:size-8"
-          on:click="{startTimer}"
+          on:click={startTimer}
         />
       {/if}
     </div>
     <div
-      bind:this="{displayTimeDiv}"
+      bind:this={displayTimeDiv}
       class="ml-2
         text-lg md:text-2xl
         {secondsLeft <= 0 ? 'text-red-500 shake' : ''}"
@@ -404,20 +404,20 @@
         : "n'y a aucune possibilité"} de coup Mathador.
   </p>
 </div>
-<button class="button border is-tout rounded-lg py-2 px-4" on:click="{reroll}">
+<button class="button border is-tout rounded-lg py-2 px-4" on:click={reroll}>
   Relancer
 </button>
 <button
   class="button border is-green rounded-lg py-2 px-4 ml-4 mb-8"
-  on:click="{() => {
+  on:click={() => {
     isSolutionsDisplayed = !isSolutionsDisplayed
     renderSolutionsDiv()
-  }}"
+  }}
 >
   {isSolutionsDisplayed ? 'Cacher les solutions' : 'Afficher les solutions'}
 </button>
 {#if isSolutionsDisplayed}
-  <p bind:this="{solutionsDiv}" class="is-size-5">
+  <p bind:this={solutionsDiv} class="is-size-5">
     <!-- eslint-disable-next-line svelte/no-at-html-tags -->
     {@html solutions.map((solution) => solution.writing).join('<br><br>')}
   </p>
@@ -451,7 +451,7 @@
     </AnchorExternal>.
   </i>
 </div>
-<audio bind:this="{audioElement}">
+<audio bind:this={audioElement}>
   <source
     src="/topmaths/mp3/BELLHand_Sonnette de velo 2 (ID 0275)_LS.mp3"
     type="audio/mpeg"

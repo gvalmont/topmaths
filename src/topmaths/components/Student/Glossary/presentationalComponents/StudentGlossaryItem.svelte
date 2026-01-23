@@ -16,10 +16,10 @@
   })
 </script>
 
-<svelte:window bind:innerWidth="{currentWindowWidth}" />
+<svelte:window bind:innerWidth={currentWindowWidth} />
 
 <li
-  id="{item.reference}"
+  id={item.reference}
   class="m-6 p-6
     rounded-lg md:rounded-xl
     shadow-3 dark:border
@@ -31,8 +31,8 @@
     </h3>
   </a>
   <div class="flex flex-row">
-    <div bind:this="{mainPanel}" class="m-3">
-      <div bind:innerHTML="{item.content}" contenteditable="false"></div>
+    <div bind:this={mainPanel} class="m-3">
+      <div bind:innerHTML={item.content} contenteditable="false"></div>
       {#if item.examples.length > 0}
         <Collapsible>
           <h2 slot="header">
@@ -41,7 +41,7 @@
           <ul slot="content">
             {#each item.examples as exemple, i}
               <li
-                bind:innerHTML="{exemple}"
+                bind:innerHTML={exemple}
                 contenteditable="false"
                 class="border-info-200
                   {i > 0 ? 'border-t-2' : ''}"
@@ -58,7 +58,7 @@
           <ul slot="content">
             {#each item.comments as comment, i}
               <li
-                bind:innerHTML="{comment}"
+                bind:innerHTML={comment}
                 contenteditable="false"
                 class="border-sky-200
                 {i > 0 ? 'border-t-2' : ''}"

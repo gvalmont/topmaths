@@ -12,7 +12,7 @@
   text-base md:text-xl"
 >
   <li>
-    <a href="#top" on:click="{(event) => goHash(event, 'top')}">
+    <a href="#top" on:click={(event) => goHash(event, 'top')}>
       <button
         class="button is-link rounded border mt-2 py-1
         px-1 md:px-2"
@@ -25,7 +25,7 @@
     <li>
       <a
         href="#{notionLiee.reference}"
-        on:click="{(event) => goHash(event, notionLiee.reference)}"
+        on:click={(event) => goHash(event, notionLiee.reference)}
       >
         <button
           class="button is-link rounded border mt-2 py-1
@@ -41,7 +41,7 @@
     <li>
       <a
         href="/?v=objective&ref={relatedObjective}"
-        on:click="{(event) => goToView(event, 'objective', relatedObjective)}"
+        on:click={(event) => goToView(event, 'objective', relatedObjective)}
       >
         <button
           class="button flex flew-row is-{buildGradeFromObjectiveReference(

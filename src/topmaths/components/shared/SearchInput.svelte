@@ -12,5 +12,5 @@
   aria-describedby="Champ pour rechercher une séquence"
   autocomplete="off"
   placeholder="Recherche"
-  bind:value="{searchString}"
+  bind:value={searchString}
 />

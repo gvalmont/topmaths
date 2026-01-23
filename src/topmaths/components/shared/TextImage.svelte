@@ -12,26 +12,26 @@
 <button
   class="{$$props.class} flex flex-row button is-{color}
     {isHovered || isFocused ? 'is-active' : ''}"
-  disabled="{$$props.disabled}"
-  on:mouseenter="{() => {
+  disabled={$$props.disabled}
+  on:mouseenter={() => {
     isHovered = true
-  }}"
-  on:mouseleave="{() => {
+  }}
+  on:mouseleave={() => {
     isHovered = false
-  }}"
-  on:focus="{() => {
+  }}
+  on:focus={() => {
     isFocused = true
-  }}"
-  on:blur="{() => {
+  }}
+  on:blur={() => {
     isFocused = false
-  }}"
+  }}
   on:click
 >
   <slot />
   <img
     class="ml-2
       size-4 md:size-6"
-    src="{imageSrc}"
-    alt="{imageAlt}"
+    src={imageSrc}
+    alt={imageAlt}
   />
 </button>

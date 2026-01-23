@@ -16,8 +16,8 @@
   {/if}
   <div class="is-16by9">
     <iframe
-      src="{videoLink}"
-      id="{videoLink}"
+      src={videoLink}
+      id={videoLink}
       title="Vidéo d'explication"
       frameborder="0"
       allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
@@ -29,7 +29,7 @@
   <p>
     Vidéo de
     <a
-      href="{authorLink}"
+      href={authorLink}
       target="_blank"
       rel="noopener noreferrer"
       class="is-interactive is-topmaths"

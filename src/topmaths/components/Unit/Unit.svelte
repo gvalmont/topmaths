@@ -17,7 +17,7 @@
   {:else if $reference === 'SPS3'}
     <SPS3 />
   {:else if isUnitReference($reference)}
-    <UnitRegular unitReference="{$reference}" {goToView} />
+    <UnitRegular unitReference={$reference} {goToView} />
   {:else}
     <UnitSelection />
   {/if}

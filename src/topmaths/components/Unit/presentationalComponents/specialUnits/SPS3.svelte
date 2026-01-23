@@ -29,13 +29,9 @@
     Jeux
   </h1>
   <h2 class="subtitle text-xl md:text-3xl p-3">SquarO</h2>
-  <Exercise
-    isMd="{false}"
-    url="https://topmaths.fr/?uuid=e2024&id=EN-SquarO&i=1"
+  <Exercise isMd={false} url="https://topmaths.fr/?uuid=e2024&id=EN-SquarO&i=1"
   ></Exercise>
   <h2 class="subtitle text-xl md:text-3xl p-3">Shikaku</h2>
-  <Exercise
-    isMd="{false}"
-    url="https://topmaths.fr/?uuid=ccf19&id=EN-Shikaku&i=1"
+  <Exercise isMd={false} url="https://topmaths.fr/?uuid=ccf19&id=EN-Shikaku&i=1"
   ></Exercise>
 </div>

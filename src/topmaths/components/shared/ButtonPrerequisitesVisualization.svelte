@@ -39,7 +39,7 @@
 
 <button
   class="ml-2 is-interactive flex items-center"
-  on:click="{() => displayPrerequisitesModal(objectiveReference)}"
+  on:click={() => displayPrerequisitesModal(objectiveReference)}
 >
   {text}
   <TooltipIcon
@@ -49,7 +49,7 @@
   />
 </button>
 
-<BasicClassicModal bind:isDisplayed="{isPrerequisiteModalDisplayed}">
+<BasicClassicModal bind:isDisplayed={isPrerequisiteModalDisplayed}>
   <div slot="content">
     <div id="prerequisites-container-{gradeTeached}-{objectiveReference}"></div>
   </div>

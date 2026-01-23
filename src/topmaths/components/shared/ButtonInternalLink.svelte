@@ -7,7 +7,7 @@
 </script>
 
 <button
-  on:click="{(event) => goToView(event, view, reference)}"
+  on:click={(event) => goToView(event, view, reference)}
   class="is-interactive is-topmaths"
 >
   <slot />

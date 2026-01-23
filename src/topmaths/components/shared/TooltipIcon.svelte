@@ -10,7 +10,7 @@
   <img
     class="is-icon
       size-4 md:size-6"
-    src="{imgSrc}"
-    alt="{imgAlt}"
+    src={imgSrc}
+    alt={imgAlt}
   />
 </Tooltip>

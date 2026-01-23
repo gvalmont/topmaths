@@ -68,7 +68,7 @@
       imageSrc="topmaths/img/cc0/refresh-reverse-svgrepo-com.svg"
       imageAlt="Flèches qui tournent en rond"
       imageClass="size-4 md:size-6"
-      on:click="{() => newData(exerciseIndex)}"
+      on:click={() => newData(exerciseIndex)}
     >
       <div class="text-xs md:text-base">
         Nouvel {$exerciseLinks.length > 1 ? 'exercice' : 'énoncé'}
@@ -84,9 +84,9 @@
       imageSrc="topmaths/img/cc0/{isCorrectionVisible
         ? 'eye'
         : 'blind'}-svgrepo-com.svg"
-      imageAlt="{isCorrectionVisible ? 'oeil' : 'oeil barré'}"
+      imageAlt={isCorrectionVisible ? 'oeil' : 'oeil barré'}
       imageClass="size-4 md:size-6"
-      on:click="{() => switchCorrectionVisible(exerciseIndex)}"
+      on:click={() => switchCorrectionVisible(exerciseIndex)}
     >
       <div class="text-xs md:text-base">
         {isCorrectionVisible ? 'Cacher la correction' : 'Voir la correction'}
@@ -104,8 +104,7 @@
           imageSrc="topmaths/img/cc0/guest-book-svgrepo-com.svg"
           imageAlt="Livre ouvert"
           imageClass="size-4 md:size-6"
-          on:click="{(mouseEvent) =>
-            goToView(mouseEvent, 'unit', unitReference)}"
+          on:click={(mouseEvent) => goToView(mouseEvent, 'unit', unitReference)}
         >
           <div class="text-xs md:text-base">Voir la séquence</div>
         </ButtonImage>
@@ -142,7 +141,7 @@
           imageSrc="topmaths/img/cc0/guest-book-svgrepo-com.svg"
           imageAlt="Livre ouvert"
           imageClass="size-4 md:size-6"
-          on:click="{(mouseEvent) => goToView(mouseEvent, 'unit', sourceUnit)}"
+          on:click={(mouseEvent) => goToView(mouseEvent, 'unit', sourceUnit)}
         >
           <div class="text-xs md:text-base">Voir la séquence</div>
         </ButtonImage>
@@ -158,8 +157,8 @@
           imageSrc="topmaths/img/cc0/study-2-svgrepo-com.svg"
           imageAlt="Personne lisant un livre"
           imageClass="size-4 md:size-6"
-          on:click="{(mouseEvent) =>
-            goToView(mouseEvent, 'objective', sourceObjective)}"
+          on:click={(mouseEvent) =>
+            goToView(mouseEvent, 'objective', sourceObjective)}
         >
           <div class="text-xs md:text-base">Voir le cours</div>
         </ButtonImage>
@@ -169,7 +168,7 @@
   <div class="flex flex-row justify-start items-center ml-3">
     <button
       class="is-coopmaths is-interactive"
-      on:click="{() => navigatorShare(exerciseIndex)}"
+      on:click={() => navigatorShare(exerciseIndex)}
     >
       <img
         class="is-icon
@@ -183,9 +182,9 @@
         class="flex flex-row justify-start items-center text-coopmaths-struct dark:text-coopmathsdark-struct"
       >
         <button
-          class:invisible="{nbCols < 2}"
+          class:invisible={nbCols < 2}
           type="button"
-          on:click="{() => columnsCountUpdate('-', exerciseIndex)}"
+          on:click={() => columnsCountUpdate('-', exerciseIndex)}
         >
           <i
             class="text-coopmaths-action hover:text-coopmaths-action-darkest dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-darkest bx ml-2 {isMd
@@ -196,7 +195,7 @@
         <i class="bx ml-1 {isMd ? 'bx-sm' : 'bx-xs'} bx-columns"></i>
         <button
           type="button"
-          on:click="{() => columnsCountUpdate('+', exerciseIndex)}"
+          on:click={() => columnsCountUpdate('+', exerciseIndex)}
         >
           <i
             class="text-coopmaths-action hover:text-coopmaths-action-darkest dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-darkest bx ml-1 {isMd
@@ -212,8 +211,8 @@
       >
         <button
           type="button"
-          class:invisible="{exercise.spacing < 0.1}"
-          on:click="{() => spacingUpdate('-', exerciseIndex)}"
+          class:invisible={exercise.spacing < 0.1}
+          on:click={() => spacingUpdate('-', exerciseIndex)}
         >
           <i
             class="text-coopmaths-action hover:text-coopmaths-action-darkest dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-darkest bx ml-2 {isMd
@@ -233,7 +232,7 @@
         </i>
         <button
           type="button"
-          on:click="{() => spacingUpdate('+', exerciseIndex)}"
+          on:click={() => spacingUpdate('+', exerciseIndex)}
         >
           <i
             class="text-coopmaths-action hover:text-coopmaths-action-darkest dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-darkest bx ml-1 {isMd
@@ -247,8 +246,8 @@
       >
         <button
           type="button"
-          class:invisible="{zoom < 0.8}"
-          on:click="{() => zoomUpdate('-', exerciseIndex)}"
+          class:invisible={zoom < 0.8}
+          on:click={() => zoomUpdate('-', exerciseIndex)}
         >
           <i
             class="text-coopmaths-action hover:text-coopmaths-action-darkest dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-darkest bx ml-2 {isMd
@@ -266,7 +265,7 @@
             alt="Loupe"
           />
         </i>
-        <button type="button" on:click="{() => zoomUpdate('+', exerciseIndex)}">
+        <button type="button" on:click={() => zoomUpdate('+', exerciseIndex)}>
           <i
             class="text-coopmaths-action hover:text-coopmaths-action-darkest dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-darkest bx ml-1 {isMd
               ? 'bx-sm'

@@ -136,10 +136,10 @@
   </h1>
   <div class="flex flex-col justify-center p-6">
     <GradeSelectionTabs
-      activeLevelTab="{selectedGrade}"
-      onClick="{(clickedLevel) => {
+      activeLevelTab={selectedGrade}
+      onClick={(clickedLevel) => {
         selectedGrade = clickedLevel
-      }}"
+      }}
     />
     <ButtonImage
       color="link"
@@ -147,7 +147,7 @@
       rounded md:rounded-lg
       px-3 md:px-4
       py-2 md:py-3"
-      on:click="{() => launchRegularExercises()}"
+      on:click={() => launchRegularExercises()}
     >
       Réviser les exercices
     </ButtonImage>
@@ -157,7 +157,7 @@
       rounded md:rounded-lg
       px-3 md:px-4
       py-2 md:py-3"
-      on:click="{() => launchExamExercises()}"
+      on:click={() => launchExamExercises()}
     >
       Réviser les exercices de brevet (3e)
     </ButtonImage>

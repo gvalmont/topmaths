@@ -27,7 +27,7 @@
 </h2>
 {#each lessonVideos as video}
   <video
-    src="{video}"
+    src={video}
     controls
     title="Vidéo d'explication"
     style="width: 100%; height: auto;"
@@ -37,9 +37,9 @@
 {/each}
 {#each videos as video}
   <ObjectiveRegularEmbededVideo
-    title="{video.title}"
-    authorName="{video.authorName}"
-    authorLink="{video.authorLink}"
-    videoLink="{video.videoLink}"
+    title={video.title}
+    authorName={video.authorName}
+    authorLink={video.authorLink}
+    videoLink={video.videoLink}
   />
 {/each}

@@ -23,7 +23,7 @@
         {isActive}
         {imageSrc}
         {imageAlt}
-        on:click="{(event) => goToView(event, destinationView)}"
+        on:click={(event) => goToView(event, destinationView)}
       />
     </a>
   </li>

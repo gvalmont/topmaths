@@ -7,4 +7,4 @@
   <title>Progressions - topmaths</title>
 </svelte:head>
 
-<ItemsSelection items="{units}" view="classroom" />
+<ItemsSelection items={units} view="classroom" />

@@ -35,11 +35,7 @@
 {#if lessonImages.length > 0}
   <div class="flex flex-col items-center py-6">
     {#each lessonImages as image, i}
-      <img
-        src="{image}"
-        alt="Résumé de cours {i + 1}"
-        class="w-full max-w-3xl"
-      />
+      <img src={image} alt="Résumé de cours {i + 1}" class="w-full max-w-3xl" />
     {/each}
   </div>
   <p class="pb-6">
@@ -63,9 +59,9 @@
   </p>
 {:else}
   <div class="p-6 flex flex-col items-center">
-    <div bind:this="{lessonSummaryDiv}"></div>
+    <div bind:this={lessonSummaryDiv}></div>
     {#if lessonSummaryImage}
-      <img src="{lessonSummaryImage}" alt="{lessonSummaryImageAlt}" />
+      <img src={lessonSummaryImage} alt={lessonSummaryImageAlt} />
     {/if}
     {#if lessonSummaryInstrumenpoche}
       <div class="text-center">

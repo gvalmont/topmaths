@@ -131,7 +131,7 @@
   </div>
   <div class="p-8">
     <ListItemPdfDownload
-      displayCondition="{true}"
+      displayCondition={true}
       href="topmaths/tutos/tutos/installation-anki.pdf"
       label="Télécharger la version pdf"
       grade="5e"

@@ -74,10 +74,10 @@
   </h1>
   {#if objective.prerequisites.length > 0 || $isTeacherMode}
     <ObjectiveRegularPrerequisites
-      prerequisites="{objective.prerequisites}"
+      prerequisites={objective.prerequisites}
       {goToView}
-      objectiveReference="{objective.reference}"
-      isTeacherMode="{$isTeacherMode}"
+      objectiveReference={objective.reference}
+      isTeacherMode={$isTeacherMode}
     />
   {/if}
   {#if objective.lessonSummaryHTML || objective.lessonSummaryImage || objective.lessonSummaryInstrumenpoche || objective.lessonImages.length > 0}
@@ -85,38 +85,38 @@
   {/if}
   {#if objective.videos.length > 0 || objective.lessonVideos.length > 0}
     <ObjectiveRegularVideos
-      videos="{objective.videos}"
-      lessonVideos="{objective.lessonVideos}"
+      videos={objective.videos}
+      lessonVideos={objective.lessonVideos}
     />
   {/if}
   {#if objective.exercises.length > 0}
     <ObjectiveRegularExercises
-      reference="{objective.reference}"
-      exercises="{objective.exercises}"
-      videos="{objective.videos}"
-      exercisesLink="{objective.exercisesLink}"
-      objectiveTitle="{getTitle(objective)}"
+      reference={objective.reference}
+      exercises={objective.exercises}
+      videos={objective.videos}
+      exercisesLink={objective.exercisesLink}
+      objectiveTitle={getTitle(objective)}
     />
   {/if}
   {#if objective.examExercisesLink}
     <ObjectiveRegularExamExercises
-      examExercises="{objective.examExercises}"
-      examExercisesLink="{objective.examExercisesLink}"
-      videos="{objective.videos}"
-      objectiveReference="{objective.reference}"
+      examExercises={objective.examExercises}
+      examExercisesLink={objective.examExercisesLink}
+      videos={objective.videos}
+      objectiveReference={objective.reference}
     />
   {/if}
   {#if objective.downloadLinks.practiceSheetLink || ($isTeacherMode && objective.downloadLinks.testSheetLink) || ($isPersonalMode && !isEmptyArrayRecord(objective.downloadLinks.lessonPlanLinks))}
     <ObjectiveRegularDownloads
-      grade="{objective.grade}"
-      practiceSheetLink="{objective.downloadLinks.practiceSheetLink}"
-      testSheetLink="{objective.downloadLinks.testSheetLink}"
-      lessonPlanLinks="{objective.downloadLinks.lessonPlanLinks}"
-      isPersonalMode="{$isPersonalMode}"
-      isTeacherMode="{$isTeacherMode}"
+      grade={objective.grade}
+      practiceSheetLink={objective.downloadLinks.practiceSheetLink}
+      testSheetLink={objective.downloadLinks.testSheetLink}
+      lessonPlanLinks={objective.downloadLinks.lessonPlanLinks}
+      isPersonalMode={$isPersonalMode}
+      isTeacherMode={$isTeacherMode}
     />
   {/if}
   {#if objective.units.length > 0}
-    <ObjectiveRegularUnits units="{objective.units}" {goToView} />
+    <ObjectiveRegularUnits units={objective.units} {goToView} />
   {/if}
 </div>

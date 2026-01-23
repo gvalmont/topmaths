@@ -35,8 +35,8 @@
   <div class="p-1 md:p-2">
     <ExercisesButtons
       {itemsToAddToCart}
-      exercisesLink="{unit.assessmentLink}"
-      unitReference="{unit.reference}"
+      exercisesLink={unit.assessmentLink}
+      unitReference={unit.reference}
     >
       S'entraîner pour l'évaluation{unit.assessmentExamLink
         ? ' (Automatismes)'
@@ -46,8 +46,8 @@
   {#if unit.assessmentExamLink}
     <div class="p-1 md:p-2">
       <ExercisesButtons
-        exercisesLink="{unit.assessmentExamLink}"
-        unitReference="{unit.reference}"
+        exercisesLink={unit.assessmentExamLink}
+        unitReference={unit.reference}
       >
         S'entraîner pour l'évaluation{unit.assessmentExamLink
           ? ' (Brevet)'

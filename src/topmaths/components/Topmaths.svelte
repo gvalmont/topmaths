@@ -112,7 +112,7 @@
     text-topmaths-corpus
     bg-topmaths-canvas"
 >
-  <HeaderMenu view="{$view}" {goToView} {isCartEmpty} />
+  <HeaderMenu view={$view} {goToView} {isCartEmpty} />
   <div
     class="w-full flex justify-center
     pb-8 mb:pb-20"
@@ -145,7 +145,7 @@
     {:else if $view === 'info'}
       <Info />
     {:else if $view === 'perso'}
-      <Perso isPersonalMode="{$isPersonalMode}" {setPersonalMode} />
+      <Perso isPersonalMode={$isPersonalMode} {setPersonalMode} />
     {:else}
       <Home />
     {/if}

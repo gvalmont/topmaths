@@ -68,7 +68,7 @@
   >
     Lexique
   </h1>
-  <SearchInput bind:searchString="{$searchString}" />
+  <SearchInput bind:searchString={$searchString} />
   <ul>
     {#each $filteredItems as item}
       <StudentGlossaryItem {item} {mathaleaRenderDiv} {goHash} />

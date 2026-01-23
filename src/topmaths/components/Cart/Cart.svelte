@@ -58,7 +58,7 @@
     <button
       class="is-fuchsia is-interactive
         mx-2 md:mx-4"
-      on:click="{() => copyLink(cartLink, { includeSeed: false })}"
+      on:click={() => copyLink(cartLink, { includeSeed: false })}
     >
       <img
         class="is-icon
@@ -70,7 +70,7 @@
     <button
       class="is-fuchsia is-interactive
         mx-2 md:mx-4"
-      on:click="{(mouseEvent) => launchExercise(mouseEvent, cartLink)}"
+      on:click={(mouseEvent) => launchExercise(mouseEvent, cartLink)}
     >
       <img
         class="is-icon
@@ -82,7 +82,7 @@
     <button
       class="is-fuchsia is-interactive
         mx-2 md:mx-4"
-      on:click="{(mouseEvent) => launchExercise(mouseEvent, cartLink, true)}"
+      on:click={(mouseEvent) => launchExercise(mouseEvent, cartLink, true)}
     >
       <img
         class="is-icon
@@ -94,7 +94,7 @@
     <button
       class="is-fuchsia is-interactive
         mx-2 md:mx-4"
-      on:click="{() => Cart.clear()}"
+      on:click={() => Cart.clear()}
     >
       <img
         class="is-icon
@@ -106,8 +106,8 @@
     <button
       class="is-fuchsia is-interactive
         mx-2 md:mx-4"
-      on:click="{(mouseEvent) =>
-        goToCoopmathsView(mouseEvent, cartLink, 'latex')}"
+      on:click={(mouseEvent) =>
+        goToCoopmathsView(mouseEvent, cartLink, 'latex')}
     >
       <img
         class="is-icon
@@ -127,7 +127,7 @@
             class="is-{buildGradeFromObjectiveReference(
               item.objectiveReference,
             )} is-interactive"
-            on:click="{() => Cart.remove(item.exercise.id)}"
+            on:click={() => Cart.remove(item.exercise.id)}
           >
             <img
               class="is-icon

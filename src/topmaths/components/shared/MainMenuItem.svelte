@@ -33,7 +33,7 @@
         h-14 md:h-24
         rounded md:rounded-lg"
       textClass="w-2/3 text-sm md:text-2xl"
-      on:click="{(event) => goToView(event, view, ref, ref2)}"
+      on:click={(event) => goToView(event, view, ref, ref2)}
     >
       <slot />
     </ButtonImage>

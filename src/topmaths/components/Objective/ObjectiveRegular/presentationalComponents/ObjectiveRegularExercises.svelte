@@ -40,17 +40,17 @@
   {#each exercises as exercice, i}
     <li class="p-1 md:p-2">
       <ExercisesButtons
-        itemsToAddToCart="{[
+        itemsToAddToCart={[
           {
             exercise: exercises[i],
             label: exercises[i].description || objectiveTitle,
             objectiveReference: reference,
             unitReference: '',
           },
-        ]}"
+        ]}
         {videos}
-        exercisesLink="{exercice.link}"
-        exerciseIndex="{i}"
+        exercisesLink={exercice.link}
+        exerciseIndex={i}
       >
         {exercice.description !== ''
           ? exercice.description

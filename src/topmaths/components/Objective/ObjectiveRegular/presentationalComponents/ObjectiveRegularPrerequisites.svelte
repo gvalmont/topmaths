@@ -42,8 +42,8 @@
       <a
         class="is-interactive"
         href="/?v=objective&ref={prerequisite.objectiveReference}"
-        on:click="{(event) =>
-          goToView(event, 'objective', prerequisite.objectiveReference)}"
+        on:click={(event) =>
+          goToView(event, 'objective', prerequisite.objectiveReference)}
       >
         {prerequisite.objectiveReference} : {getTitle(prerequisite)}
       </a>
@@ -54,7 +54,7 @@
   {#if isTeacherMode}
     <ButtonPrerequisitesVisualization
       {objectiveReference}
-      gradeTeached="{buildGradeFromObjectiveReference(objectiveReference)}"
+      gradeTeached={buildGradeFromObjectiveReference(objectiveReference)}
       text="Visualiser les prérequis&nbsp;"
     />
   {/if}

@@ -19,17 +19,17 @@
   class="print-hidden is-flex is-justify-content-center overflow-auto mb-3 md:mb-8"
 >
   <button
-    class="{classList}"
-    class:is-active="{selectedTerm === 0}"
-    on:click="{() => dispatch('change', 0)}"
+    class={classList}
+    class:is-active={selectedTerm === 0}
+    on:click={() => dispatch('change', 0)}
   >
     Période
   </button>
   {#each terms as term}
     <button
-      class="{classList}"
-      class:is-active="{selectedTerm === term}"
-      on:click="{() => dispatch('change', term)}"
+      class={classList}
+      class:is-active={selectedTerm === term}
+      on:click={() => dispatch('change', term)}
     >
       {term}
     </button>

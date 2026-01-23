@@ -19,14 +19,14 @@
 </h2>
 <ul class="p-6">
   <ListItemPdfDownload
-    displayCondition="{!!practiceSheetLink}"
-    href="{practiceSheetLink}"
+    displayCondition={!!practiceSheetLink}
+    href={practiceSheetLink}
     label="Télécharger la feuille d'entraînement"
     {grade}
   />
   <ListItemPdfDownload
-    displayCondition="{isTeacherMode && !!testSheetLink}"
-    href="{testSheetLink}"
+    displayCondition={isTeacherMode && !!testSheetLink}
+    href={testSheetLink}
     label="Télécharger les tests"
     {grade}
   />
@@ -35,8 +35,8 @@
       {#if isStringGrade(grade) && lessonPlanLinks[grade].length > 0}
         {#each lessonPlanLinks[grade] as lessonPlanLink, i}
           <ListItemPdfDownload
-            displayCondition="{true}"
-            href="{lessonPlanLink}"
+            displayCondition={true}
+            href={lessonPlanLink}
             label="Télécharger la fiche {lessonPlanLinks[grade].length > 1
               ? i + 1
               : ''} pour le niveau {grade}"
