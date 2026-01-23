@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { tick } from 'svelte'
   import type { Objective } from '../../../../types/objective'
 
   export let objective: Objective
@@ -12,7 +13,8 @@
   let lessonSummaryInstrumenpoche: string = ''
 
   let lessonSummaryDiv: HTMLDivElement
-  $: if (lessonSummaryDiv) mathaleaRenderDiv(lessonSummaryDiv, -1)
+  $: if (lessonSummaryDiv)
+    tick().then(() => mathaleaRenderDiv(lessonSummaryDiv, -1))
 
   $: if (objective) {
     lessonImages = objective.lessonImages
