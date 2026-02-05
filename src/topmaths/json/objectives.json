@@ -1179,7 +1179,11 @@
                 "exercises": [
                   {
                     "slug": "5N14,s=11,s2=false,n=2",
-                    "description": ""
+                    "description": "Comparer"
+                  },
+                  {
+                    "slug": "uuid=1f5de&id=6N3I-1&n=4",
+                    "description": "Encadrer"
                   }
                 ],
                 "lessonPlans": [
