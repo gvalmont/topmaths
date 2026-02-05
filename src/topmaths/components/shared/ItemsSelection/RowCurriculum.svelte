@@ -49,7 +49,7 @@
         {objective.reference}
       </a>
     {/if}
-    <span class="is-black">
+    <span class="is-black print-hidden">
       <ButtonPrerequisitesVisualization
         objectiveReference={objective.reference}
         {gradeTeached}

@@ -398,7 +398,7 @@
 <SearchInput bind:searchString={$searchString} />
 {#if view !== 'unit'}
   <button
-    class="my-4 mx-1 rounded transition-all duration-300 border border-[#ec8b0c] {$filter.isAutomaticity
+    class="print-hidden my-4 mx-1 rounded transition-all duration-300 border border-[#ec8b0c] {$filter.isAutomaticity
       ? 'bg-[#fffabb]'
       : ''}
     w-8 h-8
