@@ -2,7 +2,7 @@
 #import "./components/page.typ": *
 #import "./components/outils.typ": *
 
-#let couleurPrincipale = black
+#let couleurPrincipale = blue
 #let normal(texte) = text(couleurPrincipale, texte)
 
 #let attention() = {
