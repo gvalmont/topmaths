@@ -45,9 +45,9 @@ export function recette1(decimal = false): Probleme {
   const nomRecette = recette.nomRecette
   const personnage = prenomPronom()
   const enonce = `${personnage.prenom} prépare des ${nomRecette} avec $${texNombre(masse1, 1)}$ ${uniteComplete} de ${recette.ingredient1.nom} et $${texNombre(masse2, 1)}$ ${uniteComplete} de ${recette.ingredient2.nom}. 
-  Quelle est la masse totale des ingrédients utilisés ?`
+  <br>Quelle est la masse totale des ingrédients utilisés ?`
   const data = { nb1: masse1, nb2: masse2 }
-  const correction = `${personnage.prenom} prépare des ${nomRecette} avec $${texNombre(masse1, 1)}$ ${uniteComplete} de ${recette.ingredient1.nom} et ${texNombre(masse2, 1)} ${uniteComplete} de ${recette.ingredient2.nom}.
+  const correction = `${personnage.prenom} prépare des ${nomRecette} avec $${texNombre(masse1, 1)}$ ${uniteComplete} de ${recette.ingredient1.nom} et $${texNombre(masse2, 1)}$ ${uniteComplete} de ${recette.ingredient2.nom}.
 Donc, la masse totale des ingrédients utilisés est de : $${texNombre(masse1, 1)}\\text{ ${unite}}+${texNombre(masse2, 1)}\\text{ ${unite}}=${miseEnEvidence(texNombre(masse1 + masse2, 1))}$ ${unite}.`
   const probleme = new ProblemeAdditif('recette1', data)
   probleme.enonce = enonce

@@ -17,6 +17,7 @@ import Exercice from '../Exercice'
 
 import Figure from 'apigeom'
 import { lectureImage } from '../../lib/2d/LectureImage'
+import { approximatelyCompare } from '../../lib/interactif/comparisonFunctions'
 
 export const titre = "Lire graphiquement l'image d'un nombre par une fonction"
 export const dateDePublication = '29/10/2023'
@@ -100,7 +101,7 @@ class LireImageParApiGeom extends Exercice {
       pointMobile.createSegmentToAxeY()
       const textX = this.figure.create('DynamicX', { point: pointMobile })
       const textY = this.figure.create('DynamicY', { point: pointMobile })
-      textX.dynamicText.maximumFractionDigits = 2
+      textX.dynamicText.maximumFractionDigits = 1
       textY.dynamicText.maximumFractionDigits = 1
     }
 
@@ -315,7 +316,14 @@ class LireImageParApiGeom extends Exercice {
       this.listeQuestions = [emplacementPourFigure + enonce]
       const reponses = []
       for (let i = 0; i < nbColonnes; i++) {
-        reponses.push([`L1C${i + 1}`, { value: this.Y[i] }])
+        reponses.push([
+          `L1C${i + 1}`,
+          {
+            value: this.Y[i],
+            compare: approximatelyCompare,
+            options: { tolerance: 0.11 },
+          },
+        ])
       }
       reponses.push(['bareme', toutAUnPoint])
       handleAnswers(this, 0, Object.fromEntries(reponses))

@@ -224,7 +224,7 @@ export function cubeDef(shapeId?: string, scale?: number): ObjetMathalea2D {
   \\tikzset{
    cubeIso/.pic = {
     % Cube en projection axonométrique
-    \\draw[fill=yellow, draw=darkgray, line width=0.5pt] -- (0,1) -- (0.5,0.567) -- (0.5,-0.433) -- (0,0) -- cycle;
+    \\draw[fill=yellow, draw=darkgray, line width=0.5pt] (0,0) -- (0,1) -- (0.5,0.567) -- (0.5,-0.433) -- cycle;
     \\draw[fill=red, draw=darkgray, line width=0.5pt] (0.5,0.567) -- (1.366,0.817) -- (1.366,-0.183) -- (0.5,-0.433) -- cycle;
     \\draw[fill=green, draw=darkgray, line width=0.5pt]  (0,1) -- (0.5,0.567) -- (1.366,0.817) -- (0.866,1.25) -- cycle;
    }

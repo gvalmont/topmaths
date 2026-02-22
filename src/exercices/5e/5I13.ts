@@ -99,11 +99,11 @@ Si le nombre de questions est supérieur au nombre de patterns choisis, alors l'
       [
         'Nombres séparés par des tirets  :',
         `Mettre des nombres entre 1 et ${nbDePattern}.`,
-        `Mettre ${nbDePattern + 1} pour laisser le hasard faire.`,
+        `Mettre 0 pour laisser le hasard faire.`,
       ].join('\n'),
     ]
 
-    this.sup3 = `${nbDePattern + 1}`
+    this.sup3 = `0`
     this.listePackages = ['twemojis'] // this.listePackages est inutile mais la présence du mot "twemojis" est indispensable pour la sortie LaTeX.
   }
 
@@ -136,8 +136,8 @@ Si le nombre de questions est supérieur au nombre de patterns choisis, alors l'
     let typesPattern = gestionnaireFormulaireTexte({
       saisie: this.sup3,
       max: nbDePattern,
-      defaut: nbDePattern + 1,
-      melange: nbDePattern + 1,
+      defaut: 0,
+      melange: 0,
       nbQuestions: this.nbQuestions,
     }).map(Number)
 
@@ -153,7 +153,6 @@ Si le nombre de questions est supérieur au nombre de patterns choisis, alors l'
     for (
       let i = 0, cpt = 0;
       i < Math.min(nbDePattern, this.nbQuestions) && cpt < 50;
-
     ) {
       if (compteOccurences(typesQuestionsInitiales, 6) > 0) {
         typesQuestions = remplaceDansTableau(

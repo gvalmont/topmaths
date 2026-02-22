@@ -12,7 +12,7 @@ export function musique(decimal = false): Probleme {
   const total = nbFois * quotité
   const data = { nbFois, quotité }
   const probleme = new ProblemeMultiplicatifParts('musique', data)
-  probleme.enonce = `Un morceau de musique dure $${texNombre(total, 2)}$ minutes. Il est divisé en $${texNombre(nbFois, 0)}$ parties égales. Quelle est la durée d'une partie ?`
+  probleme.enonce = `Un morceau de musique dure $${texNombre(total, 2)}$ minutes. Il est divisé en $${texNombre(nbFois, 0)}$ parties égales. <br>Quelle est la durée d'une partie ?`
   probleme.correction = `On divise $${texNombre(total, 2)}$ minutes en $${texNombre(nbFois, 0)}$ parties. La durée d'une partie est : $${texNombre(total, 2)}\\text{\\,min} \\div ${texNombre(nbFois, 0)} = ${miseEnEvidence(texNombre(total / nbFois, 2))}\\text{\\,min}$`
   probleme.schema.topBraces = [
     {
@@ -34,7 +34,7 @@ export function musique(decimal = false): Probleme {
           length: 8,
           color: 'white',
           options: {
-            justify: 'start',
+            justify: 'center',
           },
         },
         {

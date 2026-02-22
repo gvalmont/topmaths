@@ -228,11 +228,37 @@ export default class EtudeFctPoly3 extends Exercice {
                     : NaN
               const texX1 = calculs1[calculs1.length - 1]
               const texX2 = calculs2[calculs2.length - 1]
+              const fDeX1 =
+                p.x1 instanceof FractionEtendue
+                  ? p.x1
+                      .puissanceFraction(3)
+                      .multiplieEntier(a)
+                      .sommeFraction(
+                        p.x1.puissanceFraction(2).multiplieEntier(b),
+                      )
+                      .sommeFraction(p.x1.multiplieEntier(c))
+                      .ajouteEntier(d)
+                  : fonction(Number(p.x1))
+              const fDeX2 =
+                p.x2 instanceof FractionEtendue
+                  ? p.x2
+                      .puissanceFraction(3)
+                      .multiplieEntier(a)
+                      .sommeFraction(
+                        p.x2.puissanceFraction(2).multiplieEntier(b),
+                      )
+                      .sommeFraction(p.x2.multiplieEntier(c))
+                      .ajouteEntier(d)
+                  : fonction(Number(p.x2))
               texteCorr += `Comme $\\Delta=${p.texCalculDiscriminant}$, le discriminant est strictement positif, donc le polynôme a deux racines :`
               texteCorr += `<br><br>$${p.texCalculRacine1(true)}$`
               texteCorr += `<br><br>$${p.texCalculRacine2(true)}$<br><br>`
-              texteCorr += `$\\alpha_1=f\\Big(${p.texX1}\\Big)=${a}\\times ${p.texX1.startsWith('-') || p.texX1.startsWith('\\dfrac') ? `\\Big(${p.texX1}\\Big)^3` : `${p.texX1}^3`}${ecritureAlgebriqueSauf1(b)}\\times ${p.texX1.startsWith('-') || p.texX1.startsWith('\\dfrac') ? `\\Big(${p.texX1}\\Big)^2` : `${p.texX1}^2`}${ecritureAlgebriqueSauf1(c)}\\times ${p.texX1.startsWith('-') ? `\\Big(${p.texX1})\\Big` : `${p.texX1}`}${ecritureAlgebrique(d)}${egalOuApprox(fonction(Number(p.x1)), 2)}${texNombre(fonction(Number(p.x1)), 2)}$<br><br>
-            $\\alpha_2=f\\Big(${p.texX2}\\Big)=${a}\\times ${p.texX2.startsWith('-') || p.texX2.startsWith('\\dfrac') ? `\\Big(${p.texX2}\\Big)^3` : `${p.texX2}^3`}${ecritureAlgebriqueSauf1(b)}\\times ${p.texX2.startsWith('-') || p.texX2.startsWith('\\dfrac') ? `\\Big(${p.texX2}\\Big)^2` : `${p.texX2}^2`}${ecritureAlgebriqueSauf1(c)}\\times ${p.texX2.startsWith('-') ? `\\Big(${p.texX2})\\Big` : `${p.texX2}`}${ecritureAlgebrique(d)}${egalOuApprox(fonction(Number(p.x2)), 2)}${texNombre(fonction(Number(p.x2)), 2)}$<br><br>`
+              texteCorr += `$\\begin{aligned}\\alpha_1&=f\\Big(${p.texX1}\\Big)\\\\
+              &=${Math.abs(a) === 1 ? (a < 0 ? '-' : '') : `${a}\\times `}${p.texX1.startsWith('-') || p.texX1.startsWith('\\dfrac') ? `\\Big(${p.texX1}\\Big)^3` : `${p.texX1}^3`}${Math.abs(b) === 1 ? (b < 0 ? '-' : '+') : `${ecritureAlgebrique(b)}\\times `} ${p.texX1.startsWith('-') || p.texX1.startsWith('\\dfrac') ? `\\Big(${p.texX1}\\Big)^2` : `${p.texX1}^2`}${Math.abs(c) === 1 ? (c < 0 ? '-' : '+') : `${ecritureAlgebriqueSauf1(c)}\\times `}${p.texX1.startsWith('-') ? `\\Big(${p.texX1}\\Big)` : `${p.texX1}`}${ecritureAlgebrique(d)}\\\\
+              &${fDeX1 instanceof FractionEtendue ? `=${fDeX1.texFractionSimplifiee}` : `${egalOuApprox(fonction(Number(p.x1)), 4)}${texNombre(fonction(Number(p.x1)), 4)}`}\\end{aligned}$<br><br>
+            $\\begin{aligned}\\alpha_2&=f\\Big(${p.texX2}\\Big)\\\\
+            &=${Math.abs(a) === 1 ? (a < 0 ? '-' : '') : `${a}\\times `}${p.texX2.startsWith('-') || p.texX2.startsWith('\\dfrac') ? `\\Big(${p.texX2}\\Big)^3` : `${p.texX2}^3`}${Math.abs(b) === 1 ? (b < 0 ? '-' : '+') : `${ecritureAlgebrique(b)}\\times `}  ${p.texX2.startsWith('-') || p.texX2.startsWith('\\dfrac') ? `\\Big(${p.texX2}\\Big)^2` : `${p.texX2}^2`}${Math.abs(c) === 1 ? (c < 0 ? '-' : '+') : `${ecritureAlgebriqueSauf1(c)}\\times `}${p.texX2.startsWith('-') ? `\\Big(${p.texX2}\\Big)` : `${p.texX2}`}${ecritureAlgebrique(d)}\\\\
+            &${fDeX2 instanceof FractionEtendue ? `=${fDeX2.texFractionSimplifiee}` : `${egalOuApprox(fonction(Number(p.x2)), 4)}${texNombre(fonction(Number(p.x2)), 4)}`}\\end{aligned}$<br><br>`
               substituts = [
                 { antVal: -10, antTex: '$-\\infty$', imgTex: ' ' },
                 {

@@ -50,7 +50,7 @@ export type PatternRicheRepetition = {
  * On trie d'abord par z croissant (du bas vers le haut), puis par y croissant (de gauche à droite),
  * puis par x croissant (de l'arrière vers l'avant).
  */
-const rangeCubes = function (
+export const rangeCubes = function (
   coords: [number, number, number, string][],
 ): [number, number, number, string][] {
   // Regrouper par z croissant
@@ -1890,8 +1890,8 @@ const pattern68: PatternRiche = {
     'https://images.squarespace-cdn.com/content/v1/647f8c4916cb6662848ba604/90c1a0e4-f515-4f30-9c1c-6f3f9707669b/vp59_2_orig.png?format=2500w',
   visualId: 59,
   fonctionNb: (x: number) => (x + 2) ** 2,
-  fonctionRatio: (x: number) => new Ratio([x ** 2, 4 * x + 4]),
-  fonctionFraction: (x: number) => new FractionEtendue(x ** 2, (x + 2) ** 2),
+  fonctionRatio: (x: number) => new Ratio([4 * x + 4, x ** 2]),
+  fonctionFraction: (x: number) => new FractionEtendue((x + 2) ** 2, x ** 2),
   formule: '(n+2)^2',
   type: 'degré2',
   shapes: ['carré', 'carréBleu'],
@@ -2163,8 +2163,8 @@ const pattern75: PatternRiche3D = {
 const pattern76: PatternRiche = {
   numero: 76,
   fonctionNb: (x: number) => 5 * x + 4,
-  fonctionRatio: (x: number) => new Ratio([x, 4 * x + 4]),
-  fonctionFraction: (x: number) => new FractionEtendue(x, 5 * x + 4),
+  fonctionRatio: (x: number) => new Ratio([1, 4 * x + 4]),
+  fonctionFraction: (x: number) => new FractionEtendue(1, 5 * x + 4),
   formule: '5\\times n + 4',
   type: 'affine',
   shapes: ['licorne', 'dragon'],

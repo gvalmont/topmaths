@@ -19,6 +19,7 @@ import { pointEstSur } from '../../lib/2d/utilitairesGeometriques'
 import { milieu, pointSurDroite } from '../../lib/2d/utilitairesPoint'
 import { vecteur } from '../../lib/2d/Vecteur'
 import { vide2d } from '../../lib/2d/Vide2d'
+import { orangeMathalea } from '../../lib/colors'
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 import {
   handleAnswers,
@@ -325,8 +326,8 @@ export default class TransformationsDuPlanEtCoordonnees extends Exercice {
               objetsCorrection.push(
                 tracePoint(A),
                 labelPoint(A),
-                tracePoint(Aprime, '#f15929'),
-                labelPoint(Aprime, '#f15929'),
+                tracePoint(Aprime, orangeMathalea),
+                labelPoint(Aprime, orangeMathalea),
                 pointEstSur(A, droited1)
                   ? vide2d()
                   : [
@@ -359,8 +360,8 @@ export default class TransformationsDuPlanEtCoordonnees extends Exercice {
               objetsCorrection.push(
                 tracePoint(B),
                 labelPoint(B),
-                tracePoint(Bprime, '#f15929'),
-                labelPoint(Bprime, '#f15929'),
+                tracePoint(Bprime, orangeMathalea),
+                labelPoint(Bprime, orangeMathalea),
                 pointEstSur(B, droited1)
                   ? vide2d()
                   : [
@@ -395,8 +396,8 @@ export default class TransformationsDuPlanEtCoordonnees extends Exercice {
               objetsCorrection.push(
                 tracePoint(C),
                 labelPoint(C),
-                tracePoint(Cprime, '#f15929'),
-                labelPoint(Cprime, '#f15929'),
+                tracePoint(Cprime, orangeMathalea),
+                labelPoint(Cprime, orangeMathalea),
                 pointEstSur(C, droited1)
                   ? vide2d()
                   : [
@@ -455,8 +456,8 @@ export default class TransformationsDuPlanEtCoordonnees extends Exercice {
               objetsCorrection.push(
                 tracePoint(A),
                 labelPoint(A),
-                tracePoint(Aprime, '#f15929'),
-                labelPoint(Aprime, '#f15929'),
+                tracePoint(Aprime, orangeMathalea),
+                labelPoint(Aprime, orangeMathalea),
                 pointEstSur(A, droited2)
                   ? vide2d()
                   : [
@@ -489,8 +490,8 @@ export default class TransformationsDuPlanEtCoordonnees extends Exercice {
               objetsCorrection.push(
                 tracePoint(B),
                 labelPoint(B),
-                tracePoint(Bprime, '#f15929'),
-                labelPoint(Bprime, '#f15929'),
+                tracePoint(Bprime, orangeMathalea),
+                labelPoint(Bprime, orangeMathalea),
                 pointEstSur(B, droited2)
                   ? vide2d()
                   : [
@@ -525,8 +526,8 @@ export default class TransformationsDuPlanEtCoordonnees extends Exercice {
               objetsCorrection.push(
                 tracePoint(C),
                 labelPoint(C),
-                tracePoint(Cprime, '#f15929'),
-                labelPoint(Cprime, '#f15929'),
+                tracePoint(Cprime, orangeMathalea),
+                labelPoint(Cprime, orangeMathalea),
                 pointEstSur(C, droited2)
                   ? vide2d()
                   : [
@@ -584,11 +585,11 @@ export default class TransformationsDuPlanEtCoordonnees extends Exercice {
                 tracePoint(A),
                 labelPoint(A),
                 tracePoint(Aprime, couleurs[i]),
-                labelPoint(Aprime, '#f15929'),
+                labelPoint(Aprime, orangeMathalea),
                 pointEstSur(A, droited)
                   ? vide2d()
                   : [
-                      segment(A, Aprime, '#f15929'),
+                      segment(A, Aprime, orangeMathalea),
                       codageAngleDroit(
                         A,
                         milieu(A, Aprime),
@@ -618,11 +619,11 @@ export default class TransformationsDuPlanEtCoordonnees extends Exercice {
                 tracePoint(B),
                 labelPoint(B),
                 tracePoint(Bprime, couleurs[i]),
-                labelPoint(Bprime, '#f15929'),
+                labelPoint(Bprime, orangeMathalea),
                 pointEstSur(B, droited)
                   ? vide2d()
                   : [
-                      segment(B, Bprime, '#f15929'),
+                      segment(B, Bprime, orangeMathalea),
                       codageAngleDroit(
                         B,
                         milieu(B, Bprime),
@@ -654,11 +655,11 @@ export default class TransformationsDuPlanEtCoordonnees extends Exercice {
                 tracePoint(C),
                 labelPoint(C),
                 tracePoint(Cprime, couleurs[i]),
-                labelPoint(Cprime, '#f15929'),
+                labelPoint(Cprime, orangeMathalea),
                 pointEstSur(C, droited)
                   ? vide2d()
                   : [
-                      segment(C, Cprime, '#f15929'),
+                      segment(C, Cprime, orangeMathalea),
                       codageAngleDroit(
                         C,
                         milieu(C, Cprime),
@@ -711,8 +712,8 @@ export default class TransformationsDuPlanEtCoordonnees extends Exercice {
               objetsCorrection.push(
                 tracePoint(A),
                 labelPoint(A),
-                tracePoint(Aprime, '#f15929'),
-                labelPoint(Aprime, '#f15929'),
+                tracePoint(Aprime, orangeMathalea),
+                labelPoint(Aprime, orangeMathalea),
                 pointEstSur(A, droitedprime)
                   ? vide2d()
                   : [
@@ -745,8 +746,8 @@ export default class TransformationsDuPlanEtCoordonnees extends Exercice {
               objetsCorrection.push(
                 tracePoint(B),
                 labelPoint(B),
-                tracePoint(Bprime, '#f15929'),
-                labelPoint(Bprime, '#f15929'),
+                tracePoint(Bprime, orangeMathalea),
+                labelPoint(Bprime, orangeMathalea),
                 pointEstSur(B, droitedprime)
                   ? vide2d()
                   : [
@@ -781,8 +782,8 @@ export default class TransformationsDuPlanEtCoordonnees extends Exercice {
               objetsCorrection.push(
                 tracePoint(C),
                 labelPoint(C),
-                tracePoint(Cprime, '#f15929'),
-                labelPoint(Cprime, '#f15929'),
+                tracePoint(Cprime, orangeMathalea),
+                labelPoint(Cprime, orangeMathalea),
                 pointEstSur(C, droitedprime)
                   ? vide2d()
                   : [
@@ -830,8 +831,8 @@ export default class TransformationsDuPlanEtCoordonnees extends Exercice {
               objetsCorrection.push(
                 tracePoint(A, O),
                 labelPoint(A, O),
-                tracePoint(Aprime, '#f15929'),
-                labelPoint(Aprime, '#f15929'),
+                tracePoint(Aprime, orangeMathalea),
+                labelPoint(Aprime, orangeMathalea),
                 codageAngleDroit(A, O, Aprime, couleurs[i]),
                 segment(O, A, couleurs[i]),
                 segment(O, Aprime, couleurs[i]),
@@ -844,8 +845,8 @@ export default class TransformationsDuPlanEtCoordonnees extends Exercice {
               objetsCorrection.push(
                 tracePoint(B, A),
                 labelPoint(B, A),
-                tracePoint(Bprime, '#f15929'),
-                labelPoint(Bprime, '#f15929'),
+                tracePoint(Bprime, orangeMathalea),
+                labelPoint(Bprime, orangeMathalea),
                 codageAngleDroit(B, A, Bprime, couleurs[i]),
                 segment(A, B, couleurs[i]),
                 segment(A, Bprime, couleurs[i]),
@@ -858,8 +859,8 @@ export default class TransformationsDuPlanEtCoordonnees extends Exercice {
               objetsCorrection.push(
                 tracePoint(C, B),
                 labelPoint(C, B),
-                tracePoint(Cprime, '#f15929'),
-                labelPoint(Cprime, '#f15929'),
+                tracePoint(Cprime, orangeMathalea),
+                labelPoint(Cprime, orangeMathalea),
                 codageAngleDroit(C, O, Cprime, couleurs[i]),
                 segment(B, C, couleurs[i]),
                 segment(B, Cprime, couleurs[i]),
@@ -888,8 +889,8 @@ export default class TransformationsDuPlanEtCoordonnees extends Exercice {
               objetsCorrection.push(
                 tracePoint(A, O),
                 labelPoint(A, O),
-                tracePoint(Aprime, '#f15929'),
-                labelPoint(Aprime, '#f15929'),
+                tracePoint(Aprime, orangeMathalea),
+                labelPoint(Aprime, orangeMathalea),
                 codageAngleDroit(A, O, Aprime, couleurs[i]),
                 segment(O, A, couleurs[i]),
                 segment(O, Aprime, couleurs[i]),
@@ -903,8 +904,8 @@ export default class TransformationsDuPlanEtCoordonnees extends Exercice {
               objetsCorrection.push(
                 tracePoint(B, A),
                 labelPoint(B, A),
-                tracePoint(Bprime, '#f15929'),
-                labelPoint(Bprime, '#f15929'),
+                tracePoint(Bprime, orangeMathalea),
+                labelPoint(Bprime, orangeMathalea),
                 codageAngleDroit(B, A, Bprime, couleurs[i]),
                 segment(A, B, couleurs[i]),
                 segment(A, Bprime, couleurs[i]),
@@ -917,8 +918,8 @@ export default class TransformationsDuPlanEtCoordonnees extends Exercice {
               objetsCorrection.push(
                 tracePoint(C, B),
                 labelPoint(C, B),
-                tracePoint(Cprime, '#f15929'),
-                labelPoint(Cprime, '#f15929'),
+                tracePoint(Cprime, orangeMathalea),
+                labelPoint(Cprime, orangeMathalea),
                 codageAngleDroit(C, B, Cprime, couleurs[i]),
                 segment(B, C, couleurs[i]),
                 segment(B, Cprime, couleurs[i]),
@@ -948,8 +949,8 @@ export default class TransformationsDuPlanEtCoordonnees extends Exercice {
               objetsCorrection.push(
                 tracePoint(A, O),
                 labelPoint(A, O),
-                tracePoint(Aprime, '#f15929'),
-                labelPoint(Aprime, '#f15929'),
+                tracePoint(Aprime, orangeMathalea),
+                labelPoint(Aprime, orangeMathalea),
                 segment(O, A, couleurs[i]),
                 segment(O, Aprime, couleurs[i]),
                 codageSegments('//', couleurs[i], O, A, O, Aprime),
@@ -961,8 +962,8 @@ export default class TransformationsDuPlanEtCoordonnees extends Exercice {
               objetsCorrection.push(
                 tracePoint(B, A),
                 labelPoint(B, A),
-                tracePoint(Bprime, '#f15929'),
-                labelPoint(Bprime, '#f15929'),
+                tracePoint(Bprime, orangeMathalea),
+                labelPoint(Bprime, orangeMathalea),
                 segment(A, B, couleurs[i]),
                 segment(A, Bprime, couleurs[i]),
                 codageSegments('O', couleurs[i], A, B, A, Bprime),
@@ -974,8 +975,8 @@ export default class TransformationsDuPlanEtCoordonnees extends Exercice {
               objetsCorrection.push(
                 tracePoint(C, B),
                 labelPoint(C, B),
-                tracePoint(Cprime, '#f15929'),
-                labelPoint(Cprime, '#f15929'),
+                tracePoint(Cprime, orangeMathalea),
+                labelPoint(Cprime, orangeMathalea),
                 segment(B, C, couleurs[i]),
                 segment(B, Cprime, couleurs[i]),
                 codageSegments('|||', couleurs[i], B, C, B, Cprime),
@@ -1007,8 +1008,8 @@ export default class TransformationsDuPlanEtCoordonnees extends Exercice {
               objetsCorrection.push(
                 tracePoint(A, O, pointO),
                 labelPoint(A, O, pointO),
-                tracePoint(Aprime, '#f15929'),
-                labelPoint(Aprime, '#f15929'),
+                tracePoint(Aprime, orangeMathalea),
+                labelPoint(Aprime, orangeMathalea),
                 representant(vecteur(pointO, O), A, couleurs[i]),
                 representant(vecteur(pointO, O), pointO, couleurs[i]),
               )
@@ -1023,8 +1024,8 @@ export default class TransformationsDuPlanEtCoordonnees extends Exercice {
               objetsCorrection.push(
                 tracePoint(B, A, pointO),
                 labelPoint(B, A, pointO),
-                tracePoint(Bprime, '#f15929'),
-                labelPoint(Bprime, '#f15929'),
+                tracePoint(Bprime, orangeMathalea),
+                labelPoint(Bprime, orangeMathalea),
                 representant(vecteur(pointO, A), B, couleurs[i]),
                 representant(vecteur(pointO, A), pointO, couleurs[i]),
               )
@@ -1039,8 +1040,8 @@ export default class TransformationsDuPlanEtCoordonnees extends Exercice {
               objetsCorrection.push(
                 tracePoint(C, B, pointO),
                 labelPoint(C, B, pointO),
-                tracePoint(Cprime, '#f15929'),
-                labelPoint(Cprime, '#f15929'),
+                tracePoint(Cprime, orangeMathalea),
+                labelPoint(Cprime, orangeMathalea),
                 representant(vecteur(pointO, B), C, couleurs[i]),
                 representant(vecteur(pointO, B), pointO, couleurs[i]),
               )
@@ -1067,8 +1068,8 @@ export default class TransformationsDuPlanEtCoordonnees extends Exercice {
               objetsCorrection.push(
                 tracePoint(A, O),
                 labelPoint(A, O),
-                tracePoint(Aprime, '#f15929'),
-                labelPoint(Aprime, '#f15929'),
+                tracePoint(Aprime, orangeMathalea),
+                labelPoint(Aprime, orangeMathalea),
                 segment(O, A, couleurs[i]),
                 segment(O, Aprime, couleurs[i]),
               )
@@ -1079,8 +1080,8 @@ export default class TransformationsDuPlanEtCoordonnees extends Exercice {
               objetsCorrection.push(
                 tracePoint(B, A),
                 labelPoint(B, A),
-                tracePoint(Bprime, '#f15929'),
-                labelPoint(Bprime, '#f15929'),
+                tracePoint(Bprime, orangeMathalea),
+                labelPoint(Bprime, orangeMathalea),
                 segment(A, B, couleurs[i]),
                 segment(A, Bprime, couleurs[i]),
               )
@@ -1092,8 +1093,8 @@ export default class TransformationsDuPlanEtCoordonnees extends Exercice {
               objetsCorrection.push(
                 tracePoint(C, B),
                 labelPoint(C, B),
-                tracePoint(Cprime, '#f15929'),
-                labelPoint(Cprime, '#f15929'),
+                tracePoint(Cprime, orangeMathalea),
+                labelPoint(Cprime, orangeMathalea),
                 segment(B, C, couleurs[i]),
                 segment(B, Cprime, couleurs[i]),
               )
@@ -1121,8 +1122,8 @@ export default class TransformationsDuPlanEtCoordonnees extends Exercice {
               objetsCorrection.push(
                 tracePoint(A, O),
                 labelPoint(A, O),
-                tracePoint(Aprime, '#f15929'),
-                labelPoint(Aprime, '#f15929'),
+                tracePoint(Aprime, orangeMathalea),
+                labelPoint(Aprime, orangeMathalea),
                 segment(O, A, couleurs[i]),
                 segment(O, Aprime, couleurs[i]),
               )
@@ -1133,8 +1134,8 @@ export default class TransformationsDuPlanEtCoordonnees extends Exercice {
               objetsCorrection.push(
                 tracePoint(B, A),
                 labelPoint(B, A),
-                tracePoint(Bprime, '#f15929'),
-                labelPoint(Bprime, '#f15929'),
+                tracePoint(Bprime, orangeMathalea),
+                labelPoint(Bprime, orangeMathalea),
                 segment(A, B, couleurs[i]),
                 segment(A, Bprime, couleurs[i]),
               )
@@ -1145,8 +1146,8 @@ export default class TransformationsDuPlanEtCoordonnees extends Exercice {
               objetsCorrection.push(
                 tracePoint(C, B),
                 labelPoint(C, B),
-                tracePoint(Cprime, '#f15929'),
-                labelPoint(Cprime, '#f15929'),
+                tracePoint(Cprime, orangeMathalea),
+                labelPoint(Cprime, orangeMathalea),
                 segment(B, C, couleurs[i]),
                 segment(B, Cprime, couleurs[i]),
               )

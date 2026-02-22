@@ -40,7 +40,7 @@ export default class SommeSuiteGeometrique extends ExerciceSimple {
 
   nouvelleVersion() {
     const premierTerme = randint(2, 10)
-    const premierRang = this.sup ? 1 : choice([0, 1])
+    const premierRang = this.sup ? 1 : 0
     const q = arrondi(randint(2, 19, 10) / 10, 1)
     const n = choice([10, 12, 15])
     const u = choice(['u', 'v', 'w'])

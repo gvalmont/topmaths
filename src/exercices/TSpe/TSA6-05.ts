@@ -18,7 +18,7 @@ export const interactifReady = true
 export const interactifType = 'qcm'
 export const amcReady = 'true'
 export const amcType = 'qcmMono'
-export const titre = "QCM : Tester une solution d'une équation différentielle"
+export const titre = "Tester une solution d'une équation différentielle"
 export const dateDePublication = '26/03/2025'
 /*
  @author Stéphane Guyon

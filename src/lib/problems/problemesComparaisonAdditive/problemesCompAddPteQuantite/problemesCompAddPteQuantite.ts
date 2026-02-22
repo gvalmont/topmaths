@@ -40,7 +40,7 @@ export default class ProblemeCompAddPteQantite extends Probleme {
     })
 
     this.enonce = `On achète deux produits pour un montant de $${texNombre(data.nb1 + data.nb2, 2)}$ €. Le deuxième coûte $${data.nb2}$ de plus que le premier.
-Combien le premier produit coûte-t-il ?`
+<br>Combien le premier produit coûte-t-il ?`
     this.correction = `Le premier produit coûte $\\dfrac{${texNombre(data.nb2 + data.nb1, 2)}-${texNombre(data.nb2, 2)}}{2}=${texNombre(data.nb1, 2)}$ €.`
     this.reponse = texNombre(data.nb1 + data.nb2, 2)
   }

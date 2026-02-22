@@ -247,7 +247,7 @@ export default class CarreDoubleDistributivite extends Exercice {
         for (let ee = 0; ee < textCorrSplit.length - 1; ee++) {
           texteCorr += textCorrSplit[ee] + '='
         }
-        texteCorr += `$ $${miseEnEvidence(aRemplacer.slice(0, -1))}$`
+        texteCorr += `$ $${miseEnEvidence(aRemplacer)}$`
         // Fin de cette uniformisation
         this.listeCorrections[i] = texteCorr
         i++

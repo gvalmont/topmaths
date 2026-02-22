@@ -12,6 +12,7 @@ import { context } from '../../modules/context'
 import { sp } from '../../lib/outils/outilString'
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 import { texNombre } from '../../lib/outils/texNombre'
+import { arrondi } from '../../lib/outils/nombres'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const amcReady = true
@@ -109,7 +110,7 @@ export default class ExerciceSimplificationSommeAlgebrique extends Exercice {
           ' = ' +
           miseEnEvidence(texNombre(a + b, 1)) +
           ' $'
-        setReponse(this, i, a + b, { digits: 2, signe: true })
+        setReponse(this, i, arrondi(a + b), { digits: 2, signe: true })
       } else {
         texte +=
           '$ ' +
@@ -128,7 +129,7 @@ export default class ExerciceSimplificationSommeAlgebrique extends Exercice {
           ' = ' +
           miseEnEvidence(texNombre(a - b, 1)) +
           ' $'
-        setReponse(this, i, a - b, { digits: 2, signe: true })
+        setReponse(this, i, arrondi(a - b), { digits: 2, signe: true })
       }
       texte += ajouteChampTexteMathLive(this, i, KeyboardType.clavierDeBase, {
         texteAvant: `$${sp()}=$`,

@@ -2,7 +2,7 @@ import { texteGras } from '../../lib/format/style'
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
-import { combinaisonListes } from '../../lib/outils/arrayOutils'
+import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
 import { texFractionReduite } from '../../lib/outils/deprecatedFractions'
 import {
   ecritureAlgebrique,
@@ -23,7 +23,7 @@ export const dateDeModifImportante = '14/05/2023'
  * Déterminer une fonction affine à partir de deux images
  * @author Stéphane Guyon et Gilles Mora
  */
-export const uuid = 'ef897'
+export const uuid = 'ef898'
 
 export const refs = {
   'fr-fr': ['2F10-4'],
@@ -72,8 +72,8 @@ export default class Determinerfonctionaffine extends Exercice {
         case 1:
           {
             const k = randint(-6, 6, 0) // [-1,0,1]
-            const a = randint(1, 9)
-            const c = randint(1, 9, [a])
+            const a = randint(1, 9) * choice([1, -1])
+            const c = randint(1, 9, [a, -a]) * choice([1, -1])
             const p = randint(-9, 9)
             const b = k * a + p
             const d = k * c + p
@@ -114,8 +114,8 @@ export default class Determinerfonctionaffine extends Exercice {
           {
             let k1 = randint(-6, 6, 0)
             let k2 = randint(-6, 6, k1)
-            let a = randint(1, 10)
-            let c = randint(1, 5, [a])
+            let a = randint(1, 10) * choice([1, -1])
+            let c = randint(1, 5, [a, -a]) * choice([1, -1])
             let p = randint(-9, 9)
             let b = k1 * a + p
             let d = k2 * c + p
@@ -123,8 +123,8 @@ export default class Determinerfonctionaffine extends Exercice {
             while (Number.isInteger((b - d) / (a - c))) {
               k1 = randint(-6, 6, 0)
               k2 = k1 + 1
-              a = randint(1, 9)
-              c = randint(1, 9, [a])
+              a = randint(1, 9) * choice([1, -1])
+              c = randint(1, 9, [a, -a]) * choice([1, -1])
               p = randint(-9, 9)
               b = k1 * a + p
               d = k2 * c + p
@@ -184,8 +184,8 @@ export default class Determinerfonctionaffine extends Exercice {
           {
             const k1 = randint(-6, 6, 0)
             const k2 = randint(-6, 6, k1)
-            const a = randint(1, 10)
-            const c = randint(1, 5, [a])
+            const a = randint(1, 10) * choice([1, -1])
+            const c = randint(1, 5, [a, -a]) * choice([1, -1])
             const p = randint(-9, 9)
             const b = k1 * a + p
             const d = k2 * c + p

@@ -5,9 +5,9 @@
   import BasicClassicModal from '../../../../shared/modal/BasicClassicModal.svelte'
   import ModalCapytalSettingsCan from './ModalCapytalSettingsCAN.svelte'
   import ModalCapytalSettingsCorrection from './ModalCapytalSettingsCorrection.svelte'
-  import ModalCapytalSettingsTitles from './ModalCapytalSettingsTitles.svelte'
   import ModalCapytalSettingsData from './ModalCapytalSettingsData.svelte'
   import ModalCapytalSettingsInteractivity from './ModalCapytalSettingsInteractivity.svelte'
+  import ModalCapytalSettingsTitles from './ModalCapytalSettingsTitles.svelte'
 
   export let isSettingsDialogDisplayed = false
   export let globalOptions: InterfaceGlobalOptions
@@ -24,8 +24,11 @@
     canOptions,
   }
 
-  $: if (globalOptions || canOptions) {
+  $: if (globalOptions) {
     params.globalOptions = globalOptions
+  }
+
+  $: if (canOptions) {
     params.canOptions = canOptions
   }
 

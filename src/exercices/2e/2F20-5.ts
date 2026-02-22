@@ -222,7 +222,6 @@ export default class CalculImageAntecedents extends Exercice {
         correction,
         cpt = 0;
       i < this.nbQuestions && cpt < 50;
-
     ) {
       x = randint(-9, 9, [0, 1, -1])
       y = randint(-9, 9, [x, 0])
@@ -706,7 +705,7 @@ export default class CalculImageAntecedents extends Exercice {
                 a = randint(-2, 5, 0)
                 b = randint(-5, 5, 0)
                 c = randint(-3, 9, 0)
-                image = randint(-5, 5, [0, -b])
+                image = randint(-5, 5, [0, -b, c])
                 nom = choice(nomF)
                 f1 = new FractionEtendue(a, image - c)
 

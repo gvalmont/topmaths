@@ -26,7 +26,7 @@ export function courses3(decimal = true): Probleme {
   }
   const data = { nb1: prix1, nb2: augmentation }
   const enonce = `${personnage.prenom} a repéré hier ${objet.nom} à $${texNombre(prix1, 2, true)}$ € dans une boutique. Mais aujourd'hui, le prix a augmenté de $${texNombre(augmentation, 2, true)}$ €.
-Combien ${personnage.prenom} doit-${personnage.pronom} dépenser aujourd'hui ?`
+<br>Combien ${personnage.prenom} doit-${personnage.pronom} dépenser aujourd'hui ?`
   const correction = `Aujourd'hui, le prix d'${objet.nom} est de : $${texNombre(prix1, 2, true)}\\text{\\,€}+${texNombre(augmentation, 2, true)}\\text{\\,€} = ${miseEnEvidence(texNombre(prix1 + augmentation, 2, true))}$ €.`
   const probleme = new ProblemeTransfoApres('courses3', data)
   probleme.enonce = enonce

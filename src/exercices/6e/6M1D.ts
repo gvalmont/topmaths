@@ -12,7 +12,7 @@ export const amcType = 'AMCHybride'
  * @author Eric Elter (comme clone de 6M11-2 de Rémi Angot)
  */
 
-export const uuid = '7433a'
+export const uuid = '7433b'
 
 export const refs = {
   'fr-fr': ['6M1D'],

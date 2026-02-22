@@ -7,14 +7,14 @@ import { context } from '../../modules/context'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import Exercice from '../Exercice'
 
-export const titre = "Déterminer le dernier chiffre d'un calcul"
+export const titre = "Déterminer le dernier chiffre d'un calcul entre entiers"
 export const amcReady = true
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const amcType = 'AMCNum'
 
 /**
- * Trouver le dernier chiffre d'un calcul (somme, produit, différence)
+ * Trouver le dernier chiffre d'un calcul (somme, produit, différence) entre entiers
  * @author Erwan DUPLESSY
  */
 
@@ -26,7 +26,6 @@ export const refs = {
   'fr-ch': [],
 }
 export default class DernierChiffre extends Exercice {
-  version: number
   constructor() {
     super()
     this.besoinFormulaireNumerique = [
@@ -35,22 +34,19 @@ export default class DernierChiffre extends Exercice {
       '1 : Sommes\n2 : Sommes et produits\n3 : Sommes, produits et différences',
     ]
     this.sup = 3
-    this.consigne =
-      'Pour chaque calcul, déterminer le dernier chiffre du résultat.'
     this.nbQuestions = 4 // Ici le nombre de questions
 
     this.nbCols = 2 // Le nombre de colonnes dans l'énoncé LaTeX
     this.nbColsCorr = 2 // Le nombre de colonne pour la correction LaTeX
 
     this.correctionDetailleeDisponible = true
-    this.sup = 1 // A décommenter : valeur par défaut d'un premier paramètre
-    this.version = 1
   }
 
   nouvelleVersion() {
-    if (this.version === 2) {
-      this.sup = 2
-    }
+    this.consigne =
+      this.nbQuestions > 1
+        ? 'Pour chaque calcul, déterminer le dernier chiffre du résultat.'
+        : 'Déterminer le dernier chiffre du résultat de ce calcul.'
     let typeDeQuestionsDisponibles: string[] = []
     if (this.sup === 1) {
       typeDeQuestionsDisponibles = ['somme']

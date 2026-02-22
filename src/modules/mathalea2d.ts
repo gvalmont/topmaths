@@ -1,13 +1,17 @@
 import katex from 'katex'
 import { ObjetMathalea2D } from '../lib/2d/ObjetMathalea2D'
 import { normaliseOrientation } from '../lib/2d/utilitairesGeometriques'
-import { remplisLesBlancs } from '../lib/interactif/questionMathLive'
+import { buildDataKeyboardFromStyle } from '../lib/interactif/claviers/keyboard'
 import type {
-  Interactif2dData,
+  MetaInteractif2dData,
   NestedObjetMathalea2dArray,
   ObjetDivLatex,
 } from '../types/2d'
 import { context } from './context'
+const buildDataKeyboardString = (style = '') => {
+  const blocks = buildDataKeyboardFromStyle(style)
+  return blocks.join(' ')
+}
 /*
   MathALEA2D
  @name      mathalea2d
@@ -128,14 +132,22 @@ export function mathalea2d(
                 const divOuterHtml =
                   codeLatex.backgroundColor !== '' &&
                   codeLatex.backgroundColor !== 'none'
-                    ? `<div class="divLatex" style="background-color: ${codeLatex.backgroundColor}; position: absolute; top: ${ySvg}px; left: ${xSvg}px; transform: translate(-50%,-50%) rotate(${-codeLatex.orientation}deg); opacity: ${codeLatex.opacity};" data-top=${ySvg} data-left=${xSvg}>${katex.renderToString('\\' + codeLatex.letterSize + ' {\\color{' + codeLatex.color + '}{' + (codeLatex.gras ? '\\textbf{' : '') + codeLatex.latex + (codeLatex.gras ? '}' : '') + '}}')}</div>`
-                    : `<div class="divLatex" style="position: absolute; top: ${ySvg}px; left: ${xSvg}px; transform: translate(-50%,-50%) rotate(${normaliseOrientation(-codeLatex.orientation)}deg); opacity: ${codeLatex.opacity};" data-top=${ySvg} data-left=${xSvg}>${katex.renderToString('{\\color{' + codeLatex.color + '} \\' + codeLatex.letterSize + '{' + (codeLatex.gras ? '\\textbf{' : '') + codeLatex.latex + (codeLatex.gras ? '}' : '') + '}}')}</div>`
+                    ? `<div class="divLatex" style="background-color: ${codeLatex.backgroundColor}; position: absolute; top: ${ySvg}px; left: ${xSvg}px; transform: translate(-50%,-50%) rotate(${-codeLatex.orientation}deg); opacity: ${codeLatex.opacity};" data-top=${ySvg} data-left=${xSvg}>${katex.renderToString('\\' + codeLatex.letterSize + ' {\\color{' + codeLatex.color + '}{' + (codeLatex.gras ? '\\textbf{' : '') + codeLatex.latex.replaceAll('color[HTML]', 'color') + (codeLatex.gras ? '}' : '') + '}}')}</div>`
+                    : `<div class="divLatex" style="position: absolute; top: ${ySvg}px; left: ${xSvg}px; transform: translate(-50%,-50%) rotate(${normaliseOrientation(-codeLatex.orientation)}deg); opacity: ${codeLatex.opacity};" data-top=${ySvg} data-left=${xSvg}>${katex.renderToString('{\\color{' + codeLatex.color + '} \\' + codeLatex.letterSize + '{' + (codeLatex.gras ? '\\textbf{' : '') + codeLatex.latex.replaceAll('color[HTML]', 'color') + (codeLatex.gras ? '}' : '') + '}}')}</div>`
                 divsLatex.push(divOuterHtml)
               } else if ('exercice' in codeLatex) {
-                const code = codeLatex as unknown as Interactif2dData
-                // C'est un interactif2d
-                const divOuterHtml = `<div class="divLatex" style="position: absolute; top: ${ySvg}px; left: ${xSvg}px; transform: translate(-50%,-50%); opacity: ${code.opacity};" data-top=${ySvg} data-left=${xSvg}>${remplisLesBlancs(code.exercice, code.question, code.content)}</div>`
-                divsLatex.push(divOuterHtml)
+                if ('inputs' in codeLatex) {
+                  const code = codeLatex as unknown as MetaInteractif2dData
+                  const inputs = code.inputs
+                  const isInteractif = code.exercice.interactif
+                  for (const input of inputs) {
+                    const xSvgInput = (input.x - xmin) * pixelsParCm * zoom
+                    const ySvgInput = -(input.y - ymax) * pixelsParCm * zoom
+                    const dataKeyboard = buildDataKeyboardString(input.classe)
+                    const divOuterHtml = `<div class="divLatex" style="position: absolute; top: ${ySvgInput}px; left: ${xSvgInput}px; transform: translate(-50%,-50%); opacity: ${input.opacity};" data-top=${ySvgInput} data-left=${xSvgInput}>${isInteractif ? `<math-field data-keyboard="${dataKeyboard}" virtual-keyboard-mode=manual readonly class="${input.classe} metaInteractif2d" id="MetaInteractif2dEx${code.exercice.numeroExercice}Q${code.question}field${input.index}">${input.content.replace('%{champ1}', '\\placeholder[champ1]{}')}</math-field>` : katex.renderToString(input.content.replace('%{champ1}', input.blanc))}</div>`
+                    divsLatex.push(divOuterHtml)
+                  }
+                }
               } else {
                 window.notify(
                   "Dans mathalea2d, la méthode svg() de l'objet a renvoyé un objet inconnu",
@@ -240,7 +252,7 @@ export function mathalea2d(
   }
   // On prépare le code HTML
   const divsLatex: string[] = []
-  let codeSvg = `<svg class="mathalea2d" ${style} ${id !== '' ? `id="${id}"` : ''}" width="${(xmax - xmin) * pixelsParCm * zoom}" height="${
+  let codeSvg = `<svg class="mathalea2d"  ${id !== '' ? `id="${id}"` : ''} width="${(xmax - xmin) * pixelsParCm * zoom}" height="${
     (ymax - ymin) * pixelsParCm * zoom
   }" viewBox="${xmin * pixelsParCm} ${-ymax * pixelsParCm} ${
     (xmax - xmin) * pixelsParCm

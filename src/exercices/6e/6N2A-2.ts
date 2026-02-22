@@ -46,8 +46,6 @@ export default class AdditionnerSoustrairesDecimaux extends Exercice {
       ' 1 : Cahier à petits carreaux\n 2 : Cahier à gros carreaux (Seyes)\n 3 : Feuille blanche',
     ]
 
-    this.consigne =
-      'Poser et effectuer les calculs suivants en une seule opération.'
     this.spacing = 2
     context.isHtml ? (this.spacingCorr = 2) : (this.spacingCorr = 1) // Important sinon les opérations posées ne sont pas jolies
     this.nbQuestions = 4
@@ -55,6 +53,11 @@ export default class AdditionnerSoustrairesDecimaux extends Exercice {
   }
 
   nouvelleVersion() {
+    this.consigne =
+      this.nbQuestions === 1
+        ? 'Poser et effectuer le calcul suivant'
+        : 'Poser et effectuer les calculs suivants'
+    this.consigne += ' en une seule opération.'
     let typesDeQuestions, reponse
     const typesAdditions = combinaisonListes([1, 2, 3, 4], this.nbQuestions)
     const listeTypeDeQuestions = []

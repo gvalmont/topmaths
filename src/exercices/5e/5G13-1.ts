@@ -2,7 +2,7 @@ import { afficheLongueurSegment } from '../../lib/2d/afficheLongueurSegment'
 import { afficheMesureAngle } from '../../lib/2d/AfficheMesureAngle'
 import { droite } from '../../lib/2d/droites'
 import { fixeBordures } from '../../lib/2d/fixeBordures'
-import { Interactif2d } from '../../lib/2d/interactif2d'
+import { MetaInteractif2d } from '../../lib/2d/interactif2d'
 import { placeLatexSurSegment } from '../../lib/2d/placeLatexSurSegment'
 import { PointAbstrait, pointAbstrait } from '../../lib/2d/PointAbstrait'
 import { polygone, polygoneAvecNom } from '../../lib/2d/polygones'
@@ -20,7 +20,9 @@ import { triangle2points2longueurs } from '../../lib/2d/triangles'
 import { angle, longueur } from '../../lib/2d/utilitairesGeometriques'
 import { pointAdistance } from '../../lib/2d/utilitairesPoint'
 import { vecteur } from '../../lib/2d/Vecteur'
+import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
+import { ajouteFeedback } from '../../lib/interactif/questionMathLive'
 import { choisitLettresDifferentes } from '../../lib/outils/aleatoires'
 import { choice } from '../../lib/outils/arrayOutils'
 import { texNombre } from '../../lib/outils/texNombre'
@@ -35,7 +37,7 @@ import Exercice from '../Exercice'
 export const titre =
   'Utiliser les propriétés de conservation des longueurs et des angles'
 export const interactifReady = true
-export const interactifType = 'mathLive'
+export const interactifType = 'MetaInteractif2d'
 
 export const dateDePublication = '12/01/2026'
 
@@ -285,15 +287,6 @@ export default class ConservationTransformation extends Exercice {
       const objets = placeAngle.objets ? placeAngle.objets : []
       const latex = objets[0]
       const marque = objets[1]
-
-      objetsEnonceOnly.push(
-        new Interactif2d('%{champ1}^\\circ', latex.x, latex.y, {
-          exercice: this,
-          question: 2 * i,
-          opacity: 0.7,
-        }),
-        marque,
-      )
       const placeLongueur = placeLatexSurSegment(
         `${texNombre(longueur(B, A, 1), 1)}\\text{ cm}`,
         imageB,
@@ -301,37 +294,61 @@ export default class ConservationTransformation extends Exercice {
         { color: '#f15929', letterSize: 'small', opacity: 1 },
       )
       objetsEnonceOnly.push(
-        new Interactif2d(
-          '%{champ2}\\text{ cm}',
-          placeLongueur.x,
-          placeLongueur.y,
+        new MetaInteractif2d(
+          [
+            {
+              content: '%{champ1}^\\circ',
+              x: latex.x,
+              y: latex.y,
+              classe: KeyboardType.clavierNumbers,
+              blanc: '\\ldots ',
+              opacity: 1,
+              index: 0,
+            },
+            {
+              content: '%{champ1}\\text{ cm}',
+              x: placeLongueur.x,
+              y: placeLongueur.y,
+              classe: KeyboardType.clavierNumbers,
+              blanc: '\\ldots ',
+              opacity: 1,
+              index: 1,
+            },
+          ],
           {
             exercice: this,
-            question: 2 * i + 1,
-            opacity: 0.7,
+            question: i,
           },
         ),
+        marque,
       )
-      handleAnswers(this, 2 * i, {
-        champ1: {
-          value: (
-            180 -
-            Math.round(angle(A, B, C)) -
-            Math.round(angle(B, A, C))
-          ).toString(),
-          options: {
-            noFeedback: true,
+
+      handleAnswers(
+        this,
+        i,
+        {
+          field0: {
+            value: (
+              180 -
+              Math.round(angle(A, B, C)) -
+              Math.round(angle(B, A, C))
+            ).toString(),
+            options: {
+              noFeedback: true,
+            },
+          },
+          field1: {
+            value: longueur(B, A, 1).toString(),
+            options: {
+              noFeedback: true,
+            },
           },
         },
-      })
-      handleAnswers(this, 2 * i + 1, {
-        champ2: {
-          value: longueur(B, A, 1).toString(),
-          options: {
-            noFeedback: true,
-          },
+        {
+          formatInteractif: 'MetaInteractif2d',
         },
-      })
+      )
+
       objetsCorrectionOnly.push(
         afficheMesureAngle(
           imageA,
@@ -350,11 +367,17 @@ export default class ConservationTransformation extends Exercice {
       )
 
       // On ajoute au texte de l'énoncé, la figure à main levée et la figure de l'enoncé.
-      texte += mathalea2d(
-        Object.assign({}, fixeBordures([objetsEnonceOnly, objetsEnonceEtCorr])),
-        objetsEnonceOnly,
-        objetsEnonceEtCorr,
-      )
+      texte +=
+        mathalea2d(
+          Object.assign(
+            {},
+            fixeBordures([objetsEnonceOnly, objetsEnonceEtCorr]),
+          ),
+          objetsEnonceOnly,
+          objetsEnonceEtCorr,
+        ) +
+        `<span id="resultatCheckEx${this.numeroExercice}Q${i}"></span>` +
+        ajouteFeedback(this, i)
 
       // On ajoute au texte de la correction, la figure de la correction
       texteCorr += mathalea2d(

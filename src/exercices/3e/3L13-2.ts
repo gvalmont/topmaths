@@ -63,7 +63,7 @@ export default class EqResolvantesThales extends Exercice {
   }
 
   nouvelleVersion() {
-    context.isHtml ? (this.spacing = 3) : (this.spacing = 2)
+    context.isHtml ? (this.spacing = 1) : (this.spacing = 2)
     context.isHtml ? (this.spacingCorr = 2.5) : (this.spacingCorr = 1.5)
     const typesDeQuestionsDisponibles = shuffle([
       choice([0, 1]),

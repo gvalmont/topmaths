@@ -248,9 +248,9 @@ function cleanLatex(str: string): string {
   return str
 }
 
-function cleanMultipliyByOne(str: string): string {
-  if (!str.match(/\D*1([a-z])/)) return str // à priori, rien à nettoyer ici
-  return str.replace(/(\D*)1([a-z])/g, '$1$2')
+function cleanMultiplyByOne(str: string): string {
+  if (!str.match(/(^|[^\d])1([a-z])/)) return str
+  return str.replace(/(^|[^\d])1([a-z])/g, '$1$2')
 }
 
 export function generateCleaner(
@@ -281,7 +281,7 @@ export function generateCleaner(
       case 'latex':
         return cleanLatex
       case 'foisUn':
-        return cleanMultipliyByOne
+        return cleanMultiplyByOne
       case 'unites':
         return cleanUnity
       case 'doubleEspaces':
@@ -652,6 +652,9 @@ engine.latexDictionary = [
     parse: (parser: Parser, lhs: Expression, terminator: ParseLatexOptions) => {
       // Reculer d'un jeton : nous allons analyser le '-' comme faisant partie du rhs afin de
       // pouvoir conserver l'expression en tant que 'Add'.
+      const tocken = parser.nextToken()
+      parser.index-- // On recule parce que nextTocken() fait avancer de un jeton.
+      if (tocken == null) return lhs
       parser.index -= 1
       const rhs = parser.parseExpression({ ...terminator, minPrec: 275 + 3 })
       return ['Add', lhs, rhs]
@@ -2076,7 +2079,14 @@ export function ensembleNombres(
   goodAnswer: string,
   { kUplet = false, avecAccolades = true } = {},
 ): ResultType {
-  const clean = generateCleaner(['virgules', 'fractions', 'parentheses'])
+  const clean = generateCleaner([
+    'virgules',
+    'fractions',
+    'parentheses',
+    'espaces',
+    'espaceNormal',
+    'doubleEspaces',
+  ])
   const cleanInput = clean(input)
     .replaceAll('∅', '\\emptyset')
     .replaceAll('\\lbrace', '\\{')

@@ -1,5 +1,6 @@
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 import { choice } from '../../../lib/outils/arrayOutils'
+import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { prenomF, prenomM } from '../../../lib/outils/Personne'
 import { randint } from '../../../modules/outils'
 import ExerciceSimple from '../../ExerciceSimple'
@@ -80,7 +81,7 @@ export default class FoisPlusFoisMoins2 extends ExerciceSimple {
           this.correction = `${prenom2}  a ${choix1 ? `$${a}$` : ` $${b}$`}  ${objets}. <br>
           ${prenom1} en a $${k}$ fois  ${choix1 ? ' plus' : ' moins '}, il en a donc
           ${choix1 ? `$${k}\\times ${a}$` : ` $${b}\\div ${k}$ `}, soit ${choix1 ? `$${k * a}$` : ` $${a}$`}.<br>
-          Ensemble ils en ont ${choix1 ? `$${a}+${b}$` : ` $${a}+ ${b}$ `}, soit ${choix1 ? `$${a + b}$` : ` $${a + b}$ `}.
+          Ensemble ils en ont ${choix1 ? `$${a}+${b}$` : ` $${a}+ ${b}$ `}, soit ${choix1 ? `$${miseEnEvidence(a + b)}$` : ` $${miseEnEvidence(a + b)}$ `}.
           `
         } else {
           reponse1 = a + b
@@ -91,13 +92,14 @@ export default class FoisPlusFoisMoins2 extends ExerciceSimple {
           this.correction = `${prenom2}  a ${choix1 ? `$${a}$` : ` $${b}$ `}  ${objets}. <br>
        ${prenom1} en a $${k}$ fois  ${choix1 ? ' plus' : ' moins '}, il en a donc
        ${choix1 ? `$${k}\\times ${a}$` : ` $${b}\\div ${k}$ `}, soit ${choix1 ? `$${k * a}$` : ` $${a}$`}.<br>
-       Ensemble ils en ont ${choix1 ? `$${a}+${b}$` : ` $${a}+ ${b}$ `}, soit ${choix1 ? `$${a + b}$` : ` $${a + b}$`}.
+       Ensemble ils en ont ${choix1 ? `$${a}+${b}$` : ` $${a}+ ${b}$ `}, soit ${choix1 ? `$${miseEnEvidence(a + b)}$` : ` $${miseEnEvidence(a + b)}$`}.
        `
         }
         if (this.interactif) {
-          this.optionsChampTexte = { texteApres: ` ${objets}` }
+          this.optionsChampTexte = {texteAvant: '<br>', texteApres: ` ${objets}` }
         }
-
+ this.canEnonce = this.question
+    this.canReponseACompleter = `$\\ldots$ ${objets}`
         break
       case 2:
         choix1 = choice([true, false])
@@ -117,7 +119,7 @@ export default class FoisPlusFoisMoins2 extends ExerciceSimple {
           this.correction = `Puisque   ${prenom1} a ${choix1 ? `$${b}$` : ` $${a}$ `} ${objets} et qu'il en a $${k}$ fois
               ${choix1 ? ' plus' : ' moins '}  que ${prenom2}, ${prenom2} en a donc $${k}$ fois ${choix1 ? ' moins' : ' plus '}. <br>
               Elle en a donc ${choix1 ? `$${b}\\div ${k}$` : ` $${k}\\times ${a}$ `}, soit ${choix1 ? `$${a}$` : ` $${b}$ `} ${objets}.<br>
-              Ensemble, ils en ont donc : ${choix1 ? `$${a}+${b}$` : ` $${b}+${a}$ `} soit $${a + b}$.`
+              Ensemble, ils en ont donc : ${choix1 ? `$${a}+${b}$` : ` $${b}+${a}$ `} soit $${miseEnEvidence(a + b)}$.`
         } else {
           reponse1 = a + b
           reponse2 = a + b
@@ -127,11 +129,13 @@ export default class FoisPlusFoisMoins2 extends ExerciceSimple {
           this.correction = `Puisque   ${prenom1} a ${choix1 ? `$${b}$` : ` $${a}$ `} ${objets} et qu'il en a $${k}$ fois
               ${choix1 ? ' plus' : ' moins '}  que ${prenom2}, ${prenom2} en a donc $${k}$ fois ${choix1 ? ' moins' : ' plus'}. <br>
               Elle en a donc ${choix1 ? `$${b}\\div ${k}$` : ` $${k}\\times ${a}$ `}, soit ${choix1 ? `$${a}$` : ` $${b}$`} ${objets}.<br>
-              Ensemble, ils en ont donc : ${choix1 ? `$${a}+${b}$` : ` $${b}+${a}$ `} soit $${a + b}$.`
+              Ensemble, ils en ont donc : ${choix1 ? `$${a}+${b}$` : ` $${b}+${a}$ `} soit $${miseEnEvidence(a + b)}$.`
         }
         if (this.interactif) {
-          this.optionsChampTexte = { texteApres: ` ${objets}` }
+          this.optionsChampTexte = {texteAvant: '<br>', texteApres: ` ${objets}` }
         }
+         this.canEnonce = this.question
+    this.canReponseACompleter = `$\\ldots$ ${objets}`
         break
       case 3:
         choix1 = choice([true, false])
@@ -153,7 +157,7 @@ export default class FoisPlusFoisMoins2 extends ExerciceSimple {
                   et $${k}$ fois  ${choix1 ? ' plus' : ' moins '} de ${choix2 ? ' filles ' : ' garçons'},
                   le nombre de ${choix2 ? ' filles ' : ' garçons'} est donc :
                   ${choix1 ? `$${k}\\times ${a}$` : ` $${b}\\div ${k}$ `}, soit ${choix1 ? `$${k * a}$` : ` $${a}$`}.<br>
-                  Le nombre total d'adhérents dans ce club est donc ${choix1 ? `$${k * a}+${a}$` : ` $${a}+${b}$`} soit ${choix1 ? `$${a + b}$` : ` $${a + b}$`}.`
+                  Le nombre total d'adhérents dans ce club est donc ${choix1 ? `$${k * a}+${a}$` : ` $${a}+${b}$`} soit ${choix1 ? `$${miseEnEvidence(a + b)}$` : ` $${miseEnEvidence(a + b)}$`}.`
         } else {
           reponse1 = b + a
           reponse2 = a + b
@@ -162,15 +166,15 @@ export default class FoisPlusFoisMoins2 extends ExerciceSimple {
                   Sachant qu'il y a ${choix1 ? `$${a}$` : ` $${b}$ `} ${choix2 ? ' garçons ' : ' filles'}, combien y a-t-il d'adhérents dans ce club ? `
           this.correction = `Puisqu'il y a  $${k}$ fois  ${choix1 ? ' plus' : ' moins '} de ${choix2 ? ' filles ' : ' garçons'} que de ${choix2 ? ' garçons ' : ' filles'},
                   le nombre de  ${choix2 ? ' filles ' : ' garçons'} est : ${choix1 ? `$${k}\\times ${a}$` : ` $${b}\\div ${k}$ `}, soit ${choix1 ? `$${k * a}$` : ` $${a}$`}.<br>
-                  Le nombre total d'adhérents dans ce club est donc ${choix1 ? `$${k * a}+${a}$` : ` $${a}+${b}$ `} soit ${choix1 ? `$${a + b}$` : ` $${a + b}$`}.`
+                  Le nombre total d'adhérents dans ce club est donc ${choix1 ? `$${k * a}+${a}$` : ` $${a}+${b}$ `} soit ${choix1 ? `$${miseEnEvidence(a + b)}$` : ` $${miseEnEvidence(a + b)}$`}.`
         }
         if (this.interactif) {
-          this.optionsChampTexte = { texteApres: ' adhérents' }
+          this.optionsChampTexte = {texteAvant: '<br>', texteApres: ' adhérents' }
         }
-
+ this.canEnonce = this.question
+    this.canReponseACompleter = '$\\ldots$ adhérents'
         break
     }
-    this.canEnonce = this.question
-    this.canReponseACompleter = ''
+   
   }
 }

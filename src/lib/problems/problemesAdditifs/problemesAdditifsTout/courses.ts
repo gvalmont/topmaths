@@ -23,7 +23,7 @@ export function courses1(decimal = true): Probleme {
   }
   const data = { nb1: prix1, nb2: prix2 }
   const enonce = `${personnage.prenom} a acheté ${objet1.nom} à $${texNombre(prix1, 2)}$ € et ${objet2.nom} à $${texNombre(prix2, 2)}$ €.
-Combien a-t-${personnage.pronom} dépensé au total ?`
+<br>Combien a-t-${personnage.pronom} dépensé au total ?`
   const correction = `${personnage.prenom} a acheté ${objet1.nom} à $${texNombre(prix1, 2)}$ € et ${objet2.nom} à $${texNombre(prix2, 2)}$ €.
 <br>Donc, au total, ${personnage.pronom} a dépensé $${texNombre(prix1, 2)}\\text{ €}+${texNombre(prix2, 2)}\\text{ €}=${miseEnEvidence(texNombre(prix1 + prix2, 2))}$ €.`
   const probleme = new ProblemeAdditif('coureur1', data)

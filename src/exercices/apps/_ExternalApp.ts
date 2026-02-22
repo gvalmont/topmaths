@@ -52,7 +52,10 @@ class ExternalApp extends Exercice {
       ) {
         this.sup = event.data.urlParams
         exercicesParams.update((l) => {
-          if (this.numeroExercice !== undefined) {
+          if (
+            this.numeroExercice !== undefined &&
+            l[this.numeroExercice] !== undefined
+          ) {
             l[this.numeroExercice].sup = event.data.urlParams
           }
           return l

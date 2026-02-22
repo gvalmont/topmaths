@@ -66,7 +66,7 @@
   let innerWidth = 0
   let isBackToTopButtonVisible = false
   let selectedThirdApps: string[]
-  let thirdAppsChoiceModal: BasicClassicModal
+  let thirdAppsChoiceModal: BasicClassicModal | undefined
   let showThirdAppsChoiceDialog = false
   let isMd: boolean
   let localeValue: Language = get(referentielLocale)
@@ -329,17 +329,24 @@
       $canOptions.isChoosen = true
     }
     url = url.replace('&v=can', '&recorder=' + $globalOptions.recorder)
-    url = url.replace(/&es=\d{7}/g, '&es=1110001') // Force les réglages de présentation
-    // presMode|setInteractive|isSolutionAccessible|isInteractiveFree|oneShot|twoColumns|isTitleDisplayed
+    // presMode|setInteractive|isSolutionAccessible|isInteractiveFree|oneShot|twoColumns|isTitleDisplayed|isReferenceDisplayed
     if (url.includes('coopmaths.fr/alea') || url.includes('/mathalea.fr/')) {
       const options = mathaleaUpdateExercicesParamsFromUrl(url)
       if (options !== null) {
-        globalOptions.set(options)
+        // On utilise update() pour fusionner les options au lieu de les remplacer complètement
+        // On force presMode à 'un_exo_par_page' lors de l'import
+        globalOptions.update((current) => {
+          return {
+            ...current,
+            ...options,
+            recorder: tempRecorder,
+            presMode: 'un_exo_par_page',
+            title: '',
+          }
+        })
       } else {
         alert('URL non valide !')
       }
-      // On maintient Capytale car l'import d'une url non valide créé un objet globalOptions vide
-      $globalOptions.recorder = tempRecorder
     }
   }
 
@@ -360,8 +367,9 @@
     globalOptions: InterfaceGlobalOptions
     canOptions: CanOptions
   }) {
-    canOptions.set(params.canOptions)
-    globalOptions.set(params.globalOptions) // en dernier car c'est sa modification qui déclenche la mise à jour de l'url dans App.svelte qui prévient ensuite Capytale d'une mise à jour
+    // MGu d'après bugsnag, il arrive que params.canOptions soit null!
+    if (params.canOptions) canOptions.set(params.canOptions)
+    if (params.globalOptions) globalOptions.set(params.globalOptions) // en dernier car c'est sa modification qui déclenche la mise à jour de l'url dans App.svelte qui prévient ensuite Capytale d'une mise à jour
   }
 
   function toggleSidenav(forceOpening: boolean): void {

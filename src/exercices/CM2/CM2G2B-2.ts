@@ -428,7 +428,10 @@ export default class ParalleleEtPerpendiculaires extends Exercice {
             cD = codageAngleDroit(D, DD, B, 'red')
             cE = codageAngleDroit(B, E, EE, 'red')
             cF = codageAngleDroit(C, EE, E, 'red')
-            cG = codageAngleDroit(C, FF, D, 'red')
+            cG =
+              FF.x === D.x && FF.y === D.y
+                ? codageAngleDroit(C, FF, DD, 'red')
+                : codageAngleDroit(C, FF, D, 'red')
             if (hasAutoCorrection) {
               objetsCorrection.push(
                 dC,
@@ -605,7 +608,7 @@ export default class ParalleleEtPerpendiculaires extends Exercice {
       correction += anim.htmlBouton(this.numeroExercice ?? 0, i)
       if (this.questionJamaisPosee(i, Xmax, Xmin, Ymax, Ymin)) {
         // Si la question n'a jamais été posée, on en crée une autre
-        this.listeQuestions[i] = enonce
+        this.listeQuestions[i] = enonce ?? ''
         this.listeCorrections[i] = correction
         i++
       }

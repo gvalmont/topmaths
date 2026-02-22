@@ -10,7 +10,7 @@ export function createURL(params: InterfaceParams[]) {
   for (const ex of params) {
     url.searchParams.append('uuid', ex.uuid)
     if (ex.id != null) url.searchParams.append('id', ex.id)
-    if (ex.nbQuestions !== undefined)
+    if (ex.nbQuestions != null)
       url.searchParams.append('n', ex.nbQuestions.toString())
     if (ex.duration != null)
       url.searchParams.append('d', ex.duration.toString())

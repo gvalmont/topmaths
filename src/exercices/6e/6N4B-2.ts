@@ -1,3 +1,5 @@
+import { cubeDef, Shape3D, shapeCubeIso } from '../../lib/2d/figures2d/Shape3d'
+import { fixeBordures } from '../../lib/2d/fixeBordures'
 import { listePattern3d } from '../../lib/2d/patterns/patternsPreDef'
 import { VisualPattern3D } from '../../lib/2d/patterns/VisualPattern3D'
 import { bleuMathalea } from '../../lib/colors'
@@ -8,6 +10,7 @@ import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { range, range1 } from '../../lib/outils/nombres'
 import { texNombre } from '../../lib/outils/texNombre'
 import { context } from '../../modules/context'
+import { mathalea2d } from '../../modules/mathalea2d'
 import { gestionnaireFormulaireTexte, randint } from '../../modules/outils'
 import Exercice from '../Exercice'
 
@@ -123,19 +126,30 @@ Si le nombre de questions est supérieur au nombre de patterns choisis, alors l'
       pattern.shapes = [
         ...(popped.shapes ?? ['cube-trois-couleurs-tube-edges']),
       ].slice(0, 11) as unknown as typeof pattern.shapes
+      pattern.shape = shapeCubeIso(`cubeIsoQ${i}F0`) as Shape3D
       pattern.iterate3d = popped.iterate3d
 
       let texte = `Voici les ${nbFigures} premiers motifs d'une série de motifs figuratifs. Ils évoluent selon des règles définies.<br><br>`
-
       for (let j = 0; j < nbFigures + 1; j++) {
         pattern.prefixId = `Serie${i}F${j}`
         const c3d = pattern.render3d(j + 1)
         canvas3d.push(c3d)
       }
+      const figsLatex = range(nbFigures).map((j) =>
+        pattern.render(j + 1, 0, 0, Math.PI / 6),
+      )
       texte += `${range(nbFigures - 1)
-        .map(
-          (j) =>
-            `<div style="display: inline-block; width: 250px; height: 250px; margin-right: 10px;">${canvas3d[j]}<h1>motif ${j + 1}</h1></div>`,
+        .map((j) =>
+          context.isHtml
+            ? `<div style="display: inline-block; width: 250px; height: 250px; margin-right: 10px;">${canvas3d[j]}<h1>motif ${j + 1}</h1></div>`
+            : mathalea2d(
+                Object.assign(
+                  { style: 'display: inline-block' },
+                  fixeBordures(figsLatex[j]),
+                ),
+                cubeDef(`cubeIsoQ${i}F0`),
+                ...figsLatex[j],
+              ),
         )
         .join('\n')}`
 
@@ -152,7 +166,14 @@ Si le nombre de questions est supérieur au nombre de patterns choisis, alors l'
               ${
                 context.isHtml
                   ? `<div style="display: inline-block; width: 250px; height: 250px; margin-right: 10px;">${canvas3d[nbFigures + 1]}</div>`
-                  : ''
+                  : mathalea2d(
+                      Object.assign(
+                        { style: 'display: inline-block' },
+                        fixeBordures(figsLatex[nbFigures]),
+                      ),
+                      cubeDef(`cubeIsoQ${i}F0`),
+                      ...figsLatex[nbFigures],
+                    )
               }`)
             break
           case 2:

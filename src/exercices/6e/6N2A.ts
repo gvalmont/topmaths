@@ -1,3 +1,4 @@
+import { orangeMathalea } from 'apigeom/src/elements/defaultValues'
 import { grille, seyes } from '../../lib/2d/Grille'
 import { vide2d } from '../../lib/2d/Vide2d'
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
@@ -22,7 +23,7 @@ export const amcType = 'AMCNum'
 export const interactifType = 'mathLive'
 export const interactifReady = true
 
-export const titre = 'Effectuer additions et soustractions de nombres décimaux'
+export const titre = 'Poser additions et soustractions de nombres décimaux'
 export const dateDeModifImportante = '01/04/2023'
 
 /**
@@ -41,7 +42,7 @@ export const dateDeModifImportante = '01/04/2023'
 export const uuid = '01873'
 
 export const refs = {
-  'fr-fr': ['6N2A'],
+  'fr-fr': ['6N2A,CM1C2C'],
   'fr-2016': ['6C20'],
   'fr-ch': ['9NO8-1'],
 }
@@ -74,6 +75,10 @@ export default class AdditionnerSoustrairesDecimaux extends Exercice {
   }
 
   nouvelleVersion() {
+    this.consigne =
+      this.nbQuestions === 1
+        ? 'Poser et effectuer le calcul suivant.'
+        : 'Poser et effectuer les calculs suivants.'
     let typesDeQuestions, reponse
     const typesAdditions = combinaisonListes([5, 6, 7, 8], this.nbQuestions)
     const typesSoustractions = combinaisonListes([1, 2, 3, 4], this.nbQuestions)
@@ -251,6 +256,10 @@ export default class AdditionnerSoustrairesDecimaux extends Exercice {
             operande2: b,
             type: 'soustraction',
             style: 'display: inline-block',
+            options: {
+              colore: orangeMathalea,
+              solution: true,
+            },
           })
         texteCorr +=
           sp(10) +
@@ -261,6 +270,10 @@ export default class AdditionnerSoustrairesDecimaux extends Exercice {
             type: 'soustraction',
             style: 'display: inline-block',
             methodeParCompensation: false,
+            options: {
+              colore: orangeMathalea,
+              solution: true,
+            },
           })
       } else {
         texte = `$${texNombre(a)}+${texNombre(b)}$`
@@ -270,6 +283,10 @@ export default class AdditionnerSoustrairesDecimaux extends Exercice {
           operande2: b,
           type: 'addition',
           style: 'display: inline-block',
+          options: {
+            colore: orangeMathalea,
+            solution: true,
+          },
         })
       }
       texte += grilletxt

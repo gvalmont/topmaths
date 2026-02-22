@@ -33,7 +33,7 @@ export const amcType = 'AMCNum'
  * @author Jean-Claude Lhote
  */
 
-export const uuid = 'a0d16'
+export const uuid = 'a0d17'
 
 export const refs = {
   'fr-fr': ['4C32', 'BP2AutoF1', '3AutoN07-2'],
@@ -53,8 +53,10 @@ export default class NotationScientifique extends Exercice {
       3,
       '1 : Facile\n2 : Moyen\n3 : Difficile',
     ]
+    this.besoinFormulaire3CaseACocher = ['Avec des nombres négatifs', false]
     this.sup = 1
     this.sup2 = 1
+    this.sup3 = false
     this.nbQuestions = 5
     this.interactif = false
     this.can = false
@@ -93,8 +95,8 @@ export default class NotationScientifique extends Exercice {
         scientifiquestring,
         cpt = 0;
       i < this.nbQuestions && cpt < 50;
-
     ) {
+      const signe = this.sup3 ? choice([-1, 1]) : 1
       switch (listeTypeDeQuestions[i]) {
         case 0:
           mantisse = new Decimal(randint(1, 9))
@@ -142,15 +144,15 @@ export default class NotationScientifique extends Exercice {
           break
       }
 
-      scientifiquestring = `${texNombre(mantisse, 8)}\\times 10^{${exp}}`
-      decimalstring = scientifiqueToDecimal(mantisse.toNumber(), exp)
+      scientifiquestring = `${texNombre(mantisse.mul(signe), 8)}\\times 10^{${exp}}`
+      decimalstring = scientifiqueToDecimal(mantisse.mul(signe).toNumber(), exp)
 
       if (this.sup === 1) {
-        reponse = `${stringNombre(mantisse, 8)}e${exp}`
+        reponse = `${stringNombre(mantisse.mul(signe), 8)}e${exp}`
         texteAMC = `$${decimalstring}$`
         texteCorr = `$${decimalstring} = ${miseEnEvidence(scientifiquestring)}$`
       } else {
-        reponse = mantisse.mul(Decimal.pow(10, exp))
+        reponse = mantisse.mul(Decimal.pow(10, exp)).mul(signe)
         texteCorr = `$${scientifiquestring} = ${miseEnEvidence(decimalstring)}$`
         texteAMC = `$${scientifiquestring}$`
       }
@@ -233,15 +235,15 @@ export default class NotationScientifique extends Exercice {
                 statut: true,
               },
               {
-                texte: `$${texNombre(mantisse.mul(Decimal.pow(10, exp - 1)), 20)}$`,
+                texte: `$${texNombre(mantisse.mul(Decimal.pow(10, exp - 1)).mul(signe), 20)}$`,
                 statut: false,
               },
               {
-                texte: `$${texNombre(mantisse.mul(Decimal.pow(10, exp + 1)), 20)}$`,
+                texte: `$${texNombre(mantisse.mul(Decimal.pow(10, exp + 1)).mul(signe), 20)}$`,
                 statut: false,
               },
               {
-                texte: `$${texNombre(mantisse.mul(Decimal.pow(10, -exp)), 20)}$`,
+                texte: `$${texNombre(mantisse.mul(Decimal.pow(10, -exp)).mul(signe), 20)}$`,
                 statut: false,
               },
             ]

@@ -1,12 +1,10 @@
 import { choice } from '../../lib/outils/arrayOutils'
 import {
   ecritureAlgebrique,
-  reduireAxPlusB,
   rienSi1,
 } from '../../lib/outils/ecritures'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { abs } from '../../lib/outils/nombres'
-import { texNombre } from '../../lib/outils/texNombre'
 import FractionEtendue from '../../modules/FractionEtendue'
 import { randint } from '../../modules/outils'
 import ExerciceQcm from '../ExerciceQcm'
@@ -22,7 +20,7 @@ export const interactifReady = true
 export const interactifType = 'qcm'
 export const amcReady = 'true'
 export const amcType = 'qcmMono'
-export const titre = 'QCM : Déterminer une primitive'
+export const titre = 'Déterminer une primitive'
 export const dateDePublication = '15/03/2025'
 
 export default class Primitives extends ExerciceQcm {

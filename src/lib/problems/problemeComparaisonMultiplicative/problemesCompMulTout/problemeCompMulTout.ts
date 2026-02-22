@@ -66,7 +66,7 @@ export default class ProblemeCompMulTout extends Probleme {
     })
 
     this.enonce = `Un chocolatier vend ses chocolats selon deux types de conditionnement : en sachets à $${texNombre(data.nb1, 2, true)}$ € ou en boites qui coûtent $${texNombre(data.nbFois, 0)}$ fois plus cher qu'un sachet.<br>
-${personnage.prenom} décide d'acheter un sachet et une boite. Combien va-t-${personnage.pronom} payer en tout ?`
+${personnage.prenom} décide d'acheter un sachet et une boite. <br>Combien va-t-${personnage.pronom} payer en tout ?`
     this.correction = `Le prix d'une boite est : $${texNombre(data.nbFois, 0)}\\times ${texNombre(data.nb1, 2, true)}$ € $=${texNombre(nb2, 2)}$ € et le prix d'un sachet est $${texNombre(data.nb1, 2)}$ €.
    <br> ${personnage.prenom} va payer en tout : $${texNombre(nb2, 2)}$ € $+${texNombre(data.nb1, 2)}$ € $=${miseEnEvidence(texNombre(nb2 + data.nb1, 2))}$ €.`
     this.reponse = texNombre(nb2 + data.nb1, 2)

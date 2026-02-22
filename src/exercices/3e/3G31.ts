@@ -82,7 +82,12 @@ export default class CalculDAngle extends Exercice {
           ab = arrondi(randint(40, (bc - 2) * 10) / 10, 1)
           angleABC = Math.round((Math.acos(ab / bc) * 180) / Math.PI)
           ac = bc * Math.sin(Math.acos(ab / bc))
-          texte += `Le triangle $${nom}$ est rectangle en $${nom[0]}$ tel que $${nom[1] + nom[2]}=${texNombre2(bc)}\\text{ cm}$ et $${nom[0] + nom[1]}=${texNombre2(ab)}\\text{ cm}$.<br>`
+          if (this.level === 4 || this.sup) {
+            ac = arrondi(ac,1)
+            texte += `Le triangle $${nom}$ est rectangle en $${nom[0]}$ tel que $${nom[1] + nom[2]}=${texNombre2(bc)}\\text{ cm}$, $${nom[0] + nom[1]}=${texNombre2(ab)}\\text{ cm}$ et $${nom[0] + nom[2]}=${texNombre2(ac)}\\text{ cm}$.<br>`
+          } else {
+            texte += `Le triangle $${nom}$ est rectangle en $${nom[0]}$ tel que $${nom[1] + nom[2]}=${texNombre2(bc)}\\text{ cm}$ et $${nom[0] + nom[1]}=${texNombre2(ab)}\\text{ cm}$.<br>`
+          }
           break
         case 'Asin':
           bc = randint(100, 150) / 10
@@ -158,7 +163,7 @@ export default class CalculDAngle extends Exercice {
       m2b.positionLabel = 'center'
 
       let m4b, pLabelAngle
-      let texteAngle, texteAB, texteBC, t1b, t2b, t3b
+      let texteAngle, texteAB, texteBC, texteAC, t1b, t2b, t3b
       switch (choixRapportTrigo) {
         case 'Acos': // AB=BCxcos(B)
           texteBC = latexParPoint(
@@ -177,6 +182,18 @@ export default class CalculDAngle extends Exercice {
             12,
             '',
           )
+if (this.level === 4 && this.sup){
+              const pLabelAC = homothetie(mAC, mBC, 1 + 1.5 / longueur(mBC, mAC));
+            pLabelAC.positionLabel = 'center';
+            texteAC = latexParPoint(
+              `${texNombre2(ac)} \\text{ cm}`, 
+              pLabelAC, 
+              'black', 
+              120, 
+              12, 
+              '');
+        }
+
           pLabelAngle = similitude(
             A,
             B,
@@ -209,7 +226,8 @@ export default class CalculDAngle extends Exercice {
           )
           m4b.positionLabel = 'center'
           t1b = latexParPoint('?', m4b, 'black', 50, 12, '')
-          break
+          if (texteAC) objetsEnonce.push(texteAC);
+           break
         case 'Asin':
           texteBC = latexParPoint(
             `${texNombre2(bc)} \\text{ cm}`,
@@ -286,6 +304,7 @@ export default class CalculDAngle extends Exercice {
           )
           pLabelAngle.positionLabel = 'center'
           texteBC = latexParPoint('?', pLabelAngle, 'black', 100, 12, '')
+          
           t1b = latexParPoint(
             `${texNombre2(ab)} \\text{ cm}`,
             m1b,
@@ -322,7 +341,6 @@ export default class CalculDAngle extends Exercice {
         texteBC,
         codageDeAngle,
       )
-
       objetsCorrection.push(
         p4,
         codageb,
@@ -333,7 +351,7 @@ export default class CalculDAngle extends Exercice {
         hypo,
         codageDeAngleB,
       )
-
+    
       const paramsEnonce = {
         xmin: Math.min(A.x, B.x, C.x) - 2,
         ymin: Math.min(A.y, B.y, C.y) - 2,

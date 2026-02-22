@@ -93,7 +93,10 @@ export function rationnalise(x: number | FractionEtendue | Decimal | null) {
 function normalizeFraction(n: number | Decimal, d: number): [number, number] {
   let num: number
   let den: number
-
+  if (d === 0) {
+    window.notify('normalizeFraction : dénominateur nul !', { n, d })
+    return [NaN, NaN]
+  }
   if (d == null) {
     // Un seul argument : convertir en fraction
     const decimal = n instanceof Decimal ? n : new Decimal(n)
@@ -548,9 +551,14 @@ class FractionEtendue {
    * basé sur la méthode toLatex() de mathjs, on remplace \frac par \dfrac plus joli.
    * @return {string} la chaine Latex pour écrire la  FractionMathjs  (signe devant)
    */
-  toLatex(): string {
+  toLatex(dfrac = 'dfrac'): string {
     const text = this.texFSD
-    return text.replace('\\frac', '\\dfrac')
+    if (dfrac === 'frac') {
+      return text.replace('\\dfrac', '\\frac')
+      // ajout, car pour les puissances il faut parfois avoir un exposant fractionnaire plus petit, c.f. https://tex.stackexchange.com/questions/202325/how-to-make-fractions-in-powers-look-good
+    } else if (dfrac === 'sfrac') {
+      return `${this.num}/${this.den}`
+    } else return text.replace('\\frac', '\\dfrac')
   }
 
   /**

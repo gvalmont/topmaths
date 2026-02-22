@@ -1,4 +1,5 @@
 import type LabyrintheElement from 'labyrinthe/src/LabyrintheElement'
+import type { MathfieldElement } from 'mathlive'
 import { get } from 'svelte/store'
 import { type MathaleaSVG } from '../lib/types'
 import type ListeDeroulanteElement from './interactif/listeDeroulante/ListeDeroulanteElement'
@@ -9,9 +10,18 @@ import type { VueType } from './VueType'
 
 export function mathaleaGoToView(destinationView: '' | VueType) {
   const originView = get(globalOptions).v ?? ''
-  previousView.set(originView)
+  const prevView = get(previousView)
+
+  // Si on retourne à l'accueil et qu'on venait d'une vue spécifique, on y retourne
+  if (destinationView === '' && prevView) {
+    destinationView = prevView as '' | VueType
+    previousView.set(undefined)
+  } else {
+    previousView.set(originView)
+  }
+
   if (destinationView !== get(globalOptions).v) {
-    // on met à jour que si ncécessaire
+    // on met à jour que si nécessaire
     globalOptions.update((l) => {
       l.v = destinationView
       return l
@@ -29,7 +39,7 @@ function log(message: string) {
  * @param {number} timeout - durée max en ms
  * @param {number} interval - fréquence de vérification en ms
  */
-function waitFor(
+export function waitFor(
   conditionFn: () => boolean,
   timeout = 2000,
   interval = 50,
@@ -81,6 +91,11 @@ const waitForElement = async (
       } else if (ele.length === 0 && tempTime > timeWait1000) {
         // console.log('Doesn\'t exist...')
         clearInterval(checkExist)
+        const domSnapshot = document.body.outerHTML
+        window.notify(`Timeout waiting for element ${elementId}`, {
+          timeWait,
+          domSnapshot,
+        })
         reject(new Error(`Element not found ${elementId}`))
       } else {
         tempTime++
@@ -96,11 +111,60 @@ export function mathaleaWriteStudentPreviousAnswers(answers?: {
   const promiseAnswers: Promise<Boolean>[] = []
   const starttime = window.performance.now()
   for (const answer in answers) {
-    if (answer.includes('sheet')) {
+    if (answer.includes('svgSelection')) {
+      const p = new Promise<Boolean>((resolve) => {
+        waitForElement(`[id$='${answer}']`)
+          .then((eles) => {
+            eles.forEach((ele) => {
+              if (ele.tagName === 'SVG-SELECTION') {
+                // La réponse correspond à un svgSelection
+                ;(ele as any).value = Number(answers[answer])
+                const time = window.performance.now()
+                log(`duration ${answer}: ${time - starttime}`)
+                resolve(true)
+              }
+            })
+          })
+          .catch((reason) => {
+            console.error(reason)
+            window.notify(`Erreur dans la réponse ${answer} : ${reason}`, {})
+            resolve(true)
+          })
+      })
+      promiseAnswers.push(p)
+    } else if (answer.includes('MetaInteractif2d')) {
+      const p = new Promise<Boolean>((resolve) => {
+        const saisies = JSON.parse(answers[answer])
+        const selectors = Object.keys(saisies).map((field) => `#${field}`)
+
+        Promise.all(selectors.map((selector) => waitForElement(selector)))
+          .then(() => {
+            for (const field in saisies) {
+              const mf = document.getElementById(field) as MathfieldElement
+              if (
+                mf &&
+                'setPromptValue' in mf &&
+                typeof mf.setPromptValue === 'function'
+              ) {
+                mf.setPromptValue('champ1', saisies[field], { mode: 'auto' })
+              }
+            }
+            const time = window.performance.now()
+            log(`duration ${answer}: ${time - starttime}`)
+            resolve(true)
+          })
+          .catch((reason) => {
+            console.error(reason)
+            window.notify(`Erreur dans la réponse ${answer} : ${reason}`, {})
+            resolve(true)
+          })
+      })
+      promiseAnswers.push(p)
+    } else if (answer.includes('sheet')) {
       const p = new Promise<Boolean>((resolve) => {
         waitForElement('#' + answer)
           .then(() => {
-            // La réponse correspond à une figure apigeom
+            // La réponse correspond à une feuille de calcul jspreadsheet
             const sheetElement = document.getElementById(
               answer,
             ) as MySpreadsheetElement
@@ -196,6 +260,12 @@ export function mathaleaWriteStudentPreviousAnswers(answers?: {
             window.notify(`Erreur dans la réponse ${answer} : ${reason}`, {})
             resolve(true)
           })
+      })
+      promiseAnswers.push(p)
+    } else if (answer.includes('texteDND')) {
+      // on ignore ce champ, il est juste pour le debug et il ne sert pas!
+      const p = new Promise<Boolean>((resolve) => {
+        resolve(true)
       })
       promiseAnswers.push(p)
     } else if (answer.includes('rectangleDND')) {

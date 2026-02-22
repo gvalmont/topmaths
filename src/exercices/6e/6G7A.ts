@@ -24,7 +24,7 @@ import { TracePoint } from '../../lib/2d/TracePoint'
 import { projectionOrtho, symetrieAxiale } from '../../lib/2d/transformations'
 import { pointSurDroite } from '../../lib/2d/utilitairesPoint'
 import type { Vide2d } from '../../lib/2d/Vide2d'
-import figureApigeom from '../../lib/figureApigeom'
+import figureApigeom, { isFigureArray } from '../../lib/figureApigeom'
 import {
   choice,
   combinaisonListes,
@@ -106,7 +106,7 @@ function deletePoints(points: { x: number; y: number }[], type: number) {
  * @author Jean-Claude Lhote
  */
 class ConstrctionsSymetriquesPoints extends Exercice {
-  figuresApiGeom!: Figure[]
+  figuresApiGeom: Figure[] = []
   nbPoints!: number
   antecedents!: PointApigeom[][]
   antecedentsMathalea2d!: PointAbstrait[][]
@@ -139,15 +139,17 @@ class ConstrctionsSymetriquesPoints extends Exercice {
   }
 
   nouvelleVersion() {
+    this.figuresApiGeom.forEach((fig) => {
+      fig.destroy()
+    })
+    this.figuresApiGeom = []
     this.sup = Number(this.sup) || 1 // valeur min 1
     const marks: string[] = ['//', '///', 'x', 'O', '|||']
     const colors: string[] = context.isHtml
       ? ['red', 'green', 'purple', 'blue', 'gray']
       : ['gray', 'gray', 'gray', 'gray', 'gray']
     this.answers = {}
-
     let choixDeLaxe: number[] = []
-    this.figuresApiGeom = []
     if (this.sup === 5) {
       choixDeLaxe = combinaisonListes([1, 2, 3, 4], this.nbQuestions)
     } else {
@@ -340,21 +342,20 @@ class ConstrctionsSymetriquesPoints extends Exercice {
 
         objetsCorrection.push(carre)
       }
-      const options = {}
-      if (this.sup2 === 1)
-        Object.assign(options, { snapGrid: true, dx: 1, dy: 1 })
       if (context.isHtml && this.interactif) {
-        this.figuresApiGeom[i] = new Figure(
-          Object.assign(options, {
-            xMin: -10,
-            yMin: -10,
-            width: 300,
-            height: 300,
-          }),
-        )
+        this.figuresApiGeom[i] = new Figure({
+          xMin: -10,
+          yMin: -10,
+          width: 300,
+          height: 300,
+          border: true,
+          scale: 0.5,
+          snapGrid: this.sup2 === 1,
+        })
+        if (isFigureArray(this.figures))
+          this.figures.push(this.figuresApiGeom[i])
         this.figuresApiGeom[i].options.labelAutomaticBeginsWith =
           this.labels[i][0] + "'"
-        this.figuresApiGeom[i].scale = 0.5
         this.figuresApiGeom[i].setToolbar({
           tools: [
             'POINT',

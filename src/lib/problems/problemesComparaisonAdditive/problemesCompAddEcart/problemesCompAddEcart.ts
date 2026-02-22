@@ -69,7 +69,7 @@ export default class ProblemeCompAddEcart extends Probleme {
             ],
           })
     this.enonce = `On achète deux produits : un à $${data.nb1}$ € et un autre à $${data.nb2}$ €.
-De combien le 2e produit est-t-il ${data.nb2 > data.nb1 ? 'plus' : 'moins'} cher ?`
+<br>De combien le 2e produit est-t-il ${data.nb2 > data.nb1 ? 'plus' : 'moins'} cher ?`
     this.correction = `Le deuxième produit est ${data.nb2 > data.nb1 ? 'plus' : 'moins'} cher de $${miseEnEvidence(Math.abs(data.nb2 - data.nb1))}$ €.`
     this.reponse = texNombre(data.nb1 + data.nb2, 2)
   }

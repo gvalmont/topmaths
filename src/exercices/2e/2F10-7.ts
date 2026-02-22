@@ -122,7 +122,7 @@ export default class SignefonctionaffineVariation extends Exercice {
        On obtient la fonction $${nom}$ définie par $${nom}(x)=${a > 0 ? '' : '-'}x${a > 0 ? `${ecritureAlgebrique(-sol)}` : `${ecritureAlgebrique(sol)}`}$.<br>
        En partant d'une autre valeur pour $a$, on aurait obtenu une autre expression pour $${nom}$.<br>
        Il existe une infinité de fonctions qui possèdent ces trois propriétés. <br>
-       Toutes les fonctions de la forme $${nom}(x)= k\\times\\left( ${a > 0 ? '' : '-'}x${a > 0 ? `${ecritureAlgebrique(-sol)}` : `${ecritureAlgebrique(sol)}`}\\right)$ avec $k$ un réel non nul est solution de l'exercice.
+       Toutes les fonctions de la forme $${nom}(x)= k\\times\\left( ${a > 0 ? '' : '-'}x${a > 0 ? `${ecritureAlgebrique(-sol)}` : `${ecritureAlgebrique(sol)}`}\\right)$ avec $k$ un réel strictement positif sont solutions de l'exercice.
        
        `
               variables.push(a, b, sol)

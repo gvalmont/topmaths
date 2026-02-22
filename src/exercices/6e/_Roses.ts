@@ -269,9 +269,9 @@ export default class ExoRose extends Exercice {
     if (this.type === 'can2') {
       stringResultat =
         this.roses[question].typeDonnees.substring(0, 4) === 'frac'
-          ? this.roses[question].resultats[this.indexInconnue[question]]
-              .toLatex()
-              .replace('dfrac', 'frac')
+          ? this.roses[question].resultats[
+              this.indexInconnue[question]
+            ].replace('dfrac', 'frac')
           : this.roses[question].resultats[
               this.indexInconnue[question]
             ].toString()

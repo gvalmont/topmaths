@@ -10,7 +10,7 @@ import {
   nombreDeChiffresDansLaPartieEntiere,
 } from '../../lib/outils/nombres'
 import { numAlpha } from '../../lib/outils/outilString'
-import { stringNombre, texNombre } from '../../lib/outils/texNombre'
+import { texNombre } from '../../lib/outils/texNombre'
 import { context } from '../../modules/context'
 import FractionEtendue from '../../modules/FractionEtendue'
 import { mathalea2d } from '../../modules/mathalea2d'
@@ -321,12 +321,12 @@ export default class CalculerCoeffPropo extends Exercice {
             })
       const ligne1Corr = [{ texte: 'Grandeur A' }].concat(
         premiereLigne.map((elt) => {
-          return { texte: stringNombre(elt.nombre), math: true }
+          return { texte: texNombre(elt.nombre), math: true }
         }),
       )
       const ligne2Corr = [{ texte: 'Grandeur B' }].concat(
         deuxiemeLigne.map((elt) => {
-          return { texte: stringNombre(elt.nombre), math: true }
+          return { texte: texNombre(elt.nombre), math: true }
         }),
       )
       const monTableauCorr =

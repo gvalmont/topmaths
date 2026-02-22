@@ -6,9 +6,12 @@ import { nommePolygone } from '../../lib/2d/polygones'
 import { polygoneRegulierParCentreEtRayon } from '../../lib/2d/polygonesParticuliers'
 import { segment } from '../../lib/2d/segmentsVecteurs'
 import { vide2d } from '../../lib/2d/Vide2d'
+import { egaliteCompare } from '../../lib/interactif/comparisonFunctions'
+import { ajouteQuestionMathlive } from '../../lib/interactif/questionMathLive'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { creerNomDePolygone } from '../../lib/outils/outilString'
 import { prenom } from '../../lib/outils/Personne'
+import { context } from '../../modules/context'
 import { mathalea2d } from '../../modules/mathalea2d'
 import {
   gestionnaireFormulaireTexte,
@@ -19,6 +22,8 @@ import Exercice from '../Exercice'
 export const titre =
   'Mettre en équation un problème sans objectif de résolution'
 export const dateDeModifImportante = '28/03/2025'
+export const interactifReady = true
+export const interactifType = 'mathLive'
 
 /**
  * Produire une forme littérale en introduisant une lettre pour désigner une valeur inconnue afin de mettre en équation un problème
@@ -103,7 +108,7 @@ export default class MettreEnEquationSansResoudre extends Exercice {
       nbQuestions: this.nbQuestions,
     })
 
-    const variables = ['t', 'u', 'v', 'w', 'y', 'z']
+    const variables = ['a', 'b', 'c', 'x', 'y', 'z']
     const unites = [
       '$\\text{mm}$',
       '$\\text{cm}$',
@@ -167,6 +172,8 @@ export default class MettreEnEquationSansResoudre extends Exercice {
       }
 
       const enonces = []
+      const equation = `${polygone.nb_cotes}\\times ${polygone.let_cote} = ${polygone.perimetre}`
+
       enonces.push({
         enonce: `On considère la figure suivante où l'unité est le ${polygone.unite}.<br>${prenom()} se demande pour quelle valeur de $${polygone.let_cote}$, exprimée en ${polygone.unite}, le périmètre ${polygone.article}${polygone.nom} est égal à $${polygone.perimetre}$ ${polygone.unite} .<br> ${polygone.fig}`,
         question: '',
@@ -174,12 +181,25 @@ export default class MettreEnEquationSansResoudre extends Exercice {
         Cette longueur est notée $${polygone.let_cote}$, le périmètre de la figure, exprimé en fonction de $${polygone.let_cote}$, vaut donc $${polygone.nb_cotes}\\times ${polygone.let_cote}$.<br>
         D'après l'énoncé, ce périmètre vaut $${polygone.perimetre}$ ${polygone.unite}.<br>
         L'équation suivante permet donc de résoudre le problème : 
-        $${miseEnEvidence(`${polygone.nb_cotes}\\times ${polygone.let_cote} = ${polygone.perimetre}`)}$.`,
+        $${miseEnEvidence(equation)}$.`,
       })
 
       if (this.questionJamaisPosee(i, n, inc)) {
         // Si la question n'a jamais été posée, on en créé une autre
         this.listeQuestions[i] = `${enonces[0].enonce}`
+        if (context.isHtml && this.interactif) {
+          this.listeQuestions[i] += ajouteQuestionMathlive({
+            exercice: this,
+            question: i,
+            typeInteractivite: 'mathlive',
+            objetReponse: {
+              reponse: {
+                value: equation,
+                compare: egaliteCompare,
+              },
+            },
+          })
+        }
         this.listeCorrections[i] = `${enonces[0].correction}`
         i++
       }

@@ -18,7 +18,7 @@ export function nageur(decimal = false): Probleme {
   const unite = decimal ? 'km' : 'm'
   const uniteComplete = decimal ? 'kilomètres' : 'mètres'
   const enonce = `${personnage.prenom} a nagé $${texNombre(nb1, 1)}$ ${uniteComplete} le matin et $${texNombre(nb2, 1)}$ ${uniteComplete} l'après-midi.
-Quelle distance totale a-t-${personnage.pronom} parcourue à la nage ?`
+<br>Quelle distance totale a-t-${personnage.pronom} parcourue à la nage ?`
   const correction = `${personnage.prenom} a nagé $${texNombre(nb1, 1)}$ ${uniteComplete} le matin et $${texNombre(nb2, 1)}$ ${uniteComplete} l'après-midi.
 <br>Donc, au total, ${personnage.pronom} a nagé : $${texNombre(nb1, 1)}\\text{ ${unite}}+${texNombre(nb2, 1)}\\text{ ${unite}}=${miseEnEvidence(texNombre(nb1 + nb2, 1))}\\text{ ${unite}}$.`
   const probleme = new ProblemeAdditif('nageur', data)

@@ -1,7 +1,9 @@
+import { orangeMathalea } from 'apigeom/src/elements/defaultValues'
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
+import { miseEnEvidence } from '../../lib/outils/embellissements'
 import {
   arrondi,
   nombreDeChiffresDansLaPartieDecimale,
@@ -49,8 +51,6 @@ export default class DivisionDecimale extends Exercice {
       2,
       '1 : Déterminer le quotient exact\n2 : Déterminer un quotient approché au millième près',
     ]
-    this.consigne =
-      'Effectuer les divisions décimales suivantes et donner la valeur exacte de leur quotient.'
     this.spacing = 2
     context.isHtml ? (this.spacingCorr = 2) : (this.spacingCorr = 1) // Important sinon opdiv n'est pas joli
     this.nbQuestions = 4
@@ -58,6 +58,11 @@ export default class DivisionDecimale extends Exercice {
   }
 
   nouvelleVersion() {
+    this.consigne =
+      this.nbQuestions === 1
+        ? 'Effectuer la division décimale suivante et donner la valeur exacte de son quotient.'
+        : 'Effectuer les divisions décimales suivantes et donner la valeur exacte de leur quotient.'
+
     let typesDeQuestionsDisponibles
 
     parseInt(this.sup) === 1
@@ -149,7 +154,9 @@ export default class DivisionDecimale extends Exercice {
       }
       if (this.sup === 2) {
         this.consigne =
-          'Effectuer les divisions décimales suivantes et donner une valeur approchée de leur quotient au millième près.'
+          this.nbQuestions === 1
+            ? 'Effectuer la division décimale suivante et donner une valeur approchée de son quotient au millième près.'
+            : 'Effectuer les divisions décimales suivantes et donner une valeur approchée de leur quotient au millième près.'
       }
       texte = `$${texNombre(a)}\\div${b}`
       if (this.sup === 1) {
@@ -158,8 +165,9 @@ export default class DivisionDecimale extends Exercice {
           operande2: b,
           type: 'division',
           precision: 3,
+          options: { solution: true, colore: orangeMathalea },
         })
-        texteCorr += `<br>$${texNombre(a)}\\div${b}=${texNombre(q)}$`
+        texteCorr += `<br>$${texNombre(a)}\\div${b}=${miseEnEvidence(texNombre(q))}$`
         texte += this.interactif ? '=$' : '$'
       } else {
         texteCorr = operation({
@@ -167,8 +175,9 @@ export default class DivisionDecimale extends Exercice {
           operande2: b,
           type: 'division',
           precision: 4,
+          options: { solution: true, colore: orangeMathalea },
         })
-        texteCorr += `<br>$${texNombre(a)}\\div${b}\\approx${texNombre(q)}$`
+        texteCorr += `<br>$${texNombre(a)}\\div${b}\\approx${miseEnEvidence(texNombre(q))}$`
         texte += this.interactif ? '\\approx$' : '$'
       }
       handleAnswers(this, i, { reponse: { value: q } })

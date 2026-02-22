@@ -16,6 +16,8 @@ import {
   obtenirListeFractionsIrreductiblesFaciles,
 } from '../../modules/fractions'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
+import Trinome from '../../modules/Trinome'
+import FractionEtendue from '../../modules/FractionEtendue'
 export const titre = "Montrer qu'un point appartient ou non à une courbe"
 
 /**
@@ -100,8 +102,6 @@ export default class PointSurCourbe extends Exercice {
         fa,
         fb,
         fractionb,
-        fractionb2,
-        fractionc,
         enonce,
         correction,
         cpt = 0;
@@ -218,7 +218,7 @@ export default class PointSurCourbe extends Exercice {
               enonce = `Soit $f$ la fonction définie sur $\\mathbb{R}$ par :
               ${texteCentre(`$f(x)=${reduirePolynomeDegre3(0, a, b, c)}$`)}
               On note $\\mathscr{C}_f$ la courbe représentative de la fonction $f$ dans un repère.<br>
-              Le point $A(${abs}; ${ord})$ appartient-il à $\\mathscr{C}_f$ ? Justifier.`
+              Le point $A(${abs}\\,;\\, ${ord})$ appartient-il à $\\mathscr{C}_f$ ? Justifier.`
               correction = ''
               if (this.correctionDetaillee) {
                 correction += `Un point de coordonnées $(x;y)$ est sur la courbe représentative d'une fonction $f$ si et seulement si :<br>
@@ -253,83 +253,57 @@ export default class PointSurCourbe extends Exercice {
               }
               break
 
-            case 1: // ax^2+bx+c
-            default:
-              a = randint(-2, 2, 0)
-              b = randint(-4, 4)
-              c = randint(-4, 4, 0)
-              f = choice(obtenirListeFractionsIrreductiblesFaciles())
-              f1 = fraction(
-                a * f.n ** 2 + b * f.n * f.d + c * f.d ** 2,
-                f.d ** 2,
-              ) // ordonnée de A
-              f2 = fraction(
-                a * f.n ** 2 + b * f.n * f.d + c * f.d ** 2 - 1,
-                f.d ** 2,
-              )
-              fc = choice([f1, f2])
-              fractionb = fraction(b * f.n, f.d)
-              fractionb2 = fraction(b * f.n * f.d, f.d ** 2)
-              fractionc = fraction(c * f.d ** 2, f.d ** 2)
-              enonce = `Soit $f$ la fonction définie sur $\\mathbb{R}$ par :
-              ${texteCentre(`$f(x)=${reduirePolynomeDegre3(0, a, b, c)}$`)}
-              On note $\\mathscr{C}_f$ la courbe représentative de la fonction $f$ dans un repère.<br>
-              Le point $A\\left(${f.texFraction}; ${fc.texFractionSimplifiee}\\right)$ appartient-il à $\\mathscr{C}_f$ ? Justifier.`
-              correction = ''
-              if (this.correctionDetaillee) {
-                correction += `Un point de coordonnées $(x;y)$ est sur la courbe représentative d'une fonction $f$ si et seulement si :<br>
-              $\\bullet$  $x$ appartient à l'ensemble de définition de $f$ <br>
-              et <br>
-              $\\bullet$ l'ordonnée $y$ du point est l'image de son abscisse, c'est à dire $y=f(x)$.<br>`
-              }
-              if (a !== 1) {
-                correction += `$${f.texFraction}$ est bien dans l'ensemble de définition de $f$ et :<br>
-                $f(x_A)=f\\left(${f.texFraction}\\right)=${a}\\times \\left(${f.texFraction}\\right)^2$`
-                if (b === 0) {
-                  correction += `$${ecritureAlgebrique(c)}
-                =\\dfrac{${a}\\times ${f.n ** 2}}{${f.d ** 2}}${ecritureAlgebrique(c)}
-                =\\dfrac{${a * f.n ** 2}}{${f.d ** 2}}${fractionc.ecritureAlgebrique}=\\dfrac{${a * f.n ** 2 + fractionc.n}}{${f.d ** 2}}
-                ${simplificationDeFractionAvecEtapes(a * f.n ** 2 + fractionb2.n + fractionc.n, f.d ** 2)}$`
-                } else {
-                  correction += `$${ecritureAlgebrique(b)}\\times${f.texFraction}${ecritureAlgebrique(c)}
-                  =\\dfrac{${a}\\times ${f.n ** 2}}{${f.d ** 2}}${fractionb.ecritureAlgebrique}${ecritureAlgebrique(c)}
-                  =\\dfrac{${a * f.n ** 2}}{${f.d ** 2}}${fractionb2.ecritureAlgebrique}${fractionc.ecritureAlgebrique}=\\dfrac{${a * f.n ** 2 + fractionb2.n + fractionc.n}}{${f.d ** 2}}
-                ${simplificationDeFractionAvecEtapes(a * f.n ** 2 + fractionb2.n + fractionc.n, f.d ** 2)}$`
-                }
-                if (fc === f1) {
-                  correction += `$=y_A$.<br>
-                  L'image de $${f.texFraction}$ est bien l'ordonnée du point $A$, donc le point $A$ est sur $\\mathscr{C}_f$.`
-                } else {
-                  correction += `$\\neq${fc.texFractionSimplifiee}$.<br>
-                                 L'image de $${f.texFraction}$ n'est pas l'ordonnée du point $A$, donc le point $A$ n'est pas sur $\\mathscr{C}_f$`
-                }
-              } else {
-                correction += `$${f.texFraction}$ est bien dans l'ensemble de définition de $f$ et :<br>
-                $f(x_A)=f\\left(${f.texFraction}\\right)=\\left(${f.texFraction}\\right)^2$`
-                if (b === 0) {
-                  correction += `$${ecritureAlgebrique(c)}
-                =\\dfrac{${f.n ** 2}}{${f.d ** 2}}${ecritureAlgebrique(c)}
-                =\\dfrac{${f.n ** 2}}{${f.d ** 2}}${fractionc.ecritureAlgebrique}=\\dfrac{${a * f.n ** 2 + fractionc.n}}{${f.d ** 2}}
-                ${simplificationDeFractionAvecEtapes(a * f.n ** 2 + fractionb2.n + fractionc.n, f.d ** 2)}$`
-                } else {
-                  correction += `
-               $${ecritureAlgebrique(b)}\\times${f.texFraction}${ecritureAlgebrique(c)}
-                =\\dfrac{ ${f.n ** 2}}{${f.d ** 2}}${fractionb.ecritureAlgebrique}${ecritureAlgebrique(c)}
-                =\\dfrac{${a * f.n ** 2}}{${f.d ** 2}}${fractionb2.ecritureAlgebrique}${fractionc.ecritureAlgebrique}
-                =\\dfrac{${a * f.n ** 2 + fractionb2.n + fractionc.n}}{${f.d ** 2}}
-                ${simplificationDeFractionAvecEtapes(a * f.n ** 2 + fractionb2.n + fractionc.n, f.d ** 2)}$
-                  `
-                }
-                if (fc === f1) {
-                  correction += `$=y_A$.<br>
-                  L'image de $${f.texFraction}$ est bien l'ordonnée du point $A$, donc le point $A$ est sur $\\mathscr{C}_f$.`
-                } else {
-                  correction += `$\\neq${fc.texFractionSimplifiee}$.<br>
-                                 L'image de $${f.texFraction}$ n'est pas l'ordonnée du point $A$, donc le point $A$ n'est pas sur $\\mathscr{C}_f$`
-                }
-              }
-
-              break
+          case 1:
+default:
+  {
+ a = randint(-2, 2, 0)
+  b = randint(-5, 5)
+  c = randint(-3, 3, 0)
+  
+  // Sélection de fractions spécifiques avec signe aléatoire
+  const fractionBase = choice([
+    fraction(1, 3),
+    fraction(1, 4),
+    fraction(1, 5),
+    fraction(2, 3),
+    fraction(2, 5),
+    fraction(1, 6),
+    fraction(4, 3),
+    fraction(5, 3),
+    fraction(3, 4)
+  ])
+  f = choice([fractionBase, fractionBase.oppose()])
+  
+  const trinome = new Trinome(a, b, c)
+  const imageA = trinome.image(f) // ordonnée correcte de A
+  const imageA2 = new FractionEtendue(imageA.n - 1, imageA.d) // ordonnée incorrecte
+  fc = choice([imageA, imageA2])
+  
+  enonce = `Soit $f$ la fonction définie sur $\\mathbb{R}$ par :
+  ${texteCentre(`$f(x)=${trinome.tex}$`)}
+  On note $\\mathscr{C}_f$ la courbe représentative de la fonction $f$ dans un repère.<br>
+  Le point $A\\left(${f.texFSD}\\,;\\,${fc.texFractionSimplifiee}\\right)$ appartient-il à $\\mathscr{C}_f$ ? Justifier.`
+  
+  correction = ''
+  if (this.correctionDetaillee) {
+    correction += `Un point de coordonnées $(x;y)$ est sur la courbe représentative d'une fonction $f$ si et seulement si :<br>
+  $\\bullet$  $x$ appartient à l'ensemble de définition de $f$ <br>
+  et <br>
+  $\\bullet$ l'ordonnée $y$ du point est l'image de son abscisse, c'est à dire $y=f(x)$.<br>`
+  }
+  
+  correction += `$${f.texFSD}$ est bien dans l'ensemble de définition de $f$ et :<br>
+  $f(x_A)=f\\left(${f.texFSD}\\right)=${trinome.texCalculImage(f)}$`
+  
+  if (fc.isEqual(imageA)) {
+    correction += `$=y_A$.<br>
+    L'image de $${f.texFSD}$ est bien l'ordonnée du point $A$, donc le point $A$ est sur $\\mathscr{C}_f$.`
+  } else {
+    correction += `$\\neq${fc.texFractionSimplifiee}$.<br>
+    L'image de $${f.texFSD}$ n'est pas l'ordonnée du point $A$, donc le point $A$ n'est pas sur $\\mathscr{C}_f$.`
+  }
+}
+  break
           }
           break
         case 'a/x+b':
@@ -353,7 +327,7 @@ export default class PointSurCourbe extends Exercice {
               enonce = `Soit $f$ la fonction définie sur $\\mathbb{R}^*$ par :
               ${texteCentre(`$f(x)=\\dfrac{${a}}{x}${ecritureAlgebrique(b)}$`)}
               On note $\\mathscr{C}_f$ la courbe représentative de la fonction $f$ dans un repère.<br>
-              Le point $A\\left(${abs}; ${fc.texFractionSimplifiee}\\right)$ appartient-il à $\\mathscr{C}_f$ ? Justifier.`
+              Le point $A\\left(${abs}\\,;\\, ${fc.texFractionSimplifiee}\\right)$ appartient-il à $\\mathscr{C}_f$ ? Justifier.`
               correction = ''
               if (this.correctionDetaillee) {
                 correction += `Un point de coordonnées $(x;y)$ est sur la courbe représentative d'une fonction $f$ si et seulement si :<br>
@@ -391,7 +365,7 @@ export default class PointSurCourbe extends Exercice {
               enonce = `Soit $f$ la fonction définie sur $\\mathbb{R}^*$ par :
               ${texteCentre(`$f(x)=\\dfrac{${a}}{x}${ecritureAlgebrique(b)}$`)}
               On note $\\mathscr{C}_f$ la courbe représentative de la fonction $f$ dans un repère.<br>
-              Le point $A\\left(${abs.texFractionSimplifiee}; ${fc.texFractionSimplifiee}\\right)$ appartient-il à $\\mathscr{C}_f$ ? Justifier.`
+              Le point $A\\left(${abs.texFractionSimplifiee}\\,;\\, ${fc.texFractionSimplifiee}\\right)$ appartient-il à $\\mathscr{C}_f$ ? Justifier.`
               correction = ''
               if (this.correctionDetaillee) {
                 correction += `Un point de coordonnées $(x;y)$ est sur la courbe représentative d'une fonction $f$ si et seulement si :<br>

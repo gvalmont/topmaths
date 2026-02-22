@@ -6,6 +6,7 @@ import FractionEtendue from '../../modules/FractionEtendue'
 import { fraction } from '../../modules/fractions'
 import { mathalea2d } from '../../modules/mathalea2d'
 import { egal } from '../../modules/outils'
+import type { NestedObjetMathalea2dArray } from '../../types/2d'
 import { pointAbstrait, PointAbstrait } from '../2d/PointAbstrait'
 import { polygone } from '../2d/polygones'
 import { representant } from '../2d/representantVecteur'
@@ -78,1954 +79,13 @@ export function tableauDeVariation({
   hauteurLignes?: number[]
 }) {
   if (context.isHtml) {
-    const hauteurLignes = context.pixelsParCm
-    const tabInit0 = tabInit[0]
-    const tabInit1 = tabInit[1]
-    let isTabInit0Valid = true
-    if (!Array.isArray(tabInit0) || tabInit0.length === 0) {
-      isTabInit0Valid = false
-    } else {
-      for (let i = 0; i < tabInit0.length; i++) {
-        if (tabInit0[i].length !== 3) {
-          isTabInit0Valid = false
-          break
-        }
-        if (typeof tabInit0[i][0] !== 'string') {
-          isTabInit0Valid = false
-          break
-        }
-        if (typeof tabInit0[i][1] !== 'number') {
-          isTabInit0Valid = false
-          break
-        }
-        if (typeof tabInit0[i][2] !== 'number') {
-          isTabInit0Valid = false
-          break
-        }
-      }
-    }
-    if (!isTabInit0Valid) {
-      window.notify('Dans TableauDeVariation(), tabInit[0] est invalide', {
-        tabInit0,
-      })
-      return ''
-    }
-    let isTabInit1Valid = true
-    if (!Array.isArray(tabInit1) || tabInit1.length === 0) {
-      isTabInit1Valid = false
-    } else {
-      for (let i = 0; i < tabInit1.length; i++) {
-        if (
-          typeof tabInit1[i] !== 'string' &&
-          typeof tabInit1[i] !== 'number'
-        ) {
-          isTabInit1Valid = false
-          break
-        }
-      }
-    }
-    if (!isTabInit1Valid) {
-      window.notify('Dans TableauDeVariation(), tabInit[1] est invalide', {
-        tabInit1,
-      })
-      return ''
-    }
-    let isTabLinesValid = true
-    if (!Array.isArray(tabLines) || tabLines.length === 0) {
-      isTabLinesValid = false
-    } else {
-      for (let i = 0; i < tabLines.length; i++) {
-        if (!Array.isArray(tabLines[i]) || tabLines[i].length === 0) {
-          isTabLinesValid = false
-          break
-        }
-        if (
-          typeof tabLines[i][0] !== 'string' ||
-          !['Line', 'Var', 'Ima', 'Val', 'Slope'].includes(
-            String(tabLines[i][0]),
-          )
-        ) {
-          isTabLinesValid = false
-          break
-        }
-      }
-    }
-    if (!isTabLinesValid) {
-      window.notify('Dans TableauDeVariation(), tabLines est invalide', {
-        tabLines,
-      })
-      return ''
-    }
-    let yLine = 0
-    const segments = []
-    let index = 0
-    const textes = []
-    let texte
-    let long
-    let s
-    let p
-    let v
-    let fleches: {
-      point: PointAbstrait
-      margeGauche: number
-      margeDroite: number
-    }[] = []
-    let codeVar = []
-    let ZI = []
-    let ZIon
-    let zonesEstInterdit = []
-    const longueurTotale = lgt + (tabInit1.length / 2 - 1) * espcl + 2 * deltacl
-    const demiIntervalle = 1 / context.pixelsParCm / 2
-    const intervalle = 2 * demiIntervalle
-    /**
-     * Retire les $ $ du début et de la fin de la chaine passée s'il y en a et retourne la chaine
-     * @param {string } text
-     * @returns {string}
-     */
-    const latexContent = (text: string) => {
-      let txt = text
-      if (txt == null || typeof txt !== 'string') {
-        window.notify(
-          `Dans TableauDeVariation(), sortieTexte() a reçu un drôle de texte : ${txt}, du coup je renvoie ''`,
-          {},
-        )
-        txt = ''
-      }
-      if (txt[0] === '$') txt = txt.substring(1, txt.length - 1)
-      return txt
-    }
-    const sortieTexte = (texte: string, x: number, y: number) => {
-      let txt = texte
-      if (typeof txt !== 'string') {
-        window.notify(
-          `Dans TableauDeVariation(), sortieTexte() a reçu un drôle de texte : ${txt}, du coup je renvoie ''`,
-          {},
-        )
-        return { texte: '', x, y }
-      }
-      if (txt[0] === '$' && txt[txt.length - 1] === '$') {
-        // on suprime les $ superflus, parce qu'il n'en faut pas !
-        txt = txt.substring(1, txt.length - 2)
-      }
-      if (txt.length > 0) {
-        return { texte: txt, x, y }
-      }
-      return { texte: '', x, y }
-    }
-    // On crée une ligne horizontale et les séparations verticales de base
-    segments.push(segment(0, 0, longueurTotale, 0))
-    segments.push(
-      segment(0, 0, 0, -tabInit0[0][1] * hauteurLignes * intervalle),
-    )
-    segments.push(
-      segment(lgt, 0, lgt, 0 - tabInit0[0][1] * hauteurLignes * intervalle),
-    )
-    segments.push(
-      segment(
-        longueurTotale,
-        0,
-        longueurTotale,
-        -tabInit0[0][1] * hauteurLignes * intervalle,
-      ),
-    )
-
-    texte = tabInit0[0][0]
-    long = tabInit0[0][2] //
-    textes.push(
-      sortieTexte(
-        latexContent(texte),
-        lgt / 2,
-        -tabInit0[0][1] * hauteurLignes * demiIntervalle,
-      ),
-    )
-    for (let j = 0; j < tabInit1.length / 2; j++) {
-      texte = String(tabInit1[j * 2])
-      long = tabInit1[j * 2 + 1]
-      textes.push(
-        sortieTexte(
-          latexContent(texte),
-          lgt + deltacl + espcl * j,
-          -tabInit0[0][1] * hauteurLignes * demiIntervalle,
-        ),
-      )
-    }
-    yLine -= tabInit0[0][1] * hauteurLignes * intervalle
-
-    for (let i = 0; i < tabInit0.length && index < tabLines.length; ) {
-      // on s'arrête quand on dépasse le nombre de lignes prévues
-      // Line et Var incrémente i de 1 et décrémente yLine de la hauteur de la ligne
-      // Val, Ima et Slope incrémente index mais pas i
-      switch (tabLines[index][0]) {
-        case 'Line':
-          i++
-          long = tabInit0[i][2]
-          textes.push(
-            sortieTexte(
-              latexContent(tabInit0[i][0]),
-              lgt / 2,
-              yLine - tabInit0[i][1] * hauteurLignes * demiIntervalle,
-            ),
-          ) // hauteurLignes,colorBackground))
-
-          for (let k = 1; k < tabLines[index].length / 2; k++) {
-            if (tabLines[index][k * 2] !== '') {
-              texte = String(tabLines[index][k * 2])
-              long = tabLines[index][k * 2 + 1]
-              if (texte.length === 1) {
-                switch (texte[0]) {
-                  case 'z':
-                    textes.push(
-                      sortieTexte(
-                        '0',
-                        lgt + deltacl + (espcl / 2) * (k - 1),
-                        yLine - tabInit0[i][1] * hauteurLignes * demiIntervalle,
-                      ),
-                    )
-                    s = segment(
-                      lgt + deltacl + (espcl / 2) * (k - 1),
-                      yLine,
-                      lgt + deltacl + (espcl / 2) * (k - 1),
-                      yLine - tabInit0[i][1] * hauteurLignes * intervalle,
-                    )
-                    s.pointilles = 4
-                    segments.push(s)
-                    break
-                  case 'd':
-                    segments.push(
-                      segment(
-                        lgt + deltacl + (espcl / 2) * (k - 1) - 0.05,
-                        yLine,
-                        lgt + deltacl + (espcl / 2) * (k - 1) - 0.05,
-                        yLine - tabInit0[i][1] * hauteurLignes * intervalle,
-                      ),
-                    )
-                    segments.push(
-                      segment(
-                        lgt + deltacl + (espcl / 2) * (k - 1) + 0.05,
-                        yLine,
-                        lgt + deltacl + (espcl / 2) * (k - 1) + 0.05,
-                        yLine - tabInit0[i][1] * hauteurLignes * intervalle,
-                      ),
-                    )
-                    break
-                  case 't':
-                    s = segment(
-                      lgt + deltacl + (espcl / 2) * (k - 1),
-                      yLine,
-                      lgt + deltacl + (espcl / 2) * (k - 1),
-                      yLine - tabInit0[i][1] * hauteurLignes * intervalle,
-                    )
-                    s.pointilles = 4
-                    segments.push(s)
-                    break
-                  case 'h':
-                    p = polygone([
-                      pointAbstrait(
-                        lgt + deltacl + (espcl / 2) * (k - 1),
-                        yLine,
-                      ),
-                      pointAbstrait(lgt + deltacl + (espcl / 2) * k, yLine),
-                      pointAbstrait(
-                        lgt + deltacl + (espcl / 2) * k,
-                        yLine - tabInit0[i][1] * hauteurLignes * intervalle,
-                      ),
-                      pointAbstrait(
-                        lgt + deltacl + (espcl / 2) * (k - 1),
-                        yLine - tabInit0[i][1] * hauteurLignes * intervalle,
-                      ),
-                    ])
-                    p.couleurDeRemplissage = colorToLatexOrHTML('gray')
-                    segments.push(p)
-                    break
-                  case '+':
-                    textes.push(
-                      sortieTexte(
-                        '+',
-                        lgt + deltacl + (espcl / 2) * (k - 1),
-                        yLine - tabInit0[i][1] * hauteurLignes * demiIntervalle,
-                      ),
-                    )
-
-                    break
-                  case '-':
-                    textes.push(
-                      sortieTexte(
-                        '-',
-                        lgt + deltacl + (espcl / 2) * (k - 1),
-                        yLine - tabInit0[i][1] * hauteurLignes * demiIntervalle,
-                      ),
-                    )
-
-                    break
-                }
-              } else if (texte === '||') {
-                textes.push(
-                  sortieTexte(
-                    latexContent(texte),
-                    lgt + deltacl + (espcl / 2) * (k - 1),
-                    yLine - tabInit0[i][1] * hauteurLignes * demiIntervalle,
-                  ),
-                )
-                s = segment(
-                  lgt + deltacl + (espcl / 2) * (k - 1),
-                  yLine,
-                  lgt + deltacl + (espcl / 2) * (k - 1),
-                  yLine - tabInit0[i][1] * hauteurLignes * intervalle,
-                )
-                s.pointilles = 4
-                segments.push(s)
-              } else if (texte === 'R/') {
-                // textes.push(sortieTexte(texte, lgt + deltacl + espcl/2 * (k - 0.6), yLine-tabInit0[i][1] / 2))
-              } else {
-                textes.push(
-                  sortieTexte(
-                    latexContent(texte),
-                    lgt + deltacl + (espcl / 2) * (k - 1),
-                    yLine - tabInit0[i][1] * hauteurLignes * demiIntervalle,
-                  ),
-                )
-              }
-            }
-          }
-          // On crée une ligne horizontale et les séparations verticales de base
-          segments.push(segment(0, yLine, longueurTotale, yLine))
-          segments.push(
-            segment(
-              0,
-              yLine,
-              0,
-              yLine - tabInit0[i][1] * hauteurLignes * intervalle,
-            ),
-          )
-          segments.push(
-            segment(
-              lgt,
-              yLine,
-              lgt,
-              yLine - tabInit0[i][1] * hauteurLignes * intervalle,
-            ),
-          )
-          segments.push(
-            segment(
-              longueurTotale,
-              yLine,
-              longueurTotale,
-              yLine - tabInit0[i][1] * hauteurLignes * intervalle,
-            ),
-          )
-          yLine -= tabInit0[i][1] * hauteurLignes * intervalle
-          index++
-          break
-        case 'Var':
-          i++ // index des lignes (ça démarre à -1 pour l'entête, ça passe à 0 pour la première ligne (celle sous l'entête) et c'est incrémenté à chaque nouvelle ligne)
-          fleches = [] // les points qui marquent le départ et/ou l'arrivée d'une flèche (endroit où se situent les valeurs)
-          ZI = [] // Liste de points (qui vont par deux : un sur la ligne du dessus, l'autre en dessous)
-          ZIon = false // un booléen qui bascule à true si on entre dans une zone interdite et qui rebascule à false à la prochaine valeur
-          // utilisé pour ajouter les deux points de droite servant à faire le rectangle hachuré/
-          zonesEstInterdit = [] // Un tableau pour garder la trace des "zones interdites" où il ne doit pas y avoir de flèches
-          for (let k = 1; k < tabLines[index].length / 2; k++) {
-            textes.push(
-              sortieTexte(
-                latexContent(tabInit0[i][0]),
-                lgt / 2,
-                yLine - tabInit0[i][1] * hauteurLignes * demiIntervalle,
-              ),
-            )
-            if (tabLines[index][k * 2] !== '') {
-              texte = String(tabLines[index][k * 2])
-              long = Number(tabLines[index][k * 2 - 1]) ?? 20
-              codeVar = texte.split('/')
-              if (codeVar.length === 1) {
-                // il n'y a qu'un code
-                // on ne fait rien, c'est la commande R/ ou un emplacement vide sans /
-              } else if (codeVar.length === 2) {
-                // Une seule expression (2 codes séparés par un seul /)
-                switch (codeVar[0]) {
-                  case '+': // une expression
-                    textes.push(
-                      sortieTexte(
-                        latexContent(codeVar[1]),
-                        lgt + deltacl + espcl * (k - 1),
-                        yLine - 0.95,
-                      ),
-                    )
-                    fleches.push({
-                      point: pointAbstrait(
-                        lgt + deltacl + espcl * (k - 1),
-                        yLine - 0.95,
-                      ),
-                      margeGauche: -long / 20,
-                      margeDroite: long / 20,
-                    })
-                    if (ZIon) {
-                      ZI.push(
-                        pointAbstrait(lgt + deltacl + espcl * (k - 1), yLine),
-                        pointAbstrait(
-                          lgt + deltacl + espcl * (k - 1),
-                          yLine - tabInit0[i][1] * hauteurLignes * intervalle,
-                        ),
-                      )
-                      ZIon = false
-                    }
-                    zonesEstInterdit.push(false)
-                    break
-                  case '-': // une expression
-                    textes.push(
-                      sortieTexte(
-                        latexContent(codeVar[1]),
-                        lgt + deltacl + espcl * (k - 1),
-                        yLine -
-                          tabInit0[i][1] * hauteurLignes * intervalle +
-                          0.95,
-                      ),
-                    )
-                    fleches.push({
-                      point: pointAbstrait(
-                        lgt + deltacl + espcl * (k - 1),
-                        yLine -
-                          tabInit0[i][1] * hauteurLignes * intervalle +
-                          0.95,
-                      ),
-                      margeGauche: -long / 20,
-                      margeDroite: long / 20,
-                    })
-                    if (ZIon) {
-                      ZI.push(
-                        pointAbstrait(lgt + deltacl + espcl * (k - 1), yLine),
-                        pointAbstrait(
-                          lgt + deltacl + espcl * (k - 1),
-                          yLine - tabInit0[i][1] * hauteurLignes * intervalle,
-                        ),
-                      )
-                      ZIon = false
-                    }
-                    zonesEstInterdit.push(false)
-                    break
-                  case '+C': // une expression sur une double barre (prolongement par continuité)
-                    textes.push(
-                      sortieTexte(
-                        latexContent(codeVar[1]),
-                        lgt + deltacl + espcl * (k - 1),
-                        yLine - 0.95,
-                      ),
-                    )
-                    fleches.push({
-                      point: pointAbstrait(
-                        lgt + deltacl + espcl * (k - 1),
-                        yLine - 0.95,
-                      ),
-                      margeGauche: -long / 20,
-                      margeDroite: long / 20,
-                    })
-                    s = segment(
-                      lgt + deltacl + espcl * (k - 1) - 0.05,
-                      yLine,
-                      lgt + deltacl + espcl * (k - 1) - 0.05,
-                      yLine - tabInit0[i][1] * hauteurLignes * intervalle,
-                    )
-                    segments.push(s)
-                    s = segment(
-                      lgt + deltacl + espcl * (k - 1) + 0.05,
-                      yLine,
-                      lgt + deltacl + espcl * (k - 1) + 0.05,
-                      yLine - tabInit0[i][1] * hauteurLignes * intervalle,
-                    )
-                    segments.push(s)
-                    if (ZIon) {
-                      ZI.push(
-                        pointAbstrait(lgt + deltacl + espcl * (k - 1), yLine),
-                        pointAbstrait(
-                          lgt + deltacl + espcl * (k - 1),
-                          yLine - tabInit0[i][1] * hauteurLignes * intervalle,
-                        ),
-                      )
-                      ZIon = false
-                    }
-                    zonesEstInterdit.push(false)
-                    break
-                  case '-C': // une expression sur une double barre (prolongement par continuité)
-                    textes.push(
-                      sortieTexte(
-                        latexContent(codeVar[1]),
-                        lgt + deltacl + espcl * (k - 1),
-                        yLine -
-                          tabInit0[i][1] * hauteurLignes * intervalle +
-                          0.95,
-                      ),
-                    )
-                    fleches.push({
-                      point: pointAbstrait(
-                        lgt + deltacl + espcl * (k - 1),
-                        yLine -
-                          tabInit0[i][1] * hauteurLignes * intervalle +
-                          0.95,
-                      ),
-                      margeGauche: -long / 20,
-                      margeDroite: long / 20,
-                    })
-                    s = segment(
-                      lgt + deltacl + espcl * (k - 1) - 0.05,
-                      yLine,
-                      lgt + deltacl + espcl * (k - 1) - 0.05,
-                      yLine - tabInit0[i][1] * hauteurLignes * intervalle,
-                    )
-                    segments.push(s)
-                    s = segment(
-                      lgt + deltacl + espcl * (k - 1) + 0.05,
-                      yLine,
-                      lgt + deltacl + espcl * (k - 1) + 0.05,
-                      yLine - tabInit0[i][1] * hauteurLignes * intervalle,
-                    )
-                    segments.push(s)
-                    if (ZIon) {
-                      ZI.push(
-                        pointAbstrait(lgt + deltacl + espcl * (k - 1), yLine),
-                        pointAbstrait(
-                          lgt + deltacl + espcl * (k - 1),
-                          yLine - tabInit0[i][1] * hauteurLignes * intervalle,
-                        ),
-                      )
-                      ZIon = false
-                    }
-                    zonesEstInterdit.push(false)
-                    break
-                  case '+D': // une expression suivie d’une double barre (discontinuité)
-                    textes.push(
-                      sortieTexte(
-                        latexContent(codeVar[1]),
-                        lgt + deltacl + espcl * (k - 1) - long / 28,
-                        yLine - 0.95,
-                      ),
-                    )
-                    fleches.push({
-                      point: pointAbstrait(
-                        lgt + deltacl + espcl * (k - 1),
-                        yLine - 0.95,
-                      ),
-                      margeGauche: -long / 20,
-                      margeDroite: long / 20,
-                    })
-                    s = segment(
-                      lgt + deltacl + espcl * (k - 1) - 0.05,
-                      yLine,
-                      lgt + deltacl + espcl * (k - 1) - 0.05,
-                      yLine - tabInit0[i][1] * hauteurLignes * intervalle,
-                    )
-                    segments.push(s)
-                    s = segment(
-                      lgt + deltacl + espcl * (k - 1) + 0.05,
-                      yLine,
-                      lgt + deltacl + espcl * (k - 1) + 0.05,
-                      yLine - tabInit0[i][1] * hauteurLignes * intervalle,
-                    )
-                    segments.push(s)
-                    if (ZIon) {
-                      ZI.push(
-                        pointAbstrait(lgt + deltacl + espcl * (k - 1), yLine),
-                        pointAbstrait(
-                          lgt + deltacl + espcl * (k - 1),
-                          yLine - tabInit0[i][1] * hauteurLignes * intervalle,
-                        ),
-                      )
-                      ZIon = false
-                    }
-                    zonesEstInterdit.push(false)
-                    break
-                  case '-D': // une expression suivie d’une double barre (discontinuité)
-                    textes.push(
-                      sortieTexte(
-                        latexContent(codeVar[1]),
-                        lgt + deltacl + espcl * (k - 1) - long / 28,
-                        yLine -
-                          tabInit0[i][1] * hauteurLignes * intervalle +
-                          0.95,
-                      ),
-                    )
-                    fleches.push({
-                      point: pointAbstrait(
-                        lgt + deltacl + espcl * (k - 1),
-                        yLine -
-                          tabInit0[i][1] * hauteurLignes * intervalle +
-                          0.95,
-                      ),
-                      margeGauche: -long / 20,
-                      margeDroite: long / 20,
-                    })
-                    s = segment(
-                      lgt + deltacl + espcl * (k - 1) - 0.05,
-                      yLine,
-                      lgt + deltacl + espcl * (k - 1) - 0.05,
-                      yLine - tabInit0[i][1] * hauteurLignes * intervalle,
-                    )
-                    segments.push(s)
-                    s = segment(
-                      lgt + deltacl + espcl * (k - 1) + 0.05,
-                      yLine,
-                      lgt + deltacl + espcl * (k - 1) + 0.05,
-                      yLine - tabInit0[i][1] * hauteurLignes * intervalle,
-                    )
-                    segments.push(s)
-                    if (ZIon) {
-                      ZI.push(
-                        pointAbstrait(lgt + deltacl + espcl * (k - 1), yLine),
-                        pointAbstrait(
-                          lgt + deltacl + espcl * (k - 1),
-                          yLine - tabInit0[i][1] * hauteurLignes * intervalle,
-                        ),
-                      )
-                      ZIon = false
-                    }
-                    zonesEstInterdit.push(false)
-                    break
-                  case '+H': // une expression suivie d’une zone interdite
-                    textes.push(
-                      sortieTexte(
-                        latexContent(codeVar[1]),
-                        lgt + deltacl + espcl * (k - 1) - long / 28,
-                        yLine - 0.95,
-                      ),
-                    )
-                    fleches.push({
-                      point: pointAbstrait(
-                        lgt + deltacl + espcl * (k - 1),
-                        yLine - 0.95,
-                      ),
-                      margeGauche: -long / 20,
-                      margeDroite: long / 20,
-                    })
-                    ZI.push(
-                      pointAbstrait(lgt + deltacl + espcl * (k - 1), yLine),
-                      pointAbstrait(
-                        lgt + deltacl + espcl * (k - 1),
-                        yLine - tabInit0[i][1] * hauteurLignes * intervalle,
-                      ),
-                    )
-                    ZIon = true
-                    zonesEstInterdit.push(true)
-                    break
-                  case '-H': // une expression suivie d’une zone interdite
-                    textes.push(
-                      sortieTexte(
-                        latexContent(codeVar[1]),
-                        lgt + deltacl + espcl * (k - 1) - long / 28,
-                        yLine -
-                          tabInit0[i][1] * hauteurLignes * intervalle +
-                          0.95,
-                      ),
-                    )
-                    fleches.push({
-                      point: pointAbstrait(
-                        lgt + deltacl + espcl * (k - 1),
-                        yLine -
-                          tabInit0[i][1] * hauteurLignes * intervalle +
-                          0.95,
-                      ),
-                      margeGauche: -long / 20,
-                      margeDroite: long / 20,
-                    })
-                    ZI.push(
-                      pointAbstrait(lgt + deltacl + espcl * (k - 1), yLine),
-                      pointAbstrait(
-                        lgt + deltacl + espcl * (k - 1),
-                        yLine - tabInit0[i][1] * hauteurLignes * intervalle,
-                      ),
-                    )
-                    ZIon = true
-                    zonesEstInterdit.push(true)
-                    break
-                  case 'D-': // expression précédée d'une double barre discontinuité
-                    textes.push(
-                      sortieTexte(
-                        latexContent(codeVar[1]),
-                        lgt + deltacl + espcl * (k - 1) + long / 28,
-                        yLine -
-                          tabInit0[i][1] * hauteurLignes * intervalle +
-                          0.95,
-                      ),
-                    )
-                    fleches.push({
-                      point: pointAbstrait(
-                        lgt + deltacl + espcl * (k - 1),
-                        yLine -
-                          tabInit0[i][1] * hauteurLignes * intervalle +
-                          0.95,
-                      ),
-                      margeGauche: -long / 20,
-                      margeDroite: long / 20,
-                    })
-                    s = segment(
-                      lgt + deltacl + espcl * (k - 1) - 0.05,
-                      yLine,
-                      lgt + deltacl + espcl * (k - 1) - 0.05,
-                      yLine - tabInit0[i][1] * hauteurLignes * intervalle,
-                    )
-                    segments.push(s)
-                    s = segment(
-                      lgt + deltacl + espcl * (k - 1) + 0.05,
-                      yLine,
-                      lgt + deltacl + espcl * (k - 1) + 0.05,
-                      yLine - tabInit0[i][1] * hauteurLignes * intervalle,
-                    )
-                    segments.push(s)
-                    if (ZIon) {
-                      ZI.push(
-                        pointAbstrait(lgt + deltacl + espcl * (k - 1), yLine),
-                        pointAbstrait(
-                          lgt + deltacl + espcl * (k - 1),
-                          yLine - tabInit0[i][1] * hauteurLignes * intervalle,
-                        ),
-                      )
-                      ZIon = false
-                    }
-                    zonesEstInterdit.push(false)
-                    break
-                  case 'D+': // expression précédée d'une double barre discontinuité
-                    textes.push(
-                      sortieTexte(
-                        latexContent(codeVar[1]),
-                        lgt + deltacl + espcl * (k - 1) + long / 28,
-                        yLine - 0.95,
-                      ),
-                    )
-                    fleches.push({
-                      point: pointAbstrait(
-                        lgt + deltacl + espcl * (k - 1),
-                        yLine - 0.95,
-                      ),
-                      margeGauche: -long / 20,
-                      margeDroite: long / 20,
-                    })
-                    s = segment(
-                      lgt + deltacl + espcl * (k - 1) - 0.05,
-                      yLine,
-                      lgt + deltacl + espcl * (k - 1) - 0.05,
-                      yLine - tabInit0[i][1] * hauteurLignes * intervalle,
-                    )
-                    segments.push(s)
-                    s = segment(
-                      lgt + deltacl + espcl * (k - 1) + 0.05,
-                      yLine,
-                      lgt + deltacl + espcl * (k - 1) + 0.05,
-                      yLine - tabInit0[i][1] * hauteurLignes * intervalle,
-                    )
-                    segments.push(s)
-                    if (ZIon) {
-                      ZI.push(
-                        pointAbstrait(lgt + deltacl + espcl * (k - 1), yLine),
-                        pointAbstrait(
-                          lgt + deltacl + espcl * (k - 1),
-                          yLine - tabInit0[i][1] * hauteurLignes * intervalle,
-                        ),
-                      )
-                      ZIon = false
-                    }
-                    zonesEstInterdit.push(false)
-                    break
-                  case '-DH': // expression suivie d'une double barre discontinuité et d'une zone interdite
-                    textes.push(
-                      sortieTexte(
-                        latexContent(codeVar[1]),
-                        lgt + deltacl + espcl * (k - 1) - long / 28,
-                        yLine -
-                          tabInit0[i][1] * hauteurLignes * intervalle +
-                          0.95,
-                      ),
-                    )
-                    fleches.push({
-                      point: pointAbstrait(
-                        lgt + deltacl + espcl * (k - 1),
-                        yLine -
-                          tabInit0[i][1] * hauteurLignes * intervalle +
-                          0.95,
-                      ),
-                      margeGauche: -long / 20,
-                      margeDroite: long / 20,
-                    })
-                    s = segment(
-                      lgt + deltacl + espcl * (k - 1) - 0.05,
-                      yLine,
-                      lgt + deltacl + espcl * (k - 1) - 0.05,
-                      yLine - tabInit0[i][1] * hauteurLignes * intervalle,
-                    )
-                    segments.push(s)
-                    s = segment(
-                      lgt + deltacl + espcl * (k - 1) + 0.05,
-                      yLine,
-                      lgt + deltacl + espcl * (k - 1) + 0.05,
-                      yLine - tabInit0[i][1] * hauteurLignes * intervalle,
-                    )
-                    segments.push(s)
-                    ZI.push(
-                      pointAbstrait(
-                        lgt + deltacl + espcl * (k - 1) + 0.06,
-                        yLine,
-                      ),
-                      pointAbstrait(
-                        lgt + deltacl + espcl * (k - 1) + 0.06,
-                        yLine - tabInit0[i][1] * hauteurLignes * intervalle,
-                      ),
-                    )
-                    ZIon = true
-                    zonesEstInterdit.push(true)
-                    break
-                  case '+DH': // expression suivie d'une double barre discontinuité et d'une zone interdite
-                    textes.push(
-                      sortieTexte(
-                        latexContent(codeVar[1]),
-                        lgt + deltacl + espcl * (k - 1) - long / 28,
-                        yLine - 0.95,
-                      ),
-                    )
-                    fleches.push({
-                      point: pointAbstrait(
-                        lgt + deltacl + espcl * (k - 1),
-                        yLine - 0.95,
-                      ),
-                      margeGauche: -long / 20,
-                      margeDroite: long / 20,
-                    })
-                    s = segment(
-                      lgt + deltacl + espcl * (k - 1) - 0.05,
-                      yLine,
-                      lgt + deltacl + espcl * (k - 1) - 0.05,
-                      yLine - tabInit0[i][1] * hauteurLignes * intervalle,
-                    )
-                    segments.push(s)
-                    s = segment(
-                      lgt + deltacl + espcl * (k - 1) + 0.05,
-                      yLine,
-                      lgt + deltacl + espcl * (k - 1) + 0.05,
-                      yLine - tabInit0[i][1] * hauteurLignes * intervalle,
-                    )
-                    segments.push(s)
-                    ZI.push(
-                      pointAbstrait(
-                        lgt + deltacl + espcl * (k - 1) + 0.06,
-                        yLine,
-                      ),
-                      pointAbstrait(
-                        lgt + deltacl + espcl * (k - 1) + 0.06,
-                        yLine - tabInit0[i][1] * hauteurLignes * intervalle,
-                      ),
-                    )
-                    ZIon = true
-                    zonesEstInterdit.push(true)
-                    break
-                  case '-CH': // expression sur une double barre discontinuité et d'une zone interdite
-                    textes.push(
-                      sortieTexte(
-                        latexContent(codeVar[1]),
-                        lgt + deltacl + espcl * (k - 1),
-                        yLine -
-                          tabInit0[i][1] * hauteurLignes * intervalle +
-                          0.95,
-                      ),
-                    )
-                    fleches.push({
-                      point: pointAbstrait(
-                        lgt + deltacl + espcl * (k - 1),
-                        yLine -
-                          tabInit0[i][1] * hauteurLignes * intervalle +
-                          0.95,
-                      ),
-                      margeGauche: -long / 20,
-                      margeDroite: long / 20,
-                    })
-                    s = segment(
-                      lgt + deltacl + espcl * (k - 1) - 0.05,
-                      yLine,
-                      lgt + deltacl + espcl * (k - 1) - 0.05,
-                      yLine - tabInit0[i][1] * hauteurLignes * intervalle,
-                    )
-                    segments.push(s)
-                    s = segment(
-                      lgt + deltacl + espcl * (k - 1) + 0.05,
-                      yLine,
-                      lgt + deltacl + espcl * (k - 1) + 0.05,
-                      yLine - tabInit0[i][1] * hauteurLignes * intervalle,
-                    )
-                    segments.push(s)
-                    ZI.push(
-                      pointAbstrait(
-                        lgt + deltacl + espcl * (k - 1) + 0.06,
-                        yLine,
-                      ),
-                      pointAbstrait(
-                        lgt + deltacl + espcl * (k - 1) + 0.06,
-                        yLine - tabInit0[i][1] * hauteurLignes * intervalle,
-                      ),
-                    )
-                    ZIon = true
-                    zonesEstInterdit.push(true)
-                    break
-                  case '+CH': // expression sur une double barre discontinuité et d'une zone interdite
-                    textes.push(
-                      sortieTexte(
-                        latexContent(codeVar[1]),
-                        lgt + deltacl + espcl * (k - 1),
-                        yLine - 0.95,
-                      ),
-                    )
-                    fleches.push({
-                      point: pointAbstrait(
-                        lgt + deltacl + espcl * (k - 1),
-                        yLine - 0.95,
-                      ),
-                      margeGauche: -long / 20,
-                      margeDroite: long / 20,
-                    })
-                    s = segment(
-                      lgt + deltacl + espcl * (k - 1) - 0.05,
-                      yLine,
-                      lgt + deltacl + espcl * (k - 1) - 0.05,
-                      yLine - tabInit0[i][1] * hauteurLignes * intervalle,
-                    )
-                    segments.push(s)
-                    s = segment(
-                      lgt + deltacl + espcl * (k - 1) + 0.05,
-                      yLine,
-                      lgt + deltacl + espcl * (k - 1) + 0.05,
-                      yLine - tabInit0[i][1] * hauteurLignes * intervalle,
-                    )
-                    segments.push(s)
-                    ZI.push(
-                      pointAbstrait(
-                        lgt + deltacl + espcl * (k - 1) + 0.06,
-                        yLine,
-                      ),
-                      pointAbstrait(
-                        lgt + deltacl + espcl * (k - 1) + 0.06,
-                        yLine - tabInit0[i][1] * hauteurLignes * intervalle,
-                      ),
-                    )
-                    ZIon = true
-                    zonesEstInterdit.push(true)
-                    break
-                }
-              } else {
-                // 2 expressions sérarées par / /
-                switch (
-                  codeVar[0] // on regarde le code
-                ) {
-                  case '':
-                    break
-                  case '-CD-': // une expression sur une double barre (continuité) et une expression après la double barre (discontinuité)
-                    textes.push(
-                      sortieTexte(
-                        latexContent(codeVar[1]),
-                        lgt + deltacl + espcl * (k - 1),
-                        yLine -
-                          tabInit0[i][1] * hauteurLignes * intervalle +
-                          0.95,
-                      ),
-                    )
-                    textes.push(
-                      sortieTexte(
-                        latexContent(codeVar[2]),
-                        lgt + deltacl + espcl * (k - 1) + long / 28,
-                        yLine -
-                          tabInit0[i][1] * hauteurLignes * intervalle +
-                          0.95,
-                      ),
-                    )
-                    fleches.push({
-                      point: pointAbstrait(
-                        lgt + deltacl + espcl * (k - 1),
-                        yLine -
-                          tabInit0[i][1] * hauteurLignes * intervalle +
-                          0.95,
-                      ),
-                      margeGauche: -long / 20,
-                      margeDroite: long / 20,
-                    })
-                    s = segment(
-                      lgt + deltacl + espcl * (k - 1) - 0.05,
-                      yLine,
-                      lgt + deltacl + espcl * (k - 1) - 0.05,
-                      yLine - tabInit0[i][1] * hauteurLignes * intervalle,
-                    )
-                    segments.push(s)
-                    s = segment(
-                      lgt + deltacl + espcl * (k - 1) + 0.05,
-                      yLine,
-                      lgt + deltacl + espcl * (k - 1) + 0.05,
-                      yLine - tabInit0[i][1] * hauteurLignes * intervalle,
-                    )
-                    segments.push(s)
-                    if (ZIon) {
-                      ZI.push(
-                        pointAbstrait(lgt + deltacl + espcl * (k - 1), yLine),
-                        pointAbstrait(
-                          lgt + deltacl + espcl * (k - 1),
-                          yLine - tabInit0[i][1] * hauteurLignes * intervalle,
-                        ),
-                      )
-                      ZIon = false
-                    }
-                    zonesEstInterdit.push(false)
-                    break
-                  case '+CD+': // une expression sur une double barre (continuité) et une expression après la double barre (discontinuité)
-                    textes.push(
-                      sortieTexte(
-                        latexContent(codeVar[1]),
-                        lgt + deltacl + espcl * (k - 1),
-                        yLine - 0.95,
-                      ),
-                    )
-                    textes.push(
-                      sortieTexte(
-                        latexContent(codeVar[1]),
-                        lgt + deltacl + espcl * (k - 1) + long / 14,
-                        yLine - 0.95,
-                      ),
-                    )
-                    fleches.push({
-                      point: pointAbstrait(
-                        lgt + deltacl + espcl * (k - 1),
-                        yLine - 0.95,
-                      ),
-                      margeGauche: -long / 20,
-                      margeDroite: long / 20,
-                    })
-                    s = segment(
-                      lgt + deltacl + espcl * (k - 1) - 0.05,
-                      yLine,
-                      lgt + deltacl + espcl * (k - 1) - 0.05,
-                      yLine - tabInit0[i][1] * hauteurLignes * intervalle,
-                    )
-                    segments.push(s)
-                    s = segment(
-                      lgt + deltacl + espcl * (k - 1) + 0.05,
-                      yLine,
-                      lgt + deltacl + espcl * (k - 1) + 0.05,
-                      yLine - tabInit0[i][1] * hauteurLignes * intervalle,
-                    )
-                    segments.push(s)
-                    if (ZIon) {
-                      ZI.push(
-                        pointAbstrait(lgt + deltacl + espcl * (k - 1), yLine),
-                        pointAbstrait(
-                          lgt + deltacl + espcl * (k - 1),
-                          yLine - tabInit0[i][1] * hauteurLignes * intervalle,
-                        ),
-                      )
-                      ZIon = false
-                    }
-                    zonesEstInterdit.push(false)
-                    break
-                  case '-CD+': // une expression sur une double barre (continuité) et une expression après la double barre (discontinuité)
-                    textes.push(
-                      sortieTexte(
-                        latexContent(codeVar[1]),
-                        lgt + deltacl + espcl * (k - 1),
-                        yLine -
-                          tabInit0[i][1] * hauteurLignes * intervalle +
-                          0.95,
-                      ),
-                    )
-                    textes.push(
-                      sortieTexte(
-                        latexContent(codeVar[2]),
-                        lgt + deltacl + espcl * (k - 1) + long / 28,
-                        yLine - 0.95,
-                      ),
-                    )
-                    fleches.push({
-                      point: pointAbstrait(
-                        lgt + deltacl + espcl * (k - 1),
-                        yLine -
-                          tabInit0[i][1] * hauteurLignes * intervalle +
-                          0.95,
-                      ),
-                      margeGauche: -long / 20,
-                      margeDroite: long / 20,
-                    })
-                    zonesEstInterdit.push(true)
-                    fleches.push({
-                      point: pointAbstrait(
-                        lgt + deltacl + espcl * (k - 1),
-                        yLine - 0.95,
-                      ),
-                      margeGauche: -long / 20,
-                      margeDroite: long / 20,
-                    })
-                    s = segment(
-                      lgt + deltacl + espcl * (k - 1) - 0.05,
-                      yLine,
-                      lgt + deltacl + espcl * (k - 1) - 0.05,
-                      yLine - tabInit0[i][1] * hauteurLignes * intervalle,
-                    )
-                    segments.push(s)
-                    s = segment(
-                      lgt + deltacl + espcl * (k - 1) + 0.05,
-                      yLine,
-                      lgt + deltacl + espcl * (k - 1) + 0.05,
-                      yLine - tabInit0[i][1] * hauteurLignes * intervalle,
-                    )
-                    segments.push(s)
-                    if (ZIon) {
-                      ZI.push(
-                        pointAbstrait(lgt + deltacl + espcl * (k - 1), yLine),
-                        pointAbstrait(
-                          lgt + deltacl + espcl * (k - 1),
-                          yLine - tabInit0[i][1] * hauteurLignes * intervalle,
-                        ),
-                      )
-                      ZIon = false
-                    }
-                    zonesEstInterdit.push(false)
-                    break
-                  case '+CD-': // une expression sur une double barre (continuité) et une expression après la double barre (discontinuité)
-                    textes.push(
-                      sortieTexte(
-                        latexContent(codeVar[1]),
-                        lgt + deltacl + espcl * (k - 1),
-                        yLine - 0.95,
-                      ),
-                    )
-                    textes.push(
-                      sortieTexte(
-                        latexContent(codeVar[1]),
-                        lgt + deltacl + espcl * (k - 1) + long / 28,
-                        yLine -
-                          tabInit0[i][1] * hauteurLignes * intervalle +
-                          0.95,
-                      ),
-                    )
-                    fleches.push({
-                      point: pointAbstrait(
-                        lgt + deltacl + espcl * (k - 1),
-                        yLine - 0.95,
-                      ),
-                      margeGauche: -long / 20,
-                      margeDroite: long / 20,
-                    })
-                    zonesEstInterdit.push(true)
-                    fleches.push({
-                      point: pointAbstrait(
-                        lgt + deltacl + espcl * (k - 1),
-                        yLine -
-                          tabInit0[i][1] * hauteurLignes * intervalle +
-                          0.95,
-                      ),
-                      margeGauche: -long / 20,
-                      margeDroite: long / 20,
-                    })
-                    s = segment(
-                      lgt + deltacl + espcl * (k - 1) - 0.05,
-                      yLine,
-                      lgt + deltacl + espcl * (k - 1) - 0.05,
-                      yLine - tabInit0[i][1] * hauteurLignes * intervalle,
-                    )
-                    segments.push(s)
-                    s = segment(
-                      lgt + deltacl + espcl * (k - 1) + 0.05,
-                      yLine,
-                      lgt + deltacl + espcl * (k - 1) + 0.05,
-                      yLine - tabInit0[i][1] * hauteurLignes * intervalle,
-                    )
-                    segments.push(s)
-                    if (ZIon) {
-                      ZI.push(
-                        pointAbstrait(lgt + deltacl + espcl * (k - 1), yLine),
-                        pointAbstrait(
-                          lgt + deltacl + espcl * (k - 1),
-                          yLine - tabInit0[i][1] * hauteurLignes * intervalle,
-                        ),
-                      )
-                      ZIon = false
-                    }
-                    zonesEstInterdit.push(false)
-                    break
-                  case '-D-': // deux expressions de part et d’autre d’une double barre (discontinuité)
-                    textes.push(
-                      sortieTexte(
-                        latexContent(codeVar[1]),
-                        lgt + deltacl + espcl * (k - 1) - long / 28,
-                        yLine -
-                          tabInit0[i][1] * hauteurLignes * intervalle +
-                          0.95,
-                      ),
-                    )
-                    textes.push(
-                      sortieTexte(
-                        latexContent(codeVar[2]),
-                        lgt + deltacl + espcl * (k - 1) + long / 28,
-                        yLine -
-                          tabInit0[i][1] * hauteurLignes * intervalle +
-                          0.95,
-                      ),
-                    )
-                    fleches.push({
-                      point: pointAbstrait(
-                        lgt + deltacl + espcl * (k - 1),
-                        yLine -
-                          tabInit0[i][1] * hauteurLignes * intervalle +
-                          0.95,
-                      ),
-                      margeGauche: -long / 20,
-                      margeDroite: long / 20,
-                    })
-                    zonesEstInterdit.push(true)
-                    fleches.push({
-                      point: pointAbstrait(
-                        lgt + deltacl + espcl * (k - 1),
-                        yLine -
-                          tabInit0[i][1] * hauteurLignes * intervalle +
-                          0.95,
-                      ),
-                      margeGauche: -long / 20,
-                      margeDroite: long / 20,
-                    })
-                    s = segment(
-                      lgt + deltacl + espcl * (k - 1) - 0.05,
-                      yLine,
-                      lgt + deltacl + espcl * (k - 1) - 0.05,
-                      yLine - tabInit0[i][1] * hauteurLignes * intervalle,
-                    )
-                    segments.push(s)
-                    s = segment(
-                      lgt + deltacl + espcl * (k - 1) + 0.05,
-                      yLine,
-                      lgt + deltacl + espcl * (k - 1) + 0.05,
-                      yLine - tabInit0[i][1] * hauteurLignes * intervalle,
-                    )
-                    segments.push(s)
-                    if (ZIon) {
-                      ZI.push(
-                        pointAbstrait(lgt + deltacl + espcl * (k - 1), yLine),
-                        pointAbstrait(
-                          lgt + deltacl + espcl * (k - 1),
-                          yLine - tabInit0[i][1] * hauteurLignes * intervalle,
-                        ),
-                      )
-                      ZIon = false
-                    }
-                    zonesEstInterdit.push(false)
-                    break
-                  case '+D+': // deux expressions de part et d’autre d’une double barre (discontinuité)
-                    textes.push(
-                      sortieTexte(
-                        latexContent(codeVar[1]),
-                        lgt + deltacl + espcl * (k - 1) - long / 28,
-                        yLine - 0.95,
-                      ),
-                    )
-                    textes.push(
-                      sortieTexte(
-                        latexContent(codeVar[2]),
-                        lgt + deltacl + espcl * (k - 1) + long / 28,
-                        yLine - 0.95,
-                      ),
-                    )
-                    fleches.push({
-                      point: pointAbstrait(
-                        lgt + deltacl + espcl * (k - 1),
-                        yLine - 0.95,
-                      ),
-                      margeGauche: -long / 20,
-                      margeDroite: long / 20,
-                    })
-                    zonesEstInterdit.push(true)
-                    fleches.push({
-                      point: pointAbstrait(
-                        lgt + deltacl + espcl * (k - 1),
-                        yLine - 0.95,
-                      ),
-                      margeGauche: -long / 20,
-                      margeDroite: long / 20,
-                    })
-                    s = segment(
-                      lgt + deltacl + espcl * (k - 1) - 0.05,
-                      yLine,
-                      lgt + deltacl + espcl * (k - 1) - 0.05,
-                      yLine - tabInit0[i][1] * hauteurLignes * intervalle,
-                    )
-                    segments.push(s)
-                    s = segment(
-                      lgt + deltacl + espcl * (k - 1) + 0.05,
-                      yLine,
-                      lgt + deltacl + espcl * (k - 1) + 0.05,
-                      yLine - tabInit0[i][1] * hauteurLignes * intervalle,
-                    )
-                    segments.push(s)
-                    if (ZIon) {
-                      ZI.push(
-                        pointAbstrait(lgt + deltacl + espcl * (k - 1), yLine),
-                        pointAbstrait(
-                          lgt + deltacl + espcl * (k - 1),
-                          yLine - tabInit0[i][1] * hauteurLignes * intervalle,
-                        ),
-                      )
-                      ZIon = false
-                    }
-                    zonesEstInterdit.push(false)
-                    break
-                  case '-D+': // deux expressions de part et d’autre d’une double barre (discontinuité)
-                    textes.push(
-                      sortieTexte(
-                        latexContent(codeVar[1]),
-                        lgt + deltacl + espcl * (k - 1) - long / 28,
-                        yLine -
-                          tabInit0[i][1] * hauteurLignes * intervalle +
-                          0.95,
-                      ),
-                    )
-                    textes.push(
-                      sortieTexte(
-                        latexContent(codeVar[2]),
-                        lgt + deltacl + espcl * (k - 1) + long / 28,
-                        yLine - 0.95,
-                      ),
-                    )
-                    fleches.push({
-                      point: pointAbstrait(
-                        lgt + deltacl + espcl * (k - 1),
-                        yLine -
-                          tabInit0[i][1] * hauteurLignes * intervalle +
-                          0.95,
-                      ),
-                      margeGauche: -long / 20,
-                      margeDroite: long / 20,
-                    })
-                    zonesEstInterdit.push(true)
-                    fleches.push({
-                      point: pointAbstrait(
-                        lgt + deltacl + espcl * (k - 1),
-                        yLine - 0.95,
-                      ),
-                      margeGauche: -long / 20,
-                      margeDroite: long / 20,
-                    })
-                    s = segment(
-                      lgt + deltacl + espcl * (k - 1) - 0.05,
-                      yLine,
-                      lgt + deltacl + espcl * (k - 1) - 0.05,
-                      yLine - tabInit0[i][1] * hauteurLignes * intervalle,
-                    )
-                    segments.push(s)
-                    s = segment(
-                      lgt + deltacl + espcl * (k - 1) + 0.05,
-                      yLine,
-                      lgt + deltacl + espcl * (k - 1) + 0.05,
-                      yLine - tabInit0[i][1] * hauteurLignes * intervalle,
-                    )
-                    segments.push(s)
-                    if (ZIon) {
-                      ZI.push(
-                        pointAbstrait(lgt + deltacl + espcl * (k - 1), yLine),
-                        pointAbstrait(
-                          lgt + deltacl + espcl * (k - 1),
-                          yLine - tabInit0[i][1] * hauteurLignes * intervalle,
-                        ),
-                      )
-                      ZIon = false
-                    }
-                    zonesEstInterdit.push(false)
-                    break
-                  case '+D-': // deux expressions de part et d’autre d’une double barre (discontinuité)
-                    textes.push(
-                      sortieTexte(
-                        latexContent(codeVar[1]),
-                        lgt + deltacl + espcl * (k - 1) - long / 28,
-                        yLine - 0.95,
-                      ),
-                    )
-                    textes.push(
-                      sortieTexte(
-                        latexContent(codeVar[2]),
-                        lgt + deltacl + espcl * (k - 1) + long / 28,
-                        yLine -
-                          tabInit0[i][1] * hauteurLignes * intervalle +
-                          0.95,
-                      ),
-                    )
-                    fleches.push({
-                      point: pointAbstrait(
-                        lgt + deltacl + espcl * (k - 1),
-                        yLine - 0.95,
-                      ),
-                      margeGauche: -long / 20,
-                      margeDroite: long / 20,
-                    })
-                    zonesEstInterdit.push(true)
-                    fleches.push({
-                      point: pointAbstrait(
-                        lgt + deltacl + espcl * (k - 1),
-                        yLine -
-                          tabInit0[i][1] * hauteurLignes * intervalle +
-                          0.95,
-                      ),
-                      margeGauche: -long / 20,
-                      margeDroite: long / 20,
-                    })
-                    s = segment(
-                      lgt + deltacl + espcl * (k - 1) - 0.05,
-                      yLine,
-                      lgt + deltacl + espcl * (k - 1) - 0.05,
-                      yLine - tabInit0[i][1] * hauteurLignes * intervalle,
-                    )
-                    segments.push(s)
-                    s = segment(
-                      lgt + deltacl + espcl * (k - 1) + 0.05,
-                      yLine,
-                      lgt + deltacl + espcl * (k - 1) + 0.05,
-                      yLine - tabInit0[i][1] * hauteurLignes * intervalle,
-                    )
-                    segments.push(s)
-                    if (ZIon) {
-                      ZI.push(
-                        pointAbstrait(lgt + deltacl + espcl * (k - 1), yLine),
-                        pointAbstrait(
-                          lgt + deltacl + espcl * (k - 1),
-                          yLine - tabInit0[i][1] * hauteurLignes * intervalle,
-                        ),
-                      )
-                      ZIon = false
-                    }
-                    zonesEstInterdit.push(false)
-                    break
-                  case '-DC-': // une expression avant une double barre (discontinuité) et une expression sur la double barre (continuité)
-                    textes.push(
-                      sortieTexte(
-                        latexContent(codeVar[1]),
-                        lgt + deltacl + espcl * (k - 1) - long / 28,
-                        yLine -
-                          tabInit0[i][1] * hauteurLignes * intervalle +
-                          0.95,
-                      ),
-                    )
-                    textes.push(
-                      sortieTexte(
-                        latexContent(codeVar[2]),
-                        lgt + deltacl + espcl * (k - 1),
-                        yLine -
-                          tabInit0[i][1] * hauteurLignes * intervalle +
-                          0.95,
-                      ),
-                    )
-                    fleches.push({
-                      point: pointAbstrait(
-                        lgt + deltacl + espcl * (k - 1),
-                        yLine -
-                          tabInit0[i][1] * hauteurLignes * intervalle +
-                          0.95,
-                      ),
-                      margeGauche: -long / 20,
-                      margeDroite: long / 20,
-                    })
-                    s = segment(
-                      lgt + deltacl + espcl * (k - 1) - 0.05,
-                      yLine,
-                      lgt + deltacl + espcl * (k - 1) - 0.05,
-                      yLine - tabInit0[i][1] * hauteurLignes * intervalle,
-                    )
-                    segments.push(s)
-                    s = segment(
-                      lgt + deltacl + espcl * (k - 1) + 0.05,
-                      yLine,
-                      lgt + deltacl + espcl * (k - 1) + 0.05,
-                      yLine - tabInit0[i][1] * hauteurLignes * intervalle,
-                    )
-                    segments.push(s)
-                    if (ZIon) {
-                      ZI.push(
-                        pointAbstrait(lgt + deltacl + espcl * (k - 1), yLine),
-                        pointAbstrait(
-                          lgt + deltacl + espcl * (k - 1),
-                          yLine - tabInit0[i][1] * hauteurLignes * intervalle,
-                        ),
-                      )
-                      ZIon = false
-                    }
-                    zonesEstInterdit.push(false)
-                    break
-                  case '+DC+': // une expression avant une double barre (discontinuité) et une expression sur la double barre (continuité)
-                    textes.push(
-                      sortieTexte(
-                        latexContent(codeVar[1]),
-                        lgt + deltacl + espcl * (k - 1) - long / 28,
-                        yLine - 0.95,
-                      ),
-                    )
-                    textes.push(
-                      sortieTexte(
-                        latexContent(codeVar[2]),
-                        lgt + deltacl + espcl * (k - 1),
-                        yLine - 0.95,
-                      ),
-                    )
-                    fleches.push({
-                      point: pointAbstrait(
-                        lgt + deltacl + espcl * (k - 1),
-                        yLine -
-                          tabInit0[i][1] * hauteurLignes * intervalle +
-                          0.95,
-                      ),
-                      margeGauche: -long / 20,
-                      margeDroite: long / 20,
-                    })
-                    s = segment(
-                      lgt + deltacl + espcl * (k - 1) - 0.05,
-                      yLine,
-                      lgt + deltacl + espcl * (k - 1) - 0.05,
-                      yLine - tabInit0[i][1] * hauteurLignes * intervalle,
-                    )
-                    segments.push(s)
-                    s = segment(
-                      lgt + deltacl + espcl * (k - 1) + 0.05,
-                      yLine,
-                      lgt + deltacl + espcl * (k - 1) + 0.05,
-                      yLine - tabInit0[i][1] * hauteurLignes * intervalle,
-                    )
-                    segments.push(s)
-                    if (ZIon) {
-                      ZI.push(
-                        pointAbstrait(lgt + deltacl + espcl * (k - 1), yLine),
-                        pointAbstrait(
-                          lgt + deltacl + espcl * (k - 1),
-                          yLine - tabInit0[i][1] * hauteurLignes * intervalle,
-                        ),
-                      )
-                      ZIon = false
-                    }
-                    zonesEstInterdit.push(false)
-                    break
-                  case '-DC+': // une expression avant une double barre (discontinuité) et une expression sur la double barre (continuité)
-                    textes.push(
-                      sortieTexte(
-                        latexContent(codeVar[1]),
-                        lgt + deltacl + espcl * (k - 1) - long / 28,
-                        yLine -
-                          tabInit0[i][1] * hauteurLignes * intervalle +
-                          0.95,
-                      ),
-                    )
-                    textes.push(
-                      sortieTexte(
-                        latexContent(codeVar[2]),
-                        lgt + deltacl + espcl * (k - 1),
-                        yLine - 0.95,
-                      ),
-                    )
-                    fleches.push({
-                      point: pointAbstrait(
-                        lgt + deltacl + espcl * (k - 1),
-                        yLine -
-                          tabInit0[i][1] * hauteurLignes * intervalle +
-                          0.95,
-                      ),
-                      margeGauche: -long / 20,
-                      margeDroite: long / 20,
-                    })
-                    zonesEstInterdit.push(true)
-                    fleches.push({
-                      point: pointAbstrait(
-                        lgt + deltacl + espcl * (k - 1),
-                        yLine - 0.95,
-                      ),
-                      margeGauche: -long / 20,
-                      margeDroite: long / 20,
-                    })
-                    s = segment(
-                      lgt + deltacl + espcl * (k - 1) - 0.05,
-                      yLine,
-                      lgt + deltacl + espcl * (k - 1) - 0.05,
-                      yLine - tabInit0[i][1] * hauteurLignes * intervalle,
-                    )
-                    segments.push(s)
-                    s = segment(
-                      lgt + deltacl + espcl * (k - 1) + 0.05,
-                      yLine,
-                      lgt + deltacl + espcl * (k - 1) + 0.05,
-                      yLine - tabInit0[i][1] * hauteurLignes * intervalle,
-                    )
-                    segments.push(s)
-                    if (ZIon) {
-                      ZI.push(
-                        pointAbstrait(lgt + deltacl + espcl * (k - 1), yLine),
-                        pointAbstrait(
-                          lgt + deltacl + espcl * (k - 1),
-                          yLine - tabInit0[i][1] * hauteurLignes * intervalle,
-                        ),
-                      )
-                      ZIon = false
-                    }
-                    zonesEstInterdit.push(false)
-                    break
-                  case '+DC-': // une expression avant une double barre (discontinuité) et une expression sur la double barre (continuité)
-                    textes.push(
-                      sortieTexte(
-                        latexContent(codeVar[1]),
-                        lgt + deltacl + espcl * (k - 1) - long / 28,
-                        yLine - 0.95,
-                      ),
-                    )
-                    textes.push(
-                      sortieTexte(
-                        latexContent(codeVar[2]),
-                        lgt + deltacl + espcl * (k - 1),
-                        yLine -
-                          tabInit0[i][1] * hauteurLignes * demiIntervalle +
-                          0.95,
-                      ),
-                    )
-                    fleches.push({
-                      point: pointAbstrait(
-                        lgt + deltacl + espcl * (k - 1),
-                        yLine - 0.95,
-                      ),
-                      margeGauche: -long / 20,
-                      margeDroite: long / 20,
-                    })
-                    zonesEstInterdit.push(true)
-                    fleches.push({
-                      point: pointAbstrait(
-                        lgt + deltacl + espcl * (k - 1),
-                        yLine -
-                          tabInit0[i][1] * hauteurLignes * intervalle +
-                          0.95,
-                      ),
-                      margeGauche: -long / 20,
-                      margeDroite: long / 20,
-                    })
-                    s = segment(
-                      lgt + deltacl + espcl * (k - 1) - 0.05,
-                      yLine,
-                      lgt + deltacl + espcl * (k - 1) - 0.05,
-                      yLine - tabInit0[i][1] * hauteurLignes * intervalle,
-                    )
-                    segments.push(s)
-                    s = segment(
-                      lgt + deltacl + espcl * (k - 1) + 0.05,
-                      yLine,
-                      lgt + deltacl + espcl * (k - 1) + 0.05,
-                      yLine - tabInit0[i][1] * hauteurLignes * intervalle,
-                    )
-                    segments.push(s)
-                    if (ZIon) {
-                      ZI.push(
-                        pointAbstrait(lgt + deltacl + espcl * (k - 1), yLine),
-                        pointAbstrait(
-                          lgt + deltacl + espcl * (k - 1),
-                          yLine - tabInit0[i][1] * hauteurLignes * intervalle,
-                        ),
-                      )
-                      ZIon = false
-                    }
-                    zonesEstInterdit.push(false)
-                    break
-                  case '-V-': // deux expressions
-                    textes.push(
-                      sortieTexte(
-                        latexContent(codeVar[1]),
-                        lgt + deltacl + espcl * (k - 1) - long / 28,
-                        yLine -
-                          tabInit0[i][1] * hauteurLignes * intervalle +
-                          0.95,
-                      ),
-                    )
-                    textes.push(
-                      sortieTexte(
-                        latexContent(codeVar[2]),
-                        lgt + deltacl + espcl * (k - 1) + long / 28,
-                        yLine -
-                          tabInit0[i][1] * hauteurLignes * intervalle +
-                          0.95,
-                      ),
-                    )
-                    fleches.push({
-                      point: pointAbstrait(
-                        lgt + deltacl + espcl * (k - 1),
-                        yLine -
-                          tabInit0[i][1] * hauteurLignes * intervalle +
-                          0.95,
-                      ),
-                      margeGauche: -long / 20,
-                      margeDroite: long / 20,
-                    })
-                    if (ZIon) {
-                      ZI.push(
-                        pointAbstrait(lgt + deltacl + espcl * (k - 1), yLine),
-                        pointAbstrait(
-                          lgt + deltacl + espcl * (k - 1),
-                          yLine - tabInit0[i][1] * hauteurLignes * intervalle,
-                        ),
-                      )
-                      ZIon = false
-                    }
-                    zonesEstInterdit.push(false)
-                    break
-                  case '+V+': // deux expressions
-                    textes.push(
-                      sortieTexte(
-                        latexContent(codeVar[1]),
-                        lgt + deltacl + espcl * (k - 1) - long / 28,
-                        yLine - 0.95,
-                      ),
-                    )
-                    textes.push(
-                      sortieTexte(
-                        latexContent(codeVar[2]),
-                        lgt + deltacl + espcl * (k - 1) + long / 28,
-                        yLine - 0.95,
-                      ),
-                    )
-                    fleches.push({
-                      point: pointAbstrait(
-                        lgt + deltacl + espcl * (k - 1),
-                        yLine -
-                          tabInit0[i][1] * hauteurLignes * intervalle +
-                          0.95,
-                      ),
-                      margeGauche: -long / 20,
-                      margeDroite: long / 20,
-                    })
-                    if (ZIon) {
-                      ZI.push(
-                        pointAbstrait(lgt + deltacl + espcl * (k - 1), yLine),
-                        pointAbstrait(
-                          lgt + deltacl + espcl * (k - 1),
-                          yLine - tabInit0[i][1] * hauteurLignes * intervalle,
-                        ),
-                      )
-                      ZIon = false
-                    }
-                    zonesEstInterdit.push(false)
-                    break
-                  case '-V+': // deux expressions
-                    textes.push(
-                      sortieTexte(
-                        latexContent(codeVar[1]),
-                        lgt + deltacl + espcl * (k - 1) - long / 28,
-                        yLine -
-                          tabInit0[i][1] * hauteurLignes * intervalle +
-                          0.95,
-                      ),
-                    )
-                    textes.push(
-                      sortieTexte(
-                        latexContent(codeVar[2]),
-                        lgt + deltacl + espcl * (k - 1) + long / 28,
-                        yLine - 0.95,
-                      ),
-                    )
-                    fleches.push({
-                      point: pointAbstrait(
-                        lgt + deltacl + espcl * (k - 1),
-                        yLine -
-                          tabInit0[i][1] * hauteurLignes * intervalle +
-                          0.95,
-                      ),
-                      margeGauche: -long / 20,
-                      margeDroite: long / 20,
-                    })
-                    zonesEstInterdit.push(true)
-                    fleches.push({
-                      point: pointAbstrait(
-                        lgt + deltacl + espcl * (k - 1),
-                        yLine - 0.95,
-                      ),
-                      margeGauche: -long / 20,
-                      margeDroite: long / 20,
-                    })
-                    if (ZIon) {
-                      ZI.push(
-                        pointAbstrait(lgt + deltacl + espcl * (k - 1), yLine),
-                        pointAbstrait(
-                          lgt + deltacl + espcl * (k - 1),
-                          yLine - tabInit0[i][1] * hauteurLignes * intervalle,
-                        ),
-                      )
-                      ZIon = false
-                    }
-                    zonesEstInterdit.push(false)
-                    break
-                  case '+V-': // deux expressions
-                    textes.push(
-                      sortieTexte(
-                        latexContent(codeVar[1]),
-                        lgt + deltacl + espcl * (k - 1) - long / 28,
-                        yLine - 0.95,
-                      ),
-                    )
-                    textes.push(
-                      sortieTexte(
-                        latexContent(codeVar[2]),
-                        lgt + deltacl + espcl * (k - 1) + long / 28,
-                        yLine -
-                          tabInit0[i][1] * hauteurLignes * intervalle +
-                          0.95,
-                      ),
-                    )
-                    fleches.push({
-                      point: pointAbstrait(
-                        lgt + deltacl + espcl * (k - 1),
-                        yLine - 0.95,
-                      ),
-                      margeGauche: -long / 20,
-                      margeDroite: long / 20,
-                    })
-                    zonesEstInterdit.push(true)
-                    fleches.push({
-                      point: pointAbstrait(
-                        lgt + deltacl + espcl * (k - 1),
-                        yLine -
-                          tabInit0[i][1] * hauteurLignes * intervalle +
-                          0.95,
-                      ),
-                      margeGauche: -long / 20,
-                      margeDroite: long / 20,
-                    })
-                    if (ZIon) {
-                      ZI.push(
-                        pointAbstrait(lgt + deltacl + espcl * (k - 1), yLine),
-                        pointAbstrait(
-                          lgt + deltacl + espcl * (k - 1),
-                          yLine - tabInit0[i][1] * hauteurLignes * intervalle,
-                        ),
-                      )
-                      ZIon = false
-                    }
-                    zonesEstInterdit.push(false)
-                    break
-                }
-              }
-            }
-          }
-          for (let n = 0; n < fleches.length - 1; n++) {
-            const marge1 = fleches[n].margeDroite
-            const marge2 = fleches[n + 1].margeGauche
-            if (!zonesEstInterdit[n]) {
-              v = representant(
-                vecteur(
-                  translation(fleches[n].point, vecteur(marge1, 0)),
-                  translation(fleches[n + 1].point, vecteur(marge2, 0)),
-                ),
-                translation(fleches[n].point, vecteur(marge1, 0)),
-              )
-              v.styleExtremites = '->'
-              segments.push(v)
-            }
-          }
-          for (let n = 0; n <= ZI.length / 4 - 1; n++) {
-            p = polygone(ZI[4 * n], ZI[4 * n + 2], ZI[4 * n + 3], ZI[4 * n + 1])
-            p.opacite = 1
-            p.hachures = 'north east lines'
-            segments.push(p)
-          }
-
-          // On crée une ligne horizontale et les séparations verticales de base
-          segments.push(segment(0, yLine, longueurTotale, yLine))
-          segments.push(
-            segment(
-              0,
-              yLine,
-              0,
-              yLine - tabInit0[i][1] * hauteurLignes * intervalle,
-            ),
-          )
-          segments.push(
-            segment(
-              lgt,
-              yLine,
-              lgt,
-              yLine - tabInit0[i][1] * hauteurLignes * intervalle,
-            ),
-          )
-          segments.push(
-            segment(
-              longueurTotale,
-              yLine,
-              longueurTotale,
-              yLine - tabInit0[i][1] * hauteurLignes * intervalle,
-            ),
-          )
-          yLine -= tabInit0[i][1] * hauteurLignes * intervalle
-          index++
-          break
-        case 'Val': // ajouter un antécédent et son image sur la flèche. 6 paramètres + 'Val'
-          // ['Val',antécédent du début de la flèche, antécédent de la fin de la flèche, position sur la flèche entre 0 et 1, 'antécédent', 'image',long]
-          if (tabLines[index][5] !== '') {
-            long = tabLines[index][6]
-            textes.push(
-              sortieTexte(
-                latexContent(String(tabLines[index][5])),
-                lgt +
-                  deltacl +
-                  espcl * (Number(tabLines[index][1]) - 1) +
-                  1 +
-                  (espcl - 2) *
-                    (Number(tabLines[index][2]) - Number(tabLines[index][1])) *
-                    Number(tabLines[index][3]),
-                yLine +
-                  1.1 +
-                  Number(tabLines[index][3]) *
-                    tabInit0[i][1] *
-                    hauteurLignes *
-                    demiIntervalle,
-              ),
-            )
-            textes.push(
-              sortieTexte(
-                latexContent(String(tabLines[index][4])),
-                lgt +
-                  deltacl +
-                  espcl * (Number(tabLines[index][1]) - 1) +
-                  1 +
-                  (espcl - 2) *
-                    (Number(tabLines[index][2]) - Number(tabLines[index][1])) *
-                    Number(tabLines[index][3]),
-                -tabInit0[0][1] * hauteurLignes * demiIntervalle,
-              ),
-            )
-          }
-          index++
-          break
-        case 'Ima': // ajouter des valeurs sur la flèche...
-          if (tabLines[index][4] !== '') {
-            texte = String(tabLines[index][4])
-            long = Number(tabLines[index][3])
-            textes.push(
-              sortieTexte(
-                latexContent(texte),
-                lgt +
-                  deltacl +
-                  (espcl *
-                    (Number(tabLines[index][1]) -
-                      1 +
-                      (Number(tabLines[index][2]) - 1))) /
-                    2,
-                yLine + tabInit0[i][1] * hauteurLignes * demiIntervalle,
-              ),
-            )
-          }
-          index++
-          break
-        case 'Slope':
-          /****************************************************************************/
-          // Slope n'est pas implémenté... reste à faire (si quelqu'un en a besoin).
-          /****************************************************************************/
-          for (let k = 1; k < tabLines[index].length / 2; k++) {
-            if (tabLines[index][k * 2] !== '') {
-              texte = tabLines[index][k * 2]
-              long = tabLines[index][k * 2 + 1]
-            }
-          }
-          break
-      }
-    }
-
-    // On ferme le tableau en bas
-    segments.push(segment(0, yLine, longueurTotale, yLine))
-    for (const latex of textes) {
-      segments.push(
-        latex2d(latex.texte, latex.x, latex.y, { letterSize: 'normalsize' }),
-      )
-    }
-    // Si l'on de définit pas rxmin, rymin, rxmax et rymax, ceux-ci sont fixés par défaut à -0.5 et +0.5, ce qui s'ajoute aux marges déjà prévues pour les segments de -0.2 et +0.2
-    // voilà d'où vient le décallage de 0.7 enregistré sur la position des latex par rapport au cadre !
-
+    const segments = creerTableauHtml({
+      tabInit,
+      tabLines,
+      espcl,
+      deltacl,
+      lgt,
+    })
     const svgCode = mathalea2d(
       Object.assign(
         {},
@@ -2039,7 +99,6 @@ export function tableauDeVariation({
       segments,
     )
     return svgCode
-    /* pour éviter d'avoir des containers imbriquées, util pour le zoom */
   }
   let codeLatex = `\\begin{tikzpicture}[baseline, scale=${scale}]
     \\tkzTabInit[lgt=${lgt},deltacl=${deltacl},espcl=${espcl}`
@@ -3245,4 +1304,1960 @@ export function brent(
   }
 
   throw new Error('Maximum number of iterations exceeded')
+}
+
+export function creerTableauHtml({
+  tabInit,
+  tabLines,
+  espcl,
+  deltacl,
+  lgt,
+}: {
+  tabInit: TabInit
+  tabLines: TabLine[]
+  espcl: number
+  deltacl: number
+  lgt: number
+}): NestedObjetMathalea2dArray {
+  if (!context.isHtml) return []
+  const hauteurLignes = context.pixelsParCm
+  const tabInit0 = tabInit[0]
+  const tabInit1 = tabInit[1]
+  let isTabInit0Valid = true
+  if (!Array.isArray(tabInit0) || tabInit0.length === 0) {
+    isTabInit0Valid = false
+  } else {
+    for (let i = 0; i < tabInit0.length; i++) {
+      if (tabInit0[i].length !== 3) {
+        isTabInit0Valid = false
+        break
+      }
+      if (typeof tabInit0[i][0] !== 'string') {
+        isTabInit0Valid = false
+        break
+      }
+      if (typeof tabInit0[i][1] !== 'number') {
+        isTabInit0Valid = false
+        break
+      }
+      if (typeof tabInit0[i][2] !== 'number') {
+        isTabInit0Valid = false
+        break
+      }
+    }
+  }
+  if (!isTabInit0Valid) {
+    window.notify('Dans TableauDeVariation(), tabInit[0] est invalide', {
+      tabInit0,
+    })
+    return []
+  }
+  let isTabInit1Valid = true
+  if (!Array.isArray(tabInit1) || tabInit1.length === 0) {
+    isTabInit1Valid = false
+  } else {
+    for (let i = 0; i < tabInit1.length; i++) {
+      if (typeof tabInit1[i] !== 'string' && typeof tabInit1[i] !== 'number') {
+        isTabInit1Valid = false
+        break
+      }
+    }
+  }
+  if (!isTabInit1Valid) {
+    window.notify('Dans TableauDeVariation(), tabInit[1] est invalide', {
+      tabInit1,
+    })
+    return []
+  }
+  let isTabLinesValid = true
+  if (!Array.isArray(tabLines) || tabLines.length === 0) {
+    isTabLinesValid = false
+  } else {
+    for (let i = 0; i < tabLines.length; i++) {
+      if (!Array.isArray(tabLines[i]) || tabLines[i].length === 0) {
+        isTabLinesValid = false
+        break
+      }
+      if (
+        typeof tabLines[i][0] !== 'string' ||
+        !['Line', 'Var', 'Ima', 'Val', 'Slope'].includes(String(tabLines[i][0]))
+      ) {
+        isTabLinesValid = false
+        break
+      }
+    }
+  }
+  if (!isTabLinesValid) {
+    window.notify('Dans TableauDeVariation(), tabLines est invalide', {
+      tabLines,
+    })
+    return []
+  }
+  let yLine = 0
+  const segments = []
+  let index = 0
+  const textes = []
+  let texte
+  let long
+  let s
+  let p
+  let v
+  let fleches: {
+    point: PointAbstrait
+    margeGauche: number
+    margeDroite: number
+  }[] = []
+  let codeVar = []
+  let ZI = []
+  let ZIon
+  let zonesEstInterdit = []
+  const longueurTotale = lgt + (tabInit1.length / 2 - 1) * espcl + 2 * deltacl
+  const demiIntervalle = 1 / context.pixelsParCm / 2
+  const intervalle = 2 * demiIntervalle
+  /**
+   * Retire les $ $ du début et de la fin de la chaine passée s'il y en a et retourne la chaine
+   * @param {string } text
+   * @returns {string}
+   */
+  const latexContent = (text: string) => {
+    let txt = text
+    if (txt == null || typeof txt !== 'string') {
+      window.notify(
+        `Dans TableauDeVariation(), sortieTexte() a reçu un drôle de texte : ${txt}, du coup je renvoie ''`,
+        {},
+      )
+      txt = ''
+    }
+    if (txt[0] === '$') txt = txt.substring(1, txt.length - 1)
+    return txt
+  }
+  const sortieTexte = (texte: string, x: number, y: number) => {
+    let txt = texte
+    if (typeof txt !== 'string') {
+      window.notify(
+        `Dans TableauDeVariation(), sortieTexte() a reçu un drôle de texte : ${txt}, du coup je renvoie ''`,
+        {},
+      )
+      return { texte: '', x, y }
+    }
+    if (txt[0] === '$' && txt[txt.length - 1] === '$') {
+      // on suprime les $ superflus, parce qu'il n'en faut pas !
+      txt = txt.substring(1, txt.length - 2)
+    }
+    if (txt.length > 0) {
+      return { texte: txt, x, y }
+    }
+    return { texte: '', x, y }
+  }
+  // On crée une ligne horizontale et les séparations verticales de base
+  segments.push(segment(0, 0, longueurTotale, 0))
+  segments.push(segment(0, 0, 0, -tabInit0[0][1] * hauteurLignes * intervalle))
+  segments.push(
+    segment(lgt, 0, lgt, 0 - tabInit0[0][1] * hauteurLignes * intervalle),
+  )
+  segments.push(
+    segment(
+      longueurTotale,
+      0,
+      longueurTotale,
+      -tabInit0[0][1] * hauteurLignes * intervalle,
+    ),
+  )
+
+  texte = tabInit0[0][0]
+  long = tabInit0[0][2] //
+  textes.push(
+    sortieTexte(
+      latexContent(texte),
+      lgt / 2,
+      -tabInit0[0][1] * hauteurLignes * demiIntervalle,
+    ),
+  )
+  for (let j = 0; j < tabInit1.length / 2; j++) {
+    texte = String(tabInit1[j * 2])
+    long = tabInit1[j * 2 + 1]
+    textes.push(
+      sortieTexte(
+        latexContent(texte),
+        lgt + deltacl + espcl * j,
+        -tabInit0[0][1] * hauteurLignes * demiIntervalle,
+      ),
+    )
+  }
+  yLine -= tabInit0[0][1] * hauteurLignes * intervalle
+
+  for (let i = 0; i < tabInit0.length && index < tabLines.length; ) {
+    // on s'arrête quand on dépasse le nombre de lignes prévues
+    // Line et Var incrémente i de 1 et décrémente yLine de la hauteur de la ligne
+    // Val, Ima et Slope incrémente index mais pas i
+    switch (tabLines[index][0]) {
+      case 'Line':
+        i++
+        long = tabInit0[i][2]
+        textes.push(
+          sortieTexte(
+            latexContent(tabInit0[i][0]),
+            lgt / 2,
+            yLine - tabInit0[i][1] * hauteurLignes * demiIntervalle,
+          ),
+        ) // hauteurLignes,colorBackground))
+
+        for (let k = 1; k < tabLines[index].length / 2; k++) {
+          if (tabLines[index][k * 2] !== '') {
+            texte = String(tabLines[index][k * 2])
+            long = tabLines[index][k * 2 + 1]
+            if (texte.length === 1) {
+              switch (texte[0]) {
+                case 'z':
+                  textes.push(
+                    sortieTexte(
+                      '0',
+                      lgt + deltacl + (espcl / 2) * (k - 1),
+                      yLine - tabInit0[i][1] * hauteurLignes * demiIntervalle,
+                    ),
+                  )
+                  s = segment(
+                    lgt + deltacl + (espcl / 2) * (k - 1),
+                    yLine,
+                    lgt + deltacl + (espcl / 2) * (k - 1),
+                    yLine - tabInit0[i][1] * hauteurLignes * intervalle,
+                  )
+                  s.pointilles = 4
+                  segments.push(s)
+                  break
+                case 'd':
+                  segments.push(
+                    segment(
+                      lgt + deltacl + (espcl / 2) * (k - 1) - 0.05,
+                      yLine,
+                      lgt + deltacl + (espcl / 2) * (k - 1) - 0.05,
+                      yLine - tabInit0[i][1] * hauteurLignes * intervalle,
+                    ),
+                  )
+                  segments.push(
+                    segment(
+                      lgt + deltacl + (espcl / 2) * (k - 1) + 0.05,
+                      yLine,
+                      lgt + deltacl + (espcl / 2) * (k - 1) + 0.05,
+                      yLine - tabInit0[i][1] * hauteurLignes * intervalle,
+                    ),
+                  )
+                  break
+                case 't':
+                  s = segment(
+                    lgt + deltacl + (espcl / 2) * (k - 1),
+                    yLine,
+                    lgt + deltacl + (espcl / 2) * (k - 1),
+                    yLine - tabInit0[i][1] * hauteurLignes * intervalle,
+                  )
+                  s.pointilles = 4
+                  segments.push(s)
+                  break
+                case 'h':
+                  p = polygone([
+                    pointAbstrait(lgt + deltacl + (espcl / 2) * (k - 1), yLine),
+                    pointAbstrait(lgt + deltacl + (espcl / 2) * k, yLine),
+                    pointAbstrait(
+                      lgt + deltacl + (espcl / 2) * k,
+                      yLine - tabInit0[i][1] * hauteurLignes * intervalle,
+                    ),
+                    pointAbstrait(
+                      lgt + deltacl + (espcl / 2) * (k - 1),
+                      yLine - tabInit0[i][1] * hauteurLignes * intervalle,
+                    ),
+                  ])
+                  p.couleurDeRemplissage = colorToLatexOrHTML('gray')
+                  segments.push(p)
+                  break
+                case '+':
+                  textes.push(
+                    sortieTexte(
+                      '+',
+                      lgt + deltacl + (espcl / 2) * (k - 1),
+                      yLine - tabInit0[i][1] * hauteurLignes * demiIntervalle,
+                    ),
+                  )
+
+                  break
+                case '-':
+                  textes.push(
+                    sortieTexte(
+                      '-',
+                      lgt + deltacl + (espcl / 2) * (k - 1),
+                      yLine - tabInit0[i][1] * hauteurLignes * demiIntervalle,
+                    ),
+                  )
+
+                  break
+              }
+            } else if (texte === '||') {
+              textes.push(
+                sortieTexte(
+                  latexContent(texte),
+                  lgt + deltacl + (espcl / 2) * (k - 1),
+                  yLine - tabInit0[i][1] * hauteurLignes * demiIntervalle,
+                ),
+              )
+              s = segment(
+                lgt + deltacl + (espcl / 2) * (k - 1),
+                yLine,
+                lgt + deltacl + (espcl / 2) * (k - 1),
+                yLine - tabInit0[i][1] * hauteurLignes * intervalle,
+              )
+              s.pointilles = 4
+              segments.push(s)
+            } else if (texte === 'R/') {
+              // textes.push(sortieTexte(texte, lgt + deltacl + espcl/2 * (k - 0.6), yLine-tabInit0[i][1] / 2))
+            } else {
+              textes.push(
+                sortieTexte(
+                  latexContent(texte),
+                  lgt + deltacl + (espcl / 2) * (k - 1),
+                  yLine - tabInit0[i][1] * hauteurLignes * demiIntervalle,
+                ),
+              )
+            }
+          }
+        }
+        // On crée une ligne horizontale et les séparations verticales de base
+        segments.push(segment(0, yLine, longueurTotale, yLine))
+        segments.push(
+          segment(
+            0,
+            yLine,
+            0,
+            yLine - tabInit0[i][1] * hauteurLignes * intervalle,
+          ),
+        )
+        segments.push(
+          segment(
+            lgt,
+            yLine,
+            lgt,
+            yLine - tabInit0[i][1] * hauteurLignes * intervalle,
+          ),
+        )
+        segments.push(
+          segment(
+            longueurTotale,
+            yLine,
+            longueurTotale,
+            yLine - tabInit0[i][1] * hauteurLignes * intervalle,
+          ),
+        )
+        yLine -= tabInit0[i][1] * hauteurLignes * intervalle
+        index++
+        break
+      case 'Var':
+        i++ // index des lignes (ça démarre à -1 pour l'entête, ça passe à 0 pour la première ligne (celle sous l'entête) et c'est incrémenté à chaque nouvelle ligne)
+        fleches = [] // les points qui marquent le départ et/ou l'arrivée d'une flèche (endroit où se situent les valeurs)
+        ZI = [] // Liste de points (qui vont par deux : un sur la ligne du dessus, l'autre en dessous)
+        ZIon = false // un booléen qui bascule à true si on entre dans une zone interdite et qui rebascule à false à la prochaine valeur
+        // utilisé pour ajouter les deux points de droite servant à faire le rectangle hachuré/
+        zonesEstInterdit = [] // Un tableau pour garder la trace des "zones interdites" où il ne doit pas y avoir de flèches
+        for (let k = 1; k < tabLines[index].length / 2; k++) {
+          textes.push(
+            sortieTexte(
+              latexContent(tabInit0[i][0]),
+              lgt / 2,
+              yLine - tabInit0[i][1] * hauteurLignes * demiIntervalle,
+            ),
+          )
+          if (tabLines[index][k * 2] !== '') {
+            texte = String(tabLines[index][k * 2])
+            long = Number(tabLines[index][k * 2 - 1]) ?? 20
+            codeVar = texte.split('/')
+            if (codeVar.length === 1) {
+              // il n'y a qu'un code
+              // on ne fait rien, c'est la commande R/ ou un emplacement vide sans /
+            } else if (codeVar.length === 2) {
+              // Une seule expression (2 codes séparés par un seul /)
+              switch (codeVar[0]) {
+                case '+': // une expression
+                  textes.push(
+                    sortieTexte(
+                      latexContent(codeVar[1]),
+                      lgt + deltacl + espcl * (k - 1),
+                      yLine - 0.95,
+                    ),
+                  )
+                  fleches.push({
+                    point: pointAbstrait(
+                      lgt + deltacl + espcl * (k - 1),
+                      yLine - 0.95,
+                    ),
+                    margeGauche: -long / 20,
+                    margeDroite: long / 20,
+                  })
+                  if (ZIon) {
+                    ZI.push(
+                      pointAbstrait(lgt + deltacl + espcl * (k - 1), yLine),
+                      pointAbstrait(
+                        lgt + deltacl + espcl * (k - 1),
+                        yLine - tabInit0[i][1] * hauteurLignes * intervalle,
+                      ),
+                    )
+                    ZIon = false
+                  }
+                  zonesEstInterdit.push(false)
+                  break
+                case '-': // une expression
+                  textes.push(
+                    sortieTexte(
+                      latexContent(codeVar[1]),
+                      lgt + deltacl + espcl * (k - 1),
+                      yLine -
+                        tabInit0[i][1] * hauteurLignes * intervalle +
+                        0.95,
+                    ),
+                  )
+                  fleches.push({
+                    point: pointAbstrait(
+                      lgt + deltacl + espcl * (k - 1),
+                      yLine -
+                        tabInit0[i][1] * hauteurLignes * intervalle +
+                        0.95,
+                    ),
+                    margeGauche: -long / 20,
+                    margeDroite: long / 20,
+                  })
+                  if (ZIon) {
+                    ZI.push(
+                      pointAbstrait(lgt + deltacl + espcl * (k - 1), yLine),
+                      pointAbstrait(
+                        lgt + deltacl + espcl * (k - 1),
+                        yLine - tabInit0[i][1] * hauteurLignes * intervalle,
+                      ),
+                    )
+                    ZIon = false
+                  }
+                  zonesEstInterdit.push(false)
+                  break
+                case '+C': // une expression sur une double barre (prolongement par continuité)
+                  textes.push(
+                    sortieTexte(
+                      latexContent(codeVar[1]),
+                      lgt + deltacl + espcl * (k - 1),
+                      yLine - 0.95,
+                    ),
+                  )
+                  fleches.push({
+                    point: pointAbstrait(
+                      lgt + deltacl + espcl * (k - 1),
+                      yLine - 0.95,
+                    ),
+                    margeGauche: -long / 20,
+                    margeDroite: long / 20,
+                  })
+                  s = segment(
+                    lgt + deltacl + espcl * (k - 1) - 0.05,
+                    yLine,
+                    lgt + deltacl + espcl * (k - 1) - 0.05,
+                    yLine - tabInit0[i][1] * hauteurLignes * intervalle,
+                  )
+                  segments.push(s)
+                  s = segment(
+                    lgt + deltacl + espcl * (k - 1) + 0.05,
+                    yLine,
+                    lgt + deltacl + espcl * (k - 1) + 0.05,
+                    yLine - tabInit0[i][1] * hauteurLignes * intervalle,
+                  )
+                  segments.push(s)
+                  if (ZIon) {
+                    ZI.push(
+                      pointAbstrait(lgt + deltacl + espcl * (k - 1), yLine),
+                      pointAbstrait(
+                        lgt + deltacl + espcl * (k - 1),
+                        yLine - tabInit0[i][1] * hauteurLignes * intervalle,
+                      ),
+                    )
+                    ZIon = false
+                  }
+                  zonesEstInterdit.push(false)
+                  break
+                case '-C': // une expression sur une double barre (prolongement par continuité)
+                  textes.push(
+                    sortieTexte(
+                      latexContent(codeVar[1]),
+                      lgt + deltacl + espcl * (k - 1),
+                      yLine -
+                        tabInit0[i][1] * hauteurLignes * intervalle +
+                        0.95,
+                    ),
+                  )
+                  fleches.push({
+                    point: pointAbstrait(
+                      lgt + deltacl + espcl * (k - 1),
+                      yLine -
+                        tabInit0[i][1] * hauteurLignes * intervalle +
+                        0.95,
+                    ),
+                    margeGauche: -long / 20,
+                    margeDroite: long / 20,
+                  })
+                  s = segment(
+                    lgt + deltacl + espcl * (k - 1) - 0.05,
+                    yLine,
+                    lgt + deltacl + espcl * (k - 1) - 0.05,
+                    yLine - tabInit0[i][1] * hauteurLignes * intervalle,
+                  )
+                  segments.push(s)
+                  s = segment(
+                    lgt + deltacl + espcl * (k - 1) + 0.05,
+                    yLine,
+                    lgt + deltacl + espcl * (k - 1) + 0.05,
+                    yLine - tabInit0[i][1] * hauteurLignes * intervalle,
+                  )
+                  segments.push(s)
+                  if (ZIon) {
+                    ZI.push(
+                      pointAbstrait(lgt + deltacl + espcl * (k - 1), yLine),
+                      pointAbstrait(
+                        lgt + deltacl + espcl * (k - 1),
+                        yLine - tabInit0[i][1] * hauteurLignes * intervalle,
+                      ),
+                    )
+                    ZIon = false
+                  }
+                  zonesEstInterdit.push(false)
+                  break
+                case '+D': // une expression suivie d’une double barre (discontinuité)
+                  textes.push(
+                    sortieTexte(
+                      latexContent(codeVar[1]),
+                      lgt + deltacl + espcl * (k - 1) - long / 28,
+                      yLine - 0.95,
+                    ),
+                  )
+                  fleches.push({
+                    point: pointAbstrait(
+                      lgt + deltacl + espcl * (k - 1),
+                      yLine - 0.95,
+                    ),
+                    margeGauche: -long / 20,
+                    margeDroite: long / 20,
+                  })
+                  s = segment(
+                    lgt + deltacl + espcl * (k - 1) - 0.05,
+                    yLine,
+                    lgt + deltacl + espcl * (k - 1) - 0.05,
+                    yLine - tabInit0[i][1] * hauteurLignes * intervalle,
+                  )
+                  segments.push(s)
+                  s = segment(
+                    lgt + deltacl + espcl * (k - 1) + 0.05,
+                    yLine,
+                    lgt + deltacl + espcl * (k - 1) + 0.05,
+                    yLine - tabInit0[i][1] * hauteurLignes * intervalle,
+                  )
+                  segments.push(s)
+                  if (ZIon) {
+                    ZI.push(
+                      pointAbstrait(lgt + deltacl + espcl * (k - 1), yLine),
+                      pointAbstrait(
+                        lgt + deltacl + espcl * (k - 1),
+                        yLine - tabInit0[i][1] * hauteurLignes * intervalle,
+                      ),
+                    )
+                    ZIon = false
+                  }
+                  zonesEstInterdit.push(false)
+                  break
+                case '-D': // une expression suivie d’une double barre (discontinuité)
+                  textes.push(
+                    sortieTexte(
+                      latexContent(codeVar[1]),
+                      lgt + deltacl + espcl * (k - 1) - long / 28,
+                      yLine -
+                        tabInit0[i][1] * hauteurLignes * intervalle +
+                        0.95,
+                    ),
+                  )
+                  fleches.push({
+                    point: pointAbstrait(
+                      lgt + deltacl + espcl * (k - 1),
+                      yLine -
+                        tabInit0[i][1] * hauteurLignes * intervalle +
+                        0.95,
+                    ),
+                    margeGauche: -long / 20,
+                    margeDroite: long / 20,
+                  })
+                  s = segment(
+                    lgt + deltacl + espcl * (k - 1) - 0.05,
+                    yLine,
+                    lgt + deltacl + espcl * (k - 1) - 0.05,
+                    yLine - tabInit0[i][1] * hauteurLignes * intervalle,
+                  )
+                  segments.push(s)
+                  s = segment(
+                    lgt + deltacl + espcl * (k - 1) + 0.05,
+                    yLine,
+                    lgt + deltacl + espcl * (k - 1) + 0.05,
+                    yLine - tabInit0[i][1] * hauteurLignes * intervalle,
+                  )
+                  segments.push(s)
+                  if (ZIon) {
+                    ZI.push(
+                      pointAbstrait(lgt + deltacl + espcl * (k - 1), yLine),
+                      pointAbstrait(
+                        lgt + deltacl + espcl * (k - 1),
+                        yLine - tabInit0[i][1] * hauteurLignes * intervalle,
+                      ),
+                    )
+                    ZIon = false
+                  }
+                  zonesEstInterdit.push(false)
+                  break
+                case '+H': // une expression suivie d’une zone interdite
+                  textes.push(
+                    sortieTexte(
+                      latexContent(codeVar[1]),
+                      lgt + deltacl + espcl * (k - 1) - long / 28,
+                      yLine - 0.95,
+                    ),
+                  )
+                  fleches.push({
+                    point: pointAbstrait(
+                      lgt + deltacl + espcl * (k - 1),
+                      yLine - 0.95,
+                    ),
+                    margeGauche: -long / 20,
+                    margeDroite: long / 20,
+                  })
+                  ZI.push(
+                    pointAbstrait(lgt + deltacl + espcl * (k - 1), yLine),
+                    pointAbstrait(
+                      lgt + deltacl + espcl * (k - 1),
+                      yLine - tabInit0[i][1] * hauteurLignes * intervalle,
+                    ),
+                  )
+                  ZIon = true
+                  zonesEstInterdit.push(true)
+                  break
+                case '-H': // une expression suivie d’une zone interdite
+                  textes.push(
+                    sortieTexte(
+                      latexContent(codeVar[1]),
+                      lgt + deltacl + espcl * (k - 1) - long / 28,
+                      yLine -
+                        tabInit0[i][1] * hauteurLignes * intervalle +
+                        0.95,
+                    ),
+                  )
+                  fleches.push({
+                    point: pointAbstrait(
+                      lgt + deltacl + espcl * (k - 1),
+                      yLine -
+                        tabInit0[i][1] * hauteurLignes * intervalle +
+                        0.95,
+                    ),
+                    margeGauche: -long / 20,
+                    margeDroite: long / 20,
+                  })
+                  ZI.push(
+                    pointAbstrait(lgt + deltacl + espcl * (k - 1), yLine),
+                    pointAbstrait(
+                      lgt + deltacl + espcl * (k - 1),
+                      yLine - tabInit0[i][1] * hauteurLignes * intervalle,
+                    ),
+                  )
+                  ZIon = true
+                  zonesEstInterdit.push(true)
+                  break
+                case 'D-': // expression précédée d'une double barre discontinuité
+                  textes.push(
+                    sortieTexte(
+                      latexContent(codeVar[1]),
+                      lgt + deltacl + espcl * (k - 1) + long / 28,
+                      yLine -
+                        tabInit0[i][1] * hauteurLignes * intervalle +
+                        0.95,
+                    ),
+                  )
+                  fleches.push({
+                    point: pointAbstrait(
+                      lgt + deltacl + espcl * (k - 1),
+                      yLine -
+                        tabInit0[i][1] * hauteurLignes * intervalle +
+                        0.95,
+                    ),
+                    margeGauche: -long / 20,
+                    margeDroite: long / 20,
+                  })
+                  s = segment(
+                    lgt + deltacl + espcl * (k - 1) - 0.05,
+                    yLine,
+                    lgt + deltacl + espcl * (k - 1) - 0.05,
+                    yLine - tabInit0[i][1] * hauteurLignes * intervalle,
+                  )
+                  segments.push(s)
+                  s = segment(
+                    lgt + deltacl + espcl * (k - 1) + 0.05,
+                    yLine,
+                    lgt + deltacl + espcl * (k - 1) + 0.05,
+                    yLine - tabInit0[i][1] * hauteurLignes * intervalle,
+                  )
+                  segments.push(s)
+                  if (ZIon) {
+                    ZI.push(
+                      pointAbstrait(lgt + deltacl + espcl * (k - 1), yLine),
+                      pointAbstrait(
+                        lgt + deltacl + espcl * (k - 1),
+                        yLine - tabInit0[i][1] * hauteurLignes * intervalle,
+                      ),
+                    )
+                    ZIon = false
+                  }
+                  zonesEstInterdit.push(false)
+                  break
+                case 'D+': // expression précédée d'une double barre discontinuité
+                  textes.push(
+                    sortieTexte(
+                      latexContent(codeVar[1]),
+                      lgt + deltacl + espcl * (k - 1) + long / 28,
+                      yLine - 0.95,
+                    ),
+                  )
+                  fleches.push({
+                    point: pointAbstrait(
+                      lgt + deltacl + espcl * (k - 1),
+                      yLine - 0.95,
+                    ),
+                    margeGauche: -long / 20,
+                    margeDroite: long / 20,
+                  })
+                  s = segment(
+                    lgt + deltacl + espcl * (k - 1) - 0.05,
+                    yLine,
+                    lgt + deltacl + espcl * (k - 1) - 0.05,
+                    yLine - tabInit0[i][1] * hauteurLignes * intervalle,
+                  )
+                  segments.push(s)
+                  s = segment(
+                    lgt + deltacl + espcl * (k - 1) + 0.05,
+                    yLine,
+                    lgt + deltacl + espcl * (k - 1) + 0.05,
+                    yLine - tabInit0[i][1] * hauteurLignes * intervalle,
+                  )
+                  segments.push(s)
+                  if (ZIon) {
+                    ZI.push(
+                      pointAbstrait(lgt + deltacl + espcl * (k - 1), yLine),
+                      pointAbstrait(
+                        lgt + deltacl + espcl * (k - 1),
+                        yLine - tabInit0[i][1] * hauteurLignes * intervalle,
+                      ),
+                    )
+                    ZIon = false
+                  }
+                  zonesEstInterdit.push(false)
+                  break
+                case '-DH': // expression suivie d'une double barre discontinuité et d'une zone interdite
+                  textes.push(
+                    sortieTexte(
+                      latexContent(codeVar[1]),
+                      lgt + deltacl + espcl * (k - 1) - long / 28,
+                      yLine -
+                        tabInit0[i][1] * hauteurLignes * intervalle +
+                        0.95,
+                    ),
+                  )
+                  fleches.push({
+                    point: pointAbstrait(
+                      lgt + deltacl + espcl * (k - 1),
+                      yLine -
+                        tabInit0[i][1] * hauteurLignes * intervalle +
+                        0.95,
+                    ),
+                    margeGauche: -long / 20,
+                    margeDroite: long / 20,
+                  })
+                  s = segment(
+                    lgt + deltacl + espcl * (k - 1) - 0.05,
+                    yLine,
+                    lgt + deltacl + espcl * (k - 1) - 0.05,
+                    yLine - tabInit0[i][1] * hauteurLignes * intervalle,
+                  )
+                  segments.push(s)
+                  s = segment(
+                    lgt + deltacl + espcl * (k - 1) + 0.05,
+                    yLine,
+                    lgt + deltacl + espcl * (k - 1) + 0.05,
+                    yLine - tabInit0[i][1] * hauteurLignes * intervalle,
+                  )
+                  segments.push(s)
+                  ZI.push(
+                    pointAbstrait(
+                      lgt + deltacl + espcl * (k - 1) + 0.06,
+                      yLine,
+                    ),
+                    pointAbstrait(
+                      lgt + deltacl + espcl * (k - 1) + 0.06,
+                      yLine - tabInit0[i][1] * hauteurLignes * intervalle,
+                    ),
+                  )
+                  ZIon = true
+                  zonesEstInterdit.push(true)
+                  break
+                case '+DH': // expression suivie d'une double barre discontinuité et d'une zone interdite
+                  textes.push(
+                    sortieTexte(
+                      latexContent(codeVar[1]),
+                      lgt + deltacl + espcl * (k - 1) - long / 28,
+                      yLine - 0.95,
+                    ),
+                  )
+                  fleches.push({
+                    point: pointAbstrait(
+                      lgt + deltacl + espcl * (k - 1),
+                      yLine - 0.95,
+                    ),
+                    margeGauche: -long / 20,
+                    margeDroite: long / 20,
+                  })
+                  s = segment(
+                    lgt + deltacl + espcl * (k - 1) - 0.05,
+                    yLine,
+                    lgt + deltacl + espcl * (k - 1) - 0.05,
+                    yLine - tabInit0[i][1] * hauteurLignes * intervalle,
+                  )
+                  segments.push(s)
+                  s = segment(
+                    lgt + deltacl + espcl * (k - 1) + 0.05,
+                    yLine,
+                    lgt + deltacl + espcl * (k - 1) + 0.05,
+                    yLine - tabInit0[i][1] * hauteurLignes * intervalle,
+                  )
+                  segments.push(s)
+                  ZI.push(
+                    pointAbstrait(
+                      lgt + deltacl + espcl * (k - 1) + 0.06,
+                      yLine,
+                    ),
+                    pointAbstrait(
+                      lgt + deltacl + espcl * (k - 1) + 0.06,
+                      yLine - tabInit0[i][1] * hauteurLignes * intervalle,
+                    ),
+                  )
+                  ZIon = true
+                  zonesEstInterdit.push(true)
+                  break
+                case '-CH': // expression sur une double barre discontinuité et d'une zone interdite
+                  textes.push(
+                    sortieTexte(
+                      latexContent(codeVar[1]),
+                      lgt + deltacl + espcl * (k - 1),
+                      yLine -
+                        tabInit0[i][1] * hauteurLignes * intervalle +
+                        0.95,
+                    ),
+                  )
+                  fleches.push({
+                    point: pointAbstrait(
+                      lgt + deltacl + espcl * (k - 1),
+                      yLine -
+                        tabInit0[i][1] * hauteurLignes * intervalle +
+                        0.95,
+                    ),
+                    margeGauche: -long / 20,
+                    margeDroite: long / 20,
+                  })
+                  s = segment(
+                    lgt + deltacl + espcl * (k - 1) - 0.05,
+                    yLine,
+                    lgt + deltacl + espcl * (k - 1) - 0.05,
+                    yLine - tabInit0[i][1] * hauteurLignes * intervalle,
+                  )
+                  segments.push(s)
+                  s = segment(
+                    lgt + deltacl + espcl * (k - 1) + 0.05,
+                    yLine,
+                    lgt + deltacl + espcl * (k - 1) + 0.05,
+                    yLine - tabInit0[i][1] * hauteurLignes * intervalle,
+                  )
+                  segments.push(s)
+                  ZI.push(
+                    pointAbstrait(
+                      lgt + deltacl + espcl * (k - 1) + 0.06,
+                      yLine,
+                    ),
+                    pointAbstrait(
+                      lgt + deltacl + espcl * (k - 1) + 0.06,
+                      yLine - tabInit0[i][1] * hauteurLignes * intervalle,
+                    ),
+                  )
+                  ZIon = true
+                  zonesEstInterdit.push(true)
+                  break
+                case '+CH': // expression sur une double barre discontinuité et d'une zone interdite
+                  textes.push(
+                    sortieTexte(
+                      latexContent(codeVar[1]),
+                      lgt + deltacl + espcl * (k - 1),
+                      yLine - 0.95,
+                    ),
+                  )
+                  fleches.push({
+                    point: pointAbstrait(
+                      lgt + deltacl + espcl * (k - 1),
+                      yLine - 0.95,
+                    ),
+                    margeGauche: -long / 20,
+                    margeDroite: long / 20,
+                  })
+                  s = segment(
+                    lgt + deltacl + espcl * (k - 1) - 0.05,
+                    yLine,
+                    lgt + deltacl + espcl * (k - 1) - 0.05,
+                    yLine - tabInit0[i][1] * hauteurLignes * intervalle,
+                  )
+                  segments.push(s)
+                  s = segment(
+                    lgt + deltacl + espcl * (k - 1) + 0.05,
+                    yLine,
+                    lgt + deltacl + espcl * (k - 1) + 0.05,
+                    yLine - tabInit0[i][1] * hauteurLignes * intervalle,
+                  )
+                  segments.push(s)
+                  ZI.push(
+                    pointAbstrait(
+                      lgt + deltacl + espcl * (k - 1) + 0.06,
+                      yLine,
+                    ),
+                    pointAbstrait(
+                      lgt + deltacl + espcl * (k - 1) + 0.06,
+                      yLine - tabInit0[i][1] * hauteurLignes * intervalle,
+                    ),
+                  )
+                  ZIon = true
+                  zonesEstInterdit.push(true)
+                  break
+              }
+            } else {
+              // 2 expressions sérarées par / /
+              switch (
+                codeVar[0] // on regarde le code
+              ) {
+                case '':
+                  break
+                case '-CD-': // une expression sur une double barre (continuité) et une expression après la double barre (discontinuité)
+                  textes.push(
+                    sortieTexte(
+                      latexContent(codeVar[1]),
+                      lgt + deltacl + espcl * (k - 1),
+                      yLine -
+                        tabInit0[i][1] * hauteurLignes * intervalle +
+                        0.95,
+                    ),
+                  )
+                  textes.push(
+                    sortieTexte(
+                      latexContent(codeVar[2]),
+                      lgt + deltacl + espcl * (k - 1) + long / 28,
+                      yLine -
+                        tabInit0[i][1] * hauteurLignes * intervalle +
+                        0.95,
+                    ),
+                  )
+                  fleches.push({
+                    point: pointAbstrait(
+                      lgt + deltacl + espcl * (k - 1),
+                      yLine -
+                        tabInit0[i][1] * hauteurLignes * intervalle +
+                        0.95,
+                    ),
+                    margeGauche: -long / 20,
+                    margeDroite: long / 20,
+                  })
+                  s = segment(
+                    lgt + deltacl + espcl * (k - 1) - 0.05,
+                    yLine,
+                    lgt + deltacl + espcl * (k - 1) - 0.05,
+                    yLine - tabInit0[i][1] * hauteurLignes * intervalle,
+                  )
+                  segments.push(s)
+                  s = segment(
+                    lgt + deltacl + espcl * (k - 1) + 0.05,
+                    yLine,
+                    lgt + deltacl + espcl * (k - 1) + 0.05,
+                    yLine - tabInit0[i][1] * hauteurLignes * intervalle,
+                  )
+                  segments.push(s)
+                  if (ZIon) {
+                    ZI.push(
+                      pointAbstrait(lgt + deltacl + espcl * (k - 1), yLine),
+                      pointAbstrait(
+                        lgt + deltacl + espcl * (k - 1),
+                        yLine - tabInit0[i][1] * hauteurLignes * intervalle,
+                      ),
+                    )
+                    ZIon = false
+                  }
+                  zonesEstInterdit.push(false)
+                  break
+                case '+CD+': // une expression sur une double barre (continuité) et une expression après la double barre (discontinuité)
+                  textes.push(
+                    sortieTexte(
+                      latexContent(codeVar[1]),
+                      lgt + deltacl + espcl * (k - 1),
+                      yLine - 0.95,
+                    ),
+                  )
+                  textes.push(
+                    sortieTexte(
+                      latexContent(codeVar[1]),
+                      lgt + deltacl + espcl * (k - 1) + long / 14,
+                      yLine - 0.95,
+                    ),
+                  )
+                  fleches.push({
+                    point: pointAbstrait(
+                      lgt + deltacl + espcl * (k - 1),
+                      yLine - 0.95,
+                    ),
+                    margeGauche: -long / 20,
+                    margeDroite: long / 20,
+                  })
+                  s = segment(
+                    lgt + deltacl + espcl * (k - 1) - 0.05,
+                    yLine,
+                    lgt + deltacl + espcl * (k - 1) - 0.05,
+                    yLine - tabInit0[i][1] * hauteurLignes * intervalle,
+                  )
+                  segments.push(s)
+                  s = segment(
+                    lgt + deltacl + espcl * (k - 1) + 0.05,
+                    yLine,
+                    lgt + deltacl + espcl * (k - 1) + 0.05,
+                    yLine - tabInit0[i][1] * hauteurLignes * intervalle,
+                  )
+                  segments.push(s)
+                  if (ZIon) {
+                    ZI.push(
+                      pointAbstrait(lgt + deltacl + espcl * (k - 1), yLine),
+                      pointAbstrait(
+                        lgt + deltacl + espcl * (k - 1),
+                        yLine - tabInit0[i][1] * hauteurLignes * intervalle,
+                      ),
+                    )
+                    ZIon = false
+                  }
+                  zonesEstInterdit.push(false)
+                  break
+                case '-CD+': // une expression sur une double barre (continuité) et une expression après la double barre (discontinuité)
+                  textes.push(
+                    sortieTexte(
+                      latexContent(codeVar[1]),
+                      lgt + deltacl + espcl * (k - 1),
+                      yLine -
+                        tabInit0[i][1] * hauteurLignes * intervalle +
+                        0.95,
+                    ),
+                  )
+                  textes.push(
+                    sortieTexte(
+                      latexContent(codeVar[2]),
+                      lgt + deltacl + espcl * (k - 1) + long / 28,
+                      yLine - 0.95,
+                    ),
+                  )
+                  fleches.push({
+                    point: pointAbstrait(
+                      lgt + deltacl + espcl * (k - 1),
+                      yLine -
+                        tabInit0[i][1] * hauteurLignes * intervalle +
+                        0.95,
+                    ),
+                    margeGauche: -long / 20,
+                    margeDroite: long / 20,
+                  })
+                  zonesEstInterdit.push(true)
+                  fleches.push({
+                    point: pointAbstrait(
+                      lgt + deltacl + espcl * (k - 1),
+                      yLine - 0.95,
+                    ),
+                    margeGauche: -long / 20,
+                    margeDroite: long / 20,
+                  })
+                  s = segment(
+                    lgt + deltacl + espcl * (k - 1) - 0.05,
+                    yLine,
+                    lgt + deltacl + espcl * (k - 1) - 0.05,
+                    yLine - tabInit0[i][1] * hauteurLignes * intervalle,
+                  )
+                  segments.push(s)
+                  s = segment(
+                    lgt + deltacl + espcl * (k - 1) + 0.05,
+                    yLine,
+                    lgt + deltacl + espcl * (k - 1) + 0.05,
+                    yLine - tabInit0[i][1] * hauteurLignes * intervalle,
+                  )
+                  segments.push(s)
+                  if (ZIon) {
+                    ZI.push(
+                      pointAbstrait(lgt + deltacl + espcl * (k - 1), yLine),
+                      pointAbstrait(
+                        lgt + deltacl + espcl * (k - 1),
+                        yLine - tabInit0[i][1] * hauteurLignes * intervalle,
+                      ),
+                    )
+                    ZIon = false
+                  }
+                  zonesEstInterdit.push(false)
+                  break
+                case '+CD-': // une expression sur une double barre (continuité) et une expression après la double barre (discontinuité)
+                  textes.push(
+                    sortieTexte(
+                      latexContent(codeVar[1]),
+                      lgt + deltacl + espcl * (k - 1),
+                      yLine - 0.95,
+                    ),
+                  )
+                  textes.push(
+                    sortieTexte(
+                      latexContent(codeVar[1]),
+                      lgt + deltacl + espcl * (k - 1) + long / 28,
+                      yLine -
+                        tabInit0[i][1] * hauteurLignes * intervalle +
+                        0.95,
+                    ),
+                  )
+                  fleches.push({
+                    point: pointAbstrait(
+                      lgt + deltacl + espcl * (k - 1),
+                      yLine - 0.95,
+                    ),
+                    margeGauche: -long / 20,
+                    margeDroite: long / 20,
+                  })
+                  zonesEstInterdit.push(true)
+                  fleches.push({
+                    point: pointAbstrait(
+                      lgt + deltacl + espcl * (k - 1),
+                      yLine -
+                        tabInit0[i][1] * hauteurLignes * intervalle +
+                        0.95,
+                    ),
+                    margeGauche: -long / 20,
+                    margeDroite: long / 20,
+                  })
+                  s = segment(
+                    lgt + deltacl + espcl * (k - 1) - 0.05,
+                    yLine,
+                    lgt + deltacl + espcl * (k - 1) - 0.05,
+                    yLine - tabInit0[i][1] * hauteurLignes * intervalle,
+                  )
+                  segments.push(s)
+                  s = segment(
+                    lgt + deltacl + espcl * (k - 1) + 0.05,
+                    yLine,
+                    lgt + deltacl + espcl * (k - 1) + 0.05,
+                    yLine - tabInit0[i][1] * hauteurLignes * intervalle,
+                  )
+                  segments.push(s)
+                  if (ZIon) {
+                    ZI.push(
+                      pointAbstrait(lgt + deltacl + espcl * (k - 1), yLine),
+                      pointAbstrait(
+                        lgt + deltacl + espcl * (k - 1),
+                        yLine - tabInit0[i][1] * hauteurLignes * intervalle,
+                      ),
+                    )
+                    ZIon = false
+                  }
+                  zonesEstInterdit.push(false)
+                  break
+                case '-D-': // deux expressions de part et d’autre d’une double barre (discontinuité)
+                  textes.push(
+                    sortieTexte(
+                      latexContent(codeVar[1]),
+                      lgt + deltacl + espcl * (k - 1) - long / 28,
+                      yLine -
+                        tabInit0[i][1] * hauteurLignes * intervalle +
+                        0.95,
+                    ),
+                  )
+                  textes.push(
+                    sortieTexte(
+                      latexContent(codeVar[2]),
+                      lgt + deltacl + espcl * (k - 1) + long / 28,
+                      yLine -
+                        tabInit0[i][1] * hauteurLignes * intervalle +
+                        0.95,
+                    ),
+                  )
+                  fleches.push({
+                    point: pointAbstrait(
+                      lgt + deltacl + espcl * (k - 1),
+                      yLine -
+                        tabInit0[i][1] * hauteurLignes * intervalle +
+                        0.95,
+                    ),
+                    margeGauche: -long / 20,
+                    margeDroite: long / 20,
+                  })
+                  zonesEstInterdit.push(true)
+                  fleches.push({
+                    point: pointAbstrait(
+                      lgt + deltacl + espcl * (k - 1),
+                      yLine -
+                        tabInit0[i][1] * hauteurLignes * intervalle +
+                        0.95,
+                    ),
+                    margeGauche: -long / 20,
+                    margeDroite: long / 20,
+                  })
+                  s = segment(
+                    lgt + deltacl + espcl * (k - 1) - 0.05,
+                    yLine,
+                    lgt + deltacl + espcl * (k - 1) - 0.05,
+                    yLine - tabInit0[i][1] * hauteurLignes * intervalle,
+                  )
+                  segments.push(s)
+                  s = segment(
+                    lgt + deltacl + espcl * (k - 1) + 0.05,
+                    yLine,
+                    lgt + deltacl + espcl * (k - 1) + 0.05,
+                    yLine - tabInit0[i][1] * hauteurLignes * intervalle,
+                  )
+                  segments.push(s)
+                  if (ZIon) {
+                    ZI.push(
+                      pointAbstrait(lgt + deltacl + espcl * (k - 1), yLine),
+                      pointAbstrait(
+                        lgt + deltacl + espcl * (k - 1),
+                        yLine - tabInit0[i][1] * hauteurLignes * intervalle,
+                      ),
+                    )
+                    ZIon = false
+                  }
+                  zonesEstInterdit.push(false)
+                  break
+                case '+D+': // deux expressions de part et d’autre d’une double barre (discontinuité)
+                  textes.push(
+                    sortieTexte(
+                      latexContent(codeVar[1]),
+                      lgt + deltacl + espcl * (k - 1) - long / 28,
+                      yLine - 0.95,
+                    ),
+                  )
+                  textes.push(
+                    sortieTexte(
+                      latexContent(codeVar[2]),
+                      lgt + deltacl + espcl * (k - 1) + long / 28,
+                      yLine - 0.95,
+                    ),
+                  )
+                  fleches.push({
+                    point: pointAbstrait(
+                      lgt + deltacl + espcl * (k - 1),
+                      yLine - 0.95,
+                    ),
+                    margeGauche: -long / 20,
+                    margeDroite: long / 20,
+                  })
+                  zonesEstInterdit.push(true)
+                  fleches.push({
+                    point: pointAbstrait(
+                      lgt + deltacl + espcl * (k - 1),
+                      yLine - 0.95,
+                    ),
+                    margeGauche: -long / 20,
+                    margeDroite: long / 20,
+                  })
+                  s = segment(
+                    lgt + deltacl + espcl * (k - 1) - 0.05,
+                    yLine,
+                    lgt + deltacl + espcl * (k - 1) - 0.05,
+                    yLine - tabInit0[i][1] * hauteurLignes * intervalle,
+                  )
+                  segments.push(s)
+                  s = segment(
+                    lgt + deltacl + espcl * (k - 1) + 0.05,
+                    yLine,
+                    lgt + deltacl + espcl * (k - 1) + 0.05,
+                    yLine - tabInit0[i][1] * hauteurLignes * intervalle,
+                  )
+                  segments.push(s)
+                  if (ZIon) {
+                    ZI.push(
+                      pointAbstrait(lgt + deltacl + espcl * (k - 1), yLine),
+                      pointAbstrait(
+                        lgt + deltacl + espcl * (k - 1),
+                        yLine - tabInit0[i][1] * hauteurLignes * intervalle,
+                      ),
+                    )
+                    ZIon = false
+                  }
+                  zonesEstInterdit.push(false)
+                  break
+                case '-D+': // deux expressions de part et d’autre d’une double barre (discontinuité)
+                  textes.push(
+                    sortieTexte(
+                      latexContent(codeVar[1]),
+                      lgt + deltacl + espcl * (k - 1) - long / 28,
+                      yLine -
+                        tabInit0[i][1] * hauteurLignes * intervalle +
+                        0.95,
+                    ),
+                  )
+                  textes.push(
+                    sortieTexte(
+                      latexContent(codeVar[2]),
+                      lgt + deltacl + espcl * (k - 1) + long / 28,
+                      yLine - 0.95,
+                    ),
+                  )
+                  fleches.push({
+                    point: pointAbstrait(
+                      lgt + deltacl + espcl * (k - 1),
+                      yLine -
+                        tabInit0[i][1] * hauteurLignes * intervalle +
+                        0.95,
+                    ),
+                    margeGauche: -long / 20,
+                    margeDroite: long / 20,
+                  })
+                  zonesEstInterdit.push(true)
+                  fleches.push({
+                    point: pointAbstrait(
+                      lgt + deltacl + espcl * (k - 1),
+                      yLine - 0.95,
+                    ),
+                    margeGauche: -long / 20,
+                    margeDroite: long / 20,
+                  })
+                  s = segment(
+                    lgt + deltacl + espcl * (k - 1) - 0.05,
+                    yLine,
+                    lgt + deltacl + espcl * (k - 1) - 0.05,
+                    yLine - tabInit0[i][1] * hauteurLignes * intervalle,
+                  )
+                  segments.push(s)
+                  s = segment(
+                    lgt + deltacl + espcl * (k - 1) + 0.05,
+                    yLine,
+                    lgt + deltacl + espcl * (k - 1) + 0.05,
+                    yLine - tabInit0[i][1] * hauteurLignes * intervalle,
+                  )
+                  segments.push(s)
+                  if (ZIon) {
+                    ZI.push(
+                      pointAbstrait(lgt + deltacl + espcl * (k - 1), yLine),
+                      pointAbstrait(
+                        lgt + deltacl + espcl * (k - 1),
+                        yLine - tabInit0[i][1] * hauteurLignes * intervalle,
+                      ),
+                    )
+                    ZIon = false
+                  }
+                  zonesEstInterdit.push(false)
+                  break
+                case '+D-': // deux expressions de part et d’autre d’une double barre (discontinuité)
+                  textes.push(
+                    sortieTexte(
+                      latexContent(codeVar[1]),
+                      lgt + deltacl + espcl * (k - 1) - long / 28,
+                      yLine - 0.95,
+                    ),
+                  )
+                  textes.push(
+                    sortieTexte(
+                      latexContent(codeVar[2]),
+                      lgt + deltacl + espcl * (k - 1) + long / 28,
+                      yLine -
+                        tabInit0[i][1] * hauteurLignes * intervalle +
+                        0.95,
+                    ),
+                  )
+                  fleches.push({
+                    point: pointAbstrait(
+                      lgt + deltacl + espcl * (k - 1),
+                      yLine - 0.95,
+                    ),
+                    margeGauche: -long / 20,
+                    margeDroite: long / 20,
+                  })
+                  zonesEstInterdit.push(true)
+                  fleches.push({
+                    point: pointAbstrait(
+                      lgt + deltacl + espcl * (k - 1),
+                      yLine -
+                        tabInit0[i][1] * hauteurLignes * intervalle +
+                        0.95,
+                    ),
+                    margeGauche: -long / 20,
+                    margeDroite: long / 20,
+                  })
+                  s = segment(
+                    lgt + deltacl + espcl * (k - 1) - 0.05,
+                    yLine,
+                    lgt + deltacl + espcl * (k - 1) - 0.05,
+                    yLine - tabInit0[i][1] * hauteurLignes * intervalle,
+                  )
+                  segments.push(s)
+                  s = segment(
+                    lgt + deltacl + espcl * (k - 1) + 0.05,
+                    yLine,
+                    lgt + deltacl + espcl * (k - 1) + 0.05,
+                    yLine - tabInit0[i][1] * hauteurLignes * intervalle,
+                  )
+                  segments.push(s)
+                  if (ZIon) {
+                    ZI.push(
+                      pointAbstrait(lgt + deltacl + espcl * (k - 1), yLine),
+                      pointAbstrait(
+                        lgt + deltacl + espcl * (k - 1),
+                        yLine - tabInit0[i][1] * hauteurLignes * intervalle,
+                      ),
+                    )
+                    ZIon = false
+                  }
+                  zonesEstInterdit.push(false)
+                  break
+                case '-DC-': // une expression avant une double barre (discontinuité) et une expression sur la double barre (continuité)
+                  textes.push(
+                    sortieTexte(
+                      latexContent(codeVar[1]),
+                      lgt + deltacl + espcl * (k - 1) - long / 28,
+                      yLine -
+                        tabInit0[i][1] * hauteurLignes * intervalle +
+                        0.95,
+                    ),
+                  )
+                  textes.push(
+                    sortieTexte(
+                      latexContent(codeVar[2]),
+                      lgt + deltacl + espcl * (k - 1),
+                      yLine -
+                        tabInit0[i][1] * hauteurLignes * intervalle +
+                        0.95,
+                    ),
+                  )
+                  fleches.push({
+                    point: pointAbstrait(
+                      lgt + deltacl + espcl * (k - 1),
+                      yLine -
+                        tabInit0[i][1] * hauteurLignes * intervalle +
+                        0.95,
+                    ),
+                    margeGauche: -long / 20,
+                    margeDroite: long / 20,
+                  })
+                  s = segment(
+                    lgt + deltacl + espcl * (k - 1) - 0.05,
+                    yLine,
+                    lgt + deltacl + espcl * (k - 1) - 0.05,
+                    yLine - tabInit0[i][1] * hauteurLignes * intervalle,
+                  )
+                  segments.push(s)
+                  s = segment(
+                    lgt + deltacl + espcl * (k - 1) + 0.05,
+                    yLine,
+                    lgt + deltacl + espcl * (k - 1) + 0.05,
+                    yLine - tabInit0[i][1] * hauteurLignes * intervalle,
+                  )
+                  segments.push(s)
+                  if (ZIon) {
+                    ZI.push(
+                      pointAbstrait(lgt + deltacl + espcl * (k - 1), yLine),
+                      pointAbstrait(
+                        lgt + deltacl + espcl * (k - 1),
+                        yLine - tabInit0[i][1] * hauteurLignes * intervalle,
+                      ),
+                    )
+                    ZIon = false
+                  }
+                  zonesEstInterdit.push(false)
+                  break
+                case '+DC+': // une expression avant une double barre (discontinuité) et une expression sur la double barre (continuité)
+                  textes.push(
+                    sortieTexte(
+                      latexContent(codeVar[1]),
+                      lgt + deltacl + espcl * (k - 1) - long / 28,
+                      yLine - 0.95,
+                    ),
+                  )
+                  textes.push(
+                    sortieTexte(
+                      latexContent(codeVar[2]),
+                      lgt + deltacl + espcl * (k - 1),
+                      yLine - 0.95,
+                    ),
+                  )
+                  fleches.push({
+                    point: pointAbstrait(
+                      lgt + deltacl + espcl * (k - 1),
+                      yLine -
+                        tabInit0[i][1] * hauteurLignes * intervalle +
+                        0.95,
+                    ),
+                    margeGauche: -long / 20,
+                    margeDroite: long / 20,
+                  })
+                  s = segment(
+                    lgt + deltacl + espcl * (k - 1) - 0.05,
+                    yLine,
+                    lgt + deltacl + espcl * (k - 1) - 0.05,
+                    yLine - tabInit0[i][1] * hauteurLignes * intervalle,
+                  )
+                  segments.push(s)
+                  s = segment(
+                    lgt + deltacl + espcl * (k - 1) + 0.05,
+                    yLine,
+                    lgt + deltacl + espcl * (k - 1) + 0.05,
+                    yLine - tabInit0[i][1] * hauteurLignes * intervalle,
+                  )
+                  segments.push(s)
+                  if (ZIon) {
+                    ZI.push(
+                      pointAbstrait(lgt + deltacl + espcl * (k - 1), yLine),
+                      pointAbstrait(
+                        lgt + deltacl + espcl * (k - 1),
+                        yLine - tabInit0[i][1] * hauteurLignes * intervalle,
+                      ),
+                    )
+                    ZIon = false
+                  }
+                  zonesEstInterdit.push(false)
+                  break
+                case '-DC+': // une expression avant une double barre (discontinuité) et une expression sur la double barre (continuité)
+                  textes.push(
+                    sortieTexte(
+                      latexContent(codeVar[1]),
+                      lgt + deltacl + espcl * (k - 1) - long / 28,
+                      yLine -
+                        tabInit0[i][1] * hauteurLignes * intervalle +
+                        0.95,
+                    ),
+                  )
+                  textes.push(
+                    sortieTexte(
+                      latexContent(codeVar[2]),
+                      lgt + deltacl + espcl * (k - 1),
+                      yLine - 0.95,
+                    ),
+                  )
+                  fleches.push({
+                    point: pointAbstrait(
+                      lgt + deltacl + espcl * (k - 1),
+                      yLine -
+                        tabInit0[i][1] * hauteurLignes * intervalle +
+                        0.95,
+                    ),
+                    margeGauche: -long / 20,
+                    margeDroite: long / 20,
+                  })
+                  zonesEstInterdit.push(true)
+                  fleches.push({
+                    point: pointAbstrait(
+                      lgt + deltacl + espcl * (k - 1),
+                      yLine - 0.95,
+                    ),
+                    margeGauche: -long / 20,
+                    margeDroite: long / 20,
+                  })
+                  s = segment(
+                    lgt + deltacl + espcl * (k - 1) - 0.05,
+                    yLine,
+                    lgt + deltacl + espcl * (k - 1) - 0.05,
+                    yLine - tabInit0[i][1] * hauteurLignes * intervalle,
+                  )
+                  segments.push(s)
+                  s = segment(
+                    lgt + deltacl + espcl * (k - 1) + 0.05,
+                    yLine,
+                    lgt + deltacl + espcl * (k - 1) + 0.05,
+                    yLine - tabInit0[i][1] * hauteurLignes * intervalle,
+                  )
+                  segments.push(s)
+                  if (ZIon) {
+                    ZI.push(
+                      pointAbstrait(lgt + deltacl + espcl * (k - 1), yLine),
+                      pointAbstrait(
+                        lgt + deltacl + espcl * (k - 1),
+                        yLine - tabInit0[i][1] * hauteurLignes * intervalle,
+                      ),
+                    )
+                    ZIon = false
+                  }
+                  zonesEstInterdit.push(false)
+                  break
+                case '+DC-': // une expression avant une double barre (discontinuité) et une expression sur la double barre (continuité)
+                  textes.push(
+                    sortieTexte(
+                      latexContent(codeVar[1]),
+                      lgt + deltacl + espcl * (k - 1) - long / 28,
+                      yLine - 0.95,
+                    ),
+                  )
+                  textes.push(
+                    sortieTexte(
+                      latexContent(codeVar[2]),
+                      lgt + deltacl + espcl * (k - 1),
+                      yLine -
+                        tabInit0[i][1] * hauteurLignes * demiIntervalle +
+                        0.95,
+                    ),
+                  )
+                  fleches.push({
+                    point: pointAbstrait(
+                      lgt + deltacl + espcl * (k - 1),
+                      yLine - 0.95,
+                    ),
+                    margeGauche: -long / 20,
+                    margeDroite: long / 20,
+                  })
+                  zonesEstInterdit.push(true)
+                  fleches.push({
+                    point: pointAbstrait(
+                      lgt + deltacl + espcl * (k - 1),
+                      yLine -
+                        tabInit0[i][1] * hauteurLignes * intervalle +
+                        0.95,
+                    ),
+                    margeGauche: -long / 20,
+                    margeDroite: long / 20,
+                  })
+                  s = segment(
+                    lgt + deltacl + espcl * (k - 1) - 0.05,
+                    yLine,
+                    lgt + deltacl + espcl * (k - 1) - 0.05,
+                    yLine - tabInit0[i][1] * hauteurLignes * intervalle,
+                  )
+                  segments.push(s)
+                  s = segment(
+                    lgt + deltacl + espcl * (k - 1) + 0.05,
+                    yLine,
+                    lgt + deltacl + espcl * (k - 1) + 0.05,
+                    yLine - tabInit0[i][1] * hauteurLignes * intervalle,
+                  )
+                  segments.push(s)
+                  if (ZIon) {
+                    ZI.push(
+                      pointAbstrait(lgt + deltacl + espcl * (k - 1), yLine),
+                      pointAbstrait(
+                        lgt + deltacl + espcl * (k - 1),
+                        yLine - tabInit0[i][1] * hauteurLignes * intervalle,
+                      ),
+                    )
+                    ZIon = false
+                  }
+                  zonesEstInterdit.push(false)
+                  break
+                case '-V-': // deux expressions
+                  textes.push(
+                    sortieTexte(
+                      latexContent(codeVar[1]),
+                      lgt + deltacl + espcl * (k - 1) - long / 28,
+                      yLine -
+                        tabInit0[i][1] * hauteurLignes * intervalle +
+                        0.95,
+                    ),
+                  )
+                  textes.push(
+                    sortieTexte(
+                      latexContent(codeVar[2]),
+                      lgt + deltacl + espcl * (k - 1) + long / 28,
+                      yLine -
+                        tabInit0[i][1] * hauteurLignes * intervalle +
+                        0.95,
+                    ),
+                  )
+                  fleches.push({
+                    point: pointAbstrait(
+                      lgt + deltacl + espcl * (k - 1),
+                      yLine -
+                        tabInit0[i][1] * hauteurLignes * intervalle +
+                        0.95,
+                    ),
+                    margeGauche: -long / 20,
+                    margeDroite: long / 20,
+                  })
+                  if (ZIon) {
+                    ZI.push(
+                      pointAbstrait(lgt + deltacl + espcl * (k - 1), yLine),
+                      pointAbstrait(
+                        lgt + deltacl + espcl * (k - 1),
+                        yLine - tabInit0[i][1] * hauteurLignes * intervalle,
+                      ),
+                    )
+                    ZIon = false
+                  }
+                  zonesEstInterdit.push(false)
+                  break
+                case '+V+': // deux expressions
+                  textes.push(
+                    sortieTexte(
+                      latexContent(codeVar[1]),
+                      lgt + deltacl + espcl * (k - 1) - long / 28,
+                      yLine - 0.95,
+                    ),
+                  )
+                  textes.push(
+                    sortieTexte(
+                      latexContent(codeVar[2]),
+                      lgt + deltacl + espcl * (k - 1) + long / 28,
+                      yLine - 0.95,
+                    ),
+                  )
+                  fleches.push({
+                    point: pointAbstrait(
+                      lgt + deltacl + espcl * (k - 1),
+                      yLine -
+                        tabInit0[i][1] * hauteurLignes * intervalle +
+                        0.95,
+                    ),
+                    margeGauche: -long / 20,
+                    margeDroite: long / 20,
+                  })
+                  if (ZIon) {
+                    ZI.push(
+                      pointAbstrait(lgt + deltacl + espcl * (k - 1), yLine),
+                      pointAbstrait(
+                        lgt + deltacl + espcl * (k - 1),
+                        yLine - tabInit0[i][1] * hauteurLignes * intervalle,
+                      ),
+                    )
+                    ZIon = false
+                  }
+                  zonesEstInterdit.push(false)
+                  break
+                case '-V+': // deux expressions
+                  textes.push(
+                    sortieTexte(
+                      latexContent(codeVar[1]),
+                      lgt + deltacl + espcl * (k - 1) - long / 28,
+                      yLine -
+                        tabInit0[i][1] * hauteurLignes * intervalle +
+                        0.95,
+                    ),
+                  )
+                  textes.push(
+                    sortieTexte(
+                      latexContent(codeVar[2]),
+                      lgt + deltacl + espcl * (k - 1) + long / 28,
+                      yLine - 0.95,
+                    ),
+                  )
+                  fleches.push({
+                    point: pointAbstrait(
+                      lgt + deltacl + espcl * (k - 1),
+                      yLine -
+                        tabInit0[i][1] * hauteurLignes * intervalle +
+                        0.95,
+                    ),
+                    margeGauche: -long / 20,
+                    margeDroite: long / 20,
+                  })
+                  zonesEstInterdit.push(true)
+                  fleches.push({
+                    point: pointAbstrait(
+                      lgt + deltacl + espcl * (k - 1),
+                      yLine - 0.95,
+                    ),
+                    margeGauche: -long / 20,
+                    margeDroite: long / 20,
+                  })
+                  if (ZIon) {
+                    ZI.push(
+                      pointAbstrait(lgt + deltacl + espcl * (k - 1), yLine),
+                      pointAbstrait(
+                        lgt + deltacl + espcl * (k - 1),
+                        yLine - tabInit0[i][1] * hauteurLignes * intervalle,
+                      ),
+                    )
+                    ZIon = false
+                  }
+                  zonesEstInterdit.push(false)
+                  break
+                case '+V-': // deux expressions
+                  textes.push(
+                    sortieTexte(
+                      latexContent(codeVar[1]),
+                      lgt + deltacl + espcl * (k - 1) - long / 28,
+                      yLine - 0.95,
+                    ),
+                  )
+                  textes.push(
+                    sortieTexte(
+                      latexContent(codeVar[2]),
+                      lgt + deltacl + espcl * (k - 1) + long / 28,
+                      yLine -
+                        tabInit0[i][1] * hauteurLignes * intervalle +
+                        0.95,
+                    ),
+                  )
+                  fleches.push({
+                    point: pointAbstrait(
+                      lgt + deltacl + espcl * (k - 1),
+                      yLine - 0.95,
+                    ),
+                    margeGauche: -long / 20,
+                    margeDroite: long / 20,
+                  })
+                  zonesEstInterdit.push(true)
+                  fleches.push({
+                    point: pointAbstrait(
+                      lgt + deltacl + espcl * (k - 1),
+                      yLine -
+                        tabInit0[i][1] * hauteurLignes * intervalle +
+                        0.95,
+                    ),
+                    margeGauche: -long / 20,
+                    margeDroite: long / 20,
+                  })
+                  if (ZIon) {
+                    ZI.push(
+                      pointAbstrait(lgt + deltacl + espcl * (k - 1), yLine),
+                      pointAbstrait(
+                        lgt + deltacl + espcl * (k - 1),
+                        yLine - tabInit0[i][1] * hauteurLignes * intervalle,
+                      ),
+                    )
+                    ZIon = false
+                  }
+                  zonesEstInterdit.push(false)
+                  break
+              }
+            }
+          }
+        }
+        for (let n = 0; n < fleches.length - 1; n++) {
+          const marge1 = fleches[n].margeDroite
+          const marge2 = fleches[n + 1].margeGauche
+          if (!zonesEstInterdit[n]) {
+            v = representant(
+              vecteur(
+                translation(fleches[n].point, vecteur(marge1, 0)),
+                translation(fleches[n + 1].point, vecteur(marge2, 0)),
+              ),
+              translation(fleches[n].point, vecteur(marge1, 0)),
+            )
+            v.styleExtremites = '->'
+            segments.push(v)
+          }
+        }
+        for (let n = 0; n <= ZI.length / 4 - 1; n++) {
+          p = polygone(ZI[4 * n], ZI[4 * n + 2], ZI[4 * n + 3], ZI[4 * n + 1])
+          p.opacite = 1
+          p.hachures = 'north east lines'
+          segments.push(p)
+        }
+
+        // On crée une ligne horizontale et les séparations verticales de base
+        segments.push(segment(0, yLine, longueurTotale, yLine))
+        segments.push(
+          segment(
+            0,
+            yLine,
+            0,
+            yLine - tabInit0[i][1] * hauteurLignes * intervalle,
+          ),
+        )
+        segments.push(
+          segment(
+            lgt,
+            yLine,
+            lgt,
+            yLine - tabInit0[i][1] * hauteurLignes * intervalle,
+          ),
+        )
+        segments.push(
+          segment(
+            longueurTotale,
+            yLine,
+            longueurTotale,
+            yLine - tabInit0[i][1] * hauteurLignes * intervalle,
+          ),
+        )
+        yLine -= tabInit0[i][1] * hauteurLignes * intervalle
+        index++
+        break
+      case 'Val': // ajouter un antécédent et son image sur la flèche. 6 paramètres + 'Val'
+        // ['Val',antécédent du début de la flèche, antécédent de la fin de la flèche, position sur la flèche entre 0 et 1, 'antécédent', 'image',long]
+        if (tabLines[index][5] !== '') {
+          long = tabLines[index][6]
+          textes.push(
+            sortieTexte(
+              latexContent(String(tabLines[index][5])),
+              lgt +
+                deltacl +
+                espcl * (Number(tabLines[index][1]) - 1) +
+                1 +
+                (espcl - 2) *
+                  (Number(tabLines[index][2]) - Number(tabLines[index][1])) *
+                  Number(tabLines[index][3]),
+              yLine +
+                1.1 +
+                Number(tabLines[index][3]) *
+                  tabInit0[i][1] *
+                  hauteurLignes *
+                  demiIntervalle,
+            ),
+          )
+          textes.push(
+            sortieTexte(
+              latexContent(String(tabLines[index][4])),
+              lgt +
+                deltacl +
+                espcl * (Number(tabLines[index][1]) - 1) +
+                1 +
+                (espcl - 2) *
+                  (Number(tabLines[index][2]) - Number(tabLines[index][1])) *
+                  Number(tabLines[index][3]),
+              -tabInit0[0][1] * hauteurLignes * demiIntervalle,
+            ),
+          )
+        }
+        index++
+        break
+      case 'Ima': // ajouter des valeurs sur la flèche...
+        if (tabLines[index][4] !== '') {
+          texte = String(tabLines[index][4])
+          long = Number(tabLines[index][3])
+          textes.push(
+            sortieTexte(
+              latexContent(texte),
+              lgt +
+                deltacl +
+                (espcl *
+                  (Number(tabLines[index][1]) -
+                    1 +
+                    (Number(tabLines[index][2]) - 1))) /
+                  2,
+              yLine + tabInit0[i][1] * hauteurLignes * demiIntervalle,
+            ),
+          )
+        }
+        index++
+        break
+      case 'Slope':
+        /****************************************************************************/
+        // Slope n'est pas implémenté... reste à faire (si quelqu'un en a besoin).
+        /****************************************************************************/
+        for (let k = 1; k < tabLines[index].length / 2; k++) {
+          if (tabLines[index][k * 2] !== '') {
+            texte = tabLines[index][k * 2]
+            long = tabLines[index][k * 2 + 1]
+          }
+        }
+        break
+    }
+  }
+
+  // On ferme le tableau en bas
+  segments.push(segment(0, yLine, longueurTotale, yLine))
+  for (const latex of textes) {
+    segments.push(
+      latex2d(latex.texte, latex.x, latex.y, { letterSize: 'normalsize' }),
+    )
+  }
+  // Si l'on de définit pas rxmin, rymin, rxmax et rymax, ceux-ci sont fixés par défaut à -0.5 et +0.5, ce qui s'ajoute aux marges déjà prévues pour les segments de -0.2 et +0.2
+  // voilà d'où vient le décallage de 0.7 enregistré sur la position des latex par rapport au cadre !
+  return segments
+
+  /* pour éviter d'avoir des containers imbriquées, util pour le zoom */
 }

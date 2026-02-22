@@ -127,14 +127,52 @@ export default class AntecedentGraphique extends Exercice {
         } else {
           fx3 = fx1
           ;[a, b] = resolutionSystemeLineaire2x2(x1, x3, fx1, fx3, c)
-          while (Number.isNaN(a) || Number.isNaN(b) || a === 0) {
-            // Number.isNaN(b) === 0 a l'origine pourquoi ?
+          // console.info('Initial values:', { x1, x3, fx1, fx3, c, a, b })
+          let tentatives = 0
+          while (
+            (Number.isNaN(a) || Number.isNaN(b) || a === 0) &&
+            tentatives < 50
+          ) {
             x1 = randint(-4, -1)
             x3 = randint(1, 4)
             fx1 = randint(-7, 7)
             fx3 = fx1
             c = randint(-6, 6)
             ;[a, b] = resolutionSystemeLineaire2x2(x1, x3, fx1, fx3, c)
+            tentatives++
+            if (tentatives % 10 === 0) {
+              /*  console.info(`Tentative ${tentatives}:`, {
+                x1,
+                x3,
+                fx1,
+                fx3,
+                c,
+                a,
+                b,
+              })
+            */
+            }
+          }
+          // Si après 50 tentatives on n'a pas trouvé, on force des valeurs valides
+          if (a === 0 || Number.isNaN(a) || Number.isNaN(b)) {
+            console.warn('Forcing fallback values after 50 attempts')
+            a = 1
+            b = 0
+            c = 0
+            x1 = -2
+            x3 = 2
+            fx1 = 4
+            fx3 = 4
+          } else {
+            /* console.info('Success after', tentatives, 'attempts:', {
+              x1,
+              x3,
+              fx1,
+              fx3,
+              c,
+              a,
+              b,
+            }) */
           }
           x2 = 0
           fx2 = c

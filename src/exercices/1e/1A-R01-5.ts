@@ -15,7 +15,7 @@ export const amcReady = 'true'
 export const amcType = 'qcmMono'
 export const titre = 'Comparer  avec des pourcentages'
 export default class AutoARO1e extends ExerciceQcmA {
-  private appliquerLesValeurs(
+   private appliquerLesValeurs(
     p1: number,
     n1: number,
     r1: number,
@@ -33,13 +33,13 @@ export default class AutoARO1e extends ExerciceQcmA {
     this.enonce = `Parmi les nombres suivants, lequel est le plus grand ?`
 
     let correctionTexte =
-      "• Prendre $25\\,\\%$ d'une valeur revient à la diviser par $4$.<br>"
+      '• Prendre $25\\,\\%$ d\'une valeur revient à la diviser par $4$.<br>'
     correctionTexte +=
-      "• Prendre $10\\,\\%$ d'une valeur revient à la diviser par $10$.<br>"
+      '• Prendre $10\\,\\%$ d\'une valeur revient à la diviser par $10$.<br>'
     correctionTexte +=
-      "• Prendre $20\\,\\%$ d'une valeur revient à en prendre deux fois $10\\,\\%$.<br>"
+      '• Prendre $20\\,\\%$ d\'une valeur revient à en prendre deux fois $10\\,\\%$.<br>'
     correctionTexte +=
-      "• Prendre $5\\,\\%$ d'une valeur revient à en prendre la moitié de $10\\,\\%$.<br>"
+      '• Prendre $5\\,\\%$ d\'une valeur revient à en prendre la moitié de $10\\,\\%$.<br>'
 
     const calculs = [
       { pourcent: p1, nombre: n1, resultat: r1 },
@@ -67,7 +67,7 @@ export default class AutoARO1e extends ExerciceQcmA {
     if (r1 === max)
       bonCalculTexte = `$${miseEnEvidence(p1 + '\\,\\% \\text{ de } ' + n1)}$`
     else if (r2 === max)
-      bonCalculTexte = `$${miseEnEvidence(p2 + '\\,\\% \\text{ de }' + n2)}$`
+      bonCalculTexte = `$${miseEnEvidence(p2 + '\\,\\% \\text{ de } ' + n2)}$`
     else if (r3 === max)
       bonCalculTexte = `$${miseEnEvidence(p3 + '\\,\\% \\text{ de } ' + n3)}$`
     else if (r4 === max)
@@ -119,111 +119,115 @@ export default class AutoARO1e extends ExerciceQcmA {
 
   versionAleatoire: () => void = () => {
     const listeModeles = [
-      // Modèle 1: max = 10%
+      // Modèle 1: max = 10% (résultat ~20)
+      // Contraintes: n10/10 > n25/4, n10/10 > n5/20, n10/10 > n20/5
       {
-        base25: [68, 72, 76, 80],
-        base10: [191, 192, 193, 194, 195, 196, 197],
-        base5: [340, 350, 360, 370],
-        base20: [90, 95, 100],
+        base25: [72, 76], // /4 = 18-19
+        base10: [201, 204], // /10 = 20.1-20.4 MAX
+        base5: [380, 390], // /20 = 19-19.5
+        base20: [90, 95], // /5 = 18-19
         maxType: 10,
       },
 
-      // Modèle 2: max = 5%
+      // Modèle 2: max = 5% (résultat ~24)
+      // Contraintes: n5/20 > n25/4, n5/20 > n10/10, n5/20 > n20/5
       {
-        base25: [80, 84, 88],
-        base10: [220, 225, 227, 230],
-        base5: [450, 460, 470, 480],
-        base20: [105, 110],
+        base25: [84, 88], // /4 = 21-22
+        base10: [215, 220], // /10 = 21.5-22
+        base5: [480, 490], // /20 = 24-24.5 MAX
+        base20: [110, 115], // /5 = 22-23
         maxType: 5,
       },
 
-      // Modèle 3: max = 10%
+      // Modèle 3: max = 10% (résultat ~18.5)
       {
-        base25: [56, 60, 64],
-        base10: [170, 173, 176, 179],
-        base5: [310, 320, 330],
-        base20: [80, 85, 90],
+        base25: [64, 68], // /4 = 16-17
+        base10: [184, 187], // /10 = 18.4-18.7 MAX
+        base5: [340, 350], // /20 = 17-17.5
+        base20: [85, 90], // /5 = 17-18
         maxType: 10,
       },
 
-      // Modèle 4: max = 10%
+      // Modèle 4: max = 10% (résultat ~27.5)
       {
-        base25: [92, 96, 100],
-        base10: [268, 271, 274, 277],
-        base5: [510, 520, 530],
-        base20: [120, 125, 130],
+        base25: [80, 100], // /4 = 20-25
+        base10: [274, 277], // /10 = 27.4-27.7 MAX
+        base5: [500, 530], // /20 = 25-26.5
+        base20: [120, 130], // /5 = 24-26
         maxType: 10,
       },
 
-      // Modèle 5: max = 20%
+      // Modèle 5: max = 20% (résultat ~33)
+      // Contraintes: n20/5 > n25/4, n20/5 > n10/10, n20/5 > n5/20
       {
-        base25: [116, 120, 124],
-        base10: [283, 287, 291],
-        base5: [570, 580, 590],
-        base20: [150, 155, 160],
+        base25: [120, 124], // /4 = 30-31
+        base10: [310, 320], // /10 = 31-32
+        base5: [600, 620], // /20 = 30-31
+        base20: [165, 170], // /5 = 33-34 MAX
         maxType: 20,
       },
 
-      // Modèle 6: max = 10%
+      // Modèle 6: max = 10% (résultat ~15.5)
       {
-        base25: [44, 48, 52],
-        base10: [140, 143, 146, 149],
-        base5: [250, 260, 270],
-        base20: [65, 70, 75],
+        base25: [56], // /4 = 14
+        base10: [152, 155], // /10 = 15.2-15.5 MAX
+        base5: [290], // /20 = 14.5
+        base20: [72], // /5 = 14.4
         maxType: 10,
       },
 
-      // Modèle 7: max = 25%
+      // Modèle 7: max = 25% (résultat ~25)
+      // Contraintes: n25/4 > n10/10, n25/4 > n5/20, n25/4 > n20/5
       {
-        base25: [88, 92, 96],
-        base10: [210, 213, 216],
-        base5: [430, 440, 450],
-        base20: [105, 110, 115],
+        base25: [96, 100], // /4 = 24-25 MAX
+        base10: [220, 230], // /10 = 22-23
+        base5: [440, 460], // /20 = 22-23
+        base20: [105, 115], // /5 = 21-23
         maxType: 25,
       },
 
-      // Modèle 8: max = 20%
+      // Modèle 8: max = 20% (résultat ~22)
       {
-        base25: [60, 64, 68],
-        base10: [178, 181, 184],
-        base5: [330, 340, 350],
-        base20: [90, 95, 100],
+        base25: [72], // /4 = 18
+        base10: [190], // /10 = 19
+        base5: [390], // /20 = 19.5
+        base20: [110, 115], // /5 = 22-23 MAX
         maxType: 20,
       },
 
-      // Modèle 9: max = 5%
+      // Modèle 9: max = 5% (résultat ~29)
       {
-        base25: [100, 104, 108],
-        base10: [250, 253, 256],
-        base5: [550, 560, 570],
-        base20: [130, 135, 140],
+        base25: [108], // /4 = 27
+        base10: [265], // /10 = 26.5
+        base5: [580, 590], // /20 = 29-29.5 MAX
+        base20: [140], // /5 = 28
         maxType: 5,
       },
 
-      // Modèle 10: max = 25%
+      // Modèle 10: max = 25% (résultat ~17.5)
       {
-        base25: [60, 64, 68],
-        base10: [144, 147, 150],
-        base5: [290, 300, 310],
-        base20: [70, 75, 80],
+        base25: [68, 72], // /4 = 17-18 MAX
+        base10: [160], // /10 = 16
+        base5: [330], // /20 = 16.5
+        base20: [82], // /5 = 16.4
         maxType: 25,
       },
 
-      // Modèle 11: max = 20%
+      // Modèle 11: max = 20% (résultat ~24)
       {
-        base25: [72, 76, 80],
-        base10: [194, 197, 200],
-        base5: [370, 380, 390],
-        base20: [115, 105, 110],
+        base25: [80, 84], // /4 = 20-21
+        base10: [205, 208, 210], // /10 = 20.5-21
+        base5: [400, 420], // /20 = 20-21
+        base20: [120, 125], // /5 = 24-25 MAX
         maxType: 20,
       },
 
-      // Modèle 12: max = 25%
+      // Modèle 12: max = 25% (résultat ~26-27)
       {
-        base25: [92, 96, 100],
-        base10: [224, 227, 230],
-        base5: [450, 460, 470],
-        base20: [110, 115, 120],
+        base25: [104, 108], // /4 = 26-27 MAX
+        base10: [240, 245], // /10 = 24-24.5
+        base5: [490, 500], // /20 = 24.5-25
+        base20: [120, 125], // /5 = 24-25
         maxType: 25,
       },
     ]

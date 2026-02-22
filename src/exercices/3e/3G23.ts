@@ -1,8 +1,12 @@
 /* eslint-disable camelcase */
+import { arc } from '../../lib/2d/Arc'
 import { codageSegments } from '../../lib/2d/CodageSegment'
+import { grille } from '../../lib/2d/Grille'
 import { point } from '../../lib/2d/PointAbstrait'
 import { tracePoint } from '../../lib/2d/TracePoint'
 import { vecteur } from '../../lib/2d/Vecteur'
+import { vide2d } from '../../lib/2d/Vide2d'
+import { colorToLatexOrHTML } from '../../lib/2d/colorToLatexOrHtml'
 import { droite } from '../../lib/2d/droites'
 import {
   barycentre,
@@ -21,15 +25,10 @@ import {
 } from '../../lib/2d/utilitairesPoint'
 import { aireTriangle } from '../../lib/2d/utilitairesTriangle'
 import { texteGras } from '../../lib/format/style'
+import { propositionsQcm } from '../../lib/interactif/qcm'
 import { choice, shuffle } from '../../lib/outils/arrayOutils'
 import { texteEnCouleur } from '../../lib/outils/embellissements'
-/* eslint-disable prefer-const */
-/* eslint-disable no-case-declarations */
-import { arc } from '../../lib/2d/Arc'
-import { grille } from '../../lib/2d/Grille'
-import { vide2d } from '../../lib/2d/Vide2d'
-import { colorToLatexOrHTML } from '../../lib/2d/colorToLatexOrHtml'
-import { propositionsQcm } from '../../lib/interactif/qcm'
+import { arrondi } from '../../lib/outils/nombres'
 import { rotationAnimee, translationAnimee } from '../../modules/2dAnimation'
 import { context } from '../../modules/context'
 import { mathalea2d } from '../../modules/mathalea2d'
@@ -190,7 +189,10 @@ export default class TrianglesEgaux extends Exercice {
       dThree = droite(E, p.listePoints[0])
       dFour = droite(p.listePoints[1], D)
 
-      if (dOne.pente === dTwo.pente || dThree.pente === dFour.pente) {
+      if (
+        arrondi(dOne.pente, 8) === arrondi(dTwo.pente, 8) ||
+        arrondi(dThree.pente, 8) === arrondi(dFour.pente, 8)
+      ) {
         probleme = true
         continue // pas la peine de construire, il y a un centre de rotation qui n'éxiste pas
       } else {

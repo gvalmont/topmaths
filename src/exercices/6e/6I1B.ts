@@ -53,7 +53,7 @@ export default class ColorierDeplacement extends Exercice {
     this.nbQuestions = 1
     this.nbQuestionsModifiable = false
 
-    this.consigne = 'Dans le quadrillage, effectuer le programme.'
+    this.consigne = 'Dans le quadrillage, effectuer le programme.<br>'
 
     this.nbQuestionsModifiable = false
     context.isHtml ? (this.spacing = 2) : (this.spacing = 1)
@@ -321,9 +321,8 @@ export default class ColorierDeplacement extends Exercice {
     }
 
     texte +=
-      'Au départ, le lutin est situé dans la case grisée. Chaque déplacement se fait dans une case adjacente. Exécuter le programme.'
+      'Au départ, le lutin est situé dans la case grisée. Chaque déplacement se fait dans une case adjacente. Exécuter le programme.<br>'
 
-    texte += '<br><br>'
     if (!context.isHtml) {
       texte += '\\begin{center}'
     }

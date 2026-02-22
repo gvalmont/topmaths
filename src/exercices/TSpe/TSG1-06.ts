@@ -3,7 +3,7 @@ import { randint } from '../../modules/outils'
 import { texNombre } from '../../lib/outils/texNombre'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { context } from '../../modules/context'
-export const titre = 'Somme de combinaisons.'
+export const titre = 'Effectuer une somme de combinaisons.'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 

@@ -17,7 +17,7 @@ import { fractionCliquable } from '../../modules/2dinteractif'
 import { context } from '../../modules/context'
 
 export const titre = 'Effectuer des calculs simples avec des fractions'
-export const dateDePublication = '20/11/21'
+export const dateDePublication = '20/11/2021'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const amcReady = true
@@ -73,7 +73,6 @@ export default class FractionsCalculsSimples extends Exercice {
     for (
       let i = 0, reponseAMC, texte, texteCorr, schema, schemaCorr, cpt = 0;
       i < this.nbQuestions && cpt < 50;
-
     ) {
       // Boucle principale où i+1 correspond au numéro de la question
       let c, n, f1, f2, f3
@@ -98,7 +97,7 @@ export default class FractionsCalculsSimples extends Exercice {
             { texteAvant: '=' },
           )
           texteCorr = `$${f1.texFraction} + ${f2.texFraction} = ${f3.texFraction} ${f3.estEntiere ? `=${f3.texFractionSimplifiee}` : ''}$`
-          schema = fractionCliquable(0, 0, 4, b, {})
+          schema = fractionCliquable(0, 0, 4, b, { couleur: 'none' })
           if (this.sup)
             texte +=
               '<br>' +
@@ -137,7 +136,7 @@ export default class FractionsCalculsSimples extends Exercice {
             { texteAvant: '=' },
           )
           texteCorr = `$${n} + ${f1.texFraction} = ${f2.texFraction} + ${f1.texFraction} = ${f3.texFraction} ${f3.estEntiere ? `=${f3.texFractionSimplifiee}` : ''}$`
-          schema = fractionCliquable(0, 0, 4, b, {})
+          schema = fractionCliquable(0, 0, 4, b, { couleur: 'none' })
           schemaCorr = fractionCliquable(
             0,
             0,
@@ -195,7 +194,7 @@ export default class FractionsCalculsSimples extends Exercice {
               couleur2: context.isHtml ? '#f15929' : 'gray',
             },
           )
-          schema = fractionCliquable(0, 0, 4, b, {})
+          schema = fractionCliquable(0, 0, 4, b, { couleur: 'none' })
           if (this.correctionDetaillee) {
             texteCorr +=
               '<br>' +
@@ -256,7 +255,7 @@ export default class FractionsCalculsSimples extends Exercice {
               schemaCorr,
             )
           }
-          schema = fractionCliquable(0, 0, 4, b, {})
+          schema = fractionCliquable(0, 0, 4, b, { couleur: 'none' })
           if (this.sup) {
             texte +=
               '<br>' +

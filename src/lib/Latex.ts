@@ -1,5 +1,7 @@
 import seedrandom from 'seedrandom'
 import { get } from 'svelte/store'
+import { ExamTemplateEngine } from '../components/setup/latex/LatexConfig'
+import Exercice from '../exercices/Exercice'
 import genericPreamble from '../lib/latex/preambule.tex?raw'
 import {
   loadFonts,
@@ -11,6 +13,7 @@ import {
 import type { IExercice } from '../lib/types'
 import { buildThemeFromReference } from '../topmaths/services/reference'
 import { reference } from '../topmaths/services/store'
+import { decodeExosGrouping, findExoPosition } from './LatexGroup'
 import type {
   ExoContent,
   LatexFileInfos,
@@ -20,6 +23,7 @@ import type {
 } from './LatexTypes'
 import { mathaleaHandleExerciceSimple } from './mathalea.js'
 import { getLang } from './stores/languagesStore'
+
 function testIfLoaded(
   values: string[],
   valuetoSearch: string,
@@ -316,8 +320,71 @@ class Latex {
   ): string {
     this.loadExercicesWithVersion(indiceVersion)
     let content = ''
+    const groups = decodeExosGrouping(
+      latexFileInfos.exosGrouping ?? '',
+      this.exercices.length,
+    )
+    for (let groupIndex = 0; groupIndex < groups.length; groupIndex++) {
+      const groupNbrs = groups[groupIndex]
+      const exoGroups = new Exercice()
+      let contentlocal = ''
+      for (let i = 0; i < groupNbrs.length; i++) {
+        const exoIndex = groupNbrs[i]
+
+        const exercice = this.exercices[exoIndex]
+        if (exercice.typeExercice === 'statique') {
+          content += `\n% @see : ${getUrlFromExercice(exercice, indiceVersion)}`
+          content += this.generateStaticExerciseContent(
+            exercice,
+            latexFileInfos,
+            indiceVersion,
+          )
+        } else {
+          contentlocal += `\n% @see Group ${exoIndex}: ${getUrlFromExercice(this.exercices[exoIndex], indiceVersion)}`
+          exoGroups.listeQuestions = [
+            ...exoGroups.listeQuestions,
+            ...exercice.listeQuestions,
+          ]
+          exoGroups.listeCorrections = [
+            ...exoGroups.listeCorrections,
+            ...exercice.listeCorrections,
+          ]
+          exoGroups.consigne = exoGroups.consigne + '\n' + exercice.consigne
+          exoGroups.introduction =
+            exoGroups.introduction + '\n' + exercice.introduction
+          exoGroups.typeExercice = exercice.typeExercice
+          exoGroups.titre = exoGroups.titre + '\n' + `Groupe ${groupIndex + 1}`
+        }
+      }
+
+      if (exoGroups.listeQuestions.length === 0) continue
+
+      const confExo: {
+        labels?: string
+        itemsep?: number
+        blocrep?: { nbligs: number; nbcols: number }
+        cols?: number
+        cols_corr?: number
+      } =
+        latexFileInfos.exos && latexFileInfos.exos[groupNbrs[0]]
+          ? latexFileInfos.exos[groupNbrs[0]]
+          : {}
+      content +=
+        contentlocal +
+        this.generateExerciseContent(
+          latexFileInfos,
+          exoGroups,
+          indiceVersion,
+          confExo,
+        )
+    }
+
     for (let k = 0; k < this.exercices.length; k++) {
+      if (findExoPosition(groups, k)) continue // cet exercice est déjà dans un groupe, on l'ignore ici
       const exercice = this.exercices[k]
+
+      content += `\n% @see : ${getUrlFromExercice(exercice, indiceVersion)}`
+
       const confExo: {
         labels?: string
         itemsep?: number
@@ -328,105 +395,147 @@ class Latex {
         latexFileInfos.exos && latexFileInfos.exos[k]
           ? latexFileInfos.exos[k]
           : {}
-      content += `\n% @see : ${getUrlFromExercice(exercice, indiceVersion)}`
+
       if (exercice.typeExercice === 'statique') {
-        if (exercice.content === '') {
-          content += "% Cet exercice n'est pas disponible au format LaTeX"
-        } else {
-          content += '\n\\needspace{10\\baselineskip}'
-          if (latexFileInfos.qrcodeOption === 'AvecQrcode') {
-            content += `\n\\begin{exercice}[${
-              latexFileInfos.titleOption === 'AvecTitre'
-                ? `Titre=${latexFileInfos.titleOption}, `
-                : ''
-            }Ajout={\\node[anchor=north east, inner sep=2pt]
-        at (frame.north east) {\\hypersetup{urlcolor=black, pdfnewwindow=true}\\qrcode[height=2cm]{${getUrlFromExercice(exercice, indiceVersion)}&v=eleve&es=0211}};
-}]%[Lignes=5,Interieur]`
-          } else {
-            content += `\n\\begin{exercice}${
-              latexFileInfos.titleOption === 'AvecTitre'
-                ? `[Titre=${latexFileInfos.titleOption}]`
-                : ''
-            }%[Lignes=5,Interieur]\n`
-          }
-          content += exercice.content
-          content += '\n\\end{exercice}\n'
-          content += '\n\\begin{Solution}\n'
-          content += exercice.contentCorr
-          content += '\n\\end{Solution}\n'
-        }
-      } else {
-        content += '\n\\needspace{10\\baselineskip}'
-        if (latexFileInfos.qrcodeOption === 'AvecQrcode') {
-          content += `\n\\begin{exercice}[${
-            latexFileInfos.titleOption === 'AvecTitre'
-              ? `Titre=${exercice.titre}, `
-              : ''
-          }Ajout={\\node[anchor=north east, inner sep=2pt]
-        at (frame.north east) {\\hypersetup{urlcolor=black}\\qrcode[height=2cm]{${getUrlFromExercice(exercice, indiceVersion)}&v=eleve&es=0211}};
-}]%[Lignes=5,Interieur]`
-        } else {
-          content += `\n\\begin{exercice}${
-            latexFileInfos.titleOption === 'AvecTitre'
-              ? `[Titre=${exercice.titre}]`
-              : ''
-          }%[Lignes=5,Interieur]\n`
-        }
-        content += testIfLoaded(
-          [
-            ...exercice.listeQuestions,
-            exercice.consigne,
-            exercice.introduction,
-          ],
-          '\\anote{',
-          '\n\\resetcustomnotes',
+        content += this.generateStaticExerciseContent(
+          exercice,
+          latexFileInfos,
+          indiceVersion,
         )
-        if (
-          latexFileInfos.qrcodeOption === 'AvecQrcode' &&
-          (exercice.introduction.length > 40 || exercice.consigne.length > 40)
-        ) {
-          // il faut un espace pour le QRCODE
-          content += '\n\\vspace{2cm}'
-        }
-        content += writeIntroduction(exercice.introduction)
-        content += '\n' + format(exercice.consigne)
-        content += buildContent(
-          exercice.listeQuestions,
-          exercice.spacing,
-          Boolean(exercice.listeAvecNumerotation),
-          confExo.cols ? confExo.cols : Number(exercice.nbCols),
+      } else {
+        content += this.generateExerciseContent(
+          latexFileInfos,
+          exercice,
+          indiceVersion,
           confExo,
         )
-        content += testIfLoaded(
-          [
-            ...exercice.listeQuestions,
-            exercice.consigne,
-            exercice.introduction,
-          ],
-          '\\anote{',
-          '\n\\printcustomnotes',
-        )
-        content += '\n\\end{exercice}\n'
-        content += '\n\\begin{Solution}'
-        content += testIfLoaded(
-          [...exercice.listeCorrections],
-          '\\anote{',
-          '\n\\resetcustomnotes',
-        )
-        content += buildContent(
-          exercice.listeCorrections,
-          exercice.spacingCorr,
-          Boolean(exercice.listeAvecNumerotation),
-          confExo.cols_corr ? confExo.cols_corr : Number(exercice.nbColsCorr),
-        )
-        content += testIfLoaded(
-          [...exercice.listeCorrections],
-          '\\anote{',
-          '\n\\printcustomnotes',
-        )
-        content += '\n\\end{Solution}\n'
       }
     }
+    return content
+  }
+
+  private generateStaticExerciseContent(
+    exercice: IExercice,
+    latexFileInfos: LatexFileInfos,
+    indiceVersion: number,
+  ) {
+    let content = ''
+    if (exercice.content === '') {
+      content += "% Cet exercice n'est pas disponible au format LaTeX"
+    } else {
+      content += '\n\\needspace{10\\baselineskip}'
+      if (latexFileInfos.qrcodeOption === 'AvecQrcode') {
+        content += `\n\\begin{exercice}[${
+          latexFileInfos.titleOption === 'AvecTitre'
+            ? `Titre=${latexFileInfos.titleOption}, `
+            : ''
+        }Ajout={\\node[anchor=north east, inner sep=2pt]
+        at (frame.north east) {\\hypersetup{urlcolor=black, pdfnewwindow=true}\\qrcode[height=2cm]{${getUrlFromExercice(exercice, indiceVersion)}&v=eleve&es=0211}};
+}]%[Lignes=5,Interieur]`
+      } else {
+        content += `\n\\begin{exercice}${
+          latexFileInfos.titleOption === 'AvecTitre'
+            ? `[Titre=${latexFileInfos.titleOption}]`
+            : ''
+        }%[Lignes=5,Interieur]\n`
+      }
+      if (latexFileInfos.qrcodeOption === 'AvecQrcode')
+        content += '\n\\vspace{2cm}'
+      content += exercice.content
+      content += '\n\\end{exercice}\n'
+      content += '\n\\begin{Solution}\n'
+      content += exercice.contentCorr
+      content += '\n\\end{Solution}\n'
+    }
+    return content
+  }
+
+  private generateExerciseContent(
+    latexFileInfos: LatexFileInfos,
+    exercice: IExercice,
+    indiceVersion: number,
+    confExo: {
+      labels?: string
+      itemsep?: number
+      blocrep?: { nbligs: number; nbcols: number }
+      cols?: number
+      cols_corr?: number
+    },
+  ) {
+    let content = '\n\\needspace{10\\baselineskip}'
+    if (latexFileInfos.qrcodeOption === 'AvecQrcode') {
+      content += `\n\\begin{exercice}[${
+        latexFileInfos.titleOption === 'AvecTitre'
+          ? `Titre=${exercice.titre}, `
+          : ''
+      }Ajout={\\node[anchor=north east, inner sep=2pt]
+        at (frame.north east) {\\hypersetup{urlcolor=black}\\qrcode[height=2cm]{${getUrlFromExercice(exercice, indiceVersion)}&v=eleve&es=0211}};
+}]%[Lignes=5,Interieur]`
+    } else {
+      content += `\n\\begin{exercice}${
+        latexFileInfos.titleOption === 'AvecTitre'
+          ? `[Titre=${exercice.titre}]`
+          : ''
+      }%[Lignes=5,Interieur]\n`
+    }
+    content += testIfLoaded(
+      [...exercice.listeQuestions, exercice.consigne, exercice.introduction],
+      '\\anote{',
+      '\n\\resetcustomnotes',
+    )
+    if (latexFileInfos.qrcodeOption === 'AvecQrcode') {
+      const phrases =
+        exercice.listeQuestions.length > 0
+          ? exercice.listeQuestions[0].split(/\\\\|\r?\n/)
+          : []
+      const firstQuestion = phrases.length > 0 ? phrases[0] : ''
+      const secondQuestion = phrases.length > 1 ? phrases[1] : ''
+      if (
+        latexFileInfos.qrcodeOption === 'AvecQrcode' &&
+        (exercice.introduction.length > 40 ||
+          exercice.consigne.length > 40 ||
+          firstQuestion.length > 40 ||
+          secondQuestion.length > 40)
+      ) {
+        // il faut un espace pour le QRCODE
+        content += '\n\\vspace{2cm}'
+      }
+    }
+
+    content += writeIntroduction(exercice.introduction) + '\n'
+    content += format(exercice.consigne) + '\n'
+    content += buildContent(
+      exercice.listeQuestions,
+      exercice.spacing,
+      Boolean(exercice.listeAvecNumerotation),
+      confExo.cols ? confExo.cols : Number(exercice.nbCols),
+      confExo,
+    )
+    content += testIfLoaded(
+      [...exercice.listeQuestions, exercice.consigne, exercice.introduction],
+      '\\anote{',
+      '\n\\printcustomnotes',
+    )
+    content += '\n\\end{exercice}\n'
+    content += '\n\\begin{Solution}'
+    content += testIfLoaded(
+      [...exercice.listeCorrections],
+      '\\anote{',
+      '\n\\resetcustomnotes',
+    )
+    content += buildContent(
+      exercice.listeCorrections,
+      exercice.spacingCorr,
+      Boolean(exercice.listeAvecNumerotation),
+      confExo.cols_corr ? confExo.cols_corr : Number(exercice.nbColsCorr),
+      confExo.labels ? { labels: confExo.labels } : {},
+    )
+    content += testIfLoaded(
+      [...exercice.listeCorrections],
+      '\\anote{',
+      '\n\\printcustomnotes',
+    )
+    content += '\n\\end{Solution}\n'
     return content
   }
 
@@ -487,7 +596,26 @@ class Latex {
         )
       }
       this.loadPreambuleFromContents(contents, latexFileInfos)
-      contents.intro += '\n\\begin{document}'
+      if (
+        latexFileInfos.modele !== undefined &&
+        latexFileInfos.modele !== 'aucun' &&
+        latexFileInfos.examConfig !== undefined
+      ) {
+        const engine = new ExamTemplateEngine(latexFileInfos.examConfig)
+        const tabularx = testIfLoaded([contents.preamble], 'tabularx', '1')
+        if (tabularx !== '1') {
+          contents.preamble += '\n\\usepackage{tabularx}'
+        }
+        const lastpage = testIfLoaded([contents.preamble], 'lastpage', '1')
+        if (lastpage !== '1') {
+          contents.preamble += '\n\\usepackage{lastpage}'
+        }
+        contents.intro += engine.generateTikzFiche()
+        contents.intro += '\n\\begin{document}'
+        contents.intro += `\n${engine.render()}\n`
+      } else {
+        contents.intro += '\n\\begin{document}'
+      }
     } else {
       for (let i = 1; i < latexFileInfos.nbVersions + 1; i++) {
         if (latexFileInfos.signal?.aborted) {

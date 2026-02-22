@@ -40,7 +40,6 @@ export default class CalculProduitScalaireAngle extends Exercice {
   constructor() {
     super()
     this.nbQuestions = 1
-    // this.nbQuestionsModifiable= false
     this.sup = 1
     this.spacing = 1.5
     this.besoinFormulaire2CaseACocher = ['Avec des radians']
@@ -50,7 +49,7 @@ export default class CalculProduitScalaireAngle extends Exercice {
         'Nombres séparés par des tirets  :',
         '1 : Application de la formule',
         '2 : Avec une figure (parallélogramme)',
-        '3: Mélange',
+        '3 : Mélange',
       ].join('\n'),
     ]
   }
@@ -74,7 +73,6 @@ export default class CalculProduitScalaireAngle extends Exercice {
     for (
       let i = 0, texte, texteCorr, reponse, cpt = 0;
       i < this.nbQuestions && cpt < 50;
-
     ) {
       switch (
         listeTypeDeQuestions[i] // listeTypeDeQuestions[i]

@@ -16,6 +16,10 @@ const minVersion = {
   'Mobile Chrome': 63,
   'Chrome Headless': 80,
   'Mobile Firefox': 136,
+  'Android Browser': 4,
+  'Avast Secure Browser': 143,
+  'Opera Touch': 6,
+  Facebook: 544,
 }
 
 export function checkBrowserVersion() {

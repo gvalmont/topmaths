@@ -84,7 +84,6 @@ export default class Pythagore2DBlockly extends Exercice {
     for (
       let i = 0, texte, texteCorr, cpt = 0;
       i < this.nbQuestions && cpt < 50;
-
     ) {
       texte = ''
       texteCorr = ''
@@ -553,14 +552,14 @@ export default class Pythagore2DBlockly extends Exercice {
           if (secondaryArea === null) {
             return
           }
-          let element = secondaryArea
+          let element: HTMLElement | null = secondaryArea
           let x = 0
           let y = 0
           let nb = 0
           do {
             x += element.offsetLeft
             y += element.offsetTop
-            element = element.offsetParent
+            element = element.offsetParent as HTMLElement | null
             nb++
             // console log('Co:x:' + x + ';y=' + y)
           } while (element && nb < 2)
@@ -579,6 +578,7 @@ export default class Pythagore2DBlockly extends Exercice {
       const blocklyArea = document.getElementById(
         'blocklyArea' + numExercice + '_' + questId,
       )
+      if (blocklyArea === null) return
       const blocklyDiv = document.getElementById(
         'blocklyDiv' + numExercice + '_' + questId,
       )
@@ -629,14 +629,17 @@ export default class Pythagore2DBlockly extends Exercice {
 
         const onresize = function () {
           // Compute the absolute coordinates and dimensions of blocklyArea.
-          let element = blocklyArea
+          let element: HTMLElement | null = blocklyArea
+          if (element === null) {
+            return
+          }
           let x = 0
           let y = 0
           let nb = 0
           do {
             x += element.offsetLeft
             y += element.offsetTop
-            element = element.offsetParent
+            element = element.offsetParent as HTMLElement | null
             nb++
           } while (element && nb < 2)
           // Position blocklyDiv over blocklyArea.
@@ -663,16 +666,19 @@ export default class Pythagore2DBlockly extends Exercice {
     )
     const divFeedback = document.querySelector(
       `#feedbackEx${this.numeroExercice}Q${i}`,
-    )
-    spanResultat.innerHTML = ''
+    ) as HTMLElement | null
+    if (spanResultat) spanResultat.innerHTML = ''
     let feedback = ''
     const workspaceExisting = retrieveWorkspace(
       'workspace_quest_' + this.numeroExercice + '_' + i,
     )
+    if (!workspaceExisting) {
+      throw new Error('Workspace introuvable')
+    }
     const start = workspaceExisting.getBlocksByType('start')[0]
     if (!start) {
       feedback += 'Manque le bloc "démonstration"<br>'
-      spanResultat.innerHTML = '☹️'
+      if (spanResultat) spanResultat.innerHTML = '☹️'
       result = 'KO'
       if (divFeedback) divFeedback.innerHTML = feedback
       return result
@@ -680,10 +686,10 @@ export default class Pythagore2DBlockly extends Exercice {
     const demo = start.getNextBlock()
     if (!demo) {
       feedback += 'Manque le bloc "Condition Propriété Conclusion"<br>'
-      spanResultat.innerHTML = '☹️'
+      if (spanResultat) spanResultat.innerHTML = '☹️'
       result = 'KO'
       if (divFeedback) divFeedback.innerHTML = feedback
-      divFeedback.style.display = 'block'
+      if (divFeedback) divFeedback.style.display = 'block'
 
       return result
     }
@@ -691,7 +697,7 @@ export default class Pythagore2DBlockly extends Exercice {
     const condition = demo.getInputTargetBlock('Condition')
     if (!condition) {
       feedback += 'Pas de condition définie<br>'
-      spanResultat.innerHTML = '☹️'
+      if (spanResultat) spanResultat.innerHTML = '☹️'
       result = 'KO'
     } else {
       if (
@@ -701,7 +707,7 @@ export default class Pythagore2DBlockly extends Exercice {
         feedback += 'Condition: le bloc triangle rectangle défini<br>'
       } else {
         feedback += 'Condition: le bloc triangle rectangle mal défini<br>'
-        spanResultat.innerHTML = '☹️'
+        if (spanResultat) spanResultat.innerHTML = '☹️'
         result = 'KO'
       }
       if (
@@ -722,8 +728,8 @@ export default class Pythagore2DBlockly extends Exercice {
       } else {
         feedback +=
           'Condition: le bloc triangle rectangle avec des points mal définis<br>'
-        spanResultat.innerHTML = '☹️'
-        result[0] = 'KO'
+        if (spanResultat) spanResultat.innerHTML = '☹️'
+        result = 'KO'
       }
     }
 
@@ -735,14 +741,14 @@ export default class Pythagore2DBlockly extends Exercice {
     const prop = demo.getInputTargetBlock('Propriété')
     if (!prop) {
       feedback += 'Pas de propriété définie<br>'
-      spanResultat.innerHTML = '☹️'
+      if (spanResultat) spanResultat.innerHTML = '☹️'
       result = 'KO'
     } else {
       if (prop.type === 'pythagore') {
         feedback += 'Propriété: le bloc Pythagore défini<br>'
       } else {
         feedback += 'Propriété: le bloc Pythagore absent<br>'
-        spanResultat.innerHTML = '☹️'
+        if (spanResultat) spanResultat.innerHTML = '☹️'
         result = 'KO'
       }
 
@@ -767,7 +773,7 @@ export default class Pythagore2DBlockly extends Exercice {
       } else {
         feedback +=
           'Propriété: Egalité de Pythagore : bloc incorrecte à gauche<br>'
-        spanResultat.innerHTML = '☹️'
+        if (spanResultat) spanResultat.innerHTML = '☹️'
         result = 'KO'
       }
 
@@ -831,6 +837,8 @@ export default class Pythagore2DBlockly extends Exercice {
         feedback +=
           'Propriété: Egalité de Pythagore : bloc incorrect à droite<br>'
       }
+      if (spanResultat) spanResultat.innerHTML = '☹️'
+      result = 'KO'
       let racineCarre = egalitePyt?.getNextBlock() // égalité de Pythagore
       while (racineCarre) {
         const [resu, feed] = this.racineCarreSearch(
@@ -848,7 +856,7 @@ export default class Pythagore2DBlockly extends Exercice {
         }
         if (!racineCarre) {
           feedback += feed
-          spanResultat.innerHTML = '☹️'
+          if (spanResultat) spanResultat.innerHTML = '☹️'
           result = 'KO'
           break
         }
@@ -858,7 +866,7 @@ export default class Pythagore2DBlockly extends Exercice {
     const conclusion = demo.getInputTargetBlock('Conclusion')
     if (!conclusion) {
       feedback += 'Pas de conclusion définie<br>'
-      spanResultat.innerHTML = '☹️'
+      if (spanResultat) spanResultat.innerHTML = '☹️'
       result = 'KO'
     } else {
       let equalOrApprox = ''
@@ -902,7 +910,7 @@ export default class Pythagore2DBlockly extends Exercice {
         // feedback += 'Conclusion: le block conclusion défini<br>'
       } else {
         feedback += 'Conclusion: le bloc conclusion avec le mauvais block<br>'
-        spanResultat.innerHTML = '☹️'
+        if (spanResultat) spanResultat.innerHTML = '☹️'
         result = 'KO'
       }
       if (
@@ -914,7 +922,7 @@ export default class Pythagore2DBlockly extends Exercice {
       } else if (conclusion.type === 'egale_comp') {
         feedback +=
           'Conclusion: le bloc conclusion défini avec le mauvais signe<br>'
-        spanResultat.innerHTML = '☹️'
+        if (spanResultat) spanResultat.innerHTML = '☹️'
         result = 'KO'
       }
       const op1 = conclusion.getInputTargetBlock('op1')
@@ -928,7 +936,7 @@ export default class Pythagore2DBlockly extends Exercice {
       } else {
         feedback +=
           'Conclusion: le bloc conclusion défini avec le mauvais segment<br>'
-        spanResultat.innerHTML = '☹️'
+        if (spanResultat) spanResultat.innerHTML = '☹️'
         result = 'KO'
       }
       const op2 = conclusion.getInputTargetBlock('op2')
@@ -938,26 +946,28 @@ export default class Pythagore2DBlockly extends Exercice {
       } else {
         feedback +=
           'Conclusion: le bloc conclusion défini avec la mauvaise unité<br>'
-        spanResultat.innerHTML = '☹️'
-        result[0] = 'KO'
-      }
-      if (
-        op2 &&
-        op2.getInputTargetBlock('value') &&
-        op2.getInputTargetBlock('value').type === 'textinput' &&
-        op2.getInputTargetBlock('value').getFieldValue('NUM') ===
-          longueurCherche
-      ) {
-        feedback +=
-          'Conclusion: le bloc conclusion défini avec la bonne longueur<br>'
-      } else {
-        feedback +=
-          'Conclusion: le bloc conclusion défini avec la mauvaise longueur<br>'
-        spanResultat.innerHTML = '☹️'
+        if (spanResultat) spanResultat.innerHTML = '☹️'
         result = 'KO'
       }
+      if (op2 && op2.getInputTargetBlock('value')) {
+        const valBlock = op2.getInputTargetBlock('value')
+        if (valBlock) {
+          if (
+            valBlock.type === 'textinput' &&
+            valBlock.getFieldValue('NUM') === longueurCherche
+          ) {
+            feedback +=
+              'Conclusion: le bloc conclusion défini avec la bonne longueur<br>'
+          } else {
+            feedback +=
+              'Conclusion: le bloc conclusion défini avec la mauvaise longueur<br>'
+            if (spanResultat) spanResultat.innerHTML = '☹️'
+            result = 'KO'
+          }
+        }
+      }
     }
-    if (result === 'OK') spanResultat.innerHTML = '😎'
+    if (result === 'OK') if (spanResultat) spanResultat.innerHTML = '😎'
     if (divFeedback) divFeedback.innerHTML = feedback
     return result
   }

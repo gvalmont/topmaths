@@ -3,7 +3,7 @@ import { factorielle, randint } from '../../modules/outils'
 import { texNombre } from '../../lib/outils/texNombre'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { choice } from '../../lib/outils/arrayOutils'
-export const titre = 'Dénombrement.'
+export const titre = 'Déterminer un nombre de combinaision.'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 
@@ -30,7 +30,6 @@ export default class NomExercice extends ExerciceSimple {
   nouvelleVersion() {
     const n = randint(5, 15)
     const k = randint(2, n - 1)
-    const factorielleN = factorielle(n)
     const combinaison = factorielle(n) / (factorielle(k) * factorielle(n - k))
     const prenom = choice([
       'Léa',

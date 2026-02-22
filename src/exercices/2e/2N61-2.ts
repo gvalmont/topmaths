@@ -414,7 +414,6 @@ export default class ExerciceInequationProduit extends Exercice {
         // Affiche le tableau de signes : xmin détermine la marge à gauche, ymin la hauteur réservée pour le tableau, xmax la largeur réservée pour le tableau et ymax la marge au dessus du tableau
         texteCorr += tableauDeVariation({
           tabInit: [
-            // @ts-expect-error TableauDeVariation n'est pas typé correctement
             [
               // Première colonne du tableau avec le format [chaine d'entête, hauteur de ligne, nombre de pixels de largeur estimée du texte pour le centrage]
               ['$x$', 2, 30],
@@ -427,7 +426,6 @@ export default class ExerciceInequationProduit extends Exercice {
               ],
             ],
             // Première ligne du tableau avec chaque antécédent suivi de son nombre de pixels de largeur estimée du texte pour le centrage
-            // @ts-expect-error TableauDeVariation n'est pas typé correctement
             [
               '$-\\infty$',
               30,
@@ -445,7 +443,7 @@ export default class ExerciceInequationProduit extends Exercice {
             ligne2,
             ['Line', 30, '', 0, '+', 20, 'z', 20, '-', 20, 'z', 20, '+', 20],
           ],
-          colorBackground: '',
+          // colorBackground: '',
           espcl,
           deltacl,
           lgt,
@@ -572,7 +570,6 @@ export default class ExerciceInequationProduit extends Exercice {
           'On peut donc en déduire le tableau de signes suivant : <br>'
         texteCorr += tableauDeVariation({
           tabInit: [
-            // @ts-expect-error TableauDeVariation n'est pas typé correctement
             [
               ['$x$', 2, 30],
               [`$x${ecritureAlgebrique(a)}$`, 2, 50],
@@ -584,7 +581,7 @@ export default class ExerciceInequationProduit extends Exercice {
                 150,
               ],
             ],
-            // @ts-expect-error TableauDeVariation n'est pas typé correctement
+
             [
               '$-\\infty$',
               30,
@@ -623,7 +620,7 @@ export default class ExerciceInequationProduit extends Exercice {
               20,
             ],
           ],
-          colorBackground: '',
+          // colorBackground: '',
           espcl,
           deltacl,
           lgt,
@@ -743,7 +740,6 @@ export default class ExerciceInequationProduit extends Exercice {
         // Affiche enfin le tableau
         texteCorr += tableauDeVariation({
           tabInit: [
-            // @ts-expect-error TableauDeVariation n'est pas typé correctement
             [
               ['$x$', 2.5, 30],
               [`$${a}x${ecritureAlgebrique(b)}$`, 2, 75],
@@ -754,7 +750,7 @@ export default class ExerciceInequationProduit extends Exercice {
                 200,
               ],
             ],
-            // @ts-expect-error TableauDeVariation n'est pas typé correctement
+
             [
               '$-\\infty$',
               30,
@@ -766,9 +762,9 @@ export default class ExerciceInequationProduit extends Exercice {
               30,
             ],
           ],
-          // @ts-expect-error TableauDeVariation n'est pas typé correctement
+
           tabLines: [ligne1, ligne2, ligne3],
-          colorBackground: '',
+          // colorBackground: '',
           espcl,
           deltacl,
           lgt,
@@ -1016,7 +1012,6 @@ export default class ExerciceInequationProduit extends Exercice {
         // Affiche enfin le tableau
         texteCorr += tableauDeVariation({
           tabInit: [
-            // @ts-expect-error TableauDeVariation n'est pas typé correctement
             [
               ['$x$', 2.5, 30],
               [`$${a}x${ecritureAlgebrique(b)}$`, 2, 75],
@@ -1028,7 +1023,7 @@ export default class ExerciceInequationProduit extends Exercice {
                 200,
               ],
             ],
-            // @ts-expect-error TableauDeVariation n'est pas typé correctement
+
             [
               '$-\\infty$',
               30,
@@ -1042,9 +1037,9 @@ export default class ExerciceInequationProduit extends Exercice {
               30,
             ],
           ],
-          // @ts-expect-error TableauDeVariation n'est pas typé correctement
+
           tabLines: [ligne1, ligne2, ligne3, ligne4],
-          colorBackground: '',
+          // colorBackground: '',
           espcl,
           deltacl,
           lgt,
@@ -1308,7 +1303,6 @@ export default class ExerciceInequationProduit extends Exercice {
         // Affiche le tableau
         texteCorr += tableauDeVariation({
           tabInit: [
-            // @ts-expect-error TableauDeVariation n'est pas typé correctement
             [
               ['$x$', 2.5, 30],
               [`$(${a}x${ecritureAlgebrique(b)})^2$`, 2, 75],
@@ -1319,7 +1313,7 @@ export default class ExerciceInequationProduit extends Exercice {
                 200,
               ],
             ],
-            // @ts-expect-error TableauDeVariation n'est pas typé correctement
+
             [
               '$-\\infty$',
               30,
@@ -1331,9 +1325,9 @@ export default class ExerciceInequationProduit extends Exercice {
               30,
             ],
           ],
-          // @ts-expect-error TableauDeVariation n'est pas typé correctement
+
           tabLines: [ligne1, ligne2, ligne3],
-          colorBackground: '',
+          // colorBackground: '',
           espcl,
           deltacl,
           lgt,

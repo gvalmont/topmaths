@@ -38,7 +38,7 @@ export default class ProblemeTransfoApres extends Probleme {
       ],
     })
     this.enonce = `On dispose d'une somme de $${texNombre(data.nb1, 2)}$ € et on vient de toucher un remboursement de $${texNombre(data.nb2, 2)}$ €.
-Quelle somme d'argent a-t-on maintenant ?`
+<br>Quelle somme d'argent a-t-on maintenant ?`
     this.correction = `Maintenant on a $${miseEnEvidence(data.nb1 + data.nb2)}$ €.`
     this.reponse = texNombre(data.nb1 + data.nb2, 2)
   }

@@ -1,6 +1,6 @@
 <script lang="ts">
   import seedrandom from 'seedrandom'
-  import { afterUpdate, beforeUpdate, onDestroy, onMount, tick } from 'svelte'
+  import { afterUpdate, beforeUpdate, onDestroy, onMount } from 'svelte'
   import { get } from 'svelte/store'
   import type TypeExercice from '../../../../../exercices/Exercice'
   import { sendToCapytaleSaveStudentAssignment } from '../../../../../lib/handleCapytale'
@@ -16,6 +16,7 @@
   } from '../../../../../lib/mathalea'
   import { mathaleaWriteStudentPreviousAnswers } from '../../../../../lib/mathaleaUtils'
   import {
+    capytaleStudentAssignment,
     exercicesParams,
     isMenuNeededForExercises,
     resultsByExercice,
@@ -55,9 +56,9 @@
     get(exercicesParams)[exerciseIndex]
   let columnsCount = interfaceParams?.cols || 1
 
-  let debug = false
-  function log(str: string) {
-    if (debug || window.logDebug > 1) {
+  let debug = new URL(window.location.href).searchParams.get('log') === '6'
+  function log(str: string, level: number = 3) {
+    if (debug || window.logDebug >= level) {
       console.info(str)
     }
   }
@@ -80,12 +81,17 @@
   let boutonInteractiviteUrlFlag = true
 
   let title: string
-  if ($globalOptions.isTitleDisplayed) {
-    title = exercise.id
-      ? `${exercise.id.replace('.js', '').replace('.ts', '')} - ${exercise.titre}`
-      : exercise.titre
+  const ref = exercise.id
+    ? exercise.id.replace('.js', '').replace('.ts', '')
+    : ''
+  if ($globalOptions.isTitleDisplayed && $globalOptions.isReferenceDisplayed) {
+    title = ref ? `${ref} - ${exercise.titre}` : exercise.titre
+  } else if ($globalOptions.isTitleDisplayed) {
+    title = exercise.titre
+  } else if ($globalOptions.isReferenceDisplayed) {
+    title = ref
   } else {
-    title = exercise.id || ''
+    title = ''
   }
   // Evènement indispensable pour pointCliquable par exemple
   const exercicesAffiches = new window.Event('exercicesAffiches', {
@@ -99,7 +105,6 @@
   async function forceUpdate() {
     if (exercise == null) return
     exercise.numeroExercice = exerciseIndex
-    await adjustMathalea2dFiguresWidth()
   }
 
   function updateAnswers() {
@@ -158,131 +163,152 @@
     document.addEventListener('setAllInteractif', setAllInteractif)
     document.addEventListener('removeAllInteractif', removeAllInteractif)
     document.addEventListener('updateAsyncEx', forceUpdate)
-    updateDisplay()
-    if ($globalOptions.setInteractive === '1') {
+
+    if (
+      $globalOptions.setInteractive === '1' &&
+      isInteractif === false &&
+      exercise?.interactifReady
+    ) {
       setAllInteractif()
-    } else if ($globalOptions.setInteractive === '0') {
+    } else if (
+      $globalOptions.setInteractive === '0' &&
+      isInteractif === true &&
+      exercise?.interactifReady
+    ) {
       removeAllInteractif()
+    } else {
+      updateInterfaceParamsAndReLoadExerciseIfNeed()
     }
     log('End onMount:' + exercise.id + ', v:' + $globalOptions.v)
   })
 
   beforeUpdate(async () => {
     log('beforeUpdate:' + exercise.id + ', v:' + $globalOptions.v)
-    const count = countMathField(exercise)
-    if (count !== numberOfAnswerFields) {
-      numberOfAnswerFields = count
-      log('numberOfAnswerFields:' + numberOfAnswerFields)
-    }
   })
+
+  function generateFreshSeed(): string {
+    if (!exercise?.id || !isLocalStorageAvailable())
+      return mathaleaGenerateSeed()
+
+    let seed
+    let safety = 0
+    do {
+      seed = mathaleaGenerateSeed()
+      safety++
+    } while (
+      window.localStorage.getItem(`${exercise.id}|${seed}`) !== null &&
+      safety < 20
+    )
+    return seed
+  }
 
   afterUpdate(async () => {
     log('afterUpdate:' + exercise.id + ', v:' + $globalOptions.v)
-    // console.trace()
-    // const starttime = window.performance.now()
-    if (exercise) {
-      await tick()
-      // let time = window.performance.now()
-      // log('duration tick:'+ (time - starttime))
-      updateAnswers()
-      // time = window.performance.now()
-      // log('duration updateAnswers:'+ (time - starttime))
+    const starttime = window.performance.now()
+    if (exercise && divExercice) {
       mathaleaRenderDiv(divExercice)
-      // time = window.performance.now()
-      // log('duration mathaleaRenderDiv:'+ (time - starttime))
+      let time = window.performance.now()
+      log('duration mathaleaRenderDiv:' + (time - starttime))
       adjustMathalea2dFiguresWidth()
-      // time = window.performance.now()
-      // log('duration adjustMathalea2dFiguresWidth:'+ (time - starttime))
+      time = window.performance.now()
+      log('duration adjustMathalea2dFiguresWidth:' + (time - starttime))
       if (exercise.interactif) {
         log('loadMathLive')
         loadMathLive(divExercice)
         log('end loadMathLive')
-        // time = window.performance.now()
-        // log('duration loadMathLive:'+ (time - starttime))
+        time = window.performance.now()
+        log('duration loadMathLive:' + (time - starttime))
         if (exercise.interactifType === 'cliqueFigure' && !isCorrectVisible) {
           prepareExerciceCliqueFigure(exercise)
         }
-
-        // Ne pas être noté sur un exercice dont on a déjà vu la correction
-        try {
-          if (
-            isLocalStorageAvailable() &&
-            exercise.id !== undefined &&
-            exercise.seed !== undefined &&
-            window.localStorage.getItem(`${exercise.id}|${exercise.seed}`) !=
-              null
-          ) {
-            newData()
-          }
-        } catch (e) {
-          console.error(e)
-        }
-        // time = window.performance.now()
-        // log('duration interactif:'+ (time - starttime))
+        time = window.performance.now()
+        log('duration prepareExerciceCliqueFigure:' + (time - starttime))
       }
-    }
-    // affectation du zoom pour les figures scratch
-    const scratchDivs = divExercice.getElementsByClassName('scratchblocks')
-    for (const scratchDiv of scratchDivs) {
-      const svgDivs = scratchDiv.getElementsByTagName('svg')
-      for (const svg of svgDivs) {
-        if (svg.hasAttribute('data-width') === false) {
-          const originalWidth = svg.getAttribute('width')
-          svg.dataset.width = originalWidth ?? ''
-        }
-        if (svg.hasAttribute('data-height') === false) {
-          const originalHeight = svg.getAttribute('height')
-          svg.dataset.height = originalHeight ?? ''
-        }
-        const w =
-          Number(svg.getAttribute('data-width')) * Number($globalOptions.z)
-        const h =
-          Number(svg.getAttribute('data-height')) * Number($globalOptions.z)
-        svg.setAttribute('width', w.toString())
-        svg.setAttribute('height', h.toString())
-      }
+      updateAnswers()
+      time = window.performance.now()
+      log('duration updateAnswers:' + (time - starttime))
     }
     document.dispatchEvent(exercicesAffiches)
     if (isCorrectVisible) {
       handleCorrectionAffichee()
     }
+    log(
+      'afterUpdate:n° ' +
+        exerciseIndex +
+        ', id: ' +
+        exercise.id +
+        ', v:' +
+        $globalOptions.v +
+        ', d:' +
+        (window.performance.now() - starttime),
+      2,
+    )
   })
 
   async function newData() {
+    log('newData:' + exercise.id + ', v:' + $globalOptions.v)
     exercise.isDone = false
     if (isCorrectVisible) switchCorrectionVisible(false)
-    const seed = mathaleaGenerateSeed()
-    exercise.seed = seed
+    exercise.seed = generateFreshSeed()
     if (buttonScore?.dataset?.capytaleLoadAnswers === '1') {
       // si les données ont été chargées par Capytale, on remet à 0
       buttonScore.dataset.capytaleLoadAnswers = '0'
     }
-    if (divScore) divScore.innerHTML = ''
-    updateDisplay()
+    if (divScore) {
+      divScore.innerHTML = ''
+    }
+    if (buttonScore) {
+      buttonScore.classList.remove(
+        'cursor-not-allowed',
+        'opacity-50',
+        'pointer-events-none',
+      )
+    }
+    updateInterfaceParamsAndReLoadExerciseIfNeed()
   }
 
   async function setAllInteractif() {
     if (exercise?.interactifReady && !isInteractif) {
       isInteractif = true
-      updateDisplay()
+      if (
+        isLocalStorageAvailable() &&
+        exercise.id &&
+        exercise.seed &&
+        window.localStorage.getItem(`${exercise.id}|${exercise.seed}`)
+      ) {
+        newData()
+      } else {
+        updateInterfaceParamsAndReLoadExerciseIfNeed()
+      }
     }
   }
   async function removeAllInteractif() {
     if (exercise?.interactifReady && isInteractif) {
       isInteractif = false
-      updateDisplay()
+      updateInterfaceParamsAndReLoadExerciseIfNeed()
     }
   }
 
-  async function updateDisplay() {
-    log('updateDisplay:' + exercise.id + ', v:' + $globalOptions.v)
+  async function updateInterfaceParamsAndReLoadExerciseIfNeed() {
+    log(
+      'updateInterfaceParamsAndReLoadExercisesIfNeed:' +
+        exercise.id +
+        ', v:' +
+        $globalOptions.v,
+    )
     if (exercise.typeExercice === 'simple') {
-      if (exercise.seed === undefined) exercise.seed = mathaleaGenerateSeed()
+      if (exercise.seed === undefined) exercise.seed = generateFreshSeed()
       seedrandom(exercise.seed, { global: true })
       mathaleaHandleExerciceSimple(exercise, !!isInteractif, exerciseIndex)
     }
     exercise.interactif = isInteractif
     if (interfaceParams) {
+      log(
+        'updateDisplay: before interfaceParams for index ' +
+          exerciseIndex +
+          ': ' +
+          JSON.stringify(interfaceParams),
+      )
       let changed = false
 
       if (interfaceParams.alea !== exercise.seed) {
@@ -308,6 +334,13 @@
         }
       }
       if (changed) {
+        log(
+          'updateDisplay: updating interfaceParams for index ' +
+            exerciseIndex +
+            ': ' +
+            JSON.stringify(interfaceParams),
+          2,
+        )
         exercicesParams.update((l: InterfaceParams[]) => {
           if (interfaceParams) {
             l[exerciseIndex] = interfaceParams
@@ -323,7 +356,7 @@
       exercise.typeExercice !== 'simple' &&
       typeof exercise.nouvelleVersionWrapper === 'function'
     ) {
-      if (exercise.seed === undefined) exercise.seed = mathaleaGenerateSeed()
+      if (exercise.seed === undefined) exercise.seed = generateFreshSeed()
       log('nouvelleVersionWrapper:' + exercise.id + ', v:' + $globalOptions.v)
       seedrandom(exercise.seed, { global: true })
       exercise.nouvelleVersionWrapper(exerciseIndex)
@@ -331,10 +364,9 @@
     numberOfAnswerFields = countMathField(exercise)
     log('numberOfAnswerFields:' + numberOfAnswerFields)
     mathaleaUpdateUrlFromExercicesParams()
-    await adjustMathalea2dFiguresWidth()
   }
 
-  function verifExerciceVueEleve() {
+  async function verifExerciceVueEleve() {
     log('verifExerciceVueEleve')
     if (exercise.numeroExercice != null && !(exercise.isDone === true))
       statsTracker(
@@ -344,6 +376,7 @@
         buttonScore?.dataset?.capytaleLoadAnswers === '1' ? 'review' : '',
       )
     exercise.isDone = true
+
     if (exercise.numeroExercice != null) {
       const previousBestScore = interfaceParams?.bestScore ?? 0
       const { numberOfPoints, numberOfQuestions } = exerciceInteractif(
@@ -360,8 +393,23 @@
         //  le score ne peut pas être inferieur à best score,
         //  car c'est de la restitution de la meilleure copie
         // donc si on est ici dans ce IF, c'est un bug du moteur à faire vite remonter
+        const newStudentAssignement = get(capytaleStudentAssignment) || []
+        const previousResultatByExercice =
+          newStudentAssignement[exercise.numeroExercice as number]
+        if (exercise?.checkSum !== previousResultatByExercice?.checkSum) {
+          window.notify(
+            `Exercice ${exercise.numeroExercice} a changé, passé de ${previousBestScore} à ${numberOfPoints}. Checksum différent avant ${previousResultatByExercice?.checkSum} et maintenant ${exercise?.checkSum}.`,
+            {
+              exo: exercise,
+              globalOptions: get(globalOptions),
+              exercicesParams: get(exercicesParams),
+              resultsByExercice: get(resultsByExercice),
+            },
+          )
+        }
+
         window.notify(
-          `Le score de l'exercice ${exercise.numeroExercice} est incorrect, passé de ${previousBestScore} à ${numberOfPoints}. Merci de le signaler au support.`,
+          `Le score de l'exercice ${exercise.numeroExercice} est incorrect, checksum(${exercise?.checkSum === previousResultatByExercice?.checkSum}), passé de ${previousBestScore} à ${numberOfPoints}. Merci de le signaler au support.`,
           {
             exo: exercise,
             globalOptions: get(globalOptions),
@@ -396,7 +444,9 @@
         })
       }
 
-      if ($globalOptions.isSolutionAccessible) isCorrectVisible = true
+      if ($globalOptions.isSolutionAccessible) {
+        isCorrectVisible = true
+      }
 
       if ($globalOptions.recorder === 'moodle') {
         const url = new URL(window.location.href)
@@ -433,12 +483,9 @@
   /**
    * Recherche toutes les figures ayant la classe `mathalea2d` et réduit leur largeur à 95% de la valeur
    * maximale du div reperé par l'ID `consigne<X>-0` où `X` est l'indice de l'exercice
-   * @param {boolean} initialDimensionsAreNeeded si `true`, les valeurs initiales sont rechargées ()`false` par défaut)
    * @author sylvain
    */
-  async function adjustMathalea2dFiguresWidth(
-    initialDimensionsAreNeeded: boolean = false,
-  ) {
+  function adjustMathalea2dFiguresWidth() {
     const mathalea2dFigures: NodeListOf<SVGElement> | undefined =
       divExercice?.querySelectorAll<SVGElement>('.mathalea2d')
     if (!mathalea2dFigures || mathalea2dFigures.length === 0) return
@@ -447,59 +494,20 @@
     log('zoom:' + zoom)
     if (mathalea2dFigures.length !== 0) {
       for (let k = 0; k < mathalea2dFigures.length; k++) {
-        if (initialDimensionsAreNeeded) {
-          // réinitialisation
-          const initialWidth = mathalea2dFigures[k].getAttribute(
-            'data-width-initiale',
-          )
-          const initialHeight = mathalea2dFigures[k].getAttribute(
-            'data-height-initiale',
-          )
-          mathalea2dFigures[k].setAttribute(
-            'width',
-            (Number(initialWidth) * zoom).toString(),
-          )
-          mathalea2dFigures[k].setAttribute(
-            'height',
-            (Number(initialHeight) * zoom).toString(),
-          )
-          // les éléments Katex des figures SVG
-          if (
-            mathalea2dFigures[k] != null &&
-            mathalea2dFigures[k].parentElement != null
-          ) {
-            const eltsInFigures =
-              mathalea2dFigures[k].parentElement?.querySelectorAll<HTMLElement>(
-                'div.divLatex',
-              ) || []
-            for (const elt of eltsInFigures) {
-              const e = elt
-              e.style.setProperty(
-                'top',
-                (Number(e.dataset.top) * zoom).toString() + 'px',
-              )
-              e.style.setProperty(
-                'left',
-                (Number(e.dataset.left) * zoom).toString() + 'px',
-              )
-            }
-          }
-        }
         /* Mickael:
           Ne surtout pas mettre la référence de l'exercice dans la requête suivante,
           car dans svelte, la référence est liée au dernier exercice chargé, ce qui bug!
           */
-        const consigneDiv = mathalea2dFigures[k]
-          .closest('article')
+        const consigneDiv = divExercice
+          ?.querySelector('article')
           ?.querySelector('[id^="consigne"]')
-        // const consigneDiv = document.getElementById('consigne' + exnumero + '-0')
         if (
           consigneDiv &&
           mathalea2dFigures[k].clientWidth > consigneDiv.clientWidth
         ) {
           const coef =
             (consigneDiv.clientWidth * 0.95) / mathalea2dFigures[k].clientWidth
-          // console.log('coef:' + coef )
+
           const width = mathalea2dFigures[k].getAttribute('width')
           const height = mathalea2dFigures[k].getAttribute('height')
           if (!mathalea2dFigures[k].dataset.widthInitiale && width != null)
@@ -552,7 +560,7 @@
 
   // pour recalculer les tailles lors d'un changement de dimension de la fenêtre
   window.onresize = () => {
-    adjustMathalea2dFiguresWidth(true)
+    adjustMathalea2dFiguresWidth()
   }
 
   function switchCorrectionVisible(newdata: boolean = true) {
@@ -573,20 +581,29 @@
     ) {
       newData()
     }
-    if (newdata) adjustMathalea2dFiguresWidth()
   }
 
   function switchInteractif() {
     if (isCorrectVisible) switchCorrectionVisible()
     isInteractif = !isInteractif
     exercise.interactif = isInteractif
-    updateDisplay()
+    if (
+      isInteractif &&
+      isLocalStorageAvailable() &&
+      exercise.id &&
+      exercise.seed &&
+      window.localStorage.getItem(`${exercise.id}|${exercise.seed}`)
+    ) {
+      newData()
+    } else {
+      updateInterfaceParamsAndReLoadExerciseIfNeed()
+    }
   }
 
   function columnsCountUpdate(plusMinus: '+' | '-') {
     if (plusMinus === '+') columnsCount++
     if (plusMinus === '-') columnsCount--
-    updateDisplay()
+    updateInterfaceParamsAndReLoadExerciseIfNeed()
   }
 </script>
 
@@ -605,7 +622,7 @@
 
   <div class="flex flex-col-reverse lg:flex-row">
     <div
-      class="flex flex-col justify-start items-start"
+      class="flex flex-col justify-start items-start w-full"
       id="exercice{exerciseIndex}"
     >
       <ExerciceVueEleveButtons
@@ -697,8 +714,10 @@
                   focus:shadow-lg focus:outline-none focus:ring-0
                   active:bg-coopmaths-action-lightest dark:active:bg-coopmathsdark-action-lightest
                   active:shadow-lg transition duration-150 ease-in-out checkReponses`}
-          class:hidden={$globalOptions.recorder === 'flowmath' && !boutonValidationUrlFlag}
-          hidden={$globalOptions.recorder === 'flowmath' && !boutonValidationUrlFlag}
+          class:hidden={$globalOptions.recorder === 'flowmath' &&
+            !boutonValidationUrlFlag}
+          hidden={$globalOptions.recorder === 'flowmath' &&
+            !boutonValidationUrlFlag}
         >
           Vérifier {numberOfAnswerFields > 1 ? 'les réponses' : 'la réponse'}
         </button>

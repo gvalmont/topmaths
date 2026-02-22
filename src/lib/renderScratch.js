@@ -47,3 +47,68 @@ export default function renderScratch(selector = '') {
       .forEach((el) => el.classList.remove('blocks2'))
   })
 }
+
+/**
+ *
+ * @param {HTMLElement} root
+ */
+export function renderScratchDiv(root = document.body) {
+  scratchblocks.loadLanguages({ fr: scratchFr })
+
+  // === RENDU DES BLOCS MULTILIGNES ===
+  const preBlocks = root.querySelectorAll('pre.blocks')
+  if (preBlocks.length > 0) {
+    preBlocks.forEach((el) => el.setAttribute('data-sb', ''))
+    scratchblocks.renderMatching('pre.blocks[data-sb] ', {
+      style: 'scratch3',
+      languages: ['fr'],
+      scale: 0.7,
+    })
+    preBlocks.forEach((el) => el.removeAttribute('data-sb'))
+
+    // Empêcher un second rendu
+    preBlocks.forEach((el) => el.classList.remove('blocks'))
+  }
+
+  // === RENDU INLINE ===
+  const inlineBlocks = root.querySelectorAll('code.b')
+  if (inlineBlocks.length > 0) {
+    inlineBlocks.forEach((el) => el.setAttribute('data-si', ''))
+    scratchblocks.renderMatching('code.b[data-si]', {
+      inline: true,
+      style: 'scratch3',
+      languages: ['fr'],
+      scale: 0.7,
+    })
+    inlineBlocks.forEach((el) => el.removeAttribute('data-si'))
+  }
+
+  // === GESTION DU ZOOM (blocks2 avec scale variable) ===
+  const elts = root.querySelectorAll('pre.blocks2')
+  if (elts.length > 0) {
+    elts.forEach((el) => el.setAttribute('data-sb2', ''))
+    const scales = new Set()
+
+    elts.forEach((el) => {
+      const scaleAttr = el.getAttribute('scale')
+      if (scaleAttr) {
+        const scale = Number(scaleAttr)
+        if (!Number.isNaN(scale)) scales.add(scale)
+      }
+    })
+
+    scales.forEach((scale) => {
+      const targets = root.querySelectorAll(
+        `pre.blocks2[data-sb2][scale="${scale}"]`,
+      )
+
+      scratchblocks.renderMatching(`pre.blocks2[data-sb2][scale="${scale}"]`, {
+        style: 'scratch3',
+        languages: ['fr'],
+        scale,
+      })
+      targets.forEach((el) => el.removeAttribute('data-sb2'))
+      targets.forEach((el) => el.classList.remove('blocks2'))
+    })
+  }
+}

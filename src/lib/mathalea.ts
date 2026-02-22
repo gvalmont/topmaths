@@ -15,6 +15,7 @@ import {
 import {
   type AnswerValueType,
   type IExercice,
+  type IExerciceStatique,
   type InterfaceGlobalOptions,
   type InterfaceParams,
   type Valeur,
@@ -41,7 +42,7 @@ import { handleAnswers, setReponse } from './interactif/gestionInteractif'
 import { propositionsQcm } from './interactif/qcm'
 import { shuffle } from './outils/arrayOutils'
 import { formaterReponse } from './outils/ecritures'
-import renderScratch from './renderScratch'
+import { renderScratchDiv } from './renderScratch'
 import { canOptions } from './stores/canStore'
 import {
   exercicesParams,
@@ -180,6 +181,16 @@ export async function mathaleaLoadExerciceFromUuid(uuid: string) {
       .replaceAll('\\', '/')
       .split('/')
       .reverse()
+  } else {
+    console.error(`UUID introuvable dans uuidToUrl: ${uuid}`)
+    window.notify(`L'exercice n'existe pas avec la référence uuid:${uuid}`, {
+      exercicesParams: get(exercicesParams),
+    })
+
+    const exercice = new Exercice()
+    exercice.titre = `L'exercice n'existe pas ou plus avec la référence uuid:${uuid}`
+    exercice.nouvelleVersion = () => {}
+    return exercice as IExercice
   }
   let attempts = 0
   const maxAttempts = 3
@@ -253,16 +264,27 @@ export async function mathaleaLoadExerciceFromUuid(uuid: string) {
       const ClasseExercice = module.default
       const exercice = new ClasseExercice()
 
-      // Copie des propriétés optionnelles
-      ;[
+      // Définir explicitement les propriétés à copier
+      type OptionalExerciceProps =
+        | 'titre'
+        | 'amcReady'
+        | 'amcType'
+        | 'interactifType'
+        | 'interactifReady'
+
+      const propsToClone: OptionalExerciceProps[] = [
         'titre',
         'amcReady',
         'amcType',
         'interactifType',
         'interactifReady',
-      ].forEach((p) => {
-        if (module[p as keyof ExerciceModule] !== undefined) {
-          exercice[p] = module[p as keyof ExerciceModule]
+      ]
+
+      propsToClone.forEach((prop) => {
+        if (module[prop as keyof ExerciceModule] !== undefined) {
+          // Assertion sûre après vérification
+          ;(exercice as Record<string, any>)[prop] =
+            module[prop as keyof ExerciceModule]
         }
       })
 
@@ -312,6 +334,10 @@ export async function mathaleaLoadExerciceFromUuid(uuid: string) {
       }
     }
   }
+  const exercice = new Exercice()
+  exercice.titre = ERROR_MESSAGE
+  exercice.nouvelleVersion = () => {}
+  return exercice as IExercice
 }
 
 /**
@@ -320,7 +346,7 @@ export async function mathaleaLoadExerciceFromUuid(uuid: string) {
  */
 export async function mathaleaGetExercicesFromParams(
   params: InterfaceParams[],
-): Promise<IExercice[]> {
+): Promise<(IExercice | IExerciceStatique)[]> {
   const exercices = []
   for (const param of params) {
     if (
@@ -338,6 +364,14 @@ export async function mathaleaGetExercicesFromParams(
         param.uuid.substring(0, 7) === 'evacom_'
           ? getExerciceByUuid(referentielStaticCH, param.uuid)
           : getExerciceByUuid(referentielStaticFR, param.uuid)
+
+      // Vérifier que infosExerciceStatique n'est pas null
+      if (!infosExerciceStatique) {
+        throw new Error(
+          `Informations introuvables pour l'exercice statique avec l'UUID : ${param.uuid}`,
+        )
+      }
+
       let content = ''
       let contentCorr = ''
       const sujet = param.uuid.split('_')[0]
@@ -349,31 +383,35 @@ export async function mathaleaGetExercicesFromParams(
         sujet === 'sti2d' ||
         sujet === 'stl'
       ) {
-        let response = await window.fetch(
-          `static/${sujet}/${infosExerciceStatique.annee}/tex/${param.uuid}.tex`,
-        )
-        if (response.status === 200) {
-          const text = await response.clone().text()
-          if (!text.trim().startsWith('<!DOCTYPE html>')) {
-            content = text
-          } else {
-            content = '\n\n\t%Exercice non disponible\n\n'
+        if ('annee' in infosExerciceStatique) {
+          let response = await window.fetch(
+            `static/${sujet}/${infosExerciceStatique.annee}/tex/${param.uuid}.tex`,
+          )
+          if (response.status === 200) {
+            const text = await response.clone().text()
+            if (!text.trim().startsWith('<!DOCTYPE html>')) {
+              content = text
+            } else {
+              content = '\n\n\t%Exercice non disponible\n\n'
+            }
           }
-        }
-        response = await window.fetch(
-          `static/${sujet}/${infosExerciceStatique.annee}/tex/${param.uuid}_cor.tex`,
-        )
-        if (response.status === 200) {
-          const text = await response.clone().text()
-          if (!text.trim().startsWith('<!DOCTYPE html>')) {
-            contentCorr = text
-          } else {
-            contentCorr = '\n\n\t%Pas de correction disponible\n\n'
+          response = await window.fetch(
+            `static/${sujet}/${infosExerciceStatique.annee}/tex/${param.uuid}_cor.tex`,
+          )
+          if (response.status === 200) {
+            const text = await response.clone().text()
+            if (!text.trim().startsWith('<!DOCTYPE html>')) {
+              contentCorr = text
+            } else {
+              contentCorr = '\n\n\t%Pas de correction disponible\n\n'
+            }
           }
         }
       } else {
-        if (infosExerciceStatique?.url) {
-          const response = await window.fetch(infosExerciceStatique.url)
+        if (infosExerciceStatique && 'url' in infosExerciceStatique) {
+          const response = await window.fetch(
+            infosExerciceStatique.url as string,
+          )
           if (response.status === 200) {
             const text = await response.clone().text()
             if (!text.trim().startsWith('<!DOCTYPE html>')) {
@@ -383,8 +421,10 @@ export async function mathaleaGetExercicesFromParams(
             }
           }
         }
-        if (infosExerciceStatique?.urlcor) {
-          const response = await window.fetch(infosExerciceStatique.urlcor)
+        if (infosExerciceStatique && 'urlcor' in infosExerciceStatique) {
+          const response = await window.fetch(
+            infosExerciceStatique.urlcor as string,
+          )
           if (response.status === 200) {
             const text = await response.clone().text()
             if (!text.trim().startsWith('<!DOCTYPE html>')) {
@@ -395,10 +435,18 @@ export async function mathaleaGetExercicesFromParams(
           }
         }
       }
-      const annee = infosExerciceStatique?.annee
-      const lieu = infosExerciceStatique?.lieu
-      const mois = infosExerciceStatique?.mois
-      const numeroInitial = infosExerciceStatique?.numeroInitial
+      const annee =
+        'annee' in infosExerciceStatique
+          ? infosExerciceStatique.annee
+          : undefined
+      const lieu =
+        'lieu' in infosExerciceStatique ? infosExerciceStatique.lieu : undefined
+      const mois =
+        'mois' in infosExerciceStatique ? infosExerciceStatique.mois : undefined
+      const numeroInitial =
+        'numeroInitial' in infosExerciceStatique
+          ? infosExerciceStatique.numeroInitial
+          : undefined
       let examen: string = ''
       if (param.uuid.substring(0, 4) === 'crpe') examen = 'CRPE'
       if (param.uuid.substring(0, 4) === 'dnb_') examen = 'DNB'
@@ -418,7 +466,7 @@ export async function mathaleaGetExercicesFromParams(
         mois,
         numeroInitial,
         examen,
-      })
+      } as IExerciceStatique)
     } else {
       const exercice = await mathaleaLoadExerciceFromUuid(param.uuid)
       if (typeof exercice === 'undefined') continue
@@ -504,7 +552,7 @@ export function mathaleaRenderDiv(
   zoom = zoom ?? Number(params.z)
 
   renderKatex(div)
-  renderScratch('body')
+  renderScratchDiv(div ?? document.body)
   if (zoom !== -1) {
     resizeContent(div, zoom)
   }
@@ -515,19 +563,24 @@ export function renderDiv(HtmlElement: HTMLElement, _content: string) {
 }
 
 export function renderKatex(element: HTMLElement) {
-  renderMathInElement(element, {
+  const options = {
     delimiters: [
       { left: '\\[', right: '\\]', display: true },
       { left: '$', right: '$', display: false },
     ],
-    // Les accolades permettent d'avoir une formule non coupée
-    preProcess: (chaine: string) =>
-      '{' + chaine.replaceAll(String.fromCharCode(160), '\\,') + '}',
     throwOnError: true,
     errorColor: '#CC0000',
     strict: 'warn',
     trust: false,
+  }
+
+  // Ajouter preProcess sans typage strict
+  Object.assign(options, {
+    preProcess: (chaine: string) =>
+      '{' + chaine.replaceAll(String.fromCharCode(160), '\\,') + '}',
   })
+
+  renderMathInElement(element, options as any)
   document.dispatchEvent(new window.Event('katexRendered'))
 }
 
@@ -599,6 +652,7 @@ export function mathaleaUpdateExercicesParamsFromUrl(
   let oneShot = false
   let twoColumns = false
   let isTitleDisplayed = true
+  let isReferenceDisplayed = true
   let beta = false
   let url: URL
   let canDuration = 540
@@ -777,8 +831,8 @@ export function mathaleaUpdateExercicesParamsFromUrl(
 
   /**
    * es permet de résumer les réglages de la vue élève
-   * Il est de la forme 210110
-   * Avec un caractère par réglage presMode|setInteractive|isSolutionAccessible|isInteractiveFree|oneShot|twoColumns|isTitleDisplayed
+   * Il est de la forme 21011010
+   * Avec un caractère par réglage presMode|setInteractive|isSolutionAccessible|isInteractiveFree|oneShot|twoColumns|isTitleDisplayed|isReferenceDisplayed
    */
   if (es && es.length === 6) {
     presMode = presModeId[parseInt(es.charAt(0))]
@@ -795,6 +849,15 @@ export function mathaleaUpdateExercicesParamsFromUrl(
     oneShot = es.charAt(4) === '1'
     twoColumns = es.charAt(5) === '1'
     isTitleDisplayed = es.charAt(6) === '1'
+  } else if (es && es.length === 8) {
+    presMode = presModeId[parseInt(es.charAt(0))]
+    setInteractive = es.charAt(1)
+    isSolutionAccessible = es.charAt(2) === '1'
+    isInteractiveFree = es.charAt(3) === '1'
+    oneShot = es.charAt(4) === '1'
+    twoColumns = es.charAt(5) === '1'
+    isTitleDisplayed = es.charAt(6) === '1'
+    isReferenceDisplayed = es.charAt(7) === '1'
   }
   v = v ?? ''
   return {
@@ -820,6 +883,7 @@ export function mathaleaUpdateExercicesParamsFromUrl(
     oneShot,
     twoColumns,
     isTitleDisplayed,
+    isReferenceDisplayed,
     recorder,
     done,
     beta,
@@ -837,6 +901,7 @@ export function mathaleaHandleExerciceSimple(
   exercice: IExercice,
   isInteractif: boolean,
   numeroExercice?: number,
+  seed?: string,
 ) {
   if (numeroExercice !== undefined) exercice.numeroExercice = numeroExercice
   exercice.reinit()
@@ -845,7 +910,7 @@ export function mathaleaHandleExerciceSimple(
     let i = 0, cptSecours = 0;
     i < exercice.nbQuestions && cptSecours < 50;
   ) {
-    seedrandom(String(exercice.seed) + i + cptSecours, { global: true })
+    seedrandom(seed ?? String(exercice.seed) + i + cptSecours, { global: true })
     if (
       exercice.nouvelleVersion &&
       typeof exercice.nouvelleVersion === 'function'
@@ -1000,6 +1065,39 @@ export function mathaleaHandleExerciceSimple(
           exercice.question = exercice.question?.replace(
             `checkEx${n}Q0"`,
             `checkEx${n}Q${i}"`,
+          )
+          exercice.listeQuestions.push(exercice.question ?? '')
+        } else if (exercice.formatInteractif === 'MetaInteractif2d') {
+          const n = exercice.numeroExercice
+          if (exercice.question != null) {
+            const inputsIds = exercice.question.matchAll(
+              /id="MetaInteractif2dEx\d+Q\d+field(\d+)"/g,
+            )
+            for (const match of inputsIds) {
+              exercice.question = exercice.question.replace(
+                `id="MetaInteractif2dEx${n}Q0field${match[1]}"`,
+                `id="MetaInteractif2dEx${n}Q${i}field${match[1]}"`,
+              )
+            }
+            exercice.question = exercice.question.replace(
+              `id="resultatCheckEx${n}Q0"`,
+              `id="resultatCheckEx${n}Q${i}"`,
+            )
+            exercice.question = exercice.question.replace(
+              `id="feedbackEx${n}Q0"`,
+              `id="feedbackEx${n}Q${i}"`,
+            )
+            exercice.listeQuestions.push(exercice.question ?? '')
+          }
+        } else if (exercice.formatInteractif === 'svgSelection') {
+          const n = exercice.numeroExercice
+          exercice.question = exercice.question?.replace(
+            `id="svgSelectionEx${n}Q0"`,
+            `id="svgSelectionEx${n}Q${i}"`,
+          )
+          exercice.question = exercice.question?.replace(
+            `checkSvgSelectionEx${n}Q0"`,
+            `checkSvgSelectionEx${n}Q${i}"`,
           )
           exercice.listeQuestions.push(exercice.question ?? '')
         } else {

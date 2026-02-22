@@ -66,7 +66,7 @@ export default class ColorierDeplacement extends Exercice {
     this.nbQuestions = 1
     this.nbQuestionsModifiable = false
 
-    this.consigne = 'Dans le quadrillage, effectuer le programme.'
+    this.consigne = 'Dans le quadrillage, effectuer le programme.<br>'
 
     this.nbQuestionsModifiable = false
     context.isHtml ? (this.spacing = 2) : (this.spacing = 1)

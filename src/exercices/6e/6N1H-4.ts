@@ -27,7 +27,7 @@ export const refs = {
   'fr-ch': [],
 }
 /**
- * Lire une abcsisse sur une droite graduée avec des zooms successifs et le choix de la classe numérique de départ.
+ * Lire une abscisse sur une droite graduée avec des zooms successifs et le choix de la classe numérique de départ.
  * @author Olivier Mimeau
  */
 export default class GradueeZommGrdNombres extends Exercice {

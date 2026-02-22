@@ -233,7 +233,7 @@ export default class EchellesProblemes extends Exercice {
                   texte: `\\text{Distance sur le plan (en ${unite1})}`,
                   latex: true,
                 },
-                { texte: stringNombre(1, 0), math: true, latex: true },
+                { texte: texNombre(1, 0), math: true, latex: true },
                 { texte: texNombre(nb1Unite1), math: true, latex: true },
               ],
               ligne2: [
@@ -376,7 +376,7 @@ export default class EchellesProblemes extends Exercice {
                   texte: `\\text{Distance sur le plan (en ${unite1})}`,
                   latex: true,
                 },
-                { texte: stringNombre(1, 0), math: true, latex: true },
+                { texte: texNombre(1, 0), math: true, latex: true },
                 {
                   texte: texNombre(nb1Unite1, 2),
                   math: true,
@@ -420,7 +420,7 @@ export default class EchellesProblemes extends Exercice {
                   texte: `\\text{Distance sur le plan (en ${unite1})}`,
                   latex: true,
                 },
-                { texte: stringNombre(1, 0), math: true, latex: true },
+                { texte: texNombre(1, 0), math: true, latex: true },
                 {
                   texte: texNombre(nb1Unite1, 2),
                   math: true,
@@ -438,10 +438,11 @@ export default class EchellesProblemes extends Exercice {
                   latex: true,
                 },
                 {
-                  texte: miseEnEvidence(
-                    texNombre(new Decimal(nb1Unite1).mul(echelleQ.echelle), 0),
-                    'blue',
+                  texte: texNombre(
+                    new Decimal(nb1Unite1).mul(echelleQ.echelle),
+                    0,
                   ),
+                  color: 'blue',
                   math: true,
                   latex: true,
                   gras: true,
@@ -596,9 +597,10 @@ export default class EchellesProblemes extends Exercice {
                   texte: `\\text{Distance sur le plan (en ${unite1})}`,
                   latex: true,
                 },
-                { texte: stringNombre(1, 0), math: true, latex: true },
+                { texte: texNombre(1, 0), math: true, latex: true },
                 {
-                  texte: miseEnEvidence(texNombre(nb1Unite1, 2), 'blue'),
+                  texte: texNombre(nb1Unite1, 2),
+                  color: 'blue',
                   math: true,
                   latex: true,
                 },

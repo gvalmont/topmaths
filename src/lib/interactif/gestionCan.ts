@@ -5,6 +5,7 @@ import type { ButtonWithMathaleaListener } from '../types/can'
 import { verifQuestionCliqueFigure } from './cliqueFigure'
 import { verifQuestionMathLive } from './mathLive'
 import { verifQuestionQcm } from './qcm'
+import { verifQuestionSvgSelection } from './questionSvgSelection/questionSvgSelection'
 
 export function gestionCan(exercice: IExercice) {
   context.nbBonnesReponses = 0
@@ -32,17 +33,16 @@ export function gestionCan(exercice: IExercice) {
           ) {
             resultat = exercice.correctionInteractive(i)
           }
+          if (exercice.interactifType === 'svgSelection') {
+            resultat = verifQuestionSvgSelection(exercice, i)
+          }
+          if (exercice.interactifType === 'MetaInteractif2d') {
+            resultat = verifQuestionMathLive(exercice, i)?.isOk ? 'OK' : 'KO'
+          }
           if (exercice.interactifType === 'qcm_mathLive')
             throw Error(
               "qcm_mathLive ça n'existe pas comme formatInteractif, c'est qcm ou mathlive",
             )
-          /*  if (exercice.autoCorrection[i]?.propositions != null) {
-              resultat = verifQuestionQcm(exercice, i)
-            } else {
-              resultat = verifQuestionMathLive(this, i).isOk ? 'OK' : 'KO'
-            }
-          }
-           */
           // Mise en couleur du numéro de la question dans le menu du haut
           if (resultat === 'OK') {
             document

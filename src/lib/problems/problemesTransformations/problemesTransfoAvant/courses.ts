@@ -26,7 +26,7 @@ export function courses5(decimal = true): Probleme {
   }
   const data = { nb1: prix1, nb2: solde }
   const enonce = `Dans la boutique de ${personnage.prenom}, un client vient d'acheter ${objet.nom} à $${texNombre(prix1, 2)}$ €. Il y a maintenant dans la caisse $${texNombre(solde, 2)}$ €.
-Combien y avait-il dans la caisse avant cet achat ?`
+<br>Combien y avait-il dans la caisse avant cet achat ?`
   const correction = `Avant cet achat, la somme qu'il y avait dans la caisse était de : $${texNombre(solde, 2)}\\text{ €} - ${texNombre(prix1, 2)}\\text{ €} = ${miseEnEvidence(texNombre(solde - prix1, 2))}$ €.`
   const probleme = new ProblemeTransfoAvant('courses5', data)
   probleme.enonce = enonce

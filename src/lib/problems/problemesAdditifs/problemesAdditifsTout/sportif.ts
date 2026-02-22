@@ -18,7 +18,7 @@ export function sportif(decimal = false): Probleme {
   const unite = decimal ? 'kJ' : 'J'
   const uniteComplete = decimal ? 'kilojoules' : 'joules'
   const enonce = `Lors de ses séances de sport, ${personnage.prenom} a brûlé $${texNombre(nb1, 1)}$ ${uniteComplete} samedi et $${texNombre(nb2, 1)}$ ${uniteComplete} dimanche.
-Combien de ${uniteComplete} a-t-${personnage.pronom} brûlés en tout ?`
+<br>Combien de ${uniteComplete} a-t-${personnage.pronom} brûlés en tout ?`
   const correction = `${personnage.prenom} a brûlé $${texNombre(nb1, 1)}$ ${uniteComplete} samedi et $${texNombre(nb2, 1)}$ ${uniteComplete} dimanche.
 Donc, en tout, ${personnage.pronom} a brûlé $${texNombre(nb1, 0)}\\text{ ${unite}}+${texNombre(nb2, 0)}\\text{ ${unite}}=${miseEnEvidence(texNombre(nb1 + nb2, 1))}\\text{ ${uniteComplete}}$.`
   const probleme = new ProblemeAdditif('sportif', data)

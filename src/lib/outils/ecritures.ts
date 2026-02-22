@@ -221,7 +221,7 @@ export function ecritureAlgebriqueSauf1(
 }
 
 /**
- * Ajoute le + devant les nombres positifs, n'écrit rien si 1
+ * Ajoute le + devant les nombres positifs, n'écrit rien si 0
  * @Example
  * //+3 ou -3
  * @author Nathan Scheinmann en copiant la fonction ecritureAlgebriqueSauf1
@@ -230,20 +230,20 @@ export function ecritureAlgebriqueSauf0(
   a: IFractionEtendue | number | Decimal,
 ) {
   if (isFractionEtendue(a)) {
-    if (a.num === 0 ) return ''
+    if (a.num === 0) return ''
   }
   if (typeof a === 'string') {
-    window.notify("ecritureAlgebriqueSauf1() n'accepte pas les string.", {
+    window.notify("ecritureAlgebriqueSauf0() n'accepte pas les string.", {
       argument: a,
     })
     a = Number(a)
   }
-  if (equal(a,0)) return ''
+  if (equal(a as number, 0)) return ''
   else if (typeof a === 'number' || a instanceof Decimal) {
     return ecritureAlgebrique(a)
   } else {
     window.notify(
-      'ecritureAlgebriqueSauf1 : type de valeur non prise en compte',
+      'ecritureAlgebriqueSauf0 : type de valeur non prise en compte',
       {},
     )
     return 'erreur type de valeur non prise en compte'
@@ -330,23 +330,31 @@ export function ecritureParentheseSiNegatif(
 export function ecritureParentheseSiMoins(
   expr: string | number | IFractionEtendue,
 ) {
-  if (typeof expr === 'string' && expr[0] === '-') return `(${expr})`
+  let result = ''
+  if (typeof expr === 'string' && expr[0] === '-') result = `(${expr})`
   else if (typeof expr === 'string') {
-    return expr
+    result = expr
     // Il faut sortir si c'est un string, il n'y a rien à faire de plus !
   } else if (typeof expr === 'number' && expr < 0) {
-    return `(${stringNombre(expr, 7)})`
+    result = `(${stringNombre(expr, 7)})`
   } else if (typeof expr === 'number') return stringNombre(expr, 7)
   else if (isFractionEtendue(expr) && expr.s === -1) {
-    return `(${expr.texFSD})`
+    return `\\left(${expr.texFSD}\\right)`
   } else {
     // avant on passait ici quand c'était un string sans signe - devant... c'était une mauvaise idée !
     window.notify(
       "ecritureParentheseSiMoins() n'accepte pas ce type d'argument.",
       { argument: expr },
     )
-    return String(expr)
+    if (
+      result.includes('dfrac') &&
+      result.startsWith('(') &&
+      result.endsWith(')')
+    ) {
+      return `\\left${result.slice(1, -1)}\\right)`
+    } else return result
   }
+  return result
 }
 
 /**
@@ -889,4 +897,17 @@ export function formaterReponse(a: AnswerValueType): string {
     a,
   })
   return String(a)
+}
+
+export function enumeration(
+  items: string[],
+  separator = ', ',
+  lastSeparator = ' et ',
+): string {
+  if (items.length === 0) return ''
+  if (items.length === 1) return items[0]
+  if (items.length === 2) return items[0] + lastSeparator + items[1]
+  return (
+    items.slice(0, -1).join(separator) + lastSeparator + items[items.length - 1]
+  )
 }

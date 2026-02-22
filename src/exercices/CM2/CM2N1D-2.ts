@@ -1,7 +1,6 @@
 import { choice, shuffle2tableaux } from '../../lib/outils/arrayOutils'
 import { texNombre } from '../../lib/outils/texNombre'
 import {
-  contraindreValeur,
   gestionnaireFormulaireTexte,
   listeQuestionsToContenu,
   randint,
@@ -49,12 +48,11 @@ export const refs = {
   'fr-ch': ['9NO1-8'],
 }
 export default class RecomposerEntierC3 extends Exercice {
-  nombreDeChiffresMin!: number
-  nombreDeChiffresMax!: number
-  nombreDeChamps!: number[]
-  premierChamp!: number[]
-  morceaux!: string[][]
-  exposantMorceaux!: number[][]
+  nombreDeChiffresMin: number
+  nombreDeChamps: number[]
+  premierChamp: number[]
+  morceaux: string[][]
+  exposantMorceaux: number[][]
 
   constructor() {
     super()
@@ -77,11 +75,15 @@ export default class RecomposerEntierC3 extends Exercice {
     this.besoinFormulaire5CaseACocher = ['Décomposition désordonnée', false]
     this.nbQuestions = 4
     this.sup = false // false pour des puissances de 10 en chiffres, true pour lettres
-    this.sup2 = 7 // nombre de chiffres maximum du nombre à décomposer
+    this.sup2 = '4-5-6' // nombre de chiffres maximum du nombre à décomposer
     this.sup3 = '5'
     this.sup4 = '4'
     this.sup5 = false
     this.nombreDeChiffresMin = 4
+    this.nombreDeChamps = []
+    this.premierChamp = []
+    this.morceaux = []
+    this.exposantMorceaux = []
   }
 
   nouvelleVersion() {
@@ -105,12 +107,15 @@ export default class RecomposerEntierC3 extends Exercice {
     })
     // ça c'est pour éviter de ne pas pouvoir fabriquer les nombres.
     const nombreDeChiffresMin = this.nombreDeChiffresMin
-    const nombreDeChiffresMax = contraindreValeur(
-      nombreDeChiffresMin,
-      11,
-      this.sup2,
-      6,
-    )
+
+    const nombreDeChiffres = gestionnaireFormulaireTexte({
+      saisie: this.sup2,
+      min: nombreDeChiffresMin,
+      max: 9,
+      defaut: nombreDeChiffresMin,
+      melange: 0,
+      nbQuestions: this.nbQuestions,
+    }).map(Number)
     this.nombreDeChamps = []
     this.premierChamp = []
     this.morceaux = []
@@ -121,7 +126,7 @@ export default class RecomposerEntierC3 extends Exercice {
     ) {
       texte = ''
       texteCorr = ''
-      const nbChiffres = randint(nombreDeChiffresMin, nombreDeChiffresMax)
+      const nbChiffres = nombreDeChiffres[i]
       let nombreStr = ''
       let nombre
 

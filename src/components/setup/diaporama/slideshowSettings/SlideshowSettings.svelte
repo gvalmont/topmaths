@@ -1,13 +1,17 @@
 <script lang="ts">
   import { tick } from 'svelte'
-  import type Exercice from '../../../../exercices/Exercice'
   import { mathaleaRenderDiv } from '../../../../lib/mathalea'
   import { listOfRandomIndexes } from '../../../../lib/outils/arrayOutils'
   import { globalOptions } from '../../../../lib/stores/globalOptions'
   import { referentielLocale } from '../../../../lib/stores/languagesStore'
-  import { type NumberRange } from '../../../../lib/types'
+  import {
+    type IExercice,
+    type InterfaceParams,
+    type NumberRange,
+  } from '../../../../lib/types'
   import { isIntegerInRange0to4 } from '../../../../lib/types/integerInRange'
   import NavBar from '../../../shared/header/NavBar.svelte'
+  import type { SlideshowHistoryOptions } from '../types'
   import DisplaySettings from './presentationalComponents/DisplaySettings.svelte'
   import ExercisesSettings from './presentationalComponents/ExercisesSettings.svelte'
   import GlobalDurationSettings from './presentationalComponents/GlobalDurationSettings.svelte'
@@ -16,8 +20,9 @@
   import SelectedExercisesSettings from './presentationalComponents/SelectedExercisesSettings.svelte'
   import TransitionSettings from './presentationalComponents/TransitionSettings.svelte'
   import ViewSettings from './presentationalComponents/ViewSettings.svelte'
+  import SlideshowHistoryModal from './SlideshowHistoryModal.svelte'
 
-  export let exercises: Exercice[]
+  export let exercises: IExercice[]
   export let updateExercises: (updateSlidesContent?: boolean) => void
   export let transitionSounds: {
     0: HTMLAudioElement
@@ -26,11 +31,20 @@
     3: HTMLAudioElement
   }
   export let startSlideshow: () => void
+  export let applySlideshowFromHistory: (
+    item: {
+      options: SlideshowHistoryOptions
+      exercicesParams: InterfaceParams[]
+    },
+    autoStart: boolean,
+  ) => Promise<void>
   export let goToOverview: () => void
   export let goToHome: () => void
 
   let divTableDurationsQuestions: HTMLDivElement
+  let historyModal: SlideshowHistoryModal | undefined
   let previousNumberOfSelectedExercises: number
+  let isHistoryModalOpen = false
 
   $: if (divTableDurationsQuestions && exercises.length > 0) {
     tick().then(() => {
@@ -95,6 +109,11 @@
 
   function updateIsImagesOnSides(isImagesOnSides: boolean) {
     $globalOptions.isImagesOnSides = isImagesOnSides
+  }
+
+  function handleStartSlideshow() {
+    historyModal?.saveCurrentSlideshow()
+    startSlideshow()
   }
 
   function remove(exerciseIndex: number) {
@@ -171,7 +190,7 @@
         {updateDurationGlobal}
       />
       <div
-        class="flex flex-col align-middle min-w-full h-[100vh] px-4"
+        class="flex flex-col align-middle min-w-full h-screen px-4"
         bind:this={divTableDurationsQuestions}
       >
         <ExercisesSettings
@@ -182,7 +201,20 @@
           selectedExercisesIndexes={$globalOptions.select ?? []}
           {remove}
         />
-        <div class="flex flex-row items-center justify-end w-full my-4">
+        <div class="flex flex-row items-center justify-end w-full my-4 gap-3">
+          <button
+            type="button"
+            class="inline-flex items-center justify-center shadow-2xl rounded-lg p-4 pr-2
+              font-extrabold text-3xl
+              bg-coopmaths-struct dark:bg-coopmathsdark-struct
+              hover:bg-coopmaths-struct-light dark:hover:bg-coopmathsdark-struct-lightest
+              text-coopmaths-canvas dark:text-coopmathsdark-canvas"
+            on:click={() => {
+              isHistoryModalOpen = true
+            }}
+          >
+            Historique<i class="bx bx-time-five"></i>
+          </button>
           <button
             type="button"
             id="diaporama-play-button"
@@ -191,8 +223,8 @@
               bg-coopmaths-action dark:bg-coopmathsdark-action
               hover:bg-coopmaths-action-lightest dark:hover:bg-coopmathsdark-action-lightest
               text-coopmaths-canvas dark:text-coopmathsdark-canvas"
-            on:click={startSlideshow}
-            on:keydown={startSlideshow}
+            on:click={handleStartSlideshow}
+            on:keydown={handleStartSlideshow}
           >
             Play<i class="bx bx-play"></i>
           </button>
@@ -201,3 +233,11 @@
     </div>
   </div>
 </div>
+
+<SlideshowHistoryModal
+  bind:this={historyModal}
+  bind:isOpen={isHistoryModalOpen}
+  {exercises}
+  {startSlideshow}
+  {applySlideshowFromHistory}
+/>

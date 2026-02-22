@@ -3,7 +3,6 @@
   import { onDestroy, onMount } from 'svelte'
   import { get } from 'svelte/store'
   import { notify } from '../../../bugsnag'
-  import type Exercice from '../../../exercices/Exercice'
   import {
     getExercisesFromExercicesParams,
     mathaleaFormatExercice,
@@ -30,7 +29,12 @@
   import SlideshowOverview from './slideshowOverview/SlideshowOverview.svelte'
   import SlideshowPlay from './slideshowPlay/SlideshowPlay.svelte'
   import SlideshowSettings from './slideshowSettings/SlideshowSettings.svelte'
-  import type { Slide, Slideshow } from './types'
+  import type {
+    Slide,
+    Slideshow,
+    SlideshowHistoryItem,
+    SlideshowHistoryOptions,
+  } from './types'
 
   const transitionSounds = {
     0: new Audio('assets/sounds/transition_sound_01.mp3'),
@@ -40,7 +44,7 @@
   }
 
   let state: CanState = 'end'
-  let exercises: Exercice[] = []
+  let exercises: IExercice[] = []
   let slideshow: Slideshow = {
     slides: [],
     currentQuestion: -1,
@@ -79,7 +83,7 @@
     mathaleaUpdateUrlFromExercicesParams($exercicesParams)
   }
 
-  function setSlidesContent(newExercises: Exercice[]) {
+  function setSlidesContent(newExercises: IExercice[]) {
     const slides = []
     const nbOfVues = $globalOptions.nbVues || 1
     let selectedQuestionsNumber = 0
@@ -114,6 +118,7 @@
             splitSvgFromText(consigne)
           const { svgs: correctionSvgs, text: correctionText } =
             splitSvgFromText(correction)
+          const key = exercise.key
           slide.vues.push({
             consigne,
             question,
@@ -124,6 +129,7 @@
             questionText,
             correctionSvgs,
             correctionText,
+            key,
           })
         }
         slides.push(slide)
@@ -233,7 +239,7 @@
     return indexes
   }
 
-  function updateExerciseParams(newExercises: Exercice[]) {
+  function updateExerciseParams(newExercises: IExercice[]) {
     if (newExercises.length === get(exercicesParams).length) {
       // Update si nécessaire
       exercicesParams.update((params: InterfaceParams[]) => {
@@ -272,6 +278,33 @@
     updateExercises(true)
     $globalOptions.v = 'diaporama'
     slideshow.currentQuestion = 0
+  }
+
+  function applyHistoryOptions(options: SlideshowHistoryOptions) {
+    $globalOptions.nbVues = options.nbVues
+    $globalOptions.flow = options.flow
+    $globalOptions.screenBetweenSlides = options.screenBetweenSlides
+    $globalOptions.sound = options.sound
+    $globalOptions.shuffle = options.shuffle
+    $globalOptions.manualMode = options.manualMode
+    $globalOptions.pauseAfterEachQuestion = options.pauseAfterEachQuestion
+    $globalOptions.isImagesOnSides = options.isImagesOnSides
+    $globalOptions.select = options.select
+    $globalOptions.order = options.order
+    $globalOptions.durationGlobal = options.durationGlobal
+  }
+
+  async function applySlideshowFromHistory(
+    item: SlideshowHistoryItem,
+    autoStart: boolean,
+  ) {
+    exercicesParams.set(item.exercicesParams.map((param) => ({ ...param })))
+    exercises = await getExercisesFromExercicesParams()
+    applyHistoryOptions(item.options)
+    $globalOptions.v = 'diaporama'
+    updateExercises(true)
+    slideshow.currentQuestion = -1
+    if (autoStart) startSlideshow()
   }
 
   function backToSettings() {
@@ -323,6 +356,7 @@
           {updateExercises}
           {transitionSounds}
           {startSlideshow}
+          {applySlideshowFromHistory}
           {goToOverview}
           {goToHome}
         />

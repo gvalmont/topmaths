@@ -10,6 +10,7 @@ import {
   mathaleaWriteStudentPreviousAnswers,
 } from './mathaleaUtils'
 
+import { showDialogStringMessageForLimitedTime } from './components/dialogs'
 import { canOptions as canOptionsStore } from './stores/canStore'
 import {
   capytaleMode,
@@ -91,8 +92,18 @@ async function toolSetActivityParams({
   globalOptions.update((l) => {
     Object.assign(l, newGlobalOptions)
     l.presMode = 'un_exo_par_page'
-    l.isDataRandom = true
-    l.isTitleDisplayed = true
+    // On conserve la valeur de isDataRandom si elle a été définie par l'enseignant
+    if (newGlobalOptions.isDataRandom === undefined) {
+      l.isDataRandom = true
+    }
+    // On conserve la valeur de isTitleDisplayed si elle a été définie par l'enseignant
+    if (newGlobalOptions.isTitleDisplayed === undefined) {
+      l.isTitleDisplayed = true
+    }
+    // On conserve la valeur de isReferenceDisplayed si elle a été définie par l'enseignant
+    if (newGlobalOptions.isReferenceDisplayed === undefined) {
+      l.isReferenceDisplayed = true
+    }
     if (l.v === 'eleve') {
       l.isInteractiveFree = false
     }
@@ -353,6 +364,30 @@ export function sendToCapytaleSaveStudentAssignment({
         // Afficher sauvegarde réussie
       })
       .catch((err) => {
+        if (
+          err instanceof Error &&
+          err.message &&
+          err.message.includes('votre copie est rendue')
+        ) {
+          // L'enregistrement de vos réponses n'est pas possible car votre copie est rendue.
+          showDialogStringMessageForLimitedTime(
+            'Impossible de sauvegarder vos réponses car votre copie est déjà rendue.',
+            5000,
+          )
+          return
+        }
+        if (
+          err instanceof Error &&
+          err.message &&
+          err.message.includes('Copie verrouillée')
+        ) {
+          showDialogStringMessageForLimitedTime(
+            'Impossible de sauvegarder vos réponses car votre copie est verrouillée.',
+            5000,
+          )
+          return
+        }
+
         console.error('Problème avec la sauvegarde', err)
         // Indiquer à l'élève qu'il y a un soucis réseau
 
@@ -382,17 +417,20 @@ export function sendToCapytaleSaveStudentAssignment({
           .filter(Boolean)
           .join('\n')
 
-        window.notify('Problème avec la sauvegarde Capytale', {
-          error: err,
-          message,
-          mode: currentMode,
-          indiceExercice,
-          data,
-          globalOptions: get(globalOptions),
-          exercicesParams: get(exercicesParams),
-          resultsByExercice: get(resultsByExercice),
-          canOptions: get(canOptionsStore),
-        })
+        window.notify(
+          `Problème avec la sauvegarde Capytale: ${err.message ?? 'Erreur inconnue'}`,
+          {
+            error: err,
+            message,
+            mode: currentMode,
+            indiceExercice,
+            data,
+            globalOptions: get(globalOptions),
+            exercicesParams: get(exercicesParams),
+            resultsByExercice: get(resultsByExercice),
+            canOptions: get(canOptionsStore),
+          },
+        )
       })
   }
 }

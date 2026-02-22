@@ -37,14 +37,6 @@ export default class LectureProbabilite extends Exercice {
     super()
 
     this.sup = true
-    this.keyboard = [
-      'numbers',
-      'fullOperations',
-      'variables',
-      'trigo',
-      'advanced',
-    ]
-
     this.nbQuestions = 1
     this.nbCols = 2 // Uniquement pour la sortie LaTeX
 
@@ -67,26 +59,31 @@ export default class LectureProbabilite extends Exercice {
         nom2,
         objets;
       i < this.nbQuestions && cpt < 50;
-
     ) {
       objets = []
       // On choisit les probas de l'arbre
-      nom1 = choisitLettresDifferentes(1, ['D', 'P'])[0]
-      nom2 = choisitLettresDifferentes(1, nom1 + ['D', 'P'])[0]
+      nom1 = choisitLettresDifferentes(1, 'DP')[0]
+      nom2 = choisitLettresDifferentes(1, nom1 + 'DP')[0]
       pA = new Decimal(randint(1, 9, 5)).div(10)
 
-      pB = new Decimal(1 - pA)
+      pB = new Decimal(1).minus(pA)
       pAC = new Decimal(randint(1, 9) * 10 + randint(1, 9)).div(100)
       pBC = new Decimal(randint(1, 9) * 10 + randint(1, 9)).div(100)
-      while (pAC === pBC || pAC === 1 - pBC) {
+      while (pAC === pBC || pAC === new Decimal(1).minus(pBC)) {
         pA = new Decimal(randint(1, 9, 5)).div(10)
 
-        pB = new Decimal(1 - pA)
+        pB = new Decimal(1).minus(pA)
         pAC = new Decimal(randint(1, 9) * 10 + randint(1, 9)).div(100)
         pBC = new Decimal(randint(1, 9) * 10 + randint(1, 9)).div(100)
       }
-      choix = choice([pA, pB, pAC, 1 - pAC, pBC, 1 - pBC])
-
+      choix = choice([
+        pA,
+        pB,
+        pAC,
+        new Decimal(1).minus(pAC),
+        pBC,
+        new Decimal(1).minus(pBC),
+      ])
       // On définit l'arbre complet
       omega = new Arbre({
         racine: true,
@@ -99,34 +96,34 @@ export default class LectureProbabilite extends Exercice {
           new Arbre({
             rationnel: false,
             nom: `${nom1}`,
-            proba: pA,
+            proba: pA.toNumber(),
             enfants: [
               new Arbre({
                 rationnel: false,
                 nom: `${nom2}`,
-                proba: new Decimal(pAC),
+                proba: pAC.toNumber(),
               }),
               new Arbre({
                 rationnel: false,
                 nom: `\\overline{${nom2}}`,
-                proba: new Decimal(1 - pAC),
+                proba: new Decimal(1).minus(pAC).toNumber(),
               }),
             ],
           }),
           new Arbre({
             rationnel: false,
             nom: `\\overline{${nom1}}`,
-            proba: new Decimal(1 - pA),
+            proba: new Decimal(1).minus(pA).toNumber(),
             enfants: [
               new Arbre({
                 rationnel: false,
                 nom: `${nom2}`,
-                proba: new Decimal(pBC),
+                proba: pBC.toNumber(),
               }),
               new Arbre({
                 rationnel: false,
                 nom: `\\overline{${nom2}}`,
-                proba: new Decimal(1 - pBC),
+                proba: new Decimal(1).minus(pBC).toNumber(),
               }),
             ],
           }),
@@ -134,7 +131,7 @@ export default class LectureProbabilite extends Exercice {
       })
 
       omega.setTailles() // On calcule les tailles des arbres.
-      objets = omega.represente(0, 7, 0, 1.5, true, 1) // On crée l'arbre complet echelle 1.4 feuilles verticales sens gauche-droite
+      objets = omega.represente(0, 7, 0, 1.5, true, 1, 10) // On crée l'arbre complet echelle 1.4 feuilles verticales sens gauche-droite
       texte = "On donne l'arbre de probabilités :<br><br>"
       texte += mathalea2d(
         { xmin: -0.1, xmax: 14, ymin: 0, ymax: 7, style: 'inline', scale: 0.5 },
@@ -172,9 +169,9 @@ export default class LectureProbabilite extends Exercice {
         $${miseEnEvidence(`P_{${nom1}}(${nom2})=${texNombre(pAC, 2)}`)}$.`
         setReponse(this, i, [`p_${nom1}({${nom2}})`, `P_${nom1}({${nom2}})`]) // Testé et Correct
       }
-      if (choix === 1 - pAC) {
-        texteCorr += `$${texNombre(1 - pAC, 2)}$ est une probabilité conditionnelle, 
-        $${miseEnEvidence(`P_{${nom1}}(\\overline{${nom2}})=${texNombre(1 - pAC, 2)}`)}$.`
+      if (choix === new Decimal(1).minus(pAC)) {
+        texteCorr += `$${texNombre(new Decimal(1).minus(pAC), 2)}$ est une probabilité conditionnelle, 
+        $${miseEnEvidence(`P_{${nom1}}(\\overline{${nom2}})=${texNombre(new Decimal(1).minus(pAC), 2)}`)}$.`
         setReponse(this, i, [
           `p_${nom1}({\\overline{${nom2}}})`,
           `P_${nom1}({\\overline{${nom2}}})`,
@@ -192,9 +189,9 @@ export default class LectureProbabilite extends Exercice {
           `P\\overline{_${nom1}}({${nom2}})`,
         ]) // Testé et Correct
       }
-      if (choix === 1 - pBC) {
-        texteCorr += `$${texNombre(1 - pBC, 2)}$ est une probabilité conditionnelle, 
-        $${miseEnEvidence(`P_{\\overline{${nom1}}}(\\overline{${nom2}})=${texNombre(1 - pBC, 2)}`)}$.`
+      if (choix === new Decimal(1).minus(pBC)) {
+        texteCorr += `$${texNombre(new Decimal(1).minus(pBC), 2)}$ est une probabilité conditionnelle, 
+        $${miseEnEvidence(`P_{\\overline{${nom1}}}(\\overline{${nom2}})=${texNombre(new Decimal(1).minus(pBC), 2)}`)}$.`
         setReponse(this, i, [
           `p_{\\overline{${nom1}}}({\\overline{${nom2}}})`,
           `P_{\\overline{${nom1}}}({\\overline{${nom2}}})`,

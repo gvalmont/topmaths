@@ -3,7 +3,7 @@ import { codageSegments } from '../../lib/2d/CodageSegment'
 import { colorToLatexOrHTML } from '../../lib/2d/colorToLatexOrHtml'
 import { droite, droiteHorizontaleParPoint } from '../../lib/2d/droites'
 import { fixeBordures } from '../../lib/2d/fixeBordures'
-import { Interactif2d } from '../../lib/2d/interactif2d'
+import { MetaInteractif2d } from '../../lib/2d/interactif2d'
 import { placeLatexSurSegment } from '../../lib/2d/placeLatexSurSegment'
 import { pointAbstrait } from '../../lib/2d/PointAbstrait'
 import { polygone } from '../../lib/2d/polygones'
@@ -14,7 +14,9 @@ import { projectionOrtho, rotation } from '../../lib/2d/transformations'
 import { longueur } from '../../lib/2d/utilitairesGeometriques'
 import { pointIntersectionDD } from '../../lib/2d/utilitairesPoint'
 import { centreGraviteTriangle } from '../../lib/2d/utilitairesTriangle'
+import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
+import { ajouteFeedback } from '../../lib/interactif/questionMathLive'
 import { choice } from '../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { texNombre } from '../../lib/outils/texNombre'
@@ -26,7 +28,7 @@ import Exercice from '../Exercice'
 
 export const titre = 'Calculer l’aire d’un carré ou d’un rectangle'
 export const interactifReady = true
-export const interactifType = 'mathLive'
+export const interactifType = 'MetaInteractif2d'
 export const dateDePublication = '10/01/2026'
 
 /**
@@ -63,10 +65,18 @@ const figureCarre = (cote: number, exercice: IExercice, question: number) => {
       letterSize: 'scriptsize',
     },
   )
-  const input = new Interactif2d(
-    '\\mathcal{A}=%{champ1}\\text{ cm}^2',
-    c / 2,
-    c / 2,
+  const input = new MetaInteractif2d(
+    [
+      {
+        content: '%{champ1}\\text{ cm}^2',
+        x: c / 2,
+        y: c / 2,
+        classe: KeyboardType.clavierNumbers,
+        blanc: '\\ldots ',
+        opacity: 1,
+        index: 0,
+      },
+    ],
     {
       exercice,
       question,
@@ -82,7 +92,11 @@ const figureCarre = (cote: number, exercice: IExercice, question: number) => {
     cotesMarques,
     input,
   ]
-  return mathalea2d(Object.assign({}, fixeBordures(objets)), objets)
+  return (
+    mathalea2d(Object.assign({}, fixeBordures(objets)), objets) +
+    `<span id="resultatCheckEx${exercice.numeroExercice}Q${question}"></span>` +
+    ajouteFeedback(exercice, question)
+  )
 }
 const figureRectangle = (
   largeur: number,
@@ -119,10 +133,18 @@ const figureRectangle = (
       letterSize: 'scriptsize',
     },
   )
-  const input = new Interactif2d(
-    '\\mathcal{A}=%{champ1}\\text{ cm}^2',
-    L / 2,
-    l / 2,
+  const input = new MetaInteractif2d(
+    [
+      {
+        content: '\\mathcal{A}=%{champ1}\\text{ cm}^2',
+        x: L / 2,
+        y: l / 2,
+        classe: '',
+        blanc: '\\ldots ',
+        opacity: 1,
+        index: 0,
+      },
+    ],
     {
       exercice,
       question,
@@ -138,7 +160,11 @@ const figureRectangle = (
     ang4,
     input,
   ]
-  return mathalea2d(Object.assign({}, fixeBordures(objets)), objets)
+  return (
+    mathalea2d(Object.assign({}, fixeBordures(objets)), objets) +
+    `<span id="resultatCheckEx${exercice.numeroExercice}Q${question}"></span>` +
+    ajouteFeedback(exercice, question)
+  )
 }
 const figureTriangleRectangle = (
   base: number,
@@ -180,10 +206,18 @@ const figureTriangleRectangle = (
   triangle.hachures = true
   triangle.couleurDesHachures = colorToLatexOrHTML('lightgray')
   const M = centreGraviteTriangle(A, B, C)
-  const input = new Interactif2d(
-    '\\mathcal{A}=%{champ1}\\text{ cm}^2',
-    M.x,
-    M.y - 0.5,
+  const input = new MetaInteractif2d(
+    [
+      {
+        content: '\\mathcal{A}=%{champ1}\\text{ cm}^2',
+        x: M.x,
+        y: M.y - 0.5,
+        classe: '',
+        blanc: '\\ldots ',
+        opacity: 1,
+        index: 0,
+      },
+    ],
     {
       exercice,
       question,
@@ -197,7 +231,11 @@ const figureTriangleRectangle = (
     ang1,
     input,
   ]
-  return mathalea2d(Object.assign({}, fixeBordures(objets)), objets)
+  return (
+    mathalea2d(Object.assign({}, fixeBordures(objets)), objets) +
+    `<span id="resultatCheckEx${exercice.numeroExercice}Q${question}"></span>` +
+    ajouteFeedback(exercice, question)
+  )
 }
 
 const figureTriangleQuelconque = (
@@ -252,10 +290,18 @@ const figureTriangleQuelconque = (
     { distance: 0.5, letterSize: 'scriptsize' },
   )
   const M = centreGraviteTriangle(A, B, C)
-  const input = new Interactif2d(
-    '\\mathcal{A}=%{champ1}\\text{ cm}^2',
-    M.x,
-    M.y - 0.8,
+  const input = new MetaInteractif2d(
+    [
+      {
+        content: '\\mathcal{A}=%{champ1}\\text{ cm}^2',
+        x: M.x,
+        y: M.y - 0.8,
+        classe: '',
+        blanc: '\\ldots ',
+        opacity: 1,
+        index: 0,
+      },
+    ],
     {
       exercice,
       question,
@@ -272,7 +318,11 @@ const figureTriangleQuelconque = (
     afficheCote,
     input,
   ]
-  return mathalea2d(Object.assign({}, fixeBordures(objets)), objets)
+  return (
+    mathalea2d(Object.assign({}, fixeBordures(objets)), objets) +
+    `<span id="resultatCheckEx${exercice.numeroExercice}Q${question}"></span>` +
+    ajouteFeedback(exercice, question)
+  )
 }
 
 export default class AireCarreRectangle extends Exercice {
@@ -357,9 +407,16 @@ export default class AireCarreRectangle extends Exercice {
         }
       }
       if (this.questionJamaisPosee(i, a)) {
-        handleAnswers(this, i, {
-          champ1: { value: texNombre(a, 3), options: { noFeedback: true } },
-        })
+        handleAnswers(
+          this,
+          i,
+          {
+            field0: { value: texNombre(a, 3), options: { noFeedback: true } },
+          },
+          {
+            formatInteractif: 'MetaInteractif2d',
+          },
+        )
         this.listeQuestions.push(texte)
         this.listeCorrections.push(texteCorr)
         i++

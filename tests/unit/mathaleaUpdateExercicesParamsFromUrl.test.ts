@@ -157,4 +157,81 @@ describe('mathaleaUpdateExercicesParamsFromUrl', () => {
       answers: '',
     })
   })
+
+  it('should preserve es parameter from imported URL', async () => {
+    const url =
+      'https://coopmaths.fr/alea/?uuid=edb61&id=5P13&alea=Wm22&v=eleve&es=0211001'
+    const { mathaleaUpdateExercicesParamsFromUrl } =
+      await import('../../src/lib/mathalea')
+    const result = mathaleaUpdateExercicesParamsFromUrl(url)
+
+    // Vérifier que es=0211001 est correctement parsé
+    // Position 0: presMode = 0 (liste_exos)
+    // Position 1: setInteractive = 2
+    // Position 2: isSolutionAccessible = 1 (true)
+    // Position 3: isInteractiveFree = 1 (true)
+    // Position 4: oneShot = 0 (false)
+    // Position 5: twoColumns = 0 (false)
+    // Position 6: isTitleDisplayed = 1 (true)
+    // Note: presMode est parsé par mathaleaUpdateExercicesParamsFromUrl mais peut être forcé par importExercises
+    expect(result).toMatchObject({
+      v: 'eleve',
+      presMode: 'liste_exos',
+      setInteractive: '2',
+      isSolutionAccessible: true,
+      isInteractiveFree: true,
+      oneShot: false,
+      twoColumns: false,
+      isTitleDisplayed: true,
+    })
+  })
+
+  it('should preserve different es parameter values', async () => {
+    const url =
+      'https://coopmaths.fr/alea/?uuid=edb61&id=5P13&alea=Wm22&v=eleve&es=1110001'
+    const { mathaleaUpdateExercicesParamsFromUrl } =
+      await import('../../src/lib/mathalea')
+    const result = mathaleaUpdateExercicesParamsFromUrl(url)
+
+    // Vérifier que es=1110001 est correctement parsé
+    // Position 0: presMode = 1 (un_exo_par_page)
+    // Position 1: setInteractive = 1
+    // Position 2: isSolutionAccessible = 1 (true)
+    // Position 3: isInteractiveFree = 0 (false)
+    // Position 4: oneShot = 0 (false)
+    // Position 5: twoColumns = 0 (false)
+    // Position 6: isTitleDisplayed = 1 (true)
+    // Note: presMode est parsé par mathaleaUpdateExercicesParamsFromUrl mais peut être forcé par importExercises
+    expect(result).toMatchObject({
+      v: 'eleve',
+      presMode: 'un_exo_par_page',
+      setInteractive: '1',
+      isSolutionAccessible: true,
+      isInteractiveFree: false,
+      oneShot: false,
+      twoColumns: false,
+      isTitleDisplayed: true,
+    })
+  })
+
+  it('should document that presMode can be forced during import (not in this function)', async () => {
+    // Ce test documente le comportement attendu de mathaleaUpdateExercicesParamsFromUrl
+    // La fonction parse correctement le presMode depuis l'URL
+    // C'est la fonction importExercises() dans Start.svelte qui force ensuite presMode à 'un_exo_par_page'
+    const url =
+      'https://coopmaths.fr/alea/?uuid=edb61&id=5P13&alea=Wm22&v=eleve&es=0211001'
+    const { mathaleaUpdateExercicesParamsFromUrl } =
+      await import('../../src/lib/mathalea')
+    const result = mathaleaUpdateExercicesParamsFromUrl(url)
+
+    // mathaleaUpdateExercicesParamsFromUrl parse correctement es=0211001
+    // avec presMode = 0 (liste_exos)
+    expect(result.presMode).toBe('liste_exos')
+
+    // Mais lors de l'import via importExercises() dans Start.svelte,
+    // presMode sera forcé à 'un_exo_par_page' via :
+    // globalOptions.update((current) => {
+    //   return { ...current, ...options, recorder: tempRecorder, presMode: 'un_exo_par_page' }
+    // })
+  })
 })

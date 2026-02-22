@@ -2,10 +2,6 @@ import { propositionsQcm } from '../../lib/interactif/qcm'
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
 import { texNombre2 } from '../../lib/outils/texNombre'
 import { context } from '../../modules/context'
-import {
-  listeQuestionsToContenu,
-  listeQuestionsToContenuSansNumero,
-} from '../../modules/outils'
 import Exercice from '../Exercice'
 export const amcReady = true
 export const amcType = 'qcmMult'
@@ -17,6 +13,10 @@ export const titre =
 
 /**
  * Un nombre est-il divisible par 2, 3, 5, 9 ?
+ *
+ * MGu: exercice remanié pour gérer correctement le mode interactif QCM
+ * Mais il faudrait le revoir, car on mélange un tableau avec un QCM...
+ * Ajouter un paramètre pour sélectionner le mode d'affichage serait mieux : tableau ou QCM
  * @author Rémi Angot
  */
 export const uuid = 'fa2eb'
@@ -33,15 +33,16 @@ export default class TableauCriteresDeDivisibilite extends Exercice {
 
     this.nbQuestions = 5
 
-    this.sup = false
-    this.listeAvecNumerotation = false
+    this.sup = false // nombres plus grands pour les élèves de "sup"
   }
 
   nouvelleVersion() {
     if (!this.interactif) {
+      this.listeAvecNumerotation = false
       this.consigne =
         'Compléter le tableau en mettant oui ou non dans chaque case.'
     } else {
+      this.listeAvecNumerotation = true
       this.consigne =
         'Mettre une croix dans la case qui convient (ou les cases qui conviennent).'
     }
@@ -64,28 +65,28 @@ export default class TableauCriteresDeDivisibilite extends Exercice {
       listeDesNombresPossibles,
       this.nbQuestions,
     )
-    const tableauDeNombres = []
-    let texte
-    let texteCorr
+    const tableauDeNombres: number[] = []
+
     const tableauDeNombresAvecCorrection = []
     const listeDeFacteurs = [
       7, 13, 17, 19, 23, 29, 37, 43, 47, 53, 59, 67, 73, 79, 83, 89, 97, 103,
       107, 109, 113, 127, 137, 139, 149, 157, 163, 167, 173, 179, 193, 197, 199,
       223, 227, 229, 233, 239, 257, 263, 269, 277, 281, 283, 293,
     ]
-    texteCorr = ''
-    texte = ''
-    for (let i = 0; i < this.nbQuestions; i++) {
+    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50; cpt++, i++) {
       this.autoCorrection[i] = {}
       this.autoCorrection[i].options = {}
       switch (listeDesTypesDeNombres[i]) {
         case 'div2':
-          tableauDeNombres[i] =
-            2 *
-            (this.sup
-              ? choice(listeDeFacteurs.slice(30))
-              : choice(listeDeFacteurs)) *
-            (this.sup ? choice(listeDeFacteurs.slice(30)) : 1)
+          tableauDeNombres[i] = genereValeurUnique(
+            tableauDeNombres,
+            () =>
+              2 *
+              (this.sup
+                ? choice(listeDeFacteurs.slice(30)) *
+                  choice(listeDeFacteurs.slice(30))
+                : choice(listeDeFacteurs)),
+          )
           tableauDeNombresAvecCorrection[i] = `${texNombre2(
             tableauDeNombres[i],
           )} & \\color{blue}{\\text{oui}} & \\text{non} & \\text{non} & \\text{non} \\\\`
@@ -122,12 +123,15 @@ export default class TableauCriteresDeDivisibilite extends Exercice {
 
           break
         case 'div3':
-          tableauDeNombres[i] =
-            3 *
-            (this.sup
-              ? choice(listeDeFacteurs.slice(30))
-              : choice(listeDeFacteurs)) *
-            (this.sup ? choice(listeDeFacteurs.slice(30)) : 1)
+          tableauDeNombres[i] = genereValeurUnique(
+            tableauDeNombres,
+            () =>
+              3 *
+              (this.sup
+                ? choice(listeDeFacteurs.slice(30)) *
+                  choice(listeDeFacteurs.slice(30))
+                : choice(listeDeFacteurs)),
+          )
           tableauDeNombresAvecCorrection[i] = `${texNombre2(
             tableauDeNombres[i],
           )} & \\text{non} & \\color{blue}{\\text{oui}} & \\text{non} & \\text{non} \\\\`
@@ -164,12 +168,15 @@ export default class TableauCriteresDeDivisibilite extends Exercice {
             `$${texNombre2(tableauDeNombres[i])}$ est divisible par\n`
           break
         case 'div39':
-          tableauDeNombres[i] =
-            9 *
-            (this.sup
-              ? choice(listeDeFacteurs.slice(30))
-              : choice(listeDeFacteurs)) *
-            (this.sup ? choice(listeDeFacteurs.slice(30)) : 1)
+          tableauDeNombres[i] = genereValeurUnique(
+            tableauDeNombres,
+            () =>
+              9 *
+              (this.sup
+                ? choice(listeDeFacteurs.slice(30)) *
+                  choice(listeDeFacteurs.slice(30))
+                : choice(listeDeFacteurs)),
+          )
           tableauDeNombresAvecCorrection[i] = `${texNombre2(
             tableauDeNombres[i],
           )} & \\text{non} & \\color{blue}{\\text{oui}} & \\text{non} & \\color{blue}{\\text{oui}} \\\\`
@@ -206,12 +213,15 @@ export default class TableauCriteresDeDivisibilite extends Exercice {
             `$${texNombre2(tableauDeNombres[i])}$ est divisible par\n`
           break
         case 'div5':
-          tableauDeNombres[i] =
-            5 *
-            (this.sup
-              ? choice(listeDeFacteurs.slice(30))
-              : choice(listeDeFacteurs)) *
-            (this.sup ? choice(listeDeFacteurs.slice(30)) : 1)
+          tableauDeNombres[i] = genereValeurUnique(
+            tableauDeNombres,
+            () =>
+              5 *
+              (this.sup
+                ? choice(listeDeFacteurs.slice(30)) *
+                  choice(listeDeFacteurs.slice(30))
+                : choice(listeDeFacteurs)),
+          )
           tableauDeNombresAvecCorrection[i] = `${texNombre2(
             tableauDeNombres[i],
           )} & \\text{non} & \\text{non} & \\color{blue}{\\text{oui}} & \\text{non} \\\\`
@@ -247,12 +257,15 @@ export default class TableauCriteresDeDivisibilite extends Exercice {
             `$${texNombre2(tableauDeNombres[i])}$ est divisible par\n`
           break
         case 'div25':
-          tableauDeNombres[i] =
-            10 *
-            (this.sup
-              ? choice(listeDeFacteurs.slice(30))
-              : choice(listeDeFacteurs)) *
-            (this.sup ? choice(listeDeFacteurs.slice(30)) : 1)
+          tableauDeNombres[i] = genereValeurUnique(
+            tableauDeNombres,
+            () =>
+              10 *
+              (this.sup
+                ? choice(listeDeFacteurs.slice(30)) *
+                  choice(listeDeFacteurs.slice(30))
+                : choice(listeDeFacteurs)),
+          )
           tableauDeNombresAvecCorrection[i] = `${texNombre2(
             tableauDeNombres[i],
           )} & \\color{blue}{\\text{oui}} & \\text{non} & \\color{blue}{\\text{oui}} & \\text{non} \\\\`
@@ -288,12 +301,15 @@ export default class TableauCriteresDeDivisibilite extends Exercice {
             `$${texNombre2(tableauDeNombres[i])}$ est divisible par\n`
           break
         case 'div23':
-          tableauDeNombres[i] =
-            6 *
-            (this.sup
-              ? choice(listeDeFacteurs.slice(30))
-              : choice(listeDeFacteurs)) *
-            (this.sup ? choice(listeDeFacteurs.slice(30)) : 1)
+          tableauDeNombres[i] = genereValeurUnique(
+            tableauDeNombres,
+            () =>
+              6 *
+              (this.sup
+                ? choice(listeDeFacteurs.slice(30)) *
+                  choice(listeDeFacteurs.slice(30))
+                : choice(listeDeFacteurs)),
+          )
           tableauDeNombresAvecCorrection[i] = `${texNombre2(
             tableauDeNombres[i],
           )} & \\color{blue}{\\text{oui}} & \\color{blue}{\\text{oui}} & \\text{non} & \\text{non} \\\\`
@@ -329,12 +345,15 @@ export default class TableauCriteresDeDivisibilite extends Exercice {
             `$${texNombre2(tableauDeNombres[i])}$ est divisible par\n`
           break
         case 'div239':
-          tableauDeNombres[i] =
-            18 *
-            (this.sup
-              ? choice(listeDeFacteurs.slice(30))
-              : choice(listeDeFacteurs)) *
-            (this.sup ? choice(listeDeFacteurs.slice(30)) : 1)
+          tableauDeNombres[i] = genereValeurUnique(
+            tableauDeNombres,
+            () =>
+              18 *
+              (this.sup
+                ? choice(listeDeFacteurs.slice(30)) *
+                  choice(listeDeFacteurs.slice(30))
+                : choice(listeDeFacteurs)),
+          )
           tableauDeNombresAvecCorrection[i] = `${texNombre2(
             tableauDeNombres[i],
           )} & \\color{blue}{\\text{oui}} & \\color{blue}{\\text{oui}} & \\text{non} & \\color{blue}{\\text{oui}} \\\\`
@@ -370,12 +389,15 @@ export default class TableauCriteresDeDivisibilite extends Exercice {
             `$${texNombre2(tableauDeNombres[i])}$ est divisible par\n`
           break
         case 'div35':
-          tableauDeNombres[i] =
-            15 *
-            (this.sup
-              ? choice(listeDeFacteurs.slice(30))
-              : choice(listeDeFacteurs)) *
-            (this.sup ? choice(listeDeFacteurs.slice(30)) : 1)
+          tableauDeNombres[i] = genereValeurUnique(
+            tableauDeNombres,
+            () =>
+              15 *
+              (this.sup
+                ? choice(listeDeFacteurs.slice(30)) *
+                  choice(listeDeFacteurs.slice(30))
+                : choice(listeDeFacteurs)),
+          )
           tableauDeNombresAvecCorrection[i] = `${texNombre2(
             tableauDeNombres[i],
           )} & \\text{non} & \\color{blue}{\\text{oui}} & \\color{blue}{\\text{oui}} & \\text{non} \\\\`
@@ -412,12 +434,15 @@ export default class TableauCriteresDeDivisibilite extends Exercice {
             `$${texNombre2(tableauDeNombres[i])}$ est divisible par\n`
           break
         case 'div2359':
-          tableauDeNombres[i] =
-            90 *
-            (this.sup
-              ? choice(listeDeFacteurs.slice(30))
-              : choice(listeDeFacteurs)) *
-            (this.sup ? choice(listeDeFacteurs.slice(30)) : 1)
+          tableauDeNombres[i] = genereValeurUnique(
+            tableauDeNombres,
+            () =>
+              90 *
+              (this.sup
+                ? choice(listeDeFacteurs.slice(30)) *
+                  choice(listeDeFacteurs.slice(30))
+                : choice(listeDeFacteurs)),
+          )
           tableauDeNombresAvecCorrection[i] = `${texNombre2(
             tableauDeNombres[i],
           )} & \\color{blue}{\\text{oui}} & \\color{blue}{\\text{oui}} & \\color{blue}{\\text{oui}} & \\color{blue}{\\text{oui}} \\\\`
@@ -453,9 +478,12 @@ export default class TableauCriteresDeDivisibilite extends Exercice {
             `$${texNombre2(tableauDeNombres[i])}$ est divisible par\n`
           break
         case 'divrien':
-          tableauDeNombres[i] =
-            choice(listeDeFacteurs) *
-            (this.sup ? choice(listeDeFacteurs.slice(30)) : 1)
+          tableauDeNombres[i] = genereValeurUnique(
+            tableauDeNombres,
+            () =>
+              choice(listeDeFacteurs) *
+              (this.sup ? choice(listeDeFacteurs.slice(30)) : 1),
+          )
           tableauDeNombresAvecCorrection[i] = `${texNombre2(
             tableauDeNombres[i],
           )} & \\text{non} & \\text{non} & \\text{non} & \\text{non} \\\\`
@@ -495,16 +523,19 @@ export default class TableauCriteresDeDivisibilite extends Exercice {
         ordered: true,
         lastChoice: 4,
       }
-      const props = propositionsQcm(this, i)
 
-      if (!context.isAmc && this.interactif) {
-        texte += `$${texNombre2(tableauDeNombres[i])}$ est divisible par : `
-        texte += props.texte
-        texte += '<br>'
+      if (this.interactif) {
+        const props = propositionsQcm(this, i)
+        this.listeQuestions[i] =
+          `$${texNombre2(tableauDeNombres[i])}$ est divisible par : ` +
+          props.texte
+        this.listeCorrections[i] = props.texteCorr
       }
     } // fin de boucle de préparation des question
     // mise en forme selon les cas de figures
     // l'enoncé
+    let texte = ''
+    let texteCorr = ''
     if (context.isHtml && !this.interactif) {
       texte = '$\\def\\arraystretch{2.5}\\begin{array}{|l|c|c|c|c|}\n'
     }
@@ -521,17 +552,18 @@ export default class TableauCriteresDeDivisibilite extends Exercice {
         texte += '\\hline\n'
       }
       texte += '\\end{array}\n$'
+      this.listeQuestions.push(texte)
     }
 
     // la correction
-    if (context.isHtml) {
+    if (context.isHtml && !this.interactif) {
       texteCorr = '$\\def\\arraystretch{2.5}\\begin{array}{|l|c|c|c|c|}\n'
     }
-    if (!context.isHtml && !context.isAmc) {
+    if (!context.isHtml && !context.isAmc && !this.interactif) {
       texteCorr = '$\\begin{array}{|l|c|c|c|c|}\n'
     }
 
-    if (!context.isAmc) {
+    if (!context.isAmc && !this.interactif) {
       texteCorr += '\\hline\n'
       texteCorr +=
         '\\text{... est divisible} & \\text{par }2 & \\text{par }3 & \\text{par }5 & \\text{par }9\\\\\n'
@@ -541,15 +573,26 @@ export default class TableauCriteresDeDivisibilite extends Exercice {
         texteCorr += '\\hline\n'
       }
       texteCorr += '\\end{array}$\n'
-    }
-    this.listeQuestions.push(texte)
-    this.listeCorrections.push(texteCorr)
-    if (!context.isAmc) {
-      if (this.interactif) {
-        listeQuestionsToContenu(this)
-      } else {
-        listeQuestionsToContenuSansNumero(this)
-      }
+      this.listeCorrections.push(texteCorr)
     }
   }
+}
+
+function genereValeurUnique(
+  tableau: number[],
+  generer: () => number,
+  maxEssais = 50,
+): number {
+  let valeur: number
+  let essais = 0
+
+  do {
+    valeur = generer()
+    essais++
+  } while (tableau.includes(valeur) && essais < maxEssais)
+
+  if (essais === maxEssais) {
+    console.error('Impossible de générer une valeur unique')
+  }
+  return valeur
 }

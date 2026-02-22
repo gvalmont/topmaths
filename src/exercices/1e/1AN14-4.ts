@@ -8,7 +8,7 @@ import { rienSi1 } from '../../lib/outils/ecritures'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { gestionnaireFormulaireTexte, randint } from '../../modules/outils'
 import Exercice from '../Exercice'
-export const titre = 'Dériver $u + v$'
+export const titre = 'Dériver une fonction du type $u + v$'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const uuid = 'a83c0'
@@ -17,6 +17,7 @@ export const refs = {
   'fr-ch': ['3mA2-3'],
 }
 export const dateDePublication = '17/04/2024'
+export const dateDeModifImportante = '28/01/2026'
 
 /**
  * Calculer la dérivée d'une somme
@@ -36,6 +37,13 @@ class DerivationSommesSimples extends Exercice {
   }
 
   nouvelleVersion() {
+    // Consigne adaptative
+    if (this.nbQuestions > 1) {
+      this.consigne = 'Dans chacun des cas suivants, on admet que la fonction est définie et dérivable sur un intervalle $I$. <br>Déterminer une expression de la fonction dérivée sur $I$.'
+    } else {
+      this.consigne = 'On admet que la fonction est définie et dérivable sur un intervalle $I$. <br>Déterminer une expression de la fonction dérivée sur $I$.'
+    }
+    
     const listeTypeDeQuestion = gestionnaireFormulaireTexte({
       saisie: this.sup,
       min: 1,
@@ -56,7 +64,7 @@ class DerivationSommesSimples extends Exercice {
           randint(-5, 5, [-1, 0, 1]),
         ],
       ])
-      let df: string
+      
       switch (Number(listeTypeDeQuestion[i])) {
         case 2:
           {
@@ -65,7 +73,7 @@ class DerivationSommesSimples extends Exercice {
               deg: 2,
               coeffs: [a, b, c],
             })
-            const k = randint(-5, 5, 0)
+            const k = choice([1,3,5,7,-1,-3,-5,-7])
             lesFonctions.push(
               {
                 fonction: laFonction1.toLatex(),
@@ -76,13 +84,12 @@ class DerivationSommesSimples extends Exercice {
                 derivee: `${k < 0 ? '-' : ''}\\dfrac{${String(Math.abs(k))}}{2\\sqrt{x}}`,
               },
             )
-            df = '\\R_+'
           }
           break
         case 3:
           {
             const k = randint(-5, 5, 0)
-            const k2 = randint(-5, 5, [0, k])
+            const k2 = choice([1,3,5,7,-1,-3,-5,-7])
             lesFonctions.push(
               {
                 fonction: `${k < 0 ? '-' : ''}\\dfrac{${String(Math.abs(k))}}{x}`,
@@ -93,7 +100,6 @@ class DerivationSommesSimples extends Exercice {
                 derivee: `${k2 < 0 ? '-' : ''}\\dfrac{${String(Math.abs(k2))}}{2\\sqrt{x}}`,
               },
             )
-            df = '\\R_+^{*}'
           }
           break
         case 4:
@@ -119,7 +125,6 @@ class DerivationSommesSimples extends Exercice {
                 derivee: `${k2 < 0 ? '-' : ''}\\dfrac{${String(Math.abs(k2))}}{2\\sqrt{x}}`,
               },
             )
-            df = '\\R_+^{*}'
           }
           break
         case 1:
@@ -137,7 +142,6 @@ class DerivationSommesSimples extends Exercice {
                 derivee: `${k > 0 ? '-' : ''}\\dfrac{${String(Math.abs(k))}}{x^2}`,
               },
             )
-            df = '\\R^{*}'
           }
           break
       }
@@ -159,17 +163,27 @@ class DerivationSommesSimples extends Exercice {
         laDerivee += f.derivee
       }
       const texte =
-        `Donner l'expression de la dérivée de la fonction $f$ définie sur $${df}$ par $f(x)=${laFonction}$.<br>` +
+        `$f(x)=${laFonction}$<br>` +
         ajouteChampTexteMathLive(this, i, KeyboardType.lyceeClassique, {
           texteAvant: "$f'(x)=$",
         })
       let texteCorr = ''
       if (this.correctionDetaillee) {
-        for (const f of fonctionsMelangees) {
-          texteCorr += `$(${f.fonction})^\\prime=${f.derivee}$<br>`
+        // Notation avec u, v, w
+        const nomsFonctions = ['u', 'v', 'w']
+        texteCorr += `La fonction $f$ est de la forme $f=${nomsFonctions.slice(0, fonctionsMelangees.length).join('+')}$ avec :<br>`
+        texteCorr += '\\[\\begin{aligned}'
+        for (let j = 0; j < fonctionsMelangees.length; j++) {
+          const nomFonction = nomsFonctions[j]
+          texteCorr += `${nomFonction}(x)&=${fonctionsMelangees[j].fonction},\\ ${nomFonction}'(x)=${fonctionsMelangees[j].derivee}`
+          if (j < fonctionsMelangees.length - 1) texteCorr += '\\\\'
         }
+        texteCorr += '\\end{aligned}\\]'
+        texteCorr += `On utilise la formule : $(${nomsFonctions.slice(0, fonctionsMelangees.length).join('+')})^\\prime=${nomsFonctions.slice(0, fonctionsMelangees.length).map(n => n + "^\\prime").join('+')}$.<br>`
+        texteCorr += 'On obtient : '
+      } else {
+        texteCorr += `L'expression de la dérivée de la fonction $f$ définie par $f(x)=${laFonction}$ est :<br>`
       }
-      texteCorr += `L'expression de la dérivée de la fonction $f$ définie par $f(x)=${laFonction}$ est :<br>`
       texteCorr += `$f'(x)=${miseEnEvidence(laDerivee)}$.<br>`
 
       if (this.questionJamaisPosee(i, laFonction)) {
@@ -184,7 +198,7 @@ class DerivationSommesSimples extends Exercice {
           },
         })
         i++
-        cpt--
+        cpt = 0
       }
       cpt++
     }

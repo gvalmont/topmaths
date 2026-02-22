@@ -246,7 +246,7 @@ export function remplisLesBlancs(
   exercice: IExercice,
   question: number,
   content: string,
-  classes = '',
+  classes: string = '',
   blanc = '\\ldots',
 ) {
   let mfeValue = ''

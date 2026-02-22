@@ -91,7 +91,7 @@ export class Rose {
             {
               const value = calculer(
                 `${randint(1, this.valeurMax)}x + ${randint(1, this.valeurMax)}`,
-                null,
+                {},
               ).printResult
               values.push(value)
               this.rayon = 3
@@ -153,7 +153,7 @@ export class Rose {
             {
               const value = calculer(
                 `${randint(1, this.valeurMax)}x + ${randint(1, this.valeurMax)}`,
-                null,
+                {},
               ).printResult
               values.push(value)
             }
@@ -259,7 +259,7 @@ export class Rose {
         } else {
           return calculer(
             `${String(a).replace('\\times', '*')}+${String(b).replace('\\times', '*')}`,
-            null,
+            {},
           ).printResult
         }
       case 'multiplication':
@@ -297,7 +297,7 @@ export class Rose {
         } else {
           return calculer(
             `(${String(a).replace('\\times', '*')}) * (${String(b).replace('\\times', '*')})`,
-            null,
+            {},
           ).printResult
         }
     }

@@ -2,6 +2,7 @@ import { context } from '../../modules/context'
 import { egal } from '../../modules/outils'
 import { arrondi } from '../outils/nombres'
 import { colorToLatexOrHTML } from './colorToLatexOrHtml'
+import type { IDroite } from './Interfaces'
 import { ObjetMathalea2D } from './ObjetMathalea2D'
 import { PointAbstrait, pointAbstrait } from './PointAbstrait'
 import { segment } from './segmentsVecteurs'
@@ -453,10 +454,10 @@ export function labelOnLine(
       for (let j = 0; j < usedPosition.length; j++) {
         const label = usedPosition[j]
         const dis =
-          segment(
-            pointAbstrait(label.x, label.y),
-            pointAbstrait(positions[i].label.x, positions[i].label.y),
-          ).longueur * context.pixelsParCm
+          Math.sqrt(
+            (label.x - positions[i].label.x) ** 2 +
+              (label.y - positions[i].label.y) ** 2,
+          ) * context.pixelsParCm
         // colision deux rectangles
         const XYlabel = [
           label.x * context.pixelsParCm - largeur / 2,
@@ -769,6 +770,7 @@ export class Droite extends ObjetMathalea2D {
     ymin?: number
     ymax?: number
   }
+
   leNom?: TexteParPoint
   constructor(
     arg1: number | PointAbstrait,
@@ -1489,13 +1491,13 @@ export function droiteParPointEtPente(
 
 /**  Donne la distance entre le point A et la droite d
  * @param {PointAbstrait} A
- * @param {Droite} d
+ * @param {IDroite} d
  * @example distancePointDroite (M, d1) // Retourne la distance entre le point M et la droite d1
  * @author Jean-Claude Lhote
  * @return {number}
  */
 // JSDOC Validee par EE Aout 2022
-export function distancePointDroite(A: PointAbstrait, d: Droite) {
+export function distancePointDroite(A: PointAbstrait, d: IDroite) {
   // Formule: |a*xA + b*yA + c| / ||(a,b)||
   const denom = norme(vecteur(d.a, d.b))
   if (denom < 1e-12) return 0

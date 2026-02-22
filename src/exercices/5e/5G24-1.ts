@@ -82,7 +82,6 @@ export default class TrianglesEgaux extends Exercice {
     for (
       let i = 0, texte, texteCorr, cpt = 0;
       i < this.nbQuestions && cpt < 50;
-
     ) {
       // Boucle principale où i+1 correspond au numéro de la question
       texte = ''
@@ -382,9 +381,9 @@ export default class TrianglesEgaux extends Exercice {
 
           break
       }
-      A.nom = p1.listePoints[0].nom
-      B.nom = p1.listePoints[1].nom
-      C.nom = p1.listePoints[2].nom
+      A.nom = nom1[0]
+      B.nom = nom1[1]
+      C.nom = nom1[2]
 
       const auChoixCote = [
         { label: 'Choisir le bon côté', value: '' },

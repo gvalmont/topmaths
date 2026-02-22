@@ -446,13 +446,16 @@ export default class Priorites extends Exercice {
         // Uniformisation : Mise en place de la réponse attendue en interactif en orange et gras
         const textCorrSplit = texteCorr.split('=')
         let aRemplacer = textCorrSplit[textCorrSplit.length - 1]
-        aRemplacer = aRemplacer.replace('$', '')
+        aRemplacer = aRemplacer
+          .replaceAll('$', '')
+          .replaceAll('<br>', '')
+          .trim()
 
         texteCorr = ''
         for (let ee = 0; ee < textCorrSplit.length - 1; ee++) {
           texteCorr += textCorrSplit[ee] + '='
         }
-        texteCorr += `$ $${miseEnEvidence(aRemplacer)}$`
+        texteCorr += `${this.sup2 ? ' $' : ' '}${miseEnEvidence(aRemplacer)}$`
         // Fin de cette uniformisation
 
         this.listeCorrections[i] = texteCorr

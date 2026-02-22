@@ -10,18 +10,16 @@ import {
   miseEnEvidence,
   texteEnCouleurEtGras,
 } from '../../lib/outils/embellissements'
-import FractionEtendue from '../../modules/FractionEtendue'
 import {
   gestionnaireFormulaireTexte,
   listeQuestionsToContenu,
   randint,
 } from '../../modules/outils'
-import Trinome from '../../modules/Trinome'
 import Exercice from '../Exercice'
 
-export const titre = 'Dériver $\\dfrac{u}{v}$'
+export const titre = 'Dériver une fonction du type $\\dfrac{u}{v}$'
 export const dateDePublication = '22/01/2022'
-export const dateDeModifImportante = '07/05/2024'
+export const dateDeModifImportante = '27/01/2026'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 
@@ -53,7 +51,7 @@ type TypeDeFonction =
   | 'exp'
 
 export default class DeriveeQuotient extends Exercice {
-  constructor() {
+ constructor() {
     super()
     this.besoinFormulaireTexte = [
       'Types de fonctions : ',
@@ -72,10 +70,13 @@ export default class DeriveeQuotient extends Exercice {
   }
 
   nouvelleVersion() {
-    this.consigne =
-      this.nbQuestions > 1
-        ? "Pour chacune des fonctions suivantes, déterminer l'expression de sa fonction dérivée."
-        : "Déterminer l'expression de la fonction dérivée de la fonction suivante."
+    // Consigne adaptée selon le mode
+    if (this.sup2) {
+      this.consigne = 'Dans chacun des cas suivants, on admet que la fonction est définie et dérivable sur un intervalle $I$.'
+    } else {
+      this.consigne = 'Dans chacun des cas suivants, on admet que la fonction est définie et dérivable sur un intervalle $I$.<br> Déterminer une expression de la fonction dérivée sur $I$.'
+    }
+    
     const listeValeurs: string[] = [] // Les questions sont différentes du fait du nom de la fonction, donc on stocke les valeurs
     if (this.sup2) {
       this.interactifReady = false
@@ -166,29 +167,20 @@ export default class DeriveeQuotient extends Exercice {
       const derNum = engine.box(['D', termeNum, 'x']).evaluate()
       const derDen = engine.box(['D', termeDen, 'x']).evaluate()
       texteCorr = ''
-      // texteCorr = `$${nameF}$ est dérivable sur $${ensembleDerivation}$. Soit $x\\in${ensembleDerivation}$.<br>`
       texteCorr +=
         "On rappelle le cours : si $u,v$ sont  deux fonctions dérivables sur un même intervalle $I$, et que $v$ ne s'annule pas sur $I$ alors leur quotient est dérivable sur $I$ et on a la formule : "
       texteCorr +=
         "\\[\\left(\\frac{u}{v}\\right)'=\\frac{u'\\times v-u\\times v'}{v^2}.\\]"
       texteCorr += `Ici $${nameF}=\\frac{u}{v}$ avec : `
       texteCorr += `\\[\\begin{aligned}u(x)&=${termeNum.latex},\\ u'(x)=${derNum.latex}\\\\ v(x)&=${termeDen.latex},\\ v'(x)=${derDen.latex}.\\end{aligned}\\]`
-      let df = ''
+      
       switch (listeTypeDeQuestions[i]) {
         case 'poly1a/poly1':
         case 'poly/poly1': {
           // fDen = cx+d
           const c = (fDen as Polynome).monomes[1]
           const d = (fDen as Polynome).monomes[0]
-          const valI = new FractionEtendue(-d, Number(c))
-          if (valI == null) {
-            window.notify(
-              "Erreur dans la détermination de l'ensemble de dérivation",
-              { c, d },
-            )
-          }
-          df = `\\R\\backslash\\{${valI.texFractionSimplifiee}\\}`
-          texteCorr += `Ici la formule ci-dessus est applicable pour tout $x$ tel que $${termeDen.latex}\\neq 0$. C'est-à-dire $x\\neq${valI.texFractionSimplifiee}$.<br>`
+          
           texteCorr += 'On obtient alors : '
           if (Number((fNum as Polynome).deg) === 1) {
             // fNum = ax+b
@@ -218,20 +210,8 @@ export default class DeriveeQuotient extends Exercice {
         }
         case 'mon/poly2centre':
           {
-            const c = (fDen as Polynome).monomes[2]
-            const d = (fDen as Polynome).monomes[0]
-            df = '\\R'
             const fDenDer = (fDen as Polynome).derivee().toLatex()
-            if (Number(c) * Number(d) > 0) {
-              texteCorr += `Ici la formule ci-dessus est applicable pour tout $x$ car $${termeDen.latex}${Number(c) < 0 ? '<0' : '>0'}$ pour tout $x$.<br>`
-            } else {
-              const trinom = new Trinome(Number(c), 0, Number(d))
-              const [racine1, racine2] = [trinom.texX1, trinom.texX2]
-              df = `\\R\\backslash\\{${racine1};${racine2}\\}`
-              const valeurInterdite1 = racine1
-              const valeurInterdite2 = racine2
-              texteCorr += `Ici la formule ci-dessus est applicable pour tout $x$ tel que $${termeDen.latex}\\neq 0$. C'est-à-dire $x\\neq${valeurInterdite1}$ et $x\\neq${valeurInterdite2}$.<br>`
-            }
+            
             texteCorr += 'On obtient alors : '
             texteCorr += `\\[${nameF}'(x)=\\frac{${(fNum as Polynome).derivee()}(${fDen})-${fNum}\\times${fDenDer.startsWith('-') ? `(${fDenDer})` : `${fDenDer}`}}{(${termeDen.latex})^2}.\\]`
             texteCorr += "D'où, en développant le numérateur : "
@@ -252,10 +232,7 @@ export default class DeriveeQuotient extends Exercice {
         case 'mon/poly1': {
           // fDen = cx+d
           const c = (fDen as Polynome).monomes[1]
-          const d = (fDen as Polynome).monomes[0]
-          const valI = new FractionEtendue(-d, Number(c))
-          df = `\\R\\backslash\\{${valI.texFractionSimplifiee}\\}`
-          texteCorr += `Ici la formule ci-dessus est applicable pour tout $x$ tel que $${termeDen.latex}\\neq 0$. C'est-à-dire $x\\neq${valI.texFractionSimplifiee}$.<br>`
+          
           texteCorr += 'On obtient alors : '
           texteCorr += `\\[${nameF}'(x)=\\frac{${(fNum as Polynome).derivee()}(${fDen})-${fNum}\\times${Number(c) < 0 ? `(${c})` : c}}{(${termeDen.latex})^2}.\\]`
           texteCorr += "D'où, en développant le numérateur : "
@@ -273,9 +250,7 @@ export default class DeriveeQuotient extends Exercice {
           // fDen = cx+d
           const c = (fDen as Polynome).monomes[1]
           const d = (fDen as Polynome).monomes[0]
-          const valI = new FractionEtendue(-d, Number(c))
-          df = `\\R\\backslash\\{${valI.texFractionSimplifiee}\\}`
-          texteCorr += `Ici la formule ci-dessus est applicable pour tout $x$ tel que $${termeDen.latex}\\neq 0$. C'est-à-dire $x\\neq${valI.texFractionSimplifiee}$.<br>`
+          
           texteCorr += 'On obtient alors : '
           texteCorr += `\\[${nameF}'(x)=\\frac{${fNum}(${fDen})-${fNum}\\times${Number(c) < 0 ? `(${c})` : c}}{(${termeDen.latex})^2}.\\]`
           texteCorr += 'On factorise par $e^x$, et on obtient : '
@@ -287,28 +262,23 @@ export default class DeriveeQuotient extends Exercice {
         }
         default:
           texteCorr += 'TODO'
-          df = '\\R'
           break
       }
       texte = texte.replaceAll('\\frac', '\\dfrac')
       if (this.sup2) {
-        texte += `<br>Montrer que $${nameF}^\\prime(x)=${maReponse.replaceAll('\\frac', '\\dfrac')}$`
-      } else {
-        texte =
-          `Donner l'expression de la dérivée de $${nameF}$ définie pour tout $x\\in${df}$ par : ` +
-          texte
+        texte += `<br>Montrer que $${nameF}^\\prime(x)=${maReponse.replaceAll('\\frac', '\\dfrac')}$.`
       }
       texteCorr = texteCorr.replaceAll('\\frac', '\\dfrac')
       if (this.interactif && !this.sup2) {
         texte +=
-          '<br><br>' +
+          '<br>' +
           ajouteChampTexteMathLive(this, i, KeyboardType.lyceeClassique, {
             texteAvant: `$${nameF}'(x)=$`,
           })
       }
       if (listeValeurs.indexOf(expression) === -1) {
         listeValeurs.push(expression)
-        this.listeQuestions[i] = texte + '.'
+        this.listeQuestions[i] = texte
         this.listeCorrections[i] = texteCorr
 
         handleAnswers(this, i, {

@@ -543,9 +543,28 @@ export class TexteParPoint extends ObjetMathalea2D {
     } else {
       let code = ''
       const anchor = tikzAncrages[this.ancrageDeRotation]
-      code = `\\draw [color=${this.color[1]}] (${arrondi(this.point.x)},${arrondi(
-        this.point.y,
-      )}) node[anchor = ${anchor},scale=${String(this.scale)}, rotate = ${String(-this.orientation)}] {${this.texte}};`
+      if (this.contour) {
+        // Utilisation du package contour pour le détourage
+        // Le contour est dans this.color
+        const colorContour = this.color[1].replace(/[{}]/g, '') // Retirer les accolades si présentes
+        const colorFill = this.couleurDeRemplissage[1].replace(/[{}]/g, '')
+        if (colorFill === '') {
+          // Si couleurDeRemplissage est vide : le texte intérieur doit être transparent
+          // On dessine d'abord le contour avec le texte blanc visible
+          code = `\\draw (${arrondi(this.point.x)},${arrondi(
+            this.point.y,
+          )}) node[anchor = ${anchor},scale=${String(this.scale)}, rotate = ${String(-this.orientation)}, text opacity=${this.opaciteDeRemplissage}] {\\textcolor{white}{\\contour{${colorContour}}{${this.texte}}}};`
+        } else {
+          // Sinon : le texte intérieur a la couleur spécifiée
+          code = `\\draw (${arrondi(this.point.x)},${arrondi(
+            this.point.y,
+          )}) node[anchor = ${anchor},scale=${String(this.scale)}, rotate = ${String(-this.orientation)}, text opacity=${this.opaciteDeRemplissage}] {\\textcolor{${colorFill}}{\\contour{${colorContour}}{${this.texte}}}};`
+        }
+      } else {
+        code = `\\draw [${this.color[1] !== '' ? `color=${this.color[1]}` : ''}] (${arrondi(this.point.x)},${arrondi(
+          this.point.y,
+        )}) node[anchor = ${anchor},scale=${String(this.scale)}, rotate = ${String(-this.orientation)}] {${this.texte}};`
+      }
       return code
     }
   }
@@ -1241,8 +1260,8 @@ export class Latex2d extends ObjetMathalea2D {
           : `{${this.col}}`
     }
     return this.backgroundCol !== '' && this.backgroundCol !== 'none'
-      ? `\\draw[opacity=${this.opacity}] (${this.x},${this.y}) node[anchor = center, rotate=${this.orientation}] {\\colorbox{${this.backgroundCol}} {\\${this.letterSize}  \\color${this.col}${this.gras ? '$\\boldsymbol{' : ''}${this.latex}${this.gras ? '}$' : ''}}};`
-      : `\\draw[opacity=${this.opacity}] (${this.x},${this.y}) node[anchor = center, rotate=${this.orientation}] {\\${this.letterSize} \\color${this.col}${this.gras ? '$\\boldsymbol{' : ''}${this.latex}${this.gras ? '}$' : ''}};`
+      ? `\\draw[opacity=${this.opacity}] (${this.x},${this.y}) node[anchor = center, rotate=${this.orientation}] {\\colorbox{${this.backgroundCol}} {\\${this.letterSize}  \\color${this.col}$${this.gras ? '\\boldsymbol{' : ''}${this.latex}${this.gras ? '}' : ''}$}};`
+      : `\\draw[opacity=${this.opacity}] (${this.x},${this.y}) node[anchor = center, rotate=${this.orientation}] {\\${this.letterSize} \\color${this.col}$${this.gras ? '\\boldsymbol{' : ''}${this.latex}${this.gras ? '}' : ''}$};`
   }
 }
 

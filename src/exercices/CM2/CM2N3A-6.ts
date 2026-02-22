@@ -1,5 +1,5 @@
 import DernierChiffre from '../6e/6N0A-5'
-export const titre = "Trouver le dernier chiffre d'une somme"
+export const titre = "Trouver le dernier chiffre d'une somme entre entiers"
 export const amcReady = true
 export const interactifReady = true
 export const interactifType = 'mathLive'

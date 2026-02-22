@@ -8,7 +8,9 @@ import {
   tableauDeVariation,
   tableauVariationsFonction,
 } from '../../lib/mathFonctions/etudeFonction'
-import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
+import { choice } from '../../lib/outils/arrayOutils'
+import { ecritureAlgebrique, rienSi1 } from '../../lib/outils/ecritures'
+import { texNombre } from '../../lib/outils/texNombre'
 import type FractionEtendue from '../../modules/FractionEtendue'
 import { mathalea2d } from '../../modules/mathalea2d'
 
@@ -27,7 +29,7 @@ export const dateDeModifImportante = '28/02/2025'
  * @author Gilles Mora
 
  */
-export const uuid = '05b52'
+export const uuid = '05b53'
 
 export const refs = {
   'fr-fr': ['2F30-1'],
@@ -45,25 +47,22 @@ export default class VariationsCourbe extends Exercice {
         '1 : Intervalle borné',
         '2 : Intervalle non borné à gauche ou à droite',
         '3 : Sur R',
-        '4: Mélange',
+        '4 : Fonction avec valeur interdite',
+        '0: Mélange',
       ].join('\n'),
     ]
   }
 
   nouvelleVersion() {
-    const typesDeQuestionsDisponibles = gestionnaireFormulaireTexte({
+    const listeTypeDeQuestions = gestionnaireFormulaireTexte({
       saisie: this.sup,
       min: 1,
-      max: 3,
-      melange: 4,
-      defaut: 4,
+      max: 4,
+      melange: 0,
+      defaut: 0,
       nbQuestions: this.nbQuestions,
-    })
+    }).map(Number)
 
-    const listeTypeDeQuestions = combinaisonListes(
-      typesDeQuestionsDisponibles,
-      this.nbQuestions,
-    )
     for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50; ) {
       const nomF = choice([['f'], ['g'], ['h'], ['u'], ['v'], ['w']])
       const nom = choice(nomF)
@@ -180,7 +179,6 @@ export default class VariationsCourbe extends Exercice {
                     10,
                   ],
                 ],
-                colorBackground: '',
                 espcl: 4, // taille en cm entre deux antécédents
                 deltacl: 1, // distance entre la bordure et les premiers et derniers antécédents
                 lgt: 2.5, // taille de la première colonne en cm
@@ -287,7 +285,6 @@ export default class VariationsCourbe extends Exercice {
                     10,
                   ],
                 ],
-                colorBackground: '',
                 espcl: 4, // taille en cm entre deux antécédents
                 deltacl: 1, // distance entre la bordure et les premiers et derniers antécédents
                 lgt: 3, // taille de la première colonne en cm
@@ -398,7 +395,6 @@ export default class VariationsCourbe extends Exercice {
                     10,
                   ],
                 ],
-                colorBackground: '',
                 espcl: 4, // taille en cm entre deux antécédents
                 deltacl: 1, // distance entre la bordure et les premiers et derniers antécédents
                 lgt: 3, // taille de la première colonne en cm
@@ -509,7 +505,6 @@ export default class VariationsCourbe extends Exercice {
                     10,
                   ],
                 ],
-                colorBackground: '',
                 espcl: 4, // taille en cm entre deux antécédents
                 deltacl: 1, // distance entre la bordure et les premiers et derniers antécédents
                 lgt: 3, // taille de la première colonne en cm
@@ -634,7 +629,6 @@ export default class VariationsCourbe extends Exercice {
                     10,
                   ],
                 ],
-                colorBackground: '',
                 espcl: 4, // taille en cm entre deux antécédents
                 deltacl: 1, // distance entre la bordure et les premiers et derniers antécédents
                 lgt: 3, // taille de la première colonne en cm
@@ -762,7 +756,6 @@ export default class VariationsCourbe extends Exercice {
                   10,
                 ],
               ],
-              colorBackground: '',
               espcl: 4, // taille en cm entre deux antécédents
               deltacl: 1, // distance entre la bordure et les premiers et derniers antécédents
               lgt: 3, // taille de la première colonne en cm
@@ -860,7 +853,6 @@ export default class VariationsCourbe extends Exercice {
                 tabLines: [
                   ['Var', 10, `-/$${y0}$`, 10, `+/$${y1}$`, 10, '-/', 10],
                 ],
-                colorBackground: '',
                 espcl: 4, // taille en cm entre deux antécédents
                 deltacl: 1, // distance entre la bordure et les premiers et derniers antécédents
                 lgt: 2.5, // taille de la première colonne en cm
@@ -952,7 +944,6 @@ export default class VariationsCourbe extends Exercice {
                 tabLines: [
                   ['Var', 10, '+/', 10, `-/$${y1}$`, 10, `+/$${y2}$`, 10],
                 ],
-                colorBackground: '',
                 espcl: 4, // taille en cm entre deux antécédents
                 deltacl: 1, // distance entre la bordure et les premiers et derniers antécédents
                 lgt: 3, // taille de la première colonne en cm
@@ -1067,7 +1058,6 @@ export default class VariationsCourbe extends Exercice {
                     10,
                   ],
                 ],
-                colorBackground: '',
                 espcl: 4, // taille en cm entre deux antécédents
                 deltacl: 1, // distance entre la bordure et les premiers et derniers antécédents
                 lgt: 3, // taille de la première colonne en cm
@@ -1182,7 +1172,6 @@ export default class VariationsCourbe extends Exercice {
                     10,
                   ],
                 ],
-                colorBackground: '',
                 espcl: 4, // taille en cm entre deux antécédents
                 deltacl: 1, // distance entre la bordure et les premiers et derniers antécédents
                 lgt: 3, // taille de la première colonne en cm
@@ -1303,7 +1292,6 @@ export default class VariationsCourbe extends Exercice {
                     10,
                   ],
                 ],
-                colorBackground: '',
                 espcl: 4, // taille en cm entre deux antécédents
                 deltacl: 1, // distance entre la bordure et les premiers et derniers antécédents
                 lgt: 3, // taille de la première colonne en cm
@@ -1426,7 +1414,6 @@ export default class VariationsCourbe extends Exercice {
                   10,
                 ],
               ],
-              colorBackground: '',
               espcl: 4, // taille en cm entre deux antécédents
               deltacl: 1, // distance entre la bordure et les premiers et derniers antécédents
               lgt: 3, // taille de la première colonne en cm
@@ -1437,7 +1424,6 @@ export default class VariationsCourbe extends Exercice {
           break
 
         case 3:
-        default:
           choix = randint(1, 3)
 
           if (choix === 1) {
@@ -1657,6 +1643,188 @@ export default class VariationsCourbe extends Exercice {
             texteCorr = `La fonction $f$ est définie sur $\\mathbb{R}$.<br>
          Son tableau de variations est : <br><br>`
             texteCorr += `${tableau}`
+          }
+          break
+        case 4:
+        default:
+          {
+            const genereDenomAvecPoles = (choix: number) => {
+              let a = randint(-6, 6, 0) / 2
+              const a1 = randint(-3, 3, [a, -a, 0])
+              const b1 = randint(-3, 3, [-a1, 0])
+              if (-a * a1 - b1 === 0) {
+                a -= 1
+              }
+              const fonction =
+                choix === 2
+                  ? (x: number) => (a < 0 ? 1 / (x - a) : 1 / (a - x))
+                  : (x: number) => (a1 * x + b1) / (x - a)
+              let denomTex: string
+              if (choix === 2) {
+                denomTex =
+                  a < 0
+                    ? `x  ${ecritureAlgebrique(a)}`
+                    : `${ecritureAlgebrique(a)} - x`
+              } else {
+                denomTex = `x  ${ecritureAlgebrique(-a)}`
+              }
+              const fonctionTex =
+                choix === 2
+                  ? `\\dfrac{1}{x  ${ecritureAlgebrique(a)}}`
+                  : `\\dfrac{${rienSi1(a1)}x ${ecritureAlgebrique(b1)}}{x ${ecritureAlgebrique(-a)}}`
+              const numTex =
+                choix === 2 ? '1' : `${rienSi1(a1)}x ${ecritureAlgebrique(b1)}`
+
+              const signes =
+                choix === 2
+                  ? [
+                      a > 0 ? '-/ ' : '+/ ',
+                      a > 0 ? '+D-/ / ' : '-D+/ / ',
+                      a > 0 ? '+/ ' : '-/ ',
+                    ]
+                  : [
+                      b1 + a * a1 > 0 ? '+/ ' : '-/ ',
+                      b1 + a * a1 > 0 ? '-D+/ / ' : '+D-/ / ',
+                      b1 + a * a1 > 0 ? '-/ ' : '+/ ',
+                    ]
+              const limiteMoinsInfini = choix === 2 ? 0 : a1
+              const limitePlusInfini = choix === 2 ? 0 : a1
+
+              return {
+                fonction,
+                fonctionTex,
+                denomTex,
+                numTex,
+                signes,
+                limiteMoinsInfini,
+                limitePlusInfini,
+                valeursInterdites: [a],
+              }
+            }
+            choix = randint(1, 2)
+            const poles = genereDenomAvecPoles(choix)
+            fonction = poles.fonction
+            const r1 = repere({
+              xMin: -6,
+              yMin: -20,
+              yMax: 20,
+              xMax: 6,
+              xUnite: 1,
+              yUnite: 0.2,
+              xThickDistance: 1,
+              yThickDistance: 10,
+              xLabelMin: -6,
+              xLabelMax: 6,
+              yLabelMin: -20,
+              yLabelMax: 20,
+              yLabelEcart: 0.6,
+              grilleXDistance: 1,
+              grilleYDistance: 1,
+              grilleXMin: -6,
+              grilleYMin: -20,
+              grilleXMax: 6,
+              grilleYMax: 20,
+            })
+            const cf = courbe(fonction, {
+              repere: r1,
+              xMin: -6,
+              xMax: 6,
+              color: 'blue',
+              epaisseur: 2,
+              step: 0.02,
+            })
+            const graphique = mathalea2d(
+              {
+                xmin: -6,
+                xmax: 6,
+                ymin: -4.1,
+                ymax: 4.1,
+                pixelsParCm: 30,
+                scale: 0.6,
+                style: 'margin: auto',
+              },
+              r1,
+              cf,
+            )
+
+            texte = `La fonction $${nom}$ est définie sur $\\mathbb{R} \\setminus \\{${poles.valeursInterdites.map((v) => texNombre(v, 1)).join(' ; ')}\\}$.<br>
+            ${graphique}<br>`
+            texteCorr = `La fonction $${nom}$ est définie sur $\\mathbb{R} \\setminus \\{${poles.valeursInterdites.map((v) => texNombre(v, 1)).join(' ; ')}\\}$.<br>
+            Son tableau de variations est : <br><br>`
+            if (choix === 2) {
+              texteCorr +=
+                tableauDeVariation({
+                  tabInit: [
+                    [
+                      ['$x$', 1.5, 10],
+                      [`$${nom}(x)$`, 4, 30],
+                    ],
+                    [
+                      `$-\\infty$`,
+                      10,
+                      `${texNombre(poles.valeursInterdites[0], 1)}`,
+                      10,
+                      `$+\\infty$`,
+                      10,
+                    ],
+                  ],
+                  tabLines: [
+                    [
+                      'Var',
+                      20,
+                      `${poles.signes[0]} `,
+                      20,
+                      `${poles.signes[1]}`,
+                      20,
+                      `${poles.signes[2]}`,
+                      20,
+                      `${poles.signes[3]}`,
+                    ],
+                  ],
+                  espcl: 4, // taille en cm entre deux antécédents
+                  deltacl: 1, // distance entre la bordure et les premiers et derniers antécédents
+                  lgt: 2.5, // taille de la première colonne en cm
+                  hauteurLignes: [15, 15],
+                }) + '<br>'
+            } else {
+              texteCorr +=
+                tableauDeVariation({
+                  tabInit: [
+                    [
+                      ['$x$', 1.5, 10],
+                      [`$${nom}(x)$`, 4, 30],
+                    ],
+                    [
+                      `$-\\infty$`,
+                      10,
+                      `${texNombre(poles.valeursInterdites[0], 1)}`,
+                      10,
+                      `$+\\infty$`,
+                      10,
+                    ],
+                  ],
+                  tabLines: [
+                    [
+                      'Var',
+                      10,
+                      `${poles.signes[0]}`,
+                      10,
+                      `${poles.signes[1]}`,
+                      10,
+                      `${poles.signes[2]}`,
+                    ],
+                  ],
+                  espcl: 4, // taille en cm entre deux antécédents
+                  deltacl: 1, // distance entre la bordure et les premiers et derniers antécédents
+                  lgt: 2.5, // taille de la première colonne en cm
+                  hauteurLignes: [15, 15],
+                }) + '<br>'
+            }
+
+            variables.push(
+              ...poles.valeursInterdites,
+              ...poles.signes.map((s) => (s === '+' ? 1 : -1)),
+            )
           }
           break
       }

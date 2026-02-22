@@ -81,7 +81,6 @@ export default class ProduitScalaireCoordonnees extends Exercice {
     for (
       let i = 0, texte, texteCorr, reponse, objets, cpt = 0;
       i < this.nbQuestions && cpt < 50;
-
     ) {
       const cours = `Dans un repère orthonormé, si $\\overrightarrow{u}\\begin{pmatrix}x\\\\y\\end{pmatrix}$ et  $\\overrightarrow{u}\\begin{pmatrix}x'\\\\y'\\end{pmatrix}$ alors 
       $\\vec{u}\\cdot\\vec{v}=xx'+yy'$.<br>`
@@ -134,7 +133,7 @@ export default class ProduitScalaireCoordonnees extends Exercice {
             const yu = randint(-10, 10, 0)
             const xv = randint(-10, 10, 0)
             const yv = randint(-10, 10)
-            texte = `Dans un repère orthonormé, on considère les vecteurs $\\overrightarrow{u}\\begin{pmatrix}${xu}\\\\${yu}\\end{pmatrix}$ et  $\\overrightarrow{u}\\begin{pmatrix}${xv}\\\\${yv}\\end{pmatrix}$.<br>
+            texte = `Dans un repère orthonormé, on considère les vecteurs $\\overrightarrow{u}\\begin{pmatrix}${xu}\\\\${yu}\\end{pmatrix}$ et  $\\overrightarrow{v}\\begin{pmatrix}${xv}\\\\${yv}\\end{pmatrix}$.<br>
           Calculer $\\vec{u}\\cdot\\vec{v}$.`
             if (this.sup2) {
               texteCorr = `${cours}`

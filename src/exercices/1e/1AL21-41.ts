@@ -1,17 +1,17 @@
+import { handleAnswers } from '../../lib/interactif/gestionInteractif'
+import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
 import {
   ecritureAlgebrique,
   ecritureAlgebriqueSauf1,
   rienSi1,
 } from '../../lib/outils/ecritures'
-import Exercice from '../Exercice'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import Trinome from '../../modules/Trinome'
-import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
-import { handleAnswers } from '../../lib/interactif/gestionInteractif'
+import Exercice from '../Exercice'
 
-import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 import type { MathfieldElement } from 'mathlive'
+import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 import {
   miseEnEvidence,
   texteEnCouleurEtGras,
@@ -211,7 +211,9 @@ export default class ResoudreEquationDegre2 extends Exercice {
             'ease-in-out',
           )
           button.textContent = 'Pas factorisable'
-          question.insertBefore(button, feedback.nextSibling)
+          // ✅ insertion robuste
+          feedback.after(button)
+
           button.addEventListener('click', () => {
             const mathfield = document.getElementById(
               `champTexteEx${this.numeroExercice}Q${i}`,

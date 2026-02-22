@@ -14,7 +14,7 @@ export function plantation(): Probleme {
   const nb2 = randint(5, 20, nb1)
   const data = { nb1, nb2 }
   const enonce = `${personnage.prenom} a planté $${texNombre(nb1, 0)}$ arbres le matin et $${texNombre(nb2, 0)}$ arbres l'après-midi.
-Combien d'arbres a-t-${personnage.pronom} plantés en tout ?`
+<br>ombien d'arbres a-t-${personnage.pronom} plantés en tout ?`
   const correction = `${personnage.prenom} a planté $${texNombre(nb1, 0)}$ arbres le matin et $${texNombre(nb2, 0)}$ arbres l'après-midi.
 <br>Donc, au total, le nombre d'arbres qu'${personnage.pronom} a planté est : $${texNombre(nb1, 0)}+${texNombre(nb2, 0)}=${miseEnEvidence(texNombre(nb1 + nb2, 0))}$.`
   const probleme = new ProblemeAdditif('plantation', data)

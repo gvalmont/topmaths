@@ -1,10 +1,9 @@
 import type { BoxedExpression } from '@cortex-js/compute-engine'
-import { Matrix } from 'mathjs'
 import { randint } from '../../modules/outils'
 import engine, { generateCleaner } from '../interactif/comparisonFunctions'
 import { ecritureAlgebrique } from '../outils/ecritures'
 import { miseEnEvidence } from '../outils/embellissements'
-import { matrice } from './Matrice'
+import { Matrice, matrice } from './Matrice'
 import { Polynome } from './Polynome'
 
 /**
@@ -153,12 +152,16 @@ export function resolutionSystemeLineaire2x2(
   ])
   if (maMatrice.determinant() === 0) return [0, 0]
   const resultat = maMatrice.inverse().multiply([fx1 - c, fx2 - c])
-  if (resultat instanceof Matrix) {
-    const [a, b] = resultat.toArray() as number[]
-    return [a, b]
+  let arr: number[]
+  if (resultat instanceof Matrice) {
+    arr = resultat.toArray() as number[]
+  } else if (Array.isArray(resultat)) {
+    arr = resultat as number[]
+  } else {
+    return [0, 0]
   }
-
-  return [0, 0]
+  const [a, b] = arr
+  return [a, b]
 }
 
 /**
@@ -187,11 +190,16 @@ export function resolutionSystemeLineaire3x3(
     return [0, 0, 0]
   }
   const resultat = maMatrice.inverse().multiply([y1, y2, y3])
-  if (resultat instanceof Matrix) {
-    const [a, b, c] = resultat.toArray() as number[]
-    return [a, b, c]
+  let arr: number[]
+  if (resultat instanceof Matrice) {
+    arr = resultat.toArray() as number[]
+  } else if (Array.isArray(resultat)) {
+    arr = resultat as number[]
+  } else {
+    return [0, 0, 0]
   }
-  return [0, 0, 0]
+  const [a, b, c] = arr
+  return [a, b, c]
 }
 
 /**

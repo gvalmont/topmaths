@@ -124,13 +124,20 @@ export class Courbe extends ObjetMathalea2D {
     } else {
       pas = Number(step)
     }
+    let lastFiniteX: number | null = null // Dernier x ayant fourni une valeur finie
+    let lastOutOfBoundsX: number | null = null // Dernier x hors cadre mais fini
+
     for (let x = xmin; inferieurouegal(x, xMax ?? 10); x += pas) {
       if (x > xmax) x = xmax // normalement x<xmax... mais inférieurouegal ne compare qu'à 0.0000001 près, on peut donc avoir xmax+epsilon qui sort de l'intervalle de déf
       const y = Number(f(x))
       if (isFinite(y)) {
-        if (f(x) < ymax + 1 && f(x) > ymin - 1) {
-          points.push(point(x * xunite, f(x) * yunite))
+        if (y < ymax + 10 && y > ymin - 10) {
+          points.push(point(x * xunite, y * yunite))
+          lastFiniteX = x
+          lastOutOfBoundsX = null // Réinitialiser car on est revenu dans les limites
         } else {
+          // Valeur finie mais hors des limites affichées
+          lastOutOfBoundsX = x
           if (points.length > 1) {
             p = polyline([...points], color)
             p.epaisseur = epaisseur
@@ -139,7 +146,45 @@ export class Courbe extends ObjetMathalea2D {
           }
         }
       } else {
-        x += 0.05
+        // Valeur infinie détectée
+        if (lastFiniteX !== null) {
+          // Créer des points supplémentaires entre le dernier point valide et l'infini
+          const smallStep = pas / 100
+          let xSmall: number = lastFiniteX + smallStep
+
+          while (xSmall < x) {
+            const ySmall = Number(f(xSmall))
+            if (isFinite(ySmall) && ySmall < ymax + 10 && ySmall > ymin - 10) {
+              points.push(point(xSmall * xunite, ySmall * yunite))
+              lastFiniteX = xSmall
+            } else if (isFinite(ySmall)) {
+              // Hors cadre mais fini
+              lastOutOfBoundsX = xSmall
+            } else {
+              // Infini rencontré avant x
+              break
+            }
+            xSmall += smallStep
+          }
+
+          // Sauvegarder la polyligne actuellement en cours
+          if (points.length > 1) {
+            p = polyline([...points], color)
+            p.epaisseur = epaisseur
+            this.objets.push(p)
+            points = []
+          }
+        }
+
+        // Calculer le nouveau point de départ après l'infini
+        if (lastOutOfBoundsX !== null && lastFiniteX !== null) {
+          // dx entre le x ayant produit l'infini et le dernier x hors cadre mais fini
+          const dx = x - lastOutOfBoundsX
+          // Redémarrer à partir de x + dx
+          x = x + dx
+        } else {
+          x += pas
+        }
       }
     }
     if (points.length > 1) {

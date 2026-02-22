@@ -2,8 +2,11 @@
  * ⚠️ Cet exercice est utilisé dans le test : tests/e2e/tests/interactivity/mathLive.fractionEgale.test.ts ⚠️
  */
 
+import { texteCentre } from '../../lib/format/miseEnPage'
+import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
+import { handleAnswers } from '../../lib/interactif/gestionInteractif'
+import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
-import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { simplificationDeFractionAvecEtapes } from '../../lib/outils/deprecatedFractions'
 import {
   ecritureAlgebrique,
@@ -12,20 +15,21 @@ import {
   reduirePolynomeDegre3,
   rienSi1,
 } from '../../lib/outils/ecritures'
-import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
-import { texteCentre } from '../../lib/format/miseEnPage'
+import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { sp } from '../../lib/outils/outilString'
 import { pgcd } from '../../lib/outils/primalite'
-import Exercice from '../Exercice'
 import FractionEtendue from '../../modules/FractionEtendue'
 import {
   fraction,
   obtenirListeFractionsIrreductibles,
   obtenirListeFractionsIrreductiblesFaciles,
 } from '../../modules/fractions'
-import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils'
-import { handleAnswers } from '../../lib/interactif/gestionInteractif'
-import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
+import {
+  gestionnaireFormulaireTexte,
+  listeQuestionsToContenu,
+  randint,
+} from '../../modules/outils'
+import Exercice from '../Exercice'
 export const titre =
   "Calculer des coordonnées de points appartenant à une courbe connaissant l'abscisse ou l'ordonnée"
 export const interactifReady = true
@@ -69,7 +73,7 @@ export default class CalculPointSurCourbe extends Exercice {
       'Type de calcul',
       [
         'Nombres séparés par des tirets  :',
-        '1 : Calculer l\'ordonnée',
+        "1 : Calculer l'ordonnée",
         '2 : Calculer les abscisses éventuelles',
         '3 : Mélange',
       ].join('\n'),
@@ -162,7 +166,6 @@ export default class CalculPointSurCourbe extends Exercice {
         correction,
         cpt = 0;
       i < this.nbQuestions && cpt < 50;
-
     ) {
       // on ne choisit que des nombres compris entre 1 et 20
       x = randint(-9, 9, [0, 1, -1])
@@ -505,7 +508,7 @@ Les  abscisses de ces points sont : $${miseEnEvidence(`-\\sqrt{${abs}}`)}$ et $$
                       x&=${f1.texFraction}${f1.texSimplificationAvecEtapes()}\\\\
                                                 \\end{aligned}$<br>
                                                 Un seul point de $\\mathscr{C}$ a pour ordonnée $${ord}$. `
-                correction += `Son abcsisse est $${miseEnEvidence(f1.texFractionSimplifiee)}$.`
+                correction += `Son abscisse est $${miseEnEvidence(f1.texFractionSimplifiee)}$.`
                 handleAnswers(this, i, { reponse: { value: f1 } })
               }
 
@@ -566,7 +569,7 @@ Les  abscisses de ces points sont : $${miseEnEvidence(`-\\sqrt{${abs}}`)}$ et $$
                       x&=${f1.texFraction}${f1.texSimplificationAvecEtapes()}
                                                 \\end{aligned}$<br>
                                                 Un seul point de $\\mathscr{C}$ a pour ordonnée $${ord.texFraction}$. `
-                correction += `Son abcsisse est $${miseEnEvidence(f1.texFractionSimplifiee)}$.`
+                correction += `Son abscisse est $${miseEnEvidence(f1.texFractionSimplifiee)}$.`
                 handleAnswers(this, i, { reponse: { value: f1 } })
               }
 

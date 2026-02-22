@@ -1,7 +1,7 @@
 import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { randint } from '../../modules/outils'
 import ExerciceSimple from '../ExerciceSimple'
-export const titre = 'Dénombrement.'
+export const titre = 'Utiliser le produit cartésien.'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 
@@ -10,7 +10,7 @@ export const dateDePublication = '20/4/2025'
 export const uuid = '20106'
 export const refs = {
   'fr-fr': ['TSG1-05'],
-  'fr-ch': ['3mP1-1'],
+  'fr-ch': ['4mProbStat-1'],
 }
 
 /**

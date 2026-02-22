@@ -18,7 +18,7 @@ export function soif(decimal = false): Probleme {
   const uniteComplete = decimal ? 'litres' : 'centilitres'
   const data = { nb1, nb2 }
   const enonce = `Lors d'une journée chaude, ${personnage.prenom} a bu $${texNombre(nb1, 1)}$ ${uniteComplete} d'eau le matin et $${texNombre(nb2, 1)}$ ${uniteComplete} l'après-midi.
-Quelle quantité totale d'eau a-t-${personnage.pronom} bue ?`
+<br>Quelle quantité totale d'eau a-t-${personnage.pronom} bue ?`
   const correction = `${personnage.prenom} a bu $${texNombre(nb1, 1)}$ ${uniteComplete} d'eau le matin et $${texNombre(nb2, 1)}$ ${uniteComplete} l'après-midi.
 Donc, en tout, ${personnage.pronom} a bu $${texNombre(nb1, 1)}\\text{ ${unite}}+${texNombre(nb2, 1)}\\text{ ${unite}}=${miseEnEvidence(texNombre(nb1 + nb2, 1))}$ ${uniteComplete}.`
   const probleme = new ProblemeAdditif('soif', data)

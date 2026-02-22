@@ -8,7 +8,7 @@
     mathaleaLoadExerciceFromUuid,
   } from '../../../lib/mathalea'
   import { globalOptions } from '../../../lib/stores/globalOptions'
-  import type { InterfaceParams } from '../../../lib/types'
+  import type { IExercice, InterfaceParams } from '../../../lib/types'
   import ExerciceMathalea from './exerciceMathalea/ExerciceMathalea.svelte'
   import ExerciceHtml from './presentationalComponents/exerciceHtml/ExerciceHtml.svelte'
   import ExerciceStatic from './presentationalComponents/exerciceStatic/ExerciceStatic.svelte'
@@ -31,8 +31,8 @@
   let ComponentExercice: Component<any>
 
   let debug = false
-  function log(str: string) {
-    if (debug || window.logDebug > 1) {
+  function log(str: string, level: number = 3) {
+    if (debug || window.logDebug >= level) {
       console.info(str)
     }
   }
@@ -44,22 +44,24 @@
     )
     if (isStatic(paramsExercice.uuid)) {
       exerciseType = 'static'
+      log(
+        `Exercice.svelte n° ${indiceExercice}: Loaded exercise of type ${exerciseType}: uuid ${paramsExercice.uuid}`,
+      )
     } else if (isSvelte(paramsExercice.uuid)) {
       exerciseType = 'svelte'
       ComponentExercice = await getSvelteComponent(paramsExercice)
     } else {
-      exercise = await getExercise(paramsExercice)
+      exercise = (await getExercise(paramsExercice)) as Exercice
       exerciseType = await getExerciseType(exercise)
+      log(
+        `Exercice.svelte n° ${indiceExercice}: Loaded exercise of type ${exerciseType}: id ${exercise.id}, uuid ${exercise.uuid}`,
+      )
     }
-    log(
-      `Exercice.svelte: Loaded exercise of type ${exerciseType}: ` +
-        JSON.stringify(exercise),
-    )
   })
 
   async function getExercise(
     paramsExercice: InterfaceParams,
-  ): Promise<Exercice> {
+  ): Promise<IExercice> {
     const exercise = await mathaleaLoadExerciceFromUuid(paramsExercice.uuid)
     exercise.numeroExercice = indiceExercice
     mathaleaHandleParamOfOneExercice(exercise, paramsExercice)

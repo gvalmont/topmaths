@@ -16,6 +16,7 @@ import {
   reduireAxPlusB,
   rienSi1,
 } from '../../lib/outils/ecritures'
+import { miseEnEvidence } from '../../lib/outils/embellissements'
 
 export const titre =
   'Additionner ou soustraire une expression entre parenthèses'
@@ -68,7 +69,6 @@ export default class ParenthesesPrecedesDeMoinsOuPlus extends Exercice {
     for (
       let i = 0, reponse1, reponse2, reponse3, choixLettre, a, b, k, cpt = 0;
       i < this.nbQuestions && cpt < 50;
-
     ) {
       k = randint(-11, 11, 0)
       a = randint(-9, 9, 0)
@@ -238,6 +238,19 @@ export default class ParenthesesPrecedesDeMoinsOuPlus extends Exercice {
       if (this.questionJamaisPosee(i, listeTypeDeQuestions[i], a, b, k)) {
         // Si la question n'a jamais été posée, on en créé une autre
         this.listeQuestions[i] = texte
+
+        // Uniformisation : Mise en place de la réponse attendue en interactif en orange et gras
+        const textCorrSplit = texteCorr.split('=')
+        let aRemplacer = textCorrSplit[textCorrSplit.length - 1]
+        aRemplacer = aRemplacer.replace('$', '')
+
+        texteCorr = ''
+        for (let ee = 0; ee < textCorrSplit.length - 1; ee++) {
+          texteCorr += textCorrSplit[ee] + '='
+        }
+        texteCorr += `$ $${miseEnEvidence(aRemplacer)}$`
+        // Fin de cette uniformisation
+
         this.listeCorrections[i] = texteCorr
         i++
       }

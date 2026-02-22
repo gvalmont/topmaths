@@ -212,7 +212,7 @@ export default class CalculDAngleFigureComplexe extends Exercice {
         case 'BA-AD-ACB':
           AC = BA / Math.sin(degToRad(ACB))
           ACD = Math.round(radToDeg(Math.atan(AD / AC)))
-          a1 = afficheMesureAngle(A, C, B, 'black', 1, ACB + '\\circ')
+          a1 = afficheMesureAngle(A, C, B, 'black', 1, ACB + '^\\circ')
           if (this.sup) {
             objetsMathalea.push(a1, a2, a3)
           }

@@ -38,7 +38,7 @@ export default class ProblemeTransfoTransfo extends Probleme {
       ],
     })
     this.enonce = `On avait $${texNombre(data.nb1, 2)}$ € et on dispose maintenant de $${texNombre(data.nb1 + data.nb2)}$€ après avoir touché un remboursement.
-Quel est le montant du remboursement ?`
+<br>Quel est le montant du remboursement ?`
     this.correction = `Le remboursement est de $${texNombre(data.nb1 + data.nb2, 2)}-${texNombre(data.nb1, 2)}=${miseEnEvidence(texNombre(data.nb2, 2))}$ €.`
     this.reponse = texNombre(data.nb2, 2)
   }

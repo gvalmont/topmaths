@@ -40,9 +40,6 @@ export class PointAbstrait extends ObjetMathalea2D {
       }
       this.nom = String(arg3)
     }
-    // On n'a pas besoin de davantage de décimales pour les graphiques !
-    this.x = Number(this.x.toFixed(2))
-    this.y = Number(this.y.toFixed(2))
 
     this.positionLabel = positionLabel
     this.bordures = [this.x, this.y, this.x, this.y]

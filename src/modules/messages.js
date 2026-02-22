@@ -62,7 +62,7 @@ export function messageFeedback({ id, message = '', type = 'error' } = {}) {
   if (!id || !message) return console.error(TypeError('arguments manquants'))
   const container = get(id)
   const div = addFeedback(container, { message, type })
-  div.style.width = '400px'
+  // div.style.width = '400px' MGu ne jamais mettre en dure une largeur, c'est pas responsive
   div.classList.add('my-2', 'p-1')
   if (type === 'error') {
     div.classList.add('bg-coopmaths-action-200', 'rounded-lg', 'p-3')

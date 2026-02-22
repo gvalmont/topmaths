@@ -15,7 +15,7 @@ export const interactifReady = true
 export const interactifType = 'qcm'
 export const amcReady = 'true'
 export const amcType = 'qcmMono'
-export const titre = 'QCM : Déterminer une primitive'
+export const titre = 'Déterminer une primitive'
 export const dateDePublication = '15/03/2025'
 /**
  * Ceci est un exo construit à partir d'une question de qcm de Bac.

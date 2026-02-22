@@ -15,7 +15,7 @@ export function transports(): Probleme {
   const nb2 = randint(25, 35, nb1)
   const data = { nb1, nb2 }
   const enonce = `${personnage.prenom} a mis $${texNombre(nb1, 0)}$ minutes pour aller au travail le matin et $${texNombre(nb2, 0)}$ minutes pour rentrer le soir.
-Quel temps total a-t-${personnage.pronom} passé dans les transports ?`
+<br>Quel temps total a-t-${personnage.pronom} passé dans les transports ?`
   const correction = `${personnage.prenom} a mis $${texNombre(nb1, 0)}$ minutes le matin et $${texNombre(nb2, 0)}$ minutes le soir.
 Donc, en tout, ${personnage.pronom} a passé $${texNombre(nb1, 0)}+${texNombre(nb2, 0)}=${miseEnEvidence(texNombre(nb1 + nb2, 0))}$ minutes dans les transports.`
 

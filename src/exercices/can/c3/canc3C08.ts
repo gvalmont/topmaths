@@ -4,6 +4,7 @@ import { prenomF, prenomM } from '../../../lib/outils/Personne'
 import { texPrix } from '../../../lib/format/style'
 import ExerciceSimple from '../../ExerciceSimple'
 import { randint } from '../../../modules/outils'
+import { miseEnEvidence } from '../../../lib/outils/embellissements'
 export const titre = 'Résoudre un problème avec "de plus", "de moins"*'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -100,9 +101,9 @@ export default class PlusOuMoins2 extends ExerciceSimple {
           this.correction += ' de moins '
           this.correction += `que ${prenom2}. <br>${prenom1} a donc : $${texPrix(r)}-${texPrix(e)}=${texPrix(m)}$ €.`
           this.correction += `<br>$${texPrix(r)}+${texPrix(m)}= ${texPrix(somme)}$`
-          this.correction += `<br>Les deux filles possèdent en tout : $${texPrix(somme)}$ €.`
+          this.correction += `<br>Les deux filles possèdent en tout : $${miseEnEvidence(texPrix(somme))}$ €.`
           if (this.interactif) {
-            this.optionsChampTexte = { texteApres: ' €' }
+            this.optionsChampTexte = {  texteAvant: '<br>',texteApres: ' €' }
           }
         }
         if (choix === 'b') {
@@ -137,9 +138,9 @@ export default class PlusOuMoins2 extends ExerciceSimple {
           this.correction += ' de plus '
           this.correction += `que ${prenom2}. <br>${prenom1} a donc : $${texPrix(r)} + ${texPrix(e)} = ${texPrix(m)}$ €.`
           this.correction += `<br>$${texPrix(r)} + ${texPrix(m)}  = ${texPrix(somme)}$`
-          this.correction += `<br>Les deux filles possèdent en tout : $${texPrix(somme)}$ €.`
+          this.correction += `<br>Les deux filles possèdent en tout : $${miseEnEvidence(texPrix(somme))}$ €.`
           if (this.interactif) {
-            this.optionsChampTexte = { texteApres: ' €' }
+            this.optionsChampTexte = { texteAvant: '<br>', texteApres: ' €' }
           }
         }
         if (choix === 'c') {
@@ -173,9 +174,9 @@ export default class PlusOuMoins2 extends ExerciceSimple {
           this.correction += `que ${prenom2}.`
           this.correction += ` <br>${prenom1} a donc : $${texPrix(r)} -${texPrix(e)} = ${texPrix(m)}$ €.`
           this.correction += `<br>$${texPrix(r)} + ${texPrix(m)}  = ${texPrix(somme)}$`
-          this.correction += `<br>Les deux filles possèdent en tout : $${texPrix(somme)}$ €.`
+          this.correction += `<br>Les deux filles possèdent en tout : $${miseEnEvidence(texPrix(somme))}$ €.`
           if (this.interactif) {
-            this.optionsChampTexte = { texteApres: ' €' }
+            this.optionsChampTexte = { texteAvant: '<br>', texteApres: ' €' }
           }
         }
         if (choix === 'd') {
@@ -208,12 +209,13 @@ export default class PlusOuMoins2 extends ExerciceSimple {
           this.correction += `que ${prenom2}.  `
           this.correction += `  <br>${prenom1} a donc : $${texPrix(r)}+${texPrix(e)}=${texPrix(m)}$ €.`
           this.correction += `<br>$${texPrix(r)}+${texPrix(m)}= ${texPrix(somme)}$`
-          this.correction += `<br>Les deux filles possèdent en tout : $${texPrix(somme)}$ €.`
+          this.correction += `<br>Les deux filles possèdent en tout : $${miseEnEvidence(texPrix(somme))}$ €.`
           if (this.interactif) {
-            this.optionsChampTexte = { texteApres: ' €' }
+            this.optionsChampTexte = {  texteAvant: '<br>',texteApres: ' €' }
           }
         }
-
+this.canEnonce = this.question
+    this.canReponseACompleter = '$\\ldots$ €'
         break
       case 2: // ensemble, objets
         choix = choice(['a', 'b'])
@@ -240,7 +242,7 @@ export default class PlusOuMoins2 extends ExerciceSimple {
           }
           this.correction = `${prenom1} a $${b}$ ${objets} ${choix1 ? 'de plus' : ' de moins '} que ${prenom2} donc ${prenom2}  a $${b}$ ${objets} ${choix1 ? 'de moins' : ' de plus '} que ${prenom1}.<br>
                       Il a donc  (${choix1 ? `$${a}-${b}$` : `$${a}+${b}$`}) ${objets}, soit  ${choix1 ? `$${a - b}$` : `$${a + b}$`} ${objets}.<br>
-                      Ensemble, ils en ont (${choix1 ? `$${a - b}+${a}$` : `$${a + b}+${a}$`}) soit ${choix1 ? `$${reponse1}$` : `$${reponse2}$`}.`
+                      Ensemble, ils en ont (${choix1 ? `$${a - b}+${a}$` : `$${a + b}+${a}$`}) soit ${choix1 ? `$${miseEnEvidence(reponse1)}$` : `$${miseEnEvidence(reponse2)}$`}.`
         }
         if (choix === 'b') {
           choix1 = choice([true, false])
@@ -265,7 +267,7 @@ export default class PlusOuMoins2 extends ExerciceSimple {
             }
             this.correction = `${prenom1} a $${b}$ ${objets} ${choix1 ? 'de plus' : ' de moins '} que ${prenom2} donc ${prenom2}  a $${b}$ ${objets} ${choix1 ? 'de moins' : ' de plus '} que ${prenom1}.<br>
                   Il en a donc  (${choix1 ? `$${a}-${b}$` : `$${a}+${b}$`}), soit  ${choix1 ? `$${a - b}$` : `$${a + b}$`}.<br>
-                  Ensemble, ils ont donc (${choix1 ? `$${a - b}+${a}$` : `$${a + b}+${a}$`}), soit  ${choix1 ? `$${reponse2}$` : `$${reponse1}$`} ${objets}.
+                  Ensemble, ils ont donc (${choix1 ? `$${a - b}+${a}$` : `$${a + b}+${a}$`}), soit  ${choix1 ? `$${miseEnEvidence(reponse2)}$` : `$${miseEnEvidence(reponse1)}$`} ${objets}.
                    `
           } else {
             reponse1 = 2 * a + b
@@ -284,13 +286,15 @@ export default class PlusOuMoins2 extends ExerciceSimple {
             }
             this.correction = `${prenom1} a $${b}$ ${objets} ${choix1 ? 'de plus' : ' de moins '} que ${prenom2}.
              Il en a donc  (${choix1 ? `$${a}+${b}$` : `$${a}-${b}$`}), soit  ${choix1 ? `$${a + b}$` : `$${a - b}$`}. <br>
-             Ensemble, ils ont donc (${choix1 ? `$${a + b}+${a}$` : `$${a - b}+${a}$`}), soit  ${choix1 ? `$${reponse1}$` : `$${reponse2}$`} ${objets}.
+             Ensemble, ils ont donc (${choix1 ? `$${a + b}+${a}$` : `$${a - b}+${a}$`}), soit  ${choix1 ? `$${miseEnEvidence(reponse1)}$` : `$${miseEnEvidence(reponse2)}$`} ${objets}.
               `
           }
         }
         if (this.interactif) {
-          this.optionsChampTexte = { texteApres: ` ${objets}` }
+          this.optionsChampTexte = {  texteAvant: '<br>',texteApres: ` ${objets}` }
         }
+        this.canEnonce = this.question
+    this.canReponseACompleter = `$\\ldots$ ${objets}`
         break
 
       case 3:
@@ -317,9 +321,9 @@ export default class PlusOuMoins2 extends ExerciceSimple {
           this.correction = ` Il y a $${b}$ ${choix2 ? ' filles ' : ' garçons'} ${choix1 ? 'de plus' : ' de moins '}
             que de ${choix2 ? ' garçons ' : ' filles'}.<br>
                       Il y a donc  (${choix1 ? `$${a}+${b}$` : `$${a}-${b}$`}) ${choix2 ? ' filles' : ' garçons'}, soit  ${choix1 ? `$${a + b}$` : `$${a - b}$`} ${choix2 ? ' filles ' : ' garçons'}. <br>
-                      Dans ce club, il y a donc au total (${choix1 ? `$${a + b}+${a}$` : `$${a - b}+${a}$`}) soit ${choix1 ? `$${reponse1}$` : `$${reponse2}$`} adhérents.`
+                      Dans ce club, il y a donc au total (${choix1 ? `$${a + b}+${a}$` : `$${a - b}+${a}$`}) soit ${choix1 ? `$${miseEnEvidence(reponse1)}$` : `$${miseEnEvidence(reponse2)}$`} adhérents.`
           if (this.interactif) {
-            this.optionsChampTexte = { texteApres: ' adhérents' }
+            this.optionsChampTexte = {  texteAvant: '<br>',texteApres: ' adhérents' }
           }
         }
         if (choix === 'b') {
@@ -343,15 +347,15 @@ export default class PlusOuMoins2 extends ExerciceSimple {
                       que de ${choix2 ? ' garçons ' : ' filles'}, il y a donc  $${b}$ ${choix2 ? ' garçons ' : ' filles'} ${choix1 ? 'de moins' : ' de plus '}
                       que de ${choix2 ? ' filles ' : ' garçons'}.<br>
                      Il y a (${choix1 ? `$${a}-${b}$` : `$${a}+${b}$`}) ${choix2 ? ' garçons' : ' filles'}, soit  ${choix1 ? `$${a - b}$` : `$${a + b}$`} ${choix2 ? ' garçons' : ' filles'} dans ce club.
-                     <br>Dans ce club, il y a donc au total (${choix1 ? `$${a - b}+${a}$` : `$${a + b}+${a}$`}) soit ${choix1 ? `$${reponse2}$` : `$${reponse1}$`} adhérents.`
+                     <br>Dans ce club, il y a donc au total (${choix1 ? `$${a - b}+${a}$` : `$${a + b}+${a}$`}) soit ${choix1 ? `$${miseEnEvidence(reponse2)}$` : `$${miseEnEvidence(reponse1)}$`} adhérents.`
           if (this.interactif) {
-            this.optionsChampTexte = { texteApres: ' adhérents' }
+            this.optionsChampTexte = { texteAvant: '<br>', texteApres: ' adhérents' }
           }
         }
-
+ this.canEnonce = this.question
+    this.canReponseACompleter = '$\\ldots$ adhérents'
         break
     }
-    this.canEnonce = this.question
-    this.canReponseACompleter = ''
+   
   }
 }

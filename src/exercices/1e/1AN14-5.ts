@@ -15,9 +15,9 @@ import {
 } from '../../modules/outils'
 import Exercice from '../Exercice'
 
-export const titre = 'Dériver $u\\times v$'
+export const titre = 'Dériver une fonction du type $u\\times v$'
 export const dateDePublication = '22/01/2022'
-export const dateDeModifImportante = '06/05/2024'
+export const dateDeModifImportante = '28/01/2026'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 
@@ -58,7 +58,7 @@ export default class DeriveeProduit extends Exercice {
       'Types de fonctions :',
       'Nombres séparés par des tirets :\n1 Monôme2 et affine\n2 : Inverse et affine\n3 : Racine et polynôme\n4 : Racine et polynôme degré 2 sans degré 1\n5 : Monôme2 et racine\n6 : Mélange',
     ]
-
+this.spacing= 1.5
     this.nbQuestions = 3
     // Sortie LaTeX
     this.nbCols = 2 // Nombre de colonnes
@@ -73,11 +73,12 @@ export default class DeriveeProduit extends Exercice {
   }
 
   nouvelleVersion() {
-    this.consigne =
-      this.nbQuestions > 1
-        ? "Pour chacune des fonctions suivantes, déterminer l'expression de sa fonction dérivée."
-        : "Déterminer l'expression de la fonction dérivée de la fonction suivante."
-    const listeValeurs = [] // Les questions sont différentes du fait du nom de la fonction, donc on stocke les valeurs
+     if (this.nbQuestions > 1) {
+      this.consigne = 'Dans chacun des cas suivants, on admet que la fonction est définie et dérivable sur un intervalle $I$. <br>Déterminer une expression de la fonction dérivée sur $I$.'
+    } else {
+      this.consigne = 'On admet que la fonction est définie et dérivable sur un intervalle $I$. <br>Déterminer une expression de la fonction dérivée sur $I$.'
+    }
+     const listeValeurs = [] // Les questions sont différentes du fait du nom de la fonction, donc on stocke les valeurs
 
     // Types d'énoncés
     // const listeTypeDeQuestionsDisponibles = ['monome2/poly1', 'inv/poly1']
@@ -111,7 +112,6 @@ export default class DeriveeProduit extends Exercice {
         askFacto,
         askFormule,
         askQuotient,
-        ensembleDerivation,
         namef,
         cpt = 0;
       i < this.nbQuestions && cpt < 50;
@@ -165,13 +165,19 @@ export default class DeriveeProduit extends Exercice {
       terme2 = parenth(exprf2, typef2)
       // Expression finale de la fonction
       expression = `${terme1}*${terme2}`
-      // Ensemble de dérivation
-      ensembleDerivation = listeTypeFonctions.includes('racine')
-        ? '\\mathbb{R}_+^*'
-        : '\\mathbb{R}'
-      ensembleDerivation = listeTypeFonctions.includes('inv')
-        ? '\\mathbb{R}^*'
-        : ensembleDerivation
+      
+      // Pour le cas monome2/poly1, on crée l'affichage directement en LaTeX
+      let affichageFonction = ''
+      if (listeTypeDeQuestions[i] === 'monome2/poly1') {
+        const mon2 = dictFonctions[typef1] as Polynome
+        const poly1 = dictFonctions[typef2] as Polynome
+        const coeff = mon2.monomes[2] // coefficient de x²
+        // On affiche : coeff x² (poly1)
+        const coeffStr = coeff === 1 ? '' : coeff === -1 ? '-' : `${coeff}`
+        affichageFonction = `${coeffStr}x^{2}(${poly1.toLatex()})`
+      } else {
+        affichageFonction = engine.parse(expression).latex
+      }
 
       // Enoncé
       namef = [
@@ -202,9 +208,9 @@ export default class DeriveeProduit extends Exercice {
               : '.'
           }<br>`
         : texte
-      texte += `$${namef}(x)=${engine.parse(expression).latex}$`
+      texte += `$${namef}(x)=${affichageFonction}$`
       // Correction
-      texteCorr = `$${namef}$ est dérivable sur $${ensembleDerivation}$. Soit $x\\in${ensembleDerivation}$.<br>`
+      texteCorr = ''
       texteCorr +=
         'On rappelle le cours : si $u,v$ sont  deux fonctions dérivables sur un même intervalle $I$ alors leur produit est dérivable sur $I$ et on a la formule : '
       texteCorr += "\\[(u\\times v)'=u'\\times v+u\\times v'.\\]"

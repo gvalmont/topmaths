@@ -69,7 +69,7 @@ export default class ProblemeCompMulGdeQuantite extends Probleme {
     })
 
     this.enonce = `Un chocolatier vend ses chocolats selon deux types de conditionnement : en sachets à $${texNombre(data.nb1, 2, true)}$ € et en boites qui coûtent $${data.nbFois}$ fois plus cher.
-Quel est le prix d'une boite ?`
+<br>Quel est le prix d'une boite ?`
     this.correction = `Le prix d'une boite est : $${data.nbFois} \\times ${texNombre(data.nb1, 2, true)}$ € = $${miseEnEvidence(texNombre(data.nb1 * data.nbFois, 2, true))}$ €.`
     this.reponse = texNombre(data.nb1 * data.nbFois, 2)
   }

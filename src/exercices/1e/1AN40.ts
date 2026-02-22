@@ -9,6 +9,7 @@ import { context } from '../../modules/context'
 import {
   gestionnaireFormulaireTexte,
   listeQuestionsToContenu,
+  randint,
 } from '../../modules/outils'
 import Exercice from '../Exercice'
 
@@ -24,7 +25,7 @@ export const dateDeModifImportante = '12/01/2024'
  * @author Stéphane Guyon - Jean Claude Lhote - Loïc Geeraerts
  */
 
-export const uuid = '4e684'
+export const uuid = '4e685'
 
 export const refs = {
   'fr-fr': ['1AN40'],
@@ -41,7 +42,7 @@ export default class CosEtsin extends Exercice {
     this.nbColsCorr = 2 // Uniquement pour la sortie LaTeX
 
     this.sup = 1 // difficulté par défaut
-    this.sup2 = '-1,1'
+    this.sup2 = '0'
     this.besoinFormulaireTexte = [
       'Type de questions',
       [
@@ -54,13 +55,9 @@ export default class CosEtsin extends Exercice {
     ]
 
     this.besoinFormulaire2Texte = [
-      'Valeurs de k (pour le type de questions 3)',
-      'Valeurs entières non nulles séparées par des virgules',
+      'Type de k',
+      'Nombres séparés par des tirets\n1 : k positif\n2 : k négatif\n0 : Mélange',
     ]
-    // TODO: ajouter tangente avec paramètre caché
-    // TODO: ajouter cercle trigonométrique
-    // TODO: solutionnaire détaillé
-    // TODO: Peut-être mettre en paramètre l'étendue des modulos pour avoir un contrôle sur le niveau de difficulté
   }
 
   nouvelleVersion() {
@@ -84,14 +81,23 @@ export default class CosEtsin extends Exercice {
         126 * typeDeQuestions.length,
       ) // là c'est carrément l'opulence avec le niveau 3 !
 
-    let listeK = [-1, 1]
+    const listeK: number[] = []
+    const valeursDek = gestionnaireFormulaireTexte({
+      saisie: this.sup2,
+      min: 1,
+      max: 2,
+      melange: 0,
+      nbQuestions: this.nbQuestions,
+      defaut: 0,
+    }).map(Number)
 
+    for (let i = 0; i < this.nbQuestions; i++) {
+      if (valeursDek[i] === 1) listeK.push(randint(2, 30))
+      else listeK.push(randint(-30, -2))
+    }
     const mesAngles = valeursTrigo({ modulos: listeK })
     mesAnglesAleatoiresBis.push(shuffle(mesAngles.liste1))
     mesAnglesAleatoiresBis.push(shuffle(mesAngles.liste2))
-    const valeursDek = this.sup2.toString(10)
-
-    listeK = valeursDek.includes(',') ? valeursDek.split(',') : [this.sup2]
 
     for (let k = 0; k < listeK.length; k++) {
       const n = listeK[k]

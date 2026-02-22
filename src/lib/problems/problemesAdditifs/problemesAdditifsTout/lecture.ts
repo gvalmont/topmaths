@@ -14,7 +14,7 @@ export function lecture(): Probleme {
   const nb2 = randint(5, 20, nb1)
   const data = { nb1, nb2 }
   const enonce = `${personnage.prenom} a lu $${texNombre(nb1, 0)}$ pages d'un livre le matin et $${texNombre(nb2, 0)}$ pages le soir.
-Combien de pages a-t-${personnage.pronom} lues en tout ?`
+<br>Combien de pages a-t-${personnage.pronom} lues en tout ?`
   const correction = `${personnage.prenom} a lu $${texNombre(nb1, 0)}$ pages le matin et $${texNombre(nb2, 0)}$ pages le soir.
 Donc, en tout, ${personnage.pronom} a lu $${texNombre(nb1, 0)}+${texNombre(nb2, 0)}=${miseEnEvidence(texNombre(nb1 + nb2, 0))}$ pages.`
   const probleme = new ProblemeAdditif('lecture', data)

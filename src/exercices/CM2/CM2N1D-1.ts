@@ -2,13 +2,9 @@ import Decimal from 'decimal.js'
 import DragAndDrop, { type Etiquette } from '../../lib/interactif/DragAndDrop'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { shuffle2tableaux } from '../../lib/outils/arrayOutils'
-import { stringNombre, texNombre } from '../../lib/outils/texNombre'
+import { texNombre } from '../../lib/outils/texNombre'
 import { context } from '../../modules/context'
-import {
-  contraindreValeur,
-  gestionnaireFormulaireTexte,
-  randint,
-} from '../../modules/outils'
+import { gestionnaireFormulaireTexte, randint } from '../../modules/outils'
 import Exercice from '../Exercice'
 import { glossaire } from './CM2N1D-2'
 export const titre = 'Décomposer un nombre entier'
@@ -42,11 +38,11 @@ class DragAndDropNumerationEntiere extends Exercice {
       'Puissance de 10 en chiffres/lettres',
       false,
     ]
-    this.besoinFormulaire2Numerique = [
-      'Nombre de chiffres maximum des nombres à décomposer',
-      7,
+    this.besoinFormulaire2Texte = [
+      'Nombre de chiffres des nombres à décomposer',
+      'Nombre entre 4 et 9 séparés par des tirets',
     ]
-    this.sup2 = 4
+    this.sup2 = '4-5-6'
     this.besoinFormulaire4Texte = [
       'Présence de zéro(s) ',
       'Nombres séparés par des tirets :\n1 : Sans zéro\n2 : Avec un zéro\n3 : Avec deux zéros consécutifs\n4 : Mélange',
@@ -71,22 +67,23 @@ class DragAndDropNumerationEntiere extends Exercice {
     })
     // ça c'est pour éviter de ne pas pouvoir fabriquer les nombres.
     const nombreDeChiffresMin = this.nombreDeChiffresMin
-    const nombreDeChiffresMax = contraindreValeur(
-      nombreDeChiffresMin,
-      11,
-      this.sup2,
-      6,
-    )
+    const nombreDeChiffres = gestionnaireFormulaireTexte({
+      saisie: this.sup2,
+      min: nombreDeChiffresMin,
+      max: 9,
+      defaut: nombreDeChiffresMin,
+      melange: 0,
+      nbQuestions: this.nbQuestions,
+    }).map(Number)
     this.morceaux = []
     this.exposantMorceaux = []
     for (
       let i = 0, cpt = 0, texte: string, texteCorr: string;
       i < this.nbQuestions && cpt < 50;
-
     ) {
       texte = ''
       texteCorr = ''
-      const nbChiffres = randint(nombreDeChiffresMin, nombreDeChiffresMax)
+      const nbChiffres = nombreDeChiffres[i]
       let nombreStr = ''
 
       this.morceaux[i] = []
@@ -116,7 +113,7 @@ class DragAndDropNumerationEntiere extends Exercice {
       if (desordonne) {
         shuffle2tableaux(this.morceaux[i], this.exposantMorceaux[i])
       }
-      let enonceATrous = `$${stringNombre(nombre, 0)}=$ `
+      let enonceATrous = `$${texNombre(nombre, 0)}=$ `
       const etiquettes: Etiquette[] = []
       const reponses = []
       for (let e = 0; e < 7; e++) {

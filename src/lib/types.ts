@@ -45,6 +45,7 @@ export interface InterfaceGlobalOptions {
   setInteractive?: string
   isSolutionAccessible?: boolean
   isTitleDisplayed?: boolean
+  isReferenceDisplayed?: boolean
   isInteractiveFree?: boolean
   oneShot?: boolean
   recorder?: 'capytale' | 'labomep' | 'moodle' | 'anki' | 'flowmath'
@@ -301,7 +302,7 @@ export type OptionsComparaisonType = {
 export type CompareFunction = (
   input: string,
   goodAnswer: string,
-  options: OptionsComparaisonType,
+  options?: OptionsComparaisonType,
 ) => ResultType
 
 export type CleaningOperation =
@@ -332,6 +333,8 @@ export type InteractivityType =
   | 'listeDeroulante'
   | 'custom'
   | 'tableur'
+  | 'MetaInteractif2d'
+  | 'svgSelection'
 export function isInteractivityType(
   value: unknown,
 ): value is InteractivityType {
@@ -345,7 +348,9 @@ export function isInteractivityType(
     value === 'dnd' ||
     value === 'listeDeroulante' ||
     value === 'custom' ||
-    value === 'tableur'
+    value === 'tableur' ||
+    value === 'MetaInteractif2d' ||
+    value === 'svgSelection'
   )
 }
 
@@ -409,6 +414,15 @@ export interface Valeur {
   rectangle6?: AnswerType
   rectangle7?: AnswerType
   rectangle8?: AnswerType
+  field0?: AnswerType
+  field1?: AnswerType
+  field2?: AnswerType
+  field3?: AnswerType
+  field4?: AnswerType
+  field5?: AnswerType
+  field6?: AnswerType
+  field7?: AnswerType
+  field8?: AnswerType
 
   // on va aller jusque 8 pour l'instant, si besoin on en ajoutera
   L1C1?: AnswerType
@@ -459,6 +473,15 @@ export interface ValeurNormalized {
   rectangle6?: AnswerNormalizedType
   rectangle7?: AnswerNormalizedType
   rectangle8?: AnswerNormalizedType
+  field0?: AnswerNormalizedType
+  field1?: AnswerNormalizedType
+  field2?: AnswerNormalizedType
+  field3?: AnswerNormalizedType
+  field4?: AnswerNormalizedType
+  field5?: AnswerNormalizedType
+  field6?: AnswerNormalizedType
+  field7?: AnswerNormalizedType
+  field8?: AnswerNormalizedType
 
   L1C1?: AnswerNormalizedType
   L1C2?: AnswerNormalizedType
@@ -919,6 +942,18 @@ export interface IExerciceSimple extends IExercice {
   distracteurs: (string | number)[]
   versionQcmDisponible?: boolean
   versionQcm?: boolean
+}
+
+export interface IExerciceStatique {
+  typeExercice: 'statique'
+  uuid: string
+  content: string
+  contentCorr: string
+  annee: any
+  lieu: any
+  mois: any
+  numeroInitial: any
+  examen: string
 }
 
 export interface IEtiquette {

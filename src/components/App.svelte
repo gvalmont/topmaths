@@ -25,10 +25,11 @@
   import ConfigEleve from './setup/configEleve/ConfigEleve.svelte'
   import Diaporama from './setup/diaporama/Diaporama.svelte'
   import Latex from './setup/latex/Latex.svelte'
-  import RawLatex from './setup/latex/RawLatex.svelte'
   import Pdf from './setup/latex/Pdf.svelte'
+  import RawLatex from './setup/latex/RawLatex.svelte'
   import Moodle from './setup/moodle/Moodle.svelte'
   import Start from './setup/start/Start.svelte'
+  import Tools from './setup/tools/Tools.svelte'
   import Popup from './shared/modal/Popup.svelte'
 
   let showPopup = false
@@ -209,6 +210,8 @@
     <Pdf />
   {:else if $globalOptions.v === 'start'}
     <Start />
+  {:else if $globalOptions.v === 'tools'}
+    <Tools />
   {:else}
     <Topmaths />
   {/if}

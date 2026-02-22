@@ -4,6 +4,7 @@ import {
   type Elements3DDescription,
 } from '../../3d/3d_dynamique/Canvas3DElement'
 import { Shape3D, shapeCubeIso } from '../figures2d/Shape3d'
+import { rangeCubes } from './patternsPreDef'
 
 type Coord3d = [number, number, number, string]
 /**
@@ -212,7 +213,13 @@ export class VisualPattern3D {
         "VisualPattern3d: le motif contient plus de 100000 cellules, l'affichage peut être très très long",
       )
     }
-    for (const cell of filterCells(cells)) {
+    const filteredCells = filterCells(cells)
+    const sortedCubes = Array.from(filteredCells).map(
+      VisualPattern3D.keyToCoord,
+    )
+    const sortedCells = rangeCubes(sortedCubes).map(VisualPattern3D.coordToKey)
+
+    for (const cell of sortedCells) {
       const [x, y, z, shape] = VisualPattern3D.keyToCoord(cell)
       if (this.shape == null) {
         this.shape = shapeCubeIso(shape, 0, 0, {

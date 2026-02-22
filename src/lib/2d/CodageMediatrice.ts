@@ -25,7 +25,7 @@ import { milieu } from './utilitairesPoint'
 // JSDOC Validee par EE Juin 2022
 
 export class CodageMediatrice extends ObjetMathalea2D {
-  constructor(A: PointAbstrait, B: PointAbstrait, color = 'black', mark = '×') {
+  constructor(A: PointAbstrait, B: PointAbstrait, color = 'black', mark = 'x') {
     super()
     if (longueur(A, B) < 0.1)
       window.notify(
@@ -71,7 +71,7 @@ export function codageMediatrice(
   A: PointAbstrait,
   B: PointAbstrait,
   color = 'black',
-  mark = '×',
+  mark = 'x',
 ) {
   return new CodageMediatrice(A, B, color, mark)
 }

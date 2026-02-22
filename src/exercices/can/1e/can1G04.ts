@@ -71,7 +71,7 @@ export default class ProduitScalaireNormesAngles extends ExerciceSimple {
       C,
       'black',
       2,
-      choix ? `${angle[0]}°` : `${angle[1]}`,
+      choix ? `${angle[0]}^\\circ` : `${angle[1]}`,
       { ecart: 1 },
     )
     const objets = []
