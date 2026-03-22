@@ -6,7 +6,6 @@ import { labelPoint, latexParCoordonnees } from '../../../lib/2d/textes'
 import { tracePointSurDroite } from '../../../lib/2d/TracePointSurDroite'
 import { milieu } from '../../../lib/2d/utilitairesPoint'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
-import { functionCompare } from '../../../lib/interactif/comparisonFunctions'
 import { choice } from '../../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { mathalea2d } from '../../../modules/mathalea2d'
@@ -36,8 +35,6 @@ export default class EnFonctionDe extends ExerciceSimple {
       texteAvant: '$AB=$',
       texteApres: '$\\text{ cm}$',
     }
-
-    this.compare = functionCompare
   }
 
   nouvelleVersion() {
@@ -67,8 +64,7 @@ export default class EnFonctionDe extends ExerciceSimple {
           this.reponse = {
             reponse: {
               value: `${Valeur[0]}-${Valeur[1]}x`,
-              options: { variable: 'x' },
-              compare: functionCompare,
+              options: { fonction: true, variable: 'x' },
             },
           }
           const A3 = point(0, 1, 'A1', 'below')
@@ -132,7 +128,7 @@ export default class EnFonctionDe extends ExerciceSimple {
           )
           // this.question += mathalea2d(Object.assign({ scale: 0.45, style: 'margin: auto' }, fixeBordures(objets)), objets)
           this.correction = `Comme il y a $${b}$ segments de la même longueur $x$, donc  $AB=${miseEnEvidence(`${Valeur[0]}-${Valeur[1]}x`)}\\text{ cm}$.`
-          this.canEnonce = this.question
+
           this.canReponseACompleter = '$AB=\\ldots\\text{ cm}$'
           if (!this.interactif) {
             this.question += '$AB=\\ldots\\ldots\\text{ cm}$'
@@ -158,8 +154,7 @@ export default class EnFonctionDe extends ExerciceSimple {
           this.reponse = {
             reponse: {
               value: `${Valeur[0]}+${Valeur[1]}x`,
-              options: { variable: 'x' },
-              compare: functionCompare,
+              options: { fonction: true, variable: 'x' },
             },
           }
           const A3 = point(7, 1, 'A1', 'below')
@@ -223,7 +218,7 @@ export default class EnFonctionDe extends ExerciceSimple {
           )
           // this.question += mathalea2d(Object.assign({ scale: 0.45, style: 'margin: auto' }, fixeBordures(objets)), objets)
           this.correction = `Comme il y a $${b}$ segments de la même longueur $x$, donc  $AB=${miseEnEvidence(`${Valeur[0]}+${Valeur[1]}x`)}\\text{ cm}$.`
-          this.canEnonce = this.question
+
           this.canReponseACompleter = '$AB=\\ldots\\text{ cm}$'
           if (!this.interactif) {
             this.question += '$AB=\\ldots\\ldots\\text{ cm}$'

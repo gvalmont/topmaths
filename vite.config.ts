@@ -32,7 +32,6 @@ export default defineConfig({
     rollupOptions: {
       output: {
         manualChunks: (id) => {
-          console.log('id', id)
           // Pour les dépendances pnpm
           if (id.includes('.pnpm')) {
             // Extraire le vrai nom du package
@@ -68,6 +67,23 @@ export default defineConfig({
     __REACT_DEVTOOLS_GLOBAL_HOOK__: JSON.stringify({ isDisabled: true }),
   },
   plugins: [
+    // Exclut les fichiers de test du bundle de production
+    // (évite que vitest et ses dépendances se retrouvent dans le build)
+    {
+      name: 'exclude-test-files',
+      apply: 'build',
+      enforce: 'pre',
+      resolveId(id: string) {
+        if (/\.test\.(ts|js|svelte)$/.test(id)) {
+          return '\0empty-test-module'
+        }
+      },
+      load(id: string) {
+        if (id === '\0empty-test-module') {
+          return ''
+        }
+      },
+    },
     tailwindcss(),
     svelte({
       compilerOptions: {

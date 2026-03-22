@@ -56,6 +56,7 @@ export interface InterfaceGlobalOptions {
   beta?: boolean
   isDataRandom?: boolean
   canD?: string
+  canTi?: string
   canT?: string
   canSA?: boolean
   canSM?: CanSolutionsMode
@@ -248,11 +249,13 @@ export const FILTER_SECTIONS_TITLES: FilterSectionNameType = {
 
 export type ResultType = { isOk: boolean; feedback?: string }
 export type OptionsComparaisonType = {
-  noFeedback?: boolean
-  expressionsForcementReduites?: boolean
-  avecSigneMultiplier?: boolean
-  avecFractions?: boolean
-  sansTrigo?: boolean
+  texteAvecCasse?: boolean
+  texteSansCasse?: boolean
+  additionSeulementEtNonResultat?: boolean
+  soustractionSeulementEtNonResultat?: boolean
+  multiplicationSeulementEtNonResultat?: boolean
+  divisionSeulementEtNonResultat?: boolean
+  avecFractions?: boolean // Encore utile ?
   fractionIrreductible?: boolean
   fractionSimplifiee?: boolean
   fractionReduite?: boolean
@@ -261,21 +264,6 @@ export type OptionsComparaisonType = {
   fractionIdentique?: boolean
   nombreDecimalSeulement?: boolean
   expressionNumerique?: boolean
-  additionSeulementEtNonResultat?: boolean
-  soustractionSeulementEtNonResultat?: boolean
-  multiplicationSeulementEtNonResultat?: boolean
-  divisionSeulementEtNonResultat?: boolean
-  ensembleDeNombres?: boolean
-  fonction?: boolean
-  kUplet?: boolean
-  seulementCertainesPuissances?: boolean
-  sansExposantUn?: boolean
-  suiteDeNombres?: boolean
-  suiteRangeeDeNombres?: boolean
-  factorisation?: boolean
-  exclusifFactorisation?: boolean
-  nbFacteursIdentiquesFactorisation?: boolean
-  unSeulFacteurLitteral?: boolean
   HMS?: boolean
   intervalle?: boolean
   estDansIntervalle?: boolean
@@ -283,21 +271,33 @@ export type OptionsComparaisonType = {
   unite?: boolean
   precisionUnite?: number
   puissance?: boolean
-  texteAvecCasse?: boolean
-  texteSansCasse?: boolean
+  sansExposantUn?: boolean
+  seulementCertainesPuissances?: boolean
   nombreAvecEspace?: boolean
-  developpementEgal?: boolean
   egaliteExpression?: boolean
-  calculFormel?: boolean
-  noUselessParen?: boolean
+  factorisation?: boolean
+  exclusifFactorisation?: boolean
+  nbFacteursIdentiquesFactorisation?: boolean
+  unSeulFacteurLitteral?: boolean
   nonReponseAcceptee?: boolean
-  pluriels?: boolean
-  multi?: boolean // options pour le drag and drop
-  ordered?: boolean // options pour le drag and drop
-  tolerance?: number
+  developpementEgal?: boolean
+  fonction?: boolean
   variable?: string
   entier?: boolean
-  domaine?: [number, number]
+  domaine?: number[]
+  ensembleDeNombres?: boolean
+  kUplet?: boolean
+  suiteDeNombres?: boolean
+  suiteRangeeDeNombres?: boolean
+  calculFormel?: boolean
+  fractionSansRacineCarree?: boolean
+  // Non fait : Pas de tests unitaires
+  sansTrigo?: boolean
+  variablefractionIdentique?: boolean
+  avecSigneMultiplier?: boolean
+  entiersConsecutifs?: boolean // Pas de wiki
+  expressionsForcementReduites?: boolean // Pas de wiki
+  coordonnees?: boolean
 }
 export type CompareFunction = (
   input: string,
@@ -321,6 +321,7 @@ export type CleaningOperation =
   | 'mathrm'
   | 'operatorName'
   | 'imaginaires'
+  | 'accolades'
 
 export type InteractivityType =
   | 'qcm'
@@ -380,6 +381,15 @@ export type AnswerType = {
   value: AnswerValueType
   compare?: CompareFunction
   options?: OptionsComparaisonType
+}
+
+export function isAnswerType(obj: unknown): obj is AnswerType {
+  return (
+    typeof obj === 'object' &&
+    obj !== null &&
+    'value' in obj &&
+    isAnswerValueType(obj.value)
+  )
 }
 
 export type SheetAnswerType = {
@@ -634,10 +644,10 @@ export function isAnswerValueType(value: unknown): value is AnswerValueType {
   )
 }
 
-export type ReponseComplexe = Valeur
+export type ReponseComplexe = AnswerValueType | Valeur
 
 export function isReponseComplexe(value: unknown): value is ReponseComplexe {
-  return isValeur(value)
+  return isAnswerValueType(value) || isValeur(value)
 }
 
 // Ajout d'un type dédié pour les choix de QCM
@@ -993,9 +1003,11 @@ export interface IExerciceCan extends IExerciceSimple {
 }
 
 export interface IExerciceQcmOptions {
+  radio?: boolean
   ordered?: boolean
   vertical?: boolean
   lastChoice?: number
+  dontKnow?: boolean
 }
 
 export interface IExerciceQcm extends IExercice {
@@ -1015,4 +1027,10 @@ export interface IExerciceQcm extends IExercice {
 export interface IExerciceQcmA extends IExerciceQcm {
   versionAleatoire: () => void
   aleatoire: () => void
+}
+
+export function isIExercice(
+  ex: IExercice | IExerciceStatique,
+): ex is IExercice {
+  return ex.typeExercice !== 'statique'
 }

@@ -1,236 +1,96 @@
-import { ComputeEngine, type Expression } from '@cortex-js/compute-engine'
-const ce = new ComputeEngine()
-
 /**
- * 🔹 Supprime récursivement les "Delimiter" dans le MathJSON
+ * Supprime les parenthèses inutiles dans du LaTeX tout en conservant :
+ * - (-x) après +, -, \times ou \div
+ * - Les fractions et nombres négatifs correctement
+ *
+ * Exemples :
+ *  deparenthise('\\dfrac{(+4)}{(-8)}')
+ *    -> '\\dfrac{4}{-8}'
+ *  deparenthise('$ … + (-3{,}3) = (+5{,}6) $')
+ *    -> '$ … + (-3{,}3) = 5{,}6 $'
+ *  deparenthise('2 \\times (-3)')
+ *    -> '2 \\times (-3)'
  */
-function stripDelimiter(node: Expression): Expression {
-  if (!Array.isArray(node)) return node
+export function deparenthise(latexIn: string): string {
+  let result = ''
+  let i = 0
 
-  const arr = node as [string, ...Expression[]]
-  const op = arr[0]
+  while (i < latexIn.length) {
+    // Détecte (+...) ou (-...) parenthèse ouvrante suivie d'un signe
+    if (
+      latexIn[i] === '(' &&
+      (latexIn[i + 1] === '+' || latexIn[i + 1] === '-')
+    ) {
+      const sign = latexIn[i + 1] // '+' ou '-'
+      let j = i + 2
+      let depth = 1
 
-  if (op === 'Delimiter') {
-    const inner = arr.length === 1 ? arr[0] : arr[1]
-
-    if (Array.isArray(inner)) {
-      const innerOp = inner[0]
-      // ⚙️ On ne garde les parenthèses que si le contenu est Add/Subtract
-      if (innerOp === 'Add' || innerOp === 'Subtract') {
-        return ['Delimiter', stripDelimiter(inner)] as Expression
+      // Trouver la parenthèse fermante correspondante
+      while (j < latexIn.length && depth > 0) {
+        if (latexIn[j] === '(') depth++
+        else if (latexIn[j] === ')') depth--
+        j++
       }
-      // Sinon, on retire complètement les parenthèses
-      return stripDelimiter(inner)
+
+      const content = latexIn.slice(i + 2, j - 1) // contenu à l'intérieur des parenthèses
+
+      // Chercher le dernier caractère significatif avant '('
+      let k = result.length - 1
+      while (k >= 0 && result[k] === ' ') k--
+      const prev = k >= 0 ? result[k] : '<<START>>'
+
+      if (sign === '+') {
+        // (+x) -> on supprime toujours les parenthèses
+        result += content
+      } else {
+        // (-x) -> on garde les parenthèses si précédé de +, -, \ ou on supprime sinon
+        if (prev === '+' || prev === '-' || prev === '\\') {
+          result += `(-${content})` // garde les parenthèses
+        } else {
+          result += `-${content}` // enlève les parenthèses
+        }
+      }
+
+      i = j
+      continue
     }
-    return inner
+
+    // Sinon, copie le caractère tel quel
+    result += latexIn[i]
+    i++
   }
 
-  const rest = arr.slice(1).map((x) => stripDelimiter(x as Expression))
-  return [op, ...rest] as Expression
+  // Enlève les parenthèses autour d’un nombre positif si :
+  // - pas après \times, \div, + ou -
+  // ⚡ Remarque : ne touche pas aux nombres négatifs déjà entre parenthèses
+  result = result.replace(
+    /(?<!\\times\s)(?<!\\div\s)(?<![-+])\((\d+(?:{,}\d+)?)\)/g,
+    '$1',
+  )
+
+  // Produit et division négatifs : ajoute des parenthèses pour la clarté
+  result = result.replace(/\\times-([0-9]+)/g, '\\times(-$1)')
+  result = result.replace(/\\div-([0-9]+)/g, '\\div(-$1)')
+
+  // Cas +(...×...) -> +...×...
+  result = result.replace(
+    /\+\((\d+\\times[^()]*(?:\([^()]*\)[^()]*)*)\)/g,
+    '+$1',
+  )
+
+  // Cas +(...÷...) -> +...÷...
+  result = result.replace(/\+\((\d+\\div[^()]*(?:\([^()]*\)[^()]*)*)\)/g, '+$1')
+
+  // Cas (...×...)+ -> ...×...+
+  result = result.replace(/\((\d+\\times\d+)\)\+/g, '$1+')
+
+  // Cas (...÷...)+ -> ...÷...+
+  result = result.replace(/\((\d+\\div\d+)\)\+/g, '$1+')
+
+  return result
 }
 
-/**
- * 🔹 Sérialisation manuelle MathJSON → LaTeX préservant l’ordre et les signes
- */
-function mathJsonToLatex(node: Expression): string {
-  const isArray = Array.isArray
-  const getOp = (n: Expression) =>
-    isArray(n) && typeof n[0] === 'string' ? n[0] : null
-
-  function toLatex(n: Expression): string {
-    if (!isArray(n)) return String(n)
-
-    const op = n[0] as string
-    const args = n.slice(1) as Expression[]
-
-    switch (op) {
-      //
-      // 🔹 PRIMITIFS
-      //
-      case 'Number':
-      case 'Real':
-      case 'Integer':
-      case 'String':
-      case 'Symbol':
-        return String(args[0])
-
-      //
-      // 🔹 NÉGATION
-      //
-      case 'Negate': {
-        const inner = args[0]
-        const innerOp = getOp(inner)
-        const latexInner = toLatex(inner)
-        // On parenthèse seulement si nécessaire
-        if (innerOp === 'Add' || innerOp === 'Subtract')
-          return `-(${latexInner})`
-        return `-${latexInner}`
-      }
-
-      //
-      // 🔹 ADDITION / SOUSTRACTION
-      //
-      case 'Add':
-        return args.map(toLatex).join('+')
-
-      case 'Subtract':
-        if (args.length === 1) return '-' + toLatex(args[0])
-        return args
-          .map((a, i) => (i === 0 ? toLatex(a) : `-${toLatex(a)}`))
-          .join('')
-
-      //
-      // 🔹 MULTIPLICATION
-      //
-      case 'Multiply': {
-        const parts = args.map((a, idx) => {
-          const opA = getOp(a)
-
-          // 🔸 1. Nombre négatif explicite
-          if (
-            Array.isArray(a) &&
-            a[0] === 'Number' &&
-            typeof a[1] === 'number' &&
-            a[1] < 0
-          ) {
-            const absVal = Math.abs(a[1])
-            return idx === 0 ? `-${absVal}` : `(-${absVal})`
-          }
-
-          // 🔸 2. Negate(...)
-          if (Array.isArray(a) && a[0] === 'Negate') {
-            const inner = a[1]
-            const latexInner = toLatex(inner)
-            return idx === 0 ? `-${latexInner}` : `(-${latexInner})`
-          }
-
-          // 🔸 3. Add/Subtract → toujours parenthèses
-          if (opA === 'Add' || opA === 'Subtract') {
-            return `(${toLatex(a)})`
-          }
-
-          // 🔸 4. Divide → parenthèses si non premier facteur
-          if (opA === 'Divide' && idx > 0) {
-            return `(${toLatex(a)})`
-          }
-
-          // 🔸 5. Cas normal
-          return toLatex(a)
-        })
-
-        return parts.join('\\times')
-      }
-
-      //
-      // 🔹 DIVISION (préserve \div)
-      //
-      case 'Divide': {
-        const left = args[0]
-        const right = args[1]
-        const leftOp = getOp(left)
-        const rightOp = getOp(right)
-
-        const leftLatex =
-          leftOp === 'Add' || leftOp === 'Subtract'
-            ? `(${toLatex(left)})`
-            : toLatex(left)
-
-        let rightLatex = toLatex(right)
-
-        // dénominateur Add/Subtract → parenthèses
-        if (rightOp === 'Add' || rightOp === 'Subtract') {
-          rightLatex = `(${rightLatex})`
-        }
-
-        // dénominateur négatif explicite → parenthèses aussi
-        if (
-          rightOp === 'Negate' ||
-          (isArray(right) &&
-            right[0] === 'Number' &&
-            typeof right[1] === 'number' &&
-            right[1] < 0)
-        ) {
-          rightLatex = `(${rightLatex})`
-        }
-
-        return `${leftLatex}\\div${rightLatex}`
-      }
-
-      //
-      // 🔹 FRACTION (vraies \frac / \dfrac)
-      //
-      case 'Frac': {
-        const num = args[0]
-        const den = args[1]
-        return `\\frac{${toLatex(num)}}{${toLatex(den)}}`
-      }
-
-      //
-      // 🔹 PUISSANCE
-      //
-      case 'Power': {
-        const base = toLatex(args[0])
-        const exp = toLatex(args[1])
-        return `${base}^{${exp}}`
-      }
-
-      //
-      // 🔹 DELIMITER
-      //
-      case 'Delimiter': {
-        // le contenu est souvent à arg[1] ou arg[0]
-        const inner = args.length === 1 ? args[0] : (args[1] ?? args[0])
-        // supprime complètement le mot-clé Delimiter, garde les parenthèses normales
-        return `(${toLatex(inner)})`
-      }
-
-      //
-      // 🔹 PAR DÉFAUT
-      //
-      default: {
-        const name = op.toLowerCase()
-        const known: Record<string, string> = {
-          sin: '\\sin',
-          cos: '\\cos',
-          tan: '\\tan',
-        }
-        if (known[name])
-          return `${known[name]}\\left(${args.map(toLatex).join(',')}\\right)`
-        return `${op}\\left(${args.map(toLatex).join(',')}\\right)`
-      }
-    }
-  }
-
-  return toLatex(node)
-}
-
-/**
- * 🔹 Transforme certaines divisions en vraies fractions "Frac"
- * (quand l'entrée d'origine contenait \frac ou \dfrac)
- */
-function restoreFracNodes(
-  node: Expression,
-  count: number,
-): { node: Expression; used: number } {
-  if (!Array.isArray(node)) return { node, used: 0 }
-  const [op, ...args] = node
-  if (op === 'Divide' && count > 0) {
-    const [num, den] = args
-    return { node: ['Frac', num, den], used: 1 }
-  }
-  let used = 0
-  const newArgs = args.map((a) => {
-    const res = restoreFracNodes(a as Expression, count - used)
-    used += res.used
-    return res.node
-  })
-  return { node: [op, ...newArgs] as Expression, used }
-}
-
-/**
- * 🧹 deparenthise()
- * Nettoie une expression LaTeX sans changer les opérateurs d'origine.
- */
+/* Ancienne version mais qui ne fonctionne plus depuis le passage à la version 0.54.1 de ComputeEngine
 export function deparenthise(latexIn: string): string {
   // Comptage des \frac et \dfrac
   const dfracCount = (latexIn.match(/\\dfrac\b/g) || []).length
@@ -239,8 +99,8 @@ export function deparenthise(latexIn: string): string {
   // Normalisation temporaire : \dfrac → \frac pour Compute Engine
   const normalized = latexIn.replace(/\\dfrac\b/g, '\\frac')
 
-  const boxed = ce.parse(normalized, { canonical: false })
-  const mathJson = boxed.json as Expression
+  const boxed = ce.parse(normalized, { form: 'raw' })
+  const mathJson = boxed.json as MathJsonExpression
 
   // Nettoyage
   const stripped = stripDelimiter(mathJson)
@@ -249,7 +109,8 @@ export function deparenthise(latexIn: string): string {
   const restored = restoreFracNodes(stripped, fracCount).node
 
   // Conversion LaTeX
-  let result = mathJsonToLatex(restored)
+  // let result = ce.expr(restored).toLatex
+  let result = mathJsonToLatex(ce.expr(restored))
 
   // Restauration des \dfrac (si présents en tête)
   if (dfracCount > 0) {
@@ -262,3 +123,4 @@ export function deparenthise(latexIn: string): string {
 
   return result
 }
+*/

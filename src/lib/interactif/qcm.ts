@@ -1,4 +1,9 @@
-import type { IExercice, UneProposition } from '../../lib/types'
+import ExerciceQcm from '../../exercices/ExerciceQcm'
+import type {
+  IExercice,
+  OptionsComparaisonType,
+  UneProposition,
+} from '../../lib/types'
 import { context } from '../../modules/context'
 import { messageFeedback } from '../../modules/messages'
 import { shuffleJusquaWithIndexes } from '../amc/qcmCam'
@@ -12,6 +17,8 @@ import {
 import { lettreDepuisChiffre } from '../outils/outilString'
 import type { ButtonWithMathaleaListener } from '../types/can'
 import { afficheScore } from './afficheScore'
+import { generateCleaner } from './cleaners'
+import { fonctionComparaison } from './comparisonFunctions'
 
 export function verifQuestionQcm(exercice: IExercice, i: number) {
   let resultat
@@ -277,8 +284,8 @@ export function propositionsQcm(
         texteCorr += '\\qquad '
       }
     }
-    texte += nbCols === 1 ? '' : '\\end{multicols}'
-    texteCorr += nbCols === 1 ? '' : '\\end{multicols}'
+    texte += nbCols === 1 ? (vertical ? '\n' : '\\\\\n') : '\\end{multicols}'
+    texteCorr += nbCols === 1 ? '\\\\\n' : '\\end{multicols}'
   }
   if (context.isHtml) {
     const isRadio = exercice.autoCorrection[i].options?.radio ?? false
@@ -418,4 +425,143 @@ export function elimineDoublons(propositions: UneProposition[]) {
     }
   }
   return doublonsTrouves
+}
+/**
+ * Une fonction pour vérifier que l'on a bien le nombre de réponses différentes souhaité dans les propositions d'un exercice de type qcm. Utile pour vérifier que les distracteurs sont bien différents de la bonne réponse et entre eux.
+ * @param exercice
+ * @param nombreSouhaite
+ * @param test
+ * @param options
+ * @returns
+ */
+export function compteLesReponsesDifferentes(
+  exercice: any,
+  nombreSouhaite: number, // le nombre de réponses différentes que l'on devrait avoir (bonne réponse + distracteurs)
+  test = true, // Mettre à true pour ne pas afficher de notifications, utilisé dans l'exo pour tester l'aléatoire sans alerter l'utilisateur à chaque fois que ça ne marche pas
+  options: OptionsComparaisonType,
+): boolean {
+  let reponses: string[]
+  if (exercice instanceof ExerciceQcm) {
+    reponses = exercice.reponses
+  } else if (exercice.distracteurs != null && exercice.reponse != null) {
+    reponses = [String(exercice.reponse), ...exercice.distracteurs.map(String)]
+  } else {
+    if (!test)
+      window.notify(
+        `l'exercice ne comporte pas les éléments pour fabriquer un qcm`,
+        { exercice: JSON.stringify(exercice) },
+      )
+    return false
+  }
+  if (reponses == null) {
+    if (!test)
+      window.notify(
+        'compteLesReponsesDifferentes a reçu un exercice sans réponses',
+        { exercice },
+      )
+    return false
+  }
+  reponses = reponses.map((s: string) =>
+    s.startsWith('$') && s.endsWith('$') ? s.slice(1, -1) : s,
+  )
+  if (nombreSouhaite > reponses.length) {
+    if (!test)
+      window.notify(
+        'Il y a un nombre insuffisant de réponses dans this.reponses',
+        { exercice },
+      )
+    return false
+  }
+  const cleaner = generateCleaner([
+    'virgules',
+    'parentheses',
+    'espaces',
+    'accolades',
+  ])
+
+  reponses = reponses.map((s: string) =>
+    cleaner(s)
+      .replace(/\\,/g, '')
+      .replace(/ /g, '')
+      .replaceAll(/\\backslash/g, '\\'),
+  )
+
+  // On compare des expressions littérales qui peuvent être différentes mais équivalentes
+  for (let i = 0; i < reponses.length - 1; i++) {
+    const reponse = reponses[i]
+    for (let j = i + 1; j < reponses.length; ) {
+      const result = fonctionComparaison(reponse, reponses[j], options)
+      if (result.isOk) {
+        reponses.splice(j, 1)
+      } else {
+        j++
+      }
+    }
+  }
+  if (reponses.length !== nombreSouhaite)
+    if (!test)
+      window.notify(`J'ai du éliminer au moins un doublon`, {
+        exercice: JSON.stringify(exercice),
+      })
+  return reponses.length === nombreSouhaite
+
+  /*  // On compare numériquement des expressions
+  if (options.numericalValue) {
+    for (let i = 0; i < reponses.length - 1; i++) {
+      const reponse = ce.parse(reponses[i]).evaluate()
+      for (let j = i + 1; j < reponses.length; ) {
+        if (reponse.isEqual(ce.parse(reponses[j]).evaluate())) {
+          reponses.splice(j, 1)
+        } else {
+          j++
+        }
+      }
+    }
+    if (reponses.length !== nombreSouhaite)
+      if (!test)
+        window.notify(`J'ai du éliminer au moins un doublon`, {
+          exercice: JSON.stringify(exercice),
+        })
+    return reponses.length === nombreSouhaite
+  }
+
+  // On compare des string sans tenir compte dess majuscules
+  if (options.sansCasse) {
+    for (let i = 0; i < reponses.length - 1; i++) {
+      const reponse = reponses[i].toUpperCase()
+      for (let j = i + 1; j < reponses.length; ) {
+        if (reponses[j].toUpperCase() === reponse) {
+          reponses.splice(j, 1)
+        } else {
+          j++
+        }
+      }
+    }
+    if (reponses.length !== nombreSouhaite)
+      if (!test)
+        window.notify(`J'ai du éliminer au moins un doublon`, {
+          exercice: JSON.stringify(exercice),
+        })
+    return reponses.length === nombreSouhaite
+  }
+
+  // On compare des strings en respectant la casse.
+  for (let i = 0; i < reponses.length - 1; i++) {
+    const reponse = reponses[i]
+    for (let j = i + 1; j < reponses.length; ) {
+      if (reponses[j] === reponse) {
+        reponses.splice(j, 1)
+      } else {
+        j++
+      }
+    }
+  }
+  if (reponses.length !== nombreSouhaite)
+    if (!test)
+      window.notify(`J'ai du éliminer au moins un doublon`, {
+        exercice: JSON.stringify(exercice),
+      })
+  return reponses.length === nombreSouhaite
+}
+  */
 }

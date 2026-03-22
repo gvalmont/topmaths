@@ -1,9 +1,9 @@
-import ExerciceSimple from '../../ExerciceSimple'
-import { miseEnEvidence } from '../../../lib/outils/embellissements'
-import { scratchblock } from '../../../modules/scratchblock'
-import { choice } from '../../../lib/outils/arrayOutils'
-import { randint } from '../../../modules/outils'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
+import { choice } from '../../../lib/outils/arrayOutils'
+import { miseEnEvidence } from '../../../lib/outils/embellissements'
+import { randint } from '../../../modules/outils'
+import { scratchblock } from '../../../modules/scratchblock'
+import ExerciceSimple from '../../ExerciceSimple'
 
 export const titre = 'Comprendre un programme scratch'
 export const interactifReady = true
@@ -76,7 +76,7 @@ export default class NomExercice extends ExerciceSimple {
         "À l'issue de l'exécution de ce programme, de combien de pas le lutin a-t-il avancé ?"
 
       this.correction = `Le lutin a avancé de $3\\times 50 =${miseEnEvidence('150')}$ pas.`
-      this.canEnonce = this.question
+
       this.canReponseACompleter = '$\\ldots$ pas'
       if (this.interactif) {
         this.optionsChampTexte = { texteApres: 'pas ' }
@@ -91,8 +91,6 @@ export default class NomExercice extends ExerciceSimple {
           'Quel nombre doit-on écrire à la place des pointillés pour tracer un carré ?'
 
         this.correction = `Un carré a des angles droits, il faut donc écrire  $${miseEnEvidence(90)}$.`
-        this.canEnonce = this.question
-        this.canReponseACompleter = '$\\ldots$'
       }
       if (choix === 'b') {
         this.reponse = 120
@@ -104,8 +102,6 @@ export default class NomExercice extends ExerciceSimple {
         this.correction = `Un triangle équilatéral a des anlges de $60°$.<br>
      Le lutin doit tourner de $180-60=120°$ après avoir tracé un côté. <br>
      Ainsi, à la place des pointillés il faut écrire  $${miseEnEvidence(120)}$.`
-        this.canEnonce = this.question
-        this.canReponseACompleter = '$\\ldots$'
       }
       if (choix === 'c') {
         this.reponse = 2
@@ -117,8 +113,6 @@ export default class NomExercice extends ExerciceSimple {
         this.correction = `
       La boucle contient le tracé d'une longueur et d'une largeur du rectangle. <br>
       Ainsi, à la place des pointillés il faut écrire  $${miseEnEvidence(2)}$.`
-        this.canEnonce = this.question
-        this.canReponseACompleter = '$\\ldots$'
       }
       if (choix === 'd') {
         this.reponse = a * n
@@ -131,7 +125,7 @@ export default class NomExercice extends ExerciceSimple {
         if (this.interactif) {
           this.optionsChampTexte = { texteApres: 'pas ' }
         }
-        this.canEnonce = this.question
+
         this.canReponseACompleter = '$\\ldots$ pas'
       }
     }

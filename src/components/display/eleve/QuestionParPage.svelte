@@ -116,7 +116,10 @@
       resultsByQuestion[i] = false
       return
     }
-    if (type.toLowerCase() === 'mathlive') {
+    if (
+      type.toLowerCase() === 'mathlive' ||
+      type === 'fillInTheBlank'
+    ) {
       const resu = verifQuestionMathLive(
         exercices[indiceExercice[i]],
         indiceQuestionInExercice[i],
@@ -161,6 +164,7 @@
       if (feedback != null) mathaleaRenderDiv(feedback)
     }
     mathaleaRenderDiv(divsCorrection[i])
+    document.dispatchEvent(new CustomEvent('exercicesAffiches'))
     onResultsChange({ resultsByQuestion })
   }
 
@@ -239,6 +243,7 @@
     if (isCorrectionVisible[i]) {
       await tick()
       mathaleaRenderDiv(divsCorrection[i])
+      document.dispatchEvent(new CustomEvent('exercicesAffiches'))
     }
   }
 

@@ -14,6 +14,7 @@ import {
 } from '../../modules/outils'
 import Exercice from '../Exercice'
 // Ici ce sont les fonctions de la librairie maison 2d.js qui gèrent tout ce qui est graphique (SVG/tikz) et en particulier ce qui est lié à l'objet lutin
+import { createScratchSimulatorElement } from '@scratch2latex/scratch-core/ScratchSimulator'
 import { setCliqueFigure } from '../../lib/interactif/gestionInteractif'
 import {
   allerA,
@@ -32,7 +33,7 @@ export const interactifReady = true
 export const interactifType = 'cliqueFigure'
 export const amcReady = true
 export const amcType = 'qcmMono'
-export const titre = 'Tortue Scratch avec répétitions'
+export const titre = 'Programmer la tortue Scratch avec des répétitions'
 export const dateDePublication = '29/06/2021'
 
 /**
@@ -57,6 +58,12 @@ export default class AlgoTortue extends Exercice {
       '1 : Polygone régulier\n2 : Spirale\n3 : Rosace\n4 : Roue dentée\n5 : Frise\n6 : Au hasard',
     ]
     this.sup = 6
+    this.besoinFormulaire2Numerique = [
+      "Délai de l'animation (en ms)",
+      4,
+      '1 : 0ms\n2 : 200ms\n3 : 1000ms\n4 : 2000ms',
+    ]
+    this.sup2 = 2
     this.typeExercice = 'Scratch'
     this.interactif = true
     this.listeAvecNumerotation = false
@@ -75,6 +82,14 @@ export default class AlgoTortue extends Exercice {
       'roueDentee',
       'frise1',
     ]
+    const delay =
+      this.sup2 === 1
+        ? 0
+        : this.sup2 === 2
+          ? 200
+          : this.sup2 === 3
+            ? 1000
+            : 2000
     const choix =
       this.sup < 6
         ? figuresDisponibles[this.sup - 1]
@@ -119,7 +134,7 @@ export default class AlgoTortue extends Exercice {
       case 'polygonesReguliers':
         n = choice([3, 5, 6, 7, 8]) // Nombre de côtés
         val1 = arrondi(360 / n, 1)
-        val2 = (10 - n) * 10
+        val2 = (10 - n) * 20
         if (bonneReponse !== 3) {
           lutins[0].codeScratch += `\\blockrepeat{répéter \\ovalnum{${n}} fois}
 {
@@ -185,7 +200,7 @@ export default class AlgoTortue extends Exercice {
       case 'rosaces1':
         n = choice([3, 4, 5, 6, 8]) // Nombre branches
         n2 = randint(3, 6, 5)
-        val1 = randint(2, 4) * 10
+        val1 = 20 + randint(2, 4) * 10
         val2 = (10 - n) * 5
         val3 = (8 - n2) * 4
         lutins[0].codeScratch += `\\blockrepeat{répéter \\ovalnum{${n}} fois} \n{`
@@ -279,8 +294,8 @@ export default class AlgoTortue extends Exercice {
       case 'spirales':
         n = choice([3, 4, 5, 6, 8]) // Nombre de côtés
         n2 = randint(1, 4) + Math.floor((9 - n) / 2)
-        val1 = randint(1, 4) * 5
-        val2 = 60 + randint(0, 4) * 5
+        val1 = 20 + randint(1, 4) * 5
+        val2 = 80 + randint(0, 4) * 5
         val3 = 360 / n
 
         if (bonneReponse !== 2) {
@@ -342,29 +357,29 @@ export default class AlgoTortue extends Exercice {
         break
       case 'roueDentee':
         n = choice([3, 4, 5, 6, 8]) // Nombre de côtés
-        val1 = randint(1, 2) * 10
-        val2 = 720 / n
+        val1 = randint(2, 4) * 10
+        val2 = 180 / n
         val3 = 360 / n
 
         if (bonneReponse < 5) {
           lutins[0].codeScratch += `\\blockrepeat{répéter \\ovalnum{${n}} fois}
                                   {
-                                  \\blockmove{avancer de \\ovalvariable{${val1}} pas}\n`
+                                  \\blockmove{avancer de \\ovalnum{${val1}} pas}\n`
           if (bonneReponse < 2) {
             lutins[0].codeScratch += `\\blockmove{tourner \\${sens}{} de \\ovalnum{${val3}} degrés}\n`
           } else {
             lutins[0].codeScratch += `\\blockmove{tourner \\${sensOppose}{} de \\ovalnum{${val3}} degrés}\n`
           }
-          lutins[0].codeScratch += `\\blockmove{avancer de \\ovalvariable{${val1 * 2}} pas}\n`
+          lutins[0].codeScratch += `\\blockmove{avancer de \\ovalnum{${val1 * 2}} pas}\n`
           if (bonneReponse === 0) {
             lutins[0].codeScratch += `\\blockmove{tourner \\${sens}{} de \\ovalnum{${val2}} degrés}\n`
           } else {
             lutins[0].codeScratch += `\\blockmove{tourner \\${sensOppose}{} de \\ovalnum{${val2}} degrés}\n`
           }
           if (bonneReponse < 3) {
-            lutins[0].codeScratch += `\\blockmove{avancer de \\ovalvariable{${val1 * 2}} pas}\n`
+            lutins[0].codeScratch += `\\blockmove{avancer de \\ovalnum{${val1 * 2}} pas}\n`
           } else {
-            lutins[0].codeScratch += `\\blockmove{avancer de \\ovalvariable{${val1}} pas}\n`
+            lutins[0].codeScratch += `\\blockmove{avancer de \\ovalnum{${val1}} pas}\n`
           }
           if (bonneReponse > 0) {
             lutins[0].codeScratch += `\\blockmove{tourner \\${sens}{} de \\ovalnum{${val2}} degrés}\n`
@@ -422,44 +437,44 @@ export default class AlgoTortue extends Exercice {
         }
         break
       case 'frise1':
-        n = 3 // Nombre de répétitions
+        n = 4 // Nombre de répétitions
         n2 = choice([45, 60, 90])
         n2 = choice([45, 60, 90])
-        val1 = randint(1, 2) * 5
-        val2 = randint(1, 3) * 5
-        val3 = randint(2, 4) * 5
+        val1 = randint(1, 2) * 10
+        val2 = randint(1, 3) * 10
+        val3 = randint(2, 4) * 10
         sequenceFrise1 = [
-          [`\\blockmove{avancer de \\ovalvariable{${val2}} pas}\n`, val2],
+          [`\\blockmove{avancer de \\ovalnum{${val2}} pas}\n`, val2],
           [
             `\\blockmove{tourner \\${sens}{} de \\ovalnum{${n2}} degrés}\n`,
             sens,
             n2,
           ],
-          [`\\blockmove{avancer de \\ovalvariable{${val1}} pas}\n`, val1],
+          [`\\blockmove{avancer de \\ovalnum{${val1}} pas}\n`, val1],
           [
             `\\blockmove{tourner \\${sens}{} de \\ovalnum{${n2}} degrés}\n`,
             sens,
             n2,
           ],
-          [`\\blockmove{avancer de \\ovalvariable{${val1}} pas}\n`, val1],
+          [`\\blockmove{avancer de \\ovalnum{${val1}} pas}\n`, val1],
           [
             `\\blockmove{tourner \\${sensOppose}{} de \\ovalnum{${n2}} degrés}\n`,
             sensOppose,
             n2,
           ],
-          [`\\blockmove{avancer de \\ovalvariable{${val1}} pas}\n`, val1],
+          [`\\blockmove{avancer de \\ovalnum{${val1}} pas}\n`, val1],
           [
             `\\blockmove{tourner \\${sensOppose}{} de \\ovalnum{${n2}} degrés}\n`,
             sensOppose,
             n2,
           ],
-          [`\\blockmove{avancer de \\ovalvariable{${val3}} pas}\n`, val3],
+          [`\\blockmove{avancer de \\ovalnum{${val3}} pas}\n`, val3],
           [
             `\\blockmove{tourner \\${sensOppose}{} de \\ovalnum{${n2}} degrés}\n`,
             sensOppose,
             n2,
           ],
-          [`\\blockmove{avancer de \\ovalvariable{${val2}} pas}\n`, val2],
+          [`\\blockmove{avancer de \\ovalnum{${val2}} pas}\n`, val2],
           [
             `\\blockmove{tourner \\${sens}{} de \\ovalnum{${n2}} degrés}\n`,
             sens,
@@ -563,7 +578,7 @@ export default class AlgoTortue extends Exercice {
       ymin: -1.5,
       xmax: largeur,
       ymax: hauteur + 1,
-      pixelsParCm: Math.round(400 / largeur),
+      pixelsParCm: Math.round(200 / largeur),
       scale: 4 / largeur,
       style: 'display: inline-block',
     }
@@ -572,7 +587,7 @@ export default class AlgoTortue extends Exercice {
       ymin: -1.5,
       xmax: largeur,
       ymax: hauteur + 1,
-      pixelsParCm: Math.round(400 / largeur),
+      pixelsParCm: Math.round(200 / largeur),
       scale: 4 / largeur,
       style: 'display: inline-block',
     }
@@ -633,7 +648,12 @@ export default class AlgoTortue extends Exercice {
     setCliqueFigure(this.autoCorrection[0])
     this.indiceBonneFigure = ordreLutins.indexOf(bonneReponse)
     // Ici, la figure contient la grille, le point de départ et le lutin qui s'anime sur sa trace...
-    texteCorr += `La bonne figure est la figure ${this.indiceBonneFigure + 1}`
+    texteCorr += `La bonne figure est la figure ${this.indiceBonneFigure + 1}<br>
+    ${
+      context.isHtml
+        ? createScratchSimulatorElement(lutins[0].codeScratch, delay, false)
+        : ''
+    }`
     if (this.interactif && context.isHtml) {
       texte += `<span id="resultatCheckEx${this.numeroExercice}Q0"></span>`
     }

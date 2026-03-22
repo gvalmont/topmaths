@@ -456,7 +456,8 @@ export default class Stat {
         objetsToTrace,
       )
     } else {
-      return ` \\begin{tikzpicture}[every node/.style={inner sep=0pt,font=\\scriptsize},%
+      return ` \\medskip
+      \\begin{tikzpicture}[scale=1.5,every node/.style={inner sep=0pt,font=\\scriptsize},%
       boxplot prepared/every whisker/.style={ultra thick}]
     \\begin{axis}[
         clip=false,
@@ -467,22 +468,20 @@ export default class Stat {
         height=${height}cm,
         width=${size / 2}cm,
         ytick=\\empty,
-        axis y line=left,
+        axis y line=none,     % supprimer l'axe vertical
         axis x line=middle,
         xtick = \\empty,
-        y axis line style={draw=none},
-        enlarge y limits={abs=5mm},
       ]
       \\addplot+[
         boxplot prepared ={
             every box/.style={ultra thick,fill=blue!15},
             every whisker/.style={ultra thick},
             every median/.style={ultra thick},
-            lower whisker=${texNombre(boxplotData.moustacheInferieure, 2)},
+            lower whisker=${boxplotData.moustacheInferieure},
             lower quartile=${boxplotData.q1},
             median=${boxplotData.q2},
             upper quartile=${boxplotData.q3},
-            upper whisker=${texNombre(boxplotData.moustacheSuperieure, 2)},
+            upper whisker=${boxplotData.moustacheSuperieure},
           },
       ] coordinates {};
       \\foreach \\x/\\name [count=\\xi from 0] in {${boxplotData.min}/Min,${boxplotData.q1}/Q1,${boxplotData.q2}/Méd,${boxplotData.q3}/Q3,${boxplotData.max}/Max} {

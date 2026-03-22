@@ -18,6 +18,12 @@ export const refs = {
 
 */
 export default class Can32026Q15 extends ExerciceCan {
+  constructor() {
+    super()
+    this.formatChampTexte = KeyboardType.clavierDeBaseAvecVariable
+    this.optionsDeComparaison = { nombreDecimalSeulement: true }
+  }
+
   enonce(a?: number, x?: number) {
     if (a == null || x == null) {
       // Version aléatoire
@@ -25,23 +31,19 @@ export default class Can32026Q15 extends ExerciceCan {
       x = randint(-10, -2)
     }
 
-    this.formatChampTexte = KeyboardType.clavierDeBase
     this.reponse = x ** 2 + a
 
     // Construction de l'expression
-    const expression =  `x^2${ecritureAlgebrique(a)}` 
-    
+    const expression = `x^2${ecritureAlgebrique(a)}`
+
     this.question = `Calcule $${expression}$ pour $x=${x}$.`
-    
+
     if (this.interactif) {
       this.question += '<br>'
     }
 
     this.correction = `Pour $x=${x}$, on obtient : $(${x})^2+${a}=${x ** 2}+${a}=${miseEnEvidence(this.reponse)}$.<br>
 Pour $x=${x}$, $${expression}$ prend la valeur $${miseEnEvidence(this.reponse)}$.`
-
-    this.canEnonce = this.question
-    this.canReponseACompleter = ''
   }
 
   nouvelleVersion() {

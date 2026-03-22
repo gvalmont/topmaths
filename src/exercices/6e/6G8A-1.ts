@@ -118,7 +118,7 @@ export default class DenombrerCubes extends Exercice {
       // début de l'exercice
       texte += unitesCubes
         ? "L'unité de volume étant le cube, "
-        : 'Les cubes ayant des arêtes de $1\\text{cm}$ de longueur, '
+        : 'Les cubes ayant des arêtes de $1\\text{ cm}$ de longueur, '
       switch (listeTypeDeQuestions[q]) {
         case 1:
           texte += unitesCubes
@@ -134,15 +134,14 @@ export default class DenombrerCubes extends Exercice {
           handleAnswers(this, q, {
             reponse: {
               value: L.length,
-              options: unitesCubes ? {} : { unite: true },
             },
           })
           break
         case 2:
           texte += unitesCubes
-            ? `combien de petits cubes manque-t-il pour reconstruire un grand cube de $${longueur}\\text{cm}$ d'arête ?` +
+            ? `combien de petits cubes manque-t-il pour reconstruire un grand cube constitué de $${longueur}$ cubes sur chaque arête ?` +
               ajouteChampTexteMathLive(this, q, KeyboardType.clavierNumbers)
-            : `quel volume en $\\text{cm}^3$ manque-t-il pour reconstruire un cube de $${longueur}\\text{cm}$ d'arête ?` +
+            : `quel volume en $\\text{cm}^3$ manque-t-il pour reconstruire un cube de $${longueur}\\text{ cm}$ d'arête ?` +
               ajouteChampTexteMathLive(this, q, KeyboardType.volume)
           texte += '<br>' + figure
           // correction :
@@ -157,7 +156,6 @@ export default class DenombrerCubes extends Exercice {
           handleAnswers(this, q, {
             reponse: {
               value: longueur * largeur * hauteur - L.length,
-              options: unitesCubes ? {} : { unite: true },
             },
           })
           break

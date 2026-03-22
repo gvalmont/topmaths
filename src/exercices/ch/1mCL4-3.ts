@@ -1,14 +1,14 @@
+import { miseEnEvidence } from '../../lib/outils/embellissements'
+import EquationSecondDegre from '../../modules/EquationSecondDegre'
+import FractionEtendue from '../../modules/FractionEtendue'
 import {
   gestionnaireFormulaireTexte,
   listeQuestionsToContenu,
   randint,
 } from '../../modules/outils'
 import Exercice from '../Exercice'
-import FractionEtendue from '../../modules/FractionEtendue'
-import EquationSecondDegre from '../../modules/EquationSecondDegre'
-import { miseEnEvidence } from '../../lib/outils/embellissements'
 
-export const titre = 'Équation bicarrée'
+export const titre = 'Résoudre une équation bicarrée'
 export const dateDePublication = '11/11/2024'
 export const interactifReady = false
 export const uuid = '89034'
@@ -174,9 +174,19 @@ export default class ExerciceEquationSecondDegre extends Exercice {
               if (!equation.solutionsListeTex[j].includes('\\dfrac')) {
                 numDen1 = [Number(equation.solutionsListeTex[j]), Number('1')]
               } else {
-                numDen1 = equation.solutionsListeTex[j]
-                  .match(/\\dfrac{(\d+)}{(\d+)}/)
-                  ?.slice(1)
+                // numDen1 = equation.solutionsListeTex[j]
+                //   .match(/\\dfrac{(\d+)}{(\d+)}/)
+                //   ?.slice(1)
+
+                // EE : Modif pour pouvoir gérer : \dfrac{2\,078\,461}{461\,880}
+                const match = equation.solutionsListeTex[j].match(
+                  /\\dfrac{([\d\\,]+)}{([\d\\,]+)}/,
+                )
+                if (match) {
+                  numDen1 = match
+                    .slice(1)
+                    .map((s) => Number(s.replace(/\\,/g, '')))
+                }
               }
               solution = new FractionEtendue(
                 Number(numDen1[0]),

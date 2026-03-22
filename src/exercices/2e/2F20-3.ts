@@ -9,7 +9,7 @@ import { segment } from '../../lib/2d/segmentsVecteurs'
 import { texteParPosition } from '../../lib/2d/textes'
 import { tracePoint } from '../../lib/2d/TracePoint'
 import { vide2d } from '../../lib/2d/Vide2d'
-import { approximatelyCompare } from '../../lib/interactif/comparisonFunctions'
+import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import {
@@ -51,6 +51,12 @@ export const refs = {
   'fr-fr': ['2F20-3'],
   'fr-ch': ['11FA9-4'],
 }
+
+function lesReponsesEnCouleur(x0: number): string {
+  if (arrondi(x0, 3) === x0) return `$${miseEnEvidence(texNombre(x0, 1))}$$`
+  else
+    return `$${miseEnEvidence(texNombre(x0, 1))}$ ou $${miseEnEvidence(texNombre(x0 + 0.1, 1))}$`
+}
 export default class LecturesGraphiques extends Exercice {
   constructor() {
     super()
@@ -58,7 +64,7 @@ export default class LecturesGraphiques extends Exercice {
     this.correctionDetailleeDisponible = true
     this.correctionDetaillee = true
     this.nbQuestions = 6
-    this.nbQuestionsModifiable = false
+    this.nbQuestionsModifiable = true
     this.nbCols = 2 // Uniquement pour la sortie LaTeX
 
     this.sup = 1 // Niveau de difficulté
@@ -180,12 +186,11 @@ export default class LecturesGraphiques extends Exercice {
             handleAnswers(this, i, {
               reponse: {
                 value: minimum[1],
-                compare: approximatelyCompare,
-                options: { tolerance: 0.1 },
+                options: { approximatelyCompare: true },
               },
             })
           reponses[i] = minimum[1]
-          texte += ajouteChampTexteMathLive(this, i)
+          texte += ajouteChampTexteMathLive(this, i, KeyboardType.clavierDeBase)
           texteCorr = `Le minimum de $f$ est $${texNombre(minimum[1], 1)}$ et il est atteint en $x=${minimum[0]}$.<br>`
           if (this.correctionDetaillee) {
             s[0] =
@@ -234,13 +239,12 @@ export default class LecturesGraphiques extends Exercice {
             handleAnswers(this, i, {
               reponse: {
                 value: maximum[1],
-                compare: approximatelyCompare,
-                options: { tolerance: 0.1 },
+                options: { approximatelyCompare: true },
               },
             })
           reponses[i] = maximum[1]
-          texte += ajouteChampTexteMathLive(this, i)
-          texteCorr = `Le maximum de $f$ est $${texNombre(maximum[1], 1)}$ et il est atteint en $x=${maximum[0]}$.<br>`
+          texte += ajouteChampTexteMathLive(this, i, KeyboardType.clavierDeBase)
+          texteCorr = `Le maximum de $f$ est $${miseEnEvidence(texNombre(maximum[1], 1))}$ et il est atteint en $x=${maximum[0]}$.<br>`
           if (this.correctionDetaillee) {
             s[0] =
               maximum[1] !== 0
@@ -297,20 +301,19 @@ export default class LecturesGraphiques extends Exercice {
               ],
               x0,
             ),
-            1,
+            2,
           )
           texte = `Lire graphiquement l'image de $${texNombre(x0, 1)}$ par la fonction $f$.<br>Donner la réponse avec la précision permise par le graphique.<br>`
           if (!context.isAmc)
             handleAnswers(this, i, {
               reponse: {
                 value: y0,
-                compare: approximatelyCompare,
-                options: { tolerance: 0.1 },
+                options: { approximatelyCompare: true },
               },
             })
           reponses[i] = y0
-          texte += ajouteChampTexteMathLive(this, i)
-          texteCorr = `$f(${texNombre(x0, 1)})=${texNombre(y0, 1)}$.<br>`
+          texte += ajouteChampTexteMathLive(this, i, KeyboardType.clavierDeBase)
+          texteCorr = `$f(${texNombre(x0, 1)})=${lesReponsesEnCouleur(y0)}.<br>`
           if (this.correctionDetaillee) {
             s[0] =
               x0 !== 0 ? segment(0, y0 * 2, x0 * 2, y0 * 2, 'blue') : vide2d()
@@ -363,14 +366,17 @@ export default class LecturesGraphiques extends Exercice {
             if (!context.isAmc)
               handleAnswers(this, i, {
                 reponse: {
-                  value: x0.toFixed(1),
-                  compare: approximatelyCompare,
-                  options: { tolerance: 0.1 },
+                  value: x0.toFixed(2),
+                  options: { approximatelyCompare: true },
                 },
               })
             reponses[i] = arrondi(x0, 1)
-            texte += ajouteChampTexteMathLive(this, i)
-            texteCorr = `Le plus petit antécédent avec la précision permise par le graphique de $${texNombre(y0, 1)}$ est $${miseEnEvidence(texNombre(x0, 1))}$.<br>`
+            texte += ajouteChampTexteMathLive(
+              this,
+              i,
+              KeyboardType.clavierDeBase,
+            )
+            texteCorr = `Le plus petit antécédent avec la précision permise par le graphique de $${texNombre(y0, 1)}$ est ${lesReponsesEnCouleur(x0)}.<br>`
             if (this.correctionDetaillee) {
               s[0] = segment(-15, y0 * 2, 15, y0 * 2, 'blue')
               s[0].pointilles = 5
@@ -422,14 +428,17 @@ export default class LecturesGraphiques extends Exercice {
             if (!context.isAmc)
               handleAnswers(this, i, {
                 reponse: {
-                  value: x0.toFixed(1),
-                  compare: approximatelyCompare,
-                  options: { tolerance: 0.1 },
+                  value: x0.toFixed(2),
+                  options: { approximatelyCompare: true },
                 },
               })
             reponses[i] = arrondi(x0, 1)
-            texte += ajouteChampTexteMathLive(this, i)
-            texteCorr = `Le plus grand antécédent de $${texNombre(y0, 1)}$ avec la précision permise par le graphique est $${miseEnEvidence(texNombre(x0, 1))}$.<br>`
+            texte += ajouteChampTexteMathLive(
+              this,
+              i,
+              KeyboardType.clavierDeBase,
+            )
+            texteCorr = `Le plus grand antécédent de $${texNombre(y0, 1)}$ avec la précision permise par le graphique est ${lesReponsesEnCouleur(x0)}.<br>`
             if (this.correctionDetaillee) {
               s[0] = segment(-15, y0 * 2, 15, y0 * 2, 'blue')
               s[0].pointilles = 5
@@ -481,7 +490,7 @@ export default class LecturesGraphiques extends Exercice {
           antecedents = numTrie(enleveDoublonNum(antecedents, 0.1))
           antecedentTrouve = antecedents.length
           texte = `Lire graphiquement le nombre d'antécédents de $${texNombre(y0, 1)}$ par la fonction $f$.<br>`
-          texte += ajouteChampTexteMathLive(this, i)
+          texte += ajouteChampTexteMathLive(this, i, KeyboardType.clavierDeBase)
           switch (antecedentTrouve) {
             case 0:
               texteCorr = `$${texNombre(y0, 1)}$ ${texteEnCouleurEtGras("ne possède pas d'antécédent")} sur $[-4;4]$.<br>`

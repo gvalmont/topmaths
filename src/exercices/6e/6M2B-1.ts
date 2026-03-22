@@ -1,7 +1,6 @@
 import { codageAngleDroit } from '../../lib/2d/CodageAngleDroit'
 import { codageSegments } from '../../lib/2d/CodageSegment'
 import { colorToLatexOrHTML } from '../../lib/2d/colorToLatexOrHtml'
-import { droite, droiteHorizontaleParPoint } from '../../lib/2d/droites'
 import { fixeBordures } from '../../lib/2d/fixeBordures'
 import { MetaInteractif2d } from '../../lib/2d/interactif2d'
 import { placeLatexSurSegment } from '../../lib/2d/placeLatexSurSegment'
@@ -10,9 +9,7 @@ import { polygone } from '../../lib/2d/polygones'
 import { carre } from '../../lib/2d/polygonesParticuliers'
 import { segment } from '../../lib/2d/segmentsVecteurs'
 import { latex2d } from '../../lib/2d/textes'
-import { projectionOrtho, rotation } from '../../lib/2d/transformations'
 import { longueur } from '../../lib/2d/utilitairesGeometriques'
-import { pointIntersectionDD } from '../../lib/2d/utilitairesPoint'
 import { centreGraviteTriangle } from '../../lib/2d/utilitairesTriangle'
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
@@ -26,7 +23,8 @@ import { gestionnaireFormulaireTexte, randint } from '../../modules/outils'
 import type { NestedObjetMathalea2dArray } from '../../types/2d'
 import Exercice from '../Exercice'
 
-export const titre = 'Calculer l’aire d’un carré ou d’un rectangle'
+export const titre =
+  'Calculer l’aire d’un carré, d’un rectangle, ou d’un triangle'
 export const interactifReady = true
 export const interactifType = 'MetaInteractif2d'
 export const dateDePublication = '10/01/2026'
@@ -36,7 +34,7 @@ export const dateDePublication = '10/01/2026'
  * @author Jean-Claude Lhote
  */
 
-export const uuid = 'f36f4'
+export const uuid = 'f36f5'
 
 export const refs = {
   'fr-fr': ['6M2B-1'],
@@ -166,7 +164,7 @@ const figureRectangle = (
     ajouteFeedback(exercice, question)
   )
 }
-const figureTriangleRectangle = (
+const figureTriangleRectangle1 = (
   base: number,
   hauteur: number,
   decimal: boolean,
@@ -238,7 +236,7 @@ const figureTriangleRectangle = (
   )
 }
 
-const figureTriangleQuelconque = (
+const figureTriangleQuelconque1 = (
   base: number,
   hauteur: number,
   angle: number,
@@ -246,20 +244,22 @@ const figureTriangleQuelconque = (
   exercice: IExercice,
   question: number,
 ) => {
+  const interieur = angle < 90
   const precision = decimal ? 1 : 0
   const b = Math.max(7, base)
   const h = Math.max(4, hauteur)
   const A = pointAbstrait(0, 0)
   const flip = choice([-1, 1])
+  const xH =
+    (interieur
+      ? choice([1 - randint(10, 20) / 100, randint(10, 20) / 100]) * flip
+      : (1 + randint(10, 20) / 100) * flip) * b
   const B = pointAbstrait(b * flip, 0)
-  const d = droiteHorizontaleParPoint(pointAbstrait(0, h))
-  const d1 = droite(A, B)
-  const d2 = rotation(d1, B, -flip * angle)
-  const C = pointIntersectionDD(d2, d)
+  const C = pointAbstrait(xH, h)
   const triangle = polygone(A, B, C)
   triangle.hachures = true
   triangle.couleurDesHachures = colorToLatexOrHTML('lightgray')
-  const H = projectionOrtho(C, d1)
+  const H = pointAbstrait(xH, 0)
   const segHauteur1 = segment(C, H)
   segHauteur1.pointilles = 2
   const segHauteur2 = segment(H, A)
@@ -278,15 +278,15 @@ const figureTriangleQuelconque = (
     { letterSize: 'scriptsize' },
   )
   const afficheHypotenuse = placeLatexSurSegment(
-    `\\approx${texNombre(longueur(A, C), precision)}\\text{ cm}`,
+    `\\approx${texNombre(longueur(A, C), 1)}\\text{ cm}`,
     flip === 1 ? A : C,
     flip === 1 ? C : A,
     { letterSize: 'scriptsize' },
   )
   const afficheCote = placeLatexSurSegment(
-    `\\approx${texNombre(longueur(B, C), precision)}\\text{ cm}`,
-    flip === 1 ? B : C,
-    flip === 1 ? C : B,
+    `\\approx${texNombre(longueur(B, C), 1)}\\text{ cm}`,
+    flip === 1 ? (angle > 90 ? B : C) : angle > 90 ? C : B,
+    flip === 1 ? (angle > 90 ? C : B) : angle > 90 ? B : C,
     { distance: 0.5, letterSize: 'scriptsize' },
   )
   const M = centreGraviteTriangle(A, B, C)
@@ -324,7 +324,6 @@ const figureTriangleQuelconque = (
     ajouteFeedback(exercice, question)
   )
 }
-
 export default class AireCarreRectangle extends Exercice {
   constructor() {
     super()
@@ -384,7 +383,7 @@ export default class AireCarreRectangle extends Exercice {
             const base = this.sup2 ? randint(40, 90) / 10 : randint(4, 9)
             const hauteur = this.sup2 ? randint(30, 50) / 10 : randint(3, 5)
             a = (base * hauteur) / 2
-            texte = figureTriangleRectangle(base, hauteur, this.sup2, this, i)
+            texte = figureTriangleRectangle1(base, hauteur, this.sup2, this, i)
             texteCorr = `L'aire du triangle rectangle est de $\\dfrac{${texNombre(base, 1)}\\text{ cm}\\times ${texNombre(hauteur, 1)}\\text{ cm}}{2}=${miseEnEvidence(texNombre(a, 3))}\\text{ cm}^2$.`
           }
           break
@@ -393,9 +392,9 @@ export default class AireCarreRectangle extends Exercice {
           // Triangle quelconque
           const base = this.sup2 ? randint(40, 90) / 10 : randint(4, 9)
           const hauteur = this.sup2 ? randint(30, 50) / 10 : randint(3, 5)
-          const angle = randint(100, 120)
+          const angle = [randint(100, 120), randint(60, 80)][i % 2]
           a = (base * hauteur) / 2
-          texte = figureTriangleQuelconque(
+          texte = figureTriangleQuelconque1(
             base,
             hauteur,
             angle,

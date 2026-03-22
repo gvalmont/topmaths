@@ -18,6 +18,12 @@ export const refs = {
 
 */
 export default class Can20264emeQ11 extends ExerciceCan {
+  constructor() {
+    super()
+    this.formatChampTexte = KeyboardType.clavierDeBaseAvecFraction
+    this.optionsDeComparaison = { fractionEgale: true }
+  }
+
   enonce(n?: number, a?: number, b?: number) {
     if (n == null || a == null || b == null) {
       b = choice([2, 3, 4, 5, 6, 7, 8, 9, 10])
@@ -31,17 +37,15 @@ export default class Can20264emeQ11 extends ExerciceCan {
     this.question = `$${n}-${fraction.texFraction}$`
     this.correction = `$\\begin{aligned}${n}-${fraction.texFraction}&=\\dfrac{${n * b}}{${b}}-${fraction.texFraction}\\\\
     &=\\dfrac{${n * b}-${a}}{${b}}\\\\
-    &=${miseEnEvidence(`\\dfrac{${n * b - a}}{${b}}`)}${!reponse.estIrreductible ? `\\\\&=${miseEnEvidence(reponse.texFractionSimplifiee)}` : ''}\\end{aligned}$`
-    this.canEnonce = this.question
-    this.canReponseACompleter = ''
+    &=${miseEnEvidence(`\\dfrac{${n * b - a}}{${b}}`)}${!reponse.estIrreductible ? `\\\\&=${miseEnEvidence(reponse.texFSD)}` : ''}\\end{aligned}$`
+
     this.reponse = reponse.texFraction
-    this.formatChampTexte = KeyboardType.clavierDeBaseAvecFraction
     if (this.interactif) {
-      this.question += '$=$'
+      this.question += '$~=$'
     }
   }
 
   nouvelleVersion() {
-    this.canOfficielle ? this.enonce(1, 6, 5) : this.enonce()
+    this.canOfficielle ? this.enonce(1, 7, 6) : this.enonce()
   }
 }

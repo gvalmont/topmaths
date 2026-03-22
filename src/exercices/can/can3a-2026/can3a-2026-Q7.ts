@@ -5,7 +5,7 @@ import { texNombre } from '../../../lib/outils/texNombre'
 import { randint } from '../../../modules/outils'
 import ExerciceCan from '../../ExerciceCan'
 
-export const titre = 'Calculer une fraction d\'un entier'
+export const titre = "Calculer une fraction d'un entier"
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const uuid = 'sts09'
@@ -19,7 +19,13 @@ export const refs = {
 
 */
 export default class Can32026Q7 extends ExerciceCan {
- enonce(a?: string, b?: number) {
+  constructor() {
+    super()
+    this.formatChampTexte = KeyboardType.clavierNumbers
+    this.optionsDeComparaison = { nombreDecimalSeulement: true }
+  }
+
+  enonce(a?: string, b?: number) {
     let c = 3
     if (a == null || b == null) {
       a = choice(['La moitié', 'Le tiers', 'Le quart'])
@@ -29,12 +35,11 @@ export default class Can32026Q7 extends ExerciceCan {
           10) *
         c
     }
-    this.formatChampTexte = KeyboardType.clavierDeBase
+
     this.reponse = b / c
     this.question = `${a} de $${b}$ `
-    this.correction = `${a} de $${b}$ est égal à : $${b}\\div ${c} = ${miseEnEvidence(texNombre(b / c, 0))}$.`
-    this.canEnonce = this.question
-    this.canReponseACompleter = ''
+    this.correction = `${a} de $${b}$ est égal${a === 'La moitié' ? 'e' : ''} à : $${b}\\div ${c} = ${miseEnEvidence(texNombre(b / c, 0))}$.`
+
     if (this.interactif) {
       this.question += '<br>'
     }

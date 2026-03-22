@@ -43,7 +43,6 @@ export default class ExerciceEquationASolutionEntiere extends Exercice {
       '1 : ax=d ou x+b=d ou x-b=d\n2: ax+b=d\n3: ax+b=cx+d\n4: Mélange',
     ]
 
-    this.consigne = 'Résoudre les équations suivantes.'
     this.spacing = 2
     context.isHtml ? (this.spacingCorr = 3) : (this.spacingCorr = 2)
     this.correctionDetailleeDisponible = true
@@ -54,6 +53,8 @@ export default class ExerciceEquationASolutionEntiere extends Exercice {
   }
 
   nouvelleVersion() {
+    this.consigne =
+      this.nbQuestions > 1 ? 'Résoudre les équations suivantes.' : ''
     let listeTypeDeQuestions: (
       | 'ax+b=0'
       | 'ax+b=d'
@@ -90,7 +91,11 @@ export default class ExerciceEquationASolutionEntiere extends Exercice {
         valeursRelatives: this.sup,
         type: listeTypeDeQuestions[i],
       })
-      const texte = `$${equation.egalite}$ ${ajouteChampTexteMathLive(this, i, KeyboardType.clavierDeBase, { texteAvant: sp(10) + '<br>La solution est $x=$' })}`
+      let texte = ''
+      if (this.nbQuestions === 1) texte += "Résoudre l'équation "
+      texte += `$${equation.egalite}$`
+      if (this.nbQuestions === 1) texte += '.'
+      texte += `${ajouteChampTexteMathLive(this, i, KeyboardType.clavierDeBase, { texteApres: '.', texteAvant: sp(10) + '<br>La solution est : $x=$' })}`
       const texteCorr =
         texte +
         '<br>' +
@@ -109,7 +114,6 @@ export default class ExerciceEquationASolutionEntiere extends Exercice {
     if (!context.isHtml) {
       this.canEnonce = "Résoudre l'équation " + this.listeQuestions[0] + '.'
       this.correction = this.listeCorrections[0]
-      this.canReponseACompleter = ''
 
       for (const enonce of this.listeQuestions) {
         this.listeCanEnonces.push("Résoudre l'équation " + enonce + '.')

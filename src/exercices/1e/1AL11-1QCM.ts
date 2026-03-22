@@ -14,14 +14,14 @@ export const dateDePublication = '10/08/2025'
 export const uuid = '3bd46'
 // Author Stéphane Guyon
 export const refs = {
-  'fr-fr': ['1AL11-1QCM'],
+  'fr-fr': ['1AL11-1QCM', '1Gen-A201-1', '1Tec-AN11-12'],
   'fr-ch': [],
 }
 export const interactifReady = true
 export const interactifType = 'qcm'
 export const amcReady = 'true'
 export const amcType = 'qcmMono'
-export const titre = 'Calculer avec les suites arithmétiques et géométriques'
+export const titre = 'Reconnaître une suite arithmétique/géométrique (QCM)'
 export default class Puissances extends ExerciceQcmA {
   versionOriginale: () => void = () => {
     const a = -2

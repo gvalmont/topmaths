@@ -13,7 +13,7 @@ import {
 } from '../../modules/outils'
 import Exercice from '../Exercice'
 
-export const titre = 'Valeurs remarquables du cosinus et sinus'
+export const titre = 'Connaître les valeurs remarquables du cosinus et sinus'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 // Les exports suivants sont optionnels mais au moins la date de publication semble essentielle
@@ -195,7 +195,6 @@ export default class CosEtsin extends Exercice {
       this.canEnonce =
         'Donner la valeur exacte de ' + this.listeQuestions[0] + '.'
       this.correction = this.listeCorrections[0]
-      this.canReponseACompleter = ''
 
       for (const enonce of this.listeQuestions) {
         this.listeCanEnonces.push('Donner la valeur exacte de ' + enonce + '.')

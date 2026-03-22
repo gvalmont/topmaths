@@ -56,10 +56,15 @@ export default class IdentitesCalculs extends Exercice {
   nouvelleVersion() {
     this.consigne =
       this.nbQuestions === 1
-        ? 'Effectuer le calcul suivant '
-        : 'Effectuer les calculs suivants '
-    this.consigne +=
-      'sans calculatrice. Utiliser la double distributivité ou les identités remarquables.'
+        ? this.can
+          ? 'Calculer :'
+          : 'Effectuer le calcul suivant '
+        : this.can
+          ? 'Calculer :'
+          : 'Effectuer les calculs suivants '
+    this.consigne += this.can
+      ? ''
+      : 'sans calculatrice. Utiliser la double distributivité ou les identités remarquables.'
     let typesDeQuestionsDisponibles
 
     // une fonction pour gérer un \hfill dans la sortie LaTeX
@@ -73,11 +78,9 @@ export default class IdentitesCalculs extends Exercice {
     switch (Number(this.sup)) {
       case 1:
         typesDeQuestionsDisponibles = [0, 0, 0] // shuffle([choice([1,3]),choice([2,3]),0]);
-        this.introduction = warnMessage(
-          '$(a+b)^2=a^2+2ab+b^2$',
-          'nombres',
-          'Coup de pouce',
-        )
+        this.introduction = this.can
+          ? ''
+          : warnMessage('$(a+b)^2=a^2+2ab+b^2$', 'nombres', 'Coup de pouce')
         break
       case 2:
         typesDeQuestionsDisponibles = [1, 1, 1] // shuffle([choice([1,3]),choice([2,3]),0]);
@@ -389,8 +392,6 @@ export default class IdentitesCalculs extends Exercice {
                 this.reponse = `${enonces[0].resultatCan}`
                 break
             }
-            this.canEnonce = this.question
-            this.canReponseACompleter = ''
           }
           break
         case 1: // carré d'une différence
@@ -425,8 +426,6 @@ export default class IdentitesCalculs extends Exercice {
                 this.reponse = `${enonces[1].resultatCan}`
                 break
             }
-            this.canEnonce = this.question
-            this.canReponseACompleter = ''
           }
           break
         case 2: // Produit somme différence
@@ -462,8 +461,6 @@ export default class IdentitesCalculs extends Exercice {
                 this.reponse = `${enonces[2].resultatCan}`
                 break
             }
-            this.canEnonce = this.question
-            this.canReponseACompleter = ''
           }
           break
       }

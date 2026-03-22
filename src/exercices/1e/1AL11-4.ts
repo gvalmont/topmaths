@@ -33,7 +33,7 @@ export const dateDePublication = '29/09/2024'
 export const uuid = '3ae4a'
 
 export const refs = {
-  'fr-fr': ['1AL11-4'],
+  'fr-fr': ['1AL11-4', '1Gen-A202', '1Tec-AN11-2'],
   'fr-ch': [],
 }
 export default class TermesSASG extends Exercice {
@@ -52,7 +52,7 @@ export default class TermesSASG extends Exercice {
         '1 : Suite arithmétique avec premier terme u_0',
         '2 : Suite arithmétique avec premier terme u_1',
         '3 : Suite arithmétique avec premier terme u_p',
-        '4 : Suite géométrique avec premier terme u_1',
+        '4 : Suite géométrique avec premier terme u_0',
         '5 : Suite géométrique avec premier terme u_1',
         '6 : Suite géométrique avec premier terme u_p',
         '7 : Mélange',

@@ -3,7 +3,7 @@ import { fixeBordures } from '../../lib/2d/fixeBordures'
 import { lectureAntecedent } from '../../lib/2d/LectureAntecedent'
 import { point } from '../../lib/2d/PointAbstrait'
 import { repere } from '../../lib/2d/reperes'
-import { texteParPosition } from '../../lib/2d/textes'
+import { latex2d, texteParPosition } from '../../lib/2d/textes'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import {
@@ -199,29 +199,26 @@ export default class LecturesGraphiquesSurSplines extends Exercice {
       const reponse1 =
         !solutions1 || solutions1.length === 0
           ? '\\emptyset'
-          : `${solutions1.join(';')}`
+          : `\\{${solutions1.join(';')}\\}`
       const horizontale1 = droiteParPointEtPente(
         point(0, Number(y1)),
         0,
         '',
-        'green',
+        '#009900',
       )
-      const horizontale2 = droiteParPointEtPente(point(0, y2), 0, '', 'green')
-      const nomD1 = texteParPosition(
-        `$y=${y1}$`,
-        bornes.xMax + 1.5,
-        Number(y1) + 0.3,
-        0,
-        'green',
-        1.5,
-      )
-      const nomD2 = texteParPosition(
-        `$y=${texNombre(y2, 1)}$`,
-        bornes.xMax + 1.5,
-        y2 + 0.3,
-        0,
-        'green',
-        1.5,
+      const horizontale2 = droiteParPointEtPente(point(0, y2), 0, '', '#009900')
+      const nomD1 = latex2d(`y=${y1}`, bornes.xMin - 0.5, Number(y1) + 0.4, {
+        color: '#009900',
+        letterSize: 'small',
+      })
+      const nomD2 = latex2d(
+        `y=${texNombre(y2, 1)}`,
+        bornes.xMin - 0.5,
+        y2 + 0.4,
+        {
+          color: '#009900',
+          letterSize: 'small',
+        },
       )
       horizontale1.epaisseur = 2
       horizontale1.pointilles = 2
@@ -260,7 +257,7 @@ export default class LecturesGraphiquesSurSplines extends Exercice {
       enonceSousRepere +=
         `<br>${numAlpha(2)}Déterminer une valeur entière de $k$ telle que $f(x)=k$ admette exactement $${nombreAntecedentsCherches2}$ solution${nombreAntecedentsCherches2 > 1 ? 's' : ''}` +
         (this.interactif ? ' : ' : '.') +
-        ajouteChampTexteMathLive(this, 3 * i + 2, ' ')
+        ajouteChampTexteMathLive(this, 3 * i + 2, KeyboardType.clavierDeBase)
 
       handleAnswers(this, 3 * i, {
         reponse: { value: nombreAntecedentCherches0 },

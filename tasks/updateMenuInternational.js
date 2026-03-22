@@ -376,6 +376,7 @@ function handleExerciceSvelte(uuidToUrl) {
   uuidToUrl.clavier = 'ClavierTest.svelte'
   uuidToUrl.version = 'Version.svelte'
   uuidToUrl.equation = 'EquationSolve.svelte'
+  uuidToUrl.outilScratch = 'OutilScratch.svelte'
   return uuidToUrl
 }
 

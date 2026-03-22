@@ -1,7 +1,7 @@
-import ExerciceSimple from '../../ExerciceSimple'
+import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { randint } from '../../../modules/outils'
-import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
+import ExerciceSimple from '../../ExerciceSimple'
 
 export const titre = 'Calculer une expression décrite par une phrase'
 export const interactifReady = true
@@ -39,8 +39,7 @@ export default class NomExercice extends ExerciceSimple {
       this.correction = `la somme de $${b}$ et de $${c}$ est égal à : $${b}+${c}=${b + c}$.<br>
       Le produit de $${a}$ par la somme de $${b}$ et de $${c}$ est donc égal à : $${a}\\times ${b + c}=${miseEnEvidence(this.reponse)}$`
     }
-    this.canEnonce = this.question
-    this.canReponseACompleter = '$\\ldots$'
+
     if (!this.interactif) {
       this.question += '$\\ldots$'
     }

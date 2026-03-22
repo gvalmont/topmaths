@@ -39,9 +39,8 @@ import { createURL } from './createURL'
 import { sendToCapytaleMathaleaHasChanged } from './handleCapytale'
 import { fonctionComparaison } from './interactif/comparisonFunctions'
 import { handleAnswers, setReponse } from './interactif/gestionInteractif'
-import { propositionsQcm } from './interactif/qcm'
+import { buildSimpleVersionQcm } from './interactif/qcmBuilder'
 import { shuffle } from './outils/arrayOutils'
-import { formaterReponse } from './outils/ecritures'
 import { renderScratchDiv } from './renderScratch'
 import { canOptions } from './stores/canStore'
 import {
@@ -656,6 +655,7 @@ export function mathaleaUpdateExercicesParamsFromUrl(
   let beta = false
   let url: URL
   let canDuration = 540
+  let canMainTitle = 'Course aux Nombres'
   let canTitle = ''
   let canSolAccess = true
   let canSolMode = 'gathered'
@@ -758,6 +758,8 @@ export function mathaleaUpdateExercicesParamsFromUrl(
         beta = true
       } else if (entry[0] === 'canD') {
         canDuration = parseInt(entry[1])
+      } else if (entry[0] === 'canTi') {
+        canMainTitle = entry[1]
       } else if (entry[0] === 'canT') {
         canTitle = entry[1]
       } else if (entry[0] === 'canSA') {
@@ -806,6 +808,7 @@ export function mathaleaUpdateExercicesParamsFromUrl(
   if (v === 'can' || get(globalOptions).recorder === 'capytale') {
     canOptions.update((e) => {
       e.durationInMinutes = canDuration
+      e.title = canMainTitle
       e.isInteractive = canIsInteractive
       e.solutionsAccess = canSolAccess
       if (canSolMode === 'gathered') e.solutionsMode = 'gathered'
@@ -1034,26 +1037,32 @@ export function mathaleaHandleExerciceSimple(
                     r instanceof Hms,
                 ))
             ) {
-              exercice.autoCorrection[i] = {
-                options: exercice.versionQcmOptions ?? { radio: true },
-                enonce: exercice.question,
-                propositions: [
+              /*  if (
+                !compteLesReponsesDifferentes(
+                  exercice,
+                  1 + exercice.distracteurs.length,
+                  false,
                   {
-                    texte: formaterReponse(exercice.reponse ?? ''),
-                    statut: true,
+                    calculFormel: true,
                   },
-                  ...exercice.distracteurs.map((distracteur) => ({
-                    texte: formaterReponse(distracteur),
-                    statut: false,
-                  })),
-                ],
+                )
+              ) {
+                window.notify(
+                  `Un exercice simple de type qcm doit avoir au moins 4 réponses différentes, dans ${(exercice?.numeroExercice ?? 0) + 1} - ${exercice.titre} , reponse: ${JSON.stringify(exercice.reponse)}, distracteurs: ${JSON.stringify(exercice.distracteurs)}`,
+                  { exercice: JSON.stringify(exercice) },
+                )
               }
+                */
+              const qcmData = buildSimpleVersionQcm(exercice, i, {
+                question: exercice.question ?? '',
+                correction: exercice.correction ?? '',
+                reponse: exercice.reponse,
+                distracteurs: exercice.distracteurs,
+                options: exercice.versionQcmOptions ?? { radio: true },
+              })
+              exercice.question = qcmData.question
+              exercice.correction = qcmData.correction
             }
-            const qcm = propositionsQcm(exercice, i, {
-              style: 'margin:0 3px 0 3px;',
-              format: exercice.interactif ? 'case' : 'lettre',
-            })
-            exercice.question += qcm.texte
           }
           exercice.listeQuestions.push(exercice.question || '')
         } else if (exercice.formatInteractif === 'listeDeroulante') {

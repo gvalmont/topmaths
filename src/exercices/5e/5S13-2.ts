@@ -17,9 +17,10 @@ import {
 import Exercice from '../Exercice'
 
 import { tableauColonneLigne } from '../../lib/2d/tableau'
+import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 import { setReponse } from '../../lib/interactif/gestionInteractif'
 
-export const titre = 'Calculs de fréquences'
+export const titre = 'Calculer des fréquences statistiques'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const amcReady = true
@@ -485,13 +486,22 @@ function questionsEtCorrections(
         preambule,
         numAlpha(0) +
           "Déterminer l'effectif manquant." +
-          ajouteChampTexteMathLive(exercice, numero * 2, '') +
+          ajouteChampTexteMathLive(
+            exercice,
+            numero * 2,
+            KeyboardType.clavierNumbers,
+          ) +
           '<br>',
         numAlpha(1) +
           `Déterminer la fréquence de la valeur ${serie.modalites[rangValeurChoisie]} (en pourcentage, arrondir au dixième si besoin).` +
-          ajouteChampTexteMathLive(exercice, numero * 2 + 1, '', {
-            texteApres: '%',
-          }) +
+          ajouteChampTexteMathLive(
+            exercice,
+            numero * 2 + 1,
+            KeyboardType.clavierNumbers,
+            {
+              texteApres: '%',
+            },
+          ) +
           '<br>',
       ]
     } else {

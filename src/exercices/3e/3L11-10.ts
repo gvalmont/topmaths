@@ -1,5 +1,5 @@
 import { tableauColonneLigne } from '../../lib/2d/tableau'
-import { functionCompare } from '../../lib/interactif/comparisonFunctions'
+import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { toutPourUnPoint } from '../../lib/interactif/mathLive'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
@@ -16,7 +16,7 @@ import {
   randint,
 } from '../../modules/outils'
 import Exercice from '../Exercice'
-export const titre = 'Table de double distributivité'
+export const titre = 'Compléter une table de double distributivité'
 export const dateDePublication = '23/02/2023'
 export const dateDeModifImportante = '29/12/2025'
 export const interactifReady = true
@@ -155,11 +155,19 @@ export default class TableDoubleDistributivite extends Exercice {
       texte += context.isHtml
         ? '<br> Développement : '
         : '\\par\\medskip Développement : '
-      texte += ajouteChampTexteMathLive(this, 3 * i + 1, '')
+      texte += ajouteChampTexteMathLive(
+        this,
+        3 * i + 1,
+        KeyboardType.clavierDeBaseAvecX,
+      )
       texte += context.isHtml
         ? '<br> Développement réduit : '
         : '\\par\\medskip Développement réduit: '
-      texte += ajouteChampTexteMathLive(this, 3 * i + 2, '')
+      texte += ajouteChampTexteMathLive(
+        this,
+        3 * i + 2,
+        KeyboardType.clavierDeBaseAvecX,
+      )
       // aucune gestion de la largeur de colonne ici
       texteCorr += tableauColonneLigne(
         tableau.entetesCol,
@@ -184,13 +192,13 @@ export default class TableDoubleDistributivite extends Exercice {
 
       handleAnswers(this, 3 * i, {
         bareme: toutPourUnPoint,
-        L1C1: { value: tableau.L1C1txt, compare: functionCompare },
-        L1C2: { value: tableau.L1C2txt, compare: functionCompare },
-        L2C1: { value: tableau.L2C1txt, compare: functionCompare },
-        L2C2: { value: tableau.L2C2nbr, compare: functionCompare },
+        L1C1: { value: tableau.L1C1txt, options: { fonction: true } },
+        L1C2: { value: tableau.L1C2txt, options: { fonction: true } },
+        L2C1: { value: tableau.L2C1txt, options: { fonction: true } },
+        L2C2: { value: tableau.L2C2nbr, options: { fonction: true } },
       })
       handleAnswers(this, 3 * i + 1, {
-        reponse: { value: developpements.eclate, compare: functionCompare },
+        reponse: { value: developpements.eclate, options: { fonction: true } },
       })
       const reponse = developpements.reduit
       handleAnswers(this, 3 * i + 2, { reponse: { value: reponse } })

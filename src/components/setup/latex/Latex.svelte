@@ -22,7 +22,7 @@
   import { mathaleaGoToView } from '../../../lib/mathaleaUtils'
   import { darkMode, exercicesParams } from '../../../lib/stores/generalStore'
   import { referentielLocale } from '../../../lib/stores/languagesStore'
-  import type { IExercice } from '../../../lib/types'
+  import type { IExercice, IExerciceStatique } from '../../../lib/types'
   import Footer from '../../Footer.svelte'
   import ButtonActionInfo from '../../shared/forms/ButtonActionInfo.svelte'
   import ButtonCompileLatexToPDF from '../../shared/forms/ButtonCompileLatexToPDF.svelte'
@@ -37,7 +37,7 @@
   import FormConfigSection from './FormConfigSection.svelte'
   import { decodeBase64, encodeBase64 } from './LatexConfig'
 
-  const url = new URL(window.location.href)
+  let url = new URL(window.location.href)
   const decoded = decodeBase64(
     url.searchParams.get('pdfParam') || '',
   ) as Partial<LatexFileInfos>
@@ -84,7 +84,7 @@
   ]
 
   let dialogLua: HTMLDialogElement
-  let exercices: IExercice[]
+  let exercices: (IExercice | IExerciceStatique)[]
   let latexFile: latexFileType = {
     contents: { preamble: '', intro: '', content: '', contentCorr: '' },
     latexWithoutPreamble: '',
@@ -114,6 +114,7 @@
     latexFile.contents = await latex.getContents(latexFileInfos)
     picsWanted = doesLatexNeedsPics(latexFile.contents)
     messageForCopyPasteModal = buildMessageForCopyPaste(picsWanted)
+    url = new URL(window.location.href)
   }
 
   async function updateLatexWithAbortController() {

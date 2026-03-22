@@ -1,9 +1,9 @@
-import { ComputeEngine } from '@cortex-js/compute-engine'
 import Figure from 'apigeom'
 import type { MathfieldElement } from 'mathlive'
 import handleApigeomFigureElement from '../../lib/apigeom/apigeom-figure'
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
-import { generateCleaner } from '../../lib/interactif/comparisonFunctions'
+import { generateCleaner } from '../../lib/interactif/cleaners'
+import ce from '../../lib/interactif/comparisonFunctions'
 import { remplisLesBlancs } from '../../lib/interactif/questionMathLive'
 import { shuffle } from '../../lib/outils/arrayOutils'
 import { context } from '../../modules/context'
@@ -32,8 +32,6 @@ export const refs = {
   'fr-2016': ['6N20-2'],
   'fr-ch': ['9NO11-2'],
 }
-
-const ce = new ComputeEngine()
 
 export default class ExerciceFractionsDifferentesEcritures extends Exercice {
   reponsesAttendues: {

@@ -37,7 +37,7 @@ export default class NaturePolygone extends Exercice {
     this.besoinFormulaireNumerique = [
       'Situations',
       3,
-      '1 : Triangles \n2 : Quadrilétères\n3 : Mélange ',
+      '1 : Triangles \n2 : Quadrilatères\n3 : Mélange ',
     ]
 
     this.nbQuestions = 1
@@ -213,7 +213,7 @@ export default class NaturePolygone extends Exercice {
             s3,
           )
           texte =
-            'Dans un repère orthonormé $(O;I,J)$, on donne les points suivants :'
+            'Dans un repère orthonormé $(O, I, J)$, on donne les points suivants :'
           texte += ` $${A.nom}\\left(${xA}\\,;\\,${yA}\\right)$ ; $${B.nom}\\left(${xB}\\,;\\,${yB}\\right)$ et $${C.nom}\\left(${xC}\\,;\\,${yC}\\right)$.`
           texte += `<br>Déterminer la nature du triangle $${A.nom}${B.nom}${C.nom}$.`
           texteCorr =
@@ -267,7 +267,7 @@ export default class NaturePolygone extends Exercice {
             s3,
           )
           texte =
-            'Dans un repère orthonormé $(O;I,J)$, on donne les points suivants :'
+            'Dans un repère orthonormé $(O, I, J)$, on donne les points suivants :'
           texte += ` $${A.nom}\\left(${xA}\\,;\\,${yA}\\right)$ ; $${B.nom}\\left(${xB}\\,;\\,${yB}\\right)$ et $${C.nom}\\left(${xC}\\,;\\,${yC}\\right)$.`
           texte += `<br>Déterminer la nature du triangle $${A.nom}${B.nom}${C.nom}$.`
 
@@ -294,12 +294,11 @@ export default class NaturePolygone extends Exercice {
             texteCorr += `<br>On observe en plus que $${A.nom}${B.nom}=${A.nom}${C.nom}$. <br> Le triangle $${A.nom}${B.nom}${C.nom}$ est donc isocèle rectangle en $${A.nom}$.`
           }
           break
-        case 3: // Dq ABDC losange
+        case 3: // Dq ABCD losange
           T = tracePoint(A, B, C, D) // Repère les points avec une croix
           P = polygoneAvecNom(A, B, C, D)
           objets.push(P[1])
           s4 = segment(D, A, 'blue')
-
           s1 = segment(A, B, 'blue')
           s2 = segment(B, C, 'blue')
           s3 = segment(D, C, 'blue')
@@ -329,7 +328,7 @@ export default class NaturePolygone extends Exercice {
             s4,
           )
           texte =
-            'Dans un repère orthonormé $(O;I,J)$, on donne les points suivants :'
+            'Dans un repère orthonormé $(O, I, J)$, on donne les points suivants :'
           texte += ` $${A.nom}\\left(${xA}\\,;\\,${yA}\\right)$ ; $${B.nom}\\left(${xB}\\,;\\,${yB}\\right)$, $${C.nom}\\left(${xC}\\,;\\,${yC}\\right)$  et $${D.nom}\\left(${xD}\\,;\\,${yD}\\right)$.`
           texte += `<br>Démontrer que $${A.nom}${B.nom}${C.nom}${D.nom}$ est un losange.`
           texteCorr =
@@ -357,9 +356,9 @@ export default class NaturePolygone extends Exercice {
           texteCorr += `<br>$\\bullet$  $${A.nom}${B.nom}=\\sqrt{\\left(${xB}-${ecritureParentheseSiNegatif(xA)}\\right)^{2}+\\left(${yB}-${ecritureParentheseSiNegatif(yA)}\\right)^{2}}=\\sqrt{${xAbCarre}+${yAbCarre}}
           =\\sqrt{${texNombre(abCarre)}}$<br>`
 
-          texteCorr += `$\\bullet$  $${A.nom}${C.nom}=\\sqrt{\\left(${xC}-${ecritureParentheseSiNegatif(xA)}\\right)^{2}+\\left(${yC}-${ecritureParentheseSiNegatif(yA)}\\right)^{2}}=\\sqrt{${xAcCarre}+${yAcCarre}}
-          =\\sqrt{${texNombre(xAcCarre + yAcCarre)}}$<br>`
-          texteCorr += `<br>On observe que $${A.nom}${C.nom}=${A.nom}${D.nom}$, donc $${A.nom}${B.nom}${C.nom}${D.nom}$ est un parallélogramme avec deux consécutifs de même longueur, c'est donc un losange.`
+          texteCorr += `$\\bullet$  $${A.nom}${D.nom}=\\sqrt{\\left(${xD}-${ecritureParentheseSiNegatif(xA)}\\right)^{2}+\\left(${yD}-${ecritureParentheseSiNegatif(yA)}\\right)^{2}}=\\sqrt{${xAdCarre}+${yAdCarre}}
+          =\\sqrt{${texNombre(xAdCarre + yAdCarre)}}$<br>`
+          texteCorr += `<br>On observe que $${A.nom}${B.nom}=${A.nom}${D.nom}$, donc $${A.nom}${B.nom}${C.nom}${D.nom}$ est un parallélogramme avec deux consécutifs de même longueur, c'est donc un losange.`
 
           texteCorr += `<br><br>${texteGras('Remarque :')} Pour montrer que  $${A.nom}${B.nom}${C.nom}${D.nom}$ est un losange on pouvait aussi montrer que le quadrilatère $${A.nom}${B.nom}${C.nom}${D.nom}$ a quatre côtés de même longueur.`
           break
@@ -398,7 +397,7 @@ export default class NaturePolygone extends Exercice {
           )
 
           texte =
-            'Dans un repère orthonormé $(O;I,J)$, on donne les points suivants :'
+            'Dans un repère orthonormé $(O, I, J)$, on donne les points suivants :'
           texte += ` $${A.nom}\\left(${xA}\\,;\\,${yA}\\right)$ ; $${B.nom}\\left(${xB}\\,;\\,${yB}\\right)$, $${C.nom}\\left(${xC}\\,;\\,${yC}\\right)$  et $${D.nom}\\left(${xD}\\,;\\,${yD}\\right)$.`
           texte += `<br>Démontrer que $${A.nom}${C.nom}${D.nom}${B.nom}$ est un rectangle.`
           texteCorr =
@@ -468,7 +467,7 @@ export default class NaturePolygone extends Exercice {
           )
 
           texte =
-            'Dans un repère orthonormé $(O;I,J)$, on donne les points suivants :'
+            'Dans un repère orthonormé $(O, I, J)$, on donne les points suivants :'
           texte += ` $${A.nom}\\left(${xA}\\,;\\,${yA}\\right)$ ; $${B.nom}\\left(${xB}\\,;\\,${yB}\\right)$, $${C.nom}\\left(${xC}\\,;\\,${yC}\\right)$  et $${D.nom}\\left(${xD}\\,;\\,${yD}\\right)$.`
           texte += `<br>Démontrer que $${A.nom}${C.nom}${D.nom}${B.nom}$ est un carré.`
           texteCorr =

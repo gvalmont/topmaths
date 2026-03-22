@@ -81,8 +81,6 @@ export default class NomExercice extends ExerciceSimple {
       this.question += "<br>Le nombre d'axes de symétrie de ce rectangle est : "
       this.correction = `Ce rectangle a $${miseEnEvidence('2')}$ axes de symétrie.<br>
        Ces axes sont les médiatrices des côtés du rectangle `
-      this.canEnonce = this.question
-      this.canReponseACompleter = '$\\ldots$'
     } else {
       if (choix === 1) {
         this.reponse = 2
@@ -124,8 +122,6 @@ export default class NomExercice extends ExerciceSimple {
         this.question += "<br>Le nombre d'axes de symétrie de ce carré est : "
         this.correction = `Le carré a $${miseEnEvidence('4')}$ axes de symétrie.<br>
       Ces axes sont les médiatrices des côtés du carré et les diagonales. `
-        this.canEnonce = this.question
-        this.canReponseACompleter = '$\\ldots$'
       }
       if (choix === 3) {
         this.reponse = 3
@@ -149,8 +145,7 @@ export default class NomExercice extends ExerciceSimple {
       Ces axes sont les médiatrices des côtés du triangle. `
       }
     }
-    this.canEnonce = this.question
-    this.canReponseACompleter = '$\\ldots$'
+
     if (!this.interactif) {
       this.question += '$\\ldots$'
     }

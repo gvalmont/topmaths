@@ -38,7 +38,7 @@ _private/
 /src/topmaths/typ/**/**/*.pdf
 /src/topmaths/typ/cours/sequences/
 /src/topmaths/typ/fiches/**/*.typ
-tests/e2e/logs
+tests/**/logs
 updatefile
 .madgerc
 # Dictionnaires générés

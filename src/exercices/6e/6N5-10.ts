@@ -1,5 +1,4 @@
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
-import { fonctionComparaison } from '../../lib/interactif/comparisonFunctions'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import {
@@ -58,7 +57,7 @@ export default class ProblemesVaries extends Exercice {
 8 : Comparaison additive recherche écart\n
 9 : Multiplicatif recherche du tout (fait)\n
 10 : Multiplicatif recherche de la valeur d'une part (fait)\n
-11: Multiplicatif recherche du nombre de part\n
+11 : Multiplicatif recherche du nombre de part\n
 12 : Comparaison multiplicative recherche grande quantité\n
 13 : Comparaison multiplicative recherche petite quantité\n
 14 : Comparaison multiplicative recherche du tout\n
@@ -293,7 +292,6 @@ export default class ProblemesVaries extends Exercice {
         handleAnswers(this, i, {
           reponse: {
             value: probleme.reponse,
-            compare: probleme.compare ?? fonctionComparaison,
             options: probleme.optionsComparaison ?? {},
           },
         })

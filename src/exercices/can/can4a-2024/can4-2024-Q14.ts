@@ -1,7 +1,7 @@
-import ExerciceSimple from '../../ExerciceSimple'
-import { miseEnEvidence } from '../../../lib/outils/embellissements'
-import { choice } from '../../../lib/outils/arrayOutils'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
+import { choice } from '../../../lib/outils/arrayOutils'
+import { miseEnEvidence } from '../../../lib/outils/embellissements'
+import ExerciceSimple from '../../ExerciceSimple'
 
 export const titre = 'Connaitre le vocabulaire du cube'
 export const interactifReady = true
@@ -47,8 +47,7 @@ export default class NomExercice extends ExerciceSimple {
         this.correction = `Un cube a $${miseEnEvidence(12)}$ arêtes.`
       }
     }
-    this.canEnonce = this.question
-    this.canReponseACompleter = '$\\ldots$'
+
     if (!this.interactif) {
       this.question += '$\\ldots$'
     }

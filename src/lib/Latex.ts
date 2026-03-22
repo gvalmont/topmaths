@@ -10,7 +10,11 @@ import {
   loadProfCollegeIfNeed,
   logPDF,
 } from '../lib/latex/preambuleTex'
-import type { IExercice } from '../lib/types'
+import {
+  isIExercice,
+  type IExercice,
+  type IExerciceStatique,
+} from '../lib/types'
 import { buildThemeFromReference } from '../topmaths/services/reference'
 import { reference } from '../topmaths/services/store'
 import { decodeExosGrouping, findExoPosition } from './LatexGroup'
@@ -42,8 +46,35 @@ function testIfLoaded(
   return ''
 }
 
+function estimerLongueurLatex(
+  texte: string,
+  options: {
+    includeSpaces?: boolean
+  } = {},
+): string {
+  const { includeSpaces = true } = options
+
+  // Étape 1: Supprimer les commandes LaTeX qui ne produisent pas de caractères visibles
+  let nettoye = texte
+    // Remplacer les commandes mathématiques simples comme $f$ par 'f'
+    .replace(/\$([^$]+)\$/g, '$1')
+    // Remplacer \mathbb{R} par 'R' (un caractère)
+    .replace(/\\mathbb\{R\}/g, 'R')
+    .replace(/\\mathbb\{([^}]+)\}/g, '$1') // cas général
+    // Supprimer autres commandes LaTeX courantes
+    .replace(/\\[a-zA-Z]+/g, '') // enlève les commandes comme \text, \frac, etc.
+    .replace(/[{}]/g, '') // enlève les accolades
+
+  // Compter les caractères (en tenant compte des espaces si demandé)
+  if (!includeSpaces) {
+    nettoye = nettoye.replace(/\s/g, '')
+  }
+
+  return nettoye
+}
+
 class Latex {
-  exercices: IExercice[]
+  exercices: (IExercice | IExerciceStatique)[]
   constructor() {
     this.exercices = []
   }
@@ -54,13 +85,13 @@ class Latex {
 
   getExercices() {
     return this.exercices.map((e, i) => ({
-      titre: e.titre,
+      titre: isIExercice(e) ? e.titre : '',
       uuid: e.uuid,
       index: i,
     }))
   }
 
-  addExercices(exercices: IExercice[]) {
+  addExercices(exercices: (IExercice | IExerciceStatique)[]) {
     this.exercices.push(...exercices)
   }
 
@@ -109,13 +140,13 @@ class Latex {
               content += '&\\stepcounter{nbEx}\\\\ \n'
               contentCorr += `\n\\item ${exercice.contentCorr || ''}`
             }
-          } else {
+          } else if (isIExercice(exercice)) {
             // Initalisation de questionLiee à rien pour toutes les questions
             const questionLiee: {
               compteurQuestionsLiees: number
               dejaLiee: boolean
             }[] = Array.from(
-              { length: exercice.listeQuestions.length },
+              { length: exercice.listeQuestions?.length },
               () => ({
                 compteurQuestionsLiees: 0,
                 dejaLiee: false,
@@ -209,13 +240,9 @@ class Latex {
               '\\anote{',
               '\n\\resetcustomnotes',
             )
-            if (Number(exercice.nbCols) > 1) {
-              content += `\\begin{multicols}{${exercice.nbCols}}\n`
-            }
+
             content += exercice.content
-            if (Number(exercice.nbCols) > 1) {
-              content += '\n\\end{multicols}\n'
-            }
+
             content += testIfLoaded(
               [exercice.content ?? ''],
               '\\anote{',
@@ -236,7 +263,7 @@ class Latex {
             )
             contentCorr += '\n\\end{EXO}\n'
           }
-        } else {
+        } else if (isIExercice(exercice)) {
           contentCorr += '\n\\begin{EXO}{}{}\n'
           contentCorr += testIfLoaded(
             exercice.listeCorrections,
@@ -296,21 +323,23 @@ class Latex {
       if (!Object.prototype.hasOwnProperty.call(exercice, 'listeQuestions')) {
         continue
       }
-      const seedOld = exercice.seed
-      const seed =
-        indiceVersion > 1
-          ? exercice.seed + indiceVersion.toString()
-          : exercice.seed
-      exercice.seed = seed
-      if (exercice.typeExercice === 'simple') {
-        mathaleaHandleExerciceSimple(exercice, false)
-      } else {
-        seedrandom(seed, { global: true })
-        if (typeof exercice.nouvelleVersionWrapper === 'function') {
-          exercice.nouvelleVersionWrapper()
+      if (isIExercice(exercice)) {
+        const seedOld = exercice.seed
+        const seed =
+          indiceVersion > 1
+            ? exercice.seed + indiceVersion.toString()
+            : exercice.seed
+        exercice.seed = seed
+        if (exercice.typeExercice === 'simple') {
+          mathaleaHandleExerciceSimple(exercice, false)
+        } else {
+          seedrandom(seed, { global: true })
+          if (typeof exercice.nouvelleVersionWrapper === 'function') {
+            exercice.nouvelleVersionWrapper()
+          }
         }
+        exercice.seed = seedOld // on remet l'ancienne seed pour ne pas perturber la génération des versions suivantes
       }
-      exercice.seed = seedOld // on remet l'ancienne seed pour ne pas perturber la génération des versions suivantes
     }
   }
 
@@ -335,23 +364,28 @@ class Latex {
         if (exercice.typeExercice === 'statique') {
           content += `\n% @see : ${getUrlFromExercice(exercice, indiceVersion)}`
           content += this.generateStaticExerciseContent(
-            exercice,
+            exercice as IExerciceStatique,
             latexFileInfos,
             indiceVersion,
           )
-        } else {
+        } else if (isIExercice(exercice)) {
           contentlocal += `\n% @see Group ${exoIndex}: ${getUrlFromExercice(this.exercices[exoIndex], indiceVersion)}`
+
+          const prefix = [exercice.introduction, exercice.consigne]
+            .filter(Boolean)
+            .join('\n')
+
+          const questionsAvecIntro = exercice.listeQuestions.map(
+            (q) => `${prefix}\n${q}`,
+          )
           exoGroups.listeQuestions = [
             ...exoGroups.listeQuestions,
-            ...exercice.listeQuestions,
+            ...questionsAvecIntro,
           ]
           exoGroups.listeCorrections = [
             ...exoGroups.listeCorrections,
             ...exercice.listeCorrections,
           ]
-          exoGroups.consigne = exoGroups.consigne + '\n' + exercice.consigne
-          exoGroups.introduction =
-            exoGroups.introduction + '\n' + exercice.introduction
           exoGroups.typeExercice = exercice.typeExercice
           exoGroups.titre = exoGroups.titre + '\n' + `Groupe ${groupIndex + 1}`
         }
@@ -398,14 +432,14 @@ class Latex {
 
       if (exercice.typeExercice === 'statique') {
         content += this.generateStaticExerciseContent(
-          exercice,
+          exercice as IExerciceStatique,
           latexFileInfos,
           indiceVersion,
         )
       } else {
         content += this.generateExerciseContent(
           latexFileInfos,
-          exercice,
+          exercice as IExercice,
           indiceVersion,
           confExo,
         )
@@ -415,7 +449,7 @@ class Latex {
   }
 
   private generateStaticExerciseContent(
-    exercice: IExercice,
+    exercice: IExerciceStatique,
     latexFileInfos: LatexFileInfos,
     indiceVersion: number,
   ) {
@@ -488,14 +522,16 @@ class Latex {
         exercice.listeQuestions.length > 0
           ? exercice.listeQuestions[0].split(/\\\\|\r?\n/)
           : []
-      const firstQuestion = phrases.length > 0 ? phrases[0] : ''
-      const secondQuestion = phrases.length > 1 ? phrases[1] : ''
+      const firstQuestion =
+        phrases.length > 0 ? estimerLongueurLatex(phrases[0]) : ''
+      const secondQuestion =
+        phrases.length > 1 ? estimerLongueurLatex(phrases[1]) : ''
       if (
         latexFileInfos.qrcodeOption === 'AvecQrcode' &&
-        (exercice.introduction.length > 40 ||
-          exercice.consigne.length > 40 ||
-          firstQuestion.length > 40 ||
-          secondQuestion.length > 40)
+        (exercice.introduction.length > 50 ||
+          estimerLongueurLatex(exercice.consigne).length > 50 ||
+          firstQuestion.length > 50 ||
+          secondQuestion.length > 50)
       ) {
         // il faut un espace pour le QRCODE
         content += '\n\\vspace{2cm}'
@@ -830,10 +866,12 @@ ${
   getContentLatex() {
     const packLatex: string[] = []
     for (const exo of this.exercices) {
-      if (typeof exo.listePackages === 'string') {
-        packLatex.push(exo.listePackages)
-      } else if (Array.isArray(exo.listePackages)) {
-        packLatex.push(...exo.listePackages)
+      if (isIExercice(exo)) {
+        if (typeof exo.listePackages === 'string') {
+          packLatex.push(exo.listePackages)
+        } else if (Array.isArray(exo.listePackages)) {
+          packLatex.push(...exo.listePackages)
+        }
       }
     }
     const packageFiltered: string[] = packLatex.filter(
@@ -976,7 +1014,9 @@ export function buildImagesUrlsList(
  * @author sylvain
  */
 
-export function getExosContentList(exercices: IExercice[]) {
+export function getExosContentList(
+  exercices: (IExercice | IExerciceStatique)[],
+) {
   const exosContentList: ExoContent[] = []
   for (const exo of exercices) {
     let data: ExoContent = {}
@@ -1066,7 +1106,9 @@ export function doesLatexNeedsPics(contents: {
   return imas.some((e) => e.length > 0)
 }
 
-export function makeImageFilesUrls(exercices: IExercice[]) {
+export function makeImageFilesUrls(
+  exercices: (IExercice | IExerciceStatique)[],
+) {
   const exosContentList = getExosContentList(exercices)
   const picsNames = getPicsNames(exosContentList)
   return buildImagesUrlsList(exosContentList, picsNames)
@@ -1107,32 +1149,37 @@ export function format(
   return formattedText
 }
 
-function getUrlFromExercice(ex: IExercice, version: number = 1): string {
+function getUrlFromExercice(
+  ex: IExercice | IExerciceStatique,
+  version: number = 1,
+): string {
   const url = new URL('https://coopmaths.fr/alea')
   url.searchParams.append('uuid', String(ex.uuid))
-  if (ex.id !== undefined) url.searchParams.append('id', ex.id)
-  if (ex.nbQuestions !== undefined) {
-    url.searchParams.append('n', ex.nbQuestions.toString())
-  }
-  if (ex.duration !== undefined) {
-    url.searchParams.append('d', ex.duration.toString())
-  }
-  if (ex.sup !== undefined) url.searchParams.append('s', ex.sup)
-  if (ex.sup2 !== undefined) url.searchParams.append('s2', ex.sup2)
-  if (ex.sup3 !== undefined) url.searchParams.append('s3', ex.sup3)
-  if (ex.sup4 !== undefined) url.searchParams.append('s4', ex.sup4)
-  if (ex.sup5 !== undefined) url.searchParams.append('s5', ex.sup5)
-  if (ex.seed !== undefined)
-    url.searchParams.append(
-      'alea',
-      version > 1 ? ex.seed + version.toString : ex.seed,
-    )
-  if (ex.interactif) url.searchParams.append('i', '1')
-  if (ex.correctionDetaillee !== undefined) {
-    url.searchParams.append('cd', ex.correctionDetaillee ? '1' : '0')
-  }
-  if (ex.nbCols !== undefined) {
-    url.searchParams.append('cols', ex.nbCols.toString())
+  if (isIExercice(ex)) {
+    if (ex.id !== undefined) url.searchParams.append('id', ex.id)
+    if (ex.nbQuestions !== undefined) {
+      url.searchParams.append('n', ex.nbQuestions.toString())
+    }
+    if (ex.duration !== undefined) {
+      url.searchParams.append('d', ex.duration.toString())
+    }
+    if (ex.sup !== undefined) url.searchParams.append('s', ex.sup)
+    if (ex.sup2 !== undefined) url.searchParams.append('s2', ex.sup2)
+    if (ex.sup3 !== undefined) url.searchParams.append('s3', ex.sup3)
+    if (ex.sup4 !== undefined) url.searchParams.append('s4', ex.sup4)
+    if (ex.sup5 !== undefined) url.searchParams.append('s5', ex.sup5)
+    if (ex.seed !== undefined)
+      url.searchParams.append(
+        'alea',
+        version > 1 ? ex.seed + version.toString : ex.seed,
+      )
+    if (ex.interactif) url.searchParams.append('i', '1')
+    if (ex.correctionDetaillee !== undefined) {
+      url.searchParams.append('cd', ex.correctionDetaillee ? '1' : '0')
+    }
+    if (ex.nbCols !== undefined) {
+      url.searchParams.append('cols', ex.nbCols.toString())
+    }
   }
   return url.href.replaceAll('%', '\\%')
 }

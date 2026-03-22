@@ -1,8 +1,8 @@
-import ExerciceSimple from '../../ExerciceSimple'
-import { texNombre } from '../../../lib/outils/texNombre'
-import { miseEnEvidence } from '../../../lib/outils/embellissements'
-import { randint } from '../../../modules/outils'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
+import { miseEnEvidence } from '../../../lib/outils/embellissements'
+import { texNombre } from '../../../lib/outils/texNombre'
+import { randint } from '../../../modules/outils'
+import ExerciceSimple from '../../ExerciceSimple'
 
 export const titre = 'Calculer une somme de deux décimaux'
 export const interactifReady = true
@@ -36,12 +36,9 @@ export default class NomExercice extends ExerciceSimple {
       reponse = a + b
       this.question = `$${texNombre(a, 2)}+${texNombre(b, 2)}$`
       this.correction = ` $${texNombre(a, 2)}+${texNombre(b, 2)}=${miseEnEvidence(texNombre(reponse, 2))}$`
-      this.canEnonce = this.question
-      this.canReponseACompleter = '$\\ldots$'
     }
     this.reponse = reponse.toFixed(2)
-    this.canEnonce = this.question
-    this.canReponseACompleter = ''
+
     if (this.interactif) {
       this.question += ' $=$'
     }

@@ -1,6 +1,5 @@
 import Decimal from 'decimal.js'
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
-import { functionCompare } from '../../lib/interactif/comparisonFunctions'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { choice } from '../../lib/outils/arrayOutils'
@@ -14,7 +13,7 @@ import { texNombre } from '../../lib/outils/texNombre'
 import { obtenirListeFractionsIrreductibles } from '../../modules/fractions'
 import { gestionnaireFormulaireTexte, randint } from '../../modules/outils'
 import Exercice from '../Exercice'
-export const titre = 'Dérivée de $\\lambda u$'
+export const titre = 'Calculer la dérivée de $\\lambda u$'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const uuid = 'ebd89'
@@ -71,8 +70,6 @@ class DerivationFonctionsUsuelles extends Exercice {
         'g',
         'h',
         'l',
-        'm',
-        'p',
         'r',
         's',
         't',
@@ -255,6 +252,7 @@ class DerivationFonctionsUsuelles extends Exercice {
         `Donner la dérivée de la fonction $${nameF}$, dérivable ${df}, définie par  $${nameF}(x)=${laFonction}$.` +
         ajouteChampTexteMathLive(this, i, KeyboardType.lyceeClassique)
       const reponse = laDerivee
+
       let texteCorr = ''
       if (this.correctionDetaillee)
         texteCorr += correctionDetaillee.replace('<br>', passageDeLigneCorr)
@@ -269,8 +267,7 @@ class DerivationFonctionsUsuelles extends Exercice {
         handleAnswers(this, i, {
           reponse: {
             value: reponse,
-            options: { variable: 'x', domaine: [-10, 10] },
-            compare: functionCompare,
+            options: { calculFormel: true },
           },
         })
         i++

@@ -10,7 +10,8 @@ import { labelPoint, texteParPosition } from '../../lib/2d/textes'
 import { tracePoint } from '../../lib/2d/TracePoint'
 import { pointEstSur } from '../../lib/2d/utilitairesGeometriques'
 import { texcolors, texteGras } from '../../lib/format/style'
-import { generateCleaner } from '../../lib/interactif/comparisonFunctions'
+import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
+import { generateCleaner } from '../../lib/interactif/cleaners'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { combinaisonListes, shuffle } from '../../lib/outils/arrayOutils'
@@ -82,7 +83,6 @@ export default class SymetrieAxialeConservation1 extends Exercice {
     for (
       let i = 0, texte, texteCorr, cpt = 0;
       i < this.nbQuestions && cpt < 50;
-
     ) {
       // Boucle principale où i+1 correspond au numéro de la question
       for (let ii = 0; ii < 25; ii++) nom.push(lettreDepuisChiffre(ii + 1))
@@ -550,7 +550,7 @@ export default class SymetrieAxialeConservation1 extends Exercice {
           texteAMC += ajouteChampTexteMathLive(
             this,
             i * this.sup3 + ii,
-            ' angles',
+            KeyboardType.angles,
           )
           handleAnswers(this, i * this.sup3 + ii, {
             reponse: { value: reponse },

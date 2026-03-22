@@ -19,6 +19,15 @@ export const refs = {
 
 */
 export default class Can32026Q16 extends ExerciceCan {
+  constructor() {
+    super()
+    this.formatChampTexte = KeyboardType.clavierDeBaseAvecFraction
+    this.optionsDeComparaison = {
+      nombreDecimalSeulement: true,
+      fractionEgale: true,
+    }
+  }
+
   enonce(a?: number, b?: number, c?: number, d?: number) {
     if (a == null || b == null || c == null || d == null) {
       // 8 cas : calculs simples MAIS aucune simplification possible
@@ -46,7 +55,6 @@ export default class Can32026Q16 extends ExerciceCan {
       d = cas[3]
     }
 
-    this.formatChampTexte = KeyboardType.clavierDeBase
     this.reponse = d
 
     const [L0C0, L0C1, L1C0, L1C1] = [a, '?', c, b].map((el) =>
@@ -67,7 +75,6 @@ $${a * b} = \\text{?}\\times ${c}$<br>
 $\\text{?} = ${a * b}\\div ${c}$<br>
 $\\text{?} = ${miseEnEvidence(texNombre(d, 2))}$`
 
-    this.canEnonce = this.question
     this.canReponseACompleter = '$?=\\ldots$'
 
     this.question += `$\\text{ ? }=$ ${!this.interactif ? ' \\ldots' : ''}`

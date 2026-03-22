@@ -28,6 +28,7 @@
   export let toggleSidenav: (test: boolean) => void
   export let exportQcmCam: () => Promise<void>
   export let isMd: boolean
+  export let isFlowmath: boolean
 
   let reorderModalDisplayed: boolean
 </script>
@@ -52,6 +53,9 @@
         {isExercisesListEmpty}
         {isCapytale}
         {handleRecorder}
+        {locale}
+        {handleLanguage}
+        {isFlowmath}
       />
     </div>
   {:else}
@@ -70,12 +74,13 @@
       </div>
     {/if}
     <div
-      class="flex {isExerciseDisplayed ? 'xl:h-[50px] md:h-[100px]' : 'h-0'}"
+      class="flex {isExerciseDisplayed ? 'h-[100px] lg:h-[50px]' : 'h-0'}"
     >
       <div
         class={!isExerciseDisplayed
           ? 'hidden'
-          : 'relative w-full flex flex-col justify-center items-center bg-coopmaths-canvas dark:bg-coopmathsdark-canvas'}
+          : 'relative w-full flex flex-col justify-center items-center bg-coopmaths-canvas dark:bg-coopmathsdark-canvas transition-[padding-left] duration-300'}
+        style={isExerciseDisplayed && isMd ? `padding-left: ${isSidenavOpened ? '400px' : '0px'}` : ''}
         id="barre-boutons"
       >
         <SideMenuWrapper

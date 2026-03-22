@@ -46,18 +46,16 @@ export default class Can2026CE2Q6 extends ExerciceCan {
     this.correction = `Avec les billets, j'ai :<br>
     $${nbBillets}\\times ${valeurBillet}=${nbBillets * valeurBillet}$ €.<br>
     `
-    if(nbPieces===1){this.correction+=`J'ai une pièce de $${valeurPiece}$ €.<br> `}
-    else{this.correction+=`Avec les pièces, j'ai : <br>
-    $${nbPieces}\\times ${valeurPiece}=${nbPieces * valeurPiece}$ €.<br>`}
-    
-    this.correction+=`En tout j'ai $${miseEnEvidence(texPrix(total))}$ €.`
+    if (nbPieces === 1) {
+      this.correction += `J'ai une pièce de $${valeurPiece}$ €.<br> `
+    } else {
+      this.correction += `Avec les pièces, j'ai : <br>
+    $${nbPieces}\\times ${valeurPiece}=${nbPieces * valeurPiece}$ €.<br>`
+    }
 
-
-
-
-   
-
-    this.canEnonce = this.question
+    this.correction += `En tout j'ai $${miseEnEvidence(texPrix(total))}$ €.`
+  this.canEnonce =`J'ai $${nbBillets}$ billets de $${valeurBillet}$ € et ${textePieces} de $${valeurPiece}$ €.<br>
+    Combien ai-je en tout ?`
     this.canReponseACompleter = '$\\ldots$ €'
     this.reponse = total
     this.formatChampTexte = KeyboardType.clavierDeBase

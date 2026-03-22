@@ -1,5 +1,4 @@
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
-import { functionCompare } from '../../lib/interactif/comparisonFunctions'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { Polynome } from '../../lib/mathFonctions/Polynome'
@@ -15,7 +14,7 @@ import {
 import Exercice from '../Exercice'
 export const interactifReady = true
 export const interactifType = 'mathLive'
-// export const titre = 'Dérivée de $x\\mapsto u(ax + b)$'
+// export const titre = 'Calculer la dérivée de $x\mapsto u(ax + b)$'
 export const titre = 'Dériver une fonction du type $u(ax + b)$'
 
 /**
@@ -183,7 +182,9 @@ export default class DeriveeComposee extends Exercice {
         this.listeQuestions[i] = texte
         this.listeCorrections[i] = texteCorr
 
-        handleAnswers(this, i, { reponse: { value, compare: functionCompare } })
+        handleAnswers(this, i, {
+          reponse: { value, options: { calculFormel: true } },
+        })
         i++
       }
       cpt++

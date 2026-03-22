@@ -26,9 +26,9 @@ const buildDataKeyboardString = (style = '') => {
  * Une question pour rassembler les ajouteChampTexte et Cie et les handleHanswers.
  * Il faudrait pouvoir fournir autre chose que objetReponse.
  * Un truc du style :
- * [{id: 'reponse', value: 'valeur', compare: fonctionComparaison, options: {}},
- * {id: 'reponse2', value: 'valeur2', compare: fonctionComparaison, options: {}},
- * {id: 'reponse3', value: 'valeur3', compare: fonctionComparaison, options: {}}]
+ * [{id: 'reponse', value: 'valeur', options: {}},
+ * {id: 'reponse2', value: 'valeur2', options: {}},
+ * {id: 'reponse3', value: 'valeur3', options: {}}]
  * qui alimentera objetReponse.
  * ou alors, on fait un type conditionnel sur objetReponse...
  * C'est balaize à faire, mais ce serait mieux : on ouvre l'accolade, et si on commence à taper rep... il ouvre l'accolade, demande value, demande compare, demande options... idem si on commence à taper champ1....
@@ -77,83 +77,80 @@ export function ajouteQuestionMathlive({
   blocCenter?: boolean
   espace?: boolean
 }) {
-  if (context.isHtml && exercice.interactif) {
-    if (
-      !(
-        typeInteractivite === 'mathlive' ||
-        typeInteractivite === 'fillInTheBlank' ||
-        typeInteractivite === 'tableauMathlive' ||
-        typeInteractivite === 'texte'
-      )
-    ) {
-      window.notify(
-        `Type d'interactivité ${typeInteractivite} non reconnu. Exercice ${exercice.id} ${exercice.uuid}`,
-        { typeInteractivite },
-      )
-      return ''
-    }
-    if (reponseParams === undefined) {
-      reponseParams = { formatInteractif: 'mathlive' }
-    }
-    handleAnswers(exercice, question, objetReponse, reponseParams)
-    switch (typeInteractivite) {
-      case 'fillInTheBlank':
-        return remplisLesBlancs(exercice, question, content, classe, '\\ldots')
-      case 'tableauMathlive': {
-        if (!tableau) {
-          window.notify(
-            `Tableau non défini pour l'interactivité tableauMathlive. Exercice ${exercice.id} ${exercice.uuid}`,
-            { typeInteractivite },
-          )
-          return ''
-        }
-        const leTableau =
-          typeTableau === 'doubleEntree'
-            ? AddTabDbleEntryMathlive.create(
-                exercice.numeroExercice ?? 0,
-                question,
-                tableau as ItabDbleEntry,
-                classe,
-                true,
-                {
-                  texteAvant,
-                  texteApres,
-                  blocCenter: blocCenter ? ' bloccenter' : '',
-                  espace: espace ? ' ' : '',
-                },
-              )
-            : AddTabPropMathlive.create(
-                exercice.numeroExercice ?? 0,
-                question,
-                tableau as Itableau,
-                classe,
-                true,
-                {
-                  texteAvant,
-                  texteApres,
-                  blocCenter: blocCenter ? ' bloccenter' : '',
-                  espace: espace ? ' ' : '',
-                },
-              )
-        return leTableau.output
-      }
-      case 'texte':
-        return ajouteChampTexte(exercice, question, classe, {
-          texteAvant,
-          texteApres,
-          blocCenter,
-          espace,
-        })
-      default:
-        return ajouteChampTexteMathLive(exercice, question, classe, {
-          texteAvant,
-          texteApres,
-          blocCenter,
-          espace,
-        })
-    }
+  if (
+    !(
+      typeInteractivite === 'mathlive' ||
+      typeInteractivite === 'fillInTheBlank' ||
+      typeInteractivite === 'tableauMathlive' ||
+      typeInteractivite === 'texte'
+    )
+  ) {
+    window.notify(
+      `Type d'interactivité ${typeInteractivite} non reconnu. Exercice ${exercice.id} ${exercice.uuid}`,
+      { typeInteractivite },
+    )
+    return ''
   }
-  return ''
+  if (reponseParams === undefined) {
+    reponseParams = { formatInteractif: 'mathlive' }
+  }
+  handleAnswers(exercice, question, objetReponse, reponseParams)
+  switch (typeInteractivite) {
+    case 'fillInTheBlank':
+      return remplisLesBlancs(exercice, question, content, classe, '\\ldots')
+    case 'tableauMathlive': {
+      if (!tableau) {
+        window.notify(
+          `Tableau non défini pour l'interactivité tableauMathlive. Exercice ${exercice.id} ${exercice.uuid}`,
+          { typeInteractivite },
+        )
+        return ''
+      }
+      const leTableau =
+        typeTableau === 'doubleEntree'
+          ? AddTabDbleEntryMathlive.create(
+              exercice.numeroExercice ?? 0,
+              question,
+              tableau as ItabDbleEntry,
+              classe,
+              true,
+              {
+                texteAvant,
+                texteApres,
+                blocCenter: blocCenter ? ' bloccenter' : '',
+                espace: espace ? ' ' : '',
+              },
+            )
+          : AddTabPropMathlive.create(
+              exercice.numeroExercice ?? 0,
+              question,
+              tableau as Itableau,
+              classe,
+              true,
+              {
+                texteAvant,
+                texteApres,
+                blocCenter: blocCenter ? ' bloccenter' : '',
+                espace: espace ? ' ' : '',
+              },
+            )
+      return leTableau.output
+    }
+    case 'texte':
+      return ajouteChampTexte(exercice, question, classe, {
+        texteAvant,
+        texteApres,
+        blocCenter,
+        espace,
+      })
+    default:
+      return ajouteChampTexteMathLive(exercice, question, classe, {
+        texteAvant,
+        texteApres,
+        blocCenter,
+        espace,
+      })
+  }
 }
 
 /**

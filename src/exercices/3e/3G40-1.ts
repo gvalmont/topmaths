@@ -1,7 +1,6 @@
 import { ajouteCanvas3d } from '../../lib/3d/3d_dynamique/Canvas3DElement'
 import { sphericalToCartesian } from '../../lib/3d/3d_dynamique/solidesThreeJs'
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
-import { approximatelyCompare } from '../../lib/interactif/comparisonFunctions'
 import { ajouteQuestionMathlive } from '../../lib/interactif/questionMathLive'
 import { choice } from '../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
@@ -12,7 +11,7 @@ import { randint } from '../../modules/outils'
 import Exercice from '../Exercice'
 
 export const dateDePublication = '13/07/2025'
-export const titre = 'Repérage géodésique'
+export const titre = 'Utiliser le repérage géodésique'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 
@@ -460,13 +459,11 @@ export default class ReperageSurLaTerre extends Exercice {
             objetReponse: {
               champ1: {
                 value: `${choix === 'latitude' ? Math.round(Math.abs(ville.latitude)) : Math.round(Math.abs(ville.longitude))}`,
-                compare: approximatelyCompare,
-                options: { tolerance: 2 },
+                options: { approximatelyCompare: true, tolerance: 2 },
               },
               champ2: {
                 value: `${choix === 'latitude' ? (ville.latitude >= 0 ? 'N' : 'S') : ville.longitude >= 0 ? 'E' : 'O'}`,
-                compare: approximatelyCompare,
-                options: { tolerance: 2 },
+                options: { texteSansCasse: true },
               },
             },
           })

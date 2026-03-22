@@ -28,7 +28,7 @@ import {
 } from '../../modules/outils'
 import Exercice from '../Exercice'
 
-export const titre = 'Fonctions linéaires'
+export const titre = 'Étudier des fonctions linéaires'
 export const interactifType = 'mathLive'
 export const interactifReady = true
 export const amcReady = true
@@ -231,7 +231,7 @@ Le choix a été fait d'un antécédent primaire entier positif, le coefficient 
                 i,
                 coefficient instanceof FractionEtendue
                   ? KeyboardType.clavierDeBaseAvecFraction
-                  : KeyboardType.clavierNumbers,
+                  : KeyboardType.clavierDeBase,
                 { texteAvant: ' :' },
               )
             : '.'
@@ -251,7 +251,7 @@ Le choix a été fait d'un antécédent primaire entier positif, le coefficient 
                 i,
                 coefficient instanceof FractionEtendue
                   ? KeyboardType.clavierDeBaseAvecFraction
-                  : KeyboardType.clavierNumbers,
+                  : KeyboardType.clavierDeBase,
                 { texteAvant: ' :' },
               )
             : '.'
@@ -281,7 +281,7 @@ Le choix a été fait d'un antécédent primaire entier positif, le coefficient 
                 i,
                 coefficient instanceof FractionEtendue
                   ? KeyboardType.clavierDeBaseAvecFraction
-                  : KeyboardType.clavierNumbers,
+                  : KeyboardType.clavierDeBase,
                 { texteAvant: ' :' },
               )
             : '.'
@@ -316,7 +316,7 @@ Le choix a été fait d'un antécédent primaire entier positif, le coefficient 
                 i,
                 coefficient instanceof FractionEtendue
                   ? KeyboardType.clavierDeBaseAvecFraction
-                  : KeyboardType.clavierNumbers,
+                  : KeyboardType.clavierDeBase,
                 { texteAvant: ' :' },
               )
             : '.'
@@ -342,7 +342,7 @@ Le choix a été fait d'un antécédent primaire entier positif, le coefficient 
                 i,
                 coefficient instanceof FractionEtendue
                   ? KeyboardType.clavierDeBaseAvecFraction
-                  : KeyboardType.clavierNumbers,
+                  : KeyboardType.clavierDeBase,
                 { texteAvant: ' :' },
               )
             : '.'
@@ -375,7 +375,7 @@ Le choix a été fait d'un antécédent primaire entier positif, le coefficient 
                 i,
                 coefficient instanceof FractionEtendue
                   ? KeyboardType.clavierDeBaseAvecFraction
-                  : KeyboardType.clavierNumbers,
+                  : KeyboardType.clavierDeBase,
                 { texteAvant: ' :' },
               )
             : '.'

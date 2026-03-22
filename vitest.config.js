@@ -6,13 +6,16 @@ export default defineConfig({
   resolve: {
     conditions: ['browser'],
   },
+  define: {
+    APP_VERSION: JSON.stringify(process.env.npm_package_version ?? '0.0.0'),
+  },
   test: {
     environment: 'jsdom',
     globals: true,
     testTimeout: 300000,
     server: {
       deps: {
-        inline: ['@cortex-js/compute-engine'],
+        inline: ['@cortex-js/compute-engine', '@scratch2latex/scratch-core'],
       },
     },
   },

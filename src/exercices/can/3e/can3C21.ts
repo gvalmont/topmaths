@@ -43,7 +43,7 @@ export default class PrendreUnPourcentage extends ExerciceSimple {
     this.correction = `Pour calculer $${a}~\\%$ de $${c}$, on calcule $\\dfrac{${a} \\times ${c}}{100} = \\dfrac{${a}}{100} \\times ${c}=${texNombre(a / 100, 2)}\\times ${c} = ${texNombre(resultat, 2)}$.<br>
     Donc $${a}~\\%$ de $${c}$ est égal à $${miseEnEvidence(texNombre(resultat, 2))}$.`
 
-    this.reponse = `$${texNombre(resultat, 2)}$`
+    this.reponse = `${texNombre(resultat, 2)}`
 
     // proposer des distracteurs pour la version QCM
     if (this.versionQcm) {
@@ -70,8 +70,5 @@ export default class PrendreUnPourcentage extends ExerciceSimple {
 
       this.distracteurs = picked.map((n) => `$${texNombre(n, 2)}$`)
     }
-
-    this.canEnonce = this.question
-    this.canReponseACompleter = ''
   }
 }

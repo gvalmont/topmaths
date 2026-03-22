@@ -9,7 +9,7 @@ import Exercice from '../Exercice'
 
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 import { context } from '../../modules/context'
-export const titre = 'Équations différentielles'
+export const titre = 'Résoudre des équations différentielles'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 
@@ -156,7 +156,6 @@ class EquaDiffs extends Exercice {
         this.listeQuestions[i] = texte
         this.listeCorrections[i] = texteCorr
 
-        // handleAnswers(this, i, { reponse: { value: laDerivee, options: { variable: 'x' }, compare: functionCompare } })
         i++
         cpt--
       }

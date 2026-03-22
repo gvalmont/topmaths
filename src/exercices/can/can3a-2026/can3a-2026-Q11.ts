@@ -5,11 +5,12 @@ import { tracePoint } from '../../../lib/2d/TracePoint'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 import { choice } from '../../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
+import { context } from '../../../modules/context'
 import { mathalea2d } from '../../../modules/mathalea2d'
 import { randint } from '../../../modules/outils'
 import ExerciceCan from '../../ExerciceCan'
 
-export const titre = 'Lire une coordonnée d\'un point'
+export const titre = "Lire une coordonnée d'un point"
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const uuid = 'riest'
@@ -23,6 +24,13 @@ export const refs = {
 
 */
 export default class Can32026Q11 extends ExerciceCan {
+  constructor() {
+    super()
+    this.formatChampTexte = KeyboardType.clavierDeBase
+    this.optionsDeComparaison = { nombreDecimalSeulement: true }
+    this.optionsChampTexte = { texteApres: '.' }
+  }
+
   enonce(a?: number, b?: number, choix?: boolean) {
     if (a == null || b == null || choix == null) {
       // Version aléatoire
@@ -33,8 +41,6 @@ export default class Can32026Q11 extends ExerciceCan {
       choix = choice([true, false])
     }
 
-    this.formatChampTexte = KeyboardType.clavierDeBase
-    this.optionsChampTexte = { texteApres: '.' }
     this.reponse = choix ? a : b
 
     const r = repere({
@@ -54,6 +60,7 @@ export default class Can32026Q11 extends ExerciceCan {
       axeXStyle: '->',
       axeYStyle: '->',
       grilleSecondaire: false,
+      grilleOpacite: context.isHtml ? 0.1 : 0.5,
     })
 
     const A = pointAbstrait(a, b, 'A', 'below')
@@ -81,11 +88,11 @@ export default class Can32026Q11 extends ExerciceCan {
       labelPoint(A),
     )
     this.question += `<br>L'${choix ? 'abscisse' : 'ordonnée'} du point $A$ est `
-    
+
     if (!this.interactif) {
       this.question += '$\\ldots$'
     }
-    
+
     this.correction = `L'${choix ? 'abscisse' : 'ordonnée'} du point se lit sur l'axe ${choix ? 'horizontal' : 'vertical'}.<br>
 On lit : $${miseEnEvidence(this.reponse)}$.`
 

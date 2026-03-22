@@ -3,24 +3,25 @@
  */
 
 /* eslint-disable camelcase */
+import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
+import { handleAnswers } from '../../lib/interactif/gestionInteractif'
+import { propositionsQcm } from '../../lib/interactif/qcm'
+import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { choice, enleveElement, shuffle } from '../../lib/outils/arrayOutils'
 import { texFractionFromString } from '../../lib/outils/deprecatedFractions'
-import Exercice from '../Exercice'
-import { context } from '../../modules/context'
-import { listeQuestionsToContenu, randint } from '../../modules/outils'
-import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
-import FractionEtendue from '../../modules/FractionEtendue'
-import { propositionsQcm } from '../../lib/interactif/qcm'
-import { handleAnswers } from '../../lib/interactif/gestionInteractif'
-import { listeDesDiviseurs } from '../../lib/outils/primalite'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
+import { listeDesDiviseurs } from '../../lib/outils/primalite'
+import { context } from '../../modules/context'
+import FractionEtendue from '../../modules/FractionEtendue'
+import { listeQuestionsToContenu, randint } from '../../modules/outils'
+import Exercice from '../Exercice'
 
 export const amcReady = true
 export const amcType = ['AMCOpen', 'AMCNum', 'qcmMult', 'qcmMono']
 export const interactifReady = true
 export const interactifType = ['mathLive', 'qcm']
 
-export const titre = 'Simplification de fractions'
+export const titre = 'Simplifier des fractions'
 export const dateDeModifImportante = '08/03/2024'
 
 /**
@@ -105,7 +106,6 @@ export default class Exercice_fractions_simplifier extends Exercice {
     for (
       let i = 0, cpt = 0, fraction, a, k, b, texte, texteCorr, reponse;
       i < this.nbQuestions && cpt < 50;
-
     ) {
       if (liste_fractions.length === 0) break
       fraction = choice(liste_fractions) //
@@ -299,7 +299,7 @@ export default class Exercice_fractions_simplifier extends Exercice {
         texte += ajouteChampTexteMathLive(
           this,
           i,
-          '  clavierDeBaseAvecFraction',
+          KeyboardType.clavierDeBaseAvecFraction,
         )
         if (this.amcType === 'AMCOpen')
           this.autoCorrection[i] = {
@@ -324,7 +324,8 @@ export default class Exercice_fractions_simplifier extends Exercice {
               value: reponse.toLatex(),
               options: {
                 fractionIrreductible: this.sup2,
-                fractionSimplifiee: !this.sup2,
+                // fractionSimplifiee: !this.sup2,
+                fractionReduite: !this.sup2,
               },
             },
           })

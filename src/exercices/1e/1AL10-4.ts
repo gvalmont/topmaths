@@ -20,7 +20,7 @@ import Exercice from '../Exercice'
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 
-export const titre = "Déterminer les termes d'une suite définie par récurrence"
+export const titre = "Calculer un terme d'une suite définie par récurrence"
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const dateDeModifImportante = '11/10/2024'
@@ -31,7 +31,7 @@ export const dateDeModifImportante = '11/10/2024'
 export const uuid = 'b8c14'
 
 export const refs = {
-  'fr-fr': ['1AL10-4'],
+  'fr-fr': ['1AL10-4', '1Gen-A103', '1Tec-AN10-12'],
   'fr-ch': [],
 }
 export default class TermeDUneSuiteDefinieParRecurrence extends Exercice {

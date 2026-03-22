@@ -16,10 +16,12 @@ const KEYBOARD_CATEGORIES = [
   'clavierDeBaseAvecFractionPuissanceCrochets',
   'clavierDeBaseAvecEgal',
   'clavierDeBaseAvecVariable',
+  'clavierEmvx',
   'clavierEnsemble',
   'clavierEnsemblePredefini',
   'equationsTerminale',
   'clavierFullOperations',
+  'clavierMajuscules',
   'clavierNumbers',
   'clavierProbabilite',
   'clavierSuite',
@@ -131,6 +133,8 @@ export const convertKeyboardTypeToBlocks = (
       return ['numbers2', 'basicOperations']
     case KeyboardType.clavierDeBaseAvecVariable:
       return ['numbers', 'basicOperations', 'variables']
+    case KeyboardType.clavierEmvx:
+      return ['numbers', 'basicOperations', 'emvxBlock']
     case KeyboardType.clavierEnsemble:
       return ['numbersX', 'ensemble', 'ensembleDefini']
     case KeyboardType.clavierEnsemblePredefini:
@@ -147,6 +151,8 @@ export const convertKeyboardTypeToBlocks = (
       return ['numbersSpace']
     case KeyboardType.clavierFullOperations:
       return ['numbers', 'fullOperations']
+    case KeyboardType.clavierMajuscules:
+      return ['majuscules']
     case KeyboardType.clavierProbabilite:
       return [
         'numbers',
@@ -304,6 +310,7 @@ const shortcutsByKeyboards = {
     cos: { mode: 'math', value: '\\cos(#0)' },
     sin: { mode: 'math', value: '\\sin(#0)' },
     tan: { mode: 'math', value: '\\tan(#0)' },
+    log: { mode: 'math', value: '\\log(#0)' },
     '{': { mode: 'math', value: '\\{#0\\}' },
     '[': { mode: 'math', value: '$[$' },
     singleton: { mode: 'math', value: '\\{#0\\}' },

@@ -1,6 +1,4 @@
-import { abs } from 'mathjs'
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
-import { functionCompare } from '../../lib/interactif/comparisonFunctions'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { Polynome } from '../../lib/mathFonctions/Polynome'
@@ -12,8 +10,7 @@ import { obtenirListeFractionsIrreductibles } from '../../modules/fractions'
 import { gestionnaireFormulaireTexte, randint } from '../../modules/outils'
 import Exercice from '../Exercice'
 
-export const titre =
-  'Dériver une fonction du type $\\lambda u$'
+export const titre = 'Dériver une fonction du type $\\lambda u$'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const uuid = 'ebd8a'
@@ -71,8 +68,6 @@ class DerivationFonctionsUsuellesEtendue extends Exercice {
         'g',
         'h',
         'l',
-        'm',
-        'p',
         'r',
         's',
         't',
@@ -197,7 +192,7 @@ class DerivationFonctionsUsuellesEtendue extends Exercice {
               const frac = choice(listFrac).multiplieEntier(choice([-1, 1]))
               laFonction = `${frac.texFractionSimplifiee}\\sqrt{x}`
               const fracDerivee = new FractionEtendue(frac.num, frac.den * 2)
-              laDerivee = `${fracDerivee.num < 0 ? '-' : ''}\\dfrac{${abs(fracDerivee.num)}}{${fracDerivee.den}\\sqrt{x}}`
+              laDerivee = `${fracDerivee.num < 0 ? '-' : ''}\\dfrac{${Math.abs(fracDerivee.num)}}{${fracDerivee.den}\\sqrt{x}}`
               correctionDetaillee = `La dérivée d'une fonction d'expression $f(x)=a\\sqrt{x}$ avec $a\\in\\mathbb{R}$ et $x\\in \\mathbb{R}^*_+$ est $f'(x)=\\dfrac{a}{2\\sqrt{x}}$.<br>`
             }
           }
@@ -231,8 +226,8 @@ class DerivationFonctionsUsuellesEtendue extends Exercice {
         handleAnswers(this, i, {
           reponse: {
             value: reponse,
-            options: { variable: 'x', domaine: [-10, 10] },
-            compare: functionCompare,
+            //  options: { fonction: true, variable: 'x', domaine: [-10, 10] },
+            options: { calculFormel: true },
           },
         })
         i++

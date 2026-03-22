@@ -2,7 +2,6 @@ import type Figure from 'apigeom/src/Figure'
 import Decimal from 'decimal.js'
 import type { MathfieldElement } from 'mathlive'
 import type {
-  AnswerValueType,
   AutoCorrection,
   ClickFigures,
   IExercice,
@@ -27,40 +26,6 @@ import { toutPourUnPoint, verifQuestionMathLive } from './mathLive'
 import { verifQuestionQcm } from './qcm'
 import { verifQuestionListeDeroulante } from './questionListeDeroulante'
 import { verifQuestionSvgSelection } from './questionSvgSelection/questionSvgSelection'
-
-/**
- * Puisque tous les attributs de Valeur sont facultatifs, on vérifie juste si c'est un objet (et ce type est assez inutile du coup car quasiment identique à un unknown)
- */
-export function isValeur(value: unknown): value is Valeur {
-  return typeof value === 'object'
-}
-
-export function isAnswerValueType(value: unknown): value is AnswerValueType {
-  return (
-    typeof value === 'string' ||
-    (Array.isArray(value) &&
-      value.every((value) => typeof value === 'string')) ||
-    typeof value === 'number' ||
-    (Array.isArray(value) &&
-      value.every((value) => typeof value === 'number')) ||
-    value instanceof FractionEtendue ||
-    (Array.isArray(value) &&
-      value.every((value) => value instanceof FractionEtendue)) ||
-    value instanceof Decimal ||
-    (Array.isArray(value) &&
-      value.every((value) => value instanceof Decimal)) ||
-    value instanceof Grandeur ||
-    (Array.isArray(value) &&
-      value.every((value) => value instanceof Grandeur)) ||
-    value instanceof Hms ||
-    (Array.isArray(value) && value.every((value) => value instanceof Hms))
-  )
-}
-
-export type ReponseComplexe = AnswerValueType | Valeur
-export function isReponseComplexe(value: unknown): value is ReponseComplexe {
-  return isAnswerValueType(value) || isValeur(value)
-}
 
 export function isClickFiguresArray(
   figures: Figure[] | ClickFigures[],
@@ -542,9 +507,9 @@ export function setReponse(
       signe = (valeurs[0] as FractionEtendue).signe === -1 // si c'est une fraction, alors on regarde son signe (valeur -1, 0 ou 1)
     } else {
       if (typeof valeurs[0] === 'number') {
-        signe = valeurs[0] < 0 // on teste si elle est négative, si oui, on force la case signe pour AMC
+        signe = signe ?? valeurs[0] < 0 // on teste si elle est négative, si oui, on force la case signe pour AMC
       } else {
-        signe = Number(valeurs[0]) < 0
+        signe = signe ?? Number(valeurs[0]) < 0
       }
     }
   } else {
@@ -735,8 +700,6 @@ export function setReponse(
           {
             reponse: {
               value: String((reponse as FractionEtendue).num),
-              //  compare: numberCompare
-              compare: fonctionComparaison,
             },
           },
           params,
@@ -755,8 +718,6 @@ export function setReponse(
           {
             reponse: {
               value: String((reponse as FractionEtendue).den),
-              //  compare: numberCompare
-              compare: fonctionComparaison,
             },
           },
           params,
@@ -788,7 +749,6 @@ export function setReponse(
             {
               reponse: {
                 value: laReponseDemandee,
-                compare: fonctionComparaison,
               },
             },
             params,
@@ -815,12 +775,7 @@ export function setReponse(
           value.push(laReponseDemandee as string)
         }
 
-        return handleAnswers(
-          exercice,
-          i,
-          { reponse: { value, compare: fonctionComparaison } },
-          params,
-        )
+        return handleAnswers(exercice, i, { reponse: { value } }, params)
       }
 
       case 'texte':
@@ -838,7 +793,6 @@ export function setReponse(
               value: Array.isArray(reponses)
                 ? reponses.map(String)
                 : String(reponses),
-              compare: fonctionComparaison,
               options: { texteAvecCasse: true },
             },
           },
@@ -860,8 +814,6 @@ export function setReponse(
               value: Array.isArray(reponses)
                 ? reponses.map((el) => String(el).toLowerCase())
                 : String(reponses).toLowerCase(),
-              // compare: texteSansCasseCompare
-              compare: fonctionComparaison,
               options: { texteSansCasse: true },
             },
           },
@@ -893,7 +845,6 @@ export function setReponse(
             {
               reponse: {
                 value: reponse, // reponse.texFraction.replace('dfrac', 'frac') plus nécessaire : le wrapper de handleAnswers s'en occupe
-                compare: fonctionComparaison,
               },
             },
             params,
@@ -916,7 +867,6 @@ export function setReponse(
             {
               reponse: {
                 value: reponse, // .toString().replace('\u202f', '') plus nécessaire grâce au wrapper de handleAnswers
-                compare: fonctionComparaison,
                 options: {
                   unite: true,
                   precisionUnite:
@@ -945,7 +895,6 @@ export function setReponse(
           {
             reponse: {
               value: `]${reponses[0]};${reponses[1]}[`,
-              compare: fonctionComparaison,
               options: { estDansIntervalle: true },
             },
           },
@@ -968,7 +917,6 @@ export function setReponse(
           {
             reponse: {
               value: `[${reponses[0]};${reponses[1]}]`,
-              compare: fonctionComparaison,
               options: { estDansIntervalle: true },
             },
           },
@@ -987,8 +935,6 @@ export function setReponse(
           {
             reponse: {
               value: String(reponse),
-              // compare: powerCompare
-              compare: fonctionComparaison,
               options: { puissance: true },
             },
           },

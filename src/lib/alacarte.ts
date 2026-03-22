@@ -64,8 +64,9 @@ export function handleUrl(url: URL) {
 export function generateLatex(
   userSettings: UserSettings,
   itemsWithExercises: itemsWithExercises,
+  documentTitle = 'Évaluation à la carte',
 ) {
-  let output = preambuleLight
+  let output = preambuleLight.replace('DOCUMENT_TITLE_PLACEHOLDER', documentTitle)
   let outputCorr = '\n\n%%%%%%%%%%%%%%%%%%%%'
   outputCorr += '\n%%%  CORRECTION  %%%'
   outputCorr += '\n%%%%%%%%%%%%%%%%%%%%'
@@ -87,9 +88,8 @@ export function generateLatex(
       for (const item of document.items) {
         if (itemsWithExercises[item]) {
           for (const exercise of itemsWithExercises[item]) {
-            if (exercise.typeExercice === 'statique') continue
             const latex = new Latex()
-            latex.addExercices([exercise as IExercice])
+            latex.addExercices([exercise])
             const contents = latex.getContentsForAVersion(
               {
                 title: '',
@@ -106,7 +106,7 @@ export function generateLatex(
                 titleOption: 'SansTitre',
                 nbVersions: 1,
               },
-              1,
+              i + 1,
             )
             output +=
               '\n\n' +
@@ -168,19 +168,14 @@ const preambuleLight = `
 \\newcommand{\\exercice}[2]{%
   \\stepcounter{numexercice}%
   \\subsection*{%
-    \\makebox[\\textwidth]{%
-      Exercice \\thenumexercice%
-      \\ifstrempty{#2}
-        {}
-        {\\hfill\\textit{#2}}%
-    }%
-      \\ifstrempty{#1}
-       {}
-       \\textnormal{ #1}%
+    Exercice \\thenumexercice%
+    \\ifstrempty{#1}
+     {}
+     {\\textnormal{ #1}}%
   }%
 }
 
-\\fancyhead[C]{Évaluation à la carte}
+\\fancyhead[C]{DOCUMENT_TITLE_PLACEHOLDER}
 \\fancyfoot{}
 \\fancyhead[R]{}
 

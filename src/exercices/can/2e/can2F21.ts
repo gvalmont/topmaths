@@ -1,6 +1,3 @@
-import ExerciceSimple from '../../ExerciceSimple'
-import { miseEnEvidence } from '../../../lib/outils/embellissements'
-import { randint } from '../../../modules/outils'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 import { choice } from '../../../lib/outils/arrayOutils'
 import {
@@ -8,6 +5,10 @@ import {
   reduireAxPlusB,
   rienSi1,
 } from '../../../lib/outils/ecritures'
+import { miseEnEvidence } from '../../../lib/outils/embellissements'
+import { context } from '../../../modules/context'
+import { randint } from '../../../modules/outils'
+import ExerciceSimple from '../../ExerciceSimple'
 
 export const titre = 'Déterminer un seuil avec une fonction affine'
 export const interactifReady = true
@@ -57,12 +58,12 @@ export default class seuilFctAff extends ExerciceSimple {
     définie par $${nomF}(x)=${reduireAxPlusB(m, p)}$.<br>`
           if (this.versionQcm) {
             this.question += `
-   Le plus  ${choix ? 'petit ' : 'grand'} entier naturel $n$ tel que 
+   Le plus  ${choix ? 'petit ' : 'grand'} entier naturel $n$ ${context.isDiaporama ? '<br>' : ''} tel que 
     $${nomF}(n)$ soit strictement ${choix ? 'positif' : 'négatif'} est : 
     `
           } else {
             this.question += `
-    Déterminer le plus  ${choix ? 'petit ' : 'grand'} entier naturel $n$ tel que 
+    Déterminer le plus  ${choix ? 'petit ' : 'grand'} entier naturel $n$ ${context.isDiaporama ? '<br>' : ''} tel que 
     $${nomF}(n)$ soit strictement ${choix ? 'positif.' : 'négatif.'}
     `
           }
@@ -120,7 +121,7 @@ export default class seuilFctAff extends ExerciceSimple {
           }
           this.question = `Soit la fonction $${nomF}$ 
     définie par $${nomF}(x)=${reduireAxPlusB(m, p)}$.<br>
-   Le plus  ${choix ? 'petit ' : 'grand'} entier naturel $n$ tel que 
+   Le plus  ${choix ? 'petit ' : 'grand'} entier naturel $n$ ${context.isDiaporama ? '<br>' : ''} tel que 
     $${nomF}(n)$ soit strictement ${choix ? 'négatif' : 'positif'} est :
     `
           this.correction = `On cherche le plus  ${choix ? 'petit ' : 'grand'} entier naturel $n$ vérifiant ${choix ? `$${nomF}(n)<0$` : `$${nomF}(n)>0$`}
@@ -160,7 +161,5 @@ export default class seuilFctAff extends ExerciceSimple {
         }
         break
     }
-    this.canEnonce = this.question
-    this.canReponseACompleter = ''
   }
 }

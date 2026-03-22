@@ -79,7 +79,6 @@ export default class ComparerAvecFonctionRef extends Exercice {
     for (
       let i = 0, texte, texteCorr, cpt = 0;
       i < this.nbQuestions && cpt < 50;
-
     ) {
       // Boucle principale où i+1 correspond au numéro de la question
       const nomF = [['f'], ['g'], ['h'], ['u'], ['v'], ['w']]
@@ -132,10 +131,10 @@ export default class ComparerAvecFonctionRef extends Exercice {
               `
               if (x1B < x2B) {
                 texteCorr += `Or $${texNombre(x1, 1)}${sp(1)}${miseEnEvidence('\\boldsymbol{<}')}${sp(1)}${texNombre(x2, 1)}$, donc $${nom}(${texNombre(x1, 2)})${sp(1)}${miseEnEvidence('\\boldsymbol{>}')}${sp(1)}${nom}(${texNombre(x2, 1)})$.`
-                reponse = ['decroissante', 'R', '<']
+                reponse = ['decroissante', 'R', '>']
               } else {
                 texteCorr += `Or $${texNombre(x2, 1)}${sp(1)}${miseEnEvidence('\\boldsymbol{<}')}${sp(1)} ${texNombre(x1, 1)}$, donc $${nom}(${texNombre(x2, 2)})${sp(1)} ${miseEnEvidence('\\boldsymbol{>}')}${sp(1)} ${nom}(${texNombre(x1, 1)})$.`
-                reponse = ['decroissante', 'R', '>']
+                reponse = ['decroissante', 'R', '<']
               }
             }
             variables.push(x1, x2)
@@ -180,9 +179,9 @@ export default class ComparerAvecFonctionRef extends Exercice {
               } else {
                 texteCorr += '.'
               }
+              reponse = ['croissante', 'R+', '>']
             }
             variables.push(x1, x2)
-            reponse = ['croissante', 'R+', '>']
           }
           break
 
@@ -433,11 +432,11 @@ export default class ComparerAvecFonctionRef extends Exercice {
           (this.interactif
             ? choixDeroulant(this, 3 * i + 1, choixListeDeroulante2)
             : '$\\ldots\\ldots\\ldots\\ldots$') +
-          `  donc  $${nom}(${texNombre(x1, 1)})$` +
+          `  donc  $${nom}(${texNombre(x1, 3)})$` +
           (this.interactif
             ? choixDeroulant(this, 3 * i + 2, choixListeDeroulante3)
             : '$\\ldots\\ldots\\ldots\\ldots$') +
-          ` $${nom}(${texNombre(x2, 1)})$.`
+          ` $${nom}(${texNombre(x2, 3)})$.`
 
         handleAnswers(
           this,

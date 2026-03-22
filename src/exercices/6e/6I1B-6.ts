@@ -1,8 +1,8 @@
+import { createScratchSimulatorElement } from '@scratch2latex/scratch-core/ScratchSimulator'
 import { setCliqueFigure } from '../../lib/interactif/gestionInteractif'
 import { choice, shuffle, shuffle4tableaux } from '../../lib/outils/arrayOutils'
 import { enumeration } from '../../lib/outils/ecritures'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
-import { createScratchSimulatorElement } from '../../lib/scratchSimulator'
 import { context } from '../../modules/context'
 import { gestionnaireFormulaireTexte, randint } from '../../modules/outils'
 import { scratchblock } from '../../modules/scratchblock'
@@ -90,8 +90,8 @@ export default class TrouverLeBonProgramme extends Exercice {
         getProgrammesAvancer,
         getProgrammesTourner,
         getProgrammesAjouter,
-        getProgrammesPolygone,
         getProgrammesCarre,
+        getProgrammesPolygone,
         getProgrammesRebours,
         getProgrammesEscalier,
       ]
@@ -201,6 +201,7 @@ export default class TrouverLeBonProgramme extends Exercice {
         createScratchSimulatorElement(
           code.replace(/"/g, '&quot;').replace(/'/g, '&#39;'),
           delai,
+          false,
         ),
       )
       if (context.isHtml) {
