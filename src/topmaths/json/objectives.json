@@ -480,7 +480,11 @@
                 "lessonSummaryHTML": "",
                 "lessonSummaryImage": "",
                 "videos": [],
-                "exercises": []
+                "exercises": [
+                  {
+                    "slug": "uuid=ab793&id=6N1K&n=1&d=10&s=1&s2=1&cd=1"
+                  }
+                ]
               },
               {
                 "reference": "6N1L",
@@ -489,7 +493,11 @@
                 "lessonSummaryHTML": "",
                 "lessonSummaryImage": "",
                 "videos": [],
-                "exercises": []
+                "exercises": [
+                  {
+                    "slug": "uuid=013ef&id=6N1L"
+                  }
+                ]
               },
               {
                 "reference": "6N1M",
@@ -633,7 +641,12 @@
                 "lessonSummaryHTML": "",
                 "lessonSummaryImage": "",
                 "videos": [],
-                "exercises": []
+                "exercises": [
+                  {
+                    "slug": "uuid=795b9&id=6N2C&n=4&d=10&s=3&s2=4&cd=1",
+                    "description": ""
+                  }
+                ]
               },
               {
                 "reference": "6N2D",
@@ -642,7 +655,12 @@
                 "lessonSummaryHTML": "",
                 "lessonSummaryImage": "",
                 "videos": [],
-                "exercises": []
+                "exercises": [
+                  {
+                    "slug": "uuid=a3046&id=6N2D-flash1&n=2&d=10&qcm=0&cd=1",
+                    "description": ""
+                  }
+                ]
               },
               {
                 "reference": "6N2E",
@@ -739,11 +757,11 @@
                 ],
                 "exercises": [
                   {
-                    "slug": "6C31,s=1,n=2",
+                    "slug": "uuid=294bb&id=6N2H&n=1&d=10&s=1&cd=1",
                     "description": "Déterminer le quotient exact"
                   },
                   {
-                    "slug": "6C31,s=2,n=2",
+                    "slug": "uuid=294bb&id=6N2H&n=1&d=10&s=2&cd=1",
                     "description": "Déterminer un quotient approché"
                   }
                 ],
@@ -776,7 +794,12 @@
                 "lessonSummaryHTML": "",
                 "lessonSummaryImage": "",
                 "videos": [],
-                "exercises": []
+                "exercises": [
+                  {
+                    "slug": "uuid=12d6e&id=6N2I&n=2&d=10&s=3&cd=1",
+                    "description": ""
+                  }
+                ]
               },
               {
                 "reference": "6N2J",
@@ -841,7 +864,12 @@
                 "lessonSummaryHTML": "",
                 "lessonSummaryImage": "",
                 "videos": [],
-                "exercises": []
+                "exercises": [
+                  {
+                    "slug": "uuid=65ce1&id=auto6N2A&n=4&d=10&s=3&s2=4&s3=false&cd=1",
+                    "description": ""
+                  }
+                ]
               },
               {
                 "reference": "6N2M",
@@ -946,7 +974,12 @@
                 "lessonSummaryHTML": "",
                 "lessonSummaryImage": "",
                 "videos": [],
-                "exercises": []
+                "exercises": [
+                  {
+                    "slug": "uuid=fkr1b&id=auto6N2D&n=4&d=10&s=1-2&s2=3&s3=3&s4=false&cd=0",
+                    "description": ""
+                  }
+                ]
               }
             ]
           },
@@ -960,7 +993,12 @@
                 "lessonSummaryHTML": "",
                 "lessonSummaryImage": "",
                 "videos": [],
-                "exercises": []
+                "exercises": [
+                  {
+                    "slug": "uuid=d5e44&id=6N3A-1&n=2&d=10&s=1&s3=10&cd=1",
+                    "description": ""
+                  }
+                ]
               },
               {
                 "reference": "6N3B",
@@ -978,7 +1016,7 @@
                 ],
                 "exercises": [
                   {
-                    "slug": "6N23-5,n=4",
+                    "slug": "uuid=42fbx&id=6N3B&n=1&d=10&s=3&cd=1",
                     "description": ""
                   }
                 ],
@@ -1015,7 +1053,12 @@
                 "lessonSummaryHTML": "",
                 "lessonSummaryImage": "",
                 "videos": [],
-                "exercises": []
+                "exercises": [
+                  {
+                    "slug": "uuid=e9ba3&id=6N3C&n=4&d=10&s=3&s2=6&cd=1",
+                    "description": ""
+                  }
+                ]
               },
               {
                 "reference": "6N3D1",
@@ -1103,7 +1146,12 @@
                 "lessonSummaryHTML": "",
                 "lessonSummaryImage": "",
                 "videos": [],
-                "exercises": []
+                "exercises": [
+                  {
+                    "slug": "uuid=28e58&id=6N3F&n=4&d=10&s=1&s2=100&s3=1&cd=1",
+                    "description": ""
+                  }
+                ]
               },
               {
                 "reference": "6N3G",
@@ -1309,7 +1357,12 @@
                 "lessonSummaryHTML": "",
                 "lessonSummaryImage": "",
                 "videos": [],
-                "exercises": []
+                "exercises": [
+                  {
+                    "slug": "uuid=44e23&id=6N3O&n=1&d=10&s=15&s2=5&s3=5&cd=1",
+                    "description": "Avec des nombres entiers"
+                  }
+                ]
               },
               {
                 "reference": "6N3P",
@@ -1460,7 +1513,12 @@
                 "lessonSummaryHTML": "",
                 "lessonSummaryImage": "",
                 "videos": [],
-                "exercises": []
+                "exercises": [
+                  {
+                    "slug": "uuid=297f9&id=auto6N3C&n=4&d=10&s=3&cd=1",
+                    "description": ""
+                  }
+                ]
               },
               {
                 "reference": "6N3U",
@@ -2229,7 +2287,12 @@
                 "lessonSummaryHTML": "",
                 "lessonSummaryImage": "",
                 "videos": [],
-                "exercises": []
+                "exercises": [
+                  {
+                    "slug": "uuid=2ce11&id=auto6M4A-flash1",
+                    "description": ""
+                  }
+                ]
               },
               {
                 "reference": "6M4E",
@@ -2239,7 +2302,12 @@
                 "lessonSummaryHTML": "",
                 "lessonSummaryImage": "",
                 "videos": [],
-                "exercises": []
+                "exercises": [
+                  {
+                    "slug": "uuid=51242&id=auto6M4B-flash1",
+                    "description": ""
+                  }
+                ]
               },
               {
                 "reference": "6M4F",
@@ -3409,7 +3477,12 @@
                 "lessonSummaryHTML": "",
                 "lessonSummaryImage": "",
                 "videos": [],
-                "exercises": []
+                "exercises": [
+                  {
+                    "slug": "uuid=65288&id=6P3D&n=2&d=10&s=4&s2=false&s3=false&cd=1",
+                    "description": ""
+                  }
+                ]
               },
               {
                 "reference": "6P3E",
@@ -3532,7 +3605,16 @@
                 "lessonSummaryHTML": "",
                 "lessonSummaryImage": "",
                 "videos": [],
-                "exercises": []
+                "exercises": [
+                  {
+                    "slug": "uuid=c8fe9&id=6I1B",
+                    "description": "Aller en haut, en bas, à gauche, à droite"
+                  },
+                  {
+                    "slug": "uuid=594eb&id=6I1B-1",
+                    "description": "Avancer, tourner"
+                  }
+                ]
               },
               {
                 "reference": "6I1C",
