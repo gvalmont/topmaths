@@ -1,0 +1,49 @@
+name: Mirror to GitLab
+
+on:
+  push:
+    branches:
+      - '**'
+    tags:
+      - '*'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  mirror:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout full repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+
+      - name: Set up SSH and pinned known_hosts
+        run: |
+          install -d -m 700 ~/.ssh
+          printf '%s\n' "${{ secrets.GITLAB_SSH_KEY }}" > ~/.ssh/id_ed25519
+          chmod 600 ~/.ssh/id_ed25519
+          printf '%s\n' "${{ secrets.GITLAB_KNOWN_HOSTS }}" > ~/.ssh/known_hosts
+          chmod 600 ~/.ssh/known_hosts
+
+      - name: Validate SSH remote
+        run: |
+          case "${{ secrets.GITLAB_REPO }}" in
+            git@forge.apps.education.fr:*|ssh://git@forge.apps.education.fr/*) ;;
+            *)
+              echo "GITLAB_REPO must be an SSH URL for forge.apps.education.fr" >&2
+              exit 1
+              ;;
+          esac
+
+      - name: Push branches and tags to forge
+        env:
+          GIT_SSH_COMMAND: ssh -i ~/.ssh/id_ed25519 -o IdentitiesOnly=yes -o UserKnownHostsFile=~/.ssh/known_hosts -F /dev/null
+        run: |
+          git remote add forge "${{ secrets.GITLAB_REPO }}"
+          git push forge '+refs/heads/*:refs/heads/*'
+          git push forge '+refs/tags/*:refs/tags/*'
