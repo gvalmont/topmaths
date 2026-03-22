@@ -2658,12 +2658,6 @@
                     "videoLink": "https://ladigitale.dev/digiview/inc/video.php?videoId=YqUMin1FQ2c&vignette=https://i.ytimg.com/vi/YqUMin1FQ2c/hqdefault.jpg&debut=0&fin=312&largeur=200&hauteur=150",
                     "authorName": "jean-yves Labouche",
                     "authorLink": "https://www.youtube.com/c/JeanYvesLaboucheMaths"
-                  },
-                  {
-                    "title": "Tracer un angle",
-                    "videoLink": "https://ladigitale.dev/digiview/inc/video.php?videoId=CIrYkaNIBKE&vignette=https://i.ytimg.com/vi/CIrYkaNIBKE/hqdefault.jpg&debut=0&fin=206&largeur=200&hauteur=150",
-                    "authorName": "jean-yves Labouche",
-                    "authorLink": "https://www.youtube.com/c/JeanYvesLaboucheMaths"
                   }
                 ],
                 "exercises": [
@@ -2674,10 +2668,6 @@
                   {
                     "slug": "uuid=c7f7a&id=6G23-1&n=2&d=10&s=3&s2=true&alea=DGyO&cd=1",
                     "description": "Mesurer un angle"
-                  },
-                  {
-                    "slug": "uuid=34e3c&id=6G23&n=1&d=10&s=3&alea=yRV1&cd=1",
-                    "description": "Construire un angle"
                   }
                 ],
                 "lessonPlans": [
@@ -2706,12 +2696,6 @@
                 "lessonSummaryInstrumenpoche": "tracer-angle",
                 "videos": [
                   {
-                    "title": "Mesurer un angle",
-                    "videoLink": "https://ladigitale.dev/digiview/inc/video.php?videoId=YqUMin1FQ2c&vignette=https://i.ytimg.com/vi/YqUMin1FQ2c/hqdefault.jpg&debut=0&fin=312&largeur=200&hauteur=150",
-                    "authorName": "jean-yves Labouche",
-                    "authorLink": "https://www.youtube.com/c/JeanYvesLaboucheMaths"
-                  },
-                  {
                     "title": "Tracer un angle",
                     "videoLink": "https://ladigitale.dev/digiview/inc/video.php?videoId=CIrYkaNIBKE&vignette=https://i.ytimg.com/vi/CIrYkaNIBKE/hqdefault.jpg&debut=0&fin=206&largeur=200&hauteur=150",
                     "authorName": "jean-yves Labouche",
@@ -2722,10 +2706,6 @@
                   {
                     "slug": "https://mathix.org/permis_rapporteur/",
                     "description": "Permis Rapporteur"
-                  },
-                  {
-                    "slug": "uuid=c7f7a&id=6G23-1&n=2&d=10&s=3&s2=true&alea=DGyO&cd=1",
-                    "description": "Mesurer un angle"
                   },
                   {
                     "slug": "uuid=34e3c&id=6G23&n=1&d=10&s=3&alea=yRV1&cd=1",
