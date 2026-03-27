@@ -7,18 +7,21 @@ import RepereBuilder from '../../lib/2d/RepereBuilder'
 import { segment } from '../../lib/2d/segmentsVecteurs'
 import { texteSurSegment } from '../../lib/2d/texteSurSegment'
 import { pointIntersectionDD } from '../../lib/2d/utilitairesPoint'
+import { bleuMathalea } from '../../lib/colors'
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { choice } from '../../lib/outils/arrayOutils'
+import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { numAlpha } from '../../lib/outils/outilString'
-import { texNombre } from '../../lib/outils/texNombre'
+import { stringNombre, texNombre } from '../../lib/outils/texNombre'
 import { mathalea2d } from '../../modules/mathalea2d'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import Exercice from '../Exercice'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const dateDePublication = '05/05/2024'
+export const dateDeModificationImportante = '24/03/2026'
 export const titre = 'Lire graphiquement des quartiles et des EIQ'
 export const uuid = 'b7662'
 export const refs = {
@@ -66,7 +69,7 @@ const situations = [
     precisionLecture: 2,
   },
   {
-    label: "des ages des habitants d'un village",
+    label: "des âges des habitants d'un village",
     valeurs: [
       [0, 80],
       [30, 100],
@@ -161,7 +164,6 @@ export default class Quartiles extends Exercice {
       let pts: PointAbstrait[]
       let echelleX: number
       let echelleY: number
-      let tolerance: number
       let valeurMin: number
       let valeurMax: number
       let situation: {
@@ -170,6 +172,7 @@ export default class Quartiles extends Exercice {
         zones: number[][]
         precisionLecture: number
       }
+      let intervalle
       do {
         const effectif = 100
         situation = choice(situations)
@@ -177,7 +180,6 @@ export default class Quartiles extends Exercice {
         ;[valeurMin, valeurMax] = valeurs
         echelleX = 20 / valeurMax
         echelleY = 0.2
-        tolerance = Math.ceil(valeurMax / 100) // situation.precisionLecture
         const y: number[] = []
         const x: number[] = []
         const pop = aleaPopulation(
@@ -211,8 +213,17 @@ export default class Quartiles extends Exercice {
         ;[q1, q2, q3] = trouveQuartiles(y, pts).map((el) =>
           Math.round(el / echelleX),
         )
-      } while (q1 + q2 + q3 === 0)
+        intervalle = (2 * valeurMax) / 100
+      } while (
+        q1 + q2 + q3 === 0 ||
+        (10 * q3) % (10 * intervalle) === 0 ||
+        (10 * q1) % (10 * intervalle) === 0
+      )
 
+      const q1Round = q1
+      // Math.round(q1 / situation.precisionLecture) * situation.precisionLecture
+      const q3Round = q3
+      //  Math.round(q3 / situation.precisionLecture) * situation.precisionLecture
       const line = polyline(pts, 'blue')
       const rep = new RepereBuilder({
         xMin: 0,
@@ -224,14 +235,19 @@ export default class Quartiles extends Exercice {
         .setUniteY(echelleY)
         .setThickX({ xMin: 0, xMax: valeurMax, dx: valeurMax / 10 })
         .setThickY({ yMin: 0, yMax: 100, dy: 10 })
-        .setLabelX({ xMin: 0, xMax: valeurMax, dx: valeurMax / 10 })
-        .setLabelY({ yMin: 0, yMax: 100, dy: 10 })
+        .setLabelX({
+          xMin: 0,
+          xMax: valeurMax,
+          dx: valeurMax / 10,
+          xLabelEcart: 0.5,
+        })
+        .setLabelY({ yMin: 0, yMax: 100, dy: 10, yLabelEcart: 0.8 })
         .setGrille({
           grilleX: { dx: (valeurMax * echelleX) / 10 },
           grilleY: { dy: 2 },
         })
         .setGrilleSecondaire({
-          grilleX: { dx: (valeurMax * echelleX) / 100 },
+          grilleX: { dx: (valeurMax * echelleX) / 50 },
           grilleY: { dy: 1 },
         })
         .buildCustom()
@@ -241,46 +257,73 @@ export default class Quartiles extends Exercice {
         objets2d,
       )
       const marque1 = lectureAntecedent(
-        q1 * echelleX,
+        q1Round * echelleX,
         5,
         1,
         1,
         'red',
         '25',
-        `${q1}`,
+        `${stringNombre(q1Round, 0)}`,
       )
       const marque3 = lectureAntecedent(
-        q3 * echelleX,
+        q3Round * echelleX,
         15,
         1,
         1,
         'red',
         '75',
-        `${q3}`,
+        `${stringNombre(q3Round, 0)}`,
       )
-      const offset = Math.log10(q1) * 0.2 + 0.5
+      const offset = Math.log10(q1Round) * 0.2 + 0.5
       const ecartIQ = segment(
-        point(q1 * echelleX + offset, -1.5),
-        point(q3 * echelleX - offset, -1.5),
+        point(q1Round * echelleX + offset, -1.5),
+        point(q3Round * echelleX - offset, -1.5),
         'red',
       )
       ecartIQ.styleExtremites = '<->'
       const iq = texteSurSegment(
-        `$${texNombre(q3 - q1, 0)}$$`,
-        point(q1 * echelleX + offset, -1.5),
-        point(q3 * echelleX - offset, -1.5),
+        `$${texNombre(q3Round - q1Round, 0)}$$`,
+        point(q1Round * echelleX + offset, -1.5),
+        point(q3Round * echelleX - offset, -1.5),
         'red',
         -0.5,
       )
-      const objetsCorr = [line, rep.objets, marque1, marque3, ecartIQ, iq]
+      const repCorr = new RepereBuilder({
+        xMin: 0,
+        xMax: valeurMax,
+        yMin: 0,
+        yMax: 100,
+      })
+        .setUniteX(echelleX)
+        .setUniteY(echelleY)
+        .setThickX({ xMin: 0, xMax: valeurMax, dx: valeurMax / 10 })
+        .setThickY({ yMin: 0, yMax: 100, dy: 10 })
+        .setLabelX({
+          xMin: 0,
+          xMax: valeurMax,
+          dx: valeurMax / 10,
+          xLabelEcart: 0.5,
+        })
+        .setLabelY({ yMin: 0, yMax: 100, dy: 10, yLabelEcart: 0.8 })
+        .setGrille({
+          grilleX: { dx: (valeurMax * echelleX) / 10 },
+          grilleY: { dy: 2 },
+        })
+        .setGrilleSecondaire({
+          grilleX: { dx: (valeurMax * echelleX) / 50 },
+          grilleY: { dy: 1 },
+        })
+        .buildCustom()
+
+      const objetsCorr = [line, repCorr.objets, marque1, marque3, ecartIQ, iq]
       const figCorrection = mathalea2d(
         Object.assign(
-          { pixelsParCm: 15, scale: 0.5 },
+          { pixelsParCm: 25, scale: 0.5 },
           fixeBordures(objetsCorr),
         ),
         objetsCorr,
       )
-      let texte = `On donne ci-dessus la représentation graphique des fréquences cumulées croissante ${situation.label}.<br>Les réponses seront données avec la précision permise par le graphique (à $${tolerance}$ près).<br>`
+      let texte = `On donne ci-dessus la représentation graphique des fréquences cumulées croissante ${situation.label}.<br>Les réponses seront données avec la précision permise par le graphique entre deux interlignes verticales.<br>`
       texte +=
         `${numAlpha(0)} Donner la valeur du premier quartile.` +
         ajouteChampTexteMathLive(this, 3 * i, KeyboardType.clavierNumbers)
@@ -290,29 +333,41 @@ export default class Quartiles extends Exercice {
       texte +=
         `<br>${numAlpha(2)} Donner la valeur de l'écart inter-quartile.` +
         ajouteChampTexteMathLive(this, 3 * i + 2, KeyboardType.clavierNumbers)
+      const minIntervalleq1 = Math.floor(
+        Math.floor(q1Round / intervalle) * intervalle,
+      )
+      const maxIntervalleq1 = Math.ceil(
+        intervalle + Math.floor(q1Round / intervalle) * intervalle,
+      )
       handleAnswers(this, 3 * i, {
         reponse: {
-          value: String(q1),
-          options: { approximatelyCompare: true },
+          value: `[${minIntervalleq1};${maxIntervalleq1}]`,
+          options: { estDansIntervalle: true },
         },
       })
+      const minIntervalleq3 = Math.floor(
+        Math.floor(q3Round / intervalle) * intervalle,
+      )
+      const maxIntervalleq3 = Math.ceil(
+        intervalle + Math.floor(q3Round / intervalle) * intervalle,
+      )
       handleAnswers(this, 3 * i + 1, {
         reponse: {
-          value: String(q3),
-          options: { approximatelyCompare: true },
+          value: `[${minIntervalleq3};${maxIntervalleq3}]`,
+          options: { estDansIntervalle: true },
         },
       })
       handleAnswers(this, 3 * i + 2, {
         reponse: {
-          value: String(q3 - q1),
-          options: { approximatelyCompare: true },
+          value: `[${minIntervalleq3 - maxIntervalleq1};${maxIntervalleq3 - minIntervalleq1}]`,
+          options: { estDansIntervalle: true },
         },
       })
 
       let texteCorr = 'Par lecture graphique, on trouve :<br>'
-      texteCorr += `${numAlpha(0)} La valeur du premier quartile est $${texNombre(q1, 0)}$`
-      texteCorr += `<br>${numAlpha(1)} La valeur du troisième quartile est $${texNombre(q3, 0)}$`
-      texteCorr += `<br>${numAlpha(2)} La valeur de l'écart inter-quertile est :$${texNombre(q3, 0)}-${texNombre(q1, 0)}=${texNombre(q3 - q1, 0)}$`
+      texteCorr += `${numAlpha(0)} La valeur du premier quartile est environ $${miseEnEvidence(texNombre(q1Round, 0))}$. Par la précision du graphique, serait acceptée toute valeur entre $${miseEnEvidence(minIntervalleq1, bleuMathalea)}$ et $${miseEnEvidence(maxIntervalleq1, bleuMathalea)}$.`
+      texteCorr += `<br>${numAlpha(1)} La valeur du troisième quartile est environ $${miseEnEvidence(texNombre(q3Round, 0))}$. Par la précision du graphique, serait acceptée toute valeur entre $${miseEnEvidence(minIntervalleq3, bleuMathalea)}$ et $${miseEnEvidence(maxIntervalleq3, bleuMathalea)}$.`
+      texteCorr += `<br>${numAlpha(2)} La valeur de l'écart inter-quartile est environ $${texNombre(q3Round, 0)}-${texNombre(q1Round, 0)}=${miseEnEvidence(texNombre(q3Round - q1Round, 0))}$. Par la précision du graphique, serait acceptée toute valeur entre $${miseEnEvidence(minIntervalleq3 - maxIntervalleq1, bleuMathalea)}$ et $${miseEnEvidence(maxIntervalleq3 - minIntervalleq1, bleuMathalea)}$.`
       texteCorr += figCorrection
 
       texte = fig + texte

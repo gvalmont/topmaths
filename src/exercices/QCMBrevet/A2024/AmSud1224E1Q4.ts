@@ -2,12 +2,12 @@ import { colorToLatexOrHTML } from '../../../lib/2d/colorToLatexOrHtml'
 import { engrenages } from '../../../lib/2d/engrenage'
 import { fixeBordures } from '../../../lib/2d/fixeBordures'
 import { latex2d } from '../../../lib/2d/textes'
+import { aLeBonNombreDePropsDifferentes } from '../../../lib/interactif/qcm'
 import { choice } from '../../../lib/outils/arrayOutils'
 import { ppcm } from '../../../lib/outils/primalite'
 import { context } from '../../../modules/context'
 import { mathalea2d } from '../../../modules/mathalea2d'
 
-import { nombreElementsDifferents } from '../../ExerciceQcm'
 import ExerciceQcmA from '../../ExerciceQcmA'
 
 export const uuid = 'c6a37'
@@ -36,8 +36,8 @@ export default class AmeriqueSud1224Ex1Q4 extends ExerciceQcmA {
     )
     for (const roue of engins) {
       roue.couleurDeRemplissage = colorToLatexOrHTML('gray')
-      roue.marqueurD = false
-      roue.marqueurG = false
+      roue.marqueurD = null
+      roue.marqueurG = null
     }
     const y0 = Math.min(engins[0].bordures[1], engins[1].bordures[1])
     const x1 = (engins[0].bordures[0] + engins[0].bordures[2]) / 2
@@ -74,7 +74,7 @@ export default class AmeriqueSud1224Ex1Q4 extends ExerciceQcmA {
   }
 
   versionAleatoire: () => void = () => {
-    const nbReponses = 3 + this.sup4 ? 1 : 0
+    let compteur = 0
 
     do {
       const nb1 = choice([8, 10, 12, 14, 16, 18, 20])
@@ -84,11 +84,16 @@ export default class AmeriqueSud1224Ex1Q4 extends ExerciceQcmA {
       const produitNbDentsNbTours = ppcm(petiteRoue, grandeRoue)
       const nbTours = produitNbDentsNbTours / petiteRoue
       this.appliquerLesValeurs(nb1, nb2, nbTours)
-    } while (nombreElementsDifferents(this.reponses) < nbReponses)
+      compteur++
+    } while (
+      compteur < 100 &&
+      !aLeBonNombreDePropsDifferentes(this, 3, true, { texteSansCasse: true })
+    )
   }
 
   constructor() {
     super()
+    this.optionsDeComparaison = { texteSansCasse: true }
     this.versionAleatoire()
   }
 }

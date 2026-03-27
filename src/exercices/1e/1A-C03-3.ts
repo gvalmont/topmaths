@@ -1,3 +1,4 @@
+import { aLeBonNombreDePropsDifferentes } from '../../lib/interactif/qcm'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { randint } from '../../modules/outils'
 import ExerciceQcmA from '../ExerciceQcmA'
@@ -14,12 +15,9 @@ export const amcReady = 'true'
 export const amcType = 'qcmMono'
 export const titre = 'Appliquer la propriété des puissances de puissances'
 export default class Auto1AC3c extends ExerciceQcmA {
- private appliquerLesValeurs(
-    a: number,
-    k: number
-  ): void {
+  private appliquerLesValeurs(a: number, k: number): void {
     this.enonce = `Soit $n$ un entier${a === 3 && k === 2 ? ' non nul' : ''}. <br>À quelle expression est égale $\\left(${a}^n\\right)^{${k}}$ ?`
-    
+
     this.correction = `On applique la propriété des puissances de puissances d'un réel : <br>
     Soit $n\\in \\mathbb{N}$, et $p \\in \\mathbb{N}$, on a : 
      $\\left(a^{n}\\right)^{p}=a^{np}$<br>
@@ -27,9 +25,7 @@ export default class Auto1AC3c extends ExerciceQcmA {
     &=\\left(${a}^{${k}}\\right)^{n}\\\\
     &=${miseEnEvidence(`${a ** k}^{n}`)}
     \\end{aligned}$`
-    
-   
-    
+
     this.reponses = [
       `$${a ** k}^{n}$`,
       `$${a}^{n^{${k}}}$`,
@@ -43,13 +39,21 @@ export default class Auto1AC3c extends ExerciceQcmA {
   }
 
   versionAleatoire = () => {
-    const k = randint(2, 3)
-    const a = randint(2, 4)
-    this.appliquerLesValeurs(a, k)
+    let compteur = 0
+    do {
+      const k = randint(2, 3)
+      const a = randint(2, 4)
+      this.appliquerLesValeurs(a, k)
+      compteur++
+    } while (
+      compteur < 100 &&
+      !aLeBonNombreDePropsDifferentes(this, 4, true, { texteSansCasse: true })
+    )
   }
 
   constructor() {
     super()
+    this.optionsDeComparaison = { texteSansCasse: true } // Pour le test qcm_exercice, sinon, il va croire que c'est des fractions ou unite...
     this.versionAleatoire()
   }
 }

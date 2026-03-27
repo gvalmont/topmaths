@@ -48,12 +48,13 @@ export default class DevelopperEgalitesRemarquables extends ExerciceSimple {
         } else {
           this.question = `Développer  ${expression1}.` // (x+a)²
         }
+        this.reponse = `${reduirePolynomeDegre3(0, 1, 2 * a, a ** 2, inconnue)}`
         this.correction = `On utilise l'égalité remarquable $(a+b)^2=a^2+2ab+b^2$ avec $a=${inconnue}$ et $b=${a}$.<br>
 $\\begin{aligned}
            (${inconnue}+${a})^2&=${inconnue}^2+2 \\times ${a} \\times ${inconnue}+${a}^2\\\\
             &=${miseEnEvidence(`${inconnue}^2+${2 * a}${inconnue}+${a * a}`)}
             \\end{aligned}$`
-        this.reponse = `${reduirePolynomeDegre3(0, 1, 2 * a, a ** 2, inconnue)}`
+
         this.distracteurs = [
           `$${reduirePolynomeDegre3(0, 1, 0, a * a, inconnue)}$`,
           `$${reduirePolynomeDegre3(0, 1, -2 * a, a * a, inconnue)}$`,
@@ -66,12 +67,13 @@ $\\begin{aligned}
         } else {
           this.question = `Développer ${expression2}.` // (x-a)²
         }
+        this.reponse = `${reduirePolynomeDegre3(0, 1, -2 * a, a ** 2, inconnue)}`
         this.correction = `On utilise l'égalité remarquable $(a-b)^2=a^2-2ab+b^2$ avec $a=${inconnue}$ et $b=${a}$.<br>
       $\\begin{aligned}
             (${inconnue}-${a})^2&=${inconnue}^2-2 \\times ${a} \\times ${inconnue}+${a}^2\\\\
             &=${miseEnEvidence(`${inconnue}^2-${2 * a}${inconnue}+${a * a}`)}
             \\end{aligned}$`
-        this.reponse = `${reduirePolynomeDegre3(0, 1, -2 * a, a ** 2, inconnue)}`
+
         this.distracteurs = [
           `$${reduirePolynomeDegre3(0, 1, 0, a * a, inconnue)}$`,
           `$${reduirePolynomeDegre3(0, 1, -2 * a, -a * a, inconnue)}$`,
@@ -159,6 +161,7 @@ $\\begin{aligned}
         ]
         break
     }
+    if (this.versionQcm) this.reponse = '$' + this.reponse + '$'
     if (context.isHtml) {
       this.question += '<br>'
     }

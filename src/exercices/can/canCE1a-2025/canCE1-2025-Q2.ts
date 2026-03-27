@@ -59,13 +59,13 @@ export default class Can2025CE2Q4 extends ExerciceCan {
     this.formatInteractif = 'qcm'
     this.question += monQcm.texte
 
-    this.reponse = `$${texNombre(a, 1)}$ ${b}` // C'est juste pour pas faire planter mathaleaHandleExerciceSimple, cette réponse ne sera pas utilisée.
+    this.reponse = `${texNombre(a, 1)} ${b}` // C'est juste pour pas faire planter mathaleaHandleExerciceSimple, cette réponse ne sera pas utilisée.
 
     this.canEnonce = 'Coche la bonne réponse.'
 
     this.correction =
       monQcm.texteCorr +
-      ` Pour passer des $\\text{${b}}$ au $\\text{${c}}$ , on multiplie par $${texNombre(a, 0)}$.`
+      ` Pour passer des $\\text{${b}}$ au $\\text{${c}}$, on multiplie par $${texNombre(a, 0)}$.`
     this.canReponseACompleter = monQcm.texte
   }
 

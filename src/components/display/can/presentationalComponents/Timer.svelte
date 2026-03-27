@@ -1,7 +1,7 @@
 <script lang="ts">
-  import { onDestroy, createEventDispatcher } from 'svelte'
-  import ElapsedTime from './ElapsedTime.svelte'
+  import { createEventDispatcher, onDestroy } from 'svelte'
   import { millisecondToMinSec } from '../../../../lib/components/time'
+  import ElapsedTime from './ElapsedTime.svelte'
 
   export let durationInMilliSeconds
   const dispatch = createEventDispatcher()
@@ -10,7 +10,15 @@
   const duration = durationInMilliSeconds // 1min
   let displayedTime = ''
   let widthFactor = 1
-
+  export const terminateTimer = (): void => {
+    if (frame) cancelAnimationFrame(frame)
+    frame = undefined
+    dispatch('message', {
+      state: 'endTimer',
+      elapsed,
+      duration,
+    })
+  }
   let lastTime = window.performance.now()
   let frame: number | undefined
   ;(function update() {
@@ -33,15 +41,6 @@
     }
   })()
 
-  export const terminateTimer = (): void => {
-    if (frame) cancelAnimationFrame(frame)
-    frame = undefined
-    dispatch('message', {
-      state: 'endTimer',
-      elapsed,
-      duration,
-    })
-  }
   onDestroy(() => {
     if (frame) cancelAnimationFrame(frame)
     frame = undefined

@@ -2,10 +2,11 @@ import { choice } from '../../lib/outils/arrayOutils'
 import { texteEnCouleurEtGras } from '../../lib/outils/embellissements'
 import { texNombre } from '../../lib/outils/texNombre'
 // import ExerciceQcmA from '../../ExerciceQcmA'
+import { aLeBonNombreDePropsDifferentes } from '../../lib/interactif/qcm'
+import { arrondi } from '../../lib/outils/nombres'
 import { prenom } from '../../lib/outils/Personne'
 import FractionEtendue from '../../modules/FractionEtendue'
 import ExerciceQcmA from '../ExerciceQcmA'
-import { arrondi } from '../../lib/outils/nombres'
 
 export const uuid = 'ac9b0'
 export const refs = {
@@ -25,7 +26,7 @@ export const dateDePublication = '09/12/2025'
  *
  */
 export default class Auto1C15r extends ExerciceQcmA {
-   private appliquerLesValeurs(
+  private appliquerLesValeurs(
     puissance: number,
     duree: number,
     appareil: string,
@@ -36,7 +37,10 @@ export default class Auto1C15r extends ExerciceQcmA {
     const cout = 0.2
 
     // Choisir aléatoirement entre "0,2 €" et "20 centimes" pour l'énoncé
-    const coutEnonce = choice(['$0,2$ €', "$20$ centimes d'euro"])
+    const coutEnonce = choice([
+      '$0,2\\text{ €}$',
+      "$20\\text{ centimes d'euro}$",
+    ])
 
     this.enonce = `${prenom()} utilise ${appareil} pendant $${duree}$ minutes.<br>
       La puissance de cet appareil est $${texNombre(puissance)}$ watts.<br>
@@ -49,27 +53,29 @@ export default class Auto1C15r extends ExerciceQcmA {
     let coutCentimes: string
 
     if (coutTotalEuros < 0.01) {
-      coutEuros = `$${texNombre(coutTotalEuros, 3)}$ €`
-      coutCentimes = `$${texNombre(coutTotalEuros * 100, 2)}$ centimes d'euro`
+      coutEuros = `$${texNombre(coutTotalEuros, 3)}\\text{ €}$`
+      coutCentimes = `$${texNombre(coutTotalEuros * 100, 2)}\\text{ centimes d'euro}$`
     } else if (coutTotalEuros === 0.01) {
-      coutEuros = '$0,01$ €'
-      coutCentimes = "$1$ centime d'euro"
+      coutEuros = '$0,01\\text{ €}$'
+      coutCentimes = "$1\\text{ centime d'euro}$"
     } else if (coutTotalEuros < 0.1) {
-      coutEuros = `$${texNombre(coutTotalEuros, 2)}$ €`
+      coutEuros = `$${texNombre(coutTotalEuros, 2)}\\text{ €}$`
       const centimes = Math.round(coutTotalEuros * 100)
       coutCentimes =
-        centimes === 1 ? "$1$ centime d'euro" : `$${centimes}$ centimes d'euro`
+        centimes === 1
+          ? "$1\\text{ centime d'euro}$"
+          : `$${centimes}\\text{ centimes d'euro}$`
     } else {
-      coutEuros = `$${texNombre(coutTotalEuros, 1)}$ €`
+      coutEuros = `$${texNombre(coutTotalEuros, 1)}\\text{ €}$`
       const centimes = Math.round(coutTotalEuros * 100)
-      coutCentimes = `$${centimes}$ centimes d'euro`
+      coutCentimes = `$${centimes}\\text{ centimes d'euro}$`
     }
 
     // Générer les distracteurs
     const distracteurs = [
-      `$${texNombre(coutTotalEuros * 10, 1)}$ €`, // Erreur facteur 10
-      `$${texNombre(puissanceKW * cout, 2)}$ €`, // Oubli de la durée
-      `$${texNombre(coutTotalEuros * 10, 1)}$ ${ arrondi(coutTotalEuros * 10, 1) < 1.05 ? "centime d'euro" : "centimes d'euro"}`, // Confusion avec centimes
+      `$${texNombre(coutTotalEuros * 10, 1)}\\text{ €}$`, // Erreur facteur 10
+      `$${texNombre(puissanceKW * cout, 2)}\\text{ €}$`, // Oubli de la durée
+      `$${texNombre(coutTotalEuros * 10, 1)}\\text{ ${arrondi(coutTotalEuros * 10, 1) < 1.05 ? "centime d'euro" : "centimes d'euro"}}$`, // Confusion avec centimes
     ]
 
     // Bonne réponse en premier (choisir aléatoirement euros ou centimes)
@@ -80,14 +86,14 @@ export default class Auto1C15r extends ExerciceQcmA {
       La durée d'utilisation est de $${duree}$ minutes, soit $${dureeH.texFractionSimplifiee}$ heure.<br>
       L'énergie consommée est donc : $${texNombre(puissanceKW, 1)}\\times ${dureeH.texFractionSimplifiee}=${texNombre(energie, 3)}$ kWh.<br>
       Le coût de la consommation est : $${texNombre(energie, 3)}\\times ${texNombre(cout, 2)}=${texNombre(coutTotalEuros, 2)}$ €`
-    
+
     // Si la bonne réponse est en centimes, ajouter la conversion
     if (bonneReponse === coutCentimes) {
       correctionFinale += `, soit ${texteEnCouleurEtGras(bonneReponse)}.`
     } else {
       correctionFinale += `, soit ${texteEnCouleurEtGras(coutEuros)}.`
     }
-    
+
     this.correction = correctionFinale
 
     this.reponses = [bonneReponse, ...distracteurs]
@@ -98,32 +104,39 @@ export default class Auto1C15r extends ExerciceQcmA {
   }
 
   versionAleatoire: () => void = () => {
-    // Tableau des configurations simples
-    const configurations = [
-      { puissance: 600, duree: 5 },
-      { puissance: 600, duree: 10 },
-      { puissance: 1000, duree: 6 },
-      { puissance: 1000, duree: 10 },
-      { puissance: 1200, duree: 5 },
-      { puissance: 1200, duree: 10 },
-      { puissance: 1200, duree: 20 },
-      { puissance: 1500, duree: 10 },
-      { puissance: 1500, duree: 20 },
-      { puissance: 2000, duree: 15 },
-      { puissance: 3000, duree: 10 },
-    ]
+    let compteur = 0
+    do {
+      // Tableau des configurations simples
+      const configurations = [
+        { puissance: 600, duree: 5 },
+        { puissance: 600, duree: 10 },
+        { puissance: 1000, duree: 6 },
+        { puissance: 1000, duree: 10 },
+        { puissance: 1200, duree: 5 },
+        { puissance: 1200, duree: 10 },
+        { puissance: 1200, duree: 20 },
+        { puissance: 1500, duree: 10 },
+        { puissance: 1500, duree: 20 },
+        { puissance: 2000, duree: 15 },
+        { puissance: 3000, duree: 10 },
+      ]
 
-    const config = choice(configurations)
-    const appareils = [
-      'un aspirateur',
-      'un sèche-cheveux',
-      'un fer à repasser',
-      'un radiateur',
-      'une bouilloire',
-    ]
-    const appareil = choice(appareils)
+      const config = choice(configurations)
+      const appareils = [
+        'un aspirateur',
+        'un sèche-cheveux',
+        'un fer à repasser',
+        'un radiateur',
+        'une bouilloire',
+      ]
+      const appareil = choice(appareils)
 
-    this.appliquerLesValeurs(config.puissance, config.duree, appareil)
+      this.appliquerLesValeurs(config.puissance, config.duree, appareil)
+      compteur++
+    } while (
+      compteur < 100 &&
+      !aLeBonNombreDePropsDifferentes(this, 4, true, { texteSansCasse: true })
+    )
   }
 
   constructor() {

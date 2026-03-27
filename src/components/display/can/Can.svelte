@@ -1,7 +1,6 @@
 <script lang="ts">
   import { onMount } from 'svelte'
   import { get } from 'svelte/store'
-  import type TypeExercice from '../../../exercices/Exercice'
   import MetaExercice from '../../../exercices/MetaExerciceCan'
   import {
     buildExercisesList,
@@ -31,11 +30,12 @@
     resultsByExercice,
   } from '../../../lib/stores/generalStore'
   import { globalOptions } from '../../../lib/stores/globalOptions'
-  import type { InterfaceResultExercice } from '../../../lib/types'
+  import type { IExercice, InterfaceResultExercice } from '../../../lib/types'
   import type { CanState } from '../../../lib/types/can'
   import { context } from '../../../modules/context'
   import { statsCanTracker } from '../../../modules/stats'
   import { keyboardState } from '../../keyboard/stores/keyboardStore'
+  import ButtonTextAction from '../../shared/forms/ButtonTextAction.svelte'
   import ButtonToggleDarkMode from '../../shared/forms/ButtonToggleDarkMode.svelte'
   import CountDown from './presentationalComponents/CountDown.svelte'
   import End from './presentationalComponents/End.svelte'
@@ -44,7 +44,7 @@
   import Solutions from './presentationalComponents/Solutions.svelte'
 
   let state: CanState = 'canHomeScreen'
-  let exercises: TypeExercice[] = []
+  let exercises: IExercice[] = []
   let questions: string[] = []
   let consignes: string[] = []
   let corrections: string[] = []
@@ -54,6 +54,7 @@
   let resultsByQuestion: boolean[] = []
   let answers: string[] = []
   let recordedTimeFromCapytale: number
+  let unavailableMessage = ''
   onMount(async () => {
     // handleCapytale peut changer la valeur du store pour que le
     // professeur aille directement aux solutions de l'élève ou pour l'empêcher de recommencer
@@ -104,7 +105,20 @@
       return gOpt
     })
     // reconstitution des exercices
-    exercises = await Promise.all(buildExercisesList())
+    const builtExercises = await Promise.all(buildExercisesList())
+    exercises = builtExercises.filter(
+      (exercise) => exercise.typeExercice !== 'html',
+    )
+    if (builtExercises.length > 0 && exercises.length === 0) {
+      unavailableMessage =
+        'Cette Course aux nombres ne peut pas démarrer car elle ne contient aucun exercice compatible.'
+      canOptions.update((options) => ({
+        ...options,
+        questionGetAnswer: [],
+        state: 'start',
+      }))
+      return
+    }
     // met à jour la url avec la graine...
     mathaleaUpdateUrlFromExercicesParams(get(exercicesParams))
     // interactivité
@@ -116,7 +130,9 @@
     }
     // découpage des exerices en questions
     const splitResults = splitExercisesIntoQuestions(exercises)
-    questions = [...splitResults.questions]
+    questions = splitResults.questions.filter(
+      (question): question is string => typeof question === 'string',
+    )
     consignes = [...splitResults.consignes]
     corrections = [...splitResults.corrections]
     consignesCorrections = [...splitResults.consignesCorrections]
@@ -426,7 +442,7 @@
         const quest: InterfaceResultExercice = {
           uuid: exercise.uuid,
           title: exercise.titre,
-          indice: exercise.numeroExercice as number,
+          indice: exercise.numeroExercice,
           state: 'done',
           alea: exercise.seed,
           answers: answersType[ind].answers,
@@ -534,6 +550,13 @@
       time.seconds.toString().padStart(2, '0'),
     ].join(':')
   }
+
+  function returnToSetup() {
+    globalOptions.update((options) => {
+      options.v = ''
+      return options
+    })
+  }
 </script>
 
 <div
@@ -542,7 +565,28 @@
     : ''} relative w-full h-screen bg-coopmaths-canvas dark:bg-coopmathsdark-canvas"
 >
   {#if state === 'start' || state === 'canHomeScreen'}
-    <KickOff title={$canOptions.title} subTitle={$canOptions.subTitle} bind:state />
+    <KickOff
+      title={$canOptions.title}
+      subTitle={$canOptions.subTitle}
+      canStart={!unavailableMessage}
+      bind:state
+    >
+      {#if unavailableMessage}
+        <div class="mx-6 mt-8 flex max-w-3xl flex-col items-center gap-6">
+          <div
+            class="w-full rounded-xl bg-coopmaths-canvas/10 px-6 py-4 text-center text-xl font-light"
+          >
+            {unavailableMessage}
+          </div>
+          <ButtonTextAction
+            class="rounded-xl px-6 py-3 text-xl font-bold"
+            text="Retour à la configuration"
+            icon="bx-arrow-back bx-md"
+            on:click={returnToSetup}
+          />
+        </div>
+      {/if}
+    </KickOff>
   {/if}
   {#if state === 'countdown'}
     <CountDown bind:state />

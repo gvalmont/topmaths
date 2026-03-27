@@ -20,7 +20,7 @@ export const uuid = '26f3b'
 
 export const refs = {
   'fr-fr': ['can2G10'],
-  'fr-ch': ['NR'],
+  'fr-ch': ['3G91-4'],
 }
 export default class RelationChasles1 extends Exercice {
   constructor() {
@@ -32,7 +32,9 @@ export default class RelationChasles1 extends Exercice {
   }
 
   nouvelleVersion() {
-    let texte, texteCorr, props
+    let texte = ''
+    let texteCorr = ''
+    let props: { texte: string; texteCorr: string } = { texte: '', texteCorr: '' }
     for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50; ) {
       const nom = creerNomDePolygone(6, ['QD'])
       const choix = choice([1, 2, 3, 4, 5, 6])
