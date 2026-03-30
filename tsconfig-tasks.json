@@ -2,6 +2,7 @@
   "extends": "./tsconfig.json",
   "include": ["src/topmaths/types/shared.js", "tasks/**/*.ts"],
   "compilerOptions": {
+    "rootDir": ".",
     "resolveJsonModule": true,
     "types": ["node"],
     "outDir": "./tmp"
