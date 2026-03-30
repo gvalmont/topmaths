@@ -224,13 +224,21 @@
   ) {
     const mathalea2dFigures =
       document.querySelectorAll<SVGElement>('.mathalea2d')
-    const zoom = 1
-    // console.log('zoom:' + zoom )
     if (mathalea2dFigures != null) {
       if (mathalea2dFigures.length !== 0) {
         // await tick()
         // console.log('adjustMathalea2dFiguresWidth:' + initialDimensionsAreNeeded)
         for (let k = 0; k < mathalea2dFigures.length; k++) {
+          const exerciseContainer = mathalea2dFigures[k].closest('[id^="exercice"]')
+          const exerciseIndexMatch = exerciseContainer?.id.match(/^exercice(\d+)/)
+          const exerciseIndex = exerciseIndexMatch
+            ? Number(exerciseIndexMatch[1])
+            : Number.NaN
+          const zoom =
+            Number.isInteger(exerciseIndex) &&
+            exercisesWithMeta[exerciseIndex] !== undefined
+              ? exercisesWithMeta[exerciseIndex].zoom
+              : 1
           if (initialDimensionsAreNeeded) {
             // réinitialisation
             const initialWidth = mathalea2dFigures[k].getAttribute(
