@@ -1,13 +1,12 @@
 <script lang="ts">
-  import { afterUpdate, onMount } from 'svelte'
-  import { mathaleaRenderDiv } from '../../../../lib/mathalea'
+  import type { MathfieldElement } from 'mathlive'
+  import { afterUpdate, onDestroy, onMount } from 'svelte'
   import { setSizeWithinSvgContainer } from '../../../../lib/components/sizeTools'
+  import { questionCliqueFigure } from '../../../../lib/interactif/cliqueFigure'
+  import { mathaleaRenderDiv } from '../../../../lib/mathalea'
+  import { canOptions } from '../../../../lib/stores/canStore'
   import { loadMathLive } from '../../../../modules/loaders'
   import { keyboardState } from '../../../keyboard/stores/keyboardStore'
-  import type { MathfieldElement } from 'mathlive'
-  import { canOptions } from '../../../../lib/stores/canStore'
-  import { questionCliqueFigure } from '../../../../lib/interactif/cliqueFigure'
-
   export let question: string
   export let consigne: string
   export let correction: string
@@ -18,7 +17,6 @@
   export let nextQuestion: () => void
 
   let questionContainer: HTMLDivElement
-  import { onDestroy } from 'svelte'
 
   onDestroy(() => {
     const mf = questionContainer?.querySelector(
@@ -70,8 +68,75 @@
     }
   }
 
+  function handleMultiMathfieldElement(ev: Event) {
+    const mf = ev.currentTarget
+    if ((mf as MathfieldElement).value !== '') {
+      if ($canOptions.questionGetAnswer[index] !== true) {
+        $canOptions.questionGetAnswer[index] = true
+      }
+    } else {
+      if ($canOptions.questionGetAnswer[index] !== false) {
+        $canOptions.questionGetAnswer[index] = false
+      }
+    }
+  }
+
   function updateInteractivity() {
     if (questionContainer) {
+      const multiMf = questionContainer.querySelector('multi-mathfield')
+      // gestion des MultiMathfield
+      if (multiMf != null) {
+        const shadowRoot = multiMf.shadowRoot
+        if (shadowRoot) {
+          const mathfields = Array.from(
+            shadowRoot.querySelectorAll('math-field'),
+          ) as MathfieldElement[]
+          for (const mf of mathfields) {
+            if (!mf.dataset.listenerAdded) {
+              mf.dataset.listenerAdded = 'true' // Marquer comme ajouté
+              //   mf.addEventListener('keyup', handleKeyUp) => Ne pas pas passer à la question suivante avec enter, il y a plusieurs champs
+              mf.addEventListener('input', handleMultiMathfieldElement)
+            }
+            $keyboardState.idMathField = mf.id
+          }
+          window.setTimeout(() => {
+            // Ne focus le premier mathfield que si aucun n'a le focus dans le shadowRoot
+            const hasFocus =
+              shadowRoot.activeElement &&
+              mathfields.includes(shadowRoot.activeElement as MathfieldElement)
+            if (!hasFocus) {
+              const mf = mathfields[0]
+              if (mf) mf.focus()
+            }
+          }, 0)
+        }
+        return
+      }
+
+      const metaI2d = questionContainer.querySelectorAll('.metaInteractif2d')
+      // gestion des metaInteractif2d
+      if (metaI2d != null && metaI2d.length > 0) {
+        console.info('Je gère le metaInteractif2d')
+        const listeMf = Array.from(metaI2d) as MathfieldElement[]
+        for (const mf of listeMf) {
+          if (!mf.dataset.listenerAdded) {
+            mf.dataset.listenerAdded = 'true' // Marquer comme ajouté
+            mf.addEventListener('input', handleMathfieldElement)
+          }
+          $keyboardState.idMathField = mf.id
+          window.setTimeout(() => {
+            const hasFocus =
+              document.activeElement &&
+              listeMf.includes(document.activeElement as MathfieldElement)
+            if (!hasFocus) {
+              const mf = listeMf[0]
+              if (mf) mf.focus()
+            }
+          }, 0)
+        }
+        return
+      }
+
       const mf = questionContainer?.querySelector(
         'math-field',
       ) as MathfieldElement
@@ -84,9 +149,6 @@
         $keyboardState.idMathField = mf.id
         window.setTimeout(() => {
           mf.focus()
-          // @ToFix Je remets le clavier visible pour les fillInTheBlanks mais en fait je ne sais pas ce qui les rend invisibles
-          // Mgu je n'ai pas reproduit le problème ...
-          // $keyboardState.isVisible = true
         }, 0)
         return
       }
