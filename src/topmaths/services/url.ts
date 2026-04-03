@@ -1,6 +1,8 @@
 import { TOPMATHS_BASE_URL } from './environment.js'
 import { showDialogForLimitedTime } from '../../lib/components/dialogs.js'
 import { isRegularClick } from './navigation'
+export { normalizeExerciseInteractivity } from './urlShared.js'
+import { normalizeExerciseInteractivity } from './urlShared.js'
 
 export function removeSeed(link: string): string {
   const url = new URL(link)
@@ -32,23 +34,23 @@ type CopyLinkOptions = {
   mouseEvent?: MouseEvent
   baseUrl?: string
 }
-export function copyLink(link: string, options?: CopyLinkOptions): void {
+export function buildCopiedLink(link: string, options?: CopyLinkOptions): string {
   if (options?.mouseEvent && isRegularClick(options.mouseEvent)) {
     options.mouseEvent.preventDefault()
   }
-  const url = new URL(link)
+  const normalizedLink = options?.forceInteractive
+    ? normalizeExerciseInteractivity(link, '1', true)
+    : link
+  const url = new URL(normalizedLink)
   const params = url.searchParams
 
   if (!options?.includeSeed) params.delete('alea')
-  if (options?.forceInteractive) {
-    params.forEach(function (value, key) {
-      if (key === 'i' && value === '0') {
-        params.set(key, '1')
-      }
-    })
-  }
   const baseUrl = options?.baseUrl ?? TOPMATHS_BASE_URL
-  copyToClipboard(baseUrl + params.toString())
+  return baseUrl + params.toString()
+}
+
+export function copyLink(link: string, options?: CopyLinkOptions): void {
+  copyToClipboard(buildCopiedLink(link, options))
 }
 
 export function copyToClipboard(str: string): void {

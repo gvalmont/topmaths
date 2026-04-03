@@ -1,15 +1,17 @@
-import type { VueType } from '../../lib/types'
+import { get } from 'svelte/store'
+import type { VueType } from '../../lib/VueType'
 import type { Reference, View } from '../types/navigation'
 import { isTopmaths } from './environment'
 import { buildParamsFromUrl, updateUrlFromParams } from './mathalea'
 import {
   exerciseLinks,
   isDoubleView,
+  isTeacherMode,
   reference,
   reference2,
   view,
 } from './store'
-import { removeSeed } from './url'
+import { normalizeExerciseInteractivity, removeSeed } from './url'
 
 export function backToHome(): void {
   view.set('home')
@@ -75,7 +77,11 @@ export function isRegularClick(mouseEvent: MouseEvent): boolean {
 }
 
 function launchMathaleaExercise(link: string, doubleView: boolean): void {
-  exerciseLinks.set([removeSeed(link)])
+  const normalizedLink = normalizeExerciseInteractivity(
+    link,
+    get(isTeacherMode) ? '0' : '1',
+  )
+  exerciseLinks.set([removeSeed(normalizedLink)])
   isDoubleView.set(doubleView)
   view.set('exercise')
 }

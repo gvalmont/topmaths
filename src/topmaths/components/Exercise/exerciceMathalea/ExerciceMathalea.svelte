@@ -215,7 +215,7 @@
         <div id="divScoreEx{exerciseIndex}" bind:this={divScore}></div>
       </div>
     </article>
-    {#if exercise.interactif && !isCorrectionVisible}
+    {#if exercise.interactif && exercise.interactifReady && !isCorrectionVisible}
       <button
         type="submit"
         on:click={verifExerciceVueEleve}

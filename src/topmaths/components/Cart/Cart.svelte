@@ -7,21 +7,28 @@
   } from '../../services/environment'
   import { goToCoopmathsView, launchExercise } from '../../services/navigation'
   import { buildGradeFromObjectiveReference } from '../../services/reference'
-  import { copyLink } from '../../services/url'
+  import { isTeacherMode } from '../../services/store'
+  import { copyLink, normalizeExerciseInteractivity } from '../../services/url'
 
   let cartLink = ''
   let items = Cart.items
+  let rawCartLink = TOPMATHS_BASE_URL + REGULAR_VIEW_ADDENDUM
+
+  $: cartLink = normalizeExerciseInteractivity(
+    rawCartLink,
+    $isTeacherMode ? '0' : '1',
+  )
 
   onMount(() => {
-    updateCartLink()
-    Cart.subscribe(updateCartLink)
+    updateItems()
+    Cart.subscribe(updateItems)
   })
 
   onDestroy(() => {
-    Cart.unsubscribe(updateCartLink)
+    Cart.unsubscribe(updateItems)
   })
 
-  function updateCartLink(): void {
+  function updateItems(): void {
     items = Cart.items
     let link = TOPMATHS_BASE_URL
     link += items
@@ -37,7 +44,7 @@
       })
       .join('&')
     link += REGULAR_VIEW_ADDENDUM
-    cartLink = link
+    rawCartLink = link
   }
 </script>
 
@@ -58,7 +65,8 @@
     <button
       class="is-fuchsia is-interactive
         mx-2 md:mx-4"
-      on:click={() => copyLink(cartLink, { includeSeed: false })}
+      on:click={() =>
+        copyLink(cartLink, { includeSeed: false, forceInteractive: true })}
     >
       <img
         class="is-icon

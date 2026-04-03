@@ -19,7 +19,7 @@
     updateUrlFromParams,
   } from '../../services/mathalea'
   import { exerciseLinks, isDoubleView } from '../../services/store'
-  import { copyToClipboard } from '../../services/url'
+  import { buildCopiedLink, copyToClipboard } from '../../services/url'
   import ExerciceMathalea from './exerciceMathalea/ExerciceMathalea.svelte'
   import ExerciceHtml from './presentationalComponents/exerciceHtml/ExerciceHtml.svelte'
   import ExerciceStatic from './presentationalComponents/exerciceStatic/ExerciceStatic.svelte'
@@ -110,6 +110,7 @@
     } else {
       exercise = await getExercise(paramsExercice, exerciseIndex)
       exerciseType = await getExerciseType(exercise)
+      console.log(exercise)
     }
     return {
       exercise,
@@ -229,8 +230,10 @@
         // await tick()
         // console.log('adjustMathalea2dFiguresWidth:' + initialDimensionsAreNeeded)
         for (let k = 0; k < mathalea2dFigures.length; k++) {
-          const exerciseContainer = mathalea2dFigures[k].closest('[id^="exercice"]')
-          const exerciseIndexMatch = exerciseContainer?.id.match(/^exercice(\d+)/)
+          const exerciseContainer =
+            mathalea2dFigures[k].closest('[id^="exercice"]')
+          const exerciseIndexMatch =
+            exerciseContainer?.id.match(/^exercice(\d+)/)
           const exerciseIndex = exerciseIndexMatch
             ? Number(exerciseIndexMatch[1])
             : Number.NaN
@@ -422,9 +425,10 @@
     const title =
       exercisesWithMeta[exerciseIndex].exercise?.titre ??
       exercicesParams[exerciseIndex].id
-    const url = buildUrlFromParams('exercise', [
-      exercicesParams[exerciseIndex],
-    ]).href
+    const url = buildCopiedLink(
+      buildUrlFromParams('exercise', [exercicesParams[exerciseIndex]]).href,
+      { forceInteractive: true },
+    )
     copyToClipboard(url)
     if (navigator.share) {
       navigator.share({ title, url })

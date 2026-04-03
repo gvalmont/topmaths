@@ -4,7 +4,7 @@
   import { COOPMATHS_BASE_URL, isTopmaths } from '../../services/environment'
   import { goToCoopmathsView, launchExercise } from '../../services/navigation'
   import { isTeacherMode } from '../../services/store'
-  import { copyLink } from '../../services/url'
+  import { copyLink, normalizeExerciseInteractivity } from '../../services/url'
   import type { CartItem } from '../../types/cart'
   import type { ObjectiveVideo } from '../../types/objective'
   import TooltipIcon from './TooltipIcon.svelte'
@@ -16,6 +16,11 @@
 
   let capytaleLink: string = ''
   let isCartEmpty: boolean = true
+  let normalizedExercisesLink: string = ''
+
+  $: normalizedExercisesLink = isTopmaths(exercisesLink)
+    ? normalizeExerciseInteractivity(exercisesLink, $isTeacherMode ? '0' : '1')
+    : exercisesLink
 
   onMount(async () => {
     await tick()
@@ -91,10 +96,11 @@
   {#if exercisesLink === ''}
     <button><slot /></button>
   {:else}
-    <a href={exercisesLink} class="is-interactive">
+    <a href={normalizedExercisesLink} class="is-interactive">
       <button
         class="flex items-center"
-        on:click={(mouseEvent) => launchExercise(mouseEvent, exercisesLink)}
+        on:click={(mouseEvent) =>
+          launchExercise(mouseEvent, normalizedExercisesLink)}
       >
         <slot /> &nbsp;
         <TooltipIcon
@@ -107,11 +113,11 @@
       </button>
     </a>
     {#if $isTeacherMode && isTopmaths(exercisesLink) && !exercisesLink.includes('&v=diaporama')}
-      <a href={exercisesLink} class="ml-2 is-interactive">
+      <a href={normalizedExercisesLink} class="ml-2 is-interactive">
         <button
           class="flex items-center"
           on:click={(mouseEvent) =>
-            launchExercise(mouseEvent, exercisesLink, true)}
+            launchExercise(mouseEvent, normalizedExercisesLink, true)}
         >
           <TooltipIcon
             dropdownText={exerciseIndex < 0
@@ -125,13 +131,13 @@
     {/if}
     {#if $isTeacherMode && isTopmaths(exercisesLink)}
       <a
-        href={exercisesLink.replace('v=exercise', 'v=latex')}
+        href={normalizedExercisesLink.replace('v=exercise', 'v=latex')}
         class="ml-2 is-interactive"
       >
         <button
           class="flex items-center"
           on:click={(mouseEvent) =>
-            goToCoopmathsView(mouseEvent, exercisesLink, 'latex')}
+            goToCoopmathsView(mouseEvent, normalizedExercisesLink, 'latex')}
         >
           <TooltipIcon
             imgSrc="/topmaths/img/cc0/printing-document-svgrepo-com.svg"

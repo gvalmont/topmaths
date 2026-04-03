@@ -2,6 +2,7 @@
   import {
     curriculum,
     exerciseLinks,
+    isTeacherMode,
     objectives,
     units,
     view,
@@ -16,6 +17,7 @@
   import ButtonImage from '../shared/ButtonImage.svelte'
   import { showDialogForLimitedTime } from '../../../lib/components/dialogs'
   import { shuffle } from '../../../lib/outils/arrayOutils'
+  import { normalizeExerciseInteractivity } from '../../services/url'
 
   const currentTerm = getCurrentTerm()
   const weekIndexInCurrentTerm = getWeekIndexInCurrentTerm()
@@ -48,7 +50,13 @@
   }
 
   function launch(links: string[]): void {
-    exerciseLinks.set(links)
+    exerciseLinks.set(
+      links.map((link) =>
+        isTopmaths(link)
+          ? normalizeExerciseInteractivity(link, $isTeacherMode ? '0' : '1')
+          : link,
+      ),
+    )
     view.set('exercise')
   }
 

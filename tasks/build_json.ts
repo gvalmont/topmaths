@@ -8,7 +8,6 @@ import objectivesMasterJson from '../src/topmaths/json/objectives.json' assert {
 import specialUnitsJson from '../src/topmaths/json/special_units.json' assert { type: 'json' }
 import unitsMasterJson from '../src/topmaths/json/units.json' assert { type: 'json' }
 import {
-  EXERCISE_PARAM_ADDENDUM,
   isMathalea,
   REGULAR_VIEW_ADDENDUM,
   SLIDESHOW_VIEW_ADDENDUM,
@@ -1360,13 +1359,9 @@ function formatSlug(slug: string | undefined): string {
 }
 
 function addAddendum(slug: string): string {
-  if (
-    !slug.includes(EXERCISE_PARAM_ADDENDUM) &&
-    !isFullLink(slug) &&
-    slug !== ''
-  )
-    slug += EXERCISE_PARAM_ADDENDUM
-  return slug.replace(/&uuid=/g, EXERCISE_PARAM_ADDENDUM + '&uuid=') // dans le cas où il y aurait plusieurs exercices dans le même slug
+  if (slug === '') return slug
+  if (isFullLink(slug) && !isMathalea(slug)) return slug
+  return slug
 }
 
 function buildLessonPlanDownloadLinks(

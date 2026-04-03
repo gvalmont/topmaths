@@ -1,6 +1,5 @@
 export const TOPMATHS_BASE_URL = 'https://topmaths.fr/?'
 export const COOPMATHS_BASE_URL = 'https://coopmaths.fr/alea/?'
-export const EXERCISE_PARAM_ADDENDUM = '&i=0'
 export const REGULAR_VIEW_ADDENDUM = '&v=exercise'
 export const SLIDESHOW_VIEW_ADDENDUM = '&v=diaporama&ds=1000101'
 export const DEFAULT_LINE_HEIGHT = 1.6 // em

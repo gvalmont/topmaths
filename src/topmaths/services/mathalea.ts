@@ -6,7 +6,7 @@ import { globalOptions } from '../../lib/stores/globalOptions'
 import type { InterfaceParamsWithMeta } from '../../lib/types'
 import { isObjectiveReference } from '../types/objective'
 import { isUnitReference } from '../types/unit'
-import { isDoubleView } from './store'
+import { isDoubleView, isTeacherMode } from './store'
 let urlToWrite: URL
 let timerId: ReturnType<typeof setTimeout> | undefined
 
@@ -83,6 +83,7 @@ export function buildUrlFromParams(
   exercicesParams: InterfaceParamsWithMeta[],
 ): URL {
   const url = new URL(window.location.protocol + '//' + window.location.host)
+  const defaultInteractiveValue = get(isTeacherMode) ? '0' : '1'
   for (const ex of exercicesParams) {
     url.searchParams.append('uuid', ex.uuid)
     if (ex.id != null) url.searchParams.append('id', ex.id)
@@ -95,7 +96,7 @@ export function buildUrlFromParams(
     if (ex.sup3 != null) url.searchParams.append('s3', ex.sup3)
     if (ex.sup4 != null) url.searchParams.append('s4', ex.sup4)
     if (ex.alea != null) url.searchParams.append('alea', ex.alea)
-    if (ex.interactif === '1') url.searchParams.append('i', '1')
+    url.searchParams.append('i', ex.interactif ?? defaultInteractiveValue)
     if (ex.cd != null) url.searchParams.append('cd', ex.cd)
     if (ex.cols != null) url.searchParams.append('cols', ex.cols.toString())
     if (ex.sourceObjective != null) {
