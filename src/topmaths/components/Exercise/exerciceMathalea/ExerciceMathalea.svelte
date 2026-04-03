@@ -24,6 +24,7 @@
   let divScore: HTMLDivElement
   let buttonScore: HTMLButtonElement
   let numberOfAnswerFields: number = 0
+  let hasVerifiableAnswers = false
 
   // Evènement indispensable pour pointCliquable par exemple
   const exercicesAffiches = new window.Event('exercicesAffiches', {
@@ -44,6 +45,11 @@
   $: {
     if (exercise.interactif && buttonScore) initButtonScore()
   }
+
+  $: hasVerifiableAnswers =
+    exercise.interactifReady ||
+    (Array.isArray(exercise.autoCorrection) &&
+      exercise.autoCorrection.some((entry) => entry != null))
 
   async function countMathField(): Promise<void> {
     const answerFields = document.querySelectorAll(
@@ -215,7 +221,7 @@
         <div id="divScoreEx{exerciseIndex}" bind:this={divScore}></div>
       </div>
     </article>
-    {#if exercise.interactif && exercise.interactifReady && !isCorrectionVisible}
+    {#if exercise.interactif && hasVerifiableAnswers && !isCorrectionVisible}
       <button
         type="submit"
         on:click={verifExerciceVueEleve}
