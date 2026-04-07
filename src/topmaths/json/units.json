@@ -1420,7 +1420,7 @@
         ]
       },
       {
-        "title": "Fonctions linéaires 1",
+        "title": "Fonctions linéaires",
         "objectives": [
           {
             "reference": "3S40"
@@ -1430,6 +1430,9 @@
           },
           {
             "reference": "3S42"
+          },
+          {
+            "reference": "3S44"
           }
         ],
         "assessmentExamSlug": "uuid=dnbpro_2023_06_polynesie_4&uuid=dnbpro_2023_09_metropole_3&uuid=dnb_2022_06_polynesie_2&uuid=dnb_2021_11_ameriquesud_2&uuid=dnb_2020_12_caledonie_7"
@@ -1491,15 +1494,13 @@
         "assessmentExamSlug": "uuid=dnb_2024_05_ameriquenord_2&uuid=dnb_2024_07_antilles_4&uuid=dnb_2023_06_polynesie_4&uuid=dnb_2023_06_etrangers_3&uuid=dnb_2023_06_asie_3&uuid=dnb_2020_09_metropole_2"
       },
       {
-        "title": "Fonctions linéaires 2",
+        "title": "Proportionnalité en géométrie 5 (Trigonométrie 2)",
         "objectives": [
           {
-            "reference": "3S43"
-          },
-          {
-            "reference": "3S44"
+            "reference": "3G21"
           }
-        ]
+        ],
+        "assessmentExamSlug": "uuid=dnb_2024_06_etrangers_4&uuid=dnb_2024_06_asie_3&uuid=dnb_2024_07_antilles_3&uuid=dnb_2024_09_metropole_3&uuid=dnb_2023_05_ameriquenord_2"
       },
       {
         "title": "Fractions",
@@ -1511,15 +1512,6 @@
             "reference": "4N23"
           }
         ]
-      },
-      {
-        "title": "Proportionnalité en géométrie 5 (Trigonométrie 2)",
-        "objectives": [
-          {
-            "reference": "3G21"
-          }
-        ],
-        "assessmentExamSlug": "uuid=dnb_2024_06_etrangers_4&uuid=dnb_2024_06_asie_3&uuid=dnb_2024_07_antilles_3&uuid=dnb_2024_09_metropole_3&uuid=dnb_2023_05_ameriquenord_2"
       },
       {
         "title": "Fonctions affines 1",
@@ -1568,6 +1560,9 @@
       {
         "title": "Fonctions affines 2",
         "objectives": [
+          {
+            "reference": "3S43"
+          },
           {
             "reference": "3S52"
           },
