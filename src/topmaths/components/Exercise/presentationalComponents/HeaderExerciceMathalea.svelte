@@ -61,7 +61,7 @@
   </a>
   {#if exerciseType !== 'static' || $exerciseLinks.length > 1}
     <ButtonImage
-      class="flex justify-center ml-2 border p-1 w-[130px] md:w-[180px] rounded {isMd
+      class="flex justify-center ml-2 border p-1 w-32.5 md:w-45 rounded {isMd
         ? ''
         : 'is-small'}"
       color="coopmaths"
@@ -75,9 +75,9 @@
       </div>
     </ButtonImage>
   {/if}
-  {#if exerciseType !== 'html'}
+  {#if exerciseType !== 'html' && !exercise.interactif}
     <ButtonImage
-      class="flex justify-center ml-2 border p-1 w-[130px] md:w-[180px] rounded {isMd
+      class="flex justify-center ml-2 border p-1 w-32.5 md:w-45 rounded {isMd
         ? ''
         : 'is-small'}"
       color="green"
@@ -97,7 +97,7 @@
     {#if unitReference}
       <a href="?v=unit&ref={unitReference}">
         <ButtonImage
-          class="flex justify-center ml-2 border p-1 w-[130px] md:w-[180px] rounded {isMd
+          class="flex justify-center ml-2 border p-1 w-32.5 md:w-45 rounded {isMd
             ? ''
             : 'is-small'}"
           color="info-darker"
@@ -134,7 +134,7 @@
     {#if sourceUnit}
       <a href="?v=unit&ref={sourceUnit}">
         <ButtonImage
-          class="flex justify-center ml-2 border p-1 w-[130px] md:w-[180px] rounded {isMd
+          class="flex justify-center ml-2 border p-1 w-32.5 md:w-45 rounded {isMd
             ? ''
             : 'is-small'}"
           color="info-darker"
@@ -150,7 +150,7 @@
     {#if sourceObjective}
       <a href="?v=objective&ref={sourceObjective}">
         <ButtonImage
-          class="flex justify-center ml-2 border p-1 w-[130px] md:w-[180px] rounded {isMd
+          class="flex justify-center ml-2 border p-1 w-32.5 md:w-45 rounded {isMd
             ? ''
             : 'is-small'}"
           color="link"
@@ -185,6 +185,7 @@
           class:invisible={nbCols < 2}
           type="button"
           on:click={() => columnsCountUpdate('-', exerciseIndex)}
+          aria-label="Réduire le nombre de colonnes"
         >
           <i
             class="text-coopmaths-action hover:text-coopmaths-action-darkest dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-darkest bx ml-2 {isMd
@@ -196,6 +197,7 @@
         <button
           type="button"
           on:click={() => columnsCountUpdate('+', exerciseIndex)}
+          aria-label="Augmenter le nombre de colonnes"
         >
           <i
             class="text-coopmaths-action hover:text-coopmaths-action-darkest dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-darkest bx ml-1 {isMd
@@ -213,6 +215,7 @@
           type="button"
           class:invisible={exercise.spacing < 0.1}
           on:click={() => spacingUpdate('-', exerciseIndex)}
+          aria-label="Réduire l'espacement"
         >
           <i
             class="text-coopmaths-action hover:text-coopmaths-action-darkest dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-darkest bx ml-2 {isMd
@@ -233,6 +236,7 @@
         <button
           type="button"
           on:click={() => spacingUpdate('+', exerciseIndex)}
+          aria-label="Augmenter l'espacement"
         >
           <i
             class="text-coopmaths-action hover:text-coopmaths-action-darkest dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-darkest bx ml-1 {isMd
@@ -245,9 +249,9 @@
         class="flex flex-row justify-start items-center text-coopmaths-struct dark:text-coopmathsdark-struct"
       >
         <button
-          type="button"
           class:invisible={zoom < 0.8}
           on:click={() => zoomUpdate('-', exerciseIndex)}
+          aria-label="Réduire le zoom"
         >
           <i
             class="text-coopmaths-action hover:text-coopmaths-action-darkest dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-darkest bx ml-2 {isMd
@@ -265,7 +269,10 @@
             alt="Loupe"
           />
         </i>
-        <button type="button" on:click={() => zoomUpdate('+', exerciseIndex)}>
+        <button
+          on:click={() => zoomUpdate('+', exerciseIndex)}
+          aria-label="Augmenter le zoom"
+        >
           <i
             class="text-coopmaths-action hover:text-coopmaths-action-darkest dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-darkest bx ml-1 {isMd
               ? 'bx-sm'
