@@ -214,14 +214,6 @@
                   {
                     "slug": "5N11-3,s=2,n=2",
                     "description": "Définition d'un pourcentage"
-                  },
-                  {
-                    "slug": "5N11-4,s=2,n=2",
-                    "description": "Écrire une fraction sous la forme d'un pourcentage"
-                  },
-                  {
-                    "slug": "can5P02,s=1,n=2",
-                    "description": "Déterminer un pourcentage de proportion"
                   }
                 ],
                 "lessonPlans": [
@@ -263,16 +255,8 @@
                 ],
                 "exercises": [
                   {
-                    "slug": "5N11-3,s=2,n=2",
-                    "description": "Définition d'un pourcentage"
-                  },
-                  {
                     "slug": "5N11-4,s=2,n=2",
                     "description": "Écrire une fraction sous la forme d'un pourcentage"
-                  },
-                  {
-                    "slug": "can5P02,s=1,n=2",
-                    "description": "Déterminer un pourcentage de proportion"
                   }
                 ],
                 "lessonPlans": [
