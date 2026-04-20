@@ -118,34 +118,19 @@
     buttonScore.id = `buttonScoreEx${exerciseIndex}`
     buttonScore.classList.add(
       'inline-block',
-      'px-6',
-      'py-2.5',
-      'mr-10',
-      'my-5',
-      'ml-6',
+      'border-is-green',
+      'text-is-green',
+      'hover:bg-is-green',
+      'hover:text-white',
       'w-fit',
-      'bg-coopmaths-action',
-      'dark:bg-coopmathsdark-action',
-      'text-coopmaths-canvas',
-      'dark:text-coopmathsdark-canvas',
-      'font-semibold',
-      'text-xs',
-      'leading-tight',
-      'uppercase',
       'rounded',
-      'shadow-md',
+      'text-base',
+      'w-32.5',
+      'md:w-45',
+      'ml-2',
+      'border',
+      'p-1',
       'transform',
-      'hover:bg-coopmaths-action-lightest',
-      'dark:hover:bg-coopmathsdark-action-lightest',
-      'hover:shadow-lg',
-      'focus:bg-coopmaths-action-lightest',
-      'dark:focus:bg-coopmathsdark-action-lightest',
-      'focus:shadow-lg',
-      'focus:outline-none',
-      'focus:ring-0',
-      'active:bg-coopmaths-action-lightest',
-      'dark:active:bg-coopmathsdark-action-lightest',
-      'active:shadow-lg',
       'transition',
       'duration-150',
       'ease-in-out',
@@ -227,6 +212,7 @@
         type="submit"
         on:click={verifExerciceVueEleve}
         bind:this={buttonScore}
+        class="hidden"
       >
         Vérifier {numberOfAnswerFields > 1 ? 'les réponses' : 'la réponse'}
       </button>
