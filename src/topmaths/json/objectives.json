@@ -1314,7 +1314,11 @@
                 "lessonSummaryHTML": "",
                 "lessonSummaryImage": "",
                 "videos": [],
-                "exercises": []
+                "exercises": [
+                  {
+                    "slug": "uuid=ddb83&id=6N3L&n=4&d=10&s=true&s2=true&cd=1"
+                  }
+                ]
               },
               {
                 "reference": "6N3M",
@@ -1323,7 +1327,12 @@
                 "lessonSummaryHTML": "",
                 "lessonSummaryImage": "",
                 "videos": [],
-                "exercises": []
+                "exercises": [
+                  {
+                    "slug": "uuid=8e07a&id=6N3M&n=1&d=10&s=10&s2=1-2-3&s3=12&cd=1",
+                    "description": ""
+                  }
+                ]
               },
               {
                 "reference": "6N3N",
@@ -1332,7 +1341,12 @@
                 "lessonSummaryHTML": "",
                 "lessonSummaryImage": "",
                 "videos": [],
-                "exercises": []
+                "exercises": [
+                  {
+                    "slug": "uuid=67f73&id=6N3N&n=1&d=10&s=3&cd=1",
+                    "description": ""
+                  }
+                ]
               },
               {
                 "reference": "6N3O",
@@ -1487,7 +1501,11 @@
                 "lessonSummaryHTML": "",
                 "lessonSummaryImage": "",
                 "videos": [],
-                "exercises": []
+                "exercises": [
+                  {
+                    "slug": "uuid=e32d0&id=auto6N3B&n=4&d=10&s=3&cd=1"
+                  }
+                ]
               },
               {
                 "reference": "6N3T",
@@ -1581,7 +1599,16 @@
                 "lessonSummaryHTML": "",
                 "lessonSummaryImage": "",
                 "videos": [],
-                "exercises": []
+                "exercises": [
+                  {
+                    "slug": "uuid=daaa3&id=auto6N3E-flash1&n=4&d=10&qcm=0&cd=1",
+                    "description": "Exercice simple"
+                  },
+                  {
+                    "slug": "uuid=2ce71&id=auto6N3E-flash2&n=2&d=10&qcm=0&cd=1",
+                    "description": "Petit problème"
+                  }
+                ]
               }
             ]
           },
@@ -1595,7 +1622,12 @@
                 "lessonSummaryHTML": "",
                 "lessonSummaryImage": "",
                 "videos": [],
-                "exercises": []
+                "exercises": [
+                  {
+                    "slug": "uuid=5c5a3&id=6N4A-3",
+                    "description": ""
+                  }
+                ]
               },
               {
                 "reference": "6N4B",
@@ -1604,7 +1636,12 @@
                 "lessonSummaryHTML": "",
                 "lessonSummaryImage": "",
                 "videos": [],
-                "exercises": []
+                "exercises": [
+                  {
+                    "slug": "uuid=d41c5&id=6N4B&n=1&d=10&s=2&s2=1-2-3-5&s3=0&s4=0&cd=1",
+                    "description": ""
+                  }
+                ]
               }
             ]
           }
@@ -1740,7 +1777,16 @@
                 "lessonSummaryHTML": "",
                 "lessonSummaryImage": "",
                 "videos": [],
-                "exercises": []
+                "exercises": [
+                  {
+                    "slug": "uuid=d30d1&id=6M1E-flash1",
+                    "description": "Dans un sens"
+                  },
+                  {
+                    "slug": "uuid=84be1&id=6M1E-flash2",
+                    "description": "Dans l'autre sens"
+                  }
+                ]
               },
               {
                 "reference": "6M1F",
@@ -2168,7 +2214,12 @@
                 "lessonSummaryHTML": "",
                 "lessonSummaryImage": "",
                 "videos": [],
-                "exercises": []
+                "exercises": [
+                  {
+                    "slug": "uuid=0d4be&id=6M3C&n=1&d=10&cd=1",
+                    "description": ""
+                  }
+                ]
               }
             ]
           },
@@ -2225,7 +2276,12 @@
                 "lessonSummaryHTML": "",
                 "lessonSummaryImage": "",
                 "videos": [],
-                "exercises": []
+                "exercises": [
+                  {
+                    "slug": "uuid=05b2e&id=6M4B-flash2",
+                    "description": ""
+                  }
+                ]
               },
               {
                 "reference": "6M4C",
@@ -2405,7 +2461,11 @@
                 "lessonSummaryHTML": "",
                 "lessonSummaryImage": "",
                 "videos": [],
-                "exercises": []
+                "exercises": [
+                  {
+                    "slug": "uuid=328b2&id=auto6G1C&n=2&d=10&s=6&s2=3&s3=false&s4=true&cd=1"
+                  }
+                ]
               }
             ]
           },
@@ -2794,7 +2854,12 @@
                 "lessonSummaryHTML": "",
                 "lessonSummaryImage": "",
                 "videos": [],
-                "exercises": []
+                "exercises": [
+                  {
+                    "slug": "uuid=01875&id=6G5A&n=2&d=10&s=3&s2=4&s3=false&s4=false&cd=1",
+                    "description": ""
+                  }
+                ]
               },
               {
                 "reference": "6G5B",
@@ -2803,7 +2868,12 @@
                 "lessonSummaryHTML": "",
                 "lessonSummaryImage": "",
                 "videos": [],
-                "exercises": []
+                "exercises": [
+                  {
+                    "slug": "uuid=d8433&id=6G5B&n=2&d=10&s=4&s2=false&cd=1",
+                    "description": ""
+                  }
+                ]
               }
             ]
           },
@@ -2927,7 +2997,12 @@
                 "lessonSummaryHTML": "",
                 "lessonSummaryImage": "",
                 "videos": [],
-                "exercises": []
+                "exercises": [
+                  {
+                    "slug": "uuid=dc8ce&id=6G6D&n=2&d=10&s=1-2-3-4-5&s2=true&s3=true&s4=1&cd=1",
+                    "description": ""
+                  }
+                ]
               },
               {
                 "reference": "6G6E",
@@ -2945,7 +3020,12 @@
                 "lessonSummaryHTML": "",
                 "lessonSummaryImage": "",
                 "videos": [],
-                "exercises": []
+                "exercises": [
+                  {
+                    "slug": "uuid=e0bca&id=6G6F&n=1&d=10&s2=false&cd=1",
+                    "description": ""
+                  }
+                ]
               }
             ]
           },
@@ -3092,7 +3172,12 @@
                 "lessonSummaryHTML": "",
                 "lessonSummaryImage": "",
                 "videos": [],
-                "exercises": []
+                "exercises": [
+                  {
+                    "slug": "uuid=136dd&id=6G8A&n=1&d=10&s=1&s2=7&s3=3&s4=false&cd=1",
+                    "description": ""
+                  }
+                ]
               },
               {
                 "reference": "6G8B",
@@ -3616,7 +3701,12 @@
                 "lessonSummaryHTML": "",
                 "lessonSummaryImage": "",
                 "videos": [],
-                "exercises": []
+                "exercises": [
+                  {
+                    "slug": "uuid=f320c&id=6I1D&n=1&d=10&s=5&s2=4&cd=1",
+                    "description": ""
+                  }
+                ]
               }
             ]
           }
