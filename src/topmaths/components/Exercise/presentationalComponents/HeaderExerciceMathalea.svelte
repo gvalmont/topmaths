@@ -75,7 +75,7 @@
       </div>
     </ButtonImage>
   {/if}
-  {#if exerciseType !== 'html' && !exercise.interactif}
+  {#if (exerciseType !== 'html' && !exercise.interactif) || !exercise.interactifReady}
     <ButtonImage
       class="flex justify-center ml-2 border p-1 w-32.5 md:w-45 rounded {isMd
         ? ''
