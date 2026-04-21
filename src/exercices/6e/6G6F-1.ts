@@ -27,6 +27,7 @@ import {
 } from '../../modules/outils'
 import type { NestedObjetMathalea2dArray } from '../../types/2d'
 import Exercice from '../Exercice'
+import { bleuMathalea } from '../../lib/colors'
 
 export const titre =
   'Construire un triangle particulier et son cercle circonscrit'
@@ -34,7 +35,7 @@ export const dateDePublication = '01/09/2025'
 
 /**
  * Publié le 27/08/2025
- * @author Jean-Claude Lhote
+ * @author Jean-claude Lhote
  */
 export const uuid = 'e0bcb'
 
@@ -280,10 +281,10 @@ export default class ConstruireUnTriangleParticulierEtSonCercleCirconscrit exten
       }
       sommets.push(nom[3]) // milieu
       const med1 = codageMediatrice(A, B, 'red', 'o')
-      const med2 = codageMediatrice(B, C, 'blue', 'x')
+      const med2 = codageMediatrice(B, C, bleuMathalea, 'x')
       const med3 = codageMediatrice(C, A, 'green', '//')
       const d1 = mediatrice(A, B, '', 'red')
-      const d2 = mediatrice(B, C, '', 'blue')
+      const d2 = mediatrice(B, C, '', bleuMathalea)
       const d3 = mediatrice(C, A, '', 'green')
       const O = pointIntersectionDD(d1, d2)
       const c0 = cercle(O, longueur(A, O), 'orange')

@@ -1,4 +1,4 @@
-import { orangeMathalea } from 'apigeom/src/elements/defaultValues'
+import { orangeMathalea } from '../../lib/colors'
 import { createList } from '../../lib/format/lists'
 import { ajouteQuestionMathlive } from '../../lib/interactif/questionMathLive'
 import SchemaEnBoite from '../../lib/outils/SchemaEnBoite'
@@ -66,7 +66,7 @@ export const prenoms = [
 ]
 
 /**
- * @Author Jean-Claude Lhote
+ * @Author Jean-claude Lhote
  * Sources (eduscol) : https://eduscol.education.fr/ressources/numerique/2020/2020-exercices-mathematiques-6e
  * Ces exercices seront proposés systématiquement pour 3 niveaux de difficulté afin de différentier autour d'un même problème
  */

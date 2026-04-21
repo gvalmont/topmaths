@@ -2,7 +2,7 @@ import { inferieurouegal } from '../../modules/outils'
 import { colorToLatexOrHTML } from './colorToLatexOrHtml'
 import type { IRepere } from './Interfaces'
 import { ObjetMathalea2D } from './ObjetMathalea2D'
-import { point } from './PointAbstrait'
+import { pointAbstrait } from './PointAbstrait'
 import { polyline } from './Polyline'
 
 /**
@@ -10,7 +10,7 @@ import { polyline } from './Polyline'
  * @param {function} f fonction à tracer comme par exemple : const f = x => a * x ** 2 + b * x + c
  * @param {Object} parametres À saisir entre accolades
  * @param {Repere} [parametres.repere  = {}]  Repère dans lequel le tracé de la fonction se fait
- * @param {string} [parametres.color = 'black']  Couleur du tracé de la courbe : du type 'blue' ou du type '#f15929'
+ * @param {string} [parametres.color = 'black']  Couleur du tracé de la courbe : du type 'red', bleuMathalea ou du type '#a12345'
  * @param {number} [parametres.epaisseur = 2]  Epaisseur du tracé de la courbe
  * @param {number} [parametres.xMin]  Abscisse minimale du tracé de la courbe
  * @param {number} [parametres.xMax]  Abscisse maximale du tracé de la courbe
@@ -132,7 +132,7 @@ export class Courbe extends ObjetMathalea2D {
       const y = Number(f(x))
       if (isFinite(y)) {
         if (y < ymax + 10 && y > ymin - 10) {
-          points.push(point(x * xunite, y * yunite))
+          points.push(pointAbstrait(x * xunite, y * yunite))
           lastFiniteX = x
           lastOutOfBoundsX = null // Réinitialiser car on est revenu dans les limites
         } else {
@@ -155,7 +155,7 @@ export class Courbe extends ObjetMathalea2D {
           while (xSmall < x) {
             const ySmall = Number(f(xSmall))
             if (isFinite(ySmall) && ySmall < ymax + 10 && ySmall > ymin - 10) {
-              points.push(point(xSmall * xunite, ySmall * yunite))
+              points.push(pointAbstrait(xSmall * xunite, ySmall * yunite))
               lastFiniteX = xSmall
             } else if (isFinite(ySmall)) {
               // Hors cadre mais fini
@@ -264,7 +264,7 @@ export class Courbe extends ObjetMathalea2D {
  * @param {function} f Fonction à tracer comme par exemple : const f = x => a * x ** 2 + b * x + c
  * @param {Object} parametres À saisir entre accolades
  * @param {Repere} [parametres.repere = {}] Repère dans lequel le tracé de la fonction se fait
- * @param {string} [parametres.color = 'black']  Couleur du tracé de la courbe : du type 'blue' ou du type '#f15929'
+ * @param {string} [parametres.color = 'black']  Couleur du tracé de la courbe : du type 'red', bleuMathalea ou du type '#a12345'
  * @param {number} [parametres.epaisseur = 2]  Epaisseur du tracé de la courbe
  * @param {number} [parametres.xMin = repere.xMin]  Abscisse minimale du tracé de la courbe
  * @param {number} [parametres.xMax = repere.xMax]  Abscisse maximale du tracé de la courbe
@@ -277,7 +277,7 @@ export class Courbe extends ObjetMathalea2D {
  * @param {string} [parametres.fLatex] Expression LaTeX de la fonction (requis si usePgfplots = true)
  * @example courbe(g, {repere: r})
  * // Trace, en noir avec une épaisseur de 2, la courbe g dans le repère r, tous deux précédemment définis.
- * @example courbe(g, {repere: r, epaisseur: 5, color: 'blue'})
+ * @example courbe(g, {repere: r, epaisseur: 5, color: bleuMathalea})
  * // Trace la courbe g dans le repère r, tous deux précédemment définis, en bleu, avec une épaisseur de 5.
  * @example courbe(g, {repere: r, usePgfplots: true, fLatex: 'x^2 - 2*x + 1'})
  * // Trace la courbe g dans le repère r en utilisant pgfplots (sortie LaTeX plus compacte).

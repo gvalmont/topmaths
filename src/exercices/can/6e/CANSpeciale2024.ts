@@ -1,7 +1,7 @@
 import { codageAngleDroit } from '../../../lib/2d/CodageAngleDroit'
 import { codageSegments } from '../../../lib/2d/CodageSegment'
 import { fixeBordures } from '../../../lib/2d/fixeBordures'
-import { point } from '../../../lib/2d/PointAbstrait'
+import { pointAbstrait } from '../../../lib/2d/PointAbstrait'
 import { segment } from '../../../lib/2d/segmentsVecteurs'
 import {
   labelPoint,
@@ -42,6 +42,7 @@ import { listeQuestionsToContenu, randint } from '../../../modules/outils'
 import Exercice from '../../Exercice'
 
 import { droiteGraduee } from '../../../lib/2d/DroiteGraduee'
+import { bleuMathalea } from '../../../lib/colors'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 export const titre = 'CAN Spéciale année 2024'
 export const interactifReady = true
@@ -53,6 +54,10 @@ export const refs = {
   'fr-ch': [],
 }
 export const dateDePublication = '01/01/2024'
+/**
+ * @author Éric Elter
+ * @author Gilles Mora
+ */
 
 export default class CourseAuxNombresSpeciale2024 extends Exercice {
   constructor() {
@@ -774,7 +779,14 @@ export default class CourseAuxNombresSpeciale2024 extends Exercice {
                   pixelsParCm: 30,
                   scale: 0.6,
                 },
-                texteParPosition('A', 4 * Number(x1), 0.8, 0, 'blue', 1.5),
+                texteParPosition(
+                  'A',
+                  4 * Number(x1),
+                  0.8,
+                  0,
+                  bleuMathalea,
+                  1.5,
+                ),
                 d,
               )
             this.listeCanEnonces.push(texte)
@@ -854,7 +866,7 @@ export default class CourseAuxNombresSpeciale2024 extends Exercice {
                   pixelsParCm: 35,
                   scale: 0.75,
                 },
-                texteParPosition('A', 4 * Number(x1), 0.8, 0, 'blue', 2),
+                texteParPosition('A', 4 * Number(x1), 0.8, 0, bleuMathalea, 2),
                 d,
               )
             setReponse(this, index, reponse.toFixed(2))
@@ -1177,16 +1189,16 @@ export default class CourseAuxNombresSpeciale2024 extends Exercice {
             const objets: any[] = []
             const a = randint(11, 15) * 100
             const b = 2024
-            const A = point(0, 0, 'A', 'below')
-            const B = point(5, 0, 'B', 'below')
-            const C = point(2.5, 2, 'C', 'below')
+            const A = pointAbstrait(0, 0, 'A', 'below')
+            const B = pointAbstrait(5, 0, 'B', 'below')
+            const C = pointAbstrait(2.5, 2, 'C', 'below')
             const s1 = segment(A, B)
             const s2 = segment(B, C)
             const s3 = segment(A, C)
             if (choice([true, false])) {
               objets.push(
-                codageSegments('||', 'blue', B, C),
-                codageSegments('||', 'blue', C, A),
+                codageSegments('||', bleuMathalea, B, C),
+                codageSegments('||', bleuMathalea, C, A),
                 texteParPosition(
                   '2024 cm',
                   milieu(A, B).x,
@@ -1207,8 +1219,8 @@ export default class CourseAuxNombresSpeciale2024 extends Exercice {
             Son périmètre est : $2\\times ${texNombre(a)}\\text{ cm}$ $+${texNombre(b)}\\text{ cm}$ $=${miseEnEvidence(texNombre(2 * a + b))}\\text{ cm}$.`
             } else {
               objets.push(
-                codageSegments('||', 'blue', B, C),
-                codageSegments('||', 'blue', C, A),
+                codageSegments('||', bleuMathalea, B, C),
+                codageSegments('||', bleuMathalea, C, A),
                 texteParPosition(
                   `${b} cm`,
                   milieu(A, B).x,
@@ -2490,10 +2502,10 @@ export default class CourseAuxNombresSpeciale2024 extends Exercice {
             const objets: any[] = []
             const diviseur = choice([1, 10, 100, 1000])
             const a = 506 / diviseur
-            const A = point(0, 0, 'A', 'below')
-            const B = point(6, 0, 'B', 'below')
-            const C = point(6, 6, 'C', 'below')
-            const D = point(0, 6, 'D', 'below')
+            const A = pointAbstrait(0, 0, 'A', 'below')
+            const B = pointAbstrait(6, 0, 'B', 'below')
+            const C = pointAbstrait(6, 6, 'C', 'below')
+            const D = pointAbstrait(0, 6, 'D', 'below')
             const s1 = segment(A, B)
             const s2 = segment(B, C)
             const s3 = segment(C, D)
@@ -2510,10 +2522,10 @@ export default class CourseAuxNombresSpeciale2024 extends Exercice {
                 '',
                 9,
               ),
-              codageSegments('||', 'blue', A, B),
-              codageSegments('||', 'blue', B, C),
-              codageSegments('||', 'blue', C, D),
-              codageSegments('||', 'blue', A, D),
+              codageSegments('||', bleuMathalea, A, B),
+              codageSegments('||', bleuMathalea, B, C),
+              codageSegments('||', bleuMathalea, C, D),
+              codageSegments('||', bleuMathalea, A, D),
               codageAngleDroit(D, A, B),
               codageAngleDroit(A, B, C),
               codageAngleDroit(B, C, D),
@@ -2556,18 +2568,18 @@ export default class CourseAuxNombresSpeciale2024 extends Exercice {
           {
             const nom = creerNomDePolygone(5, ['QD'])
             const a = 2024
-            const A = point(0, 0, nom[0], 'below')
-            const B = point(6, 0, nom[1], 'below')
-            const C = point(5, 4, nom[2], 'above')
-            const D = point(2.5, 2, nom[3], 'above')
-            const E = point(3, 0, nom[4], 'below')
+            const A = pointAbstrait(0, 0, nom[0], 'below')
+            const B = pointAbstrait(6, 0, nom[1], 'below')
+            const C = pointAbstrait(5, 4, nom[2], 'above')
+            const D = pointAbstrait(2.5, 2, nom[3], 'above')
+            const E = pointAbstrait(3, 0, nom[4], 'below')
             const objets: any[] = []
             objets.push(
               segment(A, B),
               segment(D, E),
               segment(A, C),
               segment(B, C),
-              codageSegments('||', 'blue', A, D, D, C),
+              codageSegments('||', bleuMathalea, A, D, D, C),
               labelPoint(A, B, C, D, E),
             )
             if (choice([true, false])) {
@@ -2624,9 +2636,9 @@ export default class CourseAuxNombresSpeciale2024 extends Exercice {
           {
             const nom = creerNomDePolygone(3, ['QD'])
             const a = randint(1, 6)
-            const A = point(0, 0, nom[0], 'below')
-            const B = point(6, 0, nom[1], 'below')
-            const C = point(6, 2, nom[2], 'above')
+            const A = pointAbstrait(0, 0, nom[0], 'below')
+            const B = pointAbstrait(6, 0, nom[1], 'below')
+            const C = pointAbstrait(6, 2, nom[2], 'above')
 
             const objets: any[] = []
 

@@ -1,37 +1,38 @@
-import { codageSegment, codageSegments } from '../../lib/2d/CodageSegment'
-import { PointAbstrait, pointAbstrait } from '../../lib/2d/PointAbstrait'
-import { Polygone, polygone, barycentre } from '../../lib/2d/polygones'
-import { milieu } from '../../lib/2d/utilitairesPoint'
 import { Arc, arc } from '../../lib/2d/Arc'
 import { Cercle, cercle } from '../../lib/2d/cercle'
-import { rotation } from '../../lib/2d/transformations'
+import { codageSegment, codageSegments } from '../../lib/2d/CodageSegment'
+import { fixeBordures } from '../../lib/2d/fixeBordures'
+import { placeLatexSurSegment } from '../../lib/2d/placeLatexSurSegment'
+import { PointAbstrait, pointAbstrait } from '../../lib/2d/PointAbstrait'
+import { barycentre, Polygone, polygone } from '../../lib/2d/polygones'
 import {
   Segment,
   segment,
   segmentAvecExtremites,
 } from '../../lib/2d/segmentsVecteurs'
-import { placeLatexSurSegment } from '../../lib/2d/placeLatexSurSegment'
-import { fixeBordures } from '../../lib/2d/fixeBordures'
+import { rotation } from '../../lib/2d/transformations'
+import { milieu } from '../../lib/2d/utilitairesPoint'
+import { bleuMathalea } from '../../lib/colors'
+import { ajouteQuestionMathlive } from '../../lib/interactif/questionMathLive'
+import {
+  choice,
+  combinaisonListesSansChangerOrdre,
+  shuffle,
+} from '../../lib/outils/arrayOutils'
+import { rienSi1 } from '../../lib/outils/ecritures'
 import {
   miseEnEvidence,
   texteEnCouleurEtGras,
 } from '../../lib/outils/embellissements'
-import { rienSi1 } from '../../lib/outils/ecritures'
+import { texNombre } from '../../lib/outils/texNombre'
 import { context } from '../../modules/context'
 import { mathalea2d } from '../../modules/mathalea2d'
-import type { NestedObjetMathalea2dArray } from '../../types/2d'
 import {
   gestionnaireFormulaireTexte,
   listeQuestionsToContenu,
   randint,
 } from '../../modules/outils'
-import {
-  choice,
-  shuffle,
-  combinaisonListesSansChangerOrdre,
-} from '../../lib/outils/arrayOutils'
-import { texNombre } from '../../lib/outils/texNombre'
-import { ajouteQuestionMathlive } from '../../lib/interactif/questionMathLive'
+import type { NestedObjetMathalea2dArray } from '../../types/2d'
 import Exercice from '../Exercice'
 export const titre =
   "Produire une forme littérale à partir d'une figure géométrique"
@@ -48,7 +49,7 @@ export const uuid = 'b3643'
 
 export const refs = {
   'fr-fr': ['5L10-6'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 
 export default class perimetreVersFormule extends Exercice {
@@ -58,18 +59,18 @@ export default class perimetreVersFormule extends Exercice {
       'Nombre de figures', // text
       [
         'Nombres séparés par des tirets :',
-        'de 1 à 5 : nombre de figures (défaut 3)',
-        '6 : mélange',
+        'de 1 à 5 : Nombre de figures',
+        '6 : Mélange',
       ].join('\n'),
     ]
     this.besoinFormulaire2Texte = [
       "Nombre d'inconnues", // text
       [
         'Nombres séparés par des tirets :',
-        '0 : aucune inconnues',
-        '1 : une variable (défaut)',
-        '2 : deux variables',
-        '3 : mélange',
+        '0 : Aucune inconnue',
+        '1 : Une variable',
+        '2 : Deux variables',
+        '3 : Mélange',
       ].join('\n'),
     ]
 
@@ -77,7 +78,7 @@ export default class perimetreVersFormule extends Exercice {
       'Difficulté',
       [
         'Nombres séparés par des tirets :',
-        '1 : Uniquement des segments (défaut)',
+        '1 : Uniquement des segments',
         '2 : Avec au moins un cercle',
         '3 : Avec au moins un arc de cercle',
         '4 : Mélange',
@@ -453,7 +454,7 @@ export default class perimetreVersFormule extends Exercice {
         }
 
         // const rotpol = pol
-        const rotseg = rotation(seg, O, theta, '', '', 'blue')
+        const rotseg = rotation(seg, O, theta, '', '', bleuMathalea)
 
         appels2D.push(c)
         appels2D.push(rotseg)
@@ -584,10 +585,10 @@ export default class perimetreVersFormule extends Exercice {
         let a: Arc
         if (params.idDemiCercle === 0) {
           segBC = segment(rotB, rotC)
-          segCD = segment(rotC, rotD, 'blue')
+          segCD = segment(rotC, rotD, bleuMathalea)
           a = arc(rotC, milieu(rotC, rotD), 180)
         } else {
-          segBC = segment(rotB, rotC, 'blue')
+          segBC = segment(rotB, rotC, bleuMathalea)
           segCD = segment(rotC, rotD)
           a = arc(rotB, milieu(rotB, rotC), 180)
         }

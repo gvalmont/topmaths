@@ -5,7 +5,7 @@ import {
   type PatternRiche,
   type PatternRiche3D,
 } from '../../lib/2d/patterns/patternsPreDef'
-import { point } from '../../lib/2d/PointAbstrait'
+import { pointAbstrait } from '../../lib/2d/PointAbstrait'
 import { polygone } from '../../lib/2d/polygones'
 import { texteParPosition } from '../../lib/2d/textes'
 import { createList } from '../../lib/format/lists'
@@ -42,7 +42,7 @@ export const dateDeModifImportante = '22/11/2025'
  * Étudier les premiers termes d'une série de motifs afin de donner le nombre de formes ${['e','a','é','i','o','u','y','è','ê'].includes(pattern.shapes[0][0]) ? 'd\'':'de'}${pattern.shapes[0]} du motif suivant.
  * Les patterns sont des motifs figuratifs qui évoluent selon des règles définies.
  * Cet exercice contient des patterns issus de l'excellent site : https://www.visualpatterns.org/
- * @author Jean-Claude Lhote
+ * @author Jean-claude Lhote
  */
 export const uuid = '328b3'
 
@@ -292,10 +292,10 @@ Si le nombre de questions est supérieur au nombre de patterns choisis, alors l'
           ),
         )
         const cadre = polygone(
-          point(xmin - 1, ymin - 2),
-          point(xmax + 2, ymin - 2),
-          point(xmax + 2, ymax + 2),
-          point(xmin - 1, ymax + 2),
+          pointAbstrait(xmin - 1, ymin - 2),
+          pointAbstrait(xmax + 2, ymin - 2),
+          pointAbstrait(xmax + 2, ymax + 2),
+          pointAbstrait(xmin - 1, ymax + 2),
         )
         cadre.pointilles = 4
         figures[j].push(cadre)

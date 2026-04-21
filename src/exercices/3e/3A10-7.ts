@@ -1,4 +1,3 @@
-import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { Labyrinthe, labyrinthe } from '../../modules/Labyrinthe'
@@ -10,20 +9,25 @@ import {
 } from '../../modules/outils'
 import Exercice from '../Exercice'
 
-import { orangeMathalea } from 'apigeom/src/elements/defaultValues'
+import { orangeMathalea } from '../../lib/colors'
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
+import { addMultiMathfield } from '../../lib/interactif/MultiMathfield/MultiMathfield'
+import { context } from '../../modules/context'
 
 export const dateDePublication = '12/10/2022'
 export const dateDeModifImportante = '29/10/2024'
 export const titre = 'Explorer un labyrinthe de nombres premiers'
 export const interactifReady = true
 export const interactifType = 'mathLive'
+export const amcReady = true
+export const amcType = 'AMCOpen'
 
 /** Explorer un labyrinthe de nombres premiers
- * @author Eric Elter // Sur la base d'autres labyrinthes déjà créés
+ * @author Éric Elter // Sur la base d'autres labyrinthes déjà créés
+ * Passage en multiMahField et AMC par Éric Elter (13/04/2026)
  */
-export const uuid = '9552d'
+export const uuid = '9552e'
 
 export const refs = {
   'fr-fr': ['3A10-7'],
@@ -90,7 +94,7 @@ export default class ExerciceLabyrinthePremiers3e extends Exercice {
     let laby: Labyrinthe
     let monChemin
 
-    for (let q = 0; q < this.nbQuestions; ) {
+    for (let i = 0; i < this.nbQuestions; ) {
       let nbL = this.sup3 === 1 ? randint(2, 7) : Math.max(2, this.sup3)
       let nbC = this.sup4 === 1 ? randint(3, 7) : Math.max(3, this.sup4)
       let indiceDiminution = 0
@@ -130,7 +134,7 @@ export default class ExerciceLabyrinthePremiers3e extends Exercice {
       const bonnesReponses = combinaisonListes(nbPremiers, nbC * nbL)
       let mauvaisesReponses = Array.from(
         { length: nbMax - 1 },
-        (_, i) => i + 2,
+        (_, k) => k + 2,
       ).filter((number) => !nbPremiers.includes(number))
       mauvaisesReponses = combinaisonListes(mauvaisesReponses, nbC * nbL)
       // Le tableau de nombre étant fait, on place les objets nombres.
@@ -149,24 +153,27 @@ export default class ExerciceLabyrinthePremiers3e extends Exercice {
         scale: 0.7,
       }
       texte += mathalea2d(params, laby.murs2d, laby.nombres2d)
-      texte += ajouteChampTexteMathLive(
-        this,
-        2 * q,
-        KeyboardType.clavierNumbers,
-        { texteAvant: 'Indiquer le numéro de la bonne sortie :' },
-      )
-      handleAnswers(this, 2 * q, {
-        reponse: { value: `${nbL - monChemin[monChemin.length - 1][1]}` },
-      })
-      texte += ajouteChampTexteMathLive(
-        this,
-        2 * q + 1,
-        KeyboardType.clavierNumbers,
-        { texteAvant: '<br>Combien de nombres rencontrés avant la sortie ?' },
-      )
-      handleAnswers(this, 2 * q + 1, {
-        reponse: { value: `${laby.chemin2d.length - 1}` },
-      })
+      if (this.interactif) {
+        const numeroDeSortie = nbL - monChemin[monChemin.length - 1][1]
+        const nbDeNombresRencontres = laby.chemin2d.length - 1
+        texte += `${addMultiMathfield(this, i, {
+          dataTemplate:
+            'Indiquer le numéro de la bonne sortie : %{champ1}.\n Combien de nombres rencontrés avant la sortie ? %{champ2}',
+          dataOptions: {
+            champ1: { keyboard: KeyboardType.clavierNumbers },
+            champ2: { keyboard: KeyboardType.clavierNumbers },
+          },
+        })}`
+        handleAnswers(
+          this,
+          i,
+          {
+            champ1: { value: numeroDeSortie },
+            champ2: { value: nbDeNombresRencontres },
+          },
+          { formatInteractif: 'multiMathfield' },
+        )
+      }
       texteCorr += mathalea2d(
         params,
         laby.murs2d,
@@ -174,13 +181,26 @@ export default class ExerciceLabyrinthePremiers3e extends Exercice {
         laby.chemin2d,
       )
 
-      if (
-        this.questionJamaisPosee(q, bonnesReponses[0], mauvaisesReponses[0])
-      ) {
-        this.listeQuestions[q] = texte
-        this.listeCorrections[q] = texteCorr
+      if (context.isAmc) {
+        this.autoCorrection[i] = {
+          enonce: texte,
+          propositions: [
+            {
+              texte: '',
+              statut: 3, // (ici c'est le nombre de lignes du cadre pour la réponse de l'élève sur AMC)
+              sanscadre: true, // EE : ce champ est facultatif et permet (si true) de cacher le cadre et les lignes acceptant la réponse de l'élève
+            },
+          ],
+        }
+      }
 
-        q++
+      if (
+        this.questionJamaisPosee(i, bonnesReponses[0], mauvaisesReponses[0])
+      ) {
+        this.listeQuestions[i] = texte
+        this.listeCorrections[i] = texteCorr
+
+        i++
       }
     }
     listeQuestionsToContenu(this)

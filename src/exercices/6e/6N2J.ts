@@ -1,10 +1,12 @@
-import { orangeMathalea } from 'apigeom/src/elements/defaultValues'
+import { orangeMathalea } from '../../lib/colors'
+import { addMultiMathfield } from '../../lib/interactif/MultiMathfield/MultiMathfield'
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
-import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
+import { toutAUnPoint } from '../../lib/interactif/mathLive'
 import { combinaisonListes } from '../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { rangeMinMax } from '../../lib/outils/nombres'
+import { numAlpha } from '../../lib/outils/outilString'
 import { texNombre } from '../../lib/outils/texNombre'
 import { context } from '../../modules/context'
 import operation from '../../modules/operations'
@@ -12,7 +14,7 @@ import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import Exercice from '../Exercice'
 
 export const interactifReady = true
-export const interactifType = 'mathLive'
+export const interactifType = 'multiMathfield'
 
 export const titre = 'Effectuer des divisions euclidiennes'
 export const dateDeModifImportante = '01/02/2026'
@@ -34,7 +36,7 @@ export const dateDeModifImportante = '01/02/2026'
  * * division par un multiple de 10 et un 0 dans le quotient
  * @author Rémi Angot
  */
-export const uuid = '2se81'
+export const uuid = '2se82'
 
 export const refs = {
   'fr-fr': ['6N2J'],
@@ -130,7 +132,7 @@ export default class DivisionsEuclidiennes extends Exercice {
       else b = diviseursPossibles[listeTypeDeQuestions[i] - 1][i]
       r = randint(0, b - 1) // reste inférieur au diviseur
       a = b * q + r
-      texte = `La division euclidienne de $${texNombre(a)}$ par $${b}$.`
+      texte = `La division euclidienne de $${texNombre(a)}$ par $${b}$.<br>`
       if (r === 0) {
         texteCorr =
           operation({
@@ -138,7 +140,8 @@ export default class DivisionsEuclidiennes extends Exercice {
             operande2: b,
             type: 'divisionE',
             options: { solution: true, colore: orangeMathalea },
-          }) + `$${texNombre(a)}=${b}\\times${miseEnEvidence(texNombre(q))}$`
+          }) +
+          `$${texNombre(a)}=${b}\\times${miseEnEvidence(texNombre(q))}$<br>`
       } else {
         texteCorr =
           operation({
@@ -147,34 +150,38 @@ export default class DivisionsEuclidiennes extends Exercice {
             type: 'divisionE',
             options: { solution: true, colore: orangeMathalea },
           }) +
-          `$${texNombre(a)}=(${b}\\times${miseEnEvidence(texNombre(q))})+${miseEnEvidence(String(r))}$`
+          `$${texNombre(a)}=(${b}\\times${miseEnEvidence(texNombre(q))})+${miseEnEvidence(String(r))}$<br>`
       }
-      texte += ajouteChampTexteMathLive(
-        this,
-        2 * i,
-        KeyboardType.clavierNumbers,
-        {
-          texteAvant: `<br>Quel est le quotient de la division euclidienne de $${texNombre(a)}$ par $${b}$ ?`,
-        },
-      )
-      handleAnswers(this, 2 * i, {
-        reponse: {
-          value: `${q}`,
-        },
-      })
-      texte += ajouteChampTexteMathLive(
-        this,
-        2 * i + 1,
-        KeyboardType.clavierNumbers,
-        {
-          texteAvant: `<br>Quel est le reste de la division euclidienne de $${texNombre(a)}$ par $${b}$ ?`,
-        },
-      )
-      handleAnswers(this, 2 * i + 1, {
-        reponse: {
-          value: `${r}`,
+      texte += addMultiMathfield(this, i, {
+        dataTemplate: `a) Quel est le quotient de la division euclidienne de $${a}$ par $${b}$ ?  %{champ1}<br>
+        b) Quel est le reste de la division euclidienne de $${a}$ par $${b}$ ?  %{champ2}`,
+        dataOptions: {
+          champ1: {
+            keyboard: KeyboardType.clavierNumbers,
+          },
+          champ2: {
+            keyboard: KeyboardType.clavierNumbers,
+          },
         },
       })
+
+      handleAnswers(
+        this,
+        i,
+        {
+          champ1: {
+            value: `${q}`,
+          },
+          champ2: {
+            value: `${r}`,
+          },
+          bareme: toutAUnPoint,
+        },
+        { formatInteractif: 'multiMathfield' },
+      )
+      texteCorr += `${numAlpha(0)} Le quotient de la division euclidienne de $${texNombre(a)}$ par $${b}$ est $${miseEnEvidence(texNombre(q))}$.<br>`
+      texteCorr += `${numAlpha(1)} Le reste de la division euclidienne de $${texNombre(a)}$ par $${b}$ est $${miseEnEvidence(String(r))}$.`
+
       if (this.questionJamaisPosee(i, a, b)) {
         // Si la question n'a jamais été posée, on en crée une autre
         this.listeQuestions[i] = texte

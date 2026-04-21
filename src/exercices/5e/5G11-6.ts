@@ -1,4 +1,4 @@
-import { point } from '../../lib/2d/PointAbstrait'
+import { pointAbstrait } from '../../lib/2d/PointAbstrait'
 import { papierPointe } from '../../lib/2d/reperes'
 import { labelPoint } from '../../lib/2d/textes'
 import { tracePoint } from '../../lib/2d/TracePoint'
@@ -10,6 +10,7 @@ import { context } from '../../modules/context'
 import { mathalea2d } from '../../modules/mathalea2d'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import Exercice from '../Exercice'
+import { bleuMathalea } from '../../lib/colors'
 export const titre = 'Compléter un nuage de points symétriques'
 export const dateDePublication = '18/12/2021'
 export const interactifReady = false
@@ -20,7 +21,7 @@ export const amcType = 'AMCHybride'
 
 /**
  * Symétrie centrale sur papier pointé
- * @author Jean-Claude Lhote
+ * @author Jean-claude Lhote
  */
 export const uuid = '2a611'
 
@@ -97,11 +98,11 @@ export default class CompleterParSymetrie5e extends Exercice {
       objetsEnonce.push(papier)
 
       if (typeDePapier[this.sup2 === 4 ? 0 : this.sup2] === 'quad') {
-        O = point(5, 5, 'O')
+        O = pointAbstrait(5, 5, 'O')
       } else {
-        O = point(4.33, 4.5, 'O')
+        O = pointAbstrait(4.33, 4.5, 'O')
       }
-      d = tracePoint(O, context.isHtml ? 'blue' : 'black')
+      d = tracePoint(O, context.isHtml ? bleuMathalea : 'black')
       d.epaisseur = 2
       d.style = '+'
       objetsEnonce.push(d)
@@ -122,7 +123,7 @@ export default class CompleterParSymetrie5e extends Exercice {
       while (pointsPossibles.length > 1) {
         // si il n'en reste qu'un, on ne peut pas trouver de symétrique
         image = rotation(
-          point(pointsPossibles[0][0], pointsPossibles[0][1]),
+          pointAbstrait(pointsPossibles[0][0], pointsPossibles[0][1]),
           O,
           180,
         )
@@ -133,7 +134,7 @@ export default class CompleterParSymetrie5e extends Exercice {
           if (
             longueur(
               image,
-              point(pointsPossibles[j][0], pointsPossibles[j][1]),
+              pointAbstrait(pointsPossibles[j][0], pointsPossibles[j][1]),
             ) < 0.5
           ) {
             trouve = true
@@ -162,15 +163,15 @@ export default class CompleterParSymetrie5e extends Exercice {
       for (let p = 0; p < pointsChoisis.length; p += 2) {
         if (p < nbCouplesComplets) {
           // On affiche un certains nombre de couples
-          pointsAffiches.push(point(pointsChoisis[p][0], pointsChoisis[p][1]))
+          pointsAffiches.push(pointAbstrait(pointsChoisis[p][0], pointsChoisis[p][1]))
           pointsAffiches.push(
-            point(pointsChoisis[p + 1][0], pointsChoisis[p + 1][1]),
+            pointAbstrait(pointsChoisis[p + 1][0], pointsChoisis[p + 1][1]),
           )
         } else {
           // et on affiche un seul des points pour les couples restants
-          pointsAffiches.push(point(pointsChoisis[p][0], pointsChoisis[p][1]))
+          pointsAffiches.push(pointAbstrait(pointsChoisis[p][0], pointsChoisis[p][1]))
           pointsEnPlusCorr.push(
-            point(pointsChoisis[p + 1][0], pointsChoisis[p + 1][1]),
+            pointAbstrait(pointsChoisis[p + 1][0], pointsChoisis[p + 1][1]),
           )
         }
       }

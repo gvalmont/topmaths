@@ -105,7 +105,7 @@ export function pave(
  * @param {PointAbstrait} O Centre de l'ellipse
  * @param {number} rx Premier rayon de l'ellipse
  * @param {number} ry Second rayon de l'ellipse
- * @param {string} [color = 'black'] Couleur de l'ellipse : du type 'blue' ou du type '#f15929'
+ * @param {string} [color = 'black'] Couleur de l'ellipse : du type 'red', bleuMathalea ou du type '#a12345'
  * @property {string} svg Sortie au format vectoriel (SVG) que l’on peut afficher dans un navigateur
  * @property {string} svgml Sortie, à main levée, au format vectoriel (SVG) que l’on peut afficher dans un navigateur
  * @property {string} tikz Sortie au format TikZ que l’on peut utiliser dans un fichier LaTeX
@@ -273,7 +273,7 @@ export class Ellipse extends ObjetMathalea2D {
  * @param {PointAbstrait} O Centre de l'ellipse
  * @param {number} rx Premier rayon de l'ellipse
  * @param {number} ry Second rayon de l'ellipse
- * @param {string} [color = 'black'] Couleur de l'ellipse : du type 'blue' ou du type '#f15929'
+ * @param {string} [color = 'black'] Couleur de l'ellipse : du type 'red', bleuMathalea ou du type '#a12345'
  * @example ellipse(M, 1, 3) // Trace, en noir, l'ellipse de centre M et de rayons 1 et 3
  * @example M, 1, 3, 'red') // Trace, en rouge, l'ellipse de centre M et de rayons 1 et 3
  * @author Rémi Angot
@@ -299,7 +299,7 @@ export function ellipse(
  * @param {string} color Facultatif, 'black' par défaut
  * @param {string} couleurDeRemplissage si 'none' alors pas de remplissage.
  * @param {number} opaciteDeRemplissage Transparence de remplissage de 0 à 1. Facultatif, 0.2 par défaut
- * @author Jean-Claude Lhote
+ * @author Jean-claude Lhote
  * @return {SemiEllipse} Objet SemiEllipse
  */
 export class SemiEllipse extends ObjetMathalea2D {
@@ -629,7 +629,7 @@ export class SemiEllipse extends ObjetMathalea2D {
  * @param {string} color Facultatif, 'black' par défaut
  * @param {string} couleurDeRemplissage si 'none' alors pas de remplissage.
  * @param {number} opaciteDeRemplissage Transparence de remplissage de 0 à 1. Facultatif, 0.2 par défaut
- * @author Jean-Claude Lhote
+ * @author Jean-claude Lhote
  * @return {SemiEllipse} Objet SemiEllipse
  */
 export function semiEllipse({
@@ -677,9 +677,9 @@ export function semiEllipse({
  * @param {number} rx Rayon sur l'axe des abscisses
  * @param {number} hauteur Distance verticale entre le centre et le sommet.
  * @param {string} [color = 'black'] Facultatif, 'black' par défaut
- * @param {string} [couleurDeRemplissage = 'none'] none' si on ne veut pas de remplissage, sinon une couleur du type 'blue' ou du type '#f15929'
+ * @param {string} [couleurDeRemplissage = 'none'] none' si on ne veut pas de remplissage, sinon une couleur du type 'red', bleuMathalea ou du type '#a12345'
  * @param {number} [opaciteDeRemplissage = 0.2] Taux d'opacité du remplissage
- * @author Jean-Claude Lhote
+ * @author Jean-claude Lhote
  * @private
  */
 export class Cone extends ObjetMathalea2D {
@@ -907,11 +907,11 @@ export function cone({
  * @param {number} hauteur Distance verticale entre le centre et le sommet.
  * @param {string} [position = 'DeboutVuDessus'] Facultatif, 'DeboutVuDessus' par défaut, ou 'baseAvantCoucheVuGauche' a faire : baseCoteCoucheVuDroite
  * @param {string} [color = 'black'] Facultatif, 'black' par défaut
- * @param {string} [couleurDeRemplissage = 'none'] none' si on ne veut pas de remplissage, sinon une couleur du type 'blue' ou du type '#f15929'
+ * @param {string} [couleurDeRemplissage = 'none'] none' si on ne veut pas de remplissage, sinon une couleur du type 'red', bleuMathalea ou du type '#a12345'
  * @param {number} [opaciteDeRemplissage = 0.2] Taux d'opacité du remplissage
  * @param {number} [angleDeFuite = 30] pour 'baseAvantCoucheVuDroite'
  * @param {number} [coefficientDeFuite = 0.5] 'baseAvantCoucheVuDroite'
- * @author Olivier Mimeau // d'après Cone de Jean-Claude Lhote
+ * @author Olivier Mimeau // d'après Cone de Jean-claude Lhote
  * @private
  */
 export class Cylindre extends ObjetMathalea2D {

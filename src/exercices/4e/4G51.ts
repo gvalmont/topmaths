@@ -1,7 +1,7 @@
 import { codageAngleDroit } from '../../lib/2d/CodageAngleDroit'
 import { colorToLatexOrHTML } from '../../lib/2d/colorToLatexOrHtml'
 import { grille, seyes } from '../../lib/2d/Grille'
-import { point } from '../../lib/2d/PointAbstrait'
+import { pointAbstrait } from '../../lib/2d/PointAbstrait'
 import { cone, semiEllipse } from '../../lib/2d/projections3d'
 import { segment } from '../../lib/2d/segmentsVecteurs'
 import { labelPoint } from '../../lib/2d/textes'
@@ -16,6 +16,7 @@ import { context } from '../../modules/context'
 import { mathalea2d } from '../../modules/mathalea2d'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import Exercice from '../Exercice'
+import { bleuMathalea } from '../../lib/colors'
 
 export const titre = 'Compléter une représentation en perspective cavalière'
 export const amcReady = true
@@ -25,9 +26,9 @@ export const dateDeModifImportante = '18/06/2022'
 
 /**
  * fonction servant à compléter des solides, inspirée des fonctions de 6G42 et 6G43
- * @author Mireille Gain, s'inspirant fortement de Jean-Claude Lhote
+ * @author Mireille Gain, s'inspirant fortement de Jean-claude Lhote
  * Ajout du cône par Guillaume Valmont le 18/06/2022
- * AMC pour Eric Elter le 25/11/2024
+ * AMC pour Éric Elter le 25/11/2024
  */
 export const uuid = '0e754'
 
@@ -196,10 +197,10 @@ export default class RepresenterUnSolide4e extends Exercice {
 
       switch (listeTypeDeQuestions[i] % 2) {
         case 1:
-          A = point(6, 0, nom[0], 'left')
-          B = point(11, 0, nom[1], 'right')
-          C = point(11, 5, nom[2], 'right')
-          D = point(6, 5, nom[3], 'left')
+          A = pointAbstrait(6, 0, nom[0], 'left')
+          B = pointAbstrait(11, 0, nom[1], 'right')
+          C = pointAbstrait(11, 5, nom[2], 'right')
+          D = pointAbstrait(6, 5, nom[3], 'left')
           E = similitude(B, A, anglepersp, coeffpersp, nom[4], 'left')
           E.x = Math.round(E.x)
           E.y = Math.round(E.y)
@@ -207,10 +208,10 @@ export default class RepresenterUnSolide4e extends Exercice {
 
         case 0:
         default:
-          A = point(5, 0, nom[0], 'left')
-          B = point(9 + randint(1, 3), 0, nom[1], 'right')
-          C = point(B.x, randint(3, 7), nom[2], 'right')
-          D = point(A.x, C.y, nom[3], 'left')
+          A = pointAbstrait(5, 0, nom[0], 'left')
+          B = pointAbstrait(9 + randint(1, 3), 0, nom[1], 'right')
+          C = pointAbstrait(B.x, randint(3, 7), nom[2], 'right')
+          D = pointAbstrait(A.x, C.y, nom[3], 'left')
           E = similitude(
             B,
             A,
@@ -437,10 +438,10 @@ export default class RepresenterUnSolide4e extends Exercice {
         FG.color = colorToLatexOrHTML('red')
         GH.color = colorToLatexOrHTML('green')
         HE.color = colorToLatexOrHTML('red')
-        AE.color = colorToLatexOrHTML('blue')
-        BF.color = colorToLatexOrHTML('blue')
-        CG.color = colorToLatexOrHTML('blue')
-        DH.color = colorToLatexOrHTML('blue')
+        AE.color = colorToLatexOrHTML(bleuMathalea)
+        BF.color = colorToLatexOrHTML(bleuMathalea)
+        CG.color = colorToLatexOrHTML(bleuMathalea)
+        DH.color = colorToLatexOrHTML(bleuMathalea)
         objetsCorrection.push(
           AB,
           BC,
@@ -469,10 +470,10 @@ export default class RepresenterUnSolide4e extends Exercice {
         FG.color = colorToLatexOrHTML('red')
         GH.color = colorToLatexOrHTML('green')
         HE.color = colorToLatexOrHTML('red')
-        AE.color = colorToLatexOrHTML('blue')
-        BF.color = colorToLatexOrHTML('blue')
-        CG.color = colorToLatexOrHTML('blue')
-        DH.color = colorToLatexOrHTML('blue')
+        AE.color = colorToLatexOrHTML(bleuMathalea)
+        BF.color = colorToLatexOrHTML(bleuMathalea)
+        CG.color = colorToLatexOrHTML(bleuMathalea)
+        DH.color = colorToLatexOrHTML(bleuMathalea)
         objetsCorrection.push(
           AB,
           BC,
@@ -501,10 +502,10 @@ export default class RepresenterUnSolide4e extends Exercice {
         FG.color = colorToLatexOrHTML('red')
         GH.color = colorToLatexOrHTML('green')
         HE.color = colorToLatexOrHTML('red')
-        AE.color = colorToLatexOrHTML('blue')
-        BF.color = colorToLatexOrHTML('blue')
-        CG.color = colorToLatexOrHTML('blue')
-        DH.color = colorToLatexOrHTML('blue')
+        AE.color = colorToLatexOrHTML(bleuMathalea)
+        BF.color = colorToLatexOrHTML(bleuMathalea)
+        CG.color = colorToLatexOrHTML(bleuMathalea)
+        DH.color = colorToLatexOrHTML(bleuMathalea)
         objetsCorrection.push(AB, DA, BD, EF, HE, AE, BF, DH, FH, g, carreaux)
       }
 
@@ -517,10 +518,10 @@ export default class RepresenterUnSolide4e extends Exercice {
         FG.color = colorToLatexOrHTML('red')
         GH.color = colorToLatexOrHTML('green')
         HE.color = colorToLatexOrHTML('red')
-        AE.color = colorToLatexOrHTML('blue')
-        BF.color = colorToLatexOrHTML('blue')
-        CG.color = colorToLatexOrHTML('blue')
-        DH.color = colorToLatexOrHTML('blue')
+        AE.color = colorToLatexOrHTML(bleuMathalea)
+        BF.color = colorToLatexOrHTML(bleuMathalea)
+        CG.color = colorToLatexOrHTML(bleuMathalea)
+        DH.color = colorToLatexOrHTML(bleuMathalea)
         objetsCorrection.push(
           AB,
           EF,

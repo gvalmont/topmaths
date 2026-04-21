@@ -1,5 +1,5 @@
-import { orangeMathalea } from 'apigeom/src/elements/defaultValues'
 import Decimal from 'decimal.js'
+import { orangeMathalea, bleuMathalea } from '../../lib/colors'
 import { createList } from '../../lib/format/lists'
 import { ajouteQuestionMathlive } from '../../lib/interactif/questionMathLive'
 import { choice } from '../../lib/outils/arrayOutils'
@@ -23,7 +23,7 @@ export const dateDePublication = '15/11/2024'
 export const interactifType = 'mathLive'
 export const interactifReady = true
 /**
- * @Author Jean-Claude Lhote
+ * @Author Jean-claude Lhote
  * Sources (eduscol) : https://eduscol.education.fr/ressources/numerique/2020/2020-exercices-mathematiques-6e
  * Ces exercices seront proposés systématiquement pour 3 niveaux de difficulté afin de différencier autour d'un même problème
  */
@@ -176,7 +176,7 @@ export default class ExerciceProbleme001 extends Exercice {
             `Pour trouver la masse moyenne d'${coquillage.nomSingulier}, on divise la masse totale par le nombre de ${coquillage.nomPluriel}.<br>
     ${SchemaEnBoite.division(masseCoquillages.toNumber(), masseCoquillages.div(nbCoquillages).toNumber(), nbCoquillages, 0).display()}
      $${texNombre(masseCoquillages)}\\text{ g}\\div ${nbCoquillages}$ = $${texNombre(masseCoquillages.div(nbCoquillages), 2)}$ g<br>
-${this.sup3 ? `${operation({ operande1: masseCoquillages.toNumber(), operande2: nbCoquillages, type: 'division', precision: 1, options: { solution: true, colore: 'blue' } })}` : ''}${premiereLettreEnMajuscule(coquillage.nomSingulier)} pèse $${texNombre(masseCoquillages.div(nbCoquillages), 2)}$ g en moyenne.<br>`,
+${this.sup3 ? `${operation({ operande1: masseCoquillages.toNumber(), operande2: nbCoquillages, type: 'division', precision: 1, options: { solution: true, colore: bleuMathalea } })}` : ''}${premiereLettreEnMajuscule(coquillage.nomSingulier)} pèse $${texNombre(masseCoquillages.div(nbCoquillages), 2)}$ g en moyenne.<br>`,
             `Pour trouver la masse de $${nouveauNombre}$ ${coquillage.nomPluriel}, on multiplie la masse moyenne d'${coquillage.nomSingulier} par le nombre de ${coquillage.nomPluriel}.<br>
     ${SchemaEnBoite.division(masseCoquillages.mul(Number(nouveauNombre)).div(nbCoquillages).toNumber(), masseCoquillages.div(nbCoquillages).toNumber(), Number(nouveauNombre), 0).display()}<br><br>
     $${texNombre(masseCoquillages.div(nbCoquillages), 2)}\\text{ g}\\times ${nouveauNombre}$ = $${texNombre(masseCoquillages.mul(Number(nouveauNombre)).div(nbCoquillages), 2)}$ g<br>

@@ -1,9 +1,8 @@
 import Figure from 'apigeom'
-import { orangeMathalea } from 'apigeom/src/elements/defaultValues'
 import type VectorByPoints from 'apigeom/src/elements/vector/VectorByPoints'
 import { colorToLatexOrHTML } from '../../lib/2d/colorToLatexOrHtml'
 import { nomVecteurParPosition } from '../../lib/2d/NomVecteurParPosition'
-import { point } from '../../lib/2d/PointAbstrait'
+import { pointAbstrait } from '../../lib/2d/PointAbstrait'
 import { repere } from '../../lib/2d/reperes'
 import {
   representant,
@@ -20,6 +19,7 @@ import { homothetie } from '../../lib/2d/transformations'
 import { longueur } from '../../lib/2d/utilitairesGeometriques'
 import { milieu } from '../../lib/2d/utilitairesPoint'
 import { vecteur } from '../../lib/2d/Vecteur'
+import { orangeMathalea, bleuMathalea } from '../../lib/colors'
 import figureApigeom, { isFigureArray } from '../../lib/figureApigeom'
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
 import {
@@ -41,7 +41,7 @@ export const dateDeModifImportante = '06/08/2024'
 
 /**
  * Tracer un vecteur dont on connait les coordonnées dans un repère.
- * @author Stéphane Guyon légèrement modifié par Jean-Claude Lhote, rendu interactif par Eric Elter
+ * @author Stéphane Guyon légèrement modifié par Jean-claude Lhote, rendu interactif par Éric Elter
  */
 export const uuid = '3a3ec'
 
@@ -195,8 +195,8 @@ export default class RepresenterUnVecteur extends Exercice {
         uy = randint(3, 8) * choice([-1, 1])
         this.yB[i] = this.yA[i] + uy
       }
-      const A = point(this.xA[i], this.yA[i])
-      const B = point(this.xB[i], this.yB[i])
+      const A = pointAbstrait(this.xA[i], this.yA[i])
+      const B = pointAbstrait(this.xB[i], this.yB[i])
       const AB = vecteur(A, B)
       const r = repere({ axesEpaisseur: 1 }) // On définit le repère
       const posLabelA = homothetie(B, A, -0.7 / longueur(A, B), '', 'center') // pour positionner les noms des points aux extrémités proprement
@@ -208,45 +208,45 @@ export default class RepresenterUnVecteur extends Exercice {
       const labelA = latexParPoint(nomPoint1, posLabelA, 'red', 10, 12, '')
       const labelB = latexParPoint(nomPoint2, posLabelB, 'red', 10, 12, '')
 
-      const H = point(this.xA[i] + ux, this.yA[i])
+      const H = pointAbstrait(this.xA[i] + ux, this.yA[i])
       const s = representant(AB, A) // On trace en rouge [AB]
-      const h1 = representant(vecteur(A, H), A, 'blue')
-      const h2 = representant(vecteur(H, B), H, 'blue')
+      const h1 = representant(vecteur(A, H), A, bleuMathalea)
+      const h2 = representant(vecteur(H, B), H, bleuMathalea)
       const longueurAH = latex2d(
         String(ux),
         milieu(A, H).x,
         milieu(A, H).y + 0.5,
-        { color: 'blue', letterSize: 'footnotesize' },
+        { color: bleuMathalea, letterSize: 'footnotesize' },
       )
       const longueurBH = latex2d(
         String(uy),
         milieu(B, H).x + 0.5,
         milieu(B, H).y,
-        { color: 'blue', letterSize: 'footnotesize' },
+        { color: bleuMathalea, letterSize: 'footnotesize' },
       )
-      const O = point(0, 0) // On définit et on trace le point O
+      const O = pointAbstrait(0, 0) // On définit et on trace le point O
       const o = texteParPosition(
         'O',
         -0.3,
         -0.3,
         0,
-        'blue',
+        bleuMathalea,
         0.75,
         'milieu',
         true,
       )
-      const I = point(1, 0) // On définit sans tracer le point I
-      const J = point(0, 1) // On définit sans tracer le point J
-      const k = representant(vecteur(O, I), O, 'blue') // Variable qui trace [OI] en bleu
-      const j = representant(vecteur(O, J), O, 'blue') // Variable qui trace [OJ] en bleu
+      const I = pointAbstrait(1, 0) // On définit sans tracer le point I
+      const J = pointAbstrait(0, 1) // On définit sans tracer le point J
+      const k = representant(vecteur(O, I), O, bleuMathalea) // Variable qui trace [OI] en bleu
+      const j = representant(vecteur(O, J), O, bleuMathalea) // Variable qui trace [OJ] en bleu
       s.epaisseur = 1.5 // Variable qui grossit le tracé du vecteur AB
       s.color = colorToLatexOrHTML(orangeMathalea)
       k.epaisseur = 1.1 // Variable qui grossit le tracé du vecteur OI
       j.epaisseur = 1.1 // Variable qui grossit le tracé du vecteur OJ
       h1.epaisseur = 1.5 // Variable qui grossit le tracé bleu
       h2.epaisseur = 1.5 // Variable qui grossit le tracé bleu
-      const nomi = nomVecteurParPosition('i', 0.5, -0.7, 0.7, 0, 'blue')
-      const nomj = nomVecteurParPosition('j', -0.7, 0.5, 0.7, 0, 'blue')
+      const nomi = nomVecteurParPosition('i', 0.5, -0.7, 0.7, 0, bleuMathalea)
+      const nomj = nomVecteurParPosition('j', -0.7, 0.5, 0.7, 0, bleuMathalea)
       const nomAB = representantNomme(AB, A, 'u', 0.7, 'red')
       let l: TexteParPoint[]
       if (listeQuestions[i] === 1) {

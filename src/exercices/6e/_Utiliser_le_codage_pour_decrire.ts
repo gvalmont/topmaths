@@ -1,7 +1,7 @@
 import { codageAngleDroit } from '../../lib/2d/CodageAngleDroit'
 import { codageSegments } from '../../lib/2d/CodageSegment'
 import { mediatrice } from '../../lib/2d/Mediatrice'
-import { point } from '../../lib/2d/PointAbstrait'
+import { pointAbstrait } from '../../lib/2d/PointAbstrait'
 import { codageAngle } from '../../lib/2d/angles'
 import { Droite, droite } from '../../lib/2d/droites'
 import { fixeBordures } from '../../lib/2d/fixeBordures'
@@ -29,7 +29,11 @@ import {
   randint,
 } from '../../modules/outils'
 import Exercice from '../Exercice'
+import { bleuMathalea } from '../../lib/colors'
 
+/**
+ * @author Jean-claude Lhote
+ */
 export default class UtiliserLeCodagePourDecrire extends Exercice {
   classe: number
   constructor() {
@@ -102,7 +106,6 @@ export default class UtiliserLeCodagePourDecrire extends Exercice {
     for (
       let i = 0, texte, texteCorr, cpt = 0;
       i < this.nbQuestions && cpt < 50;
-
     ) {
       objetsEnonce = []
       objetsCorrection = []
@@ -117,7 +120,7 @@ export default class UtiliserLeCodagePourDecrire extends Exercice {
       }
       sommets = shuffle(sommets)
 
-      A = point(0, 0, sommets[0], 'left')
+      A = pointAbstrait(0, 0, sommets[0], 'left')
       switch (listeTypeDeQuestions[i]) {
         case 1:
           C = pointAdistance(
@@ -325,7 +328,7 @@ export default class UtiliserLeCodagePourDecrire extends Exercice {
             'below',
           )
           C = translation2Points(
-            point(B.x + 1, B.y + 1),
+            pointAbstrait(B.x + 1, B.y + 1),
             A,
             D,
             sommets[2],
@@ -413,7 +416,7 @@ export default class UtiliserLeCodagePourDecrire extends Exercice {
               C,
               2,
               '||',
-              'blue',
+              bleuMathalea,
               2,
               1,
               'none',
@@ -432,7 +435,7 @@ export default class UtiliserLeCodagePourDecrire extends Exercice {
               C,
               2,
               '||',
-              'blue',
+              bleuMathalea,
               2,
               1,
               'none',

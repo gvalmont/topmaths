@@ -6,6 +6,7 @@ import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { mathalea2d } from '../../../modules/mathalea2d'
 import { randint } from '../../../modules/outils'
 import ExerciceSimple from '../../ExerciceSimple'
+import { bleuMathalea } from '../../../lib/colors'
 export const dateDeModifImportante = '26/10/2023'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -102,10 +103,9 @@ export default class ImageSpline extends ExerciceSimple {
       grilleSecondaire: true,
       grilleSecondaireYDistance: 1,
       grilleSecondaireXDistance: 1,
-      grilleSecondaireOpacite: 1,
+      grilleSecondaireOpacite: 0.5,
       axesEpaisseur: 1.5,
       grilleOpacite: 1,
-      grilleSecondaireCouleur: 'black',
       grilleSecondaireYMin: bornes.yMin - 1.02,
       grilleSecondaireYMax: bornes.yMax + 1.02,
       grilleSecondaireXMin: bornes.xMin - 1.02,
@@ -114,8 +114,8 @@ export default class ImageSpline extends ExerciceSimple {
     const courbe1 = theSpline.courbe({
       epaisseur: 1.5,
       ajouteNoeuds: true,
-      optionsNoeuds: { color: 'blue', taille: 2, style: 'x', epaisseur: 2 },
-      color: 'blue',
+      optionsNoeuds: { color: bleuMathalea, taille: 2, style: 'x', epaisseur: 2 },
+      color: bleuMathalea,
     })
     const objetsEnonce = [repere1, courbe1]
 

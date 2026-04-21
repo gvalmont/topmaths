@@ -1,6 +1,5 @@
 import { tableauColonneLigne } from '../../lib/2d/tableau'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
-import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { AddTabDbleEntryMathlive } from '../../lib/interactif/tableaux/AjouteTableauMathlive'
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
 import { numAlpha } from '../../lib/outils/outilString'
@@ -11,7 +10,9 @@ import {
 } from '../../modules/outils'
 import Exercice from '../Exercice'
 
+import { addMultiMathfield } from '../../lib/interactif/MultiMathfield/MultiMathfield'
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
+import { toutAUnPoint } from '../../lib/interactif/mathLive'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { arrondi } from '../../lib/outils/nombres'
 import { texNombre } from '../../lib/outils/texNombre'
@@ -19,20 +20,19 @@ import FractionEtendue from '../../modules/FractionEtendue'
 export const titre = "Compléter et utiliser un tableau d'effectif"
 export const dateDePublication = '08/01/2024'
 export const interactifReady = true
-export const interactifType = 'mathLive'
+export const interactifType = 'multiMathfield'
 export const dateDeModifImportante = '08/01/2026'
 /**
  * Compléter ou utiliser un tableau
- * @author Gilles Mora +Jean-Claude Lhote pour l'interactif
+ * @author Gilles Mora +Jean-claude Lhote pour l'interactif
 
  */
-export const uuid = '3f39d'
-// Je déréférence temporairement pour éviter que cet exo non finalisé apparaîsse dans le menu.
+export const uuid = '3f39e'
 
-// export const refs = {
-//  'fr-fr': ['2S10-4'],
-//   'fr-ch': []
-//  }
+export const refs = {
+  'fr-fr': ['2S10-4'],
+  'fr-ch': [],
+}
 
 export default class TableauProportion extends Exercice {
   constructor() {
@@ -71,8 +71,7 @@ export default class TableauProportion extends Exercice {
       this.nbQuestions,
     )
 
-    let index = 0
-    let increment = 1
+    const index = 0
     for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50; ) {
       const typesDeQuestions = listeTypeDeQuestions[i]
 
@@ -245,19 +244,23 @@ export default class TableauProportion extends Exercice {
             this.numeroExercice,
             i,
           )
-          handleAnswers(this, index, {
-            bareme: toutPourUn,
-            L1C1: { value: GAetG },
-            L1C2: { value: FetG },
-            L1C3: { value: totalG },
-            L2C1: { value: GAetT },
-            L2C2: { value: FetT },
-            L2C3: { value: totalT },
-            L3C1: { value: totalGA },
-            L3C2: { value: totalF },
-            L3C3: { value: total },
-          })
-          increment = 1
+          handleAnswers(
+            this,
+            index,
+            {
+              bareme: toutPourUn,
+              L1C1: { value: GAetG },
+              L1C2: { value: FetG },
+              L1C3: { value: totalG },
+              L2C1: { value: GAetT },
+              L2C2: { value: FetT },
+              L2C3: { value: totalT },
+              L3C1: { value: totalGA },
+              L3C2: { value: totalF },
+              L3C3: { value: total },
+            },
+            { formatInteractif: 'tableauMathlive' },
+          )
           break
         case 2: // tableau à utiliser
           texte = `Dans un lycée, on compte $${total}$ élèves en classe de première.<br>
@@ -281,8 +284,84 @@ export default class TableauProportion extends Exercice {
               `${total}`,
             ],
           )
-
-          texte += `<br><br>${numAlpha(0)}  Quelle est la proportion de ${choix ? 'filles' : 'garçons'} en première technologique parmi les élèves de ce lycée ?<br>`
+          texte += addMultiMathfield(this, i, {
+            dataTemplate: `a) Quelle est la proportion de ${choix ? 'filles' : 'garçons'} en première technologique parmi les élèves de ce lycée ?
+  Sous la forme d'une fraction : %{champ1}
+  Sous la forme d'un pourcentage (arrondir à l'unité si besoin) : %{champ2}
+  
+  b) Quelle est la proportion de ${choix ? 'filles' : 'garçons'} en première technologique parmi les élèves en première technologique ?
+  Sous la forme d'une fraction : %{champ3}
+  Sous la forme d'un pourcentage (arrondir à l'unité si besoin) : %{champ4}
+  
+  c) Quelle est la proportion de ${choix ? 'filles' : 'garçons'} en première technologique parmi les ${choix ? 'filles' : 'garçons'} ?
+  Sous la forme d'une fraction : %{champ5}
+  Sous la forme d'un pourcentage (arrondir à l'unité si besoin) : %{champ6}`,
+            dataOptions: {
+              champ1: {
+                keyboard: KeyboardType.clavierDeBaseAvecFraction,
+              },
+              champ2: {
+                keyboard: KeyboardType.clavierNumbers,
+                texteApres: this.interactif ? '$\\%$' : undefined,
+              },
+              champ3: {
+                keyboard: KeyboardType.clavierDeBaseAvecFraction,
+              },
+              champ4: {
+                keyboard: KeyboardType.clavierNumbers,
+                texteApres: this.interactif ? '$\\%$' : undefined,
+              },
+              champ5: {
+                keyboard: KeyboardType.clavierDeBaseAvecFraction,
+              },
+              champ6: {
+                keyboard: KeyboardType.clavierNumbers,
+                texteApres: this.interactif ? '$\\%$' : undefined,
+              },
+            },
+          })
+          handleAnswers(
+            this,
+            i,
+            {
+              bareme: toutAUnPoint,
+              champ1: {
+                value: choix
+                  ? new FractionEtendue(FetT, total).texFraction
+                  : new FractionEtendue(GAetT, total).texFraction,
+                options: { fractionEgale: true },
+              },
+              champ2: {
+                value: choix
+                  ? arrondi((FetT * 100) / total, 0)
+                  : arrondi((GAetT * 100) / total, 0),
+              },
+              champ3: {
+                value: choix
+                  ? new FractionEtendue(FetT, totalT).texFraction
+                  : new FractionEtendue(GAetT, totalT).texFraction,
+                options: { fractionEgale: true },
+              },
+              champ4: {
+                value: choix
+                  ? arrondi((FetT * 100) / totalT, 0)
+                  : arrondi((GAetT * 100) / totalT, 0),
+              },
+              champ5: {
+                value: choix
+                  ? new FractionEtendue(FetT, totalF).texFraction
+                  : new FractionEtendue(GAetT, totalGA).texFraction,
+                options: { fractionEgale: true },
+              },
+              champ6: {
+                value: choix
+                  ? arrondi((FetT * 100) / totalF, 0)
+                  : arrondi((GAetT * 100) / totalGA, 0),
+              },
+            },
+            { formatInteractif: 'multiMathfield' },
+          )
+          /*    texte += `<br><br>${numAlpha(0)}  Quelle est la proportion de ${choix ? 'filles' : 'garçons'} en première technologique parmi les élèves de ce lycée ?<br>`
           handleAnswers(this, index, {
             reponse: {
               value: choix
@@ -373,7 +452,7 @@ export default class TableauProportion extends Exercice {
             {
               texteApres: '%',
             },
-          )
+          ) */
 
           texteCorr = `${numAlpha(0)} La proportion de ${choix ? 'filles' : 'garçons'} en première technologique parmi les élèves de ce lycée est donnée par le quotient : 
           ${choix ? ` $${miseEnEvidence(`\\dfrac{${FetT}}{${total}}`)}$.` : ` $${miseEnEvidence(`\\dfrac{${GAetT}}{${total}}`)}$.`} <br>
@@ -390,7 +469,6 @@ export default class TableauProportion extends Exercice {
         Sous la forme d'un pourcentage, on obtient :  ${choix ? ` $${miseEnEvidence(`${texNombre(arrondi((FetT * 100) / totalF, 1), 1)} \\,\\%`)}$.` : ` $${miseEnEvidence(`${texNombre(arrondi((GAetT * 100) / totalGA, 1), 1)} \\,\\%`)}$.`}<br>
         Arrondi à l'unité : ${choix ? ` $${miseEnEvidence(`${arrondi((FetT * 100) / totalF, 0)} \\,\\%`)}$.` : ` $${miseEnEvidence(`${arrondi((GAetT * 100) / totalGA, 0)} \\,\\%`)}$.`}`
 
-          increment = 6
           break
       }
 
@@ -399,7 +477,6 @@ export default class TableauProportion extends Exercice {
         this.listeQuestions[i] = texte
         this.listeCorrections[i] = texteCorr
         i++
-        index += increment
       }
       cpt++
     }

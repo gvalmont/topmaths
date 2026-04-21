@@ -1,3 +1,4 @@
+import { orangeMathalea } from 'apigeom/src/elements/defaultValues'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { choice } from '../../lib/outils/arrayOutils'
 import { nomDuJour } from '../../lib/outils/dateEtHoraires'
@@ -5,6 +6,7 @@ import { texteEnCouleurEtGras } from '../../lib/outils/embellissements'
 import { addSheet, createTableurLatex } from '../../lib/tableur/outilsTableur'
 import { context } from '../../modules/context'
 
+import { bleuMathalea } from '../../lib/colors'
 import {
   gestionnaireFormulaireTexte,
   listeQuestionsToContenu,
@@ -24,8 +26,8 @@ export const interactifType = 'tableur'
 
 /*
  * Programmer des calculs sur tableur : New programme de 6eme 2025
- * @author Jean-Claude Lhote
- * revisité par Jean-Claude Lhote (intoduction du custom élément sheet-element) et modification de la librairie utilisée.
+ * @author Jean-claude Lhote
+ * revisité par Jean-claude Lhote (intoduction du custom élément sheet-element) et modification de la librairie utilisée.
  */
 
 export const uuid = 'ae07e'
@@ -55,10 +57,10 @@ export default class ExerciceTableur3T10 extends Exercice {
   }
 
   static readonly colors = {
-    orange: '#e6b457',
+    orange: orangeMathalea,
     vert: '#7adb7a',
     jaune: '#e6e66a',
-    bleu: '#8181e6',
+    bleu: bleuMathalea,
     violet: '#f8a3f8',
     rouge: '#eca2a2',
     blanc: '#ffffff',

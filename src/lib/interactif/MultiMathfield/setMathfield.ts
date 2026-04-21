@@ -2,8 +2,10 @@ import { MathfieldElement } from 'mathlive'
 import { get } from 'svelte/store'
 import { keyboardState } from '../../../components/keyboard/stores/keyboardStore'
 import type { BlockForKeyboard } from '../../../components/keyboard/types/keyboardContent'
+import { injectFontInMetaInteractif2d } from '../../../modules/loaders'
 import { globalOptions } from '../../stores/globalOptions'
 import { getKeyboardShortcusts } from '../claviers/keyboard'
+import { isMathfieldFocused } from '../mathfieldFocus'
 export const setMathfieldListener = (e: Event) =>
   setMathfield(e.currentTarget as MathfieldElement)
 export function setMathfield(mf: MathfieldElement) {
@@ -27,17 +29,13 @@ export function setMathfield(mf: MathfieldElement) {
   if (mf.getAttribute('data-space') === 'true') {
     mf.mathModeSpace = '\\,'
   }
+  injectFontInMetaInteractif2d(mf)
   mf.removeEventListener('mount', setMathfieldListener)
 }
 
 function handleFocusMathField(event: FocusEvent) {
   const mf = event.target as MathfieldElement
-  const isFillInTheBlanks =
-    mf.classList.contains('fillInTheBlanks') ||
-    mf.classList.contains('metaInteractif2d')
-  const isNotFillInTheBlanksAndReadOnly = !isFillInTheBlanks && mf.readOnly
-  const isCorrected =
-    isNotFillInTheBlanksAndReadOnly || mf.classList.contains('corrected')
+  const isCorrected = mf.classList.contains('corrected')
   getKeyboardShortcusts(mf)
   keyboardState.update((value) => {
     return {
@@ -59,10 +57,7 @@ function handleFocusOutMathField(event: FocusEvent) {
   // car au focusout, le focus est sur body
   if (get(globalOptions).v === 'can') return
   setTimeout(() => {
-    if (
-      document.activeElement &&
-      document.activeElement.tagName !== 'MATH-FIELD'
-    ) {
+    if (!isMathfieldFocused(document.activeElement)) {
       keyboardState.update((value) => {
         const newValue = value
         newValue.isVisible = false

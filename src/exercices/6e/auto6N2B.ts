@@ -35,7 +35,7 @@ export const dateDePublication = '25/09/2025'
  *
  * * 128/10
  * * 8+5/100+7/100
- * @author Eric Elter (d'après 6N23-4)
+ * @author Éric Elter (d'après 6N23-4)
  */
 export const uuid = '47fed'
 
@@ -59,6 +59,7 @@ export default class NombreDecimalOraliseDeDifferentesManieres extends Exercice 
       '1 : Du nombre décimal à la fraction décimale\n2 : De la fraction décimale au nombre décimal',
     ]
     this.sup = 3
+    this.sup2 = 1
   }
 
   nouvelleVersion() {
@@ -86,7 +87,6 @@ export default class NombreDecimalOraliseDeDifferentesManieres extends Exercice 
     for (
       let i = 0, texte, texteCorr, cpt = 0, a, b, c, reponseAMC, n, choix;
       i < this.nbQuestions && cpt < 50;
-
     ) {
       a = randint(2, 9)
       b = randint(2, 9, a)

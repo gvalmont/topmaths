@@ -3,22 +3,21 @@ import { colorToLatexOrHTML } from './colorToLatexOrHtml'
 import { droite } from './droites'
 import { ObjetMathalea2D } from './ObjetMathalea2D'
 import type { PointAbstrait } from './PointAbstrait'
-import { Point } from './PointAbstrait'
 import { tracePointSurDroite } from './TracePointSurDroite'
 import { longueur } from './utilitairesGeometriques'
 import { milieu } from './utilitairesPoint'
 
 /**
  * Code le milieu d'un segment
- * @param {Point|PointAbstrait} A Première extrémité du segment
- * @param {Point|PointAbstrait} B Seconde extrémité du segment
- * @param {string} [color='black'] Couleur du codage : du type 'blue' ou du type '#f15929'.
+ * @param {PointAbstrait} A Première extrémité du segment
+ * @param {PointAbstrait} B Seconde extrémité du segment
+ * @param {string} [color='black'] Couleur du codage : du type 'red', bleuMathalea ou du type '#a12345'.
  * @param {string} [mark='x'] Symbole posé sur les deux parties du segment
  * @param {boolean} [mil=true] Trace ou nom le point du milieu.
  * @property {string} svg Sortie au format vectoriel (SVG) que l’on peut afficher dans un navigateur
  * @property {string} tikz Sortie au format TikZ que l’on peut utiliser dans un fichier LaTeX
  * @property {string} color Couleur du codage. À associer obligatoirement à colorToLatexOrHTML().
- * @author Jean-Claude Lhote
+ * @author Jean-claude Lhote
  * @class
  */
 // JSDOC Validee par EE Juin 2022
@@ -64,14 +63,14 @@ export class CodageMilieu extends ObjetMathalea2D {
 }
 /**
  * Code le milieu d'un segment
- * @param {Point} A Première extrémité du segment
- * @param {Point} B Seconde extrémité du segment
- * @param {string} [color = 'black'] Couleur du codage : du type 'blue' ou du type '#f15929'.
+ * @param {PointAbstrait} A Première extrémité du segment
+ * @param {PointAbstrait} B Seconde extrémité du segment
+ * @param {string} [color = 'black'] Couleur du codage : du type 'red', bleuMathalea ou du type '#a12345'.
  * @param {string} [mark = 'x'] Symbole posé de part et d'autre du milieu du segment
  * @param {boolean} [mil = true] Trace ou nom le point du milieu.
  * @example codageMilieu(M,N) // Code, en noir, le milieu du segment[MN] avec les marques 'x', en plaçant le milieu
  * @example codageMilieu(M,N,'red','oo',false) // Code, en rouge, le milieu du segment[MN] avec les marques 'oo', sans placer le milieu.
- * @author Jean-Claude Lhote
+ * @author Jean-claude Lhote
  * @return {CodageMilieu}
  */
 // JSDOC Validee par EE Juin 2022

@@ -1,6 +1,6 @@
 import { colorToLatexOrHTML } from '../../lib/2d/colorToLatexOrHtml'
 import { fixeBordures } from '../../lib/2d/fixeBordures'
-import { point } from '../../lib/2d/PointAbstrait'
+import { pointAbstrait } from '../../lib/2d/PointAbstrait'
 import { lampeMessage } from '../../lib/format/message'
 import { deuxColonnes } from '../../lib/format/miseEnPage'
 import { texteGras } from '../../lib/format/style'
@@ -40,8 +40,8 @@ export const dateDeModifImportante = '18/06/2028'
 
 /**
  * Analyser un programme scratch utilisant NoteLaCouleur
- * On interdit le mélange des cas (c'est forcément 3 ou 4 couleurs sinon souci Capytale) par Eric Elter le 18/06/2025
- * @author Jean-Claude Lhote
+ * On interdit le mélange des cas (c'est forcément 3 ou 4 couleurs sinon souci Capytale) par Éric Elter le 18/06/2025
+ * @author Jean-claude Lhote
  */
 export const uuid = '2ecd9'
 
@@ -445,7 +445,7 @@ export default class ScratchMultiScript extends Exercice {
     <animateMotion path="M ${lutins[i].listeTraces[0][0] * context.pixelsParCm} ${-lutins[i].listeTraces[0][1] * context.pixelsParCm} L`
 
       for (let k = 0; k < lutins[i].listeTraces.length; k++) {
-        const B = point(
+        const B = pointAbstrait(
           lutins[i].listeTraces[k][2],
           lutins[i].listeTraces[k][3],
         )

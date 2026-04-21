@@ -12,6 +12,7 @@ import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { mathalea2d } from '../../modules/mathalea2d'
 import { gestionnaireFormulaireTexte, randint } from '../../modules/outils'
 import Exercice from '../Exercice'
+import { bleuMathalea } from '../../lib/colors'
 
 export const titre = "Résoudre $f(x)=k$ à partir d'un graphique"
 export const interactifReady = true
@@ -21,14 +22,14 @@ export const dateDePublication = '31/01/2026'
 /**
  * Un graphique étant tracé, déterminer les antécédents de nombres donnés.
  * La fonction est un polynôme de degré 1, 2 ou 3 et les nombres des questions ne sont que des entiers.
- * Interactivité et multiples questions ajoutés par J-C Lhote le 23/09/2023
+ * Interactivité et multiples questions ajoutés par Jean-claude Lhote le 23/09/2023
  * @author Rémi Angot
  */
 
 export const uuid = '8117e'
 
 export const refs = {
-  'fr-fr': ['3F13-2'],
+  'fr-fr': ['3F13-2', '1Tec-F103'],
   'fr-ch': [],
 }
 export default class AntecedentGraphique extends Exercice {
@@ -182,7 +183,7 @@ export default class AntecedentGraphique extends Exercice {
         yUnite,
         yThickDistance: Math.round(1 / yUnite),
       })
-      const Cf = courbe(f, { repere: r, step: 0.2, color: 'blue' })
+      const Cf = courbe(f, { repere: r, step: 0.2, color: bleuMathalea })
       texte += mathalea2d(
         {
           xmin: -10,

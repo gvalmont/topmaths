@@ -1,6 +1,6 @@
 import { Droite, droite } from '../../lib/2d/droites'
 import { mediatrice } from '../../lib/2d/Mediatrice'
-import { point } from '../../lib/2d/PointAbstrait'
+import { pointAbstrait } from '../../lib/2d/PointAbstrait'
 import {
   nommePolygone,
   Polygone,
@@ -34,10 +34,11 @@ import { context } from '../../modules/context'
 import { mathalea2d } from '../../modules/mathalea2d'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import Exercice from '../Exercice'
+import { orangeMathalea, bleuMathalea } from '../../lib/colors'
 
 export const titre = 'Effectuer des transformations de triangles'
 /**
- * @author Liouba Leroux & Jean-Claude Lhote
+ * @author Liouba Leroux & Jean-claude Lhote
  */
 export const uuid = '0da6a'
 
@@ -95,7 +96,7 @@ export default class TransformationsDeTriangle extends Exercice {
       xMax = 0
       yMin = 0
       yMax = 0
-      A = point(0, 0, 'A')
+      A = pointAbstrait(0, 0, 'A')
       B = pointAdistance(A, randint(40, 60) / 10, randint(70, 100), 'B')
       C = similitude(B, A, randint(20, 50), randint(8, 12) / 10, 'C')
       triangle0 = polygone(A, B, C)
@@ -230,7 +231,7 @@ export default class TransformationsDeTriangle extends Exercice {
       anim.traitRapide(X, Y, { couleur: 'red', epaisseur: 1 })
       anim.textePoint('(d)', milieu(B, B1))
       anim.symetrieAxialePolygone(triangle0, med, ['A_1', 'B_1', 'C_1'], {
-        couleur: 'blue',
+        couleur: bleuMathalea,
         couleurCodage: 'lightblue',
       })
       anim.demiTourPolygone(triangle2, D, ['A_2', 'B_2', 'C_2'], {
@@ -239,7 +240,7 @@ export default class TransformationsDeTriangle extends Exercice {
       })
       anim.translationPolygone(triangle3, D, F, ['A_3', 'B_3', 'C_3'], {
         couleur: 'brown',
-        couleurCodage: '#f15929',
+        couleurCodage: orangeMathalea,
       })
       anim.rotationPolygone(triangle4, F, alpha, ['A_4', 'B_4', 'C_4'], {
         couleur: 'green',

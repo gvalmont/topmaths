@@ -1,6 +1,6 @@
 import Figure from 'apigeom'
-import { orangeMathalea } from 'apigeom/src/elements/defaultValues'
 import { wrapperApigeomToMathalea } from '../../lib/apigeom/apigeomZoom'
+import { orangeMathalea } from '../../lib/colors'
 import figureApigeom from '../../lib/figureApigeom'
 import { choice } from '../../lib/outils/arrayOutils'
 import { arrondi } from '../../lib/outils/nombres'
@@ -23,7 +23,7 @@ export const amcReady = true
 export const amcType = 'AMCHybride'
 
 /** Placer des points d'abscisses fractionnaires avec des subdivisions
- * @author Eric Elter // (sur la base de 6N21)
+ * @author Éric Elter // (sur la base de 6N21)
  */
 export const uuid = '778c0'
 

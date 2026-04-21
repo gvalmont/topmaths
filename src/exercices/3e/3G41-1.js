@@ -14,6 +14,7 @@ import { context } from '../../modules/context'
 import { mathalea2d } from '../../modules/mathalea2d'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import Exercice from '../Exercice'
+import { orangeMathalea, bleuMathalea } from '../../lib/colors'
 export const titre = "Construire la section d'un plan dans un un pavé droit"
 export const amcReady = true
 export const amcType = 'AMCOpen'
@@ -22,7 +23,7 @@ export const dateDePublication = '07/11/2022'
 
 /**
  * Construire une section dans un un pavé droit
- * @author Eric Elter
+ * @author Éric Elter
  */
 
 export const uuid = 'a3cb9'
@@ -75,7 +76,6 @@ export default class ConstruireSectionPaveDroit extends Exercice {
         choix,
         cpt = 0;
       i < this.nbQuestions && cpt < 50;
-
     ) {
       texte = ''
       texteCorr = ''
@@ -93,7 +93,7 @@ export default class ConstruireSectionPaveDroit extends Exercice {
       E = point3d(0, choixProfondeur, 0)
 
       nomSolide = choisitLettresDifferentes(8, 'OQWXD').join('')
-      solideDessine = pave3d(A, B, D, E, 'blue', true, nomSolide)
+      solideDessine = pave3d(A, B, D, E, bleuMathalea, true, nomSolide)
       objetsEnonce.push(...solideDessine.c2d)
       sommetsPave = solideDessine.sommets
 
@@ -200,7 +200,7 @@ export default class ConstruireSectionPaveDroit extends Exercice {
 
       areteParallele =
         nomSolide[choixAreteParallele[1]] + nomSolide[choixAreteParallele[0]]
-      traceTesPoints = tracePoint(Z, Y, '#f15929')
+      traceTesPoints = tracePoint(Z, Y, orangeMathalea)
       traceTesPoints.epaisseur = 2
       traceTesPoints.taille = 5
 
@@ -219,13 +219,13 @@ export default class ConstruireSectionPaveDroit extends Exercice {
       texte += context.isAmc ? '' : 'Reproduire cette figure. '
       texte += `Sachant que ${Z.nom} est sur l'arête [${areteZ}] et que ${Y.nom} est sur l'arête [${areteY}], `
       texte += `tracer la section du pavé droit ${nomSolide} par un plan passant par les points ${Z.nom} et ${Y.nom} et parallèle à l'arête [${areteParallele}].`
-      s1 = segment(Z, Y, '#f15929')
+      s1 = segment(Z, Y, orangeMathalea)
       s1.epaisseur = 2
-      s2 = segment(Z, ZCorr, '#f15929')
+      s2 = segment(Z, ZCorr, orangeMathalea)
       s2.epaisseur = 2
-      s3 = segment(ZCorr, YCorr, '#f15929')
+      s3 = segment(ZCorr, YCorr, orangeMathalea)
       s2.epaisseur = 2
-      s4 = segment(YCorr, Y, '#f15929')
+      s4 = segment(YCorr, Y, orangeMathalea)
       s4.epaisseur = 2
       s5 = segment(
         sommetsPave[choixAreteParallele[0]].c2d,

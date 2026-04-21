@@ -1,8 +1,8 @@
 import Figure from 'apigeom'
 import remove from 'apigeom/src/assets/svg/restart.svg'
-import { orangeMathalea } from 'apigeom/src/elements/defaultValues'
 import Element2D from 'apigeom/src/elements/Element2D'
 import Circle from 'apigeom/src/elements/lines/Circle'
+import { orangeMathalea } from '../../lib/colors'
 import figureApigeom from '../../lib/figureApigeom'
 import { choice } from '../../lib/outils/arrayOutils'
 import { texteEnCouleurEtGras } from '../../lib/outils/embellissements'
@@ -18,7 +18,7 @@ export const interactifReady = true
 export const interactifType = 'custom'
 
 /** Résoudre une grille de SquarO
- * @author Eric Elter
+ * @author Éric Elter
  * Soutenu par Rémi Angot pour l'aide pour le développement avec ApiGeom
  */
 

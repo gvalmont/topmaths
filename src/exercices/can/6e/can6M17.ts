@@ -1,7 +1,7 @@
 import { colorToLatexOrHTML } from '../../../lib/2d/colorToLatexOrHtml'
 import { fixeBordures } from '../../../lib/2d/fixeBordures'
 import { grille } from '../../../lib/2d/Grille'
-import { point } from '../../../lib/2d/PointAbstrait'
+import { pointAbstrait } from '../../../lib/2d/PointAbstrait'
 import { Polygone, polygone } from '../../../lib/2d/polygones'
 import { carre } from '../../../lib/2d/polygonesParticuliers'
 import { Polyquad } from '../../../lib/2d/Polyquad'
@@ -14,13 +14,13 @@ import type { NestedObjetMathalea2dArray } from '../../../types/2d'
 import ExerciceSimple from '../../ExerciceSimple'
 export const titre = "Mesurer différence d'aire par comptage"
 export const dateDePublication = '26/04/2024'
-export const dateDeModifImportante = '31/07/2025' // Rajout de différentes unités par Eric Elter
+export const dateDeModifImportante = '31/07/2025' // Rajout de différentes unités par Éric Elter
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const amcReady = true
 
 /**
- * @author Jean-Claude Lhote
+ * @author Jean-claude Lhote
  */
 export const uuid = 'a17d6'
 
@@ -41,7 +41,9 @@ export default class DifferenceAireParComptageCan extends ExerciceSimple {
   }
 
   nouvelleVersion() {
-    const unite = ['u.a', 'cm²', 'm²'][contraindreValeur(1, 3, this.sup, 2) - 1]
+    const unite = ['u.a', '$\\text{cm}^2$', '$\\text{m}^2$'][
+      contraindreValeur(1, 3, this.sup, 2) - 1
+    ]
     let aireDiff = 0
     let aireTetris = 0
     let aireRectangle = 0
@@ -56,10 +58,10 @@ export default class DifferenceAireParComptageCan extends ExerciceSimple {
       const xmax = tetris.rectangle.xMax + 3
       const ymax = tetris.rectangle.yMax
       const rectangle = polygone(
-        point(tetris.rectangle.xMin, tetris.rectangle.yMin),
-        point(tetris.rectangle.xMax, tetris.rectangle.yMin),
-        point(tetris.rectangle.xMax, tetris.rectangle.yMax),
-        point(tetris.rectangle.xMin, tetris.rectangle.yMax),
+        pointAbstrait(tetris.rectangle.xMin, tetris.rectangle.yMin),
+        pointAbstrait(tetris.rectangle.xMax, tetris.rectangle.yMin),
+        pointAbstrait(tetris.rectangle.xMax, tetris.rectangle.yMax),
+        pointAbstrait(tetris.rectangle.xMin, tetris.rectangle.yMax),
       )
       const nomFigure =
         tetris.rectangle.xMax === tetris.rectangle.yMax ? 'carré' : 'rectangle'
@@ -69,14 +71,15 @@ export default class DifferenceAireParComptageCan extends ExerciceSimple {
 
       const grid = grille(xmin, ymin, xmax - 3, ymax)
       const uniteAire = carre(
-        point(xmax - 2, ymax - 1),
-        point(xmax - 1, ymax - 1),
+        pointAbstrait(xmax - 2, ymax - 1),
+        pointAbstrait(xmax - 1, ymax - 1),
       )
       uniteAire.couleurDeRemplissage = colorToLatexOrHTML('gray')
       const texteUniteAire = texteParPosition(
-        '1 ' + unite,
-        xmax - 1.5,
-        ymax - 1.8,
+        `$1~${unite.replaceAll('$', '')}$`,
+        xmax + 0.5,
+        ymax - 0.5,
+        0,
       )
 
       tetris.poly.opaciteDeRemplissage = 1
@@ -133,8 +136,8 @@ export default class DifferenceAireParComptageCan extends ExerciceSimple {
     this.reponse = aire
     this.correction = `${
       aireDiff <= aireTetris
-        ? `L'aire de la zone non hachurée est $${aireRectangle}$ ${unite} - $${aireDiff}$ ${unite} = $${miseEnEvidence(aireTetris)}$ ${unite}`
-        : `L'aire de la zone hachurée est $${aireRectangle}$ ${unite} - $${aireTetris}$ ${unite} = $${miseEnEvidence(aireDiff)}$ ${unite}`
+        ? `L'aire de la zone non hachurée est $${aireRectangle}$ ${unite} - $${aireDiff}$ ${unite} = $${miseEnEvidence(aireTetris)}$ ${unite}.`
+        : `L'aire de la zone hachurée est $${aireRectangle}$ ${unite} - $${aireTetris}$ ${unite} = $${miseEnEvidence(aireDiff)}$ ${unite}.`
     }`
   }
 }

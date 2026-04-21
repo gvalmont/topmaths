@@ -25,6 +25,7 @@ import {
 import { Pavage, pavage } from '../../modules/Pavage'
 import type { NestedObjetMathalea2dArray } from '../../types/2d'
 import Exercice from '../Exercice'
+import { bleuMathalea } from '../../lib/colors'
 
 export const titre =
   "Trouver l'image d'une figure par une rotation dans un pavage"
@@ -37,7 +38,7 @@ export const amcType = 'AMCHybride'
 
 /**
  * Trouver l'image par sune rotation d'une figure dans un pavage
- * @author Jean-Claude Lhote
+ * @author Jean-claude Lhote
  * Rajout par EE d'un quatrième paramètre, de l'interactif et de l'AMC
  */
 export const uuid = '442e0'
@@ -438,7 +439,7 @@ export default class PavageEtRotation2D extends Exercice {
               arcenciel(i),
               1,
               1,
-              'blue',
+              bleuMathalea,
               0.2,
               true,
             ),

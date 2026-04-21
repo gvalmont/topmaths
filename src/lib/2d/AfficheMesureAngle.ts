@@ -9,26 +9,26 @@ import { pointSurSegment } from './utilitairesPoint'
 
 /**
  * Affiche la mesure de l'angle ABC arrondie au degré près
- * @param {Point} A Point sur un côté de l'angle
- * @param {Point} B Sommet de l'angle
- * @param {Point} C Point sur l'autre côté de l'angle
- * @param {string} [color='black'] Couleur de la mesure de l'angle : du type 'blue' ou du type '#f15929'.
+ * @param {PointAbstrait} A Point sur un côté de l'angle
+ * @param {PointAbstrait} B Sommet de l'angle
+ * @param {PointAbstrait} C Point sur l'autre côté de l'angle
+ * @param {string} [color='black'] Couleur de la mesure de l'angle : du type 'red', bleuMathalea ou du type '#a12345'.
  * @param {number} [distance=1.5] Taille de l'angle
  * @param {string} [label=''] Si vide, alors affiche la mesure de l'angle sinon affiche ce label.
  * @param {Object} parametres À saisir entre accolades
  * @param {number} [parametres.ecart=0.5] Distance entre l'arc et sa mesure
  * @param {boolean} [parametres.saillant=true] True si on veut l'angle saillant, false si on veut l'angle rentrant.
- * @param {string} [parametres.colorArc='black']  Couleur de l'arc  : du type 'blue' ou du type '#f15929'.
+ * @param {string} [parametres.colorArc='black']  Couleur de l'arc  : du type 'red', bleuMathalea ou du type '#a12345'.
  * @param {boolean} [parametres.rayon=false] True pour fermer l'angle, par deux rayons (en vue de colorier l'intérieur).
- * @param {string} [parametres.couleurDeRemplissage='none'] 'none' si on ne veut pas de remplissage, sinon une couleur du type 'blue' ou du type '#f15929'.
+ * @param {string} [parametres.couleurDeRemplissage='none'] 'none' si on ne veut pas de remplissage, sinon une couleur du type 'red', bleuMathalea ou du type '#a12345'.
  * @param {number} [parametres.opaciteDeRemplissage=0.5] Taux d'opacité du remplissage entre 0 et 1
  * @param {number} [parametres.arcEpaisseur=1] Epaisseur de l'arc
  * @param {boolean} [parametres.mesureEnGras=false] True pour mettre en gras la mesure affichée
  * @property {string} svg Sortie au format vectoriel (SVG) que l’on peut afficher dans un navigateur
  * @property {string} tikz Sortie au format TikZ que l’on peut utiliser dans un fichier LaTeX
- * @property {Point} depart Point sur un côté de l'angle
- * @property {Point} sommet Sommet de l'angle
- * @property {Point} arrivee Point sur l'autre côté de l'angle
+ * @property {PointAbstrait} depart Point sur un côté de l'angle
+ * @property {PointAbstrait} sommet Sommet de l'angle
+ * @property {PointAbstrait} arrivee Point sur l'autre côté de l'angle
  * @property {number} distance Taille de l'angle
  * @property {number} ecart Distance entre l'arc et sa mesure
  * @property {boolean} saillant True si on veut l'angle saillant, false si on veut l'angle rentrant.
@@ -118,24 +118,24 @@ export class AfficheMesureAngle extends ObjetMathalea2D {
 }
 /**
  * Affiche la mesure de l'angle ABC arrondie au degré près
- * @param {Point} A Point sur un côté de l'angle
- * @param {Point} B Sommet de l'angle
- * @param {Point} C Point sur l'autre côté de l'angle
- * @param {string} [color='black'] Couleur de la mesure de l'angle : du type 'blue' ou du type '#f15929'.
+ * @param {PointAbstrait} A Point sur un côté de l'angle
+ * @param {PointAbstrait} B Sommet de l'angle
+ * @param {PointAbstrait} C Point sur l'autre côté de l'angle
+ * @param {string} [color='black'] Couleur de la mesure de l'angle : du type 'red', bleuMathalea ou du type '#a12345'.
  * @param {number} [distance=1.5] Rayon de l'arc de cercle.
  * @param {string} [label=''] Si vide, alors affiche la mesure de l'angle sinon affiche ce label.
  * @param {Object} parametres À saisir entre accolades
  * @param {number} [parametres.ecart=0.5] Distance entre l'arc et sa mesure
  * @param {boolean} [parametres.saillant=true] True si on veut l'angle saillant, false si on veut l'angle rentrant.
- * @param {string} [parametres.colorArc='black']  Couleur de l'arc  : du type 'blue' ou du type '#f15929'.
+ * @param {string} [parametres.colorArc='black']  Couleur de l'arc  : du type 'red', bleuMathalea ou du type '#a12345'.
  * @param {boolean} [parametres.rayon=false] True pour fermer l'angle, par deux rayons (en vue de colorier l'intérieur).
- * @param {string} [parametres.couleurDeRemplissage='none'] 'none' si on ne veut pas de remplissage, sinon une couleur du type 'blue' ou du type '#f15929'.
+ * @param {string} [parametres.couleurDeRemplissage='none'] 'none' si on ne veut pas de remplissage, sinon une couleur du type 'red', bleuMathalea ou du type '#a12345'.
  * @param {number} [parametres.opaciteDeRemplissage=0.5] Taux d'opacité du remplissage entre 0 et 1
  * @param {number} [parametres.arcEpaisseur=1] Epaisseur de l'arc
  * @param {boolean} [parametres.mesureEnGras=false] True pour mettre en gras la mesure affichée
  * @example afficheMesureAngle(M,N,O)
  * // Affiche la mesure de l'angle MNO (en noir, avec un arc de rayon 1,5 "cm").
- * @example afficheMesureAngle(M,N,O,'red',2,'pop',{ecart:1,saillant:false,colorArc:'blue',rayon:true,couleurDeRemplissage:'#f15929',opaciteDeRemplissage:0.8,arcEpaisseur:2,mesureEnGras:true})
+ * @example afficheMesureAngle(M,N,O,'red',2,'pop',{ecart:1,saillant:false,colorArc:bleuMathalea,rayon:true,couleurDeRemplissage:orangeMathalea,opaciteDeRemplissage:0.8,arcEpaisseur:2,mesureEnGras:true})
  * // Affiche le label pop en gras et rouge, sur l'angle rentrant MNO, avec un arc bleu, epais de 2 et de rayon 2 "cm", à 1 "cm" de l'arc rempli en orange avec une opacité de 80%, cerné par ses rayons.
  * @return {AfficheMesureAngle}
  */

@@ -1,4 +1,4 @@
-import { point } from '../lib/2d/PointAbstrait'
+import { pointAbstrait } from '../lib/2d/PointAbstrait'
 import { segment } from '../lib/2d/segmentsVecteurs'
 import { latex2d } from '../lib/2d/textes'
 import { homothetie, translation } from '../lib/2d/transformations'
@@ -20,7 +20,7 @@ export function texProba(proba: number | FractionEtendue): string {
 
 /**
  * classe pour faire des arbres de probabilités
- * @author Jean-Claude Lhote
+ * @author Jean-claude Lhote
  * la classe Arbre permet de définir un arbre de probabilité.
  * à son sommet, il y a un Arbre dont la proba est 1 et qui a la propriété racine = true (c'est le seul)
  * Ses enfants sont eux-mêmes Arbre(s).
@@ -243,13 +243,13 @@ export class Arbre {
   ): NestedObjetMathalea2dArray {
     tailleCaracteres = tailleCaracteres || 5
     const objets = []
-    const A = point(
+    const A = pointAbstrait(
       vertical ? xOrigine : xOrigine + decalage + (this.taille * echelle) / 2,
       vertical ? yOrigine + decalage - (this.taille * echelle) / 2 : yOrigine,
       '',
       'center',
     )
-    const B = point(
+    const B = pointAbstrait(
       vertical ? xOrigine - sens * 5 : xOrigine,
       vertical ? yOrigine : yOrigine - sens * 5,
     )

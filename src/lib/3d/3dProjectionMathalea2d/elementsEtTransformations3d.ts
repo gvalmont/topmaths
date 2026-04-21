@@ -1,4 +1,3 @@
-import { cross, dot, matrix, multiply, norm, type Matrix } from 'mathjs'
 import { context } from '../../../modules/context'
 import { colorToLatexOrHTML } from '../../2d/colorToLatexOrHtml'
 import { Droite, droite } from '../../2d/droites'
@@ -9,9 +8,7 @@ import { Polygone, polygone } from '../../2d/polygones'
 import { polyline } from '../../2d/Polyline'
 import { representant } from '../../2d/representantVecteur'
 import { Segment, segment } from '../../2d/segmentsVecteurs'
-import { Vecteur, vecteur } from '../../2d/Vecteur'
-
-export const math = { matrix, multiply, norm, cross, dot }
+import { matriceMultiply, normalize, Vecteur, vecteur } from '../../2d/Vecteur'
 
 /*
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -32,7 +29,7 @@ export const math = { matrix, multiply, norm, cross, dot }
 /**
  * LE POINT
  *
- * @author Jean-Claude Lhote
+ * @author Jean-claude Lhote
  * PointAbstrait de l'espace défini par ses trois coordonnées (Si deux sont données seulement, le point est dans le plan XY)
  * le paramètre visible définit si ce point est placé devant (par défaut) ou derrière une surface. Il sera utilisé pour définir la visibilité des arêtes qui en partent
  */
@@ -55,18 +52,18 @@ export class Point3d {
   ) {
     const alpha = (context.anglePerspective * Math.PI) / 180 // context.anglePerspective peut être changé globalement pour modifier la perspective
     const rapport = context.coeffPerspective // idem pour context.coefficientPerspective qui est la réduction sur l'axe y.
-    const MT = math.matrix([
+    const MT = [
       [1, rapport * Math.cos(alpha), 0],
       [0, rapport * Math.sin(alpha), 1],
-    ]) // La matrice de projection 3d -> 2d
+    ] // La matrice de projection 3d -> 2d
     this.x = x
     this.y = y
     this.z = z
     this.isVisible = isVisible
     this.label = label
     this.typeObjet = 'point3d'
-    const V = math.matrix([this.x, this.y, this.z])
-    const W = (math.multiply(MT, V) as any).toArray().map(Number)
+    const V = [this.x, this.y, this.z]
+    const W = matriceMultiply(MT, V)
     this.c2d = pointAbstrait(
       Number(W[0].toFixed(2)),
       Number(W[1].toFixed(2)),
@@ -89,7 +86,7 @@ export function point3d(
 /**
  * LE VECTEUR
  *
- * @author Jean-Claude Lhote
+ * @author Jean-claude Lhote
  * le vecteur3d est sans doute l'objet le plus important de cette base d'objets
  * On les utilise dans tous les objets complexes et dans toutes les transformations
  * Ils servent notament à définir la direction des plans.
@@ -112,19 +109,17 @@ export class Vecteur3d {
   x: number = 0
   y: number = 0
   z: number = 0
-  matrice: Matrix
+  matrice: [number, number, number]
   norme: number
   c2d: Vecteur
   representant: (A: Point3d) => Segment
-  constructor(
-    ...args: [Point3d, Point3d] | [number, number, number] | [Matrix]
-  ) {
+  constructor(...args: [Point3d, Point3d] | [number, number, number]) {
     const alpha = (context.anglePerspective * Math.PI) / 180
     const rapport = context.coeffPerspective
-    const MT = matrix([
+    const MT = [
       [1, rapport * Math.cos(alpha), 0],
       [0, rapport * Math.sin(alpha), 1],
-    ]) // ceci est la matrice de projection 3d -> 2d
+    ] // ceci est la matrice de projection 3d -> 2d
     if (args.length === 2) {
       this.x = args[1].x - args[0].x
       this.y = args[1].y - args[0].y
@@ -133,15 +128,10 @@ export class Vecteur3d {
       this.x = args[0]
       this.y = args[1]
       this.z = args[2]
-    } else if (args.length === 1) {
-      const w = (args[0] as any).toArray().map(Number)
-      this.x = w[0]
-      this.y = w[1]
-      this.z = w[2]
     }
-    this.matrice = matrix([this.x, this.y, this.z]) // On exporte cette matrice colonne utile pour les calculs vectoriels qui seront effectués par math
+    this.matrice = [this.x, this.y, this.z] // On exporte cette matrice colonne utile pour les calculs vectoriels qui seront effectués par math
     this.norme = Math.sqrt(this.x ** 2 + this.y ** 2 + this.z ** 2) // la norme du vecteur
-    const W = (multiply(MT, this.matrice) as any).toArray().map(Number) // voilà comment on obtient les composantes du projeté 2d du vecteur
+    const W = matriceMultiply(MT, this.matrice) // voilà comment on obtient les composantes du projeté 2d du vecteur
     this.c2d = vecteur(W[0], W[1]) // this.c2d est l'objet 2d qui représente l'objet 3d this
     this.representant = function (A: Point3d) {
       const B = translation3d(A, this)
@@ -151,7 +141,7 @@ export class Vecteur3d {
 }
 
 export function vecteur3d(
-  ...args: [Point3d, Point3d] | [number, number, number] | [Matrix]
+  ...args: [Point3d, Point3d] | [number, number, number]
 ) {
   return new Vecteur3d(...args)
 }
@@ -240,11 +230,11 @@ export function droite3d(point3D: Point3d, vecteur3D: Vecteur3d) {
  * @param {Vecteur3d} rayon Vecteur correspondant au rayon
  * @param {string} [sens = 'direct'] Sens de rotation pour créer le demi-cercle ('direct' ou 'indirect")
  * @param {boolean} [estCache = false] Si false, alors le tracé est en trait plein, sinon le tracé est en pointillés
- * @param {string} [color = 'black'] Couleur du demi-cercle : du type 'blue' ou du type '#f15929'
+ * @param {string} [color = 'black'] Couleur du demi-cercle : du type 'red', bleuMathalea ou du type '#f15929'
  * @param {number} [angledepart = context.anglePerspective] Angle en degré entre le vecteur rayon depuis le centre et le point de début de tracé du demi-cercle
  * @example demicercle3d(A,n,v) // Crée un demi-cercle noir en trait plein de centre A, de vecteur normal v, dont le rayon correspond au vecteur v et le sens est direct
  * @example demicercle3d(A,n,v,'indirect',true,'red',0) // Crée un demi-cercle rouge en pointillés de centre A, de vecteur normal v, dont le rayon correspond au vecteur v, le sens est direct et l'angle de départ est 0°.
- * @author Eric Elter (d'après version précédente de Jean-Claude Lhote)
+ * @author Éric Elter (d'après version précédente de Jean-claude Lhote)
  * @return {demiCercle}
  */
 
@@ -327,7 +317,7 @@ export function arc3d(
 /**
  * LE CERCLE
  *
- * @author Jean-Claude Lhote
+ * @author Jean-claude Lhote
  *
  * C'est la version entière du cercle : soit totalement visible, soit totalement caché.
  * visible est un booléen
@@ -364,7 +354,7 @@ export function cercle3d(
 /**
  * LE POLYGONE
  *
- * @author Jean-Claude Lhote
+ * @author Jean-claude Lhote
  * usages : polygone3d([A,B,C,...],color) ou polygone3d(A,B,C...) où A,B,C ... sont des point3d. color='black' par défaut.
  */
 export class Polygone3d {
@@ -430,7 +420,7 @@ export function polygone3d(
 /**
  * LA ROTATION VECTORIELLE
  *
- * @author Jean-Claude Lhote
+ * @author Jean-claude Lhote
  * Cette rotation se distingue de la rotation d'axe (d) par le fait qu'on tourne autour d'une droite vectorielle
  * Elle sert à faire tourner des vecteurs essentiellement.
  * Si on l'utilise sur un point, alors il tournera autour d'une droite passant par l'origine.
@@ -446,28 +436,25 @@ export function rotationV3d<T extends Point3d | Vecteur3d>(
   angle: number,
 ): T {
   let V, p2
-  const norme = math.norm(vecteur3D.matrice)
-  const unitaire = (math.multiply(vecteur3D.matrice, 1 / Number(norme)) as any)
-    .toArray()
-    .map(Number)
+  const unitaire = normalize(vecteur3D.matrice) as number[] // on normalise le vecteur directeur de l'axe de rotation pour faire les calculs de rotation vectorielle
   const u = unitaire[0]
   const v = unitaire[1]
   const w = unitaire[2]
   const c = Math.cos((angle * Math.PI) / 180)
   const s = Math.sin((angle * Math.PI) / 180)
   const k = 1 - c
-  const matrice = math.matrix([
+  const matrice = [
     [u * u * k + c, u * v * k - w * s, u * w * k + v * s],
     [u * v * k + w * s, v * v * k + c, v * w * k - u * s],
     [u * w * k - v * s, v * w * k + u * s, w * w * k + c],
-  ])
+  ]
   if (point3D instanceof Point3d) {
-    V = math.matrix([point3D.x, point3D.y, point3D.z])
-    p2 = (math.multiply(matrice, V) as any).toArray().map(Number)
+    V = [point3D.x, point3D.y, point3D.z]
+    p2 = matriceMultiply(matrice, V)
     return point3d(p2[0], p2[1], p2[2]) as T
   } else {
     V = point3D
-    p2 = (math.multiply(matrice, V.matrice) as any).toArray().map(Number)
+    p2 = matriceMultiply(matrice, V.matrice)
     return vecteur3d(p2[0], p2[1], p2[2]) as T
   }
 }
@@ -475,7 +462,7 @@ export function rotationV3d<T extends Point3d | Vecteur3d>(
 /**
  * LA ROTATION D'AXE UNE DROITE
  *
- * @author Jean-Claude Lhote
+ * @author Jean-claude Lhote
  *
  * @param {Point3d} point3D Pour l'instant on ne fait tourner qu'un point3d
  * Remarque : ça n'a aucun sens de faire tourner un vecteur autour d'une droite particulière, on utilise la rotation vectorielle pour ça.
@@ -512,7 +499,7 @@ export function rotation3d<T extends Point3d | Vecteur3d | Polygone3d>(
 }
 
 /**
- * @author Jean-Claude Lhote
+ * @author Jean-claude Lhote
  * Crée une flèche en arc de cercle pour montrer un sens de rotation autour d'un axe 3d
  * cette flèche est dessinée dans le plan orthogonal à l'axe qui passe par l'origine de l'axe
  * le rayon est ici un vecteur 3d qui permet de fixer le point de départ de la flèche par translation de l'origine de l'axe
@@ -572,7 +559,7 @@ export function sensDeRotation3d(
 /**
  * LA TRANSLATION
  *
- * @author Jean-Claude Lhote
+ * @author Jean-claude Lhote
  * @param {Point3d | Polygone3d} point3D Pour l'instant on ne translate qu'un point3d ou un polygone3d
  * @param {Vecteur3d} vecteur3D
  */
@@ -601,7 +588,7 @@ export function translation3d<T extends Point3d | Polygone3d>(
 }
 /**
  * L'homothetie
- * @author Jean-Claude Lhote
+ * @author Jean-claude Lhote
  * La même chose qu'ne 2d, mais en 3d...
  * Pour les points3d les polygones ou les vecteurs (multiplication scalaire par rapport)
  */

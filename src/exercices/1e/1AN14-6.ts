@@ -24,7 +24,7 @@ export const interactifType = 'mathLive'
 /**
  * Calculer la dérivée d'un quotient
  * @author Jean-Léon Henry
- * Finalisé par Jean-Claude Lhote
+ * Finalisé par Jean-claude Lhote
 
  */
 
@@ -132,12 +132,12 @@ export default class DeriveeQuotient extends Exercice {
         const fNum = dictFonctions[typeNum]
         const fDen = dictFonctions[typeDen]
         const termeNum = ce.parse(
-          ['pol', 'mon'].includes(typeNum.substr(0, 3))
+          ['pol', 'mon'].includes(typeNum.slice(0, 3))
             ? (fNum as Polynome).toMathExpr()
             : (fNum as string),
         )
         const termeDen = ce.parse(
-          ['pol', 'mon'].includes(typeDen.substr(0, 3))
+          ['pol', 'mon'].includes(typeDen.slice(0, 3))
             ? (fDen as Polynome).toMathExpr()
             : (fDen as string),
         )

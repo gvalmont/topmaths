@@ -1,11 +1,12 @@
 import { codageSegments } from '../../../lib/2d/CodageSegment'
-import { point } from '../../../lib/2d/PointAbstrait'
+import { pointAbstrait } from '../../../lib/2d/PointAbstrait'
 import {
   segment,
   segmentAvecExtremites,
 } from '../../../lib/2d/segmentsVecteurs'
 import { texteParPosition } from '../../../lib/2d/textes'
 import { milieu } from '../../../lib/2d/utilitairesPoint'
+import { bleuMathalea, orangeMathalea } from '../../../lib/colors'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 import { choice } from '../../../lib/outils/arrayOutils'
 import {
@@ -77,19 +78,22 @@ export default class MilieuEntre1EtFraction extends ExerciceSimple {
     const half = fraction(1, 2)
     const resultat = unPlusBonneFraction.produitFraction(half)
     // Fin ajouts
-    const A = point(0, 0, '1', 'below')
-    const C = point(randint(8, 12), 0)
+    const A = pointAbstrait(0, 0, '1', 'below')
+    const C = pointAbstrait(randint(8, 12), 0)
     const B = milieu(A, C, 'M', 'below')
     const objets = []
     objets.push(
       segmentAvecExtremites(A, B),
       segmentAvecExtremites(B, C),
-      codageSegments('||', 'blue', A, B, B, C),
+      codageSegments('||', bleuMathalea, A, B, B, C),
     )
     objets.push(texteParPosition(`${stringNombre(1)}`, 0, -0.6))
     objets.push(texteParPosition(`${stringNombre(n)}`, C.x, C.y - 0.5))
     objets.push(
-      segment(point(C.x - 0.3, C.y - 0.8), point(C.x + 0.3, C.y - 0.8)),
+      segment(
+        pointAbstrait(C.x - 0.3, C.y - 0.8),
+        pointAbstrait(C.x + 0.3, C.y - 0.8),
+      ),
     )
     objets.push(texteParPosition('M', B.x, B.y - 0.5))
     // objets.push(texteParPosition(`---`,C.x,C.y-0.7))
@@ -129,7 +133,7 @@ export default class MilieuEntre1EtFraction extends ExerciceSimple {
     $x_I=\\dfrac{1+${bonneFraction.texFraction}}{2}=
     \\dfrac{${un.texFraction}+${bonneFraction.texFraction}}{2}=
         ${unPlusBonneFraction.texFraction}\\times ${half.texFraction}=
-        ${pgcd(d + n, 2 * d) === 1 ? `${miseEnEvidence(resultat.texFraction)}` : `${resultat.texFraction}`} ${resultat.texSimplificationAvecEtapes(false, '#f15929')}$ <br><br>`
+        ${pgcd(d + n, 2 * d) === 1 ? `${miseEnEvidence(resultat.texFraction)}` : `${resultat.texFraction}`} ${resultat.texSimplificationAvecEtapes(false, orangeMathalea)}$ <br><br>`
     this.correction += texteEnCouleur(` Mentalement : <br>
         On calcule d'abord $1+${bonneFraction.texFraction}$ en n'oubliant pas que $1=${un.texFraction}$, puis on multiplie le résultat par $${half.texFraction}$.`)
 

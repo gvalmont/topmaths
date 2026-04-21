@@ -1,6 +1,6 @@
 import { colorToLatexOrHTML } from '../../lib/2d/colorToLatexOrHtml'
 import { fixeBordures } from '../../lib/2d/fixeBordures'
-import { point } from '../../lib/2d/PointAbstrait'
+import { pointAbstrait } from '../../lib/2d/PointAbstrait'
 import { repere } from '../../lib/2d/reperes'
 import {
   representant,
@@ -24,6 +24,7 @@ import {
   randint,
 } from '../../modules/outils'
 import Exercice from '../Exercice'
+import { bleuMathalea } from '../../lib/colors'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const titre = 'Calculer un  produit scalaire avec des coordonnées'
@@ -221,19 +222,19 @@ export default class ProduitScalaireCoordonnees extends Exercice {
             objets = []
             const xA = randint(-3, -1)
             const yA = randint(-1, 1)
-            const A = point(xA, yA)
+            const A = pointAbstrait(xA, yA)
             const xu = randint(-2, 2, 0)
             const yu = randint(-5, 5)
             const u = vecteur(xu, yu)
             const xB = randint(1, 2)
             const yB = randint(-1, 0)
-            const B = point(xB, yB)
+            const B = pointAbstrait(xB, yB)
             const xv = randint(-2, 2)
             const yv = randint(-5, 5, 0)
             const v = vecteur(xv, yv)
-            const nomvu = representantNomme(u, A, 'u', 1.5, 'blue')
+            const nomvu = representantNomme(u, A, 'u', 1.5, bleuMathalea)
             const vecu = representant(u, A)
-            vecu.color = colorToLatexOrHTML('blue')
+            vecu.color = colorToLatexOrHTML(bleuMathalea)
             vecu.epaisseur = 2
             const nomvv = representantNomme(v, B, 'v', 1.5, 'red')
             const vecv = representant(v, B)

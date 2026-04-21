@@ -21,7 +21,7 @@
   } from '../../../lib/stores/generalStore'
   import { globalOptions } from '../../../lib/stores/globalOptions'
   import { vendor } from '../../../lib/stores/vendorStore'
-  import { type IExercice } from '../../../lib/types'
+  import { type IExercice, type QuestionResult } from '../../../lib/types'
 
   import Keyboard from '../../keyboard/Keyboard.svelte'
   import { keyboardState } from '../../keyboard/stores/keyboardStore'
@@ -36,7 +36,7 @@
   let questions: (string | IExercice)[] = []
   let consignes: string[] = []
   let corrections: string[] = []
-  let resultsByQuestion: boolean[] = []
+  let resultsByQuestion: QuestionResult[] = []
   let isCorrectionVisible: boolean[] = []
   let currentWindowWidth: number = document.body.clientWidth
   let eleveSection: HTMLElement
@@ -281,7 +281,7 @@
     currentIndex = data.currentIndex
   }
 
-  function handleResultsChange(data: { resultsByQuestion: boolean[] }) {
+  function handleResultsChange(data: { resultsByQuestion: QuestionResult[] }) {
     resultsByQuestion = data.resultsByQuestion
   }
 

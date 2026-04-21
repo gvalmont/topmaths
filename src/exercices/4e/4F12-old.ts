@@ -1,6 +1,6 @@
 import { courbe } from '../../lib/2d/Courbe'
 import { courbeInterpolee } from '../../lib/2d/CourbeInterpolee.1'
-import { point } from '../../lib/2d/PointAbstrait'
+import { pointAbstrait } from '../../lib/2d/PointAbstrait'
 import { polyline } from '../../lib/2d/Polyline'
 import { repere } from '../../lib/2d/reperes'
 import { texteParPosition } from '../../lib/2d/textes'
@@ -20,6 +20,7 @@ import { vide2d } from '../../lib/2d/Vide2d'
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { sp } from '../../lib/outils/outilString'
+import { bleuMathalea } from '../../lib/colors'
 
 export const titre =
   "Résoudre un problème s'appuyant sur la lecture d'une représentation graphique"
@@ -400,39 +401,39 @@ export default class ExploiterRepresentationGraphique extends Exercice {
           if (situation === 1) {
             l = polyline(
               [
-                point(0, 0),
-                point(1, v1),
-                point(2, v3),
-                point(3, v3),
-                point(4, 0),
+                pointAbstrait(0, 0),
+                pointAbstrait(1, v1),
+                pointAbstrait(2, v3),
+                pointAbstrait(3, v3),
+                pointAbstrait(4, 0),
               ],
-              'blue',
+              bleuMathalea,
             )
             tempsPause = 20
             periodeRapide = 'de la 30e à la 40e minute'
           } else if (situation === 2) {
             l = polyline(
               [
-                point(0, 0),
-                point(1, v3),
-                point(2, v3),
-                point(3, v2),
-                point(4, 0),
+                pointAbstrait(0, 0),
+                pointAbstrait(1, v3),
+                pointAbstrait(2, v3),
+                pointAbstrait(3, v2),
+                pointAbstrait(4, 0),
               ],
-              'blue',
+              bleuMathalea,
             )
             tempsPause = 10
             periodeRapide = 'durant les 10 premières minutes'
           } else {
             l = polyline(
               [
-                point(0, 0),
-                point(1, v3),
-                point(2, v2),
-                point(3, v2),
-                point(4, 0),
+                pointAbstrait(0, 0),
+                pointAbstrait(1, v3),
+                pointAbstrait(2, v2),
+                pointAbstrait(3, v2),
+                pointAbstrait(4, 0),
               ],
-              'blue',
+              bleuMathalea,
             )
             tempsPause = 20
             periodeRapide = 'durant les 10 premières minutes'
@@ -583,7 +584,7 @@ export default class ExploiterRepresentationGraphique extends Exercice {
               [26, tmin + 2],
             ],
             {
-              color: 'blue',
+              color: bleuMathalea,
               epaisseur: 2,
               repere: r,
               xMin: 0,

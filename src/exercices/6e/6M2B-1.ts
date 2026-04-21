@@ -11,13 +11,16 @@ import { segment } from '../../lib/2d/segmentsVecteurs'
 import { latex2d } from '../../lib/2d/textes'
 import { longueur } from '../../lib/2d/utilitairesGeometriques'
 import { centreGraviteTriangle } from '../../lib/2d/utilitairesTriangle'
+import { bleuMathalea } from '../../lib/colors'
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { ajouteFeedback } from '../../lib/interactif/questionMathLive'
+import TripletPythagoricien from '../../lib/mathFonctions/TripletsPythagoriciens'
 import { choice } from '../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { texNombre } from '../../lib/outils/texNombre'
 import type { IExercice } from '../../lib/types'
+import { context } from '../../modules/context'
 import { mathalea2d } from '../../modules/mathalea2d'
 import { gestionnaireFormulaireTexte, randint } from '../../modules/outils'
 import type { NestedObjetMathalea2dArray } from '../../types/2d'
@@ -28,13 +31,14 @@ export const titre =
 export const interactifReady = true
 export const interactifType = 'MetaInteractif2d'
 export const dateDePublication = '10/01/2026'
+export const dateDeModificationImporante = '14/04/2026'
 
 /**
  * Calculer l’aire in situ d’un carré ou d’un rectangle
- * @author Jean-Claude Lhote
+ * @author Jean-claude Lhote
  */
 
-export const uuid = 'f36f5'
+export const uuid = 'f36d5'
 
 export const refs = {
   'fr-fr': ['6M2B-1'],
@@ -51,7 +55,18 @@ const figureCarre = (cote: number, exercice: IExercice, question: number) => {
   const ang2 = codageAngleDroit(B, C, D)
   const ang3 = codageAngleDroit(C, D, A)
   const ang4 = codageAngleDroit(D, A, B)
-  const cotesMarques = codageSegments('//', 'blue', A, B, B, C, C, D, D, A)
+  const cotesMarques = codageSegments(
+    '//',
+    bleuMathalea,
+    A,
+    B,
+    B,
+    C,
+    C,
+    D,
+    D,
+    A,
+  )
   const square = carre(A, B)
   square.hachures = true
   square.couleurDesHachures = colorToLatexOrHTML('lightgray')
@@ -60,7 +75,7 @@ const figureCarre = (cote: number, exercice: IExercice, question: number) => {
     c / 2,
     c + 0.5,
     {
-      letterSize: 'scriptsize',
+      letterSize: 'small',
     },
   )
   const input = new MetaInteractif2d(
@@ -90,11 +105,7 @@ const figureCarre = (cote: number, exercice: IExercice, question: number) => {
     cotesMarques,
     input,
   ]
-  return (
-    mathalea2d(Object.assign({}, fixeBordures(objets)), objets) +
-    `<span id="resultatCheckEx${exercice.numeroExercice}Q${question}"></span>` +
-    ajouteFeedback(exercice, question)
-  )
+  return objets
 }
 const figureRectangle = (
   largeur: number,
@@ -120,7 +131,7 @@ const figureRectangle = (
     L + 1.5,
     l / 2,
     {
-      letterSize: 'scriptsize',
+      letterSize: 'small',
     },
   )
   const afficheLongueur = latex2d(
@@ -128,13 +139,13 @@ const figureRectangle = (
     L / 2,
     l + 0.5,
     {
-      letterSize: 'scriptsize',
+      letterSize: 'small',
     },
   )
   const input = new MetaInteractif2d(
     [
       {
-        content: '\\mathcal{A}=%{champ1}\\text{ cm}^2',
+        content: '%{champ1}\\text{ cm}^2',
         x: L / 2,
         y: l / 2,
         classe: '',
@@ -158,11 +169,7 @@ const figureRectangle = (
     ang4,
     input,
   ]
-  return (
-    mathalea2d(Object.assign({}, fixeBordures(objets)), objets) +
-    `<span id="resultatCheckEx${exercice.numeroExercice}Q${question}"></span>` +
-    ajouteFeedback(exercice, question)
-  )
+  return objets
 }
 const figureTriangleRectangle1 = (
   base: number,
@@ -183,22 +190,22 @@ const figureTriangleRectangle1 = (
     b / 2,
     -0.5,
     {
-      letterSize: 'scriptsize',
+      letterSize: 'small',
     },
   )
   const cote2 =
     C.x === 0
       ? latex2d(`${texNombre(hauteur, precision)}\\text{ cm}`, -1, h / 2, {
-          letterSize: 'scriptsize',
+          letterSize: 'small',
         })
       : latex2d(`${texNombre(hauteur, precision)}\\text{ cm}`, b + 1, h / 2, {
-          letterSize: 'scriptsize',
+          letterSize: 'small',
         })
   const cote3 = placeLatexSurSegment(
-    `\\approx${texNombre(Math.sqrt(base * base + hauteur * hauteur), precision)}\\text{ cm}`,
+    `${texNombre(Math.sqrt(base * base + hauteur * hauteur), precision)}\\text{ cm}`,
     C.x === 0 ? C : A,
     C.x === 0 ? B : C,
-    { distance: 0.5, letterSize: 'scriptsize' },
+    { distance: 0.5, letterSize: 'small' },
   )
   const triangle = polygone(A, B, C)
   triangle.hachures = true
@@ -207,7 +214,7 @@ const figureTriangleRectangle1 = (
   const input = new MetaInteractif2d(
     [
       {
-        content: '\\mathcal{A}=%{champ1}\\text{ cm}^2',
+        content: '%{champ1}\\text{ cm}^2',
         x: M.x,
         y: M.y - 0.5,
         classe: '',
@@ -229,11 +236,7 @@ const figureTriangleRectangle1 = (
     ang1,
     input,
   ]
-  return (
-    mathalea2d(Object.assign({}, fixeBordures(objets)), objets) +
-    `<span id="resultatCheckEx${exercice.numeroExercice}Q${question}"></span>` +
-    ajouteFeedback(exercice, question)
-  )
+  return objets
 }
 
 const figureTriangleQuelconque1 = (
@@ -266,34 +269,34 @@ const figureTriangleQuelconque1 = (
   segHauteur2.pointilles = 2
   const ang1 = codageAngleDroit(A, H, C)
   const afficheHauteur = placeLatexSurSegment(
-    `${texNombre(hauteur, precision)}\\text{ cm}`,
+    `\\approx${texNombre(hauteur, precision)}\\text{ cm}`,
     flip === 1 ? C : H,
     flip === 1 ? H : C,
-    { letterSize: 'scriptsize' },
+    { letterSize: 'small' },
   )
   const afficheBase = latex2d(
-    `${texNombre(base, precision)}\\text{ cm}`,
+    `\\approx${texNombre(base, precision)}\\text{ cm}`,
     (A.x + B.x) / 2,
     -0.5,
-    { letterSize: 'scriptsize' },
+    { letterSize: 'small' },
   )
   const afficheHypotenuse = placeLatexSurSegment(
     `\\approx${texNombre(longueur(A, C), 1)}\\text{ cm}`,
     flip === 1 ? A : C,
     flip === 1 ? C : A,
-    { letterSize: 'scriptsize' },
+    { letterSize: 'small' },
   )
   const afficheCote = placeLatexSurSegment(
     `\\approx${texNombre(longueur(B, C), 1)}\\text{ cm}`,
     flip === 1 ? (angle > 90 ? B : C) : angle > 90 ? C : B,
     flip === 1 ? (angle > 90 ? C : B) : angle > 90 ? B : C,
-    { distance: 0.5, letterSize: 'scriptsize' },
+    { distance: 0.5, letterSize: 'small' },
   )
   const M = centreGraviteTriangle(A, B, C)
   const input = new MetaInteractif2d(
     [
       {
-        content: '\\mathcal{A}=%{champ1}\\text{ cm}^2',
+        content: '%{champ1}\\text{ cm}^2',
         x: M.x,
         y: M.y - 0.8,
         classe: '',
@@ -318,11 +321,7 @@ const figureTriangleQuelconque1 = (
     afficheCote,
     input,
   ]
-  return (
-    mathalea2d(Object.assign({}, fixeBordures(objets)), objets) +
-    `<span id="resultatCheckEx${exercice.numeroExercice}Q${question}"></span>` +
-    ajouteFeedback(exercice, question)
-  )
+  return objets
 }
 export default class AireCarreRectangle extends Exercice {
   constructor() {
@@ -340,6 +339,7 @@ export default class AireCarreRectangle extends Exercice {
   }
 
   nouvelleVersion() {
+    this.nbCols = context.isHtml ? 1 : 2
     this.consigne =
       this.nbQuestions > 1
         ? 'Dans chaque cas, calculer l’aire de la figure donnée.'
@@ -363,7 +363,24 @@ export default class AireCarreRectangle extends Exercice {
             // carré
             const cote = this.sup2 ? randint(20, 70) / 10 : randint(2, 9)
             a = cote * cote
-            texte = figureCarre(cote, this, i)
+            const objets = figureCarre(cote, this, i)
+            if (!context.isHtml || !this.interactif) {
+              objets.pop()
+            }
+            const figure =
+              mathalea2d(
+                Object.assign({ scale: 0.7 }, fixeBordures(objets)),
+                objets,
+              ) +
+              (context.isHtml
+                ? `<span id="resultatCheckEx${this.numeroExercice}Q${i}"></span>` +
+                  ajouteFeedback(this, i)
+                : '')
+            texte =
+              figure +
+              (!context.isHtml || !this.interactif
+                ? 'Quelle est l’aire du carré représenté ci-contre ?'
+                : '')
             texteCorr = `L'aire du carré est de $${texNombre(cote, 1)}\\text{ cm}\\times ${texNombre(cote, 1)}\\text{ cm}=${miseEnEvidence(texNombre(a, 2))}\\text{ cm}^2$.`
           }
           break
@@ -373,17 +390,63 @@ export default class AireCarreRectangle extends Exercice {
             const largeur = this.sup2 ? randint(20, 50) / 10 : randint(2, 5)
             const longueur = this.sup2 ? randint(55, 100) / 10 : randint(6, 10)
             a = largeur * longueur
-            texte = figureRectangle(largeur, longueur, this, i)
+            const objets = figureRectangle(largeur, longueur, this, i)
+            if (!context.isHtml || !this.interactif) {
+              objets.pop()
+            }
+            const figure =
+              mathalea2d(
+                Object.assign({ scale: 0.7 }, fixeBordures(objets)),
+                objets,
+              ) +
+              (context.isHtml
+                ? `<span id="resultatCheckEx${this.numeroExercice}Q${i}"></span>` +
+                  ajouteFeedback(this, i)
+                : '')
+            texte =
+              figure +
+              (!context.isHtml || !this.interactif
+                ? 'Quelle est l’aire du rectangle représenté ci-contre ?'
+                : '')
             texteCorr = `L'aire du rectangle est de $${texNombre(largeur, 1)}\\text{ cm}\\times ${texNombre(longueur, 1)}\\text{ cm}=${miseEnEvidence(texNombre(a, 2))}\\text{ cm}^2$.`
           }
           break
         case 3:
           {
             // Triangle rectangle
-            const base = this.sup2 ? randint(40, 90) / 10 : randint(4, 9)
-            const hauteur = this.sup2 ? randint(30, 50) / 10 : randint(3, 5)
+            const [cote1, cote2] = TripletPythagoricien.getTriplets(25, 1)[0]
+            let base = Math.max(cote1, cote2)
+            let hauteur = Math.min(cote1, cote2)
+            if (this.sup2) {
+              base = base / 2.5
+              hauteur = hauteur / 2.5
+            }
             a = (base * hauteur) / 2
-            texte = figureTriangleRectangle1(base, hauteur, this.sup2, this, i)
+
+            const objets = figureTriangleRectangle1(
+              base,
+              hauteur,
+              this.sup2,
+              this,
+              i,
+            )
+            if (!context.isHtml || !this.interactif) {
+              objets.pop()
+            }
+            const figure =
+              mathalea2d(
+                Object.assign({ scale: 0.7 }, fixeBordures(objets)),
+                objets,
+              ) +
+              (context.isHtml
+                ? `<span id="resultatCheckEx${this.numeroExercice}Q${i}"></span>` +
+                  ajouteFeedback(this, i)
+                : '')
+            texte =
+              figure +
+              (!context.isHtml || !this.interactif
+                ? 'Quelle est l’aire du triangle rectangle représenté ci-contre ?(avec la précision permise par les indications sur la figure)'
+                : '')
             texteCorr = `L'aire du triangle rectangle est de $\\dfrac{${texNombre(base, 1)}\\text{ cm}\\times ${texNombre(hauteur, 1)}\\text{ cm}}{2}=${miseEnEvidence(texNombre(a, 3))}\\text{ cm}^2$.`
           }
           break
@@ -394,7 +457,7 @@ export default class AireCarreRectangle extends Exercice {
           const hauteur = this.sup2 ? randint(30, 50) / 10 : randint(3, 5)
           const angle = [randint(100, 120), randint(60, 80)][i % 2]
           a = (base * hauteur) / 2
-          texte = figureTriangleQuelconque1(
+          const objets = figureTriangleQuelconque1(
             base,
             hauteur,
             angle,
@@ -402,6 +465,23 @@ export default class AireCarreRectangle extends Exercice {
             this,
             i,
           )
+          if (!context.isHtml || !this.interactif) {
+            objets.pop()
+          }
+          const figure =
+            mathalea2d(
+              Object.assign({ scale: 0.7 }, fixeBordures(objets)),
+              objets,
+            ) +
+            (context.isHtml
+              ? `<span id="resultatCheckEx${this.numeroExercice}Q${i}"></span>` +
+                ajouteFeedback(this, i)
+              : '')
+          texte =
+            figure +
+            (!context.isHtml || !this.interactif
+              ? 'Quelle est l’aire du triangle représenté ci-contre ?(avec la précision permise par les indications sur la figure)'
+              : '')
           texteCorr = `L'aire du triangle est de $\\dfrac{${texNombre(base, 1)}\\text{ cm}\\times ${texNombre(hauteur, 1)}\\text{ cm}}{2}=${miseEnEvidence(texNombre(a, 3))}\\text{ cm}^2$.`
         }
       }

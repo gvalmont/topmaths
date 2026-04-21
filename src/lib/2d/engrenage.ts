@@ -1,6 +1,7 @@
 import { arrondi } from '../outils/nombres'
 import { colorToLatexOrHTML } from './colorToLatexOrHtml'
 import { ObjetMathalea2D } from './ObjetMathalea2D'
+import { bleuMathalea } from '../../lib/colors'
 
 /**
  * Calcule le cosinus d'un angle en degrés
@@ -17,7 +18,7 @@ function degSin(deg: number): number {
 }
 
 /**
- * @author Jean-Claude Lhote (Sébastien Lozano et Sylvain Chambon pour la partie tikz)
+ * @author Jean-claude Lhote (Sébastien Lozano et Sylvain Chambon pour la partie tikz)
  * @param {object} parametres paramètres de l'objet voir ci-dessous
  * @param {number} [parametres.rayon] rayon du disque sans les dents
  * @param {number} [parametres.rayonExt] rayon du disque avec les dents
@@ -194,7 +195,7 @@ class Engrenage extends ObjetMathalea2D {
 }
 
 /**
- * @author Jean-Claude Lhote (Sébastien Lozano et Sylvain Chambon pour la partie tikz)
+ * @author Jean-claude Lhote (Sébastien Lozano et Sylvain Chambon pour la partie tikz)
  * @param {object} parametres paramètres de l'objet voir ci-dessous
  * @param {number} [parametres.rayon] rayon du disque sans les dents
  * @param {number} [parametres.rayonExt] rayon du disque avec les dents
@@ -299,11 +300,11 @@ export function engrenages(
         marqueurG = 180
         marqueurD = 0
         marqueurColorG = 'Sienna'
-        marqueurColorD = 'blue'
+        marqueurColorD = bleuMathalea
       } else {
         marqueurG = 180
         marqueurD = 0
-        marqueurColorG = 'blue'
+        marqueurColorG = bleuMathalea
         marqueurColorD = 'Sienna'
       }
     }

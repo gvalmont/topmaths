@@ -1,7 +1,7 @@
 import { randint } from '../../modules/outils'
 import type { NestedObjetMathalea2dArray } from '../../types/2d'
 import { colorToLatexOrHTML } from './colorToLatexOrHtml'
-import { point } from './PointAbstrait'
+import { pointAbstrait } from './PointAbstrait'
 import { Polygone, polygone } from './polygones'
 import { carre } from './polygonesParticuliers'
 import { translation } from './transformations'
@@ -13,11 +13,11 @@ type BinomesXY = BinomeXY[]
 /**
  * fonction utilitaire pour la classe Tetris
  * Détermine si deux points sont ceux d'un couple de points (dans l'ordre ou pas)
- * @param {Point} pt1
- * @param {Point} pt2
- * @param {[Point,Point]} couple
+ * @param {PointAbstrait} pt1
+ * @param {PointAbstrait} pt2
+ * @param {[PointAbstrait,PointAbstrait]} couple
  * @returns {boolean}
- * @author Jean-Claude Lhote
+ * @author Jean-claude Lhote
  */
 export function trouveCouple(
   pt1: { x: number; y: number },
@@ -39,8 +39,8 @@ export function trouveCouple(
  * fonction utilitaire pour la classe Tetris
  * @description Détermine si le point passé en paramètre est l'un des deux points d'un couple de points
  * @description Si c'est le cas, il renvoie le couple de points et la liste des couples restants après avoir supprimé le couple trouvé
- * @param {Point} pt1
- * @param {[Point,Point][]} couplesPoints
+ * @param {PointAbstrait} pt1
+ * @param {[PointAbstrait,PointAbstrait][]} couplesPoints
  * @returns
  */
 export function TrouveExtremites(
@@ -164,7 +164,9 @@ export class Polyquad {
 
     this.poly = translation(
       polygone(
-        this.dots.map((el: { x: number; y: number }) => point(el.x, el.y)),
+        this.dots.map((el: { x: number; y: number }) =>
+          pointAbstrait(el.x, el.y),
+        ),
       ),
       vecteur(xOrigine, yOrigine),
     )
@@ -244,7 +246,9 @@ export class Polyquad {
 
     tetris2.poly = translation(
       polygone(
-        tetris2.dots.map((el: { x: number; y: number }) => point(el.x, el.y)),
+        tetris2.dots.map((el: { x: number; y: number }) =>
+          pointAbstrait(el.x, el.y),
+        ),
       ),
       vecteur(tetris2.xOrigine, tetris2.yOrigine),
     )
@@ -316,7 +320,9 @@ export class Polyquad {
 
     this.poly = translation(
       polygone(
-        this.dots.map((el: { x: number; y: number }) => point(el.x, el.y)),
+        this.dots.map((el: { x: number; y: number }) =>
+          pointAbstrait(el.x, el.y),
+        ),
       ),
       vecteur(this.xOrigine, this.yOrigine),
     )
@@ -364,8 +370,8 @@ export class Polyquad {
     const objets: NestedObjetMathalea2dArray = []
     for (const car of this.carresOccupes) {
       const quad = carre(
-        point(car.x + this.xOrigine, car.y + this.yOrigine),
-        point(car.x + this.xOrigine + 1, car.y + this.yOrigine),
+        pointAbstrait(car.x + this.xOrigine, car.y + this.yOrigine),
+        pointAbstrait(car.x + this.xOrigine + 1, car.y + this.yOrigine),
       )
       quad.couleurDeRemplissage = colorToLatexOrHTML('orange')
       quad.color = colorToLatexOrHTML('black')
@@ -519,7 +525,7 @@ function sontVecteursAlignes(
  * Elle permet aussi de supprimer les doublons consécutifs puisque forcément, ils sont alignés
  * @param {BinomesXY} binomesXY une liste de binomesXY
  * @returns {BinomesXY} une liste de binomesXY
- * @author Jean-Claude Lhote
+ * @author Jean-claude Lhote
  */
 
 export function elimineBinomesXYIntermediairesAlignes(binomesXY: BinomesXY) {

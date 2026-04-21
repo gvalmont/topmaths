@@ -1,7 +1,7 @@
 import { droite, Droite, droiteHorizontaleParPoint } from '../../lib/2d/droites'
 import { fixeBordures } from '../../lib/2d/fixeBordures'
 import { lectureAntecedent } from '../../lib/2d/LectureAntecedent'
-import { point, PointAbstrait } from '../../lib/2d/PointAbstrait'
+import { pointAbstrait, PointAbstrait } from '../../lib/2d/PointAbstrait'
 import { polyline } from '../../lib/2d/Polyline'
 import RepereBuilder from '../../lib/2d/RepereBuilder'
 import { segment } from '../../lib/2d/segmentsVecteurs'
@@ -10,7 +10,8 @@ import { pointIntersectionDD } from '../../lib/2d/utilitairesPoint'
 import { bleuMathalea } from '../../lib/colors'
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
-import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
+import { toutAUnPoint } from '../../lib/interactif/mathLive'
+import { addMultiMathfield } from '../../lib/interactif/MultiMathfield/MultiMathfield'
 import { choice } from '../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { numAlpha } from '../../lib/outils/outilString'
@@ -19,11 +20,11 @@ import { mathalea2d } from '../../modules/mathalea2d'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import Exercice from '../Exercice'
 export const interactifReady = true
-export const interactifType = 'mathLive'
+export const interactifType = 'multiMathfield'
 export const dateDePublication = '05/05/2024'
-export const dateDeModificationImportante = '24/03/2026'
+export const dateDeModifImportante = '07/04/2026'
 export const titre = 'Lire graphiquement des quartiles et des EIQ'
-export const uuid = 'b7662'
+export const uuid = '61592'
 export const refs = {
   'fr-fr': ['2S20-5'],
   'fr-ch': [],
@@ -130,9 +131,9 @@ const trouveQuartiles = function (
     return [0, 0, 0]
   }
   if (d1 && d2 && d3) {
-    const D1 = droiteHorizontaleParPoint(point(0, 5))
-    const D2 = droiteHorizontaleParPoint(point(0, 10))
-    const D3 = droiteHorizontaleParPoint(point(0, 15))
+    const D1 = droiteHorizontaleParPoint(pointAbstrait(0, 5))
+    const D2 = droiteHorizontaleParPoint(pointAbstrait(0, 10))
+    const D3 = droiteHorizontaleParPoint(pointAbstrait(0, 15))
     const p1 = pointIntersectionDD(d1, D1)
     const p2 = pointIntersectionDD(d2, D2)
     const p3 = pointIntersectionDD(d3, D3)
@@ -200,7 +201,7 @@ export default class Quartiles extends Exercice {
             x[index] = pop[nbVal] * echelleX
             y[index] = (nbVal * 100 * echelleY) / effectif
           }
-          pts.push(point(x[index], y[index]))
+          pts.push(pointAbstrait(x[index], y[index]))
           do {
             nbVal += randint(
               Math.min(2, Math.round(effectif / nbPart)),
@@ -209,7 +210,7 @@ export default class Quartiles extends Exercice {
           } while (x[index] === pop[nbVal] * echelleX) // il faut éviter d'avoir deux points sur la même valeur
           index++
         }
-        pts.push(point(valeurMax * echelleX, 100 * echelleY))
+        pts.push(pointAbstrait(valeurMax * echelleX, 100 * echelleY))
         ;[q1, q2, q3] = trouveQuartiles(y, pts).map((el) =>
           Math.round(el / echelleX),
         )
@@ -224,7 +225,7 @@ export default class Quartiles extends Exercice {
       // Math.round(q1 / situation.precisionLecture) * situation.precisionLecture
       const q3Round = q3
       //  Math.round(q3 / situation.precisionLecture) * situation.precisionLecture
-      const line = polyline(pts, 'blue')
+      const line = polyline(pts, bleuMathalea)
       const rep = new RepereBuilder({
         xMin: 0,
         xMax: valeurMax,
@@ -276,15 +277,15 @@ export default class Quartiles extends Exercice {
       )
       const offset = Math.log10(q1Round) * 0.2 + 0.5
       const ecartIQ = segment(
-        point(q1Round * echelleX + offset, -1.5),
-        point(q3Round * echelleX - offset, -1.5),
+        pointAbstrait(q1Round * echelleX + offset, -1.5),
+        pointAbstrait(q3Round * echelleX - offset, -1.5),
         'red',
       )
       ecartIQ.styleExtremites = '<->'
       const iq = texteSurSegment(
         `$${texNombre(q3Round - q1Round, 0)}$$`,
-        point(q1Round * echelleX + offset, -1.5),
-        point(q3Round * echelleX - offset, -1.5),
+        pointAbstrait(q1Round * echelleX + offset, -1.5),
+        pointAbstrait(q3Round * echelleX - offset, -1.5),
         'red',
         -0.5,
       )
@@ -324,45 +325,54 @@ export default class Quartiles extends Exercice {
         objetsCorr,
       )
       let texte = `On donne ci-dessus la représentation graphique des fréquences cumulées croissante ${situation.label}.<br>Les réponses seront données avec la précision permise par le graphique entre deux interlignes verticales.<br>`
-      texte +=
-        `${numAlpha(0)} Donner la valeur du premier quartile.` +
-        ajouteChampTexteMathLive(this, 3 * i, KeyboardType.clavierNumbers)
-      texte +=
-        `<br>${numAlpha(1)} Donner la valeur du troisième quartile.` +
-        ajouteChampTexteMathLive(this, 3 * i + 1, KeyboardType.clavierNumbers)
-      texte +=
-        `<br>${numAlpha(2)} Donner la valeur de l'écart inter-quartile.` +
-        ajouteChampTexteMathLive(this, 3 * i + 2, KeyboardType.clavierNumbers)
+      if (this.interactif) {
+        texte += `${addMultiMathfield(this, i, {
+          dataTemplate: `a) Donner la valeur du premier quartile. %{champ1}<br>
+          b) Donner la valeur du troisième quartile. %{champ2}<br>
+          c) Donner la valeur de l'écart inter-quartile. %{champ3}`,
+          dataOptions: {
+            champ1: { keyboard: KeyboardType.clavierNumbers },
+            champ2: { keyboard: KeyboardType.clavierNumbers },
+            champ3: { keyboard: KeyboardType.clavierNumbers },
+          },
+        })}`
+      } else {
+        texte += `${numAlpha(0)} Donner la valeur du premier quartile.<br>`
+        texte += `${numAlpha(1)} Donner la valeur du troisième quartile.<br>`
+        texte += `${numAlpha(2)} Donner la valeur de l'écart inter-quartile.`
+      }
       const minIntervalleq1 = Math.floor(
         Math.floor(q1Round / intervalle) * intervalle,
       )
       const maxIntervalleq1 = Math.ceil(
         intervalle + Math.floor(q1Round / intervalle) * intervalle,
       )
-      handleAnswers(this, 3 * i, {
-        reponse: {
-          value: `[${minIntervalleq1};${maxIntervalleq1}]`,
-          options: { estDansIntervalle: true },
-        },
-      })
       const minIntervalleq3 = Math.floor(
         Math.floor(q3Round / intervalle) * intervalle,
       )
       const maxIntervalleq3 = Math.ceil(
         intervalle + Math.floor(q3Round / intervalle) * intervalle,
       )
-      handleAnswers(this, 3 * i + 1, {
-        reponse: {
-          value: `[${minIntervalleq3};${maxIntervalleq3}]`,
-          options: { estDansIntervalle: true },
+      handleAnswers(
+        this,
+        i,
+        {
+          champ1: {
+            value: `[${minIntervalleq1};${maxIntervalleq1}]`,
+            options: { estDansIntervalle: true },
+          },
+          champ2: {
+            value: `[${minIntervalleq3};${maxIntervalleq3}]`,
+            options: { estDansIntervalle: true },
+          },
+          champ3: {
+            value: `[${minIntervalleq3 - maxIntervalleq1};${maxIntervalleq3 - minIntervalleq1}]`,
+            options: { estDansIntervalle: true },
+          },
+          bareme: toutAUnPoint,
         },
-      })
-      handleAnswers(this, 3 * i + 2, {
-        reponse: {
-          value: `[${minIntervalleq3 - maxIntervalleq1};${maxIntervalleq3 - minIntervalleq1}]`,
-          options: { estDansIntervalle: true },
-        },
-      })
+        { formatInteractif: 'multiMathfield' },
+      )
 
       let texteCorr = 'Par lecture graphique, on trouve :<br>'
       texteCorr += `${numAlpha(0)} La valeur du premier quartile est environ $${miseEnEvidence(texNombre(q1Round, 0))}$. Par la précision du graphique, serait acceptée toute valeur entre $${miseEnEvidence(minIntervalleq1, bleuMathalea)}$ et $${miseEnEvidence(maxIntervalleq1, bleuMathalea)}$.`

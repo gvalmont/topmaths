@@ -3,8 +3,9 @@
  */
 
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
-import { setReponse } from '../../lib/interactif/gestionInteractif'
-import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
+import { handleAnswers } from '../../lib/interactif/gestionInteractif'
+import { toutAUnPoint } from '../../lib/interactif/mathLive'
+import { addMultiMathfield } from '../../lib/interactif/MultiMathfield/MultiMathfield'
 import {
   listeDeNotes,
   tirerLesDes,
@@ -15,8 +16,8 @@ import {
   arrondi,
   nombreDeChiffresDansLaPartieDecimale,
   nombreDeChiffresDe,
+  range,
 } from '../../lib/outils/nombres'
-import { numAlpha } from '../../lib/outils/outilString'
 import { context } from '../../modules/context'
 import {
   gestionnaireFormulaireTexte,
@@ -39,13 +40,14 @@ export const dateDeModifImportante = '19/08/2023'
  *
  * @author Mickael Guironnet
  */
-export const uuid = 'b8afd'
+export const uuid = 'b9afd'
 
 export const refs = {
   'fr-fr': ['3S14-1'],
   'fr-ch': ['11NO2-11'],
 }
 
+const numAlpha = (num: number) => `${String.fromCharCode(97 + num)}) `
 export default class CalculerCaracteristiques extends Exercice {
   constructor() {
     super()
@@ -94,10 +96,12 @@ export default class CalculerCaracteristiques extends Exercice {
       let texte = ''
       let texteCorr = ''
       let initAMC = ''
-      const texteAMC = []
-      const reponsesAMC = []
-      const approxAMC = []
-      let repMoyenne, repMediane, repEtendue
+      const texteAMC: string[] = []
+      const reponsesAMC: number[] = []
+      const approxAMC: number[] = []
+      let repMoyenne: number
+      let repMediane: number | number[]
+      let repEtendue: number
       switch (questionsDisponibles[i]) {
         case 1: {
           // un dé ou des dés
@@ -133,27 +137,18 @@ export default class CalculerCaracteristiques extends Exercice {
               tirages,
               this.sup3,
             ) + '<br>' // on récupère une série rangée dans l'ordre croissant avec les effectifs correspondants
-          texte += initAMC + '<br>'
+
           let questind = 0
-          for (let k = 0; k < typeQuestions.length; k++) {
+          for (let k = 0; k < nbReponse; k++) {
             approxAMC[questind] = 0
             if (typeQuestions[k] === 1) {
               // moyenne
               texteAMC[questind] =
-                numAlpha(questind) +
-                'Calculer la moyenne des lancers arrondie au dixième.' +
-                ajouteChampTexteMathLive(
-                  this,
-                  i * nbReponse + questind,
-                  KeyboardType.clavierNumbers,
-                ) +
-                '<br>'
-              texte += texteAMC[questind]
+                'Calculer la moyenne des lancers arrondie au dixième.'
+
               const [, somme] = OutilsStats.computeMoyenneTirages2D(tirages)
               repMoyenne = arrondi(somme / nombreTirages, 1)
-              setReponse(this, i * nbReponse + questind, repMoyenne, {
-                formatInteractif: 'calcul',
-              })
+
               reponsesAMC[questind] = repMoyenne
               texteCorr +=
                 numAlpha(questind++) +
@@ -165,39 +160,22 @@ export default class CalculerCaracteristiques extends Exercice {
                 )
             } else if (typeQuestions[k] === 2) {
               // médiane
-              texteAMC[questind] =
-                numAlpha(questind) +
-                'Calculer la médiane des lancers.' +
-                ajouteChampTexteMathLive(
-                  this,
-                  i * nbReponse + questind,
-                  KeyboardType.clavierNumbers,
-                ) +
-                '<br>'
-              texte += texteAMC[questind]
+              texteAMC[questind] = 'Calculer la médiane des lancers.'
+
               const [scoresMedians, medianeCorr] =
                 OutilsStats.computeMedianeTirages2D(nombreTirages, tirages)
               if (scoresMedians.length === 1) {
                 repMediane = medianeCorr
-                setReponse(this, i * nbReponse + questind, repMediane, {
-                  formatInteractif: 'calcul',
-                })
+
                 reponsesAMC[questind] = repMediane
               } else {
                 if (scoresMedians[0] === scoresMedians[1]) {
                   repMediane = scoresMedians[0]
-                  setReponse(this, i * nbReponse + questind, repMediane, {
-                    formatInteractif: 'calcul',
-                  })
+
                   reponsesAMC[questind] = repMediane
                 } else {
                   repMediane = [...scoresMedians]
-                  setReponse(
-                    this,
-                    i * nbReponse + questind,
-                    [repMediane[0], repMediane[1]],
-                    { formatInteractif: 'intervalleStrict' },
-                  )
+
                   reponsesAMC[questind] = arrondi(
                     (repMediane[0] + repMediane[1]) / 2,
                     1,
@@ -216,22 +194,12 @@ export default class CalculerCaracteristiques extends Exercice {
                 )
             } else {
               // étendue
-              texteAMC[questind] =
-                numAlpha(questind) +
-                "Calculer l'étendue des lancers." +
-                ajouteChampTexteMathLive(
-                  this,
-                  i * nbReponse + questind,
-                  KeyboardType.clavierNumbers,
-                ) +
-                '<br>'
-              texte += texteAMC[questind]
+              texteAMC[questind] = "Calculer l'étendue des lancers."
+
               const [min, max] = [tirages[0][0], tirages[tirages.length - 1][0]]
               repEtendue = max - min
               reponsesAMC[questind] = repEtendue
-              setReponse(this, i * nbReponse + questind, repEtendue, {
-                formatInteractif: 'calcul',
-              })
+
               texteCorr +=
                 numAlpha(questind++) +
                 OutilsStats.texteCorrEtendueNotes(min, max, 'lancer')
@@ -253,67 +221,39 @@ export default class CalculerCaracteristiques extends Exercice {
             randint(13, 20),
           ) // on récupère une liste de notes (série brute)
           initAMC = OutilsStats.texteNotes(notes) + '<br>'
-          texte += initAMC + '<br>'
+
           let questind = 0
-          for (let k = 0; k < typeQuestions.length; k++) {
+          for (let k = 0; k < nbReponse; k++) {
             approxAMC[questind] = 0
             if (typeQuestions[k] === 1) {
               // moyenne
               texteAMC[questind] =
-                numAlpha(questind) +
-                'Calculer la moyenne de ces notes arrondie au dixième.' +
-                ajouteChampTexteMathLive(
-                  this,
-                  i * nbReponse + questind,
-                  KeyboardType.clavierNumbers,
-                ) +
-                '<br>'
-              texte += texteAMC[questind]
+                'Calculer la moyenne de ces notes arrondie au dixième.'
 
               const [, somme] = OutilsStats.computeMoyenne(notes)
               repMoyenne = arrondi(somme / nombreNotes, 1)
-              setReponse(this, i * nbReponse + questind, repMoyenne, {
-                formatInteractif: 'calcul',
-              })
+
               reponsesAMC[questind] = repMoyenne
               texteCorr +=
                 numAlpha(questind++) +
                 OutilsStats.texteCorrMoyenneNotes(notes, somme, nombreNotes)
             } else if (typeQuestions[k] === 2) {
               // médiane
-              texteAMC[questind] =
-                numAlpha(questind) +
-                'Calculer la médiane de ces notes.' +
-                ajouteChampTexteMathLive(
-                  this,
-                  i * nbReponse + questind,
-                  KeyboardType.clavierNumbers,
-                ) +
-                '<br>'
-              texte += texteAMC[questind]
+              texteAMC[questind] = 'Calculer la médiane de ces notes.'
 
               const [mediane, medianeCorr] = OutilsStats.computeMediane(notes)
               if (!Array.isArray(mediane)) {
                 repMediane = mediane
-                setReponse(this, i * nbReponse + questind, repMediane, {
-                  formatInteractif: 'calcul',
-                })
+
                 reponsesAMC[questind] = repMediane
               } else {
                 if (mediane[0] === mediane[1]) {
                   repMediane = mediane[0]
-                  setReponse(this, i * nbReponse + questind, repMediane, {
-                    formatInteractif: 'calcul',
-                  })
+
                   reponsesAMC[questind] = repMediane
                 } else {
                   repMediane = [...mediane]
-                  setReponse(
-                    this,
-                    i * nbReponse + questind,
-                    [repMediane[0], repMediane[1]],
-                    { formatInteractif: 'intervalleStrict' },
-                  )
+
                   reponsesAMC[questind] = arrondi(
                     (repMediane[0] + repMediane[1]) / 2,
                     1,
@@ -327,23 +267,12 @@ export default class CalculerCaracteristiques extends Exercice {
                 OutilsStats.texteCorrMedianeNotes(notes, medianeCorr, mediane)
             } else {
               // étendue
-              texteAMC[questind] =
-                numAlpha(questind) +
-                "Calculer l'étendue de ces notes." +
-                ajouteChampTexteMathLive(
-                  this,
-                  i * nbReponse + questind,
-                  KeyboardType.clavierNumbers,
-                ) +
-                '<br>'
-              texte += texteAMC[questind]
+              texteAMC[questind] = "Calculer l'étendue de ces notes."
 
               const [min, max] = OutilsStats.computeEtendue(notes)
               repEtendue = max - min
               reponsesAMC[questind] = repEtendue
-              setReponse(this, i * nbReponse + questind, repEtendue, {
-                formatInteractif: 'calcul',
-              })
+
               texteCorr +=
                 numAlpha(questind++) +
                 OutilsStats.texteCorrEtendueNotes(min, max)
@@ -383,27 +312,17 @@ export default class CalculerCaracteristiques extends Exercice {
             annee,
           ) // on récupère une série de température correspondant à 1 mois d'une année (série brute)
           initAMC = OutilsStats.texteTemperatures(annee, mois, temperatures)
-          texte += initAMC + '<br>'
+
           let questind = 0
-          for (let k = 0; k < typeQuestions.length; k++) {
+          for (let k = 0; k < nbReponse; k++) {
             if (typeQuestions[k] === 1) {
               // moyenne
               texteAMC[questind] =
-                numAlpha(questind) +
-                'Calculer la moyenne des températures arrondie au dixième.' +
-                ajouteChampTexteMathLive(
-                  this,
-                  i * nbReponse + questind,
-                  KeyboardType.clavierNumbers,
-                ) +
-                '<br>'
-              texte += texteAMC[questind]
+                'Calculer la moyenne des températures arrondie au dixième.'
 
               const [, somme] = OutilsStats.computeMoyenne(temperatures)
               repMoyenne = arrondi(somme / temperatures.length, 1)
-              setReponse(this, i * nbReponse + questind, repMoyenne, {
-                formatInteractif: 'calcul',
-              })
+
               reponsesAMC[questind] = repMoyenne
               texteCorr +=
                 numAlpha(questind++) +
@@ -415,40 +334,22 @@ export default class CalculerCaracteristiques extends Exercice {
                 )
             } else if (typeQuestions[k] === 2) {
               // médiane
-              texteAMC[questind] =
-                numAlpha(questind) +
-                'Calculer la médiane des températures.' +
-                ajouteChampTexteMathLive(
-                  this,
-                  i * nbReponse + questind,
-                  KeyboardType.clavierNumbers,
-                ) +
-                '<br>'
-              texte += texteAMC[questind]
+              texteAMC[questind] = 'Calculer la médiane des températures.'
 
               const [mediane, medianeCorr] =
                 OutilsStats.computeMediane(temperatures)
               if (!Array.isArray(mediane)) {
                 repMediane = mediane
-                setReponse(this, i * nbReponse + questind, repMediane, {
-                  formatInteractif: 'calcul',
-                })
+
                 reponsesAMC[questind] = repMediane
               } else {
                 if (mediane[0] === mediane[1]) {
                   repMediane = mediane[0]
-                  setReponse(this, i * nbReponse + questind, repMediane, {
-                    formatInteractif: 'calcul',
-                  })
+
                   reponsesAMC[questind] = repMediane
                 } else {
                   repMediane = [...mediane]
-                  setReponse(
-                    this,
-                    i * nbReponse + questind,
-                    [repMediane[0], repMediane[1]],
-                    { formatInteractif: 'intervalleStrict' },
-                  )
+
                   reponsesAMC[questind] = arrondi(
                     (repMediane[0] + repMediane[1]) / 2,
                     1,
@@ -466,23 +367,12 @@ export default class CalculerCaracteristiques extends Exercice {
                 )
             } else {
               // étendue
-              texteAMC[questind] =
-                numAlpha(questind) +
-                "Calculer l'étendue des températures." +
-                ajouteChampTexteMathLive(
-                  this,
-                  i * nbReponse + questind,
-                  KeyboardType.clavierNumbers,
-                ) +
-                '<br>'
-              texte += texteAMC[questind]
+              texteAMC[questind] = "Calculer l'étendue des températures."
 
               const [min, max] = OutilsStats.computeEtendue(temperatures)
               repEtendue = max - min
               reponsesAMC[questind] = repEtendue
-              setReponse(this, i * nbReponse + questind, repEtendue, {
-                formatInteractif: 'calcul',
-              })
+
               texteCorr +=
                 numAlpha(questind++) +
                 OutilsStats.texteCorrEtendueNotes(min, max, 'température')
@@ -559,28 +449,18 @@ export default class CalculerCaracteristiques extends Exercice {
             'Cadre supérieur',
             'Dirigeant',
           ])
-          texte += initAMC + '<br>'
+
           let questind = 0
-          for (let k = 0; k < typeQuestions.length; k++) {
+          for (let k = 0; k < nbReponse; k++) {
             if (typeQuestions[k] === 1) {
               // moyenne
               texteAMC[questind] =
-                numAlpha(questind) +
-                'Calculer le salaire moyen arrondi au dixième.' +
-                ajouteChampTexteMathLive(
-                  this,
-                  i * nbReponse + questind,
-                  KeyboardType.clavierNumbers,
-                ) +
-                '<br>'
-              texte += texteAMC[questind]
+                'Calculer le salaire moyen arrondi au dixième.'
 
               const [, somme, effectif] =
                 OutilsStats.computeMoyenneTirages2D(salaires)
               repMoyenne = arrondi(somme / effectif, 1)
-              setReponse(this, i * nbReponse + questind, repMoyenne, {
-                formatInteractif: 'calcul',
-              })
+
               reponsesAMC[questind] = repMoyenne
               texteCorr +=
                 numAlpha(questind++) +
@@ -592,16 +472,7 @@ export default class CalculerCaracteristiques extends Exercice {
                 )
             } else if (typeQuestions[k] === 2) {
               // médiane
-              texteAMC[questind] =
-                numAlpha(questind) +
-                'Calculer le salaire médian.' +
-                ajouteChampTexteMathLive(
-                  this,
-                  i * nbReponse + questind,
-                  KeyboardType.clavierNumbers,
-                ) +
-                '<br>'
-              texte += texteAMC[questind]
+              texteAMC[questind] = 'Calculer le salaire médian.'
 
               const [, , effectif] =
                 OutilsStats.computeMoyenneTirages2D(salaires)
@@ -609,25 +480,16 @@ export default class CalculerCaracteristiques extends Exercice {
                 OutilsStats.computeMedianeTirages2D(effectif, salaires)
               if (scoresMedians.length === 1) {
                 repMediane = medianeCorr
-                setReponse(this, i * nbReponse + questind, repMediane, {
-                  formatInteractif: 'calcul',
-                })
+
                 reponsesAMC[questind] = repMediane
               } else {
                 if (scoresMedians[0] === scoresMedians[1]) {
                   repMediane = scoresMedians[0]
-                  setReponse(this, i * nbReponse + questind, repMediane, {
-                    formatInteractif: 'calcul',
-                  })
+
                   reponsesAMC[questind] = repMediane
                 } else {
                   repMediane = [...scoresMedians]
-                  setReponse(
-                    this,
-                    i * nbReponse + questind,
-                    [repMediane[0], repMediane[1]],
-                    { formatInteractif: 'intervalleStrict' },
-                  )
+
                   reponsesAMC[questind] = arrondi(
                     (repMediane[0] + repMediane[1]) / 2,
                     1,
@@ -653,16 +515,7 @@ export default class CalculerCaracteristiques extends Exercice {
                 )
             } else {
               // étendue
-              texteAMC[questind] =
-                numAlpha(questind) +
-                "Calculer l'étendue des salaires." +
-                ajouteChampTexteMathLive(
-                  this,
-                  i * nbReponse + questind,
-                  KeyboardType.clavierNumbers,
-                ) +
-                '<br>'
-              texte += texteAMC[questind]
+              texteAMC[questind] = "Calculer l'étendue des salaires."
 
               const [min, max] = [
                 salaires[0][0],
@@ -670,9 +523,7 @@ export default class CalculerCaracteristiques extends Exercice {
               ]
               repEtendue = max - min
               reponsesAMC[questind] = repEtendue
-              setReponse(this, i * nbReponse + questind, repEtendue, {
-                formatInteractif: 'calcul',
-              })
+
               texteCorr +=
                 numAlpha(questind++) +
                 OutilsStats.texteCorrEtendueNotes(min, max, 'salaire')
@@ -705,28 +556,18 @@ export default class CalculerCaracteristiques extends Exercice {
             pointures[0][1]++
           }
           initAMC = OutilsStats.texteSalaires(pointures, [], 'pointures')
-          texte += initAMC + '<br>'
+
           let questind = 0
-          for (let k = 0; k < typeQuestions.length; k++) {
+          for (let k = 0; k < nbReponse; k++) {
             if (typeQuestions[k] === 1) {
               // moyenne
               texteAMC[questind] =
-                numAlpha(questind) +
-                'Calculer la moyenne de ces pointures arrondie au dixième.' +
-                ajouteChampTexteMathLive(
-                  this,
-                  i * nbReponse + questind,
-                  KeyboardType.clavierNumbers,
-                ) +
-                '<br>'
-              texte += texteAMC[questind]
+                'Calculer la moyenne de ces pointures arrondie au dixième.'
 
               const [, somme, effectif] =
                 OutilsStats.computeMoyenneTirages2D(pointures)
               repMoyenne = arrondi(somme / effectif, 1)
-              setReponse(this, i * nbReponse + questind, repMoyenne, {
-                formatInteractif: 'calcul',
-              })
+
               reponsesAMC[questind] = repMoyenne
               texteCorr +=
                 numAlpha(questind++) +
@@ -738,16 +579,7 @@ export default class CalculerCaracteristiques extends Exercice {
                 )
             } else if (typeQuestions[k] === 2) {
               // médiane
-              texteAMC[questind] =
-                numAlpha(questind) +
-                'Calculer la médiane de ces pointures.' +
-                ajouteChampTexteMathLive(
-                  this,
-                  i * nbReponse + questind,
-                  KeyboardType.clavierNumbers,
-                ) +
-                '<br>'
-              texte += texteAMC[questind]
+              texteAMC[questind] = 'Calculer la médiane de ces pointures.'
 
               const [, , effectif] =
                 OutilsStats.computeMoyenneTirages2D(pointures)
@@ -755,25 +587,16 @@ export default class CalculerCaracteristiques extends Exercice {
                 OutilsStats.computeMedianeTirages2D(effectif, pointures)
               if (scoresMedians.length === 1) {
                 repMediane = medianeCorr
-                setReponse(this, i * nbReponse + questind, repMediane, {
-                  formatInteractif: 'calcul',
-                })
+
                 reponsesAMC[questind] = repMediane
               } else {
                 if (scoresMedians[0] === scoresMedians[1]) {
                   repMediane = scoresMedians[0]
-                  setReponse(this, i * nbReponse + questind, repMediane, {
-                    formatInteractif: 'calcul',
-                  })
+
                   reponsesAMC[questind] = repMediane
                 } else {
                   repMediane = [...scoresMedians]
-                  setReponse(
-                    this,
-                    i * nbReponse + questind,
-                    [repMediane[0], repMediane[1]],
-                    { formatInteractif: 'intervalleStrict' },
-                  )
+
                   reponsesAMC[questind] = arrondi(
                     (repMediane[0] + repMediane[1]) / 2,
                     1,
@@ -794,16 +617,7 @@ export default class CalculerCaracteristiques extends Exercice {
                 )
             } else {
               // étendue
-              texteAMC[questind] =
-                numAlpha(questind) +
-                "Calculer l'étendue de ces pointures." +
-                ajouteChampTexteMathLive(
-                  this,
-                  i * nbReponse + questind,
-                  KeyboardType.clavierNumbers,
-                ) +
-                '<br>'
-              texte += texteAMC[questind]
+              texteAMC[questind] = "Calculer l'étendue de ces pointures."
 
               const [min, max] = [
                 pointures[0][0],
@@ -811,9 +625,7 @@ export default class CalculerCaracteristiques extends Exercice {
               ]
               repEtendue = max - min
               reponsesAMC[questind] = repEtendue
-              setReponse(this, i * nbReponse + questind, repEtendue, {
-                formatInteractif: 'calcul',
-              })
+
               texteCorr +=
                 numAlpha(questind++) +
                 OutilsStats.texteCorrEtendueNotes(min, max, 'pointure')
@@ -841,28 +653,18 @@ export default class CalculerCaracteristiques extends Exercice {
             notes[0][1]++
           }
           initAMC = OutilsStats.texteSalaires(notes, [], 'notes')
-          texte += initAMC + '<br>'
+
           let questind = 0
-          for (let k = 0; k < typeQuestions.length; k++) {
+          for (let k = 0; k < nbReponse; k++) {
             if (typeQuestions[k] === 1) {
               // moyenne
               texteAMC[questind] =
-                numAlpha(questind) +
-                'Calculer la moyenne de ces notes arrondie au dixième.' +
-                ajouteChampTexteMathLive(
-                  this,
-                  i * nbReponse + questind,
-                  KeyboardType.clavierNumbers,
-                ) +
-                '<br>'
-              texte += texteAMC[questind]
+                'Calculer la moyenne de ces notes arrondie au dixième.'
 
               const [, somme, effectif] =
                 OutilsStats.computeMoyenneTirages2D(notes)
               repMoyenne = arrondi(somme / effectif, 1)
-              setReponse(this, i * nbReponse + questind, repMoyenne, {
-                formatInteractif: 'calcul',
-              })
+
               reponsesAMC[questind] = repMoyenne
               texteCorr +=
                 numAlpha(questind++) +
@@ -874,41 +676,23 @@ export default class CalculerCaracteristiques extends Exercice {
                 )
             } else if (typeQuestions[k] === 2) {
               // médiane
-              texteAMC[questind] =
-                numAlpha(questind) +
-                'Calculer la médiane de ces notes.' +
-                ajouteChampTexteMathLive(
-                  this,
-                  i * nbReponse + questind,
-                  KeyboardType.clavierNumbers,
-                ) +
-                '<br>'
-              texte += texteAMC[questind]
+              texteAMC[questind] = 'Calculer la médiane de ces notes.'
 
               const [, , effectif] = OutilsStats.computeMoyenneTirages2D(notes)
               const [scoresMedians, medianeCorr] =
                 OutilsStats.computeMedianeTirages2D(effectif, notes)
               if (scoresMedians.length === 1) {
                 repMediane = medianeCorr
-                setReponse(this, i * nbReponse + questind, repMediane, {
-                  formatInteractif: 'calcul',
-                })
+
                 reponsesAMC[questind] = repMediane
               } else {
                 if (scoresMedians[0] === scoresMedians[1]) {
                   repMediane = scoresMedians[0]
-                  setReponse(this, i * nbReponse + questind, repMediane, {
-                    formatInteractif: 'calcul',
-                  })
+
                   reponsesAMC[questind] = repMediane
                 } else {
                   repMediane = [...scoresMedians]
-                  setReponse(
-                    this,
-                    i * nbReponse + questind,
-                    [repMediane[0], repMediane[1]],
-                    { formatInteractif: 'intervalleStrict' },
-                  )
+
                   reponsesAMC[questind] = arrondi(
                     (repMediane[0] + repMediane[1]) / 2,
                     1,
@@ -929,23 +713,12 @@ export default class CalculerCaracteristiques extends Exercice {
                 )
             } else {
               // étendue
-              texteAMC[questind] =
-                numAlpha(questind) +
-                "Calculer l'étendue de ces notes." +
-                ajouteChampTexteMathLive(
-                  this,
-                  i * nbReponse + questind,
-                  KeyboardType.clavierNumbers,
-                ) +
-                '<br>'
-              texte += texteAMC[questind]
+              texteAMC[questind] = "Calculer l'étendue de ces notes."
 
               const [min, max] = [notes[0][0], notes[notes.length - 1][0]]
               repEtendue = max - min
               reponsesAMC[questind] = repEtendue
-              setReponse(this, i * nbReponse + questind, repEtendue, {
-                formatInteractif: 'calcul',
-              })
+
               texteCorr +=
                 numAlpha(questind++) +
                 OutilsStats.texteCorrEtendueNotes(min, max, 'note')
@@ -965,7 +738,7 @@ export default class CalculerCaracteristiques extends Exercice {
           },
           propositions: [],
         }
-        for (let ee = 0; ee < typeQuestions.length; ee++) {
+        for (let ee = 0; ee < nbReponse; ee++) {
           this.autoCorrection[i].propositions!.push({
             type: 'AMCNum',
             propositions: [
@@ -988,7 +761,44 @@ export default class CalculerCaracteristiques extends Exercice {
             ],
           })
         }
+      } else {
+        handleAnswers(
+          this,
+          i,
+          {
+            bareme: toutAUnPoint,
+            ...Object.fromEntries(
+              range(nbReponse - 1).map((n) => [
+                `champ${n + 1}`,
+                {
+                  value: typeQuestions[n] === 2 ? repMediane : reponsesAMC[n],
+                  options:
+                    typeQuestions[n] === 2 && Array.isArray(repMediane)
+                      ? { estDansIntervalle: true }
+                      : undefined,
+                },
+              ]),
+            ),
+          },
+          { formatInteractif: 'multiMathfield' },
+        )
       }
+      texte =
+        initAMC +
+        addMultiMathfield(this, i, {
+          dataTemplate: `${range(nbReponse - 1)
+            .map(
+              (ee) =>
+                `${String.fromCharCode(97 + ee)}) ${texteAMC[ee]} %{champ${ee + 1}}`,
+            )
+            .join('\n')}`,
+          dataOptions: Object.fromEntries(
+            range(nbReponse - 1).map((n) => [
+              `champ${n + 1}`,
+              { keyboard: KeyboardType.clavierNumbers },
+            ]),
+          ),
+        })
 
       if (this.listeQuestions.indexOf(texte) === -1) {
         // Si la question n'a jamais été posée, on en créé une autre

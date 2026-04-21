@@ -9,7 +9,7 @@ import {
   droiteVerticaleParPoint,
 } from '../../lib/2d/droites'
 import { grille, seyes } from '../../lib/2d/Grille'
-import { point } from '../../lib/2d/PointAbstrait'
+import { pointAbstrait } from '../../lib/2d/PointAbstrait'
 import { nommePolygone, Polygone, polygone } from '../../lib/2d/polygones'
 import { segment } from '../../lib/2d/segmentsVecteurs'
 import { labelPoint, texteParPoint } from '../../lib/2d/textes'
@@ -41,6 +41,7 @@ import {
   randint,
 } from '../../modules/outils'
 import Exercice from '../Exercice'
+import { bleuMathalea } from '../../lib/colors'
 export const dateDeModifImportante = '14/11/2021'
 export const amcReady = true
 export const amcType = 'AMCOpen'
@@ -56,7 +57,7 @@ function choisiPointDuBonCote(d: Droite, lieu = 'dessus') {
           ? 0
           : randint(1, 8)
     const y = randint(-8, 8)
-    return point(x, y)
+    return pointAbstrait(x, y)
   } else if (d.a === 0) {
     // droite horizontale
     const y =
@@ -66,7 +67,7 @@ function choisiPointDuBonCote(d: Droite, lieu = 'dessus') {
           ? 0
           : randint(-8, -1)
     const x = randint(-8, 8)
-    return point(x, y)
+    return pointAbstrait(x, y)
   } else {
     // droite oblique
     let x: number
@@ -92,7 +93,7 @@ function choisiPointDuBonCote(d: Droite, lieu = 'dessus') {
             ? randint(-8, Math.floor(y0))
             : (y = y0)
     }
-    return point(x, y)
+    return pointAbstrait(x, y)
   }
 }
 
@@ -128,7 +129,7 @@ function choisi3Points(d: Droite, lieu = ['dessus', 'dessous', 'sur']) {
       // on vérifie que le point est du bon côté et à distance suffisante de la droite.
       if (lieu[1] === 'sur') B = pointSurDroite(d, randint(-6, 6), '')
       else
-        B = point(
+        B = pointAbstrait(
           randint(-8, 8, Math.round(A.x)),
           randint(-8, 8, Math.round(A.y)),
         )
@@ -148,7 +149,7 @@ function choisi3Points(d: Droite, lieu = ['dessus', 'dessous', 'sur']) {
       // on vérifie que le point est du bon côté et à distance suffisante de la droite.
       if (lieu[2] === 'sur') C = pointSurDroite(d, randint(-8, 8), '')
       else
-        C = point(
+        C = pointAbstrait(
           randint(-8, 8, [Math.round(A.x), Math.round(B.x)]),
           randint(-8, 8, [Math.round(A.y), Math.round(B.y)]),
         )
@@ -179,7 +180,7 @@ function choisi3Points(d: Droite, lieu = ['dessus', 'dessous', 'sur']) {
 }
 
 /**
- * @author Jean-Claude Lhote  (Ajout AMC par Eric Elter, ES6 par Loïc Geeraerts)
+ * @author Jean-claude Lhote  (Ajout AMC par Éric Elter, ES6 par Loïc Geeraerts)
  * Fonction générale pour les exercices de construction de symétriques (centrale/axiale et points/triangles)
  * Permet une sortie html/pdf sur petits carreaux/gros carreaux/papier blanc
  * Relecture : Novembre 2021 par EE
@@ -367,7 +368,7 @@ export default class ConstruireParSymetrie extends Exercice {
           p1nom = creerNomDePolygone(5, listeDeNomsDePolygones)
           listeDeNomsDePolygones.push(p1nom)
           axeHorizontal = choice([true, false]) // axeHorizontal = true axe horizontal sinon vertical
-          A = point(0, 0)
+          A = pointAbstrait(0, 0)
           if (axeHorizontal) d = droiteHorizontaleParPoint(A)
           else d = droiteVerticaleParPoint(A)
           lieuxChoisis = lieuxChoisis.map((lieu) =>
@@ -388,7 +389,7 @@ export default class ConstruireParSymetrie extends Exercice {
           DD = symetrieAxiale(D, d, `${p1nom[3]}'`, 'above')
           EE = symetrieAxiale(E, d, `${p1nom[4]}'`, 'above')
           cC = pointEstSur(C, d) ? C : codageMediatrice(C, CC, 'red', '|')
-          cD = pointEstSur(D, d) ? D : codageMediatrice(D, DD, 'blue', 'X')
+          cD = pointEstSur(D, d) ? D : codageMediatrice(D, DD, bleuMathalea, 'X')
           cE = pointEstSur(E, d) ? E : codageMediatrice(E, EE, 'green', 'O')
           sC = pointEstSur(C, d) ? vide2d() : segment(C, CC)
           sD = pointEstSur(D, d) ? vide2d() : segment(D, DD)
@@ -456,7 +457,7 @@ export default class ConstruireParSymetrie extends Exercice {
         case 1: // symétries axiales d'axes à 45° de points (6ème)
           p1nom = creerNomDePolygone(5, listeDeNomsDePolygones)
           listeDeNomsDePolygones.push(p1nom)
-          A = point(0, 0, `${p1nom[0]}`, 'above')
+          A = pointAbstrait(0, 0, `${p1nom[0]}`, 'above')
           k = choice([-1, 1])
           d = droiteParPointEtPente(A, k)
           B = pointSurDroite(d, 6, `${p1nom[1]}`, 'above')
@@ -472,7 +473,7 @@ export default class ConstruireParSymetrie extends Exercice {
           DD = symetrieAxiale(D, d, `${p1nom[3]}'`, 'above')
           EE = symetrieAxiale(E, d, `${p1nom[4]}'`, 'above')
           cC = pointEstSur(C, d) ? C : codageMediatrice(C, CC, 'red', '|')
-          cD = pointEstSur(D, d) ? D : codageMediatrice(D, DD, 'blue', 'X')
+          cD = pointEstSur(D, d) ? D : codageMediatrice(D, DD, bleuMathalea, 'X')
           cE = pointEstSur(E, d) ? E : codageMediatrice(E, EE, 'green', 'O')
           sC = pointEstSur(C, d) ? vide2d() : segment(C, CC)
           sD = pointEstSur(D, d) ? vide2d() : segment(D, DD)
@@ -539,8 +540,8 @@ export default class ConstruireParSymetrie extends Exercice {
         case 2: // Axe de symétrie légèrement penché (utilisation du quadrillage plus complexe)
           p1nom = creerNomDePolygone(5, listeDeNomsDePolygones)
           listeDeNomsDePolygones.push(p1nom)
-          A = point(0, randint(-1, 1), `${p1nom[0]}`, 'above')
-          B = point(6, choice([-1, 1], [A.y]), `${p1nom[1]}`, 'above')
+          A = pointAbstrait(0, randint(-1, 1), `${p1nom[0]}`, 'above')
+          B = pointAbstrait(6, choice([-1, 1], [A.y]), `${p1nom[1]}`, 'above')
           d = droite(A, B)
           d.epaisseur = 2
           ;[C, D, E] = choisi3Points(d, lieuxChoisis)
@@ -554,7 +555,7 @@ export default class ConstruireParSymetrie extends Exercice {
           DD = symetrieAxiale(D, d, `${p1nom[3]}'`, 'above')
           EE = symetrieAxiale(E, d, `${p1nom[4]}'`, 'above')
           cC = pointEstSur(C, d) ? C : codageMediatrice(C, CC, 'red', '|')
-          cD = pointEstSur(D, d) ? D : codageMediatrice(D, DD, 'blue', 'X')
+          cD = pointEstSur(D, d) ? D : codageMediatrice(D, DD, bleuMathalea, 'X')
           cE = pointEstSur(E, d) ? E : codageMediatrice(E, EE, 'green', 'O')
           sC = pointEstSur(C, d) ? vide2d() : segment(C, CC)
           sD = pointEstSur(D, d) ? vide2d() : segment(D, DD)
@@ -622,7 +623,7 @@ export default class ConstruireParSymetrie extends Exercice {
         case 3: // symétrie axiale (Axe vertical ou horizontal) d'un triangle
           p1nom = creerNomDePolygone(5, listeDeNomsDePolygones)
           listeDeNomsDePolygones.push(p1nom)
-          A = point(0, 0, `${p1nom[0]}`, 'above')
+          A = pointAbstrait(0, 0, `${p1nom[0]}`, 'above')
           axeHorizontal = choice([true, false]) // si axeHorizontal est true alors d est horizontale sinon elle est verticale
           if (axeHorizontal) d = droiteHorizontaleParPoint(A)
           else d = droiteVerticaleParPoint(A)
@@ -655,7 +656,7 @@ export default class ConstruireParSymetrie extends Exercice {
             : codageMediatrice(
                 p1.listePoints[1],
                 p2.listePoints[1],
-                'blue',
+                bleuMathalea,
                 'X',
               )
           cE = pointEstSur(p1.listePoints[2], d)
@@ -671,7 +672,7 @@ export default class ConstruireParSymetrie extends Exercice {
             : segment(p1.listePoints[0], p2.listePoints[0], 'red')
           sD = pointEstSur(p1.listePoints[1], d)
             ? vide2d()
-            : segment(p1.listePoints[1], p2.listePoints[1], 'blue')
+            : segment(p1.listePoints[1], p2.listePoints[1], bleuMathalea)
           sE = pointEstSur(p1.listePoints[2], d)
             ? vide2d()
             : segment(p1.listePoints[2], p2.listePoints[2], 'green')
@@ -771,7 +772,7 @@ export default class ConstruireParSymetrie extends Exercice {
         case 4: // symetrie axiale (Axe à 45°) d'un triangle
           p1nom = creerNomDePolygone(5, listeDeNomsDePolygones)
           listeDeNomsDePolygones.push(p1nom)
-          A = point(0, 0, `${p1nom[0]}`, 'above')
+          A = pointAbstrait(0, 0, `${p1nom[0]}`, 'above')
           k = choice([-1, 1])
           d = droiteParPointEtPente(A, k)
           B = pointSurDroite(d, 6, `${p1nom[1]}`, 'above')
@@ -802,7 +803,7 @@ export default class ConstruireParSymetrie extends Exercice {
             : codageMediatrice(
                 p1.listePoints[1],
                 p2.listePoints[1],
-                'blue',
+                bleuMathalea,
                 'X',
               )
           cE = pointEstSur(p1.listePoints[2], d)
@@ -818,7 +819,7 @@ export default class ConstruireParSymetrie extends Exercice {
             : segment(p1.listePoints[0], p2.listePoints[0], 'red')
           sD = pointEstSur(p1.listePoints[1], d)
             ? vide2d()
-            : segment(p1.listePoints[1], p2.listePoints[1], 'blue')
+            : segment(p1.listePoints[1], p2.listePoints[1], bleuMathalea)
           sE = pointEstSur(p1.listePoints[2], d)
             ? vide2d()
             : segment(p1.listePoints[2], p2.listePoints[2], 'green')
@@ -916,8 +917,8 @@ export default class ConstruireParSymetrie extends Exercice {
         case 5: // symetrie axiale Axe légèrement penché
           p1nom = creerNomDePolygone(5, listeDeNomsDePolygones)
           listeDeNomsDePolygones.push(p1nom)
-          A = point(0, randint(-1, 1), `${p1nom[0]}`, 'above')
-          B = point(6, choice([-1, 1], [A.y]), `${p1nom[1]}`, 'above')
+          A = pointAbstrait(0, randint(-1, 1), `${p1nom[0]}`, 'above')
+          B = pointAbstrait(6, choice([-1, 1], [A.y]), `${p1nom[1]}`, 'above')
           d = droite(A, B)
           d.epaisseur = 2
           ;[C, D, E] = choisi3Points(d, lieuxChoisis)
@@ -942,7 +943,7 @@ export default class ConstruireParSymetrie extends Exercice {
             : codageMediatrice(
                 p1.listePoints[1],
                 p2.listePoints[1],
-                'blue',
+                bleuMathalea,
                 'X',
               )
           cE = pointEstSur(p1.listePoints[2], d)
@@ -958,7 +959,7 @@ export default class ConstruireParSymetrie extends Exercice {
             : segment(p1.listePoints[0], p2.listePoints[0], 'red')
           sD = pointEstSur(p1.listePoints[1], d)
             ? vide2d()
-            : segment(p1.listePoints[1], p2.listePoints[1], 'blue')
+            : segment(p1.listePoints[1], p2.listePoints[1], bleuMathalea)
           sE = pointEstSur(p1.listePoints[2], d)
             ? vide2d()
             : segment(p1.listePoints[2], p2.listePoints[2], 'green')
@@ -1058,7 +1059,7 @@ export default class ConstruireParSymetrie extends Exercice {
         case 6: // 3 symétries centrales de points
           p1nom = creerNomDePolygone(5, listeDeNomsDePolygones)
           listeDeNomsDePolygones.push(p1nom)
-          B = point(randint(-8, 8), randint(-3, 3), `${p1nom[1]}`, 'above')
+          B = pointAbstrait(randint(-8, 8), randint(-3, 3), `${p1nom[1]}`, 'above')
           d = droiteParPointEtPente(B, 0)
           ;[A, C, D] = choisi3Points(
             d,
@@ -1077,7 +1078,7 @@ export default class ConstruireParSymetrie extends Exercice {
           DD = rotation(D, B, 180, `${p1nom[3]}'`, 'above')
           AA = rotation(A, B, 180, `${p1nom[0]}'`, 'above')
           cC = codageMilieu(C, CC, 'red', '|', false)
-          cD = codageMilieu(D, DD, 'blue', '||', false)
+          cD = codageMilieu(D, DD, bleuMathalea, '||', false)
           cA = codageMilieu(A, AA, 'green', '|||', false)
           sC = segment(C, CC)
           sD = segment(D, DD)
@@ -1121,7 +1122,7 @@ export default class ConstruireParSymetrie extends Exercice {
         default:
           p1nom = creerNomDePolygone(5, listeDeNomsDePolygones)
           listeDeNomsDePolygones.push(p1nom)
-          B = point(randint(-8, 8), randint(-3, 3), `${p1nom[1]}`, 'above')
+          B = pointAbstrait(randint(-8, 8), randint(-3, 3), `${p1nom[1]}`, 'above')
           d = droiteParPointEtPente(B, 0)
           ;[A, C, D] = choisi3Points(
             d,
@@ -1153,7 +1154,7 @@ export default class ConstruireParSymetrie extends Exercice {
           cD = codageMilieu(
             p1.listePoints[1],
             p2.listePoints[1],
-            'blue',
+            bleuMathalea,
             'X',
             false,
           )
@@ -1165,7 +1166,7 @@ export default class ConstruireParSymetrie extends Exercice {
             false,
           )
           sA = segment(p1.listePoints[0], p2.listePoints[0], 'red')
-          sC = segment(p1.listePoints[1], p2.listePoints[1], 'blue')
+          sC = segment(p1.listePoints[1], p2.listePoints[1], bleuMathalea)
           sD = segment(p1.listePoints[2], p2.listePoints[2], 'green')
 
           objetsCorrection.push(

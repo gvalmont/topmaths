@@ -1,5 +1,5 @@
 import { droiteParPointEtPente } from '../../lib/2d/droites'
-import { point } from '../../lib/2d/PointAbstrait'
+import { pointAbstrait } from '../../lib/2d/PointAbstrait'
 import { repere } from '../../lib/2d/reperes'
 import { labelPoint, texteParPosition } from '../../lib/2d/textes'
 import { tracePoint } from '../../lib/2d/TracePoint'
@@ -23,6 +23,7 @@ import {
   randint,
 } from '../../modules/outils'
 import Exercice from '../Exercice'
+import { bleuMathalea } from '../../lib/colors'
 
 export const interactifReady = true
 export const interactifType = 'qcm'
@@ -384,12 +385,12 @@ export default class VocabulaireNotationsFonctions2 extends Exercice {
             case 0: {
               PointC = choice(['A', 'B', 'C', 'D', 'M', 'R', 'S', 'T'])
 
-              A = point(x, y, `${PointC}`)
+              A = pointAbstrait(x, y, `${PointC}`)
               A.positionLabel = 'above'
               d = droiteParPointEtPente(A, randint(-3, 3, 0) / 2, '', 'red')
               d.epaisseur = 3
               A.epaisseur = 3
-              t = tracePoint(A, 'blue')
+              t = tracePoint(A, bleuMathalea)
               t.epaisseur = 2
 
               texte = `La fonction $${nomF}$ est représentée par la droite rouge ci-dessous.<br>

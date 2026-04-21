@@ -1,13 +1,14 @@
 import { codageAngleDroit } from '../../lib/2d/CodageAngleDroit'
 import { codageSegments } from '../../lib/2d/CodageSegment'
 import { fixeBordures } from '../../lib/2d/fixeBordures'
-import { point } from '../../lib/2d/PointAbstrait'
+import { pointAbstrait } from '../../lib/2d/PointAbstrait'
 import { polygone } from '../../lib/2d/polygones'
 import { segment } from '../../lib/2d/segmentsVecteurs'
 import { texteParPosition } from '../../lib/2d/textes'
 import { rotation, similitude, translation } from '../../lib/2d/transformations'
 import { pointAdistance } from '../../lib/2d/utilitairesPoint'
 import { vecteur } from '../../lib/2d/Vecteur'
+import { bleuMathalea } from '../../lib/colors'
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { mathalea2d } from '../../modules/mathalea2d'
@@ -92,7 +93,6 @@ export default class AirePerimetrePolygone extends Exercice {
         texteCorr,
         cpt = 0;
       i < this.nbQuestions && cpt < 50;
-
     ) {
       // Boucle principale où i+1 correspond au numéro de la question
       texte = ''
@@ -101,7 +101,7 @@ export default class AirePerimetrePolygone extends Exercice {
         listeTypeQuestions[i] // Suivant le type de question, le contenu sera différent
       ) {
         case 'c': // Carré de côté une lettre
-          A = point(0, 0)
+          A = pointAbstrait(0, 0)
           B = pointAdistance(A, 4, 0)
           C = rotation(A, B, -90)
           D = rotation(B, A, 90)
@@ -118,7 +118,7 @@ export default class AirePerimetrePolygone extends Exercice {
             codageAngleDroit(A, D, C),
             codageAngleDroit(D, C, B),
             codageAngleDroit(B, A, D),
-            codageSegments('//', 'blue', A, B, B, C, C, D, D, A),
+            codageSegments('//', bleuMathalea, A, B, B, C, C, D, D, A),
             texteParPosition(`$${inc1}$`, 2, 4.7),
           )
           texteCorr += 'Périmètre :'
@@ -131,7 +131,7 @@ export default class AirePerimetrePolygone extends Exercice {
 
         case 'r1': {
           // Rectangle ayant une lettre pour Longueur et une autre lettre pour largeur, ou bien une lettre pour Longueur et un nombre pour largeur
-          E = point(0, 0)
+          E = pointAbstrait(0, 0)
           F = pointAdistance(E, 6, 0)
           G = similitude(E, F, -90, 2 / 3)
           H = translation(G, vecteur(F, E))
@@ -155,7 +155,7 @@ export default class AirePerimetrePolygone extends Exercice {
             codageAngleDroit(G, H, E),
             codageAngleDroit(H, E, F),
             codageSegments('/', 'red', E, F, G, H),
-            codageSegments('||', 'blue', F, G, H, E),
+            codageSegments('||', bleuMathalea, F, G, H, E),
             texteParPosition(`$${inc}$`, 3, 4.7),
             texteParPosition(`$${inc2}$`, -0.7, 2),
           )
@@ -169,16 +169,16 @@ export default class AirePerimetrePolygone extends Exercice {
         }
         case 'r2': {
           // Rectangle ayant le triple d'une mesure en longueur, et un nombre ou cette mesure en largeur
-          E = point(0, 0)
+          E = pointAbstrait(0, 0)
           F = pointAdistance(E, 6, 0)
           G = similitude(E, F, -90, 1 / 3)
           H = translation(G, vecteur(F, E))
-          I = point(2, 1.7)
-          J = point(2, 2.3)
-          K = point(4, 1.7)
-          M = point(4, 2.3)
-          N = point(2, 2)
-          P = point(4, 2)
+          I = pointAbstrait(2, 1.7)
+          J = pointAbstrait(2, 2.3)
+          K = pointAbstrait(4, 1.7)
+          M = pointAbstrait(4, 2.3)
+          N = pointAbstrait(2, 2)
+          P = pointAbstrait(4, 2)
           quad = polygone(E, F, G, H)
           quad.epaisseur = 2
           o = choice([1, 2])
@@ -203,7 +203,7 @@ export default class AirePerimetrePolygone extends Exercice {
           objets.push(
             o === 1
               ? codageSegments('/', 'red', F, G, H, E)
-              : codageSegments('||', 'blue', F, G, H, E),
+              : codageSegments('||', bleuMathalea, F, G, H, E),
           )
           texte += mathalea2d(
             Object.assign(params, {
@@ -227,12 +227,12 @@ export default class AirePerimetrePolygone extends Exercice {
           break
         }
         case 'r3': // Rectangle ayant un nombre pour largeur et une somme de lettres pour Longueur
-          E = point(0, 0)
+          E = pointAbstrait(0, 0)
           F = pointAdistance(E, 6, 0)
           G = similitude(E, F, -90, 2 / 3)
           H = translation(G, vecteur(F, E))
-          I = point(l, 3.7)
-          J = point(l, 4.3)
+          I = pointAbstrait(l, 3.7)
+          J = pointAbstrait(l, 4.3)
           quad = polygone(E, F, G, H)
           quad.epaisseur = 2
           params = fixeBordures([
@@ -251,7 +251,7 @@ export default class AirePerimetrePolygone extends Exercice {
             codageAngleDroit(F, G, H),
             codageAngleDroit(G, H, E),
             codageAngleDroit(H, E, F),
-            codageSegments('||', 'blue', F, G, H, E),
+            codageSegments('||', bleuMathalea, F, G, H, E),
             segment(I, J),
             texteParPosition(`$${inc1}$`, l / 2, 4.7),
             texteParPosition(`$${inc2}$`, 3 + l / 2, 4.7),

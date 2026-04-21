@@ -1,8 +1,9 @@
 import { courbe } from '../../../lib/2d/Courbe'
-import { point } from '../../../lib/2d/PointAbstrait'
+import { pointAbstrait } from '../../../lib/2d/PointAbstrait'
 import { repere } from '../../../lib/2d/reperes'
 import { texteParPosition } from '../../../lib/2d/textes'
 import { tracePoint } from '../../../lib/2d/TracePoint'
+import { bleuMathalea } from '../../../lib/colors'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 import { setReponse } from '../../../lib/interactif/gestionInteractif'
 import { ajouteChampTexteMathLive } from '../../../lib/interactif/questionMathLive'
@@ -47,9 +48,9 @@ export default class LectureGraphiqueParabolebEtc extends Exercice {
       beta = randint(-2, 2)
       a = choice([-1, 1])
       o = texteParPosition('O', -0.3, -0.3, 0, 'black', 1, 'milieu')
-      A = point(alpha, beta)
+      A = pointAbstrait(alpha, beta)
 
-      traceA = tracePoint(A, 'blue') // Variable qui trace les points avec une croix
+      traceA = tracePoint(A, bleuMathalea) // Variable qui trace les points avec une croix
       f = (x: number): number => a * (x - alpha) ** 2 + beta
       r = repere({
         yUnite: 1,
@@ -83,7 +84,7 @@ export default class LectureGraphiqueParabolebEtc extends Exercice {
         r,
         o,
         traceA,
-        courbe(f, { repere: r, color: 'blue', epaisseur: 2 }),
+        courbe(f, { repere: r, color: bleuMathalea, epaisseur: 2 }),
       )
 
       if (this.interactif) {

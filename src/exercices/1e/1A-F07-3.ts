@@ -1,4 +1,4 @@
-import { point } from '../../lib/2d/PointAbstrait'
+import { pointAbstrait } from '../../lib/2d/PointAbstrait'
 import { tracePoint } from '../../lib/2d/TracePoint'
 import { vide2d } from '../../lib/2d/Vide2d'
 import { droite } from '../../lib/2d/droites'
@@ -13,6 +13,7 @@ import FractionEtendue from '../../modules/FractionEtendue'
 import { mathalea2d } from '../../modules/mathalea2d'
 import { randint } from '../../modules/outils'
 import ExerciceQcmA from '../ExerciceQcmA'
+import { bleuMathalea } from '../../lib/colors'
 /**
  * @author Gilles Mora
  *
@@ -41,9 +42,9 @@ export default class Auto1AF6c extends ExerciceQcmA {
     yB: number,
   ): void {
     const o = latex2d('\\text{O}', -0.3, -0.3, { letterSize: 'scriptsize' })
-    const A = point(xA, yA)
-    const B = point(xB, yB)
-    const Bx = point(B.x, A.y)
+    const A = pointAbstrait(xA, yA)
+    const B = pointAbstrait(xB, yB)
+    const Bx = pointAbstrait(B.x, A.y)
     const sABx = A.x !== Bx.x || A.y !== Bx.y ? segment(A, Bx) : vide2d()
     const sBBx = B.x !== Bx.x || B.y !== Bx.y ? segment(B, Bx) : vide2d()
     const maFraction = new FractionEtendue(yB - yA, xB - xA)
@@ -68,11 +69,11 @@ export default class Auto1AF6c extends ExerciceQcmA {
       letterSize: 'scriptsize',
     })
     const lBBx = latex2d(`${yB - yA}`, B.x + 0.5, milieu(B, Bx).y, {
-      color: 'blue',
+      color: bleuMathalea,
       letterSize: 'scriptsize',
     })
 
-    const d = droite(A, B, '', 'blue')
+    const d = droite(A, B, '', bleuMathalea)
     d.epaisseur = 2
 
     const xmin = -6
@@ -161,7 +162,7 @@ export default class Auto1AF6c extends ExerciceQcmA {
     } else {
       this.correction = `En prenant deux points sur la droite, on obtient :<br>
      
-    $m=\\dfrac{${miseEnEvidence(yB - yA, 'blue')}}{${miseEnEvidence(xB - xA, 'red')}}=${miseEnEvidence(`${maFraction.texFractionSimplifiee}`)}$`
+    $m=\\dfrac{${miseEnEvidence(yB - yA, bleuMathalea)}}{${miseEnEvidence(xB - xA, 'red')}}=${miseEnEvidence(`${maFraction.texFractionSimplifiee}`)}$`
       this.correction += `<br>${objetC}<br>`
       this.reponses = [
         `$${maFraction.texFractionSimplifiee}$`,

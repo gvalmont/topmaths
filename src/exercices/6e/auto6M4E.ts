@@ -15,7 +15,7 @@ export const interactifType = 'listeDeroulante'
 
 /**
  * Choisir des rapports entre fraction d\'heure et minutes
- * @author Eric Elter
+ * @author Éric Elter
  */
 export const uuid = 'de920'
 
@@ -76,9 +76,9 @@ export default class AutoChoisirFractionHeure extends Exercice {
         handleAnswers(
           this,
           i,
-          { reponse: { value: reponse, options: { texteSansCasse: true } } },
+          { reponse: { value: reponse } },
           { formatInteractif: 'listeDeroulante' },
-        ) // rep doit avoir l'une des values : 'Uni', 'Auc', 'Inf'
+        )
 
         this.listeQuestions[i] = texte
         this.listeCorrections[i] = texteCorr

@@ -3,7 +3,7 @@ import { codageAngleDroit } from '../../lib/2d/CodageAngleDroit'
 import { codageSegment } from '../../lib/2d/CodageSegment'
 import { droite, droiteParPointEtPerpendiculaire } from '../../lib/2d/droites'
 import { grille, seyes } from '../../lib/2d/Grille'
-import { point } from '../../lib/2d/PointAbstrait'
+import { pointAbstrait } from '../../lib/2d/PointAbstrait'
 import { labelPoint, latexParPoint } from '../../lib/2d/textes'
 import { tracePoint } from '../../lib/2d/TracePoint'
 import { homothetie, rotation } from '../../lib/2d/transformations'
@@ -13,6 +13,7 @@ import {
   pointSurDroite,
 } from '../../lib/2d/utilitairesPoint'
 import { vide2d } from '../../lib/2d/Vide2d'
+import { bleuMathalea } from '../../lib/colors'
 import { shuffle } from '../../lib/outils/arrayOutils'
 import { lettreDepuisChiffre, numAlpha } from '../../lib/outils/outilString'
 import Alea2iep from '../../modules/Alea2iep'
@@ -94,8 +95,8 @@ export default class constructionPerpendiculaires extends Exercice {
       const objetsEnonce = []
       const objetsCorrection = []
       const indLettre = randint(1, 15)
-      const A = point(0, 0, lettreDepuisChiffre(indLettre), 'above left')
-      let B = point(
+      const A = pointAbstrait(0, 0, lettreDepuisChiffre(indLettre), 'above left')
+      let B = pointAbstrait(
         20,
         randint(-4, 0, [-1, 0, 1]),
         lettreDepuisChiffre(indLettre + 1),
@@ -142,7 +143,7 @@ export default class constructionPerpendiculaires extends Exercice {
       const C1 = rotation(B, A, ang1)
       const C2 = rotation(A, B, -1 * ang2)
       const CC = pointIntersectionDD(droite(A, C1), droite(B, C2))
-      let C = point(
+      let C = pointAbstrait(
         Math.floor(CC.x),
         Math.floor(CC.y),
         lettreDepuisChiffre(indLettre + 2),
@@ -167,7 +168,7 @@ export default class constructionPerpendiculaires extends Exercice {
       switch (typesDeQuestions) {
         case 'OrthoInterieur':
         case 'OrthoExterieur':
-          hC = droiteParPointEtPerpendiculaire(C, dAB, '', 'blue')
+          hC = droiteParPointEtPerpendiculaire(C, dAB, '', bleuMathalea)
           hB = droiteParPointEtPerpendiculaire(B, dAC, '', 'green')
           hA = droiteParPointEtPerpendiculaire(A, dBC, '', 'red')
           ortho = pointIntersectionDD(hC, hB)
@@ -175,7 +176,12 @@ export default class constructionPerpendiculaires extends Exercice {
         case 'CircoInterieur':
         case 'CircoExterieur':
         default:
-          hC = droiteParPointEtPerpendiculaire(milieu(A, B), dAB, '', 'blue')
+          hC = droiteParPointEtPerpendiculaire(
+            milieu(A, B),
+            dAB,
+            '',
+            bleuMathalea,
+          )
           hB = droiteParPointEtPerpendiculaire(milieu(A, C), dAC, '', 'green')
           hA = droiteParPointEtPerpendiculaire(milieu(B, C), dBC, '', 'red')
           ortho = pointIntersectionDD(hC, hB)
@@ -189,7 +195,7 @@ export default class constructionPerpendiculaires extends Exercice {
       context.fenetreMathalea2d = [Xmin, Ymin, Xmax, Ymax]
 
       let pHc = pointIntersectionDD(
-        droite(point(Xmin, Ymin), point(Xmax, Ymin)),
+        droite(pointAbstrait(Xmin, Ymin), pointAbstrait(Xmax, Ymin)),
         hC,
         '(d_1)',
         'above left',
@@ -204,7 +210,7 @@ export default class constructionPerpendiculaires extends Exercice {
         // pHc.x = pHc.x - 1
       }
       let pHb = pointIntersectionDD(
-        droite(point(Xmin, Ymin), point(Xmin, Ymax)),
+        droite(pointAbstrait(Xmin, Ymin), pointAbstrait(Xmin, Ymax)),
         hB,
         '(d_2)',
         'below right',
@@ -214,7 +220,7 @@ export default class constructionPerpendiculaires extends Exercice {
         pHb.x = pHb.x + 0.5
       } else {
         pHb = pointIntersectionDD(
-          droite(point(Xmin, Ymax), point(Xmax, Ymax)),
+          droite(pointAbstrait(Xmin, Ymax), pointAbstrait(Xmax, Ymax)),
           hB,
           '(d_2)',
           'below left',
@@ -225,7 +231,7 @@ export default class constructionPerpendiculaires extends Exercice {
         }
       }
       let pHa = pointIntersectionDD(
-        droite(point(Xmax, Ymin), point(Xmax, Ymax)),
+        droite(pointAbstrait(Xmax, Ymin), pointAbstrait(Xmax, Ymax)),
         hA,
         '(d_3)',
         'above left',
@@ -235,7 +241,7 @@ export default class constructionPerpendiculaires extends Exercice {
         pHa.x = pHa.x - 0.5
       } else {
         pHa = pointIntersectionDD(
-          droite(point(Xmin, Ymax), point(Xmax, Ymax)),
+          droite(pointAbstrait(Xmin, Ymax), pointAbstrait(Xmax, Ymax)),
           hA,
           '(d_3)',
           'below right',
@@ -249,10 +255,12 @@ export default class constructionPerpendiculaires extends Exercice {
       T.tailleTikz = 0.3
 
       objetsCorrection.push(T, labelPoint(A, B, C), dAB, dAC, dBC, hA, hB, hC)
-      objetsCorrection.push(latexParPoint(pHc.nom, pHc, 'blue', 20, 12, '', 8))
+      objetsCorrection.push(
+        latexParPoint(pHc.nom, pHc, bleuMathalea, 20, 12, '', 8),
+      )
       objetsCorrection.push(latexParPoint(pHb.nom, pHb, 'green', 20, 12, '', 8))
       objetsCorrection.push(latexParPoint(pHa.nom, pHa, 'red', 20, 12, '', 8))
-      // objetsCorrection.push(latexParCoordonnees (pHc.nom.substring(1, pHc.nom.length - 1), pHc.x, pHc.y, 'blue', 50, 20, '',8))
+      // objetsCorrection.push(latexParCoordonnees (pHc.nom.substring(1, pHc.nom.length - 1), pHc.x, pHc.y, bleuMathalea, 50, 20, '',8))
       if (
         typesDeQuestions === 'OrthoInterieur' ||
         typesDeQuestions === 'OrthoExterieur'
@@ -334,9 +342,9 @@ export default class constructionPerpendiculaires extends Exercice {
       anim.pointsCreer(A, B, C)
       anim.regleModifierLongueur(20)
       anim.equerreZoom(200)
-      anim.regleDroite(A, B, { couleur: 'blue' })
-      anim.regleDroite(A, C, { couleur: 'blue' })
-      anim.regleDroite(B, C, { couleur: 'blue' })
+      anim.regleDroite(A, B, { couleur: bleuMathalea })
+      anim.regleDroite(A, C, { couleur: bleuMathalea })
+      anim.regleDroite(B, C, { couleur: bleuMathalea })
       anim.regleMasquer()
       if (
         typesDeQuestions === 'OrthoInterieur' ||

@@ -7,10 +7,11 @@ import Decimal from 'decimal.js'
 import { codageAngleDroit } from '../../../lib/2d/CodageAngleDroit'
 import { codageSegments } from '../../../lib/2d/CodageSegment'
 import { fixeBordures } from '../../../lib/2d/fixeBordures'
-import { point } from '../../../lib/2d/PointAbstrait'
+import { pointAbstrait } from '../../../lib/2d/PointAbstrait'
 import { segment } from '../../../lib/2d/segmentsVecteurs'
 import { latex2d } from '../../../lib/2d/textes'
 import { milieu } from '../../../lib/2d/utilitairesPoint'
+import { bleuMathalea } from '../../../lib/colors'
 import { choice } from '../../../lib/outils/arrayOutils'
 import { mathalea2d } from '../../../modules/mathalea2d'
 export const titre = 'Calculer un périmètre'
@@ -23,7 +24,7 @@ export const refs = {
 }
 /**
  * Modèle d'exercice très simple pour la course aux nombres
- * @author Eric Elter - Gilles Mora
+ * @author Éric Elter - Gilles Mora
  */
 export default class perimetreCalcul extends ExerciceSimple {
   constructor() {
@@ -38,10 +39,10 @@ export default class perimetreCalcul extends ExerciceSimple {
     const objets = []
     const diviseur = choice([1, 10, 100, 1000])
     const a = new Decimal(2025).div(diviseur)
-    const A = point(0, 0, 'A', 'below')
-    const B = point(6, 0, 'B', 'below')
-    const C = point(6, 6, 'C', 'below')
-    const D = point(0, 6, 'D', 'below')
+    const A = pointAbstrait(0, 0, 'A', 'below')
+    const B = pointAbstrait(6, 0, 'B', 'below')
+    const C = pointAbstrait(6, 6, 'C', 'below')
+    const D = pointAbstrait(0, 6, 'D', 'below')
     const s1 = segment(A, B)
     const s2 = segment(B, C)
     const s3 = segment(C, D)
@@ -54,10 +55,10 @@ export default class perimetreCalcul extends ExerciceSimple {
         milieu(B, C).y + 0.7,
         { letterSize: 'scriptsize' },
       ),
-      codageSegments('||', 'blue', A, B),
-      codageSegments('||', 'blue', B, C),
-      codageSegments('||', 'blue', C, D),
-      codageSegments('||', 'blue', A, D),
+      codageSegments('||', bleuMathalea, A, B),
+      codageSegments('||', bleuMathalea, B, C),
+      codageSegments('||', bleuMathalea, C, D),
+      codageSegments('||', bleuMathalea, A, D),
       codageAngleDroit(D, A, B),
       codageAngleDroit(A, B, C),
       codageAngleDroit(B, C, D),

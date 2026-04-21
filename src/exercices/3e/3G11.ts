@@ -1,7 +1,7 @@
 import { cibleCarree, dansLaCibleCarree } from '../../lib/2d/cibles'
 import { codageSegments } from '../../lib/2d/CodageSegment'
 import { fixeBordures } from '../../lib/2d/fixeBordures'
-import { point } from '../../lib/2d/PointAbstrait'
+import { pointAbstrait } from '../../lib/2d/PointAbstrait'
 import { segment } from '../../lib/2d/segmentsVecteurs'
 import { labelPoint } from '../../lib/2d/textes'
 import { tracePoint } from '../../lib/2d/TracePoint'
@@ -18,6 +18,7 @@ import { context } from '../../modules/context'
 import { mathalea2d } from '../../modules/mathalea2d'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import Exercice from '../Exercice'
+import { orangeMathalea } from '../../lib/colors'
 export const titre =
   "Construire l'image d'un point par une homothétie avec cible auto-corrective"
 export const amcReady = true
@@ -26,7 +27,7 @@ export const dateDePublication = '30/11/2020'
 export const dateDeModifImportante = '31/01/2023'
 /**
  * Construction d'images par homothétie avec dispositif d'auto-correction aléatoire
- * @author Jean-Claude Lhote (modifié par EE)
+ * @author Jean-claude Lhote (modifié par EE)
  */
 export const uuid = '18e25'
 
@@ -82,7 +83,7 @@ export default class ConstruireHomothetiePoint3e extends Exercice {
           return lettre + chiffre
         }
         // On prépare la figure...
-        const O = point(0, 0, 'O')
+        const O = pointAbstrait(0, 0, 'O')
         const noms = choisitLettresDifferentes(nbpoints, 'QO', true)
         if (nbpoints > 1) {
           texte = `Construire l'image des points $${noms[0]}$`
@@ -107,7 +108,7 @@ export default class ConstruireHomothetiePoint3e extends Exercice {
         for (let k = 0; k < nbpoints; k++) {
           // On place les cibles.
           N.push(
-            point(
+            pointAbstrait(
               randint(-60, 60, 0) / 10,
               randint(-60, 60, 0) / 10,
               noms[k] + "'",
@@ -149,7 +150,7 @@ export default class ConstruireHomothetiePoint3e extends Exercice {
             rang: 4,
             num: plusieursCiblesPourUnPoint ? choixNumGrille[3] : k + 1,
             taille: 0.6,
-            color: '#f15929',
+            color: orangeMathalea,
             colorNum: 'gray',
             opaciteNum: context.isHtml ? 0.5 : 1,
           })
@@ -344,7 +345,7 @@ export default class ConstruireHomothetiePoint3e extends Exercice {
               rang: 4,
               num: choixNumGrille[j],
               taille: 0.6,
-              color: '#f15929',
+              color: orangeMathalea,
               colorNum: 'gray',
               opaciteNum: context.isHtml ? 0.5 : 1,
             })

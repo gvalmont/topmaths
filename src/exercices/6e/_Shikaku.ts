@@ -1,9 +1,10 @@
 import { BoiteBuilder } from '../../lib/2d/BoiteBuilder'
 import { fixeBordures } from '../../lib/2d/fixeBordures'
 import { grille } from '../../lib/2d/Grille'
-import { point } from '../../lib/2d/PointAbstrait'
+import { pointAbstrait } from '../../lib/2d/PointAbstrait'
 import { nommePolygone, polygone } from '../../lib/2d/polygones'
 import { texteParPosition } from '../../lib/2d/textes'
+import { bleuMathalea } from '../../lib/colors'
 import { shuffle } from '../../lib/outils/arrayOutils'
 import { mathalea2d } from '../../modules/mathalea2d'
 import { randint } from '../../modules/outils'
@@ -13,7 +14,7 @@ import { randint } from '../../modules/outils'
  * @param {array} flat
  * @param {string} noms
  * @return {Polygone}
- * @author Jean-Claude Lhote
+ * @author Jean-claude Lhote
  */
 export function flatArrayToPolygone(
   flat: number[],
@@ -21,7 +22,7 @@ export function flatArrayToPolygone(
 ) {
   const sommets = []
   for (let i = 0; i < flat.length; i += 2) {
-    sommets.push(point(flat[i], flat[i + 1]))
+    sommets.push(pointAbstrait(flat[i], flat[i + 1]))
   }
   const pol = polygone(...sommets)
   if (typeof noms === 'string') {
@@ -35,6 +36,7 @@ export function flatArrayToPolygone(
 /**
  * Générateur aléatoire de Shikaku : il suffit de donner la largeur et la hauteur globale, le générateur fait le reste
  * pour créer un Shikaku de largeur 12 et de hauteur 6, on utilise : const myShikaku = new Shikaku(12,6)
+ * @author Jean-claude Lhote
  */
 export default class Shikaku {
   /**
@@ -104,14 +106,14 @@ export default class Shikaku {
         ),
       )
       if (type === 'solution') {
-        /* const box = boite({ Xmin: rectangle.x, Ymin: rectangle.y, Xmax: rectangle.x + rectangle.largeur, Ymax: rectangle.y + rectangle.hauteur, color: 'blue' })
+        /* const box = boite({ Xmin: rectangle.x, Ymin: rectangle.y, Xmax: rectangle.x + rectangle.largeur, Ymax: rectangle.y + rectangle.hauteur, color: bleuMathalea })
          */
         const box = new BoiteBuilder({
           xMin: rectangle.x,
           yMin: rectangle.y,
           xMax: rectangle.x + rectangle.largeur,
           yMax: rectangle.y + rectangle.hauteur,
-        }).addColor({ color: 'blue' })
+        }).addColor({ color: bleuMathalea })
         objets.push(box.render())
       }
     }

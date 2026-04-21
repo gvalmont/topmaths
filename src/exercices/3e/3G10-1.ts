@@ -9,7 +9,7 @@ import {
   droiteParPointEtPente,
   droiteVerticaleParPoint,
 } from '../../lib/2d/droites'
-import { PointAbstrait, point } from '../../lib/2d/PointAbstrait'
+import { PointAbstrait, pointAbstrait } from '../../lib/2d/PointAbstrait'
 import { repere } from '../../lib/2d/reperes'
 import { representant } from '../../lib/2d/representantVecteur'
 import { segment } from '../../lib/2d/segmentsVecteurs'
@@ -19,7 +19,7 @@ import { pointEstSur } from '../../lib/2d/utilitairesGeometriques'
 import { milieu, pointSurDroite } from '../../lib/2d/utilitairesPoint'
 import { vecteur } from '../../lib/2d/Vecteur'
 import { vide2d } from '../../lib/2d/Vide2d'
-import { orangeMathalea } from '../../lib/colors'
+import { orangeMathalea, bleuMathalea } from '../../lib/colors'
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
@@ -51,7 +51,7 @@ export const dateDeModifImportante = '06/02/2024'
 
 /**
  * Trouver les coordonnées d'un punto transformé d'un autre par une des transformations du plan
- * @author Jean-Claude Lhote (Modif des paramètres, nbQuestions modifiables par Eric Elter)
+ * @author Jean-claude Lhote (Modif des paramètres, nbQuestions modifiables par Éric Elter)
  */
 export const uuid = 'd4088'
 
@@ -76,19 +76,19 @@ export default class TransformationsDuPlanEtCoordonnees extends Exercice {
   nouvelleVersion() {
     const k: number[] = []
     // On initialise les PointAbstrait pour éviter les erreurs typescript type undefined.
-    let A: PointAbstrait = point(0, 0)
-    let B: PointAbstrait = point(0, 0)
-    let C: PointAbstrait = point(0, 0)
-    let Aprime: PointAbstrait = point(0, 0)
-    let Bprime: PointAbstrait = point(0, 0)
-    let Cprime: PointAbstrait = point(0, 0)
+    let A: PointAbstrait = pointAbstrait(0, 0)
+    let B: PointAbstrait = pointAbstrait(0, 0)
+    let C: PointAbstrait = pointAbstrait(0, 0)
+    let Aprime: PointAbstrait = pointAbstrait(0, 0)
+    let Bprime: PointAbstrait = pointAbstrait(0, 0)
+    let Cprime: PointAbstrait = pointAbstrait(0, 0)
     const xP = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14] // ces nombres sont juste là pour compter combien il y en a... ils seront remplacés plus tard par les coordonnées utiles ou pas.
     const yP = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14] // comme pour t, je n'utiliserai pas le premier élément pour coller aux index.
     const t = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0] // il y a 14 transformations mais je n'utilise pas t[0] pour coller avec les index.
     const lettre1 = ['A', 'B', 'C']
     const lettre2 = ["O'", 'A', 'B'] // si t[i]=0 alors la transformation concernée n'existe pas, si t[i]=1, on la dessine.
     const punto: number[][] = [[]]
-    const couleurs = ['brown', 'green', 'blue']
+    const couleurs = ['brown', 'green', bleuMathalea]
     const listeTypeDeQuestions = [[1, 2, 3, 4], [7], [8], [5, 6], [9], [10]]
     for (
       let ee = 0,
@@ -135,9 +135,9 @@ export default class TransformationsDuPlanEtCoordonnees extends Exercice {
 
       const xO = randint(-3, 3, [0, -1]) // PointAbstrait O' (origine du repère dans lequel les transformations sont simples (centre des rotations et punto d'intersection des axes))
       const yO = randint(-3, 3, [0, -1])
-      const pointO = point(0, 0, 'O', 'above right')
+      const pointO = pointAbstrait(0, 0, 'O', 'above right')
 
-      const O = point(xO, yO, "O'", 'above left') // on crée le point O'
+      const O = pointAbstrait(xO, yO, "O'", 'above left') // on crée le point O'
       let droited1,
         droited2,
         droited,
@@ -182,8 +182,8 @@ export default class TransformationsDuPlanEtCoordonnees extends Exercice {
           punto[0] = punto[0].map((e) => Number(e)) // supprime les fractions étendues, on revient à la notation décimale
           compteur++
         }
-        A = point(xA, yA, 'A')
-        Aprime = point(punto[0][0], punto[0][1], "A'")
+        A = pointAbstrait(xA, yA, 'A')
+        Aprime = pointAbstrait(punto[0][0], punto[0][1], "A'")
 
         // xB = randint(-7, 7, [xA, 0]) // PointAbstrait B
         xB = randint(-7, 7, [xA, 0, punto[0][0]]) // PointAbstrait B
@@ -239,8 +239,8 @@ export default class TransformationsDuPlanEtCoordonnees extends Exercice {
           compteur++
         }
 
-        B = point(xB, yB, 'B')
-        Bprime = point(punto[1][0], punto[1][1], "B'")
+        B = pointAbstrait(xB, yB, 'B')
+        Bprime = pointAbstrait(punto[1][0], punto[1][1], "B'")
 
         // xC = randint(-7, 7, 0) // PointAbstrait C
         xC = randint(-7, 7, [0, punto[0][0], punto[1][0]]) // PointAbstrait C
@@ -299,8 +299,8 @@ export default class TransformationsDuPlanEtCoordonnees extends Exercice {
         } else {
           continue
         }
-        C = point(xC, yC, 'C')
-        Cprime = point(punto[2][0], punto[2][1], "C'")
+        C = pointAbstrait(xC, yC, 'C')
+        Cprime = pointAbstrait(punto[2][0], punto[2][1], "C'")
       }
       let couleurDroite: string = 'black'
       // les puntos sont choisis, on écrit l'énoncé

@@ -146,6 +146,7 @@ export function guessOptionsForReponses(
 
 export function verifQuestionQcm(exercice: IExercice, i: number) {
   let resultat
+  let feedback = ''
   // i est l'indice de la question
   let nbBonnesReponses = 0
   let nbMauvaisesReponses = 0
@@ -179,11 +180,20 @@ export function verifQuestionQcm(exercice: IExercice, i: number) {
         exercice.answers![`Ex${exercice.numeroExercice}Q${i}R${indice}`] = '1'
         // Gestion du feedback de toutes les cases cochées
         if (exercice.autoCorrection[i].propositions![indice].feedback) {
-          messageFeedback({
+          // Modification le 5 avril 2026 (JCL) : Les feedbacks décalent les case à cocher,
+          //  on les regroupent dans verifQuestionQcm avec le feedback global de la question pour éviter ce problème d'affichage.
+          //  On garde cependant la possibilité d'avoir un feedback spécifique à chaque proposition qui s'affiche dans le feedback global de la question.
+          /* messageFeedback({
             id: `feedbackEx${exercice.numeroExercice}Q${i}R${indice}`,
             message: exercice.autoCorrection[i].propositions![indice].feedback,
             type: proposition.statut ? 'positive' : 'error',
-          })
+          }) */
+          feedback +=
+            exercice.autoCorrection[i].propositions![indice].feedback &&
+            exercice.autoCorrection[i].propositions![indice].feedback !== ''
+              ? exercice.autoCorrection[i].propositions![indice].feedback +
+                '<br>'
+              : ''
         }
       } else {
         exercice.answers![`Ex${exercice.numeroExercice}Q${i}R${indice}`] = '0'
@@ -218,7 +228,7 @@ export function verifQuestionQcm(exercice: IExercice, i: number) {
   // Gestion du feedback global de la question
   if (divReponseLigne) divReponseLigne.style.fontSize = 'large'
   const eltFeedback = get(`feedbackEx${exercice.numeroExercice}Q${i}`, false)
-  let message = ''
+  let message = feedback
   if (eltFeedback) {
     eltFeedback.innerHTML = ''
   }
@@ -229,18 +239,19 @@ export function verifQuestionQcm(exercice: IExercice, i: number) {
       nbMauvaisesReponses === 0 &&
       nbBonnesReponses < nbBonnesReponsesAttendues
     ) {
-      message = `${nbBonnesReponses} bonne${nbBonnesReponses > 1 ? 's' : ''} réponse${nbBonnesReponses > 1 ? 's' : ''}`
+      message += `${nbBonnesReponses} bonne${nbBonnesReponses > 1 ? 's' : ''} réponse${nbBonnesReponses > 1 ? 's' : ''}`
     } else if (nbBonnesReponses > 0 && nbMauvaisesReponses > 0) {
       // Du juste et du faux
-      message = `${nbMauvaisesReponses} erreur${nbMauvaisesReponses > 1 ? 's' : ''}`
+      message += `${nbMauvaisesReponses} erreur${nbMauvaisesReponses > 1 ? 's' : ''}`
     } else if (nbBonnesReponses === 0 && nbMauvaisesReponses > 0) {
       // Que du faux
-      message = `${nbMauvaisesReponses} erreur${nbMauvaisesReponses > 1 ? 's' : ''}`
+      message += `${nbMauvaisesReponses} erreur${nbMauvaisesReponses > 1 ? 's' : ''}`
     }
   } else {
     message = ''
   }
-  if (nbBonnesReponsesAttendues > nbBonnesReponses) {
+  const isRadio = exercice.autoCorrection[i].options?.radio === true
+  if (!isRadio && nbBonnesReponsesAttendues > nbBonnesReponses) {
     message += ` ${nbBonnesReponsesAttendues - nbBonnesReponses} bonne${nbBonnesReponsesAttendues - nbBonnesReponses > 1 ? 's' : ''} réponse${nbBonnesReponsesAttendues - nbBonnesReponses > 1 ? 's' : ''} manquante${nbBonnesReponsesAttendues - nbBonnesReponses > 1 ? 's' : ''}`
   }
   if (message !== '') {
@@ -366,50 +377,38 @@ export function propositionsQcm(
     indexes.push(...melange.indexes)
   }
   if (!context.isHtml) {
-    const formateQ = (format: string, rep: number) => {
-      if (format == null || format === 'case') return '$\\square\\;$'
-      if (format === 'lettre') {
-        return `${texteGras(lettreDepuisChiffre(rep + 1))}.`
+    const propositions = exercice.autoCorrection[i].propositions
+
+    // Indices des bonnes réponses (1-indexé pour le package tasks)
+    const correctIndices: number[] = []
+    propositions.forEach((prop, index) => {
+      if (prop.statut) {
+        correctIndices.push(index + 1)
       }
-      return `${texteGras(lettreDepuisChiffre(rep + 1))}$\\square\\;$`
+    })
+
+    // Si nbCols vaut 1 mais qu'on veut un affichage horizontal (!vertical),
+    // on force le nombre de colonnes au nombre de propositions pour tout aligner sur une ligne.
+    const finalCols = nbCols === 1 && !vertical ? propositions.length : nbCols
+
+    const isLettre = options?.format === 'lettre'
+    const optCols = `cols=${finalCols}`
+    const optCase = isLettre ? '' : ', case' // Ajoute l'option 'case' par défaut ou si spécifié
+
+    // Les options pour l'énoncé (sans la correction)
+    const optionsQ = `[${optCols}${optCase}]`
+    // Les options pour le corrigé (avec la liste des bonnes réponses)
+    const optionsCorr = `[${optCols}${optCase}, correct={${correctIndices.join(',')}}]`
+
+    // 4. Construction du contenu des tâches (le même pour la Q et la R)
+    let contenuTasks = ''
+    for (let rep = 0; rep < propositions.length; rep++) {
+      contenuTasks += `  \\task ${propositions[rep].texte}\n`
     }
-    const formateRV = (format: string, rep: number) => {
-      if (format == null || format === 'case') return '$\\blacksquare\\;$'
-      if (format === 'lettre') {
-        return `${texteEnCouleurEtGras(lettreDepuisChiffre(rep + 1))}.`
-      }
-      return `${texteEnCouleurEtGras(lettreDepuisChiffre(rep + 1))}$\\blacksquare\\;$`
-    }
-    const formateRF = (format: string, rep: number) => {
-      if (format == null || format === 'case') return '$\\square\\;$'
-      if (format === 'lettre') {
-        return `$${miseEnEvidence(`\\cancel{\\text{${lettreDepuisChiffre(rep + 1)}}}`, 'black')}$.`
-      }
-      return `$${miseEnEvidence(`\\cancel{\\text{${lettreDepuisChiffre(rep + 1)}}}`, 'black')}\\square\\;$`
-    }
-    texte += nbCols === 1 ? '\t' : `\n\n\\begin{multicols}{${nbCols}}\n\t`
-    texteCorr += nbCols === 1 ? '\t' : `\n\n\\begin{multicols}{${nbCols}}\n\t`
-    for (
-      let rep = 0;
-      rep < exercice.autoCorrection[i].propositions.length;
-      rep++
-    ) {
-      texte += `${formateQ(options?.format, rep)} ${exercice.autoCorrection[i].propositions[rep].texte}`
-      if (exercice.autoCorrection[i].propositions[rep].statut) {
-        texteCorr += `${formateRV(options?.format, rep)} ${exercice.autoCorrection[i].propositions[rep].texte}`
-      } else {
-        texteCorr += `${formateRF(options?.format, rep)} ${exercice.autoCorrection[i].propositions[rep].texte}`
-      }
-      if (vertical) {
-        texte += '\\\\\n\t'
-        texteCorr += '\\\\\n\t'
-      } else {
-        texte += '\\qquad '
-        texteCorr += '\\qquad '
-      }
-    }
-    texte += nbCols === 1 ? (vertical ? '\n' : '\\\\\n') : '\\end{multicols}'
-    texteCorr += nbCols === 1 ? '\\\\\n' : '\\end{multicols}'
+
+    // 5. Injection dans les chaînes LaTeX finales
+    texte += `\\begin{qcmprop}${optionsQ}\n${contenuTasks}\\end{qcmprop}\n`
+    texteCorr += `\\begin{qcmprop}${optionsCorr}\n${contenuTasks}\\end{qcmprop}\n`
   }
   if (context.isHtml) {
     const isRadio = exercice.autoCorrection[i].options?.radio ?? false
@@ -452,7 +451,7 @@ export function propositionsQcm(
       texte += `<div class="ex${exercice.numeroExercice} ${vertical ? '' : 'inline-block'} my-2 align-center">
       ${formateQ(options?.format, rep)}
       <label id="labelEx${exercice.numeroExercice}Q${i}R${rep}" ${classCss} >${exercice.autoCorrection[i].propositions[rep].texte + espace}</label>
-      <div id="feedbackEx${exercice.numeroExercice}Q${i}R${rep}" ${vertical ? '' : 'class="inline"'}></div></div>`
+      </div>`
       texteCorr += `<div class="${vertical ? '' : 'inline-block'}">
     ${
       exercice.autoCorrection[i].propositions[rep].statut
@@ -462,18 +461,19 @@ export function propositionsQcm(
       <label id="labelEx${exercice.numeroExercice}Q${i}R${rep}" ${classCss} >${exercice.autoCorrection[i].propositions[rep].texte + espace}</label>
       </div>`
     }
+    /* for (
+      let rep = 0;
+      rep < exercice.autoCorrection[i].propositions.length;
+      rep++
+    ) {
+      texte += `<div class="m-2" id="feedbackEx${exercice.numeroExercice}Q${i}R${rep}"></div>`
+    } */
     texte += `</div><div class="m-2" id="resultatCheckEx${exercice.numeroExercice}Q${i}"></div>`
     texteCorr += '</div><div class="m-2"></div>'
   }
   if (!context.isHtml) {
-    texte =
-      ` 
-    
-    ` + texte
-    texteCorr =
-      ` 
-    
-    ` + texteCorr
+    texte = '\n' + texte
+    texteCorr = '\n' + texteCorr
   }
   return { texte, texteCorr, indexes }
 }
@@ -521,7 +521,7 @@ export function exerciceQcm(exercice: IExercice) {
 /**
  * prend un tableau de propositions [{texte: 'prop1', statut: true, feedback: 'Correct !'}, {texte: 'prop2', statut: false, ....}
  * élimine en cas de doublon la proposition fausse ou la deuxième proposition si elle sont toutes les deux fausses.
- * @author Jean-Claude Lhote
+ * @author Jean-claude Lhote
  */
 export function elimineDoublons(propositions: UneProposition[]) {
   // fonction qui va éliminer les doublons si il y en a

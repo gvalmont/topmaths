@@ -3,6 +3,7 @@ import { MathfieldElement } from 'mathlive'
 import { get } from 'svelte/store'
 import { keyboardState } from '../components/keyboard/stores/keyboardStore'
 import { getKeyboardShortcusts } from '../lib/interactif/claviers/keyboard'
+import { isMathfieldFocused } from '../lib/interactif/mathfieldFocus'
 import { globalOptions } from '../lib/stores/globalOptions'
 import { context } from './context'
 import { UserFriendlyError } from './messages'
@@ -64,6 +65,61 @@ export function loadScratchblocks() {
   return load('scratchblocks')
 }
 
+export function injectFontInMetaInteractif2d(mf) {
+  const shadow = mf.shadowRoot
+  if (shadow && !shadow.getElementById('katex-main-font')) {
+    // Crée une balise style
+    const style = document.createElement('style')
+    style.id = 'katex-main-font'
+    style.textContent = `
+        .ML__text {
+          font-family: 'KaTeX_Main', serif !important;
+        }
+      `
+    shadow.appendChild(style)
+  }
+}
+
+function injectPromptStyles(mf) {
+  if (!mf.classList.contains('fillInTheBlanks')) {
+    if (mf.classList.contains('tableauMathlive')) {
+      const shadow = mf.shadowRoot
+      if (shadow && !shadow.getElementById('ml-cell-style')) {
+        const style = document.createElement('style')
+        style.id = 'ml-cell-style'
+        style.textContent = `
+        .ML__container {
+          "justify-content": center !important;
+        }
+          .ML__content {
+          "justify-content": center !important;
+          }
+    `
+        shadow.appendChild(style)
+      }
+    }
+    return
+  }
+  const shadow = mf.shadowRoot
+  if (shadow && !shadow.getElementById('ml-prompt-styles')) {
+    const style = document.createElement('style')
+    style.id = 'ml-prompt-styles'
+    style.textContent = `
+    .ML__prompt {
+    min-height: 0.9em !important;
+    }
+    .ML__prompt-atom {
+    line-height: 0.9 !important;
+     vertical-align: 0.1em !important;
+    }
+      /* Prompt actif uniquement */
+      .ML__focused .ML__focusedPromptBox {
+        outline: 2px solid #3b82f6 !important;
+      }
+    `
+    shadow.appendChild(style)
+  }
+}
 /**
  * Charge MathLive et personnalise les réglages
  * MathLive est chargé dès qu'un tag math-field est créé
@@ -158,7 +214,7 @@ function handleFocusOutMathField() {
   // car au focusout, le focus est sur body
   if (get(globalOptions).v === 'can') return
   setTimeout(() => {
-    if (document.activeElement.tagName !== 'MATH-FIELD') {
+    if (!isMathfieldFocused(document.activeElement)) {
       keyboardState.update((value) => {
         const newValue = value
         newValue.isVisible = false
@@ -172,5 +228,7 @@ function setMathfield(mf) {
   if ('mathVirtualKeyboardPolicy' in mf) mf.mathVirtualKeyboardPolicy = 'manual'
   if ('menuItems' in mf) mf.menuItems = []
   if ('virtualKeyboardMode' in mf) mf.virtualKeyboardMode = 'manual'
+  injectFontInMetaInteractif2d(mf)
+  injectPromptStyles(mf)
   mf.removeEventListener('mount', setMathfield)
 }

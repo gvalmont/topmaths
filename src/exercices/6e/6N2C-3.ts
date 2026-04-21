@@ -1,6 +1,7 @@
 import { propositionsQcm } from '../../lib/interactif/qcm'
 import { choice } from '../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
+import { arrondi } from '../../lib/outils/nombres'
 import { texNombre2 } from '../../lib/outils/texNombre'
 import {
   gestionnaireFormulaireTexte,
@@ -8,6 +9,7 @@ import {
   randint,
 } from '../../modules/outils'
 import Exercice from '../Exercice'
+import { bleuMathalea } from '../../lib/colors'
 
 export const amcReady = true
 export const amcType = 'qcmMono'
@@ -20,7 +22,7 @@ export const dateDePublication = '08/12/2021'
 export const dateDeModifImportante = '22/08/2024'
 
 /**
- * @author Eric Elter (déclinaison de 6C30-5 de Jean-Claude Lhote)
+ * @author Eric Elter (déclinaison de 6C30-5 de Jean-claude Lhote)
  * Publié le 08/12/2021
 
  */
@@ -73,15 +75,13 @@ export default class DiviserPar101001000 extends Exercice {
         exposant,
         cpt = 0;
       i < this.nbQuestions && cpt < 50;
-
     ) {
       texte = '' // Nous utilisons souvent cette variable pour construire le texte de la question.
       texteCorr = '' // Idem pour le texte de la correction.
       coef = -randint(1, 3)
-      if (this.sup2) {
-        if (this.sup) {
-          exposant = 0
-        } else {
+      exposant = 0
+      if (!this.sup)
+        if (this.sup2) {
           switch (coef) {
             case -1:
               exposant = -randint(0, 2)
@@ -89,15 +89,10 @@ export default class DiviserPar101001000 extends Exercice {
             case -2:
               exposant = -randint(0, 1)
               break
-            case -3:
-            default:
-              exposant = -randint(0, 0)
-              break
           }
+        } else {
+          exposant = -randint(1, 3)
         }
-      } else {
-        exposant = this.sup ? 0 : -randint(1, 3)
-      }
       nombreEntier = randint(10, 1000) + randint(10, 999) * choice([0, 1000])
       nombre = nombreEntier * 10 ** exposant
       resultat = nombre * 10 ** coef
@@ -108,7 +103,7 @@ export default class DiviserPar101001000 extends Exercice {
           texte = `$${texNombre2(nombre)}\\div ${texNombre2(10 ** -coef)}=\\ldots\\ldots\\ldots\\ldots$`
           texteCorr = `Quand on divise par $${texNombre2(10 ** -coef)}$, chaque chiffre prend une valeur $${texNombre2(10 ** -coef)}$ fois plus petite.<br>`
           texteCorr += `Le chiffre des unités se positionne donc dans les ${rang[3 + coef]} :<br>`
-          texteCorr += `$${texNombre2(nombre)}\\div ${texNombre2(10 ** -coef)}=${miseEnEvidence(texNombre2(resultat), 'blue')}$`
+          texteCorr += `$${texNombre2(nombre)}\\div ${texNombre2(10 ** -coef)}=${miseEnEvidence(texNombre2(resultat), bleuMathalea)}$`
 
           this.autoCorrection[i] = {}
           this.autoCorrection[i].enonce = `${texte}\n`
@@ -118,7 +113,7 @@ export default class DiviserPar101001000 extends Exercice {
               statut: true,
             },
             {
-              texte: `$${texNombre2(nombre * 10 ** -coef)}$`,
+              texte: `$${texNombre2(arrondi(nombre * 10 ** -coef, 5))}$`,
               statut: false,
             },
             {
@@ -126,7 +121,7 @@ export default class DiviserPar101001000 extends Exercice {
               statut: false,
             },
             {
-              texte: `$${texNombre2(nombre * 10 ** (-coef + 1))}$`,
+              texte: `$${texNombre2(arrondi(nombre * 10 ** (-coef + 1), 5))}$`,
               statut: false,
             },
           ]
@@ -140,7 +135,7 @@ export default class DiviserPar101001000 extends Exercice {
           texte = `$${texNombre2(nombre)}\\div \\ldots\\ldots\\ldots=${texNombre2(resultat)}$`
           texteCorr = `Le chiffre des unités de $${texNombre2(nombre)}$ se positionne sur le chiffre des ${rang[3 + coef]} dans $${texNombre2(resultat)}$.<br>`
           texteCorr += `Chaque chiffre prend une valeur $${texNombre2(10 ** -coef)}$ fois plus petite, donc on divise par $${texNombre2(10 ** -coef)}$.<br>`
-          texteCorr += `$${texNombre2(nombre)}\\div ${miseEnEvidence(texNombre2(10 ** -coef), 'blue')}=${texNombre2(resultat)}$`
+          texteCorr += `$${texNombre2(nombre)}\\div ${miseEnEvidence(texNombre2(10 ** -coef), bleuMathalea)}=${texNombre2(resultat)}$`
           this.autoCorrection[i] = {}
           this.autoCorrection[i].enonce = `${texte}\n`
           this.autoCorrection[i].propositions = [
@@ -171,7 +166,7 @@ export default class DiviserPar101001000 extends Exercice {
           texte = `$\\ldots\\ldots\\ldots\\ldots\\div ${texNombre2(10 ** -coef)}=${texNombre2(resultat)}$`
           texteCorr = `Quand on divise par $${texNombre2(10 ** -coef)}$, chaque chiffre prend une valeur $${texNombre2(10 ** -coef)}$ fois plus petite.<br>`
           texteCorr += `Le chiffre des unités se positionne donc dans les ${rang[3 + coef]} :<br>`
-          texteCorr += `$${miseEnEvidence(texNombre2(nombre), 'blue')}\\div ${texNombre2(10 ** -coef)}=${texNombre2(resultat)}$`
+          texteCorr += `$${miseEnEvidence(texNombre2(nombre), bleuMathalea)}\\div ${texNombre2(10 ** -coef)}=${texNombre2(resultat)}$`
           this.autoCorrection[i] = {}
           this.autoCorrection[i].enonce = `${texte}\n`
           this.autoCorrection[i].propositions = [
@@ -188,7 +183,7 @@ export default class DiviserPar101001000 extends Exercice {
               statut: false,
             },
             {
-              texte: `$${texNombre2(nombre * 10 ** (-coef + 1))}$`,
+              texte: `$${texNombre2(arrondi(nombre * 10 ** (-coef + 1), 5))}$`,
               statut: false,
             },
           ]

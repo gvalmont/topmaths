@@ -1,7 +1,8 @@
 import Decimal from 'decimal.js'
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
-import { setReponse } from '../../lib/interactif/gestionInteractif'
-import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
+import { handleAnswers } from '../../lib/interactif/gestionInteractif'
+import { toutAUnPoint } from '../../lib/interactif/mathLive'
+import { addMultiMathfield } from '../../lib/interactif/MultiMathfield/MultiMathfield'
 import { combinaisonListes } from '../../lib/outils/arrayOutils'
 import {
   ecritureAlgebrique,
@@ -15,14 +16,15 @@ import Exercice from '../Exercice'
 
 export const titre = 'Encadrer avec les racines carrées'
 export const interactifReady = true
-export const interactifType = 'mathLive'
+export const interactifType = 'multiMathfield'
 export const dateDePublication = '28/09/2022' // La date de publication initiale au format 'jj/mm/aaaa' pour affichage temporaire d'un tag
+export const dateDeModificationImportante = '05/04/2026' // Passage en MultiMathfield par Jean-claude Lhote
 /**
  *
  * @author Gilles Mora
  */
 
-export const uuid = 'ed2ee'
+export const uuid = 'ed2ed'
 
 export const refs = {
   'fr-fr': ['2N12-3'],
@@ -71,18 +73,13 @@ export default class EncadrerRacineCarreeEntre2Entiers extends Exercice {
           reponse = Math.floor(Math.sqrt(a))
           texte = `Encadrer $\\sqrt{${a}}$ par deux entiers consécutifs.<br>`
           if (this.interactif) {
-            texte +=
-              ajouteChampTexteMathLive(
-                this,
-                2 * i,
-                KeyboardType.clavierNumbers,
-              ) +
-              `$< \\sqrt{${a}} <$` +
-              ajouteChampTexteMathLive(
-                this,
-                2 * i + 1,
-                KeyboardType.clavierNumbers,
-              )
+            texte += addMultiMathfield(this, i, {
+              dataTemplate: `%{champ1}$~~< \\sqrt{${a}} <~~$%{champ2}`,
+              dataOptions: {
+                champ1: { keyboard: KeyboardType.clavierNumbers },
+                champ2: { keyboard: KeyboardType.clavierNumbers },
+              },
+            })
           }
           texteCorr = `Comme $${a}$ n'est pas le carré d'un nombre entier, on encadre $${a}$ par deux carrés d'entiers : <br>
           $${Math.floor(Math.sqrt(a)) ** 2} < ${a} < ${(Math.floor(Math.sqrt(a)) + 1) ** 2}$, soit $${Math.floor(Math.sqrt(a))}^2 < ${a} < ${Math.floor(Math.sqrt(a)) + 1}^2$.<br><br>
@@ -90,8 +87,16 @@ export default class EncadrerRacineCarreeEntre2Entiers extends Exercice {
         (on ne change pas le sens des inégalités en prenant les racines carrées. Ce résultat admis sera démontré dans le chapitre sur les variations). <br><br>
         Finalement, on obtient l'encadrement de  $\\sqrt{${a}}$ par deux entiers consécutifs   : $${Math.floor(Math.sqrt(a))}< \\sqrt{${a}} < ${Math.floor(Math.sqrt(a)) + 1}$.
    `
-          setReponse(this, 2 * i, reponse)
-          setReponse(this, 2 * i + 1, reponse + 1)
+          handleAnswers(
+            this,
+            i,
+            {
+              champ1: { value: reponse },
+              champ2: { value: reponse + 1 },
+              bareme: toutAUnPoint,
+            },
+            { formatInteractif: 'multiMathfield' },
+          )
           break
         case 'Encadrer2':
           {
@@ -102,18 +107,13 @@ export default class EncadrerRacineCarreeEntre2Entiers extends Exercice {
             const reponse2 = b + c * Math.floor(Math.sqrt(a) + 1)
             texte = `En utilisant un encadrement  de $\\sqrt{${a}}$ par deux entiers consécutifs, donner un encadrement de $${b}${ecritureAlgebriqueSauf1(c)}\\sqrt{${a}}$ le plus précis possible.<br>`
             if (this.interactif) {
-              texte +=
-                ajouteChampTexteMathLive(
-                  this,
-                  2 * i,
-                  KeyboardType.clavierNumbers,
-                ) +
-                `$< ${b}${ecritureAlgebriqueSauf1(c)}\\sqrt{${a}} <$` +
-                ajouteChampTexteMathLive(
-                  this,
-                  2 * i + 1,
-                  KeyboardType.clavierNumbers,
-                )
+              texte += addMultiMathfield(this, i, {
+                dataTemplate: `%{champ1}$~~< ${b}${ecritureAlgebriqueSauf1(c)}\\sqrt{${a}} <~~$%{champ2}`,
+                dataOptions: {
+                  champ1: { keyboard: KeyboardType.clavierNumbers },
+                  champ2: { keyboard: KeyboardType.clavierNumbers },
+                },
+              })
             }
             texteCorr = `Comme $${a}$ n'est pas le carré d'un nombre entier, on encadre $${a}$ par deux carrés d'entiers : <br>
           $${Math.floor(Math.sqrt(a)) ** 2} < ${a} < ${(Math.floor(Math.sqrt(a)) + 1) ** 2}$, soit $${Math.floor(Math.sqrt(a))}^2 < ${a} < ${Math.floor(Math.sqrt(a)) + 1}^2$.<br><br>
@@ -130,8 +130,16 @@ export default class EncadrerRacineCarreeEntre2Entiers extends Exercice {
         ${b + c * Math.floor(Math.sqrt(a))}&< ${b}${ecritureAlgebriqueSauf1(c)}\\sqrt{${a}} < ${b + c * (Math.floor(Math.sqrt(a)) + 1)}
                        \\end{aligned}$<br>
                        L'encadrement demandé est donc : $ ${b + c * Math.floor(Math.sqrt(a))}< ${b}${ecritureAlgebriqueSauf1(c)}\\sqrt{${a}} < ${b + c * (Math.floor(Math.sqrt(a)) + 1)}$.`
-              setReponse(this, 2 * i, reponse1)
-              setReponse(this, 2 * i + 1, reponse2)
+              handleAnswers(
+                this,
+                i,
+                {
+                  champ1: { value: reponse1 },
+                  champ2: { value: reponse2 },
+                  bareme: toutAUnPoint,
+                },
+                { formatInteractif: 'multiMathfield' },
+              )
             } else {
               texteCorr += `$\\begin{aligned}
                        ${Math.floor(Math.sqrt(a))} &< \\sqrt{${a}} < ${Math.floor(Math.sqrt(a)) + 1}\\\\
@@ -141,8 +149,16 @@ export default class EncadrerRacineCarreeEntre2Entiers extends Exercice {
                        ${b + c * Math.floor(Math.sqrt(a))}&> ${b}${ecritureAlgebriqueSauf1(c)}\\sqrt{${a}} > ${b + c * (Math.floor(Math.sqrt(a)) + 1)}
                                       \\end{aligned}$<br>
                                       L'encadrement demandé est donc : $ ${b + c * (Math.floor(Math.sqrt(a)) + 1)}< ${b}${ecritureAlgebriqueSauf1(c)}\\sqrt{${a}} < ${b + c * Math.floor(Math.sqrt(a))}$.`
-              setReponse(this, 2 * i, reponse2)
-              setReponse(this, 2 * i + 1, reponse1)
+              handleAnswers(
+                this,
+                i,
+                {
+                  champ1: { value: reponse2 },
+                  champ2: { value: reponse1 },
+                  bareme: toutAUnPoint,
+                },
+                { formatInteractif: 'multiMathfield' },
+              )
             }
           }
           break
@@ -160,19 +176,15 @@ export default class EncadrerRacineCarreeEntre2Entiers extends Exercice {
             const r2b = new Decimal(r2c).add(b)
             texte = `En utilisant l'encadrement $${texNombre(r1, 1)}<\\sqrt{${a}}<${texNombre(r2, 1)}$, donner un encadrement de $${b}${ecritureAlgebriqueSauf1(c)}\\sqrt{${a}}$ le plus précis possible.<br>`
             if (this.interactif) {
-              texte +=
-                ajouteChampTexteMathLive(
-                  this,
-                  2 * i,
-                  KeyboardType.clavierNumbers,
-                ) +
-                `$< ${b}${ecritureAlgebriqueSauf1(c)}\\sqrt{${a}} <$` +
-                ajouteChampTexteMathLive(
-                  this,
-                  2 * i + 1,
-                  KeyboardType.clavierNumbers,
-                )
+              texte += addMultiMathfield(this, i, {
+                dataTemplate: `%{champ1}$~~< ${b}${ecritureAlgebriqueSauf1(c)}\\sqrt{${a}} <~~$%{champ2}`,
+                dataOptions: {
+                  champ1: { keyboard: KeyboardType.clavierNumbers },
+                  champ2: { keyboard: KeyboardType.clavierNumbers },
+                },
+              })
             }
+
             texteCorr = `À partir de l'encadrement $${texNombre(r1, 1)}<\\sqrt{${a}}<${texNombre(r2, 1)}$, on obtient successivement :<br>`
             if (c > 0) {
               texteCorr += `$\\begin{aligned}
@@ -183,8 +195,16 @@ export default class EncadrerRacineCarreeEntre2Entiers extends Exercice {
         ${texNombre(r1b, 1)}&< ${b}${ecritureAlgebriqueSauf1(c)}\\sqrt{${a}} < ${texNombre(r2b, 1)}
                        \\end{aligned}$<br>
                        L'encadrement demandé est donc : $ ${texNombre(r1b, 1)}< ${b}${ecritureAlgebriqueSauf1(c)}\\sqrt{${a}} < ${texNombre(r2b, 1)}$.`
-              setReponse(this, 2 * i, r1b)
-              setReponse(this, 2 * i + 1, r2b)
+              handleAnswers(
+                this,
+                i,
+                {
+                  champ1: { value: r1b },
+                  champ2: { value: r2b },
+                  bareme: toutAUnPoint,
+                },
+                { formatInteractif: 'multiMathfield' },
+              )
             } else {
               texteCorr += `$\\begin{aligned}
             ${texNombre(r1, 1)} &< \\sqrt{${a}} < ${texNombre(r2, 1)}\\\\
@@ -194,8 +214,16 @@ export default class EncadrerRacineCarreeEntre2Entiers extends Exercice {
         ${texNombre(r1b, 1)}&> ${b}${ecritureAlgebriqueSauf1(c)}\\sqrt{${a}} > ${texNombre(r2b, 1)}
                        \\end{aligned}$<br>
                        L'encadrement demandé est donc : $ ${texNombre(r2b, 1)}< ${b}${ecritureAlgebriqueSauf1(c)}\\sqrt{${a}} < ${texNombre(r1b, 1)}$.`
-              setReponse(this, 2 * i, r2b)
-              setReponse(this, 2 * i + 1, r1b)
+              handleAnswers(
+                this,
+                i,
+                {
+                  champ1: { value: r2b },
+                  champ2: { value: r1b },
+                  bareme: toutAUnPoint,
+                },
+                { formatInteractif: 'multiMathfield' },
+              )
             }
           }
           break

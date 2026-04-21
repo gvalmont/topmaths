@@ -1,7 +1,6 @@
-import { point } from '../../lib/2d/PointAbstrait'
+import { pointAbstrait } from '../../lib/2d/PointAbstrait'
 import { segment } from '../../lib/2d/segmentsVecteurs'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
-import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { choisitLettresDifferentes } from '../../lib/outils/aleatoires'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { arrondi, nombreDeChiffresDe } from '../../lib/outils/nombres'
@@ -14,25 +13,31 @@ import Exercice from '../Exercice'
 
 import { droiteGraduee } from '../../lib/2d/DroiteGraduee'
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
+import { toutAUnPoint } from '../../lib/interactif/mathLive'
+import { addMultiMathfield } from '../../lib/interactif/MultiMathfield/MultiMathfield'
+import { bleuMathalea } from '../../lib/colors'
 
 export const titre = 'Lire une abscisse décimale grâce à des zooms successifs'
 
 export const amcReady = true
 export const amcType = 'AMCHybride'
 export const interactifReady = true
-export const interactifType = 'mathLive'
+export const interactifType = 'multiMathfield'
 
-export const dateDeModifImportante = '05/09/2024'
+export const dateDeModifImportante = '05/04/2026' // Passage à MultiMathfield
 /**
  * Ajout Interactivité et AMC : Janvier 2022 par EE
  */
-export const uuid = '23c48'
+export const uuid = '23c49'
 
 export const refs = {
   'fr-fr': ['6N1H-3'],
   'fr-2016': ['6N23-3'],
   'fr-ch': ['9NO11-7b'],
 }
+/**
+ * @author Jean-claude Lhote
+ */
 export default class LireUneAbscisseAvecZoom extends Exercice {
   niveau: string
   constructor() {
@@ -144,7 +149,7 @@ export default class LireUneAbscisseAvecZoom extends Exercice {
           ],
           pointTaille: 6,
           pointOpacite: 0.8,
-          pointCouleur: 'blue',
+          pointCouleur: bleuMathalea,
           pointStyle: '|',
           pointEpaisseur: 2,
           axeStyle: extremite,
@@ -171,7 +176,7 @@ export default class LireUneAbscisseAvecZoom extends Exercice {
           ],
           pointTaille: 6,
           pointOpacite: 0.8,
-          pointCouleur: 'blue',
+          pointCouleur: bleuMathalea,
           pointStyle: '|',
           pointEpaisseur: 2,
           axeStyle: extremite,
@@ -202,7 +207,7 @@ export default class LireUneAbscisseAvecZoom extends Exercice {
           ],
           pointTaille: 6,
           pointOpacite: 0.8,
-          pointCouleur: 'blue',
+          pointCouleur: bleuMathalea,
           pointStyle: '|',
           pointEpaisseur: 2,
           axeStyle: extremite,
@@ -230,16 +235,16 @@ export default class LireUneAbscisseAvecZoom extends Exercice {
           ],
           pointTaille: 6,
           pointOpacite: 0.8,
-          pointCouleur: 'blue',
+          pointCouleur: bleuMathalea,
           pointStyle: '|',
           pointEpaisseur: 2,
           axeStyle: extremite,
         })
 
-        pA1 = point((Math.floor(x1) - xmin) * 3, 3)
-        pA2 = point(Math.floor(x1) - xmin + 1.5, 0)
-        pB1 = point((Math.floor(x1) + 1 - xmin) * 3, 3)
-        pB2 = point(Math.floor(x1) - xmin + 21.5, 0)
+        pA1 = pointAbstrait((Math.floor(x1) - xmin) * 3, 3)
+        pA2 = pointAbstrait(Math.floor(x1) - xmin + 1.5, 0)
+        pB1 = pointAbstrait((Math.floor(x1) + 1 - xmin) * 3, 3)
+        pB2 = pointAbstrait(Math.floor(x1) - xmin + 21.5, 0)
         sA = segment(pA1, pA2)
         sB = segment(pB1, pB2)
         sA.pointilles = 5
@@ -311,7 +316,7 @@ export default class LireUneAbscisseAvecZoom extends Exercice {
           ],
           pointTaille: 6,
           pointOpacite: 0.8,
-          pointCouleur: 'blue',
+          pointCouleur: bleuMathalea,
           pointStyle: '|',
           pointEpaisseur: 2,
           axeStyle: extremite,
@@ -341,7 +346,7 @@ export default class LireUneAbscisseAvecZoom extends Exercice {
           ],
           pointTaille: 6,
           pointOpacite: 0.8,
-          pointCouleur: 'blue',
+          pointCouleur: bleuMathalea,
           pointStyle: '|',
           pointEpaisseur: 2,
           axeStyle: extremite,
@@ -375,7 +380,7 @@ export default class LireUneAbscisseAvecZoom extends Exercice {
           ],
           pointTaille: 6,
           pointOpacite: 0.8,
-          pointCouleur: 'blue',
+          pointCouleur: bleuMathalea,
           pointStyle: '|',
           pointEpaisseur: 2,
           axeStyle: extremite,
@@ -410,16 +415,16 @@ export default class LireUneAbscisseAvecZoom extends Exercice {
           ],
           pointTaille: 6,
           pointOpacite: 0.8,
-          pointCouleur: 'blue',
+          pointCouleur: bleuMathalea,
           pointStyle: '|',
           pointEpaisseur: 2,
           axeStyle: extremite,
         })
 
-        pA1 = point((Math.floor(x1 * 10) / 10 - xmin + 0.01) * 30, 3)
-        pA2 = point(x2 - xmin + 6, 0)
-        pB1 = point((Math.floor(x1 * 10) / 10 + 0.11 - xmin) * 30, 3)
-        pB2 = point(x3 - xmin + 26, 0)
+        pA1 = pointAbstrait((Math.floor(x1 * 10) / 10 - xmin + 0.01) * 30, 3)
+        pA2 = pointAbstrait(x2 - xmin + 6, 0)
+        pB1 = pointAbstrait((Math.floor(x1 * 10) / 10 + 0.11 - xmin) * 30, 3)
+        pB2 = pointAbstrait(x3 - xmin + 26, 0)
         sA = segment(pA1, pA2)
         sB = segment(pB1, pB2)
         sA.pointilles = 5
@@ -491,7 +496,7 @@ export default class LireUneAbscisseAvecZoom extends Exercice {
           ],
           pointTaille: 6,
           pointOpacite: 0.8,
-          pointCouleur: 'blue',
+          pointCouleur: bleuMathalea,
           pointStyle: '|',
           pointEpaisseur: 3,
           axeStyle: extremite,
@@ -522,7 +527,7 @@ export default class LireUneAbscisseAvecZoom extends Exercice {
           ],
           pointTaille: 6,
           pointOpacite: 0.8,
-          pointCouleur: 'blue',
+          pointCouleur: bleuMathalea,
           pointStyle: '|',
           pointEpaisseur: 2,
           axeStyle: extremite,
@@ -549,7 +554,7 @@ export default class LireUneAbscisseAvecZoom extends Exercice {
           ],
           pointTaille: 6,
           pointOpacite: 0.8,
-          pointCouleur: 'blue',
+          pointCouleur: bleuMathalea,
           pointStyle: '|',
           pointEpaisseur: 2,
           axeStyle: extremite,
@@ -583,7 +588,7 @@ export default class LireUneAbscisseAvecZoom extends Exercice {
           ],
           pointTaille: 6,
           pointOpacite: 0.8,
-          pointCouleur: 'blue',
+          pointCouleur: bleuMathalea,
           pointStyle: '|',
           pointEpaisseur: 3,
           axeStyle: extremite,
@@ -619,7 +624,7 @@ export default class LireUneAbscisseAvecZoom extends Exercice {
           ],
           pointTaille: 6,
           pointOpacite: 0.8,
-          pointCouleur: 'blue',
+          pointCouleur: bleuMathalea,
           pointStyle: '|',
           pointEpaisseur: 2,
           axeStyle: extremite,
@@ -647,24 +652,24 @@ export default class LireUneAbscisseAvecZoom extends Exercice {
           ],
           pointTaille: 6,
           pointOpacite: 0.8,
-          pointCouleur: 'blue',
+          pointCouleur: bleuMathalea,
           pointStyle: '|',
           pointEpaisseur: 2,
           axeStyle: extremite,
         })
 
-        pA1 = point((x2 - xmin) * 30, 6)
-        pA2 = point(6.5, 3)
-        pB1 = point((x3 - xmin) * 30, 6)
-        pB2 = point(26.5, 3)
+        pA1 = pointAbstrait((x2 - xmin) * 30, 6)
+        pA2 = pointAbstrait(6.5, 3)
+        pB1 = pointAbstrait((x3 - xmin) * 30, 6)
+        pB2 = pointAbstrait(26.5, 3)
         sA = segment(pA1, pA2)
         sB = segment(pB1, pB2)
         sA.pointilles = 5
         sB.pointilles = 5
-        pC1 = point(6.5 + (x21 - x2) * 200, 3)
-        pC2 = point(6.5, 0)
-        pD1 = point(6.5 + (x31 - x2) * 200, 3)
-        pD2 = point(26.5, 0)
+        pC1 = pointAbstrait(6.5 + (x21 - x2) * 200, 3)
+        pC2 = pointAbstrait(6.5, 0)
+        pD1 = pointAbstrait(6.5 + (x31 - x2) * 200, 3)
+        pD2 = pointAbstrait(26.5, 0)
         sC = segment(pC1, pC2)
         sD = segment(pD1, pD2)
         sC.pointilles = 5
@@ -699,45 +704,40 @@ export default class LireUneAbscisseAvecZoom extends Exercice {
       texte += " et sous forme d'une seule fraction décimale.<br>"
       texte += mathalea2d(fenetre, objets)
       if (this.interactif) {
-        handleAnswers(this, 3 * i, { reponse: { value: reponse1 } })
-        handleAnswers(this, 3 * i + 1, {
-          reponse: {
-            value: `${reponse2A}+${reponse2B.toLatex()}`,
-            options: { additionSeulementEtNonResultat: true },
-          },
-        })
-        handleAnswers(this, 3 * i + 2, {
-          reponse: { value: reponse3, options: { fractionDecimale: true } },
-        })
-
-        texte += ajouteChampTexteMathLive(
+        handleAnswers(
           this,
-          i * 3,
-          KeyboardType.clavierNumbers,
+          i,
           {
-            texteAvant: `Abscisse de $${noms[1]}$ en écriture décimale : `,
+            champ1: { value: reponse1 },
+            champ2: {
+              value: `${reponse2A}+${reponse2B.toLatex()}`,
+              options: { additionSeulementEtNonResultat: true },
+            },
+            champ3: { value: reponse3, options: { fractionDecimale: true } },
+            bareme: toutAUnPoint,
           },
+          { formatInteractif: 'multiMathfield' },
         )
-        texte +=
-          '<br><br>' +
-          ajouteChampTexteMathLive(
-            this,
-            i * 3 + 1,
-            KeyboardType.clavierDeBaseAvecFraction,
-            {
-              texteAvant: `Abscisse de $${noms[1]}$ comme somme d'un nombre entier et d'une fraction décimale inférieure à 1 : `,
+
+        texte += addMultiMathfield(this, i, {
+          dataTemplate: `Abscisse de $${noms[1]}$ en écriture décimale : %{champ1}
+          Abscisse de $${noms[1]}$ comme somme d'un nombre entier et d'une fraction décimale inférieure à 1 : %{champ2}
+          Abscisse de $${noms[1]}$ sous forme d'une fraction décimale : %{champ3}`,
+          dataOptions: {
+            champ1: {
+              keyboard: KeyboardType.clavierNumbers,
+              minWidth: 70,
             },
-          )
-        texte +=
-          '<br><br>' +
-          ajouteChampTexteMathLive(
-            this,
-            i * 3 + 2,
-            KeyboardType.clavierDeBaseAvecFraction,
-            {
-              texteAvant: `Abscisse de $${noms[1]}$ sous forme d'une fraction décimale : `,
+            champ2: {
+              keyboard: KeyboardType.clavierDeBaseAvecFraction,
+              minWidth: 70,
             },
-          )
+            champ3: {
+              keyboard: KeyboardType.clavierDeBaseAvecFraction,
+              minWidth: 70,
+            },
+          },
+        })
       } else if (context.isAmc) {
         this.autoCorrection[i] = {
           enonce: texte,

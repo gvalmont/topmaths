@@ -1,9 +1,10 @@
+import { bleuMathalea } from '../../lib/colors'
 import { estentier } from '../../modules/outils'
 import { tousDeMemeSigne } from '../outils/nombres'
 import { colorToLatexOrHTML } from './colorToLatexOrHtml'
 import { fixeBordures } from './fixeBordures'
 import { ObjetMathalea2D } from './ObjetMathalea2D'
-import { point, PointAbstrait, pointAbstrait } from './PointAbstrait'
+import { PointAbstrait, pointAbstrait } from './PointAbstrait'
 import { Polygone, polygone } from './polygones'
 import { elimineBinomesXYIntermediairesAlignes } from './Polyquad'
 
@@ -17,12 +18,12 @@ import { elimineBinomesXYIntermediairesAlignes } from './Polyquad'
  * @param {number} [parametres.pas = 1]  Pas entre deux abscisses pour tracer l'aire
  * @param {boolean} [parametres.sup = false] Si true, l'aire est arrondie par le haut, sinon par le bas
  * @param {string} [parametres.colorPositif = 'red']  Couleur de l'aire positive
- * @param {string} [parametres.colorNegatif = 'blue']  Couleur de l'aire négative
+ * @param {string} [parametres.colorNegatif = bleuMathalea]  Couleur de l'aire négative
  * @example integraleComptable(g, {repere: r})
  * // Trace l'aire entre la courbe de la fonction g et l'axe des abscisses dans le repère r, tous deux précédemment définis.
  * @example integraleComptable(g, {repere: r, pas: 0.1, sup: true, colorPositif: 'green', colorNegatif: 'orange'})
  * // Trace l'aire entre la courbe de la fonction g et l'axe des abscisses dans le repère r, tous deux précédemment définis. L'aire est arrondie par le haut, le pas entre deux abscisses est de 0.1, l'aire positive est verte et l'aire négative est orange.
- * @author Jean-Claude Lhote
+ * @author Jean-claude Lhote
  */
 export class IntegraleComptable extends ObjetMathalea2D {
   aire: { negative: number; positive: number }
@@ -34,7 +35,7 @@ export class IntegraleComptable extends ObjetMathalea2D {
       pas = 1,
       sup = false,
       colorPositif = 'red',
-      colorNegatif = 'blue',
+      colorNegatif = bleuMathalea,
     }: {
       xMin: number
       xMax: number
@@ -82,10 +83,10 @@ export class IntegraleComptable extends ObjetMathalea2D {
       if (tousDeMemeSigne(echantillonnage[k])) {
         const p = polygone(
           [
-            point(xk, 0),
-            point(xk, yk),
-            point(xk + pas, yk),
-            point(xk + pas, 0),
+            pointAbstrait(xk, 0),
+            pointAbstrait(xk, yk),
+            pointAbstrait(xk + pas, yk),
+            pointAbstrait(xk + pas, 0),
           ],
           yk > 0 ? colorPositif : colorNegatif,
         )
@@ -97,10 +98,10 @@ export class IntegraleComptable extends ObjetMathalea2D {
         const couleur = sup ? colorPositif : colorNegatif
         const p = polygone(
           [
-            point(xk, 0),
-            point(xk, yk),
-            point(xk + pas, yk),
-            point(xk + pas, 0),
+            pointAbstrait(xk, 0),
+            pointAbstrait(xk, yk),
+            pointAbstrait(xk + pas, yk),
+            pointAbstrait(xk + pas, 0),
           ],
           couleur,
         )
@@ -136,7 +137,7 @@ export class IntegraleComptable extends ObjetMathalea2D {
       if (rectangles.length === 0) {
         sommets.push(sommetFinal)
         const binomesXY = elimineBinomesXYIntermediairesAlignes(sommets)
-        const p = polygone(binomesXY.map((el) => point(el.x, el.y)))
+        const p = polygone(binomesXY.map((el) => pointAbstrait(el.x, el.y)))
         p.color =
           p.bordures[1] < 0 && p.bordures[3] === 0
             ? colorToLatexOrHTML(colorNegatif)
@@ -149,7 +150,7 @@ export class IntegraleComptable extends ObjetMathalea2D {
       // s'il reste qu'un seul rectangle alors on le pousse dans la liste des objets
       sommets.push(sommetFinal)
       const binomesXY = elimineBinomesXYIntermediairesAlignes(sommets)
-      const p = polygone(binomesXY.map((el) => point(el.x, el.y)))
+      const p = polygone(binomesXY.map((el) => pointAbstrait(el.x, el.y)))
       p.color =
         p.bordures[1] < 0 && p.bordures[3] === 0
           ? colorToLatexOrHTML(colorNegatif)

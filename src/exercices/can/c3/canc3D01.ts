@@ -1,18 +1,19 @@
 import { cercle } from '../../../lib/2d/cercle'
 import { colorToLatexOrHTML } from '../../../lib/2d/colorToLatexOrHtml'
-import { point } from '../../../lib/2d/PointAbstrait'
+import { pointAbstrait } from '../../../lib/2d/PointAbstrait'
 import { segment } from '../../../lib/2d/segmentsVecteurs'
 import { rotation } from '../../../lib/2d/transformations'
+import { bleuMathalea } from '../../../lib/colors'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
+import {
+  miseEnEvidence,
+  texteEnCouleurEtGras,
+} from '../../../lib/outils/embellissements'
 import { context } from '../../../modules/context'
 import { mathalea2d } from '../../../modules/mathalea2d'
 import { randint } from '../../../modules/outils'
 import ExerciceSimple from '../../ExerciceSimple'
 
-import {
-  miseEnEvidence,
-  texteEnCouleurEtGras,
-} from '../../../lib/outils/embellissements'
 export const titre = "Lire l'heure"
 export const dateDePublication = '4/11/2021'
 export const interactifReady = true
@@ -21,7 +22,7 @@ export const amcReady = true
 export const amcType = 'AMCHybride'
 
 /**
- * @author Jean-Claude Lhote
+ * @author Jean-claude Lhote
  */
 export const uuid = '2ce11'
 
@@ -42,7 +43,7 @@ export default class LireHeure extends ExerciceSimple {
 
   nouvelleVersion() {
     const horloge = []
-    const O = point(0, 0)
+    const O = pointAbstrait(0, 0)
     const C = cercle(O, 2)
     horloge.push(C)
     const s = segment(1.5, 0, 1.9, 0)
@@ -60,14 +61,14 @@ export default class LireHeure extends ExerciceSimple {
 
     const alpha = 90 - (h % 12) * 30 - m / 2
     const beta = 90 - m * 6
-    const grandeAiguille = rotation(segment(O, point(1.5, 0)), O, beta)
-    const petiteAiguille = rotation(segment(O, point(1, 0)), O, alpha)
+    const grandeAiguille = rotation(segment(O, pointAbstrait(1.5, 0)), O, beta)
+    const petiteAiguille = rotation(segment(O, pointAbstrait(1, 0)), O, alpha)
     grandeAiguille.color = context.isHtml
       ? colorToLatexOrHTML('red')
       : colorToLatexOrHTML('black')
     grandeAiguille.epaisseur = 2
     petiteAiguille.color = context.isHtml
-      ? colorToLatexOrHTML('blue')
+      ? colorToLatexOrHTML(bleuMathalea)
       : colorToLatexOrHTML('black')
     petiteAiguille.epaisseur = 4
     horloge.push(petiteAiguille, grandeAiguille)

@@ -1,7 +1,8 @@
 import { bleuMathalea, orangeMathalea } from '../../lib/colors'
+import { addMultiMathfield } from '../../lib/interactif/MultiMathfield/MultiMathfield'
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
-import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
+import { toutAUnPoint } from '../../lib/interactif/mathLive'
 import { Personne } from '../../lib/outils/Personne'
 import { combinaisonListes } from '../../lib/outils/arrayOutils'
 import {
@@ -22,16 +23,16 @@ import Exercice from '../Exercice'
 export const titre =
   'Calculer des probabilités dans une expérience aléatoire à une épreuve'
 export const interactifReady = true
-export const interactifType = 'mathLive'
+export const interactifType = 'multiMathfield'
 
 /**
  * Calculs de probabilités sur une expérience aléatoire à une épreuve.
- * @author Jean-Claude Lhote
+ * @author Jean-claude Lhote
  * Ajout de la partie vocabulaire (this.sup !== 1) par Guillaume Valmont le 03/04/2022
  * Remplacement des this.sup par des this.niveau par Guillaume Valmont le 07/05/2022
  */
 
-export const uuid = '69e1f'
+export const uuid = '69e1a'
 
 export const refs = {
   'fr-fr': ['6P2B-1'],
@@ -39,16 +40,16 @@ export const refs = {
 }
 
 export default class FonctionsProbabilite6e extends Exercice {
-  niveau: number
   styleCorrection: string
+  niveau: number
   constructor() {
     super()
     this.nbQuestions = 4
 
     this.spacing = context.isHtml ? 2 : 1
     this.spacingCorr = context.isHtml ? 2 : 1
-    this.niveau = 6
     this.styleCorrection = 'college'
+    this.niveau = 6
   }
 
   nouvelleVersion() {
@@ -128,42 +129,35 @@ export default class FonctionsProbabilite6e extends Exercice {
       const indexEvenementContraire = range(4, [m, p])
 
       texte = `Dans ${lieu}, il y a ${somme} ${objets}. ${n[0]} sont ${qualites[index1][0]}, ${n[1]} sont ${qualites[index1][1]}, ${n[2]} sont ${qualites[index1][2]}, ${n[3]} sont ${qualites[index1][3]} et ${n[4]} sont ${qualites[index1][4]}.<br> `
-      texte += `${quidam} choisit au hasard l'${article} d'entre ${pronom}.`
+      texte += `${quidam} choisit au hasard l'${article} d'entre ${pronom}.<br>`
       if (this.niveau > 4) {
-        texte += `<br> ${numAlpha(0)} Quelle est la probabilité que son choix tombe sur l'${article} des ${objets} ${qualites[index1][m]} ? `
-        texte +=
-          ajouteChampTexteMathLive(
-            this,
-            4 * i,
-            KeyboardType.clavierDeBaseAvecFraction,
-          ) + '<br>'
-        texte +=
-          numAlpha(1) +
-          ` Quelle est la probabilité que son choix tombe sur l'${article} des ${objets} ${qualites[index1][p]} ?`
-        texte +=
-          ajouteChampTexteMathLive(
-            this,
-            4 * i + 1,
-            KeyboardType.clavierDeBaseAvecFraction,
-          ) + '<br>'
-        texte +=
-          numAlpha(2) +
-          ` Quelle est la probabilité que son choix ne tombe pas sur l'${article} des ${objets} ${qualites[index1][q]} ?`
-        texte +=
-          ajouteChampTexteMathLive(
-            this,
-            4 * i + 2,
-            KeyboardType.clavierDeBaseAvecFraction,
-          ) + '<br>'
-        texte +=
-          numAlpha(3) +
-          ` Quelle est la probabilité que son choix tombe sur l'${article} des ${objets} ${qualites[index1][m]} ou ${qualites[index1][p]} ?`
-        texte +=
-          ajouteChampTexteMathLive(
-            this,
-            4 * i + 3,
-            KeyboardType.clavierDeBaseAvecFraction,
-          ) + '<br>'
+        texte += addMultiMathfield(this, i, {
+          dataTemplate: `a) Quelle est la probabilité que son choix tombe sur l'${article} des ${objets} ${qualites[index1][m]} ? %{champ1}.
+          b) Quelle est la probabilité que son choix tombe sur l'${article} des ${objets} ${qualites[index1][p]} ? %{champ2}.
+          c) Quelle est la probabilité que son choix ne tombe pas sur l'${article} des ${objets} ${qualites[index1][q]} ? %{champ3}.
+          d) Quelle est la probabilité que son choix tombe sur l'${article} des ${objets} ${qualites[index1][m]} ou ${qualites[index1][p]} ? %{champ4}.`,
+          dataOptions: {
+            champ1: { keyboard: KeyboardType.clavierDeBaseAvecFraction },
+            champ2: { keyboard: KeyboardType.clavierDeBaseAvecFraction },
+            champ3: { keyboard: KeyboardType.clavierDeBaseAvecFraction },
+            champ4: { keyboard: KeyboardType.clavierDeBaseAvecFraction },
+          },
+        })
+        handleAnswers(
+          this,
+          i,
+          {
+            bareme: toutAUnPoint,
+            champ1: { value: new FractionEtendue(n[m], somme).texFSD },
+            champ2: { value: new FractionEtendue(n[p], somme).texFSD },
+            champ3: { value: new FractionEtendue(somme - n[q], somme).texFSD },
+            champ4: { value: new FractionEtendue(n[m] + n[p], somme).texFSD },
+          },
+          {
+            formatInteractif: 'multiMathfield',
+          },
+        )
+
         texteCorr =
           this.niveau === 5
             ? "On est dans une situation d'équiprobabilité donc la probabilité est donnée par le quotient du nombre de cas favorables par le nombre de cas au total.<br>"
@@ -177,9 +171,6 @@ export default class FonctionsProbabilite6e extends Exercice {
           this.niveau === 5
             ? `: $${new FractionEtendue(n[m], somme).estIrreductible ? miseEnEvidence(reponseValue) : reponseValue}${simplificationDeFractionAvecEtapes(n[m], somme, { couleur1: bleuMathalea, couleur2: orangeMathalea })}$.<br>`
             : `donc de ${n[m]} chances sur ${somme}, ce qui s'écrit aussi : $${miseEnEvidence(reponseValue)}$.<br>`
-        handleAnswers(this, 4 * i, {
-          reponse: { value: reponseValue },
-        })
         texteCorr +=
           numAlpha(1) +
           ` Il y a ${n[p]} ${objets} ${qualites[index1][p]} et il y a ${somme} ${objets} possibles.<br>
@@ -189,9 +180,6 @@ export default class FonctionsProbabilite6e extends Exercice {
           this.niveau === 5
             ? `: $${new FractionEtendue(n[p], somme).estIrreductible ? miseEnEvidence(reponseValue) : reponseValue}${simplificationDeFractionAvecEtapes(n[p], somme, { couleur1: bleuMathalea, couleur2: orangeMathalea })}$.<br>`
             : `donc de ${n[p]} chances sur ${somme}, ce qui s'écrit aussi : $${miseEnEvidence(reponseValue)}$.<br>`
-        handleAnswers(this, 4 * i + 1, {
-          reponse: { value: reponseValue },
-        })
         texteCorr +=
           numAlpha(2) +
           ` Il y a ${n[q]} ${objets} ${qualites[index1][q]}, donc il y a ${somme} $-$ ${n[q]} $=$ ${somme - n[q]} autres ${objets} et il y a ${somme} ${objets} possibles.
@@ -201,9 +189,6 @@ export default class FonctionsProbabilite6e extends Exercice {
           this.niveau === 5
             ? `: $${new FractionEtendue(somme - n[q], somme).estIrreductible ? miseEnEvidence(reponseValue) : reponseValue}${simplificationDeFractionAvecEtapes(somme - n[q], somme, { couleur1: bleuMathalea, couleur2: orangeMathalea })}$.<br>`
             : `donc de ${somme - n[q]} chances sur ${somme}, ce qui s'écrit aussi : $${miseEnEvidence(reponseValue)}$.<br>`
-        handleAnswers(this, 4 * i + 2, {
-          reponse: { value: reponseValue },
-        })
         reponseValue = new FractionEtendue(n[p] + n[m], somme).texFSD
         texteCorr +=
           numAlpha(3) +
@@ -213,10 +198,7 @@ export default class FonctionsProbabilite6e extends Exercice {
               (this.niveau === 5
                 ? `: $${new FractionEtendue(n[p] + n[m], somme).estIrreductible ? miseEnEvidence(reponseValue) : reponseValue}${simplificationDeFractionAvecEtapes(n[p] + n[m], somme, { couleur1: bleuMathalea, couleur2: orangeMathalea })}$.<br>`
                 : `donc de ${n[p] + n[m]} chances sur ${somme}, ce qui s'écrit aussi : $${miseEnEvidence(reponseValue)}$.<br>`)
-            : ` La probabilité d'un événement est la somme des probabilités des issues qui le composent. Donc la probabilité que son choix tombe sur l'${article} des ${objets} ${qualites[index1][m]} ou ${qualites[index1][p]} est :<br> $${texFractionFromString(n[m], somme)}+${texFractionFromString(n[p], somme)}=${texFractionFromString(n[p] + n[m], somme)}${simplificationDeFractionAvecEtapes(n[p] + n[m], somme, { couleur1: 'blue', couleur2: '#f15929' })}$.<br>`)
-        handleAnswers(this, 4 * i + 3, {
-          reponse: { value: reponseValue },
-        })
+            : ` La probabilité d'un événement est la somme des probabilités des issues qui le composent. Donc la probabilité que son choix tombe sur l'${article} des ${objets} ${qualites[index1][m]} ou ${qualites[index1][p]} est :<br> $${texFractionFromString(n[m], somme)}+${texFractionFromString(n[p], somme)}=${texFractionFromString(n[p] + n[m], somme)}${simplificationDeFractionAvecEtapes(n[p] + n[m], somme, { couleur1: bleuMathalea, couleur2: orangeMathalea })}$.<br>`)
       } else {
         texte += ` ${personne.Pronom} regarde ${natureDeLIssue[index1]}.<br>`
 

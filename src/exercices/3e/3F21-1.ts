@@ -2,7 +2,7 @@ import {
   droiteParPointEtPente,
   positionLabelDroite,
 } from '../../lib/2d/droites'
-import { point } from '../../lib/2d/PointAbstrait'
+import { pointAbstrait } from '../../lib/2d/PointAbstrait'
 import { repere } from '../../lib/2d/reperes'
 import { latexParPoint } from '../../lib/2d/textes'
 import { Vide2d } from '../../lib/2d/Vide2d'
@@ -18,6 +18,7 @@ import { context } from '../../modules/context'
 import { mathalea2d } from '../../modules/mathalea2d'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import Exercice from '../Exercice'
+import { bleuMathalea } from '../../lib/colors'
 
 export const titre = 'Déterminer une fonction affine'
 export const amcReady = true
@@ -29,7 +30,7 @@ export const dateDeModifImportante = '31/03/2023'
 
 /**
  * Trace jusqu'à 5 droites et demande l'expression de la fonction affine ou linéaire correspondante
- * @author Jean-Claude Lhote
+ * @author Jean-claude Lhote
  * MAJ de Guillaume Valmont le 31/03/2023 :
  * - Suppression des retours à la ligne en fin de question si non interactif
  * - Suppression des Math.round inutiles
@@ -72,7 +73,7 @@ export default class LectureExpressionFonctionsAffines extends Exercice {
     let k = Math.pow(2, preK - 1)
     let nbDroites = parseInt(this.sup2)
 
-    const colors = ['blue', 'red', 'black', 'purple', 'brown']
+    const colors = [bleuMathalea, 'red', 'black', 'purple', 'brown']
 
     const listeDroites = []
     const posLab = []
@@ -132,7 +133,7 @@ export default class LectureExpressionFonctionsAffines extends Exercice {
     objets2d.push(r)
     for (let i = 0; i < nbDroites; i++) {
       d[i] = droiteParPointEtPente(
-        point(0, listeDroites[i][0]),
+        pointAbstrait(0, listeDroites[i][0]),
         listeDroites[i][1],
         '',
         colors[i],

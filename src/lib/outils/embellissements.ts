@@ -1,8 +1,9 @@
-import { isArray, isInteger } from 'mathjs'
 import { context } from '../../modules/context'
 import type { IFractionEtendue } from '../../modules/FractionEtendue.type'
 import { orangeMathalea } from '../colors'
+import { Complexe } from '../mathFonctions/Complexe'
 import { choice } from './arrayOutils'
+import { bleuMathalea } from '../../lib/colors'
 
 // Garde structurel pour détecter une FractionEtendue
 const isFractionEtendue = (x: unknown): x is IFractionEtendue =>
@@ -19,12 +20,13 @@ const isFractionEtendue = (x: unknown): x is IFractionEtendue =>
  * @author Rémi Angot
  */
 export function miseEnEvidence(
-  texte: string | IFractionEtendue | number,
+  texte: string | IFractionEtendue | number | Complexe,
   couleur: string = orangeMathalea,
 ) {
+  if (texte instanceof Complexe) texte = texte.tex()
   if (isFractionEtendue(texte)) texte = texte.texFraction
   if (typeof texte === 'number') texte = String(texte)
-  if (isArray(couleur)) couleur = couleur[0]
+  if (Array.isArray(couleur)) couleur = couleur[0]
   texte = texte.replace(/\\text\{/g, '\\textbf{')
 
   if (context.isHtml) {
@@ -53,7 +55,7 @@ export function miseEnEvidence(
  *   - un nombre (ex. 123.45)
  *   - une instance de `FractionEtendue` (sa propriété `texFraction` sera utilisée)
  *
- * @param {string} [couleur='#f15929'] - Couleur à utiliser pour le chiffre mis en évidence.
+ * @param {string} [couleur=orangeMathalea] - Couleur à utiliser pour le chiffre mis en évidence.
  *   Peut être un nom de couleur LaTeX (ex. `"red"`) ou un code hexadécimal (ex. `"#FF0000"`).
  *
  * @param {number} [position=1] - La position du chiffre à mettre en évidence :
@@ -64,14 +66,14 @@ export function miseEnEvidence(
  *   - `10`    → 2e chiffre à gauche de la virgule (dizaine)
  *   - `100`   → 3e chiffre à gauche de la virgule (centaine)
  *   - `1000`  → 4e chiffre à gauche de la virgule (millier)
- * @author Eric Elter
+ * @author Éric Elter
  * @returns {string} Une chaîne LaTeX avec un seul chiffre mis en couleur et en gras.
  *   Le reste du nombre est laissé tel quel.
  */
 
 export function coloreUnSeulChiffre(
   texte: string | IFractionEtendue | number,
-  couleur: string = '#f15929',
+  couleur: string = orangeMathalea,
   position: number = 1,
 ): string {
   if (isFractionEtendue(texte)) texte = texte.texFraction
@@ -157,10 +159,10 @@ export function coloreUnSeulChiffre(
  */
 export function miseEnCouleur(
   texte: string | number,
-  couleur: string = '#f15929',
+  couleur: string = orangeMathalea,
 ) {
   texte = typeof texte === 'number' ? String(texte) : texte
-  if (isArray(couleur)) couleur = couleur[0]
+  if (Array.isArray(couleur)) couleur = couleur[0]
   if (context.isHtml) {
     return `{\\color{${couleur}} ${texte}}`
   } else {
@@ -180,9 +182,12 @@ export function miseEnCouleur(
  * @param {string} couleur en anglais ou code couleur hexadécimal par défaut c'est le orange de CoopMaths
  * @author Rémi Angot
  */
-export function texteEnCouleur(texte: string | number, couleur = '#f15929') {
+export function texteEnCouleur(
+  texte: string | number,
+  couleur = orangeMathalea,
+) {
   texte = typeof texte === 'number' ? String(texte) : texte
-  if (isArray(couleur)) couleur = couleur[0]
+  if (Array.isArray(couleur)) couleur = couleur[0]
   if (context.isHtml) {
     return `<span style="color:${couleur};">${texte}</span>`
   } else {
@@ -204,10 +209,10 @@ export function texteEnCouleur(texte: string | number, couleur = '#f15929') {
  */
 export function texteEnCouleurEtGras(
   texte: string | number,
-  couleur = '#f15929',
+  couleur = orangeMathalea,
 ) {
   if (typeof texte === 'number') texte = String(texte)
-  if (isArray(couleur)) couleur = couleur[0]
+  if (Array.isArray(couleur)) couleur = couleur[0]
   if (context.isHtml) {
     return `<span style="color:${couleur};font-weight: bold;">${texte}</span>`
   }
@@ -239,7 +244,7 @@ export function couleurAleatoire() {
     'black',
     'red',
     'green',
-    'blue',
+    bleuMathalea,
     'cyan',
     'magenta',
     'yellow',
@@ -252,14 +257,14 @@ export function couleurAleatoire() {
  * soit le code d'une couleur imposée, ainsi que sa traduction française au masculin et au féminin.
  * @example couleurTab() peut renvoyer ['black','noir','noire'].
  * @example couleurTab(0) renverra de façon certaine ['black','noir','noire'].
- * @author Eric Elter
+ * @author Éric Elter
  */
 export function couleurTab(choixCouleur = 999) {
   const panelCouleurs = [
     ['black', 'noir', 'noire'],
     ['red', 'rouge', 'rouge'],
     ['green', 'vert', 'verte'],
-    ['blue', 'bleu', 'bleue'],
+    [bleuMathalea, 'bleu', 'bleue'],
     ['HotPink', 'rose', 'rose'],
     ['Sienna', 'marron', 'marron'],
     ['darkgray', 'gris', 'grise'],
@@ -267,7 +272,7 @@ export function couleurTab(choixCouleur = 999) {
   ]
   return choixCouleur === 999 ||
     choixCouleur >= panelCouleurs.length ||
-    !isInteger(choixCouleur)
+    !Number.isInteger(choixCouleur)
     ? choice(panelCouleurs)
     : panelCouleurs[choixCouleur]
 }
@@ -275,16 +280,32 @@ export function couleurTab(choixCouleur = 999) {
 export function arcenciel(i: number, fondblanc = true) {
   let couleurs
   if (fondblanc)
-    couleurs = ['violet', 'purple', 'blue', 'green', 'lime', '#f15929', 'red']
+    couleurs = [
+      'violet',
+      'purple',
+      bleuMathalea,
+      'green',
+      'lime',
+      orangeMathalea,
+      'red',
+    ]
   else
-    couleurs = ['violet', 'indigo', 'blue', 'green', 'yellow', '#f15929', 'red']
+    couleurs = [
+      'violet',
+      'indigo',
+      bleuMathalea,
+      'green',
+      'yellow',
+      orangeMathalea,
+      'red',
+    ]
   return couleurs[i % 7]
 }
 
 export function texcolors(i: number, fondblanc = true) {
   const couleurs = [
     'black',
-    'blue',
+    bleuMathalea,
     'brown',
     'green',
     'cyan',

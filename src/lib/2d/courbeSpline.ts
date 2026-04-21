@@ -11,7 +11,7 @@ import { tracePoint } from './TracePoint'
  * @param {Spline} f fonction à tracer défine, au préalable, avec splineCatmullRom()
  * @param {Object} parametres À saisir entre accolades
  * @param {Repere} [parametres.repere  = {}] Repère dans lequel le tracé de la fonction se fait
- * @param {string} [parametres.color = 'black']  Couleur du tracé de la courbe : du type 'blue' ou du type '#f15929'
+ * @param {string} [parametres.color = 'black']  Couleur du tracé de la courbe : du type 'red', bleuMathalea ou du type '#a12345'
  * @param {number} [parametres.epaisseur = 2]  Epaisseur du tracé de la courbe
  * @param {number} [parametres.xMin = repere.xMin]  Abscisse minimale du tracé de la courbe
  * @param {number} [parametres.xMax = repere.xMax]  Abscisse maximale du tracé de la courbe
@@ -24,7 +24,7 @@ import { tracePoint } from './TracePoint'
  * @property {string} svg Sortie au format vectoriel (SVG) que l’on peut afficher dans un navigateur
  * @property {string} tikz Sortie au format TikZ que l’on peut utiliser dans un fichier LaTeX
  * @property {string} color Couleur du tracé de la courbe. À associer obligatoirement à colorToLatexOrHTML().
- * @author Jean-Claude Lhote
+ * @author Jean-claude Lhote
  * @class
  */
 export class CourbeSpline extends ObjetMathalea2D {
@@ -153,7 +153,7 @@ export class CourbeSpline extends ObjetMathalea2D {
  * @param {function} f fonction à tracer défine, au préalable, avec splineCatmullRom()
  * @param {Object} parametres À saisir entre accolades
  * @param {Repere} [parametres.repere  = {}] Repère dans lequel le tracé de la fonction se fait
- * @param {string} [parametres.color = 'black']  Couleur du tracé de la courbe : du type 'blue' ou du type '#f15929'
+ * @param {string} [parametres.color = 'black']  Couleur du tracé de la courbe : du type 'red', bleuMathalea ou du type '#a12345'
  * @param {number} [parametres.epaisseur = 2]  Epaisseur du tracé de la courbe
  * @param {number} [parametres.xMin = repere.xMin]  Abscisse minimale du tracé de la courbe
  * @param {number} [parametres.xMax = repere.xMax]  Abscisse maximale du tracé de la courbe
@@ -165,9 +165,9 @@ export class CourbeSpline extends ObjetMathalea2D {
  * @param {boolean} [parametres.traceNoeuds = true]  Place (ou non) les points définis dans le paramètre f.
  * @example courbeSpline(g, {repere: r})
  * // Trace, en noir avec une épaisseur de 2, la courbe spline g dans le repère r, tous deux précédemment définis.
- * @example courbeSpline(g, {repere: r, epaisseur: 5, color: 'blue'})
+ * @example courbeSpline(g, {repere: r, epaisseur: 5, color: bleuMathalea})
  * // Trace la courbe spline g dans le repère r, tous deux précédemment définis, en bleu, avec une épaisseur de 5.
- * @author Jean-Claude Lhote
+ * @author Jean-claude Lhote
  * @return {CourbeSpline}
  */
 // JSDOC Validee par EE Juin 2022

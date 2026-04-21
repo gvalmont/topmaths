@@ -1,5 +1,5 @@
 import { codageSegments } from '../../lib/2d/CodageSegment'
-import { point } from '../../lib/2d/PointAbstrait'
+import { pointAbstrait } from '../../lib/2d/PointAbstrait'
 import { polygone, polygoneAvecNom } from '../../lib/2d/polygones'
 import { segment } from '../../lib/2d/segmentsVecteurs'
 import { texteParPosition } from '../../lib/2d/textes'
@@ -41,14 +41,14 @@ export const amcType = 'AMCHybride'
 export const dateDePublication = '15/02/2022'
 export const dateDeModifImportante = '06/04/2023'
 /**
- * @author Jean-Claude Lhote
+ * @author Jean-claude Lhote
  * Différents problèmes à résoudre.
  * Mise en équation de degré 1 à une inconnue, résolution et vérification.
  * Réf : 3L13-3 2N50-1 (pour une version sans commentaires)
  * Ajout du choix des types de problèmes par Guillaume Valmont le 06/04/2023
  * Ajout d'un paramètre permettant d'avoir uniquement des nombres entiers dans l'énoncé par Guillaume-Valmont le 06/04/2023
  * Date de publication 15/02/2022
- * Refactorisation complète et passage en typescript Jean-Claude Lhote le 24/01/2025
+ * Refactorisation complète et passage en typescript Jean-claude Lhote le 24/01/2025
  */
 export const uuid = '22412'
 
@@ -60,9 +60,9 @@ export const refs = {
 // fonctions problèmes
 // figures
 function triangleIsocele1(): string {
-  const O = point(6, 1.5)
-  const B = point(0, 0)
-  const A = point(0, 3)
+  const O = pointAbstrait(6, 1.5)
+  const B = pointAbstrait(0, 0)
+  const A = pointAbstrait(0, 3)
   const OAB = polygone(O, A, B)
   const codage = codageSegments('//', 'black', O, A, O, B)
   return mathalea2d(
@@ -81,9 +81,9 @@ function triangleIsocele1(): string {
 }
 
 function triangleIsocele2(): string {
-  const O = point(3, 1.5)
-  const B = point(6, 0)
-  const A = point(0, 0)
+  const O = pointAbstrait(3, 1.5)
+  const B = pointAbstrait(6, 0)
+  const A = pointAbstrait(0, 0)
   const OAB = polygone(O, A, B)
   const codage = codageSegments('//', 'black', O, A, O, B)
   return mathalea2d(
@@ -107,9 +107,9 @@ function figureThales(
   c: number | string,
   OC: number | string,
 ): string {
-  const O = point(1.5, 0, 'O')
-  const B = point(4, 6, 'B')
-  const A = point(0, 5, 'A')
+  const O = pointAbstrait(1.5, 0, 'O')
+  const B = pointAbstrait(4, 6, 'B')
+  const A = pointAbstrait(0, 5, 'A')
   const D = homothetie(B, O, 0.4, 'D')
   const C = homothetie(A, O, 0.4, 'C')
   const OAB = polygoneAvecNom(O, C, A, B, D)

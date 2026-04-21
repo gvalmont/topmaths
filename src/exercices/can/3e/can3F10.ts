@@ -1,9 +1,10 @@
 import { courbe } from '../../../lib/2d/Courbe'
-import { point } from '../../../lib/2d/PointAbstrait'
+import { pointAbstrait } from '../../../lib/2d/PointAbstrait'
 import { repere } from '../../../lib/2d/reperes'
 import { segment } from '../../../lib/2d/segmentsVecteurs'
 import { latex2d } from '../../../lib/2d/textes'
 import { tracePoint } from '../../../lib/2d/TracePoint'
+import { bleuMathalea } from '../../../lib/colors'
 import { choice } from '../../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { texNombre } from '../../../lib/outils/texNombre'
@@ -58,9 +59,9 @@ export default class OrdonneeAbscisseFonctionLineaire extends ExerciceSimple {
       yB = randint(5, 10) * a
     }
     const o = latex2d('\\text{O}', -0.3, -0.3, { letterSize: 'scriptsize' })
-    const A = point(xA, 0.5 * yA)
-    const Ax = point(A.x, 0)
-    const Ay = point(0, A.y)
+    const A = pointAbstrait(xA, 0.5 * yA)
+    const Ax = pointAbstrait(A.x, 0)
+    const Ay = pointAbstrait(0, A.y)
     const sAAx = segment(A, Ax)
     sAAx.epaisseur = 2
     sAAx.pointilles = 5
@@ -109,7 +110,7 @@ export default class OrdonneeAbscisseFonctionLineaire extends ExerciceSimple {
         scale: 0.75,
         style: 'margin: auto',
       },
-      courbe(f, { repere: r1, color: 'blue', epaisseur: 2 }),
+      courbe(f, { repere: r1, color: bleuMathalea, epaisseur: 2 }),
       r1,
       lA,
       traceA,

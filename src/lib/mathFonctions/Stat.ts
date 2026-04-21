@@ -4,7 +4,7 @@ import type { NestedObjetMathalea2dArray } from '../../types/2d'
 import { BoiteBuilder } from '../2d/BoiteBuilder'
 import { colorToLatexOrHTML } from '../2d/colorToLatexOrHtml'
 import { fixeBordures } from '../2d/fixeBordures'
-import { point } from '../2d/PointAbstrait'
+import { pointAbstrait } from '../2d/PointAbstrait'
 import { polygone } from '../2d/polygones'
 import { segment } from '../2d/segmentsVecteurs'
 import { latex2d } from '../2d/textes'
@@ -13,13 +13,14 @@ import { milieu } from '../2d/utilitairesPoint'
 import { vide2d } from '../2d/Vide2d'
 import { shuffle } from '../outils/arrayOutils'
 import { texNombre } from '../outils/texNombre'
+import { bleuMathalea } from '../../lib/colors'
 
 /**
  * Classe pour les statistiques descriptives
  * Accepte une série de nombres ou une série de paires [valeur, effectif]
  * Fournit des méthodes pour calculer la moyenne, la variance, l'écart-type, la médiane, le mode, le min, le max, l'étendue et le coefficient de variation
  * Inclut également des méthodes statiques pour effectuer les mêmes calculs sur un tableau de nombres
- * @author Jean-Claude Lhote (aidé par GPT-5 mini)
+ * @author Jean-claude Lhote (aidé par GPT-5 mini)
  */
 export default class Stat {
   serie: (number | string)[]
@@ -337,47 +338,47 @@ export default class Stat {
     const etendue = boxplotData.max - boxplotData.min
     const scale = etendue / size
 
-    const extremiteDroite = point(-1, 0)
-    const extremiteGauche = point(size + 1, 0)
-    const minPoint = point(0, 0)
-    const maxPoint = point(size, 0)
-    const q1Point = point(
+    const extremiteDroite = pointAbstrait(-1, 0)
+    const extremiteGauche = pointAbstrait(size + 1, 0)
+    const minPoint = pointAbstrait(0, 0)
+    const maxPoint = pointAbstrait(size, 0)
+    const q1Point = pointAbstrait(
       (size * (boxplotData.q1 - boxplotData.min)) / etendue,
       0,
     )
-    const q2Point = point(
+    const q2Point = pointAbstrait(
       (size * (boxplotData.q2 - boxplotData.min)) / etendue,
       0,
     )
-    const q3Point = point(
+    const q3Point = pointAbstrait(
       (size * (boxplotData.q3 - boxplotData.min)) / etendue,
       0,
     )
-    const minDownPoint = point(minPoint.x, echelle * 0.8)
-    const minUpPoint = point(minPoint.x, 2.4 * echelle)
-    const maxDownPoint = point(maxPoint.x, echelle * 0.8)
-    const maxUpPoint = point(maxPoint.x, 2.4 * echelle)
+    const minDownPoint = pointAbstrait(minPoint.x, echelle * 0.8)
+    const minUpPoint = pointAbstrait(minPoint.x, 2.4 * echelle)
+    const maxDownPoint = pointAbstrait(maxPoint.x, echelle * 0.8)
+    const maxUpPoint = pointAbstrait(maxPoint.x, 2.4 * echelle)
     const minMiddlePoint = milieu(minDownPoint, minUpPoint)
     const maxMiddlePoint = milieu(maxDownPoint, maxUpPoint)
-    const q1DownPoint = point(q1Point.x, echelle * 0.8)
-    const q1UpPoint = point(q1Point.x, 2.4 * echelle)
-    const q2DownPoint = point(q2Point.x, echelle * 0.8)
-    const q2UpPoint = point(q2Point.x, 2.4 * echelle)
-    const q3DownPoint = point(q3Point.x, echelle * 0.8)
-    const q3UpPoint = point(q3Point.x, 2.4 * echelle)
+    const q1DownPoint = pointAbstrait(q1Point.x, echelle * 0.8)
+    const q1UpPoint = pointAbstrait(q1Point.x, 2.4 * echelle)
+    const q2DownPoint = pointAbstrait(q2Point.x, echelle * 0.8)
+    const q2UpPoint = pointAbstrait(q2Point.x, 2.4 * echelle)
+    const q3DownPoint = pointAbstrait(q3Point.x, echelle * 0.8)
+    const q3UpPoint = pointAbstrait(q3Point.x, 2.4 * echelle)
     const q1MiddlePoint = milieu(q1DownPoint, q1UpPoint)
     const q3MiddlePoint = milieu(q3DownPoint, q3UpPoint)
-    const lineMin = segment(minDownPoint, minUpPoint, 'blue')
-    const lineMax = segment(maxDownPoint, maxUpPoint, 'blue')
-    const lineQ2 = segment(q2DownPoint, q2UpPoint, 'blue')
+    const lineMin = segment(minDownPoint, minUpPoint, bleuMathalea)
+    const lineMax = segment(maxDownPoint, maxUpPoint, bleuMathalea)
+    const lineQ2 = segment(q2DownPoint, q2UpPoint, bleuMathalea)
     const lineQ0Q1 =
       minMiddlePoint.x === q1MiddlePoint.x
         ? vide2d()
-        : segment(minMiddlePoint, q1MiddlePoint, 'blue')
+        : segment(minMiddlePoint, q1MiddlePoint, bleuMathalea)
     const lineQ3Q4 =
       q3MiddlePoint.x === maxMiddlePoint.x
         ? vide2d()
-        : segment(q3MiddlePoint, maxMiddlePoint, 'blue')
+        : segment(q3MiddlePoint, maxMiddlePoint, bleuMathalea)
     lineMin.epaisseur = 2
     lineMax.epaisseur = 2
     lineQ2.epaisseur = 2
@@ -385,10 +386,10 @@ export default class Stat {
     lineQ3Q4.epaisseur = 2
     const box = polygone(
       [q1DownPoint, q1UpPoint, q3UpPoint, q3DownPoint],
-      'blue',
+      bleuMathalea,
     )
     box.epaisseur = 2
-    box.couleurDeRemplissage = colorToLatexOrHTML('blue')
+    box.couleurDeRemplissage = colorToLatexOrHTML(bleuMathalea)
     box.opaciteDeRemplissage = 0.15
 
     const lineBase = segment(extremiteDroite, extremiteGauche)
@@ -674,8 +675,8 @@ export default class Stat {
       }
       for (const yLabel of yLabelsAndOrdinate) {
         const line = segment(
-          point(0, yLabel[1]),
-          point((nbValeursDifferentes + 1) * 2, yLabel[1]),
+          pointAbstrait(0, yLabel[1]),
+          pointAbstrait((nbValeursDifferentes + 1) * 2, yLabel[1]),
           'lightgray',
         )
         line.opacite = gridOpacity
@@ -714,8 +715,8 @@ export default class Stat {
           yPosNext = yPos
         }
         const verticalLine = segment(
-          point(xPos, 0),
-          point(xPos, topCadre),
+          pointAbstrait(xPos, 0),
+          pointAbstrait(xPos, topCadre),
           'lightgray',
         )
         verticalLine.epaisseur = 1
@@ -730,7 +731,7 @@ export default class Stat {
             yMax: yPos,
           })
             .addColor({
-              color: 'blue',
+              color: bleuMathalea,
               colorBackground: '#9699FF',
               backgroudOpacity: 1,
             })
@@ -740,9 +741,9 @@ export default class Stat {
         } else {
           if (i < pairs.length - 1) {
             const line = segment(
-              point(xPos, yPos),
-              point(xPosNext, yPosNext),
-              'blue',
+              pointAbstrait(xPos, yPos),
+              pointAbstrait(xPosNext, yPosNext),
+              bleuMathalea,
             )
             line.epaisseur = 2
             line.opacite = 0.5

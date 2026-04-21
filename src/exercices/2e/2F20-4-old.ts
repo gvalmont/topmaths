@@ -12,12 +12,13 @@ import Exercice from '../Exercice'
 
 import Figure from 'apigeom'
 import { courbe } from '../../lib/2d/Courbe'
-import { point } from '../../lib/2d/PointAbstrait'
+import { pointAbstrait } from '../../lib/2d/PointAbstrait'
 import RepereBuilder from '../../lib/2d/RepereBuilder'
 import { colorToLatexOrHTML } from '../../lib/2d/colorToLatexOrHtml'
 import { fixeBordures } from '../../lib/2d/fixeBordures'
 import { segment } from '../../lib/2d/segmentsVecteurs'
 import { latex2d } from '../../lib/2d/textes'
+import { bleuMathalea } from '../../lib/colors'
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 import { mathalea2d } from '../../modules/mathalea2d'
 
@@ -30,7 +31,7 @@ export const interactifType = 'mathLive'
 /**
  * Résoudre graphiquement une équation ou une inéquation
  *
- * @author Jean-Claude Lhote
+ * @author Jean-claude Lhote
  */
 
 export const uuid = '28997'
@@ -630,18 +631,18 @@ class resolutionEquationInequationGraphique extends Exercice {
         isVisible: false,
       })
       const d = this.figureApiGeom.create('Segment', { point1: B, point2: A })
-      d.color = 'blue'
+      d.color = bleuMathalea
       d.thickness = 2
       d.isDashed = false
       if (this.interactif) {
         M = this.figureApiGeom.create('PointOnLine', { line: d })
         M.shape = 'o'
-        M.color = 'blue'
+        M.color = bleuMathalea
       }
     } else {
       courbeF = this.figureApiGeom.create('Graph', {
         expression: fonction1.expr as string,
-        color: 'blue',
+        color: bleuMathalea,
         thickness: 2,
         fillOpacity: 0.5,
         xMin,
@@ -651,7 +652,7 @@ class resolutionEquationInequationGraphique extends Exercice {
       if (this.interactif) {
         M = this.figureApiGeom.create('PointOnGraph', { graph: courbeF })
         M.shape = 'o'
-        M.color = 'blue'
+        M.color = bleuMathalea
         M!.label = 'M'
       }
     }
@@ -682,13 +683,13 @@ class resolutionEquationInequationGraphique extends Exercice {
         xMax: xMax + 2.5
       })
     }
-    this.figureApiGeom.create('TextByPosition', { x: xMin + 0.5, y: yMax - 1, text: `$\\mathscr{C_${f1}}$`, color: 'blue' })
+    this.figureApiGeom.create('TextByPosition', { x: xMin + 0.5, y: yMax - 1, text: `$\\mathscr{C_${f1}}$`, color: 'red' })
     this.figureApiGeom.create('TextByPosition', { x: xMin + 0.5, y: yMax - 2, text: `$\\mathscr{C_${f2}}$`, color: 'red' })
     const p1A = this.figureApiGeom.create('Point', { x: xMin + 1, y: yMax - 1, isVisible: false })
     const p1B = this.figureApiGeom.create('Point', { x: xMin + 2, y: yMax - 1, isVisible: false })
     const p2A = this.figureApiGeom.create('Point', { x: xMin + 1, y: yMax - 2, isVisible: false })
     const p2B = this.figureApiGeom.create('Point', { x: xMin + 2, y: yMax - 2, isVisible: false })
-    this.figureApiGeom.create('Segment', { point1: p1A, point2: p1B, color: 'blue', thickness: 2 })
+    this.figureApiGeom.create('Segment', { point1: p1A, point2: p1B, color: 'red', thickness: 2 })
     this.figureApiGeom.create('Segment', { point1: p2A, point2: p2B, color: 'red', thickness: 2 })
 */
     // De -6.3 à 6.3 donc width = 12.6 * 30 = 378
@@ -779,7 +780,7 @@ class resolutionEquationInequationGraphique extends Exercice {
         },
       })
 
-      texteCorr += `Pour trouver l'ensemble des solutions de l'inéquation $${f1}(x)${inferieur ? miseEnEvidence('\\leqslant', 'black') : miseEnEvidence('~\\geqslant~', 'black')}${f2}(x)$ sur $[${xMin};${xMax}]$, on regarde les portions où la courbe $${miseEnEvidence('\\mathscr{C}_' + f1, 'blue')}$ est située ${inferieur ? 'en dessous' : 'au-dessus'} de la  courbe $${miseEnEvidence('\\mathscr{C}_' + f2, 'red')}$.<br>`
+      texteCorr += `Pour trouver l'ensemble des solutions de l'inéquation $${f1}(x)${inferieur ? miseEnEvidence('\\leqslant', 'black') : miseEnEvidence('~\\geqslant~', 'black')}${f2}(x)$ sur $[${xMin};${xMax}]$, on regarde les portions où la courbe $${miseEnEvidence('\\mathscr{C}_' + f1, bleuMathalea)}$ est située ${inferieur ? 'en dessous' : 'au-dessus'} de la  courbe $${miseEnEvidence('\\mathscr{C}_' + f2, 'red')}$.<br>`
       texteCorr += `On lit les intervalles correspondants sur l'axe des abscisses : $${soluces2}$`
     }
     /*  this.figureApiGeom.setToolbar({ tools: ['DRAG'], position: 'top' })
@@ -835,13 +836,18 @@ class resolutionEquationInequationGraphique extends Exercice {
         fonction1.func(xMin),
         xMax,
         fonction1.func(xMax),
-        'blue',
+        bleuMathalea,
       )
     } else {
-      courbe1 = courbe(fonction1.func, { repere, xMin, xMax, color: 'blue' })
+      courbe1 = courbe(fonction1.func, {
+        repere,
+        xMin,
+        xMax,
+        color: bleuMathalea,
+      })
     }
     const nomCourbe1 = latex2d(`\\mathscr{C}_${f1}`, xMin + 0.5, yMax - 1, {
-      color: 'blue',
+      color: bleuMathalea,
       letterSize: 'normalsize',
       backgroundColor: '',
     })
@@ -851,7 +857,7 @@ class resolutionEquationInequationGraphique extends Exercice {
       backgroundColor: '',
     })
 
-    courbe1.color = colorToLatexOrHTML('blue')
+    courbe1.color = colorToLatexOrHTML(bleuMathalea)
 
     courbe1.epaisseur = 2
     if (f2Type === 'affine') {
@@ -865,11 +871,11 @@ class resolutionEquationInequationGraphique extends Exercice {
     } else {
       courbe2 = courbe(fonction2.func, { repere, xMin, xMax, color: 'red' })
     }
-    const p1A = point(xMin + 1, yMax - 1)
-    const p1B = point(xMin + 2, yMax - 1)
-    const p2A = point(xMin + 1, yMax - 2)
-    const p2B = point(xMin + 2, yMax - 2)
-    const trait1 = segment(p1A, p1B, 'blue')
+    const p1A = pointAbstrait(xMin + 1, yMax - 1)
+    const p1B = pointAbstrait(xMin + 2, yMax - 1)
+    const p2A = pointAbstrait(xMin + 1, yMax - 2)
+    const p2B = pointAbstrait(xMin + 2, yMax - 2)
+    const trait1 = segment(p1A, p1B, bleuMathalea)
     const trait2 = segment(p2A, p2B, 'red')
     trait1.epaisseur = 2
     trait2.epaisseur = 2

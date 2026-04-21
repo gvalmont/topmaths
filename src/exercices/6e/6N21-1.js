@@ -1,7 +1,8 @@
 import { droiteGraduee } from '../../lib/2d/DroiteGraduee'
-import { point } from '../../lib/2d/PointAbstrait'
+import { pointAbstrait } from '../../lib/2d/PointAbstrait'
 import { labelPoint } from '../../lib/2d/textes'
 import { tracePoint } from '../../lib/2d/TracePoint'
+import { bleuMathalea } from '../../lib/colors'
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
 import { lettreIndiceeDepuisChiffre } from '../../lib/outils/outilString'
 import { pointCliquable } from '../../modules/2dinteractif'
@@ -212,7 +213,7 @@ export default class PlacerPointsAbscissesFractionnairesComplexes extends Exerci
             {
               size: 8,
               width: 5,
-              color: 'blue',
+              color: bleuMathalea,
               radius: tailleUnite / data[tab].id / 2,
             },
           )
@@ -246,55 +247,55 @@ export default class PlacerPointsAbscissesFractionnairesComplexes extends Exerci
 
       let A, B, C, traceB, traceC, labels
       if (context.isHtml) {
-        A = point(
+        A = pointAbstrait(
           (num1 / den1 - origine) * tailleUnite,
           0,
           `$${lettreIndiceeDepuisChiffre(i + 1)}$`,
         )
       } else {
-        A = point(
+        A = pointAbstrait(
           (num1 / den1 - origine) * tailleUnite,
           0,
           lettreIndiceeDepuisChiffre(i + 1),
         )
       }
-      const traceA = tracePoint(A, 'blue')
+      const traceA = tracePoint(A, bleuMathalea)
       traceA.epaisseur = this.interactif ? 3 : 2
       traceA.taille = this.interactif ? 5 : 3
       labels = labelPoint(A)
       if (!this.interactif) {
         if (context.isHtml) {
           A.nom = `$${lettreIndiceeDepuisChiffre(i * 3 + 1)}$`
-          B = point(
+          B = pointAbstrait(
             (num2 / den2 - origine) * tailleUnite,
             0,
             `$${lettreIndiceeDepuisChiffre(i * 3 + 2)}$`,
           )
         } else {
           A.nom = lettreIndiceeDepuisChiffre(i * 3 + 1)
-          B = point(
+          B = pointAbstrait(
             (num2 / den2 - origine) * tailleUnite,
             0,
             lettreIndiceeDepuisChiffre(i * 3 + 2),
           )
         }
-        traceB = tracePoint(B, 'blue')
+        traceB = tracePoint(B, bleuMathalea)
         traceB.epaisseur = 2
         traceB.taille = 3
         if (context.isHtml) {
-          C = point(
+          C = pointAbstrait(
             (num3 / den3 - origine) * tailleUnite,
             0,
             `$${lettreIndiceeDepuisChiffre(i * 3 + 3)}$`,
           )
         } else {
-          C = point(
+          C = pointAbstrait(
             (num3 / den3 - origine) * tailleUnite,
             0,
             lettreIndiceeDepuisChiffre(i * 3 + 3),
           )
         }
-        traceC = tracePoint(C, 'blue')
+        traceC = tracePoint(C, bleuMathalea)
         traceC.epaisseur = 2
         traceC.taille = 3
         labels = labelPoint(A, B, C)
@@ -305,9 +306,6 @@ export default class PlacerPointsAbscissesFractionnairesComplexes extends Exerci
         if (B) B.positionLabel = 'above = 0.2'
         if (C) C.positionLabel = 'above = 0.2'
       }
-
-      const texFraction2 = new FractionEtendue(num2, den2).texFraction
-      const texFraction3 = new FractionEtendue(num3, den3).texFraction
       if (this.interactif) {
         texteCorr = `$${lettreIndiceeDepuisChiffre(i + 1)}\\left(${texFraction}\\right).$`
         texteCorr +=
@@ -326,6 +324,8 @@ export default class PlacerPointsAbscissesFractionnairesComplexes extends Exerci
             labels,
           )
       } else {
+        const texFraction2 = new FractionEtendue(num2, den2).texFraction
+        const texFraction3 = new FractionEtendue(num3, den3).texFraction
         texteCorr = `$${lettreIndiceeDepuisChiffre(i * 3 + 1)}\\left(${texFraction}\\right)$, $~${lettreIndiceeDepuisChiffre(i * 3 + 2)}\\left(${texFraction2}\\right)$ et $~${lettreIndiceeDepuisChiffre(i * 3 + 3)}\\left(${texFraction3}\\right)$`
         texteCorr +=
           '<br>' +

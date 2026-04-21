@@ -2,12 +2,13 @@ import { arc } from '../../lib/2d/Arc'
 import { codageSegments } from '../../lib/2d/CodageSegment'
 import { fixeBordures } from '../../lib/2d/fixeBordures'
 import { placeLatexSurSegment } from '../../lib/2d/placeLatexSurSegment'
-import { point } from '../../lib/2d/PointAbstrait'
+import { pointAbstrait } from '../../lib/2d/PointAbstrait'
 import { rotation } from '../../lib/2d/transformations'
 import { pointAdistance } from '../../lib/2d/utilitairesPoint'
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
-import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
+import { toutAUnPoint } from '../../lib/interactif/mathLive'
+import { addMultiMathfield } from '../../lib/interactif/MultiMathfield/MultiMathfield'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { arrondi } from '../../lib/outils/nombres'
 import { texNombre } from '../../lib/outils/texNombre'
@@ -19,9 +20,10 @@ import {
   randint,
 } from '../../modules/outils'
 import Exercice from '../Exercice'
+import { bleuMathalea } from '../../lib/colors'
 
 export const interactifReady = true
-export const interactifType = 'mathLive'
+export const interactifType = 'multiMathfield'
 export const amcReady = true
 export const amcType = 'AMCHybride'
 export const titre = 'Calculer périmètre et aire de portions de disques'
@@ -34,7 +36,7 @@ export const dateDeModifImportante = '23/01/2025'
  * * 3 : Calculer les périmètres et aires
  * @author Rémi Angot
  */
-export const uuid = 'ff386'
+export const uuid = 'ff387'
 
 export const refs = {
   'fr-fr': ['5M11-4'],
@@ -81,14 +83,10 @@ export default class PerimetreAireEtPortionsDeDisques extends Exercice {
         ? ' la figure suivante.'
         : ' chacune des figures suivantes.'
 
-    for (
-      let i = 0, cpt = 0, texte, texteCorr;
-      i < this.nbQuestions && cpt < 50;
-    ) {
-      texte = ''
+    for (let i = 0, cpt = 0, texteCorr; i < this.nbQuestions && cpt < 50; ) {
       texteCorr = ''
       const objetsEnonce = []
-      const C = point(0, 0)
+      const C = pointAbstrait(0, 0)
       let r = randint(2, 10)
 
       const A = pointAdistance(C, listeTypeQuestions[i] === 3 ? 3 : 6, 0)
@@ -99,6 +97,9 @@ export default class PerimetreAireEtPortionsDeDisques extends Exercice {
       const demiDisque = arc(A, C, 180, true, 'white', 'black', 0.2)
       const troisQuartDeDisque = arc(A, C, 270, true, 'white', 'black', 0.2)
       let reponseL1: number, reponseA1: number, reponseL1bis, reponseA1bis
+      const questions: string[] = []
+      const reponses: [number, number][] = []
+      const textesApres: string[] = []
       switch (listeTypeQuestions[i]) {
         case 1:
           if (this.sup !== 2) {
@@ -131,7 +132,7 @@ export default class PerimetreAireEtPortionsDeDisques extends Exercice {
             quartDeDisque,
             codageSegments(
               '//',
-              context.isHtml ? 'blue' : 'black',
+              context.isHtml ? bleuMathalea : 'black',
               A,
               C,
               C,
@@ -225,36 +226,21 @@ export default class PerimetreAireEtPortionsDeDisques extends Exercice {
           break
       }
       if (this.sup !== 2) {
-        handleAnswers(this, this.sup === 3 ? 2 * i : i, {
-          reponse: { value: [reponseL1!, reponseL1bis!] },
-        })
-        texte =
-          'Valeur approchée au dixième de $\\text{cm}$ du périmètre : ' +
-          ajouteChampTexteMathLive(
-            this,
-            this.sup === 3 ? 2 * i : i,
-            KeyboardType.clavierNumbers,
-            {
-              texteApres: ' $\\text{cm}$',
-            },
-          ) +
-          '<br>'
+        questions.push(
+          'Valeur approchée au dixième de $\\text{cm}$ du périmètre : ',
+        )
+        reponses.push([reponseL1!, reponseL1bis!])
+        textesApres.push('$\\text{cm}$')
       }
-      if (this.sup !== 1) {
-        handleAnswers(this, this.sup === 3 ? 2 * i + 1 : i, {
-          reponse: { value: [reponseA1!, reponseA1bis!] },
-        })
-        texte +=
-          "Valeur approchée au dixième de $\\text{cm}^2$ de l'aire : " +
-          ajouteChampTexteMathLive(
-            this,
-            this.sup === 3 ? 2 * i + 1 : i,
-            KeyboardType.clavierNumbers,
-            { texteApres: ' $\\text{cm}^2$' },
-          )
+      if (this.sup > 1) {
+        questions.push(
+          "Valeur approchée au dixième de $\\text{cm}^2$ de l'aire : ",
+        )
+        reponses.push([reponseA1!, reponseA1bis!])
+        textesApres.push('$\\text{cm}^2$')
       }
 
-      if (this.questionJamaisPosee(i, r)) {
+      if (this.questionJamaisPosee(i, r, listeTypeQuestions[i])) {
         // Si la question n'a jamais été posée, on en créé une autre
         const figure = mathalea2d(
           Object.assign(
@@ -263,7 +249,32 @@ export default class PerimetreAireEtPortionsDeDisques extends Exercice {
           ),
           objetsEnonce,
         )
-        this.listeQuestions[i] = figure + texte
+        const dataTemplate = questions
+          .map(
+            (q, j) =>
+              `${this.sup2 === 3 ? String.fromCharCode(97 + j) + ')' : ''} ${q} %{champ${j + 1}} ${textesApres[j]}`,
+          )
+          .join('\n')
+        const dataOptions = Object.fromEntries(
+          reponses.map((r, j) => [
+            `champ${j + 1}`,
+            { keyboard: KeyboardType.clavierNumbers, ldots: true },
+          ]),
+        )
+        handleAnswers(
+          this,
+          i,
+          {
+            bareme: toutAUnPoint,
+            ...Object.fromEntries(
+              reponses.map((r, j) => [`champ${j + 1}`, { value: r[j] }]),
+            ),
+          },
+          { formatInteractif: 'multiMathfield' },
+        )
+
+        this.listeQuestions[i] =
+          figure + addMultiMathfield(this, i, { dataTemplate, dataOptions })
         this.listeCorrections[i] = texteCorr
 
         if (context.isAmc) {

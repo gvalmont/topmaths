@@ -17,28 +17,22 @@ import Exercice from '../Exercice'
 
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
-import { lettreDepuisChiffre } from '../../lib/outils/outilString'
+import { lettreIndiceeDepuisChiffre } from '../../lib/outils/outilString'
 
 export const titre = 'Multiplier ou/et diviser des fractions'
 export const amcReady = true
 export const amcType = 'AMCNum'
 export const interactifReady = true
 export const interactifType = 'mathLive'
-export const dateDeModifImportante = '04/10/2025'
+export const dateDeModifImportante = '31/03/2026'
 
 /**
  * Exercice de calcul de produit de deux fractions.
- *
- * Paramétrages possibles :
- * * 1 : Produits de nombres positifs seulement
- * * 2 : deux questions niveau 1 puis deux questions niveau 3
- * * 3 : Produits de nombres relatifs
- * * Si décomposition cochée : les nombres utilisés sont plus importants.
- * @author Jean-Claude Lhote
+ * @author Jean-claude Lhote
  * Ajout d'une option pour ne pas exiger une fraction irréductible le 09/04/2022 par Guillaume Valmont
- * Ajout dans la paramètre 1 de pouvoir choisir un numérateur fractionnaire et un dénominateur entier le 04/10/2025 par Eric Elter
+ * Ajout dans la paramètre 1 de pouvoir choisir un numérateur fractionnaire et un dénominateur entier le 04/10/2025 par Éric Elter
  */
-export const uuid = '3eb4e'
+export const uuid = '3ee4e'
 
 export const refs = {
   'fr-fr': ['4C22', 'BP2AutoH13'],
@@ -51,37 +45,44 @@ const space2 = '\\phantom{(_(^(}' // Utilisé pour mettre de l'espace dans une f
 export default class ExerciceMultiplierFractions extends Exercice {
   constructor() {
     super()
-    this.nbCols = 4 // Pour Latex
-    this.nbColsCorr = 2
+    // this.nbCols = 4 // Pour Latex
+    // this.nbColsCorr = 2
     this.besoinFormulaireTexte = [
-      'Niveau de difficulté',
-      'Nombres séparés par des tirets\n1 : Un numérateur entier et un dénominateur fractionnaire (tous positifs)\n2 : Un numérateur fractionnaire et un dénominateur entier (tous positifs)\n3 : Numérateurs et dénominateurs fractionnaires positifs\n4 : Numérateurs et dénominateurs fractionnaires relatifs (au moins 2 négatifs)\n5 : Mélange',
+      'Type de facteurs',
+      'Nombres séparés par des tirets\n1 : Un facteur entier\n2 : Un numérateur égal à 1\n3 : Sans cas particulier\n4 : Au moins deux valeurs négatives\n5 : Mélange',
     ]
     this.besoinFormulaire2CaseACocher = [
       'Avec décomposition en produit de facteurs premiers',
     ]
-    this.besoinFormulaire3CaseACocher = ['Demander une fraction irréductible']
-    this.besoinFormulaire4Numerique = [
+    this.besoinFormulaire3CaseACocher = [
+      'La correction affiche une fraction irréductible',
+    ]
+    this.besoinFormulaire4CaseACocher = [
+      'La consigne demande une fraction irréductible',
+    ]
+    this.besoinFormulaire5Numerique = [
       "Type d'opération",
       3,
       '1 : Multiplication\n2 : Division\n3 : Mélange',
     ]
     this.listeAvecNumerotation = false
     this.sup = '2' // Avec ou sans relatifs
-    this.sup3 = true
-    if (context.isAmc)
-      this.titre =
-        'Multiplier des fractions et donner le résultat sous forme irréductible'
+    this.sup2 = true // méthode de simplification par défaut = factorisation
+    this.sup3 = false
+    this.sup4 = true
+    this.sup5 = 1 // multiplications par défaut
     this.spacing = 3
     this.spacingCorr = 3
     this.nbQuestions = 5
-    this.sup2 = true // méthode de simplification par défaut = factorisation
-    this.sup4 = 1 // multiplications par défaut
+    this.comment =
+      'Les facteurs sont positifs pour les trois premiers types de facteurs à choisir.<br><br>'
+    this.comment +=
+      'Si la consigne demande une fraction irréductible, alors la correction affiche une fraction irréductible, quelle que soit la valeur choisie du paramètre à ce sujet.'
   }
 
   nouvelleVersion() {
     const listeFractions = obtenirListeFractionsIrreductibles()
-    const fractionIrreductibleDemandee = this.sup3
+    const fractionIrreductibleDemandee = this.sup4
     if (fractionIrreductibleDemandee) {
       this.consigne = 'Calculer et donner le résultat sous forme irréductible.'
     } else {
@@ -95,10 +96,10 @@ export default class ExerciceMultiplierFractions extends Exercice {
       nbQuestions: this.nbQuestions,
     })
 
-    // On choisit les opérations en fonction de this.sup4
+    // On choisit les opérations en fonction de this.sup5
     const typesDoperation = []
-    if (this.sup4 % 2 === 1) typesDoperation.push('mul')
-    if (this.sup4 > 1) typesDoperation.push('div')
+    if (this.sup5 % 2 === 1) typesDoperation.push('mul')
+    if (this.sup5 > 1) typesDoperation.push('div')
     const listeTypesDoperation = combinaisonListes(
       typesDoperation,
       this.nbQuestions,
@@ -124,10 +125,8 @@ export default class ExerciceMultiplierFractions extends Exercice {
         ;[c, d] = choice(listeFractions)
       } while ((a * c) % (b * d) === 0 || (a * c) % d === 0 || b * d === 100)
       if (!this.sup2) {
-        // methode 1 : simplifications finale
         switch (typesDeQuestions) {
           case 1: {
-            // entier * fraction (tout positif)
             if (a === 1) {
               a = randint(2, 9)
             }
@@ -135,18 +134,18 @@ export default class ExerciceMultiplierFractions extends Exercice {
             const tampon = c
             c = d
             d = tampon
+            if (d === 1) {
+              d = randint(2, 9)
+            }
             break
           }
           case 2: {
-            // entier * fraction (tout positif)
             if (d === 1) {
               d = randint(2, 9)
             }
             c = 1
             break
           }
-          /* case 3: // fraction * fraction tout positif
-            break */
           case 4:
             do {
               a = a * choice([-1, 1])
@@ -177,12 +176,13 @@ export default class ExerciceMultiplierFractions extends Exercice {
         )
 
         switch (typesDeQuestions) {
-          case 1: // entier * fraction (tout positif)
+          case 1:
             b = 1
             break
-          case 2: // fraction * fraction tout positif
+          case 2:
+            c = 1
             break
-          case 3:
+          case 4:
             do {
               a = a * choice([-1, 1])
               b = b * choice([-1, 1])
@@ -197,13 +197,13 @@ export default class ExerciceMultiplierFractions extends Exercice {
       const f1 = new FractionEtendue(a, b)
       if (listeTypesDoperation[i] === 'mul') {
         const f2 = new FractionEtendue(c, d)
-        texte = `$${lettreDepuisChiffre(i + 1)} = ${f1.texFraction}\\times${f2.texFraction}$`
-        texteCorr = `$\\begin{aligned}${lettreDepuisChiffre(i + 1)} &= ${f1.texProduitFraction(f2, this.sup2).replaceAll('=', '\\\\&=')}\\end{aligned}$`
+        texte = `$${lettreIndiceeDepuisChiffre(i + 1)} = ${f1.texFraction}\\times${f2.texFraction}$`
+        texteCorr = `$\\begin{aligned}${lettreIndiceeDepuisChiffre(i + 1)} &= ${f1.texProduitFraction(f2, this.sup3 || this.sup4 ? this.sup2 : 'none').replaceAll('=', '\\\\&=')}\\end{aligned}$`
         reponse = f1.produitFraction(f2).simplifie()
       } else {
         const f2 = new FractionEtendue(d, c)
-        texte = `$${lettreDepuisChiffre(i + 1)} = \\dfrac{${(f1.den === 1 ? space2 : space) + f1.texFSD + (f1.den === 1 ? space2 : space)}}{${(f2.den === 1 ? space2 : space) + f2.texFraction + (f2.den === 1 ? space2 : space)}}$`
-        texteCorr = `$\\begin{aligned}${lettreDepuisChiffre(i + 1)} &= ${f1.texDiviseFraction(f2, this.sup2, '/').replaceAll('=', '\\\\&=')}\\end{aligned}$`
+        texte = `$${lettreIndiceeDepuisChiffre(i + 1)} = \\dfrac{${(f1.den === 1 ? space2 : space) + f1.texFSD + (f1.den === 1 ? space2 : space)}}{${(f2.den === 1 ? space2 : space) + f2.texFraction + (f2.den === 1 ? space2 : space)}}$`
+        texteCorr = `$\\begin{aligned}${lettreIndiceeDepuisChiffre(i + 1)} &= ${f1.texDiviseFraction(f2, this.sup3 || this.sup4 ? this.sup2 : 'none', '/').replaceAll('=', '\\\\&=')}\\end{aligned}$`
         reponse = f1.diviseFraction(f2).simplifie()
       }
       if (this.questionJamaisPosee(i, a, b, c, d, typesDeQuestions)) {

@@ -1,6 +1,6 @@
 import { arcPointPointAngle } from '../../lib/2d/Arc'
 import { cibleCarree, dansLaCibleCarree } from '../../lib/2d/cibles'
-import { point } from '../../lib/2d/PointAbstrait'
+import { pointAbstrait } from '../../lib/2d/PointAbstrait'
 import { labelPoint } from '../../lib/2d/textes'
 import { tracePoint } from '../../lib/2d/TracePoint'
 import { rotation } from '../../lib/2d/transformations'
@@ -12,13 +12,14 @@ import { context } from '../../modules/context'
 import { mathalea2d } from '../../modules/mathalea2d'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import Exercice from '../Exercice'
+import { orangeMathalea } from '../../lib/colors'
 export const titre =
   "Construire l'image d'un point par une rotation avec cible auto-corrective"
 
 /**
  * Construction d'images par rotation avec dispositif d'auto-correction aléatoire
  * Ref 3G10-3
- * @author Jean-Claude Lhote
+ * @author Jean-claude Lhote
  * Publié le 30/11/2020
  */
 export const uuid = '19ce6'
@@ -51,7 +52,7 @@ export default class ConstruireRotationPoint3e extends Exercice {
       return lettre + chiffre
     }
     // On prépare la figure...
-    const O = point(0, 0, 'O')
+    const O = pointAbstrait(0, 0, 'O')
     const noms = choisitLettresDifferentes(nbpoints, 'QO', true)
     this.consigne = `Construire l'image des points $${noms[0]}$`
     for (let i = 1; i < nbpoints - 1; i++) {
@@ -75,7 +76,7 @@ export default class ConstruireRotationPoint3e extends Exercice {
     for (let i = 0; i < nbpoints; i++) {
       // On place les cibles.
       N.push(
-        point(
+        pointAbstrait(
           randint(-80, 80, 0) / 10,
           randint(-80, 80, 0) / 10,
           noms[i] + "'",
@@ -117,7 +118,7 @@ export default class ConstruireRotationPoint3e extends Exercice {
         rang: 4,
         num: i + 1,
         taille: 0.6,
-        color: '#f15929',
+        color: orangeMathalea,
       })
       cible.opacite = 0.7
       cibles.push(cible)

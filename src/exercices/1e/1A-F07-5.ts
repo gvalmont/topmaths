@@ -1,4 +1,4 @@
-import { point, pointAbstrait } from '../../lib/2d/PointAbstrait'
+import { pointAbstrait } from '../../lib/2d/PointAbstrait'
 import { tracePoint } from '../../lib/2d/TracePoint'
 import { vide2d } from '../../lib/2d/Vide2d'
 import { droite } from '../../lib/2d/droites'
@@ -15,6 +15,7 @@ import FractionEtendue from '../../modules/FractionEtendue'
 import { mathalea2d } from '../../modules/mathalea2d'
 import { randint } from '../../modules/outils'
 import ExerciceQcmA from '../ExerciceQcmA'
+import { bleuMathalea } from '../../lib/colors'
 /**
  * @author Gilles Mora
  *
@@ -68,11 +69,11 @@ export default class Auto1AF075 extends ExerciceQcmA {
       letterSize: 'scriptsize',
     })
     const lBBx = latex2d(`${fracNum}`, B.x + 0.5, milieu(B, Bx).y, {
-      color: 'blue',
+      color: bleuMathalea,
       letterSize: 'scriptsize',
     })
 
-    const d = droite(A, B, '', 'blue')
+    const d = droite(A, B, '', bleuMathalea)
     d.epaisseur = 2
 
     const xmin = -5
@@ -171,7 +172,7 @@ export default class Auto1AF075 extends ExerciceQcmA {
 
     // ===== Correction (commune) =====
     this.correction = `En prenant deux points $A$ et $B$ sur la droite, on obtient le coefficient directeur :<br>
-    $m=\\dfrac{${miseEnEvidence(fracNum, 'blue')}}{${miseEnEvidence(fracDen, 'red')}}=${miseEnEvidence(`${m.texFractionSimplifiee}`)}$.<br>
+    $m=\\dfrac{${miseEnEvidence(fracNum, bleuMathalea)}}{${miseEnEvidence(fracDen, 'red')}}=${miseEnEvidence(`${m.texFractionSimplifiee}`)}$.<br>
     L'ordonnée à l'origine est $p=${ordOrigine}$.<br>
     L'équation réduite de la droite est donc : $${miseEnEvidence(nuReduite)}$.<br>`
     this.correction += `${objetC}`
@@ -230,9 +231,9 @@ export default class Auto1AF075 extends ExerciceQcmA {
     const m = new FractionEtendue(fracNum, fracDen)
 
     const o = latex2d('\\text{O}', -0.3, -0.3, { letterSize: 'scriptsize' })
-    const A = point(0, ordOrigine)
-    const B = point(fracDen, ordOrigine + fracNum)
-    const Bx = point(B.x, A.y)
+    const A = pointAbstrait(0, ordOrigine)
+    const B = pointAbstrait(fracDen, ordOrigine + fracNum)
+    const Bx = pointAbstrait(B.x, A.y)
     const sABx = segment(A, Bx)
     const sBBx = segment(B, Bx)
 
@@ -252,9 +253,9 @@ export default class Auto1AF075 extends ExerciceQcmA {
     traceB.epaisseur = 2
 
     const lABx = latex2d(`${fracDen}`, milieu(A, Bx).x, A.y + 0.3, { color: 'red', letterSize: 'scriptsize' })
-    const lBBx = latex2d(`${fracNum}`, B.x + 0.5, milieu(B, Bx).y, { color: 'blue', letterSize: 'scriptsize' })
+    const lBBx = latex2d(`${fracNum}`, B.x + 0.5, milieu(B, Bx).y, { color: bleuMathalea, letterSize: 'scriptsize' })
 
-    const d = droite(A, B, '', 'blue')
+    const d = droite(A, B, '', bleuMathalea)
     d.epaisseur = 2
 
     const xmin = -5
@@ -290,7 +291,7 @@ export default class Auto1AF075 extends ExerciceQcmA {
     )}`
 
     this.correction = `En prenant deux points $A$ et $B$ sur la droite, on obtient le coefficient directeur :<br>
-    $m=\\dfrac{${miseEnEvidence(fracNum, 'blue')}}{${miseEnEvidence(fracDen, 'red')}}=${miseEnEvidence(`${m.texFractionSimplifiee}`)}$.<br>
+    $m=\\dfrac{${miseEnEvidence(fracNum, bleuMathalea)}}{${miseEnEvidence(fracDen, 'red')}}=${miseEnEvidence(`${m.texFractionSimplifiee}`)}$.<br>
     L'ordonnée à l'origine est $p=${ordOrigine}$.<br>
     L'équation réduite de la droite est donc : $${miseEnEvidence(`y=${m.texFractionSimplifiee}x${ecritureAlgebrique(ordOrigine)}`)}$.<br>`
     this.correction += `${objetC}`

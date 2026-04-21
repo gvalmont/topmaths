@@ -1,5 +1,6 @@
 import { context } from '../../modules/context'
 import type { NestedObjetMathalea2dArray, ObjetDivLatex } from '../../types/2d'
+import { renderKatex } from '../mathalea'
 import { arrondi } from '../outils/nombres'
 import { stringNombre } from '../outils/texNombre'
 import { colorToLatexOrHTML } from './colorToLatexOrHtml'
@@ -25,11 +26,11 @@ export const svgAncrages = {
  * @param {string} [label=''] Si vide, alors affiche la mesure de l'angle sinon affiche ce label.
  * @param {Object} parametres À saisir entre accolades
  * @param {PointAbstrait|PointAbstrait[]} [parametres.points = []] PointAbstrait ou tableau de points
- * @param {string} [parametres.color = 'black'] Couleur du label : du type 'blue' ou du type '#f15929'
+ * @param {string} [parametres.color = 'black'] Couleur du label : du type 'red', bleuMathalea ou du type '#a12345'
  * @param {number} [parametres.taille = 8] Taille du label
  * @param {number} [parametres.largeur = 10] Largeur en pixels du label à des fins de centrage
  * @param {number} [parametres.hauteur = 10] Hauteur en pixels du label à des fins de centrage
- * @param {string} [parametres.couleurDeRemplissage=''] Couleur de fond de ce label : du type 'blue' ou du type '#f15929'
+ * @param {string} [parametres.couleurDeRemplissage=''] Couleur de fond de ce label : du type 'red', bleuMathalea ou du type '#a12345'
  * @property {string} svg Sortie au format vectoriel (SVG) que l’on peut afficher dans un navigateur
  * @property {string} tikz Sortie au format TikZ que l’on peut utiliser dans un fichier LaTeX
  * @property {string} color Couleur du label. À associer obligatoirement à colorToLatexOrHTML().
@@ -37,7 +38,7 @@ export const svgAncrages = {
  * @property {number} largeur Largeur en pixels du label à des fins de centrage
  * @property {number} hauteur Hauteur en pixels du label à des fins de centrage
  * @property {string} couleurDeRemplissage Couleur de fond de ce label. À associer obligatoirement à colorToLatexOrHTML().
- * @author Rémi Angot et Jean-Claude Lhote
+ * @author Rémi Angot et Jean-claude Lhote
  * @class
  */
 // JSDOC Validee par EE Juin 2022
@@ -65,7 +66,7 @@ export function labelLatexPoint(
     couleurDeRemplissage: '',
   },
 ): NestedObjetMathalea2dArray {
-  // Jean-Claude Lhote 15/08/2023
+  // Jean-claude Lhote 15/08/2023
   const offset = 0.25 * Math.log10(taille) // context.pixelsParCm ne correspond pas forcément à la valeur utilisée par mathalea2d... cela peut entrainer un trés léger écart
   let x
   let y
@@ -401,7 +402,7 @@ export function deplaceLabel(p: IPolygone, nom: string, positionLabel: string) {
  * ancrageDeRotation est à prendre parmi ['milieu', 'gauche', 'droite']
  * Si mathOn est true, la chaine est traitée par texteParPoint mais avec une police se rapprochant de la police Katex (quelques soucis d'alignement des caractères sur certains navigateurs)
  * Si le texte commence et finit par des $ la chaine est traitée par latexParPoint
- * @author Rémi Angot rectifié par Jean-Claude Lhote
+ * @author Rémi Angot rectifié par Jean-claude Lhote
  */
 export class TexteParPoint extends ObjetMathalea2D {
   texte: string
@@ -578,7 +579,7 @@ export class TexteParPoint extends ObjetMathalea2D {
  * ancrageDeRotation est à prendre parmi ['milieu', 'gauche', 'droite']
  * Si mathOn est true, la chaine est traitée par texteParPoint mais avec une police se rapprochant de la police Katex (quelques soucis d'alignement des caractères sur certains navigateurs)
  * Si le texte commence et finit par des $ la chaine est traitée par latexParPoint
- * @author Rémi Angot rectifié par Jean-Claude Lhote
+ * @author Rémi Angot rectifié par Jean-claude Lhote
  */
 export function texteParPoint(
   texte: string,
@@ -771,33 +772,31 @@ export function texteParPosition(
   mathOn: boolean = false,
   opacite?: number,
 ) {
+  if (typeof texte === 'string' && texte.charAt(0) === '$') {
+    return latex2d(texte.substring(1, texte.length - 1), x, y, {
+      color,
+      backgroundColor: 'white',
+      letterSize: 'normalsize',
+      justify: ancrageDeRotation,
+    })
+  }
   if (typeof texte === 'number') texte = String(texte)
   if (typeof orientation !== 'number') {
     ancrageDeRotation = orientation
     orientation = 0
   }
-  // @ts-expect-error TS2367 // normalement ts devrait veiller au grain, sauf que plein d'exo tournant en js ont mal utilisé ces paramètres, donc on blinde.
-  if (ancrageDeRotation === 'middle') ancrageDeRotation = 'milieu'
   if (!['milieu', 'droite', 'gauche'].includes(ancrageDeRotation))
     ancrageDeRotation = 'milieu'
-  if (texte[0] === '$') {
-    return latex2d(texte.substring(1, texte.length - 1), x, y, {
-      color,
-      backgroundColor: 'white',
-      letterSize: 'normalsize',
-    })
-  } else {
-    return new TexteParPoint(
-      texte,
-      pointAbstrait(x, y, ''),
-      orientation,
-      color,
-      scale,
-      ancrageDeRotation,
-      mathOn,
-      opacite,
-    )
-  }
+  return new TexteParPoint(
+    texte,
+    pointAbstrait(x, y, ''),
+    orientation,
+    color,
+    scale,
+    ancrageDeRotation,
+    mathOn,
+    opacite,
+  )
 }
 
 /**
@@ -1074,7 +1073,7 @@ export class LatexParCoordonneesBox extends ObjetMathalea2D {
           ) {
             dy = 0
           } else {
-            dy = parseInt(options.dy.substr(0, options.dy.indexOf('%')))
+            dy = parseInt(options.dy.slice(0, options.dy.indexOf('%')))
           }
           let dx = 0
           if (
@@ -1084,7 +1083,7 @@ export class LatexParCoordonneesBox extends ObjetMathalea2D {
           ) {
             dx = 0
           } else {
-            dx = parseInt(options.dx.substr(0, options.dx.indexOf('%')))
+            dx = parseInt(options.dx.slice(0, options.dx.indexOf('%')))
           }
           this.style = `position:fixed;top: 50%;left: 50%;transform: translate(${-50 + dx}%, ${-50 + dy}%);`
           break
@@ -1115,8 +1114,8 @@ export class LatexParCoordonneesBox extends ObjetMathalea2D {
       <div style='${this.style}'>
       $${this.taille} \\color{${this.color[0]}}{${this.texte}}$
       </div></div></foreignObject>`
-    // <circle cx="${this.x * coeff - demiLargeur}" cy="${-this.y * coeff - centrage - this.hauteur / 2}" r="1" fill="red" stroke="blue" stroke-width="2"  />
-    // <circle cx="${this.x * coeff}" cy="${-this.y * coeff}" r="1" fill="red" stroke="blue" stroke-width="2"  />`
+    // <circle cx="${this.x * coeff - demiLargeur}" cy="${-this.y * coeff - centrage - this.hauteur / 2}" r="1" fill="red" stroke="red", bleuMathalea stroke-width="2"  />
+    // <circle cx="${this.x * coeff}" cy="${-this.y * coeff}" r="1" fill="red" stroke="red", bleuMathalea stroke-width="2"  />`
   }
 
   tikz() {
@@ -1205,6 +1204,7 @@ export class Latex2d extends ObjetMathalea2D {
       orientation = 0,
       opacity = 1,
       gras = false,
+      justify = 'milieu',
     }: {
       color: string
       backgroundColor: string
@@ -1212,6 +1212,7 @@ export class Latex2d extends ObjetMathalea2D {
       orientation: number
       opacity: number
       gras: boolean
+      justify?: 'milieu' | 'gauche' | 'droite'
     },
   ) {
     super()
@@ -1221,15 +1222,54 @@ export class Latex2d extends ObjetMathalea2D {
     this.orientation = orientation
     this.opacity = opacity
     this.latex = latex
-    this.x = x
-    this.y = y
+
     const marge = 0.25
-    this.bordures = [x - marge, y - marge, x + marge, y + marge]
+    const katexElement = document.createElement('div')
+    katexElement.style.position = 'absolute'
+    katexElement.style.left = '-9999px'
+    katexElement.style.top = '0'
+    katexElement.style.width = 'auto'
+    katexElement.style.display = 'inline-block'
+    document.body.appendChild(katexElement)
+    katexElement.innerHTML = `$${this.latex}$`
+    renderKatex(katexElement)
+    const bbox = katexElement.getBoundingClientRect()
     this.gras = gras
+    this.x =
+      justify === 'milieu'
+        ? x
+        : justify === 'gauche'
+          ? x - bbox.width / context.pixelsParCm / 2
+          : x + bbox.width / context.pixelsParCm / 2
+    this.y = y
+    this.bordures =
+      justify === 'milieu'
+        ? [
+            x - bbox.width / context.pixelsParCm / 2 - marge / 2,
+            y - bbox.height / context.pixelsParCm / 2 - marge / 2,
+            x + bbox.width / context.pixelsParCm / 2 + marge / 2,
+            y + bbox.height / context.pixelsParCm / 2 + marge / 2,
+          ]
+        : justify === 'gauche'
+          ? [
+              x - marge / 2,
+              y - bbox.height / context.pixelsParCm / 2 - marge / 2,
+              x + bbox.width / context.pixelsParCm + marge / 2,
+              y + bbox.height / context.pixelsParCm / 2 + marge / 2,
+            ]
+          : [
+              x - bbox.width / context.pixelsParCm - marge / 2,
+              y - bbox.height / context.pixelsParCm / 2 - marge / 2,
+              x + marge / 2,
+              y + bbox.height / context.pixelsParCm / 2 + marge / 2,
+            ]
+
+    document.body.removeChild(katexElement)
   }
 
   svg(): ObjetDivLatex {
-    // On prend la couleur Latex, parce que c'est pour Katex !
+    // On prend la couleur Latex, parce que c'est pour Katex !)
+
     return {
       latex: this.latex,
       x: this.x,
@@ -1246,12 +1286,12 @@ export class Latex2d extends ObjetMathalea2D {
 
   // @todo ajouter opacity, orientation au tikz.
   tikz() {
-    if (this.backgroundCol.startsWith('#')) {
+    if (!context.isHtml && this.backgroundCol.startsWith('#')) {
       this.backgroundCol = `[HTML]{${this.backgroundCol.substring(1)}}`
     } else {
       this.backgroundCol = `${this.backgroundCol}`
     }
-    if (this.col.startsWith('#')) {
+    if (!context.isHtml && this.col.startsWith('#')) {
       this.col = `[HTML]{${this.col.substring(1)}}`
     } else {
       this.col =
@@ -1290,6 +1330,7 @@ export function latex2d(
     orientation,
     opacity,
     gras,
+    justify = 'milieu',
   }: {
     color?: string
     backgroundColor?: string
@@ -1297,6 +1338,7 @@ export function latex2d(
     orientation?: number
     opacity?: number
     gras?: boolean
+    justify?: 'milieu' | 'gauche' | 'droite'
   },
 ) {
   color = color ?? 'black'
@@ -1318,6 +1360,7 @@ export function latex2d(
     orientation,
     opacity,
     gras,
+    justify,
   })
 }
 

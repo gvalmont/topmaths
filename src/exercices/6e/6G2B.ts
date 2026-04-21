@@ -30,7 +30,7 @@ export const refs = {
 }
 /**
  * Utiliser la définition du cercle et du disque
- * @author Eric Elter
+ * @author Éric Elter
  */
 export default class defCercleDisque extends Exercice {
   figuresApiGeom!: Figure[]
@@ -87,8 +87,8 @@ export default class defCercleDisque extends Exercice {
       this.choixRayon[i] = []
       this.choixCouleur[i] = combinaisonListes([
         ['rouge', 'red'],
-        ['bleu', 'blue'],
-        ['orange', 'orange'],
+        ['bleu', 'blue'], // Ne pas mettre bleuMathalea
+        ['orange', 'orange'], // Ne pas mettre orangeMathalea
         ['vert', 'green'],
       ])
       this.estUnCercle[i] = combinaisonListes(typeDeQuestions, this.sup2)

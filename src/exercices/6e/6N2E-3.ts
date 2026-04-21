@@ -1,9 +1,9 @@
-import { orangeMathalea } from 'apigeom/src/elements/defaultValues'
 import Decimal from 'decimal.js'
-import { bleuMathalea } from '../../lib/colors'
+import { bleuMathalea, orangeMathalea } from '../../lib/colors'
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
-import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
+import { toutAUnPoint } from '../../lib/interactif/mathLive'
+import { addMultiMathfield } from '../../lib/interactif/MultiMathfield/MultiMathfield'
 import { choice, shuffle } from '../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { numAlpha, sp } from '../../lib/outils/outilString'
@@ -14,7 +14,7 @@ import Exercice from '../Exercice'
 export const titre = 'Effectuer produit et somme ou différence de décimaux'
 
 export const interactifReady = true
-export const interactifType = 'mathLive'
+export const interactifType = 'multiMathField'
 export const dateDeModifImportante = '14/01/2026'
 export const dateDePublication = '20/12/2022'
 
@@ -25,7 +25,7 @@ export const dateDePublication = '20/12/2022'
  * @author Guillaume Valmont
  * idée originale de Mireille Gain
 */
-export const uuid = 'c6836'
+export const uuid = '71be7'
 
 export const refs = {
   'fr-fr': ['6N2E-3'],
@@ -102,30 +102,18 @@ export default class ProduitEtSommeOuDifferenceDeDecimaux extends Exercice {
           this.interactif && !addition
             ? Math.min(couple.A.toNumber(), couple.B.toNumber())
             : couple.B.toNumber()
-
-        texte += `$${texNombre(operande1)} ${addition ? '+' : '-'} ${texNombre(operande2)}$ `
-        texte += this.interactif
-          ? ajouteChampTexteMathLive(
-              this,
-              2 * (i * this.sup + indice),
-              KeyboardType.clavierNumbers,
-              {
-                texteAvant: ' =',
-              },
-            )
-          : ``
-        texte += ` ${sp(6)} et  ${sp(6)} $${texNombre(couple.A)} \\times ${texNombre(couple.B)}$`
-        texte += this.interactif
-          ? ajouteChampTexteMathLive(
-              this,
-              2 * (i * this.sup + indice) + 1,
-              KeyboardType.clavierNumbers,
-              {
-                texteAvant: ' =',
-                texteApres: '.',
-              },
-            )
-          : `.`
+        if (!this.interactif) {
+          texte += `$${texNombre(operande1)} ${addition ? '+' : '-'} ${texNombre(operande2)}$ `
+          texte += ` ${sp(6)} et  ${sp(6)} $${texNombre(couple.A)} \\times ${texNombre(couple.B)}$`
+        } else {
+          texte += addMultiMathfield(this, i, {
+            dataTemplate: `$${texNombre(operande1)} ${addition ? '+' : '-'} ${texNombre(operande2)}$ = %{champ1}  ${sp(6)} et  ${sp(6)} $${texNombre(couple.A)} \\times ${texNombre(couple.B)}$ = %{champ2}.`,
+            dataOptions: {
+              champ1: { keyboard: KeyboardType.clavierNumbers },
+              champ2: { keyboard: KeyboardType.clavierNumbers },
+            },
+          })
+        }
         texteCorr += operation({
           operande1,
           operande2,
@@ -134,14 +122,18 @@ export default class ProduitEtSommeOuDifferenceDeDecimaux extends Exercice {
           methodeParCompensation: addition,
           options: { solution: true, colore: orangeMathalea },
         })
-        handleAnswers(this, 2 * (i * this.sup + indice), {
-          reponse: {
-            value: addition ? operande1 + operande2 : operande1 - operande2,
+        handleAnswers(
+          this,
+          i,
+          {
+            bareme: toutAUnPoint,
+            champ1: {
+              value: addition ? operande1 + operande2 : operande1 - operande2,
+            },
+            champ2: { value: couple.B.mul(couple.A) },
           },
-        })
-        handleAnswers(this, 2 * (i * this.sup + indice) + 1, {
-          reponse: { value: couple.B.mul(couple.A) },
-        })
+          { formatInteractif: 'multiMathfield' },
+        )
 
         texteCorr += `<br> Je sais que $${texNombre(A)}\\times${texNombre(B)}=${miseEnEvidence(texNombre(B.mul(A)), bleuMathalea)}$.`
         texteCorr += '<br>'

@@ -5,7 +5,7 @@ import { checkSegmentFromLabels } from 'apigeom/src/check/checkSegment'
 import { demiDroite } from '../../lib/2d/DemiDroite'
 import { droite } from '../../lib/2d/droites'
 import { grille, seyes } from '../../lib/2d/Grille'
-import { point } from '../../lib/2d/PointAbstrait'
+import { pointAbstrait } from '../../lib/2d/PointAbstrait'
 import { segment } from '../../lib/2d/segmentsVecteurs'
 import { labelPoint } from '../../lib/2d/textes'
 import { tracePoint } from '../../lib/2d/TracePoint'
@@ -71,26 +71,26 @@ export default class constructionElementaire extends Exercice {
       const objetsEnonce = []
       const objetsCorrection = []
       const indLettre = randint(1, 15)
-      const A = point(
+      const A = pointAbstrait(
         randint(0, 3),
         randint(-8, -3),
         lettreDepuisChiffre(indLettre),
         'above left',
       )
-      const B = point(
+      const B = pointAbstrait(
         randint(10, 11),
         randint(-4, 4, [-1, 0, 1]),
         lettreDepuisChiffre(indLettre + 1),
         'above right',
       )
-      const d = droite(A, B, '', 'blue')
-      const C = point(
+      const d = droite(A, B, '', 'blue') // Ne pas mettre bleuMathalea quand il s'agit d'apigeom
+      const C = pointAbstrait(
         randint(2, 4, [A.x]),
         randint(3, 6, [A.y]),
         lettreDepuisChiffre(indLettre + 2),
         'above left',
       )
-      const D = point(
+      const D = pointAbstrait(
         randint(6, 8),
         randint(-7, -6, [A.y]),
         lettreDepuisChiffre(indLettre + 3),
@@ -103,7 +103,8 @@ export default class constructionElementaire extends Exercice {
         lettreDepuisChiffre(indLettre + 4),
         'below right',
       )
-      if (!E) {
+      if (!E || (E.x === 50 && E.y === 50)) {
+        // pointIntersectionDD renvoie (50,50) lorsqu'il n'y a pas d'intersection
         window.notify("pointIntersectionDD n'a pas renvoyé de point", {})
         continue
       }
@@ -151,7 +152,7 @@ export default class constructionElementaire extends Exercice {
       const Ymax = Math.ceil(Math.max(A.y, B.y, C.y, D.y, E.y, F.y) + 1)
       anim.recadre(Xmin - 3, Ymax)
       anim.pointsCreer(A, B, C, D)
-      anim.regleDroite(A, B, { couleur: 'blue' })
+      anim.regleDroite(A, B, { couleur: 'blue' }) // Ne pas mettre bleuMathalea quand il s'agit d'apigeom
       anim.regleSegment(A, C, { couleur: 'red' })
       anim.regleDemiDroiteOriginePoint(C, D, { couleur: 'green' })
       anim.regleMasquer({})
@@ -337,8 +338,8 @@ export default class constructionElementaire extends Exercice {
         ]
       }
 
-      if (this.questionJamaisPosee(i, Xmin, Xmax, Ymin, Ymax)) {
-        // Si la question n'a jamais été posée, on en crée une autre
+      if (this.questionJamaisPosee(i, Xmin, Xmax, Ymin, Ymax) && F != null) {
+        // si pas d'intersection, alors la boucle continue et on ne pose pas la question
         this.listeQuestions[i] = enonce
         this.listeCorrections[i] = correction
         i++
@@ -364,7 +365,7 @@ export default class constructionElementaire extends Exercice {
     figure.isDynamic = false
     figure.divButtons.style.display = 'none'
     figure.divUserMessage.style.display = 'none'
-    figure.buttons.get('SHAKE')?.click()
+    // figure.buttons.get('SHAKE')?.click()
 
     // Sauvegarde de la réponse pour Capytale
     if (this.answers == null) this.answers = {}
@@ -380,7 +381,7 @@ export default class constructionElementaire extends Exercice {
     const { isValid, message } = checkLineFromLabels({
       figure,
       nameLine: [`(${this.Anom}${this.Bnom})`, `(${this.Bnom}${this.Anom})`],
-      color: 'blue',
+      color: 'blue', // Ne pas mettre bleuMathalea quand il s'agit d'apigeom
     })
     resultat.push(isValid ? 'OK' : 'KO')
     if (message !== '') {

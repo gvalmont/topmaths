@@ -13,7 +13,7 @@ import {
 import Exercice from '../Exercice'
 
 export const titre = "Tester si un nombre est solution d'une équation"
-export const dateDeModificationImportante = '13/01/2026' // Correction de la rédaction Jean-Claude Lhote
+export const dateDeModificationImportante = '13/01/2026' // Correction de la rédaction Jean-claude Lhote
 
 /**
  * Tester si un nombre est solution d'une équation
@@ -221,19 +221,21 @@ export default class TesterSiUnNombreEstSolutionDUneEquation extends Exercice {
           )}`
           break
         case 4: // ax+b=(a+1)x-c => x=b+c
-          if (this.sup === 1) {
-            a = randint(2, 9)
-            b = randint(2, 9)
-            c = randint(1, 3)
-            x1 = b + c
-            x2 = randint(2, 10, x1)
-          } else {
-            a = randint(2, 9)
-            b = randint(2, 9) * randint(-1, 1, 0)
-            c = randint(1, 3) * randint(-1, 1, 0)
-            x1 = b + c
-            x2 = randint(2, 10, x1) * randint(-1, 1, 0)
-          }
+          do {
+            if (this.sup === 1) {
+              a = randint(2, 9)
+              b = randint(2, 9)
+              c = randint(1, 3)
+              x1 = b + c
+              x2 = randint(2, 10, x1)
+            } else {
+              a = randint(2, 9)
+              b = randint(2, 9) * randint(-1, 1, 0)
+              c = randint(1, 3) * randint(-1, 1, 0)
+              x1 = b + c
+              x2 = randint(2, 10, x1) * randint(-1, 1, 0)
+            }
+          } while (x1 === x2)
 
           texte = `$${ecritureParentheseSiNegatif(
             a,
@@ -398,7 +400,7 @@ export default class TesterSiUnNombreEstSolutionDUneEquation extends Exercice {
         default:
           if (this.sup === 1) {
             b = randint(2, 9)
-            a = randint(2, 9)
+            a = randint(2, 9, a)
             x3 = b
             x1 = a
             x2 = randint(1, 9, [x1, x3])

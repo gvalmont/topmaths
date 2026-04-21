@@ -1,7 +1,7 @@
 import { context } from '../../modules/context'
 import { droite, Droite, droiteParPointEtPerpendiculaire } from './droites'
 import { ObjetMathalea2D } from './ObjetMathalea2D'
-import { point, PointAbstrait } from './PointAbstrait'
+import { pointAbstrait, PointAbstrait } from './PointAbstrait'
 import { segment } from './segmentsVecteurs'
 import { rotation } from './transformations'
 import { longueur } from './utilitairesGeometriques'
@@ -11,7 +11,7 @@ import { milieu, pointSurSegment } from './utilitairesPoint'
  * P=tracePointSurDroite(A,d) //Ajoute un trait perpendiculaire à d supposée tracée marquant la posiion du point A
  * P=tracePointSurDroite(A,B) //Ajoute un trait perpendiculaire à la droite (AB) supposée tracée marquant la posiion du point A
  *
- * @author Rémi Angot et Jean-Claude Lhote
+ * @author Rémi Angot et Jean-claude Lhote
  */
 
 export class TracePointSurDroite extends ObjetMathalea2D {
@@ -46,7 +46,11 @@ export class TracePointSurDroite extends ObjetMathalea2D {
       this.direction = rotation(M, this.lieu, 90)
     } else {
       d = droiteParPointEtPerpendiculaire(this.lieu, O as Droite)
-      this.direction = pointSurSegment(point(d.x1, d.y1), point(d.x2, d.y2), 1)
+      this.direction = pointSurSegment(
+        pointAbstrait(d.x1, d.y1),
+        pointAbstrait(d.x2, d.y2),
+        1,
+      )
     }
   }
 

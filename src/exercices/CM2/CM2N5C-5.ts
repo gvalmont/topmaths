@@ -1,4 +1,4 @@
-import { orangeMathalea } from 'apigeom/src/elements/defaultValues'
+import { orangeMathalea } from '../../lib/colors'
 import { createList } from '../../lib/format/lists'
 import { deuxColonnesResp } from '../../lib/format/miseEnPage'
 import { ajouteQuestionMathlive } from '../../lib/interactif/questionMathLive'
@@ -21,7 +21,7 @@ export const dateDePublication = '21/11/2024'
 export const interactifType = 'mathLive'
 export const interactifReady = true
 /**
- * @Author Jean-Claude Lhote
+ * @Author Jean-claude Lhote
  * Sources (eduscol) : https://eduscol.education.fr/ressources/numerique/2020/2020-exercices-mathematiques-6e
  * Ces exercices seront proposés systématiquement pour 3 niveaux de difficulté afin de différentier autour d'un même problème
  */

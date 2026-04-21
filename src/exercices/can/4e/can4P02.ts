@@ -4,6 +4,7 @@ import {
   texteEnCouleur,
 } from '../../../lib/outils/embellissements'
 import ExerciceSimple from '../../ExerciceSimple'
+import { bleuMathalea } from '../../../lib/colors'
 export const titre = 'Résoudre un problème de vitesse'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -11,7 +12,7 @@ export const amcReady = true
 export const amcType = 'AMCNum'
 
 /**
- * @author Jean-Claude Lhote
+ * @author Jean-claude Lhote
  * Créé pendant l'été 2021
 
  */
@@ -44,7 +45,7 @@ export default class ProblemesDeVitesse extends ExerciceSimple {
     car $${a}\\times ${b}=60$.<br>
     Cela signifie qu'en $${b}$ minutes, elle parcourt $${a}$ fois moins de $\\text{km}$ qu'en $1$ heure, soit $\\dfrac{${c}}{${a}}=
     ${c / a}\\text{ km}$.`,
-      'blue',
+      bleuMathalea,
     )
   }
 }

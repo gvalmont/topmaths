@@ -1,5 +1,5 @@
 import { traceGraphiqueCartesien } from '../../lib/2d/diagrammes'
-import { point } from '../../lib/2d/PointAbstrait'
+import { pointAbstrait } from '../../lib/2d/PointAbstrait'
 import { repere } from '../../lib/2d/reperes'
 import { segment } from '../../lib/2d/segmentsVecteurs'
 import { texteParPosition } from '../../lib/2d/textes'
@@ -17,7 +17,9 @@ export const titre = 'Conjecture de Syracuse'
 /**
  * @class Syracuse
  * @classdesc Outils pour les suites de Syracuse
- * @author Sébastien Lozano (Olivier Mimeau Passage TS et Class)
+ * @author Sébastien Lozano
+ * Olivier Mimeau Passage TS et Class
+ *
  */
 
 class Syracuse {
@@ -187,9 +189,9 @@ export default class ConjectureDeSyracuse extends Exercice {
         xThickMin: 0,
         xThickDistance: 1 * xCoeff,
         xLegende: "Applications de l'algorithme",
-        xLegendePosition: [(uneSuite.tempsDeVol + 2) / xCoeff, -1],
+        xLegendePosition: [(uneSuite.tempsDeVol + 1) / xCoeff, -0.5],
         yLegende: 'Altitude',
-        yLegendePosition: [0.5, (uneSuite.altitudeMaximale + 7) / yCoeff],
+        yLegendePosition: [0.2, (uneSuite.altitudeMaximale + 7) / yCoeff],
       })
 
       // Le graphique cartésien
@@ -198,8 +200,8 @@ export default class ConjectureDeSyracuse extends Exercice {
       // On pousse tout ça dans les objets, le repère aussi coño !!!
       objetsCorrection.push(r2, g)
 
-      const A = point(0, uneSuite.suiteDeSyracuse[0] / yCoeff)
-      const B = point(
+      const A = pointAbstrait(0, uneSuite.suiteDeSyracuse[0] / yCoeff)
+      const B = pointAbstrait(
         uneSuite.tempsDeVol / xCoeff,
         uneSuite.suiteDeSyracuse[0] / yCoeff,
       )

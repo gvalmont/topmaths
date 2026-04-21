@@ -1,5 +1,5 @@
 import { colorToLatexOrHTML } from '../../lib/2d/colorToLatexOrHtml'
-import { point } from '../../lib/2d/PointAbstrait'
+import { pointAbstrait } from '../../lib/2d/PointAbstrait'
 import { polygone } from '../../lib/2d/polygones'
 import { segment } from '../../lib/2d/segmentsVecteurs'
 import { latex2d } from '../../lib/2d/textes'
@@ -7,10 +7,11 @@ import { choice, shuffle } from '../../lib/outils/arrayOutils'
 import { range1 } from '../../lib/outils/nombres'
 import { listeDesDiviseurs } from '../../lib/outils/primalite'
 import { MySpreadsheetElement } from '../../lib/tableur/MySpreadSheet'
-import { addSheet } from '../../lib/tableur/outilsTableur'
+import { addSheet, createTableurLatex } from '../../lib/tableur/outilsTableur'
 import { context } from '../../modules/context'
 import { mathalea2d } from '../../modules/mathalea2d'
 
+import { orangeMathalea } from '../../lib/colors'
 import {
   gestionnaireFormulaireTexte,
   listeQuestionsToContenu,
@@ -27,7 +28,7 @@ export const interactifType = 'custom'
 /*
  * Programmer des calculs sur tableur : New programme de 6eme 2025
  * @author Mickael Guironnet
- * revisité par Jean-Claude Lhote (intoduction du custom élément sheet-element) et modification de la librairie utilisée.
+ * revisité par Jean-claude Lhote (intoduction du custom élément sheet-element) et modification de la librairie utilisée.
  */
 
 export const uuid = 'ae07c'
@@ -599,10 +600,10 @@ function createDigramm(
   const gap = 0.8
   const objets = []
   for (let i = 0; i < nbre; i++) {
-    const A = point(i * longueur + i * gap, 0)
-    const B = point(A.x + longueur, 0)
-    const C = point(B.x, largeur)
-    const D = point(A.x, largeur)
+    const A = pointAbstrait(i * longueur + i * gap, 0)
+    const B = pointAbstrait(A.x + longueur, 0)
+    const C = pointAbstrait(B.x, largeur)
+    const D = pointAbstrait(A.x, largeur)
     const rect = rects[i]
     const rectangle = polygone(A, B, C, D)
     if (rect && rect.bg) {
@@ -621,7 +622,13 @@ function createDigramm(
       objets.push(tex)
     }
     if (i > 0) {
-      const seg = segment(A.x - gap, largeur / 2, A.x, largeur / 2, '#f15929')
+      const seg = segment(
+        A.x - gap,
+        largeur / 2,
+        A.x,
+        largeur / 2,
+        orangeMathalea,
+      )
       seg.styleExtremites = '->'
       objets.push(seg)
     }
@@ -644,64 +651,4 @@ function createDigramm(
     },
     objets,
   )
-}
-
-function createTableurLatex(
-  rowNbr: number,
-  colNbr: number,
-  data: any,
-  styles: any,
-  options: {
-    formule?: boolean
-    formuleTexte?: string
-    formuleCellule?: string
-    firstColHeaderWidth?: string
-  } = {},
-) {
-  let output = `\\begin{tabularx}{0.9\\linewidth}
-  {|>{\\cellcolor{lightgray}}c|
-  ${options.firstColHeaderWidth ? `>{\\centering \\arraybackslash}p{${options.firstColHeaderWidth}}|` : '>{\\centering \\arraybackslash}X|'}
-  *{${colNbr - 1}}{>{\\centering \\arraybackslash}X|}}\\hline\n`
-
-  if (options.formule) {
-    output += `\\multicolumn{1}{|l}{${options.formuleCellule}}&\\multicolumn{1}{r|}{▼}&\\multicolumn{${colNbr - 1}}{l|}{${options.formuleTexte}}\\\\ \\hline\n`
-  }
-  // en-tête
-  output += '\\rowcolor{lightgray} &'
-  const alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
-  for (let colIndex = 0; colIndex < colNbr - 1; colIndex++) {
-    output += `\\textbf{\\sffamily ${alphabet[colIndex]}}  & `
-  }
-  output += `\\textbf{\\sffamily ${alphabet[colNbr - 1]}} \\\\ \\hline\n`
-
-  for (let rowIndex = 0; rowIndex < rowNbr; rowIndex++) {
-    const rowData = data[rowIndex] || {}
-    output += `\\textbf{\\sffamily ${rowIndex + 1}} &`
-    for (let colIndex = 0; colIndex < colNbr; colIndex++) {
-      const cell = rowData[colIndex] || {}
-      const styleCell = styles[cell.s ?? ''] || {}
-      let color = ''
-      if (styleCell.bg?.startsWith('#')) {
-        color = `\\cellcolor[HTML]{${styleCell.bg.replace('#', '')}}`
-      } else if (styleCell.bg) {
-        color = `\\cellcolor{${styleCell.bg}}`
-      }
-      if (cell?.t === 1) {
-        // texte
-        output += `\\raggedright ${color} ${cell.v || ''}  &`
-      } else if (cell?.t === 2) {
-        // number
-        output += `\\raggedleft ${color} ${cell.v || ''}  &`
-      } else if (cell?.t === 3) {
-        // boolean
-        output += `\\centering ${color} ${cell.v ? 'VRAI' : 'FAUX'}  &`
-      } else {
-        output += `${color} ${cell.v || ''}  &`
-      }
-    }
-    output = output.slice(0, -1) // enlever le dernier &
-    output += '\\\\ \\hline\n'
-  }
-  output += '\\end{tabularx}\n'
-  return output
 }

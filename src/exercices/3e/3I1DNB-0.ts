@@ -1,5 +1,5 @@
 import { fixeBordures } from '../../lib/2d/fixeBordures'
-import { point } from '../../lib/2d/PointAbstrait'
+import { pointAbstrait } from '../../lib/2d/PointAbstrait'
 import { polygone } from '../../lib/2d/polygones'
 import { segment } from '../../lib/2d/segmentsVecteurs'
 import { texteParPosition } from '../../lib/2d/textes'
@@ -32,7 +32,7 @@ export const titre = 'Se préparer au DNB : Scratch'
 export const dateDePublication = '7/12/2024'
 
 /**
- * @Author Jean-Claude Lhote
+ * @Author Jean-claude Lhote
  * Cet exerice exploite la nouvelle classe d'exercice que j'ai conçue pour les sujets de brevet
  * Il s'agit d'un exercice de type Brevet Aléatoirisé
  */
@@ -89,7 +89,7 @@ export default class Exercice3I1DNB0 extends ExerciceBrevetA {
            \\blockmove{tourner ${droit ? '\\turnright{}' : '\\turnleft{}'} de \\ovalnum{${angle}} degrés}
         }
          \\end{scratch}\n`
-          const depart = point(0, 0)
+          const depart = pointAbstrait(0, 0)
           const p1 = translation(depart, vecteur(av / 5, 0))
           const p2 = rotation(translation(p1, vecteur(av / 10, 0)), p1, s * 90)
           const p3 = translation(p2, vecteur(-av / 5, 0))
@@ -118,7 +118,7 @@ export default class Exercice3I1DNB0 extends ExerciceBrevetA {
            \\blockmove{tourner ${droit ? '\\turnright{}' : '\\turnleft{}'} de \\ovalnum{${angle}} degrés}
         }
          \\end{scratch}\n`
-          const depart = point(0, 0)
+          const depart = pointAbstrait(0, 0)
           const p1 = translation(depart, vecteur(av / 5, 0))
           const p2 = rotation(translation(p1, vecteur(av / 5, 0)), p1, s * 90)
           const p3 = translation(p2, vecteur(-av / 5, 0))
@@ -147,7 +147,7 @@ export default class Exercice3I1DNB0 extends ExerciceBrevetA {
            \\blockmove{tourner ${droit ? '\\turnright{}' : '\\turnleft{}'} de \\ovalnum{${angle}} degrés}
         }
          \\end{scratch}\n`
-          const depart = point(0, 0)
+          const depart = pointAbstrait(0, 0)
           const p1 = translation(depart, vecteur(av / 5, 0))
           const p2 = rotation(translation(p1, vecteur(av / 5, 0)), p1, s * 60)
           const p3 = translation(p2, vecteur(-av / 5, 0))
@@ -159,7 +159,7 @@ export default class Exercice3I1DNB0 extends ExerciceBrevetA {
     const info2 = texteParPosition('orientation', -5, 0)
     const info3 = texteParPosition('de départ.', -5, -1)
 
-    const fleche = segment(point(-3, 0), point(-0.5, 0))
+    const fleche = segment(pointAbstrait(-3, 0), pointAbstrait(-0.5, 0))
     fleche.styleExtremites = '->'
     const objets = [poly, fleche, info, info2, info3]
     const figure1 = mathalea2d(

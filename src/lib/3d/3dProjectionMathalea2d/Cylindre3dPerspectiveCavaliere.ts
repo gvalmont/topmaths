@@ -1,4 +1,3 @@
-import { cross, dot } from 'mathjs'
 import { context } from '../../../modules/context'
 import {
   assombrirOuEclaircir,
@@ -13,7 +12,7 @@ import { segment } from '../../2d/segmentsVecteurs'
 import { tracePoint } from '../../2d/TracePoint'
 import { translation } from '../../2d/transformations'
 import { pointIntersectionDD } from '../../2d/utilitairesPoint'
-import { vecteur } from '../../2d/Vecteur'
+import { cross, dot, vecteur } from '../../2d/Vecteur'
 import {
   demicercle3d,
   droite3d,
@@ -31,30 +30,30 @@ import {
  * @param {Point3d} centrebase2 Centre de la seconde base
  * @param {Vecteur3d} rayon1 Vecteur correspondant au rayon de la première base
  * @param {Vecteur3d} rayon2 Vecteur correspondant au rayon de la seconde base
- * @param {string} [color = 'black'] Couleur des "bords" du cylindre : du type 'blue' ou du type '#f15929'
+ * @param {string} [color = 'black'] Couleur des "bords" du cylindre : du type 'red', bleuMathalea ou du type '#f15929'
  * @param {boolean} [affichageGeneratrices = true] Permet (ou pas) l'affichage de génératrices du cylindre
  * @param {boolean} [affichageCentreBases = false] Permet (ou pas) l'affichage des centres respectifs de chaque base
  * @param {boolean} [affichageAxe = false] Permet (ou pas) l'affichage de l'axe du cylindre
- * @param {string} [colorAxe = 'black'] Couleur de l'axe et des centres respectifs de chaque base du cylindre : du type 'blue' ou du type '#f15929'
+ * @param {string} [colorAxe = 'black'] Couleur de l'axe et des centres respectifs de chaque base du cylindre : du type 'red', bleuMathalea ou du type '#f15929'
  * @param {boolean} [cylindreColore = false] Permet (ou pas) de colorier le cylindre
- * @param {string} [colorCylindre = 'lightgray'] Couleur du cylindre (avec gestion intégrée de la nuance de couleurs): du type 'blue' ou du type '#f15929'
+ * @param {string} [colorCylindre = 'lightgray'] Couleur du cylindre (avec gestion intégrée de la nuance de couleurs): du type 'red', bleuMathalea ou du type '#f15929'
  * @param {boolean} [avecFaceHaut = true] Permet (ou pas) d'afficher la face haut du cylindre
  * @property {Point3d} centrebase1 Centre de la première base
  * @property {Point3d} centrebase2 Centre de la seconde base
  * @property {Vecteur3d} rayon1 Vecteur correspondant au rayon de la première base
  * @property {Vecteur3d} rayon2 Vecteur correspondant au rayon de la seconde base
- * @property {string} color Couleur des "bords" du cylindre : du type 'blue' ou du type '#f15929'
+ * @property {string} color Couleur des "bords" du cylindre : du type 'red', bleuMathalea ou du type '#f15929'
  * @property {boolean} affichageGeneratrices Permet (ou pas) l'affichage de génératrices du cylindre
  * @property {boolean} affichageCentreBases Permet (ou pas) l'affichage des centres respectifs de chaque base
  * @property {boolean} affichageAxe Permet (ou pas) l'affichage de l'axe du cylindre
- * @property {string} colorAxe Couleur de l'axe et des centres respectifs de chaque base du cylindre : du type 'blue' ou du type '#f15929'
+ * @property {string} colorAxe Couleur de l'axe et des centres respectifs de chaque base du cylindre : du type 'red', bleuMathalea ou du type '#f15929'
  * @property {boolean} cylindreColore Permet (ou pas) de colorier le cylindre
- * @property {string} colorCylindre Couleur du cylindre (avec gestion intégrée de la nuance de couleurs): du type 'blue' ou du type '#f15929'
+ * @property {string} colorCylindre Couleur du cylindre (avec gestion intégrée de la nuance de couleurs): du type 'red', bleuMathalea ou du type '#f15929'
  * @property {number} angleDepart Angle de rotation à partir duquel les demis-cercles formant la base sont tracés
  * @property {Points[]} pointsBase1 Liste des points formant la ligne de la base 1
  * @property {Points[]} pointsBase2 Liste des points formant la ligne de la base 2
  * @property {Array} c2d Contient les commandes à tracer en 2d de cette fonction
- * @author Jean-Claude Lhote (optimisé par Eric Elter)
+ * @author Jean-claude Lhote (optimisé par Éric Elter)
  * @class
  */
 
@@ -104,8 +103,8 @@ export class Cylindre3d extends ObjetMathalea2D {
     this.c2d = []
     let s
     this.normal = vecteur3d(this.centrebase1, this.centrebase2)
-    const coords = cross(this.normal.matrice, this.rayon1.matrice)
-    const coordsArray = (coords as any).toArray().map(Number) as number[]
+    const coords = cross(this.normal.matrice, this.rayon1.matrice) as number[]
+    const coordsArray = coords as any as number[]
     const prodvec = vecteur3d(coordsArray[0], coordsArray[1], coordsArray[2])
     const prodscal = dot(prodvec.matrice, vecteur3d(0, 1, 0).matrice) as number
 
@@ -309,20 +308,20 @@ export class Cylindre3d extends ObjetMathalea2D {
  * @param {Point3d} centrebase2 Centre de la seconde base
  * @param {Vecteur3d} rayon1 Vecteur correspondant au rayon de la première base
  * @param {Vecteur3d} rayon2 Vecteur correspondant au rayon de la seconde base
- * @param {string} [color = 'black'] Couleur des "bords" du cylindre : du type 'blue' ou du type '#f15929'
+ * @param {string} [color = 'black'] Couleur des "bords" du cylindre : du type 'red', bleuMathalea ou du type '#f15929'
  * @param {boolean} [affichageGeneratrices = true] Permet (ou pas) l'affichage de génératrices du cylindre
  * @param {boolean} [affichageCentreBases = false] Permet (ou pas) l'affichage des centres respectifs de chaque base
  * @param {boolean} [affichageAxe = false] Permet (ou pas) l'affichage de l'axe du cylindre
- * @param {string} [colorAxe = 'black'] Couleur de l'axe et des centres respectifs de chaque base du cylindre : du type 'blue' ou du type '#f15929'
+ * @param {string} [colorAxe = 'black'] Couleur de l'axe et des centres respectifs de chaque base du cylindre : du type 'red', bleuMathalea ou du type '#f15929'
  * @param {boolean} [cylindreColore = false] Permet (ou pas) de colorier le cylindre
- * @param {string} [colorCylindre = 'lightgray'] Couleur du cylindre (avec gestion intégrée de la nuance de couleurs): du type 'blue' ou du type '#f15929'
+ * @param {string} [colorCylindre = 'lightgray'] Couleur du cylindre (avec gestion intégrée de la nuance de couleurs): du type 'red', bleuMathalea ou du type '#f15929'
  * @param {boolean} [avecFaceHaut = true] Permet (ou pas) d'afficher la face haut du cylindre
- * @example cylindre3d(A, B, v, v, 'blue')
+ * @example cylindre3d(A, B, v, v, bleuMathalea)
  * // Retourne un cylindre à bords bleus dont les bases ont pour centre respectif A et B et le rayon est donné par le vecteur v.
  * @example cylindre3d(A, B, v, v, 'green', false, true, true, 'red', true, 'lightblue')
  * // Retourne un cylindre à bords verts dont les bases ont pour centre respectif A et B et le rayon est donné par le vecteur v.
  * // Les génératrices sont invisibles, les centres et axe sont visibles et rouges, le cylindre est coloré en bleu.
- * @author Jean-Claude Lhote (optimisé par Eric Elter)
+ * @author Jean-claude Lhote (optimisé par Éric Elter)
  * @return {Cylindre3d}
  */
 export function cylindre3d(

@@ -1,5 +1,5 @@
 import Decimal from 'decimal.js'
-import { point } from '../../lib/2d/PointAbstrait'
+import { pointAbstrait } from '../../lib/2d/PointAbstrait'
 import { polygone } from '../../lib/2d/polygones'
 import { texteParPoint } from '../../lib/2d/textes'
 import { homothetie, rotation } from '../../lib/2d/transformations'
@@ -35,7 +35,7 @@ export const titre =
 
 /**
  * Reciproque_Thales
- * @author Jean-Claude Lhote
+ * @author Jean-claude Lhote
  * 18/10/21 passage de MG32 à MathALEA2D par Rémi Angot
  */
 export const uuid = '3451c'
@@ -148,9 +148,9 @@ export default class ReciproqueThales extends Exercice {
       const s14 = texNombre(dist14, 3)
       const s24 = texNombre(dist24, 3)
       const s35 = texNombre(dist35, 3)
-      const A = point(0, 0)
-      const B = point(x2, y2)
-      const C = point(x3, y3)
+      const A = pointAbstrait(0, 0)
+      const B = pointAbstrait(x2, y2)
+      const C = pointAbstrait(x3, y3)
       const t1 = polygone(A, B, C)
       t1.id = `M2D_${numeroExercice}_Q${i}_t1`
       const M = homothetie(B, A, k)
@@ -289,7 +289,7 @@ export default class ReciproqueThales extends Exercice {
         const boutonAideMathalea2d = ajouterBoutonMathalea2d(
           `${numeroExercice}_Q${i}`,
           `if (document.getElementById('M2D_${numeroExercice}_Q${i}_t1').dataset.colorie == undefined || (document.getElementById('M2D_${numeroExercice}_Q${i}_t1').dataset.colorie == 'false')){
-          document.getElementById('M2D_${numeroExercice}_Q${i}_t1').style.stroke = 'blue';
+          document.getElementById('M2D_${numeroExercice}_Q${i}_t1').style.stroke = bleuMathalea;
           document.getElementById('M2D_${numeroExercice}_Q${i}_t2').style.stroke = 'red';
           document.getElementById('M2D_${numeroExercice}_Q${i}_t1').style.opacity = .5;
           document.getElementById('M2D_${numeroExercice}_Q${i}_t1').style.strokeWidth = ${epaisseurTriangle};

@@ -24,7 +24,7 @@ export const titre =
 
 /**
  * problèmes de grandeurs composées
- * @author Jean-Claude Lhote
+ * @author Jean-claude Lhote
 
  */
 export const uuid = '72c5a'
@@ -210,7 +210,6 @@ export default class ProblemesGrandeursComposees extends Exercice {
         texteCorr,
         cpt = 0;
       i < this.nbQuestions && cpt < 50;
-
     ) {
       switch (grandeurs[i]) {
         case 1: // problème de consommation éléctrique
@@ -487,7 +486,7 @@ export default class ProblemesGrandeursComposees extends Exercice {
           texte =
             `${quidam} qui pèse $${masse}$ kg se trouve sur le siège d'une ` +
             ajouterAide(
-              ajouterImage('balancoire_trebuchet.png'), // Public Domain file : https://svgsilh.com/fr/image/43897.html
+              ajouterImage('balancoire_trebuchet-128.png', true), // Public Domain file : https://svgsilh.com/fr/image/43897.html
               {
                 texteAvant: 'balançoire trébuchet',
                 titreAide: 'Schéma explicatif',

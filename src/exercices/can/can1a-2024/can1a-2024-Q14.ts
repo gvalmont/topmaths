@@ -1,9 +1,10 @@
 import { droite } from '../../../lib/2d/droites'
-import { point } from '../../../lib/2d/PointAbstrait'
+import { pointAbstrait } from '../../../lib/2d/PointAbstrait'
 import { repere } from '../../../lib/2d/reperes'
 import { segment } from '../../../lib/2d/segmentsVecteurs'
 import { labelPoint, texteParPosition } from '../../../lib/2d/textes'
 import { tracePoint } from '../../../lib/2d/TracePoint'
+import { bleuMathalea } from '../../../lib/colors'
 import { ecritureAlgebrique } from '../../../lib/outils/ecritures'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import FractionEtendue from '../../../modules/FractionEtendue'
@@ -46,16 +47,16 @@ export default class EquationReduite extends ExerciceSimple {
       true,
       1,
     )
-    const A = point(xA, yA, 'A', 'above left')
-    const B = point(xB, yB, 'B')
-    const Bx = point(B.x, A.y)
+    const A = pointAbstrait(xA, yA, 'A', 'above left')
+    const B = pointAbstrait(xB, yB, 'B')
+    const Bx = pointAbstrait(B.x, A.y)
     const sABx = segment(A, Bx)
     const sBBx = segment(B, Bx)
     sBBx.epaisseur = 2
     sABx.epaisseur = 2
     const traceA = tracePoint(A, 'black') // Variable qui trace les points avec une croix
     const traceB = tracePoint(B, 'black') // Variable qui trace les points avec une croix
-    const d = droite(A, B, '', 'blue')
+    const d = droite(A, B, '', bleuMathalea)
     d.epaisseur = 2
     traceA.taille = 3
     traceA.epaisseur = 2

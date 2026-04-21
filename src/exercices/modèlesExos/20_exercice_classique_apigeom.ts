@@ -1,8 +1,8 @@
-import Exercice from '../Exercice'
-import figureApigeom from '../../lib/figureApigeom'
-import { listeQuestionsToContenu } from '../../modules/outils'
 import Figure from 'apigeom'
+import figureApigeom from '../../lib/figureApigeom'
 import { choice } from '../../lib/outils/arrayOutils'
+import { listeQuestionsToContenu } from '../../modules/outils'
+import Exercice from '../Exercice'
 
 export const titre = 'TITRE'
 
@@ -45,7 +45,7 @@ export default class nomExercice extends Exercice {
         position: 'top',
       })
       this.figuresApiGeom[i].create('Grid')
-      this.figuresApiGeom[i].options.color = 'blue'
+      this.figuresApiGeom[i].options.color = 'blue' // Ne pas mettre bleuMathalea quand il s'agit d'apigeom
       texte = figureApigeom({
         exercice: this,
         i,

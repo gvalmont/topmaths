@@ -2,7 +2,8 @@ import { createList } from '../../lib/format/lists'
 import { deuxColonnesResp } from '../../lib/format/miseEnPage'
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
-import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
+import { toutAUnPoint } from '../../lib/interactif/mathLive'
+import { addMultiMathfield } from '../../lib/interactif/MultiMathfield/MultiMathfield'
 import { choice } from '../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { range } from '../../lib/outils/nombres'
@@ -14,9 +15,9 @@ import Exercice from '../Exercice'
 
 export const titre = 'Résoudre des problèmes mettant en jeu des fractions'
 export const interactifReady = true
-export const interactifType = 'mathLive'
+export const interactifType = 'multiMathfield'
 export const dateDePublication = '27/08/2025'
-export const uuid = '67f72'
+export const uuid = '67f73'
 
 export const refs = {
   'fr-fr': ['6N3N'],
@@ -25,7 +26,7 @@ export const refs = {
 }
 
 /**
- * @author Jean-Claude Lhote
+ * @author Jean-claude Lhote
  */
 
 const situations = [
@@ -244,7 +245,18 @@ export default class ProblemesFractions extends Exercice {
           .replace('%prénom2%', personne2.prenom)
           .replace('%frac1%', frac1.texFraction)
           .replace('%frac2%', frac2.texFraction)
-        texte += createList({
+        texte += addMultiMathfield(this, i, {
+          dataTemplate: `a) ${situation.question1
+            .replace('%prénom1%', personne.prenom)
+            .replace('%prénom2%', personne2.prenom)} %{champ1}
+            b) ${situation.question2} %{champ2}`,
+          dataOptions: {
+            champ1: { keyboard: KeyboardType.clavierDeBaseAvecFraction },
+            champ2: { keyboard: KeyboardType.clavierDeBaseAvecFraction },
+          },
+        })
+
+        /*   createList({
           items: [
             situation.question1
               .replace('%prénom1%', personne.prenom)
@@ -263,6 +275,7 @@ export default class ProblemesFractions extends Exercice {
           ],
           style: 'alpha',
         })
+          */
         texteCorr = createList({
           items: [
             situation.correction1
@@ -346,7 +359,19 @@ export default class ProblemesFractions extends Exercice {
           .replace('%frac2%', frac2.texFraction)
           .replace('%pronom%', personne.pronom)
 
-        texte += createList({
+        texte += addMultiMathfield(this, i, {
+          dataTemplate: `a) ${situation.question1
+            .replace('%prénom%', personne.prenom)
+            .replace('%pronom%', personne.pronom)} %{champ1}<br>
+            b) ${situation.question2} %{champ2}`,
+          dataOptions: {
+            champ1: { keyboard: KeyboardType.clavierDeBaseAvecFraction },
+            champ2: { keyboard: KeyboardType.clavierDeBaseAvecFraction },
+          },
+        })
+        /*
+        
+        createList({
           items: [
             situation.question1
               .replace('%prénom1%', personne.prenom)
@@ -365,6 +390,7 @@ export default class ProblemesFractions extends Exercice {
           ],
           style: 'alpha',
         })
+          */
         texteCorr = createList({
           items: [
             situation.correction1
@@ -440,12 +466,24 @@ export default class ProblemesFractions extends Exercice {
           style: 'alpha',
         })
       }
-      handleAnswers(this, 2 * i, {
-        reponse: { value: frac3.texFraction, options: { fractionEgale: true } },
-      })
-      handleAnswers(this, 2 * i + 1, {
-        reponse: { value: frac4.texFraction, options: { fractionEgale: true } },
-      })
+
+      handleAnswers(
+        this,
+        i,
+        {
+          champ1: {
+            value: frac3.texFraction,
+            options: { fractionEgale: true },
+          },
+          champ2: {
+            value: frac4.texFraction,
+            options: { fractionEgale: true },
+          },
+          bareme: toutAUnPoint,
+        },
+        { formatInteractif: 'multiMathfield' },
+      )
+
       if (
         this.questionJamaisPosee(
           i,

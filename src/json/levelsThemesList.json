@@ -2544,14 +2544,12 @@
   "2G3": {
     "titre": "Représenter et caractériser les droites du plan"
   },
-  "2G30": {
-    "titre": "Déterminer une équation de droite à partir de deux points, un point et un vecteur directeur ou un point et la pente"
-  },
   "2G31": {
-    "titre": "Déterminer la pente ou un vecteur directeur d'une droite donnée par une équation ou une représentation graphique"
-  },
+    "titre": "Travailler avec les équations réduites de droite"
+  }
+  ,
   "2G32": {
-    "titre": "Tracer une droite connaissant son équation cartésienne ou réduite"
+    "titre": "Travailler avec les équations cartésiennes de droite"
   },
   "2G33": {
     "titre": "Établir alignement et parallélisme"
@@ -2840,32 +2838,51 @@
   "1Gen-A20": {
     "titre": "Suites arithmétiques et géométriques"
   },
-  "1Tec-A": {
-    "titre": "Automatismes"
-  },
-  "1Tec-A1": {
-    "titre": "Proportions et pourcentages"
-  },
-  "1Tec-A2": {
-    "titre": "Évolutions et variations"
-  },
-  "1Tec-AN": {
-    "titre": "Analyse"
-  },
-  "1Tec-AN1": {
-    "titre": "Suites numériques"
-  },
-  "1Tec-AN10": {
-    "titre": "Généralités sur les suites"
-  },
-  "1Tec-AN11": {
-    "titre": "Suites arithmétiques et géométriques"
-  },
-  "1Tec-AN2": {
+
+  "1Tec-F": {
     "titre": "Fonctions de la variable réelle"
   },
-  "1Tec-AN21": {
+  "1Tec-F1": {
+    "titre": "Généralités sur les fonctions"
+  },
+  "1Tec-F2": {
     "titre": "Fonctions polynômes de degré 2"
+  },
+  "1Tec-F3": {
+    "titre": "Fonctions polynômes de degré 3"
+  },
+  "1Tec-P": {
+    "titre": "Statistiques et probabilités"
+  },
+  "1Tec-P1": {
+    "titre": "Croisement de deux variables catégorielles"
+  },
+  "1Tec-P2": {
+    "titre": "Probabilités conditionnelles"
+  },
+  "1Tec-P3": {
+    "titre": "Modèle associé à une expérience aléatoire à plusieurs épreuves indépendantes"
+  },
+  "1Tec-P4": {
+    "titre": "Variables aléatoires"
+  },
+  "1Tec-S": {
+    "titre": "Suites numériques"
+  },
+  "1Tec-S1": {
+    "titre": "Généralités sur les suites"
+  },
+  "1Tec-S2": {
+    "titre": "Suites arithmétiques et géométriques"
+  },
+  "1Tec-D": {
+    "titre": "Dérivation"
+  },
+  "1Tec-D1": {
+    "titre": "Point de vue local"
+  },
+  "1Tec-D2": {
+    "titre": "Point de vue global"
   },
   "PEA1": {
     "titre": "Numération et bases"

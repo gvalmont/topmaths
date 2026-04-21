@@ -21,6 +21,7 @@ import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 import { choixDeroulant } from '../../lib/interactif/questionListeDeroulante'
 import { fraction } from '../../modules/fractions'
 import Exercice from '../Exercice'
+import { bleuMathalea } from '../../lib/colors'
 export const dateDeModifImportante = '20/06/2024'
 
 export const titre =
@@ -36,7 +37,7 @@ export const refs = {
 
 /**
  * Calculs de probabilités sur une expérience aléatoire à deux épreuves
- * @author Jean-Claude Lhote
+ * @author Jean-claude Lhote
  */
 export default class FonctionsProbabilite2 extends Exercice {
   constructor() {
@@ -72,7 +73,7 @@ export default class FonctionsProbabilite2 extends Exercice {
     const Couleurs = [
       'red',
       'green',
-      'blue',
+      bleuMathalea,
       'gray',
       'brown',
       'orange',

@@ -1,14 +1,14 @@
-import { point } from '../../lib/2d/PointAbstrait'
+import { pointAbstrait, PointAbstrait } from '../../lib/2d/PointAbstrait'
 import { repere } from '../../lib/2d/reperes'
 import { labelPoint } from '../../lib/2d/textes'
 import { tracePoint } from '../../lib/2d/TracePoint'
-import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
-import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
+import { addMultiMathfield } from '../../lib/interactif/MultiMathfield/MultiMathfield'
 import { creerCouples, shuffle2tableaux } from '../../lib/outils/arrayOutils'
+import { enumeration } from '../../lib/outils/ecritures'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
-import { arrondi } from '../../lib/outils/nombres'
-import { lettreDepuisChiffre, sp } from '../../lib/outils/outilString'
+import { arrondi, range } from '../../lib/outils/nombres'
+import { lettreDepuisChiffre } from '../../lib/outils/outilString'
 import { texNombre } from '../../lib/outils/texNombre'
 import { context } from '../../modules/context'
 import { mathalea2d } from '../../modules/mathalea2d'
@@ -28,13 +28,24 @@ export const dateDeModifImportante = '24/11/2024'
 
 /**
  * Lire les coordonnées d'un point du plan avec une précision allant de l'unité à 0,25.
- * @author Jean-Claude Lhote - Eric Elter (pour l'interactivité)
+ * @author Jean-claude Lhote - Éric Elter (pour l'interactivité)
  */
-export const uuid = 'ab968'
+export const uuid = 'ab969'
 
 export const refs = {
   'fr-fr': ['5R12-2', '3AutoG01-2'],
   'fr-ch': ['9FA1-7'],
+}
+function bareme(listePoints: number[]): [number, number] {
+  let points = 0
+  const nbPoints = listePoints.length / 2
+  for (let i = 0; i < nbPoints; i++) {
+    const indexBase = i * 2
+    const x = listePoints[indexBase]
+    const y = listePoints[indexBase + 1]
+    points += x * y
+  }
+  return [points, nbPoints]
 }
 export default class ReperagePointDuPlan extends Exercice {
   quartDePlan: boolean
@@ -69,10 +80,10 @@ export default class ReperagePointDuPlan extends Exercice {
     const forcerPointSurAxe = this.sup4
 
     let listePoints = []
-    const points = []
+    const points: PointAbstrait[] = []
     let xmin, xmax, ymin, ymax
     const k = Math.pow(2, this.sup - 1)
-    const nom = []
+    const nom: string[] = []
     const objets2d = []
     const nbPoints = contraindreValeur(1, 5, this.sup3, 5)
     if (this.quartDePlan) {
@@ -110,7 +121,7 @@ export default class ReperagePointDuPlan extends Exercice {
     }
     for (let j = 0; j < nbPoints; j++) {
       points.push(
-        point(listePoints[j][0], listePoints[j][1], nom[j], 'above left'),
+        pointAbstrait(listePoints[j][0], listePoints[j][1], nom[j], 'above left'),
       )
       if (points[j].x === 0) {
         X0 = true
@@ -139,18 +150,24 @@ export default class ReperagePointDuPlan extends Exercice {
 
     texte =
       nbPoints > 1
-        ? 'Déterminer les coordonnées respectives des points'
-        : 'Déterminer les coordonnées du point'
+        ? 'Déterminer les coordonnées respectives des points '
+        : 'Déterminer les coordonnées du point '
     texteCorr =
       nbPoints > 1
         ? 'Les coordonnées respectives des points sont :<br>'
         : 'Les coordonnées du point sont :<br>'
-    for (let i = 0; i < nbPoints - 1; i++) {
-      texte += ` $${nom[i]}$, `
-      texteCorr += ` $${nom[i]}(${miseEnEvidence(texNombre(points[i].x))};${miseEnEvidence(texNombre(points[i].y))})$,`
-      if (context.isAmc) {
-        // @ts-expect-error
-        this.autoCorrection[0].propositions.push(
+
+    texte += enumeration(range(nbPoints - 1).map((i) => `$${nom[i]}$`))
+    texteCorr += enumeration(
+      range(nbPoints - 1).map(
+        (i) =>
+          `$${nom[i]}(${miseEnEvidence(texNombre(points[i].x))};${miseEnEvidence(texNombre(points[i].y))})$`,
+      ),
+    )
+
+    if (context.isAmc) {
+      for (let i = 0; i < nbPoints; i++) {
+        this.autoCorrection[0].propositions!.push(
           {
             type: 'AMCNum',
             propositions: [
@@ -194,16 +211,7 @@ export default class ReperagePointDuPlan extends Exercice {
         )
       }
     }
-    texte =
-      nbPoints > 1
-        ? texte.slice(0, texte.length - 1) + ` et $${nom[nbPoints - 1]}$.<br>`
-        : texte + ` $${nom[nbPoints - 1]}$.<br>`
-    texteCorr =
-      nbPoints > 1
-        ? texteCorr.slice(0, texteCorr.length - 1) +
-          ` et $${nom[nbPoints - 1]}(${miseEnEvidence(texNombre(points[nbPoints - 1].x))};${miseEnEvidence(texNombre(points[nbPoints - 1].y))})$.`
-        : texteCorr +
-          ` $${nom[nbPoints - 1]}(${miseEnEvidence(texNombre(points[nbPoints - 1].x))};${miseEnEvidence(texNombre(points[nbPoints - 1].y))})$.`
+
     if (this.sup2) {
       objets2d.push(
         repere({
@@ -247,24 +255,28 @@ export default class ReperagePointDuPlan extends Exercice {
       )
 
     if (this.interactif) {
+      const dataTemplate = range(nbPoints - 1)
+        .map(
+          (i) =>
+            `$${nom[i]}($%{champ${2 * i + 1}}$;$%{champ${2 * i + 2}}$)$${i % 3 === 2 ? '\n' : ''}`,
+        )
+        .join(', ')
+      const dataOptions = {}
+      const reponses: Record<string, any> = {}
       for (let i = 0; i < nbPoints; i++) {
-        texte +=
-          `<br>Les coordonnées de $${nom[i]}$ sont ` +
-          sp(3) +
-          ajouteChampTexteMathLive(this, 2 * i, KeyboardType.clavierDeBase, {
-            texteAvant: '(',
-          }) +
-          sp() +
-          ';' +
-          ajouteChampTexteMathLive(
-            this,
-            2 * i + 1,
-            KeyboardType.clavierDeBase,
-          ) +
-          ').'
-        handleAnswers(this, 2 * i, { reponse: { value: points[i].x } })
-        handleAnswers(this, 2 * i + 1, { reponse: { value: points[i].y } })
+        reponses[`champ${2 * i + 1}`] = { value: points[i].x }
+        reponses[`champ${2 * i + 2}`] = { value: points[i].y }
       }
+      texte += addMultiMathfield(this, 0, {
+        dataOptions,
+        dataTemplate,
+      })
+      handleAnswers(
+        this,
+        0,
+        { bareme, ...reponses },
+        { formatInteractif: 'multiMathfield' },
+      )
     }
 
     if (context.isAmc) {

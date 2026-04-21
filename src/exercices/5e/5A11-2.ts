@@ -1,5 +1,3 @@
-import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
-import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import {
   combinaisonListes,
   combinaisonListesSansChangerOrdre,
@@ -15,19 +13,22 @@ import {
 } from '../../modules/outils'
 import Exercice from '../Exercice'
 
+import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
+import { toutAUnPoint } from '../../lib/interactif/mathLive'
+import { addMultiMathfield } from '../../lib/interactif/MultiMathfield/MultiMathfield'
 export const dateDePublication = '16/11/2021'
 export const dateDeModifImportante = '29/10/2024'
 export const interactifReady = true
-export const interactifType = 'mathLive'
+export const interactifType = 'multiMathField'
 export const titre =
   'Parcourir un labyrinthe de multiples avec critères choisis équilibrés '
 
 /**
- * @author Jean-Claude Lhote (remaniée par EE pour la prise en compte du nb de lignes et de colonnes du labyrinthe)
+ * @author Jean-claude Lhote (remaniée par EE pour la prise en compte du nb de lignes et de colonnes du labyrinthe)
  * Sortir du labyrinthe en utilisant les critères de divisibilité.
  */
-export const uuid = '5618d'
+export const uuid = 'ef7b6'
 
 export const refs = {
   'fr-fr': [''],
@@ -119,7 +120,7 @@ export default class ExerciceLabyrintheDivisibilite2 extends Exercice {
         scale: 0.7,
       }
       texte += mathalea2d(params, laby.murs2d, laby.nombres2d)
-      texte += ajouteChampTexteMathLive(
+      /* texte += ajouteChampTexteMathLive(
         this,
         2 * q,
         KeyboardType.clavierNumbers,
@@ -136,7 +137,28 @@ export default class ExerciceLabyrintheDivisibilite2 extends Exercice {
       )
       handleAnswers(this, 2 * q + 1, {
         reponse: { value: `${laby.chemin2d.length - 1}` },
+      }) */
+
+      texte += addMultiMathfield(this, q, {
+        dataTemplate: `Indiquer le numéro de la bonne sortie : %{champ1}<br>
+        Combien de nombres rencontrés avant la sortie ? %{champ2}`,
+        dataOptions: {
+          champ1: { keyboard: KeyboardType.clavierNumbers, minWidth: 100 },
+          champ2: { keyboard: KeyboardType.clavierNumbers, minWidth: 100 },
+        },
       })
+      handleAnswers(
+        this,
+        q,
+        {
+          bareme: toutAUnPoint,
+          champ1: { value: `${nbL - monChemin[monChemin.length - 1][1]}` },
+          champ2: { value: `${laby.chemin2d.length - 1}` },
+
+          // ...
+        },
+        { formatInteractif: 'multiMathfield' },
+      )
       texteCorr = `Voici le chemin en couleur ($${miseEnEvidence(laby.chemin2d.length - 1)}$ nombres rencontrés avant la sortie) et la sortie est le numéro $${miseEnEvidence(nbL - monChemin[monChemin.length - 1][1])}$.<br>`
       texteCorr += mathalea2d(
         params,

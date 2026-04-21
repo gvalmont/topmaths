@@ -2,14 +2,16 @@ import { afficheLongueurSegment } from '../../lib/2d/afficheLongueurSegment'
 import { codageAngleDroit } from '../../lib/2d/CodageAngleDroit'
 import { codageSegments } from '../../lib/2d/CodageSegment'
 import { fixeBordures } from '../../lib/2d/fixeBordures'
-import { point } from '../../lib/2d/PointAbstrait'
+import { pointAbstrait } from '../../lib/2d/PointAbstrait'
 import { polygoneAvecNom } from '../../lib/2d/polygones'
 import { rotation, similitude, translation } from '../../lib/2d/transformations'
 import { pointAdistance } from '../../lib/2d/utilitairesPoint'
 import { vecteur } from '../../lib/2d/Vecteur'
+import { bleuMathalea } from '../../lib/colors'
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
-import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
+import { toutAUnPoint } from '../../lib/interactif/mathLive'
+import { addMultiMathfield } from '../../lib/interactif/MultiMathfield/MultiMathfield'
 import { arrondi, nombreDeChiffresDe } from '../../lib/outils/nombres'
 import { creerNomDePolygone, numAlpha, sp } from '../../lib/outils/outilString'
 import { texNombre } from '../../lib/outils/texNombre'
@@ -27,15 +29,16 @@ export const titre =
   'Calculer périmètre et/ou aire de carrés, rectangles et triangles rectangles'
 export const amcReady = true
 export const amcType = 'AMCHybride'
-export const interactifType = 'mathLive'
+export const interactifType = 'multiMathfield'
 export const interactifReady = true
-export const dateDeModifImportante = '12/04/2023' // Ajout de trois paramètres - séparation des figures, des demandes d'aires et/ ou de périmètres, affichage ou pas des figures - par EE
+// export const dateDeModifImportante = '12/04/2023' // Ajout de trois paramètres - séparation des figures, des demandes d'aires et/ ou de périmètres, affichage ou pas des figures - par EE
+export const dateDeModifImportante = '14/04/2026' // Passage en MultiMathfield JCL
 /**
  * Un carré, un rectangle et un triangle rectangle sont tracés.
  * Il faut calculer les aires
  * @author Rémi Angot
  */
-export const uuid = 'd1513'
+export const uuid = 'd1514'
 
 export const refs = {
   'fr-fr': ['5M11-1', 'BP2AutoV4'],
@@ -88,17 +91,17 @@ export default class PerimetreOuAireDeCarresRectanglesTriangles extends Exercice
       const b = randint(2, 5)
       const c2 = Math.sqrt(a * a + b * b)
       const pIJK = arrondi(a + b + c2, 1)
-      const A = point(0, 0, nom[0])
-      const B = rotation(point(c, 0), A, randint(-15, 15), nom[1])
+      const A = pointAbstrait(0, 0, nom[0])
+      const B = rotation(pointAbstrait(c, 0), A, randint(-15, 15), nom[1])
       const C = rotation(A, B, -90, nom[2])
       const D = rotation(B, A, 90, nom[3])
       const carre = polygoneAvecNom(A, B, C, D)
-      const E = point(8, 0, nom[4])
+      const E = pointAbstrait(8, 0, nom[4])
       const F = pointAdistance(E, L, randint(-15, 15), nom[5])
       const G = similitude(E, F, -90, l / L, nom[6])
       const H = translation(G, vecteur(F, E), nom[7])
       const rectangle = polygoneAvecNom(E, F, G, H)
-      const I = point(15, 0, nom[8])
+      const I = pointAbstrait(15, 0, nom[8])
       const J = pointAdistance(I, a, randint(-25, 25), nom[9])
       const K = similitude(I, J, -90, b / a, nom[10])
       const triangle = polygoneAvecNom(I, J, K)
@@ -110,7 +113,7 @@ export default class PerimetreOuAireDeCarresRectanglesTriangles extends Exercice
           codageAngleDroit(A, D, C),
           codageAngleDroit(D, C, B),
           codageAngleDroit(B, A, D),
-          codageSegments('//', 'blue', [A, B, C, D]),
+          codageSegments('//', bleuMathalea, [A, B, C, D]),
           afficheLongueurSegment(B, A),
         )
       }
@@ -122,7 +125,7 @@ export default class PerimetreOuAireDeCarresRectanglesTriangles extends Exercice
           codageAngleDroit(G, H, E),
           codageAngleDroit(H, E, F),
           codageSegments('/', 'red', E, F, G, H),
-          codageSegments('||', 'blue', F, G, H, E),
+          codageSegments('||', bleuMathalea, F, G, H, E),
           afficheLongueurSegment(F, E),
           afficheLongueurSegment(G, F),
         )
@@ -147,6 +150,9 @@ export default class PerimetreOuAireDeCarresRectanglesTriangles extends Exercice
           )
         : //  ? mathalea2d(Object.assign({}, fixeBordures(objetsEnonce), { pixelsParCm: 20, scale: 0.75, mainlevee: false }), objetsEnonce)
           ''
+      const questions: string[] = []
+      const reponses: { value: Grandeur; options?: { unite: boolean } }[] = []
+
       if (context.isAmc) {
         this.autoCorrection[i] = {
           enonce: texte,
@@ -172,34 +178,16 @@ export default class PerimetreOuAireDeCarresRectanglesTriangles extends Exercice
               texteAMC += this.sup3
                 ? 'du carré ci-dessus.'
                 : `d'un carré de côté${sp()}$${texNombre(c)}\\text{ cm}$.`
-              texte +=
-                texteAMC +
-                ajouteChampTexteMathLive(
-                  this,
-                  incrementation * i + nbPuces,
-                  KeyboardType.longueur + ' ' + KeyboardType.aire,
-                  {
-                    texteApres:
-                      sp(5) +
-                      "  Il faut penser à préciser l'unité dans la réponse.",
-                  },
-                ) +
-                '<br>'
 
               texteCorr +=
                 (this.sup2 === 3 ? numAlpha(nbPuces) : '') +
                 `$\\mathcal{P}_{${nom[0] + nom[1] + nom[2] + nom[3]}}=${c}${sp()}\\text{cm}+${c}${sp()}\\text{cm}+${c}${sp()}\\text{cm}+${c}${sp()}\\text{cm}=${
                   4 * c
                 }${sp()}\\text{cm}$<br>`
-              handleAnswers(this, incrementation * i + nbPuces, {
-                reponse: {
-                  value: new Grandeur(c * 4, 'cm'),
-                  options: { unite: true },
-                },
-              })
+
               if (context.isAmc) {
-                // @ts-expect-error
-                this.autoCorrection[i].propositions.push({
+                texte += texteAMC
+                this.autoCorrection[i].propositions!.push({
                   type: 'AMCNum',
                   propositions: [
                     {
@@ -219,6 +207,12 @@ export default class PerimetreOuAireDeCarresRectanglesTriangles extends Exercice
                     },
                   ],
                 })
+              } else {
+                questions.push(texteAMC)
+                reponses.push({
+                  value: new Grandeur(c * 4, 'cm'),
+                  options: { unite: true },
+                })
               }
               nbPuces++
             }
@@ -230,32 +224,14 @@ export default class PerimetreOuAireDeCarresRectanglesTriangles extends Exercice
               texteAMC += this.sup3
                 ? 'du carré ci-dessus.'
                 : `d'un carré de côté${sp()}$${texNombre(c)}\\text{ cm}$.`
-              texte +=
-                texteAMC +
-                ajouteChampTexteMathLive(
-                  this,
-                  incrementation * i + nbPuces,
-                  KeyboardType.longueur + ' ' + KeyboardType.aire,
-                  {
-                    texteApres:
-                      sp(5) +
-                      "  Il faut penser à préciser l'unité dans la réponse.",
-                  },
-                ) +
-                '<br>'
 
               texteCorr +=
                 (this.sup2 === 3 ? numAlpha(nbPuces) : '') +
                 `$\\mathcal{A}_{${nom[0] + nom[1] + nom[2] + nom[3]}}=${c}${sp()}\\text{cm}\\times${c}${sp()}\\text{cm}=${c * c}${sp()}\\text{cm}^2$<br>`
-              handleAnswers(this, incrementation * i + nbPuces, {
-                reponse: {
-                  value: new Grandeur(c * c, 'cm^2'),
-                  options: { unite: true },
-                },
-              })
+
               if (context.isAmc) {
-                // @ts-expect-error
-                this.autoCorrection[i].propositions.push({
+                texte += texteAMC
+                this.autoCorrection[i].propositions!.push({
                   type: 'AMCNum',
                   propositions: [
                     {
@@ -275,6 +251,12 @@ export default class PerimetreOuAireDeCarresRectanglesTriangles extends Exercice
                     },
                   ],
                 })
+              } else {
+                questions.push(texteAMC)
+                reponses.push({
+                  value: new Grandeur(c * c, 'cm^2'),
+                  options: { unite: true },
+                })
               }
               nbPuces++
             }
@@ -288,34 +270,16 @@ export default class PerimetreOuAireDeCarresRectanglesTriangles extends Exercice
               texteAMC += this.sup3
                 ? 'du rectangle ci-dessus.'
                 : `d'un rectangle de longueur${sp()}$${texNombre(L > l ? L : l)}\\text{ cm}$ et de largeur${sp()}$${texNombre(L > l ? l : L)}\\text{ cm}$.`
-              texte +=
-                texteAMC +
-                ajouteChampTexteMathLive(
-                  this,
-                  incrementation * i + nbPuces,
-                  KeyboardType.longueur + ' ' + KeyboardType.aire,
-                  {
-                    texteApres:
-                      sp(5) +
-                      "  Il faut penser à préciser l'unité dans la réponse.",
-                  },
-                ) +
-                '<br>'
 
               texteCorr +=
                 (this.sup2 === 3 ? numAlpha(nbPuces) : '') +
                 `$\\mathcal{P}_{${nom[4] + nom[5] + nom[6] + nom[7]}}=${L}${sp()}\\text{cm}+${l}${sp()}\\text{cm}+${L}${sp()}\\text{cm}+${l}${sp()}\\text{cm}=${
                   2 * L + 2 * l
                 }${sp()}\\text{cm}$<br>`
-              handleAnswers(this, incrementation * i + nbPuces, {
-                reponse: {
-                  value: new Grandeur((L + l) * 2, 'cm'),
-                  options: { unite: true },
-                },
-              })
+
               if (context.isAmc) {
-                // @ts-expect-error
-                this.autoCorrection[i].propositions.push({
+                texte += texteAMC
+                this.autoCorrection[i].propositions!.push({
                   type: 'AMCNum',
                   propositions: [
                     {
@@ -335,6 +299,12 @@ export default class PerimetreOuAireDeCarresRectanglesTriangles extends Exercice
                     },
                   ],
                 })
+              } else {
+                questions.push(texteAMC)
+                reponses.push({
+                  value: new Grandeur((L + l) * 2, 'cm'),
+                  options: { unite: true },
+                })
               }
               nbPuces++
             }
@@ -346,34 +316,16 @@ export default class PerimetreOuAireDeCarresRectanglesTriangles extends Exercice
               texteAMC += this.sup3
                 ? 'du rectangle ci-dessus.'
                 : `d'un rectangle de longueur${sp()}$${texNombre(L > l ? L : l)}\\text{ cm}$ et de largeur${sp()}$${texNombre(L > l ? l : L)}\\text{ cm}$.`
-              texte +=
-                texteAMC +
-                ajouteChampTexteMathLive(
-                  this,
-                  incrementation * i + nbPuces,
-                  KeyboardType.longueur + ' ' + KeyboardType.aire,
-                  {
-                    texteApres:
-                      sp(5) +
-                      "  Il faut penser à préciser l'unité dans la réponse.",
-                  },
-                ) +
-                '<br>'
 
               texteCorr +=
                 (this.sup2 === 3 ? numAlpha(nbPuces) : '') +
                 `$\\mathcal{A}_{${nom[4] + nom[5] + nom[6] + nom[7]}}=${L}${sp()}\\text{cm}\\times${l}${sp()}\\text{cm}=${
                   L * l
                 }${sp()}\\text{cm}^2$<br>`
-              handleAnswers(this, incrementation * i + nbPuces, {
-                reponse: {
-                  value: new Grandeur(L * l, 'cm^2'),
-                  options: { unite: true },
-                },
-              })
+
               if (context.isAmc) {
-                // @ts-expect-error
-                this.autoCorrection[i].propositions.push({
+                texte += texteAMC
+                this.autoCorrection[i].propositions!.push({
                   type: 'AMCNum',
                   propositions: [
                     {
@@ -393,6 +345,12 @@ export default class PerimetreOuAireDeCarresRectanglesTriangles extends Exercice
                     },
                   ],
                 })
+              } else {
+                questions.push(texteAMC)
+                reponses.push({
+                  value: new Grandeur(L * l, 'cm^2'),
+                  options: { unite: true },
+                })
               }
               nbPuces++
             }
@@ -406,32 +364,14 @@ export default class PerimetreOuAireDeCarresRectanglesTriangles extends Exercice
               texteAMC += this.sup3
                 ? 'du triangle rectangle ci-dessus.'
                 : `d'un triangle rectangle dont l'hypoténuse mesure $${texNombre(c2, 1)}\\text{ cm}$ et les côtés de l'angle droit mesurent respectivement $${texNombre(a)}\\text{ cm}$ et $${texNombre(b)}\\text{ cm}$.`
-              texte +=
-                texteAMC +
-                ajouteChampTexteMathLive(
-                  this,
-                  incrementation * i + nbPuces,
-                  KeyboardType.longueur + ' ' + KeyboardType.aire,
-                  {
-                    texteApres:
-                      sp(5) +
-                      "  Il faut penser à préciser l'unité dans la réponse.",
-                  },
-                ) +
-                '<br>'
 
               texteCorr +=
                 (this.sup2 === 3 ? numAlpha(nbPuces) : '') +
                 `$\\mathcal{P}_{${nom[8] + nom[9] + nom[10]}}=${a}${sp()}\\text{cm}+${b}${sp()}\\text{cm}+${texNombre(c2, 1)}${sp()}\\text{cm}=${texNombre(pIJK)}${sp()}\\text{cm}$<br>`
-              handleAnswers(this, incrementation * i + nbPuces, {
-                reponse: {
-                  value: new Grandeur(pIJK, 'cm'),
-                  options: { unite: true },
-                },
-              })
+
               if (context.isAmc) {
-                // @ts-expect-error
-                this.autoCorrection[i].propositions.push({
+                texte += texteAMC
+                this.autoCorrection[i].propositions!.push({
                   type: 'AMCNum',
                   propositions: [
                     {
@@ -451,6 +391,12 @@ export default class PerimetreOuAireDeCarresRectanglesTriangles extends Exercice
                     },
                   ],
                 })
+              } else {
+                questions.push(texteAMC)
+                reponses.push({
+                  value: new Grandeur(pIJK, 'cm'),
+                  options: { unite: true },
+                })
               }
               nbPuces++
             }
@@ -462,32 +408,14 @@ export default class PerimetreOuAireDeCarresRectanglesTriangles extends Exercice
               texteAMC += this.sup3
                 ? 'du triangle rectangle ci-dessus.'
                 : `d'un triangle rectangle dont l'hypoténuse mesure $${texNombre(c2, 1)}\\text{ cm}$ et les côtés de l'angle droit mesurent respectivement $${texNombre(a)}\\text{ cm}$ et $${texNombre(b)}\\text{ cm}$.`
-              texte +=
-                texteAMC +
-                ajouteChampTexteMathLive(
-                  this,
-                  incrementation * i + nbPuces,
-                  KeyboardType.longueur + ' ' + KeyboardType.aire,
-                  {
-                    texteApres:
-                      sp(5) +
-                      "  Il faut penser à préciser l'unité dans la réponse.",
-                  },
-                ) +
-                '<br>'
 
               texteCorr +=
                 (this.sup2 === 3 ? numAlpha(nbPuces) : '') +
                 `$\\mathcal{A}_{${nom[8] + nom[9] + nom[10]}}=${a}${sp()}\\text{cm}\\times${b}${sp()}\\text{cm}\\div2=${texNombre((a * b) / 2)}${sp()}\\text{cm}^2$<br>`
-              handleAnswers(this, incrementation * i + nbPuces, {
-                reponse: {
-                  value: new Grandeur((a * b) / 2, 'cm^2'),
-                  options: { unite: true },
-                },
-              })
+
               if (context.isAmc) {
-                // @ts-expect-error
-                this.autoCorrection[i].propositions.push({
+                texte += texteAMC
+                this.autoCorrection[i].propositions!.push({
                   type: 'AMCNum',
                   propositions: [
                     {
@@ -507,11 +435,55 @@ export default class PerimetreOuAireDeCarresRectanglesTriangles extends Exercice
                     },
                   ],
                 })
+              } else {
+                questions.push(texteAMC)
+                reponses.push({
+                  value: new Grandeur((a * b) / 2, 'cm^2'),
+                  options: { unite: true },
+                })
               }
               nbPuces++
             }
             break
         }
+      }
+      if (!context.isAmc) {
+        texte += addMultiMathfield(this, i, {
+          dataTemplate: questions
+            .map(
+              (question, index) =>
+                `${String.fromCharCode(97 + index)}) ${question.slice(48)} %{champ${index}}`,
+            )
+            .join('\n'),
+          dataOptions: {
+            ...Object.fromEntries(
+              reponses.map((reponse, index) => [
+                `champ${index}`,
+                {
+                  keyboard: questions[index].includes('périmètre')
+                    ? KeyboardType.longueur
+                    : KeyboardType.aire,
+                  ldots: false,
+                  minWidth: 50,
+                },
+              ]),
+            ),
+          },
+        })
+        handleAnswers(
+          this,
+          i,
+          {
+            bareme: toutAUnPoint,
+            ...Object.fromEntries(
+              reponses.map((reponse, index) => [
+                `champ${index}`,
+                { value: reponse.value, options: reponse.options },
+              ]),
+            ),
+          },
+          { formatInteractif: 'multiMathfield' },
+        )
       }
       if (this.questionJamaisPosee(i, texte)) {
         this.listeQuestions[i] = texte

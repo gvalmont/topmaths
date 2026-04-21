@@ -1,5 +1,4 @@
-import { fraction, number } from 'mathjs'
-import { point } from '../../lib/2d/PointAbstrait'
+import { pointAbstrait } from '../../lib/2d/PointAbstrait'
 import { segment } from '../../lib/2d/segmentsVecteurs'
 import { latexParCoordonnees } from '../../lib/2d/textes'
 import { texteGras } from '../../lib/format/style'
@@ -9,6 +8,7 @@ import { egalOuApprox } from '../../lib/outils/ecritures'
 import { arrondi } from '../../lib/outils/nombres'
 import { sp } from '../../lib/outils/outilString'
 import { context } from '../../modules/context'
+import { fraction } from '../../modules/fractions'
 import { mathalea2d } from '../../modules/mathalea2d'
 import {
   contraindreValeur,
@@ -16,6 +16,7 @@ import {
   randint,
 } from '../../modules/outils'
 import Exercice from '../Exercice'
+import { bleuMathalea } from '../../lib/colors'
 
 export const titre = 'Calculer des probabilités conditionnelles'
 
@@ -43,8 +44,8 @@ export const refs = {
  */
 function texProba(proba: number, rationnel: boolean, precision = 3) {
   return rationnel
-    ? fraction(arrondi(proba, precision)).toLatex().replace('frac', 'dfrac')
-    : number(arrondi(proba, precision)).toString().replace('.', '{,}')
+    ? fraction(arrondi(proba, precision)).toLatex().replace('\\frac', '\\dfrac')
+    : Number(arrondi(proba, precision)).toString().replace('.', '{,}')
 }
 export default class ProbabilitesConditionnelles extends Exercice {
   constructor() {
@@ -113,21 +114,21 @@ export default class ProbabilitesConditionnelles extends Exercice {
           v = randint(30, 70, [a]) // P_T(V)
 
           av = randint(20, a - 5, [a, v]) // P(A \cap V)
-          // ici on économise des variables qui ne servent qu'une fois en les stockant dans un tableau. (Jean-Claude Lhote)
-          O = point(0.6, 2.3)
-          A = point(5, 5)
-          B = point(5, 1)
-          A1 = point(9, 7.5)
-          A2 = point(9, 4)
-          A3 = point(9, 3)
-          A4 = point(9, 0)
-          // On met les segments d'abord pour ne pas qu'ils passent par dessus le texte.(Jean-Claude Lhote)
-          objets.push(segment(O, A, 'blue'))
-          objets.push(segment(O, B, 'blue'))
-          objets.push(segment(A, A1, 'blue'))
-          objets.push(segment(A, A2, 'blue'))
-          objets.push(segment(B, A3, 'blue'))
-          objets.push(segment(B, A4, 'blue'))
+          // ici on économise des variables qui ne servent qu'une fois en les stockant dans un tableau. (Jean-claude Lhote)
+          O = pointAbstrait(0.6, 2.3)
+          A = pointAbstrait(5, 5)
+          B = pointAbstrait(5, 1)
+          A1 = pointAbstrait(9, 7.5)
+          A2 = pointAbstrait(9, 4)
+          A3 = pointAbstrait(9, 3)
+          A4 = pointAbstrait(9, 0)
+          // On met les segments d'abord pour ne pas qu'ils passent par dessus le texte.(Jean-claude Lhote)
+          objets.push(segment(O, A, bleuMathalea))
+          objets.push(segment(O, B, bleuMathalea))
+          objets.push(segment(A, A1, bleuMathalea))
+          objets.push(segment(A, A2, bleuMathalea))
+          objets.push(segment(B, A3, bleuMathalea))
+          objets.push(segment(B, A4, bleuMathalea))
           objets.push(
             latexParCoordonnees('A', 5, 5.2, 'black', 20, 12, 'white', 10),
           ) // 1er noeud Avion) = A
@@ -300,20 +301,20 @@ export default class ProbabilitesConditionnelles extends Exercice {
           ec = randint(20, 95 - c) // P_\bar C(E)
           // ce = randint(20, 95 - c)// P(E \cap C)
           ce = randint(15, c - 10) // P(E \cap C) // Modif EE
-          O = point(0.6, 2.3)
-          A = point(5, 5)
-          B = point(5, 1)
-          A1 = point(9, 7.5)
-          A2 = point(9, 4)
-          A3 = point(9, 3)
-          A4 = point(9, 0)
-          // On met les segments d'abord pour ne pas qu'ils passent par dessus le texte.(Jean-Claude Lhote)
-          objets.push(segment(O, A, 'blue'))
-          objets.push(segment(O, B, 'blue'))
-          objets.push(segment(A, A1, 'blue'))
-          objets.push(segment(A, A2, 'blue'))
-          objets.push(segment(B, A3, 'blue'))
-          objets.push(segment(B, A4, 'blue'))
+          O = pointAbstrait(0.6, 2.3)
+          A = pointAbstrait(5, 5)
+          B = pointAbstrait(5, 1)
+          A1 = pointAbstrait(9, 7.5)
+          A2 = pointAbstrait(9, 4)
+          A3 = pointAbstrait(9, 3)
+          A4 = pointAbstrait(9, 0)
+          // On met les segments d'abord pour ne pas qu'ils passent par dessus le texte.(Jean-claude Lhote)
+          objets.push(segment(O, A, bleuMathalea))
+          objets.push(segment(O, B, bleuMathalea))
+          objets.push(segment(A, A1, bleuMathalea))
+          objets.push(segment(A, A2, bleuMathalea))
+          objets.push(segment(B, A3, bleuMathalea))
+          objets.push(segment(B, A4, bleuMathalea))
           objets.push(
             latexParCoordonnees('C', 5, 5.2, 'black', 20, 12, 'white', 10),
           ) // 1er noeud  = C

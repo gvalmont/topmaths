@@ -15,24 +15,25 @@ import handleApigeomFigureElement from '../../lib/apigeom/apigeom-figure'
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 import { handleEntiersConsecutifs } from '../../lib/interactif/comparisonFunctions'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
-import { remplisLesBlancs } from '../../lib/interactif/questionMathLive'
+import { addMultiMathfield } from '../../lib/interactif/MultiMathfield/MultiMathfield'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { ajouterAide } from '../../lib/outils/enrichissements'
 import { fraction } from '../../modules/fractions'
 import { representationFraction } from '../../modules/representationsFractions'
+import { bleuMathalea } from '../../lib/colors'
 
 export const titre =
   'Encadrer une fraction entre deux nombres entiers consécutifs'
 export const interactifReady = true
-export const interactifType = 'mathLive'
+export const interactifType = 'multiMathfield'
 export const amcReady = true
 export const amcType = 'AMCHybride'
 export const dateDeModifImportante = '21/07/2025'
 
 /**
  * Une fraction avec pour dénominateur 2, 3, 4, 5, 10 à encadrer entre 2 entiers
- * @author Rémi Angot (AMC par Eric Elter)
- * Rajout d'une correction (propre au programme 2025 de 6ème) par Eric Elter
+ * @author Rémi Angot (AMC par Éric Elter)
+ * Rajout d'une correction (propre au programme 2025 de 6ème) par Éric Elter
  * Relecture : Novembre 2021 par EE
  */
 export const uuid = '1f5de'
@@ -90,7 +91,7 @@ export default class EncadrerFractionEntre2Entiers extends Exercice {
         height: 120,
       })
       figure.options.automaticUserMessage = false
-      figure.options.color = 'blue'
+      figure.options.color = bleuMathalea
       figure.create('RectangleFractionDiagram', {
         denominator: 2,
         numberOfRectangles: 5,
@@ -114,13 +115,22 @@ export default class EncadrerFractionEntre2Entiers extends Exercice {
         ? choice(rangeMinMax(-5, 5))
         : choice(rangeMinMax(0, aleaMax))
       n = k * d + randint(1, d - 1)
-      texte = remplisLesBlancs(
-        this,
-        i,
-        `%{champ1} < \\dfrac{${n}}{${d}} < %{champ2}`,
-        this.lycee ? KeyboardType.clavierDeBase : KeyboardType.clavierNumbers,
-        '\\ldots',
-      )
+      texte = addMultiMathfield(this, i, {
+        dataTemplate: `%{champ1}$ < \\dfrac{${n}}{${d}} < $%{champ2}`,
+        dataOptions: {
+          champ1: {
+            keyboard: this.lycee
+              ? KeyboardType.clavierDeBase
+              : KeyboardType.clavierNumbers,
+          },
+          champ2: {
+            keyboard: this.lycee
+              ? KeyboardType.clavierDeBase
+              : KeyboardType.clavierNumbers,
+          },
+        },
+      })
+
       texteCorr = this.sup4
         ? ` $\\quad \\dfrac{${n}}{${d}}=${k}+\\dfrac{${n - k * d}}{${d}}\\quad$ et $\\quad${k}<${k}+\\dfrac{${n - k * d}}{${d}}<${k + 1}$ `
         : ` $\\quad ${k}=\\dfrac{${k * d}}{${d}}\\quad$ et $\\quad${k + 1}=\\dfrac{${(k + 1) * d}}{${d}}$ `
@@ -133,7 +143,7 @@ export default class EncadrerFractionEntre2Entiers extends Exercice {
           3,
           0,
           'barre',
-          'blue',
+          bleuMathalea,
         )
         texteCorr +=
           '<br>' +
@@ -212,7 +222,7 @@ export default class EncadrerFractionEntre2Entiers extends Exercice {
               champ1: { value: String(k) },
               champ2: { value: String(k + 1) },
             },
-            { formatInteractif: 'fillInTheBlank' },
+            { formatInteractif: 'multiMathfield' },
           )
         }
         // Si la question n'a jamais été posée, on en crée une autre

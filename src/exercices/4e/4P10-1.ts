@@ -1,5 +1,5 @@
 import { courbe } from '../../lib/2d/Courbe'
-import { point } from '../../lib/2d/PointAbstrait'
+import { pointAbstrait } from '../../lib/2d/PointAbstrait'
 import { repere } from '../../lib/2d/reperes'
 import { segment } from '../../lib/2d/segmentsVecteurs'
 import { texPrix, texteGras } from '../../lib/format/style'
@@ -14,11 +14,12 @@ import { mathalea2d } from '../../modules/mathalea2d'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import type { NestedObjetMathalea2dArray } from '../../types/2d'
 import Exercice from '../Exercice'
+import { bleuMathalea } from '../../lib/colors'
 export const titre =
   "Résoudre un problème de proportionnalité à l'aide d'un graphique"
 
 /**
- * fork de 4P10-1 par Jean-Claude Lhote
+ * fork de 4P10-1 par Jean-claude Lhote
  * @author Sébastien LOZANO
  */
 
@@ -116,7 +117,7 @@ export default class GraphiquesEtProportionnalite2 extends Exercice {
             (situation.qte_max + 1) * situation.prix_unitaire + yscale,
           ),
           yLegendePosition: [
-            1,
+            0.2,
             premierMultipleSuperieur(
               yscale,
               (situation.qte_max + 1) * situation.prix_unitaire + yscale,
@@ -124,7 +125,7 @@ export default class GraphiquesEtProportionnalite2 extends Exercice {
               yscale +
               0.5,
           ],
-          xLegendePosition: [situation.qte_max + 1 + 0.2, -1],
+          xLegendePosition: [situation.qte_max + 0.7, -0.5],
         })),
       ]
       const f = (x: number) => situation.prix_unitaire * x
@@ -156,8 +157,8 @@ export default class GraphiquesEtProportionnalite2 extends Exercice {
 
       // on prépare les appels supplémentaires pour la correction
       const mesAppelsCorr = mesAppels
-      const A = point(situation.qte_max, 0)
-      const B = point(
+      const A = pointAbstrait(situation.qte_max, 0)
+      const B = pointAbstrait(
         situation.qte_max,
         arrondi((situation.qte_max * situation.prix_unitaire) / yscale),
       )
@@ -165,7 +166,7 @@ export default class GraphiquesEtProportionnalite2 extends Exercice {
       s1.epaisseur = 2
       s1.pointilles = 5
       s1.styleExtremites = '->'
-      const C = point(
+      const C = pointAbstrait(
         0,
         arrondi((situation.qte_max * situation.prix_unitaire) / yscale),
       )
@@ -174,20 +175,20 @@ export default class GraphiquesEtProportionnalite2 extends Exercice {
       s2.pointilles = 5
       s2.styleExtremites = '->'
 
-      const D = point(situation.qte2, 0)
-      const E = point(
+      const D = pointAbstrait(situation.qte2, 0)
+      const E = pointAbstrait(
         situation.qte2,
         arrondi((situation.qte2 * situation.prix_unitaire) / yscale),
       )
-      const s3 = segment(D, E, 'blue')
+      const s3 = segment(D, E, bleuMathalea)
       s3.epaisseur = 2
       s3.pointilles = 5
       s3.styleExtremites = '->'
-      const F = point(
+      const F = pointAbstrait(
         0,
         arrondi((situation.qte2 * situation.prix_unitaire) / yscale),
       )
-      const s4 = segment(E, F, 'blue')
+      const s4 = segment(E, F, bleuMathalea)
       s4.epaisseur = 2
       s4.pointilles = 5
       s4.styleExtremites = '->'

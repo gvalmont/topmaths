@@ -1,6 +1,6 @@
 // import iepLoadPromise from 'instrumenpoche'
 import { droite } from '../lib/2d/droites'
-import { point, pointAbstrait, PointAbstrait } from '../lib/2d/PointAbstrait'
+import { pointAbstrait, PointAbstrait } from '../lib/2d/PointAbstrait'
 import { Segment, segment } from '../lib/2d/segmentsVecteurs'
 import {
   homothetie,
@@ -19,6 +19,7 @@ import {
   pointSurSegment,
 } from '../lib/2d/utilitairesPoint'
 import { vecteur } from '../lib/2d/Vecteur'
+import { orangeMathalea, bleuMathalea } from '../lib/colors'
 import { context } from './context'
 import {
   bissectriceAuCompas,
@@ -256,11 +257,11 @@ export default class Alea2iep {
     this.idHTML = 0 // Identifiant pour les div et le svg
     this.tempo = 5 // Pause par défaut après une instruction
     this.vitesse = 10 // Vitesse par défaut pour les déplacements d'instruments
-    this.couleur = 'blue' // Couleur par défaut
+    this.couleur = bleuMathalea // Couleur par défaut
     this.couleurCompas = 'forestgreen'
     this.couleurTexte = 'black'
     this.couleurPoint = 'black' // Couleur du nom des points
-    this.couleurCodage = '#f15929'
+    this.couleurCodage = orangeMathalea
     this.couleurTraitsDeConstruction = 'gray'
     this.epaisseur = 2
     this.epaisseurTraitsDeConstruction = 0.5
@@ -279,7 +280,7 @@ export default class Alea2iep {
     // Sauvegarde de l'état des instruments
     this.regle = {
       visibilite: false,
-      position: point(0, 0),
+      position: pointAbstrait(0, 0),
       angle: 0,
       longueur: 15,
       zoom: 100,
@@ -287,28 +288,28 @@ export default class Alea2iep {
 
     this.crayon = {
       visibilite: false,
-      position: point(0, 0),
+      position: pointAbstrait(0, 0),
       angle: 0,
       zoom: 100,
     }
 
     this.equerre = {
       visibilite: false,
-      position: point(0, 0),
+      position: pointAbstrait(0, 0),
       angle: 0,
       zoom: 100,
     }
 
     this.requerre = {
       visibilite: false,
-      position: point(0, 0),
+      position: pointAbstrait(0, 0),
       angle: 0,
       zoom: 100,
     }
 
     this.rapporteur = {
       visibilite: false,
-      position: point(0, 0),
+      position: pointAbstrait(0, 0),
       angle: 0,
       rayon: 5.2,
       zoom: 100,
@@ -316,7 +317,7 @@ export default class Alea2iep {
 
     this.compas = {
       visibilite: false,
-      position: point(0, 0),
+      position: pointAbstrait(0, 0),
       angle: 0,
       orientation: 'droite',
       ecartement: 0,
@@ -716,7 +717,7 @@ export default class Alea2iep {
     if (label) {
       codeXML = `<action abscisse="${this.x(A)}" ordonnee="${this.y(A)}" couleur="${couleur}" id="${A.id}" mouvement="creer" objet="point" tempo="${tempo}"/>`
       // codeXML += `\n<action couleur="${couleurLabel}" nom="${label}" id="${this.idIEP}" mouvement="nommer" objet="point" tempo="${tempo}"  />`
-      const M = point(A.x, A.y)
+      const M = pointAbstrait(A.x, A.y)
       if (options.dx) {
         M.x += options.dx
       }
@@ -799,7 +800,7 @@ export default class Alea2iep {
   ) {
     const tempo = options.tempo ?? this.tempo
     const vitesse = options.vitesse ?? this.vitesse
-    const B = point(x, y)
+    const B = pointAbstrait(x, y)
     this.liste_script.push(
       `<action abscisse="${this.x(B)}" ordonnee="${this.y(B)}" id="${A.id}" mouvement="translation" objet="point" tempo="${tempo}" vitesse="${vitesse}" />`,
     )
@@ -813,7 +814,7 @@ export default class Alea2iep {
    */
   pointNommer(A: PointAbstrait, nom: string, options: OptionsPoint = {}) {
     // const coordonneesTexte = ''
-    const M = point(A.x, A.y)
+    const M = pointAbstrait(A.x, A.y)
     if (options.dx) {
       M.x += options.dx
     }
@@ -1509,7 +1510,7 @@ export default class Alea2iep {
     y: number,
     options: OptionsTexte = {},
   ) {
-    const A = point(x, y)
+    const A = pointAbstrait(x, y)
     return this.textePoint(texte, A, options)
   }
 
@@ -1780,7 +1781,7 @@ export default class Alea2iep {
    * @param {string} url
    * @returns {id}
    */
-  image(url: string, A = point(0, 0)) {
+  image(url: string, A = pointAbstrait(0, 0)) {
     this.idIEP++
     let codeXML
     codeXML = `<action id="${this.idIEP}" url="${url}" mouvement="chargement" objet="image" />`

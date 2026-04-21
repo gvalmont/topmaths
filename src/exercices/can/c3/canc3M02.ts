@@ -1,9 +1,10 @@
 import { codageAngleDroit } from '../../../lib/2d/CodageAngleDroit'
 import { codageSegments } from '../../../lib/2d/CodageSegment'
-import { point } from '../../../lib/2d/PointAbstrait'
+import { pointAbstrait } from '../../../lib/2d/PointAbstrait'
 import { segment } from '../../../lib/2d/segmentsVecteurs'
 import { texteParPosition } from '../../../lib/2d/textes'
 import { milieu } from '../../../lib/2d/utilitairesPoint'
+import { bleuMathalea } from '../../../lib/colors'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 import { choice } from '../../../lib/outils/arrayOutils'
 import { mathalea2d } from '../../../modules/mathalea2d'
@@ -57,20 +58,20 @@ export default class ProblemesDeLongueursEtPerimetreCM extends ExerciceSimple {
         choix = choice([true, false])
         objets = []
         a = randint(3, 14)
-        A = point(0, 0, 'A', 'below')
-        B = point(6, 0, 'B', 'below')
-        C = point(6, 6, 'C', 'below')
-        D = point(0, 6, 'D', 'below')
+        A = pointAbstrait(0, 0, 'A', 'below')
+        B = pointAbstrait(6, 0, 'B', 'below')
+        C = pointAbstrait(6, 6, 'C', 'below')
+        D = pointAbstrait(0, 6, 'D', 'below')
         s1 = segment(A, B)
         s2 = segment(B, C)
         s3 = segment(C, D)
         s4 = segment(A, D)
         if (choice([true, false])) {
           objets.push(
-            codageSegments('||', 'blue', A, B),
-            codageSegments('||', 'blue', B, C),
-            codageSegments('||', 'blue', C, D),
-            codageSegments('||', 'blue', A, D),
+            codageSegments('||', bleuMathalea, A, B),
+            codageSegments('||', bleuMathalea, B, C),
+            codageSegments('||', bleuMathalea, C, D),
+            codageSegments('||', bleuMathalea, A, D),
             texteParPosition(`${a} cm`, milieu(A, B).x, milieu(A, B).y - 0.8),
             codageAngleDroit(D, A, B),
             codageAngleDroit(A, B, C),
@@ -104,10 +105,10 @@ export default class ProblemesDeLongueursEtPerimetreCM extends ExerciceSimple {
         ${choix ? `$4$ fois la longueur de son côté, soit $4\\times ${a}=${4 * a}\\text{ cm}$.` : `le carré de la longueur de son côté, soit $${a}\\times ${a}=${a * a}\\text{ cm}^2$.`}`
         } else {
           objets.push(
-            codageSegments('||', 'blue', A, B),
-            codageSegments('||', 'blue', B, C),
-            codageSegments('||', 'blue', C, D),
-            codageSegments('||', 'blue', A, D),
+            codageSegments('||', bleuMathalea, A, B),
+            codageSegments('||', bleuMathalea, B, C),
+            codageSegments('||', bleuMathalea, C, D),
+            codageSegments('||', bleuMathalea, A, D),
             texteParPosition('?', milieu(A, B).x, milieu(A, B).y - 0.8),
             codageAngleDroit(D, A, B),
             codageAngleDroit(A, B, C),
@@ -147,20 +148,20 @@ export default class ProblemesDeLongueursEtPerimetreCM extends ExerciceSimple {
         objets = []
         a = randint(6, 11)
         b = a - randint(1, 3)
-        A = point(0, 0, 'A', 'below')
-        B = point(8, 0, 'B', 'below')
-        C = point(8, 6, 'C', 'below')
-        D = point(0, 6, 'D', 'below')
+        A = pointAbstrait(0, 0, 'A', 'below')
+        B = pointAbstrait(8, 0, 'B', 'below')
+        C = pointAbstrait(8, 6, 'C', 'below')
+        D = pointAbstrait(0, 6, 'D', 'below')
         s1 = segment(A, B)
         s2 = segment(B, C)
         s3 = segment(C, D)
         s4 = segment(A, D)
 
         objets.push(
-          codageSegments('||', 'blue', A, B),
-          codageSegments('|', 'blue', B, C),
-          codageSegments('||', 'blue', C, D),
-          codageSegments('|', 'blue', A, D),
+          codageSegments('||', bleuMathalea, A, B),
+          codageSegments('|', bleuMathalea, B, C),
+          codageSegments('||', bleuMathalea, C, D),
+          codageSegments('|', bleuMathalea, A, D),
           texteParPosition(`${a} cm`, milieu(A, B).x, milieu(A, B).y - 0.7),
           texteParPosition(`${b} cm`, milieu(B, C).x + 1.5, milieu(B, C).y),
           codageAngleDroit(D, A, B),
@@ -201,18 +202,18 @@ export default class ProblemesDeLongueursEtPerimetreCM extends ExerciceSimple {
       case 3: // périmètre/longueur triangle équi
         objets = []
         a = randint(3, 14)
-        A = point(0, 0, 'A', 'below')
-        B = point(6, 0, 'B', 'below')
-        C = point(3, 5.2, 'C', 'below')
+        A = pointAbstrait(0, 0, 'A', 'below')
+        B = pointAbstrait(6, 0, 'B', 'below')
+        C = pointAbstrait(3, 5.2, 'C', 'below')
         s1 = segment(A, B)
         s2 = segment(B, C)
         s3 = segment(A, C)
 
         if (choice([true, false])) {
           objets.push(
-            codageSegments('||', 'blue', A, B),
-            codageSegments('||', 'blue', B, C),
-            codageSegments('||', 'blue', C, A),
+            codageSegments('||', bleuMathalea, A, B),
+            codageSegments('||', bleuMathalea, B, C),
+            codageSegments('||', bleuMathalea, C, A),
             texteParPosition(`${a} cm`, milieu(A, B).x, milieu(A, B).y - 0.8),
             s1,
             s2,
@@ -240,9 +241,9 @@ export default class ProblemesDeLongueursEtPerimetreCM extends ExerciceSimple {
         Son périmètre est $3$ fois la longueur de son côté, soit $3\\times ${a}=${3 * a}\\text{ cm}$.`
         } else {
           objets.push(
-            codageSegments('||', 'blue', A, B),
-            codageSegments('||', 'blue', B, C),
-            codageSegments('||', 'blue', C, A),
+            codageSegments('||', bleuMathalea, A, B),
+            codageSegments('||', bleuMathalea, B, C),
+            codageSegments('||', bleuMathalea, C, A),
             texteParPosition('?', milieu(A, B).x, milieu(A, B).y - 0.7),
             s1,
             s2,
@@ -276,9 +277,9 @@ export default class ProblemesDeLongueursEtPerimetreCM extends ExerciceSimple {
           a = randint(3, 7)
           b = randint(8, 12)
         } while (2 * a <= b)
-        A = point(0, 0, 'A', 'below')
-        B = point(5, 0, 'B', 'below')
-        C = point(2.5, 2, 'C', 'below')
+        A = pointAbstrait(0, 0, 'A', 'below')
+        B = pointAbstrait(5, 0, 'B', 'below')
+        C = pointAbstrait(2.5, 2, 'C', 'below')
         s1 = segment(A, B)
         s2 = segment(B, C)
         s3 = segment(A, C)
@@ -286,8 +287,8 @@ export default class ProblemesDeLongueursEtPerimetreCM extends ExerciceSimple {
         choix = choice(['a', 'b', 'c']) //
         if (choix === 'a') {
           objets.push(
-            codageSegments('||', 'blue', B, C),
-            codageSegments('||', 'blue', C, A),
+            codageSegments('||', bleuMathalea, B, C),
+            codageSegments('||', bleuMathalea, C, A),
             texteParPosition(`${b} cm`, milieu(A, B).x, milieu(A, B).y - 0.7),
             texteParPosition(
               `${a} cm`,
@@ -324,8 +325,8 @@ export default class ProblemesDeLongueursEtPerimetreCM extends ExerciceSimple {
         }
         if (choix === 'b') {
           objets.push(
-            codageSegments('||', 'blue', B, C),
-            codageSegments('||', 'blue', C, A),
+            codageSegments('||', bleuMathalea, B, C),
+            codageSegments('||', bleuMathalea, C, A),
             texteParPosition(`${b} cm`, milieu(A, B).x, milieu(A, B).y - 0.7),
             texteParPosition('?', milieu(B, C).x + 1, milieu(B, C).y + 0.5),
             s1,
@@ -358,8 +359,8 @@ export default class ProblemesDeLongueursEtPerimetreCM extends ExerciceSimple {
         }
         if (choix === 'c') {
           objets.push(
-            codageSegments('||', 'blue', B, C),
-            codageSegments('||', 'blue', C, A),
+            codageSegments('||', bleuMathalea, B, C),
+            codageSegments('||', bleuMathalea, C, A),
             texteParPosition('?', milieu(A, B).x, milieu(A, B).y - 0.7),
             texteParPosition(
               `${a} cm`,

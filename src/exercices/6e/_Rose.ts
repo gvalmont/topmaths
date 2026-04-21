@@ -1,5 +1,5 @@
 import { colorToLatexOrHTML } from '../../lib/2d/colorToLatexOrHtml'
-import { point } from '../../lib/2d/PointAbstrait'
+import { pointAbstrait } from '../../lib/2d/PointAbstrait'
 import { polygoneRegulierParCentreEtRayon } from '../../lib/2d/polygonesParticuliers'
 import { Segment, segment } from '../../lib/2d/segmentsVecteurs'
 import {
@@ -10,16 +10,16 @@ import {
 import { homothetie, rotation, similitude } from '../../lib/2d/transformations'
 import { longueur } from '../../lib/2d/utilitairesGeometriques'
 import { vide2d } from '../../lib/2d/Vide2d'
+import ce from '../../lib/interactif/comparisonFunctions'
 import { choice } from '../../lib/outils/arrayOutils'
 import { lettreMinusculeDepuisChiffre } from '../../lib/outils/outilString'
 import FractionEtendue from '../../modules/FractionEtendue'
 import { randint } from '../../modules/outils'
-import { calculer } from '../../modules/outilsMathjs'
 
 type ValueType = number | FractionEtendue | string
 /**
  * Classe Rose
- * @author Jean-Claude Lhote
+ * @author Jean-claude Lhote
  */
 export class Rose {
   type: string
@@ -89,10 +89,12 @@ export class Rose {
             break
           case 'litteraux':
             {
-              const value = calculer(
-                `${randint(1, this.valeurMax)}x + ${randint(1, this.valeurMax)}`,
-                {},
-              ).printResult
+              const value = ce
+                .parse(
+                  `${randint(1, this.valeurMax)}x + ${randint(1, this.valeurMax)}`,
+                )
+                .toLatex()
+
               values.push(value)
               this.rayon = 3
             }
@@ -151,10 +153,12 @@ export class Rose {
             break
           case 'litteraux':
             {
-              const value = calculer(
-                `${randint(1, this.valeurMax)}x + ${randint(1, this.valeurMax)}`,
-                {},
-              ).printResult
+              const value = ce
+                .parse(
+                  `${randint(1, this.valeurMax)}x + ${randint(1, this.valeurMax)}`,
+                  {},
+                )
+                .toLatex()
               values.push(value)
             }
             break
@@ -257,10 +261,10 @@ export class Rose {
             return String(aNumber + bNumber)
           }
         } else {
-          return calculer(
-            `${String(a).replace('\\times', '*')}+${String(b).replace('\\times', '*')}`,
-            {},
-          ).printResult
+          return ce
+            .parse(`${String(a)}+${String(b)}`, {})
+            .simplify()
+            .toLatex()
         }
       case 'multiplication':
       default:
@@ -295,10 +299,10 @@ export class Rose {
             return String(aNumber * bNumber)
           }
         } else {
-          return calculer(
-            `(${String(a).replace('\\times', '*')}) * (${String(b).replace('\\times', '*')})`,
-            {},
-          ).printResult
+          return ce
+            .parse(`(${String(a)}) * (${String(b)})`, {})
+            .simplify()
+            .toLatex()
         }
     }
   }
@@ -314,9 +318,9 @@ export class Rose {
       } else this.rayonBoite = 1
     }
     const objets = []
-    const O = point(0, 0, '', '')
+    const O = pointAbstrait(0, 0, '', '')
     const A = rotation(
-      point(this.rayon, 0, '', ''),
+      pointAbstrait(this.rayon, 0, '', ''),
       O,
       180 / this.nombreDeValeurs - 90,
       'A',

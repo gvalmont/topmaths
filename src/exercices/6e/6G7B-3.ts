@@ -1,7 +1,7 @@
 import { cibleCarree, dansLaCibleCarree } from '../../lib/2d/cibles'
 import { codageMediatrice } from '../../lib/2d/CodageMediatrice'
 import { distancePointDroite, droite } from '../../lib/2d/droites'
-import { point } from '../../lib/2d/PointAbstrait'
+import { pointAbstrait } from '../../lib/2d/PointAbstrait'
 import { segment } from '../../lib/2d/segmentsVecteurs'
 import { labelPoint } from '../../lib/2d/textes'
 import { traceCompas } from '../../lib/2d/traceCompas'
@@ -20,13 +20,14 @@ import { context } from '../../modules/context'
 import { mathalea2d } from '../../modules/mathalea2d'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import Exercice from '../Exercice'
+import { orangeMathalea } from '../../lib/colors'
 export const titre =
   "Construire le symétrique d'un point avec cible auto-corrective"
 
 /**
  * Construction de symétrique avec dispositif d'auto-correction aléatoire
  * Ref 6G24-3
- * @author Jean-Claude Lhote
+ * @author Jean-claude Lhote
  * Publié le 30/11/2020
  */
 export const uuid = '60e16'
@@ -63,12 +64,12 @@ export default class ConstruireSymetriquePoint6e extends Exercice {
     const b = randint(-10, 10, a)
     const d = droite(a, b, 0, '(d)')
     const A = translation(
-      point(0, 0),
-      homothetie(d.directeur, point(0, 0), -0.5),
+      pointAbstrait(0, 0),
+      homothetie(d.directeur, pointAbstrait(0, 0), -0.5),
     )
     const B = translation(
-      point(0, 0),
-      homothetie(d.directeur, point(0, 0), 0.5),
+      pointAbstrait(0, 0),
+      homothetie(d.directeur, pointAbstrait(0, 0), 0.5),
     )
     const marks = ['/', '//', '///', 'x', 'o', 'S', 'V']
     const noms = choisitLettresDifferentes(nbpoints, 'Q', true)
@@ -88,7 +89,7 @@ export default class ConstruireSymetriquePoint6e extends Exercice {
     for (let i = 0; i < nbpoints; i++) {
       // On place les cibles.
       N.push(
-        point(
+        pointAbstrait(
           arrondi(randint(-80, 80, 0) / 10),
           arrondi(randint(-80, 80, 0) / 10),
           noms[i] + "'",
@@ -126,7 +127,7 @@ export default class ConstruireSymetriquePoint6e extends Exercice {
         rang: 4,
         num: i + 1,
         taille: 0.6,
-        color: '#f15929',
+        color: orangeMathalea,
       })
       cible.taille = 0.6
       cible.opacite = 0.7

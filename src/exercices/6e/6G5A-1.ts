@@ -1,4 +1,4 @@
-import { orangeMathalea } from 'apigeom/src/elements/defaultValues'
+import { orangeMathalea } from '../../lib/colors'
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import {
@@ -29,7 +29,7 @@ export const refs = {
 }
 
 /**
- * @author Jean-Claude Lhote
+ * @author Jean-claude Lhote
  */
 export default class QuestionBissectrice extends Exercice {
   constructor() {

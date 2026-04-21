@@ -1,7 +1,7 @@
-import { orangeMathalea } from 'apigeom/src/elements/defaultValues'
 import type Figure from 'apigeom/src/Figure'
 import { apigeomGraduatedLine } from '../../lib/apigeom/apigeomGraduatedLine'
 import { wrapperApigeomToMathalea } from '../../lib/apigeom/apigeomZoom'
+import { orangeMathalea } from '../../lib/colors'
 import figureApigeom from '../../lib/figureApigeom'
 import { combinaisonListes } from '../../lib/outils/arrayOutils'
 import { arrondi } from '../../lib/outils/nombres'
@@ -22,7 +22,7 @@ export const dateDeModifImportante = '03/05/2024'
 
 /**
  * Placer un point d'abscisse un nombre relatif
- * @author Jean-Claude Lhote et Rémi Angot
+ * @author Jean-claude Lhote et Rémi Angot
  */
 export const uuid = '6d576'
 

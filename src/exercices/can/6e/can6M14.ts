@@ -1,7 +1,7 @@
 import { colorToLatexOrHTML } from '../../../lib/2d/colorToLatexOrHtml'
 import { fixeBordures } from '../../../lib/2d/fixeBordures'
 import { grille } from '../../../lib/2d/Grille'
-import { point } from '../../../lib/2d/PointAbstrait'
+import { pointAbstrait } from '../../../lib/2d/PointAbstrait'
 import { carre } from '../../../lib/2d/polygonesParticuliers'
 import { Polyquad } from '../../../lib/2d/Polyquad'
 import { texteParPosition } from '../../../lib/2d/textes'
@@ -13,13 +13,13 @@ import type { NestedObjetMathalea2dArray } from '../../../types/2d'
 import ExerciceSimple from '../../ExerciceSimple'
 export const titre = 'Mesurer une aire par comptage'
 export const dateDePublication = '25/04/2024'
-export const dateDeModifImportante = '31/07/2025' // Rajout de différentes unités par Eric Elter
+export const dateDeModifImportante = '31/07/2025' // Rajout de différentes unités par Éric Elter
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const amcReady = true
 
 /**
- * @author Jean-Claude Lhote
+ * @author Jean-claude Lhote
  */
 export const uuid = 'a17c6'
 
@@ -64,8 +64,8 @@ export default class AireParComptageCan extends ExerciceSimple {
     const ymax = tetris.rectangle.yMax
     const grid = grille(xmin, ymin, xmax, ymax)
     const uniteAire = carre(
-      point(xmax - 2, ymax - 1),
-      point(xmax - 1, ymax - 1),
+      pointAbstrait(xmax - 2, ymax - 1),
+      pointAbstrait(xmax - 1, ymax - 1),
     )
     uniteAire.couleurDeRemplissage = colorToLatexOrHTML('gray')
     const texteUniteAire = texteParPosition(

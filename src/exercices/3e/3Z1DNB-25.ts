@@ -10,13 +10,15 @@ import { texNombre } from '../../lib/outils/texNombre'
 import { mathalea2d } from '../../modules/mathalea2d'
 import { randint } from '../../modules/outils'
 import ExerciceBrevetA from '../ExerciceBrevetA'
+import { bleuMathalea } from '../../lib/colors'
 
 export const uuid = 'f296a'
 export const refs = {
   'fr-fr': ['3Z1DNB-25'],
   'fr-ch': [],
 }
-export const titre = 'Se préparer au DNB  : graphique, vitesse et proportionnalité'
+export const titre =
+  'Se préparer au DNB  : graphique, vitesse et proportionnalité'
 export const dateDePublication = '20/01/2026'
 
 /**
@@ -60,9 +62,9 @@ export default class ExerciceAmeriqueNord4062025 extends ExerciceBrevetA {
     const listeQuestions = createList({
       items: [
         `Le temps et la distance parcourue par ${prenom1} sont-ils proportionnels ?`,
-        `Quelle distance ${prenom1} a-t-${ilElle1} parcourue au bout de $${texNombre(Question2.x, 1)}\\text{ minutes}$ ?<br>Aucune justification n’est attendue.`,
-        `Combien de temps a-t-${ilElle1} mis pour faire ${txtPremiersKm} ?<br>Aucune justification n’est attendue.`,
-        `Quelle est la vitesse moyenne de ${prenom1} lors de cette course ?<BR>Exprimer le résultat au dixième de $\\text{ km/h}$ près.`,
+        `Quelle distance ${prenom1} a-t-${ilElle1} parcourue au bout de $${texNombre(Question2.x, 1)}\\text{ minutes}$ ?<br>Aucune justification n'est attendue.`,
+        `Combien de temps a-t-${ilElle1} mis pour faire ${txtPremiersKm} ?<br>Aucune justification n'est attendue.`,
+        `Quelle est la vitesse moyenne de ${prenom1} lors de cette course ?<br>Exprimer le résultat au dixième de $\\text{ km/h}$ près.`,
         `${prenom2} et ${prenom3} ont couru sur le même parcours de $${texNombre(longueurParcours, 1)}\\text{ km}$. ${prenom2} à une vitesse régulière égale à $${texNombre(vitesse2, 1)}\\text{ km/h}$ et ${prenom3} a une vitesse régulière égale à  $${texNombre(vitesse3, 1)}\\text{ km/h}$.`,
       ],
       style: 'nombres',
@@ -70,8 +72,8 @@ export default class ExerciceAmeriqueNord4062025 extends ExerciceBrevetA {
     const listeSousQuestions5 = createList(
       {
         items: [
-          `Sachant que ${prenom2} et ${prenom3} sont partis en même temps, qui a été le premier à franchir la ligne d’arrivée ?`,
-          `Quelle distance sépare ${prenom2} et ${prenom3}, lorsque le premier des deux franchit la ligne d’arrivée ?`,
+          `Sachant que ${prenom2} et ${prenom3} sont partis en même temps, qui a été le premier à franchir la ligne d'arrivée ?`,
+          `Quelle distance sépare ${prenom2} et ${prenom3}, lorsque le premier des deux franchit la ligne d'arrivée ?`,
         ],
         style: 'alpha', // a. b. ...
       },
@@ -80,8 +82,8 @@ export default class ExerciceAmeriqueNord4062025 extends ExerciceBrevetA {
       1, // nestedLevel: number = 0, ici sous question niveau 1
     )
 
-    const correction1 = `La représentation graphique de la distance parcourue en fonction du temps n’est pas un segment contenant l’origine : la distance parcourue par ${prenom1} n’est pas proportionnelle au temps de course.`
-    const correction2 = `On lit sur la courbe qu’au bout de  $${texNombre(Question2.x, 1)}\\text{ minutes}$, ${prenom1} a parcouru $${texNombre(Question2.y, 1)}\\text{ km}$.`
+    const correction1 = `La représentation graphique de la distance parcourue en fonction du temps n'est pas un segment contenant l'origine : la distance parcourue par ${prenom1} n'est pas proportionnelle au temps de course.`
+    const correction2 = `On lit sur la courbe qu'au bout de  $${texNombre(Question2.x, 1)}\\text{ minutes}$, ${prenom1} a parcouru $${texNombre(Question2.y, 1)}\\text{ km}$.`
     const correction3 = `${prenom1} a parcouru ${txtPremiersKm} en $${texNombre(Question3.x, 1)}\\text{ minutes}$.`
     let correction4 = `${prenom1} a parcouru les $${texNombre(longueurParcours, 1)}\\text{ km}$ en $${texNombre(tempsParcours, 1)}\\text{ minutes}$ :`
     let sousCorrection4a = ``
@@ -97,7 +99,7 @@ export default class ExerciceAmeriqueNord4062025 extends ExerciceBrevetA {
       if (texNombre(vitesse, 2) === texNombre(vitesse, 1)) {
         sousCorrection4a += `= $${texNombre(vitesse, 1)}\\text{ km/h}$.<br>`
       } else {
-        sousCorrection4a += `$\\simeq ${texNombre(vitesse, 1)}\\text{ km/h}$.<br>`
+        sousCorrection4a += `$\\approx ${texNombre(vitesse, 1)}\\text{ km/h}$.<br>`
       }
     }
     if (tempsParcours - 10 === 60) {
@@ -109,7 +111,7 @@ export default class ExerciceAmeriqueNord4062025 extends ExerciceBrevetA {
       if (texNombre(vitesse, 2) === texNombre(vitesse, 1)) {
         sousCorrection4b += `= $${texNombre(vitesse, 1)}\\text{ km/h}$.<br>`
       } else {
-        sousCorrection4b += `$\\simeq ${texNombre(vitesse, 1)}\\text{ km/h}$.<br>`
+        sousCorrection4b += `$\\approx ${texNombre(vitesse, 1)}\\text{ km/h}$.<br>`
       }
     }
     const listeCorrectionsSousQuestion4 = createList(
@@ -145,7 +147,7 @@ export default class ExerciceAmeriqueNord4062025 extends ExerciceBrevetA {
     if (texNombre(distanceDernier, 3) === texNombre(distanceDernier, 2)) {
       egalOuApprox = `=`
     } else {
-      egalOuApprox = `$\\simeq~$`
+      egalOuApprox = `$\\approx~$`
       ajouteEnviron = 'environ '
     }
     // heuristique simple pour l'article : mot commençant par voyelle
@@ -153,7 +155,7 @@ export default class ExerciceAmeriqueNord4062025 extends ExerciceBrevetA {
     const sousCorrection5a = `${prenomRapide} courant plus vite ${motQue}${prenomLent} est arrivée la première !`
     let sousCorrection5b = `${prenomRapide} a parcouru les $${texNombre(longueurParcours, 1)}$ km à la vitesse de $${texNombre(vitesseRapide, 1)}$ km/h en un temps t tel que t = $\\dfrac{${texNombre(longueurParcours, 1)}}{${texNombre(vitesseRapide, 1)}}$.<br>`
     sousCorrection5b += `Au bout de ce temps ${prenomLent} a parcouru $${texNombre(vitesseLente, 1)}\\times \\dfrac{${texNombre(longueurParcours, 1)}}{${texNombre(vitesseRapide, 1)}}$ ${egalOuApprox}$${texNombre(distanceDernier, 2)}\\text{ km}$.<br>`
-    sousCorrection5b += ` ${prenomLent} est donc à ce moment à $${texNombre(longueurParcours, 1)} − ${texNombre(distanceDernier, 2)} = ${texNombre(longueurParcours - distanceDernier, 2)}\\text{ km}$ ${ajouteEnviron} de l’arrivée donc de ${prenomRapide}. `
+    sousCorrection5b += ` ${prenomLent} est donc à ce moment à $${texNombre(longueurParcours, 1)} − ${texNombre(distanceDernier, 2)} = ${texNombre(longueurParcours - distanceDernier, 2)}\\text{ km}$ ${ajouteEnviron} de l'arrivée donc de ${prenomRapide}. `
     const correction5 = createList(
       {
         items: [sousCorrection5a, sousCorrection5b],
@@ -182,7 +184,7 @@ export default class ExerciceAmeriqueNord4062025 extends ExerciceBrevetA {
       )
     }
 
-    const line = polyline(pts, 'blue')
+    const line = polyline(pts, bleuMathalea)
     const rep = new RepereBuilder({
       xMin: 0,
       xMax: valeurMaxX + 10,
@@ -205,12 +207,12 @@ export default class ExerciceAmeriqueNord4062025 extends ExerciceBrevetA {
       Object.assign({ pixelsParCm: 25, scale: 0.6 }, fixeBordures(objets2d)),
       objets2d,
     )
-    this.enonce = `À l’approche d’une course organisée par son collège, ${prenom1} s’entraîne sur un parcours de $${texNombre(longueurParcours, 1)}$ km.<br>`
+    this.enonce = `À l'approche d'une course organisée par son collège, ${prenom1} s'entraîne sur un parcours de $${texNombre(longueurParcours, 1)}$ km.<br>`
     this.enonce += `La courbe ci-dessous représente la distance parcourue par  ${prenom1} (en kilomètres) en fonction du temps écoulé (en minutes).<br><br>`
     this.enonce += fig
     this.enonce += listeQuestions
     this.enonce += listeSousQuestions5 + '<br><br>'
-    this.correction = `À l’approche d’une course organisée par son collège, ${prenom1} s’entraîne sur un parcours de $${texNombre(longueurParcours, 1)}$ km.`
+    this.correction = `À l'approche d'une course organisée par son collège, ${prenom1} s'entraîne sur un parcours de $${texNombre(longueurParcours, 1)}$ km.`
     this.correction += listeCorrections
   }
 

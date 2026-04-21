@@ -1,6 +1,5 @@
 import { latex2d } from '../../lib/2d/textes'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
-import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { combinaisonListes } from '../../lib/outils/arrayOutils'
 import { texteGras } from '../../lib/outils/embellissements'
 import {
@@ -16,20 +15,23 @@ import Exercice from '../Exercice'
 
 import { droiteGraduee } from '../../lib/2d/DroiteGraduee'
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
+import { toutAUnPoint } from '../../lib/interactif/mathLive'
+import { addMultiMathfield } from '../../lib/interactif/MultiMathfield/MultiMathfield'
+import { orangeMathalea } from '../../lib/colors'
 
 export const titre = "Lire l'abscisse entière d'un point (grands nombres)"
 export const interactifReady = true
-export const interactifType = 'mathLive'
+export const interactifType = 'multiMathfield'
 export const amcReady = true
 export const amcType = 'AMCHybride'
 export const dateDeModifImportante = '26/08/2024'
 
 /**
  * Lire l'abscisse entière d'un point
- * @author Jean-Claude Lhote et Rémi Angot
+ * @author Jean-claude Lhote et Rémi Angot
  * Relecture : Novembre 2021 par EE
  */
-export const uuid = 'ad8c8'
+export const uuid = 'ad8c9'
 
 export const refs = {
   'fr-fr': ['6N1C-1'],
@@ -82,18 +84,7 @@ export default class LireAbscisseEntiere2d extends Exercice {
         texteCorr = '',
         cpt = 0;
       i < this.nbQuestions && cpt < 50;
-
     ) {
-      // La ligne suivante ne doit pas être mise après les setReponses car sinon elle les efface
-      this.autoCorrection[3 * i] = {
-        propositions: [{ texte: '', statut: 4, feedback: '' }],
-      }
-      this.autoCorrection[3 * i + 1] = {
-        propositions: [{ texte: '', statut: 4, feedback: '' }],
-      }
-      this.autoCorrection[3 * i + 2] = {
-        propositions: [{ texte: '', statut: 4, feedback: '' }],
-      }
       l1 = lettreIndiceeDepuisChiffre(i * 3 + 1)
       l2 = lettreIndiceeDepuisChiffre(i * 3 + 2)
       l3 = lettreIndiceeDepuisChiffre(i * 3 + 3)
@@ -153,7 +144,7 @@ export default class LireAbscisseEntiere2d extends Exercice {
         pointTaille: 5,
         pointStyle: 'x',
         labelsPrincipaux: false,
-        labelColor: '#F15929',
+        labelColor: orangeMathalea,
         thickSec: true,
         step1: 10,
         labelListe: [
@@ -174,39 +165,63 @@ export default class LireAbscisseEntiere2d extends Exercice {
       const label2 = latex2d(`${texNombre(abs0 + 1 / pas1, 0)}`, 4, -0.7, {
         letterSize: 'scriptsize',
       })
-      texte = mathalea2d(
-        { xmin: -2, ymin: -1, xmax: 30, ymax: 2, pixelsParCm: 20, scale: 0.5 },
-        d[2 * i],
-      )
+
+      texte =
+        mathalea2d(
+          {
+            xmin: -2,
+            ymin: -1,
+            xmax: 30,
+            ymax: 2,
+            pixelsParCm: 20,
+            scale: 0.5,
+          },
+          d[2 * i],
+        ) + (context.isHtml ? '<br>' : '')
       texteCorr = mathalea2d(
         { xmin: -2, ymin: -2, xmax: 30, ymax: 2, pixelsParCm: 20, scale: 0.5 },
         d[2 * i + 1],
         label1,
         label2,
       )
-
       if (this.interactif && context.isHtml) {
-        handleAnswers(this, 3 * i, {
-          reponse: {
-            value: texNombre(reponse1, 0),
-            options: { nombreAvecEspace: true },
+        texte += addMultiMathfield(this, i, {
+          dataTemplate: `$${l1}($ %{champ1} $)$ ; $${l2}($%{champ2}$)$ ; $${l3}($%{champ3}$)$`,
+          dataOptions: {
+            champ1: {
+              keyboard: KeyboardType.numbersSpace,
+              minWidth: 50,
+            },
+            champ2: {
+              keyboard: KeyboardType.numbersSpace,
+              minWidth: 50,
+            },
+            champ3: {
+              keyboard: KeyboardType.numbersSpace,
+              minWidth: 50,
+            },
           },
         })
-        handleAnswers(this, 3 * i + 1, {
-          reponse: {
-            value: texNombre(reponse2, 0),
-            options: { nombreAvecEspace: true },
+        handleAnswers(
+          this,
+          i,
+          {
+            bareme: toutAUnPoint,
+            champ1: {
+              value: texNombre(reponse1, 0),
+              options: { nombreAvecEspace: true },
+            },
+            champ2: {
+              value: texNombre(reponse2, 0),
+              options: { nombreAvecEspace: true },
+            },
+            champ3: {
+              value: texNombre(reponse3, 0),
+              options: { nombreAvecEspace: true },
+            },
           },
-        })
-        handleAnswers(this, 3 * i + 2, {
-          reponse: {
-            value: texNombre(reponse3, 0),
-            options: { nombreAvecEspace: true },
-          },
-        })
-        texte += `<br>${ajouteChampTexteMathLive(this, 3 * i, KeyboardType.numbersSpace, { texteAvant: `${l1}(`, texteApres: ')' })}`
-        texte += `<br>${ajouteChampTexteMathLive(this, 3 * i + 1, KeyboardType.numbersSpace, { texteAvant: `${l2}(`, texteApres: ')' })}`
-        texte += `<br>${ajouteChampTexteMathLive(this, 3 * i + 2, KeyboardType.numbersSpace, { texteAvant: `${l3}(`, texteApres: ')' })}`
+          { formatInteractif: 'multiMathfield' },
+        )
       } else if (context.isAmc) {
         this.autoCorrection[i] = {
           enonce: texte,

@@ -1,5 +1,5 @@
 import { codageAngle } from '../../lib/2d/angles'
-import { point } from '../../lib/2d/PointAbstrait'
+import { pointAbstrait } from '../../lib/2d/PointAbstrait'
 import { texteParPoint } from '../../lib/2d/textes'
 import { rotation } from '../../lib/2d/transformations'
 import { pointSurSegment } from '../../lib/2d/utilitairesPoint'
@@ -13,6 +13,7 @@ import { context } from '../../modules/context'
 import { mathalea2d } from '../../modules/mathalea2d'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import Exercice from '../Exercice'
+import { bleuMathalea } from '../../lib/colors'
 
 export const dateDeModifImportante = '27/03/2024'
 export const titre =
@@ -24,7 +25,7 @@ export const amcReady = true
 
 /**
  * Déduire un pourcentage par complément à 100%
- * @author Jean-Claude Lhote
+ * @author Jean-claude Lhote
  */
 export const uuid = 'db772'
 
@@ -69,8 +70,8 @@ export default class CalculerUnPourcentage extends Exercice {
     ]
     let p1, p2, p3, moy1, moy2, moy3
     let objets
-    const centre = point(5, 5)
-    const depart = point(10, 5)
+    const centre = pointAbstrait(5, 5)
+    const depart = pointAbstrait(10, 5)
     for (
       let i = 0, texte, texteCorr, cpt = 0;
       i < this.nbQuestions && cpt < 50;
@@ -160,7 +161,7 @@ export default class CalculerUnPourcentage extends Exercice {
           'black',
           2,
           1,
-          'blue',
+          bleuMathalea,
           0.4,
         ),
         texteParPoint(

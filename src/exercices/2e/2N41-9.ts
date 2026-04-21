@@ -24,6 +24,9 @@ export const refs = {
 
 const ecritureQuotient = (num: string, den: string, fractionnaire: boolean) =>
   fractionnaire ? `\\dfrac{${num}}{${den}}` : `${num}\\div ${den}`
+/**
+ * @author Gilles Mora
+ */
 export default class CalculFractionLitteral extends Exercice {
   constructor() {
     super()
@@ -108,7 +111,7 @@ export default class CalculFractionLitteral extends Exercice {
               handleAnswers(this, i, {
                 reponse: {
                   value: `\\dfrac{${a}${v1}${pm}${b}}{${v1}}`,
-                  options: { avecSigneMultiplier: false },
+                  options: { sansTimes: true },
                 },
               })
             } else {
@@ -126,7 +129,7 @@ export default class CalculFractionLitteral extends Exercice {
               handleAnswers(this, i, {
                 reponse: {
                   value: `\\dfrac{${b}${v1}${pm}${a}${v2}}{${a * b}}`,
-                  options: { avecSigneMultiplier: false },
+                  options: { sansTimes: true },
                 },
               })
             }
@@ -147,7 +150,7 @@ export default class CalculFractionLitteral extends Exercice {
               handleAnswers(this, i, {
                 reponse: {
                   value: `\\dfrac{${a}${v1}^2${pm}${b}}{${v1}}`,
-                  options: { avecSigneMultiplier: false },
+                  options: { sansTimes: true },
                 },
               })
             } else if (Question === 2) {
@@ -161,7 +164,7 @@ export default class CalculFractionLitteral extends Exercice {
               handleAnswers(this, i, {
                 reponse: {
                   value: `\\dfrac{${v1}^2${pm}${a * b}}{${a}${v1}}`,
-                  options: { avecSigneMultiplier: false },
+                  options: { sansTimes: true },
                 },
               })
             } else {
@@ -181,7 +184,7 @@ export default class CalculFractionLitteral extends Exercice {
               handleAnswers(this, i, {
                 reponse: {
                   value: `\\dfrac{${a} ${v2}${pm}${b * c}${v1}}{${c}${v1}${v2}}`,
-                  options: { avecSigneMultiplier: false },
+                  options: { sansTimes: true },
                 },
               })
             }
@@ -208,7 +211,7 @@ export default class CalculFractionLitteral extends Exercice {
               handleAnswers(this, i, {
                 reponse: {
                   value: `\\dfrac{${a * b}${v1}}{${c}}`,
-                  options: { avecSigneMultiplier: false },
+                  options: { sansTimes: true },
                 },
               })
             } else if (Question === 2) {
@@ -226,7 +229,7 @@ export default class CalculFractionLitteral extends Exercice {
               handleAnswers(this, i, {
                 reponse: {
                   value: `\\dfrac{${b}${v1}}{${a}${v2}}`,
-                  options: { avecSigneMultiplier: false },
+                  options: { sansTimes: true },
                 },
               })
             } else if (Question === 3) {
@@ -240,7 +243,7 @@ ${choix ? `${v1}\\times \\dfrac{${a}}{${v2}}` : `\\dfrac{${a}}{${v2}}\\times ${v
               handleAnswers(this, i, {
                 reponse: {
                   value: `\\dfrac{${a}${v1}}{${v2}}`,
-                  options: { avecSigneMultiplier: false },
+                  options: { sansTimes: true },
                 },
               })
             } else {
@@ -257,7 +260,7 @@ ${choix ? `\\dfrac{${v1}}{${a}}\\times \\dfrac{${v1}}{${b}}` : `\\dfrac{${v1}}{$
                   value: choix
                     ? `\\dfrac{${v1}^2}{${a * b}}`
                     : `\\dfrac{${v1}${v2}}{${a * b}}`,
-                  options: { avecSigneMultiplier: false },
+                  options: { sansTimes: true },
                 },
               })
             }
@@ -280,7 +283,7 @@ ${choix ? `\\dfrac{${v1}}{${a}}\\times \\dfrac{${v1}}{${b}}` : `\\dfrac{${v1}}{$
                   value: choix
                     ? `\\dfrac{${a}${v1}}{${v2}}`
                     : `\\dfrac{${v2}}{${a}${v1}}`,
-                  options: { avecSigneMultiplier: false },
+                  options: { sansTimes: true },
                 },
               })
             } else {
@@ -300,7 +303,7 @@ ${choix ? `\\dfrac{${v1}}{${a}}\\times \\dfrac{${v1}}{${b}}` : `\\dfrac{${v1}}{$
                   value: choix
                     ? `\\dfrac{${v1}${v2}}{${a * b}}`
                     : `\\dfrac{${b}${v1}}{${a}${v2}}`,
-                  options: { avecSigneMultiplier: false },
+                  options: { sansTimes: true },
                 },
               })
             }

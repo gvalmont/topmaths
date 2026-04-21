@@ -9,7 +9,7 @@ export const dateDePublication = '28/10/2023'
 /**
  * @author Guillaume Valmont
  */
-export const uuid = 'fbafe'
+export const uuid = 'ebaff'
 
 export const refs = {
   'fr-fr': ['6M1D-1'],

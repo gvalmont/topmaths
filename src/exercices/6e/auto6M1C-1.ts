@@ -4,12 +4,12 @@ export const interactifReady = true
 export const interactifType = 'mathLive'
 export const amcReady = 'true'
 export const amcType = 'AMCNum'
-export const dateDeModifImportante = '22/08/2024'
+export const dateDeModifImportante = '10/04/2026'
 /**
  *
  */
 
-export const uuid = '3cb1d'
+export const uuid = 'ab9ff'
 
 export const refs = {
   'fr-fr': ['auto6M1C-1'],
@@ -17,7 +17,7 @@ export const refs = {
   'fr-ch': ['9GM2-1'],
 }
 
-export default class Reglages6M12 extends ExerciceConversionsLongueurs {
+export default class auto6M1C1 extends ExerciceConversionsLongueurs {
   constructor() {
     super()
     this.sup = 3

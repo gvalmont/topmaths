@@ -1,3 +1,4 @@
+import { bleuMathalea } from '../../lib/colors'
 import { randint } from '../../modules/outils'
 import { arrondi } from '../outils/nombres'
 import { lettreDepuisChiffre } from '../outils/outilString'
@@ -7,7 +8,7 @@ import { cercle } from './cercle'
 import { colorToLatexOrHTML } from './colorToLatexOrHtml'
 import { grille } from './Grille'
 import { ObjetMathalea2D } from './ObjetMathalea2D'
-import { point } from './PointAbstrait'
+import { pointAbstrait } from './PointAbstrait'
 import { segment } from './segmentsVecteurs'
 import { TexteParPoint, texteParPoint, texteParPosition } from './textes'
 import { rotation, similitude } from './transformations'
@@ -23,7 +24,7 @@ import { milieu, pointSurSegment } from './utilitairesPoint'
  * @example dansLaCibleCarree(-1, -3, 4, 0.6, 'B2')
  // Retourne les coordonnées du centre d'une cible carrée de rang 4 et de taille 0.6 dont la réponse est le point (-1;-3) dans la cellule B2
  * @return {number[]|string} Ce sont les coordonnées du centre de la cible ou bien 'Cette cellule n'existe pas dans la cible'
- * @author Jean-Claude Lhote
+ * @author Jean-claude Lhote
  */
 // JSDOC Validee par EE Aout 2022
 export function dansLaCibleCarree(
@@ -79,7 +80,7 @@ export function dansLaCibleCarree(
  * @property {number} opacite Opacité de la cible
  * @property {string} colorNum Couleur du numéro identifiant la cible. Code couleur HTML acceptée
  * @property {number} opaciteNum Opacité du numéro identifiant la cible
- * @author Jean-Claude Lhote
+ * @author Jean-claude Lhote
  * @class
  */
 // JSDOC Validee par EE Juin 2022
@@ -164,7 +165,7 @@ export class CibleCarree extends ObjetMathalea2D {
           ((2 * i + 1) * this.taille) / 2,
         this.y - ((this.rang + 1) * this.taille) / 2,
         0,
-        'blue',
+        bleuMathalea,
         0.5,
         'milieu',
         false,
@@ -177,7 +178,7 @@ export class CibleCarree extends ObjetMathalea2D {
           (this.rang * this.taille) / 2 +
           ((2 * i + 1) * this.taille) / 2,
         0,
-        'blue',
+        bleuMathalea,
         0.5,
         'milieu',
         false,
@@ -237,9 +238,9 @@ export class CibleCarree extends ObjetMathalea2D {
  * @param {number} [opaciteNum = 0.5] Opacité du numéro identifiant la cible
  * @example cibleCarree({})
  * // Crée une cible Carree, de centre (0,0), avec 4 carrés en largeur dont chacune a pour côté 0.6, de couleur grise avec une opacité de 50 %
- * @example cibleCarree({ x: 2, y: -1, rang: 5, num: 17, taille: 0.5, color: 'blue', opacite: 0.8 })
+ * @example cibleCarree({ x: 2, y: -1, rang: 5, num: 17, taille: 0.5, color: bleuMathalea, opacite: 0.8 })
  * // Crée une cible Carree, de centre (2,-1), avec 5 carrés en largeur dont chacune a pour côté 0.5, de couleur bleue avec une opacité de 80 %, portant le numéro 17
- * @author Jean-Claude Lhote
+ * @author Jean-claude Lhote
  * @return {CibleCarree}
  */
 // JSDOC Validee par EE Juin 2022
@@ -286,7 +287,7 @@ export function cibleCarree({
  * @example dansLaCibleCarree(-1, -3, 4, 0.6, 'B2')
  // Retourne les coordonnées du centre d'une cible ronde de rang 4 et de taille 0.6 dont la réponse est le point (-1;-3) dans la cellule B2
  * @return {number[]|string} Ce sont les coordonnées du centre de la cible ou bien 'Cette cellule n'existe pas dans la cible'
- * @author Jean-Claude Lhote
+ * @author Jean-claude Lhote
  */
 // JSDOC Validee par EE Aout 2022
 export function dansLaCibleRonde(
@@ -303,7 +304,7 @@ export function dansLaCibleRonde(
   const dangle = randint(-7, 7)
   const angle = (chiffrelettre - 1) * 45 - 157.5 + dangle
   const rayon = taille / 2 + (chiffre - 1) * taille + drayon
-  const P = similitude(point(1, 0), point(0, 0), angle, rayon)
+  const P = similitude(pointAbstrait(1, 0), pointAbstrait(0, 0), angle, rayon)
   P.x += x
   P.y += y
   if (chiffre > rang || chiffrelettre > 8) {
@@ -330,7 +331,7 @@ export function dansLaCibleRonde(
  * @property {number} taille Distance entre le centre de la cible et le premier cercle (et entre chaque cercle consécutif)
  * @property {string} color Couleur de la cible. À associer obligatoirement à colorToLatexOrHTML().
  * @property {number} opacite Opacité de la cible
- * @author Jean-Claude Lhote
+ * @author Jean-claude Lhote
  * @class
  */
 // JSDOC Validee par EE Juin 2022
@@ -368,8 +369,8 @@ export class CibleRonde extends ObjetMathalea2D {
     this.color = colorToLatexOrHTML(color)
     let c
     let rayon
-    const centre = point(this.x, this.y)
-    const azimut = point(this.x + this.rang * this.taille, this.y)
+    const centre = pointAbstrait(this.x, this.y)
+    const azimut = pointAbstrait(this.x + this.rang * this.taille, this.y)
     // objets.push(labelPoint(centre))
     const azimut2 = pointSurSegment(
       centre,
@@ -445,9 +446,9 @@ export class CibleRonde extends ObjetMathalea2D {
  * @param {number} [opacite=0.5] Opacité de la cible
  * @example cibleRonde({})
  * // Crée une cible ronde, de centre (0,0), possédant 3 cercles, avec une distance de 0,3 entre chaque cercle consécutifu cercle intérieur est 5, de couleur grise avec une opacité de 50 %.
- * @example cibleRonde({ x: 2, y: -1, rang: 10, taille: 1, color: 'blue', opacite: 0.8 })
+ * @example cibleRonde({ x: 2, y: -1, rang: 10, taille: 1, color: bleuMathalea, opacite: 0.8 })
  * // Crée une cible ronde, de centre (2,-1), possédant 10 cercles, avec une distance de 1 entre chaque cercle consécutifu cercle intérieur est 5, de couleur bleue avec une opacité de 80 %.
- * @author Jean-Claude Lhote
+ * @author Jean-claude Lhote
  * @return {CibleRonde}
  */
 // JSDOC Validee par EE Juin 2022
@@ -493,7 +494,7 @@ export function cibleRonde({
  * @property {number} taille2 Longueur des segments dans la couronne
  * @property {string} color Couleur de la cible. À associer obligatoirement à colorToLatexOrHTML().
  * @property {number} opacite Opacité de la cible
- * @author Jean-Claude Lhote
+ * @author Jean-claude Lhote
  * @class
  */
 // JSDOC Validee par EE Juin 2022
@@ -544,8 +545,12 @@ export class CibleCouronne extends ObjetMathalea2D {
     let azimut
     let rayon
     const arcPlein = semi ? 180 : 360
-    const centre = point(this.x, this.y)
-    azimut = rotation(point(this.x + this.taille, this.y), centre, this.depart)
+    const centre = pointAbstrait(this.x, this.y)
+    azimut = rotation(
+      pointAbstrait(this.x + this.taille, this.y),
+      centre,
+      this.depart,
+    )
     let azimut2 = pointSurSegment(
       centre,
       azimut,
@@ -648,10 +653,10 @@ export class CibleCouronne extends ObjetMathalea2D {
  * @example cibleCouronne({})
  * // Crée une cible couronne circulaire, de centre (0,0), dont le rayon du cercle intérieur est 5, la longueur des segments est 1, la première lettre démarre à 0°,
  * //    le nombre de divisions de la couronne est 18, le nombre de subdivisions est 3, leur opacité est 50 %, avec les lettres apparentes, de couleur grise
- * @example cibleCouronne({ x: 2, y: -1, taille: 4, taille2: 2, depart: 35, nbDivisions: 12, nbSubDivisions: 2, semi: true, label: false, color: 'blue', opacite: 0.8 })
+ * @example cibleCouronne({ x: 2, y: -1, taille: 4, taille2: 2, depart: 35, nbDivisions: 12, nbSubDivisions: 2, semi: true, label: false, color: bleuMathalea, opacite: 0.8 })
  * // Crée une cible couronne semi-circulaire, de centre (2,-1), dont le rayon du cercle intérieur est 4, la longueur des segments est 2, la première lettre démarre à 35°,
  * //    le nombre de divisions de la couronne est 12, le nombre de subdivisions est 2, leur opacité est 80 %, avec les lettres non apparentes, de couleur bleue
- * @author Jean-Claude Lhote
+ * @author Jean-claude Lhote
  * @return {CibleCouronne}
  */
 // JSDOC Validee par EE Juin 2022

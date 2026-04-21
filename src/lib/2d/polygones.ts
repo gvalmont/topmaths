@@ -1,4 +1,5 @@
 import earcut from 'earcut'
+import { bleuMathalea } from '../../lib/colors'
 import { context } from '../../modules/context'
 import { arrondi } from '../outils/nombres'
 import { colorToLatexOrHTML } from './colorToLatexOrHtml'
@@ -34,8 +35,8 @@ function aireTriangle(p: {
  * @param {string} [positionLabel = 'above'] Position du nom par rapport au point
  * @example G = barycentre(pol) // Crée G, le barycentre du polygone pol, sans lui donner de nom
  * @example G = barycentre(pol,'G','below') // Crée G, le barycentre du polygone pol, en notant G sous le point, s'il est tracé et labellisé.
- * @author Jean-Claude Lhote
- * @return {Point}
+ * @author Jean-claude Lhote
+ * @return {PointAbstrait}
  */
 // JSDOC Validee par EE Juin 2022
 export function barycentre(p: IPolygone, nom = '', positionLabel = 'above') {
@@ -59,9 +60,9 @@ export function barycentre(p: IPolygone, nom = '', positionLabel = 'above') {
 */
 /**
  * polygone(A,B,C,D,E) //Trace ABCDE
- * polygone([A,B,C,D],"blue") // Trace ABCD en bleu
- * polygone([A,B,C,D],"blue","red","green") // Trace ABCD en bleu, rempli en rouge et hachuré en vert.
- * @property {Point[]} listePoints
+ * polygone([A,B,C,D],"red", bleuMathalea) // Trace ABCD en bleu
+ * polygone([A,B,C,D],"red", bleuMathalea,"red","green") // Trace ABCD en bleu, rempli en rouge et hachuré en vert.
+ * @property {PointAbstrait[]} listePoints
  * @property {string[]} color
  * @property {string[]} couleurDeRemplissage
  * @property {string[]} couleurDesHachures
@@ -315,7 +316,7 @@ export class Polygone extends ObjetMathalea2D {
       )
     }
 
-    if (this.hachures) this.hachures = 'dotted'
+    // if (this.hachures) this.hachures = 'dotted' // EE : 08/04/2026 : Pourquoi obliger dotted...qui n'existe pas en plus dans pattern.ts ?
     if (this.hachures != null && typeof this.hachures === 'string') {
       tableauOptions.push(
         pattern({
@@ -378,8 +379,8 @@ export class Polygone extends ObjetMathalea2D {
  * Propriétés possibles : .color, .opacite, .epaisseur, .couleurDeRemplissage, .opaciteDeRemplissage, .hachures (un string correspondant à l'un des motifs de pattern), .distanceDesHachures, .epaisseurDesHachures,.couleurDesHachures
  * @return {Polygone} objet Polygone
  * @example polygone(A,B,C,D,E) //Trace ABCDE
- * @example polygone([A,B,C,D],"blue") // Trace ABCD en bleu
- * @example polygone([A,B,C,D],"#f15929") // Trace ABCD en orange (code couleur HTML : #f15929)
+ * @example polygone([A,B,C,D],bleuMathalea) // Trace ABCD en bleu
+ * @example polygone([A,B,C,D],orangeMathalea) // Trace ABCD en orange (orangeMathalea)
  * @property {PointAbstrait[]} listePoints
  * @property {string[]} color
  * @property {string[]} couleurDeRemplissage
@@ -411,7 +412,7 @@ export function polygone(
  * @param  {...any} args
  * @return {array} [polygone,sommets]
  * Si le dernier argument est un nombre, celui-ci sera utilisé pour fixer la distance entre le sommet et le label (par défaut 0.5)
- * @exemple [poly, sommets] = polygoneAvecNom(A, B, C, D) // où A, B, C, D sont des objets Point
+ * @exemple [poly, sommets] = polygoneAvecNom(A, B, C, D) // où A, B, C, D sont des objets PointAbstrait
  */
 export function polygoneAvecNom(
   ...args: (PointAbstrait | number)[]
@@ -466,7 +467,7 @@ export function renommePolygone(p: Polygone, noms: string | string[]) {
 /**
  * @param {Polygone} p
  * @return {number[]} retourne la liste des coordonnées des sommets de p dans un seul tableau.
- * @author Jean-Claude Lhote
+ * @author Jean-claude Lhote
  */
 export function polygoneToFlatArray(p: Polygone) {
   const flatArray = []
@@ -503,7 +504,7 @@ export class PolygoneATrous extends ObjetMathalea2D {
     holes = [],
     noms = '',
     color = 'black',
-    couleurDeRemplissage = 'blue',
+    couleurDeRemplissage = bleuMathalea,
     couleurDeFond = 'white',
   }) {
     super()
@@ -626,7 +627,7 @@ export class PolygoneATrous extends ObjetMathalea2D {
  * @param {number[]}  [holes = []] tableau à une seule dimension contenant les indices des points qui démarrent un 'trou' dans le tableau data (exemple : holes = [4, 8] indique que les points 4 à 7 définissent un trou ainsi que 8 et suivants, donc les coordonnées 8 à 15 et 16 à ...(ne pas oublier que 1 point = 2 coordonnées))
  * @param {string} [noms = ''] contient les noms des sommets
  * @param {string} [color = 'black'] est la couleur des bords
- * @param {string} [couleurDeRemplissage = 'blue'] est la couleur de la surface
+ * @param {string} [couleurDeRemplissage = bleuMathalea] est la couleur de la surface
  * @param {string} [couleurDeFond = 'white'] est la couleur de remplissage des trous
  * @return {PolygoneaTrou} un polygone à trous (ou pas : il peut ne pas y avoir de trou !)
  */
@@ -635,7 +636,7 @@ export function polygoneATrous({
   holes = [],
   noms = '',
   color = 'black',
-  couleurDeRemplissage = 'blue',
+  couleurDeRemplissage = bleuMathalea,
   couleurDeFond = 'white',
 }) {
   return new PolygoneATrous({
@@ -653,7 +654,7 @@ export function polygoneATrous({
  * @description Si les noms peuvent avoir plusieurs caractères, il faudra ajouter des virgules entre chaque nom dans le string passé en argument.
  * @example nommePolygone (p, "A',B',C',D',E'", 0.5, 'red')
  * @example nommePolygone (p,'ABCDE',0.5,'red') nomme les sommets du polygone A, B, C, D et E. Les labels sont placés à une distance de 0,5 cm des sommets
- * @author Jean-Claude Lhote
+ * @author Jean-claude Lhote
  */
 export class NommePolygone extends ObjetMathalea2D {
   poly: Polygone

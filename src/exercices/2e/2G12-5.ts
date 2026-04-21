@@ -1,6 +1,6 @@
 import Decimal from 'decimal.js'
 import { codageSegments } from '../../lib/2d/CodageSegment'
-import { point } from '../../lib/2d/PointAbstrait'
+import { pointAbstrait } from '../../lib/2d/PointAbstrait'
 import { tracePoint } from '../../lib/2d/TracePoint'
 import { polygoneAvecNom } from '../../lib/2d/polygones'
 import { repere } from '../../lib/2d/reperes'
@@ -24,6 +24,7 @@ import { mathalea2d } from '../../modules/mathalea2d'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import type { NestedObjetMathalea2dArray } from '../../types/2d'
 import Exercice from '../Exercice'
+import { bleuMathalea } from '../../lib/colors'
 
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -153,16 +154,16 @@ export default class ParallélogrammeSommet extends Exercice {
             const yMd = (yA + yC) / 2
             const absReponse = xA + xC - xB
             const ordReponse = yA + yC - yB
-            const A = point(xA, yA, 'A', 'red')
-            const B = point(xB, yB, 'B', 'red')
-            const C = point(xC, yC, 'C', 'red')
-            const D = point(xD, yD, 'D', 'red')
-            const s1 = segment(A, B, 'blue')
-            const s2 = segment(D, B, 'blue')
-            const s3 = segment(C, D, 'blue')
-            const s4 = segment(A, C, 'blue')
-            const s5 = segment(A, D, 'blue')
-            const s6 = segment(B, C, 'blue')
+            const A = pointAbstrait(xA, yA, 'A', 'red')
+            const B = pointAbstrait(xB, yB, 'B', 'red')
+            const C = pointAbstrait(xC, yC, 'C', 'red')
+            const D = pointAbstrait(xD, yD, 'D', 'red')
+            const s1 = segment(A, B, bleuMathalea)
+            const s2 = segment(D, B, bleuMathalea)
+            const s3 = segment(C, D, bleuMathalea)
+            const s4 = segment(A, C, bleuMathalea)
+            const s5 = segment(A, D, bleuMathalea)
+            const s6 = segment(B, C, bleuMathalea)
             s1.epaisseur = 2
             s2.epaisseur = 2
             s3.epaisseur = 2
@@ -174,7 +175,7 @@ export default class ParallélogrammeSommet extends Exercice {
             B.nom = nom[1]
             C.nom = nom[2]
             D.nom = nom[3]
-            codageSegments('X', 'blue', s5, s6) // Code les segments s5 et s6
+            codageSegments('X', bleuMathalea, s5, s6) // Code les segments s5 et s6
             const T = tracePoint(A, B, C, D) // Repère les points avec une croix
             // L = labelPoint(M)
             const P = polygoneAvecNom(A, B, D, C)
@@ -303,16 +304,16 @@ export default class ParallélogrammeSommet extends Exercice {
             const yM = (yA + yC) / 2
             const absReponse = xM * 2 - xB
             const ordReponse = yM * 2 - yB
-            const A = point(xA, yA, 'A', 'red')
-            const B = point(xB, yB, 'B', 'red')
-            const C = point(xC, yC, 'C', 'red')
-            const D = point(xD, yD, 'D', 'red')
-            const s1 = segment(A, B, 'blue')
-            const s2 = segment(D, B, 'blue')
-            const s3 = segment(C, D, 'blue')
-            const s4 = segment(A, C, 'blue')
-            const s5 = segment(A, D, 'blue')
-            const s6 = segment(B, C, 'blue')
+            const A = pointAbstrait(xA, yA, 'A', 'red')
+            const B = pointAbstrait(xB, yB, 'B', 'red')
+            const C = pointAbstrait(xC, yC, 'C', 'red')
+            const D = pointAbstrait(xD, yD, 'D', 'red')
+            const s1 = segment(A, B, bleuMathalea)
+            const s2 = segment(D, B, bleuMathalea)
+            const s3 = segment(C, D, bleuMathalea)
+            const s4 = segment(A, C, bleuMathalea)
+            const s5 = segment(A, D, bleuMathalea)
+            const s6 = segment(B, C, bleuMathalea)
             s1.epaisseur = 2
             s2.epaisseur = 2
             s3.epaisseur = 2
@@ -323,7 +324,7 @@ export default class ParallélogrammeSommet extends Exercice {
             B.nom = nom[1]
             C.nom = nom[2]
             D.nom = nom[3]
-            codageSegments('X', 'blue', s5, s6) // Code les segments s5 et s6
+            codageSegments('X', bleuMathalea, s5, s6) // Code les segments s5 et s6
             const T = tracePoint(A, B, C, D) // Repère les points avec une croix
             // L = labelPoint(M)
             const P = polygoneAvecNom(A, B, D, C)
@@ -484,16 +485,16 @@ export default class ParallélogrammeSommet extends Exercice {
             const yM = (yA + yC) / 2
             const absReponse = xM * 2 - xB
             const ordReponse = yM * 2 - yB
-            const A = point(xA, yA, 'A', 'red') // E
-            const B = point(xB, yB, 'B', 'red') // G
-            const C = point(xC, yC, 'C', 'red') // M
-            const D = point(xD, yD, 'D', 'red') // T
-            const s1 = segment(A, B, 'blue')
-            const s2 = segment(D, B, 'blue')
-            const s3 = segment(C, D, 'blue')
-            const s4 = segment(A, C, 'blue')
-            const s5 = segment(A, D, 'blue')
-            const s6 = segment(B, C, 'blue')
+            const A = pointAbstrait(xA, yA, 'A', 'red') // E
+            const B = pointAbstrait(xB, yB, 'B', 'red') // G
+            const C = pointAbstrait(xC, yC, 'C', 'red') // M
+            const D = pointAbstrait(xD, yD, 'D', 'red') // T
+            const s1 = segment(A, B, bleuMathalea)
+            const s2 = segment(D, B, bleuMathalea)
+            const s3 = segment(C, D, bleuMathalea)
+            const s4 = segment(A, C, bleuMathalea)
+            const s5 = segment(A, D, bleuMathalea)
+            const s6 = segment(B, C, bleuMathalea)
             s1.epaisseur = 2
             s2.epaisseur = 2
             s3.epaisseur = 2
@@ -504,7 +505,7 @@ export default class ParallélogrammeSommet extends Exercice {
             B.nom = nom[1]
             C.nom = nom[2]
             D.nom = nom[3]
-            codageSegments('X', 'blue', s5, s6) // Code les segments s5 et s6
+            codageSegments('X', bleuMathalea, s5, s6) // Code les segments s5 et s6
             const T = tracePoint(A, B, C) // Repère les points avec une croix
             // L = labelPoint(M)
             // objets.push(P[1])

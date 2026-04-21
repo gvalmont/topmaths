@@ -1,6 +1,5 @@
-import { clone } from 'mathjs'
 import { codageSegments } from '../../lib/2d/CodageSegment'
-import { point } from '../../lib/2d/PointAbstrait'
+import { pointAbstrait } from '../../lib/2d/PointAbstrait'
 import { tracePoint } from '../../lib/2d/TracePoint'
 import { cercle } from '../../lib/2d/cercle'
 import { droite } from '../../lib/2d/droites'
@@ -13,12 +12,17 @@ import {
   pointAdistance,
   pointIntersectionLC,
 } from '../../lib/2d/utilitairesPoint'
+import { bleuMathalea } from '../../lib/colors'
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { propositionsQcm } from '../../lib/interactif/qcm'
 import { ajouteChampTexte } from '../../lib/interactif/questionMathLive'
 import { choisitLettresDifferentes } from '../../lib/outils/aleatoires'
-import { combinaisonListes, shuffle } from '../../lib/outils/arrayOutils'
+import {
+  arrayClone,
+  combinaisonListes,
+  shuffle,
+} from '../../lib/outils/arrayOutils'
 import { texteEnCouleurEtGras } from '../../lib/outils/embellissements'
 import {
   numAlpha,
@@ -155,7 +159,6 @@ export default class VocabulaireDuCercle extends Exercice {
     for (
       let i = 0, texte, texteCorr, cpt = 0;
       i < this.nbQuestions && cpt < 50;
-
     ) {
       const objetsEnonce = [] // on initialise le tableau des objets Mathalea2d de l'enoncé
       const propositionsAMC: UneProposition[] = []
@@ -163,7 +166,7 @@ export default class VocabulaireDuCercle extends Exercice {
       texte = ''
       texteCorr = ''
       const nomsDesPoints = choisitLettresDifferentes(6)
-      const O = point(0, 0, nomsDesPoints[0])
+      const O = pointAbstrait(0, 0, nomsDesPoints[0])
       const leCercle = cercle(O, 3)
       const A = pointAdistance(O, 3, nomsDesPoints[1])
       texte += `Les points $${nomsDesPoints[3]}$, $${nomsDesPoints[0]}$ et $${nomsDesPoints[2]}$ sont alignés.`
@@ -197,7 +200,7 @@ export default class VocabulaireDuCercle extends Exercice {
       const BC = segment(B, C)
       const DE = segment(D, E)
       const polygon = polygoneAvecNom(A, B, C, D, E)
-      const codage = codageSegments('//', 'blue', O, B, O, C, O, A)
+      const codage = codageSegments('//', bleuMathalea, O, B, O, C, O, A)
       objetsEnonce.push(
         leCercle,
         labelPoint(O),
@@ -224,8 +227,8 @@ export default class VocabulaireDuCercle extends Exercice {
         questions.push({
           nom: `$${O.nom + A.nom}$`,
           nature: 'le rayon',
-          commentaire: `${texteEnCouleurEtGras('Le', 'blue')} rayon est une ${texteEnCouleurEtGras('longueur', 'blue')}, il se note donc sans crochet.`,
-          commentaireAlt: `${texteEnCouleurEtGras('Un', 'blue')} rayon est un ${texteEnCouleurEtGras('segment', 'blue')}, il se note donc avec des crochets.`,
+          commentaire: `${texteEnCouleurEtGras('Le', bleuMathalea)} rayon est une ${texteEnCouleurEtGras('longueur', bleuMathalea)}, il se note donc sans crochet.`,
+          commentaireAlt: `${texteEnCouleurEtGras('Un', bleuMathalea)} rayon est un ${texteEnCouleurEtGras('segment', bleuMathalea)}, il se note donc avec des crochets.`,
           sens: sensDesQuestions[i * nbSousQuestionMax + 2],
         })
       }
@@ -233,8 +236,8 @@ export default class VocabulaireDuCercle extends Exercice {
         questions.push({
           nom: `[$${O.nom + A.nom}$]`,
           nature: 'un rayon',
-          commentaire: `${texteEnCouleurEtGras('Un', 'blue')} rayon est un ${texteEnCouleurEtGras('segment', 'blue')}, il se note donc avec des crochets.`,
-          commentaireAlt: `${texteEnCouleurEtGras('Le', 'blue')} rayon est une ${texteEnCouleurEtGras('longueur', 'blue')}, il se note donc sans crochet.`,
+          commentaire: `${texteEnCouleurEtGras('Un', bleuMathalea)} rayon est un ${texteEnCouleurEtGras('segment', bleuMathalea)}, il se note donc avec des crochets.`,
+          commentaireAlt: `${texteEnCouleurEtGras('Le', bleuMathalea)} rayon est une ${texteEnCouleurEtGras('longueur', bleuMathalea)}, il se note donc sans crochet.`,
           sens: sensDesQuestions[i * nbSousQuestionMax],
         })
       }
@@ -242,8 +245,8 @@ export default class VocabulaireDuCercle extends Exercice {
         questions.push({
           nom: `$${B.nom + C.nom}$`,
           nature: 'le diamètre',
-          commentaire: `${texteEnCouleurEtGras('Le', 'blue')} diamètre est une ${texteEnCouleurEtGras('longueur', 'blue')}, il se note donc sans crochet.`,
-          commentaireAlt: `${texteEnCouleurEtGras('Un', 'blue')} diamètre est un ${texteEnCouleurEtGras('segment', 'blue')}, il se note donc avec des crochets.`,
+          commentaire: `${texteEnCouleurEtGras('Le', bleuMathalea)} diamètre est une ${texteEnCouleurEtGras('longueur', bleuMathalea)}, il se note donc sans crochet.`,
+          commentaireAlt: `${texteEnCouleurEtGras('Un', bleuMathalea)} diamètre est un ${texteEnCouleurEtGras('segment', bleuMathalea)}, il se note donc avec des crochets.`,
           sens: sensDesQuestions[i * nbSousQuestionMax + 3],
         })
       }
@@ -251,8 +254,8 @@ export default class VocabulaireDuCercle extends Exercice {
         questions.push({
           nom: `[$${B.nom + C.nom}$]`,
           nature: 'un diamètre',
-          commentaire: `${texteEnCouleurEtGras('Un', 'blue')} diamètre est un ${texteEnCouleurEtGras('segment', 'blue')}, il se note donc avec des crochets.<br>Un diamètre est une corde qui passe par le centre du cercle.`,
-          commentaireAlt: `${texteEnCouleurEtGras('Le', 'blue')} diamètre est une ${texteEnCouleurEtGras('longueur', 'blue')}, il se note donc sans crochet.`,
+          commentaire: `${texteEnCouleurEtGras('Un', bleuMathalea)} diamètre est un ${texteEnCouleurEtGras('segment', bleuMathalea)}, il se note donc avec des crochets.<br>Un diamètre est une corde qui passe par le centre du cercle.`,
+          commentaireAlt: `${texteEnCouleurEtGras('Le', bleuMathalea)} diamètre est une ${texteEnCouleurEtGras('longueur', bleuMathalea)}, il se note donc sans crochet.`,
           sens: sensDesQuestions[i * nbSousQuestionMax + 1],
         })
       }
@@ -279,7 +282,7 @@ export default class VocabulaireDuCercle extends Exercice {
           { // Ajout Mireille
             nom: `$${O.nom}$`,
             nature: `le centre du cercle, qui est aussi le milieu de [${B.nom + C.nom}]`,
-            commentaire: `On parle du ${texteEnCouleurEtGras('centre d\'un cercle', 'blue')} ; pour un ${texteEnCouleurEtGras('segment', 'blue')}, on parle de son ${texteEnCouleurEtGras('milieu', 'blue')}.`,
+            commentaire: `On parle du ${texteEnCouleurEtGras('centre d\'un cercle', bleuMathalea)} ; pour un ${texteEnCouleurEtGras('segment', bleuMathalea)}, on parle de son ${texteEnCouleurEtGras('milieu', bleuMathalea)}.`,
             commentaireAlt: '',
             sens: sensDesQuestions[i * nbSousQuestionMax + 5]
           })
@@ -353,11 +356,11 @@ export default class VocabulaireDuCercle extends Exercice {
           let propositions: Proposition[] = []
           if (question.sens === 'Un rayon est ...') {
             // clone réalise la deep copy d'un array ou d'un objet... ce qui rend propositions indépendant des changements de propositionsUnRayonEst
-            propositions = clone(propositionsUnRayonEst)
+            propositions = arrayClone(propositionsUnRayonEst)
           }
           if (question.sens === '[AB] est ...') {
             // clone réalise la deep copy d'un array ou d'un objet... ce qui rend propositions indépendant des changements de propositionsABEst
-            propositions = clone(propositionsABEst)
+            propositions = arrayClone(propositionsABEst)
           }
           for (let ee = 0; ee < propositions.length; ee++) {
             const statut =

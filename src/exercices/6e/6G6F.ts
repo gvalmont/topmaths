@@ -4,7 +4,7 @@ import { codageMediatrice } from '../../lib/2d/CodageMediatrice'
 import { Droite } from '../../lib/2d/droites'
 import { fixeBordures } from '../../lib/2d/fixeBordures'
 import { mediatrice } from '../../lib/2d/Mediatrice'
-import { point } from '../../lib/2d/PointAbstrait'
+import { pointAbstrait } from '../../lib/2d/PointAbstrait'
 import { polygoneAvecNom } from '../../lib/2d/polygones'
 import { segment } from '../../lib/2d/segmentsVecteurs'
 import { labelPoint } from '../../lib/2d/textes'
@@ -24,13 +24,14 @@ import { context } from '../../modules/context'
 import { mathalea2d } from '../../modules/mathalea2d'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import Exercice from '../Exercice'
+import { bleuMathalea } from '../../lib/colors'
 
 export const titre = 'Construire un triangle et son cercle circonscrit'
 export const dateDePublication = '27/08/2025'
 
 /**
  * Publié le 27/08/2025
- * @author Jean-Claude Lhote
+ * @author Jean-claude Lhote
  */
 export const uuid = 'e0bca'
 
@@ -67,7 +68,7 @@ export default class ConstruireUnTriangleEtSonCercleCirconscrit extends Exercice
       for (let i = 0; i < 3; i++) sommets.push(nom[i])
       sommets = this.seed === 'myriade' ? ['T', 'U', 'V'] : shuffle(sommets)
       sommets.push(nom[3]) // milieu
-      const A = point(0, 0, sommets[0], 'left')
+      const A = pointAbstrait(0, 0, sommets[0], 'left')
 
       const ac = this.seed === 'myriade' ? 60 : randint(35, 45)
       const lBC = this.seed === 'myriade' ? 4.4 : randint(35, 45, ac) / 10
@@ -87,7 +88,7 @@ export default class ConstruireUnTriangleEtSonCercleCirconscrit extends Exercice
         this.seed === 'myriade' ? 2 : 1,
       )
       C.positionLabel = 'above'
-      const CC = point(
+      const CC = pointAbstrait(
         C.x + randint(-5, 5, 0) / 10,
         C.y + randint(-5, 5, 0) / 10,
         sommets[2],
@@ -96,7 +97,7 @@ export default class ConstruireUnTriangleEtSonCercleCirconscrit extends Exercice
       const d2 = mediatrice(B, C) as Droite
       const d3 = mediatrice(A, C) as Droite
       const cod1 = codageMediatrice(B, A, 'red', '||')
-      const cod2 = codageMediatrice(C, B, 'blue', 'O')
+      const cod2 = codageMediatrice(C, B, bleuMathalea, 'O')
       const cod3 = codageMediatrice(A, C, 'green', '//')
       const O = pointIntersectionDD(d1, d2, 'O')
       O.positionLabel = 'above'

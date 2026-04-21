@@ -5,6 +5,7 @@
  */
 import Decimal from 'decimal.js'
 import { context } from '../../modules/context'
+import { bleuMathalea } from '../colors'
 import { choice } from '../outils/arrayOutils'
 import { texNombre } from '../outils/texNombre'
 
@@ -13,7 +14,7 @@ type Colors =
   | 'black'
   | 'red'
   | 'green'
-  | 'blue'
+  | typeof bleuMathalea
   | 'cyan'
   | 'magenta'
   | 'yellow'
@@ -22,7 +23,7 @@ const colors: Colors[] = [
   'black',
   'red',
   'green',
-  'blue',
+  bleuMathalea,
   'cyan',
   'magenta',
   'yellow',
@@ -38,14 +39,14 @@ export function couleurAleatoire(): Colors {
  * soit le code d'une couleur imposée, ainsi que sa traduction française au masculin et au féminin.
  * @example couleurTab() peut renvoyer ['black','noir','noire'].
  * @example couleurTab(0) renverra de façon certaine ['black','noir','noire'].
- * @author Eric Elter
+ * @author Éric Elter
  */
 export function couleurTab(choixCouleur = 999) {
   const panelCouleurs = [
     ['black', 'noir', 'noire'],
     ['red', 'rouge', 'rouge'],
     ['green', 'vert', 'verte'],
-    ['blue', 'bleu', 'bleue'],
+    [bleuMathalea, 'bleu', 'bleue'],
     ['HotPink', 'rose', 'rose'],
     ['Sienna', 'marron', 'marron'],
     ['darkgray', 'gris', 'grise'],
@@ -61,16 +62,32 @@ export function couleurTab(choixCouleur = 999) {
 export function arcenciel(i: number, fondblanc = true) {
   let couleurs
   if (fondblanc)
-    couleurs = ['violet', 'purple', 'blue', 'green', 'lime', '#f15929', 'red']
+    couleurs = [
+      'violet',
+      'purple',
+      bleuMathalea,
+      'green',
+      'lime',
+      'orange',
+      'red',
+    ]
   else
-    couleurs = ['violet', 'indigo', 'blue', 'green', 'yellow', '#f15929', 'red']
+    couleurs = [
+      'violet',
+      'indigo',
+      bleuMathalea,
+      'green',
+      'yellow',
+      'orange',
+      'red',
+    ]
   return couleurs[i % 7]
 }
 
 export function texcolors(i: number, fondblanc = true) {
   const couleurs = [
     'black',
-    'blue',
+    bleuMathalea,
     'GreenYellow',
     'brown',
     'LightSlateBlue',

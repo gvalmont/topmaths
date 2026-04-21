@@ -13,13 +13,13 @@ import { texNombre } from '../../lib/outils/texNombre'
  * @param {number} [AC = 4] Longueur AC
  * @param {number} [BC = 5] Longueur BC
  * @param {string}  [unite = 'cm'] Unité de la longueur recherchée
- * @param {string} [couleurReponse = '#f15929'] Couleur de la réponse : du type 'blue' ou du type '#f15929'
+ * @param {string} [couleurReponse = orangeMathalea] Couleur de la réponse : du type 'red', du type '#010101' ou du type orangeMathalea
  * @example RedactionPythagore()
  * // Crée la rédaction du théorème de Pythagore dans un triangle ABC rectangle en A de dimensions 3-4-5 cm dont on recherche la longueur de l'hypoténuse.
  * @example RedactionPythagore('M','N','P',2,reponse,5,13,'dm')
  * // Crée la rédaction du théorème de Pythagore dans un triangle MNP rectangle en M de dimensions reponse-5-13 dm dont on recherche la longueur de MN.
  * // reponse doit être fournie à la fonction, elle n'est pas calculée par la fonction.
- * @author Eric Elter
+ * @author Éric Elter
  * @return {[string, string]} // Le premier élément du tableau est la rédaction complète, le second élément du tableau est le signe égal (ou arrondi) qui peut être utilisé si besoin pour introduire l'interactif.
  */
 export function RedactionPythagore(

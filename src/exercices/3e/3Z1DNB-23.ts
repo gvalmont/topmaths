@@ -37,7 +37,7 @@ Les boules sont indiscernables au toucher.
 */
 
 /**
- * @Author Jean-Claude Lhote
+ * @Author Jean-claude Lhote
  * Cet exerice exploite la nouvelle classe d'exercice que j'ai conçue pour les sujets de brevet
  * Il s'agit d'un exercice de type Brevet Aléatoirisé
  * La méthode privée appliquerLesValeurs permet de générer les valeurs aléatoires et de construire l'énoncé et la correction
@@ -49,10 +49,6 @@ export default class ExerciceMetropole392024 extends ExerciceBrevetA {
     super()
     this.besoinFormulaireCaseACocher = ['Sujet original', false]
     this.sup = false
-    this.introduction = texteItalique(
-      "D'après l'exercice 1 du brevet Métropole juin 2025.<br>",
-    )
-
     this.versionAleatoire()
   }
 
@@ -63,6 +59,10 @@ export default class ExerciceMetropole392024 extends ExerciceBrevetA {
     min: number,
     ajout: number,
   ): void {
+    this.introduction = texteItalique(
+      "D'après l'exercice 1 du brevet Métropole juin 2025.<br>",
+    )
+
     const nbPrem = urneB.filter((n) => estPremier(n)).length
     const probaPrem = new FractionEtendue(nbPrem, urneB.length)
     const probaPair = new FractionEtendue(

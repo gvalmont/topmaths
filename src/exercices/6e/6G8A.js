@@ -21,6 +21,7 @@ import {
   randint,
 } from '../../modules/outils'
 import Exercice from '../Exercice'
+import { bleuMathalea } from '../../lib/colors'
 export const titre = "Dessiner différentes vues d'un empilement de cubes"
 export const dateDePublication = '06/10/2022'
 export const dateDeModifImportante = '08/11/2023' // Retour du formulaire numérique en supprimant le tooltip
@@ -30,7 +31,8 @@ export const amcType = 'AMCHybride'
 
 /**
  * Dessiner différentes vues d'un empilement de cubes
- * @author Eric Elter (sur un début d'exercices d'Erwan Duplessy)
+ * @author Éric Elter
+ *  (sur un début d'exercices d'Erwan Duplessy)
  * Source : http://cache.media.education.gouv.fr/file/Geometrie_et_espace/47/1/RA16_C4_MATH_geo_espace_flash_567471.pdf
  */
 
@@ -86,7 +88,6 @@ export default class VuesEmpilementCubes extends Exercice {
         texteCorr,
         cpt = 0;
       q < this.nbQuestions && cpt < 50;
-
     ) {
       let listeVuesPossibles = gestionnaireFormulaireTexte({
         max: 7,
@@ -124,13 +125,13 @@ export default class VuesEmpilementCubes extends Exercice {
       ]
       const colorD = context.isAmc
         ? choice(['white', 'gray', 'darkgray'])
-        : choice(['red', 'blue', 'green', 'gray'])
+        : choice(['red', bleuMathalea, 'green', 'gray'])
       const colorT = context.isAmc
         ? choice(['white', 'gray', 'darkgray'], [colorD])
         : choice(['white', 'yellow'])
       const colorG = context.isAmc
         ? choice(['white', 'gray', 'darkgray'], [colorD, colorT])
-        : choice(['red', 'blue', 'green', 'gray'], [colorD])
+        : choice(['red', bleuMathalea, 'green', 'gray'], [colorD])
       const longueur =
         Math.floor((dimensions % 100) / 10) < 2
           ? randint(2, 6)

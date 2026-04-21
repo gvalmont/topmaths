@@ -1,10 +1,10 @@
 import { colorToLatexOrHTML } from './colorToLatexOrHtml'
-import { point } from './PointAbstrait'
+import { pointAbstrait } from './PointAbstrait'
 import { Polygone, polygone } from './polygones'
 import {
+  latex2d,
   Latex2d,
   LatexParCoordonnees,
-  latexParCoordonnees,
   TexteParPoint,
   texteParPosition,
 } from './textes'
@@ -42,10 +42,10 @@ export class BoiteBuilder {
     this.yMin = yMin
     this.yMax = yMax
     this.forme = polygone([
-      point(xMin, yMin),
-      point(xMax, yMin),
-      point(xMax, yMax),
-      point(xMin, yMax),
+      pointAbstrait(xMin, yMin),
+      pointAbstrait(xMax, yMin),
+      pointAbstrait(xMax, yMax),
+      pointAbstrait(xMin, yMax),
     ])
   }
 
@@ -99,11 +99,13 @@ export class BoiteBuilder {
     color,
     opacity,
     size,
+    isLaTeX = false,
   }: {
     textIn: string
     color?: string
     opacity?: number
     size?: number
+    isLaTeX?: boolean
   }) {
     if (typeof textIn !== 'string') {
       window.notify(
@@ -112,25 +114,26 @@ export class BoiteBuilder {
       )
     }
     if (textIn.length > 0) {
-      this.text = textIn.includes('\\')
-        ? latexParCoordonnees(
-            textIn,
-            (this.xMin + this.xMax) / 2,
-            (this.yMin + this.yMax) / 2,
-            color ?? 'black',
-            50,
-            0,
-            '',
-            (size ?? 1) * 10,
-          )
-        : texteParPosition(
-            textIn,
-            (this.xMin + this.xMax) / 2,
-            (this.yMin + this.yMax) / 2,
-            0,
-            color ?? 'black',
-            size,
-          )
+      this.text =
+        isLaTeX || textIn.includes('\\')
+          ? latex2d(
+              textIn,
+              (this.xMin + this.xMax) / 2,
+              (this.yMin + this.yMax) / 2,
+              {
+                color: color ?? 'black',
+                backgroundColor: '',
+                letterSize: 'normalsize',
+              },
+            )
+          : texteParPosition(
+              textIn,
+              (this.xMin + this.xMax) / 2,
+              (this.yMin + this.yMax) / 2,
+              0,
+              color ?? 'black',
+              size,
+            )
       this.text.opacite = opacity ?? 1
     }
     return this

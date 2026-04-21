@@ -1,16 +1,16 @@
+import { tableauColonneLigne } from '../../lib/2d/tableau'
+import { handleAnswers } from '../../lib/interactif/gestionInteractif'
+import { AddTabDbleEntryMathlive } from '../../lib/interactif/tableaux/AjouteTableauMathlive'
 import { combinaisonListes } from '../../lib/outils/arrayOutils'
 import { ecritureAlgebrique } from '../../lib/outils/ecritures'
-import Exercice from '../Exercice'
-import { listeQuestionsToContenu, randint } from '../../modules/outils'
-import { context } from '../../modules/context'
-import { tableauColonneLigne } from '../../lib/2d/tableau'
-import { AddTabDbleEntryMathlive } from '../../lib/interactif/tableaux/AjouteTableauMathlive'
-import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
+import { context } from '../../modules/context'
+import { listeQuestionsToContenu, randint } from '../../modules/outils'
+import Exercice from '../Exercice'
 
 export const titre =
   'Additionner deux entiers relatifs dans un tableau à double entrée'
-export const dateDeModifImportante = '07/06/2025'
+export const dateDeModifImportante = '07/04/2026'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const amcReady = true
@@ -19,14 +19,24 @@ export const amcType = 'AMCOpen'
 /**
  * Additionner deux entiers relatifs dans un tableau à double entrée
  * @author Rémi Angot
- * Passage en interactif, changement total du code pour les tableaux et amélioration de la consigne par Eric Elter le 07/06/2025
+ * Passage en interactif, changement total du code pour les tableaux et amélioration de la consigne par Éric Elter le 07/06/2025
+ * Rajout du barème plus adapté par Éric Elter le 07/04/2026
  */
-export const uuid = '41254'
+export const uuid = '4125e'
 
 export const refs = {
   'fr-fr': ['5R20-5'],
   'fr-ch': ['9NO9-10'],
 }
+
+type Cellule = {
+  value: number
+  options?: {
+    nombreDecimalSeulement?: boolean
+  }
+}
+type Bareme = (l: number[]) => [number, number]
+
 export default class ExerciceTableauAdditionsRelatifs extends Exercice {
   constructor() {
     super()
@@ -58,7 +68,16 @@ export default class ExerciceTableauAdditionsRelatifs extends Exercice {
     }
 
     const contenu = Array(16).fill('')
-    const objetReponse1: { [key: string]: { value: number } } = {}
+    const objetReponse1: { [key: string]: Cellule } & { bareme?: Bareme } = {}
+    const sommeDiviseePar2: (l: number[]) => [number, number] = (
+      listePoints,
+    ) => {
+      const somme = listePoints.reduce((acc, val) => acc + val, 0)
+      const resultat = Math.ceil(somme / 2)
+      return [resultat, 8]
+    }
+
+    objetReponse1.bareme = sommeDiviseePar2
 
     const contenuCorr = []
     for (let i = 0; i < 4; i++) {
@@ -83,10 +102,11 @@ export default class ExerciceTableauAdditionsRelatifs extends Exercice {
         ligneEnt,
         contenu,
       ),
-      '',
+      'clavierDeBase', // type de clavier
       true,
       {},
     )
+
     const texte = this.interactif ? tableauInteractif.output : tableau
     handleAnswers(this, 0, objetReponse1, { formatInteractif: 'mathlive' })
 

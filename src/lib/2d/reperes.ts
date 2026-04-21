@@ -4,7 +4,7 @@ import { stringNombre } from '../outils/texNombre'
 import { fixeBordures } from './fixeBordures'
 import { ObjetMathalea2D } from './ObjetMathalea2D'
 import { Plot, plot } from './Plot'
-import { point } from './PointAbstrait'
+import { pointAbstrait } from './PointAbstrait'
 import { segment } from './segmentsVecteurs'
 import { latex2d, texteParPosition } from './textes'
 
@@ -21,7 +21,7 @@ import { latex2d, texteParPosition } from './textes'
  * @param {number?} opacite=1
  * @param {number?} opaciteDeRemplissage=1
  * @constructor
- * @author Jean-Claude Lhote
+ * @author Jean-claude Lhote
  */
 export class PapierPointe extends ObjetMathalea2D {
   plots: Plot[]
@@ -984,7 +984,7 @@ export class Repere extends ObjetMathalea2D {
           0,
           'black',
           1,
-          'droite',
+          'gauche',
         ),
       )
     }
@@ -997,7 +997,7 @@ export class Repere extends ObjetMathalea2D {
           0,
           'black',
           1,
-          'droite',
+          'gauche',
         ),
       )
     }
@@ -1325,5 +1325,5 @@ export function pointDansRepere(
   y: number,
   repere = { xUnite: 1, yUnite: 1 },
 ) {
-  return point(x * repere.xUnite, y * repere.yUnite)
+  return pointAbstrait(x * repere.xUnite, y * repere.yUnite)
 }

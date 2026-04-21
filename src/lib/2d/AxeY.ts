@@ -1,7 +1,7 @@
 import { stringNombre } from '../outils/texNombre'
 import { fixeBordures } from './fixeBordures'
 import { ObjetMathalea2D } from './ObjetMathalea2D'
-import { point } from './PointAbstrait'
+import { pointAbstrait } from './PointAbstrait'
 import { segment } from './segmentsVecteurs'
 import { texteParPoint } from './textes'
 
@@ -12,7 +12,7 @@ import { texteParPoint } from './textes'
  * @param {number} [thick=0.2] Largeur des tirets de chaque graduation principale
  * @param {number} [ystep=1] Pas sur l'axe des ordonnées
  * @param {number} [epaisseur=2] Epaisseur des deux axes
- * @param {string} [color='black'] Couleur du codage : du type 'blue' ou du type '#f15929'.
+ * @param {string} [color='black'] Couleur du codage : du type 'red', bleuMathalea ou du type '#a12345'.
  * @param {number} [ytick=2] Nombre de partage entre deux graduations principales
  * @param {string} [titre=''] Titre de l'axe
  * @property {string} svg Sortie au format vectoriel (SVG) que l’on peut afficher dans un navigateur
@@ -40,7 +40,7 @@ export class AxeY extends ObjetMathalea2D {
       this.objets.push(
         texteParPoint(
           titre,
-          point(-1 - thick - 0.1, ymax),
+          pointAbstrait(-1 - thick - 0.1, ymax),
           0,
           color,
           1,
@@ -102,7 +102,7 @@ export class AxeY extends ObjetMathalea2D {
  * @param {number} [thick=0.2] Largeur des tirets de chaque graduation principale
  * @param {number} [ystep=1] Pas sur l'axe des ordonnées
  * @param {number} [epaisseur=2] Epaisseur des deux axes
- * @param {string} [color='black'] Couleur du codage : du type 'blue' ou du type '#f15929'.
+ * @param {string} [color='black'] Couleur du codage : du type 'red', bleuMathalea ou du type '#a12345'.
  * @param {number} [ytick=2] Nombre de partage entre deux graduations principales
  * @param {string} [titre=''] Titre de l'axe
  * @example axeY()
@@ -131,7 +131,7 @@ export function axeY(
  * @param  {number} [ymin = 1] Ordonnée minimale sur l'axe
  * @param  {number} [ymax = 20] Ordonnée maximale sur l'axe
  * @param  {number} [step = 1] Pas entre chaque label
- * @param {string} [color = 'black'] Couleur des labels : du type 'blue' ou du type '#f15929'
+ * @param {string} [color = 'black'] Couleur des labels : du type 'red', bleuMathalea ou du type '#a12345'
  * @param  {number} [pos = -0.6] Décalage entre les labels et l'axe vertical
  * @param  {number} [coeff = 1] Coefficient multiplicatif sur chaque label
  * @property {string} svg Sortie au format vectoriel (SVG) que l’on peut afficher dans un navigateur
@@ -156,7 +156,7 @@ export class LabelY extends ObjetMathalea2D {
       this.objets.push(
         texteParPoint(
           stringNombre(y * coeff, 3),
-          point(pos, y),
+          pointAbstrait(pos, y),
           0,
           color,
           1,
@@ -196,7 +196,7 @@ export class LabelY extends ObjetMathalea2D {
  * @param  {number} [ymin = 1] Ordonnée minimale sur l'axe
  * @param  {number} [ymax = 20] Ordonnée maximale sur l'axe
  * @param  {number} [step = 1] Pas entre chaque label
- * @param {string} [color = 'black'] Couleur des labels : du type 'blue' ou du type '#f15929'
+ * @param {string} [color = 'black'] Couleur des labels : du type 'red', bleuMathalea ou du type '#a12345'
  * @param  {number} [pos = -0.6] Décalage entre les labels et l'axe vertical
  * @param  {number} [coeff = 1] Coefficient multiplicatif sur chaque label
  * @example labelY()

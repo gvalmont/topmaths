@@ -1,6 +1,6 @@
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
-import { remplisLesBlancs } from '../../lib/interactif/questionMathLive'
+import { addMultiMathfield } from '../../lib/interactif/MultiMathfield/MultiMathfield'
 import {
   choice,
   combinaisonListes,
@@ -16,14 +16,15 @@ import Exercice from '../Exercice'
 export const titre =
   'Ordonner une liste de nombres écrits sous forme de fractions ou de nombres mixtes'
 export const interactifReady = true
-export const interactifType = 'mathLive'
+export const interactifType = 'multiMathField'
 export const dateDePublication = '21/07/2025'
+export const dateDeModificationImportante = '02/04/2026'
 
 /** Ordonner une liste de nombres écrits sous forme de fractions ou de nombres mixtes
- * @author Eric Elter
+ * @author Éric Elter
  */
 
-export const uuid = '98293'
+export const uuid = '98294'
 
 export const refs = {
   'fr-fr': ['6N3J'],
@@ -40,7 +41,7 @@ export const refs = {
  *
  * @param {number[]} T1 - Tableau de nombres utilisé pour déterminer l'ordre.
  * @param {string[]} T2 - Tableau de chaînes à réorganiser selon le tri de T1.
- * @returns {string[]} Un nouveau tableau `T2` trié selon l'ordre croissant de `T1`.
+ * @returns {string[]} Un nouveau tableau `T2` trié selon l'ordre croissant de `T1`. // Modif le 02/04/2026 : ajout de la variable ordre pour pouvoir trier dans les deux sens
  * @throws {Error} Si `T1` et `T2` n'ont pas la même longueur.
  *
  * @example
@@ -86,7 +87,7 @@ export default class ComparerFractionsNombresMixtes extends Exercice {
       listeTypeDeQuestions,
       this.nbQuestions,
     )
-    let listeTypeDeSignes = this.sup === 3 ? [1, 2] : [this.sup2]
+    let listeTypeDeSignes = this.sup2 === 3 ? [1, 2] : [this.sup2]
     listeTypeDeSignes = combinaisonListes(listeTypeDeSignes, this.nbQuestions)
 
     for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50; ) {
@@ -151,51 +152,71 @@ export default class ComparerFractionsNombresMixtes extends Exercice {
         texte = texte.slice(0, -1)
         texte += '<br>'
 
-        texte += remplisLesBlancs(
-          this,
-          i,
-          `%{champ1}${symbole}%{champ2}${symbole}%{champ3}${symbole}%{champ4}${symbole}%{champ5}`,
-          ` ${KeyboardType.clavierDeBaseAvecFraction}`,
-          '\\ldots\\ldots',
-        )
+        texte += addMultiMathfield(this, i, {
+          dataTemplate: `%{champ1}$${symbole}$%{champ2}$${symbole}$%{champ3}$${symbole}$%{champ4}$${symbole}$%{champ5}`,
+          dataOptions: {
+            champ1: {
+              keyboard: KeyboardType.clavierDeBaseAvecFraction,
+              minWidth: 50,
+            },
+            champ2: {
+              keyboard: KeyboardType.clavierDeBaseAvecFraction,
+              minWidth: 50,
+            },
+            champ3: {
+              keyboard: KeyboardType.clavierDeBaseAvecFraction,
+              minWidth: 50,
+            },
+            champ4: {
+              keyboard: KeyboardType.clavierDeBaseAvecFraction,
+              minWidth: 50,
+            },
+            champ5: {
+              keyboard: KeyboardType.clavierDeBaseAvecFraction,
+              minWidth: 50,
+            },
+          },
+        })
 
         const fractionsTrieesFinales = sortByT1Order(
           TableauDeNombres,
           TableauAComparer,
         )
 
-        handleAnswers(this, i, {
-          bareme: (listePoints) => [
-            Math.ceil(
-              (listePoints[0] +
-                listePoints[1] +
-                listePoints[2] +
-                listePoints[3] +
-                listePoints[4]) /
-                2,
-            ),
-            3,
-          ],
-          champ1: {
-            value: fractionsTrieesFinales[4 * (listeTypeDeSignes[i] - 1)],
+        const indiceBase0 = listeTypeDeSignes[i] - 1
+        handleAnswers(
+          this,
+          i,
+          {
+            bareme: (listePoints) => [
+              Math.ceil(
+                (listePoints[0] +
+                  listePoints[1] +
+                  listePoints[2] +
+                  listePoints[3] +
+                  listePoints[4]) /
+                  2,
+              ),
+              3,
+            ],
+            champ1: {
+              value: fractionsTrieesFinales[4 * indiceBase0],
+            },
+            champ2: {
+              value: fractionsTrieesFinales[abs(4 * indiceBase0 - 1)],
+            },
+            champ3: {
+              value: fractionsTrieesFinales[abs(4 * indiceBase0 - 2)],
+            },
+            champ4: {
+              value: fractionsTrieesFinales[abs(4 * indiceBase0 - 3)],
+            },
+            champ5: {
+              value: fractionsTrieesFinales[abs(4 * indiceBase0 - 4)],
+            },
           },
-          champ2: {
-            value:
-              fractionsTrieesFinales[abs(4 * (listeTypeDeSignes[i] - 1) - 1)],
-          },
-          champ3: {
-            value:
-              fractionsTrieesFinales[abs(4 * (listeTypeDeSignes[i] - 1) - 2)],
-          },
-          champ4: {
-            value:
-              fractionsTrieesFinales[abs(4 * (listeTypeDeSignes[i] - 1) - 3)],
-          },
-          champ5: {
-            value:
-              fractionsTrieesFinales[abs(4 * (listeTypeDeSignes[i] - 1) - 4)],
-          },
-        })
+          { formatInteractif: 'multiMathfield' },
+        )
 
         let texteCorr = ''
         const sens = listeTypeDeQuestions[i] === 1 ? 1 : -1

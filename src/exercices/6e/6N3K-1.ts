@@ -10,6 +10,7 @@ import {
 } from '../../modules/outils'
 import Exercice from '../Exercice'
 
+import { orangeMathalea } from '../../lib/colors'
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 import { setReponse } from '../../lib/interactif/gestionInteractif'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
@@ -26,7 +27,7 @@ export const dateDeModifImportante = '07/03/2023' // Une date de modification im
 
 /**
  * Calculs avec des fractions que l'on peut faire à partir de schémas
- * @author Rémi Angot (Modifié par Eric Elter : rajout d'un paramètre)
+ * @author Rémi Angot (Modifié par Éric Elter : rajout d'un paramètre)
  */
 export const uuid = 'c75b6'
 
@@ -191,7 +192,7 @@ export default class FractionsCalculsSimples extends Exercice {
               liste2: rangeMinMax(1, n * b),
               hachures1: true,
               liste1: rangeMinMax(n * b - a + 1, n * b),
-              couleur2: context.isHtml ? '#f15929' : 'gray',
+              couleur2: context.isHtml ? orangeMathalea : 'gray',
             },
           )
           schema = fractionCliquable(0, 0, 4, b, { couleur: 'none' })

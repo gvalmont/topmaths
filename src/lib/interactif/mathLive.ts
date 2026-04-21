@@ -123,10 +123,13 @@ export function verifQuestionMathLive(
               el.id === `champTexteEx${exercice.numeroExercice}Q${i}${key}`,
           ) as MathfieldElement
           let result
-          const spanFedback = table.querySelector(
-            `span#resultatCheckEx${exercice.numeroExercice}Q${i}${key}`,
-          )
-          if (input == null || input.value === '') {
+          const shadow = input.shadowRoot
+          const spanFeedback = document.createElement('span')
+          spanFeedback.id = `resultatCheckEx${exercice.numeroExercice}Q${i}${key}`
+          const content = shadow!.querySelector('span.ML__content')
+          content!.appendChild(spanFeedback)
+
+          if (input.value === '') {
             result = {
               isOk: false,
               feedback: noFeedback
@@ -151,11 +154,11 @@ export function verifQuestionMathLive(
           // On ne nettoie plus les input et les réponses, c'est la fonction de comparaison qui doit s'en charger !
           if (result.isOk) {
             points.push(1)
-            if (spanFedback != null) spanFedback.innerHTML = '😎'
+            if (spanFeedback != null) spanFeedback.innerHTML = '😎'
           } else {
             points.push(0)
             resultat = 'KO'
-            if (spanFedback != null) spanFedback.innerHTML = '☹️'
+            if (spanFeedback != null) spanFeedback.innerHTML = '☹️'
           }
           if (input.value.length > 0 && typeof exercice.answers === 'object') {
             exercice.answers[`Ex${exercice.numeroExercice}Q${i}${key}`] =
@@ -164,7 +167,7 @@ export function verifQuestionMathLive(
         }
         const [nbBonnesReponses, nbReponses] = bareme(points)
         return {
-          isOk: resultat,
+          isOk: resultat === 'OK',
           feedback: '',
           score: { nbBonnesReponses, nbReponses },
         }
@@ -213,6 +216,9 @@ export function verifQuestionMathLive(
               let ii = 0
               while (!result?.isOk && ii < reponse.value.length) {
                 result = compareFunction(saisie, reponse.value[ii], options)
+                if (result.feedback) {
+                  feedback = result.feedback
+                }
                 ii++
               }
             } else {
@@ -232,11 +238,13 @@ export function verifQuestionMathLive(
                 variables.length > 1
                   ? ` Champ ${key.charAt(key.length - 1)} : `
                   : ''
+              result.feedback = feedback
+              feedback = ''
               if (!result.feedback) {
                 // On n'écrase le feedback que s'il n'y en a pas déjà un spécifique
                 result = {
                   isOk: false,
-                  feedback: `${fieldNumber}le résultat est incorrect.<br>`,
+                  feedback: `${fieldNumber}Le résultat est incorrect.<br>`,
                 }
               } else {
                 // On ajoute le numéro du champ avant le feedback existant

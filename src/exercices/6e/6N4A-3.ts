@@ -5,7 +5,8 @@ import { polyline } from '../../lib/2d/Polyline'
 import { latex2d } from '../../lib/2d/textes'
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
-import { remplisLesBlancs } from '../../lib/interactif/questionMathLive'
+import { toutAUnPoint } from '../../lib/interactif/mathLive'
+import { addMultiMathfield } from '../../lib/interactif/MultiMathfield/MultiMathfield'
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
 import { rienSi1 } from '../../lib/outils/ecritures'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
@@ -21,14 +22,14 @@ import Exercice from '../Exercice'
 
 export const titre = 'Résoudre des problèmes algébriques avec des balances'
 export const interactifReady = true
-export const interactifType = 'mathLive'
+export const interactifType = 'multiMathfield'
 
 export const dateDePublication = '3/06/2025'
 
 /**
- * @author Jean-Claude Lhote
+ * @author Jean-claude Lhote
  */
-export const uuid = '5c5a2'
+export const uuid = '5c5a3'
 
 export const refs = {
   'fr-fr': ['6N4A-3'],
@@ -95,7 +96,7 @@ export default class ResoudreDesProblemes extends Exercice {
     this.spacingCorr = 2
     this.besoinFormulaireTexte = [
       'Niveaux de difficultés',
-      'Nombres séparés par des tirets\n1: Soustraction\n2 : soustraction puis division\n3 multiplication puis soustraction\n4 : multiplication, soustraction puis division\n5 : Mélange',
+      'Nombres séparés par des tirets\n1: Soustraction\n2 : Soustraction puis division\n3 : Multiplication puis soustraction\n4 : Multiplication, soustraction puis division\n5 : Mélange',
     ]
     this.sup = '5'
     this.besoinFormulaire2CaseACocher = ['Masse décimale (unité kg)', false]
@@ -248,24 +249,32 @@ export default class ResoudreDesProblemes extends Exercice {
         ),
         [shape2.shapeDef, shape2.shape2D],
       )
-      texte += '<br><br>'
-      texte += remplisLesBlancs(
+      // texte += '<br><br>'
+      texte += addMultiMathfield(this, i, {
+        dataTemplate: `Quelle est la masse  d'${shape1.articleSingulier} ${shape1.nomSingulier} ? %{champ1}<br>
+        Quelle est la masse d'${shape2.articleSingulier} ${shape2.nomSingulier} ? %{champ2}`,
+        dataOptions: {
+          champ1: { keyboard: KeyboardType.masse },
+          champ2: { keyboard: KeyboardType.masse },
+        },
+      }).replaceAll(': $\\ldots\\ldots$', '')
+
+      handleAnswers(
         this,
         i,
-        `\\text{Quelle est la masse  d'${shape1.articleSingulier} ${shape1.nomSingulier} : }~%{champ1}~\\text{et celle d'${shape2.articleSingulier} ${shape2.nomSingulier} : }~%{champ2}\\text{ ?}`,
-        KeyboardType.masse,
+        {
+          bareme: toutAUnPoint,
+          champ1: {
+            value: `${stringNombre(p1, 3)}${this.sup2 ? ' kg' : ' g'}`,
+            options: { unite: true },
+          },
+          champ2: {
+            value: `${stringNombre(p2, 3)}${this.sup2 ? ' kg' : ' g'}`,
+            options: { unite: true },
+          },
+        },
+        { formatInteractif: 'multiMathfield' },
       )
-
-      handleAnswers(this, i, {
-        champ1: {
-          value: `${stringNombre(p1, 3)}${this.sup2 ? ' kg' : ' g'}`,
-          options: { unite: true },
-        },
-        champ2: {
-          value: `${stringNombre(p2, 3)}${this.sup2 ? ' kg' : ' g'}`,
-          options: { unite: true },
-        },
-      })
 
       switch (niveaux[i]) {
         case 1: // élimination directe d'un des deux fruits par soustraction

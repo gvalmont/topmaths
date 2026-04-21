@@ -12,13 +12,13 @@ import { pointSurSegment } from './utilitairesPoint'
  * @param {PointAbstrait} A Point sur un côté de l'angle
  * @param {PointAbstrait} O Sommet de l'angle
  * @param {PointAbstrait} B Point sur l'autre côté de l'angle
- * @param {string} [color = 'black'] Couleur de la bissectrice : du type 'blue' ou du type '#f15929'
+ * @param {string} [color = 'black'] Couleur de la bissectrice : du type 'red', bleuMathalea ou du type '#a12345'
  * @param {string} [mark = 'x'] Symbole posé sur les arcs
  * @property {string} color Couleur de la bissectrice. À associer obligatoirement à colorToLatexOrHTML().
  * @property {string} mark Symbole posé sur les arcs
  * @property {PointAbstrait} centre Sommet de l'angle
  * @property {PointAbstrait} depart Point sur un côté de l'angle (équivalent au point A)
- * @author Jean-Claude Lhote
+ * @author Jean-claude Lhote
  * @class
  */
 // JSDOC Validee par EE Juin 2022
@@ -71,11 +71,11 @@ export class CodageBissectrice extends ObjetMathalea2D {
  * @param {PointAbstrait} A Point sur un côté de l'angle
  * @param {PointAbstrait} O Sommet de l'angle
  * @param {PointAbstrait} B Point sur l'autre côté de l'angle
- * @param {string} [color = 'black'] Couleur de la bissectrice : du type 'blue' ou du type '#f15929'
+ * @param {string} [color = 'black'] Couleur de la bissectrice : du type 'red', bleuMathalea ou du type '#a12345'
  * @param {string} [mark='x'] Symbole posé sur les arcs
  * @example codagebissectrice(M,N,P) // Code, en noir, la bissectrice de l'angle MNP avec les marques 'x'
  * @example codagebissectrice(M,N,P,'red','oo') // Code, en rouge, la bissectrice de l'angle MNP avec les marques 'oo'
- * @author Jean-Claude Lhote
+ * @author Jean-claude Lhote
  * @return {CodageBissectrice}
  */
 // JSDOC Validee par EE Juin 2022

@@ -1,6 +1,6 @@
 import { droite } from '../../lib/2d/droites'
 import { grille, seyes } from '../../lib/2d/Grille'
-import { point } from '../../lib/2d/PointAbstrait'
+import { pointAbstrait } from '../../lib/2d/PointAbstrait'
 import { labelPoint } from '../../lib/2d/textes'
 import { tracePoint } from '../../lib/2d/TracePoint'
 import { pointSurDroite } from '../../lib/2d/utilitairesPoint'
@@ -14,6 +14,7 @@ import { context } from '../../modules/context'
 import { mathalea2d } from '../../modules/mathalea2d'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import Exercice from '../Exercice'
+import { bleuMathalea } from '../../lib/colors'
 export const titre = 'Appartenir ou ne pas appartenir'
 export const dateDePublication = '05/10/2022'
 export const dateDeModifImportante = '4/10/2023'
@@ -60,14 +61,14 @@ export default class constructionElementaire extends Exercice {
       const objetsCorrection = []
       const propositionsAMC = []
       const indLettre = randint(1, 15)
-      const A = point(0, 0, lettreDepuisChiffre(indLettre), 'above left')
-      const B = point(
+      const A = pointAbstrait(0, 0, lettreDepuisChiffre(indLettre), 'above left')
+      const B = pointAbstrait(
         randint(10, 11),
         randint(-4, 4, [-1, 0, 1]),
         lettreDepuisChiffre(indLettre + 1),
         'above right',
       )
-      const d = droite(A, B, '', 'blue')
+      const d = droite(A, B, '', bleuMathalea)
       const AA = pointSurDroite(
         d,
         randint(1, 2),
@@ -92,13 +93,13 @@ export default class constructionElementaire extends Exercice {
         lettreDepuisChiffre(indLettre + 9),
         'below',
       )
-      const C = point(
+      const C = pointAbstrait(
         randint(2, 4, [A.x]),
         randint(3, 6, [A.y]),
         lettreDepuisChiffre(indLettre + 2),
         'above left',
       )
-      const D = point(
+      const D = pointAbstrait(
         randint(6, 8),
         randint(-7, -6, [A.y]),
         lettreDepuisChiffre(indLettre + 3),

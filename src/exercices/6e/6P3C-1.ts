@@ -1,11 +1,13 @@
-import { orangeMathalea } from 'apigeom/src/elements/defaultValues'
 import { fixeBordures } from '../../lib/2d/fixeBordures'
 import { pointAbstrait } from '../../lib/2d/PointAbstrait'
 import { tableau } from '../../lib/2d/tableau'
+import { orangeMathalea } from '../../lib/colors'
+import { createList } from '../../lib/format/lists'
 import { texPrix } from '../../lib/format/style'
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
-import { setReponse } from '../../lib/interactif/gestionInteractif'
-import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
+import { handleAnswers } from '../../lib/interactif/gestionInteractif'
+import { toutAUnPoint } from '../../lib/interactif/mathLive'
+import { addMultiMathfield } from '../../lib/interactif/MultiMathfield/MultiMathfield'
 import {
   choice,
   combinaisonListes,
@@ -32,17 +34,17 @@ import Exercice from '../Exercice'
 export const titre =
   'Résoudre un problème relevant de la proportionnalité avec les propriétés de linéarité'
 export const interactifReady = true
-export const interactifType = 'mathLive'
+export const interactifType = 'multiMathfield'
 export const amcReady = true
 export const amcType = 'AMCHybride'
 export const dateDeModifImportante = '06/04/2024'
 
 /**
  * Résoudre un problème relevant de la proportionnalité avec les propriétés de linéarité
- * @author Sébastien Lozano (et Eric Elter pour divers enrichissements)
+ * @author Sébastien Lozano (et Éric Elter pour divers enrichissements)
  */
 
-export const uuid = 'c511f'
+export const uuid = 'd511f'
 
 export const refs = {
   'fr-fr': ['6P3C-1', 'BP2AutoL6'],
@@ -141,10 +143,11 @@ export default class ProportionnaliteParLineariteBis extends Exercice {
       shuffle2tableaux(consigneQuestions, prenomlisteEE)
 
       texte = `${situation.lieu}, ${prenomliste[0]} achète $${n1}$ ${pluriel(n1, situation)} et paie $${texPrix(n1 * situation.pu)}$${sp()}€.
-      <br>${prenomliste[1]} achète $${n2}$ ${pluriel(n2, situation)} et paie $${texPrix(n2 * situation.pu)}$${sp()}€.`
-      const enonceQ1 = `<br>${numAlpha(k++)} Combien paiera ${prenomlisteEE[0]} pour $${consigneQuestions[k - 1]}$ ${pluriel(consigneQuestions[k - 1], situation)} ? ${ajouteChampTexteMathLive(this, 4 * i, KeyboardType.clavierNumbers, { texteApres: sp(2) + '€' })}`
-      let enonceAMC = texte + '<br>' + enonceQ1
-      texte += enonceQ1
+      ${prenomliste[1]} achète $${n2}$ ${pluriel(n2, situation)} et paie $${texPrix(n2 * situation.pu)}$${sp()}€.<br>`
+      const q1 = `${String.fromCharCode(97 + k)}) Combien paiera ${prenomlisteEE[0]} pour $${consigneQuestions[k]}$ ${pluriel(consigneQuestions[k], situation)} ?`
+      const enonceQ1 = q1 + ` %{champ${k + 1}}\n`
+      k++
+      let enonceAMC = texte + '<br>' + q1
       const propositionsAMC = [
         {
           type: 'AMCNum',
@@ -170,8 +173,9 @@ export default class ProportionnaliteParLineariteBis extends Exercice {
           ],
         },
       ]
-      enonceAMC = `${numAlpha(k++)} Combien paiera ${prenomlisteEE[1]} pour $${consigneQuestions[k - 1]}$ ${pluriel(consigneQuestions[k - 1], situation)} ? ${ajouteChampTexteMathLive(this, 4 * i + 1, KeyboardType.clavierNumbers, { texteApres: sp(2) + '€' })}`
-      texte += '<br>' + enonceAMC
+      enonceAMC = `${numAlpha(k)} Combien paiera ${prenomlisteEE[1]} pour $${consigneQuestions[k]}$ ${pluriel(consigneQuestions[k], situation)} ?`
+      const enonceQ2 = `${String.fromCharCode(97 + k)}) Combien paiera ${prenomlisteEE[1]} pour $${consigneQuestions[k]}$ ${pluriel(consigneQuestions[k], situation)} ? %{champ${k + 1}}\n`
+      k++
       propositionsAMC.push({
         type: 'AMCNum',
         propositions: [
@@ -195,8 +199,9 @@ export default class ProportionnaliteParLineariteBis extends Exercice {
           },
         ],
       })
-      enonceAMC = `${numAlpha(k++)} Combien paiera ${prenomlisteEE[2]} pour $${consigneQuestions[k - 1]}$ ${pluriel(consigneQuestions[k - 1], situation)} ? ${ajouteChampTexteMathLive(this, 4 * i + 2, KeyboardType.clavierNumbers, { texteApres: sp(2) + '€' })}`
-      texte += '<br>' + enonceAMC
+      enonceAMC = `${numAlpha(k)} Combien paiera ${prenomlisteEE[2]} pour $${consigneQuestions[k]}$ ${pluriel(consigneQuestions[k], situation)} ? `
+      const enonceQ3 = `${String.fromCharCode(97 + k)}) Combien paiera ${prenomlisteEE[2]} pour $${consigneQuestions[k]}$ ${pluriel(consigneQuestions[k], situation)} ? %{champ${k + 1}}\n`
+      k++
       propositionsAMC.push({
         type: 'AMCNum',
         propositions: [
@@ -220,8 +225,10 @@ export default class ProportionnaliteParLineariteBis extends Exercice {
           },
         ],
       })
-      enonceAMC = `${numAlpha(k++)} Quel est le nombre maximum de ${situation.achat_plur} que ${prenomliste[5]} peut acheter avec $${texPrix(nMax * situation.pu)}$${sp()}€ ? ${ajouteChampTexteMathLive(this, 4 * i + 3, KeyboardType.clavierNumbers, { texteApres: sp(2) + situation.achat_plur })}`
-      texte += '<br>' + enonceAMC
+      enonceAMC = `${numAlpha(k)} Quel est le nombre maximum de ${situation.achat_plur} que ${prenomliste[5]} peut acheter avec $${texPrix(nMax * situation.pu)}$${sp()}€ ? `
+
+      const enonceQ4 = `${String.fromCharCode(97 + k)}) Quel est le nombre maximum de ${situation.achat_plur} que ${prenomliste[5]} peut acheter avec $${texPrix(nMax * situation.pu)}$${sp()}€ ? %{champ${k + 1}} ${situation.achat_plur}\n`
+      k++
       propositionsAMC.push({
         type: 'AMCNum',
         propositions: [
@@ -246,45 +253,55 @@ export default class ProportionnaliteParLineariteBis extends Exercice {
         C'est une situation de proportionnalité. Nous pouvons donc utiliser les propriétés de linéarité de la proportionnalité.
         <br>C'est ce que nous allons faire pour les trois premières questions.
         <br>`
-
-        const texteCorrInit = `
-        Pour $${n1}$ ${pluriel(n1, situation)}, on paie $${texPrix(n1 * situation.pu)}$${sp()}€.
-        <br> Pour $${n2}$ ${pluriel(n2, situation)}, on paie $${texPrix(n2 * situation.pu)}$${sp()}€.`
+        const listeCorr: string[] = []
+        texteCorr += createList({
+          items: [
+            ` Pour $${n1}$ ${pluriel(n1, situation)}, on paie $${texPrix(n1 * situation.pu)}$${sp()}€.`,
+            `Pour $${n2}$ ${pluriel(n2, situation)}, on paie $${texPrix(n2 * situation.pu)}$${sp()}€.`,
+          ],
+          style: 'fleches',
+        })
         const texteCorrn3 = `
-        <br> Donc pour $${n1}$ ${pluriel(n3, situation)} $+$ $${n2}$ ${pluriel(n3, situation)}, on paie $${texPrix(n1 * situation.pu)}$${sp()}€ + $${texPrix(n2 * situation.pu)}$${sp()}€.
-        <br> $${texPrix(n1 * situation.pu)}$${sp()}€ + $${texPrix(n2 * situation.pu)}$${sp()}€ = $${texPrix(n3 * situation.pu)}$${sp()}€
-        <br> ${prenomliste[2]} paiera donc $${miseEnEvidence(texPrix(n3 * situation.pu))}$${sp()}€ pour $${n3}$ ${pluriel(n3, situation)}.
-        <br>`
+        Donc pour $${n1}$ ${pluriel(n3, situation)} $+$ $${n2}$ ${pluriel(n3, situation)}, on paie $${texPrix(n1 * situation.pu)}$${sp()}€ + $${texPrix(n2 * situation.pu)}$${sp()}€.<br>
+        $${texPrix(n1 * situation.pu)}$${sp()}€ + $${texPrix(n2 * situation.pu)}$${sp()}€ = $${texPrix(n3 * situation.pu)}$${sp()}€<br>
+        ${prenomliste[2]} paiera donc $${miseEnEvidence(texPrix(n3 * situation.pu))}$${sp()}€ pour $${n3}$ ${pluriel(n3, situation)}.
+        `
         const texteCorrn4 = `
-        <br> Donc pour $${n1}$ ${pluriel(n3, situation)} $-$ $${n2}$ ${pluriel(n4, situation)}, on paie $${texPrix(n1 * situation.pu)}$${sp()}€ - $${texPrix(n2 * situation.pu)}$${sp()}€.
-        <br> $${texPrix(n1 * situation.pu)}$${sp()}€ - $${texPrix(n2 * situation.pu)}$${sp()}€ = $${texPrix(n4 * situation.pu)}$${sp()}€
-        <br> ${prenomliste[3]} paiera donc $${miseEnEvidence(texPrix(n4 * situation.pu))}$${sp()}€ pour $${n4}$ ${pluriel(n4, situation)}.
-        <br>`
+        Donc pour $${n1}$ ${pluriel(n3, situation)} $-$ $${n2}$ ${pluriel(n4, situation)}, on paie $${texPrix(n1 * situation.pu)}$${sp()}€ - $${texPrix(n2 * situation.pu)}$${sp()}€.<br>
+        $${texPrix(n1 * situation.pu)}$${sp()}€ - $${texPrix(n2 * situation.pu)}$${sp()}€ = $${texPrix(n4 * situation.pu)}$${sp()}€<br>
+        ${prenomliste[3]} paiera donc $${miseEnEvidence(texPrix(n4 * situation.pu))}$${sp()}€ pour $${n4}$ ${pluriel(n4, situation)}.
+        `
         const texteCorrn5 = `
-        <br> Donc pour $${choixMult}\\times${choixN}$ ${pluriel(n5, situation)}, on paie $${choixMult}\\times${texPrix(choixN * situation.pu)}$${sp()}€.
-        <br> $${choixMult}\\times${texPrix(choixN * situation.pu)}$${sp()}€ = $${texPrix(n5 * situation.pu)}$${sp()}€
-        <br> ${prenomliste[4]} paiera donc $${miseEnEvidence(texPrix(n5 * situation.pu))}$${sp()}€ pour $${n5}$ ${pluriel(n5, situation)}.
-        <br>`
+        Donc pour $${choixMult}\\times${choixN}$ ${pluriel(n5, situation)}, on paie $${choixMult}\\times${texPrix(choixN * situation.pu)}$${sp()}€.<br>
+        $${choixMult}\\times${texPrix(choixN * situation.pu)}$${sp()}€ = $${texPrix(n5 * situation.pu)}$${sp()}€<br>
+        ${prenomliste[4]} paiera donc $${miseEnEvidence(texPrix(n5 * situation.pu))}$${sp()}€ pour $${n5}$ ${pluriel(n5, situation)}.
+        `
         for (let kk = 0; kk < 3; kk++) {
-          texteCorr += `<br>${numAlpha(kCorr++)} ` + texteCorrInit
           switch (consigneQuestions[kk]) {
             case n3:
-              texteCorr += texteCorrn3
+              listeCorr.push(texteCorrn3)
               break
             case n4:
-              texteCorr += texteCorrn4
+              listeCorr.push(texteCorrn4)
               break
             case n5:
-              texteCorr += texteCorrn5
+              listeCorr.push(texteCorrn5)
               break
           }
         }
-        texteCorr += `<br>
-        ${numAlpha(kCorr++)} On peut utiliser l'une ou l'autre des informations de l'énoncé pour répondre en revenant à l'unité.
-        <br> Par exemple, pour $${n1}$ ${pluriel(n1, situation)}, on paie $${texPrix(n1 * situation.pu)}$${sp()}€.
-        <br> Donc $1$ ${situation.achat_sing} coûte $${texPrix(n1 * situation.pu)}$${sp()}€ $\\div ${n1} = ${texPrix(situation.pu)}$${sp()}€.
-        <br> Pour $${texPrix(nMax * situation.pu)}$${sp()}€, nous aurons donc $${texPrix(nMax * situation.pu)}$ ${sp()}€ $\\div ${texPrix(situation.pu)}$${sp()}€ $= ${nMax}$.
-        <br> Avec $${texPrix(nMax * situation.pu)}$${sp()}€, ${prenomliste[5]} peut donc acheter $${miseEnEvidence(nMax)}$ ${pluriel(nMax, situation)}.`
+        listeCorr.push(
+          `Avec $${texPrix(nMax * situation.pu)}$${sp()}€, ${prenomliste[5]} peut donc acheter $${miseEnEvidence(nMax)}$ ${pluriel(nMax, situation)}.`,
+        )
+        texteCorr += createList({
+          items: listeCorr,
+          style: 'alpha',
+        })
+        texteCorr += `
+        On peut utiliser l'une ou l'autre des informations de l'énoncé pour répondre en revenant à l'unité.<br>
+        Par exemple, pour $${n1}$ ${pluriel(n1, situation)}, on paie $${texPrix(n1 * situation.pu)}$${sp()}€.<br>
+        Donc $1$ ${situation.achat_sing} coûte $${texPrix(n1 * situation.pu)} \\div ${n1} = ${texPrix(situation.pu)}$${sp()}€.<br>
+        Pour $${texPrix(nMax * situation.pu)}$${sp()}€, nous aurons donc $${texPrix(nMax * situation.pu)}$ ${sp()}€ $\\div ${texPrix(situation.pu)}$${sp()}€ $= ${nMax}$.<br>
+        Avec $${texPrix(nMax * situation.pu)}$${sp()}€, ${prenomliste[5]} peut donc acheter $${miseEnEvidence(nMax)}$ ${pluriel(nMax, situation)}.`
       } else {
         texteCorr = `
       C'est une situation de proportionnalité. Nous pouvons donc utiliser les propriétés de linéarité de la proportionnalité.
@@ -403,31 +420,43 @@ export default class ProportionnaliteParLineariteBis extends Exercice {
       }
 
       if (tabHash.indexOf(checkSum(prenomliste[3], n3, n2, nMax)) === -1) {
+        texte += addMultiMathfield(this, i, {
+          dataTemplate: enonceQ1 + enonceQ2 + enonceQ3 + enonceQ4,
+          dataOptions: {
+            champ1: { keyboard: KeyboardType.clavierNumbers, texteApres: ' €' },
+            champ2: { keyboard: KeyboardType.clavierNumbers, texteApres: ' €' },
+            champ3: { keyboard: KeyboardType.clavierNumbers, texteApres: ' €' },
+            champ4: { keyboard: KeyboardType.clavierNumbers },
+          },
+        })
         // Si la question n'a jamais été posée, on en crée une autre
         tabHash.push(checkSum(prenomliste[3], n3, n2, nMax))
         if (!context.isAmc) {
-          setReponse(
+          handleAnswers(
             this,
-            4 * i,
-            arrondi(consigneQuestions[0] * situation.pu, 2),
+            i,
+            {
+              bareme: toutAUnPoint,
+              champ1: {
+                value: arrondi(consigneQuestions[0] * situation.pu, 2),
+              },
+              champ2: {
+                value: arrondi(consigneQuestions[1] * situation.pu, 2),
+              },
+              champ3: {
+                value: arrondi(consigneQuestions[2] * situation.pu, 2),
+              },
+              champ4: { value: nMax },
+            },
+            {
+              formatInteractif: 'multiMathfield',
+            },
           )
-          setReponse(
-            this,
-            4 * i + 1,
-            arrondi(consigneQuestions[1] * situation.pu, 2),
-          )
-          setReponse(
-            this,
-            4 * i + 2,
-            arrondi(consigneQuestions[2] * situation.pu, 2),
-          )
-          setReponse(this, 4 * i + 3, nMax)
         } else {
           this.autoCorrection[i] = {
             enonce: '',
             enonceAvant: false,
             options: { barreseparation: true, multicolsAll: true }, // facultatif. Par défaut, multicols est à false. Ce paramètre provoque un multicolonnage (sur 2 colonnes par défaut) : pratique quand on met plusieurs AMCNum. !!! Attention, cela ne fonctionne pas, nativement, pour AMCOpen. !!!
-            // @ts-ignore
             propositions: propositionsAMC,
           }
         }

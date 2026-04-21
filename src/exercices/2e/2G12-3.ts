@@ -1,5 +1,5 @@
 import { codageSegments } from '../../lib/2d/CodageSegment'
-import { point } from '../../lib/2d/PointAbstrait'
+import { pointAbstrait } from '../../lib/2d/PointAbstrait'
 import { polygoneAvecNom } from '../../lib/2d/polygones'
 import { repere } from '../../lib/2d/reperes'
 import { segment } from '../../lib/2d/segmentsVecteurs'
@@ -16,6 +16,7 @@ import { mathalea2d } from '../../modules/mathalea2d'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import type { NestedObjetMathalea2dArray } from '../../types/2d'
 import Exercice from '../Exercice'
+import { bleuMathalea } from '../../lib/colors'
 export const titre =
   "Démontrer qu'un quadrilatère est ou non un parallélogramme"
 export const dateDeModifImportante = '30/11/2023'
@@ -112,15 +113,15 @@ export default class Parallélogramme extends Exercice {
             const yM = new FractionEtendue(yA + yD, 2)
             const xN = new FractionEtendue(xB + xC, 2)
             const yN = new FractionEtendue(yB + yC, 2)
-            const A = point(xA, yA, 'A', 'red')
-            const B = point(xB, yB, 'B', 'red')
-            const C = point(xC, yC, 'C', 'red')
-            const D = point(xD, yD, 'D', 'red')
-            const M = point((xA + xD) / 2, (yA + yD) / 2, 'M')
-            const s1 = segment(A, B, 'blue')
-            const s2 = segment(D, B, 'blue')
-            const s3 = segment(C, D, 'blue')
-            const s4 = segment(A, C, 'blue')
+            const A = pointAbstrait(xA, yA, 'A', 'red')
+            const B = pointAbstrait(xB, yB, 'B', 'red')
+            const C = pointAbstrait(xC, yC, 'C', 'red')
+            const D = pointAbstrait(xD, yD, 'D', 'red')
+            const M = pointAbstrait((xA + xD) / 2, (yA + yD) / 2, 'M')
+            const s1 = segment(A, B, bleuMathalea)
+            const s2 = segment(D, B, bleuMathalea)
+            const s3 = segment(C, D, bleuMathalea)
+            const s4 = segment(A, C, bleuMathalea)
             const s5 = segment(A, D, 'red')
             const s6 = segment(B, C, 'red')
             s1.epaisseur = 2
@@ -270,14 +271,14 @@ export default class Parallélogramme extends Exercice {
             const yM = new FractionEtendue(yA + yD, 2)
             const xN = new FractionEtendue(xB + xC, 2)
             const yN = new FractionEtendue(yB + yC, 2)
-            const A = point(xA, yA, 'A', 'blue')
-            const B = point(xB, yB, 'B', 'blue')
-            const C = point(xC, yC, 'C', 'blue')
-            const D = point(xD, yD, 'D', 'blue')
-            const s1 = segment(A, B, 'blue')
-            const s2 = segment(D, B, 'blue')
-            const s3 = segment(C, D, 'blue')
-            const s4 = segment(A, C, 'blue')
+            const A = pointAbstrait(xA, yA, 'A', bleuMathalea)
+            const B = pointAbstrait(xB, yB, 'B', bleuMathalea)
+            const C = pointAbstrait(xC, yC, 'C', bleuMathalea)
+            const D = pointAbstrait(xD, yD, 'D', bleuMathalea)
+            const s1 = segment(A, B, bleuMathalea)
+            const s2 = segment(D, B, bleuMathalea)
+            const s3 = segment(C, D, bleuMathalea)
+            const s4 = segment(A, C, bleuMathalea)
             const s5 = segment(A, D, 'red')
             const s6 = segment(B, C, 'red')
 

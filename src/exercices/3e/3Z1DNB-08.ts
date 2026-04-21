@@ -1,7 +1,7 @@
 import { droite } from '../../lib/2d/droites'
 import { fixeBordures } from '../../lib/2d/fixeBordures'
 import { lectureAntecedent } from '../../lib/2d/LectureAntecedent'
-import { point } from '../../lib/2d/PointAbstrait'
+import { pointAbstrait } from '../../lib/2d/PointAbstrait'
 import RepereBuilder from '../../lib/2d/RepereBuilder'
 import { createList } from '../../lib/format/lists'
 import { choice } from '../../lib/outils/arrayOutils'
@@ -21,7 +21,7 @@ export const titre =
 export const dateDePublication = '08/04/2025'
 
 /**
- * @Author Jean-Claude Lhote
+ * @Author Jean-claude Lhote
  * Cet exerice exploite la nouvelle classe d'exercice que j'ai conçue pour les sujets de brevet
  * Il s'agit d'un exercice de type Brevet Aléatoirisé
  * La méthode privée appliquerLesValeurs permet de générer les valeurs aléatoires et de construire l'énoncé et la correction
@@ -77,8 +77,8 @@ export default class ExercicePolynesie52024 extends ExerciceBrevetA {
     const repBuild = rep.buildCustom()
     const f = (x: number) => volumeArrondi - v2 * x
     const cF = droite(
-      point(xMin / 10, f(xMin) / 10),
-      point(xMax / 10, f(xMax) / 10),
+      pointAbstrait(xMin / 10, f(xMin) / 10),
+      pointAbstrait(xMax / 10, f(xMax) / 10),
       '',
       'ForestGreen',
     )

@@ -7,6 +7,7 @@ import { deuxColonnes } from '../../lib/format/miseEnPage'
 import { mathalea2d } from '../../modules/mathalea2d'
 import { randint } from '../../modules/outils'
 import ExerciceQcmA from '../ExerciceQcmA'
+import { bleuMathalea } from '../../lib/colors'
 export const dateDePublication = '04/10/2025'
 export const uuid = '90460'
 /**
@@ -26,28 +27,24 @@ export const titre =
 export default class auto1AF4e extends ExerciceQcmA {
   versionOriginale: () => void = () => {
     const o = latex2d('\\text{O}', -0.3, -0.3, { letterSize: 'scriptsize' })
-    let a: number
-    let b: number
-    let f: (x: number) => number
-    let g: (x: number) => number
     const symbole: string = '>' // Ajouter une valeur par défaut
     let texteSolution: string = '' // Ajouter une valeur par défaut
     let solutionCorrecte: string = '' // Ajouter une valeur par défaut
     let solutionFauxCrochets: string = ''
     let solutionInverse1: string = ''
     let solutionInverse2: string = ''
-    a = -2
-    b = 3
-    f = function (x: number) {
+    const a = -2
+    const b = 3
+    const f = function (x: number) {
       return x ** 2 - 4
     }
     const m = (f(b) - f(a)) / (b - a)
     const p = f(a) - m * a
 
-    g = function (x) {
+    const g = function (x: number) {
       return m * x + p
     }
-    const C = latex2d('C_f', 6.5, 9, { color: 'blue' })
+    const C = latex2d('C_f', 6.5, 9, { color: bleuMathalea })
     const D = latex2d('C_g', 8, g(4) - 1, { color: 'red' })
     const r = repere({
       yUnite: 1,
@@ -105,7 +102,7 @@ export default class auto1AF4e extends ExerciceQcmA {
           repere: r,
           xMin: -5,
           xMax: 5,
-          color: 'blue',
+          color: bleuMathalea,
           epaisseur: 2,
         }),
         courbe(g, { repere: r, xMin: -4, xMax: 4, color: 'red', epaisseur: 2 }),
@@ -123,8 +120,6 @@ export default class auto1AF4e extends ExerciceQcmA {
   }
 
   versionAleatoire = () => {
-    let a: number
-    let b: number
     let f: (x: number) => number
     let g: (x: number) => number
     let symbole: string = '<' // Ajouter une valeur par défaut
@@ -133,8 +128,8 @@ export default class auto1AF4e extends ExerciceQcmA {
     let solutionFauxCrochets: string = ''
     let solutionInverse1: string = ''
     let solutionInverse2: string = ''
-    a = randint(-3, -1)
-    b = randint(1, 3, -a)
+    const a = randint(-3, -1)
+    const b = randint(1, 3, -a)
     const cas = randint(1, 2) // 4 cas maintenant
     const typeInequation = randint(1, 4) // 1: <, 2: >, 3: <=, 4: >=
     const o = latex2d('\\text{O}', -0.3, -0.3, { letterSize: 'scriptsize' })
@@ -152,7 +147,7 @@ export default class auto1AF4e extends ExerciceQcmA {
           return m * x + p
         }
 
-        const C = latex2d('C_f', 6.5, 9, { color: 'blue' })
+        const C = latex2d('C_f', 6.5, 9, { color: bleuMathalea })
         const D =
           g(4) < -4
             ? latex2d('C_g', -8, g(-4) - 1, { color: 'red' })
@@ -240,7 +235,7 @@ export default class auto1AF4e extends ExerciceQcmA {
               repere: r,
               xMin: -5,
               xMax: 5,
-              color: 'blue',
+              color: bleuMathalea,
               epaisseur: 2,
             }),
             courbe(g, {
@@ -267,7 +262,7 @@ export default class auto1AF4e extends ExerciceQcmA {
           return m * x + p
         }
 
-        const C = latex2d('C_f', 8, -8, { color: 'blue' })
+        const C = latex2d('C_f', 8, -8, { color: bleuMathalea })
         const D =
           g(3) > 4
             ? latex2d('C_g', -8, g(-4) - 1, { color: 'red' })
@@ -354,7 +349,7 @@ export default class auto1AF4e extends ExerciceQcmA {
               repere: r,
               xMin: -5,
               xMax: 5,
-              color: 'blue',
+              color: bleuMathalea,
               epaisseur: 2,
             }),
             courbe(g, {

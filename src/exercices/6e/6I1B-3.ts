@@ -1,6 +1,6 @@
 // on importe les fonctions nécessaires.
 import { colorToLatexOrHTML } from '../../lib/2d/colorToLatexOrHtml'
-import { point } from '../../lib/2d/PointAbstrait'
+import { pointAbstrait } from '../../lib/2d/PointAbstrait'
 import { segment } from '../../lib/2d/segmentsVecteurs'
 import { texteParPoint } from '../../lib/2d/textes'
 import { tracePoint } from '../../lib/2d/TracePoint'
@@ -35,6 +35,7 @@ import {
   tournerG,
 } from '../../modules/2dLutin'
 import { scratchblock } from '../../modules/scratchblock'
+import { bleuMathalea } from '../../lib/colors'
 
 export const interactifReady = true
 export const interactifType = 'cliqueFigure'
@@ -49,6 +50,9 @@ export const refs = {
   'fr-2016': ['6I12'],
   'fr-ch': [],
 }
+/**
+ * @author Jean-claude Lhote
+ */
 export default class AlgoTortue extends Exercice {
   // ça c'est la classe qui permet de créer cet exercice
   indiceBonneFigure!: number
@@ -349,10 +353,10 @@ export default class AlgoTortue extends Exercice {
     for (let i = 0; i < 5; i++) {
       // ajouter le point de départ de chaque tracé
       depart[i] = tracePoint(
-        point(lutins[i].listeTraces[0][0], lutins[i].listeTraces[0][1]),
+        pointAbstrait(lutins[i].listeTraces[0][0], lutins[i].listeTraces[0][1]),
       )
       depart[i].taille = 5
-      depart[i].color = colorToLatexOrHTML('blue')
+      depart[i].color = colorToLatexOrHTML(bleuMathalea)
       depart[i].epaisseur = 2
       if (i === 0) {
         objetsCorrection.push(depart[0])
@@ -392,10 +396,10 @@ export default class AlgoTortue extends Exercice {
         lutins[ordreLutins[i]],
         depart[ordreLutins[i]],
         grille(-0.5, -0.5, largeur, hauteur + 1, 'gray', 0.5, 0.5),
-        texteParPoint('40 pas', point(0.5, hauteur + 0.2), 0, 'black', 1),
+        texteParPoint('40 pas', pointAbstrait(0.5, hauteur + 0.2), 0, 'black', 1),
         texteParPoint(
           `figure ${i + 1}`,
-          point((largeur - 0.5) / 2, -0.8),
+          pointAbstrait((largeur - 0.5) / 2, -0.8),
           0,
           'black',
           1,

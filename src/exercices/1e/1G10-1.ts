@@ -3,7 +3,7 @@ import { colorToLatexOrHTML } from '../../lib/2d/colorToLatexOrHtml'
 import { droite } from '../../lib/2d/droites'
 import { fixeBordures } from '../../lib/2d/fixeBordures'
 import { grille } from '../../lib/2d/Grille'
-import { point } from '../../lib/2d/PointAbstrait'
+import { pointAbstrait } from '../../lib/2d/PointAbstrait'
 import { representant } from '../../lib/2d/representantVecteur'
 import { labelPoint } from '../../lib/2d/textes'
 import { tracePoint } from '../../lib/2d/TracePoint'
@@ -19,6 +19,7 @@ import { miseEnEvidence, texteGras } from '../../lib/outils/embellissements'
 import { mathalea2d } from '../../modules/mathalea2d'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import Exercice from '../Exercice'
+import { bleuMathalea } from '../../lib/colors'
 
 export const titre = 'Calculer des produits scalaires par projection'
 export const interactifReady = true
@@ -29,6 +30,9 @@ export const refs = {
   'fr-fr': [],
   'fr-ch': [],
 }
+/**
+ * Stephan Grignon
+ */
 export default class SuperExoMathalea2d extends Exercice {
   constructor() {
     super()
@@ -48,7 +52,7 @@ export default class SuperExoMathalea2d extends Exercice {
       const objetsEnonce = []
       const objetsCorrection = []
 
-      const A = point(0, 0, 'A')
+      const A = pointAbstrait(0, 0, 'A')
       function generateur() {
         return randint(3, 5) * randint(-1, 1, [0])
       }
@@ -128,8 +132,8 @@ export default class SuperExoMathalea2d extends Exercice {
         autrePoint = 'C'
         surDroite = '(AC)'
 
-        B = point(x2, y2, 'B')
-        C = point(x1, y1, 'C')
+        B = pointAbstrait(x2, y2, 'B')
+        C = pointAbstrait(x1, y1, 'C')
         autreLongueur = longueur(A, C)
 
         d1 = droite(A, C)
@@ -146,19 +150,19 @@ export default class SuperExoMathalea2d extends Exercice {
 
         d2 = droite(B, H)
         d2.pointilles = 1
-        d2.color = colorToLatexOrHTML('blue')
+        d2.color = colorToLatexOrHTML(bleuMathalea)
       } else {
         pointProjete = 'C'
         autrePoint = 'B'
         surDroite = '(AB)'
 
-        C = point(x2, y2, 'C')
-        B = point(x1, y1, 'B')
+        C = pointAbstrait(x2, y2, 'C')
+        B = pointAbstrait(x1, y1, 'B')
         autreLongueur = longueur(A, B)
 
         d1 = droite(A, B)
         d1.pointilles = 1
-        d1.color = colorToLatexOrHTML('blue')
+        d1.color = colorToLatexOrHTML(bleuMathalea)
 
         H = projectionOrtho(C, d1, 'H')
         if (longueur(A, H) === 0) {
@@ -182,7 +186,7 @@ export default class SuperExoMathalea2d extends Exercice {
       const w = vecteur(A, H)
 
       const U = u.norme() === 0 ? vide2d() : representant(u, A)
-      U.color = colorToLatexOrHTML('blue')
+      U.color = colorToLatexOrHTML(bleuMathalea)
       const V = v.norme() === 0 ? vide2d() : representant(v, A)
       V.color = colorToLatexOrHTML('green')
       const W = Math.abs(AH) < 0.1 ? vide2d() : representant(w, A)

@@ -16,6 +16,7 @@ import { imagePointParTransformation } from '../../modules/imagePointParTransfor
 import { mathalea2d } from '../../modules/mathalea2d'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import Exercice from '../Exercice'
+import { orangeMathalea, bleuMathalea } from '../../lib/colors'
 
 export const titre =
   "Trouver les coordonnées de l'image d'un point par une symétrie centrale (quart de plan)"
@@ -27,7 +28,7 @@ export const dateDeCreation = '26/09/2025'
 
 /**
  * Trouver les coordonnées d'un point transformé d'un autre par une des transformations du plan
- * @author Jean-Claude Lhote
+ * @author Jean-claude Lhote
  */
 export const uuid = 'd4089'
 
@@ -52,7 +53,7 @@ export default class DemiTourEtCoordonnees extends Exercice {
     let Cprime: PointAbstrait = pointAbstrait(0, 0)
     const lettre1 = ['A', 'B', 'C']
     const punto: number[][] = [[]]
-    const couleurs = ['brown', 'green', 'blue']
+    const couleurs = ['brown', 'green', bleuMathalea]
     for (
       let ee = 0,
         texte,
@@ -201,9 +202,9 @@ export default class DemiTourEtCoordonnees extends Exercice {
       )
       objetsCorrection.push(
         tracePoint(...antecedents, O),
-        tracePoint(...images, '#f15929'),
+        tracePoint(...images, orangeMathalea),
         labelPoint(...antecedents, O),
-        labelPoint(...images, '#f15929'),
+        labelPoint(...images, orangeMathalea),
       )
 
       for (let i = 0; i < 3; i++) {

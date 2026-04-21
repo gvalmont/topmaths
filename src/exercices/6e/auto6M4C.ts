@@ -12,7 +12,7 @@ export const interactifType = 'listeDeroulante'
 
 /**
  * Choisir les bonnes unités de mesure de durées courtes
- * @author Eric Elter
+ * @author Éric Elter
  */
 export const uuid = 'd040a'
 
@@ -72,9 +72,9 @@ export default class AutoChoisirDureeMinutes extends Exercice {
         handleAnswers(
           this,
           i,
-          { reponse: { value: reponse, options: { texteSansCasse: true } } },
+          { reponse: { value: reponse } },
           { formatInteractif: 'listeDeroulante' },
-        ) // rep doit avoir l'une des values : 'Uni', 'Auc', 'Inf'
+        )
 
         this.listeQuestions[i] = texte
         this.listeCorrections[i] = texteCorr

@@ -1,7 +1,8 @@
 import { codageSegments } from '../../../lib/2d/CodageSegment'
-import { point } from '../../../lib/2d/PointAbstrait'
+import { pointAbstrait } from '../../../lib/2d/PointAbstrait'
 import { segment } from '../../../lib/2d/segmentsVecteurs'
 import { labelPoint } from '../../../lib/2d/textes'
+import { bleuMathalea } from '../../../lib/colors'
 import { choice } from '../../../lib/outils/arrayOutils'
 import { creerNomDePolygone } from '../../../lib/outils/outilString'
 import { texNombre } from '../../../lib/outils/texNombre'
@@ -38,18 +39,18 @@ export default class CalculLongueurThalesMilieu extends ExerciceSimple {
       nom = creerNomDePolygone(5, ['QD'])
       a = randint(1, 9) + randint(1, 5) / 10 + randint(1, 9) / 100
 
-      A = point(0, 0, nom[0], 'below')
-      B = point(6, 0, nom[1], 'below')
-      C = point(5, 4, nom[2], 'above')
-      D = point(2.5, 2, nom[3], 'above')
-      E = point(3, 0, nom[4], 'below')
+      A = pointAbstrait(0, 0, nom[0], 'below')
+      B = pointAbstrait(6, 0, nom[1], 'below')
+      C = pointAbstrait(5, 4, nom[2], 'above')
+      D = pointAbstrait(2.5, 2, nom[3], 'above')
+      E = pointAbstrait(3, 0, nom[4], 'below')
       objets = []
       objets.push(
         segment(A, B),
         segment(D, E),
         segment(A, C),
         segment(B, C),
-        codageSegments('||', 'blue', A, D, D, C),
+        codageSegments('||', bleuMathalea, A, D, D, C),
         labelPoint(A, B, C, D, E),
       )
 
@@ -77,24 +78,24 @@ export default class CalculLongueurThalesMilieu extends ExerciceSimple {
       Ainsi : $${nom[1]}${nom[2]}=2\\times ${nom[3]}${nom[4]}=2\\times ${texNombre(a)}=${texNombre(2 * a)}$.
   `
 
-      this.reponse = 2 * a
+      this.reponse = texNombre(2 * a)
 
       this.canReponseACompleter = `$${nom[1]}${nom[2]}=\\ldots$`
     } else {
       nom = creerNomDePolygone(5, ['QD'])
       a = (randint(1, 9) + randint(1, 5) / 10) * 2
-      A = point(0, 0, nom[0], 'below')
-      B = point(6, 0, nom[1], 'below')
-      C = point(5, 4, nom[2], 'above')
-      D = point(2.5, 2, nom[3], 'above')
-      E = point(3, 0, nom[4], 'below')
+      A = pointAbstrait(0, 0, nom[0], 'below')
+      B = pointAbstrait(6, 0, nom[1], 'below')
+      C = pointAbstrait(5, 4, nom[2], 'above')
+      D = pointAbstrait(2.5, 2, nom[3], 'above')
+      E = pointAbstrait(3, 0, nom[4], 'below')
       objets = []
       objets.push(
         segment(A, B),
         segment(D, E),
         segment(A, C),
         segment(B, C),
-        codageSegments('||', 'blue', A, D, D, C),
+        codageSegments('||', bleuMathalea, A, D, D, C),
         labelPoint(A, B, C, D, E),
       )
 
@@ -122,7 +123,7 @@ export default class CalculLongueurThalesMilieu extends ExerciceSimple {
             Ainsi : $${nom[3]}${nom[4]}= ${nom[1]}${nom[2]} \\div 2 = ${texNombre(a)}\\div 2 =${texNombre(a / 2)}$.
      `
 
-      this.reponse = a / 2
+      this.reponse = texNombre(a / 2)
 
       this.canReponseACompleter = `$${nom[3]}${nom[4]}=\\ldots$`
     }

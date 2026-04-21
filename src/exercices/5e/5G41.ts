@@ -7,7 +7,7 @@ import { codageSegments } from '../../lib/2d/CodageSegment'
 import { demiDroite } from '../../lib/2d/DemiDroite'
 import { droite } from '../../lib/2d/droites'
 import { fixeBordures } from '../../lib/2d/fixeBordures'
-import { point } from '../../lib/2d/PointAbstrait'
+import { pointAbstrait } from '../../lib/2d/PointAbstrait'
 import { polygone, polygoneAvecNom } from '../../lib/2d/polygones'
 import { segment } from '../../lib/2d/segmentsVecteurs'
 import { labelPoint, texteParPosition } from '../../lib/2d/textes'
@@ -21,6 +21,7 @@ import {
   pointIntersectionCC,
   pointIntersectionDD,
 } from '../../lib/2d/utilitairesPoint'
+import { bleuMathalea } from '../../lib/colors'
 import { choisitLettresDifferentes } from '../../lib/outils/aleatoires'
 import { choice } from '../../lib/outils/arrayOutils'
 import {
@@ -42,7 +43,7 @@ export const amcReady = true
 export const amcType = 'AMCHybride'
 /**
  * Construction de quadrilatères avec dispositif d'auto-correction aléatoire
- * @author Jean-Claude Lhote
+ * @author Jean-claude Lhote
  */
 export const uuid = '37e37'
 
@@ -118,7 +119,7 @@ export default class ConstructionsParallelogrammesParticuliers extends Exercice 
     const typeDeQuestion = choice(typesDeQuestionsDisponibles)
     switch (typeDeQuestion) {
       case 1:
-        A = point(0, 0, noms[0])
+        A = pointAbstrait(0, 0, noms[0])
         c1 = randint(35, 45) // 2 AB
         c4 = randint(30, 40, c1) // 5 AD
         d1 = Math.abs(c4 - c1) + 15
@@ -158,7 +159,7 @@ export default class ConstructionsParallelogrammesParticuliers extends Exercice 
         yM = Math.max(A.y, B.y, D.y) + 0.8
         break
       case 2:
-        O = point(0, 0, noms[4])
+        O = pointAbstrait(0, 0, noms[4])
         c1 = randint(35, 45) * 2 // AC
         c4 = randint((c1 + 20) / 2, 70) / 5 // BD
         c1 = c1 / 10
@@ -185,7 +186,7 @@ export default class ConstructionsParallelogrammesParticuliers extends Exercice 
         yM = Math.max(A.y, B.y, C.y) + 0.8
         break
       case 3:
-        A = point(0, 0, noms[0])
+        A = pointAbstrait(0, 0, noms[0])
         c1 = randint(35, 45) * 2 // AB
         c4 = randint(25, 34) / 5 // AD
         c1 = c1 / 10
@@ -219,7 +220,7 @@ export default class ConstructionsParallelogrammesParticuliers extends Exercice 
 
         break
       case 4:
-        A = point(0, 0, noms[0])
+        A = pointAbstrait(0, 0, noms[0])
         c1 = randint(35, 50) // AB
         c1 = c1 / 5
         c4 = (1.2 + randint(0, 8) / 20) * c1 // BD
@@ -253,7 +254,7 @@ export default class ConstructionsParallelogrammesParticuliers extends Exercice 
         yM = Math.max(A.y, B.y, D.y) + 0.8
         break
       case 5:
-        A = point(0, 0, noms[0])
+        A = pointAbstrait(0, 0, noms[0])
         c1 = randint(35, 45) * 2 // AC
         c4 = randint((c1 - 4) / 2, 35) / 5 // AD
         c1 = c1 / 10
@@ -283,7 +284,7 @@ export default class ConstructionsParallelogrammesParticuliers extends Exercice 
         yM = Math.max(A.y, B.y, D.y) + 0.8
         break
       case 6:
-        A = point(0, 0, noms[0])
+        A = pointAbstrait(0, 0, noms[0])
         c1 = randint(35, 45) * 2 // AC
         c2 = randint(15, 20) * 2 // AO
         c3 = c1 + randint(7, 10) * 2 - c2 // BO
@@ -329,7 +330,7 @@ export default class ConstructionsParallelogrammesParticuliers extends Exercice 
         break
       case 7:
       default:
-        A = point(0, 0, noms[0])
+        A = pointAbstrait(0, 0, noms[0])
         c1 = randint(50, 60) / 5 // AC
         c2 = randint(25, 40) // angle OAB
         c3 = randint(30, 45, c2) // angle OCB
@@ -349,14 +350,22 @@ export default class ConstructionsParallelogrammesParticuliers extends Exercice 
           texteCorr += `Comme $${nom}$ est un parallélogramme, ses côtés opposés sont parallèles.<br>`
           texteCorr += `La diagonale $[${noms[0]}${noms[2]}]$ forme des angles $\\widehat{${noms[4] + noms[0] + noms[1]}}$ et $\\widehat{${noms[4] + noms[2] + noms[3]}}$ alternes-internes égaux.<br>`
           texteCorr += `De même les angles $\\widehat{${noms[4] + noms[0] + noms[3]}}$ et $\\widehat{${noms[4] + noms[2] + noms[1]}}$ sont alternes-internes égaux eux aussi.<br>`
-          texteCorr += `On en déduit que $\\widehat{${noms[4] + noms[0] + noms[3]}}=\\widehat{${noms[4] + noms[2] + noms[1]}}=${miseEnEvidence(c3, 'red')}^\\circ$ et que $\\widehat{${noms[4] + noms[0] + noms[1]}}=\\widehat{${noms[4] + noms[2] + noms[3]}}=${miseEnEvidence(c2, 'blue')}^\\circ$.<br>`
+          texteCorr += `On en déduit que $\\widehat{${noms[4] + noms[0] + noms[3]}}=\\widehat{${noms[4] + noms[2] + noms[1]}}=${miseEnEvidence(c3, 'red')}^\\circ$ et que $\\widehat{${noms[4] + noms[0] + noms[1]}}=\\widehat{${noms[4] + noms[2] + noms[3]}}=${miseEnEvidence(c2, bleuMathalea)}^\\circ$.<br>`
           texteCorr += `Construisons tout d'abord le triangle $${noms[0] + noms[1] + noms[2]}$ `
           texteCorr += `puis le point $${noms[3]}$ symétrique de $${noms[1]}$ par rapport à $${noms[4]}$.<br>`
         }
 
         texteCorr += `Le triangle $${noms[0] + noms[1] + noms[2]}$ n'est pas un triangle isocèle car ses angles ne sont pas égaux.<br>`
         texteCorr += `De plus, dans ce triangle $${noms[0] + noms[1] + noms[2]}$,  l'angle $\\widehat{${noms[0] + noms[1] + noms[2]}}$ mesure $${180 - c2 - c3}^\\circ$ et n'est pas droit donc $${miseEnEvidence(nom)}$ ${texteEnCouleurEtGras("n'est pas un paraléllogramme particulier")}.<br>`
-        t1 = afficheMesureAngle(O, A, B, 'blue', 1, texNombre(c2) + '^\\circ')
+        t1 = afficheMesureAngle(
+          O,
+          A,
+          B,
+          bleuMathalea,
+          1,
+          texNombre(c2) + '^\\circ',
+        )
+
         t2 = afficheMesureAngle(O, C, B, 'red', 1, texNombre(c3) + '^\\circ')
         t3 = traceCompas(O, D, 30)
         t5 = tracePoint(O)
@@ -446,7 +455,7 @@ export default class ConstructionsParallelogrammesParticuliers extends Exercice 
           dd4,
           labelPoint(O),
           codageSegments('||', 'red', A, O, O, C),
-          codageSegments('|||', 'blue', B, O, O, D),
+          codageSegments('|||', bleuMathalea, B, O, O, D),
           afficheLongueurSegment(O, B),
         )
         if (this.sup3) {
@@ -487,7 +496,7 @@ export default class ConstructionsParallelogrammesParticuliers extends Exercice 
           dd4,
           labelPoint(O),
           codageSegments('||', 'red', A, O, O, C),
-          codageSegments('|||', 'blue', B, O, O, D),
+          codageSegments('|||', bleuMathalea, B, O, O, D),
           afficheMesureAngle(A, O, B, 'black', 1, alpha + '^\\circ'),
         )
         if (this.sup3) {
@@ -556,7 +565,7 @@ export default class ConstructionsParallelogrammesParticuliers extends Exercice 
           dd4,
           labelPoint(O),
           codageSegments('||', 'red', A, O, O, C),
-          codageSegments('|||', 'blue', B, O, O, D),
+          codageSegments('|||', bleuMathalea, B, O, O, D),
         )
         if (this.sup3) {
           objetsEnonce.push(cible1, cible2)
@@ -591,7 +600,7 @@ export default class ConstructionsParallelogrammesParticuliers extends Exercice 
           dd4,
           labelPoint(O),
           codageSegments('||', 'red', A, O, O, C),
-          codageSegments('|||', 'blue', B, O, O, D),
+          codageSegments('|||', bleuMathalea, B, O, O, D),
           afficheMesureAngle(B, A, D, 'black', 1, alpha + '^\\circ'),
           afficheLongueurSegment(B, A),
           afficheLongueurSegment(A, D),
@@ -635,7 +644,7 @@ export default class ConstructionsParallelogrammesParticuliers extends Exercice 
           dd4,
           labelPoint(O),
           codageSegments('||', 'red', A, O, O, C),
-          codageSegments('|||', 'blue', B, O, O, D),
+          codageSegments('|||', bleuMathalea, B, O, O, D),
         )
         if (this.sup3) {
           objetsEnonce.push(cible1, cible2)
@@ -675,9 +684,16 @@ export default class ConstructionsParallelogrammesParticuliers extends Exercice 
           dd4,
           labelPoint(O),
           codageSegments('||', 'red', A, O, O, C),
-          codageSegments('|||', 'blue', B, O, O, D),
+          codageSegments('|||', bleuMathalea, B, O, O, D),
           afficheMesureAngle(O, A, D, 'red', 1, texNombre(c3!) + '^\\circ'),
-          afficheMesureAngle(O, C, D, 'blue', 1, texNombre(c2!) + '^\\circ'),
+          afficheMesureAngle(
+            O,
+            C,
+            D,
+            bleuMathalea,
+            1,
+            texNombre(c2!) + '^\\circ',
+          ),
         )
         if (this.sup3) {
           objetsEnonce.push(cible3, cible1)

@@ -5,7 +5,7 @@ import {
 } from '../../lib/2d/CodageAngleDroit'
 import { droite } from '../../lib/2d/droites'
 import { fixeBordures } from '../../lib/2d/fixeBordures'
-import { point } from '../../lib/2d/PointAbstrait'
+import { pointAbstrait } from '../../lib/2d/PointAbstrait'
 import { polygone } from '../../lib/2d/polygones'
 import { segment } from '../../lib/2d/segmentsVecteurs'
 import { labelPoint } from '../../lib/2d/textes'
@@ -22,6 +22,7 @@ import {
   randint,
 } from '../../modules/outils'
 import Exercice from '../Exercice'
+import { bleuMathalea } from '../../lib/colors'
 
 export const titre = 'Utiliser les relations métriques dans un triangle rectangle'
 export const dateDePublication = '10/04/2025'
@@ -122,7 +123,7 @@ export default class RelationsMetriquesTriangleRectangle extends Exercice {
 
       // Original code with quadrant-based label adjustments:
 
-      const center = point(0, 0) // Define the center of rotation
+      const center = pointAbstrait(0, 0) // Define the center of rotation
       let angle = 90
       let angle2 = 0
       if (this.sup3 === true) {
@@ -134,11 +135,11 @@ export default class RelationsMetriquesTriangleRectangle extends Exercice {
 
       // For point D, base anchor is "below right"
       const labelD = adjustedAnchor('below right', angle2)
-      const D = rotation(point(r, 0), center, angle2, 'D', labelD)
+      const D = rotation(pointAbstrait(r, 0), center, angle2, 'D', labelD)
 
       // For point A, base anchor is "below left"
       const labelA = adjustedAnchor('below left', angle2)
-      const A = rotation(point(-r, 0), center, angle2, 'A', labelA)
+      const A = rotation(pointAbstrait(-r, 0), center, angle2, 'A', labelA)
 
       // For point E, the base anchor depends on the value of angle
       const baseE = angle < 0 ? 'below right' : 'above left'
@@ -153,17 +154,17 @@ export default class RelationsMetriquesTriangleRectangle extends Exercice {
       const labelB = adjustedAnchor(baseB, angle2)
       const B = projectionOrtho(E, dAD, 'B', labelB)
 
-      const C = D // point(AC, 0, 'C', 'below')
+      const C = D // pointAbstrait(AC, 0, 'C', 'below')
       const ADE = polygone(A, D, E)
-      const ADESED = segment(E, D, 'blue')
+      const ADESED = segment(E, D, bleuMathalea)
       const ADESAD = segment(A, D)
       const ADESAE = segment(A, E, 'red')
       const AEBSAB = segment(A, B, 'red')
-      const AEBSEB = segment(E, B, 'blue')
+      const AEBSEB = segment(E, B, bleuMathalea)
       const AEBSEA = segment(A, E)
       const DEBSED = segment(D, E)
       const DEBSEB = segment(E, B, 'red')
-      const DEBSBD = segment(B, D, 'blue')
+      const DEBSBD = segment(B, D, bleuMathalea)
 
       const sEB = segment(E, B)
       const codageDroitAED = codageAngleDroit(A, E, D)
@@ -191,7 +192,7 @@ export default class RelationsMetriquesTriangleRectangle extends Exercice {
         'black',
         0.5,
         0.2,
-        'blue',
+        bleuMathalea,
         0.8,
         false,
         false,
@@ -233,7 +234,7 @@ export default class RelationsMetriquesTriangleRectangle extends Exercice {
         'black',
         0.5,
         0.2,
-        'blue',
+        bleuMathalea,
         0.8,
         false,
         false,
@@ -310,8 +311,8 @@ export default class RelationsMetriquesTriangleRectangle extends Exercice {
       <br><br>
       $\\begin{aligned}    
       \\dfrac{${miseEnCouleur(`${A.nom}${E.nom}`, 'red')}}{${miseEnCouleur(`${A.nom}${D.nom}`, 'black')}} = \\dfrac{${miseEnCouleur(`${A.nom}${B.nom}`, 'red')}}{${miseEnCouleur(`${A.nom}${E.nom}`, 'black')}} = \\dfrac{${miseEnCouleur(`${E.nom}${B.nom}`, 'red')}}{${miseEnCouleur(`${E.nom}${D.nom}`, 'black')}}\\\\\\\\
-      \\dfrac{${miseEnCouleur(`${A.nom}${E.nom}`, 'red')}}{${miseEnCouleur(`${E.nom}${D.nom}`, 'blue')}} = \\dfrac{${miseEnCouleur(`${A.nom}${B.nom}`, 'red')}}{${miseEnCouleur(`${E.nom}${B.nom}`, 'blue')}} = \\dfrac{${miseEnCouleur(`${E.nom}${B.nom}`, 'red')}}{${miseEnCouleur(`${B.nom}${D.nom}`, 'blue')}}\\\\\\\\
-      \\dfrac{${miseEnCouleur(`${A.nom}${D.nom}`, 'black')}}{${miseEnCouleur(`${E.nom}${D.nom}`, 'blue')}} = \\dfrac{${miseEnCouleur(`${A.nom}${E.nom}`, 'black')}}{${miseEnCouleur(`${E.nom}${B.nom}`, 'blue')}} = \\dfrac{${miseEnCouleur(`${E.nom}${D.nom}`, 'black')}}{${miseEnCouleur(`${B.nom}${D.nom}`, 'blue')}}
+      \\dfrac{${miseEnCouleur(`${A.nom}${E.nom}`, 'red')}}{${miseEnCouleur(`${E.nom}${D.nom}`, bleuMathalea)}} = \\dfrac{${miseEnCouleur(`${A.nom}${B.nom}`, 'red')}}{${miseEnCouleur(`${E.nom}${B.nom}`, bleuMathalea)}} = \\dfrac{${miseEnCouleur(`${E.nom}${B.nom}`, 'red')}}{${miseEnCouleur(`${B.nom}${D.nom}`, bleuMathalea)}}\\\\\\\\
+      \\dfrac{${miseEnCouleur(`${A.nom}${D.nom}`, 'black')}}{${miseEnCouleur(`${E.nom}${D.nom}`, bleuMathalea)}} = \\dfrac{${miseEnCouleur(`${A.nom}${E.nom}`, 'black')}}{${miseEnCouleur(`${E.nom}${B.nom}`, bleuMathalea)}} = \\dfrac{${miseEnCouleur(`${E.nom}${D.nom}`, 'black')}}{${miseEnCouleur(`${B.nom}${D.nom}`, bleuMathalea)}}
       \\end{aligned}$`
       } else {
         texteCorr += `Les trois triangles $\\triangle ${A.nom}${E.nom}${D.nom}$, $\\triangle ${A.nom}${E.nom}${B.nom}$ et $\\triangle ${E.nom}${D.nom}${B.nom}$ sont semblables, car ils sont tous rectangles et que $\\widehat{EAD}=\\widehat{EAB}$ et $\\widehat{EDA}=\\widehat{EDB}$.`

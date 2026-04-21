@@ -23,7 +23,7 @@ export const interactifReady = true
 export const interactifType = 'mathLive'
 /**
  * Développer des expressions de simple distributivité à l'aide d'un tableau de  multiplication
- * @author Jean-Claude Lhote
+ * @author Jean-claude Lhote
  */
 
 export const uuid = 'de189'
@@ -160,7 +160,7 @@ export default class TableSimpleDistributivite extends Exercice {
         reponse: {
           value: (a * b).toString(),
           options: {
-            avecSigneMultiplier: false,
+            sansTimes: true,
           },
         },
       })

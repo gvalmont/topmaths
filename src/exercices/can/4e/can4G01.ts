@@ -1,6 +1,6 @@
 import { afficheLongueurSegment } from '../../../lib/2d/afficheLongueurSegment'
 import { codageAngle } from '../../../lib/2d/angles'
-import { point } from '../../../lib/2d/PointAbstrait'
+import { pointAbstrait } from '../../../lib/2d/PointAbstrait'
 import { polygoneAvecNom } from '../../../lib/2d/polygones'
 import { pointAdistance } from '../../../lib/2d/utilitairesPoint'
 import { choice } from '../../../lib/outils/arrayOutils'
@@ -17,7 +17,7 @@ export const amcReady = true
 export const amcType = 'AMCNum'
 /**
  * Modèle d'exercice très simple pour la course aux nombres
- * @author Jean-Claude Lhote
+ * @author Jean-claude Lhote
  * Créé pendant l'été 2021
 
 */
@@ -50,7 +50,7 @@ export default class LongueurPythagore extends ExerciceSimple {
     ])
     const nom = creerNomDePolygone(3, ['QD'])
     const [a, b, c] = triplet
-    const A = point(0, 0, nom[0])
+    const A = pointAbstrait(0, 0, nom[0])
     const B = pointAdistance(A, b, 0, nom[1]) // triplet[1] sera la longueur c
     const C = pointAdistance(B, a, 90, nom[2]) // triplet[0] sera la longueur a
     const pol = polygoneAvecNom(A, B, C) // donc triplet[2] sera la longueur b

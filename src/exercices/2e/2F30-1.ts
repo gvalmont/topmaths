@@ -1,6 +1,6 @@
 import { courbe } from '../../lib/2d/Courbe'
 import { courbeInterpolee } from '../../lib/2d/CourbeInterpolee.1'
-import { point } from '../../lib/2d/PointAbstrait'
+import { pointAbstrait } from '../../lib/2d/PointAbstrait'
 import { repere } from '../../lib/2d/reperes'
 import { latex2d } from '../../lib/2d/textes'
 import { tracePoint } from '../../lib/2d/TracePoint'
@@ -20,6 +20,7 @@ import {
   randint,
 } from '../../modules/outils'
 import Exercice from '../Exercice'
+import { bleuMathalea } from '../../lib/colors'
 
 export const titre = "Dresser un tableau de variations à partir d'une courbe"
 export const dateDePublication = '14/02/2023'
@@ -90,9 +91,9 @@ export default class VariationsCourbe extends Exercice {
             const y1 = randint(-1, 5) // max de y
             const x2 = randint(4, 5)
             const y2 = y1 - randint(1, 4)
-            const A0 = point(x0, y0)
-            const A1 = point(x1, y1)
-            const A2 = point(x2, y2)
+            const A0 = pointAbstrait(x0, y0)
+            const A1 = pointAbstrait(x1, y1)
+            const A2 = pointAbstrait(x2, y2)
             const Tk = tracePoint(A0, A1, A2)
             Tk.epaisseur = 1
 
@@ -119,7 +120,7 @@ export default class VariationsCourbe extends Exercice {
               grilleYMax: y1 + 2,
             })
             const nomC = latex2d(`C_{${nomF}}`, x0 + 0.7, y0 + 1, {
-              color: 'blue',
+              color: bleuMathalea,
               letterSize: 'normalsize',
             })
             const gr = courbeInterpolee(
@@ -129,7 +130,7 @@ export default class VariationsCourbe extends Exercice {
                 [x2, y2],
               ],
               {
-                color: 'blue',
+                color: bleuMathalea,
                 epaisseur: 2,
                 repere: r1,
                 xMin: x0 - 1,
@@ -196,9 +197,9 @@ export default class VariationsCourbe extends Exercice {
             const y1 = randint(-5, 1) // min de y
             const x2 = randint(4, 5)
             const y2 = y1 + randint(1, 4)
-            const A0 = point(x0, y0)
-            const A1 = point(x1, y1)
-            const A2 = point(x2, y2)
+            const A0 = pointAbstrait(x0, y0)
+            const A1 = pointAbstrait(x1, y1)
+            const A2 = pointAbstrait(x2, y2)
             const Tk = tracePoint(A0, A1, A2)
             Tk.epaisseur = 1
             const nom = choice(nomF)
@@ -206,7 +207,7 @@ export default class VariationsCourbe extends Exercice {
               letterSize: 'scriptsize',
             })
             const nomC = latex2d(`C_{${nomF}}`, x0 + 0.4, y0 + 1, {
-              color: 'blue',
+              color: bleuMathalea,
               letterSize: 'normalsize',
             })
             const r1 = repere({
@@ -235,7 +236,7 @@ export default class VariationsCourbe extends Exercice {
                 [x2, y2],
               ],
               {
-                color: 'blue',
+                color: bleuMathalea,
                 epaisseur: 2,
                 repere: r1,
                 xMin: x0 - 1,
@@ -303,10 +304,10 @@ export default class VariationsCourbe extends Exercice {
             const y2 = y1 + randint(2, 7)
             const x3 = randint(5, 6)
             const y3 = y2 - randint(1, 4)
-            const A0 = point(x0, y0)
-            const A1 = point(x1, y1)
-            const A2 = point(x2, y2)
-            const A3 = point(x3, y3)
+            const A0 = pointAbstrait(x0, y0)
+            const A1 = pointAbstrait(x1, y1)
+            const A2 = pointAbstrait(x2, y2)
+            const A3 = pointAbstrait(x3, y3)
             const Tk = tracePoint(A0, A1, A2, A3)
             Tk.epaisseur = 1
             const nom = choice(nomF)
@@ -314,7 +315,7 @@ export default class VariationsCourbe extends Exercice {
               letterSize: 'scriptsize',
             })
             const nomC = latex2d(`C_{${nomF}}`, x0 + 0.4, y0 + 0.7, {
-              color: 'blue',
+              color: bleuMathalea,
               letterSize: 'normalsize',
             })
             const r1 = repere({
@@ -344,7 +345,7 @@ export default class VariationsCourbe extends Exercice {
                 [x3, y3],
               ],
               {
-                color: 'blue',
+                color: bleuMathalea,
                 epaisseur: 2,
                 repere: r1,
                 xMin: x0 - 1,
@@ -413,10 +414,10 @@ export default class VariationsCourbe extends Exercice {
             const y2 = y1 - randint(2, 7)
             const x3 = randint(7, 9)
             const y3 = y2 + randint(1, 4)
-            const A0 = point(x0, y0)
-            const A1 = point(x1, y1)
-            const A2 = point(x2, y2)
-            const A3 = point(x3, y3)
+            const A0 = pointAbstrait(x0, y0)
+            const A1 = pointAbstrait(x1, y1)
+            const A2 = pointAbstrait(x2, y2)
+            const A3 = pointAbstrait(x3, y3)
             const Tk = tracePoint(A0, A1, A2, A3)
             Tk.epaisseur = 1
             const nom = choice(nomF)
@@ -424,7 +425,7 @@ export default class VariationsCourbe extends Exercice {
               letterSize: 'scriptsize',
             })
             const nomC = latex2d(`C_{${nomF}}`, x0 + 0.4, y0 + 0.7, {
-              color: 'blue',
+              color: bleuMathalea,
               letterSize: 'normalsize',
             })
             const r1 = repere({
@@ -454,7 +455,7 @@ export default class VariationsCourbe extends Exercice {
                 [x3, y3],
               ],
               {
-                color: 'blue',
+                color: bleuMathalea,
                 epaisseur: 2,
                 repere: r1,
                 xMin: x0 - 1,
@@ -525,11 +526,11 @@ export default class VariationsCourbe extends Exercice {
             const y3 = y2 + randint(1, 4)
             const x4 = randint(7, 9)
             const y4 = y3 - randint(1, 4)
-            const A0 = point(x0, y0)
-            const A1 = point(x1, y1)
-            const A2 = point(x2, y2)
-            const A3 = point(x3, y3)
-            const A4 = point(x4, y4)
+            const A0 = pointAbstrait(x0, y0)
+            const A1 = pointAbstrait(x1, y1)
+            const A2 = pointAbstrait(x2, y2)
+            const A3 = pointAbstrait(x3, y3)
+            const A4 = pointAbstrait(x4, y4)
             const Tk = tracePoint(A0, A1, A2, A3, A4)
             Tk.epaisseur = 1
             const nom = choice(nomF)
@@ -537,7 +538,7 @@ export default class VariationsCourbe extends Exercice {
               letterSize: 'scriptsize',
             })
             const nomC = latex2d(`C_{${nomF}}`, x0 + 0.4, y0 + 0.7, {
-              color: 'blue',
+              color: bleuMathalea,
               letterSize: 'normalsize',
             })
             const r1 = repere({
@@ -568,7 +569,7 @@ export default class VariationsCourbe extends Exercice {
                 [x4, y4],
               ],
               {
-                color: 'blue',
+                color: bleuMathalea,
                 epaisseur: 2,
                 repere: r1,
                 xMin: x0 - 1,
@@ -649,11 +650,11 @@ export default class VariationsCourbe extends Exercice {
             const y3 = y2 - randint(1, 4)
             const x4 = randint(7, 8)
             const y4 = y3 + randint(1, 5)
-            const A0 = point(x0, y0)
-            const A1 = point(x1, y1)
-            const A2 = point(x2, y2)
-            const A3 = point(x3, y3)
-            const A4 = point(x4, y4)
+            const A0 = pointAbstrait(x0, y0)
+            const A1 = pointAbstrait(x1, y1)
+            const A2 = pointAbstrait(x2, y2)
+            const A3 = pointAbstrait(x3, y3)
+            const A4 = pointAbstrait(x4, y4)
             const Tk = tracePoint(A0, A1, A2, A3, A4)
             Tk.epaisseur = 1
             const nom = choice(nomF)
@@ -688,7 +689,7 @@ export default class VariationsCourbe extends Exercice {
                 [x4, y4],
               ],
               {
-                color: 'blue',
+                color: bleuMathalea,
                 epaisseur: 2,
                 repere: r1,
                 xMin: x0 - 1,
@@ -696,7 +697,7 @@ export default class VariationsCourbe extends Exercice {
               },
             )
             const nomC = latex2d(`C_{${nomF}}`, x0 + 0.4, y0 + 0.7, {
-              color: 'blue',
+              color: bleuMathalea,
               letterSize: 'normalsize',
             })
             const graphique = mathalea2d(
@@ -718,7 +719,7 @@ export default class VariationsCourbe extends Exercice {
 
             texte = `${graphique}`
 
-            texteCorr = `La fonction $${nom}$ est définie sur $[${x0}\\,;\\,+\\infty[$.<br>
+            texteCorr = `La fonction $${nom}$ est définie sur $[${x0}\\,;\\,${x4}]$.<br>
         Son tableau de variations est : <br><br>`
             texteCorr += tableauDeVariation({
               tabInit: [
@@ -737,7 +738,7 @@ export default class VariationsCourbe extends Exercice {
                   10,
                   `$${x3}$`,
                   10,
-                  '$+\\infty$',
+                 `$${x4}$`,
                   10,
                 ],
               ],
@@ -778,8 +779,8 @@ export default class VariationsCourbe extends Exercice {
             const y1 = randint(-1, 5) // max de y
             const x2 = 8
             const y2 = -10
-            const A0 = point(x0, y0)
-            const A1 = point(x1, y1)
+            const A0 = pointAbstrait(x0, y0)
+            const A1 = pointAbstrait(x1, y1)
             const Tk = tracePoint(A0, A1)
             Tk.epaisseur = 1
             const nom = choice(nomF)
@@ -813,7 +814,7 @@ export default class VariationsCourbe extends Exercice {
                 [x2, y2],
               ],
               {
-                color: 'blue',
+                color: bleuMathalea,
                 epaisseur: 2,
                 repere: r1,
                 xMin: x0 - 1,
@@ -870,8 +871,8 @@ export default class VariationsCourbe extends Exercice {
             const y1 = randint(-3, 0) // min de y
             const x2 = randint(4, 5)
             const y2 = y1 + randint(1, 4)
-            const A1 = point(x1, y1)
-            const A2 = point(x2, y2)
+            const A1 = pointAbstrait(x1, y1)
+            const A2 = pointAbstrait(x2, y2)
             const Tk = tracePoint(A1, A2)
             Tk.epaisseur = 1
             const nom = choice(nomF)
@@ -904,7 +905,7 @@ export default class VariationsCourbe extends Exercice {
                 [x2, y2],
               ],
               {
-                color: 'blue',
+                color: bleuMathalea,
                 epaisseur: 2,
                 repere: r1,
                 xMin: x0 - 1,
@@ -962,9 +963,9 @@ export default class VariationsCourbe extends Exercice {
             const y2 = y1 + randint(2, 7)
             const x3 = 10
             const y3 = -10
-            const A0 = point(x0, y0)
-            const A1 = point(x1, y1)
-            const A2 = point(x2, y2)
+            const A0 = pointAbstrait(x0, y0)
+            const A1 = pointAbstrait(x1, y1)
+            const A2 = pointAbstrait(x2, y2)
             const Tk = tracePoint(A0, A1, A2)
             Tk.epaisseur = 1
             const nom = choice(nomF)
@@ -998,7 +999,7 @@ export default class VariationsCourbe extends Exercice {
                 [x3, y3],
               ],
               {
-                color: 'blue',
+                color: bleuMathalea,
                 epaisseur: 2,
                 repere: r1,
                 xMin: x0 - 1,
@@ -1076,9 +1077,9 @@ export default class VariationsCourbe extends Exercice {
             const y2 = y1 - randint(2, 7)
             const x3 = randint(7, 9)
             const y3 = y2 + randint(1, 4)
-            const A1 = point(x1, y1)
-            const A2 = point(x2, y2)
-            const A3 = point(x3, y3)
+            const A1 = pointAbstrait(x1, y1)
+            const A2 = pointAbstrait(x2, y2)
+            const A3 = pointAbstrait(x3, y3)
             const Tk = tracePoint(A1, A2, A3)
             Tk.epaisseur = 1
             const nom = choice(nomF)
@@ -1112,7 +1113,7 @@ export default class VariationsCourbe extends Exercice {
                 [x3, y3],
               ],
               {
-                color: 'blue',
+                color: bleuMathalea,
                 epaisseur: 2,
                 repere: r1,
                 xMin: -4,
@@ -1192,10 +1193,10 @@ export default class VariationsCourbe extends Exercice {
             const y3 = y2 + randint(1, 4)
             const x4 = 10
             const y4 = -10
-            const A0 = point(x0, y0)
-            const A1 = point(x1, y1)
-            const A2 = point(x2, y2)
-            const A3 = point(x3, y3)
+            const A0 = pointAbstrait(x0, y0)
+            const A1 = pointAbstrait(x1, y1)
+            const A2 = pointAbstrait(x2, y2)
+            const A3 = pointAbstrait(x3, y3)
 
             const Tk = tracePoint(A0, A1, A2, A3)
             Tk.epaisseur = 1
@@ -1231,7 +1232,7 @@ export default class VariationsCourbe extends Exercice {
                 [x4, y4],
               ],
               {
-                color: 'blue',
+                color: bleuMathalea,
                 epaisseur: 2,
                 repere: r1,
                 xMin: x0 - 1,
@@ -1312,10 +1313,10 @@ export default class VariationsCourbe extends Exercice {
             const y3 = y2 - randint(1, 4)
             const x4 = x3 + 3
             const y4 = 7
-            const A0 = point(x0, y0)
-            const A1 = point(x1, y1)
-            const A2 = point(x2, y2)
-            const A3 = point(x3, y3)
+            const A0 = pointAbstrait(x0, y0)
+            const A1 = pointAbstrait(x1, y1)
+            const A2 = pointAbstrait(x2, y2)
+            const A3 = pointAbstrait(x3, y3)
 
             const Tk = tracePoint(A0, A1, A2, A3)
             Tk.epaisseur = 1
@@ -1351,7 +1352,7 @@ export default class VariationsCourbe extends Exercice {
                 [x4, y4],
               ],
               {
-                color: 'blue',
+                color: bleuMathalea,
                 epaisseur: 2,
                 repere: r1,
                 xMin: x0 - 1,
@@ -1470,7 +1471,7 @@ export default class VariationsCourbe extends Exercice {
                 repere: r,
                 xMin,
                 xMax,
-                color: 'blue',
+                color: bleuMathalea,
                 epaisseur: 2,
               }),
             ]
@@ -1540,7 +1541,7 @@ export default class VariationsCourbe extends Exercice {
                 repere: r,
                 xMin,
                 xMax,
-                color: 'blue',
+                color: bleuMathalea,
                 epaisseur: 2,
               }),
             ]
@@ -1617,7 +1618,7 @@ export default class VariationsCourbe extends Exercice {
                 repere: r,
                 xMin,
                 xMax,
-                color: 'blue',
+                color: bleuMathalea,
                 epaisseur: 2,
               }),
             ]
@@ -1731,7 +1732,7 @@ export default class VariationsCourbe extends Exercice {
               repere: r1,
               xMin: -6,
               xMax: 6,
-              color: 'blue',
+              color: bleuMathalea,
               epaisseur: 2,
               step: 0.02,
             })

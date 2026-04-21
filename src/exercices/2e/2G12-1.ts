@@ -3,7 +3,7 @@ import { codageAngleDroit } from '../../lib/2d/CodageAngleDroit'
 import { codageSegments } from '../../lib/2d/CodageSegment'
 import { Droite } from '../../lib/2d/droites'
 import { mediatrice } from '../../lib/2d/Mediatrice'
-import { point } from '../../lib/2d/PointAbstrait'
+import { pointAbstrait } from '../../lib/2d/PointAbstrait'
 import { segment } from '../../lib/2d/segmentsVecteurs'
 import { texteParPosition } from '../../lib/2d/textes'
 import { tracePoint } from '../../lib/2d/TracePoint'
@@ -25,6 +25,7 @@ import { texNombre, texRacineCarree } from '../../lib/outils/texNombre'
 import { mathalea2d } from '../../modules/mathalea2d'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import Exercice from '../Exercice'
+import { bleuMathalea } from '../../lib/colors'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const titre =
@@ -93,8 +94,8 @@ export default class Distance extends Exercice {
             const YAB = (yB - yA) * (yB - yA)
             const AB = XAB + YAB
             const nom = creerNomDePolygone(2, ['OIJDXYAB'])
-            const A = point(xA, yA, 'A')
-            const B = point(xB, yB, 'B')
+            const A = pointAbstrait(xA, yA, 'A')
+            const B = pointAbstrait(xB, yB, 'B')
             A.nom = nom[0]
             B.nom = nom[1]
             if (extraireRacineCarree(AB)[0] === 1) {
@@ -158,9 +159,9 @@ export default class Distance extends Exercice {
             const YAC = (yC - yA) * (yC - yA)
             const AC = XAC + YAC
             const nom = creerNomDePolygone(3, ['OIJDXY'])
-            const A = point(xA, yA, 'A')
-            const B = point(xB, yB, 'B')
-            const C = point(xC, yC, 'C')
+            const A = pointAbstrait(xA, yA, 'A')
+            const B = pointAbstrait(xB, yB, 'B')
+            const C = pointAbstrait(xC, yC, 'C')
             A.nom = nom[0]
             B.nom = nom[1]
             C.nom = nom[2]
@@ -216,9 +217,9 @@ export default class Distance extends Exercice {
             const YAC = (yC - yA) * (yC - yA)
             const AC = XAC + YAC
             const nom = creerNomDePolygone(3, ['OIJDXY'])
-            const A = point(xA, yA, 'A')
-            const B = point(xB, yB, 'B')
-            const C = point(xC, yC, 'C')
+            const A = pointAbstrait(xA, yA, 'A')
+            const B = pointAbstrait(xB, yB, 'B')
+            const C = pointAbstrait(xC, yC, 'C')
             A.nom = nom[0]
             B.nom = nom[1]
             C.nom = nom[2]
@@ -275,9 +276,9 @@ export default class Distance extends Exercice {
             const YBC = (yC - yB) * (yC - yB)
             const BC = XBC + YBC
             const nom = creerNomDePolygone(3, ['OIJDXY'])
-            const A = point(xA, yA, 'A')
-            const B = point(xB, yB, 'B')
-            const C = point(xC, yC, 'C')
+            const A = pointAbstrait(xA, yA, 'A')
+            const B = pointAbstrait(xB, yB, 'B')
+            const C = pointAbstrait(xC, yC, 'C')
             A.nom = nom[0]
             B.nom = nom[1]
             C.nom = nom[2]
@@ -285,15 +286,15 @@ export default class Distance extends Exercice {
             const yM1 = 0
             const xM2 = 5
             const yM2 = 1
-            const M1 = point(xM1, yM1, 'A')
-            const M2 = point(xM2, yM2, 'B')
+            const M1 = pointAbstrait(xM1, yM1, 'A')
+            const M2 = pointAbstrait(xM2, yM2, 'B')
             const med = mediatrice(M1, M2) as Droite
             const M3 = pointIntersectionLC(med, cercle(M1, 5.5))
             const s1 = segment(M1, M3, 'black')
             s1.pointilles = 5
             const s2 = segment(M2, M3, 'black')
             s2.pointilles = 5
-            const s3 = segment(M2, M1, 'blue')
+            const s3 = segment(M2, M1, bleuMathalea)
             setReponse(this, i, ['OUI', 'oui', 'Oui'], {
               formatInteractif: 'texte',
             })
@@ -314,10 +315,10 @@ export default class Distance extends Exercice {
                 pixelsParCm: 25,
                 scale: 0.6,
               },
-              segment(M1, M2, 'blue'),
-              tracePoint(M1, 'blue'),
-              tracePoint(M2, 'blue'),
-              tracePoint(M3, 'blue'),
+              segment(M1, M2, bleuMathalea),
+              tracePoint(M1, bleuMathalea),
+              tracePoint(M2, bleuMathalea),
+              tracePoint(M3, bleuMathalea),
               texteParPosition(`${A.nom}`, 0, -0.5),
               texteParPosition(`${B.nom}`, 5, 0.5),
               s1,
@@ -386,9 +387,9 @@ export default class Distance extends Exercice {
             const YBC = (yC - yB) * (yC - yB)
             const BC = XBC + YBC
             const nom = creerNomDePolygone(3, ['OIJDXY'])
-            const A = point(xA, yA, 'A')
-            const B = point(xB, yB, 'B')
-            const C = point(xC, yC, 'C')
+            const A = pointAbstrait(xA, yA, 'A')
+            const B = pointAbstrait(xB, yB, 'B')
+            const C = pointAbstrait(xC, yC, 'C')
             A.nom = nom[0]
             B.nom = nom[1]
             C.nom = nom[2]
@@ -396,15 +397,15 @@ export default class Distance extends Exercice {
             const yM1 = 0
             const xM2 = 5
             const yM2 = 1
-            const M1 = point(xM1, yM1, 'A')
-            const M2 = point(xM2, yM2, 'B')
+            const M1 = pointAbstrait(xM1, yM1, 'A')
+            const M2 = pointAbstrait(xM2, yM2, 'B')
             const med = mediatrice(M1, M2) as Droite
             const M3 = pointIntersectionLC(med, cercle(M1, 5.5))
             const s1 = segment(M1, M3, 'black')
             s1.pointilles = 5
             const s2 = segment(M2, M3, 'black')
             s2.pointilles = 5
-            const s3 = segment(M2, M1, 'blue')
+            const s3 = segment(M2, M1, bleuMathalea)
             setReponse(this, i, ['NON', 'non', 'Non'], {
               formatInteractif: 'texte',
             })
@@ -425,10 +426,10 @@ export default class Distance extends Exercice {
                 pixelsParCm: 25,
                 scale: 0.6,
               },
-              segment(M1, M2, 'blue'),
-              tracePoint(M1, 'blue'),
-              tracePoint(M2, 'blue'),
-              tracePoint(M3, 'blue'),
+              segment(M1, M2, bleuMathalea),
+              tracePoint(M1, bleuMathalea),
+              tracePoint(M2, bleuMathalea),
+              tracePoint(M3, bleuMathalea),
               texteParPosition(`${A.nom}`, 0, -0.5),
               texteParPosition(`${B.nom}`, 5, 0.5),
               s1,

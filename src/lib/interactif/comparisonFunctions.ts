@@ -7,7 +7,6 @@ import {
   isNumber,
   isSymbol,
 } from '@cortex-js/compute-engine'
-import { isInteger, number } from 'mathjs'
 import Grandeur from '../../modules/Grandeur'
 import Hms from '../../modules/Hms'
 import { pgcd } from '../outils/primalite'
@@ -437,7 +436,7 @@ function handleHMS(saisie: string, answer: string): ResultType {
  * @param {string} saisie
  * @param {string} goodAnswer
  * @return ResultType
- * @author Jean-Claude Lhote
+ * @author Jean-claude Lhote
  */
 // function hmsCompare(saisie: string, goodAnswer: string): ResultType {
 function handleHMS(saisie: string, goodAnswer: string): ResultType {
@@ -458,7 +457,7 @@ function handleHMS(saisie: string, goodAnswer: string): ResultType {
  * Compare deux chaînes de coordonnées (2D ou 3D), en normalisant les formats.
  * Gère : parenthèses, séparateur (;), fractions, décimaux, espaces, etc.
  * Exemples acceptés : (3;3), 3;4, (-3;2{,}5), (\frac35;-frac{2}{5}), 1,2,3
- * @author Jean-Claude Lhote
+ * @author Jean-claude Lhote
  */
 export function handleCoordinates(saisie: string, answer: string): ResultType {
   // Nettoyage de base (parenthèses, espaces, fractions, virgules)
@@ -511,7 +510,7 @@ function normaliseUnions(expr: string): string {
 }
 
 // Version ArnoG (optimisée par rapport à la notre)
-// Initialement crée par Jean-Claude Lhote
+// Initialement crée par Jean-claude Lhote
 function handleIntervalle(saisie: string, answer: string): ResultType {
   // Unicode → LaTeX replacements for copy-paste from browsers/Wikipedia
   const UNICODE_TO_LATEX: Array<[string, string]> = [
@@ -668,7 +667,7 @@ function handleIntervalle(saisie: string, answer: string): ResultType {
  * La fonction de comparaison des intervalles pour l'interactif
  * @param {string} saisie
  * @param {string} answer
- * @author Jean-Claude Lhote
+ * @author Jean-claude Lhote
  
 function handleIntervalle(saisie: string, answer: string) {
   const clean = generateCleaner(['virgules', 'parentheses', 'espaces'])
@@ -770,7 +769,7 @@ function handleIntervalle(saisie: string, answer: string) {
 } */
 
 // Version ArnoG
-// Initialement crée par Jean-Claude Lhote
+// Initialement crée par Jean-claude Lhote
 function handleEstDansIntervalle(saisie: string, answer: string): ResultType {
   const clean = generateCleaner(['virgules', 'parentheses', 'espaces'])
   const interval = parseInterval(clean(answer))
@@ -804,7 +803,7 @@ function handleEstDansIntervalle(saisie: string, answer: string): ResultType {
 /**
  * Format des nombres avec les espaces adéquats
  * @param {string} nombre // Un nombre sans espace sous forme d'une chaîne de caractères
- * @author Eric Elter (aide par ChatGPT)
+ * @author Éric Elter (aide par ChatGPT)
  * @example formatNumberWithSpaces('1234567') renvoie '1 234 567'
  * @example formatNumberWithSpaces('1239,4567') renvoie '1 239,456 7'
  * @returns {string}
@@ -872,7 +871,7 @@ function handleNombreAvecEspace(saisie: string, answer: string): ResultType {
 }
 
 /**
- * @author Eric Elter
+ * @author Éric Elter
  */
 function handlefractionSansRacineCarree(
   saisie: string,
@@ -902,13 +901,13 @@ function handlefractionSansRacineCarree(
  * Vérifie si une chaîne est en notation scientifique LaTeX valide.
  * Gère les formes "a\\times10^{b}" et "10^{b}\\timesa".
  * Retourne un objet avec isOk et feedback.
- * @author Eric Elter
+ * @author Éric Elter
  */
 /**
  * Vérifie si une chaîne est en notation scientifique LaTeX valide.
  * Gère les formes "a\\times10^b" et "10^b\\timesa" avec ou sans accolades.
  * Retourne un objet avec isOk et feedback.
- * @author Eric Elter
+ * @author Éric Elter
  */
 function isScientific(str: string): ResultType {
   // Regex 1 : a\times10^b ou a\times10^{b}
@@ -977,7 +976,7 @@ function handleEcritureScientifique(
   return !isNaN(plainVal) && Math.abs(plainVal - ansVal) < 1e-12 ? ok() : fail()
 */
 
-  // Version Eric Elter
+  // Version Éric Elter
   const clean = generateCleaner([
     'virgules',
     'espaces',
@@ -1000,7 +999,7 @@ function handleEcritureScientifique(
   // Si la puissance est 0, on accepte mais computeEngine ne met pas en notation scientitique et donc la comparaison entre notation scientifique n'est pas possible.
   // Donc il faut ces trois lignes pour comparer les nombres décimaux, dans ce cas précis.
   const match = saisieCleanFormattee.match(/\^{(-?\d+)}$/) // Recherche des nombres entre accolades
-  const puissance = match ? number(match[match.length - 1]) : null
+  const puissance = match ? Number(match[match.length - 1]) : null
   if (puissance === 0) {
     saisieCleanFormattee = ce
       .parse(saisieClean)
@@ -1078,7 +1077,7 @@ function handleUnite(
   }
   return ok()
   */
-  // Version Jean-Claude Lhote
+  // Version Jean-claude Lhote
   const localInput = saisie.replace('^\\circ', '°').replace('\\degree', '°')
   const cleaner = generateCleaner([
     'virgules',
@@ -1096,9 +1095,7 @@ function handleUnite(
 
   if (inputGrandeur) {
     if (inputGrandeur.uniteDeReference !== goodAnswerGrandeur.uniteDeReference)
-      return fail(
-        `La réponse pourrait être correcte si l'unité avait été précisée.`,
-      )
+      return fail(`L'unité choisie n'est, déjà, pas correcte.`)
 
     if (precision !== undefined) {
       const okPrecision1: boolean = inputGrandeur.estUneApproximation(
@@ -1113,10 +1110,18 @@ function handleUnite(
       if (okPrecision1 && okPrecision2) {
         return ok()
       } else {
-        return fail(
-          //  `Incorrect car la réponse n'est pas arrondie comme il faut.`,
-          `Incorrect car la réponse n'est pas arrondie comme il faut.`,
+        const okPrecision1: boolean = inputGrandeur.estUneApproximation(
+          goodAnswerGrandeur,
+          1,
         )
+        const okPrecision2: boolean = goodAnswerGrandeur.estUneApproximation(
+          inputGrandeur,
+          1,
+        )
+        if (okPrecision1 && okPrecision2)
+          return fail(
+            `Incorrect car la réponse n'est pas arrondie comme il faut.`,
+          )
       }
       return fail()
     }
@@ -1266,7 +1271,7 @@ function handleFraction(
     return ok()
 
   if (
-    isInteger(ce.parse(clean(saisie)).re) &&
+    Number.isInteger(ce.parse(clean(saisie)).re) &&
     mathEqual(parse(saisie), parse(answer))
   )
     return ok()
@@ -2075,7 +2080,7 @@ function handleExpressionsForcementReduites(
 
   if (!mathEqual(s, a))
     return fail(
-      "Incorrect car cette expression n'est pas assez égale à celle attendue.",
+      "Incorrect car cette expression n'est pas égale à celle attendue.",
     )
 
   if (saisie.includes('\\times'))
@@ -2274,6 +2279,55 @@ function handletexteAvecCasse(
   return fail()
 }
 
+function handleExpressionExpanded(saisie: string, answer: string): ResultType {
+  const clean = generateCleaner([
+    'virgules',
+    'parentheses',
+    'fractions',
+    'divisions',
+  ])
+  const cleanInput = clean(saisie)
+
+  if (handleCalculFormel(saisie, answer).isOk) {
+    if (
+      JSON.stringify(ce.parse(cleanInput, { form: 'raw' }).json).includes(
+        'InvisibleOperator',
+      ) ||
+      JSON.stringify(ce.parse(cleanInput, { form: 'raw' }).json).includes(
+        'Power',
+      )
+    )
+      return fail(
+        'La réponse fournie est bien égale à celle attendue mais il manque au moins un signe $\\times$.',
+      )
+    return ok()
+  }
+  return fail()
+}
+
+function handleExpressionSansTimes(saisie: string, answer: string): ResultType {
+  const clean = generateCleaner([
+    'virgules',
+    'parentheses',
+    'fractions',
+    'divisions',
+  ])
+  const cleanInput = clean(saisie)
+
+  if (handleCalculFormel(saisie, answer).isOk) {
+    if (
+      JSON.stringify(ce.parse(cleanInput, { form: 'raw' }).json).includes(
+        'Multiply',
+      )
+    )
+      return fail(
+        'La réponse fournie est bien égale à celle attendue mais il y a au moins un signe $\\times$ en trop.',
+      )
+    return ok()
+  }
+  return fail()
+}
+
 function handleFonction(
   saisie: string,
   answer: string,
@@ -2337,7 +2391,7 @@ function handleFonction(
 
   // Proposition faite par ArnoG le 18/02/2026 suite à migration de compute-engine en 0.51.1
   let isEqual = false
-  for (let cpt = 0; cpt < 1000; cpt++) {
+  for (let cpt = 0; cpt < 100; cpt++) {
     const points = [valAlea(), valAlea(), valAlea()].map((v) => ({
       [varName]: v,
     }))
@@ -2429,7 +2483,7 @@ function handleDeveloppementEgal(saisie: string, answer: string): ResultType {
 
   if (!mathEqual(parsedSaisie, parsedAnswer))
     return fail(
-      "Incorrect car cette expression n'est pas assez égale à celle attendue.",
+      "Incorrect car cette expression n'est pas égale à celle attendue.",
     )
 
   return isExpandedExpression(parsedSaisie)
@@ -2736,7 +2790,7 @@ function handleEnsembleNombres(
 }
 
 /**
- * @author Jean-Claude Lhote
+ * @author Jean-claude Lhote
  */
 
 export function handleLeCompteEstBon( // Ne fonctionne que si numbers est un tableau de nombres POSITIFS.
@@ -2885,7 +2939,7 @@ export function handleLeCompteEstBon( // Ne fonctionne que si numbers est un tab
  * Peut-être en faire une variation pour vérifier des inégalités ?
  * @param {string} input
  * @param {string} goodAnswer
- * @author Jean-Claude Lhote
+ * @author Jean-claude Lhote
  * @return ResultType
  */
 
@@ -2972,7 +3026,7 @@ export function handleEntiersConsecutifs(
 //    ██      ██   ██ ██ ██   ████  ██████ ██ ██      ██   ██ ███████ ███████
 //
 //
-// from https://patorjk.com/software/taag/ // Style : ANSI Regular
+// from https://patorjk.com/software/taag/ // Style : ANSI Regular // C++ style Comment
 
 export function fonctionComparaison(
   saisie: string,
@@ -3000,13 +3054,6 @@ export function fonctionComparaison(
       feedback: "Aucune fonction trigonométrique n'est autorisée.",
     }
 
-  // Ces 2 lignes sont à améliorer... EE : Faut que je teste un truc... et rajouter les racines carrées aussi
-  /*
-  if (!options.avecSigneMultiplier && saisie.includes('times'))
-    return { isOk: false, feedback: "Aucun signe $\\times$ n'est autorisé." }
-  if (!options.avecFractions && saisie.includes('frac'))
-    return { isOk: false, feedback: "Aucune fraction n'est autorisée." }
-*/
   // Text comparisons
   if (options.texteAvecCasse) return handletexteAvecCasse(saisie, answer, true)
   if (options.texteSansCasse)
@@ -3101,11 +3148,6 @@ export function fonctionComparaison(
     return handlefractionSansRacineCarree(saisie, answer)
   }
 
-  /*
-  if (options.avecFractions)
-    return mathEqual(parse(saisie), parse(answer)) ? ok() : fail()
-  */
-
   // Numeric expression
   if (options.expressionNumerique)
     return handleExpressionNumerique(saisie, answer, options)
@@ -3154,6 +3196,12 @@ export function fonctionComparaison(
 
   // Calcul formel (accepte tout normalement)
   if (options.calculFormel) return handleCalculFormel(saisie, answer)
+
+  // Expressions expanded
+  if (options.expanded) return handleExpressionExpanded(saisie, answer)
+
+  // Expressions sansTimes
+  if (options.sansTimes) return handleExpressionSansTimes(saisie, answer)
 
   // Deux entiers consécutifs
   if (options.entiersConsecutifs)

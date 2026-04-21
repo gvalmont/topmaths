@@ -1,4 +1,4 @@
-import { orangeMathalea } from 'apigeom/src/elements/defaultValues'
+import { orangeMathalea } from '../../lib/colors'
 import { context } from '../../modules/context'
 import operation from '../../modules/operations'
 import Exercice from '../Exercice'
@@ -12,7 +12,7 @@ export const uuid = '691a6'
 
 /**
  * Permet de poser des opérations (addition, soustraction, multiplication, division euclidienne et division décimale)
- * @author Jean-Claude Lhote
+ * @author Jean-claude Lhote
  */
 export default class OperationsPosees extends Exercice {
   constructor() {

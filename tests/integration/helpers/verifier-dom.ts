@@ -1,6 +1,9 @@
 import { verifQuestionCliqueFigure } from '../../../src/lib/interactif/cliqueFigure'
 import { verifDragAndDrop } from '../../../src/lib/interactif/DragAndDrop'
-import { verifQuestionMetaInteractif2d } from '../../../src/lib/interactif/gestionInteractif'
+import {
+  verifQuestionMetaInteractif2d,
+  verifQuestionMultiMathfield,
+} from '../../../src/lib/interactif/gestionInteractif'
 import { verifQuestionMathLive } from '../../../src/lib/interactif/mathLive'
 import { verifQuestionQcm } from '../../../src/lib/interactif/qcm'
 import { verifQuestionListeDeroulante } from '../../../src/lib/interactif/questionListeDeroulante'
@@ -16,6 +19,7 @@ import {
   injectListeDeroulanteDOM,
   injectMathLiveDOM,
   injectMetaInteractif2dDOM,
+  injectMultiMathfieldDOM,
   injectQcmDOM,
   injectSvgSelectionDOM,
   injectTableauMathliveDOM,
@@ -23,8 +27,8 @@ import {
 } from './domSimulator'
 import {
   ensureDragAndDropQuestion,
-  extractPromptValuesForCallbackQuestion,
   extractClockValuesForCustom,
+  extractPromptValuesForCallbackQuestion,
   extractPromptValuesForCustom,
   grandeurStringToLatex,
   normalizeCustomCorrectionResult,
@@ -132,12 +136,7 @@ function verifyCustomQuestion(
         ? String(rawHour - 12)
         : String(rawHour)
 
-    injectInteractiveClockDOM(
-      exIdx,
-      questionIndex,
-      domHour,
-      clockValues.minute,
-    )
+    injectInteractiveClockDOM(exIdx, questionIndex, domHour, clockValues.minute)
     const result = exercice.correctionInteractive(questionIndex)
     const isOk = normalizeCustomCorrectionResult(result)
     const clockAnswer = `${clockValues.hour}h${clockValues.minute}`
@@ -508,6 +507,68 @@ export function verifyDom(exercice: IExercice): VerificationResult[] {
             questionIndex: i,
             format,
             verificationFunctionName: 'verifQuestionMetaInteractif2d',
+            simulatedInput: stringifyRecord(fieldValues),
+            goodAnswer: stringifyRecord(fieldValues),
+            isOk: result?.isOk === true,
+            feedback: result?.feedback ?? '',
+            skipped: false,
+          })
+          break
+        }
+
+        case 'multiMathfield': {
+          if (!valeur) {
+            results.push({
+              questionIndex: i,
+              format,
+              verificationFunctionName: 'verifQuestionMultiMathfield',
+              simulatedInput: '',
+              goodAnswer: '',
+              isOk: false,
+              feedback: 'No valeur',
+              skipped: true,
+              skipReason: 'no-valeur',
+            })
+            break
+          }
+          const fieldValues: Record<string, string> = {}
+          for (const [key, answer] of Object.entries(valeur)) {
+            if (
+              key === 'bareme' ||
+              key === 'feedback' ||
+              answer?.value == null
+            ) {
+              continue
+            }
+            const val = answer.value
+            const options = answer.options ?? {}
+            const raw = Array.isArray(val) ? String(val[0]) : String(val)
+
+            const opts = answer.options ?? {}
+            fieldValues[key] = opts.unite
+              ? grandeurStringToLatex(raw)
+              : toCompareInput(raw, options)
+          }
+          if (Object.keys(fieldValues).length === 0) {
+            results.push({
+              questionIndex: i,
+              format,
+              verificationFunctionName: 'verifQuestionMultiMathfield',
+              simulatedInput: '',
+              goodAnswer: '',
+              isOk: false,
+              feedback: 'No field values',
+              skipped: true,
+              skipReason: 'no-field-values',
+            })
+            break
+          }
+          injectMultiMathfieldDOM(exIdx, i, fieldValues)
+          const result = verifQuestionMultiMathfield(exercice, i)
+          results.push({
+            questionIndex: i,
+            format,
+            verificationFunctionName: 'verifQuestionMultiMathfield',
             simulatedInput: stringifyRecord(fieldValues),
             goodAnswer: stringifyRecord(fieldValues),
             isOk: result?.isOk === true,

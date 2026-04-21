@@ -1,6 +1,6 @@
 import { codageSegment } from '../../../lib/2d/CodageSegment'
 import { courbe } from '../../../lib/2d/Courbe'
-import { point } from '../../../lib/2d/PointAbstrait'
+import { pointAbstrait } from '../../../lib/2d/PointAbstrait'
 import { repere } from '../../../lib/2d/reperes'
 import { segment } from '../../../lib/2d/segmentsVecteurs'
 import { labelPoint, texteParPosition } from '../../../lib/2d/textes'
@@ -40,8 +40,7 @@ export const dateDePublication = '05/04/2022' // La date de publication initiale
 
 /**
  *
- * Gilles Mora
-
+ * @author Gilles Mora
  */
 
 function compareNombres(a: number, b: number) {
@@ -654,11 +653,11 @@ export default class SujetCAN2021Seconde extends Exercice {
             b = k * a // AC
             c = randint(1, a - 1) // EB
             d = k * c // AD
-            const A = point(0, 4, 'A', 'above')
-            const D = point(3.75, 4, 'D', 'above')
-            const E = point(4, -1, 'E', 'below')
-            const B = point(6, -1, 'B', 'below')
-            const C = point(3.91, 0.74, 'C', 'left')
+            const A = pointAbstrait(0, 4, 'A', 'above')
+            const D = pointAbstrait(3.75, 4, 'D', 'above')
+            const E = pointAbstrait(4, -1, 'E', 'below')
+            const B = pointAbstrait(6, -1, 'B', 'below')
+            const C = pointAbstrait(3.91, 0.74, 'C', 'left')
             const xmin = -1
             const ymin = -2.5
             const xmax = 7
@@ -1011,10 +1010,10 @@ export default class SujetCAN2021Seconde extends Exercice {
           {
             a = randint(1, 10)
 
-            const A = point(0, 0, 'A', 'below')
-            const B = point(4, 0, 'B', 'below')
-            const C = point(4, 4, 'C', 'above')
-            const D = point(0, 4, 'D', 'above')
+            const A = pointAbstrait(0, 0, 'A', 'below')
+            const B = pointAbstrait(4, 0, 'B', 'below')
+            const C = pointAbstrait(4, 4, 'C', 'above')
+            const D = pointAbstrait(0, 4, 'D', 'above')
             const code1 = codageSegment(A, B, '|')
             const code2 = codageSegment(B, C, '|')
             const code3 = codageSegment(C, D, '|')
@@ -1072,7 +1071,7 @@ export default class SujetCAN2021Seconde extends Exercice {
               texte += ajouteChampTexteMathLive(
                 this,
                 index,
-                KeyboardType.clavierNumbers,
+                KeyboardType.clavierFullOperations,
                 { texteApres: '$\\text{ cm}$' },
               )
             } else {
@@ -1091,7 +1090,7 @@ export default class SujetCAN2021Seconde extends Exercice {
           Combien pèse (en $\\text{kg}$) ce solide qui a la forme d'un cube  d'arête $${a}\\text{ cm}$  ?
       `
           texteCorr = `Le volume du cube est $${a}^3=${a ** 3}\\text{ cm}^3$.<br>
-          Sa masse est donc donnée par $${a ** 3}\\times 10=${10 * a ** 3}$ g soit $${texNombre(a ** 3 / 100, 2)}\text{ kg}$.
+          Sa masse est donc donnée par $${a ** 3}\\times 10=${10 * a ** 3}$ g soit $${texNombre(a ** 3 / 100, 2)}\\text{ kg}$.
 
           `
 
@@ -1120,7 +1119,7 @@ export default class SujetCAN2021Seconde extends Exercice {
               xUnite: 2,
               yUnite: 1,
             })
-            // courbe(x => a * x + b, { repere: r, color: 'blue' })
+            // courbe(x => a * x + b, { repere: r, color: bleuMathalea })
             const f = (x: number) => 0.5 * x ** 3 + b
             const C = courbe(f, { repere: r, color: 'red' })
 

@@ -1,9 +1,9 @@
 import Figure from 'apigeom'
 import { distance } from 'apigeom/src/elements/calculus/Coords'
-import { orangeMathalea } from 'apigeom/src/elements/defaultValues'
 import GraduatedLine from 'apigeom/src/elements/grid/GraduatedLine'
 import type { MathfieldElement } from 'mathlive'
 import { wrapperApigeomToMathalea } from '../../lib/apigeom/apigeomZoom'
+import { orangeMathalea } from '../../lib/colors'
 import figureApigeom from '../../lib/figureApigeom'
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 import { fonctionComparaison } from '../../lib/interactif/comparisonFunctions'
@@ -27,7 +27,7 @@ export const amcReady = true
 export const amcType = 'AMCHybride'
 
 /** Donner du sens à la définition d'un quotient
- * @author Eric Elter
+ * @author Éric Elter
  */
 export const uuid = '42fbx'
 
@@ -48,7 +48,7 @@ export default class DonnerSensDefinitionQuotient extends Exercice {
   constructor() {
     super()
 
-    this.nbQuestions = 5
+    this.nbQuestions = 2
     this.exoCustomResultat = true
     this.besoinFormulaireNumerique = [
       'Solution finale',
@@ -89,6 +89,7 @@ export default class DonnerSensDefinitionQuotient extends Exercice {
         stepBis: 1 / den,
         snapGrid: true,
       })
+      figure.options.labelAutomaticForPoints = true
       figure.options.labelAutomaticBeginsWith = label1
       figure.options.pointDescriptionWithCoordinates = false
       this.figuresApiGeom[i] = figure

@@ -19,6 +19,7 @@ import {
   randint,
 } from '../../modules/outils'
 import Exercice from '../Exercice'
+import { bleuMathalea } from '../../lib/colors'
 
 export const titre = 'Nommer des faces dans un pavé droit'
 export const amcReady = true
@@ -30,7 +31,7 @@ export const dateDePublication = '06/11/2022'
 
 /**
  * Nommer des faces dans un pavé droit
- * @author Eric Elter
+ * @author Éric Elter
  */
 
 export const uuid = '6809f'
@@ -44,13 +45,13 @@ export const refs = {
 /**
  * Inverse une chaîne de caractères
  * @param {string} str Chaîne à inverser
- * @author Eric Elter
+ * @author Éric Elter
  * @example inverseChaine('laval') renvoie 'laval' /// Hihihihi...
  * @example inverseChaine('parfait') renvoie 'tiafrap'
  * @example inverseChaine('1234') renvoie '4321'
  */
 function inverseChaine(str: string): string {
-  return str === '' ? '' : inverseChaine(str.substr(1)) + str.charAt(0)
+  return str === '' ? '' : inverseChaine(str.slice(1)) + str.charAt(0)
 }
 
 function differentsNomsPossiblesDUneFace(
@@ -165,7 +166,7 @@ export default class LireFacePaveDroit extends Exercice {
       E = point3d(0, choixProfondeur, 0)
 
       nomSolide = choisitLettresDifferentes(8, 'OQWXD').join('')
-      solideDessine = pave3d(A, B, D, E, 'blue', true, nomSolide)
+      solideDessine = pave3d(A, B, D, E, bleuMathalea, true, nomSolide)
       objetsEnonce.push(...solideDessine.c2d)
       // enonceFigure = (context.isAmc ? '' : '<br>') + mathalea2d(Object.assign({}, fixeBordures(objetsEnonce), { scale: context.isHtml ? 0.7 : 0.2, style: 'block' }), objetsEnonce) + '<br>'
       enonceFigure =

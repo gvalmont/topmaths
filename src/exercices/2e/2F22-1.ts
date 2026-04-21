@@ -1,18 +1,16 @@
 import { droiteParPointEtPente } from '../../lib/2d/droites'
 import { fixeBordures } from '../../lib/2d/fixeBordures'
 import { lectureAntecedent } from '../../lib/2d/LectureAntecedent'
-import { point } from '../../lib/2d/PointAbstrait'
+import { pointAbstrait } from '../../lib/2d/PointAbstrait'
 import { repere } from '../../lib/2d/reperes'
 import { latex2d, texteParPosition } from '../../lib/2d/textes'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
-import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import {
   Spline,
   spline,
   type NoeudSpline,
 } from '../../lib/mathFonctions/Spline'
 import { choice } from '../../lib/outils/arrayOutils'
-import { arrondi } from '../../lib/outils/nombres'
 import { numAlpha } from '../../lib/outils/outilString'
 import { texNombre } from '../../lib/outils/texNombre'
 import { mathalea2d } from '../../modules/mathalea2d'
@@ -20,14 +18,17 @@ import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import Exercice from '../Exercice'
 
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
+import { toutAUnPoint } from '../../lib/interactif/mathLive'
+import { addMultiMathfield } from '../../lib/interactif/MultiMathfield/MultiMathfield'
+import { bleuMathalea } from '../../lib/colors'
 
 export const titre = 'Résoudre graphiquement une équation du type $f(x)=k$'
 export const interactifReady = true
-export const interactifType = 'mathLive'
+export const interactifType = 'multiMathfield'
 
 export const dateDePublication = '06/07/2023' // La date de publication initiale au format 'jj/mm/aaaa' pour affichage temporaire d'un tag
 export const dateDeModifImportante = '08/09/2024'
-export const uuid = 'a2ac2'
+export const uuid = 'a2ac3'
 
 export const refs = {
   'fr-fr': ['2F22-1', 'BP2AutoP2'],
@@ -102,7 +103,7 @@ function aleatoiriseCourbe(listeFonctions: NoeudSpline[][]): NoeudSpline[] {
 
 /**
  * Aléatoirise une courbe et demande les antécédents d'une valeur entière (eux aussi entiers)
- * @author Jean-Claude Lhote (Gilles Mora)
+ * @author Jean-claude Lhote (Gilles Mora)
  */
 export default class LecturesGraphiquesSurSplines extends Exercice {
   spline: Spline | undefined
@@ -145,27 +146,35 @@ export default class LecturesGraphiquesSurSplines extends Exercice {
         y1,
         nombreAntecedentsCherches2,
         y2
+      let compteur = 0
       do {
-        nombreAntecedentCherches0 = randint(1, nbAntecedentsEntiersMaximum)
-        y0 = theSpline.trouveYPourNAntecedents(
-          nombreAntecedentCherches0,
-          bornes.yMin - 1,
-          bornes.yMax + 1,
-          true,
-          true,
-        )
-        nombreAntecedentCherches1 = randint(
-          0,
-          nbAntecedentsEntiersMaximum,
-          nombreAntecedentCherches0,
-        )
-        y1 = theSpline.trouveYPourNAntecedents(
-          nombreAntecedentCherches1,
-          bornes.yMin - 1,
-          bornes.yMax + 1,
-          true,
-          true,
-        )
+        let compteur2 = 0
+        do {
+          nombreAntecedentCherches0 = randint(1, nbAntecedentsEntiersMaximum)
+          y0 = theSpline.trouveYPourNAntecedents(
+            nombreAntecedentCherches0,
+            bornes.yMin - 1,
+            bornes.yMax + 1,
+            true,
+            true,
+          )
+        } while (compteur2++ < 10 && (y0 === false || y0 === 0))
+        let compteur3 = 0
+        do {
+          nombreAntecedentCherches1 = randint(
+            0,
+            nbAntecedentsEntiersMaximum,
+            nombreAntecedentCherches0,
+          )
+          y1 = theSpline.trouveYPourNAntecedents(
+            nombreAntecedentCherches1,
+            bornes.yMin - 1,
+            bornes.yMax + 1,
+            true,
+            true,
+          )
+        } while (compteur3++ < 10 && y1 === false)
+
         nombreAntecedentsCherches2 = randint(0, nbAntecedentsMaximum, [
           nombreAntecedentCherches1,
           nombreAntecedentCherches0,
@@ -178,13 +187,10 @@ export default class LecturesGraphiquesSurSplines extends Exercice {
           true,
           false,
         )
-        y2 = candidatY2 ? arrondi(candidatY2, 1) : NaN
+        y2 = candidatY2 !== false ? Math.round(candidatY2) : NaN
       } while (
-        Number.isNaN(y0) ||
-        Number.isNaN(y1) ||
-        isNaN(y2) ||
-        y0 === 0 ||
-        y2 === 0
+        compteur++ < 50 &&
+        (y0 === false || y1 === false || isNaN(y2) || y0 === 0)
       )
 
       const reponseQ3 = []
@@ -192,7 +198,6 @@ export default class LecturesGraphiquesSurSplines extends Exercice {
         if (theSpline.nombreAntecedents(ee) === nombreAntecedentsCherches2)
           reponseQ3.push(ee)
       }
-      y2 = choice(reponseQ3)
 
       const solutions0 = theSpline.solve(Number(y0), 2) ?? []
       const solutions1 = theSpline.solve(Number(y1), 2) ?? []
@@ -201,12 +206,12 @@ export default class LecturesGraphiquesSurSplines extends Exercice {
           ? '\\emptyset'
           : `\\{${solutions1.join(';')}\\}`
       const horizontale1 = droiteParPointEtPente(
-        point(0, Number(y1)),
+        pointAbstrait(0, Number(y1)),
         0,
         '',
         '#009900',
       )
-      const horizontale2 = droiteParPointEtPente(point(0, y2), 0, '', '#009900')
+      const horizontale2 = droiteParPointEtPente(pointAbstrait(0, y2), 0, '', '#009900')
       const nomD1 = latex2d(`y=${y1}`, bornes.xMin - 0.5, Number(y1) + 0.4, {
         color: '#009900',
         letterSize: 'small',
@@ -241,31 +246,29 @@ export default class LecturesGraphiquesSurSplines extends Exercice {
 
       let enonceSousRepere =
         'Répondre aux questions en utilisant le graphique.<br>'
-      enonceSousRepere +=
-        `<br>${numAlpha(0)}Quel est le nombre de solutions de l'équation $f(x)=${y0}$ ?` +
-        ajouteChampTexteMathLive(this, 3 * i, KeyboardType.clavierNumbers)
-      enonceSousRepere +=
-        `<br><br>${numAlpha(1)}Résoudre l'équation $f(x)=${y1}$. Donner l'ensemble solution` +
-        (this.interactif ? ' : ' : '.')
-      enonceSousRepere +=
-        ajouteChampTexteMathLive(
-          this,
-          3 * i + 1,
-          KeyboardType.clavierEnsemble,
-          { texteAvant: '$S=$' },
-        ) + '<br>'
-      enonceSousRepere +=
-        `<br>${numAlpha(2)}Déterminer une valeur entière de $k$ telle que $f(x)=k$ admette exactement $${nombreAntecedentsCherches2}$ solution${nombreAntecedentsCherches2 > 1 ? 's' : ''}` +
-        (this.interactif ? ' : ' : '.') +
-        ajouteChampTexteMathLive(this, 3 * i + 2, KeyboardType.clavierDeBase)
+      enonceSousRepere += addMultiMathfield(this, i, {
+        dataTemplate: `a) Quel est le nombre de solutions de l'équation $f(x)=${y0}$ ? %{champ1}
+        b) Résoudre l'équation $f(x)=${y1}$. Donner l'ensemble solution %{champ2}
+        c) Déterminer une valeur entière de $k$ telle que $f(x)=k$ admette exactement $${nombreAntecedentsCherches2}$ solution${nombreAntecedentsCherches2 > 1 ? 's' : ''} %{champ3}`,
+        dataOptions: {
+          champ1: { keyboard: KeyboardType.clavierNumbers },
+          champ2: { keyboard: KeyboardType.clavierEnsemble, minWidth: 100 },
+          champ3: { keyboard: KeyboardType.clavierDeBase },
+        },
+      })
 
-      handleAnswers(this, 3 * i, {
-        reponse: { value: nombreAntecedentCherches0 },
-      })
-      handleAnswers(this, 3 * i + 1, {
-        reponse: { value: reponse1, options: { ensembleDeNombres: true } },
-      })
-      handleAnswers(this, 3 * i + 2, { reponse: { value: reponseQ3 } })
+      handleAnswers(
+        this,
+        i,
+        {
+          bareme: toutAUnPoint,
+          champ1: { value: nombreAntecedentCherches0 },
+          champ2: { value: reponse1, options: { ensembleDeNombres: true } },
+          champ3: { value: reponseQ3 },
+        },
+        { formatInteractif: 'multiMathfield' },
+      )
+
       const correctionPartA = `${numAlpha(0)} Le nombre de solutions de l'équation $f(x)=${y0}$ est donné par le nombre d'antécédents de $${y0}$ par $f$. <br>
           ${solutions0.length === 0 ? "Il n'y en a pas, donc l'équation n'a pas de solution." : 'Il y en a $' + solutions0.length + '$ (tracé rouge en pointillés).'}<br>`
       const correctionPartB = `${numAlpha(1)} Résoudre l'équation $f(x)=${y1}$ graphiquement revient à lire les abscisses des points d'intersection entre $\\mathscr{C}_f$ et ${y1 === 0 ? "l'axe des abscisses." : `la droite (parallèle à l'axe des abscisses tracée en pointillés verts) d'équation $y = ${y1}$.`}<br>
@@ -294,9 +297,9 @@ export default class LecturesGraphiquesSurSplines extends Exercice {
       })
       const courbeATracer = theSpline.courbe({
         epaisseur: 1.2,
-        color: 'blue',
+        color: bleuMathalea,
         ajouteNoeuds: true,
-        optionsNoeuds: { color: 'blue', taille: 1, style: '.', epaisseur: 1.5 },
+        optionsNoeuds: { color: bleuMathalea, taille: 1, style: '.', epaisseur: 1.5 },
       })
       for (let j = 0; j < nombreAntecedentCherches1; j++) {
         for (let k = 0; k < theSpline.visibles.length; k++) {
@@ -305,9 +308,9 @@ export default class LecturesGraphiquesSurSplines extends Exercice {
       }
       const courbeCorrection = theSpline.courbe({
         epaisseur: 1.2,
-        color: 'blue',
+        color: bleuMathalea,
         ajouteNoeuds: true,
-        optionsNoeuds: { color: 'blue', taille: 1, style: '.', epaisseur: 1.5 },
+        optionsNoeuds: { color: bleuMathalea, taille: 1, style: '.', epaisseur: 1.5 },
       })
 
       objetsEnonce.push(repere1, courbeATracer)

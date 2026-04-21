@@ -1,9 +1,10 @@
 import Decimal from 'decimal.js'
 import { fixeBordures } from '../../lib/2d/fixeBordures'
+import { MetaInteractif2d } from '../../lib/2d/interactif2d'
 import { Tableau } from '../../lib/2d/tableau'
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
-import { setReponse } from '../../lib/interactif/gestionInteractif'
-import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
+import { handleAnswers } from '../../lib/interactif/gestionInteractif'
+import { toutAUnPoint } from '../../lib/interactif/mathLive'
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
 import {
@@ -11,21 +12,24 @@ import {
   nombreDeChiffresDansLaPartieEntiere,
 } from '../../lib/outils/nombres'
 import { numAlpha } from '../../lib/outils/outilString'
-import { texNombre } from '../../lib/outils/texNombre'
+import { stringNombre, texNombre } from '../../lib/outils/texNombre'
 import { context } from '../../modules/context'
 import FractionEtendue from '../../modules/FractionEtendue'
 import { mathalea2d } from '../../modules/mathalea2d'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
+import type { NestedObjetMathalea2dArray } from '../../types/2d'
 import Exercice from '../Exercice'
+import { bleuMathalea } from '../../lib/colors'
 
 export const titre = 'Calculer le coefficient de proportionnalité'
 export const interactifReady = true
-export const interactifType = 'mathLive'
+export const interactifType = 'MetaInteractif2d'
 export const amcReady = true
 export const amcType = 'AMCHybride'
 export const dateDePublication = '18/03/2023'
+export const dateDeModifImportante = '15/04/2026'
 
-export const uuid = '2d5eb'
+export const uuid = '2d5ec'
 
 export const refs = {
   'fr-fr': ['5P10-2', 'BP2AutoL9'],
@@ -145,13 +149,11 @@ export default class CalculerCoeffPropo extends Exercice {
     for (let i = 0, texte, texteCorr; i < this.nbQuestions; i++) {
       if (context.isAmc) this.autoCorrection[i] = {}
       // Je suis en js, je fais du typage inline JsDoc pratique pour récupérer l'autocomplétion
-      /** @type number | Decimal | FractionEtendue */
-      let coefficient
-      /** @type Array<{ nombre: number, visible: boolean }> */
+      let coefficient: number | Decimal | FractionEtendue
       const premiereLigne: Cell[] = []
-      /** @type Array<{ nombre: number, visible: boolean }> */
       const deuxiemeLigne: Cell[] = []
       const colonneReference = randint(0, 2) // La colonne qui contiendra deux valeurs visibles pour faire le calcul
+      const objets: NestedObjetMathalea2dArray = []
       if (listCoefficientUsed.length >= 9)
         listCoefficientUsed.splice(0, listCoefficientUsed.length)
       do {
@@ -258,15 +260,15 @@ export default class CalculerCoeffPropo extends Exercice {
       const ligne1 = [{ texte: 'Grandeur A' }].concat(
         premiereLigne.map((elt) => {
           return elt.visible
-            ? { texte: `$${texNombre(elt.nombre)}$`, math: true }
-            : { texte: '...' }
+            ? { texte: stringNombre(elt.nombre), math: true } // EE : Laisser stringNombre et pas texNombre car cela fait un encadré blanc qu'on devine sur les bordures
+            : { texte: this.interactif ? '' : '...' }
         }),
       )
       const ligne2 = [{ texte: 'Grandeur B' }].concat(
         deuxiemeLigne.map((elt) => {
           return elt.visible
-            ? { texte: `$${texNombre(elt.nombre)}$`, math: true }
-            : { texte: '...' }
+            ? { texte: stringNombre(elt.nombre), math: true }
+            : { texte: this.interactif ? '' : '...' }
         }),
       )
       const monTableau = context.isAmc // EE : En AMC, les flèches ne passent pas. Je les supprime en attendant de trouver une solution.
@@ -296,13 +298,16 @@ export default class CalculerCoeffPropo extends Exercice {
               ligne1,
               ligne2,
               flecheDroite: {
-                texte: '\\times \\ldots',
+                texte: this.interactif ? '' : '\\times \\ldots',
                 latex: true,
-                color: 'blue',
+                color: bleuMathalea,
                 gras: true,
               },
               flecheDroiteSens: 'bas',
-              flecheGauche: { texte: '\\times \\ldots', latex: true },
+              flecheGauche: {
+                texte: this.interactif ? '' : '\\times \\ldots',
+                latex: true,
+              },
               flecheGaucheSens: 'haut',
             })
           : new Tableau({
@@ -313,21 +318,22 @@ export default class CalculerCoeffPropo extends Exercice {
               ligne1,
               ligne2,
               flecheDroite: {
-                texte: '\\times \\ldots',
+                texte: this.interactif ? '' : '\\times \\ldots',
                 latex: true,
-                color: 'blue',
+                color: bleuMathalea,
                 gras: true,
               },
               flecheDroiteSens: 'bas',
             })
+      objets.push(monTableau)
       const ligne1Corr = [{ texte: 'Grandeur A' }].concat(
         premiereLigne.map((elt) => {
-          return { texte: texNombre(elt.nombre), math: true }
+          return { texte: stringNombre(elt.nombre), math: true }
         }),
       )
       const ligne2Corr = [{ texte: 'Grandeur B' }].concat(
         deuxiemeLigne.map((elt) => {
-          return { texte: texNombre(elt.nombre), math: true }
+          return { texte: stringNombre(elt.nombre), math: true }
         }),
       )
       const monTableauCorr =
@@ -402,47 +408,66 @@ export default class CalculerCoeffPropo extends Exercice {
         }
       }
       if (context.isHtml) {
-        // Pour HTML on utilise mathalea2d
-        texte += mathalea2d(
-          Object.assign({}, fixeBordures([monTableau])),
-          monTableau,
+        const colonnesReponses = [1, 2, 3].filter(
+          (colonne) => colonne !== colonneReference + 1,
         )
+        const yReponse2 = premiereLigne[colonnesReponses[0] - 1].visible ? 1 : 3
+        const yReponse3 = premiereLigne[colonnesReponses[1] - 1].visible ? 1 : 3
+        const xReponse2 = colonnesReponses[0] - 1
+        const xReponse3 = colonnesReponses[1] - 1
         if (this.interactif) {
-          texte +=
-            'Coefficient de proportionnalité de A à B : ' +
-            ajouteChampTexteMathLive(
-              this,
-              3 * i,
-              KeyboardType.clavierDeBaseAvecFraction,
-            )
-          setReponse(this, 3 * i, coefficient, {
-            formatInteractif: coefficientRationnel ? 'fractionEgale' : 'calcul',
-          })
-          texte += `<br>Valeur de la grandeur ${reponsesAttendue.reponse1.lettre} pour la colonne ${reponsesAttendue.reponse1.colonne} :`
-          texte += ajouteChampTexteMathLive(
-            this,
-            3 * i + 1,
-            KeyboardType.clavierNumbers,
+          const inputs = new MetaInteractif2d(
+            [
+              {
+                x: 17.3,
+                y: 2,
+                content: '\\times %{champ1}',
+                classe: KeyboardType.clavierDeBaseAvecFraction,
+                blanc: '\\ldots',
+                opacity: 1,
+                index: 0,
+              },
+              {
+                x: 7.5 + xReponse2 * 3,
+                y: yReponse2,
+                content: '%{champ1}',
+                classe: KeyboardType.clavierDeBaseAvecFraction,
+                blanc: '\\ldots',
+                opacity: 1,
+                index: 1,
+              },
+              {
+                x: 7.5 + xReponse3 * 3,
+                y: yReponse3,
+                content: '%{champ1}',
+                classe: KeyboardType.clavierDeBaseAvecFraction,
+                blanc: '\\ldots',
+                opacity: 1,
+                index: 2,
+              },
+            ],
+            {
+              exercice: this,
+              question: i,
+            },
           )
-          setReponse(
+          objets.push(inputs)
+          handleAnswers(
             this,
-            3 * i + 1,
-            reponsesAttendue.reponse1.reponse.valeur,
-            { formatInteractif: 'calcul' },
-          )
-          texte += `<br>Valeur de la grandeur ${reponsesAttendue.reponse2.lettre} pour la colonne ${reponsesAttendue.reponse2.colonne} :`
-          texte += ajouteChampTexteMathLive(
-            this,
-            3 * i + 2,
-            KeyboardType.clavierNumbers,
-          )
-          setReponse(
-            this,
-            3 * i + 2,
-            reponsesAttendue.reponse2.reponse.valeur,
-            { formatInteractif: 'calcul' },
+            i,
+            {
+              bareme: toutAUnPoint,
+              field0: { value: coefficient },
+              field1: { value: reponsesAttendue.reponse1.reponse.valeur },
+              field2: { value: reponsesAttendue.reponse2.reponse.valeur },
+            },
+            { formatInteractif: 'MetaInteractif2d' },
           )
         }
+        texte += mathalea2d(
+          Object.assign({}, fixeBordures(objets, { rxmin: -1.5 })),
+          objets,
+        )
       } else {
         // pour LAtex, c'est profCollege dans le texte
         texte += '\n\\Propor[Math,Stretch=2,largeur=15]{'
@@ -555,14 +580,14 @@ export default class CalculerCoeffPropo extends Exercice {
           premiereLigne[colonneReference].nombre,
         )
         if (!quotient.estIrreductible) {
-          texteCorr += `${miseEnEvidence(`\\dfrac{${texNombre(deuxiemeLigne[colonneReference].nombre)}}{${texNombre(premiereLigne[colonneReference].nombre)}}`, 'blue')}`
+          texteCorr += `${miseEnEvidence(`\\dfrac{${texNombre(deuxiemeLigne[colonneReference].nombre)}}{${texNombre(premiereLigne[colonneReference].nombre)}}`, bleuMathalea)}`
           texteCorr += `= ${miseEnEvidence((coefficient as FractionEtendue).texFraction)}$.<br>`
         } else {
           texteCorr += `${miseEnEvidence(`\\dfrac{${texNombre(deuxiemeLigne[colonneReference].nombre)}}{${texNombre(premiereLigne[colonneReference].nombre)}}`)}`
           texteCorr += '$.<br>'
         }
       } else {
-        texteCorr += `${miseEnEvidence(`\\dfrac{${texNombre(deuxiemeLigne[colonneReference].nombre)}}{${texNombre(premiereLigne[colonneReference].nombre)}}`, 'blue')}`
+        texteCorr += `${miseEnEvidence(`\\dfrac{${texNombre(deuxiemeLigne[colonneReference].nombre)}}{${texNombre(premiereLigne[colonneReference].nombre)}}`, bleuMathalea)}`
         texteCorr += `= ${miseEnEvidence(texNombre(coefficient))}$.<br>`
       }
       texteCorr +=

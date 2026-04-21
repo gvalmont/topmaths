@@ -15,6 +15,7 @@ import {
   randint,
 } from '../../modules/outils'
 import Exercice from '../Exercice'
+import { bleuMathalea } from '../../lib/colors'
 
 export const titre = "Écrire un nombre entier sous la forme d'une fraction"
 export const interactifReady = true
@@ -24,7 +25,7 @@ export const dateDeModifImportante = '08/05/2025'
 
 /**
  * @author Guillaume Valmont
- * Rajout du paramètre 3 par Eric Elter
+ * Rajout du paramètre 3 par Éric Elter
  */
 export const uuid = '42ade'
 export const refs = {
@@ -64,7 +65,7 @@ export default class EcrireEntierSousFormeDeFraction extends Exercice {
         height: 120,
       })
       figure.options.automaticUserMessage = false
-      figure.options.color = 'blue'
+      figure.options.color = bleuMathalea
       figure.create('RectangleFractionDiagram', {
         denominator: 2,
         numberOfRectangles: 5,

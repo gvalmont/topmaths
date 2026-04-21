@@ -1,5 +1,3 @@
-import { polynomialRoot, round } from 'mathjs'
-
 import type Point from 'apigeom/src/elements/points/Point'
 import type Figure from 'apigeom/src/Figure'
 import Decimal from 'decimal.js'
@@ -8,12 +6,17 @@ import { egal, randint } from '../../modules/outils'
 import { BezierPath } from '../2d/BezierPath'
 import { colorToLatexOrHTML } from '../2d/colorToLatexOrHtml'
 import { ObjetMathalea2D } from '../2d/ObjetMathalea2D'
-import { point } from '../2d/PointAbstrait'
+import { pointAbstrait } from '../2d/PointAbstrait'
 import { tracePoint } from '../2d/TracePoint'
 import { choice } from '../outils/arrayOutils'
-import { rangeMinMax } from '../outils/nombres'
+import { rangeMinMax, round } from '../outils/nombres'
 import { stringNombre } from '../outils/texNombre'
-import { brent, tableauDeVariation, variationsFonction } from './etudeFonction'
+import {
+  brent,
+  polynomialRoot,
+  tableauDeVariation,
+  variationsFonction,
+} from './etudeFonction'
 import { Matrice, matrice } from './Matrice'
 import { chercheMinMaxLocal, Polynome } from './Polynome'
 
@@ -198,7 +201,7 @@ export function modifieNoeuds(
 }
 /**
  * Les noeuds sont des objets : {x,y, nombreDerive} attention à les donner dans l'ordre des x croissants
- * @author Jean-Claude Lhote
+ * @author Jean-claude Lhote
  */
 export class Spline {
   /**
@@ -418,18 +421,18 @@ export class Spline {
               arr = round(valeur, precision)
             } else {
               // complexe !
-              const module = valeur.toPolar().r
-              if (module < 10 ** (-precision - 4)) {
+              const module = valeur.mod
+              if (Number(module) < 10 ** (-precision - 4)) {
                 // module trop petit pour être complexe, c'est 0 !
                 arr = 0
               } else {
-                const argument = valeur.toPolar().phi
+                const argument = valeur.arg
                 if (
                   Math.abs(argument) < 0.001 ||
                   Math.abs(Math.abs(argument) - Math.PI) < 0.001
                 ) {
                   // si l'argument est proche de 0 ou de Pi ou de -Pi
-                  arr = round(valeur.re, precision) // on prend la partie réelle
+                  arr = round(Number(valeur.re), precision) // on prend la partie réelle
                 } else {
                   arr = null // c'est une vraie racine complexe, du coup, on prend null
                 }
@@ -847,7 +850,7 @@ export function spline(noeuds: NoeudSpline[]) {
 /**
  * Fonction qui trie des noeuds pour Spline afin de les remettre dans l'ordre des x croissant
  * @param {Array<{x: number, y:number,nombreDerive:number}>} noeuds
- * @author Jean-Claude Lhote
+ * @author Jean-claude Lhote
  */
 export function trieNoeuds(noeuds: NoeudSpline[]) {
   let xInter, yInter, dGaucheInter, dDroitInter, isVisibleInter
@@ -945,7 +948,7 @@ export class Trace extends ObjetMathalea2D {
     if (ajouteNoeuds) {
       for (let i = 0; i < spline.n; i++) {
         if (spline.visibles[i]) {
-          const noeud = point(spline.x[i], spline.y[i])
+          const noeud = pointAbstrait(spline.x[i], spline.y[i])
           const traceNoeud = tracePoint(noeud)
           if (optionsNoeuds) {
             if (optionsNoeuds.color) {

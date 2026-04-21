@@ -1,7 +1,8 @@
 import { codageSegments } from '../../../lib/2d/CodageSegment'
-import { point } from '../../../lib/2d/PointAbstrait'
+import { pointAbstrait } from '../../../lib/2d/PointAbstrait'
 import { segmentAvecExtremites } from '../../../lib/2d/segmentsVecteurs'
 import { texteParPosition } from '../../../lib/2d/textes'
+import { bleuMathalea } from '../../../lib/colors'
 import { arrondi } from '../../../lib/outils/nombres'
 import { stringNombre, texNombre } from '../../../lib/outils/texNombre'
 import { mathalea2d } from '../../../modules/mathalea2d'
@@ -35,14 +36,14 @@ export default class MilieuEntre1EtFraction extends ExerciceSimple {
     const a = randint(1, 5)
     const c = randint(1, 9)
     const b = arrondi(a + c + randint(1, 9, 5) / 5)
-    const A = point(0, 0, '1', 'below')
-    const B = point(4, 0, 'M', 'below')
-    const C = point(8, 0)
+    const A = pointAbstrait(0, 0, '1', 'below')
+    const B = pointAbstrait(4, 0, 'M', 'below')
+    const C = pointAbstrait(8, 0)
     const objets = []
     objets.push(
       segmentAvecExtremites(A, B),
       segmentAvecExtremites(B, C),
-      codageSegments('||', 'blue', A, B, B, C),
+      codageSegments('||', bleuMathalea, A, B, B, C),
     )
     objets.push(
       texteParPosition(`${stringNombre(a)}`, 0, -0.7, 0, 'black', 1.5),

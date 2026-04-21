@@ -13,6 +13,7 @@ import type Decimal from 'decimal.js'
 import type FractionEtendue from '../modules/FractionEtendue'
 import Hms from '../modules/Hms'
 import type { VueType } from './VueType'
+import { Complexe } from './mathFonctions/Complexe'
 
 /**
  * setInteractive à 0 on enlève tout, à 1 on les met tous en interactif, à 2 on ne change rien
@@ -100,7 +101,13 @@ export interface InterfaceReferentiel {
   dateModification?: string
   annee?: string
 }
-
+export type QuestionScore = { nbBonnesReponses: number; nbReponses: number }
+export type DetailedQuestionResult = {
+  isOk: boolean
+  feedback: string
+  score: QuestionScore
+}
+export type QuestionResult = boolean | DetailedQuestionResult
 export interface InterfaceResultExercice {
   numberOfPoints: number
   numberOfQuestions: number
@@ -114,7 +121,7 @@ export interface InterfaceResultExercice {
   bestScore?: number
   duration?: number
   checkSum?: string
-  resultsByQuestion?: boolean[]
+  resultsByQuestion?: QuestionResult[]
 }
 
 // Pour Capytale
@@ -255,8 +262,8 @@ export type OptionsComparaisonType = {
   additionSeulementEtNonResultat?: boolean
   soustractionSeulementEtNonResultat?: boolean
   multiplicationSeulementEtNonResultat?: boolean
-  divisionSeulementEtNonResultat?: boolean
-  avecFractions?: boolean // Encore utile ?
+  divisionSeulementEtNonResultat?: boolean // Non encore utilisé
+  avecFractions?: boolean // Utilisé seulement dans aLeBonNombreDePropsDifferentes
   fractionIrreductible?: boolean
   fractionSimplifiee?: boolean
   fractionReduite?: boolean
@@ -287,16 +294,16 @@ export type OptionsComparaisonType = {
   entier?: boolean
   domaine?: number[]
   ensembleDeNombres?: boolean
-  kUplet?: boolean
+  kUplet?: boolean // Non encore utilisé
   suiteDeNombres?: boolean
   suiteRangeeDeNombres?: boolean
   calculFormel?: boolean
+  expanded?: boolean
+  sansTimes?: boolean
   fractionSansRacineCarree?: boolean
   // Non fait : Pas de tests unitaires
   sansTrigo?: boolean
-  variablefractionIdentique?: boolean
-  avecSigneMultiplier?: boolean
-  entiersConsecutifs?: boolean // Pas de wiki
+  entiersConsecutifs?: boolean // Pas de wiki et non utilisé
   expressionsForcementReduites?: boolean // Pas de wiki
   coordonnees?: boolean
   ordered?: boolean // Options pour drag and drop
@@ -670,6 +677,8 @@ export type AnswerValueType =
   | Hms[]
   | Decimal[]
   | IFractionEtendue[]
+  | Complexe
+  | Complexe[]
 
 export function isAnswerValueType(value: unknown): value is AnswerValueType {
   return (
@@ -686,7 +695,9 @@ export function isAnswerValueType(value: unknown): value is AnswerValueType {
     isGrandeur(value) ||
     (Array.isArray(value) && value.every((v) => isGrandeur(v))) ||
     value instanceof Hms ||
-    (Array.isArray(value) && value.every((value) => value instanceof Hms))
+    (Array.isArray(value) && value.every((value) => value instanceof Hms)) ||
+    value instanceof Complexe ||
+    (Array.isArray(value) && value.every((value) => value instanceof Complexe))
   )
 }
 

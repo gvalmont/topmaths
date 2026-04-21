@@ -2,7 +2,8 @@
 import { courbe } from '../../lib/2d/Courbe'
 import { repere } from '../../lib/2d/reperes'
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
-import { setReponse } from '../../lib/interactif/gestionInteractif'
+import { handleAnswers } from '../../lib/interactif/gestionInteractif'
+import { addMultiMathfield } from '../../lib/interactif/MultiMathfield/MultiMathfield'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { resolutionSystemeLineaire2x2 } from '../../lib/mathFonctions/outilsMaths'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
@@ -16,17 +17,17 @@ import Exercice from '../Exercice'
 
 export const titre = "Lire les antécédents d'un nombre à partir d'un graphique"
 export const interactifReady = true
-export const interactifType = 'mathLive'
+export const interactifType = 'multiMathfield'
 export const dateDeModifImportante = '23/09/2023'
 
 /**
  * Un graphique étant tracé, déterminer les antécédents de nombres donnés.
  * La fonction est un polynôme de degré 1, 2 ou 3 et les nombres des questions ne sont que des entiers.
- * Interactivité et multiples questions ajoutés par J-C Lhote le 23/09/2023
+ * Interactivité et multiples questions ajoutés par Jean-claude Lhote le 23/09/2023
  * @author Rémi Angot
  */
 
-export const uuid = '8117d'
+export const uuid = '8117f'
 
 export const refs = {
   'fr-fr': ['3F13', 'BP2AutoO8'],
@@ -61,8 +62,6 @@ export default class AntecedentGraphique extends Exercice {
     let fx3 = 0
     let texte: string, texteCorr: string, f: (x: number) => number
     f = (x) => 0
-    let indexInteractif = 0
-    let incrementInteractif = 0
     this.sup = Number(this.sup)
     for (let i = 0; i < this.nbQuestions; ) {
       const initialiseVariables = function () {
@@ -97,27 +96,35 @@ export default class AntecedentGraphique extends Exercice {
         b = a * x1 - fx1
         f = (x) => a * x - b
         texte += `Déterminer, par lecture graphique, le (ou les) antécédent(s) de $${fx1}$ et de $${fx2}$ par cette fonction $f$.<br><br>`
-        texte += ajouteChampTexteMathLive(
-          this,
-          indexInteractif,
-          KeyboardType.clavierDeBaseAvecFractionPuissanceCrochets,
-          {
-            texteAvant: `Le (ou les) antécédent(s) de $${fx1}$ (séparer les nombres avec un point-virgule) :`,
-          },
-        )
-        texte += ajouteChampTexteMathLive(
-          this,
-          indexInteractif + 1,
-          KeyboardType.clavierDeBaseAvecFractionPuissanceCrochets,
-          {
-            texteAvant: `<br>Le (ou les) antécédent(s) de $${fx2}$ (séparer les nombres avec un point-virgule) :`,
-          },
-        )
-        setReponse(this, indexInteractif, x1, { formatInteractif: 'calcul' })
-        setReponse(this, indexInteractif + 1, x2, {
-          formatInteractif: 'calcul',
-        })
-        incrementInteractif = 2
+        if (this.interactif) {
+          texte += addMultiMathfield(this, i, {
+            dataTemplate: `Le (ou les) antécédent(s) de $${fx1}$ (séparer les nombres avec un point-virgule). %{champ1}<br>
+          Le (ou les) antécédent(s) de $${fx2}$ (séparer les nombres avec un point-virgule). %{champ2}`,
+            dataOptions: {
+              champ1: {
+                keyboard:
+                  KeyboardType.clavierDeBaseAvecFractionPuissanceCrochets,
+                ldots: false,
+              },
+              champ2: {
+                keyboard:
+                  KeyboardType.clavierDeBaseAvecFractionPuissanceCrochets,
+                ldots: false,
+              },
+            },
+          })
+
+          handleAnswers(
+            this,
+            i,
+            {
+              champ1: { value: x1, options: { suiteDeNombres: true } },
+              champ2: { value: x2, options: { suiteDeNombres: true } },
+            },
+            { formatInteractif: 'multiMathfield' },
+          )
+        }
+
         texteCorr = `L'antécédent de $${fx1}$ est $${miseEnEvidence(x1)}$, on note $f(${miseEnEvidence(x1)})=${fx1}$.<br>`
         texteCorr += `L'antécédent de $${fx2}$ est $${miseEnEvidence(x2)}$, on note $f(${miseEnEvidence(x2)})=${fx2}$.`
       } else if (choix === 2) {
@@ -132,25 +139,20 @@ export default class AntecedentGraphique extends Exercice {
           texte += `Déterminer, par lecture graphique, le (ou les) antécédent(s) de $${fx0}$ par cette fonction $f$.<br><br>`
           texte += ajouteChampTexteMathLive(
             this,
-            indexInteractif,
+            i,
             KeyboardType.clavierDeBaseAvecFractionPuissanceCrochets,
             {
               texteAvant: `Le (ou les) antécédent(s) de ${fx0} (séparer les nombres avec un point-virgule) :`,
             },
           )
-          setReponse(this, indexInteractif, x0, { formatInteractif: 'calcul' })
-          incrementInteractif = 1
+          handleAnswers(this, i, {
+            reponse: { value: x0, options: { suiteDeNombres: true } },
+          })
           texteCorr = `$${fx0}$ a un unique antécédent $${miseEnEvidence(x0)}$, on note $f(${miseEnEvidence(x0)})=${fx0}$..<br>`
           f = (x) => a * (x - x0) ** 2 + fx0
         } else {
           let tentatives = 0
-          /* fx3 = fx1
-          ;[a, b] = resolutionSystemeLineaire2x2(x1, x3, fx1, fx3, c)
-          // console.info('Initial values:', { x1, x3, fx1, fx3, c, a, b })
-          while (
-            (Number.isNaN(a) || Number.isNaN(b) || a === 0) &&
-            tentatives < 50
-          ) */
+
           do {
             x1 = randint(-4, -1)
             x3 = randint(1, 4)
@@ -159,18 +161,6 @@ export default class AntecedentGraphique extends Exercice {
             c = randint(-6, 6)
             ;[a, b] = resolutionSystemeLineaire2x2(x1, x3, fx1, fx3, c)
             tentatives++
-            if (tentatives % 10 === 0) {
-              /*  console.info(`Tentative ${tentatives}:`, {
-                x1,
-                x3,
-                fx1,
-                fx3,
-                c,
-                a,
-                b,
-              })
-            */
-            }
           } while (
             (Number.isNaN(a) || Number.isNaN(b) || a === 0) &&
             tentatives < 50
@@ -186,16 +176,6 @@ export default class AntecedentGraphique extends Exercice {
             x3 = 2
             fx1 = 4
             fx3 = 4
-          } else {
-            /* console.info('Success after', tentatives, 'attempts:', {
-              x1,
-              x3,
-              fx1,
-              fx3,
-              c,
-              a,
-              b,
-            }) */
           }
           x2 = 0
           fx2 = c
@@ -203,16 +183,18 @@ export default class AntecedentGraphique extends Exercice {
           texte += `Déterminer, par lecture graphique, le (ou les) antécédent(s) de $${fx1}$ par cette fonction $f$.<br><br>`
           texte += ajouteChampTexteMathLive(
             this,
-            indexInteractif,
+            i,
             KeyboardType.clavierDeBaseAvecFractionPuissanceCrochets,
             {
               texteAvant: `Le (ou les) antécédent(s) de ${fx1} (séparer les nombres avec un point-virgule) :`,
             },
           )
-          setReponse(this, indexInteractif, [`${x1};${x3}`, `${x3};${x1}`], {
-            formatInteractif: 'texte',
+          handleAnswers(this, i, {
+            reponse: {
+              value: `${x1};${x3}`,
+              options: { suiteDeNombres: true },
+            },
           })
-          incrementInteractif = 1
           texteCorr = `$${fx1}$ a deux antécédents $${miseEnEvidence(x1)}$ et $${miseEnEvidence(x3)}$, on note $f(${miseEnEvidence(x1)})=f(${miseEnEvidence(x3)})=${fx1}$.<br>`
         }
       }
@@ -226,8 +208,6 @@ export default class AntecedentGraphique extends Exercice {
       if (this.questionJamaisPosee(i, a, fx1)) {
         this.listeQuestions[i] = texte
         this.listeCorrections[i] = texteCorr
-
-        indexInteractif += incrementInteractif
         i++
       }
     }

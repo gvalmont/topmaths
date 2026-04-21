@@ -33,7 +33,7 @@ export const dateDePublication = '29/09/2024'
 export const uuid = '3ae4a'
 
 export const refs = {
-  'fr-fr': ['1AL11-4', '1Gen-A202', '1Tec-AN11-2'],
+  'fr-fr': ['1AL11-4', '1Gen-A202', '1Tec-S203'],
   'fr-ch': [],
 }
 export default class TermesSASG extends Exercice {
@@ -145,7 +145,7 @@ export default class TermesSASG extends Exercice {
           ${NomS}_n&=${a}+(n-1)\\times ${ecritureParentheseSiMoins(r)}\\\\
            ${NomS}_n&=${a - r === 0 ? `${rienSi1(r)}n$.` : `${a - r}${ecritureAlgebriqueSauf1(r)}n`}
            \\end{aligned}$
-          <br>   
+          <br>
           Ainsi, `
           if (a - r === 0) {
             if (r === 1 || r === -1) {
@@ -183,9 +183,9 @@ export default class TermesSASG extends Exercice {
           $\\begin{aligned}
           ${NomS}_n&=${NomS}_${p}+(n-${p})\\times r\\\\
           ${NomS}_n&=${a}+(n-${p})\\times ${ecritureParentheseSiMoins(r)}\\\\
-          ${NomS}_n&=${a - p * r === 0 ? `=${rienSi1(r)}n` : `${a - p * r}${ecritureAlgebriqueSauf1(r)}n`} 
+          ${NomS}_n&=${a - p * r === 0 ? `=${rienSi1(r)}n` : `${a - p * r}${ecritureAlgebriqueSauf1(r)}n`}
            \\end{aligned}$
-          <br>   
+          <br>
           Ainsi, `
           if (a - p * r === 0) {
             if (r === 1 || r === -1) {
@@ -225,7 +225,7 @@ export default class TermesSASG extends Exercice {
           ${NomS}_n&=${a}\\times ${ecritureParentheseSiMoins(texNombre(q, 1))}^n\\\\
            ${NomS}_{${k}}&=${a === 1 ? `${ecritureParentheseSiMoins(texNombre(q, 1))}^{${k}}` : `${a}\\times ${ecritureParentheseSiMoins(texNombre(q, 1))}^{${k}}`}
            \\end{aligned}$
-          <br>Ainsi, $${NomS}_{${k}}\\simeq${miseEnEvidence(texNombre(resultat, 1))}$.`
+          <br>Ainsi, $${NomS}_{${k}}\\approx${miseEnEvidence(texNombre(resultat, 1))}$.`
 
           break
         case 5:
@@ -244,7 +244,7 @@ export default class TermesSASG extends Exercice {
           } else {
             texteCorr = ''
           }
-          texteCorr += `La suite $(${NomS}_n)$ est géométrique de raison $q=${texNombre(q, 1)}$ 
+          texteCorr += `La suite $(${NomS}_n)$ est géométrique de raison $q=${texNombre(q, 1)}$
           et de premier terme $${NomS}_1=${a}$.<br>
           On en déduit que pour tout $n\\in\\mathbb{N}^*$,  <br>
           $\\begin{aligned}
@@ -252,7 +252,7 @@ export default class TermesSASG extends Exercice {
           ${NomS}_n&=${a}\\times ${ecritureParentheseSiMoins(texNombre(q, 1))}^{n-1}\\\\
            ${NomS}_{${k}}&=${a === 1 ? `${ecritureParentheseSiMoins(texNombre(q, 1))}^{${k - 1}}` : `${a}\\times ${ecritureParentheseSiMoins(texNombre(q, 1))}^{${k - 1}}`}
            \\end{aligned}$
-          <br>Ainsi, $${NomS}_{${k}}\\simeq${miseEnEvidence(texNombre(resultat, 1))}$.`
+          <br>Ainsi, $${NomS}_{${k}}\\approx${miseEnEvidence(texNombre(resultat, 1))}$.`
 
           break
 
@@ -280,7 +280,7 @@ export default class TermesSASG extends Exercice {
           ${NomS}_n&=${a}\\times ${ecritureParentheseSiMoins(texNombre(q, 1))}^{n-${p}}\\\\
            ${NomS}_{${k}}&=${a === 1 ? `${ecritureParentheseSiMoins(texNombre(q, 1))}^{${k - p}}` : `${a}\\times ${ecritureParentheseSiMoins(texNombre(q, 1))}^{${k - p}}`}
            \\end{aligned}$
-          <br>Ainsi, $${NomS}_{${k}}\\simeq${miseEnEvidence(texNombre(resultat, 1))}$.`
+          <br>Ainsi, $${NomS}_{${k}}\\approx${miseEnEvidence(texNombre(resultat, 1))}$.`
 
           break
       }
@@ -299,7 +299,7 @@ export default class TermesSASG extends Exercice {
         texte +=
           '<br>' +
           ajouteChampTexteMathLive(this, i, KeyboardType.clavierDeBase, {
-            texteAvant: `$${NomS}_{${k}}\\simeq$`,
+            texteAvant: `$${NomS}_{${k}}\\approx$`,
           })
       }
       if (this.questionJamaisPosee(i, texte)) {

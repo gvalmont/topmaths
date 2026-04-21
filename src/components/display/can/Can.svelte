@@ -33,7 +33,12 @@
     resultsByExercice,
   } from '../../../lib/stores/generalStore'
   import { globalOptions } from '../../../lib/stores/globalOptions'
-  import type { IExercice, InterfaceResultExercice } from '../../../lib/types'
+  import type {
+    IExercice,
+    InteractivityType,
+    InterfaceResultExercice,
+    QuestionResult,
+  } from '../../../lib/types'
   import type { CanState } from '../../../lib/types/can'
   import { context } from '../../../modules/context'
   import { statsCanTracker } from '../../../modules/stats'
@@ -46,6 +51,30 @@
   import Race from './presentationalComponents/Race.svelte'
   import Solutions from './presentationalComponents/Solutions.svelte'
 
+  export function resultsByQuestiontoBoolean(
+    resultsByQuestion: QuestionResult[],
+  ): QuestionResult[] {
+    const results: QuestionResult[] = []
+    for (let i = 0; i < resultsByQuestion.length; i++) {
+      const resultat = resultsByQuestion[i]
+      results.push(oneResultToBoolean(resultat))
+    }
+    return results
+  }
+
+  export function oneResultToBoolean(result: QuestionResult): QuestionResult {
+    if (typeof result === 'boolean') {
+      return result
+    } else if (typeof result === 'object' && 'isOk' in result) {
+      return result.isOk ?? false
+    } else {
+      window.notify("result contient quelque chose d'inconnu", {
+        result: JSON.stringify(result),
+      })
+      return false
+    }
+  }
+
   let state: CanState = 'canHomeScreen'
   let exercises: IExercice[] = []
   let questions: string[] = []
@@ -54,7 +83,7 @@
   let consignesCorrections: string[] = []
   let indiceExercice: number[] = []
   let indiceQuestionInExercice: number[] = []
-  let resultsByQuestion: boolean[] = []
+  let resultsByQuestion: QuestionResult[] = []
   let answers: string[] = []
   let recordedTimeFromCapytale: number
   let unavailableMessage = ''
@@ -97,7 +126,9 @@
       console.info('answers', answers)
 
       if (assignmentDataFromCapytale?.resultsByQuestion !== undefined)
-        resultsByQuestion = assignmentDataFromCapytale.resultsByQuestion
+        resultsByQuestion = resultsByQuestiontoBoolean(
+          assignmentDataFromCapytale.resultsByQuestion,
+        )
       if (assignmentDataFromCapytale?.duration !== undefined)
         recordedTimeFromCapytale = assignmentDataFromCapytale.duration
     })
@@ -146,19 +177,8 @@
     }
   })
 
-  type answerType = {
-    type:
-      | 'mathlive'
-      | 'fillInTheBlank'
-      | 'dnd'
-      | 'qcm'
-      | 'listeDeroulante'
-      | 'custom'
-      | 'cliqueFigure'
-      | 'svgSelection'
-      | 'MetaInteractif2d'
-      | 'multiMathfield'
-      | 'unknown'
+  type AnswerType = {
+    type: InteractivityType
     index: number
     answers?: { [key: string]: string }
     answerTxt: string
@@ -166,16 +186,25 @@
 
   function checkAnswers() {
     statsCanTracker($globalOptions.recorder ?? '', $globalOptions.v ?? '')
-    const answersType: answerType[] = []
+    const answersType: AnswerType[] = []
     for (let i = 0; i < questions.length; i++) {
       const exercice = exercises[indiceExercice[i]]
       const type =
         exercice.autoCorrection?.[indiceQuestionInExercice[i]]?.reponse?.param
           ?.formatInteractif ?? exercice.interactifType
 
-      if (type === 'mathlive' || type === 'fillInTheBlank') {
-        resultsByQuestion[i] = Boolean(
-          verifQuestionMathLive(exercice, indiceQuestionInExercice[i])?.isOk,
+      if (
+        type === 'mathlive' ||
+        type === 'fillInTheBlank' ||
+        type === 'tableauMathlive'
+      ) {
+        resultsByQuestion[i] = oneResultToBoolean(
+          verifQuestionMathLive(exercice, indiceQuestionInExercice[i]) ?? {
+            // fallback en cas de problème avec verifQuestionMathlive
+            isOk: false,
+            feedback: 'Un problème est survenu dans le programme',
+            score: { nbBonnesReponses: 0, nbReponses: 1 },
+          },
         )
         // récupération de la réponse
         answersType[i] = {
@@ -194,10 +223,9 @@
         }
         answers[i] = answersType[i].answerTxt
       } else if (type === 'dnd') {
-        resultsByQuestion[i] = verifDragAndDrop(
-          exercice,
-          indiceQuestionInExercice[i],
-        ).isOk
+        resultsByQuestion[i] = oneResultToBoolean(
+          verifDragAndDrop(exercice, indiceQuestionInExercice[i]),
+        )
         // récupération de la réponse
         answersType[i] = {
           type,
@@ -232,8 +260,9 @@
           `Ex${indiceExercice[i]}Q${indiceQuestionInExercice[i]}`
         ] = answersType[i].answerTxt
       } else if (type === 'qcm') {
-        resultsByQuestion[i] =
-          verifQuestionQcm(exercice, indiceQuestionInExercice[i]) === 'OK'
+        resultsByQuestion[i] = oneResultToBoolean(
+          verifQuestionQcm(exercice, indiceQuestionInExercice[i]) === 'OK',
+        )
         // récupération de la réponse
         const propositions =
           exercice.autoCorrection[indiceQuestionInExercice[i]].propositions
@@ -269,11 +298,12 @@
           answerTxt: answers[i],
         }
       } else if (type === 'listeDeroulante') {
-        resultsByQuestion[i] =
+        resultsByQuestion[i] = oneResultToBoolean(
           verifQuestionListeDeroulante(
             exercice,
             indiceQuestionInExercice[i],
-          ) === 'OK'
+          ) === 'OK',
+        )
         answers[i] =
           exercice.answers?.[
             `ex${indiceExercice[i]}Q${indiceQuestionInExercice[i]}`
@@ -302,9 +332,10 @@
           answerTxt: answers[i],
         }
       } else if (type === 'cliqueFigure') {
-        resultsByQuestion[i] =
+        resultsByQuestion[i] = oneResultToBoolean(
           verifQuestionCliqueFigure(exercice, indiceQuestionInExercice[i]) ===
-          'OK'
+            'OK',
+        )
         answers[i] = indexQuestionCliqueFigure(
           exercice,
           indiceQuestionInExercice[i],
@@ -332,16 +363,27 @@
             indiceQuestionInExercice[i]
           ](indiceQuestionInExercice[i])
           Array.isArray(result)
-            ? (resultsByQuestion[i] = result.includes('OK'))
-            : (resultsByQuestion[i] = result === 'OK')
+            ? (resultsByQuestion[i] = result.every(
+                (el) => typeof el === 'string',
+              )
+                ? !result.includes('KO')
+                : false)
+            : (resultsByQuestion[i] =
+                typeof result === 'string' ? result === 'OK' : result) // On prévoit le cas où un custom renvoie un DetailledQuestionResult
         } else {
           const result = exercice.correctionInteractive!(
             indiceQuestionInExercice[i],
           )
           Array.isArray(result)
-            ? (resultsByQuestion[i] = result.includes('OK'))
-            : (resultsByQuestion[i] = result === 'OK')
+            ? (resultsByQuestion[i] = result.every(
+                (el) => typeof el === 'string',
+              )
+                ? !result.includes('KO')
+                : false)
+            : (resultsByQuestion[i] =
+                typeof result === 'string' ? result === 'OK' : result) // On prévoit le cas où un custom renvoie un DetailledQuestionResult
         }
+        resultsByQuestion[i] = oneResultToBoolean(resultsByQuestion[i]) // normalement il n'y en a pas besoin, mais sait-on jamais ...
         answersType[i] = {
           type,
           index: i,
@@ -371,10 +413,11 @@
           ? 'Voir figure'
           : answersType[i].answerTxt
       } else if (type === 'svgSelection') {
-        resultsByQuestion[i] = Boolean(
+        resultsByQuestion[i] = oneResultToBoolean(
           verifQuestionSvgSelection(exercice, indiceQuestionInExercice[i]) ===
-          'OK',
+            'OK',
         )
+
         // récupération de la réponse
         answersType[i] = {
           type,
@@ -392,9 +435,8 @@
         }
         answers[i] = answersType[i].answerTxt
       } else if (type === 'MetaInteractif2d') {
-        resultsByQuestion[i] = Boolean(
-          verifQuestionMetaInteractif2d(exercice, indiceQuestionInExercice[i])
-            .isOk,
+        resultsByQuestion[i] = oneResultToBoolean(
+          verifQuestionMetaInteractif2d(exercice, indiceQuestionInExercice[i]),
         )
         // récupération de la réponse
         answersType[i] = {
@@ -413,9 +455,8 @@
         }
         answers[i] = answersType[i].answerTxt
       } else if (type === 'multiMathfield') {
-        resultsByQuestion[i] = Boolean(
-          verifQuestionMultiMathfield(exercice, indiceQuestionInExercice[i])
-            .isOk,
+        resultsByQuestion[i] = oneResultToBoolean(
+          verifQuestionMultiMathfield(exercice, indiceQuestionInExercice[i]),
         )
         answersType[i] = {
           type,
@@ -434,7 +475,7 @@
         answers[i] = answersType[i].answerTxt
       } else {
         answersType[i] = {
-          type: 'unknown',
+          type: 'mathlive',
           index: i,
           answers: Object.keys(exercice.answers ?? {})
             .filter((key: string) =>
@@ -519,7 +560,7 @@
         indiceExercice: 'all',
         assignmentData: {
           duration: getDuration(),
-          resultsByQuestion,
+          resultsByQuestion: resultsByQuestiontoBoolean(resultsByQuestion),
         },
       })
     }

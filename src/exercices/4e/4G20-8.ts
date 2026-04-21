@@ -1,6 +1,7 @@
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
-import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
+import { toutAUnPoint } from '../../lib/interactif/mathLive'
+import { addMultiMathfield } from '../../lib/interactif/MultiMathfield/MultiMathfield'
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
 import { lettreDepuisChiffre } from '../../lib/outils/outilString'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
@@ -11,8 +12,8 @@ export const titre =
   'Calculer mentalement une longueur avec le théorème de Pythagore'
 export const dateDePublication = '05/10/2024'
 export const interactifReady = true
-export const interactifType = 'mathLive'
-export const uuid = '6dc45'
+export const interactifType = 'multiMathfield'
+export const uuid = '6dc46'
 export const refs = {
   'fr-fr': ['4G20-8', 'BP2AutoR3'],
   'fr-ch': ['11GM1-9'],
@@ -54,10 +55,27 @@ export default class CalculMentalPythagore extends Exercice {
       switch (listeTypeQuestions[i]) {
         case 'coteAngleDroit':
           if (choice([true, false])) {
-            texte = `On considère le triangle $${sommetA}${sommetB}${sommetC}$ rectangle en $${sommetA}$ tel que $${sommetA}${sommetB} = ${AB}\\text{ cm}$ et $${sommetB}${sommetC} = ${BC}\\text{ cm}$.<br>`
-            texte += `Calculer $${sommetA}${sommetC}$.`
+            texte = `On considère le triangle $${sommetA}${sommetB}${sommetC}$ rectangle en $${sommetA}$ tel que $${sommetA}${sommetB} = ${AB}\\text{ cm}$ et $${sommetB}${sommetC} = ${BC}\\text{ cm}$. Calculer $${sommetA}${sommetC}$.<br>`
+            texte += addMultiMathfield(this, i, {
+              dataTemplate: `$${sommetA}${sommetC}=$  %{champ1} $\\text{cm}$ (Racine carrée)
+              $${sommetA}${sommetC} \\approx$ %{champ2} $\\text{cm}$ (Partie entière)`,
+              dataOptions: {
+                champ1: { keyboard: KeyboardType.clavierFullOperations },
+                champ2: { keyboard: KeyboardType.clavierNumbers },
+              },
+            })
             reponse0 = `\\sqrt{${BC ** 2 - AB ** 2}}`
             reponse = Math.floor(Math.sqrt(BC ** 2 - AB ** 2))
+            handleAnswers(
+              this,
+              i,
+              {
+                bareme: toutAUnPoint,
+                champ1: { value: reponse0 },
+                champ2: { value: String(reponse) },
+              },
+              { formatInteractif: 'multiMathfield' },
+            )
             texteCorr = RedactionPythagore(
               `${sommetA}`,
               `${sommetC}`,
@@ -67,27 +85,8 @@ export default class CalculMentalPythagore extends Exercice {
               AB,
               BC,
             )[0]
-            texte += ajouteChampTexteMathLive(
-              this,
-              2 * i,
-              KeyboardType.clavierFullOperations,
-              {
-                texteAvant: `<br> $${sommetA}${sommetC}$ = `,
-                texteApres: '$\\text{cm}$ (Racine carrée)',
-              },
-            )
-            texte += ajouteChampTexteMathLive(
-              this,
-              2 * i + 1,
-              KeyboardType.clavierNumbers,
-              {
-                texteAvant: `<br> $${sommetA}${sommetC}$ $\\approx$ `,
-                texteApres: '$\\text{cm}$ (Partie entière)',
-              },
-            )
           } else {
-            texte = `On considère le triangle $${sommetA}${sommetB}${sommetC}$ rectangle en $${sommetA}$ tel que $${sommetA}${sommetC} = ${AC}\\text{ cm}$ et $${sommetB}${sommetC} = ${BC}\\text{ cm}$.<br>`
-            texte += `Calculer $${sommetA}${sommetB}$.`
+            texte = `On considère le triangle $${sommetA}${sommetB}${sommetC}$ rectangle en $${sommetA}$ tel que $${sommetA}${sommetC} = ${AC}\\text{ cm}$ et $${sommetB}${sommetC} = ${BC}\\text{ cm}$. Calculer $${sommetA}${sommetB}$.<br>`
             reponse0 = `\\sqrt{${BC ** 2 - AC ** 2}}`
             reponse = Math.floor(Math.sqrt(BC ** 2 - AC ** 2))
             texteCorr = RedactionPythagore(
@@ -99,33 +98,50 @@ export default class CalculMentalPythagore extends Exercice {
               AC,
               BC,
             )[0]
-            texte += ajouteChampTexteMathLive(
-              this,
-              2 * i,
-              KeyboardType.clavierFullOperations,
-              {
-                texteAvant: `<br> $${sommetA}${sommetB}$ = `,
-                texteApres: '$\\text{cm}$ (Racine carrée)',
+            texte += addMultiMathfield(this, i, {
+              dataTemplate: `$${sommetA}${sommetB}=$  %{champ1} $\\text{cm}$ (Racine carrée)
+              $${sommetA}${sommetB} \\approx$ %{champ2} $\\text{cm}$ (Partie entière)`,
+              dataOptions: {
+                champ1: { keyboard: KeyboardType.clavierFullOperations },
+                champ2: { keyboard: KeyboardType.clavierNumbers },
               },
-            )
-            texte += ajouteChampTexteMathLive(
+            })
+            handleAnswers(
               this,
-              2 * i + 1,
-              KeyboardType.clavierNumbers,
+              i,
               {
-                texteAvant: `<br> $${sommetA}${sommetB}$ $\\approx$ `,
-                texteApres: '$\\text{cm}$ (Partie entière)',
+                bareme: toutAUnPoint,
+                champ1: { value: reponse0 },
+                champ2: { value: String(reponse) },
               },
+              { formatInteractif: 'multiMathfield' },
             )
           }
           break
 
         // case 'hypotenuse':
         default:
-          texte = `On considère le triangle $${sommetA}${sommetB}${sommetC}$ rectangle en $${sommetA}$ tel que $${sommetA}${sommetB} = ${AB}\\text{ cm}$ et $${sommetA}${sommetC} = ${AC}\\text{ cm}$.<br>`
-          texte += `Calculer $${sommetB}${sommetC}$.`
+          texte = `On considère le triangle $${sommetA}${sommetB}${sommetC}$ rectangle en $${sommetA}$ tel que $${sommetA}${sommetB} = ${AB}\\text{ cm}$ et $${sommetA}${sommetC} = ${AC}\\text{ cm}$. Calculer $${sommetB}${sommetC}$.<br>`
           reponse0 = `\\sqrt{${AB ** 2 + AC ** 2}}`
           reponse = Math.floor(Math.sqrt(AB ** 2 + AC ** 2))
+          texte += addMultiMathfield(this, i, {
+            dataTemplate: `$${sommetB}${sommetC}=$  %{champ1} $\\text{cm}$ (Racine carrée)
+            $${sommetB}${sommetC} \\approx$ %{champ2} $\\text{cm}$ (Partie entière)`,
+            dataOptions: {
+              champ1: { keyboard: KeyboardType.clavierFullOperations },
+              champ2: { keyboard: KeyboardType.clavierNumbers },
+            },
+          })
+          handleAnswers(
+            this,
+            i,
+            {
+              bareme: toutAUnPoint,
+              champ1: { value: reponse0 },
+              champ2: { value: String(reponse) },
+            },
+            { formatInteractif: 'multiMathfield' },
+          )
           texteCorr = RedactionPythagore(
             `${sommetA}`,
             `${sommetB}`,
@@ -135,28 +151,8 @@ export default class CalculMentalPythagore extends Exercice {
             AC,
             reponse,
           )[0]
-          texte += ajouteChampTexteMathLive(
-            this,
-            2 * i,
-            KeyboardType.clavierFullOperations,
-            {
-              texteAvant: `<br> $${sommetB}${sommetC}$ = `,
-              texteApres: '$\\text{cm}$ (Racine carrée)',
-            },
-          )
-          texte += ajouteChampTexteMathLive(
-            this,
-            2 * i + 1,
-            KeyboardType.clavierNumbers,
-            {
-              texteAvant: `<br> $${sommetB}${sommetC}$ $\\approx$ `,
-              texteApres: '$\\text{cm}$ (Partie entière)',
-            },
-          )
           break
       }
-      handleAnswers(this, 2 * i, { reponse: { value: reponse0 } })
-      handleAnswers(this, 2 * i + 1, { reponse: { value: String(reponse) } })
 
       if (this.questionJamaisPosee(i, AB, BC, AC)) {
         this.listeQuestions[i] = texte

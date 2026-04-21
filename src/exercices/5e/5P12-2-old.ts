@@ -4,7 +4,7 @@ import {
   listePatternRatio,
   type PatternRiche,
 } from '../../lib/2d/patterns/patternsPreDef'
-import { point } from '../../lib/2d/PointAbstrait'
+import { pointAbstrait } from '../../lib/2d/PointAbstrait'
 import { polygone } from '../../lib/2d/polygones'
 import { texteParPosition } from '../../lib/2d/textes'
 import { ajouteQuestionMathlive } from '../../lib/interactif/questionMathLive'
@@ -29,7 +29,7 @@ export const dateDePublication = '26/06/2025'
  * Étudier les premiers termes d'une série de motifs afin de donner le nombre de formes du motif de rang n sous forme de ratio.
  * Les patterns sont des motifs numériques qui évoluent selon des règles définies.
  * Cet exercice contient des patterns issus de l'excellent site : https://www.visualpatterns.org/
- * @author Jean-Claude Lhote
+ * @author Jean-claude Lhote
  */
 export const uuid = '328b8'
 
@@ -146,10 +146,10 @@ Si le nombre de questions est supérieur au nombre de patterns choisis, alors l'
           ),
         )
         const cadre = polygone(
-          point(xmin - 2, ymin - 2),
-          point(xmax + 2, ymin - 2),
-          point(xmax + 2, ymax + 2),
-          point(xmin - 2, ymax + 2),
+          pointAbstrait(xmin - 2, ymin - 2),
+          pointAbstrait(xmax + 2, ymin - 2),
+          pointAbstrait(xmax + 2, ymax + 2),
+          pointAbstrait(xmin - 2, ymax + 2),
         )
         cadre.pointilles = 4
         figures[j].push(cadre)

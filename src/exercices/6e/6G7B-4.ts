@@ -1,6 +1,6 @@
 import { colorToLatexOrHTML } from '../../lib/2d/colorToLatexOrHtml'
 import { droite } from '../../lib/2d/droites'
-import { point } from '../../lib/2d/PointAbstrait'
+import { pointAbstrait } from '../../lib/2d/PointAbstrait'
 import { papierPointe } from '../../lib/2d/reperes'
 import { TracePoint } from '../../lib/2d/TracePoint'
 import { symetrieAxiale } from '../../lib/2d/transformations'
@@ -11,6 +11,7 @@ import { context } from '../../modules/context'
 import { mathalea2d } from '../../modules/mathalea2d'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import Exercice from '../Exercice'
+import { bleuMathalea } from '../../lib/colors'
 export const titre = 'Compléter un nuage de points symétriques'
 export const dateDePublication = '18/12/2021'
 export const interactifReady = false
@@ -22,7 +23,7 @@ export const amcType = 'AMCHybride'
 /**
  * Symétrie axiale sur papier pointé
  * Ref 6G24-4
- * @author Jean-Claude Lhote
+ * @author Jean-claude Lhote
  * Publié le 18/12/2021
  */
 export const uuid = '07f8a'
@@ -115,54 +116,54 @@ export default class CompleterParSymetrie6e extends Exercice {
         case 1:
           if (typeDePapier[this.sup2 === 5 ? 0 : this.sup2] === 'quad') {
             d = droite(
-              point(5 + changeAxe[i] / 2, 0),
-              point(5 + changeAxe[i] / 2, 10),
+              pointAbstrait(5 + changeAxe[i] / 2, 0),
+              pointAbstrait(5 + changeAxe[i] / 2, 10),
             )
           } else {
             d = droite(
-              point(4.33 + 0.866 * changeAxe[i], 0),
-              point(4.33 + 0.866 * changeAxe[i], 10),
+              pointAbstrait(4.33 + 0.866 * changeAxe[i], 0),
+              pointAbstrait(4.33 + 0.866 * changeAxe[i], 10),
             )
           }
           break
         case 2:
           if (typeDePapier[this.sup2 === 4 ? 0 : this.sup2] === 'quad') {
             d = droite(
-              point(0, 5 + changeAxe[i] / 2),
-              point(10, 5 + changeAxe[i] / 2),
+              pointAbstrait(0, 5 + changeAxe[i] / 2),
+              pointAbstrait(10, 5 + changeAxe[i] / 2),
             )
           } else {
             d = droite(
-              point(0, 5.5 + changeAxe[i] / 2),
-              point(10, 5.5 + changeAxe[i] / 2),
+              pointAbstrait(0, 5.5 + changeAxe[i] / 2),
+              pointAbstrait(10, 5.5 + changeAxe[i] / 2),
             )
           }
           break
         case 3:
           if (typeDePapier[this.sup2 === 4 ? 0 : this.sup2] === 'quad') {
-            d = droite(point(0, 1 + changeAxe[i]), point(9 - changeAxe[i], 10))
+            d = droite(pointAbstrait(0, 1 + changeAxe[i]), pointAbstrait(9 - changeAxe[i], 10))
           } else {
             d = droite(
-              point(0, 3 + changeAxe[i]),
-              point(8.66, 8 + changeAxe[i]),
+              pointAbstrait(0, 3 + changeAxe[i]),
+              pointAbstrait(8.66, 8 + changeAxe[i]),
             )
           }
           break
         case 4:
         default:
           if (typeDePapier[this.sup2 === 4 ? 0 : this.sup2] === 'quad') {
-            d = droite(point(0, 10 - changeAxe[i]), point(10 - changeAxe[i], 0))
+            d = droite(pointAbstrait(0, 10 - changeAxe[i]), pointAbstrait(10 - changeAxe[i], 0))
           } else {
             d = droite(
-              point(0, 8 + changeAxe[i]),
-              point(8.66, 3 + changeAxe[i]),
+              pointAbstrait(0, 8 + changeAxe[i]),
+              pointAbstrait(8.66, 3 + changeAxe[i]),
             )
           }
           break
       }
       d.epaisseur = 2
       d.color = context.isHtml
-        ? colorToLatexOrHTML('blue')
+        ? colorToLatexOrHTML(bleuMathalea)
         : colorToLatexOrHTML('black')
       objetsEnonce[i].push(d)
       pointsPossibles = papier.listeCoords.slice()
@@ -183,7 +184,7 @@ export default class CompleterParSymetrie6e extends Exercice {
       while (pointsPossibles.length > 1) {
         // si il n'en reste qu'un, on ne peut pas trouver de symétrique
         image = symetrieAxiale(
-          point(pointsPossibles[0][0], pointsPossibles[0][1]),
+          pointAbstrait(pointsPossibles[0][0], pointsPossibles[0][1]),
           d,
         )
         j = 1
@@ -193,7 +194,7 @@ export default class CompleterParSymetrie6e extends Exercice {
           if (
             longueur(
               image,
-              point(pointsPossibles[j][0], pointsPossibles[j][1]),
+              pointAbstrait(pointsPossibles[j][0], pointsPossibles[j][1]),
             ) < 0.5
           ) {
             trouve = true
@@ -222,15 +223,15 @@ export default class CompleterParSymetrie6e extends Exercice {
       for (let p = 0; p < pointsChoisis.length; p += 2) {
         if (p < nbCouplesComplets) {
           // On affiche un certains nombre de couples
-          pointsAffiches.push(point(pointsChoisis[p][0], pointsChoisis[p][1]))
+          pointsAffiches.push(pointAbstrait(pointsChoisis[p][0], pointsChoisis[p][1]))
           pointsAffiches.push(
-            point(pointsChoisis[p + 1][0], pointsChoisis[p + 1][1]),
+            pointAbstrait(pointsChoisis[p + 1][0], pointsChoisis[p + 1][1]),
           )
         } else {
           // et on affiche un seul des points pour les couples restants
-          pointsAffiches.push(point(pointsChoisis[p][0], pointsChoisis[p][1]))
+          pointsAffiches.push(pointAbstrait(pointsChoisis[p][0], pointsChoisis[p][1]))
           pointsEnPlusCorr.push(
-            point(pointsChoisis[p + 1][0], pointsChoisis[p + 1][1]),
+            pointAbstrait(pointsChoisis[p + 1][0], pointsChoisis[p + 1][1]),
           )
         }
       }

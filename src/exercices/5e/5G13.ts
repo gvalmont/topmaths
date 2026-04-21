@@ -8,7 +8,7 @@ import {
   positionLabelDroite,
 } from '../../lib/2d/droites'
 import { fixeBordures } from '../../lib/2d/fixeBordures'
-import { point, pointAbstrait } from '../../lib/2d/PointAbstrait'
+import { pointAbstrait } from '../../lib/2d/PointAbstrait'
 import { polygoneAvecNom } from '../../lib/2d/polygones'
 import { representant } from '../../lib/2d/representantVecteur'
 import { segment } from '../../lib/2d/segmentsVecteurs'
@@ -31,6 +31,7 @@ import { context } from '../../modules/context'
 import { mathalea2d } from '../../modules/mathalea2d'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import Exercice from '../Exercice'
+import { orangeMathalea } from '../../lib/colors'
 export const titre =
   'Utiliser les propriétés de conservation du parallélisme, des longueurs et des angles'
 
@@ -180,11 +181,11 @@ export default class ConservationTransformation extends Exercice {
             objetsCorrectionOnly.push(
               ...droiteAvecNomLatex(
                 droite(
-                  symetrieAxiale(point(d1.x1, d1.y1), d),
-                  symetrieAxiale(point(d1.x2, d1.y2), d),
+                  symetrieAxiale(pointAbstrait(d1.x1, d1.y1), d),
+                  symetrieAxiale(pointAbstrait(d1.x2, d1.y2), d),
                 ),
                 "(d_1')",
-                '#f15929',
+                orangeMathalea,
               ),
             )
           }
@@ -207,10 +208,10 @@ export default class ConservationTransformation extends Exercice {
           if (listeTypeDeQuestions[i] === 'parallelisme') {
             objetsCorrectionOnly.push(
               droite(
-                rotation(point(d1.x1, d1.y1), O, 180),
-                rotation(point(d1.x2, d1.y2), O, 180),
+                rotation(pointAbstrait(d1.x1, d1.y1), O, 180),
+                rotation(pointAbstrait(d1.x2, d1.y2), O, 180),
                 '',
-                '#f15929',
+                orangeMathalea,
               ),
             )
           }
@@ -241,10 +242,10 @@ export default class ConservationTransformation extends Exercice {
           if (listeTypeDeQuestions[i] === 'parallelisme') {
             objetsCorrectionOnly.push(
               droite(
-                translation2Points(point(d1.x1, d1.y1), D, E),
-                translation2Points(point(d1.x2, d1.y2), D, E),
+                translation2Points(pointAbstrait(d1.x1, d1.y1), D, E),
+                translation2Points(pointAbstrait(d1.x2, d1.y2), D, E),
                 '',
-                '#f15929',
+                orangeMathalea,
               ),
             )
           }
@@ -302,27 +303,27 @@ export default class ConservationTransformation extends Exercice {
       }
       if (listeTypeDeQuestions[i] === 'longueurEtAngle') {
         objetsCorrectionOnly.push(
-          segment(imageA, imageC, '#f15929'),
-          segment(imageB, imageC, '#f15929'),
+          segment(imageA, imageC, orangeMathalea),
+          segment(imageB, imageC, orangeMathalea),
         )
         objetsCorrectionOnly.push(
           afficheMesureAngle(
             imageA,
             imageB,
             imageC,
-            '#f15929',
+            orangeMathalea,
             1,
             Math.round(angle(A, B, C)) + '^\\circ',
-            { colorArc: '#f15929' },
+            { colorArc: orangeMathalea },
           ),
         )
         if (figureRetournee) {
           objetsCorrectionOnly.push(
-            afficheLongueurSegment(imageC, imageB, '#f15929'),
+            afficheLongueurSegment(imageC, imageB, orangeMathalea),
           )
         } else {
           objetsCorrectionOnly.push(
-            afficheLongueurSegment(imageB, imageC, '#f15929'),
+            afficheLongueurSegment(imageB, imageC, orangeMathalea),
           )
         }
       } else if (listeTypeDeQuestions[i] === 'parallelisme') {

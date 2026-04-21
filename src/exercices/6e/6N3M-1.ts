@@ -13,9 +13,14 @@ import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import Exercice from '../Exercice'
 
 import { fixeBordures } from '../../lib/2d/fixeBordures'
+import { bleuMathalea } from '../../lib/colors'
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
-import { setReponse } from '../../lib/interactif/gestionInteractif'
-import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
+import { handleAnswers } from '../../lib/interactif/gestionInteractif'
+import { toutAUnPoint } from '../../lib/interactif/mathLive'
+import {
+  addMultiMathfield,
+  type DataOptionsMultiMathfield,
+} from '../../lib/interactif/MultiMathfield/MultiMathfield'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { fraction } from '../../modules/fractions'
 import {
@@ -25,15 +30,17 @@ import {
 
 export const titre = "Calculer la fraction d'une quantité"
 export const interactifReady = true
-export const interactifType = 'mathLive'
+export const interactifType = 'multiMathfield'
 export const amcReady = true
 export const amcType = 'AMCNum'
+export const dateDeModifImportante = '01/04/2026'
 
 /**
  * Calculer la fraction d'une quantité avec ou sans dessin.
- * @author Jean-Claude Lhote
+ * @author Jean-claude Lhote
+ *  Olivier Mimeau : Passage en multiMathField le 15/04/2026
  */
-export const uuid = 'a168c'
+export const uuid = 'a6deb'
 
 export const refs = {
   'fr-fr': ['6N3M-1'],
@@ -96,18 +103,19 @@ export default class FractionDuneQuantite extends Exercice {
         frac2,
         texte,
         texteCorr,
-        index = 0,
-        nbreponse,
         cpt = 0;
       i < this.nbQuestions && cpt < 50;
     ) {
+      let reponse = 0
+      let reponse2 = 0
+      let chaineTexteApres = ''
       switch (listeTypeDeQuestions[i]) {
         case 1:
-          nbreponse = 1
           den = choixdenh[i]
           num = randint(2, den - 1)
           frac = fraction(num, den)
-          texte = `À combien de minutes correspondent $${frac.texFraction}$ d'heure ? ${ajouteChampTexteMathLive(this, index, KeyboardType.clavierNumbers, { texteApres: ' minutes' })}<br>`
+          chaineTexteApres = ' minutes'
+          texte = `À combien de minutes correspondent $${frac.texFraction}$ d'heure ? ajouteMultiMathfield<br>`
           if (this.sup2) {
             texte += 'Cette fraction est représentée ci-dessous :<br>'
             const figure = representationFraction(
@@ -117,21 +125,21 @@ export default class FractionDuneQuantite extends Exercice {
               2,
               0,
               'gateau',
-              'blue',
+              bleuMathalea,
             )
             texte += mathalea2d(Object.assign({}, fixeBordures(figure)), figure)
           }
           texteCorr = `Comme l'heure est partagée en ${den} parts égales, chaque part représente $${texFractionFromString(1, den)}$ d'heure, soit $${60 / den}$ minutes.<br>`
           texteCorr += `Ici, il y a $${texFractionFromString(num, den)}$ d'heure, ce qui représente $${num}$ fois plus, soit $${num}\\times${60 / den}=${(num * 60) / den}$.<br>`
           texteCorr += `$${frac.texFraction}$ d'heure correspond donc à $${miseEnEvidence((num * 60) / den)}$ minutes.`
-          setReponse(this, index, Math.round((num * 60) / den))
+          reponse = Math.round((num * 60) / den)
           break
         case 2:
-          nbreponse = 1
           den = choixdenh[i]
           num = randint(2, 3 * den, den)
           frac = fraction(num, den)
-          texte = `À combien de minutes correspondent $${frac.texFraction}$ d'heure ? ${ajouteChampTexteMathLive(this, index, KeyboardType.clavierNumbers, { texteApres: ' minutes' })}<br>`
+          chaineTexteApres = ' minutes'
+          texte = `À combien de minutes correspondent $${frac.texFraction}$ d'heure ? ajouteMultiMathfield<br>`
           if (this.sup2) {
             texte += 'Cette fraction est représentée ci-dessous :<br>'
             const figure = representationFraction(
@@ -141,36 +149,35 @@ export default class FractionDuneQuantite extends Exercice {
               2,
               0,
               'gateau',
-              'blue',
+              bleuMathalea,
             )
             texte += mathalea2d(Object.assign({}, fixeBordures(figure)), figure)
           }
           texteCorr = `Comme l'heure est partagée en ${den} parts égales, chaque part représente $${texFractionFromString(1, den)}$ d'heure, soit $${60 / den}$ minutes.<br>`
           texteCorr += `Ici, il y a $${texFractionFromString(num, den)}$ d'heure, ce qui représente $${num}$ fois plus, soit $${num}\\times${60 / den}=${(num * 60) / den}$.<br>`
           texteCorr += `$${frac.texFraction}$ d'heure correspond donc à $${miseEnEvidence((num * 60) / den)}$ minutes.`
-          setReponse(this, index, Math.round((num * 60) / den))
+          reponse = Math.round((num * 60) / den)
           break
         case 3:
-          nbreponse = 1
           masse = choice([120, 180, 240, 300])
           denIrred = choixdent[i]
           numIrred = (i * randint(1, denIrred - 1)) % denIrred
           while (pgcd(denIrred, numIrred) !== 1 || denIrred / numIrred === 2) {
-            denIrred = choixdent[i]
             numIrred = randint(2, denIrred - 1)
           }
           frac = fraction(numIrred, denIrred)
           frac2 = frac.entierMoinsFraction(1)
           texte = `Une tablette de chocolat a une masse totale de $${masse}$ grammes. Quelqu'un en a déjà consommé les $${frac.texFractionSimplifiee}$.<br>`
           choix = nbQuestions3[indiceNbQuestions3]
+          chaineTexteApres = ' g'
           if (choix === 1) {
-            texte += `Quelle masse de chocolat a été consommée ? ${ajouteChampTexteMathLive(this, index, KeyboardType.clavierNumbers, { texteApres: ' g' })}<br>`
+            texte += `Quelle masse de chocolat a été consommée ? ajouteMultiMathfield<br>`
             texteCorr = `Comme la tablette a une masse de $${masse}$ grammes, $${texFractionFromString(1, denIrred)}$ de la tablette représente une masse de $${texNombre(masse / denIrred, 2)}$ grammes.<br>`
             texteCorr += `Ici, il y a $${frac.texFractionSimplifiee}$ de la tablette qui a été consommé, ce qui représente $${numIrred}$ fois plus, soit $${numIrred}\\times${texNombre(masse / denIrred, 2)}=${texNombre((numIrred * masse) / denIrred, 2)}$.<br>`
             texteCorr += `La masse de chocolat consommée est $${miseEnEvidence(texNombre((numIrred * masse) / denIrred, 2))}$ grammes.`
-            setReponse(this, index, arrondi((numIrred * masse) / denIrred, 2))
+            reponse = arrondi((numIrred * masse) / denIrred, 2)
           } else {
-            texte += `Quelle masse de chocolat reste-t-il ? ${ajouteChampTexteMathLive(this, index, KeyboardType.clavierNumbers, { texteApres: ' g' })}<br>`
+            texte += `Quelle masse de chocolat reste-t-il ? ajouteMultiMathfield<br>`
             texteCorr = `Comme la tablette a une masse de $${masse}$ grammes, $${texFractionFromString(1, denIrred)}$ de la tablette représente une masse de $${texNombre(masse / denIrred, 2)}$ grammes.<br>`
             texteCorr += `Ici, il y a $${frac.texFractionSimplifiee}$ de la tablette qui a été consommé, ce qui représente $${numIrred}$ fois plus, soit $${numIrred}\\times${texNombre(masse / denIrred, 2)}=${texNombre((numIrred * masse) / denIrred, 2)}$.<br>`
             texteCorr += `La masse de chocolat consommée est $${texNombre((numIrred * masse) / denIrred, 2)}$ grammes.<br>`
@@ -178,11 +185,7 @@ export default class FractionDuneQuantite extends Exercice {
             texteCorr += `une autre façon de faire est d'utiliser la fraction restante : $${texFractionFromString(denIrred, denIrred)}-${frac.texFractionSimplifiee}=${texFractionFromString(denIrred - numIrred, denIrred)}$.<br>`
             texteCorr += `$${texFractionFromString(denIrred - numIrred, denIrred)}$ de $${masse}$ grammes c'est $${denIrred - numIrred}$ fois $${masse / denIrred}$ grammes.<br>`
             texteCorr += `Il reste donc : $${denIrred - numIrred}\\times${texNombre(masse / denIrred, 2)}=${miseEnEvidence(texNombre(((denIrred - numIrred) * masse) / denIrred, 2))}$ grammes de chocolat.`
-            setReponse(
-              this,
-              index,
-              arrondi(((denIrred - numIrred) * masse) / denIrred, 2),
-            )
+            reponse = arrondi(((denIrred - numIrred) * masse) / denIrred, 2)
           }
           indiceNbQuestions3++
           if (this.sup2) {
@@ -201,12 +204,10 @@ export default class FractionDuneQuantite extends Exercice {
           break
         case 4:
         default:
-          nbreponse = 2
           longueur = choice([120, 180, 240, 300])
           denIrred = choixdenb[i]
           numIrred = randint(1, denIrred - 1)
           while (pgcd(denIrred, numIrred) !== 1 || denIrred / numIrred === 2) {
-            denIrred = choice([2, 3, 4, 5, 10])
             numIrred = randint(1, denIrred - 1)
           }
           k = 300 / denIrred
@@ -216,44 +217,16 @@ export default class FractionDuneQuantite extends Exercice {
           texte = `Un bâton de $${texNombre(longueur / 100)}$ mètre`
           if (longueur >= 200) texte += 's'
           texte += ` de longueur est coupé à $${frac.texFractionSimplifiee}$ de sa longueur.<br>`
-          texte += 'Calculer la longueur de chacun des morceaux en mètres.<br>'
           texte +=
-            ajouteChampTexteMathLive(this, index, KeyboardType.clavierNumbers, {
-              texteAvant: 'Morceau le plus long : ',
-              texteApres: '$\\text{ m}$',
-            }) + '<br>'
-          texte +=
-            ajouteChampTexteMathLive(
-              this,
-              index + 1,
-              KeyboardType.clavierNumbers,
-              {
-                texteAvant: 'Morceau le plus court : ',
-                texteApres: '$\\text{ m}$',
-              },
-            ) + '<br>'
-
-          setReponse(
-            this,
-            index,
-            Math.max(
-              arrondi((numIrred * longueur) / 100 / denIrred, 3),
-              arrondi(
-                longueur / 100 - (numIrred * longueur) / 100 / denIrred,
-                3,
-              ),
-            ),
+            'Calculer la longueur de chacun des morceaux en mètres.ajouteMultiMathfield<br>'
+          chaineTexteApres = `$\\text{ m}$` // ajouteMultiMathfield // KeyboardType.clavierNumbers
+          reponse = Math.max(
+            arrondi((numIrred * longueur) / 100 / denIrred, 3),
+            arrondi(longueur / 100 - (numIrred * longueur) / 100 / denIrred, 3),
           )
-          setReponse(
-            this,
-            index + 1,
-            Math.min(
-              arrondi((numIrred * longueur) / 100 / denIrred, 3),
-              arrondi(
-                longueur / 100 - (numIrred * longueur) / 100 / denIrred,
-                3,
-              ),
-            ),
+          reponse2 = Math.min(
+            arrondi((numIrred * longueur) / 100 / denIrred, 3),
+            arrondi(longueur / 100 - (numIrred * longueur) / 100 / denIrred, 3),
           )
           if (this.sup2) {
             texte += 'Ce bâton est représenté ci-dessous :<br>'
@@ -264,7 +237,7 @@ export default class FractionDuneQuantite extends Exercice {
               8,
               0,
               'segment',
-              'blue',
+              bleuMathalea,
               '0',
               `${stringNombre(longueur / 100)}`,
             )
@@ -276,9 +249,63 @@ export default class FractionDuneQuantite extends Exercice {
 
           break
       }
-
+      let chaineDataTemplate = ' %{champ1}'
+      let objDataOptions: DataOptionsMultiMathfield = {
+        champ1: {
+          keyboard: KeyboardType.clavierNumbers,
+          minWidth: 50,
+          texteApres: chaineTexteApres,
+        },
+      }
+      let ajoutBr = ''
+      if (listeTypeDeQuestions[i] < 4) {
+        handleAnswers(
+          this,
+          i,
+          {
+            bareme: toutAUnPoint,
+            champ1: { value: reponse },
+          },
+          { formatInteractif: 'multiMathfield' },
+        )
+      } else {
+        chaineDataTemplate =
+          'Morceau le plus long : %{champ1} \n Morceau le plus court : %{champ2}'
+        ajoutBr = '<br>'
+        objDataOptions = {
+          champ1: {
+            keyboard: KeyboardType.clavierNumbers,
+            minWidth: 50,
+            texteApres: chaineTexteApres,
+          },
+          champ2: {
+            keyboard: KeyboardType.clavierNumbers,
+            minWidth: 50,
+            texteApres: chaineTexteApres,
+          },
+        }
+        handleAnswers(
+          this,
+          i,
+          {
+            bareme: toutAUnPoint,
+            champ1: { value: reponse },
+            champ2: { value: reponse2 },
+          },
+          { formatInteractif: 'multiMathfield' },
+        )
+      }
+      texte = texte.replace(
+        'ajouteMultiMathfield',
+        this.interactif
+          ? ajoutBr +
+              addMultiMathfield(this, i, {
+                dataTemplate: chaineDataTemplate,
+                dataOptions: objDataOptions,
+              })
+          : '',
+      )
       if (this.listeCorrections.indexOf(texteCorr) === -1) {
-        index += nbreponse
         // Si la question n'a jamais été posée, on en crée une autre
         this.listeQuestions[i] = texte
         this.listeCorrections[i] = texteCorr

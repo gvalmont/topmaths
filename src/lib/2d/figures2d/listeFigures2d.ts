@@ -65,6 +65,7 @@ import {
   lettreY,
   lettreZ,
 } from './lettres'
+import { bleuMathalea } from '../../../lib/colors'
 import {
   panneauArretInterdit,
   panneauCederLePassage,
@@ -87,7 +88,7 @@ import {
 } from './panneaux'
 /**
  * @description formes utilisées dans l'exercice 6G25-4 notamment
- * @author Jean-Claude Lhote
+ * @author Jean-claude Lhote
  */
 export const listeFigures2d: Forme[] = [
   // panneaux
@@ -530,7 +531,7 @@ export const listeFigures2d: Forme[] = [
       coinsArrondis: true,
       largeur: 2,
       hauteur: 1.5,
-      fillStyle: 'blue',
+      fillStyle: bleuMathalea,
       opacite: 0.5,
     },
   },

@@ -1,6 +1,6 @@
 import { afficheMesureAngle } from '../../lib/2d/AfficheMesureAngle'
 import { codageAngleDroit } from '../../lib/2d/CodageAngleDroit'
-import { point } from '../../lib/2d/PointAbstrait'
+import { pointAbstrait } from '../../lib/2d/PointAbstrait'
 import { tracePoint } from '../../lib/2d/TracePoint'
 import { codageAngle } from '../../lib/2d/angles'
 import { fixeBordures } from '../../lib/2d/fixeBordures'
@@ -27,6 +27,7 @@ import {
   randint,
 } from '../../modules/outils'
 import Exercice from '../Exercice'
+import { bleuMathalea } from '../../lib/colors'
 
 export const titre = 'Calculer un angle, déduit de figures simples'
 export const amcReady = true
@@ -39,7 +40,7 @@ export const dateDeModifImportante = '09/05/2023'
 
 /**
  * Calculer un angle à partir de figures simples
- * @author Eric Elter
+ * @author Éric Elter
  * Publié le 03/05/2022
  */
 export const uuid = '329fe'
@@ -325,8 +326,8 @@ export default class CalculerUnAngle extends Exercice {
                 )
           ]
 
-      A = point(0, 0, lettreDepuisChiffre(numA), posA)
-      B1 = rotation(point(6, 0), A, angB)
+      A = pointAbstrait(0, 0, lettreDepuisChiffre(numA), posA)
+      B1 = rotation(pointAbstrait(6, 0), A, angB)
       posB =
         angB > 135
           ? 'above'
@@ -482,7 +483,7 @@ export default class CalculerUnAngle extends Exercice {
 
       // Commencent ici tous les cas particuliers
 
-      // Angle orange de toutes les corrections  '#f15929'
+      // Angle orange de toutes les corrections orangeMathalea
       if ([8, 13].indexOf(QuestionsDisponibles[i]) !== -1) {
         objetsCorrection.push(
           afficheMesureAngle(B, A, D, 'pink', 3, '', {
@@ -566,25 +567,25 @@ export default class CalculerUnAngle extends Exercice {
       // Création des angles droits et des angles plats
       if ([1, 6, 7, 8, 12, 13, 14].indexOf(QuestionsDisponibles[i]) !== -1) {
         // Affichage de l'angle droit dans les cas 1, 6, 7 et 8
-        objetsEnonce.push(codageAngleDroit(B, A, C, 'blue', 0.8, 2))
-        objetsCorrection.push(codageAngleDroit(B, A, C, 'blue', 0.8, 2))
+        objetsEnonce.push(codageAngleDroit(B, A, C, bleuMathalea, 0.8, 2))
+        objetsCorrection.push(codageAngleDroit(B, A, C, bleuMathalea, 0.8, 2))
       } else if ([2, 3, 9, 10].indexOf(QuestionsDisponibles[i]) !== -1) {
         // Affichage de l'angle plat dans les cas 2, 3, 9 et 10
         if (QuestionsDisponibles[i] !== 3) {
           objetsEnonce.push(
-            afficheMesureAngle(B, A, C, 'blue', 1.5, '', {
+            afficheMesureAngle(B, A, C, bleuMathalea, 1.5, '', {
               ecart: 0.75,
               saillant: sensRot === -1,
-              colorArc: 'blue',
+              colorArc: bleuMathalea,
               arcEpaisseur: 2,
             }),
           )
         } // On remplit les tableaux d'objets Mathalea2d
         objetsCorrection.push(
-          afficheMesureAngle(B, A, C, 'blue', 1.5, '', {
+          afficheMesureAngle(B, A, C, bleuMathalea, 1.5, '', {
             ecart: 0.75,
             saillant: sensRot === -1,
-            colorArc: 'blue',
+            colorArc: bleuMathalea,
             arcEpaisseur: 2,
           }),
         ) // On remplit les tableaux d'objets Mathalea2d

@@ -1,9 +1,9 @@
-import { orangeMathalea } from 'apigeom/src/elements/defaultValues'
 import { droiteGraduee } from '../../lib/2d/DroiteGraduee'
 import { fixeBordures } from '../../lib/2d/fixeBordures'
-import { point } from '../../lib/2d/PointAbstrait'
+import { pointAbstrait } from '../../lib/2d/PointAbstrait'
 import { labelPoint, latex2d } from '../../lib/2d/textes'
 import { tracePoint } from '../../lib/2d/TracePoint'
+import { orangeMathalea, bleuMathalea } from '../../lib/colors'
 import { combinaisonListes, shuffle } from '../../lib/outils/arrayOutils'
 import { lettreIndiceeDepuisChiffre } from '../../lib/outils/outilString'
 import { texNombre } from '../../lib/outils/texNombre'
@@ -22,7 +22,7 @@ export const amcReady = true
 export const amcType = 'AMCOpen'
 /**
  * Placer un point d'abscisse entière
- * @author Jean-Claude Lhote et Rémi Angot
+ * @author Jean-claude Lhote et Rémi Angot
  * Relecture : Novembre 2021 par EE
  * Correction : Problème de score 19/10/22 par Rémi ANGOT
  */
@@ -171,7 +171,7 @@ export default class PlacerUnPointAbscisseEntiere2d extends Exercice {
           [x2, `\\boldsymbol{${texNombre(x22, 0)}}`],
           [x3, `\\boldsymbol{${texNombre(x33, 0)}}`],
         ],
-        labelColor: '#F15929',
+        labelColor: orangeMathalea,
         thickSec: true,
         step1: 10,
         labelCustomDistance: 1.5,
@@ -197,7 +197,7 @@ export default class PlacerUnPointAbscisseEntiere2d extends Exercice {
             size: 5,
             width: 3,
             opacite: 0.7,
-            color: 'blue',
+            color: bleuMathalea,
             radius: tailleUnite / 25,
           })
           mesObjets.push(monPoint)
@@ -226,18 +226,18 @@ export default class PlacerUnPointAbscisseEntiere2d extends Exercice {
         texte += `<span id="resultatCheckEx${this.numeroExercice}Q${i}"></span>`
       }
 
-      A = point(abscisse[0][0] * tailleUnite, 0, l1)
+      A = pointAbstrait(abscisse[0][0] * tailleUnite, 0, l1)
       traceA = tracePoint(A, orangeMathalea)
       traceA.epaisseur = 2
       traceA.taille = 3
       labels = labelPoint(A)
       if (!this.interactif) {
         A.nom = lettreIndiceeDepuisChiffre(i * 3 + 1)
-        B = point(abscisse[1][0] * tailleUnite, 0, l2)
+        B = pointAbstrait(abscisse[1][0] * tailleUnite, 0, l2)
         traceB = tracePoint(B, orangeMathalea)
         traceB.epaisseur = 2
         traceB.taille = 3
-        C = point(abscisse[2][0] * tailleUnite, 0, l3)
+        C = pointAbstrait(abscisse[2][0] * tailleUnite, 0, l3)
         traceC = tracePoint(C, orangeMathalea)
         traceC.epaisseur = 2
         traceC.taille = 3

@@ -23,12 +23,12 @@ export const interactifType = 'mathLive'
 
 /**
  * On doit calculer la probabilité qu'un événement se réalise après une expérience aléatoire à deux épreuves
- * @author Jean-Claude Lhote
+ * @author Jean-claude Lhote
  */
 export const uuid = '76231'
 
 export const refs = {
-  'fr-fr': ['3S22'],
+  'fr-fr': ['3S22', '1Tec-P101'],
   'fr-ch': ['3mP-7'],
 }
 export default class CalculProbaTab2Entrées extends Exercice {

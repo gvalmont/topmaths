@@ -10,8 +10,9 @@ import { pointAbstrait } from '../../lib/2d/PointAbstrait'
 import { Segment, segment } from '../../lib/2d/segmentsVecteurs'
 import { latex2d } from '../../lib/2d/textes'
 import { fraction } from '../../modules/fractions'
+import { bleuMathalea } from '../../lib/colors'
 export const titre = 'Exprimer le rapport de deux longueurs sur un segment'
-export const dateDeModificationImportante = '19/10/2025' // Mettre tous les segments à la même longueur pour éviter les sorties Latex problématiques. Jean-Claude Lhote
+export const dateDeModificationImportante = '19/10/2025' // Mettre tous les segments à la même longueur pour éviter les sorties Latex problématiques. Jean-claude Lhote
 
 function representationFraction(
   n: number,
@@ -81,7 +82,7 @@ function representationFraction(
 /**
  * * Exprimer un rapport de longueurs sur un segment
  * * 6N22-1
- * @author Sébastien Lozano refactorisé par Jean-Claude Lhote le 19/10/2025
+ * @author Sébastien Lozano refactorisé par Jean-claude Lhote le 19/10/2025
  */
 
 export const uuid = '7781a'
@@ -135,7 +136,7 @@ export default class RapportsSurUnSegment extends Exercice {
         min,
         10,
         [noms[0], noms[2], noms[1]],
-        'blue',
+        bleuMathalea,
       )
       const f1 = representationFraction(max, min, 10, noms)
       const f1Corr = representationFraction(max, min, 10, noms, 'red')
@@ -144,7 +145,7 @@ export default class RapportsSurUnSegment extends Exercice {
         max,
         10,
         [noms[0], noms[2], noms[1]],
-        'blue',
+        bleuMathalea,
       )
       //
 

@@ -1,10 +1,10 @@
 import Decimal from 'decimal.js'
-import { evaluate, format, round } from 'mathjs'
 import { context } from '../../modules/context'
 import type { IFractionEtendue } from '../../modules/FractionEtendue.type'
+import { Complexe } from '../mathFonctions/Complexe'
 import { extraireRacineCarree } from './calculs'
 import { miseEnEvidence } from './embellissements'
-import { nombreDeChiffresDansLaPartieDecimale } from './nombres'
+import { nombreDeChiffresDansLaPartieDecimale, round } from './nombres'
 
 // Garde structurel pour détecter une FractionEtendue
 const isFractionEtendue = (x: unknown): x is IFractionEtendue =>
@@ -12,22 +12,11 @@ const isFractionEtendue = (x: unknown): x is IFractionEtendue =>
   x !== null &&
   typeof (x as any).sommeFraction === 'function'
 
-const math = { format, evaluate }
-
-function sp(nb = 1) {
-  let s = ''
-  for (let i = 0; i < nb; i++) {
-    if (context.isHtml) s += '&nbsp;'
-    else s += '\\,'
-  }
-  return s
-}
-
 /**
  *
  * @param {number} n
  * retourne le code Latex de la racine carrée de n réduite
- * @author Jean-CLaude Lhote
+ * @author Jean-claude Lhote
  */
 export function texRacineCarree(n: number) {
   const result = extraireRacineCarree(n)
@@ -96,7 +85,7 @@ export function numberFormat(nb: number) {
  * @returns string avec le nombre dans le format français à mettre entre des $ $
  */
 export function texNombre(
-  nb: number | Decimal | IFractionEtendue,
+  nb: number | Decimal | IFractionEtendue | Complexe,
   precision = 8,
   completerZeros = false,
   aussiCompleterEntiers = false,
@@ -128,14 +117,7 @@ export function texNombre2(nb: number) {
       nombre: nb,
     })
   }
-  let nombre = math
-    .format(nb, {
-      notation: 'auto',
-      lowerExp: -12,
-      upperExp: 12,
-      precision: 12,
-    })
-    .replace('.', ',')
+  let nombre = stringNombre(nb)
   const rangVirgule = nombre.indexOf(',')
   let partieEntiere
   if (rangVirgule !== -1) {
@@ -161,56 +143,6 @@ export function texNombre2(nb: number) {
     nombre = partieEntiere
   } else {
     nombre = partieEntiere + '{,}' + partieDecimale
-  }
-  return nombre
-}
-
-/**
- * Renvoie un nombre dans le format français (séparateur de classes) pour la partie entière comme pour la partie décimale
- * Avec espace géré par nbsp en HTML pour pouvoir l'inclure dans une phrase formatée en français et pas seulement un calcul.
- * Modif EE pour la gestion de l'espace dans un texte non mathématique
- * @author Eric Elter d'après la fonction de Rémi Angot
- * Rajout Octobre 2021 pour 6C14
- */
-export function texNombre3(nb: number) {
-  if (typeof nb === 'string') {
-    window.notify("texNombre3 appelé avec un string à la place d'un nombre", {
-      nombre: nb,
-    })
-  }
-  let nombre = math
-    .format(nb, {
-      notation: 'auto',
-      lowerExp: -12,
-      upperExp: 12,
-      precision: 12,
-    })
-    .replace('.', ',')
-  const rangVirgule = nombre.indexOf(',')
-  let partieEntiere
-  if (rangVirgule !== -1) {
-    partieEntiere = nombre.substring(0, rangVirgule)
-  } else {
-    partieEntiere = nombre
-  }
-  let partieDecimale = ''
-  if (rangVirgule !== -1) {
-    partieDecimale = nombre.substring(rangVirgule + 1)
-  }
-
-  for (let i = partieEntiere.length - 3; i > 0; i -= 3) {
-    partieEntiere =
-      partieEntiere.substring(0, i) + sp() + partieEntiere.substring(i)
-  }
-  for (let i = 3; i <= partieDecimale.length; i += 3) {
-    partieDecimale =
-      partieDecimale.substring(0, i) + sp() + partieDecimale.substring(i)
-    i += 12
-  }
-  if (partieDecimale === '') {
-    nombre = partieEntiere
-  } else {
-    nombre = partieEntiere + ',' + partieDecimale
   }
   return nombre
 }
@@ -259,7 +191,7 @@ export function scientifiqueToDecimal(mantisse: number, exp: number) {
  * Destinée à être utilisée hors des $ $
  * Signale une erreur en console s'il y a plus de 15 chiffres significatifs (et donc qu'il y a un risque d'erreur d'approximation)
  * Sinon, renvoie le nombre à afficher dans le format français (avec virgule et des espaces pour séparer les classes dans la partie entière et la partie décimale)
- * @author Jean-Claude Lhote
+ * @author Jean-claude Lhote
  * @author Guillaume Valmont
  * @param {number|Decimal} nb nombre qu'on veut afficher
  * @param {number} precision nombre de décimales demandé
@@ -268,11 +200,11 @@ export function scientifiqueToDecimal(mantisse: number, exp: number) {
  * @returns string avec le nombre dans le format français à placer hors des $ $
  */
 export function stringNombre(
-  nb: number | Decimal,
+  nb: number | Decimal | Complexe | IFractionEtendue,
   precision?: number,
   completerZeros?: boolean,
   aussiCompleterEntiers?: boolean,
-) {
+): string {
   if (completerZeros === undefined) completerZeros = false
   if (aussiCompleterEntiers === undefined) aussiCompleterEntiers = false
   if (precision === undefined) precision = 8
@@ -280,6 +212,23 @@ export function stringNombre(
     window.notify("stringNombre appelé avec un string à la place d'un nombre", {
       nombre: nb,
     })
+  }
+  if (nb instanceof Complexe) {
+    const nombre = nb as Complexe
+    return `${stringNombre(nombre.re, precision, completerZeros, aussiCompleterEntiers)} ${Number(nombre.im) >= 0 ? '+' : '-'} ${stringNombre(
+      Math.abs(Number(nombre.im)),
+      precision,
+      completerZeros,
+      aussiCompleterEntiers,
+    )}i`
+  }
+  if (isFractionEtendue(nb)) {
+    return stringNombre(
+      nb.valeurDecimale,
+      precision,
+      completerZeros,
+      aussiCompleterEntiers,
+    )
   }
   return afficherNombre(
     nb,
@@ -303,7 +252,7 @@ export function stringNombre(
  * @param {boolean} aussiCompleterEntiers true si on veut ajouter des zéros inutiles aux entiers
  */
 function afficherNombre(
-  nb: number | Decimal | IFractionEtendue | string,
+  nb: number | Decimal | IFractionEtendue | string | Complexe,
   precision: number,
   fonction: 'texNombre' | 'stringNombre',
   completerZeros = false,
@@ -314,7 +263,7 @@ function afficherNombre(
    * Elle renvoie un nombre dans le format français (avec virgule et des espaces pour séparer les classes dans la partie entière et la partie décimale)
    * @author Rémi Angot
    * @author Guillaume Valmont
-   * @param {number|string|FractionEtendue|Decimal} nb nombre à afficher
+   * @param {number|string|FractionEtendue|Decimal|Complexe} nb nombre à afficher
    * @param {number} nbChiffresPartieEntiere nombre de chiffres de la partie entière
    * @param {number} precision nombre de décimales demandé
    * @param {'stringNombre'|'texNombre'} fonction la fonction appelante
@@ -322,7 +271,7 @@ function afficherNombre(
    */
 
   function insereEspacesNombre(
-    nb: number | Decimal,
+    nb: number | Decimal | IFractionEtendue,
     nbChiffresPartieEntiere: number,
     precision: number,
     fonction: 'stringNombre' | 'texNombre',
@@ -330,6 +279,15 @@ function afficherNombre(
     let signe
     let nombre
     const maximumSignificantDigits = nbChiffresPartieEntiere + precision
+    if (isFractionEtendue(nb)) {
+      return insereEspacesNombre(
+        nb.valeurDecimale,
+        nb.valeurDecimale.toFixed(0).length,
+        precision,
+        fonction,
+      )
+    }
+
     if (nb instanceof Decimal) {
       Decimal.set({ toExpNeg: -precision - 1 })
       signe = nb.isNeg()
@@ -472,6 +430,18 @@ function afficherNombre(
           nb,
         })
       }
+    } else if (nb instanceof Complexe) {
+      return `${insereEspacesNombre(
+        Number(nb.re),
+        Number(nb.re).toFixed(0).length,
+        precision,
+        fonction,
+      )} ${Number(nb.im) >= 0 ? '+' : '-'} ${insereEspacesNombre(
+        Math.abs(Number(nb.im)),
+        Math.abs(Number(nb.im)).toFixed(0).length,
+        precision,
+        fonction,
+      )}i`
     } else if (typeof nb !== 'number') {
       window.notify(
         `afficherNombre a reçu un argument de type inconnu come nombre : ${nb}`,
@@ -563,20 +533,13 @@ function afficherNombre(
         ` : Trop de chiffres le nombre passé à la fonction a trop de chiffres significatifs, soit c'est un bug à corriger, soit il faut utiliser un Decimal !`,
       { nb, precision },
     )
-    return insereEspacesNombre(
-      Number(nb),
-      nbChiffresPartieEntiere,
-      precision,
-      fonction,
-    )
-  } else {
-    return insereEspacesNombre(
-      Number(nb),
-      nbChiffresPartieEntiere,
-      precision,
-      fonction,
-    )
   }
+  return insereEspacesNombre(
+    Number(nb),
+    nbChiffresPartieEntiere,
+    precision,
+    fonction,
+  )
 }
 
 /**
@@ -608,7 +571,7 @@ export function texPrix(nb: number | Decimal) {
  * // Renvoie [-2.315,3]
  * range(decimalToScientifique,[-2315])
  *
- * @author Eric Elter
+ * @author Éric Elter
  */
 export function decimalToScientifique(nbDecimal: number) {
   let exposant = 0

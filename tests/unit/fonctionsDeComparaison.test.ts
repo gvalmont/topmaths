@@ -578,40 +578,6 @@ describe('fonctionComparaison', () => {
     )
   })
 
-  it("Vérifie le fonctionnement de l'option avecSigneMultiplier", () => {
-    const result = fonctionComparaison('-2 * 3', '-6', {
-      avecSigneMultiplier: true,
-    })
-    expect(result.isOk).toBe(true)
-    expect(result.feedback).toBe('')
-  })
-  /*
-  it("Vérifie le fonctionnement de l'option avecFractions", () => {
-    const result = fonctionComparaison('\\dfrac{1}{2}', '0.5', {
-      avecFractions: true,
-    })
-    expect(result.isOk).toBe(true)
-    expect(result.feedback).toBe('')
-    const result2 = fonctionComparaison('\\frac{5}{10}', '0.5', {
-      avecFractions: true,
-    })
-    expect(result2.isOk).toBe(true)
-    expect(result2.feedback).toBe('')
-    const result3 = fonctionComparaison('\\frac{5}{10}', '0.5', {
-      avecFractions: true,
-    })
-    expect(result3.isOk).toBe(true)
-    expect(result3.feedback).toBe('')
-    const result4 = fonctionComparaison('2^{-1}', '0.5', {
-      avecFractions: true,
-    })
-    expect(result4.isOk).toBe(true)
-    expect(result4.feedback).toBe('')
-    const result5 = fonctionComparaison('0.5', '0.5', { avecFractions: true })
-    expect(result5.isOk).toBe(true)
-    expect(result5.feedback).toBe('')
-  })
-*/
   //     ██████  ██████  ████████ ██  ██████  ███    ██
   //    ██    ██ ██   ██    ██    ██ ██    ██ ████   ██
   //    ██    ██ ██████     ██    ██ ██    ██ ██ ██  ██
@@ -1686,15 +1652,11 @@ describe('fonctionComparaison', () => {
       { unite: true },
     )
     expect(result.isOk).toBe(true)
-    result = fonctionComparaison(
-      '0{,}035\\operatorname{\\mathrm{g}}',
-      '3{,}5cm',
-      { unite: true },
-    )
+    result = fonctionComparaison('0{,}035\\operatorname{\\mathrm{g}}', '32cm', {
+      unite: true,
+    })
     expect(result.isOk).toBe(false)
-    expect(result.feedback).toBe(
-      `La réponse pourrait être correcte si l'unité avait été précisée.`,
-    )
+    expect(result.feedback).toBe(`L'unité choisie n'est, déjà, pas correcte.`)
 
     result = fonctionComparaison('3{,}5', '3{,}5cm', { unite: true })
     expect(result.isOk).toBe(false)
@@ -1735,6 +1697,15 @@ describe('fonctionComparaison', () => {
     result = fonctionComparaison('3{,}4\\operatorname{\\mathrm{m}}', '3.47m', {
       unite: true,
       precisionUnite: 0.05,
+    })
+    expect(result.isOk).toBe(false)
+    expect(result.feedback).toBe(
+      `Incorrect car la réponse n'est pas arrondie comme il faut.`,
+    )
+
+    result = fonctionComparaison('3\\operatorname{\\mathrm{m}}', '3.4m', {
+      unite: true,
+      precisionUnite: 0.1,
     })
     expect(result.isOk).toBe(false)
     expect(result.feedback).toBe(
@@ -2459,6 +2430,35 @@ describe('fonctionComparaison', () => {
     )
   })
 
+  //     ██████  ██████  ████████ ██  ██████  ███    ██
+  //    ██    ██ ██   ██    ██    ██ ██    ██ ████   ██
+  //    ██    ██ ██████     ██    ██ ██    ██ ██ ██  ██
+  //    ██    ██ ██         ██    ██ ██    ██ ██  ██ ██
+  //     ██████  ██         ██    ██  ██████  ██   ████
+  //
+  //
+  //    ███    ██  ██████  ███    ██
+  //    ████   ██ ██    ██ ████   ██
+  //    ██ ██  ██ ██    ██ ██ ██  ██
+  //    ██  ██ ██ ██    ██ ██  ██ ██
+  //    ██   ████  ██████  ██   ████
+  //
+  //
+  //    ██████  ███████ ██████   ██████  ███    ██ ███████ ███████
+  //    ██   ██ ██      ██   ██ ██    ██ ████   ██ ██      ██
+  //    ██████  █████   ██████  ██    ██ ██ ██  ██ ███████ █████
+  //    ██   ██ ██      ██      ██    ██ ██  ██ ██      ██ ██
+  //    ██   ██ ███████ ██       ██████  ██   ████ ███████ ███████
+  //
+  //
+  //     █████   ██████  ██████ ███████ ██████  ████████ ███████ ███████
+  //    ██   ██ ██      ██      ██      ██   ██    ██    ██      ██
+  //    ███████ ██      ██      █████   ██████     ██    █████   █████
+  //    ██   ██ ██      ██      ██      ██         ██    ██      ██
+  //    ██   ██  ██████  ██████ ███████ ██         ██    ███████ ███████
+  //
+  //
+
   it("Vérifie le fonctionnement de l'option nonReponseAcceptee", () => {
     const result = fonctionComparaison('', '', { nonReponseAcceptee: true })
     expect(result.isOk).toBe(true)
@@ -2668,6 +2668,134 @@ describe('fonctionComparaison', () => {
         calculFormel: true,
       },
     )
+    expect(result.isOk).toBe(true)
+  })
+
+  //     ██████  ██████  ████████ ██  ██████  ███    ██
+  //    ██    ██ ██   ██    ██    ██ ██    ██ ████   ██
+  //    ██    ██ ██████     ██    ██ ██    ██ ██ ██  ██
+  //    ██    ██ ██         ██    ██ ██    ██ ██  ██ ██
+  //     ██████  ██         ██    ██  ██████  ██   ████
+  //
+  //
+  //    ███████ ██   ██ ██████   █████  ███    ██ ██████  ███████ ██████
+  //    ██       ██ ██  ██   ██ ██   ██ ████   ██ ██   ██ ██      ██   ██
+  //    █████     ███   ██████  ███████ ██ ██  ██ ██   ██ █████   ██   ██
+  //    ██       ██ ██  ██      ██   ██ ██  ██ ██ ██   ██ ██      ██   ██
+  //    ███████ ██   ██ ██      ██   ██ ██   ████ ██████  ███████ ██████
+  //
+  //
+
+  it("Vérifie le fonctionnement de l'option expanded", () => {
+    let result = fonctionComparaison('6 \\times x \\times x -8', '6x^2-8', {
+      expanded: true,
+    })
+    expect(result.isOk).toBe(true)
+
+    result = fonctionComparaison(
+      '-8+6 \\times x \\times x',
+      '6 \\times x \\times x -8',
+      {
+        expanded: true,
+      },
+    )
+    expect(result.isOk).toBe(true)
+
+    result = fonctionComparaison('-8+6 \\times x \\times x', '6x^2-8', {
+      expanded: true,
+    })
+    expect(result.isOk).toBe(true)
+
+    result = fonctionComparaison('x \\times 6 \\times x-8', '6x^2-8', {
+      expanded: true,
+    })
+    expect(result.isOk).toBe(true)
+
+    result = fonctionComparaison('x \\times x \\times x', 'x^3', {
+      expanded: true,
+    })
+    expect(result.isOk).toBe(true)
+
+    result = fonctionComparaison('8 \\times (6 \\times x+5)', '8(6x+5)', {
+      expanded: true,
+    })
+    expect(result.isOk).toBe(true)
+
+    result = fonctionComparaison('(6 \\times x+5) \\times 8', '8(6x+5)', {
+      expanded: true,
+    })
+    expect(result.isOk).toBe(true)
+
+    result = fonctionComparaison('6x^2-8', '6x^2-8', {
+      expanded: true,
+    })
+    expect(result.isOk).toBe(false)
+    expect(result.feedback).toBe(
+      'La réponse fournie est bien égale à celle attendue mais il manque au moins un signe $\\times$.',
+    )
+
+    result = fonctionComparaison('6 \\times x^2-8', '6x^2-8', {
+      expanded: true,
+    })
+    expect(result.isOk).toBe(false)
+    expect(result.feedback).toBe(
+      'La réponse fournie est bien égale à celle attendue mais il manque au moins un signe $\\times$.',
+    )
+
+    result = fonctionComparaison('x \\times x^2', 'x^3', {
+      expanded: true,
+    })
+    expect(result.isOk).toBe(false)
+    expect(result.feedback).toBe(
+      'La réponse fournie est bien égale à celle attendue mais il manque au moins un signe $\\times$.',
+    )
+
+    result = fonctionComparaison('(6x+5) \\times 8', '8(6x+5)', {
+      expanded: true,
+    })
+    expect(result.isOk).toBe(false)
+    expect(result.feedback).toBe(
+      'La réponse fournie est bien égale à celle attendue mais il manque au moins un signe $\\times$.',
+    )
+
+    result = fonctionComparaison('8(6 \\times x+5)', '8(6x+5)', {
+      expanded: true,
+    })
+    expect(result.isOk).toBe(false)
+    expect(result.feedback).toBe(
+      'La réponse fournie est bien égale à celle attendue mais il manque au moins un signe $\\times$.',
+    )
+
+    result = fonctionComparaison('8(6 \\times x+4)', '8(6x+5)', {
+      expanded: true,
+    })
+    expect(result.isOk).toBe(false)
+  })
+
+  //     ██████  ██████  ████████ ██  ██████  ███    ██
+  //    ██    ██ ██   ██    ██    ██ ██    ██ ████   ██
+  //    ██    ██ ██████     ██    ██ ██    ██ ██ ██  ██
+  //    ██    ██ ██         ██    ██ ██    ██ ██  ██ ██
+  //     ██████  ██         ██    ██  ██████  ██   ████
+  //
+  //
+  //    ███████  █████  ███    ██ ███████ ████████ ██ ███    ███ ███████ ███████
+  //    ██      ██   ██ ████   ██ ██         ██    ██ ████  ████ ██      ██
+  //    ███████ ███████ ██ ██  ██ ███████    ██    ██ ██ ████ ██ █████   ███████
+  //         ██ ██   ██ ██  ██ ██      ██    ██    ██ ██  ██  ██ ██           ██
+  //    ███████ ██   ██ ██   ████ ███████    ██    ██ ██      ██ ███████ ███████
+  //
+  //
+
+  it("Vérifie le fonctionnement de l'option sansTimes", () => {
+    let result = fonctionComparaison('6(x^2-8)', '6 \\times (x \\times x -8)', {
+      sansTimes: true,
+    })
+    expect(result.isOk).toBe(true)
+
+    result = fonctionComparaison('6(x^2-8)', '6 \\times(-8+ x \\times x)', {
+      sansTimes: true,
+    })
     expect(result.isOk).toBe(true)
   })
 
@@ -3384,6 +3512,7 @@ describe('fonctionComparaison', () => {
   //     ██████  ██         ██    ██  ██████  ██   ████ ███████
   //
   //
+  // from https://patorjk.com/software/taag/ // Style : ANSI Regular // C++ style Comment
 
   it('Vérifie le fonctionnement des options cumulées fractionEgale et nombreDecimalSeulement', () => {
     let result = fonctionComparaison('2', '\\dfrac63', {

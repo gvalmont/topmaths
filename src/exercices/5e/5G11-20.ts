@@ -14,6 +14,7 @@ import { shuffle } from '../../lib/outils/arrayOutils'
 import { context } from '../../modules/context'
 import { gestionnaireFormulaireTexte, randint } from '../../modules/outils'
 import Exercice from '../Exercice'
+import { bleuMathalea } from '../../lib/colors'
 
 export const titre =
   'Construire des symétriques de figures par rapport à un point'
@@ -53,7 +54,7 @@ function checkDistance(points: { x: number; y: number }[]) {
 
 /**
  * Construction interactive de symétriques de points
- * @author Jean-Claude Lhote
+ * @author Jean-claude Lhote
  */
 class ConstructionsSymetrieCentraleFigures extends Exercice {
   antecedentsApiGeom!: PointApigeom[][]
@@ -92,7 +93,7 @@ class ConstructionsSymetrieCentraleFigures extends Exercice {
   nouvelleVersion() {
     const marks: string[] = ['//', 'o', '||']
     const colors: string[] = context.isHtml
-      ? ['red', 'green', 'purple', 'blue', 'gray']
+      ? ['red', 'green', 'purple', bleuMathalea, 'gray']
       : ['gray', 'gray', 'gray', 'gray', 'gray']
     this.answers = {}
 
@@ -348,7 +349,7 @@ class ConstructionsSymetrieCentraleFigures extends Exercice {
       ) {
         sym[k] = copyAntecedents[k].rotate(centreCorrection, 180, {
           label: this.antecedentsApiGeom[i][k].label + "'",
-        })
+        }) as PointApigeom
         correctionFig.create('Segment', {
           point1: copyAntecedents[k],
           point2: sym[k],

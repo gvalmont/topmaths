@@ -105,11 +105,10 @@
   }%
 }%
 
-\NewDocumentEnvironment{EXOCan}{m m +b}{%
-  #3
-}
+\NewDocumentEnvironment{EXOCan}{m m}{%
+}{}
 
-\NewDocumentEnvironment{EXOcoop}{m m +b}{%
+\NewDocumentEnvironment{EXOcoop}{m m}{%
   \begin{tcolorbox}[%
     enhanced,
     breakable,
@@ -118,24 +117,35 @@
     coltitle=black,
     title=\IfNoValueTF{#1}{}{\textmd{#1}},%
     overlay unbroken and first={%
-      \node[anchor=west,xshift=-20pt,yshift=-15pt] at (frame.north west) {\stepcounter{ExoMA}\numb{\arabic{ExoMA}}};
+      \IfNoValueTF{#2}{}{%
+        \node[
+        fill=white,
+        anchor=east,
+        xshift=10pt,
+        text=black
+        ]
+        at (frame.north east)
+        {\scriptsize #2};
+      }
+      \node[anchor=west,xshift=-20pt,yshift=-15pt] 
+      at (frame.north west) {\stepcounter{ExoMA}\numb{\arabic{ExoMA}}};
     }
-    ]
-    #3
+  ]
+}{%
   \end{tcolorbox}
 }
 
-\NewDocumentEnvironment{EXOlibre}{m m +b}{%
+\NewDocumentEnvironment{EXOlibre}{m m}{%
   \begin{tcolorbox}[%
     enhanced,
     breakable,
     colback=white,
-    colframe=white,%couleur_theme,
+    colframe=white,
     coltitle=black,
     title=\stepcounter{ExoMA}\textbf{Exercice \arabic{ExoMA}},%
-    ]
-    \IfNoValueTF{#1}{}{#1\par}%
-    #3
+  ]
+  \IfNoValueTF{#1}{}{#1\par}%
+}{%
   \end{tcolorbox}%
 }
 

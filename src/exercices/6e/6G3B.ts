@@ -8,6 +8,7 @@ import { numAlpha } from '../../lib/outils/outilString'
 import { context } from '../../modules/context'
 import {
   contraindreValeur,
+  gestionnaireFormulaireTexte,
   listeQuestionsToContenu,
   randint,
 } from '../../modules/outils'
@@ -27,7 +28,7 @@ export const refs = {
 }
 /**
  * Construire des médiatrices
- * @author Eric Elter
+ * @author Éric Elter
  */
 
 interface Couleur {
@@ -60,18 +61,17 @@ export default class nomExercice extends Exercice {
     super()
     this.nbQuestions = 1
     this.besoinFormulaireNumerique = [
-      'Nombre de points par question (entre 2 et 23)',
-      23,
-    ]
-    this.besoinFormulaire2Numerique = ['Nombre de médiatrices (4 maximum)', 4]
-    this.besoinFormulaire3Numerique = [
-      'Type de construction',
+      'Nombre de points supplémentaires (en plus des 2 minimum)',
       3,
-      "1 : Avec une perpendiculaire\n2 : Avec des cercles\n3 : L'un ou l'autre",
     ]
-    this.sup = 3
+    this.besoinFormulaire2Numerique = ['Nombre de médiatrices (3 maximum)', 3]
+    this.besoinFormulaire3Texte = [
+      'Type de construction',
+      '1 : Avec une perpendiculaire\n2 : Avec des cercles\n0 : Mélange',
+    ]
+    this.sup = 1
     this.sup2 = 1
-    this.sup3 = 1
+    this.sup3 = '1'
     this.exoCustomResultat = true
     this.interactif = true
     this.comment =
@@ -88,6 +88,14 @@ export default class nomExercice extends Exercice {
         fig.destroy()
       }
     })
+    const sup3 = gestionnaireFormulaireTexte({
+      saisie: this.sup3,
+      defaut: 1,
+      melange: 0,
+      nbQuestions: this.nbQuestions,
+      min: 1,
+      max: 2,
+    }).map(Number)
     this.figuresApiGeom = []
     this.figuresApiGeomCorr.forEach((fig) => {
       if (
@@ -107,7 +115,7 @@ export default class nomExercice extends Exercice {
       this.mediatrices[i] = []
       this.lesPoints[i] = []
       this.lesPointsCorr[i] = []
-      const nbPoints = contraindreValeur(2, 23, this.sup, 3)
+      const nbPoints = contraindreValeur(1, 3, this.sup, 1) + 2
       const nomDesPoints = choisitLettresDifferentes(nbPoints, 'OQW')
       let texte = ''
       let texteCorr = ''
@@ -185,8 +193,8 @@ export default class nomExercice extends Exercice {
       // On construit l'énoncé et les médiatrices en fonction du nombre de médiatrices demandés par l'utilisateur.
       const choixCouleur = combinaisonListes([
         ['rouge', 'red'],
-        ['bleu', 'blue'],
-        ['orange', 'orange'],
+        ['bleu', 'blue'], // Ne pas mettre bleuMathalea
+        ['orange', 'orange'], // Ne pas mettre orangeMathalea
         ['vert', 'green'],
       ])
       const codage = combinaisonListes(['||', 'O', '|', '|||'])
@@ -202,7 +210,7 @@ export default class nomExercice extends Exercice {
         texte += `la médiatrice du segment $[${this.mediatrices[i][ee].pointSeg1.label}${this.mediatrices[i][ee].pointSeg2.label}]$.<br>`
         texteCorr += this.nbMediatrices === 1 ? '' : numAlpha(ee)
 
-        switch (this.sup3) {
+        switch (sup3[i]) {
           case 2: {
             // Construction au compas
             texteCorr += `La médiatrice du segment $[${this.mediatrices[i][ee].pointSeg1.label}${this.mediatrices[i][ee].pointSeg2.label}]$ est la droite contenant tous les points à égale distance de $${this.mediatrices[i][ee].pointSeg1.label}$ et de $${this.mediatrices[i][ee].pointSeg2.label}$.<br>`
@@ -239,9 +247,17 @@ export default class nomExercice extends Exercice {
                 circle2: c2,
               },
             )
+            const { point1, point2 } = intersection2Cercles
+            if (point1 == null || point2 == null) {
+              window.notify(
+                "Les cercles devraient avoir deux points d'intersection.",
+                { intersection2Cercles },
+              )
+              continue
+            }
 
-            this.mediatrices[i][ee].pointMed1 = intersection2Cercles.point1
-            this.mediatrices[i][ee].pointMed2 = intersection2Cercles.point2
+            this.mediatrices[i][ee].pointMed1 = point1
+            this.mediatrices[i][ee].pointMed2 = point2
 
             // Les 4 segements égaux
             this.figuresApiGeomCorr[i].create('Segment', {
@@ -459,7 +475,12 @@ export default class nomExercice extends Exercice {
 
   async shakeCorrection(i: number) {
     if (this.figuresApiGeom[i].elements.size === 0) return
-    await this.figuresApiGeom[i].shake()
+    try {
+      await this.figuresApiGeom[i].shake()
+    } catch (e) {
+      // La figure peut être détruite pendant l'animation (ex : nouvelleVersion() appelée avant la fin du shake)
+      return
+    }
     for (let ee = 0; ee < this.lesPoints[i].length; ee++) {
       this.lesPointsCorr[i][ee].x = this.lesPoints[i][ee].x
       this.lesPointsCorr[i][ee].y = this.lesPoints[i][ee].y

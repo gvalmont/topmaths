@@ -1,4 +1,3 @@
-import { context } from 'three/src/nodes/TSL.js'
 import { codageAngle } from '../../../lib/2d/angles'
 import { arc } from '../../../lib/2d/Arc'
 import { codageAngleDroit } from '../../../lib/2d/CodageAngleDroit'
@@ -6,7 +5,7 @@ import { droiteGraduee } from '../../../lib/2d/DroiteGraduee'
 import { droite } from '../../../lib/2d/droites'
 import { fixeBordures } from '../../../lib/2d/fixeBordures'
 import { grille } from '../../../lib/2d/Grille'
-import { point } from '../../../lib/2d/PointAbstrait'
+import { pointAbstrait } from '../../../lib/2d/PointAbstrait'
 import { polygone } from '../../../lib/2d/polygones'
 import { rapporteur } from '../../../lib/2d/Rapporteur'
 import { segment } from '../../../lib/2d/segmentsVecteurs'
@@ -17,6 +16,7 @@ import { rotation } from '../../../lib/2d/transformations'
 import { angleModulo } from '../../../lib/2d/utilitairesGeometriques'
 import { milieu, pointSurSegment } from '../../../lib/2d/utilitairesPoint'
 import { paveLPH3d } from '../../../lib/3d/3dProjectionMathalea2d/PaveEtPaveLPH3dPerspectiveCavaliere'
+import { bleuMathalea } from '../../../lib/colors'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 import {
   handleAnswers,
@@ -29,6 +29,7 @@ import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { arrondi } from '../../../lib/outils/nombres'
 import { lettreDepuisChiffre, sp } from '../../../lib/outils/outilString'
 import { stringNombre, texNombre } from '../../../lib/outils/texNombre'
+import { context } from '../../../modules/context'
 import { fraction } from '../../../modules/fractions'
 import Grandeur from '../../../modules/Grandeur'
 import Hms from '../../../modules/Hms'
@@ -45,7 +46,7 @@ export const dateDeModifImportante = '30/11/2025' // Une date de modification im
 
 /**
  *
- * Gilles Mora avec aide EE et JCL
+ * @author Gilles Mora avec aide EE et JCL
 
  */
 
@@ -188,7 +189,6 @@ export default class SujetCAN2022cinquieme extends Exercice {
         objets,
         cpt = 0;
       i < this.nbQuestions && cpt < 50;
-
     ) {
       switch (typeQuestionsDisponibles[i]) {
         case 1:
@@ -633,14 +633,14 @@ export default class SujetCAN2022cinquieme extends Exercice {
           a = randint(20, 29) // mes angle E->H
           b = randint(70, 75) // mes angle C->F
           c = 180 - a - b // mes angle D ->G
-          A = point(4, 7, 'A', 'below') // axe
-          B = point(6, 4, 'B', 'below') // axe
-          C = point(1, 5, 'C', 'left')
-          D = point(3, 6, 'D', 'above')
-          E = point(4, 1, 'E', 'below')
-          F = point(5.3, 7.5, 'F', 'left')
-          G = point(7, 9, 'G', 'above')
-          H = point(9.5, 4.7, 'H', 'below')
+          A = pointAbstrait(4, 7, 'A', 'below') // axe
+          B = pointAbstrait(6, 4, 'B', 'below') // axe
+          C = pointAbstrait(1, 5, 'C', 'left')
+          D = pointAbstrait(3, 6, 'D', 'above')
+          E = pointAbstrait(4, 1, 'E', 'below')
+          F = pointAbstrait(5.3, 7.5, 'F', 'left')
+          G = pointAbstrait(7, 9, 'G', 'above')
+          H = pointAbstrait(9.5, 4.7, 'H', 'below')
           d = droite(A, B)
           poly1 = polygone([C, D, E], 'black')
           poly2 = polygone([F, G, H], 'black')
@@ -724,88 +724,90 @@ export default class SujetCAN2022cinquieme extends Exercice {
           nbChamps = 1
           break
         case 16:
-          a = randint(9, 15)
-          b = randint(2, 4)
-          propositions = shuffle([
-            `$${texNombre(2 * a + 5 * b)}\\text{ cm}$`,
-            `$${texNombre(2 * a + 8 * b)}\\text{ cm}$`,
-            `$${texNombre(2 * a + 6 * b)}\\text{ cm}$`,
-            `$${texNombre(2 * a + 3 * b)}\\text{ cm}$`,
-          ])
-          A = point(0, 0, 'A', 'below')
-          B = point(6, 0, 'B', 'below')
-          C = point(6, 4, 'C', 'left')
-          D = point(0, 4, 'D', 'above')
-          codage1 = codageAngleDroit(B, A, D)
-          codage2 = codageAngleDroit(A, B, C)
-          codage3 = codageAngleDroit(B, C, D)
-          codage4 = codageAngleDroit(C, D, A)
-          segmentAB = segment(A, B)
-          segmentAD = segment(A, D)
-          segmentDC = segment(D, C)
-          segmentBC = segment(B, C)
-          segmentBC.pointilles = 2
-          demiDisque = arc(B, milieu(B, C), 180, false, 'white', 'black', 0.2)
+          {
+            a = randint(9, 15)
+            b = randint(2, 4)
+            propositions = shuffle([
+              `$${texNombre(2 * a + 5 * b)}\\text{ cm}$`,
+              `$${texNombre(2 * a + 8 * b)}\\text{ cm}$`,
+              `$${texNombre(2 * a + 6 * b)}\\text{ cm}$`,
+              `$${texNombre(2 * a + 3 * b)}\\text{ cm}$`,
+            ])
+            A = pointAbstrait(0, 0, 'A', 'below')
+            B = pointAbstrait(6, 0, 'B', 'below')
+            C = pointAbstrait(6, 4, 'C', 'left')
+            D = pointAbstrait(0, 4, 'D', 'above')
+            codage1 = codageAngleDroit(B, A, D)
+            codage2 = codageAngleDroit(A, B, C)
+            codage3 = codageAngleDroit(B, C, D)
+            codage4 = codageAngleDroit(C, D, A)
+            segmentAB = segment(A, B)
+            segmentAD = segment(A, D)
+            segmentDC = segment(D, C)
+            segmentBC = segment(B, C)
+            segmentBC.pointilles = 2
+            demiDisque = arc(B, milieu(B, C), 180, false, 'white', 'black', 0.2)
 
-          e = texteParPosition(
-            `${a}  cm`,
-            milieu(D, C).x - 0.5,
-            milieu(D, C).y + 0.3,
-          )
-          f = texteParPosition(
-            `${texNombre(b * 2, 0)} cm`,
-            milieu(A, D).x - 0.7,
-            milieu(A, D).y,
-          )
-          const figure = mathalea2d(
-            {
-              xmin: -1.5,
-              ymin: -1,
-              xmax: 10,
-              ymax: 5,
-              pixelsParCm: 27,
-              scale: 0.6,
-            },
-            segmentAB,
-            segmentAD,
-            segmentDC,
-            segmentBC,
-            demiDisque,
-            e,
-            f,
-            codage1,
-            codage2,
-            codage3,
-            codage4,
-          )
-          texte =
-            'Un ordre de grandeur du périmètre de cette figure est : <br> '
-          texte += `${propositions[0]} ${sp(6)} ${propositions[1]} ${sp(6)} ${propositions[2]}${sp(6)} ${propositions[3]}<br>`
-          texte += figure
-          texteCorr = `La figure est constituée de deux longueurs de $${a}\\text{ cm}$, d'une longueur de $${texNombre(2 * b, 0)}\\text{ cm}$ et de la longueur d'un demmi-cercle de rayon $${b}\\text{ cm}$.<br>
+            e = texteParPosition(
+              `${a}  cm`,
+              milieu(D, C).x - 0.5,
+              milieu(D, C).y + 0.3,
+            )
+            f = texteParPosition(
+              `${texNombre(b * 2, 0)} cm`,
+              milieu(A, D).x - 0.7,
+              milieu(A, D).y,
+            )
+            const figure = mathalea2d(
+              {
+                xmin: -1.5,
+                ymin: -1,
+                xmax: 10,
+                ymax: 5,
+                pixelsParCm: 27,
+                scale: 0.6,
+              },
+              segmentAB,
+              segmentAD,
+              segmentDC,
+              segmentBC,
+              demiDisque,
+              e,
+              f,
+              codage1,
+              codage2,
+              codage3,
+              codage4,
+            )
+            texte =
+              'Un ordre de grandeur du périmètre de cette figure est : <br> '
+            texte += `${propositions[0]} ${sp(6)} ${propositions[1]} ${sp(6)} ${propositions[2]}${sp(6)} ${propositions[3]}<br>`
+            texte += figure
+            texteCorr = `La figure est constituée de deux longueurs de $${a}\\text{ cm}$, d'une longueur de $${texNombre(2 * b, 0)}\\text{ cm}$ et de la longueur d'un demmi-cercle de rayon $${b}\\text{ cm}$.<br>
           Comme le périmètre d'un cercle est $2\\times \\pi \\times $ Rayon, le périmètre du demi-cercle est $ \\pi\\times $ Rayon, dont une valeur approchée est $3\\times $Rayon.<br>
           Ainsi, un ordre de grandeur du périmètre de la figure est : $2\\times ${a}+${texNombre(2 * b, 0)}+3\\times ${b}=${miseEnEvidence(texNombre(2 * a + 5 * b))}\\text{ cm}$.`
 
-          setReponse(this, index, new Grandeur(2 * a + 5 * b, 'cm'), {
-            formatInteractif: 'unites',
-          })
-          if (this.interactif) {
-            texte +=
-              ' Recopie la réponse correcte (nombre et unité à recopier).'
-            texte += ajouteChampTexteMathLive(
-              this,
-              index,
-              ' unites[Longueur]',
-              { texteAvant: '<br>' },
+            setReponse(this, index, new Grandeur(2 * a + 5 * b, 'cm'), {
+              formatInteractif: 'unites',
+            })
+            if (this.interactif) {
+              texte +=
+                ' Recopie la réponse correcte (nombre et unité à recopier).'
+              texte += ajouteChampTexteMathLive(
+                this,
+                index,
+                ' unites[Longueur]',
+                { texteAvant: '<br>' },
+              )
+            }
+            this.listeCanEnonces.push(
+              'Entoure la réponse correcte.<br>Un ordre de grandeur du périmètre de cette figure est :<br>' +
+                figure,
             )
+            this.listeCanReponsesACompleter[i] =
+              `${propositions[0]} ${sp(6)} ${propositions[1]} ${sp(6)} ${propositions[2]}${sp(6)} ${propositions[3]}`
+            nbChamps = 1
           }
-          this.listeCanEnonces.push(
-            'Entoure la réponse correcte.<br>Un ordre de grandeur du périmètre de cette figure est :<br>' +
-              figure,
-          )
-          this.listeCanReponsesACompleter[i] =
-            `${propositions[0]} ${sp(6)} ${propositions[1]} ${sp(6)} ${propositions[2]}${sp(6)} ${propositions[3]}`
-          nbChamps = 1
           break
 
         case 17:
@@ -912,7 +914,7 @@ export default class SujetCAN2022cinquieme extends Exercice {
                   thickoffset: 0,
                   axeStyle: '->',
                   pointListe: [[a + k / 10, 'A']],
-                  pointCouleur: 'blue',
+                  pointCouleur: bleuMathalea,
                   pointStyle: 'x',
                   labelsPrincipaux: true,
                   labelPointTaille: 12,
@@ -947,7 +949,7 @@ export default class SujetCAN2022cinquieme extends Exercice {
                   thickoffset: 0,
                   axeStyle: '->',
                   pointListe: [[a + k / 5, 'A']],
-                  pointCouleur: 'blue',
+                  pointCouleur: bleuMathalea,
                   pointStyle: 'x',
                   labelsPrincipaux: true,
                   labelPointTaille: 12,
@@ -1050,10 +1052,16 @@ export default class SujetCAN2022cinquieme extends Exercice {
           a = randint(1, 17, 9)
           tailleRapporteur = 5
           // Mise en place des points encadrant l'espace pour le rapporteur. Utiles pour paramsEnonce car le rapporteur peut tourner et optimisons l'espace pour ce rapporteur.
-          sudOuest = point(-(tailleRapporteur + 0.5), 0)
-          nordOuest = point(-(tailleRapporteur + 0.5), tailleRapporteur + 0.5)
-          sudEst = point(tailleRapporteur + 0.5, 0)
-          nordEst = point(tailleRapporteur + 0.5, tailleRapporteur + 0.5)
+          sudOuest = pointAbstrait(-(tailleRapporteur + 0.5), 0)
+          nordOuest = pointAbstrait(
+            -(tailleRapporteur + 0.5),
+            tailleRapporteur + 0.5,
+          )
+          sudEst = pointAbstrait(tailleRapporteur + 0.5, 0)
+          nordEst = pointAbstrait(
+            tailleRapporteur + 0.5,
+            tailleRapporteur + 0.5,
+          )
 
           // Le centre du rapporteur est A.
           // Le point sur la ligne 0 est B. En fait, on construit B1 et B est entre A et B1 (afin que B ne soit pas toujours à X cm de A car cette distance n'a pas à être fixe pour un élève)
@@ -1094,8 +1102,8 @@ export default class SujetCAN2022cinquieme extends Exercice {
                       ? 'right'
                       : 'below'
           }
-          A = point(0, 0, lettreDepuisChiffre(numA), posA)
-          B1 = rotation(point(tailleRapporteur + 0.5, 0), A, angB)
+          A = pointAbstrait(0, 0, lettreDepuisChiffre(numA), posA)
+          B1 = rotation(pointAbstrait(tailleRapporteur + 0.5, 0), A, angB)
 
           posB =
             angB > 135
@@ -1251,13 +1259,13 @@ export default class SujetCAN2022cinquieme extends Exercice {
           c = randint(1, 6)
           d = randint(0, 1)
 
-          A = point(b, c, 'A', 'above')
-          B = point(0, 0, 'B', 'below')
-          C = point(4, 0, 'C', 'below')
+          A = pointAbstrait(b, c, 'A', 'above')
+          B = pointAbstrait(0, 0, 'B', 'below')
+          C = pointAbstrait(4, 0, 'C', 'below')
 
-          D = point(-1, 7, 'D', 'above')
-          E = point(d, 7, 'E', 'above')
-          H = point(b, 0, 'H', 'below')
+          D = pointAbstrait(-1, 7, 'D', 'above')
+          E = pointAbstrait(d, 7, 'E', 'above')
+          H = pointAbstrait(b, 0, 'H', 'below')
           s1 = segment(D, E)
           s1.epaisseur = 3
           s2 = segment(A, H)
@@ -1276,10 +1284,10 @@ export default class SujetCAN2022cinquieme extends Exercice {
               '$1  \\text{cm}$',
               milieu(D, E).x,
               milieu(D, E).y + 0.6,
-              'milieu',
+              0,
               'black',
               1,
-              'middle',
+              'milieu',
               true,
             ),
             a,
@@ -1326,10 +1334,10 @@ export default class SujetCAN2022cinquieme extends Exercice {
               `${reponse}  cm`,
               milieu(A, H).x - 0.9,
               milieu(A, H).y,
-              'milieu',
+              0,
               'black',
               1,
-              'middle',
+              'milieu',
               true,
             ),
             labelPoint(H),

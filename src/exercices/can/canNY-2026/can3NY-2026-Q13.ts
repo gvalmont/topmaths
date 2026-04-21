@@ -5,10 +5,11 @@ import { randint } from '../../../modules/outils'
 import ExerciceSimple from '../../ExerciceSimple'
 
 import { codageSegments } from '../../../lib/2d/CodageSegment'
-import { point } from '../../../lib/2d/PointAbstrait'
+import { pointAbstrait } from '../../../lib/2d/PointAbstrait'
 import { segment } from '../../../lib/2d/segmentsVecteurs'
 import { latex2d } from '../../../lib/2d/textes'
 import { milieu } from '../../../lib/2d/utilitairesPoint'
+import { bleuMathalea } from '../../../lib/colors'
 import { mathalea2d } from '../../../modules/mathalea2d'
 export const titre = 'Trouver une longuer'
 export const interactifReady = true
@@ -20,7 +21,7 @@ export const refs = {
 }
 /**
  * Modèle d'exercice très simple pour la course aux nombres
- * @author Eric Elter - Gilles Mora
+ * @author Éric Elter - Gilles Mora
  */
 export default class longueurDansTriangle2026 extends ExerciceSimple {
   constructor() {
@@ -35,16 +36,16 @@ export default class longueurDansTriangle2026 extends ExerciceSimple {
     const objets = []
     const a = this.canOfficielle ? 1500 : randint(11, 15) * 100
     const b = 2026
-    const A = point(0, 0, 'A', 'below')
-    const B = point(5, 0, 'B', 'below')
-    const C = point(2.5, 2, 'C', 'below')
+    const A = pointAbstrait(0, 0, 'A', 'below')
+    const B = pointAbstrait(5, 0, 'B', 'below')
+    const C = pointAbstrait(2.5, 2, 'C', 'below')
     const s1 = segment(A, B)
     const s2 = segment(B, C)
     const s3 = segment(A, C)
 
     objets.push(
-      codageSegments('||', 'blue', B, C),
-      codageSegments('||', 'blue', C, A),
+      codageSegments('||', bleuMathalea, B, C),
+      codageSegments('||', bleuMathalea, C, A),
       latex2d(
         `${texNombre(b, 0)} \\text{ cm}`,
         milieu(A, B).x,

@@ -26,7 +26,7 @@ import {
 } from '../../lib/2d/patterns/patternsPreDef'
 import { VisualPattern } from '../../lib/2d/patterns/VisualPattern'
 import { VisualPattern3D } from '../../lib/2d/patterns/VisualPattern3D'
-import { point } from '../../lib/2d/PointAbstrait'
+import { pointAbstrait } from '../../lib/2d/PointAbstrait'
 import { polygone } from '../../lib/2d/polygones'
 import { texteParPosition } from '../../lib/2d/textes'
 import { choice } from '../../lib/outils/arrayOutils'
@@ -40,6 +40,7 @@ import { mathalea2d } from '../../modules/mathalea2d'
 import { randint } from '../../modules/outils'
 import type { NestedObjetMathalea2dArray } from '../../types/2d'
 import Exercice from '../Exercice'
+import { bleuMathalea } from '../../lib/colors'
 
 export const titre =
   'Liste des patterns stockés dans MathALÉA avec leurs numéros de référence'
@@ -61,7 +62,7 @@ export const uuid = '4c9ca'
  *   type: 'linéaire' | 'affine' | 'degré2' | 'degré3' | 'autre'
  *   pattern: Un PatternNumerique initialisé avec ses cellules de rang 1
  *  iterate: la fonction qui permet de fabriquer les cellules au rang n
- * @author Jean-Claude Lhote
+ * @author Jean-claude Lhote
  * Remplacé par listePatterns.ts
  */
 export default class ListePatternsPreDef extends Exercice {
@@ -157,7 +158,7 @@ L'expression donnée entre crochets est la formule qui permet de calculer le nom
           pattern.iterate = pat.iterate
           objets.push(pattern.render(j, j + 1, 0))
         }
-        texte += `\n${texteEnCouleurEtGras(`Pattern ${i + 1}`, 'blue')}:  <br>`
+        texte += `\n${texteEnCouleurEtGras(`Pattern ${i + 1}`, bleuMathalea)}:  <br>`
         texte += mathalea2d(
           Object.assign(
             fixeBordures(objets, { rxmin: 0, rymin: -1, rxmax: 0, rymax: 1 }),
@@ -183,7 +184,7 @@ L'expression donnée entre crochets est la formule qui permet de calculer le nom
             : null
           : null
 
-        texte += `\n${texteEnCouleurEtGras(`Pattern ${i + 1}`, 'blue')}: Motif 43 : $\\left(${n43}\\right)$ ${n43F ? `; fraction : $${n43F}$ ` : ''} ${n43R ? `; ratio : $${n43R}$` : ''} ; formule : ${sp(6)}$\\left[${miseEnEvidence(pat.formule ?? '')}\\right]$ <br>`
+        texte += `\n${texteEnCouleurEtGras(`Pattern ${i + 1}`, bleuMathalea)}: Motif 43 : $\\left(${n43}\\right)$ ${n43F ? `; fraction : $${n43F}$ ` : ''} ${n43R ? `; ratio : $${n43R}$` : ''} ; formule : ${sp(6)}$\\left[${miseEnEvidence(pat.formule ?? '')}\\right]$ <br>`
 
         const patternRiche = pat
         if (context.isHtml)
@@ -315,10 +316,10 @@ L'expression donnée entre crochets est la formule qui permet de calculer le nom
             ),
           )
           const cadre = polygone(
-            point(xmin - 2, -2),
-            point(xmax + 2, -2),
-            point(xmax + 2, ymax + 2),
-            point(xmin - 2, ymax + 2),
+            pointAbstrait(xmin - 2, -2),
+            pointAbstrait(xmax + 2, -2),
+            pointAbstrait(xmax + 2, ymax + 2),
+            pointAbstrait(xmin - 2, ymax + 2),
           )
           cadre.pointilles = 4
           figures[j].push(cadre)

@@ -1,3 +1,4 @@
+import { bleuMathalea } from '../../lib/colors'
 import { texcolors } from '../format/style'
 import { combinaisonListesSansChangerOrdre } from '../outils/arrayOutils'
 import { numberFormat, texNombre } from '../outils/texNombre'
@@ -10,7 +11,7 @@ import type { IRepere } from './Interfaces'
 import { ObjetMathalea2D } from './ObjetMathalea2D'
 import { motifs } from './pattern'
 import type { PointAbstrait } from './PointAbstrait'
-import { point } from './PointAbstrait'
+import { pointAbstrait } from './PointAbstrait'
 import { Polygone, polygone } from './polygones'
 import { carre } from './polygonesParticuliers'
 import { polyline } from './Polyline'
@@ -41,7 +42,7 @@ export class TraceGraphiqueCartesien extends ObjetMathalea2D {
     repere: IRepere,
     {
       couleurDesPoints = 'red',
-      couleurDuTrait = 'blue',
+      couleurDuTrait = bleuMathalea,
       styleDuTrait = '', // plein par défaut
       epaisseurDuTrait = 2,
       styleDesPoints = 'x', // croix par défaut
@@ -126,7 +127,7 @@ export function traceGraphiqueCartesien(
   repere: IRepere,
   {
     couleurDesPoints = 'red',
-    couleurDuTrait = 'blue',
+    couleurDuTrait = bleuMathalea,
     styleDuTrait = '', // plein par défaut
     epaisseurDuTrait = 2,
     styleDesPoints = 'x', // croix par défaut
@@ -171,7 +172,7 @@ export class TraceBarre extends ObjetMathalea2D {
     legende = '',
     {
       epaisseur = 0.6,
-      couleurDeRemplissage = 'blue',
+      couleurDeRemplissage = bleuMathalea,
       color = 'black',
       opaciteDeRemplissage = 0.3,
       angle = 66,
@@ -192,10 +193,10 @@ export class TraceBarre extends ObjetMathalea2D {
       hauteur === 0
         ? vide2d(x, 0)
         : polygone([
-            point(x - epaisseur / 2, 0),
-            point(x - epaisseur / 2, hauteur * unite),
-            point(x + epaisseur / 2, hauteur * unite),
-            point(x + epaisseur / 2, 0),
+            pointAbstrait(x - epaisseur / 2, 0),
+            pointAbstrait(x - epaisseur / 2, hauteur * unite),
+            pointAbstrait(x + epaisseur / 2, hauteur * unite),
+            pointAbstrait(x + epaisseur / 2, 0),
           ])
     if (this.p instanceof Polygone) {
       this.p.couleurDeRemplissage = colorToLatexOrHTML(couleurDeRemplissage)
@@ -248,7 +249,7 @@ export function traceBarre(
   legende = '',
   {
     epaisseur = 0.6,
-    couleurDeRemplissage = 'blue',
+    couleurDeRemplissage = bleuMathalea,
     color = 'black',
     opaciteDeRemplissage = 0.3,
     angle = 66,
@@ -296,7 +297,7 @@ export class TraceBarreHorizontale extends ObjetMathalea2D {
     legende = '',
     {
       epaisseur = 0.6,
-      couleurDeRemplissage = 'blue',
+      couleurDeRemplissage = bleuMathalea,
       color = 'black',
       opaciteDeRemplissage = 0.3,
       unite = 1,
@@ -313,14 +314,15 @@ export class TraceBarreHorizontale extends ObjetMathalea2D {
     },
   ) {
     super()
+    this.bordures = [0, y - epaisseur / 2, unite * longueur, y + epaisseur / 2]
     this.p =
       longueur === 0
         ? vide2d(0, y)
         : polygone([
-            point(0, y - epaisseur / 2),
-            point(0, y + epaisseur / 2),
-            point(unite * longueur, y + epaisseur / 2),
-            point(unite * longueur, y - epaisseur / 2),
+            pointAbstrait(0, y - epaisseur / 2),
+            pointAbstrait(0, y + epaisseur / 2),
+            pointAbstrait(unite * longueur, y + epaisseur / 2),
+            pointAbstrait(unite * longueur, y - epaisseur / 2),
           ])
     if (this.p instanceof Polygone) {
       this.p.couleurDeRemplissage = colorToLatexOrHTML(couleurDeRemplissage)
@@ -356,7 +358,7 @@ export function traceBarreHorizontale(
   legende = '',
   {
     epaisseur = 0.6,
-    couleurDeRemplissage = 'blue',
+    couleurDeRemplissage = bleuMathalea,
     color = 'black',
     opaciteDeRemplissage = 0.3,
     unite = 1,
@@ -388,7 +390,7 @@ export function traceBarreHorizontale(
  * @param {string[]} etiquettes Tableau des labels pour chaque effectif
  * @param {Object} parametres À saisir entre accolades
  * @param {boolean} [parametres.reperageTraitPointille = false] Présence (ou non) du trait en pointillés, reliant le haut de chaque barre à l'axe des ordonnées
- * @param {string} [parametres.couleurDeRemplissage = 'blue'] Couleur de remplissage de toutes les barres : du type 'blue' ou du type '#f15929'.
+ * @param {string} [parametres.couleurDeRemplissage = bleuMathalea] Couleur de remplissage de toutes les barres : du type 'red', bleuMathalea ou du type '#a12345'.
  * @param {number} [parametres.titreAxeVertical = ''] Titre de l'axe des ordonnées
  * @param {boolean} [parametres.titre = ''] Titre du diagramme
  * @param {boolean} [parametres.hauteurDiagramme = 5] Hauteur du diagramme
@@ -407,7 +409,7 @@ export class DiagrammeBarres extends ObjetMathalea2D {
     etiquettes: string[],
     {
       reperageTraitPointille = false,
-      couleurDeRemplissage = 'blue',
+      couleurDeRemplissage = bleuMathalea,
       titreAxeVertical = '',
       titre = '',
       hauteurDiagramme = 5,
@@ -449,7 +451,7 @@ export class DiagrammeBarres extends ObjetMathalea2D {
           this.objets.push(
             texteParPoint(
               numberFormat(hauteursBarres[j]),
-              point(abscisseBarre, hauteurBarre + 0.5),
+              pointAbstrait(abscisseBarre, hauteurBarre + 0.5),
             ),
           ) // On écrit la valeur au dessus de la barre sauf pour une hauteur de 0
         }
@@ -501,7 +503,7 @@ export class DiagrammeBarres extends ObjetMathalea2D {
       this.objets.push(
         texteParPoint(
           titre,
-          point(-3, hauteurDiagramme + 1),
+          pointAbstrait(-3, hauteurDiagramme + 1),
           0,
           'black',
           1,
@@ -547,7 +549,7 @@ export class DiagrammeBarres extends ObjetMathalea2D {
  * @param {string[]} etiquettes Tableau des labels pour chaque effectif
  * @param {Object} parametres À saisir entre accolades
  * @param {boolean} [parametres.reperageTraitPointille = false] Présence (ou non) du trait en pointillés, reliant le haut de chaque barre à l'axe des ordonnées
- * @param {string} [parametres.couleurDeRemplissage = 'blue'] Couleur de remplissage de toutes les barres : du type 'blue' ou du type '#f15929'.
+ * @param {string} [parametres.couleurDeRemplissage = bleuMathalea] Couleur de remplissage de toutes les barres : du type 'red', bleuMathalea ou du type '#a12345'.
  * @param {number} [parametres.titreAxeVertical = ''] Titre de l'axe des ordonnées
  * @param {boolean} [parametres.titre = ''] Titre du diagramme
  * @param {boolean} [parametres.hauteurDiagramme = 5] Hauteur du diagramme
@@ -568,7 +570,7 @@ export function diagrammeBarres(
   etiquettes: string[],
   {
     reperageTraitPointille = false,
-    couleurDeRemplissage = 'blue',
+    couleurDeRemplissage = bleuMathalea,
     titreAxeVertical = '',
     titre = '',
     hauteurDiagramme = 5,
@@ -659,8 +661,11 @@ export class DiagrammeCirculaire extends ObjetMathalea2D {
     this.bordures = [1000, 1000, -1000, -1000]
     this.x = x
     this.y = y
-    const centre = point(this.x + rayon, this.y + (semi ? 0 : rayon))
-    const depart = point(this.x + 2 * rayon, semi ? this.y : this.y + rayon)
+    const centre = pointAbstrait(this.x + rayon, this.y + (semi ? 0 : rayon))
+    const depart = pointAbstrait(
+      this.x + 2 * rayon,
+      semi ? this.y : this.y + rayon,
+    )
     const contour = semi
       ? arc(
           translation(centre, vecteur(rayon, 0)),
@@ -687,7 +692,7 @@ export class DiagrammeCirculaire extends ObjetMathalea2D {
         positionLegende = { x: this.x, y: this.y - 1.5 }
         break
     }
-    let T = point(positionLegende.x, positionLegende.y)
+    let T = pointAbstrait(positionLegende.x, positionLegende.y)
     const angleTotal = semi ? 180 : 360
     const effectifTotal = effectifs.reduce(
       (somme: number, valeur: number) => somme + valeur,

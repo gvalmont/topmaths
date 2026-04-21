@@ -1,10 +1,11 @@
-import { point } from '../../../lib/2d/PointAbstrait'
+import { pointAbstrait } from '../../../lib/2d/PointAbstrait'
 import { tracePoint } from '../../../lib/2d/TracePoint'
 import { droite } from '../../../lib/2d/droites'
 import { repere } from '../../../lib/2d/reperes'
 import { segment } from '../../../lib/2d/segmentsVecteurs'
 import { texteParPosition } from '../../../lib/2d/textes'
 import { milieu } from '../../../lib/2d/utilitairesPoint'
+import { bleuMathalea } from '../../../lib/colors'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 import { choice } from '../../../lib/outils/arrayOutils'
 import { ecritureParentheseSiNegatif } from '../../../lib/outils/ecritures'
@@ -74,9 +75,9 @@ export default class CoeffDirDroite extends ExerciceSimple {
           yA = randint(0, 4)
           xB = randint(2, 4)
           yB = randint(1, 4)
-          A = point(xA, yA)
-          B = point(xB, yB)
-          Bx = point(B.x, A.y)
+          A = pointAbstrait(xA, yA)
+          B = pointAbstrait(xB, yB)
+          Bx = pointAbstrait(B.x, A.y)
         } while (
           (A.x === Bx.x && A.y === Bx.y) ||
           (B.x === Bx.x && B.y === Bx.y)
@@ -105,11 +106,11 @@ export default class CoeffDirDroite extends ExerciceSimple {
           B.x + 0.5,
           milieu(B, Bx).y,
           0,
-          'blue',
+          bleuMathalea,
           1,
         )
         traceB = tracePoint(B, 'black') // Variable qui trace les points avec une croix
-        d = droite(A, B, '', 'blue')
+        d = droite(A, B, '', bleuMathalea)
         d.epaisseur = 2
         traceA.taille = 2
         traceA.epaisseur = 2
@@ -191,7 +192,7 @@ export default class CoeffDirDroite extends ExerciceSimple {
           this.correction = `La droite est horizontale. On en déduit que $m=${miseEnEvidence('0')}$.`
         } else {
           this.correction = `Le coefficient directeur $m$ de la droite $(AB)$ est donné par :<br><br>
-            $m=\\dfrac{y_B-y_A}{x_B-x_A}=\\dfrac{${yB}-${yA}}{${xB}-${ecritureParentheseSiNegatif(xA)}}=\\dfrac{${miseEnEvidence(yB - yA, 'blue')}}{${miseEnEvidence(xB - xA, 'red')}}${miseEnEvidence(m.texSimplificationAvecEtapes())}$.<br><br>`
+            $m=\\dfrac{y_B-y_A}{x_B-x_A}=\\dfrac{${yB}-${yA}}{${xB}-${ecritureParentheseSiNegatif(xA)}}=\\dfrac{${miseEnEvidence(yB - yA, bleuMathalea)}}{${miseEnEvidence(xB - xA, 'red')}}${miseEnEvidence(m.texSimplificationAvecEtapes())}$.<br><br>`
           this.correction += `${objetC}<br>`
         }
         break
@@ -204,9 +205,9 @@ export default class CoeffDirDroite extends ExerciceSimple {
           yB = randint(-5, 5, 0) / 2
         } while (yA !== xB)
         o = texteParPosition('O', -0.3, -0.3, 0, 'black', 1)
-        A = point(xA, yA)
-        B = point(xB, yB)
-        Bx = point(B.x, A.y)
+        A = pointAbstrait(xA, yA)
+        B = pointAbstrait(xB, yB)
+        Bx = pointAbstrait(B.x, A.y)
         sABx = segment(A, Bx)
         sBBx = segment(B, Bx)
         m = new FractionEtendue(2 * (yB - yA), xB - xA)
@@ -241,11 +242,11 @@ export default class CoeffDirDroite extends ExerciceSimple {
           B.x + 0.5,
           milieu(B, Bx).y,
           0,
-          'blue',
+          bleuMathalea,
           1,
         )
         traceB = tracePoint(B, 'black') // Variable qui trace les points avec une croix
-        d = droite(A, B, '', 'blue')
+        d = droite(A, B, '', bleuMathalea)
         d.epaisseur = 2
         traceA.taille = 2
         traceA.epaisseur = 2
@@ -322,7 +323,7 @@ export default class CoeffDirDroite extends ExerciceSimple {
           this.correction = `La droite est horizontale. On en déduit que $m=${miseEnEvidence('0')}$.`
         } else {
           this.correction = `Le coefficient directeur $m$ de la droite $(AB)$ est donné par :<br><br>
-            $m=\\dfrac{y_B-y_A}{x_B-x_A}=\\dfrac{${2 * yB}-${ecritureParentheseSiNegatif(2 * yA)}}{${xB}-${ecritureParentheseSiNegatif(xA)}}=\\dfrac{${miseEnEvidence(2 * (yB - yA), 'blue')}}{${miseEnEvidence(xB - xA, 'red')}}${miseEnEvidence(m.texSimplificationAvecEtapes())}$.<br><br>`
+            $m=\\dfrac{y_B-y_A}{x_B-x_A}=\\dfrac{${2 * yB}-${ecritureParentheseSiNegatif(2 * yA)}}{${xB}-${ecritureParentheseSiNegatif(xA)}}=\\dfrac{${miseEnEvidence(2 * (yB - yA), bleuMathalea)}}{${miseEnEvidence(xB - xA, 'red')}}${miseEnEvidence(m.texSimplificationAvecEtapes())}$.<br><br>`
           this.correction += `${objetC}<br>`
         }
         break

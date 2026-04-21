@@ -1,7 +1,8 @@
 import { bleuMathalea } from '../../lib/colors'
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
-import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
+import { toutAUnPoint } from '../../lib/interactif/mathLive'
+import { addMultiMathfield } from '../../lib/interactif/MultiMathfield/MultiMathfield'
 import { choice } from '../../lib/outils/arrayOutils'
 import { texFractionFromString } from '../../lib/outils/deprecatedFractions'
 import { ecritureAlgebrique, reduireAxPlusB } from '../../lib/outils/ecritures'
@@ -21,14 +22,15 @@ import Exercice from '../Exercice'
 export const titre =
   "Reconnaitre coefficient directeur et ordonnée à l'origine d'une fonction affine"
 export const dateDePublication = '19/05/2025'
+export const dateDeModification = '10/04/2026'
 export const interactifReady = true
-export const interactifType = 'mathLive'
+export const interactifType = 'multiMathfield'
 
 /**
  * Reconnaitre coefficient directeur et ordonnée à l'origine d'une fonction affine
- * @author Eric Elter
+ * @author Éric Elter
  */
-export const uuid = 'a2b1b'
+export const uuid = '63ce9'
 
 export const refs = {
   'fr-fr': ['3F20-4'],
@@ -298,35 +300,47 @@ export default class CoefficientDirecteur extends Exercice {
           }
           break
       }
-      texte = ` Soit $${nomFonction}_{${i + 1}}$ la fonction affine définie par $${nomFonction}_{${i + 1}}(${nomVariable})=${fonctionF}$.`
-      texte +=
-        '<br>' +
-        numAlpha(0) +
-        `Quel est le coefficient directeur de la droite représentative de $${nomFonction}_{${i + 1}}$ ?`
-      texte += ajouteChampTexteMathLive(
-        this,
-        2 * i,
+      texte = ` Soit $${nomFonction}_{${i + 1}}$ la fonction affine définie par $${nomFonction}_{${i + 1}}(${nomVariable})=${fonctionF}$.<br>`
+      const clavier =
         typesDeQuestionsDisponibles[i] === 6
           ? KeyboardType.clavierFullOperations
-          : KeyboardType.clavierDeBaseAvecFraction,
-      )
-      texte +=
-        '<br>' +
-        numAlpha(1) +
-        `Quelle est l'ordonnée à l'origine de la droite représentative de $${nomFonction}_{${i + 1}}$ ?`
-      texte += ajouteChampTexteMathLive(
-        this,
-        2 * i + 1,
-        typesDeQuestionsDisponibles[i] === 6
-          ? KeyboardType.clavierFullOperations
-          : KeyboardType.clavierDeBaseAvecFraction,
-      )
+          : KeyboardType.clavierDeBaseAvecFraction
+      if (this.interactif) {
+        texte += `${addMultiMathfield(this, i, {
+          dataTemplate: `a) Quel est le coefficient directeur de la droite représentative de $${nomFonction}_{${i + 1}}$ ? %{champ1}<br>
+          b) Quelle est l'ordonnée à l'origine de la droite représentative de $${nomFonction}_{${i + 1}}$ ? %{champ2}`,
+          dataOptions: {
+            champ1: { keyboard: clavier },
+            champ2: { keyboard: clavier },
+          },
+        })}`
+      } else {
+        texte +=
+          '<br>' +
+          numAlpha(0) +
+          `Quel est le coefficient directeur de la droite représentative de $${nomFonction}_{${i + 1}}$ ?`
+
+        texte +=
+          '<br>' +
+          numAlpha(1) +
+          `Quelle est l'ordonnée à l'origine de la droite représentative de $${nomFonction}_{${i + 1}}$ ?`
+      }
       const reponse1 =
         typeof coefDir === 'number' ? coefDir.toString() : coefDir
-      handleAnswers(this, 2 * i, { reponse: { value: reponse1 } })
+
       const reponse2 =
         typeof ordOrigine === 'number' ? ordOrigine.toString() : ordOrigine
-      handleAnswers(this, 2 * i + 1, { reponse: { value: reponse2 } })
+
+      handleAnswers(
+        this,
+        i,
+        {
+          champ1: { value: reponse1 },
+          champ2: { value: reponse2 },
+          bareme: toutAUnPoint,
+        },
+        { formatInteractif: 'multiMathfield' },
+      )
       texteCorr = ` $${nomFonction}_{${i + 1}}(${nomVariable})=${fonctionF}$.<br>`
       texteCorr += texteCorSelonCase
 

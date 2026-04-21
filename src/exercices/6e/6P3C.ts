@@ -35,7 +35,7 @@ export const amcType = 'AMCHybride'
 /**
  * On donne une relation de proportionnalité du type n objets coûtent x€ et on demande le prix de y objets
  * et le nombre d'objets qu'on peut acheter avec z€.
- * @author Jean-Claude Lhote
+ * @author Jean-claude Lhote
  * 03/2021 : ajout de situations de proportionnalité : CGrolleau
  * 08/2021 : Ajout de la version simplifiée et de la possibilité de choisir le type de question : Guillaume Valmont
  * Relecture : Décembre 2021 par EE
@@ -184,15 +184,15 @@ function questionAchat(exo: Exercice, i: number): QuestionReturn {
       texNombre(y / n),
     )}$ fois $${miseEnEvidence(
       texNombre(n),
-      'blue',
+      bleuMathalea,
     )}$ ${objet}.<br> Si $${miseEnEvidence(
       texNombre(n),
-      'blue',
+      bleuMathalea,
     )}$ ${objet} coûtent $${texPrix(x)}$${sp()}€, alors $${miseEnEvidence(
       texNombre(y / n),
     )}$ fois $${miseEnEvidence(
       texNombre(n),
-      'blue',
+      bleuMathalea,
     )}$ ${objet} coûtent $${miseEnEvidence(
       texNombre(y / n),
     )}$ fois $${texPrix(x)}$${sp()}€.<br>` +
@@ -214,7 +214,7 @@ function questionAchat(exo: Exercice, i: number): QuestionReturn {
     texNombre(z / x),
   )}$ fois $${texPrix(x)}$${sp()}€.<br> Si avec $${texPrix(x)}$${sp()}€ on peut acheter $${miseEnEvidence(
     texNombre(n),
-    'blue',
+    bleuMathalea,
   )}$ ${objet}, alors avec $${miseEnEvidence(
     texNombre(z / x),
   )}$ fois $${texPrix(x)}$${sp()}€, on peut acheter $${miseEnEvidence(

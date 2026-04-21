@@ -10,7 +10,7 @@ import {
   droiteParPointEtPente,
   droiteVerticaleParPoint,
 } from '../../lib/2d/droites'
-import { point, PointAbstrait } from '../../lib/2d/PointAbstrait'
+import { pointAbstrait, PointAbstrait } from '../../lib/2d/PointAbstrait'
 import { representant } from '../../lib/2d/representantVecteur'
 import { segment } from '../../lib/2d/segmentsVecteurs'
 import {
@@ -51,6 +51,7 @@ import {
   randint,
 } from '../../modules/outils'
 import Exercice from '../Exercice'
+import { orangeMathalea, bleuMathalea } from '../../lib/colors'
 
 export const dateDeModifImportante = '11/04/2025'
 export const interactifReady = true
@@ -62,7 +63,7 @@ const longueur = (A: PointAbstrait, B: PointAbstrait) =>
   Math.sqrt((A.x - B.x) ** 2 + (A.y - B.y) ** 2)
 /**
  * Transformations : trouver un point numéroté par une des transformations du plan. Fonction générale utilisée sur tous les niveaux
- * @author Jean-Claude Lhote
+ * @author Jean-claude Lhote
  */
 export default class Transformations extends Exercice {
   can: boolean
@@ -88,7 +89,7 @@ export default class Transformations extends Exercice {
       melange: 11,
     }).map(Number) as TransformationsIndex[]
 
-    const O = point(0, 0, 'O', 'above right')
+    const O = pointAbstrait(0, 0, 'O', 'above right')
     const d1 = droiteParPointEtPente(O, 1)
     const d3 = droiteHorizontaleParPoint(O)
     const d2 = droiteParPointEtPente(O, -1)
@@ -101,7 +102,7 @@ export default class Transformations extends Exercice {
     d2.opacite = 0.5
     d3.opacite = 0.5
     d4.opacite = 0.5
-    const couleurs = ['brown', 'green', 'blue', 'purple']
+    const couleurs = ['brown', 'green', bleuMathalea, 'purple']
 
     const xO = 4
     const yO = 4
@@ -146,13 +147,13 @@ export default class Transformations extends Exercice {
       mauvaisAntecedents = []
       for (let i = 0; i < 10; i++) {
         for (let j = 0; j < 10; j++) {
-          croix = tracePoint(point(j - 4, i - 4), 'gray')
+          croix = tracePoint(pointAbstrait(j - 4, i - 4), 'gray')
           croix.taille = 2
           croix.style = 'x'
           croix.opacite = 1
           objetsEnonce.push(croix)
           objetsCorrection.push(
-            tracePoint(point(j - 4, i - 4), assombrirOuEclaircir('gray', 50)),
+            tracePoint(pointAbstrait(j - 4, i - 4), assombrirOuEclaircir('gray', 50)),
           )
           objetsEnonce.push(
             texteParPositionEchelle(
@@ -264,12 +265,12 @@ export default class Transformations extends Exercice {
             puntoReseau = false
           }
         }
-        N[j] = point(
+        N[j] = pointAbstrait(
           arrondi(punto[j][0] - 4, 0),
           arrondi(punto[j][1] - 4, 0),
           'above left',
         )
-        M[j] = point(
+        M[j] = pointAbstrait(
           (antecedents[j] % 10) - 4,
           Math.floor(antecedents[j] / 10 - 4),
           'above left',
@@ -298,7 +299,7 @@ export default class Transformations extends Exercice {
         traceAnt.opacite = 1
         traceIm.opacite = 1
         traceIm.epaisseur = 2
-        traceIm.color = colorToLatexOrHTML('#f15929')
+        traceIm.color = colorToLatexOrHTML(orangeMathalea)
         traceO = tracePoint(O)
         traceO.epaisseur = 2
         traceO.opacite = 1
@@ -380,7 +381,7 @@ export default class Transformations extends Exercice {
                 punto[i][0] - 4.2,
                 punto[i][1] - 4.2,
                 0,
-                '#f15929',
+                orangeMathalea,
                 1,
                 'milieu',
                 false,
@@ -472,7 +473,7 @@ export default class Transformations extends Exercice {
                 punto[i][0] - 4.2,
                 punto[i][1] - 4.2,
                 0,
-                '#f15929',
+                orangeMathalea,
                 1,
                 'milieu',
                 false,
@@ -563,7 +564,7 @@ export default class Transformations extends Exercice {
                 punto[i][0] - 4.2,
                 punto[i][1] - 4.2,
                 0,
-                '#f15929',
+                orangeMathalea,
                 1,
                 'milieu',
                 false,
@@ -634,7 +635,7 @@ export default class Transformations extends Exercice {
                       M[i],
                       milieu(M[i], N[i]),
                       pointSurDroite(d4, 15, ''),
-                      '#f15929',
+                      orangeMathalea,
                       0.4,
                       1,
                     ),
@@ -655,7 +656,7 @@ export default class Transformations extends Exercice {
                 punto[i][0] - 4.2,
                 punto[i][1] - 4.2,
                 0,
-                '#f15929',
+                orangeMathalea,
                 1,
                 'milieu',
                 false,
@@ -709,7 +710,7 @@ export default class Transformations extends Exercice {
                 punto[i][0] - 4.2,
                 punto[i][1] - 4.2,
                 0,
-                '#f15929',
+                orangeMathalea,
                 1,
                 'milieu',
                 false,
@@ -764,7 +765,7 @@ export default class Transformations extends Exercice {
                 punto[i][0] - 4.2,
                 punto[i][1] - 4.2,
                 0,
-                '#f15929',
+                orangeMathalea,
                 1,
                 'milieu',
                 false,
@@ -816,7 +817,7 @@ export default class Transformations extends Exercice {
                 punto[i][0] - 4.2,
                 punto[i][1] - 4.2,
                 0,
-                '#f15929',
+                orangeMathalea,
                 1,
                 'milieu',
                 false,
@@ -857,7 +858,7 @@ export default class Transformations extends Exercice {
             for (let kk = 0; kk < longueurBoucle; kk++) {
               aEviter.push(pointsDejaUtilises[kk] - xu - 10 * yu)
             }
-            pointM = point(
+            pointM = pointAbstrait(
               randint(-1, 2, [M[i].x, 0]),
               randint(-1, 2, [M[i].y, 0]),
               lettreDepuisChiffre(pointMLettre),
@@ -866,7 +867,7 @@ export default class Transformations extends Exercice {
             while (
               compteOccurences(aEviter, 44 + pointM.x + 10 * pointM.y) !== 0
             ) {
-              pointM = point(
+              pointM = pointAbstrait(
                 randint(-1, 2, [M[i].x, 0]),
                 randint(-1, 2, [M[i].y, 0]),
                 lettreDepuisChiffre(pointMLettre),
@@ -914,7 +915,7 @@ export default class Transformations extends Exercice {
                 punto[i][0] - 4.2,
                 punto[i][1] - 4.2,
                 0,
-                '#f15929',
+                orangeMathalea,
                 1,
                 'milieu',
                 false,
@@ -961,7 +962,7 @@ export default class Transformations extends Exercice {
                 punto[i][0] - 4.2,
                 punto[i][1] - 4.2,
                 0,
-                '#f15929',
+                orangeMathalea,
                 1,
                 'milieu',
                 false,
@@ -1017,7 +1018,7 @@ export default class Transformations extends Exercice {
                 punto[i][0] - 4.2,
                 punto[i][1] - 4.2,
                 0,
-                '#f15929',
+                orangeMathalea,
                 1,
                 'milieu',
                 false,
@@ -1055,8 +1056,8 @@ export default class Transformations extends Exercice {
               traceIm,
               traceO,
               labO,
-              segment(M[i], O, 'blue'),
-              segment(N[i], O, 'blue'),
+              segment(M[i], O, bleuMathalea),
+              segment(N[i], O, bleuMathalea),
               codageSegments('||', 'red', M[i], O, O, N[i]),
               afficheMesureAngle(M[i], O, N[i]),
             )
@@ -1078,8 +1079,8 @@ export default class Transformations extends Exercice {
               traceIm,
               traceO,
               labO,
-              segment(M[i], O, 'blue'),
-              segment(N[i], O, 'blue'),
+              segment(M[i], O, bleuMathalea),
+              segment(N[i], O, bleuMathalea),
               codageSegments('||', 'red', M[i], O, O, N[i]),
               afficheMesureAngle(M[i], O, N[i]),
             )
@@ -1101,8 +1102,8 @@ export default class Transformations extends Exercice {
               traceIm,
               traceO,
               labO,
-              segment(M[i], O, 'blue'),
-              segment(N[i], O, 'blue'),
+              segment(M[i], O, bleuMathalea),
+              segment(N[i], O, bleuMathalea),
               codageSegments('||', 'red', M[i], O, O, N[i]),
               afficheMesureAngle(M[i], O, N[i]),
             )
@@ -1124,8 +1125,8 @@ export default class Transformations extends Exercice {
               traceIm,
               traceO,
               labO,
-              segment(M[i], O, 'blue'),
-              segment(N[i], O, 'blue'),
+              segment(M[i], O, bleuMathalea),
+              segment(N[i], O, bleuMathalea),
               codageSegments('||', 'red', M[i], O, O, N[i]),
               afficheMesureAngle(M[i], O, N[i]),
             )

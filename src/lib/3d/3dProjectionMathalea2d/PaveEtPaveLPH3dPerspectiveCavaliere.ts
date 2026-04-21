@@ -96,12 +96,12 @@ export function paveLPH3d(
  * @param {boolean} [affichageNom = false] Permet (ou pas) l'affichage du nom des sommets du pavé droit.
  * @param {string} [nom = 'ABCDEFGH'] Nom du pavé droit
  * @property {Point3d[]} sommets Tableau contenant les sommets du pavé droit
- * @property {string} color Couleur des arêtes du pavé droit : du type 'blue' ou du type '#f15929'
+ * @property {string} color Couleur des arêtes du pavé droit : du type 'red', bleuMathalea ou du type '#f15929'
  * @property {Polygone3d} base Base ABFE du pavé droit
  * @property {Vecteur3d} hauteur Vecteur AD
  * @property {Arete3d} aretes Tableau contenant les arêtes du pavé droit
  * @property {Array} c2d Contient les commandes à tracer en 2d de cette fonction
- * @author Jean-Claude Lhote (optimisé par Eric Elter)
+ * @author Jean-claude Lhote (optimisé par Éric Elter)
  * @class
  */
 export class Pave3d extends ObjetMathalea2D {
@@ -200,9 +200,9 @@ export class Pave3d extends ObjetMathalea2D {
  * @param {boolean} [affichageNom = false] Permet (ou pas) l'affichage du nom des sommets du pavé droit.
  * @param {string} [nom = 'ABCDEFGH'] Nom du pavé droit
  * @example pave(A,B,D,E) // Créé un pavé noir sans nom
- * @example pave(A,B,D,E,'blue') // Créé un pavé bleu sans nom
+ * @example pave(A,B,D,E,bleuMathalea) // Créé un pavé bleu sans nom
  * @example pave(A,B,D,E,'red',true,'MNOPQRST') // Créé un pavé rouge dont les sommets sont nommés M, N, O, P, Q, R, S et T
- * @author Jean-Claude Lhote (optimisé par Eric Elter)
+ * @author Jean-claude Lhote (optimisé par Éric Elter)
  * @return {Pave3d}
  */
 export function pave3d(

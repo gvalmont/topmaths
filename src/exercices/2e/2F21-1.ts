@@ -3,7 +3,7 @@ import { antecedentParDichotomie } from '../../lib/2d/antecedentParDichotomie'
 import { courbe } from '../../lib/2d/Courbe'
 import { courbeInterpolee } from '../../lib/2d/CourbeInterpolee.1'
 import { droiteParPointEtPente } from '../../lib/2d/droites'
-import { point } from '../../lib/2d/PointAbstrait'
+import { pointAbstrait } from '../../lib/2d/PointAbstrait'
 import { repere } from '../../lib/2d/reperes'
 import { segment } from '../../lib/2d/segmentsVecteurs'
 import { latex2d, texteParPosition } from '../../lib/2d/textes'
@@ -20,6 +20,7 @@ import {
   randint,
 } from '../../modules/outils'
 import Exercice from '../Exercice'
+import { bleuMathalea } from '../../lib/colors'
 export const titre = "Modéliser une situation à l'aide d'une fonction"
 export const dateDePublication = '14/02/2023'
 export const dateDeModifImportante = '13/12/2024'
@@ -78,7 +79,6 @@ export default class EtudeFctPoly3 extends Exercice {
     for (
       let i = 0, texte, texteCorr, cpt = 0;
       i < this.nbQuestions && cpt < 50;
-
     ) {
       // Boucle principale où i+1 correspond au numéro de la question
       const nomF = [['f'], ['g'], ['h'], ['u'], ['v'], ['w']]
@@ -235,7 +235,7 @@ On peut dire que lorsque le prix payé pour la location est $${texNombre(prix, 2
             texteCorr = createList({
               items: [
                 ` Le carré de la vitesse est $v^2$, donc la fonction $d$ est définie par : $d(v)=\\dfrac{v^2}{${texNombre(a, 1)}}$. `,
-                ` $d(${v})=\\dfrac{${v}^2}{${texNombre(a, 1)}}\\simeq ${texNombre(new Decimal(v.pow(2).div(a)), 0)}$. La distance de freinage est d'environ $${texNombre(new Decimal(v.pow(2).div(a)), 0)}$.`,
+                ` $d(${v})=\\dfrac{${v}^2}{${texNombre(a, 1)}}\\approx ${texNombre(new Decimal(v.pow(2).div(a)), 0)}$. La distance de freinage est d'environ $${texNombre(new Decimal(v.pow(2).div(a)), 0)}$.`,
                 " La distance de freinage n'est pas proportionnelle à la vitesse car la fonction $d$ n'est pas une fonction linéaire. Elle ne traduit pas une situation de proportionnalité.",
                 `   On cherche $v$ tel que $d(v)=${b}$.<br>
                     $\\begin{aligned}
@@ -244,7 +244,7 @@ v^2&=${b} \\times ${texNombre(a, 2)} ${sp(8)} \\text{(On multiplie par ${texNomb
 v^2&= ${texNombre(new Decimal(b).mul(a), 2)}\\\\
 v&= -\\sqrt{${texNombre(new Decimal(b).mul(a), 2)}} ${sp(8)} \\text{ou} ${sp(8)} v= \\sqrt{${texNombre(new Decimal(b).mul(a), 2)}}${sp(8)}\\text{(deux nombres ont pour carré } ${texNombre(new Decimal(b).mul(a), 2)} \\text{)}
 \\end{aligned}$<br>
-Puisque $v$ est un nombre positif, on en déduit $v= \\sqrt{${texNombre(new Decimal(b).mul(a), 2)}}\\simeq ${new Decimal(b).mul(a).sqrt().round()}$.<br>
+Puisque $v$ est un nombre positif, on en déduit $v= \\sqrt{${texNombre(new Decimal(b).mul(a), 2)}}\\approx ${new Decimal(b).mul(a).sqrt().round()}$.<br>
 Lorsque la distance de freinage de la voiture est $${b}\\text{ m}$, sa vitesse est alors d'environ $${new Decimal(b).mul(a).sqrt().round()}\\text{ km/h}$.<br>
 `,
               ],
@@ -404,7 +404,7 @@ On considère la fonction $${nom}$ qui associe à chaque valeur de $x$, le prix 
                 repere: r1,
                 xMin: 0,
                 xMax: 4,
-                color: 'blue',
+                color: bleuMathalea,
                 epaisseur: 2,
                 step: 0.2,
               }),
@@ -465,7 +465,7 @@ On considère la fonction $${nom}$ qui associe à chaque valeur de $x$, le prix 
             const o = texteParPosition('O', -0.3, -0.3)
             const f = (x: number) => a * x * Math.exp(b * x)
             const fprime = (x: number) => (a + a * b * x) * Math.exp(b * x)
-            const Cg = droiteParPointEtPente(point(0, 5), 0, '', 'red')
+            const Cg = droiteParPointEtPente(pointAbstrait(0, 5), 0, '', 'red')
             Cg.epaisseur = 2
             const s0 = antecedentParDichotomie(0, 7, fprime, 0, 0.01)
             if (s0 === false) {
@@ -514,23 +514,23 @@ On considère la fonction $${nom}$ qui associe à chaque valeur de $x$, le prix 
               grilleYMax: f(s0) + 0.2,
             })
 
-            const A = point(s0, f(s0) * 10)
-            const Ax = point(A.x, 0)
+            const A = pointAbstrait(s0, f(s0) * 10)
+            const Ax = pointAbstrait(A.x, 0)
             const sAAx = segment(A, Ax)
             sAAx.epaisseur = 2
             sAAx.pointilles = 5
-            const Ay = point(0, A.y)
+            const Ay = pointAbstrait(0, A.y)
             const sAAy = segment(A, Ay)
             sAAy.epaisseur = 2
             sAAy.pointilles = 5
-            const B = point(s1, f(s1) * 10)
-            const Bx = point(B.x, 0)
+            const B = pointAbstrait(s1, f(s1) * 10)
+            const Bx = pointAbstrait(B.x, 0)
             const sBBx = segment(B, Bx)
             sBBx.epaisseur = 2
             sBBx.pointilles = 5
 
-            const C = point(s2, f(s2) * 10)
-            const Cx = point(C.x, 0)
+            const C = pointAbstrait(s2, f(s2) * 10)
+            const Cx = pointAbstrait(C.x, 0)
             const sCCx = segment(C, Cx)
             sCCx.epaisseur = 2
             sCCx.pointilles = 5
@@ -566,7 +566,7 @@ On considère la fonction $${nom}$ qui associe à chaque valeur de $x$, le prix 
                   repere: r1,
                   xMin: 0,
                   xMax: 10,
-                  color: 'blue',
+                  color: bleuMathalea,
                   epaisseur: 2,
                   step: 0.15,
                 }),
@@ -589,7 +589,7 @@ On considère la fonction $${nom}$ qui associe à chaque valeur de $x$, le prix 
                   repere: r1,
                   xMin: 0,
                   xMax: 9,
-                  color: 'blue',
+                  color: bleuMathalea,
                   epaisseur: 2,
                   step: 0.2,
                 }),
@@ -715,7 +715,7 @@ On considère la fonction $${nom}$ qui associe à chaque valeur de $x$, le prix 
                 [a5, b5],
               ],
               {
-                color: 'blue',
+                color: bleuMathalea,
                 epaisseur: 2,
                 repere: r1,
                 xMin: 0,
@@ -785,7 +785,7 @@ On considère la fonction $${nom}$ qui associe à chaque valeur de $x$, le prix 
             \n \\text{Temps (en s)}&${texNombre(a5 / 1000, 3)}&60  \\\\\n \\hline\n
             \\end{array}\n$
             <br>
-             $n=\\dfrac{60\\times 1}{${texNombre(a5 / 1000, 3)}}\\simeq ${texNombre((60 * 1000) / a5, 0)}$.<br>
+             $n=\\dfrac{60\\times 1}{${texNombre(a5 / 1000, 3)}}\\approx ${texNombre((60 * 1000) / a5, 0)}$.<br>
              ${
                (60 * 1000) / a5 > 100
                  ? `Comme $${texNombre((60 * 1000) / a5, 0)}>100$, ce patient souffre de tachycardie.`
@@ -912,7 +912,7 @@ Calculer sa vitesse de rotation au bout de $1$ minute.`,
            ${texNombre(a, 3)} \\times t&=-${v}\\\\
            t&=\\dfrac{${v}}{${texNombre(-a, 3)}}
            \\end{aligned}$<br>
-           Comme  $\\dfrac{${v}}{${texNombre(-a, 3)}}\\simeq ${texNombre(new Decimal(-v).div(a), 0)}$, le hand-spinner s'arrte au bout de $${texNombre(new Decimal(-v).div(a), 0)}$ secondes (valeur arrondie à la seconde).`,
+           Comme  $\\dfrac{${v}}{${texNombre(-a, 3)}}\\approx ${texNombre(new Decimal(-v).div(a), 0)}$, le hand-spinner s'arrte au bout de $${texNombre(new Decimal(-v).div(a), 0)}$ secondes (valeur arrondie à la seconde).`,
                 ` D'une manière générale, on a  : <br>
            $\\begin{aligned}
             V(t)&=0\\\\

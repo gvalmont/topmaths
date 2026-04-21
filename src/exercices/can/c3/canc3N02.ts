@@ -5,6 +5,7 @@ import { texNombre } from '../../../lib/outils/texNombre'
 import { mathalea2d } from '../../../modules/mathalea2d'
 import { randint } from '../../../modules/outils'
 import ExerciceSimple from '../../ExerciceSimple'
+import { bleuMathalea } from '../../../lib/colors'
 export const titre = 'Trouver un nombre sur une droite graduée'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -12,7 +13,7 @@ export const amcReady = true
 export const amcType = 'AMCNum'
 
 /**
- * @author Jean-Claude Lhote
+ * @author Jean-claude Lhote
  * Date de publication septembre 2021
 
  */
@@ -51,7 +52,7 @@ export default class SuiteSurDroiteGraduee extends ExerciceSimple {
       axeStyle: '->',
       pointListe: [[c + a * 3, '']],
       labelListe: maListe,
-      pointCouleur: 'blue',
+      pointCouleur: bleuMathalea,
       pointStyle: 'x',
       labelsPrincipaux: false,
     })

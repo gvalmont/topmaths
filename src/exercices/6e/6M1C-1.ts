@@ -9,10 +9,10 @@ export const amcType = 'AMCHybride'
 
 /**
  * Calculer périmètre de portions de disques
- * @author Eric Elter (comme clone de 6M22-2 de Rémi Angot)
+ * @author Éric Elter (comme clone de 6M22-2 de Rémi Angot)
  */
 
-export const uuid = '5db4a'
+export const uuid = '5db4b'
 
 export const refs = {
   'fr-fr': ['6M1C-1'],

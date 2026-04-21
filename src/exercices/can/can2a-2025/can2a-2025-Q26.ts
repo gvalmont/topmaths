@@ -1,10 +1,11 @@
-import { point } from '../../../lib/2d/PointAbstrait'
+import { pointAbstrait } from '../../../lib/2d/PointAbstrait'
 import { tracePoint } from '../../../lib/2d/TracePoint'
 import { droite } from '../../../lib/2d/droites'
 import { repere } from '../../../lib/2d/reperes'
 import { segment } from '../../../lib/2d/segmentsVecteurs'
 import { latex2d } from '../../../lib/2d/textes'
 import { milieu } from '../../../lib/2d/utilitairesPoint'
+import { bleuMathalea } from '../../../lib/colors'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 import { ecritureParentheseSiNegatif } from '../../../lib/outils/ecritures'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
@@ -46,9 +47,9 @@ export default class CoeffDirecteurGraphique extends ExerciceSimple {
       letterSize: 'scriptsize',
       backgroundColor: '',
     })
-    const A = point(xA, yA)
-    const B = point(xB, yB)
-    const Bx = point(B.x, A.y)
+    const A = pointAbstrait(xA, yA)
+    const B = pointAbstrait(xB, yB)
+    const Bx = pointAbstrait(B.x, A.y)
     const sABx = segment(A, Bx)
     const sBBx = segment(B, Bx)
     const m = new FractionEtendue(yB - yA, xB - xA)
@@ -77,11 +78,11 @@ export default class CoeffDirecteurGraphique extends ExerciceSimple {
       })
     }
     const lBBx = latex2d(`${yB - yA}`, B.x + 0.5, milieu(B, Bx).y, {
-      color: 'blue',
+      color: bleuMathalea,
       backgroundColor: '',
     })
     const traceB = tracePoint(B, 'black') // Variable qui trace les points avec une croix
-    const d = droite(A, B, '', 'blue')
+    const d = droite(A, B, '', bleuMathalea)
     d.epaisseur = 2
     traceA.taille = 2
     traceA.epaisseur = 2
@@ -158,7 +159,7 @@ export default class CoeffDirecteurGraphique extends ExerciceSimple {
       this.correction = `La droite est horizontale. <br>On en déduit que $m=${miseEnEvidence('0')}$.`
     } else {
       this.correction = `Le coefficient directeur $m$ de la droite $(AB)$ est donné par :<br><br>
-            $m=\\dfrac{y_B-y_A}{x_B-x_A}=\\dfrac{${yB}-${ecritureParentheseSiNegatif(yA)}}{${xB}-${ecritureParentheseSiNegatif(xA)}}=\\dfrac{${miseEnEvidence(yB - yA, 'blue')}}{${miseEnEvidence(xB - xA, 'red')}}${miseEnEvidence(m.texSimplificationAvecEtapes())}$.<br><br>`
+            $m=\\dfrac{y_B-y_A}{x_B-x_A}=\\dfrac{${yB}-${ecritureParentheseSiNegatif(yA)}}{${xB}-${ecritureParentheseSiNegatif(xA)}}=\\dfrac{${miseEnEvidence(yB - yA, bleuMathalea)}}{${miseEnEvidence(xB - xA, 'red')}}${miseEnEvidence(m.texSimplificationAvecEtapes())}$.<br><br>`
       this.correction += `${objetC}`
     }
 

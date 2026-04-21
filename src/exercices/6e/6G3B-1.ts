@@ -1,5 +1,5 @@
 import { codageMediatrice } from '../../lib/2d/CodageMediatrice'
-import { point } from '../../lib/2d/PointAbstrait'
+import { pointAbstrait } from '../../lib/2d/PointAbstrait'
 import { tracePoint } from '../../lib/2d/TracePoint'
 import { vecteur } from '../../lib/2d/Vecteur'
 import { cercle } from '../../lib/2d/cercle'
@@ -30,6 +30,7 @@ import { lettreDepuisChiffre } from '../../lib/outils/outilString'
 import { mathalea2d } from '../../modules/mathalea2d'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import Exercice from '../Exercice'
+import { orangeMathalea, bleuMathalea } from '../../lib/colors'
 
 export const dateDePublication = '30/11/2020'
 export const dateDeModifImportante = '06/09/2024'
@@ -38,7 +39,7 @@ export const amcReady = true
 export const amcType = 'AMCOpen'
 /**
  * Construction de médiatrices avec dispositif d'auto-correction aléatoire
- * @author Jean-Claude Lhote (Ajout AMC par Eric Elter)
+ * @author Jean-claude Lhote (Ajout AMC par Éric Elter)
  */
 export const uuid = 'd7052'
 
@@ -72,7 +73,7 @@ export default class ConstruireMediatrices6e extends Exercice {
       texte +=
         "Prolonger les droites $(d)$ et $(d')$ pour obtenir leur point d'intersection.<br>"
       const marks = ['/', '//', '///', 'x', 'o', 'S', 'V']
-      const I = point(0, 0, 'I')
+      const I = pointAbstrait(0, 0, 'I')
       const A = pointAdistance(I, randint(3, 6))
       const B = similitude(A, I, randint(65, 150), randint(8, 15) / 10)
       const medA = droite(I, A)
@@ -80,7 +81,7 @@ export default class ConstruireMediatrices6e extends Exercice {
 
       const dA = droiteParPointEtPerpendiculaire(A, medA)
       const dB = droiteParPointEtPerpendiculaire(B, medB)
-      medA.color = colorToLatexOrHTML('blue')
+      medA.color = colorToLatexOrHTML(bleuMathalea)
       medB.color = colorToLatexOrHTML('green')
       const cA = cercle(A, arrondi(randint(25, 40) / 20))
       const cB = cercle(B, arrondi(randint(45, 60) / 20))
@@ -151,7 +152,7 @@ export default class ConstruireMediatrices6e extends Exercice {
         y: result[1],
         rang: 6,
         taille: 0.6,
-        color: '#f15929',
+        color: orangeMathalea,
       })
       cible.opacite = 0.7
 
@@ -170,7 +171,7 @@ export default class ConstruireMediatrices6e extends Exercice {
       objetsCorrection.push(
         medA,
         medB,
-        codageMediatrice(A1, A2, 'blue', marks[1]),
+        codageMediatrice(A1, A2, bleuMathalea, marks[1]),
         codageMediatrice(B1, B2, 'green', marks[2]),
       )
 
@@ -184,8 +185,8 @@ export default class ConstruireMediatrices6e extends Exercice {
         nomA2,
         nomB1,
         nomB2,
-        point(cible.x - 2.5, cible.y - 2.5),
-        point(cible.x + 2.5, cible.y + 2.5),
+        pointAbstrait(cible.x - 2.5, cible.y - 2.5),
+        pointAbstrait(cible.x + 2.5, cible.y + 2.5),
       ])
       const { xmin, xmax, ymin, ymax } = params
       objetsCorrection.push(

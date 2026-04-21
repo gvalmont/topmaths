@@ -1,7 +1,7 @@
 import { courbe } from '../../lib/2d/Courbe'
 import { fixeBordures } from '../../lib/2d/fixeBordures'
 import { MetaInteractif2d } from '../../lib/2d/interactif2d'
-import { point } from '../../lib/2d/PointAbstrait'
+import { pointAbstrait } from '../../lib/2d/PointAbstrait'
 import { repere } from '../../lib/2d/reperes'
 import { labelPoint, texteParPosition } from '../../lib/2d/textes'
 import { tracePoint } from '../../lib/2d/TracePoint'
@@ -28,15 +28,16 @@ import FractionEtendue from '../../modules/FractionEtendue'
 import { mathalea2d } from '../../modules/mathalea2d'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import Exercice from '../Exercice'
+import { bleuMathalea } from '../../lib/colors'
 
-export const dateDeModifImportante = '25/01/2026' // Mise en place de MetaInteractif2d par Jean-Claude Lhote
+export const dateDeModifImportante = '25/01/2026' // Mise en place de MetaInteractif2d par Jean-claude Lhote
 export const titre = "Déterminer le signe d'une fonction affine"
 export const interactifReady = true
 export const interactifType = 'MetaInteractif2d'
 
 /**
  * @author Stéphane Guyon+Gilles Mora
- * Lintage typescript incomplet car tableauDeVariation n'est pas typé Jean-Claude Lhote
+ * Lintage typescript incomplet car tableauDeVariation n'est pas typé Jean-claude Lhote
  * 2F10-3
  */
 export const uuid = '03b71'
@@ -279,8 +280,8 @@ ${a !== 1 ? `x& ${a < 0 ? `${miseEnEvidence(`${sp(1.5)}\\boldsymbol{<}${sp(1.5)}
               grilleSecondaireXMin: -8,
               grilleSecondaireXMax: 8,
             })
-            const maCourbe = courbe(f, { repere: monRepere, color: 'blue' })
-            const A = point(-b / a, 0, '')
+            const maCourbe = courbe(f, { repere: monRepere, color: bleuMathalea })
+            const A = pointAbstrait(-b / a, 0, '')
 
             const lA = labelPoint(A, 'red')
             const tA = tracePoint(A, 'red') // Variable qui trace les points avec une croix
@@ -470,8 +471,8 @@ ${a !== 1 ? `x& ${a < 0 ? `${miseEnEvidence(`${sp(1.5)}\\boldsymbol{<}${sp(1.5)}
               grilleSecondaireXMin: -8,
               grilleSecondaireXMax: 8,
             })
-            const maCourbe = courbe(f, { repere: monRepere, color: 'blue' })
-            const A = point(-b / a.valeurDecimale, 0, '')
+            const maCourbe = courbe(f, { repere: monRepere, color: bleuMathalea })
+            const A = pointAbstrait(-b / a.valeurDecimale, 0, '')
 
             const lA = labelPoint(A, 'red')
             const tA = tracePoint(A, 'red') // Variable qui trace les points avec une croix

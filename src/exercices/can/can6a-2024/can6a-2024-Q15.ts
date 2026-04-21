@@ -4,7 +4,7 @@ import ExerciceSimple from '../../ExerciceSimple'
 
 import { codageAngleDroit } from '../../../lib/2d/CodageAngleDroit'
 import { fixeBordures } from '../../../lib/2d/fixeBordures'
-import { point, Point } from '../../../lib/2d/PointAbstrait'
+import { PointAbstrait, pointAbstrait } from '../../../lib/2d/PointAbstrait'
 import { Polygone } from '../../../lib/2d/polygones'
 import { segment } from '../../../lib/2d/segmentsVecteurs'
 import { latexParCoordonnees } from '../../../lib/2d/textes'
@@ -15,7 +15,7 @@ export const interactifType = 'mathLive'
 export const uuid = '53eb1'
 /**
  * Modèle d'exercice très simple pour la course aux nombres
- * @author Jean-Claude Lhote
+ * @author Jean-claude Lhote
 
 */
 export default class PerimetreRectangle extends ExerciceSimple {
@@ -39,20 +39,23 @@ export default class PerimetreRectangle extends ExerciceSimple {
       hauteur = randint(2, 4)
       grandeBase = randint(hauteur + 1, 4 + hauteur)
     }
-    const A = new Point(0, 0)
-    const B = new Point(grandeBase, 0)
-    const C = new Point(grandeBase, hauteur)
-    const D = new Point(0, hauteur)
+    const A = new PointAbstrait(0, 0)
+    const B = new PointAbstrait(grandeBase, 0)
+    const C = new PointAbstrait(grandeBase, hauteur)
+    const D = new PointAbstrait(0, hauteur)
     const rectangle = new Polygone([A, B, C, D])
     const angle1 = codageAngleDroit(D, A, B)
     const angle2 = codageAngleDroit(A, B, C)
     const angle3 = codageAngleDroit(B, C, D)
     const angle4 = codageAngleDroit(C, D, A)
-    const horizontale = segment(point(0, -0.5), point(grandeBase, -0.5))
+    const horizontale = segment(
+      pointAbstrait(0, -0.5),
+      pointAbstrait(grandeBase, -0.5),
+    )
     horizontale.styleExtremites = '<->'
     const verticale = segment(
-      point(grandeBase + 1, 0),
-      point(grandeBase + 1, hauteur),
+      pointAbstrait(grandeBase + 1, 0),
+      pointAbstrait(grandeBase + 1, hauteur),
     )
     verticale.styleExtremites = '<->'
     const largeur = latexParCoordonnees(

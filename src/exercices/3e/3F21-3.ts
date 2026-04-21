@@ -1,16 +1,13 @@
 import { cercle } from '../../lib/2d/cercle'
 import { colorToLatexOrHTML } from '../../lib/2d/colorToLatexOrHtml'
 import { droite } from '../../lib/2d/droites'
-import { point } from '../../lib/2d/PointAbstrait'
+import { pointAbstrait } from '../../lib/2d/PointAbstrait'
 import { repere } from '../../lib/2d/reperes'
 import { segment } from '../../lib/2d/segmentsVecteurs'
 import { texteParPoint } from '../../lib/2d/textes'
 import { milieu } from '../../lib/2d/utilitairesPoint'
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
-import {
-  handleAnswers,
-  setReponse,
-} from '../../lib/interactif/gestionInteractif'
+import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { choice } from '../../lib/outils/arrayOutils'
 import { ecritureAlgebrique, rienSi1 } from '../../lib/outils/ecritures'
@@ -19,12 +16,9 @@ import { numAlpha, sp } from '../../lib/outils/outilString'
 import { texNombre } from '../../lib/outils/texNombre'
 import { context } from '../../modules/context'
 import { mathalea2d } from '../../modules/mathalea2d'
-import {
-  contraindreValeur,
-  listeQuestionsToContenu,
-  randint,
-} from '../../modules/outils'
+import { contraindreValeur, randint } from '../../modules/outils'
 import Exercice from '../Exercice'
+import { orangeMathalea, bleuMathalea } from '../../lib/colors'
 
 export const titre =
   "Lire graphiquement les caractéristiques de la courbe représentative d'une fonction affine ou linéaire"
@@ -108,9 +102,9 @@ export default class PenteEtOrdonneeOrigineDroite extends Exercice {
       const f = (x: number): number => a * x + b
 
       const d = droite(a, -1, b)
-      d.color = colorToLatexOrHTML('blue')
+      d.color = colorToLatexOrHTML(bleuMathalea)
       d.epaisseur = 2
-      const c = cercle(point(0, b), 0.8, '#f15929')
+      const c = cercle(pointAbstrait(0, b), 0.8, orangeMathalea)
       c.epaisseur = 2
       let x0 = -7
       while (
@@ -127,17 +121,17 @@ export default class PenteEtOrdonneeOrigineDroite extends Exercice {
           break
         }
       }
-      const A = point(x0, f(x0))
-      const B = point(x0 + 1, f(x0))
-      const C = point(x0 + 1, f(x0 + 1))
-      const s1 = segment(A, B, '#f15929')
-      const s2 = segment(B, C, '#f15929')
+      const A = pointAbstrait(x0, f(x0))
+      const B = pointAbstrait(x0 + 1, f(x0))
+      const C = pointAbstrait(x0 + 1, f(x0 + 1))
+      const s1 = segment(A, B, orangeMathalea)
+      const s2 = segment(B, C, orangeMathalea)
       const M1 = milieu(A, B)
       const M2 = milieu(B, C)
-      const t1 = texteParPoint('$1$', point(M1.x, M1.y + (a > 0 ? -0.4 : 0.4)))
-      const t2 = texteParPoint(`$${texNombre(a)}$`, point(M2.x + 0.6, M2.y))
-      t1.color = colorToLatexOrHTML('#f15929')
-      t2.color = colorToLatexOrHTML('#f15929')
+      const t1 = texteParPoint('$1$', pointAbstrait(M1.x, M1.y + (a > 0 ? -0.4 : 0.4)))
+      const t2 = texteParPoint(`$${texNombre(a)}$`, pointAbstrait(M2.x + 0.6, M2.y))
+      t1.color = colorToLatexOrHTML(orangeMathalea)
+      t2.color = colorToLatexOrHTML(orangeMathalea)
 
       s1.epaisseur = 3
       s1.pointilles = 5
@@ -228,7 +222,8 @@ export default class PenteEtOrdonneeOrigineDroite extends Exercice {
           ? `$${miseEnEvidence(ecritureAlgebrique(b))}$.`
           : '.')
 
-      if (vocabulaire === 'affine') setReponse(this, questionInteractif, b)
+      if (vocabulaire === 'affine')
+        handleAnswers(this, questionInteractif, { reponse: { value: b } })
       handleAnswers(
         this,
         (vocabulaire === 'affine' ? 1 : 0) + questionInteractif,
@@ -323,6 +318,5 @@ export default class PenteEtOrdonneeOrigineDroite extends Exercice {
       }
       cpt++
     }
-    listeQuestionsToContenu(this)
   }
 }

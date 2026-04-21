@@ -1,6 +1,6 @@
 import { codageAngle } from '../../lib/2d/angles'
 import { codageAngleDroit } from '../../lib/2d/CodageAngleDroit'
-import { point } from '../../lib/2d/PointAbstrait'
+import { pointAbstrait } from '../../lib/2d/PointAbstrait'
 import { barycentre, nommePolygone, polygone } from '../../lib/2d/polygones'
 import { segment } from '../../lib/2d/segmentsVecteurs'
 import { latexParPoint } from '../../lib/2d/textes'
@@ -30,6 +30,7 @@ import {
 } from '../../modules/outils'
 import type { NestedObjetMathalea2dArray } from '../../types/2d'
 import Exercice from '../Exercice'
+import { bleuMathalea } from '../../lib/colors'
 
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -41,7 +42,7 @@ export const titre =
   'Calculer une longueur dans un triangle rectangle en utilisant la trigonométrie'
 
 /**
- * @author Jean-Claude Lhote à partir de 3G30-1 de Rémi Angot
+ * @author Jean-claude Lhote à partir de 3G30-1 de Rémi Angot
  * Exercice remplaçant l'exercice initial utilisant MG32
  * Calculer une longueur en utilisant l'un des trois rapport trigonométrique.
  * * Si this.level=4 alors seul le cosinus sera utilisé.
@@ -206,9 +207,9 @@ export default class CalculDeLongueur extends Exercice {
       if (!context.isHtml && this.sup) {
         // texte += '\n\\end{minipage}\n'
       }
-      const a = point(0, 0)
-      const b = point(ab, 0)
-      const c = point(0, ac)
+      const a = pointAbstrait(0, 0)
+      const b = pointAbstrait(ab, 0)
+      const c = pointAbstrait(0, ac)
       const p1 = polygone(a, b, c)
       // p1.isVisible = false
       const p2 = rotation(p1, a, randint(0, 360))
@@ -220,7 +221,7 @@ export default class CalculDeLongueur extends Exercice {
       B.nom = nom[1]
       C.nom = nom[2]
       const nomme = nommePolygone(p2, nom)
-      const hypo = segment(C, B, 'blue')
+      const hypo = segment(C, B, bleuMathalea)
       hypo.epaisseur = 2
       const codageDeAngle = codageAngle(A, B, C, 2)
       const mAB = milieu(A, B)

@@ -15,6 +15,7 @@ import {
   randint,
 } from '../../modules/outils'
 import Exercice from '../Exercice'
+import { bleuMathalea } from '../../lib/colors'
 
 export const dateDePublication = '28/09/2022'
 export const titre = "Trouver une valeur approchée ou l'arrondi d'un décimal"
@@ -93,7 +94,7 @@ export default class ArrondirUnDecimal extends Exercice {
     }).map(Number)
 
     for (
-      let i = 0, indexQ = 0, texte, texteCorr, cpt = 0;
+      let i = 0, texte, texteCorr, cpt = 0;
       i < this.nbQuestions && cpt < 50;
       cpt++
     ) {
@@ -119,7 +120,7 @@ export default class ArrondirUnDecimal extends Exercice {
           if (this.interactif) {
             texte += ajouteChampTexteMathLive(
               this,
-              indexQ,
+              i,
               KeyboardType.clavierNumbers,
             )
           } else {
@@ -134,10 +135,10 @@ export default class ArrondirUnDecimal extends Exercice {
             3,
             true,
           )
-            .replace('0', miseEnEvidence(ci, 'blue'))
+            .replace('0', miseEnEvidence(ci, bleuMathalea))
             .replace('0', miseEnEvidence(mi))
           if (mi < 5) {
-            handleAnswers(this, indexQ, {
+            handleAnswers(this, i, {
               reponse: {
                 value: (
                   m * 1000 +
@@ -150,7 +151,7 @@ export default class ArrondirUnDecimal extends Exercice {
             })
             texteCorr = `L'arrondi au centième de $${nombreStr}$ est $${texNombre(m * 1000 + c * 100 + d * 10 + u * 1 + (di * 0.1 + ci * 0.01))}$.`
           } else {
-            handleAnswers(this, indexQ, {
+            handleAnswers(this, i, {
               reponse: {
                 value: (
                   m * 1000 +
@@ -163,7 +164,7 @@ export default class ArrondirUnDecimal extends Exercice {
             })
             texteCorr = `L'arrondi au centième de $${nombreStr}$ est $${texNombre(m * 1000 + c * 100 + d * 10 + u * 1 + (di * 0.1 + (ci + 1) * 0.01))}$.`
           }
-          indexQ++
+
           break
         }
         case 5: {
@@ -173,7 +174,7 @@ export default class ArrondirUnDecimal extends Exercice {
           if (this.interactif) {
             texte += ajouteChampTexteMathLive(
               this,
-              indexQ,
+              i,
               KeyboardType.clavierNumbers,
             )
           } else {
@@ -186,10 +187,10 @@ export default class ArrondirUnDecimal extends Exercice {
               u * 1 +
               (0 * 0.1 + 0 * 0.01 + mi * 0.001),
           )
-            .replace('0', miseEnEvidence(di, 'blue'))
+            .replace('0', miseEnEvidence(di, bleuMathalea))
             .replace('0', miseEnEvidence(ci))
           if (ci < 5) {
-            handleAnswers(this, indexQ, {
+            handleAnswers(this, i, {
               reponse: {
                 value: (
                   m * 1000 +
@@ -202,7 +203,7 @@ export default class ArrondirUnDecimal extends Exercice {
             })
             texteCorr = `L'arrondi au dixième de $${nombreStr}$ est $${texNombre(m * 1000 + c * 100 + d * 10 + u * 1 + di * 0.1)}$.`
           } else {
-            handleAnswers(this, indexQ, {
+            handleAnswers(this, i, {
               reponse: {
                 value: (
                   m * 1000 +
@@ -215,7 +216,7 @@ export default class ArrondirUnDecimal extends Exercice {
             })
             texteCorr = `L'arrondi au dixième de $${nombreStr}$ est $${texNombre(m * 1000 + c * 100 + d * 10 + u * 1 + (di + 1) * 0.1)}$.`
           }
-          indexQ++
+
           break
         }
         case 4: {
@@ -241,7 +242,7 @@ export default class ArrondirUnDecimal extends Exercice {
           if (this.interactif) {
             texte += ajouteChampTexteMathLive(
               this,
-              indexQ,
+              i,
               KeyboardType.clavierNumbers,
             )
           } else {
@@ -254,25 +255,25 @@ export default class ArrondirUnDecimal extends Exercice {
             nbDecimales,
             true,
           )
-            .replace('0', miseEnEvidence(u, 'blue'))
+            .replace('0', miseEnEvidence(u, bleuMathalea))
             .replace('0', miseEnEvidence(di))
             .replace(this.version === 'CM1' ? '99' : '', '')
           if (di < 5) {
-            handleAnswers(this, indexQ, {
+            handleAnswers(this, i, {
               reponse: {
                 value: (m * 1000 + c * 100 + d * 10 + u * 1).toString(),
               },
             })
             texteCorr = `L'arrondi ${termeEduscol} de $${nombreStr}$ est $${texNombre(m * 1000 + c * 100 + d * 10 + u * 1)}$.`
           } else {
-            handleAnswers(this, indexQ, {
+            handleAnswers(this, i, {
               reponse: {
                 value: (m * 1000 + c * 100 + d * 10 + (u + 1) * 1).toString(),
               },
             })
             texteCorr = `L'arrondiY ${termeEduscol} de $${nombreStr}$ est $${texNombre(m * 1000 + c * 100 + d * 10 + (u + 1) * 1)}$.`
           }
-          indexQ++
+
           break
         }
         case 3: {
@@ -282,7 +283,7 @@ export default class ArrondirUnDecimal extends Exercice {
           if (this.interactif) {
             texte += ajouteChampTexteMathLive(
               this,
-              indexQ,
+              i,
               KeyboardType.clavierNumbers,
             )
           } else {
@@ -296,9 +297,9 @@ export default class ArrondirUnDecimal extends Exercice {
               (di * 0.1 + 0 * 0.01 + mi * 0.001),
             3,
             true,
-          ).replace('0', miseEnEvidence(ci, 'blue'))
+          ).replace('0', miseEnEvidence(ci, bleuMathalea))
           if (valeurdegaucheoudroite === 1) {
-            handleAnswers(this, indexQ, {
+            handleAnswers(this, i, {
               reponse: {
                 value: (
                   m * 1000 +
@@ -311,7 +312,7 @@ export default class ArrondirUnDecimal extends Exercice {
             })
             texteCorr = `Une valeur approchée au centième par défaut de $${nombreStr}$ est $${texNombre(m * 1000 + c * 100 + d * 10 + u * 1 + (di * 0.1 + ci * 0.01))}$.`
           } else {
-            handleAnswers(this, indexQ, {
+            handleAnswers(this, i, {
               reponse: {
                 value: (
                   m * 1000 +
@@ -324,7 +325,7 @@ export default class ArrondirUnDecimal extends Exercice {
             })
             texteCorr = `Une valeur approchée au centième par excès de $${nombreStr}$ est $${texNombre(m * 1000 + c * 100 + d * 10 + u * 1 + (di * 0.1 + (ci + 1) * 0.01))}$.`
           }
-          indexQ++
+
           break
         }
         case 2: {
@@ -334,7 +335,7 @@ export default class ArrondirUnDecimal extends Exercice {
           if (this.interactif) {
             texte += ajouteChampTexteMathLive(
               this,
-              indexQ,
+              i,
               KeyboardType.clavierNumbers,
             )
           } else {
@@ -348,9 +349,9 @@ export default class ArrondirUnDecimal extends Exercice {
               (0 * 0.1 + ci * 0.01 + mi * 0.001),
             3,
             true,
-          ).replace('0', miseEnEvidence(di, 'blue'))
+          ).replace('0', miseEnEvidence(di, bleuMathalea))
           if (valeurdegaucheoudroite === 1) {
-            handleAnswers(this, indexQ, {
+            handleAnswers(this, i, {
               reponse: {
                 value: (
                   m * 1000 +
@@ -363,7 +364,7 @@ export default class ArrondirUnDecimal extends Exercice {
             })
             texteCorr = `Une valeur approchée au dixième par défaut de de $${nombreStr}$ est $${texNombre(m * 1000 + c * 100 + d * 10 + u * 1 + di * 0.1)}$.`
           } else {
-            handleAnswers(this, indexQ, {
+            handleAnswers(this, i, {
               reponse: {
                 value: (
                   m * 1000 +
@@ -376,7 +377,7 @@ export default class ArrondirUnDecimal extends Exercice {
             })
             texteCorr = `Une valeur approchée au dixième par excès de $${nombreStr}$ est $${texNombre(m * 1000 + c * 100 + d * 10 + u * 1 + (di + 1) * 0.1)}$.`
           }
-          indexQ++
+
           break
         }
         case 1:
@@ -400,7 +401,7 @@ export default class ArrondirUnDecimal extends Exercice {
           if (this.interactif) {
             texte += ajouteChampTexteMathLive(
               this,
-              indexQ,
+              i,
               KeyboardType.clavierNumbers,
             )
           } else {
@@ -414,9 +415,9 @@ export default class ArrondirUnDecimal extends Exercice {
               (di * 0.1 + ci * 0.01 + mi * 0.001),
             nbDecimales,
             true,
-          ).replace('0', miseEnEvidence(u, 'blue'))
+          ).replace('0', miseEnEvidence(u, bleuMathalea))
           if (valeurdegaucheoudroite === 1) {
-            handleAnswers(this, indexQ, {
+            handleAnswers(this, i, {
               reponse: {
                 value: (m * 1000 + c * 100 + d * 10 + u * 1).toString(),
               },
@@ -427,14 +428,14 @@ export default class ArrondirUnDecimal extends Exercice {
                 : `La partie entière`
             texteCorr += ` de $${nombreStr}$ est $${texNombre(m * 1000 + c * 100 + d * 10 + u * 1)}$.`
           } else {
-            handleAnswers(this, indexQ, {
+            handleAnswers(this, i, {
               reponse: {
                 value: (m * 1000 + c * 100 + d * 10 + (u + 1) * 1).toString(),
               },
             })
             texteCorr = `Une valeur approchée à l'unité par excès de $${nombreStr}$ est $${texNombre(m * 1000 + c * 100 + d * 10 + (u + 1) * 1)}$.`
           }
-          indexQ++
+
           break
         }
       }

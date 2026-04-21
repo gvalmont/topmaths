@@ -3,7 +3,7 @@ import {
   antecedentInterpole,
   imageInterpolee,
 } from '../../lib/2d/InterpolationCosinusoidale'
-import { point } from '../../lib/2d/PointAbstrait'
+import { pointAbstrait } from '../../lib/2d/PointAbstrait'
 import { repere } from '../../lib/2d/reperes'
 import { segment } from '../../lib/2d/segmentsVecteurs'
 import { texteParPosition } from '../../lib/2d/textes'
@@ -31,6 +31,7 @@ import {
   superieurouegal,
 } from '../../modules/outils'
 import Exercice from '../Exercice'
+import { bleuMathalea } from '../../lib/colors'
 
 export const titre = 'Déterminer graphiquement les extremums'
 export const interactifReady = true
@@ -41,7 +42,7 @@ export const dateDePublication = '1/08/2021'
 export const dateDeModifImportante = '24/03/2026'
 
 /**
- * @author Jean-Claude Lhote
+ * @author Jean-claude Lhote
  */
 
 export const uuid = '573f2'
@@ -202,7 +203,7 @@ export default class LecturesGraphiques extends Exercice {
                     0,
                     minimum[0] * 2,
                     minimum[1] * 2,
-                    'blue',
+                    bleuMathalea,
                   )
                 : vide2d()
             s[0].pointilles = 5
@@ -217,7 +218,7 @@ export default class LecturesGraphiques extends Exercice {
                   )
                 : vide2d()
             s[1].pointilles = 5
-            s[2] = tracePoint(point(minimum[0] * 2, minimum[1] * 2), 'red')
+            s[2] = tracePoint(pointAbstrait(minimum[0] * 2, minimum[1] * 2), 'red')
             texteCorr += mathalea2d(
               {
                 xmin: -13.5,
@@ -255,7 +256,7 @@ export default class LecturesGraphiques extends Exercice {
                     0,
                     maximum[0] * 2,
                     maximum[1] * 2,
-                    'blue',
+                    bleuMathalea,
                   )
                 : vide2d()
             s[0].pointilles = 5
@@ -270,7 +271,7 @@ export default class LecturesGraphiques extends Exercice {
                   )
                 : vide2d()
             s[1].pointilles = 5
-            s[2] = tracePoint(point(maximum[0] * 2, maximum[1] * 2), 'red')
+            s[2] = tracePoint(pointAbstrait(maximum[0] * 2, maximum[1] * 2), 'red')
             texteCorr += mathalea2d(
               {
                 xmin: -13.5,
@@ -329,12 +330,12 @@ export default class LecturesGraphiques extends Exercice {
               : `L'image de ${texNombre(x0, 1)} par la fonction $f$ est ${lesReponsesEnCouleur(y0)}.<br>`
           if (this.correctionDetaillee) {
             s[0] =
-              x0 !== 0 ? segment(0, y0 * 2, x0 * 2, y0 * 2, 'blue') : vide2d()
+              x0 !== 0 ? segment(0, y0 * 2, x0 * 2, y0 * 2, bleuMathalea) : vide2d()
             s[0].pointilles = 5
             s[1] =
               y0 !== 0 ? segment(x0 * 2, y0 * 2, x0 * 2, 0, 'red') : vide2d()
             s[1].pointilles = 5
-            s[2] = tracePoint(point(x0 * 2, y0 * 2), 'red')
+            s[2] = tracePoint(pointAbstrait(x0 * 2, y0 * 2), 'red')
             texteCorr += mathalea2d(
               {
                 xmin: -13.5,
@@ -391,7 +392,7 @@ export default class LecturesGraphiques extends Exercice {
             )
             texteCorr = `Le plus petit antécédent avec la précision permise par le graphique de $${texNombre(y0, 1)}$ est ${lesReponsesEnCouleur(x0)}.<br>`
             if (this.correctionDetaillee) {
-              s[0] = segment(-15, y0 * 2, 15, y0 * 2, 'blue')
+              s[0] = segment(-15, y0 * 2, 15, y0 * 2, bleuMathalea)
               s[0].pointilles = 5
               s[1] =
                 y0 !== 0 ? segment(x0 * 2, y0 * 2, x0 * 2, 0, 'red') : vide2d()
@@ -453,7 +454,7 @@ export default class LecturesGraphiques extends Exercice {
             )
             texteCorr = `Le plus grand antécédent de $${texNombre(y0, 1)}$ avec la précision permise par le graphique est ${lesReponsesEnCouleur(x0)}.<br>`
             if (this.correctionDetaillee) {
-              s[0] = segment(-15, y0 * 2, 15, y0 * 2, 'blue')
+              s[0] = segment(-15, y0 * 2, 15, y0 * 2, bleuMathalea)
               s[0].pointilles = 5
               s[1] =
                 y0 !== 0 ? segment(x0 * 2, y0 * 2, x0 * 2, 0, 'red') : vide2d()
@@ -530,11 +531,11 @@ export default class LecturesGraphiques extends Exercice {
             })
           reponses[i] = antecedentTrouve
           if (this.correctionDetaillee) {
-            s[0] = segment(-15, y0 * 2, 15, y0 * 2, 'blue')
+            s[0] = segment(-15, y0 * 2, 15, y0 * 2, bleuMathalea)
             s[0].pointilles = 5
             for (let l = 0; l < antecedentTrouve; l++) {
               s[l * 2 + 1] = tracePoint(
-                point(antecedents[l] * 2, y0 * 2),
+                pointAbstrait(antecedents[l] * 2, y0 * 2),
                 'red',
               )
               s[l * 2 + 1].epaisseur = 2

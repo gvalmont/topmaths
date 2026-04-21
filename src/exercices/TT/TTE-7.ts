@@ -1,5 +1,4 @@
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
-import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
 import {
   gestionnaireFormulaireTexte,
@@ -9,6 +8,8 @@ import {
 import Exercice from '../Exercice'
 
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
+import { toutAUnPoint } from '../../lib/interactif/mathLive'
+import { addMultiMathfield } from '../../lib/interactif/MultiMathfield/MultiMathfield'
 import {
   ecritureAlgebrique,
   ecritureAlgebriqueSauf1,
@@ -21,9 +22,9 @@ import FractionEtendue from '../../modules/FractionEtendue'
 
 export const titre = 'Résoudre une équation simple avec le logarithme'
 export const dateDePublication = '22/7/2024'
-export const uuid = 'f1f9d'
+export const uuid = 'f1f9e'
 export const interactifReady = true
-export const interactifType = 'mathLive'
+export const interactifType = 'multiMathfield'
 export const refs = {
   'fr-fr': ['TTE-7'],
   'fr-ch': [],
@@ -45,7 +46,7 @@ function resoudreAxPlusBZeroTex(a: number, b: number): string {
 
 /**
  *
- * @author  Jean-Claude Lhote - QQes aménagements Stéphane Guyon
+ * @author  Jean-claude Lhote - QQes aménagements Stéphane Guyon
  */
 export default class EquationsLog extends Exercice {
   version: string
@@ -102,27 +103,19 @@ export default class EquationsLog extends Exercice {
       if (listeTypeQuestions[i] === 1) {
         // log(ax+b)=n
         texte = `On demande de résoudre l'équation suivante : $${logString}(${reduireAxPlusB(a, b)})=${n}$.<br>`
-        texte +=
-          `${numAlpha(0)} Déterminer le domaine sur lequel on peut résoudre cette équation.` +
-          ajouteChampTexteMathLive(
-            this,
-            2 * i,
-            ` ${KeyboardType.equationsTerminale}`,
-            { texteAvant: '<br>$\\mathcal{D}_f=$' },
-          )
-        texte +=
-          `<br>${numAlpha(1)} Donner la solution de cette équation.` +
-          ajouteChampTexteMathLive(
-            this,
-            2 * i + 1,
-            ` ${KeyboardType.equationsTerminale}`,
-            { texteAvant: '<br>$\\mathcal{S}=$' },
-          )
+        texte += addMultiMathfield(this, i, {
+          dataTemplate: `a) Déterminer le domaine sur lequel on peut résoudre cette équation. %{champ1}<br>
+  b)  Donner la solution de cette équation. %{champ2}`,
+          dataOptions: {
+            champ1: { keyboard: KeyboardType.equationsTerminale },
+            champ2: { keyboard: KeyboardType.equationsTerminale },
+          },
+        }).replaceAll('$\\ldots\\ldots$', '')
 
         if (b !== 0) {
-          solution = `{${a > 0 ? '' : '-'}${Math.abs(a) !== 1 ? `\\dfrac{${base}^{${n}}${ecritureAlgebrique(-b)}}{${Math.abs(a)}}` : `${base}^{${n}}${ecritureAlgebrique(a === 1 ? -b : b)}`}`
+          solution = `${a > 0 ? '' : '-'}${Math.abs(a) !== 1 ? `\\dfrac{${base}^{${n}}${ecritureAlgebrique(-b)}}{${Math.abs(a)}}` : `${base}^{${n}}${ecritureAlgebrique(a === 1 ? -b : b)}`}`
         } else {
-          solution = `{${a > 0 ? '' : '-'}${Math.abs(a) !== 1 ? `\\dfrac{${base}^{${n}}}{${Math.abs(a)}}` : `${base}^{${n}}`}`
+          solution = `${a > 0 ? '' : '-'}${Math.abs(a) !== 1 ? `\\dfrac{${base}^{${n}}}{${Math.abs(a)}}` : `${base}^{${n}}`}`
         }
         const f1 = new FractionEtendue(-b, a)
         const fracMoinsBsurA = f1.texFractionSimplifiee
@@ -138,9 +131,9 @@ export default class EquationsLog extends Exercice {
         &\\phantom{\\iff}${logString}(${reduireAxPlusB(a, b)})= ${n}\\\\ &\\iff ${logString}(${reduireAxPlusB(a, b)})= ${logString}(${base}^{${n}})\\\\
          &\\iff ${reduireAxPlusB(a, b)}=${base}^{${n}}\\\\
          ${b !== 0 ? `&\\iff ${rienSi1(a)}x=${base}^{${n}}${ecritureAlgebrique(-b)}\\\\` : ''}
-        \\end{aligned}$`
+        \\end{aligned}$<br>`
         if (a !== 1) {
-          texteCorr += `<br>$\\begin{aligned}&\\iff x=${solution.replace('\\dfrac', '\\frac')}\\end{aligned}$`
+          texteCorr += `$\\iff x=${solution.replace('\\dfrac', '\\frac')}$<br>`
         }
         domaine =
           a > 0
@@ -165,22 +158,15 @@ export default class EquationsLog extends Exercice {
       } else {
         // log(ax+b)=log(cx+d)
         texte = `On demande de résoudre l'équation suivante : $${logString}(${reduireAxPlusB(a, b)})=${logString}(${reduireAxPlusB(c, d)})$.<br>`
-        texte +=
-          `${numAlpha(0)} Déterminer le domaine sur lequel on peut résoudre cette équation.<br>` +
-          ajouteChampTexteMathLive(
-            this,
-            2 * i,
-            ` ${KeyboardType.equationsTerminale}`,
-            { texteAvant: '$\\mathcal{D}_f=$', texteApres: '<br>' },
-          )
-        texte +=
-          `${numAlpha(1)} Donner la solution de cette équation.<br>` +
-          ajouteChampTexteMathLive(
-            this,
-            2 * i + 1,
-            ` ${KeyboardType.equationsTerminale}`,
-            { texteAvant: '$\\mathcal{S}=$' },
-          )
+        texte += addMultiMathfield(this, i, {
+          dataTemplate: `a) Déterminer le domaine sur lequel on peut résoudre cette équation. %{champ1}<br>
+  b)  Donner la solution de cette équation. %{champ2}`,
+          dataOptions: {
+            champ1: { keyboard: KeyboardType.equationsTerminale },
+            champ2: { keyboard: KeyboardType.equationsTerminale },
+          },
+        }).replaceAll('$\\ldots\\ldots$', '')
+
         texteCorr = `${numAlpha(0)} La fonction $${logString}$ est définie sur $\\R_+^*$, il faut donc vérifier que :<br>`
         const f2 = new FractionEtendue(-b, a)
         const f3 = new FractionEtendue(-d, c)
@@ -312,12 +298,16 @@ export default class EquationsLog extends Exercice {
       }
       if (this.questionJamaisPosee(i, a, b, n, listeTypeQuestions[i])) {
         if (this.interactif) {
-          handleAnswers(this, 2 * i, {
-            reponse: { value: domaine, options: { intervalle: true } },
-          })
-          handleAnswers(this, 2 * i + 1, {
-            reponse: { value: solution, options: { intervalle: true } },
-          })
+          handleAnswers(
+            this,
+            i,
+            {
+              bareme: toutAUnPoint,
+              champ1: { value: domaine, options: { intervalle: true } },
+              champ2: { value: solution, options: { intervalle: true } },
+            },
+            { formatInteractif: 'multiMathfield' },
+          )
         }
         this.listeQuestions[i] = texte
         this.listeCorrections[i] = texteCorr

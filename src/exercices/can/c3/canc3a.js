@@ -1,5 +1,5 @@
 import { codageSegments } from '../../../lib/2d/CodageSegment'
-import { point } from '../../../lib/2d/PointAbstrait'
+import { pointAbstrait } from '../../../lib/2d/PointAbstrait'
 import { segment } from '../../../lib/2d/segmentsVecteurs'
 import { texteSurSegment } from '../../../lib/2d/texteSurSegment'
 import { homothetie } from '../../../lib/2d/transformations'
@@ -17,6 +17,7 @@ import Exercice from '../../Exercice'
 
 import { afficheCoteSegment } from '../../../lib/2d/AfficheCoteSegment'
 import { polygoneRegulier } from '../../../lib/2d/polygonesParticuliers'
+import { bleuMathalea } from '../../../lib/colors'
 import { setReponse } from '../../../lib/interactif/gestionInteractif'
 import { ajouteChampTexteMathLive } from '../../../lib/interactif/questionMathLive'
 import { arrondi } from '../../../lib/outils/nombres'
@@ -30,7 +31,7 @@ export const amcType = 'AMCNum'
 
 /**
  * Ensemble de questions pour course aux nombres
- * @author Jean-Claude Lhote
+ * @author Jean-claude Lhote
 
  */
 export const uuid = '32a0f'
@@ -139,7 +140,6 @@ export default class CourseAuxNombresCM extends Exercice {
     for (
       let i = 0, texte, texteCorr, cpt = 0;
       i < this.nbQuestions && cpt < 50;
-
     ) {
       // Boucle principale où i+1 correspond au numéro de la question
       // texNombre(n) permet d'écrire un nombre avec le bon séparateur décimal !! à utiliser entre $  $
@@ -354,8 +354,8 @@ export default class CourseAuxNombresCM extends Exercice {
               texteCorr = `$${miseEnEvidence(texNombre(b))} + ${texNombre(a)}=${texNombre(c)}$`
               break
             case 3:
-              A = point(0, 0)
-              B = point(5, 0)
+              A = pointAbstrait(0, 0)
+              B = pointAbstrait(5, 0)
               C = homothetie(B, A, a / c)
               objets = []
               objets[0] = segment(A, B)
@@ -373,7 +373,7 @@ export default class CourseAuxNombresCM extends Exercice {
                 segment(A, C),
                 `${stringNombre(a)}`,
                 -1,
-                'blue',
+                bleuMathalea,
               )
               objets[4] = afficheCoteSegment(segment(C, B), '?', -1, 'red')
               texte = mathalea2d(
@@ -406,8 +406,8 @@ export default class CourseAuxNombresCM extends Exercice {
               texteCorr = `$${miseEnEvidence(texNombre(c))} - ${texNombre(a)}=${texNombre(b)}$`
               break
             case 3:
-              A = point(0, 0)
-              B = point(5, 0)
+              A = pointAbstrait(0, 0)
+              B = pointAbstrait(5, 0)
               C = homothetie(B, A, a / c)
               objets = []
               objets[0] = segment(A, B)
@@ -419,7 +419,7 @@ export default class CourseAuxNombresCM extends Exercice {
                 objets[2],
                 `${stringNombre(a)}`,
                 -1,
-                'blue',
+                bleuMathalea,
               )
               objets[4] = afficheCoteSegment(
                 segment(C, B),
@@ -475,11 +475,11 @@ export default class CourseAuxNombresCM extends Exercice {
               b = randint(3, 6)
               objets = []
               if (b < 5) {
-                A = point(-2, 0)
+                A = pointAbstrait(-2, 0)
               } else {
-                A = point(0, 0)
+                A = pointAbstrait(0, 0)
               }
-              B = point(2, 0)
+              B = pointAbstrait(2, 0)
               C = polygoneRegulier(A, B, b)
               objets[0] = C
               objets[1] = texteSurSegment(`${stringNombre(a)} cm`, B, A)
@@ -586,8 +586,8 @@ export default class CourseAuxNombresCM extends Exercice {
           a = randint(20, 50)
           b = randint(20, 50)
           c = arrondi(a + b)
-          A = point(0, 0)
-          B = point(5, 0)
+          A = pointAbstrait(0, 0)
+          B = pointAbstrait(5, 0)
           C = homothetie(B, A, a / c)
           objets = []
           objets[0] = segment(A, B)
@@ -604,7 +604,7 @@ export default class CourseAuxNombresCM extends Exercice {
             objets[2],
             stringNombre(a, 0),
             -1,
-            'blue',
+            bleuMathalea,
           )
           objets[4] = afficheCoteSegment(segment(C, B), '?', -1, 'red')
           texte = mathalea2d(
@@ -656,8 +656,8 @@ export default class CourseAuxNombresCM extends Exercice {
           a = randint(20, 50)
           b = randint(20, 50)
           c = arrondi(a + b)
-          A = point(0, 0)
-          B = point(5, 0)
+          A = pointAbstrait(0, 0)
+          B = pointAbstrait(5, 0)
           C = homothetie(B, A, a / c)
           objets = []
           objets[0] = segment(A, B)
@@ -669,7 +669,7 @@ export default class CourseAuxNombresCM extends Exercice {
             objets[2],
             stringNombre(a, 0),
             -1,
-            'blue',
+            bleuMathalea,
           )
           objets[4] = afficheCoteSegment(
             segment(C, B),

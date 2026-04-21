@@ -3,6 +3,7 @@ import { choice } from '../../../lib/outils/arrayOutils'
 import { obtenirListeFractionsIrreductibles } from '../../../lib/outils/deprecatedFractions'
 import FractionEtendue from '../../../modules/FractionEtendue'
 import ExerciceSimple from '../../ExerciceSimple'
+import { orangeMathalea } from '../../../lib/colors'
 
 export const titre = 'Rendre irréductible une fraction'
 export const interactifReady = true
@@ -11,7 +12,7 @@ export const amcReady = true
 export const amcType = 'AMCNum'
 
 /**
- * @author Jean-Claude Lhote
+ * @author Jean-claude Lhote
  * Créé pendant l'été 2021
  */
 export const uuid = 'f1208'
@@ -39,7 +40,7 @@ export default class FractionIrreductibleCan extends ExerciceSimple {
     const frac = new FractionEtendue(a, b)
     this.reponse = new FractionEtendue(maFraction[0], maFraction[1]).simplifie()
     this.question = `Rendre  la fraction $\\dfrac{${a}}{${b}}$ irréductible.`
-    this.correction = `$\\dfrac{${a}}{${b}} ${frac.texSimplificationAvecEtapes(false, '#f15929')}$`
+    this.correction = `$\\dfrac{${a}}{${b}} ${frac.texSimplificationAvecEtapes(false, orangeMathalea)}$`
 
     if (this.interactif) {
       this.question += '<br>'

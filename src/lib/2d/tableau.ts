@@ -106,16 +106,10 @@ function flecheV(
     if (texte.latex) {
       // t = latexParCoordonnees(texte.texte, M.x + h, M.y - 0.6, color, 50, 20, '', 10)
       // EE : Changement 19/04/2024 pour 5P13 et tenir compte de grands coefficients de proportionnalité
-      t = latexParCoordonnees(
-        texte.texte,
-        M.x + texte.texte.length / 10 + h / 2,
-        M.y,
+      t = latex2d(texte.texte, M.x + h / 2, M.y, {
         color,
-        50,
-        20,
-        '',
-        10,
-      )
+        justify: flip ? 'gauche' : 'droite',
+      })
     } else {
       t = texteParPosition(
         texte.texte,
@@ -170,7 +164,7 @@ export class Tableau extends ObjetMathalea2D {
     flecheGaucheSens = 'haut',
   }: TableauParams) {
     super()
-    // Jean-Claude Lhote 15/08/2023
+    // Jean-claude Lhote 15/08/2023
     if (ligne1 && ligne2 && Array.isArray(ligne1) && Array.isArray(ligne2)) {
       nbColonnes = Math.max(ligne1.length, ligne2.length, nbColonnes)
     }

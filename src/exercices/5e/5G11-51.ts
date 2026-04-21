@@ -29,6 +29,7 @@ import {
   randint,
 } from '../../modules/outils'
 import Exercice from '../Exercice'
+import { orangeMathalea, bleuMathalea } from '../../lib/colors'
 
 export const titre =
   "Trouver les coordonnées de l'image d'un point par une symétrie axiale (quart de plan)"
@@ -40,7 +41,7 @@ export const dateDeCreation = '26/09/2025'
 
 /**
  * Trouver les coordonnées d'un point transformé d'un autre par une des transformations du plan
- * @author Jean-Claude Lhote
+ * @author Jean-claude Lhote
  */
 export const uuid = 'd4090'
 
@@ -79,7 +80,7 @@ export default class SymAxeEtCoordonnees extends Exercice {
     let Cprime: PointAbstrait = pointAbstrait(0, 0)
     const lettre1 = ['A', 'B', 'C']
     const punto: number[][] = [[]]
-    const couleurs = ['brown', 'green', 'blue']
+    const couleurs = ['brown', 'green', bleuMathalea]
     for (
       let ee = 0,
         texte,
@@ -113,7 +114,7 @@ export default class SymAxeEtCoordonnees extends Exercice {
             : axes[ee] === 3
               ? droite(O, translation(O, vecteur(1, 0)))
               : droite(O, translation(O, vecteur(0, 1)))
-      const dLatex = droiteAvecNomLatex(d, '(d)', 'blue')
+      const dLatex = droiteAvecNomLatex(d, '(d)', bleuMathalea)
       let trouve = false
       let compteur = 0
       while (!trouve) {
@@ -238,9 +239,9 @@ export default class SymAxeEtCoordonnees extends Exercice {
       )
       objetsCorrection.push(
         tracePoint(...antecedents),
-        tracePoint(...images, '#f15929'),
+        tracePoint(...images, orangeMathalea),
         labelPoint(...antecedents),
-        labelPoint(...images, '#f15929'),
+        labelPoint(...images, orangeMathalea),
         d,
         dLatex[1],
       )

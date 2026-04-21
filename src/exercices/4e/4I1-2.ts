@@ -1,6 +1,6 @@
 // on importe les fonctions nécessaires.
 import { colorToLatexOrHTML } from '../../lib/2d/colorToLatexOrHtml'
-import { point } from '../../lib/2d/PointAbstrait'
+import { pointAbstrait } from '../../lib/2d/PointAbstrait'
 import { segment } from '../../lib/2d/segmentsVecteurs'
 import { texteParPoint } from '../../lib/2d/textes'
 import { tracePoint } from '../../lib/2d/TracePoint'
@@ -28,6 +28,7 @@ import {
   tournerG,
 } from '../../modules/2dLutin'
 import { scratchblock } from '../../modules/scratchblock'
+import { bleuMathalea } from '../../lib/colors'
 
 export const interactifReady = true
 export const interactifType = 'cliqueFigure'
@@ -37,7 +38,7 @@ export const titre = 'Programmer la tortue Scratch avec des répétitions'
 export const dateDePublication = '29/06/2021'
 
 /**
- * @author Jean-Claude Lhote
+ * @author Jean-claude Lhote
  */
 export const uuid = '8ded2'
 
@@ -560,10 +561,10 @@ export default class AlgoTortue extends Exercice {
     for (let i = 0; i < 4; i++) {
       // ajouter le point de départ de chaque tracé
       depart[i] = tracePoint(
-        point(lutins[i].listeTraces[0][0], lutins[i].listeTraces[0][1]),
+        pointAbstrait(lutins[i].listeTraces[0][0], lutins[i].listeTraces[0][1]),
       )
       depart[i].taille = 5
-      depart[i].color = colorToLatexOrHTML('blue')
+      depart[i].color = colorToLatexOrHTML(bleuMathalea)
       depart[i].epaisseur = 2
       if (i === bonneReponse) {
         objetsCorrection.push(depart[i])
@@ -604,7 +605,7 @@ export default class AlgoTortue extends Exercice {
         depart[ordreLutins[i]],
         texteParPoint(
           `figure ${i + 1}`,
-          point(
+          pointAbstrait(
             (lutins[ordreLutins[i]].xMax - lutins[ordreLutins[i]].xMin) / 2,
             -0.8,
           ),

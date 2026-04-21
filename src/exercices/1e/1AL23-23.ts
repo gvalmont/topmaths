@@ -23,7 +23,7 @@ import Exercice from '../Exercice'
 
 export const titre =
   "Déterminer le nombre de solutions d'une équation du second degré selon un paramètre"
-export const dateDePublication = '30/10/2021' // exercice original de Éric Schraffstetter complètement refondu par Jean-Claude Lhote
+export const dateDePublication = '30/10/2021' // exercice original de Éric Schraffstetter complètement refondu par Jean-claude Lhote
 export const dateDeModificationImportante = '05/10/2025' // ajout de cas de figure 2 et 3 et grosse refactorisation
 
 export const uuid = 'fe4dg'
@@ -331,7 +331,7 @@ export default class EquationDuSecondDegreAvecUnParametre extends Exercice {
       "Celui-ci étant strictement positif, l'équation $\\Delta = 0$ a 2 solutions :<br>"
 
     if (m1.includes('sqrt')) {
-      texteCorr += `$m_1=${m1}\\simeq${texNombre(Number(x1), 4)}$ et $m_2=${m2}\\simeq${texNombre(Number(x2), 4)}$<br>`
+      texteCorr += `$m_1=${m1}\\approx${texNombre(Number(x1), 4)}$ et $m_2=${m2}\\approx${texNombre(Number(x2), 4)}$<br>`
     } else {
       texteCorr += `$m_1=${m1}$ et $m_2=${m2}$<br>`
     }

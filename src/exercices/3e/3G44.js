@@ -49,6 +49,7 @@ import {
 } from '../../modules/outils'
 import { RedactionPythagore } from '../4e/_pythagore'
 import Exercice from '../Exercice'
+import { orangeMathalea, bleuMathalea } from '../../lib/colors'
 
 export const titre = "Déterminer des longueurs dans la géométrie dans l'espace"
 export const amcReady = true
@@ -60,7 +61,7 @@ export const dateDeModifImportante = '19/03/2025'
 
 /**
  * Calcul de longueurs avec Pythagore dans la géométrie dans l'espace
- * @author Eric Elter
+ * @author Éric Elter
  */
 
 export const uuid = '57c70'
@@ -159,7 +160,7 @@ export default class CalculPythagoreEspace extends Exercice {
           E = point3d(0, choixProfondeur, 0)
 
           nomSolide = choisitLettresDifferentes(8, 'OQWX').join('')
-          solideDessine = pave3d(A, B, D, E, 'blue', true, nomSolide)
+          solideDessine = pave3d(A, B, D, E, bleuMathalea, true, nomSolide)
 
           choixSegments.push(['02', '1'], ['13', '2'])
           if (choixProfondeur > 0) {
@@ -182,7 +183,7 @@ export default class CalculPythagoreEspace extends Exercice {
           segmentATrouver = segment(
             solideDessine.sommets[parseInt(segmentChoisi[0][0])].c2d,
             solideDessine.sommets[parseInt(segmentChoisi[0][1])].c2d,
-            '#f15929',
+            orangeMathalea,
           )
           segmentATrouver.epaisseur = 2
           objetsEnonce.push(...solideDessine.c2d, segmentATrouver)
@@ -203,7 +204,7 @@ export default class CalculPythagoreEspace extends Exercice {
               solideDessine.sommets[parseInt(segmentChoisi[0][0])],
               solideDessine.sommets[parseInt(segmentChoisi[1])],
               solideDessine.sommets[parseInt(segmentChoisi[0][1])],
-              '#f15929',
+              orangeMathalea,
               2,
             ),
           )
@@ -249,7 +250,7 @@ export default class CalculPythagoreEspace extends Exercice {
             1,
             1,
             c,
-            'blue',
+            bleuMathalea,
             '',
             '',
             '',
@@ -260,7 +261,7 @@ export default class CalculPythagoreEspace extends Exercice {
           segmentATrouver = segment(
             solideDessine.sommets[parseInt(segmentChoisi[0][0])].c2d,
             solideDessine.sommets[parseInt(segmentChoisi[0][1])].c2d,
-            '#f15929',
+            orangeMathalea,
           )
           segmentATrouver.epaisseur = 2
           segmentATrouver.pointilles = 2
@@ -282,7 +283,7 @@ export default class CalculPythagoreEspace extends Exercice {
               solideDessine.sommets[parseInt(segmentChoisi[0][0])],
               solideDessine.sommets[parseInt(segmentChoisi[1])],
               solideDessine.sommets[parseInt(segmentChoisi[0][1])],
-              '#f15929',
+              orangeMathalea,
               2,
             ),
           )
@@ -342,7 +343,7 @@ export default class CalculPythagoreEspace extends Exercice {
           E = point3d(0, choixProfondeur, 0)
 
           nomSolide = choisitLettresDifferentes(8, 'OQWX').join('')
-          solideDessine = pave3d(A, B, D, E, 'blue', true, nomSolide)
+          solideDessine = pave3d(A, B, D, E, bleuMathalea, true, nomSolide)
           choixSegments = []
           choixSegments.push(['02', '1', L, h], ['13', '2', h, L])
           if (choixProfondeur > 0) {
@@ -367,7 +368,7 @@ export default class CalculPythagoreEspace extends Exercice {
           segmentATrouver = segment(
             solideDessine.sommets[parseInt(segmentChoisi[0][0])].c2d,
             solideDessine.sommets[parseInt(segmentChoisi[0][1])].c2d,
-            '#f15929',
+            orangeMathalea,
           )
           segmentATrouver.epaisseur = 2
           objetsEnonce.push(...solideDessine.c2d, segmentATrouver)
@@ -388,7 +389,7 @@ export default class CalculPythagoreEspace extends Exercice {
               solideDessine.sommets[parseInt(segmentChoisi[0][0])],
               solideDessine.sommets[parseInt(segmentChoisi[1])],
               solideDessine.sommets[parseInt(segmentChoisi[0][1])],
-              '#f15929',
+              orangeMathalea,
               2,
             ),
           )
@@ -433,7 +434,7 @@ export default class CalculPythagoreEspace extends Exercice {
           E = point3d(0, choixProfondeur, 0)
 
           nomSolide = choisitLettresDifferentes(8, 'OQWX').join('')
-          solideDessine = pave3d(A, B, D, E, 'blue', true, nomSolide)
+          solideDessine = pave3d(A, B, D, E, bleuMathalea, true, nomSolide)
           choixSegments = [
             ['60', '5', '05', '1', p, L, h],
             ['71', '4', '14', '0', p, L, h],
@@ -450,7 +451,7 @@ export default class CalculPythagoreEspace extends Exercice {
           segmentATrouver = segment(
             solideDessine.sommets[parseInt(segmentChoisi[0][0])].c2d,
             solideDessine.sommets[parseInt(segmentChoisi[0][1])].c2d,
-            '#f15929',
+            orangeMathalea,
           )
           segmentATrouver.epaisseur = 2
           segmentATrouver.pointilles = 2
@@ -480,7 +481,7 @@ export default class CalculPythagoreEspace extends Exercice {
               solideDessine.sommets[parseInt(segmentChoisi[0][0])],
               solideDessine.sommets[parseInt(segmentChoisi[1])],
               solideDessine.sommets[parseInt(segmentChoisi[0][1])],
-              '#f15929',
+              orangeMathalea,
               2,
             ),
           )
@@ -585,7 +586,7 @@ export default class CalculPythagoreEspace extends Exercice {
             D,
             v,
             v,
-            'blue',
+            bleuMathalea,
             false,
             true,
             true,
@@ -621,7 +622,7 @@ export default class CalculPythagoreEspace extends Exercice {
             'OQWX' + A.label + D.label,
           )[0]
           longueurATrouver = A.label + ptBase2.c2d.nom
-          segmentATrouver = segment(A.c2d, ptBase2.c2d, '#f15929')
+          segmentATrouver = segment(A.c2d, ptBase2.c2d, orangeMathalea)
           segmentATrouver.epaisseur = 2
           segmentATrouver.pointilles = 2
           objetsEnonce.push(
@@ -706,12 +707,12 @@ export default class CalculPythagoreEspace extends Exercice {
               ),
             )
           }
-          p = polygone3d(ptsBase, 'blue')
-          solideDessine = pyramide3d(p, D, 'blue', A, true, 'black', true)
+          p = polygone3d(ptsBase, bleuMathalea)
+          solideDessine = pyramide3d(p, D, bleuMathalea, A, true, 'black', true)
           numeroSommet = randint(0, nbSommets - 1)
           segmentATrouver = solideDessine.aretesSommet[numeroSommet].c2d
           segmentATrouver.epaisseur = 2
-          segmentATrouver.color = colorToLatexOrHTML('#f15929')
+          segmentATrouver.color = colorToLatexOrHTML(orangeMathalea)
           longueurATrouver = D.label + p.listePoints2d[numeroSommet].nom
           texte += `$${solideDessine.nom}$ est une pyramide régulière. La distance entre $${A.label}$, le centre de la base, et l'un des sommets de la base est de $${r}$ ${listeUnites[j]} et la hauteur de cette pyramide est de $${h}$ ${listeUnites[j]}. Calculer la longueur $${longueurATrouver}$, arrondie au dixième de ${listeUnites[j]}.<br>`
           texte += mathalea2d(
@@ -798,12 +799,12 @@ export default class CalculPythagoreEspace extends Exercice {
               ),
             )
           }
-          p = polygone3d(ptsBase, 'blue')
+          p = polygone3d(ptsBase, bleuMathalea)
           solideDessine = cone3d(
             A,
             D,
             v,
-            'blue',
+            bleuMathalea,
             true,
             'black',
             assombrirOuEclaircir('gray', 100),
@@ -814,7 +815,7 @@ export default class CalculPythagoreEspace extends Exercice {
           segmentATrouver = segment(
             D.c2d,
             p.listePoints2d[numeroSommet],
-            '#f15929',
+            orangeMathalea,
           )
           segmentATrouver.epaisseur = 2
           ptBase = p.listePoints2d[numeroSommet]
@@ -909,7 +910,7 @@ export default class CalculPythagoreEspace extends Exercice {
             choisitLettresDifferentes(1, 'OQWX' + A.label + B.label)[0],
           )
           longueurATrouver = B.label + A.label
-          segmentATrouver = segment(A.c2d, B.c2d, '#f15929')
+          segmentATrouver = segment(A.c2d, B.c2d, orangeMathalea)
           segmentATrouver.epaisseur = 2
           segmentATrouver.pointilles = 2
           segmentAnnexe = segment(D.c2d, B.c2d, 'black')
@@ -920,7 +921,7 @@ export default class CalculPythagoreEspace extends Exercice {
             A,
             r,
             'green',
-            'blue',
+            bleuMathalea,
             12,
             'lightgray',
             0,
@@ -1017,7 +1018,7 @@ export default class CalculPythagoreEspace extends Exercice {
             choisitLettresDifferentes(1, 'OQWX' + A.label + B.label)[0],
           )
           longueurATrouver = B.label + D.label
-          segmentATrouver = segment(D.c2d, B.c2d, '#f15929')
+          segmentATrouver = segment(D.c2d, B.c2d, orangeMathalea)
           segmentATrouver.epaisseur = 2
           segmentATrouver.pointilles = 2
           h = arrondi(h, 1)
@@ -1025,7 +1026,7 @@ export default class CalculPythagoreEspace extends Exercice {
             A,
             r,
             'green',
-            'blue',
+            bleuMathalea,
             12,
             'lightgray',
             0,

@@ -13,6 +13,7 @@ import { mathalea2d } from '../../modules/mathalea2d'
 import { randint } from '../../modules/outils'
 
 import ExerciceQcmA from '../ExerciceQcmA'
+import { bleuMathalea } from '../../lib/colors'
 export const dateDePublication = '11/11/2025'
 export const uuid = '3833f'
 
@@ -26,6 +27,13 @@ export const amcReady = 'true'
 export const amcType = 'qcmMono'
 export const titre =
   'Retrouver la phrase correcte avec des images et antécédents grahiquement'
+
+/**
+ *
+ * @author Gilles Mora
+ *
+ */
+
 export default class AutoF01c extends ExerciceQcmA {
   compteur = 0
   spline?: Spline
@@ -90,7 +98,7 @@ export default class AutoF01c extends ExerciceQcmA {
       epaisseur: 1.5,
       ajouteNoeuds: true,
       optionsNoeuds: { color: 'black', taille: 1.5, style: 'x', epaisseur: 2 },
-      color: 'blue',
+      color: bleuMathalea,
     })
 
     const objetsEnonce = [repere1, courbe1]
@@ -283,8 +291,8 @@ export default class AutoF01c extends ExerciceQcmA {
       compteur++
     } while (
       compteur < 100 &&
-      !aLeBonNombreDePropsDifferentes(this, 6, true, { texteSansCasse: true }) // on ne peut pas faire mieux vu les props
-    ) // On s'assure d'avoir 6 réponses différentes, sinon on régénère
+      !aLeBonNombreDePropsDifferentes(this, 4, true, { texteSansCasse: true }) // on ne peut pas faire mieux vu les props
+    ) // On s'assure d'avoir 4 réponses différentes, sinon on régénère
   }
 
   constructor() {

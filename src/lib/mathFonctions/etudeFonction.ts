@@ -1,4 +1,3 @@
-import { Matrix, round } from 'mathjs'
 import { colorToLatexOrHTML } from '../../lib/2d/colorToLatexOrHtml'
 import { fixeBordures } from '../../lib/2d/fixeBordures'
 import { context } from '../../modules/context'
@@ -14,8 +13,86 @@ import { segment } from '../2d/segmentsVecteurs'
 import { latex2d } from '../2d/textes'
 import { translation } from '../2d/transformations'
 import { vecteur } from '../2d/Vecteur'
+import { round } from '../outils/nombres'
 import { stringNombre, texNombre } from '../outils/texNombre'
+import { Complexe } from './Complexe'
 import { matrice } from './Matrice'
+
+/**
+ * Calcule les racines d'un polynôme de degré 1, 2 ou 3 (ax^3 + bx^2 + cx + d = 0)
+ * Retourne un tableau de number | Complexe (pour les racines complexes)
+ * @param coeffs Les coefficients par ordre croissant de degré (ex: [d,c,b,a])
+ */
+export function polynomialRoot(...coeffs: number[]): (number | Complexe)[] {
+  // Nettoyage des coefficients nuls en tête
+  coeffs = coeffs.reverse()
+  while (coeffs.length > 1 && Math.abs(coeffs[0]) < 1e-14) coeffs.shift()
+  const n = coeffs.length - 1
+  if (n === 1) {
+    // ax + b = 0
+    const [a, b] = coeffs
+    if (Math.abs(a) < 1e-14) return []
+    return [-b / a]
+  }
+  if (n === 2) {
+    // ax^2 + bx + c = 0
+    const [a, b, c] = coeffs
+    if (Math.abs(a) < 1e-14) return polynomialRoot(c, b) // polynomialRoot prend les coefficients dans l'ordre croissant de degré, donc c est le terme de degré 0 et b celui de degré 1
+    const delta = b * b - 4 * a * c
+    if (Math.abs(delta) < 1e-14) return [-b / (2 * a)]
+    if (delta > 0) {
+      const sqrtDelta = Math.sqrt(delta)
+      return [(-b - sqrtDelta) / (2 * a), (-b + sqrtDelta) / (2 * a)]
+    } else {
+      // Racines complexes
+      const re = -b / (2 * a)
+      const im = Math.sqrt(-delta) / (2 * a)
+      return [new Complexe(re, im), new Complexe(re, -im)]
+    }
+  }
+  if (n === 3) {
+    // ax^3 + bx^2 + cx + d = 0
+    const [a, b, c, d] = coeffs
+    if (Math.abs(a) < 1e-14) return polynomialRoot(d, c, b) // polynomialRoot prend les coefficients dans l'ordre croissant de degré, donc d est le terme de degré 0, c celui de degré 1 et b celui de degré 2
+    // Dépression de Cardan : x = y - b/(3a)
+    const p = (3 * a * c - b * b) / (3 * a * a)
+    const q =
+      (2 * b * b * b - 9 * a * b * c + 27 * a * a * d) / (27 * a * a * a)
+    const delta = (q * q) / 4 + (p * p * p) / 27
+    const shift = -b / (3 * a)
+    if (Math.abs(delta) < 1e-14) {
+      // Triple racine ou double + simple
+      if (Math.abs(q) < 1e-14) {
+        // Triple racine réelle
+        return [shift]
+      } else {
+        // Double + simple
+        const u = Math.cbrt(-q / 2)
+        return [2 * u + shift, -u + shift, -u + shift]
+      }
+    } else if (delta > 0) {
+      // Une racine réelle, deux complexes
+      const sqrtDelta = Math.sqrt(delta)
+      const u = Math.cbrt(-q / 2 + sqrtDelta)
+      const v = Math.cbrt(-q / 2 - sqrtDelta)
+      const y1 = u + v
+      const re = -0.5 * (u + v) + shift
+      const im = (Math.sqrt(3) / 2) * (u - v)
+      return [y1 + shift, new Complexe(re, im), new Complexe(re, -im)]
+    } else {
+      // Trois racines réelles
+      const r = Math.sqrt((-p * p * p) / 27)
+      const phi = Math.acos(-q / (2 * r))
+      const t = 2 * Math.cbrt(r)
+      const x1 = t * Math.cos(phi / 3) + shift
+      const x2 = t * Math.cos((phi + 2 * Math.PI) / 3) + shift
+      const x3 = t * Math.cos((phi + 4 * Math.PI) / 3) + shift
+      return [x1, x2, x3]
+    }
+  }
+  // Degré > 3 non supporté
+  return []
+}
 
 type TabInit0 = [string, number, number][]
 type TabInit1 = (string | number)[]
@@ -29,7 +106,7 @@ type ColorsTableauDeVariation = {
 }[]
 
 /**
- * Classe TableauDeVariation Initiée par Sebastien Lozano, transformée par Jean-Claude Lhote
+ * Classe TableauDeVariation Initiée par Sebastien Lozano, transformée par Jean-claude Lhote
  * publié le 9/02/2021
  * tabInit est un tableau contenant sous forme de chaine les paramètres de la macro Latex \tabInit{}{}
  * tabLines est un tableau contenant sous forme de chaine les paramètres des différentes macro \tabLine{}
@@ -57,7 +134,7 @@ type ColorsTableauDeVariation = {
  * Pour plus d'info sur le codage des variations, voir ce tuto : https://zestedesavoir.com/tutoriels/439/des-tableaux-de-variations-et-de-signes-avec-latex/
  * reste à faire les types  'Slope"
  * @param {Object} param0
- * @author Jean-Claude Lhote
+ * @author Jean-claude Lhote
  */
 export function tableauDeVariation({
   tabInit = [[], []],
@@ -487,8 +564,8 @@ export function trouveFonctionAffine(
   if (maMatrice) {
     const inv = maMatrice.inverse()
     if (inv) {
-      const coeffs = inv.multiply([y1, y2]) as unknown as Matrix
-      return coeffs.toArray()
+      const coeffs = inv.multiply([y1, y2])
+      return coeffs
     }
   }
   window.notify('Pas de solution au système', { x1, x2, y1, y2 })
@@ -498,7 +575,7 @@ export function trouveFonctionAffine(
 /**
  * Fonction qui cherche les minimas et maximas d'une fonction polynomiale f(x)=ax^3 + bx² + cx + d
  * retourne [] si il n'y en a pas, sinon retourne [[x1,f(x1)],[x2,f(x2)] ne précise pas si il s'agit d'un minima ou d'un maxima.
- * @author Jean-Claude Lhote
+ * @author Jean-claude Lhote
  */
 export function chercheMinMaxFonction([a, b, c, d]: [
   number,

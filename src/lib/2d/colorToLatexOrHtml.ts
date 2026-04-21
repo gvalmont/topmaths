@@ -2,7 +2,7 @@
  * convertHexToRGB convertit une couleur en hexadécimal (sans le #) en un tableau RVB avec des valeurs entre 0 et 255.
  * @param {string} [couleur='000000'] Code couleur HTML sans le #
  * @example convertHexToRGB('f15929')=[241,89,41]
- * @author Eric Elter
+ * @author Éric Elter
  * @return {number[]}
  */
 
@@ -180,12 +180,12 @@ export function convertColorWithDieseToLatex(color: string) {
  * La sortie de cette fonction est un tableau où :
  * - le premier élément est cette couleur exploitable en SVG, donc en HTML.
  * - le second élément est cette couleur exploitable en TikZ, donc en Latex.
- * @param {string} couleur Une couleur du type 'blue' ou du type '#f15929'
+ * @param {string} couleur Une couleur du type 'red', bleuMathalea ou du type '#a12345'
  * @example colorToLatexOrHTML('red')=['red','{red}']
  * @example colorToLatexOrHTML('#f15929')=['#f15929','{rgb,255:red,241;green,89;blue,41}']
  * @example colorToLatexOrHTML('')=''
  * @example colorToLatexOrHTML('none')=['none','none']
- * @author Eric Elter
+ * @author Éric Elter
  * @return {[string,string]}
  */
 // JSDOC Validee par EE Juin 2022
@@ -211,7 +211,7 @@ export function colorToLatexOrHTML(couleur: string): [string, string] {
     )
     return ['', '']
   } else if (couleur === 'none') {
-    return ['none', ''] // 'none' n'est pas une couleur valide en latex ! Modifié par Jean-Claude Lhote le 19:&é:éàé"
+    return ['none', ''] // 'none' n'est pas une couleur valide en latex ! Modifié par Jean-claude Lhote le 19:&é:éàé"
   } else {
     const tabCouleur: string[] = []
     tabCouleur[0] = couleur
@@ -226,9 +226,9 @@ export function colorToLatexOrHTML(couleur: string): [string, string] {
 
 /**
  * Convertit un code couleur en sa valeur hexadecimale
- * @param {string} color Une couleur du type 'blue' et uniquement de ce type
+ * @param {string} color Une couleur du type 'red', bleuMathalea et uniquement de ce type
  * @example convertCodeCouleurToHex('beige')='#f5f5dc'
- * @author Eric Elter
+ * @author Éric Elter
  * @return {boolean||string} Retourne false si le code couleur ne peut pas être converti car non trouvé dans la liste
  */
 // JSDOC Validee par EE Novembre 2022
@@ -247,11 +247,11 @@ export function convertCodeCouleurToHex(color: ColourNames) {
 
 /**
  * Assombrit ou éclaircit une couleur
- * @param {string} couleur Une couleur du type 'blue' ou du type '#f15929'
+ * @param {string} couleur Une couleur du type 'red', bleuMathalea ou du type '#a12345'
  * @param {number} coefficient Plus grand est un coefficient positif et plus on éclaircit. Plus petit est un coefficient négatif et plus on assombrit.
  * @example assombrirOuEclaircir('beige',20) renvoie une couleur beige plus claire.
  * @example assombrirOuEclaircir('f15929',-30) renvoie une couleur orange plus foncée.
- * @author Eric Elter
+ * @author Éric Elter
  * @return {string} Retourne le code hexadecimal de la nouvelle couleur
  */
 // JSDOC Validee par EE Novembre 2022

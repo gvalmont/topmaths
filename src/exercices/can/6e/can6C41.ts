@@ -36,6 +36,7 @@ export default class ComparerFraction extends Exercice {
       ].join('\n'),
     ]
     this.spacingCorr = 1.5
+    this.sup = 3
   }
 
   nouvelleVersion() {
@@ -120,7 +121,7 @@ export default class ComparerFraction extends Exercice {
             })
 
             this.correction = `Les deux fractions ont le même dénominateur, la plus grande est celle qui a le plus grand numérateur.<br>
-          Ainsi, $${a.texFraction} <${b.texFraction}$.`
+          Ainsi, $${a.texFraction}${miseEnEvidence(' < ')}${b.texFraction}$.`
             this.reponse = '<'
             this.canEnonce = 'Compléter avec $>$ ou $<$.'
             this.canReponseACompleter = `$${a.texFraction}$ $\\ldots$ $${b.texFraction}$`
@@ -135,7 +136,7 @@ export default class ComparerFraction extends Exercice {
               champ1: { value: '>', options: { texteSansCasse: true } },
             })
             this.correction = `Les deux fractions ont le même dénominateur, la plus grande est celle qui a le plus grand numérateur.<br>
-          Ainsi, $${b.texFraction} ${miseEnEvidence('>')} ${a.texFraction}$.`
+          Ainsi, $${b.texFraction}${miseEnEvidence(' > ')}${a.texFraction}$.`
             this.reponse = '>'
             this.canEnonce = 'Compléter avec $>$ ou $<$.'
             this.canReponseACompleter = `$${b.texFraction}$ $\\ldots$ $${a.texFraction}$`

@@ -38,14 +38,14 @@ export const rotationPoint = (
 }
 
 /** Trace un arc de cercle, connaissant une extrémité, son centre et la mesure de l'angle
- * @param {Point} M Extrémité de départ de l'arc
- * @param {Point} Omega Centre de l'arc
- * @param {number|Point} angle Mesure de l'angle compris entre -360 et 360 (valeur négative = sens indirect) ou bien point formant un angle avec M et Omega.
+ * @param {PointAbstrait} M Extrémité de départ de l'arc
+ * @param {PointAbstrait} Omega Centre de l'arc
+ * @param {number|PointAbstrait} angle Mesure de l'angle compris entre -360 et 360 (valeur négative = sens indirect) ou bien point formant un angle avec M et Omega.
  * @param {boolean} [rayon = false] Si true, les rayons délimitant l'arc sont ajoutés.
- * @param {string} [couleurDeRemplissage = 'none'] Couleur ou 'none' : du type 'blue' ou du type '#f15929'
- * @param {string} [color = 'black'] Couleur de l'arc ou 'none' : du type 'blue' ou du type '#f15929'
+ * @param {string} [couleurDeRemplissage = 'none'] Couleur ou 'none' : du type 'red', bleuMathalea ou du type '#a12345'
+ * @param {string} [color = 'black'] Couleur de l'arc ou 'none' : du type 'red', bleuMathalea ou du type '#a12345'
  * @param {number} [opaciteDeRemplissage = 0.2] Opacité de remplissage de 0 à 1.
- * @param {string} [couleurDesHachures = 'none'] Couleur des hachures ou 'none' : du type 'blue' ou du type '#f15929' Si 'none', pas de hachures.
+ * @param {string} [couleurDesHachures = 'none'] Couleur des hachures ou 'none' : du type 'red', bleuMathalea ou du type '#a12345' Si 'none', pas de hachures.
  * @property {string} svg Sortie au format vectoriel (SVG) que l'on peut afficher dans un navigateur
  * @property {string} svgml Sortie, à main levée, au format vectoriel (SVG) que l'on peut afficher dans un navigateur
  * @property {string} tikz Sortie au format TikZ que l'on peut utiliser dans un fichier LaTeX
@@ -60,7 +60,7 @@ export const rotationPoint = (
  * @property {number} [distanceDesHachures = 10] Distance des hachures si couleur de remplissage choisie.
  * @property {number} [pointilles = 0] Type de pointillés choisis (entre 1 et 5). Si autre nombre, pas de pointillés.
  * @property {number[]} bordures Coordonnées de la fenêtre d'affichage du genre [-2,-2,5,5]
- * @author Jean-Claude Lhote
+ * @author Jean-claude Lhote
  * @class
  **/
 // JSDOC Validee par EE Juin 2022
@@ -353,20 +353,20 @@ export class Arc extends ObjetMathalea2D {
 }
 
 /** Trace un arc de cercle, connaissant une extrémité, son centre et la mesure de l'angle
- * @param {Point} M Extrémité de départ de l'arc
- * @param {Point} Omega Centre de l'arc
+ * @param {PointAbstrait} M Extrémité de départ de l'arc
+ * @param {PointAbstrait} Omega Centre de l'arc
  * @param {number} angle Mesure de l'angle compris entre -360 et 360 (valeur négative = sens indirect)
  * @param {boolean} [rayon = false] Booléen. Si true, les rayons délimitant l'arc sont ajoutés.
- * @param {string} [couleurDeRemplissage = 'none'] Couleur ou 'none' : du type 'blue' ou du type '#f15929'
- * @param {string} [color = 'black'] Couleur de l'arc ou 'none' : du type 'blue' ou du type '#f15929'
+ * @param {string} [couleurDeRemplissage = 'none'] Couleur ou 'none' : du type 'red', bleuMathalea ou du type '#a12345'
+ * @param {string} [color = 'black'] Couleur de l'arc ou 'none' : du type 'red', bleuMathalea ou du type '#a12345'
  * @param {number} [opaciteDeRemplissage = 0.2] Opacité de remplissage de 0 à 1.
- * @param {string} [couleurDesHachures = 'none'] Couleur des hachures ou 'none' : du type 'blue' ou du type '#f15929' Si 'none', pas de hachures.
+ * @param {string} [couleurDesHachures = 'none'] Couleur des hachures ou 'none' : du type 'red', bleuMathalea ou du type '#a12345' Si 'none', pas de hachures.
  * @example arc(M,O,35)
  // Trace l'arc en noir de centre O, d'extrémité M et d'angle orienté 35° (sans remplissage et sans hachures)
  * @example arc(M,O,true,-40,'red','green',0.8,'white')
  // Trace l'arc en vert de centre O, d'extrémité M et d'angle orienté -40°, rempli en rouge à 80 %, avec des hachures blanches
  * @return {Arc}
- * @author Jean-Claude Lhote
+ * @author Jean-claude Lhote
  */
 // JSDOC Validee par EE Juin 2022
 
@@ -393,20 +393,20 @@ export function arc(
 }
 
 /** Trace un arc de cercle, connaissant deux extrémités et la mesure de l'angle
- * @param {Point} M Première extrémité de l'arc
- * @param {Point} N Deuxième extrémité de l'arc
+ * @param {PointAbstrait} M Première extrémité de l'arc
+ * @param {PointAbstrait} N Deuxième extrémité de l'arc
  * @param {number} angle Mesure de l'angle compris entre -360 et 360 (valeur négative = sens indirect)
  * @param {boolean} [rayon = false] Booléen. Si true, les rayons délimitant l'arc sont ajoutés.
- * @param {boolean|'none'} [couleurDeRemplissage = 'none'] Couleur ou 'none' : du type 'blue' ou du type '#f15929'
- * @param {string} [color = 'black'] Couleur de l'arc ou 'none' : du type 'blue' ou du type '#f15929'
+ * @param {boolean|'none'} [couleurDeRemplissage = 'none'] Couleur ou 'none' : du type 'red', bleuMathalea ou du type '#a12345'
+ * @param {string} [color = 'black'] Couleur de l'arc ou 'none' : du type 'red', bleuMathalea ou du type '#a12345'
  * @param {number} [opaciteDeRemplissage = 0.2] Opacité de remplissage de 0 à 1.
- * @param {string} [couleurDesHachures = 'none'] Couleur des hachures ou 'none' : du type 'blue' ou du type '#f15929' Si 'none', pas de hachures.
+ * @param {string} [couleurDesHachures = 'none'] Couleur des hachures ou 'none' : du type 'red', bleuMathalea ou du type '#a12345' Si 'none', pas de hachures.
  * @example arcPointPointAngle(A,B,35)
  // Trace l'arc en noir d'extrémités A et B (dans cet ordre) et d'angle orienté 35° (sans remplissage et sans hachures)
  * @example arcPointPointAngle(A,B,true,-40,'red','green',0.8,'white')
  // Trace l'arc en vert d'extrémités A et B (dans cet ordre) et d'angle orienté -40°, rempli en rouge à 80 %, avec des hachures blanches
  * @return {Arc}
- * @author Jean-Claude Lhote
+ * @author Jean-claude Lhote
  */
 // JSDOC Validee par EE Juin 2022
 export function arcPointPointAngle(

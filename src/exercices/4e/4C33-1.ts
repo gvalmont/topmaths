@@ -19,6 +19,7 @@ import Exercice from '../Exercice'
 
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 import { ecritureParentheseSiNegatif } from '../../lib/outils/ecritures'
+import { bleuMathalea } from '../../lib/colors'
 
 export const titre = 'Effectuer des calculs avec des puissances'
 export const interactifReady = true
@@ -37,7 +38,7 @@ export const dateDeModifImportante = '09/05/2025'
  * * 4 : produit de puissances de même exposant
  * * 5 : quotient de puissances de même exposant
  * * 6 : mélange des quatre autres niveaux
- * @author Sébastien Lozano (Rajout du paramètre 5 par Eric Elter)
+ * @author Sébastien Lozano (Rajout du paramètre 5 par Éric Elter)
  */
 export const uuid = 'bae57'
 
@@ -136,7 +137,7 @@ export default class PuissancesDunRelatif1 extends Exercice {
 
     // pour pouvoir adapter les couleurs en cas de besoin
     const coul0 = 'green'
-    const coul1 = 'blue'
+    const coul1 = bleuMathalea
 
     for (
       let i = 0,
@@ -157,7 +158,6 @@ export default class PuissancesDunRelatif1 extends Exercice {
         exposantInteractif,
         cpt = 0;
       i < this.nbQuestions && cpt < 50;
-
     ) {
       base = randint(2, 9)
       base =

@@ -1,7 +1,7 @@
-import { orangeMathalea } from 'apigeom/src/elements/defaultValues'
 import type Figure from 'apigeom/src/Figure'
 import { apigeomGraduatedLine } from '../../lib/apigeom/apigeomGraduatedLine'
 import { wrapperApigeomToMathalea } from '../../lib/apigeom/apigeomZoom'
+import { orangeMathalea } from '../../lib/colors'
 import figureApigeom from '../../lib/figureApigeom'
 import { combinaisonListes } from '../../lib/outils/arrayOutils'
 import { arrondi } from '../../lib/outils/nombres'
@@ -19,7 +19,7 @@ export const amcReady = true
 export const amcType = 'AMCOpen'
 /**
  * Placer un point d'abscisse décimale
- * @author Jean-Claude Lhote et Rémi Angot
+ * @author Jean-claude Lhote et Rémi Angot
  * Relecture : Janvier 2022 par EE
  */
 

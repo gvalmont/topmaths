@@ -18,11 +18,16 @@ import FractionEtendue from '../../modules/FractionEtendue'
 import Grandeur from '../../modules/Grandeur'
 import Hms from '../../modules/Hms'
 import { addElement, get, setStyles } from '../html/dom'
+import { Complexe } from '../mathFonctions/Complexe'
 import { verifQuestionTableur } from '../tableur/outilsTableur'
 import { afficheScore } from './afficheScore'
 import { fonctionComparaison } from './comparisonFunctions'
 import { verifDragAndDrop } from './DragAndDrop'
-import { toutPourUnPoint, verifQuestionMathLive } from './mathLive'
+import {
+  toutAUnPoint,
+  toutPourUnPoint,
+  verifQuestionMathLive,
+} from './mathLive'
 import { verifQuestionQcm } from './qcm'
 import { verifQuestionListeDeroulante } from './questionListeDeroulante'
 import { verifQuestionSvgSelection } from './questionSvgSelection/questionSvgSelection'
@@ -385,8 +390,11 @@ export function prepareExerciceCliqueFigure(exercice: IExercice) {
             } else {
               fig.etat = false
             }
-            fig.style.margin = '10px'
-            fig.style.border = '3px solid transparent'
+            // modification le 6/04/2026 suite à un signalement :
+            // ces marges et ce border décallent tous les divLatex.
+            // Un gros soucis pour les repères !
+            // fig.style.margin = '10px'
+            //   fig.style.border = '3px solid transparent'
             fig.hasMathaleaListener = true
             // On enregistre que l'élément a déjà un listenner pour ne pas lui remettre le même à l'appui sur "Nouvelles Données"
           }
@@ -1006,6 +1014,16 @@ function handleDefaultValeur(reponse: Valeur): ValeurNormalized {
     if (val !== undefined) {
       if (val?.value !== undefined) {
         if (Array.isArray(val.value)) {
+          if (val.options?.estDansIntervalle) {
+            // Si c'est un intervalle, on s'assure que les bornes sont des nombres valides
+            if (
+              val.value.length === 2 &&
+              isValidNumber(val.value[0]) &&
+              isValidNumber(val.value[1])
+            ) {
+              val.value = `[${val.value.map(String).join(';')}]`
+            }
+          }
           for (let i = 0; i < val.value.length; i++) {
             if (typeof val.value[i] === 'string') continue
             if (
@@ -1015,6 +1033,9 @@ function handleDefaultValeur(reponse: Valeur): ValeurNormalized {
               typeof val.value[i] === 'number'
             ) {
               val.value[i] = val.value[i].toString()
+            }
+            if (val.value[i] instanceof Complexe) {
+              val.value[i] = val.value[i].tex()
             }
             if (val.value[i] instanceof FractionEtendue)
               val.value[i] = val.value[i].texFraction
@@ -1028,6 +1049,9 @@ function handleDefaultValeur(reponse: Valeur): ValeurNormalized {
             typeof val.value === 'number'
           ) {
             val.value = val.value.toString()
+          }
+          if (val.value instanceof Complexe) {
+            val.value = val.value.tex()
           }
           if (val.value instanceof FractionEtendue)
             val.value = val.value.texFraction
@@ -1074,8 +1098,14 @@ export function handleAnswers(
   }
   let formatInteractif =
     params?.formatInteractif ??
-    exercice.autoCorrection[question]?.reponse?.param?.formatInteractif ??
-    'mathlive'
+    ('champ1' in reponses
+      ? 'fillInTheBlank'
+      : typeof reponses === 'object' &&
+          Object.keys(reponses).some((key) => key.match(/^L\d+C\d+$/))
+        ? 'tableauMathlive'
+        : (exercice.autoCorrection[question]?.reponse?.param
+            ?.formatInteractif ?? 'mathlive'))
+
   if (exercice.autoCorrection == null) exercice.autoCorrection = []
   if (!(reponses instanceof Object)) {
     window.notify(`handleAnswer() reponses doit être un objet : ${reponses}`, {
@@ -1206,7 +1236,7 @@ export function verifQuestionMetaInteractif2d(
     feedback = ''
   } else {
     if (compteurSaisiesVides > 0) {
-      feedback = `Il manque ${compteurSaisiesVides} réponse(s).`
+      feedback = `Il manque ${compteurSaisiesVides} réponse${compteurSaisiesVides > 1 ? 's' : ''}.`
     } else {
       feedback = `Certaines réponses sont incorrectes.`
     }
@@ -1278,16 +1308,17 @@ export function verifQuestionMultiMathfield(
     }
   }
   const bareme: (arg: number[]) => [number, number] =
-    reponses.bareme ?? toutPourUnPoint
+    reponses.bareme ?? toutAUnPoint
+  const feedbackFunction = reponses.feedback ?? undefined
   const variables = Object.entries(reponses).filter(
     ([key]) => key !== 'bareme' && key !== 'feedback',
   )
   const points = []
   const saisies: Record<string, string> = {}
-  let feedback = ''
   let compteurSaisiesVides = 0
   let compteurBonnesReponses = 0
   let noFeedback = false
+  let feedback = ''
   for (const [field, reponse] of variables) {
     const options = reponse.options
     noFeedback = noFeedback || Boolean(options?.noFeedback)
@@ -1315,14 +1346,20 @@ export function verifQuestionMultiMathfield(
     saisies[`${field}`] = saisie
     let result
     if (Array.isArray(reponse.value)) {
-      let ii = 0
-      while (!result?.isOk && ii < reponse.value.length) {
-        result = compareFunction(saisie, reponse.value[ii], options)
-        ii++
+      if (options.estDansIntervalle) {
+        // Si c'est un intervalle, on s'assure que les bornes sont des nombres valides
+        result = compareFunction(saisie, reponse.value, options)
+      } else {
+        let ii = 0
+        while (!result?.isOk && ii < reponse.value.length) {
+          result = compareFunction(saisie, reponse.value[ii], options)
+          ii++
+        }
       }
     } else {
       result = compareFunction(saisie, reponse.value, options)
     }
+
     if (result.isOk) {
       compteurBonnesReponses++
       points.push(1)
@@ -1330,26 +1367,33 @@ export function verifQuestionMultiMathfield(
     } else {
       points.push(0)
       eltFeedback.innerHTML = '☹️'
-      if (result.feedback === 'saisieVide') result.feedback = null
+      if (result.feedback === 'saisieVide') result.feedback = ''
       else {
         result = {
           isOk: false,
-          feedback: '',
+          feedback: result.feedback ?? '',
         }
       }
     }
     mf.classList.add('corrected')
 
-    if (result.feedback != null) feedback += result.feedback
+    if (result.feedback != null)
+      feedback += `${result.feedback !== '' ? `${result.feedback}<br>` : ''}`
   }
 
   if (compteurBonnesReponses === variables.length) {
     feedback = ''
   } else {
     if (compteurSaisiesVides > 0) {
-      feedback = `Il manque ${compteurSaisiesVides} réponse(s).`
+      feedback = `Il manque ${compteurSaisiesVides} réponse${compteurSaisiesVides > 1 ? 's' : ''}.`
     } else {
-      feedback = `Certaines réponses sont incorrectes.`
+      feedback = feedback ?? `Certaines réponses sont incorrectes.`
+    }
+  }
+  if (feedbackFunction != null) {
+    const feedbackFunctionResult = feedbackFunction(saisies)
+    if (typeof feedbackFunctionResult === 'string') {
+      feedback += feedbackFunctionResult
     }
   }
   const [nbBonnesReponses, nbReponses] = bareme(points)
@@ -1374,10 +1418,68 @@ export function verifQuestionMultiMathfield(
   // le feedback est déjà assuré par la fonction feedback(), donc on le met à ''
   return {
     isOk: compteurBonnesReponses === variables.length,
-    feedback: noFeedback ? '' : feedback,
+    feedback: noFeedback ? '' : feedback !== '' ? feedback : '',
     score: {
       nbBonnesReponses,
       nbReponses,
     },
+  }
+}
+
+export function uniformiseResults(results: any): {
+  isOk: boolean
+  feedback: string
+  score: { nbBonnesReponses: number; nbReponses: number }
+} {
+  if (typeof results === 'string') {
+    // On traite ici le cas 'OK'|'KO'
+    return {
+      isOk: results === 'OK',
+      feedback: '',
+      score: {
+        nbBonnesReponses: results === 'OK' ? 1 : 0,
+        nbReponses: 1,
+      },
+    }
+  } else if (
+    Array.isArray(results) &&
+    results.every((r) => typeof r === 'string')
+  ) {
+    // On traite ici le cas ['OK','OK','KO',...]
+    const nbBonnesReponses = results.filter((r) => r === 'OK').length
+    return {
+      isOk: nbBonnesReponses === results.length,
+      feedback: '',
+      score: {
+        nbBonnesReponses,
+        nbReponses: results.length,
+      },
+    }
+  } else if (
+    typeof results === 'object' &&
+    results !== null &&
+    'isOk' in results
+  ) {
+    // On traite ici le cas { isOk: boolean, feedback?: string, score?: { nbBonnesReponses: number, nbReponses: number } }
+    return {
+      isOk: Boolean(results.isOk),
+      feedback: typeof results.feedback === 'string' ? results.feedback : '',
+      score:
+        typeof results.score === 'object' && results.score !== null
+          ? {
+              nbBonnesReponses: Number(results.score.nbBonnesReponses) || 0,
+              nbReponses: Number(results.score.nbReponses) || 0,
+            }
+          : { nbBonnesReponses: 0, nbReponses: 0 },
+    }
+  } else {
+    window.notify(`Résultats au format inattendu :`, {
+      results: JSON.stringify(results),
+    })
+    return {
+      isOk: false,
+      feedback: '',
+      score: { nbBonnesReponses: 0, nbReponses: 0 },
+    }
   }
 }

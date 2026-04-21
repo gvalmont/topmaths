@@ -10,11 +10,12 @@ import { ecritureAlgebrique } from '../outils/ecritures'
 import { miseEnEvidence } from '../outils/embellissements'
 import { Matrice, matrice } from './Matrice'
 import { Polynome } from './Polynome'
+import { bleuMathalea } from '../../lib/colors'
 
 /**
  * delta(true) retourne dans un tableau des valeurs de a, b, c telles que b*b-4*a*c >0
  * delta(false) retourne dans un tableau des valeurs de a, b, c telles que b*b-4*a*c <0
- * @author Jean-Claude Lhote
+ * @author Jean-claude Lhote
  */
 export function choisiDelta(positif: boolean) {
   let d, a, b, c
@@ -29,7 +30,7 @@ export function choisiDelta(positif: boolean) {
 
 /**
  * fonction qui retourne un polynome du second degré correctement écrit.
- * @author Jean-Claude Lhote
+ * @author Jean-claude Lhote
  * @param {number} a
  * @param {number} b
  * @param {number} c
@@ -93,7 +94,7 @@ export function expTrinome(a: number, b: number, c: number): string {
 
 /**
  * Une fonction qui retourrne le polynome de Lagrange passant par une liste de points
- * @author Jean-Claude Lhote
+ * @author Jean-claude Lhote
  * @param {{x:number,y:number}[]} listePoints
  * @return {Polynome}
  */
@@ -142,7 +143,7 @@ export function interpolationDeLagrange(
  * @param {number} y1
  * @param {number} c
  * @return {[[number,number],[number,number]]}
- * @author Jean-Claude Lhote
+ * @author Jean-claude Lhote
  */
 export function resolutionSystemeLineaire2x2(
   x1: number,
@@ -157,22 +158,31 @@ export function resolutionSystemeLineaire2x2(
   ])
   if (maMatrice.determinant() === 0) return [0, 0]
   const resultat = maMatrice.inverse().multiply([fx1 - c, fx2 - c])
-  let arr: number[]
+  let arr: unknown
   if (resultat instanceof Matrice) {
-    arr = resultat.toArray() as number[]
+    arr = resultat.toArray()
   } else if (Array.isArray(resultat)) {
-    arr = resultat as number[]
+    arr = resultat
   } else {
     return [0, 0]
   }
-  const [a, b] = arr
-  return [a, b]
+  // Vérification de la taille et du type
+  if (
+    Array.isArray(arr) &&
+    arr.length === 2 &&
+    typeof arr[0] === 'number' &&
+    typeof arr[1] === 'number'
+  ) {
+    const [a, b] = arr
+    return [a, b]
+  }
+  return [0, 0]
 }
 
 /**
  * Fonction qui retourne les coefficients a, b et c de f(x)=ax^3 + bx² + cx + d à partir des données de x1,x2,x3,f(x1),f(x2),f(x3) et d (entiers !)
  * sous forme de fraction irréductible. Si pas de solution (déterminant nul) alors retourne [[0,0],[0,0],[0,0]]
- * @author Jean-Claude Lhote
+ * @author Jean-claude Lhote
  */
 export function resolutionSystemeLineaire3x3(
   x1: number,
@@ -195,21 +205,31 @@ export function resolutionSystemeLineaire3x3(
     return [0, 0, 0]
   }
   const resultat = maMatrice.inverse().multiply([y1, y2, y3])
-  let arr: number[]
+  let arr: unknown
   if (resultat instanceof Matrice) {
-    arr = resultat.toArray() as number[]
+    arr = resultat.toArray()
   } else if (Array.isArray(resultat)) {
-    arr = resultat as number[]
+    arr = resultat
   } else {
     return [0, 0, 0]
   }
-  const [a, b, c] = arr
-  return [a, b, c]
+  // Vérification de la taille et du type
+  if (
+    Array.isArray(arr) &&
+    arr.length === 3 &&
+    typeof arr[0] === 'number' &&
+    typeof arr[1] === 'number' &&
+    typeof arr[2] === 'number'
+  ) {
+    const [a, b, c] = arr
+    return [a, b, c]
+  }
+  return [0, 0, 0]
 }
 
 /**
  * Une fonction utilisée dans les 3 fonctions qui suivent (suppressionParentheses, regroupeTermesMemeDegre et developpe afin de colorier ou pas les termes
- * @author Jean-Claude Lhote
+ * @author Jean-claude Lhote
  * @param str
  * @param color
  * @param isColored
@@ -227,7 +247,7 @@ function neg(expr: Expression): Expression {
 
 /**
  * Une fonction pour supprimer les parenthèses et aplatir l'expression (un Add avec une série de termes)
- * @author Jean-Claude Lhote
+ * @author Jean-claude Lhote
  * @param expr
  * @return {*|Expression}
  */
@@ -259,7 +279,7 @@ function flattenAdd(expr: Expression): Expression {
 
 /**
  * Supprime les parenthèses dans une somme du type (5x+3)-(2x^2-3x+4)+(4x+7-3x^3)
- * @author Jean-Claude Lhote
+ * @author Jean-claude Lhote
  * @param {string} exp
  * @param {{color: boolean}} options
  */
@@ -269,11 +289,11 @@ export function suppressionParentheses(
 ) {
   const couleurs = options.couleurs ?? [
     'red',
-    'blue',
+    bleuMathalea,
     'green',
     'black',
     'red',
-    'blue',
+    bleuMathalea,
     'green',
     'black',
   ]
@@ -328,7 +348,7 @@ export function suppressionParentheses(
 
 /**
  * une fonction pour trier les termes d'une somme algébrique selon l'exposant de la puissance
- * @author Jean-Claude Lhote
+ * @author Jean-claude Lhote
  * @param {string} exp
  */
 export function regroupeTermesMemeDegre(
@@ -337,11 +357,11 @@ export function regroupeTermesMemeDegre(
 ) {
   const couleurs = options.couleurs ?? [
     'red',
-    'blue',
+    bleuMathalea,
     'green',
     'black',
     'red',
-    'blue',
+    bleuMathalea,
     'green',
     'black',
   ]
@@ -414,7 +434,7 @@ const isSingleSymbol = (node: Expression) =>
   node.latex.length === 1
 
 /**
- * @author Jean-Claude Lhote
+ * @author Jean-claude Lhote
  * @param expr
  * @param {{isColored: boolean, colorOffset: number, level: 0|1}} options
  * @return {string}
@@ -434,11 +454,11 @@ export function developpe(
   const clean = generateCleaner(['parentheses', 'fractions'])
   const couleurs = options.couleurs ?? [
     'red',
-    'blue',
+    bleuMathalea,
     'green',
     'black',
     'red',
-    'blue',
+    bleuMathalea,
     'green',
     'black',
   ]

@@ -13,24 +13,24 @@ import { pointSurSegment } from './utilitairesPoint'
 
 /**
  * Code un angle
- * @param {Point} debut Point sur un côté de l'angle
- * @param {Point} centre Sommet de l'angle
- * @param {number|Point} angle Mesure de l'angle ou nom d'un point sur l'autre côté de l'angle
+ * @param {PointAbstrait} debut Point sur un côté de l'angle
+ * @param {PointAbstrait} centre Sommet de l'angle
+ * @param {number|PointAbstrait} angle Mesure de l'angle ou nom d'un point sur l'autre côté de l'angle
  * @param {number} [taille=0.8] Taille de l'angle
  * @param {string} [mark=''] Marque sur l'angle
- * @param {string} [color='black'] Couleur de l'angle : du type 'blue' ou du type '#f15929'
+ * @param {string} [color='black'] Couleur de l'angle : du type 'red', bleuMathalea ou du type '#a12345'
  * @param {number} [epaisseur=1] Epaisseur du tracé de l'angle
  * @param {number} [opacite=1] Opacité de la couleur du tracé de l'angle
- * @param {string} [couleurDeRemplissage='none'] 'none' si on ne veut pas de remplissage, sinon une couleur du type 'blue' ou du type '#f15929'
+ * @param {string} [couleurDeRemplissage='none'] 'none' si on ne veut pas de remplissage, sinon une couleur du type 'red', bleuMathalea ou du type '#a12345'
  * @param {number} [opaciteDeRemplissage=0.2] Opacité de la couleur de remplissage de l'angle
  * @param {boolean} [mesureOn=false] Affichage de la mesure de l'angle
  * @param {boolean} [noAngleDroit=false] Pour choisir si on veut que l'angle droit soit marqué par un carré ou pas
  * @param {string} [texteACote=''] Pour mettre un texte à côté de l'angle à la place de la mesure de l'angle
  * @param {number} [tailleTexte=1] Pour choisir la taille du texte à côté de l'angle
  * @param {number} [echelleMark=1] Pour choisir la taille relative de la marque
- * @property {Point} debut Point sur un côté de l'angle
- * @property {Point} centre Sommet de l'angle
- * @property {number|Point} angle Mesure de l'angle ou nom d'un point sur l'autre côté de l'angle
+ * @property {PointAbstrait} debut Point sur un côté de l'angle
+ * @property {PointAbstrait} centre Sommet de l'angle
+ * @property {number|PointAbstrait} angle Mesure de l'angle ou nom d'un point sur l'autre côté de l'angle
  * @property {number} taille Taille de l'angle
  * @property {string} mark Marque sur l'angle
  * @property {string} color Couleur de l'angle. À associer obligatoirement à colorToLatexOrHTML().
@@ -40,7 +40,7 @@ import { pointSurSegment } from './utilitairesPoint'
  * @property {number} opaciteDeRemplissage Opacité de la couleur de remplissage de l'angle
  * @property {number} tailleTexte Pour choisir la taille du texte à côté de l'angle
  * @property {number} echelleMark Pour choisir la taille relative de la marque
- * @author Jean-Claude Lhote
+ * @author Jean-claude Lhote
  * @return {array} Liste d'objets MathAlea2D
  */
 // JSDOC Validee par EE Juin 2022

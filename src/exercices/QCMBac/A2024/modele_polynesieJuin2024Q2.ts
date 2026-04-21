@@ -1,9 +1,10 @@
 import { colorToLatexOrHTML } from '../../../lib/2d/colorToLatexOrHtml'
 import { fixeBordures } from '../../../lib/2d/fixeBordures'
 import { integrale } from '../../../lib/2d/Integrale'
-import { point } from '../../../lib/2d/PointAbstrait'
+import { pointAbstrait } from '../../../lib/2d/PointAbstrait'
 import { polygone } from '../../../lib/2d/polygones'
 import { repere } from '../../../lib/2d/reperes'
+import { bleuMathalea } from '../../../lib/colors'
 import { Spline } from '../../../lib/mathFonctions/Spline'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { mathalea2d } from '../../../modules/mathalea2d'
@@ -25,6 +26,7 @@ export const dateDePublication = '28/10/2024'
  * Il utilise la classe ExerciceQcm qui définit les contours de l'exo (sans version aléatoire)
  * Ce moule à exo dispose d'une méthode qcmCamExport qui permet de récupérer le JSON de la question et de la reponse pour qcmCam.
  * Il est interactif et dispose d'un export AMC d'office
+ * @author Jean-claude Lhote
  */
 
 export default class PolynesieJuin2024Ex2Q2 extends ExerciceQcm {
@@ -60,24 +62,24 @@ export default class PolynesieJuin2024Ex2Q2 extends ExerciceQcm {
       },
     ])
     const nuage = [
-      point(1, 0),
-      point(1, 3),
-      point(2, 3),
-      point(2, 2),
-      point(3, 2),
-      point(3, 0),
+      pointAbstrait(1, 0),
+      pointAbstrait(1, 3),
+      pointAbstrait(2, 3),
+      pointAbstrait(2, 2),
+      pointAbstrait(3, 2),
+      pointAbstrait(3, 0),
     ]
     const nuage2 = [
-      point(1, 0),
-      point(1, 4),
-      point(2, 4),
-      point(2, 3),
-      point(3, 3),
-      point(3, 2),
-      point(4, 2),
-      point(4, 1),
-      point(5, 1),
-      point(5, 0),
+      pointAbstrait(1, 0),
+      pointAbstrait(1, 4),
+      pointAbstrait(2, 4),
+      pointAbstrait(2, 3),
+      pointAbstrait(3, 3),
+      pointAbstrait(3, 2),
+      pointAbstrait(4, 2),
+      pointAbstrait(4, 1),
+      pointAbstrait(5, 1),
+      pointAbstrait(5, 0),
     ]
     const zoneGrise = integrale(maSpline.fonction, {
       repere: leRepere,
@@ -89,7 +91,7 @@ export default class PolynesieJuin2024Ex2Q2 extends ExerciceQcm {
       hachures: -1,
     })
     const polygone1 = polygone(...nuage)
-    const polygone2 = polygone(nuage2, 'blue')
+    const polygone2 = polygone(nuage2, bleuMathalea)
     polygone2.epaisseur = 2
     polygone1.hachures = 'north east lines'
     polygone1.couleurDesHachures = colorToLatexOrHTML('black')

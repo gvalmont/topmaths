@@ -223,7 +223,7 @@ export function mathaleaWriteStudentPreviousAnswers(answers?: {
             const ele = document.querySelector(`#${answer}`) as MathaleaSVG
             if (ele) {
               ele.etat = true
-              ele.style.border = '3px solid #f15929'
+              ele.style.border = `3px solid #f15929`
               const time = window.performance.now()
               log(`duration ${answer}: ${time - starttime}`)
               resolve(true)

@@ -283,7 +283,7 @@ math-field::part(virtual-keyboard-toggle) {
 }
 
 math-field:not(.fillInTheBlanks):not(.metaInteractif2d) {
-  font-size: '1em';
+  font-size: 1em;
   margin-left: 5px;
   display: inline-block;
   vertical-align: middle;
@@ -295,23 +295,32 @@ math-field:not(.fillInTheBlanks):not(.metaInteractif2d) {
 }
 math-field.fillInTheBlanks {
   /* @apply bg-coopmaths-canvas dark:bg-coopmathsdark-canvas text-coopmaths-corpus dark:text-coopmathsdark-corpus; */
-  border: 'none';
-  box-shadow: 'none';
-  font-size: '1em';
-  margin-top: '1px';
-  padding: '2px';
+  border: none;
+  box-shadow: none;
+  font-size: 1em;
+  margin-top: 1px;
+  padding: 2px;
   background-color: transparent;
 }
 math-field.fillInTheBlanks::part(prompt) {
-  min-height: 1.1em;
+  font-size: 1em; /* levier principal: réduit la boîte calculée */
+  line-height: 1;
+  min-height: 1em;
+  height: auto;
+  padding: 2px;
+  margin: 0;
+  border: none;
+  outline: solid;
+  outline-width: thin;
+  outline-color: var(--color-coopmathsdark-corpus-light);
 }
 
 math-field.metaInteractif2d {
-  border: 'none';
-  box-shadow: 'none';
-  font-size: '1em';
-  margin-top: '1px';
-  padding: '2px';
+  border: none;
+  box-shadow: none;
+  font-size: 1em;
+  margin-top: 1px;
+  padding: 2px;
   background-color: transparent;
 }
 math-field.metaInteractif2d::part(prompt) {
@@ -325,6 +334,13 @@ math-field.schemaEnBoite {
   border-radius: 4px;
   border: 1px solid rgba(0, 0, 0, 0.3);
   min-width: 30px;
+}
+
+math-field.tableauMathlive::part(container) {
+  justify-content: center !important;
+}
+math-field.tableauMathlive::part(content) {
+  justify-content: center !important;
 }
 
 @media print {
@@ -943,13 +959,13 @@ ol.Alpha > li {
   margin-top: 0.5em;
 }
 ol.roman {
-  @apply list-[lower-roman] list-outside ml-4  marker:text-coopmaths-struct;
+  @apply list-[lower-roman] list-outside ml-6  marker:text-coopmaths-struct;
 }
 ol.roman > li {
   margin-top: 0.5em;
 }
 ol.Roman {
-  @apply list-[upper-roman] list-outside ml-4  marker:text-coopmaths-struct;
+  @apply list-[upper-roman] list-outside ml-6  marker:text-coopmaths-struct;
 }
 ol.Roman > li {
   margin-top: 0.5em;

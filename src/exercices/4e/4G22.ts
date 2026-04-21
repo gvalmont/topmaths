@@ -18,6 +18,7 @@ import { context } from '../../modules/context'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import Exercice from '../Exercice'
 import { RedactionPythagore } from './_pythagore'
+import { bleuMathalea } from '../../lib/colors'
 export const titre = 'Résoudre des problèmes utilisant le théorème de Pythagore'
 export const dateDeModifImportante = '26/01/2025'
 export const interactifReady = true
@@ -31,7 +32,7 @@ export const interactifType = ['qcm', 'mathLive']
  * * Dans un rectangle, on connaît la longueur et la largeur, il faut calculer la diagonale.
  * * Est-ce qu'un parallélogramme est un losange ? On peut démontrer que les diagonales sont perpendiculaires ou pas.
  * * Est-ce qu'un parallélogramme est un rectangle ? On peut démontrer qu'il possède un angle droit ou pas .
- * @author Rémi Angot (Factorisation de la rédaction de Pythagore par Eric Elter)
+ * @author Rémi Angot (Factorisation de la rédaction de Pythagore par Éric Elter)
  */
 export const uuid = 'b18e8'
 
@@ -234,7 +235,7 @@ export default class ProblemesPythagore extends Exercice {
             a,
             c,
             'cm',
-            'blue',
+            bleuMathalea,
           )[0]
           texteCorr += `<br>Finalement comme $O$ est aussi le milieu de $[${
             D + B

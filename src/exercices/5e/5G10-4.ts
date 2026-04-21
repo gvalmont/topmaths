@@ -3,7 +3,7 @@ import { codageAngle } from '../../lib/2d/angles'
 import { demiDroite } from '../../lib/2d/DemiDroite'
 import { droite } from '../../lib/2d/droites'
 import { fixeBordures } from '../../lib/2d/fixeBordures'
-import { point } from '../../lib/2d/PointAbstrait'
+import { pointAbstrait } from '../../lib/2d/PointAbstrait'
 import { polygone } from '../../lib/2d/polygones'
 import { segment } from '../../lib/2d/segmentsVecteurs'
 import { labelPoint, texteParPosition } from '../../lib/2d/textes'
@@ -25,6 +25,7 @@ import { context } from '../../modules/context'
 import { mathalea2d } from '../../modules/mathalea2d'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import Exercice from '../Exercice'
+import { bleuMathalea } from '../../lib/colors'
 const cleaner = generateCleaner(['parentheses', 'espaces'])
 export const titre =
   'Appliquer les propriétés de conservation de la symétrie axiale'
@@ -36,10 +37,10 @@ export const interactifType = 'mathLive'
 
 // Gestion de la date de publication initiale
 export const dateDePublication = '26/10/2020'
-export const dateDeModifImportante = '27/06/2024' // EE : Rajout du paramètre du nombre de symétriques // interactivité ajouté par Jean-Claude Lhote
+export const dateDeModifImportante = '27/06/2024' // EE : Rajout du paramètre du nombre de symétriques // interactivité ajouté par Jean-claude Lhote
 
 /**
- * @author Jean-Claude Lhote
+ * @author Jean-claude Lhote
  * Relecture : Novembre 2021 par EE
  */
 export const uuid = 'cd69a'
@@ -189,17 +190,17 @@ export default class SymetrieAxialeConservation1 extends Exercice {
       }
       for (let ii = 0; ii < 24; ii++) {
         if (ii < 12)
-          points.push(point(coords[ii][0], coords[ii][1], noms[ii], labelPos))
+          points.push(pointAbstrait(coords[ii][0], coords[ii][1], noms[ii], labelPos))
         else if (
           coords[ii][0] === coords[ii - 12][0] &&
           coords[ii][1] === coords[ii - 12][1]
         ) {
           points.push(
-            point(coords[ii][0], coords[ii][1], noms[ii - 12], labelPos),
+            pointAbstrait(coords[ii][0], coords[ii][1], noms[ii - 12], labelPos),
           )
           noms[ii] = noms[ii - 12]
         } else
-          points.push(point(coords[ii][0], coords[ii][1], noms[ii], labelPos))
+          points.push(pointAbstrait(coords[ii][0], coords[ii][1], noms[ii], labelPos))
         traces.push(tracePoint(points[ii]))
       }
       // On rédige les questions et les réponses
@@ -580,11 +581,11 @@ export default class SymetrieAxialeConservation1 extends Exercice {
       for (let ii = 0; ii < 24; ii++) {
         objetsEnonce.push(
           labelPoint(points[ii]),
-          tracePoint(points[ii], 'blue'),
+          tracePoint(points[ii], bleuMathalea),
         )
         objetsCorrection.push(
           labelPoint(points[ii]),
-          tracePoint(points[ii], 'blue'),
+          tracePoint(points[ii], bleuMathalea),
         )
       }
       const enonceAMC = mathalea2d(

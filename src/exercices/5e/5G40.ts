@@ -3,7 +3,7 @@ import { cibleCarree, dansLaCibleCarree } from '../../lib/2d/cibles'
 import { codageSegments } from '../../lib/2d/CodageSegment'
 import { droite } from '../../lib/2d/droites'
 import { fixeBordures } from '../../lib/2d/fixeBordures'
-import { point } from '../../lib/2d/PointAbstrait'
+import { pointAbstrait } from '../../lib/2d/PointAbstrait'
 import { polygone, polygoneAvecNom } from '../../lib/2d/polygones'
 import { segment } from '../../lib/2d/segmentsVecteurs'
 import { labelPoint, texteParPoint } from '../../lib/2d/textes'
@@ -14,6 +14,7 @@ import {
   pointAdistance,
   pointIntersectionCC,
 } from '../../lib/2d/utilitairesPoint'
+import { bleuMathalea } from '../../lib/colors'
 import { choisitLettresDifferentes } from '../../lib/outils/aleatoires'
 import { choice } from '../../lib/outils/arrayOutils'
 import { arrondi } from '../../lib/outils/nombres'
@@ -36,7 +37,7 @@ export const amcType = 'AMCHybride'
 
 /**
  * Terminer la construction d'un parallélogramme
- * @author Jean-Claude Lhote (exercice) et Rémi Angot (animations)
+ * @author Jean-claude Lhote (exercice) et Rémi Angot (animations)
  * Ajout de la possibilité de choisir le nombre de questions par Guillaume Valmont le 08/05/2022
  */
 export const uuid = 'b611a'
@@ -87,7 +88,6 @@ export default class ConstructionsParallelogrammes extends Exercice {
     for (
       let i = 0, texte, texteCorr, cpt = 0;
       i < this.nbQuestions && cpt < 50;
-
     ) {
       const celluleAlea = function (rang: number) {
         const lettre = lettreDepuisChiffre(randint(1, rang))
@@ -100,7 +100,7 @@ export default class ConstructionsParallelogrammes extends Exercice {
       const objetsEnonce = []
       const objetsCorrection = []
       // Préparation de la figure aléatoire et des objets 2d utiles
-      const O = point(0, 0, noms[4])
+      const O = pointAbstrait(0, 0, noms[4])
       const A = rotation(
         pointAdistance(O, arrondi(randint(50, 70) / 10)),
         O,
@@ -205,7 +205,7 @@ export default class ConstructionsParallelogrammes extends Exercice {
             traceCompas(D, C, 30),
             traceCompas(B, C, 30),
             codageSegments('||', 'red', A, B, D, C),
-            codageSegments('///', 'blue', A, D, B, C),
+            codageSegments('///', bleuMathalea, A, D, B, C),
           )
           animIEP.parallelogramme3sommetsConsecutifs(D, A, B, C.nom)
           if (this.sup3) {
@@ -246,7 +246,7 @@ export default class ConstructionsParallelogrammes extends Exercice {
             traceCompas(D, C, 30),
             traceCompas(B, C, 30),
             codageSegments('||', 'red', A, B, D, C),
-            codageSegments('///', 'blue', A, D, B, C),
+            codageSegments('///', bleuMathalea, A, D, B, C),
           )
           if (this.sup3) {
             texteCorr += `Le point $${noms[2]}$ se trouve dans la case ${cellule} de la cible.<br>`
@@ -276,7 +276,7 @@ export default class ConstructionsParallelogrammes extends Exercice {
             d3,
             d4,
             codageSegments('||', 'red', A, O, O, C),
-            codageSegments('|||', 'blue', B, O, O, D),
+            codageSegments('|||', bleuMathalea, B, O, O, D),
           )
           if (this.sup3) {
             texteCorr += `Le point $${noms[2]}$ se trouve dans la case ${cellule} de la cible 1.<br>`

@@ -1,4 +1,4 @@
-import { point } from '../../lib/2d/PointAbstrait'
+import { pointAbstrait } from '../../lib/2d/PointAbstrait'
 import { tracePoint } from '../../lib/2d/TracePoint'
 import { polygoneAvecNom } from '../../lib/2d/polygones'
 import { latexParPoint } from '../../lib/2d/textes'
@@ -25,11 +25,12 @@ import { mathalea2d } from '../../modules/mathalea2d'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import type { NestedObjetMathalea2dArray } from '../../types/2d'
 import Exercice from '../Exercice'
+import { bleuMathalea } from '../../lib/colors'
 export const titre = "Construire un point à partir d'une égalité vectorielle"
 export const dateDeModifImportante = '29/01/2023'
 
 /**
- * @author Jean-Claude Lhote
+ * @author Jean-claude Lhote
  */
 export const uuid = '2b8bf'
 
@@ -78,7 +79,7 @@ export default class SommeDeVecteurs extends Exercice {
         yV = randint(Math.round(4 + xV), 8) * choice([-0.5, 0.5])
         u = vecteur(xU, yU)
         v = vecteur(xV, yV)
-        A = point(0, 0, 'A', 'center')
+        A = pointAbstrait(0, 0, 'A', 'center')
         B = translation(A, u, 'B')
         C = translation(B, v, 'C')
       } while (A.x === C.x && A.y === C.y)
@@ -92,9 +93,9 @@ export default class SommeDeVecteurs extends Exercice {
         M = pointAdistance(A, randint(2, 3), randint(20, 45))
         N = similitude(M, A, randint(-90, -45), randint(2, 5) / 2)
       }
-      U = representantNomme(u, M, 'u', 1, 'blue')
+      U = representantNomme(u, M, 'u', 1, bleuMathalea)
       UU = representant(u, M)
-      UU.color = colorToLatexOrHTML('blue')
+      UU.color = colorToLatexOrHTML(bleuMathalea)
       V = representantNomme(v, N, 'v', 1, 'green')
       VV = representant(v, N)
       VV.color = colorToLatexOrHTML('green')
@@ -124,7 +125,7 @@ export default class SommeDeVecteurs extends Exercice {
       anim.yMax = Math.max(0, B.y, C.y, M.y, M.y + yU, N.y, N.y + yV) + 2
       anim.recadre(anim.xMin, anim.yMax)
       anim.crayonMontrer(M)
-      anim.tracer(translation(M, u), { vecteur: true, couleur: 'blue' })
+      anim.tracer(translation(M, u), { vecteur: true, couleur: bleuMathalea })
       anim.crayonDeplacer(N)
       anim.tracer(translation(N, v), { vecteur: true, couleur: 'green' })
       anim.crayonMasquer()
@@ -139,10 +140,10 @@ export default class SommeDeVecteurs extends Exercice {
         anim.compasDeplacer(translation(M, u))
         anim.compasTracerArcCentrePoint(translation(M, u), B)
         anim.crayonMontrer(B)
-        anim.tracer(translation(M, u), { couleur: 'blue', pointilles: true })
+        anim.tracer(translation(M, u), { couleur: bleuMathalea, pointilles: true })
         anim.crayonDeplacer(M)
-        anim.tracer(A, { couleur: 'blue', pointilles: true })
-        anim.tracer(B, { vecteur: true, couleur: 'blue' })
+        anim.tracer(A, { couleur: bleuMathalea, pointilles: true })
+        anim.tracer(B, { vecteur: true, couleur: bleuMathalea })
         anim.crayonMasquer()
       }
       anim.compasDeplacer(N)

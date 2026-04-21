@@ -1,4 +1,3 @@
-import { point } from '../../../lib/2d/PointAbstrait'
 import { polygoneAvecNom } from '../../../lib/2d/polygones'
 import {
   segment,
@@ -28,6 +27,8 @@ import {
 import { ajouteChampTexteMathLive } from '../../../lib/interactif/questionMathLive'
 
 import { droiteGraduee } from '../../../lib/2d/DroiteGraduee'
+import { pointAbstrait } from '../../../lib/2d/PointAbstrait'
+import { bleuMathalea } from '../../../lib/colors'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 
 export const titre = 'CAN 6e sujet 2018'
@@ -39,7 +40,7 @@ export const dateDePublication = '30/03/2022' // La date de publication initiale
 
 /**
  *
- * Gilles Mora
+ * @author Gilles Mora
 
  */
 
@@ -331,7 +332,7 @@ Par exemple, en choisissant 20 questions, la course aux nombres sera composée d
                 scale: 0.8,
                 style: 'margin: auto',
               },
-              texteParPosition('?', (8 * b) / a, 0.7, 0, 'blue', 2),
+              texteParPosition('?', (8 * b) / a, 0.7, 0, bleuMathalea, 2),
               droiteGraduee({
                 Unite: 8,
                 Min: 0,
@@ -344,7 +345,7 @@ Par exemple, en choisissant 20 questions, la course aux nombres sera composée d
                 axeStyle: '|->',
                 // pointListe: [[b / a, '?']],
                 labelPointTaille: 15,
-                pointCouleur: 'blue',
+                pointCouleur: bleuMathalea,
                 pointStyle: 'x',
                 labelsPrincipaux: true,
                 step1: 1,
@@ -475,7 +476,7 @@ Par exemple, en choisissant 20 questions, la course aux nombres sera composée d
                 (3 * a) / 5,
                 0.7,
                 'milieu',
-                'blue',
+                bleuMathalea,
                 context.isHtml ? 2 : 1,
               ),
               droiteGraduee({
@@ -489,7 +490,7 @@ Par exemple, en choisissant 20 questions, la course aux nombres sera composée d
                 thickoffset: 0,
                 axeStyle: '|->',
                 pointListe: [[a / 5, '']],
-                pointCouleur: 'blue',
+                pointCouleur: bleuMathalea,
                 pointTaille: 4,
                 pointStyle: 'x',
                 labelsPrincipaux: true,
@@ -624,10 +625,10 @@ Par exemple, en choisissant 20 questions, la course aux nombres sera composée d
 
         case 18:
           j = randint(3, 8)
-          A = point(0, 0)
-          B = point(j, 0)
-          C = point(j, 1.5)
-          D = point(0, 1.5)
+          A = pointAbstrait(0, 0)
+          B = pointAbstrait(j, 0)
+          C = pointAbstrait(j, 1.5)
+          D = pointAbstrait(0, 1.5)
           xmin = -2
           ymin = -0.5
           xmax = j + 1
@@ -887,14 +888,14 @@ Par exemple, en choisissant 20 questions, la course aux nombres sera composée d
           k = randint(2, 5)
           L = k * l
           l2 = l + randint(1, 3)
-          A = point(0, 0)
-          B = point(4, 0)
-          C = point(4, 1.5)
-          D = point(0, 1.5)
-          E = point(0, 2.5)
-          F = point(2.5, 2.5)
-          G = point(2.5, 3.5)
-          H = point(0, 3.5)
+          A = pointAbstrait(0, 0)
+          B = pointAbstrait(4, 0)
+          C = pointAbstrait(4, 1.5)
+          D = pointAbstrait(0, 1.5)
+          E = pointAbstrait(0, 2.5)
+          F = pointAbstrait(2.5, 2.5)
+          G = pointAbstrait(2.5, 3.5)
+          H = pointAbstrait(0, 3.5)
           xmin = -1
           ymin = -0.5
           xmax = 5.5

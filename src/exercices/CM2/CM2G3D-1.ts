@@ -2,7 +2,7 @@ import { afficheLongueurSegment } from '../../lib/2d/afficheLongueurSegment'
 import { cercle } from '../../lib/2d/cercle'
 import { codageAngleDroit } from '../../lib/2d/CodageAngleDroit'
 import { droite, droiteParPointEtPerpendiculaire } from '../../lib/2d/droites'
-import { point } from '../../lib/2d/PointAbstrait'
+import { pointAbstrait } from '../../lib/2d/PointAbstrait'
 import { polygone } from '../../lib/2d/polygones'
 import { polygoneRegulier } from '../../lib/2d/polygonesParticuliers'
 import { segment } from '../../lib/2d/segmentsVecteurs'
@@ -27,6 +27,7 @@ import {
   randint,
 } from '../../modules/outils'
 import Exercice from '../Exercice'
+import { bleuMathalea } from '../../lib/colors'
 export const titre = 'Tracer des carrés et des rectangles de longueurs données'
 
 export const dateDePublication = '10/09/2022'
@@ -81,7 +82,7 @@ export default class TracerQuadrilatèresParticuliers extends Exercice {
       const typeDeQuestion = typesDeQuestionsDisponibles[listeQuestions[i]]
       const objetsCorrection = []
       const nomPoly = creerNomDePolygone(4, ['P', 'Q'])
-      const A = point(0, 0, nomPoly.charAt(0), 'below left')
+      const A = pointAbstrait(0, 0, nomPoly.charAt(0), 'below left')
       let B, C, D, naturePoly, figure
       switch (typeDeQuestion) {
         case 'Carré': {
@@ -107,15 +108,15 @@ export default class TracerQuadrilatèresParticuliers extends Exercice {
               }
             }
           }
-          B = point(disSave[1] / 10, 0, nomPoly.charAt(1), 'below right')
+          B = pointAbstrait(disSave[1] / 10, 0, nomPoly.charAt(1), 'below right')
           figure = polygoneRegulier(A, B, 4)
-          C = point(
+          C = pointAbstrait(
             figure.listePoints[2].x,
             figure.listePoints[2].y,
             nomPoly.charAt(2),
             'above right',
           )
-          D = point(
+          D = pointAbstrait(
             figure.listePoints[3].x,
             figure.listePoints[3].y,
             nomPoly.charAt(3),
@@ -146,15 +147,15 @@ export default class TracerQuadrilatèresParticuliers extends Exercice {
               }
             }
           }
-          B = point(disSave[1] / 10, 0, nomPoly.charAt(1), 'below right')
+          B = pointAbstrait(disSave[1] / 10, 0, nomPoly.charAt(1), 'below right')
           figure = polygoneRegulier(A, B, 4)
-          C = point(
+          C = pointAbstrait(
             figure.listePoints[2].x,
             figure.listePoints[2].y,
             nomPoly.charAt(2),
             'above right',
           )
-          D = point(
+          D = pointAbstrait(
             figure.listePoints[3].x,
             figure.listePoints[3].y,
             nomPoly.charAt(3),
@@ -192,7 +193,7 @@ export default class TracerQuadrilatèresParticuliers extends Exercice {
               }
             }
           }
-          B = point(disSave[0] / 10, 0, nomPoly.charAt(1), 'below right')
+          B = pointAbstrait(disSave[0] / 10, 0, nomPoly.charAt(1), 'below right')
           C = pointAdistance(B, disSave[1] / 10, 90, nomPoly.charAt(2))
           D = pointAdistance(C, disSave[0] / 10, 180, nomPoly.charAt(3))
           figure = polygone(A, B, C, D)
@@ -230,7 +231,7 @@ export default class TracerQuadrilatèresParticuliers extends Exercice {
           }
 
           const diagonale = disSave[1] / 10
-          B = point(disSave[0] / 10, 0, nomPoly.charAt(1), 'below right')
+          B = pointAbstrait(disSave[0] / 10, 0, nomPoly.charAt(1), 'below right')
 
           C = pointIntersectionLC(
             droiteParPointEtPerpendiculaire(B, droite(A, B)),
@@ -429,8 +430,8 @@ export default class TracerQuadrilatèresParticuliers extends Exercice {
         typeDeQuestion === 'Losange2diag' || typeDeQuestion === 'Carré1diag'
           ? codageAngleDroit(C, milieu(A, C), D, 'red', 0.7, 1, 0.6, 'red', 0.2)
           : vide2d()
-      const segmentAC = segment(A, C, 'blue')
-      const segmentBC = segment(B, D, 'blue')
+      const segmentAC = segment(A, C, bleuMathalea)
+      const segmentBC = segment(B, D, bleuMathalea)
       const traces2 = tracePoint(A, B, C, D)
       const labels2 = labelPoint(A, B, C, D)
       figure.epaisseur = 2
@@ -457,7 +458,7 @@ export default class TracerQuadrilatèresParticuliers extends Exercice {
           `$${A.nom}${C.nom}\\approx${texNombre(segment(A, C).longueur, 1)}\\text{ cm}$`,
           milieu(A, C),
           C,
-          'blue',
+          bleuMathalea,
         )
         txt.mathOn = false
         txt.scale = 1.2
@@ -479,7 +480,7 @@ export default class TracerQuadrilatèresParticuliers extends Exercice {
           `$${D.nom}${C.nom}\\approx${texNombre(segment(D, C).longueur, 1)}\\text{ cm}$`,
           D,
           C,
-          'blue',
+          bleuMathalea,
         )
         txt3.mathOn = false
         txt3.scale = 1.2
@@ -496,7 +497,7 @@ export default class TracerQuadrilatèresParticuliers extends Exercice {
           `$${B.nom}${C.nom}\\approx${texNombre(segment(B, C).longueur, 1)}\\text{ cm}$`,
           C,
           B,
-          'blue',
+          bleuMathalea,
         )
         txt3.mathOn = false
         txt3.scale = 1.2
@@ -518,7 +519,7 @@ export default class TracerQuadrilatèresParticuliers extends Exercice {
           `$${B.nom}${D.nom}\\approx${texNombre(segment(B, D).longueur, 1)}\\text{ cm}$`,
           milieu(B, D),
           D,
-          'blue',
+          bleuMathalea,
         )
         txt2.mathOn = false
         txt2.scale = 1.2
@@ -540,7 +541,7 @@ export default class TracerQuadrilatèresParticuliers extends Exercice {
           `$${D.nom}${C.nom}\\approx${texNombre(segment(D, C).longueur, 1)}\\text{ cm}$`,
           D,
           C,
-          'blue',
+          bleuMathalea,
         )
         txt3.mathOn = false
         txt3.scale = 1.2
@@ -556,7 +557,7 @@ export default class TracerQuadrilatèresParticuliers extends Exercice {
           `$${B.nom}${D.nom}\\approx${texNombre(segment(B, D).longueur, 1)}\\text{ cm}$`,
           milieu(A, C),
           B,
-          'blue',
+          bleuMathalea,
         )
         txt2.mathOn = false
         txt2.scale = 1.2

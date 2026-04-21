@@ -1,7 +1,7 @@
 import { droite } from '../../lib/2d/droites'
 import { fixeBordures } from '../../lib/2d/fixeBordures'
 import { lectureAntecedent } from '../../lib/2d/LectureAntecedent'
-import { point } from '../../lib/2d/PointAbstrait'
+import { pointAbstrait } from '../../lib/2d/PointAbstrait'
 import RepereBuilder from '../../lib/2d/RepereBuilder'
 import { latex2d, texteParPosition } from '../../lib/2d/textes'
 import { createList } from '../../lib/format/lists'
@@ -14,6 +14,7 @@ import { mathalea2d } from '../../modules/mathalea2d'
 import { nombreEnLettres } from '../../modules/nombreEnLettres'
 import { randint } from '../../modules/outils'
 import ExerciceBrevetA from '../ExerciceBrevetA'
+import { bleuMathalea } from '../../lib/colors'
 
 export const uuid = 'fb6ad'
 export const refs = {
@@ -24,7 +25,7 @@ export const titre = 'Se préparer au DNB  : fonctions affines et lecture graphi
 export const dateDePublication = '12/04/2025'
 
 /**
- * @Author Jean-Claude Lhote
+ * @Author Jean-claude Lhote
  * Cet exerice exploite la nouvelle classe d'exercice que j'ai conçue pour les sujets de brevet
  * Il s'agit d'un exercice de type Brevet Aléatoirisé
  * La méthode privée appliquerLesValeurs permet de générer les valeurs aléatoires et de construire l'énoncé et la correction
@@ -60,23 +61,23 @@ export default class ExerciceAmeriqueNord392024 extends ExerciceBrevetA {
     const xMax = Math.round((liberteAbo - essentielAbo) / essentielUnitaire) + 5
     const pointF2D =
       f2(xMax) < yMax
-        ? point(xMax, f2(xMax) / 10)
-        : point((yMax - essentielAbo) / essentielUnitaire, yMax / 10)
-    const pointF2G = point(0, essentielAbo / 10)
-    const pointF3G = point(0, liberteAbo / 10)
-    const pointF3D = point(xMax, liberteAbo / 10)
-    const pointF1G = point(0, 0)
-    const pointF1D = point(yMax / classique, yMax / 10)
+        ? pointAbstrait(xMax, f2(xMax) / 10)
+        : pointAbstrait((yMax - essentielAbo) / essentielUnitaire, yMax / 10)
+    const pointF2G = pointAbstrait(0, essentielAbo / 10)
+    const pointF3G = pointAbstrait(0, liberteAbo / 10)
+    const pointF3D = pointAbstrait(xMax, liberteAbo / 10)
+    const pointF1G = pointAbstrait(0, 0)
+    const pointF1D = pointAbstrait(yMax / classique, yMax / 10)
     const d1 = droite(pointF1G, pointF1D, '', 'red')
     const d2 = droite(pointF2G, pointF2D, '', 'green')
-    const d3 = droite(pointF3G, pointF3D, '', 'blue')
+    const d3 = droite(pointF3G, pointF3D, '', bleuMathalea)
     const n1 = latex2d('(d_1)', pointF1D.x - 1, pointF1D.y + 0.4, {
       color: 'red',
     })
     const n2 = latex2d('(d_2)', pointF2D.x - 1, pointF2D.y + 0.4, {
       color: 'green',
     })
-    const n3 = latex2d('(d_3)', pointF3D.x, pointF3D.y - 0.5, { color: 'blue' })
+    const n3 = latex2d('(d_3)', pointF3D.x, pointF3D.y - 0.5, { color: bleuMathalea })
     const legendY = texteParPosition('Prix à payer en €', 4.5, yMax / 10)
     const legendX = texteParPosition("Nombre d'entrees", xMax - 2, 1)
 

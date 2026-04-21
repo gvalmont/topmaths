@@ -1,5 +1,5 @@
 import { codageAngleDroit } from '../../lib/2d/CodageAngleDroit'
-import { point } from '../../lib/2d/PointAbstrait'
+import { pointAbstrait } from '../../lib/2d/PointAbstrait'
 import { polygone } from '../../lib/2d/polygones'
 import { segment } from '../../lib/2d/segmentsVecteurs'
 import { labelPoint, texteParPosition } from '../../lib/2d/textes'
@@ -124,7 +124,7 @@ export default class ModeliseInequations extends Exercice {
              `
               reponse = texNombre(Math.ceil((a - b) / (d - c)) + 1, 0)
             } else {
-              texteCorr += ` Comme $\\dfrac{${abs(a - b)}}{${texNombre(abs(d - c), 2)}}\\simeq ${texNombre((a - b) / (d - c), 2)}$, c'est donc pour une distance minimale de  $${miseEnEvidence(Math.ceil((a - b) / (d - c)))}\\text{ km}$ que le tarif B est plus intéressant que le tarif A.
+              texteCorr += ` Comme $\\dfrac{${abs(a - b)}}{${texNombre(abs(d - c), 2)}}\\approx ${texNombre((a - b) / (d - c), 2)}$, c'est donc pour une distance minimale de  $${miseEnEvidence(Math.ceil((a - b) / (d - c)))}\\text{ km}$ que le tarif B est plus intéressant que le tarif A.
                             `
               reponse = texNombre(Math.ceil((a - b) / (d - c)), 0)
             }
@@ -163,7 +163,7 @@ export default class ModeliseInequations extends Exercice {
             x&\\leqslant\\dfrac{${budget - b}}{${texNombre(a, 2)}}
     \\end{aligned}$<br>`
 
-            texteCorr += `Comme $\\dfrac{${budget - b}}{${texNombre(a, 2)}}${Math.round((budget - b) / a) === (budget - b) / a ? '=' : '\\simeq'} ${texNombre((budget - b) / a, 2)}$, ${quidam} pourra faire au maximum  $${Math.floor((budget - b) / a)}\\text{ km}$ pendant le mois avec son budget de $${budget}$ €.
+            texteCorr += `Comme $\\dfrac{${budget - b}}{${texNombre(a, 2)}}${Math.round((budget - b) / a) === (budget - b) / a ? '=' : '\\approx'} ${texNombre((budget - b) / a, 2)}$, ${quidam} pourra faire au maximum  $${Math.floor((budget - b) / a)}\\text{ km}$ pendant le mois avec son budget de $${budget}$ €.
        `
             reponse = texNombre(Math.floor((budget - b) / a), 0)
 
@@ -197,7 +197,7 @@ export default class ModeliseInequations extends Exercice {
                 ${texNombre(PB, 2)}x&\\geqslant ${texNombre(RT - PB * EM, 2)}\\\\
                 x&\\geqslant \\dfrac{${texNombre(RT - PB * EM, 2)}}{${texNombre(PB, 2)}}\\\\
     \\end{aligned}$<br>
-  Comme  $\\dfrac{${texNombre(RT - PB * EM, 2)}}{${texNombre(PB, 2)}}${Math.round((RT - PB * EM) / PB) === (RT - PB * EM) / PB ? '=' : '\\simeq'} ${texNombre((RT - PB * EM) / PB, 1)}$,
+  Comme  $\\dfrac{${texNombre(RT - PB * EM, 2)}}{${texNombre(PB, 2)}}${Math.round((RT - PB * EM) / PB) === (RT - PB * EM) / PB ? '=' : '\\approx'} ${texNombre((RT - PB * EM) / PB, 1)}$,
   il faudra au minimum ${Math.round((RT - PB * EM) / PB) === (RT - PB * EM) / PB ? `$${texNombre((RT - PB * EM) / PB, 0)}$` : `$${texNombre(Math.floor((RT - PB * EM) / PB) + 1, 0)} $`} entrées pour que la recette de la journée soit au moins égale à  $${texNombre(RT)}$ €.
                             `
             reponse =
@@ -235,11 +235,11 @@ export default class ModeliseInequations extends Exercice {
               (P[1] * l) / 2 + l / 2,
             ).simplifie()
             const f2 = new FractionEtendue(l * L, l * P[1] + l).simplifie()
-            const A = point(0, 0, 'A', 'below')
-            const B = point(10, 0, 'B', 'below')
-            const C = point(10, 6, 'C')
-            const M = point(4, 0, 'M', 'below')
-            const D = point(0, 6, 'D')
+            const A = pointAbstrait(0, 0, 'A', 'below')
+            const B = pointAbstrait(10, 0, 'B', 'below')
+            const C = pointAbstrait(10, 6, 'C')
+            const M = pointAbstrait(4, 0, 'M', 'below')
+            const D = pointAbstrait(0, 6, 'D')
             const objets = []
             const poly1 = polygone([A, M, D], 'black')
             const poly2 = polygone([C, M, B], 'black')
@@ -355,13 +355,13 @@ export default class ModeliseInequations extends Exercice {
             const a = randint(8, 15) // longueur en bas
             const b = randint(2, 6) // longueur ajoutée à x
             const P = randint(50, 70)
-            const A = point(0, 0, 'A')
-            const B = point(10, 0, 'B')
-            const C = point(10, 6, 'C')
-            const D = point(0, 6, 'D')
-            const E = point(0, 2, 'E')
-            const F = point(-2, 2, 'F')
-            const G = point(-2, 0, 'G')
+            const A = pointAbstrait(0, 0, 'A')
+            const B = pointAbstrait(10, 0, 'B')
+            const C = pointAbstrait(10, 6, 'C')
+            const D = pointAbstrait(0, 6, 'D')
+            const E = pointAbstrait(0, 2, 'E')
+            const F = pointAbstrait(-2, 2, 'F')
+            const G = pointAbstrait(-2, 0, 'G')
             const segmentEA = segment(A, E)
             segmentEA.pointilles = 2
             const objets = []
@@ -464,14 +464,14 @@ export default class ModeliseInequations extends Exercice {
             const b = choice([6, 8, 10, 12]) // hauteur triangle
             const Aire = randint(50, 70)
             const f = new FractionEtendue(Aire - a ** 2, a + b / 2).simplifie()
-            const A = point(0, 0, 'A')
-            const B = point(8, 0, 'B')
-            const C = point(10, 0, 'C')
-            const D = point(10, 2, 'D')
-            const E = point(8, 2, 'E')
-            const F = point(4, 8, 'F')
-            const G = point(0, 2, 'G')
-            const H = point(4, 2, 'H')
+            const A = pointAbstrait(0, 0, 'A')
+            const B = pointAbstrait(8, 0, 'B')
+            const C = pointAbstrait(10, 0, 'C')
+            const D = pointAbstrait(10, 2, 'D')
+            const E = pointAbstrait(8, 2, 'E')
+            const F = pointAbstrait(4, 8, 'F')
+            const G = pointAbstrait(0, 2, 'G')
+            const H = pointAbstrait(4, 2, 'H')
             const segmentFH = segment(F, H)
             segmentFH.pointilles = 2
             const objets = []

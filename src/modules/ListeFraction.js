@@ -1,8 +1,7 @@
-import { lcm } from 'mathjs'
-import { listeDesDiviseurs } from '../lib/outils/primalite'
+import { listeDesDiviseurs, ppcmListe } from '../lib/outils/primalite'
 
-function ppcm([...n]) {
-  return parseInt(lcm(...n))
+function ppcm(n) {
+  return parseInt(ppcmListe(n))
 }
 
 /**
@@ -16,7 +15,7 @@ const sortFractions = (liste) =>
 
 /**
  * Classe ListeFraction qui propose des méthodes utiles sur les collections de fractions
- * @author Jean-Claude Lhote sur une idée de Sébastien Lozano
+ * @author Jean-claude Lhote sur une idée de Sébastien Lozano
  */
 class ListeFraction {
   constructor(...fractions) {

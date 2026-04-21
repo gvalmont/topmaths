@@ -3,7 +3,7 @@ import { cercle } from '../../lib/2d/cercle'
 import { codageAngleDroit } from '../../lib/2d/CodageAngleDroit'
 import { colorToLatexOrHTML } from '../../lib/2d/colorToLatexOrHtml'
 import { droite, droiteVerticaleParPoint } from '../../lib/2d/droites'
-import { point, PointAbstrait } from '../../lib/2d/PointAbstrait'
+import { pointAbstrait, PointAbstrait } from '../../lib/2d/PointAbstrait'
 import {
   NommePolygone,
   Polygone,
@@ -62,6 +62,7 @@ import {
   randint,
 } from '../../modules/outils'
 import Exercice from '../Exercice'
+import { bleuMathalea } from '../../lib/colors'
 
 export const titre =
   "Problèmes nécessitant un calcul de longueur à l'aide de la trigonométrie"
@@ -73,15 +74,15 @@ export const dateDePublication = '05/03/2022'
 export const dateDeModifImportante = '10/10/2025'
 
 /**
- * Calculer la largeur d\'une rivière @author Jean-Claude Lhote
- * Calcul d\'un parallèle terrestre @author Jean-Claude Lhote
- * Calculer la hauteur d\'un objet vu sous un angle donné @author Jean-Claude Lhote
- * Calculer la hauteur d\'une falaise @author Jean-Claude Lhote
- * Calculer la hauteur d\'une montagne @author Jean-Claude Lhote
+ * Calculer la largeur d\'une rivière @author Jean-claude Lhote
+ * Calcul d\'un parallèle terrestre @author Jean-claude Lhote
+ * Calculer la hauteur d\'un objet vu sous un angle donné @author Jean-claude Lhote
+ * Calculer la hauteur d\'une falaise @author Jean-claude Lhote
+ * Calculer la hauteur d\'une montagne @author Jean-claude Lhote
  * Triangle rectangle inscrit dans un triangle rectangle @author Rémi Angot
  * Fusion des exercices @author Guillaume Valmont
- * Interactivité des exercices, aléatoirisation des figures et des points dans les exos, AMC-isation de tous les exos @author Eric Elter
- * Meilleure interactivite + colorisation des exercices par @author Eric Elter
+ * Interactivité des exercices, aléatoirisation des figures et des points dans les exos, AMC-isation de tous les exos @author Éric Elter
+ * Meilleure interactivite + colorisation des exercices par @author Éric Elter
  */
 export const uuid = '2045e'
 
@@ -250,13 +251,13 @@ export default class ProblemesTrigoLongueur extends Exercice {
           )
           numA = randint(1, 26, [4, 5, 15, 23, 24, 25])
           ordA = sensV * randint(5, 9)
-          A = point(0, ordA, lA)
+          A = pointAbstrait(0, ordA, lA)
           numB = randint(1, 26, [4, 5, 15, 23, 24, 25, numA])
-          B = point(0, 0, lB)
+          B = pointAbstrait(0, 0, lB)
           AB = lA + lB
           numC = randint(1, 26, [4, 5, 15, 23, 24, 25, numA, numB])
           absC = sensH * randint(5, 9)
-          C = point(
+          C = pointAbstrait(
             absC,
             0,
             lC,
@@ -270,16 +271,16 @@ export default class ProblemesTrigoLongueur extends Exercice {
           )
           numS = randint(1, 26, [4, 5, 15, 23, 24, 25, numA, numB, numC])
           absS = randint(3, 7)
-          S = point(absC + sensH * absS, 0, lS)
+          S = pointAbstrait(absC + sensH * absS, 0, lS)
           p = polygoneAvecNom(A, B, S)
           R = polygoneAvecNom(
-            point(absC, -1 * sensV),
-            point(absC + sensH * absS, -1 * sensV),
-            point(absC + sensH * absS, ordA + sensV),
-            point(absC, ordA + sensV),
+            pointAbstrait(absC, -1 * sensV),
+            pointAbstrait(absC + sensH * absS, -1 * sensV),
+            pointAbstrait(absC + sensH * absS, ordA + sensV),
+            pointAbstrait(absC, ordA + sensV),
           )
           R[0].color = context.isHtml
-            ? colorToLatexOrHTML('blue')
+            ? colorToLatexOrHTML(bleuMathalea)
             : colorToLatexOrHTML('lightgray')
           R[0].couleurDeRemplissage = R[0].color
           R[0].opaciteDeRemplissage = 0.5
@@ -663,7 +664,7 @@ export default class ProblemesTrigoLongueur extends Exercice {
           else if (taille < 50) index = 1
           else if (taille < 100) index = 2
           else index = 3
-          A = point(0, 0, lA)
+          A = pointAbstrait(0, 0, lA)
           ordA = sensH * randint(10, 14)
           B = pointAdistance(A, ordA, 0, lB)
           absC = choice([2.5, 3, 3.5])
@@ -950,7 +951,7 @@ export default class ProblemesTrigoLongueur extends Exercice {
           distance = randint(5, 10)
           taille = beta * distance
           numB = randint(1, 26, [4, 5, 15, 23, 24, 25])
-          B = point(0, 0, lB)
+          B = pointAbstrait(0, 0, lB)
           numS = randint(1, 26, [4, 5, 15, 23, 24, 25, numB])
           absS = sensH * randint(4, 6)
           S = pointAdistance(B, absS, 0, lS)
@@ -1259,7 +1260,7 @@ export default class ProblemesTrigoLongueur extends Exercice {
           j++
           texteCorr += this.sup ? `${numAlpha(j)}` : ''
           texteCorr += `Or $${lB}${lC}=${lB}${lS}+${lS}${lC}$ donc $h=(${lB}${lS}+${lS}${lC})\\times \\tan(${alfa})$.<br>`
-          texteCorr += `On en déduit que $${lS}${lC}\\times \\tan(${baita})=(${lB}${lS}+${lS}${lC})\\times \\tan(${alfa})$ soit $${lS}${lC}\\times \\tan(${baita})=${lB}${lS}\\times \\tan(${alfa})+${lS}${lC}\\times \\tan(${alfa})$.<br>`
+          texteCorr += `On en déduit que $${lS}${lC}\\times \\tan(${baita})=(${lB}${lS}+${lS}${lC})\\times \\tan(${alfa})$, soit $${lS}${lC}\\times \\tan(${baita})=${lB}${lS}\\times \\tan(${alfa})+${lS}${lC}\\times \\tan(${alfa})$.<br>`
           texteCorr += `D'où $${lB}${lS}\\times \\tan(${alfa})=${lS}${lC}\\times \\tan(${baita})-${lS}${lC}\\times \\tan(${alfa})=${lS}${lC}\\times(\\tan(${baita})-\\tan(${alfa}))$.<br>`
           texteCorr += `Et $${lS}${lC}=${miseEnEvidence(`\\dfrac{${lB}${lS}\\times \\tan(${alfa})}{\\tan(${baita})-\\tan(${alfa})}`)}$.<br>`
           j++
@@ -1300,7 +1301,7 @@ export default class ProblemesTrigoLongueur extends Exercice {
               Math.sin(((beta - alpha) * Math.PI) / 180),
           )
 
-          B = point(0, 0, lB)
+          B = pointAbstrait(0, 0, lB)
           absC = sensH * randint(4, 6)
           C = pointAdistance(B, absC, 0, lC)
           absS = sensH * randint(10, 14)
@@ -1679,9 +1680,9 @@ export default class ProblemesTrigoLongueur extends Exercice {
             const AD = randint(5, 9)
             const AE = randint(AD + 1, AD + 4)
             const AC = randint(3, AD - 1)
-            const A = point(0, 0, 'A', 'below left')
-            const C = point(AC, 0, 'C', 'below')
-            const D = point(AD, 0, 'D', 'below right')
+            const A = pointAbstrait(0, 0, 'A', 'below left')
+            const C = pointAbstrait(AC, 0, 'C', 'below')
+            const D = pointAbstrait(AD, 0, 'D', 'below right')
             const dDE = droiteVerticaleParPoint(D)
             const cAE = cercle(A, AE)
             const E = pointIntersectionLC(dDE, cAE, 'E')
@@ -1726,8 +1727,7 @@ export default class ProblemesTrigoLongueur extends Exercice {
             enonceAMC = `$${A.nom + E.nom} = ${AE}\\text{ cm}$, $${A.nom + D.nom} = ${AD}\\text{ cm}$ et $${A.nom + C.nom} = ${AC}\\text{ cm}$.`
             enonceAMC += '<br>' + mathalea2d(paramsEnonce, objetsEnonce)
             enonceAMC += `Calculer la longueur $${A.nom + B.nom}$ et donner une valeur approchée `
-            texte =
-              enonceAMC + "(au millimètre près près, en précisant l'unité)."
+            texte = enonceAMC + "(au millimètre près, en précisant l'unité)."
             enonceAMC += 'en cm, au millimètre près.<br>'
             if (this.interactif) {
               texte += ajouteChampTexteMathLive(
@@ -1778,12 +1778,12 @@ export default class ProblemesTrigoLongueur extends Exercice {
               iiAMC++
             }
             texteCorr = `Dans le triangle $${A.nom + D.nom + E.nom}$ rectangle en $${D.nom}$ : `
-            texteCorr += `<br>$\\cos(\\widehat{${D.nom + A.nom + E.nom}})=\\dfrac{${A.nom + D.nom}}{${A.nom + E.nom}}\\quad$ soit $\\quad\\cos(\\widehat{${D.nom + A.nom + E.nom}})=\\dfrac{${AD}}{${AE}}$,`
+            texteCorr += `<br>$\\cos(\\widehat{${D.nom + A.nom + E.nom}})=\\dfrac{${A.nom + D.nom}}{${A.nom + E.nom}}\\quad$, soit $\\quad\\cos(\\widehat{${D.nom + A.nom + E.nom}})=\\dfrac{${AD}}{${AE}}$,`
             texteCorr += `<br> d'où $\\widehat{${D.nom + A.nom + E.nom}}=\\text{arccos}\\left(\\dfrac{${AD}}{${AE}}\\right)\\approx${texNombre(angle(D, A, E), 1)}^\\circ$.`
 
             texteCorr += `<br><br>Dans le triangle $${A.nom + B.nom + C.nom}$ rectangle en $${B.nom}$ : `
-            texteCorr += `<br>$\\cos(\\widehat{${B.nom + A.nom + C.nom}})=\\dfrac{${A.nom + B.nom}}{${A.nom + C.nom}}\\quad$ soit $\\quad\\cos(${texNombre(arrondi(angle(D, A, E), 1))}^\\circ)\\approx\\dfrac{${A.nom + B.nom}}{${AC}}$,`
-            texteCorr += `<br> d'où $${A.nom + B.nom} \\approx ${AC}${sp()}\\text{cm}\\times \\cos(${texNombre(arrondi(angle(D, A, E), 1))}^\\circ)\\approx${miseEnEvidence(`${texNombre(longueur(A, B), 1)}${sp()}\\text{m}`)}$.`
+            texteCorr += `<br>$\\cos(\\widehat{${B.nom + A.nom + C.nom}})=\\dfrac{${A.nom + B.nom}}{${A.nom + C.nom}}\\quad$, soit $\\quad\\cos(${texNombre(arrondi(angle(D, A, E), 1))}^\\circ)\\approx\\dfrac{${A.nom + B.nom}}{${AC}}$,`
+            texteCorr += `<br> d'où $${A.nom + B.nom} \\approx ${AC}${sp()}\\text{cm}\\times \\cos(${texNombre(arrondi(angle(D, A, E), 1))}^\\circ)\\approx${miseEnEvidence(`${texNombre(longueur(A, B), 1)}${sp()}\\text{cm}`)}$.`
 
             // texteCorr += `<br><br>On pouvait aussi écrire : $${A.nom + B.nom} = ${AC}\\times \\cos\\left(\\text{arccos}\\left(\\dfrac{${AD}}{${AE}}\\right)\\right)=${AC}\\times \\dfrac{${AD}}{${AE}}=${texFractionReduite(AC * AD, AE)}\\text{ cm}$ qui est la valeur exacte.`
           }

@@ -1,4 +1,4 @@
-import { point } from '../../../lib/2d/PointAbstrait'
+import { pointAbstrait } from '../../../lib/2d/PointAbstrait'
 import { tracePoint } from '../../../lib/2d/TracePoint'
 import { vide2d } from '../../../lib/2d/Vide2d'
 import { droite } from '../../../lib/2d/droites'
@@ -6,6 +6,7 @@ import { repere } from '../../../lib/2d/reperes'
 import { segment } from '../../../lib/2d/segmentsVecteurs'
 import { latex2d } from '../../../lib/2d/textes'
 import { milieu } from '../../../lib/2d/utilitairesPoint'
+import { bleuMathalea } from '../../../lib/colors'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 import { ecritureAlgebrique, rienSi1 } from '../../../lib/outils/ecritures'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
@@ -48,8 +49,8 @@ export default class EquationDroite extends ExerciceSimple {
     const yB = randint(0, 4)
 
     const o = latex2d('\\text{O}', -0.3, -0.3, { letterSize: 'scriptsize' })
-    const A = point(xA, yA)
-    const B = point(xB, yB)
+    const A = pointAbstrait(xA, yA)
+    const B = pointAbstrait(xB, yB)
 
     // Pour l'affichage du coefficient directeur, on utilise toujours le point le plus à gauche
     let pointRef, pointCible
@@ -63,7 +64,7 @@ export default class EquationDroite extends ExerciceSimple {
       pointCible = A
     }
 
-    const pointHorizontal = point(pointCible.x, pointRef.y)
+    const pointHorizontal = pointAbstrait(pointCible.x, pointRef.y)
     const sHorizontal = segment(pointRef, pointHorizontal)
     const sVertical =
       pointCible.y === pointHorizontal.y
@@ -95,11 +96,11 @@ export default class EquationDroite extends ExerciceSimple {
       `${deltaY}`,
       pointCible.x + 0.5,
       milieu(pointCible, pointHorizontal).y,
-      { color: 'blue', letterSize: 'scriptsize' },
+      { color: bleuMathalea, letterSize: 'scriptsize' },
     )
 
     const traceB = tracePoint(B, 'black')
-    const d = droite(A, B, '', 'blue')
+    const d = droite(A, B, '', bleuMathalea)
     d.epaisseur = 2
     traceA.taille = 3
     traceA.epaisseur = 2
@@ -193,7 +194,7 @@ export default class EquationDroite extends ExerciceSimple {
     } else {
       // On utilise toujours le déplacement affiché graphiquement pour la correction
       this.correction = `Le coefficient directeur $m$ de la droite $(AB)$ est donné par : <br>
-$m=\\dfrac{${miseEnEvidence(deltaY, 'blue')}}{${miseEnEvidence(deltaX, 'red')}}${maFraction.texSimplificationAvecEtapes()}$.<br>`
+$m=\\dfrac{${miseEnEvidence(deltaY, bleuMathalea)}}{${miseEnEvidence(deltaX, 'red')}}${maFraction.texSimplificationAvecEtapes()}$.<br>`
 
       if ((yB - yA) / (xB - xA) === 1) {
         this.correction += `Son ordonnée à l'origine est $${yA}$, ainsi l'équation réduite de la droite est $${miseEnEvidence(`y=x${yA === 0 ? '' : `${ecritureAlgebrique(yA)}`}`)}$.`

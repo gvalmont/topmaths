@@ -22,6 +22,7 @@ import {
   randint,
 } from '../../modules/outils'
 import Exercice from '../Exercice'
+import { orangeMathalea, bleuMathalea } from '../../lib/colors'
 
 export const titre = 'Utiliser la simple distributivité'
 
@@ -49,7 +50,7 @@ export const dateDeModifImportante = '10/06/2024'
  * * 3 : Multiplication par un facteur relatif et les termes sont relatifs
  * *
  * * Refactoring 21/12/2012
- * @author Rémi Angot et Mickael Guironnet (AMC par Eric Elter)
+ * @author Rémi Angot et Mickael Guironnet (AMC par Éric Elter)
  */
 export const uuid = 'db2e0'
 
@@ -129,7 +130,7 @@ export default class ExerciceDevelopper extends Exercice {
     )
 
     const couleurCorrection =
-      this.sup2 === 1 ? ['#f15929', 'blue'] : ['blue', '#f15929']
+      this.sup2 === 1 ? [orangeMathalea, bleuMathalea] : [bleuMathalea, orangeMathalea]
 
     for (
       let i = 0,

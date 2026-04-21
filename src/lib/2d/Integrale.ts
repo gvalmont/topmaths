@@ -1,9 +1,10 @@
+import { bleuMathalea } from '../../lib/colors'
 import { inferieurouegal } from '../../modules/outils'
 import { colorToLatexOrHTML } from './colorToLatexOrHtml'
 import type { IRepere } from './Interfaces'
 import { ObjetMathalea2D } from './ObjetMathalea2D'
 import { motifs } from './pattern'
-import { point } from './PointAbstrait'
+import { pointAbstrait } from './PointAbstrait'
 import { polygone } from './polygones'
 
 /**
@@ -11,9 +12,9 @@ import { polygone } from './polygones'
  * @param {function} f fonction dont on veut tracer l'aire entre sa courbe et l'axe des abscisses comme par exemple : const f = x => a * x ** 2 + b * x + c
  * @param {Object} parametres À saisir entre accolades
  * @param {Repere} [parametres.repere  = {}]  Repère dans lequel le tracé de la fonction se fait
- * @param {string} [parametres.color = 'black']  Couleur du contour de l'aire : du type 'blue' ou du type '#f15929'
+ * @param {string} [parametres.color = 'black']  Couleur du contour de l'aire : du type 'red', bleuMathalea ou du type '#a12345'
  * @param {number} [parametres.epaisseur = 2]  Epaisseur du contour de l'aire
- * @param {string} [parametres.couleurDeRemplissage = 'blue']  Couleur de l'intérieur de l'aire : du type 'blue' ou du type '#f15929'
+ * @param {string} [parametres.couleurDeRemplissage = bleuMathalea]  Couleur de l'intérieur de l'aire : du type 'red', bleuMathalea ou du type '#a12345'
  * @param {number} [parametres.opacite = 0.5] Taux d'opacité du remplissage entre 0 et 1
  * @param {number} [parametres.hachures = 0] Style des hachures dans cette aire (entier entre 0 et 10).
  * @param {boolean|number} [parametres.step = false] Si false, le pas entre deux abscisses pour tracer l'aire est 0.2/xUnite. Sinon, ce pas vaut la valeur indiquée.
@@ -40,7 +41,7 @@ export class Integrale extends ObjetMathalea2D {
     {
       repere,
       color = 'black',
-      couleurDeRemplissage = 'blue',
+      couleurDeRemplissage = bleuMathalea,
       epaisseur = 2,
       step = false,
       a = 0,
@@ -78,7 +79,7 @@ export class Integrale extends ObjetMathalea2D {
       if (x > b) x = b // normalement x<xMax... mais inférieurouegal ne compare qu'à 0.0000001 près, on peut donc avoir xMax+epsilon qui sort de l'intervalle de déf
       if (isFinite(f(x))) {
         if (f(x) < ymax + 1 && f(x) > ymin - 1) {
-          points.push(point(x * xunite, f(x) * yunite))
+          points.push(pointAbstrait(x * xunite, f(x) * yunite))
         } else {
           window.notify(
             "Erreur dans Integrale : Il semble que la fonction ne soit pas continue sur l'intervalle",
@@ -94,9 +95,9 @@ export class Integrale extends ObjetMathalea2D {
       }
     }
     points.push(
-      point(b * xunite, f(b) * yunite),
-      point(b * xunite, 0),
-      point(a * xunite, 0),
+      pointAbstrait(b * xunite, f(b) * yunite),
+      pointAbstrait(b * xunite, 0),
+      pointAbstrait(a * xunite, 0),
     )
     const p = polygone([...points], color)
     p.epaisseur = epaisseur
@@ -155,9 +156,9 @@ export class Integrale extends ObjetMathalea2D {
  * @param {function} f fonction dont on veut tracer l'aire entre sa courbe et l'axe des abscisses comme par exemple : const f = x => a * x ** 2 + b * x + c
  * @param {Object} parametres À saisir entre accolades
  * @param {Repere} [parametres.repere  = {}]  Repère dans lequel le tracé de la fonction se fait
- * @param {string} [parametres.color = 'black']  Couleur du contour de l'aire : du type 'blue' ou du type '#f15929'
+ * @param {string} [parametres.color = 'black']  Couleur du contour de l'aire : du type 'red', bleuMathalea ou du type '#a12345'
  * @param {number} [parametres.epaisseur = 2]  Epaisseur du contour de l'aire
- * @param {string} [parametres.couleurDeRemplissage = 'blue']  Couleur de l'intérieur de l'aire : du type 'blue' ou du type '#f15929'
+ * @param {string} [parametres.couleurDeRemplissage = bleuMathalea]  Couleur de l'intérieur de l'aire : du type 'red', bleuMathalea ou du type '#a12345'
  * @param {number} [parametres.opacite = 0.5] Taux d'opacité du remplissage entre 0 et 1
  * @param {number} [parametres.hachures = 0] Style des hachures dans cette aire (entier entre 0 et 10).
  * @param {boolean|number} [parametres.step = false] Si false, le pas entre deux abscisses pour tracer l'aire est 0.2/xUnite. Sinon, ce pas vaut la valeur indiquée.
@@ -165,7 +166,7 @@ export class Integrale extends ObjetMathalea2D {
  * @param {number} [parametres.b = 1]  Abscisse maximale du tracé de la courbe avec a < b
  * @example integrale(g, {repere: r})
  * // Trace avec une épaisseur de 2, l'aire entre la courbe de la fonction g et l'axe des abscisses dans le repère r, tous deux précédemment définis.
- * @example integrale(g,  {repere: r, epaisseur: 5, color: 'blue', couleurDeRemplissage: 'red'})
+ * @example integrale(g,  {repere: r, epaisseur: 5, color: bleuMathalea, couleurDeRemplissage: 'red'})
  * // Trace avec une épaisseur de 5, l'aire entre la courbe de la fonction g et l'axe des abscisses dans le repère r, tous deux précédemment définis. L'aire est entourée de bleu et remplie de rouge.
  * @author Rémi Angot
  * @return {Integrale}
@@ -177,7 +178,7 @@ export function integrale(
   {
     repere,
     color = 'black',
-    couleurDeRemplissage = 'blue',
+    couleurDeRemplissage = bleuMathalea,
     epaisseur = 2,
     step = false,
     a = 0,

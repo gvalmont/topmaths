@@ -34,6 +34,7 @@ import {
   randint,
 } from '../../modules/outils'
 import Exercice from '../Exercice'
+import { orangeMathalea } from '../../lib/colors'
 export const titre =
   'Utiliser les propriétés de conservation des longueurs et des angles'
 export const interactifReady = true
@@ -43,7 +44,7 @@ export const dateDePublication = '12/01/2026'
 
 /**
  * Annoter une figure en utilisant les propriétés de conservation de la symétrie et de la translation
- * @author Jean-Claude Lhote
+ * @author Jean-claude Lhote
  */
 export const uuid = '07d1b'
 
@@ -291,7 +292,7 @@ export default class ConservationTransformation extends Exercice {
         `${texNombre(longueur(B, A, 1), 1)}\\text{ cm}`,
         imageB,
         imageA,
-        { color: '#f15929', letterSize: 'small', opacity: 1 },
+        { color: orangeMathalea, letterSize: 'small', opacity: 1 },
       )
       objetsEnonceOnly.push(
         new MetaInteractif2d(
@@ -354,14 +355,14 @@ export default class ConservationTransformation extends Exercice {
           imageA,
           imageC,
           imageB,
-          '#f15929',
+          orangeMathalea,
           1,
           (
             180 -
             Math.round(angle(A, B, C)) -
             Math.round(angle(B, A, C))
           ).toString() + '^\\circ',
-          { colorArc: '#f15929' },
+          { colorArc: orangeMathalea },
         ),
         placeLongueur,
       )

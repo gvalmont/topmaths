@@ -1,4 +1,4 @@
-import { point } from '../../lib/2d/PointAbstrait'
+import { pointAbstrait } from '../../lib/2d/PointAbstrait'
 import { tracePoint } from '../../lib/2d/TracePoint'
 import { droite } from '../../lib/2d/droites'
 import { repere } from '../../lib/2d/reperes'
@@ -12,6 +12,7 @@ import FractionEtendue from '../../modules/FractionEtendue'
 import { mathalea2d } from '../../modules/mathalea2d'
 import { randint } from '../../modules/outils'
 import ExerciceQcmA from '../ExerciceQcmA'
+import { bleuMathalea } from '../../lib/colors'
 /**
  * @author Gilles Mora
  *
@@ -54,8 +55,8 @@ export default class Auto1AF2q extends ExerciceQcmA {
     }
 
     const o = latex2d('\\text{O}', -0.3, -0.3, { letterSize: 'scriptsize' })
-    const A = point(0, ordOrigine)
-    const B = point(denCoeff, ordOrigine + numCoeff)
+    const A = pointAbstrait(0, ordOrigine)
+    const B = pointAbstrait(denCoeff, ordOrigine + numCoeff)
 
     const traceA = tracePoint(A, 'black')
     traceA.taille = 3
@@ -65,7 +66,7 @@ export default class Auto1AF2q extends ExerciceQcmA {
     traceB.taille = 3
     traceB.epaisseur = 2
 
-    const d = droite(A, B, '', 'blue')
+    const d = droite(A, B, '', bleuMathalea)
     d.epaisseur = 2
 
     const xmin = -4

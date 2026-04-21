@@ -6,10 +6,10 @@ import {
   droiteParPointEtPerpendiculaire,
   labelOnLine,
 } from '../../lib/2d/droites'
-import { point } from '../../lib/2d/PointAbstrait'
+import { pointAbstrait } from '../../lib/2d/PointAbstrait'
 import { rotation } from '../../lib/2d/transformations'
 import { pointIntersectionDD } from '../../lib/2d/utilitairesPoint'
-import { orangeMathalea } from '../../lib/colors'
+import { orangeMathalea, bleuMathalea } from '../../lib/colors'
 import { enleveDoublonNum, shuffle } from '../../lib/outils/arrayOutils'
 import { context } from '../../modules/context'
 import { mathalea2d } from '../../modules/mathalea2d'
@@ -27,8 +27,8 @@ export const titre =
   'Utiliser les propriétés des droites parallèles et perpendiculaires - v2'
 
 /**
- * @author Eric Elter sur la base de 5G33-2
- * @author Jean-Claude Lhote pour 5G33-2 (EE : pour l'ajout d'AMC et la possibilité de sélectionner différents mélanges)
+ * @author Éric Elter sur la base de 5G33-2
+ * @author Jean-claude Lhote pour 5G33-2 (EE : pour l'ajout d'AMC et la possibilité de sélectionner différents mélanges)
  * @author Mickael Guironnet pour 5G33-2 (refactoring avec ajout des 4 à 6 et des figures)
  * Dans cet exercice, on peut choisir la(les) propriété(s) qu'on veut traiter.
  */
@@ -101,7 +101,7 @@ export default class ProprietesParallelesPerpendiculaires extends Exercice {
     proprietesDisponibles = enleveDoublonNum(proprietesDisponibles)
 
     const droiteColor = context.isHtml
-      ? ['red', 'blue', 'green', 'black', 'magenta', orangeMathalea]
+      ? ['red', bleuMathalea, 'green', 'black', 'magenta', orangeMathalea]
       : ['black', 'black', 'black', 'black', 'black', 'black']
 
     const differentsCas = [
@@ -166,7 +166,7 @@ export default class ProprietesParallelesPerpendiculaires extends Exercice {
      * Un tableau contenant les indices (0-based) des cas de `differentsCas`
      * qui satisfont les conditions de sélection.
      *
-     * @author Eric Elter (pour le prompt)
+     * @author Éric Elter (pour le prompt)
      * @example
      * ```ts
      * const differentsCas = [
@@ -252,7 +252,7 @@ export default class ProprietesParallelesPerpendiculaires extends Exercice {
      * Un nouveau tableau contenant uniquement les entiers de `listeTypeDeQuestions`
      * qui appartiennent à au moins une plage autorisée par `questionsDisponibles`.
      *
-     * @author Eric Elter (pour le prompt)
+     * @author Éric Elter (pour le prompt)
      * @example
      * ```ts
      * const questionsDisponibles = [1, 4];
@@ -563,7 +563,7 @@ export default class ProprietesParallelesPerpendiculaires extends Exercice {
       // construction de la figure
       context.fenetreMathalea2d = [-2, -2, 15, 10] // important avec la création des droites
       const labels = []
-      P.push(point(0, 0))
+      P.push(pointAbstrait(0, 0))
       let droiteP = droiteParPointEtPente(
         P[0],
         randint(-1, 1, -2) / 10,
@@ -574,8 +574,8 @@ export default class ProprietesParallelesPerpendiculaires extends Exercice {
       droiteP.pointilles = 0
       d.push(droiteP)
       const droiteE = droite(
-        point(droiteP.x1, droiteP.y1),
-        point(droiteP.x2, droiteP.y2),
+        pointAbstrait(droiteP.x1, droiteP.y1),
+        pointAbstrait(droiteP.x2, droiteP.y2),
         '',
       )
       droiteE.epaisseur = 2
@@ -585,7 +585,7 @@ export default class ProprietesParallelesPerpendiculaires extends Exercice {
       objets2.push(dE[0])
       for (let x = 0; x < codeAll.length; x++) {
         if (codeAll[x][2] === 1) {
-          P.push(point((x + 1) * 2, (x + 1) * 2))
+          P.push(pointAbstrait((x + 1) * 2, (x + 1) * 2))
           droiteP = droiteParPointEtParallele(
             P[x + 1],
             d[codeAll[x][0] - 1],
@@ -596,8 +596,8 @@ export default class ProprietesParallelesPerpendiculaires extends Exercice {
           droiteP.pointilles = d[codeAll[x][0] - 1].pointilles
           d.push(droiteP)
           const droiteP2 = droite(
-            point(droiteP.x1, droiteP.y1),
-            point(droiteP.x2, droiteP.y2),
+            pointAbstrait(droiteP.x1, droiteP.y1),
+            pointAbstrait(droiteP.x2, droiteP.y2),
             '',
           )
           droiteP2.epaisseur = 2
@@ -606,7 +606,7 @@ export default class ProprietesParallelesPerpendiculaires extends Exercice {
             labelOnLine(droiteP2, `(d_${numDroites[codeAll[x][1] - 1]})`),
           )
         } else {
-          P.push(point((x + 1) * 2, (x + 1) * 2))
+          P.push(pointAbstrait((x + 1) * 2, (x + 1) * 2))
           droiteP = droiteParPointEtPerpendiculaire(
             P[x + 1],
             d[codeAll[x][0] - 1],
@@ -617,8 +617,8 @@ export default class ProprietesParallelesPerpendiculaires extends Exercice {
           droiteP.pointilles = (x % 3) + 1
           d.push(droiteP)
           const droiteP2 = droite(
-            point(droiteP.x1, droiteP.y1),
-            point(droiteP.x2, droiteP.y2),
+            pointAbstrait(droiteP.x1, droiteP.y1),
+            pointAbstrait(droiteP.x2, droiteP.y2),
             '',
           )
           labels.push(

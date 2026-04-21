@@ -1,5 +1,5 @@
 /* eslint-disable camelcase */
-import { point } from '../../lib/2d/PointAbstrait'
+import { pointAbstrait } from '../../lib/2d/PointAbstrait'
 import { texteParPositionEchelle } from '../../lib/2d/textes'
 import { choixDeroulant } from '../../lib/interactif/questionListeDeroulante'
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
@@ -47,7 +47,7 @@ export const titre = 'Noter la couleur avec Scratch'
 /**
  * Note_la_couleur() Exercice inspiré de l'activité débranchée de Jean-Yves Labouche Note La Couleur
  * https://www.monclasseurdemaths.fr/profs/algorithmique-scratch/note-la-couleur/
- * @author Jean-Claude Lhote
+ * @author Jean-claude Lhote
  * A faire : ajouter d'autres niveaux avec des instructions conditionnelles, des blocs définis...
  */
 export const uuid = '0e016'
@@ -794,7 +794,7 @@ export default class NoteLaCouleur6e extends Exercice {
     <animateMotion path="M ${lutin.listeTraces[0][0] * context.pixelsParCm} ${-lutin.listeTraces[0][1] * context.pixelsParCm} L`
 
       for (let i = 0; i < lutin.listeTraces.length; i++) {
-        const B = point(lutin.listeTraces[i][2], lutin.listeTraces[i][3])
+        const B = pointAbstrait(lutin.listeTraces[i][2], lutin.listeTraces[i][3])
         lutin.animation += ` ${B.xSVG(context.pixelsParCm)} ${B.ySVG(context.pixelsParCm)} `
       }
       lutin.animation +=

@@ -1,7 +1,7 @@
 import { afficheCoteSegment } from '../../lib/2d/AfficheCoteSegment'
 import { afficheLongueurSegment } from '../../lib/2d/afficheLongueurSegment'
 import { codageAngleDroit } from '../../lib/2d/CodageAngleDroit'
-import { point } from '../../lib/2d/PointAbstrait'
+import { pointAbstrait } from '../../lib/2d/PointAbstrait'
 import { polygoneAvecNom } from '../../lib/2d/polygones'
 import { segment } from '../../lib/2d/segmentsVecteurs'
 import { rotation } from '../../lib/2d/transformations'
@@ -38,7 +38,7 @@ export const dateDeModifImportante = '18/06/2024'
  *
  * Une figure dynamique est disponible sur laquelle on peut déplacer le pied de la hauteur.
  *
- * @author Rémi Angot conversion mathalea2d Jean-Claude Lhote
+ * @author Rémi Angot conversion mathalea2d Jean-claude Lhote
  * Ajout de la possibilité de choisir le nombre de questions par Guillaume Valmont le 08/05/2022
  */
 export const uuid = '06b1a'
@@ -80,7 +80,7 @@ export default class AireDeTriangles extends Exercice {
       this.nbQuestions,
     )
     let triH
-    const A = point(0, 0)
+    const A = pointAbstrait(0, 0)
     let B
     let C
     let H
@@ -119,7 +119,7 @@ export default class AireDeTriangles extends Exercice {
       A.nom = nom[(i * 4) % NB_LETTRES]
       do {
         B = rotation(
-          point(cotes[i], 0),
+          pointAbstrait(cotes[i], 0),
           A,
           randint(-60, 60),
           nom[(i * 4 + 1) % NB_LETTRES],

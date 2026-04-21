@@ -2,9 +2,9 @@
  * ⚠️ Cet exercice est utilisé dans le test : tests/e2e/tests/interactivity/mathLive.calcul.test.ts ⚠️
  */
 
-import { orangeMathalea } from 'apigeom/src/elements/defaultValues'
 import { grille, seyes } from '../../lib/2d/Grille'
 import { vide2d } from '../../lib/2d/Vide2d'
+import { orangeMathalea } from '../../lib/colors'
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 import { setReponse } from '../../lib/interactif/gestionInteractif'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
@@ -39,7 +39,7 @@ export const titre =
  * * abc*d0e tables de 2 à 5
  * * abc*de tables de 5 à 9
  * @author Rémi Angot
- * Support des opérations posées en html par Jean-Claude Lhote.
+ * Support des opérations posées en html par Jean-claude Lhote.
  */
 export const uuid = 'cfa6a'
 

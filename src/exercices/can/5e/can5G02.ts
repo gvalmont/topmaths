@@ -2,8 +2,9 @@ import { afficheMesureAngle } from '../../../lib/2d/AfficheMesureAngle'
 import { codageAngleDroit } from '../../../lib/2d/CodageAngleDroit'
 import { codageSegments } from '../../../lib/2d/CodageSegment'
 import { fixeBordures } from '../../../lib/2d/fixeBordures'
-import { point } from '../../../lib/2d/PointAbstrait'
+import { pointAbstrait } from '../../../lib/2d/PointAbstrait'
 import { polygoneAvecNom } from '../../../lib/2d/polygones'
+import { bleuMathalea } from '../../../lib/colors'
 import { choice } from '../../../lib/outils/arrayOutils'
 import { creerNomDePolygone } from '../../../lib/outils/outilString'
 import { texNombre } from '../../../lib/outils/texNombre'
@@ -46,9 +47,9 @@ export default class AngleTriangleIsocele extends ExerciceSimple {
     let objets
     const nom = creerNomDePolygone(3, ['QD'])
     const a = randint(8, 14, 12) * 5
-    const A = point(0, 0, nom[0])
-    const B = point(5, 0, nom[1])
-    const C = point(2.5, 2.5 * degTan(a), nom[2])
+    const A = pointAbstrait(0, 0, nom[0])
+    const B = pointAbstrait(5, 0, nom[1])
+    const C = pointAbstrait(2.5, 2.5 * degTan(a), nom[2])
     const pol = polygoneAvecNom(A, B, C)
 
     switch (choice(['a', 'b'])) {
@@ -58,7 +59,7 @@ export default class AngleTriangleIsocele extends ExerciceSimple {
         objets.push(pol[0], pol[1])
         objets.push(
           afficheMesureAngle(B, A, C, 'black', 1, a + '^\\circ'),
-          codageSegments('||', 'blue', C, A, C, B),
+          codageSegments('||', bleuMathalea, C, A, C, B),
         )
         this.question = `Quelle est la mesure en degré de l'angle $\\widehat{${nom[2]}}$ ? <br>
         `
@@ -88,7 +89,7 @@ export default class AngleTriangleIsocele extends ExerciceSimple {
           a === 45
             ? codageAngleDroit(A, C, B)
             : afficheMesureAngle(A, C, B, 'black', 1, 180 - 2 * a + '^\\circ'),
-          codageSegments('||', 'blue', C, A, C, B),
+          codageSegments('||', bleuMathalea, C, A, C, B),
         )
         this.question = `Quelle est la mesure en degré de l'angle $\\widehat{${nom[1]}}$ ?<br>
             `

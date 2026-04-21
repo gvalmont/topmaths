@@ -1,12 +1,13 @@
+import { bleuMathalea } from '../../../lib/colors'
 import { Figure2D } from '../Figures2D'
-import { point } from '../PointAbstrait'
+import { pointAbstrait } from '../PointAbstrait'
 import { Segment, segment } from '../segmentsVecteurs'
 
 /**
  * Génère une figure représentant un panneau de route prioritaire.
  * @param options Options pour personnaliser le style du panneau.
  * @returns Une instance de Figure2D représentant un panneau de route prioritaire.
- * @author Jean-Claude Lhote
+ * @author Jean-claude Lhote
  * @version 1.0
  * @date 2025-05-10
  */
@@ -47,7 +48,7 @@ export function panneauRoutePrioritaire(options?: {
     width: 2,
     height: 2,
     axes,
-    centre: point(0, 0),
+    centre: pointAbstrait(0, 0),
   })
 }
 
@@ -86,14 +87,14 @@ export function panneauFinDeRoutePrioritaire(options?: {
     width: 2,
     height: 2,
     axes,
-    centre: point(0, 0),
+    centre: pointAbstrait(0, 0),
   })
 }
 /**
  * Génère une figure représentant un panneau de stationnement interdit.
  * @param options Options pour personnaliser le style du panneau.
  * @returns Une instance de Figure2D représentant un panneau de stationnement interdit.
- * @author Jean-Claude Lhote
+ * @author Jean-claude Lhote
  * @version 1.0
  * @date 2025-05-10
  */
@@ -103,7 +104,7 @@ export function panneauStationnementInterdit(options?: {
   lineWidth?: number // Épaisseur de la bordure
 }): Figure2D {
   // Génération du code SVG
-  const circleFill = options?.fillStyle || 'blue'
+  const circleFill = options?.fillStyle || bleuMathalea
   const circleStroke = options?.strokeStyle || 'red'
   const circleLineWidth = options?.lineWidth || 5
   const crossColor = 'red'
@@ -131,14 +132,14 @@ export function panneauStationnementInterdit(options?: {
     width: 2,
     height: 2,
     axes,
-    centre: point(0, 0),
+    centre: pointAbstrait(0, 0),
   })
 }
 /**
  * Génère une figure représentant un panneau STOP.
  * @param options Options pour personnaliser le style du panneau.
  * @returns Une instance de Figure2D représentant un panneau STOP.
- * @author Jean-Claude Lhote
+ * @author Jean-claude Lhote
  * @version 1.0
  * @date 2025-05-10
  */
@@ -180,7 +181,7 @@ export function panneauStop(options?: {
  * Génère une figure représentant un panneau de voie sans issue.
  * @param options Options pour personnaliser le style du panneau.
  * @returns Une instance de Figure2D représentant un panneau de voie sans issue.
- * @author Jean-Claude Lhote
+ * @author Jean-claude Lhote
  */
 export function panneauVoieSansIssue(options?: {
   fillStyle?: string // Couleur de remplissage du carré bleu (par défaut bleu)
@@ -190,7 +191,7 @@ export function panneauVoieSansIssue(options?: {
   barFillStyle?: string // Couleur de la barre rouge (par défaut rouge)
 }): Figure2D {
   // Options par défaut
-  const fillStyle = options?.fillStyle || 'blue'
+  const fillStyle = options?.fillStyle || bleuMathalea
   const strokeStyle = options?.strokeStyle || 'black'
   const lineWidth = options?.lineWidth || 1
   const tFillStyle = options?.tFillStyle || 'white'
@@ -221,7 +222,7 @@ export function panneauVoieSansIssue(options?: {
  * Génère une figure représentant un panneau de parking.
  * @param options Options pour personnaliser le style du panneau.
  * @returns Une instance de Figure2D représentant un panneau de parking.
- * @author Jean-Claude Lhote
+ * @author Jean-claude Lhote
  */
 export function panneauParking(options?: {
   fillStyle?: string // Couleur de remplissage du carré bleu (par défaut bleu)
@@ -230,7 +231,7 @@ export function panneauParking(options?: {
   pFillStyle?: string // Couleur de la lettre P (par défaut blanc)
 }): Figure2D {
   // Options par défaut
-  const fillStyle = options?.fillStyle || 'blue'
+  const fillStyle = options?.fillStyle || bleuMathalea
   const strokeStyle = options?.strokeStyle || 'black'
   const lineWidth = options?.lineWidth || 1
   const pFillStyle = options?.pFillStyle || 'white'
@@ -261,7 +262,7 @@ export function panneauParking(options?: {
  * Génère une figure représentant un panneau de céder le passage.
  * @param options Options pour personnaliser le style du panneau.
  * @returns
- * @author Jean-Claude Lhote
+ * @author Jean-claude Lhote
  */
 export function panneauCederLePassage(options?: {
   fillStyle?: string // Couleur de remplissage de l'intérieur du triangle (par défaut blanc)
@@ -329,7 +330,7 @@ export function panneauCederLePassage(options?: {
  * Génère une figure représentant un panneau signalant une circulation à double sens.
  * @param options Options pour personnaliser le style du panneau.
  * @returns Une instance de Figure2D représentant un panneau de danger pour une circulation à double sens.
- * @author Jean-Claude Lhote
+ * @author Jean-claude Lhote
  */
 export function panneauDoubleSens(options?: {
   fillStyle?: string // Couleur de remplissage de l'intérieur du triangle (par défaut blanc)
@@ -400,7 +401,7 @@ export function panneauDoubleSens(options?: {
  *
  * @param options Options pour personnaliser le style du panneau.
  * @returns
- * @author Jean-Claude Lhote
+ * @author Jean-claude Lhote
  */
 export function panneauRetrecissementChaussee1(options?: {
   fillStyle?: string // Couleur de remplissage de l'intérieur du triangle (par défaut blanc)
@@ -469,7 +470,7 @@ export function panneauRetrecissementChaussee1(options?: {
  *
  * @param options Options pour personnaliser le style du panneau.
  * @returns
- * @author Jean-Claude Lhote
+ * @author Jean-claude Lhote
  */
 export function panneauRetrecissementChaussee2(options?: {
   fillStyle?: string // Couleur de remplissage de l'intérieur du triangle (par défaut blanc)
@@ -534,7 +535,7 @@ export function panneauRetrecissementChaussee2(options?: {
  *
  * @param options Options pour personnaliser le style du panneau.
  * @returns
- * @author Jean-Claude Lhote
+ * @author Jean-claude Lhote
  */
 export function panneauRetrecissementChaussee3(options?: {
   fillStyle?: string // Couleur de remplissage de l'intérieur du triangle (par défaut blanc)
@@ -603,7 +604,7 @@ export function panneauRetrecissementChaussee3(options?: {
  *
  * @param options Options pour personnaliser le style du panneau.
  * @returns
- * @author Jean-Claude Lhote
+ * @author Jean-claude Lhote
  */
 export function panneauCroisementPrioriteADroite(options?: {
   fillStyle?: string // Couleur de remplissage de l'intérieur du triangle (par défaut blanc)
@@ -668,7 +669,7 @@ export function panneauCroisementPrioriteADroite(options?: {
  *
  * @param options Options pour personnaliser le style du panneau.
  * @returns Figure2D représentant un panneau de feu tricolore.
- * @author Jean-Claude Lhote
+ * @author Jean-claude Lhote
  */
 export function panneauFeuTricolore(options?: {
   fillStyle?: string // Couleur de remplissage de l'intérieur du triangle (par défaut blanc)
@@ -801,7 +802,7 @@ export function panneauCroisementRouteSecondaire(options?: {
  * Génère une figure représentant un panneau de sens interdit.
  * @param options Options pour personnaliser le style du panneau.
  * @returns Une instance de Figure2D représentant un panneau de sens interdit.
- * @author Jean-Claude Lhote
+ * @author Jean-claude Lhote
  * @version 1.0
  * @date 2025-05-10
  */
@@ -837,7 +838,7 @@ export function panneauSensInterdit(options?: {
     width: 2,
     height: 2,
     axes,
-    centre: point(0, 0),
+    centre: pointAbstrait(0, 0),
   })
 }
 
@@ -891,14 +892,14 @@ export function panneauInterdictionDeCirculer(options?: {
     height: 2,
     nbAxes: Number.POSITIVE_INFINITY,
     axes,
-    centre: point(0, 0),
+    centre: pointAbstrait(0, 0),
   })
 }
 /**
  * Génère une figure représentant un panneau de fin de limitation.
  * @param options Options pour personnaliser le style du panneau.
  * @returns Une instance de Figure2D représentant un panneau de fin de limitation.
- * @author Jean-Claude Lhote
+ * @author Jean-claude Lhote
  * @version 1.0
  * @date 2025-05-10
  */
@@ -934,7 +935,7 @@ export function panneauFinDeLimitation(options?: {
     width: 2,
     height: 2,
     axes,
-    centre: point(0, 0),
+    centre: pointAbstrait(0, 0),
   })
 }
 
@@ -942,7 +943,7 @@ export function panneauFinDeLimitation(options?: {
  * Génère une figure représentant un panneau d'interdiction de stationner.
  * @param options Options pour personnaliser le style du panneau.
  * @returns Une instance de Figure2D représentant un panneau d'interdiction de stationner.
- * @author Jean-Claude Lhote
+ * @author Jean-claude Lhote
  * @version 1.0
  * @date 2025-05-10
  */
@@ -952,7 +953,7 @@ export function panneauArretInterdit(options?: {
   lineWidth?: number // Épaisseur de la bordure
 }): Figure2D {
   // Génération du code SVG
-  const circleFill = options?.fillStyle || 'blue'
+  const circleFill = options?.fillStyle || bleuMathalea
   const circleStroke = options?.strokeStyle || 'red'
   const circleLineWidth = options?.lineWidth || 5
   const crossColor = 'red'
@@ -987,6 +988,6 @@ export function panneauArretInterdit(options?: {
     width: 2,
     height: 2,
     axes,
-    centre: point(0, 0),
+    centre: pointAbstrait(0, 0),
   })
 }

@@ -1,24 +1,25 @@
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
-import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
+import { handleAnswers } from '../../lib/interactif/gestionInteractif'
+import { toutAUnPoint } from '../../lib/interactif/mathLive'
+import { addMultiMathfield } from '../../lib/interactif/MultiMathfield/MultiMathfield'
 import { choice } from '../../lib/outils/arrayOutils'
+import { miseEnEvidence } from '../../lib/outils/embellissements'
+import { personne } from '../../lib/outils/Personne'
+import { texNombre } from '../../lib/outils/texNombre'
+import FractionEtendue from '../../modules/FractionEtendue'
 import { listeQuestionsToContenu } from '../../modules/outils'
 import Exercice from '../Exercice'
-import { miseEnEvidence } from '../../lib/outils/embellissements'
-import { handleAnswers } from '../../lib/interactif/gestionInteractif'
-import { personne } from '../../lib/outils/Personne'
-import FractionEtendue from '../../modules/FractionEtendue'
-import { texNombre } from '../../lib/outils/texNombre'
 
 export const titre =
   'Trouver une probabilité sous forme fractionnaire, décimale et en pourcentage'
 export const interactifReady = true
-export const interactifType = 'mathLive'
+export const interactifType = 'multiMathfield'
 
 /**
- * @author Eric Elter
+ * @author Éric Elter
  */
 export const dateDePublication = '10/08/2025'
-export const uuid = 'b8296'
+export const uuid = 'b8297'
 
 export const refs = {
   'fr-fr': ['6P2B'],
@@ -58,53 +59,39 @@ export default class Probabilites6e extends Exercice {
       const boule2 = frac[1] - frac[0]
       let texte = `${quidam.prenom} veut piocher une boule dans un sac contenant $${choix ? boule1 : boule2}$ boule${(choix ? boule1 : boule2) === 1 ? '' : 's'} ${choixCouleur[0]}${(choix ? boule1 : boule2) === 1 ? '' : 's'}
       et $${!choix ? boule1 : boule2}$ boule${(!choix ? boule1 : boule2) === 1 ? '' : 's'} ${choixCouleur[1]}${(!choix ? boule1 : boule2) === 1 ? '' : 's'}.<br>
-      Quelle est la probabilité que ${quidam.prenom} pioche une boule ${choixCouleur[choix ? 0 : 1]} ?`
-      texte += "<br>Donner la réponse sous forme d'une fraction"
-      texte += this.interactif
-        ? ajouteChampTexteMathLive(
-            this,
-            3 * i,
-            KeyboardType.clavierDeBaseAvecFraction,
-            { texteAvant: ' : ', texteApres: '.' },
-          )
-        : '.'
-      texte += "<br>Donner la réponse sous forme d'un nombre décimal"
-      texte += this.interactif
-        ? ajouteChampTexteMathLive(
-            this,
-            3 * i + 1,
-            KeyboardType.clavierNumbers,
-            { texteAvant: ' : ', texteApres: '.' },
-          )
-        : '.'
-      texte += "<br>Donner la réponse sous forme d'un pourcentage"
-      texte += this.interactif
-        ? ajouteChampTexteMathLive(
-            this,
-            3 * i + 2,
-            KeyboardType.clavierNumbers,
-            { texteAvant: ' : ', texteApres: '%.' },
-          )
-        : '.'
+      Quelle est la probabilité que ${quidam.prenom} pioche une boule ${choixCouleur[choix ? 0 : 1]} ?<br>`
+      texte += addMultiMathfield(this, i, {
+        dataTemplate: `Donner la réponse sous forme d'une fraction : %{champ1}.
+        Donner la réponse sous forme d'un nombre décimal : %{champ2}.
+        Donner la réponse sous forme d'un pourcentage : %{champ3}$\\%$.`,
+        dataOptions: {
+          champ1: { keyboard: KeyboardType.clavierDeBaseAvecFraction },
+          champ2: { keyboard: KeyboardType.clavierDeBase },
+          champ3: { keyboard: KeyboardType.clavierDeBase },
+        },
+      })
       const reponseFrac = new FractionEtendue(boule1, boule1 + boule2)
         .texFraction
       const reponseDecimale = new FractionEtendue(boule1, boule1 + boule2)
         .valeurDecimale
-      handleAnswers(this, 3 * i, {
-        reponse: { value: reponseFrac, options: { fractionEgale: true } },
-      })
-      handleAnswers(this, 3 * i + 1, {
-        reponse: {
-          value: reponseDecimale,
-          options: { nombreDecimalSeulement: true },
+      handleAnswers(
+        this,
+        i,
+        {
+          bareme: toutAUnPoint,
+          champ1: { value: reponseFrac, options: { fractionEgale: true } },
+          champ2: {
+            value: reponseDecimale,
+            options: { nombreDecimalSeulement: true },
+          },
+          champ3: {
+            value: frac[2].toString(),
+            options: { nombreDecimalSeulement: true },
+          },
         },
-      })
-      handleAnswers(this, 3 * i + 2, {
-        reponse: {
-          value: frac[2].toString(),
-          options: { nombreDecimalSeulement: true },
-        },
-      })
+        { formatInteractif: 'multiMathfield' },
+      )
+
       const texteCorr = `La probabilité que ${quidam.prenom} pioche une boule ${choixCouleur[choix ? 0 : 1]} est de $${miseEnEvidence(reponseFrac)}$, soit $${miseEnEvidence(texNombre(reponseDecimale))}$, soit encore $${miseEnEvidence(texNombre(frac[2]))}$ %.`
 
       if (this.questionJamaisPosee(i, ...frac)) {

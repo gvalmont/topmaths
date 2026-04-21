@@ -13,14 +13,14 @@ import { segment } from './segmentsVecteurs'
 /**
  * tracePoint(A) // Place une croix à l'emplacement du point A
  * tracePoint(A,B,C,D) // Place une croix pour les différents points
- * tracePoint(A,B,C,D,'blue') // Place une croix pour les différents points
+ * tracePoint(A,B,C,D,bleuMathalea) // Place une croix pour les différents points
  * Après coup, on peut notamment changer l'épaissseur, le style et l'opacité du point par :
  * pt = tracePoint(A)
  * pt.epaisseur = 5 (par défaut : 1)
  * pt.opacite = 0.2 (par défaut : 0.8 = 80%)
  * pt.style = '#' (choix parmi 'x','o','#','|','+','.' et par défaut : 'x')
  * @property {string} color
- * @author Rémi Angot et Jean-Claude Lhote
+ * @author Rémi Angot et Jean-claude Lhote
  */
 
 export class TracePoint extends ObjetMathalea2D {

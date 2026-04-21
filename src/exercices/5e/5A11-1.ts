@@ -1,6 +1,6 @@
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
-import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
+import { addMultiMathfield } from '../../lib/interactif/MultiMathfield/MultiMathfield'
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { labyrinthe } from '../../modules/Labyrinthe'
@@ -16,16 +16,17 @@ import Exercice from '../Exercice'
 export const dateDePublication = '7/12/2020'
 export const dateDeModifImportante = '29/10/2024'
 export const interactifReady = true
-export const interactifType = 'mathLive'
+export const interactifType = 'multiMathField'
 
 export const titre =
   'Parcourir un labyrinthe de multiples basé sur les critères de divisibilité'
 
 /**
- * @author Jean-Claude Lhote (remaniée par EE pour la prise en compte du nb de lignes et de colonnes du labyrinthe)
+ * @author Jean-claude Lhote (remaniée par Éric Elter pour la prise en compte du nb de lignes et de colonnes du labyrinthe)
  * Sortir du labyrinthe en utilisant les critères de divisibilité.
+ * Passage en multiMahField par Éric Elter (13/04/2026)
  */
-export const uuid = 'a3870'
+export const uuid = 'e3870'
 
 export const refs = {
   'fr-fr': ['5A11-1'],
@@ -80,7 +81,7 @@ export default class ExerciceLabyrintheDivisibilite1 extends Exercice {
       melange: 0,
     }).map(Number)
 
-    for (let q = 0; q < this.nbQuestions; ) {
+    for (let i = 0; i < this.nbQuestions; ) {
       const nbL = this.sup3 === 1 ? randint(2, 8) : Math.max(2, this.sup3)
       const nbC =
         this.sup4 === 1 ? randint(3, 11 - nbL) : Math.max(3, this.sup4)
@@ -93,16 +94,16 @@ export default class ExerciceLabyrintheDivisibilite1 extends Exercice {
       monChemin = laby.choisitChemin(laby.niveau) // On choisit un chemin
       laby.murs2d = laby.construitMurs(monChemin) // On construit le labyrinthe
       laby.chemin2d = laby.traceChemin(monChemin) // On trace le chemin solution
-      texte = `Trouver la sortie en ne passant que par les cases contenant un nombre divisible par ${tables[q]}.<br>`
+      texte = `Trouver la sortie en ne passant que par les cases contenant un nombre divisible par ${tables[i]}.<br>`
       // Zone de construction du tableau de nombres : S'ils sont sur monChemin et seulement si, ils doivent vérifier la consigne
       let listeMultiples = []
       const listeNonMultiples = []
-      for (let i = 200; i <= 12000; i += randint(1, 100)) {
-        listeMultiples.push(tables[q] * i)
+      for (let k = 200; k <= 12000; k += randint(1, 100)) {
+        listeMultiples.push(tables[i] * k)
       }
-      for (let i = 1; i <= nbC * nbL; i++) {
+      for (let k = 1; k <= nbC * nbL; k++) {
         listeNonMultiples.push(
-          randint(200, 5000) * tables[q] + randint(1, tables[q] - 1),
+          randint(200, 5000) * tables[i] + randint(1, tables[i] - 1),
         )
       }
       listeMultiples = combinaisonListes(listeMultiples, 12)
@@ -122,24 +123,27 @@ export default class ExerciceLabyrintheDivisibilite1 extends Exercice {
         scale: 0.5,
       }
       texte += mathalea2d(params, laby.murs2d, laby.nombres2d)
-      texte += ajouteChampTexteMathLive(
-        this,
-        2 * q,
-        KeyboardType.clavierNumbers,
-        { texteAvant: 'Indiquer le numéro de la bonne sortie :' },
-      )
-      handleAnswers(this, 2 * q, {
-        reponse: { value: `${nbL - monChemin[monChemin.length - 1][1]}` },
-      })
-      texte += ajouteChampTexteMathLive(
-        this,
-        2 * q + 1,
-        KeyboardType.clavierNumbers,
-        { texteAvant: '<br>Combien de nombres rencontrés avant la sortie ?' },
-      )
-      handleAnswers(this, 2 * q + 1, {
-        reponse: { value: `${laby.chemin2d.length - 1}` },
-      })
+      if (this.interactif) {
+        const numeroDeSortie = nbL - monChemin[monChemin.length - 1][1]
+        const nbDeNombresRencontres = laby.chemin2d.length - 1
+        texte += `${addMultiMathfield(this, i, {
+          dataTemplate:
+            'Indiquer le numéro de la bonne sortie : %{champ1}.\n Combien de nombres rencontrés avant la sortie ? %{champ2}',
+          dataOptions: {
+            champ1: { keyboard: KeyboardType.clavierNumbers },
+            champ2: { keyboard: KeyboardType.clavierNumbers },
+          },
+        })}`
+        handleAnswers(
+          this,
+          i,
+          {
+            champ1: { value: numeroDeSortie },
+            champ2: { value: nbDeNombresRencontres },
+          },
+          { formatInteractif: 'multiMathfield' },
+        )
+      }
       texteCorr = `Voici le chemin en couleur ($${miseEnEvidence(laby.chemin2d.length - 1)}$ nombres rencontrés avant la sortie) et la sortie est le numéro $${miseEnEvidence(nbL - monChemin[monChemin.length - 1][1])}$.<br>`
       texteCorr += mathalea2d(
         params,
@@ -148,12 +152,12 @@ export default class ExerciceLabyrintheDivisibilite1 extends Exercice {
         laby.chemin2d,
       )
       if (
-        this.questionJamaisPosee(q, listeMultiples[0], listeNonMultiples[0])
+        this.questionJamaisPosee(i, listeMultiples[0], listeNonMultiples[0])
       ) {
-        this.listeQuestions[q] = texte
-        this.listeCorrections[q] = texteCorr
+        this.listeQuestions[i] = texte
+        this.listeCorrections[i] = texteCorr
 
-        q++
+        i++
       }
     }
     listeQuestionsToContenu(this)

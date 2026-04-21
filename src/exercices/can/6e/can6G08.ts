@@ -16,6 +16,7 @@ import {
 } from '../../../modules/outils'
 import type { NestedObjetMathalea2dArray } from '../../../types/2d'
 import Exercice from '../../Exercice'
+import { bleuMathalea } from '../../../lib/colors'
 
 export const titre = 'Trouver le symétrique'
 export const dateDePublication = '03/05/2025'
@@ -27,7 +28,7 @@ export const amcType = 'AMCNum'
 /**
  * Symétrie axiale sur papier pointé
  * Ref can6G08
- * @author Jean-Claude Lhote
+ * @author Jean-claude Lhote
  * Publié le 03/05/2025
  */
 export const uuid = '85dfc'
@@ -114,7 +115,7 @@ export default class TrouverLeSym extends Exercice {
             : typeAxe[i] === 3
               ? droite(pointAbstrait(0, 0), pointAbstrait(6, 6))
               : droite(pointAbstrait(0, 6), pointAbstrait(6, 0))
-      d.color = colorToLatexOrHTML('blue')
+      d.color = colorToLatexOrHTML(bleuMathalea)
       d.epaisseur = 2
       const numerosSymChoisis: number[] = []
       for (let j = 0; j < this.sup2; j++) {

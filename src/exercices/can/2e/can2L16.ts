@@ -5,6 +5,7 @@ import { pointAbstrait } from '../../../lib/2d/PointAbstrait'
 import { repere } from '../../../lib/2d/reperes'
 import { segment } from '../../../lib/2d/segmentsVecteurs'
 import { latex2d } from '../../../lib/2d/textes'
+import { bleuMathalea } from '../../../lib/colors'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 import { choice } from '../../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
@@ -34,11 +35,11 @@ export default class EquationsRacCarree extends ExerciceSimple {
     this.typeExercice = 'simple'
     this.nbQuestions = 1
     this.formatChampTexte = KeyboardType.clavierEnsemble
-    this.optionsDeComparaison = { texteSansCasse: true, intervalle: true }
+    this.optionsDeComparaison = { intervalle: true }
   }
 
   nouvelleVersion() {
-    let reponse
+    let reponse = ''
     const a = randint(1, 12)
     const o = latex2d('\\text{O}', -0.2, -0.3, {
       color: 'black',
@@ -51,7 +52,7 @@ export default class EquationsRacCarree extends ExerciceSimple {
       backgroundColor: '',
     })
     const Texte2 = latex2d('y=\\sqrt{x}', 3, 2.3, {
-      color: 'blue',
+      color: bleuMathalea,
       letterSize: 'scriptsize',
       backgroundColor: '',
     })
@@ -108,7 +109,7 @@ export default class EquationsRacCarree extends ExerciceSimple {
             },
             courbe(f, {
               repere: r1,
-              color: 'blue',
+              color: bleuMathalea,
               epaisseur: 2,
               xMin: 0,
             }),
@@ -124,9 +125,6 @@ export default class EquationsRacCarree extends ExerciceSimple {
             Texte3,
           )
           reponse = choix ? `[0;${a ** 2}[` : `[0;${a ** 2}]`
-          this.reponse = {
-            reponse: { value: reponse, options: { intervalle: true } },
-          }
           this.question = `Donner l'ensemble $S$ des solutions de  l'inéquation $\\sqrt{x}${choix ? '<' : ' \\leqslant '}${a}$.`
           this.correction =
             'Pour résoudre cette inéquation, on peut imaginer le graphique correspondant à la situation : <br>'
@@ -158,7 +156,7 @@ export default class EquationsRacCarree extends ExerciceSimple {
             },
             courbe(f, {
               repere: r1,
-              color: 'blue',
+              color: bleuMathalea,
               epaisseur: 2,
               xMin: 0,
             }),
@@ -173,9 +171,6 @@ export default class EquationsRacCarree extends ExerciceSimple {
             Texte3,
           )
           reponse = choix ? `]${a ** 2};+\\infty[` : `[${a ** 2};+\\infty[`
-          this.reponse = {
-            reponse: { value: reponse, options: { intervalle: true } },
-          }
           this.question = `Donner l'ensemble $S$ des solutions de  l'inéquation : $\\sqrt{x}${choix ? '>' : ' \\geqslant '}${a}$.`
           this.correction =
             'Pour résoudre cette inéquation, on peut imaginer le graphique correspondant à la situation : <br>'
@@ -185,6 +180,9 @@ export default class EquationsRacCarree extends ExerciceSimple {
         ${choix ? `$${miseEnEvidence(`]${a ** 2}\\,;\\,+\\infty[`)}$` : `$${miseEnEvidence(`[${a ** 2}\\,;\\,+\\infty[`)}$`}.`
         }
         break
+    }
+    this.reponse = {
+      reponse: { value: reponse },
     }
     if (this.interactif) {
       this.question += `<br>

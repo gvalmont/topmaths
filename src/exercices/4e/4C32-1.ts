@@ -6,6 +6,7 @@ import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import { propositionsQcm } from '../../lib/interactif/qcm'
 import { arrondi, rangeMinMax } from '../../lib/outils/nombres'
 import { ecritureParentheseSiNegatif } from '../../lib/outils/ecritures'
+import { bleuMathalea } from '../../lib/colors'
 export const titre =
   'Donner le résultat de nombres écrits avec des puissances de 10 en notation scientifique'
 export const dateDeModifImportante = '08/09/2023'
@@ -16,7 +17,7 @@ export const interactifReady = true
 
 /**
  * Un nombre est donné par le produit d'un décimal par une puissance de dix, il faut l'écrire en notation scientifique
- * @author Jean-Claude Lhote
+ * @author Jean-claude Lhote
  */
 export const uuid = '762fe'
 
@@ -158,7 +159,7 @@ export default class CalculsAvecPuissancesDeDix extends Exercice {
       texteCorr =
         this.classe === 4
           ? `$${decimalstring} = ${texNombre(mantisse1)} \\times ${texNombre(10 ** exp1)} = ${texNombre(mantisse1 * 10 ** exp1)} = ${miseEnEvidence(scientifiquestring)}$`
-          : `$${texNombre(mantisse1)} \\times 10^{${exp1}} = ${miseEnEvidence(`${texNombre(mantisse)}\\times 10^{${decalage}}`, 'blue')}\\times  10^{${exp1}} = ${texNombre(mantisse)} \\times 10^{${miseEnEvidence(decalage + '+' + ecritureParentheseSiNegatif(exp1), 'blue')}}=${miseEnEvidence(scientifiquestring)}$`
+          : `$${texNombre(mantisse1)} \\times 10^{${exp1}} = ${miseEnEvidence(`${texNombre(mantisse)}\\times 10^{${decalage}}`, bleuMathalea)}\\times  10^{${exp1}} = ${texNombre(mantisse)} \\times 10^{${miseEnEvidence(decalage + '+' + ecritureParentheseSiNegatif(exp1), bleuMathalea)}}=${miseEnEvidence(scientifiquestring)}$`
       this.autoCorrection[i] = {}
       this.autoCorrection[i].enonce = `${texte}\n`
       this.autoCorrection[i].options = {

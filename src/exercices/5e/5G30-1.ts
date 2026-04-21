@@ -1,6 +1,6 @@
 import { codageAngle } from '../../lib/2d/angles'
 import { droite, droiteParPointEtParallele } from '../../lib/2d/droites'
-import { point } from '../../lib/2d/PointAbstrait'
+import { pointAbstrait } from '../../lib/2d/PointAbstrait'
 import { labelPoint } from '../../lib/2d/textes'
 import { rotation, similitude } from '../../lib/2d/transformations'
 import { angle, longueur } from '../../lib/2d/utilitairesGeometriques'
@@ -21,6 +21,7 @@ import { mathalea2d } from '../../modules/mathalea2d'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import type { NestedObjetMathalea2dArray } from '../../types/2d'
 import Exercice from '../Exercice'
+import { orangeMathalea, bleuMathalea } from '../../lib/colors'
 
 export const titre = "Déterminer des angles en utilisant les cas d'égalité"
 export const amcReady = true
@@ -30,7 +31,7 @@ export const dateDeModifImportante = '10/12/2023'
 
 /**
  * Déterminer des angles en utilisant les cas d'égalités : opposés par le sommet, alternes-internes, correspondants...
- * @author Jean-Claude Lhote inspiré d'exercices du manuel sésamath.
+ * @author Jean-claude Lhote inspiré d'exercices du manuel sésamath.
  */
 export const uuid = 'd12db'
 
@@ -61,7 +62,7 @@ export default class EgaliteDAngles extends Exercice {
     for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50; cpt++) {
       let figure = []
       const noms = choisitLettresDifferentes(5, 'Q', true)
-      const A = point(0, 0, noms[0], 'above left')
+      const A = pointAbstrait(0, 0, noms[0], 'above left')
       const fig1 = function (): [
         objets: NestedObjetMathalea2dArray,
         params: { xmin: number; xmax: number; ymin: number; ymax: number },
@@ -73,12 +74,12 @@ export default class EgaliteDAngles extends Exercice {
         const enonceAMC = []
         let correction
         let gras
-        context.isHtml ? (gras = '#f15929') : (gras = 'black')
+        context.isHtml ? (gras = orangeMathalea) : (gras = 'black')
         let a = randint(45, 85)
         const ac = randint(8, 10)
         const ce = randint(7, 10, ac)
         const C = similitude(
-          rotation(point(1, 0), A, randint(-45, 45)),
+          rotation(pointAbstrait(1, 0), A, randint(-45, 45)),
           A,
           a,
           ac,
@@ -89,7 +90,7 @@ export default class EgaliteDAngles extends Exercice {
         const E = similitude(A, C, c, ce / ac, noms[4], 'above right')
         const CA = droite(C, A)
         const CE = droite(C, E)
-        const AE = droite(A, E, '', '#f15929')
+        const AE = droite(A, E, '', orangeMathalea)
         // AE.epaisseur = 2
         const B = pointSurSegment(
           A,
@@ -98,7 +99,7 @@ export default class EgaliteDAngles extends Exercice {
           noms[1],
           'above left',
         )
-        const BD = droiteParPointEtParallele(B, AE, '', '#f15929')
+        const BD = droiteParPointEtParallele(B, AE, '', orangeMathalea)
         // BD.epaisseur = 2
         const D = pointIntersectionDD(BD, CE, noms[3], 'above right')
         const m1 = codageAngle(
@@ -128,8 +129,8 @@ export default class EgaliteDAngles extends Exercice {
           true,
         )
         const l1 = labelPoint(A, B, C, D, E)
-        const c1 = codageAngle(D, B, A, 1, '', 'blue', 2, 1, 'blue')
-        const c2 = codageAngle(B, D, E, 1, '', '#f15929', 2, 1, '#f15929')
+        const c1 = codageAngle(D, B, A, 1, '', bleuMathalea, 2, 1, bleuMathalea)
+        const c2 = codageAngle(B, D, E, 1, '', orangeMathalea, 2, 1, orangeMathalea)
         const c3 = codageAngle(D, E, A, 1, '', 'green', 2, 1, 'green')
         const c4 = codageAngle(D, B, C, 1, '', 'pink', 2, 1, 'pink')
         const c5 = codageAngle(C, D, B, 1, '', 'red', 2, 1, 'red')
@@ -157,7 +158,7 @@ export default class EgaliteDAngles extends Exercice {
         correction += `${numAlpha(4)} Comme les droites $(${noms[0]}${noms[4]})$ et $(${noms[1]}${noms[3]})$ sont parallèles, les angles correspondants $\\widehat{${noms[1]}${noms[3]}${noms[2]}}$ et $\\widehat{${noms[3]}${noms[4]}${noms[0]}}$ sont égaux, donc $\\widehat{${noms[3]}${noms[4]}${noms[0]}}$ mesure $${miseEnEvidence(180 - a - c, gras)}^\\circ$.<br>`
         correction += context.isAmc
           ? 'none'
-          : `${numAlpha(5)} La somme des angles du quadrilatère vaut donc : $${a}^\\circ+${miseEnEvidence(180 - a, 'blue')}^\\circ+${miseEnEvidence(a + c, 'blue')}^\\circ+${miseEnEvidence(180 - a - c, 'blue')}^\\circ=${miseEnEvidence(360)}^\\circ$.<br>`
+          : `${numAlpha(5)} La somme des angles du quadrilatère vaut donc : $${a}^\\circ+${miseEnEvidence(180 - a, bleuMathalea)}^\\circ+${miseEnEvidence(a + c, bleuMathalea)}^\\circ+${miseEnEvidence(180 - a - c, bleuMathalea)}^\\circ=${miseEnEvidence(360)}^\\circ$.<br>`
         correction += '$\\phantom{f/}$ La conjecture est bien vérifiée.'
         const reponsesAMC = [a, 180 - a, 180 - a - c, a + c, 180 - a - c]
         const params = {
@@ -183,7 +184,7 @@ export default class EgaliteDAngles extends Exercice {
         let d, CA, AB, CE, BE, B, C, D, E, ab, ac, a, cd, ad
         do {
           B = rotation(
-            point(randint(8, 10), randint(1, 3)),
+            pointAbstrait(randint(8, 10), randint(1, 3)),
             A,
             randint(-40, 40),
             noms[1],
@@ -223,9 +224,9 @@ export default class EgaliteDAngles extends Exercice {
           true,
         )
         const cD = codageAngle(C, D, B, 1, '', 'red', 2, 1, 'red', 0.2, true)
-        const cE = codageAngle(D, E, B, 1, '', 'blue', 2, 1, 'blue', 0.2, true)
+        const cE = codageAngle(D, E, B, 1, '', bleuMathalea, 2, 1, bleuMathalea, 0.2, true)
         const c4 = codageAngle(A, C, D, 1, '', 'green', 2, 1, 'green', 0.2)
-        const c5 = codageAngle(B, D, E, 1, '', '#f15929', 2, 1, '#f15929', 0.2)
+        const c5 = codageAngle(B, D, E, 1, '', orangeMathalea, 2, 1, orangeMathalea, 0.2)
         const c6 = codageAngle(E, B, D, 1, '', 'pink', 2, 1, 'pink', 0.2)
         const c3 = codageAngle(A, D, C, 1, '', 'gray', 2, 1, 'gray', 0.2)
         const l1 = labelPoint(A, B, C, D, E)

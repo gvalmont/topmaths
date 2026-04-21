@@ -1,10 +1,10 @@
 import { texteGras } from '../../lib/format/style'
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
-import { setReponse } from '../../lib/interactif/gestionInteractif'
-import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
+import { handleAnswers } from '../../lib/interactif/gestionInteractif'
+import { toutAUnPoint } from '../../lib/interactif/mathLive'
+import { addMultiMathfield } from '../../lib/interactif/MultiMathfield/MultiMathfield'
 import { combinaisonListes } from '../../lib/outils/arrayOutils'
 import { texteEnCouleurEtGras } from '../../lib/outils/embellissements'
-import { sp } from '../../lib/outils/outilString'
 import { texNombre } from '../../lib/outils/texNombre'
 import { context } from '../../modules/context'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
@@ -22,7 +22,7 @@ export const interactifType = 'mathLive'
  * @author Cédric GROLLEAU
  * Relecture : Novembre 2021 par EE
  */
-export const uuid = '37267'
+export const uuid = '37268'
 
 export const refs = {
   'fr-fr': ['6N2K-3'],
@@ -105,17 +105,30 @@ export default class DivisionsEuclidiennesEgalite2 extends Exercice {
       }
       texte +=
         (this.interactif ? '<br>' : '') +
-        ajouteChampTexteMathLive(this, 2 * i, KeyboardType.clavierDeBase, {
-          texteAvant: 'Quotient : ',
-          texteApres: sp(5),
+        addMultiMathfield(this, i, {
+          dataTemplate: `Quel est le quotient de la division euclidienne de $${a}$ par $${b}$ ?  %{champ1}<br>
+          Quel est le reste de la division euclidienne de $${a}$ par $${b}$ ?  %{champ2}`,
+          dataOptions: {
+            champ1: {
+              keyboard: KeyboardType.clavierNumbers,
+            },
+            champ2: {
+              keyboard: KeyboardType.clavierNumbers,
+            },
+          },
         })
-      texte +=
-        (this.interactif ? '<br>' : '') +
-        ajouteChampTexteMathLive(this, 2 * i + 1, KeyboardType.clavierDeBase, {
-          texteAvant: ' Reste : ',
-        })
-      setReponse(this, 2 * i, q)
-      setReponse(this, 2 * i + 1, r)
+      handleAnswers(
+        this,
+        i,
+        {
+          champ1: { value: q },
+          champ2: { value: r },
+          bareme: toutAUnPoint,
+        },
+        {
+          formatInteractif: 'multiMathfield',
+        },
+      )
       if (context.isAmc) {
         this.autoCorrection[i] = {
           enonce: texte,

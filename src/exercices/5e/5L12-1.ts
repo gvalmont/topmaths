@@ -1,9 +1,11 @@
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
-import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
+import { addMultiMathfield } from '../../lib/interactif/MultiMathfield/MultiMathfield'
 import {
   choice,
+  combinaisonListes,
   combinaisonListesSansChangerOrdre,
+  shuffle,
 } from '../../lib/outils/arrayOutils'
 import { rienSi1 } from '../../lib/outils/ecritures'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
@@ -15,7 +17,7 @@ import Exercice from '../Exercice'
 export const titre =
   'Réduire et simplifier, si possible, un produit et une somme à partir des mêmes éléments algébriques pour distinguer la différence'
 export const interactifReady = true
-export const interactifType = 'mathLive'
+export const interactifType = 'multiMathField'
 export const amcReady = true
 export const amcType = 'AMCOpen'
 export const dateDeModifImportante = '19/11/2023'
@@ -24,7 +26,7 @@ export const dateDeModifImportante = '19/11/2023'
  * Distinction entre la réduction d'un produit et la réduction d'une somme, on garde les même coeffs
  * @author Sébastien Lozano (modifié par EE)
  */
-export const uuid = '46234'
+export const uuid = '4623e'
 
 export const refs = {
   'fr-fr': ['5L12-1'],
@@ -45,17 +47,22 @@ export default class ReduireDinstinctionSommeProduit extends Exercice {
   }
 
   nouvelleVersion() {
+    const choix1 = choice([0, 2])
+    const choix2 = choice([1, 3])
     const typesDeQuestionsDisponibles =
       this.sup === 3
-        ? [choice([0, 2]), choice([1, 3])]
+        ? [...shuffle([choix1, choix2]), ...shuffle([2 - choix1, 4 - choix2])]
         : this.sup === 2
-          ? [choice([1, 3])]
-          : [choice([0, 2])]
+          ? [1, 3]
+          : [0, 2]
 
-    const listeTypeDeQuestions = combinaisonListesSansChangerOrdre(
-      typesDeQuestionsDisponibles,
-      this.nbQuestions,
-    )
+    const listeTypeDeQuestions =
+      this.sup === 3
+        ? combinaisonListesSansChangerOrdre(
+            typesDeQuestionsDisponibles,
+            this.nbQuestions,
+          )
+        : combinaisonListes(typesDeQuestionsDisponibles, this.nbQuestions)
     const variables = ['x', 'y', 'z', 'a', 'b', 'c']
 
     for (
@@ -123,36 +130,39 @@ export default class ReduireDinstinctionSommeProduit extends Exercice {
       const correctionSommeFinale =
         `$${sp()}${miseEnEvidence(reponseSomme)}$` +
         (listeTypeDeQuestions[i] % 2 === 0 ? '.' : '')
-
       if (this.interactif) {
-        texte += ajouteChampTexteMathLive(
+        texte +=
+          '<br>' +
+          addMultiMathfield(this, i, {
+            dataTemplate: `${listeTypeDeQuestions[i] > 1 ? 'Somme : ' : 'Produit : '} %{champ1}<br>
+           ${listeTypeDeQuestions[i] > 1 ? 'Produit : ' : 'Somme : '} %{champ2}`,
+            dataOptions: {
+              champ1: {
+                keyboard: KeyboardType.clavierDeBaseAvecVariable,
+              },
+              champ2: {
+                keyboard: KeyboardType.clavierDeBaseAvecVariable,
+              },
+            },
+          })
+        handleAnswers(
           this,
-          2 * i,
-          KeyboardType.clavierDeBaseAvecX,
+          i,
           {
-            texteAvant:
-              listeTypeDeQuestions[i] > 1 ? '<br>Somme : ' : '<br>Produit : ',
+            // bareme: toutAUnPoint,
+            champ1: {
+              value:
+                listeTypeDeQuestions[i] < 2 ? reponseProduit : reponseSomme,
+              options: { expressionsForcementReduites: true },
+            },
+            champ2: {
+              value:
+                listeTypeDeQuestions[i] < 2 ? reponseSomme : reponseProduit,
+              options: { expressionsForcementReduites: true },
+            },
           },
+          { formatInteractif: 'multiMathfield' },
         )
-        handleAnswers(this, 2 * i, {
-          reponse: {
-            value: listeTypeDeQuestions[i] < 2 ? reponseProduit : reponseSomme,
-          },
-        })
-        texte += ajouteChampTexteMathLive(
-          this,
-          2 * i + 1,
-          KeyboardType.clavierDeBaseAvecX,
-          {
-            texteAvant:
-              listeTypeDeQuestions[i] > 1 ? '<br>Produit : ' : '<br>Somme : ',
-          },
-        )
-        handleAnswers(this, 2 * i + 1, {
-          reponse: {
-            value: listeTypeDeQuestions[i] < 2 ? reponseSomme : reponseProduit,
-          },
-        })
       }
       texteCorr =
         listeTypeDeQuestions[i] > 1

@@ -23,7 +23,7 @@ import {
 } from '../../lib/2d/patterns/patternsPreDef'
 import { VisualPattern } from '../../lib/2d/patterns/VisualPattern'
 import { VisualPattern3D } from '../../lib/2d/patterns/VisualPattern3D'
-import { point } from '../../lib/2d/PointAbstrait'
+import { pointAbstrait } from '../../lib/2d/PointAbstrait'
 import { polygone } from '../../lib/2d/polygones'
 import { texteParPosition } from '../../lib/2d/textes'
 import { bleuMathalea } from '../../lib/colors'
@@ -38,7 +38,8 @@ import { randint } from '../../modules/outils'
 import type { NestedObjetMathalea2dArray } from '../../types/2d'
 import Exercice from '../Exercice'
 
-export const titre = "Consulter la liste des patterns disponibles pour l'exercice 6N4B"
+export const titre =
+  "Consulter la liste des patterns disponibles pour l'exercice 6N4B"
 export const dateDePublication = '26/11/2025'
 
 export const refs = {
@@ -49,8 +50,8 @@ export const uuid = '71ff5'
 
 /**
  * Affiche les patterns propres à un exercice
- * @author Eric Elter (sur la base de listePatterns de Jean-Claude Lhote)
-
+ * @author Éric Elter
+ *  (sur la base de listePatterns de Jean-claude Lhote)
  */
 export default class ListePatternsTousLesExos extends Exercice {
   destroyers: (() => void)[] = []
@@ -96,6 +97,7 @@ export default class ListePatternsTousLesExos extends Exercice {
         break
       case 2:
         listeOfAll = listePattern3d
+        break
       case 5:
         listeOfAll = listePatternRatio
         break
@@ -127,7 +129,7 @@ export default class ListePatternsTousLesExos extends Exercice {
           if ('iterate' in pat) pattern.iterate = pat.iterate
           objets.push(pattern.render(j, j + 1, 0))
         }
-        texte += `\n${texteEnCouleurEtGras(`Pattern ${i + 1}`, 'blue')}:  <br>`
+        texte += `\n${texteEnCouleurEtGras(`Pattern ${i + 1}`, bleuMathalea)}:  <br>`
         texte += mathalea2d(
           Object.assign(
             fixeBordures(objets, { rxmin: 0, rymin: -1, rxmax: 0, rymax: 1 }),
@@ -256,10 +258,10 @@ export default class ListePatternsTousLesExos extends Exercice {
             ),
           )
           const cadre = polygone(
-            point(xmin - 2, -2),
-            point(xmax + 2, -2),
-            point(xmax + 2, ymax + 2),
-            point(xmin - 2, ymax + 2),
+            pointAbstrait(xmin - 2, -2),
+            pointAbstrait(xmax + 2, -2),
+            pointAbstrait(xmax + 2, ymax + 2),
+            pointAbstrait(xmin - 2, ymax + 2),
           )
           cadre.pointilles = 4
           figures[j].push(cadre)
@@ -267,7 +269,7 @@ export default class ListePatternsTousLesExos extends Exercice {
           yMax = Math.max(yMax, ymax)
           yMin = Math.min(yMin, ymin)
         }
-        texte += `${texteEnCouleurEtGras(`Pattern ${i + 1}`, 'blue')}:<br> Pour le motif 43, il y a ${n43} ${nom}.<br>`
+        texte += `${texteEnCouleurEtGras(`Pattern ${i + 1}`, bleuMathalea)}:<br> Pour le motif 43, il y a ${n43} ${nom}.<br>`
         texte += `Pour le motif $${miseEnEvidence('n', bleuMathalea)}$, il y a $${miseEnEvidence(pat.formule, bleuMathalea)}$ éléments.<br>`
 
         texte +=

@@ -1,9 +1,10 @@
 import { codageAngleDroit } from '../../../lib/2d/CodageAngleDroit'
 import { fixeBordures } from '../../../lib/2d/fixeBordures'
-import { point } from '../../../lib/2d/PointAbstrait'
+import { pointAbstrait } from '../../../lib/2d/PointAbstrait'
 import { polygoneAvecNom } from '../../../lib/2d/polygones'
 import { latex2d } from '../../../lib/2d/textes'
 import { milieu, pointAdistance } from '../../../lib/2d/utilitairesPoint'
+import { bleuMathalea } from '../../../lib/colors'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 import { extraireRacineCarree } from '../../../lib/outils/calculs'
 import {
@@ -42,7 +43,7 @@ export default class CalculCotePythagore extends ExerciceSimple {
     const a = randint(2, 5) //
     const b = randint(6, 10) //
     const c2 = b ** 2 - a ** 2
-    const A = point(0, 0, nom[0])
+    const A = pointAbstrait(0, 0, nom[0])
     const B = pointAdistance(A, a, -90, nom[1])
     const C = pointAdistance(B, Math.sqrt(c2), 0, nom[2])
     const pol = polygoneAvecNom(A, B, C) // polygoneAvecNom s'occupe du placement des noms des sommets
@@ -79,7 +80,7 @@ export default class CalculCotePythagore extends ExerciceSimple {
     La longueur $${nom[1]}${nom[2]}$ est donnée par la racine carrée de la différence des carrés de $${b}$ et de $${a}$.<br>
     Cette différence vaut $${b ** 2}-${a ** 2}=${c2}$. <br>
     La valeur cherchée est donc : $\\sqrt{${c2}}${reductible ? '=' + texRacineCarree(c2) : ''}$.`,
-      'blue',
+      bleuMathalea,
     )
     this.reponse = [`\\sqrt{${c2}}`, `${Math.sqrt(c2)}`, texRacineCarree(c2)]
 

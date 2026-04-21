@@ -1,9 +1,10 @@
 import { colorToLatexOrHTML } from '../../../lib/2d/colorToLatexOrHtml'
 import { droite } from '../../../lib/2d/droites'
 import { fixeBordures } from '../../../lib/2d/fixeBordures'
-import { point } from '../../../lib/2d/PointAbstrait'
+import { pointAbstrait } from '../../../lib/2d/PointAbstrait'
 import RepereBuilder from '../../../lib/2d/RepereBuilder'
 import { latex2d } from '../../../lib/2d/textes'
+import { bleuMathalea } from '../../../lib/colors'
 import { choice } from '../../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { mathalea2d } from '../../../modules/mathalea2d'
@@ -59,9 +60,9 @@ export default class MetropoleJuin24Exo4Q4 extends ExerciceQcmA {
       .setThickX({ xMin, xMax, dx: 1 })
       .setThickY({ yMin, yMax, dy: 1 })
       .buildStandard().objets
-    const cF = droite(point(0, a), point(Math.abs(a), -a))
-    cF.color = colorToLatexOrHTML('blue')
-    const labelF = latex2d('\\mathcal{C_f}', 1.5, 1.7, { color: 'blue' })
+    const cF = droite(pointAbstrait(0, a), pointAbstrait(Math.abs(a), -a))
+    cF.color = colorToLatexOrHTML(bleuMathalea)
+    const labelF = latex2d('\\mathcal{C_f}', 1.5, 1.7, { color: bleuMathalea })
     const objets = [...theRepere, cF, labelF]
     this.enonce += mathalea2d(
       Object.assign({ pixelsParCm: 20, scale: 0.5 }, fixeBordures(objets)),

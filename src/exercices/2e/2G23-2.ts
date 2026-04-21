@@ -1,7 +1,7 @@
 import { colorToLatexOrHTML } from '../../lib/2d/colorToLatexOrHtml'
 import { fixeBordures } from '../../lib/2d/fixeBordures'
 import { nomVecteurParPosition } from '../../lib/2d/NomVecteurParPosition'
-import { point } from '../../lib/2d/PointAbstrait'
+import { pointAbstrait } from '../../lib/2d/PointAbstrait'
 import { repere } from '../../lib/2d/reperes'
 import {
   representant,
@@ -31,7 +31,7 @@ export const dateDeModifImportante = '17/04/2024'
 
 /**
  * Calculer les coordonnées d'un point image ou antécédent d'un autre par une translation
- * @author Stéphane Guyon, Jean-Claude Lhote, Stéphan Grignon et Nathan Scheinmann
+ * @author Stéphane Guyon, Jean-claude Lhote, Stéphan Grignon et Nathan Scheinmann
 
  */
 export const uuid = 'fa7b9'
@@ -103,8 +103,8 @@ export default class TranslationEtCoordonnes extends Exercice {
         axeXStyle: '->',
         axeYStyle: '->',
       }) // On définit le repère
-      const A = point(xA, yA) // On définit et on trace le point A
-      const B = point(xB, yB) // On définit et on trace le point B
+      const A = pointAbstrait(xA, yA) // On définit et on trace le point A
+      const B = pointAbstrait(xB, yB) // On définit et on trace le point B
       const traceAetB = tracePoint(A, B, 'red') // Variable qui trace les points avec une croix
       const posLabelA = homothetie(B, A, -0.7 / longueur(A, B)) // pour positionner les noms des points aux extrémités proprement
       const posLabelB = homothetie(A, B, -0.7 / longueur(A, B))
@@ -112,10 +112,10 @@ export default class TranslationEtCoordonnes extends Exercice {
       const labelB = latexParPoint("A'", posLabelB, 'red', 10, 12, '')
       const s = segment(A, B, 'red') // On trace en rouge [AB]
       s.styleExtremites = '->' // Variable qui transforme [AB] en vecteur
-      const O = point(0, 0) // On définit et on trace le point O
+      const O = pointAbstrait(0, 0) // On définit et on trace le point O
       const o = texteParPosition('O', -0.3, -0.3)
-      const I = point(1, 0) // On définit sans tracer le point I
-      const J = point(0, 1) // On définit sans tracer le point J
+      const I = pointAbstrait(1, 0) // On définit sans tracer le point I
+      const J = pointAbstrait(0, 1) // On définit sans tracer le point J
       const vi = vecteur(O, I) // Variable qui définit vecteur OI
       const vj = vecteur(O, J) // Variable qui définit vecteur OJ
       const k = representant(vi, O) // Variable qui trace [OI]
@@ -248,8 +248,6 @@ export default class TranslationEtCoordonnes extends Exercice {
           objets,
         ) // On trace le graphique
       }
-      // setReponse(this, 2 * i, AbsRep)
-      // setReponse(this, 2 * i + 1, OrdRep)
       if (this.questionJamaisPosee(i, xA, yA, xB, yB)) {
         // Si la question n'a jamais été posée, on en créé une autre
         this.listeQuestions[i] = texte
