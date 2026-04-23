@@ -185,7 +185,7 @@
       </div>
       <div style="columns: {nbCols.toString()}">
         <ul
-          class="list-inside my-2
+          class="list-inside
             {exercise.listeQuestions.length === 1 ||
           !exercise.listeAvecNumerotation
             ? 'list-none'

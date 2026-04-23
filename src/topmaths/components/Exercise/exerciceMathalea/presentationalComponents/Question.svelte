@@ -20,10 +20,7 @@
   <li
     id="exercice{exerciseIndex}Q{questionIndex}"
     style="break-inside:avoid; line-height: {exercise.spacing ||
-      DEFAULT_LINE_HEIGHT}; margin-top: {exercise.spacing *
-      SPACING_MARGIN_RATIO ||
-      DEFAULT_LINE_HEIGHT *
-        SPACING_MARGIN_RATIO}em; margin-bottom: {exercise.spacing *
+      DEFAULT_LINE_HEIGHT}; margin-bottom: {exercise.spacing *
       SPACING_MARGIN_RATIO || DEFAULT_LINE_HEIGHT * SPACING_MARGIN_RATIO}em;"
   >
     <!-- eslint-disable-next-line svelte/no-at-html-tags -->
