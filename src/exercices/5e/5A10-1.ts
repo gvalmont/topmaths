@@ -10,7 +10,7 @@ import {
   texteGras,
 } from '../../lib/outils/embellissements'
 
-export const titre = "Écrire la liste de tous les diviseurs d'un entier (bis)"
+export const titre = "Écrire la liste de tous les diviseurs d'un entier"
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const dateDePublication = '13/12/2024'
@@ -31,8 +31,9 @@ export default class ListeDiviseurs extends Exercice {
   }
 
   nouvelleVersion() {
-    this.consigne =
-      'Donner la liste de tous les diviseurs des nombres suivants.'
+    this.consigne = 'Donner la liste de tous les diviseurs '
+    this.consigne +=
+      this.nbQuestions > 1 ? 'des nombres suivants.' : 'du nombre suivant.'
     const typeQuestionsDisponibles = [
       'multipleDe10',
       'Premier',
@@ -75,7 +76,11 @@ export default class ListeDiviseurs extends Exercice {
             i,
             KeyboardType.clavierDeBaseAvecFractionPuissanceCrochets,
           )
-          this.consigne = `Donner la liste de tous les diviseurs des nombres suivants ${texteGras('séparés par un point-virgule')}.`
+          this.consigne = `Donner la liste de tous les diviseurs (${texteGras('séparés par un point-virgule')}) `
+          this.consigne +=
+            this.nbQuestions > 1
+              ? 'des nombres suivants.'
+              : 'du nombre suivant.'
           handleAnswers(this, i, {
             reponse: {
               value: divisors.join(';'),

@@ -17,6 +17,7 @@
   import { context } from '../modules/context'
   import Topmaths from '../topmaths/components/Topmaths.svelte'
 
+  import CheckTest from './devtools/CheckTest.svelte'
   import Can from './display/can/Can.svelte'
   import Eleve from './display/eleve/Eleve.svelte'
   import Alacarte from './setup/alacarte/Alacarte.svelte'
@@ -101,7 +102,7 @@
   }
   const canSolAccess = url.searchParams.get('canSA')
   if (canSolAccess !== null) {
-    $canOptions.solutionsAccess = canSolAccess === 'true'
+    $canOptions.solutionsAccess = canSolAccess === '1'
   }
   const canSolMode = url.searchParams.get('canSM')
   if (canSolMode !== null) {
@@ -109,7 +110,7 @@
   }
   const canIsInteractive = url.searchParams.get('canI')
   if (canIsInteractive !== null) {
-    $canOptions.isInteractive = canIsInteractive === 'true'
+    $canOptions.isInteractive = canIsInteractive === '1'
   }
 
   function updateParams() {
@@ -212,6 +213,8 @@
     <Start />
   {:else if $globalOptions.v === 'tools'}
     <Tools />
+  {:else if $globalOptions.v === 'check-test'}
+    <CheckTest />
   {:else}
     <Topmaths />
   {/if}

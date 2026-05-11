@@ -1,3 +1,4 @@
+import { ensureAmcParam } from '../../lib/amc/amcHelpers'
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 import { setReponse } from '../../lib/interactif/gestionInteractif'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
@@ -408,7 +409,15 @@ export default class CalculsImagesFonctions extends Exercice {
           `$f(${miseEnEvidence(reponses[i] instanceof FractionEtendue ? (reponses[i] as FractionEtendue).simplifie().texFSD : texNombre(reponses[i], 5))})=${img}$`
       }
       if (
-        this.questionJamaisPosee(i, listeTypeDeQuestions[i], x, y, sousChoix[i])
+        this.questionJamaisPosee(
+          i,
+          listeTypeDeQuestions[i],
+          x,
+          y,
+          sousChoix[i],
+          m,
+          n,
+        )
       ) {
         // Si la question n'a jamais été posée, on en créé une autre
         this.listeQuestions[i] = texte ?? ''
@@ -422,7 +431,7 @@ export default class CalculsImagesFonctions extends Exercice {
     let maxNbDecimals = 0
     if (context.isAmc) {
       for (let i = 0; i < this.nbQuestions; i++) {
-        const valeur = this.autoCorrection[i].reponse?.valeur
+        const valeur = this.autoCorrection[i].valeur
         if (valeur != null && Array.isArray(valeur)) {
           maxNbChiffresAvantLaVirgule = Math.max(
             maxNbChiffresAvantLaVirgule,
@@ -435,13 +444,10 @@ export default class CalculsImagesFonctions extends Exercice {
         }
       }
       for (let i = 0; i < this.nbQuestions; i++) {
-        // @ts-expect-error
-        this.autoCorrection[i].reponse.param.digits =
-          maxNbChiffresAvantLaVirgule + maxNbDecimals
-        // @ts-expect-error
-        this.autoCorrection[i].reponse.param.decimals = maxNbDecimals
-        // @ts-expect-error
-        this.autoCorrection[i].reponse.param.signe = true
+        const amcParam = ensureAmcParam(this, i)
+        amcParam.digits = maxNbChiffresAvantLaVirgule + maxNbDecimals
+        amcParam.decimals = maxNbDecimals
+        amcParam.signe = true
       }
     }
   }

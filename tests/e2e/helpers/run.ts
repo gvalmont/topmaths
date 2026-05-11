@@ -1,7 +1,7 @@
 import path from 'node:path'
 import { fileURLToPath } from 'node:url'
 import type { Locator, Page } from 'playwright'
-import { afterAll, afterEach, beforeEach, describe, expect, it } from 'vitest'
+import { afterAll, afterEach, beforeEach, describe, it } from 'vitest'
 import { getDefaultPage } from './browser.js'
 import { getFileLogger, logError } from './log.js'
 import prefs from './prefs.js'
@@ -135,13 +135,17 @@ export function runSeveralTests(
                 )
               result = await promise
               logError('last URL: ' + page.url())
-              expect(result).toBe(true) // si le résultat n'est pas bon, ça lève une exception
+              if (!result) {
+                throw Error(
+                  `test ${filename} KO avec ${browserName}\nlast URL: ${page.url()}`,
+                )
+              }
             } catch (error: unknown) {
               result = false
               // faut attendre que l'écriture se termine (sinon on se retrouve en pause avant
               // d'avoir le message d'erreur et on sait pas pourquoi ça a planté)
               await logError(error)
-              expect(result).toBe(true) // il faut cependant renvoyer l'exception...
+              throw error
             }
           })
         }
@@ -291,19 +295,22 @@ async function fillMathField(
 ) {
   await page.waitForSelector(selector) // Les champs MathLive mettent un peu plus de temps à se charger que le reste
   const champTexteMathlive = page.locator(selector)
-  if (Array.isArray(answer)) {
-    for (let i = 0; i < answer.length; i++) {
-      if (i === 0) {
-        await champTexteMathlive.click()
-        await champTexteMathlive.press('Shift+Tab')
-      } else {
-        await champTexteMathlive.press('Tab')
-      }
+  const prompts = Array.from(
+    await champTexteMathlive.locator('.ML__prompt').all(),
+  )
+
+  const promptCount = prompts.length
+
+  if (promptCount > 1 && Array.isArray(answer)) {
+    for (let i = 0; i < answer.length && i < promptCount; i++) {
+      await prompts[i].click()
       await champTexteMathlive.pressSequentially(answer[i].toString())
     }
   } else {
     await champTexteMathlive.click()
-    await champTexteMathlive.pressSequentially(answer.toString())
+    await champTexteMathlive.pressSequentially(
+      Array.isArray(answer) ? (answer[0]?.toString() ?? '') : answer.toString(),
+    )
   }
 }
 

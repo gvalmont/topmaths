@@ -18,9 +18,9 @@
   import { globalOptions } from '../../../../../../lib/stores/globalOptions'
   import type { InterfaceParams } from '../../../../../../lib/types'
   import { isLessThan1Month } from '../../../../../../lib/types/dates'
+  import SelectedIndicator from '../../../../../shared/forms/SelectedIndicator.svelte'
   import NoInteractivityIcon from '../../../../../shared/icons/NoInteractivityIcon.svelte'
   import QcmCamIcon from '../../../../../shared/icons/QcmCamIcon.svelte'
-  import SelectedIndicator from '../../../../../shared/forms/SelectedIndicator.svelte'
 
   export let ending: JSONReferentielEnding
   export let nestedLevelCount: number
@@ -31,19 +31,25 @@
     Gestions des exercices via la liste
    --------------------------------------------------------------- */
   /**
-   * Compare un code à UUID courante
-   * @param {string} code le code de l'UUID à comparer à l'UUID courante
-   * @returns {boolean} `true` si les deux chaînes sont égales
+   * Compare les paramètres d'un exercice à la ressource courante.
+   * Les exercices MathALÉA et les outils sont distingués par `id` car
+   * plusieurs références peuvent partager un même `uuid`.
+   * @param {InterfaceParams} item l'exercice sélectionné à comparer à la ressource courante
+   * @returns {boolean} `true` si les deux ressources sont égales
    */
-  const compareCodes = (code: string): boolean => {
-    return code === ending.uuid
+  const isMatchingEnding = (item: InterfaceParams): boolean => {
+    if (item.uuid !== ending.uuid) return false
+    if (isExerciceItemInReferentiel(ending) || isTool(ending)) {
+      return item.id === ending.id
+    }
+    return true
   }
   /**
    * Compte le nombre de fois où la ressource a été sélectionnée
    * @returns {number} nb d'occurences
    */
   const countOccurences = (): number => {
-    return $exercicesParams.map((item) => item.uuid).filter(compareCodes).length
+    return $exercicesParams.filter(isMatchingEnding).length
   }
   // on compte réactivement le nombre d'occurences
   // de l'exercice dans la liste des sélectionnés
@@ -100,14 +106,27 @@
    * la première est retirée)
    */
   function removeFromList() {
-    const matchingIndex = $exercicesParams
-      .map((item) => item.uuid)
-      .findIndex(compareCodes)
+    const matchingIndex = $exercicesParams.findIndex(isMatchingEnding)
+    if (matchingIndex === -1) return
     exercicesParams.update((list) => [
       ...list.slice(0, matchingIndex),
       ...list.slice(matchingIndex + 1),
     ])
     $changes--
+  }
+
+  function handleDragStart(event: DragEvent) {
+    if (!(isExerciceItemInReferentiel(ending) || isTool(ending))) return
+    if (!event.dataTransfer) return
+
+    const payload = JSON.stringify({
+      uuid: ending.uuid,
+      id: ending.id,
+    })
+
+    event.dataTransfer.effectAllowed = 'copy'
+    event.dataTransfer.setData('application/x-mathalea-exercise', payload)
+    event.dataTransfer.setData('text/plain', payload)
   }
 </script>
 
@@ -129,7 +148,9 @@
     <button
       type="button"
       on:click={addToList}
-      class="ml-[3px] pl-2 pr-4 bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark hover:bg-coopmaths-canvas dark:hover:bg-coopmathsdark-canvas-darkest flex-1"
+      draggable="true"
+      on:dragstart={handleDragStart}
+      class="ml-0.75 pl-2 pr-4 bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark hover:bg-coopmaths-canvas dark:hover:bg-coopmathsdark-canvas-darkest flex-1"
     >
       <div bind:this={nomDeExercice} class="flex flex-row justify-start">
         {#if isExerciceItemInReferentiel(ending)}

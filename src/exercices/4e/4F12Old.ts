@@ -164,7 +164,7 @@ export default class ExploiterRepresentationGraphique extends Exercice {
                 indiceQuestion,
                 KeyboardType.longueur,
                 {
-                  texteApres: ` (Préciser l'unité.)`,
+                  texteApres: '<em class="ml-2">(Une unité est attendue.)</em>',
                 },
               ),
           )
@@ -185,7 +185,7 @@ export default class ExploiterRepresentationGraphique extends Exercice {
             for (let i = 0; i < this.listeQuestions.length; i++) {
               enonceAMC += `${i + 1}) ${this.listeQuestions[i]}<br>`
             }
-            this.autoCorrection[0] = {
+            this.autoCorrectionAMC[0] = {
               enonce: enonceAMC,
               propositions: [
                 {
@@ -282,7 +282,7 @@ export default class ExploiterRepresentationGraphique extends Exercice {
                 indiceQuestion,
                 KeyboardType.longueur,
                 {
-                  texteApres: ` (Préciser l'unité.)`,
+                  texteApres: '<em class="ml-2">(Une unité est attendue.)</em>',
                 },
               ),
           )
@@ -307,7 +307,7 @@ export default class ExploiterRepresentationGraphique extends Exercice {
                 indiceQuestion,
                 KeyboardType.longueur,
                 {
-                  texteApres: ` (Préciser l'unité.)`,
+                  texteApres: '<em class="ml-2">(Une unité est attendue.)</em>',
                 },
               ),
           )
@@ -327,7 +327,7 @@ export default class ExploiterRepresentationGraphique extends Exercice {
             for (let i = 0; i < this.listeQuestions.length; i++) {
               enonceAMC += `${i + 1}) ${this.listeQuestions[i]}<br>`
             }
-            this.autoCorrection[0] = {
+            this.autoCorrectionAMC[0] = {
               enonce: enonceAMC,
               propositions: [
                 {
@@ -521,7 +521,7 @@ export default class ExploiterRepresentationGraphique extends Exercice {
             for (let i = 0; i < this.listeQuestions.length; i++) {
               enonceAMC += `${i + 1}) ${this.listeQuestions[i]}<br>`
             }
-            this.autoCorrection[0] = {
+            this.autoCorrectionAMC[0] = {
               enonce: enonceAMC,
               propositions: [
                 {
@@ -716,7 +716,7 @@ export default class ExploiterRepresentationGraphique extends Exercice {
             for (let i = 0; i < this.listeQuestions.length; i++) {
               enonceAMC += `${i + 1}) ${this.listeQuestions[i]}<br>`
             }
-            this.autoCorrection[0] = {
+            this.autoCorrectionAMC[0] = {
               enonce: enonceAMC,
               propositions: [
                 {

@@ -1,5 +1,6 @@
 import type Figure from 'apigeom/src/Figure'
 import type Decimal from 'decimal.js'
+import type { AutoCorrectionAMC } from '../lib/amc/amcTypes'
 import {
   KeyboardType,
   type PartialKbType,
@@ -62,6 +63,8 @@ export default class Exercice implements IExercice {
   correction?: string // Seulement pour les exercices de type simple
   canOfficielle?: boolean = false
   canEnonce?: string // Seulement pour les exercices de type simple ??? NON ! NOTE de Jena-claude Lhote du 2/02/2025 : et pourquoi ça ???
+  tip: string = ''
+  tipAvailable?: boolean // L'élève a-t-il le bouton indice ?
   // On peut être amené à utiliser un Exercice non simple à une seule question dans une can, parce qu'il a 3 champs et une correction custom.
   // Et vouloir un this.canEnonce sur cet exercice, pour le document CAN !
   canReponseACompleter: string = '' // Seulement pour les exercices de type simple
@@ -80,6 +83,7 @@ export default class Exercice implements IExercice {
   contenu?: string
   contenuCorrection?: string
   autoCorrection: AutoCorrection[]
+  autoCorrectionAMC: AutoCorrectionAMC[]
   figures?: Figure[] | ClickFigures[]
   amcReady?: boolean
   amcType?: string
@@ -143,6 +147,15 @@ export default class Exercice implements IExercice {
 
   besoinFormulaire5Texte: boolean | [string, string]
   besoinFormulaire5CaseACocher: boolean | [string] | [string, boolean]
+  besoinFormulaireNombresCategories:
+    | false
+    | {
+        titre: string
+        categories: { label: string; max: number }[]
+        defaut: number[]
+    }
+  
+  questionRefs?: string[] // Affiche la référence de l'exercice en en-tête de la question (utile pour MetaExerciceCan)
   listeArguments: string[] // Variable servant à comparer les exercices pour ne pas avoir deux exercices identiques
   lastCallback: string // La dernière signature de listeArguments afin de comparaison : permet d'éviter un nouvelleVersionWrapper inutile
   checkSum?: string // Empreinte CRC32 des questions de l'exercice pour comparaison rapide
@@ -177,7 +190,9 @@ export default class Exercice implements IExercice {
     this.listeCorrections = [] // Idem avec la correction.
     this.contenu = '' // Chaîne de caractères avec tout l'énoncé de l'exercice construit à partir de `this.listeQuestions` suivant le `context`
     this.contenuCorrection = '' // Idem avec la correction
-    this.autoCorrection = [] // Liste des objets par question pour correction interactive || export AMC.
+    this.autoCorrection = [] // Liste des objets par question pour correction interactive
+    this.autoCorrectionAMC = [] // Liste des objets par question pour correction interactive de type AMC
+
     this.tableauSolutionsDuQcm = [] // Pour sauvegarder les solutions des QCM.
 
     // ///////////////////////////////////////////////
@@ -237,6 +252,7 @@ export default class Exercice implements IExercice {
     this.besoinFormulaire5Numerique = false // Sinon this.besoinFormulaire5Numerique = [texte, max, tooltip facultatif]
     this.besoinFormulaire5Texte = false // Sinon this.besoinFormulaire5Texte = [texte, tooltip]
     this.besoinFormulaire5CaseACocher = false // Sinon this.besoinFormulaire5CaseACocher = [texte]
+    this.besoinFormulaireNombresCategories = false // Sinon { titre, categories: [{label, max}], defaut: [] }
 
     // ///////////////////////////////////////////////
     // Exercice avec des dépendances particulières

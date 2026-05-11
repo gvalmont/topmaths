@@ -289,7 +289,7 @@ export default class ReciproqueThales extends Exercice {
         const boutonAideMathalea2d = ajouterBoutonMathalea2d(
           `${numeroExercice}_Q${i}`,
           `if (document.getElementById('M2D_${numeroExercice}_Q${i}_t1').dataset.colorie == undefined || (document.getElementById('M2D_${numeroExercice}_Q${i}_t1').dataset.colorie == 'false')){
-          document.getElementById('M2D_${numeroExercice}_Q${i}_t1').style.stroke = bleuMathalea;
+          document.getElementById('M2D_${numeroExercice}_Q${i}_t1').style.stroke = 'blue';
           document.getElementById('M2D_${numeroExercice}_Q${i}_t2').style.stroke = 'red';
           document.getElementById('M2D_${numeroExercice}_Q${i}_t1').style.opacity = .5;
           document.getElementById('M2D_${numeroExercice}_Q${i}_t1').style.strokeWidth = ${epaisseurTriangle};
@@ -463,7 +463,7 @@ export default class ReciproqueThales extends Exercice {
           }
           texteCorr += `Donc d'après la réciproque du théorème de Thalès, les droites $(${s2 + s3})$ et $(${s4 + s5})$ sont parallèles.<br>`
         }
-        this.autoCorrection[i] = {
+        this.autoCorrectionAMC[i] = {
           enonce: '',
           enonceAvant: false,
           propositions: [

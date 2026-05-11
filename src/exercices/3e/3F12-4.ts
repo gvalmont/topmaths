@@ -22,7 +22,7 @@ import Exercice from '../Exercice'
 
 export const titre = "Lire l'image d'un nombre à partir d'un graphique"
 export const interactifReady = true
-export const interactifType = 'multimathfield'
+export const interactifType = 'multiMathfield'
 export const amcReady = true
 export const amcType = 'AMCHybride'
 
@@ -183,7 +183,7 @@ export default class ImageGraphique extends Exercice {
       )
 
       if (context.isAmc) {
-        this.autoCorrection[i] = {
+        this.autoCorrectionAMC[i] = {
           enonce: texte + '<br>',
           options: {
             multicols: true,
@@ -232,7 +232,7 @@ export default class ImageGraphique extends Exercice {
           ],
         }
         if (this.sup !== 1) {
-          this.autoCorrection[i].propositions?.push({
+          this.autoCorrectionAMC[i].propositions?.push({
             type: 'AMCNum',
             propositions: [
               {

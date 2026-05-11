@@ -10,6 +10,7 @@
  * - expressions : { egaliteExpression: true }
  */
 import ExerciceQcm from '../../exercices/ExerciceQcm'
+import ExerciceSimple from '../../exercices/ExerciceSimple'
 import type {
   IExercice,
   OptionsComparaisonType,
@@ -18,7 +19,6 @@ import type {
 import { context } from '../../modules/context'
 import Grandeur, { USI } from '../../modules/Grandeur'
 import { messageFeedback } from '../../modules/messages'
-import { shuffleJusquaWithIndexes } from '../amc/qcmCam'
 import { get } from '../html/dom'
 import {
   barreTexte,
@@ -27,6 +27,7 @@ import {
   texteGras,
 } from '../outils/embellissements'
 import { lettreDepuisChiffre } from '../outils/outilString'
+import { shuffleJusquaWithIndexes } from '../qcmCam'
 import type { ButtonWithMathaleaListener } from '../types/can'
 import { afficheScore } from './afficheScore'
 import { generateCleaner } from './cleaners'
@@ -40,7 +41,7 @@ export function guessOptionsForReponses(
   const hasMultiLatexOrOu = reponses.some((r) => {
     // Compte le nombre de $ dans la chaîne
     const dollarCount = (r.match(/\$/g) || []).length
-    return dollarCount > 0 || /\bou\b/i.test(r) // Les $ ont déjà été enlevés aux extrémités dans la fonction compteLesReponsesDifferentes, donc on regarde s'il en reste à l'intérieur de la chaîne. Si oui, on suppose que c'est du texte à comparer tel quel. De même, la présence de "ou" est un indice que la réponse contient plusieurs possibilités à comparer telles quelles.
+    return dollarCount > 0 || /\bou\b/i.test(r) // Les $ ont déjà été enlevés aux extrémités dans la fonction aLeBonNombreDePropsDifferentes, donc on regarde s'il en reste à l'intérieur de la chaîne. Si oui, on suppose que c'est du texte à comparer tel quel. De même, la présence de "ou" est un indice que la réponse contient plusieurs possibilités à comparer telles quelles.
   })
   if (hasMultiLatexOrOu) {
     return { texteSansCasse: true }
@@ -275,6 +276,38 @@ export function propositionsQcm(
   i: number,
   options: { style: string; format: string } = { style: '', format: 'case' },
 ) {
+  const syncQcmAutoCorrectionToAmc = () => {
+    const source = exercice.autoCorrection[i]
+    const options = source.options
+    const texteCorr =
+      options?.correction != null && options?.correction !== ''
+        ? options.correction
+        : exercice.typeExercice === 'simple' ||
+            exercice instanceof ExerciceSimple
+          ? exercice.correction
+          : exercice.listeCorrections[i] != null
+            ? exercice.listeCorrections[i]
+            : ''
+    if (source == null) return
+
+    const exerciseAny = exercice as IExercice & { autoCorrectionAMC?: any[] }
+    if (!Array.isArray(exerciseAny.autoCorrectionAMC)) {
+      exerciseAny.autoCorrectionAMC = []
+    }
+
+    exerciseAny.autoCorrectionAMC[i] = {
+      ...exerciseAny.autoCorrectionAMC[i],
+      enonce: source.enonce,
+      options:
+        source.options != null
+          ? { ...source.options, correction: texteCorr }
+          : undefined,
+      propositions: (source.propositions ?? []).map((proposition) => ({
+        ...proposition,
+      })),
+    }
+  }
+
   /**
    * Mélange les éléments d'un tableau jusqu'à un certain index et laisse les suivants inchangés.
    * @param {Array} array - Le tableau à mélanger.
@@ -325,13 +358,7 @@ export function propositionsQcm(
   elimineDoublons(exercice.autoCorrection[i].propositions)
   if (context.isHtml) {
     espace = '&emsp;'
-    if (exercice?.autoCorrection[i].reponse == null) {
-      exercice.autoCorrection[i].reponse = {}
-    }
-    if (exercice.autoCorrection[i].reponse.param == null) {
-      exercice.autoCorrection[i].reponse.param = {}
-    }
-    exercice.autoCorrection[i].reponse.param.formatInteractif = 'qcm'
+    exercice.autoCorrection[i].formatInteractif = 'qcm'
   } else {
     espace = '\\qquad '
   }
@@ -475,6 +502,7 @@ export function propositionsQcm(
     texte = '\n' + texte
     texteCorr = '\n' + texteCorr
   }
+  syncQcmAutoCorrectionToAmc()
   return { texte, texteCorr, indexes }
 }
 
@@ -569,6 +597,7 @@ export function aLeBonNombreDePropsDifferentes(
     reponses = exercice.reponses
   } else if (exercice.distracteurs != null && exercice.reponse != null) {
     reponses = [String(exercice.reponse), ...exercice.distracteurs.map(String)]
+    exercice.reponses = reponses.map((s: string) => s)
   } else {
     if (!test)
       window.notify(
@@ -580,7 +609,7 @@ export function aLeBonNombreDePropsDifferentes(
   if (reponses == null) {
     if (!test)
       window.notify(
-        'compteLesReponsesDifferentes a reçu un exercice sans réponses',
+        'aLeBonNombreDePropsDifferentes a reçu un exercice sans réponses',
         { exercice },
       )
     return false
@@ -628,6 +657,7 @@ export function aLeBonNombreDePropsDifferentes(
   const doublons = []
   // On compare des expressions littérales qui peuvent être différentes mais équivalentes
   let doublonsTrouvés = false
+  let nbReponsesDifferentes = reponses.length
   for (let i = 0; i < reponses.length - 1; i++) {
     let reponse = reponses[i]
     if (opts.unite) {
@@ -638,7 +668,7 @@ export function aLeBonNombreDePropsDifferentes(
         // Si on n'arrive pas à parser la grandeur, on laisse la réponse telle quelle et on verra si elle est considérée comme un doublon ou pas. Mieux vaut risquer un faux positif de doublon que de rater un doublon parce qu'on n'a pas réussi à parser la grandeur.
       }
     }
-    for (let j = i + 1; j < reponses.length; j++) {
+    for (let j = i + 1; j < reponses.length; ) {
       const compare = exercice.compare || fonctionComparaison
       const result = compare(
         reponse,
@@ -648,21 +678,36 @@ export function aLeBonNombreDePropsDifferentes(
         opts,
       )
       if (result.isOk) {
+        if (i === 0) {
+          exercice.reponses[j] = 'doublon de la bonne réponse'
+        } else {
+          exercice.reponses[j] = `doublon de la réponse à l'indice ${i}`
+        }
         doublons.push(
-          `à l'indice ${i} j'ai ${reponse} et à l'indice ${j} j'ai ${reponses[j]}`,
+          `à l'indice ${i} j'ai ${reponse} et à l'indice ${j} j'ai ${reponses[j]}, je supprime la réponse à l'indice ${j} et je garde celle à l'indice ${i}`,
         )
         doublonsTrouvés = true
+        nbReponsesDifferentes--
+        reponses.splice(j, 1)
+      } else {
+        j++
       }
     }
   }
   if (doublonsTrouvés) {
     if (!test)
       window.notify(
-        `CompteLesReponsesDifferentes : J'ai du éliminer ${reponses.length - nombreSouhaite} réponses`,
+        `aLeBonNombreDePropsDifferentes : J'ai trouvé ${exercice.reponses.length - nbReponsesDifferentes} doublons.
+        Il en reste ${nbReponsesDifferentes} réponses différentes et j'en voulais ${nombreSouhaite},
+        J'ai supprimé les doublons suivants :
+        ${doublons.join(' ; ')}`,
         {
           doublons: doublons.join(' ; '),
         },
       )
+    exercice.reponses = exercice.reponses.filter(
+      (r: string) => !r.includes('doublon'),
+    )
   }
   return !doublonsTrouvés
 }

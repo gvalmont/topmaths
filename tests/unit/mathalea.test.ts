@@ -1,10 +1,14 @@
 import Decimal from 'decimal.js'
 import { describe, expect, it, vi } from 'vitest'
 import ExerciceSimple from '../../src/exercices/ExerciceSimple'
-import FractionEtendue from '../modules/FractionEtendue'
-import Grandeur from '../modules/Grandeur'
-import Hms from '../modules/Hms'
-import { getDistracteurs, mathaleaHandleExerciceSimple } from './mathalea'
+import { mathaleaEnsureAMCCompatibility } from '../../src/lib/amc/amcInference'
+import {
+  getDistracteurs,
+  mathaleaHandleExerciceSimple,
+} from '../../src/lib/mathalea'
+import FractionEtendue from '../../src/modules/FractionEtendue'
+import Grandeur from '../../src/modules/Grandeur'
+import Hms from '../../src/modules/Hms'
 
 // Mock avant l'import
 vi.mock('../../src/lib/renderScratch', () => ({
@@ -189,5 +193,135 @@ describe('mathaleaHandleExerciceSimple', () => {
     expect(exercice.listeCorrections[0]).toContain(
       'La bonne réponse est la réponse',
     )
+  })
+
+  it("genere une valeur exploitable par le moteur d'inference AMCNum", () => {
+    class ExerciceSimpleAMCNum extends ExerciceSimple {
+      constructor() {
+        super()
+        this.nbQuestions = 1
+        this.interactifType = 'mathlive'
+      }
+
+      nouvelleVersion() {
+        this.question = 'Calculer 7 + 5.'
+        this.reponse = 12
+        this.correction = '7 + 5 = 12.'
+      }
+    }
+
+    const exercice = new ExerciceSimpleAMCNum()
+    mathaleaHandleExerciceSimple(exercice, false, 0, 'seed')
+
+    expect(exercice.autoCorrection[0]).toBeDefined()
+    expect(exercice.autoCorrection[0].valeur?.reponse?.value).toBe('12')
+  })
+
+  it("genere une autoCorrection AMCOpen via le moteur d'inference", () => {
+    class ExerciceSimpleAMCOpen extends ExerciceSimple {
+      constructor() {
+        super()
+        this.nbQuestions = 1
+        this.interactifType = 'texte'
+      }
+
+      nouvelleVersion() {
+        this.question = 'Expliquer pourquoi 2 + 2 = 4.'
+        this.reponse = 'Réponse libre'
+        this.correction = 'Parce que l’addition de deux et deux donne quatre.'
+      }
+    }
+
+    const exercice = new ExerciceSimpleAMCOpen()
+    mathaleaHandleExerciceSimple(exercice, false, 0, 'seed')
+    mathaleaEnsureAMCCompatibility(exercice)
+
+    expect(exercice.autoCorrection[0]).toBeDefined()
+    expect(exercice.autoCorrection[0].propositions?.[0].texte).toContain(
+      'deux et deux',
+    )
+    expect(exercice.amcType).toBe('AMCOpen')
+  })
+})
+
+describe('mathaleaEnsureAMCCompatibility', () => {
+  it('applique un fallback AMCOpen par defaut', () => {
+    const exercice = {
+      question: 'Question sans parametrage AMC',
+      correction: 'Correction par defaut',
+      autoCorrection: [],
+      listeQuestions: [],
+      listeCorrections: [],
+      amcType: undefined,
+      amcReady: undefined,
+    } as any
+
+    mathaleaEnsureAMCCompatibility(exercice)
+
+    expect(exercice.amcReady).toBe(true)
+    expect(exercice.amcType).toBe('AMCOpen')
+    expect(exercice.autoCorrection).toHaveLength(0)
+  })
+
+  it('alimente AMCOpen pour un interactif non supporte', () => {
+    const exercice = {
+      interactifType: 'texte',
+      question: 'Question sans parametrage AMC',
+      correction: 'Correction par defaut',
+      autoCorrection: [],
+      listeQuestions: [],
+      listeCorrections: [],
+      amcType: undefined,
+      amcReady: undefined,
+    } as any
+
+    mathaleaEnsureAMCCompatibility(exercice)
+
+    expect(exercice.amcReady).toBe(true)
+    expect(exercice.amcType).toBe('AMCOpen')
+    expect(exercice.autoCorrection[0]).toBeDefined()
+    expect(exercice.autoCorrection[0].propositions?.[0].texte).toContain(
+      'Correction par defaut',
+    )
+  })
+
+  it('inference qcmMono et qcmMult depuis autoCorrection', () => {
+    const mono = {
+      interactifType: 'qcm',
+      autoCorrection: [
+        {
+          propositions: [
+            { texte: 'A', statut: false },
+            { texte: 'B', statut: true },
+          ],
+        },
+      ],
+      listeQuestions: [],
+      listeCorrections: [],
+      amcType: undefined,
+      amcReady: undefined,
+    } as any
+
+    mathaleaEnsureAMCCompatibility(mono)
+    expect(mono.amcType).toBe('qcmMono')
+
+    const mult = {
+      interactifType: 'qcm',
+      autoCorrection: [
+        {
+          propositions: [
+            { texte: 'A', statut: true },
+            { texte: 'B', statut: true },
+          ],
+        },
+      ],
+      listeQuestions: [],
+      listeCorrections: [],
+      amcType: undefined,
+      amcReady: undefined,
+    } as any
+
+    mathaleaEnsureAMCCompatibility(mult)
+    expect(mult.amcType).toBe('qcmMult')
   })
 })

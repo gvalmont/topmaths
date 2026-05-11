@@ -4,7 +4,7 @@
 
 import { infoMessage } from '../../lib/format/message'
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
-import { setReponse } from '../../lib/interactif/gestionInteractif'
+import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { sp } from '../../lib/outils/outilString'
 import { texNombre } from '../../lib/outils/texNombre'
@@ -87,7 +87,6 @@ export default class IntercalerDecimalEntre2Decimaux extends Exercice {
     for (
       let i = 0, texte, texteCorr, a, b, r, u, d1, c1, c2, cpt = 0;
       i < this.nbQuestions && cpt < 50;
-
     ) {
       switch (listeTypeDeQuestions[i]) {
         case 'a,b1': // 1 : b-a > 0,1
@@ -173,14 +172,19 @@ export default class IntercalerDecimalEntre2Decimaux extends Exercice {
           `$${texNombre(a)}<$` +
           ajouteChampTexteMathLive(this, i, KeyboardType.clavierNumbers) +
           `$\\quad<${texNombre(b)}$`
-        setReponse(this, i, [a, b], { formatInteractif: 'intervalleStrict' })
+        handleAnswers(this, i, {
+          reponse: {
+            value: `]${a};${b}[`,
+            options: { estDansIntervalle: true },
+          },
+        })
       } else {
         texte = `$${texNombre(a)}<${sp(3)}\\ldots\\ldots\\ldots\\ldots\\ldots${sp(3)}<${texNombre(b)}$`
       }
       texteCorr = `$${texNombre(a)}<${texNombre(r)}<${texNombre(b)}$`
 
       if (context.isAmc) {
-        this.autoCorrection[i] = {
+        this.autoCorrectionAMC[i] = {
           enonce: texte,
           propositions: [
             { texte: texteCorr, statut: 3, feedback: '', sanscadre: true },

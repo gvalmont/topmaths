@@ -24,11 +24,10 @@ export function deuxColonnes(cont1, cont2, largeur1 = 50) {
 `
   } else {
     return `\\begin{multicols}{2}
-    ${cont1.replaceAll('<br>', '\\\\\n')}
+    ${cont1.replaceAll('<br><br>', '\\medskip\n').replaceAll('<br>', '\\\\\n')}
 
-    ${cont2.replaceAll('<br>', '\\\\\n')}
-    \\end{multicols}
-`
+    ${cont2.replaceAll('<br><br>', '\\medskip\n').replaceAll('<br>', '\\\\\n')}
+    \\end{multicols}`
   }
 }
 

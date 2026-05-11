@@ -4,9 +4,12 @@ import { pointAbstrait } from '../../../lib/2d/PointAbstrait'
 import { latex2d, type Latex2d } from '../../../lib/2d/textes'
 import { TracePoint } from '../../../lib/2d/TracePoint'
 import { symetrieAxiale } from '../../../lib/2d/transformations'
-import { ajouteQuestionMathlive } from '../../../lib/interactif/questionMathLive'
+import { bleuMathalea } from '../../../lib/colors'
+import { handleAnswers } from '../../../lib/interactif/gestionInteractif'
+import { addMultiMathfield } from '../../../lib/interactif/MultiMathfield/MultiMathfield'
 import { choisitNombresEntreMetN } from '../../../lib/outils/aleatoires'
 import { shuffle } from '../../../lib/outils/arrayOutils'
+import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { range } from '../../../lib/outils/nombres'
 import { context } from '../../../modules/context'
 import { mathalea2d } from '../../../modules/mathalea2d'
@@ -16,12 +19,11 @@ import {
 } from '../../../modules/outils'
 import type { NestedObjetMathalea2dArray } from '../../../types/2d'
 import Exercice from '../../Exercice'
-import { bleuMathalea } from '../../../lib/colors'
 
 export const titre = 'Trouver le symétrique'
 export const dateDePublication = '03/05/2025'
 export const interactifReady = true
-export const interactifType = 'mathLive'
+export const interactifType = 'multiMathfield'
 export const amcReady = true
 export const amcType = 'AMCNum'
 
@@ -31,7 +33,7 @@ export const amcType = 'AMCNum'
  * @author Jean-claude Lhote
  * Publié le 03/05/2025
  */
-export const uuid = '85dfc'
+export const uuid = '85dfd'
 
 export const refs = {
   'fr-fr': ['can6G08', '6G7B-flash3'],
@@ -145,12 +147,17 @@ export default class TrouverLeSym extends Exercice {
           numerosSymChoisis.push(numeros[m])
         }
       }
-      let questionInteractive = ''
+      let dataTemplate = ''
+      const dataOptions: Record<string, unknown> = {}
+      const reponses: Record<string, unknown> = {}
       for (let j = 0; j < this.sup2; j++) {
-        questionInteractive += `Quel est le numéro du symétrique du point ${numerosChoisis[j]} par rapport à $(d)$ ? ${ajouteQuestionMathlive({ exercice: this, question: this.sup * i + j, typeInteractivite: 'mathlive', objetReponse: { reponse: { value: numerosSymChoisis[j] } } })}<br>`
+        dataTemplate += `Quel est le numéro du symétrique du point ${numerosChoisis[j]} par rapport à $(d)$ ? %{champ${j + 1}}\n`
+        dataOptions[`champ${j + 1}`] = {}
+        reponses[`champ${j + 1}`] = { value: numerosSymChoisis[j] }
       }
+      handleAnswers(this, i, reponses, { formatInteractif: 'multiMathfield' })
       let texte = this.interactif
-        ? questionInteractive
+        ? addMultiMathfield(this, i, { dataTemplate, dataOptions })
         : `Donner ${this.sup2 > 1 ? 'les' : 'le'} symétrique${this.sup2 > 1 ? 's' : ''} ${this.sup2 > 1 ? 'des' : 'du'} point${this.sup2 > 1 ? 's' : ''} ${numerosChoisis.map(String).join(', ')} par rapport à $(d)$.<br>`
       const objetsEnonce: NestedObjetMathalea2dArray = [this.croix, nums, d]
       const objetsCorrection: NestedObjetMathalea2dArray = [this.croix, nums, d]
@@ -185,7 +192,7 @@ export default class TrouverLeSym extends Exercice {
         },
         ...objetsEnonce,
       )
-      let texteCorr = `${this.sup2 > 1 ? 'Les' : 'Le'} symétrique${this.sup2 > 1 ? 's' : ''} ${this.sup2 > 1 ? 'des' : 'du'} point${this.sup2 > 1 ? 's' : ''} ${numerosChoisis.map(String).join(', ')} par rapport à $(d)$ ${this.sup2 > 1 ? 'sont' : 'est'} ${numerosSymChoisis.map((el) => String(numeros[el])).join(', ')}.<br>`
+      let texteCorr = `${this.sup2 > 1 ? 'Les' : 'Le'} symétrique${this.sup2 > 1 ? 's' : ''} ${this.sup2 > 1 ? 'des' : 'du'} point${this.sup2 > 1 ? 's' : ''} ${numerosChoisis.map(String).join(', ')} par rapport à $(d)$ ${this.sup2 > 1 ? 'sont' : 'est'} ${numerosSymChoisis.map((el) => `$${miseEnEvidence(`${numeros[el]}`)}$`).join(', ')}.<br>`
       texteCorr += mathalea2d(
         {
           xmin: -0.5,

@@ -20,6 +20,33 @@ const apps = {
   ],
 }
 
+let hasGlobalTabTracker = false
+let lastTabDirection = null
+let lastTabTimestamp = 0
+
+function handleGlobalTabKeydown(event) {
+  if (event.key !== 'Tab') return
+  lastTabDirection = event.shiftKey ? 'backward' : 'forward'
+  lastTabTimestamp = Date.now()
+}
+
+function consumeRecentTabDirection() {
+  if (lastTabDirection == null) return null
+  if (Date.now() - lastTabTimestamp > 250) {
+    lastTabDirection = null
+    return null
+  }
+  const direction = lastTabDirection
+  lastTabDirection = null
+  return direction
+}
+
+function ensureGlobalTabTracker() {
+  if (hasGlobalTabTracker) return
+  document.addEventListener('keydown', handleGlobalTabKeydown, true)
+  hasGlobalTabTracker = true
+}
+
 /**
  * Charge une appli listée dans apps (pour mutualiser l'appel de loadjs)
  * @private
@@ -65,16 +92,59 @@ export function loadScratchblocks() {
   return load('scratchblocks')
 }
 
-export function injectFontInMetaInteractif2d(mf) {
+export function injectStyleForCells(mf) {
+  if (!mf.classList.contains('tableauMathlive')) return
   const shadow = mf.shadowRoot
-  if (shadow && !shadow.getElementById('katex-main-font')) {
+  const container = shadow.querySelector('.ML__container')
+  if (container) {
+    const span = container.parentElement
+    span.style.display = 'flex'
+    span.style.flexDirection = 'row'
+  }
+  if (shadow && !shadow.getElementById('ml-cell-style')) {
+    const style = document.createElement('style')
+    style.id = 'ml-cell-style'
+    style.textContent = `
+      .ML__container {
+        display: inline-block;
+        width: 100%;
+        justify-content: center !important;
+      }
+      .ML__content {
+        justify-content: center !important;
+        padding: 0;
+      }
+    `
+    shadow.appendChild(style)
+  }
+}
+
+export function injectFontInMetaInteractif2d(mf) {
+  if (!mf.classList.contains('metaInteractif2d')) return
+  const shadow = mf.shadowRoot
+  if (shadow && !shadow.getElementById('prompt-for-2d')) {
     // Crée une balise style
     const style = document.createElement('style')
-    style.id = 'katex-main-font'
+    style.id = 'prompt-for-2d'
     style.textContent = `
         .ML__text {
           font-family: 'KaTeX_Main', serif !important;
         }
+          .ML__content {
+          "justify-content": center !important;
+          padding: 0;
+          }
+          .ML__latex {
+          line-height: 0.9em !important;
+          }
+        .ML__prompt-atom {
+    line-height: 0.9 !important;
+     vertical-align: 0.1em !important;
+    }
+      .ML__prompt:not(.ML__lockedPromptBox) {
+    min-height: 0.9em !important;
+   
+    }
       `
     shadow.appendChild(style)
   }
@@ -83,20 +153,7 @@ export function injectFontInMetaInteractif2d(mf) {
 function injectPromptStyles(mf) {
   if (!mf.classList.contains('fillInTheBlanks')) {
     if (mf.classList.contains('tableauMathlive')) {
-      const shadow = mf.shadowRoot
-      if (shadow && !shadow.getElementById('ml-cell-style')) {
-        const style = document.createElement('style')
-        style.id = 'ml-cell-style'
-        style.textContent = `
-        .ML__container {
-          "justify-content": center !important;
-        }
-          .ML__content {
-          "justify-content": center !important;
-          }
-    `
-        shadow.appendChild(style)
-      }
+      injectStyleForCells(mf)
     }
     return
   }
@@ -105,27 +162,36 @@ function injectPromptStyles(mf) {
     const style = document.createElement('style')
     style.id = 'ml-prompt-styles'
     style.textContent = `
-    .ML__prompt {
-    min-height: 0.9em !important;
+    .ML__prompt:not(.ML__lockedPromptBox):not(.ML__focusedPromptBox) {
+    min-height: 1em !important;
+     outline: solid !important;
+  outline-width: thin !important;
+  outline-color: var(--color-coopmathsdark-corpus-light) !important;
     }
-    .ML__prompt-atom {
-    line-height: 0.9 !important;
-     vertical-align: 0.1em !important;
+    :host(:focus-within) .ML__prompt:not(.ML__lockedPromptBox).ML__focusedPromptBox {
+      outline: solid !important;
+  outline-width: 2px !important;
+  outline-color: var(--color-coopmaths-struct) !important;
+    min-height: 1em !important;
     }
-      /* Prompt actif uniquement */
-      .ML__focused .ML__focusedPromptBox {
-        outline: 2px solid #3b82f6 !important;
-      }
+    :host(:not(:focus-within)) .ML__prompt:not(.ML__lockedPromptBox).ML__focusedPromptBox {
+      outline: solid !important;
+      outline-width: thin !important;
+      outline-color: var(--color-coopmathsdark-corpus-light) !important;
+    }
+    
     `
     shadow.appendChild(style)
   }
 }
+
 /**
  * Charge MathLive et personnalise les réglages
  * MathLive est chargé dès qu'un tag math-field est créé
  */
 export async function loadMathLive(divExercice) {
   await import('mathlive')
+  ensureGlobalTabTracker()
   let champs
   if (divExercice) {
     champs = divExercice.getElementsByTagName('math-field')
@@ -141,9 +207,20 @@ export async function loadMathLive(divExercice) {
         ) {
           mf.classList.remove('invisible')
         }
-        mf.classList.add('ml-1')
+        //   mf.classList.add('ml-1')
         mf.addEventListener('focus', handleFocusMathField)
         mf.addEventListener('focusout', handleFocusOutMathField)
+        if (mf.classList.contains('fillInTheBlanks')) {
+          let redirecting = false
+          mf.addEventListener('selection-change', () => {
+            if (redirecting || mf.classList.contains('corrected')) return
+            if (mf.matches(':focus-within') && !mf.isSelectionEditable) {
+              redirecting = true
+              mf.executeCommand('moveToNextPlaceholder')
+              requestAnimationFrame(() => { redirecting = false })
+            }
+          })
+        }
         mf.addEventListener('input', () => {
           const content = mf.getValue()
           // Remplace les espaces consécutifs par un seul espace
@@ -190,6 +267,23 @@ function handleFocusMathField(event) {
   const isFillInTheBlanks =
     mf.classList.contains('fillInTheBlanks') ||
     mf.classList.contains('metaInteractif2d')
+
+  if (mf.classList.contains('fillInTheBlanks')) {
+    const tabDirection = consumeRecentTabDirection()
+    setTimeout(() => {
+      if (!mf.matches(':focus-within')) return
+      if (tabDirection === 'backward') {
+        // En entrée par TAB dans un nouveau mathfield, on force un prompt cohérent
+        // pour éviter la reprise sur un ancien prompt mémorisé par le navigateur.
+        mf.executeCommand('moveToMathfieldEnd')
+        mf.executeCommand('moveToPreviousPlaceholder')
+      } else if (tabDirection === 'forward') {
+        mf.executeCommand('moveToMathfieldStart')
+        mf.executeCommand('moveToNextPlaceholder')
+      }
+    }, 0)
+  }
+
   const isNotFillInTheBlanksAndReadOnly = !isFillInTheBlanks && mf.readOnly
   const isCorrected =
     isNotFillInTheBlanksAndReadOnly || mf.classList.contains('corrected')
@@ -208,7 +302,7 @@ function handleFocusMathField(event) {
   })
 }
 
-function handleFocusOutMathField() {
+function handleFocusOutMathField(event) {
   // Si le focus est sur un autre élément que mathfield, on cache le clavier
   // On utilise setTimeout pour être sûr que le focus soit bien sur le nouvel élément
   // car au focusout, le focus est sur body

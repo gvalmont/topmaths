@@ -1,5 +1,5 @@
-import { qcmCamExport } from '../lib/amc/qcmCam'
 import { buildQcmForExercise } from '../lib/interactif/qcmBuilder'
+import { qcmCamExport } from '../lib/qcmCam'
 import type { IExerciceQcm, IExerciceQcmOptions } from '../lib/types'
 import { context } from '../modules/context'
 import Exercice from './Exercice'
@@ -61,7 +61,7 @@ ${this.interactif || context.isAmc ? 'Cocher la (ou les) case(s) correspondante(
     } else {
       this.consigne = ''
     }
-    const statuts: boolean[] = []
+    const statuts: boolean[] = Array(this.reponses.length).fill(false)
     if (this.bonnesReponses == null) {
       statuts.fill(false, 0, this.reponses.length - 1)
       statuts[0] = true

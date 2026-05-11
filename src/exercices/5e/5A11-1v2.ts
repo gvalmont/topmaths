@@ -1,7 +1,8 @@
 import { choice } from '../../lib/outils/arrayOutils'
 import { randint } from '../../modules/outils'
 import ExerciceLabyrinthe from '../_Exercice_labyrinthe'
-export const titre = 'Parcourir un labyrinthe des multiples'
+export const titre =
+  'Parcourir un labyrinthe des multiples basé sur des critères de divisibilité'
 
 export const dateDePublication = '30/10/2026'
 export const interactifReady = true
@@ -16,15 +17,14 @@ export const refs = {
  * @author Rémi Angot
  */
 
-export default class ExerciceLabyrintheMultiplesDe3 extends ExerciceLabyrinthe {
+export default class ExerciceLabyrintheMultiplesDe2a9 extends ExerciceLabyrinthe {
   k!: number
-
   constructor() {
     super()
     this.cols = 7
     this.rows = 5
     this.orientation = 'horizontal'
-    this.sup = 5
+    this.sup = choice([3, 9])
     this.besoinFormulaireNumerique = [
       'Critère de divisibilité',
       5,
@@ -49,6 +49,7 @@ export default class ExerciceLabyrintheMultiplesDe3 extends ExerciceLabyrinthe {
       default:
         this.k = choice([2, 3, 5, 9])
     }
+
     super.nouvelleVersion()
     this.consigne = `Trouver le chemin qui passe par des multiples de ${this.k}.`
     this.consigne += this.consigneDeplacement

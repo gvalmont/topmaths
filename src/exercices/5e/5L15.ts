@@ -17,7 +17,7 @@ import Exercice from '../Exercice'
 export const titre = 'Tester une égalité'
 export const dateDeModifImportante = '18/11/2023'
 export const interactifReady = true
-export const interactifType = 'multiMathField'
+export const interactifType = 'multiMathfield'
 export const amcReady = true
 export const amcType = 'AMCHybride'
 
@@ -380,7 +380,7 @@ export default class TesterUneEgalite extends Exercice {
 
       if (context.isAmc) {
         if (this.sup3 === 1) {
-          this.autoCorrection[i] = {
+          this.autoCorrectionAMC[i] = {
             enonce: '',
             enonceAvant: false,
             enonceAvantUneFois: true,
@@ -415,7 +415,7 @@ export default class TesterUneEgalite extends Exercice {
             ],
           }
         } else {
-          this.autoCorrection.push({
+          this.autoCorrectionAMC.push({
             enonce: texte,
             enonceAvant: false,
             enonceApresNumQuestion: true,

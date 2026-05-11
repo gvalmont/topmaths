@@ -37,6 +37,11 @@
   import { handleCorrectionAffichee } from '../../handleCorrection'
   import HeaderExerciceVueProf from '../../shared/headerExerciceVueProf/HeaderExerciceVueProf.svelte'
   import Settings from './presentationalComponents/Settings.svelte'
+  import BasicClassicModal from '../../../modal/BasicClassicModal.svelte'
+  import ButtonTextAction from '../../../forms/ButtonTextAction.svelte'
+
+  let isIndiceModalDisplayed = false
+  let isTipAvailable: boolean
 
   export let exercise: IExercice | IExerciceSimple
   export let exerciseIndex: number
@@ -62,7 +67,7 @@
   let id: string =
     interfaceParams && interfaceParams.id
       ? interfaceParams.id
-      : (exercise.id ?? '')
+      : ''
 
   const subscribeExercicesParamsStore = exercicesParams.subscribe((value) => {
     log('new interface')
@@ -100,7 +105,9 @@
     !exercise.besoinFormulaire4Texte &&
     !exercise.besoinFormulaire5CaseACocher &&
     !exercise.besoinFormulaire5Numerique &&
-    !exercise.besoinFormulaire5Texte
+    !exercise.besoinFormulaire5Texte &&
+    !(exercise.tip && exercise.tip.length > 0)
+  isTipAvailable = exercise.tipAvailable !== false
   let isExerciceChecked = false
   const generateTitleAddendum = (): string => {
     const ranks = exercisesUuidRanking(get(exercicesParams))
@@ -343,6 +350,11 @@
     if (event.detail.correctionDetaillee !== undefined) {
       exercise.correctionDetaillee = event.detail.correctionDetaillee
       interfaceParams.cd = exercise.correctionDetaillee ? '1' : '0'
+    }
+    if (event.detail.tipAvailable !== undefined) {
+      exercise.tipAvailable = event.detail.tipAvailable
+      isTipAvailable = event.detail.tipAvailable
+      interfaceParams.tip = exercise.tipAvailable ? '1' : '0'
     }
     exercicesParams.update((list) => {
       // interfaceParams a été mis à jour donc le store est à jour
@@ -680,6 +692,24 @@
             $globalOptions.z || 1
           ).toString()}rem; line-height: calc({$globalOptions.z || 1});"
         >
+          {#if exercise.tip && exercise.tip.length > 0 && isTipAvailable}
+            <div class="ml-2 lg:ml-5 mt-4">
+              <ButtonTextAction
+                text="Indice"
+                icon="bx-help-circle"
+                class="py-[2px] px-2 text-[0.7rem]"
+                inverted={true}
+                on:click={() => {
+                  isIndiceModalDisplayed = true
+                }}
+              />
+            </div>
+            <BasicClassicModal bind:isDisplayed={isIndiceModalDisplayed} icon="bx-help-circle">
+              <span slot="header">Indice</span>
+              <!-- eslint-disable-next-line svelte/no-at-html-tags -->
+              <div slot="content" class="text-left">{@html exercise.tip}</div>
+            </BasicClassicModal>
+          {/if}
           <div class="mt-6 mb-4">
             {#key exercise.key + '-' + exerciseIndex}
               {#if typeof exercise.consigne !== 'undefined' && exercise.consigne.length !== 0}
@@ -724,6 +754,9 @@
                     id="exercice{exerciseIndex}Q{i}"
                     style="line-height: {exercise.spacing || 1}"
                   >
+                    {#if exercise.questionRefs?.[i]}
+                      <span class="text-xs font-mono text-coopmaths-struct dark:text-coopmathsdark-struct mr-2">{exercise.questionRefs[i]}</span><br>
+                    {/if}
                     <!-- eslint-disable-next-line svelte/no-at-html-tags -->
                     {@html mathaleaFormatExercice(item)}
                   </li>
@@ -767,7 +800,7 @@
                       et cela posait problème au changement des paramètres avec la correction visible -->
                       <!-- <div class="absolute border-coopmaths-struct dark:border-coopmathsdark-struct top-0 left-0 border-b-[3px] w-10" /> -->
                       <div
-                        class="absolute flex flex-row py-[1.5px] px-3 rounded-t-md justify-center items-center -left-[3px] -top-[15px] bg-coopmaths-struct dark:bg-coopmathsdark-struct font-semibold text-xs text-coopmaths-canvas dark:text-coopmathsdark-canvas"
+                        class="absolute flex flex-row py-[1.5px] px-3 rounded-t-md justify-center items-center -left-0.75 -top-3.75 bg-coopmaths-struct dark:bg-coopmathsdark-struct font-semibold text-xs text-coopmaths-canvas dark:text-coopmathsdark-canvas"
                       >
                         Correction
                       </div>

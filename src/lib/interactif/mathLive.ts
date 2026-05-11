@@ -1,17 +1,13 @@
-import type { MathfieldElement } from 'mathlive'
+import { MathfieldElement } from 'mathlive'
 import type { IExercice } from '../../lib/types'
+import type { CompareResult } from './checks/types'
 import { fonctionComparaison } from './comparisonFunctions'
+import { toutPourUnPoint } from './fonctionsBaremes'
+export { toutAUnPoint, toutPourUnPoint } from './fonctionsBaremes'
 
-// Un barème qui ne met qu'un point si tout est juste
-export function toutPourUnPoint(listePoints: number[]): [number, number] {
-  return [Math.min(...listePoints), 1]
-}
-// le barème par défaut un point pour chaque réponse
-export function toutAUnPoint(listePoints: number[]) {
-  return [
-    listePoints.reduce((prev, current) => prev + current),
-    listePoints.length,
-  ] as [number, number]
+function scoreFromResult(result: { isOk: boolean }): number {
+  const score = (result as Partial<CompareResult>).score
+  return typeof score === 'number' ? score : result.isOk ? 1 : 0
 }
 
 /**
@@ -28,37 +24,27 @@ export function verifQuestionMathLive(
 ) {
   let noFeedback = false
   let champTexte: HTMLInputElement | MathfieldElement | null = null
-  const getCustomFeedback =
-    exercice.autoCorrection[i]?.reponse?.valeur?.feedback
-  if (exercice.autoCorrection[i]?.reponse == null) {
+  const questionAutoCorrection = exercice.autoCorrection[i]
+  const reponses = questionAutoCorrection?.valeur
+  const getCustomFeedback = reponses?.feedback
+
+  if (questionAutoCorrection == null) {
     throw Error(
       `verifQuestionMathlive appelé sur une question sans réponse: ${JSON.stringify(
         {
           exercice,
           question: i,
-          autoCorrection: exercice.autoCorrection[i],
+          autoCorrection: questionAutoCorrection,
         },
       )}`,
     )
   }
-  if (exercice.autoCorrection[i].reponse.param == null) {
-    throw Error(
-      `verifQuestionMathlive appelé sur une question sans param : ${JSON.stringify(
-        {
-          exercice,
-          question: i,
-          param: exercice.autoCorrection[i].reponse,
-        },
-      )}`,
-    )
-  }
-  const formatInteractif =
-    exercice.autoCorrection[i].reponse.param.formatInteractif ?? 'mathlive'
+
+  const formatInteractif = questionAutoCorrection.formatInteractif ?? 'mathlive'
   const spanReponseLigne = document.querySelector(
     `#resultatCheckEx${exercice.numeroExercice}Q${i}`,
   ) as HTMLSpanElement
   // On compare le texte avec la réponse attendue en supprimant les espaces pour les deux
-  const reponses = exercice.autoCorrection[i].reponse.valeur
   if (reponses == null) {
     window.notify(
       `verifQuestionMathlive: reponses est null pour la question ${i} de l'exercice ${exercice.id}`,
@@ -123,10 +109,16 @@ export function verifQuestionMathLive(
               el.id === `champTexteEx${exercice.numeroExercice}Q${i}${key}`,
           ) as MathfieldElement
           let result
-          const shadow = input.shadowRoot
+          const shadow =
+            input instanceof HTMLDivElement
+              ? input // ça c'est pour les tests avec le fakeMFE
+              : input.shadowRoot
           const spanFeedback = document.createElement('span')
           spanFeedback.id = `resultatCheckEx${exercice.numeroExercice}Q${i}${key}`
-          const content = shadow!.querySelector('span.ML__content')
+          const content =
+            shadow instanceof HTMLDivElement
+              ? input // ça c'est pour les tests avec le fakeMFE
+              : shadow!.querySelector('span.ML__content')
           content!.appendChild(spanFeedback)
 
           if (input.value === '') {
@@ -153,10 +145,10 @@ export function verifQuestionMathLive(
           }
           // On ne nettoie plus les input et les réponses, c'est la fonction de comparaison qui doit s'en charger !
           if (result.isOk) {
-            points.push(1)
+            points.push(scoreFromResult(result))
             if (spanFeedback != null) spanFeedback.innerHTML = '😎'
           } else {
-            points.push(0)
+            points.push(scoreFromResult(result))
             resultat = 'KO'
             if (spanFeedback != null) spanFeedback.innerHTML = '☹️'
           }
@@ -227,10 +219,10 @@ export function verifQuestionMathLive(
           }
           if (result.isOk) {
             compteurBonnesReponses++
-            points.push(1)
+            points.push(scoreFromResult(result))
             mfe.setPromptState(key, 'correct', true)
           } else {
-            points.push(0)
+            points.push(scoreFromResult(result))
             mfe.setPromptState(key, 'incorrect', true)
             if (result.feedback === 'saisieVide') result.feedback = null
             else {
@@ -361,14 +353,18 @@ export function verifQuestionMathLive(
     let ii = 0
     let reponse
     let feedback = ''
+    let bestScore = 0
     const compareFunction = objetReponse.compare ?? fonctionComparaison
 
     if (Array.isArray(objetReponse.value)) {
       while (!isOk && ii < objetReponse.value.length) {
         reponse = objetReponse.value[ii]
         const check = compareFunction(saisie, reponse, options)
+        const checkScore = scoreFromResult(check)
+        bestScore = Math.max(bestScore, checkScore)
         if (check.isOk) {
           isOk = true
+          bestScore = 1
           feedback = ''
           break
         }
@@ -380,6 +376,7 @@ export function verifQuestionMathLive(
     } else {
       reponse = objetReponse.value
       const check = compareFunction(saisie, reponse, options)
+      bestScore = scoreFromResult(check)
       if (check.isOk) {
         isOk = true
         feedback = check.feedback ?? ''
@@ -400,7 +397,7 @@ export function verifQuestionMathLive(
         return {
           isOk,
           feedback: noFeedback ? '' : feedback,
-          score: { nbBonnesReponses: 1, nbReponses: 1 },
+          score: { nbBonnesReponses: bestScore, nbReponses: 1 },
         }
       }
       if (writeResult) {
@@ -410,13 +407,13 @@ export function verifQuestionMathLive(
         return {
           isOk,
           feedback: noFeedback ? '' : feedback,
-          score: { nbBonnesReponses: 0, nbReponses: 1 },
+          score: { nbBonnesReponses: bestScore, nbReponses: 1 },
         }
       }
       return {
         isOk,
         feedback: noFeedback ? '' : feedback,
-        score: { nbBonnesReponses: isOk ? 1 : 0, nbReponses: 1 },
+        score: { nbBonnesReponses: bestScore, nbReponses: 1 },
       } // ce code n'est jamais exécuté vu que writeResult est toujours true
     }
   } catch (error) {

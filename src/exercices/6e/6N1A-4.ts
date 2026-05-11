@@ -10,7 +10,7 @@ import Exercice from '../Exercice'
 
 export const titre = 'Parcourir un labyrinthe de numération décimale'
 export const interactifReady = true
-export const interactifType = 'mathLive'
+export const interactifType = 'multiMathfield'
 export const amcReady = true
 export const amcType = 'AMCOpen'
 export const dateDePublication = '9/12/2020'
@@ -273,7 +273,7 @@ export default class ExerciceLabyrintheNumeration extends Exercice {
     texteCorr = `Voici le chemin en couleur ($${miseEnEvidence(laby.chemin2d.length - 1)}$ nombres rencontrés avant la sortie) et la sortie est le numéro $${miseEnEvidence(nbL - monchemin[monchemin.length - 1][1])}$.<br>`
     texteCorr += mathalea2d(params, laby.murs2d, laby.nombres2d, laby.chemin2d)
     if (context.isAmc) {
-      this.autoCorrection = [
+      this.autoCorrectionAMC = [
         {
           enonce: texte,
           propositions: [

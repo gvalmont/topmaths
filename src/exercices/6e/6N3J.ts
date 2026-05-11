@@ -7,7 +7,6 @@ import {
   shuffle,
 } from '../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
-import { abs } from '../../lib/outils/nombres'
 import { sp } from '../../lib/outils/outilString'
 import FractionEtendue from '../../modules/FractionEtendue'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
@@ -16,7 +15,7 @@ import Exercice from '../Exercice'
 export const titre =
   'Ordonner une liste de nombres écrits sous forme de fractions ou de nombres mixtes'
 export const interactifReady = true
-export const interactifType = 'multiMathField'
+export const interactifType = 'multiMathfield'
 export const dateDePublication = '21/07/2025'
 export const dateDeModificationImportante = '02/04/2026'
 
@@ -77,8 +76,8 @@ export default class ComparerFractionsNombresMixtes extends Exercice {
     this.sup2 = 3
     this.correctionDetailleeDisponible = true
     this.correctionDetaillee = true
-    this.spacing = 2.5
-    this.spacingCorr = 2.5
+    this.spacing = 1
+    this.spacingCorr = 2
   }
 
   nouvelleVersion() {
@@ -95,7 +94,7 @@ export default class ComparerFractionsNombresMixtes extends Exercice {
       const ordre = croissant ? 'croissant' : 'décroissant'
       const symbole = croissant ? '<' : '>'
 
-      let texte = `Classer les nombres suivants dans l'ordre ${ordre} :<br>`
+      let texte = `Classer les nombres suivants dans l'ordre ${ordre} :<br><br>`
       const denominateur = randint(3, 10)
 
       const numerateurFractionMixte = choice([true, false]) ? 1 : 2
@@ -152,38 +151,48 @@ export default class ComparerFractionsNombresMixtes extends Exercice {
         texte = texte.slice(0, -1)
         texte += '<br>'
 
-        texte += addMultiMathfield(this, i, {
-          dataTemplate: `%{champ1}$${symbole}$%{champ2}$${symbole}$%{champ3}$${symbole}$%{champ4}$${symbole}$%{champ5}`,
-          dataOptions: {
-            champ1: {
-              keyboard: KeyboardType.clavierDeBaseAvecFraction,
-              minWidth: 50,
+        if (this.interactif) {
+          texte += addMultiMathfield(this, i, {
+            dataTemplate: `%{champ1}$${symbole}$%{champ2}$${symbole}$%{champ3}$${symbole}$%{champ4}$${symbole}$%{champ5}`,
+            dataOptions: {
+              champ1: {
+                keyboard: KeyboardType.clavierDeBaseAvecFraction,
+                minWidth: 50,
+                ldots: true,
+              },
+              champ2: {
+                keyboard: KeyboardType.clavierDeBaseAvecFraction,
+                minWidth: 50,
+                ldots: true,
+              },
+              champ3: {
+                keyboard: KeyboardType.clavierDeBaseAvecFraction,
+                minWidth: 50,
+                ldots: true,
+              },
+              champ4: {
+                keyboard: KeyboardType.clavierDeBaseAvecFraction,
+                minWidth: 50,
+                ldots: true,
+              },
+              champ5: {
+                keyboard: KeyboardType.clavierDeBaseAvecFraction,
+                minWidth: 50,
+                ldots: true,
+              },
             },
-            champ2: {
-              keyboard: KeyboardType.clavierDeBaseAvecFraction,
-              minWidth: 50,
-            },
-            champ3: {
-              keyboard: KeyboardType.clavierDeBaseAvecFraction,
-              minWidth: 50,
-            },
-            champ4: {
-              keyboard: KeyboardType.clavierDeBaseAvecFraction,
-              minWidth: 50,
-            },
-            champ5: {
-              keyboard: KeyboardType.clavierDeBaseAvecFraction,
-              minWidth: 50,
-            },
-          },
-        })
+          })
+        }
 
         const fractionsTrieesFinales = sortByT1Order(
           TableauDeNombres,
           TableauAComparer,
         )
 
-        const indiceBase0 = listeTypeDeSignes[i] - 1
+        if (!croissant) {
+          fractionsTrieesFinales.reverse()
+        }
+
         handleAnswers(
           this,
           i,
@@ -200,19 +209,19 @@ export default class ComparerFractionsNombresMixtes extends Exercice {
               3,
             ],
             champ1: {
-              value: fractionsTrieesFinales[4 * indiceBase0],
+              value: fractionsTrieesFinales[0],
             },
             champ2: {
-              value: fractionsTrieesFinales[abs(4 * indiceBase0 - 1)],
+              value: fractionsTrieesFinales[1],
             },
             champ3: {
-              value: fractionsTrieesFinales[abs(4 * indiceBase0 - 2)],
+              value: fractionsTrieesFinales[2],
             },
             champ4: {
-              value: fractionsTrieesFinales[abs(4 * indiceBase0 - 3)],
+              value: fractionsTrieesFinales[3],
             },
             champ5: {
-              value: fractionsTrieesFinales[abs(4 * indiceBase0 - 4)],
+              value: fractionsTrieesFinales[4],
             },
           },
           { formatInteractif: 'multiMathfield' },
@@ -222,15 +231,15 @@ export default class ComparerFractionsNombresMixtes extends Exercice {
         const sens = listeTypeDeQuestions[i] === 1 ? 1 : -1
 
         if (this.correctionDetaillee) {
-          texteCorr = 'Commençons par comparer ces nombres à $1$.<br>'
+          texteCorr = 'Commençons par comparer ces nombres à $1$.<br><br>'
           const symboleComparaison = listeTypeDeSignes[i] === 1 ? '>' : '<'
           const symboleComparaisonContraire =
             listeTypeDeSignes[i] === 2 ? '>' : '<'
-          texteCorr += `$${Nb1.texFraction}${symboleComparaison}1 ${sp(20)} ${Nb2.texFraction}${symboleComparaison}1 ${sp(20)} ${unPlus}${Nb3.texFraction}${symboleComparaison}1 ${sp(20)} ${Nb4.texFraction}${symboleComparaisonContraire}1$<br>`
-          texteCorr += `Comparons maintenant $${Nb1.texFraction}$, $${Nb2.texFraction}$ et $${unPlus}${Nb3.texFraction}$ entre eux.<br>`
+          texteCorr += `$${Nb1.texFraction}${symboleComparaison}1 ${sp(20)} ${Nb2.texFraction}${symboleComparaison}1 ${sp(20)} ${unPlus}${Nb3.texFraction}${symboleComparaison}1 ${sp(20)} ${Nb4.texFraction}${symboleComparaisonContraire}1$<br><br>`
+          texteCorr += `Comparons maintenant $${Nb1.texFraction}$, $${Nb2.texFraction}$ et $${unPlus}${Nb3.texFraction}$ entre eux.<br><br>`
           texteCorr += `$${Nb1.texFraction}=${unPlus}${new FractionEtendue(complementNumerateurFM, denominateur).texFraction}=${unPlus}${new FractionEtendue(2 * complementNumerateurFM, 2 * denominateur).texFraction} ${sp(20)}`
           texteCorr += `${Nb2.texFraction}=${unPlus}${new FractionEtendue(complementNb3, 2 * denominateur).texFraction} ${sp(20)} `
-          texteCorr += `${unPlus}${Nb3.texFraction}=${unPlus}${new FractionEtendue(2 * numerateurFractionMixte, 2 * denominateur).texFraction}$<br>`
+          texteCorr += `${unPlus}${Nb3.texFraction}=${unPlus}${new FractionEtendue(2 * numerateurFractionMixte, 2 * denominateur).texFraction}$<br><br>`
           texteCorr += 'Et donc on a : '
           const TableauDeFractionsPartiel = [Nb1, Nb2, Nb3]
           const TableauDeNombresPartiel = TableauDeFractionsPartiel.map(
@@ -254,12 +263,10 @@ export default class ComparerFractionsNombresMixtes extends Exercice {
           for (let indice = start; indice !== end; indice += sens) {
             texteCorr += `$${sp(3)}${fractionsTrieesPartielles[indice]}${sp(3)}$${symbole}`
           }
-          texteCorr = texteCorr.slice(0, -1) + '.<br>'
-          texteCorr += `On conclut alors au rangement final par ordre ${ordre}.<br>`
+          texteCorr = texteCorr.slice(0, -1) + '.<br><br>'
+          texteCorr += `On conclut alors au rangement final par ordre ${ordre}.<br><br>`
         }
-        const startFinal = sens === 1 ? 0 : fractionsTrieesFinales.length - 1
-        const endFinal = sens === 1 ? fractionsTrieesFinales.length : -1
-        for (let indice = startFinal; indice !== endFinal; indice += sens) {
+        for (let indice = 0; indice < fractionsTrieesFinales.length; indice++) {
           texteCorr += `$${sp(3)}${miseEnEvidence(fractionsTrieesFinales[indice])}${sp(3)}$${symbole}`
         }
         texteCorr = texteCorr.slice(0, -1)

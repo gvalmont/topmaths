@@ -2,17 +2,14 @@
  * ⚠️ Cet exercice est utilisé dans le test : tests/e2e/tests/interactivity/mathLive.fonctionComparaisonPuissance.test.ts ⚠️
  */
 
-import { combinaisonListes } from '../../lib/outils/arrayOutils'
-import Exercice from '../Exercice'
-import { listeQuestionsToContenu, randint } from '../../modules/outils'
-import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
-import { context } from '../../modules/context'
-import {
-  handleAnswers,
-  setReponse,
-} from '../../lib/interactif/gestionInteractif'
-import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
+import { handleAnswers } from '../../lib/interactif/gestionInteractif'
+import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
+import { combinaisonListes } from '../../lib/outils/arrayOutils'
+import { miseEnEvidence } from '../../lib/outils/embellissements'
+import { context } from '../../modules/context'
+import { listeQuestionsToContenu, randint } from '../../modules/outils'
+import Exercice from '../Exercice'
 
 export const titre = 'Utiliser la notation puissance'
 export const interactifReady = true
@@ -21,7 +18,7 @@ export const amcReady = true
 export const amcType = 'AMCOpen'
 
 export const dateDePublication = '21/11/2021' // La date de publication initiale au format 'jj/mm/aaaa' pour affichage temporaire d'un tag
-export const dateDeModifImportante = '24/09/2023'
+export const dateDeModifImportante = '23/04/2025' // Ajout par Rémi Angot du choix des exposants
 /**
  * Passer d'un produit à la notation puissance et inversement
  * @author Guillaume Valmont
@@ -59,6 +56,12 @@ export default class NotationPuissance extends Exercice {
     ]
     this.sup4 = 3
     this.classe = 4
+    this.besoinFormulaire5Numerique = [
+      'Exposant',
+      4,
+      '1 : Carrés ou cubes\n2 : Exposants quelconques',
+    ]
+    this.sup5 = 2
   }
 
   nouvelleVersion() {
@@ -120,6 +123,7 @@ export default class NotationPuissance extends Exercice {
         listeSignesMantisse = ['', '-']
         break
     }
+    const alternance2Et3 = combinaisonListes([2, 3], this.nbQuestions)
     listeSignesMantisse = combinaisonListes(
       listeSignesMantisse,
       this.nbQuestions,
@@ -143,15 +147,18 @@ export default class NotationPuissance extends Exercice {
         puissances,
         cpt = 0;
       i < this.nbQuestions && cpt < 50;
-
     ) {
-      this.autoCorrection[i] = {}
+      this.autoCorrectionAMC[i] = {}
       mantisse = randint(2, 10)
       if (listeSignesMantisse[i] === '-') mantisse = -mantisse
-      if (listeTypeDeQuestions[i] === 'puissance') {
-        exposant = randint(2, 8)
+      if (this.sup5 === 1) {
+        exposant = alternance2Et3[i]
       } else {
-        exposant = randint(this.classe > 2 ? 2 : 0, 5)
+        if (listeTypeDeQuestions[i] === 'puissance') {
+          exposant = randint(2, 8)
+        } else {
+          exposant = randint(this.classe > 2 ? 2 : 0, 5)
+        }
       }
       if (mantisse < 0) {
         pl = '('
@@ -214,8 +221,11 @@ export default class NotationPuissance extends Exercice {
           texteCorr = `$${puissance} = `
           if (exposant === 0) {
             texteCorr += listeSignes[i] + 1 + '$'
-            setReponse(this, i, listeSignes[i] + 1, {
-              formatInteractif: 'ignorerCasse',
+            handleAnswers(this, i, {
+              reponse: {
+                value: listeSignes[i] + 1,
+                options: { texteSansCasse: true },
+              },
             })
           } else if (exposant === 1) {
             if (listeSignes[i] === '') {
@@ -223,40 +233,47 @@ export default class NotationPuissance extends Exercice {
               pr = ''
             }
             texteCorr += `${listeSignes[i] + pl + mantisse + pr}$`
-            setReponse(this, i, listeSignes[i] + pl + mantisse + pr, {
-              formatInteractif: 'ignorerCasse',
+
+            handleAnswers(this, i, {
+              reponse: {
+                value: listeSignes[i] + pl + mantisse + pr,
+                options: { texteSansCasse: true },
+              },
             })
           } else if (exposant > 1) {
             texteCorr += listeSignes[i] + produit + '$'
-            setReponse(
-              this,
-              i,
-              [
-                listeSignes[i] + produit,
-                listeSignes[i] + produitAlt,
-                listeSignes[i] + produitSansParenthesesInitiales,
-                listeSignes[i] + produitSansParenthesesInitialesEtSansFois,
-              ],
-              { formatInteractif: 'ignorerCasse' },
-            )
+            handleAnswers(this, i, {
+              reponse: {
+                value: [
+                  listeSignes[i] + produit,
+                  listeSignes[i] + produitAlt,
+                  listeSignes[i] + produitSansParenthesesInitiales,
+                  listeSignes[i] + produitSansParenthesesInitialesEtSansFois,
+                ],
+                options: { texteSansCasse: true },
+              },
+            })
           } else if (exposant === -1) {
             texteCorr += `${listeSignes[i]}\\dfrac{1}{${mantisse}}$`
-            setReponse(this, i, `${listeSignes[i]}\\frac{1}{${mantisse}}`, {
-              formatInteractif: 'ignorerCasse',
+            handleAnswers(this, i, {
+              reponse: {
+                value: `${listeSignes[i]}\\frac{1}{${mantisse}}`,
+                options: { texteSansCasse: true },
+              },
             })
           } else if (exposant < -1) {
             texteCorr += `${listeSignes[i]}\\dfrac{1}{${produit}}$`
-            setReponse(
-              this,
-              i,
-              [
-                `${listeSignes[i]}\\frac{1}{${produit}}`,
-                `${listeSignes[i]}\\frac{1}{${produitAlt}}`,
-                `${listeSignes[i]}\\frac{1}{${produitSansParenthesesInitiales}}`,
-                `${listeSignes[i]}\\frac{1}{${produitSansParenthesesInitialesEtSansFois}}`,
-              ],
-              { formatInteractif: 'ignorerCasse' },
-            )
+            handleAnswers(this, i, {
+              reponse: {
+                value: [
+                  `${listeSignes[i]}\\frac{1}{${produit}}`,
+                  `${listeSignes[i]}\\frac{1}{${produitAlt}}`,
+                  `${listeSignes[i]}\\frac{1}{${produitSansParenthesesInitiales}}`,
+                  `${listeSignes[i]}\\frac{1}{${produitSansParenthesesInitialesEtSansFois}}`,
+                ],
+                options: { texteSansCasse: true },
+              },
+            })
           }
           break
         case 'puissance':
@@ -289,11 +306,11 @@ export default class NotationPuissance extends Exercice {
 
       if (context.isAmc) {
         if (this.sup !== 3) this.titre = this.consigne
-        this.autoCorrection[i].enonce =
+        this.autoCorrectionAMC[i].enonce =
           this.sup === 3
             ? texte + ' $=\\ldots$<br>'
             : 'Compléter : ' + texte + ' $=\\ldots$'
-        this.autoCorrection[i].propositions = [
+        this.autoCorrectionAMC[i].propositions = [
           { statut: 1, sanscadre: true, texte: texteCorr },
         ]
       }

@@ -149,7 +149,7 @@ export default class PerimetreOuAireDeCarresRectanglesTriangles extends Exercice
         : //  ? mathalea2d(Object.assign({}, fixeBordures(objetsEnonce), { pixelsParCm: 20, scale: 0.75, mainlevee: false }), objetsEnonce)
           ''
       if (context.isAmc) {
-        this.autoCorrection[i] = {
+        this.autoCorrectionAMC[i] = {
           enonce: texte,
           options: { barreseparation: true, numerotationEnonce: true },
           propositions: [],
@@ -181,8 +181,7 @@ export default class PerimetreOuAireDeCarresRectanglesTriangles extends Exercice
                   KeyboardType.longueur + ' ' + KeyboardType.aire,
                   {
                     texteApres:
-                      sp(5) +
-                      "  Il faut penser à préciser l'unité dans la réponse.",
+                      '<em class="ml-2">(Une unité est attendue.)</em>',
                   },
                 ) +
                 '<br>'
@@ -199,8 +198,7 @@ export default class PerimetreOuAireDeCarresRectanglesTriangles extends Exercice
                 },
               })
               if (context.isAmc) {
-                // @ts-expect-error
-                this.autoCorrection[i].propositions.push({
+                this.autoCorrectionAMC[i].propositions!.push({
                   type: 'AMCNum',
                   propositions: [
                     {
@@ -239,8 +237,7 @@ export default class PerimetreOuAireDeCarresRectanglesTriangles extends Exercice
                   KeyboardType.longueur + ' ' + KeyboardType.aire,
                   {
                     texteApres:
-                      sp(5) +
-                      "  Il faut penser à préciser l'unité dans la réponse.",
+                      '<em class="ml-2">(Une unité est attendue.)</em>',
                   },
                 ) +
                 '<br>'
@@ -255,8 +252,7 @@ export default class PerimetreOuAireDeCarresRectanglesTriangles extends Exercice
                 },
               })
               if (context.isAmc) {
-                // @ts-expect-error
-                this.autoCorrection[i].propositions.push({
+                this.autoCorrectionAMC[i].propositions!.push({
                   type: 'AMCNum',
                   propositions: [
                     {
@@ -297,8 +293,7 @@ export default class PerimetreOuAireDeCarresRectanglesTriangles extends Exercice
                   KeyboardType.longueur + ' ' + KeyboardType.aire,
                   {
                     texteApres:
-                      sp(5) +
-                      "  Il faut penser à préciser l'unité dans la réponse.",
+                      '<em class="ml-2">(Une unité est attendue.)</em>',
                   },
                 ) +
                 '<br>'
@@ -315,8 +310,7 @@ export default class PerimetreOuAireDeCarresRectanglesTriangles extends Exercice
                 },
               })
               if (context.isAmc) {
-                // @ts-expect-error
-                this.autoCorrection[i].propositions.push({
+                this.autoCorrectionAMC[i].propositions!.push({
                   type: 'AMCNum',
                   propositions: [
                     {
@@ -355,8 +349,7 @@ export default class PerimetreOuAireDeCarresRectanglesTriangles extends Exercice
                   KeyboardType.longueur + ' ' + KeyboardType.aire,
                   {
                     texteApres:
-                      sp(5) +
-                      "  Il faut penser à préciser l'unité dans la réponse.",
+                      '<em class="ml-2">(Une unité est attendue.)</em>',
                   },
                 ) +
                 '<br>'
@@ -373,8 +366,7 @@ export default class PerimetreOuAireDeCarresRectanglesTriangles extends Exercice
                 },
               })
               if (context.isAmc) {
-                // @ts-expect-error
-                this.autoCorrection[i].propositions.push({
+                this.autoCorrectionAMC[i].propositions!.push({
                   type: 'AMCNum',
                   propositions: [
                     {
@@ -415,8 +407,7 @@ export default class PerimetreOuAireDeCarresRectanglesTriangles extends Exercice
                   KeyboardType.longueur + ' ' + KeyboardType.aire,
                   {
                     texteApres:
-                      sp(5) +
-                      "  Il faut penser à préciser l'unité dans la réponse.",
+                      '<em class="ml-2">(Une unité est attendue.)</em>',
                   },
                 ) +
                 '<br>'
@@ -431,8 +422,7 @@ export default class PerimetreOuAireDeCarresRectanglesTriangles extends Exercice
                 },
               })
               if (context.isAmc) {
-                // @ts-expect-error
-                this.autoCorrection[i].propositions.push({
+                this.autoCorrectionAMC[i].propositions!.push({
                   type: 'AMCNum',
                   propositions: [
                     {
@@ -471,8 +461,7 @@ export default class PerimetreOuAireDeCarresRectanglesTriangles extends Exercice
                   KeyboardType.longueur + ' ' + KeyboardType.aire,
                   {
                     texteApres:
-                      sp(5) +
-                      "  Il faut penser à préciser l'unité dans la réponse.",
+                      '<em class="ml-2">(Une unité est attendue.)</em>',
                   },
                 ) +
                 '<br>'
@@ -487,8 +476,7 @@ export default class PerimetreOuAireDeCarresRectanglesTriangles extends Exercice
                 },
               })
               if (context.isAmc) {
-                // @ts-expect-error
-                this.autoCorrection[i].propositions.push({
+                this.autoCorrectionAMC[i].propositions!.push({
                   type: 'AMCNum',
                   propositions: [
                     {
@@ -514,7 +502,7 @@ export default class PerimetreOuAireDeCarresRectanglesTriangles extends Exercice
             break
         }
       }
-      if (this.questionJamaisPosee(i, texte)) {
+      if (this.questionJamaisPosee(i, c, L, l, a, b, c2, pIJK)) {
         this.listeQuestions[i] = texte
         this.listeCorrections[i] = texteCorr
         i++

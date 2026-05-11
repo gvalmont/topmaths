@@ -29,7 +29,7 @@ import Exercice from '../Exercice'
 
 export const titre = "Calculer des caractéristiques d'une série"
 export const interactifReady = true
-export const interactifType = 'mathLive'
+export const interactifType = 'multiMathfield'
 
 export const amcReady = true
 export const amcType = 'AMCHybride'
@@ -729,7 +729,7 @@ export default class CalculerCaracteristiques extends Exercice {
       }
 
       if (context.isAmc) {
-        this.autoCorrection[i] = {
+        this.autoCorrectionAMC[i] = {
           enonce: initAMC,
           options: {
             multicols: true,
@@ -739,7 +739,7 @@ export default class CalculerCaracteristiques extends Exercice {
           propositions: [],
         }
         for (let ee = 0; ee < nbReponse; ee++) {
-          this.autoCorrection[i].propositions!.push({
+          this.autoCorrectionAMC[i].propositions!.push({
             type: 'AMCNum',
             propositions: [
               {

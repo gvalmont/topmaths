@@ -1,4 +1,4 @@
-import EqCartDroite from '../1e/1G13'
+import EqCartDroite from '../1e/1G21-1'
 export const titre =
   "Déterminer une équation cartésienne de droite à partir d'un point et d'un vecteur directeur"
 
@@ -14,7 +14,7 @@ export const uuid = '0ec77'
 
 export const refs = {
   'fr-fr': ['2G32-2'],
-  'fr-ch': ['3G92-1'],
+  'fr-ch': ['3G97-1'],
 }
 class EqCartpointVecteur extends EqCartDroite {
   constructor() {

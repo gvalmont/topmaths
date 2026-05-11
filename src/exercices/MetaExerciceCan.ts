@@ -2,6 +2,7 @@ import Decimal from 'decimal.js'
 import { fonctionComparaison } from '../lib/interactif/comparisonFunctions'
 import { handleAnswers } from '../lib/interactif/gestionInteractif'
 import { propositionsQcm } from '../lib/interactif/qcm'
+import { buildSimpleVersionQcm } from '../lib/interactif/qcmBuilder'
 import {
   ajouteChampTexteMathLive,
   remplisLesBlancs,
@@ -19,6 +20,8 @@ import Grandeur from '../modules/Grandeur'
 import Hms from '../modules/Hms'
 import { gestionnaireFormulaireTexte } from '../modules/outils'
 import Exercice from './Exercice'
+import ExerciceSimple from './ExerciceSimple'
+import { getDistracteurs } from '../lib/mathalea'
 
 export const interactifType = 'mathLive'
 export const interactifReady = true
@@ -138,6 +141,30 @@ export default class MetaExercice extends Exercice {
                 Question.canReponseACompleter
             this.listeCanLiees[indexQuestion] = Question.canLiee
             this.listeCanNumerosLies[indexQuestion] = Question.canNumeroLie
+
+            // Exo simple avec version QCM (distracteurs définis + versionQcm activée)
+            if (
+              Question instanceof ExerciceSimple &&
+              Question.versionQcm &&
+              Question.distracteurs.length > 0 &&
+              Question.reponse != null
+            ) {
+              const distracteurs = getDistracteurs(Question)
+              const qcmData = buildSimpleVersionQcm(Question, indexQuestion, {
+                question: Question.question ?? '',
+                correction: Question.correction ?? '',
+                reponse: Question.reponse as AnswerValueType,
+                distracteurs,
+                options: Question.versionQcmOptions ?? { radio: true },
+              })
+              Question.question = qcmData.question
+              Question.correction = qcmData.correction
+              this.listeCorrections[indexQuestion] = qcmData.correction
+              this.listeQuestions[indexQuestion] = consigne + qcmData.question
+              this.autoCorrection[indexQuestion] = Question.autoCorrection[indexQuestion]
+              indexQuestion++
+              break
+            }
 
             if (
               Question.formatInteractif === 'fillInTheBlank' ||
@@ -464,7 +491,7 @@ export default class MetaExercice extends Exercice {
 
             // fin d'alimentation des listes de question et de correction pour cette question
             const formatInteractif =
-              Question.autoCorrection[0]?.reponse?.param?.formatInteractif
+              Question.autoCorrection[0]?.formatInteractif
             if (formatInteractif === 'custom') {
               Question.reinit()
               Question.nouvelleVersionWrapper(
@@ -490,7 +517,7 @@ export default class MetaExercice extends Exercice {
             } else if (formatInteractif === 'qcm') {
               this.autoCorrection[indexQuestion] = Question.autoCorrection[0]
             } else {
-              const reponse = Question.autoCorrection[0]?.reponse?.valeur
+              const reponse = Question.autoCorrection[0]?.valeur
               if (reponse != null)
                 handleAnswers(this, indexQuestion, reponse as Valeur, {
                   formatInteractif,
@@ -499,7 +526,10 @@ export default class MetaExercice extends Exercice {
           }
           if (Question?.autoCorrection[0]?.propositions != null) {
             // qcm
-            const monQcm = propositionsQcm(this, indexQuestion) // update les références HTML
+            const monQcm = propositionsQcm(this, indexQuestion, {
+              style: 'margin:0 3px 0 3px;',
+              format: this.interactif ? 'case' : 'lettre',
+            }) // update les références HTML
             this.listeCanReponsesACompleter[indexQuestion] =
               Question.canReponseACompleter != null
                 ? Question.canReponseACompleter

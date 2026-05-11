@@ -30,7 +30,7 @@ export const uuid = 'e791a'
 
 export const refs = {
   'fr-fr': ['can1G08'],
-  'fr-ch': ['3G92-4'],
+  'fr-ch': ['3G97-5'],
 }
 export default class VecteurNormEqCart extends Exercice {
   constructor() {
@@ -91,8 +91,8 @@ export default class VecteurNormEqCart extends Exercice {
       const values = multiMF.getValue()
       const saisie1 = String(values.champ1).replace(',', '.')
       const saisie2 = String(values.champ2).replace(',', '.')
-      const reponse1 = this.autoCorrection[i]?.reponse?.valeur?.champ1?.value
-      const reponse2 = this.autoCorrection[i]?.reponse?.valeur?.champ2?.value
+      const reponse1 = this.autoCorrection[i]?.valeur?.champ1?.value
+      const reponse2 = this.autoCorrection[i]?.valeur?.champ2?.value
 
       const spansResultat = multiMF.getSpansResultats()
       const spanResultat1 = spansResultat.champ1

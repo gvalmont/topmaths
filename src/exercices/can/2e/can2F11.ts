@@ -29,8 +29,12 @@ export default class ComparerAvecFctCarre extends Exercice {
     super()
 
     this.nbQuestions = 1
-
     this.spacing = 1.2
+    this.tip = `La fonction carré est :<br>
+      <ul style="list-style-type: disc; padding-left: 1.5em;">
+        <li>strictement <strong>décroissante</strong> sur $]-\\infty\\,;\\,0]$</li>
+        <li>strictement <strong>croissante</strong> sur $[0\\,;\\,+\\infty[$</li>
+      </ul>`
   }
 
   nouvelleVersion() {
@@ -148,10 +152,10 @@ export default class ComparerAvecFctCarre extends Exercice {
 
           if (a < b) {
             texteCorr += `Comme $${texNombre(a)}${miseEnEvidence('<', bleuMathalea)}${texNombre(b)}$,
-        alors  $${miseEnEvidence(`${texNombre(a)}^2 > ${texNombre(b)}^2`)}$.`
+        alors  $${miseEnEvidence(`(${texNombre(a)})^2 > (${texNombre(b)})^2`)}$.`
           } else {
             texteCorr += `Comme $${texNombre(b)}${miseEnEvidence('<', bleuMathalea)}${texNombre(a)}$,
-        alors  $${miseEnEvidence(`${texNombre(b)}^2 > ${texNombre(a)}^2`)}$.`
+        alors  $${miseEnEvidence(`(${texNombre(b)})^2 > (${texNombre(a)})^2`)}$.`
           }
           this.canEnonce = `Comparer $(${texNombre(a)})^2$ et $(${texNombre(b)})^2$.`
 
@@ -216,11 +220,11 @@ export default class ComparerAvecFctCarre extends Exercice {
           if (abs(a) < abs(b)) {
             texteCorr += `Comme $${texNombre(a)}${miseEnEvidence('<', bleuMathalea)}${texNombre(-b)}$,
         alors  $${texNombre(a)}^2${miseEnEvidence('<', bleuMathalea)}${texNombre(-b)}^2$.<br>
-        On en déduit que $${miseEnEvidence(`${texNombre(a)}^2 < ${texNombre(b)}^2`)}$.`
+        On en déduit que $${miseEnEvidence(`${texNombre(a)}^2 < (${texNombre(b)})^2`)}$.`
           } else {
             texteCorr += `Comme $${texNombre(a)}${miseEnEvidence('>', bleuMathalea)}${texNombre(-b)}$,
         alors  $${texNombre(a)}^2${miseEnEvidence('>', bleuMathalea)}${texNombre(-b)}^2$.<br>
-        On en déduit que $${miseEnEvidence(`${texNombre(a)}^2 > ${texNombre(b)}^2`)}$.`
+        On en déduit que $${miseEnEvidence(`${texNombre(a)}^2 > (${texNombre(b)})^2`)}$.`
           }
 
           break

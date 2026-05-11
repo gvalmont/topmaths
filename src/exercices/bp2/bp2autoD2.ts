@@ -6,7 +6,7 @@ export const interactifType = 'mathLive'
 
 export const dateDePublication = '12/4/2025'
 
-export const uuid = 'a5300'
+export const uuid = 'a5301'
 export const refs = {
   'fr-fr': ['BP2AutoD2'],
   'fr-ch': [],

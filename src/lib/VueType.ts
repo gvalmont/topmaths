@@ -21,6 +21,7 @@ const VueTypeArray = <const>[
   'indices',
   'start',
   'tools',
+  'check-test',
   '',
 ]
 type VueTypeArrayType = typeof VueTypeArray

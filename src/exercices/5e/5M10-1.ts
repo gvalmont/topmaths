@@ -17,7 +17,7 @@ import {
 } from '../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { arrondi } from '../../lib/outils/nombres'
-import { creerNomDePolygone, sp } from '../../lib/outils/outilString'
+import { creerNomDePolygone } from '../../lib/outils/outilString'
 import { stringNombre, texNombre } from '../../lib/outils/texNombre'
 import { context } from '../../modules/context'
 import Grandeur from '../../modules/Grandeur'
@@ -112,7 +112,6 @@ export default class AireDeTriangles extends Exercice {
     for (
       let i = 0, texte, texteCorr, cpt = 0;
       i < this.nbQuestions && cpt < 50;
-
     ) {
       objetsEnonce.length = 0
       objetsCorrection.length = 0
@@ -214,10 +213,10 @@ export default class AireDeTriangles extends Exercice {
       )
       texte += ajouteChampTexteMathLive(this, i, KeyboardType.aire, {
         texteAvant: `Aire du triangle ${A.nom}${B.nom}${C.nom} :`,
-        texteApres: sp(6) + "Il faut penser à indiquer l'unité à la réponse.",
+        texteApres: '<em class="ml-2">(Une unité est attendue.)</em>',
       })
       if (context.isAmc) {
-        this.autoCorrection[i] = {
+        this.autoCorrectionAMC[i] = {
           enonce:
             texte + `<br>Aire de ${A.nom}${B.nom}${C.nom} en $\\text{cm}^2$ :`, // Si vide, l'énoncé est celui de l'exercice.
           propositions: [
@@ -226,8 +225,7 @@ export default class AireDeTriangles extends Exercice {
             },
           ],
           reponse: {
-            // @ts-expect-error
-            valeur: [arrondi((cotes[i] * hauteurs[i]) / 2)], // obligatoire (la réponse numérique à comparer à celle de l'élève), NE PAS METTRE DE STRING à virgule ! 4.9 et non pas 4,9. Cette valeur doit être passée dans un tableau d'où la nécessité des crochets.
+            valeur: arrondi((cotes[i] * hauteurs[i]) / 2), // obligatoire (la réponse numérique à comparer à celle de l'élève), NE PAS METTRE DE STRING à virgule ! 4.9 et non pas 4,9. Cette valeur doit être passée dans un tableau d'où la nécessité des crochets.
             param: {
               signe: false,
               decimals: 1,

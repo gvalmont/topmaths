@@ -146,7 +146,7 @@ export default class perimetreVersFormule extends Exercice {
       const espaceEntreFigures = 1
 
       // choix aléatoire des lettres de l'exo
-      const listeLettres = 'abcdefghmnqsuvwxyz'
+      const listeLettres = 'abcdfghmnqsuvwxyz' // 5L10-6 : Éric Elter supprime le e pour éviter la confusion avec exponentielle dans la comparaison
       const idLettre0 = randint(0, listeLettres.length - 1)
       const idLettre1 = randint(0, listeLettres.length - 1, [idLettre0])
       const coteLettre = [listeLettres[idLettre0], listeLettres[idLettre1]]
@@ -1104,6 +1104,7 @@ Pour calculer le périmètre d'une figure, on additionne les longueurs de tous l
             exercice: this, // ça, c'est pour que la fonction récupère un pointeur sur ton exo
             question: i, // ça, c'est pour qu'il numérote correctement l'input
             typeInteractivite: 'mathlive', // ça, c'est l'input le plus souvent utilisé
+            classe: 'clavierMinuscules',
             objetReponse: {
               // ça c'est ce qui définit la réponse attendue et la façon dont elle doit être vérifiée
               reponse: {

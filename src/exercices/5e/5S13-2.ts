@@ -25,7 +25,7 @@ import { miseEnEvidence } from '../../lib/outils/embellissements'
 
 export const titre = 'Calculer des fréquences statistiques'
 export const interactifReady = true
-export const interactifType = 'multiMathField'
+export const interactifType = 'multiMathfield'
 export const amcReady = true
 export const amcType = 'AMCHybride'
 
@@ -507,7 +507,7 @@ function questionsEtCorrections(
       ]
     } else {
       // Pour AMC, on ne peut pas doubler les questions, il faut les intégrer dans un seul AMCHybride.
-      exercice.autoCorrection[numero] = {
+      exercice.autoCorrectionAMC[numero] = {
         options: { multicols: true },
         enonce:
           preambule +

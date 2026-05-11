@@ -4,6 +4,7 @@ import { labelPoint } from '../../lib/2d/textes'
 import { tracePoint } from '../../lib/2d/TracePoint'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { addMultiMathfield } from '../../lib/interactif/MultiMathfield/MultiMathfield'
+import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 import { creerCouples, shuffle2tableaux } from '../../lib/outils/arrayOutils'
 import { enumeration } from '../../lib/outils/ecritures'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
@@ -21,7 +22,7 @@ import Exercice from '../Exercice'
 
 export const titre = "Déterminer les coordonnées (relatives) d'un point"
 export const interactifReady = true
-export const interactifType = 'mathLive'
+export const interactifType = 'multiMathfield'
 export const amcReady = true
 export const amcType = 'AMCHybride'
 export const dateDeModifImportante = '24/11/2024'
@@ -121,7 +122,12 @@ export default class ReperagePointDuPlan extends Exercice {
     }
     for (let j = 0; j < nbPoints; j++) {
       points.push(
-        pointAbstrait(listePoints[j][0], listePoints[j][1], nom[j], 'above left'),
+        pointAbstrait(
+          listePoints[j][0],
+          listePoints[j][1],
+          nom[j],
+          'above left',
+        ),
       )
       if (points[j].x === 0) {
         X0 = true
@@ -139,7 +145,7 @@ export default class ReperagePointDuPlan extends Exercice {
     shuffle2tableaux(points, nom)
 
     if (context.isAmc) {
-      this.autoCorrection[0] = {
+      this.autoCorrectionAMC[0] = {
         enonce: '',
         enonceAvant: false,
         enonceApresNumQuestion: true,
@@ -167,7 +173,7 @@ export default class ReperagePointDuPlan extends Exercice {
 
     if (context.isAmc) {
       for (let i = 0; i < nbPoints; i++) {
-        this.autoCorrection[0].propositions!.push(
+        this.autoCorrectionAMC[0].propositions!.push(
           {
             type: 'AMCNum',
             propositions: [
@@ -261,9 +267,11 @@ export default class ReperagePointDuPlan extends Exercice {
             `$${nom[i]}($%{champ${2 * i + 1}}$;$%{champ${2 * i + 2}}$)$${i % 3 === 2 ? '\n' : ''}`,
         )
         .join(', ')
-      const dataOptions = {}
+      const dataOptions: Record<string, any> = {}
       const reponses: Record<string, any> = {}
       for (let i = 0; i < nbPoints; i++) {
+        dataOptions[`champ${2 * i + 1}`] = { keyboard: KeyboardType.clavierDeBaseAvecFraction }
+        dataOptions[`champ${2 * i + 2}`] = { keyboard: KeyboardType.clavierDeBaseAvecFraction }
         reponses[`champ${2 * i + 1}`] = { value: points[i].x }
         reponses[`champ${2 * i + 2}`] = { value: points[i].y }
       }

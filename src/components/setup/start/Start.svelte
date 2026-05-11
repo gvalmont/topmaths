@@ -17,8 +17,8 @@
     tick,
   } from 'svelte'
   import { get } from 'svelte/store'
+  import { qcmCamExportAll } from '../../../../src/lib/qcmCam'
   import appsTierce from '../../../json/referentielAppsTierce.json'
-  import { qcmCamExportAll } from '../../../lib/amc/qcmCam'
   import { buildEsParams } from '../../../lib/components/urls'
   import { downloadFile } from '../../../lib/files'
   import handleCapytale from '../../../lib/handleCapytale'
@@ -160,6 +160,7 @@
       if ($canOptions.subTitle !== '') {
         url.searchParams.append('canT', $canOptions.subTitle)
       }
+      url.searchParams.append('canSA', $canOptions.solutionsAccess ? '1' : '0')
       if ($canOptions.solutionsAccess) {
         url.searchParams.append('canSM', $canOptions.solutionsMode)
       }
@@ -386,7 +387,7 @@
       exercise.nouvelleVersion()
       const questionsQcm = exercise.autoCorrection.filter(
         (el) =>
-          el.reponse?.param?.formatInteractif === 'qcm' &&
+          el.formatInteractif === 'qcm' &&
           el.propositions != null &&
           el.propositions?.length > 1,
       ).length
@@ -408,7 +409,6 @@
     }
     downloadFile(content, 'questions.txt') // @todo Si possible, il faudrait l'nvoyer directement à travers l'ouverture d'un nouvel onglet qcmcam.net avec le lien vers ce fichier en argument.
   }
-
 </script>
 
 <svelte:window bind:innerWidth />

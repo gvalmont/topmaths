@@ -92,6 +92,7 @@ export default class ResoudreDesProblemesDiviseursCommuns extends Exercice {
           texte +=
             'Donner le nombre maximal de bouquets que le fleuriste peut réaliser '
           texte += 'et la composition du bouquet.<br>'
+          texteSansQuestions = texte
           texteA = context.isAmc ? numAlpha(0) : 'a) '
           texteA += `Nombre maximal de bouquets :`
 
@@ -135,6 +136,7 @@ export default class ResoudreDesProblemesDiviseursCommuns extends Exercice {
           texte +=
             'Donner le nombre maximal de groupes que le professeur peut réaliser '
           texte += 'et la composition de chaque groupe.<br>'
+          texteSansQuestions = texte
           texteA = context.isAmc ? numAlpha(0) : 'a) '
           texteA += `Nombre maximal de groupes :`
 
@@ -178,6 +180,7 @@ export default class ResoudreDesProblemesDiviseursCommuns extends Exercice {
           texte +=
             'Donner le nombre maximal de corbeilles que le boulanger peut réaliser '
           texte += 'et la composition de chaque corbeille.<br>'
+          texteSansQuestions = texte
           texteA = context.isAmc ? numAlpha(0) : 'a) '
           texteA += `Nombre maximal de corbeilles :`
 
@@ -235,7 +238,7 @@ export default class ResoudreDesProblemesDiviseursCommuns extends Exercice {
 
       if (this.questionJamaisPosee(i, var1, var2, objet)) {
         if (context.isAmc) {
-          this.autoCorrection[i] = {
+          this.autoCorrectionAMC[i] = {
             enonce: '',
             enonceAvant: false,
             propositions: [

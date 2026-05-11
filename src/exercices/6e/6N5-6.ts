@@ -1,25 +1,22 @@
-import Exercice from '../Exercice'
+import { handleAnswers } from '../../lib/interactif/gestionInteractif'
+import { toutAUnPoint } from '../../lib/interactif/mathLive'
+import { addMultiMathfield } from '../../lib/interactif/MultiMathfield/MultiMathfield'
+import { miseEnEvidence } from '../../lib/outils/embellissements'
+import { numAlpha } from '../../lib/outils/outilString'
+import { texNombre } from '../../lib/outils/texNombre'
+import { context } from '../../modules/context'
 import {
   gestionnaireFormulaireTexte,
   listeQuestionsToContenu,
   randint,
 } from '../../modules/outils'
-import { texNombre } from '../../lib/outils/texNombre'
-import { miseEnEvidence } from '../../lib/outils/embellissements'
-import { numAlpha } from '../../lib/outils/outilString'
-import { context } from '../../modules/context'
-import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
-import {
-  handleAnswers,
-  setReponse,
-} from '../../lib/interactif/gestionInteractif'
-import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
+import Exercice from '../Exercice'
 
 export const titre = 'Résoudre des problèmes (impliquant diverses opérations)'
 export const amcReady = true
 export const amcType = 'AMCHybride'
 export const interactifReady = true
-export const interactifType = 'mathLive'
+export const interactifType = 'multiMathfield'
 export const dateDePublication = '24/05/2025'
 
 /**
@@ -27,7 +24,7 @@ export const dateDePublication = '24/05/2025'
  * @author Mickael Guironnet
  * 6C12-6
  */
-export const uuid = '72e9d'
+export const uuid = '72e9e'
 
 export const refs = {
   'fr-fr': ['6N5-6'],
@@ -74,7 +71,6 @@ export default class ProblèmesBalance extends Exercice {
     for (
       let i = 0, texte, texteCorr, cpt = 0;
       i < this.nbQuestions && cpt < 50;
-
     ) {
       const n = precisions[i] as number
       const masseEtoile =
@@ -109,26 +105,15 @@ export default class ProblèmesBalance extends Exercice {
             (inverse === 0
               ? gauche + (!context.isHtml ? '<br>' : '') + droite
               : droite + (!context.isHtml ? '<br>' : '') + gauche) + '<br>'
-          texte += `${numAlpha(0)} Quelle est la masse d'une ${mult[0] === 1 ? 'étoile' : 'boule'} en grammes?<br>`
-          texte +=
-            this.interactif && !context.isAmc
-              ? ajouteChampTexteMathLive(
-                  this,
-                  i * 2,
-                  KeyboardType.clavierDeBase,
-                  { texteApres: ' g' },
-                ) + '<br>'
-              : ''
-          texte += `${numAlpha(1)} Quelle est la masse d'une ${mult[0] === 1 ? 'boule' : 'étoile'} en grammes?<br>`
-          texte +=
-            this.interactif && !context.isAmc
-              ? ajouteChampTexteMathLive(
-                  this,
-                  i * 2 + 1,
-                  KeyboardType.clavierDeBase,
-                  { texteApres: ' g' },
-                ) + '<br>'
-              : ''
+          texte += addMultiMathfield(this, i, {
+            dataTemplate: `a) Quelle est la masse d'une ${mult[0] === 1 ? 'étoile' : 'boule'} en grammes?%{champ1}\n
+            b) Quelle est la masse d'une ${mult[0] === 1 ? 'boule' : 'étoile'} en grammes?%{champ2}`,
+            dataOptions: {
+              champ1: { texteApres: ' g' },
+              champ2: { texteApres: ' g' },
+            },
+          })
+
           texteCorr = `${numAlpha(0)} Si on fait la soustraction entre les deux balances, ${mult[0] === 1 ? 'les boules sont enlevées' : 'les étoiles sont enlevées'}.<br>`
           texteCorr +=
             this.generateBalance(
@@ -155,24 +140,20 @@ export default class ProblèmesBalance extends Exercice {
           texteCorr += `On divise ensuite ${mult[0] === 1 ? nombreBoule : nombreEtoile} pour trouver la masse d'une ${mult[0] === 1 ? 'boule' : 'étoile'}.<br>`
           texteCorr += `$ ${texNombre(mult[0] === 1 ? masseBoule * nombreBoule : masseEtoile * nombreEtoile)} \\div ${mult[0] === 1 ? nombreBoule : nombreEtoile} = ${texNombre(mult[0] === 1 ? masseBoule : masseEtoile)}$ g.<br>`
           texteCorr += `La masse d'une ${mult[0] === 1 ? 'boule' : 'étoile'} est de $${miseEnEvidence(texNombre(mult[0] === 1 ? masseBoule : masseEtoile))}$ g.<br>`
-          if (context.isAmc) {
-            setReponse(this, i * 2, mult[0] === 1 ? masseEtoile : masseBoule)
-            setReponse(
-              this,
-              i * 2 + 1,
-              mult[0] === 1 ? masseBoule : masseEtoile,
-            )
-          } else {
-            handleAnswers(this, i * 2, {
-              reponse: { value: mult[0] === 1 ? masseEtoile : masseBoule },
-            })
-            handleAnswers(this, i * 2 + 1, {
-              reponse: { value: mult[0] === 1 ? masseBoule : masseEtoile },
-            })
-          }
+          handleAnswers(
+            this,
+            i,
+            {
+              bareme: toutAUnPoint,
+              champ1: { value: mult[0] === 1 ? masseEtoile : masseBoule },
+              champ2: { value: mult[0] === 1 ? masseBoule : masseEtoile },
+            },
+            { formatInteractif: 'multiMathfield' },
+          )
           break
         }
-        case 2: {
+        case 2:
+        default: {
           const mutl1 = randint(2, 4)
           const mult2 = randint(2, 4, [mutl1])
           const mult = randint(0, 1) === 0 ? [mutl1, mult2] : [mult2, mutl1]
@@ -194,25 +175,15 @@ export default class ProblèmesBalance extends Exercice {
               ? droite + (!context.isHtml ? '<br>' : '') + gauche
               : gauche + (!context.isHtml ? '<br>' : '') + droite) + '<br>'
           texte += `${numAlpha(0)} Quelle est la masse d'une ${gaucheMinMult === 1 ? 'étoile' : 'boule'} en grammes?<br>`
-          texte +=
-            this.interactif && !context.isAmc
-              ? ajouteChampTexteMathLive(
-                  this,
-                  i * 2,
-                  KeyboardType.clavierDeBase,
-                  { texteApres: ' g' },
-                ) + '<br>'
-              : ''
-          texte += `${numAlpha(1)} Quelle est la masse d'une ${gaucheMinMult === 0 ? 'étoile' : 'boule'} en grammes?<br>`
-          texte +=
-            this.interactif && !context.isAmc
-              ? ajouteChampTexteMathLive(
-                  this,
-                  i * 2 + 1,
-                  KeyboardType.clavierDeBase,
-                  { texteApres: ' g' },
-                ) + '<br>'
-              : ''
+          texte += addMultiMathfield(this, i, {
+            dataTemplate: `a) Quelle est la masse d'une ${gaucheMinMult === 1 ? 'étoile' : 'boule'} en grammes?%{champ1}\n
+            b) Quelle est la masse d'une ${gaucheMinMult === 1 ? 'boule' : 'étoile'} en grammes?%{champ2}`,
+            dataOptions: {
+              champ1: { texteApres: ' g' },
+              champ2: { texteApres: ' g' },
+            },
+          })
+
           texteCorr = `${numAlpha(0)} Si on multiplie la ${inverse === 0 ? 'première' : 'deuxième'} par ${gaucheMinMult === 1 ? mult[0] : mult[1]} alors on obtient la même quantité ${gaucheMinMult === 1 ? 'de boules' : "d'étoiles"}.<br>`
           texteCorr +=
             this.generateBalance(
@@ -265,29 +236,17 @@ export default class ProblèmesBalance extends Exercice {
           texteCorr += `On divise ensuite par ${gaucheMinMult === 1 ? nombreBoule : nombreEtoile} pour trouver la masse d'une ${gaucheMinMult === 1 ? 'boule' : 'étoile'}.<br>`
           texteCorr += `$ ${texNombre(gaucheMinMult === 1 ? masseBoule * nombreBoule : masseEtoile * nombreEtoile)} \\div ${gaucheMinMult === 1 ? nombreBoule : nombreEtoile} = ${gaucheMinMult === 1 ? texNombre(masseBoule) : texNombre(masseEtoile)}$ g.<br>`
           texteCorr += `La masse d'une ${gaucheMinMult === 1 ? 'boule' : 'étoile'} est de $${miseEnEvidence(texNombre(gaucheMinMult === 1 ? masseBoule : masseEtoile))}$ g.<br>`
-          if (context.isAmc) {
-            setReponse(
-              this,
-              i * 2,
-              gaucheMinMult === 1 ? masseEtoile : masseBoule,
-            )
-            setReponse(
-              this,
-              i * 2 + 1,
-              gaucheMinMult === 1 ? masseBoule : masseEtoile,
-            )
-          } else {
-            handleAnswers(this, i * 2, {
-              reponse: {
-                value: gaucheMinMult === 1 ? masseEtoile : masseBoule,
-              },
-            })
-            handleAnswers(this, i * 2 + 1, {
-              reponse: {
-                value: gaucheMinMult === 1 ? masseBoule : masseEtoile,
-              },
-            })
-          }
+          handleAnswers(
+            this,
+            i,
+            {
+              bareme: toutAUnPoint,
+              champ1: { value: gaucheMinMult === 1 ? masseEtoile : masseBoule },
+              champ2: { value: gaucheMinMult === 1 ? masseBoule : masseEtoile },
+            },
+            { formatInteractif: 'multiMathfield' },
+          )
+          break
         }
       }
 

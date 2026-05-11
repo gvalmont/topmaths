@@ -10,6 +10,7 @@
   export let exercice: IExercice
   export let exerciceIndex: number
   export let isVisible: boolean = true
+  export let inModal: boolean = false
 
   const dispatch = createEventDispatcher()
 
@@ -28,6 +29,7 @@
   let versionQcm: boolean
   let alea: string
   let correctionDetaillee: boolean
+  let tipAvailable: boolean
 
   let isCommentDisplayed: boolean = false
 
@@ -36,6 +38,13 @@
   let formNum3: FormNumerique
   let formNum4: FormNumerique
   let formNum5: FormNumerique
+
+  type CategoriesForm = {
+    titre: string
+    categories: { label: string; max: number }[]
+    defaut: number[]
+  }
+  let categoriesForm: CategoriesForm | undefined = undefined
 
   let previousSeed: string | undefined
   $: {
@@ -58,6 +67,7 @@
     versionQcm =
       exercice instanceof ExerciceSimple ? exercice.versionQcm || false : false
     correctionDetaillee = exercice.correctionDetaillee
+    tipAvailable = exercice.tipAvailable ?? !!(exercice.tip?.length)
 
     if (
       Array.isArray(exercice.besoinFormulaireNumerique) &&
@@ -88,6 +98,9 @@
       exercice.besoinFormulaire5Numerique.length > 0
     ) {
       formNum5 = parseFormNumerique(exercice.besoinFormulaire5Numerique)
+    }
+    if (exercice.besoinFormulaireNombresCategories) {
+      categoriesForm = exercice.besoinFormulaireNombresCategories as CategoriesForm
     }
   })
 
@@ -151,15 +164,18 @@
       versionQcm,
       alea,
       correctionDetaillee,
+      tipAvailable,
     })
   }
 </script>
 
 <div
   id="settings{exerciceIndex}"
-  class="relative text-coopmaths-struct dark:text-coopmathsdark-struct bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark z-20 {isVisible
-    ? 'visible lg:w-1/4'
-    : 'hidden lg:w-0'} flex flex-col duration-500"
+  class="relative text-coopmaths-struct dark:text-coopmathsdark-struct bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark z-20 {inModal
+    ? 'visible w-full'
+    : isVisible
+      ? 'visible lg:w-1/4'
+      : 'hidden lg:w-0'} flex flex-col duration-500"
 >
   <div class="absolute top-2 right-3">
     <button
@@ -223,6 +239,7 @@
       {exerciceIndex}
       bind:supValue={sup}
       formNum={formNum1}
+      {categoriesForm}
       on:change={dispatchNewSettings}
     />
 
@@ -262,6 +279,15 @@
       on:change={dispatchNewSettings}
     />
 
+    {#if exercice.tip && exercice.tip.length > 0}
+      <CheckboxWithLabel
+        id="settings-indice-disponible-{exerciceIndex}"
+        bind:isChecked={tipAvailable}
+        label="Indice disponible pour les élèves"
+        on:change={dispatchNewSettings}
+      />
+    {/if}
+
     {#if exercice.correctionDetailleeDisponible}
       <CheckboxWithLabel
         id="settings-correction-detaillee-{exerciceIndex}"
@@ -280,7 +306,7 @@
       />
     {/if}
 
-    {#if exercice.comment !== undefined}
+    {#if exercice.comment !== undefined && exercice.comment !== ''}
       <div class="flex flex-col justify-start items-start p-2">
         <button
           type="button"

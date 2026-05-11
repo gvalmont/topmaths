@@ -354,7 +354,7 @@ export default class EchellesProblemes extends Exercice {
           texte += ', ce segment correspond-il ?'
           if (this.interactif) {
             texte += ajouteChampTexteMathLive(this, i, KeyboardType.longueur, {
-              texteAvant: ' (Il faut penser à indiquer une unité.)',
+              texteApres: '<em class="ml-2">(Une unité est attendue.)</em>',
             })
             handleAnswers(this, i, {
               reponse: {
@@ -510,10 +510,9 @@ export default class EchellesProblemes extends Exercice {
           unite1 = tableauUnites[1]
           nb2 = nb1 * echelleQ.echelle
           unite2 = tableauUnites[Math.floor(Math.min(Math.log10(nb2), 6))]
-          // echelleQUnite2 = echelleQ.echelle / Math.pow(10, min(Math.floor(Math.log10(echelleQ.echelle)), 5)) // EE : Suppression au profit de la suivante sinon pb avec échelle 5000.
           echelleQUnite2 =
             echelleQ.echelle /
-            Math.pow(10, Math.min(Math.round(Math.log10(echelleQ.echelle)), 5))
+            Math.pow(10, Math.min(Math.floor(Math.log10(echelleQ.echelle)), 5))
           nb2Unite2 = nb1 * echelleQUnite2
           nb2Unite1 = nb2
           reponse = arrondi(nb1Unite1, 0)
@@ -524,7 +523,7 @@ export default class EchellesProblemes extends Exercice {
           texte += ` du segment tracé sur le plan par ${quidam2} ?`
           if (this.interactif) {
             texte += ajouteChampTexteMathLive(this, i, KeyboardType.longueur, {
-              texteAvant: ' (Il faut penser à indiquer une unité.)',
+              texteApres: '<em class="ml-2">(Une unité est attendue.)</em>',
             })
             handleAnswers(this, i, {
               reponse: {
