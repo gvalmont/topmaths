@@ -359,10 +359,16 @@
         class="border border-is-link
         bg-topmaths-canvas
         text-base md:text-lg"
+        on:change={(event) => {
+          const select = event.currentTarget as HTMLSelectElement
+          const minuts = Number(select.value)
+          if (minuts > 0) setupTimer(minuts)
+          select.value = ''
+        }}
       >
-        <option>Minuteur</option>
+        <option value="">Minuteur</option>
         {#each range(9) as i}
-          <option on:click={() => setupTimer(i + 1)}>{i + 1} min</option>
+          <option value={i + 1}>{i + 1} min</option>
         {/each}
       </select>
     </div>
