@@ -376,7 +376,7 @@
       {#if isTimerActive}
         <ButtonImage
           color="link"
-          class="border-2"
+          class="border-2 p-0 size-8 md:size-10"
           imageSrc="/topmaths/img/cc0/pause-svgrepo-com.svg"
           imageAlt="Pause"
           imageClass="size-6 md:size-8"
@@ -385,7 +385,7 @@
       {:else if secondsLeft > 0}
         <ButtonImage
           color="link"
-          class="border-2"
+          class="border-2 p-0 size-8 md:size-10"
           imageSrc="/topmaths/img/cc0/play-button-svgrepo-com.svg"
           imageAlt="Play"
           imageClass="size-6 md:size-8"

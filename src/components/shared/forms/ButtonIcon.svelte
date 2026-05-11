@@ -10,14 +10,14 @@
 <button
   type="button"
   {title}
-  class="{$$props.class ||
+  class="inline-flex items-center justify-center align-middle {$$props.class ||
     ''} {disabled
     ? 'text-coopmaths-action/10 dark:text-coopmathsdark-action/10'
     : 'text-coopmaths-action dark:text-coopmathsdark-action hover:text-coopmaths-action-lightest dark:hover:text-coopmathsdark-action-lightest'}"
   {disabled}
   on:click
 >
-  <i class="relative bx {icon}">
+  <i class="relative inline-flex items-center justify-center bx {icon}">
     {#if floatUnderText !== ''}
       <div
         class="absolute left-1/2 -translate-x-1/2 -translate-y-2 text-sm font-extrabold font-sans"
