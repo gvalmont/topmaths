@@ -10,6 +10,8 @@
 
   let isHovered = false
   let isFocused = false
+  $: isSvg = imageSrc.toLowerCase().endsWith('.svg')
+  $: maskImage = `url("${imageSrc}")`
 </script>
 
 <button
@@ -38,6 +40,26 @@
     <slot />
   </p>
   {#if imageSrc !== ''}
-    <img class={imageClass} src={imageSrc} alt={imageAlt} />
+    {#if isSvg}
+      <span
+        class="svg-icon {imageClass}"
+        style:--icon-url={maskImage}
+        role={imageAlt ? 'img' : undefined}
+        aria-label={imageAlt || undefined}
+        aria-hidden={imageAlt ? undefined : 'true'}
+      ></span>
+    {:else}
+      <img class={imageClass} src={imageSrc} alt={imageAlt} />
+    {/if}
   {/if}
 </button>
+
+<style>
+  .svg-icon {
+    display: inline-block;
+    flex-shrink: 0;
+    background-color: currentColor;
+    -webkit-mask: var(--icon-url) center / contain no-repeat;
+    mask: var(--icon-url) center / contain no-repeat;
+  }
+</style>
