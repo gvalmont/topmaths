@@ -1,10 +1,10 @@
 <script lang="ts">
   import { onDestroy, onMount, tick } from 'svelte'
   import { mathaleaRenderDiv } from '../../../lib/mathalea'
-  import { randint } from '../../../modules/outils'
   import { range } from '../../../lib/outils/nombres'
-  import ButtonImage from '../shared/ButtonImage.svelte'
+  import { randint } from '../../../modules/outils'
   import AnchorExternal from '../shared/AnchorExternal.svelte'
+  import ButtonImage from '../shared/ButtonImage.svelte'
 
   type Calculation = {
     calculation: string
@@ -286,8 +286,7 @@
         color="link"
         imageSrc="/topmaths/img/gvalmont/p-circle.svg"
         imageAlt="Symbole P entouré"
-        imageClass="size-12"
-        class="border-2 rounded-full p-0"
+        class="border-2 size-10 md:size-14 rounded-full p-0"
         on:click={toggerPointsInfo}
       />
     </div>
