@@ -11,7 +11,11 @@
   let isHovered = false
   let isFocused = false
   $: isSvg = imageSrc.toLowerCase().endsWith('.svg')
-  $: maskImage = `url("${imageSrc}")`
+  $: normalizedImageSrc =
+    imageSrc && !/^(?:[a-z][a-z\d+\-.]*:|\/|#)/i.test(imageSrc)
+      ? `/${imageSrc}`
+      : imageSrc
+  $: maskImage = `url("${normalizedImageSrc}")`
 </script>
 
 <button
@@ -49,7 +53,7 @@
         aria-hidden={imageAlt ? undefined : 'true'}
       ></span>
     {:else}
-      <img class={imageClass} src={imageSrc} alt={imageAlt} />
+      <img class={imageClass} src={normalizedImageSrc} alt={imageAlt} />
     {/if}
   {/if}
 </button>
