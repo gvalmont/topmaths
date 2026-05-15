@@ -2,6 +2,7 @@
   import { goToView } from '../../../../services/navigation'
   import { buildGradeFromObjectiveReference } from '../../../../services/reference'
   import type { GlossaryUniteItem } from '../../../../types/glossary'
+  import SvgIcon from '../../../shared/SvgIcon.svelte'
 
   export let item: GlossaryUniteItem
   export let goHash: (event: MouseEvent, hash: string) => void
@@ -51,8 +52,8 @@
         px-1 md:px-2"
         >
           {relatedObjective}&nbsp;
-          <img
-            class="shrink-0 w-5"
+          <SvgIcon
+            class="size-5"
             src="topmaths/img/cc0/exit-svgrepo-com.svg"
             alt="icône de sortie"
           />

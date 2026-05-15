@@ -1,5 +1,6 @@
 <script lang="ts">
   import type { ThemeColor } from '../../types/color'
+  import SvgIcon from './SvgIcon.svelte'
 
   export let imageSrc: string = ''
   export let imageAlt: string = ''
@@ -15,7 +16,6 @@
     imageSrc && !/^(?:[a-z][a-z\d+\-.]*:|\/|#)/i.test(imageSrc)
       ? `/${imageSrc}`
       : imageSrc
-  $: maskImage = `url("${normalizedImageSrc}")`
 </script>
 
 <button
@@ -45,25 +45,9 @@
   </p>
   {#if imageSrc !== ''}
     {#if isSvg}
-      <span
-        class="svg-icon {imageClass}"
-        style:--icon-url={maskImage}
-        role={imageAlt ? 'img' : undefined}
-        aria-label={imageAlt || undefined}
-        aria-hidden={imageAlt ? undefined : 'true'}
-      ></span>
+      <SvgIcon src={normalizedImageSrc} alt={imageAlt} class={imageClass} />
     {:else}
       <img class={imageClass} src={normalizedImageSrc} alt={imageAlt} />
     {/if}
   {/if}
 </button>
-
-<style>
-  .svg-icon {
-    display: inline-block;
-    flex-shrink: 0;
-    background-color: currentColor;
-    -webkit-mask: var(--icon-url) center / contain no-repeat;
-    mask: var(--icon-url) center / contain no-repeat;
-  }
-</style>

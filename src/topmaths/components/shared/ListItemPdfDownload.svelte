@@ -1,5 +1,6 @@
 <script lang="ts">
   import type { StringGrade } from '../../types/grade'
+  import SvgIcon from './SvgIcon.svelte'
 
   // eslint-disable-next-line no-undef-init
   export let displayCondition: boolean | undefined = undefined
@@ -20,9 +21,8 @@
       rel="noopener noreferrer"
     >
       {label}
-      <img
-        class="ml-2 is-icon
-          size-4 md:size-6"
+      <SvgIcon
+        class="ml-2 size-4 md:size-6"
         src="/topmaths/img/cc0/pdf-file-format-symbol-svgrepo-com.svg"
         alt="Fichier PDF"
       />

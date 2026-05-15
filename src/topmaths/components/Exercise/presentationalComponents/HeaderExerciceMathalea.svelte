@@ -7,6 +7,7 @@
   import type { ObjectiveReference } from '../../../types/objective'
   import type { UnitReference } from '../../../types/unit'
   import ButtonImage from '../../shared/ButtonImage.svelte'
+  import SvgIcon from '../../shared/SvgIcon.svelte'
 
   export let exercise: TypeExercice | SvelteComponent
   export let exerciseIndex: number
@@ -170,9 +171,8 @@
       class="is-coopmaths is-interactive"
       on:click={() => navigatorShare(exerciseIndex)}
     >
-      <img
-        class="is-icon
-      size-4 md:size-6"
+      <SvgIcon
+        class="size-4 md:size-6"
         src="topmaths/img/cc0/share-2-svgrepo-com.svg"
         alt="icone de partage"
       />
@@ -223,16 +223,11 @@
               : 'bx-xs'} bx-minus"
           ></i>
         </button>
-        <i
-          class="ml-1"
-          style="filter: invert(34%) sepia(83%) saturate(426%) hue-rotate(159deg) brightness(94%) contrast(97%);"
-        >
-          <img
-            src="topmaths/img/gvalmont/three-lines.svg"
-            class="size-4 md:size-6"
-            alt="Trois lignes"
-          />
-        </i>
+        <SvgIcon
+          class="ml-1 size-4 md:size-6"
+          src="topmaths/img/gvalmont/three-lines.svg"
+          alt="Trois lignes"
+        />
         <button
           type="button"
           on:click={() => spacingUpdate('+', exerciseIndex)}
@@ -259,16 +254,11 @@
               : 'bx-xs'} bx-minus"
           ></i>
         </button>
-        <i
-          class="ml-1"
-          style="filter: invert(34%) sepia(83%) saturate(426%) hue-rotate(159deg) brightness(94%) contrast(97%);"
-        >
-          <img
-            src="topmaths/img/cc0/magnifying-glass-11-svgrepo-com.svg"
-            class="size-4 md:size-6"
-            alt="Loupe"
-          />
-        </i>
+        <SvgIcon
+          class="ml-1 size-4 md:size-6"
+          src="topmaths/img/cc0/magnifying-glass-11-svgrepo-com.svg"
+          alt="Loupe"
+        />
         <button
           on:click={() => zoomUpdate('+', exerciseIndex)}
           aria-label="Augmenter le zoom"

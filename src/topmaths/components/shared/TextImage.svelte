@@ -1,5 +1,6 @@
 <script lang="ts">
   import type { ThemeColor } from '../../types/color'
+  import SvgIcon from './SvgIcon.svelte'
 
   export let imageSrc: string
   export let imageAlt: string
@@ -7,6 +8,8 @@
 
   let isHovered = false
   let isFocused = false
+
+  $: isSvg = imageSrc.toLowerCase().endsWith('.svg')
 </script>
 
 <button
@@ -28,10 +31,9 @@
   on:click
 >
   <slot />
-  <img
-    class="ml-2
-      size-4 md:size-6"
-    src={imageSrc}
-    alt={imageAlt}
-  />
+  {#if isSvg}
+    <SvgIcon class="ml-2 size-4 md:size-6" src={imageSrc} alt={imageAlt} />
+  {:else}
+    <img class="ml-2 size-4 md:size-6" src={imageSrc} alt={imageAlt} />
+  {/if}
 </button>

@@ -9,6 +9,7 @@
   import { buildGradeFromObjectiveReference } from '../../services/reference'
   import { isTeacherMode } from '../../services/store'
   import { copyLink, normalizeExerciseInteractivity } from '../../services/url'
+  import SvgIcon from '../shared/SvgIcon.svelte'
 
   let cartLink = ''
   let items = Cart.items
@@ -68,9 +69,8 @@
       on:click={() =>
         copyLink(cartLink, { includeSeed: false, forceInteractive: true })}
     >
-      <img
-        class="is-icon
-          size-12 md:size-16"
+      <SvgIcon
+        class="size-12 md:size-16"
         src="/topmaths/img/cc0/copy-interface-symbol-svgrepo-com.svg"
         alt="Documents copiés"
       />
@@ -80,9 +80,8 @@
         mx-2 md:mx-4"
       on:click={(mouseEvent) => launchExercise(mouseEvent, cartLink)}
     >
-      <img
-        class="is-icon
-          size-12 md:size-16"
+      <SvgIcon
+        class="size-12 md:size-16"
         src="/topmaths/img/cc0/fullscreen-svgrepo-com.svg"
         alt="Lancer en plein écran"
       />
@@ -92,9 +91,8 @@
         mx-2 md:mx-4"
       on:click={(mouseEvent) => launchExercise(mouseEvent, cartLink, true)}
     >
-      <img
-        class="is-icon
-          size-12 md:size-16"
+      <SvgIcon
+        class="size-12 md:size-16"
         src="/topmaths/img/cc0/fullscreen-double-svgrepo-com.svg"
         alt="Lancer l'exercice en double-vue"
       />
@@ -104,9 +102,8 @@
         mx-2 md:mx-4"
       on:click={() => Cart.clear()}
     >
-      <img
-        class="is-icon
-          size-12 md:size-16"
+      <SvgIcon
+        class="size-12 md:size-16"
         src="/topmaths/img/cc0/cart-remove-svgrepo-com.svg"
         alt="Caddie avec une crois à l'intérieur"
       />
@@ -117,9 +114,8 @@
       on:click={(mouseEvent) =>
         goToCoopmathsView(mouseEvent, cartLink, 'latex')}
     >
-      <img
-        class="is-icon
-        size-12 md:size-16"
+      <SvgIcon
+        class="size-12 md:size-16"
         src="/topmaths/img/cc0/printing-document-svgrepo-com.svg"
         alt="Imprimante"
       />
@@ -137,9 +133,8 @@
             )} is-interactive"
             on:click={() => Cart.remove(item.exercise.id)}
           >
-            <img
-              class="is-icon
-                size-4 md:size-6"
+            <SvgIcon
+              class="size-4 md:size-6"
               src="/topmaths/img/cc0/cart-minus-svgrepo-com.svg"
               alt="Caddie avec un signe - à l'intérieur"
             />

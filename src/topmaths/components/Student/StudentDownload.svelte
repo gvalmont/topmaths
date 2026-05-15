@@ -1,4 +1,6 @@
 <script lang="ts">
+  import SvgIcon from '../shared/SvgIcon.svelte'
+
   const downloads = [
     {
       title: 'Tables de multiplication',
@@ -50,8 +52,8 @@
         {download.title}
         <span class="mx-auto">
           {#if download.extension === 'pdf'}
-            <img
-              class="w-6 md:w-8 icon is-danger"
+            <SvgIcon
+              class="size-6 md:size-8 text-is-danger"
               src="/topmaths/img/cc0/pdf-file-format-symbol-svgrepo-com.svg"
               alt="Icone de PDF"
             />
