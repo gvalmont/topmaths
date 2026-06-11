@@ -1,8 +1,8 @@
 import { createList } from '../../lib/format/lists'
 import { deuxColonnesResp } from '../../lib/format/miseEnPage'
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
+import { toutAUnPoint } from '../../lib/interactif/fonctionsBaremes'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
-import { toutAUnPoint } from '../../lib/interactif/mathLive'
 import { addMultiMathfield } from '../../lib/interactif/MultiMathfield/MultiMathfield'
 import { choice } from '../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
@@ -49,7 +49,7 @@ const situations = [
     correction2: 'Il reste $%frac4%$ de gâteau.',
   },
   {
-    id: 'sufrages',
+    id: 'suffrages',
     texteATrous:
       "Au premier tour d'une élection, %prénom1% a obtenu $%frac1%$ des voix  et %prénom2% a obtenu $%frac2%$ des voix.<br>",
     question1:
@@ -81,11 +81,13 @@ const situations = [
     id: 'surface du jardin',
     texteATrous:
       '%prénom% a planté des fleurs dans $%frac1%$ de la surface de son jardin. Puis, %pronom% a planté des légumes dans $%frac2%$ de la surface du jardin.<br>',
-    question1: 'Quelle fraction de la surface du jardin a-t-%pronom% plantée ?',
+    question1:
+      '<br>Quelle fraction de la surface du jardin a-t-%pronom% plantée ?',
     question2:
       'Quelle fraction de la surface du jardin lui reste-t-il à planter ?',
     correction1: '%prénom% a planté $%frac3%$ de la surface de son jardin.',
-    correction2: 'Il lui reste $%frac4%$ de la surface du jardin à planter.',
+    correction2:
+      '<br>Il lui reste $%frac4%$ de la surface du jardin à planter.',
   },
   {
     id: 'distance totale',
@@ -191,12 +193,12 @@ export default class ProblemesFractions extends Exercice {
           {
             barres: [
               {
-                content: `${situation.id === 'sufrages' ? personne.prenom : '1e part'}`,
+                content: `${situation.id === 'suffrages' ? personne.prenom : '$1^{re}$ part'}`,
                 length: num1Converti * 2,
                 color: 'lightgray',
               },
               {
-                content: `${situation.id === 'sufrages' ? personne2.prenom : '2e part'}`,
+                content: `${situation.id === 'suffrages' ? personne2.prenom : '$2^e$ part'}`,
                 length: frac2.num * 2,
                 color: 'lightgray',
               },
@@ -239,7 +241,7 @@ export default class ProblemesFractions extends Exercice {
         ],
       })
 
-      if (situation.id === 'sufrages') {
+      if (situation.id === 'suffrages') {
         texte = situation.texteATrous
           .replace('%prénom1%', personne.prenom)
           .replace('%prénom2%', personne2.prenom)

@@ -1,24 +1,31 @@
 import { all } from './combinators'
 import {
-  distributed,
+  isDistributed,
   noNumericComputation,
   noTrivialFactor,
   termsGrouped,
 } from './reductionAtoms'
 import type { Check, CheckOverrides } from './types'
 
-export function isReduced(options: CheckOverrides = {}): Check {
+type IsReducedOptions = CheckOverrides & {
+  allowReducibleFractions?: boolean
+}
+
+export function isReduced(options: IsReducedOptions = {}): Check {
   const compare = all([
     noTrivialFactor(),
-    noNumericComputation(),
+    noNumericComputation({
+      allowReducibleFractions: options.allowReducibleFractions,
+    }),
     termsGrouped(),
-    distributed(),
+    isDistributed(),
   ])
 
   return {
     name: options.name ?? 'isReduced',
     weight: options.weight,
     feedbackEnabled: options.feedbackEnabled,
+    feedbackOnSuccess: options.feedbackOnSuccess,
     run: (saisie) => {
       const result = compare(saisie, saisie)
       return {

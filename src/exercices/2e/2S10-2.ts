@@ -1,3 +1,4 @@
+import { amcConvert } from '../../lib/amc/amcBuilders'
 import { texPrix } from '../../lib/format/style'
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 import {
@@ -72,6 +73,13 @@ export default class Proportions extends Exercice {
       typesDeQuestionsDisponibles = ['population-totale']
     }
     if (this.sup === 4) {
+      typesDeQuestionsDisponibles = [
+        'sous-population',
+        'proportion',
+        'population-totale',
+      ]
+    }
+    if (typesDeQuestionsDisponibles.length === 0) {
       typesDeQuestionsDisponibles = [
         'sous-population',
         'proportion',
@@ -380,6 +388,9 @@ export default class Proportions extends Exercice {
             ...interactiveReponse,
           },
         }
+        exerciseAny.questionsAMC[i] = amcConvert(
+          exerciseAny.autoCorrectionAMC[i],
+        )
       } else {
         handleAnswers(this, i, { reponse: { value: reponse.toString() } })
       }
@@ -399,8 +410,12 @@ export default class Proportions extends Exercice {
             labelPosition: 'left',
             label: '\\\\En \\% : ',
           }
+          exerciseAny.questionsAMC[i] = amcConvert(
+            exerciseAny.autoCorrectionAMC[i],
+          )
         }
       }
+
       texte += ajouteChampTexteMathLive(this, i, KeyboardType.clavierNumbers, {
         texteApres:
           listeTypeDeQuestions[i] === 'proportion'
@@ -413,8 +428,8 @@ export default class Proportions extends Exercice {
 
       if (this.questionJamaisPosee(i, taux, totale, sous)) {
         // on utilise donc cette fonction basée sur les variables aléatoires pour éviter les doublons
-        this.listeQuestions[i] = texte
-        this.listeCorrections[i] = texteCorr
+        this.listeQuestions.push(texte)
+        this.listeCorrections.push(texteCorr)
         i++
       }
       cpt++

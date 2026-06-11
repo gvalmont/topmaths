@@ -15,6 +15,8 @@ import { context } from '../../modules/context'
 import operation from '../../modules/operations'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import Exercice from '../Exercice'
+import { amcConvert } from '../../lib/amc/amcBuilders'
+
 
 export const amcReady = true
 export const interactifReady = true
@@ -187,8 +189,9 @@ export default class DivisionDecimale extends Exercice {
       if (context.isAmc) {
         this.autoCorrectionAMC[i] = {
           enonce: texte,
-          propositions: [{ texte: texteCorr }],
+          reponse: { texte: texteCorr, valeur: q },
         }
+        this.questionsAMC[i] = amcConvert(this.autoCorrectionAMC[i])
         const amcParam = ensureAmcParam(this, i)
         amcParam.digits =
           nombreDeChiffresDansLaPartieEntiere(q) +

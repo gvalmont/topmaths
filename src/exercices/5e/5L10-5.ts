@@ -25,15 +25,19 @@ import { VisualPattern } from '../../lib/2d/patterns/VisualPattern'
 import { VisualPattern3D } from '../../lib/2d/patterns/VisualPattern3D'
 import { range1 } from '../../lib/outils/nombres'
 import { context } from '../../modules/context'
-import { gestionnaireFormulaireTexte } from '../../modules/outils'
+import {
+  contraindreValeur,
+  gestionnaireFormulaireTexte,
+} from '../../modules/outils'
 
 export const titre =
-  "Définir une expression littérale à partir d'un modèle figuratif"
+  "Définir une expression littérale à partir d'un motif itératif"
 export const interactifReady = true
 export const interactifType = 'mathLive'
 
 // Gestion de la date de publication initiale
 export const dateDePublication = '23/06/2025'
+export const dateDeModifImportante = '03/06/2026'
 
 /**
  * Étudier les premiers termes d'une série de motifs afin de donner le nombre de formes du motif de rang n.
@@ -41,7 +45,7 @@ export const dateDePublication = '23/06/2025'
  * Cet exercice contient des modèles issus de l'excellent site : https://www.visualpatterns.org/
  * @author Jean-claude Lhote
  */
-export const uuid = '328b4'
+export const uuid = 'a35d5'
 
 export const refs = {
   'fr-fr': ['5L10-5'],
@@ -54,25 +58,34 @@ export default class PaternNum1 extends Exercice {
   constructor() {
     super()
     this.nbQuestions = 3
-    this.comment =
-      "Cet exercice contient des modèles issus de l'excellent site : https://www.visualpatterns.org/."
-    this.comment += `<br>
-Grâce au dernier paramètre, on peut imposer des patterns choisis dans cette <a href="https://coopmaths.fr/alea/?uuid=71ff5&s=4" target="_blank" style="color: blue">liste de patterns</a>.<br>
-Si le nombre de questions est supérieur au nombre de patterns choisis, alors l'exercice sera complété par des patterns choisis au hasard.`
-    this.besoinFormulaireNumerique = ['Nombre de figures par question', 4]
+    this.comment = ` Les patterns sont des motifs figuratifs qui évoluent selon des règles définies.<br>
+ Cet exercice contient des patterns issus de l'excellent site : <a href="https://www.visualpatterns.org/" target="_blank" style="color: blue">https://www.visualpatterns.org/</a>.<br>
+ Cet exercice propose d'étudier les premiers termes d'une série de motifs afin de répondre à différentes questions possibles.<br><br>
+Grâce au premier paramètre, on peut choisir le nombre de motifs visibles.<br><br>
+Grâce au deuxième paramètre, on peut imposer des patterns choisis dans cette <a href="https://coopmaths.fr/alea/?uuid=71ff5&s=3" target="_blank" style="color: blue">liste de patterns</a>.<br>
+Si le nombre de questions est supérieur au nombre de patterns choisis, alors l'exercice sera complété par des patterns choisis au hasard.<br><br>
+Grâce au troisième paramètre, on peut imposer l'ordre des motifs choisis au deuxième paramètre (sauf pour le choix 0 qui sera toujours du hasard).
+    `
+    this.besoinFormulaireNumerique = [
+      'Nombre de figures par question',
+      3,
+      'Deux figures\nTrois Figures\nQuatre Figures',
+    ]
     this.sup = 3
 
     const nbDePattern = listePatternsSansRatioNiFraction.length
     this.besoinFormulaire2Texte = [
-      'Numéros des pattern désirés :',
+      'Numéros des motifs désirés',
       [
         'Nombres séparés par des tirets  :',
-        `Mettre des nombres entre 1 et ${nbDePattern}.`,
-        `Mettre ${nbDePattern + 1} pour laisser le hasard faire.`,
+        `Entre 1 et ${nbDePattern} : pour choisir un motif particulier`,
+        `0 : pour laisser le hasard faire`,
       ].join('\n'),
     ]
+    this.sup2 = `0`
 
-    this.sup2 = `${nbDePattern + 1}`
+    this.besoinFormulaire5CaseACocher = ['Ordre aléatoire des motifs']
+    this.sup5 = true
   }
 
   destroy() {
@@ -86,31 +99,38 @@ Si le nombre de questions est supérieur au nombre de patterns choisis, alors l'
     this.destroyers.forEach((destroy) => destroy())
     this.destroyers.length = 0
 
+    const ordreAleatoireDesQuestions = this.sup5
     const nbDePattern = listePatternsSansRatioNiFraction.length
+
     let typesPattern = gestionnaireFormulaireTexte({
       saisie: this.sup2,
+      min: 0,
       max: nbDePattern,
-      defaut: nbDePattern + 1,
-      melange: nbDePattern + 1,
-      nbQuestions: this.nbQuestions,
+      defaut: 0,
+      melange: 0,
+      nbQuestions: Math.min(this.nbQuestions, nbDePattern),
+      shuffle: ordreAleatoireDesQuestions,
+      exclus: [0],
     }).map(Number)
 
     typesPattern = [...typesPattern, ...shuffle(range1(nbDePattern))]
     typesPattern = enleveDoublonNum(typesPattern)
-    typesPattern = typesPattern.reverse()
 
     const listePreDef = typesPattern.map(
       (i) => listePatternsSansRatioNiFraction[i - 1],
     )
 
-    const nbFigures = Math.max(2, this.sup)
+    const nbFigures = contraindreValeur(2, 4, this.sup + 1, 4)
     for (let i = 0; i < this.nbQuestions; ) {
       const objetsCorr: NestedObjetMathalea2dArray = []
-      const popped = listePreDef.pop()
+      /* const popped = listePreDef.pop()
       if (!popped) {
         continue
       }
       const pat = popped
+      */
+      const pat = listePreDef[i]
+
       const pattern =
         'iterate3d' in pat
           ? new VisualPattern3D({

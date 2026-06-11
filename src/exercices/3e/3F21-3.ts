@@ -20,6 +20,8 @@ import { context } from '../../modules/context'
 import { mathalea2d } from '../../modules/mathalea2d'
 import { contraindreValeur, randint } from '../../modules/outils'
 import Exercice from '../Exercice'
+import { amcConvert } from '../../lib/amc/amcBuilders'
+
 
 export const titre =
   "Lire graphiquement les caractéristiques de la courbe représentative d'une fonction affine ou linéaire"
@@ -90,14 +92,22 @@ export default class PenteEtOrdonneeOrigineDroite extends Exercice {
       const den = this.sup === 3 ? randint(1, 2) : this.sup
       const a = num / den
       const zeroOuUn = ((-1) ** (i + alternance) + 1) / 2
+      const signB =
+        this.sup4 === 2
+          ? this.sup3 === 3
+            ? choice([1, -1])
+            : this.sup3 === 2
+              ? -1
+              : 1
+          : this.sup3 === 3
+            ? zeroOuUn * choice([1, -1])
+            : this.sup3 === 2
+              ? -zeroOuUn
+              : zeroOuUn
       const b =
         this.sup4 === 1
           ? 0
-          : (this.sup3 === 3
-              ? zeroOuUn * choice([1, -1])
-              : this.sup3 === 2
-                ? -zeroOuUn
-                : zeroOuUn) * randint(this.sup4 === 2 ? 1 : 0, 4)
+          : signB * randint(this.sup4 === 2 ? 1 : 0, 4)
       const vocabulaire = b === 0 ? 'linéaire' : 'affine'
       let xMin
       context.isHtml ? (xMin = -10) : (xMin = -8)
@@ -281,6 +291,7 @@ export default class PenteEtOrdonneeOrigineDroite extends Exercice {
             options: { multicolsAll: true },
             propositions: [],
           }
+          this.questionsAMC[i] = amcConvert(this.autoCorrectionAMC[i])
           if (vocabulaire === 'affine') {
             this.autoCorrectionAMC[i].propositions?.push({
               type: 'AMCNum',

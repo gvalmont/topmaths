@@ -1,6 +1,6 @@
 import type { Page } from 'playwright'
 import { expect } from 'vitest'
-import { getFileLogger, log as lg } from '../../helpers/log'
+import { getFileLogger, log as lg, logIfVerbose } from '../../helpers/log'
 import prefs from '../../helpers/prefs.js'
 import { inputAnswerById, runTest } from '../../helpers/run'
 
@@ -11,45 +11,72 @@ function log(...args: unknown[]) {
   logConsole(args)
 }
 
+async function clickWithFallback(page: Page, selector: string) {
+  const locator = page.locator(selector)
+  await locator.waitFor({ state: 'visible', timeout: 30000 })
+  try {
+    await locator.click({ timeout: 60000 })
+  } catch {
+    await page.evaluate((sel) => {
+      const element = document.querySelector<HTMLElement>(sel)
+      if (!element) throw new Error(`Element not found: ${sel}`)
+      element.click()
+    }, selector)
+  }
+}
+
+async function ensureFieldVisible(page: Page, fieldId: string) {
+  const selector = `#champTexteEx${fieldId}`
+  for (let attempt = 0; attempt < 3; attempt++) {
+    try {
+      await page.waitForSelector(selector, { timeout: 2000 })
+      return
+    } catch {
+      await clickWithFallback(page, '.bxs-chevron-right')
+      await page.waitForTimeout(150)
+    }
+  }
+  await page.waitForSelector(selector, { timeout: 10000 })
+}
+
 async function testCanView(page: Page) {
-  await page.setDefaultTimeout(200000) // Set timeout to 60 seconds
+  await page.setDefaultTimeout(500_000) // Set timeout to 500 seconds
   log('===========================================================')
   log('===           TEST VUE CAN 2024       =====================')
   log('===========================================================')
-  log("Chargement de l'url")
+  logIfVerbose("Chargement de l'url")
   const hostname = local
-    ? `http://localhost:${process.env.CI ? '80' : '5173'}/alea/`
+    ? `http://localhost:${process.env.PLAYWRIGHT_SERVER_PORT ?? (process.env.CI ? '80' : '5173')}/alea/`
     : 'https://coopmaths.fr/alea/'
   await page.goto(hostname + '?uuid=94d21&alea=hqk0&s=1')
-  log('Clique sur le lien vue élève (config)')
+  logIfVerbose('Clique sur le lien vue élève (config)')
   await page
     .locator('[data-tip="Lien pour les élèves"]')
     .getByRole('button')
     .click()
   // await page.getByRole('button', { name: 'Lien pour les élèves  ' }).click()
-  log('Configuration de la can (2024 2e)')
+  logIfVerbose('Configuration de la can (2024 2e)')
   await page.getByRole('tab', { name: 'Course aux nombres' }).click()
-  log('tab->Course aux nombres')
+  logIfVerbose('tab->Course aux nombres')
   const solutionsAccessToggle = page
     .locator('input#input-config-eleve-solutions-can-toggle')
     .first()
   if (!(await solutionsAccessToggle.isChecked())) {
     await solutionsAccessToggle.click()
   }
-  log('Accès aux solutions->à la fin')
+  logIfVerbose('Accès aux solutions->à la fin')
   await page
     .locator('input#config-eleve-can-duration-input[type="number"]')
     .fill('10')
-  log('Les questions seront posées->10min')
+  logIfVerbose('Les questions seront posées->10min')
 
   const page1Promise = page.waitForEvent('popup')
   await page.getByRole('button', { name: 'Visualiser' }).click()
   const page1 = await page1Promise
-  await page1.setDefaultTimeout(100000) // Set timeout to 60 seconds
   // await page1.goto('http://localhost:5173/alea/?uuid=94d21&v=can&canD=10&canT=2024&canSA=true&canSM=gathered&canI=true')
-  log('clique sur démarrer')
+  logIfVerbose('clique sur démarrer')
   await page1.getByRole('button', { name: ' Démarrer' }).click()
-  log('On attend le time-display-1')
+  logIfVerbose('On attend le time-display-1')
   await page1.waitForSelector('#time-display-1')
   await page1.locator('.key--1').click()
   await page1.locator('.key--0').click()
@@ -109,6 +136,7 @@ async function testCanView(page: Page) {
   await page1.locator('.key--1').click()
   await page1.locator('.key--2').click()
   await page1.locator('.bxs-chevron-right').click()
+  await ensureFieldVisible(page1, '0Q19')
   await inputAnswerById(page1, '0Q19', '-16')
   await page1.locator('.bxs-chevron-right').click()
   await inputAnswerById(page1, '0Q20', '5/2')
@@ -121,6 +149,7 @@ async function testCanView(page: Page) {
   await page1.locator('.bxs-chevron-right').click()
   await inputAnswerById(page1, '0Q24', 'x^2-8x+16')
   await page1.locator('.bxs-chevron-right').click()
+  await ensureFieldVisible(page1, '0Q25')
   await inputAnswerById(page1, '0Q25', '(x-5)(x+5)')
   await page1.locator('.bxs-chevron-right').click()
   await inputAnswerById(page1, '0Q26', '19/31')
@@ -134,12 +163,12 @@ async function testCanView(page: Page) {
   await page1.getByRole('button', { name: 'Rendre la copie' }).click()
   await page.waitForTimeout(500)
   await page1.getByRole('button', { name: 'Terminer' }).click()
-  log('Accéder aux solutions')
+  logIfVerbose('Accéder aux solutions')
   await page1.getByRole('button', { name: 'Accéder aux solutions' }).click()
   await page1.locator('.bx-toggle-right').click({ button: 'right' })
-  log(await page1.locator('#score:first-child > span').innerText())
-  log(await page1.locator('#answer-28').innerText())
-  log(await page1.locator('#answer-12').innerText())
+  logIfVerbose(await page1.locator('#score:first-child > span').innerText())
+  logIfVerbose(await page1.locator('#answer-28').innerText())
+  logIfVerbose(await page1.locator('#answer-12').innerText())
 
   for (let i = 0; i < 30; i++) {
     const icon4 = await page1.locator(
@@ -147,13 +176,13 @@ async function testCanView(page: Page) {
     )
     const classList = (await icon4.getAttribute('class')) || ''
     if (classList.includes('text-green-500') === false) {
-      log('classList:', classList)
-      log(
+      logIfVerbose('classList:', classList)
+      logIfVerbose(
         await page1
           .locator(`#can-solutions > li:nth-child(${i + 1})`)
           .innerText(),
       )
-      log(`Réponse ${i + 1} Incorrecte`)
+      logIfVerbose(`Réponse ${i + 1} Incorrecte`)
     }
     expect(classList).toContain('text-green-500')
   }
@@ -168,27 +197,29 @@ async function testCanView(page: Page) {
 }
 
 async function testEleveView(page: Page) {
+  await page.setDefaultTimeout(500_000) // Set timeout to 500 seconds
+
   log('===========================================================')
   log('===      TEST VUE ELEVE PRESENTATION 0 2024 ===============')
   log('===========================================================')
   const hostname = local
-    ? `http://localhost:${process.env.CI ? '80' : '5173'}/alea/`
+    ? `http://localhost:${process.env.PLAYWRIGHT_SERVER_PORT ?? (process.env.CI ? '80' : '5173')}/alea/`
     : 'https://coopmaths.fr/alea/'
-  await page.goto(hostname + '?uuid=94d21&alea=hqk0&s=1', { timeout: 100000 })
-  log("Chargement de l'url:" + hostname + '?uuid=94d21&alea=hqk0&s=1')
-  log('Clique sur le lien vue élève (config)')
+  await page.goto(hostname + '?uuid=94d21&alea=hqk0&s=1', { timeout: 200_000 })
+  logIfVerbose("Chargement de l'url:" + hostname + '?uuid=94d21&alea=hqk0&s=1')
+  logIfVerbose('Clique sur le lien vue élève (config)')
   await page
     .locator('[data-tip="Lien pour les élèves"]')
     .getByRole('button')
     .click()
   // await page.getByRole('button', { name: 'Lien pour les élèves  ' }).click()
-  log('Configuration de la can (2024 2e)')
+  logIfVerbose('Configuration de la can (2024 2e)')
   await page.locator('#presentation0').click()
   await page.locator('#Interactif1').first().click()
   const page1Promise = page.waitForEvent('popup')
   await page.getByRole('button', { name: 'Visualiser' }).click()
   const page1 = await page1Promise
-  log('#champTexteEx0Q0')
+  logIfVerbose('#champTexteEx0Q0')
   await page1.waitForSelector('#champTexteEx0Q0', { timeout: 50000 })
   await page1.locator('#champTexteEx0Q0').focus()
   await inputAnswerById(page1, '0Q0', '10')
@@ -267,35 +298,34 @@ async function testEleveView(page: Page) {
   await page1.locator('#champTexteEx0Q29').focus()
   await inputAnswerById(page1, '0Q29', '[-5;2]')
   await page1.evaluate(() => window.scrollTo(0, document.body.scrollHeight))
-  log('Vérifier les questions')
-  const element = await page1.waitForSelector('#buttonScoreEx0', {
-    timeout: 30000,
-  })
-  await element.click({ timeout: 60000 })
-  await page1.waitForSelector('#consigne0-29 + div', { timeout: 30000 })
+  logIfVerbose('Vérifier les questions')
+  await clickWithFallback(page1, '#buttonScoreEx0')
+  await page1.waitForSelector('#consigne0-29 + div', { timeout: 100_000 })
   const buttonResult = await page1.locator('#consigne0-29 + div').innerText()
   expect('30 / 30').toEqual(buttonResult)
-  log(buttonResult)
+  logIfVerbose(buttonResult)
 
   return true
 }
 
 async function testEleveViewPre2(page: Page) {
+  await page.setDefaultTimeout(500_000) // Set timeout to 500 seconds
+
   log('===========================================================')
   log('===   TEST VUE ELEVE Presentation 3 2024 ==================')
   log('===========================================================')
   const hostname = local
-    ? `http://localhost:${process.env.CI ? '80' : '5173'}/alea/`
+    ? `http://localhost:${process.env.PLAYWRIGHT_SERVER_PORT ?? (process.env.CI ? '80' : '5173')}/alea/`
     : 'https://coopmaths.fr/alea/'
-  await page.goto(hostname + '?uuid=94d21&alea=hqk0&s=1', { timeout: 120000 })
-  log("Chargement de l'url:" + hostname + '?uuid=94d21&alea=hqk0&s=1')
-  log('Clique sur le lien vue élève (config)')
+  await page.goto(hostname + '?uuid=94d21&alea=hqk0&s=1', { timeout: 200_000 })
+  logIfVerbose("Chargement de l'url:" + hostname + '?uuid=94d21&alea=hqk0&s=1')
+  logIfVerbose('Clique sur le lien vue élève (config)')
   // await page.getByRole('button', { name: 'Lien pour les élèves  ' }).click()
   await page
     .locator('[data-tip="Lien pour les élèves"]')
     .getByRole('button')
     .click()
-  log('Configuration de la can (2024 2e)')
+  logIfVerbose('Configuration de la can (2024 2e)')
   await page.locator('#presentation2').click()
   await page.locator('#Interactif1').first().click()
   const page1Promise = page.waitForEvent('popup')
@@ -614,7 +644,7 @@ async function testEleveViewPre2(page: Page) {
   await page1
     .locator('#questionTitleID229 > div > .bg-coopmaths-warn')
     .isVisible()
-  log('Fin des questions')
+  logIfVerbose('Fin des questions')
   return true
 }
 

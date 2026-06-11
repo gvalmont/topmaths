@@ -15,6 +15,8 @@ import { getLang } from '../../lib/stores/languagesStore'
 import { context } from '../../modules/context'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import Exercice from '../Exercice'
+import { amcConvert } from '../../lib/amc/amcBuilders'
+
 
 export const titre = 'Lire images et antécédents depuis un tableau de valeurs'
 export const interactifReady = true
@@ -37,7 +39,7 @@ export default class ImageAntecedentDepuisTableauOuFleche extends Exercice {
 
     this.nbQuestions = 1
     this.comment = `Cet exercice est une ancienne version non compatible avec les vue CAN et une question par page. Il est souhaitable d'utiliser la nouvelle version.
-Il existe une version CAN de cet exercice avec une seule question en 'can3F16'.`
+Il existe une version CAN de cet exercice avec une seule question en « can3F16 ».`
   }
 
   nouvelleVersion() {
@@ -85,6 +87,7 @@ Il existe une version CAN de cet exercice avec une seule question en 'can3F16'.`
           },
           propositions: [],
         }
+        this.questionsAMC[i] = amcConvert(this.autoCorrectionAMC[i])
       }
       texteAMC =
         numAlpha(0) +

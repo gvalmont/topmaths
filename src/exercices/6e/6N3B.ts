@@ -18,6 +18,8 @@ import { context } from '../../modules/context'
 import FractionEtendue from '../../modules/FractionEtendue'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import Exercice from '../Exercice'
+import { amcConvert } from '../../lib/amc/amcBuilders'
+
 
 export const dateDePublication = '08/07/2025'
 export const titre = "Donner du sens à la définition d'un quotient"
@@ -312,6 +314,7 @@ export default class DonnerSensDefinitionQuotient extends Exercice {
             },
           ],
         }
+        this.questionsAMC[i] = amcConvert(this.autoCorrectionAMC[i])
       }
       if (this.questionJamaisPosee(i, num, den)) {
         // Si la question n'a jamais été posée, on en crée une autre
@@ -426,7 +429,7 @@ export default class DonnerSensDefinitionQuotient extends Exercice {
       `#resultatCheckEx${this.numeroExercice}Q${2 * i + 100 + 1}`,
     )
     if (spanResultat3 != null) {
-      if (result[2] === 'OK') {
+      if (result[3] === 'OK') {
         spanResultat3.innerHTML = '😎'
       } else {
         spanResultat3.innerHTML = '☹️'

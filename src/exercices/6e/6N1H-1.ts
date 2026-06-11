@@ -1,4 +1,5 @@
 import { droiteGraduee } from '../../lib/2d/DroiteGraduee'
+import { amcConvert } from '../../lib/amc/amcBuilders'
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { toutAUnPoint } from '../../lib/interactif/mathLive'
@@ -112,6 +113,7 @@ export default class LireAbscisseDecimaleBis2d extends Exercice {
         this.autoCorrectionAMC[i] = {
           propositions: [{ statut: 4, feedback: '' }],
         }
+        this.questionsAMC[i] = amcConvert(this.autoCorrectionAMC[i])
       }
       switch (typesDeQuestions[i]) {
         case 3:
@@ -238,7 +240,7 @@ export default class LireAbscisseDecimaleBis2d extends Exercice {
         )
 
         texte += addMultiMathfield(this, i, {
-          dataTemplate: `$${l1}\\lparen$%{champ1} $\\rparen$ ${sp(6)} $${l2}\\lparen$%{champ2} $\\rparen$ ${sp(6)} $${l3}\\lparen$%{champ3} $\\rparen$`,
+          dataTemplate: `$${l1}($%{champ1}$)$ ${sp(6)} $${l2}($%{champ2}$)$ ${sp(6)} $${l3}($%{champ3} $)$`,
           dataOptions: {
             champ1: { keyboard: KeyboardType.clavierNumbers },
             champ2: { keyboard: KeyboardType.clavierNumbers },
@@ -253,6 +255,7 @@ export default class LireAbscisseDecimaleBis2d extends Exercice {
               { texte: texteCorr, statut: 0, feedback: '', sanscadre: true },
             ],
           }
+          this.questionsAMC[i] = amcConvert(this.autoCorrectionAMC[i])
         }
       }
       if (this.listeQuestions.indexOf(texte) === -1) {

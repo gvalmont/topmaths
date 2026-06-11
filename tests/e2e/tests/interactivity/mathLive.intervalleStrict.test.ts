@@ -10,7 +10,7 @@ import {
 
 async function testSalaires(page: Page) {
   const hostname = local
-    ? `http://localhost:${process.env.CI ? '80' : '5173'}/alea/`
+    ? `http://localhost:${process.env.PLAYWRIGHT_SERVER_PORT ?? (process.env.CI ? '80' : '5173')}/alea/`
     : 'https://coopmaths.fr/alea/'
   const urlExercice =
     hostname + '?uuid=b8afd&id=3S14&n=20&d=10&s=4&s2=2&s3=true&i=1&cd=1'
@@ -65,7 +65,7 @@ async function testSalaires(page: Page) {
 
 async function testNotes(page: Page) {
   const hostname = local
-    ? `http://localhost:${process.env.CI ? '80' : '5173'}/alea/`
+    ? `http://localhost:${process.env.PLAYWRIGHT_SERVER_PORT ?? (process.env.CI ? '80' : '5173')}/alea/`
     : 'https://coopmaths.fr/alea/'
   const urlExercice =
     hostname + '?uuid=b8afd&id=3S14&n=20&d=10&s=2&s2=2&s3=true&i=1&cd=1'
@@ -99,11 +99,11 @@ async function testNotes(page: Page) {
   return true
 }
 
-async function test6N314(page: Page) {
+async function test6N1M1(page: Page) {
   const hostname = local
-    ? `http://localhost:${process.env.CI ? '80' : '5173'}/alea/`
+    ? `http://localhost:${process.env.PLAYWRIGHT_SERVER_PORT ?? (process.env.CI ? '80' : '5173')}/alea/`
     : 'https://coopmaths.fr/alea/'
-  const urlExercice = hostname + '?uuid=b86b9&id=6N31-4&alea=x9ft&i=1'
+  const urlExercice = hostname + '?uuid=b86b9&id=6N1M-1&alea=x9ft&i=1'
   // 6N31-4
   const questions = await getQuestions(page, urlExercice)
 
@@ -118,7 +118,7 @@ async function test6N314(page: Page) {
     if (question.isCorrect) {
       reponse = String((a + b) / 2)
     } else {
-      reponse = String(b)
+      reponse = String(b + 1)
     }
     await inputAnswer(page, question, reponse)
   }
@@ -132,10 +132,10 @@ if (process.env.CI) {
   prefs.headless = true
   runTest(testSalaires, import.meta.url, { pauseOnError: false })
   runTest(testNotes, import.meta.url, { pauseOnError: false })
-  runTest(test6N314, import.meta.url, { pauseOnError: false })
+  runTest(test6N1M1, import.meta.url, { pauseOnError: false })
 } else {
   prefs.headless = false
   runTest(testSalaires, import.meta.url)
   runTest(testNotes, import.meta.url)
-  runTest(test6N314, import.meta.url)
+  runTest(test6N1M1, import.meta.url)
 }

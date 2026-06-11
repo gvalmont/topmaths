@@ -38,11 +38,11 @@ import {
 import type { NestedObjetMathalea2dArray } from '../../types/2d'
 import Exercice from '../Exercice'
 
-export const titre = "Identifier la structure d'un motif (itératif)"
+export const titre = "Identifier la structure d'un motif itératif"
 export const interactifReady = true
 export const interactifType = 'mathLive'
 
-export const dateDeModifImportante = '22/11/2025'
+export const dateDeModifImportante = '03/06/2026'
 
 /**
  * Étudier les premiers termes d'une série de motifs afin de donner le nombre de formes du motif suivant.
@@ -50,7 +50,7 @@ export const dateDeModifImportante = '22/11/2025'
  * Cet exercice contient des patterns issus de l'excellent site : https://www.visualpatterns.org/
  * @author Jean-claude Lhote (modif par Éric Elter au niveau des paramètres notamment)
  */
-export const uuid = 'f8b5e'
+export const uuid = '7eba3'
 
 export const refs = {
   'fr-fr': ['5I13'],
@@ -65,11 +65,12 @@ export default class PatternIteratif extends Exercice {
     this.nbQuestions = 3
     this.comment = ` Les patterns sont des motifs figuratifs qui évoluent selon des règles définies.<br>
  Cet exercice contient des patterns issus de l'excellent site : <a href="https://www.visualpatterns.org/" target="_blank" style="color: blue">https://www.visualpatterns.org/</a>.<br>
- Cet exercice propose d'étudier les premiers termes d'une série de motifs afin de répondre à différentes questions possibles.<br>
-Grâce au premier paramètre, on peut choisir le nombre de motifs visibles.<br>
-Grâce au deuxième paramètre, on peut choisir les questions à poser.<br>
+ Cet exercice propose d'étudier les premiers termes d'une série de motifs afin de répondre à différentes questions possibles.<br><br>
+Grâce au premier paramètre, on peut choisir le nombre de motifs visibles.<br><br>
+Grâce au deuxième paramètre, on peut choisir les questions à poser.<br><br>
 Grâce au troisième paramètre, on peut imposer des patterns choisis dans cette <a href="https://coopmaths.fr/alea/?uuid=71ff5&s=3" target="_blank" style="color: blue">liste de patterns</a>.<br>
 Si le nombre de questions est supérieur au nombre de patterns choisis, alors l'exercice sera complété par des patterns choisis au hasard.
+Grâce au quatrième paramètre, on peut imposer l'ordre des motifs choisis au quatrième paramètre (sauf pour le choix 0 qui sera toujours du hasard).
     `
     this.besoinFormulaireNumerique = [
       'Nombre de figures par question',
@@ -83,27 +84,30 @@ Si le nombre de questions est supérieur au nombre de patterns choisis, alors l'
       [
         'Nombres séparés par des tirets :',
         '1 : Motif suivant à dessiner',
-        '2 : Motif suivant (nombre)',
-        '3 : Motif 10 (nombre)',
-        '4 : Numéro du motif',
-        '5 : Motif 100 (nombre)',
-        '6 : Une question au hasard parmi les 5 précédentes',
-        '7 : Ensemble des 5 premières propositions',
+        "2 : Nombre d'éléments du motif suivant",
+        "3 : Nombre d'éléments du motif 10",
+        "4 : Nombre d'éléments du motif 100",
+        '5 : Numéro du motif à trouver',
+        '6 : Ensemble des 5 premières propositions',
       ].join('\n'),
     ]
-    this.sup2 = '7'
+    this.sup2 = '6'
 
     const nbDePattern = listePatternsSansRatioNiFraction.length
+
     this.besoinFormulaire3Texte = [
-      'Numéros des pattern désirés :',
+      'Numéros des motifs désirés',
       [
         'Nombres séparés par des tirets  :',
-        `Mettre des nombres entre 1 et ${nbDePattern}.`,
-        `Mettre 0 pour laisser le hasard faire.`,
+        `Entre 1 et ${nbDePattern} : pour choisir un motif particulier`,
+        `0 : pour laisser le hasard faire`,
       ].join('\n'),
     ]
-
     this.sup3 = `0`
+
+    this.besoinFormulaire5CaseACocher = ['Ordre aléatoire des motifs']
+    this.sup5 = true
+
     this.listePackages = ['twemojis'] // this.listePackages est inutile mais la présence du mot "twemojis" est indispensable pour la sortie LaTeX.
   }
 
@@ -117,14 +121,15 @@ Si le nombre de questions est supérieur au nombre de patterns choisis, alors l'
     // MGu quand l'exercice est modifié, on détruit les anciens listeners
     this.destroyers.forEach((destroy) => destroy())
     this.destroyers.length = 0
-    // on ne conserve que les linéaires et les affines sans ratio, ni fraction, ni multiple shape
+
+    const ordreAleatoireDesQuestions = this.sup5
     const nbFigures = contraindreValeur(2, 4, this.sup + 1, 4)
 
     let typesQuestionsInitiales = gestionnaireFormulaireTexte({
       saisie: this.sup2,
-      max: 6,
+      max: 5,
       defaut: 1,
-      melange: 7,
+      melange: 6,
       nbQuestions: 5,
       shuffle: false,
     }).map(Number)
@@ -133,12 +138,16 @@ Si le nombre de questions est supérieur au nombre de patterns choisis, alors l'
       typesQuestionsInitiales = range1(5)
 
     const nbDePattern = listePatternsSansRatioNiFraction.length
+
     let typesPattern = gestionnaireFormulaireTexte({
       saisie: this.sup3,
+      min: 0,
       max: nbDePattern,
       defaut: 0,
       melange: 0,
-      nbQuestions: this.nbQuestions,
+      nbQuestions: Math.min(this.nbQuestions, nbDePattern),
+      shuffle: ordreAleatoireDesQuestions,
+      exclus: [0],
     }).map(Number)
 
     typesPattern = [...typesPattern, ...shuffle(range1(nbDePattern))]
@@ -359,7 +368,7 @@ Si le nombre de questions est supérieur au nombre de patterns choisis, alors l'
             ${explain}`)
             }
             break
-          case 4:
+          case 5:
             {
               const etape = randint(20, 80)
               const nbFormes = pat.fonctionNb(etape)
@@ -385,7 +394,7 @@ Si le nombre de questions est supérieur au nombre de patterns choisis, alors l'
             ${explain2}`)
             }
             break
-          case 5:
+          case 4:
             {
               const nbFormes = pat.fonctionNb(100)
               const nbTex = texNombre(nbFormes, 0)

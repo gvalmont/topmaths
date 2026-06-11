@@ -8,6 +8,10 @@ import {
 import { generateCleaner } from '../cleaners'
 import type { Check, CheckOverrides } from './types'
 
+type NumericComputationOptions = CheckOverrides & {
+  allowReducibleFractions?: boolean
+}
+
 const ce = new ComputeEngine()
 const clean = generateCleaner(['virgules', 'parentheses'])
 
@@ -35,6 +39,7 @@ function createReductionCheck(
     name: options.name ?? name,
     weight: options.weight,
     feedbackEnabled: options.feedbackEnabled,
+    feedbackOnSuccess: options.feedbackOnSuccess,
     run: (saisie) => ({
       passed: predicate(parseRaw(saisie)),
       feedbackKo: options.feedbackKo ?? defaultFeedbackKo,
@@ -60,14 +65,20 @@ function hasTrivialFactor(expr: Expression): boolean {
 
   if (current.operator === 'Negate') {
     const operand = unwrapDelimiter(current.ops[0])
-    return isFunction(operand, 'Multiply') || isFunction(operand, 'InvisibleOperator')
+    return (
+      isFunction(operand, 'Multiply') ||
+      isFunction(operand, 'InvisibleOperator')
+    )
   }
 
   if (current.operator === 'Add' || current.operator === 'Subtract') {
     if (current.ops.some((op) => unwrapDelimiter(op).is(0))) return true
   }
 
-  if (current.operator === 'Multiply' || current.operator === 'InvisibleOperator') {
+  if (
+    current.operator === 'Multiply' ||
+    current.operator === 'InvisibleOperator'
+  ) {
     if (current.ops.some((op) => unwrapDelimiter(op).is(1))) return true
     if (current.ops.some((op) => unwrapDelimiter(op).is(-1))) return true
     if (current.ops.some(hasSignedFactor)) return true
@@ -114,7 +125,10 @@ function gcd(a: number, b: number): number {
   return x
 }
 
-function hasNumericDivisionComputation(expr: Expression): boolean {
+function hasNumericDivisionComputation(
+  expr: Expression,
+  allowReducibleFractions = false,
+): boolean {
   const current = unwrapDelimiter(expr)
   if (!isFunction(current, 'Divide')) return false
 
@@ -123,10 +137,15 @@ function hasNumericDivisionComputation(expr: Expression): boolean {
   if (numerator === undefined || denominator === undefined) return false
   if (denominator === 0) return false
 
-  return Math.abs(denominator) === 1 || gcd(numerator, denominator) !== 1
+  if (Math.abs(denominator) === 1) return true
+  if (allowReducibleFractions) return false
+  return gcd(numerator, denominator) !== 1
 }
 
-function hasNumericComputation(expr: Expression): boolean {
+function hasNumericComputation(
+  expr: Expression,
+  allowReducibleFractions = false,
+): boolean {
   const current = unwrapDelimiter(expr)
   if (!isFunction(current)) return false
 
@@ -144,7 +163,7 @@ function hasNumericComputation(expr: Expression): boolean {
   }
 
   if (current.operator === 'Divide') {
-    return hasNumericDivisionComputation(current)
+    return hasNumericDivisionComputation(current, allowReducibleFractions)
   }
 
   if (current.operator === 'Add' || current.operator === 'Subtract') {
@@ -152,12 +171,17 @@ function hasNumericComputation(expr: Expression): boolean {
     if (current.ops.filter(isNumericLiteral).length > 1) return true
   }
 
-  if (current.operator === 'Multiply' || current.operator === 'InvisibleOperator') {
+  if (
+    current.operator === 'Multiply' ||
+    current.operator === 'InvisibleOperator'
+  ) {
     if (current.ops.every(isNumericLiteral)) return true
     if (current.ops.filter(isNumericLiteral).length > 1) return true
   }
 
-  return current.ops.some(hasNumericComputation)
+  return current.ops.some((op) =>
+    hasNumericComputation(op, allowReducibleFractions),
+  )
 }
 
 function additiveTerms(expr: Expression): Expression[] {
@@ -181,7 +205,10 @@ function termKey(expr: Expression): string {
     return termKey(current.ops[0])
   }
 
-  if (isFunction(current, 'Multiply') || isFunction(current, 'InvisibleOperator')) {
+  if (
+    isFunction(current, 'Multiply') ||
+    isFunction(current, 'InvisibleOperator')
+  ) {
     const factors = current.ops
       .map(unwrapDelimiter)
       .filter((op) => !isNumber(op))
@@ -206,7 +233,10 @@ function hasGroupedFactors(expr: Expression): boolean {
   const current = unwrapDelimiter(expr)
   if (!isFunction(current)) return true
 
-  if (current.operator === 'Multiply' || current.operator === 'InvisibleOperator') {
+  if (
+    current.operator === 'Multiply' ||
+    current.operator === 'InvisibleOperator'
+  ) {
     const seen = new Set<string>()
     for (const factor of current.ops) {
       const key = factorKey(factor)
@@ -258,7 +288,10 @@ function isDistributedExpression(expr: Expression): boolean {
     }
   }
 
-  if (current.operator === 'Multiply' || current.operator === 'InvisibleOperator') {
+  if (
+    current.operator === 'Multiply' ||
+    current.operator === 'InvisibleOperator'
+  ) {
     if (current.ops.some(isAdditive)) return false
   }
 
@@ -274,11 +307,13 @@ export function noTrivialFactor(options: CheckOverrides = {}): Check {
   )
 }
 
-export function noNumericComputation(options: CheckOverrides = {}): Check {
+export function noNumericComputation(
+  options: NumericComputationOptions = {},
+): Check {
   return createReductionCheck(
     'noNumericComputation',
     "Cette expression n'est pas assez réduite : un calcul numérique reste à effectuer.",
-    (expr) => !hasNumericComputation(expr),
+    (expr) => !hasNumericComputation(expr, options.allowReducibleFractions),
     options,
   )
 }
@@ -292,9 +327,9 @@ export function termsGrouped(options: CheckOverrides = {}): Check {
   )
 }
 
-export function distributed(options: CheckOverrides = {}): Check {
+export function isDistributed(options: CheckOverrides = {}): Check {
   return createReductionCheck(
-    'distributed',
+    'isDistributed',
     "Cette expression n'est pas assez réduite : les produits doivent être développés.",
     isDistributedExpression,
     options,

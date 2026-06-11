@@ -161,6 +161,42 @@ const limitesCaps: CompleteKeysList = {
     'COMMA',
   ],
 }
+const lectureLimitesCaps: CompleteKeysList = {
+  inline: [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    0,
+    'COMMA',
+    'SUB',
+    'PLUS_INFTY',
+    'MINUS_INFTY',
+    'NOT_EXISTS',
+  ],
+  block: [
+    7,
+    8,
+    9,
+    'PLUS_INFTY',
+    4,
+    5,
+    6,
+    'MINUS_INFTY',
+    1,
+    2,
+    3,
+    'NOT_EXISTS',
+    'SUB',
+    0,
+    'COMMA',
+  ],
+}
 const numbersOperationsXCaps: CompleteKeysList = {
   inline: [
     1,
@@ -266,6 +302,10 @@ const variableCaps: CompleteKeysList = {
     'V',
     'F',
   ],
+}
+const variableNCaps: CompleteKeysList = {
+  inline: ['nMath'],
+  block: ['nMath'],
 }
 const basicOperationCaps: CompleteKeysList = {
   inline: ['ADD', 'SUB', 'MULT', 'DIV', 'SQ', 'FRAC', '(', ')'],
@@ -808,14 +848,60 @@ const majusculesCaps: CompleteKeysList = {
 
 const minusculesCaps: CompleteKeysList = {
   inline: [
-    'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm',
-    'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z',
+    'a',
+    'b',
+    'c',
+    'd',
+    'e',
+    'f',
+    'g',
+    'h',
+    'i',
+    'j',
+    'k',
+    'l',
+    'm',
+    'n',
+    'o',
+    'p',
+    'q',
+    'r',
+    's',
+    't',
+    'u',
+    'v',
+    'w',
+    'x',
+    'y',
+    'z',
   ],
   block: [
-    'a', 'b', 'c', 'd', 'e', 'f', 'g',
-    'h', 'i', 'j', 'k', 'l', 'm', 'n',
-    'o', 'p', 'q', 'r', 's', 't', 'u',
-    'v', 'w', 'x', 'y', 'z',
+    'a',
+    'b',
+    'c',
+    'd',
+    'e',
+    'f',
+    'g',
+    'h',
+    'i',
+    'j',
+    'k',
+    'l',
+    'm',
+    'n',
+    'o',
+    'p',
+    'q',
+    'r',
+    's',
+    't',
+    'u',
+    'v',
+    'w',
+    'x',
+    'y',
+    'z',
   ],
 }
 
@@ -928,6 +1014,13 @@ export const limites: KeyboardBlock = {
   isUnits: false,
 }
 
+export const lectureLimites: KeyboardBlock = {
+  keycaps: lectureLimitesCaps,
+  cols: 4,
+  title: 'Lecture de limites',
+  isUnits: false,
+}
+
 export const numbersSpace: KeyboardBlock = {
   keycaps: numbersSpaceCaps,
   cols: 4,
@@ -939,6 +1032,13 @@ export const variables: KeyboardBlock = {
   keycaps: variableCaps,
   cols: 3,
   title: 'Variables',
+  isUnits: false,
+}
+
+export const variableN: KeyboardBlock = {
+  keycaps: variableNCaps,
+  cols: 1,
+  title: 'Variable',
   isUnits: false,
 }
 
@@ -1195,6 +1295,7 @@ export const keyboardBlocks: {
   fullOperations,
   hms,
   lengths,
+  lectureLimites,
   clavierFonctionsTerminales,
   majuscules,
   minuscules,
@@ -1209,6 +1310,7 @@ export const keyboardBlocks: {
   numeration,
   probabilite,
   trigo,
+  variableN,
   variables,
   volumes,
   vFON,

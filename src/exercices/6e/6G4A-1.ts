@@ -5,6 +5,7 @@ import { texteParPoint } from '../../lib/2d/textes'
 import { tracePoint } from '../../lib/2d/TracePoint'
 import { homothetie, rotation } from '../../lib/2d/transformations'
 import { angle, longueur } from '../../lib/2d/utilitairesGeometriques'
+import { amcConvert } from '../../lib/amc/amcBuilders'
 import { propositionsQcm } from '../../lib/interactif/qcm'
 import { choice } from '../../lib/outils/arrayOutils'
 import { lettreDepuisChiffre, numAlpha } from '../../lib/outils/outilString'
@@ -16,6 +17,7 @@ import {
   randint,
 } from '../../modules/outils'
 import Exercice from '../Exercice'
+
 export const interactifReady = true
 export const interactifType = 'qcm'
 export const amcType = 'AMCHybride'
@@ -281,8 +283,8 @@ export default class VocabulaireDeBaseDesAngles extends Exercice {
           texteCorrQuestion += questionReponse.question
           texteCorrQuestion += monQcm.texteCorr
           texteCorrQuestion += this.correctionDetaillee
-            ? '<br>' + questionReponse.explications + '<br><br>'
-            : '<br>'
+            ? questionReponse.explications + '<br><br>'
+            : ''
           texte += texteQuestion
           texteCorr += texteCorrQuestion
         } else {
@@ -305,6 +307,7 @@ export default class VocabulaireDeBaseDesAngles extends Exercice {
           options: { avecSymboleMult: true }, // facultatif. Par défaut, multicols est à false. Ce paramètre provoque un multicolonnage (sur 2 colonnes par défaut) des propositions : pratique quand on met plusieurs AMCNum. !!! Attention, cela ne fonctionne pas, nativement, pour AMCOpen. !!!
           propositions: propositionsAMC,
         }
+        this.questionsAMC[i] = amcConvert(this.autoCorrectionAMC[i])
       }
 
       if (this.questionJamaisPosee(i, ...pointsX, ...pointsY)) {

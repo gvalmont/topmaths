@@ -1,3 +1,6 @@
+/**
+ * @author Jean-claude Lhote
+ */
 import { buildAMCId } from './amcHelpers'
 import { normalizeAMCNum, normalizeAMCOpen, normalizeQcm } from './amcNormalize'
 import {
@@ -242,7 +245,7 @@ export function renderAMCHybride(params: AMCHybrideRenderParams): {
       ? item.enonceAGauche[1]
       : 0.5,
     enonceCentre: item.enonceCentre !== undefined || item.enonceCentre,
-    enonceTexte,
+    enonce: enonceTexte,
     multicols: !!opts.multicols && !opts.multicolsAll,
     closeMulticols: !!opts.multicols || !!opts.multicolsAll,
     content: blocks.join('\n'),

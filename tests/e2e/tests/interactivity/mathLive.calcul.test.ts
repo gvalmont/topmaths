@@ -1,17 +1,17 @@
-import { clean } from '../../helpers/text'
+import type { Page } from 'playwright'
+import prefs from '../../helpers/prefs.js'
 import {
   checkFeedback,
   getQuestions,
   inputAnswer,
   runTest,
 } from '../../helpers/run'
-import type { Page } from 'playwright'
-import prefs from '../../helpers/prefs.js'
+import { clean } from '../../helpers/text'
 
 async function testEntier(page: Page) {
-  await page.setDefaultTimeout(60000) // Set timeout to 60 seconds
+  await page.setDefaultTimeout(200_000) // Set timeout to 200 seconds
   const hostname = local
-    ? `http://localhost:${process.env.CI ? '80' : '5173'}/alea/`
+    ? `http://localhost:${process.env.PLAYWRIGHT_SERVER_PORT ?? (process.env.CI ? '80' : '5173')}/alea/`
     : 'https://coopmaths.fr/alea/'
   const urlExercice =
     hostname + '?uuid=cfa6a&id=6C10&n=20&d=10&s=6&s2=3&i=1&cd=1'
@@ -61,9 +61,9 @@ async function testEntier(page: Page) {
 }
 
 async function testCalculLitteral(page: Page) {
-  await page.setDefaultTimeout(60000) // Set timeout to 60 seconds
+  await page.setDefaultTimeout(200_000) // Set timeout to 200 seconds
   const hostname = local
-    ? `http://localhost:${process.env.CI ? '80' : '5173'}/alea/`
+    ? `http://localhost:${process.env.PLAYWRIGHT_SERVER_PORT ?? (process.env.CI ? '80' : '5173')}/alea/`
     : 'https://coopmaths.fr/alea/'
   const urlExercice =
     hostname + '?uuid=db2e0&id=3L11&n=10&d=10&s=3&s2=2&s3=1&s4=true&n=20&i=1'
@@ -95,9 +95,9 @@ async function testCalculLitteral(page: Page) {
 }
 
 async function testCalculLitteral2(page: Page) {
-  await page.setDefaultTimeout(60000) // Set timeout to 60 seconds
+  await page.setDefaultTimeout(200_000) // Set timeout to 200 seconds
   const hostname = local
-    ? `http://localhost:${process.env.CI ? '80' : '5173'}/alea/`
+    ? `http://localhost:${process.env.PLAYWRIGHT_SERVER_PORT ?? (process.env.CI ? '80' : '5173')}/alea/`
     : 'https://coopmaths.fr/alea/'
   const urlExercice =
     hostname + '?uuid=db2e0&n=10&d=10&s=3&s2=2&s3=3&s4=true&i=1&cd=1'
@@ -129,9 +129,9 @@ async function testCalculLitteral2(page: Page) {
 }
 
 async function testRelatifs(page: Page) {
-  await page.setDefaultTimeout(60000) // Set timeout to 60 seconds
+  await page.setDefaultTimeout(200_000) // Set timeout to 200 seconds
   const hostname = local
-    ? `http://localhost:${process.env.CI ? '80' : '5173'}/alea/`
+    ? `http://localhost:${process.env.PLAYWRIGHT_SERVER_PORT ?? (process.env.CI ? '80' : '5173')}/alea/`
     : 'https://coopmaths.fr/alea/'
   const urlExercice = hostname + '?uuid=cbc26&id=5R20&i=1'
 

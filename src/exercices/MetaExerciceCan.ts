@@ -7,6 +7,7 @@ import {
   ajouteChampTexteMathLive,
   remplisLesBlancs,
 } from '../lib/interactif/questionMathLive'
+import { getDistracteurs } from '../lib/mathalea'
 import { Complexe } from '../lib/mathFonctions/Complexe'
 import { combinaisonListes, shuffle } from '../lib/outils/arrayOutils'
 import { range1 } from '../lib/outils/nombres'
@@ -15,13 +16,13 @@ import type {
   OptionsComparaisonType,
   Valeur,
 } from '../lib/types'
+import { isValeur } from '../lib/types'
 import FractionEtendue from '../modules/FractionEtendue'
 import Grandeur from '../modules/Grandeur'
 import Hms from '../modules/Hms'
 import { gestionnaireFormulaireTexte } from '../modules/outils'
 import Exercice from './Exercice'
 import ExerciceSimple from './ExerciceSimple'
-import { getDistracteurs } from '../lib/mathalea'
 
 export const interactifType = 'mathLive'
 export const interactifReady = true
@@ -161,12 +162,31 @@ export default class MetaExercice extends Exercice {
               Question.correction = qcmData.correction
               this.listeCorrections[indexQuestion] = qcmData.correction
               this.listeQuestions[indexQuestion] = consigne + qcmData.question
-              this.autoCorrection[indexQuestion] = Question.autoCorrection[indexQuestion]
+              this.autoCorrection[indexQuestion] =
+                Question.autoCorrection[indexQuestion]
               indexQuestion++
               break
             }
 
-            if (
+            if (Question.formatInteractif === 'multiMathfield') {
+              // La question a construit elle-même son composant <multi-mathfield>
+              // (via addMultiMathfield) avec l'indice 0 : on réindexe les identifiants
+              // sur la position réelle de la question dans le méta-exercice.
+              const n = Question.numeroExercice
+              const questionHtml = String(Question.question)
+                .replaceAll(
+                  `multiMathfieldEx${n}Q0`,
+                  `multiMathfieldEx${n}Q${indexQuestion}`,
+                )
+                .replaceAll(
+                  `feedbackEx${n}Q0`,
+                  `feedbackEx${n}Q${indexQuestion}`,
+                )
+              this.listeQuestions[indexQuestion] = consigne + questionHtml
+              handleAnswers(this, indexQuestion, Question.reponse as Valeur, {
+                formatInteractif: 'multiMathfield',
+              })
+            } else if (
               Question.formatInteractif === 'fillInTheBlank' ||
               (typeof Question.reponse === 'object' &&
                 'champ1' in Question.reponse)
@@ -526,6 +546,13 @@ export default class MetaExercice extends Exercice {
           }
           if (Question?.autoCorrection[0]?.propositions != null) {
             // qcm
+            // Les propositions ont déjà été mélangées par buildQcmForExercise et la correction
+            // a été construite avec cet ordre. On empêche un second mélange pour que la lettre
+            // annoncée dans la correction corresponde à ce qui est affiché dans la question.
+            this.autoCorrection[indexQuestion].options = {
+              ...(this.autoCorrection[indexQuestion].options ?? {}),
+              ordered: true,
+            }
             const monQcm = propositionsQcm(this, indexQuestion, {
               style: 'margin:0 3px 0 3px;',
               format: this.interactif ? 'case' : 'lettre',
@@ -577,50 +604,4 @@ export default class MetaExercice extends Exercice {
   En choisissant un nombre de questions inférieur à 30, on fabrique une « mini » Course Aux Nombres qui respecte la proportion de nombre de questions élémentaires par rapport aux autres.
   Par exemple, en choisissant 20 questions, la course aux nombres sera composée de 7 ou 8 questions élémentaires choisies aléatoirement dans les 10 premières questions du sujet officiel puis de 12 ou 13 autres questions choisies aléatoirement parmi les 20 autres questions du sujet officiel.`
   }
-}
-
-function isValeur(x: unknown): x is Valeur {
-  const answerTypes = [
-    'reponse',
-    'champ1',
-    'champ2',
-    'champ3',
-    'champ4',
-    'champ5',
-    'champ6',
-    'field1',
-    'field2',
-    'field3',
-    'field4',
-    'field5',
-    'field6',
-    'field7',
-    'field8',
-    'rectangle1',
-    'rectangle2',
-    'rectangle3',
-    'rectangle4',
-    'rectangle5',
-    'rectangle6',
-    'rectangle7',
-    'rectangle8',
-    'L1C1',
-    'L1C2',
-    'L1C3',
-    'L1C4',
-    'L1C5',
-    'L2C1',
-    'L2C2',
-    'L2C3',
-    'L2C4',
-    'L2C5',
-    'L3C1',
-    'L3C2',
-    'L3C3',
-    'L3C4',
-    'L3C5',
-  ]
-  return (
-    typeof x === 'object' && x !== null && answerTypes.some((type) => type in x)
-  )
 }

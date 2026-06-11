@@ -108,9 +108,9 @@ export function mathalea2d(
         const objet = objets as ObjetMathalea2D
         if (!mainlevee || typeof objet?.svgml === 'undefined') {
           if (objet?.svg) {
-            const code = objet.svg(pixelsParCm)
+            const code = context.isHtml ? objet.svg(pixelsParCm) : ''
             if (typeof code === 'string') {
-              codeSvg = '\t' + objet.svg(pixelsParCm) + '\n'
+              codeSvg = '\t' + code + '\n'
             } else {
               const codeLatex = code as ObjetDivLatex
               // on a à faire à un divLatex.
@@ -121,7 +121,7 @@ export function mathalea2d(
                 )
                 return codeSvg
               }
-
+              if (!context.isHtml) return ''
               const xSvg = (codeLatex.x - xmin) * pixelsParCm * zoom
               const ySvg = -(codeLatex.y - ymax) * pixelsParCm * zoom
               if ('letterSize' in codeLatex) {
@@ -139,6 +139,7 @@ export function mathalea2d(
                     : `<div class="divLatex" style="position: absolute; top: ${ySvg}px; left: ${xSvg}px; transform: translate(-50%,-50%) rotate(${normaliseOrientation(-codeLatex.orientation)}deg); opacity: ${codeLatex.opacity};" data-top=${ySvg} data-left=${xSvg}>${katex.renderToString('{\\color{' + codeLatex.color + '} \\' + codeLatex.letterSize + '{' + (codeLatex.gras ? '\\textbf{' : '') + codeLatex.latex.replaceAll('color[HTML]', 'color') + (codeLatex.gras ? '}' : '') + '}}')}</div>`
                 divsLatex.push(divOuterHtml)
               } else if ('exercice' in codeLatex) {
+                if (!context.isHtml) return ''
                 if ('inputs' in codeLatex) {
                   const code = codeLatex as unknown as MetaInteractif2dData
                   const inputs = code.inputs
@@ -149,10 +150,25 @@ export function mathalea2d(
                     const dataKeyboard = buildDataKeyboardString(
                       convertClasseToString(input.classe),
                     )
-                    const divOuterHtml = `<div class="divLatex" style="position: absolute; top: ${ySvgInput}px; left: ${xSvgInput}px; transform: translate(-50%,-50%); opacity: ${input.opacity};" data-top=${ySvgInput} data-left=${xSvgInput}>${
+                    const champIndex = input.content.indexOf('%{champ1}')
+                    const prefix =
+                      champIndex > 0 ? input.content.slice(0, champIndex) : ''
+                    const prefixHtml = prefix
+                      ? katex.renderToString(prefix)
+                      : ''
+                    const mathFieldContent = input.content
+                      .slice(champIndex === -1 ? 0 : champIndex)
+                      .replace('%{champ1}', '\\placeholder[champ1]{}')
+                    const blancContent = input.content
+                      .slice(champIndex === -1 ? 0 : champIndex)
+                      .replace('%{champ1}', input.blanc)
+                    const transform = prefix
+                      ? 'translate(0,-50%)'
+                      : 'translate(-50%,-50%)'
+                    const divOuterHtml = `<div class="divLatex" style="position: absolute; top: ${ySvgInput}px; left: ${xSvgInput}px; transform: ${transform}; opacity: ${input.opacity}; display: inline-flex; align-items: center; gap: 2px;" data-top=${ySvgInput} data-left=${xSvgInput}>${prefixHtml}${
                       isInteractif
-                        ? `<math-field data-keyboard="${dataKeyboard}" virtual-keyboard-mode=manual readonly class="${input.classe} metaInteractif2d" id="MetaInteractif2dEx${code.exercice.numeroExercice}Q${code.question}field${input.index}">${input.content.replace('%{champ1}', '\\placeholder[champ1]{}')}</math-field>`
-                        : `$${input.content.replace('%{champ1}', input.blanc)}$`
+                        ? `<math-field data-keyboard="${dataKeyboard}" virtual-keyboard-mode=manual readonly class="${input.classe} metaInteractif2d" id="MetaInteractif2dEx${code.exercice.numeroExercice}Q${code.question}field${input.index}">${mathFieldContent}</math-field>`
+                        : `$${blancContent}$`
                     }</div>`
                     divsLatex.push(divOuterHtml)
                   }
@@ -167,6 +183,7 @@ export function mathalea2d(
           }
         } else {
           if (objet?.svgml) {
+            if (!context.isHtml) return ''
             codeSvg = '\t' + objet.svgml(pixelsParCm, amplitude) + '\n'
           }
         }
@@ -225,6 +242,7 @@ export function mathalea2d(
           if (!mainlevee || typeof objets.tikzml === 'undefined') {
             if (typeof objets.tikz === 'function') {
               // Pass axis bounds to Courbe's tikz method
+              if (context.isHtml) return ''
               if ((objets as any).usePgfplots === true) {
                 codeTikz =
                   '\t' +
@@ -236,6 +254,7 @@ export function mathalea2d(
             }
           } else {
             if (typeof objets.tikzml === 'function') {
+              if (context.isHtml) return ''
               codeTikz = '\t' + objets.tikzml(amplitude) + '\n'
             }
           }
@@ -342,8 +361,7 @@ export function mathalea2d(
       codeTikz += ']\n'
     }
 
-    codeTikz += `
-    \\tikzset{
+    codeTikz += `\\tikzset{
       point/.style={
         thick,
         draw,
@@ -353,11 +371,10 @@ export function mathalea2d(
         minimum height=5pt,
       },
     }
-    \\clip (${xmin},${ymin}) rectangle (${xmax},${ymax});
-    `
+    \\clip (${xmin},${ymin}) rectangle (${xmax},${ymax});`
     // code += codeTikz(...objets)
     codeTikz += ajouteCodeTikz(mainlevee, objets)
-    codeTikz += '\n\\end{tikzpicture}'
+    codeTikz += '\\end{tikzpicture}'
     if (centerLatex) codeTikz += '\\par}'
   }
 

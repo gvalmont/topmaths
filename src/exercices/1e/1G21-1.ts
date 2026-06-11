@@ -3,7 +3,7 @@ import type { MathfieldElement } from 'mathlive'
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
-import { choice } from '../../lib/outils/arrayOutils'
+import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
 import {
   ecritureAlgebrique,
   ecritureAlgebriqueSauf1,
@@ -14,10 +14,13 @@ import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { getLang } from '../../lib/stores/languagesStore'
 import type { IExercice } from '../../lib/types'
 import FractionEtendue from '../../modules/FractionEtendue'
-import { listeQuestionsToContenu, randint } from '../../modules/outils'
+import {
+  gestionnaireFormulaireTexte,
+  listeQuestionsToContenu,
+  randint,
+} from '../../modules/outils'
 import Exercice from '../Exercice'
-export const titre =
-  'Déterminer une équation cartésienne avec un point et un vecteur normal'
+export const titre = 'Déterminer une équation cartésienne'
 export const dateDePublication = '04/07/2024'
 export const dateDeModifImportante = '03/03/2025'
 export const interactifReady = true
@@ -25,10 +28,10 @@ export const interactifType = 'mathLive'
 
 /**
  *
- * @author Gilles Mora
+ * @author Gilles Mora et Stéphane Guyon
  * Jean-claude Lhote interactif
  */
-export const uuid = '816d5'
+export const uuid = '816de'
 
 export const refs = {
   'fr-fr': ['1G21-1'],
@@ -40,18 +43,43 @@ class EqCartDroite extends Exercice {
   constructor() {
     super()
     this.nbQuestions = 1
-
+    this.sup = 1
+    this.spacingCorr = 2
+    this.spacing = 1.5
+    this.besoinFormulaireTexte = [
+      'Type de questions',
+      [
+        'Nombres séparés par des tirets  :',
+        '1 : Avec un vecteur normal',
+        '2 : Avec deux points',
+        '3 : Avec un vecteur directeur',
+        '4 : Point et coefficient directeur/pente',
+        '5 : Mélange.',
+      ].join('\n'),
+    ]
     this.version = 1
   }
 
   nouvelleVersion(): void {
     // Lettre entre A et W mais pas L, M, N ou O pour ne pas avoir O dans les 4 points
     const lang = getLang()
+    const typesDeQuestionsDisponibles = gestionnaireFormulaireTexte({
+      saisie: this.sup,
+      min: 1,
+      max: 5,
+      melange: 5,
+      defaut: 1,
+      nbQuestions: this.nbQuestions,
+    })
+    const listeTypeDeQuestions = combinaisonListes(
+      typesDeQuestionsDisponibles,
+      this.nbQuestions,
+    )
     for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50; ) {
       let xA, yA, xB, yB, xn, yn, constante, xu, yu, m
       let texte = ''
       let texteCorr = ''
-      switch (this.version) {
+      switch (listeTypeDeQuestions[i]) {
         case 4: // 2G30-5 Point et pente
           xA = randint(-5, 5)
           yA = randint(-5, 5)
@@ -92,9 +120,9 @@ class EqCartDroite extends Exercice {
           constante = -xA * yu + yA * xu
           texte = `Dans un repère orthonormé du plan, on considère la droite $(d)$ qui passe par le point $A$ de coordonnées $(${xA}\\,;\\,${yA})$ et qui a le vecteur $\\vec u \\begin{pmatrix}${xu}\\\\${yu}\\end{pmatrix}$ comme vecteur directeur.<br>
     Déterminer une équation cartésienne de la droite $(d)$`
-          if (this.sup === 1) {
+          if (this.version === 1) {
             texte +=
-              '<br><i>On demande une rédaction utilisant un résultat de cours.</i>'
+              '.<br><i>On demande une rédaction utilisant un résultat de cours</i>'
             texteCorr =
               "On sait, d'après le cours, que si une droite $(d)$ admet un vecteur directeur de coordonnées :"
             texteCorr +=
@@ -108,8 +136,6 @@ class EqCartDroite extends Exercice {
         c&= ${-xA * yu + yA * xu}
         \\end{aligned}$`
           } else {
-            texte +=
-              "<br><i>On demande une démonstration n'utilisant pas de résultat de cours.</i>"
             texteCorr = 'Soit $M(x;y)$ un point du plan distinct de $A$.'
             texteCorr += '<br>$M(x;y) \\in (d)$'
             texteCorr +=
@@ -124,11 +150,9 @@ class EqCartDroite extends Exercice {
             texteCorr += `<br>$\\iff (x-${ecritureParentheseSiNegatif(xA)})\\times ${yu}-( y-${ecritureParentheseSiNegatif(yA)}) \\times ${ecritureParentheseSiNegatif(xu)}=0$`
             texteCorr += `<br>$\\iff ${yu} x ${ecritureAlgebriqueSauf1(-xu)} y -${ecritureParentheseSiNegatif(xA)} \\times ${yu} ${ecritureAlgebrique(yA)} \\times ${ecritureParentheseSiNegatif(xu)}=0$`
           }
-          texteCorr +=
-            this.sup === 2 ? ' <br>Après réduction, une ' : ' <br>Une '
 
           break
-        case 2: // 2G30-3 Deux points
+        case 2: // Deux points
           xA = randint(-5, 5)
           yA = randint(-5, 5)
           xB = randint(-5, 5)
@@ -185,7 +209,7 @@ class EqCartDroite extends Exercice {
           }
 
           break
-        default: // 1G13 Point et vecteur normal
+        default: // Point et vecteur normal
           xA = randint(-5, 5, 0)
           yA = randint(-5, 5, 0)
           xn = randint(-5, 5, 0)
@@ -307,16 +331,16 @@ class EqCartDroite extends Exercice {
         }
         return resultat
       }
-      if (this.version === 4) {
+
+      if (typesDeQuestionsDisponibles[i] === 4) {
         texteCorr += `<br>On en déduit qu'une équation cartésienne de ${lang === 'fr-CH' ? '$(AB)$' : '$(d)$'} est : $${miseEnEvidence(reponse)}$.`
         if (m != null) {
           if (m < 0 && -m * xA + yA < 0) {
             texteCorr += `<br>Cette équation peut s'écrire plus simplement :  $${-m} x+y${ecritureAlgebrique(m * xA - yA)}=0$.`
           }
         }
-      } else if (this.version === 3) {
-        texteCorr +=
-          'équation cartésienne de la droite $(d)$ est donc de la forme : '
+      } else if (typesDeQuestionsDisponibles[i] === 3) {
+        texteCorr += `<br>On en déduit qu'une équation cartésienne de la droite $(d)$ est donc de la forme : `
         texteCorr += `$${miseEnEvidence(reponse)}$.`
       } else {
         texteCorr += `<br>Une équation cartésienne de la droite ${this.version === 2 ? '$(AB)$' : '$(d)$'} est donc de la forme : `

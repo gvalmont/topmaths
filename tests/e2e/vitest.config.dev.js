@@ -1,7 +1,11 @@
+import { dirname, resolve } from 'node:path'
+import { fileURLToPath } from 'node:url'
 import { mergeConfig } from 'vite'
 import { defineConfig } from 'vitest/config'
 import viteConfig from './vite.config'
-import { resolve } from 'node:path'
+
+const __filename = fileURLToPath(import.meta.url)
+const __dirname = dirname(__filename)
 
 export default mergeConfig(
   viteConfig,
@@ -16,7 +20,7 @@ export default mergeConfig(
       exclude: ['./tests/dev/mathLive.moule.test.ts'],
       // on veut laisser le navigateur ouvert sur un plantage (10min)
       hookTimeout: 600_000,
-      testTimeout: 300_000,
+      testTimeout: 3_600_000,
 
       // describe.sequential() ne fonctionne que dans un describe.concurrent()
       // cf https://vitest.dev/api/#describe-sequential

@@ -4,10 +4,6 @@ import type { IExerciceQcm, IExerciceQcmOptions } from '../lib/types'
 import { context } from '../modules/context'
 import Exercice from './Exercice'
 
-// export const uuid = 'UUID à modifier'
-// export const titre = 'Titre de l'exercice à modifier'
-// export const refs = [{'fr-fr',['ref française à renseigner']},{'fr-ch', ['ref suisse à renseigner']}]
-
 export const interactifReady = true
 export const interactifType = 'qcm'
 export const amcReady = 'true'
@@ -40,7 +36,6 @@ export default class ExerciceQcm extends Exercice implements IExerciceQcm {
     this.sup2 = false
     // Il n'est pas prévu d'avoir plus d'une question car ceci est prévu pour un seul énoncé statique à la base même si on pourra changer les valeurs et prévoir une aléatoirisation
     this.nbQuestions = 1
-    this.nbQuestionsModifiable = false
 
     this.spacingCorr = 2 // idem pour la correction
     // Les options pour le qcm à modifier éventuellement (vertical à true pour les longues réponses par exemple)
@@ -76,7 +71,7 @@ ${this.interactif || context.isAmc ? 'Cocher la (ou les) case(s) correspondante(
         else this.versionAleatoire()
 
         const bonneReponse = this.reponses[0]
-        if (this.questionJamaisPosee(i, bonneReponse)) {
+        if (this.questionJamaisPosee(i, this.enonce, bonneReponse)) {
           const qcmData = buildQcmForExercise(this, i, {
             question: this.enonce,
             correction: this.correction,

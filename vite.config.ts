@@ -28,12 +28,29 @@ export default defineConfig({
   build: {
     target: ['es2020', 'edge88', 'firefox78', 'chrome87', 'safari14'],
     sourcemap: true,
+    // Évite de calculer la taille gzip de chaque chunk (coûteux, purement cosmétique)
+    reportCompressedSize: false,
     // À partir du 16/11/24 le build est devenu impossible sans options de chunking
     rollupOptions: {
+      onwarn(warning, warn) {
+        // eval dans jspreadsheet-ce (dépendance tierce, non modifiable)
+        if (warning.code === 'EVAL' && warning.id?.includes('jspreadsheet-ce')) return
+        // eval dans 6I1D.ts : nécessaire pour que le code Blockly accède à la closure locale
+        if (warning.code === 'EVAL' && warning.id?.includes('6I1D')) return
+        // sourcemaps non générées par @tailwindcss/vite (bug connu du plugin)
+        if (warning.code === 'SOURCEMAP_BROKEN' && warning.plugin === '@tailwindcss/vite:generate:build') return
+        if (warning.code === 'EMPTY_BUNDLE' && warning.names?.includes('vendors/javascript-natural-sort')) return
+        warn(warning)
+      },
       output: {
         manualChunks: (id) => {
           // Pour les dépendances pnpm
           if (id.includes('.pnpm')) {
+            // Regrouper three.js et troika-three-text (toujours chargés ensemble)
+            if (id.includes('/three@') || id.includes('/troika-')) {
+              return 'vendors/three-3d'
+            }
+
             // Extraire le vrai nom du package
             const regex = /\.pnpm\/@?(.*?)(?=@)/
             const match = id.match(regex)

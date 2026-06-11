@@ -1,5 +1,7 @@
 import { renderTemplate } from './amcTemplates'
-
+/**
+ * @author Jean-claude Lhote
+ */
 export type AMCPreambleRenderData = {
   documentClassOptions: string
   dynamicPreamble?: string
@@ -20,14 +22,21 @@ export type AMCHeaderRenderData = {
 export type AMCDocumentStartRenderData = {
   seed: number
   groupsContent: string
+  mergeGroupsAndShuffle?: boolean
 }
 
 export type AMCCopyContentRenderData = {
   isCodeGrid: boolean
   groupsSections: string
+  mergedGroupsContent?: string
+  /** Section du groupe total (cleargroup + copygroup + titre + restituegroupe). Prioritaire sur mergedGroupsContent. */
+  totalGroupSection?: string
+  /** Sections individuelles des groupes non fusionnés dans le groupe total. */
+  nonMergedGroupsSections?: string
   isA3: boolean
   isAssociation: boolean
   collectCorrectionsAtEnd?: boolean
+  mergeGroupsAndShuffle?: boolean
 }
 
 export type AMCGroupSectionRenderData = {
@@ -49,9 +58,15 @@ export const AMCPreambleTemplate = `%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
   \\RequirePackage{etex}	  % pour avoir plus de "registres" mémoires / tikz...
   %%%%% PACKAGES LANGUE %%%%%
   \\usepackage{babel} % sans option => langue définie dans la classe du document
-   \\usepackage[T1]{fontenc} % pour de la compilation en luaLaTex, faudra changer : voir alacarte.ts
-   \\usepackage[utf8x]{inputenc} % pour de la compilation en luaLaTex, faudra changer : voir alacarte.ts
-   \\usepackage{lmodern}	        	% Choix de la fonte (Latin Modern de D. Knuth)
+   \\usepackage{iftex}
+   \\ifPDFTeX
+     \\usepackage[T1]{fontenc}
+     \\usepackage[utf8x]{inputenc}
+     \\usepackage{lmodern}
+   \\else
+     \\usepackage{fontspec}
+     \\setmainfont{Latin Modern Roman}
+   \\fi
    \\usepackage{fp}
    \\usepackage{ProfCollege}
 
@@ -152,7 +167,7 @@ export const AMCPreambleTemplate = `%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 %%% Explications %%%
   \\ExplSyntaxOn
-\\tl_new:N \\explicatons
+\\tl_new:N \\explications
 \\cs_new:Nn \\expl_vide: {
   \\tl_gset:Nn \\explications { \\debutexplications }
 }
@@ -313,12 +328,12 @@ export const AMCDocumentStartTemplate = `%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
   %%% préparation des groupes
-  \\setdefaultgroupmode{cyclic}
+  \\setdefaultgroupmode{ {{- "withoutreplacement" if mergeGroupsAndShuffle else "cyclic" -}} }
 {{ groupsContent | safe }}
 `
 
 export const AMCCopyContentTemplate = `{% if isCodeGrid %}	 \\def\\AMCchoiceLabel##1{}{% endif %}
-{{ groupsSections | safe }}{% if collectCorrectionsAtEnd %}\\explaincontext{\\AMCexpliqueTout}
+{% if mergeGroupsAndShuffle %}{% if totalGroupSection is defined %}{{ totalGroupSection | safe }}{{ nonMergedGroupsSections | safe }}{% else %}{{ mergedGroupsContent | safe }}{% endif %}{% else %}{{ groupsSections | safe }}{% endif %}{% if collectCorrectionsAtEnd %}\\explaincontext{\\AMCexpliqueTout}
 {% endif %}{% if isA3 %}\\end{multicols}
 {% endif %}{% if isAssociation %}\\AMCassociation{\\id}
     }
@@ -350,12 +365,19 @@ export const AMCGroupSectionTemplate = `
 {% endif %}{% if multicols %}\\end{multicols}
 {% endif %}`
 
+function normalizeAmcTitleApostrophes(value: string): string {
+  return value.replace(/[\u2018\u2019]/g, "'")
+}
+
 export function renderAMCPreamble(data: AMCPreambleRenderData) {
   return renderTemplate(AMCPreambleTemplate, data)
 }
 
 export function renderAMCHeader(data: AMCHeaderRenderData) {
-  return renderTemplate(AMCHeaderTemplate, data)
+  return renderTemplate(AMCHeaderTemplate, {
+    ...data,
+    titre: normalizeAmcTitleApostrophes(data.titre),
+  })
 }
 
 export function renderAMCDocumentStart(data: AMCDocumentStartRenderData) {
@@ -367,5 +389,8 @@ export function renderAMCCopyContent(data: AMCCopyContentRenderData) {
 }
 
 export function renderAMCGroupSection(data: AMCGroupSectionRenderData) {
-  return renderTemplate(AMCGroupSectionTemplate, data)
+  return renderTemplate(AMCGroupSectionTemplate, {
+    ...data,
+    groupTitle: normalizeAmcTitleApostrophes(data.groupTitle),
+  })
 }

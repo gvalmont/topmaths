@@ -18,6 +18,8 @@ import { mathalea2d } from '../../modules/mathalea2d'
 import operation from '../../modules/operations'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import Exercice from '../Exercice'
+import { amcConvert } from '../../lib/amc/amcBuilders'
+
 
 export const amcReady = true
 export const amcType = 'AMCNum'
@@ -299,8 +301,12 @@ export default class AdditionnerSoustrairesDecimaux extends Exercice {
       if (context.isAmc) {
         this.autoCorrectionAMC[i] = {
           enonce: texte,
-          propositions: [{ texte: texteCorr }],
+          reponse: {
+            valeur: reponse,
+            texte: texteCorr,
+          },
         }
+        this.questionsAMC[i] = amcConvert(this.autoCorrectionAMC[i])
         const amcParam = ensureAmcParam(this, i)
         amcParam.digits =
           nombreDeChiffresDansLaPartieEntiere(reponse) +

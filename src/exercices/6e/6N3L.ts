@@ -1,18 +1,17 @@
+import { amcConvert } from '../../lib/amc/amcBuilders'
 import { ensureAmcParam } from '../../lib/amc/amcHelpers'
 import { bleuMathalea } from '../../lib/colors'
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 import { setReponse } from '../../lib/interactif/gestionInteractif'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { choice } from '../../lib/outils/arrayOutils'
-import {
-  simplificationDeFractionAvecEtapes,
-  texFractionFromString,
-} from '../../lib/outils/deprecatedFractions'
+import { texFractionFromString } from '../../lib/outils/deprecatedFractions'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { arrondi } from '../../lib/outils/nombres'
 import { sp } from '../../lib/outils/outilString'
 import { texNombre } from '../../lib/outils/texNombre'
 import { context } from '../../modules/context'
+import FractionEtendue from '../../modules/FractionEtendue'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import Exercice from '../Exercice'
 
@@ -21,9 +20,10 @@ export const interactifReady = true
 export const interactifType = 'mathLive'
 export const amcReady = true
 export const amcType = 'AMCNum'
+export const dateDeModificationImportante = '03/06/2026'
 
 /**
- * Calculer la fracton d'un nombre divisible par le dénominateur ... ou pas.
+ * Calculer la fraction d'un nombre divisible par le dénominateur ... ou pas.
  *
  * Par défaut la division du nombre par le dénominateur est inférieure à 11
  * @author Rémi Angot + Jean-claude Lhote
@@ -41,15 +41,25 @@ export default class FractionDUnNombre extends Exercice {
     this.besoinFormulaireCaseACocher = ['Forcer résultat entier', true]
     this.besoinFormulaire2CaseACocher = ['Plusieurs méthodes', false]
     this.nbQuestions = 5
-    this.consigne = 'Calculer.'
-    context.isHtml ? (this.spacingCorr = 3.5) : (this.spacingCorr = 2)
-    context.isHtml ? (this.spacing = 2) : (this.spacing = 2)
+
+    this.spacingCorr = context.isHtml ? 3.5 : 2
+    this.spacing = 2
+
     this.sup = true
     this.sup2 = false
     this.nbCols = 2
   }
 
   nouvelleVersion() {
+    this.consigne = this.sup
+      ? 'Donner la valeur décimale (ou entière) '
+      : 'Donner la valeur  '
+    this.consigne +=
+      this.nbQuestions === 1 ? 'du calcul suivant.' : 'des calculs suivants.'
+    if (!this.sup)
+      this.consigne +=
+        "<br>La réponse doit être fournie sous forme fractionnaire, seulement s'il n'y a pas de réponse décimale (ou entière)."
+
     const listeFractions = [
       [1, 2],
       [1, 3],
@@ -104,19 +114,35 @@ export default class FractionDUnNombre extends Exercice {
           texteCorr += `$${texFractionFromString(
             a,
             miseEnEvidence(b, bleuMathalea),
+          )}\\times${n}=${texFractionFromString(
+            a,
+            miseEnEvidence(b, bleuMathalea),
+          )}\\times${miseEnEvidence(b, bleuMathalea)}\\times${texNombre(
+            n / b,
+          )}=1\\times${texNombre(n / b)}=${texNombre(n / b)}$<br>`
+          texteCorr += `$${texFractionFromString(
+            a,
+            miseEnEvidence(b, bleuMathalea),
           )}\\times${n}=${n}\\div${miseEnEvidence(b, bleuMathalea)}=${texNombre(
             n / b,
           )}$`
         } else {
-          // si résultat décimal
-          texteCorr += `$${texFractionFromString(a, b)}\\times${n}=${texFractionFromString(
-            n,
-            b,
-          )}${simplificationDeFractionAvecEtapes(n, b)}$`
-        } // si résultat non décimal
+          const frac = new FractionEtendue(n, b)
+          // si résultat non décimal
+          texteCorr += `$${texFractionFromString(a, b)}\\times${n}=${frac.estIrreductible ? frac.texFraction : frac.texSimplificationAvecEtapes()}$`
+        }
       } else {
         if (n / b - arrondi(n / b, 4) === 0) {
           // si n/b décimal calcul (n/b)*a
+          texteCorr += `$${texFractionFromString(
+            a,
+            miseEnEvidence(b, bleuMathalea),
+          )}\\times${n}=${texFractionFromString(
+            a,
+            miseEnEvidence(b, bleuMathalea),
+          )}\\times${miseEnEvidence(b, bleuMathalea)}\\times${texNombre(
+            n / b,
+          )}=${a}\\times${texNombre(n / b)}=${texNombre((a * n) / b)}$<br>`
           texteCorr += `$${texFractionFromString(
             a,
             miseEnEvidence(b, bleuMathalea),
@@ -128,8 +154,9 @@ export default class FractionDUnNombre extends Exercice {
           )}\\times${a}=${texNombre((n / b) * a)}$<br>`
         } else {
           if ((n * a) / b - arrondi((n * a) / b, 4) === 0) {
+            // EE : Ne se produit jamais
             // si n/b non décimal, alors on se rabat sur (n*a)/b
-            texteCorr += ` $${texFractionFromString(
+            texteCorr += `$${texFractionFromString(
               a,
               miseEnEvidence(b, bleuMathalea),
             )}\\times${n}=(${n}\\times${a})\\div${miseEnEvidence(
@@ -141,7 +168,7 @@ export default class FractionDUnNombre extends Exercice {
             )}=${texNombre((n / b) * a)}$<br>`
           } else {
             // si autre méthode et résultat fractionnaire calcul (n*a)/b
-            texteCorr += ` $${texFractionFromString(
+            texteCorr += `$${texFractionFromString(
               a,
               miseEnEvidence(b, bleuMathalea),
             )}\\times${n}=(${n}\\times${a})\\div${miseEnEvidence(
@@ -150,7 +177,7 @@ export default class FractionDUnNombre extends Exercice {
             )}=${n * a}\\div${miseEnEvidence(
               b,
               bleuMathalea,
-            )}=${texFractionFromString(n * a, miseEnEvidence(b, bleuMathalea))}$<br>`
+            )}=${texFractionFromString(n * a, b)}$<br>`
           }
           j = true
         }
@@ -209,9 +236,11 @@ export default class FractionDUnNombre extends Exercice {
       )
       if (context.isAmc) {
         this.autoCorrectionAMC[i].enonce = texte
+        this.questionsAMC[i] = amcConvert(this.autoCorrectionAMC[i])
         this.autoCorrectionAMC[i].propositions = [
           { texte: texteCorr, statut: false },
         ]
+        this.questionsAMC[i] = amcConvert(this.autoCorrectionAMC[i])
         const amcParam = ensureAmcParam(this, i)
         amcParam.digits = 2
         amcParam.decimals = 0

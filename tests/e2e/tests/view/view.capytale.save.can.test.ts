@@ -1,47 +1,55 @@
 import { expect } from '@playwright/test'
 import { writeFileSync } from 'fs'
+import path from 'path'
 import type { Page } from 'playwright'
+import { fileURLToPath } from 'url'
+import { logError, logIfVerbose } from '../../helpers/log'
 import prefs from '../../helpers/prefs.js'
 import { runTest } from '../../helpers/run'
 
+const __filename = fileURLToPath(import.meta.url)
+const __dirname = path.dirname(__filename)
+
 async function testV(page: Page) {
+  const port =
+    process.env.PLAYWRIGHT_SERVER_PORT ?? (process.env.CI ? '80' : '5173')
+  const basePath = process.env.CI ? '/alea' : ''
+  const origin = `http://localhost:${port}`
+  const parentRoutePattern = '**/parent*'
+  const parentUrl = `${origin}${basePath}/parent`
+  const moduleMockRoutePattern = '**/modulemock.js*'
+  const moduleMockScriptUrl = '/modulemock.js'
+  const iframeUrl = `${origin}${basePath}/?recorder=capytale`
+
   // Mock the api call before navigating
-  await page.route(
-    `http://localhost:${process.env.CI ? '80' : '5173'}/parent`,
-    async (route) => {
-      await route.fulfill({
-        contentType: 'text/html',
-        body: `<html>
+  await page.route(parentRoutePattern, async (route) => {
+    await route.fulfill({
+      contentType: 'text/html',
+      body: `<html>
       <body>
       bonjour
       <div style='height: 90%;'>
-      <iframe id='iframe' width="100%" height="100%" allowfullscreen="" src='http://localhost:${process.env.CI ? '80' : '5173'}/alea/?recorder=capytale'></iframe>
+      <iframe id='iframe' width="100%" height="100%" allowfullscreen="" src='${iframeUrl}'></iframe>
       </div>
-      <script src='modulemock.js' type='module'></script>
+      <script src='${moduleMockScriptUrl}' type='module'></script>
       </body></html>`,
-      })
-    },
-  )
-  await page.route(
-    `http://localhost:${process.env.CI ? '80' : '5173'}/modulemock.js`,
-    async (route) => {
-      await route.fulfill({
-        contentType: 'text/javascript',
-        path: require('path').resolve(
-          __dirname,
-          '../../mock/mock.capytale.save.can.module.js',
-        ),
-      })
-    },
-  )
+    })
+  })
+  await page.route(moduleMockRoutePattern, async (route) => {
+    await route.fulfill({
+      contentType: 'text/javascript',
+      path: path.resolve(
+        __dirname,
+        '../../mock/mock.capytale.save.can.module.js',
+      ),
+    })
+  })
 
   // Go to the page
-  const hostname = `http://localhost:${process.env.CI ? '80' : '5173'}/parent`
+  await page.setDefaultTimeout(500_000) // Set timeout to 500 seconds
+  await page.goto(parentUrl)
 
-  page.setDefaultTimeout(60000) // Set timeout to 60 seconds
-  await page.goto(hostname)
-
-  await page.getByText('bonjour').waitFor({ state: 'visible' })
+  await expect(page.locator('body')).toContainText('bonjour')
   await page.waitForSelector('#iframe')
   await page.waitForTimeout(3000) // attendre 3000 ms de plus pour assurer le rendu
   if (page.frames().length > 0) {
@@ -76,7 +84,7 @@ async function testV(page: Page) {
     await page.mouse.move(box2.x + box2.width / 2, box2.y + box2.height / 2)
     await page.mouse.up()
   } else {
-    console.log('Box/Box2 is null')
+    logError('Box/Box2 is null')
   }
   await page
     .locator('#iframe')
@@ -149,7 +157,7 @@ async function testV(page: Page) {
   if (box3 !== null) {
     await page.mouse.click(box3.x + box3.width / 2, box3.y + box3.height / 2)
   } else {
-    console.log('Box3 is null')
+    logError('Box3 is null')
   }
   await page
     .locator('#iframe')
@@ -287,7 +295,7 @@ async function testV(page: Page) {
       Ex6Q0: 'deux',
     },
   ]
-  console.log(value.studentAssignment)
+  logIfVerbose('Student Assignment:', value.studentAssignment)
   // await page.pause()
   const apigeomCaptures: Record<string, string> = {}
   value.studentAssignment.forEach((assignment: any, i: number) => {
@@ -295,9 +303,9 @@ async function testV(page: Page) {
     const keysRep = Object.keys(responses[i])
     expect(keys.length).toEqual(keysRep.length)
     keys.forEach((key: string, j: number) => {
-      console.log('Question:', i)
-      console.log('Response:', j)
-      console.log('Key:', assignment.answers[key])
+      logIfVerbose('Question:', i)
+      logIfVerbose('Response:', j)
+      logIfVerbose('Key:', assignment.answers[key])
       expect(keysRep[j]).toEqual(key)
       if (key.includes('rectangleDND')) {
         expect(assignment.answers[key].split('-')[0]).toEqual(
@@ -308,26 +316,7 @@ async function testV(page: Page) {
         process.env.UPDATE_APIGEOM_SNAPSHOTS
       ) {
         apigeomCaptures[key] = assignment.answers[key]
-      } /* else if (key.includes('apigeom')) {
-        const json = assignment.answers[key]
-        const figure = JSON.parse(json)
-        const figureRep = JSON.parse((responses[i] as any)[key])
-        expect(figure.xMin).toEqual(figureRep.xMin)
-        expect(figure.yMin).toEqual(figureRep.yMin)
-        expect(figure.pixelsPerUnit).toEqual(figureRep.pixelsPerUnit)
-        expect(figure.point1.x).toEqual(figureRep.point1.x)
-        expect(figure.point1.y).toEqual(figureRep.point1.y)
-        expect(figure.point2.x).toEqual(figureRep.point2.x)
-        expect(figure.point2.y).toEqual(figureRep.point2.y)
-        expect(figure.element0.radius).toEqual(figureRep.element0.radius)
-        expect(figure.element0.idCenter).toEqual(figureRep.element0.idCenter)
-        expect(figure.element0.type).toEqual(figureRep.element0.type)
-        expect(figure.element0.fillColor).toEqual(figureRep.element0.fillColor)
-        expect(figure.element0.fillOpacity).toEqual(
-          figureRep.element0.fillOpacity,
-        )
-        expect(figure.element0.thickness).toEqual(figureRep.element0.thickness)
-      } */ else {
+      } else {
         expect(assignment.answers[key]).toEqual((responses[i] as any)[key])
       }
     })
@@ -340,7 +329,7 @@ async function testV(page: Page) {
       '/tmp/mathalea-apigeom-save-can.json',
       JSON.stringify(apigeomCaptures, null, 2),
     )
-    console.log(
+    logIfVerbose(
       '📸 Snapshots apigeom capturés dans /tmp/mathalea-apigeom-save-can.json',
     )
   }

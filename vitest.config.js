@@ -12,7 +12,8 @@ export default defineConfig({
   test: {
     environment: 'jsdom',
     globals: true,
-    testTimeout: 300000,
+    setupFiles: ['tests/unit/setup-vitest.ts'],
+    testTimeout: 7_200_000, // prévoir 2h pour un gros (très gros test de compilation)
     coverage: {
       provider: 'v8',
       reporter: ['text', 'html'],

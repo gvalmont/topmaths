@@ -21,6 +21,8 @@ import {
   listeQuestionsToContenu,
   randint,
 } from '../../modules/outils'
+import { amcConvert } from '../../lib/amc/amcBuilders'
+
 
 export const titre = 'Résoudre une équation du premier degré'
 export const interactifReady = true
@@ -65,7 +67,7 @@ export default class ExerciceEquation1 extends Exercice {
     ]
     this.besoinFormulaire3CaseACocher = ['Avec uniquement la lettre $x$']
     this.spacing = 2
-    context.isHtml ? (this.spacingCorr = 3) : (this.spacingCorr = 2)
+    this.spacingCorr = context.isHtml ? 3 : 2
     this.correctionDetailleeDisponible = true
     this.correctionDetaillee = context.isHtml
     this.sup = true // Avec des nombres relatifs
@@ -395,6 +397,7 @@ export default class ExerciceEquation1 extends Exercice {
               },
             ],
           }
+          this.questionsAMC[i] = amcConvert(this.autoCorrectionAMC[i])
         }
         i++
       }

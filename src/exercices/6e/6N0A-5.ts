@@ -7,6 +7,8 @@ import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { context } from '../../modules/context'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import Exercice from '../Exercice'
+import { amcConvert } from '../../lib/amc/amcBuilders'
+
 
 export const titre = "Déterminer le dernier chiffre d'un calcul entre entiers"
 export const amcReady = true
@@ -120,14 +122,16 @@ export default class DernierChiffre extends Exercice {
           ajouteChampTexteMathLive(this, i, KeyboardType.clavierNumbers)
       if (context.isAmc) {
         this.autoCorrectionAMC[i] = {
+          ...this.autoCorrectionAMC[i],
           enonce: texte,
           propositions: [{ texte: texteCorr }],
         }
+        this.questionsAMC[i] = amcConvert(this.autoCorrectionAMC[i])
         const amcParam = ensureAmcParam(this, i)
         amcParam.digits = 1
         amcParam.decimals = 0
       }
-      if (this.listeQuestions.indexOf(texte) === -1) {
+      if (this.questionJamaisPosee(i, a, b, listeTypeDeQuestions[i])) {
         // Si la question n'a jamais été posée, on la stocke dans la liste des questions
         this.listeQuestions[i] = texte
         this.listeCorrections[i] = texteCorr

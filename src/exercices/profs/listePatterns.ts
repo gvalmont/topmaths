@@ -15,7 +15,6 @@ import {
 } from '../../lib/2d/figures2d/shapes2d'
 import { fixeBordures } from '../../lib/2d/fixeBordures'
 import {
-  listePattern3d,
   listePatternRatio,
   listePatternsSansRatioNiFraction,
   type PatternRiche,
@@ -32,14 +31,16 @@ import {
   miseEnEvidence,
   texteEnCouleurEtGras,
 } from '../../lib/outils/embellissements'
+import { texNombre } from '../../lib/outils/texNombre'
 import { context } from '../../modules/context'
 import { mathalea2d } from '../../modules/mathalea2d'
 import { randint } from '../../modules/outils'
 import type { NestedObjetMathalea2dArray } from '../../types/2d'
+import { patternsFor6N4B_2 } from '../6e/6N4B-2'
 import Exercice from '../Exercice'
 
 export const titre =
-  "Consulter la liste des patterns disponibles pour l'exercice 6N4B"
+  'Consulter la liste des patterns disponibles pour différents exercices'
 export const dateDePublication = '26/11/2025'
 
 export const refs = {
@@ -64,7 +65,7 @@ export default class ListePatternsTousLesExos extends Exercice {
     this.besoinFormulaireNumerique = [
       'Liste restreinte pour la référence',
       6,
-      '1 : 6N4B\n2 : 6N4B-2\n3 : 5I13\n4 : 5L10-5\n5 : 5P12-2\n6 : 4L13-3',
+      '1 : 6N4B\n2 : 6N4B-2\n3 : 5I13\n4 : 5L10-5\n5 : 5P12-2\n6 : 4L13-3\n7 : 3L13-7\n8 : 3L16',
     ]
     this.sup = 1
 
@@ -89,17 +90,15 @@ export default class ListePatternsTousLesExos extends Exercice {
 
     let listeOfAll: (PatternRiche | PatternRiche3D)[] = []
     switch (this.sup) {
-      case 1:
-      case 3:
-      case 4:
-      case 6:
-        listeOfAll = listePatternsSansRatioNiFraction
-        break
       case 2:
-        listeOfAll = listePattern3d
+        listeOfAll = patternsFor6N4B_2
         break
       case 5:
+      case 8:
         listeOfAll = listePatternRatio
+        break
+      default:
+        listeOfAll = listePatternsSansRatioNiFraction
         break
     }
 
@@ -107,7 +106,7 @@ export default class ListePatternsTousLesExos extends Exercice {
     for (let i = 0; i < listeOfAll.length; i++) {
       const pat = listeOfAll[i]
       if (pat == null) {
-        texte += `\n${texteEnCouleurEtGras(`Pattern ${i + 1}`, 'red')}: ${texteEnCouleurEtGras('Pattern inexistant', 'red')}`
+        texte += `\n${texteEnCouleurEtGras(`Motif ${i + 1}`, 'red')}: ${texteEnCouleurEtGras('Motif inexistant', 'red')}`
         continue
       }
 
@@ -129,7 +128,7 @@ export default class ListePatternsTousLesExos extends Exercice {
           if ('iterate' in pat) pattern.iterate = pat.iterate
           objets.push(pattern.render(j, j + 1, 0))
         }
-        texte += `\n${texteEnCouleurEtGras(`Pattern ${i + 1}`, bleuMathalea)}:  <br>`
+        texte += `\n${texteEnCouleurEtGras(`Motif ${i + 1}`, bleuMathalea)} ${pat.difficulte === undefined ? '' : ' (' + pat.difficulte + ')'} :<br>`
         texte += mathalea2d(
           Object.assign(
             fixeBordures(objets, { rxmin: 0, rymin: -1, rxmax: 0, rymax: 1 }),
@@ -138,9 +137,27 @@ export default class ListePatternsTousLesExos extends Exercice {
           objets,
         )
       } else {
+        const texRatio = 'texRatio' in pat ? (pat.texRatio ?? '') : ''
+
+        const ratio43 = pat
+          .fonctionRatio?.(43)
+          ?.values?.map((v) => texNombre(new Decimal(v)))
+          .join(' : ')
+        const unDePlus = this.sup3 + 1
         const n43 = !('nbMotifMin' in pat)
-          ? new Decimal(pat.fonctionNb(43)).toString()
-          : null
+          ? pat.fonctionRatio != null
+            ? new Decimal(pat.fonctionRatio(43).total())
+            : new Decimal(pat.fonctionNb(43))
+          : new Decimal(0)
+        const ratioUnDePlus = pat
+          .fonctionRatio?.(unDePlus)
+          .values.map((v) => texNombre(new Decimal(v)))
+          .join(' : ')
+        const nUnDePlus = !('nbMotifMin' in pat)
+          ? pat.fonctionRatio != null
+            ? new Decimal(pat.fonctionRatio(unDePlus).total())
+            : new Decimal(pat.fonctionNb(unDePlus))
+          : new Decimal(0)
         const infosShape =
           pat.shapes[0] in listeShapes2DInfos
             ? listeShapes2DInfos[pat.shapes[0]]
@@ -181,18 +198,19 @@ export default class ListePatternsTousLesExos extends Exercice {
           let xmin = Infinity
           let xmax = -Infinity
           if (context.isHtml) {
-            const nom = String(choice(Object.keys(listeShapes2DInfos)))
+            let nom = String(choice(Object.keys(listeShapes2DInfos)))
             for (let n = 0; n < pattern.shapes.length; n++) {
-              let name = pattern.shapes[n]
+              const name = pattern.shapes[n]
               if (name in listeShapes2DInfos) {
                 if (name === 'carré') {
-                  name = nom
+                  ///name = nom
+                  nom = name
                   pattern.shapes[n] = nom
                   figures[j].push(listeShapes2DInfos[nom].shapeDef)
                 } else figures[j].push(listeShapes2DInfos[name].shapeDef)
               } else if (name === 'cube') {
                 const cubeIsoDef = cubeDef(`cubeIsoQ${i}F${j}`, 1)
-                cubeIsoDef.svg = function (coeff: number): string {
+                cubeIsoDef.svg = function (_coeff: number): string {
                   return `
           <defs>
             <g id="cubeIsoQ${i}F${j}">
@@ -204,7 +222,7 @@ export default class ListePatternsTousLesExos extends Exercice {
                 }
                 figures[j].push(cubeIsoDef)
               } else {
-                console.warn(
+                throw new Error(
                   `Shape ${name} n'est pas dans listeShapesDef ou emojis et n'est pas un cube`,
                 )
               }
@@ -242,8 +260,14 @@ export default class ListePatternsTousLesExos extends Exercice {
               ;({ xmin, ymin, xmax, ymax } = fixeBordures(objets))
             }
           } else {
-            objets = pattern.render(j + 1, 0, 0)
-            ;({ xmin, ymin, xmax, ymax } = fixeBordures(objets))
+            const renderResult = pattern.render(j + 1, 0, 0)
+            ;({ xmin, ymin, xmax, ymax } = fixeBordures(renderResult))
+            objets = renderResult
+          }
+          for (const shape of pattern.shapes) {
+            if (shape in listeShapes2DInfos) {
+              figures[j].push(listeShapes2DInfos[shape].shapeDef)
+            }
           }
           figures[j].push(...objets)
           figures[j].push(
@@ -269,8 +293,30 @@ export default class ListePatternsTousLesExos extends Exercice {
           yMax = Math.max(yMax, ymax)
           yMin = Math.min(yMin, ymin)
         }
-        texte += `${texteEnCouleurEtGras(`Pattern ${i + 1}`, bleuMathalea)}:<br> Pour le motif 43, il y a ${n43} ${nom}.<br>`
-        texte += `Pour le motif $${miseEnEvidence('n', bleuMathalea)}$, il y a $${miseEnEvidence(pat.formule, bleuMathalea)}$ éléments.<br>`
+
+        texte += `${texteEnCouleurEtGras(`Motif ${i + 1}`, bleuMathalea)}${pat.difficulte === undefined ? '' : ' (' + pat.difficulte + ')'} :<br>`
+        if (this.sup !== 5)
+          texte += `Pour le motif 43, il y a ${n43} ${nom}.<br>`
+        else {
+          const estTresGrand = n43.sub(100000).isPositive()
+          texte += estTresGrand
+            ? `Pour le motif 43, il y a beaucoup trop d'éléments dans le ratio "${texRatio}".<br>`
+            : `Pour le motif 43, il y a $${texNombre(n43)}$ éléments dans le ratio "${texRatio}" de $${ratio43}$.<br>`
+        }
+        texte +=
+          this.sup !== 5
+            ? `Pour le motif $${unDePlus}$, il y a $${texNombre(nUnDePlus)}$ ${nom}.<br>`
+            : `Pour le motif $${unDePlus}$, il y a $${texNombre(nUnDePlus)}$ éléments dans le ratio "${texRatio}" de $${ratioUnDePlus}$.<br>`
+
+        const texRatioCouleur = (pat.formuleRatio ?? '')
+          .split(' : ')
+          .map((v) => miseEnEvidence(v, bleuMathalea))
+          .join(' : ')
+
+        texte +=
+          this.sup !== 5
+            ? `Pour le motif $${miseEnEvidence('n', bleuMathalea)}$, il y a $${miseEnEvidence(pat.formule, bleuMathalea)}$ éléments.<br>`
+            : `Pour le motif $${miseEnEvidence('n', bleuMathalea)}$, le ratio "${texRatio}" est de $${texRatioCouleur}$.<br>`
 
         texte +=
           figures

@@ -19,6 +19,7 @@ export const interactifType = 'mathLive'
 export const amcReady = true
 export const amcType = 'qcmMono'
 export const titre = 'Comparer deux fractions (dénominateurs multiples)'
+export const dateDeModifImportante = '19/05/2026'
 
 /**
  * Comparer deux fractions dont les dénominateurs sont multiples (avec un coefficient paramétrable qui est par défaut inférieur à 11)
@@ -26,7 +27,7 @@ export const titre = 'Comparer deux fractions (dénominateurs multiples)'
  * Ajout du paramètre d'inclusion de nombres négatifs le 14/08/2021 : Guillaume Valmont
  * rendu interactif + AMC par Jean-claude Lhote
  */
-export const uuid = '234a7'
+export const uuid = '234ae'
 
 export const refs = {
   'fr-fr': ['6N3I-3', 'BP2AutoG6'],
@@ -40,13 +41,13 @@ export default class ExerciceComparerDeuxFractions extends Exercice {
       'Valeur maximale du coefficient multiplicateur',
       99999,
     ]
-    this.besoinFormulaire2CaseACocher = ['Inclure des nombres négatifs']
     this.sup = max // Correspond au facteur commun
     this.consigne = 'Comparer les fractions suivantes.'
     this.spacing = 2
     this.spacingCorr = 2
     this.nbQuestions = 5
-
+    // this.besoinFormulaire2CaseACocher = ['Inclure des nombres négatifs'] // Valable que dans le clone 4C20
+    this.besoinFormulaire2CaseACocher = false
     this.sup2 = false
   }
 

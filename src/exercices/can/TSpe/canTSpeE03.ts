@@ -1,14 +1,19 @@
-import { listeQuestionsToContenu, randint } from '../../../modules/outils'
-import { lettreDepuisChiffre } from '../../../lib/outils/outilString'
+import {
+  all,
+  sameParametricLine,
+  singleParameterVariable,
+} from '../../../lib/interactif/checks'
+import { sameParametricLineFromFieldsCallback } from '../../../lib/interactif/checks/sameParametricLineFromFields'
+import { handleAnswers } from '../../../lib/interactif/gestionInteractif'
+import { remplisLesBlancs } from '../../../lib/interactif/questionMathLive'
 import {
   ecritureAlgebrique,
   ecritureParentheseSiNegatif,
   reduireAxPlusB,
-  rienSi1,
 } from '../../../lib/outils/ecritures'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
-import { remplisLesBlancs } from '../../../lib/interactif/questionMathLive'
-import { handleAnswers } from '../../../lib/interactif/gestionInteractif'
+import { lettreDepuisChiffre } from '../../../lib/outils/outilString'
+import { listeQuestionsToContenu, randint } from '../../../modules/outils'
 import Exercice from '../../Exercice'
 
 export const titre = "Déterminer une représentation paramétrique d'une droite"
@@ -18,7 +23,7 @@ export const interactifType = 'mathLive'
 
 /**
  *
- * @author Stéphane Guyon
+ * @author Stéphane Guyon et Nathan Scheinmann pour l'adaptation de l'interactivité
  */
 
 export const uuid = '58bb7'
@@ -60,10 +65,22 @@ export default class RepresentationParametrique extends Exercice {
           '\\begin{cases}x=%{champ1} \\\\y= %{champ2}\\\\z= %{champ3}\\end{cases}',
         )
       // else texte += '.'
+      const expected = JSON.stringify({
+        point: [xA, yA, zA],
+        direction: [xV, yV, zV],
+      })
+      const callback = sameParametricLineFromFieldsCallback({
+        compare: all([
+          singleParameterVariable({ dimension: 3 }),
+          sameParametricLine({ dimension: 3 }),
+        ]),
+        dimension: 3,
+      })
       handleAnswers(this, i, {
-        champ1: { value: `${rienSi1(xV)}t${ecritureAlgebrique(xA)}` },
-        champ2: { value: `${rienSi1(yV)}t${ecritureAlgebrique(yA)}` },
-        champ3: { value: `${rienSi1(zV)}t${ecritureAlgebrique(zA)}` },
+        champ1: { value: expected },
+        champ2: { value: expected },
+        champ3: { value: expected },
+        callback,
       })
       texteCorr = 'Soit $M(x~;~y~;~z)$ un point de la droite $(d)$.<br>'
       texteCorr += `$M\\in (d)$ si et seulement si les vecteurs $\\overrightarrow{${pointA}M}$ et $\\vec v$ sont colinéaires. <br>`

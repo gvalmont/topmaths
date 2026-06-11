@@ -10,6 +10,8 @@ import { getLang } from '../../lib/stores/languagesStore'
 import { context } from '../../modules/context'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import Exercice from '../Exercice'
+import { amcConvert } from '../../lib/amc/amcBuilders'
+
 
 export const titre = 'Lire images et antécédents depuis un tableau de valeurs'
 export const interactifReady = true
@@ -29,7 +31,7 @@ export const refs = {
 export default class ImageAntecedentDepuisTableauOuFleche extends Exercice {
   constructor() {
     super()
-    this.comment = `Il existe une version CAN de cet exercice avec une seule question en 'can3F16'.`
+    this.comment = `Il existe une version CAN de cet exercice avec une seule question en « can3F16 ».`
 
     this.nbQuestions = 1
   }
@@ -80,6 +82,7 @@ export default class ImageAntecedentDepuisTableauOuFleche extends Exercice {
           },
           propositions: [],
         }
+        this.questionsAMC[i] = amcConvert(this.autoCorrectionAMC[i])
       }
       const question3 = voies[2]
         ? lang === 'fr-CH'

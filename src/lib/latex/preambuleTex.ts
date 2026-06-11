@@ -414,10 +414,7 @@ export function loadPackagesFromContent(contents: contentsType) {
 
   testIfLoaded(
     ['[style=python]'],
-    `
-\\tcbuselibrary{listings}
-
-% Style Python
+    `% Style Python
 \\lstdefinestyle{python}{
   language=Python,
   basicstyle=\\ttfamily\\small,
@@ -432,6 +429,8 @@ export function loadPackagesFromContent(contents: contentsType) {
 }`,
     contents,
   )
+
+  testIfLoaded(['\\tableur', '\\helvbx'], '\\usepackage{pas-tableur}', contents)
 
   testIfLoaded(
     ['\\blocrep{', '\\blocrep['],
@@ -621,6 +620,7 @@ export function loadPackagesFromContent(contents: contentsType) {
       '\\Box',
       '\\checkmark',
       '\\fbox',
+      '\\smallsetminus',
     ],
     '\\usepackage{amssymb}',
     contents,
@@ -691,7 +691,7 @@ export function loadPackagesFromContent(contents: contentsType) {
   )
   testIfLoaded(['>=triangle 45'], '\\usetikzlibrary{arrows}', contents)
   testIfLoaded(
-    ['-{Latex', '-{Stealth', '-{Triangle', '-{Bar', '{Bar['],
+    ['-{Latex', '{Stealth', '{Triangle', '{Bar', '{Bar['],
     '\\usetikzlibrary{arrows.meta}',
     contents,
   )

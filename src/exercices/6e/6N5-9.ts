@@ -15,12 +15,14 @@ import {
   randint,
 } from '../../modules/outils'
 import Exercice from '../Exercice'
+import { amcConvert } from '../../lib/amc/amcBuilders'
+
 
 export const titre = 'Résoudre des problèmes de courses au marché'
-export const interactifReady = true
-export const interactifType = 'mathLive'
 export const amcReady = true
 export const amcType = 'AMCNum'
+export const interactifReady = true
+export const interactifType = 'mathLive'
 export const dateDeModifImportante = '07/06/2025'
 
 /**
@@ -406,11 +408,14 @@ export default class ProblemeCourse extends Exercice {
       setReponse(this, i, reponse)
       if (context.isAmc) {
         // @ts-ignore this.autoCorrection[i] est bien défini
-        this.autoCorrection[i].valeur[0] = arrondi(prixTotal, 2)
+        this.autoCorrectionAMC[i].reponse.valeur = arrondi(reponse, 2)
+        this.questionsAMC[i] = amcConvert(this.autoCorrectionAMC[i])
         // @ts-ignore this.autoCorrection[i] est bien défini
-        this.autoCorrection[i].reponse.param.digits = 5
+        this.autoCorrectionAMC[i].reponse.param.digits = 5
+        this.questionsAMC[i] = amcConvert(this.autoCorrectionAMC[i])
         // @ts-ignore this.autoCorrection[i] est bien défini
-        this.autoCorrection[i].reponse.param.decimals = 2
+        this.autoCorrectionAMC[i].reponse.param.decimals = 2
+        this.questionsAMC[i] = amcConvert(this.autoCorrectionAMC[i])
       }
       if (this.interactif) {
         texte += `<br> ${ajouteChampTexteMathLive(

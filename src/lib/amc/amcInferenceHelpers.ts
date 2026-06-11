@@ -1,10 +1,16 @@
 import FractionEtendue from '../../modules/FractionEtendue'
 import { generateCleaner } from '../interactif/cleaners'
+import { Complexe } from '../mathFonctions/Complexe'
 import { isValeur, type IExercice } from '../types'
 import { countDecimals, countDigits, isFractionValue } from './amcHelpers'
 import type { IExerciceAMC, ReponseParams } from './amcTypes'
+/**
+ * @author Jean-claude Lhote
+ */
 
 const mathliveNumericCleaner = generateCleaner(['latex', 'virgules', 'espaces'])
+const strictNumericPattern = /^[+-]?(?:\d+(?:\.\d*)?|\.\d+)(?:[eE][+-]?\d+)?$/
+const compactPowerPattern = /^[+-]?(?:\d+(?:\.\d*)?|\.\d+)\^[+-]?\d+$/
 
 export function extractAMCValue(
   reponse: unknown,
@@ -12,7 +18,8 @@ export function extractAMCValue(
   const unwrap = (value: unknown): unknown => {
     if (Array.isArray(value)) return unwrap(value[0])
 
-    if (isValeur(value)) return unwrap(value.reponse?.value)
+    if (isValeur(value) && 'reponse' in value)
+      return unwrap(value.reponse?.value)
 
     if (typeof value === 'object' && value !== null) {
       if ('reponse' in value) {
@@ -41,12 +48,27 @@ export function extractAMCValue(
   if (value instanceof FractionEtendue) {
     return { num: value.num, den: value.den }
   }
+  if (
+    typeof value === 'object' &&
+    value !== null &&
+    'num' in value &&
+    'den' in value
+  ) {
+    return { num: Number(value.num), den: Number(value.den) }
+  }
+  window.notify(
+    'extractAMCValue a reçu une réponse de type inattendu, elle doit être une chaîne de caractères, un nombre ou un objet fractionnaire.',
+    { reponse: JSON.stringify(reponse) },
+  )
   return undefined
 }
 
 export function inferNumericValueForAMC(
   value: number | { num: number; den: number } | string | undefined,
 ): number | { num: number; den: number } | undefined {
+  if (Array.isArray(value)) {
+    value = value[0]
+  }
   if (typeof value === 'number') {
     return Number.isFinite(value) ? value : undefined
   }
@@ -70,6 +92,10 @@ export function inferNumericValueForAMC(
     return Number.isFinite(decimalValue) ? decimalValue : undefined
   }
 
+  if (value instanceof Complexe) {
+    if (value.isReal) return value.re
+    return undefined
+  }
   if (typeof value !== 'string') {
     window.notify(
       'inferNumericValueForAMC a reçu une valeur de type inattendu, elle doit être une chaîne de caractères, un nombre ou un objet fractionnaire.',
@@ -108,14 +134,18 @@ export function inferNumericValueForAMC(
   if (/^\\?sqrt/.test(trimmed)) return undefined
 
   const cleaned = mathliveNumericCleaner(trimmed)
-  const parsed = Number.parseFloat(cleaned)
-  if (Number.isFinite(parsed)) {
-    return parsed
-
-    // Si le parsing a échoué jusqu'ici, on a sans doute à faire à une expression mathématique plus complexe, on ne peut pas l'inférer en tant que nombre ou fraction simple.
-  } else {
-    return undefined
+  if (strictNumericPattern.test(cleaned)) {
+    const parsed = Number(cleaned)
+    return Number.isFinite(parsed) ? parsed : undefined
   }
+
+  if (compactPowerPattern.test(cleaned)) {
+    const base = cleaned.split('^', 1)[0]
+    const parsed = Number(base)
+    return Number.isFinite(parsed) ? parsed : undefined
+  }
+
+  return undefined
 }
 
 export function mergeNumericParamsFromOptions(
@@ -155,7 +185,13 @@ type InteractiveAnswerCandidate = {
 function extractInteractiveAnswerCandidate(
   source: unknown,
 ): InteractiveAnswerCandidate | undefined {
-  if (typeof source !== 'object' || source == null) return undefined
+  if (typeof source !== 'object' || source == null) {
+    window.notify(
+      'extractInteractiveAnswerCandidate a reçu une source de type inattendu, elle doit être un objet contenant une propriété "value" ou "reponse".',
+      { source: JSON.stringify(source) },
+    )
+    return undefined
+  }
 
   const record = source as Record<string, unknown>
 
@@ -167,6 +203,14 @@ function extractInteractiveAnswerCandidate(
 
   if ('reponse' in record) {
     return extractInteractiveAnswerCandidate(record.reponse)
+  }
+
+  if ('champ1' in record && !('champ2' in record)) {
+    return extractInteractiveAnswerCandidate(record.champ1)
+  }
+
+  if ('field1' in record && !('field2' in record)) {
+    return extractInteractiveAnswerCandidate(record.field1)
   }
 
   if ('valeur' in record) {

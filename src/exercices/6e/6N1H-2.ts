@@ -16,6 +16,7 @@ import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import Exercice from '../Exercice'
 
 import { droiteGraduee } from '../../lib/2d/DroiteGraduee'
+import { amcConvert } from '../../lib/amc/amcBuilders'
 import { bleuMathalea } from '../../lib/colors'
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 import { toutAUnPoint } from '../../lib/interactif/mathLive'
@@ -234,9 +235,9 @@ export default class LireAbscisseDecimaleTroisFormes extends Exercice {
       }
       const texte1 = `${numAlpha(0)} Donner l'abscisse de $${noms[0]}$ en écriture décimale.`
       texte = addMultiMathfield(this, i, {
-        dataTemplate: `Donner l'abscisse de $${noms[0]}$ en écriture décimale. $${noms[0]}\\lparen$%{champ1}$\\rparen$
-        Donner l'abscisse de $${noms[1]}$ comme la somme d'un nombre entier et d'une fraction décimale inférieure à 1. $${noms[1]}\\lparen$%{champ2}$\\rparen$
-       Donner l'abscisse de $${noms[2]}$ sous la forme d'une fraction décimale. $${noms[2]}\\lparen$%{champ3}$\\rparen$`,
+        dataTemplate: `Donner l'abscisse de $${noms[0]}$ en écriture décimale. $${noms[0]}($%{champ1}$)$
+        Donner l'abscisse de $${noms[1]}$ comme la somme d'un nombre entier et d'une fraction décimale inférieure à 1. $${noms[1]}($%{champ2}$)$
+       Donner l'abscisse de $${noms[2]}$ sous la forme d'une fraction décimale. $${noms[2]}($%{champ3}$)$`,
         dataOptions: {
           champ1: { keyboard: KeyboardType.clavierNumbers, minWidth: 70 },
           champ2: {
@@ -366,6 +367,7 @@ export default class LireAbscisseDecimaleTroisFormes extends Exercice {
             },
           ],
         }
+        this.questionsAMC[i] = amcConvert(this.autoCorrectionAMC[i])
       }
 
       const textedroite =

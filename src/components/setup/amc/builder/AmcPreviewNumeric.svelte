@@ -1,10 +1,15 @@
 <script lang="ts">
+  /**
+   * L'ensemble de ce fichier : code typescript, contenu Html est le fruit du travail exclusif de Jean-claude Lhote.
+   * @author Jean-claude Lhote
+   */
   import { normalizeAMCNumBlocks } from '../../../../lib/amc/amcNormalize'
   import type { ReponseParams } from '../../../../lib/amc/amcTypes'
   import AmcEnonceHtml from './AmcEnonceHtml.svelte'
 
   export let enonce = ''
   export let htmlContent = ''
+  export let svgScale = 1
   export let value: unknown = undefined
   export let param: ReponseParams = {}
 
@@ -49,7 +54,7 @@
   </p>
   {#if htmlContent || enonce}
     <div class="mt-2">
-      <AmcEnonceHtml content={htmlContent || enonce} />
+      <AmcEnonceHtml content={htmlContent || enonce} {svgScale} />
     </div>
   {/if}
 

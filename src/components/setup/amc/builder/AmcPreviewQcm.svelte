@@ -1,8 +1,13 @@
 <script lang="ts">
+  /**
+   * L'ensemble de ce fichier : code typescript, contenu Html est le fruit du travail exclusif de Jean-claude Lhote.
+   * @author Jean-claude Lhote
+   */
   import AmcEnonceHtml from './AmcEnonceHtml.svelte'
 
   export let enonce = ''
   export let htmlContent = ''
+  export let svgScale = 1
   export let choix: Array<{
     texte?: string
     statut?: unknown
@@ -41,7 +46,7 @@
   </p>
   {#if htmlContent || enonce}
     <div class="mt-2">
-      <AmcEnonceHtml content={previewContent} />
+      <AmcEnonceHtml content={previewContent} {svgScale} />
     </div>
   {/if}
   {#if choix.length > 0}
@@ -58,7 +63,7 @@
               ? 'bg-black'
               : 'bg-white'}"
           ></span>
-          <AmcEnonceHtml content={option.texte ?? ''} />
+          <AmcEnonceHtml content={option.texte ?? ''} {svgScale} />
         </li>
       {/each}
     </ul>

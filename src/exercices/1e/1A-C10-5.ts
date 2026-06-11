@@ -8,10 +8,11 @@ import { deuxColonnes } from '../../lib/format/miseEnPage'
 import { choice } from '../../lib/outils/arrayOutils'
 import { texteEnCouleurEtGras } from '../../lib/outils/embellissements'
 
+import { crochetD, crochetG } from '../../lib/2d/intervalles'
+import { bleuMathalea } from '../../lib/colors'
 import { mathalea2d } from '../../modules/mathalea2d'
 import { randint } from '../../modules/outils'
 import ExerciceQcmA from '../ExerciceQcmA'
-import { bleuMathalea } from '../../lib/colors'
 export const dateDePublication = '01/10/2025'
 export const dateDeModifImportante = '12/10/2025'
 export const uuid = '26802'
@@ -63,7 +64,7 @@ export default class Auto1AC10e extends ExerciceQcmA {
       : `${deuxColonnes(
           `On a représenté l'hyperbole d'équation $y=\\dfrac{1}{x}$. <br><br>
            On note $(I)$ l'inéquation, sur $\\mathbb{R}^*$, $\\dfrac{1}{x}${signeInégalité} ${val}$.<br><br>`,
-          `${graphique}<br>`,
+          `${graphique}`,
         )} L'ensemble des solutions $S$ de cette inéquation est :`
 
     // Correction
@@ -98,62 +99,77 @@ export default class Auto1AC10e extends ExerciceQcmA {
     sAAx.epaisseur = 2
     sAAx.pointilles = 5
 
-    // Calcul de la borne réelle pour les segments de solution
+    // Calcul de la borne réelle pour les labels
     const borneReelle = 1 / val
 
-    // Segments de solution selon le type d'inéquation
+    // Point graphique de la borne sur l'axe des x
+    const bornePoint = pointAbstrait(xIntersection, 0)
+
+    // Segments de solution et crochets selon le type d'inéquation
     let segmentsSolution = []
+    let crochets = []
+
     if (typeInequation === 'inf') {
       if (val > 0) {
-        // Pour 1/x < a avec a > 0 : ]-∞,0[ ∪ ]1/a,+∞[
+        // Pour 1/x < a avec a > 0 : ]-∞,0[ ∪ ]1/a,+∞[ (strict) ou [1/a,+∞[ (large)
         const AxI = pointAbstrait(-4, 0)
         const sAxIO = segment(AxI, O, 'red')
         sAxIO.epaisseur = 2
-        sAxIO.styleExtremites = '-['
-        sAxIO.tailleExtremites = 6
 
         const AxI2 = pointAbstrait(4, 0)
-        const bornePoint = pointAbstrait(1 / 1.5, 0)
-        const sAxI2Ax = segment(bornePoint, AxI2, 'red')
-        sAxI2Ax.epaisseur = 2
-        sAxI2Ax.styleExtremites = estInegStrict ? ']-' : '[-'
-        sAxI2Ax.tailleExtremites = 6
+        const sAxI2Bx = segment(bornePoint, AxI2, 'red')
+        sAxI2Bx.epaisseur = 2
 
-        segmentsSolution = [sAxIO, sAxI2Ax]
+        segmentsSolution = [sAxIO, sAxI2Bx]
+        crochets = [
+          crochetD(O, 'red'), // 0[  (ouvert à droite)
+          estInegStrict
+            ? crochetG(bornePoint, 'red')
+            : crochetD(bornePoint, 'red'), // ]1/a (strict) ou [1/a (large)
+        ]
       } else {
-        // Pour 1/x < a avec a < 0 : ]1/a,0[
-        const bornePoint = pointAbstrait(-1 / 1.5, 0)
+        // Pour 1/x < a avec a < 0 : ]1/a,0[ (strict) ou [1/a,0[ (large)
         const sAxO = segment(bornePoint, O, 'red')
         sAxO.epaisseur = 2
-        sAxO.styleExtremites = estInegStrict ? ']-[' : '[-['
-        sAxO.tailleExtremites = 6
+
         segmentsSolution = [sAxO]
+        crochets = [
+          estInegStrict
+            ? crochetG(bornePoint, 'red')
+            : crochetD(bornePoint, 'red'), // ]1/a (strict) ou [1/a (large)
+          crochetD(O, 'red'), // 0[  (ouvert à droite)
+        ]
       }
     } else {
       if (val > 0) {
-        // Pour 1/x > a avec a > 0 : ]0,1/a[
-        const bornePoint = pointAbstrait(1 / 1.5, 0)
+        // Pour 1/x > a avec a > 0 : ]0,1/a[ (strict) ou ]0,1/a] (large)
         const sAxO = segment(O, bornePoint, 'red')
         sAxO.epaisseur = 2
-        sAxO.styleExtremites = estInegStrict ? ']-[' : ']-]'
-        sAxO.tailleExtremites = 6
+
         segmentsSolution = [sAxO]
+        crochets = [
+          crochetG(O, 'red'), // ]0  (ouvert à gauche)
+          estInegStrict
+            ? crochetD(bornePoint, 'red')
+            : crochetG(bornePoint, 'red'), // 1/a[ (strict) ou 1/a] (large)
+        ]
       } else {
-        // Pour 1/x > a avec a < 0 : ]-∞,1/a[ ∪ ]0,+∞[
-        const bornePoint = pointAbstrait(-1 / 1.5, 0)
+        // Pour 1/x > a avec a < 0 : ]-∞,1/a[ ∪ ]0,+∞[ (strict) ou ]-∞,1/a] ∪ ]0,+∞[ (large)
         const AxI = pointAbstrait(-4, 0)
         const sAxIBx = segment(AxI, bornePoint, 'red')
         sAxIBx.epaisseur = 2
-        sAxIBx.styleExtremites = estInegStrict ? '-[' : '-]'
-        sAxIBx.tailleExtremites = 6
 
         const AxI2 = pointAbstrait(4, 0)
         const sOAxI2 = segment(O, AxI2, 'red')
         sOAxI2.epaisseur = 2
-        sOAxI2.styleExtremites = ']-'
-        sOAxI2.tailleExtremites = 6
 
         segmentsSolution = [sAxIBx, sOAxI2]
+        crochets = [
+          estInegStrict
+            ? crochetD(bornePoint, 'red')
+            : crochetG(bornePoint, 'red'), // 1/a[ (strict) ou 1/a] (large)
+          crochetG(O, 'red'), // ]0  (ouvert à gauche)
+        ]
       }
     }
 
@@ -186,13 +202,14 @@ export default class Auto1AC10e extends ExerciceQcmA {
       Ax,
       sAAx,
       segmentsSolution,
+      crochets,
       textes,
       yDroite,
     }
   }
 
   private creerGraphiques(val: number, elements: any) {
-    const { o, sAAx, segmentsSolution, textes, yDroite } = elements
+    const { o, sAAx, segmentsSolution, crochets, textes, yDroite } = elements
 
     const r1 = repere({
       xMin: -4,
@@ -214,7 +231,12 @@ export default class Auto1AC10e extends ExerciceQcmA {
     const f = (x: number) => 1 / Number(x)
 
     // Droite horizontale fixe
-    const Cg = droite(pointAbstrait(-4, yDroite), pointAbstrait(4, yDroite), '', 'green')
+    const Cg = droite(
+      pointAbstrait(-4, yDroite),
+      pointAbstrait(4, yDroite),
+      '',
+      'green',
+    )
     Cg.epaisseur = 2
 
     // Graphique simple pour l'énoncé
@@ -248,6 +270,7 @@ export default class Auto1AC10e extends ExerciceQcmA {
       o,
       sAAx,
       ...segmentsSolution,
+      ...crochets,
       ...textes,
     )
 

@@ -25,11 +25,11 @@ import Exercice from '../Exercice'
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 import { texFractionFromString } from '../../lib/outils/deprecatedFractions'
 import { sp } from '../../lib/outils/outilString'
+import { amcConvert } from '../../lib/amc/amcBuilders'
+
 
 export const titre =
   "Donner l'écriture (décimale, en fraction décimale ou en pourcentage) d'une somme (ou différence) de nombres avec fractions décimales"
-export const amcReady = true
-export const amcType = 'AMCNum'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 
@@ -341,6 +341,7 @@ export default class SommeFractionsDecimales extends Exercice {
                 },
               ],
             }
+            this.questionsAMC[i] = amcConvert(this.autoCorrectionAMC[i])
           } else {
             handleAnswers(this, i, {
               bareme: (listePoints: number[]) => [listePoints[0], 1],
@@ -370,6 +371,7 @@ export default class SommeFractionsDecimales extends Exercice {
                 },
               ],
             }
+            this.questionsAMC[i] = amcConvert(this.autoCorrectionAMC[i])
           } else {
             handleAnswers(this, i, {
               bareme: (listePoints: number[]) => [listePoints[0], 1],
@@ -400,6 +402,7 @@ export default class SommeFractionsDecimales extends Exercice {
                 },
               ],
             }
+            this.questionsAMC[i] = amcConvert(this.autoCorrectionAMC[i])
           } else {
             handleAnswers(this, i, {
               bareme: (listePoints: number[]) => [listePoints[0], 1],
@@ -430,6 +433,7 @@ export default class SommeFractionsDecimales extends Exercice {
                   },
                 ],
               }
+              this.questionsAMC[i] = amcConvert(this.autoCorrectionAMC[i])
             } else {
               this.autoCorrectionAMC[i] = {
                 enonce: texte, // Si vide, l'énoncé est celui de l'exercice.
@@ -451,6 +455,7 @@ export default class SommeFractionsDecimales extends Exercice {
                   },
                 ],
               }
+              this.questionsAMC[i] = amcConvert(this.autoCorrectionAMC[i])
             }
           } else {
             handleAnswers(this, i, {
@@ -492,6 +497,7 @@ export default class SommeFractionsDecimales extends Exercice {
                   },
                 ],
               }
+              this.questionsAMC[i] = amcConvert(this.autoCorrectionAMC[i])
             } else {
               this.autoCorrectionAMC[i] = {
                 enonce: texte, // Si vide, l'énoncé est celui de l'exercice.
@@ -511,6 +517,7 @@ export default class SommeFractionsDecimales extends Exercice {
                   },
                 ],
               }
+              this.questionsAMC[i] = amcConvert(this.autoCorrectionAMC[i])
             }
           } else {
             handleAnswers(this, i, {
@@ -548,6 +555,7 @@ export default class SommeFractionsDecimales extends Exercice {
                   },
                 ],
               }
+              this.questionsAMC[i] = amcConvert(this.autoCorrectionAMC[i])
             } else {
               this.autoCorrectionAMC[i] = {
                 enonce: texte, // Si vide, l'énoncé est celui de l'exercice.
@@ -567,6 +575,7 @@ export default class SommeFractionsDecimales extends Exercice {
                   },
                 ],
               }
+              this.questionsAMC[i] = amcConvert(this.autoCorrectionAMC[i])
             }
           } else {
             handleAnswers(this, i, {
@@ -605,6 +614,7 @@ export default class SommeFractionsDecimales extends Exercice {
                   },
                 ],
               }
+              this.questionsAMC[i] = amcConvert(this.autoCorrectionAMC[i])
             } else if (choix === 1) {
               this.autoCorrectionAMC[i] = {
                 enonce: texte, // Si vide, l'énoncé est celui de l'exercice.
@@ -624,6 +634,7 @@ export default class SommeFractionsDecimales extends Exercice {
                   },
                 ],
               }
+              this.questionsAMC[i] = amcConvert(this.autoCorrectionAMC[i])
             } else {
               this.autoCorrectionAMC[i] = {
                 enonce: texte, // Si vide, l'énoncé est celui de l'exercice.
@@ -645,6 +656,7 @@ export default class SommeFractionsDecimales extends Exercice {
                   },
                 ],
               }
+              this.questionsAMC[i] = amcConvert(this.autoCorrectionAMC[i])
             }
           } else {
             handleAnswers(this, i, {
