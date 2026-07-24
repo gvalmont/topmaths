@@ -11,7 +11,7 @@ Tout est sous `src/components/display/tbi/` :
 - `TbiExerciceCard.svelte` — carte d'un exercice (rendu non interactif : `mathaleaFormatExercice` + action `renderMath` qui appelle `mathaleaRenderDiv(node, zoom)`) ;
 - `TbiCardActions.svelte` — actions au survol : correction (dessous / à la place / plein écran), nouvelles données, paramètres (modale contenant `Settings.svelte` avec `inModal`), zoom ±, flèches de réordonnancement, saut de colonne, menu « Déplacer vers un onglet » ;
 - `TbiClockWidget.svelte` — horloge / minuteur / chronomètre déplaçable en surimpression (temps calculés par horodatages, robustes au throttling) ;
-- `layouts/` — `TbiListLayout`, `TbiColumnsLayout` (CSS multi-colonnes + `break-before: column` pour les sauts), `TbiFreeLayout` (cartes positionnées en absolu, poignées de déplacement/redimensionnement via `src/lib/components/tbiPointer.ts` ; la largeur pilote le zoom : `zoom = w / TBI_BASE_WIDTH`), `TbiTabsLayout` (onglets compactés 0..k-1, chaque onglet a sa propre disposition liste / colonnes / libre).
+- `layouts/` — `TbiListLayout`, `TbiColumnsLayout` (CSS multi-colonnes + `break-before: column` pour les sauts), `TbiFreeLayout` (cartes positionnées en absolu, poignées de déplacement/redimensionnement via `src/lib/components/tbiPointer.ts` ; largeur et zoom sont indépendants : la poignée ne fait varier que la largeur du cadre (bornée par `TBI_MIN_CARD_WIDTH`/`TBI_MAX_CARD_WIDTH`), le zoom du contenu ne change que via les boutons zoom ±), `TbiTabsLayout` (onglets compactés 0..k-1, chaque onglet a sa propre disposition liste / colonnes / libre).
 
 Les exercices statiques et svelte ne sont pas pris en charge (carte d'information à la place, `TbiCardHost.svelte`).
 

@@ -11,7 +11,6 @@
   } from '../../../lib/mathalea'
   import { exercicesParams } from '../../../lib/stores/generalStore'
   import {
-    TBI_BASE_WIDTH,
     TBI_MAX_ZOOM,
     TBI_MIN_ZOOM,
     moveCardToTab,
@@ -199,8 +198,6 @@
           TBI_MAX_ZOOM,
           Math.max(TBI_MIN_ZOOM, cardState.zoom + delta),
         )
-        // en mode libre, la largeur de la carte suit le zoom
-        cardState.w = Math.round(cardState.zoom * TBI_BASE_WIDTH)
       }
       return state
     })

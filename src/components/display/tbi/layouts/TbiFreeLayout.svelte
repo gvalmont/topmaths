@@ -2,9 +2,8 @@
   import { get } from 'svelte/store'
   import { draggable, resizable } from '../../../../lib/components/tbiPointer'
   import {
-    TBI_BASE_WIDTH,
-    TBI_MAX_ZOOM,
-    TBI_MIN_ZOOM,
+    TBI_MAX_CARD_WIDTH,
+    TBI_MIN_CARD_WIDTH,
     tbiState,
   } from '../../../../lib/stores/tbiStore'
   import TbiCardHost from '../TbiCardHost.svelte'
@@ -34,11 +33,11 @@
   /**
    * Geste en cours. Pendant le geste, seul le style du shell est modifié,
    * directement dans le DOM et au rythme de l'écran (requestAnimationFrame) :
-   * aucune écriture dans le store, donc aucun re-render Svelte, aucun
-   * recalcul de la hauteur du canvas et aucun re-typeset KaTeX par
-   * pointermove. Le store n'est mis à jour qu'au relâchement (commit) :
-   * une seule notification, et le zoom (re-typeset coûteux) ne s'applique
-   * qu'une fois, en fin de geste.
+   * aucune écriture dans le store, donc aucun re-render Svelte et aucun
+   * recalcul de la hauteur du canvas par pointermove. Le redimensionnement
+   * ne touche que la largeur du cadre (pas de re-typeset KaTeX : le zoom du
+   * contenu est indépendant et ne change pas pendant ce geste). Le store
+   * n'est mis à jour qu'au relâchement (commit), en une seule notification.
    */
   let gesture: {
     paramsIndex: number
@@ -80,8 +79,8 @@
   function onResizeMove(dw: number) {
     if (!gesture) return
     gesture.w = Math.min(
-      TBI_MAX_ZOOM * TBI_BASE_WIDTH,
-      Math.max(TBI_MIN_ZOOM * TBI_BASE_WIDTH, gesture.w + dw),
+      TBI_MAX_CARD_WIDTH,
+      Math.max(TBI_MIN_CARD_WIDTH, gesture.w + dw),
     )
     scheduleApply()
   }
@@ -98,11 +97,6 @@
         card.x = x
         card.y = y
         card.w = w
-        // la largeur pilote le zoom, appliqué une seule fois en fin de geste
-        card.zoom = Math.min(
-          TBI_MAX_ZOOM,
-          Math.max(TBI_MIN_ZOOM, Math.round((w / TBI_BASE_WIDTH) * 100) / 100),
-        )
       }
       return state
     })
@@ -150,7 +144,7 @@
         <div
           class="absolute -bottom-2 -right-2 w-8 h-8 rounded-full flex items-center justify-center bg-coopmaths-action dark:bg-coopmathsdark-action text-coopmaths-canvas dark:text-coopmathsdark-canvas opacity-70 hover:opacity-100 shadow-md"
           style="touch-action: none; user-select: none"
-          title="Redimensionner l'exercice (joue sur le zoom)"
+          title="Redimensionner le cadre de l'exercice"
           use:resizable={{
             onStart: (handle) => beginGesture(item.paramsIndex, handle),
             onMove: onResizeMove,

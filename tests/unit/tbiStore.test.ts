@@ -22,7 +22,7 @@ describe('tbiStore', () => {
   })
 
   it('reconcileTbiCards étend cards avec des valeurs par défaut', () => {
-    reconcileTbiCards(3)
+    reconcileTbiCards(['e1', 'e2', 'e3'])
     const state = get(tbiState)
     expect(state.cards).toHaveLength(3)
     expect(state.cards.map((c) => c.tab)).toEqual([0, 1, 2])
@@ -30,13 +30,32 @@ describe('tbiStore', () => {
     expect(state.tabConfigs).toHaveLength(3)
   })
 
+  it("reconcileTbiCards réinitialise une carte dont l'exercice a été remplacé", () => {
+    reconcileTbiCards(['e1', 'e2', 'e3'])
+    tbiState.update((state) => {
+      state.cards[1].zoom = 2
+      state.cards[1].x = 999
+      state.cards[1].w = 900
+      return state
+    })
+    // e2 est remplacé par e2bis à l'indice 1 : ne doit pas hériter du zoom/de la position d'e2
+    reconcileTbiCards(['e1', 'e2bis', 'e3'])
+    const state = get(tbiState)
+    expect(state.cards[1].zoom).toBe(1)
+    expect(state.cards[1].x).toBe(40 + (1 % 3) * 80)
+    expect(state.cards[1].w).toBe(600)
+    // les exercices inchangés conservent leur état
+    expect(state.cards[0].uuid).toBe('e1')
+    expect(state.cards[2].uuid).toBe('e3')
+  })
+
   it('reconcileTbiCards tronque le surplus et remappe les onglets hors bornes', () => {
-    reconcileTbiCards(4)
+    reconcileTbiCards(['e1', 'e2', 'e3', 'e4'])
     tbiState.update((state) => {
       state.cards[1].tab = 3
       return state
     })
-    reconcileTbiCards(2)
+    reconcileTbiCards(['e1', 'e2'])
     const state = get(tbiState)
     expect(state.cards).toHaveLength(2)
     // l'onglet 3 n'existe plus avec 2 exercices : retour à l'indice de la carte
@@ -44,7 +63,7 @@ describe('tbiStore', () => {
   })
 
   it('moveCardToTab fusionne, élague et renumérote les onglets', () => {
-    reconcileTbiCards(3)
+    reconcileTbiCards(['e1', 'e2', 'e3'])
     // l'exercice 0 rejoint l'onglet de l'exercice 1 : onglets [1,1,2] → [0,0,1]
     moveCardToTab(0, 1)
     let state = get(tbiState)
@@ -63,7 +82,7 @@ describe('tbiStore', () => {
       { uuid: 'b' },
       { uuid: 'c' },
     ])
-    reconcileTbiCards(3)
+    reconcileTbiCards(['a', 'b', 'c'])
     tbiState.update((state) => {
       state.cards[2].zoom = 2
       return state
@@ -76,7 +95,7 @@ describe('tbiStore', () => {
 
   it("deleteTbiCard retire l'exercice et renumérote les onglets", () => {
     exercicesParams.set([{ uuid: 'a' }, { uuid: 'b' }, { uuid: 'c' }])
-    reconcileTbiCards(3)
+    reconcileTbiCards(['a', 'b', 'c'])
     // b et c partagent un onglet ; a est seul dans le sien
     moveCardToTab(2, 1)
     let state = get(tbiState)
@@ -102,7 +121,7 @@ describe('tbiStore', () => {
   })
 
   it('getTbiSharedState / applyTbiSharedState font un aller-retour', () => {
-    reconcileTbiCards(3)
+    reconcileTbiCards(['e1', 'e2', 'e3'])
     tbiState.update((state) => {
       state.mode = 'tabs'
       state.nbColumns = 3
@@ -127,7 +146,7 @@ describe('tbiStore', () => {
     })
 
     tbiState.set(defaultTbiState())
-    reconcileTbiCards(3)
+    reconcileTbiCards(['e1', 'e2', 'e3'])
     applyTbiSharedState(shared)
     const state = get(tbiState)
     expect(state.mode).toBe('tabs')
@@ -139,7 +158,7 @@ describe('tbiStore', () => {
   })
 
   it('applyTbiSharedState ignore les valeurs invalides', () => {
-    reconcileTbiCards(2)
+    reconcileTbiCards(['e1', 'e2'])
     applyTbiSharedState({
       // @ts-expect-error valeur inconnue volontaire
       mode: 'pirouette',

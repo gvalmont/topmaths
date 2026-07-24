@@ -106,7 +106,7 @@
 
   onMount(async () => {
     await loadItems()
-    reconcileTbiCards(items.length)
+    reconcileTbiCards(uuids)
     // l'URL (tbiParam) décrit la disposition partagée, le localStorage
     // les positions dépendantes de l'écran
     const urlParam = new URL(window.location.href).searchParams.get('tbiParam')

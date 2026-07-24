@@ -24,8 +24,12 @@ export const TBI_MAX_ZOOM = 3
 export const TBI_WIDGET_MIN_ZOOM = 0.5
 export const TBI_WIDGET_MAX_ZOOM = 2.5
 
+/** Bornes de largeur de carte en mode libre, indépendantes du zoom */
+export const TBI_MIN_CARD_WIDTH = 240
+export const TBI_MAX_CARD_WIDTH = 1800
+
 export interface TbiCardState {
-  /** Zoom d'affichage (modes liste/colonnes/onglets ; en mode libre il est dérivé de w) */
+  /** Zoom d'affichage du contenu (indépendant de la largeur en mode libre) */
   zoom: number
   /** Position et largeur en px dans le canvas du mode libre */
   x: number
@@ -35,6 +39,8 @@ export interface TbiCardState {
   tab: number
   /** Saut de colonne avant cet exercice (dispositions en colonnes) */
   colBreak: boolean
+  /** uuid de l'exercice actuellement affiché à cet indice, pour détecter un remplacement */
+  uuid?: string
 }
 
 export interface TbiTabConfig {
@@ -118,15 +124,26 @@ function ensureTabConfigs(state: TbiState) {
 }
 
 /**
- * Aligne cards sur le nombre d'exercices : étend avec des valeurs par défaut,
- * tronque le surplus et ramène les onglets hors bornes dans [0, count - 1].
+ * Aligne cards sur la liste d'exercices (identifiée par uuid) : étend avec
+ * des valeurs par défaut, tronque le surplus, ramène les onglets hors
+ * bornes dans [0, count - 1], et réinitialise (zoom, position, taille)
+ * toute carte dont l'exercice à cet indice a été remplacé par un autre
+ * (édition de la sélection hors de la vue TBI) pour ne pas hériter du
+ * zoom/de la position d'un exercice sans rapport.
  */
-export function reconcileTbiCards(count: number) {
+export function reconcileTbiCards(uuids: string[]) {
+  const count = uuids.length
   tbiState.update((state) => {
     const cards = state.cards.slice(0, count)
     while (cards.length < count) {
       cards.push(defaultTbiCardState(cards.length))
     }
+    cards.forEach((card, i) => {
+      if (card.uuid !== undefined && card.uuid !== uuids[i]) {
+        cards[i] = defaultTbiCardState(i)
+      }
+      cards[i].uuid = uuids[i]
+    })
     for (const card of cards) {
       if (card.tab < 0 || card.tab >= count) {
         card.tab = cards.indexOf(card)
@@ -287,7 +304,7 @@ export function applyTbiSharedState(shared: Partial<TbiSharedState>) {
 
 /** Partie locale de l'état (positions dépendantes de l'écran, en localStorage) */
 interface TbiLocalLayout {
-  cards: { x: number; y: number; w: number }[]
+  cards: { x: number; y: number; w: number; zoom: number }[]
   widget: { x: number; y: number; zoom: number }
 }
 
@@ -299,7 +316,7 @@ export function saveTbiLocalLayout(uuids: string[]) {
   if (!isLocalStorageAvailable()) return
   const state = get(tbiState)
   const layout: TbiLocalLayout = {
-    cards: state.cards.map(({ x, y, w }) => ({ x, y, w })),
+    cards: state.cards.map(({ x, y, w, zoom }) => ({ x, y, w, zoom })),
     widget: { x: state.widget.x, y: state.widget.y, zoom: state.widget.zoom },
   }
   try {
@@ -331,10 +348,12 @@ export function loadTbiLocalLayout(uuids: string[]) {
           state.cards[i].x = card.x
           state.cards[i].y = card.y
           state.cards[i].w = card.w
-          // la largeur pilote le zoom (invariant du mode libre)
-          state.cards[i].zoom = clampZoom(
-            Math.round((card.w / TBI_BASE_WIDTH) * 100) / 100,
-          )
+          // rétrocompatibilité : anciennes sauvegardes sans zoom propre,
+          // où la largeur pilotait encore le zoom
+          state.cards[i].zoom =
+            typeof card.zoom === 'number'
+              ? clampZoom(card.zoom)
+              : clampZoom(Math.round((card.w / TBI_BASE_WIDTH) * 100) / 100)
         }
       })
     }
