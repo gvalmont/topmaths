@@ -18,6 +18,7 @@ export const listOfCustomElements = [
   'tableau-mathlive',
   'mathalea-qcm',
   'clique-figure',
+  'points-cliquables',
   'drag-and-drop',
   'meta-interactif-2d',
 ]
