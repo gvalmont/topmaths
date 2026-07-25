@@ -38,6 +38,7 @@ import { syncQcmAutoCorrectionToAmc } from './qcm'
 import '../customElements/DragAndDropElement'
 import '../customElements/MetaInteractif2dElement'
 import '../customElements/PointsCliquablesElement'
+import '../customElements/ObjetsCliquablesElement'
 
 export function isClickFiguresArray(
   figures: Figure[] | ClickFigures[],

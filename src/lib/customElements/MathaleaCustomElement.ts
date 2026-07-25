@@ -19,6 +19,7 @@ export const listOfCustomElements = [
   'mathalea-qcm',
   'clique-figure',
   'points-cliquables',
+  'objets-cliquables',
   'drag-and-drop',
   'meta-interactif-2d',
 ]

@@ -181,7 +181,7 @@ export class PointsCliquablesElement extends MathaleaCustomElement {
   ): PointCliquableSvgElement {
     const pointId = this.getSvgPointId(point.id)
     const existing = figure.querySelector(
-      `#${CSS.escape(pointId)}`,
+      `#${cssEscape(pointId)}`,
     ) as PointCliquableSvgElement | null
     const group = (existing ??
       document.createElementNS(svgNS, 'g')) as PointCliquableSvgElement
@@ -276,7 +276,7 @@ export class PointsCliquablesElement extends MathaleaCustomElement {
   private getPointGroups(): PointCliquableSvgElement[] {
     return Array.from(
       document.querySelectorAll(
-        `[data-points-cliquables-host="${CSS.escape(this.id)}"]`,
+        `[data-points-cliquables-host="${cssEscape(this.id)}"]`,
       ),
     ) as PointCliquableSvgElement[]
   }
@@ -370,6 +370,10 @@ function readNumberAttribute(
   if (raw == null) return fallback
   const parsed = Number(raw)
   return Number.isFinite(parsed) ? parsed : fallback
+}
+
+function cssEscape(value: string): string {
+  return globalThis.CSS?.escape?.(value) ?? value.replaceAll('"', '\\"')
 }
 
 registerMathaleaCustomElement(PointsCliquablesElement)

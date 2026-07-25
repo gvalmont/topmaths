@@ -43,6 +43,7 @@ Les custom elements maison sont centralisés dans `src/lib/customElements/`. Dan
 | `guide-ane`                 | Moderne    | Un guide-âne interactif                                           | `addGuideAne()`                       | `src/lib/customElements/GuideAne.ts`                                                                                                   |
 | `clique-figure`             | Moderne    | Sélection d'une ou plusieurs figures déjà présentes dans l'énoncé | `addCliqueFigure()`                   | `src/lib/customElements/CliqueFigureElement.ts`                                                                                        |
 | `points-cliquables`         | Moderne    | Sélection de points injectés dans une figure MathALÉA 2D existante | `addPointsCliquables()`               | `src/lib/customElements/PointsCliquablesElement.ts`, `src/modules/mathalea2d.ts`                                                       |
+| `objets-cliquables`         | Moderne    | Sélection d'objets géométriques injectés dans une figure MathALÉA 2D existante | `addObjetsCliquables()`               | `src/lib/customElements/ObjetsCliquablesElement.ts`, `src/modules/mathalea2d.ts`                                                       |
 | `demi-droite-interactive`   | Moderne    | Pour placer des points d'abscisses fractionnaires                 | `demiDroiteInteractive()`             | `src/lib/customElements/demi_droite_interactive.ts`                                                                                    |
 | `interactive-clock`         | Moderne    | Une horloge interactive                                           | `handleInteractiveClock()`            | `src/lib/customElements/InteractiveClock.ts`                                                                                           |
 | `trigo-circle-selection`    | Moderne    | Un cercle trigo interactif                                        | `selectionCercleTrigo()`              | `src/lib/customElements/TrigoCircleSelectionElement.ts`                                                                                |
@@ -68,6 +69,7 @@ Les clés de `reponses` dépendent du format :
 | ------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `reponse`                       | Champ unique `mathlive`, `texte`, `liste-deroulante`, `svg-selection`, `guide-ane`, `interactive-clock`, `demi-droite-interactive`, `trigo-circle-selection`                 |
 | `reponse`                       | Liste JSON stringifiée pour `points-cliquables`, contenant des objets `{ x: number, y: number, id: string, etat: boolean }`                                                   |
+| `reponse`                       | Liste JSON stringifiée pour `objets-cliquables`, contenant des objets typés `point`, `segment`, `droite`, `cercle`, `polygone` ou `polyline`                                   |
 | `champ1`, `champ2`, ...         | `fillInTheBlank`                                                                                                                                                             |
 | `L1C1`, `L1C2`, ...             | `tableauMathlive`                                                                                                                                                            |
 | `rectangle1`, `rectangle2`, ... | `dnd`                                                                                                                                                                        |
@@ -130,6 +132,7 @@ Les QCM n'installent plus de listener de validation depuis `propositionsQcm()` :
 | `cliqueFigure`              | Routé vers `CliqueFigureElement.verifQuestion()` dans `src/lib/customElements/CliqueFigureElement.ts`                                                           |
 | `clique-figure`             | `CliqueFigureElement.verifQuestion()` dans `src/lib/customElements/CliqueFigureElement.ts`                                                                      |
 | `points-cliquables`         | `PointsCliquablesElement.verifQuestion()` dans `src/lib/customElements/PointsCliquablesElement.ts`                                                              |
+| `objets-cliquables`         | `ObjetsCliquablesElement.verifQuestion()` dans `src/lib/customElements/ObjetsCliquablesElement.ts`                                                              |
 | `custom`                    | correction globale de l'exercice quand `exercice.interactifType === 'custom'`, ou fonction `correctionInteractives` à l'index de question pour un méta-exercice |
 
 Les fonctions de vérification retournent un résultat exploitable par le score et affichent le retour visuel associé à la question.
@@ -158,6 +161,16 @@ La réponse attendue est déclarée avec `handleAnswers()` au format `points-cli
 `PointsCliquablesElement.value` expose toujours le JSON stringifié de l'état courant. Cela permet à `mathaleaWriteStudentPreviousAnswers()` de restaurer une copie Capytale en affectant directement `element.value = studentAnswer`. Quand `interactivityOn` passe à `false`, l'élément conserve les points sélectionnés visibles, retire les listeners, neutralise la zone SVG de clic et utilise un curseur non sélectionnable.
 
 Comme les autres custom elements, le helper ajoute le retour visuel attendu par le moteur : un `span#resultatCheckEx...Q...` pour le smiley et un `div#feedbackEx...Q...` pour d'éventuels retours détaillés.
+
+### Objets cliquables dans une figure MathALÉA 2D
+
+`objets-cliquables` généralise le principe à plusieurs géométries : `point`, `segment`, `droite`, `cercle`, `polygone` et `polyline`. Le rendu MathALÉA 2D principal reste statique ; le custom element injecte dans le SVG une couche superposée composée d'une forme visible de sélection et d'une hit zone transparente plus large.
+
+Le helper `addObjetsCliquables(exercice, questionIndex, options)` suit la convention des custom elements. Il reçoit `figureId`, la liste `objets`, puis les options visuelles `pixelsParCm`, `hitWidth`, `pointRadius`, `selectedWidth`, `selectedColor` et `hoverColor`. Les droites sont prolongées jusqu'aux bords de la `viewBox` du SVG quand celle-ci est disponible.
+
+La valeur attendue et la valeur élève sont des listes JSON stringifiées d'objets typés avec `id` et `etat`. Le setter `value` restaure les états sélectionnés pour la reprise Capytale. Quand `interactivityOn` vaut `false`, les objets sélectionnés restent visibles, les listeners sont retirés et les hit zones SVG sont neutralisées.
+
+Par défaut, `verifQuestion()` compare l'état de tous les objets à la liste attendue. Pour une correction plus spécifique, le helper accepte `verifyCallback` ou `verifyCallbackName`; la callback reçoit l'exercice, l'index de question, l'élément, les objets attendus et les objets élèves, puis retourne `{ isOk, feedback?, score? }`.
 
 ## Affichage des réponses élèves dans les corrections CAN
 
@@ -210,6 +223,7 @@ Pour les exercices qui ont besoin de critères multiples ou d'un score partiel, 
 - `src/lib/customElements/MathaleaQcm.ts` : custom element `mathalea-qcm`, helper `addMathaleaQcm()` et vérification QCM partagée. En contexte HTML, `propositionsQcm()` injecte ce composant tout en conservant les identifiants internes historiques.
 - `src/lib/customElements/CliqueFigureElement.ts` : custom element `clique-figure`, helper `addCliqueFigure()` et vérification des questions `cliqueFigure`. Les exercices historiques qui renseignent `cliqueFiguresArray` et appellent `setCliqueFigure()` sont normalisés vers ce tag sans devoir réécrire leurs énoncés.
 - `src/lib/customElements/PointsCliquablesElement.ts` : custom element `points-cliquables`, helper `addPointsCliquables()` et vérification des points injectés dans une figure MathALÉA 2D identifiée par `figureId`.
+- `src/lib/customElements/ObjetsCliquablesElement.ts` : custom element `objets-cliquables`, helper `addObjetsCliquables()` et vérification d'objets géométriques injectés dans une figure MathALÉA 2D identifiée par `figureId`.
 - `src/lib/interactif/DragAndDrop.ts` : builder historique du glisser-déposer.
 - `src/lib/customElements/DragAndDropElement.ts` : custom element `drag-and-drop`, wrapper de rendu et vérification des questions `dnd`.
 - `src/lib/interactif/setMathfield.ts` : configuration partagée des `math-field` interactifs.
