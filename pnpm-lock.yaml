@@ -40,8 +40,8 @@ importers:
         specifier: ^6.43.6
         version: 6.43.6
       '@cortex-js/compute-engine':
-        specifier: ^0.58.0
-        version: 0.58.0
+        specifier: ^0.92.1
+        version: 0.92.1
       '@mixer/postmessage-rpc':
         specifier: ^1.1.4
         version: 1.1.4
@@ -115,14 +115,14 @@ importers:
         specifier: ^0.1.0
         version: 0.1.0
       katex:
-        specifier: ^0.16.47
-        version: 0.16.47
+        specifier: ^0.18.1
+        version: 0.18.1
       labyrinthe:
         specifier: git+https://forge.apps.education.fr/coopmaths/apps/labyrinthe.git
         version: git+https://forge.apps.education.fr/coopmaths/apps/labyrinthe.git#990940970cfe3d4b95f43020f59384df81e012ff(vite@7.3.6(@types/node@25.9.5)(jiti@2.7.0)(lightningcss@1.32.0)(sass@1.101.6)(yaml@2.9.0))
       mathlive:
-        specifier: ^0.109.2
-        version: 0.109.2
+        specifier: ^0.110.0
+        version: 0.110.0
       modern-screenshot:
         specifier: ^4.7.0
         version: 4.7.0
@@ -187,9 +187,6 @@ importers:
       '@types/earcut':
         specifier: ^3.0.0
         version: 3.0.0
-      '@types/katex':
-        specifier: ^0.16.8
-        version: 0.16.8
       '@types/node':
         specifier: ^25.9.5
         version: 25.9.5
@@ -401,6 +398,10 @@ packages:
 
   '@cortex-js/compute-engine@0.58.0':
     resolution: {integrity: sha512-N0+vXjVZfKwJS7ZIGvq41mojI55m5TrdDXveAXzNjzjZ9iNiNrdEzXL2EmrcP+9GCWCwTonrEeZWAIG78f3INg==}
+    engines: {node: '>=21.7.3', npm: '>=10.5.0'}
+
+  '@cortex-js/compute-engine@0.92.1':
+    resolution: {integrity: sha512-IYm3YW7KBRmcLHldGv2AtkqhJQM0+RkGPrUcq67SPIlPD26/b1oVK58H4HB2kvxx/LGRH2VJy1EaIry72Cj16w==}
     engines: {node: '>=21.7.3', npm: '>=10.5.0'}
 
   '@cspotcode/source-map-support@0.8.1':
@@ -1364,9 +1365,6 @@ packages:
 
   '@types/jspreadsheet-ce@4.7.9':
     resolution: {integrity: sha512-hUK1zZIova7WAABlj1zV+EHMw70h/UergJy6ps+tJBfZ1kvzqNNe2L6RrXts1txyFDWvBxZ7byQ+MkeL+7W4Wg==}
-
-  '@types/katex@0.16.8':
-    resolution: {integrity: sha512-trgaNyfU+Xh2Tc+ABIb44a5AYUpicB3uwirOioeOkNPPbmgRNtcWyDeeFRzjPZENO9Vq8gvVqfhaaXWLlevVwg==}
 
   '@types/keyv@3.1.4':
     resolution: {integrity: sha512-BQ5aZNSCpj7D6K2ksrRCTmKRLEpnPvWDiLPfoGyhZ++8YtiK9d/3DBKPJgry359X/P1PfruyYwvnvwFjuEiEIg==}
@@ -2782,6 +2780,10 @@ packages:
     resolution: {integrity: sha512-Eeo8Ys1doU1z+x8AZsPpQu+p/QcZBI5PeOo7QGQdy2x2m0MU/hYagBbGOmXwr5KVbEfVuWv9LpnQWeehogurjg==}
     hasBin: true
 
+  katex@0.18.1:
+    resolution: {integrity: sha512-Td8GCYSxDAoMhHOlKmCFMJ/hz5qlAAb71n66Dryw9nfCVfumLo7nhuotbvKom/XPADmrYC3O5QR71EPq4DarJQ==}
+    hasBin: true
+
   keyv@3.0.0:
     resolution: {integrity: sha512-eguHnq22OE3uVoSYG0LVWNP+4ppamWr9+zWBe1bsNcovIMy6huUJFPgy4mGwCd/rnl3vOLGW1MTlu4c57CT1xA==}
 
@@ -2981,6 +2983,9 @@ packages:
 
   mathlive@0.109.2:
     resolution: {integrity: sha512-/2uNk8xFP8msIINwWFKv9bBLnCnaNL2wzUWaDu89Vj7sSuIUX8FFg0PY6XER0pNpHJCa/T+Ct5MK6m+zFTdPKw==}
+
+  mathlive@0.110.0:
+    resolution: {integrity: sha512-UOpJsQ6h1eeN0xZULGTl1MwUB/lZLCDuzKeHvKEh7Zra8U/rtgDNrssj5PZdJtBTIV48AfEhtv6rv47AeMOxJA==}
 
   mdn-data@2.27.1:
     resolution: {integrity: sha512-9Yubnt3e8A0OKwxYSXyhLymGW4sCufcLG6VdiDdUGVkPhpqLxlvP5vl1983gQjJl3tqbrM731mjaZaP68AgosQ==}
@@ -4407,6 +4412,11 @@ snapshots:
       complex-esm: 2.1.1-esm1
       decimal.js: 10.6.0
 
+  '@cortex-js/compute-engine@0.92.1':
+    dependencies:
+      '@arnog/colors': 0.5.0
+      complex-esm: 2.1.1-esm1
+
   '@cspotcode/source-map-support@0.8.1':
     dependencies:
       '@jridgewell/trace-mapping': 0.3.9
@@ -5109,8 +5119,6 @@ snapshots:
   '@types/json-schema@7.0.15': {}
 
   '@types/jspreadsheet-ce@4.7.9': {}
-
-  '@types/katex@0.16.8': {}
 
   '@types/keyv@3.1.4':
     dependencies:
@@ -6660,6 +6668,10 @@ snapshots:
     dependencies:
       commander: 8.3.0
 
+  katex@0.18.1:
+    dependencies:
+      commander: 8.3.0
+
   keyv@3.0.0:
     dependencies:
       json-buffer: 3.0.0
@@ -6849,6 +6861,10 @@ snapshots:
   mathlive@0.109.2:
     dependencies:
       '@cortex-js/compute-engine': 0.55.6
+
+  mathlive@0.110.0:
+    dependencies:
+      '@cortex-js/compute-engine': 0.58.0
 
   mdn-data@2.27.1: {}
 
