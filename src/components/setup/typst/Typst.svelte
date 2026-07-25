@@ -2104,7 +2104,7 @@
 </script>
 
 <svelte:head>
-  <title>MathALÉA - Typst</title>
+  <title>MathALÉA - Impression</title>
 </svelte:head>
 
 <main
