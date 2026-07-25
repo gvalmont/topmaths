@@ -1,15 +1,15 @@
-import MathaleaCustomElement, { registerMathaleaCustomElement } from '../lib/customElements/MathaleaCustomElement'
-import { cercle } from '../lib/2d/cercle'
-import { droite } from '../lib/2d/droites'
-import { pointAbstrait, type PointAbstrait } from '../lib/2d/PointAbstrait'
-import { longueur } from '../lib/2d/utilitairesGeometriques'
+import MathaleaCustomElement, { registerMathaleaCustomElement } from './MathaleaCustomElement'
+import { cercle } from '../2d/cercle'
+import { droite } from '../2d/droites'
+import { pointAbstrait, type PointAbstrait } from '../2d/PointAbstrait'
+import { longueur } from '../2d/utilitairesGeometriques'
 import {
   pointAdistance,
   pointIntersectionCC,
   pointIntersectionDD,
   pointIntersectionLC,
-} from '../lib/2d/utilitairesPoint'
-import Alea2iep from './Alea2iep'
+} from '../2d/utilitairesPoint'
+import Alea2iep from '../../modules/Alea2iep'
 
 /**
  * Éditeur d'animations de constructions aux instruments (Instrumenpoche)
@@ -904,8 +904,27 @@ export class ElementIepEditeur extends MathaleaCustomElement {
   private animationVisible = false
   private boutonValider!: HTMLButtonElement
   private boutonAnnulerEdition!: HTMLButtonElement
+  private inputChargerJSON!: HTMLInputElement
+  // undefined si allowfullscreen n'est pas activé
+  private boutonPleinEcran?: HTMLButtonElement
   // Index de l'étape en cours de modification, null si on est en mode ajout
   private editingIndex: number | null = null
+
+  /**
+   * Ajoute des boutons Sauvegarder/Charger pour le JSON du programme
+   * @attr {boolean} [loadSaveButtons=false]
+   */
+  private get loadSaveButtonsActif(): boolean {
+    return this.getAttribute('load-save-buttons') === 'true'
+  }
+
+  /**
+   * Ajoute un bouton pour ne voir que l'animation en plein écran
+   * @attr {boolean} [allowfullscreen=false]
+   */
+  private get allowFullscreenActif(): boolean {
+    return this.getAttribute('allowfullscreen') === 'true'
+  }
 
   connectedCallback() {
     super.connectedCallback()
@@ -921,6 +940,66 @@ export class ElementIepEditeur extends MathaleaCustomElement {
     this.prochaineLettre = pointsDefinis(this.programme).length
     this.construireInterface()
     this.rafraichirProgramme()
+  }
+
+  /**
+   * Valeur JSON du programme de construction, utilisée par
+   * `mathaleaWriteStudentPreviousAnswer()` pour réinjecter une réponse
+   * sauvegardée (en association avec `interactivityOn = false`).
+   */
+  get value(): string {
+    return JSON.stringify(this.programme)
+  }
+
+  set value(nextValue: string) {
+    if (typeof nextValue !== 'string' || nextValue === '') return
+    this.importerProgramme(nextValue)
+  }
+
+  protected onInteractivityChanged(_isOn: boolean): void {
+    this.appliquerInteractivite()
+  }
+
+  /**
+   * Active/désactive tous les boutons, listes et champs de l'éditeur
+   * en fonction de `interactivityOn`.
+   * Les boutons ▲/▼ déjà désactivés par la logique du programme (déplacement
+   * impossible, cf. `data-desactive-logique`) ne sont pas réactivés.
+   */
+  private appliquerInteractivite() {
+    const actif = this.interactivityOn
+    this.querySelectorAll<
+      HTMLButtonElement | HTMLSelectElement | HTMLInputElement
+    >('button, select, input').forEach((element) => {
+      if (!actif) {
+        element.disabled = true
+      } else if (element.dataset.desactiveLogique !== 'true') {
+        element.disabled = false
+      }
+    })
+  }
+
+  /**
+   * Remplace le programme courant par celui décrit par le JSON fourni
+   * (utilisé par le setter `value` et par le bouton Charger)
+   * @returns true si l'import a réussi
+   */
+  private importerProgramme(json: string): boolean {
+    let parsed: unknown
+    try {
+      parsed = JSON.parse(json)
+    } catch {
+      return false
+    }
+    if (!Array.isArray(parsed)) return false
+    this.programme = parsed as InstructionIep[]
+    this.prochaineLettre = pointsDefinis(this.programme).length
+    const id = this.getAttribute('id') ?? 'editeur-iep'
+    programmesParId.set(id, this.programme)
+    this.terminerEdition()
+    this.rafraichirProgramme()
+    this.rafraichirParametres()
+    return true
   }
 
   private construireInterface() {
@@ -1015,26 +1094,135 @@ export class ElementIepEditeur extends MathaleaCustomElement {
       'gap-1',
     )
     zoneProgramme.appendChild(this.listeProgramme)
+    if (this.loadSaveButtonsActif) {
+      zoneProgramme.appendChild(this.construireLigneChargerSauvegarder())
+    }
     conteneur.appendChild(zoneProgramme)
 
     // --- Animation ---
     const zoneAnimation = document.createElement('div')
-    zoneAnimation.classList.add('flex', 'flex-col', 'gap-2')
+    zoneAnimation.classList.add('flex', 'flex-wrap', 'gap-2')
     const boutonTester = document.createElement('button')
     boutonTester.innerText = 'Tester l’animation'
+    boutonTester.type = 'button'
     boutonTester.classList.add(...classesBouton, 'self-start')
     boutonTester.onclick = () => {
       this.animationVisible = true
       this.chargerAnimation()
     }
     zoneAnimation.appendChild(boutonTester)
+    if (this.allowFullscreenActif) {
+      this.boutonPleinEcran = document.createElement('button')
+      this.boutonPleinEcran.innerText = 'Voir en plein écran'
+      this.boutonPleinEcran.type = 'button'
+      this.boutonPleinEcran.classList.add(...classesBouton, 'self-start')
+      this.boutonPleinEcran.onclick = () => this.basculerPleinEcran()
+      zoneAnimation.appendChild(this.boutonPleinEcran)
+    }
     this.divAnimation = document.createElement('div')
-    this.divAnimation.classList.add('max-w-5xl')
+    this.divAnimation.classList.add(
+      'max-w-5xl',
+      'basis-full',
+      'bg-white',
+      'flex',
+      'items-center',
+      'justify-center',
+    )
     zoneAnimation.appendChild(this.divAnimation)
     conteneur.appendChild(zoneAnimation)
 
     this.appendChild(conteneur)
     this.rafraichirParametres()
+    this.appliquerInteractivite()
+  }
+
+  /**
+   * Construit la ligne de boutons Sauvegarder/Charger le JSON du programme
+   * (visible uniquement si `loadSaveButtons` vaut `true`)
+   */
+  private construireLigneChargerSauvegarder(): HTMLDivElement {
+    const ligne = document.createElement('div')
+    ligne.classList.add('flex', 'items-center', 'gap-2')
+
+    const boutonSauvegarder = document.createElement('button')
+    boutonSauvegarder.innerHTML = '<i class="bx bx-save text-lg"></i>'
+    boutonSauvegarder.type = 'button'
+    boutonSauvegarder.title = 'Sauvegarder le programme (JSON)'
+    boutonSauvegarder.setAttribute(
+      'aria-label',
+      'Sauvegarder le programme (JSON)',
+    )
+    boutonSauvegarder.classList.add(...classesBouton)
+    boutonSauvegarder.onclick = () => this.sauvegarderJSON()
+    ligne.appendChild(boutonSauvegarder)
+
+    const boutonCharger = document.createElement('button')
+    boutonCharger.innerHTML = '<i class="bx bx-upload text-lg"></i>'
+    boutonCharger.type = 'button'
+    boutonCharger.title = 'Charger un programme (JSON)'
+    boutonCharger.setAttribute('aria-label', 'Charger un programme (JSON)')
+    boutonCharger.classList.add(...classesBouton)
+    boutonCharger.onclick = () => this.inputChargerJSON.click()
+    ligne.appendChild(boutonCharger)
+
+    this.inputChargerJSON = document.createElement('input')
+    this.inputChargerJSON.type = 'file'
+    this.inputChargerJSON.accept = '.json,application/json'
+    this.inputChargerJSON.classList.add('hidden')
+    this.inputChargerJSON.onchange = () => this.chargerJSON()
+    ligne.appendChild(this.inputChargerJSON)
+
+    return ligne
+  }
+
+  /**
+   * Télécharge le programme de construction courant au format JSON
+   */
+  private sauvegarderJSON() {
+    const blob = new Blob([JSON.stringify(this.programme, null, 2)], {
+      type: 'application/json',
+    })
+    const url = URL.createObjectURL(blob)
+    const lien = document.createElement('a')
+    lien.href = url
+    lien.download = 'programme-construction.json'
+    lien.click()
+    URL.revokeObjectURL(url)
+  }
+
+  /**
+   * Lit le fichier JSON sélectionné par l'utilisateur et remplace le
+   * programme courant par son contenu
+   */
+  private chargerJSON() {
+    const fichier = this.inputChargerJSON.files?.[0]
+    this.inputChargerJSON.value = ''
+    if (fichier == null) return
+    const lecteur = new FileReader()
+    lecteur.onload = () => {
+      const reussi = this.importerProgramme(String(lecteur.result))
+      if (!reussi) {
+        window.alert(
+          'Le fichier sélectionné n’est pas un programme de construction valide.',
+        )
+      }
+    }
+    lecteur.readAsText(fichier)
+  }
+
+  /**
+   * Affiche l'animation seule en plein écran (API Fullscreen du navigateur)
+   */
+  private async basculerPleinEcran() {
+    if (!this.animationVisible) {
+      this.animationVisible = true
+      await this.chargerAnimation()
+    }
+    if (document.fullscreenElement === this.divAnimation) {
+      await document.exitFullscreen()
+    } else {
+      await this.divAnimation.requestFullscreen()
+    }
   }
 
   private rafraichirParametres() {
@@ -1159,6 +1347,7 @@ export class ElementIepEditeur extends MathaleaCustomElement {
       }
       this.divParametres.appendChild(etiquette)
     }
+    this.appliquerInteractivite()
   }
 
   private nomSuivant() {
@@ -1356,6 +1545,7 @@ export class ElementIepEditeur extends MathaleaCustomElement {
           'shrink-0',
         )
         if (desactive) {
+          bouton.dataset.desactiveLogique = 'true'
           bouton.classList.add('opacity-40', 'cursor-not-allowed')
         } else {
           bouton.classList.add('hover:bg-gray-200')
@@ -1365,6 +1555,13 @@ export class ElementIepEditeur extends MathaleaCustomElement {
       }
       this.listeProgramme.appendChild(ligne)
     })
+    this.appliquerInteractivite()
+    if (this.boutonPleinEcran !== undefined) {
+      this.boutonPleinEcran.classList.toggle(
+        'hidden',
+        this.programme.length === 0,
+      )
+    }
     if (this.animationVisible) this.chargerAnimation()
   }
 
@@ -1389,3 +1586,5 @@ export class ElementIepEditeur extends MathaleaCustomElement {
 export function ensureElementIepEditeurRegistered() {
   registerMathaleaCustomElement(ElementIepEditeur)
 }
+
+registerMathaleaCustomElement(ElementIepEditeur)
