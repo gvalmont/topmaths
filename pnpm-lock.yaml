@@ -56,7 +56,7 @@ importers:
         version: 0.7.0(@myriaddreamin/typst-ts-renderer@0.7.0)(@myriaddreamin/typst-ts-web-compiler@0.7.0)
       '@scratch2latex/scratch-core':
         specifier: git+https://forge.apps.education.fr/coopmaths/scratch-core.git#main
-        version: git+https://forge.apps.education.fr/coopmaths/scratch-core.git#7f9f2bd073130a3df7a7fa6e4b4c188ea89307bc(@types/node@25.9.5)(@vitest/coverage-v8@4.1.10)(@vitest/ui@4.1.10)(jsdom@29.1.1)(vite@8.1.5(@types/node@25.9.5)(esbuild@0.28.1)(jiti@2.7.0)(sass@1.101.6)(yaml@2.9.0))
+        version: git+https://forge.apps.education.fr/coopmaths/scratch-core.git#7f9f2bd073130a3df7a7fa6e4b4c188ea89307bc(@types/node@25.9.5)(@vitest/coverage-v8@4.1.10)(@vitest/ui@4.1.10)(jsdom@29.1.1)(vite@7.3.6(@types/node@25.9.5)(jiti@2.7.0)(lightningcss@1.32.0)(sass@1.101.6)(yaml@2.9.0))
       '@svgdotjs/svg.js':
         specifier: ^3.2.7
         version: 3.2.7
@@ -92,13 +92,13 @@ importers:
         version: 3.2.3
       fraction-visualizer:
         specifier: git+https://forge.apps.education.fr/coopmaths/apps/fraction-visualizer.git
-        version: git+https://forge.apps.education.fr/coopmaths/apps/fraction-visualizer.git#2580ed30a1dc38ad52857ab6b9dd9c95695a73ae(vite@8.1.5(@types/node@25.9.5)(esbuild@0.28.1)(jiti@2.7.0)(sass@1.101.6)(yaml@2.9.0))
+        version: git+https://forge.apps.education.fr/coopmaths/apps/fraction-visualizer.git#2580ed30a1dc38ad52857ab6b9dd9c95695a73ae(vite@7.3.6(@types/node@25.9.5)(jiti@2.7.0)(lightningcss@1.32.0)(sass@1.101.6)(yaml@2.9.0))
       git-precommit-checks:
         specifier: ^3.1.0
         version: 3.1.0
       glisse-nombre:
         specifier: git+https://forge.apps.education.fr/coopmaths/apps/glisse-nombre.git
-        version: git+https://forge.apps.education.fr/coopmaths/apps/glisse-nombre.git#d6e6408c2beb38d0050492e7cd8ef56304282443(vite@8.1.5(@types/node@25.9.5)(esbuild@0.28.1)(jiti@2.7.0)(sass@1.101.6)(yaml@2.9.0))
+        version: git+https://forge.apps.education.fr/coopmaths/apps/glisse-nombre.git#d6e6408c2beb38d0050492e7cd8ef56304282443(vite@7.3.6(@types/node@25.9.5)(jiti@2.7.0)(lightningcss@1.32.0)(sass@1.101.6)(yaml@2.9.0))
       instrumenpoche:
         specifier: git+https://git.sesamath.net/sesamath/instrumenpoche.git
         version: git+https://git.sesamath.net/sesamath/instrumenpoche.git#04ba37b51f90cbc475afbf1e21e41c04d336cb96
@@ -119,7 +119,7 @@ importers:
         version: 0.16.47
       labyrinthe:
         specifier: git+https://forge.apps.education.fr/coopmaths/apps/labyrinthe.git
-        version: git+https://forge.apps.education.fr/coopmaths/apps/labyrinthe.git#990940970cfe3d4b95f43020f59384df81e012ff(vite@8.1.5(@types/node@25.9.5)(esbuild@0.28.1)(jiti@2.7.0)(sass@1.101.6)(yaml@2.9.0))
+        version: git+https://forge.apps.education.fr/coopmaths/apps/labyrinthe.git#990940970cfe3d4b95f43020f59384df81e012ff(vite@7.3.6(@types/node@25.9.5)(jiti@2.7.0)(lightningcss@1.32.0)(sass@1.101.6)(yaml@2.9.0))
       mathlive:
         specifier: ^0.109.2
         version: 0.109.2
@@ -170,17 +170,17 @@ importers:
         specifier: ^1.61.1
         version: 1.61.1
       '@sveltejs/vite-plugin-svelte':
-        specifier: ^7.2.0
-        version: 7.2.0(svelte@5.56.7(@typescript-eslint/types@8.65.0))(vite@8.1.5(@types/node@25.9.5)(esbuild@0.28.1)(jiti@2.7.0)(sass@1.101.6)(yaml@2.9.0))
+        specifier: ^6.2.4
+        version: 6.2.4(svelte@5.56.7(@typescript-eslint/types@8.65.0))(vite@7.3.6(@types/node@25.9.5)(jiti@2.7.0)(lightningcss@1.32.0)(sass@1.101.6)(yaml@2.9.0))
       '@tailwindcss/forms':
         specifier: ^0.5.11
         version: 0.5.11(tailwindcss@4.3.3)
       '@tailwindcss/vite':
         specifier: ^4.3.3
-        version: 4.3.3(vite@8.1.5(@types/node@25.9.5)(esbuild@0.28.1)(jiti@2.7.0)(sass@1.101.6)(yaml@2.9.0))
+        version: 4.3.3(vite@7.3.6(@types/node@25.9.5)(jiti@2.7.0)(lightningcss@1.32.0)(sass@1.101.6)(yaml@2.9.0))
       '@testing-library/svelte':
         specifier: ^5.4.2
-        version: 5.4.2(svelte@5.56.7(@typescript-eslint/types@8.65.0))(vite@8.1.5(@types/node@25.9.5)(esbuild@0.28.1)(jiti@2.7.0)(sass@1.101.6)(yaml@2.9.0))(vitest@4.1.10)
+        version: 5.4.2(svelte@5.56.7(@typescript-eslint/types@8.65.0))(vite@7.3.6(@types/node@25.9.5)(jiti@2.7.0)(lightningcss@1.32.0)(sass@1.101.6)(yaml@2.9.0))(vitest@4.1.10)
       '@tsconfig/svelte':
         specifier: ^5.0.8
         version: 5.0.8
@@ -281,8 +281,8 @@ importers:
         specifier: ^0.12.5
         version: 0.12.5
       vite:
-        specifier: ^8.1.5
-        version: 8.1.5(@types/node@25.9.5)(esbuild@0.28.1)(jiti@2.7.0)(sass@1.101.6)(yaml@2.9.0)
+        specifier: ^7.3.6
+        version: 7.3.6(@types/node@25.9.5)(jiti@2.7.0)(lightningcss@1.32.0)(sass@1.101.6)(yaml@2.9.0)
       vite-plugin-dynamic-import:
         specifier: ^1.6.0
         version: 1.6.0
@@ -291,7 +291,7 @@ importers:
         version: 0.3.1
       vitest:
         specifier: ^4.1.10
-        version: 4.1.10(@types/node@25.9.5)(@vitest/coverage-v8@4.1.10)(@vitest/ui@4.1.10)(jsdom@29.1.1)(vite@8.1.5(@types/node@25.9.5)(esbuild@0.28.1)(jiti@2.7.0)(sass@1.101.6)(yaml@2.9.0))
+        version: 4.1.10(@types/node@25.9.5)(@vitest/coverage-v8@4.1.10)(@vitest/ui@4.1.10)(jsdom@29.1.1)(vite@7.3.6(@types/node@25.9.5)(jiti@2.7.0)(lightningcss@1.32.0)(sass@1.101.6)(yaml@2.9.0))
 
 packages:
 
@@ -1170,12 +1170,20 @@ packages:
     resolution: {integrity: sha512-1LgZ/qUqSoq+QorD83lk2hka79Px0wXNW2q5V1nZlxGhQgw1jrsIbVz5YiCeucVLo4XvFLjXukUaQjIiqowkcg==}
     engines: {node: '>= 18.0.0'}
 
-  '@sveltejs/vite-plugin-svelte@7.2.0':
-    resolution: {integrity: sha512-1SpkuMSRLfugrVX+IrKfE1RUegzo8AQzKQ6qQPfVzbcWi5IhuTPaKb5ZrLpucleFznkc4/RTeSPoRnGWFxX+EQ==}
+  '@sveltejs/vite-plugin-svelte-inspector@5.0.2':
+    resolution: {integrity: sha512-TZzRTcEtZffICSAoZGkPSl6Etsj2torOVrx6Uw0KpXxrec9Gg6jFWQ60Q3+LmNGfZSxHRCZL7vXVZIWmuV50Ig==}
     engines: {node: ^20.19 || ^22.12 || >=24}
     peerDependencies:
-      svelte: ^5.46.4
-      vite: ^8.0.0-beta.7 || ^8.0.0
+      '@sveltejs/vite-plugin-svelte': ^6.0.0-next.0
+      svelte: ^5.0.0
+      vite: ^6.3.0 || ^7.0.0
+
+  '@sveltejs/vite-plugin-svelte@6.2.4':
+    resolution: {integrity: sha512-ou/d51QSdTyN26D7h6dSpusAKaZkAiGM55/AKYi+9AGZw7q85hElbjK3kEyzXHhLSnRISHOYzVge6x0jRZ7DXA==}
+    engines: {node: ^20.19 || ^22.12 || >=24}
+    peerDependencies:
+      svelte: ^5.0.0
+      vite: ^6.3.0 || ^7.0.0
 
   '@svgdotjs/svg.js@3.2.7':
     resolution: {integrity: sha512-pxpRccS8zrBl97JkkTzQNqohJ4c3L+xuWH6ulMW9E6yknZ5lp4z+n6MprHNsykFvFj6O8TQJfpsXaTUAJfcUfw==}
@@ -4011,16 +4019,15 @@ packages:
   vite-plugin-generate-file@0.3.1:
     resolution: {integrity: sha512-tiA3gkPM21MS2+RyqsBMT33GSlM9LM1TJjf6vGvV/e/ml3e3vTKfuH3l2N0NpUgcayvj1fXnmlo5YBuahA6bsg==}
 
-  vite@8.1.5:
-    resolution: {integrity: sha512-7ULLwsCdYx/nRyrpiEwvqb5TFHrMVZyBt+rg/OAXT7rgj/z+DtTDyKFeLAdDkubDVDKD8jOsndmy7m55XcfUsw==}
+  vite@7.3.6:
+    resolution: {integrity: sha512-4XP60spRGjSZFf1qYH+dJIkK2znL3zQfl9KkOV9MkkRR/3Dls0dxaBsQPTloEc5BLXWPL9vsOxopxyKoMmDueg==}
     engines: {node: ^20.19.0 || >=22.12.0}
     hasBin: true
     peerDependencies:
       '@types/node': ^20.19.0 || >=22.12.0
-      '@vitejs/devtools': ^0.3.0
-      esbuild: ^0.27.0 || ^0.28.0
       jiti: '>=1.21.0'
       less: ^4.0.0
+      lightningcss: ^1.21.0
       sass: ^1.70.0
       sass-embedded: ^1.70.0
       stylus: '>=0.54.8'
@@ -4031,13 +4038,11 @@ packages:
     peerDependenciesMeta:
       '@types/node':
         optional: true
-      '@vitejs/devtools':
-        optional: true
-      esbuild:
-        optional: true
       jiti:
         optional: true
       less:
+        optional: true
+      lightningcss:
         optional: true
       sass:
         optional: true
@@ -4694,7 +4699,8 @@ snapshots:
       '@nodelib/fs.scandir': 2.1.5
       fastq: 1.20.1
 
-  '@oxc-project/types@0.139.0': {}
+  '@oxc-project/types@0.139.0':
+    optional: true
 
   '@parcel/watcher-android-arm64@2.6.0':
     optional: true
@@ -4810,7 +4816,8 @@ snapshots:
   '@rolldown/binding-win32-x64-msvc@1.1.5':
     optional: true
 
-  '@rolldown/pluginutils@1.0.1': {}
+  '@rolldown/pluginutils@1.0.1':
+    optional: true
 
   '@rollup/rollup-android-arm-eabi@4.62.2':
     optional: true
@@ -4887,10 +4894,10 @@ snapshots:
   '@rollup/rollup-win32-x64-msvc@4.62.2':
     optional: true
 
-  '@scratch2latex/scratch-core@git+https://forge.apps.education.fr/coopmaths/scratch-core.git#7f9f2bd073130a3df7a7fa6e4b4c188ea89307bc(@types/node@25.9.5)(@vitest/coverage-v8@4.1.10)(@vitest/ui@4.1.10)(jsdom@29.1.1)(vite@8.1.5(@types/node@25.9.5)(esbuild@0.28.1)(jiti@2.7.0)(sass@1.101.6)(yaml@2.9.0))':
+  '@scratch2latex/scratch-core@git+https://forge.apps.education.fr/coopmaths/scratch-core.git#7f9f2bd073130a3df7a7fa6e4b4c188ea89307bc(@types/node@25.9.5)(@vitest/coverage-v8@4.1.10)(@vitest/ui@4.1.10)(jsdom@29.1.1)(vite@7.3.6(@types/node@25.9.5)(jiti@2.7.0)(lightningcss@1.32.0)(sass@1.101.6)(yaml@2.9.0))':
     dependencies:
       scratchblocks: 3.7.1
-      vitest: 4.1.10(@types/node@25.9.5)(@vitest/coverage-v8@4.1.10)(@vitest/ui@4.1.10)(jsdom@29.1.1)(vite@8.1.5(@types/node@25.9.5)(esbuild@0.28.1)(jiti@2.7.0)(sass@1.101.6)(yaml@2.9.0))
+      vitest: 4.1.10(@types/node@25.9.5)(@vitest/coverage-v8@4.1.10)(@vitest/ui@4.1.10)(jsdom@29.1.1)(vite@7.3.6(@types/node@25.9.5)(jiti@2.7.0)(lightningcss@1.32.0)(sass@1.101.6)(yaml@2.9.0))
     transitivePeerDependencies:
       - '@edge-runtime/vm'
       - '@opentelemetry/api'
@@ -4936,14 +4943,22 @@ snapshots:
 
   '@sveltejs/load-config@0.2.0': {}
 
-  '@sveltejs/vite-plugin-svelte@7.2.0(svelte@5.56.7(@typescript-eslint/types@8.65.0))(vite@8.1.5(@types/node@25.9.5)(esbuild@0.28.1)(jiti@2.7.0)(sass@1.101.6)(yaml@2.9.0))':
+  '@sveltejs/vite-plugin-svelte-inspector@5.0.2(@sveltejs/vite-plugin-svelte@6.2.4(svelte@5.56.7(@typescript-eslint/types@8.65.0))(vite@7.3.6(@types/node@25.9.5)(jiti@2.7.0)(lightningcss@1.32.0)(sass@1.101.6)(yaml@2.9.0)))(svelte@5.56.7(@typescript-eslint/types@8.65.0))(vite@7.3.6(@types/node@25.9.5)(jiti@2.7.0)(lightningcss@1.32.0)(sass@1.101.6)(yaml@2.9.0))':
     dependencies:
+      '@sveltejs/vite-plugin-svelte': 6.2.4(svelte@5.56.7(@typescript-eslint/types@8.65.0))(vite@7.3.6(@types/node@25.9.5)(jiti@2.7.0)(lightningcss@1.32.0)(sass@1.101.6)(yaml@2.9.0))
+      obug: 2.1.4
+      svelte: 5.56.7(@typescript-eslint/types@8.65.0)
+      vite: 7.3.6(@types/node@25.9.5)(jiti@2.7.0)(lightningcss@1.32.0)(sass@1.101.6)(yaml@2.9.0)
+
+  '@sveltejs/vite-plugin-svelte@6.2.4(svelte@5.56.7(@typescript-eslint/types@8.65.0))(vite@7.3.6(@types/node@25.9.5)(jiti@2.7.0)(lightningcss@1.32.0)(sass@1.101.6)(yaml@2.9.0))':
+    dependencies:
+      '@sveltejs/vite-plugin-svelte-inspector': 5.0.2(@sveltejs/vite-plugin-svelte@6.2.4(svelte@5.56.7(@typescript-eslint/types@8.65.0))(vite@7.3.6(@types/node@25.9.5)(jiti@2.7.0)(lightningcss@1.32.0)(sass@1.101.6)(yaml@2.9.0)))(svelte@5.56.7(@typescript-eslint/types@8.65.0))(vite@7.3.6(@types/node@25.9.5)(jiti@2.7.0)(lightningcss@1.32.0)(sass@1.101.6)(yaml@2.9.0))
       deepmerge: 4.3.1
       magic-string: 0.30.21
       obug: 2.1.4
       svelte: 5.56.7(@typescript-eslint/types@8.65.0)
-      vite: 8.1.5(@types/node@25.9.5)(esbuild@0.28.1)(jiti@2.7.0)(sass@1.101.6)(yaml@2.9.0)
-      vitefu: 1.1.3(vite@8.1.5(@types/node@25.9.5)(esbuild@0.28.1)(jiti@2.7.0)(sass@1.101.6)(yaml@2.9.0))
+      vite: 7.3.6(@types/node@25.9.5)(jiti@2.7.0)(lightningcss@1.32.0)(sass@1.101.6)(yaml@2.9.0)
+      vitefu: 1.1.3(vite@7.3.6(@types/node@25.9.5)(jiti@2.7.0)(lightningcss@1.32.0)(sass@1.101.6)(yaml@2.9.0))
 
   '@svgdotjs/svg.js@3.2.7': {}
 
@@ -5013,12 +5028,12 @@ snapshots:
       '@tailwindcss/oxide-win32-arm64-msvc': 4.3.3
       '@tailwindcss/oxide-win32-x64-msvc': 4.3.3
 
-  '@tailwindcss/vite@4.3.3(vite@8.1.5(@types/node@25.9.5)(esbuild@0.28.1)(jiti@2.7.0)(sass@1.101.6)(yaml@2.9.0))':
+  '@tailwindcss/vite@4.3.3(vite@7.3.6(@types/node@25.9.5)(jiti@2.7.0)(lightningcss@1.32.0)(sass@1.101.6)(yaml@2.9.0))':
     dependencies:
       '@tailwindcss/node': 4.3.3
       '@tailwindcss/oxide': 4.3.3
       tailwindcss: 4.3.3
-      vite: 8.1.5(@types/node@25.9.5)(esbuild@0.28.1)(jiti@2.7.0)(sass@1.101.6)(yaml@2.9.0)
+      vite: 7.3.6(@types/node@25.9.5)(jiti@2.7.0)(lightningcss@1.32.0)(sass@1.101.6)(yaml@2.9.0)
 
   '@testing-library/dom@10.4.1':
     dependencies:
@@ -5035,14 +5050,14 @@ snapshots:
     dependencies:
       svelte: 5.56.7(@typescript-eslint/types@8.65.0)
 
-  '@testing-library/svelte@5.4.2(svelte@5.56.7(@typescript-eslint/types@8.65.0))(vite@8.1.5(@types/node@25.9.5)(esbuild@0.28.1)(jiti@2.7.0)(sass@1.101.6)(yaml@2.9.0))(vitest@4.1.10)':
+  '@testing-library/svelte@5.4.2(svelte@5.56.7(@typescript-eslint/types@8.65.0))(vite@7.3.6(@types/node@25.9.5)(jiti@2.7.0)(lightningcss@1.32.0)(sass@1.101.6)(yaml@2.9.0))(vitest@4.1.10)':
     dependencies:
       '@testing-library/dom': 10.4.1
       '@testing-library/svelte-core': 1.1.3(svelte@5.56.7(@typescript-eslint/types@8.65.0))
       svelte: 5.56.7(@typescript-eslint/types@8.65.0)
     optionalDependencies:
-      vite: 8.1.5(@types/node@25.9.5)(esbuild@0.28.1)(jiti@2.7.0)(sass@1.101.6)(yaml@2.9.0)
-      vitest: 4.1.10(@types/node@25.9.5)(@vitest/coverage-v8@4.1.10)(@vitest/ui@4.1.10)(jsdom@29.1.1)(vite@8.1.5(@types/node@25.9.5)(esbuild@0.28.1)(jiti@2.7.0)(sass@1.101.6)(yaml@2.9.0))
+      vite: 7.3.6(@types/node@25.9.5)(jiti@2.7.0)(lightningcss@1.32.0)(sass@1.101.6)(yaml@2.9.0)
+      vitest: 4.1.10(@types/node@25.9.5)(@vitest/coverage-v8@4.1.10)(@vitest/ui@4.1.10)(jsdom@29.1.1)(vite@7.3.6(@types/node@25.9.5)(jiti@2.7.0)(lightningcss@1.32.0)(sass@1.101.6)(yaml@2.9.0))
 
   '@transifex/api@4.3.0':
     dependencies:
@@ -5242,7 +5257,7 @@ snapshots:
       obug: 2.1.4
       std-env: 4.2.0
       tinyrainbow: 3.1.0
-      vitest: 4.1.10(@types/node@25.9.5)(@vitest/coverage-v8@4.1.10)(@vitest/ui@4.1.10)(jsdom@29.1.1)(vite@8.1.5(@types/node@25.9.5)(esbuild@0.28.1)(jiti@2.7.0)(sass@1.101.6)(yaml@2.9.0))
+      vitest: 4.1.10(@types/node@25.9.5)(@vitest/coverage-v8@4.1.10)(@vitest/ui@4.1.10)(jsdom@29.1.1)(vite@7.3.6(@types/node@25.9.5)(jiti@2.7.0)(lightningcss@1.32.0)(sass@1.101.6)(yaml@2.9.0))
 
   '@vitest/expect@4.1.10':
     dependencies:
@@ -5253,13 +5268,13 @@ snapshots:
       chai: 6.2.2
       tinyrainbow: 3.1.0
 
-  '@vitest/mocker@4.1.10(vite@8.1.5(@types/node@25.9.5)(esbuild@0.28.1)(jiti@2.7.0)(sass@1.101.6)(yaml@2.9.0))':
+  '@vitest/mocker@4.1.10(vite@7.3.6(@types/node@25.9.5)(jiti@2.7.0)(lightningcss@1.32.0)(sass@1.101.6)(yaml@2.9.0))':
     dependencies:
       '@vitest/spy': 4.1.10
       estree-walker: 3.0.3
       magic-string: 0.30.21
     optionalDependencies:
-      vite: 8.1.5(@types/node@25.9.5)(esbuild@0.28.1)(jiti@2.7.0)(sass@1.101.6)(yaml@2.9.0)
+      vite: 7.3.6(@types/node@25.9.5)(jiti@2.7.0)(lightningcss@1.32.0)(sass@1.101.6)(yaml@2.9.0)
 
   '@vitest/pretty-format@4.1.10':
     dependencies:
@@ -5288,7 +5303,7 @@ snapshots:
       sirv: 3.0.2
       tinyglobby: 0.2.17
       tinyrainbow: 3.1.0
-      vitest: 4.1.10(@types/node@25.9.5)(@vitest/coverage-v8@4.1.10)(@vitest/ui@4.1.10)(jsdom@29.1.1)(vite@8.1.5(@types/node@25.9.5)(esbuild@0.28.1)(jiti@2.7.0)(sass@1.101.6)(yaml@2.9.0))
+      vitest: 4.1.10(@types/node@25.9.5)(@vitest/coverage-v8@4.1.10)(@vitest/ui@4.1.10)(jsdom@29.1.1)(vite@7.3.6(@types/node@25.9.5)(jiti@2.7.0)(lightningcss@1.32.0)(sass@1.101.6)(yaml@2.9.0))
 
   '@vitest/utils@4.1.10':
     dependencies:
@@ -5879,7 +5894,6 @@ snapshots:
       '@esbuild/win32-arm64': 0.28.1
       '@esbuild/win32-ia32': 0.28.1
       '@esbuild/win32-x64': 0.28.1
-    optional: true
 
   escalade@3.2.0: {}
 
@@ -6117,9 +6131,9 @@ snapshots:
       hasown: 2.0.4
       mime-types: 2.1.35
 
-  fraction-visualizer@git+https://forge.apps.education.fr/coopmaths/apps/fraction-visualizer.git#2580ed30a1dc38ad52857ab6b9dd9c95695a73ae(vite@8.1.5(@types/node@25.9.5)(esbuild@0.28.1)(jiti@2.7.0)(sass@1.101.6)(yaml@2.9.0)):
+  fraction-visualizer@git+https://forge.apps.education.fr/coopmaths/apps/fraction-visualizer.git#2580ed30a1dc38ad52857ab6b9dd9c95695a73ae(vite@7.3.6(@types/node@25.9.5)(jiti@2.7.0)(lightningcss@1.32.0)(sass@1.101.6)(yaml@2.9.0)):
     dependencies:
-      '@tailwindcss/vite': 4.3.3(vite@8.1.5(@types/node@25.9.5)(esbuild@0.28.1)(jiti@2.7.0)(sass@1.101.6)(yaml@2.9.0))
+      '@tailwindcss/vite': 4.3.3(vite@7.3.6(@types/node@25.9.5)(jiti@2.7.0)(lightningcss@1.32.0)(sass@1.101.6)(yaml@2.9.0))
     transitivePeerDependencies:
       - vite
 
@@ -6193,9 +6207,9 @@ snapshots:
       node-notifier: 8.0.2
       read-pkg-up: 5.0.0
 
-  glisse-nombre@git+https://forge.apps.education.fr/coopmaths/apps/glisse-nombre.git#d6e6408c2beb38d0050492e7cd8ef56304282443(vite@8.1.5(@types/node@25.9.5)(esbuild@0.28.1)(jiti@2.7.0)(sass@1.101.6)(yaml@2.9.0)):
+  glisse-nombre@git+https://forge.apps.education.fr/coopmaths/apps/glisse-nombre.git#d6e6408c2beb38d0050492e7cd8ef56304282443(vite@7.3.6(@types/node@25.9.5)(jiti@2.7.0)(lightningcss@1.32.0)(sass@1.101.6)(yaml@2.9.0)):
     dependencies:
-      '@tailwindcss/vite': 4.3.3(vite@8.1.5(@types/node@25.9.5)(esbuild@0.28.1)(jiti@2.7.0)(sass@1.101.6)(yaml@2.9.0))
+      '@tailwindcss/vite': 4.3.3(vite@7.3.6(@types/node@25.9.5)(jiti@2.7.0)(lightningcss@1.32.0)(sass@1.101.6)(yaml@2.9.0))
       daisyui: 5.7.0
     transitivePeerDependencies:
       - vite
@@ -6658,9 +6672,9 @@ snapshots:
     dependencies:
       graceful-fs: 4.2.11
 
-  labyrinthe@git+https://forge.apps.education.fr/coopmaths/apps/labyrinthe.git#990940970cfe3d4b95f43020f59384df81e012ff(vite@8.1.5(@types/node@25.9.5)(esbuild@0.28.1)(jiti@2.7.0)(sass@1.101.6)(yaml@2.9.0)):
+  labyrinthe@git+https://forge.apps.education.fr/coopmaths/apps/labyrinthe.git#990940970cfe3d4b95f43020f59384df81e012ff(vite@7.3.6(@types/node@25.9.5)(jiti@2.7.0)(lightningcss@1.32.0)(sass@1.101.6)(yaml@2.9.0)):
     dependencies:
-      '@tailwindcss/vite': 4.3.3(vite@8.1.5(@types/node@25.9.5)(esbuild@0.28.1)(jiti@2.7.0)(sass@1.101.6)(yaml@2.9.0))
+      '@tailwindcss/vite': 4.3.3(vite@7.3.6(@types/node@25.9.5)(jiti@2.7.0)(lightningcss@1.32.0)(sass@1.101.6)(yaml@2.9.0))
       mathlive: 0.108.3
       seedrandom: 3.0.5
     transitivePeerDependencies:
@@ -7331,6 +7345,7 @@ snapshots:
       '@rolldown/binding-wasm32-wasi': 1.1.5
       '@rolldown/binding-win32-arm64-msvc': 1.1.5
       '@rolldown/binding-win32-x64-msvc': 1.1.5
+    optional: true
 
   rollup-plugin-visualizer@6.0.11(rolldown@1.1.5)(rollup@4.62.2):
     dependencies:
@@ -7372,7 +7387,6 @@ snapshots:
       '@rollup/rollup-win32-x64-gnu': 4.62.2
       '@rollup/rollup-win32-x64-msvc': 4.62.2
       fsevents: 2.3.3
-    optional: true
 
   roughjs@4.6.6:
     dependencies:
@@ -7922,29 +7936,30 @@ snapshots:
       mime-types: 2.1.35
       picocolors: 1.1.1
 
-  vite@8.1.5(@types/node@25.9.5)(esbuild@0.28.1)(jiti@2.7.0)(sass@1.101.6)(yaml@2.9.0):
+  vite@7.3.6(@types/node@25.9.5)(jiti@2.7.0)(lightningcss@1.32.0)(sass@1.101.6)(yaml@2.9.0):
     dependencies:
-      lightningcss: 1.32.0
+      esbuild: 0.28.1
+      fdir: 6.5.0(picomatch@4.0.5)
       picomatch: 4.0.5
       postcss: 8.5.22
-      rolldown: 1.1.5
+      rollup: 4.62.2
       tinyglobby: 0.2.17
     optionalDependencies:
       '@types/node': 25.9.5
-      esbuild: 0.28.1
       fsevents: 2.3.3
       jiti: 2.7.0
+      lightningcss: 1.32.0
       sass: 1.101.6
       yaml: 2.9.0
 
-  vitefu@1.1.3(vite@8.1.5(@types/node@25.9.5)(esbuild@0.28.1)(jiti@2.7.0)(sass@1.101.6)(yaml@2.9.0)):
+  vitefu@1.1.3(vite@7.3.6(@types/node@25.9.5)(jiti@2.7.0)(lightningcss@1.32.0)(sass@1.101.6)(yaml@2.9.0)):
     optionalDependencies:
-      vite: 8.1.5(@types/node@25.9.5)(esbuild@0.28.1)(jiti@2.7.0)(sass@1.101.6)(yaml@2.9.0)
+      vite: 7.3.6(@types/node@25.9.5)(jiti@2.7.0)(lightningcss@1.32.0)(sass@1.101.6)(yaml@2.9.0)
 
-  vitest@4.1.10(@types/node@25.9.5)(@vitest/coverage-v8@4.1.10)(@vitest/ui@4.1.10)(jsdom@29.1.1)(vite@8.1.5(@types/node@25.9.5)(esbuild@0.28.1)(jiti@2.7.0)(sass@1.101.6)(yaml@2.9.0)):
+  vitest@4.1.10(@types/node@25.9.5)(@vitest/coverage-v8@4.1.10)(@vitest/ui@4.1.10)(jsdom@29.1.1)(vite@7.3.6(@types/node@25.9.5)(jiti@2.7.0)(lightningcss@1.32.0)(sass@1.101.6)(yaml@2.9.0)):
     dependencies:
       '@vitest/expect': 4.1.10
-      '@vitest/mocker': 4.1.10(vite@8.1.5(@types/node@25.9.5)(esbuild@0.28.1)(jiti@2.7.0)(sass@1.101.6)(yaml@2.9.0))
+      '@vitest/mocker': 4.1.10(vite@7.3.6(@types/node@25.9.5)(jiti@2.7.0)(lightningcss@1.32.0)(sass@1.101.6)(yaml@2.9.0))
       '@vitest/pretty-format': 4.1.10
       '@vitest/runner': 4.1.10
       '@vitest/snapshot': 4.1.10
@@ -7961,7 +7976,7 @@ snapshots:
       tinyexec: 1.2.4
       tinyglobby: 0.2.17
       tinyrainbow: 3.1.0
-      vite: 8.1.5(@types/node@25.9.5)(esbuild@0.28.1)(jiti@2.7.0)(sass@1.101.6)(yaml@2.9.0)
+      vite: 7.3.6(@types/node@25.9.5)(jiti@2.7.0)(lightningcss@1.32.0)(sass@1.101.6)(yaml@2.9.0)
       why-is-node-running: 2.3.0
     optionalDependencies:
       '@types/node': 25.9.5
