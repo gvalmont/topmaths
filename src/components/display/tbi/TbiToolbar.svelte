@@ -40,6 +40,13 @@
     })
   }
 
+  function toggleTrafficLight() {
+    tbiState.update((state) => {
+      state.trafficLight.visible = !state.trafficLight.visible
+      return state
+    })
+  }
+
   const buttonClass =
     'flex items-center justify-center w-10 h-10 rounded-full shadow-md ' +
     'text-coopmaths-canvas dark:text-coopmathsdark-canvas ' +
@@ -122,6 +129,19 @@
       onclick={toggleWidget}
     >
       <i class="bx bx-time-five text-xl"></i>
+    </button>
+    <button
+      type="button"
+      class={buttonClass}
+      title="Feu tricolore"
+      aria-label="Feu tricolore"
+      onclick={toggleTrafficLight}
+    >
+      <span class="flex flex-col items-center justify-center gap-0.5">
+        <span class="w-1.5 h-1.5 rounded-full bg-red-500"></span>
+        <span class="w-1.5 h-1.5 rounded-full bg-amber-400"></span>
+        <span class="w-1.5 h-1.5 rounded-full bg-green-500"></span>
+      </span>
     </button>
     <button
       type="button"

@@ -30,6 +30,7 @@
   } from '../../setup/latex/LatexConfig'
   import TbiClockWidget from './TbiClockWidget.svelte'
   import TbiToolbar from './TbiToolbar.svelte'
+  import TbiTrafficLightWidget from './TbiTrafficLightWidget.svelte'
   import type { TbiItem } from './tbiTypes'
   import TbiColumnsLayout from './layouts/TbiColumnsLayout.svelte'
   import TbiFreeLayout from './layouts/TbiFreeLayout.svelte'
@@ -173,5 +174,8 @@
   {/if}
   {#if $tbiState.widget.visible}
     <TbiClockWidget {persistLayout} />
+  {/if}
+  {#if $tbiState.trafficLight.visible}
+    <TbiTrafficLightWidget {persistLayout} />
   {/if}
 </main>

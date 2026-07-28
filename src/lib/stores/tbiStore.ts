@@ -24,6 +24,11 @@ export const TBI_MAX_ZOOM = 3
 export const TBI_WIDGET_MIN_ZOOM = 0.5
 export const TBI_WIDGET_MAX_ZOOM = 2.5
 
+export const TBI_TRAFFIC_LIGHT_MIN_W = 90
+export const TBI_TRAFFIC_LIGHT_MAX_W = 500
+export const TBI_TRAFFIC_LIGHT_MIN_H = 220
+export const TBI_TRAFFIC_LIGHT_MAX_H = 1200
+
 /** Bornes de largeur de carte en mode libre, indépendantes du zoom */
 export const TBI_MIN_CARD_WIDTH = 240
 export const TBI_MAX_CARD_WIDTH = 1800
@@ -56,6 +61,17 @@ export interface TbiWidgetState {
   zoom: number
 }
 
+export type TbiTrafficLightColor = 'red' | 'orange' | 'green'
+
+export interface TbiTrafficLightState {
+  visible: boolean
+  active: TbiTrafficLightColor
+  x: number
+  y: number
+  w: number
+  h: number
+}
+
 export interface TbiState {
   mode: TbiMode
   nbColumns: number
@@ -64,6 +80,7 @@ export interface TbiState {
   /** Disposition de chaque onglet, indexée par indice compact d'onglet */
   tabConfigs: TbiTabConfig[]
   widget: TbiWidgetState
+  trafficLight: TbiTrafficLightState
 }
 
 export function defaultTbiCardState(index: number): TbiCardState {
@@ -89,6 +106,14 @@ export function defaultTbiState(): TbiState {
     cards: [],
     tabConfigs: [],
     widget: { visible: false, mode: 'clock', x: 0, y: 0, zoom: 1 },
+    trafficLight: {
+      visible: false,
+      active: 'red',
+      x: 0,
+      y: 0,
+      w: 130,
+      h: 340,
+    },
   }
 }
 
@@ -106,10 +131,26 @@ function clampWidgetZoom(zoom: number): number {
   return clamp(zoom, TBI_WIDGET_MIN_ZOOM, TBI_WIDGET_MAX_ZOOM)
 }
 
+function clampTrafficLightWidth(w: number): number {
+  return clamp(w, TBI_TRAFFIC_LIGHT_MIN_W, TBI_TRAFFIC_LIGHT_MAX_W)
+}
+
+function clampTrafficLightHeight(h: number): number {
+  return clamp(h, TBI_TRAFFIC_LIGHT_MIN_H, TBI_TRAFFIC_LIGHT_MAX_H)
+}
+
 /** Fait varier le zoom du widget horloge/minuteur/chronomètre de `delta` */
 export function zoomWidgetBy(delta: number) {
   tbiState.update((state) => {
     state.widget.zoom = clampWidgetZoom(state.widget.zoom + delta)
+    return state
+  })
+}
+
+/** Change la couleur éclairée du widget feu tricolore */
+export function setTrafficLightActive(color: TbiTrafficLightColor) {
+  tbiState.update((state) => {
+    state.trafficLight.active = color
     return state
   })
 }
@@ -329,6 +370,13 @@ export function applyTbiSharedState(shared: Partial<TbiSharedState>) {
 interface TbiLocalLayout {
   cards: { x: number; y: number; w: number; zoom: number }[]
   widget: { x: number; y: number; zoom: number }
+  trafficLight?: {
+    x: number
+    y: number
+    w: number
+    h: number
+    active: TbiTrafficLightColor
+  }
 }
 
 function tbiStorageKey(uuids: string[]): string {
@@ -341,6 +389,13 @@ export function saveTbiLocalLayout(uuids: string[]) {
   const layout: TbiLocalLayout = {
     cards: state.cards.map(({ x, y, w, zoom }) => ({ x, y, w, zoom })),
     widget: { x: state.widget.x, y: state.widget.y, zoom: state.widget.zoom },
+    trafficLight: {
+      x: state.trafficLight.x,
+      y: state.trafficLight.y,
+      w: state.trafficLight.w,
+      h: state.trafficLight.h,
+      active: state.trafficLight.active,
+    },
   }
   try {
     window.localStorage.setItem(tbiStorageKey(uuids), JSON.stringify(layout))
@@ -389,6 +444,26 @@ export function loadTbiLocalLayout(uuids: string[]) {
     }
     if (typeof layout.widget?.zoom === 'number') {
       state.widget.zoom = clampWidgetZoom(layout.widget.zoom)
+    }
+    if (
+      typeof layout.trafficLight?.x === 'number' &&
+      typeof layout.trafficLight?.y === 'number'
+    ) {
+      state.trafficLight.x = layout.trafficLight.x
+      state.trafficLight.y = layout.trafficLight.y
+    }
+    if (typeof layout.trafficLight?.w === 'number') {
+      state.trafficLight.w = clampTrafficLightWidth(layout.trafficLight.w)
+    }
+    if (typeof layout.trafficLight?.h === 'number') {
+      state.trafficLight.h = clampTrafficLightHeight(layout.trafficLight.h)
+    }
+    if (
+      layout.trafficLight?.active === 'red' ||
+      layout.trafficLight?.active === 'orange' ||
+      layout.trafficLight?.active === 'green'
+    ) {
+      state.trafficLight.active = layout.trafficLight.active
     }
     return state
   })
