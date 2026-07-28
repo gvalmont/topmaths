@@ -6,11 +6,14 @@ import { isLocalStorageAvailable } from './storage'
  * État de la vue TBI (vidéoprojection).
  *
  * - Le mode d'affichage, le nombre de colonnes, les sauts de colonne,
- *   la répartition des onglets et la disposition de chaque onglet sont
- *   partageables : ils sont sérialisés dans l'URL (paramètre tbiParam)
- *   par la vue TBI elle-même via tbiParamStore.
- * - Les positions/tailles du mode libre et la position du widget horloge
- *   dépendent de l'écran : elles sont sauvegardées en localStorage.
+ *   la répartition des onglets, la disposition de chaque onglet, la
+ *   visibilité et la position des widgets (horloge, feu tricolore) et le
+ *   zoom de chaque exercice sont partageables : ils sont sérialisés dans
+ *   l'URL (paramètre tbiParam) par la vue TBI elle-même via tbiParamStore.
+ * - Les positions/tailles du mode libre et la taille des widgets dépendent
+ *   de l'écran : elles sont sauvegardées en localStorage. Au chargement,
+ *   l'URL (si présente) est appliquée après le localStorage pour que la
+ *   position partagée d'un widget prenne le pas sur la sauvegarde locale.
  */
 
 export type TbiMode = 'columns' | 'free' | 'tabs'
@@ -143,6 +146,16 @@ function clampTrafficLightHeight(h: number): number {
 export function zoomWidgetBy(delta: number) {
   tbiState.update((state) => {
     state.widget.zoom = clampWidgetZoom(state.widget.zoom + delta)
+    return state
+  })
+}
+
+/** Fait varier le zoom de tous les exercices de `delta` en même temps */
+export function zoomAllCardsBy(delta: number) {
+  tbiState.update((state) => {
+    for (const card of state.cards) {
+      card.zoom = clampZoom(card.zoom + delta)
+    }
     return state
   })
 }
@@ -309,6 +322,14 @@ export interface TbiSharedState {
   tabs: number[]
   breaks: number[]
   tabConfigs: TbiTabConfig[]
+  widgetVisible: boolean
+  trafficLightVisible: boolean
+  /** Zoom de chaque exercice, aligné par indice sur exercicesParams */
+  zooms: number[]
+  widgetX: number
+  widgetY: number
+  trafficLightX: number
+  trafficLightY: number
 }
 
 export function getTbiSharedState(state: TbiState): TbiSharedState {
@@ -318,6 +339,13 @@ export function getTbiSharedState(state: TbiState): TbiSharedState {
     tabs: state.cards.map((card) => card.tab),
     breaks: state.cards.flatMap((card, i) => (card.colBreak ? [i] : [])),
     tabConfigs: state.tabConfigs.map((config) => ({ ...config })),
+    widgetVisible: state.widget.visible,
+    trafficLightVisible: state.trafficLight.visible,
+    zooms: state.cards.map((card) => card.zoom),
+    widgetX: state.widget.x,
+    widgetY: state.widget.y,
+    trafficLightX: state.trafficLight.x,
+    trafficLightY: state.trafficLight.y,
   }
 }
 
@@ -343,6 +371,20 @@ function isDefaultTabConfigs(tabConfigs: TbiTabConfig[]): boolean {
   return tabConfigs.every((c) => c.layout === 'columns' && c.nbColumns === 1)
 }
 
+function isDefaultZooms(zooms: number[]): boolean {
+  return zooms.every((zoom) => zoom === 1)
+}
+
+function encodePosition(x: number, y: number): string {
+  return `${Math.round(x)}${TBI_PARAM_LIST_SEP}${Math.round(y)}`
+}
+
+function decodePosition(value: string): { x: number; y: number } | undefined {
+  const [x, y] = value.split(TBI_PARAM_LIST_SEP).map(Number)
+  if (Number.isNaN(x) || Number.isNaN(y)) return undefined
+  return { x, y }
+}
+
 export function encodeTbiParam(shared: TbiSharedState): string {
   const fields: string[] = []
   if (shared.mode !== 'columns') fields.push(`m-${shared.mode}`)
@@ -359,6 +401,21 @@ export function encodeTbiParam(shared: TbiSharedState): string {
         .map((c) => `${c.layout}-${c.nbColumns}`)
         .join(TBI_PARAM_LIST_SEP)}`,
     )
+  }
+  if (shared.widgetVisible) fields.push('w-1')
+  if (shared.trafficLightVisible) fields.push('f-1')
+  if (!isDefaultZooms(shared.zooms)) {
+    fields.push(
+      `z-${shared.zooms
+        .map((zoom) => Math.round(zoom * 10))
+        .join(TBI_PARAM_LIST_SEP)}`,
+    )
+  }
+  if (shared.widgetX !== 0 || shared.widgetY !== 0) {
+    fields.push(`wp-${encodePosition(shared.widgetX, shared.widgetY)}`)
+  }
+  if (shared.trafficLightX !== 0 || shared.trafficLightY !== 0) {
+    fields.push(`fp-${encodePosition(shared.trafficLightX, shared.trafficLightY)}`)
   }
   return fields.join(TBI_PARAM_FIELD_SEP)
 }
@@ -403,6 +460,34 @@ export function decodeTbiParam(param: string): Partial<TbiSharedState> {
           }
         })
         break
+      case 'w':
+        shared.widgetVisible = value === '1'
+        break
+      case 'f':
+        shared.trafficLightVisible = value === '1'
+        break
+      case 'z':
+        shared.zooms = value
+          .split(TBI_PARAM_LIST_SEP)
+          .map((n) => Number(n) / 10)
+          .filter((n) => !Number.isNaN(n))
+        break
+      case 'wp': {
+        const position = decodePosition(value)
+        if (position) {
+          shared.widgetX = position.x
+          shared.widgetY = position.y
+        }
+        break
+      }
+      case 'fp': {
+        const position = decodePosition(value)
+        if (position) {
+          shared.trafficLightX = position.x
+          shared.trafficLightY = position.y
+        }
+        break
+      }
     }
   }
   return shared
@@ -444,6 +529,33 @@ export function applyTbiSharedState(shared: Partial<TbiSharedState>) {
             ? Math.round(config.nbColumns)
             : 1,
       }))
+    }
+    if (typeof shared.widgetVisible === 'boolean') {
+      state.widget.visible = shared.widgetVisible
+    }
+    if (typeof shared.trafficLightVisible === 'boolean') {
+      state.trafficLight.visible = shared.trafficLightVisible
+    }
+    if (Array.isArray(shared.zooms)) {
+      shared.zooms.forEach((zoom, i) => {
+        if (state.cards[i] && typeof zoom === 'number') {
+          state.cards[i].zoom = clampZoom(zoom)
+        }
+      })
+    }
+    if (
+      typeof shared.widgetX === 'number' &&
+      typeof shared.widgetY === 'number'
+    ) {
+      state.widget.x = shared.widgetX
+      state.widget.y = shared.widgetY
+    }
+    if (
+      typeof shared.trafficLightX === 'number' &&
+      typeof shared.trafficLightY === 'number'
+    ) {
+      state.trafficLight.x = shared.trafficLightX
+      state.trafficLight.y = shared.trafficLightY
     }
     ensureTabConfigs(state)
     return state

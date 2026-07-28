@@ -5,6 +5,7 @@
   import {
     balanceColumnBreaks,
     tbiState,
+    zoomAllCardsBy,
     type TbiMode,
   } from '../../../lib/stores/tbiStore'
 
@@ -101,86 +102,106 @@
   }
 </script>
 
-{#if $tbiState.mode === 'columns'}
-  <div
-    class="fixed bottom-3 left-3 z-30 flex flex-row items-center gap-2 px-3 py-1.5 rounded-full shadow-md bg-coopmaths-canvas dark:bg-coopmathsdark-canvas-dark border border-coopmaths-canvas-darkest dark:border-coopmathsdark-canvas-darkest text-coopmaths-corpus dark:text-coopmathsdark-corpus text-sm print-hidden {autoHideClass}"
-  >
-    <span>Colonnes&nbsp;:</span>
+<div
+  class="fixed bottom-3 right-3 z-30 flex flex-col items-end gap-2 print-hidden {autoHideClass}"
+>
+  {#if $tbiState.mode === 'columns'}
+    <div
+      class="flex flex-row items-center gap-2 px-3 py-1.5 rounded-full shadow-md bg-coopmaths-canvas dark:bg-coopmathsdark-canvas-dark border border-coopmaths-canvas-darkest dark:border-coopmathsdark-canvas-darkest text-coopmaths-corpus dark:text-coopmathsdark-corpus text-sm"
+    >
+      <span>Colonnes&nbsp;:</span>
+      <button
+        type="button"
+        aria-label="Diminuer le nombre de colonnes"
+        class="text-coopmaths-action dark:text-coopmathsdark-action"
+        onclick={() => setNbColumns($tbiState.nbColumns - 1)}
+      >
+        <i class="bx bx-minus"></i>
+      </button>
+      <span class="font-bold">{$tbiState.nbColumns}</span>
+      <button
+        type="button"
+        aria-label="Augmenter le nombre de colonnes"
+        class="text-coopmaths-action dark:text-coopmathsdark-action"
+        onclick={() => setNbColumns($tbiState.nbColumns + 1)}
+      >
+        <i class="bx bx-plus"></i>
+      </button>
+    </div>
+  {/if}
+
+  <div class="flex flex-row items-center gap-2">
     <button
       type="button"
-      aria-label="Diminuer le nombre de colonnes"
-      class="text-coopmaths-action dark:text-coopmathsdark-action"
-      onclick={() => setNbColumns($tbiState.nbColumns - 1)}
+      class={actionButtonClass}
+      title="Retour à l'éditeur"
+      aria-label="Retour à l'éditeur"
+      onclick={() => mathaleaGoToView('')}
     >
-      <i class="bx bx-minus"></i>
+      <i class="bx bx-arrow-back text-xl"></i>
     </button>
-    <span class="font-bold">{$tbiState.nbColumns}</span>
     <button
       type="button"
-      aria-label="Augmenter le nombre de colonnes"
-      class="text-coopmaths-action dark:text-coopmathsdark-action"
-      onclick={() => setNbColumns($tbiState.nbColumns + 1)}
+      class={actionButtonClass}
+      title="Nouvelles données pour tous les exercices"
+      aria-label="Nouvelles données pour tous les exercices"
+      onclick={newDataForAll}
     >
-      <i class="bx bx-plus"></i>
+      <i class="bx bx-refresh text-xl"></i>
+    </button>
+    {#each modes as mode (mode.value)}
+      <button
+        type="button"
+        class={toggleButtonClass($tbiState.mode === mode.value)}
+        aria-pressed={$tbiState.mode === mode.value}
+        title={mode.label}
+        aria-label={mode.label}
+        onclick={() => setMode(mode.value)}
+      >
+        <i class="bx {mode.icon} text-xl"></i>
+      </button>
+    {/each}
+    <button
+      type="button"
+      class={actionButtonClass}
+      title="Réduire le zoom de tous les exercices"
+      aria-label="Réduire le zoom de tous les exercices"
+      onclick={() => zoomAllCardsBy(-0.1)}
+    >
+      <i class="bx bx-zoom-out text-xl"></i>
+    </button>
+    <button
+      type="button"
+      class={actionButtonClass}
+      title="Augmenter le zoom de tous les exercices"
+      aria-label="Augmenter le zoom de tous les exercices"
+      onclick={() => zoomAllCardsBy(0.1)}
+    >
+      <i class="bx bx-zoom-in text-xl"></i>
+    </button>
+    <button
+      type="button"
+      class={toggleButtonClass($tbiState.widget.visible)}
+      aria-pressed={$tbiState.widget.visible}
+      title="Horloge, minuteur, chronomètre"
+      aria-label="Horloge, minuteur, chronomètre"
+      onclick={toggleWidget}
+    >
+      <i class="bx bx-time-five text-xl"></i>
+    </button>
+    <button
+      type="button"
+      class={toggleButtonClass($tbiState.trafficLight.visible)}
+      aria-pressed={$tbiState.trafficLight.visible}
+      title="Feu tricolore"
+      aria-label="Feu tricolore"
+      onclick={toggleTrafficLight}
+    >
+      <span class="flex flex-col items-center justify-center gap-0.5">
+        <span class="w-1.5 h-1.5 rounded-full bg-red-500"></span>
+        <span class="w-1.5 h-1.5 rounded-full bg-amber-400"></span>
+        <span class="w-1.5 h-1.5 rounded-full bg-green-500"></span>
+      </span>
     </button>
   </div>
-{/if}
-
-<div
-  class="fixed bottom-3 right-3 z-30 flex flex-row items-center gap-2 print-hidden {autoHideClass}"
->
-  <button
-    type="button"
-    class={actionButtonClass}
-    title="Retour à l'éditeur"
-    aria-label="Retour à l'éditeur"
-    onclick={() => mathaleaGoToView('')}
-  >
-    <i class="bx bx-arrow-back text-xl"></i>
-  </button>
-  <button
-    type="button"
-    class={actionButtonClass}
-    title="Nouvelles données pour tous les exercices"
-    aria-label="Nouvelles données pour tous les exercices"
-    onclick={newDataForAll}
-  >
-    <i class="bx bx-refresh text-xl"></i>
-  </button>
-  {#each modes as mode (mode.value)}
-    <button
-      type="button"
-      class={toggleButtonClass($tbiState.mode === mode.value)}
-      aria-pressed={$tbiState.mode === mode.value}
-      title={mode.label}
-      aria-label={mode.label}
-      onclick={() => setMode(mode.value)}
-    >
-      <i class="bx {mode.icon} text-xl"></i>
-    </button>
-  {/each}
-  <button
-    type="button"
-    class={toggleButtonClass($tbiState.widget.visible)}
-    aria-pressed={$tbiState.widget.visible}
-    title="Horloge, minuteur, chronomètre"
-    aria-label="Horloge, minuteur, chronomètre"
-    onclick={toggleWidget}
-  >
-    <i class="bx bx-time-five text-xl"></i>
-  </button>
-  <button
-    type="button"
-    class={toggleButtonClass($tbiState.trafficLight.visible)}
-    aria-pressed={$tbiState.trafficLight.visible}
-    title="Feu tricolore"
-    aria-label="Feu tricolore"
-    onclick={toggleTrafficLight}
-  >
-    <span class="flex flex-col items-center justify-center gap-0.5">
-      <span class="w-1.5 h-1.5 rounded-full bg-red-500"></span>
-      <span class="w-1.5 h-1.5 rounded-full bg-amber-400"></span>
-      <span class="w-1.5 h-1.5 rounded-full bg-green-500"></span>
-    </span>
-  </button>
 </div>

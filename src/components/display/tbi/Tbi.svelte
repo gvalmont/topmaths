@@ -106,13 +106,15 @@
     await loadItems()
     reconcileTbiCards(uuids)
     // l'URL (tbiParam) décrit la disposition partagée, le localStorage
-    // les positions dépendantes de l'écran
+    // les positions/tailles dépendantes de l'écran : le localStorage est
+    // appliqué en premier, puis l'URL (si présente) par-dessus, pour que
+    // la position partagée d'un widget prenne le pas sur la sauvegarde locale
+    loadTbiLocalLayout(uuids)
     const urlParam = new URL(window.location.href).searchParams.get('tbiParam')
     if (urlParam != null) {
       tbiParamStore.set(urlParam)
       applyTbiSharedState(decodeTbiParam(urlParam))
     }
-    loadTbiLocalLayout(uuids)
     isReady = true
     // Maintient l'URL à jour avec la partie partageable de l'état. tbiState
     // notifie sur CHAQUE mutation, y compris les positions/tailles du mode

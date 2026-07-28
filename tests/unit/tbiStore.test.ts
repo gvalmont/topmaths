@@ -3,16 +3,21 @@ import { beforeEach, describe, expect, it } from 'vitest'
 import { exercicesParams } from '../../src/lib/stores/generalStore'
 import {
   applyTbiSharedState,
+  TBI_MAX_ZOOM,
+  TBI_MIN_ZOOM,
   TBI_WIDGET_MAX_ZOOM,
   TBI_WIDGET_MIN_ZOOM,
   balanceColumnBreaks,
+  decodeTbiParam,
   defaultTbiState,
   deleteTbiCard,
+  encodeTbiParam,
   getTbiSharedState,
   moveCardToTab,
   reconcileTbiCards,
   reorderTbiCard,
   tbiState,
+  zoomAllCardsBy,
   zoomWidgetBy,
 } from '../../src/lib/stores/tbiStore'
 
@@ -157,10 +162,17 @@ describe('tbiStore', () => {
       state.nbColumns = 3
       state.cards[2].tab = 0
       state.cards[1].colBreak = true
+      state.cards[0].zoom = 1.5
       state.tabConfigs = [
         { layout: 'columns', nbColumns: 3 },
         { layout: 'free', nbColumns: 2 },
       ]
+      state.widget.visible = true
+      state.trafficLight.visible = true
+      state.widget.x = 120
+      state.widget.y = 80
+      state.trafficLight.x = 200
+      state.trafficLight.y = 150
       return state
     })
     const shared = getTbiSharedState(get(tbiState))
@@ -173,6 +185,13 @@ describe('tbiStore', () => {
         { layout: 'columns', nbColumns: 3 },
         { layout: 'free', nbColumns: 2 },
       ],
+      widgetVisible: true,
+      trafficLightVisible: true,
+      zooms: [1.5, 1, 1],
+      widgetX: 120,
+      widgetY: 80,
+      trafficLightX: 200,
+      trafficLightY: 150,
     })
 
     tbiState.set(defaultTbiState())
@@ -185,6 +204,94 @@ describe('tbiStore', () => {
     expect(state.cards.map((c) => c.colBreak)).toEqual([false, true, false])
     expect(state.tabConfigs[0]).toEqual({ layout: 'columns', nbColumns: 3 })
     expect(state.tabConfigs[1]).toEqual({ layout: 'free', nbColumns: 2 })
+    expect(state.widget.visible).toBe(true)
+    expect(state.trafficLight.visible).toBe(true)
+    expect(state.cards.map((c) => c.zoom)).toEqual([1.5, 1, 1])
+    expect(state.widget.x).toBe(120)
+    expect(state.widget.y).toBe(80)
+    expect(state.trafficLight.x).toBe(200)
+    expect(state.trafficLight.y).toBe(150)
+  })
+
+  it('zoomAllCardsBy fait varier et borne le zoom de tous les exercices', () => {
+    reconcileTbiCards(['e1', 'e2', 'e3'])
+    tbiState.update((state) => {
+      state.cards[1].zoom = 2
+      return state
+    })
+    zoomAllCardsBy(0.1)
+    let state = get(tbiState)
+    expect(state.cards.map((c) => c.zoom)).toEqual([1.1, 2.1, 1.1])
+    zoomAllCardsBy(10)
+    state = get(tbiState)
+    expect(state.cards.every((c) => c.zoom === TBI_MAX_ZOOM)).toBe(true)
+    zoomAllCardsBy(-10)
+    state = get(tbiState)
+    expect(state.cards.every((c) => c.zoom === TBI_MIN_ZOOM)).toBe(true)
+  })
+
+  it('encodeTbiParam / decodeTbiParam gèrent la visibilité des widgets et le zoom', () => {
+    const encoded = encodeTbiParam({
+      mode: 'columns',
+      nbColumns: 1,
+      tabs: [0, 1],
+      breaks: [],
+      tabConfigs: [],
+      widgetVisible: true,
+      trafficLightVisible: true,
+      zooms: [1.5, 0.8],
+      widgetX: 0,
+      widgetY: 0,
+      trafficLightX: 0,
+      trafficLightY: 0,
+    })
+    expect(encoded).toBe('w-1_f-1_z-15.8')
+    expect(decodeTbiParam(encoded)).toEqual({
+      widgetVisible: true,
+      trafficLightVisible: true,
+      zooms: [1.5, 0.8],
+    })
+    // valeurs par défaut : rien n'est encodé
+    expect(
+      encodeTbiParam({
+        mode: 'columns',
+        nbColumns: 1,
+        tabs: [0, 1],
+        breaks: [],
+        tabConfigs: [],
+        widgetVisible: false,
+        trafficLightVisible: false,
+        zooms: [1, 1],
+        widgetX: 0,
+        widgetY: 0,
+        trafficLightX: 0,
+        trafficLightY: 0,
+      }),
+    ).toBe('')
+  })
+
+  it('encodeTbiParam / decodeTbiParam gèrent la position des widgets (y compris négative)', () => {
+    const encoded = encodeTbiParam({
+      mode: 'columns',
+      nbColumns: 1,
+      tabs: [],
+      breaks: [],
+      tabConfigs: [],
+      widgetVisible: false,
+      trafficLightVisible: false,
+      zooms: [],
+      widgetX: 120,
+      widgetY: -40,
+      trafficLightX: -15,
+      trafficLightY: 300,
+    })
+    expect(encoded).toBe('wp-120.-40_fp--15.300')
+    expect(decodeTbiParam(encoded)).toEqual({
+      widgetX: 120,
+      widgetY: -40,
+      trafficLightX: -15,
+      trafficLightY: 300,
+    })
   })
 
   it('applyTbiSharedState ignore les valeurs invalides', () => {
