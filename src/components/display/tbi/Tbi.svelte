@@ -16,7 +16,9 @@
   } from '../../../lib/stores/generalStore'
   import {
     applyTbiSharedState,
+    decodeTbiParam,
     deleteTbiCard,
+    encodeTbiParam,
     getTbiSharedState,
     loadTbiLocalLayout,
     reconcileTbiCards,
@@ -24,10 +26,6 @@
     saveTbiLocalLayout,
     tbiState,
   } from '../../../lib/stores/tbiStore'
-  import {
-    decodeBase64,
-    encodeBase64,
-  } from '../../setup/latex/LatexConfig'
   import TbiClockWidget from './TbiClockWidget.svelte'
   import TbiToolbar from './TbiToolbar.svelte'
   import TbiTrafficLightWidget from './TbiTrafficLightWidget.svelte'
@@ -112,7 +110,7 @@
     const urlParam = new URL(window.location.href).searchParams.get('tbiParam')
     if (urlParam != null) {
       tbiParamStore.set(urlParam)
-      applyTbiSharedState(decodeBase64(urlParam))
+      applyTbiSharedState(decodeTbiParam(urlParam))
     }
     loadTbiLocalLayout(uuids)
     isReady = true
@@ -127,7 +125,7 @@
       if (syncUrlTimer !== undefined) clearTimeout(syncUrlTimer)
       syncUrlTimer = setTimeout(() => {
         syncUrlTimer = undefined
-        const encoded = encodeBase64(getTbiSharedState(get(tbiState)))
+        const encoded = encodeTbiParam(getTbiSharedState(get(tbiState)))
         if (encoded === lastEncodedSharedState) return
         lastEncodedSharedState = encoded
         tbiParamStore.set(encoded)

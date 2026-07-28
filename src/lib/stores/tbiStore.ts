@@ -324,6 +324,90 @@ export function getTbiSharedState(state: TbiState): TbiSharedState {
 const TBI_MODES: TbiMode[] = ['columns', 'free', 'tabs']
 const TBI_TAB_LAYOUTS: TbiTabLayout[] = ['columns', 'free']
 
+/**
+ * Encodage lisible du tbiParam (paramètre d'URL partageable), pensé pour
+ * être modifié à la main : `clé-valeur`, champs séparés par `_`, listes
+ * séparées par `.`. Seuls les champs qui s'écartent de leur valeur par
+ * défaut sont inclus, pour rester court (ex. "c-2" pour 2 colonnes).
+ * Limité à [a-z0-9-_.] : les autres caractères sont échappés par
+ * URLSearchParams, ce qui rendrait le paramètre illisible dans l'URL.
+ */
+const TBI_PARAM_FIELD_SEP = '_'
+const TBI_PARAM_LIST_SEP = '.'
+
+function isDefaultTabs(tabs: number[]): boolean {
+  return tabs.every((tab, i) => tab === i)
+}
+
+function isDefaultTabConfigs(tabConfigs: TbiTabConfig[]): boolean {
+  return tabConfigs.every((c) => c.layout === 'columns' && c.nbColumns === 1)
+}
+
+export function encodeTbiParam(shared: TbiSharedState): string {
+  const fields: string[] = []
+  if (shared.mode !== 'columns') fields.push(`m-${shared.mode}`)
+  if (shared.nbColumns !== 1) fields.push(`c-${shared.nbColumns}`)
+  if (!isDefaultTabs(shared.tabs)) {
+    fields.push(`t-${shared.tabs.join(TBI_PARAM_LIST_SEP)}`)
+  }
+  if (shared.breaks.length > 0) {
+    fields.push(`b-${shared.breaks.join(TBI_PARAM_LIST_SEP)}`)
+  }
+  if (!isDefaultTabConfigs(shared.tabConfigs)) {
+    fields.push(
+      `g-${shared.tabConfigs
+        .map((c) => `${c.layout}-${c.nbColumns}`)
+        .join(TBI_PARAM_LIST_SEP)}`,
+    )
+  }
+  return fields.join(TBI_PARAM_FIELD_SEP)
+}
+
+export function decodeTbiParam(param: string): Partial<TbiSharedState> {
+  const shared: Partial<TbiSharedState> = {}
+  if (param.length === 0) return shared
+  for (const field of param.split(TBI_PARAM_FIELD_SEP)) {
+    const separatorIndex = field.indexOf('-')
+    if (separatorIndex === -1) continue
+    const key = field.slice(0, separatorIndex)
+    const value = field.slice(separatorIndex + 1)
+    switch (key) {
+      case 'm':
+        shared.mode = value as TbiMode
+        break
+      case 'c': {
+        const n = Number(value)
+        if (!Number.isNaN(n)) shared.nbColumns = n
+        break
+      }
+      case 't':
+        shared.tabs = value
+          .split(TBI_PARAM_LIST_SEP)
+          .map(Number)
+          .filter((n) => !Number.isNaN(n))
+        break
+      case 'b':
+        shared.breaks = value
+          .split(TBI_PARAM_LIST_SEP)
+          .map(Number)
+          .filter((n) => !Number.isNaN(n))
+        break
+      case 'g':
+        shared.tabConfigs = value.split(TBI_PARAM_LIST_SEP).map((entry) => {
+          const i = entry.indexOf('-')
+          const layout = i === -1 ? entry : entry.slice(0, i)
+          const nbColumns = i === -1 ? NaN : Number(entry.slice(i + 1))
+          return {
+            layout: layout as TbiTabLayout,
+            nbColumns: Number.isNaN(nbColumns) ? 1 : nbColumns,
+          }
+        })
+        break
+    }
+  }
+  return shared
+}
+
 export function applyTbiSharedState(shared: Partial<TbiSharedState>) {
   tbiState.update((state) => {
     if (shared.mode !== undefined && TBI_MODES.includes(shared.mode)) {
