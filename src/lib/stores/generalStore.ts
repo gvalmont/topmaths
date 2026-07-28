@@ -287,6 +287,23 @@ export function updateGlobalOptionsInURL(url: URL) {
   if (options.v === 'tbi' && tbiParam.length > 0) {
     url.searchParams.append('tbiParam', tbiParam)
   }
+  // Pour les vues quizz, les réglages voyagent dans globalOptions :
+  // subject (titre du quizz) et quizzParam (blob base64 produit par quizzconf).
+  if (options.v === 'quizzconf' || options.v === 'quizz') {
+    if (options.subject != null && options.subject.length > 0) {
+      url.searchParams.append('subject', options.subject)
+    } else {
+      url.searchParams.delete('subject')
+    }
+    if (options.quizzParam != null && options.quizzParam.length > 0) {
+      url.searchParams.append('quizzParam', options.quizzParam)
+    } else {
+      url.searchParams.delete('quizzParam')
+    }
+  } else {
+    url.searchParams.delete('subject')
+    url.searchParams.delete('quizzParam')
+  }
   urlToWrite = url
   // On ne met à jour l'url qu'une fois toutes les 0,5 s
   // pour éviter l'erreur Attempt to use history.pushState() more than 100 times per 30 seconds

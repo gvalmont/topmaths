@@ -64,6 +64,8 @@ export interface InterfaceGlobalOptions {
   /** no chrono : course aux nombres sans chronomètre */
   canNC?: boolean
   lang?: Language
+  subject?: string // titre du quizz (vues quizzconf et quizz)
+  quizzParam?: string // paramètres du quizz encodés en base64 (vues quizzconf et quizz)
 }
 
 export interface InterfaceParams extends Partial<

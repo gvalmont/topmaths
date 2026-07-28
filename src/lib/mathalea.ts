@@ -710,6 +710,8 @@ export function mathaleaUpdateExercicesParamsFromUrl(
   let title = ''
   let iframe = ''
   let answers = ''
+  let subject = ''
+  let quizzParam = ''
   let recorder:
     | 'capytale'
     | 'moodle'
@@ -850,6 +852,12 @@ export function mathaleaUpdateExercicesParamsFromUrl(
         es = entry[1]
       } else if (entry[0] === 'title') {
         title = decodeURIComponent(entry[1])
+      } else if (entry[0] === 'subject') {
+        // entries() fournit déjà une valeur décodée : affectation directe
+        // (un titre de quizz peut contenir un '%' littéral)
+        subject = entry[1]
+      } else if (entry[0] === 'quizzParam') {
+        quizzParam = entry[1]
       } else if (entry[0] === 'iframe') {
         iframe = entry[1]
       } else if (entry[0] === 'answers') {
@@ -1015,6 +1023,8 @@ export function mathaleaUpdateExercicesParamsFromUrl(
     beta,
     iframe,
     answers,
+    subject,
+    quizzParam,
   }
 }
 

@@ -2,14 +2,13 @@
   import AmcIcon from '../../../../../../../components/shared/icons/AmcIcon.svelte'
   import AnkiIcon from '../../../../../../../components/shared/icons/AnkiIcon.svelte'
   import MoodleIcon from '../../../../../../../components/shared/icons/MoodleIcon.svelte'
-  import PdfTextIcon from '../../../../../../../components/shared/icons/PdfTextIcon.svelte'
-  import type { VueType } from '../../../../../../../lib/VueType'
-  import ButtonActionInfo from '../../../../../../shared/forms/ButtonActionInfo.svelte'
-  import ButtonIconTooltip from '../../../../../../shared/forms/ButtonIconTooltip.svelte'
-  import { exportKutsum } from '../../../../../../../lib/kutsum'
-  import QcmCamIcon from '../../../../../../shared/icons/QcmCamIcon.svelte'
-  import { downloadFile } from '../../../../../../../lib/files'
   import { buildMathAleaURL } from '../../../../../../../lib/components/urls'
+  import { downloadFile } from '../../../../../../../lib/files'
+  import { exportKutsum } from '../../../../../../../lib/kutsum'
+  import type { VueType } from '../../../../../../../lib/VueType'
+  import ButtonIconTooltip from '../../../../../../shared/forms/ButtonIconTooltip.svelte'
+  import QcmCamIcon from '../../../../../../shared/icons/QcmCamIcon.svelte'
+  import QuizzIcon from '../../../../../../shared/icons/QuizzIcon.svelte'
   import BasicInfoModal from '../../../../../../shared/modal/BasicInfoModal.svelte'
 
   export let handleExport: (vue: VueType) => void
@@ -45,6 +44,14 @@
 
   const exportOptions: ExportOption[] = [
     {
+      id: 'quizz',
+      label: 'Quizz',
+      description:
+        'Pour animer en classe un quiz façon Kahoot à partir des exercices QCM',
+      component: QuizzIcon,
+      action: () => exportAndClose('quizzconf'),
+    },
+    {
       id: 'latex2',
       label: 'PDF via LaTeX',
       description:
@@ -52,13 +59,14 @@
       icon: 'bx bx-code-alt',
       action: () => exportAndClose('tex'),
     },
-    // {
-    //   id: 'typst',
-    //   label: 'PDF via HTML',
-    //   description: 'Pour générer un PDF à partir de la mise en page HTML',
-    //   icon: 'bx bx-code-alt',
-    //   action: () => exportAndClose('a4'),
-    // },
+    {
+      id: 'latex2',
+      label: 'PDF via LaTeX',
+      description:
+        'Nouvel éditeur pour générer un PDF à partir du moteur de composition LaTeX',
+      icon: 'bx bx-code-alt',
+      action: () => exportAndClose('tex'),
+    },
     {
       id: 'moodle',
       label: 'Moodle',

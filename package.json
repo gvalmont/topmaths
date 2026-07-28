@@ -45,7 +45,7 @@
     "build": "pnpm makeJson && vite build",
     "build:deploy": "pnpm build && pnpm doc && tasks/deploy_site.sh && open https://coopmaths.fr/alea",
     "deploy:site": "tasks/deploy_site.sh && open https://coopmaths.fr/alea",
-    "makeJson": "node tasks/dictionnaireToReferentiel.js && node tasks/updateMenuInternational",
+    "makeJson": "node tasks/dictionnaireToReferentiel.js && node tasks/updateMenuInternational && node tasks/updateQuizzBackgrounds.js",
     "getNewUuid": "pnpm makeJson",
     "updateMenu": "pnpm makeJson",
     "updateMenuCH": "pnpm makeJson",

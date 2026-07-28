@@ -39,6 +39,8 @@
   import Flashcards from './setup/flashcards/Flashcards.svelte'
   import Slides from './setup/slides/Slides.svelte'
   import Tbi from './display/tbi/Tbi.svelte'
+  import QuizzConf from './setup/quizz/QuizzConf.svelte'
+  import Quizz from './display/quizz/Quizz.svelte'
   import CheckTest from './devtools/CheckTest.svelte'
   import CapytaleConnectionLostModal from './shared/modal/CapytaleConnectionLostModal.svelte'
   import Popup from './shared/modal/Popup.svelte'
@@ -248,6 +250,10 @@
     <Slides />
   {:else if $globalOptions.v === 'tbi'}
     <Tbi />
+  {:else if $globalOptions.v === 'quizzconf'}
+    <QuizzConf />
+  {:else if $globalOptions.v === 'quizz'}
+    <Quizz />
   {:else if $globalOptions.v === 'check-test'}
     <CheckTest />
   {:else if $globalOptions.v !== undefined}
