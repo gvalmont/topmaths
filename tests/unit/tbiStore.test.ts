@@ -5,6 +5,7 @@ import {
   applyTbiSharedState,
   TBI_WIDGET_MAX_ZOOM,
   TBI_WIDGET_MIN_ZOOM,
+  balanceColumnBreaks,
   defaultTbiState,
   deleteTbiCard,
   getTbiSharedState,
@@ -110,6 +111,35 @@ describe('tbiStore', () => {
     expect(state.tabConfigs).toHaveLength(1)
   })
 
+  it('balanceColumnBreaks répartit les sauts par nombre d’exercices et écrase les précédents', () => {
+    reconcileTbiCards(['e1', 'e2', 'e3', 'e4', 'e5'])
+    balanceColumnBreaks([0, 1, 2, 3, 4], 2)
+    let state = get(tbiState)
+    // 5 exercices sur 2 colonnes : 3 puis 2
+    expect(state.cards.map((c) => c.colBreak)).toEqual([
+      false,
+      false,
+      false,
+      true,
+      false,
+    ])
+
+    balanceColumnBreaks([0, 1, 2, 3, 4], 3)
+    state = get(tbiState)
+    expect(state.cards.map((c) => c.colBreak)).toEqual([
+      false,
+      false,
+      true,
+      true,
+      false,
+    ])
+
+    // repasser à 1 colonne efface les sauts précédents
+    balanceColumnBreaks([0, 1, 2, 3, 4], 1)
+    state = get(tbiState)
+    expect(state.cards.every((c) => !c.colBreak)).toBe(true)
+  })
+
   it('zoomWidgetBy fait varier et borne le zoom du widget', () => {
     expect(get(tbiState).widget.zoom).toBe(1)
     zoomWidgetBy(0.1)
@@ -168,9 +198,9 @@ describe('tbiStore', () => {
       tabConfigs: [{ layout: 'pirouette', nbColumns: 99 }],
     })
     const state = get(tbiState)
-    expect(state.mode).toBe('list')
-    expect(state.nbColumns).toBe(2)
+    expect(state.mode).toBe('columns')
+    expect(state.nbColumns).toBe(1)
     expect(state.cards.map((c) => c.tab)).toEqual([1, 1])
-    expect(state.tabConfigs[0]).toEqual({ layout: 'list', nbColumns: 2 })
+    expect(state.tabConfigs[0]).toEqual({ layout: 'columns', nbColumns: 1 })
   })
 })

@@ -33,7 +33,6 @@
   import type { TbiItem } from './tbiTypes'
   import TbiColumnsLayout from './layouts/TbiColumnsLayout.svelte'
   import TbiFreeLayout from './layouts/TbiFreeLayout.svelte'
-  import TbiListLayout from './layouts/TbiListLayout.svelte'
   import TbiTabsLayout from './layouts/TbiTabsLayout.svelte'
 
   let items: TbiItem[] = $state([])
@@ -154,8 +153,6 @@
         <i class="bx bx-chalkboard text-6xl"></i>
         <p>Aucun exercice à afficher. Retournez à l'éditeur pour en ajouter.</p>
       </div>
-    {:else if $tbiState.mode === 'list'}
-      <TbiListLayout {items} onMove={applyReorder} onDelete={applyDelete} />
     {:else if $tbiState.mode === 'columns'}
       <TbiColumnsLayout
         {items}

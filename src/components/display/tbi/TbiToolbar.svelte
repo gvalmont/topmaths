@@ -1,11 +1,15 @@
 <script lang="ts">
+  import { get } from 'svelte/store'
   import { mathaleaGoToView } from '../../../lib/mathaleaUtils'
-  import { tbiState, type TbiMode } from '../../../lib/stores/tbiStore'
+  import {
+    balanceColumnBreaks,
+    tbiState,
+    type TbiMode,
+  } from '../../../lib/stores/tbiStore'
 
   let isSettingsOpen = $state(false)
 
   const modes: { value: TbiMode; label: string; icon: string }[] = [
-    { value: 'list', label: 'Liste', icon: 'bx-list-ul' },
     { value: 'columns', label: 'Colonnes', icon: 'bx-columns' },
     { value: 'free', label: 'Placement libre', icon: 'bx-move' },
     { value: 'tabs', label: 'Onglets', icon: 'bx-folder' },
@@ -16,8 +20,13 @@
   }
 
   function setNbColumns(nbColumns: number) {
-    nbColumns = Math.min(4, Math.max(2, nbColumns))
+    nbColumns = Math.min(4, Math.max(1, nbColumns))
     tbiState.update((state) => ({ ...state, nbColumns }))
+    const cardsCount = get(tbiState).cards.length
+    balanceColumnBreaks(
+      Array.from({ length: cardsCount }, (_, i) => i),
+      nbColumns,
+    )
   }
 
   function newDataForAll() {

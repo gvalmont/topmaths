@@ -13,9 +13,9 @@ import { isLocalStorageAvailable } from './storage'
  *   dépendent de l'écran : elles sont sauvegardées en localStorage.
  */
 
-export type TbiMode = 'list' | 'columns' | 'free' | 'tabs'
+export type TbiMode = 'columns' | 'free' | 'tabs'
 /** Disposition interne d'un onglet */
-export type TbiTabLayout = 'list' | 'columns' | 'free'
+export type TbiTabLayout = 'columns' | 'free'
 
 export const TBI_BASE_WIDTH = 600
 export const TBI_MIN_ZOOM = 0.4
@@ -79,13 +79,13 @@ export function defaultTbiCardState(index: number): TbiCardState {
 }
 
 export function defaultTbiTabConfig(): TbiTabConfig {
-  return { layout: 'list', nbColumns: 2 }
+  return { layout: 'columns', nbColumns: 1 }
 }
 
 export function defaultTbiState(): TbiState {
   return {
-    mode: 'list',
-    nbColumns: 2,
+    mode: 'columns',
+    nbColumns: 1,
     cards: [],
     tabConfigs: [],
     widget: { visible: false, mode: 'clock', x: 0, y: 0, zoom: 1 },
@@ -191,6 +191,29 @@ export function moveCardToTab(paramsIndex: number, targetCompactTab: number) {
 }
 
 /**
+ * Répartit équitablement (par nombre d'exercices) les sauts de colonne sur
+ * `paramsIndices` (ordre d'affichage) pour `nbColumns` colonnes : écrase les
+ * sauts existants sur ces indices par la répartition par défaut. Le
+ * professeur peut ensuite désactiver individuellement un saut (bouton sur la
+ * carte).
+ */
+export function balanceColumnBreaks(paramsIndices: number[], nbColumns: number) {
+  const n = paramsIndices.length
+  const breakPositions = new Set<number>()
+  for (let k = 1; k < nbColumns; k++) {
+    const position = Math.round((k * n) / nbColumns)
+    if (position > 0 && position < n) breakPositions.add(position)
+  }
+  tbiState.update((state) => {
+    paramsIndices.forEach((paramsIndex, position) => {
+      const card = state.cards[paramsIndex]
+      if (card) card.colBreak = breakPositions.has(position)
+    })
+    return state
+  })
+}
+
+/**
  * Déplace un exercice de la position from à la position to (sémantique
  * splice : l'ordre relatif des autres exercices est préservé). Réordonne
  * exercicesParams (l'ordre canonique, persisté dans l'URL) et les états
@@ -257,8 +280,8 @@ export function getTbiSharedState(state: TbiState): TbiSharedState {
   }
 }
 
-const TBI_MODES: TbiMode[] = ['list', 'columns', 'free', 'tabs']
-const TBI_TAB_LAYOUTS: TbiTabLayout[] = ['list', 'columns', 'free']
+const TBI_MODES: TbiMode[] = ['columns', 'free', 'tabs']
+const TBI_TAB_LAYOUTS: TbiTabLayout[] = ['columns', 'free']
 
 export function applyTbiSharedState(shared: Partial<TbiSharedState>) {
   tbiState.update((state) => {
@@ -267,7 +290,7 @@ export function applyTbiSharedState(shared: Partial<TbiSharedState>) {
     }
     if (
       typeof shared.nbColumns === 'number' &&
-      shared.nbColumns >= 2 &&
+      shared.nbColumns >= 1 &&
       shared.nbColumns <= 4
     ) {
       state.nbColumns = Math.round(shared.nbColumns)
@@ -288,13 +311,13 @@ export function applyTbiSharedState(shared: Partial<TbiSharedState>) {
       state.tabConfigs = shared.tabConfigs.map((config) => ({
         layout: TBI_TAB_LAYOUTS.includes(config?.layout)
           ? config.layout
-          : 'list',
+          : 'columns',
         nbColumns:
           typeof config?.nbColumns === 'number' &&
-          config.nbColumns >= 2 &&
+          config.nbColumns >= 1 &&
           config.nbColumns <= 4
             ? Math.round(config.nbColumns)
-            : 2,
+            : 1,
       }))
     }
     ensureTabConfigs(state)
