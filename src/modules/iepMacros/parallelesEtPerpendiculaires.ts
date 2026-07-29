@@ -54,8 +54,12 @@ export const paralleleRegleEquerre2points3epoint = function (
   const AC = [C.x - A.x, C.y - A.y, 0]
   const prodScal = dot(AB, AC)
   const prodVect = cross(AB, AC)
+  let angleRequerre: number = -90
+  let sensGlisser = -1
   if (prodScal < 0) {
     H1 = B
+    angleRequerre = 90
+    sensGlisser = 1
   } else {
     H1 = A
   }
@@ -63,9 +67,14 @@ export const paralleleRegleEquerre2points3epoint = function (
   this.requerreZoom(120)
   this.requerreGlisserEquerre(0, { tempo: 0 })
   this.requerreMontrer()
-  this.requerreRotationTranslation(d.angleAvecHorizontale + 90, H1, options)
+  this.requerreRotationTranslation(
+    d.angleAvecHorizontale + angleRequerre,
+    H1,
+    options,
+  )
   this.requerreGlisserEquerre(
-    prodVect[2] < 0 ? -longueur(H, C) / 1.2 : longueur(H, C) / 1.2,
+    sensGlisser *
+      (prodVect[2] < 0 ? -longueur(H, C) / 1.2 : longueur(H, C) / 1.2),
     options ?? {},
   )
   this.crayonMontrer(H2)

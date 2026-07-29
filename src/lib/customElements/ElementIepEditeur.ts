@@ -5,6 +5,7 @@ import { droite } from '../2d/droites'
 import { pointAbstrait, type PointAbstrait } from '../2d/PointAbstrait'
 import { longueur } from '../2d/utilitairesGeometriques'
 import {
+  milieu,
   pointAdistance,
   pointIntersectionCC,
   pointIntersectionDD,
@@ -42,12 +43,7 @@ const nomsOutils: Record<OutilIep, string> = {
 
 // Types d'instructions dont le tracé peut servir de support à une intersection
 type TypeElementIntersectable =
-  | 'droite'
-  | 'segment'
-  | 'demiDroite'
-  | 'cercle'
-  | 'arc'
-  | 'parallele'
+  'droite' | 'segment' | 'demiDroite' | 'cercle' | 'arc' | 'parallele'
 
 const typesElementsIntersectables: TypeElementIntersectable[] = [
   'droite',
@@ -98,10 +94,13 @@ type InstructionIepSansOptions =
       angle: number
     }
   | { type: 'segment'; p1: string; p2: string }
+  | { type: 'polygone'; sommets: string }
+  | { type: 'polygoneRapide'; sommets: string }
   | { type: 'droite'; p1: string; p2: string }
   | { type: 'demiDroite'; p1: string; p2: string }
   | { type: 'cercle'; p1: string; p2: string }
   | { type: 'arc'; p1: string; p2: string }
+  | { type: 'milieu'; nom: string; p1: string; p2: string }
   | {
       type: 'intersection'
       nom: string
@@ -133,15 +132,37 @@ export type EditeurIepOptions = {
   numeroExercice?: number
   questionIndex?: number
   programmeInitial?: InstructionIep[]
-  instructionsDisponibles?: TypeInstructionIep[]
+  instructionsDisponibles?: InstructionsDisponiblesIep
   instructionsInitialesProtegees?: number[]
   programmeInitialProtege?: boolean
   loadSaveButtons?: boolean
   allowFullscreen?: boolean
   interactivityOn?: boolean
+  verifyCallbackName?: string
+  verifyCallback?: ElementIepVerificationCallback
 }
 
 export type TypeInstructionIep = InstructionIep['type']
+
+export type InstructionsDisponiblesIep = TypeInstructionIep[]
+
+export type ElementIepVerificationResult = {
+  isOk: boolean
+  feedback?: string
+  score?: { nbBonnesReponses: number; nbReponses: number }
+}
+
+export type ElementIepVerificationContext = {
+  exercice: IExercice
+  questionIndex: number
+  editor: ElementIepEditeur
+  studentProgram: InstructionIep[]
+  expectedRaw: unknown
+}
+
+export type ElementIepVerificationCallback = (
+  context: ElementIepVerificationContext,
+) => ElementIepVerificationResult
 
 type ChampSpec = {
   cle: string
@@ -215,6 +236,28 @@ const catalogue: Record<
       { cle: 'p2', genre: 'point', label: 'Extrémité 2' },
     ],
   },
+  polygone: {
+    label: 'Tracer un polygone à la règle',
+    champs: [
+      {
+        cle: 'sommets',
+        genre: 'texte',
+        label: 'Sommets',
+        defaut: 'A,B,C',
+      },
+    ],
+  },
+  polygoneRapide: {
+    label: 'Tracer un polygone rapidement',
+    champs: [
+      {
+        cle: 'sommets',
+        genre: 'texte',
+        label: 'Sommets',
+        defaut: 'A,B,C',
+      },
+    ],
+  },
   droite: {
     label: 'Tracer une droite à la règle',
     champs: [
@@ -241,6 +284,14 @@ const catalogue: Record<
     champs: [
       { cle: 'p1', genre: 'point', label: 'Centre' },
       { cle: 'p2', genre: 'point', label: 'Point visé' },
+    ],
+  },
+  milieu: {
+    label: 'Placer le milieu d’un segment',
+    champs: [
+      { cle: 'nom', genre: 'nom', label: 'Nom' },
+      { cle: 'p1', genre: 'point', label: 'Extrémité 1' },
+      { cle: 'p2', genre: 'point', label: 'Extrémité 2' },
     ],
   },
   intersection: {
@@ -368,10 +419,13 @@ const ordreCatalogue: TypeInstructionIep[] = [
   'point',
   'pointADistance',
   'segment',
+  'polygone',
+  'polygoneRapide',
   'droite',
   'demiDroite',
   'cercle',
   'arc',
+  'milieu',
   'intersection',
   'mediatrice',
   'perpendiculaire',
@@ -393,6 +447,13 @@ const ordreCatalogue: TypeInstructionIep[] = [
 
 function formateNombre(n: number) {
   return stringNombre(n, 2)
+}
+
+function lireSommetsPolygone(sommets: string): string[] {
+  return sommets
+    .split(/[,\s;]+/)
+    .map((nom) => nom.trim())
+    .filter((nom) => nom !== '')
 }
 
 /**
@@ -424,6 +485,10 @@ export function decrireInstruction(
       return `Placer le point ${instr.nom} à ${formateNombre(instr.distance)} cm de ${instr.p1} (direction ${formateNombre(instr.angle)}°).`
     case 'segment':
       return `Tracer le segment [${instr.p1}${instr.p2}] à la règle.`
+    case 'polygone':
+      return `Tracer le polygone ${lireSommetsPolygone(instr.sommets).join('')} à la règle.`
+    case 'polygoneRapide':
+      return `Tracer le polygone ${lireSommetsPolygone(instr.sommets).join('')}.`
     case 'droite':
       return `Tracer la droite (${instr.p1}${instr.p2}) à la règle.`
     case 'demiDroite':
@@ -432,6 +497,8 @@ export function decrireInstruction(
       return `Tracer le cercle de centre ${instr.p1} passant par ${instr.p2} au compas.`
     case 'arc':
       return `Tracer un arc de cercle de centre ${instr.p1} passant par ${instr.p2} au compas.`
+    case 'milieu':
+      return `Placer le milieu ${instr.nom} du segment [${instr.p1}${instr.p2}] à la règle graduée.`
     case 'intersection':
       return `Placer le point ${instr.nom}, intersection ${decrireElementPourIntersection(programme, instr.etape1)} et ${decrireElementPourIntersection(programme, instr.etape2)}.`
     case 'mediatrice':
@@ -478,6 +545,7 @@ export function pointsDefinis(programme: InstructionIep[]): string[] {
     if (
       (instr.type === 'point' ||
         instr.type === 'pointADistance' ||
+        instr.type === 'milieu' ||
         instr.type === 'intersection') &&
       instr.nom !== '' &&
       !noms.includes(instr.nom)
@@ -539,12 +607,18 @@ function instructionEstValide(
     if (
       precedente.type === 'point' ||
       precedente.type === 'pointADistance' ||
+      precedente.type === 'milieu' ||
       precedente.type === 'intersection'
     ) {
       nomsConnus.add(precedente.nom)
     }
   }
   const references: string[] = []
+  if (instr.type === 'polygone' || instr.type === 'polygoneRapide') {
+    const sommets = lireSommetsPolygone(instr.sommets)
+    if (sommets.length < 3) return false
+    references.push(...sommets)
+  }
   for (const cle of ['p1', 'p2', 'p3'] as const) {
     if (cle in instr) {
       references.push((instr as unknown as Record<string, string>)[cle])
@@ -626,6 +700,13 @@ function elementGeometrique(
 function jouerProgramme(anim: Alea2iep, programme: InstructionIep[]): number[] {
   const points = new Map<string, PointAbstrait>()
   const etapesIgnorees: number[] = []
+  if (
+    programme.some((instr) =>
+      ['segment', 'droite', 'demiDroite', 'polygone'].includes(instr.type),
+    )
+  ) {
+    anim.regleMontrer()
+  }
   programme.forEach((instr, index) => {
     // Récupère les points référencés par l'instruction, undefined si l'un manque
     const recupere = (...noms: string[]): PointAbstrait[] | undefined => {
@@ -669,6 +750,24 @@ function jouerProgramme(anim: Alea2iep, programme: InstructionIep[]): number[] {
         anim.regleSegment(pts[0], pts[1])
         break
       }
+      case 'polygone': {
+        const pts = recupere(...lireSommetsPolygone(instr.sommets))
+        if (pts === undefined || pts.length < 3) {
+          etapesIgnorees.push(index)
+          break
+        }
+        anim.polygoneTracer(...pts)
+        break
+      }
+      case 'polygoneRapide': {
+        const pts = recupere(...lireSommetsPolygone(instr.sommets))
+        if (pts === undefined || pts.length < 3) {
+          etapesIgnorees.push(index)
+          break
+        }
+        anim.polygoneRapide(...pts)
+        break
+      }
       case 'droite': {
         const pts = recupere(instr.p1, instr.p2)
         if (pts === undefined) {
@@ -703,6 +802,17 @@ function jouerProgramme(anim: Alea2iep, programme: InstructionIep[]): number[] {
           break
         }
         anim.compasTracerArcCentrePoint(pts[0], pts[1])
+        break
+      }
+      case 'milieu': {
+        const pts = recupere(instr.p1, instr.p2)
+        if (pts === undefined) {
+          etapesIgnorees.push(index)
+          break
+        }
+        anim.milieuALaRegle(pts[0], pts[1], instr.nom)
+        const M = milieu(pts[0], pts[1], instr.nom)
+        points.set(instr.nom, M)
         break
       }
       case 'intersection': {
@@ -896,11 +1006,119 @@ export function construireAnimation(programme: InstructionIep[]): Alea2iep {
   return anim
 }
 
+export function pointsConstruitsDepuisProgramme(
+  programme: InstructionIep[],
+): Map<string, PointAbstrait> {
+  const points = new Map<string, PointAbstrait>()
+  programme.forEach((instr) => {
+    const recupere = (...noms: string[]): PointAbstrait[] | undefined => {
+      const resultat: PointAbstrait[] = []
+      for (const nom of noms) {
+        const point = points.get(nom)
+        if (point === undefined) return undefined
+        resultat.push(point)
+      }
+      return resultat
+    }
+    switch (instr.type) {
+      case 'point': {
+        points.set(instr.nom, pointAbstrait(instr.x, instr.y, instr.nom))
+        break
+      }
+      case 'pointADistance': {
+        const origine = recupere(instr.p1)
+        if (origine === undefined) break
+        points.set(
+          instr.nom,
+          pointAdistance(origine[0], instr.distance, instr.angle, instr.nom),
+        )
+        break
+      }
+      case 'milieu': {
+        const pts = recupere(instr.p1, instr.p2)
+        if (pts === undefined) break
+        points.set(instr.nom, milieu(pts[0], pts[1], instr.nom))
+        break
+      }
+      case 'intersection': {
+        const element1 = elementGeometrique(programme[instr.etape1], points)
+        const element2 = elementGeometrique(programme[instr.etape2], points)
+        if (element1 === undefined || element2 === undefined) break
+        let point: PointAbstrait | undefined
+        if (element1.nature === 'droite' && element2.nature === 'droite') {
+          point = pointIntersectionDD(element1.objet, element2.objet, instr.nom)
+        } else if (
+          element1.nature === 'cercle' &&
+          element2.nature === 'cercle'
+        ) {
+          point = pointIntersectionCC(
+            element1.objet,
+            element2.objet,
+            instr.nom,
+            instr.choix,
+          )
+        } else if (
+          element1.nature === 'droite' &&
+          element2.nature === 'cercle'
+        ) {
+          point = pointIntersectionLC(
+            element1.objet,
+            element2.objet,
+            instr.nom,
+            instr.choix,
+          )
+        } else if (
+          element1.nature === 'cercle' &&
+          element2.nature === 'droite'
+        ) {
+          point = pointIntersectionLC(
+            element2.objet,
+            element1.objet,
+            instr.nom,
+            instr.choix,
+          )
+        }
+        if (point !== undefined) points.set(instr.nom, point)
+        break
+      }
+    }
+  })
+  return points
+}
+
+type ProgrammeSauvegardeIep = {
+  programme: InstructionIep[]
+  programmeInitialAttribut: string
+}
+
 // Les programmes sont conservés ici pour survivre aux re-rendus de l'exercice
-const programmesParId = new Map<string, InstructionIep[]>()
+const programmesParId = new Map<string, ProgrammeSauvegardeIep>()
 
 function clonerProgramme(programme: InstructionIep[]): InstructionIep[] {
   return structuredClone(programme)
+}
+
+function normaliserProgramme(programmeRaw: unknown): string {
+  let programme: unknown = programmeRaw
+  if (typeof programmeRaw === 'string') {
+    try {
+      programme = JSON.parse(programmeRaw)
+    } catch {
+      return ''
+    }
+  }
+  if (!Array.isArray(programme)) return ''
+  return JSON.stringify(
+    programme.map((instruction) => {
+      if (instruction == null || typeof instruction !== 'object') {
+        return instruction
+      }
+      const entries = Object.entries(instruction)
+        .filter(([key]) => key !== 'protege')
+        .sort(([keyA], [keyB]) => keyA.localeCompare(keyB))
+      return Object.fromEntries(entries)
+    }),
+  )
 }
 
 function lireProgrammeDepuisAttribut(valeur: string | null): InstructionIep[] {
@@ -919,8 +1137,7 @@ function lireIndicesDepuisAttribut(valeur: string | null): number[] {
     const indices = JSON.parse(valeur)
     return Array.isArray(indices)
       ? indices.filter(
-          (index): index is number =>
-            Number.isInteger(index) && index >= 0,
+          (index): index is number => Number.isInteger(index) && index >= 0,
         )
       : []
   } catch {
@@ -975,16 +1192,26 @@ const classesChamp = [
 
 export class ElementIepEditeur extends MathaleaCustomElement {
   static readonly elementTag = 'alea-iep-editeur'
+  static get observedAttributes(): string[] {
+    return ['programme-initial', 'instructions-disponibles']
+  }
+
+  private static readonly verificationCallbacks = new Map<
+    string,
+    ElementIepVerificationCallback
+  >()
 
   private programme: InstructionIep[] = []
   private indicesInstructionsProtegees = new Set<number>()
   private instructionsProtegeesInitiales = new Map<number, InstructionIep>()
   private prochaineLettre = 0
   private divParametres!: HTMLDivElement
+  private zoneAjout!: HTMLDivElement
   private selectType!: HTMLSelectElement
   private listeProgramme!: HTMLOListElement
   private divAnimation!: HTMLDivElement
   private animationVisible = false
+  private boutonTester!: HTMLButtonElement
   private boutonValider!: HTMLButtonElement
   private boutonAnnulerEdition!: HTMLButtonElement
   private inputChargerJSON!: HTMLInputElement
@@ -1004,11 +1231,23 @@ export class ElementIepEditeur extends MathaleaCustomElement {
     loadSaveButtons = false,
     allowFullscreen = false,
     interactivityOn = true,
+    verifyCallbackName,
+    verifyCallback,
   }: EditeurIepOptions = {}): string {
+    const computedId =
+      id ??
+      `${ElementIepEditeur.elementTag}Ex${numeroExercice}Q${questionIndex}`
+    const computedCallbackName =
+      verifyCallbackName ??
+      (verifyCallback == null ? undefined : `${computedId}-verification`)
+    if (verifyCallback != null && computedCallbackName != null) {
+      ElementIepEditeur.registerVerificationCallback(
+        computedCallbackName,
+        verifyCallback,
+      )
+    }
     return super.create({
-      id:
-        id ??
-        `${ElementIepEditeur.elementTag}Ex${numeroExercice}Q${questionIndex}`,
+      id: computedId,
       numeroExercice,
       questionIndex,
       programmeInitial,
@@ -1018,6 +1257,99 @@ export class ElementIepEditeur extends MathaleaCustomElement {
       loadSaveButtons,
       allowFullscreen,
       interactivityOn,
+      verifyCallbackName: computedCallbackName,
+    })
+  }
+
+  static registerVerificationCallback(
+    name: string,
+    callback: ElementIepVerificationCallback,
+  ): void {
+    if (name.trim().length === 0) {
+      throw new Error(
+        'Le nom du vérificateur Instrumenpoche ne peut pas être vide',
+      )
+    }
+    ElementIepEditeur.verificationCallbacks.set(name, callback)
+  }
+
+  static unregisterVerificationCallback(name: string): void {
+    ElementIepEditeur.verificationCallbacks.delete(name)
+  }
+
+  static verifQuestion(
+    exercice: IExercice,
+    i: number,
+  ): {
+    isOk: boolean
+    feedback: string
+    score: { nbBonnesReponses: number; nbReponses: number }
+  } {
+    const id = `${ElementIepEditeur.elementTag}Ex${exercice.numeroExercice}Q${i}`
+    const editor = document.getElementById(id) as ElementIepEditeur | null
+    const spanResultat = document.querySelector(
+      `#resultatCheckEx${exercice.numeroExercice}Q${i}`,
+    )
+    const divFeedback = document.querySelector(
+      `#feedbackEx${exercice.numeroExercice}Q${i}`,
+    ) as HTMLElement | null
+
+    const finish = (result: ElementIepVerificationResult) => {
+      const isOk = result.isOk
+      const feedback =
+        result.feedback ??
+        (isOk
+          ? 'Bravo !'
+          : 'Le programme ne correspond pas à la construction attendue.')
+      if (spanResultat) spanResultat.innerHTML = isOk ? '😎' : '☹️'
+      if (divFeedback) {
+        divFeedback.innerHTML = feedback
+        divFeedback.style.display = 'block'
+      }
+      return {
+        isOk,
+        feedback,
+        score: result.score ?? {
+          nbBonnesReponses: isOk ? 1 : 0,
+          nbReponses: 1,
+        },
+      }
+    }
+
+    if (editor == null) {
+      return finish({
+        isOk: false,
+        feedback: 'Éditeur Instrumenpoche introuvable.',
+      })
+    }
+
+    const studentProgram = editor.getProgramme()
+    if (exercice.answers == null) exercice.answers = {}
+    exercice.answers[id] = JSON.stringify(studentProgram)
+    editor.interactivityOn = false
+
+    const expectedRaw = exercice.autoCorrection[i]?.valeur?.reponse?.value
+    const verifyCallbackName = editor.getAttribute('verify-callback-name')
+    const verifyCallback =
+      verifyCallbackName == null
+        ? undefined
+        : ElementIepEditeur.verificationCallbacks.get(verifyCallbackName)
+    if (verifyCallback != null) {
+      return finish(
+        verifyCallback({
+          exercice,
+          questionIndex: i,
+          editor,
+          studentProgram,
+          expectedRaw,
+        }),
+      )
+    }
+
+    return finish({
+      isOk:
+        normaliserProgramme(studentProgram) ===
+        normaliserProgramme(expectedRaw),
     })
   }
 
@@ -1041,23 +1373,51 @@ export class ElementIepEditeur extends MathaleaCustomElement {
     super.connectedCallback()
     if (this.dataset.initialise === '1') return
     this.dataset.initialise = '1'
-    const id = this.getAttribute('id') ?? 'editeur-iep'
-    const programmeInitial = lireProgrammeDepuisAttribut(
-      this.getAttribute('programme-initial'),
-    )
-    this.initialiserInstructionsProtegees(programmeInitial)
-    const programmeSauvegarde = programmesParId.get(id)
-    if (programmeSauvegarde !== undefined) {
-      this.programme = programmeSauvegarde
-    } else if (programmeInitial.length > 0) {
-      this.programme = clonerProgramme(programmeInitial)
-      programmesParId.set(id, this.programme)
-    } else {
-      programmesParId.set(id, this.programme)
-    }
+    this.reinitialiserProgrammeDepuisAttributs()
     this.prochaineLettre = pointsDefinis(this.programme).length
     this.construireInterface()
     this.rafraichirProgramme()
+  }
+
+  attributeChangedCallback(
+    name: string,
+    oldValue: string | null,
+    newValue: string | null,
+  ) {
+    if (
+      this.dataset.initialise !== '1' ||
+      oldValue === newValue ||
+      !['programme-initial', 'instructions-disponibles'].includes(name)
+    ) {
+      return
+    }
+    this.reinitialiserProgrammeDepuisAttributs()
+    this.innerHTML = ''
+    this.construireInterface()
+    this.rafraichirProgramme()
+  }
+
+  private reinitialiserProgrammeDepuisAttributs() {
+    const id = this.getAttribute('id') ?? 'editeur-iep'
+    const programmeInitialAttribut = this.getAttribute('programme-initial') ?? ''
+    const programmeInitial = lireProgrammeDepuisAttribut(programmeInitialAttribut)
+    this.initialiserInstructionsProtegees(programmeInitial)
+    const programmeSauvegarde = programmesParId.get(id)
+    if (
+      programmeSauvegarde !== undefined &&
+      programmeSauvegarde.programmeInitialAttribut === programmeInitialAttribut
+    ) {
+      this.programme = programmeSauvegarde.programme
+    } else {
+      this.programme =
+        programmeInitial.length > 0 ? clonerProgramme(programmeInitial) : []
+      programmesParId.set(id, {
+        programme: this.programme,
+        programmeInitialAttribut,
+      })
+    }
+    this.prochaineLettre = pointsDefinis(this.programme).length
+    this.terminerEditionSiInterfacePrete()
   }
 
   /**
@@ -1074,6 +1434,10 @@ export class ElementIepEditeur extends MathaleaCustomElement {
     this.importerProgramme(nextValue)
   }
 
+  getProgramme(): InstructionIep[] {
+    return clonerProgramme(this.programme)
+  }
+
   protected onInteractivityChanged(_isOn: boolean): void {
     this.appliquerInteractivite()
   }
@@ -1086,9 +1450,19 @@ export class ElementIepEditeur extends MathaleaCustomElement {
    */
   private appliquerInteractivite() {
     const actif = this.interactivityOn
+    if (this.zoneAjout !== undefined) {
+      this.zoneAjout.style.display = actif ? '' : 'none'
+    }
     this.querySelectorAll<
       HTMLButtonElement | HTMLSelectElement | HTMLInputElement
     >('button, select, input').forEach((element) => {
+      if (element.dataset.boutonEditionProgramme === 'true') {
+        element.style.display = actif ? '' : 'none'
+      }
+      if (element === this.boutonTester) {
+        element.disabled = false
+        return
+      }
       if (!actif) {
         element.disabled = true
       } else if (element.dataset.desactiveLogique !== 'true') {
@@ -1115,7 +1489,10 @@ export class ElementIepEditeur extends MathaleaCustomElement {
     this.restaurerInstructionsProtegees()
     this.prochaineLettre = pointsDefinis(this.programme).length
     const id = this.getAttribute('id') ?? 'editeur-iep'
-    programmesParId.set(id, this.programme)
+    programmesParId.set(id, {
+      programme: this.programme,
+      programmeInitialAttribut: this.getAttribute('programme-initial') ?? '',
+    })
     this.terminerEdition()
     this.rafraichirProgramme()
     this.rafraichirParametres()
@@ -1127,8 +1504,8 @@ export class ElementIepEditeur extends MathaleaCustomElement {
     conteneur.classList.add('flex', 'flex-col', 'gap-4', 'my-4', 'max-w-5xl')
 
     // --- Zone d'ajout d'une instruction ---
-    const zoneAjout = document.createElement('div')
-    zoneAjout.classList.add(
+    this.zoneAjout = document.createElement('div')
+    this.zoneAjout.classList.add(
       'flex',
       'flex-col',
       'gap-2',
@@ -1140,7 +1517,7 @@ export class ElementIepEditeur extends MathaleaCustomElement {
     const titreAjout = document.createElement('div')
     titreAjout.classList.add('font-bold')
     titreAjout.innerText = 'Ajouter une instruction'
-    zoneAjout.appendChild(titreAjout)
+    this.zoneAjout.appendChild(titreAjout)
 
     const ligneAjout = document.createElement('div')
     ligneAjout.classList.add('flex', 'flex-wrap', 'items-center', 'gap-2')
@@ -1187,8 +1564,8 @@ export class ElementIepEditeur extends MathaleaCustomElement {
     )
     this.boutonAnnulerEdition.onclick = () => this.annulerEdition()
     ligneAjout.appendChild(this.boutonAnnulerEdition)
-    zoneAjout.appendChild(ligneAjout)
-    conteneur.appendChild(zoneAjout)
+    this.zoneAjout.appendChild(ligneAjout)
+    conteneur.appendChild(this.zoneAjout)
 
     // --- Programme de construction ---
     const zoneProgramme = document.createElement('div')
@@ -1222,15 +1599,15 @@ export class ElementIepEditeur extends MathaleaCustomElement {
     // --- Animation ---
     const zoneAnimation = document.createElement('div')
     zoneAnimation.classList.add('flex', 'flex-wrap', 'gap-2')
-    const boutonTester = document.createElement('button')
-    boutonTester.innerText = 'Tester l’animation'
-    boutonTester.type = 'button'
-    boutonTester.classList.add(...classesBouton, 'self-start')
-    boutonTester.onclick = () => {
+    this.boutonTester = document.createElement('button')
+    this.boutonTester.innerText = 'Tester l’animation'
+    this.boutonTester.type = 'button'
+    this.boutonTester.classList.add(...classesBouton, 'self-start')
+    this.boutonTester.onclick = () => {
       this.animationVisible = true
       this.chargerAnimation()
     }
-    zoneAnimation.appendChild(boutonTester)
+    zoneAnimation.appendChild(this.boutonTester)
     if (this.allowFullscreenActif) {
       this.boutonPleinEcran = document.createElement('button')
       this.boutonPleinEcran.innerText = 'Voir en plein écran'
@@ -1536,6 +1913,7 @@ export class ElementIepEditeur extends MathaleaCustomElement {
     if (
       type === 'point' ||
       type === 'pointADistance' ||
+      type === 'milieu' ||
       type === 'intersection'
     ) {
       const nom = String(instruction.nom)
@@ -1587,6 +1965,18 @@ export class ElementIepEditeur extends MathaleaCustomElement {
    */
   private terminerEdition() {
     this.editingIndex = null
+    this.boutonValider.innerText = 'Ajouter'
+    this.boutonAnnulerEdition.classList.add('hidden')
+  }
+
+  private terminerEditionSiInterfacePrete() {
+    this.editingIndex = null
+    if (
+      this.boutonValider === undefined ||
+      this.boutonAnnulerEdition === undefined
+    ) {
+      return
+    }
     this.boutonValider.innerText = 'Ajouter'
     this.boutonAnnulerEdition.classList.add('hidden')
   }
@@ -1698,6 +2088,7 @@ export class ElementIepEditeur extends MathaleaCustomElement {
       for (const [symbole, action, titre, desactive] of boutons) {
         const bouton = document.createElement('button')
         bouton.innerText = symbole
+        bouton.dataset.boutonEditionProgramme = 'true'
         bouton.title = protege
           ? 'Instruction initiale protégée.'
           : desactive
@@ -1755,8 +2146,10 @@ export class ElementIepEditeur extends MathaleaCustomElement {
       (instruction, index) => (instruction.protege === true ? [index] : []),
     )
     this.indicesInstructionsProtegees = new Set(
-      [...indicesProtegesDepuisOptions, ...indicesProtegesDepuisInstructions]
-        .filter((index) => index < programmeInitial.length),
+      [
+        ...indicesProtegesDepuisOptions,
+        ...indicesProtegesDepuisInstructions,
+      ].filter((index) => index < programmeInitial.length),
     )
     this.instructionsProtegeesInitiales = new Map(
       [...this.indicesInstructionsProtegees].map((index) => [
@@ -1806,11 +2199,13 @@ export function addEditeurIep(
   }
   exercice.autoCorrection[questionIndex].formatInteractif =
     ElementIepEditeur.elementTag
-  return ElementIepEditeur.create({
+  const elementHtml = ElementIepEditeur.create({
     ...options,
     numeroExercice: exercice.numeroExercice,
     questionIndex,
   })
+  if (elementHtml === '') return ''
+  return `${elementHtml}<span id="resultatCheckEx${exercice.numeroExercice}Q${questionIndex}"></span><div id="feedbackEx${exercice.numeroExercice}Q${questionIndex}"></div>`
 }
 
 registerMathaleaCustomElement(ElementIepEditeur)
