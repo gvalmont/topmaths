@@ -201,6 +201,7 @@ export interface IAlea2iep {
 
   // Points et polygones
   pointCreer(A: PointAbstrait, options?: OptionsOutil): void
+  milieuALaRegle(A: PointAbstrait, B: PointAbstrait, nom?: string): void
   pointMasquer(...points: (PointAbstrait | OptionsOutil)[]): void
   polygoneRapide(...args: (PointAbstrait | OptionsCrayon)[]): void
 

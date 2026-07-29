@@ -29,6 +29,7 @@ import {
   mediatriceAuCompas,
   mediatriceRegleEquerre,
 } from './iepMacros/droitesRemarquables'
+import { milieuALaRegle } from './iepMacros/milieu'
 import {
   paralleleAuCompas,
   paralleleAuCompasAvecDescription,
@@ -228,6 +229,7 @@ export default class Alea2iep {
   mediane = mediane
   bissectriceAuCompas = bissectriceAuCompas
   cercleCirconscrit = cercleCirconscrit
+  milieuALaRegle = milieuALaRegle
   triangle3longueurs = triangle3longueurs
   triangleRectangleCoteHypotenuse = triangleRectangleCoteHypotenuse
   triangleRectangle2Cotes = triangleRectangle2Cotes
@@ -1430,6 +1432,7 @@ export default class Alea2iep {
     }
     const longueurRegle = options.longueur ?? this.regle.longueur
     const longueurSegment = longueur(A, B)
+    const regleVisibleInitialement = this.regle.visibilite
     if (longueurSegment > EPSILON_SEGMENT_IEP) {
       const premierPoint = options.zeroSurPremierPoint
         ? A
@@ -1444,7 +1447,7 @@ export default class Alea2iep {
             premierPoint,
           )
       const angleRegle = droite(premierPoint, secondPoint).angleAvecHorizontale
-      this.regleMontrer()
+      if (!regleVisibleInitialement) this.regleMontrer()
       this.regleRotationTranslation(angleRegle, pointDepartRegle, options)
     }
     if (this.crayon != null) {
@@ -1459,7 +1462,7 @@ export default class Alea2iep {
         id = this.tracer(A, options)
       }
     }
-    this.regleMasquer()
+    if (!regleVisibleInitialement) this.regleMasquer()
     return id
   }
 
@@ -1487,10 +1490,13 @@ export default class Alea2iep {
    * @param  {...points} sommets du polygonne séparés par des virgules
    */
   polygoneTracer(...sommets: PointAbstrait[]) {
+    const regleVisibleInitialement = this.regle.visibilite
+    if (!regleVisibleInitialement) this.regleMontrer()
     for (let i = 0; i < sommets.length - 1; i++) {
       this.regleSegment(sommets[i], sommets[i + 1])
     }
     this.regleSegment(sommets[sommets.length - 1], sommets[0])
+    if (!regleVisibleInitialement) this.regleMasquer()
   }
 
   /**

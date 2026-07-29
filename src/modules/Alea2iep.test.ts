@@ -10,9 +10,9 @@ describe('Alea2iep.regleSegment', () => {
 
     const xml = iep.script()
     expect(xml).toContain(
-      '<action objet="regle" mouvement="rotationTranslation" angle="0" abscisse="-165" ordonnee="300" tempo="5" sens="5" vitesse="10" />',
+      '<action objet="regle" mouvement="rotation_translation" angle="0" abscisse="-165" ordonnee="300" tempo="5" sens="5" vitesse="10" />',
     )
-    expect(xml).not.toContain(
+    expect(xml).toContain(
       '<action objet="regle" mouvement="montrer" abscisse="0" ordonnee="300" tempo="5" />',
     )
     expect(xml).toContain(
@@ -27,7 +27,7 @@ describe('Alea2iep.regleSegment', () => {
 
     const xml = iep.script()
     expect(xml).toContain(
-      '<action objet="regle" mouvement="rotationTranslation" angle="0" abscisse="-165" ordonnee="300" tempo="5" sens="5" vitesse="10" />',
+      '<action objet="regle" mouvement="rotation_translation" angle="0" abscisse="-165" ordonnee="300" tempo="5" sens="5" vitesse="10" />',
     )
     expect(xml).not.toContain(
       '<action objet="regle" mouvement="rotation" angle="-180" tempo="5" sens="5" />',
@@ -41,7 +41,7 @@ describe('Alea2iep.regleSegment', () => {
     iep.regleSegment(pointAbstrait(0, 0), pointAbstrait(0, 4))
 
     expect(iep.script()).toContain(
-      '<action objet="regle" mouvement="rotationTranslation" angle="-90" abscisse="0" ordonnee="465" tempo="5" sens="5" vitesse="10" />',
+      '<action objet="regle" mouvement="rotation_translation" angle="-90" abscisse="0" ordonnee="465" tempo="5" sens="5" vitesse="10" />',
     )
   })
 
@@ -54,10 +54,27 @@ describe('Alea2iep.regleSegment', () => {
 
     const xml = iep.script()
     expect(xml).toContain(
-      '<action objet="regle" mouvement="rotationTranslation" angle="0" abscisse="0" ordonnee="300" tempo="5" sens="5" vitesse="10" />',
+      '<action objet="regle" mouvement="rotation_translation" angle="0" abscisse="0" ordonnee="300" tempo="5" sens="5" vitesse="10" />',
     )
     expect(xml).not.toContain(
       '<action objet="regle" mouvement="montrer" abscisse="-165" ordonnee="300" tempo="5" />',
     )
+  })
+
+  it('keeps the ruler visible between polygon sides', () => {
+    const iep = new Alea2iep()
+
+    iep.polygoneTracer(
+      pointAbstrait(0, 0),
+      pointAbstrait(4, 0),
+      pointAbstrait(4, 3),
+      pointAbstrait(0, 3),
+    )
+
+    const xml = iep.script()
+    expect(xml.match(/objet="regle" mouvement="montrer"/g)).toHaveLength(1)
+    expect(xml.match(/objet="regle" mouvement="masquer"/g)).toHaveLength(1)
+    expect(xml.match(/objet="regle" mouvement="rotation_translation"/g))
+      .toHaveLength(4)
   })
 })
