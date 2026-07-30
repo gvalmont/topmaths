@@ -20,6 +20,8 @@ const programmeInitial: InstructionIep[] = [
   { type: 'point', nom: 'A', x: 0, y: 0, protege: true },
   { type: 'point', nom: 'B', x: 5, y: 0, protege: true },
   { type: 'segment', p1: 'A', p2: 'B' },
+  { type: 'demiDroitePointDirection', p1: 'A', angle: 45 },
+  { type: 'droitePointPente', p1: 'B', pente: 1 },
 ]
 const instructionsDisponibles: InstructionsDisponiblesIep = [
   'parallele',
@@ -107,6 +109,73 @@ const programmeInitial: InstructionIep[] = [
 
 L'instruction `milieu` place un point nommé au milieu de deux points déjà
 construits, avec la macro `Alea2iep.milieuALaRegle()`.
+
+Les instructions `demiDroitePointDirection` et `droitePointPente` évitent de
+créer un second point uniquement pour donner une direction :
+
+- `demiDroitePointDirection` reçoit `p1` comme origine et `angle`, en degrés,
+  mesuré avec l'horizontale entre `-180` et `180` ;
+- `droitePointPente` reçoit `p1` et `pente`, le coefficient directeur. Pour une
+  droite verticale dans un appel direct TypeScript, utiliser
+  `Number.POSITIVE_INFINITY`. Dans le JSON de l'éditeur, utiliser la chaîne
+  `"Infinity"` car JSON ne conserve pas les valeurs infinies numériques.
+
+Dans l'éditeur, `angle` et `pente` peuvent être omis. La valeur est alors tirée
+au hasard au moment de tester l'animation : un angle entier entre `-180` et
+`180` pour `demiDroitePointDirection`, ou une pente entière entre `-5` et `5`
+pour `droitePointPente`.
+
+Pour limiter l'encombrement du SVG généré par l'éditeur, les droites et
+demi-droites y sont tracées avec une longueur dédiée de `8` cm, au lieu de la
+longueur courante de la règle.
+
+L'instruction `paralleleAObjet` construit une parallèle à un objet déjà tracé
+et passant par un point :
+
+```ts
+const programmeInitial: InstructionIep[] = [
+  { type: 'point', nom: 'A', x: 0, y: 0 },
+  { type: 'point', nom: 'B', x: 2, y: 2 },
+  { type: 'droitePointPente', p1: 'A' },
+  { type: 'paralleleAObjet', etape: 2, p1: 'B' },
+]
+```
+
+L'objet référencé par `etape` doit être une droite, un segment, une demi-droite
+ou une parallèle déjà construite. Les étapes sont indexées à partir de `0` dans
+le JSON, donc `etape: 2` désigne la troisième instruction.
+
+L'instruction `perpendiculaireAObjet` suit le même principe pour construire une
+perpendiculaire au support d'un objet directionnel déjà tracé :
+
+```ts
+const programmeInitial: InstructionIep[] = [
+  { type: 'point', nom: 'A', x: 0, y: 0 },
+  { type: 'point', nom: 'B', x: 3, y: 2 },
+  { type: 'demiDroitePointDirection', p1: 'A', angle: 30 },
+  { type: 'perpendiculaireAObjet', etape: 2, p1: 'B' },
+]
+```
+
+La perpendiculaire ainsi construite devient elle-même un objet directionnel et
+peut servir à une intersection, une parallèle, une autre perpendiculaire ou un
+prolongement.
+
+L'instruction `prolongerObjet` ajoute un tracé plus long, centré sur le tracé
+visible courant, pour un objet directionnel déjà construit, sans créer de
+nouvel objet géométrique. Les intersections doivent donc continuer de
+référencer l'objet initial :
+
+```ts
+const programmeInitial: InstructionIep[] = [
+  { type: 'point', nom: 'A', x: 0, y: 0 },
+  { type: 'point', nom: 'B', x: 4, y: 1 },
+  { type: 'demiDroitePointDirection', p1: 'A', angle: 30 },
+  { type: 'prolongerObjet', etape: 2, longueur: 15 },
+]
+```
+
+La valeur `longueur` désigne la longueur totale du nouveau tracé.
 
 ## Options utiles
 
