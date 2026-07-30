@@ -154,9 +154,13 @@
         recordedTimeFromCapytale = assignmentDataFromCapytale.duration
     })
     context.isDiaporama = true
-    // force le mode interactif
+    // La vue Course aux nombres impose son propre réglage d'interactivité
+    // (paramètre d'URL `canI`) à tous les exercices, sans tenir compte des
+    // réglages individuels : afficher des champs de saisie ou des cases à
+    // cocher alors que les réponses ne seront jamais vérifiées serait
+    // trompeur pour l'élève.
     globalOptions.update((gOpt) => {
-      gOpt.setInteractive = '1'
+      gOpt.setInteractive = $canOptions.isInteractive ? '1' : '0'
       return gOpt
     })
     // reconstitution des exercices
@@ -177,11 +181,12 @@
     // met à jour la url avec la graine...
     mathaleaUpdateUrlFromExercicesParams(get(exercicesParams))
     // interactivité
-    if ($canOptions.isInteractive) {
-      $keyboardState.isVisible = true
-      for (const param of exercises) {
-        param.interactif = true
-      }
+    $keyboardState.isVisible = $canOptions.isInteractive
+    for (const exercise of exercises) {
+      // `interactifObligatoire` signale un exercice sans version HTML non
+      // interactive : on ne peut pas lui retirer son interactivité.
+      exercise.interactif =
+        $canOptions.isInteractive || exercise.interactifObligatoire
     }
     // découpage des exerices en questions
     buildQuestions()
