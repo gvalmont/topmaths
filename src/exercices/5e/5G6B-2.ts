@@ -1,3 +1,5 @@
+import { demiDroite } from '../../lib/2d/DemiDroite'
+import { droite } from '../../lib/2d/droites'
 import { fixeBordures } from '../../lib/2d/fixeBordures'
 import { pointAbstrait } from '../../lib/2d/PointAbstrait'
 import { nommePolygone, polygone } from '../../lib/2d/polygones'
@@ -169,7 +171,7 @@ export default class ProgrammesConstructionsParallelogrammes extends Exercice {
     super()
     this.besoinFormulaireTexte = [
       'Type de questions',
-      'Nombres séparés par des tirets :\n0: Mélange\n1 : Deux côtés consécutifs sont donnés\n2 : Trois sommets consécutifs sont donnés\n3 : Deux sommets consécutifs et le centre sont donnés',
+      'Nombres séparés par des tirets :\n0: Mélange\n1 : Deux côtés consécutifs sont donnés\n2 : Trois sommets consécutifs sont donnés\n3 : Deux sommets consécutifs et le centre sont donnés\n4: Un angle et le sommet opposé',
     ]
 
     this.nbQuestions = 1
@@ -185,7 +187,7 @@ export default class ProgrammesConstructionsParallelogrammes extends Exercice {
     const listeTypeQuestions = gestionnaireFormulaireTexte({
       saisie: this.sup,
       min: 1,
-      max: 3,
+      max: 4,
       melange: 0,
       defaut: 1,
       nbQuestions: this.nbQuestions,
@@ -372,6 +374,80 @@ export default class ProgrammesConstructionsParallelogrammes extends Exercice {
           texte = `Compléter le programme de construction du  parallélogramme $${nom}$ de centre $${noms[4]}$ afin de terminer la figure ci-dessous.<br>`
 
           break
+        case 4: {
+          // un angle et le sommet opposé
+          const angleAB = droite(A, B).angleAvecHorizontale
+          const angleAD = droite(A, D).angleAvecHorizontale
+          objetsFigure.push(
+            tracePoint(A, C),
+            nomPolygone.objets![0],
+            nomPolygone.objets![2],
+            demiDroite(A, D),
+            demiDroite(A, B),
+            D,
+            B,
+          )
+          programmeInitial.push(
+            { type: 'point', nom: noms[0], x: A.x, y: A.y, protege: true },
+            { type: 'point', nom: noms[2], x: C.x, y: C.y, protege: true },
+            {
+              type: 'demiDroitePointDirection',
+              p1: noms[0],
+              angle: angleAB,
+              protege: true,
+            },
+            {
+              type: 'demiDroitePointDirection',
+              p1: noms[0],
+              angle: angleAD,
+              protege: true,
+            },
+          )
+          programmeAttendu.push(
+            { type: 'point', nom: noms[0], x: A.x, y: A.y, protege: true },
+            { type: 'point', nom: noms[2], x: C.x, y: C.y, protege: true },
+            {
+              type: 'demiDroitePointDirection',
+              p1: noms[0],
+              angle: angleAB,
+              protege: true,
+            },
+            {
+              type: 'demiDroitePointDirection',
+              p1: noms[0],
+              angle: angleAD,
+              protege: true,
+            },
+            { type: 'paralleleAObjet', etape: 2, p1: noms[2] },
+            { type: 'paralleleAObjet', etape: 3, p1: noms[2] },
+            {
+              type: 'intersection',
+              etape1: 2,
+              etape2: 5,
+              choix: 1,
+              nom: noms[1],
+            },
+            {
+              type: 'intersection',
+              etape1: 3,
+              etape2: 4,
+              choix: 1,
+              nom: noms[3],
+            },
+            {
+              type: 'polygone',
+              sommets: `${noms[0]},${noms[1]},${noms[2]},${noms[3]}`,
+            },
+          )
+          instructionsDisponibles.push(
+            'segment',
+            'intersection',
+            'paralleleAObjet',
+            'polygone',
+            'prolongerObjet',
+          )
+          texte = `Compléter le programme de construction du  parallélogramme $${nom}$ (sens des aiguilles d'une montre), afin de terminer la figure ci-dessous.<br>`
+        }
       }
       texte += mathalea2d(
         Object.assign({}, fixeBordures(objetsFigure)),

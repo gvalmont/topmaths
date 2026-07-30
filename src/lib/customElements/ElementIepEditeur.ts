@@ -3,6 +3,7 @@ import { context } from '../../modules/context'
 import { cercle } from '../2d/cercle'
 import { droite } from '../2d/droites'
 import { pointAbstrait, type PointAbstrait } from '../2d/PointAbstrait'
+import { projectionOrtho } from '../2d/transformations'
 import { longueur } from '../2d/utilitairesGeometriques'
 import {
   milieu,
@@ -10,6 +11,8 @@ import {
   pointIntersectionCC,
   pointIntersectionDD,
   pointIntersectionLC,
+  pointSurDroite,
+  pointSurSegment,
 } from '../2d/utilitairesPoint'
 import { stringNombre } from '../outils/texNombre'
 import type { IExercice } from '../types'
@@ -43,15 +46,53 @@ const nomsOutils: Record<OutilIep, string> = {
 
 // Types d'instructions dont le tracé peut servir de support à une intersection
 type TypeElementIntersectable =
-  'droite' | 'segment' | 'demiDroite' | 'cercle' | 'arc' | 'parallele'
+  | 'droite'
+  | 'droitePointPente'
+  | 'segment'
+  | 'demiDroite'
+  | 'demiDroitePointDirection'
+  | 'cercle'
+  | 'arc'
+  | 'parallele'
+  | 'paralleleAObjet'
+  | 'paralleleObjet'
+  | 'perpendiculaireAObjet'
+
+type TypeElementDirection =
+  | 'droite'
+  | 'droitePointPente'
+  | 'segment'
+  | 'demiDroite'
+  | 'demiDroitePointDirection'
+  | 'parallele'
+  | 'paralleleAObjet'
+  | 'paralleleObjet'
+  | 'perpendiculaireAObjet'
 
 const typesElementsIntersectables: TypeElementIntersectable[] = [
   'droite',
+  'droitePointPente',
   'segment',
   'demiDroite',
+  'demiDroitePointDirection',
   'cercle',
   'arc',
   'parallele',
+  'paralleleAObjet',
+  'paralleleObjet',
+  'perpendiculaireAObjet',
+]
+
+const typesElementsDirection: TypeElementDirection[] = [
+  'droite',
+  'droitePointPente',
+  'segment',
+  'demiDroite',
+  'demiDroitePointDirection',
+  'parallele',
+  'paralleleAObjet',
+  'paralleleObjet',
+  'perpendiculaireAObjet',
 ]
 
 // Préposition + nom pour décrire l'élément référencé par une intersection
@@ -60,11 +101,16 @@ const prepositionElementIntersectable: Record<
   string
 > = {
   droite: 'de la droite',
+  droitePointPente: 'de la droite',
   segment: 'du segment',
   demiDroite: 'de la demi-droite',
+  demiDroitePointDirection: 'de la demi-droite',
   cercle: 'du cercle',
   arc: 'de l’arc',
   parallele: 'de la parallèle',
+  paralleleAObjet: 'de la parallèle',
+  paralleleObjet: 'de la parallèle',
+  perpendiculaireAObjet: 'de la perpendiculaire',
 }
 
 // Nom seul (sans article) pour les options du menu de sélection d'une étape
@@ -73,11 +119,16 @@ const nomsTypesElementsIntersectables: Record<
   string
 > = {
   droite: 'droite',
+  droitePointPente: 'droite',
   segment: 'segment',
   demiDroite: 'demi-droite',
+  demiDroitePointDirection: 'demi-droite',
   cercle: 'cercle',
   arc: 'arc',
   parallele: 'parallèle',
+  paralleleAObjet: 'parallèle',
+  paralleleObjet: 'parallèle',
+  perpendiculaireAObjet: 'perpendiculaire',
 }
 
 type InstructionIepBase = {
@@ -97,7 +148,9 @@ type InstructionIepSansOptions =
   | { type: 'polygone'; sommets: string }
   | { type: 'polygoneRapide'; sommets: string }
   | { type: 'droite'; p1: string; p2: string }
+  | { type: 'droitePointPente'; p1: string; pente?: number | string }
   | { type: 'demiDroite'; p1: string; p2: string }
+  | { type: 'demiDroitePointDirection'; p1: string; angle?: number | string }
   | { type: 'cercle'; p1: string; p2: string }
   | { type: 'arc'; p1: string; p2: string }
   | { type: 'milieu'; nom: string; p1: string; p2: string }
@@ -110,7 +163,11 @@ type InstructionIepSansOptions =
     }
   | { type: 'mediatrice'; p1: string; p2: string }
   | { type: 'perpendiculaire'; p1: string; p2: string; p3: string }
+  | { type: 'perpendiculaireAObjet'; etape: number; p1: string }
   | { type: 'parallele'; p1: string; p2: string; p3: string }
+  | { type: 'paralleleAObjet'; etape: number; p1: string }
+  | { type: 'paralleleObjet'; element: number; p1: string }
+  | { type: 'prolongerObjet'; etape: number; longueur?: number }
   | { type: 'bissectrice'; p1: string; p2: string; p3: string }
   | { type: 'codageAngleDroit'; p1: string; p2: string; p3: string }
   | { type: 'demiDroiteAngle'; p1: string; p2: string; angle: number }
@@ -174,11 +231,13 @@ type ChampSpec = {
     | 'nombre'
     | 'texte'
     | 'etape'
+    | 'objetDirection'
     | 'choix'
     | 'codageSegment'
     | 'codageAngle'
   label: string
   defaut?: number | string
+  optionnel?: boolean
 }
 
 // Symboles de codage disponibles pour un segment (marque de longueur égale)
@@ -207,6 +266,9 @@ const optionsCodageAngle: string[] = [
   'plein///',
   'pleinO',
 ]
+
+const longueurObjetDirectionEditeurIep = 8
+const longueurProlongementObjetEditeurIep = 8
 
 const catalogue: Record<
   TypeInstructionIep,
@@ -265,11 +327,25 @@ const catalogue: Record<
       { cle: 'p2', genre: 'point', label: 'Point 2' },
     ],
   },
+  droitePointPente: {
+    label: 'Tracer une droite (point + pente)',
+    champs: [
+      { cle: 'p1', genre: 'point', label: 'Point' },
+      { cle: 'pente', genre: 'texte', label: 'Pente', optionnel: true },
+    ],
+  },
   demiDroite: {
     label: 'Tracer une demi-droite à la règle',
     champs: [
       { cle: 'p1', genre: 'point', label: 'Origine' },
       { cle: 'p2', genre: 'point', label: 'Direction' },
+    ],
+  },
+  demiDroitePointDirection: {
+    label: 'Tracer une demi-droite (origine + angle)',
+    champs: [
+      { cle: 'p1', genre: 'point', label: 'Origine' },
+      { cle: 'angle', genre: 'texte', label: 'Angle (°)', optionnel: true },
     ],
   },
   cercle: {
@@ -318,12 +394,45 @@ const catalogue: Record<
       { cle: 'p3', genre: 'point', label: 'Passant par' },
     ],
   },
+  perpendiculaireAObjet: {
+    label: 'Tracer une perpendiculaire à un objet',
+    champs: [
+      { cle: 'etape', genre: 'objetDirection', label: 'Objet' },
+      { cle: 'p1', genre: 'point', label: 'Passant par' },
+    ],
+  },
   parallele: {
     label: 'Tracer une parallèle (règle + équerre)',
     champs: [
       { cle: 'p1', genre: 'point', label: 'Point 1 de la droite' },
       { cle: 'p2', genre: 'point', label: 'Point 2 de la droite' },
       { cle: 'p3', genre: 'point', label: 'Passant par' },
+    ],
+  },
+  paralleleAObjet: {
+    label: 'Tracer une parallèle à un objet',
+    champs: [
+      { cle: 'etape', genre: 'objetDirection', label: 'Objet' },
+      { cle: 'p1', genre: 'point', label: 'Passant par' },
+    ],
+  },
+  paralleleObjet: {
+    label: 'Tracer une parallèle à un objet',
+    champs: [
+      { cle: 'element', genre: 'objetDirection', label: 'Objet' },
+      { cle: 'p1', genre: 'point', label: 'Passant par' },
+    ],
+  },
+  prolongerObjet: {
+    label: 'Prolonger un objet',
+    champs: [
+      { cle: 'etape', genre: 'objetDirection', label: 'Objet' },
+      {
+        cle: 'longueur',
+        genre: 'nombre',
+        label: 'Longueur (cm)',
+        defaut: longueurProlongementObjetEditeurIep,
+      },
     ],
   },
   bissectrice: {
@@ -422,14 +531,19 @@ const ordreCatalogue: TypeInstructionIep[] = [
   'polygone',
   'polygoneRapide',
   'droite',
+  'droitePointPente',
   'demiDroite',
+  'demiDroitePointDirection',
   'cercle',
   'arc',
   'milieu',
   'intersection',
   'mediatrice',
   'perpendiculaire',
+  'perpendiculaireAObjet',
   'parallele',
+  'paralleleAObjet',
+  'prolongerObjet',
   'bissectrice',
   'demiDroiteAngle',
   'codageAngleDroit',
@@ -447,6 +561,57 @@ const ordreCatalogue: TypeInstructionIep[] = [
 
 function formateNombre(n: number) {
   return stringNombre(n, 2)
+}
+
+function lireNombreFiniOuInfini(valeur: number | string): number {
+  if (typeof valeur === 'number') return valeur
+  const normalisee = valeur.trim().replace(',', '.')
+  if (
+    normalisee === 'Infinity' ||
+    normalisee === '+Infinity' ||
+    normalisee === 'inf' ||
+    normalisee === '+inf'
+  ) {
+    return Number.POSITIVE_INFINITY
+  }
+  if (normalisee === '-Infinity' || normalisee === '-inf') {
+    return Number.NEGATIVE_INFINITY
+  }
+  return Number(normalisee)
+}
+
+function valeurEstVide(
+  valeur: number | string | undefined,
+): valeur is undefined | '' {
+  return valeur === undefined || valeur === ''
+}
+
+function angleAleatoire() {
+  return Math.floor(Math.random() * 361) - 180
+}
+
+function penteAleatoire() {
+  return Math.floor(Math.random() * 11) - 5
+}
+
+function lireNombreOptionnelFiniOuInfini(
+  valeur: number | string | undefined,
+): number | undefined {
+  if (valeurEstVide(valeur)) return undefined
+  return lireNombreFiniOuInfini(valeur)
+}
+
+function formatePente(pente: number | string | undefined) {
+  if (valeurEstVide(pente)) return 'aléatoire'
+  const valeur = lireNombreFiniOuInfini(pente)
+  if (valeur === Number.POSITIVE_INFINITY) return '+∞'
+  if (valeur === Number.NEGATIVE_INFINITY) return '-∞'
+  return formateNombre(valeur)
+}
+
+function formateAngleOptionnel(angle: number | string | undefined) {
+  if (valeurEstVide(angle)) return 'aléatoire'
+  return `de ${formateNombre(lireNombreFiniOuInfini(angle))}°`
 }
 
 function lireSommetsPolygone(sommets: string): string[] {
@@ -470,6 +635,15 @@ function decrireElementPourIntersection(
   return `${prepositionElementIntersectable[instr.type]} de l’étape ${etape + 1}`
 }
 
+function etapeObjetDirection(
+  instr: Extract<
+    InstructionIep,
+    { type: 'paralleleAObjet' | 'paralleleObjet' }
+  >,
+) {
+  return instr.type === 'paralleleAObjet' ? instr.etape : instr.element
+}
+
 /**
  * Description en français d'une instruction pour l'affichage du programme
  * @param {InstructionIep[]} [programme] Programme complet, nécessaire pour décrire les étapes référencées par une intersection
@@ -491,8 +665,12 @@ export function decrireInstruction(
       return `Tracer le polygone ${lireSommetsPolygone(instr.sommets).join('')}.`
     case 'droite':
       return `Tracer la droite (${instr.p1}${instr.p2}) à la règle.`
+    case 'droitePointPente':
+      return `Tracer la droite passant par ${instr.p1} et de pente ${formatePente(instr.pente)} à la règle.`
     case 'demiDroite':
       return `Tracer la demi-droite [${instr.p1}${instr.p2}) à la règle.`
+    case 'demiDroitePointDirection':
+      return `Tracer la demi-droite d’origine ${instr.p1} formant un angle ${formateAngleOptionnel(instr.angle)} avec l’horizontale.`
     case 'cercle':
       return `Tracer le cercle de centre ${instr.p1} passant par ${instr.p2} au compas.`
     case 'arc':
@@ -505,8 +683,16 @@ export function decrireInstruction(
       return `Tracer la médiatrice du segment [${instr.p1}${instr.p2}] au compas.`
     case 'perpendiculaire':
       return `Tracer la perpendiculaire à (${instr.p1}${instr.p2}) passant par ${instr.p3} avec la règle et l’équerre.`
+    case 'perpendiculaireAObjet':
+      return `Tracer la perpendiculaire ${decrireElementPourIntersection(programme, instr.etape)} passant par ${instr.p1} avec la règle et l’équerre.`
     case 'parallele':
       return `Tracer la parallèle à (${instr.p1}${instr.p2}) passant par ${instr.p3} avec la règle et l’équerre.`
+    case 'paralleleAObjet':
+      return `Tracer la parallèle ${decrireElementPourIntersection(programme, instr.etape)} passant par ${instr.p1} avec la règle et l’équerre.`
+    case 'paralleleObjet':
+      return `Tracer la parallèle ${decrireElementPourIntersection(programme, instr.element)} passant par ${instr.p1} avec la règle et l’équerre.`
+    case 'prolongerObjet':
+      return `Prolonger ${decrireElementPourIntersection(programme, instr.etape).replace('de', '')} à la règle (${formateNombre(instr.longueur ?? longueurProlongementObjetEditeurIep)} cm).`
     case 'bissectrice':
       return `Tracer la bissectrice de l’angle ${instr.p1}${instr.p2}${instr.p3} au compas.`
     case 'codageAngleDroit':
@@ -569,6 +755,15 @@ function estElementIntersectable(
   )
 }
 
+function estElementDirection(
+  instr: InstructionIep | undefined,
+): instr is Extract<InstructionIep, { type: TypeElementDirection }> {
+  return (
+    instr !== undefined &&
+    (typesElementsDirection as string[]).includes(instr.type)
+  )
+}
+
 /**
  * Renvoie la liste des étapes du programme utilisables comme support d'intersection
  */
@@ -582,6 +777,155 @@ function elementsIntersectablesDefinis(
     }
   })
   return elements
+}
+
+function elementsDirectionDefinis(
+  programme: InstructionIep[],
+): { index: number; type: TypeElementDirection }[] {
+  const elements: { index: number; type: TypeElementDirection }[] = []
+  programme.forEach((instr, index) => {
+    if (estElementDirection(instr)) {
+      elements.push({ index, type: instr.type })
+    }
+  })
+  return elements
+}
+
+function pointDepuisPente(
+  A: PointAbstrait,
+  pente: number | string | undefined,
+) {
+  const valeur = lireNombreOptionnelFiniOuInfini(pente)
+  if (valeur === undefined) return undefined
+  if (Number.isNaN(valeur)) return undefined
+  if (Number.isFinite(valeur)) return pointAbstrait(A.x + 1, A.y + valeur)
+  return pointAbstrait(A.x, A.y + (valeur > 0 ? 1 : -1))
+}
+
+function pointDepuisAngle(
+  A: PointAbstrait,
+  angle: number | string | undefined,
+) {
+  const valeur = lireNombreOptionnelFiniOuInfini(angle)
+  if (valeur === undefined || Number.isNaN(valeur)) return undefined
+  return pointAdistance(A, 1, valeur)
+}
+
+function deuxPointsSurDroitePourAnimation(
+  d: ReturnType<typeof droite>,
+  longueurTrace = longueurObjetDirectionEditeurIep,
+) {
+  const centre = pointSurDroite(d, 0)
+  const normeDirecteur = Math.hypot(d.directeur.x, d.directeur.y)
+  const coefficient =
+    normeDirecteur === 0 ? 1 : longueurTrace / 2 / normeDirecteur
+  return [
+    pointAbstrait(
+      centre.x - d.directeur.x * coefficient,
+      centre.y - d.directeur.y * coefficient,
+    ),
+    pointAbstrait(
+      centre.x + d.directeur.x * coefficient,
+      centre.y + d.directeur.y * coefficient,
+    ),
+  ] as const
+}
+
+function deuxPointsProlongementCentre(
+  A: PointAbstrait,
+  B: PointAbstrait,
+  longueurTrace: number,
+) {
+  const longueurAB = longueur(A, B)
+  if (longueurAB === 0) return [A, B] as const
+  const centre = milieu(A, B)
+  const demiLongueur = Math.abs(longueurTrace) / 2
+  return [
+    pointSurSegment(centre, A, demiLongueur),
+    pointSurSegment(centre, B, demiLongueur),
+  ] as const
+}
+
+function segmentTraceParallele(
+  A: PointAbstrait,
+  B: PointAbstrait,
+  C: PointAbstrait,
+) {
+  const d = droite(A, B)
+  const H = projectionOrtho(C, d)
+  const prodScal = (B.x - A.x) * (C.x - A.x) + (B.y - A.y) * (C.y - A.y)
+  const H1 = prodScal < 0 ? B : A
+  const H2 = pointAbstrait(H1.x + C.x - H.x, H1.y + C.y - H.y)
+  return [H2, C] as const
+}
+
+function segmentVisibleObjetDirection(
+  instr: InstructionIep | undefined,
+  points: Map<string, PointAbstrait>,
+  programme: InstructionIep[],
+): readonly [PointAbstrait, PointAbstrait] | undefined {
+  if (instr === undefined || !estElementDirection(instr)) return undefined
+  if (instr.type === 'segment') {
+    const A = points.get(instr.p1)
+    const B = points.get(instr.p2)
+    if (A === undefined || B === undefined) return undefined
+    return [A, B] as const
+  }
+  if (
+    instr.type === 'demiDroite' ||
+    instr.type === 'demiDroitePointDirection'
+  ) {
+    const O = points.get(instr.p1)
+    if (O === undefined) return undefined
+    const direction =
+      instr.type === 'demiDroite'
+        ? points.get(instr.p2)
+        : pointDepuisAngle(O, instr.angle)
+    if (direction === undefined) return undefined
+    return [
+      O,
+      pointSurSegment(O, direction, longueurObjetDirectionEditeurIep),
+    ] as const
+  }
+  if (instr.type === 'parallele') {
+    const A = points.get(instr.p1)
+    const B = points.get(instr.p2)
+    const C = points.get(instr.p3)
+    if (A === undefined || B === undefined || C === undefined) return undefined
+    return segmentTraceParallele(A, B, C)
+  }
+  if (instr.type === 'paralleleAObjet' || instr.type === 'paralleleObjet') {
+    const C = points.get(instr.p1)
+    const base = elementGeometrique(
+      programme[etapeObjetDirection(instr)],
+      points,
+      programme,
+    )
+    if (C === undefined || base?.nature !== 'droite') return undefined
+    const [A, B] = deuxPointsSurDroitePourAnimation(base.objet)
+    return segmentTraceParallele(A, B, C)
+  }
+  const element = elementGeometrique(instr, points, programme)
+  if (element?.nature !== 'droite') return undefined
+  return deuxPointsSurDroitePourAnimation(element.objet)
+}
+
+function tracerProlongementObjet(
+  anim: Alea2iep,
+  instr: InstructionIep | undefined,
+  points: Map<string, PointAbstrait>,
+  programme: InstructionIep[],
+  longueurTrace: number,
+) {
+  const segmentVisible = segmentVisibleObjetDirection(instr, points, programme)
+  if (segmentVisible === undefined) return false
+  const [P, Q] = deuxPointsProlongementCentre(
+    segmentVisible[0],
+    segmentVisible[1],
+    longueurTrace,
+  )
+  anim.regleSegment(P, Q, { longueur: Math.abs(longueurTrace) })
+  return true
 }
 
 /**
@@ -600,6 +944,25 @@ function instructionEstValide(
       estElementIntersectable(programme[instr.etape1]) &&
       estElementIntersectable(programme[instr.etape2])
     )
+  }
+  if (instr.type === 'paralleleAObjet' || instr.type === 'paralleleObjet') {
+    const etape = etapeObjetDirection(instr)
+    if (etape >= index || !estElementDirection(programme[etape])) {
+      return false
+    }
+  }
+  if (instr.type === 'prolongerObjet') {
+    if (instr.etape >= index || !estElementDirection(programme[instr.etape])) {
+      return false
+    }
+  }
+  if (instr.type === 'perpendiculaireAObjet') {
+    if (
+      instr.etape >= index ||
+      !estElementDirection(programme[instr.etape])
+    ) {
+      return false
+    }
   }
   const nomsConnus = new Set<string>()
   for (let i = 0; i < index; i++) {
@@ -664,6 +1027,7 @@ type ElementGeometrique =
 function elementGeometrique(
   instr: InstructionIep | undefined,
   points: Map<string, PointAbstrait>,
+  programme: InstructionIep[] = [],
 ): ElementGeometrique | undefined {
   if (!estElementIntersectable(instr)) return undefined
   if (instr.type === 'parallele') {
@@ -676,9 +1040,52 @@ function elementGeometrique(
     d.isVisible = false
     return { nature: 'droite', objet: d }
   }
+  if (instr.type === 'paralleleAObjet' || instr.type === 'paralleleObjet') {
+    const base = elementGeometrique(
+      programme[etapeObjetDirection(instr)],
+      points,
+      programme,
+    )
+    const A = points.get(instr.p1)
+    if (base?.nature !== 'droite' || A === undefined) return undefined
+    const pointDirection = pointAbstrait(
+      A.x + base.objet.directeur.x,
+      A.y + base.objet.directeur.y,
+    )
+    const d = droite(A, pointDirection)
+    d.isVisible = false
+    return { nature: 'droite', objet: d }
+  }
+  if (instr.type === 'perpendiculaireAObjet') {
+    const base = elementGeometrique(programme[instr.etape], points, programme)
+    const A = points.get(instr.p1)
+    if (base?.nature !== 'droite' || A === undefined) return undefined
+    const pointDirection = pointAbstrait(
+      A.x - base.objet.directeur.y,
+      A.y + base.objet.directeur.x,
+    )
+    const d = droite(A, pointDirection)
+    d.isVisible = false
+    return { nature: 'droite', objet: d }
+  }
   const A = points.get(instr.p1)
+  if (A === undefined) return undefined
+  if (instr.type === 'droitePointPente') {
+    const B = pointDepuisPente(A, instr.pente)
+    if (B === undefined) return undefined
+    const d = droite(A, B)
+    d.isVisible = false
+    return { nature: 'droite', objet: d }
+  }
+  if (instr.type === 'demiDroitePointDirection') {
+    const B = pointDepuisAngle(A, instr.angle)
+    if (B === undefined) return undefined
+    const d = droite(A, B)
+    d.isVisible = false
+    return { nature: 'droite', objet: d }
+  }
   const B = points.get(instr.p2)
-  if (A === undefined || B === undefined) return undefined
+  if (B === undefined) return undefined
   if (
     instr.type === 'droite' ||
     instr.type === 'segment' ||
@@ -702,7 +1109,17 @@ function jouerProgramme(anim: Alea2iep, programme: InstructionIep[]): number[] {
   const etapesIgnorees: number[] = []
   if (
     programme.some((instr) =>
-      ['segment', 'droite', 'demiDroite', 'polygone'].includes(instr.type),
+      [
+        'segment',
+        'droite',
+        'droitePointPente',
+        'demiDroite',
+        'demiDroitePointDirection',
+        'polygone',
+        'paralleleAObjet',
+        'paralleleObjet',
+        'perpendiculaireAObjet',
+      ].includes(instr.type),
     )
   ) {
     anim.regleMontrer()
@@ -774,7 +1191,22 @@ function jouerProgramme(anim: Alea2iep, programme: InstructionIep[]): number[] {
           etapesIgnorees.push(index)
           break
         }
-        anim.regleDroite(pts[0], pts[1])
+        anim.regleDroite(pts[0], pts[1], {
+          longueur: longueurObjetDirectionEditeurIep,
+        })
+        break
+      }
+      case 'droitePointPente': {
+        const pts = recupere(instr.p1)
+        const pente =
+          lireNombreOptionnelFiniOuInfini(instr.pente) ?? penteAleatoire()
+        if (pts === undefined || Number.isNaN(pente)) {
+          etapesIgnorees.push(index)
+          break
+        }
+        anim.regleDroite(pts[0], pente, {
+          longueur: longueurObjetDirectionEditeurIep,
+        })
         break
       }
       case 'demiDroite': {
@@ -783,7 +1215,22 @@ function jouerProgramme(anim: Alea2iep, programme: InstructionIep[]): number[] {
           etapesIgnorees.push(index)
           break
         }
-        anim.regleDemiDroiteOriginePoint(pts[0], pts[1])
+        anim.regleDemiDroite(pts[0], pts[1], {
+          longueur: longueurObjetDirectionEditeurIep,
+        })
+        break
+      }
+      case 'demiDroitePointDirection': {
+        const pts = recupere(instr.p1)
+        const angle =
+          lireNombreOptionnelFiniOuInfini(instr.angle) ?? angleAleatoire()
+        if (pts === undefined || Number.isNaN(angle)) {
+          etapesIgnorees.push(index)
+          break
+        }
+        anim.regleDemiDroite(pts[0], angle, {
+          longueur: longueurObjetDirectionEditeurIep,
+        })
         break
       }
       case 'cercle': {
@@ -816,8 +1263,16 @@ function jouerProgramme(anim: Alea2iep, programme: InstructionIep[]): number[] {
         break
       }
       case 'intersection': {
-        const element1 = elementGeometrique(programme[instr.etape1], points)
-        const element2 = elementGeometrique(programme[instr.etape2], points)
+        const element1 = elementGeometrique(
+          programme[instr.etape1],
+          points,
+          programme,
+        )
+        const element2 = elementGeometrique(
+          programme[instr.etape2],
+          points,
+          programme,
+        )
         if (element1 === undefined || element2 === undefined) {
           etapesIgnorees.push(index)
           break
@@ -881,6 +1336,20 @@ function jouerProgramme(anim: Alea2iep, programme: InstructionIep[]): number[] {
         anim.perpendiculaireRegleEquerre2points3epoint(pts[0], pts[1], pts[2])
         break
       }
+      case 'perpendiculaireAObjet': {
+        const pts = recupere(instr.p1)
+        const element = elementGeometrique(
+          programme[instr.etape],
+          points,
+          programme,
+        )
+        if (pts === undefined || element?.nature !== 'droite') {
+          etapesIgnorees.push(index)
+          break
+        }
+        anim.perpendiculaireRegleEquerreDroitePoint(element.objet, pts[0])
+        break
+      }
       case 'parallele': {
         const pts = recupere(instr.p1, instr.p2, instr.p3)
         if (pts === undefined) {
@@ -888,6 +1357,49 @@ function jouerProgramme(anim: Alea2iep, programme: InstructionIep[]): number[] {
           break
         }
         anim.paralleleRegleEquerre2points3epoint(pts[0], pts[1], pts[2])
+        break
+      }
+      case 'paralleleAObjet': {
+        const pts = recupere(instr.p1)
+        const element = elementGeometrique(
+          programme[instr.etape],
+          points,
+          programme,
+        )
+        if (pts === undefined || element?.nature !== 'droite') {
+          etapesIgnorees.push(index)
+          break
+        }
+        const [A, B] = deuxPointsSurDroitePourAnimation(element.objet)
+        anim.paralleleRegleEquerre2points3epoint(A, B, pts[0])
+        break
+      }
+      case 'paralleleObjet': {
+        const pts = recupere(instr.p1)
+        const element = elementGeometrique(
+          programme[instr.element],
+          points,
+          programme,
+        )
+        if (pts === undefined || element?.nature !== 'droite') {
+          etapesIgnorees.push(index)
+          break
+        }
+        const [A, B] = deuxPointsSurDroitePourAnimation(element.objet)
+        anim.paralleleRegleEquerre2points3epoint(A, B, pts[0])
+        break
+      }
+      case 'prolongerObjet': {
+        const longueurTrace =
+          instr.longueur ?? longueurProlongementObjetEditeurIep
+        const ok = tracerProlongementObjet(
+          anim,
+          programme[instr.etape],
+          points,
+          programme,
+          longueurTrace,
+        )
+        if (!ok) etapesIgnorees.push(index)
         break
       }
       case 'bissectrice': {
@@ -995,20 +1507,37 @@ function jouerProgramme(anim: Alea2iep, programme: InstructionIep[]): number[] {
  * les bornes de la figure pour cadrer la seconde (viewBox + recadrage).
  */
 export function construireAnimation(programme: InstructionIep[]): Alea2iep {
+  const programmeResolue = resoudreDirectionsAleatoires(programme)
   const brouillon = new Alea2iep()
-  jouerProgramme(brouillon, programme)
+  jouerProgramme(brouillon, programmeResolue)
   const anim = new Alea2iep()
   const largeur = Math.max(600, (brouillon.xMax - brouillon.xMin + 6) * 30)
   const hauteur = Math.max(400, (brouillon.yMax - brouillon.yMin + 6) * 30)
   anim.taille(largeur, hauteur)
   anim.recadre(brouillon.xMin - 3, brouillon.yMax)
-  jouerProgramme(anim, programme)
+  jouerProgramme(anim, programmeResolue)
   return anim
+}
+
+function resoudreDirectionsAleatoires(programme: InstructionIep[]) {
+  return programme.map((instr): InstructionIep => {
+    if (instr.type === 'droitePointPente' && valeurEstVide(instr.pente)) {
+      return { ...instr, pente: penteAleatoire() }
+    }
+    if (
+      instr.type === 'demiDroitePointDirection' &&
+      valeurEstVide(instr.angle)
+    ) {
+      return { ...instr, angle: angleAleatoire() }
+    }
+    return instr
+  })
 }
 
 export function pointsConstruitsDepuisProgramme(
   programme: InstructionIep[],
 ): Map<string, PointAbstrait> {
+  programme = resoudreDirectionsAleatoires(programme)
   const points = new Map<string, PointAbstrait>()
   programme.forEach((instr) => {
     const recupere = (...noms: string[]): PointAbstrait[] | undefined => {
@@ -1041,8 +1570,16 @@ export function pointsConstruitsDepuisProgramme(
         break
       }
       case 'intersection': {
-        const element1 = elementGeometrique(programme[instr.etape1], points)
-        const element2 = elementGeometrique(programme[instr.etape2], points)
+        const element1 = elementGeometrique(
+          programme[instr.etape1],
+          points,
+          programme,
+        )
+        const element2 = elementGeometrique(
+          programme[instr.etape2],
+          points,
+          programme,
+        )
         if (element1 === undefined || element2 === undefined) break
         let point: PointAbstrait | undefined
         if (element1.nature === 'droite' && element2.nature === 'droite') {
@@ -1189,6 +1726,8 @@ const classesChamp = [
   'py-1',
   'text-sm',
 ]
+
+const classesSelect = [...classesChamp, 'pr-8']
 
 export class ElementIepEditeur extends MathaleaCustomElement {
   static readonly elementTag = 'alea-iep-editeur'
@@ -1399,8 +1938,11 @@ export class ElementIepEditeur extends MathaleaCustomElement {
 
   private reinitialiserProgrammeDepuisAttributs() {
     const id = this.getAttribute('id') ?? 'editeur-iep'
-    const programmeInitialAttribut = this.getAttribute('programme-initial') ?? ''
-    const programmeInitial = lireProgrammeDepuisAttribut(programmeInitialAttribut)
+    const programmeInitialAttribut =
+      this.getAttribute('programme-initial') ?? ''
+    const programmeInitial = lireProgrammeDepuisAttribut(
+      programmeInitialAttribut,
+    )
     this.initialiserInstructionsProtegees(programmeInitial)
     const programmeSauvegarde = programmesParId.get(id)
     if (
@@ -1522,7 +2064,7 @@ export class ElementIepEditeur extends MathaleaCustomElement {
     const ligneAjout = document.createElement('div')
     ligneAjout.classList.add('flex', 'flex-wrap', 'items-center', 'gap-2')
     this.selectType = document.createElement('select')
-    this.selectType.classList.add(...classesChamp)
+    this.selectType.classList.add(...classesSelect)
     for (const type of this.instructionsDisponibles) {
       const option = document.createElement('option')
       option.value = type
@@ -1754,7 +2296,7 @@ export class ElementIepEditeur extends MathaleaCustomElement {
       etiquette.innerText = champ.label + ' :'
       if (champ.genre === 'point' || champ.genre === 'pointOptionnel') {
         const select = document.createElement('select')
-        select.classList.add(...classesChamp, 'min-w-20')
+        select.classList.add(...classesSelect, 'min-w-20')
         select.dataset.cle = champ.cle
         if (champ.genre === 'pointOptionnel') {
           const option = document.createElement('option')
@@ -1777,7 +2319,7 @@ export class ElementIepEditeur extends MathaleaCustomElement {
         etiquette.appendChild(select)
       } else if (champ.genre === 'outil') {
         const select = document.createElement('select')
-        select.classList.add(...classesChamp)
+        select.classList.add(...classesSelect)
         select.dataset.cle = champ.cle
         for (const [outil, nom] of Object.entries(nomsOutils)) {
           const option = document.createElement('option')
@@ -1786,11 +2328,14 @@ export class ElementIepEditeur extends MathaleaCustomElement {
           select.appendChild(option)
         }
         etiquette.appendChild(select)
-      } else if (champ.genre === 'etape') {
+      } else if (champ.genre === 'etape' || champ.genre === 'objetDirection') {
         const select = document.createElement('select')
-        select.classList.add(...classesChamp, 'min-w-32')
+        select.classList.add(...classesSelect, 'min-w-48')
         select.dataset.cle = champ.cle
-        const elements = elementsIntersectablesDefinis(this.programme)
+        const elements =
+          champ.genre === 'etape'
+            ? elementsIntersectablesDefinis(this.programme)
+            : elementsDirectionDefinis(this.programme)
         for (const { index: etape, type: typeElement } of elements) {
           const option = document.createElement('option')
           option.value = String(etape)
@@ -1799,7 +2344,7 @@ export class ElementIepEditeur extends MathaleaCustomElement {
         }
         // Par défaut, on propose des étapes différentes pour chaque champ
         const indice = catalogue[type].champs
-          .filter((c) => c.genre === 'etape')
+          .filter((c) => c.genre === champ.genre)
           .findIndex((c) => c.cle === champ.cle)
         if (elements.length > indice)
           select.value = String(elements[indice].index)
@@ -1810,7 +2355,7 @@ export class ElementIepEditeur extends MathaleaCustomElement {
       ) {
         const select = document.createElement('select')
         select.classList.add(
-          ...classesChamp,
+          ...classesSelect,
           champ.genre === 'codageSegment' ? 'min-w-16' : 'min-w-28',
         )
         select.dataset.cle = champ.cle
@@ -1827,11 +2372,11 @@ export class ElementIepEditeur extends MathaleaCustomElement {
         etiquette.appendChild(select)
       } else if (champ.genre === 'choix') {
         const select = document.createElement('select')
-        select.classList.add(...classesChamp)
+        select.classList.add(...classesSelect, 'min-w-40')
         select.dataset.cle = champ.cle
         const optionsChoix: [string, string][] = [
-          ['1', '1er point'],
-          ['2', '2e point'],
+          ['1', 'Point le plus haut'],
+          ['2', 'Point le plus bas'],
         ]
         for (const [valeur, texte] of optionsChoix) {
           const option = document.createElement('option')
@@ -1896,13 +2441,20 @@ export class ElementIepEditeur extends MathaleaCustomElement {
         instruction[champ.cle] = valeur
       } else if (champ.genre === 'pointOptionnel') {
         if (element.value !== '') instruction[champ.cle] = element.value
-      } else if (champ.genre === 'etape' || champ.genre === 'choix') {
+      } else if (
+        champ.genre === 'etape' ||
+        champ.genre === 'objetDirection' ||
+        champ.genre === 'choix'
+      ) {
         if (element.value === '') return
         const valeur = Number(element.value)
         if (Number.isNaN(valeur)) return
         instruction[champ.cle] = valeur
       } else {
-        if (element.value === '') return
+        if (element.value === '') {
+          if (champ.optionnel) continue
+          return
+        }
         instruction[champ.cle] = element.value
       }
     }
