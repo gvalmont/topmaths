@@ -3,7 +3,7 @@
     {
       "id": "college",
       "title": "Collège",
-      "subtitle": "6e · 5e · 4e · 3e · DNB",
+      "subtitle": "6e · 5e · 4e · 3e · Brevet",
       "icon": "bx-backpack",
       "entries": [
         {
@@ -40,8 +40,8 @@
     },
     {
       "id": "lycee",
-      "title": "Lycée",
-      "subtitle": "2de · 1re · Tle · Bac Pro · Bac",
+      "title": "Lycée Général",
+      "subtitle": "2de · 1re · Tle · Bac",
       "icon": "bx-graduation",
       "entries": [
         {
@@ -63,12 +63,6 @@
           "path": ["Terminale"]
         },
         {
-          "id": "bp2",
-          "title": "Bac Pro seconde",
-          "referentiel": "aleatoires",
-          "path": ["BP2"]
-        },
-        {
           "id": "premiere-annales-themes",
           "title": "Annales épreuves de première par thème",
           "referentiel": "examens",
@@ -79,6 +73,20 @@
           "title": "Baccalauréat par thème",
           "referentiel": "examens",
           "path": ["60_Baccalauréat - Par thème"]
+        }
+      ]
+    },
+    {
+      "id": "lyceePro",
+      "title": "Lycée Professionnel",
+      "subtitle": "2de",
+      "icon": "bx-graduation",
+      "entries": [
+        {
+          "id": "bp2",
+          "title": "Bac Pro seconde",
+          "referentiel": "aleatoires",
+          "path": ["BP2"]
         }
       ]
     }
