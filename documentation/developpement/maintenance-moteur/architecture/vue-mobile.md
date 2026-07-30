@@ -72,18 +72,35 @@ dans ce fichier.
 [`MobileBrowser.svelte`](../../../../src/components/setup/mobile/MobileBrowser.svelte)
 affiche l'état courant à partir du tableau `path` détenu par `MobileView` :
 
-| `path`              | Écran                                                      |
-| ------------------- | ---------------------------------------------------------- |
-| `[]`                | `MobileCarouselCards` puis les grosses tuiles de rubriques |
-| `["college"]`       | tuiles des niveaux de la rubrique                          |
-| `["college", "6e"]` | thèmes du nœud pointé par l'entrée                         |
-| plus long           | sous-thèmes puis liste d'exercices                         |
+| `path`              | Écran                                                                          |
+| ------------------- | ------------------------------------------------------------------------------- |
+| `[]`                | `MobileCarouselCards`, les grosses tuiles de rubriques puis `MobileSearch`     |
+| `["college"]`       | tuiles des niveaux de la rubrique                                              |
+| `["college", "6e"]` | thèmes du nœud pointé par l'entrée                                             |
+| plus long           | sous-thèmes puis liste d'exercices                                            |
 
 Les helpers de découpage et de libellé sont dans
 [`lib/components/mobileMenu.ts`](../../../../src/lib/components/mobileMenu.ts) :
 `resolveNode()` descend dans un référentiel, `splitChildren()` sépare
 sous-catégories et terminaisons (et trie les annales par année décroissante),
-`nodeLabel()` / `endingLabel()` produisent les libellés (KaTeX compris).
+`nodeLabel()` / `endingLabel()` produisent les libellés (KaTeX compris). Les
+lignes d'exercice (navigation par thèmes et résultats de recherche) partagent
+le composant
+[`MobileEndingItem.svelte`](../../../../src/components/setup/mobile/MobileEndingItem.svelte).
+
+### Recherche sur la page d'accueil
+
+[`MobileSearch.svelte`](../../../../src/components/setup/mobile/MobileSearch.svelte)
+affiche un champ de recherche texte sous les tuiles de rubriques (`path.length
+=== 0`). Il recherche par thème/identifiant sur l'ensemble des référentiels
+cherchables (mêmes critères que `SearchInput.svelte` de la vue bureau, via
+`stringToCriterion()`), mais sans les filtres avancés (niveaux, spécificités,
+types) de la vue bureau. L'ensemble des ressources cherchables est construit
+par `buildResourcesSet()`
+([`lib/stores/referentielsStore.ts`](../../../../src/lib/stores/referentielsStore.ts)),
+partagé avec `SideMenu.svelte` de la vue bureau. Toucher un résultat ajoute
+l'exercice et bascule sur l'affichage des exercices, comme un exercice choisi
+par tuiles.
 
 Un clic sur un exercice l'ajoute à `exercicesParams` et bascule sur l'affichage
 des exercices ; la flèche de retour ramène à la catégorie parente. Quand la
