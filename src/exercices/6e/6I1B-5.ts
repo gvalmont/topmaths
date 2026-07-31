@@ -82,6 +82,8 @@ export default class ExerciceTableurVocabulaire extends Exercice {
     this.sup = 0
     this.sup2 = 3
     this.niveau = 6
+    this.comment =
+      'Le paramètre "Nombre de lignes" n\'est satisfait que si le nombre de formules choisies est suffisant.'
   }
 
   destroy() {
@@ -131,9 +133,6 @@ export default class ExerciceTableurVocabulaire extends Exercice {
     this.destroyers.forEach((destroy) => destroy())
     this.destroyers.length = 0
 
-    const nbLignes = this.sup2
-    const nbElements = this.nbQuestions * this.sup2
-
     let choixThisSup = this.sup
     if (this.niveau === 6) {
       const map: Record<string, string> = {
@@ -170,6 +169,7 @@ export default class ExerciceTableurVocabulaire extends Exercice {
         choixThisSup = '1-2-3-4-5-6-7-8-9-10-11-12-13'
       }
     }
+
     const listeTypeQuestionsBase = gestionnaireFormulaireTexte({
       saisie: choixThisSup,
       min: 1,
@@ -177,8 +177,13 @@ export default class ExerciceTableurVocabulaire extends Exercice {
       defaut: 1,
       melange: 0,
       // shuffle: false, //true bien pour les tests
-      nbQuestions: Math.min(nbElements, 50),
+      //nbQuestions: Math.min(nbElements, 50),
+      nbQuestions: String(choixThisSup).includes('-')
+        ? choixThisSup.split('-').length
+        : 1,
     })
+    const nbLignes = Math.min(this.sup2, listeTypeQuestionsBase.length)
+    const nbElements = this.nbQuestions * this.sup2
 
     const listeTypeQuestions = combinaisonListes(
       listeTypeQuestionsBase,
