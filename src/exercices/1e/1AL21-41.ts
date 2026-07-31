@@ -161,14 +161,16 @@ export default class ResoudreEquationDegre2 extends Exercice {
         '<br>' +
         ajouteChampTexteMathLive(this, i, KeyboardType.clavierDeBaseAvecX, {
           texteAvant: '$P(x)=$',
-        }) +
-        DomReadyActionElement.create({
+        })
+      if (this.interactif) {
+        texte += DomReadyActionElement.create({
           action: notFactorizableButtonAction,
           payload: {
             numeroExercice: this.numeroExercice,
             indiceQuestion: i,
           },
         })
+      }
 
       if (this.questionJamaisPosee(i, a, b, c)) {
         this.listeQuestions[i] = texte

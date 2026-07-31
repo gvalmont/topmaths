@@ -163,14 +163,16 @@ export default class ResoudreEquationDegre2Bis extends Exercice {
         '<br>' +
         ajouteChampTexteMathLive(this, i, KeyboardType.clavierDeBaseAvecX, {
           texteAvant: '$P(x)=$',
-        }) +
-        DomReadyActionElement.create({
+        })
+      if (this.interactif) {
+        texte += DomReadyActionElement.create({
           action: notFactorizableButtonAction,
           payload: {
             numeroExercice: this.numeroExercice,
             indiceQuestion: i,
           },
         })
+      }
       handleAnswers(this, i, {
         reponse: {
           value: trinome.texFormeFactorisee,
