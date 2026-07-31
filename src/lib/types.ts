@@ -10,6 +10,7 @@ import type Decimal from 'decimal.js'
 import Hms from '../modules/Hms'
 import type { VueType } from './VueType'
 import type { AutoCorrectionAMC, QuestionAMC } from './amc/amcTypes'
+import type { FormulaireComplexe } from './formulaireComplexe'
 import { Complexe } from './mathFonctions/Complexe'
 
 /**
@@ -1082,6 +1083,13 @@ export interface IExercice {
         categories: { label: string; max: number }[]
         defaut: number[]
       }
+
+  /**
+   * Formulaire regroupant plusieurs champs (cases à cocher, sélections, listes
+   * ordonnables et pondérées) dans le seul emplacement `sup`.
+   * Voir `src/lib/formulaireComplexe.ts`.
+   */
+  besoinFormulaireComplexe: false | FormulaireComplexe
   questionRefs?: string[]
   listeArguments: string[]
   lastCallback: string
