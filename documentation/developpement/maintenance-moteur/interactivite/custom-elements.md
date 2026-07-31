@@ -178,6 +178,7 @@ fonction, elle est appelée au `disconnectedCallback()`.
 
 - MySpreadsheetElement (tableur) : [architecture du tableur](tableur.md)
 - BlocklyEditor : [architecture de Scratch et Blockly](scratch-blockly.md)
+- RelierEtiquettesElement (composant à trois rendus : HTML interactif, LaTeX et Typst) : [relier les étiquettes](relier-etiquettes.md)
 
 ## Checklist avant merge
 

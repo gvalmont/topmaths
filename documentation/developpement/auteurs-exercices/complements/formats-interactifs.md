@@ -489,6 +489,56 @@ handleAnswers(
 
 `DragAndDrop.ajouteDragAndDrop()` injecte un custom element `drag-and-drop`. Les zones s'appellent `rectangle1`, `rectangle2`, etc.
 
+## Relier les étiquettes
+
+À utiliser pour un appariement : deux colonnes d'étiquettes carrées que l'élève relie deux à deux.
+
+```ts
+import {
+  addRelierEtiquettes,
+  type LienRelier,
+} from '../../lib/customElements/RelierEtiquettesElement'
+import { handleAnswers } from '../../lib/interactif/gestionInteractif'
+
+const gauche = [
+  { id: 'G0', texte: 'positif' },
+  { id: 'G1', texte: 'strictement positif' },
+]
+const droite = [
+  { id: 'D0', texte: '$n > 0$' },
+  { id: 'D1', texte: '$n \\geqslant 0$' },
+]
+const liens: LienRelier[] = [
+  { gauche: 'G0', droite: 'D1' },
+  { gauche: 'G1', droite: 'D0' },
+]
+
+texte += addRelierEtiquettes(this, i, {
+  gauche,
+  droite,
+  interactivityOn: this.interactif,
+})
+
+handleAnswers(
+  this,
+  i,
+  { reponse: { value: JSON.stringify(liens) } },
+  { formatInteractif: 'relier-etiquettes' },
+)
+```
+
+Points à connaître :
+
+- les étiquettes se passent en chaînes (`['positif', 'négatif']`, identifiants `G0`, `G1`… et `D0`, `D1`… attribués automatiquement) ou en objets `{ id, texte }` quand l'exercice a besoin d'identifiants stables ;
+- le contenu d'une étiquette est du **texte** éventuellement mêlé de LaTeX entre `$` (rendu par KaTeX), pas du HTML ;
+- l'élève relie au clic (une étiquette puis l'autre), au doigt ou en glissant d'une colonne à l'autre ; un lien déjà tracé se retire en le refaisant ou en cliquant dessus ;
+- par défaut une étiquette ne porte qu'un seul lien (un nouveau lien remplace le précédent) ; passer `multiple: true` pour lever cette limite ;
+- `value` est le JSON des liens `{ gauche, droite }` ; c'est aussi le format attendu par `handleAnswers()` et par la restauration des copies ;
+- la correction colore les traits (vert juste, rouge faux, pointillés verts pour un lien manquant) et le score est proportionnel au nombre de liens justes ;
+- pour afficher la solution dans `texteCorr`, appeler `RelierEtiquettesElement.create({ id: …, gauche, droite, liens, interactivityOn: false })` avec un **id distinct** de celui de l'énoncé.
+
+Le composant produit aussi les sorties imprimées : une figure TikZ en LaTeX et une figure Typst native (sans paquet externe), avec les mêmes couleurs de traits. Voir [le custom element](../../maintenance-moteur/interactivite/relier-etiquettes.md).
+
 ## Champs dans une figure 2D
 
 À utiliser quand un champ doit être posé dans une figure produite par `mathalea2d()`.

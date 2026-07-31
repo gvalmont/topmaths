@@ -27,6 +27,7 @@ export const listOfCustomElements = [
   'drag-and-drop',
   'meta-interactif-2d',
   'alea-iep-editeur',
+  'relier-etiquettes',
 ]
 
 /**
