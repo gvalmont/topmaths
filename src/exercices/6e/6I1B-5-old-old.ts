@@ -230,6 +230,10 @@ export default class ExerciceTableur extends Exercice {
       console.error('Question number not found in event name:', eventName)
       return
     }
+    if (this.numeroExercice === undefined) {
+      console.error('Exercise number not found for event:', eventName)
+      return
+    }
     const sheetElt =
       event?.detail?.sheet ??
       MySpreadsheetElement.findSheetElement(this.numeroExercice, q)
