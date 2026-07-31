@@ -14,6 +14,7 @@
  */
 
 export const QUIZZ_STATUS = {
+  SHOW_ROOM: 'SHOW_ROOM',
   SHOW_START: 'SHOW_START',
   SHOW_PREPARED: 'SHOW_PREPARED',
   SHOW_QUESTION: 'SHOW_QUESTION',
@@ -37,6 +38,7 @@ export const QUIZZ_EVENTS = {
   START_COOLDOWN: 'game:startCooldown',
   UPDATE_QUESTION: 'game:updateQuestion',
   PLAYER_ANSWER: 'game:playerAnswer',
+  ERROR_MESSAGE: 'game:errorMessage',
 } as const
 
 /** Question à une seule bonne réponse ('single') ou plusieurs ('multi'). */
@@ -45,8 +47,11 @@ export type QuizzQuestionType = 'single' | 'multi'
 /** Mode de score choisi par le concepteur du quizz. */
 export type QuizzScoring = 'full' | 'simple' | 'none'
 
-/** Mode de jeu : 'multi' réservé pour la version temps réel (à venir). */
-export type QuizzMode = 'solo' | 'projection'
+/** Mode de jeu : solo, projection, ou multi-joueurs temps réel (V2). */
+export type QuizzMode = 'solo' | 'projection' | 'multi'
+
+/** Rôle d'un client en mode multi-joueurs (V2). */
+export type QuizzRole = 'manager' | 'player'
 
 /** Graines figées dans le lien ('fixed') ou tirées à chaque ouverture ('random'). */
 export type QuizzSeedMode = 'fixed' | 'random'
@@ -122,6 +127,7 @@ export interface QuizzAnswer {
  * correction MathALÉA et du mode de score pour l'affichage.
  */
 export interface QuizzStatusDataMap {
+  SHOW_ROOM: { text: string, inviteCode?: string, players: QuizzPlayer[] }
   SHOW_START: { time: number, subject: string }
   SHOW_PREPARED: { totalAnswers: number, questionNumber: number }
   SHOW_QUESTION: { question: string, cooldown: number }

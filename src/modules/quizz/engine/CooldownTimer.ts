@@ -4,10 +4,14 @@
  *
  * `start(seconds)` se résout à l'échéance (ou immédiatement si `abort()`),
  * en émettant chaque seconde le compte restant via le callback `onTick`.
+ * `waitUntilAborted()` attend sans échéance ni ticks (questions sans limite
+ * de temps) : seul `abort()` la résout.
  * La promesse permet au moteur d'enchaîner les phases avec await.
  */
 export class CooldownTimer {
   private active = false
+  /** Résolution d'une attente sans échéance en cours, le cas échéant. */
+  private resolveWait: (() => void) | null = null
 
   constructor(private readonly onTick: (remaining: number) => void) {}
 
@@ -31,7 +35,28 @@ export class CooldownTimer {
     })
   }
 
+  /**
+   * Attente sans échéance et sans ticks (question à temps illimité) :
+   * ne se résout que lorsque `abort()` est appelé (tous les joueurs ont
+   * répondu, ou interruption par l'enseignant).
+   */
+  waitUntilAborted(): Promise<void> {
+    if (this.active) {
+      return Promise.resolve()
+    }
+    this.active = true
+    return new Promise<void>((resolve) => {
+      this.resolveWait = () => {
+        this.active = false
+        resolve()
+      }
+    })
+  }
+
   abort(): void {
-    this.active &&= false
+    this.active = false
+    const resolve = this.resolveWait
+    this.resolveWait = null
+    if (resolve != null) resolve()
   }
 }

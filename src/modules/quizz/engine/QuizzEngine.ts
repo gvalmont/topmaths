@@ -40,6 +40,12 @@ export interface QuizzEngineOptions {
   mode: QuizzMode
   scoring: QuizzScoring
   multiScoringMode?: QuizzMultiScoringMode
+  /**
+   * Identifiant du manager (mode multi-joueurs V2) : lorsqu'il est fourni,
+   * SHOW_LEADERBOARD n'est envoyé qu'au manager (comportement Razzia),
+   * sinon il est diffusé (comportement V1 solo/projection).
+   */
+  managerId?: string
 }
 
 const sleep = (seconds: number): Promise<void> =>
@@ -101,6 +107,14 @@ export class QuizzEngine {
   async start(): Promise<void> {
     if (this.started || this.destroyed) return
     if (this.opts.quizz.questions.length === 0) return
+    if (this.opts.players.count() === 0) {
+      // Comme chez Razzia : pas de partie sans joueur connecté
+      this.opts.transport.emit(
+        QUIZZ_EVENTS.ERROR_MESSAGE,
+        'Aucun joueur connecté pour démarrer la partie',
+      )
+      return
+    }
     this.started = true
     this.phase = 'start'
     this.opts.transport.broadcast(QUIZZ_STATUS.SHOW_START, {
@@ -147,7 +161,13 @@ export class QuizzEngine {
       totalPlayer: this.opts.players.count(),
       questionType: question.type,
     })
-    await this.cooldown.start(question.time)
+    if (question.time === QUIZZ_NO_TIME_LIMIT) {
+      // Sans limite de temps : la phase se termine quand tous les joueurs
+      // ont répondu (abort dans selectAnswer) ou sur interruption manuelle.
+      await this.cooldown.waitUntilAborted()
+    } else {
+      await this.cooldown.start(question.time)
+    }
     if (!this.started) return
     this.showResults(question)
   }
@@ -300,10 +320,20 @@ export class QuizzEngine {
     }
     this.phase = 'leaderboard'
     const oldLeaderboard = this.tempOldLeaderboard ?? this.leaderboard
-    this.opts.transport.broadcast(QUIZZ_STATUS.SHOW_LEADERBOARD, {
+    const payload = {
       oldLeaderboard: oldLeaderboard.slice(0, 5),
       leaderboard: this.leaderboard.slice(0, 5),
-    })
+    }
+    if (this.opts.managerId != null) {
+      // Mode multi-joueurs : classement réservé au manager (comme Razzia)
+      this.opts.transport.send(
+        this.opts.managerId,
+        QUIZZ_STATUS.SHOW_LEADERBOARD,
+        payload,
+      )
+    } else {
+      this.opts.transport.broadcast(QUIZZ_STATUS.SHOW_LEADERBOARD, payload)
+    }
     this.tempOldLeaderboard = null
   }
 

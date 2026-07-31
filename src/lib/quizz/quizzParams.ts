@@ -41,7 +41,7 @@ function contraindreEntier(valeur: unknown, min: number, max: number, defaut: nu
 }
 
 function estMode(valeur: unknown): valeur is QuizzMode {
-  return valeur === 'solo' || valeur === 'projection'
+  return valeur === 'solo' || valeur === 'projection' || valeur === 'multi'
 }
 
 function estScoring(valeur: unknown): valeur is QuizzScoring {

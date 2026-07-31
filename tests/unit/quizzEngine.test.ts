@@ -193,6 +193,56 @@ describe('QuizzEngine', () => {
     expect(resultData.points).toBe(1)
     expect(resultData.myPoints).toBe(1)
   })
+
+  it('refuse de démarrer sans joueur connecté', async () => {
+    const transport = new LocalTransport()
+    const messages: QuizzStatusMessage[] = []
+    transport.onStatus((m) => messages.push(m))
+    const events: { event: string, payload?: unknown }[] = []
+    transport.onEvent((event, payload) => events.push({ event, payload }))
+    const engine = new QuizzEngine({
+      quizz: makeQuizz(),
+      players: new QuizzPlayerManager(),
+      transport,
+      mode: 'multi',
+      scoring: 'full',
+      managerId: 'mgr',
+    })
+    void engine.start()
+    await vi.advanceTimersByTimeAsync(100)
+    expect(names(messages)).not.toContain(QUIZZ_STATUS.SHOW_START)
+    expect(
+      events.some((e) => e.event === QUIZZ_EVENTS.ERROR_MESSAGE),
+    ).toBe(true)
+    expect(engine.isStarted()).toBe(false)
+  })
+
+  it('envoie SHOW_LEADERBOARD au manager seul quand managerId est fourni', async () => {
+    const transport = new LocalTransport()
+    const messages: QuizzStatusMessage[] = []
+    transport.onStatus((m) => messages.push(m))
+    transport.onEvent(() => {})
+    const players = new QuizzPlayerManager()
+    players.add({ id: 'p1', username: 'Moi', points: 0, streak: 0 })
+    const engine = new QuizzEngine({
+      quizz: makeQuizz(),
+      players,
+      transport,
+      mode: 'multi',
+      scoring: 'full',
+      managerId: 'mgr',
+    })
+    void engine.start()
+    await avancerJusquaSelect()
+    engine.selectAnswer('p1', [1])
+    await vi.advanceTimersByTimeAsync(1000)
+    engine.showLeaderboard()
+    const leaderboard = messages.find(
+      (m) => m.name === QUIZZ_STATUS.SHOW_LEADERBOARD,
+    )
+    expect(leaderboard).toBeDefined()
+    expect(leaderboard?.target).toBe('mgr')
+  })
 })
 
 describe('analyseExerciceQuizz', () => {
