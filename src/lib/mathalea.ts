@@ -682,6 +682,7 @@ export function mathaleaUpdateExercicesParamsFromUrl(
   let canSolAccess = true
   let canSolMode = 'gathered'
   let canIsInteractive = true
+  let canIsTimerDisabled = false
   try {
     url = new URL(urlString)
   } catch (error) {
@@ -804,6 +805,8 @@ export function mathaleaUpdateExercicesParamsFromUrl(
         canSolMode = entry[1]
       } else if (entry[0] === 'canI') {
         canIsInteractive = entry[1] === '1'
+      } else if (entry[0] === 'canNC') {
+        canIsTimerDisabled = entry[1] === '1'
       }
 
       if (entry[0] === 'uuid') previousEntryWasUuid = true
@@ -855,6 +858,7 @@ export function mathaleaUpdateExercicesParamsFromUrl(
       e.durationInMinutes = canDuration
       e.title = canMainTitle
       e.isInteractive = canIsInteractive
+      e.isTimerDisabled = canIsTimerDisabled
       e.solutionsAccess = canSolAccess
       if (canSolMode === 'gathered') e.solutionsMode = 'gathered'
       else e.solutionsMode = 'split'
