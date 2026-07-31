@@ -36,6 +36,7 @@ export const amcType = 'AMCHybride'
 export const amcReady = true
 export const interactifReady = true
 export const interactifType = 'mathLive'
+const mathliveButtonsAction = '4G20:mathlive-buttons'
 
 /**
  * Fonction utilisée pour la vérification des questions de cet exercice.
@@ -506,7 +507,7 @@ export default class Pythagore2D extends Exercice {
           )
           texte += DomReadyActionElement.create({
             id: `containerForButtonsEx${this.numeroExercice}Q${i}`,
-            action: 'mathlive-buttons',
+            action: mathliveButtonsAction,
             payload: {
               numeroExercice: this.numeroExercice,
               indiceQuestion: i,
@@ -536,7 +537,7 @@ function registerMathliveButtons() {
     numeroExercice: number
     indiceQuestion: number
     labels: string[]
-  }>('mathlive-buttons', ({ element, payload }) => {
+  }>(mathliveButtonsAction, ({ element, payload }) => {
     element.innerHTML = ''
     element.classList.add('my-4')
     const mathfield = document.querySelector(
