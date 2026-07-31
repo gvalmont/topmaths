@@ -3,6 +3,7 @@ import type { IExercice } from '../types'
 export const listOfCustomElements = [
   'interactive-clock',
   'mathalea-dom-ready',
+  'mathalea-labyrinthe',
   'blockly-editor',
   'fraction-cliquable',
   'labyrinthe-blockly',

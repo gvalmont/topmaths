@@ -333,6 +333,7 @@ export type InteractivityType =
   | 'points-cliquables' // Non compatible AMC
   | 'objets-cliquables' // Non compatible AMC
   | 'fraction-cliquable' // Non compatible AMC
+  | 'mathalea-labyrinthe' // Non compatible AMC
   | 'dnd' // Non compatible AMC
   | 'drag-and-drop' // Non compatible AMC
   | 'custom' // Non compatible AMC
@@ -370,6 +371,7 @@ export function isInteractivityType(
     value === 'points-cliquables' ||
     value === 'objets-cliquables' ||
     value === 'fraction-cliquable' ||
+    value === 'mathalea-labyrinthe' ||
     value === 'dnd' ||
     value === 'drag-and-drop' ||
     value === 'custom' ||
@@ -397,6 +399,7 @@ export function isInteractivityType(
     value === 'points-cliquables' ||
     value === 'objets-cliquables' ||
     value === 'fraction-cliquable' ||
+    value === 'mathalea-labyrinthe' ||
     value === 'drag-and-drop' ||
     value === 'meta-interactif-2d'
   )

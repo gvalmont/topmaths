@@ -180,6 +180,12 @@ Comme les autres custom elements, le helper ajoute le retour visuel attendu par 
 
 Le composant expose `value` comme une liste JSON stringifiée de parts `{ id, etat }`. Sans `numeroExercice` ni `questionIndex`, il reste utilisable comme brouillon interactif. Avec ces métadonnées et `handleAnswers(..., { formatInteractif: 'fraction-cliquable' })`, il devient un format évalué par comparaison avec la valeur attendue.
 
+### Labyrinthes
+
+`mathalea-labyrinthe` est le wrapper MathALÉA du composant externe `labyrinthe-grid`. Il reçoit la graine, les dimensions, l'orientation et les valeurs de cases depuis l'exercice, instancie `labyrinthe-grid` à son `connectedCallback()`, puis retire le listener `labyrinthe:gameend` et le composant interne à son `disconnectedCallback()`.
+
+Les exercices qui héritent de `src/exercices/_Exercice_labyrinthe.ts` restent en `interactifType = 'custom'` : leur logique de score spécifique demeure dans `correctionInteractive()`. Le wrapper évite seulement l'ancien listener global `exercicesAffiches` utilisé pour attendre l'insertion de l'énoncé et de la correction dans le DOM.
+
 ### Objets cliquables dans une figure MathALÉA 2D
 
 `objets-cliquables` généralise le principe à plusieurs géométries : `point`, `segment`, `droite`, `cercle`, `polygone` et `polyline`. Le rendu MathALÉA 2D principal reste statique ; le custom element injecte dans le SVG une couche superposée composée d'une forme visible de sélection et d'une hit zone transparente plus large.
