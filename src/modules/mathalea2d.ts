@@ -6,6 +6,7 @@ import {
   convertClasseToString,
 } from '../lib/interactif/claviers/keyboard'
 import { MetaInteractif2dElement } from '../lib/customElements/MetaInteractif2dElement'
+import { cubeIsoInteractionMarkup } from '../lib/2d/figures2d/Shape3d'
 import type {
   MetaInteractif2dData,
   NestedObjetMathalea2dArray,
@@ -310,6 +311,7 @@ export function mathalea2d(
   const codeHTML = `<div class="svgContainer" style="display: ${effectiveDisplay};${center ? ' margin: auto;' : ''}">
         <div ${id !== '' ? `id="M2D${id}"` : ''} style="${innerWrapperStyle}">
           ${codeSvg}
+          ${cubeIsoInteractionMarkup(id)}
           ${divsLatex.join('\n')}
         </div>
       </div>`
