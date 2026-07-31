@@ -34,7 +34,6 @@ export const refs = {
 // const alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
 
 export default class ExerciceTableur extends Exercice {
-  destroyers: (() => void)[] = []
   niveau: number = 6
   constructor() {
     super()
@@ -65,12 +64,6 @@ export default class ExerciceTableur extends Exercice {
     this.sup2 = 3
 
     this.niveau = 6
-  }
-
-  destroy() {
-    // MGu quand l'exercice est supprimé par svelte : bouton supprimé
-    this.destroyers.forEach((destroy) => destroy())
-    this.destroyers.length = 0
   }
 
   static readonly colors = {
@@ -256,9 +249,6 @@ export default class ExerciceTableur extends Exercice {
   }
 
   nouvelleVersion(): void {
-    // MGu quand l'exercice est modifié, on détruit les anciens listeners
-    this.destroyers.forEach((destroy) => destroy())
-    this.destroyers.length = 0
     listeMotsQR = []
     listeNbLignes = []
     nbLignes = this.sup2

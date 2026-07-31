@@ -39,7 +39,6 @@ export const refs = {
 const alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
 
 export default class ExerciceTableur extends Exercice {
-  destroyers: (() => void)[] = []
   listeSteps: Steps[] = []
 
   constructor() {
@@ -63,12 +62,6 @@ export default class ExerciceTableur extends Exercice {
     this.sup = 3
     this.sup2 = 5
     this.listeSteps = []
-  }
-
-  destroy() {
-    // MGu quan l'exercice est supprimé par svelte : bouton supprimé
-    this.destroyers.forEach((destroy) => destroy())
-    this.destroyers.length = 0
   }
 
   static readonly colors = {
@@ -211,10 +204,6 @@ export default class ExerciceTableur extends Exercice {
   }
 
   nouvelleVersion(): void {
-    // MGu quand l'exercice est modifié, on détruit les anciens listeners
-    this.destroyers.forEach((destroy) => destroy())
-    this.destroyers.length = 0
-
     const nbOperations =
       this.sup === 1 ? randint(2, 5) : Math.min(Math.max(2, this.sup), 5)
 
@@ -522,7 +511,7 @@ function programmeCalcul(
     let n = randint(5, 20) // nombre de départ
     steps = [] // les étapes de calcul
     success = true
-    for (let ind = 0, tt = 0; ind < ops.length && tt < 4; ) {
+    for (let ind = 0, tt = 0; ind < ops.length && tt < 4;) {
       if (tt > 0) {
         // tt : le nombre de tentatives
         // on change l'ordre des opérations si ça bloque
