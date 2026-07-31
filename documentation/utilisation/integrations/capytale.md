@@ -14,6 +14,10 @@ Capytale sauvegarde les paramètres de séance et les réponses d'élèves. Math
 
 Le code d'intégration côté MathALÉA est dans `src/lib/handleCapytale.ts`.
 
+Pour un exercice de type « app » (iframe tierce), la remontée du score suit le
+protocole décrit dans
+[Apps externes](../../developpement/maintenance-moteur/architecture/apps-externes.md).
+
 ## Perte de connexion avec Capytale
 
 Si l'élève n'est plus en mesure d'enregistrer sa copie (session Capytale expirée, coupure réseau, page parente qui ne répond plus), la copie est verrouillée pour éviter qu'il travaille sans que ses réponses soient enregistrées.

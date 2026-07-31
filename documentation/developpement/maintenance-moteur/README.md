@@ -14,6 +14,7 @@ Pour créer un exercice sans modifier ces contrats, commencez par
 | [Architecture des exercices](architecture/exercices.md) | Cycle de génération, classes et sorties |
 | [JSON du menu des exercices](architecture/menu-exercices.md) | Fichiers générés et consommés par le menu |
 | [Vue mobile](architecture/vue-mobile.md) | Vue par défaut sur téléphone : tuiles, menus plein écran |
+| [Apps externes](architecture/apps-externes.md) | Iframes tierces, protocole `postMessage` et remontée des scores |
 
 ## Interactivité
 
