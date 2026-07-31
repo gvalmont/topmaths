@@ -60,7 +60,7 @@ export default class ResoudreEquationDegre2Bis extends Exercice {
       this.nbQuestions,
     )
 
-    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50; ) {
+    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       let texte = ''
       let texteCorr = ''
       let a: number
