@@ -4,6 +4,7 @@ export const listOfCustomElements = [
   'interactive-clock',
   'mathalea-dom-ready',
   'blockly-editor',
+  'fraction-cliquable',
   'labyrinthe-blockly',
   'scratch-editor',
   'multi-mathfield',

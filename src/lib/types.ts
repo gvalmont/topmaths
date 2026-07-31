@@ -135,12 +135,7 @@ export interface StudentAssignment {
 // * `type` : type du référentiel pour gérer l'affichage (exploration récursive ou pas par exemple)
 // * `activated`: flag pour afficher ou pas le référentiel
 export type ReferentielTypes =
-  | 'outils'
-  | 'exercices'
-  | 'ressources'
-  | 'bibliotheque'
-  | 'apps'
-  | 'examens'
+  'outils' | 'exercices' | 'ressources' | 'bibliotheque' | 'apps' | 'examens'
 export type ReferentielNames =
   | 'outils'
   | 'aleatoires'
@@ -337,6 +332,7 @@ export type InteractivityType =
   | 'clique-figure' // Non compatible AMC
   | 'points-cliquables' // Non compatible AMC
   | 'objets-cliquables' // Non compatible AMC
+  | 'fraction-cliquable' // Non compatible AMC
   | 'dnd' // Non compatible AMC
   | 'drag-and-drop' // Non compatible AMC
   | 'custom' // Non compatible AMC
@@ -373,6 +369,7 @@ export function isInteractivityType(
     value === 'clique-figure' ||
     value === 'points-cliquables' ||
     value === 'objets-cliquables' ||
+    value === 'fraction-cliquable' ||
     value === 'dnd' ||
     value === 'drag-and-drop' ||
     value === 'custom' ||
@@ -399,6 +396,7 @@ export function isInteractivityType(
     value === 'clique-figure' ||
     value === 'points-cliquables' ||
     value === 'objets-cliquables' ||
+    value === 'fraction-cliquable' ||
     value === 'drag-and-drop' ||
     value === 'meta-interactif-2d'
   )
@@ -433,6 +431,7 @@ export function isMathaleaCustomElementFormat(value: unknown): boolean {
     value === 'clique-figure' ||
     value === 'points-cliquables' ||
     value === 'objets-cliquables' ||
+    value === 'fraction-cliquable' ||
     value === 'drag-and-drop' ||
     value === 'meta-interactif-2d'
   )
@@ -911,11 +910,7 @@ export type AutoCorrection = {
 }
 
 export type LegacyReponse =
-  | string
-  | IFractionEtendue
-  | Decimal
-  | number
-  | IGrandeur
+  string | IFractionEtendue | Decimal | number | IGrandeur
 export type LegacyReponses = LegacyReponse[] | LegacyReponse
 
 export interface MathaleaSVG extends SVGSVGElement {

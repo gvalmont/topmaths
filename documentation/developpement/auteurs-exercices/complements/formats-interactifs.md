@@ -247,7 +247,10 @@ const pointsAttendus: PointCliquableData[] = [
   { x: 1, y: 0, id: 'P1', etat: true },
 ]
 
-texte += mathalea2d({ id: figureId, xmin: -1, ymin: -1, xmax: 2, ymax: 1 }, objets)
+texte += mathalea2d(
+  { id: figureId, xmin: -1, ymin: -1, xmax: 2, ymax: 1 },
+  objets,
+)
 texte += addPointsCliquables({
   numeroExercice: this.numeroExercice ?? 0,
   questionIndex: i,
@@ -264,6 +267,30 @@ handleAnswers(
 ```
 
 Le custom element `points-cliquables` injecte les groupes SVG dans la figure repérée par `figureId`, gère les clics, ajoute le `span#resultatCheck...` et le `div#feedback...`, puis expose dans `value` la liste JSON des points avec leur état courant. La réponse attendue passée à `handleAnswers()` utilise le même format, avec `etat: true` pour les points qui doivent être cliqués.
+
+## Fractions cliquables
+
+`fractionCliquable()` produit un schéma de fraction dans une figure `mathalea2d()` et l'associe au custom element `fraction-cliquable`. Sans métadonnées d'exercice, il peut encore servir de brouillon interactif.
+
+Pour l'utiliser comme vraie réponse élève dans un nouvel exercice, passer `numeroExercice` et `questionIndex` dans les options, puis déclarer la réponse attendue avec la valeur du schéma :
+
+```ts
+const schema = fractionCliquable(0, 0, 2, 4, {
+  numeroExercice: this.numeroExercice,
+  questionIndex: i,
+})
+
+texte += mathalea2d({ xmin: -0.2, xmax: 10, ymin: -1, ymax: 2 }, schema)
+
+handleAnswers(
+  this,
+  i,
+  { reponse: { value: schema.value } },
+  { formatInteractif: 'fraction-cliquable' },
+)
+```
+
+`fraction-cliquable.value` expose la liste JSON des parts avec leur `id` et leur état `etat`. Le setter `value` restaure ces états, ce qui permet la reprise d'une réponse élève.
 
 ## Objets cliquables dans une figure MathALEA2D
 
@@ -296,7 +323,10 @@ const objetsAttendus = objets.map((objet) => ({
   etat: objet.id === 'AB',
 }))
 
-texte += mathalea2d({ id: figureId, xmin: -1, ymin: -1, xmax: 5, ymax: 4 }, objets2d)
+texte += mathalea2d(
+  { id: figureId, xmin: -1, ymin: -1, xmax: 5, ymax: 4 },
+  objets2d,
+)
 texte += addObjetsCliquables(this, i, { figureId, objets })
 
 handleAnswers(
