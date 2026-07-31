@@ -60,6 +60,8 @@ export interface InterfaceGlobalOptions {
   canSA?: boolean
   canSM?: CanSolutionsMode
   canI?: boolean
+  /** no chrono : course aux nombres sans chronomètre */
+  canNC?: boolean
   lang?: Language
 }
 
