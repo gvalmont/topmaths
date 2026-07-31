@@ -304,6 +304,29 @@ export function updateGlobalOptionsInURL(url: URL) {
     url.searchParams.delete('subject')
     url.searchParams.delete('quizzParam')
   }
+  // Mode multi-joueurs (vue quizz uniquement) : rôle, PIN et identifiant de
+  // room — le lien joueur minimal est ?v=quizz&quizzRole=player&pin=XXXXXX.
+  if (options.v === 'quizz') {
+    if (options.quizzRole != null) {
+      url.searchParams.append('quizzRole', options.quizzRole)
+    } else {
+      url.searchParams.delete('quizzRole')
+    }
+    if (options.pin != null && options.pin.length > 0) {
+      url.searchParams.append('pin', options.pin)
+    } else {
+      url.searchParams.delete('pin')
+    }
+    if (options.gameId != null && options.gameId.length > 0) {
+      url.searchParams.append('gameId', options.gameId)
+    } else {
+      url.searchParams.delete('gameId')
+    }
+  } else {
+    url.searchParams.delete('quizzRole')
+    url.searchParams.delete('pin')
+    url.searchParams.delete('gameId')
+  }
   urlToWrite = url
   // On ne met à jour l'url qu'une fois toutes les 0,5 s
   // pour éviter l'erreur Attempt to use history.pushState() more than 100 times per 30 seconds

@@ -1,6 +1,7 @@
 <script lang="ts">
   import type {
     QuizzMode,
+    QuizzRole,
     QuizzScoring,
     QuizzStatus,
   } from '../../../../modules/quizz/types'
@@ -9,6 +10,9 @@
    * Barre de contrôle du quizz : actions contextuelles (révéler, suivant,
    * score, recommencer) plus réglages permanents (sons, quitter).
    * En mode solo, seuls « Suivant » et les réglages sont pertinents.
+   * En multi-joueurs (role défini) : le manager pilote comme en projection,
+   * avec export CSV et fermeture de la room en fin de partie ; le joueur
+   * n'a que les réglages.
    */
   export let status: QuizzStatus | null
   export let mode: QuizzMode
@@ -22,6 +26,12 @@
   export let onEdit: () => void
   export let onQuit: () => void
   export let onToggleSound: () => void
+  /** Rôle multi-joueurs (V2) ; indéfini en V1 (solo/projection). */
+  export let role: QuizzRole | undefined = undefined
+  /** Export CSV des résultats (manager, statut FINISHED) ; indisponible si indéfini. */
+  export let onExportCsv: (() => void) | undefined = undefined
+  /** Fermeture de la room pour tous (manager). */
+  export let onCloseRoom: (() => void) | undefined = undefined
 
   const buttonClass =
     'px-4 py-2 rounded-xl font-bold shadow text-sm md:text-base ' +
@@ -37,12 +47,12 @@
 </script>
 
 <div class="fixed bottom-4 right-4 z-20 flex flex-row items-center gap-2">
-  {#if status === 'SELECT_ANSWER' && mode === 'projection'}
+  {#if status === 'SELECT_ANSWER' && (mode === 'projection' || role === 'manager')}
     <button type="button" class={buttonClass} on:click={onReveal}>
       Révéler
     </button>
   {/if}
-  {#if status === 'SHOW_RESULT' && mode === 'solo'}
+  {#if status === 'SHOW_RESULT' && mode === 'solo' && role == null}
     {#if canGoNext}
       <button type="button" class={buttonClass} on:click={onNext}>
         Suivant
@@ -74,13 +84,25 @@
       Question suivante
     </button>
   {/if}
-  {#if status === 'FINISHED'}
+  {#if status === 'FINISHED' && role == null}
     <button type="button" class={secondaryClass} on:click={onEdit}>
       Modifier le quizz
     </button>
     <button type="button" class={buttonClass} on:click={onRestart}>
       Recommencer
     </button>
+  {/if}
+  {#if status === 'FINISHED' && role === 'manager'}
+    {#if onExportCsv != null}
+      <button type="button" class={buttonClass} on:click={onExportCsv}>
+        Exporter les résultats (CSV)
+      </button>
+    {/if}
+    {#if onCloseRoom != null}
+      <button type="button" class={secondaryClass} on:click={onCloseRoom}>
+        Fermer la partie
+      </button>
+    {/if}
   {/if}
   <button
     type="button"

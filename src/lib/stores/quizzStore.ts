@@ -21,10 +21,14 @@ export const quizzCooldownTick = writable<number>(0)
 /** Nombre de joueurs ayant répondu à la question en cours. */
 export const quizzAnswerCount = writable<number>(0)
 
+/** Nombre de joueurs connectés à la room (mode multi-joueurs). */
+export const quizzTotalPlayers = writable<number>(0)
+
 /** Remet les stores à leur état initial (nouveau quizz, démontage). */
 export function resetQuizzStores(): void {
   quizzStatus.set(null)
   quizzProgress.set({ current: 0, total: 0 })
   quizzCooldownTick.set(0)
   quizzAnswerCount.set(0)
+  quizzTotalPlayers.set(0)
 }

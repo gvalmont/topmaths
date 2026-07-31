@@ -3,6 +3,11 @@
 
   /** Écran final : score personnel (solo) ou podium (projection). */
   export let data: QuizzStatusDataMap['FINISHED']
+  /**
+   * Affiche le rang et le total personnels sous le podium (joueur en mode
+   * multi-joueurs, dont la charge FINISHED contient rank et myPoints).
+   */
+  export let showPersonal: boolean = false
 
   const medals = ['🥇', '🥈', '🥉']
   const heights = ['h-32', 'h-24', 'h-20']
@@ -79,6 +84,18 @@
           ></div>
         </div>
       {/each}
+    </div>
+  {/if}
+  {#if showPersonal && data.rank != null}
+    <div
+      class="rounded-2xl shadow-xl px-8 py-3 text-xl font-bold
+      bg-coopmaths-canvas dark:bg-coopmathsdark-canvas
+      text-coopmaths-corpus dark:text-coopmathsdark-corpus"
+    >
+      Votre rang : {data.rank} — {data.myPoints ?? 0} point{(data.myPoints ??
+        0) > 1
+        ? 's'
+        : ''}
     </div>
   {/if}
 </div>

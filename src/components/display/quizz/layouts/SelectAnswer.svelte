@@ -8,9 +8,16 @@
   /** Phase de réponse : énoncé, boutons colorés A-D, barre de temps. */
   export let data: QuizzStatusDataMap['SELECT_ANSWER']
   export let onSubmit: (answerIds: number[]) => void
+  /**
+   * Mode spectateur (écran du manager en multi-joueurs) : les réponses sont
+   * affichées sans interaction possible, avec le compteur de réponses reçues.
+   */
+  export let spectator: boolean = false
+  /** Nombre de joueurs ayant répondu (mode spectateur). */
+  export let answerCount: number = 0
 
   let selected: number[] = []
-  let submitted = false
+  let submitted = spectator
   let container: HTMLDivElement
 
   onMount(async () => {
@@ -81,7 +88,15 @@
       />
     {/each}
   </div>
-  {#if data.questionType === 'multi'}
+  {#if spectator}
+    <div
+      class="px-6 py-2 rounded-xl text-lg font-bold shadow
+      bg-coopmaths-canvas dark:bg-coopmathsdark-canvas
+      text-coopmaths-struct dark:text-coopmathsdark-struct"
+    >
+      {answerCount} / {data.totalPlayer} réponse{answerCount > 1 ? 's' : ''}
+    </div>
+  {:else if data.questionType === 'multi'}
     <button
       type="button"
       class="px-6 py-2 rounded-xl text-lg font-bold shadow

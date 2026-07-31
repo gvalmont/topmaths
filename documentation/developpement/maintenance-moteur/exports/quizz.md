@@ -118,13 +118,89 @@ classes — la vue utilise donc `quizzRenderDiv`
 après le rendu KaTeX/figures. Les sons (`public/assets/sounds/quizz/`, adaptés de Razzia) suivent
 le mapping statut → son de Razzia et sont coupables à la volée.
 
-## Vers le multi-joueurs temps réel (V2)
+## Mode multi-joueurs temps réel (V2)
 
-Déjà en place : noms de statuts et événements Razzia, moteur isomorphe,
-interface de transport, statuts « manager-only », score calculé par le moteur.
-Restera : héberger un service Node (moteur + socket.io + rooms à PIN),
-écrire `SocketTransport` et les écrans de jointure (PIN/pseudo), sans toucher
-au moteur ni aux layouts.
+Le mode `multi` est actif dans l'écran de réglages. Il s'appuie sur le
+service temps réel **quizz-ws** (dépôt séparé : Node.js + Socket.IO en
+long-polling, moteur vendored exécuté côté serveur — autorité chronos et
+scores). Son document de conception (protocole, cycle de vie des rooms,
+déploiement o2switch) fait foi côté serveur ; ici on ne décrit que le client.
+
+### Routage et paramètres d'URL supplémentaires
+
+| Paramètre | Rôle |
+| --- | --- |
+| `quizzRole` | `manager` (création/pilotage) ou `player` (jointure). Absent avec `quizzParam.mode = 'multi'` : parcours manager (lien de réglages partagé). |
+| `pin` | PIN à 6 chiffres de la room (lien joueur : `?v=quizz&quizzRole=player&pin=XXXXXX`). |
+| `gameId` | Identifiant serveur de la room, écrit dans l'URL après création/jointure : permet la reconnexion au rechargement. |
+
+Comme `subject`/`quizzParam`, ces paramètres sont déclarés dans
+`InterfaceGlobalOptions`, parsés par `mathaleaUpdateExercicesParamsFromUrl`
+et persistés par `updateGlobalOptionsInURL` (uniquement quand `v = 'quizz'`).
+`App.svelte` aiguille `v=quizz` vers `QuizzMulti.svelte`
+(`src/components/display/quizz/multi/`) si rôle explicite ou mode multi,
+sinon vers la V1 (`Quizz.svelte`), inchangée.
+
+### Architecture client
+
+- `src/modules/quizz/transport/SocketTransport.ts` : encapsule la socket
+  Socket.IO (`transports: ['polling']`, path `/ws`, `auth.clientId`) et
+  expose la **même surface d'abonnement** que `LocalTransport`
+  (`onStatus`/`onEvent`) — les layouts consomment les statuts sans changement.
+  Le champ `target` de V1 n'existe pas sur le fil (le serveur n'adresse à
+  chaque socket que ce qui la concerne) ; les statuts relus sont estampillés
+  `'broadcast'`. Ajoute `send`/`onServerEvent` (protocole) et
+  `onConnectionEvent` (reprises après coupure).
+- `src/lib/quizz/multiManagerSession.ts` et `multiPlayerSession.ts` :
+  machines à états du parcours (stores Svelte) — le protocole y est câblé,
+  les composants ne font que le rendu. Les statuts de jeu sont versés dans
+  les stores partagés de `quizzStore` (dont `quizzTotalPlayers`, ajouté).
+- Parcours manager (`QuizzMultiManager.svelte`) : construction du quizz par
+  `buildQuizz` (le même objet qu'en V1) + validation locale des bornes
+  serveur (`validateQuizzMulti.ts`) → identification par code e-mail
+  (`manager:requestEmailCode`/`verifyEmailCode`) → `createGame` → lobby
+  (`QuizzLobby.svelte` : PIN, lien de jointure `buildQuizzJoinUrl`, QR-code,
+  joueurs avec exclusion) → pilotage (`startGame`/`nextQuestion`/
+  `showLeaderboard`/`abortQuiz`, mêmes commandes qu'en projection, clavier
+  inclus) → podium + export CSV des résultats (`quizzResults.ts`, construit
+  depuis `game:results`, reçu au seul manager à `FINISHED`).
+- Parcours joueur (`QuizzMultiPlayer.svelte`) : PIN (jointure automatique si
+  présent dans l'URL) → pseudo → attente → jeu ; `SELECT_ANSWER` est
+  interactif côté joueur, spectateur (avec compteur de réponses) côté
+  manager.
+- `clientId` : uuid v4 persisté en `localStorage` (`quizzClientId.ts`),
+  transmis au handshake. Rechargements : joueur → `player:join` (PIN) puis
+  `player:reconnect` (siège retrouvé via `clientId`, points conservés) ;
+  manager → `manager:reconnect`. Après une coupure transport (pas de
+  `connectionStateRecovery` côté serveur), la même séquence est rejouée sur
+  l'événement `connect`.
+- Erreurs : `game:errorMessage` transporte une clé kebab-case traduite par
+  `quizzMultiErrors.ts` (une phrase française du moteur est affichée telle
+  quelle) ; `game:reset` (`kicked`/`closed`/`expired`/`unknown-session`)
+  ramène à l'écran de jointure.
+
+### Test depuis un téléphone (réseau local)
+
+`pnpm dev --host` permet de jouer depuis un téléphone sur le même réseau :
+l'URL du serveur ws en dev est dérivée de `window.location.hostname`
+(`config.ts` — « localhost » désignerait le téléphone lui-même) et le
+serveur ws accepte en `debugMode` les origines d'IP privées en plus de
+localhost (son CORS strict ne vaut que pour la production). Deux pièges du
+contexte non sécurisé (`http://192.168.x.x`) sont couverts :
+`crypto.randomUUID` y est absent (repli dans `quizzClientId.ts` via
+`crypto.getRandomValues`, disponible partout) et le CORS du serveur ws
+(détail côté dépôt quizz-ws, `resolveCorsOrigin`).
+
+### Tests du multi-joueurs
+
+`tests/unit/quizzSocketTransport.test.ts` (transport sur fausse socket),
+`quizzMultiSessions.test.ts` (machines à états manager/joueur),
+`quizzMultiErrors.test.ts`, `quizzMultiValidation.test.ts`,
+`quizzResults.test.ts` (CSV). Le test **live**
+`tests/live/quizzMultiLive.test.ts` joue une partie réelle à 1 manager + 2
+joueurs (avec rechargements) contre le serveur local ; il est désactivé par
+défaut et se lance explicitement, serveur démarré :
+`QUIZZ_LIVE=1 pnpm exec vitest tests/live/quizzMultiLive.test.ts --run`.
 
 ## Tests
 

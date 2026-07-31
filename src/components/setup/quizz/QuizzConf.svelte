@@ -191,6 +191,11 @@
       options.subject = subject.trim()
       options.quizzParam = encodeQuizzParams(params)
       options.v = 'quizz'
+      // En multi-joueurs, le lancement ouvre le parcours manager (création
+      // de la room) ; une éventuelle partie précédente est oubliée.
+      options.quizzRole = params.mode === 'multi' ? 'manager' : undefined
+      options.pin = undefined
+      options.gameId = undefined
       return options
     })
   }
@@ -323,9 +328,8 @@
                       value: 'projection',
                     },
                     {
-                      label: 'Multi-joueurs en ligne (à venir)',
+                      label: 'Multi-joueurs en ligne (chaque élève sur son appareil)',
                       value: 'multi',
-                      isDisabled: true,
                     },
                   ]}
                 />
@@ -484,6 +488,16 @@
             Lien du quizz
           </h3>
         </div>
+        {#if params.mode === 'multi'}
+          <div
+            class="py-4 px-4 font-light text-coopmaths-corpus dark:text-coopmathsdark-corpus bg-coopmaths-canvas dark:bg-coopmathsdark-canvas"
+          >
+            En mode multi-joueurs, le quizz est construit sur votre appareil au
+            lancement puis hébergé par le serveur de jeu : le lien ci-dessous
+            ne sert qu'à retrouver ces réglages. Le code PIN à communiquer aux
+            élèves s'affichera après le lancement.
+          </div>
+        {/if}
         <div class="py-4 bg-coopmaths-canvas dark:bg-coopmathsdark-canvas">
           <div
             class="flex flex-row justify-start items-start space-x-10 pt-3 pl-4 bg-coopmaths-canvas dark:bg-coopmathsdark-canvas"
