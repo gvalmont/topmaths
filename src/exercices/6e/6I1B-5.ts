@@ -33,7 +33,6 @@ export const refs = {
 }
 
 export default class ExerciceTableurVocabulaire extends Exercice {
-  destroyers: (() => void)[] = []
   niveau: number
   constructor() {
     super()
@@ -86,12 +85,6 @@ export default class ExerciceTableurVocabulaire extends Exercice {
       'Le paramètre "Nombre de lignes" n\'est satisfait que si le nombre de formules choisies est suffisant.'
   }
 
-  destroy() {
-    // MGu quand l'exercice est supprimé par svelte : bouton supprimé
-    this.destroyers.forEach((destroy) => destroy())
-    this.destroyers.length = 0
-  }
-
   static readonly colors = {
     orange: '#e6b457',
     vert: '#7adb7a',
@@ -129,10 +122,6 @@ export default class ExerciceTableurVocabulaire extends Exercice {
   }
 
   nouvelleVersion(): void {
-    // MGu quand l'exercice est modifié, on détruit les anciens listeners
-    this.destroyers.forEach((destroy) => destroy())
-    this.destroyers.length = 0
-
     let choixThisSup = this.sup
     if (this.niveau === 6) {
       const map: Record<string, string> = {
