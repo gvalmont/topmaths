@@ -3,6 +3,7 @@ import type { IExercice } from '../types'
 export const listOfCustomElements = [
   'interactive-clock',
   'blockly-editor',
+  'labyrinthe-blockly',
   'scratch-editor',
   'multi-mathfield',
   'liste-deroulante',
