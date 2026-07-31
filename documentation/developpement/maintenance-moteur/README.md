@@ -25,6 +25,7 @@ Pour créer un exercice sans modifier ces contrats, commencez par
 | [Réponses LMS](interactivite/reponses-lms.md) | Encodage et transmission Moodle/SCORM |
 | [Scratch et Blockly](interactivite/scratch-blockly.md) | Architecture des éditeurs visuels |
 | [Tableur](interactivite/tableur.md) | Rendu HTML, sérialisation et sortie imprimable |
+| [Relier les étiquettes](interactivite/relier-etiquettes.md) | Appariement interactif et ses sorties LaTeX et Typst |
 
 ## Scratch
 

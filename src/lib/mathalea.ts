@@ -33,6 +33,7 @@ import {
   inferNumericValueForAMC,
 } from './amc/amcInferenceHelpers'
 import { isStatic, isSvelte } from './components/componentsUtils'
+import { listOfCustomElements } from './customElements/MathaleaCustomElement'
 import { referentielMathadata } from './components/mathadataReferentiel'
 import {
   showDialogForLimitedTime,
@@ -1174,6 +1175,18 @@ export function mathaleaHandleExerciceSimple(
             `checkSvgSelectionEx${n}Q${i}"`,
           )
           exercice.listeQuestions.push(exercice.question ?? '')
+        } else if (
+          listOfCustomElements.includes(String(exercice.formatInteractif))
+        ) {
+          // Un custom element porte sa propre correction : aucun champ MathLive
+          // à ajouter. Dans un exercice simple, nouvelleVersion() ne connait pas
+          // l'indice de la question et produit des identifiants en Q0 : ils sont
+          // renumérotés ici (même principe que les branches spécifiques
+          // ci-dessus, mais valable pour tout customElement enregistré).
+          const n = exercice.numeroExercice
+          exercice.listeQuestions.push(
+            (exercice.question ?? '').replaceAll(`Ex${n}Q0`, `Ex${n}Q${i}`),
+          )
         } else {
           exercice.listeQuestions.push(
             exercice.question +
