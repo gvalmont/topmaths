@@ -40,6 +40,7 @@ Pour créer un exercice sans modifier ces contrats, commencez par
 | [Vue Typst](exports/typst.md) | Conversion et compilation dans le navigateur |
 | [Vue Flash-cards](exports/flashcards.md) | Cartes question/réponse en Typst |
 | [Vue TBI](exports/tbi.md) | Vidéoprojection : dispositions, actions au survol, horloge |
+| [Vue Diaporama](exports/diaporama.md) | Diapositives, décompte, alternance question/correction |
 
 ## Mathématiques
 
