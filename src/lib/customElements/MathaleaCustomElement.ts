@@ -2,6 +2,7 @@ import { context } from '../../modules/context'
 import type { IExercice } from '../types'
 export const listOfCustomElements = [
   'interactive-clock',
+  'mathalea-dom-ready',
   'blockly-editor',
   'labyrinthe-blockly',
   'scratch-editor',

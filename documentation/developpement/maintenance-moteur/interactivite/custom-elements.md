@@ -168,6 +168,12 @@ installer et nettoyer des listeners liés à un rendu. Exemple :
 `cube-iso-interaction`, injecté par `mathalea2d()` quand `updateCubeIso()`
 enregistre une projection 3D manipulable.
 
+Pour remplacer un écouteur global `exercicesAffiches` qui ne sert qu'à attendre
+que le HTML d'un exercice soit dans le DOM, utiliser `mathalea-dom-ready`. Le
+composant reçoit un nom d'action et un payload sérialisable, puis exécute le
+callback enregistré à son `connectedCallback()`. Si le callback retourne une
+fonction, elle est appelée au `disconnectedCallback()`.
+
 ## Cas avancés
 
 - MySpreadsheetElement (tableur) : [architecture du tableur](tableur.md)
