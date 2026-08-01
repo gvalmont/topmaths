@@ -8,13 +8,13 @@
     exerciceInteractif,
     prepareExerciceCliqueFigure,
   } from '../../../../../lib/interactif/gestionInteractif'
+  import { decodeAnswers } from '../../../../../lib/lms/answersCodec'
   import {
     mathaleaGenerateSeed,
     mathaleaHandleExerciceSimple,
     mathaleaRenderDiv,
     mathaleaUpdateUrlFromExercicesParams,
   } from '../../../../../lib/mathalea'
-  import { decodeAnswers } from '../../../../../lib/lms/answersCodec'
   import { mathaleaWriteStudentPreviousAnswers } from '../../../../../lib/mathaleaUtils'
   import {
     capytaleStudentAssignment,
@@ -95,7 +95,10 @@
   let title: string
   $: {
     const reference = exercise.id ?? ''
-    if ($globalOptions.isTitleDisplayed && $globalOptions.isReferenceDisplayed) {
+    if (
+      $globalOptions.isTitleDisplayed &&
+      $globalOptions.isReferenceDisplayed
+    ) {
       title = reference ? `${reference} - ${exercise.titre}` : exercise.titre
     } else if ($globalOptions.isTitleDisplayed) {
       title = exercise.titre
@@ -105,10 +108,6 @@
       title = ''
     }
   }
-  // Evènement indispensable pour pointCliquable par exemple
-  const exercicesAffiches = new window.Event('exercicesAffiches', {
-    bubbles: true,
-  })
 
   let numberOfAnswerFields: number = 0
   let lastRenderedSignature = ''
@@ -259,7 +258,6 @@
         log('duration updateAnswers:' + (time - starttime))
       }
     }
-    document.dispatchEvent(exercicesAffiches)
     if (isCorrectVisible) {
       handleCorrectionAffichee()
     }

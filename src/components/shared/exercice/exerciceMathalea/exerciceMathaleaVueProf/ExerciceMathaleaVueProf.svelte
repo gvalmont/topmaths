@@ -280,11 +280,7 @@
         isSettingsVisible = false
       }
     }
-    // Evènement indispensable pour pointCliquable par exemple
-    const exercicesAffiches = new window.Event('exercicesAffiches', {
-      bubbles: true,
-    })
-    document.dispatchEvent(exercicesAffiches)
+
     if (isCorrectionVisible) {
       handleCorrectionAffichee()
     }
