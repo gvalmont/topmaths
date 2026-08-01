@@ -10,6 +10,7 @@
   import {
     resourceHasPlace,
     isStaticType,
+    isBanqueExterneType,
     type JSONReferentielObject,
     isCrpeType,
   } from '../../../../../lib/types/referentiels'
@@ -21,17 +22,21 @@
 
   import referentielBibliotheque from '../../../../../json/referentielBibliotheque.json'
   import { referentielMathadata } from '../../../../../lib/components/mathadataReferentiel'
+  import { referentielBanquesExternes } from '../../../../../lib/stores/banquesExternesStore'
   import { isMenuNeededForExercises } from '../../../../../lib/stores/generalStore'
   import { globalOptions } from '../../../../../lib/stores/globalOptions'
   import type { HeaderProps } from '../../../../../lib/types/ui'
   import type { VueType } from '../../../../../lib/VueType'
   import { SM_BREAKPOINT } from '../../../../keyboard/lib/sizes'
   // on rassemble les deux référentiel statique
+  // les banques externes sont ajoutées ici et non figées à l'import : elles
+  // peuvent être installées ou retirées en cours de session
   const allStaticReferentiels: JSONReferentielObject = {
     ...referentielBibliotheque,
     ...referentielStaticFR,
     ...referentielStaticCH,
     ...referentielMathadata,
+    ...referentielBanquesExternes(),
   }
   // on supprime les entrées par thème qui entraîne des doublons
   delete allStaticReferentiels['Brevet des collèges par thème - APMEP']
@@ -72,6 +77,15 @@
       title = resourceToDisplay.uuid
     }
   }
+  // Attribution discrète de la banque externe d'origine (titre de la banque,
+  // et son auteur si le manifest le déclare) : les autres provenances
+  // statiques (annales, MathAdata) n'affichent pas cette ligne.
+  const sourceBanqueExterne =
+    resourceToDisplay !== null && isBanqueExterneType(resourceToDisplay)
+      ? resourceToDisplay.banqueAuteur
+        ? `${resourceToDisplay.banqueTitre} — ${resourceToDisplay.banqueAuteur}`
+        : resourceToDisplay.banqueTitre
+      : null
   let headerExerciceProps: HeaderProps
   if (resourceToDisplay !== null) {
     headerExerciceProps = {
@@ -150,6 +164,13 @@
 
 <div class="p-4">
   {#if isContentVisible}
+    {#if sourceBanqueExterne}
+      <p
+        class="text-[0.65rem] italic opacity-60 mb-2 text-coopmaths-corpus dark:text-coopmathsdark-corpus"
+      >
+        Source : {sourceBanqueExterne}
+      </p>
+    {/if}
     {#if exercice}
       {#each exercice.png as url, i}
         <img
