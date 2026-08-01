@@ -43,7 +43,6 @@
   import ButtonTextAction from '../../../forms/ButtonTextAction.svelte'
   import BasicClassicModal from '../../../modal/BasicClassicModal.svelte'
   import { countMathField } from '../../countMathField'
-  import { handleCorrectionAffichee } from '../../handleCorrection'
   import HeaderExerciceVueProf from '../../shared/headerExerciceVueProf/HeaderExerciceVueProf.svelte'
   import Settings from './presentationalComponents/Settings.svelte'
 
@@ -279,10 +278,6 @@
       if (exerciceHasNoSettings) {
         isSettingsVisible = false
       }
-    }
-
-    if (isCorrectionVisible) {
-      handleCorrectionAffichee()
     }
   })
 

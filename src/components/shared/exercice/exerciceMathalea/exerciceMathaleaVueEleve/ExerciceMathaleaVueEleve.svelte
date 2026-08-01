@@ -31,7 +31,6 @@
   import { loadMathLive } from '../../../../../modules/loaders'
   import { statsTracker } from '../../../../../modules/statsUtils'
   import { countMathField } from '../../countMathField'
-  import { handleCorrectionAffichee } from '../../handleCorrection'
   import HeaderExerciceVueEleve from '../../presentationalComponents/shared/HeaderExerciceVueEleve.svelte'
   import ExerciceVueEleveButtons from './presentationalComponents/ExerciceVueEleveButtons.svelte'
   import Question from './presentationalComponents/Question.svelte'
@@ -257,9 +256,6 @@
         time = window.performance.now()
         log('duration updateAnswers:' + (time - starttime))
       }
-    }
-    if (isCorrectVisible) {
-      handleCorrectionAffichee()
     }
     log(
       'afterUpdate:n° ' +
