@@ -874,7 +874,7 @@
                   : 'Afficher la correction'}
                 icon={isCorrectionVisible ? 'bx-hide' : 'bx-check-circle'}
                 inverted={true}
-                class="rounded-lg py-1 px-3"
+                class="py-0.5 px-2 text-[0.7rem]"
                 on:click={() => applyCorrectionVisibility(!isCorrectionVisible)}
               />
             {/if}
@@ -883,7 +883,7 @@
                 text="Nouvelles données"
                 icon="bx-refresh"
                 inverted={true}
-                class="rounded-lg py-1 px-3"
+                class="py-0.5 px-2 text-[0.7rem]"
                 on:click={newData}
               />
             {/if}
