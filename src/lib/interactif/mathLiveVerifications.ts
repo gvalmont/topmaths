@@ -382,14 +382,14 @@ export function verifyTableauMathLive(
           })}`,
         )
       }
-      const shadow = input instanceof HTMLDivElement ? input : input.shadowRoot
-      const resultatCheckCell = document.createElement('span')
-      resultatCheckCell.id = `resultatCheckEx${exercice.numeroExercice}Q${i}${key}`
-      const content =
-        shadow instanceof HTMLDivElement
-          ? input
-          : shadow?.querySelector('span.ML__content')
-      content?.appendChild(resultatCheckCell)
+      const resultatCheckCellId = `resultatCheckEx${exercice.numeroExercice}Q${i}${key}`
+      const resultatCheckCell =
+        document.getElementById(resultatCheckCellId) ??
+        document.createElement('span')
+      resultatCheckCell.id = resultatCheckCellId
+      if (resultatCheckCell.parentElement !== input.parentElement) {
+        input.parentElement?.insertBefore(resultatCheckCell, input.nextSibling)
+      }
 
       let result
       if (input.value === '') {
