@@ -11,6 +11,12 @@ export type MathLiveVerificationResult = {
 }
 
 type FieldElement = HTMLInputElement | MathfieldElement
+type PromptState = 'correct' | 'incorrect' | 'undefined' | undefined
+
+type LockablePromptMathfield = MathfieldElement & {
+  getPromptState?: (id: string) => [PromptState, boolean]
+  setPromptState: (id: string, state: PromptState, locked: boolean) => void
+}
 
 function scoreFromResult(result: { isOk: boolean }): number {
   const score = (result as Partial<CompareResult>).score
@@ -69,6 +75,16 @@ function writeFeedback(exercice: IExercice, i: number, feedback: string): void {
     'dark:text-coopmathsdark-warn-darkest',
   )
   ;(divFeedback as HTMLDivElement).style.display = 'block'
+}
+
+function lockFillInTheBlankPrompts(mfe: MathfieldElement): void {
+  const promptMathfield = mfe as LockablePromptMathfield
+  mfe.classList.add('corrected')
+  for (const promptId of mfe.getPrompts()) {
+    const [state] = promptMathfield.getPromptState?.(promptId) ?? [undefined]
+    promptMathfield.setPromptState(promptId, state, true)
+  }
+  mfe.readOnly = true
 }
 
 export function verifySingleMathLiveField(
@@ -227,7 +243,9 @@ export function verifyFillInTheBlankMathLive(
     }
 
     if (typeof reponses.callback === 'function') {
-      return reponses.callback(exercice, i, variables, bareme)
+      const result = reponses.callback(exercice, i, variables, bareme)
+      lockFillInTheBlankPrompts(mfe)
+      return result
     }
 
     const points = []
@@ -315,6 +333,7 @@ export function verifyFillInTheBlankMathLive(
     if (mfe.getValue().length > 0 && typeof exercice.answers === 'object') {
       exercice.answers[`Ex${exercice.numeroExercice}Q${i}`] = mfe.getValue()
     }
+    lockFillInTheBlankPrompts(mfe)
     const spanReponseLigne = document.querySelector(
       `#resultatCheckEx${exercice.numeroExercice}Q${i}`,
     ) as HTMLSpanElement | null
