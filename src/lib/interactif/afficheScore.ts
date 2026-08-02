@@ -13,6 +13,7 @@ export function afficheScore(
   nbMauvaisesReponses: number,
   divScore?: HTMLDivElement,
   divButton?: HTMLButtonElement,
+  perQuestionIsOk: boolean[] = [],
 ): ResultOfExerciceInteractif {
   if (divButton != null) {
     divButton.classList.add(
@@ -32,6 +33,7 @@ export function afficheScore(
   return {
     numberOfPoints: nbBonnesReponses,
     numberOfQuestions: nbBonnesReponses + nbMauvaisesReponses,
+    perQuestionIsOk,
   }
 }
 

@@ -43,6 +43,7 @@ export interface InterfaceGlobalOptions {
   // | 'cartes'
   setInteractive?: string
   isSolutionAccessible?: boolean
+  isCorrectionOnlyOnError?: boolean
   isTitleDisplayed?: boolean
   isReferenceDisplayed?: boolean
   isInteractiveFree?: boolean
@@ -929,6 +930,7 @@ export interface MathaleaSVG extends SVGSVGElement {
 export type ResultOfExerciceInteractif = {
   numberOfPoints: number
   numberOfQuestions: number
+  perQuestionIsOk: boolean[]
 }
 
 // Pour retro compatibilité avec setReponse
