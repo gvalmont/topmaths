@@ -29,11 +29,7 @@ import type {
   Valeur,
 } from '../../lib/types'
 import { mathalea2d } from '../../modules/mathalea2d'
-import {
-  gestionnaireFormulaireTexte,
-  listeQuestionsToContenu,
-  randint,
-} from '../../modules/outils'
+import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import Exercice from '../Exercice'
 
 export const titre = 'Mettre un problème en équation et le résoudre'
@@ -854,53 +850,38 @@ export default class ProblemesEnEquationParEtapes extends Exercice {
     this.nbQuestionsModifiable = false
     this.spacingCorr = 1.5
     this.consigne = ''
-    this.besoinFormulaireTexte = [
+    this.besoinFormulaireNumerique = [
       'Choix du problème',
+      15,
       [
-        'Nombres séparés par des tirets :',
-        '0 : Mélange',
-        '1 : Paniers de basket (paniers à trois points)',
-        '2 : Paniers de basket (paniers à deux points)',
-        '3 : Achat au marché',
-        "4 : Périmètre d'un polygone",
-        '5 : Programmes de calcul (deux produits, solution positive)',
-        '6 : Programmes de calcul (deux produits, solution négative)',
-        "7 : Tarifs d'un club",
-        '8 : Places de spectacle',
-        '9 : Triangle isocèle',
-        '10 : Théorème de Thalès (longueur OC)',
-        '11 : Théorème de Thalès (longueur AC)',
-        '12 : Somme de trois nombres consécutifs',
-        '13 : Âges du père et du fils',
-        '14 : Programmes de calcul (un produit et une somme)',
+        'Paniers de basket (paniers à trois points)',
+        'Paniers de basket (paniers à deux points)',
+        'Achat au marché',
+        "Périmètre d'un polygone",
+        'Programmes de calcul (deux produits, solution positive)',
+        'Programmes de calcul (deux produits, solution négative)',
+        "Tarifs d'un club",
+        'Places de spectacle',
+        'Triangle isocèle',
+        'Théorème de Thalès (longueur OC)',
+        'Théorème de Thalès (longueur AC)',
+        'Somme de trois nombres consécutifs',
+        'Âges du père et du fils',
+        'Programmes de calcul (un produit et une somme)',
+        'Hasard'
       ].join('\n'),
     ]
-    this.sup = '0'
+    this.sup = 15
     this.besoinFormulaire2CaseACocher = ['Uniquement des nombres entiers', true]
     this.sup2 = true
   }
 
   nouvelleVersion() {
-    const numeros = gestionnaireFormulaireTexte({
-      saisie: String(this.sup),
-      min: 1,
-      max: catalogue.length,
-      melange: 0,
-      defaut: 0,
-      shuffle: true,
-      nbQuestions: this.nbQuestions,
-    }).map(Number)
-
-    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50; ) {
-      const probleme = catalogue[numeros[i] - 1](Boolean(this.sup2))
-      const { texte, texteCorr } = this.construitQuestion(probleme, i)
-      if (this.questionJamaisPosee(i, probleme.enonce)) {
-        this.listeQuestions[i] = texte
-        this.listeCorrections[i] = texteCorr
-        i++
-      }
-      cpt++
-    }
+    const indiceTypeProbleme = this.sup === 15 ? randint(1, 14) : this.sup
+    const probleme = catalogue[indiceTypeProbleme - 1](Boolean(this.sup2))
+    const { texte, texteCorr } = this.construitQuestion(probleme, 0)
+    this.listeQuestions[0] = texte
+    this.listeCorrections[0] = texteCorr
     listeQuestionsToContenu(this)
   }
 
@@ -969,9 +950,9 @@ export default class ProblemesEnEquationParEtapes extends Exercice {
     const lignesEtapeB = probleme.donnees
       .map((donnee, rang) => `${donnee} : %{field${rang + 1}}`)
       .join('\n\n')
-    const dataTemplate = `a) Quelle grandeur choisir comme inconnue $x$ ? %{field0}
+    const dataTemplate = `a) Quelle grandeur choisir comme inconnue ? %{field0}
 
-b) Exprimer chaque grandeur en fonction de $x$ (la grandeur choisie s'écrit $x$) :
+b) On note $x$ cette inconnue. Exprimer chaque grandeur en fonction de $x$ :
 
 ${lignesEtapeB}
 
