@@ -6,7 +6,7 @@ import { get } from 'svelte/store'
 import Exercice from '../exercices/Exercice'
 import ExerciceSimple from '../exercices/ExerciceSimple'
 import referentielStaticCH from '../json/referentielStaticCH.json'
-import referentielStaticFR from '../json/referentielStaticFR.json'
+import referentielStaticFR from '../json/referentielStaticFRHydrated'
 import uuidToUrl from '../json/uuidsToUrlFR.json'
 import {
   ajouteChampTexteMathLive,
