@@ -59,12 +59,19 @@ function addUniqueMessage(messages: string[], message: string | undefined) {
 async function clickZoomAndWaitForExercise(page: Page, buttonZoom: Locator) {
   const previousZoom = new URL(page.url()).searchParams.get('z') ?? ''
   await buttonZoom.click()
-  await page.waitForFunction(
-    (zoom) => new URL(window.location.href).searchParams.get('z') !== zoom,
-    previousZoom,
-    { timeout: 30_000 },
-  )
-  await page.locator('div.mb-5>ul>div#consigne0-0').waitFor({
+  const exerciseLocator = page.locator('div.mb-5>ul>div#consigne0-0')
+  try {
+    await page.waitForFunction(
+      (zoom) => new URL(window.location.href).searchParams.get('z') !== zoom,
+      previousZoom,
+      { timeout: 5_000 },
+    )
+  } catch (error) {
+    const exerciseIsVisible = await exerciseLocator.isVisible()
+    if (!exerciseIsVisible) throw error
+    logIfDebug(`Zoom inchangé, exercice déjà visible: z=${previousZoom}`)
+  }
+  await exerciseLocator.waitFor({
     state: 'visible',
     timeout: 60_000,
   })
@@ -327,7 +334,6 @@ async function testRunAllLots(filter: string) {
 
 const alea = 'e906e'
 const local = true
-process.env.NIV = 'EAMPremiere/EAM-PolynesieSpe-2026-Q4.ts'
 if (process.env.NIV !== null && process.env.NIV !== undefined) {
   const filter = (process.env.NIV as string).replaceAll(' ', '')
   prefs.headless = true
