@@ -1107,6 +1107,7 @@ export interface IExercice {
   answers?: { [key: string]: string }
   dragAndDrops?: IDragAndDrop[]
   isDone?: boolean
+  nbTentativesVerification?: number
   html: HTMLElement
   key: string
   score?: number

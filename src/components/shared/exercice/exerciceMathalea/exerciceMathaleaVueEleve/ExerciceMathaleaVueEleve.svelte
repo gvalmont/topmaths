@@ -4,7 +4,9 @@
   import { get } from 'svelte/store'
   import type TypeExercice from '../../../../../exercices/Exercice'
   import { sendToCapytaleSaveStudentAssignment } from '../../../../../lib/handleCapytale'
+  import { afficheAlerteUniteManquante } from '../../../../../lib/interactif/afficheScore'
   import {
+    exerciceAUneUniteManquante,
     exerciceInteractif,
     prepareExerciceCliqueFigure,
   } from '../../../../../lib/interactif/gestionInteractif'
@@ -419,6 +421,14 @@
 
   async function verifExerciceVueEleve() {
     log('verifExerciceVueEleve')
+    exercise.nbTentativesVerification = (exercise.nbTentativesVerification ?? 0) + 1
+    if (
+      exercise.nbTentativesVerification === 1 &&
+      exerciceAUneUniteManquante(exercise)
+    ) {
+      afficheAlerteUniteManquante(divScore)
+      return
+    }
     if (exercise.numeroExercice != null && !(exercise.isDone === true))
       statsTracker(
         exercise,
