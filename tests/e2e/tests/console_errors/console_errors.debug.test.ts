@@ -118,10 +118,16 @@ async function action(page: Page, description: string) {
   logDebug(`Test avec les paramètres ${description}`)
   // clic sur nouvel énoncé 3 fois
   const buttonNewData = page.getByRole('button', { name: 'Nouvel énoncé' })
-  logDebug('Actualier (nouvel énoncé)')
-  setLastAction('click Nouvel énoncé')
-  await buttonNewData.click({ force: true })
-  logDebug('fin Actualier (nouvel énoncé)')
+  // Le bouton est masqué pour les exercices avec pasDeVersionAleatoire = true
+  const hasButtonNewData = await buttonNewData.isVisible()
+  if (hasButtonNewData) {
+    logDebug('Actualier (nouvel énoncé)')
+    setLastAction('click Nouvel énoncé')
+    await buttonNewData.click({ force: true })
+    logDebug('fin Actualier (nouvel énoncé)')
+  } else {
+    logDebug('Pas de bouton « Nouvel énoncé » (exercice non aléatoire)')
+  }
   const buttonZoom = page.locator(
     '#setupButtonsBar > div > div:nth-child(2) > button',
   )
@@ -170,10 +176,12 @@ async function action(page: Page, description: string) {
     await page.waitForSelector('article + div')
     const buttonResult = await page.locator('article + div').innerText()
     log(buttonResult)
-    logDebug('Actualier (nouvel énoncé) 3 fois')
-    setLastAction('click Nouvel énoncé x3')
-    await buttonNewData.click({ clickCount: 3 })
-    logDebug('fin Actualier (nouvel énoncé) 3 fois')
+    if (hasButtonNewData) {
+      logDebug('Actualier (nouvel énoncé) 3 fois')
+      setLastAction('click Nouvel énoncé x3')
+      await buttonNewData.click({ clickCount: 3 })
+      logDebug('fin Actualier (nouvel énoncé) 3 fois')
+    }
   } else {
     // MGu : obligé car parfois on rate l'exception car trop rapide
     // await new Promise((resolve) => setTimeout(resolve, 1000)) // GV : Si on attend 1 seconde après chaque cas, il va falloir 1 an si on veut tester toutes les possibilités

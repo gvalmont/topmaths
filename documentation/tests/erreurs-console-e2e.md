@@ -148,7 +148,7 @@ L'action légère du profil `standard` vérifie seulement que la consigne reste 
 
 Le parcours UI complet effectue les étapes suivantes :
 
-1. **Clic sur "Nouvel énoncé"** : régénère l'exercice avec une nouvelle graine aléatoire.
+1. **Clic sur "Nouvel énoncé"** : régénère l'exercice avec une nouvelle graine aléatoire. Le bouton est absent pour les exercices déclarant `pasDeVersionAleatoire = true` ; l'étape est alors ignorée (sinon le locator ne résout jamais et le test attend jusqu'au timeout).
 
 2. **Test du zoom** : lit le zoom courant `z` dans l'URL. Si `z < 1.4`, clique sur le zoom avant ; sinon clique sur le zoom arrière. Utilise `clickZoomAndWaitForExercise`, qui :
    - clique sur le bouton de zoom ;
@@ -160,7 +160,7 @@ Le parcours UI complet effectue les étapes suivantes :
    - attend les éléments de question (`li[id^="exercice0Q"]`) ;
    - clique sur le bouton "Vérifier" (`#verif0`) pour valider des réponses vides ;
    - attend la div de résultat (`article + div`) ;
-   - clique une fois de plus sur "Nouvel énoncé" en profil `standard` ou `smoke`, et 3 fois en profil `deep`.
+   - clique 3 fois de plus sur "Nouvel énoncé" (sauf si le bouton est absent, cf. étape 1).
 
 ### Construction de l'URL et timeouts adaptatifs
 
