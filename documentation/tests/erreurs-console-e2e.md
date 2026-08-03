@@ -198,6 +198,15 @@ Chaque exercice est tenté jusqu'à **3 fois** :
 - Si tout est propre : retourne `'OK'`.
 - Les écouteurs Playwright (`console`, `pageerror`, `crash`) sont détachés après chaque tentative pour éviter qu'une tentative échouée pollue les suivantes sur la page partagée du lot.
 
+Quand un ou plusieurs exercices échouent, le test imprime aussi en fin d'exécution un récapitulatif `console_errors` :
+
+| Colonne                      | Contenu                                                        |
+| ---------------------------- | -------------------------------------------------------------- |
+| `Fichier`                    | Nom du fichier d'exercice en échec                             |
+| `Extrait du message console` | Première erreur significative, sans URL, compactée et tronquée |
+
+Ce tableau évite de devoir parcourir tout le log Vitest pour retrouver les exercices concernés. Par défaut, et avec `DEBUG=0`, les échecs sont bien remontés à Vitest, mais avec une erreur volontairement courte qui renvoie vers le tableau et vers `tests/e2e/logs/exportConsole.log`. Le reporter `console_errors` masque alors la section finale `Failed Tests`, devenue redondante, tout en gardant le bilan rouge `Test Files` / `Tests`. Avec `DEBUG=1`, l'erreur complète est relancée et le reporter standard affiche aussi les détails de diagnostic Vitest.
+
 ---
 
 ## 8. Modes d'entrée
@@ -218,4 +227,4 @@ Le test a trois points d'entrée :
 - **`testTimeout` :** 20 000 secondes par cas de test.
 - **`hookTimeout` :** 600 secondes.
 - **`pool` :** `threads` avec `maxWorkers: 1`, `isolate: false`, `disableConsoleIntercept: true` — exécution séquentielle dans un seul thread.
-- **`reporters` :** `html`, `junit`, `json`, `default`.
+- **`reporters` :** `html`, `junit`, `json`, reporter console court par défaut (`default` avec `DEBUG=1`).

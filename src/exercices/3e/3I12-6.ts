@@ -81,7 +81,7 @@ export default class TrouverLeBonProgrammeConditionnelles extends Exercice {
       nbQuestions: this.nbQuestions,
     }).map(Number)
 
-    for (let q = 0, cpt = 0; q < this.nbQuestions && cpt < 50; ) {
+    for (let q = 0, cpt = 0; q < this.nbQuestions && cpt < 50;) {
       let texte = ''
       let reponse = ''
       switch (listeTypeDeQuestions[q]) {
@@ -106,6 +106,7 @@ export default class TrouverLeBonProgrammeConditionnelles extends Exercice {
               ajouteQuestionMathlive({
                 exercice: this,
                 question: q,
+                reponseParams: { formatInteractif: 'mathalea-mathfield' },
                 objetReponse: { reponse: { value: triplet[0] } },
                 typeInteractivite: 'mathlive',
               }) +
@@ -150,6 +151,7 @@ export default class TrouverLeBonProgrammeConditionnelles extends Exercice {
               ajouteQuestionMathlive({
                 exercice: this,
                 question: q,
+                reponseParams: { formatInteractif: 'mathalea-mathfield' },
                 objetReponse: { reponse: { value: nbBoucles } },
                 typeInteractivite: 'mathlive',
               }) +
@@ -200,6 +202,7 @@ export default class TrouverLeBonProgrammeConditionnelles extends Exercice {
               ajouteQuestionMathlive({
                 exercice: this,
                 question: q,
+                reponseParams: { formatInteractif: 'mathalea-mathfield' },
                 objetReponse: { reponse: { value: nbRepetitions } },
                 typeInteractivite: 'mathlive',
               }) +
@@ -233,6 +236,7 @@ export default class TrouverLeBonProgrammeConditionnelles extends Exercice {
               ajouteQuestionMathlive({
                 exercice: this,
                 question: q,
+                reponseParams: { formatInteractif: 'mathalea-mathfield' },
                 objetReponse: { reponse: { value: d } },
                 typeInteractivite: 'mathlive',
               }) +
@@ -275,6 +279,7 @@ export default class TrouverLeBonProgrammeConditionnelles extends Exercice {
               ajouteQuestionMathlive({
                 exercice: this,
                 question: q,
+                reponseParams: { formatInteractif: 'mathalea-mathfield' },
                 objetReponse: { reponse: { value: AE } },
                 typeInteractivite: 'mathlive',
               }) +
@@ -319,6 +324,7 @@ export default class TrouverLeBonProgrammeConditionnelles extends Exercice {
               ajouteQuestionMathlive({
                 exercice: this,
                 question: q,
+                reponseParams: { formatInteractif: 'mathalea-mathfield' },
                 objetReponse: {
                   reponse: { value: String((d - b) / (a - c)) },
                 },
@@ -357,6 +363,7 @@ export default class TrouverLeBonProgrammeConditionnelles extends Exercice {
               ajouteQuestionMathlive({
                 exercice: this,
                 question: q,
+                reponseParams: { formatInteractif: 'mathalea-mathfield' },
                 objetReponse: {
                   reponse: { value: [String(a), String(-b)] },
                 },
