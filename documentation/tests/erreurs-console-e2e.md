@@ -121,18 +121,20 @@ Cette fonction découvre tous les éléments de formulaire configurables dans le
 
 Recherche jusqu'à 5 instances de chaque type de formulaire dans le conteneur `#settings0` :
 
-| Type de formulaire            | Sélecteur                           | Valeurs testées             |
-| ----------------------------- | ----------------------------------- | --------------------------- |
-| `formText`                    | `#settings-formText{1-5}-0`         | Nombres extraits du libellé |
-| `check` (cases à cocher)      | `#settings-check{1-5}-0`            | `[false, true]`             |
-| `num` (champs numériques)     | `#settings-formNum{1-5}-0` (input)  | `[min, min+1, max]`         |
-| `select` (listes déroulantes) | `#settings-formNum{1-5}-0` (select) | Toutes les valeurs d'option |
-| Correction détaillée          | `#settings-correction-detaillee-0`  | `[false, true]`             |
+| Type de formulaire            | Sélecteur                           | Valeurs testées                                         |
+| ----------------------------- | ----------------------------------- | ------------------------------------------------------- |
+| `formText`                    | `#settings-formText{1-5}-0`         | Cas extraits des lignes `1 : ...`, `2 : ...` uniquement |
+| `check` (cases à cocher)      | `#settings-check{1-5}-0`            | `[false, true]`                                         |
+| `num` (champs numériques)     | `#settings-formNum{1-5}-0` (input)  | `[min, min+1, max]`                                     |
+| `select` (listes déroulantes) | `#settings-formNum{1-5}-0` (select) | Toutes les valeurs d'option                             |
+| Correction détaillée          | `#settings-correction-detaillee-0`  | `[false, true]`                                         |
 
 ### Stratégie de test des paramètres
 
 - **`simpleTest`** (par défaut pour `console_errors`) : parcourt chaque formulaire indépendamment, en testant ses valeurs pendant que les autres formulaires conservent leur dernière valeur. C'est beaucoup plus rapide et chaque valeur de paramètre est testée au moins une fois, sans croiser toutes les interactions entre paramètres.
 - **`fullTest`** (quand `isFullCombinations: true`) : boucle imbriquée sur toutes les combinaisons de 5 formulaires au maximum (produit cartésien). Ce mode est très lent.
+
+Les formulaires texte dont l'aide ne suit pas le format énuméré `1 : ...`, `2 : ...` sont ignorés par ce parcours automatique. Cela évite de transformer des indications libres comme `Nombre entre 0 et 9` en valeurs de test invalides.
 
 ---
 
