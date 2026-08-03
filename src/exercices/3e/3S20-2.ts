@@ -386,7 +386,9 @@ function moule(
     {},
   )
   question1 += exercice.interactif ? tableauInteractif.output : tableau
-  handleAnswers(exercice, question * 4, objetReponse1)
+  handleAnswers(exercice, question * 4, objetReponse1, {
+    formatInteractif: 'tableau-mathlive',
+  })
   const tableauCorr = tableauColonneLigne(colonneEnt, ligneEnt, contenuCorr)
   const correction1 = `${exercice.correctionDetaillee ? correctionDetaillee1 : ''}Voici le tableau des effectifs :<br>${tableauCorr}`
   const proba2 = fraction(nbTotalA, nbTotal)

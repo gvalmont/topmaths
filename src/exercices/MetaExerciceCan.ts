@@ -115,40 +115,63 @@ function getClassicQuestionCustomElementFormat(question: Exercice) {
  */
 function remapLegacyFieldIds(
   questionHtml: string,
-  numeroExercice: number,
+  sourceNumeroExercice: number,
+  destinationNumeroExercice: number,
   destinationIndex: number,
 ) {
   const pattern = (exerciceNumber: number) =>
     new RegExp(`champTexteEx${exerciceNumber}Q0(?!-verification)`, 'g')
   return questionHtml
     .replace(
-      pattern(numeroExercice),
-      `champTexteEx${numeroExercice}Q${destinationIndex}`,
+      pattern(sourceNumeroExercice),
+      `champTexteEx${destinationNumeroExercice}Q${destinationIndex}`,
     )
-    .replace(pattern(0), `champTexteEx0Q${destinationIndex}`)
+    .replace(
+      pattern(0),
+      `champTexteEx${destinationNumeroExercice}Q${destinationIndex}`,
+    )
 }
 
 function remapCustomElementQuestionIds(
   questionHtml: string,
   tag: InteractivityType,
-  numeroExercice: number | undefined,
+  sourceNumeroExercice: number | undefined,
+  destinationNumeroExercice: number | undefined,
   destinationIndex: number,
 ) {
-  const n = numeroExercice ?? 0
-  let html = remapLegacyFieldIds(questionHtml, n, destinationIndex)
-    .replaceAll(`${tag}Ex${n}Q0`, `${tag}Ex${n}Q${destinationIndex}`)
+  const sourceExercice = sourceNumeroExercice ?? 0
+  const destinationExercice = destinationNumeroExercice ?? 0
+  let html = remapLegacyFieldIds(
+    questionHtml,
+    sourceExercice,
+    destinationExercice,
+    destinationIndex,
+  )
     .replaceAll(
-      `resultatCheckEx${n}Q0`,
-      `resultatCheckEx${n}Q${destinationIndex}`,
+      `${tag}Ex${sourceExercice}Q0`,
+      `${tag}Ex${destinationExercice}Q${destinationIndex}`,
     )
-    .replaceAll(`feedbackEx${n}Q0`, `feedbackEx${n}Q${destinationIndex}`)
-    .replaceAll('resultatCheckEx0Q0', `resultatCheckEx0Q${destinationIndex}`)
-    .replaceAll('feedbackEx0Q0', `feedbackEx0Q${destinationIndex}`)
+    .replaceAll(
+      `resultatCheckEx${sourceExercice}Q0`,
+      `resultatCheckEx${destinationExercice}Q${destinationIndex}`,
+    )
+    .replaceAll(
+      `feedbackEx${sourceExercice}Q0`,
+      `feedbackEx${destinationExercice}Q${destinationIndex}`,
+    )
+    .replaceAll(
+      'resultatCheckEx0Q0',
+      `resultatCheckEx${destinationExercice}Q${destinationIndex}`,
+    )
+    .replaceAll(
+      'feedbackEx0Q0',
+      `feedbackEx${destinationExercice}Q${destinationIndex}`,
+    )
 
   if (tag === 'meta-interactif-2d') {
     html = html.replace(
       /id="MetaInteractif2dEx\d+Q\d+field(\d+)"/g,
-      `id="MetaInteractif2dEx${n}Q${destinationIndex}field$1"`,
+      `id="MetaInteractif2dEx${destinationExercice}Q${destinationIndex}field$1"`,
     )
   }
   return html
@@ -175,6 +198,7 @@ function injectSimpleQuestionCustomElement({
       questionHtml,
       tag,
       question.numeroExercice,
+      meta.numeroExercice,
       questionIndex,
     )
   }
@@ -230,6 +254,7 @@ function injectSimpleQuestionCustomElement({
     questionHtml,
     tag,
     question.numeroExercice,
+    meta.numeroExercice,
     questionIndex,
   )
 }
@@ -663,11 +688,11 @@ export default class MetaExercice extends Exercice {
               getClassicQuestionCustomElementFormat(Question)
             if (qcmAutoCorrection == null && customElementFormat != null) {
               const tag = customElementFormat
-              const n = Question.numeroExercice
               const questionHtml = remapCustomElementQuestionIds(
                 String(Question.listeQuestions[0]),
                 tag,
-                n,
+                Question.numeroExercice,
+                this.numeroExercice,
                 indexQuestion,
               )
 
@@ -685,6 +710,7 @@ export default class MetaExercice extends Exercice {
               this.listeQuestions[indexQuestion] = remapLegacyFieldIds(
                 this.listeQuestions[indexQuestion],
                 Question.numeroExercice ?? 0,
+                this.numeroExercice ?? 0,
                 indexQuestion,
               )
               this.listeQuestions[indexQuestion] = this.listeQuestions[
@@ -692,9 +718,12 @@ export default class MetaExercice extends Exercice {
               ]
                 .replaceAll(
                   'resultatCheckEx0Q0',
-                  `resultatCheckEx0Q${indexQuestion}`,
+                  `resultatCheckEx${this.numeroExercice ?? 0}Q${indexQuestion}`,
                 )
-                .replaceAll(`feedbackEx0Q0`, `feedbackEx0Q${indexQuestion}`)
+                .replaceAll(
+                  'feedbackEx0Q0',
+                  `feedbackEx${this.numeroExercice ?? 0}Q${indexQuestion}`,
+                )
 
               // fin d'alimentation des listes de question et de correction pour cette question
               const formatInteractif =
