@@ -99,6 +99,8 @@ Chaque réponse peut fournir `value`, `compare` et `options`. Les valeurs métie
 
 `exerciceInteractif()` dans `src/lib/interactif/gestionInteractif.ts` parcourt les questions et délègue selon `formatInteractif`.
 
+Les index sans entrée dans `autoCorrection` sont ignorés : un exercice peut donc mélanger des questions interactives et des questions sans réponse attendue (démonstration, rédaction, justification), y compris au milieu de la liste. Ces questions ne sont ni vérifiées ni comptées dans le score. Sans ce filtrage, l'index sans réponse tomberait sur le format `mathlive` par défaut et déclencherait l'erreur « Vérification MathLive appelée sur une question sans réponse » de `getQuestionData()` dans `src/lib/interactif/mathLiveVerifications.ts`.
+
 Avant le dispatch, les formats historiques compatibles sont normalisés vers leur custom element :
 
 | Format historique  | Custom element terminal |
