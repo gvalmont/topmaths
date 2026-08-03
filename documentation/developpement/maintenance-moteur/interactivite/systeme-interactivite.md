@@ -224,6 +224,10 @@ Pour préserver les anciens exercices et callbacks, l'identifiant legacy reste p
 
 Le wrapper suit la convention des custom elements : son id est préfixé par le tag, par exemple `mathalea-mathfieldEx0Q0`, `fill-in-the-blankEx0Q0`, `mathalea-textfieldEx0Q0` ou `tableau-mathliveEx0Q0`. Les sélecteurs legacy qui ciblent le champ interne continuent donc de fonctionner, tandis que les traitements génériques ciblent le wrapper.
 
+Un champ porte donc **deux** identifiants indexés par la question : l'id du wrapper (`<tag>Ex{n}Q{i}`) et l'id legacy (`champTexteEx{n}Q{i}`, exposé par l'attribut `mathfield-id` du wrapper). C'est ce second identifiant qu'utilisent les `verifQuestion()` des wrappers MathLive pour retrouver le champ. Une infrastructure qui réhéberge la question d'un sous-exercice à un autre index — `MetaExerciceCan` pour les CAN et les « Sélections d'automatismes » — doit réindexer **les deux**, sans quoi plusieurs questions partagent le même `mathfield-id` et la vérification échoue sur « champ introuvable ». Le nom du callback de vérification (`champTexteEx{n}Q0-verification`) est en revanche une clé du registre statique du custom element : il ne doit pas être réindexé.
+
+`ajouteQuestionMathlive()` déduit le `formatInteractif` par défaut de son `typeInteractivite` : un `fillInTheBlank` déclare bien `fill-in-the-blank` et est vérifié par `verifyFillInTheBlankMathLive()` (réponses `champ1`, `champ2`, ...) et non par `verifySingleMathLiveField()`, qui n'attend qu'une réponse unique.
+
 Deux niveaux de personnalisation existent :
 
 - dans `handleAnswers()`, une entrée `callback` sur `valeur` permet d'analyser globalement les saisies d'une question avant de calculer le score ;

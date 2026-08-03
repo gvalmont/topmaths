@@ -228,6 +228,20 @@ async function quickAction(page: Page, description: string) {
   await waitForExerciseVisible(page)
 }
 
+/**
+ * Le web component <scratch-simulator> (utilisé dans certaines corrections) ouvre
+ * automatiquement une modale plein écran dès qu'il est inséré dans le DOM.
+ * Cette modale intercepte les clics suivants (ex: "Nouvel énoncé") tant qu'elle
+ * n'est pas fermée explicitement.
+ */
+async function closeScratchSimulatorModalIfOpen(page: Page) {
+  const scratchModal = page.locator('dialog[data-scratch-sim="true"]')
+  if (await scratchModal.isVisible()) {
+    await scratchModal.getByRole('button', { name: '✕' }).click()
+    await scratchModal.waitFor({ state: 'hidden' })
+  }
+}
+
 async function fullAction(
   page: Page,
   description: string,
@@ -286,11 +300,16 @@ async function fullAction(
     await page.waitForSelector('article + div')
     const buttonResult = await page.locator('article + div').innerText()
     logIfVerbose(buttonResult)
-    if (hasButtonNewData) {
-      logIfVerbose('Actualier (nouvel énoncé) 3 fois')
-      await buttonNewData.click({ clickCount: 3 })
-      logIfVerbose('fin Actualier (nouvel énoncé) 3 fois')
-    }
+    await closeScratchSimulatorModalIfOpen(page)
+    const refreshAfterInteractivityCount =
+      options?.refreshAfterInteractivityCount ?? 1
+    logIfVerbose(
+      `Actualier (nouvel énoncé) ${refreshAfterInteractivityCount} fois`,
+    )
+    await buttonNewData.click({ clickCount: refreshAfterInteractivityCount })
+    logIfVerbose(
+      `fin Actualier (nouvel énoncé) ${refreshAfterInteractivityCount} fois`,
+    )
   } else {
     // MGu : obligé car parfois on rate l'exception car trop rapide
     // await new Promise((resolve) => setTimeout(resolve, 1000)) // GV : Si on attend 1 seconde après chaque cas, il va falloir 1 an si on veut tester toutes les possibilités
