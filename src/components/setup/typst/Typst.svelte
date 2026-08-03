@@ -11,6 +11,7 @@
   import ExerciceSimple from '../../../exercices/ExerciceSimple'
   import {
     buildExercisesList,
+    getBanquesExternesPreambuleTyp,
     getStaticExerciceCorTypUrl,
     getStaticExerciceTypUrl,
   } from '../../../lib/components/exercisesUtils'
@@ -691,6 +692,7 @@
     exercicesParams.update((list) => list.filter((_, k) => k !== num - 1))
     const code = buildTypstDocument(buildInputs(), documentOptions, carryOver, [], {
       sourceUrl: currentUrl(),
+      extraPreamble: extraPreamble(),
     })
     setEditorContent(code)
     scheduleCompile(code, 0)
@@ -780,6 +782,7 @@
     })
     const code = buildTypstDocument(buildInputs(), documentOptions, carryOver, [], {
       sourceUrl: currentUrl(),
+      extraPreamble: extraPreamble(),
     })
     setEditorContent(code)
     scheduleCompile(code, 0)
@@ -897,7 +900,7 @@
       documentOptions,
       carryOver,
       extraVersions,
-      { sourceUrl: currentUrl() },
+      { sourceUrl: currentUrl(), extraPreamble: extraPreamble() },
     )
     setEditorContent(newCode)
     scheduleCompile(newCode, 0)
@@ -925,7 +928,7 @@
       documentOptions,
       carryOver,
       extraVersions,
-      { sourceUrl: currentUrl() },
+      { sourceUrl: currentUrl(), extraPreamble: extraPreamble() },
     )
     setEditorContent(code)
     scheduleCompile(code, 0)
@@ -957,7 +960,7 @@
       documentOptions,
       carryOver,
       extraVersions,
-      { sourceUrl: currentUrl() },
+      { sourceUrl: currentUrl(), extraPreamble: extraPreamble() },
     )
     setEditorContent(code)
     scheduleCompile(code, 0)
@@ -1287,6 +1290,7 @@
     // (colonnes/espacement par exercice, insertions) ne sont pas repris
     const code = buildTypstDocument(buildInputs(), documentOptions, {}, [], {
       sourceUrl: currentUrl(),
+      extraPreamble: extraPreamble(),
     })
     setEditorContent(code)
     scheduleCompile(code, 0)
@@ -1474,6 +1478,7 @@
     const [primary, ...extraVersions] = buildAllVersionInputs()
     return buildTypstDocument(primary, documentOptions, carryOver, extraVersions, {
       sourceUrl: currentUrl(),
+      extraPreamble: extraPreamble(),
     })
   }
 
@@ -1537,6 +1542,19 @@
    */
   function currentUrl(): string {
     return window.location.href
+  }
+
+  /**
+   * Code Typst du préambule des banques externes dont un exercice figure
+   * dans la fiche (voir `manifest.preambule.typ`), à insérer dans le document
+   * généré.
+   */
+  function extraPreamble(): string {
+    return getBanquesExternesPreambuleTyp(
+      exercises
+        .filter((e): e is IExercice => e != null)
+        .map((e) => String(e.uuid)),
+    )
   }
 
   /**
@@ -2083,6 +2101,7 @@
     return buildTypstDocument(primary, documentOptions, carryOver, extraVersions, {
       exportMode: true,
       sourceUrl: currentUrl(),
+      extraPreamble: extraPreamble(),
     })
   }
 
