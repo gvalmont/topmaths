@@ -97,6 +97,37 @@ function getClassicQuestionCustomElementFormat(question: Exercice) {
   return getRegisteredCustomElementTag(format)
 }
 
+/**
+ * Réindexe les identifiants historiques `champTexteEx{n}Q0` que portent les
+ * customElements de saisie (attribut `mathfield-id` de `mathalea-mathfield`,
+ * `mathalea-textfield` et `fill-in-the-blank`, ids des cellules de
+ * `tableau-mathlive`…).
+ *
+ * Les sous-exercices agrégés fabriquent toujours leur champ avec l'index 0 :
+ * sans ce remappage, plusieurs questions du méta-exercice partagent le même
+ * `mathfield-id` et `verifySingleMathLiveField` ne retrouve plus le champ de la
+ * question réellement affichée.
+ *
+ * Le nom du callback de vérification (`champTexteEx{n}Q0-verification`) est
+ * volontairement laissé intact : c'est une clé du registre statique du
+ * customElement, alimentée à la construction de la question, et la renommer ici
+ * la rendrait introuvable.
+ */
+function remapLegacyFieldIds(
+  questionHtml: string,
+  numeroExercice: number,
+  destinationIndex: number,
+) {
+  const pattern = (exerciceNumber: number) =>
+    new RegExp(`champTexteEx${exerciceNumber}Q0(?!-verification)`, 'g')
+  return questionHtml
+    .replace(
+      pattern(numeroExercice),
+      `champTexteEx${numeroExercice}Q${destinationIndex}`,
+    )
+    .replace(pattern(0), `champTexteEx0Q${destinationIndex}`)
+}
+
 function remapCustomElementQuestionIds(
   questionHtml: string,
   tag: InteractivityType,
@@ -104,7 +135,7 @@ function remapCustomElementQuestionIds(
   destinationIndex: number,
 ) {
   const n = numeroExercice ?? 0
-  let html = questionHtml
+  let html = remapLegacyFieldIds(questionHtml, n, destinationIndex)
     .replaceAll(`${tag}Ex${n}Q0`, `${tag}Ex${n}Q${destinationIndex}`)
     .replaceAll(
       `resultatCheckEx${n}Q0`,
@@ -633,13 +664,12 @@ export default class MetaExercice extends Exercice {
             if (qcmAutoCorrection == null && customElementFormat != null) {
               const tag = customElementFormat
               const n = Question.numeroExercice
-              const questionHtml = String(Question.listeQuestions[0])
-                .replaceAll(`${tag}Ex${n}Q0`, `${tag}Ex${n}Q${indexQuestion}`)
-                .replaceAll(
-                  'resultatCheckEx0Q0',
-                  `resultatCheckEx0Q${indexQuestion}`,
-                )
-                .replaceAll(`feedbackEx0Q0`, `feedbackEx0Q${indexQuestion}`)
+              const questionHtml = remapCustomElementQuestionIds(
+                String(Question.listeQuestions[0]),
+                tag,
+                n,
+                indexQuestion,
+              )
 
               this.listeQuestions[indexQuestion] =
                 Question.consigne + questionHtml
@@ -652,9 +682,11 @@ export default class MetaExercice extends Exercice {
                 },
               )
             } else if (qcmAutoCorrection == null) {
-              this.listeQuestions[indexQuestion] = this.listeQuestions[
-                indexQuestion
-              ].replaceAll('champTexteEx0Q0', `champTexteEx0Q${indexQuestion}`)
+              this.listeQuestions[indexQuestion] = remapLegacyFieldIds(
+                this.listeQuestions[indexQuestion],
+                Question.numeroExercice ?? 0,
+                indexQuestion,
+              )
               this.listeQuestions[indexQuestion] = this.listeQuestions[
                 indexQuestion
               ]

@@ -176,12 +176,16 @@ async function action(page: Page, description: string) {
     await page.waitForSelector('article + div')
     const buttonResult = await page.locator('article + div').innerText()
     log(buttonResult)
-    if (hasButtonNewData) {
-      logDebug('Actualier (nouvel énoncé) 3 fois')
-      setLastAction('click Nouvel énoncé x3')
-      await buttonNewData.click({ clickCount: 3 })
-      logDebug('fin Actualier (nouvel énoncé) 3 fois')
+    const scratchModal = page.locator('dialog[data-scratch-sim="true"]')
+    if (await scratchModal.isVisible()) {
+      setLastAction('fermer la modale scratch-simulator')
+      await scratchModal.getByRole('button', { name: '✕' }).click()
+      await scratchModal.waitFor({ state: 'hidden' })
     }
+    logDebug('Actualier (nouvel énoncé) 3 fois')
+    setLastAction('click Nouvel énoncé x3')
+    await buttonNewData.click({ clickCount: 3 })
+    logDebug('fin Actualier (nouvel énoncé) 3 fois')
   } else {
     // MGu : obligé car parfois on rate l'exception car trop rapide
     // await new Promise((resolve) => setTimeout(resolve, 1000)) // GV : Si on attend 1 seconde après chaque cas, il va falloir 1 an si on veut tester toutes les possibilités
