@@ -133,6 +133,7 @@ pour obtenir un ${nom} ?`,
           champ2: { value: String(360 / nbCotes) },
         },
         typeInteractivite: 'fillInTheBlank',
+        reponseParams: { formatInteractif: 'fill-in-the-blank' },
         content:
           '\\text{Ligne 3 : }%{champ1}\\quad \\text{Ligne 5 : }%{champ2}',
       })

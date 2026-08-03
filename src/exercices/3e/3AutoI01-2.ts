@@ -80,6 +80,7 @@ ${codeScratch3}<br>
       ajouteQuestionMathlive({
         exercice: this,
         question: 0,
+        reponseParams: { formatInteractif: 'mathalea-mathfield' },
         objetReponse: {
           reponse: { value: (x * a + b) / c },
         },
