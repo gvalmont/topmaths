@@ -821,12 +821,15 @@
   let isAddExerciseOpen = $state(false)
 
   /**
-   * Ouvre la modale d'ajout. La prévenance sur les modifications manuelles a
-   * lieu ici, à l'ouverture : chaque ajout régénère le code, mais l'avertir à
-   * chaque exercice ajouté serait insupportable.
+   * Ouvre la modale d'ajout. Pas de confirmation ici (contrairement aux
+   * autres actions qui régénèrent le code) : comme `deleteExercise`, ajouter
+   * un exercice est un geste déjà délibéré (plusieurs clics dans la modale),
+   * et le bloquer derrière l'avertissement générique « le code Typst a été
+   * modifié » forcerait à choisir entre perdre ses modifications et ne
+   * jamais pouvoir ajouter d'exercice tant que le code a été retouché à la
+   * main.
    */
   function openAddExercise() {
-    if (!confirmOverwrite()) return
     isAddExerciseOpen = true
   }
 

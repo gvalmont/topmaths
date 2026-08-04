@@ -284,15 +284,25 @@
           <!-- eslint-disable-next-line svelte/no-at-html-tags -->
           <p class="mb-1">{@html format(exercise.introduction)}</p>
         {/if}
+        <!-- `list-inside` : le conteneur n'a que overflow-y réglé, ce qui
+             force overflow-x à se comporter en `auto` (règle CSS Overflow) et
+             rogne tout ce qui déborderait à gauche — dont les numéros en
+             `list-style-position: outside` (défaut), qui débordent dans la
+             marge sans réserver de place. `list-inside` les remet dans le
+             flux normal du contenu, sans dépassement possible. -->
         <ul
           class="{exercise.listeQuestions.length === 1 ||
           exercise.listeAvecNumerotation === false
             ? 'list-none'
-            : 'list-decimal'} ml-4 space-y-1"
+            : 'list-decimal list-inside'} space-y-1"
         >
           {#each exercise.listeQuestions as question}
             <!-- eslint-disable-next-line svelte/no-at-html-tags -->
-            <li>{@html format(question)}</li>
+            <li
+              class="marker:font-bold marker:text-coopmaths-struct dark:marker:text-coopmathsdark-struct"
+            >
+              {@html format(question)}
+            </li>
           {/each}
         </ul>
       </div>

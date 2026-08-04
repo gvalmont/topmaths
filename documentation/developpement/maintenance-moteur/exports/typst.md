@@ -102,9 +102,12 @@ Côté `Typst.svelte`, `addExerciseToSheet` ajoute les paramètres à
 relit les sources `.typ`/images statiques puis régénère le code. Les réglages
 de la palette ne sont pas décalés : l'ajout se fait après le dernier exercice,
 aucun numéro existant ne change (une insertion de texte présente au dernier
-repère se retrouve donc avant le nouvel exercice). L'avertissement sur les
-modifications manuelles du code (`confirmOverwrite`) est demandé une seule
-fois, à l'ouverture de la modale.
+repère se retrouve donc avant le nouvel exercice). Contrairement aux autres
+actions qui régénèrent le code, ouvrir la modale ne demande pas confirmation
+même si le code a été modifié à la main (`isEdited`) : comme `deleteExercise`,
+ajouter un exercice est déjà un geste délibéré, et bloquer la modale derrière
+l'avertissement générique interdirait tout ajout tant que le code a été
+retouché à la main.
 
 ## Lignes en pointillés (« Lignes pour écrire »)
 
