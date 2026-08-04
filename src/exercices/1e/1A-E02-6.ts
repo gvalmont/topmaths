@@ -31,6 +31,7 @@ export default class Auto1AE026 extends ExerciceQcmA {
   ): void {
     const coefficientMultiplicateur = (100 + pourcentage) / 100
     const coefficientTexte = texNombre(coefficientMultiplicateur, 2)
+    const coefficientDeDiminutionTexte = texNombre((100 - pourcentage) / 100, 2)
     const tauxDecimal = texNombre(pourcentage / 100, 2)
     const prixFinalTexte = texNombre(prixFinal)
 
@@ -49,9 +50,11 @@ export default class Auto1AE026 extends ExerciceQcmA {
     const distracteurs = [
       `$${prixFinalTexte} \\times ${coefficientTexte}$`,
       `$${prixFinalTexte} \\times \\left(1 - \\dfrac{${pourcentage}}{100}\\right)$`,
+      `$${prixFinalTexte} - ${prixFinalTexte} \\times \\dfrac{${pourcentage}}{100}$`,
       `$\\dfrac{${prixFinalTexte}}{${tauxDecimal}}$`,
       `$${prixFinalTexte} + ${prixFinalTexte} \\times \\dfrac{${pourcentage}}{100}$`,
       `$\\dfrac{${prixFinalTexte}}{1 - \\dfrac{${pourcentage}}{100}}$`,
+      `$\\dfrac{${prixFinalTexte}}{${coefficientDeDiminutionTexte}}$`,
       `$${prixFinalTexte} \\times \\dfrac{${pourcentage}}{${100 + pourcentage}}$`,
     ]
 
