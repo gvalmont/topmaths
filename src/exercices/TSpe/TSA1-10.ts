@@ -149,7 +149,7 @@ export default class LimitesSuitesDeReference extends Exercice {
           break
         case 'cosinus':
           donnees = {
-            expression: `${rienSi1(coefficient)}\\cos(${coefficientArgument}n)`,
+            expression: `${rienSi1(coefficient)}\\cos(n)`,
             reponse: '\\not\\exists',
             correction:
               "La fonction cosinus est périodique. La suite $(u_n)$ n'admet donc pas de limite.",
