@@ -54,11 +54,11 @@ export default class CourbeDepuisTableauDeVariations extends ExerciceQcmA {
         ligneAbscisses,
       ],
       tabLines: [ligneVariations],
-      espcl: 1.7,
-      deltacl: 0.7,
-      lgt: 1.8,
-      scale: 0.7,
-      hauteurLignes: [15, 15],
+      espcl: 2.4,
+      deltacl: 0.9,
+      lgt: 2,
+      scale: 0.75,
+      hauteurLignes: [18, 18],
     })
   }
 
@@ -211,7 +211,7 @@ export default class CourbeDepuisTableauDeVariations extends ExerciceQcmA {
   constructor() {
     super()
     this.besoinFormulaireCaseACocher = false
-    this.options = { vertical: false, ordered: false }
+    this.options = { vertical: true, ordered: false }
     this.versionAleatoire()
   }
 }

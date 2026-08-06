@@ -5,6 +5,7 @@ import { tableauDeVariation } from '../../lib/mathFonctions/etudeFonction'
 import { spline } from '../../lib/mathFonctions/Spline'
 import { choice } from '../../lib/outils/arrayOutils'
 import { texNombre } from '../../lib/outils/texNombre'
+import { context } from '../../modules/context'
 import { mathalea2d } from '../../modules/mathalea2d'
 import ExerciceQcmA from '../ExerciceQcmA'
 import { nombreElementsDifferents } from '../ExerciceQcm'
@@ -52,11 +53,11 @@ export default class TableauDeVariationsGraphique extends ExerciceQcmA {
         ligneAbscisses,
       ],
       tabLines: [ligneVariations],
-      espcl: 1.7,
-      deltacl: 0.7,
-      lgt: 1.8,
-      scale: 0.7,
-      hauteurLignes: [15, 15],
+      espcl: 2.8,
+      deltacl: 1,
+      lgt: 2.2,
+      scale: context.isHtml ? 0.75 : 0.5,
+      hauteurLignes: [18, 18],
     })
   }
 
@@ -154,15 +155,27 @@ export default class TableauDeVariationsGraphique extends ExerciceQcmA {
       positionsAvecOubli,
     )
 
-    this.enonce = `On donne ci-dessous la représentation graphique d'une fonction $f$.<br>
-    ${figure}<br><br>
-    Quel est le tableau de variations de la fonction $f$ ?`
     this.reponses = [
       tableauCorrect,
       tableauAxesInverses,
       tableauSigneEtVariation,
       tableauSubtil,
-    ].map((tableau) => `<div style="margin: 1rem 1.25rem;">${tableau}</div>`)
+    ].map((tableau) =>
+      context.isHtml && !context.isTypst
+        ? `<div style="margin: 1.25rem 0.75rem;">${tableau}</div>`
+        : tableau,
+    )
+    const propositionsTypst = context.isTypst
+      ? `<br><br>${this.reponses
+          .map(
+            (proposition, index) =>
+              `${String.fromCharCode(65 + index)}. ${proposition}`,
+          )
+          .join('<br><br>')}`
+      : ''
+    this.enonce = `On donne ci-dessous la représentation graphique d'une fonction $f$.<br>
+    ${figure}<br><br>
+    Quel est le tableau de variations de la fonction $f$ ?${propositionsTypst}`
 
     const intervalles = abscisses
       .slice(0, -1)
@@ -185,10 +198,28 @@ export default class TableauDeVariationsGraphique extends ExerciceQcmA {
     } while (nombreElementsDifferents(this.reponses) < 4)
   }
 
+  nouvelleVersion(): void {
+    super.nouvelleVersion()
+    if (!context.isHtml) {
+      this.listeQuestions = this.listeQuestions.map((question) =>
+        question.replaceAll(
+          '\\begin{qcmprop}[cols=4]',
+          '\\begin{qcmprop}[cols=2]',
+        ),
+      )
+      this.listeCorrections = this.listeCorrections.map((correction) =>
+        correction.replaceAll(
+          '\\begin{qcmprop}[cols=4',
+          '\\begin{qcmprop}[cols=2',
+        ),
+      )
+    }
+  }
+
   constructor() {
     super()
     this.besoinFormulaireCaseACocher = false
-    this.options = { vertical: false, ordered: false }
+    this.options = { vertical: false, ordered: context.isTypst }
     this.versionAleatoire()
   }
 }
