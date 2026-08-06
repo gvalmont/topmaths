@@ -22,6 +22,7 @@ export const titre = 'Conjecturer des limites à partir d’une courbe'
 export const dateDePublication = '06/08/2026'
 
 type Limite = number | '+inf' | '-inf' | 'pas'
+type ValeurLimite = Exclude<Limite, 'pas'>
 type CoupleLimites = [Limite, Limite]
 
 type Situation = {
@@ -35,15 +36,25 @@ type Situation = {
 export default class ConjecturerLimitesGraphiquement extends ExerciceQcmA {
   private typesDeQuestions: number[] = []
 
-  private limiteTex(limite: Limite): string {
+  private limiteTex(limite: ValeurLimite): string {
     if (limite === '+inf') return '+\\infty'
     if (limite === '-inf') return '-\\infty'
-    if (limite === 'pas') return '\\text{Pas de limite}'
     return `${limite}`
   }
 
+  private expressionLimiteTex(
+    sens: '-' | '+',
+    limite: Limite,
+    miseEnValeur = false,
+  ): string {
+    const expression = `\\displaystyle \\lim_{x\\to${sens}\\infty}f(x)`
+    if (limite === 'pas') return `$${expression}$ n'existe pas`
+    const valeur = this.limiteTex(limite)
+    return `$${expression}=${miseEnValeur ? miseEnEvidence(valeur) : valeur}$`
+  }
+
   private propositionTex([limiteMoins, limitePlus]: CoupleLimites): string {
-    return `$\\displaystyle \\lim_{x\\to-\\infty}f(x)=${this.limiteTex(limiteMoins)}$ et $\\displaystyle \\lim_{x\\to+\\infty}f(x)=${this.limiteTex(limitePlus)}$`
+    return `${this.expressionLimiteTex('-', limiteMoins)} et ${this.expressionLimiteTex('+', limitePlus)}`
   }
 
   private construireSituation(type: number): Situation {
@@ -194,8 +205,8 @@ export default class ConjecturerLimitesGraphiquement extends ExerciceQcmA {
         : `Lorsque $x$ tend vers $+\\infty$, la courbe suggère que $f(x)$ tend vers $${this.limiteTex(limiteDroite)}$.`
     this.correction = `${conclusionGauche}<br>${conclusionDroite}<br>
       On conjecture donc :<br>
-      $\\displaystyle \\lim_{x\\to-\\infty}f(x)=${miseEnEvidence(this.limiteTex(limiteGauche))}$ et
-      $\\displaystyle \\lim_{x\\to+\\infty}f(x)=${miseEnEvidence(this.limiteTex(limiteDroite))}$.`
+      ${this.expressionLimiteTex('-', limiteGauche, true)} et
+      ${this.expressionLimiteTex('+', limiteDroite, true)}.`
   }
 
   versionAleatoire: () => void = () => {
