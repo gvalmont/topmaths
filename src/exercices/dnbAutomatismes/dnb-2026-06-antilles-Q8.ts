@@ -1,5 +1,6 @@
 import Figure from 'apigeom'
 import type Point from 'apigeom/src/elements/points/Point'
+import { apigeomFigureToSvg } from '../../lib/apigeom/apigeom-figure'
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 import { choice } from '../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
@@ -73,6 +74,7 @@ export default class AutoQ8Antillesbrevet2026 extends ExerciceCan {
     figure.create('TextByPosition', { x: 0.6, y: 0.35, text: '$x$' })
     figure.create('TextByPosition', { x: 3.4, y: 0.35, text: '$x$' })
 
+    if (context.isTypst) return apigeomFigureToSvg(figure)
     if (!context.isHtml) return figure.tikz()
     return figure.getStaticHtml({ center: true })
   }

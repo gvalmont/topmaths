@@ -1,4 +1,5 @@
 import Figure from 'apigeom'
+import { apigeomFigureToSvg } from '../../lib/apigeom/apigeom-figure'
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 import { choice, shuffle } from '../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
@@ -101,6 +102,7 @@ export default class AutoQ2Antillesbrevet2026 extends ExerciceCan {
     })
     figure.optimizeLabels()
 
+    if (context.isTypst) return apigeomFigureToSvg(figure)
     return context.isHtml
       ? figure.getStaticHtml({ center: true })
       : figure.tikz()

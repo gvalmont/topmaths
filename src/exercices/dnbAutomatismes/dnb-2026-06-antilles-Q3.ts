@@ -2,6 +2,7 @@ import Figure from 'apigeom'
 import type Point from 'apigeom/src/elements/points/Point'
 import { context } from '../../modules/context'
 import ExerciceQcmA from '../ExerciceQcmA'
+import { apigeomFigureToSvg } from '../../lib/apigeom/apigeom-figure'
 import { creerNomDePolygone } from '../../lib/outils/outilString'
 
 export const uuid = 'f5a23'
@@ -73,9 +74,11 @@ export default class AutoQ3Antillesbrevet2026 extends ExerciceQcmA {
     figure.create('Polygon', { points: [A, B, C] })
     figure.create('MarkRightAngle', { point: H, directionPoint: A })
 
-    const displayedFigure = context.isHtml
-      ? figure.getStaticHtml({ center: true })
-      : figure.tikz()
+    const displayedFigure = context.isTypst
+      ? apigeomFigureToSvg(figure)
+      : context.isHtml
+        ? figure.getStaticHtml({ center: true })
+        : figure.tikz()
     return [displayedFigure, labelA, labelB, labelC, labelH]
   }
 
