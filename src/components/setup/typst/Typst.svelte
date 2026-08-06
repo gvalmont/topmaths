@@ -2687,6 +2687,15 @@
             <label class="flex items-center gap-2 text-sm cursor-pointer">
               <input
                 type="checkbox"
+                bind:checked={documentOptions.showCorrections}
+                onchange={applyDocumentOptions}
+              />
+              Afficher la correction
+            </label>
+
+            <label class="flex items-center gap-2 text-sm cursor-pointer">
+              <input
+                type="checkbox"
                 bind:checked={documentOptions.mergeExercises}
                 onchange={applyDocumentOptions}
               />

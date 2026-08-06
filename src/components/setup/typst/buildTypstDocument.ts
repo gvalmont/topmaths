@@ -385,6 +385,11 @@ export interface TypstDocumentOptions {
    * seul sur MathALÉA (comme la sortie LaTeX). Sans effet en mode fusionné.
    */
   showQrCode: boolean
+  /**
+   * Affiche la correction dans le document généré (`#let corrige`). Décochée,
+   * seuls les énoncés sont rendus, sans bloc « Corrections » ni titre associé.
+   */
+  showCorrections: boolean
   /** Nombre de colonnes du document (1, 2 ou 3) */
   columns: number
   /** Format de page */
@@ -513,6 +518,7 @@ export const defaultTypstDocumentOptions: TypstDocumentOptions = {
   autoVerticalSpacing: true,
   boldQuestionNumbers: true,
   showExerciseRefs: false,
+  showCorrections: true,
   columns: 1,
   pageFormat: 'a4',
   orientation: 'portrait',
@@ -1488,7 +1494,9 @@ export function buildTypstDocument(
   lines.push(
     `#let colonnes = ${options.columns} // nombre de colonnes (1, 2 ou 3)`,
   )
-  lines.push('#let corrige = true // afficher les corrections')
+  lines.push(
+    `#let corrige = ${options.showCorrections} // afficher les corrections`,
+  )
   lines.push(
     `#let couleur = ${options.badgeColor} // couleur des badges d'exercice et des titres`,
   )
