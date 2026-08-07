@@ -11,7 +11,7 @@ export const amcReady = true
 export const amcType = 'qcmMono'
 export const interactifReady = true
 export const interactifType = 'qcm'
-export const uuid = '637c9'
+export const uuid = 'fb646'
 export const refs = {
   'fr-fr': ['1A-P03-5', '2A-P3-5'],
   'fr-ch': [],
