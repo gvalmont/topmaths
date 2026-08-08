@@ -29,7 +29,7 @@ export const titre = 'Représenter des données par un diagramme'
 export const uuid = 'd3ba7'
 
 export const refs = {
-  'fr-fr': [],
+  'fr-fr': ['5D1D-1'],
   'fr-2016': [],
   'fr-ch': [],
 }
@@ -46,7 +46,7 @@ export default class ConstruireUnDiagramme2 extends Exercice {
     ]
     this.besoinFormulaire3Texte = [
       'Type de diagramme',
-      '0 : Mélange\n1 : Diagramme circulaire\n2 : Diagramme semi-circulaire\n3 : Diagramme en bâtons\n4 : Diagramme cartésien',
+      '0 : Mélange\n1 : Diagramme circulaire\n2 : Diagramme semi-circulaire\n3 : Diagramme en bâtons',
     ]
     this.besoinFormulaire4CaseACocher = [
       'Afficher le status du graphique',
@@ -81,7 +81,7 @@ export default class ConstruireUnDiagramme2 extends Exercice {
     const listeIndexTypeDeDiagrammes = gestionnaireFormulaireTexte({
       saisie: this.sup3,
       min: 1,
-      max: 4,
+      max: 3,
       defaut: 1,
       nbQuestions: this.nbQuestions,
       melange: 0,
@@ -180,19 +180,24 @@ export default class ConstruireUnDiagramme2 extends Exercice {
       }
       contenutableau.push(effectiftotal)
       texte += `${tableauColonneLigne(entete, ['\\text{Effectifs}'], contenutableau.map(String))}<br><br>`
+      // On mélange les données pour en changer l'ordre (pour tous les cas)
+      shuffle2tableaux(lstAnimauxExo, lstNombresAnimaux)
       let expectedAnswer: string = ''
       switch (listeIndexTypeDeDiagrammes[i]) {
         case 2:
         case 1: {
           // diagramme circulaire
           const shape = listeIndexTypeDeDiagrammes[i] === 1 ? 'pie' : 'semi-pie'
+          const targetAngle = shape === 'pie' ? 360 : 180
           const emptyValues = {
             items: lstAnimauxExo.map((animal) =>
               Object.assign({}, { label: animal, effectif: 0, angle: 0 }),
             ),
             mode: 'angle' as PieAssessmentMode,
             shape: shape as PieAssessmentShape,
+            targetAngle,
             infosStatus: this.sup4,
+            interactivityOn: true,
           }
           const value = {
             items: lstAnimauxExo.map((animal, index) =>
@@ -201,12 +206,16 @@ export default class ConstruireUnDiagramme2 extends Exercice {
                 {
                   label: animal,
                   effectif: lstNombresAnimaux[index],
-                  angle: (360 * lstNombresAnimaux[index]) / effectiftotal,
+                  angle:
+                    (targetAngle * lstNombresAnimaux[index]) / effectiftotal,
                 },
               ),
             ),
             mode: 'angle' as PieAssessmentMode,
             shape: shape as PieAssessmentShape,
+            targetAngle,
+            infosStatus: this.sup4,
+            interactivityOn: false,
           }
           expectedAnswer = JSON.stringify(value)
           texte +=
@@ -216,10 +225,14 @@ export default class ConstruireUnDiagramme2 extends Exercice {
 
           break
         }
-        case 3: {
+        case 3:
+        default: {
           // diagramme en bâtons
           const valMax = Math.max(...lstNombresAnimaux)
           const unitValue = listeIndexValeursNumeriques[i] === 1 ? 20 : 200
+          // Ces values sont là en guise d'exemples d'utilisation de l'élément pour différents scénarios.
+          // value1 demandera de choisir le label à partir de la donnée de la hauteur des barres (le graphique est déjà construit mais les labels sont anonymes)
+          // value2 demandera de donner l'effectif (on suppose que vous avez donné les hauteurs des barres dans l'énoncé, le diagramme se construit au fur et à mesure à partir des effectifs)
           /*   const value1 = {
             unitValue,
             unitLabel: `individus`,
@@ -248,7 +261,6 @@ export default class ConstruireUnDiagramme2 extends Exercice {
             items: shuffle(lstAnimauxExo.map((animal) => ({ label: animal }))),
           }
             */
-          shuffle2tableaux(lstAnimauxExo, lstNombresAnimaux)
           const emptyValues = {
             unitValue,
             unitLabel: `individus`,
@@ -292,6 +304,71 @@ export default class ConstruireUnDiagramme2 extends Exercice {
           texteCorr = `Le diagramme en bâtons correspondant est le suivant :<br><br>${addDiagramBarAssessment(this, i, value)}`
           break
         }
+        // Ce cas n'a aucun intérêt ici c'est juste pour illustrer le payload du diagramme cartésien inutilisé dans cet exercice
+        /*   case 4: {
+          const valMax = Math.max(...lstNombresAnimaux)
+          const unitValue = listeIndexValeursNumeriques[i] === 1 ? 20 : 200
+          const emptyValues = {
+            unitValue,
+            unitLabel: `individus`,
+            xMin: 0,
+            xMax: 5,
+            yMin: 0,
+            yMax: Math.ceil(valMax / unitValue) * unitValue,
+            points: lstAnimauxExo.map((animal, index) =>
+              Object.assign({}, { label: animal, x: null, y: null }),
+            ),
+            infosStatus: this.sup4,
+            interactivityOn: true,
+            items: lstAnimauxExo.map((animal, index) =>
+              Object.assign(
+                {},
+                {
+                  label: animal,
+                  height: lstNombresAnimaux[index] / unitValue,
+                },
+              ),
+            ),
+          }
+          const value = {
+            unitValue,
+            unitLabel: `individus`,
+            xMin: 0,
+            xMax: 5,
+            yMin: 0,
+            yMax: Math.ceil(valMax / unitValue) * unitValue,
+            points: lstAnimauxExo.map((animal, index) =>
+              Object.assign(
+                {},
+                {
+                  label: animal,
+                  x: index,
+                  y: lstNombresAnimaux[index] / unitValue,
+                },
+              ),
+            ),
+            mode: 'hauteur' as BarAssessmentMode,
+            labelValueKind: 'hauteur' as const,
+            infosStatus: this.sup4,
+            interactivityOn: false,
+            items: lstAnimauxExo.map((animal, index) =>
+              Object.assign(
+                {},
+                {
+                  label: animal,
+                  effectif: lstNombresAnimaux[index],
+                  height: lstNombresAnimaux[index] / unitValue,
+                },
+              ),
+            ),
+          }
+          expectedAnswer = JSON.stringify(value)
+          texte +=
+            `Représenter ces données par un diagramme en bâtons (une unité représente ${unitValue} individus).<br><br>` +
+            addDiagramCartesianAssessment(this, i, emptyValues)
+          texteCorr = `Le diagramme en bâtons correspondant est le suivant :<br><br>${addDiagramCartesianAssessment(this, i, value)}`
+        }
+          */
       }
       handleAnswers(
         this,

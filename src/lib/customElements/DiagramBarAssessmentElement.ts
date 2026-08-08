@@ -658,8 +658,12 @@ export class DiagramBarAssessmentElement extends MathaleaCustomElement {
         }
         .grid {
           display: grid;
-          grid-template-columns: 1fr;
+          grid-template-columns: 1fr 1fr;
           gap: 8px;
+          align-items: start;
+          grid-template-areas: 
+            "title title"
+            "table preview";
         }
         .meta {
           display: flex;
@@ -669,8 +673,8 @@ export class DiagramBarAssessmentElement extends MathaleaCustomElement {
           color: #334155;
         }
         table {
-          width: 100%;
           border-collapse: collapse;
+          table-layout: auto;
         }
         th,
         td {
@@ -699,16 +703,21 @@ export class DiagramBarAssessmentElement extends MathaleaCustomElement {
           display: block;
           background: #fff;
         }
+        @media (max-width: 768px) {
+          .grid {
+            grid-template-columns: 1fr;
+            grid-template-areas: 
+              "title"
+              "table"
+              "preview";
+          }
+        }
       </style>
       <div class="grid">
-        <div class="meta">
-          <div>Unité: 1 ${this.escapeText(this.state.unitLabel)} = ${this.state.unitValue}</div>
-          <div>Tolérance: ${this.state.tolerance}</div>
-        </div>
         ${
           this.state.title.trim() === ''
             ? ''
-            : `<div>${this.escapeText(this.state.title.trim())}</div>`
+            : `<div class="title">${this.escapeText(this.state.title.trim())}</div>`
         }
         ${this.renderTable(disableAttr)}
         <div class="preview" id="preview"></div>
@@ -923,6 +932,7 @@ export class DiagramBarAssessmentElement extends MathaleaCustomElement {
         : 'Effectif'
 
     return `
+    <div style="display: inline-grid;">
       <table>
         <thead>
           <tr>
@@ -989,6 +999,7 @@ export class DiagramBarAssessmentElement extends MathaleaCustomElement {
             .join('')}
         </tbody>
       </table>
+      </div>
     `
   }
 
