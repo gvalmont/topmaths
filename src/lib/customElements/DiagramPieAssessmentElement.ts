@@ -1,4 +1,5 @@
 import { context } from '../../modules/context'
+import { texNombre } from '../outils/texNombre'
 import type { IExercice } from '../types'
 import MathaleaCustomElement, {
   registerMathaleaCustomElement,
@@ -391,6 +392,26 @@ export class DiagramPieAssessmentElement extends MathaleaCustomElement {
 
     const target = targetAngle ?? (shape === 'semi-pie' ? 180 : 360)
 
+    if (!context.isHtml || context.isTypst) {
+      const element = new DiagramPieAssessmentElement()
+      element.setAttribute(
+        'interactivity-on',
+        interactivityOn ? 'true' : 'false',
+      )
+      element.state = {
+        ...structuredClone(DEFAULT_STATE),
+        title,
+        shape,
+        mode,
+        targetAngle: target,
+        tolerance,
+        infosStatus,
+        hiddenColumns,
+        items: normalizeItems(items),
+      }
+      return element.renderLatex()
+    }
+
     return super.create({
       id:
         id ??
@@ -660,12 +681,13 @@ export class DiagramPieAssessmentElement extends MathaleaCustomElement {
         }
         .grid {
           display: grid;
-          grid-template-columns: 1fr;
+          grid-template-columns: 1fr 1fr;
           gap: 8px;
+          align-items: start;
         }
         table {
-          width: 100%;
           border-collapse: collapse;
+          table-layout: auto;
         }
         th,
         td {
@@ -682,6 +704,9 @@ export class DiagramPieAssessmentElement extends MathaleaCustomElement {
           border-radius: 6px;
           padding: 6px;
           background: #f8fafc;
+        }
+        .title {
+          grid-column: 1 / -1;
         }
         .status {
           font-size: 0.9rem;
@@ -715,12 +740,17 @@ export class DiagramPieAssessmentElement extends MathaleaCustomElement {
           display: block;
           background: #fff;
         }
+        @media (max-width: 768px) {
+          .grid {
+            grid-template-columns: 1fr;
+          }
+        }
       </style>
       <div class="grid">
         ${
           this.state.title.trim() === ''
             ? ''
-            : `<div>${this.escapeText(this.state.title.trim())}</div>`
+            : `<div class="title">${this.escapeText(this.state.title.trim())}</div>`
         }
         ${this.renderTable(disableAttr)}
         <div class="preview" id="preview"></div>
@@ -732,7 +762,23 @@ export class DiagramPieAssessmentElement extends MathaleaCustomElement {
   }
 
   protected renderLatex(): string {
-    return ''
+    const title = this.state.title.trim()
+    const titleLatex =
+      title === '' ? '' : `\\textbf{${this.escapeLatex(title)}}\\\\[0.4em]\n`
+    const diagram = this.interactivityOn
+      ? this.renderEmptyPieTikz()
+      : this.renderFilledPieTikz()
+    return `\\begin{center}
+${titleLatex}\\begin{minipage}[t]{0.48\\linewidth}
+\\centering
+${this.renderLatexTable()}
+\\end{minipage}
+\\hfill
+\\begin{minipage}[t]{0.48\\linewidth}
+\\centering
+${diagram}
+\\end{minipage}
+\\end{center}`
   }
 
   get value(): string {
@@ -1054,6 +1100,101 @@ export class DiagramPieAssessmentElement extends MathaleaCustomElement {
     return { svg, usedAngle }
   }
 
+  private renderLatexTable(): string {
+    const columns: PieAssessmentColumn[] = []
+    if (this.isColumnVisible('label')) columns.push('label')
+    if (this.isColumnVisible('effectif')) columns.push('effectif')
+    if (this.isColumnVisible('angle')) columns.push('angle')
+
+    if (columns.length === 0) return '\\emph{Aucune colonne à afficher.}'
+
+    const headers: Record<PieAssessmentColumn, string> = {
+      label: 'Catégorie',
+      effectif: 'Effectif',
+      angle: 'Angle ($^\\circ$)',
+    }
+    const columnSpec = `|${columns.map(() => 'c').join('|')}|`
+    const headerRow = columns.map((column) => headers[column]).join(' & ')
+    const rows = this.state.items
+      .map((item, index) =>
+        columns
+          .map((column) => this.renderLatexTableCell(item, index, column))
+          .join(' & '),
+      )
+      .map((row) => `${row} \\\\ \\hline`)
+      .join('\n')
+
+    return `\\begin{tabular}{${columnSpec}}
+\\hline
+${headerRow} \\\\ \\hline
+${rows}
+\\end{tabular}`
+  }
+
+  private renderLatexTableCell(
+    item: PieAssessmentItem,
+    index: number,
+    column: PieAssessmentColumn,
+  ): string {
+    if (this.interactivityOn && this.state.mode === column) {
+      return column === 'label'
+        ? '\\makebox[3cm]{\\dotfill}'
+        : '\\makebox[1.8cm]{\\dotfill}'
+    }
+
+    if (column === 'label') return this.escapeLatex(item.label)
+    if (column === 'effectif') return this.formatLatexNumber(item.effectif)
+    return this.formatLatexNumber(this.itemAngleForDisplay(item, index))
+  }
+
+  private renderEmptyPieTikz(): string {
+    const radius = 2
+    const frame =
+      this.state.shape === 'semi-pie'
+        ? `\\draw[thick] (-${radius},0) arc[start angle=180,end angle=360,radius=${radius}] -- cycle;`
+        : `\\draw[thick] (0,0) circle (${radius});`
+
+    return `\\begin{tikzpicture}
+${frame}
+\\end{tikzpicture}`
+  }
+
+  private renderFilledPieTikz(): string {
+    const radius = 2
+    const isSemi = this.state.shape === 'semi-pie'
+    const target = this.state.targetAngle
+    let usedAngle = 0
+    let startDeg = isSemi ? 180 : -90
+    const slices: string[] = []
+
+    this.state.items.forEach((item, index) => {
+      const requested = Math.max(0, this.itemAngleForDisplay(item, index))
+      if (requested <= 0) return
+
+      const remaining = Math.max(0, target - usedAngle)
+      if (remaining <= 0) return
+
+      const drawn = Math.min(requested, remaining)
+      const endDeg = startDeg + drawn
+      const colorName = this.tikzColorName(index)
+      slices.push(
+        `\\definecolor{${colorName}}{HTML}{${this.colorForIndex(index).slice(1)}}`,
+        `\\filldraw[fill=${colorName}, draw=white] (0,0) -- (${this.formatTikzNumber(startDeg)}:${radius}) arc[start angle=${this.formatTikzNumber(startDeg)}, end angle=${this.formatTikzNumber(endDeg)}, radius=${radius}] -- cycle;`,
+      )
+      usedAngle += drawn
+      startDeg = endDeg
+    })
+
+    const frame = isSemi
+      ? `\\draw[thick] (-${radius},0) arc[start angle=180,end angle=360,radius=${radius}] -- cycle;`
+      : `\\draw[thick] (0,0) circle (${radius});`
+
+    return `\\begin{tikzpicture}
+${slices.join('\n')}
+${frame}
+\\end{tikzpicture}`
+  }
+
   private arcPath(
     cx: number,
     cy: number,
@@ -1144,6 +1285,18 @@ export class DiagramPieAssessmentElement extends MathaleaCustomElement {
     return PIE_COLORS[index % PIE_COLORS.length]
   }
 
+  private tikzColorName(index: number): string {
+    return `mathaleaPieColor${index}`
+  }
+
+  private formatLatexNumber(value: number): string {
+    return texNombre(value, Number.isInteger(value) ? 0 : 1)
+  }
+
+  private formatTikzNumber(value: number): string {
+    return Number.isInteger(value) ? String(value) : value.toFixed(1)
+  }
+
   private isColumnVisible(column: PieAssessmentColumn): boolean {
     if (this.state.hiddenColumns.includes(column)) return false
     if (this.state.mode === 'angle' && column === 'effectif') return false
@@ -1158,6 +1311,20 @@ export class DiagramPieAssessmentElement extends MathaleaCustomElement {
       .replaceAll('<', '&lt;')
       .replaceAll('>', '&gt;')
   }
+
+  private escapeLatex(value: string): string {
+    return value
+      .replaceAll('\\', '\\textbackslash{}')
+      .replaceAll('&', '\\&')
+      .replaceAll('%', '\\%')
+      .replaceAll('$', '\\$')
+      .replaceAll('#', '\\#')
+      .replaceAll('_', '\\_')
+      .replaceAll('{', '\\{')
+      .replaceAll('}', '\\}')
+      .replaceAll('~', '\\textasciitilde{}')
+      .replaceAll('^', '\\textasciicircum{}')
+  }
 }
 
 export function addDiagramPieAssessment(
@@ -1165,7 +1332,6 @@ export function addDiagramPieAssessment(
   questionIndex: number,
   options: PieAssessmentOptions,
 ): string {
-  if (!context.isHtml) return ''
   if (exercice.autoCorrection[questionIndex] == null) {
     exercice.autoCorrection[questionIndex] = {}
   }
