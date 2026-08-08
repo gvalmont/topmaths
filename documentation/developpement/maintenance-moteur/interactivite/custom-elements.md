@@ -176,6 +176,21 @@ fonction, elle est appelée au `disconnectedCallback()`.
 
 ## Cas avancés
 
+## Cas spécifique : diagrammes (outil prof vs évaluation)
+
+Pour les diagrammes, distinguer explicitement deux usages.
+
+- Outil auteur/prof (construction libre) : `diagram-builder`.
+  - Usage recommandé : préparation d'énoncés, de corrections, d'exemples visuels.
+  - Non recommandé pour évaluer directement un élève sur une compétence de construction.
+- Outils d'évaluation (contraints) : un composant par scénario métier.
+  - Exemple : `diagram-pie-assessment` pour un exercice d'angles de secteurs.
+  - Exemple : `diagram-bar-assessment` pour un exercice de hauteurs de bâtons avec unité.
+
+Principe pédagogique : en mode évaluation, l'élève ne doit pas pouvoir "obtenir"
+le graphique complet par simple saisie des données de l'énoncé. Le composant doit
+imposer la variable didactique attendue (angles, hauteurs, échelles, etc.).
+
 - MySpreadsheetElement (tableur) : [architecture du tableur](tableur.md)
 - BlocklyEditor : [architecture de Scratch et Blockly](scratch-blockly.md)
 - RelierEtiquettesElement (composant à trois rendus : HTML interactif, LaTeX et Typst) : [relier les étiquettes](relier-etiquettes.md)
