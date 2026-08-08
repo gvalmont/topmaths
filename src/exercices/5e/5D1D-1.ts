@@ -1,7 +1,15 @@
 import { tableauColonneLigne } from '../../lib/2d/tableau'
-import { addDiagramBuilder } from '../../lib/customElements/DiagramBuilderElement'
+import {
+  addDiagramBarAssessment,
+  type BarAssessmentMode,
+} from '../../lib/customElements/DiagramBarAssessmentElement'
+import {
+  addDiagramPieAssessment,
+  type PieAssessmentMode,
+  type PieAssessmentShape,
+} from '../../lib/customElements/DiagramPieAssessmentElement'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
-import { choice } from '../../lib/outils/arrayOutils'
+import { choice, shuffle2tableaux } from '../../lib/outils/arrayOutils'
 import { rangeMinMax } from '../../lib/outils/nombres'
 import {
   gestionnaireFormulaireTexte,
@@ -40,6 +48,11 @@ export default class ConstruireUnDiagramme2 extends Exercice {
       'Type de diagramme',
       '0 : Mélange\n1 : Diagramme circulaire\n2 : Diagramme semi-circulaire\n3 : Diagramme en bâtons\n4 : Diagramme cartésien',
     ]
+    this.besoinFormulaire4CaseACocher = [
+      'Afficher le status du graphique',
+      false,
+    ]
+    this.sup4 = false
     this.nbQuestions = 1
     this.nbQuestionsModifiable = false
     this.sup = '3'
@@ -75,15 +88,10 @@ export default class ConstruireUnDiagramme2 extends Exercice {
     }).map(Number)
     for (let i = 0; i < this.nbQuestions; i++) {
       let nom
-      let texte
-      let texteCorr
       const contenutableau: number[] = []
       const lstAnimauxExo: string[] = [] // liste des animaux uniquement cités dans l'exercice
       const lstNombresAnimaux: number[] = [] // liste des effectifs de chaque animal
 
-      let paramsEnonce, paramsCorrection, coef, r, lstElementGraph, g
-      const objetsEnonce = []
-      const objetsCorrection = []
       const lstAnimaux = [
         'girafes',
         'zèbres',
@@ -121,11 +129,11 @@ export default class ConstruireUnDiagramme2 extends Exercice {
         'Vlane',
       ]
 
-      texte =
+      let texte =
         'Dans le parc naturel de ' +
         choice(lstNomParc) +
         ", il y a beaucoup d'animaux.<br> Voici un tableau qui donne le nombre d'individus de quelques espèces.<br><br>"
-      texteCorr = ''
+      let texteCorr = ''
       const entete = ['\\text{Animaux}']
 
       const nbAnimaux = listeNombreEspeces[i] // nombre d'animaux différents dans l'énoncé
@@ -166,25 +174,136 @@ export default class ConstruireUnDiagramme2 extends Exercice {
         entete.push(`\\text{${nom}}`)
       }
 
-      let emptyValues: string[] = []
-      switch (listeIndexTypeDeDiagrammes[i]) {
-        case 1:
-          emptyValues = new Array(2 * nbAnimaux).fill('', 0, 2 * nbAnimaux)
-          texte += `${tableauColonneLigne(entete, ['\\text{Effectifs}'], lstNombresAnimaux.map(String).concat(emptyValues))}<br><br>`
-          texte +=
-            'Représenter ces données par un diagramme circulaire.<br><br>'
-          entete.push('\\text{Totaux}')
-          for (let k = 0; k < nbAnimaux; k++) {
-            contenutableau.push(lstNombresAnimaux[k])
-          }
-          contenutableau.push(effectiftotal)
+      entete.push('\\text{Total}')
+      for (let k = 0; k < nbAnimaux; k++) {
+        contenutableau.push(lstNombresAnimaux[k])
       }
-      texte += addDiagramBuilder(this, i, {})
+      contenutableau.push(effectiftotal)
+      texte += `${tableauColonneLigne(entete, ['\\text{Effectifs}'], contenutableau.map(String))}<br><br>`
+      let expectedAnswer: string = ''
+      switch (listeIndexTypeDeDiagrammes[i]) {
+        case 2:
+        case 1: {
+          // diagramme circulaire
+          const shape = listeIndexTypeDeDiagrammes[i] === 1 ? 'pie' : 'semi-pie'
+          const emptyValues = {
+            items: lstAnimauxExo.map((animal) =>
+              Object.assign({}, { label: animal, effectif: 0, angle: 0 }),
+            ),
+            mode: 'angle' as PieAssessmentMode,
+            shape: shape as PieAssessmentShape,
+            infosStatus: this.sup4,
+          }
+          const value = {
+            items: lstAnimauxExo.map((animal, index) =>
+              Object.assign(
+                {},
+                {
+                  label: animal,
+                  effectif: lstNombresAnimaux[index],
+                  angle: (360 * lstNombresAnimaux[index]) / effectiftotal,
+                },
+              ),
+            ),
+            mode: 'angle' as PieAssessmentMode,
+            shape: shape as PieAssessmentShape,
+          }
+          expectedAnswer = JSON.stringify(value)
+          texte +=
+            'Représenter ces données par un diagramme circulaire.<br><br>' +
+            addDiagramPieAssessment(this, i, emptyValues)
+          texteCorr = `Le diagramme circulaire correspondant est le suivant :<br><br>${addDiagramPieAssessment(this, i, value)}`
+
+          break
+        }
+        case 3: {
+          // diagramme en bâtons
+          const valMax = Math.max(...lstNombresAnimaux)
+          const unitValue = listeIndexValeursNumeriques[i] === 1 ? 20 : 200
+          /*   const value1 = {
+            unitValue,
+            unitLabel: `individus`,
+            yMax: Math.ceil(valMax / unitValue) * unitValue,
+            mode: 'label' as BarAssessmentMode,
+            labelValueKind: 'hauteur' as const,
+            infosStatus: this.sup4,
+            interactivityOn: true,
+            items: lstAnimauxExo.map((animal, index) =>
+              Object.assign(
+                {},
+                {
+                  label: animal,
+                  height: lstNombresAnimaux[index] / unitValue,
+                },
+              ),
+            ),
+          }
+          const value2 = {
+            unitValue,
+            unitLabel: `individus`,
+            yMax: Math.ceil(valMax / unitValue) * unitValue,
+            mode: 'effectif' as BarAssessmentMode,
+            infosStatus: this.sup4,
+            interactivityOn: true,
+            items: shuffle(lstAnimauxExo.map((animal) => ({ label: animal }))),
+          }
+            */
+          shuffle2tableaux(lstAnimauxExo, lstNombresAnimaux)
+          const emptyValues = {
+            unitValue,
+            unitLabel: `individus`,
+            yMax: Math.ceil(valMax / unitValue) * unitValue,
+            mode: 'hauteur' as BarAssessmentMode,
+            infosStatus: this.sup4,
+            interactivityOn: true,
+            items: lstAnimauxExo.map((animal, index) =>
+              Object.assign(
+                {},
+                {
+                  label: animal,
+                  height: lstNombresAnimaux[index] / unitValue,
+                },
+              ),
+            ),
+          }
+          const value = {
+            unitValue,
+            unitLabel: `individus`,
+            yMax: Math.ceil(valMax / unitValue) * unitValue,
+            mode: 'hauteur' as BarAssessmentMode,
+            labelValueKind: 'hauteur' as const,
+            infosStatus: this.sup4,
+            interactivityOn: false,
+            items: lstAnimauxExo.map((animal, index) =>
+              Object.assign(
+                {},
+                {
+                  label: animal,
+                  effectif: lstNombresAnimaux[index],
+                  height: lstNombresAnimaux[index] / unitValue,
+                },
+              ),
+            ),
+          }
+          expectedAnswer = JSON.stringify(value)
+          texte +=
+            `Représenter ces données par un diagramme en bâtons (une unité représente ${unitValue} individus).<br><br>` +
+            addDiagramBarAssessment(this, i, emptyValues)
+          texteCorr = `Le diagramme en bâtons correspondant est le suivant :<br><br>${addDiagramBarAssessment(this, i, value)}`
+          break
+        }
+      }
       handleAnswers(
         this,
         i,
-        { reponse: { value: '' } },
-        { formatInteractif: 'diagram-builder' },
+        { reponse: { value: expectedAnswer } },
+        {
+          formatInteractif:
+            listeIndexTypeDeDiagrammes[i] === 1 ||
+            listeIndexTypeDeDiagrammes[i] === 2
+              ? 'diagram-pie-assessment'
+              : 'diagram-bar-assessment',
+        },
       )
       this.listeQuestions.push(texte)
       this.listeCorrections.push(texteCorr)
