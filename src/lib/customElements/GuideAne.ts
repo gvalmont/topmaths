@@ -339,8 +339,7 @@ export class GuideAne extends MathaleaCustomElement {
     if (A) data.A = A
     const effectiveTarget = targetValue ?? target
     if (typeof effectiveTarget === 'number') data.target = effectiveTarget
-
-    if (!context.isHtml || context.isTypst) {
+    const createElementForStaticRender = () => {
       const guideAne = new GuideAne()
       guideAne.id = computedId
       guideAne.n = n
@@ -361,8 +360,13 @@ export class GuideAne extends MathaleaCustomElement {
       }
       if (typeof effectiveTarget === 'number') guideAne.target = effectiveTarget
       guideAne.C = guideAne.calculateInitialC()
-      return guideAne.renderLatex()
+      return guideAne
     }
+
+    if (context.isTypst)
+      return `<mathalea-typst>${createElementForStaticRender().renderTypst()}</mathalea-typst>`
+
+    if (!context.isHtml) return createElementForStaticRender().renderLatex()
 
     const attributes: string[] = []
     attributes.push(`id="${computedId}"`)
@@ -498,6 +502,115 @@ export class GuideAne extends MathaleaCustomElement {
     }
 
     lines.push('\\end{tikzpicture}')
+    return lines.join('\n')
+  }
+
+  protected renderTypst(): string {
+    const lengthAB = this.getLengthAB()
+    const alpha = this.alpha
+    const partsCount = this.interactivityOn ? 10 : this.n
+    const selectedPart = Math.max(0, Math.min(this.n - 1, this.p))
+    const rayLength = this.interactivityOn ? 10 : this.n
+    const cosAlpha = Math.cos((alpha * Math.PI) / 180)
+    const sinAlpha = Math.sin((alpha * Math.PI) / 180)
+    const margin = 0.35
+    const maxY = rayLength * sinAlpha + margin
+    const width = lengthAB + margin * 2
+    const height = maxY + 0.55
+    const typstLength = (value: number) =>
+      `${value.toFixed(4).replace(/\.?0+$/, '')}cm`
+    const point = (x: number, y: number) =>
+      `(${typstLength(x + margin)}, ${typstLength(maxY - y)})`
+    const line = (
+      x1: number,
+      y1: number,
+      x2: number,
+      y2: number,
+      stroke: string,
+    ) =>
+      `  #place(top + left, line(start: ${point(x1, y1)}, end: ${point(x2, y2)}, stroke: ${stroke}))`
+    const text = (
+      x: number,
+      y: number,
+      content: string,
+      anchor = 'center',
+    ) =>
+      `  #place(top + left, dx: ${typstLength(x + margin - 0.12)}, dy: ${typstLength(maxY - y - 0.12)}, box(width: 0.24cm)[#align(${anchor})[${content}]])`
+    const pointOnAC = (i: number) => ({
+      x: i * cosAlpha,
+      y: i * sinAlpha,
+    })
+    const pointOnAB = (i: number) => ({
+      x: (lengthAB * i) / this.n,
+      y: 0,
+    })
+    const tickOnAC = (i: number) => {
+      const tickHalfLength = 0.08
+      const center = pointOnAC(i)
+      const normal = { x: -sinAlpha, y: cosAlpha }
+      return {
+        start: {
+          x: center.x - tickHalfLength * normal.x,
+          y: center.y - tickHalfLength * normal.y,
+        },
+        end: {
+          x: center.x + tickHalfLength * normal.x,
+          y: center.y + tickHalfLength * normal.y,
+        },
+      }
+    }
+    const lines: string[] = [
+      `#block(width: ${typstLength(width)}, height: ${typstLength(height)})[`,
+      line(0, 0, lengthAB, 0, '1.2pt + black'),
+      line(
+        0,
+        0,
+        rayLength * cosAlpha,
+        rayLength * sinAlpha,
+        '0.6pt + luma(45%)',
+      ),
+      line(lengthAB, -0.08, lengthAB, 0.08, '0.6pt + black'),
+      text(-0.08, -0.28, '$A$', 'left'),
+      text(lengthAB, -0.28, '$B$', 'right'),
+    ]
+
+    for (let i = 1; i <= partsCount; i++) {
+      const tick = tickOnAC(i)
+      lines.push(
+        line(
+          tick.start.x,
+          tick.start.y,
+          tick.end.x,
+          tick.end.y,
+          '0.6pt + luma(45%)',
+        ),
+      )
+    }
+
+    if (!this.interactivityOn) {
+      const c = pointOnAC(this.n)
+      lines.push(text(c.x, c.y + 0.22, '$C$'))
+      lines.push(line(c.x, c.y, lengthAB, 0, '1pt + rgb("#2196F3")'))
+      for (let i = 1; i < this.n; i++) {
+        const ac = pointOnAC(i)
+        const ab = pointOnAB(i)
+        const stroke =
+          i === selectedPart
+            ? '1.4pt + red'
+            : '(paint: luma(55%), thickness: 0.7pt, dash: "dashed")'
+        lines.push(line(ac.x, ac.y, ab.x, ab.y, stroke))
+      }
+      if (selectedPart > 0) {
+        const d = pointOnAB(selectedPart)
+        lines.push(line(0, 0, d.x, d.y, '1.4pt + red'))
+        lines.push(
+          `  #place(top + left, dx: ${typstLength(d.x + margin - 0.035)}, dy: ${typstLength(maxY - d.y - 0.035)}, circle(radius: 0.035cm, fill: red, stroke: none))`,
+        )
+        lines.push(text(d.x, d.y - 0.3, '$D$'))
+      }
+    }
+
+    lines.push(']')
     return lines.join('\n')
   }
 

@@ -41,7 +41,7 @@ export default class MonExoGuideAne extends Exercice {
       const targetValue = (targetAB * targetP) / targetN
       let texte = `Représenter en rouge un segment de longueur $${targetFraction}\\times AB$ lorsque $AB$ mesure $${targetAB}\\text{ cm}$`
       let texteCorr = ''
-      if (context.isHtml) {
+      if (context.isHtml && !context.isTypst) {
         const guideAneData = {
           alpha,
           targetAB,
