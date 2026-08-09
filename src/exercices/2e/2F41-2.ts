@@ -25,7 +25,7 @@ export const dateDeModifImportante = '12/07/2023'
 export const uuid = '1ca05'
 
 export const refs = {
-  'fr-fr': ['2F31-2'],
+  'fr-fr': ['2F41-2'],
   'fr-ch': ['2mIneq-5'],
 }
 export default class EncadrerAvecFctRef extends Exercice {

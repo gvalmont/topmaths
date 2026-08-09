@@ -13,13 +13,13 @@ export const titre =
 /**
  * @author Gilles Mora
  * Lintage typescript incomplet à cause de tableauDeVariation pas typé correctement
- * 2F10-7
+ * 2F21-7
  */
 
 export const uuid = '46bec'
 
 export const refs = {
-  'fr-fr': ['2F10-7'],
+  'fr-fr': ['2F21-7'],
   'fr-ch': [],
 }
 export default class SignefonctionaffineVariation extends Exercice {
