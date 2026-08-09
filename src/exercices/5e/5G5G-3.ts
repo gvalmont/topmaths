@@ -1,7 +1,4 @@
-import { fixeBordures } from '../../lib/2d/fixeBordures'
 import { PointAbstrait, pointAbstrait } from '../../lib/2d/PointAbstrait'
-import { nommePolygone, polygone } from '../../lib/2d/polygones'
-import { tracePoint } from '../../lib/2d/TracePoint'
 import { rotation } from '../../lib/2d/transformations'
 import { angle } from '../../lib/2d/utilitairesGeometriques'
 import {
@@ -19,13 +16,11 @@ import {
   shuffle2tableaux,
 } from '../../lib/outils/arrayOutils'
 import { creerNomDePolygone } from '../../lib/outils/outilString'
-import { mathalea2d } from '../../modules/mathalea2d'
 import {
   gestionnaireFormulaireTexte,
   listeQuestionsToContenu,
   randint,
 } from '../../modules/outils'
-import type { NestedObjetMathalea2dArray } from '../../types/2d'
 import Exercice from '../Exercice'
 
 export const titre = 'Construire deux triangles de même aire'
@@ -180,25 +175,12 @@ export default class ConstruireDeuxTrianglesMemeAire extends Exercice {
       for (let j = 0; j < 3; j++) {
         S[j].nom = nomSommets[j]
       }
-      const leTriangle = polygone([S[0], S[1], S[2]])
-      const nom = nommePolygone(
-        leTriangle,
-        `${nomSommets[0]}${nomSommets[1]}${nomSommets[2]}`,
-      )
-      const objetsDessin: NestedObjetMathalea2dArray = [
-        tracePoint(...leTriangle.listePoints),
-        ...nom.objets!,
-      ]
+
       const typeConstruction = listeTypeConstruction[i]
-      if (typeConstruction === 'milieu') objetsDessin.push(leTriangle)
       texte +=
         typeConstruction === 'milieu'
           ? `Dans le triangle $${nomDuTriangleEnonce}$, construire deux triangles de même aire.<br>`
           : `Tracer le triangle $${nomDuTriangleEnonce}$ et construire un deuxième triangle de même aire.<br>`
-      texte += mathalea2d(
-        Object.assign({}, fixeBordures(objetsDessin)),
-        objetsDessin,
-      )
 
       const SBis = [S[0], S[1], S[2]]
       const nomSommetsBis = [nomSommets[0], nomSommets[1], nomSommets[2]]
