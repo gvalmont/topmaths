@@ -697,6 +697,15 @@ handleAnswers(
 
 La réponse attendue est une configuration sérialisée, pas seulement l'abscisse du point. L'objet `points` contient les points que l'élève doit placer, avec leur `pointValue` et leur `label`. La clé `showwNegative` correspond au nom historique attendu par la vérification. Vérifier un exercice existant proche, par exemple `6N3D-2.ts`, si plusieurs points ou des fractions sont attendus.
 
+Hors HTML, `demiDroiteInteractive()` produit une figure statique :
+
+- en LaTeX : un `tikzpicture` ;
+- en Typst : une image SVG embarquée dans un marqueur `<mathalea-typst>`.
+
+Quand `interactivityOn` vaut `true`, la demi-droite graduée est affichée sans
+les points à placer. Quand `interactivityOn` vaut `false`, les points fournis
+dans l'option `points` sont dessinés, ce qui convient au rendu de correction.
+
 ## Cercle trigonométrique
 
 À utiliser pour sélectionner une position sur le cercle trigonométrique.
