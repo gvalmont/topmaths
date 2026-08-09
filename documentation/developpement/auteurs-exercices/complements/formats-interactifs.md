@@ -736,12 +736,23 @@ texte += addTrigoCircleSelection(this, i, {
   showAngleLabels: true,
   showCoordinateLabels: Boolean(this.sup2),
   style: 'display:block; max-width: 46rem;',
+  interactivityOn: this.interactif,
 })
 
 texteCorr += 'Il fallait sélectionner les points correspondant aux solutions.'
+texteCorr += addTrigoCircleSelection(this, i, {
+  id: `trigo-circle-selection-correctionEx${this.numeroExercice}Q${i}`,
+  showAngleLabels: true,
+  showCoordinateLabels: true,
+  interactivityOn: false,
+  markedPoints: solutions.map((solution) => ({
+    angle: solution.angleRad,
+    color: '#f15929',
+  })),
+})
 ```
 
-`trigoCircleSelectionValue()` transforme la liste des angles attendus en valeur numérique vérifiable par le custom element. Chaque angle vient de `solution.angleRad`, comme dans l'exercice `2mTrigoFct-3.ts`. Les options exactes dépendent du type de sélection voulu ; partir de cet exercice si le cercle doit gérer plusieurs réponses.
+`trigoCircleSelectionValue()` transforme la liste des angles attendus en valeur numérique vérifiable par le custom element. Chaque angle vient de `solution.angleRad`, comme dans l'exercice `2mTrigoFct-3.ts`. L'appel à `addTrigoCircleSelection()` est contextuel : en HTML interactif, il produit le custom element ; en LaTeX, il produit un cercle trigonométrique via `mathalea2d` ; en Typst, il embarque un SVG statique. Quand `interactivityOn` vaut `true`, aucun point attendu n'est marqué sur le rendu statique. Quand `interactivityOn` vaut `false`, les points fournis par `markedPoints` sont dessinés, ou à défaut les points déduits de `value`.
 
 ## Horloge interactive
 
