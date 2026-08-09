@@ -12,7 +12,7 @@ export const interactifReady = false
 
 export const uuid = '34375'
 export const refs = {
-  'fr-fr': ['TSA2-15', 'TCA2-15'],
+  'fr-fr': ['TSA2-32', 'TCA2-32'],
   'fr-ch': [],
 }
 

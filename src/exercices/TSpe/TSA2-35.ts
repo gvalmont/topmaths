@@ -9,6 +9,7 @@ import {
   reduireAxPlusB,
   rienSi1,
 } from '../../lib/outils/ecritures'
+import { pgcd } from '../../lib/outils/primalite'
 import FractionEtendue from '../../modules/FractionEtendue'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import Exercice from '../Exercice'
@@ -20,7 +21,7 @@ export const interactifType = 'mathLive'
 
 export const uuid = 'dbe69'
 export const refs = {
-  'fr-fr': ['TSA2-18', 'TCA2-18'],
+  'fr-fr': ['TSA2-35', 'TCA2-35'],
   'fr-ch': [],
 }
 
@@ -47,6 +48,148 @@ function ecriturePolynome(
   coefficients[0] = constante
   coefficients[degre] = coefficient
   return new Polynome({ coeffs: coefficients, letter: 'x' }).toString()
+}
+
+function ecritureQuotientPolynomesIrreductible(
+  coefficientNumerateur: number,
+  degreNumerateur: number,
+  constanteNumerateur: number,
+  coefficientDenominateur: number,
+  degreDenominateur: number,
+  constanteDenominateur: number,
+): {
+  numerateur: string
+  denominateur: string
+  coefficientNumerateur: number
+  constanteNumerateur: number
+  coefficientDenominateur: number
+  constanteDenominateur: number
+} {
+  const diviseur = pgcd(
+    Math.abs(coefficientNumerateur),
+    Math.abs(constanteNumerateur),
+    Math.abs(coefficientDenominateur),
+    Math.abs(constanteDenominateur),
+  )
+  const coefficientNumerateurReduit = coefficientNumerateur / diviseur
+  const constanteNumerateurReduite = constanteNumerateur / diviseur
+  const coefficientDenominateurReduit = coefficientDenominateur / diviseur
+  const constanteDenominateurReduite = constanteDenominateur / diviseur
+  return {
+    numerateur: ecriturePolynome(
+      coefficientNumerateurReduit,
+      degreNumerateur,
+      constanteNumerateurReduite,
+    ),
+    denominateur: ecriturePolynome(
+      coefficientDenominateurReduit,
+      degreDenominateur,
+      constanteDenominateurReduite,
+    ),
+    coefficientNumerateur: coefficientNumerateurReduit,
+    constanteNumerateur: constanteNumerateurReduite,
+    coefficientDenominateur: coefficientDenominateurReduit,
+    constanteDenominateur: constanteDenominateurReduite,
+  }
+}
+
+function ecritureFractionInverse(
+  coefficient: number,
+  puissance: number,
+): string {
+  return `\\dfrac{${coefficient}}{x^{${puissance}}}`
+}
+
+function ajouteFractionInverse(
+  coefficient: number,
+  puissance: number,
+): string {
+  return `${coefficient > 0 ? '+' : '-'}\\dfrac{${Math.abs(coefficient)}}{x^{${puissance}}}`
+}
+
+function expressionApresDivisionParPuissance(
+  coefficient: number,
+  degre: number,
+  constante: number,
+  puissance: number,
+): string {
+  const termeDominant =
+    degre === puissance
+      ? `${coefficient}`
+      : ecritureFractionInverse(coefficient, puissance - degre)
+  return `${termeDominant}${ajouteFractionInverse(constante, puissance)}`
+}
+
+function correctionLimiteQuotient(
+  quotient: {
+    numerateur: string
+    denominateur: string
+    coefficientNumerateur: number
+    constanteNumerateur: number
+    coefficientDenominateur: number
+    constanteDenominateur: number
+  },
+  degreNumerateur: number,
+  degreDenominateur: number,
+  indice: string,
+  limite: string,
+): string {
+  const puissance = Math.max(degreNumerateur, degreDenominateur)
+  const numerateurReduit = expressionApresDivisionParPuissance(
+    quotient.coefficientNumerateur,
+    degreNumerateur,
+    quotient.constanteNumerateur,
+    puissance,
+  )
+  const denominateurReduit = expressionApresDivisionParPuissance(
+    quotient.coefficientDenominateur,
+    degreDenominateur,
+    quotient.constanteDenominateur,
+    puissance,
+  )
+  const limiteNumerateur =
+    degreNumerateur === puissance
+      ? `${quotient.coefficientNumerateur}`
+      : quotient.coefficientNumerateur > 0
+        ? '0^+'
+        : '0^-'
+  const limiteDenominateur =
+    degreDenominateur === puissance
+      ? `${quotient.coefficientDenominateur}`
+      : '0^+'
+
+  return `Pour $x\\neq 0$, on divise le numérateur et le dénominateur par $x^{${puissance}}$ :<br>
+  $\\begin{aligned}
+  u(x)&=\\dfrac{${quotient.numerateur}}{${quotient.denominateur}}\\\\
+  &=\\dfrac{${numerateurReduit}}{${denominateurReduit}}.
+  \\end{aligned}$<br>
+  On sait que, pour tout entier naturel non nul $k$, $\\displaystyle \\lim_{${indice}}\\dfrac{1}{x^k}=0$.<br>
+  Par somme, $\\displaystyle \\lim_{${indice}}\\left(${numerateurReduit}\\right)=${limiteNumerateur}$ et $\\displaystyle \\lim_{${indice}}\\left(${denominateurReduit}\\right)=${limiteDenominateur}$.<br>
+  Par quotient, $\\displaystyle \\lim_{${indice}}u(x)=${limite}$.`
+}
+
+function correctionLimitePolynome(
+  coefficient: number,
+  degre: number,
+  constante: number,
+  indice: string,
+  limite: string,
+): string {
+  const puissanceDeX = degre === 1 ? 'x' : `x^{${degre}}`
+  const limitePuissance = infini(
+    signeLimiteMonome(1, degre, indice.includes('to+') ? '+' : '-'),
+  )
+  const limiteMonome = infini(
+    signeLimiteMonome(
+      coefficient,
+      degre,
+      indice.includes('to+') ? '+' : '-',
+    ),
+  )
+  return `On sait que $\\displaystyle \\lim_{${indice}}${puissanceDeX}=${limitePuissance}$.<br>
+  Comme $${coefficient}${coefficient > 0 ? '>0' : '<0'}$, $\\displaystyle \\lim_{${indice}}${ecriturePolynome(coefficient, degre, 0)}=${limiteMonome}$.<br>
+  De plus, $\\displaystyle \\lim_{${indice}}${constante}=${constante}$.<br>
+  Par somme, $\\displaystyle \\lim_{${indice}}u(x)=${limite}$.`
 }
 
 function signeLimiteMonome(
@@ -135,7 +278,7 @@ export default class LimitesParComposition extends Exercice {
         reponse = '+\\infty'
         correction = `On pose $u$ la fonction définie sur $${domaine}$ par $u(x)=${u}$.<br>
         Ainsi, pour tout $x\\in D_f$, $f(x)=\\sqrt{u(x)}$.<br>
-        On sait que $\\displaystyle \\lim_{${indice}}x^{${degre}}=+\\infty$, donc $\\displaystyle \\lim_{${indice}}u(x)=+\\infty$.<br>
+        ${correctionLimitePolynome(coefficient, degre, constante, indice, '+\\infty')}<br>
         Or $\\displaystyle \\lim_{X\\to+\\infty}\\sqrt X=+\\infty$.<br>
         Par composition, $\\displaystyle \\lim_{${indice}}f(x)=${miseEnEvidence(reponse)}$.`
       } else if (type.startsWith('racineRationnelle')) {
@@ -143,21 +286,40 @@ export default class LimitesParComposition extends Exercice {
         const b = randint(1, 8)
         const c = randint(1, 5)
         const d = randint(1, 8)
-        let numerateur: string
-        let denominateur: string
         let limiteU: string
         let limiteExterieure: string
+        let quotient: ReturnType<
+          typeof ecritureQuotientPolynomesIrreductible
+        >
+        let degreNumerateur: number
+        let degreDenominateur: number
 
         if (type === 'racineRationnelleInfini') {
-          numerateur = ecriturePolynome(a, 4, b)
-          denominateur = ecriturePolynome(c, 2, d)
+          degreNumerateur = 4
+          degreDenominateur = 2
+          quotient = ecritureQuotientPolynomesIrreductible(
+            a,
+            degreNumerateur,
+            b,
+            c,
+            degreDenominateur,
+            d,
+          )
           limiteU = '+\\infty'
           reponse = '+\\infty'
           limiteExterieure =
             '\\displaystyle \\lim_{X\\to+\\infty}\\sqrt X=+\\infty'
         } else if (type === 'racineRationnelleZero') {
-          numerateur = ecriturePolynome(a, 2, b)
-          denominateur = ecriturePolynome(c, 4, d)
+          degreNumerateur = 2
+          degreDenominateur = 4
+          quotient = ecritureQuotientPolynomesIrreductible(
+            a,
+            degreNumerateur,
+            b,
+            c,
+            degreDenominateur,
+            d,
+          )
           limiteU = '0^+'
           reponse = '0'
           limiteExterieure =
@@ -165,24 +327,34 @@ export default class LimitesParComposition extends Exercice {
         } else {
           const p = randint(1, 4)
           const q = randint(1, 4)
-          numerateur = ecriturePolynome(p * p, 2, b)
-          denominateur = ecriturePolynome(q * q, 2, d)
+          degreNumerateur = 2
+          degreDenominateur = 2
+          quotient = ecritureQuotientPolynomesIrreductible(
+            p * p,
+            degreNumerateur,
+            b,
+            q * q,
+            degreDenominateur,
+            d,
+          )
           const limiteFraction = new FractionEtendue(p * p, q * q)
           limiteU = limiteFraction.texFractionSimplifiee
           reponse = new FractionEtendue(p, q).texFractionSimplifiee
           limiteExterieure = `\\displaystyle \\lim_{X\\to${limiteU}}\\sqrt X=${reponse}`
         }
+        const { numerateur, denominateur } = quotient
         const u = `\\dfrac{${numerateur}}{${denominateur}}`
         expression = `\\sqrt{${u}}`
         correction = `On pose $u$ la fonction définie sur $${domaine}$ par $u(x)=${u}$.<br>
         Ainsi, pour tout $x\\in D_f$, $f(x)=\\sqrt{u(x)}$.<br>
-        En comparant les degrés du numérateur et du dénominateur, on obtient $\\displaystyle \\lim_{${indice}}u(x)=${limiteU}$.<br>
+        ${correctionLimiteQuotient(quotient, degreNumerateur, degreDenominateur, indice, limiteU)}<br>
         Or $${limiteExterieure}$.<br>
         Par composition, $\\displaystyle \\lim_{${indice}}f(x)=${miseEnEvidence(reponse)}$.`
       } else if (type.startsWith('exponentielle')) {
         let u: string
         let limiteU: string
         let limiteExterieure: string
+        let correctionLimiteU: string
 
         if (type === 'exponentiellePolynome') {
           const coefficient = randint(-5, 5, 0)
@@ -192,37 +364,79 @@ export default class LimitesParComposition extends Exercice {
           limiteU = infini(signeLimiteMonome(coefficient, degre, sens))
           reponse = limiteU === '+\\infty' ? '+\\infty' : '0'
           limiteExterieure = `\\displaystyle \\lim_{X\\to${limiteU}}\\mathrm{e}^{X}=${reponse}`
+          correctionLimiteU = correctionLimitePolynome(
+            coefficient,
+            degre,
+            constante,
+            indice,
+            limiteU,
+          )
         } else {
           const signe = choice([-1, 1])
           const a = randint(1, 5)
           const b = randint(1, 8)
           const c = randint(1, 5)
           const d = randint(1, 8)
-          let numerateur: string
-          let denominateur: string
+          let quotient: ReturnType<
+            typeof ecritureQuotientPolynomesIrreductible
+          >
+          let degreNumerateur: number
+          let degreDenominateur: number
           if (type === 'exponentielleRationnelleInfini') {
-            numerateur = ecriturePolynome(signe * a, 4, signe * b)
-            denominateur = ecriturePolynome(c, 2, d)
+            degreNumerateur = 4
+            degreDenominateur = 2
+            quotient = ecritureQuotientPolynomesIrreductible(
+              signe * a,
+              degreNumerateur,
+              signe * b,
+              c,
+              degreDenominateur,
+              d,
+            )
             limiteU = infini(signe)
             reponse = signe > 0 ? '+\\infty' : '0'
           } else if (type === 'exponentielleRationnelleZero') {
-            numerateur = ecriturePolynome(signe * a, 2, signe * b)
-            denominateur = ecriturePolynome(c, 4, d)
+            degreNumerateur = 2
+            degreDenominateur = 4
+            quotient = ecritureQuotientPolynomesIrreductible(
+              signe * a,
+              degreNumerateur,
+              signe * b,
+              c,
+              degreDenominateur,
+              d,
+            )
             limiteU = '0'
             reponse = '1'
           } else {
-            numerateur = ecriturePolynome(signe * a, 2, signe * b)
-            denominateur = ecriturePolynome(c, 2, d)
+            degreNumerateur = 2
+            degreDenominateur = 2
+            quotient = ecritureQuotientPolynomesIrreductible(
+              signe * a,
+              degreNumerateur,
+              signe * b,
+              c,
+              degreDenominateur,
+              d,
+            )
             limiteU = new FractionEtendue(signe * a, c).texFractionSimplifiee
             reponse = `\\mathrm{e}^{${limiteU}}`
           }
+          const { numerateur, denominateur } = quotient
           u = `\\dfrac{${numerateur}}{${denominateur}}`
+          correctionLimiteU = correctionLimiteQuotient(
+            quotient,
+            degreNumerateur,
+            degreDenominateur,
+            indice,
+            limiteU,
+          )
           limiteExterieure = `\\displaystyle \\lim_{X\\to${limiteU}}\\mathrm{e}^{X}=${reponse}`
         }
         expression = `\\mathrm{e}^{${u}}`
         correction = `On pose $u$ la fonction définie sur $${domaine}$ par $u(x)=${u}$.<br>
         Ainsi, pour tout $x\\in D_f$, $f(x)=\\mathrm{e}^{u(x)}$.<br>
-        On obtient $\\displaystyle \\lim_{${indice}}u(x)=${limiteU}$.<br>
+        ${correctionLimiteU}<br>
         Or $${limiteExterieure}$.<br>
         Par composition, $\\displaystyle \\lim_{${indice}}f(x)=${miseEnEvidence(reponse)}$.`
       } else if (type === 'trigonometrie') {
@@ -234,17 +448,25 @@ export default class LimitesParComposition extends Exercice {
         const coefficientNumerateur = changementSigne * numerateurInitial
         const coefficientAffine = changementSigne * coefficientAffineInitial
         const racine = randint(-5, 5)
-        const affine = reduireAxPlusB(
-          coefficientAffine,
-          -coefficientAffine * racine,
+        const diviseur = pgcd(
+          Math.abs(coefficientNumerateur),
+          Math.abs(coefficientAffine),
         )
-        const u = `\\dfrac{${coefficientNumerateur}}{${affine}}`
+        const coefficientNumerateurIrreductible =
+          coefficientNumerateur / diviseur
+        const coefficientAffineIrreductible = coefficientAffine / diviseur
+        const affine = reduireAxPlusB(
+          coefficientAffineIrreductible,
+          -coefficientAffineIrreductible * racine,
+        )
+        const u = `\\dfrac{${coefficientNumerateurIrreductible}}{${affine}}`
         expression = `${fonctionTrigo}\\left(${u}\\right)`
         domaine = `\\mathbb R\\setminus\\{${racine}\\}`
         reponse = fonctionTrigo === '\\cos' ? '1' : '0'
         correction = `On pose $u$ la fonction définie sur $${domaine}$ par $u(x)=${u}$.<br>
         Ainsi, pour tout $x\\in D_f$, $f(x)=${fonctionTrigo}(u(x))$.<br>
-        Comme $\\displaystyle \\lim_{${indice}}(${affine})=${infini(signeLimiteMonome(coefficientAffine, 1, sens))}$, on obtient $\\displaystyle \\lim_{${indice}}u(x)=0$.<br>
+        On a $\\displaystyle \\lim_{${indice}}${coefficientNumerateurIrreductible}=${coefficientNumerateurIrreductible}$ et $\\displaystyle \\lim_{${indice}}(${affine})=${infini(signeLimiteMonome(coefficientAffineIrreductible, 1, sens))}$.<br>
+        Par quotient, $\\displaystyle \\lim_{${indice}}u(x)=0$.<br>
         Or $\\displaystyle \\lim_{X\\to0}${fonctionTrigo}(X)=${reponse}$.<br>
         Par composition, $\\displaystyle \\lim_{${indice}}f(x)=${miseEnEvidence(reponse)}$.`
       } else {
@@ -262,7 +484,7 @@ export default class LimitesParComposition extends Exercice {
           reponse = limitePuissanceDeX(limiteU, exposant)
           correction = `On pose $u$ la fonction définie sur $${domaine}$ par $u(x)=${u}$.<br>
           Ainsi, pour tout $x\\in D_f$, $f(x)=u(x)^{${exposant}}$.<br>
-          On a $\\displaystyle \\lim_{${indice}}u(x)=${limiteU}$.<br>
+          ${correctionLimitePolynome(uCoefficient, uDegre, uConstante, indice, limiteU)}<br>
           Or $\\displaystyle \\lim_{X\\to${limiteU}}X^{${exposant}}=${reponse}$.<br>
           Par composition, $\\displaystyle \\lim_{${indice}}f(x)=${miseEnEvidence(reponse)}$.`
         } else {
@@ -275,7 +497,7 @@ export default class LimitesParComposition extends Exercice {
           const fonctionExterieure = `${rienSi1(coefficientAffine)}X${ecritureAlgebrique(constanteAffine)}`
           correction = `On pose $u$ la fonction définie sur $${domaine}$ par $u(x)=${u}$.<br>
           Ainsi, pour tout $x\\in D_f$, $f(x)=${fonctionExterieure.replace('X', 'u(x)')}$.<br>
-          On a $\\displaystyle \\lim_{${indice}}u(x)=${limiteU}$.<br>
+          ${correctionLimitePolynome(uCoefficient, uDegre, uConstante, indice, limiteU)}<br>
           Or $\\displaystyle \\lim_{X\\to${limiteU}}\\left(${fonctionExterieure}\\right)=${reponse}$.<br>
           Par composition, $\\displaystyle \\lim_{${indice}}f(x)=${miseEnEvidence(reponse)}$.`
         }
