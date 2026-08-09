@@ -347,6 +347,43 @@ export class DiagramPieAssessmentElement extends MathaleaCustomElement {
     this.attachShadow({ mode: 'open' })
   }
 
+  private static createStaticElement({
+    title,
+    shape,
+    mode,
+    targetAngle,
+    tolerance,
+    infosStatus,
+    hiddenColumns,
+    items,
+    interactivityOn,
+  }: {
+    title: string
+    shape: PieAssessmentShape
+    mode: PieAssessmentMode
+    targetAngle: number
+    tolerance: number
+    infosStatus: boolean
+    hiddenColumns: PieAssessmentColumn[]
+    items: PieAssessmentCreateOptions['items']
+    interactivityOn: boolean
+  }): DiagramPieAssessmentElement {
+    const element = new DiagramPieAssessmentElement()
+    element.setAttribute('interactivity-on', interactivityOn ? 'true' : 'false')
+    element.state = {
+      ...structuredClone(DEFAULT_STATE),
+      title,
+      shape,
+      mode,
+      targetAngle,
+      tolerance,
+      infosStatus,
+      hiddenColumns,
+      items: normalizeItems(items),
+    }
+    return element
+  }
+
   static get observedAttributes(): string[] {
     return [
       'title',
@@ -392,14 +429,8 @@ export class DiagramPieAssessmentElement extends MathaleaCustomElement {
 
     const target = targetAngle ?? (shape === 'semi-pie' ? 180 : 360)
 
-    if (!context.isHtml || context.isTypst) {
-      const element = new DiagramPieAssessmentElement()
-      element.setAttribute(
-        'interactivity-on',
-        interactivityOn ? 'true' : 'false',
-      )
-      element.state = {
-        ...structuredClone(DEFAULT_STATE),
+    if (context.isTypst) {
+      const element = DiagramPieAssessmentElement.createStaticElement({
         title,
         shape,
         mode,
@@ -407,8 +438,24 @@ export class DiagramPieAssessmentElement extends MathaleaCustomElement {
         tolerance,
         infosStatus,
         hiddenColumns,
-        items: normalizeItems(items),
-      }
+        items,
+        interactivityOn,
+      })
+      return `<mathalea-typst>${element.renderTypst()}</mathalea-typst>`
+    }
+
+    if (!context.isHtml) {
+      const element = DiagramPieAssessmentElement.createStaticElement({
+        title,
+        shape,
+        mode,
+        targetAngle: target,
+        tolerance,
+        infosStatus,
+        hiddenColumns,
+        items,
+        interactivityOn,
+      })
       return element.renderLatex()
     }
 
@@ -662,7 +709,10 @@ export class DiagramPieAssessmentElement extends MathaleaCustomElement {
   }
 
   render(): string | void {
-    if (!context.isHtml || context.isTypst) {
+    if (context.isTypst) {
+      return this.renderTypst()
+    }
+    if (!context.isHtml) {
       return this.renderLatex()
     }
     if (this.shadowRoot == null) return
@@ -768,17 +818,42 @@ export class DiagramPieAssessmentElement extends MathaleaCustomElement {
     const diagram = this.interactivityOn
       ? this.renderEmptyPieTikz()
       : this.renderFilledPieTikz()
+    const legend = this.interactivityOn ? '' : `\n${this.renderLatexLegend()}`
     return `\\begin{center}
 ${titleLatex}\\begin{minipage}[t]{0.48\\linewidth}
+\\vspace{0pt}
 \\centering
 ${this.renderLatexTable()}
 \\end{minipage}
 \\hfill
 \\begin{minipage}[t]{0.48\\linewidth}
+\\vspace{0pt}
 \\centering
-${diagram}
+${diagram}${legend}
 \\end{minipage}
 \\end{center}`
+  }
+
+  protected renderTypst(): string {
+    const title = this.state.title.trim()
+    const titleTypst =
+      title === '' ? '' : `#strong[${this.escapeTypst(title)}]\n#v(0.4em)\n`
+    const diagram = this.interactivityOn
+      ? this.renderEmptyPieTypst()
+      : this.renderFilledPieTypst()
+    const diagramWithLegend = this.interactivityOn
+      ? diagram
+      : this.renderTypstDiagramWithLegend(diagram)
+
+    return `#align(center)[
+${titleTypst}#grid(
+  columns: (0.48fr, 0.48fr),
+  gutter: 0.1fr,
+  align: top,
+  [#align(center)[${this.renderTypstTable()}]],
+  [#align(center)[${diagramWithLegend}]],
+)
+]`
   }
 
   get value(): string {
@@ -1151,7 +1226,7 @@ ${rows}
     const radius = 2
     const frame =
       this.state.shape === 'semi-pie'
-        ? `\\draw[thick] (-${radius},0) arc[start angle=180,end angle=360,radius=${radius}] -- cycle;`
+        ? `\\draw[thick] (-${radius},0) arc[start angle=0,end angle=180,radius=${radius}] -- cycle;`
         : `\\draw[thick] (0,0) circle (${radius});`
 
     return `\\begin{tikzpicture}
@@ -1162,6 +1237,130 @@ ${frame}
   private renderFilledPieTikz(): string {
     const radius = 2
     const isSemi = this.state.shape === 'semi-pie'
+    const target = this.state.targetAngle
+    let usedAngle = 0
+    let startDeg = isSemi ? 0 : -90
+    const colorDefinitions = this.state.items.map(
+      (_item, index) =>
+        `\\definecolor{${this.tikzColorName(index)}}{HTML}{${this.colorForIndex(index).slice(1)}}`,
+    )
+    const slices: string[] = []
+
+    this.state.items.forEach((item, index) => {
+      const requested = Math.max(0, this.itemAngleForDisplay(item, index))
+      if (requested <= 0) return
+
+      const remaining = Math.max(0, target - usedAngle)
+      if (remaining <= 0) return
+
+      const drawn = Math.min(requested, remaining)
+      const endDeg = startDeg + drawn
+      const colorName = this.tikzColorName(index)
+      if (isSemi) {
+        // Pour les demi-cercles, les arcs doivent commencer depuis le point en haut (0,2)
+        slices.push(
+          `\\filldraw[fill=${colorName}, draw=white] (0,0) -- (${this.formatTikzNumber(startDeg)}:${radius}) arc[start angle=${this.formatTikzNumber(startDeg)}, end angle=${this.formatTikzNumber(endDeg)}, radius=${radius}] -- cycle;`,
+        )
+      } else {
+        slices.push(
+          `\\filldraw[fill=${colorName}, draw=white] (0,0) -- (${this.formatTikzNumber(startDeg)}:${radius}) arc[start angle=${this.formatTikzNumber(startDeg)}, end angle=${this.formatTikzNumber(endDeg)}, radius=${radius}] -- cycle;`,
+        )
+      }
+      usedAngle += drawn
+      startDeg = endDeg
+    })
+
+    const frame = isSemi
+      ? `\\draw[thick] (${radius},0) arc[start angle=0,end angle=180,radius=${radius}] -- cycle;`
+      : `\\draw[thick] (0,0) circle (${radius});`
+
+    return `${colorDefinitions.join('\n')}
+\\begin{tikzpicture}
+${slices.join('\n')}
+${frame}
+\\end{tikzpicture}`
+  }
+
+  private renderLatexLegend(): string {
+    if (this.state.items.length === 0) return ''
+
+    const rows = this.state.items
+      .map((item, index) => {
+        const colorName = this.tikzColorName(index)
+        const label = item.label.trim() === '' ? `S${index + 1}` : item.label
+        return `\\tikz\\fill[fill=${colorName}] (0,0) rectangle (0.25,0.25); & ${this.escapeLatex(label)} \\\\`
+      })
+      .join('\n')
+
+    return `\\begin{tabular}{@{}cl@{}}
+${rows}
+\\end{tabular}`
+  }
+
+  private renderTypstTable(): string {
+    const columns: PieAssessmentColumn[] = []
+    if (this.isColumnVisible('label')) columns.push('label')
+    if (this.isColumnVisible('effectif')) columns.push('effectif')
+    if (this.isColumnVisible('angle')) columns.push('angle')
+
+    if (columns.length === 0) return '#emph[Aucune colonne à afficher.]'
+
+    const headers: Record<PieAssessmentColumn, string> = {
+      label: 'Catégorie',
+      effectif: 'Effectif',
+      angle: 'Angle (°)',
+    }
+    const cells = [
+      ...columns.map((column) => `[${this.escapeTypst(headers[column])}]`),
+      ...this.state.items.flatMap((item, index) =>
+        columns.map(
+          (column) => `[${this.renderTypstTableCell(item, index, column)}]`,
+        ),
+      ),
+    ]
+
+    return `#table(
+  columns: ${columns.length},
+  stroke: 0.6pt + luma(70%),
+  inset: 4pt,
+  ${cells.join(',\n  ')},
+)`
+  }
+
+  private renderTypstTableCell(
+    item: PieAssessmentItem,
+    index: number,
+    column: PieAssessmentColumn,
+  ): string {
+    if (this.interactivityOn && this.state.mode === column) {
+      return '#text(fill: luma(55%))[........]'
+    }
+
+    if (column === 'label') return this.escapeTypst(item.label)
+    if (column === 'effectif') return this.formatTypstNumber(item.effectif)
+    return this.formatTypstNumber(this.itemAngleForDisplay(item, index))
+  }
+
+  private renderEmptyPieTypst(): string {
+    const size = 120
+    const radius = 52
+    const center = { x: size / 2, y: this.state.shape === 'semi-pie' ? 96 : 60 }
+    const frame =
+      this.state.shape === 'semi-pie'
+        ? `  #place(top + left, dx: ${this.pt(center.x - radius)}, dy: ${this.pt(center.y)}, line(start: (0pt, 0pt), end: (${this.pt(radius * 2)}, 0pt), stroke: 1pt + luma(35%)))
+  ${this.renderTypstArc(center.x, center.y, radius, 180, 360, 'none', 'luma(35%)')}`
+        : `  #place(top + left, dx: ${this.pt(center.x - radius)}, dy: ${this.pt(center.y - radius)}, circle(radius: ${this.pt(radius)}, stroke: 1pt + luma(35%), fill: none))`
+
+    return `#block(width: ${this.pt(size)}, height: ${this.pt(size)})[
+${frame}
+]`
+  }
+
+  private renderFilledPieTypst(): string {
+    const size = 120
+    const radius = 52
+    const isSemi = this.state.shape === 'semi-pie'
+    const center = { x: size / 2, y: isSemi ? 96 : 60 }
     const target = this.state.targetAngle
     let usedAngle = 0
     let startDeg = isSemi ? 180 : -90
@@ -1176,23 +1375,106 @@ ${frame}
 
       const drawn = Math.min(requested, remaining)
       const endDeg = startDeg + drawn
-      const colorName = this.tikzColorName(index)
       slices.push(
-        `\\definecolor{${colorName}}{HTML}{${this.colorForIndex(index).slice(1)}}`,
-        `\\filldraw[fill=${colorName}, draw=white] (0,0) -- (${this.formatTikzNumber(startDeg)}:${radius}) arc[start angle=${this.formatTikzNumber(startDeg)}, end angle=${this.formatTikzNumber(endDeg)}, radius=${radius}] -- cycle;`,
+        this.renderTypstSector(
+          center.x,
+          center.y,
+          radius,
+          startDeg,
+          endDeg,
+          this.colorForIndex(index),
+        ),
       )
       usedAngle += drawn
       startDeg = endDeg
     })
 
     const frame = isSemi
-      ? `\\draw[thick] (-${radius},0) arc[start angle=180,end angle=360,radius=${radius}] -- cycle;`
-      : `\\draw[thick] (0,0) circle (${radius});`
+      ? `  #place(top + left, dx: ${this.pt(center.x - radius)}, dy: ${this.pt(center.y)}, line(start: (0pt, 0pt), end: (${this.pt(radius * 2)}, 0pt), stroke: 1pt + luma(35%)))
+  ${this.renderTypstArc(center.x, center.y, radius, 180, 360, 'none', 'luma(35%)')}`
+      : `  #place(top + left, dx: ${this.pt(center.x - radius)}, dy: ${this.pt(center.y - radius)}, circle(radius: ${this.pt(radius)}, stroke: 1pt + luma(35%), fill: none))`
 
-    return `\\begin{tikzpicture}
+    return `#block(width: ${this.pt(size)}, height: ${this.pt(size)})[
 ${slices.join('\n')}
 ${frame}
-\\end{tikzpicture}`
+]`
+  }
+
+  private renderTypstSector(
+    cx: number,
+    cy: number,
+    radius: number,
+    startDeg: number,
+    endDeg: number,
+    color: string,
+  ): string {
+    const points = [
+      `(${this.pt(cx)}, ${this.pt(cy)})`,
+      ...this.arcPoints(cx, cy, radius, startDeg, endDeg).map(
+        (point) => `(${this.pt(point.x)}, ${this.pt(point.y)})`,
+      ),
+    ]
+    return `  #place(top + left, polygon(${points.join(', ')}, fill: rgb("${color}"), stroke: 0.5pt + white))`
+  }
+
+  private renderTypstArc(
+    cx: number,
+    cy: number,
+    radius: number,
+    startDeg: number,
+    endDeg: number,
+    fill: string,
+    stroke: string,
+  ): string {
+    const points = this.arcPoints(cx, cy, radius, startDeg, endDeg).map(
+      (point) => `(${this.pt(point.x)}, ${this.pt(point.y)})`,
+    )
+    return `#place(top + left, polygon(${points.join(', ')}, fill: ${fill}, stroke: 1pt + ${stroke}))`
+  }
+
+  private arcPoints(
+    cx: number,
+    cy: number,
+    radius: number,
+    startDeg: number,
+    endDeg: number,
+  ): Array<{ x: number; y: number }> {
+    const steps = Math.max(6, Math.ceil(Math.abs(endDeg - startDeg) / 8))
+    return Array.from({ length: steps + 1 }, (_, index) => {
+      const deg = startDeg + ((endDeg - startDeg) * index) / steps
+      const rad = (deg * Math.PI) / 180
+      return {
+        x: cx + radius * Math.cos(rad),
+        y: cy + radius * Math.sin(rad),
+      }
+    })
+  }
+
+  private renderTypstLegend(): string {
+    if (this.state.items.length === 0) return ''
+
+    const rows = this.state.items
+      .map((item, index) => {
+        const label = item.label.trim() === '' ? `S${index + 1}` : item.label
+        return `  rect(width: 7pt, height: 7pt, fill: rgb("${this.colorForIndex(index)}"), stroke: none), [${this.escapeTypst(label)}]`
+      })
+      .join(',\n')
+
+    return `#grid(
+  columns: (auto, auto),
+  gutter: 4pt,
+${rows},
+)`
+  }
+
+  private renderTypstDiagramWithLegend(diagram: string): string {
+    return `#grid(
+  columns: (auto, auto),
+  gutter: 8pt,
+  align: horizon,
+  [${diagram}],
+  [${this.renderTypstLegend()}],
+)`
   }
 
   private arcPath(
@@ -1297,6 +1579,15 @@ ${frame}
     return Number.isInteger(value) ? String(value) : value.toFixed(1)
   }
 
+  private formatTypstNumber(value: number): string {
+    const rounded = Number.isInteger(value) ? String(value) : value.toFixed(1)
+    return rounded.replace('.', ',')
+  }
+
+  private pt(value: number): string {
+    return `${Number(value.toFixed(2))}pt`
+  }
+
   private isColumnVisible(column: PieAssessmentColumn): boolean {
     if (this.state.hiddenColumns.includes(column)) return false
     if (this.state.mode === 'angle' && column === 'effectif') return false
@@ -1324,6 +1615,10 @@ ${frame}
       .replaceAll('}', '\\}')
       .replaceAll('~', '\\textasciitilde{}')
       .replaceAll('^', '\\textasciicircum{}')
+  }
+
+  private escapeTypst(value: string): string {
+    return value.replace(/[\\#$[\]*_`<>@~]/g, (character) => `\\${character}`)
   }
 }
 
