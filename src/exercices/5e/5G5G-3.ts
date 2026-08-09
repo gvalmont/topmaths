@@ -1,6 +1,7 @@
 import { fixeBordures } from '../../lib/2d/fixeBordures'
 import { PointAbstrait, pointAbstrait } from '../../lib/2d/PointAbstrait'
 import { nommePolygone, polygone } from '../../lib/2d/polygones'
+import { tracePoint } from '../../lib/2d/TracePoint'
 import { rotation } from '../../lib/2d/transformations'
 import { angle } from '../../lib/2d/utilitairesGeometriques'
 import {
@@ -184,13 +185,16 @@ export default class ConstruireDeuxTrianglesMemeAire extends Exercice {
         leTriangle,
         `${nomSommets[0]}${nomSommets[1]}${nomSommets[2]}`,
       )
-      const objetsDessin: NestedObjetMathalea2dArray = [leTriangle, nom]
+      const objetsDessin: NestedObjetMathalea2dArray = [
+        tracePoint(...leTriangle.listePoints),
+        ...nom.objets!,
+      ]
       const typeConstruction = listeTypeConstruction[i]
-
+      if (typeConstruction === 'milieu') objetsDessin.push(leTriangle)
       texte +=
         typeConstruction === 'milieu'
-          ? `Dans le triangle $${nomDuTriangleEnonce}$, construire deux triangles de même aire en utilisant le milieu d’un côté.<br>`
-          : `Dans le triangle $${nomDuTriangleEnonce}$, construire le symétrique de $${S[1].nom}$ par rapport à $${S[0].nom}$, puis tracer deux triangles de même aire.<br>`
+          ? `Dans le triangle $${nomDuTriangleEnonce}$, construire deux triangles de même aire.<br>`
+          : `Tracer le triangle $${nomDuTriangleEnonce}$ et construire un deuxième triangle de même aire.<br>`
       texte += mathalea2d(
         Object.assign({}, fixeBordures(objetsDessin)),
         objetsDessin,
@@ -221,8 +225,13 @@ export default class ConstruireDeuxTrianglesMemeAire extends Exercice {
           y: SBis[2].y,
           protege: true,
         },
-        { type: 'polygoneRapide', sommets: nomSommets.slice(0, 3).join(',') },
       ]
+      if (typeConstruction === 'milieu') {
+        conditionsInitiales.push({
+          type: 'polygoneRapide',
+          sommets: `${S[0].nom},${S[1].nom},${S[2].nom}`,
+        })
+      }
       const instructionsDisponibles: TypeInstructionIep[] =
         typeConstruction === 'milieu'
           ? [
