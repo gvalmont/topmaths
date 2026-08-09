@@ -1,4 +1,5 @@
 import { context } from '../../modules/context'
+import { texNombre } from '../outils/texNombre'
 import type { IExercice } from '../types'
 import MathaleaCustomElement, {
   registerMathaleaCustomElement,
@@ -329,6 +330,51 @@ export class DiagramBarAssessmentElement extends MathaleaCustomElement {
     this.attachShadow({ mode: 'open' })
   }
 
+  private static createStaticElement({
+    mode,
+    labelValueKind,
+    title,
+    infosStatus,
+    unitLabel,
+    unitValue,
+    tolerance,
+    yMax,
+    items,
+    interactivityOn,
+  }: {
+    mode: BarAssessmentMode | BarAssessmentLegacyMode
+    labelValueKind:
+      | BarAssessmentLabelValueKind
+      | BarAssessmentLegacyLabelValueKind
+    title: string
+    infosStatus: boolean
+    unitLabel: string
+    unitValue: number
+    tolerance: number
+    yMax?: number
+    items: BarAssessmentCreateOptions['items']
+    interactivityOn: boolean
+  }): DiagramBarAssessmentElement {
+    const element = new DiagramBarAssessmentElement()
+    element.setAttribute(
+      'interactivity-on',
+      interactivityOn ? 'true' : 'false',
+    )
+    element.state = {
+      ...structuredClone(DEFAULT_STATE),
+      mode: normalizeMode(mode),
+      labelValueKind: normalizeLabelValueKind(labelValueKind),
+      title,
+      infosStatus,
+      unitLabel,
+      unitValue: Math.max(1, unitValue),
+      tolerance,
+      yMax: yMax == null ? null : Math.max(0, yMax),
+      items: normalizeItems(items),
+    }
+    return element
+  }
+
   static get observedAttributes(): string[] {
     return [
       'title',
@@ -372,6 +418,38 @@ export class DiagramBarAssessmentElement extends MathaleaCustomElement {
         callbackName,
         verifyCallback,
       )
+    }
+
+    if (context.isTypst) {
+      const element = DiagramBarAssessmentElement.createStaticElement({
+        mode,
+        labelValueKind,
+        title,
+        infosStatus,
+        unitLabel,
+        unitValue,
+        tolerance,
+        yMax,
+        items,
+        interactivityOn,
+      })
+      return `<mathalea-typst>${element.renderTypst()}</mathalea-typst>`
+    }
+
+    if (!context.isHtml) {
+      const element = DiagramBarAssessmentElement.createStaticElement({
+        mode,
+        labelValueKind,
+        title,
+        infosStatus,
+        unitLabel,
+        unitValue,
+        tolerance,
+        yMax,
+        items,
+        interactivityOn,
+      })
+      return element.renderLatex()
     }
 
     return super.create({
@@ -639,7 +717,10 @@ export class DiagramBarAssessmentElement extends MathaleaCustomElement {
   }
 
   render(): string | void {
-    if (!context.isHtml || context.isTypst) {
+    if (context.isTypst) {
+      return this.renderTypst()
+    }
+    if (!context.isHtml) {
       return this.renderLatex()
     }
     if (this.shadowRoot == null) return
@@ -729,7 +810,43 @@ export class DiagramBarAssessmentElement extends MathaleaCustomElement {
   }
 
   protected renderLatex(): string {
-    return ''
+    const title = this.state.title.trim()
+    const titleLatex =
+      title === '' ? '' : `\\textbf{${this.escapeLatex(title)}}\\\\[0.4em]\n`
+    const diagram = this.interactivityOn
+      ? this.renderEmptyBarTikz()
+      : this.renderFilledBarTikz()
+    return `\\begin{center}
+${titleLatex}\\begin{minipage}[t]{0.48\\linewidth}
+\\vspace{0pt}
+\\centering
+${this.renderLatexTable()}
+\\end{minipage}
+\\hfill
+\\begin{minipage}[t]{0.48\\linewidth}
+\\vspace{0pt}
+\\centering
+${diagram}
+\\end{minipage}
+\\end{center}`
+  }
+
+  protected renderTypst(): string {
+    const title = this.state.title.trim()
+    const titleTypst =
+      title === '' ? '' : `#strong[${this.escapeTypst(title)}]\n#v(0.4em)\n`
+    const diagram = this.interactivityOn
+      ? this.renderEmptyBarTypst()
+      : this.renderFilledBarTypst()
+    return `#align(center)[
+${titleTypst}#grid(
+  columns: (0.48fr, 0.48fr),
+  gutter: 0.1fr,
+  align: top,
+  [#align(center)[${this.renderTypstTable()}]],
+  [#align(center)[${diagram}]],
+)
+]`
   }
 
   get value(): string {
@@ -1192,6 +1309,349 @@ export class DiagramBarAssessmentElement extends MathaleaCustomElement {
     return out
   }
 
+  private renderLatexTable(): string {
+    const isLabelMode = this.state.mode === 'label'
+    const isHeightMode = this.state.mode === 'hauteur'
+    const valueColumnHeader = isLabelMode
+      ? this.state.labelValueKind === 'hauteur'
+        ? "Hauteur (nombre d'unités)"
+        : 'Effectif'
+      : isHeightMode
+        ? "Hauteur (nombre d'unités)"
+        : 'Effectif'
+
+    const rows = this.state.items
+      .map((item, index) => {
+        const label = this.renderLatexLabelCell(item, index)
+        const value = this.renderLatexValueCell(item, index)
+        return `${label} & ${value} \\\\ \\hline`
+      })
+      .join('\n')
+
+    return `\\begin{tabular}{|c|c|}
+\\hline
+Catégorie & ${this.escapeLatex(valueColumnHeader)} \\\\ \\hline
+${rows}
+\\end{tabular}`
+  }
+
+  private renderLatexLabelCell(item: BarAssessmentItem, index: number): string {
+    if (this.interactivityOn && this.state.mode === 'label') {
+      return '\\makebox[3cm]{\\dotfill}'
+    }
+    const label = item.label.trim() === '' ? `B${index + 1}` : item.label
+    return this.escapeLatex(label)
+  }
+
+  private renderLatexValueCell(item: BarAssessmentItem, index: number): string {
+    if (
+      this.interactivityOn &&
+      (this.state.mode === 'hauteur' || this.state.mode === 'effectif')
+    ) {
+      return '\\makebox[2cm]{\\dotfill}'
+    }
+
+    if (this.state.mode === 'label') {
+      const value =
+        this.state.labelValueKind === 'hauteur'
+          ? (item.height ?? this.deriveExpectedHeightsFromUnit()[index] ?? 0)
+          : (item.effectif ??
+            this.deriveExpectedEffectifsFromUnit()[index] ??
+            0)
+      return this.formatLatexNumber(value)
+    }
+
+    if (this.state.mode === 'hauteur') {
+      return this.formatLatexNumber(
+        item.height ?? this.deriveExpectedHeightsFromUnit()[index] ?? 0,
+      )
+    }
+
+    return this.formatLatexNumber(
+      item.effectif ?? this.deriveExpectedEffectifsFromUnit()[index] ?? 0,
+    )
+  }
+
+  private renderEmptyBarTikz(): string {
+    return this.renderBarTikz({ withBars: false })
+  }
+
+  private renderFilledBarTikz(): string {
+    return this.renderBarTikz({ withBars: true })
+  }
+
+  private renderBarTikz({ withBars }: { withBars: boolean }): string {
+    const unitValue = Math.max(1, this.state.unitValue)
+    const yMax = this.resolveLatexYMax()
+    const axisWidth = Math.max(5, this.state.items.length * 1.15)
+    const axisHeight = 4.8
+    const slotWidth =
+      this.state.items.length > 0
+        ? axisWidth / this.state.items.length
+        : axisWidth
+    const barWidth = Math.min(0.62, slotWidth * 0.58)
+    const colorDefinitions = withBars
+      ? this.state.items.map(
+          (_item, index) =>
+            `\\definecolor{${this.tikzColorName(index)}}{HTML}{${this.colorForIndex(index).slice(1)}}`,
+        )
+      : []
+    const ticks = this.renderLatexTicks(axisWidth, axisHeight, yMax, unitValue)
+    const labels = this.state.items
+      .map((item, index) => {
+        const x = index * slotWidth + slotWidth / 2
+        const rawLabel =
+          this.state.mode === 'label' && !withBars ? '' : item.label.trim()
+        const label = rawLabel === '' ? `B${index + 1}` : rawLabel
+        return `\\node[below, font=\\scriptsize] at (${this.formatTikzNumber(x)},0) {${this.escapeLatex(label)}};`
+      })
+      .join('\n')
+    const heights = this.deriveExpectedHeightsFromUnit()
+    const bars = withBars
+      ? this.state.items
+          .map((_item, index) => {
+            const heightValue = Math.max(0, heights[index] ?? 0)
+            const representedEffectif = heightValue * unitValue
+            const h = Math.max(0, (representedEffectif / yMax) * axisHeight)
+            const x = index * slotWidth + (slotWidth - barWidth) / 2
+            return `\\filldraw[fill=${this.tikzColorName(index)}, draw=white] (${this.formatTikzNumber(x)},0) rectangle (${this.formatTikzNumber(x + barWidth)},${this.formatTikzNumber(h)});`
+          })
+          .join('\n')
+      : ''
+
+    return `${colorDefinitions.join('\n')}
+\\begin{tikzpicture}[x=1cm,y=1cm]
+${ticks}
+\\draw[->, thick] (0,0) -- (${this.formatTikzNumber(axisWidth + 0.35)},0);
+\\draw[->, thick] (0,0) -- (0,${this.formatTikzNumber(axisHeight + 0.35)});
+${bars}
+${labels}
+\\end{tikzpicture}`
+  }
+
+  private renderLatexTicks(
+    axisWidth: number,
+    axisHeight: number,
+    yMax: number,
+    unitValue: number,
+  ): string {
+    const values: number[] = [0]
+    const fullSteps = Math.floor(yMax / unitValue)
+    for (let i = 1; i <= fullSteps; i++) {
+      values.push(i * unitValue)
+    }
+    if (values[values.length - 1] !== yMax) values.push(yMax)
+
+    return values
+      .map((value) => {
+        const y = (value / yMax) * axisHeight
+        return `\\draw[gray!25] (0,${this.formatTikzNumber(y)}) -- (${this.formatTikzNumber(axisWidth)},${this.formatTikzNumber(y)});
+\\node[left, font=\\scriptsize] at (0,${this.formatTikzNumber(y)}) {${this.formatLatexNumber(value)}};`
+      })
+      .join('\n')
+  }
+
+  private renderLatexLegend(): string {
+    if (this.state.items.length === 0) return ''
+
+    const rows = this.state.items
+      .map((item, index) => {
+        const label = item.label.trim() === '' ? `B${index + 1}` : item.label
+        return `\\tikz\\fill[fill=${this.tikzColorName(index)}] (0,0) rectangle (0.25,0.25); & ${this.escapeLatex(label)} \\\\`
+      })
+      .join('\n')
+
+    return `\\begin{tabular}{@{}cl@{}}
+${rows}
+\\end{tabular}`
+  }
+
+  private renderTypstTable(): string {
+    const isLabelMode = this.state.mode === 'label'
+    const isHeightMode = this.state.mode === 'hauteur'
+    const valueColumnHeader = isLabelMode
+      ? this.state.labelValueKind === 'hauteur'
+        ? "Hauteur (nombre d'unités)"
+        : 'Effectif'
+      : isHeightMode
+        ? "Hauteur (nombre d'unités)"
+        : 'Effectif'
+    const cells = [
+      `[Catégorie]`,
+      `[${this.escapeTypst(valueColumnHeader)}]`,
+      ...this.state.items.flatMap((item, index) => [
+        `[${this.renderTypstLabelCell(item, index)}]`,
+        `[${this.renderTypstValueCell(item, index)}]`,
+      ]),
+    ]
+
+    return `#table(
+  columns: 2,
+  stroke: 0.6pt + luma(70%),
+  inset: 4pt,
+  ${cells.join(',\n  ')},
+)`
+  }
+
+  private renderTypstLabelCell(
+    item: BarAssessmentItem,
+    index: number,
+  ): string {
+    if (this.interactivityOn && this.state.mode === 'label') {
+      return '#text(fill: luma(55%))[........]'
+    }
+    const label = item.label.trim() === '' ? `B${index + 1}` : item.label
+    return this.escapeTypst(label)
+  }
+
+  private renderTypstValueCell(
+    item: BarAssessmentItem,
+    index: number,
+  ): string {
+    if (
+      this.interactivityOn &&
+      (this.state.mode === 'hauteur' || this.state.mode === 'effectif')
+    ) {
+      return '#text(fill: luma(55%))[........]'
+    }
+
+    if (this.state.mode === 'label') {
+      const value =
+        this.state.labelValueKind === 'hauteur'
+          ? (item.height ?? this.deriveExpectedHeightsFromUnit()[index] ?? 0)
+          : (item.effectif ??
+            this.deriveExpectedEffectifsFromUnit()[index] ??
+            0)
+      return this.formatTypstNumber(value)
+    }
+
+    if (this.state.mode === 'hauteur') {
+      return this.formatTypstNumber(
+        item.height ?? this.deriveExpectedHeightsFromUnit()[index] ?? 0,
+      )
+    }
+
+    return this.formatTypstNumber(
+      item.effectif ?? this.deriveExpectedEffectifsFromUnit()[index] ?? 0,
+    )
+  }
+
+  private renderEmptyBarTypst(): string {
+    return this.renderBarTypst({ withBars: false })
+  }
+
+  private renderFilledBarTypst(): string {
+    return this.renderBarTypst({ withBars: true })
+  }
+
+  private renderBarTypst({ withBars }: { withBars: boolean }): string {
+    const unitValue = Math.max(1, this.state.unitValue)
+    const yMax = this.resolveLatexYMax()
+    const axisLeft = 34
+    const axisTop = 10
+    const axisBottom = 128
+    const axisHeight = axisBottom - axisTop
+    const axisWidth = Math.max(150, this.state.items.length * 32)
+    const totalWidth = axisLeft + axisWidth + 14
+    const totalHeight = 170
+    const slotWidth =
+      this.state.items.length > 0
+        ? axisWidth / this.state.items.length
+        : axisWidth
+    const barWidth = Math.min(18, slotWidth * 0.58)
+    const ticks = this.renderTypstTicks(
+      axisLeft,
+      axisBottom,
+      axisWidth,
+      axisHeight,
+      yMax,
+      unitValue,
+    )
+    const labels = this.state.items
+      .map((item, index) => {
+        const x = axisLeft + index * slotWidth + slotWidth / 2
+        const rawLabel =
+          this.state.mode === 'label' && !withBars ? '' : item.label.trim()
+        const label = rawLabel === '' ? `B${index + 1}` : rawLabel
+        return `  #place(top + left, dx: ${this.pt(x - 12)}, dy: ${this.pt(axisBottom + 8)}, rotate(20deg, origin: top + center, box(width: 24pt)[#align(center)[${this.escapeTypst(label)}]]))`
+      })
+      .join('\n')
+    const heights = this.deriveExpectedHeightsFromUnit()
+    const bars = withBars
+      ? this.state.items
+          .map((_item, index) => {
+            const heightValue = Math.max(0, heights[index] ?? 0)
+            const representedEffectif = heightValue * unitValue
+            const h = Math.max(0, (representedEffectif / yMax) * axisHeight)
+            const x = axisLeft + index * slotWidth + (slotWidth - barWidth) / 2
+            const y = axisBottom - h
+            return `  #place(top + left, dx: ${this.pt(x)}, dy: ${this.pt(y)}, rect(width: ${this.pt(barWidth)}, height: ${this.pt(h)}, fill: rgb("${this.colorForIndex(index)}"), stroke: none))`
+          })
+          .join('\n')
+      : ''
+
+    return `#block(width: ${this.pt(totalWidth)}, height: ${this.pt(totalHeight)})[
+${ticks}
+  #place(top + left, line(start: (${this.pt(axisLeft)}, ${this.pt(axisBottom)}), end: (${this.pt(axisLeft + axisWidth + 8)}, ${this.pt(axisBottom)}), stroke: 1pt + luma(35%)))
+  #place(top + left, line(start: (${this.pt(axisLeft)}, ${this.pt(axisBottom)}), end: (${this.pt(axisLeft)}, ${this.pt(axisTop)}), stroke: 1pt + luma(35%)))
+${bars}
+${labels}
+]`
+  }
+
+  private renderTypstTicks(
+    axisLeft: number,
+    axisBottom: number,
+    axisWidth: number,
+    axisHeight: number,
+    yMax: number,
+    unitValue: number,
+  ): string {
+    const values: number[] = [0]
+    const fullSteps = Math.floor(yMax / unitValue)
+    for (let i = 1; i <= fullSteps; i++) values.push(i * unitValue)
+    if (values[values.length - 1] !== yMax) values.push(yMax)
+
+    return values
+      .map((value) => {
+        const y = axisBottom - (value / yMax) * axisHeight
+        return `  #place(top + left, line(start: (${this.pt(axisLeft)}, ${this.pt(y)}), end: (${this.pt(axisLeft + axisWidth)}, ${this.pt(y)}), stroke: 0.5pt + luma(85%)))
+  #place(top + left, dx: 0pt, dy: ${this.pt(y - 4)}, box(width: ${this.pt(axisLeft - 5)})[#align(right)[${this.formatTypstNumber(value)}]])`
+      })
+      .join('\n')
+  }
+
+  private renderTypstLegend(): string {
+    if (this.state.items.length === 0) return ''
+
+    const rows = this.state.items
+      .map((item, index) => {
+        const label = item.label.trim() === '' ? `B${index + 1}` : item.label
+        return `  rect(width: 7pt, height: 7pt, fill: rgb("${this.colorForIndex(index)}"), stroke: none), [${this.escapeTypst(label)}]`
+      })
+      .join(',\n')
+
+    return `#grid(
+  columns: (auto, auto),
+  gutter: 4pt,
+${rows},
+)`
+  }
+
+  private resolveLatexYMax(): number {
+    const unitValue = Math.max(1, this.state.unitValue)
+    const maxExpectedEffectif = this.deriveExpectedEffectifsFromUnit().reduce(
+      (acc, value) => Math.max(acc, Math.max(0, value)),
+      0,
+    )
+    const inferredYMax = this.roundUpToUnit(maxExpectedEffectif, unitValue)
+    const configuredYMax =
+      this.state.yMax == null
+        ? inferredYMax
+        : Math.max(this.state.yMax, unitValue)
+    return Math.max(unitValue, configuredYMax)
+  }
+
   private roundUpToUnit(value: number, unitValue: number): number {
     const safeUnitValue = Math.max(1, unitValue)
     if (!Number.isFinite(value) || value <= 0) return safeUnitValue
@@ -1241,12 +1701,51 @@ export class DiagramBarAssessmentElement extends MathaleaCustomElement {
     return BAR_COLORS[index % BAR_COLORS.length]
   }
 
+  private tikzColorName(index: number): string {
+    return `mathaleaBarColor${index}`
+  }
+
+  private formatLatexNumber(value: number): string {
+    return texNombre(value, Number.isInteger(value) ? 0 : 1)
+  }
+
+  private formatTikzNumber(value: number): string {
+    return Number.isInteger(value) ? String(value) : value.toFixed(2)
+  }
+
+  private formatTypstNumber(value: number): string {
+    const rounded = Number.isInteger(value) ? String(value) : value.toFixed(1)
+    return rounded.replace('.', ',')
+  }
+
+  private pt(value: number): string {
+    return `${Number(value.toFixed(2))}pt`
+  }
+
   private escapeText(value: string): string {
     return value
       .replaceAll('&', '&amp;')
       .replaceAll('"', '&quot;')
       .replaceAll('<', '&lt;')
       .replaceAll('>', '&gt;')
+  }
+
+  private escapeLatex(value: string): string {
+    return value
+      .replaceAll('\\', '\\textbackslash{}')
+      .replaceAll('&', '\\&')
+      .replaceAll('%', '\\%')
+      .replaceAll('$', '\\$')
+      .replaceAll('#', '\\#')
+      .replaceAll('_', '\\_')
+      .replaceAll('{', '\\{')
+      .replaceAll('}', '\\}')
+      .replaceAll('~', '\\textasciitilde{}')
+      .replaceAll('^', '\\textasciicircum{}')
+  }
+
+  private escapeTypst(value: string): string {
+    return value.replace(/[\\#$[\]*_`<>@~]/g, (character) => `\\${character}`)
   }
 }
 
@@ -1255,7 +1754,6 @@ export function addDiagramBarAssessment(
   questionIndex: number,
   options: BarAssessmentOptions,
 ): string {
-  if (!context.isHtml) return ''
   if (exercice.autoCorrection[questionIndex] == null) {
     exercice.autoCorrection[questionIndex] = {}
   }
