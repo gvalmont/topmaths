@@ -1,4 +1,5 @@
 // Importer renderKatex de mathalea
+import { context } from '../../modules/context'
 import { renderKatex } from '../mathalea'
 import { egalOuApprox } from '../outils/ecritures'
 import { texNombre } from '../outils/texNombre'
@@ -25,7 +26,9 @@ function detectPixelsPerCm() {
       return pixelsPerCm
     }
   } catch (error) {
-    window.notify('Erreur lors de la détection des pixels par cm:', error)
+    if (typeof window !== 'undefined' && 'notify' in window) {
+      window.notify('Erreur lors de la détection des pixels par cm:', error)
+    }
   }
 
   return 37.8
@@ -337,6 +340,30 @@ export class GuideAne extends MathaleaCustomElement {
     const effectiveTarget = targetValue ?? target
     if (typeof effectiveTarget === 'number') data.target = effectiveTarget
 
+    if (!context.isHtml || context.isTypst) {
+      const guideAne = new GuideAne()
+      guideAne.id = computedId
+      guideAne.n = n
+      guideAne.p = Math.max(0, Math.min(n - 1, p))
+      guideAne.alpha = alpha
+      guideAne.printAD = printAD
+      guideAne.printRatio = printRatio
+      guideAne.fractionToDecimalAD = fractionToDecimalAD
+      guideAne.interactivityOn = interactivityOn
+      guideAne.targetFraction = targetFraction
+      guideAne.displayTargetOn = displayTargetOn
+      if (A) guideAne.A = A
+      if (typeof targetAB === 'number') {
+        guideAne.B = {
+          x: guideAne.A.x + targetAB * guideAne.pixelsParCm,
+          y: guideAne.A.y,
+        }
+      }
+      if (typeof effectiveTarget === 'number') guideAne.target = effectiveTarget
+      guideAne.C = guideAne.calculateInitialC()
+      return guideAne.renderLatex()
+    }
+
     const attributes: string[] = []
     attributes.push(`id="${computedId}"`)
     if (className) attributes.push(`class="${className}"`)
@@ -408,6 +435,70 @@ export class GuideAne extends MathaleaCustomElement {
     this.style.border = '1px solid #ccc'
     this.style.background = '#f9f9f9'
     this.style.position = 'relative'
+  }
+
+  protected renderLatex(): string {
+    const lengthAB = this.getLengthAB()
+    const alpha = this.alpha
+    const partsCount = this.interactivityOn ? 10 : this.n
+    const selectedPart = Math.max(0, Math.min(this.n - 1, this.p))
+    const rayLength = this.interactivityOn ? 10 : this.n
+    const cosAlpha = Math.cos((alpha * Math.PI) / 180)
+    const sinAlpha = Math.sin((alpha * Math.PI) / 180)
+    const tikzNumber = (value: number) => value.toFixed(4).replace(/\.?0+$/, '')
+    const coordinate = (x: number, y: number) =>
+      `(${tikzNumber(x)},${tikzNumber(y)})`
+    const pointOnAC = (i: number) => coordinate(i * cosAlpha, i * sinAlpha)
+    const pointOnAB = (i: number) => coordinate((lengthAB * i) / this.n, 0)
+    const tickOnAC = (i: number) => {
+      const tickHalfLength = 0.08
+      const center = { x: i * cosAlpha, y: i * sinAlpha }
+      const normal = { x: -sinAlpha, y: cosAlpha }
+      return {
+        start: coordinate(
+          center.x - tickHalfLength * normal.x,
+          center.y - tickHalfLength * normal.y,
+        ),
+        end: coordinate(
+          center.x + tickHalfLength * normal.x,
+          center.y + tickHalfLength * normal.y,
+        ),
+      }
+    }
+    const lines: string[] = [
+      '\\begin{tikzpicture}[x=1cm,y=1cm,scale=0.75]',
+      `\\coordinate (A) at ${coordinate(0, 0)};`,
+      `\\coordinate (B) at ${coordinate(lengthAB, 0)};`,
+      `\\coordinate (C) at ${coordinate(rayLength * cosAlpha, rayLength * sinAlpha)};`,
+      '\\draw[thick] (A) -- (B);',
+      '\\draw[gray] (A) -- (C);',
+      `\\draw ${coordinate(lengthAB, -0.12)} -- ${coordinate(lengthAB, 0.12)};`,
+      '\\node[below left] at (A) {$A$};',
+      '\\node[below right] at (B) {$B$};',
+    ]
+
+    for (let i = 1; i <= partsCount; i++) {
+      const tick = tickOnAC(i)
+      lines.push(`\\draw[gray] ${tick.start} -- ${tick.end};`)
+    }
+
+    if (!this.interactivityOn) {
+      lines.push(`\\node[above] at ${pointOnAC(this.n)} {$C$};`)
+      lines.push(`\\draw[blue,thick] ${pointOnAC(this.n)} -- (B);`)
+      for (let i = 1; i < this.n; i++) {
+        const style = i === selectedPart ? 'red,very thick' : 'gray,dashed'
+        lines.push(`\\draw[${style}] ${pointOnAC(i)} -- ${pointOnAB(i)};`)
+      }
+      if (selectedPart > 0) {
+        lines.push(`\\coordinate (D) at ${pointOnAB(selectedPart)};`)
+        lines.push('\\draw[red,very thick] (A) -- (D);')
+        lines.push('\\fill[red] (D) circle (1.5pt);')
+        lines.push('\\node[below] at (D) {$D$};')
+      }
+    }
+
+    lines.push('\\end{tikzpicture}')
+    return lines.join('\n')
   }
 
   // Des méthodes d'accès publiques pour la correction interactive et le feedback
@@ -1048,8 +1139,8 @@ export class GuideAne extends MathaleaCustomElement {
     // Créer le SVG
     this.svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg')
     this.svg.setAttribute('width', '800')
-    this.svg.setAttribute('height', '320')
-    this.svg.setAttribute('viewBox', '0 0 800 320')
+    this.svg.setAttribute('height', '340')
+    this.svg.setAttribute('viewBox', '0 0 800 340')
     this.svg.style.width = '100%'
     //this.svg.style.height = '100%'
 
