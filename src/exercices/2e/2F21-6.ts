@@ -24,7 +24,7 @@ export const dateDeModifImportante = '18/05/2023'
 export const uuid = 'b72b0'
 
 export const refs = {
-  'fr-fr': ['2F10-6'],
+  'fr-fr': ['2F21-6'],
   'fr-ch': [],
 }
 export default class Variationsfonctionaffine extends Exercice {

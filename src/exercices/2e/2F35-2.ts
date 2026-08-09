@@ -20,12 +20,12 @@ export const dateDeModifImportante = '19/06/2023'
 /**
  * Calculer la parité d'une fonction
  * @author Stéphane Guyon+GillesMora
- * 2F25-2
+ * 2F35-2
  */
 export const uuid = '1e362'
 
 export const refs = {
-  'fr-fr': ['2F25-2'],
+  'fr-fr': ['2F35-2'],
   'fr-ch': ['NR'],
 }
 export default class EtudierPariteFonction extends Exercice {

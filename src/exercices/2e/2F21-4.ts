@@ -26,7 +26,7 @@ export const dateDeModifImportante = '14/05/2023'
 export const uuid = 'ef898'
 
 export const refs = {
-  'fr-fr': ['2F10-4'],
+  'fr-fr': ['2F21-4'],
   'fr-ch': ['11FA8-11'],
 }
 export default class Determinerfonctionaffine extends Exercice {

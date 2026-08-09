@@ -32,7 +32,7 @@ export const dateDePublication = '18/04/2026'
 export const uuid = '66d4e'
 
 export const refs = {
-  'fr-fr': ['2F10-10'],
+  'fr-fr': ['2F21-10'],
   'fr-ch': [''],
 }
 export default class Determinerfonctionaffine extends Exercice {

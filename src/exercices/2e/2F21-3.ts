@@ -39,7 +39,7 @@ export const interactifType = 'custom'
 export const uuid = 'c360e'
 
 export const refs = {
-  'fr-fr': ['2F10-3'],
+  'fr-fr': ['2F21-3'],
   'fr-ch': ['10FA5-15'],
 }
 export default class Representerfonctionaffine extends Exercice {

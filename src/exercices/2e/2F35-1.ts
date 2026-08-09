@@ -21,7 +21,7 @@ export const titre = "Étudier graphiquement la parité d'une fonction"
 export const uuid = '6e82d'
 
 export const refs = {
-  'fr-fr': ['2F25-1'],
+  'fr-fr': ['2F35-1'],
   'fr-ch': [],
 }
 export default class EtudierGraphiqueParite extends Exercice {
