@@ -13,7 +13,7 @@ export const interactifReady = true
 export const interactifType = 'qcm'
 export const uuid = 'fb646'
 export const refs = {
-  'fr-fr': ['1A-P03-5', '2A-P3-5'],
+  'fr-fr': ['1A-P04-1', '2A-P4-1'],
   'fr-ch': [],
 }
 
