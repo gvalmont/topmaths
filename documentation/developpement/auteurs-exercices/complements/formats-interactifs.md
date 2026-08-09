@@ -779,6 +779,17 @@ handleAnswers(
 
 La réponse attendue est la chaîne produite par `Hms.toString()`. Le custom element sauvegarde la réponse élève comme objet sérialisé, puis la vérification reconstruit l'heure attendue avec `Hms.fromString()`, comme dans l'exercice `canc3D04.ts`.
 
+`addInteractiveClock()` gère directement les contextes de sortie :
+
+- en HTML standard, il injecte le custom element interactif ou figé ;
+- en LaTeX, il retourne une horloge `mathalea2d` statique ;
+- en Typst, il retourne une image SVG embarquée dans un marqueur
+  `<mathalea-typst>`.
+
+Quand `showHands` vaut `false`, l'horloge est rendue sans aiguilles, ce qui
+convient à l'énoncé interactif. Quand `interactivityOn` vaut `false` avec
+`showHands: true`, l'heure fournie est dessinée pour la correction.
+
 ## Guide-âne
 
 À utiliser pour un guide-âne interactif dans une construction géométrique.
