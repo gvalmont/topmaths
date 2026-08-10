@@ -2863,11 +2863,20 @@
   "TSA3": {
     "titre": "Complément sur la dérivation"
   },
-  "TSA3-1": {
-    "titre": "Composée de deux fonctions, dérivée d'une composée"
+   "TSA3-1": {
+    "titre": "Dérivation"
   },
   "TSA3-2": {
+    "titre": "Exponentielle"
+  },
+  "TSA3-3": {
+    "titre": "Composée de deux fonctions, dérivée d'une composée"
+  },
+  "TSA3-4": {
     "titre": "Convexité"
+  },
+  "TSA3-5": {
+    "titre": "Synthèse"
   },
   "TSA4": {
     "titre": "Continuité des fonctions"
@@ -3085,8 +3094,23 @@
     "sousThemes": {}
   },
    "TCA7": {
-    "titre": "Convexité",
+    "titre": "Compléments sur la dérivation",
     "sousThemes": {}
+  },
+  "TCA7-1": {
+    "titre": "Dérivation"
+  },
+  "TCA7-2": {
+    "titre": "Exponentielle"
+  },
+  "TCA7-3": {
+    "titre": "Composée de deux fonctions, dérivée d'une composée"
+  },
+  "TCA7-4": {
+    "titre": "Convexité"
+  },
+  "TCA7-5": {
+    "titre": "Synthèse"
   },
    "TCP1": {
     "titre": "Lois de probabilités discrètes",

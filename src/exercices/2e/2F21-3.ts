@@ -110,13 +110,6 @@ export default class Representerfonctionaffine extends Exercice {
         tB: TracePoint,
         lA: NestedObjetMathalea2dArray,
         lB: NestedObjetMathalea2dArray,
-        cadreFenetreSvg: {
-          xmin: number
-          ymin: number
-          xmax: number
-          ymax: number
-          scale: number
-        },
         f: (x: number) => number,
         texte,
         texteCorr: string
@@ -245,13 +238,6 @@ export default class Representerfonctionaffine extends Exercice {
               yMax: Math.max(5, yA + 1, yB + 1),
             }
 
-            cadreFenetreSvg = {
-              xmin: cadre.xMin,
-              ymin: cadre.yMin,
-              xmax: cadre.xMax,
-              ymax: cadre.yMax,
-              scale: 0.6,
-            }
             const aFrac = fraction(a, d)
             texte = `$f_{${i + 1}}(x)=${reduireAxPlusB(aFrac, b)}$ <br>`
             texteCorr = `On sait que la représentation graphique d'une fonction ${this.sup3 ? 'linéaire' : 'affine'} est une droite ${this.sup3 ? "passant par l'origine" : ''}.<br>`
@@ -361,9 +347,4 @@ export default class Representerfonctionaffine extends Exercice {
     }
     return result
   }
-}
-
-function texFractionReduite(a: number, b: number) {
-  const frac = fraction(a, b)
-  return frac.simplifie().toLatex()
 }
