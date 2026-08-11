@@ -86,8 +86,7 @@ export default class AntecedentParCalcul extends Exercice {
       let m = 0
       let expr = ''
       let ante: FractionEtendue
-      texteCorr = `On cherche un nombre $x$ tel que $f(x) = ${m}$.<br>`
-      texteCorr += `On résout donc l'équation : $f(x) = ${m}$. <br>`
+      texteCorr = ''
 
       switch (
         listeTypeDeQuestions[i] // Chaque question peut être d'un type différent
@@ -156,6 +155,11 @@ export default class AntecedentParCalcul extends Exercice {
           ante = new FractionEtendue(m - b, a)
           break
       }
+
+      texteCorr =
+        `On cherche un nombre $x$ tel que $f(x) = ${m}$.<br>` +
+        `On résout donc l'équation : $f(x) = ${m}$. <br>` +
+        texteCorr
 
       if ((!ante.estIrreductible || ante.inferieurstrict(0)) && ante.num !== 0)
         texteCorr += `x &=${ante.texFraction}${ante.texSimplificationAvecEtapes('none', orangeMathalea)} \\\\` // c'est la couleur de miseEnEvidence
