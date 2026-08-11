@@ -5,13 +5,13 @@ import ExerciceCan from '../ExerciceCan'
 
 export const uuid = 'cf889'
 export const refs = {
-  'fr-fr': [],
+  'fr-fr': ['3AutoP08-2'],
   'fr-ch': [],
 }
 export const interactifReady = true
-export const interactifType = 'multi-mathfield'
-export const titre = "Lire les coordonnées d'un point dans un repère"
-export const dateDePublication = '06/06/2026'
+export const titre =
+  'Calculer un nouveaux prix (pourcentage de baisse ou de hausse)'
+export const dateDePublication = '10/08/2026'
 
 /**
  * DNB Asie juin 2026 - Question 7
@@ -46,7 +46,7 @@ $\\text{Nouveau prix} = ${prixInitial} ${baisseOuHausse === 'baisse' ? '-' : '+'
   }
 
   nouvelleVersion() {
-    if (this.canOfficielle) {
+    if (this.canOfficielle || this.sup) {
       this.enonce(60, 10, 'baisse')
     } else {
       this.enonce()
