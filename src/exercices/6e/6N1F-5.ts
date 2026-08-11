@@ -26,7 +26,7 @@ export const uuid = '67f4a'
 
 export const refs = {
   'fr-fr': ['6N1F-5'],
-  'fr-ch': [''],
+  'fr-ch': ['9NO3C-21'],
 }
 export default class AssocierDifferentesEcrituresNombreDecimal extends Exercice {
   constructor() {
