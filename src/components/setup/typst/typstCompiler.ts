@@ -163,7 +163,9 @@ export interface TypstAnchor {
    * `cover` : textes de la page de garde ; `footer` : texte du pied de page
    * (émis sur la première page physique seulement, voir `pageFooter`) ;
    * `figure` : figure mathalea2d embarquée (zoom) ;
-   * `carte-recto`/`carte-verso` : carte de la vue Flash-cards (taille du texte)
+   * `carte-recto`/`carte-verso` : carte de la vue Flash-cards (taille du texte) ;
+   * `can-row` : ligne du tableau « Course aux nombres » (édition de son
+   * énoncé/réponse), num = numéro de ligne (1-based, colonne « # »)
    */
   kind:
     | 'tasks'
@@ -177,6 +179,7 @@ export interface TypstAnchor {
     | 'figure'
     | 'carte-recto'
     | 'carte-verso'
+    | 'can-row'
   /** Numéro de l'exercice concerné (0 = avant le premier exercice), ou de la figure */
   num: number
   page: number
@@ -196,6 +199,7 @@ const ANCHOR_KINDS = new Set([
   'figure',
   'carte-recto',
   'carte-verso',
+  'can-row',
 ])
 
 /** Valide et filtre les métadonnées renvoyées par `query(<mathalea-anchor>)` */

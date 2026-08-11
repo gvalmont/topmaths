@@ -7,7 +7,8 @@
      * `gap` : espace après un exercice ; `header` : bloc de titre de la fiche ;
      * `cover` : textes de la page de garde ; `footer` : texte du pied de page
      * (première page seulement) ; `figure` : figure mathalea2d embarquée
-     * (zoom)
+     * (zoom) ; `can-row` : ligne du tableau « Course aux nombres » (édition
+     * de son énoncé/réponse)
      */
     kind:
       | 'tasks'
@@ -18,6 +19,7 @@
       | 'cover'
       | 'footer'
       | 'figure'
+      | 'can-row'
     /** Numéro de l'exercice concerné (0 = avant le premier exercice), ou de la figure */
     num: number
     /** Préfixe des variables visées par un contrôle `tasks` (`ex1`, `ex1-corr`) */
@@ -165,6 +167,14 @@
     /** Surcharges de code Typst de la correction, par numéro d'exercice (voir onEditCorrectionCode) */
     codeOverridesCorrection?: Record<number, string>
     onEditCorrectionCode: (num: number) => void
+    /**
+     * Surcharges de code Typst d'une ligne du tableau « Course aux nombres »
+     * (énoncé et réponse), par numéro de ligne (voir onEditCanRow). Une
+     * ligne est surchargée dès que l'une de ses deux moitiés l'est.
+     */
+    codeOverridesCan?: Record<number, string>
+    codeOverridesCanReponse?: Record<number, string>
+    onEditCanRow: (row: number) => void
     /** Lignes en pointillés réglées par exercice (valeurs lues dans le code) */
     writingLinesValues?: Record<
       number,
@@ -227,6 +237,9 @@
     onEditCode,
     codeOverridesCorrection = {},
     onEditCorrectionCode,
+    codeOverridesCan = {},
+    codeOverridesCanReponse = {},
+    onEditCanRow,
     writingLinesValues = {},
     onSetWritingLines,
   }: Props = $props()
@@ -740,6 +753,32 @@
             <i class="bx bx-plus"></i>
           </button>
         </div>
+      </div>
+    {:else if widget.kind === 'can-row'}
+      <!-- édition de l'énoncé/réponse de cette ligne du tableau, dans la
+           marge la plus proche (même convention que le widget `tasks`) -->
+      {@const isOverridden =
+        codeOverridesCan[widget.num] != null ||
+        codeOverridesCanReponse[widget.num] != null}
+      <div
+        class="pointer-events-auto absolute -translate-y-1/2"
+        style="top: {widget.top}%; {widget.side === 'right'
+          ? 'right: 0.3%'
+          : 'left: 0.3%'}"
+      >
+        <button
+          type="button"
+          title={isOverridden
+            ? `Modifier la ligne ${widget.num} du tableau`
+            : `Éditer la ligne ${widget.num} du tableau`}
+          aria-label="Éditer la ligne {widget.num} du tableau « Course aux nombres »"
+          class="typst-pill typst-pill-round flex h-5 w-5 items-center justify-center"
+          class:typst-pill-active={isOverridden}
+          data-testid="typst-overlay-edit-can-row"
+          onclick={() => onEditCanRow(widget.num)}
+        >
+          <i class="bx bx-pencil text-xs"></i>
+        </button>
       </div>
     {:else if widget.kind === 'header'}
       <!-- édition du titre, du sous-titre et de la ligne d'en-tête -->

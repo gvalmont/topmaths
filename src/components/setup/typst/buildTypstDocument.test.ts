@@ -4,6 +4,7 @@ import {
   buildStandaloneExerciseCode,
   buildTypstDocument,
   defaultTypstDocumentOptions,
+  getGeneratedCanRowCode,
   getGeneratedExerciseCode,
   harvestCarryOver,
   type TypstDocumentOptions,
@@ -1075,9 +1076,15 @@ describe('mode « Course aux nombres » (canMode)', () => {
     expect(code).toContain('#tasks(columns: ex0-corr-colonnes')
     expect(code).toContain('#let ex0-corr-colonnes = "auto-fit"')
     expect(code).toContain('#let ex0-corr-gutter = interligne-questions')
-    // un repère « exo » par exercice, dans sa première cellule
-    expect(code).toContain('[#mathalea-anchor("exo", 1)\n      $1 + 1$],')
-    expect(code).toContain('[#mathalea-anchor("exo", 2)\n      $3 + 3$],')
+    // un repère « exo » par exercice, dans sa première cellule, et un repère
+    // « can-row » dans chaque cellule (édition d'une ligne du tableau)
+    expect(code).toContain(
+      '[#mathalea-anchor("exo", 1)\n      #mathalea-anchor("can-row", 1)\n      $1 + 1$],',
+    )
+    expect(code).toContain('[#mathalea-anchor("can-row", 2)\n      $2 + 2$],')
+    expect(code).toContain(
+      '[#mathalea-anchor("exo", 2)\n      #mathalea-anchor("can-row", 3)\n      $3 + 3$],',
+    )
     // seuls les deux gaps qui encadrent le tableau existent
     expect(code).toContain('#mathalea-anchor("gap", 0)')
     expect(code).toContain('#mathalea-anchor("gap", 2)')
@@ -1131,6 +1138,88 @@ describe('mode « Course aux nombres » (canMode)', () => {
       ).not.toThrow()
     },
   )
+
+  describe('surcharge d’une ligne (modale d’édition)', () => {
+    const inputs = [
+      exercise({ questions: ['$1+1$', '$2+2$'], canAnswers: ['$2$', '$4$'] }),
+      exercise({ questions: ['$3+3$'], canAnswers: ['$6$'] }),
+    ]
+
+    it('getGeneratedCanRowCode renvoie l’énoncé et la réponse générés de la ligne', () => {
+      expect(getGeneratedCanRowCode(inputs, 1, canOptions)).toEqual({
+        enonce: '$1 + 1$',
+        reponse: '$2$',
+      })
+      expect(getGeneratedCanRowCode(inputs, 3, canOptions)).toEqual({
+        enonce: '$3 + 3$',
+        reponse: '$6$',
+      })
+    })
+
+    it('remplace l’énoncé et/ou la réponse générés de la ligne surchargée, sans toucher aux autres', () => {
+      const code = buildTypstDocument(inputs, canOptions, {
+        codeOverridesCan: { 2: '#strong[Deux plus deux ?]' },
+        codeOverridesCanReponse: { 2: '#strong[4]' },
+      })
+      expect(code).toContain('#strong[Deux plus deux ?]')
+      expect(code).toContain('#strong[4]')
+      // les lignes non surchargées gardent leur contenu généré
+      expect(code).toContain('$1 + 1$')
+      expect(code).toContain('$3 + 3$')
+      expect(code).not.toContain('$2 + 2$')
+    })
+
+    it('harvestCarryOver relit les surcharges depuis le code généré (aller-retour)', () => {
+      const code = buildTypstDocument(inputs, canOptions, {
+        codeOverridesCan: { 2: '#strong[Deux plus deux ?]' },
+        codeOverridesCanReponse: { 2: '#strong[4]' },
+      })
+      const harvested = harvestCarryOver(code)
+      expect(harvested.codeOverridesCan).toEqual({
+        2: '#strong[Deux plus deux ?]',
+      })
+      expect(harvested.codeOverridesCanReponse).toEqual({ 2: '#strong[4]' })
+    })
+
+    it('exportMode : la surcharge sort telle quelle, sans repère ni marqueur de relecture', () => {
+      const code = buildTypstDocument(
+        inputs,
+        canOptions,
+        { codeOverridesCan: { 1: '#strong[Un plus un ?]' } },
+        [],
+        { exportMode: true },
+      )
+      expect(code).toContain('#strong[Un plus un ?]')
+      expect(code).not.toContain('mathalea:override-can')
+      expect(code).not.toContain('mathalea-anchor')
+    })
+
+    it.skipIf(!shouldRunTypstCliTests())(
+      'compile avec typst : le repère de fin de surcharge ne masque pas le `],` qui le suit',
+      async () => {
+        // régression : `// mathalea:override-can(-rep)-end` est un
+        // commentaire Typst ; s'il n'est pas suivi d'un saut de ligne avant
+        // le `],` collé par `typstContentArrayArgument`, ce `],` est avalé
+        // par le commentaire et l'élément du tableau ne se referme jamais.
+        const code = buildTypstDocument(inputs, canOptions, {
+          codeOverridesCan: { 1: 'Un plus un ?' },
+          codeOverridesCanReponse: { 2: '$4$' },
+        })
+        const { execFileSync } = await import('node:child_process')
+        const { writeFileSync, mkdtempSync } = await import('node:fs')
+        const { tmpdir } = await import('node:os')
+        const { join } = await import('node:path')
+        const dir = mkdtempSync(join(tmpdir(), 'typst-can-row-'))
+        const file = join(dir, 'doc.typ')
+        writeFileSync(file, code, 'utf-8')
+        expect(() =>
+          execFileSync('typst', ['compile', file, join(dir, 'doc.pdf')], {
+            stdio: 'pipe',
+          }),
+        ).not.toThrow()
+      },
+    )
+  })
 })
 
 describe('correction minimale (minimalCorrections)', () => {
@@ -1546,9 +1635,14 @@ describe('page de garde', () => {
       cover({ template: 'can', titre: 'Course aux nombres' }),
     )
     expect(code).toContain('#mathalea-couverture-can(')
-    expect(code).toContain('  titre: couverture-titre,')
+    // pas de titre texte dans la page de garde « can » : le logo porte déjà
+    // le nom du sujet (voir MATHALEA_COVER_CAN_HELPER)
+    expect(code).not.toContain('  titre: couverture-titre,')
     expect(code).toContain('  nb-questions: 3,')
-    expect(code).toContain('#let mathalea-logo = image(bytes("<svg')
+    // référencé par chemin virtuel (chargé par `Typst.svelte`), pas embarqué
+    expect(code).toContain(
+      '#let mathalea-logo = image("/images/logoCan.png", width: 45%)',
+    )
     // la page de garde des examens n'a rien à faire dans ce document
     expect(code).not.toContain('#let mathalea-couverture(')
   })
@@ -1607,9 +1701,12 @@ describe('page de garde', () => {
     'compile avec typst (chaque modèle de page de garde)',
     async () => {
       const { execFileSync } = await import('node:child_process')
-      const { writeFileSync, mkdtempSync } = await import('node:fs')
+      const { writeFileSync, mkdtempSync, mkdirSync, copyFileSync } =
+        await import('node:fs')
       const { tmpdir } = await import('node:os')
-      const { join } = await import('node:path')
+      const { join, dirname } = await import('node:path')
+      const { fileURLToPath } = await import('node:url')
+      const testDir = dirname(fileURLToPath(import.meta.url))
       for (const template of ['evaluation', 'brevet', 'bac', 'can'] as const) {
         const code = buildTypstDocument(
           [
@@ -1627,6 +1724,16 @@ describe('page de garde', () => {
         const dir = mkdtempSync(join(tmpdir(), `typst-cover-${template}-`))
         const file = join(dir, 'doc.typ')
         writeFileSync(file, code, 'utf-8')
+        if (template === 'can') {
+          // le logo « can » est référencé par chemin (voir mathaleaLogo.ts),
+          // pas embarqué : il faut le fournir à côté du .typ pour compiler,
+          // comme le fera le .zip téléchargé (voir downloadTyp)
+          mkdirSync(join(dir, 'images'), { recursive: true })
+          copyFileSync(
+            join(testDir, '../../../../public/images/logoCan.png'),
+            join(dir, 'images', 'logoCan.png'),
+          )
+        }
         expect(() =>
           execFileSync('typst', ['compile', file, join(dir, 'doc.pdf')], {
             stdio: 'pipe',

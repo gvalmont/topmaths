@@ -9,16 +9,20 @@ import {
   escapeTypstText,
   htmlToTypst,
 } from './latexToTypst'
-import { MATHALEA_LOGO_SVG } from './mathaleaLogo'
+import { LOGO_CAN_VIRTUAL_PATH } from './mathaleaLogo'
 import { minimalCorrection } from './minimalCorrection'
 
 /**
- * Logo « dé » de MathALÉA de la page de garde « Course aux nombres »,
- * embarqué comme les figures mathalea2d : le document reste autonome (il
- * compile aussi avec le CLI `typst`). Le SVG n'emploie que des apostrophes,
- * il s'inscrit donc tel quel dans le littéral.
+ * Logo de la page de garde « Course aux nombres », référencé par chemin
+ * virtuel (voir `mathaleaLogo.ts`) plutôt qu'embarqué : `prefetchStaticImages`
+ * (`Typst.svelte`) le charge dans le compilateur pour l'aperçu, et l'ajoute
+ * au `.zip` téléchargé aux côtés du `.typ`.
+ *
+ * Largeur en pourcentage (relative au conteneur, pas à la page) : elle suit
+ * ainsi la largeur de la page de garde sans dépasser en A5, plus étroite
+ * qu'en A4, sans code dédié par format.
  */
-const MATHALEA_LOGO_IMAGE = `image(bytes("${MATHALEA_LOGO_SVG}"), format: "svg", width: 3.4cm)`
+const MATHALEA_LOGO_IMAGE = `image("${LOGO_CAN_VIRTUAL_PATH}", width: 45%)`
 
 /**
  * Import du paquet exercise-bank (badges Exercice/Correction, banque).
@@ -185,15 +189,15 @@ export const MATHALEA_COVER_HELPER = `#let mathalea-points(n) = {
 
 /**
  * Page de garde « Course aux nombres » : en-tête d'identité avec la case du
- * score sur le total des questions, consignes de passation, titre du sujet et
- * logo de MathALÉA. Reprend `\\pageDeGardeCan` de la sortie LaTeX
- * (`lib/latex/preambuleTex.ts`) sans les logos des académies ni de l'APMEP.
+ * score sur le total des questions, consignes de passation et logo (le logo
+ * porte déjà le nom du sujet, pas de second titre texte). Reprend
+ * `\\pageDeGardeCan` de la sortie LaTeX (`lib/latex/preambuleTex.ts`) sans
+ * les logos des académies ni de l'APMEP.
  *
  * La durée et le nombre de questions produisent leurs propres consignes (le
  * décompte suit la fiche) ; `consignes` porte les suivantes, libres.
  */
 export const MATHALEA_COVER_CAN_HELPER = `#let mathalea-couverture-can(
-  titre: "",
   duree: "",
   nb-questions: 0,
   consignes: (),
@@ -220,9 +224,11 @@ export const MATHALEA_COVER_CAN_HELPER = `#let mathalea-couverture-can(
   for consigne in consignes { coche(consigne) }
   v(1.5mm)
   line(length: 100%, stroke: 0.7pt)
-  v(1.2cm)
-  align(center, text(size: 1.5em, weight: "bold", titre))
-  v(2cm)
+  // espacement élastique (plutôt qu'une longueur fixe) : le contenu
+  // au-dessus varie déjà (0 à plusieurs consignes) et le format de page
+  // aussi (A4/A5) — un espacement fixe y débordait sur une 2e page en A5,
+  // trop court pour la somme de tout le contenu fixe.
+  v(1fr)
   align(center, mathalea-logo)
   v(1fr)
   pagebreak()
@@ -302,6 +308,20 @@ export interface TypstCarryOver {
    */
   codeOverridesCorrection?: Record<number, string>
   /**
+   * Code Typst saisi à la main qui remplace l'énoncé généré d'une ligne du
+   * tableau « Course aux nombres », par numéro de ligne (1-based, celui de
+   * la colonne « # » du tableau — toutes les questions de tous les exercices
+   * mises bout à bout, pas un numéro d'exercice). Pendant, à l'échelle d'une
+   * ligne, de `codeOverrides`.
+   */
+  codeOverridesCan?: Record<number, string>
+  /**
+   * Code Typst saisi à la main qui remplace la réponse à compléter générée
+   * d'une ligne du tableau « Course aux nombres », par numéro de ligne.
+   * Pendant de `codeOverridesCan` pour la colonne « Réponse ».
+   */
+  codeOverridesCanReponse?: Record<number, string>
+  /**
    * Lignes de code Typst insérées juste avant la correction d'un exercice
    * (sans le marqueur `// mathalea:insertion-corr`), par numéro d'exercice.
    * Pendant de `insertions` pour la correction.
@@ -329,6 +349,32 @@ const CODE_OVERRIDE_CORRECTION_START =
 /** Repère de fin d'une surcharge de code de correction */
 const CODE_OVERRIDE_CORRECTION_END =
   /^[ \t]*\/\/ mathalea:override-corr-end\s*$/
+/** Repère de début d'une surcharge d'énoncé de ligne « Course aux nombres » (voir `codeOverridesCan`) */
+const CODE_OVERRIDE_CAN_START = /^([ \t]*)\/\/ mathalea:override-can\((\d+)\)\s*$/
+/**
+ * Repère de fin d'une surcharge d'énoncé de ligne « Course aux nombres ».
+ * Contrairement à `CODE_OVERRIDE_END` (toujours seul sur sa ligne), cette
+ * ligne peut être suivie de `],` : elle termine un élément du tableau passé
+ * à `#can-tableau(...)` (voir `typstContentArrayArgument`), qui colle la
+ * fermeture du littéral de contenu directement après la dernière ligne
+ * plutôt que de l'émettre sur sa propre ligne — le repère n'ancre donc que
+ * le début de la ligne, pas sa fin.
+ */
+const CODE_OVERRIDE_CAN_END = /^[ \t]*\/\/ mathalea:override-can-end/
+/**
+ * Repère de début d'une surcharge de réponse de ligne « Course aux nombres »
+ * (voir `codeOverridesCanReponse`). Contrairement aux autres repères de
+ * début, celui-ci peut être précédé d'un `[` collé : la cellule « Réponse »
+ * n'a pas de repère `mathalea-anchor` avant elle (seule la cellule « Énoncé »
+ * en porte), donc quand elle est surchargée, ce repère se retrouve en toute
+ * première ligne de l'élément du tableau — juste après le `[` que
+ * `typstContentArrayArgument` colle au début de chaque élément.
+ */
+const CODE_OVERRIDE_CAN_REPONSE_START =
+  /^([ \t]*)\[?\/\/ mathalea:override-can-rep\((\d+)\)\s*$/
+/** Repère de fin d'une surcharge de réponse de ligne « Course aux nombres » (voir `CODE_OVERRIDE_CAN_END`) */
+const CODE_OVERRIDE_CAN_REPONSE_END =
+  /^[ \t]*\/\/ mathalea:override-can-rep-end/
 
 /** Enveloppe le code saisi par le professeur entre ses repères, pour l'exercice `num` */
 function wrapCodeOverride(num: number, code: string): string {
@@ -338,6 +384,24 @@ function wrapCodeOverride(num: number, code: string): string {
 /** Enveloppe le code de correction saisi par le professeur entre ses repères */
 function wrapCodeOverrideCorrection(num: number, code: string): string {
   return `// mathalea:override-corr(${num})\n${code}\n// mathalea:override-corr-end`
+}
+
+/**
+ * Enveloppe l'énoncé saisi par le professeur pour la ligne `num` du tableau
+ * « Course aux nombres ». Contrairement à `wrapCodeOverride`, se termine par
+ * un saut de ligne après le repère de fin : cette valeur est un élément du
+ * tableau passé à `#can-tableau(...)`, dont `typstContentArrayArgument`
+ * colle `],` directement après la dernière ligne (voir `CODE_OVERRIDE_CAN_END`)
+ * — sans ce saut de ligne, `],` se retrouverait sur la ligne du repère,
+ * commentée avec lui (`//`), et l'élément ne se refermerait jamais.
+ */
+function wrapCodeOverrideCan(num: number, code: string): string {
+  return `// mathalea:override-can(${num})\n${code}\n// mathalea:override-can-end\n`
+}
+
+/** Enveloppe la réponse saisie par le professeur pour la ligne `num` du tableau « Course aux nombres » (voir `wrapCodeOverrideCan`) */
+function wrapCodeOverrideCanReponse(num: number, code: string): string {
+  return `// mathalea:override-can-rep(${num})\n${code}\n// mathalea:override-can-rep-end\n`
 }
 
 /**
@@ -445,21 +509,32 @@ export function harvestCarryOver(code: string): TypstCarryOver {
   // une surcharge peut s'étendre sur plusieurs lignes : on ne peut pas la
   // lire avec un simple matchAll, il faut avancer ligne à ligne et retirer
   // l'indentation ajoutée par les blocs englobants (mêmes marges pour le
-  // repère et son contenu, voir `wrapCodeOverride`). Les surcharges d'énoncé
-  // et de correction partagent la même boucle : leurs repères sont distincts
-  // (`override`/`override-corr`) donc jamais confondus.
+  // repère et son contenu, voir `wrapCodeOverride`). Les quatre types de
+  // surcharge (énoncé/correction d'exercice, énoncé/réponse de ligne
+  // « Course aux nombres ») partagent la même boucle : leurs repères sont
+  // distincts donc jamais confondus.
   const codeOverrides: Record<number, string> = {}
   const codeOverridesCorrection: Record<number, string> = {}
+  const codeOverridesCan: Record<number, string> = {}
+  const codeOverridesCanReponse: Record<number, string> = {}
   const codeLines = code.split('\n')
   for (let i = 0; i < codeLines.length; i++) {
     const start = codeLines[i].match(CODE_OVERRIDE_START)
     const startCorrection = codeLines[i].match(CODE_OVERRIDE_CORRECTION_START)
-    if (start == null && startCorrection == null) continue
-    const matched = (start ?? startCorrection) as RegExpMatchArray
+    const startCan = codeLines[i].match(CODE_OVERRIDE_CAN_START)
+    const startCanReponse = codeLines[i].match(CODE_OVERRIDE_CAN_REPONSE_START)
+    const matched = start ?? startCorrection ?? startCan ?? startCanReponse
+    if (matched == null) continue
     const indent = matched[1]
     const num = Number(matched[2])
     const endRegex =
-      start != null ? CODE_OVERRIDE_END : CODE_OVERRIDE_CORRECTION_END
+      start != null
+        ? CODE_OVERRIDE_END
+        : startCorrection != null
+          ? CODE_OVERRIDE_CORRECTION_END
+          : startCan != null
+            ? CODE_OVERRIDE_CAN_END
+            : CODE_OVERRIDE_CAN_REPONSE_END
     const content: string[] = []
     i++
     while (i < codeLines.length && !endRegex.test(codeLines[i])) {
@@ -468,7 +543,10 @@ export function harvestCarryOver(code: string): TypstCarryOver {
       i++
     }
     if (start != null) codeOverrides[num] = content.join('\n')
-    else codeOverridesCorrection[num] = content.join('\n')
+    else if (startCorrection != null)
+      codeOverridesCorrection[num] = content.join('\n')
+    else if (startCan != null) codeOverridesCan[num] = content.join('\n')
+    else codeOverridesCanReponse[num] = content.join('\n')
   }
   // lignes en pointillés (palette, par exercice) : chaque appel émis par
   // `writingLinesCall` porte un marqueur identifiant l'exercice et
@@ -496,6 +574,8 @@ export function harvestCarryOver(code: string): TypstCarryOver {
     merges,
     codeOverrides,
     codeOverridesCorrection,
+    codeOverridesCan,
+    codeOverridesCanReponse,
     writingLines,
   }
 }
@@ -726,7 +806,7 @@ export const COVER_TEMPLATE_DEFAULTS: Record<
     noteFin: 'Tournez la page S.V.P.',
   },
   can: {
-    titre: 'Course aux nombres',
+    titre: 'La course aux nombres',
     matiere: '',
     duree: '9 minutes',
     consignes: [
@@ -1390,6 +1470,75 @@ function typstContentArrayArgument(items: string[], indent: string): string[] {
   ]
 }
 
+/** Une ligne (générée, sans surcharge) du tableau « Course aux nombres » */
+interface GeneratedCanRow {
+  enonce: string
+  reponse: string
+  correction: string
+  /** Numéro (1-based) de l'exercice dont vient la ligne */
+  exerciseNum: number
+  /** Vrai pour la première ligne de son exercice (repère `exo`) */
+  isFirstOfExercise: boolean
+}
+
+/**
+ * Calcule les lignes générées du tableau « Course aux nombres » (une par
+ * question de chaque exercice), sans appliquer les surcharges manuelles
+ * (`carryOver.codeOverridesCan`/`codeOverridesCanReponse`) : partagé par
+ * `buildCanVersionContent` (assemblage du tableau, qui applique les
+ * surcharges après coup) et par `getGeneratedCanRowCode` (préremplissage de
+ * la modale d'édition d'une ligne avec son contenu actuellement généré,
+ * avant toute surcharge) — pendant, à l'échelle d'une ligne, de
+ * `computeGeneratedExercises`.
+ */
+function computeGeneratedCanRows(
+  allExercises: TypstExerciseInput[],
+  options: TypstDocumentOptions,
+  figures: string[],
+): GeneratedCanRow[] {
+  const exercises = withMinimalCorrections(allExercises, options)
+  const rows: GeneratedCanRow[] = []
+  for (const [k, exercise] of exercises.entries()) {
+    if (exercise.warning != null) {
+      rows.push({
+        enonce: escapeTypstText(exercise.warning),
+        reponse: '',
+        correction: '',
+        exerciseNum: k + 1,
+        isFirstOfExercise: true,
+      })
+      continue
+    }
+    const questions = exercise.canQuestions ?? exercise.questions
+    for (const [i, question] of questions.entries()) {
+      rows.push({
+        enonce: htmlToTypst(question, figures),
+        reponse: htmlToTypst(exercise.canAnswers?.[i] ?? '', figures),
+        correction: htmlToTypst(exercise.corrections[i] ?? '', figures),
+        exerciseNum: k + 1,
+        isFirstOfExercise: i === 0,
+      })
+    }
+  }
+  return rows
+}
+
+/**
+ * Code Typst actuellement généré pour l'énoncé et la réponse d'une ligne du
+ * tableau « Course aux nombres » (préremplissage de la modale d'édition),
+ * sans appliquer sa surcharge existante — voir `getGeneratedExerciseCode`,
+ * pendant à l'échelle d'un exercice.
+ */
+export function getGeneratedCanRowCode(
+  exercises: TypstExerciseInput[],
+  row: number,
+  options: TypstDocumentOptions = defaultTypstDocumentOptions,
+): { enonce: string; reponse: string } {
+  const rows = computeGeneratedCanRows(exercises, options, [])
+  const found = rows[row - 1]
+  return { enonce: found?.enonce ?? '', reponse: found?.reponse ?? '' }
+}
+
 /**
  * Contenu d'une version en mode « Course aux nombres » : toutes les questions
  * de tous les exercices dans un seul tableau (`#can-tableau`), puis les
@@ -1399,7 +1548,8 @@ function typstContentArrayArgument(items: string[], indent: string): string[] {
  *
  * La palette de mise en page n'y garde que les repères qui ont un sens : la
  * barre de chaque exercice (repère `exo` placé dans sa première cellule, une
- * métadonnée n'occupant aucune place) et les deux points d'insertion qui
+ * métadonnée n'occupant aucune place), le repère de chaque ligne (`can-row`,
+ * édition de son énoncé/réponse) et les deux points d'insertion qui
  * encadrent le tableau (`gap` 0 et `gap` du dernier exercice) — entre deux
  * lignes d'un même tableau, une insertion ou un saut de page n'en aurait pas.
  * Les insertions portées par les gaps intermédiaires (héritées d'un passage
@@ -1414,24 +1564,39 @@ function buildCanVersionContent(
   exportMode: boolean,
 ): VersionContent {
   const exercises = withMinimalCorrections(allExercises, options)
+  const generatedRows = computeGeneratedCanRows(allExercises, options, figures)
   const enonces: string[] = []
   const reponses: string[] = []
   const corrections: string[] = []
-  for (const [k, exercise] of exercises.entries()) {
-    const anchor = emitAnchors ? `#mathalea-anchor("exo", ${k + 1})\n` : ''
-    if (exercise.warning != null) {
-      enonces.push(`${anchor}${escapeTypstText(exercise.warning)}`)
-      reponses.push('')
-      corrections.push('')
-      continue
-    }
-    const questions = exercise.canQuestions ?? exercise.questions
-    for (const [i, question] of questions.entries()) {
-      enonces.push(`${i === 0 ? anchor : ''}${htmlToTypst(question, figures)}`)
-      reponses.push(htmlToTypst(exercise.canAnswers?.[i] ?? '', figures))
-      corrections.push(htmlToTypst(exercise.corrections[i] ?? '', figures))
-    }
-  }
+  generatedRows.forEach((row, index) => {
+    const rowNum = index + 1
+    const exoAnchor =
+      emitAnchors && row.isFirstOfExercise
+        ? `#mathalea-anchor("exo", ${row.exerciseNum})\n`
+        : ''
+    const rowAnchor = emitAnchors
+      ? `#mathalea-anchor("can-row", ${rowNum})\n`
+      : ''
+    const enonceOverride = carryOver.codeOverridesCan?.[rowNum]
+    const reponseOverride = carryOver.codeOverridesCanReponse?.[rowNum]
+    enonces.push(
+      `${exoAnchor}${rowAnchor}${
+        enonceOverride == null
+          ? row.enonce
+          : exportMode
+            ? enonceOverride
+            : wrapCodeOverrideCan(rowNum, enonceOverride)
+      }`,
+    )
+    reponses.push(
+      reponseOverride == null
+        ? row.reponse
+        : exportMode
+          ? reponseOverride
+          : wrapCodeOverrideCanReponse(rowNum, reponseOverride),
+    )
+    corrections.push(row.correction)
+  })
 
   const insertionLine = (line: string, indent: string): string =>
     exportMode ? `${indent}${line}` : `${indent}${line} ${INSERTION_TAG}`
@@ -2300,7 +2465,6 @@ function coverPageLines(
   if (cover.template === 'can') {
     return [
       '#mathalea-couverture-can(',
-      '  titre: couverture-titre,',
       '  duree: couverture-duree,',
       `  nb-questions: ${nbQuestions},`,
       '  consignes: couverture-consignes,',

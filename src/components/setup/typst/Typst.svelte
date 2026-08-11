@@ -45,6 +45,7 @@
     buildStandaloneExerciseCode,
     buildTypstDocument,
     defaultTypstDocumentOptions,
+    getGeneratedCanRowCode,
     getGeneratedCorrectionCode,
     getGeneratedExerciseCode,
     harvestCarryOver,
@@ -62,6 +63,7 @@
   } from './TypstLayoutOverlay.svelte'
   import type { TypstAnchor } from './typstCompiler'
   import { setStaticImagePaths } from './latexToTypst'
+  import { LOGO_CAN_URL, LOGO_CAN_VIRTUAL_PATH } from './mathaleaLogo'
   import {
     countErrors,
     parseTypstDiagnostics,
@@ -222,6 +224,7 @@
   let pageFormatSetFromUrl = false
   let coverTemplateSetFromUrl = false
   let headerStyleSetFromUrl = false
+  let titleSetFromUrl = false
   if (typstUrlParam != null) {
     typstParamStore.set(typstUrlParam)
     const parsed = decodeBase64(typstUrlParam)
@@ -234,6 +237,7 @@
       pageFormatSetFromUrl = parsed.options.pageFormat !== undefined
       coverTemplateSetFromUrl = parsed.options.coverPage?.template !== undefined
       headerStyleSetFromUrl = parsed.options.headerStyle !== undefined
+      titleSetFromUrl = parsed.options.title !== undefined
       restoredDocumentOptions.coverPage = sanitizeCoverPage(
         restoredDocumentOptions.coverPage,
       )
@@ -334,7 +338,7 @@
    * porte déjà le titre de la fiche, un second bloc de titre en page 2 ferait
    * doublon (l'utilisateur peut toujours le rétablir ensuite à la main).
    */
-  function applyCoverTemplate() {
+  async function applyCoverTemplate() {
     const template = coverPage.template
     if (template === 'aucune') {
       applyDocumentOptions()
@@ -363,6 +367,54 @@
         coverPage.bareme.length > 0 ? coverPage.bareme : defaultCoverBareme(),
     }
     documentOptions.headerStyle = 'aucun'
+    // le modèle « can » a son propre logo (asset fixe, pas embarqué dans le
+    // code) : sans ce prefetch, il resterait absent du registre tant qu'une
+    // autre action (ex. « Nouvelles données ») ne le redéclencherait pas.
+    if (template === 'can') await prefetchStaticImages()
+    applyDocumentOptions()
+  }
+
+  /** Titre affiché en page de garde et repris dans le pied de page (`titre`
+   * Typst) en présentation « Course aux nombres » — au lieu du titre par
+   * défaut d'une fiche classique, sans objet ici (il n'y a pas de « fiche
+   * d'exercices », juste l'épreuve du jour).
+   */
+  const CAN_TITLE = 'La course aux nombres'
+
+  /**
+   * (Dé)cocher « Présentation Course aux nombres » : la coche vient souvent
+   * du réglage automatique de `loadExercises` (fiche 100% « can » → format
+   * A5 + page de garde « can » + en-tête « Aucun » (pas de second titre en
+   * page 2, la page de garde en porte déjà un) + titre « La course aux
+   * nombres », repris dans le pied de page), donc la (dé)cocher doit
+   * (dé)faire ces quatre réglages plutôt que de laisser une fiche normale en
+   * A5, sans page de garde ni en-tête, ou une fiche « Course aux nombres »
+   * dont le pied de page dit encore « Fiche d'exercices ». Sans effet si
+   * l'utilisateur a lui-même choisi un autre format/une autre page de
+   * garde/un autre en-tête/un autre titre entre-temps.
+   */
+  function toggleCanMode() {
+    if (documentOptions.canMode) {
+      if (documentOptions.title === defaultTypstDocumentOptions.title) {
+        documentOptions.title = CAN_TITLE
+      }
+    } else {
+      if (documentOptions.pageFormat === 'a5') {
+        documentOptions.pageFormat = 'a4'
+      }
+      if (documentOptions.coverPage.template === 'can') {
+        documentOptions.coverPage = {
+          ...documentOptions.coverPage,
+          template: 'aucune',
+        }
+      }
+      if (documentOptions.headerStyle === 'aucun') {
+        documentOptions.headerStyle = defaultTypstDocumentOptions.headerStyle
+      }
+      if (documentOptions.title === CAN_TITLE) {
+        documentOptions.title = defaultTypstDocumentOptions.title
+      }
+    }
     applyDocumentOptions()
   }
 
@@ -606,6 +658,15 @@
   let codeEditPart: 'enonce' | 'correction' = $state('enonce')
   /** Brouillon de la modale d'édition du code Typst */
   let codeEditDraft = $state('')
+  /** Surcharges d'énoncé par ligne du tableau « Course aux nombres », lues dans le code */
+  let codeOverrideCanValues: Record<number, string> = $state({})
+  /** Surcharges de réponse par ligne du tableau « Course aux nombres », lues dans le code */
+  let codeOverrideCanReponseValues: Record<number, string> = $state({})
+  /** Numéro de ligne (1-based) du tableau « Course aux nombres » dont la modale d'édition est ouverte */
+  let canRowEditNum: number | null = $state(null)
+  /** Brouillons de la modale d'édition d'une ligne « Course aux nombres » */
+  let canRowEditEnonceDraft = $state('')
+  let canRowEditReponseDraft = $state('')
   /** Message de confirmation affiché après un clic sur un bouton « Copier » de la modale */
   let codeCopyStatus = $state('')
   let codeCopyStatusTimer: ReturnType<typeof setTimeout>
@@ -671,7 +732,8 @@
               | 'header'
               | 'cover'
               | 'footer'
-              | 'figure'),
+              | 'figure'
+              | 'can-row'),
         num: anchor.num,
         // les variables de la correction sont indépendantes de l'énoncé
         target: isTasks
@@ -723,6 +785,8 @@
     mergedExercises = harvested.merges ?? []
     codeOverrideValues = harvested.codeOverrides ?? {}
     codeOverrideCorrectionValues = harvested.codeOverridesCorrection ?? {}
+    codeOverrideCanValues = harvested.codeOverridesCan ?? {}
+    codeOverrideCanReponseValues = harvested.codeOverridesCanReponse ?? {}
     writingLinesValues = harvested.writingLines ?? {}
     const columns = code.match(/^#let colonnes = (\d+)/m)
     documentColumns = columns != null ? Number(columns[1]) : 1
@@ -1032,6 +1096,13 @@
       merges,
       codeOverrides,
       codeOverridesCorrection,
+      // surcharges de ligne « Course aux nombres » (par numéro de ligne, pas
+      // d'exercice) : pas renumérotées ici, faute de connaître le nombre de
+      // questions retirées avec l'exercice — conservées telles quelles pour
+      // ne pas perdre le travail du professeur, au prix d'un décalage
+      // possible si l'exercice supprimé contribuait plusieurs lignes.
+      codeOverridesCan: carryOver.codeOverridesCan ?? {},
+      codeOverridesCanReponse: carryOver.codeOverridesCanReponse ?? {},
       writingLines,
     }
   }
@@ -1161,6 +1232,11 @@
       merges,
       codeOverrides,
       codeOverridesCorrection,
+      // surcharges de ligne « Course aux nombres » : voir le même
+      // commentaire dans `shiftCarryOver` (pas renumérotées, conservées
+      // telles quelles).
+      codeOverridesCan: carryOver.codeOverridesCan ?? {},
+      codeOverridesCanReponse: carryOver.codeOverridesCanReponse ?? {},
       writingLines,
     }
   }
@@ -1314,6 +1390,68 @@
     setEditorContent(newCode)
     scheduleCompile(newCode, 0)
     codeEditNum = null
+  }
+
+  /**
+   * Ouvre la modale d'édition d'une ligne du tableau « Course aux nombres »
+   * (énoncé et réponse), préremplie avec ses surcharges existantes ou, à
+   * défaut, le contenu actuellement généré pour cette ligne (voir
+   * `getGeneratedCanRowCode`). Pendant de `openCodeEdit`, à l'échelle d'une
+   * ligne plutôt que d'un exercice entier.
+   */
+  function openCanRowCodeEdit(row: number) {
+    const carryOver = editorView != null ? harvestCarryOver(currentCode()) : {}
+    const generated =
+      carryOver.codeOverridesCan?.[row] == null ||
+      carryOver.codeOverridesCanReponse?.[row] == null
+        ? getGeneratedCanRowCode(buildInputs(), row, documentOptions)
+        : null
+    canRowEditEnonceDraft =
+      carryOver.codeOverridesCan?.[row] ?? generated?.enonce ?? ''
+    canRowEditReponseDraft =
+      carryOver.codeOverridesCanReponse?.[row] ?? generated?.reponse ?? ''
+    canRowEditNum = row
+  }
+
+  /**
+   * Retire les surcharges (énoncé et réponse) de la ligne `row` : son contenu
+   * redevient celui généré automatiquement. Pendant de `restoreGeneratedCode`.
+   */
+  function restoreCanRowCode(row: number) {
+    updateCanRowCode(row, '', '')
+  }
+
+  /**
+   * Applique (ou retire, si vide) les surcharges d'énoncé et de réponse de
+   * la ligne `row` du tableau « Course aux nombres », saisies dans la
+   * modale d'édition. Pendant de `updateExerciseCode`, à l'échelle d'une
+   * ligne : les deux moitiés (énoncé/réponse) sont réglées ensemble, chacune
+   * indépendamment retirée si son champ a été vidé.
+   */
+  function updateCanRowCode(row: number, enonce: string, reponse: string) {
+    if (!confirmOverwrite()) return
+    const carryOver = editorView != null ? harvestCarryOver(currentCode()) : {}
+    const codeOverridesCan = { ...(carryOver.codeOverridesCan ?? {}) }
+    if (enonce.trim().length === 0) delete codeOverridesCan[row]
+    else codeOverridesCan[row] = enonce
+    carryOver.codeOverridesCan = codeOverridesCan
+    const codeOverridesCanReponse = {
+      ...(carryOver.codeOverridesCanReponse ?? {}),
+    }
+    if (reponse.trim().length === 0) delete codeOverridesCanReponse[row]
+    else codeOverridesCanReponse[row] = reponse
+    carryOver.codeOverridesCanReponse = codeOverridesCanReponse
+    const [primary, ...extraVersions] = buildAllVersionInputs()
+    const newCode = buildTypstDocument(
+      primary,
+      documentOptions,
+      carryOver,
+      extraVersions,
+      { sourceUrl: currentUrl(), extraPreamble: extraPreamble() },
+    )
+    setEditorContent(newCode)
+    scheduleCompile(newCode, 0)
+    canRowEditNum = null
   }
 
   /**
@@ -2544,7 +2682,11 @@
         }
       }
     }
-    if (urls.size === 0 && typImageUrls.size === 0) {
+    // logo de la page de garde « Course aux nombres » (voir `mathaleaLogo.ts`) :
+    // un asset fixe de l'appli, pas une image d'exercice, mais chargé et
+    // empaqueté (aperçu + .zip téléchargé) par le même mécanisme
+    const needsLogoCan = documentOptions.coverPage.template === 'can'
+    if (urls.size === 0 && typImageUrls.size === 0 && !needsLogoCan) {
       requiredImageAssets = new Map()
       return
     }
@@ -2582,6 +2724,16 @@
         }
       }),
     )
+    if (needsLogoCan) {
+      try {
+        bytes.set(
+          LOGO_CAN_VIRTUAL_PATH,
+          await cachedBytes(`${import.meta.env.BASE_URL}${LOGO_CAN_URL}`),
+        )
+      } catch {
+        // logo indisponible : encart « image non convertie » à sa place
+      }
+    }
     setStaticImagePaths(paths)
     setStaticImageBytes(bytes)
     requiredImageAssets = bytes
@@ -2619,6 +2771,12 @@
     if (allCan) {
       if (!canModeSetFromUrl) documentOptions.canMode = true
       if (!pageFormatSetFromUrl) documentOptions.pageFormat = 'a5'
+      if (
+        !titleSetFromUrl &&
+        documentOptions.title === defaultTypstDocumentOptions.title
+      ) {
+        documentOptions.title = CAN_TITLE
+      }
       if (!coverTemplateSetFromUrl) {
         documentOptions.coverPage = {
           ...documentOptions.coverPage,
@@ -2630,6 +2788,10 @@
         // bloc de titre en page 2 (même raison que `applyCoverTemplate`)
         if (!headerStyleSetFromUrl) documentOptions.headerStyle = 'aucun'
       }
+      // le passage en page de garde « can » ci-dessus arrive après le
+      // premier prefetch (loadExercises) : celui-ci n'a donc pas pu charger
+      // le logo, absent du registre à ce moment-là — on le relance.
+      await prefetchStaticImages()
     }
     const code = buildCode()
     initEditor(code)
@@ -3087,7 +3249,7 @@
               <input
                 type="checkbox"
                 bind:checked={documentOptions.canMode}
-                onchange={applyDocumentOptions}
+                onchange={toggleCanMode}
               />
               Présentation « Course aux nombres »
             </label>
@@ -3515,6 +3677,8 @@
                     {figureAlignValues}
                     codeOverrides={codeOverrideValues}
                     codeOverridesCorrection={codeOverrideCorrectionValues}
+                    codeOverridesCan={codeOverrideCanValues}
+                    codeOverridesCanReponse={codeOverrideCanReponseValues}
                     exerciseCount={exercises.length}
                     {mergedExercises}
                     mergeExercisesEnabled={!documentOptions.mergeExercises &&
@@ -3542,6 +3706,7 @@
                     onOpenSettings={openSettings}
                     onEditCode={openCodeEdit}
                     onEditCorrectionCode={openCorrectionCodeEdit}
+                    onEditCanRow={openCanRowCodeEdit}
                     onToggleMergeBefore={toggleMergeBefore}
                     {writingLinesValues}
                     onSetWritingLines={setWritingLines}
@@ -3832,6 +3997,80 @@
               class="rounded bg-coopmaths-action px-3 py-1 text-white"
               onclick={() =>
                 updateExerciseCode(num, codeEditDraft, codeEditPart)}
+            >
+              Enregistrer
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  {/if}
+
+  {#if canRowEditNum !== null}
+    {@const row = canRowEditNum}
+    <!-- svelte-ignore a11y_no_static_element_interactions, a11y_click_events_have_key_events -->
+    <div
+      class="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4"
+      onclick={(e) => {
+        if (e.target === e.currentTarget) canRowEditNum = null
+      }}
+    >
+      <div
+        class="relative flex w-full max-w-2xl flex-col gap-3 rounded-lg bg-coopmaths-canvas-dark p-4 shadow-xl dark:bg-coopmathsdark-canvas-dark"
+      >
+        <h2 class="text-base font-semibold">
+          Code Typst de la ligne {row} du tableau
+        </h2>
+        <p class="text-sm text-coopmaths-corpus dark:text-coopmathsdark-corpus">
+          Modifiez le code ci-dessous : il remplacera l'énoncé et la réponse
+          générés de cette ligne. Videz un champ pour revenir à son contenu
+          généré automatiquement.
+        </p>
+        <label class="flex flex-col gap-1 text-sm">
+          Énoncé
+          <textarea
+            class="h-32 w-full rounded border border-gray-300 bg-coopmaths-canvas p-2 font-mono text-xs text-coopmaths-corpus dark:border-coopmathsdark-corpus-lightest dark:bg-coopmathsdark-canvas dark:text-coopmathsdark-corpus"
+            bind:value={canRowEditEnonceDraft}
+            onkeydown={(e) => {
+              if (e.key === 'Escape') canRowEditNum = null
+            }}
+          ></textarea>
+        </label>
+        <label class="flex flex-col gap-1 text-sm">
+          Réponse
+          <textarea
+            class="h-24 w-full rounded border border-gray-300 bg-coopmaths-canvas p-2 font-mono text-xs text-coopmaths-corpus dark:border-coopmathsdark-corpus-lightest dark:bg-coopmathsdark-canvas dark:text-coopmathsdark-corpus"
+            bind:value={canRowEditReponseDraft}
+            onkeydown={(e) => {
+              if (e.key === 'Escape') canRowEditNum = null
+            }}
+          ></textarea>
+        </label>
+        <div class="flex justify-between gap-2">
+          <button
+            type="button"
+            class="px-3 py-1 hover:text-coopmaths-action"
+            onclick={() => restoreCanRowCode(row)}
+          >
+            Restaurer le contenu d'origine
+          </button>
+          <div class="flex gap-2">
+            <button
+              type="button"
+              class="px-3 py-1 hover:text-coopmaths-action"
+              onclick={() => (canRowEditNum = null)}
+            >
+              Annuler
+            </button>
+            <button
+              type="button"
+              class="rounded bg-coopmaths-action px-3 py-1 text-white"
+              onclick={() =>
+                updateCanRowCode(
+                  row,
+                  canRowEditEnonceDraft,
+                  canRowEditReponseDraft,
+                )}
             >
               Enregistrer
             </button>
