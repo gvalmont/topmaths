@@ -5,9 +5,19 @@
      * `tasks` : liste de questions réglable ; `exo` : début d'un exercice ;
      * `corr` : début de la correction d'un exercice ;
      * `gap` : espace après un exercice ; `header` : bloc de titre de la fiche ;
-     * `figure` : figure mathalea2d embarquée (zoom)
+     * `cover` : textes de la page de garde ; `footer` : texte du pied de page
+     * (première page seulement) ; `figure` : figure mathalea2d embarquée
+     * (zoom)
      */
-    kind: 'tasks' | 'exo' | 'corr' | 'gap' | 'header' | 'figure'
+    kind:
+      | 'tasks'
+      | 'exo'
+      | 'corr'
+      | 'gap'
+      | 'header'
+      | 'cover'
+      | 'footer'
+      | 'figure'
     /** Numéro de l'exercice concerné (0 = avant le premier exercice), ou de la figure */
     num: number
     /** Préfixe des variables visées par un contrôle `tasks` (`ex1`, `ex1-corr`) */
@@ -31,6 +41,7 @@
     COLUMN_BREAK_SNIPPET,
     PAGE_BREAK_SNIPPET,
     WRITING_LINES_POSITIONS,
+    type CoverTemplate,
     type WritingLinesPosition,
   } from './buildTypstDocument'
 
@@ -52,6 +63,24 @@
     insertionsCorrection?: Record<number, string[]>
     /** Variables d'en-tête de la fiche (valeurs lues dans le code) */
     header?: { titre: string; 'sous-titre': string; entete: string }
+    /** Variables texte de la page de garde (valeurs lues dans le code) */
+    cover?: {
+      titre: string
+      session: string
+      matiere: string
+      duree: string
+      noteFin: string
+    }
+    /** Consignes de la page de garde (valeurs lues dans le code) */
+    coverConsignes?: string[]
+    /**
+     * Modèle de page de garde actif : masque les champs Session/Matière
+     * (sans objet pour la « Course aux nombres ») et la mention de fin de
+     * page (sans objet pour l'« Évaluation », voir `COVER_TEMPLATE_LAYOUT`).
+     */
+    coverTemplate?: CoverTemplate
+    /** Texte du pied de page (valeur lue dans le code), première page seulement */
+    footerText?: string
     onAdjustColumns: (target: string, delta: number) => void
     onAdjustGutter: (target: string, delta: number) => void
     /** Insère un fragment de code Typst juste après l'exercice `num` */
@@ -70,6 +99,12 @@
       name: 'titre' | 'sous-titre' | 'entete',
       value: string,
     ) => void
+    onUpdateCover: (
+      name: 'titre' | 'session' | 'matiere' | 'duree' | 'noteFin',
+      value: string,
+    ) => void
+    onUpdateCoverConsignes: (consignes: string[]) => void
+    onUpdateFooterText: (value: string) => void
     /** Nombre de questions par exercice (null : non réglable) */
     questionCounts?: Record<number, number | null>
     /**
@@ -152,6 +187,10 @@
     insertions = {},
     insertionsCorrection = {},
     header = { titre: '', 'sous-titre': '', entete: '' },
+    cover = { titre: '', session: '', matiere: '', duree: '', noteFin: '' },
+    coverConsignes = [],
+    coverTemplate = 'aucune',
+    footerText = '',
     onAdjustColumns,
     onAdjustGutter,
     onInsert,
@@ -161,6 +200,9 @@
     onUpdateInsertionCorrection,
     onDeleteInsertionCorrection,
     onUpdateHeader,
+    onUpdateCover,
+    onUpdateCoverConsignes,
+    onUpdateFooterText,
     questionCounts = {},
     staticExercises = {},
     nonEditableStaticExercises = {},
@@ -224,6 +266,80 @@
       }
     }
     headerOpen = false
+  }
+
+  /** Panneau d'édition des textes de la page de garde ouvert */
+  let coverOpen = $state(false)
+  let coverDraft = $state({
+    titre: '',
+    session: '',
+    matiere: '',
+    duree: '',
+    noteFin: '',
+    consignes: '',
+  })
+  const COVER_FIELDS = [
+    { name: 'titre', label: 'Intitulé' },
+    { name: 'session', label: 'Session' },
+    { name: 'matiere', label: 'Matière' },
+    { name: 'duree', label: "Durée de l'épreuve" },
+    { name: 'noteFin', label: 'Mention en bas de page' },
+  ] as const
+  /**
+   * Session/Matière n'existent pas sur la page de garde « Course aux
+   * nombres » ; la mention de bas de page n'existe ni là ni sur
+   * l'« Évaluation » (voir `COVER_TEMPLATE_LAYOUT` de `buildTypstDocument.ts`).
+   */
+  const visibleCoverFields = $derived(
+    COVER_FIELDS.filter((field) => {
+      if (coverTemplate === 'can') {
+        return (
+          field.name !== 'session' &&
+          field.name !== 'matiere' &&
+          field.name !== 'noteFin'
+        )
+      }
+      if (coverTemplate === 'evaluation') return field.name !== 'noteFin'
+      return true
+    }),
+  )
+
+  function toggleCover() {
+    coverOpen = !coverOpen
+    if (coverOpen) {
+      coverDraft = { ...cover, consignes: coverConsignes.join('\n') }
+    }
+  }
+
+  function submitCover() {
+    for (const field of visibleCoverFields) {
+      if (coverDraft[field.name] !== cover[field.name]) {
+        onUpdateCover(field.name, coverDraft[field.name])
+      }
+    }
+    const consignes = coverDraft.consignes
+      .split('\n')
+      .map((ligne) => ligne.trim())
+      .filter((ligne) => ligne !== '')
+    const consignesChanged =
+      consignes.length !== coverConsignes.length ||
+      consignes.some((ligne, i) => ligne !== coverConsignes[i])
+    if (consignesChanged) onUpdateCoverConsignes(consignes)
+    coverOpen = false
+  }
+
+  /** Panneau d'édition du texte du pied de page ouvert */
+  let footerOpen = $state(false)
+  let footerDraft = $state('')
+
+  function toggleFooter() {
+    footerOpen = !footerOpen
+    if (footerOpen) footerDraft = footerText
+  }
+
+  function submitFooter() {
+    if (footerDraft !== footerText) onUpdateFooterText(footerDraft)
+    footerOpen = false
   }
 
   /** Brouillons d'édition des insertions existantes du panneau ouvert */
@@ -318,11 +434,16 @@
     openWritingLines = openWritingLines === num ? null : num
     openInsertion = null
     if (openWritingLines != null) {
-      writingLinesDraft = writingLinesValues[num] ?? { ...WRITING_LINES_DEFAULT }
+      writingLinesDraft = writingLinesValues[num] ?? {
+        ...WRITING_LINES_DEFAULT,
+      }
     }
   }
 
-  function setWritingLinesPosition(num: number, position: WritingLinesPosition) {
+  function setWritingLinesPosition(
+    num: number,
+    position: WritingLinesPosition,
+  ) {
     writingLinesDraft = { ...writingLinesDraft, position }
     onSetWritingLines(num, writingLinesDraft)
   }
@@ -387,7 +508,11 @@
                       composeSnippet(draft),
                     )
                   } else {
-                    onUpdateInsertion(gapNum, draft.index, composeSnippet(draft))
+                    onUpdateInsertion(
+                      gapNum,
+                      draft.index,
+                      composeSnippet(draft),
+                    )
                   }
                 }
                 if (e.key === 'Escape') openInsertion = null
@@ -406,7 +531,11 @@
                       draft.index,
                       composeSnippet(draft),
                     )
-                  : onUpdateInsertion(gapNum, draft.index, composeSnippet(draft))}
+                  : onUpdateInsertion(
+                      gapNum,
+                      draft.index,
+                      composeSnippet(draft),
+                    )}
             >
               <i class="bx bx-check text-base"></i>
             </button>
@@ -434,8 +563,7 @@
               ? 'bg-coopmaths-action text-coopmaths-canvas'
               : 'bg-coopmaths-canvas text-coopmaths-corpus hover:bg-coopmaths-canvas-dark'}"
             aria-pressed={insertionKind === choice.kind}
-            onclick={() =>
-              (insertionKind = choice.kind as 'section' | 'texte')}
+            onclick={() => (insertionKind = choice.kind as 'section' | 'texte')}
           >
             {choice.label}
           </button>
@@ -567,10 +695,7 @@
           : 'left: 0.3%'}"
         data-testid="typst-overlay-tasks"
       >
-        <div
-          class="flex items-center justify-between"
-          title="Colonnes {label}"
-        >
+        <div class="flex items-center justify-between" title="Colonnes {label}">
           <button
             type="button"
             aria-label="Moins de colonnes"
@@ -666,6 +791,136 @@
                 type="button"
                 class="rounded bg-coopmaths-action px-2 py-0.5 text-white"
                 onclick={submitHeader}
+              >
+                Enregistrer
+              </button>
+            </div>
+          </div>
+        {/if}
+      </div>
+    {:else if widget.kind === 'cover'}
+      <!-- édition des textes de la page de garde (intitulé, session, matière,
+           durée, mention de bas de page, consignes) ; champs sans objet
+           masqués selon le modèle (Session/Matière/mention pour « Course aux
+           nombres », mention pour « Évaluation ») -->
+      <div
+        class="pointer-events-auto absolute -translate-y-1/2"
+        style="left: {widget.left}%; top: {widget.top}%;"
+      >
+        <button
+          type="button"
+          title="Modifier les textes de la page de garde"
+          aria-label="Modifier les textes de la page de garde"
+          aria-expanded={coverOpen}
+          class="typst-pill typst-pill-round flex h-6 w-6 -translate-x-1/2 items-center justify-center"
+          class:typst-pill-force-visible={coverOpen}
+          data-testid="typst-overlay-cover"
+          onclick={toggleCover}
+        >
+          <i class="bx bx-edit"></i>
+        </button>
+        {#if coverOpen}
+          <div
+            class="absolute left-4 top-0 z-20 w-80 space-y-2 typst-panel p-2"
+          >
+            {#each visibleCoverFields as field}
+              <label class="block space-y-0.5">
+                <span class="text-[0.65rem] uppercase text-gray-500">
+                  {field.label}
+                </span>
+                <input
+                  type="text"
+                  class="w-full rounded border border-gray-300 px-1.5 py-0.5 text-xs"
+                  bind:value={coverDraft[field.name]}
+                  onkeydown={(e) => {
+                    if (e.key === 'Enter') submitCover()
+                    if (e.key === 'Escape') coverOpen = false
+                  }}
+                />
+              </label>
+            {/each}
+            <label class="block space-y-0.5">
+              <span class="text-[0.65rem] uppercase text-gray-500">
+                Consignes (une par ligne)
+              </span>
+              <textarea
+                rows="3"
+                class="w-full rounded border border-gray-300 px-1.5 py-0.5 text-xs"
+                bind:value={coverDraft.consignes}
+                onkeydown={(e) => {
+                  if (e.key === 'Escape') coverOpen = false
+                }}
+              ></textarea>
+            </label>
+            <div class="flex justify-end gap-2">
+              <button
+                type="button"
+                class="px-2 py-0.5 hover:text-coopmaths-action"
+                onclick={() => (coverOpen = false)}
+              >
+                Annuler
+              </button>
+              <button
+                type="button"
+                class="rounded bg-coopmaths-action px-2 py-0.5 text-white"
+                onclick={submitCover}
+              >
+                Enregistrer
+              </button>
+            </div>
+          </div>
+        {/if}
+      </div>
+    {:else if widget.kind === 'footer'}
+      <!-- édition du texte du pied de page ; émise sur la première page
+           physique seulement (voir `pageFooter` de `buildTypstDocument.ts`),
+           bien que le pied de page lui-même se répète sur chaque page -->
+      <div
+        class="pointer-events-auto absolute -translate-y-1/2"
+        style="left: {widget.left}%; top: {widget.top}%;"
+      >
+        <button
+          type="button"
+          title="Modifier le texte du pied de page"
+          aria-label="Modifier le texte du pied de page"
+          aria-expanded={footerOpen}
+          class="typst-pill typst-pill-round flex h-6 w-6 -translate-x-1/2 items-center justify-center"
+          class:typst-pill-force-visible={footerOpen}
+          data-testid="typst-overlay-footer"
+          onclick={toggleFooter}
+        >
+          <i class="bx bx-edit"></i>
+        </button>
+        {#if footerOpen}
+          <div
+            class="absolute left-4 top-0 z-20 w-80 space-y-2 typst-panel p-2"
+          >
+            <label class="block space-y-0.5">
+              <span class="text-[0.65rem] uppercase text-gray-500">
+                Texte du pied de page
+              </span>
+              <input
+                type="text"
+                class="w-full rounded border border-gray-300 px-1.5 py-0.5 text-xs"
+                bind:value={footerDraft}
+                onkeydown={(e) => {
+                  if (e.key === 'Enter') submitFooter()
+                  if (e.key === 'Escape') footerOpen = false
+                }}
+              />
+            </label>
+            <div class="flex justify-end gap-2">
+              <button
+                type="button"
+                class="px-2 py-0.5 hover:text-coopmaths-action"
+                onclick={() => (footerOpen = false)}
+              >
+                Annuler
+              </button>
+              <button
+                type="button"
+                class="rounded bg-coopmaths-action px-2 py-0.5 text-white"
+                onclick={submitFooter}
               >
                 Enregistrer
               </button>
