@@ -39,7 +39,8 @@ type DonneesQuestion = {
 function pointFerme(point: ReturnType<typeof pointAbstrait>) {
   const marque = tracePoint(point, bleuMathalea)
   marque.style = '.'
-  marque.epaisseur = 4
+  marque.epaisseur = 2.5
+  marque.taille = 2
   marque.opacite = 1
   return marque
 }
