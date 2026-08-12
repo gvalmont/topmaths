@@ -10,7 +10,7 @@ import {
 
 export const titre =
   'Reconnaître une fonction de référence à partir de sa courbe'
-export const dateDePublication = '09/08/2026'
+export const dateDePublication = '10/08/2026'
 export const interactifReady = true
 export const interactifType = 'qcm'
 export const amcReady = 'true'
