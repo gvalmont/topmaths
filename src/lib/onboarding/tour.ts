@@ -39,6 +39,25 @@ function fillInput(input: HTMLInputElement, value: string): void {
 }
 
 /**
+ * Coche ou décoche une case du panneau de paramètres comme le ferait l'enseignant.
+ * Ces cases réagissent à `change` et non à `input` ; on ne notifie rien quand la
+ * case est déjà dans l'état voulu, pour ne pas régénérer l'exercice inutilement.
+ */
+function setCheckbox(selecteur: string, coche: boolean): void {
+  const input = document.querySelector<HTMLInputElement>(selecteur)
+  if (input === null || input.checked === coche) return
+  input.checked = coche
+  input.dispatchEvent(new Event('change', { bubbles: true }))
+}
+
+/** Règle un champ numérique du panneau de paramètres (poids d'apparition). */
+function setNumberInput(selecteur: string, value: string): void {
+  const input = document.querySelector<HTMLInputElement>(selecteur)
+  if (input === null) return
+  fillInput(input, value)
+}
+
+/**
  * Laisse Svelte terminer son cycle de rendu (déclenché par l'action qui
  * vient de s'exécuter — saisie, clic sur un nœud du référentiel…) avant de
  * faire avancer la visite : driver.js capture l'élément cible de l'étape
@@ -88,19 +107,24 @@ function playAddExerciseDemo(): void {
 }
 
 /**
- * Étape 5 → 6 : règle le nombre de questions à 4 et saisit « 1-1-1-2 » dans
- * le champ « Forme de développement » pour illustrer concrètement le
- * mécanisme (3 questions sous la forme 1, 1 question sous la forme 2).
+ * Étape 5 → 6 : règle le nombre de questions à 4, puis coche la première forme
+ * de développement avec un poids de 3 et la deuxième avec un poids de 1, pour
+ * illustrer concrètement le mécanisme (3 questions sous la forme 1, 1 question
+ * sous la forme 2).
  */
 function playFormeDeveloppementDemo(): void {
   const nbQuestionsInput = document.querySelector<HTMLInputElement>(
     `#settings-nb-questions-${demoExerciseIndex}`,
   )
   if (nbQuestionsInput) fillInput(nbQuestionsInput, '4')
-  const formeInput = document.querySelector<HTMLInputElement>(
-    `#settings-formText3-${demoExerciseIndex}`,
-  )
-  if (formeInput) fillInput(formeInput, '1-1-1-2')
+  const liste = `#settings-formTextListe3-${demoExerciseIndex}`
+  // 3L11 arrive réglé sur « Mélange », donc toutes les formes cochées : on ne
+  // garde que les deux premières.
+  for (const forme of [3, 4, 5, 6]) setCheckbox(`${liste}-${forme}`, false)
+  setCheckbox(`${liste}-1`, true)
+  setCheckbox(`${liste}-2`, true)
+  // Le champ de poids n'est actif qu'une fois la case cochée.
+  setNumberInput(`${liste}-1-poids`, '3')
 }
 
 /**
@@ -244,12 +268,12 @@ export function startTour(): void {
       {
         element: () =>
           document.querySelector(
-            `#settings-formText3-${demoExerciseIndex}`,
+            `#settings-formTextListe3-${demoExerciseIndex}`,
           ) as Element,
         popover: {
           title: 'Paramétrer finement un exercice',
           description:
-            'Pour certains exercices, un champ texte permet de pondérer les variantes proposées&nbsp;: des nombres séparés par des tirets. Exemple&nbsp;: avec 4 questions, saisir <strong>1-1-1-2</strong> donne 3 questions sous la forme 1 et 1 question sous la forme 2 (¾&nbsp;/&nbsp;¼). On vient de le régler pour vous, regardez à droite&nbsp;!',
+            'Pour certains exercices, on choisit les variantes proposées en cochant des cases, et on règle leur poids d’apparition. Exemple&nbsp;: avec 4 questions, cocher la <strong>forme 1 avec un poids de 3</strong> et la <strong>forme 2</strong> donne trois quarts de questions sous une 1re forme et un quart de questions sous une autre forme.',
           side: 'left',
           align: 'start',
           onNextClick: (_element, _step, opts) => {

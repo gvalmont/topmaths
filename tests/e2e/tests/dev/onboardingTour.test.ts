@@ -57,9 +57,8 @@ async function testOnboardingTour(page: Page): Promise<boolean> {
   ) {
     await page.waitForFunction(
       ({ name, expectedValue }) =>
-        document.querySelector('.driver-active-element')?.getAttribute(
-          name,
-        ) === expectedValue,
+        document.querySelector('.driver-active-element')?.getAttribute(name) ===
+        expectedValue,
       { name, expectedValue },
       { timeout: 15_000 },
     )
@@ -88,6 +87,22 @@ async function testOnboardingTour(page: Page): Promise<boolean> {
 
   async function clickNext() {
     await page.locator('.driver-popover-next-btn').click()
+  }
+
+  /**
+   * Attend qu'un exercice ajouté par la démo soit rendu. driver.js affiche l'étape
+   * suivante dès que le clic est passé, sans attendre que Svelte ait dessiné la
+   * carte : compter les `#exerciceN` sans attendre, c'est une course perdue dès
+   * que la page est occupée (régénération de l'exercice après un réglage).
+   */
+  async function waitForExercice(index: number, nom: string) {
+    await page
+      .locator(`#exercice${index}`)
+      .first()
+      .waitFor({ state: 'attached', timeout: 15_000 })
+      .catch(() => {
+        throw new Error(`l'exercice ${nom} n'a pas été ajouté`)
+      })
   }
 
   // Étape 1/13 : accueil, se déclenche automatiquement (poste jamais vu)
@@ -120,15 +135,27 @@ async function testOnboardingTour(page: Page): Promise<boolean> {
   await clickNext()
   await waitForStepTitle('Paramétrer finement un exercice')
 
-  // Étape 6/13 : la démo règle 4 questions + « 1-1-1-2 », vide la recherche,
-  // puis met en évidence « Course aux nombres »
+  // Étape 6/13 : la démo règle 4 questions, coche la forme 1 avec un poids de 3
+  // et la forme 2 (soit « 1-1-1-2 » dans l'URL), vide la recherche, puis met en
+  // évidence « Course aux nombres »
   await clickNext()
   await waitForStepTitle('Travailler les automatismes')
   const nbQuestions = await page.inputValue('#settings-nb-questions-0')
-  const forme = await page.inputValue('#settings-formText3-0')
-  if (nbQuestions !== '4' || forme !== '1-1-1-2') {
+  const poidsForme1 = await page.inputValue(
+    '#settings-formTextListe3-0-1-poids',
+  )
+  const forme2Cochee = await page.isChecked('#settings-formTextListe3-0-2')
+  // 3L11 démarre sur « Mélange » : la démo doit avoir décoché les autres formes,
+  // sinon les proportions annoncées (¾ / ¼) seraient fausses
+  const forme3Cochee = await page.isChecked('#settings-formTextListe3-0-3')
+  if (
+    nbQuestions !== '4' ||
+    poidsForme1 !== '3' ||
+    !forme2Cochee ||
+    forme3Cochee
+  ) {
     throw new Error(
-      `réglages attendus 4 questions / "1-1-1-2", obtenu ${nbQuestions} / "${forme}"`,
+      `réglages attendus 4 questions / forme 1 de poids 3 / forme 2 cochée / forme 3 décochée, obtenu ${nbQuestions} / ${poidsForme1} / ${forme2Cochee} / ${forme3Cochee}`,
     )
   }
   const searchCleared = await page.inputValue('[data-tour="search-input"]')
