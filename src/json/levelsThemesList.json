@@ -2480,10 +2480,13 @@
   "2F13": {
     "titre": "Déterminer un antécédent à partir d'une représentation graphique ou d'un tableau de valeurs d'une fonction"
   },
-  "2F14": {
-    "titre": "Modéliser un phénomène continu par une fonction"
+   "2F14": {
+    "titre": "Recherche du domaine de définition"
   },
   "2F15": {
+    "titre": "Modéliser un phénomène continu par une fonction"
+  },
+  "2F16": {
     "titre": "Résoudre des problèmes modélisés par des fonctions en utilisant un ou plusieurs modes de représentation"
   },
   "2F1Q": {
