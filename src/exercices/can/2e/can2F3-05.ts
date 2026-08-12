@@ -21,7 +21,7 @@ export const dateDePublication = '30/12/2021' // La date de publication initiale
 export const uuid = '991c2'
 
 export const refs = {
-  'fr-fr': ['can2F11'],
+  'fr-fr': ['can2F3-05','2F22-10'],
   'fr-ch': [],
 }
 export default class ComparerAvecFctCarre extends Exercice {
@@ -38,7 +38,7 @@ export default class ComparerAvecFctCarre extends Exercice {
   }
 
   nouvelleVersion() {
-    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50; ) {
+    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       let texte, texteCorr, a, b, props
       const choix = choice([1, 2, 3])
       switch (

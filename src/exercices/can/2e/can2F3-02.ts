@@ -19,7 +19,7 @@ export const dateDePublication = '1/11/2021' // La date de publication initiale 
 export const uuid = '82d4a'
 
 export const refs = {
-  'fr-fr': ['can2F05'],
+  'fr-fr': ['can2F3-02'],
   'fr-ch': [],
 }
 export default class AntecedentFonctionRacine extends ExerciceSimple {

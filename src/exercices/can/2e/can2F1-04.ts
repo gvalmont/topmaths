@@ -1,5 +1,5 @@
 import { repere } from '../../../lib/2d/reperes'
-import { latex2d } from '../../../lib/2d/textes'
+import { texteParPosition } from '../../../lib/2d/textes'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 import {
   Spline,
@@ -7,40 +7,36 @@ import {
   type NoeudSpline,
 } from '../../../lib/mathFonctions/Spline'
 import { choice } from '../../../lib/outils/arrayOutils'
-import {
-  miseEnEvidence,
-  texteEnCouleurEtGras,
-} from '../../../lib/outils/embellissements'
+import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { mathalea2d } from '../../../modules/mathalea2d'
 import { randint } from '../../../modules/outils'
 import ExerciceSimple from '../../ExerciceSimple'
 import { bleuMathalea } from '../../../lib/colors'
 
-export const dateDePublication = '28/07/2025'
+export const dateDePublication = '27/10/2023'
 export const interactifReady = true
 export const interactifType = 'mathLive'
-export const titre =
-  "Déterminer le nombre de solutions d'une équation (graphique)"
+export const titre = 'Résoudre une équation graphiquement'
 
 /**
  * @author Gilles Mora
  */
-export const uuid = 'e59bc'
+export const uuid = '9d293'
 
 export const refs = {
-  'fr-fr': ['can2F24'],
+  'fr-fr': ['can2F1-04', 'BP1RGEI08'],
   'fr-ch': [],
 }
-export default class EquationsGSplineNombre extends ExerciceSimple {
+export default class EquationsGSpline extends ExerciceSimple {
   compteur = 0
   spline?: Spline
   constructor() {
     super()
-    this.versionQcmDisponible = true
+
     this.typeExercice = 'simple'
     this.nbQuestions = 1
-    this.formatChampTexte = KeyboardType.clavierDeBase
-    this.optionsChampTexte = { texteAvant: '<br>' }
+    this.formatChampTexte = KeyboardType.clavierEnsemble
+    this.optionsDeComparaison = { ensembleDeNombres: true }
   }
 
   nouvelleVersion() {
@@ -94,7 +90,7 @@ export default class EquationsGSplineNombre extends ExerciceSimple {
         }),
       )
     }
-    const o = latex2d('\\text{O}', -0.3, -0.3, { letterSize: 'scriptsize' })
+    const o = texteParPosition('O', -0.3, -0.3, 0, 'black', 1)
     const nuage = aleatoiriseCourbe(mesFonctions)
     const theSpline = spline(nuage)
     this.spline = theSpline
@@ -106,30 +102,23 @@ export default class EquationsGSplineNombre extends ExerciceSimple {
       yMax: bornes.yMax + 1,
       grilleX: false,
       grilleY: false,
-      xThickMin: bornes.xMin - 1,
-      yThickMin: bornes.yMin - 1,
-      yThickMax: bornes.yMax + 1,
-      xLabelMin: bornes.xMin,
-      yLabelMin: bornes.yMin,
-      yLabelMax: bornes.yMax,
-      xLabelMax: bornes.xMax,
-      xThickMax: bornes.xMax + 1,
       grilleSecondaire: true,
       grilleSecondaireYDistance: 1,
       grilleSecondaireXDistance: 1,
-      grilleSecondaireOpacite: 1,
-      axesEpaisseur: 1.5,
-      grilleOpacite: 1,
-      grilleSecondaireCouleur: 'black',
-      grilleSecondaireYMin: bornes.yMin - 1.02,
-      grilleSecondaireYMax: bornes.yMax + 1.02,
-      grilleSecondaireXMin: bornes.xMin - 1.02,
-      grilleSecondaireXMax: bornes.xMax + 1.02,
+      grilleSecondaireYMin: bornes.yMin - 1,
+      grilleSecondaireYMax: bornes.yMax + 1,
+      grilleSecondaireXMin: bornes.xMin - 1,
+      grilleSecondaireXMax: bornes.xMax + 1,
     })
     const courbe1 = theSpline.courbe({
       epaisseur: 1.5,
       ajouteNoeuds: true,
-      optionsNoeuds: { color: 'black', taille: 1.5, style: 'x', epaisseur: 2 },
+      optionsNoeuds: {
+        color: bleuMathalea,
+        taille: 2,
+        style: 'x',
+        epaisseur: 2,
+      },
       color: bleuMathalea,
     })
     const objetsEnonce = [repere1, courbe1]
@@ -171,16 +160,15 @@ export default class EquationsGSplineNombre extends ExerciceSimple {
     }
     this.compteur = 0
     const solutions1 = theSpline.solve(y1) ?? []
-    const reponse1 = this.versionQcm
-      ? `$${solutions1.length}$ ${solutions1.length === 0 || solutions1.length === 1 ? 'solution' : 'solutions'}`
-      : solutions1.length
+    const reponse1 =
+      solutions1.length === 0 ? '\\emptyset' : `${solutions1.join(';')}`
     this.reponse = reponse1
     this.question =
-      "On donne la représentation graphique d'une fonction $f$. <br><br>"
-    this.question +=
+      `On donne la représentation graphique d'une fonction $f$. <br>
+    Résoudre l'équation  $f(x)=${y1}$.<br>` +
       mathalea2d(
         Object.assign(
-          { pixelsParCm: 25, scale: 0.9, center: true },
+          { pixelsParCm: 30, scale: 0.65, center: true },
           {
             xmin: bornes.xMin - 1,
             ymin: bornes.yMin - 1,
@@ -190,18 +178,14 @@ export default class EquationsGSplineNombre extends ExerciceSimple {
         ),
         objetsEnonce,
         o,
-      ) + '<br><br>'
-    this.question += this.versionQcm
-      ? `L'équation $f(x)=${y1}$ a :`
-      : `Donner le nombre de solutions de l'équation $f(x)=${y1}$.`
-    this.distracteurs = [
-      '$0$ solution',
-      '$1$ solution',
-      '$2$ solutions',
-      '$3$ solutions',
-    ]
+      ) // fixeBordures(objetsEnonce))
+    if (this.interactif) {
+      this.question +=
+        "<br>Écrire l'ensemble de solution(s) (séparées par des points-virgules). Saisir $\\emptyset$ s'il n'y en a pas.<br>"
+      this.question += 'Ensemble de solution(s) : '
+    }
 
-    this.correction = `Le nombre de solutions de  l'équation $f(x)=${y1}$ est le nombre d'antécédents de  $${y1}$ par la fonction $f$.<br>
-    Puisque la droite d'équation $y = ${y1}$ (droite hrizontale) coupe ${solutions1.length === 0 ? 'aucune' : `$${solutions1.length}$`} fois la courbe, on en déduit que l'équation  $f(x)=${y1}$ admet $${miseEnEvidence(solutions1.length)}$ ${solutions1.length === 0 || solutions1.length === 1 ? `${texteEnCouleurEtGras('solution')}.` : `${texteEnCouleurEtGras('solutions')}`}.`
+    this.correction = `Résoudre l'équation $f(x)=${y1}$ graphiquement revient à lire les abscisses des points d'intersection entre $\\mathscr{C}_f$ et ${y1 === 0 ? "l'axe des abscisses." : `la droite  d'équation $y = ${y1}$ (parallèle à l'axe des abscisses).`}<br>
+    On en déduit : ${solutions1.length === 0 ? `$S=${miseEnEvidence('\\emptyset')}$.` : `$S=${miseEnEvidence(`\\{ ${solutions1.join('\\,;\\,')} \\}`)}$.`}<br>`
   }
 }

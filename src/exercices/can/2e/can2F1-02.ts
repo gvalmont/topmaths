@@ -17,7 +17,7 @@ export const dateDePublication = '25/10/2021'
 export const uuid = '6f13a'
 
 export const refs = {
-  'fr-fr': ['can2F04'],
+  'fr-fr': ['can2F1-02'],
   'fr-ch': [],
 }
 export default class ValeurInterdite extends ExerciceSimple {

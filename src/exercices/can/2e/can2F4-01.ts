@@ -10,7 +10,6 @@ import { listeQuestionsToContenu, randint } from '../../../modules/outils'
 import Exercice from '../../Exercice'
 import { amcConvert } from '../../../lib/amc/amcBuilders'
 
-
 export const titre = 'Lire les extremums dans un tableau de variations'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -29,7 +28,7 @@ export const dateDeModifImportante = '10/03/2025' // Une date de modification im
 export const uuid = 'd5b6c'
 
 export const refs = {
-  'fr-fr': ['can2F07'],
+  'fr-fr': ['can2F4-01'],
   'fr-ch': [],
 }
 export default class ExtremumsTableau extends Exercice {
@@ -41,7 +40,7 @@ export default class ExtremumsTableau extends Exercice {
 
   nouvelleVersion() {
     let texte, texteCorr, ligne1
-    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50; ) {
+    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       const x1 = randint(-20, 10)
       const x2 = randint(x1 + 1, 15)
       const x3 = randint(x2 + 1, 20)

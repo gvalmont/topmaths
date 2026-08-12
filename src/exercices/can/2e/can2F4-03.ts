@@ -11,7 +11,7 @@ export const dateDePublication = '07/12/2023'
 export const uuid = '659da'
 
 export const refs = {
-  'fr-fr': ['can2F17'],
+  'fr-fr': ['can2F4-03'],
   'fr-ch': [],
 }
 export default class BetaModeleSplineCAN extends BetaModeleSpline {

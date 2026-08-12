@@ -28,7 +28,7 @@ export const dateDePublication = '19/05/2023' // La date de publication initiale
 export const uuid = 'a3e06'
 
 export const refs = {
-  'fr-fr': ['can2F15'],
+  'fr-fr': ['can2F2-03'],
   'fr-ch': [],
 }
 export default class VariationFA extends Exercice {
@@ -45,7 +45,7 @@ export default class VariationFA extends Exercice {
     let b
     let d
     let props
-    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50; ) {
+    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       a = randint(-10, 10, 0) // coefficient a de la fonction affine
       b = randint(-10, 10) // coefficient b de la fonction affine
       d = choice([abs(a) + 1, abs(b) + 1]) // dénominateur

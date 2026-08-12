@@ -19,7 +19,7 @@ export const titre = 'Déterminer un extremum graphiquement'
 export const uuid = '5a908'
 
 export const refs = {
-  'fr-fr': ['can2F18', 'BP1AUTO058'],
+  'fr-fr': ['can2F4-04', 'BP1AUTO058'],
   'fr-ch': [],
 }
 type Noeud = {
@@ -118,7 +118,12 @@ export default class MaxMinG extends ExerciceSimple {
     const courbe1 = theSpline.courbe({
       epaisseur: 1.5,
       ajouteNoeuds: true,
-      optionsNoeuds: { color: bleuMathalea, taille: 2, style: 'x', epaisseur: 2 },
+      optionsNoeuds: {
+        color: bleuMathalea,
+        taille: 2,
+        style: 'x',
+        epaisseur: 2,
+      },
       color: bleuMathalea,
     })
     const objetsEnonce = [repere1, courbe1]

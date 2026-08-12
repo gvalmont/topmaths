@@ -1,8 +1,17 @@
+import { droiteGraduee } from '../../../lib/2d/DroiteGraduee'
+import { fixeBordures } from '../../../lib/2d/fixeBordures'
+import { pointAbstrait } from '../../../lib/2d/PointAbstrait'
+import { latex2d } from '../../../lib/2d/textes'
+import { tracePoint } from '../../../lib/2d/TracePoint'
+import { bleuMathalea } from '../../../lib/colors'
 import { propositionsQcm } from '../../../lib/interactif/qcm'
 import { choice } from '../../../lib/outils/arrayOutils'
 import { extraireRacineCarree } from '../../../lib/outils/calculs'
 import { texFractionReduite } from '../../../lib/outils/deprecatedFractions'
+import { ecritureAlgebrique } from '../../../lib/outils/ecritures'
+import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { sp } from '../../../lib/outils/outilString'
+import { mathalea2d } from '../../../modules/mathalea2d'
 import { listeQuestionsToContenu, randint } from '../../../modules/outils'
 import Exercice from '../../Exercice'
 export const titre = 'Résoudre une équation avec une fonction de référence'
@@ -20,28 +29,160 @@ export const dateDePublication = '27/12/2021' // La date de publication initiale
 export const uuid = 'a7515'
 
 export const refs = {
-  'fr-fr': ['can2F09'],
+  'fr-fr': ['can2F3-03','2F22-8'],
   'fr-ch': [],
 }
+
+function illustrationDistance(a: number, b: number): string {
+  const gauche = a - b
+  const droite = a + b
+  const min = gauche - 1
+  const axe = droiteGraduee({
+    Unite: 1,
+    Min: gauche - 1,
+    Max: droite + 1,
+    thickDistance: 1,
+    labelsPrincipaux: false,
+    labelListe: [[a, `${a}`]],
+    pointListe: [[a, '']],
+    pointStyle: '|',
+    pointEpaisseur: 3,
+  })
+  const solutionGauche = pointAbstrait(gauche - min, 0)
+  const solutionDroite = pointAbstrait(droite - min, 0)
+  const marqueGauche = tracePoint(solutionGauche, bleuMathalea)
+  const marqueDroite = tracePoint(solutionDroite, bleuMathalea)
+  marqueGauche.style = '|'
+  marqueDroite.style = '|'
+  marqueGauche.epaisseur = 3
+  marqueDroite.epaisseur = 3
+  const labelGauche = latex2d(`${gauche}`, solutionGauche.x, -0.7, {
+    color: bleuMathalea,
+  })
+  const labelDroite = latex2d(`${droite}`, solutionDroite.x, -0.7, {
+    color: bleuMathalea,
+  })
+  const accoladeGauche = latex2d(
+    `\\overbrace{\\hspace{${b * 0.55}cm}}^{${b}}`,
+    (solutionGauche.x + (a - min)) / 2,
+    1,
+    { color: bleuMathalea },
+  )
+  const accoladeDroite = latex2d(
+    `\\overbrace{\\hspace{${b * 0.55}cm}}^{${b}}`,
+    (a - min + solutionDroite.x) / 2,
+    1,
+    { color: bleuMathalea },
+  )
+  const objets = [
+    axe,
+    marqueGauche,
+    marqueDroite,
+    labelGauche,
+    labelDroite,
+    accoladeGauche,
+    accoladeDroite,
+  ]
+  return mathalea2d(
+    Object.assign({}, fixeBordures(objets), {
+      pixelsParCm: 24,
+      scale: 0.8,
+    }),
+    objets,
+  )
+}
 export default class ResoudreEquationsFonctionDeReference extends Exercice {
+  private casDisponibles(): number[] {
+    switch (this.sup3) {
+      case 1:
+        return [1, 2, 3]
+      case 2:
+        return [2, 3, 4, 5]
+      case 3:
+      default:
+        return [1, 2, 3, 4, 5]
+    }
+  }
+
   constructor() {
     super()
 
     this.nbQuestions = 1
-
+    this.sup3 = 3
+    this.besoinFormulaire3Numerique = [
+      'Fonctions proposées',
+      3,
+      '1 : Nouveau programme 2026\n2 : Années de transition\n3 : Toutes les fonctions de référence',
+    ]
     this.spacing = 2
   }
 
   nouvelleVersion() {
-    let texte, texteCorr, a, k, b, c, props
-    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50; ) {
+    let texte, texteCorr, a, k, b, c, props, typeQuestion
+    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       a = 0
       b = 0
       c = 0
-      switch (
-        choice([1, 1, 2, 3]) //
-      ) {
-        case 1:
+      k = 0
+      typeQuestion = choice(this.casDisponibles())
+      switch (typeQuestion) {
+        case 1: {
+          const distance = randint(1, 6)
+          a = randint(-6, 6, [0, distance])
+          b = distance * choice([-1, 1, 1, 1, 1])
+          const solutionGauche = a - b
+          const solutionDroite = a + b
+          const distracteurGauche = b - a
+          const membreValeurAbsolue = `|x${ecritureAlgebrique(-a)}|`
+          texte = `L'ensemble des solutions $S$ de l'équation $${membreValeurAbsolue}=${b}$ est :`
+          const propositions =
+            b > 0
+              ? [
+                  {
+                    texte: `$S=\\{${solutionGauche}${sp(1)};${sp(1)}${solutionDroite}\\}$`,
+                    statut: true,
+                  },
+                  {
+                    texte: `$S=\\{${distracteurGauche}${sp(1)};${sp(1)}${solutionDroite}\\}$`,
+                    statut: false,
+                  },
+                  {
+                    texte: `$S=\\{${solutionGauche}${sp(1)};${sp(1)}${distracteurGauche}\\}$`,
+                    statut: false,
+                  },
+                  { texte: '$S=\\emptyset$', statut: false },
+                ]
+              : [
+                  { texte: '$S=\\emptyset$', statut: true },
+                  {
+                    texte: `$S=\\{${solutionGauche}${sp(1)};${sp(1)}${solutionDroite}\\}$`,
+                    statut: false,
+                  },
+                  {
+                    texte: `$S=\\{${distracteurGauche}${sp(1)};${sp(1)}${solutionDroite}\\}$`,
+                    statut: false,
+                  },
+                  { texte: `$S=\\{${solutionDroite}\\}$`, statut: false },
+                ]
+          this.autoCorrection[i] = { enonce: texte, propositions }
+          props = propositionsQcm(this, i)
+          if (this.interactif) texte += props.texte
+          else {
+            texte = `Résoudre dans $\\mathbb{R}$ :<br>$${membreValeurAbsolue}=${b}$.`
+          }
+
+          if (b > 0) {
+            texteCorr = `<strong>Résolution géométrique :</strong><br>$${membreValeurAbsolue}=${b}$ signifie que la distance entre $x$ et $${a}$ est égale à $${b}$. Sur une droite graduée, il existe exactement deux abscisses situées à une distance de $${b}$ unités de $${a}$ : $${solutionGauche}$ et $${solutionDroite}$.<br>${illustrationDistance(a, b)}<br>`
+            texteCorr += `<strong>Résolution analytique :</strong><br>$${membreValeurAbsolue}=${b}\\iff x${ecritureAlgebrique(-a)}=${b}\\text{ ou }x${ecritureAlgebrique(-a)}=-${b}$.<br>`
+            texteCorr += `On résout donc les deux équations :<br>$x${ecritureAlgebrique(-a)}=${b}\\iff x=${solutionDroite}$ ;<br>$x${ecritureAlgebrique(-a)}=-${b}\\iff x=${solutionGauche}$.<br>`
+            texteCorr += `Ainsi, $S=${miseEnEvidence(`\\{${solutionGauche}${sp(1)};${sp(1)}${solutionDroite}\\}`)}$.`
+          } else {
+            texteCorr = `Une valeur absolue est toujours positive ou nulle. Elle ne peut donc pas être égale au nombre négatif $${b}$.<br>Ainsi, $S=${miseEnEvidence('\\emptyset')}$.`
+          }
+          this.canEnonce = `Résoudre dans $\\mathbb{R}$ l'équation $${membreValeurAbsolue}=${b}$.`
+          break
+        }
+        case 2:
           a = randint(0, 10) ** 2
           b = choice([2, 3, 5, 7, 10, 11, 13, 14, 15, 17, 19, 21, 23])
           c = choice([
@@ -176,7 +317,40 @@ export default class ResoudreEquationsFonctionDeReference extends Exercice {
           this.canEnonce = `Résoudre dans $\\mathbb{R}$ l'équation $x^2=${k}$.`
 
           break
-        case 2:
+        case 4: {
+          const solution = choice([-5, -4, -3, -2, 2, 3, 4, 5])
+          k = solution ** 3
+          texte = `L'ensemble des solutions $S$ de l'équation $x^3=${k}$ est :`
+          this.autoCorrection[i] = {
+            enonce: texte,
+            propositions: [
+              {
+                texte: `$S=\\{${solution}\\}$`,
+                statut: true,
+              },
+              {
+                texte: `$S=\\{${-solution}\\}$`,
+                statut: false,
+              },
+              {
+                texte: `$S=\\{${k}\\}$`,
+                statut: false,
+              },
+              {
+                texte: '$S=\\emptyset$',
+                statut: false,
+              },
+            ],
+          }
+          props = propositionsQcm(this, i)
+          if (this.interactif) texte += props.texte
+          else texte = `Résoudre dans $\\mathbb{R}$ :<br>$x^3=${k}$.`
+
+          texteCorr = `La fonction cube est strictement croissante sur $\\mathbb{R}$. L'équation $x^3=${k}$ admet donc une unique solution.<br>Or $${solution}^3=${k}$. Ainsi, $S=\\{${solution}\\}$.`
+          this.canEnonce = `Résoudre dans $\\mathbb{R}$ l'équation $x^3=${k}$.`
+          break
+        }
+        case 5:
           k = randint(-5, 10)
           texte = `L'ensemble des solutions $S$ de l'équation $\\sqrt{x}=${k}$ est :
                    `
@@ -406,7 +580,7 @@ export default class ResoudreEquationsFonctionDeReference extends Exercice {
 
           break
       }
-      if (this.questionJamaisPosee(i, a, b, k, c)) {
+      if (this.questionJamaisPosee(i, typeQuestion, a, b, k, c)) {
         // Si la question n'a jamais été posée, on la stocke dans la liste des questions
         this.listeQuestions[i] = texte
         this.listeCorrections[i] = texteCorr

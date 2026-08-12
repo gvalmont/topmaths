@@ -25,7 +25,7 @@ export const interactifType = 'mathLive'
 export const uuid = '8b3a9'
 
 export const refs = {
-  'fr-fr': ['can2F02'],
+  'fr-fr': ['can2F1-01'],
   'fr-ch': [],
 }
 export default class CalculImageQuotient extends ExerciceSimple {

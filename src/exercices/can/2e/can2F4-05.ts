@@ -22,7 +22,7 @@ export const titre = 'Résoudre une inéquation graphiquement'
 export const uuid = '61271'
 
 export const refs = {
-  'fr-fr': ['can2F22', 'BP1RGEI09'],
+  'fr-fr': ['can2F4-05', 'BP1RGEI09'],
   'fr-ch': ['2mIneq-2'],
 }
 
@@ -117,7 +117,12 @@ export default class InequationsGSpline extends ExerciceSimple {
     const courbe1 = theSpline.courbe({
       epaisseur: 1.5,
       ajouteNoeuds: true,
-      optionsNoeuds: { color: bleuMathalea, taille: 2, style: 'x', epaisseur: 2 },
+      optionsNoeuds: {
+        color: bleuMathalea,
+        taille: 2,
+        style: 'x',
+        epaisseur: 2,
+      },
       color: bleuMathalea,
     })
     const objetsEnonce = [repere1, courbe1]

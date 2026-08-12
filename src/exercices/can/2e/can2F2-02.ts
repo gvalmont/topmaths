@@ -21,7 +21,7 @@ export const dateDePublication = '15/12/2021' // La date de publication initiale
 export const uuid = '73ab4'
 
 export const refs = {
-  'fr-fr': ['can2F06'],
+  'fr-fr': ['can2F2-02'],
   'fr-ch': [],
 }
 export default class TableauSignes extends Exercice {
@@ -33,7 +33,7 @@ export default class TableauSignes extends Exercice {
 
   nouvelleVersion() {
     let texte, texteCorr, a, b, ligne1, props, debutEnonce
-    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50; ) {
+    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       a = randint(1, 6) * choice([-1, 1]) // coefficient a de la fonction affine
       b = randint(1, 6) * choice([-1, 1]) // coefficient b de la fonction affine
       texteCorr = `$f$ est une fonction affine. Elle s’annule en $x_0=${texFractionReduite(-b, a)}$. `
