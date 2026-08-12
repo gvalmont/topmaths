@@ -16,7 +16,7 @@ export const dateDePublication = '30/04/2024'
 export const dateDeModifImportante = '06/08/2025'
 export const uuid = 'b9c80'
 export const refs = {
-  'fr-fr': ['can2F20'],
+  'fr-fr': ['can2F2-05'],
   'fr-ch': ['11FA1B-24'],
 }
 /**

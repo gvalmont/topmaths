@@ -24,7 +24,7 @@ export const dateDeModifImportante = '09/03/2025' // Une date de modification im
 export const uuid = 'e0405'
 
 export const refs = {
-  'fr-fr': ['can2F08'],
+  'fr-fr': ['can2F4-02'],
   'fr-ch': [],
 }
 export default class EncadrerTableau extends Exercice {
@@ -36,7 +36,7 @@ export default class EncadrerTableau extends Exercice {
   nouvelleVersion() {
     let texte, texteCorr
     let ligne1
-    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50; ) {
+    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       const x1 = randint(-20, 10)
       const x2 = randint(x1 + 1, 15)
       const x3 = randint(x2 + 1, 20)

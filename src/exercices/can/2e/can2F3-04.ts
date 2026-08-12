@@ -26,7 +26,7 @@ export const dateDePublication = '27/12/2021' // La date de publication initiale
 export const uuid = '1380f'
 
 export const refs = {
-  'fr-fr': ['can2F10'],
+  'fr-fr': ['can2F3-04','2F22-9'],
   'fr-ch': ['1mCL3-1'],
 }
 export default class ResoudreEquationsFonctionDeReference2 extends Exercice {
@@ -40,7 +40,7 @@ export default class ResoudreEquationsFonctionDeReference2 extends Exercice {
 
   nouvelleVersion() {
     let texte, texteCorr, k, b, c, props
-    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50; ) {
+    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       switch (randint(1, 6)) {
         case 1:
           b = randint(-5, 5, 0)
@@ -209,11 +209,11 @@ export default class ResoudreEquationsFonctionDeReference2 extends Exercice {
                 texteCorr += `<br>L'équation est de la forme $x^2=k$ avec $k=${texNombre(k)}>0$, donc l'équation a deux solutions : $-\\sqrt{${texNombre(k)}}$ et $\\sqrt{${texNombre(k)}}$. <br>
                   Comme $-\\sqrt{${k}}=-${extraireRacineCarree(k)[0]}\\sqrt{${extraireRacineCarree(k)[1]}}$ et $\\sqrt{${k}}=${extraireRacineCarree(k)[0]}\\sqrt{${extraireRacineCarree(k)[1]}}$ alors
                   les solutions de l'équation peuvent s'écrire plus simplement : $-${extraireRacineCarree(k)[0]}\\sqrt{${extraireRacineCarree(k)[1]}}$ et $${extraireRacineCarree(k)[0]}\\sqrt{${extraireRacineCarree(k)[1]}}$.<br>
-                  Ainsi,  $${miseEnEvidence(`S=\\{-${extraireRacineCarree(k)[0]}\\sqrt{${extraireRacineCarree(k)[1]}}${sp(1)};${sp(1)}${extraireRacineCarree(k)[0]}\\sqrt{${extraireRacineCarree(k)[1]}}\\}`) }$.`
+                  Ainsi,  $${miseEnEvidence(`S=\\{-${extraireRacineCarree(k)[0]}\\sqrt{${extraireRacineCarree(k)[1]}}${sp(1)};${sp(1)}${extraireRacineCarree(k)[0]}\\sqrt{${extraireRacineCarree(k)[1]}}\\}`)}$.`
               } else {
                 texteCorr += `<br>L'équation est de la forme $x^2=k$ avec $k=${c - b}>0$,
                   donc l'équation a deux solutions : $-\\sqrt{${c - b}}$ et $\\sqrt{${c - b}}$.<br>
-                  Ainsi, $${miseEnEvidence(`S=\\{-\\sqrt{${c - b}}${sp(1)};${sp(1)}\\sqrt{${c - b}}\\}`) }$.`
+                  Ainsi, $${miseEnEvidence(`S=\\{-\\sqrt{${c - b}}${sp(1)};${sp(1)}\\sqrt{${c - b}}\\}`)}$.`
               }
             }
           }
@@ -393,19 +393,19 @@ export default class ResoudreEquationsFonctionDeReference2 extends Exercice {
               L'équation est de la forme $x^2=k$ avec $k=${texNombre(k)}>0$, donc l'équation a deux solutions : $-\\sqrt{${texNombre(k)}}$ et $\\sqrt{${texNombre(k)}}$.
         <br> Comme $-\\sqrt{${texNombre(k)}}=-${extraireRacineCarree(k)[0]}$ et $\\sqrt{${k}}=${extraireRacineCarree(k)[0]}$ alors
         les solutions de l'équation peuvent s'écrire plus simplement : $-${extraireRacineCarree(k)[0]}$ et $${extraireRacineCarree(k)[0]}$.<br>
-        Ainsi,  $${miseEnEvidence(`S=\\{-${extraireRacineCarree(k)[0]}${sp(1)};${sp(1)}${extraireRacineCarree(k)[0]}\\}`) }$.`
+        Ainsi,  $${miseEnEvidence(`S=\\{-${extraireRacineCarree(k)[0]}${sp(1)};${sp(1)}${extraireRacineCarree(k)[0]}\\}`)}$.`
             } else {
               if (extraireRacineCarree(k)[1] !== k) {
                 texteCorr += `<br>
                 L'équation est de la forme $x^2=k$ avec $k=${texNombre(k)}>0$, donc l'équation a deux solutions : $-\\sqrt{${texNombre(k)}}$ et $\\sqrt{${texNombre(k)}}$. <br>
             Comme $-\\sqrt{${k}}=-${extraireRacineCarree(k)[0]}\\sqrt{${extraireRacineCarree(k)[1]}}$ et $\\sqrt{${k}}=${extraireRacineCarree(k)[0]}\\sqrt{${extraireRacineCarree(k)[1]}}$ alors
             les solutions de l'équation peuvent s'écrire plus simplement : $-${extraireRacineCarree(k)[0]}\\sqrt{${extraireRacineCarree(k)[1]}}$ et $${extraireRacineCarree(k)[0]}\\sqrt{${extraireRacineCarree(k)[1]}}$.<br>
-            Ainsi,  $${miseEnEvidence(`S=\\{-${extraireRacineCarree(k)[0]}\\sqrt{${extraireRacineCarree(k)[1]}}${sp(1)};${sp(1)}${extraireRacineCarree(k)[0]}\\sqrt{${extraireRacineCarree(k)[1]}}\\}`) }$.`
+            Ainsi,  $${miseEnEvidence(`S=\\{-${extraireRacineCarree(k)[0]}\\sqrt{${extraireRacineCarree(k)[1]}}${sp(1)};${sp(1)}${extraireRacineCarree(k)[0]}\\sqrt{${extraireRacineCarree(k)[1]}}\\}`)}$.`
               } else {
                 texteCorr += `<br>
                 L'équation est de la forme $x^2=k$ avec $k=${k}>0$,
             donc l'équation a deux solutions : $-\\sqrt{${k}}$ et $\\sqrt{${k}}$.<br>
-            Ainsi,  $${miseEnEvidence(`S=\\{-\\sqrt{${k}}${sp(1)};${sp(1)}\\sqrt{${k}}\\}`) }$.`
+            Ainsi,  $${miseEnEvidence(`S=\\{-\\sqrt{${k}}${sp(1)};${sp(1)}\\sqrt{${k}}\\}`)}$.`
               }
             }
           }
@@ -694,7 +694,7 @@ export default class ResoudreEquationsFonctionDeReference2 extends Exercice {
           }
           if (k > 0 || k === 0) {
             texteCorr += `L'équation est de la forme $\\sqrt{x}=k$ avec $k=${b - c}$. Comme $${b - c}\\geqslant0$ alors l'équation admet une solution : $${k}^2=${k ** 2}$.<br>
-     Ainsi $${miseEnEvidence(`S=\\{${k ** 2}\\}`) }$.
+     Ainsi $${miseEnEvidence(`S=\\{${k ** 2}\\}`)}$.
     `
           }
           this.canEnonce = `Résoudre dans $[0${sp(1)};${sp(1)}+\\infty[$ l'équation $-\\sqrt{x}${ecritureAlgebrique(b)}=${c}$.`
@@ -932,7 +932,7 @@ export default class ResoudreEquationsFonctionDeReference2 extends Exercice {
           if (k !== 0) {
             texteCorr += `$k=${k}$ et $${k}\\neq 0$, donc l'équation est de la forme $\\dfrac{1}{x}=k$ avec $k=${k}$. Donc l'équation admet une solution :
       $${texFractionReduite(1, k)}$.<br>
-      Ainsi $${miseEnEvidence(`S=\\left\\{${texFractionReduite(1, k)}\\right\\}`) }$.
+      Ainsi $${miseEnEvidence(`S=\\left\\{${texFractionReduite(1, k)}\\right\\}`)}$.
       `
           }
           this.canEnonce = `Résoudre dans $\\mathbb{R}^*$ l'équation $${b}-\\dfrac{1}{x}=${c}$.`

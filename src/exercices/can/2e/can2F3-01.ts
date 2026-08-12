@@ -27,7 +27,7 @@ export const interactifType = 'mathLive'
 export const uuid = 'b2c31'
 
 export const refs = {
-  'fr-fr': ['can2F01'],
+  'fr-fr': ['can2F3-01','2F22-7'],
   'fr-ch': [],
 }
 export default class CalculImageSecondDegre extends ExerciceSimple {

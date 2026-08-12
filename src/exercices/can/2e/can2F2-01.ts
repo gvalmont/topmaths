@@ -31,7 +31,7 @@ export const interactifType = 'qcm'
 export const uuid = '03b1d'
 
 export const refs = {
-  'fr-fr': ['can2F03'],
+  'fr-fr': ['can2F2-01'],
   'fr-ch': ['1mQCM-4'],
 }
 export default class SigneFonctionAffine extends Exercice {
@@ -47,7 +47,7 @@ export default class SigneFonctionAffine extends Exercice {
 
   nouvelleVersion() {
     let texte, texteCorr, a, b, n, maFraction, monQcm
-    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50; ) {
+    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       switch (
         choice(['a', 'b']) //, 'b'
       ) {

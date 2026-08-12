@@ -8,7 +8,7 @@ export const amcType = 'AMCNum'
 export const dateDePublication = '18/01/2022' // La date de publication initiale au format 'jj/mm/aaaa' pour affichage temporaire d'un tag
 export const uuid = '1afde'
 export const refs = {
-  'fr-fr': ['can2F13'],
+  'fr-fr': ['can2F3-07'],
   'fr-ch': ['11FA9-12'],
 }
 export default class CANImageFonctionsRefs extends ImageFonctionsRefs {
