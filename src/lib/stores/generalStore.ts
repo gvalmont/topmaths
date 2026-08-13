@@ -29,6 +29,14 @@ export const a4ParamStore = writable<string>('')
 export const typstParamStore = writable<string>('')
 
 /**
+ * Demande d'ouverture de la modale des raccourcis clavier de l'éditeur
+ * Typst, depuis un endroit hors de `Typst.svelte` (bouton « Aide » de
+ * `NavBar`, commun à toutes les vues). La vue Typst est seule à la lire et
+ * à la remettre à `false` une fois consultée.
+ */
+export const typstShortcutsOpen = writable<boolean>(false)
+
+/**
  * Réglages encodés (base64) de la vue LaTeX (`v=tex`), maintenus dans l'URL
  * par updateGlobalOptionsInURL. Alimenté par la vue elle-même.
  */
