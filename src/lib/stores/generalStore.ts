@@ -1,6 +1,7 @@
-import { get, writable } from 'svelte/store'
+import { derived, get, writable } from 'svelte/store'
 import { statsPageTracker } from '../../modules/statsUtils'
 import { buildDsParams } from '../components/buildDsParams'
+import { normaliseCoeffBareme } from '../interactif/baremeExercice'
 import type {
   InterfaceParams,
   InterfaceResultExercice,
@@ -58,6 +59,28 @@ export const isInIframe = writable<boolean>(false)
  * {id, uuid, alea, interactif, cd, sup, sup2, sup3, sup4,sup5, n}
  */
 export const exercicesParams = writable<InterfaceParams[]>([])
+
+/**
+ * Nombre de points maximum de chaque exercice interactif, hors coefficient
+ * de barème, indexé comme `exercicesParams` (0 pour un exercice non
+ * interactif). Alimenté par `ExerciceMathaleaVueProf` à chaque
+ * (re)génération des questions.
+ */
+export const pointsMaxParExercice = writable<number[]>([])
+
+/**
+ * Nombre total de points de la copie numérique (somme des barèmes de tous
+ * les exercices), utilisé notamment dans la vue prof en mode recorder
+ * Capytale.
+ */
+export const pointsMaxTotal = derived(
+  [exercicesParams, pointsMaxParExercice],
+  ([$exercicesParams, $pointsMaxParExercice]) =>
+    $exercicesParams.reduce((total, params, i) => {
+      const pointsMax = $pointsMaxParExercice[i] ?? 0
+      return total + pointsMax * normaliseCoeffBareme(params.coeffBareme)
+    }, 0),
+)
 
 // tenir le compte des changements dans la liste : ajout/retrait -> +1
 export const changes = writable<number>(0)

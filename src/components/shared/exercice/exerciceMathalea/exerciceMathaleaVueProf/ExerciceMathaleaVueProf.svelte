@@ -35,6 +35,7 @@
   import {
     changes,
     exercicesParams,
+    pointsMaxParExercice,
     resultsByExercice,
   } from '../../../../../lib/stores/generalStore'
   import { globalOptions } from '../../../../../lib/stores/globalOptions'
@@ -209,6 +210,12 @@
   function refreshPointsMax() {
     const nouveauPointsMax = isInteractif ? pointsMaxExercice(exercise) : 0
     if (pointsMax !== nouveauPointsMax) pointsMax = nouveauPointsMax
+    pointsMaxParExercice.update((liste) => {
+      if (liste[exerciseIndex] === nouveauPointsMax) return liste
+      const nouvelleListe = [...liste]
+      nouvelleListe[exerciseIndex] = nouveauPointsMax
+      return nouvelleListe
+    })
   }
 
   beforeUpdate(async () => {
