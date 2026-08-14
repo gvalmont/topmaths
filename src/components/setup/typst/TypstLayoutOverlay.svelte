@@ -1230,7 +1230,7 @@
            alignement compris, voir mathalea-figure-block) ; on ne décale la
            pastille que vers le haut pour qu'elle ne recouvre pas l'image -->
       {@const zoom = figureZoomValues[widget.num] ?? 1}
-      {@const figAlign = figureAlignValues[widget.num] ?? 'left'}
+      {@const figAlign = figureAlignValues[widget.num] ?? 'center'}
       <div
         class="pointer-events-auto absolute flex -translate-x-full -translate-y-full items-center gap-0.5 typst-pill typst-pill-round px-1"
         style="left: {widget.left}%; top: {widget.top}%;"

@@ -515,7 +515,7 @@ export function harvestCarryOver(code: string): TypstCarryOver {
   for (const match of code.matchAll(
     /^#let fig-(\d+)-align = (left|center|right)/gm,
   )) {
-    if (match[2] !== 'left') figureAlign[Number(match[1])] = match[2]
+    if (match[2] !== 'center') figureAlign[Number(match[1])] = match[2]
   }
   const exerciseZoom: Record<number, number> = {}
   for (const match of code.matchAll(/^#let exo-(\d+)-zoom = ([\d.]+)/gm)) {
@@ -1511,7 +1511,7 @@ export function buildStandaloneExerciseCode(
         `#let fig-${figNum}-zoom = ${carryOver.figureZoom?.[figNum] ?? 1}`,
       )
       lines.push(
-        `#let fig-${figNum}-align = ${carryOver.figureAlign?.[figNum] ?? 'left'}`,
+        `#let fig-${figNum}-align = ${carryOver.figureAlign?.[figNum] ?? 'center'}`,
       )
     }
     lines.push('')
@@ -2415,7 +2415,7 @@ export function buildTypstDocument(
         `#let fig-${figNum}-zoom = ${carryOver.figureZoom?.[figNum] ?? 1}`,
       )
       lines.push(
-        `#let fig-${figNum}-align = ${carryOver.figureAlign?.[figNum] ?? 'left'}`,
+        `#let fig-${figNum}-align = ${carryOver.figureAlign?.[figNum] ?? 'center'}`,
       )
     }
     lines.push('')
