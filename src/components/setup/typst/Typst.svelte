@@ -33,6 +33,7 @@
   import Settings from '../../shared/exercice/exerciceMathalea/exerciceMathaleaVueProf/presentationalComponents/Settings.svelte'
   import ButtonTextAction from '../../shared/forms/ButtonTextAction.svelte'
   import NavBar from '../../shared/header/NavBar.svelte'
+  import ExportViewLinks from '../shared/ExportViewLinks.svelte'
   import { SM_BREAKPOINT } from '../../keyboard/lib/sizes'
   import {
     BADGE_STYLES,
@@ -3222,6 +3223,8 @@
                 ></i>
               </button>
             </div>
+
+            <ExportViewLinks current="typst" />
 
             <label
               class="flex items-center justify-between gap-4 text-sm"
