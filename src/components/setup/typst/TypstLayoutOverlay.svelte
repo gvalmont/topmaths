@@ -139,6 +139,11 @@
      * seule), par numéro d'exercice (`exo-N`)
      */
     exerciseZoomValues?: Record<number, number>
+    /**
+     * Zoom de chaque correction statique sans source _cor.typ (image
+     * scannée seule), par numéro d'exercice (`exo-N-corr`)
+     */
+    exerciseCorrectionZoomValues?: Record<number, number>
     /** Nombre total d'exercices (borne les boutons monter/descendre) */
     exerciseCount?: number
     /**
@@ -163,6 +168,7 @@
     onToggleMergeBefore: (num: number) => void
     onAdjustFigureZoom: (num: number, delta: number) => void
     onAdjustExerciseZoom: (num: number, delta: number) => void
+    onAdjustExerciseCorrectionZoom: (num: number, delta: number) => void
     onSetFigureAlign: (num: number, align: 'left' | 'center' | 'right') => void
     onMoveExercise: (num: number, delta: -1 | 1) => void
     onNewData: (num: number) => void
@@ -227,6 +233,7 @@
     figureZoomValues = {},
     figureAlignValues = {},
     exerciseZoomValues = {},
+    exerciseCorrectionZoomValues = {},
     exerciseCount = 0,
     mergedExercises = [],
     mergeExercisesEnabled = true,
@@ -237,6 +244,7 @@
     onToggleMergeBefore,
     onAdjustFigureZoom,
     onAdjustExerciseZoom,
+    onAdjustExerciseCorrectionZoom,
     onSetFigureAlign,
     onMoveExercise,
     onNewData,
@@ -1175,6 +1183,29 @@
         >
           <i class="bx bx-plus-circle"></i>
         </button>
+        {#if nonEditableCorrections[widget.num] && !canMode}
+          {@const corrZoom = exerciseCorrectionZoomValues[widget.num] ?? 1}
+          <span class="typst-pill-sep"></span>
+          <button
+            type="button"
+            title="Réduire la correction"
+            aria-label="Réduire la correction de l'exercice {widget.num}"
+            onclick={() => onAdjustExerciseCorrectionZoom(widget.num, -1)}
+          >
+            <i class="bx bx-zoom-out"></i>
+          </button>
+          <span class="tabular-nums px-0.5 text-[0.6rem]">
+            {Math.round(corrZoom * 100)}%
+          </span>
+          <button
+            type="button"
+            title="Agrandir la correction"
+            aria-label="Agrandir la correction de l'exercice {widget.num}"
+            onclick={() => onAdjustExerciseCorrectionZoom(widget.num, 1)}
+          >
+            <i class="bx bx-zoom-in"></i>
+          </button>
+        {/if}
         {#if !nonEditableCorrections[widget.num]}
           <span class="typst-pill-sep"></span>
           <button

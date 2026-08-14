@@ -2375,15 +2375,16 @@ function protectKatexSpans(
  * le balisage par `#fig-N` (variable déclarée par buildTypstDocument).
  * Sans collecteur, la figure est remplacée par un encart.
  *
- * `exerciseNum`, fourni uniquement pour un exercice statique sans source
- * `.typ` (image scannée seule, voir `TypstExerciseInput.isStaticImage`),
- * branche le zoom de l'image scannée trouvée sur la variable `exo-N-zoom`
- * de cet exercice plutôt que sur le zoom par défaut de `mathalea-fit`.
+ * `zoomVariable`, fourni uniquement pour un énoncé/correction statique sans
+ * source `.typ`/`_cor.typ` (image scannée seule, voir
+ * `TypstExerciseInput.isStaticImage`/`isStaticCorrectionImage`), branche le
+ * zoom de l'image scannée trouvée sur cette variable Typst (`exo-N-zoom` ou
+ * `exo-N-corr-zoom`) plutôt que sur le zoom par défaut de `mathalea-fit`.
  */
 export function htmlToTypst(
   html: string,
   figures?: string[],
-  exerciseNum?: number,
+  zoomVariable?: string,
 ): string {
   // 1. Les formules et les blocs générés sont protégés par des jetons
   //    pour traverser intacts l'échappement du texte.
@@ -2495,8 +2496,7 @@ export function htmlToTypst(
             // étroite que la page
             STATIC_IMAGE_INTRINSIC_WIDTH_PT
       figures.push(`image(${typstStringLiteral(path)}, width: ${widthPt}pt)`)
-      const zoomArg =
-        exerciseNum != null ? `, zoom: exo-${exerciseNum}-zoom` : ''
+      const zoomArg = zoomVariable != null ? `, zoom: ${zoomVariable}` : ''
       return protect(`#mathalea-fit(fig-${figures.length}${zoomArg})\n\n`)
     },
   )

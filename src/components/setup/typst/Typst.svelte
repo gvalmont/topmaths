@@ -642,6 +642,11 @@
    * lu dans le code courant
    */
   let exerciseZoomValues: Record<number, number> = $state({})
+  /**
+   * Zoom de chaque correction statique sans source _cor.typ
+   * (`#let exo-N-corr-zoom`), lu dans le code courant
+   */
+  let exerciseCorrectionZoomValues: Record<number, number> = $state({})
   /** Exercice dont la modale de réglages (panneau Settings) est ouverte */
   let settingsExerciseIndex: number | null = $state(null)
   const settingsExercise = $derived(
@@ -813,6 +818,13 @@
       exerciseZoom[Number(match[1])] = Number(match[2])
     }
     exerciseZoomValues = exerciseZoom
+    const exerciseCorrectionZoom: Record<number, number> = {}
+    for (const match of code.matchAll(
+      /^#let exo-(\d+)-corr-zoom = ([\d.]+)/gm,
+    )) {
+      exerciseCorrectionZoom[Number(match[1])] = Number(match[2])
+    }
+    exerciseCorrectionZoomValues = exerciseCorrectionZoom
     const header = { titre: '', 'sous-titre': '', entete: '' }
     for (const name of ['titre', 'sous-titre', 'entete'] as const) {
       const match = new RegExp(
@@ -954,6 +966,31 @@
       from: match.index,
       to: match.index + match[0].length,
       insert: `#let exo-${num}-zoom = ${next}`,
+    })
+  }
+
+  /**
+   * Zoom d'une correction statique sans source _cor.typ (image scannée
+   * seule), même bornes/pas que `adjustExerciseZoom` — indépendant du zoom
+   * de l'énoncé (`adjustExerciseZoom`)
+   */
+  function adjustExerciseCorrectionZoom(num: number, delta: number) {
+    if (editorView == null) return
+    const doc = editorView.state.doc.toString()
+    const match = new RegExp(`^#let exo-${num}-corr-zoom = .*$`, 'm').exec(doc)
+    if (match == null) return
+    const current = exerciseCorrectionZoomValues[num] ?? 1
+    const next = Math.min(
+      3,
+      Math.max(
+        0.2,
+        Math.round((current + delta * FIGURE_ZOOM_STEP) * 100) / 100,
+      ),
+    )
+    dispatchPaletteEdit({
+      from: match.index,
+      to: match.index + match[0].length,
+      insert: `#let exo-${num}-corr-zoom = ${next}`,
     })
   }
 
@@ -1130,6 +1167,16 @@
       if (n === removed) continue
       exerciseZoom[n > removed ? n - 1 : n] = value
     }
+    const exerciseCorrectionZoom: NonNullable<
+      typeof carryOver.exerciseCorrectionZoom
+    > = {}
+    for (const [key, value] of Object.entries(
+      carryOver.exerciseCorrectionZoom ?? {},
+    )) {
+      const n = Number(key)
+      if (n === removed) continue
+      exerciseCorrectionZoom[n > removed ? n - 1 : n] = value
+    }
     return {
       tasksLayout,
       insertions,
@@ -1146,6 +1193,7 @@
       codeOverridesCanReponse: carryOver.codeOverridesCanReponse ?? {},
       writingLines,
       exerciseZoom,
+      exerciseCorrectionZoom,
     }
   }
 
@@ -1271,6 +1319,14 @@
     for (const [key, value] of Object.entries(carryOver.exerciseZoom ?? {})) {
       exerciseZoom[swapNum(Number(key))] = value
     }
+    const exerciseCorrectionZoom: NonNullable<
+      typeof carryOver.exerciseCorrectionZoom
+    > = {}
+    for (const [key, value] of Object.entries(
+      carryOver.exerciseCorrectionZoom ?? {},
+    )) {
+      exerciseCorrectionZoom[swapNum(Number(key))] = value
+    }
     return {
       tasksLayout,
       insertions,
@@ -1285,6 +1341,7 @@
       codeOverridesCanReponse: carryOver.codeOverridesCanReponse ?? {},
       writingLines,
       exerciseZoom,
+      exerciseCorrectionZoom,
     }
   }
 
@@ -2053,6 +2110,14 @@
           exercise?.typeExercice === 'statique' &&
           (exercise.uuid == null ||
             getStaticExerciceTypUrl(exercise.uuid) == null),
+        // même prédicat que `nonEditableCorrections` : correction statique
+        // sans fichier source _cor.typ, donc juste une image scannée —
+        // indépendant de `isStaticImage` (l'énoncé peut avoir sa propre
+        // source .typ sans que la correction en ait une, ou l'inverse)
+        isStaticCorrectionImage:
+          exercise?.typeExercice === 'statique' &&
+          (exercise.uuid == null ||
+            getStaticExerciceCorTypUrl(exercise.uuid) == null),
       }
       if (exercise == null) {
         input.warning =
@@ -3778,6 +3843,7 @@
                     {figureZoomValues}
                     {figureAlignValues}
                     {exerciseZoomValues}
+                    {exerciseCorrectionZoomValues}
                     codeOverrides={codeOverrideValues}
                     codeOverridesCorrection={codeOverrideCorrectionValues}
                     codeOverridesCan={codeOverrideCanValues}
@@ -3791,6 +3857,7 @@
                     onAdjustGutter={adjustGutter}
                     onAdjustFigureZoom={adjustFigureZoom}
                     onAdjustExerciseZoom={adjustExerciseZoom}
+                    onAdjustExerciseCorrectionZoom={adjustExerciseCorrectionZoom}
                     onSetFigureAlign={setFigureAlign}
                     onInsert={insertAfterExercise}
                     onUpdateInsertion={updateInsertion}
