@@ -637,6 +637,11 @@
   let figureAlignValues: Record<number, 'left' | 'center' | 'right'> = $state(
     {},
   )
+  /**
+   * Zoom de chaque exercice statique sans source .typ (`#let exo-N-zoom`),
+   * lu dans le code courant
+   */
+  let exerciseZoomValues: Record<number, number> = $state({})
   /** Exercice dont la modale de réglages (panneau Settings) est ouverte */
   let settingsExerciseIndex: number | null = $state(null)
   const settingsExercise = $derived(
@@ -803,6 +808,11 @@
       figureAlign[Number(match[1])] = match[2] as 'left' | 'center' | 'right'
     }
     figureAlignValues = figureAlign
+    const exerciseZoom: Record<number, number> = {}
+    for (const match of code.matchAll(/^#let exo-(\d+)-zoom = ([\d.]+)/gm)) {
+      exerciseZoom[Number(match[1])] = Number(match[2])
+    }
+    exerciseZoomValues = exerciseZoom
     const header = { titre: '', 'sous-titre': '', entete: '' }
     for (const name of ['titre', 'sous-titre', 'entete'] as const) {
       const match = new RegExp(
@@ -920,6 +930,30 @@
       from: match.index,
       to: match.index + match[0].length,
       insert: `#let fig-${figNum}-zoom = ${next}`,
+    })
+  }
+
+  /**
+   * Zoom d'un exercice statique sans source .typ (image scannée seule),
+   * mêmes bornes/pas que `adjustFigureZoom`
+   */
+  function adjustExerciseZoom(num: number, delta: number) {
+    if (editorView == null) return
+    const doc = editorView.state.doc.toString()
+    const match = new RegExp(`^#let exo-${num}-zoom = .*$`, 'm').exec(doc)
+    if (match == null) return
+    const current = exerciseZoomValues[num] ?? 1
+    const next = Math.min(
+      3,
+      Math.max(
+        0.2,
+        Math.round((current + delta * FIGURE_ZOOM_STEP) * 100) / 100,
+      ),
+    )
+    dispatchPaletteEdit({
+      from: match.index,
+      to: match.index + match[0].length,
+      insert: `#let exo-${num}-zoom = ${next}`,
     })
   }
 
@@ -1090,6 +1124,12 @@
       if (n === removed) continue
       writingLines[n > removed ? n - 1 : n] = value
     }
+    const exerciseZoom: NonNullable<typeof carryOver.exerciseZoom> = {}
+    for (const [key, value] of Object.entries(carryOver.exerciseZoom ?? {})) {
+      const n = Number(key)
+      if (n === removed) continue
+      exerciseZoom[n > removed ? n - 1 : n] = value
+    }
     return {
       tasksLayout,
       insertions,
@@ -1105,6 +1145,7 @@
       codeOverridesCan: carryOver.codeOverridesCan ?? {},
       codeOverridesCanReponse: carryOver.codeOverridesCanReponse ?? {},
       writingLines,
+      exerciseZoom,
     }
   }
 
@@ -1226,6 +1267,10 @@
     for (const [key, value] of Object.entries(carryOver.writingLines ?? {})) {
       writingLines[swapNum(Number(key))] = value
     }
+    const exerciseZoom: NonNullable<typeof carryOver.exerciseZoom> = {}
+    for (const [key, value] of Object.entries(carryOver.exerciseZoom ?? {})) {
+      exerciseZoom[swapNum(Number(key))] = value
+    }
     return {
       tasksLayout,
       insertions,
@@ -1239,6 +1284,7 @@
       codeOverridesCan: carryOver.codeOverridesCan ?? {},
       codeOverridesCanReponse: carryOver.codeOverridesCanReponse ?? {},
       writingLines,
+      exerciseZoom,
     }
   }
 
@@ -2001,6 +2047,12 @@
         introCorrection: '',
         corrections: [],
         numbered: false,
+        // même prédicat que `nonEditableStaticExercises` : exercice statique
+        // sans fichier source .typ, donc juste une image scannée
+        isStaticImage:
+          exercise?.typeExercice === 'statique' &&
+          (exercise.uuid == null ||
+            getStaticExerciceTypUrl(exercise.uuid) == null),
       }
       if (exercise == null) {
         input.warning =
@@ -3725,6 +3777,7 @@
                     {nonEditableCorrections}
                     {figureZoomValues}
                     {figureAlignValues}
+                    {exerciseZoomValues}
                     codeOverrides={codeOverrideValues}
                     codeOverridesCorrection={codeOverrideCorrectionValues}
                     codeOverridesCan={codeOverrideCanValues}
@@ -3737,6 +3790,7 @@
                     onAdjustColumns={adjustColumns}
                     onAdjustGutter={adjustGutter}
                     onAdjustFigureZoom={adjustFigureZoom}
+                    onAdjustExerciseZoom={adjustExerciseZoom}
                     onSetFigureAlign={setFigureAlign}
                     onInsert={insertAfterExercise}
                     onUpdateInsertion={updateInsertion}

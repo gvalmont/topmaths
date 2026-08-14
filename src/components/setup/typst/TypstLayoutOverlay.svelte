@@ -134,6 +134,11 @@
     figureZoomValues?: Record<number, number>
     /** Alignement de chaque figure, par numéro de figure (`fig-N`) */
     figureAlignValues?: Record<number, 'left' | 'center' | 'right'>
+    /**
+     * Zoom de chaque exercice statique sans source .typ (image scannée
+     * seule), par numéro d'exercice (`exo-N`)
+     */
+    exerciseZoomValues?: Record<number, number>
     /** Nombre total d'exercices (borne les boutons monter/descendre) */
     exerciseCount?: number
     /**
@@ -157,6 +162,7 @@
     onAddExercise: () => void
     onToggleMergeBefore: (num: number) => void
     onAdjustFigureZoom: (num: number, delta: number) => void
+    onAdjustExerciseZoom: (num: number, delta: number) => void
     onSetFigureAlign: (num: number, align: 'left' | 'center' | 'right') => void
     onMoveExercise: (num: number, delta: -1 | 1) => void
     onNewData: (num: number) => void
@@ -220,6 +226,7 @@
     documentColumns = 1,
     figureZoomValues = {},
     figureAlignValues = {},
+    exerciseZoomValues = {},
     exerciseCount = 0,
     mergedExercises = [],
     mergeExercisesEnabled = true,
@@ -229,6 +236,7 @@
     onAddExercise,
     onToggleMergeBefore,
     onAdjustFigureZoom,
+    onAdjustExerciseZoom,
     onSetFigureAlign,
     onMoveExercise,
     onNewData,
@@ -1029,6 +1037,29 @@
             onclick={() => toggleInsertion('exo', insertGapNum)}
           >
             <i class="bx bx-plus-circle"></i>
+          </button>
+          <span class="typst-pill-sep"></span>
+        {/if}
+        {#if nonEditableStaticExercises[widget.num] && !canMode}
+          {@const exoZoom = exerciseZoomValues[widget.num] ?? 1}
+          <button
+            type="button"
+            title="Réduire l'exercice"
+            aria-label="Réduire l'exercice {widget.num}"
+            onclick={() => onAdjustExerciseZoom(widget.num, -1)}
+          >
+            <i class="bx bx-zoom-out"></i>
+          </button>
+          <span class="tabular-nums px-0.5 text-[0.6rem]">
+            {Math.round(exoZoom * 100)}%
+          </span>
+          <button
+            type="button"
+            title="Agrandir l'exercice"
+            aria-label="Agrandir l'exercice {widget.num}"
+            onclick={() => onAdjustExerciseZoom(widget.num, 1)}
+          >
+            <i class="bx bx-zoom-in"></i>
           </button>
           <span class="typst-pill-sep"></span>
         {/if}

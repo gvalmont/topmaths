@@ -297,6 +297,12 @@ export interface TypstCarryOver {
    */
   figureAlign?: Record<number, string>
   /**
+   * Zoom d'un exercice statique sans source `.typ` (`#let exo-N-zoom = ...`),
+   * par numéro d'exercice — contrairement à `figureZoom` (numérotation
+   * globale des figures), suit l'exercice si on le déplace.
+   */
+  exerciseZoom?: Record<number, number>
+  /**
    * Code Typst saisi à la main (modale d'édition de la palette) qui remplace
    * l'énoncé généré d'un exercice, par numéro d'exercice. Désactive le QR-code
    * et le décompte de questions (numérotation continue en cas de fusion) de
@@ -504,6 +510,11 @@ export function harvestCarryOver(code: string): TypstCarryOver {
   )) {
     if (match[2] !== 'left') figureAlign[Number(match[1])] = match[2]
   }
+  const exerciseZoom: Record<number, number> = {}
+  for (const match of code.matchAll(/^#let exo-(\d+)-zoom = ([\d.]+)/gm)) {
+    const value = Number(match[2])
+    if (value !== 1) exerciseZoom[Number(match[1])] = value
+  }
   // un exercice fusionné avec le précédent porte cette mention dans le
   // commentaire qui précède sa définition (voir buildVersionContent)
   const merges: number[] = []
@@ -577,6 +588,7 @@ export function harvestCarryOver(code: string): TypstCarryOver {
     insertionsCorrection,
     figureZoom,
     figureAlign,
+    exerciseZoom,
     merges,
     codeOverrides,
     codeOverridesCorrection,
@@ -624,6 +636,12 @@ export interface TypstExerciseInput {
    * du tableau. Une entrée vide laisse la cellule vide.
    */
   canAnswers?: string[]
+  /**
+   * Exercice statique sans source `.typ` (juste une image scannée) : son
+   * énoncé/correction n'est qu'un `<img>`, réglable en zoom par la palette
+   * (`exo-N-zoom`, voir `htmlToTypst`).
+   */
+  isStaticImage?: boolean
 }
 
 export interface TypstDocumentOptions {
@@ -1062,10 +1080,15 @@ function exerciseBody(
   exportMode = false,
   /** Réglages de colonnes/espacement de la palette pour cet exercice, déjà résolus par l'appelant */
   layoutOverride?: { columns?: string; gutter?: string },
+  /**
+   * Numéro (1-based) de l'exercice, fourni uniquement pour un exercice
+   * statique sans source `.typ` (image scannée seule) : voir `htmlToTypst`.
+   */
+  exerciseNum?: number,
 ): ExerciseBodyResult {
   const parts: string[] = []
   if (intro.trim().length > 0) {
-    parts.push(htmlToTypst(intro, figures))
+    parts.push(htmlToTypst(intro, figures, exerciseNum))
   }
   let questionList = questions
   let label = numbered ? '"1."' : 'none'
@@ -1075,7 +1098,7 @@ function exerciseBody(
     const split = splitSubQuestions(questions[0])
     if (split != null) {
       if (split.head.trim().length > 0) {
-        const head = htmlToTypst(split.head, figures)
+        const head = htmlToTypst(split.head, figures, exerciseNum)
         if (head.length > 0) {
           parts.push(head)
         }
@@ -1085,7 +1108,7 @@ function exerciseBody(
     }
   }
   const converted = questionList
-    .map((question) => htmlToTypst(question, figures))
+    .map((question) => htmlToTypst(question, figures, exerciseNum))
     .filter((question) => question.length > 0)
   // une liste d'au moins deux questions est mise dans un environnement
   // `tasks` : le nombre de colonnes et l'espacement sont réglables par
@@ -1268,6 +1291,9 @@ function computeGeneratedExercises(
         ? exercise.url
         : undefined
     if (!continued) nextStart = 1
+    // exercice statique sans source .typ (juste une image scannée) : son
+    // image (énoncé et correction) se règle avec le même `exo-N-zoom`
+    const zoomExerciseNum = exercise.isStaticImage ? k + 1 : undefined
     const enonce = exerciseBody(
       exercise.intro,
       exercise.questions,
@@ -1281,6 +1307,7 @@ function computeGeneratedExercises(
       writingLines,
       exportMode,
       carryOver.tasksLayout?.[`ex${k + 1}`],
+      zoomExerciseNum,
     )
     nextStart += enonce.itemCount
     let correction: string | null = null
@@ -1301,6 +1328,7 @@ function computeGeneratedExercises(
         undefined,
         exportMode,
         carryOver.tasksLayout?.[`ex${k + 1}-corr`],
+        zoomExerciseNum,
       )
       nextCorrectionStart += body.itemCount
       correction = body.code
@@ -2361,6 +2389,19 @@ export function buildTypstDocument(
       lines.push(
         `#let fig-${figNum}-align = ${carryOver.figureAlign?.[figNum] ?? 'left'}`,
       )
+    }
+    lines.push('')
+  }
+  // exercices statiques sans source .typ (juste une image scannée) : une
+  // variable de zoom par exercice, ajustable dans la palette de l'aperçu
+  // (voir `htmlToTypst`, branché dessus via `exercise.isStaticImage`)
+  const staticImageExerciseNums = exercises
+    .map((exercise, k) => (exercise.isStaticImage ? k + 1 : null))
+    .filter((num): num is number => num != null)
+  if (staticImageExerciseNums.length > 0) {
+    lines.push('// ----- Zoom des exercices statiques (image seule) -----')
+    for (const num of staticImageExerciseNums) {
+      lines.push(`#let exo-${num}-zoom = ${carryOver.exerciseZoom?.[num] ?? 1}`)
     }
     lines.push('')
   }
