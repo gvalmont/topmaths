@@ -212,6 +212,7 @@
   {/if}
   {#if $tbiState.lyceeCalculator.visible}
     <TbiCalculatorWidget kind="lycee" {persistLayout} />
+  {/if}
   {#if isAddExerciseOpen}
     <TypstAddExerciseModal
       onAdd={addExerciseToTbi}
