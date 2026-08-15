@@ -26,6 +26,7 @@
     saveTbiLocalLayout,
     tbiState,
   } from '../../../lib/stores/tbiStore'
+  import TbiCalculatorWidget from './TbiCalculatorWidget.svelte'
   import type { InterfaceParams } from '../../../lib/types'
   import TypstAddExerciseModal from '../../setup/typst/addExercise/TypstAddExerciseModal.svelte'
   import TbiClockWidget from './TbiClockWidget.svelte'
@@ -206,6 +207,11 @@
   {#if $tbiState.trafficLight.visible}
     <TbiTrafficLightWidget {persistLayout} />
   {/if}
+  {#if $tbiState.collegeCalculator.visible}
+    <TbiCalculatorWidget kind="college" {persistLayout} />
+  {/if}
+  {#if $tbiState.lyceeCalculator.visible}
+    <TbiCalculatorWidget kind="lycee" {persistLayout} />
   {#if isAddExerciseOpen}
     <TypstAddExerciseModal
       onAdd={addExerciseToTbi}
