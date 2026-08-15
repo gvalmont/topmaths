@@ -192,11 +192,15 @@ Le composant expose `value` comme une liste JSON stringifiée de parts `{ id, et
 
 ### Labyrinthes
 
-`mathalea-labyrinthe` est le wrapper MathALÉA du composant externe `labyrinthe-grid`. Il reçoit la graine, les dimensions, l'orientation et les valeurs de cases depuis l'exercice, instancie `labyrinthe-grid` à son `connectedCallback()`, puis retire le listener `labyrinthe:gameend` et le composant interne à son `disconnectedCallback()`.
+`mathalea-labyrinthe` porte directement le composant de labyrinthe MathALÉA. Il reçoit la graine, les dimensions, l'orientation et les valeurs de cases depuis l'exercice, pilote le modèle pur `Labyrinthe`, rend la grille dans son shadow DOM et expose `value`/`state` comme état sérialisé restaurable.
 
 Son `create()` est contextuel : en HTML, il produit le custom element ; en LaTeX, `renderLatex()` génère le tableau LaTeX du modèle pur `labyrinthe` ; en Typst, `renderTypst()` produit une table Typst native afin d'éviter d'injecter du `tabular` LaTeX dans un marqueur `<mathalea-typst>`.
 
-Les exercices qui héritent de `src/exercices/_Exercice_labyrinthe.ts` restent en `interactifType = 'custom'` : leur logique de score spécifique demeure dans `correctionInteractive()`. La classe mère appelle `MathaleaLabyrintheElement.create()` pour l'énoncé comme pour la correction, sans branchement local selon `context`.
+Les exercices qui héritent de `src/exercices/_Exercice_labyrinthe.ts` gardent une compatibilité `interactifType = 'custom'`, mais leur `autoCorrection[0].formatInteractif` vaut `mathalea-labyrinthe` afin que les flux génériques appellent `MathaleaLabyrintheElement.verifQuestion()`. La classe mère appelle `MathaleaLabyrintheElement.create()` pour l'énoncé comme pour la correction, sans branchement local selon `context`.
+
+`verifQuestion()` sauvegarde `element.value` dans `exercice.answers`, désactive l'interactivité, met à jour `span#resultatCheckEx...` et `div#feedbackEx...`, puis applique le barème historique en quatre points. Par défaut, une victoire donne 4/4 ; sinon le score dépend de la proportion de bonnes cases cliquées.
+
+Pour une correction spécifique, `create()` accepte `verifyCallback` ou `verifyCallbackName`. Les callbacks nommées sont enregistrées avec `MathaleaLabyrintheElement.registerVerificationCallback()` et reçoivent `exercice`, `questionIndex` et `element`, puis retournent `{ isOk, feedback?, score? }`.
 
 ### Objets cliquables dans une figure MathALÉA 2D
 
