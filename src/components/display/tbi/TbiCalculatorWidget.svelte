@@ -43,6 +43,24 @@
   // en place, ce qui empêcherait $derived de détecter un changement
   let calc = $derived({ ...calculatorStateOf($tbiState, kind) })
 
+  /**
+   * L'iframe ne déclenche pas d'événement d'erreur exploitable en cas de
+   * 404 : certains serveurs (dont le serveur de dev Vite) répondent 200 en
+   * servant index.html à la place du fichier manquant. On vérifie donc le
+   * contenu de la réponse plutôt que son seul statut HTTP.
+   */
+  let fileAvailable: boolean | null = $state(null)
+
+  onMount(async () => {
+    try {
+      const response = await fetch(config[kind].src)
+      const text = response.ok ? await response.text() : ''
+      fileAvailable = response.ok && !text.includes('id="appMathalea"')
+    } catch {
+      fileAvailable = false
+    }
+  })
+
   function close() {
     tbiState.update((state) => {
       calculatorStateOf(state, kind).visible = false
@@ -187,11 +205,19 @@
     </button>
   </div>
   <div class="flex-1 min-h-0">
-    <iframe
-      src={config[kind].src}
-      title={config[kind].title}
-      class="w-full h-full border-0 block"
-    ></iframe>
+    {#if fileAvailable === false}
+      <div
+        class="w-full h-full flex items-center justify-center text-center p-4 text-sm text-coopmaths-corpus dark:text-coopmathsdark-corpus"
+      >
+        Fichier manquant pour la calculatrice
+      </div>
+    {:else}
+      <iframe
+        src={config[kind].src}
+        title={config[kind].title}
+        class="w-full h-full border-0 block"
+      ></iframe>
+    {/if}
   </div>
 
   <div
