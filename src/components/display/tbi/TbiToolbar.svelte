@@ -10,6 +10,13 @@
     type TbiMode,
   } from '../../../lib/stores/tbiStore'
 
+  type Props = {
+    /** Ouvre la modale d'ajout d'exercice (traité par `Tbi.svelte`) */
+    onAddExercise: () => void
+  }
+
+  const { onAddExercise }: Props = $props()
+
   const modes: { value: TbiMode; label: string; icon: string }[] = [
     { value: 'columns', label: 'Colonnes', icon: 'bx-columns' },
     { value: 'free', label: 'Placement libre', icon: 'bx-move' },
@@ -202,6 +209,15 @@
         <span class="w-1.5 h-1.5 rounded-full bg-amber-400"></span>
         <span class="w-1.5 h-1.5 rounded-full bg-green-500"></span>
       </span>
+    </button>
+    <button
+      type="button"
+      class={actionButtonClass}
+      title="Ajouter un exercice"
+      aria-label="Ajouter un exercice"
+      onclick={onAddExercise}
+    >
+      <i class="bx bx-plus text-xl"></i>
     </button>
   </div>
 </div>
