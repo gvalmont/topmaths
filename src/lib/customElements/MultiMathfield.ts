@@ -14,10 +14,10 @@ import {
 } from '../interactif/baremeExercice'
 import { fonctionComparaison } from '../interactif/comparisonFunctions'
 import { toutAUnPoint } from '../interactif/fonctionsBaremes'
-import type { AllChoicesType } from '../interactif/listeDeroulante/ListeDeroulante'
 import { setMathfield, setMathfieldListener } from '../interactif/setMathfield'
 import type { IExercice, ValeurNames } from '../types'
 import type ListeDeroulanteElement from './ListeDeroulanteElement'
+import type { AllChoicesType } from './ListeDeroulanteElement'
 import './ListeDeroulanteElement'
 import MathaleaCustomElement, {
   registerMathaleaCustomElement,
