@@ -911,7 +911,7 @@ export type ParamForQcmInteractif = {
   ordered?: boolean
   vertical?: boolean
   lastChoice?: number
-  format?: 'lettre' | 'case'
+  format?: 'lettre' | 'case' | 'caseLettre'
   nbCols?: number
   correction?: string
 }
@@ -1215,6 +1215,8 @@ export interface IExerciceQcmOptions {
   vertical?: boolean
   lastChoice?: number
   dontKnow?: boolean
+  format?: 'case' | 'lettre' | 'caseLettre'
+  compact?: boolean
 }
 
 export interface IExerciceQcm extends IExercice {
