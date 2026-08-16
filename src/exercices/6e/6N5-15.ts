@@ -223,20 +223,25 @@ const creerProblemes: (() => ProblemeEchiquier)[] = [
     const quantite2 = randint(2, 5)
     const masse2 = (randint(20, 40) / 10) * quantite2
     return {
-      enonce: `${quidam[0]} a la grippe. Pour ${quidam[1]} soulager, sa grand-mère lui fait une infusion. Pour cela, elle mélange $${masse1}$ grammes de ${objet.split(' ')[1]} qui coûte $${texPrix(pu1)}$ euros le gramme avec $${quantite2}$ feuilles de menthe de son jardin pesant $${texNombre(masse2, 1)}$
-grammes. Quel est le prix du romarin ?`,
-      expectedRows: ['prix (total)'],
-      expectedColumns: [objet],
+      enonce: `${quidam[0]} a la grippe. Pour ${quidam[1]} soulager, sa grand-mère lui fait une infusion. Pour cela, elle mélange $${masse1}$ grammes de ${objet.split(' ')[1]} qui coûte $${texPrix(pu1)}$ € le gramme avec $${quantite2}$ feuilles de menthe de son jardin pesant $${texNombre(masse2, 1)}$
+grammes. Quel est le prix ${objet.startsWith('le') ? 'du' : 'de la'} ${objet.split(' ')[1]} ?`,
+      expectedRows: ['prix (total)', 'prix unitaire', 'masse totale'],
+      expectedColumns: [objet, 'menthe', 'infusion'],
       cells: [
         {
           row: 'prix unitaire',
           column: objet,
-          value: `${texPrix(pu1 * masse1)} €`,
+          value: `${texPrix(pu1 * masse1)} €/g`,
         },
         {
           row: 'masse totale',
           column: objet,
           value: `${masse1} g`,
+        },
+        {
+          row: 'masse totale',
+          column: 'menthe',
+          value: `${texNombre(masse2, 1)} g`,
         },
         { row: 'prix (total)', column: objet, value: '?' },
       ],
@@ -255,6 +260,8 @@ grammes. Quel est le prix du romarin ?`,
         choice(['le romarin', 'le thym', 'la verveine'], objet),
         'menthe',
       ],
+      expectedGreyedRows: [],
+      expectedGreyedColumns: ['menthe', 'infusion'],
       expectedStructure: 'colonne',
       expectedOperation: 'multiplication',
       correction: `L'échiquier simplifié est en colonne : les données portent sur un même objet, ${objet}. Les données comprennent le prix unitaire et la quantité : on multiplie l'un et l'autre pour obtenir le prix total.`,
@@ -265,27 +272,26 @@ grammes. Quel est le prix du romarin ?`,
 export default class SimplifierEchiquierProbleme extends Exercice {
   constructor() {
     super()
-    this.interactifObligatoire = true
-    this.nbQuestions = 4
+    this.nbQuestions = 1
     this.consigne =
       "Construire l'échiquier complet du problème, puis griser les lignes ou les colonnes inutiles pour obtenir l'échiquier simplifié."
     this.spacing = 2
     this.spacingCorr = 2
-    this.comment = `Cet exercice m'a été inspiré par le fasssicule de l'IREM de Lorraine : <a style="text-decoration: underline; color: blue;" target="_blank" href="https://irem.univ-lorraine.fr/liste-des-brochures-editees-par-lirem-de-lorraine/#:~:text=La%20Lecture%20d%E2%80%99%C3%A9nonc%C3%A9s%20et%20le%20sens%20des%20op%C3%A9rations.">"La lecture d'énoncés et le sens des opérations"</a>.<br>
+    this.comment = `Cet exercice a été inspiré par le fascicule de l'IREM de Lorraine : <a style="text-decoration: underline; color: blue;" target="_blank" href="https://irem.univ-lorraine.fr/liste-des-brochures-editees-par-lirem-de-lorraine/#:~:text=La%20Lecture%20d%E2%80%99%C3%A9nonc%C3%A9s%20et%20le%20sens%20des%20op%C3%A9rations.">"La lecture d'énoncés et le sens des opérations"</a>.<br>
     L'autrice, Michèle Muniglia, y expose une méthode pour classer et résoudre les problèmes concrets.<br>
-    Le terme d'<b>échiquier</b> employé ici est tiré de ce fassicule et symbolise la position des élèves participant à la mise en scène du problème (la méthode reposant sur une activité théatrale réelle).<br>
-    Je l'ai conservé pour rester fidèle à l'autrice de la méthode.<br>
-    La méthode, cet exercice, et les suivants poursuivent plusieurs objectifs :<br><br>
-- <b>Identifier les grandeurs</b><br>
+    Le terme d'<b>échiquier</b> employé ici est tiré de ce fascicule et symbolise la position des élèves participant à la mise en scène du problème (la méthode reposant sur une activité théatrale réelle).<br>
+    On l'a conservé pour rester fidèle à l'autrice de la méthode.<br>
+    La méthode et cet exercice poursuivent plusieurs objectifs :<br><br>
+- <b>identifier les grandeurs</b>;<br>
 Exemple : prix unitaire, masse, prix total, distance, durée, vitesse, nombre d’objets, etc.<br><br>
-- <b>Identifier les objets</b><br>
+- <b>identifier les objets</b>;<br>
 Exemple : pommes, oranges, cahiers, trajets, lots, élèves, boîtes, etc.<br><br>
-- <b>Comprendre quelles données sont utiles et les relations qui les lient</b><br>
-- <b>Comprendre la structure opératoire</b><br>
+- <b>comprendre quelles données sont utiles et les relations qui les lient</b>;<br>
+- <b>comprendre la structure opératoire</b>.<br>
 Une fois l’échiquier construit, on peut faire apparaître que :<br>
-une relation sur une même ligne renvoie plutôt à une structure additive ;<br>
-une relation sur une même colonne renvoie plutôt à une structure multiplicative ;<br>
-les unités aident fortement à contrôler la cohérence des cases.`
+- une relation sur une même ligne renvoie plutôt à une structure additive ;<br>
+- une relation sur une même colonne renvoie plutôt à une structure multiplicative ;<br>
+- les unités aident fortement à contrôler la cohérence des cases.`
   }
 
   nouvelleVersion() {
