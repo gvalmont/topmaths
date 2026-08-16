@@ -403,16 +403,26 @@ export default class FormulesAireCarreRectangle extends Exercice {
     let isOk = false
     if (this.listeReponses[i].length === 3) {
       const select1 = document.querySelector(
-        `#ex${this.numeroExercice}Q${this.tabIndiceInteractif[i]}`,
+        `#liste-deroulanteEx${this.numeroExercice}Q${this.tabIndiceInteractif[i]}`,
       ) as HTMLSelectElement
       const select2 = document.querySelector(
-        `#ex${this.numeroExercice}Q${this.tabIndiceInteractif[i] + 1}`,
+        `#liste-deroulanteEx${this.numeroExercice}Q${this.tabIndiceInteractif[i] + 1}`,
       ) as HTMLSelectElement
       const select3 = document.querySelector(
-        `#ex${this.numeroExercice}Q${this.tabIndiceInteractif[i] + 2}`,
+        `#liste-deroulanteEx${this.numeroExercice}Q${this.tabIndiceInteractif[i] + 2}`,
       ) as HTMLSelectElement
       let isOk1 = false
       let isOk23 = false
+      if (this.answers === undefined) this.answers = {}
+      if (select1?.value)
+        this.answers[`liste-deroulanteEx${this.numeroExercice}Q${3 * i}`] =
+          select1.value
+      if (select2?.value)
+        this.answers[`liste-deroulanteEx${this.numeroExercice}Q${3 * i + 1}`] =
+          select2.value
+      if (select3?.value)
+        this.answers[`liste-deroulanteEx${this.numeroExercice}Q${3 * i + 2}`] =
+          select3.value
       if (
         select1?.value != null &&
         select2.value != null &&
@@ -434,10 +444,10 @@ export default class FormulesAireCarreRectangle extends Exercice {
       )
     } else if (this.listeReponses[i].length === 2) {
       const select1 = document.querySelector(
-        `#ex${this.numeroExercice}Q${this.tabIndiceInteractif[i]}`,
+        `#liste-deroulanteEx${this.numeroExercice}Q${this.tabIndiceInteractif[i]}`,
       ) as HTMLSelectElement
       const select2 = document.querySelector(
-        `#ex${this.numeroExercice}Q${this.tabIndiceInteractif[i] + 1}`,
+        `#liste-deroulanteEx${this.numeroExercice}Q${this.tabIndiceInteractif[i] + 1}`,
       ) as HTMLSelectElement
       let isOk1 = false
       let isOk2 = false
@@ -456,7 +466,7 @@ export default class FormulesAireCarreRectangle extends Exercice {
     } else {
       // if (this.listeReponses[i].length === 1) {
       const select1 = document.querySelector(
-        `#ex${this.numeroExercice}Q${this.tabIndiceInteractif[i]}`,
+        `#liste-deroulanteEx${this.numeroExercice}Q${this.tabIndiceInteractif[i]}`,
       ) as HTMLSelectElement
       if (select1?.value != null) {
         const choix1 = select1.value
