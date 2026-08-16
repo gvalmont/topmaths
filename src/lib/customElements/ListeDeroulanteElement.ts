@@ -253,7 +253,7 @@ export class ListeDeroulanteElement extends MathaleaCustomElement {
   // Compatibilité temporaire avec quelques tests et usages internes historiques.
   _listeDeroulante?: { select: (index: number) => void }
   private _lastValue = ''
-  private _value = ''
+  private _selectedValue = ''
   private _isOpen = false
   private _choices: AllChoicesType = []
   private _documentClickListener?: (event: MouseEvent) => void
@@ -308,9 +308,9 @@ export class ListeDeroulanteElement extends MathaleaCustomElement {
       this.close()
     }
     document.addEventListener('click', this._documentClickListener)
-    if (this.choix0 && this._value === '' && this.choices[0] != null) {
-      this._value = this.choiceValue(this.choices[0])
-      this._lastValue = this._value
+    if (this.choix0 && this._selectedValue === '' && this.choices[0] != null) {
+      this._selectedValue = this.choiceValue(this.choices[0])
+      this._lastValue = this._selectedValue
     }
     this.render()
     const spanId = this.id.replace('liste-deroulante', 'resultatCheck')
@@ -546,7 +546,7 @@ export class ListeDeroulanteElement extends MathaleaCustomElement {
   }
 
   get value(): string {
-    return this._value
+    return this._selectedValue
   }
 
   set value(val: string) {
@@ -559,7 +559,7 @@ export class ListeDeroulanteElement extends MathaleaCustomElement {
     ) {
       return
     }
-    this._value = normalized
+    this._selectedValue = normalized
     this.render()
     this.emitValueChangedIfNeeded()
   }
@@ -572,7 +572,7 @@ export class ListeDeroulanteElement extends MathaleaCustomElement {
   private selectSelectableIndex(index: number): void {
     const choice = this.selectableChoices[index]
     if (choice == null) return
-    this._value = this.choiceValue(choice)
+    this._selectedValue = this.choiceValue(choice)
     this.close()
     this.render()
     this.emitValueChangedIfNeeded()
