@@ -183,8 +183,7 @@ export class EchiquierProblemeElement extends MathaleaCustomElement {
   private static renderLatexFromOptions(
     options: EchiquierProblemeOptions,
   ): string {
-    const correction =
-      options.interactivityOn === false || options.cellFillMode === 'correction'
+    const correction = options.cellFillMode === 'correction'
     const columns = [''].concat(options.expectedColumns)
     const rows = options.expectedRows.map((row) =>
       [row].concat(
@@ -215,8 +214,7 @@ export class EchiquierProblemeElement extends MathaleaCustomElement {
   private static renderTypstFromOptions(
     options: EchiquierProblemeOptions,
   ): string {
-    const correction =
-      options.interactivityOn === false || options.cellFillMode === 'correction'
+    const correction = options.cellFillMode === 'correction'
     const header = [''].concat(options.expectedColumns)
     const rows = options.expectedRows.map((row) =>
       [row].concat(
@@ -230,7 +228,7 @@ export class EchiquierProblemeElement extends MathaleaCustomElement {
     const cells = [header, ...rows]
       .flatMap((row) => row.map((cell) => `[${this.escapeTypst(cell)}]`))
       .join(', ')
-    return `#table(columns: ${header.length}, stroke: 0.5pt, inset: 4pt, ${cells})`
+    return `#table(columns: ${header.length}, align: (x, _) => if x == 0 { left } else { center }, stroke: 0.5pt, inset: 4pt, ${cells})`
   }
 
   private static cellValueFromOptions(
@@ -491,7 +489,11 @@ export class EchiquierProblemeElement extends MathaleaCustomElement {
   }
 
   get shouldRenderCorrection(): boolean {
-    return !this.interactivityOn || this.cellFillMode === 'correction'
+    return this.cellFillMode === 'correction'
+  }
+
+  get shouldRenderStatic(): boolean {
+    return !this.interactivityOn || this.shouldRenderCorrection
   }
 
   get value(): EchiquierProblemeValue {
@@ -567,13 +569,13 @@ export class EchiquierProblemeElement extends MathaleaCustomElement {
   }
 
   private get displayRowHeaders(): string[] {
-    return this.shouldRenderCorrection
+    return this.shouldRenderStatic
       ? this.answer.expectedRows
       : this.value.rowHeaders
   }
 
   private get displayColumnHeaders(): string[] {
-    return this.shouldRenderCorrection
+    return this.shouldRenderStatic
       ? this.answer.expectedColumns
       : this.value.columnHeaders
   }
@@ -593,6 +595,12 @@ export class EchiquierProblemeElement extends MathaleaCustomElement {
   private createRoot(): HTMLElement {
     const root = document.createElement('div')
     root.className = 'echiquier'
+    if (!this.shouldRenderStatic) root.append(this.createControls())
+    root.append(this.createTable(), this.createAnalysis())
+    return root
+  }
+
+  private createControls(): HTMLElement {
     const controls = document.createElement('div')
     controls.className = 'controls'
     controls.append(
@@ -621,8 +629,29 @@ export class EchiquierProblemeElement extends MathaleaCustomElement {
         }),
       ),
     )
+    return controls
+  }
+
+  private createAnalysis(): HTMLElement {
     const analysis = document.createElement('div')
     analysis.className = 'analysis'
+    if (this.shouldRenderStatic) {
+      analysis.append(
+        this.createStaticAnalysisItem(
+          "Type d'échiquier",
+          this.shouldRenderCorrection
+            ? this.structureLabel(this.displayStructure)
+            : '...',
+        ),
+        this.createStaticAnalysisItem(
+          'Opération',
+          this.shouldRenderCorrection
+            ? this.operationLabel(this.displayOperation)
+            : '...',
+        ),
+      )
+      return analysis
+    }
     analysis.append(
       this.createSelect({
         label: "Type d'échiquier",
@@ -653,8 +682,7 @@ export class EchiquierProblemeElement extends MathaleaCustomElement {
           }),
       }),
     )
-    root.append(controls, this.createTable(), analysis)
-    return root
+    return analysis
   }
 
   private createTable(): HTMLTableElement {
@@ -669,7 +697,8 @@ export class EchiquierProblemeElement extends MathaleaCustomElement {
       th.classList.toggle('greyed', this.isGreyedColumn(column))
       const header = document.createElement('div')
       header.className = 'header-control'
-      if (this.shouldRenderCorrection) {
+      if (this.shouldRenderStatic) {
+        header.classList.add('static-header')
         header.textContent = column
       } else {
         header.append(
@@ -708,7 +737,8 @@ export class EchiquierProblemeElement extends MathaleaCustomElement {
       th.classList.toggle('greyed', this.isGreyedRow(row))
       const header = document.createElement('div')
       header.className = 'header-control'
-      if (this.shouldRenderCorrection) {
+      if (this.shouldRenderStatic) {
+        header.classList.add('static-header')
         header.textContent = row
       } else {
         header.append(
@@ -747,6 +777,8 @@ export class EchiquierProblemeElement extends MathaleaCustomElement {
         )
         if (this.shouldRenderCorrection) {
           td.textContent = this.cellValue(row, column)
+        } else if (this.shouldRenderStatic) {
+          td.textContent = '...'
         } else if (this.cellFillMode === 'student') {
           td.append(
             this.createCellSelect(
@@ -836,6 +868,44 @@ export class EchiquierProblemeElement extends MathaleaCustomElement {
     select.addEventListener('change', () => onChange(select.value))
     wrapper.append(select)
     return wrapper
+  }
+
+  private createStaticAnalysisItem(
+    label: string,
+    value: string,
+  ): HTMLSpanElement {
+    const wrapper = document.createElement('span')
+    wrapper.className = 'analysis-static-item'
+    const labelElement = document.createElement('span')
+    labelElement.className = 'analysis-static-label'
+    labelElement.textContent = `${label} :`
+    const valueElement = document.createElement('span')
+    valueElement.className = 'analysis-static-value'
+    valueElement.textContent = value || '...'
+    wrapper.append(labelElement, valueElement)
+    return wrapper
+  }
+
+  private structureLabel(value: EchiquierProblemeStructure | ''): string {
+    return (
+      {
+        ligne: 'en ligne',
+        colonne: 'en colonne',
+        '': '',
+      } satisfies Record<EchiquierProblemeStructure | '', string>
+    )[value]
+  }
+
+  private operationLabel(value: EchiquierProblemeOperation | ''): string {
+    return (
+      {
+        addition: 'addition',
+        soustraction: 'soustraction',
+        multiplication: 'multiplication',
+        division: 'division',
+        '': '',
+      } satisfies Record<EchiquierProblemeOperation | '', string>
+    )[value]
   }
 
   private createButton(label: string, onClick: () => void): HTMLButtonElement {
@@ -1029,10 +1099,24 @@ export class EchiquierProblemeElement extends MathaleaCustomElement {
         gap: 0.35rem;
         align-items: center;
       }
+      .analysis-static-item {
+        display: inline-flex;
+        gap: 0.35rem;
+        align-items: baseline;
+      }
+      .analysis-static-label {
+        font-weight: 600;
+      }
+      .analysis-static-value {
+        color: #0f172a;
+      }
       .header-control {
         display: flex;
         gap: 0.35rem;
         align-items: center;
+      }
+      .header-control.static-header {
+        justify-content: center;
       }
       table {
         border-collapse: collapse;

@@ -1,9 +1,9 @@
 import { describe, expect, it } from 'vitest'
 import { EchiquierProblemeElement } from '../../src/lib/customElements/EchiquierProblemeElement'
-import { setOutputHtml } from '../../src/modules/context'
+import { context, setOutputHtml } from '../../src/modules/context'
 
 describe('EchiquierProblemeElement', () => {
-  it("renseigne le type d'echiquier et l'operation en mode correction", async () => {
+  it("rend le type d'echiquier et l'operation en statique en mode correction", async () => {
     setOutputHtml()
     document.body.innerHTML = EchiquierProblemeElement.create({
       numeroExercice: 1,
@@ -22,16 +22,46 @@ describe('EchiquierProblemeElement', () => {
     const echiquier = document.querySelector(
       'echiquier-probleme',
     ) as EchiquierProblemeElement
-    const analysisSelects = [
-      ...echiquier.shadowRoot!.querySelectorAll<HTMLSelectElement>(
-        '.analysis select',
-      ),
-    ]
+    const root = echiquier.shadowRoot!
 
-    expect(analysisSelects.map((select) => select.value)).toEqual([
-      'ligne',
-      'addition',
-    ])
+    expect(root.querySelector('.controls')).toBeNull()
+    expect(root.querySelectorAll('button')).toHaveLength(0)
+    expect(root.querySelectorAll('select')).toHaveLength(0)
+    expect(root.querySelector('.analysis')?.textContent).toContain(
+      "Type d'échiquier :en ligne",
+    )
+    expect(root.querySelector('.analysis')?.textContent).toContain(
+      'Opération :addition',
+    )
+  })
+
+  it("rend un echiquier HTML statique a completer quand l'interactivite est coupee", () => {
+    setOutputHtml()
+    document.body.innerHTML = EchiquierProblemeElement.create({
+      numeroExercice: 1,
+      questionIndex: 0,
+      interactivityOn: false,
+      expectedRows: ['Prix total'],
+      expectedColumns: ['Courses'],
+      rowChoices: ['Prix total'],
+      columnChoices: ['Courses'],
+      cells: [{ row: 'Prix total', column: 'Courses', value: '8 €' }],
+      expectedStructure: 'ligne',
+      expectedOperation: 'addition',
+      cellFillMode: 'student',
+    })
+
+    const echiquier = document.querySelector(
+      'echiquier-probleme',
+    ) as EchiquierProblemeElement
+    const root = echiquier.shadowRoot!
+
+    expect(root.querySelector('.controls')).toBeNull()
+    expect(root.querySelectorAll('select')).toHaveLength(0)
+    expect(root.textContent).toContain('Prix total')
+    expect(root.textContent).toContain('Courses')
+    expect(root.textContent).toContain('...')
+    expect(root.textContent).not.toContain('8 €')
   })
 
   it('attribue les points par groupes de verification', () => {
@@ -88,5 +118,40 @@ describe('EchiquierProblemeElement', () => {
     expect(
       EchiquierProblemeElement.pointsMaxQuestion(exercice as never, 0),
     ).toBe(5)
+  })
+
+  it("rend l'enonce Typst a completer meme sans interactivite", () => {
+    setOutputHtml()
+    context.isTypst = true
+    try {
+      const options = {
+        numeroExercice: 1,
+        questionIndex: 0,
+        interactivityOn: false,
+        expectedRows: ['Prix total'],
+        expectedColumns: ['Courses'],
+        rowChoices: ['Prix total'],
+        columnChoices: ['Courses'],
+        cells: [{ row: 'Prix total', column: 'Courses', value: '8 €' }],
+      }
+
+      const enonce = EchiquierProblemeElement.create({
+        ...options,
+        cellFillMode: 'student',
+      })
+      const correction = EchiquierProblemeElement.create({
+        ...options,
+        cellFillMode: 'correction',
+      })
+
+      expect(enonce).toContain('[...]')
+      expect(enonce).toContain(
+        'align: (x, _) => if x == 0 { left } else { center }',
+      )
+      expect(enonce).not.toContain('8 €')
+      expect(correction).toContain('8 €')
+    } finally {
+      context.isTypst = false
+    }
   })
 })
