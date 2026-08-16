@@ -1,5 +1,7 @@
-import type { AllChoicesType } from '../../lib/interactif/listeDeroulante/ListeDeroulante'
-import { choixDeroulant } from '../../lib/customElements/ListeDeroulanteElement'
+import {
+  choixDeroulant,
+  type AllChoicesType,
+} from '../../lib/customElements/ListeDeroulanteElement'
 import { ajouteFeedback } from '../../lib/interactif/questionMathLive'
 import {
   combinaisonListes,
@@ -133,7 +135,7 @@ export default class FormulesAireCarreRectangle extends Exercice {
 
     let indiceInteractif = 0
     this.tabIndiceInteractif = [0]
-    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50; ) {
+    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       const unite = unitesChoisies[cpt]
 
       let texte = ''
@@ -195,11 +197,9 @@ export default class FormulesAireCarreRectangle extends Exercice {
           }
           texte = texteFixe[0]
           texte += this.interactif
-            ? choixDeroulant(
-                this,
-                indiceInteractif,
-                { choices: choixListeDeroulantePourCeCas[0] },
-              )
+            ? choixDeroulant(this, indiceInteractif, {
+                choices: choixListeDeroulantePourCeCas[0],
+              })
             : '$\\ldots\\ldots\\ldots$'
           texte += texteFixe[1]
           break
@@ -290,19 +290,15 @@ export default class FormulesAireCarreRectangle extends Exercice {
           }
           texte = texteFixe[0]
           texte += this.interactif
-            ? choixDeroulant(
-                this,
-                indiceInteractif,
-                { choices: choixListeDeroulantePourCeCas[0] },
-              )
+            ? choixDeroulant(this, indiceInteractif, {
+                choices: choixListeDeroulantePourCeCas[0],
+              })
             : '$\\ldots\\ldots\\ldots$'
           texte += texteFixe[1]
           texte += this.interactif
-            ? choixDeroulant(
-                this,
-                indiceInteractif + 1,
-                { choices: choixListeDeroulantePourCeCas[1] },
-              )
+            ? choixDeroulant(this, indiceInteractif + 1, {
+                choices: choixListeDeroulantePourCeCas[1],
+              })
             : '$\\ldots\\ldots\\ldots$'
           texte += texteFixe[2]
           break
@@ -356,27 +352,21 @@ export default class FormulesAireCarreRectangle extends Exercice {
 
           texte = texteFixe[0]
           texte += this.interactif
-            ? choixDeroulant(
-                this,
-                indiceInteractif,
-                { choices: choixListeDeroulantePourCeCas[0] },
-              )
+            ? choixDeroulant(this, indiceInteractif, {
+                choices: choixListeDeroulantePourCeCas[0],
+              })
             : '$\\ldots\\ldots\\ldots$'
           texte += texteFixe[1]
           texte += this.interactif
-            ? choixDeroulant(
-                this,
-                indiceInteractif + 1,
-                { choices: choixListeDeroulantePourCeCas[1] },
-              )
+            ? choixDeroulant(this, indiceInteractif + 1, {
+                choices: choixListeDeroulantePourCeCas[1],
+              })
             : '$\\ldots\\ldots\\ldots$'
           texte += texteFixe[2]
           texte += this.interactif
-            ? choixDeroulant(
-                this,
-                indiceInteractif + 2,
-                { choices: choixListeDeroulantePourCeCas[2] },
-              )
+            ? choixDeroulant(this, indiceInteractif + 2, {
+                choices: choixListeDeroulantePourCeCas[2],
+              })
             : '$\\ldots\\ldots\\ldots$'
           texte += texteFixe[3]
           break

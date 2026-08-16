@@ -1,5 +1,7 @@
-import { choixDeroulant } from '../../lib/customElements/ListeDeroulanteElement'
-import type { AllChoicesType } from '../../lib/interactif/listeDeroulante/ListeDeroulante'
+import {
+  choixDeroulant,
+  type AllChoicesType,
+} from '../../lib/customElements/ListeDeroulanteElement'
 import { ajouteFeedback } from '../../lib/interactif/questionMathLive'
 import {
   choice,
