@@ -12,7 +12,7 @@ import { mathalea2d } from '../../modules/mathalea2d'
 import { listeQuestionsToContenu } from '../../modules/outils'
 import Exercice from '../Exercice'
 
-export const titre = "Déterminer graphiquement les signes de f, f' et f''"
+export const titre = "Déterminer graphiquement les signes de $f$, $f'$ et $f''$"
 export const dateDePublication = '16/08/2026'
 export const interactifReady = true
 export const interactifType = 'liste-deroulante'
@@ -136,10 +136,7 @@ function graphique(
   const xTangenteMax = Math.min(xMax, abscisseTangente + 5)
   const ordonneeTangente = fonction(abscisseTangente)
   const penteTangente = derivee(abscisseTangente)
-  const penteTangenteTracee =
-    abscisseTangente !== 0 && Math.abs(ordonneeTangente) < 1e-9
-      ? penteTangente - 0.5 / abscisseTangente
-      : penteTangente
+  const penteTangenteTracee = penteTangente
   const tangente = segment(
     xTangenteMin * xUnite,
     (ordonneeTangente +
@@ -214,14 +211,24 @@ export default class SignesFonctionEtDerivees extends Exercice {
       abscisseFSeconde: centre + scenarioRelatif.decalageFSeconde,
     }
     const f = (x: number) => {
-      const t = (x - centre) / 5
-      return orientation * (t ** 3 - 12 * t)
+      const u = (Math.PI * (x - centre)) / 20
+      return orientation * (-17 * Math.sin(u) - Math.sin(3 * u))
     }
     const fPrime = (x: number) => {
-      const t = (x - centre) / 5
-      return (orientation * (3 * t ** 2 - 12)) / 5
+      const u = (Math.PI * (x - centre)) / 20
+      return (
+        (orientation * Math.PI * (-17 * Math.cos(u) - 3 * Math.cos(3 * u))) / 20
+      )
     }
-    const fSeconde = (x: number) => (orientation * 6 * (x - centre)) / 125
+    const fSeconde = (x: number) => {
+      const u = (Math.PI * (x - centre)) / 20
+      return (
+        (orientation *
+          Math.PI ** 2 *
+          (17 * Math.sin(u) + 9 * Math.sin(3 * u))) /
+        400
+      )
+    }
     const reponses: Signe[] = [
       signe(f(scenario.abscisseF)),
       signe(fPrime(scenario.abscisseFPrime)),
@@ -248,7 +255,7 @@ export default class SignesFonctionEtDerivees extends Exercice {
     const question = this.interactif
       ? "Compléter avec l'aide du graphique :"
       : 'Déterminer graphiquement le signe de :'
-    const texte = `On considère une fonction $f$ définie et deux fois dérivable sur $[${xMinGraphique}\\,;\\,${xMaxGraphique}]$. Sa courbe représentative $\\mathcal C_f$ est donnée ci-dessous. On a représenté en rouge la tangente $(T)$ à $\\mathcal C_f$ au point d'abscisse $${texNombre(scenario.abscisseFSeconde)}$.<br>${figure}<br>
+    const texte = `On considère une fonction $f$ définie et deux fois dérivable sur $[${xMinGraphique}\\,;\\,${xMaxGraphique}]$. Sa courbe représentative $\\mathcal C_f$ est donnée ci-dessous dans un repère orthogonal. On a représenté en rouge la tangente $(T)$ à $\\mathcal C_f$ au point d'abscisse $${texNombre(scenario.abscisseFSeconde)}$.<br>${figure}<br>
     ${question}<br><br>
     ${ligneReponse(`f(${texNombre(scenario.abscisseF)})`, 0)} ;<br><br>
     ${ligneReponse(`f'(${texNombre(scenario.abscisseFPrime)})`, 1)} ;<br><br>
