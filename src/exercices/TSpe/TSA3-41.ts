@@ -22,7 +22,7 @@ export const refs = {
   'fr-fr': ['TSA3-41', 'TCA7-41'],
   'fr-ch': [],
 }
-export const tags = ['programme de transition']
+
 type TypeRepresentation = 1 | 2 | 3
 
 function intervalle(a: number, b: number): string {
