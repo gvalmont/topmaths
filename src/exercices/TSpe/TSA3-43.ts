@@ -25,44 +25,47 @@ export const refs = {
 
 type Signe = 'positif' | 'négatif' | 'nul'
 
-type Scenario = {
-  centre: number
-  orientation: 1 | -1
-  abscisseF: number
-  abscisseFPrime: number
-  abscisseFSeconde: number
+type ScenarioRelatif = {
+  decalageF: number
+  decalageFPrime: number
+  decalageFSeconde: number
 }
 
-const scenarios: Scenario[] = [
+const scenariosRelatifs: ScenarioRelatif[] = [
   {
-    centre: -5,
-    orientation: 1,
-    abscisseF: -5,
-    abscisseFPrime: -20,
-    abscisseFSeconde: -10,
+    decalageF: 0,
+    decalageFPrime: -10,
+    decalageFSeconde: -5,
   },
   {
-    centre: 0,
-    orientation: -1,
-    abscisseF: -10,
-    abscisseFPrime: 10,
-    abscisseFSeconde: 5,
+    decalageF: -5,
+    decalageFPrime: 10,
+    decalageFSeconde: 0,
   },
   {
-    centre: 5,
-    orientation: 1,
-    abscisseF: 15,
-    abscisseFPrime: 5,
-    abscisseFSeconde: 5,
+    decalageF: 5,
+    decalageFPrime: 0,
+    decalageFSeconde: 0,
   },
   {
-    centre: -5,
-    orientation: -1,
-    abscisseF: -10,
-    abscisseFPrime: 10,
-    abscisseFSeconde: -15,
+    decalageF: -10,
+    decalageFPrime: 0,
+    decalageFSeconde: 5,
+  },
+  {
+    decalageF: 0,
+    decalageFPrime: 5,
+    decalageFSeconde: 10,
+  },
+  {
+    decalageF: 10,
+    decalageFPrime: -10,
+    decalageFSeconde: -5,
   },
 ]
+
+const centres = [-10, -5, 5, 10]
+const orientations: Array<1 | -1> = [1, -1]
 
 const choixSignes = [
   { label: 'Choisir un signe', value: '' },
@@ -84,10 +87,10 @@ function graphique(
   xMin: number,
   xMax: number,
 ): string {
-  const xUnite = 12 / (xMax - xMin)
+  const xUnite = 20 / (xMax - xMin)
   const yMin = -18
   const yMax = 18
-  const yUnite = 0.22
+  const yUnite = 12 / (yMax - yMin)
   const xGraduations = Array.from(
     { length: (xMax - xMin) / 5 + 1 },
     (_, index) => xMin + 5 * index,
@@ -133,18 +136,25 @@ function graphique(
   const xTangenteMax = Math.min(xMax, abscisseTangente + 5)
   const ordonneeTangente = fonction(abscisseTangente)
   const penteTangente = derivee(abscisseTangente)
+  const penteTangenteTracee =
+    abscisseTangente !== 0 && Math.abs(ordonneeTangente) < 1e-9
+      ? penteTangente - 0.5 / abscisseTangente
+      : penteTangente
   const tangente = segment(
     xTangenteMin * xUnite,
-    (ordonneeTangente + penteTangente * (xTangenteMin - abscisseTangente)) *
+    (ordonneeTangente +
+      penteTangenteTracee * (xTangenteMin - abscisseTangente)) *
       yUnite,
     xTangenteMax * xUnite,
-    (ordonneeTangente + penteTangente * (xTangenteMax - abscisseTangente)) *
+    (ordonneeTangente +
+      penteTangenteTracee * (xTangenteMax - abscisseTangente)) *
       yUnite,
     'red',
   )
   tangente.epaisseur = 1.5
+  tangente.pointilles = 4
   const ordonneeLabelTangente =
-    ordonneeTangente + penteTangente * (xTangenteMin - abscisseTangente)
+    ordonneeTangente + penteTangenteTracee * (xTangenteMin - abscisseTangente)
   const yLabelTangente = Math.max(
     (yMin + 1) * yUnite,
     Math.min((yMax - 1) * yUnite, ordonneeLabelTangente * yUnite + 0.2),
@@ -195,8 +205,14 @@ export default class SignesFonctionEtDerivees extends Exercice {
   }
 
   nouvelleVersion(): void {
-    const scenario = choice(scenarios)
-    const { centre, orientation } = scenario
+    const centre = choice(centres)
+    const orientation = choice(orientations)
+    const scenarioRelatif = choice(scenariosRelatifs)
+    const scenario = {
+      abscisseF: centre + scenarioRelatif.decalageF,
+      abscisseFPrime: centre + scenarioRelatif.decalageFPrime,
+      abscisseFSeconde: centre + scenarioRelatif.decalageFSeconde,
+    }
     const f = (x: number) => {
       const t = (x - centre) / 5
       return orientation * (t ** 3 - 12 * t)
@@ -230,8 +246,8 @@ export default class SignesFonctionEtDerivees extends Exercice {
       xMaxGraphique,
     )
     const question = this.interactif
-      ? 'Compléter :'
-      : 'Déterminer le signe de :'
+      ? "Compléter avec l'aide du graphique :"
+      : 'Déterminer graphiquement le signe de :'
     const texte = `On considère une fonction $f$ définie et deux fois dérivable sur $[${xMinGraphique}\\,;\\,${xMaxGraphique}]$. Sa courbe représentative $\\mathcal C_f$ est donnée ci-dessous. On a représenté en rouge la tangente $(T)$ à $\\mathcal C_f$ au point d'abscisse $${texNombre(scenario.abscisseFSeconde)}$.<br>${figure}<br>
     ${question}<br><br>
     ${ligneReponse(`f(${texNombre(scenario.abscisseF)})`, 0)} ;<br><br>
@@ -246,7 +262,7 @@ export default class SignesFonctionEtDerivees extends Exercice {
       reponses[2] === 'nul'
         ? `En $${texNombre(scenario.abscisseFSeconde)}$, la courbe traverse sa tangente. Elle admet donc un point d'inflexion et la fonction change de convexité au point d'abscisse $${texNombre(scenario.abscisseFSeconde)}$. Donc $f''(${texNombre(scenario.abscisseFSeconde)})$ est ${texteEnCouleurEtGras('nul')}.`
         : `Au voisinage de $${texNombre(scenario.abscisseFSeconde)}$, la courbe est localement ${reponses[2] === 'positif' ? 'au-dessus' : 'en dessous'} de sa tangente : la fonction est ${reponses[2] === 'positif' ? 'convexe' : 'concave'}. Donc $f''(${texNombre(scenario.abscisseFSeconde)})$ est ${texteEnCouleurEtGras(reponses[2])}.`
-    const texteCorr = `On lit successivement la position de la courbe, puis les variations et la convexité de la fonction $f$.<br>
+    const texteCorr = `On lit successivement la position de la courbe par rapport à l'axe des abscisses, puis les variations et la convexité de la fonction $f$.<br>
     • À l'abscisse $${texNombre(scenario.abscisseF)}$, la courbe est ${reponses[0] === 'nul' ? "sur l'axe des abscisses" : reponses[0] === 'positif' ? "au-dessus de l'axe des abscisses" : "en dessous de l'axe des abscisses"}. Donc $f(${texNombre(scenario.abscisseF)})$ est ${texteEnCouleurEtGras(reponses[0])}.<br>
     • Au voisinage de $${texNombre(scenario.abscisseFPrime)}$, ${variation}. Donc $f'(${texNombre(scenario.abscisseFPrime)})$ est ${texteEnCouleurEtGras(reponses[1])}.<br>
     • ${analyseConvexite}`
