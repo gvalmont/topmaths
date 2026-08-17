@@ -1051,6 +1051,19 @@ Il peut être utilisé selon 3 modes :
 - 'effectif' demande l'effectif associé à chaque label
 - 'label' demande le label associé à au choix : l'effectif ou l'angle fourni.
 
+Quand `interactivityOn` vaut `false`, le composant n'affiche plus les
+champs interactifs : le diagramme reste vide avec sa légende en dessous, et la
+table devient une table statique de conversion. La colonne correspondant au
+mode demandé (`angle`, `effectif` ou `label`) contient des cellules vides ; les
+autres colonnes visibles sont remplies avec les valeurs fournies ou calculées.
+Si une valeur non demandée vaut `null` (`effectif` en mode `angle`, ou `angle`
+en mode `effectif`), la cellule statique affiche aussi des pointillés afin de
+ne jamais rendre le texte `null`. La valeur `0` reste affichée comme une donnée
+valide.
+L'option `colorOn`, à `true` par défaut, contrôle les couleurs de légende dans
+les rendus statiques. Avec `colorOn: false`, les carrés de légende sont blancs
+avec un contour afin de laisser les élèves choisir leurs propres couleurs.
+
 Pour un exemple d'utilisation, un exemple à étudier est `src/exercices/5e/5D1D-1.ts`.
 Il contient les versions 'pie' et 'semi-pie' (shape), mais aussi d'autre diagrammes comme le DiagramBarAssessmentElement décrit ci-après.
 
@@ -1078,6 +1091,14 @@ Il peut être utilisé selon 3 modes :
 - 'hauteur' demande la hauteur de la barre associée à chaque label (cas d'usage dans 5D1D-1)
 - 'effectif' demande l'effectif associé à chaque label (on fournira les hauteurs par exemple)
 - 'label' demande le label associé à chaque barre donnée par au choix : sa hauteur ou son effectif.
+
+Quand `interactivityOn` vaut `false`, le diagramme en barres affiche une table
+statique complète (`Catégorie`, `Effectifs`, `Hauteurs`) avec des pointillés
+pour les valeurs `null`. Sans `correctionOn`, le repère reste vide ; en
+correction, passer `correctionOn: true` pour afficher les barres. L'option
+`colorOn`, à `true` par défaut, contrôle la couleur des barres ; avec
+`colorOn: false`, le rendu HTML et LaTeX utilise des hachures, et le rendu Typst
+des niveaux de gris.
 
 Pour un exemple d'utilisation, un exemple à étudier est `src/exercices/5e/5D1D-1.ts`.
 
