@@ -112,7 +112,7 @@ $\\mathcal{A}=\\dfrac{${base}\\times ${hauteur}}{2}=\\dfrac{${produit}}{2}=${mis
 
   constructor() {
     super()
-    this.options = { vertical: false, ordered: false }
+
     this.nbQuestions = 1
     this.besoinFormulaireCaseACocher = false
     this.besoinFormulaire4CaseACocher = false

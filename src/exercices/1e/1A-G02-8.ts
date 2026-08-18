@@ -57,7 +57,7 @@ Donc $V=\\pi\\times ${rayon}^2\\times ${hauteur}=${miseEnEvidence(`${coefficient
 
   constructor() {
     super()
-    this.options = { vertical: false, ordered: false }
+
     this.nbQuestions = 1
     this.besoinFormulaireCaseACocher = false
     this.besoinFormulaire4CaseACocher = false

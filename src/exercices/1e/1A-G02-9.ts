@@ -139,7 +139,7 @@ Donc $V=\\pi\\times ${rayonEnCm}^2\\times ${hauteurEnCm}=${miseEnEvidence(`${coe
 
   constructor() {
     super()
-    this.options = { vertical: false, ordered: false }
+
     this.nbQuestions = 1
     this.besoinFormulaireCaseACocher = false
     this.besoinFormulaire4CaseACocher = false
