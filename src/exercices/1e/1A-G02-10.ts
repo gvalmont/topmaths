@@ -61,7 +61,7 @@ Donc $V=\\dfrac{\\pi\\times ${rayon}^2\\times ${hauteur}}{3}=\\dfrac{${produit}\
 
   constructor() {
     super()
-    this.options = { vertical: false, ordered: false }
+
     this.nbQuestions = 1
     this.besoinFormulaireCaseACocher = false
     this.besoinFormulaire4CaseACocher = false

@@ -160,7 +160,7 @@ On en déduit que $${nomCoteCherche}=\\dfrac{${nomCoteParalleleDonne}\\times ${n
 
   constructor() {
     super()
-    this.options = { vertical: false, ordered: false }
+
     this.nbQuestions = 1
     this.besoinFormulaireCaseACocher = false
     this.besoinFormulaire4CaseACocher = false

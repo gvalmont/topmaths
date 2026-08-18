@@ -1,8 +1,8 @@
 import { fixeBordures } from '../../lib/2d/fixeBordures'
 import { pointAbstrait } from '../../lib/2d/PointAbstrait'
 import { polygone } from '../../lib/2d/polygones'
-import { homothetie } from '../../lib/2d/transformations'
 import { labelPoint } from '../../lib/2d/textes'
+import { homothetie } from '../../lib/2d/transformations'
 import { choisitLettresDifferentes } from '../../lib/outils/aleatoires'
 import { choice, shuffle } from '../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
@@ -147,7 +147,7 @@ $\\dfrac{${nomsCotes.BD}}{${nomsCotes.BC}}=\\dfrac{${nomsCotes.HD}}{${nomsCotes.
 
   constructor() {
     super()
-    this.options = { vertical: false, ordered: false }
+
     this.nbQuestions = 1
     this.besoinFormulaireCaseACocher = false
     this.besoinFormulaire4CaseACocher = false
