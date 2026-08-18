@@ -57,7 +57,7 @@ export default class Puissances extends ExerciceQcmA {
     const ligneFact =
       cas === 1 ? `&=${miseEnEvidence(factBonne)}\\\\` : `&=${factBonne}\\\\`
     const ligneDev =
-      cas === 2 ? `&=${miseEnEvidence(polyBon)}.` : `&=${polyBon}.`
+      cas === 2 ? `&=${miseEnEvidence(polyBon)}.` : `&=${polyBon}`
 
     this.correction = `On reconnaît une différence de deux carrés $A^2-B^2$ avec $A=${reduireAxPlusB(a, b)}$ et $B=${reduireAxPlusB(c, d)}$, qui se factorise en $(A-B)(A+B)$ .<br>
     $\\begin{aligned}
