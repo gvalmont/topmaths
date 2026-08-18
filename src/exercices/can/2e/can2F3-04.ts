@@ -1,4 +1,5 @@
 import { propositionsQcm } from '../../../lib/interactif/qcm'
+import { choice } from '../../../lib/outils/arrayOutils'
 import { extraireRacineCarree } from '../../../lib/outils/calculs'
 import { texFractionReduite } from '../../../lib/outils/deprecatedFractions'
 import {
@@ -20,13 +21,13 @@ export const dateDePublication = '27/12/2021' // La date de publication initiale
 
 /**
  * Modèle d'exercice très simple pour la course aux nombres
- * @author Gilles Mora
+ * @author Gilles Mora mise à jour été 2026 Stéphane Guyon
 
 */
 export const uuid = '1380f'
 
 export const refs = {
-  'fr-fr': ['can2F3-04','2F22-9'],
+  'fr-fr': ['can2F3-04', '2F22-9'],
   'fr-ch': ['1mCL3-1'],
 }
 export default class ResoudreEquationsFonctionDeReference2 extends Exercice {
@@ -34,14 +35,33 @@ export default class ResoudreEquationsFonctionDeReference2 extends Exercice {
     super()
 
     this.nbQuestions = 1
+    this.sup = 4
+    this.besoinFormulaireNumerique = [
+      'Fonction de référence',
+      6,
+      '1 : Fonction carré\n2 : Fonction inverse\n3 : Fonction valeur absolue\n4 : Mélange programme 2026\n5 : Fonction racine carrée\n6 : Mélange',
+    ]
 
     this.spacing = 2
   }
 
   nouvelleVersion() {
     let texte, texteCorr, k, b, c, props
+    const typesDisponibles =
+      Number(this.sup) === 1
+        ? [1, 2]
+        : Number(this.sup) === 2
+          ? [5, 6]
+          : Number(this.sup) === 3
+            ? [7]
+            : Number(this.sup) === 4
+              ? [1, 2, 5, 6, 7]
+              : Number(this.sup) === 5
+                ? [3, 4]
+                : [1, 2, 3, 4, 5, 6, 7]
     for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
-      switch (randint(1, 6)) {
+      const typeQuestion = choice(typesDisponibles)
+      switch (typeQuestion) {
         case 1:
           b = randint(-5, 5, 0)
           c = randint(-5, 5, 0)
@@ -820,7 +840,6 @@ export default class ResoudreEquationsFonctionDeReference2 extends Exercice {
 
           break
         case 6:
-        default:
           b = randint(-10, 10, 0)
           c = randint(-10, 10)
           k = b - c
@@ -938,8 +957,99 @@ export default class ResoudreEquationsFonctionDeReference2 extends Exercice {
           this.canEnonce = `Résoudre dans $\\mathbb{R}^*$ l'équation $${b}-\\dfrac{1}{x}=${c}$.`
 
           break
+        case 7:
+        default:
+          b = randint(-10, 10, 0)
+          c = randint(-10, 10)
+          k = c - b
+          texte = `L'ensemble des solutions $S$ de l'équation $|x|${ecritureAlgebrique(b)}=${c}$ est :
+          `
+
+          if (k > 0) {
+            this.autoCorrection[i] = {
+              enonce: texte,
+              propositions: [
+                {
+                  texte: `$S=\\{${-k}${sp(1)};${sp(1)}${k}\\}$`,
+                  statut: true,
+                },
+                {
+                  texte: `$S=\\{${k}\\}$`,
+                  statut: false,
+                },
+                {
+                  texte: '$S=\\emptyset$',
+                  statut: false,
+                },
+              ],
+            }
+          } else if (k === 0) {
+            this.autoCorrection[i] = {
+              enonce: texte,
+              propositions: [
+                {
+                  texte: '$S=\\{0\\}$',
+                  statut: true,
+                },
+                {
+                  texte: '$S=\\emptyset$',
+                  statut: false,
+                },
+                {
+                  texte: '$S=\\{-1;1\\}$',
+                  statut: false,
+                },
+              ],
+            }
+          } else {
+            this.autoCorrection[i] = {
+              enonce: texte,
+              propositions: [
+                {
+                  texte: '$S=\\emptyset$',
+                  statut: true,
+                },
+                {
+                  texte: `$S=\\{${k}\\}$`,
+                  statut: false,
+                },
+                {
+                  texte: `$S=\\{${k}${sp(1)};${sp(1)}${-k}\\}$`,
+                  statut: false,
+                },
+              ],
+            }
+          }
+
+          props = propositionsQcm(this, i)
+          if (this.interactif) {
+            texte += props.texte
+          } else {
+            texte = `Résoudre dans $\\mathbb{R}$ :<br>
+
+            $|x|${ecritureAlgebrique(b)}=${c}$`
+          }
+
+          texteCorr = `On isole $|x|$ :<br>
+$\\begin{aligned}
+|x|${ecritureAlgebrique(b)}&=${c}\\\\
+|x|&=${c - b}
+\\end{aligned}$<br>`
+
+          if (k > 0) {
+            texteCorr += `L'équation est de la forme $|x|=k$ avec $k=${k}>0$. Elle admet donc deux solutions opposées : $-${k}$ et $${k}$.<br>
+Ainsi, $${miseEnEvidence(`S=\\{${-k}${sp(1)};${sp(1)}${k}\\}`)}$.`
+          } else if (k === 0) {
+            texteCorr += `L'équation $|x|=0$ admet une unique solution : $0$.<br>
+Ainsi, $${miseEnEvidence('S=\\{0\\}')}$.`
+          } else {
+            texteCorr += `L'équation est de la forme $|x|=k$ avec $k=${k}<0$. Or une valeur absolue est toujours positive ou nulle : l'équation n'admet donc aucune solution.<br>
+Ainsi, $${miseEnEvidence('S=\\emptyset')}$.`
+          }
+          this.canEnonce = `Résoudre dans $\\mathbb{R}$ l'équation $|x|${ecritureAlgebrique(b)}=${c}$.`
+          break
       }
-      if (this.questionJamaisPosee(i, k, b, c)) {
+      if (this.questionJamaisPosee(i, typeQuestion, k, b, c)) {
         this.listeQuestions[i] = texte
         this.listeCorrections[i] = texteCorr
 
