@@ -23,7 +23,7 @@ export const dateDePublication = '03/01/2022' // La date de publication initiale
 export const uuid = '25143'
 
 export const refs = {
-  'fr-fr': ['can2F3-06','2F22-11'],
+  'fr-fr': ['can2F3-06'],
   'fr-ch': ['NR'],
 }
 export default class ComparerAvecFctRef extends Exercice {
