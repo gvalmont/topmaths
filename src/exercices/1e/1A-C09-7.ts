@@ -44,7 +44,7 @@ export default class Puissances extends ExerciceQcmA {
     this.enonce = 'Soit $x$ un réel.<br>'
 
     this.enonce += `À quelle expression est égale $${rienSi1(a)}(x${ecritureAlgebrique(-alpha)})^2${ecritureAlgebrique(beta)}$ ?`
-    this.correction = `On développe l'expression de l'énoncé. <br>
+    this.correction = `On développe $${rienSi1(a)}(x${ecritureAlgebrique(-alpha)})^2${ecritureAlgebrique(beta)}$. <br>
               $\\begin{aligned}
     ${rienSi1(a)}(x${ecritureAlgebrique(-alpha)})^2${ecritureAlgebrique(beta)}&=${ecritureAlgebriqueSauf1(a)}\\left(x^2 ${ecritureAlgebrique(2 * -alpha)}x${ecritureAlgebrique(-alpha * -alpha)}\\right)${ecritureAlgebrique(beta)}\\\\
     &=${rienSi1(a)}x^2 ${ecritureAlgebrique(-2 * a * alpha)}x${ecritureAlgebrique(a * -alpha * -alpha)} ${ecritureAlgebrique(beta)}\\\\
