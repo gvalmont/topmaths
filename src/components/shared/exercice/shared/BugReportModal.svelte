@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { get } from 'svelte/store'
   import {
     buildBugReportDescription,
     buildBugReportTitle,
@@ -6,6 +7,8 @@
     buildMailtoUrl,
     BUG_REPORT_EMAIL,
   } from '../../../../lib/components/bugReport'
+  import { buildMathAleaURL } from '../../../../lib/components/urls'
+  import { globalOptions } from '../../../../lib/stores/globalOptions'
 
   type Props = {
     /** à bind avec le parent */
@@ -41,13 +44,25 @@
   /**
    * Le contexte est recalculé à chaque ouverture de la modale car l'URL
    * contient notamment l'alea de l'exercice affiché.
+   *
+   * Quand un recorder (Capytale, Moodle...) héberge MathALÉA dans une iframe,
+   * `window.location.href` ne contient pas les paramètres de la série : on
+   * reconstruit alors l'URL complète à partir du store `exercicesParams`.
    */
   function refreshContext() {
+    const options = get(globalOptions)
+    const url = options.recorder
+      ? buildMathAleaURL({
+          view: options.v,
+          mode: options.presMode,
+          recorder: true,
+        }).toString()
+      : window.location.href
     const context = {
       exerciceId,
       exerciceTitle,
       exerciceIndex,
-      url: window.location.href,
+      url,
       userAgent: navigator.userAgent,
     }
     title = buildBugReportTitle(context)
