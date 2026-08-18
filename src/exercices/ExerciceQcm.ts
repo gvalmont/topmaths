@@ -51,7 +51,9 @@ export default class ExerciceQcm extends Exercice implements IExerciceQcm {
   }
 
   nouvelleVersion() {
-    if (this.bonnesReponses !== null) this.options.radio = false
+    if (this.bonnesReponses != null)
+      // Un seul = et non deux pour tester pour aussi undefined.
+      this.options.radio = false
     if (this.sup2) {
       this.consigne =
         this.bonnesReponses == null
