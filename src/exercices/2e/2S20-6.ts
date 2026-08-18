@@ -1,7 +1,7 @@
 import { tableauColonneLigne } from '../../lib/2d/tableau'
+import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 import ce from '../../lib/interactif/comparisonFunctions'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
-import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { combinaisonListes } from '../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
@@ -147,11 +147,12 @@ export default class DeterminerMedianeQuartilesTableau extends Exercice {
         resultat = String(q1)
         correctionCalcul =
           'Le premier quartile est la plus petite valeur pour laquelle au moins 25 % des données lui sont inférieures ou égales.<br>' +
+          'Pour trouver son rang, on prend le plus petit entier supérieur ou égal à $\\dfrac{N}{4}$.<br>' +
           '$\\dfrac{' +
           effectifTotal +
           '}{4}=' +
           ecritureDecimaleFrancaise(effectifTotal / 4) +
-          '$.<br>Son rang est $' +
+          '$.<br>Son rang est donc $' +
           rang +
           '$.<br>' +
           "D'après les effectifs cumulés, la valeur de rang $" +
@@ -169,11 +170,12 @@ export default class DeterminerMedianeQuartilesTableau extends Exercice {
         resultat = String(q3)
         correctionCalcul =
           'Le troisième quartile est la plus petite valeur pour laquelle au moins 75 % des données lui sont inférieures ou égales.<br>' +
+          'Pour trouver son rang, on prend le plus petit entier supérieur ou égal à $\\dfrac{3N}{4}$.<br>' +
           '$\\dfrac{3\\times' +
           effectifTotal +
           '}{4}=' +
           ecritureDecimaleFrancaise((3 * effectifTotal) / 4) +
-          '$.<br>Son rang est $' +
+          '$.<br>Son rang est donc $' +
           rang +
           '$.<br>' +
           "D'après les effectifs cumulés, la valeur de rang $" +
@@ -195,11 +197,12 @@ export default class DeterminerMedianeQuartilesTableau extends Exercice {
           const mediane = new FractionEtendue(valeur1 + valeur2, 2).simplifie()
           resultat = mediane.texFractionSimplifiee
           correctionCalcul =
+            "L'effectif de la série est pair.<br>" +
             '$\\dfrac{' +
             effectifTotal +
             '}{2}=' +
             rang1 +
-            '$.<br>La médiane est entre la $' +
+            '$. La médiane est donc entre la $' +
             rang1 +
             '^{\\text{e}}$ et la $' +
             rang2 +
@@ -222,11 +225,12 @@ export default class DeterminerMedianeQuartilesTableau extends Exercice {
           bornesMedianes = [mediane, mediane]
           resultat = String(mediane)
           correctionCalcul =
+            "L'effectif de la série est impair.<br>" +
             '$\\dfrac{' +
             effectifTotal +
             '}{2}=' +
             ecritureDecimaleFrancaise(effectifTotal / 2) +
-            '$.<br>La médiane est la $' +
+            '$. La médiane est donc la $' +
             rang +
             '^{\\text{e}}$ valeur.<br>' +
             "D'après les effectifs cumulés, cette valeur est $" +
