@@ -37,8 +37,10 @@ export default class VolumeBouleQcm extends ExerciceQcmA {
       4 * rayon ** 2,
       1,
     ).texFractionSimplifiee
-    const coefficientAlternative = fraction(2 * rayon ** 3, 1)
-      .texFractionSimplifiee
+    const coefficientAlternative = fraction(
+      2 * rayon ** 3,
+      1,
+    ).texFractionSimplifiee
     const quatriemeDistracteur =
       rayon === 3 || rayon === 4
         ? coefficientAlternative
@@ -71,7 +73,7 @@ Donc $V=\\dfrac{4}{3}\\times \\pi\\times ${rayon}^3=${miseEnEvidence(`${coeffici
 
   constructor() {
     super()
-    this.options = { vertical: false, ordered: false }
+
     this.nbQuestions = 1
     this.besoinFormulaireCaseACocher = false
     this.besoinFormulaire4CaseACocher = false
