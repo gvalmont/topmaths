@@ -2,8 +2,8 @@ import { fixeBordures } from '../../lib/2d/fixeBordures'
 import { pointAbstrait } from '../../lib/2d/PointAbstrait'
 import { polygone } from '../../lib/2d/polygones'
 import { segment } from '../../lib/2d/segmentsVecteurs'
-import { homothetie } from '../../lib/2d/transformations'
 import { labelPoint } from '../../lib/2d/textes'
+import { homothetie } from '../../lib/2d/transformations'
 import { choice, shuffle } from '../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { pgcd } from '../../lib/outils/primalite'
@@ -136,7 +136,7 @@ Ainsi, $ZO=${miseEnEvidence(`${longueurZO}\\text{ cm}`)}$.`
 
   constructor() {
     super()
-    this.options = { vertical: false, ordered: false }
+
     this.nbQuestions = 1
     this.besoinFormulaireCaseACocher = false
     this.besoinFormulaire4CaseACocher = false

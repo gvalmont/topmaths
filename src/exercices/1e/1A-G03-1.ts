@@ -162,7 +162,7 @@ export default class TrigonometrieTriangleRectangleQCM extends ExerciceQcmA {
 
   constructor() {
     super()
-    this.options = { vertical: false, ordered: false }
+
     this.nbQuestions = 1
     this.besoinFormulaireCaseACocher = false
     this.besoinFormulaire4CaseACocher = false

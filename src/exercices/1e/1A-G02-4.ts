@@ -97,7 +97,7 @@ Ainsi, $P=2\\times\\pi\\times ${rayon}=${miseEnEvidence(`${diametre}\\pi\\text{ 
 
   constructor() {
     super()
-    this.options = { vertical: false, ordered: false }
+
     this.nbQuestions = 1
     this.besoinFormulaireCaseACocher = false
     this.besoinFormulaire4CaseACocher = false
