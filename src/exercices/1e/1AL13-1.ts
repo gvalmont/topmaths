@@ -60,7 +60,6 @@ export default class ProblemesAvecSuitesE3C extends Exercice {
   nouvelleVersion() {
     const typesDeQuestionsDisponibles = gestionnaireFormulaireTexte({
       saisie: this.sup,
-      min: 1,
       max: 10,
       melange: 11,
       defaut: 11,
@@ -70,7 +69,7 @@ export default class ProblemesAvecSuitesE3C extends Exercice {
       typesDeQuestionsDisponibles,
       this.nbQuestions,
     )
-    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50; ) {
+    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       let texte = ''
       let texteCorr = ''
       const ListeNomS = ['u', 'w', 'v']
