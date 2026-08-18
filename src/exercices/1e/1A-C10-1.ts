@@ -44,7 +44,7 @@ export default class Puissances extends ExerciceQcmA {
       const CorrCarre = `On isole le carré pour se ramener à une équation du type $x^2=k$.<br>
         Résoudre l'équation revient à résoudre `
 
-      const CorrNegatif = ` est strictement négatif, l'équation n'a pas de solution.<br>
+      const CorrNegatif = ` est strictement négatif, l'équation n'a pas de solution sur $\\mathbb{R}$.<br>
           Ainsi, $S=${miseEnEvidence('\\emptyset')}$.`
 
       const CorrPositif =
