@@ -134,7 +134,7 @@ export function buildQcmForExercise(
       },
     ) ?? []
 
-  let correctionTexte = buildCorrectionsList(shuffledPropositions)
+  let correctionTexte = `${correction ?? ''}${buildCorrectionsList(shuffledPropositions)}`
   if (correctionTexte === '') {
     correctionTexte = correction
     const extrasAreAdded = ajouteQcmCorr || !exercice.interactif
