@@ -1,8 +1,8 @@
 import { tableauColonneLigne } from '../../lib/2d/tableau'
+import { createList } from '../../lib/format/lists'
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { AddTabDbleEntryMathlive } from '../../lib/interactif/tableaux/AjouteTableauMathlive'
-import { createList } from '../../lib/format/lists'
 import { choice } from '../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
@@ -161,7 +161,7 @@ export default class CalculerEcartTypeMain extends Exercice {
         this.numeroExercice ?? 0,
         0,
         tableauInteractif,
-        KeyboardType.clavierDeBase,
+        KeyboardType.clavierDeBase ?? '',
         true,
         {},
       ).output
@@ -186,6 +186,24 @@ export default class CalculerEcartTypeMain extends Exercice {
       reponses.L6C1 = { value: String(moyenne) }
       reponses.L7C1 = { value: String(variance) }
       reponses.L8C1 = { value: String(ecartType) }
+      reponses.bareme = (listePoints: number[]): [number, number] => {
+        const pointDeuxiemeLigne = Math.min(...listePoints.slice(0, 5))
+        const pointTroisiemeLigne = Math.min(...listePoints.slice(5, 10))
+        const pointQuatriemeLigne = Math.min(...listePoints.slice(10, 15))
+        const pointCinquiemeLigne = Math.min(...listePoints.slice(15, 20))
+        const pointMoyenne = listePoints[20]
+        const pointVariance = listePoints[21]
+        const pointEcartType = listePoints[22]
+        const totalPoints =
+          pointDeuxiemeLigne +
+          pointTroisiemeLigne +
+          pointQuatriemeLigne +
+          pointCinquiemeLigne +
+          pointMoyenne +
+          pointVariance +
+          pointEcartType
+        return [totalPoints, 7]
+      }
       handleAnswers(this, 0, reponses, {
         formatInteractif: 'tableauMathlive',
       })
