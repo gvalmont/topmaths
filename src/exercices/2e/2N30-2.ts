@@ -13,6 +13,7 @@ import {
   ecritureParentheseSiMoins,
 } from '../../lib/outils/ecritures'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
+import { lettreDepuisChiffre } from '../../lib/outils/outilString'
 import { ppcm, ppcmListe } from '../../lib/outils/primalite'
 import type FractionEtendue from '../../modules/FractionEtendue'
 import { fraction } from '../../modules/fractions'
@@ -138,6 +139,7 @@ export default class ExerciceSommesAlgebriquesDeFractions2nde extends Exercice {
   constructor() {
     super()
     this.nbQuestions = 4
+    this.listeAvecNumerotation = false
     this.besoinFormulaireComplexe = leSuperFormulaire
     this.sup = serialiseFormulaireComplexe(
       leSuperFormulaire,
@@ -164,9 +166,10 @@ export default class ExerciceSommesAlgebriquesDeFractions2nde extends Exercice {
     f2: FractionEtendue,
     signe: string,
     simplifier: boolean,
+    lettre: string,
   ): { texteCorr: string; resultat: FractionEtendue } {
     let resultat: FractionEtendue
-    let calcul = `\\begin{aligned}${f1.texFSD} ${signe} ${f2.texFraction}&=`
+    let calcul = `\\begin{aligned}${lettre}&=${f1.texFSD} ${signe} ${f2.texFraction}\\\\\n&=`
     if (signe === '+') {
       resultat = f1.sommeFraction(f2)
     } else {
@@ -187,6 +190,7 @@ export default class ExerciceSommesAlgebriquesDeFractions2nde extends Exercice {
   uneSommeOuDifferenceDeDeuxFractions(
     choixDenominateurs: string,
     simplifier: boolean,
+    lettre: string,
   ) {
     const denominateurs = this.choixDenominateurs(choixDenominateurs)
     const a = randint(1, 9) * randint(-1, 1, 0)
@@ -195,12 +199,13 @@ export default class ExerciceSommesAlgebriquesDeFractions2nde extends Exercice {
     const f1 = fraction(a, denominateurs[0])
     const f2 = fraction(b, denominateurs[1])
 
-    const texte = `$${f1.texFSD} ${signe} ${f2.texFraction}$`
+    const texte = `$${lettre}=${f1.texFSD} ${signe} ${f2.texFraction}$`
     const { texteCorr, resultat } = this.calculSommeOuDifferenceDeDeuxFractions(
       f1,
       f2,
       signe,
       simplifier,
+      lettre,
     )
     const correctionAlternative =
       f1.estEntiere && f2.estEntiere
@@ -212,6 +217,7 @@ $${f1.texFractionSimplifiee} ${signe} ${ecritureParentheseSiMoins(f2.texFraction
   uneSommeOuDifferenceDUnEntierEtDUneFraction(
     choixDenominateurs: string,
     simplifier: boolean,
+    lettre: string,
   ) {
     const denominateurs = this.choixDenominateurs(choixDenominateurs)
     const a = randint(1, 9) * randint(-1, 1, 0)
@@ -220,12 +226,13 @@ $${f1.texFractionSimplifiee} ${signe} ${ecritureParentheseSiMoins(f2.texFraction
     const f1 = fraction(a, 1)
     const f2 = fraction(b, denominateurs[0])
 
-    const texte = `$${f1.texFSD} ${signe} ${f2.texFraction}$`
+    const texte = `$${lettre}=${f1.texFSD} ${signe} ${f2.texFraction}$`
     const { texteCorr, resultat } = this.calculSommeOuDifferenceDeDeuxFractions(
       f1,
       f2,
       signe,
       simplifier,
+      lettre,
     )
     return { texte, texteCorr, resultat }
   }
@@ -237,6 +244,7 @@ $${f1.texFractionSimplifiee} ${signe} ${ecritureParentheseSiMoins(f2.texFraction
     signe1: string,
     signe2: string,
     simplifier: boolean,
+    lettre: string,
   ): { texteCorr: string; resultat: FractionEtendue } {
     const resultat1 =
       signe1 === '+' ? f1.sommeFraction(f2) : f1.differenceFraction(f2)
@@ -245,7 +253,7 @@ $${f1.texFractionSimplifiee} ${signe} ${ecritureParentheseSiMoins(f2.texFraction
         ? resultat1.sommeFraction(f3)
         : resultat1.differenceFraction(f3)
 
-    let calcul = `\\begin{aligned}${f1.texFSD} ${signe1} ${f2.texFraction} ${signe2} ${f3.texFraction}&=`
+    let calcul = `\\begin{aligned}${lettre}&=${f1.texFSD} ${signe1} ${f2.texFraction} ${signe2} ${f3.texFraction}\\\\\n&=`
     const cm = ppcmListe([f1.den, f2.den, f3.den])
     if (cm === f1.den && cm === f2.den && cm === f3.den) {
       if ([signe1, signe2].every((s) => s === '+')) {
@@ -281,6 +289,7 @@ $${f1.texFractionSimplifiee} ${signe} ${ecritureParentheseSiMoins(f2.texFraction
   uneSommeOuDifferenceDeTroisFractions(
     choixDenominateurs: string,
     simplifier: boolean,
+    lettre: string,
   ) {
     const denominateurs = this.choixDenominateurs(choixDenominateurs)
     const a = randint(1, 9) * randint(-1, 1, 0)
@@ -292,7 +301,7 @@ $${f1.texFractionSimplifiee} ${signe} ${ecritureParentheseSiMoins(f2.texFraction
     const f2 = fraction(b, denominateurs[1])
     const f3 = fraction(c, denominateurs[2])
 
-    const texte = `$${f1.texFSD} ${signe1} ${f2.texFraction} ${signe2} ${f3.texFraction}$`
+    const texte = `$${lettre}=${f1.texFSD} ${signe1} ${f2.texFraction} ${signe2} ${f3.texFraction}$`
     const { texteCorr, resultat } = this.calculSommeTroisFractions(
       f1,
       f2,
@@ -300,6 +309,7 @@ $${f1.texFractionSimplifiee} ${signe} ${ecritureParentheseSiMoins(f2.texFraction
       signe1,
       signe2,
       simplifier,
+      lettre,
     )
     return { texte, texteCorr, resultat }
   }
@@ -307,6 +317,7 @@ $${f1.texFractionSimplifiee} ${signe} ${ecritureParentheseSiMoins(f2.texFraction
   uneSommeOuDifferenceDeQuatreFractions(
     choixDenominateurs: string,
     simplifier: boolean,
+    lettre: string,
   ) {
     const denominateurs = this.choixDenominateurs(choixDenominateurs)
     const a = randint(1, 9, denominateurs[0]) * randint(-1, 1, 0)
@@ -321,7 +332,7 @@ $${f1.texFractionSimplifiee} ${signe} ${ecritureParentheseSiMoins(f2.texFraction
     const f3 = fraction(c, denominateurs[2]).simplifie()
     const f4 = fraction(d, denominateurs[3]).simplifie()
 
-    const texte = `$${f1.texFSD} ${signe1} ${ecritureParentheseSiMoins(f2.texFraction)} ${signe2} ${ecritureParentheseSiMoins(f3.texFraction)} ${signe3} ${ecritureParentheseSiMoins(f4.texFraction)}$`
+    const texte = `$${lettre}=${f1.texFSD} ${signe1} ${ecritureParentheseSiMoins(f2.texFraction)} ${signe2} ${ecritureParentheseSiMoins(f3.texFraction)} ${signe3} ${ecritureParentheseSiMoins(f4.texFraction)}$`
     const cm = ppcmListe([f1.den, f2.den, f3.den, f4.den])
     const resultat1 =
       signe1 === '+' ? f1.sommeFraction(f2) : f1.differenceFraction(f2)
@@ -334,7 +345,7 @@ $${f1.texFractionSimplifiee} ${signe} ${ecritureParentheseSiMoins(f2.texFraction
         ? resultat2.sommeFraction(f4)
         : resultat2.differenceFraction(f4)
 
-    let calcul = `\\begin{aligned}${f1.texFSD} ${signe1} ${ecritureParentheseSiMoins(f2.texFraction)} ${signe2} ${ecritureParentheseSiMoins(f3.texFraction)} ${signe3} ${ecritureParentheseSiMoins(f4.texFraction)}&=`
+    let calcul = `\\begin{aligned}${lettre}&=${f1.texFSD} ${signe1} ${ecritureParentheseSiMoins(f2.texFraction)} ${signe2} ${ecritureParentheseSiMoins(f3.texFraction)} ${signe3} ${ecritureParentheseSiMoins(f4.texFraction)}\\\\\n&=`
     calcul += `${f1.reduire(cm / f1.den).texFSD}${signe1}${ecritureParentheseSiMoins(
       f2.reduire(cm / f2.den).texFraction,
     )}${signe2}${ecritureParentheseSiMoins(f3.reduire(cm / f3.den).texFraction)}${signe3}${ecritureParentheseSiMoins(f4.reduire(cm / f4.den).texFraction)}\\\\\n`
@@ -378,12 +389,14 @@ $${f1.texFractionSimplifiee} ${signe} ${ecritureParentheseSiMoins(f2.texFraction
       let texte = ''
       let texteCorr = ''
       let resultat: FractionEtendue | null = null
+      const lettre = lettreDepuisChiffre(i + 1)
       switch (choixTypeDeQuestion[i]) {
         case '1':
           ;({ texte, texteCorr, resultat } =
             this.uneSommeOuDifferenceDeDeuxFractions(
               choixDenominateurs[i],
               simplifier,
+              lettre,
             ))
           break
         case '2':
@@ -391,6 +404,7 @@ $${f1.texFractionSimplifiee} ${signe} ${ecritureParentheseSiMoins(f2.texFraction
             this.uneSommeOuDifferenceDUnEntierEtDUneFraction(
               choixDenominateurs[i],
               simplifier,
+              lettre,
             ))
           break
         case '3':
@@ -398,6 +412,7 @@ $${f1.texFractionSimplifiee} ${signe} ${ecritureParentheseSiMoins(f2.texFraction
             this.uneSommeOuDifferenceDeTroisFractions(
               choixDenominateurs[i],
               simplifier,
+              lettre,
             ))
           break
         case '4':
@@ -406,6 +421,7 @@ $${f1.texFractionSimplifiee} ${signe} ${ecritureParentheseSiMoins(f2.texFraction
             this.uneSommeOuDifferenceDeQuatreFractions(
               choixDenominateurs[i],
               simplifier,
+              lettre,
             ))
           break
       }
