@@ -15,8 +15,9 @@ import MetaExercice from './MetaExerciceCan'
  */
 
 export type ExerciceModule = {
-  default: new () => Exercice
+  default: (new () => Exercice) & { interactifTypeModule?: string }
   refs?: Record<string, string[]>
+  interactifType?: string
 }
 
 type CategoryEntry = { loader: () => Promise<ExerciceModule>; ref: string }
@@ -235,6 +236,13 @@ export function createAutomatismesCanExercice(config: AutomatismesCanConfig) {
           const cached = loadedClassCache.get(e.ref)
           if (cached) return Promise.resolve(cached)
           return e.loader().then((m) => {
+            // `interactifType` est un export de module : seul
+            // `mathaleaLoadExerciceFromUuid` le recopie sur l'instance. Ici les
+            // sous-exercices sont construits directement, on le porte donc sur
+            // la classe pour que `MetaExerciceCan` puisse le lire.
+            if (m.interactifType != null) {
+              m.default.interactifTypeModule = m.interactifType
+            }
             loadedClassCache.set(e.ref, m.default)
             return m.default
           })
