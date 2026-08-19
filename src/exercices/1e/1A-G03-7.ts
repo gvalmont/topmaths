@@ -105,7 +105,7 @@ Les droites $(OR)$ et $(CP)$ sont parallèles.<br>
 On donne $OR=${longueurOR}\\text{ cm}$, $CP=${longueurCP}\\text{ cm}$ et $OC=${longueurOC}\\text{ cm}$.<br>
 Quelle est la longueur du segment $[ZO]$ ?`
 
-    this.correction = `Dans les triangles $ZOR$ et $ZCP$, les points $Z$, $O$, $C$ et $Z$, $R$, $P$ sont alignés et les droites $(OR)$ et $(CP)$ sont parallèles.<br>
+    this.correction = `Dans les triangles $ZOR$ et $ZCP$, les points $Z$, $O$ et $C$ sont alignés, ainsi que les points $Z$, $R$ et $P$. Les droites $(OR)$ et $(CP)$ sont parallèles.<br>
 D'après le théorème de Thalès :
 $\\dfrac{ZO}{ZC}=\\dfrac{OR}{CP}$.<br>
 On pose $ZO=x$. Comme $OC=${longueurOC}\\text{ cm}$, on a $ZC=x+${longueurOC}$.<br>
