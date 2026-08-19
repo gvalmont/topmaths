@@ -108,6 +108,8 @@ Chaque réponse peut fournir `value`, `compare` et `options`. Les valeurs métie
 
 Les index sans entrée dans `autoCorrection` sont ignorés : un exercice peut donc mélanger des questions interactives et des questions sans réponse attendue (démonstration, rédaction, justification), y compris au milieu de la liste. Ces questions ne sont ni vérifiées ni comptées dans le score. Sans ce filtrage, l'index sans réponse tomberait sur le format `mathlive` par défaut et déclencherait l'erreur « Vérification MathLive appelée sur une question sans réponse » de `getQuestionData()` dans `src/lib/interactif/mathLiveVerifications.ts`.
 
+Exception de compatibilité : si l'exercice porte encore `interactifType = 'custom'`, les questions sans `formatInteractif` explicite sont corrigées comme des questions `custom` historiques, via `correctionInteractive(i)`. Les questions qui déclarent leur propre `autoCorrection[i].formatInteractif` gardent en revanche leur dispatch question par question : un même exercice legacy peut donc mélanger une question `custom` et une question corrigée par le `verifQuestion()` d'un custom element.
+
 Avant le dispatch, les formats historiques compatibles sont normalisés vers leur custom element :
 
 | Format historique  | Custom element terminal |
@@ -139,6 +141,7 @@ Les QCM n'installent plus de listener de validation depuis `propositionsQcm()` :
 | `MetaInteractif2d`             | Routé vers `MetaInteractif2dElement.verifQuestion()` dans `src/lib/customElements/MetaInteractif2dElement.ts`                                                                |
 | `meta-interactif-2d`           | `MetaInteractif2dElement.verifQuestion()` dans `src/lib/customElements/MetaInteractif2dElement.ts`                                                                           |
 | `qcm`                          | Routé vers `MathaleaQcmElement.verifQuestion()` dans `src/lib/customElements/MathaleaQcm.ts`                                                                                 |
+| `custom`                       | Appelle `exercice.correctionInteractive(i)` pour cette question uniquement ; sert de pont de compatibilité pour les anciens exercices custom                                 |
 | `mathalea-qcm`                 | `MathaleaQcmElement.verifQuestion()` dans `src/lib/customElements/MathaleaQcm.ts`                                                                                            |
 | `mathalea-branching-qcm`       | `MathaleaBranchingQcmElement.verifQuestion()` dans `src/lib/customElements/MathaleaBranchingQcm.ts`, vérification pondérée du choix et de la justification affichée          |
 | `echiquier-probleme`           | `EchiquierProblemeElement.verifQuestion()` dans `src/lib/customElements/EchiquierProblemeElement.ts`, vérification des grandeurs, des objets, puis du type et de l'opération |
@@ -333,14 +336,14 @@ Par défaut, `verifQuestion()` compare l'état de tous les objets à la liste at
 
 ### Nombre de points maximum
 
-`pointsMaxExercice(exercice)` donne le nombre de points que l'exercice peut rapporter, **avant** toute saisie de l'élève. Il somme les `pointsMaxQuestion()` de chaque entrée non nulle de `autoCorrection`, en déléguant au custom element qui corrige la question (hook statique `pointsMaxQuestion()` de `MathaleaCustomElement`, résolu via `mathaleaCustomElementsRegistry` comme dans `exerciceInteractif()`).
+`pointsMaxExercice(exercice)` donne le nombre de points que l'exercice peut rapporter, **avant** toute saisie de l'élève. Il somme les `pointsMaxQuestion()` de chaque entrée non nulle de `autoCorrection`, en déléguant au custom element qui corrige la question (hook statique `pointsMaxQuestion()` de `MathaleaCustomElement`, résolu via `mathaleaCustomElementsRegistry` comme dans `exerciceInteractif()`). Pour un exercice encore marqué `interactifType = 'custom'`, les questions sans entrée `autoCorrection` valent 1 point par compatibilité, mais les questions qui déclarent un `formatInteractif` gardent leur barème propre.
 
 Le calcul est possible sans réponse parce que les fonctions de barème ne dépendent que du nombre de champs : `pointsMaxDuBareme(bareme, nbChamps)` les appelle avec une liste de champs tous justes et lit le second terme du couple `[points, maximum]` retourné.
 
 - une question vaut **1 point** par défaut, ce qui couvre tous les composants à réponse unique ;
 - `fill-in-the-blank`, `tableau-mathlive` et `multi-mathfield` comptent leurs champs (`champN`, `LxCy`, noms de champs) et leur appliquent le barème de la question — un texte à trous corrigé en `toutPourUnPoint` vaut donc 1 point, le même corrigé en `toutAUnPoint` vaut un point par trou ;
 - `relier-etiquettes` compte un point par lien attendu ;
-- un exercice `interactifType = 'custom'` vaut `nbQuestions` points, comme les compte `verifExerciceCustom()`.
+- une question `custom` historique vaut **1 point** par défaut, comme l'ancien comptage de `correctionInteractive(i)`.
 
 Un composant dont une question peut rapporter plusieurs points doit donc surcharger `pointsMaxQuestion()` pour rester cohérent avec le `score.nbReponses` que retourne son `verifQuestion()`.
 
