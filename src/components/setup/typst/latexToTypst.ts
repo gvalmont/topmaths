@@ -132,9 +132,83 @@ export const MATHALEA_FIGURE_HELPERS = `#let mathalea-label(x, y, body, angle: 0
   }
 ]`
 
-/** Import du paquet taskize (mise en colonnes des propositions de QCM) */
+/**
+ * Import du paquet taskize (mise en colonnes des questions et des
+ * propositions de QCM). `tasks` est importée sous le nom `taskize-tasks` :
+ * `MATHALEA_TASKS_HELPER` redéfinit `tasks` par-dessus (voir ce helper).
+ */
 export const TASKIZE_IMPORT =
-  '#import "@preview/taskize:0.2.8": tasks, tasks-setup'
+  '#import "@preview/taskize:0.2.8": tasks as taskize-tasks, tasks-setup, is-inline-content, format-label'
+
+/**
+ * Enrobage de `tasks` : aligne le numéro d'une question sur la première
+ * ligne de son énoncé, même quand celui-ci contient un bloc (propositions de
+ * QCM, figure, tableau).
+ *
+ * taskize sait déjà le faire quand l'énoncé tient entièrement en ligne : il
+ * pose alors l'étiquette sur la première ligne du texte, donc sur sa ligne
+ * de base. Sinon il met l'étiquette et l'énoncé dans deux cellules alignées
+ * par le haut : une fraction en display (toutes le sont, voir le
+ * `#show math.frac` du préambule) creuse la première ligne du texte, dont la
+ * ligne de base descend sans que le numéro suive — c'est le décalage visible
+ * sur les QCM à fractions.
+ *
+ * L'enrobage ne change rien aux listes dont toutes les questions sont
+ * purement en ligne (elles sont passées telles quelles au paquet). Pour les
+ * autres, il numérote lui-même : chaque question est décalée du retrait de
+ * l'étiquette (`pad`), et son numéro, posé en tête de la première ligne dans
+ * une boîte de largeur nulle, est ramené dans la marge ainsi libérée
+ * (`move`) — il partage donc la ligne du texte, quelle que soit sa hauteur.
+ * Une question commençant par un bloc n'a pas de ligne de texte où poser le
+ * numéro : elle garde la présentation en deux cellules.
+ *
+ * Conséquence : dans une liste ainsi numérotée, la syntaxe de fusion de
+ * colonnes de taskize (`+ () ...`, `+ (2) ...`) n'est plus reconnue, le
+ * repère n'étant plus en tête du contenu de l'item. MathALÉA ne l'émet pas.
+ */
+export const MATHALEA_TASKS_HELPER = `#let mathalea-items-questions(corps) = {
+  if type(corps) != content { return () }
+  if corps.func() == enum.item { return (corps.body,) }
+  if corps.has("children") { return corps.children.map(mathalea-items-questions).flatten() }
+  ()
+}
+#let mathalea-question-numerotee(etiquette, largeur, ecart, corps) = {
+  let retrait = largeur + ecart
+  let boite = box(width: largeur, { h(1fr); etiquette })
+  let en-ligne = if is-inline-content(corps) { true } else if type(corps) == content and corps.has("children") {
+    is-inline-content(corps.children.at(0, default: none))
+  } else { false }
+  if en-ligne {
+    pad(left: retrait, { box(width: 0pt, move(dx: -retrait, boite)); corps })
+  } else {
+    grid(columns: (largeur, 1fr), column-gutter: ecart, align(top, boite), corps)
+  }
+}
+// numéro aligné sur la première ligne de l'énoncé, y compris quand celui-ci
+// contient un bloc (QCM, figure) : taskize alignerait alors par le haut
+#let tasks(
+  label: auto, start: 1, label-width: auto, indent-after-label: auto,
+  label-weight: "regular", ..args, corps,
+) = context {
+  let items = mathalea-items-questions(corps)
+  if label in (auto, none) or items.len() == 0 or items.all(is-inline-content) {
+    taskize-tasks(
+      label: label, start: start, label-width: label-width,
+      indent-after-label: indent-after-label, label-weight: label-weight, ..args, corps,
+    )
+  } else {
+    let etiquettes = range(items.len()).map(i => text(weight: label-weight, format-label(start + i, label)))
+    let largeur = if label-width == auto { calc.max(..etiquettes.map(e => measure(e).width)) } else { label-width }
+    let ecart = if indent-after-label == auto { 0.4em } else { indent-after-label }
+    let numerotees = items.enumerate().map(((i, item)) => enum.item(
+      mathalea-question-numerotee(etiquettes.at(i), largeur, ecart, item),
+    ))
+    taskize-tasks(
+      label: none, label-width: 0pt, indent-after-label: 0pt, start: start,
+      ..args, numerotees.join(),
+    )
+  }
+}`
 
 /**
  * Import du paquet vartable (tableaux de signes/variations, `#tabvar(...)`),

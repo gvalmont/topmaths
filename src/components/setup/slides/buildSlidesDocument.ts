@@ -4,6 +4,7 @@ import {
   MATHALEA_FIT_HELPER,
   MATHALEA_QCM_HELPERS,
   MATHALEA_SCHEMA_HELPER,
+  MATHALEA_TASKS_HELPER,
   TASKIZE_IMPORT,
   htmlToTypst,
 } from '../typst/latexToTypst'
@@ -368,7 +369,7 @@ export function buildSlidesDocument(
   lines.push('')
   if (usesTasks || options.autoVerticalSpacing) {
     lines.push('// ----- Paquets -----')
-    if (usesTasks) lines.push(TASKIZE_IMPORT)
+    if (usesTasks) lines.push(TASKIZE_IMPORT, MATHALEA_TASKS_HELPER)
     if (options.autoVerticalSpacing) lines.push(BREATHER_IMPORT)
     lines.push('')
   }

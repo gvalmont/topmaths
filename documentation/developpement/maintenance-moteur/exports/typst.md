@@ -337,6 +337,42 @@ Particularités de la conversion des formules (`latexMathToTypst`) :
 - la mise en évidence `{\color{...}\boldsymbol{...}}` de `miseEnEvidence` est convertie en `#text(fill: rgb("..."))` ;
 - en cas d'échec de conversion, la formule est insérée verbatim entre guillemets.
 
+### Numérotation des questions
+
+Les questions d'un exercice (et les propositions d'un QCM) sont mises en
+colonnes par le paquet [`taskize`](https://typst.app/universe/package/taskize)
+(`#tasks(...)`). Le paquet aligne le numéro sur la **première ligne** de
+l'énoncé tant que celui-ci tient entièrement en ligne ; sinon il place le
+numéro et l'énoncé dans deux cellules alignées par le **haut**. Comme toutes
+les fractions sont rendues en display (`#show math.frac: it => math.display(it)`),
+la première ligne d'un énoncé à fraction est plus haute que la normale : sa
+ligne de base descend, et le numéro semble « décollé » vers le haut. Le cas
+est fréquent (QCM : un texte, puis le bloc des propositions ; énoncé suivi
+d'une figure ou d'un tableau).
+
+`MATHALEA_TASKS_HELPER` (`latexToTypst.ts`) corrige ce décalage en
+redéfinissant `tasks` par-dessus celle du paquet, importée sous le nom
+`taskize-tasks` (l'import et le helper vont donc toujours ensemble, dans les
+trois vues Typst). Le code généré, lui, ne change pas : les listes de
+questions s'écrivent toujours `#tasks(columns: exN-colonnes, label: "1.", …)`.
+
+- Une liste dont toutes les questions tiennent en ligne est passée telle
+  quelle au paquet (aucun changement de rendu).
+- Sinon, l'enrobage numérote lui-même : chaque question est décalée du
+  retrait de son étiquette (`pad`), et le numéro, posé en tête de la première
+  ligne dans une boîte de largeur nulle, est ramené dans la marge ainsi
+  libérée (`move`) — il partage la ligne du texte, donc sa ligne de base,
+  quelle que soit la hauteur de celle-ci. Le paquet ne s'occupe alors plus
+  que des colonnes (`label: none`).
+- Une question qui **commence** par un bloc (figure, tableau) n'a pas de
+  ligne de texte où poser le numéro : elle garde la présentation en deux
+  cellules alignées par le haut.
+
+Conséquence à connaître : dans une liste ainsi numérotée, la syntaxe de fusion
+de colonnes de `taskize` (`+ () …`, `+ (2) …`) n'est plus reconnue, le repère
+n'étant plus en tête du contenu de l'item. MathALÉA ne l'émet pas, mais du
+code modifié à la main pourrait l'utiliser.
+
 ### Figures SVG
 
 Les figures SVG (mathalea2d) sont **embarquées dans le document** : chaque figure est déclarée en tête de fichier (`#let fig-N = image(bytes("<svg...>"), format: "svg", width: ...pt)`) et référencée dans le corps. Le document reste autonome (il compile aussi avec le CLI `typst`). La largeur reprend celle de la figure (96 px CSS = 72 pt). `sanitizeSvg` corrige au passage le SVG pour le parseur XML strict de Typst (point-virgule parasite entre attributs généré par `lib/2d/textes.ts`, entités HTML indéfinies en XML, attributs dupliqués).
