@@ -118,7 +118,7 @@ export function createAutomatismesCanExercice(config: AutomatismesCanConfig) {
       this.besoinFormulaire2CaseACocher = [
         'Afficher la référence de chaque question',
       ]
-      this.besoinFormulaire3CaseACocher = ['Garder la sélection d\'exercices']
+      this.besoinFormulaire3CaseACocher = ["Garder la sélection d'exercices"]
       this.besoinFormulaireNombresCategories = clampedCategoriesForm
       this.comment = ''
     }
@@ -181,7 +181,7 @@ export function createAutomatismesCanExercice(config: AutomatismesCanConfig) {
         'Afficher la référence de chaque question',
       ]
       this.besoinFormulaire2Texte = false
-      this.besoinFormulaire3CaseACocher = ['Garder la sélection d\'exercices']
+      this.besoinFormulaire3CaseACocher = ["Garder la sélection d'exercices"]
       this.besoinFormulaireNombresCategories = clampedCategoriesForm
       this.nbQuestionsModifiable = false
 
@@ -209,7 +209,7 @@ export function createAutomatismesCanExercice(config: AutomatismesCanConfig) {
           'Afficher la référence de chaque question',
         ]
         this.besoinFormulaire2Texte = false
-        this.besoinFormulaire3CaseACocher = ['Garder la sélection d\'exercices']
+        this.besoinFormulaire3CaseACocher = ["Garder la sélection d'exercices"]
         this.besoinFormulaireNombresCategories = clampedCategoriesForm
         this.nbQuestionsModifiable = false
       }

@@ -21,7 +21,12 @@ import { getDistracteurs } from '../lib/mathalea'
 import { Complexe } from '../lib/mathFonctions/Complexe'
 import { combinaisonListes, shuffle } from '../lib/outils/arrayOutils'
 import { range1 } from '../lib/outils/nombres'
-import type { AnswerValueType, AutoCorrection, Valeur } from '../lib/types'
+import type {
+  AnswerValueType,
+  AutoCorrection,
+  ClickFigures,
+  Valeur,
+} from '../lib/types'
 import {
   interactivityTypeToCustomElementFormat,
   isMathaleaCustomElementFormat,
@@ -139,14 +144,13 @@ function remapLegacyFieldIds(
 }
 
 function decodeHtmlAttribute(value: string) {
-  return value
-    .replace(
-      /&(quot|amp|lt|gt);/g,
-      (_match, entity: string) =>
-        ({ quot: '"', amp: '&', lt: '<', gt: '>' })[
-          entity as 'quot' | 'amp' | 'lt' | 'gt'
-        ],
-    )
+  return value.replace(
+    /&(quot|amp|lt|gt);/g,
+    (_match, entity: string) =>
+      ({ quot: '"', amp: '&', lt: '<', gt: '>' })[
+        entity as 'quot' | 'amp' | 'lt' | 'gt'
+      ],
+  )
 }
 
 function encodeHtmlAttribute(value: string) {
@@ -215,6 +219,14 @@ function remapCustomElementQuestionIds(
       `feedbackEx${destinationExercice}Q${destinationIndex}`,
     )
     .replaceAll(
+      `tabMathliveEx${sourceExercice}Q0`,
+      `tabMathliveEx${destinationExercice}Q${destinationIndex}`,
+    )
+    .replaceAll(
+      `Ex${sourceExercice}Q0`,
+      `Ex${destinationExercice}Q${destinationIndex}`,
+    )
+    .replaceAll(
       'resultatCheckEx0Q0',
       `resultatCheckEx${destinationExercice}Q${destinationIndex}`,
     )
@@ -222,6 +234,11 @@ function remapCustomElementQuestionIds(
       'feedbackEx0Q0',
       `feedbackEx${destinationExercice}Q${destinationIndex}`,
     )
+    .replaceAll(
+      'tabMathliveEx0Q0',
+      `tabMathliveEx${destinationExercice}Q${destinationIndex}`,
+    )
+    .replaceAll('Ex0Q0', `Ex${destinationExercice}Q${destinationIndex}`)
 
   if (tag === 'meta-interactif-2d') {
     html = html.replace(
@@ -230,6 +247,27 @@ function remapCustomElementQuestionIds(
     )
   }
   return html
+}
+
+function remapClickFigures(
+  figures: ClickFigures | undefined,
+  sourceNumeroExercice: number,
+  destinationNumeroExercice: number,
+  destinationIndex: number,
+): ClickFigures | undefined {
+  if (!Array.isArray(figures)) return undefined
+  return figures.map((figure) => ({
+    ...figure,
+    id: figure.id
+      .replaceAll(
+        `Ex${sourceNumeroExercice}Q0`,
+        `Ex${destinationNumeroExercice}Q${destinationIndex}`,
+      )
+      .replaceAll(
+        'Ex0Q0',
+        `Ex${destinationNumeroExercice}Q${destinationIndex}`,
+      ),
+  }))
 }
 
 function injectSimpleQuestionCustomElement({
@@ -915,14 +953,30 @@ export default class MetaExercice extends Exercice {
 
               this.listeQuestions[indexQuestion] =
                 Question.consigne + questionHtml
-              handleAnswers(
-                this,
-                indexQuestion,
-                Question.autoCorrection[0].valeur as Valeur,
-                {
-                  formatInteractif: tag as InteractivityType,
-                },
-              )
+              if (tag === 'clique-figure') {
+                this.autoCorrection[indexQuestion] = {
+                  ...(Question.autoCorrection[0] ?? {}),
+                  formatInteractif: tag,
+                }
+                this.cliqueFiguresArray ??= []
+                const figures = remapClickFigures(
+                  Question.cliqueFiguresArray?.[0],
+                  Question.numeroExercice ?? 0,
+                  this.numeroExercice ?? 0,
+                  indexQuestion,
+                )
+                if (figures != null)
+                  this.cliqueFiguresArray[indexQuestion] = figures
+              } else {
+                handleAnswers(
+                  this,
+                  indexQuestion,
+                  Question.autoCorrection[0].valeur as Valeur,
+                  {
+                    formatInteractif: tag as InteractivityType,
+                  },
+                )
+              }
             } else if (qcmAutoCorrection == null) {
               this.listeQuestions[indexQuestion] = remapLegacyFieldIds(
                 this.listeQuestions[indexQuestion],
