@@ -18,7 +18,7 @@ export const dateDePublication = '11/11/2025'
 export const uuid = '3833f'
 
 export const refs = {
-  'fr-fr': ['1A-F01-3'],
+  'fr-fr': ['1A-F01-3', '2A-F1-3'],
   'fr-ch': [''],
 }
 export const interactifReady = true

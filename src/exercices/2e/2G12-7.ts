@@ -20,7 +20,7 @@ export const uuid = 'df171'
 export const titre =
   'Placer un point dans un repère orthogonal, normé ou quelconque'
 export const refs = {
-  'fr-fr': ['2G12-7'],
+  'fr-fr': ['2G12-7', '2A-G2-3'],
   'fr-ch': ['3G90-2'],
 }
 
