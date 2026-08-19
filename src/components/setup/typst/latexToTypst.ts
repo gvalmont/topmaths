@@ -165,6 +165,12 @@ export const TASKIZE_IMPORT =
  * Conséquence : dans une liste ainsi numérotée, la syntaxe de fusion de
  * colonnes de taskize (`+ () ...`, `+ (2) ...`) n'est plus reconnue, le
  * repère n'étant plus en tête du contenu de l'item. MathALÉA ne l'émet pas.
+ *
+ * Contournement temporaire : le correctif a été proposé en amont (paquet MIT,
+ * nathan-ed/typst-package-taskize). Dès qu'une version du paquet aligne le
+ * numéro dans ce cas, retirer cet enrobage plutôt que de l'empiler dessus —
+ * marche à suivre dans `documentation/developpement/maintenance-moteur/
+ * exports/typst.md`, section « Numérotation des questions ».
  */
 export const MATHALEA_TASKS_HELPER = `#let mathalea-items-questions(corps) = {
   if type(corps) != content { return () }
