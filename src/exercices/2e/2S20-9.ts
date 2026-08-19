@@ -289,15 +289,15 @@ export default class VocabulaireStatistiqueTableur extends Exercice {
     let texte = `${scenario.introduction}<br>Les données recueillies sont présentées dans le tableur ci-dessous.<br><br>${tableur}<br>`
     if (this.interactif) {
       texte += addMultiMathfield(this, 0, {
-        dataTemplate: `1. Quelle est la population étudiée ? %{population}<br>
-          2. Quel est le caractère étudié ? %{caractere}<br>
-          S'agit-il d'un caractère qualitatif ou quantitatif ? %{nature}<br>
-          3. Quelle formule peut-on saisir dans la cellule C2, puis tirer vers le bas pour compléter la colonne C ? %{formule}`,
+        dataTemplate: `1. Quelle est la population étudiée ? %{champ1}<br>
+          2. Quel est le caractère étudié ? %{champ2}<br>
+          S'agit-il d'un caractère qualitatif ou quantitatif ? %{champ3}<br>
+          3. Quelle formule peut-on saisir dans la cellule C2, puis tirer vers le bas pour compléter la colonne C ? %{champ4}`,
         dataOptions: {
-          population: { choices: choixPopulation },
-          caractere: { choices: choixCaractere },
-          nature: { choices: choixNature },
-          formule: { choices: choixFormule },
+          champ1: { choices: choixPopulation },
+          champ2: { choices: choixCaractere },
+          champ3: { choices: choixNature },
+          champ4: { choices: choixFormule },
         },
       })
     } else {
@@ -311,10 +311,10 @@ export default class VocabulaireStatistiqueTableur extends Exercice {
         this,
         0,
         {
-          population: { value: scenario.population },
-          caractere: { value: scenario.caractere },
-          nature: { value: scenario.nature },
-          formule: { value: formule },
+          champ1: { value: scenario.population },
+          champ2: { value: scenario.caractere },
+          champ3: { value: scenario.nature },
+          champ4: { value: formule },
         },
         { formatInteractif: 'multi-mathfield' },
       )
