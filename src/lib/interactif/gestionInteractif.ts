@@ -43,6 +43,7 @@ import '../customElements/ObjetsCliquablesElement'
 import '../customElements/FractionCliquableElement'
 import '../customElements/MathaleaLabyrintheElement'
 import '../customElements/MathaleaBranchingQcm'
+import '../customElements/MetaCustomElement'
 
 export function isClickFiguresArray(
   figures: Figure[] | ClickFigures[],

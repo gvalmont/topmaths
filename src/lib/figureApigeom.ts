@@ -64,7 +64,12 @@ export default function figureApigeom({
   if (!exercice.interactif) {
     figure.divUserMessage.style.display = 'none'
   }
-  const idApigeom = `apigeomEx${exercice.numeroExercice}F${i}${idAddendum}`
+  // Quand l'exercice est réhébergé comme une question d'un méta-exercice, ses
+  // questions sont décalées : c'est l'index dans l'exercice affiché qui doit
+  // servir aux identifiants DOM, sinon deux sous-exercices produisent les mêmes
+  // (`...F0`) et les clés de `answers` ne correspondent plus à la question.
+  const indexQuestionAffichee = i + (exercice.indexQuestionHote ?? 0)
+  const idApigeom = `apigeomEx${exercice.numeroExercice}F${indexQuestionAffichee}${idAddendum}`
   figure.id = idApigeom
 
   // Auto-enregistrement de la figure dans le champ dédié figuresApiGeom pour
@@ -252,7 +257,7 @@ export default function figureApigeom({
         id: `${idApigeom}-setup`,
         action: setupAction,
       },
-    )}<span id="resultatCheckEx${exercice.numeroExercice}Q${i}"></span><div class="ml-2 py-2 text-coopmaths-warn-darkest dark:text-coopmathsdark-warn-darkest" id="feedbackEx${exercice.numeroExercice}Q${i}"></div>`
+    )}<span id="resultatCheckEx${exercice.numeroExercice}Q${indexQuestionAffichee}"></span><div class="ml-2 py-2 text-coopmaths-warn-darkest dark:text-coopmathsdark-warn-darkest" id="feedbackEx${exercice.numeroExercice}Q${indexQuestionAffichee}"></div>`
   }
   return `<div class="m-6 leading-none" id="${idApigeom}"></div>${DomReadyActionElement.create(
     {
