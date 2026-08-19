@@ -491,12 +491,9 @@ function preprocessTex(tex: string): string {
   // tex2typst ne supporte pas l'argument optionnel — on le supprime
   output = output.replace(/\\\\\s*\[[^\]]*\]/g, '\\\\')
   // \phantom / \vphantom n'ont pas d'équivalent direct : on les remplace par une espace.
-  // Le contenu peut avoir un niveau d'imbrication (ex. \phantom{\frac{a}{b}})
-  // → [^{}]|\{[^{}]*\} capture les groupes imbriqués
-  output = output.replace(
-    /\\(?:phantom|hphantom|vphantom)\s*\{(?:[^{}]|\{[^{}]*\})*\}/g,
-    '\\;',
-  )
+  // Le contenu peut être imbriqué sur plusieurs niveaux (ex. \phantom{\sqrt{\dfrac{a}{b}}})
+  // → on scanne les accolades via `readBraced` plutôt qu'une regex limitée à un niveau
+  output = replacePhantomCommands(output)
   // Contenu LaTeX avec un niveau d'imbrication de {} (ex. \xrightarrow{+x~\text{min}})
   const B1 = '(?:[^{}]|\\{[^{}]*\\})*'
   // \xrightarrow[dessous]{dessus} → \overset/\underset autour de la flèche
@@ -884,6 +881,32 @@ function readBraced(
     }
   }
   return null
+}
+
+/**
+ * Remplace \phantom{…}, \hphantom{…} et \vphantom{…} par une espace, quel que
+ * soit le niveau d'imbrication de leur contenu (ex. \phantom{\sqrt{\dfrac{a}{b}}}) :
+ * une regex à un seul niveau de `{}` laisse passer les cas plus profonds tels
+ * quels vers tex2typst, qui émet alors `phantom` comme variable inconnue.
+ */
+function replacePhantomCommands(text: string): string {
+  const marker = /\\(?:phantom|hphantom|vphantom)\s*\{/g
+  let output = ''
+  let index = 0
+  let match: RegExpExecArray | null
+  while ((match = marker.exec(text)) != null) {
+    const openIndex = match.index + match[0].length - 1
+    const arg = readBraced(text, openIndex)
+    if (arg == null) {
+      marker.lastIndex = match.index + match[0].length
+      continue
+    }
+    output += text.slice(index, match.index) + '\\;'
+    index = arg.end
+    marker.lastIndex = arg.end
+  }
+  output += text.slice(index)
+  return output
 }
 
 function splitTopLevel(text: string, separator: string): string[] {
