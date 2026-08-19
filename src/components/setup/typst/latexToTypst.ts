@@ -1070,15 +1070,28 @@ function stripCellLatex(cell: string): string {
     .trim()
 }
 
+/**
+ * Déballe une cellule entièrement enrobée par `\text{...}`, répété autant de
+ * fois que nécessaire : `tableauColonneLigne` enrobe automatiquement d'un
+ * `\text{}` supplémentaire tout en-tête/pied de tableau textuel (paramètre
+ * `latex` à `false`) même si la valeur d'origine était déjà elle-même un
+ * `\text{...}` (ex. `5I1E.ts`, en-têtes passés comme `'\\text{Scratch}'`) ;
+ * un seul niveau de déballage laissait alors un `\text{Scratch}` résiduel,
+ * non reconnu par `convertCellTextFormatting` et donc affiché tel quel.
+ */
 function unwrapWholeTextCommand(cell: string): string | null {
-  const trimmed = cell.trim()
-  if (!trimmed.startsWith('\\text')) return null
-  const commandEnd = '\\text'.length
-  let cursor = commandEnd
-  while (/\s/.test(trimmed[cursor] ?? '')) cursor++
-  const arg = readBraced(trimmed, cursor)
-  if (arg == null || arg.end !== trimmed.length) return null
-  return arg.value
+  let current = cell.trim()
+  let unwrapped = false
+  for (;;) {
+    if (!current.startsWith('\\text')) break
+    let cursor = '\\text'.length
+    while (/\s/.test(current[cursor] ?? '')) cursor++
+    const arg = readBraced(current, cursor)
+    if (arg == null || arg.end !== current.length) break
+    current = arg.value.trim()
+    unwrapped = true
+  }
+  return unwrapped ? current : null
 }
 
 /** Couleurs nommées CSS/LaTeX absentes de Typst, converties en hexadécimal */
@@ -1192,13 +1205,74 @@ function convertCellTextFormatting(text: string): string {
   return output
 }
 
-function latexTableCell(cell: string): TypstTableCell {
+/**
+ * Convertit le contenu texte d'une cellule `\text{...}`, en tenant compte
+ * d'un éventuel bloc Scratch déjà rendu en SVG par `renderScratchBlocksToSvg`
+ * (ex. la colonne « Scratch » de `tableauColonneLigne`, qui embarque le
+ * balisage HTML produit par `scratchblock()` directement dans une cellule de
+ * tableau LaTeX au lieu du HTML traité par `htmlToTypst`) : sans ce
+ * traitement, le SVG (et son wrapper `<div class="scratchblocks">`) fuyait
+ * tel quel, échappé en texte littéral illisible par `convertCellTextFormatting`.
+ * Les autres balises restantes (le wrapper) sont retirées, leur contenu
+ * n'ayant pas d'équivalent Typst utile hors du SVG lui-même.
+ */
+function convertCellTextContent(text: string, figures?: string[]): string {
+  const svgRe = /<svg[\s\S]*?<\/svg>/gi
+  if (!svgRe.test(text)) return convertCellTextFormatting(text)
+  svgRe.lastIndex = 0
+  let output = ''
+  let cursor = 0
+  let match: RegExpExecArray | null
+  while ((match = svgRe.exec(text)) != null) {
+    const before = text.slice(cursor, match.index).replace(/<\/?[^>]+>/g, '')
+    output += convertCellTextFormatting(before)
+    if (figures != null) {
+      figures.push(svgToTypstImage(match[0], TABLE_CELL_FIGURE_MAX_WIDTH_PT))
+      const figureIndex = figures.length
+      const figureName = `fig-${figureIndex}`
+      // mathalea-figure-block (plutôt que mathalea-fit) : la figure reçoit
+      // les mêmes contrôles de zoom/alignement dans la palette de mise en
+      // page que les figures mathalea2d (voir mathalea2dContainerToTypst)
+      output += `#mathalea-figure-block(${figureIndex}, ${figureName}-align, ${figureName}-zoom, ${figureName})`
+    } else {
+      output += missingBox('figure non convertie')
+    }
+    cursor = svgRe.lastIndex
+  }
+  output += convertCellTextFormatting(
+    text.slice(cursor).replace(/<\/?[^>]+>/g, ''),
+  )
+  return output
+}
+
+/**
+ * Un contenu `\text{...}` composé d'une formule brute, non délimitée par
+ * `$...$` (ex. `\text{(6 \times 2) - 7}`, cas de la colonne « Calculs avec
+ * priorité » de `5I1E.ts` : `tableauColonneLigne`, en mode `latex: false`,
+ * enrobe automatiquement chaque cellule texte d'un `\text{}`, y compris
+ * celles qui contiennent déjà une formule). Un `\` suivi d'une commande
+ * LaTeX n'a de sens qu'en mode mathématique (`\times`, `\div`, `\frac`…) ;
+ * sa présence signale donc une formule plutôt que du texte à échapper
+ * littéralement. Ignoré dès qu'un `\textbf`/`\textit` apparaît : un en-tête
+ * mettant du texte en forme reste traité comme du texte, quitte à laisser
+ * une éventuelle formule qui y serait mêlée telle quelle (cas non rencontré
+ * en pratique, plus sûr qu'un faux positif sur du texte mis en forme).
+ */
+function looksLikeUnwrappedMath(text: string): boolean {
+  if (/\\text(bf|it)\s*\{/.test(text)) return false
+  return /\\[a-zA-Z]+/.test(text)
+}
+
+function latexTableCell(cell: string, figures?: string[]): TypstTableCell {
   const { color, rest } = extractCellColor(cell)
   const stripped = stripCellLatex(rest)
   if (stripped.length === 0) return { body: '', fill: color }
   const textContent = unwrapWholeTextCommand(stripped)
   if (textContent != null) {
-    return { body: convertCellTextFormatting(textContent), fill: color }
+    if (!/<svg/i.test(textContent) && looksLikeUnwrappedMath(textContent)) {
+      return { body: `$${latexMathToTypst(textContent)}$`, fill: color }
+    }
+    return { body: convertCellTextContent(textContent, figures), fill: color }
   }
   return { body: `$${latexMathToTypst(stripped)}$`, fill: color }
 }
@@ -1331,7 +1405,10 @@ function renderTypstTable(
   return `#table(\n  ${[...header, ...strokes, ...cells].join(',\n  ')},\n)`
 }
 
-function latexVisualTableToTypst(tex: string): string | null {
+function latexVisualTableToTypst(
+  tex: string,
+  figures?: string[],
+): string | null {
   const table = findLatexTableEnvironment(tex)
   if (table == null || !shouldConvertAsVisualTable(table)) return null
 
@@ -1340,7 +1417,8 @@ function latexVisualTableToTypst(tex: string): string | null {
   const hlineYs = new Set<number>()
   for (const item of items) {
     if (item.type === 'hline') hlineYs.add(rows.length)
-    else rows.push(item.cells.map(latexTableCell))
+    else
+      rows.push(item.cells.map((cell) => latexTableCell(cell, figures)))
   }
   const maxColumns = Math.max(0, ...rows.map((row) => row.length))
   if (maxColumns === 0) return null
@@ -1404,14 +1482,18 @@ function htmlTableToTypst(table: HTMLTableElement, figures?: string[]): string {
   return renderTypstTable(aligns, rows, 4, vlines, hlineYs)
 }
 
-function latexSegmentToTypst(tex: string, display: boolean): string {
+function latexSegmentToTypst(
+  tex: string,
+  display: boolean,
+  figures?: string[],
+): string {
   // Un `&` brut (séparateur de colonnes `array`/`tabular`/`tblr`/`tabularx`)
   // peut avoir traversé un aller-retour DOM (`template.innerHTML`, utilisé par
   // les `protect*Containers` pour repérer figures/QCM/tableaux/KaTeX) et se
   // retrouver ré-échappé en `&amp;` avant d'atteindre ce segment : aucun texte
   // LaTeX destiné à ce convertisseur ne contient légitimement `&amp;`.
   tex = tex.replace(/&amp;/g, '&')
-  const table = latexVisualTableToTypst(tex)
+  const table = latexVisualTableToTypst(tex, figures)
   if (table != null) return table
   const converted = latexMathToTypst(tex)
   if (converted.length === 0) return ''
@@ -1686,15 +1768,24 @@ function normalizeOverlayLatex(tex: string): {
  */
 const MAX_FIGURE_WIDTH_PT = 380
 
-/** Dimensions (pt) d'une figure, mises à l'échelle pour ne pas dépasser `MAX_FIGURE_WIDTH_PT` */
+/**
+ * Plafond de largeur (pt) d'une image embarquée dans une cellule de tableau
+ * (ex. un bloc Scratch de `tableauColonneLigne`, voir `convertCellTextContent`) :
+ * bien plus étroit que `MAX_FIGURE_WIDTH_PT`, qui laisserait la colonne
+ * `auto` de `#table` s'élargir jusqu'à la largeur pleine page.
+ */
+const TABLE_CELL_FIGURE_MAX_WIDTH_PT = 130
+
+/** Dimensions (pt) d'une figure, mises à l'échelle pour ne pas dépasser `maxWidthPt` */
 function scaledFigureDimensions(
   widthPx: number,
   heightPx: number,
+  maxWidthPt: number = MAX_FIGURE_WIDTH_PT,
 ): { widthPt: number; heightPt: number } {
   let widthPt = widthPx * 0.75
   let heightPt = heightPx * 0.75
-  if (widthPt > MAX_FIGURE_WIDTH_PT) {
-    const factor = MAX_FIGURE_WIDTH_PT / widthPt
+  if (widthPt > maxWidthPt) {
+    const factor = maxWidthPt / widthPt
     widthPt *= factor
     heightPt *= factor
   }
@@ -1705,9 +1796,17 @@ function scaledFigureDimensions(
  * Expression Typst affichant un SVG mathalea2d embarqué dans le code
  * (le document reste autonome : il compile aussi avec le CLI typst).
  * La largeur reprend celle de la figure (96 px CSS = 72 pt), plafonnée à
- * `MAX_FIGURE_WIDTH_PT`.
+ * `maxWidthPt` (`MAX_FIGURE_WIDTH_PT`, largeur pleine page, par défaut).
+ * Un plafond plus étroit est nécessaire pour une image embarquée dans une
+ * cellule de tableau (`#table` dimensionne chaque colonne `auto` sur sa
+ * largeur intrinsèque, mesurée avant tout redimensionnement à l'exécution
+ * type `mathalea-fit`/`mathalea-figure-block` : sans un plafond déjà étroit
+ * ici, la colonne s'élargit pour accueillir l'image à sa taille pleine page).
  */
-export function svgToTypstImage(svg: string): string {
+export function svgToTypstImage(
+  svg: string,
+  maxWidthPt: number = MAX_FIGURE_WIDTH_PT,
+): string {
   const cleaned = sanitizeSvg(svg)
   // SVG with zero width or height is rejected by Typst's parser
   const h = cleaned.match(/<svg[^>]*?\sheight="([\d.]+)"/i)
@@ -1719,7 +1818,11 @@ export function svgToTypstImage(svg: string): string {
   let widthPt = ''
   if (width != null) {
     const heightPx = h != null ? parseFloat(h[1]) : parseFloat(width[1])
-    const scaled = scaledFigureDimensions(parseFloat(width[1]), heightPx)
+    const scaled = scaledFigureDimensions(
+      parseFloat(width[1]),
+      heightPx,
+      maxWidthPt,
+    )
     widthPt = `, width: ${scaled.widthPt.toFixed(1)}pt`
   }
   return `image(bytes(${typstStringLiteral(cleaned)}), format: "svg"${widthPt})`
@@ -2426,13 +2529,13 @@ export function htmlToTypst(
   text = text.replace(/~\$€\$/g, '~\\euro ')
   text = text.replace(/\$€\$/g, '\\euro ')
   text = text.replace(/\\\[([\s\S]+?)\\\]/g, (_, tex: string) =>
-    protect(latexSegmentToTypst(tex, true)),
+    protect(latexSegmentToTypst(tex, true, figures)),
   )
   text = text.replace(/\\\(([\s\S]+?)\\\)/g, (_, tex: string) =>
-    protect(latexSegmentToTypst(tex, false)),
+    protect(latexSegmentToTypst(tex, false, figures)),
   )
   text = text.replace(/\$\$([\s\S]+?)\$\$/g, (_, tex: string) =>
-    protect(latexSegmentToTypst(tex, true)),
+    protect(latexSegmentToTypst(tex, true, figures)),
   )
   // Traite $...$ avant de supprimer les $ adjacents : cela évite que
   // `$\bullet$ $f(x)$` soit fusionné en `$\bulletf(x)$` (bulletf = variable inconnue).
@@ -2442,7 +2545,7 @@ export function htmlToTypst(
   // (ex. `\text{ m$^2$/h}`, unité avec exposant) fait partie du bloc et ne
   // le referme pas.
   text = replaceBalancedInlineMath(text, (tex) => {
-    const converted = latexSegmentToTypst(tex, false)
+    const converted = latexSegmentToTypst(tex, false, figures)
     return converted.length > 0 ? protect(converted) : ''
   })
   // Supprime les $ orphelins restants (ne contenant que des espaces)
