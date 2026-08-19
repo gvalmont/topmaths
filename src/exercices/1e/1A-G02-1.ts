@@ -70,7 +70,7 @@ ${mathalea2d(
   ),
   objets,
 )}
-Son périmètre est égal à `
+Son périmètre est égal à :`
 
     this.reponses = [
       `$${perimetreEnCm}\\text{ cm}$`,
@@ -85,7 +85,7 @@ Le périmètre d'un quadrilatère est la somme des longueurs de ses quatre côt�
 $\\begin{aligned}
 P_{ABCD}&=AB+BC+CD+DA\\\\
 &=${abEnCm}+${bcEnCm}+${cdEnCm}+${daEnCm}\\\\
-&=${miseEnEvidence(`${perimetreEnCm}\\text{ cm}`)}.
+&=${miseEnEvidence(`${perimetreEnCm}\\text{ cm}`)}
 \\end{aligned}$`
   }
 
