@@ -400,10 +400,11 @@ On a donc $${NomS}_0 = ${texNombre(u0, 0)}$.`
               ${scriptPython(
                 `def seuil():
  ${NomS} = ${u0}
-  n = 0
-  while ${NomS} < ${b}:
-   ${NomS} = ${cm}*${NomS}
-  return n`,
+ n = 0
+ while ${NomS} < ${b}:
+  ${NomS} = ${cm}*${NomS}
+  n = n+1
+ return n`,
                 6,
               )}<br>
     Déterminer la valeur affichée par cet algorithme et interpréter le résultat précédent
