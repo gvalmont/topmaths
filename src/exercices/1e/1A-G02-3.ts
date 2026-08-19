@@ -74,7 +74,7 @@ ${mathalea2d(
   ),
   objets,
 )}
-Son aire est égale à `
+Son aire est égale à :`
 
     this.reponses = [
       `$${aireEnCm2}\\text{ cm}^2$`,

@@ -47,7 +47,7 @@ export default class VolumeBouleQcm extends ExerciceQcmA {
         : coefficientAvecAireSphere
 
     this.enonce = `Une boule a pour rayon $${rayon}\\text{ cm}$.<br>
-La valeur exacte de son volume est `
+La valeur exacte de son volume est :`
 
     this.reponses = [
       `$${coefficientVolume}\\pi\\text{ cm}^3$`,
