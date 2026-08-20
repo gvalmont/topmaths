@@ -1,7 +1,11 @@
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
-import { handleAnswers } from '../../lib/interactif/gestionInteractif'
+import { setReponse } from '../../lib/interactif/gestionInteractif'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
-import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
+import {
+  choice,
+  combinaisonListes,
+  shuffle,
+} from '../../lib/outils/arrayOutils'
 import {
   ecritureAlgebrique,
   ecritureParentheseSiNegatif,
@@ -17,7 +21,7 @@ import {
 } from '../../modules/outils'
 import Exercice from '../Exercice'
 
-export const dateDeModifImportante = '20/08/2026'
+export const dateDeModifImportante = '25/03/2026'
 
 export const titre =
   "Déterminer l'image d'un nombre par une fonction d'après sa forme algébrique"
@@ -29,22 +33,19 @@ export const amcType = 'AMCNum'
 /**
  * Déterminer l'image d'un nombre par une fonction d'après sa forme algébrique
  *
- * * 1 : Fonction affine
- * * 2 : Polynôme du second degré
- * * 3 : Quotient
- * * 4 : Produit
- * * 5 : Mélange
- * La saisie accepte plusieurs nombres séparés par des tirets (ex : 1-1-2)
- * pour choisir précisément la quantité de fonctions de chaque type.
+ * * Niveau 1 : Fonctions affines
+ * * Niveau 2 : Polynôme du second degré
+ * * Niveau 3 : Quotients de fonctions affines
+ * * Niveau 4 : (ax+b)(cx+d)
+ * * Niveau 5 : Mélange
  * @author Rémi Angot
  * Ajout du choix du type de question par Guillaume Valmont le 23/01/2025
- * Paramétrage fin de la quantité de chaque type de fonction le 20/08/2026
  */
-export const uuid = '2aed8'
+export const uuid = '082e7'
 
 export const refs = {
-  'fr-fr': ['3F12-2', '2F13-4'],
-  'fr-ch': ['10FA1B-9', '11FA1A-1', '1mF1-9'],
+  'fr-fr': [],
+  'fr-ch': ['NR'],
 }
 export default class ImageFonctionAlgebrique extends Exercice {
   constructor() {
@@ -52,16 +53,10 @@ export default class ImageFonctionAlgebrique extends Exercice {
 
     this.nbQuestions = 5
 
-    this.besoinFormulaireTexte = [
-      'Types de fonctions',
-      [
-        'Nombres séparés par des tirets. Répéter un nombre augmente la quantité de fonctions de ce type :',
-        '1 : Fonction affine',
-        '2 : Polynôme du second degré',
-        '3 : Quotient',
-        '4 : Produit',
-        '5 : Mélange',
-      ].join('\n'),
+    this.besoinFormulaireNumerique = [
+      'Niveau de difficulté',
+      5,
+      '1 : Fonctions affines\n2 : Polynôme du second degré\n3 : Quotient\n4 : Produit \n5 : Mélange',
     ]
     this.sup = 5
 
@@ -77,6 +72,7 @@ export default class ImageFonctionAlgebrique extends Exercice {
   }
 
   nouvelleVersion() {
+    let situationsDisponibles: string[] = []
     const affines = ['ax+b', 'ax-b', '-ax+b', '-ax-b']
     const polynome2ndDegre = [
       'ax2+bx+c',
@@ -89,25 +85,32 @@ export default class ImageFonctionAlgebrique extends Exercice {
     ]
     const quotient = ['a/cx+d', 'ax+b/cx+d']
     const produit = ['(ax+b)(cx+d)', '(ax+b)2']
-    const situationsParType: Record<string, string[]> = {
-      affine: affines,
-      polynome: polynome2ndDegre,
-      quotient,
-      produit,
+    if (this.sup === 1) {
+      situationsDisponibles = affines
     }
-
-    const listeTypesDeFonctions = gestionnaireFormulaireTexte({
-      saisie: this.sup,
-      min: 1,
-      max: 4,
-      defaut: 5,
-      melange: 5,
-      nbQuestions: this.nbQuestions,
-      listeOfCase: ['affine', 'polynome', 'quotient', 'produit'],
-    })
-    const listeSituations = listeTypesDeFonctions.map((type) =>
-      choice(situationsParType[type]),
-    )
+    if (this.sup === 2) {
+      situationsDisponibles = polynome2ndDegre
+    } else if (this.sup === 3) {
+      situationsDisponibles = quotient
+    } else if (this.sup === 4) {
+      situationsDisponibles = produit
+    } else {
+      situationsDisponibles = []
+      for (let i = 0; i < Math.ceil(this.nbQuestions / 4); i++) {
+        let melange = [
+          choice(affines),
+          choice(polynome2ndDegre),
+          choice(quotient),
+          choice(produit),
+        ]
+        melange = shuffle(melange)
+        situationsDisponibles.push(...melange)
+      }
+    }
+    const listeSituations =
+      this.sup < 5
+        ? combinaisonListes(situationsDisponibles, this.nbQuestions)
+        : situationsDisponibles
 
     const signesDeX = combinaisonListes([true, false], this.nbQuestions)
 
@@ -140,65 +143,57 @@ export default class ImageFonctionAlgebrique extends Exercice {
         case 'ax+b':
           expression = `${a}x+${b}`
           texteCorr = `$${nomdef}(${x})=${a}\\times ${ecritureParentheseSiNegatif(x)}+${b}=${a * x}+${b}=${a * x + b}$`
-          handleAnswers(this, i, { reponse: { value: a * x + b } })
+          setReponse(this, i, a * x + b)
           break
         case 'ax-b':
           expression = `${a}x-${b}`
           texteCorr = `$${nomdef}(${x})=${a}\\times ${ecritureParentheseSiNegatif(x)}-${b}=${a * x}-${b}=${a * x - b}$`
-          handleAnswers(this, i, { reponse: { value: a * x - b } })
+          setReponse(this, i, a * x - b)
           break
         case '-ax+b':
           expression = `-${a}x+${b}`
           texteCorr = `$${nomdef}(${x})=-${a}\\times ${ecritureParentheseSiNegatif(x)}+${b}=${-1 * a * x}+${b}=${-1 * a * x + b}$`
-          handleAnswers(this, i, { reponse: { value: -1 * a * x + b } })
+          setReponse(this, i, -1 * a * x + b)
           break
         case '-ax-b':
           expression = `-${a}x-${b}`
           texteCorr = `$${nomdef}(${x})=-${a}\\times ${ecritureParentheseSiNegatif(x)}-${b}=${-1 * a * x}-${b}=${-1 * a * x - b}$`
-          handleAnswers(this, i, { reponse: { value: -1 * a * x - b } })
+          setReponse(this, i, -1 * a * x - b)
           break
         case 'ax2+bx+c':
           expression = `${a}x^2+${b}x+${c}`
           texteCorr = `$${nomdef}(${x})=${a}\\times ${ecritureParentheseSiNegatif(x)}^2+${b}\\times ${ecritureParentheseSiNegatif(x)}+${c}=${a}\\times${x * x}${ecritureAlgebrique(b * x)}+${c}=${a * x * x}${ecritureAlgebrique(b * x)}+${c}=${a * x * x + b * x + c}$`
-          handleAnswers(this, i, { reponse: { value: a * x * x + b * x + c } })
+          setReponse(this, i, a * x * x + b * x + c)
           break
         case 'ax2+c':
           expression = `${a}x^2+${c}`
           texteCorr = `$${nomdef}(${x})=${a}\\times ${ecritureParentheseSiNegatif(x)}^2+${c}=${a}\\times${x * x}+${c}=${a * x * x}+${c}=${a * x * x + c}$`
-          handleAnswers(this, i, { reponse: { value: a * x * x + c } })
+          setReponse(this, i, a * x * x + c)
           break
         case 'ax2+bx':
           expression = `${a}x^2+${b}x`
           texteCorr = `$${nomdef}(${x})=${a}\\times ${ecritureParentheseSiNegatif(x)}^2+${b}\\times ${ecritureParentheseSiNegatif(x)}=${a}\\times${x * x}${ecritureAlgebrique(b * x)}=${a * x * x}${ecritureAlgebrique(b * x)}=${a * x * x + b * x}$`
-          handleAnswers(this, i, { reponse: { value: a * x * x + b * x } })
+          setReponse(this, i, a * x * x + b * x)
           break
         case '-ax2+bx-c':
           expression = `-${a}x^2+${b}x-${c}`
           texteCorr = `$${nomdef}(${x})=-${a}\\times ${ecritureParentheseSiNegatif(x)}^2+${b}\\times ${ecritureParentheseSiNegatif(x)}-${c}=-${a}\\times${x * x}${ecritureAlgebrique(b * x)}-${c}=${-1 * a * x * x}${ecritureAlgebrique(b * x)}-${c}=${-1 * a * x * x + b * x - c}$`
-          handleAnswers(this, i, {
-            reponse: { value: -1 * a * x * x + b * x - c },
-          })
+          setReponse(this, i, -1 * a * x * x + b * x - c)
           break
         case '-ax2-bx-c':
           expression = `-${a}x^2-${b}x-${c}`
           texteCorr = `$${nomdef}(${x})=-${a}\\times ${ecritureParentheseSiNegatif(x)}^2-${b}\\times ${ecritureParentheseSiNegatif(x)}-${c}=-${a}\\times${x * x}${ecritureAlgebrique(-1 * b * x)}-${c}=${-1 * a * x * x}${ecritureAlgebrique(-1 * b * x)}-${c}=${-1 * a * x * x - b * x - c}$`
-          handleAnswers(this, i, {
-            reponse: { value: -1 * a * x * x - b * x - c },
-          })
+          setReponse(this, i, -1 * a * x * x - b * x - c)
           break
         case '-ax2-bx+c':
           expression = `-${a}x^2-${b}x+${c}`
           texteCorr = `$${nomdef}(${x})=-${a}\\times ${ecritureParentheseSiNegatif(x)}^2-${b}\\times ${ecritureParentheseSiNegatif(x)}+${c}=-${a}\\times${x * x}${ecritureAlgebrique(-1 * b * x)}+${c}=${-1 * a * x * x}${ecritureAlgebrique(-1 * b * x)}+${c}=${-1 * a * x * x - b * x + c}$`
-          handleAnswers(this, i, {
-            reponse: { value: -1 * a * x * x - b * x + c },
-          })
+          setReponse(this, i, -1 * a * x * x - b * x + c)
           break
         case '-ax2-bx':
           expression = `-${a}x^2-${b}x`
           texteCorr = `$${nomdef}(${x})=-${a}\\times ${ecritureParentheseSiNegatif(x)}^2-${b}\\times ${ecritureParentheseSiNegatif(x)}=-${a}\\times${x * x}${ecritureAlgebrique(-1 * b * x)}=${-1 * a * x * x}${ecritureAlgebrique(-1 * b * x)}=${-1 * a * x * x - b * x}$`
-          handleAnswers(this, i, {
-            reponse: { value: -1 * a * x * x - b * x },
-          })
+          setReponse(this, i, -1 * a * x * x - b * x)
           break
         case 'a/cx+d': {
           d = randint(1, 11)
@@ -212,11 +207,8 @@ export default class ImageFonctionAlgebrique extends Exercice {
             fractionReponse.estIrreductible && a > 0 && c * x + d > 0
               ? '$'
               : `=${fractionReponse.texFractionSimplifiee}$`
-          handleAnswers(this, i, {
-            reponse: {
-              value: fraction(a, c * x + d),
-              options: { fractionEgale: true },
-            },
+          setReponse(this, i, fraction(a, c * x + d), {
+            formatInteractif: 'fractionEgale',
           })
           break
         }
@@ -235,11 +227,8 @@ export default class ImageFonctionAlgebrique extends Exercice {
             fractionReponse.estIrreductible && a * x + b > 0 && c * x + d > 0
               ? '$'
               : `=${fractionReponse.texFractionSimplifiee}$`
-          handleAnswers(this, i, {
-            reponse: {
-              value: fraction(a * x + b, c * x + d),
-              options: { fractionEgale: true },
-            },
+          setReponse(this, i, fraction(a * x + b, c * x + d), {
+            formatInteractif: 'fractionEgale',
           })
           break
         }
@@ -252,9 +241,7 @@ export default class ImageFonctionAlgebrique extends Exercice {
 
           expression = `(${a}x${ecritureAlgebrique(b)})(${c}x${ecritureAlgebrique(d)})`
           texteCorr = `$${nomdef}(${x})=\\left(${a}\\times${ecritureParentheseSiNegatif(x)}${ecritureAlgebrique(b)}\\right)\\left(${c}\\times${ecritureParentheseSiNegatif(x)}${ecritureAlgebrique(d)}\\right)=(${a * x}${ecritureAlgebrique(b)})(${c * x}${ecritureAlgebrique(d)})=${a * x + b}\\times${ecritureParentheseSiNegatif(c * x + d)}=${(a * x + b) * (c * x + d)}$`
-          handleAnswers(this, i, {
-            reponse: { value: (a * x + b) * (c * x + d) },
-          })
+          setReponse(this, i, (a * x + b) * (c * x + d))
           break
         case '(ax+b)2':
           a = randint(-4, 4, [0, -1, 1])
@@ -265,9 +252,7 @@ export default class ImageFonctionAlgebrique extends Exercice {
 
           expression = `(${a}x${ecritureAlgebrique(b)})^2`
           texteCorr = `$${nomdef}(${x})=\\left(${a}\\times${ecritureParentheseSiNegatif(x)}${ecritureAlgebrique(b)}\\right)^2=(${a * x}${ecritureAlgebrique(b)})^2=${ecritureParentheseSiNegatif(a * x + b)}^2=${(a * x + b) * (a * x + b)}$`
-          handleAnswers(this, i, {
-            reponse: { value: (a * x + b) * (a * x + b) },
-          })
+          setReponse(this, i, (a * x + b) * (a * x + b))
           break
       }
 
@@ -275,7 +260,7 @@ export default class ImageFonctionAlgebrique extends Exercice {
       if (listeTypeDeQuestions[i] === 1) {
         texte += `Calculer $${nomdef}(${x})$.`
       } else {
-        texte += `Calculer l'image de $${x}$ par la fonction $${nomdef}$.`
+        texte += `Calculer l'image de ${x} par la fonction $${nomdef}$.`
       }
       texte += ajouteChampTexteMathLive(this, i, KeyboardType.clavierDeBase)
 
