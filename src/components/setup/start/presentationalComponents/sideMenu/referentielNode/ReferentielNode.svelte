@@ -295,7 +295,7 @@
           const isFlashA = keyA.toLowerCase().includes('-flash')
           const isFlashB = keyB.toLowerCase().includes('-flash')
           if (isFlashA !== isFlashB) return isFlashA ? -1 : 1
-          return keyA.localeCompare(keyB, 'fr')
+          return keyA.localeCompare(keyB, 'fr', { numeric: true })
         })
       }
       // niveau feuille : terminaisons d'examens
