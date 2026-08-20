@@ -55,7 +55,7 @@ export default class ProbaConcretOld extends Exercice {
       this.nbQuestions,
     )
 
-    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50; ) {
+    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       const a = randint(1, 20)
       let texte = ''
       let texteCorr = ''

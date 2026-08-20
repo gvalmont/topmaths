@@ -2601,27 +2601,36 @@
     "titre": "Calculer le taux d'évolution global à partir des taux d'évolution successifs. Calculer un taux d'évolution réciproque"
   },
   "2S2": {
-    "titre": "Statistique descriptive"
+    "titre": "Croisement de deux variables qualitatives"
   },
   "2S20": {
-    "titre": "Les indicateurs statistiques"
+    "titre": "Tableau croisé d’effectifs"
   },
   "2S21": {
-    "titre": "Décrire les différences entre deux séries statistiques"
-  },
-  "2S22": {
-    "titre": "Lire et comprendre une fonction écrite en Python renvoyant la moyenne (m), l'écart type (s) et la proportion d'éléments dans [m-2s;m+2s]"
+    "titre": "Fréquence conditionnelle, fréquence marginale"
   },
   "2S3": {
-    "titre": "Modéliser le hasard, calculer des probabilités"
+    "titre": "Statistique descriptive"
   },
   "2S30": {
-    "titre": "Calculer des probabilités dans des cas simples"
+    "titre": "Les indicateurs statistiques"
   },
   "2S31": {
-    "titre": "Utiliser des modèles théoriques de référence"
+    "titre": "Décrire les différences entre deux séries statistiques"
+  },
+  "2S32": {
+    "titre": "Lire et comprendre une fonction écrite en Python renvoyant la moyenne (m), l'écart type (s) et la proportion d'éléments dans [m-2s;m+2s]"
   },
   "2S4": {
+    "titre": "Modéliser le hasard, calculer des probabilités"
+  },
+  "2S40": {
+    "titre": "Calculer des probabilités dans des cas simples"
+  },
+  "2S41": {
+    "titre": "Utiliser des modèles théoriques de référence"
+  },
+  "2S5": {
     "titre": "Echantillonnage"
   },
   "2ZA": {
