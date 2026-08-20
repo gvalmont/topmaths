@@ -32,6 +32,7 @@ type Noeud = {
   isVisible: boolean
 }
 export default class ImageSpline extends ExerciceSimple {
+  compteur = 0
   spline!: Spline
   constructor() {
     super()
@@ -170,7 +171,8 @@ export default class ImageSpline extends ExerciceSimple {
         `Quelle est l'image de $${theSpline.x[antecedent]}$ ?
     ` + mathalea2d(figureOptions, objetsEnonce, o)
     }
-    const correctionFigureId = `can3F01CorrectionEx${this.numeroExercice ?? 0}Q0`
+    const questionId = this.compteur++
+    const correctionFigureId = `can3F01CorrectionEx${this.numeroExercice ?? 0}Q${questionId}`
     const objetsCorrection = [
       repere1,
       courbe1,
