@@ -212,6 +212,66 @@
   "can2G": {
     "titre": "Géométrie"
   },
+  "can2G1": {
+    "titre": "Les bases en géométrie"
+  },
+  "can2G10": {
+    "titre": "Définitions et propriétés de base en géométrie plane"
+  },
+  "can2G11": {
+    "titre": "Longueurs, angles, aires et volumes"
+  },
+  "can2G12": {
+    "titre": "Distance entre deux points. Coordonnées du milieu d'un segment"
+  },
+  "can2G13": {
+    "titre": "Traiter des problèmes d'optimisation"
+  },
+  "can2G2": {
+    "titre": "Les vecteurs"
+  },
+  "can2G20": {
+    "titre": "Définition - Translation - Relation de Chasles (année de transition)"
+  },
+  "can2G21": {
+    "titre": "Égalité et colinéarité de deux vecteurs. Notation $\\vec{u}$. Vecteur nul"
+  },
+  "can2G22": {
+    "titre": "Représentants d’un vecteur"
+  },
+  "can2G23": {
+    "titre": "Somme de vecteurs et produit d’un vecteur par un nombre réel"
+  },
+  "can2G24": {
+    "titre": "Représentation d’un vecteur comme combinaison de deux vecteurs non colinéaires"
+  },
+  "can2G25": {
+    "titre": "Base orthonormée. Coordonnées d’un vecteur. Norme d’un vecteur"
+  },
+  "can2G26": {
+    "titre": "Coordonnées d’un vecteur et d’une somme de vecteurs"
+  },
+  "can2G27": {
+    "titre": "Déterminant de deux vecteurs. Colinéarité et parallélisme"
+  },
+  "can2G28": {
+    "titre": "Caractérisation vectorielle du milieu d’un segment"
+  },
+  "can2G3": {
+    "titre": "Les droites du plan"
+  },
+  "can2G31": {
+    "titre": "Équations réduites de droite"
+  },
+  "can2G32": {
+    "titre": "Équations cartésiennes de droite"
+  },
+  "can2G33": {
+    "titre": "Établir alignement et parallélisme"
+  },
+  "can2G34": {
+    "titre": "Résoudre un système de deux équations linéaires à deux inconnues, déterminer le point d'intersection de deux droites sécantes"
+  },
   "can2L": {
     "titre": "Calcul littéral"
   },
@@ -2526,13 +2586,13 @@
     "titre": "Les bases en géométrie"
   },
   "2G10": {
-    "titre": "Connaître les définitions et propriétés de bases en géométrie plane"
+    "titre": "Définitions et propriétés de base en géométrie plane"
   },
   "2G11": {
-    "titre": "Calculer des longueurs, des angles, des aires et des volumes"
+    "titre": "Longueurs, angles, aires et volumes"
   },
   "2G12": {
-    "titre": "Calculer la distance entre deux points. Calculer les coordonnées du milieu d'un segment"
+    "titre": "Distance entre deux points. Coordonnées du milieu d'un segment"
   },
   "2G13": {
     "titre": "Traiter des problèmes d'optimisation"
@@ -2541,34 +2601,40 @@
     "titre": "Les vecteurs"
   },
   "2G20": {
-    "titre": "Représenter géométriquement des vecteurs"
+    "titre": "Définition - Translation - Relation de Chasles (année de transition)"
   },
   "2G21": {
-    "titre": "Construire géométriquement la somme de deux vecteurs"
+    "titre": "Égalité et colinéarité de deux vecteurs. Notation $\\vec{u}$. Vecteur nul"
   },
   "2G22": {
-    "titre": "Représenter un vecteur dont on connaît les coordonnées. Lire les coordonnées d'un vecteur"
+    "titre": "Représentants d’un vecteur"
   },
   "2G23": {
-    "titre": "Utiliser et connaître les translations définies par des vecteurs"
+    "titre": "Somme de vecteurs et produit d’un vecteur par un nombre réel"
   },
   "2G24": {
-    "titre": "Calculer les coordonnées d'une somme de vecteurs, d'un produit d'un vecteur par un nombre réel"
+    "titre": "Représentation d’un vecteur comme combinaison de deux vecteurs non colinéaires"
   },
   "2G25": {
-    "titre": "Caractériser alignement et parallélisme par la colinéarité de vecteurs"
+    "titre": "Base orthonormée. Coordonnées d’un vecteur. Norme d’un vecteur"
   },
   "2G26": {
-    "titre": "Résoudre des problèmes en utilisant la représentation la plus adaptée des vecteurs"
+    "titre": "Coordonnées d’un vecteur et d’une somme de vecteurs"
+  },
+  "2G27": {
+    "titre": "Déterminant de deux vecteurs. Colinéarité et parallélisme"
+  },
+  "2G28": {
+    "titre": "Caractérisation vectorielle du milieu d’un segment"
   },
   "2G3": {
-    "titre": "Représenter et caractériser les droites du plan"
+    "titre": "Les droites du plan"
   },
   "2G31": {
-    "titre": "Travailler avec les équations réduites de droite"
+    "titre": "Équations réduites de droite"
   },
   "2G32": {
-    "titre": "Travailler avec les équations cartésiennes de droite"
+    "titre": "Équations cartésiennes de droite"
   },
   "2G33": {
     "titre": "Établir alignement et parallélisme"
