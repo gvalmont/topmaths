@@ -96,10 +96,10 @@ export default class AutoQ11AGt2026 extends ExerciceQcmA {
         )}=${miseEnEvidence(texNombre((effectifsCumulesDecroissants[index] / total) * 100, 1) + `\\,\\%`)}$`
     } else if (question === `de moins de $${age}$ ans`) {
       index = agesMin.findIndex((el) => el === age)
-      sol = `$${texNombre((effectifsCumulesCroissants[index] / total) * 100, 1)}\\,\\%$`
+      sol = `$${texNombre((effectifsCumulesCroissants[index - 1] / total) * 100, 1)}\\,\\%$`
       dist1 = `$${texNombre((liste[index] / total) * 100, 1)}\\,\\%$`
       dist2 = `$${texNombre(
-        100 - (effectifsCumulesCroissants[index] / total) * 100,
+        100 - (effectifsCumulesCroissants[index - 1] / total) * 100,
         1,
       )}\\,\\%$`
       suiteCorrection = `la somme des pourcentages des classes d'âge inférieures à $${age}$ ans, soit :<br>
@@ -108,7 +108,7 @@ export default class AutoQ11AGt2026 extends ExerciceQcmA {
         .map((el, _i) => `${texNombre(el / 10, 1)}\\,\\%`)
         .join(
           '+',
-        )}=${miseEnEvidence(texNombre((effectifsCumulesCroissants[index] / total) * 100, 1) + `\\,\\%`)}$`
+        )}=${miseEnEvidence(texNombre((effectifsCumulesCroissants[index - 1] / total) * 100, 1) + `\\,\\%`)}$`
     } else if (question === `de plus de $${age}$ ans`) {
       index = agesMax.findIndex((el) => el === age)
       sol = `$${texNombre((effectifsCumulesDecroissants[index + 1] / total) * 100, 1)}\\,\\%$`
