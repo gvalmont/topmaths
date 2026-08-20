@@ -418,19 +418,19 @@ export default class Stat {
     // Ajout des étiquettes (valeurs numériques)
     if (valeursOn) {
       objetsToTrace.push(
-        latex2d(texNombre(boxplotData.min), minPoint.x, minPoint.y - 0.8, {
+        latex2d(texNombre(boxplotData.min), minPoint.x, minPoint.y - 0.45, {
           letterSize: 'scriptsize',
         }),
-        latex2d(texNombre(boxplotData.q1), q1Point.x, q1Point.y - 0.8, {
+        latex2d(texNombre(boxplotData.q1), q1Point.x, q1Point.y + 0.45, {
           letterSize: 'scriptsize',
         }),
-        latex2d(texNombre(boxplotData.q2), q2Point.x, q2Point.y - 0.8, {
+        latex2d(texNombre(boxplotData.q2), q2Point.x, q2Point.y - 0.45, {
           letterSize: 'scriptsize',
         }),
-        latex2d(texNombre(boxplotData.q3), q3Point.x, q3Point.y - 0.8, {
+        latex2d(texNombre(boxplotData.q3), q3Point.x, q3Point.y + 0.45, {
           letterSize: 'scriptsize',
         }),
-        latex2d(texNombre(boxplotData.max), maxPoint.x, maxPoint.y - 0.8, {
+        latex2d(texNombre(boxplotData.max), maxPoint.x, maxPoint.y - 0.45, {
           letterSize: 'scriptsize',
         }),
       )
