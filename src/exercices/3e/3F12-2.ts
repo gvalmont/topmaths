@@ -44,7 +44,7 @@ export const amcType = 'AMCNum'
 export const uuid = '082e7'
 
 export const refs = {
-  'fr-fr': ['3F12-2', '2F11-2'],
+  'fr-fr': ['3F12-2', '2F13-4'],
   'fr-ch': ['10FA1B-9', '11FA1A-1', '1mF1-9'],
 }
 export default class ImageFonctionAlgebrique extends Exercice {

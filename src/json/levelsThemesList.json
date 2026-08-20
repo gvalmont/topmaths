@@ -134,20 +134,80 @@
   "can2C": {
     "titre": "Calculs"
   },
-  "can2F": {
-    "titre": "Fonctions"
-  },
   "can2F1": {
-    "titre": "Généralités avec les fonctions"
+    "titre": "Généralités sur les fonctions"
+  },
+  "can2F10": {
+    "titre": "Utiliser les notations et le vocabulaire fonctionnels"
+  },
+  "can2F11": {
+    "titre": "Déterminer une image ou un antécédent par une fonction définie par un tableau de valeurs"
+  },
+  "can2F12": {
+    "titre": "Déterminer une image ou un antécédent par une fonction définie par une représentation graphique"
+  },
+  "can2F13": {
+    "titre": "Déterminer une image ou un antécédent par une fonction définie par une expression algébrique"
+  },
+  "can2F14": {
+    "titre": "Passer d'un mode de représentation d'une fonction à un autre"
+  },
+  "can2F15": {
+    "titre": "Recherche du domaine de définition"
+  },
+  "can2F16": {
+    "titre": "Modéliser un phénomène continu par une fonction"
+  },
+  "can2F17": {
+    "titre": "Résoudre des problèmes modélisés par des fonctions en utilisant un ou plusieurs modes de représentation"
+  },
+  "can2F1Q": {
+    "titre": "QCM"
   },
   "can2F2": {
-    "titre": "Fonctions affines"
+    "titre": "Se constituer un répertoire de fonctions de référence"
+  },
+  "can2F21": {
+    "titre": "Connaître les fonctions affines"
+  },
+  "can2F22": {
+    "titre": "Comparer et calculer des images en utilisant les fonctions de référence"
+  },
+  "can2F23": {
+    "titre": "Résoudre algébriquement ou graphiquement $f(x)=k$, $f(x)<k$ ou $f(x)>k$ avec $f$ fonction de référence"
   },
   "can2F3": {
-    "titre": "Fonctions de références"
+    "titre": "Représenter algébriquement et graphiquement les fonctions"
+  },
+  "can2F30": {
+    "titre": "Exploiter l'équation y=f(x) d'une courbe : appartenance, calcul de coordonnées"
+  },
+  "can2F31": {
+    "titre": "Modéliser par des fonctions des situations issues des mathématiques, des autres disciplines"
+  },
+  "can2F32": {
+    "titre": "Résoudre f(x)=k ou f(x)<k en choisissant une méthode adaptée"
+  },
+  "can2F33": {
+    "titre": "Résoudre une équation, une inéquation produit ou quotient, à l'aide d'un tableau de signes"
+  },
+  "can2F34": {
+    "titre": "Résoudre graphiquement ou avec un outil numérique, f(x)=g(x) ou f(x)<g(x)"
+  },
+  "can2F35": {
+    "titre": "Etudier la parité d'une fonction"
   },
   "can2F4": {
-    "titre": "Variations et signes d'une fonction"
+    "titre": "Étudier les variations et les extremums d'une fonction"
+  },
+  "can2F40": {
+    "titre": "Relier représentation graphique et tableau de variations"
+  },
+  "can2F41": {
+    "titre": "Utiliser les variations d'une fonction"
+  },
+  "can2F42": {
+    "titre": "Déterminer les extremums d'une fonction"
   },
   "can2G": {
     "titre": "Géométrie"
@@ -2523,21 +2583,24 @@
     "titre": "Utiliser les notations et le vocabulaire fonctionnels"
   },
   "2F11": {
-    "titre": "Passer d'un mode de représentation d'une fonction à un autre"
+    "titre": "Déterminer une image ou un antécédent par une fonction définie par un tableau de valeurs"
   },
   "2F12": {
-    "titre": "Déterminer, à partir de tous les modes de représentation, l'image d'un nombre"
+    "titre": "Déterminer une image ou un antécédent par une fonction définie par une représentation graphique"
   },
   "2F13": {
-    "titre": "Déterminer un antécédent à partir d'une représentation graphique ou d'un tableau de valeurs d'une fonction"
+    "titre": "Déterminer une image ou un antécédent par une fonction définie par une expression algébrique"
   },
   "2F14": {
-    "titre": "Recherche du domaine de définition"
+    "titre": "Passer d'un mode de représentation d'une fonction à un autre"
   },
   "2F15": {
-    "titre": "Modéliser un phénomène continu par une fonction"
+    "titre": "Recherche du domaine de définition"
   },
   "2F16": {
+    "titre": "Modéliser un phénomène continu par une fonction"
+  },
+  "2F17": {
     "titre": "Résoudre des problèmes modélisés par des fonctions en utilisant un ou plusieurs modes de représentation"
   },
   "2F1Q": {
@@ -2553,7 +2616,7 @@
     "titre": "Comparer et calculer des images en utilisant les fonctions de référence"
   },
   "2F23": {
-    "titre": "Résoudre algébriquement ou graphiquement  f(x)=k ou f(x)<k avec f fonction de référence"
+    "titre": "Résoudre algébriquement ou graphiquement $f(x)=k$, $f(x)<k$ ou $f(x)>k$ avec $f$ fonction de référence"
   },
   "2F3": {
     "titre": "Représenter algébriquement et graphiquement les fonctions"
