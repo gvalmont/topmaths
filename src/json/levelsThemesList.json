@@ -1397,6 +1397,72 @@
   "CM2I1D": {
     "titre": "Programmer la construction d'un chemin simple"
   },
+  "6Auto": {
+    "titre": "Automatismes"
+  },
+  "6AutoA1": {
+    "titre": "Comparer ou déterminer des aires sans recours à une unité"
+  },
+  "6AutoA2": {
+    "titre": "Connaître les unités d'aires et leur relations"
+  },
+  "6AutoE1": {
+    "titre": "Identifier les solides"
+  },
+  "6AutoF1": {
+    "titre": "Connaître et utiliser les fractions"
+  },
+  "6AutoF2": {
+    "titre": "Passer de l'écriture fractionnaire à l'écriture décimale"
+  },
+  "6AutoF3": {
+    "titre": "Calculer avec des fractions"
+  },
+  "6AutoG1": {
+    "titre": "Connaître le lexique et les codages de base en géométrie"
+  },
+  "6AutoG2": {
+    "titre": "Reconnaître un carré, un rectangle, un triangle"
+  },
+  "6AutoG3": {
+    "titre": "Reconnaître des axes de symétrie"
+  },
+  "6AutoG4": {
+    "titre": "Savoir coder/construire une figure"
+  },
+  "6AutoL1": {
+    "titre": "Connaître les préfixes et leur lien avec les unités de numération décimale"
+  },
+  "6AutoL2": {
+    "titre": "Convertir des longueurs dans une autre unité"
+  },
+  "6AutoL3": {
+    "titre": "Calculer des périmètres"
+  },
+  "6AutoN1": {
+    "titre": "Connaître les liens entre les fractions décimales"
+  },
+  "6AutoN2": {
+    "titre": "Passer de la fraction décimale à l'écriture décimale et inversement"
+  },
+  "6AutoN3": {
+    "titre": "Connaître et utiliser différentes écritures des nombres"
+  },
+  "6AutoN4": {
+    "titre": "Multiplier ou diviser par 10, 100, 1000"
+  },
+  "6AutoP1": {
+    "titre": "Repérer les relations multiplicatives simples"
+  },
+  "6AutoP2": {
+    "titre": "Associer Fois plus ou Fois moins à une multiplication ou à une division"
+  },
+  "6AutoS1": {
+    "titre": "Lire un tableau, un diagramme (lecture immédiate)"
+  },
+  "6AutoT1": {
+    "titre": "Se repérer dans le temps et les durées"
+  },
   "6N0": {
     "titre": "Nombres entiers"
   },
