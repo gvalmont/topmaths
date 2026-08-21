@@ -23,7 +23,7 @@ export const interactifReady = true
 export const interactifType = 'tableau-mathlive'
 
 export const refs = {
-  'fr-fr': ['2S50-1'],
+  'fr-fr': ['2S30-14'],
   'fr-ch': [],
 }
 
