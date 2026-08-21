@@ -533,8 +533,14 @@ describe('buildTypstDocument', () => {
       { ...defaultTypstDocumentOptions, showQrCode: true },
     )
     // depuis exercise-bank 0.6.0, le QR-code est un paramètre de exo.with(...)
-    // (le paquet le génère et le place lui-même, plus besoin de tiaoma)
-    expect(withQr).toContain(`  qr: "${url}",`)
+    // (le paquet le place lui-même, plus besoin de tiaoma) ; il est fourni en
+    // image SVG pré-rendue (fond blanc explicite) plutôt qu'en URL brute, car
+    // tiaoma (utilisé en interne par exercise-bank pour une URL) ignore toute
+    // option de fond et produit un QR-code transparent
+    expect(withQr).toContain('  qr: image(bytes(')
+    expect(withQr).toContain('format: "svg", width: 100%),')
+    expect(withQr).toContain('#ffffff')
+    expect(withQr).not.toContain(`  qr: "${url}",`)
     expect(withQr).toContain(`  qr-size: 1.8cm,`)
     expect(withQr).not.toContain('tiaoma')
     expect(withQr).not.toContain('#place(')
