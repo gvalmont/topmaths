@@ -106,6 +106,15 @@ describe('latexMathToTypst', () => {
     expect(result).toContain('union')
   })
 
+  it('conserve les crochets d\'une notation de segment comme [YS]', () => {
+    // Régression : la règle qui enlève les crochets autour de "union"/"inter"
+    // (issus de \cup/\cap) matchait aussi tout contenu purement alphabétique,
+    // donc [YS] (segment) perdait ses crochets à tort.
+    const result = latexMathToTypst('[YS]')
+    expect(result).toContain('bracket.l')
+    expect(result).toContain('bracket.r')
+  })
+
   it('convertit le texte inclus dans les formules via #txt (police du texte)', () => {
     expect(latexMathToTypst('5\\,\\text{cm}')).toBe('5 thin#txt("cm")')
   })
