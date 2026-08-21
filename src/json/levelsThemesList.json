@@ -180,22 +180,19 @@
     "titre": "Représenter algébriquement et graphiquement les fonctions"
   },
   "can2F30": {
-    "titre": "Exploiter l'équation y=f(x) d'une courbe : appartenance, calcul de coordonnées"
+    "titre": "Exploiter l'équation $y=f(x)$ d'une courbe : appartenance, calcul de coordonnées"
   },
   "can2F31": {
     "titre": "Modéliser par des fonctions des situations issues des mathématiques, des autres disciplines"
   },
   "can2F32": {
-    "titre": "Résoudre f(x)=k ou f(x)<k en choisissant une méthode adaptée"
+    "titre": "Résoudre $f(x)=k$ ou $f(x)<k$ en choisissant une méthode adaptée"
   },
   "can2F33": {
     "titre": "Résoudre une équation, une inéquation produit ou quotient, à l'aide d'un tableau de signes"
   },
   "can2F34": {
-    "titre": "Résoudre graphiquement ou avec un outil numérique, f(x)=g(x) ou f(x)<g(x)"
-  },
-  "can2F35": {
-    "titre": "Etudier la parité d'une fonction"
+    "titre": "Résoudre graphiquement ou avec un outil numérique, $f(x)=g(x)$ ou $f(x)<g(x)$"
   },
   "can2F4": {
     "titre": "Étudier les variations et les extremums d'une fonction"
@@ -354,7 +351,7 @@
     "titre": "Graphes"
   },
   "canTEA1": {
-    "titre": "Divisibilité dans $\\mathbb Z$$"
+    "titre": "Divisibilité dans $\\mathbb Z$"
   },
   "canTEA2": {
     "titre": "Congruence"
@@ -1971,7 +1968,7 @@
     "titre": "Développer (par simple et double distributivités), factoriser, réduire des expressions algébriques simples"
   },
   "3L12": {
-    "titre": "Factoriser une expression du type a2-b2 et développer des expression du type (a+b)(a-b)"
+    "titre": "Factoriser une expression du type $a^2-b^2$ et développer des expressions du type $(a+b)(a-b)$"
   },
   "3L13": {
     "titre": "Résoudre algébriquement une équation du premier degré"
@@ -1980,7 +1977,7 @@
     "titre": "Résoudre algébriquement une équation produit"
   },
   "3L15": {
-    "titre": "Résoudre algébriquement une équations de la forme x2= a sur des exemples simples"
+    "titre": "Résoudre algébriquement une équation de la forme $x^2=a$ sur des exemples simples"
   },
   "3L16": {
     "titre": "Résoudre des problèmes se ramenant à une équation, qui peuvent être internes aux mathématiques ou en lien avec d'autres disciplines"
@@ -2058,7 +2055,7 @@
     "titre": "Développer et factoriser une expression simple"
   },
   "3AutoL04": {
-    "titre": "Résoudre des équations du type ax = c, a + b = c, ax + b = c"
+    "titre": "Résoudre des équations du type $ax=c$, $a+b=c$, $ax+b=c$"
   },
   "3AutoM": {
     "titre": "Mesures"
@@ -2127,7 +2124,7 @@
     "titre": "Développer et factoriser une expression simple"
   },
   "3AutoN14": {
-    "titre": "Résoudre des équations du type ax = c, a + b = c, ax + b = c"
+    "titre": "Résoudre des équations du type $ax=c$, $a+b=c$, $ax+b=c$"
   },
   "3AutoN15": {
     "titre": "Sur une droite graduée, lire l'abscisse d'un point et placer un point d'abscisse donnée"
@@ -2421,7 +2418,7 @@
     "titre": "Développer, factoriser, réduire une expression algébrique simple"
   },
   "2A-C3": {
-    "titre": "Résoudre une équation du type : x²=a, ax+b=cx+d ou a/x=b, ou une inéquation du premier degré"
+    "titre": "Résoudre une équation du type : $x^2=a$, $ax+b=cx+d$ ou $\\frac{a}{x}=b$, ou une inéquation du premier degré"
   },
   "2A-C4": {
     "titre": "Isoler une variable dans une égalité qui en comporte plusieurs"
@@ -2499,7 +2496,7 @@
     "titre": "Calculer la probabilité d’un évènement comme somme des probabilités des issues qui le composent"
   },
   "2A-P4": {
-    "titre": "Utiliser la relation P(A)=Card(A)/Card(Ω) dans le cas de l’équiprobabilité"
+    "titre": "Utiliser la relation $P(A)=\\frac{\\text{Card}(A)}{\\text{Card}(\\Omega)}$ dans le cas de l’équiprobabilité"
   },
   "2A-R": {
     "titre": "Proportion-Pourcentage"
@@ -2688,22 +2685,19 @@
     "titre": "Représenter algébriquement et graphiquement les fonctions"
   },
   "2F30": {
-    "titre": "Exploiter l'équation y=f(x) d'une courbe : appartenance, calcul de coordonnées"
+    "titre": "Exploiter l'équation $y=f(x)$ d'une courbe : appartenance, calcul de coordonnées"
   },
   "2F31": {
     "titre": "Modéliser par des fonctions des situations issues des mathématiques, des autres disciplines"
   },
   "2F32": {
-    "titre": "Résoudre f(x)=k ou f(x)<k en choisissant une méthode adaptée"
+    "titre": "Résoudre $f(x)=k$ ou $f(x)<k$ en choisissant une méthode adaptée"
   },
   "2F33": {
     "titre": "Résoudre une équation, une inéquation produit ou quotient, à l'aide d'un tableau de signes"
   },
   "2F34": {
-    "titre": "Résoudre graphiquement ou avec un outil numérique, f(x)=g(x) ou f(x)<g(x)"
-  },
-  "2F35": {
-    "titre": "Etudier la parité d'une fonction"
+    "titre": "Résoudre graphiquement ou avec un outil numérique, $f(x)=g(x)$ ou $f(x)<g(x)$"
   },
   "2F4": {
     "titre": "Étudier les variations et les extremums d'une fonction"
@@ -2748,7 +2742,7 @@
     "titre": "Décrire les différences entre deux séries statistiques"
   },
   "2S32": {
-    "titre": "Lire et comprendre une fonction écrite en Python renvoyant la moyenne (m), l'écart type (s) et la proportion d'éléments dans [m-2s;m+2s]"
+    "titre": "Lire et comprendre une fonction écrite en Python renvoyant la moyenne $m$, l'écart type $s$ et la proportion d'éléments dans $[m-2s;m+2s]$"
   },
   "2S4": {
     "titre": "Modéliser le hasard, calculer des probabilités"
@@ -3417,10 +3411,10 @@
     "titre": "Développement, factorisation, réduction d’expressions littérales"
   },
   "BP2AutoJ": {
-    "titre": "Transformation de formules (par exemple U = RI, d = vt…), expression d’une variable en fonction des autres"
+    "titre": "Transformation de formules (par exemple $U=RI$, $d=vt$…), expression d’une variable en fonction des autres"
   },
   "BP2AutoK": {
-    "titre": "Résolutions d’équations du type ax = b et a + x = b, avec a et b entiers relatifs"
+    "titre": "Résolutions d’équations du type $ax=b$ et $a+x=b$, avec $a$ et $b$ entiers relatifs"
   },
   "BP2AutoL": {
     "titre": "Utilisation des différentes procédures de calcul d’une quatrième proportionnelle"
@@ -3693,10 +3687,10 @@
     "titre": "Déterminer si une expression littérale est une somme ou un produit"
   },
   "5N5E": {
-    "titre": "Exploiter les relations k(a + b) = ka + kb ou k(a – b) = ka – kb pour factoriser, ou développer une expression littérale"
+    "titre": "Exploiter les relations $k(a+b)=ka+kb$ ou $k(a-b)=ka-kb$ pour factoriser ou développer une expression littérale"
   },
   "5N5F": {
-    "titre": "Réduire une expression littérale de la forme ax + b, où a et b sont des nombres décimaux"
+    "titre": "Réduire une expression littérale de la forme $ax+b$, où $a$ et $b$ sont des nombres décimaux"
   },
   "5N5G": {
     "titre": "Démontrer une propriété générale par le calcul littéral"
@@ -3711,10 +3705,10 @@
     "titre": "Donner à la lettre le statut d'inconnue"
   },
   "5N5K": {
-    "titre": "Modéliser des problèmes relevant des opérations à trous par des équations du type ax = c ou x + b = c"
+    "titre": "Modéliser des problèmes relevant des opérations à trous par des équations du type $ax=c$ ou $x+b=c$"
   },
   "5N5L": {
-    "titre": "Résoudre des équations du type ax = c ou x + b = c par des méthodes arithmétiques s'appuyant sur les opérations inverses"
+    "titre": "Résoudre des équations du type $ax=c$ ou $x+b=c$ par des méthodes arithmétiques s'appuyant sur les opérations inverses"
   },
   "auto5G1A": {
     "titre": "Placer sur une demi-droite graduée un point dont l'abscisse est un nombre décimal"
