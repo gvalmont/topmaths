@@ -32,6 +32,8 @@ export default class CalculMedianeHistogrammeQCM extends ExerciceQcmA {
       cumul: false,
       barres: true,
       valuesOn: true,
+      titre: 'Diagramme de la série statistique étudiée',
+      labelHorizontal: 'Valeurs de la série',
     })
     const mediane = maSerie.mediane()
     const q1 = maSerie.q1
