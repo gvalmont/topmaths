@@ -365,6 +365,16 @@ describe('htmlToTypst', () => {
     expect(result).not.toContain('textbf')
   })
 
+  it('retire \\large d\'une cellule de tableau \\text{\\large \\textbf{X}} au lieu de le laisser fuir (P020)', () => {
+    const result = htmlToTypst(
+      '$\\begin{array}{|c|c|}\\hline \\text{\\large \\textbf{Sports}} & \\text{\\large \\textbf{TOTAL}} \\\\ \\hline 12 & 100 \\\\ \\hline\\end{array}$',
+    )
+    expect(result).toContain('#strong[Sports]')
+    expect(result).toContain('#strong[TOTAL]')
+    expect(result).not.toContain('large')
+    expect(result).not.toContain('textbf')
+  })
+
   it('ne fragmente pas un array imbriqué dans une cellule', () => {
     const result = htmlToTypst(
       '$\\begin{array}{|c|c|}\\hline a & \\begin{array}{c|c} x & y\\end{array} \\\\ \\hline b & c \\\\ \\hline\\end{array}$',

@@ -1381,10 +1381,13 @@ function latexTableCell(cell: string, figures?: string[]): TypstTableCell {
   if (stripped.length === 0) return { body: '', fill: color }
   const textContent = unwrapWholeTextCommand(stripped)
   if (textContent != null) {
-    if (!/<svg/i.test(textContent) && looksLikeUnwrappedMath(textContent)) {
-      return { body: `$${latexMathToTypst(textContent)}$`, fill: color }
+    const sizedContent = /<svg/i.test(textContent)
+      ? textContent
+      : stripLatexSizeCommands(textContent)
+    if (!/<svg/i.test(sizedContent) && looksLikeUnwrappedMath(sizedContent)) {
+      return { body: `$${latexMathToTypst(sizedContent)}$`, fill: color }
     }
-    return { body: convertCellTextContent(textContent, figures), fill: color }
+    return { body: convertCellTextContent(sizedContent, figures), fill: color }
   }
   return { body: `$${latexMathToTypst(stripped)}$`, fill: color }
 }
