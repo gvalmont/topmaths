@@ -198,7 +198,7 @@ export default class ChoixTerminaleDiagrammeCirculaireQCM extends ExerciceQcmA {
   constructor() {
     super()
     this.besoinFormulaireCaseACocher = false
-    this.options = { ...this.options, vertical: true }
+    this.options.vertical = true
     this.versionAleatoire()
   }
 }
