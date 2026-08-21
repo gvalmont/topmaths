@@ -1033,6 +1033,14 @@ texteCorr += 'Le tableau complété est donné ci-dessus.'
 
 Ce helper déclare lui-même les données nécessaires à la vérification. Lire aussi `src/lib/interactif/tableauSignesVariations/DOCUMENTATION.md` avant de créer un nouveau tableau.
 
+## Couteau suisse
+
+À utiliser quand une même question doit enchaîner plusieurs custom elements
+interactifs autonomes. Lire la page dédiée :
+[Mathalea Couteau Suisse](couteau-suisse.md).
+
+Exemple de référence : `src/exercices/2e/2F21-11.ts`.
+
 ## Scratch et Blockly
 
 Ces éléments servent surtout aux exercices de programmation visuelle.
