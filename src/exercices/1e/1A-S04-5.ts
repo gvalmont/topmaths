@@ -33,6 +33,8 @@ export default class CalculMoyenneHistogrammeQCM extends ExerciceQcmA {
       cumul: false,
       barres: true,
       valuesOn: true,
+      titre: 'Diagramme de la série statistique étudiée',
+      labelHorizontal: 'Valeurs de la série',
     })
     const moyenne = maSerie.moyenne()
     const q1 = maSerie.q1

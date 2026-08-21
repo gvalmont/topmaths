@@ -32,6 +32,8 @@ export default class LireFrequenceHistogrammeQCM extends ExerciceQcmA {
       valuesOn: true,
       effectifsOn: false,
       percentVsEffectifs: true,
+      titre: 'Diagramme des fréquences cumulées croissantes',
+      labelHorizontal: 'Valeurs de la série',
     })
     const q1 = maSerie.q1
     const q3 = maSerie.q3
