@@ -1612,7 +1612,10 @@ function latexSegmentToTypst(
   if (table != null) return table
   const converted = latexMathToTypst(tex)
   if (converted.length === 0) return ''
-  return display ? `$ ${converted} $` : `$${converted}$`
+  // Une formule en ligne ne doit jamais être coupée entre deux lignes (une
+  // partie sur chacune) : `box(...)` empêche Typst de la scinder au niveau
+  // d'un opérateur, comme il le ferait pour du texte normal.
+  return display ? `$ ${converted} $` : `#box($${converted}$)`
 }
 
 /**
