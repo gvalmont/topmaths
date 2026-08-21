@@ -131,6 +131,9 @@
   "can3S": {
     "titre": "Statistiques et probabilités"
   },
+  "can2F": {
+    "titre": "Fonctions"
+  },
   "can2F1": {
     "titre": "Généralités sur les fonctions"
   },
@@ -270,7 +273,7 @@
     "titre": "Calcul littéral"
   },
   "can2N": {
-    "titre": "Numération"
+    "titre": "Calcul numérique"
   },
   "can2N1": {
     "titre": "Manipuler les nombres réels"
@@ -345,7 +348,7 @@
     "titre": "Résoudre une inéquation produit"
   },
   "can2S": {
-    "titre": "Statistiques et probabilités"
+    "titre": "Statistiques et Probabilités"
   },
   "can2S1": {
     "titre": "Utiliser l'information chiffrée"
@@ -391,9 +394,6 @@
   },
   "can2S5": {
     "titre": "Échantillonnage"
-  },
-  "can2P": {
-    "titre": "Probabilités"
   },
   "can1SD": {
     "titre": "Second degré"
@@ -2624,6 +2624,9 @@
   "2A-R2": {
     "titre": "Utiliser une proportion pour calculer une partie connaissant le tout, ou le tout connaissant une partie"
   },
+  "2N": {
+    "titre": "Calcul numérique"
+  },
   "2N1": {
     "titre": "Manipuler les nombres réels"
   },
@@ -2696,6 +2699,9 @@
   "2N61": {
     "titre": "Résoudre une inéquation produit"
   },
+  "2G": {
+    "titre": "Géométrie"
+  },
   "2G1": {
     "titre": "Les bases en géométrie"
   },
@@ -2755,6 +2761,9 @@
   },
   "2G34": {
     "titre": "Résoudre un système de deux équations linéaires à deux inconnues, déterminer le point d'intersection de deux droites sécantes"
+  },
+  "2F": {
+    "titre": "Fonctions"
   },
   "2F1": {
     "titre": "Généralités sur les fonctions"
@@ -2827,6 +2836,9 @@
   },
   "2F42": {
     "titre": "Déterminer les extremums d'une fonction"
+  },
+  "2S": {
+    "titre": "Statistiques et Probabilités"
   },
   "2S1": {
     "titre": "Utiliser l'information chiffrée"

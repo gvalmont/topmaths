@@ -15,7 +15,7 @@ export const interactifType = 'mathLive'
 export const uuid = '38207'
 
 export const refs = {
-  'fr-fr': ['can2P02'],
+  'fr-fr': ['can2S40-02'],
   'fr-ch': ['3mP-4'],
 }
 export default class Denombrement extends ExerciceSimple {

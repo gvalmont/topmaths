@@ -21,7 +21,7 @@ export const interactifReady = true
 export const interactifType = 'multi-mathfield'
 
 export const refs = {
-  'fr-fr': ['2S20-13'],
+  'fr-fr': ['2S30-13'],
   'fr-ch': [],
 }
 
