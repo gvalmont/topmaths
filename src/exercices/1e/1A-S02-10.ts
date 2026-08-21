@@ -164,7 +164,7 @@ export default class RemplacerValeurSerieQCM extends ExerciceQcmA {
 
   constructor() {
     super()
-    this.options = { ...this.options, vertical: true }
+    this.options.vertical = true
     this.versionAleatoire()
   }
 }
