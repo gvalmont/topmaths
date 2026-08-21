@@ -131,9 +131,6 @@
   "can3S": {
     "titre": "Statistiques et probabilités"
   },
-  "can2C": {
-    "titre": "Calculs"
-  },
   "can2F1": {
     "titre": "Généralités sur les fonctions"
   },
@@ -274,6 +271,126 @@
   },
   "can2N": {
     "titre": "Numération"
+  },
+  "can2N1": {
+    "titre": "Manipuler les nombres réels"
+  },
+  "can2N10": {
+    "titre": "Associer à chaque point de la droite graduée un unique nombre réel et réciproquement"
+  },
+  "can2N11": {
+    "titre": "Représenter un intervalle de la droite numérique. Déterminer si un nombre réel appartient à un intervalle donné"
+  },
+  "can2N12": {
+    "titre": "Donner un encadrement, d'amplitude donnée, d'un nombre réel par des décimaux"
+  },
+  "can2N13": {
+    "titre": "Dans le cadre de la résolution de problèmes, arrondir en donnant le nombre de chiffres significatifs adapté à la situation étudiée"
+  },
+  "can2N14": {
+    "titre": "Connaître les ensembles de nombres"
+  },
+  "can2N15": {
+    "titre": "Connaître et utiliser la notation $|a|$"
+  },
+  "can2N2": {
+    "titre": "Utiliser les notions de multiple et de diviseur"
+  },
+  "can2N20": {
+    "titre": "Modéliser et résoudre des problèmes mobilisant les notions de multiple, de diviseur, de nombre pair et de nombre impair"
+  },
+  "can2N3": {
+    "titre": "Utiliser les fractions, les puissances et les racines carrées"
+  },
+  "can2N30": {
+    "titre": "Effectuer des calculs numériques mettant en jeu des écritures fractionnaires"
+  },
+  "can2N31": {
+    "titre": "Effectuer des calculs numériques mettant en jeu des puissances"
+  },
+  "can2N32": {
+    "titre": "Effectuer des calculs numériques mettant en jeu des racines carrées"
+  },
+  "can2N4": {
+    "titre": "Utiliser le calcul littéral"
+  },
+  "can2N40": {
+    "titre": "Les bases du calcul littéral"
+  },
+  "can2N41": {
+    "titre": "Factoriser, développer avec, ou sans, les identités remarquables"
+  },
+  "can2N42": {
+    "titre": "Utiliser le calcul littéral"
+  },
+  "can2N5": {
+    "titre": "Équations"
+  },
+  "can2N50": {
+    "titre": "Modéliser un problème par une équation"
+  },
+  "can2N51": {
+    "titre": "Résoudre une équation du premier degré"
+  },
+  "can2N52": {
+    "titre": "Résoudre une équation avec un produit nul"
+  },
+  "can2N6": {
+    "titre": "Inéquations"
+  },
+  "can2N60": {
+    "titre": "Résoudre une inéquation du premier degré"
+  },
+  "can2N61": {
+    "titre": "Résoudre une inéquation produit"
+  },
+  "can2S": {
+    "titre": "Statistiques et probabilités"
+  },
+  "can2S1": {
+    "titre": "Utiliser l'information chiffrée"
+  },
+  "can2S10": {
+    "titre": "Exploiter la relation entre effectifs, proportions et pourcentages. Pourcentage de pourcentage"
+  },
+  "can2S11": {
+    "titre": "Exploiter la relation entre deux valeurs successives et leur taux d'évolution"
+  },
+  "can2S12": {
+    "titre": "Calculer le taux d'évolution global à partir des taux d'évolution successifs. Calculer un taux d'évolution réciproque"
+  },
+  "can2S2": {
+    "titre": "Croisement de deux variables qualitatives"
+  },
+  "can2S20": {
+    "titre": "Tableau croisé d’effectifs"
+  },
+  "can2S21": {
+    "titre": "Fréquence conditionnelle, fréquence marginale"
+  },
+  "can2S3": {
+    "titre": "Statistique descriptive"
+  },
+  "can2S30": {
+    "titre": "Les indicateurs statistiques"
+  },
+  "can2S31": {
+    "titre": "Décrire les différences entre deux séries statistiques"
+  },
+  "can2S32": {
+    "titre": "Lire et comprendre une fonction écrite en Python renvoyant la moyenne $m$, l'écart type $s$ et la proportion d'éléments dans $[m-2s;m+2s]$"
+  },
+  "can2S4": {
+    "titre": "Modéliser le hasard, calculer des probabilités"
+  },
+  "can2S40": {
+    "titre": "Calculer des probabilités dans des cas simples"
+  },
+  "can2S41": {
+    "titre": "Utiliser des modèles théoriques de référence"
+  },
+  "can2S5": {
+    "titre": "Échantillonnage"
   },
   "can2P": {
     "titre": "Probabilités"
@@ -2529,10 +2646,10 @@
     "titre": "Connaître et utiliser la notation |a|"
   },
   "2N2": {
-    "titre": "Utiliser les notions de multiple, diviseur et de nombre premier"
+    "titre": "Utiliser les notions de multiple et de diviseur"
   },
   "2N20": {
-    "titre": "Modéliser et résoudre des problèmes mobilisant les notions de multiple, de diviseur, de nombre pair, de nombre impair, de nombre premier"
+    "titre": "Modéliser et résoudre des problèmes mobilisant les notions de multiple, de diviseur, de nombre pair et de nombre impair"
   },
   "2N3": {
     "titre": "Utiliser les fractions, les puissances et les racines carrées"
