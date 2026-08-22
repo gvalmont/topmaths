@@ -1400,14 +1400,23 @@
   "6Auto": {
     "titre": "Automatismes"
   },
+  "6AutoA": {
+    "titre": "Aires"
+  },
   "6AutoA1": {
     "titre": "Comparer ou déterminer des aires sans recours à une unité"
   },
   "6AutoA2": {
     "titre": "Connaître les unités d'aires et leur relations"
   },
+  "6AutoE": {
+    "titre": "Espace"
+  },
   "6AutoE1": {
     "titre": "Identifier les solides"
+  },
+  "6AutoF": {
+    "titre": "Fractions"
   },
   "6AutoF1": {
     "titre": "Connaître et utiliser les fractions"
@@ -1417,6 +1426,9 @@
   },
   "6AutoF3": {
     "titre": "Calculer avec des fractions"
+  },
+  "6AutoG": {
+    "titre": "Configurations planes"
   },
   "6AutoG1": {
     "titre": "Connaître le lexique et les codages de base en géométrie"
@@ -1430,6 +1442,15 @@
   "6AutoG4": {
     "titre": "Savoir coder/construire une figure"
   },
+  "6AutoH": {
+    "titre": "Probabilités"
+  },
+  "6AutoH1": {
+    "titre": "???"
+  },
+  "6AutoL": {
+    "titre": "Longueurs"
+  },
   "6AutoL1": {
     "titre": "Connaître les préfixes et leur lien avec les unités de numération décimale"
   },
@@ -1438,6 +1459,9 @@
   },
   "6AutoL3": {
     "titre": "Calculer des périmètres"
+  },
+  "6AutoN": {
+    "titre": "Nombres et calcul"
   },
   "6AutoN1": {
     "titre": "Connaître les liens entre les fractions décimales"
@@ -1451,14 +1475,23 @@
   "6AutoN4": {
     "titre": "Multiplier ou diviser par 10, 100, 1000"
   },
+  "6AutoP": {
+    "titre": "Proportionnalité"
+  },
   "6AutoP1": {
     "titre": "Repérer les relations multiplicatives simples"
   },
   "6AutoP2": {
     "titre": "Associer Fois plus ou Fois moins à une multiplication ou à une division"
   },
+  "6AutoS": {
+    "titre": "Gestion de données"
+  },
   "6AutoS1": {
     "titre": "Lire un tableau, un diagramme (lecture immédiate)"
+  },
+  "6AutoT": {
+    "titre": "Temps et durée"
   },
   "6AutoT1": {
     "titre": "Se repérer dans le temps et les durées"
