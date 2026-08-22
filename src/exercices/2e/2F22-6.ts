@@ -22,7 +22,7 @@ export const dateDeModifImportante = '26/08/2025'
 export const uuid = '9315e'
 
 export const refs = {
-  'fr-fr': ['2F22-2'],
+  'fr-fr': ['2F22-6'],
   'fr-ch': ['11FA1A-8'],
 }
 export default class ComparerAvecFonctionRef extends Exercice {
