@@ -1,6 +1,7 @@
 import { afficheLongueurSegment } from '../../lib/2d/afficheLongueurSegment'
 import { codageAngleDroit } from '../../lib/2d/CodageAngleDroit'
 import { codageSegments } from '../../lib/2d/CodageSegment'
+import { fixeBordures } from '../../lib/2d/fixeBordures'
 import { pointAbstrait } from '../../lib/2d/PointAbstrait'
 import { polygoneAvecNom } from '../../lib/2d/polygones'
 import { rotation, similitude, translation } from '../../lib/2d/transformations'
@@ -8,7 +9,7 @@ import { pointAdistance } from '../../lib/2d/utilitairesPoint'
 import { vecteur } from '../../lib/2d/Vecteur'
 import { bleuMathalea } from '../../lib/colors'
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
-import { setReponse } from '../../lib/interactif/gestionInteractif'
+import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { enleveDoublonNum } from '../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
@@ -58,7 +59,7 @@ export default class AireCarresRectanglesTriangles extends Exercice {
     this.spacing = 2
 
     this.spacingCorr = context.isHtml ? 3 : 2
-    this.nbQuestions = 1
+    this.nbQuestions = 3
     this.nbQuestionsModifiable = false
     this.besoinFormulaireTexte = [
       'Type de figures',
@@ -70,7 +71,7 @@ export default class AireCarresRectanglesTriangles extends Exercice {
         '4 : Mélange',
       ].join('\n'),
     ]
-    this.sup = 4
+    this.sup = '4'
   }
 
   nouvelleVersion() {
@@ -80,11 +81,12 @@ export default class AireCarresRectanglesTriangles extends Exercice {
       max: 3,
       melange: 4,
       defaut: 4,
-      shuffle: false,
+      shuffle: true,
       nbQuestions: 50,
-    })
+    }).map(Number)
     enleveDoublonNum(typesDeQuestionsDisponibles)
 
+    this.nbQuestions = typesDeQuestionsDisponibles.length
     let texte = ''
     let texteCorr = ''
     const nom = creerNomDePolygone(11, 'QD')
@@ -108,30 +110,57 @@ export default class AireCarresRectanglesTriangles extends Exercice {
     const J = pointAdistance(I, a, randint(-25, 25), nom[9])
     const K = similitude(I, J, -90, b / a, nom[10])
     const triangle = polygoneAvecNom(I, J, K)
-    const objets = []
+    const objetsCarre = [
+      carre,
+      codageAngleDroit(A, B, C),
+      codageAngleDroit(A, D, C),
+      codageAngleDroit(D, C, B),
+      codageAngleDroit(B, A, D),
+      codageSegments('//', bleuMathalea, [A, B, C, D]),
+      afficheLongueurSegment(B, A),
+    ]
+    const objetsRectangle = [
+      rectangle,
+      codageAngleDroit(E, F, G),
+      codageAngleDroit(F, G, H),
+      codageAngleDroit(G, H, E),
+      codageAngleDroit(H, E, F),
+      codageSegments('/', 'red', E, F, G, H),
+      codageSegments('||', bleuMathalea, F, G, H, E),
+      afficheLongueurSegment(F, E),
+      afficheLongueurSegment(G, F),
+    ]
+    const objetsTriangle = [
+      triangle,
+      codageAngleDroit(I, J, K),
+      afficheLongueurSegment(J, I),
+      afficheLongueurSegment(K, J),
+      afficheLongueurSegment(I, K),
+    ]
 
     for (let i = 0; i < typesDeQuestionsDisponibles.length; i++) {
+      let figure: string = ''
       texte = ''
       texteCorr = ''
       switch (typesDeQuestionsDisponibles[i] - 1) {
         case 0:
-          objets.push(
-            carre,
-            codageAngleDroit(A, B, C),
-            codageAngleDroit(A, D, C),
-            codageAngleDroit(D, C, B),
-            codageAngleDroit(B, A, D),
-            codageSegments('//', bleuMathalea, [A, B, C, D]),
-            afficheLongueurSegment(B, A),
+          figure = mathalea2d(
+            Object.assign({}, fixeBordures(objetsCarre)),
+            objetsCarre,
           )
-          texte = "Calculer l'aire du carré."
+          texte = figure + "Calculer l'aire du carré."
 
           texteCorr += `$\\mathcal{A}_{${nom[0] + nom[1] + nom[2] + nom[3]}}=${c}\\text{ cm}\\times${c}\\text{ cm}=${miseEnEvidence(c * c)}\\text{ cm}^2$`
-          setReponse(this, i, new Grandeur(c * c, 'cm^2'), {
-            formatInteractif: 'unites',
-          })
+          handleAnswers(
+            this,
+            i,
+            { reponse: { value: new Grandeur(c * c, 'cm^2') } },
+            {
+              formatInteractif: 'mathlive',
+            },
+          )
           if (context.isAmc) {
-            this.autoCorrection[i] = {
+            this.autoCorrectionAMC[i] = {
               enonce: `Calculer l'aire du carré de côté $${c}\\text{ cm}$ en $\\text{cm}^2$`,
               propositions: [{ texte: texteCorr, statut: 0 }],
               reponse: {
@@ -150,25 +179,22 @@ export default class AireCarresRectanglesTriangles extends Exercice {
           }
           break
         case 1:
-          objets.push(
-            rectangle,
-            codageAngleDroit(E, F, G),
-            codageAngleDroit(F, G, H),
-            codageAngleDroit(G, H, E),
-            codageAngleDroit(H, E, F),
-            codageSegments('/', 'red', E, F, G, H),
-            codageSegments('||', bleuMathalea, F, G, H, E),
-            afficheLongueurSegment(F, E),
-            afficheLongueurSegment(G, F),
+          figure = mathalea2d(
+            Object.assign({}, fixeBordures(objetsRectangle)),
+            objetsRectangle,
           )
-
-          texte = "Calculer l'aire du rectangle."
+          texte = figure + "Calculer l'aire du rectangle."
           texteCorr += `$\\mathcal{A}_{${nom[4] + nom[5] + nom[6] + nom[7]}}=${L}\\text{ cm}\\times${l}\\text{ cm}=${miseEnEvidence(L * l)}\\text{ cm}^2$`
-          setReponse(this, i, new Grandeur(L * l, 'cm^2'), {
-            formatInteractif: 'unites',
-          })
+          handleAnswers(
+            this,
+            i,
+            { reponse: { value: new Grandeur(L * l, 'cm^2') } },
+            {
+              formatInteractif: 'mathlive',
+            },
+          )
           if (context.isAmc) {
-            this.autoCorrection[i] = {
+            this.autoCorrectionAMC[i] = {
               enonce: `Calculer l'aire du rectangle de longueur $${L}\\text{ cm}$ et de largeur $${l}\\text{ cm}$ en $\\text{cm}^2$`,
               propositions: [{ texte: texteCorr, statut: 0 }],
               reponse: {
@@ -187,20 +213,24 @@ export default class AireCarresRectanglesTriangles extends Exercice {
           }
           break
         case 2:
-          objets.push(
-            triangle,
-            codageAngleDroit(I, J, K),
-            afficheLongueurSegment(J, I),
-            afficheLongueurSegment(K, J),
-            afficheLongueurSegment(I, K),
+          figure = mathalea2d(
+            Object.assign({}, fixeBordures(objetsTriangle)),
+            objetsTriangle,
           )
-          texte = "Calculer l'aire du triangle rectangle."
+          texte = figure + "Calculer l'aire du triangle rectangle."
           texteCorr += `$\\mathcal{A}_{${nom[8] + nom[9] + nom[10]}}=${a}\\text{ cm}\\times${b}\\text{ cm}\\div2=${miseEnEvidence(texNombre((a * b) / 2))}\\text{ cm}^2$`
-          setReponse(this, i, new Grandeur(arrondi((a * b) / 2), 'cm^2'), {
-            formatInteractif: 'unites',
-          })
+          handleAnswers(
+            this,
+            i,
+            {
+              reponse: { value: new Grandeur(arrondi((a * b) / 2), 'cm^2') },
+            },
+            {
+              formatInteractif: 'mathlive',
+            },
+          )
           if (context.isAmc) {
-            this.autoCorrection[i] = {
+            this.autoCorrectionAMC[i] = {
               enonce: `Calculer l'aire du triangle rectangle dont les côtés de l'angle droit mesurent $${a}\\text{ cm}$ et $${b}\\text{ cm}$ en $\\text{cm}^2$`,
               propositions: [{ texte: texteCorr, statut: 0 }],
               reponse: {
@@ -225,19 +255,6 @@ export default class AireCarresRectanglesTriangles extends Exercice {
       this.listeQuestions.push(texte)
       this.listeCorrections.push(texteCorr)
     }
-    this.consigne = mathalea2d(
-      {
-        xmin: -2,
-        xmax: 22,
-        ymin: -3,
-        ymax: 7,
-        pixelsParCm: 20,
-        scale: 0.75,
-        mainlevee: false,
-      },
-      [...objets],
-    )
-
     listeQuestionsToContenu(this)
   }
 }
