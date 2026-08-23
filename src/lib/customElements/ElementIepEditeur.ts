@@ -28,7 +28,7 @@ import MathaleaCustomElement, {
  * - afficher/réordonner/supprimer les étapes du programme
  * - tester l'animation avec le lecteur Instrumenpoche (boutons de lecture)
  *
- * @author Rémi Angot
+ * @author Rémi Angot & Jean-Claude Lhote
  */
 
 export type OutilIep =
@@ -4027,7 +4027,24 @@ export class ElementIepEditeur extends MathaleaCustomElement {
         champTexte.dataset.cle = champ.cle
         if (champ.genre === 'nombre') {
           champTexte.type = 'number'
-          champTexte.step = 'any'
+          champTexte.inputMode = 'decimal'
+          champTexte.step = '0.1'
+          champTexte.lang = 'fr-FR'
+          champTexte.onkeydown = (event) => {
+            if (event.key !== '.') return
+            event.preventDefault()
+            try {
+              champTexte.setRangeText(
+                ',',
+                champTexte.selectionStart ?? champTexte.value.length,
+                champTexte.selectionEnd ?? champTexte.value.length,
+                'end',
+              )
+              champTexte.dispatchEvent(new Event('input', { bubbles: true }))
+            } catch {
+              // Certains navigateurs refusent la virgule dans un input number.
+            }
+          }
           champTexte.classList.add('w-20')
           champTexte.value = String(champ.defaut ?? 0)
         } else if (champ.genre === 'nom') {

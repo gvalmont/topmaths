@@ -421,6 +421,45 @@ describe('ElementIepEditeur static rendering', () => {
 })
 
 describe('ElementIepEditeur instruction selection', () => {
+  it('uses decimal number fields for numeric parameters', () => {
+    const editor = document.createElement(
+      ElementIepEditeur.elementTag,
+    ) as ElementIepEditeur
+    editor.setAttribute(
+      'instructions-disponibles',
+      JSON.stringify(['pointADistance']),
+    )
+    editor.setAttribute(
+      'programme-initial',
+      JSON.stringify([
+        { type: 'point', nom: 'A', x: 0, y: 0 },
+        { type: 'pointADistance', nom: 'B', p1: 'A', distance: 5.5, angle: 0 },
+      ]),
+    )
+    document.body.appendChild(editor)
+
+    try {
+      const input = editor.querySelector<HTMLInputElement>(
+        '[data-cle="distance"]',
+      )
+      expect(input?.type).toBe('number')
+      expect(input?.inputMode).toBe('decimal')
+      expect(input?.step).toBe('0.1')
+      expect(input?.lang).toBe('fr-FR')
+      expect(input?.value).toBe('5')
+
+      const boutonsModifier = editor.querySelectorAll<HTMLButtonElement>(
+        'button[title="Modifier"]',
+      )
+      boutonsModifier[1]?.click()
+      expect(
+        editor.querySelector<HTMLInputElement>('[data-cle="distance"]')?.value,
+      ).toBe('5.5')
+    } finally {
+      editor.remove()
+    }
+  })
+
   it('hides the category select for small instruction palettes', () => {
     const editor = document.createElement(
       ElementIepEditeur.elementTag,

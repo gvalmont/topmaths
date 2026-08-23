@@ -18,7 +18,7 @@ export const titre = 'Reporter un périmètre au compas'
 export const uuid = 'ec9ef'
 
 export const refs = {
-  'fr-fr': ['6G2C-2'],
+  'fr-fr': ['6G2C-2', '6AutoG2-3'],
   'fr-2016': [],
   'fr-ch': [],
 }
