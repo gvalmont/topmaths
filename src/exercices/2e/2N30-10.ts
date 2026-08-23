@@ -16,7 +16,7 @@ import Exercice from '../Exercice'
 
 export const uuid = 'abdef'
 export const dateDePublication = '19/08/2026'
-export const Titre = 'Comparer des nombres à un'
+export const Titre = 'Comparer des nombres à $1$'
 export const interactifReady = true
 export const refs = {
   'fr-fr': ['2N30-10'],
