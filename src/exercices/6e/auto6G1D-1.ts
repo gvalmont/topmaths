@@ -8,6 +8,7 @@ import {
 } from '../../lib/customElements/ElementIepEditeur'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { creerNomDePolygone } from '../../lib/outils/outilString'
+import { texNombre } from '../../lib/outils/texNombre'
 import { context } from '../../modules/context'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import Exercice from '../Exercice'
@@ -19,7 +20,7 @@ export const dateDePublication = '23/08/2026'
 export const uuid = 'd1b7f'
 
 export const refs = {
-  'fr-fr': ['auto6G1D-1'],
+  'fr-fr': ['auto6G1D-1', '6AutoG2-2'],
   'fr-2016': [],
   'fr-ch': [],
 }
@@ -334,8 +335,8 @@ function creerFigure(type: TypeFigure): FigureAConstruire {
     string,
     string,
   ]
-  const longueur = randint(4, 8)
-  const largeur = randint(2, longueur - 1)
+  const longueur = randint(40, 75) / 10
+  const largeur = randint(20, (longueur * 10 - 1) / 10)
   const angleLosange = randint(50, 70)
   const angleRad = (angleLosange * Math.PI) / 180
   let coordonnees: Array<[number, number]>
@@ -464,8 +465,8 @@ function programmeConstruction(figure: FigureAConstruire): InstructionIep[] {
 
 function enonceFigure(figure: FigureAConstruire) {
   const [A, B, C, D] = figure.noms
-  const longueurAB = distance(figure.points[0], figure.points[1]).toFixed(0)
-  const longueurBC = distance(figure.points[1], figure.points[2]).toFixed(0)
+  const longueurAB = texNombre(distance(figure.points[0], figure.points[1]), 1)
+  const longueurBC = texNombre(distance(figure.points[1], figure.points[2]), 1)
   let consigne = ''
   switch (figure.type) {
     case 'Carré':
