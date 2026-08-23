@@ -11,7 +11,7 @@ import { randint } from '../../modules/outils'
 import ExerciceQcmA from '../ExerciceQcmA'
 
 export const titre = 'Factoriser une expression avec un facteur commun'
-export const dateDePublication = '24/08/2026'
+export const dateDePublication = '25/08/2026'
 export const uuid = '604af'
 
 export const refs = {
