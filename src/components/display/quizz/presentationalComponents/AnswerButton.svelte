@@ -44,9 +44,15 @@
     {@html html}
   </div>
   {#if state === 'correct'}
-    <i class="bx bx-check shrink-0 text-[1.5em] text-white" aria-label="Bonne réponse"></i>
+    <i
+      class="bx bx-check shrink-0 text-[1.5em] text-white"
+      aria-label="Bonne réponse"
+    ></i>
   {:else if state === 'incorrect'}
-    <i class="bx bx-x shrink-0 text-[1.5em] text-white" aria-label="Mauvaise réponse"></i>
+    <i
+      class="bx bx-x shrink-0 text-[1.5em] text-white"
+      aria-label="Mauvaise réponse"
+    ></i>
   {:else if state === 'selected'}
     <i class="bx bx-check-circle shrink-0 text-[1.2em] text-white"></i>
   {/if}

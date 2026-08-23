@@ -115,8 +115,22 @@ assurée par une typographie fluide : le `<main>` de la vue est un conteneur
 `resizeContent` (voir `src/lib/components/sizeTools.ts`) qui écraserait ces
 classes — la vue utilise donc `quizzRenderDiv`
 (`src/components/display/quizz/quizzRender.ts`), qui retire ce style inline
-après le rendu KaTeX/figures. Les sons (`public/assets/sounds/quizz/`, adaptés de Razzia) suivent
-le mapping statut → son de Razzia et sont coupables à la volée.
+après le rendu KaTeX/figures. Le zoom des figures mathalea2d et l'ajustement
+à la fenêtre sont orchestrés au niveau de la phase par `fitQuizzContent`
+(même fichier, câblé sur le `<main>` de `Quizz.svelte` et des deux parcours
+multi) : les figures sont zoomées comme le texte de leur conteneur (via
+`updateFigures`, comme la vue CAN) et centrées
+(`.quizz-container .svgContainer { margin-inline: auto }`) ; si l'ensemble
+dépasse la hauteur de la fenêtre (mesurée via `main.scrollHeight` —
+attention, `main` est en `min-h-screen`, le document vaut toujours ≥ la
+fenêtre), texte et figures sont réduits d'un même facteur par paliers
+mesurés (philosophie « shrink-to-fit » de la CAN), avec plancher — les
+boutons de réponse restent ainsi accessibles sans défilement. Mutation et
+ResizeObservers ré-appliquent l'ajustement (nouvelle question, fontes
+KaTeX, redimensionnement) avec un garde anti-boucle pour ignorer les
+écritures propres. Les sons (`public/assets/sounds/quizz/`, adaptés de
+Razzia) suivent le mapping statut → son de Razzia et sont coupables à la
+volée.
 
 ## Mode multi-joueurs temps réel (V2)
 

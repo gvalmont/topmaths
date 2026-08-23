@@ -10,6 +10,7 @@
     type QuizzBackgroundParam,
   } from '../../../../modules/quizz/types'
   import QuizzBackground from '../presentationalComponents/QuizzBackground.svelte'
+  import { fitQuizzContent } from '../quizzRender'
   import QuizzControls from '../presentationalComponents/QuizzControls.svelte'
   import { QuizzSounds } from '../quizzSounds'
   import QuizzMultiStage from './QuizzMultiStage.svelte'
@@ -57,6 +58,8 @@
   let usernameInput = ''
   let unsubscribeSounds: (() => void) | null = null
   let unsubscribeStatusSounds: (() => void) | null = null
+  let mainEl: HTMLElement
+  let cleanupFit: (() => void) | null = null
 
   async function init() {
     sounds = new QuizzSounds(soundOn)
@@ -138,9 +141,12 @@
 
   onMount(() => {
     void init()
+    // Ajustement « shrink-to-fit » du contenu (texte + figures) à la fenêtre
+    cleanupFit = fitQuizzContent(mainEl)
   })
 
   onDestroy(() => {
+    cleanupFit?.()
     unsubscribeSounds?.()
     unsubscribeStatusSounds?.()
     session.dispose()
@@ -151,6 +157,7 @@
 </script>
 
 <main
+  bind:this={mainEl}
   class="{$darkMode.isActive
     ? 'dark'
     : ''} quizz-container relative flex flex-col min-h-screen items-center justify-center

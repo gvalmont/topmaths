@@ -44,10 +44,7 @@
 
   let subject: string = $globalOptions.subject ?? ''
   let params: QuizzParams = decodeQuizzParams($globalOptions.quizzParam)
-  if (
-    backgroundsManifest.length === 0 &&
-    params.background.mode !== 'none'
-  ) {
+  if (backgroundsManifest.length === 0 && params.background.mode !== 'none') {
     // Lien pointant vers un fond qui n'existe plus : repli sur le fond blanc
     params.background = { mode: 'none' }
   }
@@ -69,7 +66,11 @@
   const hasBackgrounds = backgroundsManifest.length > 0
 
   $: canLaunch = totalQuestions > 0 && subject.trim().length > 0
-  $: shareUrl = buildQuizzUrl($exercicesParams, subject.trim(), params).toString()
+  $: shareUrl = buildQuizzUrl(
+    $exercicesParams,
+    subject.trim(),
+    params,
+  ).toString()
   $: estimatedSeconds = estimateDuration(report, params)
 
   // Synchronisation des réglages vers globalOptions (puis l'URL)
@@ -265,8 +266,8 @@
             {#if isLoading}
               Analyse des exercices…
             {:else}
-              {totalQuestions} question{totalQuestions > 1 ? 's' : ''} au
-              quizz — durée estimée : {formattedTimeStamp(estimatedSeconds)}
+              {totalQuestions} question{totalQuestions > 1 ? 's' : ''} au quizz —
+              durée estimée : {formattedTimeStamp(estimatedSeconds)}
             {/if}
           </div>
           <div class="px-4">
@@ -328,7 +329,8 @@
                       value: 'projection',
                     },
                     {
-                      label: 'Multi-joueurs en ligne (chaque élève sur son appareil)',
+                      label:
+                        'Multi-joueurs en ligne (chaque élève sur son appareil)',
                       value: 'multi',
                     },
                   ]}
@@ -454,8 +456,7 @@
                 <div
                   class="pl-4 pt-1 font-light italic text-xs text-coopmaths-corpus/70 dark:text-coopmathsdark-corpus/70"
                 >
-                  Déposez des images dans public/images/quizz/backgrounds/ pour
-                  activer ces options.
+                  En cours de développement.
                 </div>
               {/if}
               {#if params.background.mode === 'fixed'}
@@ -493,8 +494,8 @@
             class="py-4 px-4 font-light text-coopmaths-corpus dark:text-coopmathsdark-corpus bg-coopmaths-canvas dark:bg-coopmathsdark-canvas"
           >
             En mode multi-joueurs, le quizz est construit sur votre appareil au
-            lancement puis hébergé par le serveur de jeu : le lien ci-dessous
-            ne sert qu'à retrouver ces réglages. Le code PIN à communiquer aux
+            lancement puis hébergé par le serveur de jeu : le lien ci-dessous ne
+            sert qu'à retrouver ces réglages. Le code PIN à communiquer aux
             élèves s'affichera après le lancement.
           </div>
         {/if}
@@ -526,10 +527,7 @@
                 QR-Code
               </div>
               <div class="my-1">
-                <ButtonQRCode
-                  tooltip="QR-code du quizz"
-                  customUrl={shareUrl}
-                />
+                <ButtonQRCode tooltip="QR-code du quizz" customUrl={shareUrl} />
               </div>
             </div>
             <div class="flex flex-col justify-center items-center px-2">

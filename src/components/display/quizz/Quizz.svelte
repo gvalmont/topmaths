@@ -38,6 +38,7 @@
   import SelectAnswer from './layouts/SelectAnswer.svelte'
   import QuizzBackground from './presentationalComponents/QuizzBackground.svelte'
   import QuizzControls from './presentationalComponents/QuizzControls.svelte'
+  import { fitQuizzContent } from './quizzRender'
   import { QuizzSounds } from './quizzSounds'
 
   const LOCAL_PLAYER_ID = 'local-player'
@@ -61,6 +62,8 @@
   let hasError = false
   let onImage = false
   let currentStatus: QuizzStatus | null = null
+  let mainEl: HTMLElement
+  let cleanupFit: (() => void) | null = null
 
   $: canGoNext = $quizzProgress.current < $quizzProgress.total
 
@@ -191,7 +194,11 @@
       if (event.key === 'r' || event.key === 'R') engine?.abortQuestion()
       return
     }
-    if (event.key !== ' ' && event.key !== 'ArrowRight' && event.key !== 'Enter') {
+    if (
+      event.key !== ' ' &&
+      event.key !== 'ArrowRight' &&
+      event.key !== 'Enter'
+    ) {
       return
     }
     if (
@@ -225,17 +232,21 @@
 
   onMount(() => {
     void init()
+    // Ajustement « shrink-to-fit » du contenu (texte + figures) à la fenêtre
+    cleanupFit = fitQuizzContent(mainEl)
     window.addEventListener('keydown', handleKeydown)
   })
 
   onDestroy(() => {
     cleanup()
+    cleanupFit?.()
     resetQuizzStores()
     window.removeEventListener('keydown', handleKeydown)
   })
 </script>
 
 <main
+  bind:this={mainEl}
   class="{$darkMode.isActive
     ? 'dark'
     : ''} quizz-container relative flex flex-col min-h-screen items-center justify-center
@@ -284,20 +295,22 @@
       </button>
     </div>
   {:else if !isStarted}
-    <div class="flex flex-col items-center justify-center gap-10 px-6 text-center">
+    <div
+      class="flex flex-col items-center justify-center gap-10 px-6 text-center"
+    >
       <h1
         class="quizz-text-title font-extrabold
         {onImage
-        ? 'text-white drop-shadow-lg'
-        : 'text-coopmaths-struct dark:text-coopmathsdark-struct'}"
+          ? 'text-white drop-shadow-lg'
+          : 'text-coopmaths-struct dark:text-coopmathsdark-struct'}"
       >
         {subject}
       </h1>
       <div
         class="text-lg
         {onImage
-        ? 'text-white drop-shadow'
-        : 'text-coopmaths-corpus/70 dark:text-coopmathsdark-corpus/70'}"
+          ? 'text-white drop-shadow'
+          : 'text-coopmaths-corpus/70 dark:text-coopmathsdark-corpus/70'}"
       >
         {quizz?.questions.length} question{(quizz?.questions.length ?? 0) > 1
           ? 's'
@@ -329,7 +342,9 @@
       />
     {:else if status.name === 'SHOW_QUESTION'}
       {#key $quizzProgress.current}
-        <ShowQuestion data={status.data as QuizzStatusDataMap['SHOW_QUESTION']} />
+        <ShowQuestion
+          data={status.data as QuizzStatusDataMap['SHOW_QUESTION']}
+        />
       {/key}
     {:else if status.name === 'SELECT_ANSWER'}
       {#key $quizzProgress.current}
@@ -342,13 +357,11 @@
       <div
         class="flex flex-col items-center gap-4 text-xl font-semibold
         {onImage
-        ? 'text-white drop-shadow'
-        : 'text-coopmaths-struct dark:text-coopmathsdark-struct'}"
+          ? 'text-white drop-shadow'
+          : 'text-coopmaths-struct dark:text-coopmathsdark-struct'}"
       >
         <span class="quizz-wait-dots">●●●</span>
-        {(
-          status.data as QuizzStatusDataMap['WAIT']
-        ).text}
+        {(status.data as QuizzStatusDataMap['WAIT']).text}
       </div>
     {:else if status.name === 'SHOW_RESULT' && mode === 'solo'}
       {#key $quizzProgress.current}

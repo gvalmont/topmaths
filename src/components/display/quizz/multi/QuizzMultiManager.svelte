@@ -18,6 +18,7 @@
     type QuizzScoring,
   } from '../../../../modules/quizz/types'
   import QuizzBackground from '../presentationalComponents/QuizzBackground.svelte'
+  import { fitQuizzContent } from '../quizzRender'
   import QuizzControls from '../presentationalComponents/QuizzControls.svelte'
   import { QuizzSounds } from '../quizzSounds'
   import QuizzLobby from './QuizzLobby.svelte'
@@ -77,6 +78,8 @@
   let codeInput = ''
   let unsubscribeSounds: (() => void) | null = null
   let unsubscribeStatusSounds: (() => void) | null = null
+  let mainEl: HTMLElement
+  let cleanupFit: (() => void) | null = null
 
   $: canGoNext = $quizzProgress.current < $quizzProgress.total
 
@@ -241,10 +244,13 @@
 
   onMount(() => {
     void init()
+    // Ajustement « shrink-to-fit » du contenu (texte + figures) à la fenêtre
+    cleanupFit = fitQuizzContent(mainEl)
     window.addEventListener('keydown', handleKeydown)
   })
 
   onDestroy(() => {
+    cleanupFit?.()
     unsubscribeSounds?.()
     unsubscribeStatusSounds?.()
     session.dispose()
@@ -257,6 +263,7 @@
 </script>
 
 <main
+  bind:this={mainEl}
   class="{$darkMode.isActive
     ? 'dark'
     : ''} quizz-container relative flex flex-col min-h-screen items-center justify-center
