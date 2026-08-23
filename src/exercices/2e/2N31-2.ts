@@ -20,7 +20,7 @@ import { fraction } from '../../modules/fractions'
 import { randint } from '../../modules/outils'
 import Exercice from '../Exercice'
 
-export const titre = 'Sommes algébriques de fractions'
+export const titre = 'Effectuer des sommes algébriques de fractions'
 export const dateDePublication = '18/08/2026'
 export const interactifReady = true
 export const uuid = 'b51bd'

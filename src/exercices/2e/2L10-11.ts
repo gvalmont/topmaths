@@ -72,10 +72,9 @@ function sansDoublonsConsecutifs(lignes: string[]): string[] {
 export default class CalculerExpressionPourDifferentesValeurs extends Exercice {
   constructor() {
     super()
-    this.nbQuestions = 4
-    this.consigne = 'Calculer les expressions suivantes.'
+    this.nbQuestions = 2
     this.besoinFormulaireTexte = [
-      'Type de valeur de x',
+      'Type de valeur de $x$',
       'Nombres séparés par des tirets :\n1 : Entier positif\n2 : Entier négatif\n3 : Fraction\n4 : Racine carrée\n5 : Mélange',
     ]
     this.sup = 5
