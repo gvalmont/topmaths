@@ -3409,6 +3409,11 @@ export class ElementIepEditeur extends MathaleaCustomElement {
     const figureInitiale = this.construireFigureConditionsInitiales()
     if (figureInitiale != null) conteneur.appendChild(figureInitiale)
 
+    const aideConditionsInitiales = this.construireAideConditionsInitiales()
+    if (aideConditionsInitiales != null) {
+      conteneur.appendChild(aideConditionsInitiales)
+    }
+
     // --- Zone d'ajout d'une instruction ---
     this.zoneAjout = document.createElement('div')
     this.zoneAjout.classList.add(
@@ -3567,6 +3572,50 @@ export class ElementIepEditeur extends MathaleaCustomElement {
     const svg = conteneur.querySelector('svg')
     svg?.classList.add('max-w-full', 'h-auto')
     return conteneur
+  }
+
+  private construireAideConditionsInitiales(): HTMLDetailsElement | undefined {
+    if (!this.interactivityOn || this.conditionsInitiales.length === 0) {
+      return undefined
+    }
+    const details = document.createElement('details')
+    details.classList.add(
+      'text-xs',
+      'border',
+      'border-gray-200',
+      'rounded',
+      'bg-gray-50',
+      'px-3',
+      'py-2',
+      'max-w-5xl',
+    )
+    details.onmouseenter = () => {
+      details.open = true
+    }
+    details.onmouseleave = () => {
+      details.open = false
+    }
+
+    const resume = document.createElement('summary')
+    resume.classList.add('cursor-pointer', 'font-medium', 'text-gray-700')
+    resume.innerText = 'Étapes déjà construites'
+    details.appendChild(resume)
+
+    const liste = document.createElement('ol')
+    liste.classList.add(
+      'list-decimal',
+      'list-inside',
+      'mt-2',
+      'space-y-1',
+      'text-gray-700',
+    )
+    this.conditionsInitiales.forEach((instr) => {
+      const item = document.createElement('li')
+      item.innerText = decrireInstruction(instr, this.conditionsInitiales)
+      liste.appendChild(item)
+    })
+    details.appendChild(liste)
+    return details
   }
 
   private get instructionsDisponibles(): TypeInstructionIep[] {
@@ -4126,7 +4175,9 @@ export class ElementIepEditeur extends MathaleaCustomElement {
       const vide = document.createElement('li')
       vide.classList.add('list-none', 'italic', 'text-gray-500')
       vide.innerText =
-        'Le programme est vide : ajoutez une première instruction (par exemple, placer deux points).'
+        this.conditionsInitiales.length === 0
+          ? 'Le programme est vide : ajoutez une première instruction (par exemple, placer deux points).'
+          : `Le programme contient déjà ${this.conditionsInitiales.length === 1 ? 'une instruction' : 'des instructions'}, vous pouvez ${this.conditionsInitiales.length === 1 ? 'la' : 'les'} consulter en déroulant "Étapes déjà construites". Ajoutez votre première instruction.`
       this.listeProgramme.appendChild(vide)
     }
     const programmeComplet = this.programmeComplet()
