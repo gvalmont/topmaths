@@ -1,3 +1,4 @@
+import { context } from '../../../modules/context'
 import { codageAngleDroit } from '../../../lib/2d/CodageAngleDroit'
 import { droite } from '../../../lib/2d/droites'
 import { pointAbstrait } from '../../../lib/2d/PointAbstrait'
@@ -933,7 +934,7 @@ export default class SujetCAN2022Seconde extends Exercice {
                   mainlevee: false,
                   amplitude: 0.5,
                   scale: 1,
-                  center: true,
+                  center: !context.isHtml,
                 },
                 fixeBordures(objets),
               ),
@@ -1245,7 +1246,7 @@ export default class SujetCAN2022Seconde extends Exercice {
                 mainlevee: false,
                 amplitude: 0.5,
                 scale: 0.8,
-                center: true,
+                center: !context.isHtml,
               },
               objets,
             )

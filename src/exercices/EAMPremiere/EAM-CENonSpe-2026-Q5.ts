@@ -1,3 +1,4 @@
+import { context } from '../../modules/context'
 import Decimal from 'decimal.js'
 import { droite } from '../../lib/2d/droites'
 import { pointAbstrait } from '../../lib/2d/PointAbstrait'
@@ -79,7 +80,7 @@ export default class AutoQ5CEns2026 extends ExerciceQcmA {
       pixelsParCm: 30,
       scale: 0.6,
       display: 'block' as const,
-      center: true,
+      center: !context.isHtml,
     }
 
     const figure = mathalea2d(fenetreMathalea2d, r, d, marqueursAB, labelsAB, o)

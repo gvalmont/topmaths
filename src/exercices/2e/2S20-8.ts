@@ -1,3 +1,4 @@
+import { context } from '../../modules/context'
 import { tableauColonneLigne } from '../../lib/2d/tableau'
 import { segment } from '../../lib/2d/segmentsVecteurs'
 import { latex2d } from '../../lib/2d/textes'
@@ -182,7 +183,7 @@ function construitSchemaEcc(
       ymax: hauteur + 0.2,
       pixelsParCm: 25,
       scale: 0.65,
-      center: true,
+      center: !context.isHtml,
     },
     objets,
   )
