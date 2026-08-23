@@ -32,7 +32,7 @@ import { ajouteChampTexteMathLive } from '../../../lib/interactif/questionMathLi
 import FractionEtendue from '../../../modules/FractionEtendue'
 import type { NestedObjetMathalea2dArray } from '../../../types/2d'
 
-export const titre = 'CAN Seconde sujet 2021'
+export const titre = 'S’entraîner avec le sujet CAN Seconde 2021'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 // Les exports suivants sont optionnels mais au moins la date de publication semble essentielle

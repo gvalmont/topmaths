@@ -282,18 +282,21 @@
     "titre": "Ensembles de nombres"
   },
   "can2N11": {
-    "titre": "Intervalles de $\\mathbb{R}$"
+    "titre": "La droite des réels"
   },
   "can2N12": {
-    "titre": "Notation valeur absolue"
+    "titre": "Intervalles de $\\mathbb{R}$"
   },
   "can2N13": {
-    "titre": "Distance entre deux réels"
+    "titre": "Notation valeur absolue"
   },
   "can2N14": {
-    "titre": "Résoudre des inéquations avec une valeur absolue"
+    "titre": "Distance entre deux réels"
   },
   "can2N15": {
+    "titre": "Résoudre des inéquations avec une valeur absolue"
+  },
+  "can2N16": {
     "titre": "Comparer des nombres réels"
   },
   "can2N2": {
@@ -2781,12 +2784,15 @@
     "titre": "Ensembles de nombres"
   },
   "2N11": {
-    "titre": "Intervalles de $\\mathbb{R}$"
+    "titre": "La droite des réels"
   },
   "2N12": {
-    "titre": "Valeur absolue"
+    "titre": "Intervalles de $\\mathbb{R}$"
   },
   "2N13": {
+    "titre": "Valeur absolue"
+  },
+  "2N14": {
     "titre": "Comparer et arrondir des nombres réels"
   },
   "2N2": {

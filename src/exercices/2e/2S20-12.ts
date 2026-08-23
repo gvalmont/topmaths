@@ -1,241 +1,324 @@
+import { traceBarre } from '../../lib/2d/diagrammes'
+import { fixeBordures } from '../../lib/2d/fixeBordures'
+import { segment } from '../../lib/2d/segmentsVecteurs'
 import { tableauColonneLigne } from '../../lib/2d/tableau'
-import { createList } from '../../lib/format/lists'
+import { latex2d, texteParPosition } from '../../lib/2d/textes'
+import { bleuMathalea } from '../../lib/colors'
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { AddTabDbleEntryMathlive } from '../../lib/interactif/tableaux/AjouteTableauMathlive'
 import { choice } from '../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
-import { listeQuestionsToContenu, randint } from '../../modules/outils'
+import { texNombre } from '../../lib/outils/texNombre'
+import { mathalea2d } from '../../modules/mathalea2d'
+import { listeQuestionsToContenu } from '../../modules/outils'
+import type { NestedObjetMathalea2dArray } from '../../types/2d'
 import Exercice from '../Exercice'
 
-export const titre = "Calculer à la main la moyenne et l'écart-type d'une série"
+export const titre =
+  "Déterminer la médiane et la moyenne à partir d'un diagramme"
+export const dateDePublication = '20/08/2026'
+export const uuid = 'b83f2'
 export const interactifReady = true
 export const interactifType = 'tableau-mathlive'
-export const dateDePublication = '18/08/2026'
-export const uuid = '81e37'
 
 export const refs = {
   'fr-fr': ['2S20-12'],
   'fr-ch': [],
 }
 
+type Scenario = {
+  introduction: string
+  premieresValeurs: number[]
+  titreValeurs: string
+  titreEffectifs: string
+  descriptionTableau: string
+  libelleMediane: string
+  libelleMoyenne: string
+  unite: string
+}
+
+const scenarios: Scenario[] = [
+  {
+    introduction: "Un club de sport s'intéresse à l'âge de ses adhérents.",
+    premieresValeurs: [16, 17, 18, 19, 20],
+    titreValeurs: 'Âge',
+    titreEffectifs: "Nombre d'adhérents",
+    descriptionTableau: "l'âge des adhérents",
+    libelleMediane: 'Âge médian',
+    libelleMoyenne: 'Âge moyen',
+    unite: 'ans',
+  },
+  {
+    introduction:
+      "Une médiathèque étudie le nombre de livres empruntés durant l'été par ses abonnés.",
+    premieresValeurs: [1, 2, 3],
+    titreValeurs: 'Livres empruntés',
+    titreEffectifs: "Nombre d'abonnés",
+    descriptionTableau: 'le nombre de livres empruntés',
+    libelleMediane: 'Nombre médian de livres',
+    libelleMoyenne: 'Nombre moyen de livres',
+    unite: 'livres',
+  },
+  {
+    introduction:
+      'Un établissement étudie le nombre de séances sportives pratiquées pendant une semaine par ses élèves.',
+    premieresValeurs: [1, 2, 3],
+    titreValeurs: 'Séances sportives',
+    titreEffectifs: "Nombre d'élèves",
+    descriptionTableau: 'le nombre de séances sportives',
+    libelleMediane: 'Nombre médian de séances',
+    libelleMoyenne: 'Nombre moyen de séances',
+    unite: 'séances',
+  },
+]
+
+function construitDiagramme(
+  valeurs: number[],
+  effectifs: number[],
+  scenario: Scenario,
+): string {
+  const objets: NestedObjetMathalea2dArray = []
+  const maximum = Math.max(...effectifs)
+  const ordonneeMax = maximum + 10
+  const axeHorizontal = segment(0, 0, 7.2, 0, 'black')
+  const axeVertical = segment(0, 0, 0, ordonneeMax / 10 + 0.3, 'black')
+  axeHorizontal.styleExtremites = '->'
+  axeVertical.styleExtremites = '->'
+  objets.push(axeHorizontal, axeVertical)
+
+  for (let graduation = 0; graduation <= ordonneeMax; graduation += 10) {
+    const y = graduation / 10
+    const ligneGuide = segment(0, y, 6.7, y, 'gray')
+    ligneGuide.opacite = graduation === 0 ? 0 : 0.2
+    objets.push(
+      ligneGuide,
+      segment(-0.1, y, 0.1, y, 'black'),
+      latex2d(String(graduation), -0.45, y, {
+        letterSize: 'scriptsize',
+      }),
+    )
+  }
+
+  effectifs.forEach((effectif, indice) => {
+    objets.push(
+      traceBarre(indice + 1, effectif / 10, '', {
+        epaisseur: 0.48,
+        couleurDeRemplissage: bleuMathalea,
+        opaciteDeRemplissage: 0.55,
+        angle: 0,
+      }),
+      latex2d(String(valeurs[indice]), indice + 1, -0.25, {
+        letterSize: 'scriptsize',
+        justify: 'milieu',
+      }),
+    )
+  })
+
+  objets.push(
+    texteParPosition(
+      scenario.titreValeurs,
+      6.9,
+      -0.85,
+      0,
+      'black',
+      1,
+      'milieu',
+    ),
+    texteParPosition(
+      scenario.titreEffectifs,
+      -1.15,
+      ordonneeMax / 20,
+      90,
+      'black',
+      1,
+      'milieu',
+    ),
+  )
+
+  return mathalea2d(
+    {
+      ...fixeBordures(objets, {
+        rxmin: -0.3,
+        rxmax: 0.4,
+        rymin: -0.4,
+        rymax: 0.4,
+      }),
+      pixelsParCm: 25,
+      scale: 0.75,
+      center: true,
+    },
+    objets,
+  )
+}
+
+function valeurAuRang(
+  rang: number,
+  valeurs: number[],
+  effectifsCumules: number[],
+): number {
+  const indice = effectifsCumules.findIndex((effectif) => effectif >= rang)
+  return valeurs[indice]
+}
+
 /**
- * Calculer à la main la moyenne et l'écart-type d'une série statistique.
+ * Lire une série dans un diagramme en bâtons, puis calculer sa médiane et sa
+ * moyenne.
  * @author Stéphane Guyon
  */
-export default class CalculerEcartTypeMain extends Exercice {
+export default class MedianeMoyenneDiagrammeBatons extends Exercice {
   constructor() {
     super()
     this.nbQuestions = 1
     this.nbQuestionsModifiable = false
-    this.sup = true
-    this.besoinFormulaireCaseACocher = [
-      'Ajouter les lignes de calcul à compléter en version non interactive',
-      true,
+    this.sup = 4
+    this.besoinFormulaireNumerique = [
+      'Scénario',
+      4,
+      '1 : Âge des adhérents\n2 : Livres empruntés\n3 : Séances sportives\n4 : Mélange',
     ]
   }
 
   nouvelleVersion(): void {
-    this.besoinFormulaireCaseACocher = this.interactif
-      ? false
-      : [
-          'Ajouter les lignes de calcul à compléter en version non interactive',
-          true,
-        ]
-    const pas = choice([1, 2])
-    const centre = randint(5, 10)
-    const effectifIntermediaire = randint(1, 4)
-    const valeurs = [-2, -1, 0, 1, 2].map((decalage) => centre + decalage * pas)
-    const effectifs = [1, effectifIntermediaire, 6, effectifIntermediaire, 1]
-    const produits = valeurs.map((valeur, indice) => valeur * effectifs[indice])
-    const effectifTotal = effectifs.reduce(
-      (somme, effectif) => somme + effectif,
-      0,
+    const numeroScenario = Number(this.sup)
+    const scenario =
+      numeroScenario >= 1 && numeroScenario <= 3
+        ? scenarios[numeroScenario - 1]
+        : choice(scenarios)
+    const premiereValeur = choice(scenario.premieresValeurs)
+    const valeurs = Array.from(
+      { length: 6 },
+      (_, indice) => premiereValeur + indice,
     )
-    const sommeProduits = produits.reduce(
-      (somme, produit) => somme + produit,
+    const effectifs = choice([
+      [30, 50, 10, 10, 20, 30],
+      [10, 20, 30, 30, 20, 10],
+      [10, 10, 20, 30, 20, 10],
+      [20, 30, 20, 10, 10, 10],
+      [20, 20, 25, 25, 20, 15],
+      [15, 50, 15, 20, 15, 10],
+    ])
+    const effectifsCumules: number[] = []
+    effectifs.reduce((somme, effectif) => {
+      const cumul = somme + effectif
+      effectifsCumules.push(cumul)
+      return cumul
+    }, 0)
+    const effectifTotal = effectifsCumules.at(-1) ?? 0
+    const sommeProduits = valeurs.reduce(
+      (somme, valeur, indice) => somme + valeur * effectifs[indice],
       0,
     )
     const moyenne = sommeProduits / effectifTotal
-    const ecarts = valeurs.map((valeur) => valeur - moyenne)
-    const carresEcarts = ecarts.map((ecart) => ecart ** 2)
-    const produitsCarresEcarts = carresEcarts.map(
-      (carre, indice) => carre * effectifs[indice],
-    )
-    const sommeProduitsCarresEcarts = produitsCarresEcarts.reduce(
-      (somme, produit) => somme + produit,
-      0,
-    )
-    const variance = sommeProduitsCarresEcarts / effectifTotal
-    const ecartType = Math.sqrt(variance)
-    const casesVides = Array.from(
-      { length: valeurs.length + 1 },
-      () => '\\ldots',
-    )
-
-    const lignesTableau = [
-      'n_i',
-      'n_i x_i',
-      'x_i-\\overline{x}',
-      '(x_i-\\overline{x})^2',
-      'n_i(x_i-\\overline{x})^2',
+    const effectifPair = effectifTotal % 2 === 0
+    const rang1 = effectifPair ? effectifTotal / 2 : (effectifTotal + 1) / 2
+    const rang2 = effectifPair ? rang1 + 1 : rang1
+    const valeur1 = valeurAuRang(rang1, valeurs, effectifsCumules)
+    const valeur2 = valeurAuRang(rang2, valeurs, effectifsCumules)
+    const mediane = (valeur1 + valeur2) / 2
+    const diagramme = construitDiagramme(valeurs, effectifs, scenario)
+    const libelleMedianeAvecArticle = scenario.libelleMediane.startsWith('Âge')
+      ? `l'${scenario.libelleMediane.toLowerCase()}`
+      : `le ${scenario.libelleMediane.toLowerCase()}`
+    const libelleMoyenneAvecArticle = scenario.libelleMoyenne.startsWith('Âge')
+      ? `l'${scenario.libelleMoyenne.toLowerCase()}`
+      : `le ${scenario.libelleMoyenne.toLowerCase()}`
+    const entetesColonnes = [
+      `\\text{${scenario.titreValeurs}}`,
+      ...valeurs.map(String),
+      '\\text{Total}',
     ]
-    const tableauEnonce = tableauColonneLigne(
-      ['x_i', ...valeurs.map(String), '\\text{Total}'],
-      lignesTableau,
-      [
-        ...effectifs,
-        effectifTotal,
-        ...casesVides,
-        ...casesVides,
-        ...casesVides,
-        ...casesVides,
-      ],
-      1.5,
-    )
-    const tableauDonnees = tableauColonneLigne(
-      ['x_i', ...valeurs.map(String), '\\text{Total}'],
-      ['n_i'],
-      [...effectifs, effectifTotal],
-      1.5,
-    )
-    const tableauCorrection = tableauColonneLigne(
-      ['x_i', ...valeurs.map(String), '\\text{Total}'],
-      lignesTableau,
-      [
-        ...effectifs,
-        effectifTotal,
-        ...produits,
-        sommeProduits,
-        ...ecarts,
-        '',
-        ...carresEcarts,
-        '',
-        ...produitsCarresEcarts,
-        sommeProduitsCarresEcarts,
-      ],
-      1.5,
-    )
-    const questions = createList({
-      items: this.sup
-        ? [
-            'Recopier et compléter le tableau.',
-            'Calculer la moyenne de cette série.',
-            'Calculer la variance de cette série.',
-            "Calculer l'écart-type de cette série.",
-          ]
-        : [
-            'Calculer la moyenne de cette série.',
-            'Calculer la variance de cette série.',
-            "Calculer l'écart-type de cette série.",
-          ],
-      style: 'nombres',
-    })
+    const entetesLignes = [`\\text{${scenario.titreEffectifs}}`]
+
+    const introduction = `${scenario.introduction} Les résultats de cette étude sont représentés par le diagramme en bâtons ci-dessous.<br><br>
+${diagramme}<br>`
 
     if (this.interactif) {
-      const entetesColonnes = ['x_i', ...valeurs.map(String), '\\text{Total}']
-      const entetesLignes = [
-        'n_i',
-        'n_i x_i',
-        'x_i-\\overline{x}',
-        '(x_i-\\overline{x})^2',
-        'n_i(x_i-\\overline{x})^2',
-      ]
-      const cellules = [
-        ...effectifs,
-        effectifTotal,
-        ...Array.from({ length: 6 }, () => ''),
-        ...Array.from({ length: 5 }, () => ''),
-        '\\text{--}',
-        ...Array.from({ length: 5 }, () => ''),
-        '\\text{--}',
-        ...Array.from({ length: 6 }, () => ''),
-      ]
-      const tableauInteractif =
+      const tableauMathlive =
         AddTabDbleEntryMathlive.convertTclToTableauMathlive(
           entetesColonnes,
           entetesLignes,
-          cellules,
+          Array.from({ length: 7 }, () => ''),
         )
       const renduTableauBase = AddTabDbleEntryMathlive.create(
         this.numeroExercice ?? 0,
         0,
-        tableauInteractif,
-        KeyboardType.clavierDeBase ?? '',
+        tableauMathlive,
+        KeyboardType.clavierNumbers ?? '',
         true,
         {},
       ).output
       const prefixeChamp = `champTexteEx${this.numeroExercice ?? 0}Q0`
       const champResultat = (coordonnees: string) =>
-        `<math-field id="${prefixeChamp}${coordonnees}" class="tableauMathlive" virtual-keyboard-mode="manual" style="display:inline-block; min-width:4rem; min-height:2.2rem; margin-left:0.35rem; border:1px solid #b8b8b8; border-radius:0.35rem; vertical-align:middle"></math-field>`
-      const resultatsHorsTableau = `<caption style="caption-side:bottom; padding-top:1rem; text-align:left"><div style="display:flex; gap:1.5rem; align-items:center; white-space:nowrap"><span>Moyenne : ${champResultat('L6C1')}</span><span>Variance : ${champResultat('L7C1')}</span><span>Écart-type : ${champResultat('L8C1')}</span></div></caption>`
-      const renduTableauInteractif = renduTableauBase.replace(
+        `<math-field id="${prefixeChamp}${coordonnees}" class="tableauMathlive" virtual-keyboard-mode="manual" style="display:inline-block; min-width:4rem; min-height:2.2rem; margin:0 0.35rem; border:1px solid #b8b8b8; border-radius:0.35rem; vertical-align:middle"></math-field>`
+      const resultats = `<caption style="caption-side:bottom; padding-top:1rem; text-align:left"><div style="display:flex; gap:1.5rem; align-items:center; white-space:nowrap"><span>${scenario.libelleMediane} : ${champResultat('L2C1')} ${scenario.unite}</span><span>${scenario.libelleMoyenne} : ${champResultat('L3C1')} ${scenario.unite}</span></div></caption>`
+      const tableauInteractif = renduTableauBase.replace(
         '</table>',
-        `${resultatsHorsTableau}</table>`,
+        `${resultats}</table>`,
       )
       const reponses: Record<string, unknown> = {}
-      const ajouteLigne = (ligne: number, resultats: number[]) => {
-        resultats.forEach((resultat, indice) => {
-          reponses[`L${ligne}C${indice + 1}`] = { value: String(resultat) }
-        })
-      }
-      ajouteLigne(2, [...produits, sommeProduits])
-      ajouteLigne(3, ecarts)
-      ajouteLigne(4, carresEcarts)
-      ajouteLigne(5, [...produitsCarresEcarts, sommeProduitsCarresEcarts])
-      reponses.L6C1 = { value: String(moyenne) }
-      reponses.L7C1 = { value: String(variance) }
-      reponses.L8C1 = { value: String(ecartType) }
+      effectifs.forEach((effectif, indice) => {
+        reponses[`L1C${indice + 1}`] = { value: effectif }
+      })
+      reponses.L1C7 = { value: effectifTotal }
+      reponses.L2C1 = { value: mediane }
+      reponses.L3C1 = { value: moyenne }
       reponses.bareme = (listePoints: number[]): [number, number] => {
-        const pointDeuxiemeLigne = Math.min(...listePoints.slice(0, 5))
-        const pointTroisiemeLigne = Math.min(...listePoints.slice(5, 10))
-        const pointQuatriemeLigne = Math.min(...listePoints.slice(10, 15))
-        const pointCinquiemeLigne = Math.min(...listePoints.slice(15, 20))
-        const pointMoyenne = listePoints[20]
-        const pointVariance = listePoints[21]
-        const pointEcartType = listePoints[22]
-        const totalPoints =
-          pointDeuxiemeLigne +
-          pointTroisiemeLigne +
-          pointQuatriemeLigne +
-          pointCinquiemeLigne +
-          pointMoyenne +
-          pointVariance +
-          pointEcartType
-        return [totalPoints, 7]
+        const pointTableau = Math.min(...listePoints.slice(0, 7))
+        const pointMediane = listePoints[7]
+        const pointMoyenne = listePoints[8]
+        return [pointTableau + pointMediane + pointMoyenne, 3]
       }
       handleAnswers(this, 0, reponses, {
         formatInteractif: 'tableauMathlive',
       })
-      this.listeQuestions[0] = `On considère la série statistique suivante.<br>Compléter toutes les cases, puis donner la moyenne, la variance et l'écart-type de la série.<br><br>
-${renduTableauInteractif}`
+      this.listeQuestions[0] = `${introduction}
+1. Compléter le tableau présentant ${scenario.descriptionTableau} et les effectifs.<br><br>
+${tableauInteractif}`
     } else {
-      this.listeQuestions[0] = `On considère la série statistique suivante :<br><br>
-${this.sup ? tableauEnonce : tableauDonnees}<br>
-${questions}`
+      const tableauEnonce = tableauColonneLigne(
+        entetesColonnes,
+        entetesLignes,
+        Array.from({ length: 7 }, () => '\\ldots'),
+        1.5,
+      )
+      this.listeQuestions[0] = `${introduction}
+1. Présenter dans un tableau ${scenario.descriptionTableau} et les effectifs correspondants.<br><br>
+${tableauEnonce}<br>
+2. Déterminer ${libelleMedianeAvecArticle} et ${libelleMoyenneAvecArticle}.`
     }
 
-    this.listeCorrections[0] = `On complète le tableau. La dernière colonne contient les sommes utiles aux calculs.<br><br>
+    const tableauCorrection = tableauColonneLigne(
+      entetesColonnes,
+      entetesLignes,
+      [...effectifs, effectifTotal],
+      1.5,
+    )
+    const calculMoyenne = valeurs
+      .map((valeur, indice) => `${valeur}\\times ${effectifs[indice]}`)
+      .join('+')
+    let calculMediane: string
+    if (!effectifPair) {
+      calculMediane = `L'effectif total est impair : $N=${effectifTotal}$. La médiane est la valeur de rang $\\dfrac{${effectifTotal}+1}{2}=${rang1}$.<br>
+La valeur de rang $${rang1}$ est $${valeur1}$.<br>
+Ainsi, ${libelleMedianeAvecArticle} est $${miseEnEvidence(`${texNombre(mediane)}\\text{ ${scenario.unite}}`)}$.`
+    } else if (valeur1 === valeur2) {
+      calculMediane = `L'effectif total est pair : $N=${effectifTotal}$. On considère les valeurs de rangs $${rang1}$ et $${rang2}$.<br>
+Ces deux valeurs centrales sont égales à $${valeur1}$.<br>
+Ainsi, ${libelleMedianeAvecArticle} est directement $${miseEnEvidence(`${texNombre(mediane)}\\text{ ${scenario.unite}}`)}$.`
+    } else {
+      calculMediane = `L'effectif total est pair : $N=${effectifTotal}$. La médiane est donc une valeur comprise entre les valeurs de rangs $${rang1}$ et $${rang2}$.<br>
+La valeur de rang $${rang1}$ est $${valeur1}$ et celle de rang $${rang2}$ est $${valeur2}$.<br>
+Ainsi, ${libelleMedianeAvecArticle} est $\\dfrac{${valeur1}+${valeur2}}{2}=${miseEnEvidence(`${texNombre(mediane)}\\text{ ${scenario.unite}}`)}$.`
+    }
+    this.listeCorrections[0] = `1. On lit la hauteur de chaque bâton :<br><br>
 ${tableauCorrection}<br>
-L'effectif total est $N=${effectifTotal}$.<br><br>
-La moyenne est :<br>
+2. ${calculMediane}<br><br>
+On calcule la moyenne pondérée :<br>
 $\\begin{aligned}
-\\overline{x}&=\\dfrac{\\sum n_i x_i}{N}\\\\
+\\overline{x}&=\\dfrac{${calculMoyenne}}{${effectifTotal}}\\\\
 &=\\dfrac{${sommeProduits}}{${effectifTotal}}\\\\
-&=${miseEnEvidence(moyenne)}.
-\\end{aligned}$<br>
-La variance est la moyenne pondérée des carrés des écarts à la moyenne :<br>
-$\\begin{aligned}
-V&=\\dfrac{\\sum n_i(x_i-\\overline{x})^2}{N}\\\\
-&=\\dfrac{${produitsCarresEcarts.join('+')}}{${effectifTotal}}\\\\
-&=\\dfrac{${sommeProduitsCarresEcarts}}{${effectifTotal}}\\\\
-&=${miseEnEvidence(variance)}.
-\\end{aligned}$<br>
-L'écart-type est la racine carrée de la variance :<br>
-$\\begin{aligned}
-\\sigma&=\\sqrt{V}\\\\
-&=\\sqrt{${variance}}\\\\
-&=${miseEnEvidence(ecartType)}.
+&=${miseEnEvidence(`${texNombre(moyenne, 1)}\\text{ ${scenario.unite}}`)}.
 \\end{aligned}$`
 
     listeQuestionsToContenu(this)
