@@ -1,3 +1,4 @@
+import { context } from '../../modules/context'
 import { colorToLatexOrHTML } from '../../lib/2d/colorToLatexOrHtml'
 import { pointAbstrait } from '../../lib/2d/PointAbstrait'
 import { polygone } from '../../lib/2d/polygones'
@@ -142,7 +143,7 @@ function traceDeuxDiagrammes(
       ymax: 3.25,
       pixelsParCm: 25,
       scale: 0.85,
-      center: true,
+      center: !context.isHtml,
     },
     objets,
   )
@@ -194,7 +195,7 @@ function traceRappelBoite(): string {
       ymax: 1.7,
       pixelsParCm: 25,
       scale: 0.8,
-      center: true,
+      center: !context.isHtml,
     },
     objets,
   )

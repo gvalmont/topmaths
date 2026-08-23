@@ -1,3 +1,4 @@
+import { context } from '../../modules/context'
 import { traceBarre } from '../../lib/2d/diagrammes'
 import { fixeBordures } from '../../lib/2d/fixeBordures'
 import { segment } from '../../lib/2d/segmentsVecteurs'
@@ -146,7 +147,7 @@ function construitDiagramme(
       }),
       pixelsParCm: 25,
       scale: 0.75,
-      center: true,
+      center: !context.isHtml,
     },
     objets,
   )

@@ -1,3 +1,4 @@
+import { context } from '../../modules/context'
 import { courbe } from '../../lib/2d/Courbe'
 import { repere } from '../../lib/2d/reperes'
 import { segment } from '../../lib/2d/segmentsVecteurs'
@@ -123,7 +124,7 @@ function genererGraphique(obj: Fonction): string {
     pixelsParCm: 15,
     scale: 0.4,
     display: 'inline-block' as const,
-    center: true,
+    center: !context.isHtml,
   }
 
   return mathalea2d(fenetreMathalea2d, c, axeX, axeY, o)
