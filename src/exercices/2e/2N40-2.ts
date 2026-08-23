@@ -1,11 +1,26 @@
-import CalculerLaValeurDUneExpressionLitterale from '../5e/5N5B'
-export const titre = "Calculer la valeur d'une expression littérale"
+import NotationPuissance from '../4e/4C33-0'
+export const titre = 'Utiliser la notation puissance'
 export const interactifReady = true
 export const interactifType = 'mathLive'
-export const uuid = '98658'
+export const amcReady = true
+export const amcType = 'AMCOpen'
+export const dateDePublication = '12/09/2023'
+export const uuid = 'fb1a4'
 
 export const refs = {
   'fr-fr': ['2N40-2'],
-  'fr-ch': ['NR'],
+  'fr-ch': ['10NO3D-26'],
 }
-export default class CalculerLaValeurDUneExpressionLitterale2e extends CalculerLaValeurDUneExpressionLitterale {}
+export default class NotationPuissanceEn2nde extends NotationPuissance {
+  constructor() {
+    super()
+    this.sup = 3
+    this.sup3 = 3
+    this.classe = 2
+    this.besoinFormulaire3Numerique = [
+      'Exposant',
+      3,
+      '1 : Positif\n2 : Négatif\n3 : Mélange',
+    ]
+  }
+}

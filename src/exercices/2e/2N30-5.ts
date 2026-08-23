@@ -1,17 +1,30 @@
-import SommeOuProduitFractions from '../4e/4C23'
-export const titre = 'Effectuer somme, différence ou produit de fractions'
-export const dateDeModifImportante = '07/05/2024'
-export const interactifType = 'mathLive'
+import EncadrerFractionEntre2Entiers from '../6e/6N3I-1'
+export const titre = 'Encadrer une fraction entre deux nombres entiers'
 export const interactifReady = true
-export const uuid = '6575c'
+export const interactifType = 'mathLive'
+export const amcReady = true
+export const amcType = 'AMCHybride'
+/**
+ * Clone de 6N20-1 pour les 2nde
+ *
+ * @author Jean-claude Lhote
+ */
+export const dateDeModifImportante = '14/05/2023' // ajout d'un paramètre pour choisir les dénominateurs
+export const uuid = 'd309b'
 
 export const refs = {
-  'fr-fr': ['2N30-5', 'BP2AutoH4'],
-  'fr-ch': ['11-NO2-1', '1mCN-5'],
+  'fr-fr': ['2N30-5'],
+  'fr-ch': ['9NO3C-3'],
 }
-export default class SommeOuProduitFractions2nde extends SommeOuProduitFractions {
+export default class EncadrerFractionEntre2Entiers2nde extends EncadrerFractionEntre2Entiers {
   constructor() {
     super()
-    this.sup = 4
+    this.lycee = true
+    this.sup = false
+    this.sup2 = '10'
+    this.besoinFormulaire2Texte = [
+      'Dénominateurs à choisir',
+      'Nombres séparés par des tirets :\nDe 2 à 9 pour les dénominateurs correspondants\n10 Mélange',
+    ]
   }
 }

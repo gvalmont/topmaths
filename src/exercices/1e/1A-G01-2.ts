@@ -1,3 +1,4 @@
+import { context } from '../../modules/context'
 import { pointAbstrait } from '../../lib/2d/PointAbstrait'
 import { repere } from '../../lib/2d/reperes'
 import { labelPoint } from '../../lib/2d/textes'
@@ -49,7 +50,7 @@ export default class LireCoordonneesPointQCM extends ExerciceQcmA {
         pixelsParCm: 30,
         scale: 0.75,
         display: 'block',
-        center: true,
+        center: !context.isHtml,
       },
       repere({
         xMin,
@@ -90,7 +91,7 @@ export default class LireCoordonneesPointQCM extends ExerciceQcmA {
 
     const figure = this.construireFigure(x, y, label)
     this.enonce = `On considère le repère ci-dessous : ${figure}
-Les coordonnées du point $${label}$ sont `
+Les coordonnées du point $${label}$ sont :`
     this.correction = `On lit d'abord l'abscisse sur l'axe horizontal, puis l'ordonnée sur l'axe vertical.<br>
 Le point $${label}$ a donc pour coordonnées $${miseEnEvidence(bonneReponse.slice(1, -1))}$.`
   }

@@ -22,7 +22,7 @@ export const interactifType = 'mathLive'
 export const uuid = '0861b'
 
 export const refs = {
-  'fr-fr': ['canc3D02', '6M4B-flash1'],
+  'fr-fr': ['canc3D02', '6M4B-flash1', '6AutoT1-1'],
   'fr-ch': ['PR-13'],
 }
 export default class LireUneDuree extends ExerciceSimple {
@@ -80,7 +80,7 @@ export default class LireUneDuree extends ExerciceSimple {
           xmax: 3,
           ymax: 3,
           scale: 0.6,
-          center: true,
+          center: !context.isHtml,
         },
         horloge1,
         texteParPosition('Heure de début', 0, -2.5),
@@ -93,7 +93,7 @@ export default class LireUneDuree extends ExerciceSimple {
           xmax: 3,
           ymax: 3,
           scale: 0.6,
-          center: true,
+          center: !context.isHtml,
         },
         horloge2,
         texteParPosition('Heure de fin', 0, -2.5),

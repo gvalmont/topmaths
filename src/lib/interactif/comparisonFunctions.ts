@@ -1285,11 +1285,13 @@ function handleFraction(
   const clean = generateCleaner(['virgules', 'fractionsMemesNegatives'])
   const sFrac = parseFractionLatex(clean(saisie))
 
-  if (
-    options.nombreDecimalSeulement &&
-    handleNombreDecimalSeulement(saisie, answer).isOk
-  )
-    return ok()
+  if (options.nombreDecimalSeulement) {
+    const decimalResult = handleNombreDecimalSeulement(saisie, answer)
+    if (decimalResult.isOk) return ok()
+    // La saisie n'est pas une fraction : inutile de la juger sur ce critère,
+    // on renvoie directement le message adapté à une réponse décimale.
+    if (!sFrac) return decimalResult
+  }
 
   if (
     Number.isInteger(ce.parse(clean(saisie)).re) &&
@@ -1534,7 +1536,7 @@ function handleNombreDecimalSeulement(
       'Résultat incorrect car une valeur décimale (ou entière) est attendue.',
     )
 
-  return mathEqual(parse(saisie), parse(answer)) ? ok() : fail()
+  return mathEqual(parse(saisie), parse(answer)) ? ok() : fail('Résultat incorrect.')
 }
 
 function handleExpressionNumerique(
@@ -2277,7 +2279,7 @@ function handletexteAvecCasse(
     'fractions',
     'virgules',
   ])
-  // Ligne ci-dessous utile si la réponse est (B,F) comme dans 2S30-5
+  // Ligne ci-dessous utile si la réponse est (B,F) comme dans 2S40-5
   saisie = saisie.replace(
     /\\lparen\s*([^{}]+)\s*\{,\}\s*([^{}]+)\s*\\rparen/g,
     '($1,$2)',

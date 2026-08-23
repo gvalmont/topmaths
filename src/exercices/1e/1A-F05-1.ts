@@ -213,7 +213,7 @@ export default class Auto1AF5 extends ExerciceQcmA {
         ymax: ymax + 0.25,
         pixelsParCm: 30,
         scale: 0.6,
-        center: true,
+        center: !context.isHtml,
       },
       courbe(f1, {
         repere: r,
@@ -518,7 +518,7 @@ export default class Auto1AF5 extends ExerciceQcmA {
         ymax: ymax + 0.05,
         pixelsParCm: 30,
         scale: 0.6,
-        center: true,
+        center: !context.isHtml,
       },
       courbe(f1, {
         repere: r,
@@ -610,6 +610,6 @@ export default class Auto1AF5 extends ExerciceQcmA {
     super()
     // Appel de la version originale par défaut, ou de la version aléatoire selon les besoins
     this.versionOriginale()
-    if (!context.isHtml) this.options = { ...this.options, vertical: true }
+    if (!context.isHtml) this.options.vertical = true
   }
 }

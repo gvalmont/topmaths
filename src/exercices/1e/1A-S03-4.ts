@@ -1,18 +1,21 @@
-import { bleuMathalea } from '../../lib/colors'
+import { context } from '../../modules/context'
 import { colorToLatexOrHTML } from '../../lib/2d/colorToLatexOrHtml'
+import type { ObjetMathalea2D } from '../../lib/2d/ObjetMathalea2D'
 import { pointAbstrait } from '../../lib/2d/PointAbstrait'
 import { polygone } from '../../lib/2d/polygones'
 import { repere } from '../../lib/2d/reperes'
 import { segment } from '../../lib/2d/segmentsVecteurs'
 import { texteParPosition } from '../../lib/2d/textes'
+import { bleuMathalea } from '../../lib/colors'
 import Stat from '../../lib/mathFonctions/Stat'
 import { choice } from '../../lib/outils/arrayOutils'
-import { texteEnCouleurEtGras } from '../../lib/outils/embellissements'
+import {
+  texteEnCouleurEtGras,
+  texteGras,
+} from '../../lib/outils/embellissements'
 import { mathalea2d } from '../../modules/mathalea2d'
-import { context } from '../../modules/context'
 import { randint } from '../../modules/outils'
 import { creerSerieDeQuartiles } from '../../modules/outilsStat'
-import type { ObjetMathalea2D } from '../../lib/2d/ObjetMathalea2D'
 import ExerciceQcmA from '../ExerciceQcmA'
 
 export const uuid = '0cd7a'
@@ -39,6 +42,11 @@ type Cas = {
   serie1: Resume
   serie2: Resume
   bonneAffirmation: number
+}
+
+type Affirmation = {
+  texte: string
+  correction: string
 }
 
 /**
@@ -171,7 +179,7 @@ export default class ComparerDeuxBoitesMoustaches extends ExerciceQcmA {
         ymax: 4.2,
         pixelsParCm: 30,
         scale: 0.75,
-        center: true,
+        center: !context.isHtml,
       },
       objets,
     )
@@ -182,22 +190,42 @@ export default class ComparerDeuxBoitesMoustaches extends ExerciceQcmA {
       `Au moins une valeur de la série 2 est strictement inférieure à toutes les valeurs de la série 1.`,
       `Au moins une valeur de la série 1 est strictement supérieure à toutes les valeurs de la série 2.`,
     ]
-    this.reponses = affirmations
-    this.bonnesReponses = affirmations.map(
-      (_, index) => index === cas.bonneAffirmation,
-    )
-
     const estVraie = (index: number) =>
-      index === cas.bonneAffirmation
-        ? texteEnCouleurEtGras('Vraie')
-        : texteEnCouleurEtGras('Fausse')
+      index === cas.bonneAffirmation ? texteGras('vraie') : texteGras('fausse')
+    const affirmation = (i: number) =>
+      estVraie(i).includes('fausse')
+        ? affirmations[i]
+        : texteEnCouleurEtGras(affirmations[i])
+    const propositions: Affirmation[] = [
+      {
+        texte: affirmations[0],
+        correction: `« ${affirmation(0)} » <br>Le troisième quartile de la série 2 vaut $${resume2.q3}$ et la médiane de la série 1 vaut $${resume1.mediane}$. Cette affirmation est donc ${estVraie(0)}.`,
+      },
+      {
+        texte: affirmations[1],
+        correction: `« ${affirmation(1)} » <br>Le premier quartile de la série 1 vaut $${resume1.q1}$ et la médiane de la série 2 vaut $${resume2.mediane}$. Cette affirmation est donc ${estVraie(1)}.`,
+      },
+      {
+        texte: affirmations[2],
+        correction: `« ${affirmation(2)} » <br>Le minimum de la série 2 vaut $${resume2.min}$ et celui de la série 1 vaut $${resume1.min}$. Cette affirmation est donc ${estVraie(2)}.`,
+      },
+      {
+        texte: affirmations[3],
+        correction: `« ${affirmation(3)} » <br>Le maximum de la série 1 vaut $${resume1.max}$ et celui de la série 2 vaut $${resume2.max}$. Cette affirmation est donc ${estVraie(3)}.`,
+      },
+    ]
+    const bonneProposition = propositions[cas.bonneAffirmation]
+    const mauvaisesPropositions = propositions.filter(
+      (_, index) => index !== cas.bonneAffirmation,
+    )
+    const propositionsQcu = [bonneProposition, ...mauvaisesPropositions]
+    this.reponses = propositionsQcu.map(({ texte }) => texte)
+    this.corrections = propositionsQcu.map(({ correction }) => correction)
+    this.bonnesReponses = undefined
     this.enonce = `On donne les diagrammes en boîte de deux séries statistiques.<br>
       ${figure}<br>
       On peut affirmer que :`
-    this.correction = `$\\bullet$ « ${affirmations[0]} » ${estVraie(0)} : le troisième quartile de la série 2 vaut $${resume2.q3}$ et la médiane de la série 1 vaut $${resume1.mediane}$.<br><br>
-      $\\bullet$ « ${affirmations[1]} » ${estVraie(1)} : le premier quartile de la série 1 vaut $${resume1.q1}$ et la médiane de la série 2 vaut $${resume2.mediane}$.<br><br>
-      $\\bullet$ « ${affirmations[2]} » ${estVraie(2)} : le minimum de la série 2 vaut $${resume2.min}$ et celui de la série 1 vaut $${resume1.min}$.<br><br>
-      $\\bullet$ « ${affirmations[3]} » ${estVraie(3)} : le maximum de la série 1 vaut $${resume1.max}$ et celui de la série 2 vaut $${resume2.max}$.`
+    this.correction = ''
   }
 
   versionAleatoire: () => void = () => {
@@ -229,7 +257,7 @@ export default class ComparerDeuxBoitesMoustaches extends ExerciceQcmA {
   constructor() {
     super()
     this.besoinFormulaireCaseACocher = false
-    this.options = { vertical: true, ordered: context.isTypst }
+    this.options = { vertical: true, radio: true }
     this.versionAleatoire()
   }
 }

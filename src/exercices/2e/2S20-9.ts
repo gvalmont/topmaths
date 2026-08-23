@@ -1,333 +1,171 @@
-import { renderSheetMarkup } from '../../lib/customElements/MySpreadSheet'
-import { addMultiMathfield } from '../../lib/customElements/MultiMathfield'
+import { tableauColonneLigne } from '../../lib/2d/tableau'
+import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
-import { choice, shuffle } from '../../lib/outils/arrayOutils'
-import { texteEnCouleurEtGras } from '../../lib/outils/embellissements'
-import { context } from '../../modules/context'
-import { listeQuestionsToContenu, randint } from '../../modules/outils'
+import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
+import { choice } from '../../lib/outils/arrayOutils'
+import { miseEnEvidence } from '../../lib/outils/embellissements'
+import { texNombre } from '../../lib/outils/texNombre'
+import { listeQuestionsToContenu } from '../../modules/outils'
 import Exercice from '../Exercice'
 
-export const titre = 'Utiliser le vocabulaire statistique et un tableur'
-export const dateDePublication = '18/08/2026'
+export const titre = "Calculer la moyenne d'une série regroupée en classes"
 export const interactifReady = true
-export const interactifType = 'multi-mathfield'
-
-export const uuid = '9f3c1'
+export const interactifType = 'mathLive'
+export const dateDePublication = '18/08/2026'
+export const uuid = 'eae1d'
 
 export const refs = {
   'fr-fr': ['2S20-9'],
   'fr-ch': [],
 }
 
-/**
- * Identifier une population et un caractère statistique, puis calculer des fréquences avec un tableur.
- *
- * @author Stéphane Guyon
- */
-
 type Scenario = {
   introduction: string
-  entete: string
-  modalites: Array<string | number>
-  effectifs: number[]
-  population: string
-  populationsFausses: string[]
-  caractere: string
-  caracteresFaux: string[]
-  nature: string
+  bornes: number[]
+  intituleClasses: string
+  intituleEffectifs: string
+  question: string
+  unite: string
+  conclusion: (moyenne: string) => string
 }
 
-const spreadsheetStyles = {
-  entete: { bg: '#dce6f1', fs: 11 },
-  total: { bg: '#e9eff6', fs: 11 },
+const scenarios: Scenario[] = [
+  {
+    introduction:
+      'Un centre de sauvegarde de la faune a mesuré la longueur de la carapace de 40 jeunes tortues. Les résultats sont regroupés en classes de même amplitude dans le tableau ci-dessous.',
+    bornes: [20, 30, 40, 50, 60, 70],
+    intituleClasses: 'Longueur de la carapace (en cm)',
+    intituleEffectifs: 'Nombre de tortues',
+    question:
+      'Estimer la longueur moyenne de la carapace de ces jeunes tortues.',
+    unite: '\\text{cm}',
+    conclusion: (moyenne) =>
+      `La longueur moyenne de leur carapace est estimée à $${moyenne}~\\text{cm}$. Il s'agit bien d'une estimation puisqu'on ne connaît pas précisément la longueur de la carapace de chaque tortue.`,
+  },
+  {
+    introduction:
+      'Une pépinière a mesuré la hauteur de 40 jeunes plants six semaines après leur mise en terre. Les résultats sont regroupés en classes de même amplitude dans le tableau ci-dessous.',
+    bornes: [10, 20, 30, 40, 50, 60],
+    intituleClasses: 'Hauteur (en cm)',
+    intituleEffectifs: 'Nombre de plants',
+    question: 'Estimer la hauteur moyenne de ces jeunes plants.',
+    unite: '\\text{cm}',
+    conclusion: (moyenne) =>
+      `La hauteur moyenne des jeunes plants est estimée à $${moyenne}~\\text{cm}$. Il s'agit bien d'une estimation puisqu'on ne connaît pas précisément la hauteur de chaque plant.`,
+  },
+  {
+    introduction:
+      "Une exploitation maraîchère a pesé 40 tomates d'une même variété au moment de la récolte. Les résultats sont regroupés en classes de même amplitude dans le tableau ci-dessous.",
+    bornes: [80, 100, 120, 140, 160, 180],
+    intituleClasses: 'Masse (en g)',
+    intituleEffectifs: 'Nombre de tomates',
+    question: 'Estimer la masse moyenne de ces tomates.',
+    unite: '\\text{g}',
+    conclusion: (moyenne) =>
+      `La masse moyenne des tomates est estimée à $${moyenne}~\\text{g}$. Il s'agit bien d'une estimation puisqu'on ne connaît pas précisément la masse de chaque tomate.`,
+  },
+]
+
+const distributions = [
+  [2, 6, 12, 14, 6],
+  [4, 8, 14, 10, 4],
+  [2, 8, 16, 10, 4],
+]
+
+function ecritureClasse(borneInferieure: number, borneSuperieure: number) {
+  return `\\left[${borneInferieure}\\,;\\,${borneSuperieure}\\right[`
 }
 
-export default class VocabulaireStatistiqueTableur extends Exercice {
+/**
+ * Calculer une moyenne à partir d'une série regroupée en classes de même amplitude.
+ * @author Stéphane Guyon
+ */
+export default class MoyenneSerieRegroupeeEnClasses extends Exercice {
   constructor() {
     super()
     this.nbQuestions = 1
-    this.sup = 5
+    this.nbQuestionsModifiable = false
+    this.sup = 4
     this.besoinFormulaireNumerique = [
       'Scénario',
-      5,
-      '1 : Médiathèque\n2 : Pointures vendues\n3 : Moyens de transport\n4 : Séances d’entraînement\n5 : Mélange',
+      4,
+      '1 : Taille de tortues\n2 : Hauteur de jeunes plants\n3 : Masse de tomates\n4 : Mélange',
     ]
   }
 
   nouvelleVersion(): void {
-    const premierePointure = choice([35, 36, 37])
-    const scenarios: Scenario[] = [
-      {
-        introduction:
-          'Une médiathèque relève le genre littéraire de chaque livre emprunté pendant un week-end.',
-        entete: 'Genre littéraire',
-        modalites: [
-          'Roman',
-          'Bande dessinée',
-          'Documentaire',
-          'Poésie et théâtre',
-        ],
-        effectifs: [
-          randint(22, 34),
-          randint(16, 27),
-          randint(10, 20),
-          randint(4, 11),
-        ].map((n) => n * 5),
-        population: 'les livres empruntés pendant ce week-end',
-        populationsFausses: [
-          'les genres littéraires',
-          'les effectifs',
-          'la médiathèque',
-        ],
-        caractere: 'le genre littéraire de chaque livre emprunté',
-        caracteresFaux: [
-          'le nombre total de livres empruntés',
-          "la durée d'emprunt de chaque livre",
-          'le nombre de livres de chaque genre',
-        ],
-        nature: 'qualitatif',
-      },
-      {
-        introduction:
-          'Un magasin relève la pointure de chaque paire de chaussures vendue pendant une opération promotionnelle.',
-        entete: 'Pointure',
-        modalites: Array.from({ length: 5 }, (_, i) => premierePointure + i),
-        effectifs: [
-          randint(12, 20),
-          randint(20, 30),
-          randint(25, 36),
-          randint(16, 27),
-          randint(8, 16),
-        ].map((n) => n * 5),
-        population: "les paires de chaussures vendues pendant l'opération",
-        populationsFausses: [
-          'les clients du magasin',
-          'les différentes pointures',
-          'toutes les chaussures du magasin',
-        ],
-        caractere: 'la pointure de chaque paire vendue',
-        caracteresFaux: [
-          'le nombre de paires vendues',
-          "le prix d'une paire de chaussures",
-          'le modèle de chaque paire vendue',
-        ],
-        nature: 'quantitatif discret',
-      },
-      {
-        introduction:
-          "À l'entrée d'un lycée, on interroge des élèves sur leur moyen de transport principal pour venir au lycée.",
-        entete: 'Moyen de transport',
-        modalites: ['À pied', 'Vélo', 'Transports en commun', 'Voiture'],
-        effectifs: [
-          randint(8, 15),
-          randint(5, 12),
-          randint(18, 28),
-          randint(10, 20),
-        ].map((n) => n * 10),
-        population: "les élèves interrogés à l'entrée du lycée",
-        populationsFausses: [
-          'tous les élèves du lycée',
-          'les moyens de transport',
-          'les trajets effectués pendant une semaine',
-        ],
-        caractere:
-          'le moyen de transport principal utilisé pour venir au lycée',
-        caracteresFaux: [
-          'la durée du trajet pour venir au lycée',
-          "le nombre d'élèves du lycée",
-          'la distance entre le domicile et le lycée',
-        ],
-        nature: 'qualitatif',
-      },
-      {
-        introduction:
-          "Une association sportive relève le nombre de séances d'entraînement suivies par chacun de ses adhérents pendant un mois.",
-        entete: 'Nombre de séances',
-        modalites: [0, 1, 2, 3, 4, 5],
-        effectifs: [
-          randint(4, 8),
-          randint(7, 13),
-          randint(12, 18),
-          randint(14, 21),
-          randint(8, 15),
-          randint(3, 8),
-        ].map((n) => n * 5),
-        population: "les adhérents de l'association sportive",
-        populationsFausses: [
-          "le nombre de séances d'entraînement",
-          'les effectifs',
-          "l'association sportive",
-        ],
-        caractere:
-          'le nombre de séances suivies par chaque adhérent pendant le mois',
-        caracteresFaux: [
-          "la durée d'une séance d'entraînement",
-          "le nombre total d'adhérents",
-          'le sport pratiqué par chaque adhérent',
-        ],
-        nature: 'quantitatif discret',
-      },
-    ]
-
+    const numeroScenario = Number(this.sup)
     const scenario =
-      this.sup >= 1 && this.sup <= 4
-        ? scenarios[this.sup - 1]
+      numeroScenario >= 1 && numeroScenario <= 3
+        ? scenarios[numeroScenario - 1]
         : choice(scenarios)
-    const total = scenario.effectifs.reduce(
+    const effectifs = choice(distributions)
+    const centres = scenario.bornes
+      .slice(0, -1)
+      .map((borne, indice) => (borne + scenario.bornes[indice + 1]) / 2)
+    const produits = centres.map((centre, indice) => centre * effectifs[indice])
+    const effectifTotal = effectifs.reduce(
       (somme, effectif) => somme + effectif,
       0,
     )
-    const ligneTotal = scenario.modalites.length + 2
-    const formule = `=B2/$B$${ligneTotal}`
-    const formuleAffichee = context.isHtml
-      ? `<code>${formule}</code>`
-      : `\\texttt{${formule.replaceAll('$', '\\$')}}`
-    const donnees: Array<Array<string | number>> = [
-      [scenario.entete, 'Effectif', 'Fréquence'],
-      ...scenario.modalites.map((modalite, i) => [
-        modalite,
-        scenario.effectifs[i],
-        '',
-      ]),
-      ['Total', total, ''],
-    ]
-    const donneesCorrection: Array<Array<string | number>> = [
-      [scenario.entete, 'Effectif', 'Fréquence'],
-      ...scenario.modalites.map((modalite, i) => [
-        modalite,
-        scenario.effectifs[i],
-        Math.round((scenario.effectifs[i] / total) * 10000) / 10000,
-      ]),
-      ['Total', total, 1],
-    ]
-    const style: Record<string, string> = {}
-    for (const cellule of ['A1', 'B1', 'C1']) {
-      style[cellule] =
-        'background-color:#dce6f1;font-weight:bold;text-align:center;'
-    }
-    for (const cellule of [
-      `A${ligneTotal}`,
-      `B${ligneTotal}`,
-      `C${ligneTotal}`,
-    ]) {
-      style[cellule] = 'background-color:#e9eff6;font-weight:bold;'
-    }
-    const latexData = donnees.map((ligne, i) =>
-      Object.fromEntries(
-        ligne.map((valeur, j) => [
-          j,
-          {
-            v: valeur,
-            t: typeof valeur === 'number' ? 2 : 1,
-            s: i === 0 ? 'entete' : i === ligneTotal - 1 ? 'total' : undefined,
-          },
-        ]),
-      ),
+    const sommeProduits = produits.reduce(
+      (somme, produit) => somme + produit,
+      0,
     )
-    const latexDataCorrection = donneesCorrection.map((ligne, i) =>
-      Object.fromEntries(
-        ligne.map((valeur, j) => [
-          j,
-          {
-            v: valeur,
-            t: typeof valeur === 'number' ? 2 : 1,
-            s: i === 0 ? 'entete' : i === ligneTotal - 1 ? 'total' : undefined,
-          },
-        ]),
-      ),
+    const moyenne = sommeProduits / effectifTotal
+    const moyenneTex = texNombre(moyenne, 2)
+    const classes = scenario.bornes
+      .slice(0, -1)
+      .map((borne, indice) =>
+        ecritureClasse(borne, scenario.bornes[indice + 1]),
+      )
+
+    const tableauEnonce = tableauColonneLigne(
+      [`\\text{\\textbf{${scenario.intituleClasses}}}`, ...classes],
+      [`\\text{\\textbf{${scenario.intituleEffectifs}}}`],
+      effectifs,
+      1.8,
+    )
+    const tableauCorrection = tableauColonneLigne(
+      [`\\text{\\textbf{${scenario.intituleClasses}}}`, ...classes],
+      [
+        `\\text{\\textbf{${scenario.intituleEffectifs}}}`,
+        '\\text{\\textbf{Centre de la classe}}',
+      ],
+      [...effectifs, ...centres],
+      1.8,
     )
 
-    const tableur = renderSheetMarkup({
-      numeroExercice: this.numeroExercice,
-      questionIndex: 10,
-      data: donnees,
-      minDimensions: [3, donnees.length],
-      style,
-      columns: [{ width: 220 }, { width: 110 }, { width: 120 }],
-      interactif: false,
-      showVerifyButton: false,
-      readOnlyCells: [`A1:C${ligneTotal}`],
-      latexData,
-      latexStyles: spreadsheetStyles,
-      appendFeedbackBlocks: false,
-    })
-    const tableurCorrection = renderSheetMarkup({
-      data: donneesCorrection,
-      minDimensions: [3, donneesCorrection.length],
-      style,
-      columns: [{ width: 220 }, { width: 110 }, { width: 120 }],
-      interactif: false,
-      showVerifyButton: false,
-      readOnlyCells: [`A1:C${ligneTotal}`],
-      latexData: latexDataCorrection,
-      latexStyles: spreadsheetStyles,
-      appendFeedbackBlocks: false,
-    })
-
-    const liste = (bonneReponse: string, mauvaisesReponses: string[]) => [
-      { label: 'Choisir…', value: '' },
-      ...shuffle([bonneReponse, ...mauvaisesReponses]).map((reponse) => ({
-        label: reponse,
-        value: reponse,
-      })),
-    ]
-    const choixPopulation = liste(
-      scenario.population,
-      scenario.populationsFausses,
-    )
-    const choixCaractere = liste(scenario.caractere, scenario.caracteresFaux)
-    const choixNature = liste(scenario.nature, [
-      scenario.nature === 'qualitatif' ? 'quantitatif discret' : 'qualitatif',
-      'quantitatif continu',
-    ])
-    const choixFormule = liste(formule, [
-      `=B2/B${ligneTotal}`,
-      `=$B$2/B${ligneTotal}`,
-      `=B2/$B2`,
-    ])
-
-    let texte = `${scenario.introduction}<br>Les données recueillies sont présentées dans le tableur ci-dessous.<br><br>${tableur}<br>`
+    let question = `${scenario.introduction}<br><br>${tableauEnonce}<br>`
     if (this.interactif) {
-      texte += addMultiMathfield(this, 0, {
-        dataTemplate: `1. Quelle est la population étudiée ? %{population}<br>
-          2. Quel est le caractère étudié ? %{caractere}<br>
-          S'agit-il d'un caractère qualitatif ou quantitatif ? %{nature}<br>
-          3. Quelle formule peut-on saisir dans la cellule C2, puis tirer vers le bas pour compléter la colonne C ? %{formule}`,
-        dataOptions: {
-          population: { choices: choixPopulation },
-          caractere: { choices: choixCaractere },
-          nature: { choices: choixNature },
-          formule: { choices: choixFormule },
-        },
-      })
-    } else {
-      texte += `1. Quelle est la population étudiée ?<br>
-        2. Quel est le caractère étudié ? S'agit-il d'un caractère qualitatif ou quantitatif ?<br>
-        3. Quelle formule peut-on saisir dans la cellule C2, puis tirer vers le bas pour compléter la colonne C ?`
-    }
-
-    if (this.interactif) {
-      handleAnswers(
+      question += `La moyenne estimée est ${ajouteChampTexteMathLive(
         this,
         0,
-        {
-          population: { value: scenario.population },
-          caractere: { value: scenario.caractere },
-          nature: { value: scenario.nature },
-          formule: { value: formule },
-        },
-        { formatInteractif: 'multi-mathfield' },
-      )
+        KeyboardType.clavierDeBase,
+        { texteApres: `$~${scenario.unite}$` },
+      )}`
+    } else {
+      question += scenario.question
     }
+    handleAnswers(this, 0, {
+      reponse: { value: String(moyenne) },
+    })
+    this.listeQuestions[0] = question
+    this.listeCorrections[0] = `Pour estimer la moyenne d'une série regroupée en classes, on calcule les centres de classes.<br>Le centre d'une classe est la moyenne de ses deux bornes.<br>Par exemple :<br>
+Le centre de la première classe est $\\dfrac{${scenario.bornes[0]}+${scenario.bornes[1]}}{2}=${centres[0]}$.<br><br>
+On complète alors le tableau :<br><br>
+${tableauCorrection}<br>
+L'effectif total est $N=${effectifs.join('+')}=${effectifTotal}$.<br>
+On calcule une moyenne pondérée en prenant comme valeurs les centres des classes.<br>
+La moyenne est donc :<br>
+$\\begin{aligned}
+\\overline{x}&=\\dfrac{${effectifs.map((effectif, indice) => `${effectif}\\times${centres[indice]}`).join('+')}}{${effectifTotal}}\\\\
+&=\\dfrac{${produits.join('+')}}{${effectifTotal}}\\\\
+&=\\dfrac{${sommeProduits}}{${effectifTotal}}\\\\
+&=${miseEnEvidence(moyenneTex)}.
+\\end{aligned}$<br>
+${scenario.conclusion(miseEnEvidence(moyenneTex))}`
 
-    let texteCorr = `La population étudiée est ${texteEnCouleurEtGras(scenario.population)}.<br>`
-    texteCorr += `Le caractère étudié est ${texteEnCouleurEtGras(scenario.caractere)}. Il s'agit d'un caractère ${texteEnCouleurEtGras(scenario.nature)}.<br>`
-    texteCorr += `La fréquence d'une modalité est le quotient de son effectif par l'effectif total.<br>`
-    texteCorr += `Dans la cellule C2, on saisit donc ${texteEnCouleurEtGras(formuleAffichee)}. Les symboles « dollar » devant B et ${ligneTotal} rendent la référence à la cellule B${ligneTotal} absolue : elle reste fixe lorsque la formule est tirée vers le bas.<br>`
-    texteCorr += `On obtient le tableur complété suivant.<br><br>${tableurCorrection}`
-
-    this.listeQuestions = [texte]
-    this.listeCorrections = [texteCorr]
     listeQuestionsToContenu(this)
   }
 }

@@ -131,35 +131,317 @@
   "can3S": {
     "titre": "Statistiques et probabilités"
   },
-  "can2C": {
-    "titre": "Calculs"
-  },
   "can2F": {
     "titre": "Fonctions"
   },
   "can2F1": {
-    "titre": "Généralités avec les fonctions"
+    "titre": "Généralités sur les fonctions"
+  },
+  "can2F10": {
+    "titre": "Utiliser les notations et le vocabulaire fonctionnels"
+  },
+  "can2F11": {
+    "titre": "Déterminer une image ou un antécédent par une fonction définie par un tableau de valeurs"
+  },
+  "can2F12": {
+    "titre": "Déterminer une image ou un antécédent par une fonction définie par une représentation graphique"
+  },
+  "can2F13": {
+    "titre": "Déterminer une image ou un antécédent par une fonction définie par une expression algébrique"
+  },
+  "can2F14": {
+    "titre": "Passer d'un mode de représentation d'une fonction à un autre"
+  },
+  "can2F15": {
+    "titre": "Recherche du domaine de définition"
+  },
+  "can2F16": {
+    "titre": "Modéliser un phénomène continu par une fonction"
+  },
+  "can2F17": {
+    "titre": "Résoudre des problèmes modélisés par des fonctions en utilisant un ou plusieurs modes de représentation"
+  },
+  "can2F1Q": {
+    "titre": "QCM"
   },
   "can2F2": {
-    "titre": "Fonctions affines"
+    "titre": "Se constituer un répertoire de fonctions de référence"
+  },
+  "can2F21": {
+    "titre": "Connaître les fonctions affines"
+  },
+  "can2F22": {
+    "titre": "Comparer et calculer des images en utilisant les fonctions de référence"
+  },
+  "can2F23": {
+    "titre": "Résoudre algébriquement ou graphiquement $f(x)=k$, $f(x)<k$ ou $f(x)>k$ avec $f$ fonction de référence"
   },
   "can2F3": {
-    "titre": "Fonctions de références"
+    "titre": "Représenter algébriquement et graphiquement les fonctions"
+  },
+  "can2F30": {
+    "titre": "Exploiter l'équation y=f(x) d'une courbe : appartenance, calcul de coordonnées"
+  },
+  "can2F31": {
+    "titre": "Modéliser par des fonctions des situations issues des mathématiques, des autres disciplines"
+  },
+  "can2F32": {
+    "titre": "Résoudre $f(x)=k$ ou $f(x)<k$ en choisissant une méthode adaptée"
+  },
+  "can2F33": {
+    "titre": "Résoudre une équation, une inéquation produit ou quotient, à l'aide d'un tableau de signes"
+  },
+  "can2F34": {
+    "titre": "Résoudre graphiquement ou avec un outil numérique, $f(x)=g(x)$ ou $f(x)<g(x)$"
   },
   "can2F4": {
-    "titre": "Variations et signes d'une fonction"
+    "titre": "Étudier les variations et les extremums d'une fonction"
+  },
+  "can2F40": {
+    "titre": "Relier représentation graphique et tableau de variations"
+  },
+  "can2F41": {
+    "titre": "Utiliser les variations d'une fonction"
+  },
+  "can2F42": {
+    "titre": "Déterminer les extremums d'une fonction"
   },
   "can2G": {
     "titre": "Géométrie"
   },
+  "can2G1": {
+    "titre": "Les bases en géométrie"
+  },
+  "can2G10": {
+    "titre": "Définitions et propriétés de base en géométrie plane"
+  },
+  "can2G11": {
+    "titre": "Longueurs, angles, aires et volumes"
+  },
+  "can2G12": {
+    "titre": "Distance entre deux points. Coordonnées du milieu d'un segment"
+  },
+  "can2G13": {
+    "titre": "Traiter des problèmes d'optimisation"
+  },
+  "can2G2": {
+    "titre": "Les vecteurs"
+  },
+  "can2G20": {
+    "titre": "Définition - Translation - Relation de Chasles (année de transition)"
+  },
+  "can2G21": {
+    "titre": "Égalité et colinéarité de deux vecteurs. Notation $\\vec{u}$. Vecteur nul"
+  },
+  "can2G22": {
+    "titre": "Représentants d’un vecteur"
+  },
+  "can2G23": {
+    "titre": "Somme de vecteurs et produit d’un vecteur par un nombre réel"
+  },
+  "can2G24": {
+    "titre": "Représentation d’un vecteur comme combinaison de deux vecteurs non colinéaires"
+  },
+  "can2G25": {
+    "titre": "Base orthonormée. Coordonnées d’un vecteur. Norme d’un vecteur"
+  },
+  "can2G26": {
+    "titre": "Coordonnées d’une somme de vecteurs et d’un produit d’un vecteur par un nombre réel"
+  },
+  "can2G27": {
+    "titre": "Déterminant de deux vecteurs. Colinéarité et parallélisme"
+  },
+  "can2G28": {
+    "titre": "Caractérisation vectorielle du milieu d’un segment"
+  },
+  "can2G3": {
+    "titre": "Les droites du plan"
+  },
+  "can2G31": {
+    "titre": "Équations réduites de droite"
+  },
+  "can2G32": {
+    "titre": "Équations cartésiennes de droite"
+  },
+  "can2G33": {
+    "titre": "Établir alignement et parallélisme"
+  },
+  "can2G34": {
+    "titre": "Résoudre un système de deux équations linéaires à deux inconnues, déterminer le point d'intersection de deux droites sécantes"
+  },
+  "can2N": {
+    "titre": "Calcul numérique"
+  },
   "can2L": {
     "titre": "Calcul littéral"
   },
-  "can2N": {
-    "titre": "Numération"
+  "can2N1": {
+    "titre": "Nombres réels"
   },
-  "can2P": {
-    "titre": "Probabilités"
+  "can2N10": {
+    "titre": "Ensembles de nombres"
+  },
+  "can2N11": {
+    "titre": "La droite des réels"
+  },
+  "can2N12": {
+    "titre": "Intervalles de $\\mathbb{R}$"
+  },
+  "can2N13": {
+    "titre": "Notation valeur absolue"
+  },
+  "can2N14": {
+    "titre": "Distance entre deux réels"
+  },
+  "can2N15": {
+    "titre": "Résoudre des inéquations avec une valeur absolue"
+  },
+  "can2N16": {
+    "titre": "Comparer des nombres réels"
+  },
+  "can2N2": {
+    "titre": "Arithmétique"
+  },
+  "can2N20": {
+    "titre": "Définitions de multiple et de diviseur"
+  },
+  "can2N21": {
+    "titre": "Nombres pairs et impairs"
+  },
+  "can2N3": {
+    "titre": "Fractions"
+  },
+  "can2N30": {
+    "titre": "Simplifier, décomposer, comparer ou encadrer une fraction"
+  },
+  "can2N31": {
+    "titre": "Effectuer les quatre opérations élémentaires avec des fractions"
+  },
+  "can2N32": {
+    "titre": "Effectuer des calculs avec des fractions"
+  },
+  "can2N33": {
+    "titre": "Résoudre des problèmes avec des fractions"
+  },
+  "can2N4": {
+    "titre": "Puissances"
+  },
+  "can2N40": {
+    "titre": "Définition et notation"
+  },
+  "can2N41": {
+    "titre": "Puissances de 10"
+  },
+  "can2N42": {
+    "titre": "Notation scientifique"
+  },
+  "can2N43": {
+    "titre": "Calculer avec les puissances"
+  },
+  "can2N44": {
+    "titre": "Comparer et classer"
+  },
+  "can2N5": {
+    "titre": "Racines carrées"
+  },
+  "can2N50": {
+    "titre": "Définition, existence et encadrement"
+  },
+  "can2N51": {
+    "titre": "Effectuer des calculs numériques avec les racines carrées"
+  },
+  "can2L1": {
+    "titre": "Utiliser le calcul littéral"
+  },
+  "can2L10": {
+    "titre": "Les bases du calcul littéral"
+  },
+  "can2L11": {
+    "titre": "Développer et factoriser sans identité remarquable"
+  },
+  "can2L12": {
+    "titre": "Développer et factoriser avec les identités remarquables"
+  },
+  "can2L13": {
+    "titre": "Effectuer des calculs complexes sur des expressions algébriques"
+  },
+  "can2L14": {
+    "titre": "Utiliser le calcul littéral"
+  },
+  "can2L2": {
+    "titre": "Équations"
+  },
+  "can2L20": {
+    "titre": "Modéliser un problème par une équation"
+  },
+  "can2L21": {
+    "titre": "Résoudre une équation du premier degré"
+  },
+  "can2L22": {
+    "titre": "Résoudre une équation avec un produit nul"
+  },
+  "can2L3": {
+    "titre": "Inéquations"
+  },
+  "can2L30": {
+    "titre": "Résoudre une inéquation du premier degré"
+  },
+  "can2L31": {
+    "titre": "Résoudre une inéquation produit ou quotient"
+  },
+  "can2I": {
+    "titre": "Informations chiffrées"
+  },
+  "can2I1": {
+    "titre": "Proportions"
+  },
+  "can2I10": {
+    "titre": "Exploiter la relation entre effectifs, proportions et pourcentages. Pourcentage de pourcentage"
+  },
+  "can2I2": {
+    "titre": "Évolutions"
+  },
+  "can2I20": {
+    "titre": "Exploiter la relation entre deux valeurs successives et leur taux d'évolution"
+  },
+  "can2I21": {
+    "titre": "Calculer le taux d'évolution global à partir des taux d'évolution successifs. Calculer un taux d'évolution réciproque"
+  },
+  "can2S": {
+    "titre": "Statistiques et Probabilités"
+  },
+  "can2S1": {
+    "titre": "Croisement de deux variables qualitatives"
+  },
+  "can2S10": {
+    "titre": "Tableau croisé d’effectifs"
+  },
+  "can2S11": {
+    "titre": "Fréquence conditionnelle, fréquence marginale"
+  },
+  "can2S2": {
+    "titre": "Statistique descriptive"
+  },
+  "can2S20": {
+    "titre": "Les indicateurs statistiques"
+  },
+  "can2S21": {
+    "titre": "Décrire les différences entre deux séries statistiques"
+  },
+  "can2S22": {
+    "titre": "Lire et comprendre une fonction écrite en Python renvoyant la moyenne $m$, l'écart type $s$ et la proportion d'éléments dans $[m-2s;m+2s]$"
+  },
+  "can2S3": {
+    "titre": "Calculer des probabilités"
+  },
+  "can2S30": {
+    "titre": "Calculer des probabilités dans des cas simples"
+  },
+  "can2S31": {
+    "titre": "Utiliser des modèles théoriques de référence"
+  },
+  "can2S4": {
+    "titre": "Échantillonnage"
   },
   "can1SD": {
     "titre": "Second degré"
@@ -234,7 +516,7 @@
     "titre": "Graphes"
   },
   "canTEA1": {
-    "titre": "Divisibilité dans $\\mathbb Z$$"
+    "titre": "Divisibilité dans $\\mathbb Z$"
   },
   "canTEA2": {
     "titre": "Congruence"
@@ -911,67 +1193,67 @@
   "CM2N3Q": {
     "titre": "Multiplier un nombre décimal par 50"
   },
-  "CM2N4": {
+  "CM2L1": {
     "titre": "Addition, soustraction, multiplication, division"
   },
-  "CM2N4A": {
+  "CM2L1A": {
     "titre": "Estimer le résultat d'une opération"
   },
-  "CM2N4B": {
+  "CM2L1B": {
     "titre": "Savoir réaliser un calcul contenant une ou deux paires de parenthèses"
   },
-  "CM2N4C": {
+  "CM2L1C": {
     "titre": "Poser et effectuer la multiplication d'un nombre décimal par un nombre entier"
   },
-  "CM2N4D": {
+  "CM2L1D": {
     "titre": "Poser et effectuer des divisions décimales avec un dividende entier et un diviseur à un chiffre"
   },
-  "CM2N4E": {
+  "CM2L1E": {
     "titre": "Poser et effectuer des divisions décimales avec un dividende décimal et un diviseur à un chiffre"
   },
-  "CM2N5": {
+  "CM2L2": {
     "titre": "Résolution de problèmes"
   },
-  "CM2N5A": {
+  "CM2L2A": {
     "titre": "Résoudre des problèmes additifs en une ou plusieurs étapes"
   },
-  "CM2N5B": {
+  "CM2L2B": {
     "titre": "Résoudre des problèmes multiplicatifs de type « parties-tout » en une étape"
   },
-  "CM2N5C": {
+  "CM2L2C": {
     "titre": "Résoudre des problèmes mixtes en plusieurs étapes"
   },
-  "CM2N5D": {
+  "CM2L2D": {
     "titre": "Résoudre des problèmes de comparaison multiplicative"
   },
-  "CM2N5E": {
+  "CM2L2E": {
     "titre": "Résoudre des problèmes de dénombrement"
   },
-  "CM2N5F": {
+  "CM2L2F": {
     "titre": "Résoudre des problèmes d'optimisation"
   },
-  "CM2N5G": {
+  "CM2L2G": {
     "titre": "Résoudre des problèmes préparant à l'utilisation d'algorithmes"
   },
-  "CM2N6": {
+  "CM2L3": {
     "titre": "Algèbre"
   },
-  "CM2N6A": {
+  "CM2L3A": {
     "titre": "Trouver le nombre manquant dans une égalité à trous"
   },
-  "CM2N6B": {
+  "CM2L3B": {
     "titre": "Résoudre des problèmes algébriques"
   },
-  "CM2N6C": {
+  "CM2L3C": {
     "titre": "Exécuter ou produire un programme de calcul"
   },
-  "CM2N6D": {
+  "CM2L3D": {
     "titre": "Identifier et formuler une règle de calcul pour poursuivre une suite de nombres"
   },
-  "CM2N6E": {
+  "CM2L3E": {
     "titre": "Identifier des régularités et poursuivre une suite de motifs évolutive"
   },
-  "CM2N6F": {
+  "CM2L3F": {
     "titre": "Trouver le nombre d'éléments pour une étape donnée dans une suite de motifs évolutive"
   },
   "CM2M1": {
@@ -1162,6 +1444,105 @@
   },
   "CM2I1D": {
     "titre": "Programmer la construction d'un chemin simple"
+  },
+  "6Auto": {
+    "titre": "Automatismes"
+  },
+  "6AutoA": {
+    "titre": "Aires"
+  },
+  "6AutoA1": {
+    "titre": "Comparer ou déterminer des aires sans recours à une unité"
+  },
+  "6AutoA2": {
+    "titre": "Connaître les unités d'aires et leur relations"
+  },
+  "6AutoE": {
+    "titre": "Espace"
+  },
+  "6AutoE1": {
+    "titre": "Identifier les solides"
+  },
+  "6AutoF": {
+    "titre": "Fractions"
+  },
+  "6AutoF1": {
+    "titre": "Connaître et utiliser les fractions"
+  },
+  "6AutoF2": {
+    "titre": "Passer de l'écriture fractionnaire à l'écriture décimale"
+  },
+  "6AutoF3": {
+    "titre": "Calculer avec des fractions"
+  },
+  "6AutoG": {
+    "titre": "Configurations planes"
+  },
+  "6AutoG1": {
+    "titre": "Connaître le lexique et les codages de base en géométrie"
+  },
+  "6AutoG2": {
+    "titre": "Reconnaître un carré, un rectangle, un triangle"
+  },
+  "6AutoG3": {
+    "titre": "Reconnaître des axes de symétrie"
+  },
+  "6AutoG4": {
+    "titre": "Savoir coder/construire une figure"
+  },
+  "6AutoH": {
+    "titre": "Probabilités"
+  },
+  "6AutoH1": {
+    "titre": "???"
+  },
+  "6AutoL": {
+    "titre": "Longueurs"
+  },
+  "6AutoL1": {
+    "titre": "Connaître les préfixes et leur lien avec les unités de numération décimale"
+  },
+  "6AutoL2": {
+    "titre": "Convertir des longueurs dans une autre unité"
+  },
+  "6AutoL3": {
+    "titre": "Calculer des périmètres"
+  },
+  "6AutoN": {
+    "titre": "Nombres et calcul"
+  },
+  "6AutoN1": {
+    "titre": "Connaître les liens entre les fractions décimales"
+  },
+  "6AutoN2": {
+    "titre": "Passer de la fraction décimale à l'écriture décimale et inversement"
+  },
+  "6AutoN3": {
+    "titre": "Connaître et utiliser différentes écritures des nombres"
+  },
+  "6AutoN4": {
+    "titre": "Multiplier ou diviser par 10, 100, 1000"
+  },
+  "6AutoP": {
+    "titre": "Proportionnalité"
+  },
+  "6AutoP1": {
+    "titre": "Repérer les relations multiplicatives simples"
+  },
+  "6AutoP2": {
+    "titre": "Associer Fois plus ou Fois moins à une multiplication ou à une division"
+  },
+  "6AutoS": {
+    "titre": "Gestion de données"
+  },
+  "6AutoS1": {
+    "titre": "Lire un tableau, un diagramme (lecture immédiate)"
+  },
+  "6AutoT": {
+    "titre": "Temps et durée"
+  },
+  "6AutoT1": {
+    "titre": "Se repérer dans le temps et les durées"
   },
   "6N0": {
     "titre": "Nombres entiers"
@@ -1851,7 +2232,7 @@
     "titre": "Développer (par simple et double distributivités), factoriser, réduire des expressions algébriques simples"
   },
   "3L12": {
-    "titre": "Factoriser une expression du type a2-b2 et développer des expression du type (a+b)(a-b)"
+    "titre": "Factoriser une expression du type $a^2-b^2$ et développer des expressions du type $(a+b)(a-b)$"
   },
   "3L13": {
     "titre": "Résoudre algébriquement une équation du premier degré"
@@ -1860,7 +2241,7 @@
     "titre": "Résoudre algébriquement une équation produit"
   },
   "3L15": {
-    "titre": "Résoudre algébriquement une équations de la forme x2= a sur des exemples simples"
+    "titre": "Résoudre algébriquement une équation de la forme $x^2=a$ sur des exemples simples"
   },
   "3L16": {
     "titre": "Résoudre des problèmes se ramenant à une équation, qui peuvent être internes aux mathématiques ou en lien avec d'autres disciplines"
@@ -1938,7 +2319,7 @@
     "titre": "Développer et factoriser une expression simple"
   },
   "3AutoL04": {
-    "titre": "Résoudre des équations du type ax = c, a + b = c, ax + b = c"
+    "titre": "Résoudre des équations du type $ax=c$, $a+b=c$, $ax+b=c$"
   },
   "3AutoM": {
     "titre": "Mesures"
@@ -2007,7 +2388,7 @@
     "titre": "Développer et factoriser une expression simple"
   },
   "3AutoN14": {
-    "titre": "Résoudre des équations du type ax = c, a + b = c, ax + b = c"
+    "titre": "Résoudre des équations du type $ax=c$, $a+b=c$, $ax+b=c$"
   },
   "3AutoN15": {
     "titre": "Sur une droite graduée, lire l'abscisse d'un point et placer un point d'abscisse donnée"
@@ -2301,7 +2682,7 @@
     "titre": "Développer, factoriser, réduire une expression algébrique simple"
   },
   "2A-C3": {
-    "titre": "Résoudre une équation du type : x²=a, ax+b=cx+d ou a/x=b, ou une inéquation du premier degré"
+    "titre": "Résoudre une équation du type : $x^2=a$, $ax+b=cx+d$ ou $\\frac{a}{x}=b$, ou une inéquation du premier degré"
   },
   "2A-C4": {
     "titre": "Isoler une variable dans une égalité qui en comporte plusieurs"
@@ -2379,7 +2760,7 @@
     "titre": "Calculer la probabilité d’un évènement comme somme des probabilités des issues qui le composent"
   },
   "2A-P4": {
-    "titre": "Utiliser la relation P(A)=Card(A)/Card(Ω) dans le cas de l’équiprobabilité"
+    "titre": "Utiliser la relation $P(A)=\\frac{\\text{Card}(A)}{\\text{Card}(\\Omega)}$ dans le cas de l’équiprobabilité"
   },
   "2A-R": {
     "titre": "Proportion-Pourcentage"
@@ -2390,89 +2771,134 @@
   "2A-R2": {
     "titre": "Utiliser une proportion pour calculer une partie connaissant le tout, ou le tout connaissant une partie"
   },
+  "2N": {
+    "titre": "Calcul numérique"
+  },
+  "2L": {
+    "titre": "Calcul littéral"
+  },
   "2N1": {
-    "titre": "Manipuler les nombres réels"
+    "titre": "Nombres réels"
   },
   "2N10": {
-    "titre": "Associer à chaque point de la droite graduée un unique nombre réel et réciproquement"
+    "titre": "Ensembles de nombres"
   },
   "2N11": {
-    "titre": "Représenter un intervalle de la droite numérique. Déterminer si un nombre réel appartient à un intervalle donné"
+    "titre": "La droite des réels"
   },
   "2N12": {
-    "titre": "Donner un encadrement, d'amplitude donnée, d'un nombre réel par des décimaux"
+    "titre": "Intervalles de $\\mathbb{R}$"
   },
   "2N13": {
-    "titre": "Dans le cadre de la résolution de problèmes, arrondir en donnant le nombre de chiffres significatifs adapté à la situation étudiée"
+    "titre": "Valeur absolue"
   },
   "2N14": {
-    "titre": "Connaître Les ensembles de nombres"
-  },
-  "2N15": {
-    "titre": "Connaître et utiliser la notation |a|"
+    "titre": "Comparer et arrondir des nombres réels"
   },
   "2N2": {
-    "titre": "Utiliser les notions de multiple, diviseur et de nombre premier"
+    "titre": "Arithmétique"
   },
   "2N20": {
-    "titre": "Modéliser et résoudre des problèmes mobilisant les notions de multiple, de diviseur, de nombre pair, de nombre impair, de nombre premier"
+    "titre": "Définitions de multiple et de diviseur"
+  },
+  "2N21": {
+    "titre": "Nombres pairs et impairs"
   },
   "2N3": {
-    "titre": "Utiliser les fractions, les puissances et les racines carrées"
+    "titre": "Fractions"
   },
   "2N30": {
-    "titre": "Effectuer des calculs numériques mettant en jeu des écritures fractionnaires"
+    "titre": "Simplifier, décomposer, comparer ou encadrer une fraction"
   },
   "2N31": {
-    "titre": "Effectuer des calculs numériques mettant en jeu des puissances"
+    "titre": "Effectuer les quatre opérations élémentaires avec des fractions"
   },
   "2N32": {
-    "titre": "Effectuer des calculs numériques mettant en jeu des racines carrées"
+    "titre": "Effectuer des calculs avec des fractions"
+  },
+  "2N33": {
+    "titre": "Résoudre des problèmes avec des fractions"
   },
   "2N4": {
-    "titre": "Utiliser le calcul littéral"
+    "titre": "Puissances"
   },
   "2N40": {
-    "titre": "Les bases du calcul littéral"
+    "titre": "Définition et notation"
   },
   "2N41": {
-    "titre": "Factoriser, développer avec, ou sans, les identités remarquables"
+    "titre": "Puissances de 10"
   },
   "2N42": {
-    "titre": "Utiliser le calcul littéral"
+    "titre": "Notation scientifique"
+  },
+  "2N43": {
+    "titre": "Calculer avec les puissances"
+  },
+  "2N44": {
+    "titre": "Comparer et classer"
   },
   "2N5": {
-    "titre": "Équations"
+    "titre": "Racines carrées"
   },
   "2N50": {
-    "titre": "Modéliser un problème par une équation"
+    "titre": "Définition, existence et encadrement"
   },
   "2N51": {
+    "titre": "Effectuer des calculs numériques avec les racines carrées"
+  },
+  "2L1": {
+    "titre": "Utiliser le calcul littéral"
+  },
+  "2L10": {
+    "titre": "Les bases du calcul littéral"
+  },
+  "2L11": {
+    "titre": "Développer et factoriser sans identité remarquable"
+  },
+  "2L12": {
+    "titre": "Développer et factoriser avec les identités remarquables"
+  },
+  "2L13": {
+    "titre": "Effectuer des calculs complexes sur des expressions algébriques"
+  },
+  "2L14": {
+    "titre": "Utiliser le calcul littéral"
+  },
+  "2L2": {
+    "titre": "Équations"
+  },
+  "2L20": {
+    "titre": "Modéliser un problème par une équation"
+  },
+  "2L21": {
     "titre": "Résoudre une équation du premier degré"
   },
-  "2N52": {
+  "2L22": {
     "titre": "Résoudre une équation avec un produit nul"
   },
-  "2N6": {
+  "2L3": {
     "titre": "Inéquations"
   },
-  "2N60": {
+  "2L30": {
     "titre": "Résoudre une inéquation du premier degré"
   },
-  "2N61": {
-    "titre": "Résoudre une inéquation produit"
+  "2L31": {
+    "titre": "Résoudre une inéquation produit ou quotient"
+  },
+  "2G": {
+    "titre": "Géométrie"
   },
   "2G1": {
     "titre": "Les bases en géométrie"
   },
   "2G10": {
-    "titre": "Connaître les définitions et propriétés de bases en géométrie plane"
+    "titre": "Définitions et propriétés de base en géométrie plane"
   },
   "2G11": {
-    "titre": "Calculer des longueurs, des angles, des aires et des volumes"
+    "titre": "Longueurs, angles, aires et volumes"
   },
   "2G12": {
-    "titre": "Calculer la distance entre deux points. Calculer les coordonnées du milieu d'un segment"
+    "titre": "Distance entre deux points. Coordonnées du milieu d'un segment"
   },
   "2G13": {
     "titre": "Traiter des problèmes d'optimisation"
@@ -2481,40 +2907,49 @@
     "titre": "Les vecteurs"
   },
   "2G20": {
-    "titre": "Représenter géométriquement des vecteurs"
+    "titre": "Définition - Translation - Relation de Chasles (année de transition)"
   },
   "2G21": {
-    "titre": "Construire géométriquement la somme de deux vecteurs"
+    "titre": "Égalité et colinéarité de deux vecteurs. Notation $\\vec{u}$. Vecteur nul"
   },
   "2G22": {
-    "titre": "Représenter un vecteur dont on connaît les coordonnées. Lire les coordonnées d'un vecteur"
+    "titre": "Représentants d’un vecteur"
   },
   "2G23": {
-    "titre": "Utiliser et connaître les translations définies par des vecteurs"
+    "titre": "Somme de vecteurs et produit d’un vecteur par un nombre réel"
   },
   "2G24": {
-    "titre": "Calculer les coordonnées d'une somme de vecteurs, d'un produit d'un vecteur par un nombre réel"
+    "titre": "Représentation d’un vecteur comme combinaison de deux vecteurs non colinéaires"
   },
   "2G25": {
-    "titre": "Caractériser alignement et parallélisme par la colinéarité de vecteurs"
+    "titre": "Base orthonormée. Coordonnées d’un vecteur. Norme d’un vecteur"
   },
   "2G26": {
-    "titre": "Résoudre des problèmes en utilisant la représentation la plus adaptée des vecteurs"
+    "titre": "Coordonnées d’une somme de vecteurs et d’un produit d’un vecteur par un nombre réel"
+  },
+  "2G27": {
+    "titre": "Déterminant de deux vecteurs. Colinéarité et parallélisme"
+  },
+  "2G28": {
+    "titre": "Caractérisation vectorielle du milieu d’un segment"
   },
   "2G3": {
-    "titre": "Représenter et caractériser les droites du plan"
+    "titre": "Les droites du plan"
   },
   "2G31": {
-    "titre": "Travailler avec les équations réduites de droite"
+    "titre": "Équations réduites de droite"
   },
   "2G32": {
-    "titre": "Travailler avec les équations cartésiennes de droite"
+    "titre": "Équations cartésiennes de droite"
   },
   "2G33": {
     "titre": "Établir alignement et parallélisme"
   },
   "2G34": {
     "titre": "Résoudre un système de deux équations linéaires à deux inconnues, déterminer le point d'intersection de deux droites sécantes"
+  },
+  "2F": {
+    "titre": "Fonctions"
   },
   "2F1": {
     "titre": "Généralités sur les fonctions"
@@ -2523,21 +2958,24 @@
     "titre": "Utiliser les notations et le vocabulaire fonctionnels"
   },
   "2F11": {
-    "titre": "Passer d'un mode de représentation d'une fonction à un autre"
+    "titre": "Déterminer une image ou un antécédent par une fonction définie par un tableau de valeurs"
   },
   "2F12": {
-    "titre": "Déterminer, à partir de tous les modes de représentation, l'image d'un nombre"
+    "titre": "Déterminer une image ou un antécédent par une fonction définie par une représentation graphique"
   },
   "2F13": {
-    "titre": "Déterminer un antécédent à partir d'une représentation graphique ou d'un tableau de valeurs d'une fonction"
+    "titre": "Déterminer une image ou un antécédent par une fonction définie par une expression algébrique"
   },
   "2F14": {
-    "titre": "Recherche du domaine de définition"
+    "titre": "Passer d'un mode de représentation d'une fonction à un autre"
   },
   "2F15": {
-    "titre": "Modéliser un phénomène continu par une fonction"
+    "titre": "Recherche du domaine de définition"
   },
   "2F16": {
+    "titre": "Modéliser un phénomène continu par une fonction"
+  },
+  "2F17": {
     "titre": "Résoudre des problèmes modélisés par des fonctions en utilisant un ou plusieurs modes de représentation"
   },
   "2F1Q": {
@@ -2553,28 +2991,25 @@
     "titre": "Comparer et calculer des images en utilisant les fonctions de référence"
   },
   "2F23": {
-    "titre": "Résoudre algébriquement ou graphiquement  f(x)=k ou f(x)<k avec f fonction de référence"
+    "titre": "Résoudre algébriquement ou graphiquement $f(x)=k$, $f(x)<k$ ou $f(x)>k$ avec $f$ fonction de référence"
   },
   "2F3": {
     "titre": "Représenter algébriquement et graphiquement les fonctions"
   },
   "2F30": {
-    "titre": "Exploiter l'équation y=f(x) d'une courbe : appartenance, calcul de coordonnées"
+    "titre": "Exploiter une équation $y=f(x)$  : appartenance à la courbe, calcul de coordonnées"
   },
   "2F31": {
     "titre": "Modéliser par des fonctions des situations issues des mathématiques, des autres disciplines"
   },
   "2F32": {
-    "titre": "Résoudre f(x)=k ou f(x)<k en choisissant une méthode adaptée"
+    "titre": "Résoudre graphiquement $f(x)=k$, $f(x)=g(x)$, $f(x)<k$, $f(x)<g(x)$"
   },
   "2F33": {
     "titre": "Résoudre une équation, une inéquation produit ou quotient, à l'aide d'un tableau de signes"
   },
   "2F34": {
-    "titre": "Résoudre graphiquement ou avec un outil numérique, f(x)=g(x) ou f(x)<g(x)"
-  },
-  "2F35": {
-    "titre": "Etudier la parité d'une fonction"
+    "titre": "Résoudre graphiquement ou avec un outil numérique, $f(x)=g(x)$ ou $f(x)<g(x)$"
   },
   "2F4": {
     "titre": "Étudier les variations et les extremums d'une fonction"
@@ -2588,17 +3023,35 @@
   "2F42": {
     "titre": "Déterminer les extremums d'une fonction"
   },
-  "2S1": {
-    "titre": "Utiliser l'information chiffrée"
+  "2I": {
+    "titre": "Informations chiffrées"
   },
-  "2S10": {
+  "2I1": {
+    "titre": "Proportions"
+  },
+  "2I10": {
     "titre": "Exploiter la relation entre effectifs, proportions et pourcentages. Pourcentage de pourcentage"
   },
-  "2S11": {
+  "2I2": {
+    "titre": "Évolutions"
+  },
+  "2I20": {
     "titre": "Exploiter la relation entre deux valeurs successives et leur taux d'évolution"
   },
-  "2S12": {
+  "2I21": {
     "titre": "Calculer le taux d'évolution global à partir des taux d'évolution successifs. Calculer un taux d'évolution réciproque"
+  },
+  "2S": {
+    "titre": "Statistiques et Probabilités"
+  },
+  "2S1": {
+    "titre": "Croisement de deux variables qualitatives"
+  },
+  "2S10": {
+    "titre": "Tableau croisé d’effectifs"
+  },
+  "2S11": {
+    "titre": "Fréquence conditionnelle, fréquence marginale"
   },
   "2S2": {
     "titre": "Statistique descriptive"
@@ -2610,10 +3063,10 @@
     "titre": "Décrire les différences entre deux séries statistiques"
   },
   "2S22": {
-    "titre": "Lire et comprendre une fonction écrite en Python renvoyant la moyenne (m), l'écart type (s) et la proportion d'éléments dans [m-2s;m+2s]"
+    "titre": "Lire et comprendre une fonction écrite en Python renvoyant la moyenne $m$, l'écart type $s$ et la proportion d'éléments dans $[m-2s;m+2s]$"
   },
   "2S3": {
-    "titre": "Modéliser le hasard, calculer des probabilités"
+    "titre": "Calculer des probabilités"
   },
   "2S30": {
     "titre": "Calculer des probabilités dans des cas simples"
@@ -3279,10 +3732,10 @@
     "titre": "Développement, factorisation, réduction d’expressions littérales"
   },
   "BP2AutoJ": {
-    "titre": "Transformation de formules (par exemple U = RI, d = vt…), expression d’une variable en fonction des autres"
+    "titre": "Transformation de formules (par exemple $U=RI$, $d=vt$…), expression d’une variable en fonction des autres"
   },
   "BP2AutoK": {
-    "titre": "Résolutions d’équations du type ax = b et a + x = b, avec a et b entiers relatifs"
+    "titre": "Résolutions d’équations du type $ax=b$ et $a+x=b$, avec $a$ et $b$ entiers relatifs"
   },
   "BP2AutoL": {
     "titre": "Utilisation des différentes procédures de calcul d’une quatrième proportionnelle"
@@ -3555,10 +4008,10 @@
     "titre": "Déterminer si une expression littérale est une somme ou un produit"
   },
   "5N5E": {
-    "titre": "Exploiter les relations k(a + b) = ka + kb ou k(a – b) = ka – kb pour factoriser, ou développer une expression littérale"
+    "titre": "Exploiter les relations $k(a+b)=ka+kb$ ou $k(a-b)=ka-kb$ pour factoriser ou développer une expression littérale"
   },
   "5N5F": {
-    "titre": "Réduire une expression littérale de la forme ax + b, où a et b sont des nombres décimaux"
+    "titre": "Réduire une expression littérale de la forme $ax+b$, où $a$ et $b$ sont des nombres décimaux"
   },
   "5N5G": {
     "titre": "Démontrer une propriété générale par le calcul littéral"
@@ -3573,10 +4026,10 @@
     "titre": "Donner à la lettre le statut d'inconnue"
   },
   "5N5K": {
-    "titre": "Modéliser des problèmes relevant des opérations à trous par des équations du type ax = c ou x + b = c"
+    "titre": "Modéliser des problèmes relevant des opérations à trous par des équations du type $ax=c$ ou $x+b=c$"
   },
   "5N5L": {
-    "titre": "Résoudre des équations du type ax = c ou x + b = c par des méthodes arithmétiques s'appuyant sur les opérations inverses"
+    "titre": "Résoudre des équations du type $ax=c$ ou $x+b=c$ par des méthodes arithmétiques s'appuyant sur les opérations inverses"
   },
   "auto5G1A": {
     "titre": "Placer sur une demi-droite graduée un point dont l'abscisse est un nombre décimal"

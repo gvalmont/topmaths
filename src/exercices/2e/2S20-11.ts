@@ -1,18 +1,25 @@
+import { context } from '../../modules/context'
+import { segment } from '../../lib/2d/segmentsVecteurs'
 import { tableauColonneLigne } from '../../lib/2d/tableau'
+import { latex2d } from '../../lib/2d/textes'
+import { bleuMathalea, vertMathalea } from '../../lib/colors'
+import { addMultiMathfield } from '../../lib/customElements/MultiMathfield'
+import { createList } from '../../lib/format/lists'
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
-import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { choice } from '../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
-import { texNombre } from '../../lib/outils/texNombre'
-import { listeQuestionsToContenu } from '../../modules/outils'
+import { mathalea2d } from '../../modules/mathalea2d'
+import { listeQuestionsToContenu, randint } from '../../modules/outils'
+import type { NestedObjetMathalea2dArray } from '../../types/2d'
 import Exercice from '../Exercice'
 
-export const titre = "Calculer la moyenne d'une série regroupée en classes"
+export const titre =
+  "Déterminer l'étendue et l'écart interquartile d'une série statistique"
+export const dateDePublication = '19/08/2026'
+export const uuid = 'd7b82'
 export const interactifReady = true
-export const interactifType = 'mathLive'
-export const dateDePublication = '18/08/2026'
-export const uuid = 'eae1d'
+export const interactifType = 'multi-mathfield'
 
 export const refs = {
   'fr-fr': ['2S20-11'],
@@ -21,66 +28,91 @@ export const refs = {
 
 type Scenario = {
   introduction: string
-  bornes: number[]
-  intituleClasses: string
-  intituleEffectifs: string
-  question: string
-  unite: string
-  conclusion: (moyenne: string) => string
+  entete: string
+  unite: 'min' | 'cm' | 'livre'
+  valeurs: number[]
 }
 
-const scenarios: Scenario[] = [
-  {
-    introduction:
-      'Un centre de sauvegarde de la faune a mesuré la longueur de la carapace de 40 jeunes tortues. Les résultats sont regroupés en classes de même amplitude dans le tableau ci-dessous.',
-    bornes: [20, 30, 40, 50, 60, 70],
-    intituleClasses: 'Longueur de la carapace (en cm)',
-    intituleEffectifs: 'Nombre de tortues',
-    question:
-      'Estimer la longueur moyenne de la carapace de ces jeunes tortues.',
-    unite: '\\text{cm}',
-    conclusion: (moyenne) =>
-      `La longueur moyenne de leur carapace est estimée à $${moyenne}~\\text{cm}$. Il s'agit bien d'une estimation puisqu'on ne connaît pas précisément la longueur de la carapace de chaque tortue.`,
-  },
-  {
-    introduction:
-      'Une pépinière a mesuré la hauteur de 40 jeunes plants six semaines après leur mise en terre. Les résultats sont regroupés en classes de même amplitude dans le tableau ci-dessous.',
-    bornes: [10, 20, 30, 40, 50, 60],
-    intituleClasses: 'Hauteur (en cm)',
-    intituleEffectifs: 'Nombre de plants',
-    question: 'Estimer la hauteur moyenne de ces jeunes plants.',
-    unite: '\\text{cm}',
-    conclusion: (moyenne) =>
-      `La hauteur moyenne des jeunes plants est estimée à $${moyenne}~\\text{cm}$. Il s'agit bien d'une estimation puisqu'on ne connaît pas précisément la hauteur de chaque plant.`,
-  },
-  {
-    introduction:
-      "Une exploitation maraîchère a pesé 40 tomates d'une même variété au moment de la récolte. Les résultats sont regroupés en classes de même amplitude dans le tableau ci-dessous.",
-    bornes: [80, 100, 120, 140, 160, 180],
-    intituleClasses: 'Masse (en g)',
-    intituleEffectifs: 'Nombre de tomates',
-    question: 'Estimer la masse moyenne de ces tomates.',
-    unite: '\\text{g}',
-    conclusion: (moyenne) =>
-      `La masse moyenne des tomates est estimée à $${moyenne}~\\text{g}$. Il s'agit bien d'une estimation puisqu'on ne connaît pas précisément la masse de chaque tomate.`,
-  },
-]
-
-const distributions = [
-  [2, 6, 12, 14, 6],
-  [4, 8, 14, 10, 4],
-  [2, 8, 16, 10, 4],
-]
-
-function ecritureClasse(borneInferieure: number, borneSuperieure: number) {
-  return `\\left[${borneInferieure}\\,;\\,${borneSuperieure}\\right[`
+function construitSchemaEcc(
+  valeurs: number[],
+  effectifs: number[],
+  effectifsCumules: number[],
+): string {
+  const objets: NestedObjetMathalea2dArray = []
+  const largeurEtiquette = 4.2
+  const largeurColonne = 2.1
+  const hauteurLigne = 1.2
+  const largeur = largeurEtiquette + largeurColonne * valeurs.length
+  const hauteur = 3 * hauteurLigne
+  const couleurs = [
+    bleuMathalea,
+    '#C62828',
+    vertMathalea,
+    '#7B1FA2',
+    '#E65100',
+    '#00838F',
+  ]
+  for (let ligne = 0; ligne <= 3; ligne++)
+    objets.push(segment(0, ligne * hauteurLigne, largeur, ligne * hauteurLigne))
+  objets.push(
+    segment(0, 0, 0, hauteur),
+    segment(largeurEtiquette, 0, largeurEtiquette, hauteur),
+  )
+  for (let colonne = 1; colonne <= valeurs.length; colonne++) {
+    const x = largeurEtiquette + colonne * largeurColonne
+    objets.push(segment(x, 0, x, hauteur))
+  }
+  objets.push(
+    latex2d('\\textbf{Valeur}', largeurEtiquette / 2, 3, {}),
+    latex2d('\\textbf{Effectif}', largeurEtiquette / 2, 1.8, {}),
+    latex2d('\\textbf{E.C.C.}', largeurEtiquette / 2, 0.6, {}),
+  )
+  for (let indice = 0; indice < valeurs.length; indice++) {
+    const x = largeurEtiquette + (indice + 0.5) * largeurColonne
+    const couleur = couleurs[Math.max(0, indice - 1) % couleurs.length]
+    objets.push(
+      latex2d(String(valeurs[indice]), x, 3, {}),
+      latex2d(String(effectifs[indice]), x, 1.8, { color: couleur }),
+      latex2d(String(effectifsCumules[indice]), x, 0.6, { color: couleur }),
+    )
+  }
+  for (let indice = 1; indice < valeurs.length; indice++) {
+    const xPrecedent = largeurEtiquette + (indice - 0.5) * largeurColonne
+    const xCourant = largeurEtiquette + (indice + 0.5) * largeurColonne
+    const couleur = couleurs[(indice - 1) % couleurs.length]
+    const diagonale = segment(
+      xPrecedent + 0.25,
+      0.85,
+      xCourant - 0.3,
+      1.55,
+      couleur,
+    )
+    const verticale = segment(xCourant, 1.5, xCourant, 0.9, couleur)
+    diagonale.styleExtremites = '->'
+    verticale.styleExtremites = '->'
+    diagonale.epaisseur = 2
+    verticale.epaisseur = 2
+    objets.push(diagonale, verticale)
+  }
+  return mathalea2d(
+    {
+      xmin: -0.2,
+      xmax: largeur + 0.2,
+      ymin: -0.2,
+      ymax: hauteur + 0.2,
+      pixelsParCm: 25,
+      scale: 0.65,
+      center: !context.isHtml,
+    },
+    objets,
+  )
 }
 
 /**
- * Calculer une moyenne à partir d'une série regroupée en classes de même amplitude.
+ * Déterminer l'étendue, les quartiles et l'écart interquartile d'une série.
  * @author Stéphane Guyon
  */
-export default class MoyenneSerieRegroupeeEnClasses extends Exercice {
+export default class EtendueEcartInterquartile extends Exercice {
   constructor() {
     super()
     this.nbQuestions = 1
@@ -89,82 +121,179 @@ export default class MoyenneSerieRegroupeeEnClasses extends Exercice {
     this.besoinFormulaireNumerique = [
       'Scénario',
       4,
-      '1 : Taille de tortues\n2 : Hauteur de jeunes plants\n3 : Masse de tomates\n4 : Mélange',
+      '1 : Durée des trajets domicile-lycée\n2 : Hauteur de jeunes plants\n3 : Nombre de livres empruntés\n4 : Mélange',
     ]
   }
 
   nouvelleVersion(): void {
-    const numeroScenario = Number(this.sup)
-    const scenario =
-      numeroScenario >= 1 && numeroScenario <= 3
-        ? scenarios[numeroScenario - 1]
-        : choice(scenarios)
-    const effectifs = choice(distributions)
-    const centres = scenario.bornes
-      .slice(0, -1)
-      .map((borne, indice) => (borne + scenario.bornes[indice + 1]) / 2)
-    const produits = centres.map((centre, indice) => centre * effectifs[indice])
-    const effectifTotal = effectifs.reduce(
-      (somme, effectif) => somme + effectif,
-      0,
+    const typeScenario =
+      Number(this.sup) === 4 ? choice([1, 2, 3]) : Number(this.sup)
+    let scenario: Scenario
+
+    switch (typeScenario) {
+      case 1: {
+        const premiereValeur = choice([5, 10, 15])
+        scenario = {
+          introduction:
+            "On relève la durée, en minutes, du trajet domicile-lycée de 40 élèves d'un établissement.",
+          entete: '\\text{Durée (en min)}',
+          unite: 'min',
+          valeurs: Array.from(
+            { length: 7 },
+            (_, indice) => premiereValeur + 5 * indice,
+          ),
+        }
+        break
+      }
+      case 2: {
+        const premiereValeur = randint(8, 12)
+        scenario = {
+          introduction:
+            "Un horticulteur mesure la hauteur, en centimètres, de 40 jeunes plants d'une même variété.",
+          entete: '\\text{Hauteur (en cm)}',
+          unite: 'cm',
+          valeurs: Array.from(
+            { length: 7 },
+            (_, indice) => premiereValeur + 2 * indice,
+          ),
+        }
+        break
+      }
+      case 3:
+      default: {
+        const premiereValeur = choice([0, 1])
+        scenario = {
+          introduction:
+            'Une médiathèque relève le nombre de livres empruntés pendant un trimestre par chacun de 40 adhérents.',
+          entete: '\\text{Nombre de livres}',
+          unite: 'livre',
+          valeurs: Array.from(
+            { length: 7 },
+            (_, indice) => premiereValeur + indice,
+          ),
+        }
+        break
+      }
+    }
+
+    const effectifs = choice([
+      [3, 5, 8, 9, 7, 5, 3],
+      [6, 5, 4, 10, 4, 5, 6],
+      [2, 3, 7, 16, 7, 3, 2],
+      [4, 8, 5, 6, 5, 8, 4],
+    ])
+    const effectifsCumules: number[] = []
+    effectifs.reduce((somme, effectif) => {
+      const nouveauTotal = somme + effectif
+      effectifsCumules.push(nouveauTotal)
+      return nouveauTotal
+    }, 0)
+
+    const effectifTotal = effectifsCumules.at(-1) ?? 0
+    const rangQ1 = Math.ceil(effectifTotal / 4)
+    const rangQ3 = Math.ceil((3 * effectifTotal) / 4)
+    const indiceQ1 = effectifsCumules.findIndex(
+      (effectif) => effectif >= rangQ1,
     )
-    const sommeProduits = produits.reduce(
-      (somme, produit) => somme + produit,
-      0,
+    const indiceQ3 = effectifsCumules.findIndex(
+      (effectif) => effectif >= rangQ3,
     )
-    const moyenne = sommeProduits / effectifTotal
-    const moyenneTex = texNombre(moyenne, 2)
-    const classes = scenario.bornes
-      .slice(0, -1)
-      .map((borne, indice) =>
-        ecritureClasse(borne, scenario.bornes[indice + 1]),
-      )
+    const q1 = scenario.valeurs[indiceQ1]
+    const q3 = scenario.valeurs[indiceQ3]
+    const minimum = scenario.valeurs[0]
+    const maximum = scenario.valeurs.at(-1) ?? minimum
+    const etendue = maximum - minimum
+    const ecartInterquartile = q3 - q1
+    const avecUnite = (valeur: number) =>
+      `${valeur}\\,\\text{${scenario.unite === 'livre' && valeur !== 1 ? 'livres' : scenario.unite}}`
+    const uniteInteractive =
+      scenario.unite === 'livre' ? 'livre(s)' : scenario.unite
 
     const tableauEnonce = tableauColonneLigne(
-      [`\\text{\\textbf{${scenario.intituleClasses}}}`, ...classes],
-      [`\\text{\\textbf{${scenario.intituleEffectifs}}}`],
+      [scenario.entete, ...scenario.valeurs.map(String)],
+      ['\\text{Effectif}'],
       effectifs,
-      1.8,
+      1.5,
     )
-    const tableauCorrection = tableauColonneLigne(
-      [`\\text{\\textbf{${scenario.intituleClasses}}}`, ...classes],
-      [
-        `\\text{\\textbf{${scenario.intituleEffectifs}}}`,
-        '\\text{\\textbf{Centre de la classe}}',
+    const schemaEcc = construitSchemaEcc(
+      scenario.valeurs,
+      effectifs,
+      effectifsCumules,
+    )
+    const questions = createList({
+      items: [
+        "Déterminer l'étendue de cette série.",
+        'Déterminer le premier quartile $Q_1$ et le troisième quartile $Q_3$.',
+        "En déduire l'écart interquartile de cette série.",
       ],
-      [...effectifs, ...centres],
-      1.8,
-    )
+      style: 'nombres',
+    })
 
-    let question = `${scenario.introduction}<br><br>${tableauEnonce}<br>`
+    let questionsAffichees = questions
     if (this.interactif) {
-      question += `La moyenne estimée est ${ajouteChampTexteMathLive(
+      questionsAffichees = addMultiMathfield(this, 0, {
+        dataTemplate: `1. L'étendue de cette série est %{champ1}.<br>
+2. $Q_1=$ %{champ2} et $Q_3=$ %{champ3}.<br>
+3. L'écart interquartile de cette série est %{champ4}.`,
+        dataOptions: {
+          champ1: {
+            keyboard: KeyboardType.clavierNumbers,
+            texteApres: ` ${uniteInteractive}`,
+          },
+          champ2: {
+            keyboard: KeyboardType.clavierNumbers,
+            texteApres: ` ${uniteInteractive}`,
+          },
+          champ3: {
+            keyboard: KeyboardType.clavierNumbers,
+            texteApres: ` ${uniteInteractive}`,
+          },
+          champ4: {
+            keyboard: KeyboardType.clavierNumbers,
+            texteApres: ` ${uniteInteractive}`,
+          },
+        },
+      })
+      handleAnswers(
         this,
         0,
-        KeyboardType.clavierDeBase,
-        { texteApres: `$~${scenario.unite}$` },
-      )}`
-    } else {
-      question += scenario.question
+        {
+          champ1: { value: etendue },
+          champ2: { value: q1 },
+          champ3: { value: q3 },
+          champ4: { value: ecartInterquartile },
+        },
+        { formatInteractif: 'multi-mathfield' },
+      )
     }
-    handleAnswers(this, 0, {
-      reponse: { value: String(moyenne) },
+
+    this.listeQuestions[0] = `${scenario.introduction}<br><br>
+${tableauEnonce}<br>
+${questionsAffichees}`
+
+    this.listeCorrections[0] = createList({
+      items: [
+        `L'étendue est la différence entre la plus grande valeur et la plus petite valeur :<br>
+$${maximum}-${minimum}=${miseEnEvidence(avecUnite(etendue))}$.`,
+        `Pour déterminer les quartiles, on calcule les effectifs cumulés croissants :<br><br>
+${schemaEcc}<br>
+L'effectif total est $N=${effectifTotal}$.<br><br>
+Pour le premier quartile :<br>
+$\\dfrac{N}{4}=\\dfrac{${effectifTotal}}{4}=${rangQ1}$.<br>
+Le premier quartile est donc la valeur de rang $${rangQ1}$.<br>
+La première valeur dont l'effectif cumulé atteint ou dépasse $${rangQ1}$ est $${avecUnite(q1)}$.<br>
+Ainsi, $Q_1=${miseEnEvidence(avecUnite(q1))}$.<br><br>
+Pour le troisième quartile :<br>
+$\\dfrac{3N}{4}=\\dfrac{3\\times ${effectifTotal}}{4}=${rangQ3}$.<br>
+Le troisième quartile est donc la valeur de rang $${rangQ3}$.<br>
+La première valeur dont l'effectif cumulé atteint ou dépasse $${rangQ3}$ est $${avecUnite(q3)}$.<br>
+Ainsi, $Q_3=${miseEnEvidence(avecUnite(q3))}$.`,
+        `L'écart interquartile est :<br>
+$Q_3-Q_1=${q3}-${q1}=${miseEnEvidence(avecUnite(ecartInterquartile))}$.<br>
+Les 50 % de valeurs centrales sont réparties sur un intervalle d'amplitude $${avecUnite(ecartInterquartile)}$.`,
+      ],
+      style: 'nombres',
     })
-    this.listeQuestions[0] = question
-    this.listeCorrections[0] = `Pour estimer la moyenne d'une série regroupée en classes, on calcule les centres de classes.<br>Le centre d'une classe est la moyenne de ses deux bornes.<br>Par exemple :<br>
-Le centre de la première classe est $\\dfrac{${scenario.bornes[0]}+${scenario.bornes[1]}}{2}=${centres[0]}$.<br><br>
-On complète alors le tableau :<br><br>
-${tableauCorrection}<br>
-L'effectif total est $N=${effectifs.join('+')}=${effectifTotal}$.<br>
-On calcule une moyenne pondérée en prenant comme valeurs les centres des classes.<br>
-La moyenne est donc :<br>
-$\\begin{aligned}
-\\overline{x}&=\\dfrac{${effectifs.map((effectif, indice) => `${effectif}\\times${centres[indice]}`).join('+')}}{${effectifTotal}}\\\\
-&=\\dfrac{${produits.join('+')}}{${effectifTotal}}\\\\
-&=\\dfrac{${sommeProduits}}{${effectifTotal}}\\\\
-&=${miseEnEvidence(moyenneTex)}.
-\\end{aligned}$<br>
-${scenario.conclusion(miseEnEvidence(moyenneTex))}`
 
     listeQuestionsToContenu(this)
   }

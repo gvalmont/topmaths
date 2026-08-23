@@ -1,19 +1,17 @@
-import TraduireUnProgrammeDeCalcul from '../5e/5N5A-2'
+import PuissanceDunNombre from '../4e/4C35'
 export const titre =
-  'Traduire un programme de calcul par une expression littérale'
-export const amcReady = true
-export const amcType = 'qcmMono'
+  'Transformer une écriture de puissance en écriture décimale ou fractionnaire'
+export const dateDePublication = '14/06/2022'
 export const interactifReady = true
-export const interactifType = 'qcm'
-
-/**
- * Clone de 5L10-2 pour les 2nde
- */
-
-export const uuid = '0a01e'
-
+export const interactifType = 'mathLive'
+export const uuid = '53fbb'
 export const refs = {
   'fr-fr': ['2N40-1'],
   'fr-ch': ['NR'],
 }
-export default class TraduireUnProgrammeDeCalcul2e extends TraduireUnProgrammeDeCalcul {}
+export default class PuissanceDunNombre2e extends PuissanceDunNombre {
+  constructor() {
+    super()
+    this.sup = true
+  }
+}

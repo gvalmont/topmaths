@@ -1,3 +1,4 @@
+import { context } from '../../modules/context'
 import { droiteGraduee } from '../../lib/2d/DroiteGraduee'
 import { orangeMathalea } from '../../lib/colors'
 import { choice, shuffle } from '../../lib/outils/arrayOutils'
@@ -79,7 +80,7 @@ export default class LireAbscisseFractionnaireQcm extends ExerciceQcmA {
         xmax: 14,
         ymax: 1.5,
         scale: 0.75,
-        center: true,
+        center: !context.isHtml,
       },
       droite,
     )
@@ -127,7 +128,7 @@ export default class LireAbscisseFractionnaireQcm extends ExerciceQcmA {
       ? miseEnEvidence(valeurTex)
       : `${this.fractionTexNonReduite([numerateur, denominateur])}=${miseEnEvidence(valeurTex)}`
     this.enonce = `On considère la droite graduée ci-dessous : ${figure}
-    L'abscisse du point $A$ est `
+    L'abscisse du point $A$ est :`
     this.correction = `Chaque unité est partagée en $${denominateur}$ parts égales : une petite graduation représente donc $\\dfrac{1}{${denominateur}}$.<br>
 Le point $A$ se trouve à la ${valeurAbsolueNumerateur === 1 ? 'première' : `$${valeurAbsolueNumerateur}^{e}$`} petite graduation ${numerateur < 0 ? 'avant' : 'après'} $0$. Son abscisse est donc $${conclusion}$.`
   }

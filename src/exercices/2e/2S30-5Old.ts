@@ -157,15 +157,17 @@ export default class FonctionsProbabilite2 extends Exercice {
               "Est-ce une expérience en situation d'équiprobabilité ?" +
                 (!this.interactif
                   ? ' Justifier.'
-                  : choixDeroulant(this, iInteractif + 2, { choices: [
-                      {
-                        label: 'Choisir une des réponses suivantes',
-                        value: '',
-                      },
-                      { label: 'oui', value: 'oui' },
-                      { label: 'non', value: 'non' },
-                      { label: 'je sais pas', value: 'je sais pas' },
-                    ] })),
+                  : choixDeroulant(this, iInteractif + 2, {
+                      choices: [
+                        {
+                          label: 'Choisir une des réponses suivantes',
+                          value: '',
+                        },
+                        { label: 'oui', value: 'oui' },
+                        { label: 'non', value: 'non' },
+                        { label: 'je sais pas', value: 'je sais pas' },
+                      ],
+                    })),
               `Calculer la probabilité que ${quidame} et ${quidam} aient choisi tous les deux un yaourt ${qualites[0][p]}.` +
                 (this.interactif
                   ? ajouteChampTexteMathLive(

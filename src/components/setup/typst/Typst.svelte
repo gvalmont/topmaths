@@ -81,6 +81,7 @@
   } from '../shared/editor/editorSetup'
   import { typstLanguage } from './editor/typstLanguage'
   import { hasSeenTypstTour, startTypstTour } from '../../../lib/onboarding/typstTour'
+  import BugReportModal from '../../shared/exercice/shared/BugReportModal.svelte'
 
   /** Libellés des habillages d'en-tête */
   const HEADER_STYLE_LABELS: Record<(typeof HEADER_STYLES)[number], string> = {
@@ -131,6 +132,7 @@
 
   let displayMode: DisplayMode = $state('preview')
   let isSettingsOpen = $state(!isMobile)
+  let isBugReportDisplayed = $state(false)
   /** Affiche la palette de mise en page sur l'aperçu */
   let showOverlay = $state(!isMobile)
   /**
@@ -678,6 +680,12 @@
   /** Brouillons de la modale d'édition d'une ligne « Course aux nombres » */
   let canRowEditEnonceDraft = $state('')
   let canRowEditReponseDraft = $state('')
+  /**
+   * La ligne en cours d'édition partage l'énoncé de la précédente (questions
+   * liées) : elle n'a pas de cellule « Énoncé » propre, la modale n'en
+   * propose donc que la réponse.
+   */
+  let canRowEditSharesEnonce = $state(false)
   /** Message de confirmation affiché après un clic sur un bouton « Copier » de la modale */
   let codeCopyStatus = $state('')
   let codeCopyStatusTimer: ReturnType<typeof setTimeout>
@@ -1514,6 +1522,7 @@
       carryOver.codeOverridesCan?.[row] ?? generated?.enonce ?? ''
     canRowEditReponseDraft =
       carryOver.codeOverridesCanReponse?.[row] ?? generated?.reponse ?? ''
+    canRowEditSharesEnonce = generated?.sharesPreviousEnonce ?? false
     canRowEditNum = row
   }
 
@@ -2162,6 +2171,11 @@
       input.canAnswers = input.questions.map((_, i) =>
         format(exercise.listeCanReponsesACompleter?.[i] ?? ''),
       )
+      // questions liées : celles qui partagent l'énoncé de la précédente
+      // (une même courbe lue deux fois, par exemple) n'ont qu'une réponse à
+      // compléter, l'énoncé couvrant leurs lignes — comme en LaTeX
+      input.canLinkedTo = exercise.listeCanLiees
+      input.canLinkNumbers = exercise.listeCanNumerosLies
       // questions figées par la palette (nombre de questions modifié) : les
       // questions déjà affichées gardent leur contenu, seules les questions
       // ajoutées prennent le contenu fraîchement généré
@@ -3262,6 +3276,16 @@
 
       <div class="grow"></div>
 
+      <button
+        type="button"
+        title="Signaler un problème"
+        aria-label="Signaler un problème"
+        class="flex items-center justify-center rounded-lg border border-coopmaths-action py-1 px-2 text-coopmaths-action hover:bg-coopmaths-action hover:text-coopmaths-canvas dark:border-coopmathsdark-action dark:text-coopmathsdark-action dark:hover:bg-coopmathsdark-action dark:hover:text-coopmathsdark-canvas"
+        onclick={() => (isBugReportDisplayed = true)}
+      >
+        <i class="bx bx-bug text-xl"></i>
+      </button>
+
       {#if displayMode === 'code' || displayMode === 'split'}
         <button
           type="button"
@@ -3995,6 +4019,13 @@
     </div>
   {/if}
 
+  {#if isBugReportDisplayed}
+    <BugReportModal
+      bind:isDisplayed={isBugReportDisplayed}
+      titleOverride="Bug dans la création du PDF (Typst)"
+    />
+  {/if}
+
   {#if $typstShortcutsOpen}
     <!-- svelte-ignore a11y_no_static_element_interactions, a11y_click_events_have_key_events -->
     <div
@@ -4193,20 +4224,28 @@
           Code Typst de la ligne {row} du tableau
         </h2>
         <p class="text-sm text-coopmaths-corpus dark:text-coopmathsdark-corpus">
-          Modifiez le code ci-dessous : il remplacera l'énoncé et la réponse
-          générés de cette ligne. Videz un champ pour revenir à son contenu
-          généré automatiquement.
+          {#if canRowEditSharesEnonce}
+            Cette question partage l'énoncé de la précédente : seule sa réponse
+            lui appartient. Videz le champ pour revenir à son contenu généré
+            automatiquement.
+          {:else}
+            Modifiez le code ci-dessous : il remplacera l'énoncé et la réponse
+            générés de cette ligne. Videz un champ pour revenir à son contenu
+            généré automatiquement.
+          {/if}
         </p>
-        <label class="flex flex-col gap-1 text-sm">
-          Énoncé
-          <textarea
-            class="h-32 w-full rounded border border-gray-300 bg-coopmaths-canvas p-2 font-mono text-xs text-coopmaths-corpus dark:border-coopmathsdark-corpus-lightest dark:bg-coopmathsdark-canvas dark:text-coopmathsdark-corpus"
-            bind:value={canRowEditEnonceDraft}
-            onkeydown={(e) => {
-              if (e.key === 'Escape') canRowEditNum = null
-            }}
-          ></textarea>
-        </label>
+        {#if !canRowEditSharesEnonce}
+          <label class="flex flex-col gap-1 text-sm">
+            Énoncé
+            <textarea
+              class="h-32 w-full rounded border border-gray-300 bg-coopmaths-canvas p-2 font-mono text-xs text-coopmaths-corpus dark:border-coopmathsdark-corpus-lightest dark:bg-coopmathsdark-canvas dark:text-coopmathsdark-corpus"
+              bind:value={canRowEditEnonceDraft}
+              onkeydown={(e) => {
+                if (e.key === 'Escape') canRowEditNum = null
+              }}
+            ></textarea>
+          </label>
+        {/if}
         <label class="flex flex-col gap-1 text-sm">
           Réponse
           <textarea

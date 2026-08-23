@@ -19,6 +19,12 @@
     exerciceTitle?: string
     /** indice (0-based) de l'exercice dans la série */
     exerciceIndex?: number
+    /**
+     * Remplace le titre par défaut (« Bug dans l'exercice… » / « Bug dans un
+     * exercice ») quand le signalement ne concerne pas un exercice précis
+     * (ex : génération du PDF).
+     */
+    titleOverride?: string
   }
 
   let {
@@ -26,6 +32,7 @@
     exerciceId = undefined,
     exerciceTitle = undefined,
     exerciceIndex = undefined,
+    titleOverride = undefined,
   }: Props = $props()
 
   let dialog: HTMLDialogElement | undefined = $state()
@@ -65,7 +72,7 @@
       url,
       userAgent: navigator.userAgent,
     }
-    title = buildBugReportTitle(context)
+    title = titleOverride ?? buildBugReportTitle(context)
     description = buildBugReportDescription(context)
     isCopied = false
   }

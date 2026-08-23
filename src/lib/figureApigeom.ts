@@ -212,16 +212,21 @@ export default function figureApigeom({
       })
     }
   }
-  DomReadyActionElement.registerCallback(setupAction, () => {
+  // `setupAction` est identique d'une génération à l'autre (il ne dépend que
+  // des numéros d'exercice et de question) : on garde une référence sur le
+  // callback pour ne jamais désinscrire l'inscription d'une figure plus récente
+  // (cf. DomReadyActionElement.unregisterCallback).
+  const setupCallback = () => {
     updateAffichage()
     return () => {
       if (retryTimeout !== null) {
         window.clearTimeout(retryTimeout)
         retryTimeout = null
       }
-      DomReadyActionElement.unregisterCallback(setupAction)
+      DomReadyActionElement.unregisterCallback(setupAction, setupCallback)
     }
-  })
+  }
+  DomReadyActionElement.registerCallback(setupAction, setupCallback)
 
   // --------------------------
   // CLEANUP
@@ -235,7 +240,7 @@ export default function figureApigeom({
       window.clearTimeout(retryTimeout)
       retryTimeout = null
     }
-    DomReadyActionElement.unregisterCallback(setupAction)
+    DomReadyActionElement.unregisterCallback(setupAction, setupCallback)
     document.removeEventListener(idApigeom, idApigeomFunct)
     document.removeEventListener('zoomChanged', updateZoom)
   }

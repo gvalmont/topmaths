@@ -1,3 +1,4 @@
+import { context } from '../../modules/context'
 import { cercle } from '../../lib/2d/cercle'
 import { fixeBordures } from '../../lib/2d/fixeBordures'
 import { pointAbstrait } from '../../lib/2d/PointAbstrait'
@@ -62,12 +63,12 @@ export default class PerimetreCercleQcm extends ExerciceQcmA {
     this.enonce = `Le cercle ci-dessous, sur lequel on a codé un ${donneLeDiametre ? 'diamètre' : 'rayon'}, n'est pas représenté à l'échelle.<br>
 ${mathalea2d(
   Object.assign(
-    { pixelsParCm: 25, scale: 0.8, center: true },
+    { pixelsParCm: 25, scale: 0.8, center: !context.isHtml },
     fixeBordures(objets),
   ),
   objets,
 )}
-La valeur exacte de son périmètre est `
+La valeur exacte de son périmètre est :`
 
     this.reponses = [
       `$${diametre}\\pi\\text{ cm}$`,
@@ -82,9 +83,11 @@ La valeur exacte de son périmètre est `
 
     this.correction = donneLeDiametre
       ? `Le périmètre d'un cercle de diamètre $D$ est $P=\\pi\\times D$.<br>
-Ainsi, $P=\\pi\\times ${diametre}=${miseEnEvidence(`${diametre}\\pi\\text{ cm}`)}$.`
+Ainsi, $P=\\pi\\times ${diametre}=${miseEnEvidence(`${diametre}\\pi\\text{ cm}`)}$.<br>`
       : `Le périmètre d'un cercle de rayon $r$ est $P=2\\times\\pi\\times r$.<br>
-Ainsi, $P=2\\times\\pi\\times ${rayon}=${miseEnEvidence(`${diametre}\\pi\\text{ cm}`)}$.`
+Ainsi, $P=2\\times\\pi\\times ${rayon}=${miseEnEvidence(`${diametre}\\pi\\text{ cm}`)}$.<br>`
+    this.correction += `
+$${texNombre(valeurAvecPi314, 2)}\\text{ cm}$ n'est qu'une valeur approchée de ce périmètre.`
   }
 
   versionOriginale = () => {

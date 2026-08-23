@@ -1,3 +1,4 @@
+import { context } from '../../modules/context'
 import { fixeBordures } from '../../lib/2d/fixeBordures'
 import { pointAbstrait } from '../../lib/2d/PointAbstrait'
 import { polygone } from '../../lib/2d/polygones'
@@ -60,7 +61,7 @@ export default class PerimetreQuadrilatereQcm extends ExerciceQcmA {
 
 ${mathalea2d(
   Object.assign(
-    { pixelsParCm: 25, scale: 0.8, center: true },
+    { pixelsParCm: 25, scale: 0.8, center: !context.isHtml },
     fixeBordures(objets, {
       rxmin: -0.6,
       rxmax: 0.6,
@@ -70,7 +71,7 @@ ${mathalea2d(
   ),
   objets,
 )}
-Son périmètre est égal à `
+Son périmètre est égal à :`
 
     this.reponses = [
       `$${perimetreEnCm}\\text{ cm}$`,
@@ -85,7 +86,7 @@ Le périmètre d'un quadrilatère est la somme des longueurs de ses quatre côt�
 $\\begin{aligned}
 P_{ABCD}&=AB+BC+CD+DA\\\\
 &=${abEnCm}+${bcEnCm}+${cdEnCm}+${daEnCm}\\\\
-&=${miseEnEvidence(`${perimetreEnCm}\\text{ cm}`)}.
+&=${miseEnEvidence(`${perimetreEnCm}\\text{ cm}`)}
 \\end{aligned}$`
   }
 

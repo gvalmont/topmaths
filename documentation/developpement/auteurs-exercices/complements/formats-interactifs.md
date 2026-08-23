@@ -63,6 +63,69 @@ handleAnswers(
 
 Le helper injecte un custom element `mathalea-mathfield`.
 
+### Ajouter des touches propres à une question
+
+Les `KeyboardType` sont des claviers figés. Quand une question a besoin de
+touches qui lui sont propres (une variable, une notation, un modèle
+d'expression), utiliser `KeyboardType.clavierPersonnalisable` — chiffres et
+opérations de base — et lui passer ces touches :
+
+```ts
+texte += ajouteChampTexteMathLive(
+  this,
+  i,
+  KeyboardType.clavierPersonnalisable,
+  { dataKeys: ['u_n', 'q', 'POW', '+\\infty'] },
+)
+```
+
+Elles apparaissent dans un bloc « Pour cette question », en tête du clavier.
+Chaque touche est décrite par une chaîne :
+
+- un nom de raccourci prédéfini (`POW`, `SQRT`, `VECT`, `SIGMA`,
+  `PMATRIX11`…) donne la touche correspondante ;
+- toute autre chaîne est du LaTeX inséré tel quel, affiché sur la touche entre
+  `$…$` (`a`, `\pi`, `u_n`, `\overrightarrow{AB}`…) ;
+- les emplacements MathLive (`#0`, `#1`, `#@`) sont affichés comme des carrés
+  et conservés à l'insertion, si bien que le curseur se place dans le trou :
+  `f(#0)` affiche `f(□)`.
+
+Les raccourcis disponibles et cette mécanique vivent dans
+`src/components/keyboard/lib/touchesPersonnalisees.ts`. Le clavier lit ces
+touches dans l'attribut `data-keys` du champ au moment où il prend le focus :
+elles changent donc d'une question à l'autre.
+
+## Bouton de réponse prédéfinie
+
+À utiliser quand une réponse revient telle quelle et serait pénible à saisir au
+clavier MathLive, typiquement « Pas factorisable » quand l'énoncé demande de
+factoriser « si possible ».
+
+```ts
+import { boutonReponsePredefinie } from '../../lib/interactif/boutonReponsePredefinie'
+
+handleAnswers(this, i, {
+  reponse: { value: '\\text{Pas factorisable}' },
+})
+
+if (this.interactif) {
+  texte += boutonReponsePredefinie({
+    numeroExercice: this.numeroExercice,
+    indiceQuestion: i,
+    label: 'Pas factorisable',
+  })
+}
+```
+
+Le bouton remplit le champ MathLive de la question avec `valeur` (par défaut
+`\text{label}`). Il n'a de sens qu'en interactif, d'où le test sur
+`this.interactif`.
+
+Si une seule question de l'exercice appelle cette réponse, ajouter le bouton à
+**toutes** les questions : sinon il désigne la bonne réponse. Voir
+[2N41-7](../../../../src/exercices/2e/2N41-7.ts), [1AL21-41](../../../../src/exercices/1e/1AL21-41.ts)
+et [1AL21-42](../../../../src/exercices/1e/1AL21-42.ts).
+
 ## Champ texte simple
 
 À utiliser pour une réponse textuelle sans MathLive.
@@ -1000,6 +1063,14 @@ texteCorr += 'Le tableau complété est donné ci-dessus.'
 ```
 
 Ce helper déclare lui-même les données nécessaires à la vérification. Lire aussi `src/lib/interactif/tableauSignesVariations/DOCUMENTATION.md` avant de créer un nouveau tableau.
+
+## Couteau suisse
+
+À utiliser quand une même question doit enchaîner plusieurs custom elements
+interactifs autonomes. Lire la page dédiée :
+[Mathalea Couteau Suisse](couteau-suisse.md).
+
+Exemple de référence : `src/exercices/2e/2F21-9.ts`.
 
 ## Scratch et Blockly
 

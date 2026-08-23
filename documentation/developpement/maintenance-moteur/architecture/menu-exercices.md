@@ -15,14 +15,14 @@ Tous ces fichiers sont importés statiquement (ES modules JSON) par le code sous
 
 Le script doit être relancé après la création ou la modification d'un exercice. Il parcourt `src/exercices`, extrait les métadonnées de chaque fichier d'exercice (`uuid`, `refs`, `titre`, dates, `features` interactif/amc/qcm) et écrit, séparément pour la France (`FR`) et la Suisse (`CH`) :
 
-| Fichier                                                                              | Rôle                                                                                                                                                                                                                                                                                                              |
-| ------------------------------------------------------------------------------------ | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `src/json/referentiel2022FR.json`, `src/json/referentiel2022CH.json`                 | Arbre complet niveau > thème > exercice construit à partir du squelette `tasks/emptyRef2022.json` / `tasks/emptyRefCH.json`. C'est le référentiel affiché en tant que section « Exercices aléatoires » du menu (`referentielsStore.ts`).                                                                          |
-| `src/json/referentielGeometrieDynamique.json`                                        | Sous-arbre « Géométrie dynamique » extrait de `referentiel2022FR.json` (FR uniquement) et retiré de ce dernier. Alimente la section « Géométrie dynamique » du menu.                                                                                                                                              |
-| `src/json/exercicesFR.json`, `src/json/exercicesCH.json`                             | Liste à plat (clé = ref pédagogique) de tous les exercices générés, triée par clé. Sert d'étape intermédiaire à la construction du référentiel ; pas consommée directement ailleurs dans `src/`.                                                                                                                  |
-| `src/json/exercicesNonInteractifsFR.json`, `src/json/exercicesNonInteractifsCH.json` | Liste des chemins de fichiers d'exercices dont `interactifReady` n'est pas `true`. Fichier de suivi/inventaire, non consommé au runtime.                                                                                                                                                                          |
+| Fichier                                                                              | Rôle                                                                                                                                                                                                                                                                                                                 |
+| ------------------------------------------------------------------------------------ | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `src/json/referentiel2022FR.json`, `src/json/referentiel2022CH.json`                 | Arbre complet niveau > thème > exercice construit à partir du squelette `tasks/emptyRef2022.json` / `tasks/emptyRefCH.json`. C'est le référentiel affiché en tant que section « Exercices aléatoires » du menu (`referentielsStore.ts`).                                                                             |
+| `src/json/referentielGeometrieDynamique.json`                                        | Sous-arbre « Géométrie dynamique » extrait de `referentiel2022FR.json` (FR uniquement) et retiré de ce dernier. Alimente la section « Géométrie dynamique » du menu.                                                                                                                                                 |
+| `src/json/exercicesFR.json`, `src/json/exercicesCH.json`                             | Liste à plat (clé = ref pédagogique) de tous les exercices générés, triée par clé. Sert d'étape intermédiaire à la construction du référentiel ; pas consommée directement ailleurs dans `src/`.                                                                                                                     |
+| `src/json/exercicesNonInteractifsFR.json`, `src/json/exercicesNonInteractifsCH.json` | Liste des chemins de fichiers d'exercices dont `interactifReady` n'est pas `true`. Fichier de suivi/inventaire, non consommé au runtime.                                                                                                                                                                             |
 | `src/json/uuidsToUrlFR.json`, `src/json/uuidsToUrlCH.json`                           | Dictionnaire `uuid -> chemin du fichier source` (plus quelques entrées fixes pour les outils Svelte comme `spline`, `clavier`, `version`, `equation`). Utilisé par [mathalea.ts](../../../../src/lib/mathalea.ts) et `componentsUtils.ts` pour charger dynamiquement le module d'un exercice à partir de son `uuid`. |
-| `src/json/refToUuidFR.json`, `src/json/refToUuidCH.json`                             | Dictionnaire `ref pédagogique -> uuid`. Utilisé par `languagesStore.ts` / `languagesUtils.ts` pour retrouver l'exercice équivalent lors d'un changement de langue/pays (FR ↔ CH) à partir de sa référence pédagogique.                                                                                            |
+| `src/json/refToUuidFR.json`, `src/json/refToUuidCH.json`                             | Dictionnaire `ref pédagogique -> uuid`. Utilisé par `languagesStore.ts` / `languagesUtils.ts` pour retrouver l'exercice équivalent lors d'un changement de langue/pays (FR ↔ CH) à partir de sa référence pédagogique.                                                                                               |
 
 Entrées manuelles utilisées par le script :
 
@@ -34,7 +34,34 @@ Le rattachement d'un exercice à un thème se fait **par préfixe** : le script 
 - un exercice est ajouté à **toutes** les feuilles dont le code est un préfixe de sa ref ; il apparaît donc en double si deux codes de thèmes sont l'un préfixe de l'autre (par exemple `BP1G` et `BP1GV`). Il faut choisir des codes de thèmes qui ne se préfixent pas entre eux — c'est pourquoi le thème « Géométrie » du Bac Pro Première porte le code `BP1GEO` (refs `BP1GEO01` à `BP1GEO09`) et non `BP1G`, qui aurait aussi capté les refs `BP1GV01` et suivantes ;
 - une ref peut volontairement appartenir à plusieurs thèmes (y compris de niveaux différents) : il suffit de l'ajouter au tableau `refs['fr-fr']` du fichier d'exercice. C'est ainsi qu'un même exercice de collège ou de lycée est réutilisé dans les référentiels Bac Pro.
 
-L'apparence d'un noeud du menu dépend à la fois de sa profondeur dans `emptyRef2022.json` et de la fonction `themeCodeisSubthemeCode()` dans `ReferentielNode.svelte`. Cette fonction détecte certains formats de codes comme des sous-thèmes pour masquer le code et appliquer une typographie plus discrète. Si un nouveau format de code est ajouté au référentiel, il peut donc être correctement placé dans l'arbre tout en étant affiché comme un thème principal tant que cette fonction ne reconnait pas son motif.
+L'apparence d'un noeud du menu dépend à la fois de sa profondeur dans `emptyRef2022.json` et de la fonction `themeCodeisSubthemeCode()` dans `ReferentielNode.svelte`. Cette fonction détecte certains formats de codes comme des sous-thèmes pour masquer le code et appliquer une typographie plus discrète. Les préfixes `auto` et `can` sont retirés avant cette détection : `2F12`, `auto2F12` et `can2F12` suivent donc la même règle d'affichage. Si un nouveau format de code est ajouté au référentiel, il peut être correctement placé dans l'arbre tout en étant affiché comme un thème principal tant que cette fonction ne reconnait pas son motif.
+
+Pour la Seconde, `2N` (« Calcul numérique ») contient `2N1` à `2N5`, et
+`2L` (« Calcul littéral ») contient `2L1` à `2L3`. La Course aux nombres suit
+la même organisation avec `can2N` et `can2L`. Les anciennes références
+globales `can2L01`, `can2L02`, etc. ont été reclassées dans les sous-thèmes
+`can2N*`, `can2L*`, `can2F*` ou `can2G*`.
+La rubrique `2N1` (« Nombres réels ») contient notamment `2N15` (« Comparer
+des nombres réels »), avec la feuille correspondante `can2N15` dans la
+Course aux nombres.
+La rubrique `2L1` (« Utiliser le calcul littéral ») distingue `2L10` (bases),
+`2L11` (développer et factoriser sans identité remarquable), `2L12` (avec
+les identités remarquables), `2L13` (calculs complexes sur des expressions
+algébriques) et `2L14` (utiliser le calcul littéral). Les codes `can2L1*`
+reprennent ce découpage.
+La rubrique `2N3` (« Fractions ») est elle-même divisée en `2N30`
+(simplifier, décomposer, comparer ou encadrer), `2N31` (quatre opérations),
+`2N32` (calculs avec des fractions) et `2N33` (problèmes) ; les codes `can2N3*`
+reprennent ce découpage.
+La rubrique `2N4` (« Puissances ») est divisée en `2N40` (définition et
+notation), `2N41` (puissances de 10), `2N42` (notation scientifique), `2N43`
+(calculs avec les puissances) et `2N44` (comparaison et classement), avec le
+même découpage sous `can2N4`.
+La rubrique `2N5` (« Racines carrées ») est divisée en `2N50` (définition,
+existence et encadrement) et `2N51` (calculs numériques avec les racines
+carrées). Les codes `can2N50` et `can2N51` reprennent ce découpage.
+
+Dans les rubriques du lycée (seconde, première et terminale), `ReferentielNode.svelte` place explicitement en tête les exercices dont la référence contient `-flash`. Cette priorité ne modifie pas l'ordre des référentiels du collège.
 
 ## Génération par `tasks/dictionnaireToReferentiel.js`
 
@@ -81,7 +108,7 @@ Relancer `node tasks/dictionnaireToReferentiel.js` après toute modification pou
 | `src/json/quickLinks.json`                 | Contenu des liens rapides affichés sur la page d'accueil.                                                                                                                                     | `QuickLinks.svelte`                                                                       |
 | `src/json/carouselContent.json`            | Contenu du carrousel de la page d'accueil.                                                                                                                                                    | `Carousel.svelte`, `MobileCarouselCards.svelte`                                           |
 | `src/json/carouselContentForCapytale.json` | Variante du carrousel pour Capytale.                                                                                                                                                          | Non utilisée actuellement (import commenté dans `Carousel.svelte`).                       |
-| `src/json/mobileMenu.json`                 | Rubriques (Collège / Lycée) et niveaux proposés par la vue mobile, avec le référentiel et le chemin visés. Voir [Vue mobile](vue-mobile.md).                                                   | `MobileBrowser.svelte` via `lib/components/mobileMenu.ts`                                  |
+| `src/json/mobileMenu.json`                 | Rubriques (Collège / Lycée) et niveaux proposés par la vue mobile, avec le référentiel et le chemin visés. Voir [Vue mobile](vue-mobile.md).                                                  | `MobileBrowser.svelte` via `lib/components/mobileMenu.ts`                                 |
 
 ## Dictionnaires de libellés
 

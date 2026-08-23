@@ -78,6 +78,44 @@ describe('ElementIepEditeur intersections', () => {
 })
 
 describe('ElementIepEditeur direction objects', () => {
+  it('can set point label size in the animation', () => {
+    const animation = construireAnimation(
+      [{ type: 'point', nom: 'A', x: 0, y: 0 }],
+      0,
+      { tailleLabelsPoints: 12 },
+    )
+
+    expect(animation.script()).toContain('taille="12"')
+  })
+
+  it('uses a custom pencil color for a segment instruction', () => {
+    const animation = construireAnimation([
+      { type: 'point', nom: 'A', x: 0, y: 0 },
+      { type: 'point', nom: 'B', x: 4, y: 0 },
+      { type: 'segment', p1: 'A', p2: 'B', couleur: 'red' },
+    ])
+
+    const xml = animation.script()
+    expect(xml).toMatch(/couleur="red" mouvement="tracer" objet="crayon"/)
+  })
+
+  it('extends a point-direction ray from its origin', () => {
+    const animation = construireAnimation([
+      { type: 'point', nom: 'A', x: 0, y: 0 },
+      { type: 'demiDroitePointDirection', p1: 'A', angle: 0 },
+      { type: 'prolongerObjet', etape: 1, longueur: 20 },
+    ])
+
+    const xml = animation.script()
+    expect(xml).toMatch(
+      /objet="crayon" mouvement="translation" abscisse="720" ordonnee="90"[\s\S]*abscisse="120" ordonnee="90" epaisseur="2" couleur="#216D9A" mouvement="tracer" objet="crayon"/,
+    )
+    expect(xml).toMatch(
+      /mouvement="modifier_longueur" objet="regle" longueur="20"[\s\S]*mouvement="modifier_longueur" objet="regle" longueur="15"/,
+    )
+    expect(xml).not.toMatch(/mouvement="zoom" objet="regle"/)
+  })
+
   it('draws a parallel to a perpendicular bisector', () => {
     const animation = construireAnimation([
       { type: 'point', nom: 'A', x: 0, y: 0 },
@@ -165,9 +203,75 @@ describe('ElementIepEditeur compass arc instructions', () => {
     ])
 
     const xml = animation.script()
+    expect(xml).toMatch(/debut="0" fin="-90" mouvement="tracer" objet="compas"/)
+  })
+
+  it('reports a length from two points to a directed compass arc', () => {
+    const animation = construireAnimation([
+      { type: 'point', nom: 'A', x: 0, y: 0 },
+      { type: 'point', nom: 'B', x: 4, y: 0 },
+      { type: 'point', nom: 'C', x: 1, y: 1 },
+      { type: 'reporterLongueurCompas', p1: 'A', p2: 'B', p3: 'C', angle: 0 },
+    ])
+
+    const xml = animation.script()
+    expect(xml).toMatch(/mouvement="ecarter" objet="compas"/)
     expect(xml).toMatch(
-      /debut="0" fin="-90" mouvement="tracer" objet="compas"/,
+      /objet="compas" mouvement="rotation_translation" angle="10" abscisse="150" ordonnee="90"/,
     )
+    expect(xml).toMatch(
+      /abscisse="150" ordonnee="90"[\s\S]*debut="10" fin="-10" mouvement="tracer" objet="compas"/,
+    )
+  })
+
+  it('intersects a reported compass length with a ray', () => {
+    const animation = construireAnimation([
+      { type: 'point', nom: 'A', x: 0, y: 0 },
+      { type: 'point', nom: 'B', x: 4, y: 0 },
+      { type: 'point', nom: 'C', x: 1, y: 1 },
+      { type: 'reporterLongueurCompas', p1: 'A', p2: 'B', p3: 'C', angle: 0 },
+      { type: 'demiDroitePointDirection', p1: 'C', angle: 0 },
+      { type: 'intersection', nom: 'D', etape1: 3, etape2: 4, choix: 1 },
+    ])
+
+    const xml = animation.script()
+    expect(xml).toMatch(
+      /texte="\$D\$"[\s\S]*<action abscisse="120" ordonnee="90" couleur="black" id="\d+" mouvement="creer" objet="point" tempo="5"\/>/,
+    )
+  })
+
+  it('keeps the compass out between two reported lengths separated by an intersection', () => {
+    const animation = construireAnimation(
+      [
+        { type: 'point', nom: 'A', x: 0, y: 0 },
+        { type: 'point', nom: 'B', x: 4, y: 0 },
+        { type: 'point', nom: 'C', x: 1, y: 1 },
+        { type: 'demiDroitePointDirection', p1: 'C', angle: 0 },
+        {
+          type: 'reporterLongueurCompas',
+          p1: 'A',
+          p2: 'B',
+          p3: 'C',
+          angle: 30,
+        },
+        { type: 'intersection', nom: 'D', etape1: 3, etape2: 4, choix: 1 },
+        {
+          type: 'reporterLongueurCompas',
+          p1: 'A',
+          p2: 'B',
+          p3: 'D',
+          angle: 60,
+        },
+      ],
+      0,
+      { rangerInstruments: true },
+    )
+
+    const xml = animation.script()
+    const rangementsCompas = xml.match(
+      /objet="compas" mouvement="rotation_translation" angle="0"[\s\S]*?sens="100000"/g,
+    )
+    expect(rangementsCompas).toHaveLength(1)
   })
 })
 
@@ -223,6 +327,26 @@ describe('ElementIepEditeur conditions initiales', () => {
     expect(xml).not.toMatch(/objet="crayon" mouvement="masquer"/)
   })
 
+  it('draws immediate ray extensions quickly without instrument resizing', () => {
+    const animation = construireAnimation(
+      [
+        { type: 'point', nom: 'A', x: 0, y: 0 },
+        { type: 'demiDroitePointDirection', p1: 'A', angle: 0 },
+        { type: 'prolongerObjet', etape: 1, longueur: 20 },
+      ],
+      3,
+      { rangerInstruments: true },
+    )
+
+    const xml = animation.script()
+    expect(xml).toMatch(
+      /mouvement="tracer" objet="crayon" tempo="0" vitesse="10000"/,
+    )
+    expect(xml).not.toMatch(/mouvement="modifier_longueur" objet="regle"/)
+    expect(xml).not.toMatch(/mouvement="zoom" objet="regle"/)
+    expect(xml).not.toMatch(/objet="regle" mouvement="rotation_translation"/)
+  })
+
   it('serializes initial conditions as a distinct attribute', () => {
     const htmlContextAvantTest = context.isHtml
     context.isHtml = true
@@ -238,6 +362,96 @@ describe('ElementIepEditeur conditions initiales', () => {
     expect(html).toContain('conditions-initiales=')
     expect(html).toContain('programme-initial=')
     context.isHtml = htmlContextAvantTest
+  })
+})
+
+describe('ElementIepEditeur static rendering', () => {
+  it('renders Latex points without the TikZ cross out key', () => {
+    const htmlContextAvantTest = context.isHtml
+    const typstContextAvantTest = context.isTypst
+    context.isHtml = false
+    context.isTypst = false
+
+    try {
+      const rendu = ElementIepEditeur.create({
+        programmeInitial: [
+          { type: 'point', nom: 'A', x: 0, y: 0 },
+          { type: 'point', nom: 'B', x: 4, y: 0 },
+          { type: 'point', nom: 'C', x: 4, y: 3 },
+          { type: 'segment', p1: 'A', p2: 'B' },
+          { type: 'segment', p1: 'B', p2: 'C' },
+          { type: 'segmentCodage', p1: 'A', p2: 'B', codage: '//' },
+          { type: 'codageAngleDroit', p1: 'A', p2: 'B', p3: 'C' },
+        ],
+        interactivityOn: false,
+      })
+
+      expect(rendu).toContain('\\begin{tikzpicture}')
+      expect(rendu).not.toContain('cross out')
+      expect(rendu.match(/\\draw/g)).toHaveLength(11)
+    } finally {
+      context.isHtml = htmlContextAvantTest
+      context.isTypst = typstContextAvantTest
+    }
+  })
+
+  it('renders Typst without constructing the custom element directly', () => {
+    const htmlContextAvantTest = context.isHtml
+    const typstContextAvantTest = context.isTypst
+    context.isHtml = false
+    context.isTypst = true
+
+    try {
+      const rendu = ElementIepEditeur.create({
+        programmeInitial: [
+          { type: 'point', nom: 'A', x: 0, y: 0 },
+          { type: 'point', nom: 'B', x: 4, y: 0 },
+          { type: 'segment', p1: 'A', p2: 'B' },
+        ],
+        interactivityOn: false,
+      })
+
+      expect(rendu).toContain('<mathalea-typst>')
+      expect(rendu).toContain('#image')
+    } finally {
+      context.isHtml = htmlContextAvantTest
+      context.isTypst = typstContextAvantTest
+    }
+  })
+})
+
+describe('ElementIepEditeur instruction selection', () => {
+  it('hides the category select for small instruction palettes', () => {
+    const editor = document.createElement(
+      ElementIepEditeur.elementTag,
+    ) as ElementIepEditeur
+    editor.setAttribute(
+      'instructions-disponibles',
+      JSON.stringify([
+        'reporterLongueurCompas',
+        'intersection',
+        'segment',
+        'point',
+        'segmentCodage',
+        'codageAngleDroit',
+      ]),
+    )
+    document.body.appendChild(editor)
+
+    try {
+      const selects = editor.querySelectorAll('select')
+      expect(selects[0].classList.contains('hidden')).toBe(true)
+      expect([...selects[1].options].map((option) => option.value)).toEqual([
+        'reporterLongueurCompas',
+        'intersection',
+        'segment',
+        'point',
+        'segmentCodage',
+        'codageAngleDroit',
+      ])
+    } finally {
+      editor.remove()
+    }
   })
 })
 

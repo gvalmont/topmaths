@@ -1,3 +1,4 @@
+import { context } from '../../../modules/context'
 import { courbe } from '../../../lib/2d/Courbe'
 import { repere } from '../../../lib/2d/reperes'
 import { segment } from '../../../lib/2d/segmentsVecteurs'
@@ -24,7 +25,7 @@ export const dateDePublication = '25/10/2021' // La date de publication initiale
 export const uuid = '82f73'
 
 export const refs = {
-  'fr-fr': ['can3F07'],
+  'fr-fr': ['can3F07', 'can2F21-07', '2F21-flash1'],
   'fr-ch': [],
 }
 export default class LectureGraphiqueFonctionAffine1 extends ExerciceSimple {
@@ -53,7 +54,7 @@ export default class LectureGraphiqueFonctionAffine1 extends ExerciceSimple {
         ymax: 5,
         pixelsParCm: 20,
         scale: 0.7,
-        center: true,
+        center: !context.isHtml,
       },
       rep,
       courbe((x) => a * x + b, { repere: rep, color: bleuMathalea }),
@@ -93,7 +94,7 @@ export default class LectureGraphiqueFonctionAffine1 extends ExerciceSimple {
           ymax: 5,
           pixelsParCm: 20,
           scale: 0.7,
-          center: true,
+          center: !context.isHtml,
         },
         rep,
         courbe((x) => a * x + b, { repere: rep, color: bleuMathalea }),
@@ -113,7 +114,7 @@ export default class LectureGraphiqueFonctionAffine1 extends ExerciceSimple {
           ymax: 5,
           pixelsParCm: 20,
           scale: 0.7,
-          center: true,
+          center: !context.isHtml,
         },
         rep,
         courbe((x) => a * x + b, { repere: rep, color: bleuMathalea }),
@@ -135,7 +136,7 @@ export default class LectureGraphiqueFonctionAffine1 extends ExerciceSimple {
         ymax: 5,
         pixelsParCm: 20,
         scale: 0.7,
-        center: true,
+        center: !context.isHtml,
       },
       rep,
       courbe((x) => a * x + b, { repere: rep, color: bleuMathalea }),

@@ -20,6 +20,15 @@ describe('latexMathToTypst', () => {
     expect(latexMathToTypst('x\\in\\mathbb{R}')).toBe('x in RR')
   })
 
+  it('convertit \\phantom même avec un contenu imbriqué sur plusieurs niveaux', () => {
+    expect(latexMathToTypst('\\phantom{x}=6')).toBe(
+      latexMathToTypst('\\phantom{\\sqrt{\\dfrac{36}{4}}}=6'),
+    )
+    expect(latexMathToTypst('\\phantom{\\sqrt{\\dfrac{36}{4}}}=6')).not.toContain(
+      'phantom',
+    )
+  })
+
   it('rend la virgule décimale française sans espace', () => {
     expect(latexMathToTypst('3,5')).toBe('3","5')
     expect(latexMathToTypst('3{,}5')).toBe('3","5')
@@ -95,6 +104,15 @@ describe('latexMathToTypst', () => {
     expect(result).toContain('bracket.l')
     expect(result).toContain('bracket.r')
     expect(result).toContain('union')
+  })
+
+  it('conserve les crochets d\'une notation de segment comme [YS]', () => {
+    // Régression : la règle qui enlève les crochets autour de "union"/"inter"
+    // (issus de \cup/\cap) matchait aussi tout contenu purement alphabétique,
+    // donc [YS] (segment) perdait ses crochets à tort.
+    const result = latexMathToTypst('[YS]')
+    expect(result).toContain('bracket.l')
+    expect(result).toContain('bracket.r')
   })
 
   it('convertit le texte inclus dans les formules via #txt (police du texte)', () => {
@@ -309,6 +327,31 @@ describe('htmlToTypst', () => {
     )
   })
 
+  it('convertit les boîtes LaTeX en mode texte (énoncés CAN)', () => {
+    // can2a-2026 Q12 : un algorithme encadré, écrit en LaTeX texte
+    const code = htmlToTypst(
+      '\\hspace*{10mm}\\fbox{\\parbox{0.5\\linewidth}{\\setlength{\\parskip}{.5cm}' +
+        ' \\texttt{def mystere(a) :}\\newline \\hspace*{7mm}\\texttt{return 2*b}}}',
+    )
+    // la largeur de \parbox n'est pas reprise : la boîte prend celle de son
+    // contenu, sans quoi les lignes de l'algorithme se couperaient dans une
+    // cellule étroite du tableau « Course aux nombres »
+    expect(code).toBe(
+      '#h(10mm)#box(stroke: 0.6pt + luma(60), inset: (x: 6pt, y: 5pt))' +
+        '[#box[#raw("def mystere(a) :")\\\n#h(7mm)#raw("return 2*b")]]',
+    )
+    // un réglage de longueur n'a pas d'équivalent : il disparaît
+    expect(code).not.toContain('parskip')
+  })
+
+  it('garde l’italique des mathématiques dans une réponse mise en évidence', () => {
+    // miseEnEvidence() produit {\color{…}\boldsymbol{…}} : \boldsymbol est du
+    // gras *italique*, contrairement à \mathbf
+    expect(
+      htmlToTypst('$={\\color{#F15929}\\boldsymbol{x(3x+1)}}$'),
+    ).toBe('$= text(fill: #rgb("#F15929"), bold(x(3 x + 1)))$')
+  })
+
   it('convertit les array LaTeX bordés en tableaux natifs', () => {
     const result = htmlToTypst(
       '$\\def\\arraystretch{1.5}\\begin{array}{|l|c|c|}\\hline x & 1 & 2 \\\\ \\hline f(x) & 3 & 4 \\\\ \\hline\\end{array}$',
@@ -344,6 +387,16 @@ describe('htmlToTypst', () => {
     )
     expect(result).toContain('#strong[Sports]')
     expect(result).toContain('#strong[TOTAL]')
+    expect(result).not.toContain('textbf')
+  })
+
+  it('retire \\large d\'une cellule de tableau \\text{\\large \\textbf{X}} au lieu de le laisser fuir (P020)', () => {
+    const result = htmlToTypst(
+      '$\\begin{array}{|c|c|}\\hline \\text{\\large \\textbf{Sports}} & \\text{\\large \\textbf{TOTAL}} \\\\ \\hline 12 & 100 \\\\ \\hline\\end{array}$',
+    )
+    expect(result).toContain('#strong[Sports]')
+    expect(result).toContain('#strong[TOTAL]')
+    expect(result).not.toContain('large')
     expect(result).not.toContain('textbf')
   })
 

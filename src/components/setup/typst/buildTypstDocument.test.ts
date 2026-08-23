@@ -414,6 +414,16 @@ describe('buildTypstDocument', () => {
     expect(code).toContain('#let txt(corps) = text(font: police-texte, corps)')
   })
 
+  it('met les formules en ligne dans une boîte sans perdre leur ligne de base', () => {
+    const code = buildTypstDocument([exercise({ questions: ['$1+1$'] })])
+    // la formule est émise nue : c'est la règle d'affichage du préambule qui
+    // l'enferme dans une boîte (voir MATHALEA_INLINE_FORMULA_RULE)
+    expect(code).toContain('$1 + 1$')
+    expect(code).not.toContain('#box($1 + 1$)')
+    expect(code).toContain('#show math.equation.where(block: false):')
+    expect(code).toContain('box(baseline: measure(')
+  })
+
   it('règle la couleur des badges', () => {
     const code = buildTypstDocument([exercise({ questions: ['$1+1$'] })], {
       ...defaultTypstDocumentOptions,
@@ -533,8 +543,14 @@ describe('buildTypstDocument', () => {
       { ...defaultTypstDocumentOptions, showQrCode: true },
     )
     // depuis exercise-bank 0.6.0, le QR-code est un paramètre de exo.with(...)
-    // (le paquet le génère et le place lui-même, plus besoin de tiaoma)
-    expect(withQr).toContain(`  qr: "${url}",`)
+    // (le paquet le place lui-même, plus besoin de tiaoma) ; il est fourni en
+    // image SVG pré-rendue (fond blanc explicite) plutôt qu'en URL brute, car
+    // tiaoma (utilisé en interne par exercise-bank pour une URL) ignore toute
+    // option de fond et produit un QR-code transparent
+    expect(withQr).toContain('  qr: image(bytes(')
+    expect(withQr).toContain('format: "svg", width: 100%),')
+    expect(withQr).toContain('#ffffff')
+    expect(withQr).not.toContain(`  qr: "${url}",`)
     expect(withQr).toContain(`  qr-size: 1.8cm,`)
     expect(withQr).not.toContain('tiaoma')
     expect(withQr).not.toContain('#place(')
@@ -1071,7 +1087,9 @@ describe('mode « Course aux nombres » (canMode)', () => {
     expect(code).toContain(
       '#tasks(columns: "auto-fit", label: (..n) => strong(numbering("1.", ..n))',
     )
-    expect(code).toContain('      + $35$\n      + $66$\n      + $12$ boules')
+    expect(code).toContain(
+      '      + $35$\n      + $66$\n      + $12$ boules',
+    )
     // ni banque d'exercices ni badges : il n'y a plus de titre d'exercice
     expect(code).not.toContain('exercise-bank')
     expect(code).not.toContain('#let ex1 = exo.with(')
@@ -1139,7 +1157,9 @@ describe('mode « Course aux nombres » (canMode)', () => {
     expect(code).toContain(
       '[#mathalea-anchor("exo", 1)\n      #mathalea-anchor("can-row", 1)\n      $1 + 1$],',
     )
-    expect(code).toContain('[#mathalea-anchor("can-row", 2)\n      $2 + 2$],')
+    expect(code).toContain(
+      '[#mathalea-anchor("can-row", 2)\n      $2 + 2$],',
+    )
     expect(code).toContain(
       '[#mathalea-anchor("exo", 2)\n      #mathalea-anchor("can-row", 3)\n      $3 + 3$],',
     )
@@ -1151,6 +1171,54 @@ describe('mode « Course aux nombres » (canMode)', () => {
     // plutôt que perdues
     expect(code).toContain('#section[Calcul mental] // mathalea:insertion')
     expect(code).toContain('#colbreak() // mathalea:insertion')
+  })
+
+  it('regroupe les questions liées derrière un seul énoncé', () => {
+    const code = buildTypstDocument(
+      [
+        exercise({
+          questions: ['Courbe de $f$', 'Courbe de $f$', '$1+1$'],
+          canAnswers: ['$f(0) = \\ldots$', '$S = \\ldots$', '$\\ldots$'],
+          // la question 1 se numérote 13 et déclare 14 comme liée ; la
+          // question 2 se numérote 14 et cite 13 en retour
+          canLinkNumbers: [13, 14, 0],
+          canLinkedTo: [[14], [13], []],
+        }),
+      ],
+      canOptions,
+    )
+    // un seul énoncé, dont la cellule couvre les deux lignes
+    expect(code).toContain('table.cell(rowspan: 2, breakable: false, [')
+    expect(code.match(/Courbe de \$f\$/g)).toHaveLength(1)
+    // la deuxième question n'a plus de cellule d'énoncé, seulement sa réponse
+    expect(code).toContain('none,')
+    expect(code).toContain('$S = ...$')
+    // la modale d'édition de cette ligne ne propose donc pas d'énoncé
+    expect(
+      getGeneratedCanRowCode(
+        [
+          exercise({
+            questions: ['Courbe de $f$', 'Courbe de $f$'],
+            canLinkNumbers: [13, 14],
+            canLinkedTo: [[14], [13]],
+          }),
+        ],
+        2,
+        canOptions,
+      ).sharesPreviousEnonce,
+    ).toBe(true)
+  })
+
+  it('plafonne la largeur des figures du tableau', () => {
+    const svg = '<svg width="600" height="300"><circle cx="24" cy="24" r="8"/></svg>'
+    const code = buildTypstDocument(
+      [exercise({ questions: [`Lire le graphique<br>${svg}`] })],
+      canOptions,
+    )
+    // 600 px valent 450 pt : sans plafond propre au tableau, la figure
+    // occuperait toute la cellule (voir CAN_FIGURE_MAX_WIDTH_PT)
+    expect(code).toContain('width: 120.0pt)')
+    expect(code).not.toContain('width: 450.0pt)')
   })
 
   it('n’émet pas de repère hors de la première version', () => {
@@ -1207,10 +1275,12 @@ describe('mode « Course aux nombres » (canMode)', () => {
       expect(getGeneratedCanRowCode(inputs, 1, canOptions)).toEqual({
         enonce: '$1 + 1$',
         reponse: '$2$',
+        sharesPreviousEnonce: false,
       })
       expect(getGeneratedCanRowCode(inputs, 3, canOptions)).toEqual({
         enonce: '$3 + 3$',
         reponse: '$6$',
+        sharesPreviousEnonce: false,
       })
     })
 
@@ -1317,7 +1387,7 @@ describe('correction minimale (minimalCorrections)', () => {
     expect(code).not.toContain('Le PGCD est')
     // les deux réponses se suivent, séparées par un cadratin
     expect(code).toContain(
-      '$text(fill: #rgb("#F15929"), upright(bold(6)))$\u2003$text(fill: #rgb("#F15929"), upright(bold(60)))$',
+      '$text(fill: #rgb("#F15929"), bold(6))$\u2003$text(fill: #rgb("#F15929"), bold(60))$',
     )
   })
 
