@@ -1,123 +1,93 @@
-import { texteGras } from '../../lib/format/style'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
-import { combinaisonListes } from '../../lib/outils/arrayOutils'
+import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
+import { egalOuApprox } from '../../lib/outils/ecritures'
+import {
+  miseEnEvidence,
+  texteEnCouleur,
+} from '../../lib/outils/embellissements'
 import { texNombre } from '../../lib/outils/texNombre'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import Exercice from '../Exercice'
 
+import { bleuMathalea } from '../../lib/colors'
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
-import { miseEnEvidence } from '../../lib/outils/embellissements'
+import { arrondi } from '../../lib/outils/nombres'
 
-export const titre = "Déterminer un taux d'évolution global"
+export const titre = "Déterminer un taux d'évolution réciproque"
 export const interactifReady = true
 export const interactifType = 'mathLive'
-export const dateDePublication = '06/01/2022'
-export const dateDeModifImportante = '04/05/2023'
-/**
- * Problèmes d'évolutions successives'
- *
- * * Situations variées : prix, habitants, adhérents  ##
- *
- * * Déterminer un taux d'évolution global ou un taux intermédiaire
- * * Mélange des 3 types de problèmes
- * @author Florence Tapiero et Gilles Mora pour le cas problème taux intermédiaire
- * 2I21-2
- */
+export const dateDePublication = '16/01/2022'
 
-export const uuid = '018f3'
+/**
+ * Problèmes d'évolution réciproque'
+ *
+ * * Situations variées : prix, tarif horaire, nombre d'employés
+ * * Déterminer un taux d'évolution réciproque
+ * * Mélange des 3 types de problèmes
+ * @author Florence Tapiero
+ */
+export const uuid = '509db'
 
 export const refs = {
-  'fr-fr': ['2I21-2', 'BP1CF07'],
-  'fr-ch': ['10FA2B-15'],
+  'fr-fr': ['2I21-2', 'BP1CF08'],
+  'fr-ch': [],
 }
 export default class EvolutionsSuccesives extends Exercice {
   constructor() {
     super()
-    this.besoinFormulaireNumerique = [
-      'Type de questions',
-      3,
-      '1 : Déterminer un taux global \n2 : Déterminer un taux intermédiaire\n3 : Mélange',
-    ]
 
-    this.nbQuestions = 1
+    this.nbQuestions = 3
 
-    this.sup = 1 // type de question
+    this.sup = 4 // type de questions
   }
 
   nouvelleVersion() {
-    let typesDeQuestionsDisponibles: number[] = []
-    if (this.sup === 1) {
-      typesDeQuestionsDisponibles = [1, 2, 3]
-    }
-    if (this.sup === 2) {
-      typesDeQuestionsDisponibles = [4, 5, 6]
-    }
-    if (this.sup === 3) {
-      typesDeQuestionsDisponibles = [1, 2, 3, 4, 5, 6]
-    }
-
+    const typesDeQuestionsDisponibles = [1, 2, 3]
     const listeTypeDeQuestions = combinaisonListes(
       typesDeQuestionsDisponibles,
       this.nbQuestions,
     ) // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
-    let typesDeQuestions,
-      CM1,
-      CM2,
-      CM,
-      p1,
-      p2,
-      p,
-      verbe1,
-      nom1,
-      verbe2,
-      verbe3,
-      nom2,
-      nom,
-      nom3,
-      taux,
-      t1,
-      t2,
-      t
-    for (
-      let i = 0, texte, texteCorr, taux1, taux2, cpt = 0;
-      i < this.nbQuestions && cpt < 50;
-    ) {
-      typesDeQuestions = listeTypeDeQuestions[i]
+    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50; ) {
+      const typesDeQuestions = listeTypeDeQuestions[i]
+      let taux: number
+      let nom: string
+      let p: number
+      let CM: number
+      let CMr: number
+      let CMra: number
+      let pr: number
+      let tauxr: number
+      let tr: number
+      let nomr: string
+      let t: number
+      let texte = ''
+      let texteCorr = ''
+      let metier = ''
       switch (typesDeQuestions) {
         case 1:
-          taux1 = randint(-80, 80, 0)
-          taux2 = randint(-80, 80, 0)
-          if (taux1 > 0) {
-            verbe1 = 'Augmenter'
-            nom1 = 'hausse'
-          } else {
-            verbe1 = 'Diminuer'
-            nom1 = 'baisse'
-          }
-          if (taux2 > 0) {
-            verbe2 = 'Augmenter'
-            nom2 = 'hausse'
-          } else {
-            verbe2 = 'Diminuer'
-            nom2 = 'baisse'
-          }
-          p1 = taux1 / 100
-          p2 = taux2 / 100
-          t1 = Math.abs(taux1)
-          t2 = Math.abs(taux2)
-          CM1 = 1 + p1
-          CM2 = 1 + p2
-          CM = CM1 * CM2
-          p = CM - 1
-          taux = p * 100
-          t = Math.abs(taux)
+          taux = randint(-50, 50, 0)
           if (taux > 0) {
             nom = 'hausse'
           } else {
             nom = 'baisse'
           }
-          texte = `Le prix d'un article subit une ${nom1} de $${t1}~\\%$ puis une ${nom2} de $${t2}~\\%$.<br>Déterminer le taux d'évolution global du prix de cet article.`
+          p = taux / 100
+          t = Math.abs(taux)
+          CM = 1 + p
+          CMr = 1 / CM
+          CMra = arrondi(CMr, 4)
+          pr = CMra - 1
+          tauxr = pr * 100
+          tr = Math.abs(tauxr)
+          if (tauxr > 0) {
+            nomr = 'hausse'
+          } else {
+            nomr = 'baisse'
+          }
+          texte = `Le prix d'un article subit une ${nom} de $${t}\\,\\%$.<br>Quelle évolution devra-t-il subir pour revenir à son prix initial ?`
+          texte +=
+            "<br>On donnera le taux d'évolution en pourcentage, éventuellement arrondi à $0,01\\,\\%$ près."
           texte += ajouteChampTexteMathLive(
             this,
             i,
@@ -125,67 +95,64 @@ export default class EvolutionsSuccesives extends Exercice {
             { texteApres: '%' },
           )
           texteCorr =
-            "Pour déterminer le taux d'évolution global, on commence par calculer le coefficient multiplicateur global."
-          texteCorr +=
-            '<br>Si une grandeur subit des évolutions successives, le coefficient multiplicateur global est le produit des coefficients multiplicateurs de chaque évolution :'
-          texteCorr += `<br><br>${texteGras('Première évolution :')} <br>
-          ${verbe1} de $${t1}~\\%$ revient à multiplier par `
-          if (taux1 > 0) {
-            texteCorr += `$CM_1 = 1 + \\dfrac{${t1}}{100} = ${texNombre(CM1, 2)}$.`
-          } else {
-            texteCorr += `$CM_1 = 1 - \\dfrac{${t1}}{100} = ${texNombre(CM1, 2)}$.`
+            "Pour déterminer le taux d'évolution réciproque, on commence par calculer le coefficient multiplicateur associé :"
+          if (taux > 0) {
+            texteCorr += `<br>Augmenter de $${t}\\,\\%$ revient à multiplier par $ 1 + \\dfrac{${t}}{100} = ${texNombre(CM, 2)}$ `
           }
-          texteCorr += `<br><br>${texteGras('Deuxième évolution :')}<br> ${verbe2} de $${t2}~\\%$ revient à multiplier par `
-          if (taux2 > 0) {
-            texteCorr += `$CM_2 = 1 + \\dfrac{${t2}}{100} = ${texNombre(CM2, 2)}$.`
-          } else {
-            texteCorr += `$CM_2 = 1 - \\dfrac{${t2}}{100} = ${texNombre(CM2, 2)}$.`
+          if (taux < 0) {
+            texteCorr += `<br>Diminuer de $${t}\\,\\%$ revient à multiplier par $ 1 - \\dfrac{${t}}{100} = ${texNombre(CM, 2)}$ `
           }
-
-          texteCorr += `<br>Le coefficient multiplicateur global est égal à $CM = CM_1 \\times CM_2 = ${texNombre(CM1, 2)} \\times ${texNombre(CM2, 2)} =${texNombre(CM, 4)}$.`
-          texteCorr += `<br><br>${texteGras('Évolution globale :')}<br>`
-          if (CM > 1) {
-            texteCorr += `
-          Le taux d'évolution global est égal à : $T=CM-1=${texNombre(CM, 4)}-1=${texNombre(Math.abs(p), 4)}=${texNombre(t, 2)}~\\%$.`
-          } else {
-            texteCorr += `Le taux d'évolution global est égal à : $T=CM-1=${texNombre(CM, 4)}-1=-${texNombre(Math.abs(p), 4)}=-${texNombre(t, 2)}~\\%$.`
+          texteCorr += `<br><br>Le coefficient multiplicateur réciproque est donc :<br> $CM_R=\\dfrac{1}{${texNombre(CM, 2)}} ${egalOuApprox(CMr, 4)} ${texNombre(CMra, 4)}$.`
+          if (CMr - CMra !== 0) {
+            texteCorr += texteEnCouleur(
+              '<br>Remarque : Il faut arrondir les valeurs à $10^{-4}$ pour avoir un arrondi en pourcentage à $10^{-2}$.',
+              bleuMathalea,
+            )
           }
-          texteCorr += `<br><br><br>Le prix de l'article a subi une ${nom} globale de $${miseEnEvidence(texNombre(Math.abs(taux), 2))}~\\%$.`
-          handleAnswers(this, i, { reponse: { value: texNombre(taux) } })
+          if (CMr > 1) {
+            texteCorr += `<br><br> Le taux d'évolution réciproque est donc : <br>$T_R=CM_R-1=${texNombre(CMra, 4)}-1=${texNombre(pr, 4)}=${texNombre(tr, 2)}\\,\\%$ ce qui correspond à une hausse de $${texNombre(tr, 2)}\\,\\%$.`
+          }
+          if (CMr < 1) {
+            texteCorr += `<br><br> Le taux d'évolution réciproque est donc : <br>$T_R=CM_R-1=${texNombre(CMra, 4)}-1=${texNombre(pr, 4)}=-${texNombre(tr, 2)}\\,\\%$ ce qui correspond à une baisse de $${texNombre(tr, 2)}\\,\\%$.`
+          }
+          if (CMr - CMra === 0) {
+            texteCorr += `<br><br>Il faut donc appliquer une ${nomr} de $${miseEnEvidence(texNombre(tr, 2))}\\,\\%$ pour revenir au prix initial.`
+          } else {
+            texteCorr += `<br><br>Il faut donc appliquer une ${nomr} d'environ $${miseEnEvidence(texNombre(tr, 2))}\\,\\%$ pour revenir au prix initial.`
+          }
           break
         case 2:
-          taux1 = randint(-20, 20, 0)
-          taux2 = randint(-20, 20, 0)
-          if (taux1 > 0) {
-            verbe1 = 'Augmenter'
-            nom1 = 'augmenté'
-          } else {
-            verbe1 = 'Diminuer'
-            nom1 = 'diminué'
-          }
-          if (taux2 > 0) {
-            verbe2 = 'Augmenter'
-            nom2 = 'augmenté'
-          } else {
-            verbe2 = 'Diminuer'
-            nom2 = 'diminué'
-          }
-          p1 = taux1 / 100
-          p2 = taux2 / 100
-          t1 = Math.abs(taux1)
-          t2 = Math.abs(taux2)
-          CM1 = 1 + p1
-          CM2 = 1 + p2
-          CM = CM1 * CM2
-          p = CM - 1
-          taux = p * 100
-          t = Math.abs(taux)
+          taux = randint(-50, 50, 0)
           if (taux > 0) {
-            nom = 'augmenté'
+            nom = "d'augmenter"
           } else {
-            nom = 'diminué'
+            nom = 'de diminuer'
           }
-          texte = `La population d'une ville a ${nom1} de $${t1}~\\%$ en $2021$ puis a ${nom2} de $${t2}~\\%$ en $2022$.<br>Quel est le taux d'évolution global ?`
+          p = taux / 100
+          t = Math.abs(taux)
+          CM = 1 + p
+          CMr = 1 / CM
+          CMra = arrondi(CMr, 4)
+          pr = CMra - 1
+          tauxr = pr * 100
+          tr = Math.abs(tauxr)
+
+          if (tauxr > 0) {
+            nomr = 'hausse'
+          } else {
+            nomr = 'baisse'
+          }
+          metier = choice([
+            'Un artisan',
+            'Un ouvrier',
+            'Un coiffeur',
+            'Une informaticienne',
+            'Une cordonnière',
+            'Une luthière',
+          ])
+          texte = `${metier} a décidé ${nom} son tarif horaire de $${t}\\,\\%$.<br>Quelle évolution devra-t-il subir pour revenir à son niveau de départ ?`
+          texte +=
+            "<br>On donnera le taux d'évolution en pourcentage, éventuellement arrondi à $0,01\\,\\%$ près."
           texte += ajouteChampTexteMathLive(
             this,
             i,
@@ -193,339 +160,100 @@ export default class EvolutionsSuccesives extends Exercice {
             { texteApres: '%' },
           )
           texteCorr =
-            "Pour déterminer le taux d'évolution global, on commence par calculer le coefficient multiplicateur global."
-          texteCorr +=
-            '<br>Si une grandeur subit des évolutions successives, le coefficient multiplicateur global est le produit des coefficients multiplicateurs de chaque évolution :'
-          texteCorr += `<br><br>${texteGras('Première évolution :')} <br>
-           ${verbe1} de $${t1}~\\%$ revient à multiplier par `
-          if (taux1 > 0) {
-            texteCorr += `$CM_1 = 1 + \\dfrac{${t1}}{100} = ${texNombre(CM1, 2)}$.`
-          } else {
-            texteCorr += `$CM_1 = 1 - \\dfrac{${t1}}{100} = ${texNombre(CM1, 2)}$.`
+            "Pour déterminer le taux d'évolution réciproque, on commence par calculer le coefficient multiplicateur associé :"
+          if (taux > 0) {
+            texteCorr += `<br>Augmenter de $${t}\\,\\%$ revient à multiplier par $ 1 + \\dfrac{${t}}{100} = ${texNombre(CM, 2)}$ `
           }
-          texteCorr += `<br><br>${texteGras('Deuxième évolution :')} <br>
-           ${verbe2} de $${t2}~\\%$ revient à multiplier par `
-          if (taux2 > 0) {
-            texteCorr += `$CM_2 = 1 + \\dfrac{${t2}}{100} = ${texNombre(CM2, 2)}$.`
-          } else {
-            texteCorr += `$CM_2 = 1 - \\dfrac{${t2}}{100} = ${texNombre(CM2, 2)}$.`
+          if (taux < 0) {
+            texteCorr += `<br>Diminuer de $${t}\\,\\%$ revient à multiplier par $ 1 - \\dfrac{${t}}{100} = ${texNombre(CM, 2)}$ `
           }
-          texteCorr += `<br><br>Le coefficient multiplicateur global est égal à $CM = CM_1 \\times CM_2 = ${texNombre(CM1, 2)} \\times ${texNombre(CM2, 2)} =${texNombre(CM, 4)}$.`
-          texteCorr += `<br><br>${texteGras('Évolution globale :')}<br>`
-          if (CM > 1) {
-            texteCorr += `
-          Le taux d'évolution global est égal à : $T=CM -1=${texNombre(CM, 4)} -1=  ${texNombre(Math.abs(p), 4)} = ${texNombre(t, 2)}~\\%$.`
-          } else {
-            texteCorr += `Le taux d'évolution global est égal à : $T=CM-1=${texNombre(CM, 4)}-1=-${texNombre(Math.abs(p), 4)}=-${texNombre(t, 2)}~\\%$.`
+          texteCorr += `<br><br>Le coefficient multiplicateur réciproque est donc : <br>
+          $CM_R=\\dfrac{1}{${texNombre(CM, 2)}} ${egalOuApprox(CMr, 4)} ${texNombre(CMr, 4)}$.`
+          if (CMr - CMra !== 0) {
+            texteCorr += texteEnCouleur(
+              '<br>Remarque : Il faut arrondir les valeurs à $10^{-4}$ pour avoir un arrondi en pourcentage à $10^{-2}$.',
+              bleuMathalea,
+            )
           }
-          texteCorr += `<br><br>Le nombre d'habitants de cette ville a ${nom} de $${miseEnEvidence(texNombre(Math.abs(taux), 2))}~\\%$ entre $2021$ et $2022$.`
-          handleAnswers(this, i, { reponse: { value: texNombre(taux) } })
+          if (CMr > 1) {
+            texteCorr += `<br><br> Le taux d'évolution réciproque est donc : <br>$T_R=CM_R-1=${texNombre(CMra, 4)}-1=${texNombre(pr, 4)}=${texNombre(tr, 2)}\\,\\%$ ce qui correspond à une hausse de $${texNombre(tr, 2)}\\,\\%$.`
+          }
+          if (CMr < 1) {
+            texteCorr += `<br><br> Le taux d'évolution réciproque est donc : <br>$T_R=CM_R-1=${texNombre(CMra, 4)}-1=${texNombre(pr, 4)}=-${texNombre(tr, 2)}\\,\\%$ ce qui correspond à une baisse de $${texNombre(tr, 2)}\\,\\%$.`
+          }
+          if (CMr - CMra === 0) {
+            texteCorr += `<br><br>Il faut donc appliquer une ${nomr} de $${miseEnEvidence(texNombre(tr, 2))}\\,\\%$ pour revenir au niveau de départ.`
+          } else {
+            texteCorr += `<br><br>Il faut donc appliquer une ${nomr} d'environ $${miseEnEvidence(texNombre(tr, 2))}\\,\\%$ pour revenir au niveau de départ.`
+          }
           break
         case 3:
-          taux1 = randint(-40, 40, 0)
-          taux2 = randint(-40, 40, 0)
-          if (taux1 > 0) {
-            verbe1 = 'Augmenter'
-            nom1 = 'augmenté'
-          } else {
-            verbe1 = 'Diminuer'
-            nom1 = 'diminué'
-          }
-          if (taux2 > 0) {
-            verbe2 = 'Augmenter'
-            nom2 = 'augmenté'
-          } else {
-            verbe2 = 'Diminuer'
-            nom2 = 'diminué'
-          }
-          p1 = taux1 / 100
-          p2 = taux2 / 100
-          t1 = Math.abs(taux1)
-          t2 = Math.abs(taux2)
-          CM1 = 1 + p1
-          CM2 = 1 + p2
-          CM = CM1 * CM2
-          p = CM - 1
-          taux = p * 100
-          t = Math.abs(taux)
+        default:
+          taux = randint(-50, 50, 0)
           if (taux > 0) {
             nom = 'augmenté'
           } else {
-            nom = 'diminué'
+            nom = 'baissé'
           }
-          texte = `Le nombre d'adhérents d'une association a ${nom1} de $${t1}~\\%$ entre $2020$ et $2021$ puis a ${nom2} de $${t2}~\\%$ entre $2021$ et $2022$.<br>Quel est le taux d'évolution global du nombre d'adhérents ?`
-          texte += ajouteChampTexteMathLive(
-            this,
-            i,
-            KeyboardType.clavierDeBase,
-            { texteApres: '%' },
-          )
-          texteCorr =
-            "Pour déterminer le taux d'évolution global, on commence par calculer le coefficient multiplicateur global."
-          texteCorr +=
-            '<br>Si une grandeur subit des évolutions successives, le coefficient multiplicateur global est le produit des coefficients multiplicateurs de chaque évolution :'
-          texteCorr += `<br><br>${texteGras('Première évolution :')} <br> ${verbe1} de $${t1}~\\%$ revient à multiplier par `
-          if (taux1 > 0) {
-            texteCorr += `$CM_1 = 1 + \\dfrac{${t1}}{100} = ${texNombre(CM1, 2)}$.`
-          } else {
-            texteCorr += `$CM_1 = 1 - \\dfrac{${t1}}{100} = ${texNombre(CM1, 2)}$.`
-          }
-          texteCorr += `<br><br>${texteGras('Deuxième évolution :')}<br>
-           ${verbe2} de $${t2}~\\%$ revient à multiplier par `
-          if (taux2 > 0) {
-            texteCorr += `$CM_2 = 1 + \\dfrac{${t2}}{100} = ${texNombre(CM2, 2)}$.`
-          } else {
-            texteCorr += `$CM_2 = 1 - \\dfrac{${t2}}{100} = ${texNombre(CM2, 2)}$.`
-          }
-          texteCorr += `<br><br>Le coefficient multiplicateur global est égal à $CM = CM_1 \\times CM_2 = ${texNombre(CM1, 2)} \\times ${texNombre(CM2, 2)} =${texNombre(CM, 4)}$.`
-          texteCorr += `<br><br>${texteGras('Évolution globale :')}<br>`
-          if (CM > 1) {
-            texteCorr += `
-          Le taux d'évolution global est égal à : $T=CM -1=${texNombre(CM, 4)} -1=  ${texNombre(Math.abs(p), 4)} = ${texNombre(t, 2)}~\\%$.`
-          } else {
-            texteCorr += `Le taux d'évolution global est égal à : $T=CM-1=${texNombre(CM, 4)}-1=-${texNombre(Math.abs(p), 4)}=-${texNombre(t, 2)}~\\%$.`
-          }
-          texteCorr += `<br><br>Le nombre d'adhérents de cette association a ${nom} de $${miseEnEvidence(texNombre(Math.abs(taux), 2))}~\\%$ entre $2020$ et $2022$.`
-          handleAnswers(this, i, { reponse: { value: texNombre(taux) } })
-          break
-
-        case 4:
-          taux1 = randint(-80, 80, 0)
-          taux2 = randint(-80, 80, 0)
-          if (taux1 > 0) {
-            verbe1 = 'Augmenter'
-            nom1 = 'hausse'
-          } else {
-            verbe1 = 'Diminuer'
-            nom1 = 'baisse'
-          }
-          if (taux2 > 0) {
-            verbe2 = 'Augmenter'
-            nom2 = 'hausse'
-          } else {
-            verbe2 = 'Diminuer'
-            nom2 = 'baisse'
-          }
-          p1 = taux1 / 100
-          p2 = taux2 / 100
-          t1 = Math.abs(taux1)
-          t2 = Math.abs(taux2)
-          CM1 = 1 + p1
-          CM2 = 1 + p2
-          CM = CM1 * CM2
-          p = CM - 1
-          p2 = CM2 - 1
-          taux = p * 100
+          p = taux / 100
           t = Math.abs(taux)
-          if (taux > 0) {
-            nom = 'hausse'
-            nom3 = 'augmenté'
-            verbe3 = 'Augmenter'
+          CM = 1 + p
+          CMr = 1 / CM
+          CMra = arrondi(CMr, 4)
+          pr = CMra - 1
+          tauxr = pr * 100
+          tr = Math.abs(tauxr)
+          if (tauxr > 0) {
+            nomr = 'hausse'
           } else {
-            nom = 'baisse'
-            nom3 = 'baissé'
-            verbe3 = 'Diminuer'
+            nomr = 'baisse'
           }
-          texte = `Le prix d'un article subit une ${nom1} $${t1}~\\%$ puis une ${nom2} de $t\\,\\%$.<br>
-          Globalement, le prix de cet article a ${nom3} de $${texNombre(t, 2)} \\,\\%$.<br>
-          Quelle est la valeur de $t$ ?`
+          metier = choice([
+            "d'employés",
+            'de commerciaux',
+            'de stagiaires',
+            'de jeunes diplomés',
+          ])
+          texte = `Le nombre ${metier} d'une entreprise a ${nom} de $${t}\\,\\%$.<br>Quelle évolution permettrait de retrouver le nombre de départ ?`
+          texte +=
+            "<br>On donnera le taux d'évolution en pourcentage, éventuellement arrondi à $0,01\\,\\%$ près."
           texte += ajouteChampTexteMathLive(
             this,
             i,
             KeyboardType.clavierDeBase,
             { texteApres: '%' },
           )
-
           texteCorr =
-            'Si une grandeur subit des évolutions successives, le coefficient multiplicateur global est le produit des coefficients multiplicateurs de chaque évolution.'
-          texteCorr += `<br><br>${texteGras('Première évolution :')} <br> ${verbe1} de $${t1}~\\%$ revient à multiplier par `
-          if (taux1 > 0) {
-            texteCorr += `$CM_1 = 1 + \\dfrac{${t1}}{100} = ${texNombre(CM1, 2)}$.<br>`
-          } else {
-            texteCorr += `$CM_1 = 1 - \\dfrac{${t1}}{100} = ${texNombre(CM1, 2)}$.<br>`
-          }
-          texteCorr += `<br>${texteGras('Évolution globale :')} <br>
-           ${verbe3} de $${texNombre(t, 2)}~\\%$ revient à multiplier par `
+            "Pour déterminer le taux d'évolution réciproque, on commence par calculer le coefficient multiplicateur associé :"
           if (taux > 0) {
-            texteCorr += `$CM = 1 + \\dfrac{${texNombre(t, 2)}}{100} = ${texNombre(CM, 4)}$.`
-          } else {
-            texteCorr += `$CM = 1 - \\dfrac{${texNombre(t, 2)}}{100} = ${texNombre(CM, 4)}$.`
-          }
-          texteCorr += `<br><br>En notant $CM_2$ le coefficient multiplicateur de la deuxième évolution, on a : $CM = CM_1 \\times CM_2$, soit
-             $${texNombre(CM1, 2)} \\times CM_2 =${texNombre(CM, 4)}$ et par suite $CM_2 =\\dfrac{${texNombre(CM, 4)}}{${texNombre(CM1, 2)} }=${texNombre(CM2, 2)}$<br>
-             `
-          if (CM2 > 1) {
-            texteCorr += `<br>Or $T_2=CM_2 -1=${texNombre(CM2, 2)} -1=  ${texNombre(Math.abs(p2), 2)}$ ce qui correspond à une hausse de $${texNombre(t2, 2)}~\\%$.`
-          }
-          if (CM2 < 1) {
-            texteCorr += `<br>Or $T_2=CM_2 -1= ${texNombre(CM2, 2)} -1= - ${texNombre(Math.abs(p2), 2)}$ ce qui correspond à une baisse de $${texNombre(t2, 2)}~\\%$.`
-          }
-          texteCorr += `<br><br>Le prix de l'article a subi une ${nom2}  $${miseEnEvidence(texNombre(t2))}~\\%$  lors de la deuxième évolution.`
-          handleAnswers(this, i, { reponse: { value: texNombre(t2) } })
-          break
-
-        case 5:
-          taux1 = randint(-20, 20, 0)
-          taux2 = randint(-20, 20, 0)
-          if (taux1 > 0) {
-            verbe1 = 'Augmenter'
-            nom1 = 'augmenté'
-          } else {
-            verbe1 = 'Diminuer'
-            nom1 = 'baissé'
-          }
-          if (taux2 > 0) {
-            verbe2 = 'Augmenter'
-            nom2 = 'augmenté'
-          } else {
-            verbe2 = 'Diminuer'
-            nom2 = 'baissé'
-          }
-          p1 = taux1 / 100
-          p2 = taux2 / 100
-          t1 = Math.abs(taux1)
-          t2 = Math.abs(taux2)
-          CM1 = 1 + p1
-          CM2 = 1 + p2
-          CM = CM1 * CM2
-          p = CM - 1
-          p2 = CM2 - 1
-          taux = p * 100
-          t = Math.abs(taux)
-          if (taux > 0) {
-            nom = 'hausse'
-            nom3 = 'augmenté'
-            verbe3 = 'Augmenter'
+            texteCorr += `<br>Augmenter de $${t}~\\%$ revient à multiplier par $ 1 + \\dfrac{${t}}{100} = ${texNombre(CM, 2)}$ `
           }
           if (taux < 0) {
-            nom = 'baisse'
-            nom3 = 'baissé'
-            verbe3 = 'Diminuer'
+            texteCorr += `<br>Diminuer de $${t}\\,\\%$ revient à multiplier par $ 1 - \\dfrac{${t}}{100} = ${texNombre(CM, 2)}$ `
           }
-          texte = `La population d'une ville a ${nom1} de $${t1}~\\%$ en $2021$ puis a ${nom2} de $t~\\%$ en $2022$.<br>
-          Globalement, sur ces deux années, la population de cette ville a ${nom3} de $${texNombre(t, 2)} \\,\\%$.<br>
-          Quelle est la valeur de $t$ ?`
-          texte += ajouteChampTexteMathLive(
-            this,
-            i,
-            KeyboardType.clavierDeBase,
-            { texteApres: '%' },
-          )
+          texteCorr += `<br><br>Le coefficient multiplicateur réciproque est donc : <br>$CM_R=\\dfrac{1}{${texNombre(CM, 2)}} ${egalOuApprox(CMr, 3)} ${texNombre(CMr, 4)}$.`
+          if (CMr - CMra !== 0) {
+            texteCorr += texteEnCouleur(
+              '<br>Remarque : Il faut arrondir les valeurs à $10^{-4}$ pour avoir un arrondi en pourcentage à $10^{-2}$.',
+              bleuMathalea,
+            )
+          }
+          if (CMr > 1) {
+            texteCorr += `<br><br> Le taux d'évolution réciproque est donc : <br>$T_R=CM_R-1=${texNombre(CMra, 4)}-1=${texNombre(pr, 4)}=${texNombre(tr, 2)}\\,\\%$ ce qui correspond à une hausse de $${texNombre(tr, 2)}\\,\\%$.`
+          }
+          if (CMr < 1) {
+            texteCorr += `<br><br> Le taux d'évolution réciproque est donc : <br>$T_R=CM_R-1=${texNombre(CMra, 4)}-1=${texNombre(pr, 4)}=-${texNombre(tr, 2)}\\,\\%$ ce qui correspond à une baisse de $${texNombre(tr, 2)}\\,\\%$.`
+          }
 
-          texteCorr =
-            'Si une grandeur subit des évolutions successives, le coefficient multiplicateur global est le produit des coefficients multiplicateurs de chaque évolution.'
-          texteCorr += `<br><br>${texteGras('Première évolution :')} <br> ${verbe1} de $${t1}~\\%$ revient à multiplier par `
-          if (taux1 > 0) {
-            texteCorr += `$CM_1 = 1 + \\dfrac{${t1}}{100} = ${texNombre(CM1, 2)}$.<br>`
+          if (CMr - CMra === 0) {
+            texteCorr += `<br><br>Il faut donc appliquer une ${nomr} de $${miseEnEvidence(texNombre(tr, 2))}\\,\\%$ pour revenir au niveau de départ.`
+          } else {
+            texteCorr += `<br><br>Il faut donc appliquer une ${nomr} d'environ $${miseEnEvidence(texNombre(tr, 2))}\\,\\%$ pour revenir au niveau de départ.`
           }
-          if (taux1 < 0) {
-            texteCorr += `$CM_1 = 1 - \\dfrac{${t1}}{100} = ${texNombre(CM1, 2)}$.<br>`
-          }
-          texteCorr += `<br>${texteGras('Évolution globale :')} <br>
-           ${verbe3} de $${texNombre(t, 2)}~\\%$ revient à multiplier par `
-          if (taux > 0) {
-            texteCorr += `$CM = 1 + \\dfrac{${texNombre(t, 2)}}{100} = ${texNombre(CM, 4)}$.`
-          }
-          if (taux < 0) {
-            texteCorr += `$CM = 1 - \\dfrac{${texNombre(t, 2)}}{100} = ${texNombre(CM, 4)}$.`
-          }
-          texteCorr += `<br><br>En notant $CM_2$ le coefficient multiplicateur de la deuxième évolution, on a : $CM = CM_1 \\times CM_2$, soit
-             $${texNombre(CM1, 2)} \\times CM_2 =${texNombre(CM, 4)}$ et par suite $CM_2 =\\dfrac{${texNombre(CM, 4)}}{${texNombre(CM1, 2)} }=${texNombre(CM2, 2)}$<br>
-             `
-          if (CM2 > 1) {
-            texteCorr += `<br> $T_2=CM_2 -1=${texNombre(CM2, 2)} -1=  ${texNombre(Math.abs(p2), 2)}$ ce qui correspond à une hausse de $${texNombre(t2, 2)}~\\%$.`
-          }
-          if (CM2 < 1) {
-            texteCorr += `<br>Or  $T_2=CM_2 -1= ${texNombre(CM2, 2)} -1=  - ${texNombre(Math.abs(p2), 2)} $ ce qui correspond à une baisse de $${texNombre(t2, 2)}~\\%$.`
-          }
-          texteCorr += `<br><br>En $2022$, le nombre d'habitants de cette ville a ${nom2} de $${miseEnEvidence(texNombre(t2, 2))}\\,\\%$.`
-          handleAnswers(this, i, { reponse: { value: texNombre(t2) } })
-          break
-
-        case 6:
-        default:
-          taux1 = randint(-40, 40, 0)
-          taux2 = randint(-40, 40, 0)
-          if (taux1 > 0) {
-            verbe1 = 'Augmenter'
-            nom1 = 'augmenté'
-          }
-          if (taux2 > 0) {
-            verbe2 = 'Augmenter'
-            nom2 = 'augmenté'
-          }
-          if (taux1 < 0) {
-            verbe1 = 'Diminuer'
-            nom1 = 'baissé'
-          }
-          if (taux2 < 0) {
-            verbe2 = 'Diminuer'
-            nom2 = 'baissé'
-          }
-          p1 = taux1 / 100
-          p2 = taux2 / 100
-          t1 = Math.abs(taux1)
-          t2 = Math.abs(taux2)
-          CM1 = 1 + p1
-          CM2 = 1 + p2
-          CM = CM1 * CM2
-          p = CM - 1
-          p2 = CM2 - 1
-          taux = p * 100
-          t = Math.abs(taux)
-          if (taux > 0) {
-            nom = 'hausse'
-            nom3 = 'augmenté'
-            verbe3 = 'Augmenter'
-          }
-          if (taux < 0) {
-            nom = 'baisse'
-            nom3 = 'baissé'
-            verbe3 = 'Diminuer'
-          }
-          texte = `Le nombre d'adhérents d'une association a ${nom1} de $${t1}\\,\\%$ entre $2021$ et $2022$ puis a ${nom2} de $t\\,\\%$ entre $2022$ et $2023$.<br>
-          Globalement, entre 2021 et 2023, le  nombre d'adhérents a ${nom3} de $${texNombre(t, 2)}\\,\\%$.<br>
-          Déterminer la valeur de $t$.
-          `
-          texte += ajouteChampTexteMathLive(
-            this,
-            i,
-            KeyboardType.clavierDeBase,
-            { texteApres: '%' },
-          )
-
-          texteCorr =
-            'Si une grandeur subit des évolutions successives, le coefficient multiplicateur global est le produit des coefficients multiplicateurs de chaque évolution.'
-          texteCorr += `<br><br>${texteGras('Première évolution :')} <br> ${verbe1} de $${t1}~\\%$ revient à multiplier par `
-          if (taux1 > 0) {
-            texteCorr += `$CM_1 = 1 + \\dfrac{${t1}}{100} = ${texNombre(CM1, 2)}$.<br>`
-          }
-          if (taux1 < 0) {
-            texteCorr += `$CM_1 = 1 - \\dfrac{${t1}}{100} = ${texNombre(CM1, 2)}$.<br>`
-          }
-          texteCorr += `<br>${texteGras('Évolution globale :')} <br>
-          ${verbe3} de $${texNombre(t, 2)}~\\%$ revient à multiplier par `
-          if (taux > 0) {
-            texteCorr += `$CM = 1 + \\dfrac{${texNombre(t, 2)}}{100} = ${texNombre(CM, 4)}$.`
-          }
-          if (taux < 0) {
-            texteCorr += `$CM = 1 - \\dfrac{${texNombre(t, 2)}}{100} = ${texNombre(CM, 4)}$.`
-          }
-          texteCorr += `<br><br>En notant $CM_2$ le coefficient multiplicateur de la deuxième évolution, on a : $CM = CM_1 \\times CM_2$, soit
-             $${texNombre(CM1, 2)} \\times CM_2 =${texNombre(CM, 4)}$ et par suite $CM_2 =\\dfrac{${texNombre(CM, 4)}}{${texNombre(CM1, 2)} }=${texNombre(CM2, 2)}$<br>
-             `
-          if (CM2 > 1) {
-            texteCorr += `<br> $T_2=CM_2 -1=${texNombre(CM2, 2)}-1 = ${texNombre(Math.abs(p2), 2)}$ ce qui correspond à une hausse de $${texNombre(t2, 2)}~\\%$.`
-          }
-          if (CM2 < 1) {
-            texteCorr += `<br> $T_2=CM_2 -1= ${texNombre(CM2, 2)} -1=  - ${texNombre(Math.abs(p2), 2)}$ ce qui correspond à une baisse de $${texNombre(t2, 2)}~\\%$.`
-          }
-          texteCorr += `<br><br>Le nombre d'adhérents de cette association a ${nom2} de $${miseEnEvidence(texNombre(t2, 2))}\\,\\%$ en $2022$.`
-
-          handleAnswers(this, i, { reponse: { value: texNombre(t2) } })
           break
       }
-      if (this.questionJamaisPosee(i, taux1, taux2)) {
+      handleAnswers(this, i, { reponse: { value: texNombre(tauxr, 2) } })
+      if (this.questionJamaisPosee(i, taux)) {
         // Si la question n'a jamais été posée, on en créé une autre
         this.listeQuestions[i] = texte
         this.listeCorrections[i] = texteCorr

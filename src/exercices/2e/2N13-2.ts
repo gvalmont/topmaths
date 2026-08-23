@@ -1,230 +1,119 @@
-import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
-import { handleAnswers } from '../../lib/interactif/gestionInteractif'
-import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
+import { pointAbstrait } from '../../lib/2d/PointAbstrait'
+import { segment, segmentAvecExtremites } from '../../lib/2d/segmentsVecteurs'
+import { labelPoint, texteParPosition } from '../../lib/2d/textes'
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
-import { miseEnEvidence } from '../../lib/outils/embellissements'
-import { rienSi1 } from '../../lib/outils/ecritures'
+import {
+  ecritureAlgebrique,
+  ecritureParentheseSiNegatif,
+} from '../../lib/outils/ecritures'
+import { context } from '../../modules/context'
+import { mathalea2d } from '../../modules/mathalea2d'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import Exercice from '../Exercice'
+import { bleuMathalea } from '../../lib/colors'
 
-export const titre =
-  'Comparer deux nombres réels en étudiant leur différence'
-export const dateDePublication = '16/07/2026'
-export const interactifReady = true
-export const interactifType = 'mathLive'
-export const uuid = '92e90'
+/* auteur Stéphane Guyon */
+export const titre = 'Résoudre une équation avec des valeurs absolues'
+
+/**
+ * 2N15-2, ex 2N23
+ * @author Stéphane Guyon
+ */
+export const uuid = 'e471c'
 
 export const refs = {
   'fr-fr': ['2N13-2'],
   'fr-ch': [],
 }
-
-type TypeQuestion = 'racineCarree' | 'pi' | 'variable'
-
-function normaliseComparateur(saisie: string): '<' | '>' | '' {
-  const saisieNormalisee = saisie
-    .replace(/\s/g, '')
-    .replace(/[$]/g, '')
-    .replace(/[{}]/g, '')
-    .replace(/\\(?:geqslant|geq|ge)/g, '>')
-    .replace(/\\(?:leqslant|leq|le)/g, '<')
-    .replace(/[≥⩾]/g, '>')
-    .replace(/[≤⩽]/g, '<')
-    .replace(/>=/g, '>')
-    .replace(/<=/g, '<')
-
-  if (saisieNormalisee === '>' || saisieNormalisee === '<') {
-    return saisieNormalisee
-  }
-  return ''
-}
-
-/**
- * Comparer a-b√c et d-e√c en étudiant le signe de leur différence.
- * @author Stéphane Guyon
- */
-export default class ComparerDeuxNombresAvecRacineCarree extends Exercice {
+export default class ValeurAbsolueEtEquation extends Exercice {
   constructor() {
     super()
-    this.tip = `
-      <p style="margin: 0 0 10px 0;">
-        Pour déterminer lequel de deux nombres est le plus grand, on peut étudier le signe de leur différence.
-      </p>
-      <ul style="list-style-type: disc; padding-left: 1.5em; margin: 0; line-height: 2;">
-        <li>Si $A-B > 0$, alors $A > B$.</li>
-        <li>Si $A-B < 0$, alors $A < B$.</li>
-      </ul>
-    `
-    this.nbQuestions = 2
+
+    this.consigne = 'Résoudre dans $\\mathbb{R}$ les équations suivantes.'
+    this.nbQuestions = 4
     this.nbCols = 2
     this.nbColsCorr = 2
-    this.spacing = 2
-    this.spacingCorr = 2
-    this.sup = 4
-    this.besoinFormulaireNumerique = [
-      'Type de questions',
-      4,
-      '1 : avec une racine carrée\n2 : avec Pi\n3 : avec une variable\n4 : Mélange',
-    ]
+    this.sup = 1 //
+    this.correctionDetailleeDisponible = true
+    context.isHtml
+      ? (this.correctionDetaillee = true)
+      : (this.correctionDetaillee = false)
   }
 
   nouvelleVersion() {
-    this.consigne =
-      this.nbQuestions === 1
-        ? 'Comparer les deux nombres réels suivants en justifiant la réponse.'
-        : 'Comparer les deux nombres réels de chaque question en justifiant les réponses.'
-
-    const typesDisponibles: TypeQuestion[] =
-      this.sup === 1
-        ? ['racineCarree']
-        : this.sup === 2
-          ? ['pi']
-          : this.sup === 3
-            ? ['variable']
-            : ['racineCarree', 'pi', 'variable']
-    const typesDeQuestions = combinaisonListes(
-      typesDisponibles,
+    const typesDeQuestionsDisponibles = [1, 2, 2, 2, 2, 2]
+    const listeTypeDeQuestions = combinaisonListes(
+      typesDeQuestionsDisponibles,
       this.nbQuestions,
     )
-    const valeursDeC = combinaisonListes(
-      [3, 5, 7, 11, 13, 15],
-      this.nbQuestions,
-    )
-    const sensDesComparaisons = combinaisonListes(
-      ['inferieur', 'superieur'],
-      this.nbQuestions,
-    )
-
     for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50; ) {
-      const typeQuestion = typesDeQuestions[i]
-      const sensComparaison = sensDesComparaisons[i]
-      const d = randint(1, 9)
-      const e = randint(1, 6)
-      const b = e + 1
-      let a = 0
-      let donneeCaracteristique = 0
-      let reponse: '<' | '>'
+      const typesDeQuestions = listeTypeDeQuestions[i]
+      let a: number
+      let b: number
+      let c: number
       let texte = ''
       let texteCorr = ''
+      switch (typesDeQuestions) {
+        // Cas par cas, on définit le type de nombres que l'on souhaite
+        // Combien de chiffres ? Quelles valeurs ?
+        case 1:
+          c = 0 // c'est pour éviter les warnings
+          a = randint(1, 15) * choice([-1, 1])
+          b = randint(1, 15) * -1
 
-      if (typeQuestion === 'racineCarree') {
-        const c = valeursDeC[i]
-        const entierInferieur = Math.floor(Math.sqrt(c))
-        const differencePartiesEntieres =
-          sensComparaison === 'inferieur'
-            ? entierInferieur
-            : entierInferieur + 1
-        const carreDifference = differencePartiesEntieres ** 2
-        a = d + differencePartiesEntieres
-        donneeCaracteristique = c
-        reponse = carreDifference < c ? '<' : '>'
+          texte = `$\\vert x ${ecritureAlgebrique(a)}\\vert =${b}$`
+          texteCorr = ` ${b} étant négatif, il n'existe pas de solution à cette équation. $S=\\emptyset$`
 
-        texte = `On pose $A=${a}-${rienSi1(b)}\\sqrt{${c}}$ et $B=${d}-${rienSi1(e)}\\sqrt{${c}}$.<br>`
-        texteCorr = `On calcule la différence $A-B$ :<br>
-        $\\begin{aligned}
-        A-B
-        &=\\left(${a}-${rienSi1(b)}\\sqrt{${c}}\\right)-\\left(${d}-${rienSi1(e)}\\sqrt{${c}}\\right)\\\\
-        &=${a}-${d}-${rienSi1(b)}\\sqrt{${c}}+${rienSi1(e)}\\sqrt{${c}}\\\\
-        &=${differencePartiesEntieres}-\\sqrt{${c}}.
-        \\end{aligned}$<br>`
+          break
+        case 2:
+        default:
+          a = randint(1, 15) * choice([-1, 1])
+          b = randint(1, 15)
+          c = -a
+          texte = `$\\vert x ${ecritureAlgebrique(a)}\\vert =${b}$`
 
-        if (carreDifference < c) {
-          texteCorr += `Comme $${differencePartiesEntieres}=\\sqrt{${carreDifference}}$ et $\\sqrt{${carreDifference}} < \\sqrt{${c}}$, on a
-          $${differencePartiesEntieres} < \\sqrt{${c}}$, donc $${differencePartiesEntieres}-\\sqrt{${c}} < 0$.<br>
-          Par conséquent, $${miseEnEvidence('A < B')}$.`
-        } else {
-          texteCorr += `Comme $${differencePartiesEntieres}=\\sqrt{${carreDifference}}$ et $\\sqrt{${carreDifference}} > \\sqrt{${c}}$, on a
-          $${differencePartiesEntieres} > \\sqrt{${c}}$, donc $${differencePartiesEntieres}-\\sqrt{${c}} > 0$.<br>
-          Par conséquent, $${miseEnEvidence('A > B')}$.`
-        }
-      } else if (typeQuestion === 'pi') {
-        const differencePartiesEntieres =
-          sensComparaison === 'inferieur'
-            ? choice([1, 2, 3])
-            : choice([4, 5, 6])
-        a = d + differencePartiesEntieres
-        donneeCaracteristique = differencePartiesEntieres
-        reponse = differencePartiesEntieres <= 3 ? '<' : '>'
-
-        const comparaisonAvecPi =
-          differencePartiesEntieres < 3
-            ? `${differencePartiesEntieres} < 3 < \\pi`
-            : differencePartiesEntieres === 3
-              ? '3 < \\pi'
-              : differencePartiesEntieres === 4
-                ? '\\pi < 4'
-                : `\\pi < 4 < ${differencePartiesEntieres}`
-
-        texte = `On pose $A=${a}-${rienSi1(b)}\\pi$ et $B=${d}-${rienSi1(e)}\\pi$.<br>`
-        texteCorr = `On calcule la différence $A-B$ :<br>
-        $\\begin{aligned}
-        A-B
-        &=\\left(${a}-${rienSi1(b)}\\pi\\right)-\\left(${d}-${rienSi1(e)}\\pi\\right)\\\\
-        &=${a}-${d}-${rienSi1(b)}\\pi+${rienSi1(e)}\\pi\\\\
-        &=${differencePartiesEntieres}-\\pi.
-        \\end{aligned}$<br>
-        On sait que $3 < \\pi < 4$. Ainsi, $${comparaisonAvecPi}$. On a donc $${differencePartiesEntieres}-\\pi ${reponse === '<' ? '<' : '>'} 0$.<br>
-        Par conséquent, $${miseEnEvidence(
-          reponse === '<' ? 'A < B' : 'A > B',
-        )}$.`
-      } else {
-        const borneInferieure = randint(1, 8)
-        const differencePartiesEntieres =
-          sensComparaison === 'inferieur'
-            ? borneInferieure
-            : borneInferieure + 1
-        a = d + differencePartiesEntieres
-        donneeCaracteristique = borneInferieure
-        reponse =
-          differencePartiesEntieres === borneInferieure ? '<' : '>'
-
-        texte = `On pose $A=${a}-${rienSi1(b)}n$ et $B=${d}-${rienSi1(e)}n$, où $n$ est un nombre réel tel que $${borneInferieure} < n < ${borneInferieure + 1}$.<br>`
-        texteCorr = `On calcule la différence $A-B$ :<br>
-        $\\begin{aligned}
-        A-B
-        &=\\left(${a}-${rienSi1(b)}n\\right)-\\left(${d}-${rienSi1(e)}n\\right)\\\\
-        &=${a}-${d}-${rienSi1(b)}n+${rienSi1(e)}n\\\\
-        &=${differencePartiesEntieres}-n.
-        \\end{aligned}$<br>
-        Comme $${borneInferieure} < n < ${borneInferieure + 1}$, on a
-        $${differencePartiesEntieres}-n ${reponse === '<' ? '<' : '>'} 0$.<br>
-        Par conséquent, $${miseEnEvidence(
-          reponse === '<' ? 'A < B' : 'A > B',
-        )}$.`
+          texteCorr = `Résoudre cette équation est équivalent à résoudre ces deux équations :<br>
+                    $x ${ecritureAlgebrique(a)} =${b}$ et    $x ${ecritureAlgebrique(a)} =${-b}$<br>
+                    Il existe donc deux solutions à cette équation :<br>
+                    $x_1=${c} ${ecritureAlgebrique(b)}$ et $x_2=${c} -${ecritureParentheseSiNegatif(b)}$<br>
+                    $S=\\{${c - b};${c + b}\\}$`
+          if (this.correctionDetaillee) {
+            const s = segment(pointAbstrait(0, 0), pointAbstrait(12, 0))
+            s.styleExtremites = '->'
+            const x0 = pointAbstrait(3, 0)
+            x0.nom = String(c - b)
+            x0.positionLabel = 'below'
+            const A = pointAbstrait(6, 0, String(c))
+            A.positionLabel = 'below'
+            const x1 = pointAbstrait(9, 0, String(c + b), 'below')
+            x1.positionLabel = 'below'
+            const s1 = segmentAvecExtremites(x0, x1, bleuMathalea)
+            s1.epaisseur = 2
+            const s2 = segmentAvecExtremites(x0, A)
+            const l = labelPoint(A, x0, x1)
+            const cote = segment(pointAbstrait(3, 1), pointAbstrait(5.95, 1))
+            cote.styleExtremites = '<->'
+            const texteCote = texteParPosition(b, 4.5, 1.6)
+            const cote2 = segment(pointAbstrait(6.05, 1), pointAbstrait(9, 1))
+            cote2.styleExtremites = '<->'
+            const texteCote2 = texteParPosition(b, 7.5, 1.6)
+            texteCorr += mathalea2d(
+              { xmin: -1, xmax: 13, ymin: -2, ymax: 2.5 },
+              s,
+              s1,
+              s2,
+              l,
+              cote,
+              texteCote,
+              cote2,
+              texteCote2,
+            )
+          }
+          break
       }
 
-      if (this.interactif) {
-        texte += ajouteChampTexteMathLive(
-          this,
-          i,
-          KeyboardType.clavierCompare,
-          {
-            texteAvant: '$A$',
-            texteApres: '$B$',
-          },
-        )
-      }
-
-      handleAnswers(this, i, {
-        reponse: {
-          value: reponse,
-          compare: (saisie) => ({
-            isOk: normaliseComparateur(saisie) === reponse,
-          }),
-        },
-      })
-
-      if (
-        this.questionJamaisPosee(
-          i,
-          a,
-          b,
-          d,
-          e,
-          typeQuestion,
-          donneeCaracteristique,
-        )
-      ) {
+      if (this.questionJamaisPosee(i, a, b, c, typesDeQuestions)) {
+        // Si la question n'a jamais été posée, on en créé une autre
         this.listeQuestions[i] = texte
         this.listeCorrections[i] = texteCorr
         i++

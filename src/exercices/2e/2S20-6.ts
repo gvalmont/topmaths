@@ -1,291 +1,375 @@
+import { traceBarre } from '../../lib/2d/diagrammes'
+import { fixeBordures } from '../../lib/2d/fixeBordures'
+import { pointAbstrait } from '../../lib/2d/PointAbstrait'
+import { polyline } from '../../lib/2d/Polyline'
+import { segment } from '../../lib/2d/segmentsVecteurs'
 import { tableauColonneLigne } from '../../lib/2d/tableau'
-import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
-import ce from '../../lib/interactif/comparisonFunctions'
-import { handleAnswers } from '../../lib/interactif/gestionInteractif'
-import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
-import { combinaisonListes } from '../../lib/outils/arrayOutils'
+import { latex2d, texteParPosition } from '../../lib/2d/textes'
+import { bleuMathalea } from '../../lib/colors'
+import { createList } from '../../lib/format/lists'
+import { choice } from '../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
-import FractionEtendue from '../../modules/FractionEtendue'
-import {
-  gestionnaireFormulaireTexte,
-  listeQuestionsToContenu,
-  randint,
-} from '../../modules/outils'
+import { texNombre } from '../../lib/outils/texNombre'
+import { mathalea2d } from '../../modules/mathalea2d'
+import { listeQuestionsToContenu } from '../../modules/outils'
+import type { NestedObjetMathalea2dArray } from '../../types/2d'
 import Exercice from '../Exercice'
 
 export const titre =
-  "Déterminer une médiane ou un quartile à partir d'un tableau d'effectifs"
-export const interactifReady = true
-export const interactifType = 'mathLive'
+  'Construire un diagramme en bâtons et déterminer des indicateurs statistiques'
 export const dateDePublication = '18/08/2026'
-export const uuid = '640f6'
+export const uuid = 'd7e4b'
 
 export const refs = {
   'fr-fr': ['2S20-6'],
-  'fr-ch': ['NR'],
+  'fr-ch': [],
 }
 
-type Indicateur = 'mediane' | 'q1' | 'q3'
-
-interface Situation {
+type Scenario = {
   introduction: string
-  intituleValeurs: string
-  intituleEffectifs: string
   valeurs: number[]
-  effectifs: number[]
+  titreValeurs: string
+  titreEffectifs: string
+  uniteAbscisses: string
+  individus: string
+  caractere: string
 }
 
-function valeurDeRang(
+const scenarios: Scenario[] = [
+  {
+    introduction:
+      "Une enquête a été réalisée sur le nombre d'occupants par véhicule lors du passage à un péage d'autoroute.",
+    valeurs: [1, 2, 3, 4, 5],
+    titreValeurs: "Nombre d'occupants",
+    titreEffectifs: 'Nombre de véhicules',
+    uniteAbscisses: "Nombre d'occupants par véhicule",
+    individus: 'véhicules',
+    caractere: "le nombre d'occupants par véhicule",
+  },
+  {
+    introduction:
+      'Une enquête a été réalisée auprès des élèves d’un lycée sur le nombre de livres lus durant l’été.',
+    valeurs: [0, 1, 2, 3, 4],
+    titreValeurs: "Nombre de livres lus durant l'été",
+    titreEffectifs: "Nombre d'élèves",
+    uniteAbscisses: "Nombre de livres lus durant l'été",
+    individus: 'élèves',
+    caractere: "le nombre de livres lus durant l'été",
+  },
+  {
+    introduction:
+      "Une enquête a été réalisée auprès des membres d'un club sur le nombre de séances de sport pratiquées pendant une semaine.",
+    valeurs: [0, 1, 2, 3, 4],
+    titreValeurs: 'Nombre de séances',
+    titreEffectifs: 'Nombre de membres',
+    uniteAbscisses: 'Nombre de séances dans la semaine',
+    individus: 'membres du club',
+    caractere: 'le nombre de séances pratiquées pendant la semaine',
+  },
+]
+
+const repartitions = [
+  [4, 7, 3, 4, 2],
+  [3, 8, 3, 4, 2],
+  [4, 8, 2, 3, 3],
+  [2, 4, 3, 6, 5],
+  [3, 3, 3, 7, 4],
+  [2, 3, 4, 7, 4],
+]
+
+function valeurAuRang(
+  rang: number,
   valeurs: number[],
   effectifsCumules: number[],
-  rang: number,
 ): number {
-  return valeurs[effectifsCumules.findIndex((effectif) => effectif >= rang)]
+  const indice = effectifsCumules.findIndex((effectif) => effectif >= rang)
+  return valeurs[indice]
 }
 
-function ecritureDecimaleFrancaise(valeur: number): string {
-  return String(valeur).replace('.', '{,}')
+function construitDiagramme(scenario: Scenario, effectifs: number[]): string {
+  const objets: NestedObjetMathalea2dArray = []
+  const maximumEnCentaines = Math.ceil(Math.max(...effectifs) / 100)
+  const axeHorizontal = segment(0, 0, 6.2, 0, 'black')
+  const axeVertical = segment(0, 0, 0, maximumEnCentaines + 0.8, 'black')
+  axeHorizontal.styleExtremites = '->'
+  axeVertical.styleExtremites = '->'
+  objets.push(axeHorizontal, axeVertical)
+
+  for (let centaine = 0; centaine <= maximumEnCentaines; centaine++) {
+    objets.push(
+      segment(-0.1, centaine, 0.1, centaine, 'black'),
+      latex2d(texNombre(100 * centaine), -0.45, centaine, {
+        letterSize: 'scriptsize',
+      }),
+    )
+    if (centaine > 0) {
+      const ligneGuide = segment(0, centaine, 5.7, centaine, 'gray')
+      ligneGuide.opacite = 0.18
+      objets.push(ligneGuide)
+    }
+  }
+
+  for (let indice = 0; indice < effectifs.length; indice++) {
+    const x = indice + 1
+    const hauteur = effectifs[indice] / 100
+    objets.push(
+      traceBarre(x, hauteur, String(scenario.valeurs[indice]), {
+        epaisseur: 0.45,
+        couleurDeRemplissage: bleuMathalea,
+        opaciteDeRemplissage: 0.35,
+        angle: 0,
+      }),
+      latex2d(texNombre(effectifs[indice]), x, hauteur + 0.35, {
+        letterSize: 'scriptsize',
+      }),
+    )
+  }
+  const titreHorizontal = texteParPosition(
+    scenario.uniteAbscisses,
+    3,
+    -0.85,
+    0,
+    'black',
+    1,
+    'milieu',
+  )
+  const titreVertical = texteParPosition(
+    scenario.titreEffectifs,
+    -1.25,
+    (maximumEnCentaines + 0.8) / 2,
+    90,
+    'black',
+    1,
+    'milieu',
+  )
+  objets.push(titreHorizontal, titreVertical)
+
+  return mathalea2d(
+    {
+      ...fixeBordures(objets, {
+        rxmin: -0.4,
+        rxmax: 0.4,
+        rymin: -0.4,
+        rymax: 0.5,
+      }),
+      pixelsParCm: 25,
+      scale: 0.7,
+      center: true,
+    },
+    objets,
+  )
+}
+
+function construitSchemaQuartiles(
+  effectifTotal: number,
+  q1: number,
+  mediane: number,
+  q3: number,
+): string {
+  const objets: NestedObjetMathalea2dArray = []
+  const yAxe = 2.2
+  const longueur = 12
+  const axe = segment(0, yAxe, longueur + 0.4, yAxe, 'black')
+  axe.styleExtremites = '->'
+  objets.push(axe)
+
+  const reperes = [
+    {
+      x: 3,
+      indicateur: `Q_1=${q1}`,
+      rang: `\\text{rang }${effectifTotal / 4}`,
+    },
+    {
+      x: 6,
+      indicateur: `\\operatorname{Med}=${texNombre(mediane)}`,
+      rang: `\\text{rangs }${effectifTotal / 2}\\text{ et }${effectifTotal / 2 + 1}`,
+    },
+    {
+      x: 9,
+      indicateur: `Q_3=${q3}`,
+      rang: `\\text{rang }${(3 * effectifTotal) / 4}`,
+    },
+  ]
+
+  for (const repere of reperes) {
+    objets.push(
+      segment(repere.x, yAxe - 0.15, repere.x, yAxe + 0.25, 'black'),
+      latex2d(repere.indicateur, repere.x, 3.25, {
+        letterSize: 'small',
+      }),
+      latex2d(repere.rang, repere.x, 2.75, {
+        letterSize: 'scriptsize',
+      }),
+    )
+  }
+
+  objets.push(
+    latex2d('\\text{rang }1', 0, 2.65, { letterSize: 'scriptsize' }),
+    latex2d(`\\text{rang }${effectifTotal}`, longueur, 2.65, {
+      letterSize: 'scriptsize',
+    }),
+  )
+
+  for (let quart = 0; quart < 4; quart++) {
+    const debut = 3 * quart
+    const fin = debut + 3
+    const milieu = (debut + fin) / 2
+    const accolade = polyline(
+      pointAbstrait(debut, 1.65),
+      pointAbstrait(debut + 0.15, 1.65),
+      pointAbstrait(debut + 0.3, 1.4),
+      pointAbstrait(milieu - 0.2, 1.35),
+      pointAbstrait(milieu, 1.1),
+      pointAbstrait(milieu + 0.2, 1.35),
+      pointAbstrait(fin - 0.3, 1.4),
+      pointAbstrait(fin - 0.15, 1.65),
+      pointAbstrait(fin, 1.65),
+    )
+    accolade.epaisseur = 1.2
+    objets.push(
+      accolade,
+      latex2d('25\\,\\%', milieu, 0.75, { letterSize: 'scriptsize' }),
+    )
+  }
+
+  return mathalea2d(
+    {
+      xmin: -0.8,
+      xmax: 12.9,
+      ymin: 0.35,
+      ymax: 3.65,
+      pixelsParCm: 25,
+      scale: 0.72,
+      center: true,
+    },
+    objets,
+  )
 }
 
 /**
- * @author Arnaud Meistermann
+ * Construire un diagramme en bâtons, puis déterminer et interpréter les
+ * quartiles et la médiane d'une série statistique discrète.
+ * @author Stéphane Guyon
  */
-export default class DeterminerMedianeQuartilesTableau extends Exercice {
+export default class DiagrammeBatonsEtQuartiles extends Exercice {
   constructor() {
     super()
-    this.nbQuestions = 3
-    this.nbQuestionsModifiable = true
-    this.consigne = ''
-    this.besoinFormulaireTexte = [
-      'Indicateur à calculer',
-      '1 : Médiane\n2 : Premier quartile Q1\n3 : Troisième quartile Q3\n4 : Mélange',
-    ]
+    this.nbQuestions = 1
+    this.nbQuestionsModifiable = false
     this.sup = 4
+    this.besoinFormulaireNumerique = [
+      'Scénario',
+      4,
+      '1 : Nombre de livres lus\n2 : Nombre de passagers par véhicule\n3 : Nombre de séances d’entraînement\n4 : Mélange',
+    ]
   }
 
-  nouvelleVersion() {
-    const listeIndicateurs = gestionnaireFormulaireTexte({
-      saisie: this.sup,
-      min: 1,
-      max: 3,
-      defaut: 4,
-      melange: 4,
-      listeOfCase: ['mediane', 'q1', 'q3'] satisfies Indicateur[],
-      nbQuestions: this.nbQuestions,
-    }) as Indicateur[]
-    const listeSituations = combinaisonListes([0, 1, 2, 3], this.nbQuestions)
+  nouvelleVersion(): void {
+    const numeroScenario = Number(this.sup)
+    const scenario =
+      numeroScenario === 1
+        ? scenarios[1]
+        : numeroScenario === 2
+          ? scenarios[0]
+          : numeroScenario === 3
+            ? scenarios[2]
+            : choice(scenarios)
+    const effectifTotal = choice([1600, 2000, 2400])
+    const coefficient = effectifTotal / 20
+    const effectifs = choice(repartitions).map(
+      (proportion) => proportion * coefficient,
+    )
+    const effectifsCumules: number[] = []
+    effectifs.reduce((cumul, effectif) => {
+      const nouveauCumul = cumul + effectif
+      effectifsCumules.push(nouveauCumul)
+      return nouveauCumul
+    }, 0)
 
-    for (let i = 0; i < this.nbQuestions; i++) {
-      const situations: Situation[] = [
-        {
-          introduction:
-            "Une enquête a été réalisée sur le nombre d'occupants par véhicule lors du passage au péage d'une autoroute. Les résultats de cette enquête sont consignés dans le tableau ci-dessous.",
-          intituleValeurs: "Nombre d'occupants",
-          intituleEffectifs: 'Nombre de véhicules',
-          valeurs: [1, 2, 3, 4, 5],
-          effectifs: Array.from({ length: 5 }, () => 50 * randint(1, 8)),
-        },
-        {
-          introduction:
-            "On a relevé le nombre de livres empruntés au CDI par les élèves d'un groupe pendant un mois. Les résultats sont consignés dans le tableau ci-dessous.",
-          intituleValeurs: 'Nombre de livres empruntés',
-          intituleEffectifs: "Nombre d'élèves",
-          valeurs: [0, 1, 2, 3, 4],
-          effectifs: [
-            randint(1, 10),
-            ...Array.from({ length: 4 }, () => randint(0, 10)),
-          ],
-        },
-        {
-          introduction:
-            "Une enquête a été menée auprès de familles sur leur nombre d'enfants. Les résultats sont consignés dans le tableau ci-dessous.",
-          intituleValeurs: "Nombre d'enfants",
-          intituleEffectifs: 'Nombre de familles',
-          valeurs: [0, 1, 2, 3, 4],
-          effectifs: Array.from({ length: 5 }, () => randint(5, 40)),
-        },
-        {
-          introduction:
-            "On a relevé le nombre de buts marqués par les équipes lors d'une journée de championnat. Les résultats sont consignés dans le tableau ci-dessous.",
-          intituleValeurs: 'Nombre de buts marqués',
-          intituleEffectifs: "Nombre d'équipes",
-          valeurs: [0, 1, 2, 3, 4],
-          effectifs: Array.from({ length: 5 }, () => randint(1, 10)),
-        },
-      ]
-      const situation = situations[listeSituations[i]]
-      const { effectifs, valeurs } = situation
-      const effectifsCumules = effectifs.map((_, index) =>
-        effectifs
-          .slice(0, index + 1)
-          .reduce((somme, valeur) => somme + valeur, 0),
-      )
-      const effectifTotal = effectifsCumules[4]
-      const indicateur = listeIndicateurs[i]
-      const tableau = tableauColonneLigne(
-        [`\\text{${situation.intituleValeurs}}`, ...valeurs.map(String)],
-        [`\\text{${situation.intituleEffectifs}}`],
-        effectifs.map(String),
-      )
-      const tableauCumule = tableauColonneLigne(
-        [`\\text{${situation.intituleValeurs}}`, ...valeurs.map(String)],
-        ['\\text{Effectif}', '\\text{Effectif cumulé croissant}'],
-        [...effectifs, ...effectifsCumules].map(String),
-      )
+    const rangQ1 = effectifTotal / 4
+    const rangMedian1 = effectifTotal / 2
+    const rangMedian2 = rangMedian1 + 1
+    const rangQ3 = (3 * effectifTotal) / 4
+    const q1 = valeurAuRang(rangQ1, scenario.valeurs, effectifsCumules)
+    const mediane1 = valeurAuRang(
+      rangMedian1,
+      scenario.valeurs,
+      effectifsCumules,
+    )
+    const mediane2 = valeurAuRang(
+      rangMedian2,
+      scenario.valeurs,
+      effectifsCumules,
+    )
+    const mediane = (mediane1 + mediane2) / 2
+    const q3 = valeurAuRang(rangQ3, scenario.valeurs, effectifsCumules)
 
-      let demande: string
-      let inviteReponse: string
-      let correctionCalcul: string
-      let resultat: string
-      let bornesMedianes: [number, number] | undefined
+    const tableau = tableauColonneLigne(
+      [
+        `\\text{\\textbf{${scenario.titreValeurs}}}`,
+        ...scenario.valeurs.map(String),
+      ],
+      [`\\text{\\textbf{${scenario.titreEffectifs}}}`],
+      effectifs,
+      1.5,
+    )
+    const tableauCumule = tableauColonneLigne(
+      [
+        `\\text{\\textbf{${scenario.titreValeurs}}}`,
+        ...scenario.valeurs.map(String),
+      ],
+      ['\\text{\\textbf{Effectifs cumulés croissants}}'],
+      effectifsCumules,
+      1.5,
+    )
+    const diagramme = construitDiagramme(scenario, effectifs)
+    const schemaQuartiles = construitSchemaQuartiles(
+      effectifTotal,
+      q1,
+      mediane,
+      q3,
+    )
+    const calculsParametres = createList({
+      items: [
+        `Le premier quartile est la valeur de rang $\\dfrac{${effectifTotal}}{4}=${rangQ1}$. D'après les effectifs cumulés, $${miseEnEvidence(`Q_1=${q1}`)}$.`,
+        `Comme l'effectif total $${effectifTotal}$ est pair, la médiane est une valeur comprise entre la $${rangMedian1}^{\\text{e}}$ valeur et la $${rangMedian2}^{\\text{e}}$ valeur de la série ordonnée. Ces deux valeurs sont toutes les deux égales à $${mediane}$, donc $${miseEnEvidence(`\\operatorname{Med}=${texNombre(mediane)}`)}$.`,
+        `Le troisième quartile est la valeur de rang $\\dfrac{3\\times${effectifTotal}}{4}=${rangQ3}$. D'après les effectifs cumulés, $${miseEnEvidence(`Q_3=${q3}`)}$.`,
+      ],
+      style: 'fleches',
+    })
+    const interpretations = createList({
+      items: [
+        `Pour au moins $25\\,\\%$ des ${scenario.individus}, ${scenario.caractere} est inférieur ou égal à $${q1}$.`,
+        `Pour au moins la moitié des ${scenario.individus}, ${scenario.caractere} est inférieur ou égal à $${texNombre(mediane)}$ et, pour au moins la moitié, il est supérieur ou égal à $${texNombre(mediane)}$.`,
+        `Pour au moins $75\\,\\%$ des ${scenario.individus}, ${scenario.caractere} est inférieur ou égal à $${q3}$.`,
+      ],
+      style: 'fleches',
+    })
+    const organisationCorrection = createList({
+      items: [
+        `<b>Calcul des paramètres</b><br>
+L'effectif total est :<br>
+$${effectifs.map((effectif) => texNombre(effectif)).join('+')}=${texNombre(effectifTotal)}$.<br>
+Pour repérer les rangs des quartiles et de la médiane, on calcule les effectifs cumulés croissants :<br><br>
+${tableauCumule}<br>
+${calculsParametres}`,
+        `<b>Schéma explicatif</b><br>${schemaQuartiles}`,
+        `<b>Interprétations</b><br>${interpretations}`,
+      ],
+      style: 'fleches',
+    })
 
-      if (indicateur === 'q1') {
-        const rang = Math.ceil(effectifTotal / 4)
-        const q1 = valeurDeRang(valeurs, effectifsCumules, rang)
-        demande = 'Déterminer le premier quartile $Q_1$ de cette série.'
-        inviteReponse = 'Le premier quartile est égal à '
-        resultat = String(q1)
-        correctionCalcul =
-          'Le premier quartile est la plus petite valeur pour laquelle au moins 25 % des données lui sont inférieures ou égales.<br>' +
-          'Pour trouver son rang, on prend le plus petit entier supérieur ou égal à $\\dfrac{N}{4}$.<br>' +
-          '$\\dfrac{' +
-          effectifTotal +
-          '}{4}=' +
-          ecritureDecimaleFrancaise(effectifTotal / 4) +
-          '$.<br>Son rang est donc $' +
-          rang +
-          '$.<br>' +
-          "D'après les effectifs cumulés, la valeur de rang $" +
-          rang +
-          '$ est $' +
-          q1 +
-          '$.<br>Ainsi, $Q_1=' +
-          miseEnEvidence(q1) +
-          '$.'
-      } else if (indicateur === 'q3') {
-        const rang = Math.ceil((3 * effectifTotal) / 4)
-        const q3 = valeurDeRang(valeurs, effectifsCumules, rang)
-        demande = 'Déterminer le troisième quartile $Q_3$ de cette série.'
-        inviteReponse = 'Le troisième quartile est égal à '
-        resultat = String(q3)
-        correctionCalcul =
-          'Le troisième quartile est la plus petite valeur pour laquelle au moins 75 % des données lui sont inférieures ou égales.<br>' +
-          'Pour trouver son rang, on prend le plus petit entier supérieur ou égal à $\\dfrac{3N}{4}$.<br>' +
-          '$\\dfrac{3\\times' +
-          effectifTotal +
-          '}{4}=' +
-          ecritureDecimaleFrancaise((3 * effectifTotal) / 4) +
-          '$.<br>Son rang est donc $' +
-          rang +
-          '$.<br>' +
-          "D'après les effectifs cumulés, la valeur de rang $" +
-          rang +
-          '$ est $' +
-          q3 +
-          '$.<br>Ainsi, $Q_3=' +
-          miseEnEvidence(q3) +
-          '$.'
-      } else {
-        demande = 'Déterminer une médiane de cette série.'
-        inviteReponse = 'Une valeur possible de la médiane est '
-        if (effectifTotal % 2 === 0) {
-          const rang1 = effectifTotal / 2
-          const rang2 = rang1 + 1
-          const valeur1 = valeurDeRang(valeurs, effectifsCumules, rang1)
-          const valeur2 = valeurDeRang(valeurs, effectifsCumules, rang2)
-          bornesMedianes = [valeur1, valeur2]
-          const mediane = new FractionEtendue(valeur1 + valeur2, 2).simplifie()
-          resultat = mediane.texFractionSimplifiee
-          correctionCalcul =
-            "L'effectif de la série est pair.<br>" +
-            '$\\dfrac{' +
-            effectifTotal +
-            '}{2}=' +
-            rang1 +
-            '$. La médiane est donc entre la $' +
-            rang1 +
-            '^{\\text{e}}$ et la $' +
-            rang2 +
-            '^{\\text{e}}$ valeur.<br>' +
-            "D'après les effectifs cumulés, ces valeurs sont $" +
-            valeur1 +
-            '$ et $' +
-            valeur2 +
-            '$.<br>Une valeur possible de la médiane est :<br>' +
-            '$\\dfrac{' +
-            valeur1 +
-            '+' +
-            valeur2 +
-            '}{2}=' +
-            miseEnEvidence(resultat) +
-            '$.'
-        } else {
-          const rang = (effectifTotal + 1) / 2
-          const mediane = valeurDeRang(valeurs, effectifsCumules, rang)
-          bornesMedianes = [mediane, mediane]
-          resultat = String(mediane)
-          correctionCalcul =
-            "L'effectif de la série est impair.<br>" +
-            '$\\dfrac{' +
-            effectifTotal +
-            '}{2}=' +
-            ecritureDecimaleFrancaise(effectifTotal / 2) +
-            '$. La médiane est donc la $' +
-            rang +
-            '^{\\text{e}}$ valeur.<br>' +
-            "D'après les effectifs cumulés, cette valeur est $" +
-            miseEnEvidence(mediane) +
-            '$.'
-        }
-      }
+    this.listeQuestions[0] = `${scenario.introduction}<br>
+Les résultats de cette enquête sont consignés dans le tableau suivant :<br><br>
+${tableau}<br>
+1. Construire un diagramme en bâtons représentant cette étude.<br><br>
+2. Déterminer la médiane, le premier quartile et le troisième quartile de cette série statistique. Interpréter ces valeurs.`
 
-      let question = situation.introduction + '<br>' + tableau
-      if (this.interactif) {
-        question += '<br>' + inviteReponse
-        question += ajouteChampTexteMathLive(
-          this,
-          i,
-          KeyboardType.clavierDeBase,
-        )
-      } else {
-        question += '<br>' + demande
-      }
+    this.listeCorrections[0] = `<b>1.</b> Sur l'axe horizontal, on place les différentes valeurs du caractère étudié. La hauteur de chaque bâton est égale à l'effectif correspondant.<br>
+${diagramme}<br>
+<b>2.</b><br>
+${organisationCorrection}`
 
-      const somme = effectifs.join('+') + '=' + effectifTotal
-      const correction =
-        "L'effectif total est $N=" +
-        somme +
-        '$.<br>' +
-        'On complète le tableau avec les effectifs cumulés croissants :<br>' +
-        tableauCumule +
-        '<br>' +
-        correctionCalcul
-
-      handleAnswers(this, i, {
-        reponse: {
-          value: resultat,
-          ...(bornesMedianes == null
-            ? {}
-            : {
-                compare: (saisie: string) => {
-                  const saisieNormalisee = saisie
-                    .replaceAll('{,}', '.')
-                    .replaceAll(',', '.')
-                  const valeurSaisie = ce.parse(saisieNormalisee).N().re
-                  return {
-                    isOk:
-                      valeurSaisie != null &&
-                      Number.isFinite(valeurSaisie) &&
-                      valeurSaisie >= bornesMedianes[0] &&
-                      valeurSaisie <= bornesMedianes[1],
-                  }
-                },
-              }),
-        },
-      })
-      this.listeQuestions[i] = question
-      this.listeCorrections[i] = correction
-    }
     listeQuestionsToContenu(this)
   }
 }

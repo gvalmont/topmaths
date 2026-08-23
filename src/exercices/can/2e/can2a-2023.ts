@@ -39,7 +39,7 @@ import { handleAnswers } from '../../../lib/interactif/gestionInteractif'
 import { ajouteChampTexteMathLive } from '../../../lib/interactif/questionMathLive'
 import type { NestedObjetMathalea2dArray } from '../../../types/2d'
 
-export const titre = 'CAN Seconde sujet 2023'
+export const titre = 'S’entraîner avec le sujet CAN Seconde 2023'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const dateDePublication = '03/04/2023' // La date de publication initiale au format 'jj/mm/aaaa' pour affichage temporaire d'un tag

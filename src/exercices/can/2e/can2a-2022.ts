@@ -31,7 +31,7 @@ import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { arrondi } from '../../../lib/outils/nombres'
 import type { NestedObjetMathalea2dArray } from '../../../types/2d'
 
-export const titre = 'CAN seconde sujet 2022'
+export const titre = 'S’entraîner avec le sujet CAN Seconde 2022'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 // Les exports suivants sont optionnels mais au moins la date de publication semble essentielle
