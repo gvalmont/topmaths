@@ -32,7 +32,7 @@ export const interactifType = 'qcm'
 export const amcReady = 'true'
 export const amcType = 'qcmMono'
 export const titre =
-  'Retrouver la phrase correcte avec des images et antécédents graphiquement'
+  'Retrouver, graphiquement, la phrase correcte avec des images et antécédents'
 
 /**
  *
