@@ -76,7 +76,7 @@ export default class FactoriserFacteurCommun extends ExerciceQcmA {
       &=\\left(${facteurCommun}\\right)\\left(${differenceCorrecte}\\right).
       \\end{aligned}$<br>
       Le signe $-$ placé devant la parenthèse change le signe de chacun de ses termes.<br>
-      La forme factorisée est donc $${miseEnEvidence(bonneReponse)}$.`
+      Une forme factorisée est donc $${miseEnEvidence(bonneReponse)}$.`
 
       this.reponses = [
         `$${bonneReponse}$`,
