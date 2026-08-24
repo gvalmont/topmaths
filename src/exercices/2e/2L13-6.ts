@@ -38,7 +38,7 @@ export default class FactoriserAvecFacteurCommun extends Exercice {
   constructor() {
     super()
     this.nbQuestions = 3
-    this.sup = '7'
+    this.sup = '8'
     this.spacing = 2
     this.spacingCorr = 2
     this.listeAvecNumerotation = false
@@ -52,7 +52,8 @@ export default class FactoriserAvecFacteurCommun extends Exercice {
         '4 : $(ax+b)(cx+d)-(ax+b)(ex+f)$',
         '5 : $(ax+b)^2+(ax+b)(ex+f)$',
         '6 : $(ax+b)^2-(ax+b)(ex+f)$',
-        '7 : Mélange',
+        '7 : $x^2-a^2$ ou $a^2-x^2$',
+        '8 : Mélange',
       ].join('\n'),
     ]
   }
@@ -67,9 +68,9 @@ export default class FactoriserAvecFacteurCommun extends Exercice {
       gestionnaireFormulaireTexte({
         saisie: this.sup,
         min: 1,
-        max: 6,
-        melange: 7,
-        defaut: 7,
+        max: 7,
+        melange: 8,
+        defaut: 8,
         nbQuestions: this.nbQuestions,
       }),
       this.nbQuestions,
@@ -117,6 +118,11 @@ export default class FactoriserAvecFacteurCommun extends Exercice {
           e = randint(-6, 6, [0, a])
           f = randint(-9, 9, [0, b])
         }
+      }
+
+      if (type === 7) {
+        a = randint(2, 12)
+        c = randint(0, 1)
       }
 
       const facteurCommun = reduireAxPlusB(a, b)
@@ -195,9 +201,21 @@ export default class FactoriserAvecFacteurCommun extends Exercice {
           \\end{aligned}$`
           break
         }
+        case 7: {
+          const xCarreEnPremier = c === 1
+          expression = xCarreEnPremier ? `x^2-${a}^2` : `${a}^2-x^2`
+          reponse = xCarreEnPremier
+            ? `(x-${a})(x+${a})`
+            : `(${a}-x)(${a}+x)`
+          correction = `On reconnaît l'identité remarquable $A^2-B^2=(A-B)(A+B)$.<br>
+          $\\begin{aligned}
+          ${expression}&=${miseEnEvidence(reponse)}.
+          \\end{aligned}$`
+          break
+        }
       }
 
-      if (this.questionJamaisPosee(i, type, a, b, c, d, e, f)) {
+      if (this.questionJamaisPosee(i, expression)) {
         const lettre = lettreDepuisChiffre(i + 1)
         const texte = this.interactif
           ? `$${lettre}=${expression}=$` +
