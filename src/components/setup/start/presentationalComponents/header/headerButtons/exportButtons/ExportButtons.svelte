@@ -60,14 +60,6 @@
       action: () => exportAndClose('tex'),
     },
     {
-      id: 'latex2',
-      label: 'PDF via LaTeX',
-      description:
-        'Nouvel éditeur pour générer un PDF à partir du moteur de composition LaTeX',
-      icon: 'bx bx-code-alt',
-      action: () => exportAndClose('tex'),
-    },
-    {
       id: 'moodle',
       label: 'Moodle',
       description: 'Pour importer dans la plateforme Moodle ou ÉLÉA',
