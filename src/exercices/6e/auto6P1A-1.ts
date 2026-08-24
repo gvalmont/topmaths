@@ -33,7 +33,6 @@ import Exercice from '../Exercice'
 
 export const titre = 'Lire des données représentées dans un diagramme'
 export const interactifReady = true
-export const interactifType = 'multi-mathfield'
 export const amcReady = true
 export const amcType = 'AMCHybride'
 
@@ -477,9 +476,9 @@ export default class LireUnDiagramme extends Exercice {
         "L'espèce la plus nombreuse représente ...<br>",
       ]
       const correctionsSousQuestions = [
-        `L'animal le moins nombreux parmi ces espèces est : ${reponse1}.<br>`,
-        `L'animal le plus nombreux parmi ces espèces est : ${reponse2}.<br>`,
-        `L'animal le plus nombreux parmi ces espèces représente : ${
+        `L'espèce le moins nombreuse parmi ces espèces est : ${reponse1}.<br>`,
+        `L'espèce la plus nombreuse parmi ces espèces est : ${reponse2}.<br>`,
+        `L'espèce la plus nombreuse parmi ces espèces représente : ${
           nbMax > effectiftotal / 2
             ? 'plus de la moitié des animaux'
             : nbMax < effectiftotal / 2
