@@ -10,7 +10,6 @@
   import QcmCamIcon from '../../../../../../shared/icons/QcmCamIcon.svelte'
   import QuizzIcon from '../../../../../../shared/icons/QuizzIcon.svelte'
   import BasicInfoModal from '../../../../../../shared/modal/BasicInfoModal.svelte'
-  import QuizzIcon from '../../../../../../shared/icons/QuizzIcon.svelte'
 
   export let handleExport: (vue: VueType) => void
   export let exportQcmCam: () => Promise<void>
