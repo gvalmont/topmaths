@@ -340,6 +340,8 @@ export class MultiMathfieldElement extends MathaleaCustomElement {
     choices: AllChoicesType,
     vertical = false,
     output: 'html' | 'latex' = 'html',
+    labelPrefix = 'labelEx0Q0R',
+    firstLabelIndex = 0,
   ): string {
     const filteredChoices = choices.filter((choice) => choiceValue(choice) !== '')
     if (output === 'latex') {
@@ -350,11 +352,9 @@ export class MultiMathfieldElement extends MathaleaCustomElement {
       return `\\begin{qcmprop}[cols=${finalCols}, case]\n${contenuTasks}\\end{qcmprop}`
     }
 
-    const items = choices
-      .filter((choice) => choiceValue(choice) !== '')
-      .map(
-        (choice) =>
-          `<span class="${vertical ? 'block my-1' : 'inline-block mr-3'}"><input type="radio" disabled style="appearance:none; -webkit-appearance:none; opacity:1; height:1rem; width:1rem; border:1.5px solid currentColor; border-radius:50%; background:transparent; vertical-align:middle;" class="disabled:cursor-default"> <span>${choiceHtml(choice)}</span></span>`,
+    const items = filteredChoices.map(
+      (choice, index) =>
+        `<div class="ex0 ${vertical ? '' : 'inline-block'} my-2 align-center"><input type="radio" disabled style="appearance:none; -webkit-appearance:none; opacity:1; height:1rem; width:1rem; border:1.5px solid currentColor; border-radius:50%; background:transparent; vertical-align:middle;" class="disabled:cursor-default"><label id="${labelPrefix}${firstLabelIndex + index}" class="ml-2">${choiceHtml(choice)}</label></div>`,
       )
     return `<span class="mx-2 inline-block">${items.join('')}</span>`
   }
@@ -366,12 +366,14 @@ export class MultiMathfieldElement extends MathaleaCustomElement {
     freeFieldPlaceholder: (
       fieldOptions: MultiMathfieldOption,
     ) => string = () => ' ... ',
+    qcmLabelPrefix = 'labelEx0Q0R',
   ): string {
     const template = dataTemplate.replaceAll('<br>', '\n')
     const regex = /(\$[^$]+\$|%\{[^}]+\}|\n)/g
     let lastIndex = 0
     let result = ''
     let match
+    let nextQcmLabelIndex = 0
 
     while ((match = regex.exec(template)) !== null) {
       if (match.index > lastIndex) {
@@ -391,7 +393,12 @@ export class MultiMathfieldElement extends MathaleaCustomElement {
             fieldOptions.choices,
             fieldOptions.vertical ?? true,
             output,
+            qcmLabelPrefix,
+            nextQcmLabelIndex,
           )
+          nextQcmLabelIndex += fieldOptions.choices.filter(
+            (choice) => choiceValue(choice) !== '',
+          ).length
         } else if (
           Array.isArray(fieldOptions.qcm) &&
           fieldOptions.qcm.length > 0
@@ -400,7 +407,12 @@ export class MultiMathfieldElement extends MathaleaCustomElement {
             fieldOptions.qcm,
             fieldOptions.vertical ?? false,
             output,
+            qcmLabelPrefix,
+            nextQcmLabelIndex,
           )
+          nextQcmLabelIndex += fieldOptions.qcm.filter(
+            (choice) => choiceValue(choice) !== '',
+          ).length
         } else {
           result += freeFieldPlaceholder(fieldOptions)
         }
@@ -1138,7 +1150,7 @@ export function addMultiMathfield(
       }
     }
   }
-  if (context.isHtml && exercice.interactif) {
+  if (context.isHtml && exercice.interactif && !context.isTypst) {
     registerMathaleaCustomElement(MultiMathfieldElement)
     return MultiMathfieldElement.create({
       id,
@@ -1157,6 +1169,7 @@ export function addMultiMathfield(
         if (!fieldOptions.ldots) return ''
         return context.isHtml ? ' ... ' : '$\\ldots\\ldots$'
       },
+      `labelEx${exercice.numeroExercice ?? 0}Q${questionIndex}R`,
     )
 
     if (!context.isHtml && !rendered.includes('\\begin{qcmprop}')) {

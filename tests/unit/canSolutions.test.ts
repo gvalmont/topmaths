@@ -177,8 +177,9 @@ describe('stripInteractiveWidgets', () => {
     const result = stripInteractiveWidgets(question)
     expect(result).toContain('Choisir <span class="mx-2 inline-block">')
     expect(result).toContain('<input type="radio" disabled')
-    expect(result).toContain('<span>Oui</span>')
-    expect(result).toContain('<span>Non</span>')
+    expect(result).toContain('<label id="labelEx0Q0R0"')
+    expect(result).toContain('>Oui</label>')
+    expect(result).toContain('>Non</label>')
     expect(result).not.toContain('Choisir…')
     expect(result).not.toContain(' ... ')
   })
@@ -187,9 +188,9 @@ describe('stripInteractiveWidgets', () => {
     const question =
       'Répondre <multi-mathfield id="multi-mathfieldEx0Q0" data-template="%{field0}" data-options="%7B%22field0%22%3A%7B%22qcm%22%3A%5B%7B%22label%22%3A%22Vrai%22%2C%22value%22%3A%22vrai%22%7D%2C%7B%22label%22%3A%22Faux%22%2C%22value%22%3A%22faux%22%7D%5D%2C%22vertical%22%3Atrue%7D%7D"></multi-mathfield>'
     const result = stripInteractiveWidgets(question)
-    expect(result).toContain('class="block my-1"')
-    expect(result).toContain('<span>Vrai</span>')
-    expect(result).toContain('<span>Faux</span>')
+    expect(result).toContain('class="ex0  my-2 align-center"')
+    expect(result).toContain('>Vrai</label>')
+    expect(result).toContain('>Faux</label>')
     expect(result).not.toContain(' ... ')
   })
 
@@ -203,12 +204,15 @@ describe('stripInteractiveWidgets', () => {
 })
 
 describe('addMultiMathfield', () => {
-  it('rend les qcm imbriques en statique hors interactif HTML', () => {
+  it.each([
+    { label: 'hors interactif HTML', interactif: false, isTypst: false },
+    { label: 'en rendu Typst', interactif: true, isTypst: true },
+  ])('rend les qcm imbriques en statique $label', ({ interactif, isTypst }) => {
     context.isHtml = true
     context.isAmc = false
-    context.isTypst = false
+    context.isTypst = isTypst
     const exercice = {
-      interactif: false,
+      interactif,
       numeroExercice: 0,
     } as IExercice
 
@@ -225,10 +229,13 @@ describe('addMultiMathfield', () => {
     })
 
     expect(result).toContain('<input type="radio" disabled')
-    expect(result).toContain('<span>Oui</span>')
-    expect(result).toContain('<span>Non</span>')
+    expect(result).toContain('<label id="labelEx0Q0R0"')
+    expect(result).toContain('>Oui</label>')
+    expect(result).toContain('>Non</label>')
     expect(result).not.toContain(' ... ')
     expect(result).not.toContain('ldots')
+    expect(result).not.toContain('multi-mathfield')
+    context.isTypst = false
   })
 })
 
