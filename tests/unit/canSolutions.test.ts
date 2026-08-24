@@ -41,10 +41,13 @@ import {
   formatStudentAnswer,
   stripInteractiveWidgets,
 } from '../../src/lib/components/canSolutions'
+import { addMultiMathfield } from '../../src/lib/customElements/MultiMathfield'
 import {
   listOfCustomElements,
   mathaleaCustomElementsRegistry,
 } from '../../src/lib/customElements/MathaleaCustomElement'
+import type { IExercice } from '../../src/lib/types'
+import { context } from '../../src/modules/context'
 
 beforeAll(() => {
   handleInteractiveClock()
@@ -196,6 +199,36 @@ describe('stripInteractiveWidgets', () => {
     expect(stripInteractiveWidgets(question)).toBe(
       'Compléter <math-field readonly>2+{...}</math-field>',
     )
+  })
+})
+
+describe('addMultiMathfield', () => {
+  it('rend les qcm imbriques en statique hors interactif HTML', () => {
+    context.isHtml = true
+    context.isAmc = false
+    context.isTypst = false
+    const exercice = {
+      interactif: false,
+      numeroExercice: 0,
+    } as IExercice
+
+    const result = addMultiMathfield(exercice, 0, {
+      dataTemplate: 'c) Réponse : %{champ3}',
+      dataOptions: {
+        champ3: {
+          qcm: [
+            { label: 'Oui', value: 'oui' },
+            { label: 'Non', value: 'non' },
+          ],
+        },
+      },
+    })
+
+    expect(result).toContain('<input type="radio" disabled')
+    expect(result).toContain('<span>Oui</span>')
+    expect(result).toContain('<span>Non</span>')
+    expect(result).not.toContain(' ... ')
+    expect(result).not.toContain('ldots')
   })
 })
 

@@ -336,22 +336,36 @@ export class MultiMathfieldElement extends MathaleaCustomElement {
     return `${html}<div class="ml-2 py-2 italic text-coopmaths-warn-darkest dark:text-coopmathsdark-warn-darkest" id="feedbackEx${numeroExercice ?? 0}Q${questionIndex ?? 0}" style="display: none;"></div>`
   }
 
-  private static staticQcmHtml(
+  private static staticQcm(
     choices: AllChoicesType,
     vertical = false,
+    output: 'html' | 'latex' = 'html',
   ): string {
+    const filteredChoices = choices.filter((choice) => choiceValue(choice) !== '')
+    if (output === 'latex') {
+      const finalCols = vertical ? 1 : Math.max(filteredChoices.length, 1)
+      const contenuTasks = filteredChoices
+        .map((choice) => `  \\task ${choiceHtml(choice)}\n`)
+        .join('')
+      return `\\begin{qcmprop}[cols=${finalCols}, case]\n${contenuTasks}\\end{qcmprop}`
+    }
+
     const items = choices
       .filter((choice) => choiceValue(choice) !== '')
       .map(
         (choice) =>
-          `<span class="${vertical ? 'block my-1' : 'inline-block mr-3'}"><input type="radio" disabled style="height: 1rem; width: 1rem;" class="disabled:cursor-default"> <span>${choiceHtml(choice)}</span></span>`,
+          `<span class="${vertical ? 'block my-1' : 'inline-block mr-3'}"><input type="radio" disabled style="appearance:none; -webkit-appearance:none; opacity:1; height:1rem; width:1rem; border:1.5px solid currentColor; border-radius:50%; background:transparent; vertical-align:middle;" class="disabled:cursor-default"> <span>${choiceHtml(choice)}</span></span>`,
       )
     return `<span class="mx-2 inline-block">${items.join('')}</span>`
   }
 
-  private static renderStaticTemplate(
+  static renderStaticTemplate(
     dataTemplate: string,
     dataOptions: DataOptionsMultiMathfield,
+    output: 'html' | 'latex' = 'html',
+    freeFieldPlaceholder: (
+      fieldOptions: MultiMathfieldOption,
+    ) => string = () => ' ... ',
   ): string {
     const template = dataTemplate.replaceAll('<br>', '\n')
     const regex = /(\$[^$]+\$|%\{[^}]+\}|\n)/g
@@ -361,11 +375,11 @@ export class MultiMathfieldElement extends MathaleaCustomElement {
 
     while ((match = regex.exec(template)) !== null) {
       if (match.index > lastIndex) {
-        result += stylizeItems(template.slice(lastIndex, match.index))
+        result += stylizeItems(template.slice(lastIndex, match.index), output)
       }
       const token = match[0]
       if (token === '\n') {
-        result += '<br>'
+        result += output === 'html' ? '<br>' : '\n'
       } else if (token.startsWith('%{')) {
         const name = token.slice(2, -1) as ValeurNames
         const fieldOptions = dataOptions[name] ?? {}
@@ -373,20 +387,22 @@ export class MultiMathfieldElement extends MathaleaCustomElement {
           Array.isArray(fieldOptions.choices) &&
           fieldOptions.choices.length > 0
         ) {
-          result += this.staticQcmHtml(
+          result += this.staticQcm(
             fieldOptions.choices,
             fieldOptions.vertical ?? true,
+            output,
           )
         } else if (
           Array.isArray(fieldOptions.qcm) &&
           fieldOptions.qcm.length > 0
         ) {
-          result += this.staticQcmHtml(
+          result += this.staticQcm(
             fieldOptions.qcm,
             fieldOptions.vertical ?? false,
+            output,
           )
         } else {
-          result += ' ... '
+          result += freeFieldPlaceholder(fieldOptions)
         }
         if (fieldOptions.texteApres) result += fieldOptions.texteApres
       } else {
@@ -396,7 +412,7 @@ export class MultiMathfieldElement extends MathaleaCustomElement {
     }
 
     if (lastIndex < template.length) {
-      result += stylizeItems(template.slice(lastIndex))
+      result += stylizeItems(template.slice(lastIndex), output)
     }
     return result
   }
@@ -1132,39 +1148,25 @@ export function addMultiMathfield(
       dataOptions: enrichedOptions,
     })
   } else {
-    // On traite ligne par ligne pour détecter les items a), b), ... en début de ligne
-    const lines = dataTemplate.split('\n')
-    const fieldRegex = /%\{[^}]+\}/g
-    const processedLines = lines.map((rawLine) => {
-      let line = rawLine
-      // Remplace les champs %{...} par $\ldots\ldots$ uniquement si ldots est à true
-      line = line.replace(fieldRegex, (match) => {
-        const fieldMatch = match.match(/%\{([^}]+)\}/)
-        if (fieldMatch) {
-          const fieldName = fieldMatch[1]
-          if (enrichedOptions[fieldName] && enrichedOptions[fieldName].ldots) {
-            return '$\\ldots\\ldots$'
-          } else {
-            return ''
-          }
-        }
-        return match
-      })
-      return line
-    })
+    const output = context.isHtml ? 'html' : 'latex'
+    const rendered = MultiMathfieldElement.renderStaticTemplate(
+      dataTemplate,
+      enrichedOptions,
+      output,
+      (fieldOptions) => {
+        if (!fieldOptions.ldots) return ''
+        return context.isHtml ? ' ... ' : '$\\ldots\\ldots$'
+      },
+    )
 
-    if (!context.isHtml) {
-      const enumitemBlock = buildLatexEnumitemBlock(processedLines)
+    if (!context.isHtml && !rendered.includes('\\begin{qcmprop}')) {
+      const enumitemBlock = buildLatexEnumitemBlock(rendered.split('\n'))
       if (enumitemBlock) {
         return enumitemBlock
       }
     }
 
-    const renderedLines = processedLines.map((line) =>
-      stylizeItems(line, context.isHtml ? 'html' : 'latex'),
-    )
-
-    return renderedLines.join('<br>')
+    return rendered
   }
 }
 
