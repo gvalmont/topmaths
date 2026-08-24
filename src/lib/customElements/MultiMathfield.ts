@@ -133,6 +133,17 @@ function choiceHtml(choice: AllChoiceType): string {
   return choice.value
 }
 
+function decodeHtmlAttribute(value: string): string {
+  return value
+    .replaceAll('&quot;', '"')
+    .replaceAll('&#34;', '"')
+    .replaceAll('&apos;', "'")
+    .replaceAll('&#39;', "'")
+    .replaceAll('&lt;', '<')
+    .replaceAll('&gt;', '>')
+    .replaceAll('&amp;', '&')
+}
+
 const buildDataKeyboardString = (style = '') => {
   const blocks = buildDataKeyboardFromStyle(style)
   return blocks.join(' ')
@@ -323,6 +334,97 @@ export class MultiMathfieldElement extends MathaleaCustomElement {
 
     const html = `<multi-mathfield id="${computedId}" data-template="${dataTemplate.replace(/"/g, '&quot;')}" data-options="${dataOptionsStr}"></multi-mathfield>`
     return `${html}<div class="ml-2 py-2 italic text-coopmaths-warn-darkest dark:text-coopmathsdark-warn-darkest" id="feedbackEx${numeroExercice ?? 0}Q${questionIndex ?? 0}" style="display: none;"></div>`
+  }
+
+  private static staticQcmHtml(
+    choices: AllChoicesType,
+    vertical = false,
+  ): string {
+    const items = choices
+      .filter((choice) => choiceValue(choice) !== '')
+      .map(
+        (choice) =>
+          `<span class="${vertical ? 'block my-1' : 'inline-block mr-3'}"><input type="radio" disabled style="height: 1rem; width: 1rem;" class="disabled:cursor-default"> <span>${choiceHtml(choice)}</span></span>`,
+      )
+    return `<span class="mx-2 inline-block">${items.join('')}</span>`
+  }
+
+  private static renderStaticTemplate(
+    dataTemplate: string,
+    dataOptions: DataOptionsMultiMathfield,
+  ): string {
+    const template = dataTemplate.replaceAll('<br>', '\n')
+    const regex = /(\$[^$]+\$|%\{[^}]+\}|\n)/g
+    let lastIndex = 0
+    let result = ''
+    let match
+
+    while ((match = regex.exec(template)) !== null) {
+      if (match.index > lastIndex) {
+        result += stylizeItems(template.slice(lastIndex, match.index))
+      }
+      const token = match[0]
+      if (token === '\n') {
+        result += '<br>'
+      } else if (token.startsWith('%{')) {
+        const name = token.slice(2, -1) as ValeurNames
+        const fieldOptions = dataOptions[name] ?? {}
+        if (
+          Array.isArray(fieldOptions.choices) &&
+          fieldOptions.choices.length > 0
+        ) {
+          result += this.staticQcmHtml(
+            fieldOptions.choices,
+            fieldOptions.vertical ?? true,
+          )
+        } else if (
+          Array.isArray(fieldOptions.qcm) &&
+          fieldOptions.qcm.length > 0
+        ) {
+          result += this.staticQcmHtml(
+            fieldOptions.qcm,
+            fieldOptions.vertical ?? false,
+          )
+        } else {
+          result += ' ... '
+        }
+        if (fieldOptions.texteApres) result += fieldOptions.texteApres
+      } else {
+        result += token
+      }
+      lastIndex = regex.lastIndex
+    }
+
+    if (lastIndex < template.length) {
+      result += stylizeItems(template.slice(lastIndex))
+    }
+    return result
+  }
+
+  static stripFromQuestionHtml(questionHtml: string): string {
+    return questionHtml.replace(
+      /<multi-mathfield\b([^>]*)>(?:<\/multi-mathfield>)?/g,
+      (_match, rawAttributes: string) => {
+        const attributes = String(rawAttributes)
+        const templateMatch = attributes.match(/\bdata-template="([^"]*)"/)
+        const optionsMatch = attributes.match(/\bdata-options="([^"]*)"/)
+        const dataTemplate = decodeHtmlAttribute(templateMatch?.[1] ?? '')
+        let dataOptions: DataOptionsMultiMathfield = {}
+        if (optionsMatch?.[1] != null) {
+          try {
+            dataOptions = JSON.parse(
+              decodeURIComponent(decodeHtmlAttribute(optionsMatch[1])),
+            )
+          } catch (error) {
+            window.notify(
+              'Erreur lors du rendu statique du multi-mathfield.',
+              { error },
+            )
+          }
+        }
+        return this.renderStaticTemplate(dataTemplate, dataOptions)
+      },
+    )
   }
 
   connectedCallback() {

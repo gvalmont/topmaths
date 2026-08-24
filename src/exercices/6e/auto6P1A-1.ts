@@ -20,6 +20,7 @@ import {
 import { texcolors } from '../../lib/format/style'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
+import { texteEnCouleurEtGras } from '../../lib/outils/embellissements'
 import { numAlpha } from '../../lib/outils/outilString'
 import type { SharedQcmProposition, Valeur } from '../../lib/types'
 import { context } from '../../modules/context'
@@ -476,15 +477,15 @@ export default class LireUnDiagramme extends Exercice {
         "L'espèce la plus nombreuse représente ...<br>",
       ]
       const correctionsSousQuestions = [
-        `L'espèce le moins nombreuse parmi ces espèces est : ${reponse1}.<br>`,
-        `L'espèce la plus nombreuse parmi ces espèces est : ${reponse2}.<br>`,
-        `L'espèce la plus nombreuse parmi ces espèces représente : ${
+        `L'espèce le moins nombreuse parmi ces espèces est : ${texteEnCouleurEtGras(reponse1)}.<br>`,
+        `L'espèce la plus nombreuse parmi ces espèces est : ${texteEnCouleurEtGras(reponse2)}.<br>`,
+        `L'espèce la plus nombreuse parmi ces espèces représente : ${texteEnCouleurEtGras(
           nbMax > effectiftotal / 2
             ? 'plus de la moitié des animaux'
             : nbMax < effectiftotal / 2
               ? 'moins de la moitié des animaux'
-              : 'la moitié des animaux'
-        }.<br>`,
+              : 'la moitié des animaux',
+        )}.<br>`,
       ]
       const avecNumerotation = listeSousQuestions.length > 1
       const dataOptions: DataOptionsMultiMathfield = {}
