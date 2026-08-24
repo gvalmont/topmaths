@@ -24,7 +24,7 @@ export const interactifType = 'multi-mathfield'
 export const uuid = '6373b'
 
 export const refs = {
-  'fr-fr': ['auto6P1A-2'],
+  'fr-fr': ['auto6P1A-4'],
   'fr-ch': [],
 }
 
