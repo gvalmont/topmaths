@@ -16,7 +16,11 @@ export function extractAMCValue(
   reponse: unknown,
 ): number | { num: number; den: number } | string | undefined {
   const unwrap = (value: unknown): unknown => {
-    if (Array.isArray(value)) return unwrap(value[0])
+    // Un tableau représente plusieurs réponses interactives acceptées. Choisir
+    // arbitrairement la première rendrait l'export AMC plus restrictif que
+    // l'exercice source. Seul le wrapper historique à un élément est sûr.
+    if (Array.isArray(value))
+      return value.length === 1 ? unwrap(value[0]) : undefined
 
     if (isValeur(value) && 'reponse' in value)
       return unwrap(value.reponse?.value)
@@ -39,6 +43,7 @@ export function extractAMCValue(
   }
 
   const value = unwrap(reponse)
+  if (value === undefined) return undefined
   if (typeof value === 'string') {
     return value
   }
@@ -46,7 +51,10 @@ export function extractAMCValue(
     return Number.isFinite(value) ? value : undefined
   }
   if (value instanceof FractionEtendue) {
-    return { num: value.num, den: value.den }
+    const simplified = value.simplifie()
+    return simplified.den === 1
+      ? simplified.num
+      : { num: simplified.num, den: simplified.den }
   }
   if (
     typeof value === 'object' &&
@@ -66,6 +74,7 @@ export function extractAMCValue(
 export function inferNumericValueForAMC(
   value: number | { num: number; den: number } | string | undefined,
 ): number | { num: number; den: number } | undefined {
+  if (value === undefined) return undefined
   if (Array.isArray(value)) {
     value = value[0]
   }

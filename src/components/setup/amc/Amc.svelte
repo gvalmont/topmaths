@@ -8,6 +8,7 @@
   import { mergeLatexTextsOnPropositions } from '../../../lib/amc/amcAutoCorrectionMerge'
   import { mathaleaEnsureAMCCompatibility } from '../../../lib/amc/amcInference'
   import { normalizeAMCNumBlocks } from '../../../lib/amc/amcNormalize'
+  import { latexLineBreaksToHtmlOutsideMath } from '../../../lib/amc/amcPreviewText'
   import type { IExerciceAMC } from '../../../lib/amc/amcTypes'
   import {
     checkAMCGroupConsistency,
@@ -87,6 +88,12 @@
     autoCorrectionAMC: any[]
   }
 
+  type AmcLoadIssue = {
+    id: string
+    title: string
+    message: string
+  }
+
   type AmcBuilderConfigV1 = {
     version: 1
     exportedAt: string
@@ -100,6 +107,7 @@
   const AMC_HIDDEN_TEXT_TOKEN = '[[AMC_HIDDEN]]'
 
   let exercices: IExercice[] = []
+  let loadIssues: AmcLoadIssue[] = []
   let groupSettings: GroupSetting[] = []
   let documentSettings = {
     correctionsDisplayMode: 'per-question' as 'per-question' | 'end-of-copy',
@@ -109,9 +117,7 @@
     mergedGroupTitle: 'Automatismes',
     mergedGroupExerciseIndexes: [] as number[],
     identificationMode: 'AMCcodeGrid' as
-      | 'AMCcodeGrid'
-      | 'AMCassociation'
-      | 'AMCnom',
+      'AMCcodeGrid' | 'AMCassociation' | 'AMCnom',
     associationRoster: '',
     showWarningMessage: true,
     warningMessage:
@@ -315,10 +321,7 @@
         sanitizedCandidate.trim().length === 0
           ? fallback
           : replaceFigureEnvsWithSvg(sanitizedCandidate, fallback)
-      return previewSource
-        .replaceAll('\\\\', '<br>')
-        .replaceAll('\n\n', '<br>')
-        .replaceAll('\\medskip', '<br><br>')
+      return latexLineBreaksToHtmlOutsideMath(previewSource)
     }
 
     return autoCorrection.map((item: any, i: number) => {
@@ -718,19 +721,32 @@
     )
 
     const amcReadyExercices: IExercice[] = []
+    const nextLoadIssues: AmcLoadIssue[] = []
 
     for (const exercice of loaded) {
       try {
         const seed = exercice.seed ?? ''
         prepareExerciseForAmc(exercice, seed)
-        if (exercice.amcType != null) {
+        if (exercice.amcReady && exercice.amcType != null) {
           amcReadyExercices.push(exercice)
+        } else if (exercice.amcReady === false) {
+          nextLoadIssues.push({
+            id: exercice.id ?? exercice.uuid ?? 'Exercice inconnu',
+            title: exercice.titre ?? 'Sans titre',
+            message: 'Cet exercice est explicitement exclu de l’export AMC.',
+          })
         }
       } catch (error) {
-        // On ignore un exercice invalide pour ne pas bloquer l'ajout des suivants.
         console.warn('[AMC] Exercice ignoré pendant le chargement:', error)
+        nextLoadIssues.push({
+          id: exercice.id ?? exercice.uuid ?? 'Exercice inconnu',
+          title: exercice.titre ?? 'Sans titre',
+          message: error instanceof Error ? error.message : String(error),
+        })
       }
     }
+
+    loadIssues = nextLoadIssues
 
     const previousSettings = groupSettings
     const previousExercices = exercices
@@ -1754,7 +1770,7 @@
           : `<strong style="color:${color}">${text}</strong>`,
     )
     // Sauts de ligne LaTeX
-    html = html.replace(/\\\\/g, '<br>').replace(/\\medskip/g, '<br><br>')
+    html = latexLineBreaksToHtmlOutsideMath(html)
     return html
   }
 
@@ -2638,6 +2654,25 @@
             </p>
           </div>
 
+          {#if loadIssues.length > 0}
+            <div
+              class="rounded-xl border border-red-400 bg-red-50 p-4 text-sm text-red-900 dark:border-red-700 dark:bg-red-950/40 dark:text-red-100"
+              role="alert"
+            >
+              <p class="font-semibold">
+                {loadIssues.length} exercice{loadIssues.length > 1 ? 's' : ''}
+                non exporté{loadIssues.length > 1 ? 's' : ''} vers AMC
+              </p>
+              <ul class="mt-2 list-disc space-y-1 pl-5">
+                {#each loadIssues as issue}
+                  <li>
+                    <strong>{issue.id} — {issue.title}</strong> : {issue.message}
+                  </li>
+                {/each}
+              </ul>
+            </div>
+          {/if}
+
           {#if exercices.length === 0}
             <div
               class="rounded-xl border p-6 text-sm text-coopmaths-corpus dark:text-coopmathsdark-corpus"
@@ -3045,8 +3080,7 @@
                   documentSettings = {
                     ...documentSettings,
                     format: (event.currentTarget as HTMLSelectElement).value as
-                      | 'A4'
-                      | 'A3',
+                      'A4' | 'A3',
                   }
                   updateLatexPreview()
                 }}
