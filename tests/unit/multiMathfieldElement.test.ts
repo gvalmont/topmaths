@@ -3,7 +3,7 @@ import { beforeEach, describe, expect, it } from 'vitest'
 import Exercice from '../../src/exercices/Exercice'
 import { MultiMathfieldElement } from '../../src/lib/customElements/MultiMathfield'
 import { handleAnswers } from '../../src/lib/interactif/gestionInteractif'
-import { setOutputHtml } from '../../src/modules/context'
+import { setOutputHtml, setOutputLatex } from '../../src/modules/context'
 
 describe('MultiMathfieldElement', () => {
   beforeEach(() => {
@@ -104,5 +104,20 @@ describe('MultiMathfieldElement', () => {
 
     expect(savedValue).toBe('{"champ1":"42","choix":"B"}')
     expect(target.getValue()).toEqual({ champ1: '42', choix: 'B' })
+  })
+
+  it('rend un contenu statique en sortie LaTeX', () => {
+    setOutputLatex()
+
+    const result = MultiMathfieldElement.create({
+      numeroExercice: 0,
+      questionIndex: 0,
+      dataTemplate: 'a) Calculer $g(1)=$%{champ1}<br>b) Calculer $g(2)=$%{champ2}',
+      dataOptions: {},
+    })
+
+    expect(result).not.toContain('<multi-mathfield')
+    expect(result).toContain('\\begin{enumerate}[label=\\alph*)]')
+    expect(result).toContain('\\item Calculer $g(1)=$')
   })
 })
