@@ -1,4 +1,3 @@
-import { context } from '../../modules/context'
 import { courbe } from '../../lib/2d/Courbe'
 import { repere } from '../../lib/2d/reperes'
 import { segment } from '../../lib/2d/segmentsVecteurs'
@@ -6,6 +5,7 @@ import { latex2d } from '../../lib/2d/textes'
 import { aLeBonNombreDePropsDifferentes } from '../../lib/interactif/qcm'
 import { choice } from '../../lib/outils/arrayOutils'
 import { ecritureAlgebrique, rienSi1 } from '../../lib/outils/ecritures'
+import { context } from '../../modules/context'
 import { mathalea2d } from '../../modules/mathalea2d'
 import { randint } from '../../modules/outils'
 import ExerciceQcmA from '../ExerciceQcmA'
@@ -20,7 +20,7 @@ export const interactifType = 'qcm'
 export const amcReady = 'true'
 export const amcType = 'qcmMono'
 export const titre =
-  "Connaître la représentation graphique d'une fonction affine"
+  "Connaître la représentation graphique d'une fonction constante, linéaire ou affine"
 export const dateDePublication = '17/07/2026'
 //
 /**
