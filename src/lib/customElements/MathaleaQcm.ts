@@ -200,7 +200,7 @@ export class MathaleaQcmElement extends MathaleaCustomElement {
         .join(' ')
 
       const inputId = `checkEx${numeroExercice}Q${questionIndex}R${propositionIndex}`
-      if (format !== 'lettre') {
+      if (format !== 'lettre' && this.interactivityOn) {
         const input = document.createElement('input')
         input.type = radio ? 'radio' : 'checkbox'
         input.name = `checkEx${numeroExercice}Q${questionIndex}`
@@ -215,7 +215,7 @@ export class MathaleaQcmElement extends MathaleaCustomElement {
         propositionContainer.appendChild(input)
       }
 
-      if (format !== 'case') {
+      if (format !== 'case' || !this.interactivityOn) {
         const letterLabel = document.createElement('label')
         letterLabel.className = 'ml-2'
         letterLabel.style.cssText = propositionStyle
@@ -228,8 +228,9 @@ export class MathaleaQcmElement extends MathaleaCustomElement {
       const propositionLabel = document.createElement('label')
       propositionLabel.id = `labelEx${numeroExercice}Q${questionIndex}R${propositionIndex}`
       propositionLabel.className = 'ml-2'
-      propositionLabel.htmlFor = inputId
+      if (this.interactivityOn) propositionLabel.htmlFor = inputId
       propositionLabel.style.cssText = propositionStyle
+      propositionLabel.style.cursor = this.interactivityOn ? '' : 'default'
       propositionLabel.innerHTML = proposition.texte
       propositionContainer.appendChild(propositionLabel)
       propositionContainer.append('\u2003')
@@ -262,6 +263,7 @@ export class MathaleaQcmElement extends MathaleaCustomElement {
   }
 
   protected onInteractivityChanged(isOn: boolean): void {
+    this.render()
     this.querySelectorAll<HTMLInputElement>('input').forEach((input) => {
       if (isOn) input.disabled = false
       input.style.pointerEvents = isOn ? '' : 'none'

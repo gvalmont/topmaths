@@ -1,6 +1,7 @@
 import { colorToLatexOrHTML } from '../../lib/2d/colorToLatexOrHtml'
 import { droite, droiteParPointEtPente } from '../../lib/2d/droites'
 import { fixeBordures } from '../../lib/2d/fixeBordures'
+import type { IDroite } from '../../lib/2d/Interfaces'
 import { penteAffineAnimee } from '../../lib/2d/PenteAffineAnimee'
 import { pointAbstrait } from '../../lib/2d/PointAbstrait'
 import RepereBuilder from '../../lib/2d/RepereBuilder'
@@ -63,7 +64,7 @@ const leSuperFormulaire: FormulaireComplexe = {
         {
           nom: '1',
           label: 'Entier relatif',
-          poids: 1,
+          poids: 0,
         },
         {
           nom: '2',
@@ -109,7 +110,11 @@ export default class ExoCompletAffine extends Exercice {
     if (type === '1') {
       return fraction(randint(-2, 2, 0), 1)
     } else {
-      return fraction(randint(-4, 4, 0), choice([2, 3, 4, 5]))
+      let a: FractionEtendue
+      do {
+        a = fraction(randint(-4, 4, 0), choice([2, 3, 4, 5]))
+      } while (a.estEntiere)
+      return a
     }
   }
   genereAntecedents(type: string): [FractionEtendue, FractionEtendue] {
@@ -243,6 +248,7 @@ export default class ExoCompletAffine extends Exercice {
     const indices = shuffle([1, 2, 3, 4])
     const couleursParDroite: Record<number, string> = {}
     const objets: NestedObjetMathalea2dArray = []
+    const lesDroites: IDroite[] = []
     const d1 = droiteParPointEtPente(
       pointAbstrait(0, b.num / b.den),
       a.num / a.den,
@@ -269,17 +275,17 @@ export default class ExoCompletAffine extends Exercice {
     d4.ordonneeOrigine = a.num / a.den
     for (let i = 0; i < 4; i++) {
       const d = [d1, d2, d3, d4][i]
+      lesDroites.push(d)
       couleursParDroite[indices[i]] = couleursDiscernables[i]
       d.epaisseur = 2
       d.color = colorToLatexOrHTML(couleursDiscernables[i])
-      objets.push(d)
       const a = Number(d.pente)
       const b = Number(d.ordonneeOrigine)
       const nomLatex = `(d_${indices[i]})`
 
-      if (a > 1.5 || a < -1.5) {
+      if (a >= 1.5 || a <= -1.5) {
         objets.push(
-          latex2d(nomLatex, (5 - b) / a + 0.5, 5, {
+          latex2d(nomLatex, (5.5 - b) / a + 0.5, 5.5, {
             color: couleursDiscernables[i],
             letterSize: 'small',
           }),
@@ -287,14 +293,14 @@ export default class ExoCompletAffine extends Exercice {
       } else {
         if (a > 0) {
           objets.push(
-            latex2d(nomLatex, 5, 5 * a + b + 0.5, {
+            latex2d(nomLatex, 3.5, 3.5 * a + b + 0.5, {
               color: couleursDiscernables[i],
               letterSize: 'small',
             }),
           )
         } else {
           objets.push(
-            latex2d(nomLatex, -5, -5 * a + b + 0.5, {
+            latex2d(nomLatex, -3, -3 * a + b + 0.5, {
               color: couleursDiscernables[i],
               letterSize: 'small',
             }),
@@ -323,9 +329,10 @@ export default class ExoCompletAffine extends Exercice {
       graphique: mathalea2d(
         Object.assign(
           { id: figureId, pixelsParCm: 30, scale: 0.8 },
-          fixeBordures(objets),
+          fixeBordures(objets, { rxmin: 0, rxmax: 0, rymin: 0, rymax: 0 }),
         ),
         objets,
+        lesDroites,
       ),
       bonneDroite: indices[0],
       couleursParDroite,
@@ -348,8 +355,14 @@ export default class ExoCompletAffine extends Exercice {
     for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       const typeCoefDir = typesCoefDir[i]
       const typeAntecedent = typesAntecedents[i]
-      const a = this.genereCoefDir(typeCoefDir)
-      const b = fraction(randint(-4, 4, 0), 2)
+      let a: FractionEtendue, b: FractionEtendue
+      do {
+        a = this.genereCoefDir(typeCoefDir)
+        b = fraction(randint(-1, 3, [0, 2]), 2)
+      } while (
+        a.differenceFraction(b).valeurAbsolue().inferieurstrict(0.5) &&
+        ++cpt < 50
+      )
       const [x0, x1] = this.genereAntecedents(typeAntecedent)
       const [y2, y3] = this.genereImages(
         String(Math.max(Number(typeCoefDir), Number(typeAntecedent))),
@@ -406,10 +419,18 @@ export default class ExoCompletAffine extends Exercice {
           formatInteractif: MultiMathfieldElement.elementTag,
           autoCorrection: {
             valeur: {
-              champ1: { value: gx0.texFSD },
-              champ2: { value: gx1.texFSD },
-              champ3: { value: antecedentY2.texFSD },
-              champ4: { value: antecedentY3.texFSD },
+              champ1: {
+                value: gx0.texFSD,
+              },
+              champ2: {
+                value: gx1.texFSD,
+              },
+              champ3: {
+                value: antecedentY2.texFSD,
+              },
+              champ4: {
+                value: antecedentY3.texFSD,
+              },
             },
           },
         },
@@ -446,11 +467,24 @@ export default class ExoCompletAffine extends Exercice {
           `$g(x)=${y2.texFSD}$ pour $x=$%{champ3} et $g(x)=${y3.texFSD}$ pour $x=$%{champ4}.`,
         ].join('<br>'),
         dataOptions: {
-          champ1: { keyboard: KeyboardType.clavierDeBaseAvecFraction },
-          champ2: { keyboard: KeyboardType.clavierDeBaseAvecFraction },
-          champ3: { keyboard: KeyboardType.clavierDeBaseAvecFraction },
-          champ4: { keyboard: KeyboardType.clavierDeBaseAvecFraction },
+          champ1: {
+            keyboard: KeyboardType.clavierDeBaseAvecFraction,
+            ldots: true,
+          },
+          champ2: {
+            keyboard: KeyboardType.clavierDeBaseAvecFraction,
+            ldots: true,
+          },
+          champ3: {
+            keyboard: KeyboardType.clavierDeBaseAvecFraction,
+            ldots: true,
+          },
+          champ4: {
+            keyboard: KeyboardType.clavierDeBaseAvecFraction,
+            ldots: true,
+          },
         },
+        interactivityOn: this.interactif,
       })
       const numeroQcm = withSignTab ? 4 : 3
       const animationLectureAffine =
@@ -483,6 +517,7 @@ export default class ExoCompletAffine extends Exercice {
           questionIndex: i,
           elements,
           contenu: [champsCalculs, champTableau, champQcm].join(''),
+          interactivityOn: this.interactif,
         }),
       ].join('<br>')
       this.listeCorrections[i] = [

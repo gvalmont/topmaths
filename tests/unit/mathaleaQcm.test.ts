@@ -120,18 +120,19 @@ describe('MathaleaQcmElement', () => {
     expect(third.checked).toBe(false)
   })
 
-  it('rend les controles inertes sans perdre la selection', () => {
+  it('respecte le contrat qcmBuilder en non interactif: lettres sans controles', () => {
     const qcm = appendQcm(exercice, { radio: true })
     qcm.value = '[0]'
 
     qcm.interactivityOn = false
 
-    const selected = qcm.querySelector('#checkEx2Q0R0') as HTMLInputElement
-    expect(selected.checked).toBe(true)
-    expect(selected.style.pointerEvents).toBe('none')
-    expect(selected.tabIndex).toBe(-1)
-    expect(selected.getAttribute('aria-disabled')).toBe('true')
-    expect(selected.classList.contains('qcm-locked-checked')).toBe(true)
+    expect(qcm.querySelector('input')).toBeNull()
+    expect(qcm.textContent).toContain('A.')
+    expect(qcm.textContent).toContain('B.')
+    expect(qcm.querySelector('#labelEx2Q0R0')?.getAttribute('for')).toBeNull()
+    expect(
+      (qcm.querySelector('#labelEx2Q0R0') as HTMLLabelElement).style.cursor,
+    ).toBe('default')
   })
 
   it('peut reactiver un QCM cree sans interactivite', () => {
@@ -142,11 +143,12 @@ describe('MathaleaQcmElement', () => {
       interactivityOn: false,
     })
     const qcm = document.querySelector('mathalea-qcm') as MathaleaQcmElement
-    const first = qcm.querySelector('#checkEx2Q0R0') as HTMLInputElement
-    expect(first.disabled).toBe(true)
+    expect(qcm.querySelector('input')).toBeNull()
 
     qcm.interactivityOn = true
 
+    const first = qcm.querySelector('#checkEx2Q0R0') as HTMLInputElement
+    expect(first).not.toBeNull()
     expect(first.disabled).toBe(false)
     expect(first.style.pointerEvents).toBe('')
     expect(first.tabIndex).toBe(0)

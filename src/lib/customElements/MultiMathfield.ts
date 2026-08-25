@@ -103,6 +103,7 @@ export type MultiMathfieldOptions = {
 export type MultiMathfieldCreateOptions = MultiMathfieldOptions & {
   numeroExercice?: number
   questionIndex?: number
+  interactivityOn?: boolean
 }
 
 type MultiMathfieldAnswers = Record<string, string>
@@ -324,8 +325,9 @@ export class MultiMathfieldElement extends MathaleaCustomElement {
     questionIndex,
     dataTemplate,
     dataOptions,
+    interactivityOn = true,
   }: MultiMathfieldCreateOptions): string {
-    if (!context.isHtml || context.isTypst) {
+    if (!context.isHtml || context.isTypst || !interactivityOn) {
       const output = context.isHtml ? 'html' : 'latex'
       const rendered = this.renderStaticTemplate(
         dataTemplate,
@@ -366,7 +368,9 @@ export class MultiMathfieldElement extends MathaleaCustomElement {
     labelPrefix = 'labelEx0Q0R',
     firstLabelIndex = 0,
   ): string {
-    const filteredChoices = choices.filter((choice) => choiceValue(choice) !== '')
+    const filteredChoices = choices.filter(
+      (choice) => choiceValue(choice) !== '',
+    )
     if (output === 'latex') {
       const finalCols = vertical ? 1 : Math.max(filteredChoices.length, 1)
       const contenuTasks = filteredChoices
@@ -378,7 +382,7 @@ export class MultiMathfieldElement extends MathaleaCustomElement {
     const items = filteredChoices.map(
       (choice, index) =>
         `<div class="ex0 ${vertical ? '' : 'inline-block'} my-2 align-center"><input type="radio" disabled style="appearance:none; -webkit-appearance:none; opacity:1; height:1rem; width:1rem; border:1.5px solid currentColor; border-radius:50%; background:transparent; vertical-align:middle;" class="disabled:cursor-default"><label id="${labelPrefix}${firstLabelIndex + index}" class="ml-2">${choiceHtml(choice)}</label></div>`,
-      )
+    )
     return `<span class="mx-2 inline-block">${items.join('')}</span>`
   }
 
@@ -386,9 +390,8 @@ export class MultiMathfieldElement extends MathaleaCustomElement {
     dataTemplate: string,
     dataOptions: DataOptionsMultiMathfield,
     output: 'html' | 'latex' = 'html',
-    freeFieldPlaceholder: (
-      fieldOptions: MultiMathfieldOption,
-    ) => string = () => ' ... ',
+    freeFieldPlaceholder: (fieldOptions: MultiMathfieldOption) => string = () =>
+      ' ... ',
     qcmLabelPrefix = 'labelEx0Q0R',
   ): string {
     const template = dataTemplate.replaceAll('<br>', '\n')
@@ -467,10 +470,9 @@ export class MultiMathfieldElement extends MathaleaCustomElement {
               decodeURIComponent(decodeHtmlAttribute(optionsMatch[1])),
             )
           } catch (error) {
-            window.notify(
-              'Erreur lors du rendu statique du multi-mathfield.',
-              { error },
-            )
+            window.notify('Erreur lors du rendu statique du multi-mathfield.', {
+              error,
+            })
           }
         }
         return this.renderStaticTemplate(dataTemplate, dataOptions)
@@ -481,6 +483,10 @@ export class MultiMathfieldElement extends MathaleaCustomElement {
   connectedCallback() {
     this.hydrateCommonAttributes()
     this.render()
+  }
+
+  protected onInteractivityChanged(_isOn: boolean): void {
+    if (this.isConnected) this.render()
   }
 
   /**
@@ -564,6 +570,19 @@ export class MultiMathfieldElement extends MathaleaCustomElement {
         e,
       )
       throw e
+    }
+    if (!this.interactivityOn) {
+      this.contentHost.innerHTML = MultiMathfieldElement.renderStaticTemplate(
+        template,
+        options,
+        'html',
+        (fieldOptions) => {
+          if (!fieldOptions.ldots) return ''
+          return ' ... '
+        },
+        `labelEx${this.getAttribute('numero-exercice') ?? 0}Q${this.getAttribute('question-index') ?? 0}R`,
+      )
+      return
     }
     const champNames: string[] = []
     // On extrait les noms de champs pour gérer la navigation au clavier
