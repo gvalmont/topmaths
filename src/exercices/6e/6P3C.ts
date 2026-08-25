@@ -516,7 +516,9 @@ function questionDistance(exo: Exercice, i: number): QuestionReturn {
             `${texNombre(distance)}${sp()}$\\text{km}$ $\\times $ ${miseEnEvidence(texNombre(dureeR / dureeQ))} = ${texNombre(distance * dureeR / dureeQ)}${sp()}$\\text{km}$.<br>` +
     `Conclusion : Le ${liste[alea1].locomotion} parcourra ${miseEnEvidence(texNombre(distance * dureeR / dureeQ))}${sp()}$\\text{km}$ à la même vitesse en ${dureeR} heures.`
     if (!context.isAmc) {
-      setReponse(exo, i, (distance * dureeR / dureeQ).toFixed(3))
+      handleAnswers(exo, i, {
+        reponse: { value: (distance * dureeR / dureeQ).toFixed(3) },
+      })
     } else {
       exo.autoCorrection[i] = {
         enonce: '',
