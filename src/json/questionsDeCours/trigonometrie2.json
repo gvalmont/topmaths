@@ -103,20 +103,20 @@
           "level": "1",
           "id": "trig11",
           "title": "Valeur de $\\cos\\left(\\frac{3\\pi}{2}\\right)$",
-          "question": "Compléter : $\\cos\\left(3\\frac{\\pi}{2}\\right)=\\ldots$",
+          "question": "Compléter : $\\cos\\left(\\frac{3\\pi}{2}\\right)=\\ldots$",
           "answer": "$0$",
           "keys": ["\\pi", "\\sqrt{#1}"],
-          "correction": "La valeur de $\\cos\\left(3\\frac{\\pi}{2}\\right)$ est $0$."
+          "correction": "La valeur de $\\cos\\left(\\frac{3\\pi}{2}\\right)$ est $0$."
         },
         {
           "themes": "Trigonométrie (valeurs remarquables cosinus et sinus)",
           "level": "1",
           "id": "trig12",
           "title": "Valeur de $\\sin\\left(\\frac{3\\pi}{2}\\right)$",
-          "question": "Compléter : $\\sin\\left(3\\frac{\\pi}{2}\\right)=\\ldots$",
+          "question": "Compléter : $\\sin\\left(\\frac{3\\pi}{2}\\right)=\\ldots$",
           "answer": "$-1$",
           "keys": ["\\pi", "\\sqrt{#1}"],
-          "correction": "La valeur de $\\sin\\left(3\\frac{\\pi}{2}\\right)$ est $-1$."
+          "correction": "La valeur de $\\sin\\left(\\frac{3\\pi}{2}\\right)$ est $-1$."
         },
         {
           "themes": "Trigonométrie (valeurs remarquables cosinus et sinus)",
