@@ -82,7 +82,7 @@ export default class FactoriserAvecFacteurCommun extends Exercice {
       let a = randint(-6, 6, 0)
       let b = randint(-9, 9, 0)
       let c = randint(-6, 6, [0, a])
-      let d = randint(-9, 9, [0, b])
+      const d = randint(-9, 9, [0, b])
       let e = randint(-6, 6, [0, a, c])
       let f = randint(-9, 9, [0, b, d])
 
