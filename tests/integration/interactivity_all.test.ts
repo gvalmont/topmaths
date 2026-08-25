@@ -425,7 +425,8 @@ for (const [dir, entries] of grouped) {
             }
 
             // Stratégie 4 : le passage AMC doit conserver exhaustivement les
-            // questions, propositions et statuts des QCM générés en HTML.
+            // questions, propositions et statuts des QCM générés en HTML ou
+            // construits uniquement pendant la passe AMC.
             const isQcmItem = (
               item: (typeof exercice.autoCorrection)[number],
             ) =>
@@ -435,8 +436,11 @@ for (const [dir, entries] of grouped) {
                 (proposition) => typeof proposition.statut === 'boolean',
               )
             const qcmItems = exercice.autoCorrection.filter(isQcmItem)
-            if (qcmItems.length > 0) {
-              const htmlAmcType = exercice.amcType
+            const htmlAmcType = exercice.amcType
+            const declaresNativeQcm = ['qcmMono', 'qcmMult'].includes(
+              String(htmlAmcType),
+            )
+            if (qcmItems.length > 0 || declaresNativeQcm) {
               const interactiveAutoCorrection = exercice.autoCorrection.map(
                 (item) => ({
                   ...item,
@@ -450,6 +454,7 @@ for (const [dir, entries] of grouped) {
               const originalIsHtml = context.isHtml
               const originalIsAmc = context.isAmc
               const originalInteractif = exercice.interactif
+              let generatedAmcQcmItems: typeof qcmItems = []
               try {
                 // Même pipeline que la page AMC : après la capture interactive,
                 // une passe HTML non interactive prépare l'énoncé papier avant
@@ -457,6 +462,7 @@ for (const [dir, entries] of grouped) {
                 context.isHtml = true
                 context.isAmc = false
                 exercice.interactif = false
+                ;(exercice as any).lastCallback = ''
                 seedrandom(seed, { global: true })
                 if (exercice.typeExercice === 'simple') {
                   mathaleaHandleExerciceSimple(exercice, false)
@@ -471,6 +477,7 @@ for (const [dir, entries] of grouped) {
                 context.isHtml = false
                 context.isAmc = true
                 exercice.interactif = false
+                ;(exercice as any).lastCallback = ''
                 seedrandom(seed, { global: true })
                 if (exercice.typeExercice === 'simple') {
                   mathaleaHandleExerciceSimple(exercice, false)
@@ -480,6 +487,15 @@ for (const [dir, entries] of grouped) {
                   exercice.nouvelleVersionWrapper()
                 } else {
                   exercice.nouvelleVersion(exercice.numeroExercice)
+                }
+                generatedAmcQcmItems = exercice.autoCorrection.filter(isQcmItem)
+                if (
+                  generatedAmcQcmItems.length === 0 &&
+                  Array.isArray(exercice.autoCorrectionAMC)
+                ) {
+                  generatedAmcQcmItems = exercice.autoCorrectionAMC.filter(
+                    (item) => isQcmItem(item as any),
+                  ) as typeof qcmItems
                 }
                 mathaleaEnsureAMCCompatibility(exercice)
               } finally {
@@ -500,6 +516,8 @@ for (const [dir, entries] of grouped) {
                   : ['qcmMono', 'qcmMult'].includes(String(exercice.amcType))
                     ? (exercice.autoCorrectionAMC ?? [])
                     : []
+              const expectedQcmItems =
+                qcmItems.length > 0 ? qcmItems : generatedAmcQcmItems
               const explicitlyExpectedQcm = ['qcmMono', 'qcmMult'].includes(
                 String(htmlAmcType),
               )
@@ -519,14 +537,24 @@ for (const [dir, entries] of grouped) {
                   `${url} : QCM — la passe AMC aboutit à ${String(exercice.amcType)} et perd un QCM attendu.`,
                 )
               } else if (mustPreserveQcm) {
-                if (exportedQcmBlocks.length !== qcmItems.length) {
+                if (expectedQcmItems.length === 0) {
                   failures.push(
-                    `${url} : QCM — ${qcmItems.length} bloc(s) QCM interactif(s), mais ${exportedQcmBlocks.length} bloc(s) exporté(s) vers AMC.`,
+                    `${url} : QCM — le type natif ${String(htmlAmcType)} ne produit aucune proposition pendant la passe AMC.`,
+                  )
+                } else if (
+                  exportedQcmBlocks.length !== expectedQcmItems.length
+                ) {
+                  failures.push(
+                    `${url} : QCM — ${expectedQcmItems.length} bloc(s) QCM attendu(s), mais ${exportedQcmBlocks.length} bloc(s) exporté(s) vers AMC.`,
                   )
                 }
-                for (let qcmIndex = 0; qcmIndex < qcmItems.length; qcmIndex++) {
+                for (
+                  let qcmIndex = 0;
+                  qcmIndex < expectedQcmItems.length;
+                  qcmIndex++
+                ) {
                   const sourcePropositions =
-                    qcmItems[qcmIndex]?.propositions ?? []
+                    expectedQcmItems[qcmIndex]?.propositions ?? []
                   const exportedPropositions =
                     exportedQcmBlocks[qcmIndex]?.propositions ?? []
                   const sourceStatuses = sourcePropositions.map((proposition) =>

@@ -10,6 +10,52 @@ import {
 import { normalizeAMCNumBlocks } from './amcNormalize'
 import type { AMCReponseValue, IExerciceAMC, ReponseParams } from './amcTypes'
 
+function hasIndependentFieldScoring(
+  bareme: unknown,
+  fieldCount: number,
+): boolean {
+  if (bareme == null) return true
+  if (typeof bareme !== 'function' || fieldCount < 1 || fieldCount > 12) {
+    return false
+  }
+
+  try {
+    const combinationCount = 2 ** fieldCount
+    for (let mask = 0; mask < combinationCount; mask++) {
+      const points = Array.from({ length: fieldCount }, (_, index) =>
+        mask & (1 << index) ? 1 : 0,
+      )
+      const result = bareme([...points])
+      if (
+        !Array.isArray(result) ||
+        result.length !== 2 ||
+        result[0] !== points.reduce((sum, point) => sum + point, 0) ||
+        result[1] !== fieldCount
+      ) {
+        return false
+      }
+    }
+    return true
+  } catch {
+    return false
+  }
+}
+
+function getAMCFieldLabel(fieldKey: string, fallbackIndex: number): string {
+  const tableCell = fieldKey.match(/^L(\d+)C(\d+)$/i)
+  if (tableCell != null) {
+    return `Ligne ${tableCell[1]}, colonne ${tableCell[2]}`
+  }
+
+  const numberedField = fieldKey.match(/^(?:champ|field|rectangle)(\d+)$/i)
+  if (numberedField != null) {
+    const number = Number(numberedField[1])
+    return `Réponse ${fieldKey.toLowerCase().startsWith('field') ? number + 1 : number}`
+  }
+
+  return `Réponse ${fallbackIndex + 1}`
+}
+
 /**
  * Applique une compatibilité AMC par défaut quand un exercice n'est pas paramétré finement.
  * Cette fonction privilégie un export possible (fallback AMCOpen) plutôt qu'un rejet.
@@ -38,10 +84,9 @@ export function mathaleaEnsureAMCCompatibility(
   const amcAutoCorrection = Array.isArray(exerciseAny.autoCorrectionAMC)
     ? exerciseAny.autoCorrectionAMC
     : []
-  const autoCorrectionSource: AutoCorrection[] =
-    interactiveAutoCorrection.length > 0
-      ? interactiveAutoCorrection
-      : exercice.autoCorrection
+  const generatedAutoCorrection = Array.isArray(exercice.autoCorrection)
+    ? exercice.autoCorrection
+    : []
   const statementQuestionCount = Math.max(
     exercice.listeQuestions.length,
     exercice.question != null ? 1 : 0,
@@ -70,6 +115,26 @@ export function mathaleaEnsureAMCCompatibility(
       (proposition) => typeof proposition.statut === 'boolean',
     )
   }
+
+  // La passe AMC de certains exercices historiques (notamment des listes
+  // déroulantes) fabrique un QCM qui n'existait pas dans le snapshot HTML
+  // interactif. Ce QCM explicite prime ; pour les autres formats, le snapshot
+  // interactif reste la source la plus riche en comparateurs et options.
+  const sourceLength = Math.max(
+    interactiveAutoCorrection.length,
+    generatedAutoCorrection.length,
+    amcAutoCorrection.length,
+  )
+  const autoCorrectionSource: AutoCorrection[] = Array.from(
+    { length: sourceLength },
+    (_, index) => {
+      const generated = generatedAutoCorrection[index]
+      const amcGenerated = amcAutoCorrection[index]
+      if (isQcmItem(generated)) return generated
+      if (isQcmItem(amcGenerated)) return amcGenerated as AutoCorrection
+      return interactiveAutoCorrection[index] ?? generated ?? amcGenerated
+    },
+  )
 
   const applyQcmInference = (): boolean => {
     if (
@@ -361,75 +426,83 @@ export function mathaleaEnsureAMCCompatibility(
       | undefined
     if (values == null || typeof values !== 'object') return []
 
-    return Object.entries(values)
-      .filter(([key]) => !['bareme', 'feedback', 'callback'].includes(key))
-      .map(([key, answer]) => {
-        const answerRecord =
-          answer != null && typeof answer === 'object'
-            ? (answer as {
-                value?: unknown
-                compare?: unknown
-                options?: Record<string, unknown>
-              })
-            : undefined
-        const activeComparisonOptions = Object.entries(
-          answerRecord?.options ?? {},
-        )
-          .filter(([, value]) => value !== false && value != null)
-          .map(([key]) => key)
-        const supportedComparisonOptions = new Set([
-          'noFeedback',
-          'nombreDecimalSeulement',
-          'fractionEgale',
-          'fractionIrreductible',
-          'ecritureScientifique',
-        ])
-        const usesEquivalentFractionComparison =
-          activeComparisonOptions.includes('fractionEgale') &&
-          !activeComparisonOptions.includes('fractionIrreductible')
-        const scientificNotation = activeComparisonOptions.includes(
-          'ecritureScientifique',
-        )
-          ? inferScientificNotationForAMC(answerRecord?.value)
+    const fieldEntries = Object.entries(values).filter(
+      ([key]) => !['bareme', 'feedback', 'callback'].includes(key),
+    )
+    if (
+      typeof values.callback === 'function' ||
+      !hasIndependentFieldScoring(values.bareme, fieldEntries.length)
+    ) {
+      return []
+    }
+
+    return fieldEntries.map(([key, answer]) => {
+      const answerRecord =
+        answer != null && typeof answer === 'object'
+          ? (answer as {
+              value?: unknown
+              compare?: unknown
+              options?: Record<string, unknown>
+            })
           : undefined
-        const inferredValue = activeComparisonOptions.includes(
-          'ecritureScientifique',
-        )
-          ? scientificNotation?.valeur
-          : inferNumericValueForAMC(extractAMCValue(answer))
-        // Une fraction équivalente non entière ne peut pas être reproduite par
-        // une grille AMC : celle-ci impose un numérateur et un dénominateur
-        // précis, tandis que fonctionComparaison accepte tous leurs multiples.
-        // Le cas entier reste fidèle et corrige notamment 100/25 -> 4.
-        const hasRepresentableFractionSemantics =
-          !usesEquivalentFractionComparison ||
-          (typeof inferredValue === 'number' && Number.isInteger(inferredValue))
-        const hasSupportedComparison =
-          (answerRecord?.compare == null ||
-            answerRecord.compare === fonctionComparaison) &&
-          activeComparisonOptions.every((key) =>
-            supportedComparisonOptions.has(key),
-          ) &&
-          hasRepresentableFractionSemantics
-        const valeur = hasSupportedComparison ? inferredValue : undefined
-        const answerOptions =
-          answerRecord?.options != null
-            ? (answerRecord.options as ReponseParams)
-            : undefined
-        const explicitParam = mergeNumericParamsFromOptions(
-          item.options,
-          answerOptions,
-        )
-        const param = {
-          ...(scientificNotation?.param ?? {}),
-          ...explicitParam,
-        }
-        return {
-          key,
-          valeur,
-          param,
-        }
-      })
+      const activeComparisonOptions = Object.entries(
+        answerRecord?.options ?? {},
+      )
+        .filter(([, value]) => value !== false && value != null)
+        .map(([key]) => key)
+      const supportedComparisonOptions = new Set([
+        'noFeedback',
+        'nombreDecimalSeulement',
+        'fractionEgale',
+        'fractionIrreductible',
+        'ecritureScientifique',
+      ])
+      const usesEquivalentFractionComparison =
+        activeComparisonOptions.includes('fractionEgale') &&
+        !activeComparisonOptions.includes('fractionIrreductible')
+      const scientificNotation = activeComparisonOptions.includes(
+        'ecritureScientifique',
+      )
+        ? inferScientificNotationForAMC(answerRecord?.value)
+        : undefined
+      const inferredValue = activeComparisonOptions.includes(
+        'ecritureScientifique',
+      )
+        ? scientificNotation?.valeur
+        : inferNumericValueForAMC(extractAMCValue(answer))
+      // Une fraction équivalente non entière ne peut pas être reproduite par
+      // une grille AMC : celle-ci impose un numérateur et un dénominateur
+      // précis, tandis que fonctionComparaison accepte tous leurs multiples.
+      // Le cas entier reste fidèle et corrige notamment 100/25 -> 4.
+      const hasRepresentableFractionSemantics =
+        !usesEquivalentFractionComparison ||
+        (typeof inferredValue === 'number' && Number.isInteger(inferredValue))
+      const hasSupportedComparison =
+        (answerRecord?.compare == null ||
+          answerRecord.compare === fonctionComparaison) &&
+        activeComparisonOptions.every((key) =>
+          supportedComparisonOptions.has(key),
+        ) &&
+        hasRepresentableFractionSemantics
+      const valeur = hasSupportedComparison ? inferredValue : undefined
+      const answerOptions =
+        answerRecord?.options != null
+          ? (answerRecord.options as ReponseParams)
+          : undefined
+      const explicitParam = mergeNumericParamsFromOptions(
+        item.options,
+        answerOptions,
+      )
+      const param = {
+        ...(scientificNotation?.param ?? {}),
+        ...explicitParam,
+      }
+      return {
+        key,
+        valeur,
+        param,
+      }
+    })
   }
 
   // Plusieurs champs numériques indépendants se traduisent fidèlement en
@@ -496,7 +569,7 @@ export function mathaleaEnsureAMCCompatibility(
                         ? (exercice.listeCorrections[statementIndex] ?? '')
                         : '',
                     reponse: {
-                      texte: `Réponse ${offset + fieldIndex + 1}`,
+                      texte: getAMCFieldLabel(field.key, offset + fieldIndex),
                       valeur: field.valeur,
                       param: field.param,
                     },
@@ -536,7 +609,7 @@ export function mathaleaEnsureAMCCompatibility(
                 ? (exercice.listeCorrections[index] ?? '')
                 : '',
             reponse: {
-              texte: `Réponse ${fieldIndex + 1}`,
+              texte: getAMCFieldLabel(field.key, fieldIndex),
               valeur: field.valeur,
               param: field.param,
             },

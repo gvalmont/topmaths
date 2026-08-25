@@ -52,6 +52,23 @@ Une réponse contenant plusieurs valeurs acceptées ne doit pas être réduite
 arbitrairement à la première valeur : elle bascule en `AMCOpen` tant qu'une
 représentation AMC équivalente n'est pas démontrée.
 
+Une liste déroulante ordinaire ne conserve que la bonne valeur dans
+`autoCorrection` et reste donc en `AMCOpen` : les distracteurs ne doivent pas
+être inventés. En revanche, lorsqu'un exercice appelle explicitement
+`listeDeroulanteToQcm()` pendant sa passe AMC, les propositions booléennes ainsi
+produites priment sur le snapshot interactif et sont conservées comme
+`qcmMono`/`qcmMult`. L'audit QCM couvre aussi ces QCM tardifs, absents de la
+passe HTML interactive.
+
+Pour un format multichamp, l'indépendance est également vérifiée au niveau de
+la question. Un `callback` global conduit à `AMCOpen`. Un barème explicite reste
+compatible seulement si sa table de vérité, sur toutes les combinaisons de
+champs justes ou faux, est identique au barème indépendant (somme des points sur
+le nombre de champs) ; un barème « tout juste ou zéro » ne peut pas être inféré
+en plusieurs grilles AMC. Les grilles issues d'un tableau sont libellées par
+leurs coordonnées (« Ligne 2, colonne 3 ») afin de rester associables à la
+cellule demandée sur papier.
+
 Pour les champs mathématiques, le format ne suffit pas à autoriser `AMCNum`.
 L'inférence relit aussi chaque réponse enregistrée par `handleAnswers()` :
 
