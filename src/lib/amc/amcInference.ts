@@ -8,7 +8,12 @@ import {
   mergeNumericParamsFromOptions,
 } from './amcInferenceHelpers'
 import { normalizeAMCNumBlocks } from './amcNormalize'
-import type { AMCReponseValue, IExerciceAMC, ReponseParams } from './amcTypes'
+import type {
+  AMCReponseValue,
+  AMCUneProposition,
+  IExerciceAMC,
+  ReponseParams,
+} from './amcTypes'
 
 function hasIndependentFieldScoring(
   bareme: unknown,
@@ -22,7 +27,7 @@ function hasIndependentFieldScoring(
   try {
     const combinationCount = 2 ** fieldCount
     for (let mask = 0; mask < combinationCount; mask++) {
-      const points = Array.from({ length: fieldCount }, (_, index) =>
+      const points: number[] = Array.from({ length: fieldCount }, (_, index) =>
         mask & (1 << index) ? 1 : 0,
       )
       const result = bareme([...points])
@@ -537,7 +542,7 @@ export function mathaleaEnsureAMCCompatibility(
         const firstItemIndex = statementIndex * blocksPerStatement
         const propositions = autoCorrectionSource
           .slice(firstItemIndex, firstItemIndex + blocksPerStatement)
-          .flatMap((item, offset) => {
+          .flatMap<AMCUneProposition>((item, offset) => {
             const itemIndex = firstItemIndex + offset
             if (isQcmItem(item)) {
               const qcmPropositions = item?.propositions ?? []
@@ -552,8 +557,8 @@ export function mathaleaEnsureAMCCompatibility(
                   propositions: qcmPropositions.map((proposition) => ({
                     ...proposition,
                     statut: Boolean(proposition.statut),
-                  })),
-                  options: item?.options,
+                  })) as AMCUneProposition['propositions'],
+                  options: item?.options as AMCUneProposition['options'],
                 },
               ]
             }
