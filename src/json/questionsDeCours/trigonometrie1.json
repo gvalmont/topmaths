@@ -46,7 +46,7 @@
       "level": "1",
       "id": "tri5",
       "title": "Cercle trigonométrique",
-      "question": "A quelle mesure d'angle en degrés correspond $2\\pi$ radians ?",
+      "question": "À quelle mesure d'angle en degrés correspond $2\\pi$ radians ?",
       "answer": ["360", "360^\\circ"],
      
       "correction": "Un angle de $2\\pi$ radians correspond à 360 degrés. En effet, la conversion entre radians et degrés est donnée par la relation $180^\\circ = \\pi$ radians, donc $2\\pi$ radians équivaut à $2 \\times 180^\\circ = 360^\\circ$."
@@ -80,7 +80,7 @@
        "type":"qcm",
       "title": "Cercle trigonométrique",
       "question": "Sur le cercle trogonométrique, on lit le $\\cos(x)$ sur l'axe des...",
-      "propositions": ["abscisses", "ordonnées"],
+      "propositions": ["abscisses", "ordonnées", "côtes"],
         "answer": "abscisses",
      
       "correction": "Sur le cercle trigonométrique, le cosinus d'un angle $x$ est représenté par la coordonnée sur l'axe des abscisses (l'axe horizontal), tandis que le sinus est représenté par la coordonnée sur l'axe des ordonnées (l'axe vertical)."
@@ -92,7 +92,7 @@
       "title": "Cercle trigonométrique",
        "type":"qcm",
       "question": "Sur le cercle trigonométrique, on lit le $\\sin(x)$ sur l'axe des...",
-      "propositions": ["abscisses", "ordonnées"],
+      "propositions": ["abscisses", "ordonnées", "côtes"],
         "answer": "ordonnées",
      
       "correction": "Sur le cercle trigonométrique, le sinus d'un angle $x$ est représenté par la coordonnée sur l'axe des ordonnées (l'axe vertical), tandis que le cosinus est représenté par la coordonnée sur l'axe des abscisses (l'axe horizontal)."
