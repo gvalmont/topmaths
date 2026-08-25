@@ -1,17 +1,22 @@
 import { colorToLatexOrHTML } from '../../lib/2d/colorToLatexOrHtml'
 import { droite, droiteParPointEtPente } from '../../lib/2d/droites'
 import { fixeBordures } from '../../lib/2d/fixeBordures'
+import { penteAffineAnimee } from '../../lib/2d/PenteAffineAnimee'
 import { pointAbstrait } from '../../lib/2d/PointAbstrait'
 import RepereBuilder from '../../lib/2d/RepereBuilder'
 import { latex2d } from '../../lib/2d/textes'
-import { orangeMathalea, vertMathalea } from '../../lib/colors'
+import { bleuMathalea, orangeMathalea, vertMathalea } from '../../lib/colors'
 import {
   MathaleaCouteauSuisseElement,
   type MathaleaCouteauSuisseChild,
 } from '../../lib/customElements/MathaleaCouteauSuisse'
 import { MathaleaQcmElement } from '../../lib/customElements/MathaleaQcm'
 import { MultiMathfieldElement } from '../../lib/customElements/MultiMathfield'
-import { TableauSignesVariationsElement } from '../../lib/customElements/TableauSignesVariationsElement'
+import {
+  addTableauSignesVariations,
+  TableauSignesVariationsElement,
+} from '../../lib/customElements/TableauSignesVariationsElement'
+import { deuxColonnesResp } from '../../lib/format/miseEnPage'
 import {
   lireFormulaireComplexe,
   serialiseFormulaireComplexe,
@@ -21,8 +26,13 @@ import {
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 import type { TableauSVConfig } from '../../lib/interactif/tableauSignesVariations/types'
 import { choice, shuffle } from '../../lib/outils/arrayOutils'
-import { texteGras } from '../../lib/outils/embellissements'
+import {
+  miseEnEvidence,
+  texteEnCouleurEtGras,
+} from '../../lib/outils/embellissements'
+import { lettreMinusculeDepuisChiffre, sp } from '../../lib/outils/outilString'
 import type { InteractivityType } from '../../lib/types'
+import { context } from '../../modules/context'
 import type FractionEtendue from '../../modules/FractionEtendue'
 import { fraction } from '../../modules/fractions'
 import { mathalea2d } from '../../modules/mathalea2d'
@@ -80,13 +90,19 @@ const leSuperFormulaire: FormulaireComplexe = {
   ],
 }
 export default class ExoCompletAffine extends Exercice {
+  withSignTab: boolean = true
+  get formulaireComplexe(): FormulaireComplexe {
+    return leSuperFormulaire
+  }
+
   constructor() {
     super()
     this.nbQuestions = 1
-    this.besoinFormulaireComplexe = leSuperFormulaire
+    this.spacing = 2
+    this.besoinFormulaireComplexe = this.formulaireComplexe
     this.sup = serialiseFormulaireComplexe(
-      leSuperFormulaire,
-      valeursParDefaut(leSuperFormulaire),
+      this.formulaireComplexe,
+      valeursParDefaut(this.formulaireComplexe),
     )
   }
   genereCoefDir(type: string): FractionEtendue {
@@ -142,8 +158,17 @@ export default class ExoCompletAffine extends Exercice {
     return signeA * (estAvantZero ? -1 : 1) > 0 ? '+' : '-'
   }
 
+  commandeCouleurTexte(couleur: string): string {
+    if (context.isHtml || !couleur.startsWith('#')) {
+      return `\\color{${couleur}}`
+    }
+    return `\\color[HTML]{${couleur.slice(1)}}`
+  }
+
   configTableauSignes(a: FractionEtendue, b: FractionEtendue): TableauSVConfig {
     const zero = b.oppose().diviseFraction(a).simplifie().texFSD
+    const signeAvantZero = this.signeSurIntervalle(a, true)
+    const signeApresZero = this.signeSurIntervalle(a, false)
     return {
       variableName: 'x',
       colonnes: [
@@ -160,14 +185,44 @@ export default class ExoCompletAffine extends Exercice {
             {
               symbole: '',
               editable: true,
-              expected: this.signeSurIntervalle(a, true),
+              expected: signeAvantZero,
             },
             { symbole: '|0' },
             {
               symbole: '',
               editable: true,
-              expected: this.signeSurIntervalle(a, false),
+              expected: signeApresZero,
             },
+            { symbole: '' },
+          ],
+        },
+      ],
+    }
+  }
+
+  configTableauSignesCorrige(
+    a: FractionEtendue,
+    b: FractionEtendue,
+  ): TableauSVConfig {
+    const zero = b.oppose().diviseFraction(a).simplifie().texFSD
+    const signeAvantZero = this.signeSurIntervalle(a, true)
+    const signeApresZero = this.signeSurIntervalle(a, false)
+    return {
+      variableName: 'x',
+      colonnes: [
+        { valeur: '-\\infty' },
+        { valeur: zero, highlight: true },
+        { valeur: '+\\infty' },
+      ],
+      lignes: [
+        {
+          type: 'signe',
+          label: 'g(x)',
+          cellules: [
+            { symbole: '' },
+            { symbole: signeAvantZero, highlight: true },
+            { symbole: '|0' },
+            { symbole: signeApresZero, highlight: true },
             { symbole: '' },
           ],
         },
@@ -178,9 +233,15 @@ export default class ExoCompletAffine extends Exercice {
   genereGraphique(
     a: FractionEtendue,
     b: FractionEtendue,
-  ): { graphique: string; bonneDroite: number } {
+    figureId?: string,
+  ): {
+    graphique: string
+    bonneDroite: number
+    couleursParDroite: Record<number, string>
+  } {
     const couleursDiscernables = [orangeMathalea, vertMathalea, 'gray', 'brown']
     const indices = shuffle([1, 2, 3, 4])
+    const couleursParDroite: Record<number, string> = {}
     const objets: NestedObjetMathalea2dArray = []
     const d1 = droiteParPointEtPente(
       pointAbstrait(0, b.num / b.den),
@@ -208,12 +269,13 @@ export default class ExoCompletAffine extends Exercice {
     d4.ordonneeOrigine = a.num / a.den
     for (let i = 0; i < 4; i++) {
       const d = [d1, d2, d3, d4][i]
+      couleursParDroite[indices[i]] = couleursDiscernables[i]
       d.epaisseur = 2
       d.color = colorToLatexOrHTML(couleursDiscernables[i])
       objets.push(d)
       const a = Number(d.pente)
       const b = Number(d.ordonneeOrigine)
-      const nomLatex = `d_${indices[i]}`
+      const nomLatex = `(d_${indices[i]})`
 
       if (a > 1.5 || a < -1.5) {
         objets.push(
@@ -259,10 +321,14 @@ export default class ExoCompletAffine extends Exercice {
     objets.push(rep)
     return {
       graphique: mathalea2d(
-        Object.assign({ pixelsParCm: 30, scale: 0.8 }, fixeBordures(objets)),
+        Object.assign(
+          { id: figureId, pixelsParCm: 30, scale: 0.8 },
+          fixeBordures(objets),
+        ),
         objets,
       ),
       bonneDroite: indices[0],
+      couleursParDroite,
     }
   }
 
@@ -271,13 +337,13 @@ export default class ExoCompletAffine extends Exercice {
   }
 
   nouvelleVersion() {
-    const params = lireFormulaireComplexe(leSuperFormulaire, this.sup)
+    const params = lireFormulaireComplexe(this.formulaireComplexe, this.sup)
     const typesCoefDir = params.repartition('typeCoefDir', this.nbQuestions)
     const typesAntecedents = params.repartition(
       'typeAntecedent',
       this.nbQuestions,
     )
-    const withSignTab = params.case('withSignTab')
+    const withSignTab = this.withSignTab && params.case('withSignTab')
 
     for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       const typeCoefDir = typesCoefDir[i]
@@ -292,11 +358,47 @@ export default class ExoCompletAffine extends Exercice {
       const gx1 = this.image(a, b, x1)
       const antecedentY2 = this.antecedent(a, b, y2)
       const antecedentY3 = this.antecedent(a, b, y3)
-      const { graphique, bonneDroite } = this.genereGraphique(a, b)
+      const figureId = `lectureAffineEx${this.numeroExercice ?? 0}Q${i}`
+      const { graphique, bonneDroite, couleursParDroite } =
+        this.genereGraphique(a, b, figureId)
       const tableauSignes = this.configTableauSignes(a, b)
+      const tableauSignesCorrige = this.configTableauSignesCorrige(a, b)
       const zero = b.oppose().diviseFraction(a).simplifie().texFSD
+      const addTableauSignesPourCouteauSuisse = (
+        config: TableauSVConfig,
+        interactivityOn: boolean,
+      ) => {
+        const autoCorrectionPrecedente = this.autoCorrection[i]
+        const html = addTableauSignesVariations(this, i, {
+          config,
+          interactivityOn,
+        })
+        const autoCorrection = this.autoCorrection[i]
+        if (autoCorrectionPrecedente == null) {
+          delete this.autoCorrection[i]
+        } else {
+          this.autoCorrection[i] = autoCorrectionPrecedente
+        }
+        return { html, autoCorrection }
+      }
+      const tableauSignesQuestion = withSignTab
+        ? addTableauSignesPourCouteauSuisse(tableauSignes, this.interactif)
+        : undefined
+      const champTableau = withSignTab
+        ? [
+            `<br>${sp(4)}${texteEnCouleurEtGras('c)', bleuMathalea)} Dresser le tableau de signes de $g$.<br>`,
+            tableauSignesQuestion?.html ?? '',
+          ].join('')
+        : ''
+      const tableauSignesAutoCorrection = tableauSignesQuestion?.autoCorrection
+      if (withSignTab && tableauSignesAutoCorrection?.valeur != null) {
+        tableauSignesAutoCorrection.valeur.bareme = (listePoints: number[]) => [
+          listePoints.every((point) => point > 0) ? 1 : 0,
+          1,
+        ]
+      }
       const propositionsDroites = [1, 2, 3, 4].map((indice) => ({
-        texte: `$d_${indice}$`,
+        texte: `$${this.commandeCouleurTexte(couleursParDroite[indice])}{(d_${indice})}$`,
         statut: indice === bonneDroite,
       }))
       const elements: MathaleaCouteauSuisseChild[] = [
@@ -316,21 +418,7 @@ export default class ExoCompletAffine extends Exercice {
               {
                 formatInteractif:
                   TableauSignesVariationsElement.elementTag as InteractivityType,
-                autoCorrection: {
-                  valeur: {
-                    reponse: {
-                      value: JSON.stringify({
-                        L0C1: zero,
-                        L1C1: this.signeSurIntervalle(a, true),
-                        L1C3: this.signeSurIntervalle(a, false),
-                      }),
-                    },
-                    bareme: (listePoints: number[]) => [
-                      listePoints.every((point) => point > 0) ? 1 : 0,
-                      1,
-                    ],
-                  },
-                },
+                autoCorrection: tableauSignesAutoCorrection,
               },
             ]
           : []),
@@ -364,19 +452,20 @@ export default class ExoCompletAffine extends Exercice {
           champ4: { keyboard: KeyboardType.clavierDeBaseAvecFraction },
         },
       })
-      const champTableau = withSignTab
-        ? [
-            `<br>${texteGras('3.')} Dresser le tableau de signes de $g$.<br>`,
-            TableauSignesVariationsElement.create({
-              numeroExercice: this.numeroExercice,
-              questionIndex: i,
-              config: tableauSignes,
-            }),
-          ].join('')
-        : ''
       const numeroQcm = withSignTab ? 4 : 3
+      const animationLectureAffine =
+        context.isHtml && !context.isTypst
+          ? penteAffineAnimee({
+              figureId,
+              b: b.num / b.den,
+              numerateur: a.num,
+              denominateur: a.den,
+              pixelsParCm: 30,
+            })
+          : ''
+      const separateurQcm = context.isHtml ? '<br>' : '\n\n'
       const champQcm = [
-        `<br>${texteGras(`${numeroQcm}.`)} Parmi les quatre droites tracées ci-dessous, laquelle représente la fonction $g$ ?`,
+        `<br>${sp(4)}${texteEnCouleurEtGras(` ${lettreMinusculeDepuisChiffre(numeroQcm)})`, bleuMathalea)} Parmi les quatre droites tracées ci-dessous, laquelle représente la fonction $g$ ?`,
         graphique,
         MathaleaQcmElement.create({
           numeroExercice: this.numeroExercice ?? 0,
@@ -385,7 +474,7 @@ export default class ExoCompletAffine extends Exercice {
           radio: true,
           vertical: false,
         }),
-      ].join('<br>')
+      ].join(separateurQcm)
 
       this.listeQuestions[i] = [
         `La fonction affine $g$ est définie par $${this.expressionFonction(a, b)}$.`,
@@ -397,10 +486,27 @@ export default class ExoCompletAffine extends Exercice {
         }),
       ].join('<br>')
       this.listeCorrections[i] = [
-        `$g(${x0.texFSD})=${gx0.texFSD}$ et $g(${x1.texFSD})=${gx1.texFSD}$.`,
-        `Les antécédents de $${y2.texFSD}$ et $${y3.texFSD}$ sont respectivement $${antecedentY2.texFSD}$ et $${antecedentY3.texFSD}$.`,
-        withSignTab ? `Le zéro de $g$ est $${zero}$.` : '',
-        `La droite représentative de $g$ est $d_${bonneDroite}$.`,
+        `${texteEnCouleurEtGras(`${lettreMinusculeDepuisChiffre(1)})`, bleuMathalea)} $g(${x0.texFSD})=${a.texFSD}\\times ${x0.ecritureAlgebrique}  ${b.ecritureAlgebrique} = ${gx0.texFSD}$ et $g(${x1.texFSD})=${a.texFSD}\\times ${x1.ecritureAlgebrique} ${b.ecritureAlgebrique} = ${gx1.texFSD}$.`,
+        `${texteEnCouleurEtGras(`${lettreMinusculeDepuisChiffre(2)})`, bleuMathalea)} Les antécédents de $${y2.texFSD}$ et $${y3.texFSD}$ sont respectivement $${antecedentY2.texFSD}$ et $${antecedentY3.texFSD}$.<br>
+        En effet, ${deuxColonnesResp(
+          `$\\begin{aligned}g(x)=${y2.texFSD}&\\iff ${a.texFSD}x ${b.ecritureAlgebrique}=${y2.texFSD}\\\\
+        &\\iff ${a.texFSD}x=${y2.texFSD} ${b.oppose().ecritureAlgebrique}\\\\
+        &\\iff x=\\frac{${y2.texFSD} ${b.oppose().ecritureAlgebrique}}{${a.texFSD}}\\\\
+        &\\iff x=${miseEnEvidence(antecedentY2.texFSD)}.\\end{aligned}$`,
+          `De même,<br> $\\begin{aligned}g(x)=${y3.texFSD}&\\iff ${a.texFSD}x ${b.ecritureAlgebrique}=${y3.texFSD}\\\\
+        &\\iff ${a.texFSD}x=${y3.texFSD} ${b.oppose().ecritureAlgebrique}\\\\
+        &\\iff x=\\frac{${y3.texFSD} ${b.oppose().ecritureAlgebrique}}{${a.texFSD}}\\\\
+        &\\iff x=${miseEnEvidence(antecedentY3.texFSD)}\\end{aligned}$`,
+          { largeur1: 50, widthmincol1: '200px', widthmincol2: '200px' },
+        )}
+        <br>.`,
+        withSignTab
+          ? `${texteEnCouleurEtGras(`${lettreMinusculeDepuisChiffre(3)})`, bleuMathalea)} $g(x)=0\\iff ${a.texFSD}x ${b.ecritureAlgebrique}=0\\iff ${a.texFSD}x=${b.oppose().ecritureAlgebrique}\\iff x=\\frac{${b.oppose().ecritureAlgebrique}}{${a.texFSD}}\\iff x=${miseEnEvidence(zero)}$.<br>
+        La fonction $g$ s'annule donc pour $x=${miseEnEvidence(zero)}$.<br>
+        Comme le coefficient directeur de $g$ est $${a.ecritureAlgebrique}$, la fonction $g$ est strictement ${a.valeurDecimale > 0 ? 'croissante' : 'décroissante'}. On en déduit le tableau de signes suivant :<br>
+        ${addTableauSignesPourCouteauSuisse(tableauSignesCorrige, false).html}`
+          : '',
+        `${texteEnCouleurEtGras(`${lettreMinusculeDepuisChiffre(numeroQcm)})`, bleuMathalea)} La droite représentative de $g$ est $${miseEnEvidence(`(d_${bonneDroite})`)}$.${animationLectureAffine}`,
       ]
         .filter(Boolean)
         .join('<br>')

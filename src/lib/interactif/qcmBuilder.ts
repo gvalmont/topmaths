@@ -142,7 +142,7 @@ export function buildQcmForExercise(
       },
     ) ?? []
 
-  let correctionTexte = `${correction ?? ''}${buildCorrectionsList(shuffledPropositions)}`
+  let correctionTexte = `${correction ?? ''}${buildCorrectionsList(shuffledPropositions, exercice.interactif)}`
   if (correctionTexte === '') {
     correctionTexte = correction
     const extrasAreAdded = ajouteQcmCorr || !exercice.interactif

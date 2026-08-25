@@ -325,6 +325,29 @@ export class MultiMathfieldElement extends MathaleaCustomElement {
     dataTemplate,
     dataOptions,
   }: MultiMathfieldCreateOptions): string {
+    if (!context.isHtml || context.isTypst) {
+      const output = context.isHtml ? 'html' : 'latex'
+      const rendered = this.renderStaticTemplate(
+        dataTemplate,
+        dataOptions,
+        output,
+        (fieldOptions) => {
+          if (!fieldOptions.ldots) return ''
+          return context.isHtml ? ' ... ' : '$\\ldots\\ldots$'
+        },
+        `labelEx${numeroExercice ?? 0}Q${questionIndex ?? 0}R`,
+      )
+
+      if (!context.isHtml && !rendered.includes('\\begin{qcmprop}')) {
+        const enumitemBlock = buildLatexEnumitemBlock(rendered.split('\n'))
+        if (enumitemBlock) {
+          return enumitemBlock
+        }
+      }
+
+      return rendered
+    }
+
     const computedId =
       id ??
       `${MultiMathfieldElement.elementTag}Ex${numeroExercice ?? 0}Q${questionIndex ?? 0}`
