@@ -33,7 +33,7 @@ function buildCorrectAnswersMessage(
     return `Les bonnes réponses sont les réponses ${texteEnCouleurEtGras(bonnesLettres.join(' ; '))}.`
   }
 
-  return `La bonne réponse est la réponse ${texteEnCouleurEtGras(bonnesLettres[0] ?? '')}.`
+  return `<br>La bonne réponse est la réponse ${texteEnCouleurEtGras(bonnesLettres[0] ?? '')}.`
 }
 
 function buildCorrectionsList(
