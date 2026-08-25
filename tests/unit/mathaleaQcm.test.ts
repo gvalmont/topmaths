@@ -1,5 +1,6 @@
 import { afterEach, beforeEach, describe, expect, it } from 'vitest'
 import Exercice from '../../src/exercices/Exercice'
+import AutoCEtechno2026 from '../../src/exercices/1e/1A-A01-5'
 import MetaExercice from '../../src/exercices/MetaExerciceCan'
 import {
   addMathaleaQcm,
@@ -10,6 +11,7 @@ import {
   mathaleaCustomElementsRegistry,
 } from '../../src/lib/customElements/MathaleaCustomElement'
 import { listeDeroulanteToQcm } from '../../src/lib/customElements/ListeDeroulanteElement'
+import { mathaleaEnsureAMCCompatibility } from '../../src/lib/amc/amcInference'
 import {
   exerciceInteractif,
   handleAnswers,
@@ -426,6 +428,35 @@ describe('MathaleaQcmElement', () => {
       ordered: true,
     })
     expect(meta.autoCorrection[1].formatInteractif).toBe('mathalea-qcm')
+  })
+
+  it('flèche les QCM historiques agrégés vers mathalea-qcm', () => {
+    const meta = new AutoCEtechno2026()
+    meta.numeroExercice = 0
+    meta.interactif = true
+
+    meta.nouvelleVersion()
+
+    expect(meta.autoCorrection).toHaveLength(8)
+    for (const question of meta.autoCorrection) {
+      expect(question.formatInteractif).toBe('mathalea-qcm')
+      expect(question.propositions?.length).toBeGreaterThan(1)
+      expect(question.propositions?.some(({ statut }) => statut)).toBe(true)
+    }
+
+    mathaleaEnsureAMCCompatibility(meta)
+
+    expect(meta.amcType).toBe('qcmMono')
+    expect(meta.autoCorrectionAMC).toHaveLength(8)
+    expect(
+      meta.autoCorrectionAMC?.map((question) =>
+        question.propositions?.map(({ statut }) => statut),
+      ),
+    ).toEqual(
+      meta.autoCorrection.map((question) =>
+        question.propositions?.map(({ statut }) => statut),
+      ),
+    )
   })
 
   it('rend une version HTML non interactive avec des lettres', () => {
