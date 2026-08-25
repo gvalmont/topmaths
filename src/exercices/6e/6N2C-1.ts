@@ -121,7 +121,7 @@ export default class MultiplierEntierPar101001000 extends Exercice {
           }
           texte = `$${texNombre(a)}\\times${texNombre(b)}$`
           handleAnswers(this, i, {
-            reponse: { value: [texNombre(a * b), a * b] },
+            reponse: { value: texNombre(a * b) },
           })
           texteCorr = `$${texNombre(a)}\\times${texNombre(b)}=${texNombre(a * b)}$`
           break

@@ -228,7 +228,7 @@ export default class FractionDUnNombre extends Exercice {
       if ((n * a) % b !== 0 && !context.isAmc) {
         handleAnswers(this, i, {
           reponse: {
-            value: [(n * a) / b, texFractionFromString(n * a, b)],
+            value: new FractionEtendue(n * a, b).texFraction,
           },
         })
       }
