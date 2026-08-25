@@ -63,3 +63,26 @@ export function latexLineBreaksToHtmlOutsideMath(source: string): string {
 
   return result
 }
+
+/**
+ * Retire de l'énoncé HTML le QCM déjà injecté par la passe de génération du
+ * moteur. La preview AMC dessine elle-même les cases à partir des propositions
+ * d'`autoCorrectionAMC` : conserver ce composant produirait deux QCM.
+ *
+ * Les deux formes sont acceptées afin de couvrir le custom element actuel et
+ * l'ancien bloc HTML encore présent dans certains snapshots.
+ */
+export function stripEmbeddedQcmFromAMCPreview(source: string): string {
+  if (source.trim().length === 0) return ''
+
+  return source
+    .replace(/<mathalea-qcm\b[^>]*>[\s\S]*?<\/mathalea-qcm>/gi, '')
+    .replace(/<mathalea-qcm\b[^>]*\/\s*>/gi, '')
+    .replace(
+      /<div[^>]*class=(['"])[^'"]*my-3[^'"]*\1[^>]*>[\s\S]*?<\/div>\s*<div[^>]*id=(['"])resultatCheckEx[^'"]*\2[^>]*><\/div>/gi,
+      '',
+    )
+    .replace(/<div[^>]*id=(['"])resultatCheckEx[^'"]*\1[^>]*><\/div>/gi, '')
+    .replace(/(<br\s*\/?>\s*){2,}$/gi, '')
+    .trim()
+}

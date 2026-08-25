@@ -1,7 +1,10 @@
 import { describe, expect, it } from 'vitest'
 
+import DecimalToScientifique from '../../exercices/3e/3AutoN07-1'
+import { mathaleaHandleExerciceSimple } from '../mathalea'
 import { mathaleaEnsureAMCCompatibility } from './amcInference'
 import { exportQcmAmc } from './creerDocumentAmc'
+import { normalizeAMCNumBlocks } from './amcNormalize'
 
 function exercise(overrides: Record<string, unknown>) {
   return {
@@ -18,6 +21,33 @@ function exercise(overrides: Record<string, unknown>) {
 }
 
 describe('inférence AMC depuis formatInteractif', () => {
+  it('infère la grille scientifique d’un exercice référencé mathLive', () => {
+    let exercice: DecimalToScientifique | undefined
+
+    for (let seed = 0; seed < 20; seed++) {
+      const candidat = new DecimalToScientifique()
+      mathaleaHandleExerciceSimple(candidat, true, 0, `scientifique-${seed}`)
+      const options = candidat.autoCorrection[0]?.valeur?.reponse?.options
+      if (options?.ecritureScientifique === true) {
+        exercice = candidat
+        break
+      }
+    }
+
+    expect(exercice).toBeDefined()
+    expect(exercice?.autoCorrection[0]?.formatInteractif).toBe('mathlive')
+
+    mathaleaEnsureAMCCompatibility(exercice!)
+
+    expect(exercice?.amcType).toBe('AMCNum')
+    const blocks = normalizeAMCNumBlocks(
+      exercice?.autoCorrectionAMC?.[0].reponse,
+    )
+    expect(blocks).toHaveLength(1)
+    expect(blocks[0].options?.exponent).toBeGreaterThan(0)
+    expect(blocks[0].digits).toBeGreaterThan(0)
+  })
+
   it.each(['qcm', 'mathalea-qcm'])(
     'conserve toutes les propositions du format QCM %s',
     (formatInteractif) => {
@@ -146,6 +176,143 @@ describe('inférence AMC depuis formatInteractif', () => {
     },
   )
 
+  it('réduit une fraction égale entière avant de dimensionner AMCNum', () => {
+    const exercice = exercise({
+      interactifType: 'mathLive',
+      autoCorrection: [
+        {
+          formatInteractif: 'mathalea-mathfield',
+          valeur: {
+            reponse: {
+              value: '\\frac{100}{25}',
+              options: { fractionEgale: true },
+            },
+          },
+        },
+      ],
+    })
+
+    mathaleaEnsureAMCCompatibility(exercice)
+
+    expect(exercice.amcType).toBe('AMCNum')
+    expect(exercice.autoCorrectionAMC[0].reponse.valeur).toBe(4)
+  })
+
+  it('utilise AMCOpen pour une fractionEgale non entière', () => {
+    const exercice = exercise({
+      interactifType: 'mathLive',
+      autoCorrection: [
+        {
+          formatInteractif: 'mathalea-mathfield',
+          valeur: {
+            reponse: {
+              value: '\\frac{5}{2}',
+              options: { fractionEgale: true },
+            },
+          },
+        },
+      ],
+    })
+
+    mathaleaEnsureAMCCompatibility(exercice)
+
+    expect(exercice.amcType).toBe('AMCOpen')
+    expect(exercice.autoCorrectionAMC[0].enonce).toBe('Énoncé LaTeX')
+  })
+
+  it('utilise AMCOpen pour une option de comparaison non transposable', () => {
+    const exercice = exercise({
+      interactifType: 'mathLive',
+      autoCorrection: [
+        {
+          formatInteractif: 'mathalea-mathfield',
+          valeur: {
+            reponse: {
+              value: '4',
+              options: { expressionNumerique: true },
+            },
+          },
+        },
+      ],
+    })
+
+    mathaleaEnsureAMCCompatibility(exercice)
+
+    expect(exercice.amcType).toBe('AMCOpen')
+  })
+
+  it('infère AMCNum en notation scientifique avec mantisse et exposant', () => {
+    const exercice = exercise({
+      interactifType: 'mathLive',
+      autoCorrection: [
+        {
+          formatInteractif: 'mathalea-mathfield',
+          valeur: {
+            reponse: {
+              value: '3,14\\times 10^{-2}',
+              options: { ecritureScientifique: true },
+            },
+          },
+        },
+      ],
+    })
+
+    mathaleaEnsureAMCCompatibility(exercice)
+
+    expect(exercice.amcType).toBe('AMCNum')
+    expect(exercice.autoCorrectionAMC[0].reponse).toMatchObject({
+      valeur: 0.0314,
+      param: {
+        digits: 3,
+        decimals: 2,
+        exposantNbChiffres: 1,
+        exposantSigne: true,
+      },
+    })
+  })
+
+  it('refuse une écriture scientifique dont la mantisse est invalide', () => {
+    const exercice = exercise({
+      interactifType: 'mathLive',
+      autoCorrection: [
+        {
+          formatInteractif: 'mathalea-mathfield',
+          valeur: {
+            reponse: {
+              value: '31e-1',
+              options: { ecritureScientifique: true },
+            },
+          },
+        },
+      ],
+    })
+
+    mathaleaEnsureAMCCompatibility(exercice)
+
+    expect(exercice.amcType).toBe('AMCOpen')
+  })
+
+  it('utilise AMCOpen pour une comparaison spécialisée inconnue', () => {
+    const exercice = exercise({
+      interactifType: 'mathLive',
+      autoCorrection: [
+        {
+          formatInteractif: 'mathalea-mathfield',
+          valeur: {
+            reponse: {
+              value: '4',
+              compare: () => ({ isOk: true }),
+            },
+          },
+        },
+      ],
+    })
+
+    mathaleaEnsureAMCCompatibility(exercice)
+
+    expect(exercice.amcType).toBe('AMCOpen')
+  })
+
   it('complète un AMCNum explicite depuis autoCorrection sans effacer sa source', () => {
     const source = {
       formatInteractif: 'mathlive',
@@ -229,6 +396,65 @@ describe('inférence AMC depuis formatInteractif', () => {
     mathaleaEnsureAMCCompatibility(exercice)
 
     expect(exercice.amcType).toBe('AMCOpen')
+  })
+
+  it('infère un AMCHybride en conservant les blocs QCM et numériques', () => {
+    const exercice = exercise({
+      nbQuestions: 2,
+      amcReady: true,
+      amcType: 'qcmMono',
+      interactifType: 'qcm',
+      listeQuestions: ['Énoncé 1', 'Énoncé 2'],
+      listeCorrections: ['Correction 1', 'Correction 2'],
+      autoCorrection: [
+        {
+          formatInteractif: 'qcm',
+          valeur: { reponse: { value: 4 } },
+        },
+        {
+          formatInteractif: 'qcm',
+          propositions: [
+            { texte: 'A', statut: false },
+            { texte: 'B', statut: true },
+          ],
+        },
+        {
+          formatInteractif: 'mathalea-mathfield',
+          valeur: { reponse: { value: -2.5 } },
+        },
+        {
+          formatInteractif: 'qcm',
+          propositions: [
+            { texte: 'C', statut: true },
+            { texte: 'D', statut: true },
+            { texte: 'E', statut: false },
+          ],
+        },
+      ],
+    })
+
+    mathaleaEnsureAMCCompatibility(exercice)
+
+    expect(exercice.amcType).toBe('AMCHybride')
+    expect(exercice.autoCorrectionAMC).toHaveLength(2)
+    expect(exercice.autoCorrectionAMC[0].propositions).toEqual(
+      expect.arrayContaining([
+        expect.objectContaining({ type: 'AMCNum' }),
+        expect.objectContaining({
+          type: 'qcmMono',
+          propositions: [
+            expect.objectContaining({ statut: false }),
+            expect.objectContaining({ statut: true }),
+          ],
+        }),
+      ]),
+    )
+    expect(exercice.autoCorrectionAMC[1].propositions).toEqual(
+      expect.arrayContaining([
+        expect.objectContaining({ type: 'AMCNum' }),
+        expect.objectContaining({ type: 'qcmMult' }),
+      ]),
+    )
   })
 
   it('ne choisit pas arbitrairement une réponse parmi plusieurs valeurs acceptées', () => {

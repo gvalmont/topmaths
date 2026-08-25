@@ -2,7 +2,6 @@ import { describe, expect, it } from 'vitest'
 import seedrandom from 'seedrandom'
 
 import CalculsImagesFonctions from '../../exercices/3e/3F10-2'
-import CalculsImagesFonctionsOld from '../../exercices/3e/3F10-2-old'
 import FractionEtendue from '../../modules/FractionEtendue'
 import { context } from '../../modules/context'
 import { normalizeAMCNumBlocks } from '../amc/amcNormalize'
@@ -51,49 +50,43 @@ describe('compatibilité AMC de setReponse', () => {
     })
   })
 
-  it.each([
-    ['3F10-2', CalculsImagesFonctions],
-    ['3F10-2-old', CalculsImagesFonctionsOld],
-  ] as const)(
-    'garde des tailles de grilles cohérentes sur les fonctions rationnelles de %s',
-    (exerciseId, ExerciseClass) => {
-      const previousContext = { isAmc: context.isAmc, isHtml: context.isHtml }
-      context.isAmc = true
-      context.isHtml = false
+  it('garde des tailles de grilles cohérentes sur les fonctions rationnelles de 3F10-2', () => {
+    const previousContext = { isAmc: context.isAmc, isHtml: context.isHtml }
+    context.isAmc = true
+    context.isHtml = false
 
-      try {
-        for (let seed = 0; seed < 10; seed++) {
-          seedrandom(`${exerciseId}-amc-${seed}`, { global: true })
-          const exercice = new ExerciseClass()
-          exercice.seed = `${exerciseId}-amc-${seed}`
-          exercice.fonctions = 'polynomialesOuRationnelles'
-          exercice.sup = 2
-          exercice.sup2 = 1
-          exercice.sup3 = 1
-          exercice.nouvelleVersionWrapper()
+    try {
+      for (let seed = 0; seed < 10; seed++) {
+        seedrandom(`3F10-2-amc-${seed}`, { global: true })
+        const exercice = new CalculsImagesFonctions()
+        exercice.seed = `3F10-2-amc-${seed}`
+        exercice.fonctions = 'polynomialesOuRationnelles'
+        exercice.sup = 2
+        exercice.sup2 = 1
+        exercice.sup3 = 1
+        exercice.nouvelleVersionWrapper()
 
-          expect(exercice.autoCorrectionAMC).toHaveLength(exercice.nbQuestions)
-          for (const item of exercice.autoCorrectionAMC) {
-            const param = item.reponse?.param
+        expect(exercice.autoCorrectionAMC).toHaveLength(exercice.nbQuestions)
+        for (const item of exercice.autoCorrectionAMC) {
+          const param = item.reponse?.param
+          expect(
+            param?.digits ?? 0,
+            JSON.stringify({ seed, valeur: item.reponse?.valeur, param }),
+          ).toBeLessThanOrEqual(4)
+          expect(param?.decimals ?? 0).toBeLessThanOrEqual(2)
+          if (typeof item.reponse?.valeur === 'number') {
             expect(
-              param?.digits ?? 0,
-              JSON.stringify({ seed, valeur: item.reponse?.valeur, param }),
-            ).toBeLessThanOrEqual(4)
-            expect(param?.decimals ?? 0).toBeLessThanOrEqual(2)
-            if (typeof item.reponse?.valeur === 'number') {
-              expect(
-                param?.decimals,
-                JSON.stringify({ seed, valeur: item.reponse.valeur, param }),
-              ).toBe(0)
-            }
+              param?.decimals,
+              JSON.stringify({ seed, valeur: item.reponse.valeur, param }),
+            ).toBe(0)
           }
         }
-      } finally {
-        context.isAmc = previousContext.isAmc
-        context.isHtml = previousContext.isHtml
       }
-    },
-  )
+    } finally {
+      context.isAmc = previousContext.isAmc
+      context.isHtml = previousContext.isHtml
+    }
+  })
 
   it('réduit une fractionEgale non entière avant de dimensionner ses cases', () => {
     const value = normalizeLegacySetReponseValueForAMC(

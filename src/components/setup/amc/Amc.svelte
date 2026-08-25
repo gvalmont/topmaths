@@ -397,55 +397,6 @@
     return Math.max(1, Number((exercise as any)?.nbQuestions) || 1)
   }
 
-  function ensureAmcAutoCorrectionFallback(exercice: IExercice): void {
-    const ex = exercice as any
-    const current = getAmcAutoCorrection(exercice)
-    if (current.length > 0) return
-
-    const htmlQuestions: string[] = Array.isArray(ex.htmlQuestions)
-      ? ex.htmlQuestions
-      : []
-    const sourceQuestions =
-      exercice.listeQuestions.length > 0
-        ? exercice.listeQuestions
-        : exercice.question != null
-          ? [String(exercice.question)]
-          : htmlQuestions
-
-    if (sourceQuestions.length === 0) return
-
-    const sourceCorrections =
-      exercice.listeCorrections.length > 0
-        ? exercice.listeCorrections
-        : exercice.correction != null
-          ? [String(exercice.correction)]
-          : []
-
-    const fallbackAutoCorrection = sourceQuestions.map((enonce, i) => ({
-      enonce,
-      propositions: [
-        {
-          texte: sourceCorrections[i] ?? sourceCorrections[0] ?? '',
-          statut: 3,
-          sanscadre: false,
-          pointilles: true,
-        },
-      ],
-    }))
-
-    ex.autoCorrectionAMC = fallbackAutoCorrection
-    if (
-      !Array.isArray(exercice.autoCorrection) ||
-      exercice.autoCorrection.length === 0
-    ) {
-      exercice.autoCorrection = fallbackAutoCorrection.map((item) => ({
-        ...item,
-      }))
-    }
-    exercice.amcType = 'AMCOpen'
-    exercice.amcReady = true
-  }
-
   function generateHtmlQuestionsForExercise(
     exercice: IExercice,
     seed: string,
@@ -2843,6 +2794,8 @@
                                   exercice.amcType === 'qcmMult'
                                     ? 'qcmMult'
                                     : 'qcmMono'}
+                                  vertical={block.data?.options?.vertical ===
+                                    true}
                                   choix={block.data?.propositions ?? []}
                                 />
                               {:else if block.previewKind === 'num'}
@@ -2935,6 +2888,7 @@
                             exercice.amcType === 'qcmMult'
                               ? 'qcmMult'
                               : 'qcmMono'}
+                            vertical={block.data?.options?.vertical === true}
                             choix={block.data?.propositions ?? []}
                           />
                         {:else if block.previewKind === 'num'}

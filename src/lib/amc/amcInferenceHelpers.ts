@@ -12,6 +12,85 @@ const mathliveNumericCleaner = generateCleaner(['latex', 'virgules', 'espaces'])
 const strictNumericPattern = /^[+-]?(?:\d+(?:\.\d*)?|\.\d+)(?:[eE][+-]?\d+)?$/
 const compactPowerPattern = /^[+-]?(?:\d+(?:\.\d*)?|\.\d+)\^[+-]?\d+$/
 
+export type AMCScientificNotation = {
+  valeur: number
+  param: ReponseParams
+}
+
+export function inferScientificNotationForAMC(
+  source: unknown,
+): AMCScientificNotation | undefined {
+  if (typeof source !== 'string') return undefined
+
+  const compact = source
+    .trim()
+    .replace(/\{,\}|,/g, '.')
+    .replace(/\\(?:,|;|:|!|quad|qquad|thickspace)/g, '')
+    .replace(/\s+/g, '')
+  const scientificMatch =
+    compact.match(/^([+-]?(?:\d+(?:\.\d*)?|\.\d+))[eE]([+-]?\d+)$/) ??
+    compact.match(
+      /^([+-]?(?:\d+(?:\.\d*)?|\.\d+))\\(?:times|cdot)10\^\{?([+-]?\d+)\}?$/,
+    )
+  if (scientificMatch == null) return undefined
+
+  const mantissa = Number(scientificMatch[1])
+  const exponent = Number(scientificMatch[2])
+  if (
+    !Number.isFinite(mantissa) ||
+    !Number.isInteger(exponent) ||
+    Math.abs(mantissa) < 1 ||
+    Math.abs(mantissa) >= 10
+  ) {
+    return undefined
+  }
+
+  const valeur = Number(`${mantissa}e${exponent}`)
+  if (!Number.isFinite(valeur)) return undefined
+  const decimals = countDecimals(mantissa)
+
+  return {
+    valeur,
+    param: {
+      digits: countDigits(mantissa) + decimals,
+      decimals,
+      signe: mantissa < 0,
+      exposantNbChiffres: countDigits(exponent),
+      exposantSigne: exponent < 0,
+    },
+  }
+}
+
+function normalizeFractionForAMC(
+  numerator: number,
+  denominator: number,
+): number | { num: number; den: number } | undefined {
+  if (
+    !Number.isFinite(numerator) ||
+    !Number.isFinite(denominator) ||
+    denominator === 0
+  ) {
+    return undefined
+  }
+
+  if (!Number.isInteger(numerator) || !Number.isInteger(denominator)) {
+    return { num: numerator, den: denominator }
+  }
+
+  let a = Math.abs(numerator)
+  let b = Math.abs(denominator)
+  while (b !== 0) {
+    const remainder = a % b
+    a = b
+    b = remainder
+  }
+  const gcd = a || 1
+  const denominatorSign = denominator < 0 ? -1 : 1
+  const num = (numerator / gcd) * denominatorSign
+  const den = Math.abs(denominator / gcd)
+  return den === 1 ? num : { num, den }
+}
+
 export function extractAMCValue(
   reponse: unknown,
 ): number | { num: number; den: number } | string | undefined {
@@ -52,9 +131,7 @@ export function extractAMCValue(
   }
   if (value instanceof FractionEtendue) {
     const simplified = value.simplifie()
-    return simplified.den === 1
-      ? simplified.num
-      : { num: simplified.num, den: simplified.den }
+    return normalizeFractionForAMC(simplified.num, simplified.den)
   }
   if (
     typeof value === 'object' &&
@@ -62,7 +139,7 @@ export function extractAMCValue(
     'num' in value &&
     'den' in value
   ) {
-    return { num: Number(value.num), den: Number(value.den) }
+    return normalizeFractionForAMC(Number(value.num), Number(value.den))
   }
   window.notify(
     'extractAMCValue a reçu une réponse de type inattendu, elle doit être une chaîne de caractères, un nombre ou un objet fractionnaire.',
@@ -128,15 +205,7 @@ export function inferNumericValueForAMC(
     const numerator = Number.parseFloat(`${sign}${match[2]}`)
     const denominator = Number.parseFloat(match[3])
 
-    if (!Number.isFinite(numerator) || !Number.isFinite(denominator)) {
-      return undefined
-    }
-    if (denominator === 0) return undefined
-
-    return {
-      num: numerator,
-      den: denominator,
-    }
+    return normalizeFractionForAMC(numerator, denominator)
   }
 
   // Pour l'instant on n'infère que les valeurs numériques décimales.

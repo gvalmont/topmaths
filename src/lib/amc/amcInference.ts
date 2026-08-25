@@ -1,8 +1,10 @@
 import { type AutoCorrection, type IExercice } from '../types'
+import { fonctionComparaison } from '../interactif/comparisonFunctions'
 import {
   ensureAMCOpenAutoCorrection,
   extractAMCValue,
   inferNumericValueForAMC,
+  inferScientificNotationForAMC,
   mergeNumericParamsFromOptions,
 } from './amcInferenceHelpers'
 import { normalizeAMCNumBlocks } from './amcNormalize'
@@ -113,9 +115,6 @@ export function mathaleaEnsureAMCCompatibility(
     )
     ensureAMCOpenAutoCorrection(exercice, target)
     exerciseAny.autoCorrectionAMC = target
-    if (exercice.autoCorrection.length === 0) {
-      exercice.autoCorrection = target.map((item) => ({ ...item })) as any
-    }
     return exercice as IExerciceAMC
   }
 
@@ -134,6 +133,14 @@ export function mathaleaEnsureAMCCompatibility(
     autoCorrectionSource.every(
       (item) => item != null && numericFormats.has(getFormat(item)),
     )
+  const hasGeneratedQcmQuestions = autoCorrectionSource.some((item) =>
+    isQcmItem(item),
+  )
+  const hasGeneratedNonQcmQuestions = autoCorrectionSource.some(
+    (item) => item != null && !isQcmItem(item),
+  )
+  const hasMixedGeneratedQuestions =
+    hasGeneratedQcmQuestions && hasGeneratedNonQcmQuestions
 
   // Ici on débute l'inférence du type AMC de l'exercice.
   // Si l'exercice est déja amcReady, on suppose que le type AMC est correctement défini et on ne fait rien.
@@ -212,36 +219,42 @@ export function mathaleaEnsureAMCCompatibility(
         qcmSource.length < statementQuestionCount ||
         qcmSource.some((item) => item == null || !isQcmItem(item))
       ) {
-        return applyAMCOpenFallback()
-      }
-      const autoCorrectionAmc = qcmSource.map(
-        (item: InferenceAutoCorrectionItem, index) => {
-          if (item == null) return item
+        // Certaines anciennes déclarations qcmMono/qcmMult couvrent en fait
+        // des exercices mêlant sous-questions QCM et numériques. La preuve
+        // portée par autoCorrection est plus précise que cette métadonnée :
+        // poursuivre l'inférence permet de construire un AMCHybride fidèle.
+        exercice.amcReady = undefined
+        exercice.amcType = undefined
+      } else {
+        const autoCorrectionAmc = qcmSource.map(
+          (item: InferenceAutoCorrectionItem, index) => {
+            if (item == null) return item
 
-          const propositions = Array.isArray(item.propositions)
-            ? item.propositions.map((p) => ({
-                ...p,
-                statut: Boolean(p.statut),
-              }))
-            : item.propositions
+            const propositions = Array.isArray(item.propositions)
+              ? item.propositions.map((p) => ({
+                  ...p,
+                  statut: Boolean(p.statut),
+                }))
+              : item.propositions
 
-          return {
-            ...item,
-            enonce: item.enonce ?? exercice.listeQuestions[index],
-            propositions,
-          }
-        },
-      )
-      if (
-        autoCorrectionAmc.some(
-          (item) =>
-            (item?.propositions ?? []).filter((p) => Boolean(p.statut)).length >
-            1,
+            return {
+              ...item,
+              enonce: item.enonce ?? exercice.listeQuestions[index],
+              propositions,
+            }
+          },
         )
-      ) {
-        exercice.amcType = 'qcmMult'
+        if (
+          autoCorrectionAmc.some(
+            (item) =>
+              (item?.propositions ?? []).filter((p) => Boolean(p.statut))
+                .length > 1,
+          )
+        ) {
+          exercice.amcType = 'qcmMult'
+        }
+        exerciseAny.autoCorrectionAMC = autoCorrectionAmc as any
       }
-      exerciseAny.autoCorrectionAMC = autoCorrectionAmc as any
     } else if (
       exercice.amcType === 'AMCOpen' ||
       exercice.amcType === 'AMCHybride'
@@ -302,7 +315,7 @@ export function mathaleaEnsureAMCCompatibility(
     // Si l'exercice est de type QCM interactif, alors il est compatible avec AMC, et on peut inférer le type AMC à partir du nombre de bonnes réponses dans la première autoCorrection.
     // Un QCM sans propositions exploitables ne doit pas produire silencieusement
     // une question vide : le contrat AMCOpen reste imprimable et annotable.
-    return applyAMCOpenFallback()
+    if (!hasMixedGeneratedQuestions) return applyAMCOpenFallback()
   }
 
   // Si c'est un exercice de type liste déroulante interactif, on transforme la liste déroulante en propositions de type QCM pour l'autoCorrection AMC.
@@ -313,7 +326,8 @@ export function mathaleaEnsureAMCCompatibility(
 
   if (
     String(exercice.interactifType).toLowerCase() !== 'mathlive' &&
-    !hasOnlyPotentiallyNumericQuestions
+    !hasOnlyPotentiallyNumericQuestions &&
+    !hasMixedGeneratedQuestions
   ) {
     // Pour ce qui ne rentre pas dans les cas précédents : fallback AMCOpen.
     return applyAMCOpenFallback()
@@ -324,27 +338,185 @@ export function mathaleaEnsureAMCCompatibility(
   // On va essayer d'inférer un type AMCNum à partir des réponses numériques présentes dans les autoCorrections ou les réponses interactives mises en cache.
 
   const extractNumericFields = (item: AutoCorrection) => {
+    const format = getFormat(item)
+    const isLegacyNumericItemMislabeledAsQcm =
+      hasMixedGeneratedQuestions &&
+      (format === 'qcm' || format === 'mathalea-qcm') &&
+      !isQcmItem(item) &&
+      item.valeur != null
+    if (!numericFormats.has(format) && !isLegacyNumericItemMislabeledAsQcm) {
+      return []
+    }
+
     const values = item.valeur as
-      | Record<string, { value?: unknown; options?: ReponseParams } | unknown>
+      | Record<
+          string,
+          | {
+              value?: unknown
+              compare?: unknown
+              options?: Record<string, unknown>
+            }
+          | unknown
+        >
       | undefined
     if (values == null || typeof values !== 'object') return []
 
     return Object.entries(values)
-      .filter(([key]) => key !== 'bareme')
+      .filter(([key]) => !['bareme', 'feedback', 'callback'].includes(key))
       .map(([key, answer]) => {
-        const valeur = inferNumericValueForAMC(extractAMCValue(answer))
-        const answerOptions =
-          answer != null && typeof answer === 'object' && 'options' in answer
-            ? (answer.options as ReponseParams | undefined)
+        const answerRecord =
+          answer != null && typeof answer === 'object'
+            ? (answer as {
+                value?: unknown
+                compare?: unknown
+                options?: Record<string, unknown>
+              })
             : undefined
-        const param = mergeNumericParamsFromOptions(item.options, answerOptions)
-        return { key, valeur, param }
+        const activeComparisonOptions = Object.entries(
+          answerRecord?.options ?? {},
+        )
+          .filter(([, value]) => value !== false && value != null)
+          .map(([key]) => key)
+        const supportedComparisonOptions = new Set([
+          'noFeedback',
+          'nombreDecimalSeulement',
+          'fractionEgale',
+          'fractionIrreductible',
+          'ecritureScientifique',
+        ])
+        const usesEquivalentFractionComparison =
+          activeComparisonOptions.includes('fractionEgale') &&
+          !activeComparisonOptions.includes('fractionIrreductible')
+        const scientificNotation = activeComparisonOptions.includes(
+          'ecritureScientifique',
+        )
+          ? inferScientificNotationForAMC(answerRecord?.value)
+          : undefined
+        const inferredValue = activeComparisonOptions.includes(
+          'ecritureScientifique',
+        )
+          ? scientificNotation?.valeur
+          : inferNumericValueForAMC(extractAMCValue(answer))
+        // Une fraction équivalente non entière ne peut pas être reproduite par
+        // une grille AMC : celle-ci impose un numérateur et un dénominateur
+        // précis, tandis que fonctionComparaison accepte tous leurs multiples.
+        // Le cas entier reste fidèle et corrige notamment 100/25 -> 4.
+        const hasRepresentableFractionSemantics =
+          !usesEquivalentFractionComparison ||
+          (typeof inferredValue === 'number' && Number.isInteger(inferredValue))
+        const hasSupportedComparison =
+          (answerRecord?.compare == null ||
+            answerRecord.compare === fonctionComparaison) &&
+          activeComparisonOptions.every((key) =>
+            supportedComparisonOptions.has(key),
+          ) &&
+          hasRepresentableFractionSemantics
+        const valeur = hasSupportedComparison ? inferredValue : undefined
+        const answerOptions =
+          answerRecord?.options != null
+            ? (answerRecord.options as ReponseParams)
+            : undefined
+        const explicitParam = mergeNumericParamsFromOptions(
+          item.options,
+          answerOptions,
+        )
+        const param = {
+          ...(scientificNotation?.param ?? {}),
+          ...explicitParam,
+        }
+        return {
+          key,
+          valeur,
+          param,
+        }
       })
   }
 
   // Plusieurs champs numériques indépendants se traduisent fidèlement en
   // AMCHybride. Si un seul champ est non numérique, on ne devine pas : AMCOpen.
   const numericFieldGroups = autoCorrectionSource.map(extractNumericFields)
+
+  const canGroupByStatement =
+    statementQuestionCount > 0 &&
+    autoCorrectionSource.length >= statementQuestionCount &&
+    autoCorrectionSource.length % statementQuestionCount === 0
+  const allMixedItemsAreSupported = autoCorrectionSource.every(
+    (item, index) => {
+      if (item == null) return false
+      if (isQcmItem(item)) return true
+      const fields = numericFieldGroups[index]
+      return (
+        fields.length > 0 && fields.every((field) => field.valeur !== undefined)
+      )
+    },
+  )
+
+  if (
+    hasMixedGeneratedQuestions &&
+    canGroupByStatement &&
+    allMixedItemsAreSupported
+  ) {
+    const blocksPerStatement =
+      autoCorrectionSource.length / statementQuestionCount
+    exerciseAny.autoCorrectionAMC = Array.from(
+      { length: statementQuestionCount },
+      (_, statementIndex) => {
+        const firstItemIndex = statementIndex * blocksPerStatement
+        const propositions = autoCorrectionSource
+          .slice(firstItemIndex, firstItemIndex + blocksPerStatement)
+          .flatMap((item, offset) => {
+            const itemIndex = firstItemIndex + offset
+            if (isQcmItem(item)) {
+              const qcmPropositions = item?.propositions ?? []
+              const hasMultipleAnswers =
+                qcmPropositions.filter((proposition) =>
+                  Boolean(proposition.statut),
+                ).length > 1
+              return [
+                {
+                  type: hasMultipleAnswers ? 'qcmMult' : 'qcmMono',
+                  enonce: item?.enonce ?? '',
+                  propositions: qcmPropositions.map((proposition) => ({
+                    ...proposition,
+                    statut: Boolean(proposition.statut),
+                  })),
+                  options: item?.options,
+                },
+              ]
+            }
+
+            return numericFieldGroups[itemIndex].map(
+              (field, fieldIndex, fields) => ({
+                type: 'AMCNum',
+                propositions: [
+                  {
+                    texte:
+                      offset === blocksPerStatement - 1 &&
+                      fieldIndex === fields.length - 1
+                        ? (exercice.listeCorrections[statementIndex] ?? '')
+                        : '',
+                    reponse: {
+                      texte: `Réponse ${offset + fieldIndex + 1}`,
+                      valeur: field.valeur,
+                      param: field.param,
+                    },
+                  },
+                ],
+              }),
+            )
+          })
+
+        return {
+          enonce: exercice.listeQuestions[statementIndex],
+          propositions,
+        }
+      },
+    )
+    exercice.amcType = 'AMCHybride'
+    exercice.amcReady = true
+    return exercice as IExerciceAMC
+  }
+
   if (
     numericFieldGroups.some((fields) => fields.length > 1) &&
     numericFieldGroups.every(
@@ -377,75 +549,31 @@ export function mathaleaEnsureAMCCompatibility(
     return exercice as IExerciceAMC
   }
 
-  const autoCorrectionAmc = []
-  let canInferAMCNum =
+  const canInferAMCNum =
     autoCorrectionSource.length > 0 &&
-    autoCorrectionSource.length >= statementQuestionCount
+    autoCorrectionSource.length >= statementQuestionCount &&
+    numericFieldGroups.every(
+      (fields) => fields.length === 1 && fields[0].valeur !== undefined,
+    )
+  const autoCorrectionAmc = canInferAMCNum
+    ? autoCorrectionSource.map((item, index) => {
+        const field = numericFieldGroups[index][0]
+        const valeur = field.valeur as AMCReponseValue
+        const blocks = normalizeAMCNumBlocks({ valeur, param: field.param })
+        if (blocks.length === 0) return undefined
 
-  for (const [index, item] of autoCorrectionSource.entries()) {
-    if (item == null) {
-      canInferAMCNum = false
-      break
-    }
-    let valeur: AMCReponseValue | undefined
-    if (
-      ['mathlive', 'mathalea-mathfield', 'calcul'].includes(getFormat(item)) &&
-      item.valeur?.reponse?.value != null
-    ) {
-      valeur = inferNumericValueForAMC(
-        extractAMCValue(item.valeur?.reponse?.value),
-      )
-    } else if (
-      ['fillintheblank', 'fill-in-the-blank'].includes(getFormat(item)) &&
-      item.valeur?.champ1 != null &&
-      !('champ2' in item.valeur)
-    ) {
-      valeur = inferNumericValueForAMC(
-        extractAMCValue(item.valeur?.champ1.value),
-      )
-    } else if (
-      getFormat(item) === 'multi-mathfield' &&
-      item.valeur?.champ1 != null &&
-      !('champ2' in item.valeur)
-    ) {
-      valeur = inferNumericValueForAMC(
-        extractAMCValue(item.valeur?.champ1.value),
-      )
-    } else {
-      canInferAMCNum = false
-      break
-    }
-    if (valeur === undefined) {
-      canInferAMCNum = false
-      break
-    }
-    // On infère des options AMCNum à partir de la réponse interactive
-    // ({ value, options, compare }) au lieu de réutiliser directement
-    // les options de comparaison interactive.
-    const param = mergeNumericParamsFromOptions(item.options, {})
+        return {
+          ...item,
+          enonce: item?.enonce ?? exercice.listeQuestions[index],
+          reponse: {
+            valeur,
+            param: field.param,
+          },
+        }
+      })
+    : []
 
-    const blocks = normalizeAMCNumBlocks({
-      valeur,
-      param,
-    })
-
-    if (blocks.length === 0) {
-      canInferAMCNum = false
-      break
-    }
-
-    autoCorrectionAmc.push({
-      ...item,
-      enonce: item.enonce ?? exercice.listeQuestions[index],
-      reponse: {
-        ...item.valeur,
-        valeur,
-        param,
-      },
-    })
-  }
-
-  if (canInferAMCNum) {
+  if (canInferAMCNum && autoCorrectionAmc.every((item) => item !== undefined)) {
     exerciseAny.autoCorrectionAMC = autoCorrectionAmc
     exercice.amcType = 'AMCNum'
     exercice.amcReady = true

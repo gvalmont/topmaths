@@ -9,7 +9,10 @@ import {
   vi,
 } from 'vitest'
 import { createURL } from '../../src/lib/createURL'
+import { mathaleaEnsureAMCCompatibility } from '../../src/lib/amc/amcInference'
+import { mathaleaHandleExerciceSimple } from '../../src/lib/mathalea'
 import { aLeBonNombreDePropsDifferentes } from '../../src/lib/interactif/qcm'
+import { context } from '../../src/modules/context'
 import { createSolidesThreeJsMock } from '../e2e/mocks/solidesThreeJs.mock'
 import { clearDOM } from './helpers/domSimulator'
 import { discoverExercises, loadExercise } from './helpers/exerciseLoader'
@@ -279,6 +282,11 @@ for (const [dir, entries] of grouped) {
         for (const seed of SEEDS) {
           for (const scenario of scenarios) {
             const exercice = new ExerciseClass()
+            if (loaded.amcReady !== undefined) {
+              exercice.amcReady = loaded.amcReady
+            }
+            if (loaded.amcType !== undefined) exercice.amcType = loaded.amcType
+            exercice.interactifType = loaded.interactifType
             exercice.seed = seed
             exercice.numeroExercice = 0
             exercice.interactif = true
@@ -290,7 +298,16 @@ for (const [dir, entries] of grouped) {
             const url = createURL([params]).href.replace(':3000', ':5173')
 
             try {
-              exercice.nouvelleVersion(exercice.numeroExercice)
+              if (exercice.typeExercice === 'simple') {
+                mathaleaHandleExerciceSimple(
+                  exercice,
+                  true,
+                  exercice.numeroExercice,
+                  seed,
+                )
+              } else {
+                exercice.nouvelleVersion(exercice.numeroExercice)
+              }
             } catch (e) {
               failures.push(
                 `${url} : Erreur déclenchée lors d'une nouvelleVersion() : ${e instanceof Error ? e.message : e}`,
@@ -404,6 +421,130 @@ for (const [dir, entries] of grouped) {
                 failures.push(
                   `${url} : QCM — les réponses proposées ne sont pas toutes différentes (doublons détectés)`,
                 )
+              }
+            }
+
+            // Stratégie 4 : le passage AMC doit conserver exhaustivement les
+            // questions, propositions et statuts des QCM générés en HTML.
+            const isQcmItem = (
+              item: (typeof exercice.autoCorrection)[number],
+            ) =>
+              Array.isArray(item?.propositions) &&
+              item.propositions.length >= 2 &&
+              item.propositions.every(
+                (proposition) => typeof proposition.statut === 'boolean',
+              )
+            const qcmItems = exercice.autoCorrection.filter(isQcmItem)
+            if (qcmItems.length > 0) {
+              const htmlAmcType = exercice.amcType
+              const interactiveAutoCorrection = exercice.autoCorrection.map(
+                (item) => ({
+                  ...item,
+                  propositions: item?.propositions?.map((proposition) => ({
+                    ...proposition,
+                  })),
+                }),
+              )
+              ;(exercice as any).interactiveAutoCorrectionForAMC =
+                interactiveAutoCorrection
+              const originalIsHtml = context.isHtml
+              const originalIsAmc = context.isAmc
+              const originalInteractif = exercice.interactif
+              try {
+                // Même pipeline que la page AMC : après la capture interactive,
+                // une passe HTML non interactive prépare l'énoncé papier avant
+                // la génération AMC avec la même graine.
+                context.isHtml = true
+                context.isAmc = false
+                exercice.interactif = false
+                seedrandom(seed, { global: true })
+                if (exercice.typeExercice === 'simple') {
+                  mathaleaHandleExerciceSimple(exercice, false)
+                } else if (
+                  typeof exercice.nouvelleVersionWrapper === 'function'
+                ) {
+                  exercice.nouvelleVersionWrapper()
+                } else {
+                  exercice.nouvelleVersion(exercice.numeroExercice)
+                }
+
+                context.isHtml = false
+                context.isAmc = true
+                exercice.interactif = false
+                seedrandom(seed, { global: true })
+                if (exercice.typeExercice === 'simple') {
+                  mathaleaHandleExerciceSimple(exercice, false)
+                } else if (
+                  typeof exercice.nouvelleVersionWrapper === 'function'
+                ) {
+                  exercice.nouvelleVersionWrapper()
+                } else {
+                  exercice.nouvelleVersion(exercice.numeroExercice)
+                }
+                mathaleaEnsureAMCCompatibility(exercice)
+              } finally {
+                context.isHtml = originalIsHtml
+                context.isAmc = originalIsAmc
+                exercice.interactif = originalInteractif
+              }
+
+              const exportedQcmBlocks =
+                exercice.amcType === 'AMCHybride'
+                  ? (exercice.autoCorrectionAMC ?? []).flatMap((item) =>
+                      (item?.propositions ?? []).filter((proposition) =>
+                        ['qcmMono', 'qcmMult'].includes(
+                          String(proposition.type),
+                        ),
+                      ),
+                    )
+                  : ['qcmMono', 'qcmMult'].includes(String(exercice.amcType))
+                    ? (exercice.autoCorrectionAMC ?? [])
+                    : []
+              const explicitlyExpectedQcm = ['qcmMono', 'qcmMult'].includes(
+                String(htmlAmcType),
+              )
+              const inferredQcm = htmlAmcType == null
+              const nativeHybridQcm =
+                htmlAmcType === 'AMCHybride' && exportedQcmBlocks.length > 0
+              const mustPreserveQcm =
+                explicitlyExpectedQcm || inferredQcm || nativeHybridQcm
+
+              if (
+                mustPreserveQcm &&
+                !['qcmMono', 'qcmMult', 'AMCHybride'].includes(
+                  String(exercice.amcType),
+                )
+              ) {
+                failures.push(
+                  `${url} : QCM — la passe AMC aboutit à ${String(exercice.amcType)} et perd un QCM attendu.`,
+                )
+              } else if (mustPreserveQcm) {
+                if (exportedQcmBlocks.length !== qcmItems.length) {
+                  failures.push(
+                    `${url} : QCM — ${qcmItems.length} bloc(s) QCM interactif(s), mais ${exportedQcmBlocks.length} bloc(s) exporté(s) vers AMC.`,
+                  )
+                }
+                for (let qcmIndex = 0; qcmIndex < qcmItems.length; qcmIndex++) {
+                  const sourcePropositions =
+                    qcmItems[qcmIndex]?.propositions ?? []
+                  const exportedPropositions =
+                    exportedQcmBlocks[qcmIndex]?.propositions ?? []
+                  const sourceStatuses = sourcePropositions.map((proposition) =>
+                    Boolean(proposition.statut),
+                  )
+                  const exportedStatuses = exportedPropositions.map(
+                    (proposition) => Boolean(proposition.statut),
+                  )
+                  if (
+                    sourcePropositions.length !== exportedPropositions.length ||
+                    JSON.stringify(sourceStatuses) !==
+                      JSON.stringify(exportedStatuses)
+                  ) {
+                    failures.push(
+                      `${url} : QCM — les propositions ou leurs statuts diffèrent pour le bloc ${qcmIndex + 1} entre HTML et AMC.`,
+                    )
+                  }
+                }
               }
             }
             clearDOM()

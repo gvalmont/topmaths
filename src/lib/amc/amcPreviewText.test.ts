@@ -3,9 +3,23 @@ import { describe, expect, it } from 'vitest'
 import ImageAntecedentDepuisTableauOuFleche from '../../exercices/3e/3F10'
 import { context } from '../../modules/context'
 import { renderKatex } from '../mathalea'
-import { latexLineBreaksToHtmlOutsideMath } from './amcPreviewText'
+import {
+  latexLineBreaksToHtmlOutsideMath,
+  stripEmbeddedQcmFromAMCPreview,
+} from './amcPreviewText'
 
 describe('preview AMC des textes LaTeX', () => {
+  it('retire le mathalea-qcm déjà injecté avant de dessiner la preview AMC', () => {
+    const source = [
+      'Choisir la bonne réponse.<br><br>',
+      '<mathalea-qcm id="mathalea-qcmEx0Q0" propositions="[...]" format="lettre"></mathalea-qcm>',
+    ].join('')
+
+    expect(stripEmbeddedQcmFromAMCPreview(source)).toBe(
+      'Choisir la bonne réponse.',
+    )
+  })
+
   it('préserve les séparateurs de lignes d’un environnement array', () => {
     const source = String.raw`Voici le tableau :<br><br>$\def\arraystretch{1.5}\begin{array}{|l|c|c|}
 \hline

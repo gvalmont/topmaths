@@ -42,7 +42,7 @@ les custom elements modernes doivent conduire au même contrat AMC.
 | Formats observés                                                                                | Inférence automatique                                      | Condition                                                                                                                                      |
 | ----------------------------------------------------------------------------------------------- | ---------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------- |
 | `qcm`, `mathalea-qcm`                                                                           | `qcmMono` ou `qcmMult`                                     | au moins deux propositions ; `qcmMult` dès qu'une question possède plusieurs réponses vraies                                                   |
-| `mathlive`, `mathalea-mathfield`, ancien `calcul`                                               | `AMCNum`                                                   | une seule valeur finie, numérique ou fractionnaire, sans réponses alternatives                                                                 |
+| `mathalea-mathfield`, ancien `mathlive`, ancien `calcul`                                        | `AMCNum`                                                   | une seule valeur finie, comparaison standard et options dont la sémantique est représentable par les cases AMC, sans réponses alternatives     |
 | `fillInTheBlank`, `fill-in-the-blank`, `multi-mathfield`, `tableauMathlive`, `tableau-mathlive` | `AMCNum` pour un champ, `AMCHybride` pour plusieurs champs | tous les champs doivent être numériques et indépendants                                                                                        |
 | `liste-deroulante`                                                                              | `AMCOpen`                                                  | la correction interactive ne contient pas toujours la liste complète des choix ; un QCM n'est sûr que si l'exercice le construit explicitement |
 | formats texte, construction, clic, glisser-déposer, tableur, éditeurs et composants graphiques  | `AMCOpen`                                                  | l'énoncé LaTeX statique et la correction restent imprimables, mais la réponse ne peut pas être transposée fidèlement                           |
@@ -51,6 +51,31 @@ les custom elements modernes doivent conduire au même contrat AMC.
 Une réponse contenant plusieurs valeurs acceptées ne doit pas être réduite
 arbitrairement à la première valeur : elle bascule en `AMCOpen` tant qu'une
 représentation AMC équivalente n'est pas démontrée.
+
+Pour les champs mathématiques, le format ne suffit pas à autoriser `AMCNum`.
+L'inférence relit aussi chaque réponse enregistrée par `handleAnswers()` :
+
+- `compare` doit être absent ou égal à la comparaison standard
+  `fonctionComparaison` ;
+- les options actuellement reconnues sont `nombreDecimalSeulement`,
+  `fractionIrreductible` et `ecritureScientifique` ; `fractionEgale` n'est
+  transposable que lorsque la réponse se réduit à un entier ;
+- `noFeedback` est sans effet sur la réponse AMC ;
+- toute autre option active ou fonction de comparaison spécialisée conduit à
+  `AMCOpen` tant qu'une équivalence AMC dédiée n'est pas implémentée et testée.
+
+Une fraction numérique est réduite avant le dimensionnement des cases AMC. Une
+fraction de dénominateur `1` devient un entier : `100/25` produit ainsi une
+réponse `4`, et non une grille dimensionnée à partir d'une écriture décimale
+approchée. En revanche, une `fractionEgale` non entière bascule en `AMCOpen` :
+une grille AMC impose un couple numérateur-dénominateur précis et ne représente
+donc pas toutes les écritures équivalentes acceptées par le comparateur.
+
+`interactifType` n'est qu'un recours historique quand le format manque au
+niveau de la question. Une exception de migration subsiste pour quelques
+anciens exercices hybrides : un item étiqueté globalement `qcm`, sans
+propositions QCM mais avec une réponse numérique, peut être interprété comme un
+champ mathématique lorsqu'il appartient à un groupe réellement mixte.
 
 ### Différence entre `setReponse()` et `handleAnswers()`
 
