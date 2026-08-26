@@ -112,9 +112,10 @@ export default class QuestionsDeCours extends Exercice {
           },
           { formatInteractif: 'mathalea-textfield' },
         )
-        const champ = ajouteChampTexte(this, i, KeyboardType.alphanumeric)
-        if (champ !== '') texte = retirePointsDeSuspension(texte)
-        texte += champDeSaisie(champ)
+        texte = ajouteChampDeSaisie(
+          texte,
+          ajouteChampTexte(this, i, KeyboardType.alphanumeric),
+        )
       } else {
         handleAnswers(this, i, {
           reponse: {
@@ -122,14 +123,15 @@ export default class QuestionsDeCours extends Exercice {
             options: optionsDeComparaison(question),
           },
         })
-        const champ = ajouteChampTexteMathLive(
-          this,
-          i,
-          KeyboardType.clavierPersonnalisable,
-          { dataKeys: question.keys },
+        texte = ajouteChampDeSaisie(
+          texte,
+          ajouteChampTexteMathLive(
+            this,
+            i,
+            KeyboardType.clavierPersonnalisable,
+            { dataKeys: question.keys },
+          ),
         )
-        if (champ !== '') texte = retirePointsDeSuspension(texte)
-        texte += champDeSaisie(champ)
       }
 
       this.listeQuestions[i] = texte
@@ -230,24 +232,17 @@ function selectionnePropositionsQcm(question: QuestionDeCours): string[] {
 }
 
 /**
- * La banque termine souvent l'énoncé d'une question à saisie par des
- * pointillés (`\ldots`) à compléter sur papier. Quand un champ interactif est
- * affiché juste en dessous, ces pointillés deviennent redondants : on les
- * retire.
+ * Complète l'énoncé d'une question à saisie avec ce qui permet d'y répondre.
+ * La banque termine souvent l'énoncé par des pointillés (`\ldots`) à
+ * compléter sur papier ; quand un champ interactif existe, ces pointillés
+ * sont remplacés en ligne par le champ (pas de retour à la ligne, qui
+ * laisserait le champ isolé sous l'énoncé).
  */
-function retirePointsDeSuspension(texte: string): string {
-  return texte.replace(/\\ldots(?=\$?\s*$)/, '')
-}
-
-/**
- * Ce qui suit l'énoncé d'une question à saisie : le champ interactif quand il
- * existe, et sinon des pointillés à compléter dans les sorties imprimables.
- */
-function champDeSaisie(champ: string): string {
-  if (champ !== '') return '<br>' + champ
+function ajouteChampDeSaisie(texte: string, champ: string): string {
+  if (champ !== '') return texte.replace(/\\ldots(?=\$?\s*$)/, '') + champ
   // `context.isHtml` reste vrai pendant la régénération pour Typst : les
   // pointillés doivent y apparaître comme dans la sortie LaTeX.
-  return context.isHtml && !context.isTypst ? '' : ' \\dotfill'
+  return texte + (context.isHtml && !context.isTypst ? '' : ' \\dotfill')
 }
 
 /** Traduction des modes de comparaison de la banque en options MathALÉA. */
