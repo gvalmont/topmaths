@@ -75,8 +75,8 @@ function graphique(
       ymax: yMax * yUnite + 0.3,
       pixelsParCm: 20,
       scale,
-      center: !context.isHtml,
-      centerLatex: true,
+      //center: !context.isHtml,
+      //centerLatex: true,
     },
     r,
     courbe(fonction, {
@@ -135,7 +135,7 @@ export default class CourbeFonctionDepuisDerivee extends Exercice {
       xMax,
       yMin,
       yMax,
-      0.9,
+      0.4,
       "\\mathcal C_{f'}",
     )
     const definitionsPropositions = shuffle([
@@ -167,7 +167,7 @@ export default class CourbeFonctionDepuisDerivee extends Exercice {
         xMax,
         yMin,
         yMax,
-        0.72,
+        0.5,
         `\\mathcal C_${index + 1}`,
       ),
       statut: proposition.statut,
@@ -289,7 +289,9 @@ export default class CourbeFonctionDepuisDerivee extends Exercice {
     const numeroBonneCourbe =
       definitionsPropositions.findIndex((proposition) => proposition.statut) + 1
 
-    this.listeQuestions[0] = `${enonce}<style>
+    this.listeQuestions[0] =
+      context.isHtml || context.isTypst
+        ? `${enonce}<style>
       #exercice${this.numeroExercice} .my-3 {
         display: grid;
         grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -298,6 +300,7 @@ export default class CourbeFonctionDepuisDerivee extends Exercice {
         justify-items: center;
       }
     </style>${qcm.texte}`
+        : `${enonce}${qcm.texte}`
 
     this.listeCorrections[0] = `<b>1. Tableau de signes de $f'$</b><br>
     La courbe $\\mathcal C_{f'}$ coupe l'axe des abscisses en $${texNombre(racineGauche)}$ et $${texNombre(racineDroite)}$. Elle permet de lire le tableau de signes suivant :<br><br>
