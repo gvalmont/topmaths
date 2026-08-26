@@ -134,7 +134,7 @@ export default class PPCMDecompositionFacteursPremiers extends Exercice {
       if (facteursManquants.length > 0) {
         texteCorr += `On ajoute les facteurs manquants de $${B}$ (en vert) : ${texteDecompPPCM.replace(/\$$/, '.$')}<br>`
       }
-      texteCorr += `Donc $\\text{PPCM}(${A}, ${B}) = ${texteDecompPPCM.replace(/^\$/, '').replace(/\$$/, '')} = ${miseEnEvidence(lePPCM)}.$`
+      texteCorr += `Donc $\\text{PPCM}$$(${A}, ${B}) = ${texteDecompPPCM.replace(/^\$/, '').replace(/\$$/, '')} = ${miseEnEvidence(lePPCM)}.$`
 
       handleAnswers(this, i, {
         reponse: { value: String(lePPCM) },
