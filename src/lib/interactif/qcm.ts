@@ -120,21 +120,25 @@ export function propositionsQcm(
     )
     return { texte: '', texteCorr: '' }
   } else if (exercice.autoCorrection[i].propositions.length === 0) {
-    window.notify('propositionsQcm a reçu une liste de propositions vide', {
-      autoCrorrection: exercice.autoCorrection[i],
-      propositions: exercice.autoCorrection[i].propositions,
-      exercise: exercice,
-    })
-    return { texte: '', texteCorr: '' }
-  } else if (exercice.autoCorrection[i].propositions.length === 1) {
-    window.notify(
-      'propositionsQcm a reçu une liste de propositions de taille 1',
-      {
+    if (!context.isAmc) {
+      window.notify('propositionsQcm a reçu une liste de propositions vide', {
         autoCrorrection: exercice.autoCorrection[i],
         propositions: exercice.autoCorrection[i].propositions,
         exercise: exercice,
-      },
-    )
+      })
+    }
+    return { texte: '', texteCorr: '' }
+  } else if (exercice.autoCorrection[i].propositions.length === 1) {
+    if (!context.isAmc) {
+      window.notify(
+        'propositionsQcm a reçu une liste de propositions de taille 1',
+        {
+          autoCrorrection: exercice.autoCorrection[i],
+          propositions: exercice.autoCorrection[i].propositions,
+          exercise: exercice,
+        },
+      )
+    }
     return { texte: '', texteCorr: '' }
   }
 
@@ -149,6 +153,10 @@ export function propositionsQcm(
   indexes.push(...qcmPreparation.indexes)
   vertical = qcmPreparation.vertical
   nbCols = qcmPreparation.nbCols
+  if (context.isAmc) {
+    syncQcmAutoCorrectionToAmc(exercice, i)
+    return { texte: '', texteCorr: '' }
+  }
   if (!context.isHtml) {
     const propositions = exercice.autoCorrection[i].propositions
 
