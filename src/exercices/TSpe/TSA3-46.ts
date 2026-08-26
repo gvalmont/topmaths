@@ -5,7 +5,10 @@ import { bleuMathalea } from '../../lib/colors'
 import { propositionsQcm } from '../../lib/interactif/qcm'
 import { tableauDeVariation } from '../../lib/mathFonctions/etudeFonction'
 import { choice, shuffle } from '../../lib/outils/arrayOutils'
-import { miseEnEvidence } from '../../lib/outils/embellissements'
+import {
+  miseEnEvidence,
+  texteEnCouleurEtGras,
+} from '../../lib/outils/embellissements'
 import { texNombre } from '../../lib/outils/texNombre'
 import { context } from '../../modules/context'
 import { mathalea2d } from '../../modules/mathalea2d'
@@ -267,7 +270,7 @@ export default class CourbeFonctionDepuisDerivee extends Exercice {
       espcl: 4.5,
       deltacl: 0.8,
       lgt: 3,
-      scale: 0.9,
+      scale: 0.7,
       hauteurLignes: [18, 28],
     })
 
@@ -300,17 +303,17 @@ export default class CourbeFonctionDepuisDerivee extends Exercice {
         justify-items: center;
       }
     </style>${qcm.texte}`
-        : `${enonce}${qcm.texte}`
+        : `${enonce}<br>${qcm.texte}`
 
-    this.listeCorrections[0] = `<b>1. Tableau de signes de $f'$</b><br>
+    this.listeCorrections[0] = `${texteEnCouleurEtGras("1. Tableau de signes de $f'$", 'black')}<br>
     La courbe $\\mathcal C_{f'}$ coupe l'axe des abscisses en $${texNombre(racineGauche)}$ et $${texNombre(racineDroite)}$. Elle permet de lire le tableau de signes suivant :<br><br>
     ${tableauSignes}<br>
-    <b>2. Variations attendues de $f$</b><br>
+    ${texteEnCouleurEtGras('2. Variations attendues de $f$', 'black')}<br>
     ${deductionVariations}<br>
     Ainsi, $f$ est ${variations}. On obtient le tableau de variations suivant :<br><br>
     ${tableauVariations}<br>
     Sa courbe doit avoir des tangentes horizontales aux abscisses $${texNombre(racineGauche)}$ et $${texNombre(racineDroite)}$ et respecter ces variations.<br><br>
-    <b>3. Examen des courbes proposées</b><br>
+    ${texteEnCouleurEtGras('3. Examen des courbes proposées', 'black')}<br>
     ${analysesCourbes}<br><br>
     La seule courbe compatible est donc $${miseEnEvidence(`\\mathcal C_${numeroBonneCourbe}`)}$.<br>
     ${qcm.texteCorr}`
