@@ -26,7 +26,7 @@ export const titre = 'Simplifier des expressions exponentielles'
 export const dateDePublication = '02/07/2024'
 export const dateDeModifImportante = '20/10/2025'
 export const interactifReady = true
-export const interactifType = ['qcm', 'mathLive']
+export const interactifType = 'mathLive'
 export const uuid = 'cb7d9'
 export const refs = {
   'fr-fr': ['1AN30-2','TSA3-20', 'TCA7-20'],

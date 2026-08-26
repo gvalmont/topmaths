@@ -946,7 +946,6 @@ export function handleAnswers(
         ? 'tableauMathlive'
         : (exercice.autoCorrection[question]?.formatInteractif ??
           exercice.formatInteractif ??
-          exercice.interactifType ??
           'mathalea-mathfield'))
   if (context.isAmc) {
     if (exercice.autoCorrectionAMC == null) exercice.autoCorrectionAMC = []

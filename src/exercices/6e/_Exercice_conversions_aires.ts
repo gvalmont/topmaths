@@ -15,7 +15,7 @@ import { getDigitFromNumber } from './_ExerciceConversionsLongueurs'
 export const amcReady = true
 export const amcType = 'qcmMono'
 export const interactifReady = true
-export const interactifType = ['qcm', 'mathLive']
+export const interactifType = 'mathLive'
 export const titre = "Effectuer des conversions d'aires"
 
 /**
@@ -415,9 +415,14 @@ ${range(Math.abs(ecart - 1))
               ajouteChampTexteMathLive(this, i, KeyboardType.clavierNumbers) +
               '$',
           )
-          handleAnswers(this, i, {
-            reponse: { value: parseFloat(resultat.toString()) },
-          })
+          handleAnswers(
+            this,
+            i,
+            {
+              reponse: { value: parseFloat(resultat.toString()) },
+            },
+            { formatInteractif: 'mathlive' },
+          )
         }
         if (context.isHtml) {
           texte = texte.replace(

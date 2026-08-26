@@ -1074,7 +1074,10 @@ export function mathaleaHandleExerciceSimple(
     let reponse = {}
 
     if (exercice.questionJamaisPosee(i, String(exercice.correction))) {
-      if (exercice.reponse != null) {
+      if (
+        exercice.reponse != null &&
+        !(exercice.exoCustomResultat && exercice.formatChampTexte === 'none')
+      ) {
         if (compare != null) {
           /// DE LA AU PROCHAIN LA, ce sera à supprimer quand il n'y aura plus de this.compare
           if (

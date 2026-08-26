@@ -43,7 +43,6 @@ import { gestionnaireFormulaireTexte } from '../modules/outils'
 import Exercice from './Exercice'
 import ExerciceSimple from './ExerciceSimple'
 
-export const interactifType = 'mathLive'
 export const interactifReady = true
 
 type QuestionWithOptionalTableau = ExerciceSimple & {

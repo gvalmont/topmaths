@@ -38,7 +38,7 @@ export const titre = 'Reconnaitre des solides'
 export const dateDePublication = '24/09/2022'
 export const dateDeModifImportante = '08/05/2023'
 export const interactifReady = true
-export const interactifType = ['qcm', 'mathLive']
+export const interactifType = 'mathLive'
 export const amcReady = true
 export const amcType = 'qcmMono'
 

@@ -408,6 +408,7 @@ export function mathaleaEnsureAMCCompatibility(
   // On va essayer d'inférer un type AMCNum à partir des réponses numériques présentes dans les autoCorrections ou les réponses interactives mises en cache.
 
   const extractNumericFields = (item: AutoCorrection) => {
+    if (item == null) return []
     const format = getFormat(item)
     const isLegacyNumericItemMislabeledAsQcm =
       hasMixedGeneratedQuestions &&
@@ -518,22 +519,7 @@ export function mathaleaEnsureAMCCompatibility(
     statementQuestionCount > 0 &&
     autoCorrectionSource.length >= statementQuestionCount &&
     autoCorrectionSource.length % statementQuestionCount === 0
-  const allMixedItemsAreSupported = autoCorrectionSource.every(
-    (item, index) => {
-      if (item == null) return false
-      if (isQcmItem(item)) return true
-      const fields = numericFieldGroups[index]
-      return (
-        fields.length > 0 && fields.every((field) => field.valeur !== undefined)
-      )
-    },
-  )
-
-  if (
-    hasMixedGeneratedQuestions &&
-    canGroupByStatement &&
-    allMixedItemsAreSupported
-  ) {
+  if (hasMixedGeneratedQuestions && canGroupByStatement) {
     const blocksPerStatement =
       autoCorrectionSource.length / statementQuestionCount
     exerciseAny.autoCorrectionAMC = Array.from(
@@ -563,7 +549,26 @@ export function mathaleaEnsureAMCCompatibility(
               ]
             }
 
-            return numericFieldGroups[itemIndex].map(
+            const numericFields = numericFieldGroups[itemIndex]
+            const hasSupportedNumericFields =
+              numericFields.length > 0 &&
+              numericFields.every((field) => field.valeur !== undefined)
+            if (!hasSupportedNumericFields) {
+              return [
+                {
+                  type: 'AMCOpen',
+                  propositions: [
+                    {
+                      texte: exercice.listeCorrections[statementIndex] ?? '',
+                      statut: 3,
+                      enonce: item?.enonce ?? '',
+                    },
+                  ],
+                },
+              ]
+            }
+
+            return numericFields.map(
               (field, fieldIndex, fields) => ({
                 type: 'AMCNum',
                 propositions: [

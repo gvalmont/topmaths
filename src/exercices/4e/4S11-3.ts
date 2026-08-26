@@ -20,7 +20,7 @@ export const titre =
   "Différencier moyenne et médianes sur les salaires d'une entreprise"
 
 export const interactifReady = true
-export const interactifType = ['qcm', 'mathLive']
+export const interactifType = 'mathLive'
 export const dateDePublication = '15/05/2026'
 
 export const uuid = '0f388'

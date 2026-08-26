@@ -16,7 +16,7 @@ import Exercice from '../Exercice'
 export const amcReady = true
 export const amcType = 'qcmMono'
 export const interactifReady = true
-export const interactifType = ['qcm', 'mathLive']
+export const interactifType = 'mathLive'
 
 export const titre =
   'Utiliser tables de multiplication pour effectuer produits avec multiple de 10'

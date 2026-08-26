@@ -19,7 +19,7 @@ import Exercice from '../Exercice'
 export const amcReady = true
 export const amcType = ['AMCOpen', 'AMCNum', 'qcmMult', 'qcmMono']
 export const interactifReady = true
-export const interactifType = ['mathLive', 'qcm']
+export const interactifType = 'mathLive'
 
 export const titre = 'Simplifier des fractions'
 export const dateDeModifImportante = '08/03/2024'

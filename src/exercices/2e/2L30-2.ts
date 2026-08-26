@@ -25,7 +25,7 @@ export const titre =
   "Utiliser les propriétés de conservation du sens d'une inégalité"
 export const dateDePublication = '14/02/2023'
 export const dateDeModifImportante = '07/04/2026'
-export const interactifType = ['multiMathfield', 'mathLive']
+export const interactifType = 'mathLive'
 export const interactifReady = true
 
 /**
