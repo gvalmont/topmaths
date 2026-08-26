@@ -78,8 +78,8 @@ function graphique(
       ymax: yMax * yUnite + 0.3,
       pixelsParCm: 20,
       scale,
-      //center: !context.isHtml,
-      //centerLatex: true,
+      center: !context.isHtml,
+      centerLatex: true,
     },
     r,
     courbe(fonction, {
@@ -95,10 +95,15 @@ function graphique(
     ...(nomCourbe === undefined
       ? []
       : [
-          latex2d(nomCourbe, abscisseLabel, ordonneeLabel * yUnite + 0.45, {
-            color: bleuMathalea,
-            letterSize: 'small',
-          }),
+          latex2d(
+            nomCourbe,
+            abscisseLabel - 0.45,
+            ordonneeLabel * yUnite + 0.45,
+            {
+              color: bleuMathalea,
+              letterSize: 'small',
+            },
+          ),
         ]),
   )
 }
