@@ -30,7 +30,7 @@ import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import Exercice from '../Exercice'
 
 export const titre = 'Nommer un angle'
-export const interactifType = ['qcm', 'mathLive']
+export const interactifType = 'mathLive'
 export const interactifReady = true
 export const amcType = 'AMCHybride'
 export const amcReady = true

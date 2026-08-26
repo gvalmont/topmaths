@@ -26,7 +26,7 @@ import Exercice from '../Exercice'
 export const interactifReady = true
 export const interactifType = 'cliqueFigure'
 export const amcReady = true
-export const amcType = 'qcmMono'
+export const amcType = 'AMCOpen'
 
 export const titre = 'Se déplacer et se repérer'
 export const uuid = 'e9dac'

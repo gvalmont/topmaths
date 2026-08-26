@@ -613,6 +613,55 @@ describe('inférence AMC depuis formatInteractif', () => {
     )
   })
 
+  it('conserve le QCM quand les autres questions nécessitent AMCOpen', () => {
+    const exercice = exercise({
+      nbQuestions: 2,
+      listeQuestions: ['Choisir la réponse', 'Justifier la réponse'],
+      listeCorrections: ['La réponse B convient.', 'Justification attendue.'],
+      autoCorrection: [
+        {
+          enonce: 'Choisir la réponse',
+          formatInteractif: 'mathalea-qcm',
+          propositions: [
+            { texte: 'A', statut: false },
+            { texte: 'B', statut: true },
+          ],
+        },
+        {
+          enonce: 'Justifier la réponse',
+          formatInteractif: 'mathalea-textfield',
+          valeur: { reponse: { value: 'car B' } },
+        },
+      ],
+    })
+
+    mathaleaEnsureAMCCompatibility(exercice)
+
+    expect(exercice.amcType).toBe('AMCHybride')
+    expect(exercice.autoCorrectionAMC).toHaveLength(2)
+    expect(exercice.autoCorrectionAMC[0].propositions).toEqual([
+      expect.objectContaining({
+        type: 'qcmMono',
+        propositions: [
+          expect.objectContaining({ statut: false }),
+          expect.objectContaining({ statut: true }),
+        ],
+      }),
+    ])
+    expect(exercice.autoCorrectionAMC[1].propositions).toEqual([
+      expect.objectContaining({
+        type: 'AMCOpen',
+        propositions: [
+          expect.objectContaining({
+            texte: 'Justification attendue.',
+            statut: 3,
+            enonce: 'Justifier la réponse',
+          }),
+        ],
+      }),
+    ])
+  })
+
   it('ne choisit pas arbitrairement une réponse parmi plusieurs valeurs acceptées', () => {
     const exercice = exercise({
       interactifType: 'mathLive',

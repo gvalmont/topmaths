@@ -20,7 +20,7 @@ export const titre = 'Convertir des volumes ou des capacités'
 export const amcReady = true
 export const amcType = 'qcmMono'
 export const interactifReady = true
-export const interactifType = ['qcm', 'mathLive']
+export const interactifType = 'mathLive'
 export const dateDeModifImportante = '05/06/2023'
 
 /**
@@ -333,6 +333,7 @@ export default class UnitesDeVolumesEtDeCapacite extends Exercice {
           break
       }
 
+      this.autoCorrection[i] ??= {}
       this.autoCorrection[i].enonce = `${texte}\n`
       resultatFaux = combinaisonListes(
         [

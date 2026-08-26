@@ -15,7 +15,7 @@ import TrouverSolutionMathador from './_TrouverSolutionMathador'
 export const amcReady = true
 export const amcType = 'AMCOpen'
 export const interactifReady = true
-export const interactifType = ['mathLive', 'custom']
+export const interactifType = 'mathLive'
 
 export const titre = "Traduire une succession d'opérations par une expression"
 export const dateDeModifImportante = '26/09/2024'

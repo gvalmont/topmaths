@@ -21,7 +21,7 @@ import ChoisirExpressionLitterale from './_Choisir_expression_litterale'
 import choisirExpressionNumerique from './_choisirExpressionNumerique'
 
 export const interactifReady = true
-export const interactifType = ['mathLive', 'listeDeroulante']
+export const interactifType = 'mathLive'
 export const amcReady = true
 export const amcType = 'AMCHybride'
 export const dateDeModifImportante = '21/09/2023'

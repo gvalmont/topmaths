@@ -23,7 +23,7 @@ export const dateDeModifImportante = '19/08/2026'
 export const amcReady = true
 export const amcType = 'qcmMono'
 export const interactifReady = true
-export const interactifType = ['qcm', 'mathLive']
+export const interactifType = 'mathLive'
 export const titre =
   'Additionner ou soustraire deux fractions positives (dénominateurs multiples)'
 /**

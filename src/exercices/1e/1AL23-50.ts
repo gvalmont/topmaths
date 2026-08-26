@@ -25,7 +25,7 @@ import { bleuMathalea } from '../../lib/colors'
 export const titre =
   "Utiliser la représentation graphique d'un polynôme du second degré"
 export const dateDeModifImportante = '13/11/2025'
-export const interactifType = ['mathLive', 'qcm']
+export const interactifType = 'mathLive'
 export const interactifReady = true
 
 /**

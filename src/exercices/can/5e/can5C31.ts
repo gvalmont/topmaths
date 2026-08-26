@@ -68,14 +68,14 @@ export default class ProblemeFraction extends ExerciceSimple {
           this.reponse = new FractionEtendue(
             fractionChoisie2[2] * 30,
             fractionChoisie2[1],
-          )
+          ).valeurDecimale
           this.question = `Dans ${fractionChoisie2[0]} de gâteau, il y a trente grammes de sucre.<br>
     Combien y a-t-il de grammes de sucre dans un gâteau entier ?`
 
           this.correction = `Dans ${fractionChoisie2[0]} de gâteau, il y a $30$ g de sucre, donc dans un ${fractionChoisie2[3]} de gâteau, 
    il y a $30 \\div ${fractionChoisie2[1]} = ${texNombre(new FractionEtendue(30, fractionChoisie2[1]).valeurDecimale)}$ g de sucre.<br>
    Donc, dans un gâteau entier, 
-   il y a $${texNombre(new FractionEtendue(30, fractionChoisie2[1]).valeurDecimale)} \\times ${fractionChoisie2[2]} = ${miseEnEvidence(texNombre(this.reponse.valeurDecimale))}$ g.`
+   il y a $${texNombre(new FractionEtendue(30, fractionChoisie2[1]).valeurDecimale)} \\times ${fractionChoisie2[2]} = ${miseEnEvidence(texNombre(this.reponse))}$ g.`
         }
         break
     }

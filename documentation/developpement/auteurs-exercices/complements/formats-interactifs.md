@@ -1255,7 +1255,7 @@ Quand aucun custom element ne convient — c'est le cas des exercices apiGeom, o
 
 ```ts
 export const interactifReady = true
-export const interactifType = 'custom'
+export const interactifType = 'custom' // Cette mention devrait bientôt disparaître au profit de formatInteractif: 'custom' pour chaque question
 
 export default class MonExercice extends Exercice {
   correctionInteractive = (i: number) => {

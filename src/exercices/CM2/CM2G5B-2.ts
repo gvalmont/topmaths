@@ -26,7 +26,7 @@ export const titre = 'Nommer des faces dans un pavé droit'
 export const amcReady = true
 export const amcType = 'AMCHybride'
 export const interactifReady = true
-export const interactifType = ['qcm', 'mathLive']
+export const interactifType = 'mathLive'
 
 export const dateDePublication = '06/11/2022'
 
@@ -195,9 +195,9 @@ export default class LireFacePaveDroit extends Exercice {
           options: {
             ordered: false,
           },
+          propositions: [],
         }
         this.questionsAMC[i] = amcConvert(this.autoCorrectionAMC[i])
-        this.autoCorrection[i].propositions = []
       }
 
       for (let ee = 0; ee < Math.min(choixFace.length, this.sup); ee++) {

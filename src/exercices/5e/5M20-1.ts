@@ -26,7 +26,7 @@ export const titre = 'Calculer le volume de solides donnés'
 export const amcReady = true
 export const amcType = 'AMCHybride'
 export const interactifReady = true
-export const interactifType = ['qcm', 'mathLive']
+export const interactifType = 'mathLive'
 export const dateDeModifImportante = '10/06/2024'
 /**
  * Calcul de volumes.

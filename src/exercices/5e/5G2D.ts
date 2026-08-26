@@ -15,7 +15,7 @@ export const titre = 'Convertir des volumes'
 export const amcReady = true
 export const amcType = 'qcmMono'
 export const interactifReady = true
-export const interactifType = ['qcm', 'mathLive']
+export const interactifType = 'mathLive'
 
 export const dateDeModifImportante = '03/06/2024'
 
