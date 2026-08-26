@@ -112,9 +112,9 @@ export default class QuestionsDeCours extends Exercice {
           },
           { formatInteractif: 'mathalea-textfield' },
         )
-        texte += champDeSaisie(
-          ajouteChampTexte(this, i, KeyboardType.alphanumeric),
-        )
+        const champ = ajouteChampTexte(this, i, KeyboardType.alphanumeric)
+        if (champ !== '') texte = retirePointsDeSuspension(texte)
+        texte += champDeSaisie(champ)
       } else {
         handleAnswers(this, i, {
           reponse: {
@@ -122,14 +122,14 @@ export default class QuestionsDeCours extends Exercice {
             options: optionsDeComparaison(question),
           },
         })
-        texte += champDeSaisie(
-          ajouteChampTexteMathLive(
-            this,
-            i,
-            KeyboardType.clavierPersonnalisable,
-            { dataKeys: question.keys },
-          ),
+        const champ = ajouteChampTexteMathLive(
+          this,
+          i,
+          KeyboardType.clavierPersonnalisable,
+          { dataKeys: question.keys },
         )
+        if (champ !== '') texte = retirePointsDeSuspension(texte)
+        texte += champDeSaisie(champ)
       }
 
       this.listeQuestions[i] = texte
@@ -227,6 +227,16 @@ function selectionnePropositionsQcm(question: QuestionDeCours): string[] {
     Math.max(0, NB_PROPOSITIONS_QCM - bonnesReponses.length),
   )
   return shuffle([...bonnesReponses, ...mauvaisesRetenues])
+}
+
+/**
+ * La banque termine souvent l'énoncé d'une question à saisie par des
+ * pointillés (`\ldots`) à compléter sur papier. Quand un champ interactif est
+ * affiché juste en dessous, ces pointillés deviennent redondants : on les
+ * retire.
+ */
+function retirePointsDeSuspension(texte: string): string {
+  return texte.replace(/\\ldots(?=\$?\s*$)/, '')
 }
 
 /**
