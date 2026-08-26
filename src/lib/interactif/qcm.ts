@@ -103,36 +103,45 @@ export function propositionsQcm(
     options?.style != null && options.style !== ''
       ? `class="ml-2" style="${options.style};" `
       : 'class="ml-2"'
-  if (context.isAmc) return { texte: '', texteCorr: '' }
   if (exercice?.autoCorrection[i]?.propositions === undefined) {
-    window.notify(
-      'propositionsQcm a reçu une liste de propositions undefined',
-      {
-        autoCrorrection: exercice?.autoCorrection[i],
-        propositions: exercice?.autoCorrection[i].propositions,
-        exercise: exercice,
-      },
-    )
+    if (!context.isAmc) {
+      window.notify(
+        'propositionsQcm a reçu une liste de propositions undefined',
+        {
+          autoCrorrection: exercice?.autoCorrection[i],
+          propositions: exercice?.autoCorrection[i].propositions,
+          exercise: exercice,
+        },
+      )
+    }
     return { texte: '', texteCorr: '' }
   } else if (exercice.autoCorrection[i].propositions.length === 0) {
-    window.notify('propositionsQcm a reçu une liste de propositions vide', {
-      autoCrorrection: exercice.autoCorrection[i],
-      propositions: exercice.autoCorrection[i].propositions,
-      exercise: exercice,
-    })
-    return { texte: '', texteCorr: '' }
-  } else if (exercice.autoCorrection[i].propositions.length === 1) {
-    window.notify(
-      'propositionsQcm a reçu une liste de propositions de taille 1',
-      {
+    if (!context.isAmc) {
+      window.notify('propositionsQcm a reçu une liste de propositions vide', {
         autoCrorrection: exercice.autoCorrection[i],
         propositions: exercice.autoCorrection[i].propositions,
         exercise: exercice,
-      },
-    )
+      })
+    }
+    return { texte: '', texteCorr: '' }
+  } else if (exercice.autoCorrection[i].propositions.length === 1) {
+    if (!context.isAmc) {
+      window.notify(
+        'propositionsQcm a reçu une liste de propositions de taille 1',
+        {
+          autoCrorrection: exercice.autoCorrection[i],
+          propositions: exercice.autoCorrection[i].propositions,
+          exercise: exercice,
+        },
+      )
+    }
     return { texte: '', texteCorr: '' }
   }
 
+  // La préparation (suppression des doublons + mélange) doit rester identique
+  // que l'on soit en train de générer le HTML ou l'AMC : sinon la passe AMC,
+  // qui régénère exercice.autoCorrection[i] sans repasser par prepareQcmPropositions,
+  // finit par exporter un ordre de propositions différent de celui vu en HTML.
   if (context.isHtml) {
     espace = '&emsp;'
     exercice.autoCorrection[i].formatInteractif = 'qcm'
@@ -143,6 +152,10 @@ export function propositionsQcm(
   indexes.push(...qcmPreparation.indexes)
   vertical = qcmPreparation.vertical
   nbCols = qcmPreparation.nbCols
+  if (context.isAmc) {
+    syncQcmAutoCorrectionToAmc(exercice, i)
+    return { texte: '', texteCorr: '' }
+  }
   if (!context.isHtml) {
     const propositions = exercice.autoCorrection[i].propositions
 
