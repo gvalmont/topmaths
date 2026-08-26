@@ -170,7 +170,7 @@ export default class CourbeFonctionDepuisDerivee extends Exercice {
         xMax,
         yMin,
         yMax,
-        0.5,
+        0.4,
         `\\mathcal C_${index + 1}`,
       ),
       statut: proposition.statut,
@@ -279,13 +279,13 @@ export default class CourbeFonctionDepuisDerivee extends Exercice {
         const nom = `$\\mathcal C_${index + 1}$`
         switch (proposition.nature) {
           case 'fonction':
-            return `<b>Courbe ${nom} :</b> la fonction représentée est ${variations}. Ses variations sont exactement celles attendues : cette courbe convient.`
+            return `${texteEnCouleurEtGras(`Courbe ${nom} :`, 'black')} la fonction représentée est ${variations}. Ses variations sont exactement celles attendues : cette courbe convient.`
           case 'deriveeSeconde':
-            return `<b>Courbe ${nom} :</b> elle représente une fonction affine, ${coefficient > 0 ? 'croissante' : 'décroissante'} sur tout $\\mathbb R$. Elle ne présente pas les mêmes variations que $f$. On l'élimine. Il s'agit en fait de la courbe de $f''$.`
+            return `${texteEnCouleurEtGras(`Courbe ${nom} :`, 'black')} elle représente une fonction affine, ${coefficient > 0 ? 'croissante' : 'décroissante'} sur tout $\\mathbb R$. Elle ne présente pas les mêmes variations que $f$. On l'élimine. Il s'agit en fait de la courbe de $f''$.`
           case 'derivee':
-            return `<b>Courbe ${nom} :</b> la fonction représentée est ${variationsDeFPrime}. Elle ne change de sens qu'en $x=${texNombre(centre)}$, alors que $f$ doit changer de sens en $${texNombre(racineGauche)}$ et $${texNombre(racineDroite)}$. On l'élimine. Il s'agit de la courbe de $f'$ donnée dans l'énoncé.`
+            return `${texteEnCouleurEtGras(`Courbe ${nom} :`, 'black')} la fonction représentée est ${variationsDeFPrime}. Elle ne change de sens qu'en $x=${texNombre(centre)}$, alors que $f$ doit changer de sens en $${texNombre(racineGauche)}$ et $${texNombre(racineDroite)}$. On l'élimine. Il s'agit de la courbe de $f'$ donnée dans l'énoncé.`
           case 'variationsOpposees':
-            return `<b>Courbe ${nom} :</b> la fonction représentée est ${variationsOpposees}. Elle change de sens aux bonnes abscisses, mais elle est décroissante lorsque $f'>0$ et croissante lorsque $f'<0$. Ses variations sont exactement opposées à celles attendues. On l'élimine.`
+            return `${texteEnCouleurEtGras(`Courbe ${nom} :`, 'black')} la fonction représentée est ${variationsOpposees}. Elle change de sens aux bonnes abscisses, mais elle est décroissante lorsque $f'>0$ et croissante lorsque $f'<0$. Ses variations sont exactement opposées à celles attendues. On l'élimine.`
         }
       })
       .join('<br><br>')
