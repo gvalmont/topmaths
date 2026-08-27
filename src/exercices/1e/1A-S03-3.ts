@@ -41,7 +41,7 @@ export default class LireMedianeBoiteMoustachesQCM extends ExerciceQcmA {
       texNombre(maSerie.q1, 0),
       texNombre(maSerie.q3, 0),
     ].map((r) => `$${r}$`)
-    this.enonce = `Une série statistique est résumée par le diagramme en boîte ci-dessous, l'utilise pour donner la valeur de la médiane de cette série.<br>
+    this.enonce = `Une série statistique est résumée par le diagramme en boîte ci-dessous.<br>Déterminer la valeur de la médiane de cette série.<br><br>
       ${moustache}`
 
     // Correction : explication simple, claire
