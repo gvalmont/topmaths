@@ -3,16 +3,14 @@ import {
   tableauSignesFacteurs,
   tableauSignesFonction,
 } from '../../lib/mathFonctions/etudeFonction'
-import { ecritureAlgebrique, rienSi1 } from '../../lib/outils/ecritures'
+import { reduireAxPlusB, rienSi1 } from '../../lib/outils/ecritures'
+import FractionEtendue from '../../modules/FractionEtendue'
 import {
   gestionnaireFormulaireTexte,
   listeQuestionsToContenu,
   randint,
 } from '../../modules/outils'
 import Exercice from '../Exercice'
-import { rienSi1, reduireAxPlusB } from '../../lib/outils/ecritures'
-import { propositionsQcm } from '../../lib/interactif/qcm'
-import FractionEtendue from '../../modules/FractionEtendue'
 
 export const interactifReady = true
 export const interactifType = 'qcm'
