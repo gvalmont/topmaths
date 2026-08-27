@@ -106,6 +106,23 @@ describe('latexMathToTypst', () => {
     expect(result).toContain('union')
   })
 
+  it('ne casse pas une parenthèse isolée dans un groupe gras coloré (3L11-3b)', () => {
+    // 3L11-3b colore en bleu gras le signe et les grandes parenthèses d'un
+    // produit ajouté : miseEnEvidence('\\,+\\Big(') et miseEnEvidence('\\Big)').
+    // tex2typst produit alors bold(+() (délimiteur ouvrant jamais fermé) et
+    // bold()) (bold() sans corps → "missing argument: body" à la compilation).
+    const open = latexMathToTypst('{\\color{#216d9a}\\boldsymbol{\\,+\\Big(}}')
+    const close = latexMathToTypst('{\\color{#216d9a}\\boldsymbol{\\Big)}}')
+    expect(open).toContain('paren.l')
+    expect(open).not.toMatch(/bold\([^)]*\(\)/)
+    expect(close).toContain('paren.r')
+    expect(close).not.toContain('bold()')
+    // parenthésage équilibré des deux côtés
+    for (const r of [open, close]) {
+      expect((r.match(/\(/g) ?? []).length).toBe((r.match(/\)/g) ?? []).length)
+    }
+  })
+
   it('conserve les crochets d\'une notation de segment comme [YS]', () => {
     // Régression : la règle qui enlève les crochets autour de "union"/"inter"
     // (issus de \cup/\cap) matchait aussi tout contenu purement alphabétique,
