@@ -401,6 +401,13 @@ function preprocessTex(tex: string): string {
   let output = replaceColorGroups(
     decodeEntities(tex.replace(/\uE000\d+\uE001/g, '')),
   )
+  // tex2typst lève une exception sur une tabulation (ou un autre caractère de
+  // contrôle d'espacement) présente dans la formule : la sortie retombe alors
+  // sur le LaTeX brut affiché verbatim (`\begin{aligned}`…). Ces caractères
+  // n'ont aucune valeur en mode mathématique (ils proviennent en général de
+  // l'indentation du template literal de l'exercice) : on les ramène à une
+  // espace ordinaire.
+  output = output.replace(/[\t\f\v\r]/g, ' ')
   output = stripLatexSizeCommands(output)
   // tex2typst échoue sur \displaystyle à l'intérieur des environnements
   // d'alignement, alors que la commande y est redondante : les lignes sont

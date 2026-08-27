@@ -161,6 +161,18 @@ describe('latexMathToTypst', () => {
     ).toBe('2 x &= 4 \\ x &= 2')
   })
 
+  it('tolère les tabulations d\'indentation dans un environnement aligned', () => {
+    // 1AN31-7 : l'indentation du template literal laissait passer des \t dans
+    // la formule, tex2typst levait et la correction affichait `\begin{aligned}`
+    // verbatim.
+    const result = latexMathToTypst(
+      '\\begin{aligned}\n\t\\phantom{\\iff}&-4x+8>0\\\\\n\t\\iff&x<2\n\t\\end{aligned}',
+    )
+    expect(result.startsWith('"')).toBe(false)
+    expect(result).not.toContain('\\begin{aligned}')
+    expect(result).toContain('&')
+  })
+
   it('normalise displaystyle dans un environnement aligned', () => {
     const result = latexMathToTypst(
       String.raw`\begin{aligned}\displaystyle\int_0^1 x\,\mathrm{d}x &= \displaystyle\int_0^1 x\,\mathrm{d}x\\ &= 1\end{aligned}`,
