@@ -240,6 +240,18 @@ export const CETZ_PLOT_CHART_IMPORT =
   '#import "@preview/cetz-plot:0.1.1": chart'
 
 /**
+ * Import du paquet `ctz-euclide` (géométrie euclidienne, portage Typst de
+ * `tkz-euclide`), utilisé tel quel par le code Typst brut des annales
+ * rédigées à la main : `#ctz-canvas`, `ctz-def-points`, `ctz-draw`,
+ * `ctz-draw-mark-right-angle`, `ctz-draw-measure-segment`, `ctz-draw-labels`…
+ * L'import se fait en `: *` (toute l'API est préfixée `ctz-`) ; le paquet
+ * réexporte aussi `cetz` (v0.5.2 embarquée), ce qui satisfait le
+ * `import cetz.draw: *` que ces figures ouvrent dans le corps de
+ * `ctz-canvas`. Inséré dès que le code contient `ctz-`.
+ */
+export const CTZ_EUCLIDE_IMPORT = '#import "@preview/ctz-euclide:0.2.0": *'
+
+/**
  * Aides Typst pour les QCM : une case à cocher (vide dans l'énoncé, remplie
  * pour la bonne réponse dans le corrigé) et le nombre de colonnes réglable.
  */

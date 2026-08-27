@@ -197,6 +197,29 @@ describe('buildTypstDocument', () => {
     expect(code).toContain('mathalea-label(15.0pt, 7.5pt, [$1$])')
   })
 
+  it('importe ctz-euclide (et pas le cetz autonome) quand une annale l’utilise', () => {
+    const code = buildTypstDocument([
+      exercise({
+        intro:
+          '#ctz-canvas(length: 0.75cm, {\n' +
+          '  import cetz.draw: *\n' +
+          '  ctz-init()\n' +
+          '  ctz-def-points(A: (0, 0), B: (6.4, 0))\n' +
+          '  ctz-draw(segment: ("A", "B"), stroke: black + 1pt)\n' +
+          '  ctz-draw-labels("A", "B", A: (pos: "below left"))\n' +
+          '})',
+      }),
+    ])
+    expect(code).toContain('#import "@preview/ctz-euclide:0.2.0": *')
+    // ctz-euclide réexporte cetz : pas de second import cetz (versions différentes)
+    expect(code).not.toContain('#import "@preview/cetz:0.3.4"')
+  })
+
+  it('n’importe pas ctz-euclide quand aucune annale ne l’utilise', () => {
+    const code = buildTypstDocument([exercise({ questions: ['$1+1$'] })])
+    expect(code).not.toContain('ctz-euclide')
+  })
+
   it('génère un tableau natif sans dépendance externe', () => {
     const code = buildTypstDocument([
       exercise({
