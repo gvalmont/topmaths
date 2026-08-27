@@ -174,7 +174,11 @@ export default class ExerciceOperationsRelatifs extends Exercice {
           handleAnswers(
             this,
             i,
-            { reponse: { value: [a - b, `(${ecritureAlgebrique(a - b)})`] } },
+            {
+              reponse: {
+                value: [(a - b).toString(), `(${ecritureAlgebrique(a - b)})`],
+              },
+            },
             {
               signe: true,
               digits: Math.max(2, nombreDeChiffresDansLaPartieEntiere(a - b)),
