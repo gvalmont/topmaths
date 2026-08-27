@@ -297,18 +297,18 @@ export default class CourbeFonctionDepuisDerivee extends Exercice {
     const numeroBonneCourbe =
       definitionsPropositions.findIndex((proposition) => proposition.statut) + 1
 
-    this.listeQuestions[0] =
-      context.isHtml || context.isTypst
-        ? `${enonce}<style>
-      #exercice${this.numeroExercice} .my-3 {
-        display: grid;
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-        gap: 16px;
-        align-items: center;
-        justify-items: center;
-      }
-    </style>${qcm.texte}`
-        : `${enonce}<br>${qcm.texte}`
+    const styleQcm = context.isHtml
+      ? `<style>
+          #exercice${this.numeroExercice} .my-3 {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 16px;
+            align-items: center;
+            justify-items: center;
+          }
+        </style>`
+      : ''
+    this.listeQuestions[0] = `${enonce}${styleQcm}${qcm.texte}`
 
     this.listeCorrections[0] = `${texteEnCouleurEtGras("1. Tableau de signes de $f'$", 'black')}<br>
     La courbe $\\mathcal C_{f'}$ coupe l'axe des abscisses en $${texNombre(racineGauche)}$ et $${texNombre(racineDroite)}$. Elle permet de lire le tableau de signes suivant :<br><br>
