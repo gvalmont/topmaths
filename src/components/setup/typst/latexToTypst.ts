@@ -749,10 +749,21 @@ function postprocessTypst(typst: string): string {
     .replace(/\bbold\(\]+\)\b/g, 'bold(bracket.r)')
     .replace(/\bupright\(\[+\)\b/g, 'upright(bracket.l)')
     .replace(/\bupright\(\]+\)\b/g, 'upright(bracket.r)')
+    // \boldsymbol{(} / \boldsymbol{)} (ou \pmb, ex. 3L11-3b qui colore en bleu le
+    // signe et les parenthèses d'un produit ajouté) isolent une parenthèse dans
+    // un groupe gras :
+    //  - bold())  → bold() ferme sans corps → "missing argument: body"
+    //  - bold(()  → "(" ouvre un délimiteur jamais fermé → "unclosed delimiter"
+    // On remplace la parenthèse isolée par le glyphe Typst paren.l / paren.r ;
+    // un éventuel contenu gras qui précède (un signe + ou -) est conservé.
+    .replace(/\bupright\(bold\(\)\)\)/g, 'upright(bold(paren.r)))')
+    .replace(/\bupright\(bold\(([^()]*?)\(\)\)/g, 'upright(bold($1paren.l))')
+    .replace(/\bbold\(\)\)/g, 'bold(paren.r)')
+    .replace(/\bbold\(([^()]*?)\(\)/g, 'bold($1paren.l)')
     // \mathbf{)} produit bold() vide (le ) ferme immédiatement bold() sans contenu).
     // bold() sans corps → "missing argument: body" dans Typst. On remplace par paren.r.
     .replace(/\bupright\(bold\(\)\)/g, 'upright(bold(paren.r))')
-    .replace(/\bbold\(\)\b/g, 'bold(paren.r)')
+    .replace(/\bbold\(\)/g, 'bold(paren.r)')
 
   // \left[...\right] dans \mathbf{} produit [...] (crochets nus). Si plusieurs [A]×[B]
   // se suivent, la séquence ]×[ crée de faux intervalles. On convertit TOUTES les paires
