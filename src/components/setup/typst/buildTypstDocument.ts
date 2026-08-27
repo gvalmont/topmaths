@@ -2,6 +2,7 @@ import QRCode from 'qrcode'
 import {
   CETZ_IMPORT,
   CETZ_PLOT_CHART_IMPORT,
+  CTZ_EUCLIDE_IMPORT,
   MATHALEA_FIGURE_BLOCK_HELPER,
   MATHALEA_FIGURE_HELPERS,
   MATHALEA_FIT_HELPER,
@@ -532,6 +533,7 @@ function detectUsedFeatures(lines: string[]): {
   usesSchema: boolean
   usesWritingLines: boolean
   usesCetz: boolean
+  usesCtz: boolean
   usesCetzPlotChart: boolean
 } {
   return {
@@ -541,6 +543,9 @@ function detectUsedFeatures(lines: string[]): {
     usesSchema: lines.some((line) => line.includes('mathalea-schema-span')),
     usesWritingLines: lines.some((line) => line.includes('#mathalea-lignes(')),
     usesCetz: lines.some((line) => line.includes('cetz.')),
+    // paquet `ctz-euclide` des figures d'annales rédigées à la main (voir
+    // CTZ_EUCLIDE_IMPORT) ; `ctz-` n'est un sous-mot ni de `cetz.` ni de `cetz-plot`
+    usesCtz: lines.some((line) => line.includes('ctz-')),
     usesCetzPlotChart: lines.some((line) => line.includes('chart.')),
   }
 }
@@ -1563,6 +1568,7 @@ export function buildStandaloneExerciseCode(
     usesSchema,
     usesWritingLines,
     usesCetz,
+    usesCtz,
     usesCetzPlotChart,
   } = detectUsedFeatures(codeLines)
   const usesFigures = figures.length > 0
@@ -1571,7 +1577,11 @@ export function buildStandaloneExerciseCode(
   const importLines: string[] = []
   if (usesTasks) importLines.push(TASKIZE_IMPORT, MATHALEA_TASKS_HELPER)
   if (options.autoVerticalSpacing) importLines.push(BREATHER_IMPORT)
-  if (usesCetz) importLines.push(CETZ_IMPORT)
+  // `ctz-euclide` réexporte `cetz` : quand il est présent, on ne redéclare
+  // pas l'import `cetz` autonome (versions différentes, `cetz` doit résoudre
+  // vers celle du paquet pour le `import cetz.draw: *` des figures d'annales)
+  if (usesCtz) importLines.push(CTZ_EUCLIDE_IMPORT)
+  else if (usesCetz) importLines.push(CETZ_IMPORT)
   if (usesCetzPlotChart) importLines.push(CETZ_PLOT_CHART_IMPORT)
   if (importLines.length > 0) lines.push(...importLines, '')
   if (usesSchema) lines.push(MATHALEA_SCHEMA_HELPER, '')
@@ -2357,6 +2367,8 @@ export function buildTypstDocument(
   )
   const usesCanTable = allLines.some((line) => line.includes('#can-tableau('))
   const usesCetz = allLines.some((line) => line.includes('cetz.'))
+  // paquet `ctz-euclide` des figures d'annales géométriques (CTZ_EUCLIDE_IMPORT)
+  const usesCtz = allLines.some((line) => line.includes('ctz-'))
   const usesCetzPlotChart = allLines.some((line) => line.includes('chart.'))
   // variables de mise en page des questions référencées par les corps
   // (`ex1`, et `ex1-corr` pour les corrections, réglables indépendamment)
@@ -2399,6 +2411,7 @@ export function buildTypstDocument(
     options.autoVerticalSpacing ||
     usesVarTable ||
     usesCetz ||
+    usesCtz ||
     usesCetzPlotChart
   ) {
     lines.push('// ----- Paquets -----')
@@ -2406,7 +2419,12 @@ export function buildTypstDocument(
     if (usesTasks) lines.push(TASKIZE_IMPORT, MATHALEA_TASKS_HELPER)
     if (options.autoVerticalSpacing) lines.push(BREATHER_IMPORT)
     if (usesVarTable) lines.push(VARTABLE_IMPORT)
-    if (usesCetz) lines.push(CETZ_IMPORT)
+    // `ctz-euclide` (figures d'annales géométriques) réexporte `cetz` : quand
+    // il est présent, on ne redéclare pas l'import `cetz` autonome — `cetz`
+    // doit résoudre vers la version du paquet pour le `import cetz.draw: *`
+    // que ces figures ouvrent dans le corps de `ctz-canvas`
+    if (usesCtz) lines.push(CTZ_EUCLIDE_IMPORT)
+    else if (usesCetz) lines.push(CETZ_IMPORT)
     if (usesCetzPlotChart) lines.push(CETZ_PLOT_CHART_IMPORT)
     lines.push('')
   }

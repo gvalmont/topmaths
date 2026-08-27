@@ -465,6 +465,16 @@ Les schémas en barres (`SchemaEnBoite`, HTML en grille CSS `SchemaContainer`) s
 
 Les empilements de cubes des exercices de motifs (`<canvas-3d>`, rendu WebGL Three.js) n'ont pas d'image extractible : les cubes décrits par l'attribut `content` (JSON) sont redessinés en SVG isométrique (`canvas3dToSvg`), embarqué comme les autres figures. Un contenu 3D sans cubes est remplacé par un encart.
 
+### Figures des annales rédigées en Typst (cetz, ctz-euclide)
+
+Une ressource statique dont le référentiel déclare `typ: true` fournit une source Typst rédigée à la main (`static/<sujet>/<année>/typ/<uuid>.typ`, correction dans `<uuid>_cor.typ`), utilisée telle quelle à la place de l'image scannée. Ces fichiers dessinent leurs figures avec des paquets Typst, importés dans le préambule **uniquement quand le code s'en sert** (comme `taskize`, `vartable`, `tblr`…) :
+
+- `cetz.` → `#import "@preview/cetz:0.3.4"` (`CETZ_IMPORT`) ;
+- `chart.` → `#import "@preview/cetz-plot:0.1.1": chart` (`CETZ_PLOT_CHART_IMPORT`) ;
+- `ctz-` → `#import "@preview/ctz-euclide:0.2.0": *` (`CTZ_EUCLIDE_IMPORT`), le portage Typst de `tkz-euclide` : figures de géométrie euclidienne (`ctz-canvas`, `ctz-def-points`, `ctz-draw`, `ctz-draw-mark-right-angle`, `ctz-draw-measure-segment`, `ctz-draw-labels`…). Toute son API est préfixée `ctz-`, d'où l'import en `: *` ; `ctz-` n'est un sous-mot ni de `cetz.` ni de `cetz-plot`, la détection est donc sûre.
+
+`ctz-euclide` réexporte `cetz` (v0.5.2 embarquée), ce qui satisfait le `import cetz.draw: *` que ces figures ouvrent dans le corps de `ctz-canvas`. Quand `ctz-euclide` est importé, l'import `cetz` autonome (v0.3.4) **n'est pas** ajouté : le nom `cetz` doit résoudre vers la version du paquet. La détection et l'émission se font aux deux points de montage du préambule (`buildTypstDocument` pour la fiche, `buildStandaloneExerciseCode` pour la modale d'édition). Une source `.typ` qui appelle `ctz-…` sans cet import produit sinon l'erreur de compilation « Variable ou fonction inconnue : « ctz-canvas » ».
+
 ### Images
 
 Chaque `<img>` du contenu HTML d'un exercice (pas seulement les annales scannées) est préchargé par `prefetchStaticImages` (`Typst.svelte`) : ses octets sont récupérés par `fetch` (mis en cache via `cachedBytes`), enregistrés dans le système de fichiers virtuel du compilateur, puis embarqués comme les autres figures. Le chemin virtuel reprend l'extension réelle de l'image (Typst en déduit le format). Une image dont la récupération échoue (hôte externe n'autorisant pas le CORS, réseau indisponible) reste un encart grisé « image non convertie », sans bloquer le reste de la fiche.
