@@ -466,6 +466,7 @@ export class MultiMathfieldElement extends MathaleaCustomElement {
       } else if (token.startsWith('%{')) {
         const name = token.slice(2, -1) as ValeurNames
         const fieldOptions = dataOptions[name] ?? {}
+        let hasVisibleField = true
         if (
           Array.isArray(fieldOptions.choices) &&
           fieldOptions.choices.length > 0
@@ -495,9 +496,16 @@ export class MultiMathfieldElement extends MathaleaCustomElement {
             (choice) => choiceValue(choice) !== '',
           ).length
         } else {
-          result += freeFieldPlaceholder(fieldOptions)
+          const placeholder = freeFieldPlaceholder(fieldOptions)
+          result += placeholder
+          hasVisibleField = placeholder !== ''
         }
-        if (fieldOptions.texteApres) result += fieldOptions.texteApres
+        // Sans champ visible (ni choix, ni QCM, ni pointillés), on n'ajoute pas
+        // le texte d'unité : sinon il « pendouille » après la question en mode
+        // non interactif (ex. « Quel sera le capital au bout de 3 ans ? euros »).
+        if (hasVisibleField && fieldOptions.texteApres) {
+          result += fieldOptions.texteApres
+        }
       } else {
         result += token
       }
