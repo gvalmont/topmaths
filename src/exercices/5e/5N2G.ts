@@ -30,7 +30,6 @@ import { arrondi } from '../../lib/outils/nombres'
 export const amcReady = true
 export const amcType = 'qcmMono'
 export const interactifReady = true
-export const interactifType = 'mathLive'
 
 export const titre = 'Additionner deux nombres relatifs'
 export const dateDeModifImportante = '24/9/2024'
@@ -84,7 +83,6 @@ export default class ExerciceAdditionsRelatifs extends Exercice {
     this.nbCols = this.sup3 ? 2 : 3
     this.nbColsCorr = this.sup3 ? 2 : 3
 
-    this.interactifType = this.sup3 ? 'qcm' : 'mathLive'
     const partieDecimaleAUnChiffre = combinaisonListes(
       [true, true, false],
       this.nbQuestions,

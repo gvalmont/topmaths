@@ -1,7 +1,7 @@
-import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
-import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
+import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { propositionsQcm } from '../../lib/interactif/qcm'
+import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { choice } from '../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { texNombre } from '../../lib/outils/texNombre'
@@ -13,7 +13,7 @@ import Exercice from '../Exercice'
 export const titre = 'Calculer et exprimer des proportions'
 export const dateDePublication = '08/07/2026'
 export const interactifReady = true
-export const interactifType = 'mathLive'
+
 export const amcReady = true
 export const amcType = 'qcmMono'
 export const uuid = 'e9a72'

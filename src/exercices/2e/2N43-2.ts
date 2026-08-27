@@ -16,7 +16,7 @@ export const titre =
   'Effectuer des calculs avec des puissances et leurs règles de calculs'
 
 export const interactifReady = true
-export const interactifType = 'mathLive'
+
 export const amcReady = true
 export const amcType = 'AMCNum'
 /**

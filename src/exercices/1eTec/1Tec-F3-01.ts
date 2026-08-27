@@ -1,7 +1,9 @@
+import { propositionsQcm } from '../../lib/interactif/qcm'
 import {
   tableauSignesFacteurs,
   tableauSignesFonction,
 } from '../../lib/mathFonctions/etudeFonction'
+import { ecritureAlgebrique, rienSi1 } from '../../lib/outils/ecritures'
 import {
   gestionnaireFormulaireTexte,
   listeQuestionsToContenu,
@@ -59,6 +61,8 @@ export default class TableauSignePolyDegre3 extends Exercice {
       defaut: 3,
       nbQuestions: this.nbQuestions,
     })
+<<<<<<< src/exercices/1eTec/1Tec-F3-01.ts
+=======
     const listeSignesFacteurConstant = gestionnaireFormulaireTexte({
       saisie: this.sup2,
       min: 1,
@@ -67,6 +71,7 @@ export default class TableauSignePolyDegre3 extends Exercice {
       defaut: 3,
       nbQuestions: this.nbQuestions,
     })
+>>>>>>> src/exercices/1eTec/1Tec-F3-01.ts
     for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       let texte = ''
       let texteCorr = ''

@@ -5,7 +5,6 @@ import { context } from '../modules/context'
 import { listeQuestionsToContenu } from '../modules/outils'
 import Exercice from './Exercice'
 export const interactifReady = true
-export const interactifType = 'mathalea-qcm'
 
 // export const titre = 'A trouver'
 // export const dateDePublication = '01/01/2000'

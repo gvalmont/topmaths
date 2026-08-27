@@ -19,7 +19,6 @@ export const refs = {
 export const titre =
   'Déterminer le PPCM à partir des décompositions en produits de facteurs premiers'
 export const interactifReady = true
-export const interactifType = 'mathLive'
 
 /**
  * Détermine le plus petit multiple commun à partir des décompositions en produits de facteurs premiers

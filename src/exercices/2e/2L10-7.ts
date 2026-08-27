@@ -2,9 +2,7 @@ import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { choice } from '../../lib/outils/arrayOutils'
-import {
-  ecritureParentheseSiNegatif,
-} from '../../lib/outils/ecritures'
+import { ecritureParentheseSiNegatif } from '../../lib/outils/ecritures'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { texNombre } from '../../lib/outils/texNombre'
 import FractionEtendue from '../../modules/FractionEtendue'
@@ -18,10 +16,9 @@ import Exercice from '../Exercice'
 
 export const dateDePublication = '26/08/2026'
 
-export const titre =
-  "Effectuer une application numérique d'une formule "
+export const titre = "Effectuer une application numérique d'une formule "
 export const interactifReady = true
-export const interactifType = 'mathLive'
+
 export const amcReady = true
 export const amcType = 'AMCNum'
 
@@ -51,18 +48,18 @@ export const amcType = 'AMCNum'
  */
 
 export const uuid = 'a0c25'
- 
+
 export const refs = {
   'fr-fr': ['2L10-7'],
   'fr-ch': [],
 }
- 
+
 export default class ApplicationNumeriqueFormule extends Exercice {
   constructor() {
     super()
- 
+
     this.nbQuestions = 4
- 
+
     this.besoinFormulaireTexte = [
       'Types de formules',
       [
@@ -74,7 +71,7 @@ export default class ApplicationNumeriqueFormule extends Exercice {
     ]
     this.sup = 3
   }
- 
+
   nouvelleVersion() {
     const formulesPhysique = [
       'Ec',
@@ -87,7 +84,7 @@ export default class ApplicationNumeriqueFormule extends Exercice {
       'rendement',
     ]
     const formulesImposee = ['ba2', 'Exy', 'Mka', 'cab', 'nka']
- 
+
     const listeCategories = gestionnaireFormulaireTexte({
       saisie: this.sup,
       min: 1,
@@ -105,7 +102,7 @@ export default class ApplicationNumeriqueFormule extends Exercice {
     const dejaReduite = (f: FractionEtendue) =>
       Math.abs(f.num) === f.n && Math.abs(f.den) === f.d
 
-    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50; ) {
+    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       let texte = ''
       let texteCorr = ''
       let unite = ''
@@ -414,7 +411,7 @@ N&=${n}-\\dfrac{${k}}{${a.texFractionSimplifiee}}\\\\
           break
         }
       }
- 
+
       const clavier =
         listeCategories[i] === 'physique'
           ? KeyboardType.clavierDeBase
@@ -424,7 +421,7 @@ N&=${n}-\\dfrac{${k}}{${a.texFractionSimplifiee}}\\\\
         ajouteChampTexteMathLive(this, i, clavier, {
           texteApres: unite,
         })
- 
+
       if (this.listeQuestions.indexOf(texte) === -1) {
         this.listeQuestions[i] = texte
         this.listeCorrections[i] = texteCorr
