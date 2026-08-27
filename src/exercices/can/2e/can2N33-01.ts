@@ -8,7 +8,7 @@ import { pgcd } from '../../../lib/outils/primalite'
 import { context } from '../../../modules/context'
 export const titre = 'Résoudre un problème avec des fractions'
 export const interactifReady = true
-export const interactifType = 'mathLive'
+
 export const dateDePublication = '17/09/2024'
 export const uuid = '4c878'
 export const refs = {

@@ -4,7 +4,6 @@ export const dateDePublication = '14/10/2025'
 export const amcReady = true
 export const amcType = 'AMCOpen'
 export const interactifReady = true
-export const interactifType = 'mathLive'
 
 /**
  * Clone de can2N41-01 pour les auto 1er

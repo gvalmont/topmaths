@@ -379,8 +379,8 @@ Les exercices existants qui remplissent directement `autoCorrection[i]` et
 appellent `propositionsQcm()` restent pris en charge. Le helper renseigne
 `autoCorrection[i].formatInteractif` avec `mathalea-qcm` : cette propriété par
 question est la source de vérité, y compris lorsque l'exercice propose à chaud
-un choix entre QCM et champ MathLive. `interactifType` reste une métadonnée
-scalaire et ne doit pas contenir un tableau de formats.
+un choix entre QCM et champ MathLive. `interactifType` n'existe plus et ne doit
+pas être exporté.
 
 Pour un nouveau QCM, préférer systématiquement :
 

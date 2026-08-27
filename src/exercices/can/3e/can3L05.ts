@@ -10,7 +10,7 @@ import ExerciceSimple from '../../ExerciceSimple'
 export const titre =
   'Calculer le produit des solutions d’une équation produit nul'
 export const interactifReady = true
-export const interactifType = 'mathLive'
+
 export const dateDePublication = '25/10/2021'
 export const dateDeModifImportante = '27/07/2025'
 /**

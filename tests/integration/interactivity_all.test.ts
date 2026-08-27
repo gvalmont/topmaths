@@ -289,7 +289,7 @@ for (const [dir, entries] of grouped) {
               exercice.amcReady = loaded.amcReady
             }
             if (loaded.amcType !== undefined) exercice.amcType = loaded.amcType
-            exercice.interactifType = loaded.interactifType
+            exercice.formatInteractif = loaded.formatInteractif
             exercice.seed = seed
             exercice.numeroExercice = 0
             exercice.interactif = true
