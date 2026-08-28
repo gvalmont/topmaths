@@ -193,7 +193,7 @@ export default class EquationsGSplineNombre extends ExerciceSimple {
         o,
       ) + '<br><br>'
     this.question += this.versionQcm
-      ? `L'équation $f(x)=${y1}$ a :`
+      ? `L'équation $f(x)=${y1}$ possède :`
       : `Donner le nombre de solutions de l'équation $f(x)=${y1}$.`
     this.distracteurs = [
       '$0$ solution',
