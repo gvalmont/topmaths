@@ -10,6 +10,7 @@ import {
   type TypstDocumentOptions,
   type TypstExerciseInput,
 } from './buildTypstDocument'
+import { typstPackageSpec } from './typstPackages'
 
 const exercise = (
   overrides: Partial<TypstExerciseInput> = {},
@@ -52,7 +53,7 @@ describe('buildTypstDocument', () => {
     expect(code).toContain('#set page(paper: "a4"')
     expect(code).toContain("Fiche d'exercices")
     // banque exercise-bank : énoncé et correction regroupés
-    expect(code).toContain('#import "@preview/exercise-bank:0.6.1"')
+    expect(code).toContain(`#import "${typstPackageSpec('exercise-bank')}"`)
     expect(code).toContain('#let ex1 = exo.with(')
     expect(code).toContain('id: "6e23-1",')
     expect(code).toContain('exercise: [')
@@ -62,7 +63,7 @@ describe('buildTypstDocument', () => {
     // juste avant son badge, voir buildVersionContent
     expect(code).toContain('#exo-solution-box(')
     expect(code).toContain('exercise-id: "6e23-1",')
-    expect(code).toContain('#import "@preview/taskize:0.2.8": tasks as taskize-tasks')
+    expect(code).toContain(`#import "${typstPackageSpec('taskize')}": tasks as taskize-tasks`)
     // l'enrobage qui aligne le numéro sur la première ligne de l'énoncé
     expect(code).toContain('#let mathalea-question-numerotee(')
     expect(code).toContain(
@@ -210,9 +211,9 @@ describe('buildTypstDocument', () => {
           '})',
       }),
     ])
-    expect(code).toContain('#import "@preview/ctz-euclide:0.2.0": *')
+    expect(code).toContain(`#import "${typstPackageSpec('ctz-euclide')}": *`)
     // ctz-euclide réexporte cetz : pas de second import cetz (versions différentes)
-    expect(code).not.toContain('#import "@preview/cetz:0.3.4"')
+    expect(code).not.toContain(`#import "${typstPackageSpec('cetz')}"`)
   })
 
   it('n’importe pas ctz-euclide quand aucune annale ne l’utilise', () => {
@@ -243,7 +244,7 @@ describe('buildTypstDocument', () => {
         ],
       }),
     ])
-    expect(code).toContain('#import "@preview/taskize:0.2.8": tasks as taskize-tasks')
+    expect(code).toContain(`#import "${typstPackageSpec('taskize')}": tasks as taskize-tasks`)
     // l'enrobage qui aligne le numéro sur la première ligne de l'énoncé
     expect(code).toContain('#let mathalea-question-numerotee(')
     expect(code).toContain('#let qcm-colonnes = 2')
@@ -276,7 +277,7 @@ describe('buildTypstDocument', () => {
     it('importe taskize sous un alias et déclare l’enrobage', () => {
       const code = qcmDocument()
       expect(code).toContain(
-        '#import "@preview/taskize:0.2.8": tasks as taskize-tasks, tasks-setup, is-inline-content, format-label',
+        `#import "${typstPackageSpec('taskize')}": tasks as taskize-tasks, tasks-setup, is-inline-content, format-label`,
       )
       expect(code).toContain('#let tasks(')
       expect(code).toContain('#let mathalea-question-numerotee(')
@@ -599,7 +600,7 @@ describe('buildTypstDocument', () => {
 
   it('active breather (espaces verticaux automatiques) par défaut', () => {
     const code = buildTypstDocument([exercise({ questions: ['$1+1$'] })])
-    expect(code).toContain('#import "@preview/breather:0.1.0": breathe')
+    expect(code).toContain(`#import "${typstPackageSpec('breather')}": breathe`)
     expect(code).toContain('#show: breathe')
 
     const without = buildTypstDocument([exercise({ questions: ['$1+1$'] })], {
@@ -1617,7 +1618,7 @@ describe('buildStandaloneExerciseCode', () => {
   it("n'inclut que les aides utilisées et aucun repère/variable interne", () => {
     const inputs = [exercise({ questions: ['$1+1$', '$2+2$'], numbered: true })]
     const code = buildStandaloneExerciseCode(inputs, 1)
-    expect(code).toContain('#import "@preview/taskize:0.2.8"')
+    expect(code).toContain(`#import "${typstPackageSpec('taskize')}"`)
     expect(code).toContain('#let couleur =')
     expect(code).not.toContain('mathalea-anchor')
     expect(code).not.toContain('exercise-bank')

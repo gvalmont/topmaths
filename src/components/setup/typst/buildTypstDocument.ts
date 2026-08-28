@@ -17,6 +17,7 @@ import {
 } from './latexToTypst'
 import { LOGO_CAN_VIRTUAL_PATH } from './mathaleaLogo'
 import { minimalCorrection } from './minimalCorrection'
+import { typstImport } from './typstPackages'
 
 /**
  * Rend le QR-code en SVG côté mathalea (fond blanc explicite) plutôt que de
@@ -65,8 +66,10 @@ const MATHALEA_LOGO_IMAGE = `image("${LOGO_CAN_VIRTUAL_PATH}", width: 45%)`
  * — `exo-print-solutions` imprime tous les items en attente d'un coup, sans
  * point d'insertion individuel entre eux (voir `buildVersionContent`).
  */
-export const EXERCISE_BANK_IMPORT =
-  '#import "@preview/exercise-bank:0.6.1": exo, exo-setup, exo-solution-box, exo-counter'
+export const EXERCISE_BANK_IMPORT = typstImport(
+  'exercise-bank',
+  'exo, exo-setup, exo-solution-box, exo-counter',
+)
 
 /** Hauteur (et largeur) des QR-codes placés au coin des exercices (`qr-size`) */
 const QRCODE_SIZE = '1.8cm'
@@ -77,7 +80,7 @@ const QRCODE_POSITION = '"tasks"'
  * `#show: breathe` écarte les lignes contenant des maths hautes (fractions
  * « display », matrices…) juste ce qu'il faut, sans toucher aux autres.
  */
-export const BREATHER_IMPORT = '#import "@preview/breather:0.1.0": breathe'
+export const BREATHER_IMPORT = typstImport('breather', 'breathe')
 
 /**
  * Repère invisible pour la palette de mise en page de l'aperçu : publie la
