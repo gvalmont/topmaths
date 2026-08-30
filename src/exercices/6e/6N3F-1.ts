@@ -57,7 +57,7 @@ export default class EcrireEntierSousFormeDeFraction extends Exercice {
   }
 
   nouvelleVersion() {
-    if (this.sup3 && context.isHtml) {
+    if (this.sup3 && context.isHtml && this.interactif) {
       const figure = new Figure({
         xMin: -0.5,
         yMin: -2,
