@@ -51,8 +51,13 @@ export default class AssocierDifferentesEcrituresNombreDecimal extends Exercice 
       nbQuestions: this.nbQuestions,
       saisie: this.sup,
     })
-    this.consigne =
-      'Écrire chacun des nombres suivants sous les trois formes manquantes parmi : <br>Nombre décimal, fraction décimale, pourcentage, nombre mixte'
+    if (this.nbQuestions === 1) {
+      this.consigne =
+        'Écrire le nombre suivant sous les trois formes manquantes parmi : <br>Nombre décimal, fraction décimale, pourcentage, nombre mixte'
+    } else {
+      this.consigne =
+        'Écrire chacun des nombres suivants sous les trois formes manquantes parmi : <br>Nombre décimal, fraction décimale, pourcentage, nombre mixte'
+    }
     if (this.sup2) {
       this.consigne +=
         " (somme d'un entier et d'une fraction décimale strictement inférieure à 1)."
@@ -231,7 +236,7 @@ export default class AssocierDifferentesEcrituresNombreDecimal extends Exercice 
 
         case 3: // Nombre décimal
           {
-            texte = formeDeci
+            texte = `$${formeDeci}$`
             texteCorr = `
             ${texte} peut aussi s'écrire sous forme de :<br>
            Nombre mixte : ${formeMixteEnEvidence} <br>
