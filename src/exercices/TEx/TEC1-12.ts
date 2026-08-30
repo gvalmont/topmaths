@@ -85,11 +85,11 @@ function resolutionEquation(
   if (equation.nature === 'deuxRacines') {
     return `Comme $\\Delta_${inconnue}>0$, l'équation admet deux solutions réelles :<br>
     $${inconnue}_1=\\dfrac{-(${coefficientLineaire})-${racineDelta}}{2\\times ${coefficientQuadratique}}=${equation.solutions[0]},\\quad
-    ${inconnue}_2=\\dfrac{-(${coefficientLineaire})+${racineDelta}}{2\\times ${coefficientQuadratique}}=${equation.solutions[1]}.$<br>`
+    ${inconnue}_2=\\dfrac{-(${coefficientLineaire})+${racineDelta}}{2\\times ${coefficientQuadratique}}=${equation.solutions[1]}$<br>`
   }
   if (equation.nature === 'racineDouble') {
     return `Comme $\\Delta_${inconnue}=0$, l'équation admet une unique solution réelle :<br>
-    $${inconnue}=\\dfrac{-(${coefficientLineaire})}{2\\times ${coefficientQuadratique}}=${equation.solutions[0]}.$<br>`
+    $${inconnue}=\\dfrac{-(${coefficientLineaire})}{2\\times ${coefficientQuadratique}}=${equation.solutions[0]}$<br>`
   }
   return `Comme $\\Delta_${inconnue}<0$, cette équation n'admet aucune solution réelle.<br>`
 }
@@ -141,21 +141,21 @@ export default class EgaliteDeuxComplexes extends Exercice {
       \\end{cases}$<br>`
       const correctionPartieReelle = `<br>$\\begin{aligned}
       ${partieReelleZ1}&=${partieReelleZ2}\\\\
-      \\iff ${equationReelle}&=0.
+      \\iff ${equationReelle}&=0
       \\end{aligned}$<br>
       Le discriminant de cette équation du second degré vaut :<br>
       $\\begin{aligned}
       \\Delta_a&=(${equationA.coefficientLineaire})^2-4\\times ${equationA.coefficientQuadratique}\\times(${equationA.constante})\\\\
-      &=${equationA.delta}.
+      &=${equationA.delta}
       \\end{aligned}$<br>${resolutionEquation(equationA, 'a')}`
       const correctionPartieImaginaire = `<br>$\\begin{aligned}
       b^2${ecritureAlgebrique(equationB.constante)}&=${coefficientB}b\\\\
-      \\iff b^2${ecritureAlgebrique(equationB.coefficientLineaire)}b${ecritureAlgebrique(equationB.constante)}&=0.
+      \\iff b^2${ecritureAlgebrique(equationB.coefficientLineaire)}b${ecritureAlgebrique(equationB.constante)}&=0
       \\end{aligned}$<br>
       Le discriminant de cette équation du second degré vaut :<br>
       $\\begin{aligned}
       \\Delta_b&=(${equationB.coefficientLineaire})^2-4\\times1\\times(${equationB.constante})\\\\
-      &=${equationB.delta}.
+      &=${equationB.delta}
       \\end{aligned}$<br>${resolutionEquation(equationB, 'b')}`
       const itemsCorrection = [
         {
