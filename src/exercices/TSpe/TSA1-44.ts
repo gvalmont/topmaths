@@ -4,7 +4,6 @@ import { scriptPython } from '../../lib/outils/scriptPython'
 import { texNombre } from '../../lib/outils/texNombre'
 import { tableauColonneLigne } from '../../lib/2d/tableau'
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
-import { context } from '../../modules/context'
 import { randint } from '../../modules/outils'
 import ExerciceSimple from '../ExerciceSimple'
 
@@ -16,24 +15,6 @@ export const refs = {
   'fr-ch': [],
 }
 export const interactifReady = true
-
-function consolePython(code: string): string {
-  const codeNumerote = code
-    .split('\n')
-    .map((ligne, index) => `${String(index + 1).padStart(2, ' ')} | ${ligne}`)
-    .join('\n')
-  if (!context.isHtml) return scriptPython(codeNumerote, 5)
-
-  return `<div style="max-width:34rem;margin:1rem 0;border:1px solid #334155;border-radius:0.6rem;overflow:hidden;background:#0f172a;box-shadow:0 4px 12px rgba(15,23,42,0.2);">
-  <div style="display:flex;align-items:center;gap:0.4rem;padding:0.55rem 0.75rem;background:#1e293b;border-bottom:1px solid #334155;">
-    <span style="width:0.7rem;height:0.7rem;border-radius:50%;background:#fb7185;"></span>
-    <span style="width:0.7rem;height:0.7rem;border-radius:50%;background:#fbbf24;"></span>
-    <span style="width:0.7rem;height:0.7rem;border-radius:50%;background:#4ade80;"></span>
-    <span style="margin-left:0.45rem;color:#cbd5e1;font:600 0.8rem system-ui,sans-serif;">Console Python</span>
-  </div>
-  <pre style="margin:0;padding:1rem 1.1rem;color:#e2e8f0;background:#0f172a;font:0.95rem/1.55 ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,monospace;white-space:pre;overflow-x:auto;"><code>${codeNumerote}</code></pre>
-</div>`
-}
 
 /**
  * Exécuter une boucle Python de recherche de seuil et identifier la valeur
@@ -71,7 +52,7 @@ export default class ValeurRenvoyeeAlgorithmeSeuil extends ExerciceSimple {
     this.question = `On considère la suite $(${lettre}_n)$ définie sur $\\mathbb N$ par $${lettre}_0=${u0}$ et, pour tout entier naturel $n$, par :<br>
 $${lettre}_{n+1}=${coefficientTex}${lettre}_n+${termeConstant}$.<br><br>
 On définit la fonction Python suivante :<br>
-${consolePython(programme)}
+${scriptPython(programme, 6)}<br><br>
 On exécute cette fonction avec l'appel ${texteCode(`${nomFonction}()`)}.<br>
 Quelle valeur cet appel renvoie-t-il ?`
 
