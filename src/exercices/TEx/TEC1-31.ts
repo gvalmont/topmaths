@@ -27,6 +27,24 @@ function coefficientBinomial(n: number, k: number): number {
   return resultat
 }
 
+function triangleDePascal(ligneAEvidencer: number): string {
+  const lignes = Array.from({ length: 6 }, (_, n) => {
+    const cellules = Array<string>(11).fill('')
+    for (let k = 0; k <= n; k++) {
+      const coefficient = coefficientBinomial(n, k)
+      cellules[5 - n + 2 * k] =
+        n === ligneAEvidencer
+          ? miseEnEvidence(coefficient)
+          : String(coefficient)
+    }
+    return `${n}&${cellules.join('&')}`
+  }).join('\\\\')
+  return `\\begin{array}{c|ccccccccccc}
+  n&&&&&&&&&&&\\\\
+  ${lignes}
+  \\end{array}`
+}
+
 function termeSigne(
   coefficient: number,
   suffixe: string,
@@ -135,11 +153,13 @@ export default class BinomeNewtonComplexes extends Exercice {
       const facteurImaginaireFormule =
         b === 1 ? 'i^k' : b === -1 ? '(-i)^k' : `(${b}i)^k`
       let texte = `$${z.parentheseSiComplexe()}^{${exposant}}$`
-      const texteCorr = `On utilise la formule du cours : Pour tout nombre complexes $a$ et $b$ :<br>
+      const texteCorr = `On utilise le binôme de Newton : pour tout nombre complexe $a$ et $b$ :<br>
       $\\begin{aligned}
       (a+b)^n&=\\displaystyle\\sum_{k=0}^{n}\\binom{n}{k}a^{n-k}b^k\\\\
       =&\\binom{n}{0}\\times a^n+\\binom{n}{1}\\times a^{n-1}\\times b+\\binom{n}{2}\\times a^{n-2}\\times b^2+\\cdots+\\binom{n}{n}\\times b^n\\end{aligned}$.<br>
-
+      Le triangle de Pascal permet de lire les coefficients binomiaux. Sa première ligne est numérotée $0$ :<br>
+      $${triangleDePascal(exposant)}$<br>
+      La ligne $n=${exposant}$ donne successivement les coefficients $\\displaystyle\\binom{${exposant}}{0},\\binom{${exposant}}{1},\\ldots,\\binom{${exposant}}{${exposant}}$.<br>
       Ici, $a=${a}$, $b=${rienSi1(b)}i$ et $n=${exposant}$. On obtient donc :<br>
       $\\begin{aligned}
       ${z.parentheseSiComplexe()}^{${exposant}}
