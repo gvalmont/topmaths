@@ -53,10 +53,10 @@ export default class AssocierDifferentesEcrituresNombreDecimal extends Exercice 
     })
     if (this.nbQuestions === 1) {
       this.consigne =
-        'Écrire le nombre suivant sous les trois formes manquantes parmi : <br>Nombre décimal, fraction décimale, pourcentage, nombre mixte'
+        'Écrire le nombre suivant sous les trois formes manquantes parmi : <br>nombre décimal, fraction décimale, pourcentage, nombre mixte'
     } else {
       this.consigne =
-        'Écrire chacun des nombres suivants sous les trois formes manquantes parmi : <br>Nombre décimal, fraction décimale, pourcentage, nombre mixte'
+        'Écrire chacun des nombres suivants sous les trois formes manquantes parmi : <br>nombre décimal, fraction décimale, pourcentage, nombre mixte'
     }
     if (this.sup2) {
       this.consigne +=
@@ -126,6 +126,7 @@ export default class AssocierDifferentesEcrituresNombreDecimal extends Exercice 
         case 1: // Nombre mixte (Somme d'un entier et d'une fraction décimale)
           {
             texte = formeMixte
+            texte += '<br>'
             texteCorr = `
             ${texte} peut aussi s'écrire sous forme de :<br>
            Nombre décimal : $${miseEnEvidence(formeDeci)}$ <br>
@@ -135,7 +136,7 @@ export default class AssocierDifferentesEcrituresNombreDecimal extends Exercice 
             if (this.interactif) {
               texte += addMultiMathfield(this, i, {
                 dataTemplate: `
-           Ce nombre peut aussi sous forme de :<br>
+           Ce nombre peut aussi s'écrire sous forme de :<br>
            Nombre décimal : %{champ1} <br>
            Fraction décimale : %{champ2} <br>
            Pourcentage : %{champ3} %
@@ -178,6 +179,7 @@ export default class AssocierDifferentesEcrituresNombreDecimal extends Exercice 
         case 2: // Fraction décimale
           {
             texte = formeFrac
+            texte += '<br>'
             texteCorr = `
             ${texte} peut aussi s'écrire sous forme de :<br>
            Nombre mixte : ${formeMixteEnEvidence} <br>
@@ -187,7 +189,7 @@ export default class AssocierDifferentesEcrituresNombreDecimal extends Exercice 
             if (this.interactif) {
               texte += addMultiMathfield(this, i, {
                 dataTemplate: `
-           Ce nombre peut aussi sous forme de :<br>
+           Ce nombre peut aussi s'écrire sous forme de :<br>
            Nombre mixte : %{champ1} (partie entière) + %{champ2} (fraction décimale) <br>
            Nombre décimal : %{champ3} <br>
            Pourcentage : %{champ4} %
@@ -236,7 +238,7 @@ export default class AssocierDifferentesEcrituresNombreDecimal extends Exercice 
 
         case 3: // Nombre décimal
           {
-            texte = `$${formeDeci}$`
+            texte = `$${formeDeci}$<br>`
             texteCorr = `
             ${texte} peut aussi s'écrire sous forme de :<br>
            Nombre mixte : ${formeMixteEnEvidence} <br>
@@ -246,7 +248,7 @@ export default class AssocierDifferentesEcrituresNombreDecimal extends Exercice 
             if (this.interactif) {
               texte += addMultiMathfield(this, i, {
                 dataTemplate: `
-           Ce nombre peut aussi sous forme de :<br>
+           Ce nombre peut aussi s'écrire sous forme de :<br>
            Nombre mixte : %{champ1} (partie entière) + %{champ2} (fraction décimale) <br>
            Fraction décimale : %{champ3} <br>
            Pourcentage : %{champ4} %
@@ -296,7 +298,7 @@ export default class AssocierDifferentesEcrituresNombreDecimal extends Exercice 
         case 4: // Pourcentage
         default:
           {
-            texte = `$${texNombre(formePourc, 1)}~\\%$`
+            texte = `$${texNombre(formePourc, 1)}~\\%$<br>`
             if (nbChiffres === 1) {
               fracGNS = fraction(entier * 100 + deci * 10, 100)
               texteCorr = `
