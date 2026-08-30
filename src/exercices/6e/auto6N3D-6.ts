@@ -18,7 +18,7 @@ export const interactifReady = true
 
 export const uuid = 'ac64a'
 export const refs = {
-  'fr-fr': ['auto6N3D-6, auto5N1C', 'auto5N3A-2'],
+  'fr-fr': ['auto6N3D-6, auto5N1C', 'auto5N3A-2', 'auto5N4A-2'],
   'fr-2016': ['6C10-9'],
   'fr-ch': [],
 }
