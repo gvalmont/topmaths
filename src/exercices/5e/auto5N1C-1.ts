@@ -1,4 +1,4 @@
-import TablesDeMultiplications from './_Tables_de_multiplications'
+import TablesDeMultiplications from '../6e/_Tables_de_multiplications'
 
 export const titre = 'Réviser les tables de multiplication'
 export const interactifReady = true
