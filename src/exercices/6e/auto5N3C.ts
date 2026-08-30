@@ -14,7 +14,7 @@ export const dateDePublication = '30/08/2026'
 export const uuid = '6a15e'
 
 export const refs = {
-  'fr-fr': ['auto5N3C'],
+  'fr-fr': ['auto5N3C', 'auto5N5D'],
   'fr-ch': [],
 }
 export default class EgaliteATrousMultiplicativesV1 extends EgaliteATrousMultiplicatives {
