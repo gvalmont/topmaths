@@ -113,6 +113,7 @@ export function mathaleaEnsureAMCCompatibility(
 ): IExerciceAMC {
   type InferenceAutoCorrectionItem = {
     enonce?: string
+    options?: ReponseParams
     propositions?: Array<{ statut?: unknown; [key: string]: unknown }>
     reponse?: {
       valeur?: unknown
