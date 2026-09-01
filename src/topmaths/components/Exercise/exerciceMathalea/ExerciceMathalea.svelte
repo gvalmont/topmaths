@@ -12,6 +12,7 @@
   import Question from './presentationalComponents/Question.svelte'
   export let exercise: TypeExercice
   export let exerciseIndex: number
+  export let isEffectivelyInteractive: boolean
   export let isCorrectionVisible: boolean
   export let nbCols: number = 1
   export let adjustMathalea2dFiguresWidth: (
@@ -24,7 +25,6 @@
   let divScore: HTMLDivElement
   let buttonScore: HTMLButtonElement
   let numberOfAnswerFields: number = 0
-  let hasVerifiableAnswers = false
 
   // Evènement indispensable pour pointCliquable par exemple
   const exercicesAffiches = new window.Event('exercicesAffiches', {
@@ -43,13 +43,8 @@
   })
 
   $: {
-    if (exercise.interactif && buttonScore) initButtonScore()
+    if (isEffectivelyInteractive && buttonScore) initButtonScore()
   }
-
-  $: hasVerifiableAnswers =
-    exercise.interactifReady ||
-    (Array.isArray(exercise.autoCorrection) &&
-      exercise.autoCorrection.some((entry) => entry != null))
 
   async function countMathField(): Promise<void> {
     const answerFields = document.querySelectorAll(
@@ -60,7 +55,7 @@
 
   async function renderExercise(): Promise<void> {
     await tick()
-    if (exercise.interactif) {
+    if (isEffectivelyInteractive) {
       loadMathLive(divExercice)
       if (exercise.interactifType === 'cliqueFigure')
         prepareExerciceCliqueFigure(exercise)
@@ -207,7 +202,7 @@
         <div id="divScoreEx{exerciseIndex}" bind:this={divScore}></div>
       </div>
     </article>
-    {#if exercise.interactif && hasVerifiableAnswers && !isCorrectionVisible}
+    {#if isEffectivelyInteractive && !isCorrectionVisible}
       <button
         type="submit"
         on:click={verifExerciceVueEleve}

@@ -12,6 +12,7 @@
   export let exercise: TypeExercice | SvelteComponent
   export let exerciseIndex: number
   export let exerciseType: string
+  export let isEffectivelyInteractive: boolean
   export let isCorrectionVisible: boolean
   export let sourceObjective: ObjectiveReference | undefined
   export let sourceUnit: UnitReference | undefined
@@ -76,7 +77,7 @@
       </div>
     </ButtonImage>
   {/if}
-  {#if (exerciseType !== 'html' && !exercise.interactif) || !exercise.interactifReady}
+  {#if !isEffectivelyInteractive}
     <ButtonImage
       class="flex justify-center ml-2 border p-1 w-32.5 md:w-45 rounded {isMd
         ? ''

@@ -19,6 +19,7 @@
     updateUrlFromParams,
   } from '../../services/mathalea'
   import { exerciseLinks, isDoubleView } from '../../services/store'
+  import { isExerciseEffectivelyInteractive } from '../../services/exerciseInteractivity'
   import { buildCopiedLink, copyToClipboard } from '../../services/url'
   import ExerciceMathalea from './exerciceMathalea/ExerciceMathalea.svelte'
   import ExerciceHtml from './presentationalComponents/exerciceHtml/ExerciceHtml.svelte'
@@ -401,16 +402,19 @@
     const masterExercise = exercisesWithMeta[exerciseIndex]
     const exercise = masterExercise.exercise
     if (exercise !== undefined) {
+      const isEffectivelyInteractive =
+        isExerciseEffectivelyInteractive(exercise)
       masterExercise.isCorrectionVisible = !masterExercise.isCorrectionVisible
       if (
         masterExercise.isCorrectionVisible &&
+        isEffectivelyInteractive &&
         window.localStorage !== undefined &&
         exercise.id !== undefined
       ) {
         window.localStorage.setItem(`${exercise.id}|${exercise.seed}`, 'true')
       }
       if (
-        exercise.interactif &&
+        isEffectivelyInteractive &&
         !masterExercise.isCorrectionVisible &&
         !exercise.isDone
       ) {
@@ -475,6 +479,9 @@
           exerciseType={exerciseWithMeta.exerciseType}
           exerciseIndex={exerciseWithMeta.exerciseIndex}
           exercise={exerciseWithMeta.exercise ?? new Exercice()}
+          isEffectivelyInteractive={isExerciseEffectivelyInteractive(
+            exerciseWithMeta.exercise,
+          )}
           bind:isCorrectionVisible={exerciseWithMeta.isCorrectionVisible}
           {isMd}
           nbCols={exerciseWithMeta.nbCols}
@@ -510,6 +517,9 @@
         <ExerciceMathalea
           exercise={exerciseWithMeta.exercise ?? new Exercice()}
           exerciseIndex={exerciseWithMeta.exerciseIndex}
+          isEffectivelyInteractive={isExerciseEffectivelyInteractive(
+            exerciseWithMeta.exercise,
+          )}
           {adjustMathalea2dFiguresWidth}
           nbCols={exerciseWithMeta.nbCols}
           {newData}
