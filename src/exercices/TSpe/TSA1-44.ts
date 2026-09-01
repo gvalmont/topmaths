@@ -50,6 +50,7 @@ export default class SuiteEtFonctionHomographique extends Exercice {
     const h = 10 ** -precision
     const rang = Math.ceil((1 / h - 1) / p)
     const pole = new FractionEtendue(p + 1, p).texFraction
+    const poleDansLimite = pole.replace('\\dfrac', '\\frac')
     const limite = new FractionEtendue(p - 1, p).texFraction
     const f0 = new FractionEtendue(p, p + 1).texFraction
     const a = p - 1
@@ -159,13 +160,13 @@ export default class SuiteEtFonctionHomographique extends Exercice {
         $\\displaystyle\\lim_{x\\to-\\infty}f(x)=${limite}$.<br><br>
         Étudions maintenant la limite à la borne supérieure du domaine.<br><br>
         D'une part,
-        \\[\\lim_{x\\to${pole}^-}(${numerateurF})=${a}\\times${pole}-${p}=-\\frac1{${p}}<0.\\]
+        \\[\\lim_{x\\to${poleDansLimite}^-}(${numerateurF})=${a}\\times${pole}-${p}=-\\dfrac1{${p}}<0.\\]
         D'autre part,
         \\[${p}x-${p + 1}>0\\iff x>${pole}.\\]
         On en déduit le tableau de signes du dénominateur :<br><br>
         ${tableauSigneDenominateur}<br><br>
-        Ainsi, lorsque $x$ tend vers $${pole}$ par valeurs inférieures, le numérateur tend vers $-\\frac1{${p}}<0$ et le dénominateur tend vers $0$ par valeurs négatives. Par quotient,
-        \\[\\lim_{x\\to${pole}^-}f(x)=+\\infty.\\]
+        Ainsi, lorsque $x$ tend vers $${pole}$ par valeurs inférieures, le numérateur tend vers $-\\dfrac1{${p}}<0$ et le dénominateur tend vers $0$ par valeurs négatives. Par quotient,
+        \\[\\lim_{x\\to${poleDansLimite}^-}f(x)=+\\infty.\\]
         On obtient finalement le tableau de variations suivant :<br><br>
         ${tableauVariations}<br><br>
         Ainsi, $${miseEnEvidence(`f\\text{ est strictement croissante sur }\\left]-\\infty\\,;\\,${pole}\\right[`)}$.`,
@@ -204,17 +205,27 @@ export default class SuiteEtFonctionHomographique extends Exercice {
         ${texteEnCouleurEtGras('Conclusion :', 'black')}<br><br>
         La propriété est vraie au rang $0$ et elle est héréditaire. Donc, par récurrence, pour tout entier naturel $n$,
         $${miseEnEvidence(`0\\leqslant u_n\\leqslant u_{n+1}\\leqslant 1`)}$.`,
-        `La suite est croissante et majorée par $1$ ; elle converge d'après le théorème de convergence monotone. Notons $\\ell$ sa limite. Comme, pour tout entier naturel $n$, $0\\leqslant u_n\\leqslant 1$, le passage à la limite donne
-        \\[0\\leqslant \\ell\\leqslant 1.\\]
-        Ainsi, $\\ell\\in[0\\,;\\,1]$.<br><br>
-        D'après le théorème du point fixe, la suite $(u_n)$ converge vers une valeur $\\ell$ qui vérifie $f(\\ell)=\\ell$.<br><br>
+        `${texteEnCouleurEtGras('Existence de la limite :', 'black')}<br><br>
+        La suite $(u_n)$ est croissante et majorée par $1$. <br>D'après le théorème de convergence monotone, elle converge vers une limite $\\ell$.<br><br>
+        De la question précédente, on déduit que : $0\\leqslant \\ell\\leqslant1$.<br><br>
+        ${texteEnCouleurEtGras('Valeur de la limite :', 'black')}<br><br>
+        ${createList({
+          style: 'fleches',
+          items: [
+            `la suite $(u_n)$ converge vers $\\ell$ ;`,
+            `pour tout entier naturel $n$, $u_{n+1}=f(u_n)$ ;`,
+            `la fonction $f$ est continue sur $[0\\,;\\,1]$.`,
+          ],
+        })}
+        D'après le théorème du point fixe, la limite $\\ell$ vérifie $f(\\ell)=\\ell$.<br><br>
         On résout l'équation $f(x)=x$ :
         \\[\\begin{aligned}
         f(x)=x
         &\\iff ${p}x^2-${2 * p}x+${p}=0\\\\
         &\\iff ${p}(x-1)^2=0\\\\
         &\\iff x=1.
-        \\end{aligned}\\]<br><br>
+        \\end{aligned}\\]
+        On en déduit que $\\ell=1$.<br><br>
         Ainsi, $${miseEnEvidence(`(u_n)\\text{ converge vers }1`)}$.`,
         `La fonction renvoie le plus petit rang $n$ tel que $u_n\\geqslant1-${hTex}=${seuil}$.<br><br>
         À la calculatrice, en utilisant le mode « Suite » ou le module « Python », on vérifie que $u_{${rang - 1}}<${seuil}$ et $u_{${rang}}\\geqslant${seuil}$.<br><br>
