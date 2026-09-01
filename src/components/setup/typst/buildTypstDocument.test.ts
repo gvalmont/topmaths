@@ -1,6 +1,8 @@
 import { spawnSync } from 'node:child_process'
 import { describe, expect, it } from 'vitest'
 import {
+  COLUMN_BREAK_SNIPPET,
+  PAGE_BREAK_SNIPPET,
   buildStandaloneExerciseCode,
   buildTypstDocument,
   defaultTypstDocumentOptions,
@@ -577,6 +579,71 @@ describe('buildTypstDocument', () => {
     expect(harvested.insertions).toEqual({
       0: ['Consignes générales.'],
       1: ['#section[Monômes]'],
+    })
+  })
+
+  it('stabilise les insertions quand plusieurs sujets sont générés', () => {
+    const exercises = [
+      exercise({ questions: ['$1+1$'], corrections: ['$2$'] }),
+      exercise({ questions: ['$2+2$'], corrections: ['$4$'] }),
+    ]
+    const options = { ...defaultTypstDocumentOptions, columns: 2 }
+    const carryOver = {
+      insertions: { 1: [PAGE_BREAK_SNIPPET] },
+      insertionsCorrection: { 1: ['#section[Correction intermédiaire]'] },
+    }
+    const build = (
+      carry: NonNullable<Parameters<typeof buildTypstDocument>[2]>,
+    ) => buildTypstDocument(exercises, options, carry, [exercises])
+
+    const firstCode = build(carryOver)
+    const firstHarvest = harvestCarryOver(firstCode)
+
+    // Le contenu est rendu dans les deux sujets, mais seul le sujet principal
+    // porte les marqueurs relus lors de la régénération.
+    expect(firstCode.split(PAGE_BREAK_SNIPPET)).toHaveLength(3)
+    expect(firstCode.match(/\/\/ mathalea:insertion$/gm) ?? []).toHaveLength(1)
+    expect(
+      firstCode.match(/\/\/ mathalea:insertion-corr$/gm) ?? [],
+    ).toHaveLength(1)
+    expect(firstHarvest.insertions).toEqual(carryOver.insertions)
+    expect(firstHarvest.insertionsCorrection).toEqual(
+      carryOver.insertionsCorrection,
+    )
+
+    const secondHarvest = harvestCarryOver(build(firstHarvest))
+    expect(secondHarvest.insertions).toEqual(firstHarvest.insertions)
+    expect(secondHarvest.insertionsCorrection).toEqual(
+      firstHarvest.insertionsCorrection,
+    )
+  })
+
+  it('nettoie les sauts structurels dupliqués sans dédupliquer les textes', () => {
+    const code = buildTypstDocument(
+      [exercise({ questions: ['$1+1$'] }), exercise({ questions: ['$2+2$'] })],
+      { ...defaultTypstDocumentOptions, columns: 2 },
+      {
+        insertions: {
+          1: [
+            PAGE_BREAK_SNIPPET,
+            PAGE_BREAK_SNIPPET,
+            COLUMN_BREAK_SNIPPET,
+            COLUMN_BREAK_SNIPPET,
+            'Même texte.',
+            'Même texte.',
+          ],
+          2: Array(31).fill(PAGE_BREAK_SNIPPET),
+        },
+      },
+    )
+
+    expect(harvestCarryOver(code).insertions).toEqual({
+      1: [
+        PAGE_BREAK_SNIPPET,
+        COLUMN_BREAK_SNIPPET,
+        'Même texte.',
+        'Même texte.',
+      ],
     })
   })
 
